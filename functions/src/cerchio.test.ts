@@ -165,3 +165,22 @@ test("statoDelCerchio dichiara gli accrediti compiuti nella chiamata", () => {
     "la risposta di statoDelCerchio non porta piu' gli accrediti"
   );
 });
+
+// --- ORDINE BF VOCE 05.k: il runtime non torna al 20 morente ---
+
+test("il runtime delle functions e' nodejs22, fissato in firebase.json", () => {
+  // Node 20 viene dismesso il 30 ottobre 2026. Il runtime del cloud sta in
+  // firebase.json (il campo engines e' elastico apposta, cosi' il PC del
+  // fondatore con Node 24 non riceve EBADENGINE a ogni install).
+  const fs = require("fs");
+  const path = require("path");
+  const radice = path.join(__dirname, "..", "..");
+  const firebase = JSON.parse(
+    fs.readFileSync(path.join(radice, "firebase.json"), "utf8")
+  );
+  assert.equal(firebase.functions[0].runtime, "nodejs22");
+  const pacchetto = JSON.parse(
+    fs.readFileSync(path.join(radice, "functions", "package.json"), "utf8")
+  );
+  assert.equal(pacchetto.engines.node, ">=22");
+});

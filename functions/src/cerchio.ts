@@ -1,6 +1,12 @@
 import {onCall, HttpsError, CallableRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
-import * as admin from "firebase-admin";
+// **FIREBASE-ADMIN E' MODULARE DALLA 14, ordine BF voce 05.k.** Il
+// namespace unico non esiste piu': si importa dal modulo che serve. Il
+// rialzo porta il runtime a Node 22 (il 20 viene dismesso il 30 ottobre
+// 2026) e spegne l'avviso EBADENGINE sul PC del fondatore, che gira Node 24.
+import {initializeApp} from "firebase-admin/app";
+import {getFirestore, FieldValue} from "firebase-admin/firestore";
+import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {
   Budget,
@@ -45,8 +51,8 @@ import {
  * richiesta, arriva dal token, quindi nessuno puo' toccare i dati di un
  * altro nemmeno chiedendolo.
  */
-admin.initializeApp();
-const db = admin.firestore();
+initializeApp();
+const db = getFirestore();
 
 /** La regione e le impostazioni comuni delle callable del Cerchio. */
 const OPZIONI_DEL_CERCHIO = {
@@ -214,7 +220,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
         motivo: voce.motivo,
         importo: voce.quanti,
         saldoDopo: saldo,
-        quando: admin.firestore.FieldValue.serverTimestamp(),
+        quando: FieldValue.serverTimestamp(),
       });
     }
     // Il borsellino si scrive UNA VOLTA SOLA e col saldo finale, invece di
@@ -223,7 +229,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     if (cambiato) {
       tx.set(borsellino, {
         saldo,
-        aggiornato: admin.firestore.FieldValue.serverTimestamp(),
+        aggiornato: FieldValue.serverTimestamp(),
       });
     }
     return saldo;
@@ -272,7 +278,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     if (daScrivere.length > 0 || azzeraIlCammino) {
       tx.set(doc, {
         ...fuso,
-        aggiornato: admin.firestore.FieldValue.serverTimestamp(),
+        aggiornato: FieldValue.serverTimestamp(),
       });
     }
     return fuso;
@@ -368,7 +374,7 @@ export const consumaDelGiorno = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       budget,
       giorno,
       concesso: esito.concesso,
-      quando: admin.firestore.FieldValue.serverTimestamp(),
+      quando: FieldValue.serverTimestamp(),
     });
     return {
       giorno,
@@ -448,11 +454,11 @@ export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       motivo,
       importo,
       saldoDopo: dopo,
-      quando: admin.firestore.FieldValue.serverTimestamp(),
+      quando: FieldValue.serverTimestamp(),
     });
     tx.set(borsellinoDoc(uid), {
       saldo: dopo,
-      aggiornato: admin.firestore.FieldValue.serverTimestamp(),
+      aggiornato: FieldValue.serverTimestamp(),
     });
     return {saldo: dopo, applicato: true, gia: false};
   });
@@ -480,7 +486,7 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   }
   const conTempo = {
     ...campi,
-    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp(),
   };
 
   switch (operazione) {
@@ -507,7 +513,7 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       .collection("messages")
       .add({
         ...campi,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        createdAt: FieldValue.serverTimestamp(),
       });
     return {scritto: true, id: rif.id};
   }
@@ -590,7 +596,7 @@ export const cancellaIlCerchio = onCall(
     const uid = uidDi(request);
     await db.recursiveDelete(utente(uid));
     try {
-      await admin.auth().deleteUser(uid);
+      await getAuth().deleteUser(uid);
     } catch (err) {
       // I dati non ci sono piu', ed e' la parte che conta: se l'account non
       // si cancella lo si dice, invece di far credere che sia tutto fatto.

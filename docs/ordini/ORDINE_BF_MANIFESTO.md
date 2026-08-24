@@ -63,7 +63,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.05.h** I vuoti verticali, 138 in 54 file all'ultima misura. APERTA.
 - **BF.05.i** La CI. CHIUSA: `ronda.yml` e `verde.yml` dichiaravano channel stable senza numero e ora portano `flutter-version: 3.44.5` come android-build e Codemagic; la guardia della versione unica copre adesso tutti e quattro i file piu' il sovrano. `chat-screenshot.yml` era GIA' stata tolta dal commit `999bb782` ("Via l'azione che committava da sola"): sopravvive solo in un worktree stantio, non nel repo, e non c'e' niente da togliere.
 - **BF.05.j** La condivisione vera. FERMATA SU PREMESSA FALSA: il difetto era gia' curato dall'ordine AN voce 08. `PortaDellaCondivisione.avvenuta` legge l'esito di share_plus e paga SOLO su `ShareResultStatus.success` (dismissed e unavailable non pagano, con la prudenza dichiarata nel file); `condividiIlTraguardo` segna e incassa solo dopo il vero, e l'invito non si paga alla condivisione perche' l'attribuzione non esiste. Guardia verde: `test/i_tre_pulsanti_condividono_davvero_test.dart`.
-- **BF.05.k** Il rialzo di Node e di firebase-functions (Node 20 dismesso il 30 ottobre 2026). APERTA.
+- **BF.05.k** Il rialzo di Node e di firebase-functions. CHIUSA: runtime del cloud a nodejs22 (fissato in firebase.json e VERIFICATO sul deploy: tutte e sette le porte aggiornate a Node.js 22 in europe-west1 il 24 agosto 2026), firebase-functions dalla 6 alla 7.3.2, firebase-admin dalla 13 alla 14.3.0 con la migrazione agli import modulari in cerchio.ts. Il campo engines e' elastico (>=22) apposta: cosi' il PC del fondatore con Node 24 non riceve piu' EBADENGINE a ogni install, misurato a zero. Prove del server a guardia: 36 su 36, piu' la guardia nuova sul runtime.
 - **BF.05.l** Il grigio del Coming soon e il grigio del Premium. CHIUSA: verificati a schermo col metodo dei pixel, non per fiducia. Il velo di fondo e' lo stesso per costruzione e va bene cosi': a distinguere le strade sono i segni sopra, e la prova nuova `test/i_due_grigi_si_distinguono_test.dart` rende la coppia e misura 385 pixel di lucchetto dorato al centro del premium contro zero sul Coming soon, coi badge "Premium" e "Dietro il velo" al loro posto.
 - **BF.05.m** I tre pezzi dell'identita' mai registrati come gesti. FERMATA SU PREMESSA FALSA: l'ordine BD voce 05 li ha gia' registrati alle loro porte. Il Sigillo del Cerchio e la Luna di nascita si accendono nel Passaporto (`cosmic_passport_screen.dart` accende `sigillo_del_cerchio` e `luna_natale` alle porte vere), il nome proprio al primo saluto (`greeting_banner.dart` accende `nome_proprio`). Guardia gia' in vigore: `test/i_gradini_maturano_alle_loro_porte_test.dart`.
 
@@ -84,4 +84,4 @@ VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 3
 LAVORI_BF05_TOTALI: 13
-LAVORI_BF05_APERTI: 7
+LAVORI_BF05_APERTI: 6
