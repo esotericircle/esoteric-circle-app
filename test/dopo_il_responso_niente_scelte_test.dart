@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -54,7 +55,11 @@ void main() {
                   initial: const ThemeKey.of(Maestro.caligo))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          // TIER 1: la prova guarda le scelte che restano, non i tetti del
+          // giorno; col piano gratuito la seconda gettata aprirebbe l'invito
+          // all'upgrade invece di gettare (ordine BF voce 05.a).
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService(initial: Tier.tier1)),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
@@ -73,8 +78,8 @@ void main() {
     }
   }
 
-  testWidgets('nell\'Estrazione Rune la scelta della gettata non sopravvive al '
-      'responso', (tester) async {
+  testWidgets('nell\'Estrazione Rune la scelta della gettata resta dopo il '
+      'responso, e getta davvero', (tester) async {
     silenceSensors(tester);
     tester.view.physicalSize = const Size(430, 3200);
     tester.view.devicePixelRatio = 1.0;
@@ -105,21 +110,32 @@ void main() {
     await passo(tester);
     expect(find.byKey(const Key('rune_result')), findsOneWidget);
 
-    // DOPO il getto nessuna delle cinque resta.
-    final sopravvissute = <String>[];
+    // **LA LEGGE SI E' ROVESCIATA, ordine BF voce 05.a.** L'ordine S voce 23
+    // aveva verificato che nessun selettore sopravviveva al responso e
+    // l'aveva dichiarato giusto; il fondatore ha poi concordato il
+    // contrario: le pillole della stesa RESTANO dopo il getto, e toccarne
+    // una getta subito con quella stesa, senza tornare indietro. Il timore
+    // di allora (un selettore che sembri cambiare una lettura gia' uscita)
+    // e' sciolto dal comportamento: il tocco non cambia la lettura, ne apre
+    // una nuova.
     for (final s in scelte) {
-      if (find.byKey(Key(s)).evaluate().isNotEmpty) sopravvissute.add(s);
+      expect(find.byKey(Key(s)), findsOneWidget,
+          reason: 'dopo il responso la scelta "$s" deve restare: dal responso '
+              'si cambia stesa direttamente (ordine BF voce 05.a)');
     }
-    expect(sopravvissute, isEmpty,
-        reason: 'dopo il responso restano comandi di scelta della gettata: '
-            '${sopravvissute.join(", ")}. Chi li tocca si aspetta che cambino '
-            'qualcosa, e la lettura e\' gia\' uscita');
 
-    // E cio' che resta e' un invito a RIFARE dichiarato, non una scelta muta:
-    // "Getta ancora" rifa' la stessa gettata e lo dice nel nome.
+    // E il tocco su un'altra pillola getta DAVVERO con quella stesa.
+    await tester.ensureVisible(find.byKey(const Key('rune_segment_norne')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('rune_segment_norne')));
+    await passo(tester);
+    expect(find.text('LE TRE NORNE'), findsOneWidget,
+        reason: 'il tocco sulla pillola delle Norne non ha gettato con le '
+            'Norne: la scelta dal responso e\' muta');
+
+    // "Getta ancora" resta, e rifa' la stessa gettata dichiarandolo nel nome.
     expect(find.byKey(const Key('rune_recast')), findsOneWidget,
-        reason: 'per rigettare serve un comando che dica di rigettare, non un '
-            'selettore che sembri cambiare la lettura appena uscita');
+        reason: 'per rigettare la stessa stesa serve il comando che lo dice');
   });
 
   testWidgets('anche la domanda non resta modificabile dopo il responso',

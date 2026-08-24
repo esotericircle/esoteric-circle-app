@@ -338,8 +338,10 @@ class PlanCatalog {
   static const String rigaCartaSingola = 'Tarocchi carta singola';
 
   /// Quante gettate di rune al giorno. IL NUMERO VIVE QUI, ordine I voce 3:
-  /// tre per il Viandante, illimitate dall'Iniziato in su. La schermata delle
-  /// rune lo legge dalla matrice e non lo riscrive.
+  /// UNA per il Viandante (cosi' dice la matrice qui sotto, che e' sovrana),
+  /// illimitate dall'Iniziato in su. Il commento diceva "tre" mentre la
+  /// matrice diceva una: trovato dall'ordine BF guardando la cattura, e vale
+  /// la matrice. La schermata delle rune legge da qui e non riscrive.
   static const String rigaGettate = 'Gettate di rune';
 
   static const List<FeatureRow> matrix = [

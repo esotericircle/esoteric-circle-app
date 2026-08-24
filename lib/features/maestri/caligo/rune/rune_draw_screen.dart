@@ -208,13 +208,22 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     final piano = context.read<EntitlementService>().tier;
     final borsa = context.read<QuestionAllowance>();
     if (!borsa.puoiGettare(piano)) {
+      // **IL NUMERO NON SI SCRIVE A MANO, ordine BF voce 05.a.** Il testo
+      // diceva "le tre gettate" mentre il listino sovrano ne concede una:
+      // adesso il conto arriva dalla matrice. E la promessa del riscatto
+      // con gli Eos e' caduta: quella spesa non esiste ancora (AN.05,
+      // rimandata alla revisione), e prometterla era una bugia scritta bene.
+      final limite = borsa.limiteGettate(piano);
       showUpgradeInvite(
         context,
         title: 'Le gettate di oggi sono finite',
-        message: 'Le tre gettate del giorno sono state fatte. Puoi '
-            'riscattarne una con gli Eos, quando il borsellino arriva '
-            'nell\'app, oppure salire di livello nel Cerchio: dall\'Iniziato '
-            'in su le gettate sono senza limiti.',
+        message: limite == 1
+            ? 'La gettata del giorno è stata fatta. Puoi salire di livello '
+                'nel Cerchio: dall\'Iniziato in su le gettate sono senza '
+                'limiti.'
+            : 'Le $limite gettate del giorno sono state fatte. Puoi salire '
+                'di livello nel Cerchio: dall\'Iniziato in su le gettate '
+                'sono senza limiti.',
       );
       return false;
     }
@@ -405,6 +414,10 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   giorno: DateTime.now(),
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
+                  onAltraGettata: (g) {
+                    setState(() => _gettata = g);
+                    _gettaAncora();
+                  },
                   gettateFinite: gettateFinite,
                   gettateRimaste: gettateRimaste,
                   gettateLimite: gettateLimite,
@@ -722,6 +735,7 @@ class _Responso extends StatelessWidget {
     required this.giorno,
     required this.animazioni,
     required this.onAncora,
+    required this.onAltraGettata,
     required this.gettateFinite,
     required this.gettateRimaste,
     required this.gettateLimite,
@@ -744,6 +758,15 @@ class _Responso extends StatelessWidget {
   final DateTime giorno;
   final bool animazioni;
   final VoidCallback onAncora;
+
+  /// **LE PILLOLE RESTANO DOPO IL GETTO, ordine BF voce 05.a.** L'ordine S
+  /// voce 23 aveva verificato che nessun selettore sopravviveva al responso
+  /// e l'aveva dichiarato giusto; il fondatore ha poi deciso il contrario,
+  /// concordandolo con l'Architetto: dal responso si cambia stesa
+  /// direttamente, senza tornare indietro. Il tocco getta subito con la
+  /// stesa scelta, e a gettate finite passa dallo stesso invito del
+  /// pulsante.
+  final ValueChanged<GettataRune> onAltraGettata;
 
   /// Vero quando le gettate del giorno sono esaurite: Getta ancora si spegne
   /// nel colore, e il tocco apre l'invito del gating.
@@ -825,6 +848,14 @@ class _Responso extends StatelessWidget {
               rimaste: gettateRimaste,
               limite: gettateLimite,
               palette: palette),
+          // LE PILLOLE DELLA STESA, anche qui: vedi il commento sul campo
+          // onAltraGettata.
+          const SizedBox(height: SpacingTokens.md),
+          _SelettoreGettate(
+            corrente: esito.gettata,
+            palette: palette,
+            onSelect: onAltraGettata,
+          ),
 
           if (domanda.isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.md),
@@ -1135,6 +1166,17 @@ class _LetturaRuna extends StatelessWidget {
               ],
             ),
             const SizedBox(height: SpacingTokens.sm),
+            // **LA DESCRIZIONE DEL SIMBOLO, la promessa di S.20 mantenuta.**
+            // Ordine BF voce 05.a: quando S.20 accorcio' le righe di risposta
+            // dichiaro' che la descrizione sarebbe vissuta "nella sua scheda",
+            // ma nella scheda non era mai entrata, e il fondatore leggeva i
+            // responsi come tagliati a meta'. La risposta resta corta come
+            // S.20 vuole; il simbolo, dal corpus, le rida' il suo corpo.
+            Text(runa.rune.meaning,
+                key: Key('rune_meaning_$indice'),
+                style: TypographyTokens.didascalia().copyWith(
+                    color: ColorTokens.textSecondary, height: 1.4)),
+            const SizedBox(height: SpacingTokens.xs),
             // La lettura della scheda passa dalla porta unica dei paragrafi:
             // sotto cinque righe non divide, quindi le righe brevi restano
             // come sono e quelle lunghe respirano.
@@ -1552,12 +1594,21 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
         }
       }
     }
+    // **L'ALTEZZA SEGUE LA GETTATA, ordine BF voce 05.a.** Il pozzo era 300
+    // punti per tutte: la runa di Odino e la riga delle Norne stanno a meta'
+    // altezza, e sotto le pietre restava un telo vuoto da centocinquanta
+    // punti, concordato col fondatore come spazio inutile. La croce e il
+    // getto libero usano tutta la scena e tengono i 300.
+    final altezzaDelPozzo = switch (widget.gettata.id) {
+      'odino' => 190.0,
+      'norne' => 200.0,
+      _ => 300.0,
+    };
     return SizedBox(
       key: const Key('rune_well'),
       // PRIMA DEL GETTO NIENTE RIQUADRO RISERVATO, ordine L voce 2a: il telo
-      // in attesa e' un accenno di 140 punti, non una scena vuota da 300. I
-      // 300 servono solo quando le pietre ci sono davvero.
-      height: esito == null ? 140 : 300,
+      // in attesa e' un accenno di 140 punti, non una scena vuota.
+      height: esito == null ? 140 : altezzaDelPozzo,
       child: LayoutBuilder(
         builder: (context, box) {
           final w = box.maxWidth;

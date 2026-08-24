@@ -56,15 +56,29 @@ class RunePresagio {
     // direbbe alla persona che ha chiesto qualcosa che non ha chiesto. Vale per chi
     // non scegli niente e per chi scrive la domanda con parole sue, che non ha una
     // cornice sua.
-    final cornice = CorniciDelPresagio.perDomanda(domanda) ??
-        CorniciDelPresagio.dellaGiornata;
+    final corniceScelta = CorniciDelPresagio.perDomanda(domanda);
+    // **IL RIPIEGO NON MENTE A CHI HA SCRITTO, ordine BF voce 05.a.** Fatto
+    // del fondatore sulla 2200: domanda scritta a mano, modello caduto, e il
+    // presagio apriva con la diciassettesima cornice, "Non hai chiesto
+    // niente". La cornice della giornata resta per chi davvero non ha
+    // chiesto; per una domanda con parole della persona nessuna cornice
+    // esiste, e allora apertura e chiusura della giornata SI OMETTONO invece
+    // di dire il falso: restano le letture per posizione e l'equilibrio, che
+    // sono corpus vero, e la domanda sta gia' scritta nella card qui sopra.
+    // Non si inventa una riga: si toglie la riga che mentiva.
+    final domandaPersonale = domanda.trim().isNotEmpty && corniceScelta == null;
+    final cornice = corniceScelta ?? CorniciDelPresagio.dellaGiornata;
     return Responso(
-      risposta: _risposta(esito, cornice),
+      risposta: domandaPersonale
+          ? _rispostaSenzaCornice(esito)
+          : _risposta(esito, cornice),
       // **LA PARTE 2 VIENE SEMPRE DALL'ALLEGATO.** Le nove indicazioni per
       // famiglia e equilibrio che avevo scritto io non esistono piu': la
       // diciassettesima cornice copre il caso che coprivano loro, e cio' che la
-      // persona legge lo scrive l'Architetto.
-      cosaPuoiFare: cornice.chiusura,
+      // persona legge lo scrive l'Architetto. Con la domanda personale la
+      // chiusura della giornata direbbe "domani la domanda ce l'hai gia'",
+      // che e' falso oggi: si omette, non si riscrive.
+      cosaPuoiFare: domandaPersonale ? '' : cornice.chiusura,
       daDoveViene: _daDoveViene(esito),
     );
   }
@@ -86,6 +100,17 @@ class RunePresagio {
     // di responso che non venga da Mauro.
     final apertura = cornice.apertura;
     final parti = <String>[apertura, ..._perPosizione(esito.rune)];
+    parti.add(esito.gettata.libera
+        ? _equilibrioLibera(esito)
+        : _equilibrio(esito));
+    return parti.join(' ');
+  }
+
+  /// IL MONTAGGIO SENZA CORNICE, per la domanda personale in ripiego: solo
+  /// le letture per posizione e l'equilibrio, corpus intoccato, nessuna riga
+  /// scritta da me. Ordine BF voce 05.a.
+  static String _rispostaSenzaCornice(EsitoGettata esito) {
+    final parti = <String>[..._perPosizione(esito.rune)];
     parti.add(esito.gettata.libera
         ? _equilibrioLibera(esito)
         : _equilibrio(esito));

@@ -230,6 +230,15 @@ void main() {
           final testo =
               RunePresagio.componiIlResponso(esito, domanda: domanda)
                   .cosaPuoiFare;
+          // **LA DOMANDA PERSONALE OMETTE, NON SCRIVE. Ordine BF voce
+          // 05.a.** Per una domanda con parole della persona la chiusura
+          // della giornata direbbe "domani la domanda ce l'hai gia'", che
+          // e' falsa oggi: si omette. Il vuoto non e' un testo di Code, e'
+          // l'assenza di un testo che mentiva; la regola resta intera per
+          // tutti gli altri casi.
+          final personale = domanda.isNotEmpty &&
+              CorniciDelPresagio.perDomanda(domanda) == null;
+          if (personale && testo.isEmpty) continue;
           if (!chiusure.contains(testo)) {
             estranee.add('${g.id} seme $seme, domanda "$domanda": $testo');
           }

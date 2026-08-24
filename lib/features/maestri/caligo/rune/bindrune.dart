@@ -270,11 +270,13 @@ class _BindrunePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (deduplica) {
-      _paintStelo(canvas, size);
-    } else {
-      _paintSovrapposto(canvas, size);
-    }
+    // **UNA STRADA SOLA, LO STELO CONDIVISO. Ordine BF voce 05.a.** La
+    // sovrapposizione dei glifi interi portava nel tondo due o tre aste
+    // verticali e il segno si leggeva come un groviglio, non come una
+    // bindrune: concordato col fondatore, il sigillo del giorno ha UN'asta
+    // sola e i rami delle rune agganciati a lei, che e' anche la forma
+    // storica della bindrune. Il pittore sovrapposto e' stato demolito.
+    _paintStelo(canvas, size);
   }
 
   /// Il disco e l'anello: la superficie su cui il sigillo e' inciso.
@@ -420,106 +422,9 @@ class _BindrunePainter extends CustomPainter {
   }
 
 
-  void _paintSovrapposto(Canvas canvas, Size size) {
-    // **IL TONDO VALE ANCHE QUI, ordine S voce 25.** Le due strade dipingono lo
-    // stesso oggetto, il Sigillo del Giorno: una lo compone con un solo stelo, e
-    // l'altra sovrappone i glifi. Se il tondo stesse su una sola delle due, il
-    // sigillo sarebbe un sigillo a giorni alterni, ed e' la famiglia delle due
-    // porte.
-    _paintTondo(canvas, size);
-    // Lo stesso riquadro ricavato dall'anello: il quadrato piu' grande inscritto
-    // nel cerchio interno.
-    final box = size.shortestSide *
-        (BindruneSigillo.raggioDelTondo - BindruneSigillo.margineDelTondo) *
-        2 /
-        math.sqrt2;
-    final left = (size.width - box) / 2;
-    final top = (size.height - box) / 2;
-    Offset map(Offset p) => Offset(left + p.dx * box, top + p.dy * box);
-
-    // Alone tondo dietro il sigillo, per staccarlo dal fondo.
-    canvas.drawCircle(
-      size.center(Offset.zero),
-      box * 0.62,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          alone.withValues(alpha: 0.22),
-          alone.withValues(alpha: 0.0),
-        ]).createShader(
-            Rect.fromCircle(center: size.center(Offset.zero), radius: box * 0.62)),
-    );
-
-    final glow = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.05
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = alone.withValues(alpha: 0.45)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.04);
-
-    final tratto = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.035
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = oro;
-
-    // I tratti di ogni runa, centrati orizzontalmente sull'asta condivisa. Con
-    // [deduplica] un tratto gia' disegnato non si ridisegna, cosi' l'intreccio
-    // di sette rune non si addensa.
-    final visti = <String>{};
-    for (final name in runeNames) {
-      final strokes = kRuneStrokes[name];
-      if (strokes == null) continue;
-      var minX = 1.0;
-      var maxX = 0.0;
-      for (final poly in strokes) {
-        for (final p in poly) {
-          if (p.dx < minX) minX = p.dx;
-          if (p.dx > maxX) maxX = p.dx;
-        }
-      }
-      final shift = 0.5 - (minX + maxX) / 2;
-      for (final poly in strokes) {
-        if (deduplica) {
-          final firma = poly
-              .map((p) => '${((p.dx + shift) * 100).round()},'
-                  '${(p.dy * 100).round()}')
-              .join(';');
-          if (!visti.add(firma)) continue;
-        }
-        final path = Path()
-          ..moveTo(map(poly.first.translate(shift, 0)).dx,
-              map(poly.first.translate(shift, 0)).dy);
-        for (var i = 1; i < poly.length; i++) {
-          final p = map(poly[i].translate(shift, 0));
-          path.lineTo(p.dx, p.dy);
-        }
-        canvas.drawPath(path, glow);
-        canvas.drawPath(path, tratto);
-      }
-    }
-
-    // L'asta centrale condivisa, sopra tutto, che unisce l'intreccio.
-    final asta = Path()
-      ..moveTo(map(const Offset(0.5, 0.02)).dx, map(const Offset(0.5, 0.02)).dy)
-      ..lineTo(map(const Offset(0.5, 0.98)).dx, map(const Offset(0.5, 0.98)).dy);
-    canvas.drawPath(
-        asta,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = box * 0.06
-          ..strokeCap = StrokeCap.round
-          ..color = alone.withValues(alpha: 0.4)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.03));
-    canvas.drawPath(
-        asta,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = box * 0.045
-          ..strokeCap = StrokeCap.round
-          ..color = oro);
-  }
+  // **_paintSovrapposto NON ESISTE PIU', ordine BF voce 05.a.** Era la
+  // sovrapposizione dei glifi interi, con un'asta per runa: demolita
+  // insieme alla sua strada in paint(), il sigillo e' lo stelo condiviso.
 
   @override
   bool shouldRepaint(_BindrunePainter old) =>
