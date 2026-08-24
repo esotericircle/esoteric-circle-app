@@ -1,7 +1,9 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../core/quality/quality_tier.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
@@ -82,13 +84,25 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
     final abito = AbitoDelResponso.di(widget.dono);
     final accento = abito.accentoDi(gift.maestro);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-        child: Container(
+    // **IL BLUR SEGUE IL QUALITY TIER, ordine BF voce 05.f.** Era l'unico
+    // BackdropFilter dell'app SENZA il cancello della qualita': depth_card e
+    // feature_tile lo lasciano cadere sui telefoni bassi, questa scheda
+    // sfocava sempre, a sigma 18, su ogni fotogramma di Impeller. Senza
+    // effetti pieni il vetro diventa quasi pieno NEL COLORE DEL SUO ABITO
+    // (il giorno resta giorno, la notte resta notte): il contenuto dietro
+    // sparisce invece di intravedersi, che e' cio' che il blur otteneva.
+    final bool effettiPieni = (() {
+      try {
+        return context.watch<QualityTierController>().richEffects;
+      } catch (errore) {
+        return false;
+      }
+    })();
+    final Widget vetro = Container(
           decoration: BoxDecoration(
-            color: abito.velatura,
+            color: effettiPieni
+                ? abito.velatura
+                : abito.velatura.withValues(alpha: 0.96),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: abito.bordo),
           ),
@@ -271,8 +285,15 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             ],
             ),
           ),
-        ),
-      ),
+        );
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: effettiPieni
+          ? BackdropFilter(
+              filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+              child: vetro,
+            )
+          : vetro,
     );
   }
 }

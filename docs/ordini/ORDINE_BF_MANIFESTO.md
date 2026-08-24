@@ -58,7 +58,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.05.c** Il campo della chat trasparente. CHIUSA: la riga del compositore sfumava piena solo al 35 per cento dell'altezza, e coi Maestri grandi di BD la figura e la coda del saluto si leggevano fra i controlli. Il velo ora e' pieno (98 per cento) gia' al 12 per cento: resta la dissolvenza in cima che evita lo scalino, e la fascia dei controlli e' muta. La prova differenziale dell'opacita' e' estesa alla fascia intera del compositore con tolleranza percettiva di 8 livelli: zero pixel fantasma misurati. Anteprime della chat rigenerate.
 - **BF.05.d** La ridondanza nelle schede delle rune. CHIUSA: le glosse del getto sul telo non ripetono piu' il titolo, dicono il PESO della posizione nella lettura ("la voce che pesa di piu'", "la voce di mezzo", "la voce piu' lieve"), che e' la regola del telo e l'informazione che il titolo non porta. Vale anche nel presagio ("Per la voce che pesa di piu', ..."). Prove del telo e della lingua verdi.
 - **BF.05.e** La prova dell'occlusione estesa al dominio e all'Oroscopo. APERTA.
-- **BF.05.f** La verifica BackdropFilter su Impeller. APERTA.
+- **BF.05.f** La verifica BackdropFilter su Impeller. CHIUSA: censiti, ne restano TRE in tutta l'app. Due erano gia' dietro il cancello della qualita' (depth_card con richEffects, feature_tile col tier alto); il terzo, la scheda dei Doni (ritual_gift_card, sigma 18), sfocava SEMPRE anche sui telefoni bassi: ora segue il Quality Tier come gli altri, e senza effetti pieni il vetro diventa quasi pieno nel colore del suo abito (il giorno resta giorno, la notte resta notte), cosi' il contenuto dietro sparisce invece di intravedersi. Prove dei riti verdi (44).
 - **BF.05.g** Analyze da 70 a 128 avvisi, mai esaminato voce per voce. APERTA.
 - **BF.05.h** I vuoti verticali, 138 in 54 file all'ultima misura. APERTA.
 - **BF.05.i** La CI. CHIUSA: `ronda.yml` e `verde.yml` dichiaravano channel stable senza numero e ora portano `flutter-version: 3.44.5` come android-build e Codemagic; la guardia della versione unica copre adesso tutti e quattro i file piu' il sovrano. `chat-screenshot.yml` era GIA' stata tolta dal commit `999bb782` ("Via l'azione che committava da sola"): sopravvive solo in un worktree stantio, non nel repo, e non c'e' niente da togliere.
@@ -84,4 +84,4 @@ VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 3
 LAVORI_BF05_TOTALI: 13
-LAVORI_BF05_APERTI: 6
+LAVORI_BF05_APERTI: 5
