@@ -5,13 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 /// LA GUARDIA DELL'ORDINE BG.
 ///
 /// **Non e' una promessa, e' un test che non passa.** Legge il manifesto e
-/// resta rossa finche' la voce non ha uno stato terminale. L'ordine e' nato
-/// da Code con l'autorizzazione dichiarata nell'ordine BF, dal collaudo del
-/// fondatore sulla 2201: il Bentornato dato a un Cerchio appena nato.
+/// resta rossa finche' le otto voci non hanno uno stato terminale. La voce
+/// 01 e' nata in due tempi (la segnalazione a caldo del fondatore, poi il
+/// suo ordine scritto): la cronaca sta nel manifesto.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_BG_MANIFESTO.md');
 
-  const quante = 1;
+  const quante = 8;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -27,10 +27,17 @@ void main() {
       .where((r) => RegExp(r'^- \*\*BG\.\d\d\*\*').hasMatch(r))
       .toList();
 
-  test('il manifesto esiste e porta la voce', () {
+  test('il manifesto esiste e porta tutte e otto le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'docs/ordini/ORDINE_BG_MANIFESTO.md non esiste');
-    expect(manifesto.readAsStringSync().contains('**BG.01**'), isTrue);
+    final testo = manifesto.readAsStringSync();
+    final mancanti = <String>[];
+    for (var i = 0; i < quante; i++) {
+      final voce = 'BG.${i.toString().padLeft(2, '0')}';
+      if (!testo.contains('**$voce**')) mancanti.add(voce);
+    }
+    expect(mancanti, isEmpty,
+        reason: 'il manifesto non nomina queste voci: $mancanti');
   });
 
   test('ogni voce ha uno stato ammesso e i marcatori dicono il vero', () {
