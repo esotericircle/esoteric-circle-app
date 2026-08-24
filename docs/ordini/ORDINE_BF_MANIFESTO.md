@@ -62,7 +62,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.05.g** Analyze da 70 a 128 avvisi, mai esaminato voce per voce. APERTA.
 - **BF.05.h** I vuoti verticali, 138 in 54 file all'ultima misura. APERTA.
 - **BF.05.i** La CI: Flutter fissato per numero e chat-screenshot.yml esaminata. APERTA.
-- **BF.05.j** La condivisione vera: il bonus solo a condivisione avvenuta. APERTA.
+- **BF.05.j** La condivisione vera. FERMATA SU PREMESSA FALSA: il difetto era gia' curato dall'ordine AN voce 08. `PortaDellaCondivisione.avvenuta` legge l'esito di share_plus e paga SOLO su `ShareResultStatus.success` (dismissed e unavailable non pagano, con la prudenza dichiarata nel file); `condividiIlTraguardo` segna e incassa solo dopo il vero, e l'invito non si paga alla condivisione perche' l'attribuzione non esiste. Guardia verde: `test/i_tre_pulsanti_condividono_davvero_test.dart`.
 - **BF.05.k** Il rialzo di Node e di firebase-functions (Node 20 dismesso il 30 ottobre 2026). APERTA.
 - **BF.05.l** Il grigio del Coming soon e il grigio del Premium, verificati a schermo. APERTA.
 - **BF.05.m** I tre pezzi dell'identita' mai registrati come gesti. FERMATA SU PREMESSA FALSA: l'ordine BD voce 05 li ha gia' registrati alle loro porte. Il Sigillo del Cerchio e la Luna di nascita si accendono nel Passaporto (`cosmic_passport_screen.dart` accende `sigillo_del_cerchio` e `luna_natale` alle porte vere), il nome proprio al primo saluto (`greeting_banner.dart` accende `nome_proprio`). Guardia gia' in vigore: `test/i_gradini_maturano_alle_loro_porte_test.dart`.
@@ -84,4 +84,4 @@ VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 2
 LAVORI_BF05_TOTALI: 13
-LAVORI_BF05_APERTI: 12
+LAVORI_BF05_APERTI: 11
