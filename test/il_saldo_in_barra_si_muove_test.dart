@@ -48,8 +48,8 @@ void main() {
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
       ],
-      child: MaterialApp(
-        home: MaestroScope(child: const _BarraDiProva()),
+      child: const MaterialApp(
+        home: MaestroScope(child: _BarraDiProva()),
       ),
     ));
     await tester.pump();
@@ -99,7 +99,7 @@ void main() {
     // far passare la prima inventando un numero quando il server non risponde,
     // che e' peggio di un saldo fermo: la barra direbbe una cifra che sul server
     // non esiste.
-    final porta = _PortaMuta();
+    const porta = _PortaMuta();
     final borsa = QuestionAllowance(porta: porta);
     final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
@@ -114,8 +114,8 @@ void main() {
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
       ],
-      child: MaterialApp(
-        home: MaestroScope(child: const _BarraDiProva()),
+      child: const MaterialApp(
+        home: MaestroScope(child: _BarraDiProva()),
       ),
     ));
     await tester.pump();

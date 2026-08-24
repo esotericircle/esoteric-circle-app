@@ -188,12 +188,12 @@ void main() {
           if (scheda == null) continue;
           for (final e in corpi(tester).entries) {
             expect(e.value.bottom, lessThanOrEqualTo(scheda),
-                reason: 'a $misura, con ${chiave} selezionato, il corpo '
+                reason: 'a $misura, con $chiave selezionato, il corpo '
                     '${e.key} arriva a ${e.value.bottom.round()} punti mentre '
                     'la scheda comincia a ${scheda.round()}: finisce sotto il '
                     'vetro e la sua etichetta si legge in trasparenza');
             expect(e.value.top, greaterThanOrEqualTo(barra),
-                reason: 'a $misura, con ${chiave} selezionato, il corpo '
+                reason: 'a $misura, con $chiave selezionato, il corpo '
                     '${e.key} e finito sotto la barra del titolo');
           }
         }

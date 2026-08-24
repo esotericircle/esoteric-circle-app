@@ -1,16 +1,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
-import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/core/motion/parallax_controller.dart';
-import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// IL RESPIRO GUIDATO VIVE NEL SOFFIO, E IN NESSUN ALTRO RITO. Ordine S voce 13.
 ///

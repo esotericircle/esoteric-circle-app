@@ -14,9 +14,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// LA RIGA DEL CAMPO E' PULITA, E LE PORTE AI SUGGERIMENTI SONO UNA SOLA.
 ///
 /// Ordine 2164, voci 2, 3, 4 e 5.
-/// - Voce 2: sotto e attorno alla riga con stelline, campo e freccia c'era
-///   una fascia scura piena larga quanto lo schermo. Tolta: restano il campo
-///   e il tondo di invio, opachi loro, appoggiati sul cosmo.
+/// - Voce 2, ROVESCIATA due volte dal fondatore (H voce 3a, poi BF voce
+///   05.c): il fondo dietro la riga e' tornato e adesso e' pieno all'altezza
+///   dei controlli. La prova della fascia misura oggi che il velo CI SIA.
 /// - Voci 3 e 4: via l'assaggio di tre domande in riga e via il pulsante
 ///   "Tocca per tutte le domande". Resta UNA porta, l'icona a stelline.
 /// - Voce 5: icona e scritta si allineano al centro verticale del campo.
@@ -104,13 +104,22 @@ void main() {
     // ignore: avoid_print
     print('RIGA SOTTO IL CAMPO: pixel uguali al primo = $uguali su '
         '$larghezza (${(quota * 100).toStringAsFixed(1)} per cento)');
-    // La soglia dichiarata: sopra il 92 per cento la riga e' una tinta
-    // unita, cioe' una fascia. Col cosmo dietro la prova ha misurato molto
-    // meno, e il rosso (fascia rimessa) ha misurato il 100 per cento.
-    expect(quota, lessThan(0.92),
-        reason: 'Sotto il campo c\'e\' di nuovo una fascia piena larga '
-            'quanto lo schermo: ${(quota * 100).toStringAsFixed(1)} per '
-            'cento della riga e\' della stessa tinta.');
+    // **LA LEGGE SI E' ROVESCIATA, e la prova si rovescia con lei.** La
+    // voce 2 del 2164 voleva il cosmo visibile sotto il campo, e questa
+    // misura pretendeva la riga NON uniforme. Quella legge e' morta due
+    // volte per mano del fondatore: l'ordine H voce 3a ha rivoluto il fondo
+    // dietro la riga (i messaggi si leggevano attraverso gli spazi), e
+    // l'ordine BF voce 05.c ha voluto il velo pieno all'altezza dei
+    // controlli, perche' coi Maestri grandi la figura e la coda del saluto
+    // si leggevano fra i pulsanti. Adesso la riga sotto il campo DEVE
+    // essere coperta: uniforme sopra il 90 per cento, che e' esattamente
+    // cio' che questa misura vietava. Il fantasma lo vieta la prova
+    // dell'opacita', che guarda la fascia intera del compositore.
+    expect(quota, greaterThan(0.90),
+        reason: 'Sotto il campo il velo si e\' riaperto: solo '
+            '${(quota * 100).toStringAsFixed(1)} per cento della riga e\' '
+            'coperto, e la figura del Maestro torna a leggersi fra i '
+            'controlli (ordine BF voce 05.c).');
   });
 
   testWidgets('le stelline sono allineate al centro del campo',

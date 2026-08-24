@@ -140,7 +140,6 @@ class DoveSonoAdesso {
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: senza preferenze il luogo non si
       // ricorda e il rito resta intero, senza nominare l'ora del sorgere.
-      assert(errore is Object);
       return null;
     }
   }
@@ -150,7 +149,8 @@ class DoveSonoAdesso {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_chiave, jsonEncode(luogo.toJson()));
     } catch (errore) {
-      assert(errore is Object);
+      // Il disco che non scrive non deve mai fermare un rito: senza luogo
+      // salvato si richiedera' la posizione, che e' il comportamento di prima.
     }
   }
 
@@ -160,7 +160,8 @@ class DoveSonoAdesso {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_chiave);
     } catch (errore) {
-      assert(errore is Object);
+      // Il disco che non scrive non deve mai fermare un rito: senza luogo
+      // salvato si richiedera' la posizione, che e' il comportamento di prima.
     }
   }
 }

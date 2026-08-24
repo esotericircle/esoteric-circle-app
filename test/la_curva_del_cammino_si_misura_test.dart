@@ -105,7 +105,7 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE AR VOCE 04: feste per mese ${festePerMese}');
+    print('ORDINE AR VOCE 04: feste per mese $festePerMese');
     expect(festePerMese[1], greaterThan(0),
         reason: 'il primo mese e muto');
   });

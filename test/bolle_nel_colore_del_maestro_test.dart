@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';

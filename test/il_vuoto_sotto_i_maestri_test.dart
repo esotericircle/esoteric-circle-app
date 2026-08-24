@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
-import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
 import 'package:esoteric_circle/features/shell/spazio_della_barra.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';

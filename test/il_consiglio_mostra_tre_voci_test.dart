@@ -261,7 +261,7 @@ class _VoceViva implements MaestroAiProvider {
     required List<MaestroLens> lenses,
     NatalContext? natal,
   }) async =>
-      throw MaestroAiUnavailable('nessuna sintesi viva in prova');
+      throw const MaestroAiUnavailable('nessuna sintesi viva in prova');
 
   @override
   Future<MemoryDigest?> distill({
@@ -312,7 +312,7 @@ class _VoceCheCadeSu extends _VoceViva {
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
   }) async {
-    if (maestro == chiCade) throw MaestroAiUnavailable('la rete non risponde');
+    if (maestro == chiCade) throw const MaestroAiUnavailable('la rete non risponde');
     return super.consult(
         maestro: maestro, theme: theme, profile: profile, memory: memory);
   }

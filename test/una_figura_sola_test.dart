@@ -289,16 +289,6 @@ void main() {
 
   group('L\'ultimo grande da\' alla figura qualcosa che prima non aveva', () {
     /// **QUANTE VOLTE l'ultimo grande deve valere piu' di un traguardo normale.**
-    ///
-    /// Il criterio dell'ordine e' che la differenza fra l'anteprima a meta' e
-    /// quella completa si veda in un secondo, senza cercarla. Tradotto in una
-    /// misura: l'ultimo grande deve cambiare molti piu' pixel di quanti ne cambi
-    /// un mini qualunque, e il confronto e' con se stesso invece che con un
-    /// numero assoluto, cosi' la soglia non dipende da quanto e' grande la tela.
-    /// Sei volte: un petalo su cinquanta cambia poche decine di pixel, un fiore
-    /// che si accende ne cambia migliaia.
-    const int quanteVolte = 6;
-
     for (final sentiero in Sentiero.values) {
       test('${sentiero.name}: da meta\' a completa la differenza e\' GLOBALE',
           () async {

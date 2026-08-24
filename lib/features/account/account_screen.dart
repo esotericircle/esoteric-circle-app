@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/maestro/maestro.dart';
-import '../../design_system/components/depth_card.dart';
-import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import 'dart:io';
@@ -18,7 +14,6 @@ import '../../services/app_services.dart';
 // **CON UN PREFISSO, e non e' pedanteria**: in questo file vivono due
 // `PortaDelCerchio`, quella del server e quella delle vie della barra, e
 // senza prefisso il compilatore non sa quale delle due si intende.
-import '../../services/server/porta_del_cerchio.dart' as server;
 import 'custodia_del_cielo.dart';
 
 import '../../design_system/tokens/color_tokens.dart';

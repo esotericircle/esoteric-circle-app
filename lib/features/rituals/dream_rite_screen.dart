@@ -31,7 +31,6 @@ import '../../services/breath_detector.dart';
 import '../maestri/aura/meditation/meditation_audio.dart';
 import '../tarot/stesa_senses.dart' show TiltListener;
 import 'dream_rite_card.dart';
-import '../../../design_system/components/borsellino.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 

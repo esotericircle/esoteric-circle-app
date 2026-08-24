@@ -10,7 +10,6 @@ import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';

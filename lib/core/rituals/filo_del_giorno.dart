@@ -108,7 +108,6 @@ class FiloDelGiorno {
       await prefs.setString(chiave, jsonEncode(dato));
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: senza preferenze il filo non si tiene, e il richiamo semplicemente non compare.
-      assert(errore is Object);
       // Best-effort: senza preferenze il filo non si tiene, e la sera il
       // richiamo semplicemente non compare. Mai un errore in faccia a chi
       // stava compiendo un rito.
@@ -126,7 +125,6 @@ class FiloDelGiorno {
       return (testo == null || testo.isEmpty) ? null : testo;
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: senza preferenze il filo non si tiene, e il richiamo semplicemente non compare.
-      assert(errore is Object);
       return null;
     }
   }

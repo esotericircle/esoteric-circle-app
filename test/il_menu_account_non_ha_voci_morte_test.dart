@@ -41,8 +41,8 @@ void main() {
         // Il pavimento di AL.04 sopra il Navigator, come nell'app vera: i
         // fogli dal basso vivono la' e senza scope morirebbero.
         builder: (ctx, child) => MaestroScope(child: child!),
-        home: MaestroScope(
-            maestro: Maestro.medora, child: const AccountScreen()),
+        home: const MaestroScope(
+            maestro: Maestro.medora, child: AccountScreen()),
       ),
     ));
     await tester.pump(const Duration(milliseconds: 200));

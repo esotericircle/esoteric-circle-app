@@ -65,7 +65,9 @@ void main() {
     test('gli agganci montano la schermata dentro la sua soglia', () {
       for (final atteso in const [
         'FaceConstellationScreen.conLaSoglia(schermata)',
-        '_conLaSuaSoglia(schermata)',
+        // Il nome ha perso il trattino basso con la bonifica analyze di
+        // BF.05.g (no_leading_underscores_for_local_identifiers).
+        'conLaSuaSoglia(schermata)',
         'RuneDrawScreen.conLaSoglia(schermata)',
         'GuideAnimalScreen.conLaSoglia(schermata)',
       ]) {

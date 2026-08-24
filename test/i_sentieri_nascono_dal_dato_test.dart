@@ -41,7 +41,7 @@ void main() {
     for (final s in Sentiero.values) {
       final somma = Sentieri.di(s).fold<int>(0, (a, t) => a + t.eos);
       // ignore: avoid_print
-      print('ORDINE AR VOCE 02: ${s.name} somma ${somma} Eos');
+      print('ORDINE AR VOCE 02: ${s.name} somma $somma Eos');
       expect(somma, Sentieri.eosAttesiPerSentiero,
           reason: 'il sentiero ${s.name} somma $somma Eos invece di '
               '${Sentieri.eosAttesiPerSentiero}');

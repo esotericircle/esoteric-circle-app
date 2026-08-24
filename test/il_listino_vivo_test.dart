@@ -63,7 +63,7 @@ void main() {
   });
 
   test('il residuo del giorno dice il vero, per ogni piano', () {
-    final stesa = ListinoDegliEos.stesaTreCarte;
+    const stesa = ListinoDegliEos.stesaTreCarte;
     expect(stesa.quanteRestano(Tier.free, 0), 1,
         reason: 'il Viandante ha una stesa gratis al giorno');
     expect(stesa.quanteRestano(Tier.free, 1), 0,
@@ -125,7 +125,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: MaestroScope(
           maestro: Maestro.medora,
           child: Scaffold(

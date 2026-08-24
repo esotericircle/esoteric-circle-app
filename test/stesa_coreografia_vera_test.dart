@@ -24,7 +24,7 @@ void main() {
           reason: 'carta $i lontana dal mazzo a fine raccolta');
     }
     // In piena mescola le carte restano ATTORNO al mazzo, non sul ventaglio.
-    final mezzo = (MischiaPose.fineRaccolta + MischiaPose.fineMescola) / 2;
+    const mezzo = (MischiaPose.fineRaccolta + MischiaPose.fineMescola) / 2;
     for (var i = 0; i < 9; i++) {
       final p = MischiaPose.of(
           sede: sede, mazzo: mazzo, index: i, count: 9, t: mezzo);

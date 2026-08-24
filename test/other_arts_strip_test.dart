@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
@@ -62,22 +61,6 @@ void main() {
       400,
       scrollable: find.byType(Scrollable).first,
     );
-  }
-
-  /// Scorre la striscia orizzontale fino alla tessera data.
-  Future<void> revealTile(WidgetTester tester, String targetName) async {
-    await tester.scrollUntilVisible(
-      find.byKey(Key('other_art_$targetName')),
-      160,
-      scrollable: find.descendant(
-        of: find.byKey(const Key('other_arts_strip')),
-        matching: find.byType(Scrollable),
-      ),
-    );
-    // Col catalogo di Medora cresciuto, la striscia comincia sotto la piega:
-    // portare la tessera dentro la finestra anche in verticale.
-    await tester.ensureVisible(find.byKey(Key('other_art_$targetName')));
-    await tester.pump();
   }
 
   testWidgets('Nel dominio di Medora la striscia mostra arti di altri Maestri',

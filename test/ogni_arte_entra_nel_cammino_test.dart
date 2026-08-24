@@ -156,7 +156,7 @@ void main() {
     // chiedeva: si sposta su cio' che resta vero, cioe' che OGNI ripetizione
     // dichiarata sia alimentata da una schermata vera. Con l'elenco vuoto la
     // riga non guarda niente, e lo DICE invece di passare in silenzio.
-    final trasversali = Sentieri.agganciTrasversali;
+    const trasversali = Sentieri.agganciTrasversali;
     // ignore: avoid_print
     print('ORDINE U VOCE 01: ripetizioni dichiarate ${trasversali.length}');
     for (final firma in trasversali) {

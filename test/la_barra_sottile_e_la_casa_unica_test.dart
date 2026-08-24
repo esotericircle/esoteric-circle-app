@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/chat/user_profile.dart';
-import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/features/account/account_screen.dart';
-import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
 import 'package:esoteric_circle/features/shell/navigation_controller.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';

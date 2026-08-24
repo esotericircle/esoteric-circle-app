@@ -1,3 +1,6 @@
+@Tags(['ricerca'])
+library;
+
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -23,7 +26,6 @@ import 'package:flutter_test/flutter_test.dart';
 /// 4. a quindici gradi resta **corsa da dosare**, cioe' non si e' gia' a fondo
 ///    corsa: e' l'"incontrollabile" che il fondatore aveva segnalato prima
 ///    dell'ordine AW.
-@Tags(['ricerca'])
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 

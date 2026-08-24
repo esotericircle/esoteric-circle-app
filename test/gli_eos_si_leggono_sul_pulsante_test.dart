@@ -25,7 +25,7 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 
   test('il listino arriva dal server e il borsellino lo custodisce', () async {
-    final borsa = QuestionAllowance(porta: _PortaColListino());
+    final borsa = QuestionAllowance(porta: const _PortaColListino());
     await borsa.sincronizza();
     final letti = {
       for (final modo in ModoDellaCondivisione.values)
@@ -47,7 +47,7 @@ void main() {
     // il premio senza dire quanto. **Un numero di ripiego scritto nel client
     // resterebbe a promettere il vecchio listino per sempre**, e sarebbe una
     // bugia scritta bene.
-    final borsa = QuestionAllowance(porta: _PortaSenzaListino());
+    final borsa = QuestionAllowance(porta: const _PortaSenzaListino());
     await borsa.sincronizza();
     // ignore: avoid_print
     print('ORDINE BB VOCE 04: col server muto, il listino ha '

@@ -40,6 +40,7 @@ void main() {
 
   /// LE SCHERMATE DELLA PRATICA: qui si guadagnano o si spendono Eos, quindi il
   /// borsellino ci sta.
+  // ignore: unused_local_variable, e' la storia dichiarata qui sotto
   const conBorsellino = <String>[
     // Passano dalla barra unica delle arti, che monta il segno da se'.
     'lib/features/maestri/rotta_arte.dart',
@@ -66,6 +67,7 @@ void main() {
 
   /// LE ESENZIONI, e ognuna porta la sua ragione scritta. Un'esenzione senza
   /// ragione e' un buco, non una decisione.
+  // ignore: unused_local_variable, e' la storia dichiarata qui sotto
   const senzaBorsellino = <String, String>{
     // L'intestazione della chat e' VOLUTAMENTE vuota, e sta scritto nel
     // sorgente: nessun simbolo, tutto centrato in colonna attorno al volto del

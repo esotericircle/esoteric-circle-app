@@ -15,7 +15,6 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
-import '../../../design_system/components/borsellino.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.

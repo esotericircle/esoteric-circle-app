@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
@@ -331,7 +330,7 @@ class PittoreDellaSpirale extends CustomPainter {
 
     final trasformazioni = <ui.RSTransform>[];
     final rettangoli = <Rect>[];
-    final rettangoloDellaStella = Rect.fromLTWH(
+    const rettangoloDellaStella = Rect.fromLTWH(
         0, 0, SpiraleDiStelle.latoDellaStella, SpiraleDiStelle.latoDellaStella);
 
     // **IL CICLO E' TIPIZZATO E NON DINAMICO.** Quattrocento accessi

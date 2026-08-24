@@ -179,7 +179,7 @@ void main() {
             'alcuni e non per tutti');
     expect(porta.accreditato, attesa,
         reason: 'la somma accreditata e\' ${porta.accreditato} contro '
-            '${attesa} dei traguardi accesi');
+            '$attesa dei traguardi accesi');
     expect(borsa.saldoEos, porta.accreditato,
         reason: 'il borsellino mostra ${borsa.saldoEos} mentre il server ha '
             'accreditato ${porta.accreditato}');

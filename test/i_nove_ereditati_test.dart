@@ -108,7 +108,7 @@ void main() {
       // Il nome vecchio si compone invece di scriverlo: questa prova cerca il
       // nome vecchio in tutto il progetto, e scriverlo per intero qui la
       // farebbe cadere su se stessa.
-      final nomeVecchio = 'sunset' '_time.dart';
+      const nomeVecchio = 'sunset' '_time.dart';
       expect(File('lib/core/astro/$nomeVecchio').existsSync(), isFalse,
           reason: 'il file vecchio e\' tornato: il nome dichiarava il falso, '
               'perche\' dentro c\'e\' anche il sorgere');

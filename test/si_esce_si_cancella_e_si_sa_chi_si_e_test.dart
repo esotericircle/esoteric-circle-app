@@ -234,6 +234,7 @@ class _PortaCheRegistra implements PortaDellIdentita {
 
   final List<String> diario = [];
   int uscite = 0;
+  @override
   bool anonimo = false;
 
   @override

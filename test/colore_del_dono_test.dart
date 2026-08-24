@@ -23,13 +23,13 @@ void main() {
   /// quel fondo il conto che tornava a 4,5 valeva 3,39. La superficie vera vive
   /// in RegimeChiaro.superficieChiara, che dichiara il caso PEGGIORE misurato:
   /// si chiede a lei invece di riscrivere un colore che il tempo ha smentito.
-  final vetro = RegimeChiaro.superficieChiara;
+  const vetro = RegimeChiaro.superficieChiara;
 
-  double _canale(double v) =>
+  double canale(double v) =>
       v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
 
   double luminanza(Color c) =>
-      0.2126 * _canale(c.r) + 0.7152 * _canale(c.g) + 0.0722 * _canale(c.b);
+      0.2126 * canale(c.r) + 0.7152 * canale(c.g) + 0.0722 * canale(c.b);
 
   double contrasto(Color a, Color b) {
     final la = luminanza(a);

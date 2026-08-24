@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_place.dart';
-import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// IL CERCHIO CUSTODISCE IL CAMMINO, NON SOLO IL DENARO. Ordine AP voce 01.

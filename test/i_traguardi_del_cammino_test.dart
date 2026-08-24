@@ -50,9 +50,6 @@ void main() {
     // sull'insieme.
   };
 
-  /// Quante voci di memoria deve avere il Cammino nel suo insieme.
-  const memoriaInTutto = 3;
-
   test('165 traguardi, 55 per sentiero, nelle posizioni giuste', () {
     expect(Sentieri.tuttiITraguardi, hasLength(165),
         reason: 'i traguardi non sono 165');
@@ -290,7 +287,7 @@ void main() {
     // contraddizione e' dichiarata accanto al codice e nel rapporto: qui si
     // verifica che i dati siano coerenti con la curva, che e' la cosa che
     // una prova puo' sorvegliare.
-    final atteso = Sentieri.eosAttesiPerSentiero;
+    const atteso = Sentieri.eosAttesiPerSentiero;
     expect(atteso, 2010,
         reason: 'la curva degli Eos non e piu quella decisa: se il cambio e '
             'voluto, va cambiato anche questo numero, e con lui il rapporto');

@@ -28,7 +28,6 @@ import 'medora_stage.dart';
 import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
 import '../maestri/rotta_arte.dart';
-import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.

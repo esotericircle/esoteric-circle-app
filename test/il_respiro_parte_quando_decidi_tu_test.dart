@@ -19,9 +19,9 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: riduci),
           child: child!,
         ),
-        home: Scaffold(
-          backgroundColor: const Color(0xFF0B1020),
-          body: const Center(
+        home: const Scaffold(
+          backgroundColor: Color(0xFF0B1020),
+          body: Center(
             child: GuidaDelRespiro(
               tempi: TempiDelRespiro(tempi: 4, giri: 3),
               colore: Color(0xFF66BB6A),

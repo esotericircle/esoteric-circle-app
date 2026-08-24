@@ -160,7 +160,7 @@ void main() {
     // dell'anatomia, "da dove viene", esiste solo quando la persona ha la carta e il
     // cielo e' vero, ed e' li' che va guardata.
     final voci = [
-      VoceDelCielo(
+      const VoceDelCielo(
         transito: CorpoCeleste.venere,
         bersaglio: 'Saturno',
         idBersaglio: 'saturn',

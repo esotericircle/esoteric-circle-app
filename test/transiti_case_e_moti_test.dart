@@ -32,7 +32,7 @@ void main() {
         ascendantLongitude: conOra ? 10.0 : null,
         houses: conCase ? cuspidi : const [],
         planets: [
-          PlanetPosition(
+          const PlanetPosition(
               id: 'sun',
               name: 'Sole',
               glyph: '☉',

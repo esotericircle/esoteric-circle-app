@@ -317,7 +317,7 @@ List<String> _chiamantiDi(Motore m) {
 /// Non si carica quello vero dagli asset, perche' la Ronda deve poter girare
 /// anche senza il bundle: cio' che si misura e' il MOTORE, non i dati.
 SkyCatalog _catalogoDiProva() => SkyCatalog([
-      CatalogConstellation(
+      const CatalogConstellation(
         name: 'Prova',
         stars: [
           [10.0, 20.0, 1.5],

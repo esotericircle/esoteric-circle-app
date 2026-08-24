@@ -240,7 +240,7 @@ void main() {
       a = px[3];
       expect(w, 192);
     });
-    final atteso = ColorTokens.neutralDeep;
+    const atteso = ColorTokens.neutralDeep;
     // ignore: avoid_print
     print('ORDINE BB VOCE 13: l angolo dell icona e rgba($r, $g, $b, $a)');
     expect(a, 255, reason: 'l icona piena ha un angolo trasparente');

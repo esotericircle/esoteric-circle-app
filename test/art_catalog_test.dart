@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';

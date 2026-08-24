@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/maestro/voce_del_maestro.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
-import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 

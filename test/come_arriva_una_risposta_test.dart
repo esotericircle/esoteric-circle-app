@@ -7,7 +7,6 @@ import 'package:esoteric_circle/core/chat/scorrimento_della_lettura.dart';
 import 'package:esoteric_circle/core/chat/testo_del_responso.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
-import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/maestro/frasi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';

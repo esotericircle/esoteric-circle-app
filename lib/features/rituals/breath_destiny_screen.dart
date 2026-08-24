@@ -22,7 +22,6 @@ import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
-import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/rituals/tempi_del_respiro.dart';
@@ -842,15 +841,6 @@ class _BreathScenePainter extends CustomPainter {
 
     // --- Semi che volano via verso l'alto come scintille, con deriva di vento --
     _paintSeeds(canvas, headCenter, headR, giftCenter, p);
-  }
-
-  void _drawCover(Canvas canvas, ui.Image img, Size size, Paint paint) {
-    final iw = img.width.toDouble(), ih = img.height.toDouble();
-    final scale = math.max(size.width / iw, size.height / ih);
-    final dw = iw * scale, dh = ih * scale;
-    final dst = Rect.fromLTWH(
-        (size.width - dw) / 2, (size.height - dh) / 2, dw, dh);
-    canvas.drawImageRect(img, Rect.fromLTWH(0, 0, iw, ih), dst, paint);
   }
 
   // Il visivo del dono, provvisorio ma costruito: un soffione di luce, non una

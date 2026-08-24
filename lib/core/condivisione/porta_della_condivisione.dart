@@ -54,7 +54,6 @@ class PortaDellaCondivisione {
       return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
-      assert(errore is Object);
       // Non si rilancia: chi condivide sta finendo un rito, e un'eccezione
       // sopra una celebrazione e' peggio di una condivisione mancata. Chi ha
       // chiamato riceve falso e decide cosa dire.
@@ -82,7 +81,6 @@ class PortaDellaCondivisione {
       return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
-      assert(errore is Object);
       return false;
     }
   }
@@ -112,7 +110,6 @@ class PortaDellaCondivisione {
       );
       return avvenuta(esito);
     } catch (errore) {
-      assert(errore is Object);
       return false;
     }
   }
@@ -135,7 +132,6 @@ class PortaDellaCondivisione {
       return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
-      assert(errore is Object);
       return false;
     }
   }

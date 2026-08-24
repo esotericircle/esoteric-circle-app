@@ -62,9 +62,17 @@ void main() {
       if (versioneCodemagic != dichiarata)
         '$codemagic dice $versioneCodemagic contro $dichiarata',
     ];
+    for (final f in altre) {
+      final v = RegExp(r'flutter-version:\s*([\d.]+)')
+          .firstMatch(File(f).readAsStringSync())
+          ?.group(1);
+      if (v != dichiarata) {
+        disallineati.add('$f dice ${v ?? "ASSENTE"} contro $dichiarata');
+      }
+    }
     expect(disallineati, isEmpty,
         reason: 'la versione di Flutter non e\' piu\' una sola: '
             '${disallineati.join(" | ")}. Chi rialza, rialza il sovrano '
-            '$sovrano e i due file della CI insieme');
+            '$sovrano e i file della CI insieme');
   });
 }

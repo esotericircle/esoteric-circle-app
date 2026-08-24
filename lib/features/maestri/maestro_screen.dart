@@ -10,13 +10,10 @@ export 'widgets/striscia_altre_arti.dart'
     show StrisciaAltreArti, artiDaScoprire, maestroDellArte, rottaDiProva;
 
 import '../../core/arts/art_catalog.dart';
-import '../../core/astro/night_sky.dart';
-import '../../core/astro/zodiac.dart';
 import '../../core/chat/immersive_intents.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/lang/euphonic.dart';
-import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/art_card.dart';
@@ -32,7 +29,6 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'art_navigation.dart';
 import 'chat/maestro_chat_screen.dart';
-import 'immersive_navigation.dart';
 import 'widgets/busto_del_maestro.dart';
 
 /// Sezione di un Maestro.
@@ -205,15 +201,6 @@ class _ArtSectionBox extends StatelessWidget {
         for (final a in section.arts)
           if (a.state == ArtState.inArrivo) a,
       ];
-
-  /// Il segno solare della persona, che serve alle arti che lo chiedono.
-  Zodiac _userSign(BuildContext context) {
-    final birth = context.read<BirthIdentityController>();
-    final chart = birth.chart;
-    if (chart != null) return chart.sunSign;
-    return NightSky.sunSign(
-        context.read<ProfileController>().identity.birthMoment);
-  }
 
   Future<void> _openArt(BuildContext context, ArtEntry art) async {
     final profile = context.read<ProfileController>();

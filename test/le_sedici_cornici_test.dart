@@ -244,7 +244,7 @@ void main() {
     // Allegato B aggiornato: la cornice della giornata non chiude, apre. Chi getta
     // senza domanda esce con una domanda per il giorno dopo, ed e' il ritorno che
     // la voce cerca.
-    final g = CorniciDelPresagio.dellaGiornata;
+    const g = CorniciDelPresagio.dellaGiornata;
     expect(g.domanda, isEmpty,
         reason: 'la cornice della giornata non ha una domanda, per definizione');
     expect(g.apertura, contains('giornata'));

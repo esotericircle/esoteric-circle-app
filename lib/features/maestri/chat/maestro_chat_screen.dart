@@ -431,7 +431,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   Widget build(BuildContext context) {
     final controller = context.watch<MaestroChatController>();
     final services = context.read<AppServices>();
-    final palette = context.palette;
 
     // CHI NON VUOLE MOVIMENTO NON HA CHIESTO DI ASPETTARE DI PIU'.
     //
@@ -482,7 +481,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // E il secondo strato NON si riscrive: e' gia' scritto, quindi compare.
       _scriviLUltima = risposta &&
           primaFirma.isNotEmpty &&
-          !(ultimoMessaggio?.approfondita ?? false);
+          !ultimoMessaggio.approfondita;
       if (risposta) {
         _scorriAllInizioDellaRisposta();
       } else {

@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
-import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';

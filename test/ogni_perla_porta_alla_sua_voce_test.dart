@@ -11,7 +11,6 @@ import 'package:esoteric_circle/features/sigilli/disegno_del_sentiero.dart';
 import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:esoteric_circle/core/sigilli/ancoraggi_dei_sentieri.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:esoteric_circle/features/sigilli/journal_dall_arte.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

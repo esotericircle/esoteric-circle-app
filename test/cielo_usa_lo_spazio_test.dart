@@ -127,13 +127,6 @@ void main() {
     return f.evaluate().isEmpty ? 0 : tester.getRect(f).bottom;
   }
 
-  /// Il bordo superiore della scheda, quando c'e'.
-  double? cimaDellaScheda(WidgetTester tester) {
-    final f = find.byType(SingleChildScrollView);
-    if (f.evaluate().isEmpty) return null;
-    return tester.getRect(f.first).top;
-  }
-
   // LA MISURA REALE per prima, poi le altre due del corredo, e per ENTRAMBI i
   // cieli: il cielo di nascita e' la stessa classe con `birth` vero, ed era la
   // porta che non avevo guardato.

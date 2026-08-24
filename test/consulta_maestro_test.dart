@@ -71,7 +71,7 @@ void main() {
     test('eTroncata riconosce il modello che ha finito lo spazio', () {
       GenerateContentResponse con(FinishReason? motivo) =>
           GenerateContentResponse([
-            Candidate(Content.model([TextPart('Un velo')]), null, null, motivo,
+            Candidate(Content.model([const TextPart('Un velo')]), null, null, motivo,
                 null),
           ], null);
 

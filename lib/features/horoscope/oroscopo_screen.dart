@@ -32,7 +32,6 @@ import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
-import '../../design_system/components/borsellino.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //

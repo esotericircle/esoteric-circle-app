@@ -36,13 +36,13 @@ void main() {
 
   /// Una carta completa, con ora e luogo: e' la carta di chi ha finito il
   /// Risveglio dando tutto.
-  NatalChart cartaCompleta() => NatalChart(
+  NatalChart cartaCompleta() => const NatalChart(
         sunSign: Zodiac.leo,
         moonSign: Zodiac.pisces,
         ascendant: Zodiac.scorpio,
         ascendantLongitude: 215.4,
         hasTime: true,
-        planets: const [
+        planets: [
           PlanetPosition(
               id: 'sun',
               name: 'Sole',
@@ -105,7 +105,7 @@ void main() {
       // si scrive la carta, si butta via TUTTO cio' che vive in memoria (che
       // e' cio' che fa il sistema quando uccide il processo) e si riprende da
       // capo, come fa l'app all'avvio.
-      final store = ProfileStore();
+      const store = ProfileStore();
       await store.saveIdentity(identitaCompleta());
 
       final primo = BirthIdentityController();

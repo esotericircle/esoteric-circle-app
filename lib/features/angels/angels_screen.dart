@@ -15,7 +15,6 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/maestro/maestro.dart';
-import '../../../../design_system/components/borsellino.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 

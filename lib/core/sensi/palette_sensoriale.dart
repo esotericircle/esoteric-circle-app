@@ -82,6 +82,9 @@ class PaletteSensoriale {
     SuonoDelCerchio? suono,
   }) async {
     await vibra(context, aptica);
+    // La vibrazione e' appena passata per un await: se nel frattempo il
+    // widget e' smontato, il contesto non si tocca piu'.
+    if (!context.mounted) return;
     if (suono != null) await suona(context, suono);
   }
 

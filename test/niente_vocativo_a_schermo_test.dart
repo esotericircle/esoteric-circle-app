@@ -106,6 +106,6 @@ void main() {
       }
     }
     expect(sospette, isEmpty,
-        reason: 'testi che elencano due participi: ' + sospette.join(', '));
+        reason: 'testi che elencano due participi: ${sospette.join(', ')}');
   });
 }

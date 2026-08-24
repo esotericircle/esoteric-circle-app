@@ -35,7 +35,7 @@ void main() {
   /// Era il difetto della prima stesura di questa prova.
   double sporgenzaDelQuarto(double larghezzaSchermo) {
     final casella = DailyStrip.larghezzaCasella(larghezzaSchermo);
-    final bordoSinistro = SpacingTokens.md;
+    const bordoSinistro = SpacingTokens.md;
     return larghezzaSchermo - (bordoSinistro + casella * 3);
   }
 

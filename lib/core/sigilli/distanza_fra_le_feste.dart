@@ -40,8 +40,9 @@ class DistanzaFraLeFeste {
   /// valore salvato sopravviverebbe alla chiusura dicendo il falso.
   static bool _giaFestaInQuestaApertura = false;
 
-  /// Azzera il conto dell'apertura. Lo chiamano l'avvio dell'app e le prove.
-  @visibleForTesting
+  /// Azzera il conto dell'apertura. Lo chiamano l'avvio dell'app e le prove:
+  /// non e' piu' roba da prove soltanto, e l'annotazione che lo diceva
+  /// faceva suonare l'analisi su main.dart (ordine BF voce 05.g).
   static void nuovaApertura() => _giaFestaInQuestaApertura = false;
 
   /// Vero se la festa e' gia' stata mostrata da quando l'app e' aperta.

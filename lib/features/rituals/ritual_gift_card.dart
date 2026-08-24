@@ -448,7 +448,7 @@ class _BaseRow extends StatelessWidget {
                 // base erano le piu' piccole della scheda e le piu' spaziate,
                 // cioe' le meno leggibili di tutte.
                 label,
-                key: Key('alba_base_etichetta_' + chiaveDi(label)),
+                key: Key('alba_base_etichetta_${chiaveDi(label)}'),
                 style: TypographyTokens.didascalia().copyWith(
                   color: abito.inchiostroMuto,
                   letterSpacing: 0.4,
@@ -463,7 +463,7 @@ class _BaseRow extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           value,
-          key: Key('alba_base_valore_' + chiaveDi(label)),
+          key: Key('alba_base_valore_${chiaveDi(label)}'),
           style: TypographyTokens.corpo().copyWith(
             color: provisional ? abito.inchiostroMuto : abito.inchiostro,
             height: 1.4,

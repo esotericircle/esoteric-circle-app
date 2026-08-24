@@ -39,7 +39,8 @@ void main() {
   /// I TRE MOMENTI DELLA VESTE MISTA: riposo, oro all'atterraggio, ritorno.
   /// Coda all'ordine AI, decisione di Mauro del 17 agosto.
   testWidgets('i tre momenti della veste mista', (tester) async {
-    SharedPreferences.setMockInitialValues(const {});
+    // ignore: invalid_use_of_visible_for_testing_member, questo strumento gira sotto flutter test
+      SharedPreferences.setMockInitialValues(const {});
     tester.view.devicePixelRatio = 2.0;
     tester.view.physicalSize = const Size(720, 560);
     addTearDown(tester.view.reset);
@@ -107,7 +108,8 @@ void main() {
   });
 
   testWidgets('le due vesti a tre saldi', (tester) async {
-    SharedPreferences.setMockInitialValues(const {});
+    // ignore: invalid_use_of_visible_for_testing_member, questo strumento gira sotto flutter test
+      SharedPreferences.setMockInitialValues(const {});
     tester.view.devicePixelRatio = 2.0;
     tester.view.physicalSize = const Size(720, 1960);
     addTearDown(tester.view.reset);

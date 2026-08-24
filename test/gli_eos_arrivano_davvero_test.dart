@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/libro_degli_accrediti.dart';
-import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';

@@ -148,6 +148,8 @@ dev_dependencies:
   # via che il pacchetto usa per provare se stesso.
   video_player_platform_interface: ^6.9.0
 
+  crypto: any
+  share_plus_platform_interface: any
 flutter:
   uses-material-design: true
 

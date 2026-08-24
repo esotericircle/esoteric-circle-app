@@ -33,7 +33,6 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
-import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 

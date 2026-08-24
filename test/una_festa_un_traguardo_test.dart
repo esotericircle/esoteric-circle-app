@@ -5,7 +5,6 @@ import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/distanza_fra_le_feste.dart';
 import 'package:esoteric_circle/core/sigilli/pezzi_dell_identita.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,11 +28,11 @@ void main() {
   /// Lo stato del cammino come e' alla FINE DELL'ONBOARDING: la persona ha
   /// dato i suoi dati, la carta natale e' stata calcolata e i pezzi
   /// dell'identita' che l'onboarding completa sono a posto.
-  StatoDelCammino fineDellOnboarding() => StatoDelCammino(
-        gestiCompiuti: const {'carta_natale': 1, 'passaporto': 1},
-        giorniConGesto: const {'carta_natale': 1, 'passaporto': 1},
-        oggiHaFatto: const {'carta_natale', 'passaporto'},
-        pezziDellIdentita: const {
+  StatoDelCammino fineDellOnboarding() => const StatoDelCammino(
+        gestiCompiuti: {'carta_natale': 1, 'passaporto': 1},
+        giorniConGesto: {'carta_natale': 1, 'passaporto': 1},
+        oggiHaFatto: {'carta_natale', 'passaporto'},
+        pezziDellIdentita: {
           'carta_natale',
           'passaporto',
           'numero_della_vita',

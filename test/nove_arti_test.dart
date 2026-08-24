@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';

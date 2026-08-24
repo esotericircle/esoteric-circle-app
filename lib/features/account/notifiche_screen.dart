@@ -89,7 +89,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
     final ok = await requestPermissionWithPrelude(
       context,
       permission: AppPermission.notifications,
-      palette: MaestroPalette.forKey(ThemeKey.of(Maestro.medora)),
+      palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
       copy: const PermissionCopy(
         icon: Icons.notifications_active_rounded,
         title: 'Posso chiamarti quando è l\'ora?',
@@ -186,7 +186,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(Maestro.medora));
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final scelta = context.watch<SceltaDegliAvvisi>();
     final accesi = DailyElement.values.where(scelta.chiama).length;
 

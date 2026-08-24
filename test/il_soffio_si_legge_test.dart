@@ -3,7 +3,6 @@ import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -10,7 +10,6 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
-import '../../../../../design_system/components/borsellino.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Meditazione di Aura con suono e cimatica.

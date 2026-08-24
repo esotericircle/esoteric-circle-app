@@ -122,7 +122,7 @@ void main() {
 
     // E gli eventi di tutti ci sono lo stesso: la Luna piena arriva per
     // chiunque, anche per chi non ha dato la sua nascita.
-    expect(find.byKey(Key('evento_${EventiDelCielo.lunaPiena}')),
+    expect(find.byKey(const Key('evento_${EventiDelCielo.lunaPiena}')),
         findsOneWidget,
         reason: 'senza identita\' sparisce anche la Luna piena, che non '
             'dipende da chi sei');
@@ -145,7 +145,7 @@ void main() {
     expect(find.byKey(const Key('calendario_invito_al_profilo')), findsNothing,
         reason: 'con l\'identita\' data l\'invito a completarla resta li\' '
             'a chiedere una cosa gia\' fatta');
-    final mia = find.byKey(Key('evento_${EventiDelCielo.lunaNelTuoSegno}'));
+    final mia = find.byKey(const Key('evento_${EventiDelCielo.lunaNelTuoSegno}'));
     for (var giro = 0; giro < 12 && mia.evaluate().isEmpty; giro++) {
       await tester.dragFrom(const Offset(180, 500), const Offset(0, -280));
       await tester.pump(const Duration(milliseconds: 150));

@@ -15,7 +15,6 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/maestro_chat_screen.dart';
 import '../../rotta_arte.dart';
-import '../../../../../design_system/components/borsellino.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Il Sigillo dell'Intenzione, terza arte distintiva di Caligo.

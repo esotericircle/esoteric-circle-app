@@ -62,13 +62,6 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  Future<void> ancora(WidgetTester tester) async {
-    await tester.ensureVisible(find.byKey(const Key('rune_recast')));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('rune_recast')));
-    await tester.pump(const Duration(milliseconds: 400));
-  }
-
   String conto(WidgetTester tester) {
     final t = tester
         .widget<Text>(find.byKey(const Key('rune_conto_gettate')).first);

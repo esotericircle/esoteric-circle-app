@@ -154,8 +154,3 @@ void main() {
     }
   });
 }
-
-/// Solo per leggere la durata dichiarata della fascia senza copiarla.
-class _FasciaDiProva {
-  static const Duration quantoResta = Duration(seconds: 6);
-}

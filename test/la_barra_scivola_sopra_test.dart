@@ -4,7 +4,6 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
 import 'package:esoteric_circle/services/app_services.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -62,15 +61,11 @@ void main() {
   Finder ilCorpo() => find.byWidgetPredicate(
       (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
 
-  double quantoHaScorso(WidgetTester tester) =>
-      tester.state<ScrollableState>(ilCorpo().first).position.pixels;
-
   testWidgets('nella home la carta del Maestro non cambia misura ne\' salta',
       (tester) async {
     await monta(tester);
     final carta = find.byKey(const Key('santuario_central_bust'));
     final prima = tester.getRect(carta);
-    final scorsoPrima = quantoHaScorso(tester);
 
     final gesto = await tester.startGesture(tester.getCenter(ilCorpo().first));
     await gesto.moveBy(const Offset(0, -kDragSlopDefault));

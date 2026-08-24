@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -125,13 +124,6 @@ void main() {
   double fondoDellaBarra(WidgetTester tester) {
     final f = find.byType(AppBar);
     return f.evaluate().isEmpty ? 0 : tester.getRect(f).bottom;
-  }
-
-  /// Il bordo superiore della scheda, quando c'e'.
-  double? cimaDellaScheda(WidgetTester tester) {
-    final f = find.byType(SingleChildScrollView);
-    if (f.evaluate().isEmpty) return null;
-    return tester.getRect(f.first).top;
   }
 
   // LA MISURA REALE per prima, poi le altre due del corredo, e per ENTRAMBI i

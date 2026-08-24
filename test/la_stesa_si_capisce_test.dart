@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';

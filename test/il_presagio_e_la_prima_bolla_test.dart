@@ -41,7 +41,7 @@ void main() {
     // che la lunghezza del presagio e' l'unica gia' giusta. Il pavimento e' il
     // TETTO DELLE RUNE BREVI moltiplicato per tre: se il presagio scendesse sotto,
     // vorrebbe dire che qualcuno lo ha uniformato alle bolle brevi.
-    final pavimento = TettiDeiResponsi.runaBreve * 3;
+    const pavimento = TettiDeiResponsi.runaBreve * 3;
     final corti = <String>[];
     for (final gettata in gettate) {
       for (var seme = 0; seme < 40; seme++) {

@@ -30,7 +30,6 @@ import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/sky.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
-import '../../../design_system/components/borsellino.dart';
 import '../maestri/rotta_arte.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
@@ -1236,10 +1235,6 @@ class _SkyBody {
         // quel caso, quindi la si legge da li' invece di ricalcolarla.
         sottoIlSuolo: cielo != null && cielo.moon == null,
       );
-
-  /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
-  /// stessa soglia con cui il motore filtra le stelle, cosi' i due concordano.
-  static const double _altezzaMinima = kAltezzaOrizzonte;
 
   factory _SkyBody.constellation(Zodiac sign, Offset slot,
           {SkySnapshot? cielo, bool birth = false, SkyCatalog? catalogo}) =>

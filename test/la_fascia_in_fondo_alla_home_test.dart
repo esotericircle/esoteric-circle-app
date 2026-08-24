@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:esoteric_circle/services/app_services.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

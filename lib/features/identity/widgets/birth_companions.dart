@@ -8,7 +8,6 @@ import '../../../core/identity/birth_identity.dart';
 import '../../../core/rituals/guide_animal_derivation.dart';
 import '../../../design_system/components/depth_card.dart';
 import '../../angels/angelo_ingrandito.dart';
-import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';

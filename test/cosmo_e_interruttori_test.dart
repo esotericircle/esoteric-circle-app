@@ -16,10 +16,10 @@ void main() {
     // terzo dello schermo. L'avviso non c'entrava: lo Stack del cosmo prendeva
     // l'altezza del contenuto, quindi con un contenuto corto il cielo finiva
     // dove finiva lui. Ogni schermata sta sul cosmo condiviso, per intero.
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: MaestroScope(
         maestro: Maestro.aura,
-        child: const Scaffold(
+        child: Scaffold(
           backgroundColor: Colors.transparent,
           body: CosmosBackground(
             seed: 7,

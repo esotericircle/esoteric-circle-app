@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/permissions/esito_del_permesso.dart';
 import 'package:esoteric_circle/core/permissions/registro_dei_permessi.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';

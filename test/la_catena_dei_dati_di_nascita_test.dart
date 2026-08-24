@@ -212,7 +212,12 @@ void main() {
     // dell'Alba, che la posizione la chiede quando qualcuno lo apre, e la
     // rimette sullo stesso id senza sdoppiare la chiamata.
     // leggere.
-    expect(elenco.length, 13,
+    // DODICI dall'ordine BF del 24 agosto 2026, e il conto scende per la
+    // seconda volta: maestro_screen chiedeva la carta dentro _userSign, un
+    // metodo che NESSUNO chiamava piu', trovato dalla bonifica analyze
+    // (BF.05.g). Un consumatore che nessuno chiama non consuma niente:
+    // toglierlo non toglie un dato a nessuno.
+    expect(elenco.length, 12,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
             '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '

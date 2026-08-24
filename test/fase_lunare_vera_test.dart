@@ -30,7 +30,7 @@ void main() {
     (2025, 1, 29, 12, 36),
   ];
 
-  DateTime _d((int, int, int, int, int) t) =>
+  DateTime d0((int, int, int, int, int) t) =>
       DateTime.utc(t.$1, t.$2, t.$3, t.$4, t.$5);
 
   group('Un motore solo, quello vero', () {
@@ -69,7 +69,7 @@ void main() {
   group('Le sizigie cadono nell\'ora giusta', () {
     for (final t in pieneNote) {
       test('Luna piena il ${t.$3}/${t.$2}/${t.$1}', () {
-        final fase = MoonPhase.forDate(_d(t));
+        final fase = MoonPhase.forDate(d0(t));
         expect(fase.illumination, greaterThan(0.995),
             reason: 'all\'istante della sizigia il disco non risulta pieno');
         expect(fase.italianName, 'Luna piena');
@@ -78,7 +78,7 @@ void main() {
 
     for (final t in nuoveNote) {
       test('Luna nuova il ${t.$3}/${t.$2}/${t.$1}', () {
-        final fase = MoonPhase.forDate(_d(t));
+        final fase = MoonPhase.forDate(d0(t));
         expect(fase.illumination, lessThan(0.005),
             reason: 'all\'istante della sizigia il disco non risulta buio');
         expect(fase.italianName, 'Luna nuova');
@@ -108,7 +108,7 @@ void main() {
 
     test('"Luna piena" non dura piu\' di un giorno', () {
       for (final t in pieneNote) {
-        final ore = oreDelNome(_d(t), 'Luna piena');
+        final ore = oreDelNome(d0(t), 'Luna piena');
         expect(ore, lessThanOrEqualTo(27),
             reason: 'attorno al ${t.$3}/${t.$2}/${t.$1} il nome "Luna piena" '
                 'resta per $ore ore: piu\' di un giorno, quindi lo si legge '
@@ -121,7 +121,7 @@ void main() {
 
     test('"Luna nuova" non dura piu\' di un giorno', () {
       for (final t in nuoveNote) {
-        final ore = oreDelNome(_d(t), 'Luna nuova');
+        final ore = oreDelNome(d0(t), 'Luna nuova');
         expect(ore, lessThanOrEqualTo(27),
             reason: 'il nome "Luna nuova" resta per $ore ore');
       }
@@ -131,7 +131,7 @@ void main() {
       // E' esattamente il caso che Mauro ha visto: piena ieri, e l'app che
       // dichiara ancora Luna piena oggi.
       for (final t in pieneNote) {
-        final dopo = _d(t).add(const Duration(hours: 24));
+        final dopo = d0(t).add(const Duration(hours: 24));
         expect(MoonPhase.forDate(dopo).italianName, isNot('Luna piena'),
             reason: 'ventiquattro ore dopo la sizigia del '
                 '${t.$3}/${t.$2}/${t.$1} l\'app dichiara ancora Luna piena');

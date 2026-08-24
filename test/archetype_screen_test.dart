@@ -4,7 +4,6 @@ import 'package:esoteric_circle/core/archetypes/archetype_quiz.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_sky.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_transits.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';

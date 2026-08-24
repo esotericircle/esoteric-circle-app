@@ -169,12 +169,6 @@ class ConfineDelResponso {
       .where((f) => f.trim().isNotEmpty)
       .toList();
 
-  static String _intorno(String testo, int dove) {
-    final da = (dove - 40).clamp(0, testo.length);
-    final a = (dove + 60).clamp(0, testo.length);
-    return testo.substring(da, a).replaceAll('\n', ' ');
-  }
-
   /// IL CONFINE PER IL MODELLO, che e' lo stesso confine.
   ///
   /// Le istruzioni di sistema non riscrivono le regole con parole loro: le

@@ -92,7 +92,6 @@ class _CosmicPassportState extends State<CosmicPassport> {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final id = widget.identity ?? BirthIdentity.example;
-    final profile = context.watch<ProfileController>();
 
     // **LO SPAZIO DELLA BARRA STA DENTRO LO SCROLL.** Decisione di Mauro del
     // 7 agosto 2026, ragione intera su SpazioDellaBarraNelloScroll: il

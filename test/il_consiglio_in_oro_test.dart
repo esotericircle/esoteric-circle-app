@@ -218,9 +218,6 @@ void main() {
   });
 }
 
-/// A VIDEO: la riga in oro sta sotto tutto, anche col seguito rivelato.
-void _aVideo() {}
-
 const String _lungo =
     'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
     'Quello che senti come confusione è un confine che si sposta. '

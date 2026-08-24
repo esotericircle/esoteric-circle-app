@@ -34,7 +34,7 @@ percio' le lunghezze nuove.
 | Rune, presagio della gettata «croce» | 200 | 1027 | 1090 |
 | Rune, presagio della gettata «norne» | 200 | 823 | 877 |
 | Rune, presagio della gettata «odino» | 200 | 645 | 669 |
-| Rune, presagio della gettata «telo» | 200 | 1209 | 1237 |
+| Rune, presagio della gettata «telo» | 200 | 1155 | 1183 |
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
@@ -55,7 +55,7 @@ percio' le lunghezze nuove.
 - **Rune, presagio della gettata «croce»** (1090 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, presagio della gettata «norne»** (877 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, presagio della gettata «odino»** (669 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
-- **Rune, presagio della gettata «telo»** (1237 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «telo»** (1183 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.

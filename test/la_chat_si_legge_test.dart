@@ -36,7 +36,7 @@ void main() {
 
   // I provider che la bolla pretende: l'avatar dell'utente legge il profilo, e
   // il busto del Maestro il livello di qualita'.
-  Widget _conScope(Maestro maestro, Widget figlio) => MultiProvider(
+  Widget conScope(Maestro maestro, Widget figlio) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ProfileController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -82,16 +82,16 @@ void main() {
 
       final radice = GlobalKey();
       const testo = 'Che cosa mi dice il mio cammino?';
-      await tester.pumpWidget(_conScope(
+      await tester.pumpWidget(conScope(
         Maestro.medora,
         RepaintBoundary(
           key: radice,
-          child: Stack(
+          child: const Stack(
             children: [
               // LA STELLA FORZATA: non una stella qualunque del cosmo, ma una
               // superficie piena che copre tutto il riquadro. Se un solo pixel
               // di questo colore ricompare dentro la bolla, il cosmo passa.
-              const Positioned.fill(child: ColoredBox(color: stella)),
+              Positioned.fill(child: ColoredBox(color: stella)),
               Center(
                 // La sonda gira sulla bolla dell'UTENTE, e la scelta e'
                 // misurata, non di gusto. Provata prima sulla bolla del
@@ -101,7 +101,7 @@ void main() {
                 // dell'utente sta a 0,20 e 0,08, cioe' e' il caso che percorre
                 // davvero il ramo difettoso.
                 child: ChatBubble(
-                  message: const ChatMessage(
+                  message: ChatMessage(
                       role: ChatRole.user, text: testo),
                   maestro: Maestro.medora,
                 ),
@@ -159,7 +159,7 @@ void main() {
   group('Il Riprova sta attaccato alla bolla che ha fallito', () {
     testWidgets('C\'e\' quando serve, dentro la bolla', (tester) async {
       var riprovato = false;
-      await tester.pumpWidget(_conScope(
+      await tester.pumpWidget(conScope(
         Maestro.caligo,
         Center(
           child: ChatBubble(
@@ -191,11 +191,11 @@ void main() {
     });
 
     testWidgets('Non c\'e\' su una bolla riuscita', (tester) async {
-      await tester.pumpWidget(_conScope(
+      await tester.pumpWidget(conScope(
         Maestro.aura,
-        Center(
+        const Center(
           child: ChatBubble(
-            message: const ChatMessage(
+            message: ChatMessage(
                 role: ChatRole.maestro, text: 'Il respiro ti aspetta.'),
             maestro: Maestro.aura,
           ),

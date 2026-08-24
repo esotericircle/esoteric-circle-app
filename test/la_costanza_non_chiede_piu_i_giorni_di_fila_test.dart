@@ -102,10 +102,10 @@ void main() {
         .firstWhere((t) => t.condizione is GiorniDentroUnArco);
     final c = traguardo.condizione as GiorniDentroUnArco;
     // Tanti giorni quanti ne chiede, sparsi dentro il suo arco e MAI di fila.
-    final giorni = <String>[
+    final giorni = <String>{
       for (var i = 0; i < c.quanti; i++)
         chiave((i * 2) % c.arco),
-    ].toSet().toList();
+    }.toList();
     SharedPreferences.setMockInitialValues({
       'cammino.giorniPerRito': jsonEncode({c.rito: giorni}),
     });

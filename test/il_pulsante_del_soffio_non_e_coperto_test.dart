@@ -2,7 +2,6 @@ import 'package:esoteric_circle/core/rituals/tempi_del_respiro.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

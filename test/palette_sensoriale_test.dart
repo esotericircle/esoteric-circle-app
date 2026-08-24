@@ -159,8 +159,7 @@ void main() {
       }
     }
     expect(colpevoli, isEmpty,
-        reason: 'queste righe vibrano fuori dalla palette, quindi ignorano '
-              + colpevoli.join(', '));
+        reason: 'queste righe vibrano fuori dalla palette, quindi ignorano ${colpevoli.join(', ')}');
   });
 
   group('I suoni del catalogo, e nessuno fuori', () {
@@ -216,8 +215,7 @@ void main() {
         }
       }
       expect(colpevoli, isEmpty,
-          reason: 'questi punti riproducono suoni fuori dal catalogo: '
-              + colpevoli.join(', '));
+          reason: 'questi punti riproducono suoni fuori dal catalogo: ${colpevoli.join(', ')}');
     });
 
     test('La firma suona una volta sola per sessione', () {

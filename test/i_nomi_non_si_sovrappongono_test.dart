@@ -142,7 +142,7 @@ void main() {
     var spenteDiFila = 0;
     for (var x = 0; x < accese.length; x++) {
       if (accese[x]) {
-        if (inizio == null) inizio = x;
+        inizio ??= x;
         spenteDiFila = 0;
       } else if (inizio != null) {
         spenteDiFila++;

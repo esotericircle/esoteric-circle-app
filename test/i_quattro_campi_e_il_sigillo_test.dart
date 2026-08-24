@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/core/sigilli/stato_del_sigillo.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// I QUATTRO CAMPI E IL SIGILLO, ordine P voci 19, 20 e 21, con la CORREZIONE

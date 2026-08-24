@@ -50,7 +50,7 @@ void main() {
 
   test('il workflow degli screenshot non e\' tornato col suo nome', () {
     // Il nome del file si compone, cosi' questa prova non si accusa da sola.
-    final nome = 'chat-' 'screenshot.yml';
+    const nome = 'chat-' 'screenshot.yml';
     expect(File('.github/workflows/$nome').existsSync(), isFalse,
         reason: 'l\'azione che committava le anteprime da sola e\' tornata nel '
             'repository: era stata tolta il 12 agosto 2026 proprio perche\' '

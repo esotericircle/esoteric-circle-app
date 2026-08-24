@@ -4,7 +4,6 @@ import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// OGNI RUNA HA IL SUO RETRO, ED E' LA SUA PIETRA.

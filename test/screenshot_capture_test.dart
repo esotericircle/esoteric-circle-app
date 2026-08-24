@@ -1096,24 +1096,6 @@ void main() {
     await tester.pump(const Duration(milliseconds: 2600));
     await capture(tester, rootKey, 'meditazione-aura.png');
   });
-
-  // --- I quattro rituali del giorno ---
-  Future<void> captureRitual(
-    WidgetTester tester,
-    GlobalKey rootKey,
-    Route<void> route,
-    Future<void> Function() reveal,
-    String name,
-  ) async {
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(route));
-    await step(tester);
-    await step(tester);
-    await reveal();
-    await tester.pump(const Duration(milliseconds: 700));
-    await capture(tester, rootKey, name);
-  }
-
   testWidgets('Cattura il Rito dell\'Alba, velato e col dono', (tester) async {
     silenceSensors();
     // Semina la continuita' in locale cosi' la cattura del dono mostra il chip
@@ -1904,7 +1886,7 @@ void main() {
   /// proprietario li dichiara ciascuna per se', qui si sceglie solo a quale
   /// chiederli. Scriverli in questo file sarebbe la seconda dichiarazione, ed e'
   /// il difetto che la voce 27 chiude.
-  Widget _conLaSuaSoglia(Widget schermata) => switch (schermata) {
+  Widget conLaSuaSoglia(Widget schermata) => switch (schermata) {
         RuneDrawScreen() => RuneDrawScreen.conLaSoglia(schermata),
         GuideAnimalScreen() => GuideAnimalScreen.conLaSoglia(schermata),
         _ => schermata,
@@ -1917,7 +1899,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
-        key: rootKey, child: caligoApp(_conLaSuaSoglia(schermata))));
+        key: rootKey, child: caligoApp(conLaSuaSoglia(schermata))));
     await step(tester);
     await step(tester);
     return rootKey;
@@ -5120,15 +5102,15 @@ void main() {
     final rootKey = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: rootKey,
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           // Il verde del prato del Soffio, che e' la superficie su cui la
           // parola grande deve leggersi.
-          backgroundColor: const Color(0xFFBFD5B2),
+          backgroundColor: Color(0xFFBFD5B2),
           body: Center(
             child: GuidaDelRespiro(
-                tempi: tempi, colore: const Color(0xFFD8C89B)),
+                tempi: tempi, colore: Color(0xFFD8C89B)),
           ),
         ),
       ),

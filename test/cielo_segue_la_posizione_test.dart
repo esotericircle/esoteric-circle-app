@@ -1,8 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
-import 'package:esoteric_circle/core/astro/sky.dart';
-import 'package:esoteric_circle/core/astro/sky_catalog.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';

@@ -29,7 +29,7 @@ void main() {
     test('una citta\' scelta vale quanto il dispositivo per il sorgere', () {
       // La stima dal fuso non si dichiara mai; una citta' scelta si', ed e' la
       // riga che rende la fascia raggiungibile a chi dice no al permesso.
-      final milano = LuogoAttuale(
+      const milano = LuogoAttuale(
           lat: 45.4642,
           lon: 9.19,
           citta: 'Milano',
@@ -48,7 +48,7 @@ void main() {
     test('il dispositivo viene PRIMA della citta\' dichiarata', () {
       // Chi e' in viaggio ha concesso la posizione: l'alba e' dove sei adesso,
       // non dove hai detto di vivere.
-      final milano = LuogoAttuale(
+      const milano = LuogoAttuale(
           lat: 45.4642,
           lon: 9.19,
           citta: 'Milano',
@@ -78,7 +78,7 @@ void main() {
       // Senza questo la citta' andrebbe scelta ogni mattina, e nessuno la
       // sceglie due volte.
       expect(await DoveSonoAdesso.letto(), isNull);
-      await DoveSonoAdesso.scrivi(LuogoAttuale(
+      await DoveSonoAdesso.scrivi(const LuogoAttuale(
           lat: 45.4642,
           lon: 9.19,
           citta: 'Milano',

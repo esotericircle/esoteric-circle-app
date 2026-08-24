@@ -25,12 +25,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final carta = NatalChart(
+  const carta = NatalChart(
     sunSign: Zodiac.aries,
-    planets: const [],
+    planets: [],
     ascendantLongitude: 205.0,
     midheavenLongitude: 115.0,
-    houses: const [],
+    houses: [],
     hasTime: true,
   );
 

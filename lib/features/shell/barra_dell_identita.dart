@@ -121,11 +121,11 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
           child: widget.child,
         ),
         if (siVede)
-          Positioned(
+          const Positioned(
             left: 0,
             right: 0,
             top: 0,
-            child: const _LaBarra(),
+            child: _LaBarra(),
           ),
       ],
     );
@@ -156,15 +156,15 @@ class _LaBarra extends StatelessWidget {
                 BorderSide(color: palette.goldSoft.withValues(alpha: 0.22)),
           ),
         ),
-        child: Row(
+        child: const Row(
           children: [
-            const SizedBox(width: SpacingTokens.sm),
+            SizedBox(width: SpacingTokens.sm),
             // 1. IL VOLTO, e SOLO il volto. Ordine AR voce 10: il nome e'
             // uscito dalla barra, perche' con un nome lungo si sovrapponeva
             // al resto. Chi sono lo dice il volto, che e' anche la porta
             // dell'account.
             _AreaDiTocco(
-              chiave: const Key('barra_volto'),
+              chiave: Key('barra_volto'),
               // **AL PRIMO TOCCO SI VA ALL'ACCOUNT.** Prima il volto apriva
               // la barra e solo da aperta portava all'account.
               suTocco: NavigazioneDellaBarra.allAccount,
@@ -173,18 +173,18 @@ class _LaBarra extends StatelessWidget {
               // qui dentro `Navigator.of(context)` non trova niente, quindi
               // il volto non puo' usare la sua via di casa e riceve quella
               // che passa dall'osservatore della pila.
-              child: const PortaDellAccount(
+              child: PortaDellAccount(
                 misura: 22,
                 suTocco: NavigazioneDellaBarra.allAccount,
               ),
             ),
             // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
             // PRIMO tocco.
-            const Expanded(child: _PortaDegliEventiCosmici()),
+            Expanded(child: _PortaDegliEventiCosmici()),
             // 3. IL BORSELLINO, moneta d'oro e saldo, che apre il borsellino
             // al primo tocco.
             _AreaDiTocco(
-              chiave: const Key('barra_borsellino'),
+              chiave: Key('barra_borsellino'),
               suTocco: null,
               child: SegnoDelBorsellino(
                 compatta: true,
@@ -194,7 +194,7 @@ class _LaBarra extends StatelessWidget {
                     NavigazioneDellaBarra.contestoDelNavigatore,
               ),
             ),
-            const SizedBox(width: SpacingTokens.sm),
+            SizedBox(width: SpacingTokens.sm),
           ],
         ),
       ),
