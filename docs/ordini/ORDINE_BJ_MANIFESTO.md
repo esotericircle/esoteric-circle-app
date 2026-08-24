@@ -25,12 +25,12 @@ rito non lo ha ancora compiuto.
 
 - **BJ.00** Il manifesto con la guardia. CHIUSA: questo file e `test/ordine_bj_guard_test.dart`.
 - **BJ.01** Durante il Risveglio nessuna richiesta. CHIUSA: l'invito del Santuario controlla l'OnboardingController PRIMA della regola del momento (rito non compiuto: silenzio), il Piu' tardi del passo della custodia segna la data dell'ultimo invito (il passo VALE come primo avviso, o il foglio sbucherebbe nel Santuario subito dopo il no), e la chiave del disco vive in una casa sola (QuandoChiedereLaCustodia.chiaveUltimoInvito, l'inventario la riferisce). Guardia: test/la_registrazione_non_interrompe_il_risveglio_test.dart.
-- **BJ.02** Suite, build e consegna su App Tester. APERTA.
+- **BJ.02** Suite, build e consegna. CHIUSA: suite finale 3.456 verdi e DUE rossi di legge (l'attribuzione cieca e questa guardia, aperta fino alla consegna); analyze a zero. Build 0.1.0+2205, integrita' dell'archivio verificata, PROVA DI ACCENSIONE SALTATA PER ORDINE ESPLICITO DEL FONDATORE ("non fare l'accensione da PC, controllo io tutto"): il collaudo e' suo. Consegnata su App Distribution a cloud@esotericircle.app, release 479aqgmv17r18, registro da 2204 a 2205.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 3
-VOCI_APERTE: 1
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 3
