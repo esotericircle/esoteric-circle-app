@@ -538,7 +538,7 @@ class PortafoglioDelCerchio {
     final palette = context.palette;
     // **IL FOGLIO NON SALE SOTTO LA BARRA, ordine BG voce 02.** Con
     // isScrollControlled e il contenuto cresciuto il foglio arrivava fino in
-    // cima allo schermo, e il saldo ("330 Eos", screenshot del fondatore)
+    // cima allo schermo, e il saldo in Eos (screenshot del fondatore)
     // finiva sotto la barra sottile, che e' un livello sopra il Navigator.
     // Il tetto lascia libera la fascia di stato piu' la barra piu' un
     // respiro.

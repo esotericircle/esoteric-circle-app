@@ -14,6 +14,7 @@ import 'specchio_dei_dati.dart';
 import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/night_sky.dart';
+import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
@@ -1032,6 +1033,12 @@ class _SentieriDelCammino extends StatelessWidget {
                 style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft)),
           ),
+          // **IL FILO DEI GIORNI, mossa 3 del documento RETENTION, ordine BG
+          // voce 06.** Un segno discreto di continuita', nel Passport e non
+          // in faccia: la serie invita, non ricatta. Si mostra il filo VIVO
+          // piu' lungo (il diario tiene solo le serie non rotte), e con
+          // nessun filo vivo la riga tace: uno zero qui sarebbe un rimprovero.
+          _FiloDeiGiorni(palette: palette),
           for (final sentiero in Sentieri.tutti) ...[
             ListTile(
               key: Key('porta_${sentiero.name}'),
@@ -1069,6 +1076,64 @@ class _SentieriDelCammino extends StatelessWidget {
           ],
         ],
       ),
+      ),
+    );
+  }
+}
+
+
+/// IL FILO DEI GIORNI: il rito con la serie viva piu' lunga, in una riga.
+class _FiloDeiGiorni extends StatelessWidget {
+  const _FiloDeiGiorni({required this.palette});
+
+  final MaestroPalette palette;
+
+  /// Il nome del rito come lo direbbe una persona, con l'articolo suo:
+  /// la frase lo incolla a "di seguito", e "col Runa" sarebbe uno sfregio.
+  static const Map<String, String> _nomi = {
+    'alba': "col Rito dell'Alba",
+    'soffio': 'col Soffio del Destino',
+    'oracolo': "con l'Arcano del Giorno",
+    'tramonto': 'con la Runa del Tramonto',
+    'sogno': 'col Sigillo del Sogno',
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    DiarioDelCammino? diario;
+    try {
+      diario = context.watch<DiarioDelCammino>();
+    } catch (errore) {
+      diario = null;
+    }
+    final serie = diario?.seriePerRito ?? const {};
+    // Il diario tiene una serie per OGNI gesto, anche il passaporto o il
+    // viso: qui contano solo i cinque Doni del giorno, i riti veri.
+    MapEntry<String, int>? migliore;
+    for (final voce in serie.entries) {
+      if (!_nomi.containsKey(voce.key)) continue;
+      if (voce.value >= 2 && (migliore == null || voce.value > migliore.value)) {
+        migliore = voce;
+      }
+    }
+    if (migliore == null) return const SizedBox.shrink();
+    final nome = _nomi[migliore.key]!;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.md, SpacingTokens.xs, SpacingTokens.md, 0),
+      child: Row(
+        children: [
+          Icon(Icons.timeline_rounded, size: 16, color: palette.goldSoft),
+          const SizedBox(width: SpacingTokens.xs),
+          Expanded(
+            child: Text(
+              'Il tuo filo: ${migliore.value} giorni di seguito $nome.',
+              key: const Key('filo_dei_giorni'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ),
+        ],
       ),
     );
   }
