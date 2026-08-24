@@ -56,7 +56,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.05.a** Le rune concordate e mai eseguite (spazio sotto le pietre, pulsanti che restano, responsi tagliati, presagio prima delle bolle, sigillo a una sola asta). APERTA.
 - **BF.05.b** La meditazione non ha una fine (ordine P voce 35), coi tre dati mai registrati e i cinque gradini dormienti. APERTA.
 - **BF.05.c** Il campo della chat trasparente. APERTA.
-- **BF.05.d** La ridondanza nelle schede delle rune ("Al centro" e "la piu' vicina al centro"). APERTA.
+- **BF.05.d** La ridondanza nelle schede delle rune. CHIUSA: le glosse del getto sul telo non ripetono piu' il titolo, dicono il PESO della posizione nella lettura ("la voce che pesa di piu'", "la voce di mezzo", "la voce piu' lieve"), che e' la regola del telo e l'informazione che il titolo non porta. Vale anche nel presagio ("Per la voce che pesa di piu', ..."). Prove del telo e della lingua verdi.
 - **BF.05.e** La prova dell'occlusione estesa al dominio e all'Oroscopo. APERTA.
 - **BF.05.f** La verifica BackdropFilter su Impeller. APERTA.
 - **BF.05.g** Analyze da 70 a 128 avvisi, mai esaminato voce per voce. APERTA.
@@ -84,4 +84,4 @@ VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 2
 LAVORI_BF05_TOTALI: 13
-LAVORI_BF05_APERTI: 11
+LAVORI_BF05_APERTI: 10

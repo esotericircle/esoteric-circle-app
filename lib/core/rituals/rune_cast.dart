@@ -149,9 +149,14 @@ const GettataRune gettataTelo = GettataRune(
   libera: true,
   sparse: 7,
   posizioni: [
-    PosizioneGettata('Al centro', 'la più vicina al centro'),
-    PosizioneGettata('Presso il centro', 'vicina al centro'),
-    PosizioneGettata('Ai margini', 'verso i margini della luce'),
+    // **LA GLOSSA NON RIPETE IL TITOLO, ordine BF voce 05.d.** Sulla scheda
+    // i due compaiono affiancati ("Al centro · la più vicina al centro"
+    // diceva la stessa cosa due volte): la glossa adesso dice il PESO che
+    // quella posizione ha nella lettura, che e' l'informazione che il titolo
+    // non porta, ed e' la regola del telo ("la più vicina pesa di più").
+    PosizioneGettata('Al centro', 'la voce che pesa di più'),
+    PosizioneGettata('Presso il centro', 'la voce di mezzo'),
+    PosizioneGettata('Ai margini', 'la voce più lieve'),
   ],
   testoDinamico:
       "Il getto sul telo è il metodo storico più antico. Tacito, nella Germania "
