@@ -98,7 +98,9 @@ class ScenaDelRitrovamento extends StatelessWidget {
                 ),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(
-                  'Il Cerchio ti aveva tenuto tutto.',
+                  // **LA FRASE DEL FONDATORE, ordine BI voce 03**: via il
+                  // possesso (ti aveva tenuto tutto), resta il ricordo.
+                  'Il Cerchio si ricorda di te.',
                   textAlign: TextAlign.center,
                   style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.5),
