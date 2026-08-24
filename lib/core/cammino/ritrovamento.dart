@@ -62,6 +62,7 @@ class Ritrovamento {
     required this.cartaRitrovata,
     required this.quantiTraguardi,
     required this.quantiEos,
+    this.cerchioAppenaNato = false,
     required this.nome,
     required this.segno,
     this.rifiutatoDalServer = false,
@@ -161,17 +162,30 @@ class Ritrovamento {
   /// Vero se non c'e' piu' niente da chiedere: il rito non si rifa'.
   bool get siSalta => passiDaChiedere.isEmpty;
 
+  /// **IL CERCHIO E' NATO IN QUESTA SESSIONE**: il benvenuto e' stato
+  /// accreditato dall'ultima sincronia. Ordine BG voce 01.
+  final bool cerchioAppenaNato;
+
   /// Vero se c'e' qualcosa che valga la pena mostrare.
   ///
   /// Chi entra con un account nuovo non deve vedere una scena che celebra il
   /// ritrovamento di zero cose: sarebbe una promessa mantenuta a vuoto.
+  ///
+  /// **E LA DOTE DI NASCITA NON E' UNA COSA TENUTA.** Ordine BG voce 01: un
+  /// Cerchio appena nato ha gia' 270 Eos (benvenuto piu' giorno), e per
+  /// questa regola sembrava un ritorno: "Il Cerchio ti aveva tenuto tutto,
+  /// 270 Eos" detto a chi non aveva niente da ritrovare. Se il Cerchio e'
+  /// appena nato, gli Eos non contano come ritrovamento.
   bool get qualcosaDaMostrare =>
-      cartaRitrovata || quantiTraguardi > 0 || quantiEos > 0;
+      cartaRitrovata ||
+      quantiTraguardi > 0 ||
+      (!cerchioAppenaNato && quantiEos > 0);
 
   /// Legge cosa il Cerchio ha restituito e decide.
   static Ritrovamento da(
     CamminoDaCustodire? cammino, {
     int saldoEos = 0,
+    bool cerchioAppenaNato = false,
     bool rifiutatoDalServer = false,
     bool senzaRisposta = false,
   }) {
@@ -190,6 +204,7 @@ class Ritrovamento {
       cartaRitrovata: identita?.giorno != null,
       quantiTraguardi: cammino?.sigilli.length ?? 0,
       quantiEos: saldoEos,
+      cerchioAppenaNato: cerchioAppenaNato,
       nome: identita?.nome,
       segno: identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
       rifiutatoDalServer: rifiutatoDalServer,

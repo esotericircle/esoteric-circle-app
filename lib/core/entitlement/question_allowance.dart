@@ -488,12 +488,28 @@ class QuestionAllowance extends ChangeNotifier {
     if (stato.accreditati.isNotEmpty) {
       _accreditiDaRaccontare.addAll(stato.accreditati);
     }
+    // **SE IL BENVENUTO E' DI QUESTA CHIAMATA, IL CERCHIO E' APPENA NATO.**
+    // Ordine BG voce 01: il fondatore e' entrato con "Faccio gia' parte del
+    // Cerchio" su un account cancellato, Google ne ha creato uno nuovo in
+    // silenzio (coi provider federati non esiste "email gia' in uso"), e la
+    // scena del ritrovamento gli ha dato il Bentornato mostrando la dote di
+    // nascita come cosa tenuta. Il benvenuto si accredita UNA volta nella
+    // vita di un Cerchio: se e' arrivato adesso, questo Cerchio e' nato
+    // adesso, e nessuno deve dirgli bentornato.
+    _cerchioAppenaNato =
+        stato.accreditati.any((a) => a.motivo == 'benvenuto');
     notifyListeners();
     await _persist();
     return stato.cammino;
   }
 
   final List<AccreditoDellaDote> _accreditiDaRaccontare = [];
+
+  bool _cerchioAppenaNato = false;
+
+  /// Vero se l'ULTIMA sincronia ha accreditato il benvenuto: il Cerchio di
+  /// questa persona e' nato in quella chiamata, non e' un ritorno.
+  bool get cerchioAppenaNato => _cerchioAppenaNato;
 
   /// Gli accrediti del server non ancora scritti nel registro dei movimenti.
   /// Chi li prende se li porta via: e' una consegna, non una lettura, cosi'

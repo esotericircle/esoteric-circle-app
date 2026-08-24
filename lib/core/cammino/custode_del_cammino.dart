@@ -217,7 +217,11 @@ class CustodeDelCammino {
     // **IL RITO NON SI RIFA' A CHI IL CERCHIO CONOSCE GIA', ordine AP voce
     // 05.** La decisione sta in `Ritrovamento`, in un punto solo, perche' la
     // stessa domanda arriva anche dal "Continua come" della voce 06.
-    final esito = Ritrovamento.da(tornato, saldoEos: borsa.saldoEos);
+    final esito = Ritrovamento.da(
+      tornato,
+      saldoEos: borsa.saldoEos,
+      cerchioAppenaNato: borsa.cerchioAppenaNato,
+    );
     if (esito.siSalta) {
       try {
         await context.read<OnboardingController>().ritrovato();
@@ -273,7 +277,24 @@ class CustodeDelCammino {
         ),
       ));
     }
-    if (!mostraLaScena || !esito.qualcosaDaMostrare) return esito;
+    if (!mostraLaScena || !esito.qualcosaDaMostrare) {
+      // **A CHI ENTRA SU UN CERCHIO APPENA NATO LO SI DICE.** Ordine BG voce
+      // 01: il fondatore ha toccato "Faccio gia' parte del Cerchio" dopo la
+      // cancellazione, Google ha creato un account nuovo in silenzio, e
+      // senza questa riga si ritroverebbe nell'onboarding senza sapere
+      // perche'. Non e' un errore: e' la verita' detta al posto del
+      // Bentornato che mentiva.
+      if (mostraLaScena && esito.cerchioAppenaNato) {
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
+          key: Key('cerchio_appena_nato'),
+          content: Text(
+              'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
+              'da zero, con la sua dote di benvenuto.'),
+          duration: Duration(seconds: 8),
+        ));
+      }
+      return esito;
+    }
     final navigatore = Navigator.maybeOf(context);
     if (navigatore == null) return esito;
     await navigatore.push(ScenaDelRitrovamento.route(
@@ -295,9 +316,16 @@ class CustodeDelCammino {
     } catch (errore) {
       saldo = 0;
     }
+    var appenaNato = false;
+    try {
+      appenaNato = context.read<QuestionAllowance>().cerchioAppenaNato;
+    } catch (errore) {
+      appenaNato = false;
+    }
     return Ritrovamento.da(
       giro.cammino,
       saldoEos: saldo,
+      cerchioAppenaNato: appenaNato,
       rifiutatoDalServer: giro.rifiutatoDalServer,
       senzaRisposta: giro.senzaRisposta,
     );
