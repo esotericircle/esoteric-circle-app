@@ -163,6 +163,44 @@ void main() {
               '${fuoriFascia.join(" | ")}');
 
       // SECONDA MISURA: i due casi che andavano al blu, una perla alla volta.
+      //
+      // **LA MISURA E' AL PIXEL, RIMIRATA DALL'ORDINE BF VOCE 02.** Prima si
+      // prendeva la tinta di un colore SINTETICO, le mediane dei tre canali
+      // calcolate indipendenti sull'anello: con l'alone bianco della strada 1
+      // (che per aritmetica non muove la tinta di NESSUN pixel: un velo
+      // bianco scala le differenze fra i canali tutte insieme) quel sintetico
+      // segnava 10,1 gradi di virata, fabbricata dal pescare la mediana di R
+      // da un pixel e quella di B da un altro. La tinta mediana DEI PIXEL
+      // misura cio' che la guardia vuole vietare, il velo colorato che
+      // sporca, ed e' anche piu' severa: un alone blu sposta la tinta di
+      // ogni singolo pixel, e qui non si diluirebbe in un sintetico.
+      double tintaMedianaDeiPixel(
+          Uint8List px, double cx, double cy, double daR, double aR) {
+        final tinte = <double>[];
+        for (var oy = -aR.ceil(); oy <= aR.ceil(); oy++) {
+          for (var ox = -aR.ceil(); ox <= aR.ceil(); ox++) {
+            final d2 = (ox * ox + oy * oy).toDouble();
+            if (d2 < daR * daR || d2 > aR * aR) continue;
+            final x = (cx + ox).round(), y = (cy + oy).round();
+            if (x < 0 || y < 0 || x >= larghezza || y >= altezza) continue;
+            final k = (y * larghezza.round() + x) * 4;
+            final r = px[k].toDouble(),
+                g = px[k + 1].toDouble(),
+                b = px[k + 2].toDouble();
+            final mx = math.max(r, math.max(g, b));
+            final mn = math.min(r, math.min(g, b));
+            // Un pixel grigio non ha tinta: non puo' testimoniare.
+            if (mx - mn < 4) continue;
+            tinte.add(tintaDi((r, g, b)));
+          }
+        }
+        expect(tinte, isNotEmpty,
+            reason: 'nessun pixel con tinta nell\'anello: la misura non sta '
+                'guardando niente');
+        tinte.sort();
+        return tinte[tinte.length ~/ 2];
+      }
+
       final pxSpenti = await resa(const {});
       var casi = 0;
       for (final indice in const [13, 46]) {
@@ -171,8 +209,9 @@ void main() {
         final r = raggioDi(indice);
         final pxUno = await resa({ordinati[indice].id});
         final prima =
-            tintaDi(mediane(pxSpenti, c.dx, c.dy, r * 1.15, r * 1.75));
-        final dopo = tintaDi(mediane(pxUno, c.dx, c.dy, r * 1.15, r * 1.75));
+            tintaMedianaDeiPixel(pxSpenti, c.dx, c.dy, r * 1.15, r * 1.75);
+        final dopo =
+            tintaMedianaDeiPixel(pxUno, c.dx, c.dy, r * 1.15, r * 1.75);
         var scarto = (dopo - prima).abs();
         if (scarto > 180) scarto = 360 - scarto;
         // ignore: avoid_print

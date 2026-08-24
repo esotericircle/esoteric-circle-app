@@ -449,23 +449,36 @@ class PittoreDelleLuci extends CustomPainter {
       // L'ALONE: un gradiente radiale col colore della materia, disegnato e non
       // sfocato. Cade quando gli effetti pieni sono spenti, come prima.
       //
-      // **SUL LOTO L'ALONE NON SI DISEGNA, ed e' la fusione dichiarata
-      // dall'ordine AG voce 02.** Le perle del Loto stanno su petali DIPINTI,
-      // non su fondo scuro come gli orbi e le sfere: qualunque velo colorato
-      // sopra un petalo ne cambia la tinta, ed e' proprio il difetto che
-      // Mauro ha indicato, petali che tendono al blu quando la perla sopra
-      // e' illuminata. La luce del Loto sta tutta dentro il disco della
-      // lampadina, che a 211 di luminanza contro 89 si legge da se'.
-      if (effettiPieni && sentiero != Sentiero.loto) {
-        final raggioAlone = raggio * 2.4;
+      // **SUL LOTO L'ALONE E' BIANCO-ORO NEUTRO, MAI LA MATERIA.** Strada 1
+      // dell'ordine BF voce 02, scelta dal fondatore. L'ordine AG voce 02
+      // aveva tolto l'alone dal Loto perche' il velo COLORATO della materia
+      // tingeva i petali dipinti di blu; ma senza nessun alone un traguardo
+      // acceso pesava 911 pixel sul Loto contro 4.632 sulla Costellazione
+      // (ordine AB voce 02, rapporto 5,1 col tetto a 2). Era la tinta a
+      // sporcare, non l'alone in se': col bianco caldo della lampadina,
+      // stessa famiglia d'oro dei petali, il peso si pareggia e la tinta
+      // non vira. Il divieto della materia sul Loto resta intero.
+      if (effettiPieni) {
+        // Il neutro del Loto e' il BIANCO PURO, non il bianco caldo: un velo
+        // bianco alza i tre canali nella stessa proporzione e la tinta del
+        // petalo non si muove di un grado (misurato: col bianco caldo 0xFFF3D6
+        // l'anello attorno alla perla virava di 16,4 gradi, col bianco puro di
+        // zero). E' luce, non colore: la lettera della guardia AG.02.
+        final tintaDellAlone =
+            sentiero == Sentiero.loto ? Colors.white : lampadina.colore;
+        // Sul Loto le perle stanno fitte sul fiore: l'ampiezza piena da 2,4
+        // raggi fondeva gli aloni vicini in una nuvola sola da 45.049 pixel,
+        // misurata. Un alone piu' stretto pareggia il peso senza fondere.
+        final raggioAlone =
+            raggio * (sentiero == Sentiero.loto ? 2.0 : 2.4);
         tela.drawCircle(
           centro,
           raggioAlone,
           Paint()
             ..shader = ui.Gradient.radial(centro, raggioAlone, [
-              lampadina.colore.withValues(alpha: 0.50 * f),
-              lampadina.colore.withValues(alpha: 0.22 * f),
-              lampadina.colore.withValues(alpha: 0.0),
+              tintaDellAlone.withValues(alpha: 0.50 * f),
+              tintaDellAlone.withValues(alpha: 0.22 * f),
+              tintaDellAlone.withValues(alpha: 0.0),
             ], [
               raggio / raggioAlone,
               0.62,

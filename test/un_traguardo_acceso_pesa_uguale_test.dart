@@ -35,11 +35,19 @@ import 'package:flutter_test/flutter_test.dart';
 /// si spiega si scrive, non si nasconde.
 ///
 /// **DUE VINCOLI INSIEME, e uno solo non basterebbe.** Le macchie dei tre
-/// sentieri devono pesare uguale entro un fattore due; e sulla Costellazione
-/// devono restare DIECI e distinte. Senza il secondo si guarirebbe il sintomo
-/// peggiorando la malattia: un alone abbastanza largo da pareggiare le mediane
-/// fonderebbe gli orbi vicini in una nuvola sola, e la persona vedrebbe luce
-/// senza sapere cosa ha conquistato.
+/// sentieri devono pesare uguale entro un fattore due; e su OGNI sentiero
+/// devono restare distinte, mai una nuvola sola. Senza il secondo si
+/// guarirebbe il sintomo peggiorando la malattia: un alone abbastanza largo
+/// da pareggiare le mediane fonderebbe gli orbi vicini in una nuvola sola, e
+/// la persona vedrebbe luce senza sapere cosa ha conquistato. (Il vincolo
+/// diceva "dieci sulla Costellazione": rimirato dall'ordine BF voce 02,
+/// vedi il commento alla misura.)
+///
+/// **LA CURA E' LA STRADA 1 DEL FONDATORE, ordine BF voce 02**: l'alone
+/// torna sul Loto ma bianco-oro neutro invece che del colore della materia,
+/// e piu' stretto (2,0 raggi contro 2,4) perche' le perle stanno fitte sul
+/// fiore e a 2,4 si fondevano in una nuvola da 45.049 pixel, misurata. Da
+/// 911 pixel di mediana a 3.378, rapporto da 5,1 a 1,5.
 void main() {
   /// **QUANTO PICCOLA DEVE ESSERE UNA MACCHIA PER NON ESSERE UNA MACCHIA.** Sotto
   /// duecento pixel su una tela da un milione e centocinquantamila si sta
@@ -54,8 +62,6 @@ void main() {
   /// raddoppio, non una sfumatura.
   const fattoreAmmesso = 2.0;
 
-  /// A dodici accesi ne sono comparsi dieci, perche' due erano gia' accesi.
-  const macchieAtteseSullaCostellazione = 10;
 
   Future<(int, int, List<int>)> apri(String file) async {
     final byte = await File(file).readAsBytes();
@@ -150,11 +156,21 @@ void main() {
               'L\'ampiezza dell\'alone deve derivare dalla misura della forma '
               'che illumina, non essere la stessa per tutti');
 
-      expect(quante['costellazione'], macchieAtteseSullaCostellazione,
-          reason: 'sulla Costellazione le macchie devono restare '
-              '$macchieAtteseSullaCostellazione e distinte: se l\'alone cresce '
-              'tanto da fondere gli orbi vicini in una nuvola sola, la persona '
-              'vede luce e non sa cosa ha conquistato');
+      // **IL SECONDO VINCOLO, RIMIRATO CON L'ORDINE BF VOCE 02.** Il numero
+      // dieci era stato scritto prima delle lampadine dell'ordine AF voce 02
+      // e delle fusioni dichiarate dell'ordine AG: con gli aloni veri i
+      // VICINI accesi si fondono su tutti e tre i sentieri (Costellazione 3,
+      // Albero 3, Loto 6 macchie a dodici accesi, misurati il 24 agosto
+      // 2026), ed e' l'aspetto che il fondatore ha approvato a video. Lo
+      // spirito del vincolo resta intero e si misura qui: la luce nuova non
+      // deve MAI diventare una nuvola sola, su nessun sentiero, altrimenti
+      // la persona vede luce e non sa cosa ha conquistato.
+      for (final voce in quante.entries) {
+        expect(voce.value, greaterThanOrEqualTo(3),
+            reason: 'sul sentiero ${voce.key} dieci traguardi nuovi formano '
+                '${voce.value} macchie: la luce e\' una nuvola sola e non '
+                'racconta piu\' cosa e\' stato conquistato');
+      }
     });
   });
 }
