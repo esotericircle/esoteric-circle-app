@@ -36,6 +36,11 @@ void main() {
     // mantenuta: proprio li' un numero senza il suo segno sarebbe un numero
     // qualunque, e la prova lo sorveglia come gli altri tre.
     'lib/features/onboarding/scena_del_ritrovamento.dart',
+    // **L'INVITO DEL RISCATTO, ordine BG voce 05.** La riga che offre di
+    // ricomprare il giorno scrive un prezzo in Eos sul pulsante: da quando
+    // esiste, anche lei porta il segno del denaro del Cerchio, non un
+    // gettone di serie.
+    'lib/features/pricing/upgrade_invite.dart',
   ];
 
   String sorgente(String p) => File(p).readAsStringSync();

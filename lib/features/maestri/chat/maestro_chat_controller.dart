@@ -41,7 +41,9 @@ class MaestroChatController extends ChangeNotifier {
     Tier Function()? tier,
     NatalContext Function()? natal,
     Duration? attesaMinima,
+    bool? demo,
   })  : _ai = ai,
+        _demo = demo ?? AppFlags.isDemo,
         _attesaMinima = attesaMinima,
         _memory = memory,
         _classifier = classifier,
@@ -50,6 +52,11 @@ class MaestroChatController extends ChangeNotifier {
         _natal = natal;
 
   final Maestro maestro;
+
+  /// La demo tiene la memoria accesa (BG.03): in app vale il flag di casa,
+  /// nelle prove si inietta, cosi' la legge del listino (memoria esclusiva
+  /// di chi paga) resta vera FUORI demo e si puo' ancora misurare.
+  final bool _demo;
 
   /// QUANTO DURA COME MINIMO LA PAUSA, e qui c'e' solo il modo di scavalcarla
   /// in una prova.
@@ -785,7 +792,7 @@ class MaestroChatController extends ChangeNotifier {
     // avevano l'amnesia. Il contratto del listino resta intatto per il
     // gratuito fuori demo.
     final memoriaViva =
-        AppFlags.isDemo || piano == null || PlanCatalog.haMemoria(piano);
+        _demo || piano == null || PlanCatalog.haMemoria(piano);
     if (!memoriaViva) return;
     if (_turnsSinceDistill < _distillEvery) return;
     _turnsSinceDistill = 0;

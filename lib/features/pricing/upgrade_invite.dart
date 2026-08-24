@@ -5,6 +5,7 @@ import '../../core/entitlement/question_allowance.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 
 import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -89,7 +90,14 @@ Future<bool> showUpgradeInvite(
                           Navigator.of(sheetContext).pop(false);
                           await onRiscatta();
                         },
-                  icon: const Icon(Icons.toll_outlined, size: 18),
+                  // L'icona del denaro del Cerchio, non un gettone di
+                  // serie: la legge di S.05 vale anche qui, dove il numero
+                  // in Eos e' un prezzo. Il colore segue lo stato della riga.
+                  icon: IconaDegliEos(
+                      misura: 18,
+                      colore: onRiscatta == null
+                          ? ColorTokens.textSecondary
+                          : palette.goldSoft),
                   label: Text(riscattoLabel,
                       style: TypographyTokens.label(size: 13)),
                 ),

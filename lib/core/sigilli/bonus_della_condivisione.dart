@@ -2,6 +2,12 @@ import '../brand/brand.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import 'sentieri.dart';
 
+/// LA CAUSALE DEL BONUS, in una riga sola: la nomina questa casa e la
+/// importa chiunque paghi un premio di condivisione (il premio di BG.04
+/// compreso), perche' la guardia della celebrazione pretende che fuori da
+/// qui nessuno la scriva a mano.
+const causaleDelBonusDellaCondivisione = 'bonus_condivisione';
+
 /// COME SI CONDIVIDE UN TRAGUARDO, e quanto vale.
 ///
 /// **Una logica sola, e questa e' quella.** L'ordine O chiede che la
@@ -138,7 +144,7 @@ class PremioDelTraguardo {
     ModoDellaCondivisione modo,
   ) =>
       porta.muoviGliEos(
-        causale: 'bonus_condivisione',
+        causale: causaleDelBonusDellaCondivisione,
         motivo: modo.motivo,
         idMovimento: 'bonus-${traguardo.id}-${modo.motivo}',
       );

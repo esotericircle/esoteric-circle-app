@@ -164,12 +164,16 @@ void main() {
 
   group('V2, la memoria e\' esclusiva di chi paga', () {
     test('Con Viandante nessuna scrittura, con Iniziato si\'', () async {
-      Future<int> scrittureCon(Tier tier) async {
+      Future<int> scrittureCon(Tier tier, {bool demo = false}) async {
         final repo = _RepoContatore();
         final c = MaestroChatController(
           maestro: Maestro.medora,
           ai: _AiFinta(),
           memory: repo,
+          // FUORI demo, per difetto: la legge del listino si misura sul
+          // prodotto vero, non sulla presentazione (BG.03 tiene la memoria
+          // accesa in demo, e il caso demo si misura in coda alla prova).
+          demo: demo,
           tier: () => tier,
           // Qui si misurano i contatori, non la pausa: senza questo dieci turni
           // pagherebbero dieci volte i 3200 millisecondi della scena.
@@ -188,6 +192,12 @@ void main() {
               'anche per il gratuito');
       expect(await scrittureCon(Tier.tier1), greaterThan(0),
           reason: 'chi paga non riceve la memoria che ha comprato');
+
+      // E IN DEMO LA MEMORIA E' ACCESA PER TUTTI, ordine BG voce 03: i
+      // Maestri della presentazione non hanno la memoria spenta del tier free.
+      expect(await scrittureCon(Tier.free, demo: true), greaterThan(0),
+          reason: 'in demo il Maestro dimentica: la presentazione mostra '
+              'un prodotto senza memoria');
     });
   });
 }

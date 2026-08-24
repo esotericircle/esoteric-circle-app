@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../entitlement/question_allowance.dart';
+import '../sigilli/bonus_della_condivisione.dart';
 import '../entitlement/registro_degli_eos.dart';
 import '../../services/app_services.dart';
 import '../../services/server/porta_del_cerchio.dart';
@@ -71,7 +72,7 @@ class PremioDellaCondivisione {
     if (!porta.viva) return;
     final prima = borsa.saldoEos;
     final saldo = await porta.muoviGliEos(
-      causale: 'bonus_condivisione',
+      causale: causaleDelBonusDellaCondivisione,
       motivo: motivo,
       idMovimento: PortaDelCerchio.nuovoIdentificativo(motivo),
     );
