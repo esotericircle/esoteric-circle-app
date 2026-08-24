@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -131,6 +132,32 @@ void main() {
     final larghezza = tester.view.physicalSize.width.round();
     final nelCampo = diversiDentro(campo.deflate(2), prima!, dopo!, larghezza);
     final nelTondo = diversiDentro(tondo.deflate(2), prima, dopo, larghezza);
+
+    // **LA FASCIA INTERA DEL COMPOSITORE, ordine BF voce 05.c.** Il campo e
+    // il tondo erano opachi loro, ma la RIGA che li ospita sfumava piena solo
+    // al 35 per cento: coi Maestri grandi la figura e la coda del saluto si
+    // leggevano fra i controlli, parola del fondatore. Qui si guarda tutta la
+    // fascia sotto la dissolvenza di testa (dal 15 per cento in giu'), con
+    // una tolleranza percettiva di 8 livelli su 255: il velo al 98 per cento
+    // lascia al contenuto dietro meno di 5 livelli, che l'occhio non
+    // distingue, mentre il fantasma denunciato ne muoveva piu' di 20.
+    final compositore = tester.getRect(find.byType(ChatComposer));
+    final fascia = Rect.fromLTRB(
+        compositore.left,
+        compositore.top + compositore.height * 0.15,
+        compositore.right,
+        compositore.bottom);
+    var fantasmi = 0;
+    for (var y = fascia.top.ceil(); y < fascia.bottom.floor(); y++) {
+      for (var x = fascia.left.ceil(); x < fascia.right.floor(); x++) {
+        final i = (y * larghezza + x) * 4;
+        if ((prima[i] - dopo[i]).abs() > 8 ||
+            (prima[i + 1] - dopo[i + 1]).abs() > 8 ||
+            (prima[i + 2] - dopo[i + 2]).abs() > 8) {
+          fantasmi++;
+        }
+      }
+    }
     // ignore: avoid_print
     print('OPACITA: pixel diversi nel campo $nelCampo, nel tondo $nelTondo '
         '(massimo $pixelDiversiMassimi)');
@@ -141,6 +168,13 @@ void main() {
     expect(nelTondo, lessThanOrEqualTo(pixelDiversiMassimi),
         reason: 'Dentro il tondo di invio $nelTondo pixel cambiano quando '
             'la conversazione scorre dietro: il tondo traspare.');
+    // ignore: avoid_print
+    print('OPACITA: pixel fantasma nella fascia del compositore $fantasmi');
+    expect(fantasmi, lessThanOrEqualTo(pixelDiversiMassimi),
+        reason: 'Nella fascia del compositore $fantasmi pixel cambiano in '
+            'modo visibile quando la conversazione scorre dietro: la figura '
+            'del Maestro e la coda del saluto tornano a leggersi fra i '
+            'controlli (ordine BF voce 05.c).');
   });
 }
 

@@ -94,16 +94,23 @@ class _ChatComposerState extends State<ChatComposer> {
       // invio e i Suggerimenti il contenuto passava e si vedeva. Adesso la
       // riga intera ha un fondo suo, ancorato con lei: sfuma in cima per non
       // fare uno scalino e diventa pieno dove vivono i controlli.
+      // **LA SFUMATURA SI STRINGE, ordine BF voce 05.c.** Piena al 35 per
+      // cento, la fascia lasciava trasparente tutta la parte alta della riga:
+      // coi Maestri grandi dell'ordine BD la figura e la coda del saluto
+      // passavano proprio li' e si leggevano fra i controlli, parola del
+      // fondatore. Il velo adesso e' pieno gia' al 12 per cento: resta la
+      // dissolvenza in cima, che evita lo scalino, ma all'altezza dei
+      // controlli il fondo e' fondo.
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             palette.deepest.withValues(alpha: 0.0),
-            palette.deepest.withValues(alpha: 0.92),
-            palette.deepest.withValues(alpha: 0.96),
+            palette.deepest.withValues(alpha: 0.98),
+            palette.deepest.withValues(alpha: 0.98),
           ],
-          stops: const [0.0, 0.35, 1.0],
+          stops: const [0.0, 0.12, 1.0],
         ),
       ),
       child: Row(
