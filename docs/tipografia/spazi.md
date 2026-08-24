@@ -42,7 +42,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/synastry/sinastria_share_card.dart:94` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:243` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:242` padding 90 punti
 
 ## I vuoti, file per file
 
