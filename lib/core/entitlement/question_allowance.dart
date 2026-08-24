@@ -527,6 +527,12 @@ class QuestionAllowance extends ChangeNotifier {
     if (stato.listinoDelRiscatto.isNotEmpty) {
       _listinoDelRiscatto = stato.listinoDelRiscatto;
     }
+    // **IL PREMIO DELLA REGISTRAZIONE, ordine BH voce 01**: il numero che
+    // gli inviti a registrarsi scrivono sul foglio. Come ogni listino, si
+    // tiene solo se il server ha parlato.
+    if (stato.premioDellaRegistrazione != null) {
+      _premioDellaRegistrazione = stato.premioDellaRegistrazione;
+    }
     // **SE IL BENVENUTO E' DI QUESTA CHIAMATA, IL CERCHIO E' APPENA NATO.**
     // Ordine BG voce 01: il fondatore e' entrato con "Faccio gia' parte del
     // Cerchio" su un account cancellato, Google ne ha creato uno nuovo in
@@ -535,12 +541,36 @@ class QuestionAllowance extends ChangeNotifier {
     // nascita come cosa tenuta. Il benvenuto si accredita UNA volta nella
     // vita di un Cerchio: se e' arrivato adesso, questo Cerchio e' nato
     // adesso, e nessuno deve dirgli bentornato.
-    _cerchioAppenaNato =
+    // **Nota di BH.01**: da quando il benvenuto e' il premio della prima
+    // registrazione, questo segnale scatta anche quando un Cerchio anonimo
+    // gia' vissuto si registra. I punti che lo leggono (il ritrovamento
+    // della porta piccola) stanno tutti su strade dove accesso e benvenuto
+    // coincidono, e la festa della registrazione lo usa apposta.
+    _benvenutoAppenaArrivato =
         stato.accreditati.any((a) => a.motivo == 'benvenuto');
+    // **Il segnale del server vince (BH.01)**: la lapide antifrode puo'
+    // fermare il benvenuto su un Cerchio nuovo di zecca, e senza questo
+    // segnale il ritrovamento mostrerebbe i 20 del giorno come cosa tenuta.
+    // Il ripiego sul benvenuto resta per un server piu' vecchio dell'app.
+    _cerchioAppenaNato = stato.cerchioNuovo ?? _benvenutoAppenaArrivato;
     notifyListeners();
     await _persist();
     return stato.cammino;
   }
+
+  bool _benvenutoAppenaArrivato = false;
+
+  /// Vero se l'ultima sincronia ha accreditato il benvenuto: e' il segnale
+  /// della festa della registrazione (BH.02) e della riga onesta quando la
+  /// lapide lo ferma.
+  bool get benvenutoAppenaArrivato => _benvenutoAppenaArrivato;
+
+  int? _premioDellaRegistrazione;
+
+  /// Il premio della prima registrazione, come il server lo dichiara.
+  /// Nullo finche' il server non ha parlato: gli inviti allora promettono
+  /// il dono senza scrivere un numero, mai un numero inventato.
+  int? get premioDellaRegistrazione => _premioDellaRegistrazione;
 
   final List<AccreditoDellaDote> _accreditiDaRaccontare = [];
 

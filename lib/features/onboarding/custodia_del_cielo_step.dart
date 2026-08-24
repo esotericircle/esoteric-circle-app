@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/promessa_della_registrazione.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -145,6 +146,23 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                       height: 1.5,
                     ),
                   ),
+                // **LA PROMESSA DEL PREMIO, ordine BH voce 01, posteriore
+                // alla riga sola di AQ.05 e voluta dal fondatore**: "il
+                // premio di 250 Eos proprio scritto nell'invito a
+                // registrarsi". Una riga corta, in oro, col numero del
+                // server: la sobrieta' di AQ resta, la motivazione arriva.
+                if (!_riconosciuto) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    PromessaDellaRegistrazione.frase(context),
+                    key: const Key('custodia_promessa'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.corpo().copyWith(
+                      color: palette.goldSoft,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
                 if (_guaio != null) ...[
                   const SizedBox(height: SpacingTokens.md),
                   Text(_guaio!,

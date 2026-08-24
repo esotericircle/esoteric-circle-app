@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/promessa_della_registrazione.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -474,6 +475,20 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),
+            // **LA PROMESSA DELLA REGISTRAZIONE, ordine BH voce 01.** Il
+            // premio scritto nell'invito, col numero del server, in oro:
+            // e' la riga che motiva. Chi torna non la vede: il suo
+            // benvenuto e' gia' stato pagato, promettere qui sarebbe
+            // promettere il falso.
+            if (!widget.perChiTorna) ...[
+              const SizedBox(height: SpacingTokens.xs),
+              Text(
+                PromessaDellaRegistrazione.frase(context),
+                key: const Key('promessa_della_registrazione'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: palette.goldSoft, height: 1.4),
+              ),
+            ],
             if (_guaio != null) ...[
               const SizedBox(height: SpacingTokens.sm),
               Text(_guaio!,

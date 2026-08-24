@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/promessa_della_registrazione.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
@@ -139,8 +140,11 @@ class AccountScreen extends StatelessWidget {
           // NOMINARE cio' che torna, invece di promettere in blocco. Il
           // cielo di nascita torna perche' torna la nascita, che e' cio' da
           // cui si ricalcola: e' la stessa scelta della voce 01.
-          subtitle: 'Cielo di nascita, traguardi accesi, ricordi e Eos: '
-              'tornano su qualsiasi telefono',
+          // **E DICHIARA IL PREMIO, ordine BH voce 01**: la prima
+          // registrazione porta il dono del server, e l'invito lo scrive.
+          subtitle: '${PromessaDellaRegistrazione.fraseCorta(context)}. '
+              'Cielo di nascita, traguardi accesi, ricordi e Eos tornano '
+              'su qualsiasi telefono',
           icon: Icons.shield_moon_outlined,
           onTap: (context) async {
             // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era

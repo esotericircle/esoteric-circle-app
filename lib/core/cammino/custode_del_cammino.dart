@@ -285,12 +285,27 @@ class CustodeDelCammino {
       // perche'. Non e' un errore: e' la verita' detta al posto del
       // Bentornato che mentiva.
       if (mostraLaScena && esito.cerchioAppenaNato) {
-        ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
-          key: Key('cerchio_appena_nato'),
-          content: Text(
-              'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
-              'da zero, con la sua dote di benvenuto.'),
-          duration: Duration(seconds: 8),
+        // **La riga si declina sui fatti, ordine BH voce 01.** Se il
+        // benvenuto e' arrivato lo si nomina; se la lapide antifrode lo ha
+        // fermato (questa email lo aveva gia' ricevuto con un altro
+        // account), si dice quello, o la nascita "con la dote" sarebbe una
+        // promessa non mantenuta a schermo.
+        var doteArrivata = false;
+        try {
+          doteArrivata =
+              context.read<QuestionAllowance>().benvenutoAppenaArrivato;
+        } catch (senzaProvider) {
+          doteArrivata = false;
+        }
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+          key: const Key('cerchio_appena_nato'),
+          content: Text(doteArrivata
+              ? 'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
+                  'da zero, con la sua dote di benvenuto.'
+              : 'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
+                  'da zero. Il benvenuto non si ripete: questa email lo '
+                  'aveva già ricevuto.'),
+          duration: const Duration(seconds: 8),
         ));
       }
       return esito;

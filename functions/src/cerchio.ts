@@ -223,12 +223,18 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // Cerchio" e "Dono del giorno" invece di mostrare un numero senza ragione.
   const accreditati: {motivo: string; quanti: number}[] = [];
   const registrazione = registrazioneDi(request);
+  // **IL SEGNALE DI NASCITA ROBUSTO, ordine BH voce 01.** "Appena nato" non
+  // puo' piu' dedursi dal benvenuto (la lapide di BH.05 puo' fermarlo su un
+  // Cerchio nuovo di zecca): il segnale vero e' il borsellino che non e' mai
+  // esistito prima di questa chiamata.
+  let cerchioNuovo = false;
   const saldoEos = await db.runTransaction(async (tx) => {
     // La transazione puo' RIPARTIRE da capo in caso di contesa: l'elenco si
     // svuota a ogni giro, o un giro fallito lascerebbe accrediti fantasma.
     accreditati.length = 0;
     const borsellino = borsellinoDoc(uid);
     const snap = await tx.get(borsellino);
+    cerchioNuovo = !snap.exists;
     let saldo = (snap.data()?.saldo as number) ?? 0;
 
     const daAccreditare: {id: string; quanti: number; motivo: string}[] = [];
@@ -415,6 +421,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // Il premio della registrazione e' un numero del SERVER, come ogni
     // altro prezzo: il client lo scrive negli inviti senza cablarlo.
     listinoDellaRegistrazione: {benvenuto: BENVENUTO},
+    cerchioNuovo,
     // Ordine BF voce 01: cosa e' stato accreditato IN QUESTA chiamata, con
     // il motivo. Il client lo racconta nel registro dei movimenti; il saldo
     // resta l'unico numero che conta.

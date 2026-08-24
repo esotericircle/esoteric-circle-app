@@ -17,6 +17,8 @@ class StatoDelCerchio {
     this.cammino,
     this.listinoDellaCondivisione = const {},
     this.listinoDelRiscatto = const {},
+    this.premioDellaRegistrazione,
+    this.cerchioNuovo,
     this.accreditati = const [],
   });
 
@@ -61,6 +63,17 @@ class StatoDelCerchio {
   /// non lo detta mai. Vuoto se il server e' piu' vecchio dell'app.
   final Map<String, int> listinoDelRiscatto;
 
+  /// Il premio della prima registrazione (ordine BH voce 01), dal listino
+  /// del server: il client lo scrive negli inviti senza cablarlo. Nullo se
+  /// il server non ha parlato.
+  final int? premioDellaRegistrazione;
+
+  /// Vero se il borsellino non esisteva prima di questa chiamata: il
+  /// segnale di nascita robusto (BH.01), che non dipende dal benvenuto
+  /// perche' la lapide antifrode puo' fermarlo su un Cerchio nuovo.
+  /// Nullo con un server che non lo dichiara.
+  final bool? cerchioNuovo;
+
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
     final giorno = risposta['giorno'];
@@ -90,6 +103,12 @@ class StatoDelCerchio {
         if (valore is num) riscatto['${voce.key}'] = valore.toInt();
       }
     }
+    int? premioRegistrazione;
+    final grezzaRegistrazione = risposta['listinoDellaRegistrazione'];
+    if (grezzaRegistrazione is Map) {
+      final valore = grezzaRegistrazione['benvenuto'];
+      if (valore is num) premioRegistrazione = valore.toInt();
+    }
     final accreditati = <AccreditoDellaDote>[];
     final grezzoAccrediti = risposta['accreditati'];
     if (grezzoAccrediti is List) {
@@ -106,6 +125,9 @@ class StatoDelCerchio {
       cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
       listinoDellaCondivisione: listino,
       listinoDelRiscatto: riscatto,
+      premioDellaRegistrazione: premioRegistrazione,
+      cerchioNuovo:
+          risposta['cerchioNuovo'] is bool ? risposta['cerchioNuovo'] as bool : null,
       accreditati: accreditati,
     );
   }
