@@ -7,6 +7,7 @@ import '../../features/sigilli/regia_del_cammino.dart';
 import '../archetypes/archetype_history.dart';
 import '../arts/arti_preferite.dart';
 import '../entitlement/question_allowance.dart';
+import '../entitlement/registro_degli_eos.dart';
 import '../identity/natal_identity.dart';
 import '../identity/profile_controller.dart';
 import '../sigilli/diario_del_cammino.dart';
@@ -204,6 +205,13 @@ class CustodeDelCammino {
     // ha risposto, e riprovare fra un momento ha senso.
     if (tornato == null) return const EsitoDelGiro(senzaRisposta: true);
     if (!context.mounted) return EsitoDelGiro(cammino: tornato);
+    // **LA DOTE RACCONTA LA SUA STORIA, ordine BF voce 01.** Il benvenuto e
+    // l'accredito del giorno arrivavano in silenzio dentro il saldo, e il
+    // fondatore ha letto i 270 di un Cerchio appena nato come il borsellino
+    // vecchio che tornava dopo la cancellazione. Qui, che e' l'unico posto
+    // con in mano sia la risposta del server sia l'albero dei provider, gli
+    // accrediti si scrivono nel registro con parole di persona.
+    _raccontaGliAccrediti(context, borsa);
     await adotta(context, tornato);
     if (!context.mounted) return EsitoDelGiro(cammino: tornato);
     // **IL RITO NON SI RIFA' A CHI IL CERCHIO CONOSCE GIA', ordine AP voce
@@ -343,5 +351,32 @@ class CustodeDelCammino {
     // porta il suo identificativo e il server ripete la risposta di allora.
     RegiaDelCammino.riprendiDaCapo();
     await RegiaDelCammino.riprendiIPremiPersi(context);
+  }
+
+  /// GLI ACCREDITI DEL SERVER, SCRITTI NEL REGISTRO CON PAROLE DI PERSONA.
+  /// Ordine BF voce 01.
+  ///
+  /// La consegna svuota la lista, quindi nessun accredito si racconta due
+  /// volte; se il registro non c'e' (le prove piu' piccole non lo montano)
+  /// gli accrediti si lasciano da parte per il prossimo giro, non si
+  /// buttano.
+  static void _raccontaGliAccrediti(
+      BuildContext context, QuestionAllowance borsa) {
+    final RegistroDegliEos registro;
+    try {
+      registro = context.read<RegistroDegliEos>();
+    } catch (errore) {
+      return;
+    }
+    for (final accredito in borsa.prendiGliAccreditiDaRaccontare()) {
+      final perche = switch (accredito.motivo) {
+        'benvenuto' => 'Benvenuto nel Cerchio',
+        'accredito_del_giorno' => 'Dono del giorno',
+        // Un motivo nuovo del server non deve sparire dalla storia: si
+        // racconta con la parola piu' larga che resti vera.
+        _ => 'Dono del Cerchio',
+      };
+      registro.segna(quanti: accredito.quanti, perche: perche);
+    }
   }
 }

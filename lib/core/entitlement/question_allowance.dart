@@ -480,9 +480,28 @@ class QuestionAllowance extends ChangeNotifier {
     if (stato.listinoDellaCondivisione.isNotEmpty) {
       _listinoDellaCondivisione = stato.listinoDellaCondivisione;
     }
+    // **LA DOTE RACCONTA LA SUA STORIA, ordine BF voce 01.** Gli accrediti
+    // che il server ha compiuto in questa chiamata si mettono da parte per
+    // chi tiene il registro dei movimenti: questo servizio non conosce i
+    // provider dell'albero, e pretenderli da qui fu il difetto che fece
+    // cadere quaranta prove altrove.
+    if (stato.accreditati.isNotEmpty) {
+      _accreditiDaRaccontare.addAll(stato.accreditati);
+    }
     notifyListeners();
     await _persist();
     return stato.cammino;
+  }
+
+  final List<AccreditoDellaDote> _accreditiDaRaccontare = [];
+
+  /// Gli accrediti del server non ancora scritti nel registro dei movimenti.
+  /// Chi li prende se li porta via: e' una consegna, non una lettura, cosi'
+  /// nessun accredito viene raccontato due volte.
+  List<AccreditoDellaDote> prendiGliAccreditiDaRaccontare() {
+    final presi = List<AccreditoDellaDote>.unmodifiable(_accreditiDaRaccontare);
+    _accreditiDaRaccontare.clear();
+    return presi;
   }
 
   /// Segna il gesto per il server e prova a mandarlo subito.

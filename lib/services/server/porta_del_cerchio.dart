@@ -16,6 +16,7 @@ class StatoDelCerchio {
     required this.saldoEos,
     this.cammino,
     this.listinoDellaCondivisione = const {},
+    this.accreditati = const [],
   });
 
   final String giorno;
@@ -45,14 +46,14 @@ class StatoDelCerchio {
   /// sarebbe una bugia scritta bene.
   final Map<String, int> listinoDellaCondivisione;
 
-  /// **QUANDO IL CERCHIO DIMENTICHERA' QUESTA PERSONA**, se ha chiesto
-  /// l'oblio. Nulla quando non c'e' nessuna richiesta in attesa.
-  ///
-  /// Ordine BC voce 02. **E' la meta' che rende i trenta giorni una promessa
-  /// invece che un'attesa**: un ripensamento che non si puo' esercitare non e'
-  /// un ripensamento, e chi rientra deve trovare il modo di restare senza
-  /// doverlo cercare. Viaggia con lo stato e non in una callable sua, per la
-  /// stessa ragione del listino: `statoDelCerchio` e' cio' che si chiede a
+  /// **COSA E' STATO ACCREDITATO IN QUESTA CHIAMATA**, col motivo del
+  /// server. Ordine BF voce 01: il fondatore ha letto la dote di nascita
+  /// (250 di benvenuto piu' 20 del giorno) come il borsellino vecchio che
+  /// tornava dopo la cancellazione, perche' il saldo non raccontava da dove
+  /// veniva. Il Custode scrive queste voci nel registro dei movimenti con
+  /// parole di persona, e il borsellino mostra la storia. Vuoto quando il
+  /// server non ha accreditato niente, o e' piu' vecchio dell'app.
+  final List<AccreditoDellaDote> accreditati;
 
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
@@ -75,6 +76,14 @@ class StatoDelCerchio {
         if (valore is num) listino['${voce.key}'] = valore.toInt();
       }
     }
+    final accreditati = <AccreditoDellaDote>[];
+    final grezzoAccrediti = risposta['accreditati'];
+    if (grezzoAccrediti is List) {
+      for (final voce in grezzoAccrediti) {
+        final letto = AccreditoDellaDote.daMappa(voce);
+        if (letto != null) accreditati.add(letto);
+      }
+    }
     return StatoDelCerchio(
       giorno: giorno,
       piano: risposta['piano'] is String ? risposta['piano'] as String : 'free',
@@ -82,16 +91,28 @@ class StatoDelCerchio {
       saldoEos: saldo is num ? saldo.toInt() : 0,
       cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
       listinoDellaCondivisione: listino,
+      accreditati: accreditati,
     );
   }
+}
 
-  /// La data dell'oblio, letta con prudenza: un campo che non c'e' o non si
-  /// legge vale come nessuna richiesta, mai come una richiesta di oggi.
-  static DateTime? _quandoDimentica(Object? grezzo) {
+/// UN ACCREDITO COMPIUTO DAL SERVER, col suo motivo. Ordine BF voce 01.
+///
+/// Il motivo e' quello del server ('benvenuto', 'accredito_del_giorno'): la
+/// traduzione in parole di persona sta in chi scrive il registro, non qui,
+/// perche' questa classe riporta cio' che il Cerchio ha detto e basta.
+class AccreditoDellaDote {
+  const AccreditoDellaDote({required this.motivo, required this.quanti});
+
+  final String motivo;
+  final int quanti;
+
+  static AccreditoDellaDote? daMappa(Object? grezzo) {
     if (grezzo is! Map) return null;
-    final quando = grezzo['cancellaDopo'];
-    if (quando is! String) return null;
-    return DateTime.tryParse(quando);
+    final motivo = grezzo['motivo'];
+    final quanti = grezzo['quanti'];
+    if (motivo is! String || motivo.isEmpty || quanti is! num) return null;
+    return AccreditoDellaDote(motivo: motivo, quanti: quanti.toInt());
   }
 }
 

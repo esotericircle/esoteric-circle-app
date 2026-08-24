@@ -150,7 +150,19 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // d'uso, e questo e' un accredito che si SOMMA. Le azioni premiate non
   // esistono e non si predispone niente per loro: decisione di Mauro del 18
   // agosto.
+  // **GLI ACCREDITI COMPIUTI IN QUESTA CHIAMATA SI DICHIARANO AL CLIENT.**
+  // Ordine BF voce 01: il fondatore ha cancellato l'account, si e'
+  // registrato di nuovo e ha ritrovato 270 Eos, leggendoli come il
+  // borsellino vecchio che tornava. Erano la dote di nascita (250 di
+  // benvenuto piu' 20 del giorno), ma il saldo non raccontava da dove
+  // veniva: da qui in poi la risposta porta anche `accreditati`, cosi' il
+  // telefono puo' scrivere nel registro dei movimenti "Benvenuto nel
+  // Cerchio" e "Dono del giorno" invece di mostrare un numero senza ragione.
+  const accreditati: {motivo: string; quanti: number}[] = [];
   const saldoEos = await db.runTransaction(async (tx) => {
+    // La transazione puo' RIPARTIRE da capo in caso di contesa: l'elenco si
+    // svuota a ogni giro, o un giro fallito lascerebbe accrediti fantasma.
+    accreditati.length = 0;
     const borsellino = borsellinoDoc(uid);
     const snap = await tx.get(borsellino);
     let saldo = (snap.data()?.saldo as number) ?? 0;
@@ -196,6 +208,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       const voce = daAccreditare[i];
       saldo += voce.quanti;
       cambiato = true;
+      accreditati.push({motivo: voce.motivo, quanti: voce.quanti});
       tx.set(riferimenti[i], {
         causale: "rettifica",
         motivo: voce.motivo,
@@ -292,6 +305,10 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // il server, che dal motivo sa quanto vale. Un listino che arriva al
     // telefono e' un'informazione, non un'autorizzazione.
     listinoDellaCondivisione: BONUS_DELLA_CONDIVISIONE,
+    // Ordine BF voce 01: cosa e' stato accreditato IN QUESTA chiamata, con
+    // il motivo. Il client lo racconta nel registro dei movimenti; il saldo
+    // resta l'unico numero che conta.
+    accreditati,
     cammino,
   };
 });

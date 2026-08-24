@@ -137,3 +137,31 @@ test("le azioni premiate non esistono nel listino del server", () => {
     );
   }
 });
+
+// --- ORDINE BF VOCE 01: la dote racconta la sua storia ---
+
+test("statoDelCerchio dichiara gli accrediti compiuti nella chiamata", () => {
+  // Il fondatore ha letto i 270 Eos della dote di nascita come il borsellino
+  // vecchio che tornava dopo la cancellazione. La cura: la risposta porta
+  // `accreditati` e il client li scrive nel registro dei movimenti. Questa
+  // prova guarda il sorgente perche' la callable vera chiede l'emulatore:
+  // pretende che l'elenco si riempia dentro la transazione, si svuoti a ogni
+  // ripartenza e viaggi nella risposta.
+  const fs = require("fs");
+  const sorgente = fs.readFileSync(require("path").join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  assert.ok(
+    sorgente.includes("accreditati.push({motivo: voce.motivo"),
+    "gli accrediti compiuti non si raccolgono piu' dentro la transazione"
+  );
+  assert.ok(
+    sorgente.includes("accreditati.length = 0;"),
+    "la transazione che riparte non svuota piu' l'elenco: accrediti fantasma"
+  );
+  const risposta = sorgente.substring(
+    sorgente.indexOf("listinoDellaCondivisione: BONUS_DELLA_CONDIVISIONE")
+  );
+  assert.ok(
+    risposta.includes("accreditati,"),
+    "la risposta di statoDelCerchio non porta piu' gli accrediti"
+  );
+});

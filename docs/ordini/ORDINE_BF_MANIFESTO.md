@@ -44,7 +44,7 @@ racconta da dove viene, e la cura sta nella voce.
 ## Le voci
 
 - **BF.00** Il manifesto prima di tutto, con la guardia di consegna. CHIUSA: questo file e `test/ordine_bf_guard_test.dart`.
-- **BF.01** I 270 Eos dopo la cancellazione. APERTA. La premessa e' dichiarata falsa qui sopra; resta da eseguire la cura del difetto vero, il saldo che non racconta da dove viene.
+- **BF.01** I 270 Eos dopo la cancellazione. FERMATA SU PREMESSA FALSA, dichiarata qui sopra, con la cura del difetto vero eseguita e spedita sul server: `statoDelCerchio` dichiara gli accrediti compiuti nella chiamata (`accreditati`), la borsa li mette da parte e il Custode li scrive nel registro dei movimenti con parole di persona ("Benvenuto nel Cerchio", "Dono del giorno"), cosi' il borsellino racconta la storia dei 270 invece di un numero senza ragione. Guardie: `functions/src/cerchio.test.ts` e `test/la_dote_racconta_la_sua_storia_test.dart`. Deploy di `statoDelCerchio` eseguito il 24 agosto 2026.
 - **BF.02** Il peso del traguardo, strada 1 scelta dal fondatore: l'alone bianco-oro neutro sul Loto. APERTA.
 - **BF.03** La riconciliazione di tutti i manifesti. APERTA.
 - **BF.04** I rossi residui della suite. APERTA.
@@ -78,9 +78,9 @@ Si compila quando le voci si chiudono, un ritrovamento per riga, con l'esito.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 7
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
-VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 1
 LAVORI_BF05_TOTALI: 13
