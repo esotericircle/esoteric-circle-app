@@ -456,6 +456,23 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     }
   }
 
+  /// **LA VARIANTE COMPATTA COL SEGNO, ordine BF voce 06.** Sulla scala
+  /// della riga personale il nome cede per primo (vive gia' nel saluto) e il
+  /// segno per ULTIMO: e' la prova a schermo che la home discende dalla data
+  /// di nascita, e la guardia del segno lo pretende. Qui la frase e' scritta
+  /// per stare in una riga da telefono: la fase della Luna non si ripete,
+  /// perche' campeggia gia' nell'etichetta subito sopra.
+  String _personalLineCompatta(Maestro maestro, String sign) {
+    switch (maestro) {
+      case Maestro.medora:
+        return 'La giusta ora per chi nasce sotto $sign.';
+      case Maestro.aura:
+        return 'Chi nasce sotto $sign cerca quiete.';
+      case Maestro.caligo:
+        return 'Sotto $sign sale una runa di pazienza.';
+    }
+  }
+
   DateTime Function() get _clock => widget.clock ?? DateTime.now;
 
   @override
@@ -518,6 +535,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         : nuda[0].toUpperCase() + nuda.substring(1);
     final personalLinee = <String>[
       personalLine,
+      if (userSign != null) _personalLineCompatta(central, userSign),
       personalLineBreve,
       personalLineNuda,
     ];

@@ -80,6 +80,12 @@ class GestiDelleArti {
     SorgenteDelGesto(
         gesto: 'oroscopo',
         schermata: 'lib/features/horoscope/oroscopo_screen.dart'),
+    // Ordine BF voce 05.b: la meditazione ha una fine, e al compimento la
+    // schermata manda il gesto che sveglia aur_50 e aur_51.
+    SorgenteDelGesto(
+        gesto: 'meditazione',
+        schermata:
+            'lib/features/maestri/aura/meditation/meditation_screen.dart'),
     SorgenteDelGesto(
         gesto: 'sigillo',
         schermata:

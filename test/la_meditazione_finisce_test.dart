@@ -2,7 +2,6 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_screen.dart';

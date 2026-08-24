@@ -236,7 +236,19 @@ void main() {
             reason: 'con la domanda "$domanda" il ripiego ha usato la chiusura '
                 'di "${c.domanda}"');
       }
-      expect(presagio.risposta.contains('giornata'), isTrue);
+      // **LE DUE STRADE DEL RIPIEGO, ordine BF voce 05.a.** Chi non chiede
+      // riceve la diciassettesima cornice, quella della giornata; chi ha
+      // scritto una domanda con parole sue NON riceve "Non hai chiesto
+      // niente", che per lui sarebbe una bugia: apertura e chiusura della
+      // giornata si omettono, e restano le letture per posizione dal corpus.
+      if (domanda.isEmpty) {
+        expect(presagio.risposta.contains('giornata'), isTrue);
+      } else {
+        expect(presagio.risposta.contains('Non hai chiesto niente'), isFalse,
+            reason: 'a chi ha scritto una domanda il ripiego nega che sia '
+                'stata posta');
+        expect(presagio.risposta.trim(), isNotEmpty);
+      }
     }
   });
 
