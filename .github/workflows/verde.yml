@@ -35,6 +35,11 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          # LA VERSIONE E' FISSATA, ordine BF voce 05.i: "channel: stable"
+          # nudo scarica la stable del giorno, e un aggiornamento a monte
+          # cambierebbe la CI sotto i piedi senza nessun commit. Il numero
+          # coincide con codemagic.yaml e docs/versione_flutter.json.
+          flutter-version: 3.44.5
 
       - name: Dipendenze
         run: flutter pub get

@@ -61,7 +61,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.05.f** La verifica BackdropFilter su Impeller. APERTA.
 - **BF.05.g** Analyze da 70 a 128 avvisi, mai esaminato voce per voce. APERTA.
 - **BF.05.h** I vuoti verticali, 138 in 54 file all'ultima misura. APERTA.
-- **BF.05.i** La CI: Flutter fissato per numero e chat-screenshot.yml esaminata. APERTA.
+- **BF.05.i** La CI. CHIUSA: `ronda.yml` e `verde.yml` dichiaravano channel stable senza numero e ora portano `flutter-version: 3.44.5` come android-build e Codemagic; la guardia della versione unica copre adesso tutti e quattro i file piu' il sovrano. `chat-screenshot.yml` era GIA' stata tolta dal commit `999bb782` ("Via l'azione che committava da sola"): sopravvive solo in un worktree stantio, non nel repo, e non c'e' niente da togliere.
 - **BF.05.j** La condivisione vera. FERMATA SU PREMESSA FALSA: il difetto era gia' curato dall'ordine AN voce 08. `PortaDellaCondivisione.avvenuta` legge l'esito di share_plus e paga SOLO su `ShareResultStatus.success` (dismissed e unavailable non pagano, con la prudenza dichiarata nel file); `condividiIlTraguardo` segna e incassa solo dopo il vero, e l'invito non si paga alla condivisione perche' l'attribuzione non esiste. Guardia verde: `test/i_tre_pulsanti_condividono_davvero_test.dart`.
 - **BF.05.k** Il rialzo di Node e di firebase-functions (Node 20 dismesso il 30 ottobre 2026). APERTA.
 - **BF.05.l** Il grigio del Coming soon e il grigio del Premium. CHIUSA: verificati a schermo col metodo dei pixel, non per fiducia. Il velo di fondo e' lo stesso per costruzione e va bene cosi': a distinguere le strade sono i segni sopra, e la prova nuova `test/i_due_grigi_si_distinguono_test.dart` rende la coppia e misura 385 pixel di lucchetto dorato al centro del premium contro zero sul Coming soon, coi badge "Premium" e "Dietro il velo" al loro posto.
@@ -84,4 +84,4 @@ VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_CHIUSE: 3
 LAVORI_BF05_TOTALI: 13
-LAVORI_BF05_APERTI: 8
+LAVORI_BF05_APERTI: 7

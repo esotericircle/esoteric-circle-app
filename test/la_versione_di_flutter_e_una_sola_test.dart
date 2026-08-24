@@ -20,6 +20,11 @@ void main() {
   const actions = '.github/workflows/android-build.yml';
   const codemagic = 'codemagic.yaml';
 
+  // **ANCHE RONDA E VERDE, ordine BF voce 05.i.** Dichiaravano "channel:
+  // stable" senza numero, cioe' la stable del giorno: un rialzo a monte
+  // avrebbe cambiato la CI sotto i piedi senza nessun commit.
+  const altre = ['.github/workflows/ronda.yml', '.github/workflows/verde.yml'];
+
   test('il sovrano e i due file della CI portano lo stesso numero', () {
     final dichiarata = (jsonDecode(File(sovrano).readAsStringSync())
         as Map<String, dynamic>)['flutter'] as String;
