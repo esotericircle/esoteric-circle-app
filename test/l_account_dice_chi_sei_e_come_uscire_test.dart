@@ -179,8 +179,8 @@ void main() {
         fornitori: const ['password']);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 12: con la via email la voce del cambio compare '
-        "${find.text("Cambia la parola d'accesso").evaluate().length} volte");
-    expect(find.text("Cambia la parola d'accesso"), findsOneWidget,
+        "${find.text('Cambia la Password').evaluate().length} volte");
+    expect(find.text('Cambia la Password'), findsOneWidget,
         reason: 'non c e nessun modo di cambiare la parola: e il buco S20');
   });
 
@@ -189,8 +189,8 @@ void main() {
     await montaLAccount(tester, anonimo: false, email: 'mauro@esempio.it');
     // ignore: avoid_print
     print('ORDINE AZ VOCE 12: con Google la voce del cambio compare '
-        "${find.text("Cambia la parola d'accesso").evaluate().length} volte");
-    expect(find.text("Cambia la parola d'accesso"), findsNothing,
+        "${find.text('Cambia la Password').evaluate().length} volte");
+    expect(find.text('Cambia la Password'), findsNothing,
         reason: 'si offre di cambiare una parola che non esiste');
   });
 }

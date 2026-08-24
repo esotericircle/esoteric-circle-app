@@ -96,7 +96,9 @@ void main() {
     final parola = erroreDi(tester, 'custodia_parola_campo');
     // ignore: avoid_print
     print('ORDINE AZ VOCE 10: con tre caratteri si legge "$parola"');
-    expect(parola, contains('3'),
+    // **BI.02**: la regola del fondatore parte dagli otto caratteri, e con
+    // tre ne mancano cinque: il guaio dice sempre QUANTO manca.
+    expect(parola, contains('5'),
         reason: 'non si dice quanti caratteri mancano: "troppo corta" fa '
             'provare a caso');
   });
@@ -109,8 +111,10 @@ void main() {
     await apriIlFoglio(tester, porta);
     await tester.enterText(
         find.byKey(const Key('custodia_email_campo')), 'mauro@esempio.it');
+    // **BI.02**: la password buona rispetta la regola del fondatore
+    // (otto caratteri, maiuscola, numero, carattere speciale).
     await tester.enterText(
-        find.byKey(const Key('custodia_parola_campo')), 'parolabuona');
+        find.byKey(const Key('custodia_parola_campo')), 'Parola1!buona');
     await tester.tap(find.byKey(const Key('custodia_email_conferma')));
     await tester.pumpAndSettle();
     // ignore: avoid_print

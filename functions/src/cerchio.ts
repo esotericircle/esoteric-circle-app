@@ -184,6 +184,58 @@ function residuiDi(
  * Ribalta il giorno se e' cambiato, cosi' chi apre l'app dopo mezzanotte
  * trova i budget interi senza che nessuno debba passare a mezzanotte.
  */
+/**
+ * ESISTE UN CERCHIO PER QUESTA EMAIL? Ordine BI voce 01, l'ottava callable,
+ * dichiarata alla guardia.
+ *
+ * Parole del fondatore: la porta d'ingresso "deve solo controllare che
+ * effettivamente l'email dell'utente sia gia' presente nel server e
+ * comunicarlo all'utente. Se non esiste, l'utente deve proseguire per forza
+ * con l'onboarding". La sonda risponde se l'email ha un Cerchio e con quali
+ * vie (google, apple, password), cosi' la porta instrada invece di creare
+ * account in silenzio o rifiutare senza spiegare.
+ *
+ * **Il costo dichiarato**: e' un punto che conferma l'esistenza di una
+ * email, cioe' cio' che la protezione dall'enumerazione di Firebase evita.
+ * E' la scelta esplicita del fondatore per l'esperienza d'ingresso, e il
+ * costo si contiene: serve un token (anche anonimo), e ogni account ha un
+ * TETTO di dieci sonde al giorno, contato in transazione.
+ */
+const SONDE_AL_GIORNO = 10;
+
+export const esisteIlCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
+  const uid = uidDi(request);
+  const grezza = (request.data as {email?: unknown} | undefined)?.email;
+  if (typeof grezza !== "string") {
+    throw new HttpsError("invalid-argument", "Serve una email da controllare.");
+  }
+  const email = grezza.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 254) {
+    throw new HttpsError("invalid-argument", "Questa email non ha la forma di una email.");
+  }
+  const giorno = chiaveDelGiorno();
+  const sonde = utente(uid).collection("stato").doc("sonde");
+  const concesso = await db.runTransaction(async (tx) => {
+    const snap = await tx.get(sonde);
+    const dati = snap.data();
+    const quante = dati?.giorno === giorno ? ((dati?.quante as number) ?? 0) : 0;
+    if (quante >= SONDE_AL_GIORNO) return false;
+    tx.set(sonde, {giorno, quante: quante + 1});
+    return true;
+  });
+  if (!concesso) {
+    throw new HttpsError("resource-exhausted",
+      "Troppi controlli per oggi. Riprova domani, oppure entra con la tua via.");
+  }
+  try {
+    const trovato = await getAuth().getUserByEmail(email);
+    const vie = trovato.providerData.map((p) => p.providerId);
+    return {esiste: true, vie};
+  } catch (errore) {
+    return {esiste: false, vie: []};
+  }
+});
+
 export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
   const giorno = chiaveDelGiorno();

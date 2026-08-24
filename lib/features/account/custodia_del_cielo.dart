@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/promessa_della_registrazione.dart';
 import 'festa_della_registrazione.dart';
+import '../../services/app_services.dart';
+import '../../services/server/porta_del_cerchio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -541,9 +544,27 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
               ),
             ],
             const SizedBox(height: SpacingTokens.lg),
-            VieDellaCustodia(inCorso: _inCorso, suScelta: (via, {email, parola}) {
-              _custodisci(via, email: email, parola: parola);
-            }),
+            // **LA PORTA DI CHI TORNA SONDA, NON SEMBRA UNA REGISTRAZIONE.**
+            // Ordine BI voce 01, parole del fondatore: "deve solo
+            // controllare che effettivamente l'email dell'utente sia gia'
+            // presente nel server e comunicarlo all'utente. Se non esiste,
+            // l'utente deve proseguire per forza con l'onboarding". Prima
+            // l'email, poi il server risponde e la porta instrada: niente
+            // account creati in silenzio, niente rifiuti senza spiegazione.
+            if (widget.perChiTorna)
+              _SondaDellIngresso(
+                account: widget.account,
+                inCorso: _inCorso,
+                suScelta: (via, {email, parola}) {
+                  _custodisci(via, email: email, parola: parola);
+                },
+                suProsegui: () => Navigator.of(context).pop(false),
+              )
+            else
+              VieDellaCustodia(inCorso: _inCorso,
+                  suScelta: (via, {email, parola}) {
+                _custodisci(via, email: email, parola: parola);
+              }),
             const SizedBox(height: SpacingTokens.xs),
             Align(
               alignment: Alignment.center,
@@ -578,6 +599,30 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
 /// **E porta la via per la parola persa.** Ordine AZ voce 05: e' il posto
 /// giusto, perche' e' l'unico momento in cui a qualcuno viene chiesta una
 /// parola d'accesso.
+/// LA REGOLA DELLA PASSWORD, ordine BI voce 02, decisa dal fondatore:
+/// "minimo 8 caratteri, almeno una maiuscola, almeno un numero e almeno un
+/// carattere speciale e devi scrivere queste regole e validarle". Torna la
+/// frase del guaio, o nulla se la password rispetta la regola.
+String? guaioDellaPassword(String parola) {
+  if (parola.isEmpty) return 'Manca la Password';
+  if (parola.length < 8) {
+    return 'Almeno 8 caratteri: ne mancano ${8 - parola.length}';
+  }
+  if (!parola.contains(RegExp('[A-Z]'))) {
+    return 'Serve almeno una lettera maiuscola';
+  }
+  if (!parola.contains(RegExp('[0-9]'))) return 'Serve almeno un numero';
+  if (!parola.contains(RegExp(r'[^A-Za-z0-9]'))) {
+    return 'Serve almeno un carattere speciale (per esempio ! ? # @)';
+  }
+  return null;
+}
+
+/// La regola scritta sotto il campo, sempre visibile.
+const String regolaDellaPassword =
+    'Almeno 8 caratteri, con una maiuscola, un numero e un carattere '
+    'speciale';
+
 class _FoglioDellEmail extends StatefulWidget {
   const _FoglioDellEmail({
     required this.email,
@@ -602,10 +647,9 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
   String? _guaioParola;
   String? _detto;
 
-  /// **QUANTO DEVE ESSERE LUNGA LA PAROLA.** Sei era gia' il limite del
-  /// controllo muto: si tiene, cosi' non si cambia la regola mentre si cura
-  /// il modo di raccontarla.
-  static const _lunghezzaMinima = 6;
+  /// L'occhiolino, ordine BI voce 02: "l'utente deve essere certo di
+  /// quello che scrive". Parte coperta, si rivela con un tocco.
+  bool _passwordCoperta = true;
 
   void _prova() {
     final email = widget.email.text.trim();
@@ -617,13 +661,14 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
           : (!email.contains('@') || !email.contains('.')
               ? "Questo indirizzo non sembra completo: manca la chiocciola o il punto"
               : null);
-      _guaioParola = parola.isEmpty
-          ? 'Manca la parola'
-          : (parola.length < _lunghezzaMinima
-              ? 'Ancora ${_lunghezzaMinima - parola.length} caratteri e ci siamo'
-              : null);
+      // **LA REGOLA DEL FONDATORE, ordine BI voce 02**: otto caratteri,
+      // maiuscola, numero, carattere speciale, scritti e validati.
+      _guaioParola = guaioDellaPassword(parola);
     });
     if (_guaioEmail != null || _guaioParola != null) return;
+    // Il gestore password del dispositivo riceve il segnale che le
+    // credenziali sono buone e vanno ricordate.
+    TextInput.finishAutofillContext();
     Navigator.of(context).pop((email, parola));
   }
 
@@ -631,7 +676,8 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     final email = widget.email.text.trim();
     if (!email.contains('@')) {
       setState(() => _guaioEmail =
-          "Scrivi qui la tua email e te ne mandiamo una per rifare la parola");
+          "Scrivi qui la tua email e te ne mandiamo una per reimpostare "
+          "la Password");
       return;
     }
     final account = context.read<AccountDelCerchio>();
@@ -643,7 +689,7 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     setState(() {
       _guaioEmail = null;
       _detto = "Se quell'indirizzo fa parte del Cerchio, ti abbiamo mandato "
-          "una email per rifare la parola.";
+          "una email per reimpostare la Password.";
     });
   }
 
@@ -653,10 +699,14 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     return AlertDialog(
       key: const Key('custodia_email_form'),
       backgroundColor: widget.backgroundColor,
-      title: Text("Custodisci con un'email",
+      title: Text('Registrati con la tua email',
           style: TypographyTokens.titoloScheda()
               .copyWith(color: palette.goldSoft)),
-      content: Column(
+      // **IL GESTORE PASSWORD, ordine BI voce 02**: il gruppo di autofill
+      // con i suggerimenti giusti fa offrire al dispositivo di salvare le
+      // credenziali appena la registrazione riesce.
+      content: AutofillGroup(
+        child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
@@ -664,6 +714,7 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
             controller: widget.email,
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
+            autofillHints: const [AutofillHints.username, AutofillHints.email],
             style:
                 TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
@@ -676,14 +727,29 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
           TextField(
             key: const Key('custodia_parola_campo'),
             controller: widget.parola,
-            obscureText: true,
+            obscureText: _passwordCoperta,
+            autofillHints: const [AutofillHints.newPassword],
             style:
                 TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
-              labelText: "Una parola d'accesso",
-              helperText: 'Almeno sei caratteri',
+              labelText: 'Password',
+              helperText: regolaDellaPassword,
+              helperMaxLines: 2,
               errorText: _guaioParola,
               errorMaxLines: 2,
+              // **L'OCCHIOLINO, ordine BI voce 02**: si rivela e si copre
+              // con un tocco, cosi' si e' certi di quello che si scrive.
+              suffixIcon: IconButton(
+                key: const Key('custodia_occhiolino'),
+                icon: Icon(
+                  _passwordCoperta
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: ColorTokens.textSecondary,
+                ),
+                onPressed: () =>
+                    setState(() => _passwordCoperta = !_passwordCoperta),
+              ),
             ),
           ),
           if (_detto != null) ...[
@@ -702,25 +768,315 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
               key: const Key('custodia_parola_persa'),
               onPressed: _parolaPersa,
               child: Text(
-                'Ho perso la parola',
+                'Hai perso la Password?',
                 style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary),
+                    .copyWith(color: palette.goldSoft),
               ),
             ),
           ),
         ],
+        ),
       ),
+      // **I BOTTONI COI COLORI DI CASA, ordine BI voce 02**: il blu del
+      // tema di Material non si legge sul fondo notturno. L'azione che
+      // conferma e' in oro, quella che lascia in grigio leggibile.
       actions: [
         TextButton(
+          style:
+              TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Annulla'),
         ),
         TextButton(
           key: const Key('custodia_email_conferma'),
+          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
           onPressed: _prova,
-          child: const Text('Custodisci'),
+          child: const Text('Registrati'),
         ),
       ],
     );
   }
+}
+
+
+/// LA SONDA DELL'INGRESSO. Ordine BI voce 01.
+///
+/// Tre momenti: si chiede l'email, il server dice se ha un Cerchio e con
+/// quali vie, la porta instrada. Chi non risulta lo legge in chiaro e
+/// prosegue il rito; chi risulta entra con la SUA via, senza vedere moduli
+/// che non c'entrano. Se il server non risponde, la sonda lo dice e apre
+/// le tre vie classiche: mai un vicolo cieco.
+class _SondaDellIngresso extends StatefulWidget {
+  const _SondaDellIngresso({
+    required this.account,
+    required this.inCorso,
+    required this.suScelta,
+    required this.suProsegui,
+  });
+
+  final AccountDelCerchio account;
+  final ViaDellaCustodia? inCorso;
+  final void Function(ViaDellaCustodia via, {String? email, String? parola})
+      suScelta;
+
+  /// Chiude il foglio per proseguire il rito: la strada obbligata di chi
+  /// non risulta registrato.
+  final VoidCallback suProsegui;
+
+  @override
+  State<_SondaDellIngresso> createState() => _SondaDellIngressoState();
+}
+
+class _SondaDellIngressoState extends State<_SondaDellIngresso> {
+  final _email = TextEditingController();
+  final _parola = TextEditingController();
+  bool _controlloInCorso = false;
+  bool _passwordCoperta = true;
+  String? _guaio;
+  String? _dettoDellaParola;
+
+  /// La risposta del server, quando c'e'. Nulla prima del controllo.
+  EsitoDellaSonda? _esito;
+
+  /// Vero quando il server non ha risposto: si aprono le vie classiche.
+  bool _serverMuto = false;
+
+  Future<void> _controlla() async {
+    final email = _email.text.trim().toLowerCase();
+    if (email.isEmpty || !email.contains('@') || !email.contains('.')) {
+      setState(() => _guaio =
+          'Scrivi la tua email per controllare se ha un Cerchio');
+      return;
+    }
+    setState(() {
+      _guaio = null;
+      _controlloInCorso = true;
+    });
+    PortaDelCerchio? porta;
+    try {
+      porta = context.read<AppServices>().porta;
+    } catch (senzaProvider) {
+      porta = null;
+    }
+    EsitoDellaSonda? esito;
+    try {
+      esito = porta == null ? null : await porta.esiste(email);
+    } catch (errore) {
+      esito = null;
+    }
+    if (!mounted) return;
+    setState(() {
+      _controlloInCorso = false;
+      _esito = esito;
+      _serverMuto = esito == null;
+    });
+  }
+
+  Future<void> _parolaPersa() async {
+    await widget.account.mandaLaViaPerLaParola(_email.text.trim());
+    if (!mounted) return;
+    setState(() => _dettoDellaParola =
+        'Ti abbiamo mandato una email per reimpostare la Password.');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final esito = _esito;
+
+    // 1. Prima dell'esito (o dopo Cambia email): il campo e Controlla.
+    if (esito == null && !_serverMuto) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            key: const Key('sonda_email_campo'),
+            controller: _email,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            autofillHints: const [AutofillHints.username, AutofillHints.email],
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: 'La tua email',
+              errorText: _guaio,
+              errorMaxLines: 2,
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          FilledButton(
+            key: const Key('sonda_controlla'),
+            style: FilledButton.styleFrom(
+              backgroundColor: palette.gold,
+              foregroundColor: palette.deepest,
+            ),
+            onPressed: _controlloInCorso ? null : _controlla,
+            child: Text(_controlloInCorso ? 'Controllo...' : 'Controlla',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.deepest)),
+          ),
+        ],
+      );
+    }
+
+    // 2. Il server non ha risposto: lo si dice e si aprono le vie.
+    if (_serverMuto) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Non riesco a controllare la tua email in questo momento: '
+            'entra direttamente con la tua via.',
+            key: const Key('sonda_server_muto'),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          VieDellaCustodia(inCorso: widget.inCorso, suScelta: widget.suScelta),
+        ],
+      );
+    }
+
+    // 3. L'email non risulta: lo si legge in chiaro e si prosegue il rito.
+    if (!esito!.esiste) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            'Questa email non risulta registrata nel Cerchio. Prosegui il '
+            'rito: potrai registrarti alla fine, oppure più tardi dal menu '
+            'utente.',
+            key: const Key('sonda_non_registrata'),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          FilledButton(
+            key: const Key('sonda_prosegui'),
+            style: FilledButton.styleFrom(
+              backgroundColor: palette.gold,
+              foregroundColor: palette.deepest,
+            ),
+            onPressed: widget.suProsegui,
+            child: Text('Prosegui il rito',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.deepest)),
+          ),
+          _cambiaEmail(),
+        ],
+      );
+    }
+
+    // 4. L'email risulta: si entra con la via che ha davvero.
+    final conParola = esito.vie.contains('password');
+    final conGoogle = esito.vie.contains('google.com');
+    final conApple = esito.vie.contains('apple.com');
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Questa email ha già un Cerchio: entra con la tua via.',
+          key: const Key('sonda_registrata'),
+          style: TypographyTokens.corpo()
+              .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        if (conGoogle)
+          _PulsanteDellaVia(
+            chiave: const Key('sonda_google'),
+            etichetta: 'Entra con Google',
+            icona: Icons.g_mobiledata_rounded,
+            inCorso: widget.inCorso == ViaDellaCustodia.google,
+            fermo: widget.inCorso != null,
+            suTocco: () => widget.suScelta(ViaDellaCustodia.google),
+          ),
+        if (conApple) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          _PulsanteDellaVia(
+            chiave: const Key('sonda_apple'),
+            etichetta: 'Entra con Apple',
+            icona: Icons.apple_rounded,
+            inCorso: widget.inCorso == ViaDellaCustodia.apple,
+            fermo: widget.inCorso != null,
+            suTocco: () => widget.suScelta(ViaDellaCustodia.apple),
+          ),
+        ],
+        if (conParola) ...[
+          TextField(
+            key: const Key('sonda_parola_campo'),
+            controller: _parola,
+            obscureText: _passwordCoperta,
+            autofillHints: const [AutofillHints.password],
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: 'Password',
+              suffixIcon: IconButton(
+                key: const Key('sonda_occhiolino'),
+                icon: Icon(
+                  _passwordCoperta
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: ColorTokens.textSecondary,
+                ),
+                onPressed: () =>
+                    setState(() => _passwordCoperta = !_passwordCoperta),
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          FilledButton(
+            key: const Key('sonda_entra'),
+            style: FilledButton.styleFrom(
+              backgroundColor: palette.gold,
+              foregroundColor: palette.deepest,
+            ),
+            onPressed: widget.inCorso != null
+                ? null
+                : () => widget.suScelta(ViaDellaCustodia.email,
+                    email: _email.text.trim(), parola: _parola.text),
+            child: Text('Entra',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.deepest)),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              key: const Key('sonda_parola_persa'),
+              onPressed: _parolaPersa,
+              child: Text('Hai perso la Password?',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+          ),
+          if (_dettoDellaParola != null)
+            Text(_dettoDellaParola!,
+                key: const Key('sonda_parola_persa_detto'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: palette.goldSoft)),
+        ],
+        _cambiaEmail(),
+      ],
+    );
+  }
+
+  Widget _cambiaEmail() => Align(
+        alignment: Alignment.center,
+        child: TextButton(
+          key: const Key('sonda_cambia_email'),
+          onPressed: () => setState(() {
+            _esito = null;
+            _serverMuto = false;
+            _guaio = null;
+            _dettoDellaParola = null;
+            _parola.clear();
+          }),
+          child: Text('Cambia email',
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary)),
+        ),
+      );
 }

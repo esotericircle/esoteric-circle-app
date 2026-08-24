@@ -163,6 +163,9 @@ void main() {
     for (final f in const [
       'functions/src/cerchio.ts',
       'functions/src/index.ts',
+      // **BI.04**: il secondo fattore vive in un file suo, e la guardia lo
+      // guarda, o una callable nata li' sfuggirebbe al conto.
+      'functions/src/secondo_fattore.ts',
     ]) {
       final testo = File(f).readAsStringSync();
       for (final riga in testo.split('\n')) {
@@ -182,9 +185,16 @@ void main() {
     // porta l'azzeramento dei dati anche sul server (era il ritorno dei 270
     // Eos visto dal fondatore). Il conto scende da otto a sette, e ognuna
     // delle sette ha il suo perche' nel manifesto dell'ordine BE.
-    expect(callable.length, 7,
-        reason: 'le callable non sono piu\' sei: $callable. Se ne serviva una '
-            'nuova andava dichiarata e motivata nel rapporto');
+    // **DA SETTE A NOVE, ordine BI**, e si dichiara qui come la prova
+    // chiede. Le due nuove: `esisteIlCerchio` (voce 01, la sonda della
+    // porta d'ingresso: il fondatore vuole che la porta controlli l'email
+    // e comunichi, invece di creare account in silenzio; col tetto di
+    // dieci sonde al giorno per account) e `secondoFattore` (voce 04, il
+    // codice numerico via email chiesto dal fondatore, una callable sola
+    // con le due operazioni manda e verifica).
+    expect(callable.length, 9,
+        reason: 'le callable non sono piu\' nove: $callable. Se ne serviva '
+            'una nuova andava dichiarata e motivata nel rapporto');
   });
 
   test('la forma dice la sua versione, per chi la leggera\' domani', () {

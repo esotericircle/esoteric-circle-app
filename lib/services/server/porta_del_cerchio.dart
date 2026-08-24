@@ -250,6 +250,21 @@ abstract class PortaDelCerchio {
 
   Future<bool> azzeraIDatiDicendo(String? perche) => azzeraIDati();
 
+  /// LA SONDA DELL'INGRESSO, ordine BI voce 01: il server dice se una email
+  /// ha gia' un Cerchio e con quali vie. Nulla quando il server non
+  /// risponde: la porta allora offre le vie senza promettere niente.
+  Future<EsitoDellaSonda?> esiste(String email) async => null;
+
+  /// IL SECONDO FATTORE, ordine BI voce 04: manda il codice di sei cifre
+  /// all'email dell'account, o lo verifica. Nullo quando il server non
+  /// risponde; mandato:false col motivo quando il mittente non e'
+  /// configurato (il client allora ripiega sul collegamento di Firebase).
+  Future<EsitoDelSecondoFattore?> secondoFattore({
+    required String operazione,
+    String? codice,
+  }) async =>
+      null;
+
   /// UN IDENTIFICATIVO PER OGNI GESTO, e serve davvero.
   ///
   /// Senza rete il gesto si accoda e si rimanda dopo: se la risposta si
@@ -374,6 +389,40 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
+  Future<EsitoDellaSonda?> esiste(String email) async {
+    final risposta = await _chiama('esisteIlCerchio', {'email': email});
+    if (risposta is! Map) return null;
+    final vie = <String>[];
+    final grezze = risposta['vie'];
+    if (grezze is List) {
+      for (final via in grezze) {
+        if (via is String) vie.add(via);
+      }
+    }
+    return EsitoDellaSonda(
+      esiste: risposta['esiste'] == true,
+      vie: vie,
+    );
+  }
+
+  @override
+  Future<EsitoDelSecondoFattore?> secondoFattore({
+    required String operazione,
+    String? codice,
+  }) async {
+    final risposta = await _chiama('secondoFattore', {
+      'operazione': operazione,
+      if (codice != null) 'codice': codice,
+    });
+    if (risposta is! Map) return null;
+    return EsitoDelSecondoFattore(
+      mandato: risposta['mandato'] == true,
+      verificato: risposta['verificato'] == true,
+      motivo: risposta['motivo'] is String ? risposta['motivo'] as String : null,
+    );
+  }
+
+  @override
   Future<bool> cancellaIlCerchioDicendo(String? perche) async {
     final risposta = await _chiama('cancellaIlCerchio', {
       if (perche != null && perche.trim().isNotEmpty) 'ragione': perche,
@@ -435,4 +484,31 @@ class PortaSpentaDelCerchio extends PortaDelCerchio {
   Future<bool> cancellaIlCerchio() async => false;
 
 
+}
+
+
+/// La risposta della sonda dell'ingresso (BI.01): l'email ha un Cerchio?
+/// E con quali vie (google.com, apple.com, password)?
+class EsitoDellaSonda {
+  const EsitoDellaSonda({required this.esiste, required this.vie});
+
+  final bool esiste;
+  final List<String> vie;
+}
+
+
+/// La risposta del secondo fattore (BI.04).
+class EsitoDelSecondoFattore {
+  const EsitoDelSecondoFattore({
+    required this.mandato,
+    required this.verificato,
+    this.motivo,
+  });
+
+  final bool mandato;
+  final bool verificato;
+
+  /// Il perche' di un no: mittente_non_configurato, sbagliato, scaduto,
+  /// esaurito, assente.
+  final String? motivo;
 }

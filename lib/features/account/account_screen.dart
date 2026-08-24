@@ -132,7 +132,7 @@ class AccountScreen extends StatelessWidget {
           title: 'Verifica la tua email',
           // **ANCHE IL PREMIO, ordine BH voce 04**: il benvenuto arriva a
           // verifica compiuta, e la riga lo dice.
-          subtitle: 'Sblocca il dono di benvenuto e il recupero della parola',
+          subtitle: 'Sblocca il dono di benvenuto e il recupero della Password',
           icon: Icons.mark_email_unread_outlined,
           onTap: (context) => _verificaLaTuaEmail(context),
         ),
@@ -141,7 +141,7 @@ class AccountScreen extends StatelessWidget {
       if (_haUnaParola(context))
         _AccountEntry(
           id: 'cambia_parola',
-          title: "Cambia la parola d'accesso",
+          title: 'Cambia la Password',
           subtitle: 'Serve un accesso recente, altrimenti te lo diciamo',
           icon: Icons.password_rounded,
           onTap: (context) => _chiediLaParolaNuova(context),
@@ -485,37 +485,57 @@ Future<void> _mandaLaVerifica(BuildContext context) async {
 /// uscire e rientrare: e' il tipo di vicolo cieco che questo ordine chiude.
 Future<void> _chiediLaParolaNuova(BuildContext context) async {
   final campo = TextEditingController();
+  // **LA STESSA REGOLA DELLA REGISTRAZIONE, ordine BI voce 02**: otto
+  // caratteri, maiuscola, numero, speciale, scritti sotto il campo e
+  // validati A VOCE (il vecchio cancello era muto: sotto i sei caratteri
+  // il tocco non faceva niente e non diceva niente).
+  String? guaio;
   final nuova = await showDialog<String>(
     context: context,
-    builder: (dialogo) => AlertDialog(
-      key: const Key('parola_nuova_form'),
-      backgroundColor: ColorTokens.neutralSurface,
-      title: Text("Una parola nuova", style: TypographyTokens.titoloScheda()),
-      content: TextField(
-        key: const Key('parola_nuova_campo'),
-        controller: campo,
-        obscureText: true,
-        style: TypographyTokens.corpo()
-            .copyWith(color: ColorTokens.textPrimary),
-        decoration: const InputDecoration(
-          labelText: 'La parola nuova',
-          helperText: 'Almeno sei caratteri',
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(dialogo).pop(),
-          child: const Text('Annulla'),
-        ),
-        TextButton(
-          key: const Key('parola_nuova_conferma'),
-          onPressed: () {
-            if (campo.text.length < 6) return;
-            Navigator.of(dialogo).pop(campo.text);
-          },
-          child: const Text('Cambia'),
-        ),
-      ],
+    builder: (dialogo) => StatefulBuilder(
+      builder: (dialogo, aggiorna) {
+        return AlertDialog(
+            key: const Key('parola_nuova_form'),
+            backgroundColor: ColorTokens.neutralSurface,
+            title: Text('Una Password nuova',
+                style: TypographyTokens.titoloScheda()),
+            content: TextField(
+              key: const Key('parola_nuova_campo'),
+              controller: campo,
+              obscureText: true,
+              autofillHints: const [AutofillHints.newPassword],
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary),
+              decoration: InputDecoration(
+                labelText: 'La Password nuova',
+                helperText: regolaDellaPassword,
+                helperMaxLines: 2,
+                errorText: guaio,
+                errorMaxLines: 2,
+              ),
+            ),
+            actions: [
+              TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: ColorTokens.textSecondary),
+                onPressed: () => Navigator.of(dialogo).pop(),
+                child: const Text('Annulla'),
+              ),
+              TextButton(
+                key: const Key('parola_nuova_conferma'),
+                onPressed: () {
+                  final trovato = guaioDellaPassword(campo.text);
+                  if (trovato != null) {
+                    aggiorna(() => guaio = trovato);
+                    return;
+                  }
+                  Navigator.of(dialogo).pop(campo.text);
+                },
+                child: const Text('Cambia'),
+              ),
+            ],
+        );
+      },
     ),
   );
   if (nuova == null || !context.mounted) return;
@@ -524,13 +544,13 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
   final String frase;
   switch (esito) {
     case EsitoDellaCustodia.riuscita:
-      frase = 'Fatto. Da adesso entri con la parola nuova.';
+      frase = 'Fatto. Da adesso entri con la Password nuova.';
     case EsitoDellaCustodia.nonRiconosciuto:
       // E' `requires-recent-login`, tradotto in una cosa che si puo' fare.
-      frase = 'Per cambiare la parola serve un accesso recente. Esci e '
+      frase = 'Per cambiare la Password serve un accesso recente. Esci e '
           'rientra, poi riprova.';
     default:
-      frase = "Non è riuscito adesso. La tua parola di prima vale ancora.";
+      frase = "Non è riuscito adesso. La tua Password di prima vale ancora.";
   }
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     key: const Key('parola_cambiata'),
