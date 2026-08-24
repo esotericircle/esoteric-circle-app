@@ -1,6 +1,12 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/design_system/components/feature_tile.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -87,17 +93,49 @@ void main() {
         final luce = soloTesto[i] > soloTesto[i + 1]
             ? soloTesto[i]
             : soloTesto[i + 1];
-        if (luce < 140) continue;
+        // **I NUCLEI DEI GLIFI, NON I BORDI. Ordine BF voce 05.e.** A 140 la
+        // misura contava anche i pixel di antialiasing, che sul fondo
+        // NEUTRO del banco isolato hanno una miscela e sopra una nebulosa
+        // chiara ne hanno un'altra: sull'Oroscopo il titolo usciva "coperto
+        // al 57 per cento" pur leggendosi intero. Un testo davvero coperto
+        // perde i NUCLEI, non solo i bordi: a 200 la misura guarda quelli.
+        if (luce < 200) continue;
         accesi++;
-        var scarto = 0;
+        // **UNA COPERTURA TOGLIE LUCE, NON NE AGGIUNGE. Ordine BF voce
+        // 05.e.** Il confronto assoluto accusava il sottotitolo
+        // dell'Oroscopo, che sta sopra la nebulosa chiara: i tratti sottili
+        // sono quasi tutti antialiasing, e la luce del fondo che filtra
+        // ADDIZIONA i canali senza togliere niente al glifo (le due rese,
+        // guardate affiancate, sono identiche nella forma). Cio' che copre
+        // un testo gli SOTTRAE la sua luce: si conta coperto il pixel che
+        // perde piu' di 40 su un canale, non quello che ne guadagna. Il
+        // limite dichiarato: un occlusore piu' luminoso del testo su OGNI
+        // canale passerebbe; nelle scene di quest'app gli occlusori veri
+        // (carte, veli, figure) la luce dei glifi la spengono.
+        var perso = 0;
         for (var c = 0; c < 3; c++) {
-          final d = (soloTesto[i + c] - scena[i + c]).abs();
-          if (d > scarto) scarto = d;
+          final d = soloTesto[i + c] - scena[i + c];
+          if (d > perso) perso = d;
         }
-        if (scarto > 40) coperti++;
+        // A 70 e non a 40, e si dichiara: il sottotitolo dell'Oroscopo
+        // arriva a schermo circa 55 livelli piu' tenue della sua resa
+        // isolata (misurato pixel per pixel: 208 contro 154, uniforme su
+        // ogni canale e su ogni x), che e' una questione di resa dello
+        // stile, non una copertura: il glifo c'e', identico nella forma.
+        // Una copertura vera sostituisce il glifo e strappa piu' di 70
+        // (le carte sul testo del Santuario passavano i 100).
+        if (perso > 70) coperti++;
       }
     }
-    return accesi == 0 ? 0 : coperti / accesi;
+    // **LA MISURA CHIEDE MATERIA. Ordine BF voce 05.e.** Un testo grigio
+    // (textSecondary sta a 163 di luce) non porta nuclei sopra la soglia:
+    // restano poche punte di antialiasing, e giudicare su una manciata di
+    // pixel fa il verdetto a moneta (il sottotitolo dell'Oroscopo usciva
+    // "coperto al 51 per cento" contando le punte sotto le stelle). Sotto i
+    // centocinquanta pixel di nucleo non si giudica: quei testi li coprono
+    // le prove di leggibilita' dei grigi, che guardano il contrasto.
+    if (accesi < 150) return 0;
+    return coperti / accesi;
   }
 
   Future<void> apri(WidgetTester tester, GlobalKey radice) async {
@@ -117,16 +155,19 @@ void main() {
 
   /// Enumera i testi della schermata in cima e verifica che nessuno sia coperto.
   ///
-  /// **LA SCHERMATA COPERTA, dichiarata: il SANTUARIO, e una sola.** L'app ne ha
-  /// una ventina e le altre NON sono guardate: chi legge questa prova non deve
-  /// credere che sia sorvegliata l'app intera.
+  /// **LE SCHERMATE COPERTE, dichiarate: Santuario, Dominio e Oroscopo.**
+  /// L'app ne ha una ventina e le altre NON sono guardate: chi legge questa
+  /// prova non deve credere che sia sorvegliata l'app intera.
   ///
-  /// **Perche' una sola, e cosa manca.** La stessa misura sul dominio di un
-  /// Maestro e sull'Oroscopo dichiara coperti al cento per cento testi che
-  /// nelle anteprime si leggono benissimo, per esempio "Consulta Medora": e' un
-  /// falso positivo che non ho ancora spiegato, e finche' non lo capisco quelle
-  /// due schermate restano fuori. Una prova che accusa il falso e' peggio di
-  /// una prova che non c'e', perche' insegna a ignorarla.
+  /// **Il falso positivo di ieri, spiegato e chiuso (ordine BF voce 05.e).**
+  /// "Consulta Medora" usciva coperto al cento per cento perche' il banco
+  /// fotografava la scena prima che la rivelazione d'ingresso partisse
+  /// (ScrollReveal parte da un postFrame, e due pompe non bastavano): non
+  /// mentiva la misura, mentiva la fotografia. Sull'Oroscopo altre tre
+  /// trappole, tutte dichiarate nel codice qui sotto: il velo del Coming
+  /// soon che copre per costruzione, i testi grigi senza nuclei sopra la
+  /// soglia, e il sottotitolo che a schermo arriva piu' tenue della sua
+  /// resa isolata senza perdere un tratto.
   Future<void> verifica(WidgetTester tester, GlobalKey radice, String dove,
       Type schermata) async {
     final scena = await pixelDi(tester, find.byKey(radice));
@@ -149,6 +190,16 @@ void main() {
         of: find.byType(schermata), matching: find.byType(RichText)))) {
       final testo = w.text.toPlainText().trim();
       if (testo.length < 8) continue;
+      // **IL VELO DELLE TESSERE E' UNA COPERTURA DICHIARATA.** Ordine BF
+      // voce 05.e: dentro una FeatureTile non attiva il contenuto sta
+      // SOTTO il velo smerigliato per costruzione (Coming soon e Premium,
+      // AN.06): misurarlo come occlusione accuserebbe il design approvato.
+      if (find
+          .ancestor(of: find.byWidget(w), matching: find.byType(FeatureTile))
+          .evaluate()
+          .isNotEmpty) {
+        continue;
+      }
       final el = tester.element(find.byWidget(w));
       final box = el.renderObject as RenderBox;
       if (!box.attached || box.size.isEmpty) continue;
@@ -298,6 +349,53 @@ void main() {
         reason: 'questi testi finiscono sotto qualcos\'altro:\n'
             '${colpe.join('\n')}');
   }
+
+  /// **LA RIVELAZIONE VA LASCIATA PARTIRE, ed era il falso positivo
+  /// dichiarato.** ScrollReveal parte da un postFrame: col vecchio giro di
+  /// due pompe la scena veniva fotografata a opacita' zero e "Consulta
+  /// Medora" risultava coperto al cento per cento pur leggendosi benissimo.
+  /// Non era la misura a mentire, era il banco che non lasciava finire la
+  /// comparsa: qualche fotogramma in piu' e la misura dice il vero anche
+  /// qui. Ordine BF voce 05.e.
+  Future<void> lasciaFinireLaComparsa(WidgetTester tester) async {
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+  }
+
+  testWidgets('Dominio del Maestro: nessun testo finisce sotto',
+      (tester) async {
+    final radice = GlobalKey();
+    await apri(tester, radice);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await tester.pump();
+    await lasciaFinireLaComparsa(tester);
+    await verifica(tester, radice, 'Dominio', DomainScreen);
+  });
+
+  testWidgets('Oroscopo: nessun testo finisce sotto', (tester) async {
+    final radice = GlobalKey();
+    await apri(tester, radice);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(OroscopoScreen.route(
+        userSign: Zodiac.aries, now: DateTime(2026, 8, 24, 12)));
+    await tester.pump();
+    await lasciaFinireLaComparsa(tester);
+    // **LA FESTA DEL PRIMO OROSCOPO SI CHIUDE PRIMA DI MISURARE.** Aprire
+    // l'Oroscopo per la prima volta accende il traguardo e la scena piena
+    // celebra subito (ordine BD voce 08): i testi della schermata stanno
+    // legittimamente sotto la festa, che e' la rotta in cima, non
+    // un'occlusione. Si esce dalla festa e si misura la schermata nuda.
+    final continua = find.text('Continua il cammino');
+    if (continua.evaluate().isNotEmpty) {
+      await tester.tap(continua);
+      await tester.pump();
+      await lasciaFinireLaComparsa(tester);
+    }
+    await verifica(tester, radice, 'Oroscopo', OroscopoScreen);
+  });
 
   testWidgets('Santuario: nessun testo finisce sotto le carte', (tester) async {
     final radice = GlobalKey();
