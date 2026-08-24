@@ -13,7 +13,11 @@ export {
   scriviLaMemoria,
   azzeraIDatiDelCerchio,
   cancellaIlCerchio,
+  esisteIlCerchio,
 } from "./cerchio";
+
+// IL SECONDO FATTORE, ordine BI voce 04: il codice numerico via email.
+export {secondoFattore} from "./secondo_fattore";
 
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati

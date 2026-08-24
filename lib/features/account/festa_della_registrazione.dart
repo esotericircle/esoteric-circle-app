@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../services/app_services.dart';
+import '../../services/server/porta_del_cerchio.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/components/volo_degli_eos.dart';
@@ -74,16 +76,65 @@ class FestaDellaRegistrazione extends StatelessWidget {
     final aspettaLaVerifica = account != null &&
         account.fornitori.contains('password') &&
         account.emailVerificata == false;
-    ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
-      key: const Key('registrazione_senza_festa'),
-      content: Text(aspettaLaVerifica
-          ? 'Registrazione quasi compiuta: apri l\'email che ti abbiamo '
-              'mandato e verifica l\'indirizzo. Il dono di benvenuto '
-              'arriva con la verifica.'
-          : 'La registrazione è compiuta. Il benvenuto non si ripete: '
-              'questa email lo aveva già ricevuto.'),
-      duration: const Duration(seconds: 8),
+    if (aspettaLaVerifica) {
+      // **IL CODICE NUMERICO PRIMA DEL COLLEGAMENTO, ordine BI voce 04.**
+      // Se il mittente e' configurato arriva il codice di sei cifre e il
+      // foglio qui sotto lo chiede; se non lo e', vale il collegamento di
+      // Firebase gia' partito con la registrazione (BH.04), e lo si dice.
+      final compiuta = await _verificaColCodice(context);
+      if (!context.mounted) return;
+      if (compiuta) {
+        // L'email adesso e' verificata: si rifa' il giro, che stavolta
+        // trova il benvenuto e apre la festa.
+        await dopoLaCustodia(context);
+        return;
+      }
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
+        key: Key('registrazione_senza_festa'),
+        content: Text(
+            'Registrazione quasi compiuta: apri l\'email che ti abbiamo '
+            'mandato e verifica l\'indirizzo. Il dono di benvenuto '
+            'arriva con la verifica.'),
+        duration: Duration(seconds: 8),
+      ));
+      return;
+    }
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
+      key: Key('registrazione_senza_festa'),
+      content: Text('La registrazione è compiuta. Il benvenuto non si '
+          'ripete: questa email lo aveva già ricevuto.'),
+      duration: Duration(seconds: 8),
     ));
+  }
+
+  /// Prova la strada del codice numerico. Torna vero solo a email
+  /// verificata (col gettone gia' rinfrescato dalla ricarica).
+  static Future<bool> _verificaColCodice(BuildContext context) async {
+    PortaDelCerchio? porta;
+    try {
+      porta = context.read<AppServices>().porta;
+    } catch (senzaProvider) {
+      return false;
+    }
+    EsitoDelSecondoFattore? mandato;
+    try {
+      mandato = await porta.secondoFattore(operazione: 'manda');
+    } catch (errore) {
+      mandato = null;
+    }
+    if (!context.mounted || mandato == null || !mandato.mandato) return false;
+    final verificato = await showDialog<bool>(
+          context: context,
+          builder: (dialogo) => _FoglioDelCodice(porta: porta!),
+        ) ??
+        false;
+    if (!verificato || !context.mounted) return false;
+    try {
+      await context.read<AccountDelCerchio>().ricarica();
+    } catch (senzaProvider) {
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -178,6 +229,128 @@ class FestaDellaRegistrazione extends StatelessWidget {
             ),
         ),
       ),
+    );
+  }
+}
+
+
+/// IL FOGLIO DEL CODICE DI SEI CIFRE. Ordine BI voce 04.
+class _FoglioDelCodice extends StatefulWidget {
+  const _FoglioDelCodice({required this.porta});
+
+  final PortaDelCerchio porta;
+
+  @override
+  State<_FoglioDelCodice> createState() => _FoglioDelCodiceState();
+}
+
+class _FoglioDelCodiceState extends State<_FoglioDelCodice> {
+  final _codice = TextEditingController();
+  bool _inCorso = false;
+  String? _guaio;
+
+  Future<void> _verifica() async {
+    final codice = _codice.text.trim();
+    if (codice.length != 6 || int.tryParse(codice) == null) {
+      setState(() => _guaio = 'Il codice è di sei cifre');
+      return;
+    }
+    setState(() {
+      _inCorso = true;
+      _guaio = null;
+    });
+    EsitoDelSecondoFattore? esito;
+    try {
+      esito = await widget.porta
+          .secondoFattore(operazione: 'verifica', codice: codice);
+    } catch (errore) {
+      esito = null;
+    }
+    if (!mounted) return;
+    if (esito != null && esito.verificato) {
+      Navigator.of(context).pop(true);
+      return;
+    }
+    setState(() {
+      _inCorso = false;
+      _guaio = switch (esito?.motivo) {
+        'scaduto' => 'Il codice è scaduto: chiedine uno nuovo',
+        'esaurito' => 'Troppi tentativi: chiedi un codice nuovo',
+        'sbagliato' => 'Il codice non è giusto: controlla e riprova',
+        _ => 'Non sono riuscito a verificare adesso: riprova',
+      };
+    });
+  }
+
+  Future<void> _mandaAncora() async {
+    setState(() => _guaio = null);
+    try {
+      await widget.porta.secondoFattore(operazione: 'manda');
+    } catch (errore) {
+      // Il guaio si vedra' alla verifica: qui non si blocca niente.
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return AlertDialog(
+      key: const Key('foglio_del_codice'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title: Text('Il codice della tua email',
+          style: TypographyTokens.titoloScheda()
+              .copyWith(color: palette.goldSoft)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Ti abbiamo mandato una email con un codice di sei cifre: '
+            'scrivilo qui e la registrazione è compiuta.',
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          TextField(
+            key: const Key('campo_del_codice'),
+            controller: _codice,
+            keyboardType: TextInputType.number,
+            maxLength: 6,
+            autofillHints: const [AutofillHints.oneTimeCode],
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: 'Codice',
+              counterText: '',
+              errorText: _guaio,
+              errorMaxLines: 2,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              key: const Key('codice_manda_ancora'),
+              onPressed: _inCorso ? null : _mandaAncora,
+              child: Text('Mandamelo di nuovo',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          style:
+              TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
+          onPressed: _inCorso ? null : () => Navigator.of(context).pop(false),
+          child: const Text('Più tardi'),
+        ),
+        TextButton(
+          key: const Key('codice_verifica'),
+          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
+          onPressed: _inCorso ? null : _verifica,
+          child: Text(_inCorso ? 'Verifico...' : 'Verifica'),
+        ),
+      ],
     );
   }
 }
