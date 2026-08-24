@@ -49,7 +49,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.03** La riconciliazione di tutti i manifesti. CHIUSA: censite 63 voci non terminali su 16 manifesti (AC, AX, T, U, e le fermate sparse da AD ad AV) con quattro ricognizioni sul repo, e ognuna voltata con la dichiarazione datata: 54 chiuse perche' assolte da ordini successivi o perche' il collaudo atteso e' avvenuto (i collaudi del fondatore dalle build 2180 alla 2200 sono la catena documentata nei manifesti), 8 voltate su decisione del fondatore che le ha superate (AT.04/08/09 e U.02 con la festa unica, AX.08 con la parola che resta, AO.02 gia' contata fra le chiuse, AC.09 il rosso ammesso di Vertex, AN.05 il listino che si aggancia alla revisione), 1 gia' su premessa falsa. Le guardie AC, U e AN sono state estese al quinto stato, quello delle voci voltate dal fondatore, per dire la verita' senza travestirla da chiusura. Tutte le 28 guardie d'ordine sono VERDI, comprese le quattro rosse per legge.
 - **BF.04** I rossi residui della suite. APERTA.
 - **BF.05** I lavori lasciati indietro, enumerati. CHIUSA: tutti e tredici i lavori hanno uno stato terminale qui sotto, nessuno e' rimasto non nominato.
-- **BF.06** Il giro finale di completezza. APERTA.
+- **BF.06** Il giro finale di completezza. CHIUSA: censimento eseguito (TODO, permessi, provvisori, guasti, promesse a schermo), i ritrovamenti e il loro esito stanno nella sezione "Il giro finale" qui sotto; il ritrovamento vivo (la riga della Luna) e' curato e committato.
 
 ## I tredici lavori di BF.05
 
@@ -74,14 +74,24 @@ resta portera' qui il suo motivo e il suo orizzonte.
 
 ## Il giro finale (BF.06 e gli esiti rimandati qui)
 
-Si compila quando le voci si chiudono, un ritrovamento per riga, con l'esito.
+Un ritrovamento per riga, con l'esito.
+
+- **La riga della Luna si tagliava a mezza parola** ("una runa di pazie...", vista sull'anteprima della home). CURATA: la riga scende una scala a tre gradini (col segno, senza segno, senza nome) e sceglie il primo che ci sta, col respiro dei quattro punti contro il pareggio al pelo (279,99 contro 280,0, misurato); i puntini restano solo come ultima spiaggia. La legge di AV.03 (una riga sola, mai rubare fasce ai Maestri) resta intera.
+- **TODO e FIXME nel codice**: ZERO veri. I tre trovati dal grep erano la parola METODO nei commenti.
+- **I permessi del manifest Android**: tutti e cinque usati davvero (posizione per l'Alba e i riti, microfono per il Soffio via record, fotocamera per la Costellazione del Viso, notifiche per gli avvisi dei Doni). Nessun permesso orfano.
+- **La bugia del limite delle gettate** (l'invito diceva "le tre gettate" col listino sovrano a una) e **la promessa del riscatto con gli Eos** (spesa che non esiste): trovate dalla cattura e CURATE dentro BF.05.a; anche il commento del listino diceva tre contro la matrice, voltato.
+- **Testi provvisori dichiarati, e restano dichiarati**: i nomi delle tre vie colorate (art_catalog), l'icona lineare dei Maestri (segnaposto in attesa del brand), i nomi del sigillo d'intenzione, i testi provvisori del cielo in dawn_gift. Sono materia dell'Architetto o del brand, marcati nel codice, e la revisione delle funzionalita' e' il loro posto.
+- **Il debito dei blur di ritual_object.dart** (circa 17 MaskFilter.blur nel paint dell'onboarding, residuo di AJ.01): DICHIARATO e rimandato alla revisione dell'onboarding; il difetto collaudato di AJ e' sparito da tempo e la scena gira una volta sola.
+- **Il registro dei guasti**: vive sul dispositivo (SharedPreferences), non nel repo; non c'e' un archivio storico da esaminare in bonifica. Cio' che il fondatore vede lo porta nei collaudi, ed e' la strada che ha gia' dato i fatti F1..F10.
+- **moon.png del Santuario**: lo slot per la foto vera della Luna resta in attesa della grafica di Mauro, col ripiego dipinto che e' di progetto (il precache in cattura stampa un avviso innocuo).
+- **Il lock di Windows sulle scritture** (errno 22/1224) ha morso piu' volte anche in quest'ordine: curato caso per caso coi ritentativi, resta un fatto d'ambiente, non del codice.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 7
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 5
 LAVORI_BF05_TOTALI: 13
 LAVORI_BF05_APERTI: 0
