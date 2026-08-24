@@ -155,6 +155,15 @@ void main() {
       // L'Oroscopo scrive a macchina: usa spezzaInParagrafi direttamente, e
       // la sua prova dedicata gia' verifica blocchi e oro.
       'lib/features/horoscope/oroscopo_screen.dart',
+      // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. E' un pezzo della
+      // schermata dell'Oroscopo, che sta qui sopra fra gli ammessi, tenuto in
+      // un file suo perche' la scena e' sua. Porta UNA frase per momento:
+      // "Il cielo si raccoglie" e il fatto vero del giorno, che e' una riga
+      // sola composta da CorrenteDelCielo. Di narrato non hanno niente, e
+      // spezzarle in paragrafi non vorrebbe dire nulla: sono la stessa
+      // famiglia dell'apertura dell'Oroscopo, che vive nel file ammesso
+      // accanto e porta lo stesso ruolo in corsivo.
+      'lib/features/horoscope/riflessione_del_cielo_view.dart',
     };
     final colpe = <String>[];
     for (final f in Directory('lib')

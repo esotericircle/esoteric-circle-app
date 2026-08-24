@@ -28,6 +28,12 @@ void main() {
     'screenshot_capture_test.dart':
         'e\' la porta unica delle catture, e le catture hanno gia\' il loro '
             'istante fisso dichiarato dentro',
+    'il_responso_e_lo_stesso_fino_a_mezzanotte_test.dart':
+        'ordine BK voce 06: NON legge l\'orologio, lo VIETA. Porta la stringa '
+            '"DateTime.now" perche\' la cerca dentro i cinque file che '
+            'compongono il responso, e cade se ce la trova: il responso deve '
+            'dipendere dal solo giorno civile, e i suoi istanti sono tutti '
+            'scritti dentro la prova',
   };
 
   test('nessuna prova costruisce il Diario senza dichiarare il suo istante',
