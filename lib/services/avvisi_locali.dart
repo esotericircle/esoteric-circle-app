@@ -46,19 +46,11 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso la sera, quando il sole scende, che la runa della sera ti '
           'aspetta.'
     ),
-    'oroscopo_giorno': (
-      'Il cielo di oggi',
-      'Un avviso al mattino col transito vero del tuo giorno. Parte solo '
-          'quando il cielo ha qualcosa da dire.'
-    ),
-    'sigilli_del_cammino': (
-      'Sigilli del Cammino',
-      'Un avviso quando sei a un passo da un traguardo del tuo cammino.'
-    ),
-    'gettate_rune': (
-      'Gettate di rune',
-      'Un avviso al mattino quando le tue gettate del giorno sono tornate.'
-    ),
+    // **I TRE CANALI STANTII SONO STATI TOLTI, ordine BG voce 03.** Il
+    // cielo di oggi, i Sigilli del Cammino e le gettate di rune comparivano
+    // nelle impostazioni di Android promettendo avvisi che nessuno
+    // programma piu': un canale registrato e' una promessa a schermo, e le
+    // promesse non mantenute si tolgono.
     // **I CINQUE CANALI DEI DONI. Ordine BC voce 05.**
     //
     // Uno per Dono, col nome che la persona riconosce: **cosi' ognuno si

@@ -24,6 +24,7 @@ import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/memory/maestro_memory_repository.dart';
+import '../../../core/config/app_flags.dart';
 
 /// Stato della conversazione con un Maestro.
 ///
@@ -778,7 +779,14 @@ class MaestroChatController extends ChangeNotifier {
     // nessuno lo avesse comprato. Chi non ha diritto non paga il costo della
     // distillazione e non lascia traccia.
     final piano = _tier?.call();
-    if (piano != null && !PlanCatalog.haMemoria(piano)) return;
+    // **IN DEMO LA MEMORIA E' ACCESA, ordine BG voce 03.** La demo esiste
+    // per far vedere il prodotto vero, e il prodotto vero ricorda: girava a
+    // tier free e non distillava mai, quindi i Maestri della presentazione
+    // avevano l'amnesia. Il contratto del listino resta intatto per il
+    // gratuito fuori demo.
+    final memoriaViva =
+        AppFlags.isDemo || piano == null || PlanCatalog.haMemoria(piano);
+    if (!memoriaViva) return;
     if (_turnsSinceDistill < _distillEvery) return;
     _turnsSinceDistill = 0;
     try {

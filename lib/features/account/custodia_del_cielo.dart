@@ -286,7 +286,11 @@ Future<bool> mostraInvitoACustodire(
   BuildContext context, {
   required int momenti,
 }) async {
-  if (momenti <= 0) return false;
+  // **ANCHE A ZERO MOMENTI, per il primo avviso.** Ordine BG voce 03: il
+  // rifiuto sullo zero bruciava l'avviso "una volta, subito" di BE.07,
+  // perche' il primo giro arriva prima di qualunque momento custodito. Con
+  // zero momenti il foglio non vanta niente: dice la verita' del primo
+  // avviso, e la gratuita'.
   final palette = context.palette;
   final account = context.read<AccountDelCerchio>();
   final esito = await showModalBottomSheet<bool>(
@@ -415,6 +419,8 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
     final quanti = widget.momenti == 1
         ? 'un tuo momento'
         : '${widget.momenti} tuoi momenti';
+    // A zero momenti (il primo avviso) niente vanterie: un'altra testata.
+    final senzaMomenti = widget.momenti <= 0 && !widget.perChiTorna;
     return Container(
       key: const Key('invito_a_custodire'),
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
@@ -444,7 +450,9 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
                   child: Text(
                       widget.perChiTorna
                           ? 'Il Cerchio ti stava aspettando'
-                          : 'Il Cerchio custodisce $quanti',
+                          : (senzaMomenti
+                              ? 'Il Cerchio può custodire il tuo cielo'
+                              : 'Il Cerchio custodisce $quanti'),
                       key: const Key('invito_numero_dei_momenti'),
                       style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
@@ -456,8 +464,13 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
               widget.perChiTorna
                   ? 'Entra con l\'account che usavi: ritrovi la tua carta '
                       'natale, i Sigilli accesi e i tuoi Eos.'
-                  : 'Vuoi che restino tuoi anche se cambi telefono? Basta un '
-                      'tocco: nulla di quello che hai fatto si perde.',
+                  : (senzaMomenti
+                      ? 'Stai usando il Cerchio senza un account: ciò che '
+                          'farai vive solo su questo telefono. Registrarsi è '
+                          'gratuito, basta un tocco e nulla si perde più.'
+                      : 'Vuoi che restino tuoi anche se cambi telefono? '
+                          'Registrarsi è gratuito e basta un tocco: nulla di '
+                          'quello che hai fatto si perde.'),
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),

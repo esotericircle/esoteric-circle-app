@@ -79,9 +79,12 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
     case AppPermission.notifications:
       return const PermissionCopy(
         icon: Icons.notifications_none_rounded,
-        title: 'Gli appuntamenti del cielo',
+        title: 'I tuoi cinque Doni del giorno',
+        // Ordine BG voce 03: il testo di prima prometteva avvisi che nessuno
+        // programma (le ricorrenze del cielo e i transiti). Gli avvisi veri
+        // sono i cinque Doni, ognuno col suo interruttore e il suo orario.
         body:
-            'Ti avvisiamo solo per i momenti che contano: il tuo ritorno solare, una Luna piena, un transito importante.',
+            'Un avviso per ciascun Dono del giorno, alla sua ora: Alba, Soffio, Arcano, Tramonto e Sogno. Ognuno si spegne e si sposta da solo.',
         cta: 'Attiva gli avvisi',
       );
     case AppPermission.location:

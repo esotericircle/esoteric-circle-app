@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dimenticanza_del_telefono.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// COME STA LA PERSONA DENTRO IL CERCHIO.
@@ -715,8 +716,23 @@ class AccountDelCerchio extends ChangeNotifier {
 
   /// Quante volte l'invito e' gia' stato rimandato: chi dice di no non deve
   /// vederselo davanti a ogni apertura.
+  ///
+  /// **SUL DISCO, non in memoria. Ordine BG voce 03.** Il conto in RAM
+  /// ripartiva da zero a ogni avvio, quindi il tetto dei tre no valeva solo
+  /// dentro una sessione: chi aveva rifiutato tre volte se lo ritrovava
+  /// davanti al riavvio, che e' il contrario del rispetto promesso.
+  static const String _chiaveRimandi = 'account.rimandi';
   int _rimandi = 0;
   int get rimandi => _rimandi;
+
+  Future<void> _caricaIRimandi() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _rimandi = prefs.getInt(_chiaveRimandi) ?? 0;
+    } catch (errore) {
+      // Senza disco il conto resta quello di sessione: meglio di niente.
+    }
+  }
 
   void rileggi() {
     final uid = _porta.uid;
@@ -730,6 +746,7 @@ class AccountDelCerchio extends ChangeNotifier {
   }
 
   Future<void> avvia() async {
+    await _caricaIRimandi();
     await _porta.assicuraUnAccount();
     rileggi();
   }
@@ -737,6 +754,10 @@ class AccountDelCerchio extends ChangeNotifier {
   void rimanda() {
     _rimandi++;
     notifyListeners();
+    // Best effort: se il disco non scrive, vale il conto di sessione.
+    SharedPreferences.getInstance()
+        .then((prefs) => prefs.setInt(_chiaveRimandi, _rimandi))
+        .catchError((Object errore) => true);
   }
 
   Future<EsitoDellaCustodia> custodisci(

@@ -326,13 +326,14 @@ class AvvisiDelRito {
   /// traguardo e' davvero vicino, cioe' se il cammino ha qualcosa da dire:
   /// senza, resta zero, che sta sempre sopra il rumore.
   static const int idChiamataDelTraguardo = 1004;
-  static const String canaleTraguardo = 'sigilli_del_cammino';
   static const String caricoTraguardo = 'sigilli';
 
   /// I canali e i carichi delle chiamate: il carico apre la SCENA promessa.
+  ///
+  /// **I canali del traguardo, dell'oroscopo e delle gettate non esistono
+  /// piu', ordine BG voce 03**: nessuno programmava quelle chiamate e i
+  /// canali promettevano avvisi mai partiti dalle impostazioni di Android.
   static const String canaleTramonto = 'runa_tramonto';
-  static const String canaleOroscopo = 'oroscopo_giorno';
-  static const String canaleGettate = 'gettate_rune';
   static const String caricoTramonto = 'runa_tramonto';
   static const String caricoOroscopo = 'oroscopo';
   static const String caricoGettate = 'gettate';

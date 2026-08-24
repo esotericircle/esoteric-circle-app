@@ -19,7 +19,7 @@ enum ModoDellaCondivisione {
     // dice che l'utente cerca risposte: qui la risposta e' QUANDO arrivano gli
     // Eos, e bastano quattro parole. La frase lunga si mangiava tre righe
     // sotto ogni pulsante, in un grigio che per giunta non si leggeva.
-    quandoArriva: 'Eos quando il tuo amico scarica.',
+    quandoArriva: 'Eos quando il tuo amico entra nel Cerchio. In attesa.',
     subitoPagato: false,
   ),
 

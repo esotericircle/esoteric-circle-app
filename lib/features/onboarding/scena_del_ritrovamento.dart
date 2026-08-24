@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/cammino/ritrovamento.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/chat/user_profile.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
@@ -82,7 +85,12 @@ class ScenaDelRitrovamento extends StatelessWidget {
                   const SizedBox(height: SpacingTokens.md),
                 ],
                 Text(
-                  nome == null ? 'Bentornato nel Cerchio' : 'Bentornato, $nome',
+                  // **IL SALUTO SI DECLINA, ordine BG voce 03.** La forma di
+                  // cortesia scelta all'onboarding governa ogni testo che
+                  // parla alla persona: qui era cablato il maschile. Con la
+                  // forma ignota vale il neutro, come da convenzione della
+                  // casa.
+                  _saluto(context, nome),
                   key: const Key('ritrovamento_saluto'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.cerimonialeGrande()
@@ -197,5 +205,25 @@ class _Voce extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+
+/// Il saluto del ritrovamento, declinato sulla forma di cortesia.
+String _saluto(BuildContext context, String? nome) {
+  var forma = CourtesyForm.unknown;
+  try {
+    forma = context.read<ProfileController>().profile.courtesyForm;
+  } catch (errore) {
+    forma = CourtesyForm.unknown;
+  }
+  switch (forma) {
+    case CourtesyForm.masculine:
+      return nome == null ? 'Bentornato nel Cerchio' : 'Bentornato, $nome';
+    case CourtesyForm.feminine:
+      return nome == null ? 'Bentornata nel Cerchio' : 'Bentornata, $nome';
+    case CourtesyForm.neutral:
+    case CourtesyForm.unknown:
+      return nome == null ? 'Di nuovo nel Cerchio' : 'Di nuovo nel Cerchio, $nome';
   }
 }

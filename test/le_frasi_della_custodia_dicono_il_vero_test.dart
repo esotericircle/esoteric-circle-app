@@ -115,7 +115,9 @@ void main() {
         reason: 'il telefono ha proposto un nome e nessuno lo saluta');
     // ignore: avoid_print
     print('ORDINE AP VOCE 08: a schermo "${tester.widget<Text>(saluto).data}"');
-    expect(tester.widget<Text>(saluto).data, 'Bentornato, Mauro');
+    // La forma di cortesia qui non e' ancora scelta: vale il neutro,
+    // ordine BG voce 03.
+    expect(tester.widget<Text>(saluto).data, 'Di nuovo nel Cerchio, Mauro');
 
     // **NESSUNO ENTRA DA SOLO.** Il saluto prende un nome, non un'identita':
     // entrare all'apertura sarebbe il muro d'accesso che Mauro ha escluso il

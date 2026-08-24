@@ -350,10 +350,17 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     )) {
       return;
     }
+    if (!mounted) return;
+    // **PRIMA SI MOSTRA, POI SI SEGNA. Ordine BG voce 03.** L'ordine
+    // inverso bruciava il primo avviso di BE.07: la data veniva scritta,
+    // poi il foglio rifiutava di aprirsi con zero momenti, e l'avviso
+    // "una volta, subito" non compariva mai piu' come primo. Il foglio ora
+    // accetta anche lo zero (con le parole del primo avviso), e la data si
+    // scrive solo per un invito davvero mostrato.
+    final mostrato = await mostraInvitoACustodire(context, momenti: momenti);
+    if (!mostrato) return;
     await prefs.setString(
         _chiaveUltimoInvito, DateTime.now().toIso8601String());
-    if (!mounted) return;
-    await mostraInvitoACustodire(context, momenti: momenti);
   }
 
   // Arma l'invito al cielo: dopo tre secondi senza tocco, lo mostra.

@@ -44,6 +44,7 @@ import 'widgets/chat_suggestions.dart';
 import '../../../services/ai/voce_sorvegliata.dart';
 import 'widgets/diagnostics_dialog.dart';
 import '../widgets/maestro_bust.dart';
+import '../../../core/config/app_flags.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -932,7 +933,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // Dalla sorgente unica, non ricostruito qui: era la seconda copia della
     // stessa riga, e le due copie servivano a due cose diverse.
     final natal = SorgenteNatale.daIdentita(birth);
-    final premium = context.read<EntitlementService>().tier != Tier.free;
+    // In demo il benvenuto riprende la memoria come per il premium: la
+    // demo mostra il prodotto vero. Ordine BG voce 03.
+    final premium = AppFlags.isDemo ||
+        context.read<EntitlementService>().tier != Tier.free;
     return MaestroWelcome.compose(
       maestro: widget.maestro,
       profile: controller.profile,

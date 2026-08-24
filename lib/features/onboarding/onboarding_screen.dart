@@ -642,7 +642,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             Padding(
               padding: const EdgeInsets.only(bottom: 2),
               child: Text(
-                'Bentornato, $_bentornato',
+                // Forma di cortesia non ancora scelta: vale il neutro,
+                // convenzione della casa. Ordine BG voce 03.
+                'Di nuovo nel Cerchio, $_bentornato',
                 key: const Key('onboarding_bentornato'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.didascalia()
