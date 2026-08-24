@@ -1,4 +1,16 @@
-# RIPRESA
+# RIPRESA, ARCHIVIO CHIUSO
+
+**QUESTO FILE NON E' LO STATO VIVO, ED E' FERMO AL 5 AGOSTO 2026.**
+
+Raccoglie gli ORDINI CHAT numerati, cioe' il modo in cui si lavorava prima
+dei manifesti per ordine. Da allora la fonte sovrana e' `docs/STATO_VIVO.md`
+e ogni ordine ha il suo manifesto in `docs/ordini/ORDINE_XX_MANIFESTO.md` con
+la sua guardia in `test/`. Qui NON si aggiunge piu' niente: una terza copia
+dello stesso stato invecchierebbe in silenzio, e nessuno saprebbe quale delle
+tre vince. Cio' che c'e' scritto resta perche' e' storia vera e perche' il
+codice ci rimanda ancora (il debito di App Check citato in
+`functions/src/index.ts`, la mezzanotte civile citata in `lib/core/astro/sky.dart`):
+si legge come archivio, non come verita' di oggi.
 
 ## ORDINE CHAT 8: CHIUSO PER INTERO, la seconda stesura
 
