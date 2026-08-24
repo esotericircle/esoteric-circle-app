@@ -172,9 +172,9 @@ class Ritrovamento {
   /// ritrovamento di zero cose: sarebbe una promessa mantenuta a vuoto.
   ///
   /// **E LA DOTE DI NASCITA NON E' UNA COSA TENUTA.** Ordine BG voce 01: un
-  /// Cerchio appena nato ha gia' 270 Eos (benvenuto piu' giorno), e per
+  /// Cerchio appena nato ha gia' la dote intera (benvenuto piu' giorno), e per
   /// questa regola sembrava un ritorno: "Il Cerchio ti aveva tenuto tutto,
-  /// 270 Eos" detto a chi non aveva niente da ritrovare. Se il Cerchio e'
+  /// la dote" detto a chi non aveva niente da ritrovare. Se il Cerchio e'
   /// appena nato, gli Eos non contano come ritrovamento.
   bool get qualcosaDaMostrare =>
       cartaRitrovata ||
