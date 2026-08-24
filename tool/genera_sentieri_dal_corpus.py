@@ -39,6 +39,9 @@ GESTI_VIVI = {
     'gettata', 'luogo_di_nascita', 'numero_della_vita', 'ora_di_nascita',
     'oracolo', 'oroscopo', 'passaporto', 'sigillo', 'sinastria', 'soffio',
     'sogno', 'stesa', 'tramonto', 'viso',
+    # Ordine BF voce 05.b: la meditazione ha una fine, e alla fine la regia
+    # registra il gesto. Prima non arrivava mai, e i suoi gradini dormivano.
+    'meditazione',
 }
 
 # Come si chiama, nel corpus, ciascun gesto dell'app.
@@ -50,6 +53,8 @@ NOMI_DEI_GESTI = [
     ('stese', 'stesa'),
     ('gettate', 'gettata'),
     ('sinastrie', 'sinastria'),
+    ('meditazioni', 'meditazione'),
+    ('meditazione', 'meditazione'),
     ('soffi', 'soffio'),
     ('rune del tramonto', 'tramonto'),
     ('oracolo del giorno', 'oracolo'),
@@ -654,6 +659,18 @@ def main():
                 famiglia = 'cerchio'
             elif costruttore.startswith('Dormiente'):
                 famiglia = FAMIGLIE.get(v.get('ragione'), 'profondita')
+            elif costruttore.startswith('GestiCompiuti') and                     not costruttore.endswith(', 1)'):
+                # **UN GESTO RIPETUTO E' DEDIZIONE, non prima volta.** Ordine
+                # BF voce 05.b: svegliando aur_51 (sette meditazioni) la
+                # regola piatta "ogni conteggio e' ampiezza" lo strappava
+                # dalla Profondita' dichiarata dal corpus e il minimo di
+                # famiglia del Loto cadeva. SOLO Profondita' e Dedizione
+                # contano qui: le altre ragioni restano ampiezza, perche' la
+                # famiglia segue la condizione e un conteggio non dipende
+                # dal cielo ne' dalla giornata qualunque etichetta porti.
+                famiglia = ('profondita'
+                            if v.get('ragione') in ('Profondità', 'Dedizione')
+                            else 'ampiezza')
             else:
                 famiglia = 'ampiezza'
             righe.append(

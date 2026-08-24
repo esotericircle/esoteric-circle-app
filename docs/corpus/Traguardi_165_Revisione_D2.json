@@ -2264,8 +2264,8 @@
      "finestra_del_cielo": "",
      "porta_che_apre": "La Meditazione",
      "eos": 55,
-     "dormiente": true,
-     "note": "DORMIENTE: la meditazione non ha ancora una fine."
+     "dormiente": false,
+     "note": "Svegliata dall'ordine BF voce 05.b: la meditazione ha una fine e la regia registra il gesto."
     },
     {
      "posizione": 51,
@@ -2278,8 +2278,8 @@
      "finestra_del_cielo": "",
      "porta_che_apre": "",
      "eos": 55,
-     "dormiente": true,
-     "note": "DORMIENTE: la meditazione non ha ancora una fine."
+     "dormiente": false,
+     "note": "Svegliata dall'ordine BF voce 05.b: la meditazione ha una fine e la regia registra il gesto."
     },
     {
      "posizione": 52,

@@ -1,5 +1,9 @@
 import 'dart:math' as math;
 
+import 'dart:async';
+
+import '../../../sigilli/regia_del_cammino.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -51,6 +55,19 @@ class _MeditationScreenState extends State<MeditationScreen>
   MeditationPreset _preset = MeditationPreset.calm432;
   bool _active = false;
 
+  /// **LA MEDITAZIONE HA UNA FINE, ordine BF voce 05.b (ordine P voce 35).**
+  /// Prima il respiro girava in cerchio per sempre: la schermata non
+  /// arrivava a una chiusura, non accendeva traguardi e non funzionava come
+  /// rito. La sessione dura [cicliDellaSessione] cicli di respiro (dodici
+  /// da undici secondi, poco piu' di due minuti): al compimento il tono si
+  /// ferma, la scena lo dice, e la regia registra il gesto `meditazione`,
+  /// che e' cio' che sveglia aur_50 e aur_51. Il tempo lo tiene un Timer e
+  /// non l'animazione, cosi' il compimento arriva anche con Riduci
+  /// Movimento, dove il respiro visivo sta fermo.
+  static const int cicliDellaSessione = 12;
+  Timer? _sessione;
+  bool _compiuta = false;
+
   @override
   void initState() {
     super.initState();
@@ -81,6 +98,7 @@ class _MeditationScreenState extends State<MeditationScreen>
     // in ciclo continuo, quindi uscendo dalla schermata restava acceso per
     // sempre. Che fosse una dimenticanza e non una scelta lo diceva il Rito del
     // Sogno, che con lo stesso lettore lo fermava gia'.
+    _sessione?.cancel();
     widget.player.stop();
     _breath.dispose();
     super.dispose();
@@ -100,12 +118,34 @@ class _MeditationScreenState extends State<MeditationScreen>
   }
 
   void _togglePlay() {
-    setState(() => _active = !_active);
+    setState(() {
+      _active = !_active;
+      if (_active) _compiuta = false;
+    });
     if (_active) {
       widget.player.play(_preset);
+      _sessione?.cancel();
+      _sessione = Timer(
+        const Duration(milliseconds: _cycleMs * cicliDellaSessione),
+        _alCompimento,
+      );
     } else {
+      // Fermarsi a meta' non e' compiere: il gesto si registra solo alla
+      // fine della sessione, e chi interrompe riparte da capo.
+      _sessione?.cancel();
       widget.player.stop();
     }
+  }
+
+  void _alCompimento() {
+    if (!mounted) return;
+    widget.player.stop();
+    setState(() {
+      _active = false;
+      _compiuta = true;
+    });
+    // IL CAMMINO SE NE ACCORGE: la meditazione e' compiuta, non aperta.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'meditazione'));
   }
 
   void _choose(MeditationPreset preset) {
@@ -169,7 +209,11 @@ class _MeditationScreenState extends State<MeditationScreen>
                           ),
                           _BreathGuide(
                             fill: b.fill,
-                            phase: _active ? b.phase : 'Tocca per iniziare',
+                            phase: _active
+                                ? b.phase
+                                : (_compiuta
+                                    ? 'Il respiro è compiuto'
+                                    : 'Tocca per iniziare'),
                             palette: palette,
                           ),
                         ],
@@ -200,6 +244,28 @@ class _MeditationScreenState extends State<MeditationScreen>
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.md),
+                  // **IL COMPIMENTO SI DICE, ordine BF voce 05.b**: senza
+                  // questa riga la sessione finirebbe in silenzio e la
+                  // persona non saprebbe di essere arrivata.
+                  if (_compiuta) ...[
+                    Row(
+                      key: const Key('meditazione_compiuta'),
+                      children: [
+                        Icon(Icons.spa_outlined,
+                            size: 16, color: palette.goldSoft),
+                        const SizedBox(width: SpacingTokens.xs),
+                        Expanded(
+                          child: Text(
+                            'La meditazione è portata a compimento: porta '
+                            'questa calma con te.',
+                            style: TypographyTokens.corpo()
+                                .copyWith(color: palette.goldSoft),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
                   // Play e invito alle cuffie.
                   Row(
                     children: [
