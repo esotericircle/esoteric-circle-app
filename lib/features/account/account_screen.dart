@@ -16,6 +16,7 @@ import '../../services/app_services.dart';
 // `PortaDelCerchio`, quella del server e quella delle vie della barra, e
 // senza prefisso il compilatore non sa quale delle due si intende.
 import 'custodia_del_cielo.dart';
+import 'festa_della_registrazione.dart';
 
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -183,9 +184,11 @@ class AccountScreen extends StatelessWidget {
         _AccountEntry(
           id: 'verifica_email',
           title: 'Verifica la tua email',
-          subtitle: 'Serve per rifare la parola se la perdi',
+          // **ANCHE IL PREMIO, ordine BH voce 04**: il benvenuto arriva a
+          // verifica compiuta, e la riga lo dice.
+          subtitle: 'Sblocca il dono di benvenuto e il recupero della parola',
           icon: Icons.mark_email_unread_outlined,
-          onTap: (context) => _mandaLaVerifica(context),
+          onTap: (context) => _verificaLaTuaEmail(context),
         ),
       // **CAMBIARE LA PAROLA. Ordine AZ voce 12, situazione S20.** Anche
       // questa solo a chi ha una parola da cambiare.
@@ -439,6 +442,55 @@ bool _haUnaParola(BuildContext context) {
   } catch (errore) {
     return false;
   }
+}
+
+/// IL COMPIMENTO DELLA VERIFICA, ordine BH voce 04.
+///
+/// Due strade in un foglio: rimandare l'email, oppure dire "ho verificato".
+/// La seconda ricarica l'account e RINFRESCA il gettone (il server legge la
+/// verifica da li'), poi passa dalla festa della registrazione: se il
+/// benvenuto arriva adesso, si festeggia adesso.
+Future<void> _verificaLaTuaEmail(BuildContext context) async {
+  final account = context.read<AccountDelCerchio>();
+  final scelta = await showDialog<String>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('verifica_email_foglio'),
+      title: const Text('Verifica la tua email'),
+      content: const Text(
+          'Ti abbiamo mandato una email con un collegamento: aprila e '
+          'toccalo. Poi torna qui e dì che hai verificato, così il dono '
+          'di benvenuto arriva subito.'),
+      actions: [
+        TextButton(
+          key: const Key('verifica_manda_ancora'),
+          onPressed: () => Navigator.of(dialogo).pop('manda'),
+          child: const Text("Manda di nuovo l'email"),
+        ),
+        FilledButton(
+          key: const Key('verifica_ho_verificato'),
+          onPressed: () => Navigator.of(dialogo).pop('verificato'),
+          child: const Text('Ho verificato'),
+        ),
+      ],
+    ),
+  );
+  if (!context.mounted || scelta == null) return;
+  if (scelta == 'manda') {
+    await _mandaLaVerifica(context);
+    return;
+  }
+  await account.ricarica();
+  if (!context.mounted) return;
+  if (account.emailVerificata == true) {
+    await FestaDellaRegistrazione.dopoLaCustodia(context);
+    return;
+  }
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    key: Key('verifica_non_ancora'),
+    content: Text("L'indirizzo non risulta ancora verificato: apri "
+        "l'email che ti abbiamo mandato e tocca il collegamento."),
+  ));
 }
 
 /// Manda la verifica, e dice sempre com'e' andata. Ordine AZ voce 06.

@@ -354,6 +354,12 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   Future<void> ricarica() async {
     try {
       await _auth.currentUser?.reload();
+      // **IL GETTONE SI RINFRESCA CON LA RICARICA, ordine BH voce 04.** Il
+      // server paga il benvenuto solo a email verificata, e la verifica la
+      // legge dal GETTONE: senza questo rinfresco il telefono continuerebbe
+      // a presentarsi col gettone vecchio (fino a un'ora) e il premio
+      // appena sbloccato non arriverebbe.
+      await _auth.currentUser?.getIdToken(true);
     } catch (errore) {
       // Si ignora: se non si puo' ricaricare si tiene quello che si sa gia',
       // che e' vecchio di secondi, non di giorni.
@@ -386,6 +392,18 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
           }
           tentata = EmailAuthProvider.credential(email: email, password: parola);
           await utente.linkWithCredential(tentata);
+          // **LA VERIFICA PARTE DA SOLA, ordine BH voce 04.** La
+          // registrazione con email e' vincolata alla verifica
+          // dell'indirizzo (e' il vincolo che protegge il premio del
+          // benvenuto): l'email di verifica si manda subito, senza
+          // aspettare che qualcuno trovi la voce nel menu. Se l'invio
+          // fallisce non si blocca la custodia: la voce del menu resta la
+          // seconda strada.
+          try {
+            await _auth.currentUser?.sendEmailVerification();
+          } catch (errore) {
+            // La custodia e' riuscita comunque: la verifica si rimanda.
+          }
       }
       await ricarica();
       return EsitoDellaCustodia.riuscita;
@@ -732,6 +750,14 @@ class AccountDelCerchio extends ChangeNotifier {
     } catch (errore) {
       // Senza disco il conto resta quello di sessione: meglio di niente.
     }
+  }
+
+  /// Ricarica l'account dal fornitore e rinfresca il gettone (la porta lo
+  /// fa dentro la sua ricarica), poi rilegge lo stato. Ordine BH voce 04:
+  /// e' il passo con cui "ho verificato" diventa vero anche per il server.
+  Future<void> ricarica() async {
+    await _porta.ricarica();
+    rileggi();
   }
 
   void rileggi() {
