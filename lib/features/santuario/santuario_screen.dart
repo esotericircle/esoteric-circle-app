@@ -497,7 +497,30 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // non lo usa, perche' li' un segno che non e' il tuo e' una bugia detta
     // alla persona, ed era esattamente il difetto.
     final userZodiac = NightSky.sunSign(profilo.identity.birthDate);
+    // **LA COPPIA DELLE RIGHE, ordine BF voce 06.** La variante col segno
+    // sui telefoni stretti usciva coi puntini A MEZZA PAROLA ("una runa di
+    // pazie...", vista sull'anteprima della home): la legge di AV.03 (una
+    // riga sola, mai rubare fasce ai Maestri) resta intera, ma prima dei
+    // puntini si prova la variante breve, vera anche lei. I puntini
+    // restano solo come ultima spiaggia.
     final personalLine = _personalLine(central, moon, userName, userSign);
+    final personalLineBreve = _personalLine(central, moon, userName, null);
+    // Il terzo gradino: senza il nome. Guardando l'anteprima anche la
+    // variante senza segno sfondava la riga ("una runa di pazie..."):
+    // prima di tagliare a mezza parola si rinuncia al nome, che la persona
+    // ha gia' letto nel saluto, mai al senso della frase.
+    final prefisso = '$userName, ';
+    final nuda = personalLineBreve.startsWith(prefisso)
+        ? personalLineBreve.substring(prefisso.length)
+        : personalLineBreve;
+    final personalLineNuda = nuda.isEmpty
+        ? nuda
+        : nuda[0].toUpperCase() + nuda.substring(1);
+    final personalLinee = <String>[
+      personalLine,
+      personalLineBreve,
+      personalLineNuda,
+    ];
 
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
     Offset depth(double d) => reduceMotion ? Offset.zero : parallax.layerOffset(d);
@@ -549,7 +572,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                               reduceMotion,
                               palette,
                               moon,
-                              personalLine,
+                              personalLinee,
                               userZodiac,
                               parallax,
                               depth),
@@ -629,7 +652,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     bool reduceMotion,
     MaestroPalette palette,
     MoonPhase moon,
-    String personalLine,
+    List<String> personalLinee,
     Zodiac userZodiac,
     ParallaxController parallax,
     Offset Function(double) depth,
@@ -1029,18 +1052,42 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // rimpiccioliva i tre protagonisti dell'app per far
                         // stare una frase: **le tre guide sono il prodotto, la
                         // riga di testo no**.
-                        child: Text(
-                          personalLine,
-                          key: const Key('santuario_riga_personale'),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TypographyTokens.didascalia().copyWith(
+                        child: LayoutBuilder(builder: (context, box) {
+                          final stile = TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic,
                             height: 1.15,
-                          ),
-                        ),
+                          );
+                          // Prima dei puntini si scende la scala: col
+                          // segno, senza segno, senza nome. Un taglio a
+                          // mezza parola sulla faccia dell'app e' peggio
+                          // di un nome non ripetuto.
+                          var riga = personalLinee.last;
+                          for (final candidata in personalLinee) {
+                            final misura = TextPainter(
+                              text: TextSpan(text: candidata, style: stile),
+                              maxLines: 1,
+                              textDirection: TextDirection.ltr,
+                            )..layout(maxWidth: double.infinity);
+                            // Col respiro di quattro punti: al pelo
+                            // (279,99 contro 280,0) il painter dice che ci
+                            // sta e il Text mette i puntini lo stesso. E'
+                            // la stessa lezione del titolo di tessera
+                            // dell'Oroscopo (ordine BD voce 07).
+                            if (misura.width <= box.maxWidth - 4.0) {
+                              riga = candidata;
+                              break;
+                            }
+                          }
+                          return Text(
+                            riga,
+                            key: const Key('santuario_riga_personale'),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: stile,
+                          );
+                        }),
                       ),
                     ],
                     ),
