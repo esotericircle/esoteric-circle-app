@@ -231,3 +231,73 @@ test("il riscatto scala il contatore dentro la transazione del saldo", () => {
     "statoDelCerchio non porta piu' il listino del riscatto"
   );
 });
+
+// --- ORDINE BH VOCI 01 E 05: il benvenuto della registrazione, con la lapide ---
+
+test("il benvenuto si accredita solo a chi e' registrato", () => {
+  // Decisione del fondatore: chi non si registra non viene premiato. La voce
+  // del benvenuto entra in daAccreditare solo dentro il ramo registrato, e
+  // la registrazione si legge dal token (provider non anonimo con email;
+  // il provider password pretende l'email verificata).
+  const fs = require("fs");
+  const sorgente = fs.readFileSync(require("path").join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  const blocco = sorgente.substring(
+    sorgente.indexOf("if (registrazione.registrato) {"),
+    sorgente.indexOf("const delGiorno = ACCREDITO_DEL_GIORNO")
+  );
+  assert.ok(
+    blocco.includes("id: \"benvenuto\""),
+    "il benvenuto non sta piu' dietro la registrazione: torna a essere dote di nascita"
+  );
+  assert.ok(
+    sorgente.includes("provider !== \"anonymous\""),
+    "la registrazione non esclude piu' l'anonimo"
+  );
+  assert.ok(
+    sorgente.includes("provider !== \"password\" || verificata"),
+    "il provider password non pretende piu' l'email verificata: il premio si comprerebbe con un indirizzo inventato"
+  );
+});
+
+test("il premio della registrazione viaggia nel listino del server", () => {
+  const fs = require("fs");
+  const sorgente = fs.readFileSync(require("path").join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  assert.ok(
+    sorgente.includes("listinoDellaRegistrazione: {benvenuto: BENVENUTO}"),
+    "la risposta non dichiara piu' il premio della registrazione: il client dovrebbe cablarlo"
+  );
+});
+
+test("la lapide ferma il secondo benvenuto e sopravvive all'oblio", () => {
+  // Il buco visto dal fondatore: cancella, registrati di nuovo, incassa
+  // altri 250. La lapide e' l'impronta dell'email in una collezione fuori
+  // dal ramo utente: la cancellazione non la tocca, le regole la chiudono
+  // al client, e si legge nella fase delle letture della transazione.
+  const fs = require("fs");
+  const sorgente = fs.readFileSync(require("path").join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  assert.ok(
+    sorgente.includes("db.collection(\"lapidi_del_benvenuto\")"),
+    "la collezione delle lapidi e' sparita"
+  );
+  assert.ok(
+    sorgente.includes("createHash(\"sha256\")"),
+    "la lapide non usa piu' l'impronta: un'email in chiaro sopravviverebbe all'oblio"
+  );
+  assert.ok(
+    sorgente.includes("if (lapideSnap !== null && lapideSnap.exists) continue;"),
+    "la lapide non ferma piu' il secondo benvenuto"
+  );
+  // Il retrofit: chi ha gia' il benvenuto di nascita riceve la lapide alla
+  // prima sincronia registrata, o i Cerchi vecchi resterebbero liberi.
+  assert.ok(
+    sorgente.includes("!lapideSnap.exists") && sorgente.includes("voce.id === \"benvenuto\" &&"),
+    "il retrofit della lapide per i Cerchi vecchi e' sparito"
+  );
+  // E la cancellazione non deve mai toccare le lapidi: si cancella solo il
+  // ramo utente.
+  const cancella = sorgente.substring(sorgente.indexOf("export const cancellaIlCerchio"));
+  assert.ok(
+    !cancella.includes("lapidi_del_benvenuto"),
+    "la cancellazione tocca le lapidi: il buco della frode si riapre"
+  );
+});

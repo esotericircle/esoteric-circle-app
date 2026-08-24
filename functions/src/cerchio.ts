@@ -4,6 +4,7 @@ import * as logger from "firebase-functions/logger";
 // namespace unico non esiste piu': si importa dal modulo che serve. Il
 // rialzo porta il runtime a Node 22 (il 20 viene dismesso il 30 ottobre
 // 2026) e spegne l'avviso EBADENGINE sul PC del fondatore, che gira Node 24.
+import {createHash} from "node:crypto";
 import {initializeApp} from "firebase-admin/app";
 import {getFirestore, FieldValue} from "firebase-admin/firestore";
 import {getAuth} from "firebase-admin/auth";
@@ -75,6 +76,60 @@ function uidDi(request: CallableRequest): string {
   }
   return uid;
 }
+
+/**
+ * LA REGISTRAZIONE, letta dal token e mai dal corpo. Ordine BH voce 01.
+ *
+ * Il benvenuto (250) non e' piu' la dote di nascita: e' il premio della
+ * PRIMA registrazione, per decisione del fondatore. Registrato vuol dire
+ * provider non anonimo CON email; per il provider "password" l'email deve
+ * anche essere verificata, o il premio si comprerebbe con un indirizzo
+ * inventato. Google e Apple portano email gia' verificate dal loro conto.
+ */
+function registrazioneDi(request: CallableRequest): {
+  registrato: boolean;
+  email: string | null;
+} {
+  const token = request.auth?.token;
+  const provider = (token?.firebase as {sign_in_provider?: string} | undefined)
+    ?.sign_in_provider;
+  const email =
+    typeof token?.email === "string" ? token.email.trim().toLowerCase() : null;
+  const verificata = token?.email_verified === true;
+  const registrato =
+    provider !== undefined &&
+    provider !== "anonymous" &&
+    email !== null &&
+    (provider !== "password" || verificata);
+  return {registrato, email: registrato ? email : null};
+}
+
+/**
+ * LA LAPIDE DEL BENVENUTO, l'antifrode che sopravvive all'oblio.
+ * Ordine BH voce 05.
+ *
+ * Il buco che il fondatore ha visto da solo: cancella l'account, registrati
+ * di nuovo, incassa altri 250. La cura: quando il benvenuto viene pagato a
+ * una email, la sua IMPRONTA (hash SHA-256 dell'indirizzo normalizzato, non
+ * l'indirizzo) entra in una collezione fuori dal ramo utente, che la
+ * cancellazione non tocca e che le regole chiudono al client. Un'email che
+ * ha gia' consumato il benvenuto non lo riceve una seconda volta, con
+ * qualunque account.
+ *
+ * **Perche' l'impronta e non l'indirizzo**: il diritto all'oblio resta
+ * onesto (nessun dato personale leggibile sopravvive), e la base giuridica
+ * e' il legittimo interesse antifrode, dichiarato nella privacy policy.
+ * Il sale opzionale arriva dall'ambiente (BENVENUTO_PEPPER, Secret Manager
+ * in produzione): senza sale l'impronta e' comunque un'impronta, e il
+ * segreto non sta mai nel codice.
+ */
+function improntaDellEmail(email: string): string {
+  const sale = process.env.BENVENUTO_PEPPER ?? "";
+  return createHash("sha256").update(sale + email).digest("hex");
+}
+
+const lapideDelBenvenuto = (impronta: string) =>
+  db.collection("lapidi_del_benvenuto").doc(impronta);
 
 const utente = (uid: string) => db.collection("users").doc(uid);
 const contatoriDoc = (uid: string) =>
@@ -167,6 +222,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // telefono puo' scrivere nel registro dei movimenti "Benvenuto nel
   // Cerchio" e "Dono del giorno" invece di mostrare un numero senza ragione.
   const accreditati: {motivo: string; quanti: number}[] = [];
+  const registrazione = registrazioneDi(request);
   const saldoEos = await db.runTransaction(async (tx) => {
     // La transazione puo' RIPARTIRE da capo in caso di contesa: l'elenco si
     // svuota a ogni giro, o un giro fallito lascerebbe accrediti fantasma.
@@ -176,11 +232,19 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     let saldo = (snap.data()?.saldo as number) ?? 0;
 
     const daAccreditare: {id: string; quanti: number; motivo: string}[] = [];
-    daAccreditare.push({
-      id: "benvenuto",
-      quanti: BENVENUTO,
-      motivo: "benvenuto",
-    });
+    // **IL BENVENUTO SOLO A CHI SI REGISTRA, ordine BH voce 01.** Decisione
+    // del fondatore: chi non si registra non viene premiato. Il Cerchio
+    // anonimo nasce con il solo accredito del giorno, e i 250 arrivano al
+    // momento della prima registrazione, nella prima sincronia che vede il
+    // token registrato. L'idempotenza resta la stessa: il movimento
+    // "benvenuto" esiste una volta sola nella vita del Cerchio.
+    if (registrazione.registrato) {
+      daAccreditare.push({
+        id: "benvenuto",
+        quanti: BENVENUTO,
+        motivo: "benvenuto",
+      });
+    }
     const delGiorno = ACCREDITO_DEL_GIORNO[piano] ?? 0;
     if (delGiorno > 0) {
       daAccreditare.push({
@@ -208,12 +272,44 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     const riferimenti = daAccreditare.map((voce) =>
       utente(uid).collection("movimenti").doc(voce.id)
     );
-    const gia = await Promise.all(riferimenti.map((r) => tx.get(r)));
+    // La lapide si legge nella STESSA fase delle letture: la lezione
+    // dell'ordine AZ (tutte le letture prima di tutte le scritture) vale
+    // anche per lei.
+    const lapide = registrazione.email !== null ?
+      lapideDelBenvenuto(improntaDellEmail(registrazione.email)) :
+      null;
+    const [gia, lapideSnap] = await Promise.all([
+      Promise.all(riferimenti.map((r) => tx.get(r))),
+      lapide !== null ? tx.get(lapide) : Promise.resolve(null),
+    ]);
 
     let cambiato = false;
     for (let i = 0; i < daAccreditare.length; i++) {
-      if (gia[i].exists) continue;
       const voce = daAccreditare[i];
+      if (gia[i].exists) {
+        // **IL RETROFIT DELLA LAPIDE.** Chi ha ricevuto il benvenuto prima
+        // di quest'ordine (quando era dote di nascita) non ha una lapide:
+        // gliela si scrive alla prima sincronia registrata, o proprio i
+        // Cerchi piu' vecchi resterebbero liberi di rifarsi il premio.
+        if (
+          voce.id === "benvenuto" &&
+          lapide !== null &&
+          lapideSnap !== null &&
+          !lapideSnap.exists
+        ) {
+          tx.set(lapide, {quando: FieldValue.serverTimestamp()});
+        }
+        continue;
+      }
+      if (voce.id === "benvenuto") {
+        // **LA LAPIDE FERMA IL SECONDO BENVENUTO, ordine BH voce 05.**
+        // L'email ha gia' consumato il premio con un altro account: il
+        // movimento non nasce e il client non riceve niente da raccontare.
+        if (lapideSnap !== null && lapideSnap.exists) continue;
+        if (lapide !== null) {
+          tx.set(lapide, {quando: FieldValue.serverTimestamp()});
+        }
+      }
       saldo += voce.quanti;
       cambiato = true;
       accreditati.push({motivo: voce.motivo, quanti: voce.quanti});
@@ -316,6 +412,9 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
     // server. Il client lo mostra sul pulsante e non lo detta mai.
     listinoDelRiscatto: PREZZI_DEL_RISCATTO,
+    // Il premio della registrazione e' un numero del SERVER, come ogni
+    // altro prezzo: il client lo scrive negli inviti senza cablarlo.
+    listinoDellaRegistrazione: {benvenuto: BENVENUTO},
     // Ordine BF voce 01: cosa e' stato accreditato IN QUESTA chiamata, con
     // il motivo. Il client lo racconta nel registro dei movimenti; il saldo
     // resta l'unico numero che conta.
