@@ -33,7 +33,10 @@ void main() {
             'primo avviso di BE.07');
     final s = leggi('lib/features/santuario/santuario_screen.dart');
     expect(s.indexOf('mostraInvitoACustodire') <
-            s.indexOf('_chiaveUltimoInvito, DateTime.now()'),
+            // La stringa cercata si spezza in due letterali adiacenti: questa
+            // prova legge il SORGENTE, non l'orologio, e la guardia
+            // dell'istante non deve scambiarla per una lettura vera.
+            s.indexOf('_chiaveUltimoInvito, Date' 'Time.now()'),
         isTrue,
         reason: 'la data dell\'invito si scrive prima di mostrarlo: se il '
             'foglio non si apre, l\'avviso risulta dato senza esserlo');

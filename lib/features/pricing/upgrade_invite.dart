@@ -99,7 +99,7 @@ Future<bool> showUpgradeInvite(
                           ? ColorTokens.textSecondary
                           : palette.goldSoft),
                   label: Text(riscattoLabel,
-                      style: TypographyTokens.label(size: 13)),
+                      style: TypographyTokens.label()),
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
