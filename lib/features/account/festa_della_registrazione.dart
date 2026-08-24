@@ -125,7 +125,9 @@ class FestaDellaRegistrazione extends StatelessWidget {
     if (!context.mounted || mandato == null || !mandato.mandato) return false;
     final verificato = await showDialog<bool>(
           context: context,
-          builder: (dialogo) => _FoglioDelCodice(porta: porta!),
+          // Il fondo si dichiara dove la porta si apre (legge AL.04).
+          builder: (dialogo) => _FoglioDelCodice(
+              porta: porta!, backgroundColor: ColorTokens.neutralSurface),
         ) ??
         false;
     if (!verificato || !context.mounted) return false;
@@ -236,9 +238,13 @@ class FestaDellaRegistrazione extends StatelessWidget {
 
 /// IL FOGLIO DEL CODICE DI SEI CIFRE. Ordine BI voce 04.
 class _FoglioDelCodice extends StatefulWidget {
-  const _FoglioDelCodice({required this.porta});
+  const _FoglioDelCodice(
+      {required this.porta, required this.backgroundColor});
 
   final PortaDelCerchio porta;
+
+  /// Il fondo, dichiarato da chi apre la porta (legge AL.04).
+  final Color backgroundColor;
 
   @override
   State<_FoglioDelCodice> createState() => _FoglioDelCodiceState();
@@ -296,7 +302,7 @@ class _FoglioDelCodiceState extends State<_FoglioDelCodice> {
     final palette = context.palette;
     return AlertDialog(
       key: const Key('foglio_del_codice'),
-      backgroundColor: ColorTokens.neutralSurface,
+      backgroundColor: widget.backgroundColor,
       title: Text('Il codice della tua email',
           style: TypographyTokens.titoloScheda()
               .copyWith(color: palette.goldSoft)),

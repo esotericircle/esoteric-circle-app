@@ -94,6 +94,16 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
+    // **LA PORTA SONDA, ordine BI voce 01**: prima si scrive l'email e si
+    // controlla; qui la porta del Cerchio e' spenta, la sonda lo dichiara
+    // e apre le vie classiche, ed e' la strada dichiarata del ripiego.
+    await tester.enterText(
+        find.byKey(const Key('sonda_email_campo')), 'mauro@esempio.it');
+    await tester.tap(find.byKey(const Key('sonda_controlla')),
+        warnIfMissed: false);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
     await tester.tap(find.byKey(const Key('custodia_google')),
         warnIfMissed: false);
     for (var i = 0; i < 12; i++) {

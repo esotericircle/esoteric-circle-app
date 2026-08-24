@@ -52,6 +52,15 @@ void main() {
     ));
     await tester.tap(find.text('apri'));
     await tester.pumpAndSettle();
+    // **LA PORTA DI CHI TORNA SONDA, ordine BI voce 01**: le vie compaiono
+    // dopo il controllo dell'email; senza server la sonda lo dichiara e
+    // apre le vie classiche, che sono quelle che questa prova misura.
+    if (perChiTorna) {
+      await tester.enterText(
+          find.byKey(const Key('sonda_email_campo')), 'mauro@esempio.it');
+      await tester.tap(find.byKey(const Key('sonda_controlla')));
+      await tester.pumpAndSettle();
+    }
   }
 
   /// **SI GUARDA IL PULSANTE VERO**, cioe' il `FilledButton` che porta la
