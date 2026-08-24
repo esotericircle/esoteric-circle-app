@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/promessa_della_registrazione.dart';
+import '../account/festa_della_registrazione.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -86,6 +87,11 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
         .custodisci(via, email: email, parola: parola);
     if (!mounted) return;
     if (esito == EsitoDellaCustodia.riuscita) {
+      // **LA FESTA PRIMA DEL PASSO SUCCESSIVO, ordine BH voce 02**: il
+      // premio della registrazione si vede subito, poi il Risveglio
+      // riprende la sua strada.
+      await FestaDellaRegistrazione.dopoLaCustodia(context);
+      if (!mounted) return;
       widget.suFine();
       return;
     }

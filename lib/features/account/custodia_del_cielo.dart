@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/promessa_della_registrazione.dart';
+import 'festa_della_registrazione.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -304,6 +305,13 @@ Future<bool> mostraInvitoACustodire(
       account: account,
     ),
   );
+  // **LA FESTA DELLA REGISTRAZIONE, ordine BH voce 02.** La custodia
+  // riuscita e' la registrazione vera: da qui parte la scena del premio,
+  // o la riga onesta quando il premio non c'e' (verifica in attesa,
+  // lapide). Un punto solo per tutti i chiamanti del foglio.
+  if (esito == true && context.mounted) {
+    await FestaDellaRegistrazione.dopoLaCustodia(context);
+  }
   return esito ?? false;
 }
 

@@ -52,8 +52,8 @@ nascita: il Cerchio anonimo vive, ma la dote grande si guadagna.
 ## Le voci
 
 - **BH.00** Il manifesto prima di tutto, con la guardia. CHIUSA: questo file e `test/ordine_bh_guard_test.dart`.
-- **BH.01** I 250 Eos alla prima registrazione, non alla nascita: il server sposta il benvenuto, il client racconta il premio nell'invito a registrarsi, ovunque l'invito compare, e nessun testo della dote resta a dire il falso. APERTA.
-- **BH.02** La festa della registrazione: subito dopo il premio, una celebrazione dedicata. APERTA.
+- **BH.01** I 250 Eos alla prima registrazione, non alla nascita. CHIUSA: il server accredita il benvenuto solo a token registrato (provider non anonimo con email; il provider password pretende l'email verificata, o il premio si comprerebbe con un indirizzo inventato), il premio viaggia nel listino della registrazione con lo stato, e la risposta porta il segnale di nascita robusto (borsellino mai esistito prima della chiamata) perche' la lapide di BH.05 puo' fermare il benvenuto su un Cerchio nuovo e il ritrovamento non deve mostrare i 20 del giorno come cosa tenuta. Il client: nasce PromessaDellaRegistrazione (casa unica, numero del server, senza numero quando il server tace), scritta nei TRE inviti (foglio della custodia, passo dell'onboarding con la riga in oro posteriore alla riga sola di AQ.05, voce del menu account); il foglio per chi torna NON la porta (il suo benvenuto e' gia' stato pagato); la snackbar del Cerchio appena nato si declina sui fatti (con la dote se e' arrivata, con la verita' della lapide se e' stata fermata). Guardie: prove server 42, test/il_premio_della_registrazione_test.dart. APERTA il deploy: parte con la voce 08.
+- **BH.02** La festa della registrazione. CHIUSA: nasce FestaDellaRegistrazione, scena piena dedicata (non una celebrazione di Sentiero: nessun Traguardo dietro), con lo scudo, il titolo Sei nel Cerchio, il premio col numero VERO del server e il volo degli Eos alla chiusura; l'ingresso unico dopoLaCustodia sincronizza la borsa e decide fra le tre verita': festa se il benvenuto e' arrivato, riga della verifica se l'email la aspetta, riga onesta della lapide se il premio non si ripete. Agganciata ai due atterraggi della custodia (foglio e passo del Risveglio). Guardia: test/la_festa_della_registrazione_test.dart.
 - **BH.03** La porta piccola avverte: se l'email non ha un Cerchio, lo si dice in chiaro, con la strada per registrarsi subito o dal menu utente. APERTA.
 - **BH.04** La registrazione con email: possibile alla fine dell'onboarding E dal menu utente, vincolata alla verifica dell'email. APERTA.
 - **BH.05** Antifrode: il benvenuto una volta per email, per sempre, anche dopo la cancellazione; le regole si vedono per bene e tutelano il fondatore. APERTA.
@@ -63,8 +63,8 @@ nascita: il Cerchio anonimo vive, ma la dote grande si guadagna.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 9
-VOCI_APERTE: 8
+VOCI_APERTE: 6
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 3
