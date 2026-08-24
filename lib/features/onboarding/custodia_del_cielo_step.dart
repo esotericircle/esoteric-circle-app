@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/quando_chiedere_la_custodia.dart';
 import '../../core/identity/promessa_della_registrazione.dart';
 import '../account/festa_della_registrazione.dart';
 import '../../core/maestro/maestro.dart';
@@ -214,8 +216,25 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                   key: const Key('custodia_piu_tardi'),
                   onPressed: _inCorso != null
                       ? null
-                      : () {
-                          context.read<AccountDelCerchio>().rimanda();
+                      : () async {
+                          final account = context.read<AccountDelCerchio>();
+                          account.rimanda();
+                          // **IL PASSO VALE COME PRIMO INVITO, ordine BJ
+                          // voce 01**: la custodia e' appena stata proposta
+                          // qui, alla fine del rito. Senza questa data il
+                          // "primo avviso" di BE.07 sbucherebbe nel
+                          // Santuario un attimo dopo il no appena detto.
+                          try {
+                            final prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setString(
+                                QuandoChiedereLaCustodia.chiaveUltimoInvito,
+                                DateTime.now().toIso8601String());
+                          } catch (senzaDisco) {
+                            // Senza disco l'invito potra' ripresentarsi
+                            // prima: meglio di un rito che non prosegue.
+                          }
+                          if (!mounted) return;
                           widget.suFine();
                         },
                   child: Text(

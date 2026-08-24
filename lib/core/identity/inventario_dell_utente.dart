@@ -1,3 +1,4 @@
+import 'quando_chiedere_la_custodia.dart';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -64,7 +65,8 @@ class InventarioDellUtente {
   /// dentro farebbe cadere la prova per un motivo che non e' una perdita.
   static const Set<String> _fuoriDalConto = {
     'account.rimandi',
-    'account.ultimoInvito',
+    // La chiave vive nella sua casa (BJ.01): qui solo il riferimento.
+    QuandoChiedereLaCustodia.chiaveUltimoInvito,
   };
 
   /// Fotografa tutto: il ramo dell'utente sul server e cio' che vive sul

@@ -25,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/quando_chiedere_la_custodia.dart';
+import '../../core/onboarding/onboarding_controller.dart';
 import '../account/custodia_del_cielo.dart';
 import '../maestri/art_navigation.dart';
 import '../maestri/widgets/striscia_altre_arti.dart';
@@ -316,7 +317,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         .addPostFrameCallback((_) => _forseChiediLaCustodia());
   }
 
-  static const _chiaveUltimoInvito = 'account.ultimoInvito';
+  static const _chiaveUltimoInvito =
+      QuandoChiedereLaCustodia.chiaveUltimoInvito;
 
   Future<void> _forseChiediLaCustodia() async {
     if (!mounted) return;
@@ -333,6 +335,21 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       return;
     }
     if (!account.eAnonimo) return;
+    // **DURANTE IL RISVEGLIO NON SI CHIEDE NIENTE. Ordine BJ voce 01,
+    // parole del fondatore sulla 2204**: "la prima cosa che esce e' la
+    // richiesta di registrazione?". Il primo avviso di BE.07 scattava dal
+    // Santuario montato SOTTO l'onboarding e sbucava sopra la prima
+    // schermata del rito. La registrazione all'inizio non si chiede: la
+    // chiede il passo alla fine del Risveglio, e questa decisione del
+    // fondatore SUPERA il "una volta, subito" di BE.07 per chi il rito non
+    // lo ha ancora compiuto.
+    try {
+      final onboarding = context.read<OnboardingController>();
+      if (!onboarding.resolved || onboarding.needsOnboarding) return;
+    } catch (senzaProvider) {
+      // Senza il controller (prove, anteprime) non c'e' un Risveglio in
+      // corso da proteggere: si prosegue con le regole normali.
+    }
     final prefs = await SharedPreferences.getInstance();
     final ultima = DateTime.tryParse(prefs.getString(_chiaveUltimoInvito) ?? '');
     if (!mounted) return;

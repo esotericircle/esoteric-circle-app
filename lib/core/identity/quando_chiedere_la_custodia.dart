@@ -15,6 +15,12 @@
 class QuandoChiedereLaCustodia {
   const QuandoChiedereLaCustodia._();
 
+  /// La chiave del disco con la data dell'ultimo invito mostrato. Vive qui
+  /// perche' la scrivono in due (il Santuario quando l'invito compare, il
+  /// passo del Risveglio quando la custodia viene proposta): due copie
+  /// della stringa sarebbero due inviti "primi".
+  static const String chiaveUltimoInvito = 'account.ultimoInvito';
+
   /// Sotto tre momenti non c'e' ancora una storia da custodire, e la frase
   /// "il Cerchio custodisce un tuo momento" suonerebbe piccola.
   static const int momentiMinimi = 3;
