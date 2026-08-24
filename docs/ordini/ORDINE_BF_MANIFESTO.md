@@ -1,0 +1,87 @@
+# ORDINE BF, il manifesto
+
+**LA CHIUSURA DI TUTTO, PRIMA DELLA REVISIONE.** Sette voci, dalla BF.00 alla
+BF.06, sul ramo `claude/esoteric-circle-master-order-e798aj`. E' l'ultimo
+ordine di bonifica prima della revisione delle singole funzionalita', e porta
+il mandato esteso del fondatore: "se ci sono delle decisioni che dovrei
+prendere io, le prende Code sulla base di logica e delle scelte migliori e
+adatte". Le decisioni prese con questo mandato sono marcate DECISIONE COL
+MANDATO, con la motivazione accanto.
+
+In coda all'ordine il fondatore ha aggiunto una correzione veloce, eseguita
+subito: il cuore dei preferiti non sta piu' sulle tre schermate dei sentieri,
+che non sono arti da scaffale (`test/i_sentieri_non_hanno_il_cuore_test.dart`).
+
+## Come si legge questo file
+
+Ogni voce porta uno stato fra cinque: CHIUSA, APERTA, FERMATA SU PREMESSA
+FALSA, FERMATA IN ATTESA DI DECISIONE, FERMATA SU DECISIONE DEL FONDATORE.
+La voce BF.05 ha tredici lavori interni, da BF.05.a a BF.05.m, ciascuno col
+suo stato: per loro e' terminale anche RIMANDATA ALLA REVISIONE, che
+l'ordine ammette per nome ("eseguilo, oppure dichiaralo rimandato alla
+revisione delle funzionalita' con una riga di motivo"). In fondo ci sono i
+marcatori, che la guardia `test/ordine_bf_guard_test.dart` conta sulle righe.
+
+## Le premesse, verificate prima di lavorare
+
+### BF.01: la premessa non regge, e si dichiara
+
+Il fondatore dice: "mi ha riportato ancora 270 Eos, che non dovevano piu'
+esserci perche' avevo cancellato l'account". Verificato sul codice: **niente
+sopravvive alla cancellazione**. La prova piu' forte e' la sua stessa
+sequenza: la registrazione con la stessa email e' riuscita, e Firebase la
+avrebbe rifiutata con "email gia' in uso" se l'account vecchio esistesse
+ancora. `cancellaIlCerchio` cancella il ramo con `recursiveDelete` e
+l'account con `deleteUser`; la registrazione nuova produce un uid nuovo e un
+ramo vuoto. **I 270 Eos sono la dote di nascita di ogni Cerchio nuovo**:
+250 di benvenuto piu' 20 di accredito del giorno del piano Viandante,
+l'economia approvata con l'ordine AN voce 07 (`functions/src/borsellino.ts`,
+`BENVENUTO = 250`, `ACCREDITO_DEL_GIORNO.free = 20`). Ogni Cerchio nuovo,
+di chiunque, parte cosi': non e' il borsellino vecchio che torna, e' quello
+nuovo che nasce con la sua dote. Il difetto vero e' che il numero non
+racconta da dove viene, e la cura sta nella voce.
+
+## Le voci
+
+- **BF.00** Il manifesto prima di tutto, con la guardia di consegna. CHIUSA: questo file e `test/ordine_bf_guard_test.dart`.
+- **BF.01** I 270 Eos dopo la cancellazione. APERTA. La premessa e' dichiarata falsa qui sopra; resta da eseguire la cura del difetto vero, il saldo che non racconta da dove viene.
+- **BF.02** Il peso del traguardo, strada 1 scelta dal fondatore: l'alone bianco-oro neutro sul Loto. APERTA.
+- **BF.03** La riconciliazione di tutti i manifesti. APERTA.
+- **BF.04** I rossi residui della suite. APERTA.
+- **BF.05** I lavori lasciati indietro, enumerati. APERTA: lo stato dei tredici sta qui sotto.
+- **BF.06** Il giro finale di completezza. APERTA.
+
+## I tredici lavori di BF.05
+
+- **BF.05.a** Le rune concordate e mai eseguite (spazio sotto le pietre, pulsanti che restano, responsi tagliati, presagio prima delle bolle, sigillo a una sola asta). APERTA.
+- **BF.05.b** La meditazione non ha una fine (ordine P voce 35), coi tre dati mai registrati e i cinque gradini dormienti. APERTA.
+- **BF.05.c** Il campo della chat trasparente. APERTA.
+- **BF.05.d** La ridondanza nelle schede delle rune ("Al centro" e "la piu' vicina al centro"). APERTA.
+- **BF.05.e** La prova dell'occlusione estesa al dominio e all'Oroscopo. APERTA.
+- **BF.05.f** La verifica BackdropFilter su Impeller. APERTA.
+- **BF.05.g** Analyze da 70 a 128 avvisi, mai esaminato voce per voce. APERTA.
+- **BF.05.h** I vuoti verticali, 138 in 54 file all'ultima misura. APERTA.
+- **BF.05.i** La CI: Flutter fissato per numero e chat-screenshot.yml esaminata. APERTA.
+- **BF.05.j** La condivisione vera: il bonus solo a condivisione avvenuta. APERTA.
+- **BF.05.k** Il rialzo di Node e di firebase-functions (Node 20 dismesso il 30 ottobre 2026). APERTA.
+- **BF.05.l** Il grigio del Coming soon e il grigio del Premium, verificati a schermo. APERTA.
+- **BF.05.m** I tre pezzi dell'identita' mai registrati come gesti. FERMATA SU PREMESSA FALSA: l'ordine BD voce 05 li ha gia' registrati alle loro porte. Il Sigillo del Cerchio e la Luna di nascita si accendono nel Passaporto (`cosmic_passport_screen.dart` accende `sigillo_del_cerchio` e `luna_natale` alle porte vere), il nome proprio al primo saluto (`greeting_banner.dart` accende `nome_proprio`). Guardia gia' in vigore: `test/i_gradini_maturano_alle_loro_porte_test.dart`.
+
+## I rossi dichiarati (BF.04)
+
+Si compila quando la voce BF.04 si chiude, dopo BF.02 e BF.03. Ogni rosso che
+resta portera' qui il suo motivo e il suo orizzonte.
+
+## Il giro finale (BF.06 e gli esiti rimandati qui)
+
+Si compila quando le voci si chiudono, un ritrovamento per riga, con l'esito.
+
+MARCATORI, per la guardia:
+VOCI_TOTALI: 7
+VOCI_APERTE: 6
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
+VOCI_CHIUSE: 1
+LAVORI_BF05_TOTALI: 13
+LAVORI_BF05_APERTI: 12
