@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
-import '../../core/entitlement/question_allowance.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
@@ -52,9 +51,15 @@ class SentieroScreen extends StatefulWidget {
   /// monta gia' ferma sul punto raggiunto.
   final bool senzaVolo;
 
+  // **NIENTE SOGLIA D'ARTE, coda dell'ordine BF.** Il sentiero stava dentro
+  // una `SogliaArte`, che e' la soglia delle arti del catalogo e porta con
+  // se' il cuore dei preferiti: cosi' sulla barra compariva un cuore che
+  // salvava un id (`sigilli_...`) che nessuno scaffale conosce. Parola del
+  // fondatore: "non sono funzionalita' che possono e devono finire tra i
+  // preferiti in home". Del guscio serviva solo il colore del Maestro, e
+  // resta solo quello.
   static Route<void> route(Sentiero sentiero) => MaterialPageRoute<void>(
-        builder: (_) => SogliaArte(
-          id: 'sigilli_${sentiero.name}',
+        builder: (_) => MaestroScope(
           maestro: sentiero.maestro,
           child: SentieroScreen(sentiero: sentiero),
         ),
