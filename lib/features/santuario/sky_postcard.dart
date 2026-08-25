@@ -1,3 +1,4 @@
+import '../../core/tempo/confine_del_giorno.dart';
 import '../../design_system/components/luna_reale.dart';
 import 'dart:math' as math;
 import 'dart:typed_data';
@@ -50,7 +51,9 @@ class SkyPostcard {
       '${d.day} ${_months[d.month - 1]} ${d.year}';
 
   static String poeticLine(DateTime now) {
-    final doy = now.difference(DateTime(now.year)).inDays;
+    // ORDINE BL: il giorno viene dalla porta unica. Prima la sottrazione
+    // fra due istanti locali faceva cambiare la riga alle una di notte.
+    final doy = ConfineDelGiorno.giornoDellAnno(now);
     return _poeticLines[doy % _poeticLines.length];
   }
 

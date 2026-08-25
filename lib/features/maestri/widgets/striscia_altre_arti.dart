@@ -7,6 +7,7 @@
 /// [artiDaScoprire], come dato e non come lista scritta a mano.
 library;
 
+import '../../../core/tempo/confine_del_giorno.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +73,11 @@ List<ArtEntry> artiDaScoprire(
   }
   final altri = Maestro.values.where((m) => m != corrente).toList();
   // La rotazione col giorno: da quale Maestro si comincia.
-  final salto = giorno.difference(DateTime(2026)).inDays % altri.length;
+  // ORDINE BL: si conta dalla porta unica, e la BASE resta il 2026. Si
+  // cambia il modo di contare, mai il numero di partenza: spostare
+  // l'origine vorrebbe dire spostare rotazioni gia' viste dalle persone.
+  final salto =
+      ConfineDelGiorno.giorniDa(DateTime(2026), giorno) % altri.length;
   final ordinati = [
     ...altri.sublist(salto),
     ...altri.sublist(0, salto),

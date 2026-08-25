@@ -73,13 +73,13 @@ dell'ora legale, in piu', il numero resta sfasato di uno.
 ## Le voci
 
 - **BL.00** Il manifesto con la guardia. CHIUSA: questo file e `test/ordine_bl_guard_test.dart`.
-- **BL.01** La sostituzione nei cinque punti. APERTA.
-- **BL.02** La prova numerica dove il comportamento si vede. APERTA.
+- **BL.01** La sostituzione nei cinque punti. CHIUSA: tutti e cinque passano da `ConfineDelGiorno`. I tre che contano dall'anno corrente usano `giornoDellAnno`; i due con l'origine fissa del 2026 usano `giorniDa(DateTime(2026), ...)`, e **la base non si e' mossa**: cambia il modo di contare, mai il numero di partenza, o si spostano rotazioni gia' viste dalle persone. La porta si e' allargata di un metodo solo, `giorniDa`, e `giornoDellAnno` adesso chiama quello: il conto vero e' scritto una volta sola, o sarebbe nata la seconda porta da cui tutto questo e' cominciato. **MISURA CHE CHIUDE**: `grep -rn "difference(DateTime(" lib/` restituisce **zero** righe di codice; le due che restano sono i commenti di `horoscope.dart` e `confine_del_giorno.dart` che il difetto lo NOMINANO per spiegarlo. Guardia: `test/il_giorno_si_conta_dalla_porta_test.dart`, una sola per tutti e cinque i punti, che enumera l'intera cartella `lib` e pretende di aver guardato piu' di cento file, cosi' non puo' diventare una bugia verde se `lib` si sposta. **Rosso dimostrato**: rimessa la formula vecchia in `daily_rituals.dart` e verificata l'iniezione PRIMA di leggere l'esito, la guardia cade nominando file e riga.
+- **BL.02** La prova numerica dove il comportamento si vede. CHIUSA: misurata sul Rito dell'Alba, l'unico dei cinque in cui la persona vede cambiare qualcosa. Con `TZ=Europe/Rome`, il 5 agosto 2026 il Maestro e' lo STESSO alle 00:00, alle 00:59, alle 01:00, alle 12:00 e alle 23:59, e CAMBIA attraversando la mezzanotte. **La prova misura il fuso prima di misurare il Maestro**: confronta lo scarto di gennaio con quello di luglio e, se l'ora legale non c'e', si dichiara SALTATA invece di passare per il motivo sbagliato. In UTC infatti la prova numerica risulta saltata e le altre quattro restano verdi. **Rosso dimostrato**: con la formula vecchia, e col fuso italiano provato dal fatto stesso che la prova NON e' stata saltata, alle 01:00 il Maestro risulta Medora invece di Aura, cioe' il dono di ieri nella prima ora del giorno.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 3
-VOCI_APERTE: 2
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 3

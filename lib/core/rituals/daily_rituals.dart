@@ -1,3 +1,4 @@
+import '../tempo/confine_del_giorno.dart';
 import '../maestro/maestro.dart';
 
 /// I contenuti deterministici dei rituali del giorno.
@@ -7,8 +8,14 @@ import '../maestro/maestro.dart';
 class DailyRituals {
   const DailyRituals._();
 
+  /// **ORDINE BL, ed e' il punto che pesa di piu'.** Da questo numero
+  /// esce il Maestro del Rito dell'Alba, cioe' il primo gesto della
+  /// giornata e il piu' ripetuto dell'app. Con la sottrazione fra istanti
+  /// locali il numero cambiava alle una di notte: per i sette mesi
+  /// dell'ora legale, chi apriva l'app fra mezzanotte e l'una riceveva il
+  /// dono di ieri, con la voce del Maestro di ieri.
   static int _dayOfYear(DateTime date) =>
-      date.difference(DateTime(date.year)).inDays;
+      ConfineDelGiorno.giornoDellAnno(date);
 
   /// Il Maestro del Rito dell'Alba di oggi, a rotazione di giorno in giorno.
   static Maestro dawnMaestro(DateTime date) =>

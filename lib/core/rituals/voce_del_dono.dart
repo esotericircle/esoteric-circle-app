@@ -1,3 +1,4 @@
+import '../tempo/confine_del_giorno.dart';
 import '../maestro/voce_del_maestro.dart';
 import 'daily_elements.dart';
 
@@ -76,10 +77,15 @@ class VoceDelDono {
 
   /// Il giorno dell'anno, che e' cio' che fa cambiare la formula da un giorno
   /// all'altro senza farla dipendere dall'ora.
+  ///
+  /// **ORDINE BL: normalizzare l'ora non bastava.** Questa riga portava
+  /// gia' il giorno a mezzanotte, quindi dentro la giornata era stabile e
+  /// il difetto dell'Oroscopo qui non si vedeva. Ma sottraeva due istanti
+  /// LOCALI, e nei giorni del cambio d'ora il passo sbagliava: misurato
+  /// con `TZ=Europe/Rome`, il 29 e il 30 marzo 2026 davano lo stesso 87,
+  /// quindi il dono del 30 ripeteva parola per parola quello del 29.
   static int _giornoOrdinale(DateTime giorno) =>
-      DateTime(giorno.year, giorno.month, giorno.day)
-          .difference(DateTime(giorno.year))
-          .inDays;
+      ConfineDelGiorno.giornoDellAnno(giorno);
 
   /// La stessa aritmetica FNV-1a a 32 bit che l'Oroscopo e il Messaggio
   /// dell'Animale usano gia' per le loro scelte deterministiche.

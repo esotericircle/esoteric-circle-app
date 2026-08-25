@@ -55,7 +55,32 @@ class ConfineDelGiorno {
   /// aver preso anno, mese e giorno CIVILI di [istante]: l'ora non entra piu'
   /// nel risultato, e il numero e' lo stesso a ogni ora dello stesso giorno.
   static int giornoDellAnno(DateTime istante) =>
-      DateTime.utc(istante.year, istante.month, istante.day)
-          .difference(DateTime.utc(istante.year))
-          .inDays;
+      giorniDa(DateTime(istante.year), istante);
+
+  /// QUANTI GIORNI DI CALENDARIO separano [origine] da [istante].
+  ///
+  /// Serve a chi ruota su un'origine FISSA invece che sull'anno corrente: la
+  /// striscia delle altre arti e il consiglio finale contano dal primo gennaio
+  /// 2026 e attraversano gli anni, quindi [giornoDellAnno] non li servirebbe.
+  ///
+  /// **E' la stessa aritmetica, e per questo sta qui sotto e non accanto.**
+  /// Una seconda definizione del "quanti giorni" sarebbe la famiglia delle due
+  /// porte da cui tutto questo e' nato: [giornoDellAnno] chiama questa, e il
+  /// conto vero si scrive una volta sola.
+  ///
+  /// **DUE DIFETTI, non uno.** Chi non normalizzava l'ora vedeva il numero
+  /// cambiare alle una di notte. Chi normalizzava era stabile dentro il
+  /// giorno, ma sbagliava il PASSO nei due giorni del cambio d'ora: misurato
+  /// con `TZ=Europe/Rome`, il 29 e il 30 marzo 2026 davano lo stesso numero,
+  /// 87, e fra il 25 e il 26 ottobre si passava da 296 a 298. Un giorno si
+  /// ripeteva in primavera e uno si saltava in autunno. Qui i due capi si
+  /// riducono entrambi a mezzanotte UTC, dove ogni giorno dura ventiquattro
+  /// ore, quindi il passo e' sempre esattamente uno.
+  static int giorniDa(DateTime origine, DateTime istante) =>
+      _mezzanotteUtcDi(istante).difference(_mezzanotteUtcDi(origine)).inDays;
+
+  /// Anno, mese e giorno CIVILI di [d], portati a mezzanotte UTC. L'ora, il
+  /// fuso e l'ora legale restano fuori dal conto.
+  static DateTime _mezzanotteUtcDi(DateTime d) =>
+      DateTime.utc(d.year, d.month, d.day);
 }

@@ -1,3 +1,4 @@
+import '../tempo/confine_del_giorno.dart';
 import '../astro/moon_phase.dart';
 import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
@@ -121,7 +122,10 @@ abstract final class ConsiglioFinale {
         .add(const Duration(days: 1));
     // La formula ruota col giorno, cosi' due giorni vicini non si somigliano
     // nemmeno nella forma: il dato cambia, e cambia anche il modo di dirlo.
-    final giro = domani.difference(DateTime(2026)).inDays;
+    // ORDINE BL: dalla porta unica, con la BASE del 2026 intatta. Anche
+    // qui il giorno era gia' normalizzato e il difetto era il passo nei
+    // giorni del cambio d'ora, non l'ora dentro la giornata.
+    final giro = ConfineDelGiorno.giorniDa(DateTime(2026), domani);
     switch (maestro) {
       case Maestro.medora:
         final luna = NightSky.moonSign(domani);
