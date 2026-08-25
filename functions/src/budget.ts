@@ -19,7 +19,8 @@ export type Budget =
   | "approfondimenti"
   | "confronti"
   | "gettate"
-  | "stese";
+  | "stese"
+  | "sinastrie";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -28,6 +29,7 @@ export const BUDGET: Budget[] = [
   "confronti",
   "gettate",
   "stese",
+  "sinastrie",
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
@@ -58,6 +60,31 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * infinite e gratuite su tutti i piani, mentre il listino prometteva altro.
    */
   stese: [0, 0, 5, null],
+  /**
+   * LE SINASTRIE CELEB, ordine BO voce 13.
+   *
+   * **UN BUDGET PROPRIO, e non quello dei confronti: la voce 13 nominava la
+   * riga sbagliata.** L'ordine dice "il budget e' confronti, che il server
+   * gia' conosce", e che la matrice prometterebbe tre al giorno al Viandante
+   * mentre il codice ne da' zero. Verificato: le righe sono DUE e diverse.
+   * `Confronti nel Cerchio` (No, 3, 5, illimitato) e' il confronto fra i tre
+   * Maestri nella chat, e li' lo zero al Viandante e' cio' che il listino
+   * promette davvero. `Sinastria VIP` (3, 5, 5, illimitata) e' la Sinastria
+   * Celeb, e **promette gia' tre al giorno al Viandante**, in accordo col
+   * briefing che la vuole accessibile al piano gratuito perche' e' la leva
+   * virale.
+   *
+   * Mettere le sinastrie sul contatore dei confronti avrebbe fatto due danni
+   * in una riga: chi ha usato il Consiglio dei Maestri non avrebbe piu'
+   * potuto confrontare un VIP, e alzare a tre il Viandante gli avrebbe
+   * regalato tre confronti nel Cerchio che il listino gli nega. E' la stessa
+   * forma di difetto delle stese, ordine BN voce 09.
+   *
+   * Prima di questa voce la Sinastria non aveva NESSUN gating: era infinita e
+   * gratuita su tutti i piani, e quindi la leva non era chiusa, era
+   * ingovernata.
+   */
+  sinastrie: [3, 5, 5, null],
 };
 
 /**

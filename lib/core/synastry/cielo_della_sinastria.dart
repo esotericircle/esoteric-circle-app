@@ -49,6 +49,10 @@ enum PuntoDelCielo {
 
   /// "il tuo Marte", "la tua Luna".
   String get ilTuo => femminile ? 'la tua' : 'il tuo';
+
+  /// "al suo Marte", "alla sua Luna". Serve al confronto fra due VIP, dove
+  /// nessuno dei due lati sei tu.
+  String get alSuo => femminile ? 'alla sua' : 'al suo';
 }
 
 /// IL CIELO DI UNA PERSONA per la Sinastria: le longitudini dei punti che
@@ -251,6 +255,83 @@ class AspettoDiSinastria {
 
   /// Come si nomina in una lista, col grado di scarto.
   String get titolo => '${suo.nome} ${tipo.italianName} ${tuo.nome}';
+
+  /// Lo scarto dall'angolo esatto, come si scrive in italiano.
+  String get gradi =>
+      '${orbo.toStringAsFixed(1).replaceAll('.', ',')} gradi';
+
+  /// **COSA SIGNIFICA QUESTO ASPETTO, in una frase. Ordine BO voce 08.**
+  ///
+  /// Non e' un testo generato: e' composto da due pezzi dichiarati, cosa
+  /// dicono i due punti messi insieme e cosa fa quell'angolo fra loro. La
+  /// tradizione sinastrica dice esattamente questo, e la stessa coppia da'
+  /// sempre la stessa frase.
+  ///
+  /// **La fonte e' una sola**: sia la bolla che si apre al tocco sul filo, sia
+  /// il responso, leggono da qui. Due testi scritti in due posti per la
+  /// stessa cosa divergono al primo che ne cambia uno.
+  String get significato {
+    final campo = _campiDelContatto[{suo, tuo}.length == 1
+            ? _CampoDelContatto.specchio
+            : _campoFra(suo, tuo)] ??
+        'due parti di voi che si riconoscono';
+    final angolo = _angoli[tipo]!;
+    return 'Qui $campo. L\'angolo $angolo.';
+  }
+
+  static _CampoDelContatto _campoFra(PuntoDelCielo a, PuntoDelCielo b) {
+    final due = {a, b};
+    if (due.contains(PuntoDelCielo.venere) &&
+        due.contains(PuntoDelCielo.marte)) {
+      return _CampoDelContatto.attrazione;
+    }
+    if (due.contains(PuntoDelCielo.venere) ||
+        due.contains(PuntoDelCielo.luna)) {
+      return _CampoDelContatto.affetto;
+    }
+    if (due.contains(PuntoDelCielo.mercurio)) {
+      return _CampoDelContatto.parola;
+    }
+    if (due.contains(PuntoDelCielo.marte)) {
+      return _CampoDelContatto.spinta;
+    }
+    if (due.contains(PuntoDelCielo.ascendente)) {
+      return _CampoDelContatto.presenza;
+    }
+    return _CampoDelContatto.identita;
+  }
+
+  static const Map<_CampoDelContatto, String> _campiDelContatto = {
+    _CampoDelContatto.attrazione:
+        'si toccano il desiderio di uno e il modo di amare dell\'altro',
+    _CampoDelContatto.affetto: 'si toccano l\'affetto e la cura',
+    _CampoDelContatto.parola: 'si tocca il modo di pensare e di dirsi le cose',
+    _CampoDelContatto.spinta: 'si tocca la spinta a fare, con l\'urto che ne viene',
+    _CampoDelContatto.presenza:
+        'si tocca il modo in cui uno appare all\'altro la prima volta',
+    _CampoDelContatto.identita: 'si toccano due modi di essere se stessi',
+    _CampoDelContatto.specchio:
+        'lo stesso punto di uno guarda quello dell\'altro, come in uno specchio',
+  };
+
+  static const Map<AspectType, String> _angoli = {
+    AspectType.conjunction: 'li fonde, nel bene e nel troppo',
+    AspectType.sextile: 'li fa collaborare, se qualcuno comincia',
+    AspectType.square: 'li mette in attrito: un attrito che insegna',
+    AspectType.trine: 'li fa scorrere senza sforzo',
+    AspectType.opposition: 'li mette uno di fronte all\'altro',
+  };
+}
+
+/// Il campo della vita che due punti, messi insieme, toccano.
+enum _CampoDelContatto {
+  attrazione,
+  affetto,
+  parola,
+  spinta,
+  presenza,
+  identita,
+  specchio,
 }
 
 /// GLI ASPETTI FRA DUE CIELI.

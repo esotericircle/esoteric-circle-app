@@ -59,6 +59,15 @@ class NazioniDelMondo {
   static List<List<({double lat, double lon})>>? contorniDi(String paese) =>
       _contorni?[paese];
 
+  /// TUTTI i contorni caricati, per chi disegna il mondo e non un paese solo.
+  ///
+  /// Serve alla mappa della distanza della Sinastria, ordine BO voce 09: li'
+  /// il paese non si sa in anticipo, perche' dipende da dove vive il VIP e da
+  /// dove sta la persona. Vuota finche' l'asset non e' caricato, che e' il
+  /// comportamento gia' in uso.
+  static Iterable<List<List<({double lat, double lon})>>> get tuttiIContorni =>
+      _contorni?.values ?? const [];
+
   /// Vero se quel punto cade dentro il paese.
   static bool dentro(
       double lat, double lon, List<List<({double lat, double lon})>> anelli) {

@@ -33,6 +33,12 @@ class SinastriaShareCard extends StatelessWidget {
     this.width = 360,
   });
 
+  /// **LE PROPORZIONI DI UNA STORIA, ordine BO voce 11.** Nove a sedici, che
+  /// e' il riquadro in cui la card viene guardata davvero: una card quadrata
+  /// dentro una storia lascia due fasce vuote sopra e sotto, e quelle fasce
+  /// sono meta' dell'attenzione di chi guarda.
+  static const double rapportoDellaStoria = 9 / 16;
+
   final SynastryReport report;
   final Vip vip;
   final Zodiac userSign;
@@ -44,8 +50,18 @@ class SinastriaShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox(
+      key: const Key('sinastria_card'),
+      width: width,
+      height: width / rapportoDellaStoria,
+      child: _dentro(),
+    );
+  }
+
+  Widget _dentro() {
     return Container(
       width: width,
+      height: width / rapportoDellaStoria,
       padding: const EdgeInsets.all(SpacingTokens.lg),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
@@ -66,7 +82,22 @@ class SinastriaShareCard extends StatelessWidget {
               spreadRadius: 1),
         ],
       ),
-      child: Column(
+      // **IL CONTENUTO SI ADATTA AL RIQUADRO INVECE DI TRABOCCARE.**
+      //
+      // La card ha adesso una misura fissa, quella di una storia, e il
+      // contenuto no: un nome VIP lungo, un nome utente lungo e quattro barre
+      // insieme sforavano di 101 pixel, misurati. Un `FittedBox` che
+      // rimpicciolisce quanto basta e' l'unica soluzione che regge TUTTI i
+      // casi, compresi quelli che nessuno ha ancora provato: qualunque
+      // aggiustamento di spaziature reggerebbe i tre nomi provati e cadrebbe
+      // al quarto. La card e' un'immagine da guardare, non una schermata da
+      // toccare, quindi il pavimento tipografico dell'app qui non si applica:
+      // conta che si legga, e a scendere e' tutta la composizione insieme.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: SizedBox(
+          width: width - SpacingTokens.lg * 2,
+          child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text('SINASTRIA',
@@ -111,6 +142,22 @@ class SinastriaShareCard extends StatelessWidget {
               ),
             ],
           ),
+          // **I TRE FILI DEGLI ASPETTI PIU' FORTI, disegnati fra i due volti.**
+          // Ordine BO voce 11: sono gli stessi tre che si sono accesi nella
+          // chiamata, quindi cio' che si e' visto e cio' che si condivide sono
+          // la stessa cosa.
+          if (report.aspettiPiuForti.isNotEmpty)
+            SizedBox(
+              height: 34,
+              width: double.infinity,
+              child: CustomPaint(
+                key: const Key('sinastria_card_fili'),
+                painter: FiliDellaCard(
+                  quanti: report.aspettiPiuForti.length,
+                  colore: palette.goldSoft,
+                ),
+              ),
+            ),
           const SizedBox(height: SpacingTokens.md),
           SizedBox(
             width: 120,
@@ -155,8 +202,45 @@ class SinastriaShareCard extends StatelessWidget {
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
         ],
       ),
+        ),
+      ),
     );
   }
+}
+
+/// I FILI DEGLI ASPETTI SULLA CARD. Ordine BO voce 11.
+///
+/// **Un tratto per aspetto, e nessuno di piu'.** Il numero arriva da
+/// `SynastryReport.aspettiPiuForti`, cioe' dalla stessa lista che si accende
+/// nella chiamata: la card non ne inventa nemmeno uno.
+class FiliDellaCard extends CustomPainter {
+  const FiliDellaCard({required this.quanti, required this.colore});
+
+  final int quanti;
+  final Color colore;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (quanti <= 0) return;
+    final penna = Paint()
+      ..color = colore.withValues(alpha: 0.75)
+      ..strokeWidth = 1.2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+    final tracciato = Path();
+    for (var i = 0; i < quanti; i++) {
+      final y = size.height * (i + 1) / (quanti + 1);
+      final curva = (i.isEven ? -1 : 1) * size.height * 0.28;
+      tracciato.moveTo(size.width * 0.12, y);
+      tracciato.quadraticBezierTo(
+          size.width / 2, y + curva, size.width * 0.88, y);
+    }
+    canvas.drawPath(tracciato, penna);
+  }
+
+  @override
+  bool shouldRepaint(FiliDellaCard vecchio) =>
+      vecchio.quanti != quanti || vecchio.colore != colore;
 }
 
 class _CardPole extends StatelessWidget {

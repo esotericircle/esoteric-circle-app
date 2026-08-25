@@ -45,6 +45,7 @@ class PossibilitaDiIncontro {
     required this.perche,
     this.chilometri,
     this.suaCitta,
+    this.sueCoordinate,
   });
 
   /// **Falsa per chi non c'e' piu'.** Ordine BO voce 04: l'incontro non esiste
@@ -62,6 +63,11 @@ class PossibilitaDiIncontro {
 
   /// Come si chiama la citta' dove vive, quando e' pubblica.
   final String? suaCitta;
+
+  /// Dove sta quella citta'. **Serve alla mappa della voce BO.09, e la mappa
+  /// non deve stimarla**: il dossier le ha, e una posizione stimata da una
+  /// distanza sarebbe un punto inventato messo su una mappa vera.
+  final ({double lat, double lon})? sueCoordinate;
 
   /// **IL TETTO, e non e' un numero indovinato.** E' la percentuale che tocca
   /// alla persona piu' esposta del catalogo se vive nella tua stessa citta':
@@ -157,6 +163,8 @@ class PossibilitaDiIncontro {
       perche: perche,
       chilometri: km,
       suaCitta: sua?.nome,
+      sueCoordinate:
+          sua == null ? null : (lat: sua.latitudine, lon: sua.longitudine),
     );
   }
 

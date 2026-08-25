@@ -8,6 +8,7 @@ import 'core/archetypes/archetype_history.dart';
 import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
+import 'core/synastry/collezione_delle_coppie.dart';
 import 'core/entitlement/question_allowance.dart';
 import 'core/entitlement/registro_degli_eos.dart';
 import 'core/feature_flags/feature_flag_service.dart';
@@ -253,6 +254,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
                 ..riprendiLaCarta(),
         ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
+        // **LA COLLEZIONE DELLE COPPIE, ordine BO voce 13.** Vive nel guscio
+        // perche' la scopre la schermata della Sinastria e la legge quella
+        // della collezione: due schermate diverse sullo stesso dato.
+        ChangeNotifierProvider(
+            create: (_) => CollezioneDelleCoppie()..carica()),
         // I CONTATORI PARLANO COL SERVER, ordine N: la porta arriva dai
         // servizi, quindi nelle prove e nelle anteprime resta spenta e i
         // numeri restano locali, mentre sul telefono il giorno e i residui

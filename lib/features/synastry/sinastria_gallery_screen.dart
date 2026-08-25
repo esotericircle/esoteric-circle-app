@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/astro/zodiac.dart';
@@ -9,10 +10,17 @@ import '../../core/maestro/maestro.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/identity/birth_identity.dart';
+import '../../core/synastry/cielo_della_sinastria.dart';
+import '../../core/synastry/gemello_astrale.dart';
 import 'cielo_dei_volti.dart';
+import '../../core/synastry/collezione_delle_coppie.dart';
+import 'collezione_screen.dart';
+import 'rivelazione_del_gemello.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -32,7 +40,12 @@ class SinastriaGalleryScreen extends StatefulWidget {
     this.userName,
     this.userBirth,
     this.random,
+    this.primoVip,
   });
+
+  /// **LA PRIMA CASELLA, ordine BO voce 13.** Quando la galleria si apre per
+  /// scegliere il SECONDO lato di un confronto fra due VIP, qui c'e' il primo.
+  final Vip? primoVip;
 
   final Zodiac? userSign;
   final String? userName;
@@ -73,6 +86,11 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   String _query = '';
   String _categoria = _tutti;
 
+  /// **IL GEMELLO ASTRALE, ordine BO voce 10.** Si calcola al tocco e non
+  /// all'apertura: cinquanta responsi costano poco, ma calcolarli per chi non
+  /// li ha chiesti sarebbe lavoro buttato a ogni apertura della galleria.
+  GemelloAstrale? _gemello;
+
   @override
   void dispose() {
     _ricerca.dispose();
@@ -104,6 +122,57 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
       userSign: widget.userSign,
       userName: widget.userName,
       userBirth: widget.userBirth,
+      primoVip: widget.primoVip,
+    ));
+  }
+
+  /// Calcola il gemello e lo rivela.
+  void _cercaIlGemello() {
+    final cielo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(
+        (widget.userBirth ?? BirthIdentity.example.birthMoment).year,
+        (widget.userBirth ?? BirthIdentity.example.birthMoment).month,
+        (widget.userBirth ?? BirthIdentity.example.birthMoment).day,
+        12,
+      ),
+      oraNota: false,
+      latitudine: null,
+      longitudineDelLuogo: null,
+      segnoDichiarato: widget.userSign,
+    );
+    setState(() => _gemello = GemelloAstrale.per(cielo));
+  }
+
+  /// Apre la collezione. **Riaprire una coppia da li' non consuma niente.**
+  void _apriLaCollezione() {
+    Navigator.of(context).push(CollezioneScreen.route(onApri: (coppia) {
+      final secondo = VipCatalog.conNome(coppia.secondo);
+      if (secondo == null) return;
+      Navigator.of(context).push(SinastriaVipScreen.route(
+        vip: secondo,
+        primoVip:
+            coppia.primo.isEmpty ? null : VipCatalog.conNome(coppia.primo),
+        userSign: widget.userSign,
+        userName: widget.userName,
+        userBirth: widget.userBirth,
+        giaScoperta: true,
+      ));
+    }));
+  }
+
+  /// Mette un VIP nella prima casella, al posto della persona: la galleria si
+  /// riapre per scegliere il secondo.
+  void _sostituisciLaPrimaCasella(Vip primo) {
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (_) => MaestroScope(
+        maestro: Maestro.medora,
+        child: SinastriaGalleryScreen(
+          primoVip: primo,
+          userSign: widget.userSign,
+          userName: widget.userName,
+          userBirth: widget.userBirth,
+        ),
+      ),
     ));
   }
 
@@ -173,7 +242,74 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                         onACaso: _aCaso,
                       ),
                       const SizedBox(height: SpacingTokens.lg),
-                      Text('Tutti i VIP',
+                      // **IL GEMELLO ASTRALE, ordine BO voce 10.**
+                      if (_gemello == null)
+                        Center(
+                          child: OutlinedButton.icon(
+                            key: const Key('sinastria_cerca_gemello'),
+                            onPressed: _cercaIlGemello,
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: palette.goldSoft,
+                              side: BorderSide(
+                                  color:
+                                      palette.gold.withValues(alpha: 0.6)),
+                              minimumSize: const Size.fromHeight(48),
+                            ),
+                            icon: const Icon(Icons.auto_awesome, size: 18),
+                            label: Text('Trova il tuo gemello astrale',
+                                style: TypographyTokens.etichetta()
+                                    .copyWith(letterSpacing: 0.6)),
+                          ),
+                        )
+                      else
+                        GestureDetector(
+                          onTap: () => _apri(_gemello!.vip),
+                          child: RivelazioneDelGemello(
+                              gemello: _gemello!, palette: palette),
+                        ),
+                      const SizedBox(height: SpacingTokens.md),
+                      // **METTI UN VIP AL TUO POSTO, ordine BO voce 13.** La
+                      // prima casella sei tu in modo predefinito, e da qui si
+                      // sostituisce: la galleria si riapre per scegliere chi
+                      // gli mettere contro.
+                      if (widget.primoVip == null)
+                        Center(
+                          child: TextButton.icon(
+                            key: const Key('sinastria_due_vip'),
+                            onPressed: () =>
+                                _sostituisciLaPrimaCasella(VipCatalog.first),
+                            style: TextButton.styleFrom(
+                                foregroundColor: palette.goldSoft,
+                                minimumSize: const Size.fromHeight(48)),
+                            icon: const Icon(Icons.compare_arrows_rounded,
+                                size: 18),
+                            label: Text('Metti due VIP uno contro l\'altro',
+                                style: TypographyTokens.etichetta()),
+                          ),
+                        ),
+                      const SizedBox(height: SpacingTokens.md),
+                      Center(
+                        child: TextButton.icon(
+                          key: const Key('sinastria_apri_collezione'),
+                          onPressed: _apriLaCollezione,
+                          style: TextButton.styleFrom(
+                              foregroundColor: palette.goldSoft,
+                              minimumSize: const Size.fromHeight(48)),
+                          icon: const Icon(Icons.collections_bookmark_outlined,
+                              size: 18),
+                          label: Text(
+                              context
+                                  .watch<CollezioneDelleCoppie>()
+                                  .riepilogo,
+                              style: TypographyTokens.etichetta()),
+                        ),
+                      ),
+                      const SizedBox(height: SpacingTokens.lg),
+                      Text(
+                          widget.primoVip == null
+                              ? 'Tutti i VIP'
+                              : 'Scegli chi mettere contro '
+                                  '${widget.primoVip!.name}',
                           style: TypographyTokens.display(size: 18)
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: SpacingTokens.sm),

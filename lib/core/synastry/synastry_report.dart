@@ -144,31 +144,13 @@ class SynastryReport {
     final suo = CieloDiSinastria.perVip(vip);
     final aspetti = AspettiDiSinastria.fra(tuo, suo);
 
-    var amore = 0.0, mente = 0.0, scintille = 0.0;
-    for (final a in aspetti) {
-      final forza = a.forzaCon(AspettiDiSinastria.orbo[a.tipo]!);
-      amore += _pesoDAmore(a) * forza;
-      mente += _pesoDiMente(a) * forza;
-      scintille += _pesoDiScintille(a) * forza;
-    }
-
-    // **DA UNA SOMMA DI ASPETTI A UNA PERCENTUALE, con una regola dichiarata.**
-    // La somma non ha un massimo naturale: dipende da quanti aspetti cadono
-    // dentro l'orbo, che varia da coppia a coppia. Si porta sulla scala con
-    // una curva morbida attorno a un valore di riferimento, cosi' nessun
-    // responso finisce incollato ai bordi e la differenza fra due coppie
-    // resta leggibile. I tre riferimenti sono diversi perche' i tre canali
-    // raccolgono un numero diverso di coppie di punti.
-    final love = _sullaScala(amore, riferimento: 2.4, minimo: 40, massimo: 99);
-    final mental = _sullaScala(mente, riferimento: 1.6, minimo: 40, massimo: 98);
-    final sparks =
-        _sullaScala(scintille, riferimento: 2.0, minimo: 8, massimo: 95);
-
-    // Il cerchio grande resta la sintesi pesata di prima, con l'amore in
-    // testa: la scala delle fasce non cambia significato sotto i piedi di chi
-    // l'ha gia' vista.
-    final overall =
-        (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99);
+    // I tre numeri passano dalla porta comune, cosi' il confronto con te e
+    // quello fra due VIP restano sulla stessa scala.
+    final n = _numeriDa(aspetti);
+    final love = n.love;
+    final mental = n.mental;
+    final sparks = n.sparks;
+    final overall = n.overall;
 
     // **LA POSSIBILITA' DI INCONTRO DA FATTI VERI, ordine BO voce 03.** Se e'
     // in vita, quanto dista la sua citta' dalla tua, quanto si fa vedere.
@@ -193,6 +175,125 @@ class SynastryReport {
       aspetti: aspetti,
       oraDelVipNota: suo.oraNota,
       oraTuaNota: tuo.oraNota,
+    );
+  }
+
+  /// **IL CONFRONTO FRA DUE CIELI QUALUNQUE, ordine BO voce 13.**
+  ///
+  /// Le due caselle: la prima e' la persona in modo predefinito e si puo'
+  /// sostituire con un VIP, la seconda e' sempre un VIP. Da qui nascono tre
+  /// esperienze con una modifica sola: se stessi con un VIP come prima, due
+  /// VIP fra loro, e il gioco di sostituirsi a qualcuno.
+  ///
+  /// **IL RISULTATO E' SIMMETRICO**, ed e' una proprieta' del calcolo e non
+  /// una promessa: i tre pesi guardano l'INSIEME dei due punti di un aspetto,
+  /// mai quale dei due stia da che parte. Scambiare le caselle non puo'
+  /// cambiare un numero, e una prova lo verifica su cento coppie.
+  ///
+  /// **FRA DUE VIP LA POSSIBILITA' DI INCONTRO NON ESISTE** e non si calcola,
+  /// come per chi non c'e' piu': la barra non compare in albero. Al suo posto
+  /// c'e' quanto i loro mondi si sfiorano, ricavato dai dati gia' raccolti
+  /// nella voce 01, cioe' le citta' e l'esposizione pubblica.
+  static SynastryReport fraDueVip({
+    required Vip primo,
+    required Vip vip2,
+  }) {
+    final secondo = vip2;
+    final cieloA = CieloDiSinastria.perVip(primo);
+    final cieloB = CieloDiSinastria.perVip(secondo);
+    final aspetti = AspettiDiSinastria.fra(cieloA, cieloB);
+    final numeri = _numeriDa(aspetti);
+    return SynastryReport(
+      overall: numeri.overall,
+      band: _band(numeri.overall),
+      reading: _letturaFraDue(aspetti, primo, secondo, cieloB),
+      love: numeri.love,
+      mental: numeri.mental,
+      sparks: numeri.sparks,
+      meetingPercent: 0,
+      meetingQuip: '',
+      incontro: PossibilitaDiIncontro(
+        esiste: false,
+        percento: 0,
+        perche: mondiCheSiSfiorano(primo, secondo),
+      ),
+      aspetti: aspetti,
+      oraDelVipNota: cieloB.oraNota,
+      oraTuaNota: cieloA.oraNota,
+    );
+  }
+
+  /// **QUANTO I LORO MONDI SI SFIORANO**, ordine BO voce 13 punto 6.
+  ///
+  /// Non e' una possibilita' di incontro, che fra due persone che non sei tu
+  /// non ha nessun senso: e' un fatto sulle loro vite pubbliche, ricavato dai
+  /// dati del dossier. **Nessuna parola su relazioni reali**, punto 5
+  /// dell'ordine: l'app confronta i cieli, non le relazioni.
+  static String mondiCheSiSfiorano(Vip a, Vip b) {
+    if (a.eScomparso || b.eScomparso) {
+      final chi = a.eScomparso ? a : b;
+      return '${chi.name} non c\'è più: i loro mondi non si incrociano più '
+          'nello stesso tempo.';
+    }
+    final ca = a.luogoDiOggi;
+    final cb = b.luogoDiOggi;
+    final esposti = a.esposizione.index <= 1 && b.esposizione.index <= 1;
+    if (ca == null || cb == null) {
+      return esposti
+          ? 'Vivono tutti e due sotto i riflettori, quindi i loro mondi si '
+              'sfiorano spesso, anche senza sapere dove abitino.'
+          : 'Di almeno uno dei due non si sa pubblicamente dove viva: dei '
+              'loro mondi si può dire soltanto quanto si mostrano.';
+    }
+    final km = PossibilitaDiIncontro.chilometriFra(
+        ca.latitudine, ca.longitudine, cb.latitudine, cb.longitudine);
+    if (km < 20) {
+      return 'Vivono nella stessa città, ${ca.nome}: i loro mondi si '
+          'sfiorano di continuo.';
+    }
+    if (km < 1200) {
+      return 'Vivono a ${km.round()} km l\'uno dall\'altro, fra ${ca.nome} e '
+          '${cb.nome}: abbastanza vicini da incrociarsi.';
+    }
+    return 'Vivono a mondi di distanza, fra ${ca.nome} e ${cb.nome}: '
+        '${km.round()} km.';
+  }
+
+  static String _letturaFraDue(List<AspettoDiSinastria> aspetti, Vip a, Vip b,
+      CieloDiSinastria cieloB) {
+    if (aspetti.isEmpty) {
+      return 'I cieli di ${a.name} e ${b.name} non si toccano in nessuno dei '
+          'punti che contano.';
+    }
+    final primo = aspetti.first;
+    return 'Fra ${a.name} e ${b.name} il fatto è questo: '
+        '${primo.tuo.ilSuo} ${primo.tuo.nome} '
+        'in ${primo.tipo.italianName.toLowerCase()} '
+        '${primo.suo.alSuo} ${primo.suo.nome}, '
+        'a ${_gradi(primo.orbo)} dall\'angolo esatto.';
+  }
+
+  /// I tre numeri da una lista di aspetti. **Sta in un posto solo** perche' il
+  /// confronto con te e quello fra due VIP devono dare la stessa scala: due
+  /// formule per la stessa cosa divergerebbero al primo ritocco.
+  static ({int overall, int love, int mental, int sparks}) _numeriDa(
+      List<AspettoDiSinastria> aspetti) {
+    var amore = 0.0, mente = 0.0, scintille = 0.0;
+    for (final a in aspetti) {
+      final forza = a.forzaCon(AspettiDiSinastria.orbo[a.tipo]!);
+      amore += _pesoDAmore(a) * forza;
+      mente += _pesoDiMente(a) * forza;
+      scintille += _pesoDiScintille(a) * forza;
+    }
+    final love = _sullaScala(amore, riferimento: 2.4, minimo: 40, massimo: 99);
+    final mental = _sullaScala(mente, riferimento: 1.6, minimo: 40, massimo: 98);
+    final sparks =
+        _sullaScala(scintille, riferimento: 2.0, minimo: 8, massimo: 95);
+    return (
+      overall: (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99),
+      love: love,
+      mental: mental,
+      sparks: sparks,
     );
   }
 

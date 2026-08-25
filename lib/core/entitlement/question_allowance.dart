@@ -201,6 +201,7 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kConfronti = 'allowance.confronti';
   static const _kGettate = 'allowance.gettate';
   static const _kStese = 'allowance.stese';
+  static const _kSinastrie = 'allowance.sinastrie';
   static const _kGiornoDelServer = 'allowance.giornoDelServer';
   static const _kCoda = 'allowance.coda';
   static const _kSaldo = 'allowance.saldoEos';
@@ -218,6 +219,11 @@ class QuestionAllowance extends ChangeNotifier {
   /// budget SEPARATO da quello delle gettate perche' il listino tiene le
   /// due cose su due righe distinte.
   int _stese = 0;
+
+  /// LE SINASTRIE CELEB CONSUMATE OGGI, ordine BO voce 13. Budget suo,
+  /// separato da quello dei confronti nel Cerchio: sono due righe diverse
+  /// del listino e promettono cose diverse.
+  int _sinastrie = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -235,7 +241,7 @@ class QuestionAllowance extends ChangeNotifier {
     if (t != _day) {
       _day = t;
       _count = 0;
-      // I CINQUE budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      // I SEI budget ribaltano INSIEME, perche' il giorno e' lo stesso.
       //
       // Un secondo confine del giorno accanto a questo divergerebbe alla prima
       // ora legale: `ConfineDelGiorno` e' uno, e questi contatori lo
@@ -246,6 +252,7 @@ class QuestionAllowance extends ChangeNotifier {
       _confronti = 0;
       _gettate = 0;
       _stese = 0;
+      _sinastrie = 0;
     }
   }
 
@@ -473,6 +480,45 @@ class QuestionAllowance extends ChangeNotifier {
     _chiediAlServer('stese');
   }
 
+  /// Quante SINASTRIE CELEB al giorno prevede il piano, oppure null se sono
+  /// illimitate. Il numero sta nella matrice, riga [PlanCatalog.rigaSinastria].
+  ///
+  /// **E' la riga della Sinastria VIP, non quella dei confronti nel Cerchio**,
+  /// ordine BO voce 13: la prima promette tre al giorno al Viandante perche'
+  /// e' la leva virale e deve girare, la seconda gliene nega.
+  int? limiteSinastrie(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, tier);
+
+  /// Quante sinastrie restano oggi, oppure null se illimitate.
+  int? sinastrieRimaste(Tier tier) {
+    final limite = limiteSinastrie(tier);
+    if (limite == null) return null;
+    _rollover();
+    final resta = limite - _sinastrie;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// Se si puo' comporre una coppia NUOVA adesso. Il cancello guarda i
+  /// rimasti e non il piano, cosi' il credito comprato apre anche fuori piano.
+  bool puoiComporreUnaCoppia(Tier tier) {
+    final resta = sinastrieRimaste(tier);
+    return resta == null || resta > 0;
+  }
+
+  /// Registra una sinastria consumata.
+  ///
+  /// **Si chiama alla PRIMA scoperta di una coppia e mai alla riapertura**,
+  /// decisione del fondatore, parole sue: "no, non deve consumare". Chi
+  /// riapre dalla collezione sta rileggendo una cosa che ha gia' pagato.
+  void registraSinastria(Tier tier) {
+    if (limiteSinastrie(tier) == null) return;
+    _rollover();
+    _sinastrie++;
+    notifyListeners();
+    _persist();
+    _chiediAlServer('sinastrie');
+  }
+
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
   /// contatore; quello illimitato no.
   void record(Tier tier) {
@@ -499,6 +545,7 @@ class QuestionAllowance extends ChangeNotifier {
       _confronti = prefs.getInt(_kConfronti) ?? 0;
       _gettate = prefs.getInt(_kGettate) ?? 0;
       _stese = prefs.getInt(_kStese) ?? 0;
+      _sinastrie = prefs.getInt(_kSinastrie) ?? 0;
       _giornoDelServer = prefs.getString(_kGiornoDelServer);
       _saldoEos = prefs.getInt(_kSaldo) ?? 0;
       _daMandare
@@ -559,6 +606,7 @@ class QuestionAllowance extends ChangeNotifier {
     _confronti = stato.spesi['confronti'] ?? 0;
     _gettate = stato.spesi['gettate'] ?? 0;
     _stese = stato.spesi['stese'] ?? 0;
+    _sinastrie = stato.spesi['sinastrie'] ?? 0;
     _saldoEos = stato.saldoEos;
     // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
     // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
@@ -673,6 +721,8 @@ class QuestionAllowance extends ChangeNotifier {
         _gettate--;
       case 'stese':
         _stese--;
+      case 'sinastrie':
+        _sinastrie--;
     }
     notifyListeners();
     await _persist();
@@ -751,6 +801,8 @@ class QuestionAllowance extends ChangeNotifier {
         _gettate = 1 << 20;
       case 'stese':
         _stese = 1 << 20;
+      case 'sinastrie':
+        _sinastrie = 1 << 20;
     }
     notifyListeners();
   }
@@ -782,6 +834,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kConfronti, _confronti);
       await prefs.setInt(_kGettate, _gettate);
       await prefs.setInt(_kStese, _stese);
+      await prefs.setInt(_kSinastrie, _sinastrie);
       await prefs.setInt(_kSaldo, _saldoEos);
       await prefs.setString(_kCoda, jsonEncode(_daMandare));
       if (_giornoDelServer != null) {

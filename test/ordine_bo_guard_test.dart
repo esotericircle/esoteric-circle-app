@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// LA GUARDIA DELL'ORDINE BO.
 ///
 /// **Non e' una promessa, e' un test che non passa.** Legge il manifesto e
-/// resta rossa finche' le dodici voci non hanno uno stato terminale. Nasce dal
+/// resta rossa finche' le quattordici voci non hanno uno stato terminale. Nasce dal
 /// esito dell'ordine BK: i fatti misurati stanno nel manifesto, insieme
 /// alle premesse verificate prima di eseguire.
 void main() {
@@ -27,7 +27,7 @@ void main() {
       .where((r) => RegExp(r'^- \*\*BO\.\d\d\*\*').hasMatch(r))
       .toList();
 
-  test('il manifesto esiste e porta tutte e dieci le voci', () {
+  test('il manifesto esiste e porta tutte e quattordici le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'docs/ordini/ORDINE_BO_MANIFESTO.md non esiste');
     final testo = manifesto.readAsStringSync();

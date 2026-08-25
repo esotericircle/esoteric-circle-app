@@ -110,6 +110,13 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
    * l'esperienza che per il Viandante si compra e basta.
    */
   stese: 150,
+  /**
+   * IL PREZZO DI UNA SINASTRIA CELEB RISCATTATA, ordine BO voce 13. Lo stesso
+   * del confronto, 150, che nel listino approvato con AN e' "Una sinastria in
+   * piu'": qui la cosa comprata e' esattamente quella, quindi il prezzo non
+   * si sceglie, si legge.
+   */
+  sinastrie: 150,
 };
 
 /** Il motivo di un riscatto, dal budget: una forma sola, condivisa. */

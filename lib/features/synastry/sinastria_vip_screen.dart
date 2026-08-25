@@ -13,6 +13,13 @@ import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/possibilita_di_incontro.dart';
 import '../../core/synastry/tempi_della_chiamata.dart';
 import 'chiamata_del_vip.dart';
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/question_allowance.dart';
+import '../../core/entitlement/tier.dart';
+import '../../core/synastry/collezione_delle_coppie.dart';
+import '../pricing/upgrade_invite.dart';
+import 'mappa_della_distanza.dart';
+import 'ritratto_ingrandito.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -55,7 +62,18 @@ class SinastriaVipScreen extends StatefulWidget {
     this.vip,
     this.photoController,
     this.saltaLaChiamata = false,
+    this.primoVip,
+    this.giaScoperta = false,
   });
+
+  /// **LA PRIMA CASELLA, ordine BO voce 13.** Nulla vuol dire "sei tu", che e'
+  /// il modo predefinito; un VIP la sostituisce e nasce il confronto fra due
+  /// VIP. La seconda casella e' sempre un VIP.
+  final Vip? primoVip;
+
+  /// Vero quando la coppia si sta RIAPRENDO dalla collezione. **In quel caso
+  /// non consuma niente**, decisione del fondatore: "no, non deve consumare".
+  final bool giaScoperta;
 
   final Zodiac? userSign;
 
@@ -83,6 +101,8 @@ class SinastriaVipScreen extends StatefulWidget {
     String? userName,
     DateTime? userBirth,
     Vip? vip,
+    Vip? primoVip,
+    bool giaScoperta = false,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
@@ -92,6 +112,8 @@ class SinastriaVipScreen extends StatefulWidget {
           userName: userName ?? 'Tu',
           userBirth: userBirth,
           vip: vip,
+          primoVip: primoVip,
+          giaScoperta: giaScoperta,
         ),
       ),
     );
@@ -121,6 +143,11 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   /// due stati diversi che condividevano un valore facevano lampeggiare il
   /// testo.
   bool _verdettoInScena = false;
+
+  /// **SE QUESTA COPPIA SI PUO' COMPORRE.** Nullo finche' non si e' guardato:
+  /// la scena non parte e il verdetto resta coperto, perche' mostrarlo e poi
+  /// chiedere di pagarlo sarebbe una porta aperta e richiusa in faccia.
+  bool? _permesso;
 
   late final AnimationController _anim;
   bool _sharing = false;
@@ -218,6 +245,13 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     try {
       _photo.seed(context.read<ProfileController>().avatarPhoto);
     } catch (_) {}
+    // **IL CANCELLO SI GUARDA DOPO IL PRIMO FOTOGRAMMA**, quando l'albero
+    // c'e' e un foglio si puo' aprire. Prima di allora il verdetto resta
+    // coperto.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _permesso != null) return;
+      setState(() => _permesso = laCoppiaSiPuoComporre());
+    });
     // IL CIELO VERO DELLA PERSONA, dalla stessa porta che l'Oroscopo usa.
     // Se il guscio non c'e' (anteprime e prove isolate) resta il ripiego.
     try {
@@ -270,10 +304,94 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
 
   /// La chiamata e' finita, oppure un tocco l'ha saltata: entra il verdetto,
   /// che comincia a comporsi.
+  /// Un servizio del guscio, se c'e'. Torna nullo dove non c'e' nessun
+  /// guscio, cioe' nelle anteprime e nelle prove che montano questa scena da
+  /// sola: e' la stessa tolleranza gia' in uso nella stesa, e non e' un modo
+  /// per rendere facoltativo il gating nell'app vera, che una guardia
+  /// strutturale sorveglia leggendo `lib/app.dart`.
+  T? _forse<T>(BuildContext context) {
+    try {
+      return context.read<T>();
+    } catch (errore) {
+      return null;
+    }
+  }
+
   void _mostraIlVerdetto() {
     if (!mounted || _verdettoInScena) return;
     setState(() => _verdettoInScena = true);
     _anim.forward(from: 0);
+    _segnaLaCoppia();
+  }
+
+  /// **LA COPPIA ENTRA IN COLLEZIONE, E CONSUMA UNA VOLTA SOLA.**
+  ///
+  /// Ordine BO voce 13 punto 3: il consumo avviene alla PRIMA scoperta, quando
+  /// il confronto e' compiuto, e mai per tocco. Riaprire una coppia gia'
+  /// scoperta non consuma nulla.
+  void _segnaLaCoppia() {
+    if (widget.giaScoperta) return;
+    final collezione = _forse<CollezioneDelleCoppie>(context);
+    if (collezione == null) return;
+    // **DUE CASELLE, DUE STRADE, UN SOLO RESPONSO.** Quando la prima casella
+    // porta un VIP il confronto e' fra due VIP, e la possibilita' di incontro
+    // non esiste: al suo posto c'e' quanto i loro mondi si sfiorano.
+    final report = widget.primoVip == null
+        ? SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei)
+        : SynastryReport.fraDueVip(primo: widget.primoVip!, vip2: _vip);
+    final nuova = collezione.scopri(
+      primo: widget.primoVip?.name ?? '',
+      secondo: _vip.name,
+      punteggio: report.overall,
+      quando: DateTime.now(),
+    );
+    if (!nuova) return;
+    final borsa = _forse<QuestionAllowance>(context);
+    if (borsa == null) return;
+    borsa.registraSinastria(
+        _forse<EntitlementService>(context)?.tier ?? Tier.free);
+  }
+
+  /// **LE DUE STRADE A RISERVA FINITA, ordine BO voce 13 punto 3.**
+  ///
+  /// Il tocco non e' mai muto: si apre l'invito, si riscatta una sinastria col
+  /// prezzo del server oppure si sale di livello, e a riscatto avvenuto il
+  /// confronto riparte da solo. Il testo nomina le SINASTRIE e mai i confronti
+  /// nel Cerchio, che sono un'altra cosa e un altro contatore.
+  bool laCoppiaSiPuoComporre() {
+    if (widget.giaScoperta) return true;
+    final borsa = _forse<QuestionAllowance>(context);
+    if (borsa == null) return true;
+    final collezione = _forse<CollezioneDelleCoppie>(context);
+    // Una coppia gia' in collezione si rilegge senza chiedere niente.
+    if (collezione != null &&
+        collezione.contiene(widget.primoVip?.name ?? '', _vip.name)) {
+      return true;
+    }
+    final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    if (borsa.puoiComporreUnaCoppia(piano)) return true;
+    final limite = borsa.limiteSinastrie(piano);
+    final riscatto = corredoDelRiscatto(
+      context,
+      budget: 'sinastrie',
+      cosaUna: 'una sinastria',
+      onSuccesso: (_) {
+        if (mounted) _mostraIlVerdetto();
+      },
+    );
+    showUpgradeInvite(
+      context,
+      title: 'Le sinastrie di oggi sono finite',
+      message: limite == 1
+          ? 'La sinastria del giorno è stata fatta. Puoi riscattarne una con '
+              'gli Eos, oppure salire di livello nel Cerchio.'
+          : 'Le $limite sinastrie del giorno sono state fatte. Puoi '
+              'riscattarne una con gli Eos, oppure salire di livello nel '
+              'Cerchio.',
+      riscattoLabel: riscatto.label,
+      onRiscatta: riscatto.azione,
+    );
+    return false;
   }
 
   void _onPhotoChanged() {
@@ -292,8 +410,12 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final report =
-        SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei);
+    // **DUE CASELLE, DUE STRADE, UN SOLO RESPONSO.** Quando la prima casella
+    // porta un VIP il confronto e' fra due VIP, e la possibilita' di incontro
+    // non esiste: al suo posto c'e' quanto i loro mondi si sfiorano.
+    final report = widget.primoVip == null
+        ? SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei)
+        : SynastryReport.fraDueVip(primo: widget.primoVip!, vip2: _vip);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -335,7 +457,30 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               // **LA CHIAMATA E LA SOVRAPPOSIZIONE, ordine BO voce 06.** Sta
               // sopra la scena e sotto la card dello scatto: e' la prima cosa
               // che accade dopo il tocco su un VIP.
-              if (!_verdettoInScena)
+              // Finche' il cancello non ha risposto, e quando ha risposto di
+              // no, il verdetto resta coperto.
+              if (!_verdettoInScena && _permesso != true)
+                Positioned.fill(
+                  child: ColoredBox(
+                      color: palette.deepest,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(SpacingTokens.xl),
+                          child: Text(
+                            _permesso == null
+                                ? 'Un momento...'
+                                : 'Le sinastrie di oggi sono finite. '
+                                    'Riscattane una con gli Eos, oppure sali '
+                                    'di livello nel Cerchio.',
+                            key: const Key('sinastria_riserva_finita'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.corpo()
+                                .copyWith(color: ColorTokens.textSecondary),
+                          ),
+                        ),
+                      )),
+                ),
+              if (!_verdettoInScena && _permesso == true)
                 Positioned.fill(
                   child: ColoredBox(
                     color: palette.deepest.withValues(alpha: 0.92),
@@ -432,22 +577,41 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: _Pole(
-                key: const Key('sinastria_pole_user'),
-                palette: palette,
-                sign: _userSign,
-                hint: _photo.hasPhoto
-                    ? 'Modifica la tua foto'
-                    : 'Aggiungi la tua foto',
-                onTap: _openPhotoSheet,
-                portrait: VipFramedPortrait(
-                  palette: palette,
-                  name: widget.userName,
-                  date: _userDate,
-                  sign: _userSign.symbol,
-                  photo: _photo.bytes,
-                ),
-              ),
+              // **LA PRIMA CASELLA, ordine BO voce 13.** Sei tu in modo
+              // predefinito, e un VIP ti puo' sostituire: da qui nascono tre
+              // esperienze con una modifica sola.
+              child: widget.primoVip == null
+                  ? _Pole(
+                      key: const Key('sinastria_pole_user'),
+                      palette: palette,
+                      sign: _userSign,
+                      hint: _photo.hasPhoto
+                          ? 'Modifica la tua foto'
+                          : 'Aggiungi la tua foto',
+                      onTap: _openPhotoSheet,
+                      portrait: VipFramedPortrait(
+                        palette: palette,
+                        name: widget.userName,
+                        date: _userDate,
+                        sign: _userSign.symbol,
+                        photo: _photo.bytes,
+                      ),
+                    )
+                  : _Pole(
+                      key: const Key('sinastria_pole_primo_vip'),
+                      palette: palette,
+                      sign: widget.primoVip!.sign,
+                      hint: 'Apri la carta di ${widget.primoVip!.name}',
+                      onTap: () => mostraIlRitrattoIngrandito(context,
+                          vip: widget.primoVip!, palette: palette),
+                      portrait: VipFramedPortrait(
+                        palette: palette,
+                        name: widget.primoVip!.name,
+                        date: widget.primoVip!.note,
+                        sign: widget.primoVip!.sign.symbol,
+                        vipAsset: widget.primoVip!.fullPath,
+                      ),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 90),
@@ -459,6 +623,12 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                 key: const Key('sinastria_pole_vip'),
                 palette: palette,
                 sign: _vip.sign,
+                // **LA CARTA SI APRE AL TOCCO, ordine BO voce 08.** Era
+                // l'unica cosa della scena a non rispondere al dito, ed e' il
+                // difetto 2 del fondatore.
+                hint: 'Apri la carta di ${_vip.name}',
+                onTap: () => mostraIlRitrattoIngrandito(context,
+                    vip: _vip, palette: palette),
                 // Il ritratto VIP con la sua cornice originale, senza aggiunte.
                 portrait: VipFramedPortrait(
                   palette: palette,
@@ -529,6 +699,57 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               style: TypographyTokens.body(size: 16)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ),
+        // **LA MAPPA DELLA DISTANZA, ordine BO voce 09.** C'e' solo quando
+        // c'e' un incontro da misurare e si sa dove vivete tutti e due: per
+        // chi non c'e' piu' non esiste in albero, come la sua barra.
+        if (report.incontro.esiste &&
+            report.incontro.sueCoordinate != null &&
+            _doveSei != null) ...[
+          const SizedBox(height: SpacingTokens.md),
+          MappaDellaDistanza(
+            incontro: report.incontro,
+            doveSei: _doveSei!,
+            palette: palette,
+            riduciMovimento: _riduciMovimento,
+          ),
+        ],
+        // **LA LETTURA SI ESPLORA, ordine BO voce 08.** I fili che si sono
+        // accesi nella chiamata restano qui, toccabili: chi vuole sapere cosa
+        // significa quell'aspetto lo tocca, invece di leggere un muro.
+        if (report.aspettiPiuForti.isNotEmpty) ...[
+          const SizedBox(height: SpacingTokens.md),
+          Wrap(
+            key: const Key('sinastria_fili_toccabili'),
+            spacing: SpacingTokens.sm,
+            runSpacing: SpacingTokens.sm,
+            children: [
+              for (final a in report.aspettiPiuForti)
+                GestureDetector(
+                  key: Key('sinastria_filo_${a.titolo}'),
+                  onTap: () => mostraIlSignificatoDellAspetto(context,
+                      aspetto: a, palette: palette),
+                  child: Container(
+                    // Il bersaglio non scende sotto i 48 punti di altezza,
+                    // che e' la misura minima del dito.
+                    constraints: const BoxConstraints(minHeight: 48),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.md),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(SpacingTokens.radiusPill),
+                      color: palette.surface.withValues(alpha: 0.5),
+                      border: Border.all(
+                          color: palette.gold.withValues(alpha: 0.5)),
+                    ),
+                    child: Text(a.titolo,
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft, letterSpacing: 0.4)),
+                  ),
+                ),
+            ],
+          ),
+        ],
         // **L'EREDITA', per chi non c'e' piu'. Ordine BO voce 04.**
         //
         // Sta al posto in cui, per chi e' in vita, la scena spinge verso

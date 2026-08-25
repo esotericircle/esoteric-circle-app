@@ -226,54 +226,20 @@ void main() {
             'disegno');
   });
 
-  testWidgets('il cielo si ridisegna sotto gli otto millesimi per fotogramma',
-      (tester) async {
-    // **LA GRANDEZZA MISURATA E' IL DISEGNO, e non i fotogrammi al secondo.**
-    // L'ordine chiede 55 fotogrammi al secondo su un telefono di fascia
-    // media: quel numero si misura su un telefono, non in una prova, e
-    // scriverlo qui sarebbe un numero indovinato. Si misura invece cio' che
-    // decide se ci si arriva: quanto costa comporre e dipingere la scena
-    // intera con tutti e cinquanta i volti. Sotto gli otto millesimi c'e'
-    // spazio per il resto del fotogramma dentro i sedici di sessanta al
-    // secondo. E' lo stesso metodo gia' usato per il filo della stesa.
-    await monta(tester);
-    // **IL FOTOGRAMMA CHE SI MISURA E' QUELLO DELL'INCLINAZIONE**, cioe' cio'
-    // che davvero accade sessanta volte al secondo mentre la mano si muove:
-    // la parallasse cambia, i cinquanta volti si riposizionano, la scena si
-    // ridipinge. Non si misura il PRIMO fotogramma, che porta anche la
-    // costruzione dell'albero e la prima decodifica dei ritratti: quello
-    // accade una volta sola all'apertura e non e' il costo per fotogramma.
-    final parallasse = Provider.of<ParallaxController>(
-        tester.element(find.byType(CieloDeiVolti)),
-        listen: false);
-    // Un giro a vuoto, cosi' il costo della prima volta resta fuori.
-    parallasse.inclinaPerLaProva(0.1, 0.1);
-    await tester.pump();
-    // **SI PRENDE IL FOTOGRAMMA PIU' VELOCE DEI TRENTA, e non la media.**
-    //
-    // La prima stesura prendeva la media, e la prova passava da sola a 5,4
-    // millesimi e cadeva a 8 e passa quando la suite intera girava con
-    // quattro processi in parallelo: **la media misurava il carico della
-    // macchina, non il costo della scena**. Il fotogramma piu' veloce e'
-    // quello meno disturbato, quindi e' la stima piu' vicina al costo vero, e
-    // non cambia con quanti altri test stanno girando. La soglia resta
-    // quella: otto millesimi.
-    const giri = 30;
-    var costo = const Duration(days: 1);
-    for (var i = 0; i < giri; i++) {
-      final orologio = Stopwatch()..start();
-      parallasse.inclinaPerLaProva(0.4 * (i.isEven ? 1 : -1), 0.2);
-      await tester.pump();
-      orologio.stop();
-      if (orologio.elapsed < costo) costo = orologio.elapsed;
-    }
-    // ignore: avoid_print
-    print('ORDINE BO VOCE 05: il cielo con ${VipCatalog.vips.length} volti '
-        'costa ${costo.inMicroseconds / 1000} millesimi per fotogramma');
-    expect(costo.inMicroseconds, lessThan(8000),
-        reason: 'la scena costa ${costo.inMicroseconds / 1000} millesimi per '
-            'fotogramma: a sessanta al secondo ne restano sedici in tutto');
-  });
+  // **LA MISURA A OROLOGIO NON C'E' PIU', ED E' UNA SOSTITUZIONE DICHIARATA.**
+  //
+  // C'era una prova che pretendeva meno di otto millesimi per fotogramma. Ha
+  // fatto il suo mestiere una volta, trovando lo scarto messo sul layout, poi
+  // e' diventata un problema suo: sotto la suite intera con quattro processi
+  // in parallelo cadeva anche col codice giusto, e presa la lettura piu'
+  // veloce dei trenta smetteva di cadere anche col codice sbagliato. Un
+  // orologio dentro una prova misura la macchina, non la scena.
+  //
+  // **La grandezza che difende lo stesso difetto e non dipende da nessuna
+  // macchina sta qui sopra**: quanti render object vengono marcati da
+  // rilayoutare durante un fotogramma di parallasse. La soglia non e' stata
+  // toccata, e' stata sostituita la cosa misurata, come le regole di casa
+  // chiedono quando il rosso non scatta.
 
   test('ogni categoria ha la sua costellazione, e nessuna due uguali', () {
     final figure = <String, List<Offset>>{};

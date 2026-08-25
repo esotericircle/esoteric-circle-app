@@ -7,6 +7,7 @@ import '../astro/natal_chart_controller.dart';
 import '../astro/zodiac_controller.dart';
 import '../entitlement/entitlement_service.dart';
 import '../entitlement/question_allowance.dart';
+import '../synastry/collezione_delle_coppie.dart';
 import '../entitlement/registro_degli_eos.dart';
 import '../onboarding/onboarding_controller.dart';
 import '../rituals/scelta_degli_avvisi.dart';
@@ -88,6 +89,8 @@ class DimenticanzaDellaMemoriaViva {
     }
 
     prova(() => context.read<QuestionAllowance>().dimenticaChiSeNeVa());
+    // ORDINE BO VOCE 13: le coppie scoperte dicono chi ha guardato e quando.
+    prova(() => context.read<CollezioneDelleCoppie>().dimenticaChiSeNeVa());
     prova(() => context.read<BirthIdentityController>().clear());
     prova(() => context.read<DiarioDelCammino>().dimenticaChiSeNeVa());
     prova(() => context.read<CodaDelleFeste>().dimenticaChiSeNeVa());

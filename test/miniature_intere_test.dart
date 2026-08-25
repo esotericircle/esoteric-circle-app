@@ -87,8 +87,11 @@ void main() {
     // DIECI DALL'ORDINE BO voce 05: il cielo dei volti mostra i cinquanta
     // ritratti VIP sospesi su tre profondita', e passa dalla stessa miniatura
     // che la griglia usava, con la stessa proporzione da carta.
+    // DODICI DALL'ORDINE BO voci 10 e 13: la rivelazione del gemello mostra i
+    // volti che sfilano, e la collezione mostra i due volti di ogni coppia
+    // scoperta. Tutti e due passano dalla miniatura, come gli altri.
     final punti = puntiConMiniature();
-    expect(punti.length, 10,
+    expect(punti.length, 12,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

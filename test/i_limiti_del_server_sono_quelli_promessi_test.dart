@@ -27,6 +27,10 @@ void main() {
     // della carta singola. Coperto qui senza nessuna modifica di comodo: il
     // confronto e' lo stesso degli altri quattro, cella per cella.
     'stese': PlanCatalog.rigaStese,
+    // ORDINE BO VOCE 13: la Sinastria Celeb ha un budget suo, e la riga che
+    // lo promette e' `Sinastria VIP`, non `Confronti nel Cerchio`. Le due
+    // righe promettono cose diverse e vivono su due contatori diversi.
+    'sinastrie': PlanCatalog.rigaSinastria,
   };
   const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
 

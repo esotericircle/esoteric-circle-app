@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/synastry/collezione_delle_coppie.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/components/vip_frame.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -48,6 +49,9 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        // ORDINE BO VOCE 13: la galleria mostra quante coppie hai
+        // scoperto, quindi la collezione le serve davvero.
+        ChangeNotifierProvider(create: (_) => CollezioneDelleCoppie()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
