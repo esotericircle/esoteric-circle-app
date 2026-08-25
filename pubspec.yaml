@@ -172,6 +172,12 @@ flutter:
     # L'INTRO, provvisoria per le dimostrazioni. Il video sta gia' nel repo e
     # non era dichiarato, quindi non entrava nel pacchetto.
     - brand_assets/intro/
+    # I TRE VIDEO DI RIVELAZIONE DEI MAESTRI, ordine BQ. La cartella e'
+    # dichiarata ANCHE DA VUOTA, come assets/audio/: cosi' i tre filmati si
+    # vedono il giorno che arrivano, senza toccare una riga di codice. Sono
+    # provvisori: un test, due su tre col watermark e da ingrandire, tutti e
+    # tre da ottimizzare. Vedi brand_assets/maestri/LEGGIMI.md.
+    - brand_assets/maestri/
     # LE TRE ARTI DEI SENTIERI, ordine T. I cinquantacinque elementi di ogni
     # Journal sono disegnati SPENTI dentro l'immagine: il codice ci mette
     # sopra le luci, e sa dove metterle perche' gli ancoraggi si ricavano da

@@ -28,11 +28,13 @@
       "assets/img_thumb/zodiac/",
       "assets/img/caligo/",
       "brand_assets/intro/",
+  "brand_assets/maestri/",
       "brand_assets/sentieri/",
       "assets/brand/"
     ],
     "nota_rune_vergini": "assets/img/rune_bone_vergine/ ospita il RETRO delle ventiquattro rune, cioe' la stessa pietra senza incisione. Non e' una famiglia a due misure e non ha miniatura: il retro si vede solo coperto o in volo, mai a fuoco, quindi sta a lato lungo 512 contro i 683x788 della faccia incisa. Non si rigenera col modello: si ricava dalla runa incisa con tool/rune_vergini.py, che toglie il solco e il suo bagliore e rimette la grana della stessa pietra, cosi' forma, venatura e luce restano quelle sue. Il conteggio e' bloccato in CI a 24 come le famiglie, ma nella sola misura piena.",
-    "nota_caligo": "assets/img/caligo/ ospita l'arte di scena del dominio di Caligo, per ora il tamburo sciamanico dell'Animale Guida (tamburo_sciamanico_v1.webp). Immagine unica di scena, non una famiglia a due misure: non ha miniatura ne conteggio bloccato, sta solo tra gli asset dichiarati.",
+    "nota_video_dei_maestri": "brand_assets/maestri/ ospita i tre video di rivelazione dei Maestri, ordine BQ. La cartella e' dichiarata fra gli asset ANCHE DA VUOTA, come assets/audio/: cosi' i filmati si vedono il giorno che arrivano, senza toccare una riga di codice. I nomi attesi sono medora_rivelazione.mp4, aura_rivelazione.mp4 e caligo_rivelazione.mp4, composti dall'identificativo del Maestro da RivelazioneInVideo.assetDi e non scritti in un elenco. Sono provvisori: un test del fondatore, due su tre col watermark e da ingrandire, tutti e tre da ottimizzare. Finche' non ci sono, la scena mostra il ritratto fermo che c'era gia', senza dire niente a nessuno.",
+ "nota_caligo": "assets/img/caligo/ ospita l'arte di scena del dominio di Caligo, per ora il tamburo sciamanico dell'Animale Guida (tamburo_sciamanico_v1.webp). Immagine unica di scena, non una famiglia a due misure: non ha miniatura ne conteggio bloccato, sta solo tra gli asset dichiarati.",
     "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano lo zodiaco brandizzato, due asset DISTINTI per segno con lo stesso stem zod_<segno>: in assets/img/zodiac/ l'emblema grande in 3D metallico multicolore (lato lungo 820, per la testa della schermata), in assets/img_thumb/zodiac/ il simbolo in miniatura (lato lungo circa 256, per i chip del selettore). La miniatura non si ricava riducendo l'emblema, e' un'immagine sua. Ventiquattro file consegnati da Mauro, gia' scontornati dal magenta con alpha reale: il ripiego dipinto a vettori e' stato tolto. Il conteggio zodiac e' ora bloccato in CI come le sei famiglie, 12 per cartella.",
     "brand_assets_conteggi": {
       "avatars": 3,

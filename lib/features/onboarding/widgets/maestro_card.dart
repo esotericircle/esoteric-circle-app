@@ -3,8 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/maestro/maestro.dart';
+import '../../../core/maestro/rivelazione_in_video.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
+import 'velo_di_rivelazione.dart';
 
 /// Rivelazione cinematografica del Maestro: la figura, grande e presente, esce
 /// dalla propria cornice a carta (la testa rompe il bordo superiore), con aura
@@ -20,6 +22,7 @@ class MaestroCardReveal extends StatefulWidget {
     this.reduceMotion = false,
     this.width = 240,
     this.height = 340,
+    this.fabbricaDelVideo = VeloDiRivelazione.lettoreVero,
   });
 
   final Maestro maestro;
@@ -27,6 +30,11 @@ class MaestroCardReveal extends StatefulWidget {
   final bool reduceMotion;
   final double width;
   final double height;
+
+  /// Chi costruisce il lettore del video. Sta qui e non dentro il velo perche'
+  /// le prove montano la carta, non il velo da solo: senza questa porta la
+  /// misura si fermerebbe un livello troppo in basso.
+  final FabbricaDiLettori fabbricaDelVideo;
 
   @override
   State<MaestroCardReveal> createState() => _MaestroCardRevealState();
@@ -142,6 +150,22 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
                             size: 120,
                             color: p.goldSoft,
                           ),
+                        ),
+                      ),
+                    ),
+                    // IL VIDEO DEL MAESTRO, ordine BQ, SOPRA l'immagine e mai
+                    // al suo posto: quando finisce, o se non parte affatto, si
+                    // toglie e scopre l'immagine che era li' da sempre. Nessun
+                    // passaggio da fare, quindi nessun fotogramma nero.
+                    Positioned(
+                      bottom: 8,
+                      child: SizedBox(
+                        width: widget.width,
+                        height: widget.height + 58,
+                        child: VeloDiRivelazione(
+                          maestro: widget.maestro,
+                          riduciMovimento: widget.reduceMotion,
+                          fabbrica: widget.fabbricaDelVideo,
                         ),
                       ),
                     ),
