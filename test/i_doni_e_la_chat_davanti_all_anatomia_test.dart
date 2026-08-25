@@ -198,7 +198,7 @@ void main() {
     // l'istruzione, aggiornare le impronte e LASCIARE nello storico quella
     // appena registrata, cosi' che la stessa impronta risulti insieme viva e
     // caduta. Da quel momento lo storico direbbe il falso.
-    final storico = ImprontaDellIstruzione.storicoDelleImpronte;
+    const storico = ImprontaDellIstruzione.storicoDelleImpronte;
     expect(storico, isNotEmpty,
         reason: 'lo storico e\' vuoto: la prima impronta caduta e\' del 2 '
             'agosto 2026 e non puo\' essere sparita');

@@ -150,8 +150,7 @@ class RitmoDellaVoce {
   }
 
   /// Una riga sola, per la stampa accanto alla matrice di confusione.
-  String get riga => 'frase mediana '
+  String get riga => 'frasi contate $frasi, frase mediana '
       '${lunghezzaMedianaInParole.toStringAsFixed(1)} parole, '
-      'domande $domande, parole che ammorbidiscono $ammorbidenti '
-      '(su $frasi frasi)';
+      'domande $domande, parole che ammorbidiscono $ammorbidenti';
 }

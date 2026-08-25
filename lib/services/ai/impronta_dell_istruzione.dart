@@ -205,7 +205,13 @@ class ImprontaDellIstruzione {
       'flutter test tool/attribuzione_cieca.dart, dal PC con una sessione gcloud '
       'attiva. TRE VOLTE: si riportano tutti e tre i giri con la loro '
       'escursione, perché un giro solo non dice dove sta questa misura. Costa '
-      'ventotto secondi a giro, non trenta minuti. Poi si scrive qui il '
+      'ventotto secondi a giro, non trenta minuti. Dal 25 agosto 2026 lo '
+      'strumento stampa anche il RITMO DELLE VOCI, tre numeri per Maestro sulle '
+      'risposte di quel giro: frase mediana in parole, domande, parole che '
+      'ammorbidiscono. Quel blocco va riportato insieme alla matrice, perché la '
+      'matrice dice se il giudice distingue i tre Maestri mentre il ritmo dice se '
+      'il registro nuovo ha morso: se Caligo resta basso con la frase mediana '
+      'già scesa, la causa non è più il registro. Poi si scrive qui il '
       'risultato: attribuzioneValida torna vero solo se la misura passa la '
       'soglia, mai per far passare la suite.';
 

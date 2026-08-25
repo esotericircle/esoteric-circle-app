@@ -120,14 +120,57 @@ commit stesso. **Ad albero fermo e pulito il rosso e' uno solo.**
 - **BP.00** La ricognizione. CHIUSA: questo capitolo.
 - **BP.01** Il divieto incrociato dei lessici. CHIUSA: `VoceDelMaestro.lessicoDegliAltri` ricava dagli altri due Maestri le loro dieci parole di firma, e `voceDi` le scrive nel prompt come vietate sotto il titolo dichiarato in `VoceDelMaestro.titoloDelLessicoVietato`. **L'elenco si ricava e non si scrive**, come le arti altrui: il giorno che una parola di firma cambia, il divieto la segue da solo. **MISURE**: per tutti e tre i Maestri l'istruzione generata porta le **dieci** parole degli altri due come vietate, e **nessuna delle proprie cinque** compare fra le vietate, che e' il verso opposto e conta quanto l'altro, perche' un divieto che comprende la firma del Maestro stesso gliela toglie invece di difendergliela; l'elenco vietato coincide esattamente con la somma delle firme altrui, senza aggiunte e senza mancanze. **La prova cammina su `Maestro.values`** e legge il titolo dalla costante che il prompt usa davvero, quindi un quarto Maestro entrerebbe da solo e un titolo cambiato non lascerebbe la prova a cercare una stringa che nessuno scrive piu'. **Rosso dimostrato**: tolto il divieto al solo Caligo, la prova cade nominando lui e la prima parola che gli resta concessa; l'iniezione e' stata verificata nel sorgente prima di leggere l'esito. **L'ISTRUZIONE E' CRESCIUTA DI 215 CARATTERI PER CIASCUNO** (da 6930, 6969 e 7031 a 7145, 7185 e 7246), quindi l'impronta e' cambiata: le tre impronte nuove sono registrate col 25 agosto 2026 e le vecchie sono scese in `storicoDelleImpronte`, insieme al fatto che **i cinque giri della misura appartengono a quella stringa e non a questa**.
 - **BP.02** I tre registri riscritti. CHIUSA: i tre campi `registro` di `lib/core/maestro/voce_del_maestro.dart` portano adesso i testi dell'Architetto approvati dal fondatore, **resi con gli accenti veri e non con l'apostrofo**, che e' regola di casa e vale anche nei prompt. **CIO' CHE CAMBIA NON E' IL TONO, E' L'ASSE**: prima i tre registri dicevano com'era la voce (elegante, calda, solenne) e un tono si imita; adesso ciascuno dichiara su cosa gira, il TEMPO per Medora, il CORPO ADESSO per Aura, il SEGNO per Caligo, e chi prende l'asse di un altro sta scrivendo con la sua voce. Ai due che sconfinavano il divieto e' detto per nome: Medora non parla mai di come si sente il corpo, Aura non nomina mai il futuro ne' una data. **Il registro di Caligo e' il piu' riscritto dei tre**, perche' e' la voce che si perde, e chiede una forma MISURABILE invece di un tono: frasi brevi e ferme, nessuna oltre una dozzina di parole, mai una domanda, mai una parola che ammorbidisce. **MISURE**: i tre assi estratti dai registri sono **tre e distinti**, e la prova li estrae dal testo invece di copiarli, cosi' un asse che cambia nome resta confrontato; ogni registro entra nella persona **per intero**; la somiglianza fra i registri e' **18 per cento fra Medora e Aura, 17 fra Medora e Caligo, 10 fra Aura e Caligo**, contro il tetto di 35, e si misura sul solo registro perche' sui campi propri la materia e' lunga e diversissima e diluirebbe la misura. **L'IMPRONTA E' CAMBIATA E LA PROVA NON E' STATA AGGIRATA**: le tre impronte nuove sono registrate col 25 agosto 2026 e la stringa del gruppo 1 e' scesa nello storico, dichiarando che su di essa **non e' stata presa nessuna misura**, perche' e' vissuta il tempo di un commit.
-- **BP.03** Il ritmo di Caligo si misura sulle sue risposte. CHIUSA: `lib/core/maestro/ritmo_della_voce.dart`. **Un registro scritto non e' un registro ottenuto**, e le tre cose che il registro nuovo chiede a Caligo si possono chiedere e non succedere. Lo strumento `tool/attribuzione_cieca.dart` stampa adesso, accanto alla matrice, **tre numeri per Maestro sulle sessanta risposte del giro**: la lunghezza mediana delle frasi in parole, quante domande, quante parole che ammorbidiscono da un elenco dichiarato in `RitmoDellaVoce.paroleCheAmmorbidiscono`. **Mediana e non media**, perche' una sola frase lunghissima sposta la media di parecchio e la mediana quasi niente, e cio' che si vuole sapere e' come suona la frase tipica. **NON HA SOGLIA E NON FA CADERE NIENTE, ed e' dichiarato**: non esiste una lunghezza mediana giusta per una frase, e inventarne una sarebbe un numero indovinato. **IL CALCOLO VIVE IN `lib` E NON DENTRO LO STRUMENTO**, perche' lo strumento non gira senza gcloud e una misura che nessuno puo' provare non e' una misura: la funzione e' pura e la suite la verifica. **MISURE**: su un testo secco la frase mediana e' **3,0 parole**, zero domande, zero parole morbide; sullo stesso numero di frasi in un testo morbido e' **21,5 parole**, due domande, otto parole morbide, quindi i nove numeri nascono dal testo e non da valori fissi; ogni parola dell'elenco viene riconosciuta da sola, altrimenti starebbe li' senza contare niente; senza nessun testo i numeri sono **zero** e non un valore inventato.
+- **BP.03** Il ritmo di Caligo si misura sulle sue risposte. CHIUSA: `lib/core/maestro/ritmo_della_voce.dart`. **Un registro scritto non e' un registro ottenuto**, e le tre cose che il registro nuovo chiede a Caligo si possono chiedere e non succedere. Lo strumento `tool/attribuzione_cieca.dart` stampa adesso, accanto alla matrice, **tre numeri per Maestro sulle sessanta risposte del giro**: la lunghezza mediana delle frasi in parole, quante domande, quante parole che ammorbidiscono da un elenco dichiarato in `RitmoDellaVoce.paroleCheAmmorbidiscono`. **Mediana e non media**, perche' una sola frase lunghissima sposta la media di parecchio e la mediana quasi niente, e cio' che si vuole sapere e' come suona la frase tipica. **NON HA SOGLIA E NON FA CADERE NIENTE, ed e' dichiarato**: non esiste una lunghezza mediana giusta per una frase, e inventarne una sarebbe un numero indovinato. **IL CALCOLO VIVE IN `lib` E NON DENTRO LO STRUMENTO**, perche' lo strumento non gira senza gcloud e una misura che nessuno puo' provare non e' una misura: la funzione e' pura e la suite la verifica. **MISURE**: su un testo secco la frase mediana e' **3,0 parole**, zero domande, zero parole morbide; sullo stesso numero di frasi in un testo morbido e' **21,5 parole**, due domande, otto parole morbide, quindi i nove numeri nascono dal testo e non da valori fissi; ogni parola dell'elenco viene riconosciuta da sola, altrimenti starebbe li' senza contare niente; senza nessun testo i numeri sono **zero** e non un valore inventato. **DUE REGOLE DI CASA VIOLATE DAL MIO STESSO TESTO NUOVO, prese dalle guardie e non da me**: la riga di stampa del ritmo diceva "su $frasi frasi", cioe' la stessa parola due volte di fila, e la nota su come si rimisura diceva "le tre voci" per dire i tre Maestri, mentre nell'app "voce" e' l'audio che si compra col piano. Nessuna delle due si vede rileggendo: le hanno trovate `testo_a_video_test` e `la_parola_voce_resta_allaudio_test`, sulla suite intera.
 - **BP.04** La chiusura di Caligo non passa mai dal corpo. CHIUSA: campo nuovo `vincoloDellaChiusura`, che nel prompt sta **subito sotto la chiusura** e non in fondo alle regole, perche' e' li' che serve. Caligo consegna un OGGETTO, una runa oppure un sigillo chiamato per nome, e mai qualcosa che si fa col respiro, con le mani o col corpo. **IL VINCOLO STA FUORI DAI CAMPI PROPRI, ed e' la decisione che regge la voce**: scritto dentro `chiusura` avrebbe messo respiro, mani e corpo dentro la chiusura di Caligo, cioe' proprio le parole che vieta, e la misura sarebbe caduta sul testo che la difende. Sta dove sta `maiDice`, dove le parole di un altro compaiono apposta come confine. **MISURE**: la chiusura di Aura porta **quattro** parole dell'elenco `paroleDelCorpo` (respiro, mano, corpo, gesto) e la chiusura di Caligo **nessuna**; la prova pretende prima che l'elenco sia vero, cioe' che la chiusura di Aura ne porti almeno una, altrimenti un elenco di parole inventate farebbe passare qualunque cosa; il vincolo entra davvero nella persona di Caligo, e chi non ne ha uno **non riceve una riga vuota al suo posto**. **Rosso dimostrato**: messo il sigillo nel palmo della mano, la prova cade nominando "mano"; l'iniezione e' stata verificata nel sorgente prima di leggere l'esito.
-- **BP.05** La rimisura, preparata e non eseguita. APERTA.
+- **BP.05** La rimisura, preparata e non eseguita. CHIUSA: preparata, dichiarata, **non eseguita**, e la ragione e' che non si puo' eseguire da qui. Lo strumento prende il gettone solo da `gcloud auth print-access-token` e questo contenitore non ha gcloud: una misura stimata sarebbe peggio di nessuna misura. **`attribuzioneValida` resta FALSO e la soglia resta 85**, e adesso i motivi sono due: nessuna delle cinque misure note passava la soglia, e quelle cinque misure appartengono a una stringa che questo ordine ha cambiato due volte. Il capitolo *La rimisura* qui sotto porta il comando esatto, quante volte va lanciato e cosa il fondatore deve incollare indietro.
+
+## La rimisura, cosa deve succedere adesso
+
+**LA MISURA NUOVA NON ESISTE, e non si stima.** Questo contenitore non ha una
+sessione gcloud, quindi `tool/attribuzione_cieca.dart` non parte: prende il
+gettone solo da `gcloud auth print-access-token`. Scrivere un numero senza
+averlo misurato sarebbe esattamente il difetto che
+`lib/services/ai/impronta_dell_istruzione.dart` esiste per impedire.
+
+**IL COMANDO, dal PC del fondatore, dalla cartella del progetto:**
+
+```
+gcloud auth list
+flutter test tool/attribuzione_cieca.dart
+```
+
+La prima riga serve solo a vedere che la sessione e' attiva. La seconda va
+lanciata **TRE VOLTE**, una dietro l'altra: i tre giri del 25 agosto hanno dato
+70,0, 75,0 e 81,7 per cento sulla stessa identica stringa, cioe' **11,7 punti di
+escursione in un giorno solo**, e chi ne esegue uno solo sta misurando il rumore.
+Costa circa ventotto secondi a giro.
+
+**COSA VA INCOLLATO INDIETRO, per ognuno dei tre giri:**
+
+1. il blocco `MATRICE DI CONFUSIONE` per intero, tutte e tre le righe;
+2. la riga `Attribuzione corretta: N su 60`;
+3. la riga `Verdetti illeggibili: N`;
+4. **il blocco `RITMO DELLE VOCI`, che prima del 25 agosto non esisteva**: sono i
+   nove numeri della voce BP.03, tre per Maestro. Senza quelli si sa se il
+   giudice distingue le voci ma non si sa **perche'**: se Caligo resta basso con
+   la frase mediana gia' scesa e le domande gia' a zero, allora il registro ha
+   morso e la causa e' un'altra, e si smette di lavorare sul registro.
+
+**UNA STRADA PIU' CORTA, dichiarata come strada e non come cosa avvenuta:** se il
+fondatore esegue Claude Code sul proprio PC, quella sessione ha gcloud e puo'
+lanciare i tre giri da sola, leggere l'uscita e scrivere il risultato in
+`impronta_dell_istruzione.dart` senza che nessun numero passi da una chat.
+
+**COSA NON SI TOCCA in nessuno dei due casi:** la soglia resta 85 e
+`attribuzioneValida` resta falso finche' una misura vera non lo cambia. Se i tre
+giri nuovi passano la soglia, quella riga diventa vera e la prova
+`l'attribuzione cieca e' valida su QUESTA istruzione` diventa verde da sola. Se
+non la passano, resta rossa e dice il vero.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 6
-VOCI_APERTE: 1
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 5
+VOCI_CHIUSE: 6
