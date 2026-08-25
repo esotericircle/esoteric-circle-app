@@ -15,7 +15,8 @@ void main() {
 
   test('1. la carta assegnata resta quella dopo una mischia', () {
     var stesa = StesaInCorso.nuova(mazzo: mazzoDiProva(), seme: 7);
-    stesa = stesa.assegna(SpreadPosition.passato);
+    // Ordine BN voce 02: la posizione dell'arco si dichiara, non si sottintende.
+    stesa = stesa.assegna(SpreadPosition.passato, dalVentaglio: 0);
     final scelta = stesa.assegnate[0]!;
 
     stesa = stesa.mischia(seme: 99);
@@ -59,8 +60,8 @@ void main() {
 
   test('mischia e taglio non toccano nessuna delle carte gia\' uscite', () {
     var stesa = StesaInCorso.nuova(mazzo: mazzoDiProva(), seme: 3);
-    for (final posizione in SpreadPosition.values) {
-      stesa = stesa.assegna(posizione);
+    for (var i = 0; i < SpreadPosition.values.length; i++) {
+      stesa = stesa.assegna(SpreadPosition.values[i], dalVentaglio: i);
     }
     final scelte = [for (final c in stesa.assegnate) c!.card.name];
 
@@ -74,7 +75,7 @@ void main() {
   test('una carta uscita esce dal mazzo e non puo\' ripresentarsi', () {
     var stesa = StesaInCorso.nuova(mazzo: mazzoDiProva(), seme: 5);
     final quante = stesa.mazzoResiduo.length;
-    stesa = stesa.assegna(SpreadPosition.passato);
+    stesa = stesa.assegna(SpreadPosition.passato, dalVentaglio: 0);
     final uscita = stesa.assegnate[0]!.card.name;
 
     expect(stesa.mazzoResiduo, hasLength(quante - 1));
@@ -86,9 +87,11 @@ void main() {
 
   test('riassegnare una posizione gia\' piena non fa niente', () {
     var stesa = StesaInCorso.nuova(mazzo: mazzoDiProva(), seme: 11);
-    stesa = stesa.assegna(SpreadPosition.presente);
+    stesa = stesa.assegna(SpreadPosition.presente, dalVentaglio: 0);
     final scelta = stesa.assegnate[1]!.card.name;
-    stesa = stesa.assegna(SpreadPosition.presente);
+    // La stessa posizione della STESA, da un'altra posizione dell'arco: e' la
+    // stesa a dover restare, non l'arco.
+    stesa = stesa.assegna(SpreadPosition.presente, dalVentaglio: 5);
     expect(stesa.assegnate[1]!.card.name, scelta,
         reason: 'una posizione gia\' scelta si e\' lasciata riscrivere: e\' la '
             'stessa cosa che riestrarre la carta');
