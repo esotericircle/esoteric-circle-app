@@ -140,6 +140,8 @@ class SynastryReport {
     required CieloDiSinastria tuo,
     required Vip vip,
     DoveSei? doveSei,
+    DateTime? quando,
+    bool cercaIlGiornoMigliore = false,
   }) {
     final suo = CieloDiSinastria.perVip(vip);
     final aspetti = AspettiDiSinastria.fra(tuo, suo);
@@ -154,7 +156,18 @@ class SynastryReport {
 
     // **LA POSSIBILITA' DI INCONTRO DA FATTI VERI, ordine BO voce 03.** Se e'
     // in vita, quanto dista la sua citta' dalla tua, quanto si fa vedere.
-    final incontro = PossibilitaDiIncontro.per(vip: vip, doveSei: doveSei);
+    // **IL CIELO DEL GIORNO ENTRA QUI, ordine BO voce 12.** Gli aspetti sono
+    // quelli gia' calcolati sopra: non se ne ricalcola nessuno, e il grado
+    // dove i due cieli si toccano e' l'estremo di ognuno di quelli.
+    final incontro = PossibilitaDiIncontro.per(
+      vip: vip,
+      doveSei: doveSei,
+      aspetti: aspetti,
+      tuo: tuo,
+      suo: suo,
+      quando: quando,
+      cercaIlGiornoMigliore: cercaIlGiornoMigliore,
+    );
     // La battuta resta come dato per chi la vuole, ma sotto la barra adesso
     // c'e' il PERCHE': una frase che dice un fatto vale piu' di una che fa
     // sorridere e non dice niente.

@@ -10,6 +10,7 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/synastry/cielo_della_sinastria.dart';
+import '../../core/synastry/cielo_del_giorno_sulla_coppia.dart';
 import '../../core/synastry/possibilita_di_incontro.dart';
 import '../../core/synastry/tempi_della_chiamata.dart';
 import 'chiamata_del_vip.dart';
@@ -184,6 +185,14 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   /// nemmeno quello, la distanza semplicemente non entra nel conto.
   DoveSei? _doveSei;
 
+  /// **IL GIORNO PIU' ACCESO DEI PROSSIMI SEI MESI, ordine BO voce 12.**
+  ///
+  /// Si cerca UNA VOLTA e fuori dal disegno: sono centottantatre giorni di
+  /// effemeridi, e farlo dentro `build` vorrebbe dire rifarlo a ogni
+  /// fotogramma. Finche' non c'e', la riga della data non esiste, e la scena
+  /// e' intera lo stesso.
+  GiornoPiuAcceso? _giornoPiuAcceso;
+
   /// Il cielo da usare: quello vero della persona quando c'e', altrimenti
   /// quello dell'esempio, che e' lo stesso ripiego che questa schermata usava
   /// gia' per il segno.
@@ -245,6 +254,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     try {
       _photo.seed(context.read<ProfileController>().avatarPhoto);
     } catch (_) {}
+    // La scansione dei sei mesi sta fuori dal disegno.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _cercaIlGiorno());
     // **IL CANCELLO SI GUARDA DOPO IL PRIMO FOTOGRAMMA**, quando l'albero
     // c'e' e un foglio si puo' aprire. Prima di allora il verdetto resta
     // coperto.
@@ -392,6 +403,22 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
       onRiscatta: riscatto.azione,
     );
     return false;
+  }
+
+  /// Cerca il giorno piu' acceso, una volta sola. Per chi non c'e' piu' non
+  /// si cerca niente: la voce 04 resta com'e'.
+  void _cercaIlGiorno() {
+    if (!mounted || _giornoPiuAcceso != null) return;
+    if (_vip.eScomparso || widget.primoVip != null) return;
+    final suo = CieloDiSinastria.perVip(_vip);
+    final trovato = GiornoPiuAcceso.cerca(
+      aspetti: AspettiDiSinastria.fra(_cielo, suo),
+      tuo: _cielo,
+      suo: suo,
+      da: DateTime.now(),
+    );
+    if (!mounted || trovato == null) return;
+    setState(() => _giornoPiuAcceso = trovato);
   }
 
   void _onPhotoChanged() {
@@ -699,6 +726,26 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               style: TypographyTokens.body(size: 16)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ),
+        // **IL CIELO DEL GIORNO SU QUESTA COPPIA, ordine BO voce 12.** La
+        // geografia dice se un incontro e' possibile, il cielo dice quando.
+        // Nessuna di queste righe promette un incontro: dicono quando quel
+        // legame e' piu' acceso.
+        if (report.incontro.esiste && report.incontro.celeste != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text(report.incontro.celeste!.riga,
+              key: const Key('sinastria_cielo_del_giorno'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+          if (_giornoPiuAcceso != null) ...[
+            const SizedBox(height: SpacingTokens.xxs),
+            Text(_giornoPiuAcceso!.rigaDa(DateTime.now()),
+                key: const Key('sinastria_giorno_acceso'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: palette.goldSoft, height: 1.4)),
+          ],
+        ],
         // **LA MAPPA DELLA DISTANZA, ordine BO voce 09.** C'e' solo quando
         // c'e' un incontro da misurare e si sa dove vivete tutti e due: per
         // chi non c'e' piu' non esiste in albero, come la sua barra.

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'cielo_del_giorno_sulla_coppia.dart';
 import 'cielo_della_sinastria.dart';
 import 'vip_catalog.dart';
 
@@ -46,6 +47,9 @@ class PossibilitaDiIncontro {
     this.chilometri,
     this.suaCitta,
     this.sueCoordinate,
+    this.celeste,
+    this.giornoPiuAcceso,
+    this.baseGeografica,
   });
 
   /// **Falsa per chi non c'e' piu'.** Ordine BO voce 04: l'incontro non esiste
@@ -68,6 +72,19 @@ class PossibilitaDiIncontro {
   /// non deve stimarla**: il dossier le ha, e una posizione stimata da una
   /// distanza sarebbe un punto inventato messo su una mappa vera.
   final ({double lat, double lon})? sueCoordinate;
+
+  /// **IL CIELO DEL GIORNO SU QUESTA COPPIA, ordine BO voce 12.** Nullo
+  /// quando non e' stato chiesto, cioe' quando chi chiama non ha passato gli
+  /// aspetti: la geografia da sola resta valida ed e' quella della voce 03.
+  final MoltiplicatoreCeleste? celeste;
+
+  /// Il giorno dei prossimi sei mesi in cui quel legame e' piu' acceso.
+  final GiornoPiuAcceso? giornoPiuAcceso;
+
+  /// La percentuale PRIMA del moltiplicatore, cioe' la sola geografia.
+  /// **La voce 03 e' chiusa e non si riapre**: il suo calcolo resta la base, e
+  /// questa riga lo dimostra tenendolo visibile accanto al risultato.
+  final double? baseGeografica;
 
   /// **IL TETTO, e non e' un numero indovinato.** E' la percentuale che tocca
   /// alla persona piu' esposta del catalogo se vive nella tua stessa citta':
@@ -115,7 +132,15 @@ class PossibilitaDiIncontro {
   }
 
   /// Il conto, per questo VIP e per dove sei tu.
-  factory PossibilitaDiIncontro.per({required Vip vip, DoveSei? doveSei}) {
+  factory PossibilitaDiIncontro.per({
+    required Vip vip,
+    DoveSei? doveSei,
+    List<AspettoDiSinastria>? aspetti,
+    CieloDiSinastria? tuo,
+    CieloDiSinastria? suo,
+    DateTime? quando,
+    bool cercaIlGiornoMigliore = false,
+  }) {
     // **CHI NON C'E' PIU' NON SI INCONTRA.** Ordine BO voce 04: non e' un
     // numero basso, e' una domanda che non si pone.
     if (vip.eScomparso) {
@@ -155,8 +180,34 @@ class PossibilitaDiIncontro {
       }
     }
 
-    final percento =
-        (tetto * vip.esposizione.peso * fattore).clamp(pavimento, tetto);
+    // **LA BASE GEOGRAFICA, che e' la voce 03 e non si tocca.**
+    final base = tetto * vip.esposizione.peso * fattore;
+
+    // **IL CIELO DEL GIORNO MOLTIPLICA, ordine BO voce 12.** La geografia
+    // dice se un incontro e' possibile, il cielo dice quando. Il tetto e il
+    // pavimento restano e valgono DOPO la moltiplicazione.
+    MoltiplicatoreCeleste? celeste;
+    GiornoPiuAcceso? migliore;
+    if (aspetti != null && tuo != null && suo != null) {
+      celeste = MoltiplicatoreCeleste.per(
+        aspetti: aspetti,
+        tuo: tuo,
+        suo: suo,
+        giorno: quando ?? DateTime.now(),
+      );
+      if (cercaIlGiornoMigliore) {
+        migliore = GiornoPiuAcceso.cerca(
+          aspetti: aspetti,
+          tuo: tuo,
+          suo: suo,
+          da: quando ?? DateTime.now(),
+        );
+      }
+    }
+    final percento = (base * (celeste?.valore ?? 1.0))
+        .clamp(pavimento, tetto)
+        .toDouble();
+
     return PossibilitaDiIncontro(
       esiste: true,
       percento: percento,
@@ -165,6 +216,9 @@ class PossibilitaDiIncontro {
       suaCitta: sua?.nome,
       sueCoordinate:
           sua == null ? null : (lat: sua.latitudine, lon: sua.longitudine),
+      celeste: celeste,
+      giornoPiuAcceso: migliore,
+      baseGeografica: base.clamp(pavimento, tetto).toDouble(),
     );
   }
 
