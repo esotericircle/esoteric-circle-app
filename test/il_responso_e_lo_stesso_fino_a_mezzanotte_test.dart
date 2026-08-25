@@ -149,6 +149,84 @@ void main() {
     });
   });
 
+  group('il giorno dell\'anno non cambia dentro il giorno', () {
+    // **IL DIFETTO CHE QUESTA PROVA HA TROVATO, e che ha abbattuto una
+    // premessa dell'ordine.** BK.06 dava per esistente la regola del responso
+    // stabile. Falso per sette mesi l'anno: `dayOfYear` sottraeva due date e
+    // `inDays` misura una DURATA, non giorni di calendario. Fra il primo
+    // gennaio e agosto, in Italia, c'e' il passaggio all'ora legale, quindi
+    // alle 00:00 del 5 agosto 2026 la formula dava 215 e dalle 01:00 dava 216:
+    // il responso cambiava alle una di notte, e nella prima ora del giorno
+    // l'Oroscopo era ancora quello di ieri. In UTC non si vedeva, ed e' per
+    // questo che nessuna prova lo prendeva.
+    test('a ogni ora dello stesso giorno il numero e\' lo stesso', () {
+      for (final giorno in [
+        DateTime(2026, 8, 5), // ora legale
+        DateTime(2026, 1, 5), // ora solare
+        DateTime(2026, 3, 29), // il giorno del cambio, in avanti
+        DateTime(2026, 10, 25), // il giorno del cambio, indietro
+        DateTime(2028, 2, 29), // bisestile
+      ]) {
+        final atteso = Horoscope.dayOfYear(giorno);
+        for (var ora = 0; ora < 24; ora++) {
+          final istante =
+              DateTime(giorno.year, giorno.month, giorno.day, ora, 30);
+          expect(Horoscope.dayOfYear(istante), atteso,
+              reason: 'il ${giorno.day}/${giorno.month} alle $ora:30 il giorno '
+                  'dell\'anno vale ${Horoscope.dayOfYear(istante)} invece di '
+                  '$atteso: l\'indice cambia DENTRO il giorno, quindi il '
+                  'responso cambia con lui');
+        }
+      }
+    });
+
+    test('e i giorni consecutivi sono consecutivi', () {
+      // Non basta che sia stabile: deve anche essere giusto. Attraversando il
+      // cambio dell'ora il numero deve salire di uno e non di zero ne' di due.
+      for (final primo in [
+        DateTime(2026, 3, 28),
+        DateTime(2026, 10, 24),
+        DateTime(2026, 12, 30),
+      ]) {
+        final dopo = DateTime(primo.year, primo.month, primo.day + 1);
+        expect(Horoscope.dayOfYear(dopo), Horoscope.dayOfYear(primo) + 1,
+            reason: 'fra il ${primo.day}/${primo.month} e il giorno dopo '
+                'l\'indice non sale esattamente di uno');
+      }
+    });
+
+    test('la formula vecchia non torna in nessuno dei cinque file', () {
+      // **LA GRANDEZZA STRUTTURALE, perche' la misura sopra e' cieca in UTC.**
+      // Dove l'ora legale non esiste il difetto non si manifesta: una prova
+      // che si affidasse solo ai numeri sarebbe verde su questa macchina e
+      // rossa sul telefono del fondatore. Questa riga invece cade ovunque.
+      final sorvegliati = [
+        'lib/core/horoscope/horoscope.dart',
+        'lib/core/horoscope/corrente_del_cielo.dart',
+        'lib/core/horoscope/cielo_di_oggi.dart',
+        'lib/core/astro/transiti_del_giorno.dart',
+        'lib/core/tempo/confine_del_giorno.dart',
+      ];
+      final colpevoli = <String>[];
+      for (final percorso in sorvegliati) {
+        final righe = File(percorso).readAsLinesSync();
+        for (var i = 0; i < righe.length; i++) {
+          final r = righe[i];
+          if (r.trimLeft().startsWith('//') || r.trimLeft().startsWith('///')) {
+            continue;
+          }
+          if (RegExp(r'difference\(DateTime\(').hasMatch(r)) {
+            colpevoli.add('$percorso:${i + 1}');
+          }
+        }
+      }
+      expect(colpevoli, isEmpty,
+          reason: 'questi punti contano i giorni sottraendo due date locali, '
+              'che con l\'ora legale non fa giorni interi: usa '
+              'ConfineDelGiorno.giornoDellAnno. ${colpevoli.join(', ')}');
+    });
+  });
+
   test('nessuno dei calcoli del responso guarda l\'orologio di sistema', () {
     // **PERCHE' QUESTA PROVA ESISTE, ed e' una lezione della prova del rosso.**
     // L'ordine chiede di dimostrare che la guardia cade "facendo dipendere il

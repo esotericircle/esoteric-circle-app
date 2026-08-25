@@ -83,6 +83,49 @@ da scrivere parte poi, su un testo gia' letto.
 - **BK.05** L'attesa piena una volta al giorno. CHIUSA: `MemoriaDellaRiflessione` sul disco, con `ConfineDelGiorno.chiaveDi` come unica autorita' del confine e nessun `DateTime.now()` dentro la schermata; si legge all'apertura e si segna al TOCCO, perche' aprire l'Oroscopo senza interrogarlo non consumi la prima volta del giorno. Finche' il disco non ha risposto vale la riflessione PIENA: nel dubbio si aspetta di piu', mai di meno. **MISURE**: prima interrogazione del giorno **2.800** millesimi, dalla seconda **1.000** (finestra 0,8..1,2), e dopo il confine di nuovo 2.800. I due momenti nella breve sono compressi, non saltati. **Rosso dimostrato**: col disco portato a ieri l'attesa piena torna, col disco a oggi non torna; il confine spostato di un minuto oltre la mezzanotte rende di nuovo piena l'attesa.
 - **BK.06** Il responso e' lo stesso fino a mezzanotte, e si dimostra. CHIUSA: la regola esisteva gia' e questa voce la BLOCCA. Guardia: `test/il_responso_e_lo_stesso_fino_a_mezzanotte_test.dart`. **MISURA**: a otto istanti sparsi dentro lo stesso giorno civile (da 00:00 a 23:59) i quattro testi, l'apertura, il numero fortunato e il colore del giorno sono IDENTICI carattere per carattere; attraversando il confine cambiano. **Rosso dimostrato DUE volte, e la prima ha insegnato qualcosa**: l'iniezione chiesta dall'ordine, il seme che guarda l'ora con `DateTime.now().hour`, lasciava le prove VERDI, perche' in prova l'orologio di sistema e' fermo e tutti i responsi cambiavano allo stesso modo. Invece di abbassare la soglia si e' cambiata la grandezza misurata: una prova nuova vieta `DateTime.now()` nei cinque file che compongono il responso, e con quella l'iniezione cade nominando file e riga. La seconda iniezione, l'istante dei transiti che segue l'ora invece dell'ora fissa, fa cadere il confronto carattere per carattere.
 
+## UNA PREMESSA DELL'ORDINE E' FALSA, e il numero la abbatte
+
+**BK.06 dava per esistente la regola del responso stabile.** Parole
+dell'ordine: "la regola quindi esiste gia'. Questa voce non la costruisce: la
+BLOCCA". Falso, e per sette mesi l'anno.
+
+`Horoscope.dayOfYear` contava i giorni cosi':
+`date.difference(DateTime(date.year)).inDays`. Quella formula misura una
+DURATA, non giorni di calendario. Fra il primo gennaio e agosto, in Italia,
+c'e' il passaggio all'ora legale: la durata e' di 215 giorni e 23 ore, non di
+216 tondi, e `inDays` tronca per difetto.
+
+**Misurato con `TZ=Europe/Rome`**, 5 agosto 2026: alle 00:00 la formula da'
+**215**, dalle 01:00 in poi **216**. Cioe' il responso dell'Oroscopo cambiava
+**alle una di notte** invece che a mezzanotte, e nella prima ora del giorno
+mostrava ancora quello di ieri. In UTC il difetto non esiste, perche' li'
+l'ora legale non c'e': ed e' esattamente il motivo per cui nessuna prova lo
+aveva mai preso, e per cui la prima esecuzione della suite in questo
+contenitore lo aveva mancato.
+
+**Curato dentro la voce**, perche' senza la cura BK.06 non si poteva chiudere:
+la sua misura pretende che i quattro testi siano identici a ogni ora dello
+stesso giorno, e non lo erano. Nasce la porta unica
+`ConfineDelGiorno.giornoDellAnno`, che prende anno, mese e giorno CIVILI e
+conta in UTC, dove ogni giorno dura ventiquattro ore. La base resta la stessa
+(zero il primo gennaio), quindi nessun responso gia' scritto si sposta:
+cambia solo che la prima ora del giorno adesso appartiene al giorno giusto.
+
+**La guardia e' doppia, apposta.** I numeri (il giorno dell'anno identico a
+tutte le ventiquattro ore, su cinque date fra cui i due giorni del cambio e
+un bisestile) sono ciechi dove l'ora legale non esiste; accanto c'e' una
+prova strutturale che vieta la formula vecchia nei cinque file del responso, e
+quella cade ovunque. Rosso dimostrato in tutti e due i modi: reintrodotta la
+formula, in Italia cadono i testi, in UTC cade la struttura.
+
+**LA FAMIGLIA E' PIU' LARGA DI QUEST'ORDINE, e apre l'ordine BL.** La stessa
+formula sta in altri cinque punti: `sky_postcard.dart:53`,
+`striscia_altre_arti.dart:75`, `voce_del_dono.dart:81`,
+`daily_rituals.dart:11` (il Maestro del Rito dell'Alba) e
+`consiglio_finale.dart:124`. Non sono materia dell'Oroscopo e non si toccano
+qui. `GuardianAngels.dayOfYear` invece conta gia' sul calendario, ed e' la
+prova che il modo giusto il progetto lo conosceva.
+
 ## Due cose trovate GUARDANDO, e dichiarate
 
 **Il font dei simboli astronomici non e' un asset di questo repository.**

@@ -1,3 +1,4 @@
+import '../tempo/confine_del_giorno.dart';
 import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
 import 'cielo_di_oggi.dart';
@@ -103,8 +104,17 @@ class Horoscope {
   static const int indicatorMax = 5;
 
   /// Giorno ordinale nell'anno (0 il primo gennaio), come i riti del giorno.
-  static int dayOfYear(DateTime date) =>
-      date.difference(DateTime(date.year)).inDays;
+  /// Viene dalla porta unica, `ConfineDelGiorno.giornoDellAnno`.
+  ///
+  /// **Prima sottraeva due date, ed era un difetto misurato.** Ordine BK voce
+  /// 06: `date.difference(DateTime(date.year)).inDays` misura una durata, e
+  /// con l'ora legale di mezzo la durata non e' un multiplo di ventiquattro
+  /// ore. Con `TZ=Europe/Rome`, alle 00:00 del 5 agosto 2026 dava 215 e dalle
+  /// 01:00 dava 216: il responso dell'Oroscopo cambiava alle una di notte, e
+  /// per la prima ora del giorno mostrava ancora quello di ieri. La premessa
+  /// dell'ordine, cioe' che la regola del responso stabile esistesse gia',
+  /// era falsa per i sette mesi dell'ora legale, e il numero l'ha detto.
+  static int dayOfYear(DateTime date) => ConfineDelGiorno.giornoDellAnno(date);
 
   // Moltiplicazione a 32 bit esatta anche dove gli interi sono a doppia
   // precisione (web): si divide l'operando in due meta' da 16 bit cosi' nessun
