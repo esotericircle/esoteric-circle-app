@@ -785,6 +785,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               onApri: _responsoInScena && i < _drawn
                   ? () => _apriLaCarta(i)
                   : null,
+              // **LA CHIAVE SI VEDE ANCHE NELLA STESA, ordine BN voce 05.**
+              // Prima lo dichiarava solo la sua bolla, piu' in basso: chi
+              // guardava le tre carte non sapeva quale delle tre reggesse la
+              // lettura. Il segno e' della STESSA famiglia visiva della bolla,
+              // cioe' l'oro pieno contro l'oro tenue, e non un secondo
+              // linguaggio inventato qui.
+              eLaChiave: _responsoInScena &&
+                  i < _drawn &&
+                  _reading.chiave.drawn.position == SpreadPosition.values[i],
               revealSpec: _revealSlot == i ? _revealSpec : null,
               revealProgress: _revealSlot == i ? _reveal.value : 0,
               // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
@@ -1098,6 +1107,7 @@ if (andata && mounted) {
 class _Slot extends StatelessWidget {
   const _Slot({
     this.onApri,
+    this.eLaChiave = false,
     required this.position,
     required this.drawn,
     required this.palette,
@@ -1114,6 +1124,9 @@ class _Slot extends StatelessWidget {
 
   /// Cosa fa il tocco sulla carta, o nulla quando non c'e' niente da aprire.
   final VoidCallback? onApri;
+
+  /// Se questa e' la carta che regge la lettura. Ordine BN voce 05.
+  final bool eLaChiave;
 
   /// L'aura elementale, quando questa carta si sta scoprendo.
   final RevealSpec? revealSpec;
@@ -1184,6 +1197,32 @@ class _Slot extends StatelessWidget {
                           ),
                         ),
                 ),
+                // IL SEGNO DELLA CHIAVE, ordine BN voce 05: l'oro pieno che
+                // la bolla usa gia', portato attorno alla carta. Sta SOPRA la
+                // carta e sotto l'aura, e non tocca la figura: la carta resta
+                // leggibile, e cio' che cambia e' la cornice.
+                if (eLaChiave)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Container(
+                        key: Key('stesa_chiave_${position.name}'),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(SpacingTokens.radiusMd),
+                          border: Border.all(
+                              color: palette.gold.withValues(alpha: 0.95),
+                              width: 2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: palette.gold.withValues(alpha: 0.45),
+                              blurRadius: 18,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 // L'aura elementale, mentre la carta si scopre.
                 if (revealSpec != null && revealProgress > 0)
                   Positioned.fill(
@@ -1451,8 +1490,17 @@ class _Strato extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // **IL TITOLO SALE DI UNA MISURA PIENA, ordine BN voce 06.** Parole
+          // del fondatore: "vorrei che il titolo fosse piu' grande". Era
+          // `etichetta`, cioe' il PAVIMENTO della scala a dodici punti: la
+          // misura piu' piccola dell'app, data alla bolla che la persona
+          // porta via. Adesso e' `titoloScheda`, diciotto, che e' il gradino
+          // pieno successivo e non un numero scelto qui: la scala la decide
+          // il design system, questa riga la usa.
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.etichetta().copyWith(
+              key: const Key('stesa_consiglio_titolo'),
+              maxLines: 1,
+              style: TypographyTokens.titoloScheda().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 6),

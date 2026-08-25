@@ -136,7 +136,7 @@ class TarotReading {
   /// l'LLM.
   static String consiglioDi(
       TarotSpread spread, TarotTopic topic, String domanda) {
-    final prosa = [
+    final pezzi = <String>[
       // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
       // portato le tre risposte che mancavano, una per gruppo, e il montaggio e'
       // quello che dichiara: la lente dell'argomento, la virgola, la risposta,
@@ -155,7 +155,25 @@ class TarotReading {
       '${spread.futuro.displayName} non è una sentenza: è dove questo va se non '
           'cambi passo, ${_minuscola(spread.futuro.summary)}.',
       _letturaDeiVersi(spread),
-    ].join(' ');
+    ];
+    // **I PARAGRAFI ESISTONO GIA' QUI, ordine BN voce 06.** Parole del
+    // fondatore: "vorrei che il titolo fosse piu' grande e il testo diviso in
+    // 2/3 paragrafi". I paragrafi NON si ricavano tagliando il blocco a
+    // occhio: erano gia' cinque pezzi dichiarati, appiattiti da un `join(' ')`
+    // in un muro solo. Si raggruppano per SENSO, tre paragrafi e non cinque:
+    // cosa dice la lettura, cosa dicono le tre carte insieme, e cosa dicono i
+    // versi. Nessuna frase viene spezzata, perche' non si taglia niente: si
+    // uniscono pezzi che erano gia' interi.
+    final paragrafi = <String>[
+      // La lente dell'argomento con la risposta, e il consiglio del gruppo.
+      [pezzi[0], pezzi[1]].where((p) => p.isNotEmpty).join(' '),
+      // Le tre carte, dal passato al futuro.
+      [pezzi[2], pezzi[3]].where((p) => p.isNotEmpty).join(' '),
+      // I versi e i Maggiori, che possono non esserci: in quel caso i
+      // paragrafi restano due, e due l'ordine li ammette.
+      pezzi[4],
+    ].where((p) => p.trim().isNotEmpty).toList();
+    final prosa = paragrafi.join('\n\n');
     return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'
         '\n\n$domanda';
   }
