@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
+import 'package:esoteric_circle/core/maestro/ritmo_della_voce.dart';
 import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -242,6 +243,28 @@ void main() {
           '${(100 / Maestro.values.length).toStringAsFixed(1)} per cento. '
           'Soglia: ${(soglia * 100).toStringAsFixed(0)} per cento.')
       ..writeln('Verdetti illeggibili: $nonDeciso.');
+
+    // ---- IL RITMO DELLE VOCI, ordine BP voce 3.
+    //
+    // **Un registro scritto non e' un registro ottenuto.** La matrice dice se
+    // il giudice distingue le tre voci; questi nove numeri dicono COME suonano,
+    // e si leggono confrontandoli col giro precedente. Non hanno soglia e non
+    // fanno cadere niente: una soglia sulla lunghezza mediana di una frase
+    // sarebbe un numero indovinato.
+    //
+    // Nascono dalle risposte di QUESTO giro, quelle stesse che il giudice ha
+    // appena letto, e non da valori scritti qui.
+    stdout
+      ..writeln()
+      ..writeln('RITMO DELLE VOCI, sulle risposte di questo giro');
+    for (final autore in Maestro.values) {
+      final sue = risposte
+          .where((r) => r.autore == autore)
+          .map((r) => r.testo)
+          .toList();
+      final ritmo = RitmoDellaVoce.di(sue);
+      stdout.writeln('${autore.id.padRight(9)}${ritmo.riga}');
+    }
 
     // Le coppie che si scambiano di posto, che il numero aggregato nasconde.
     for (final autore in Maestro.values) {

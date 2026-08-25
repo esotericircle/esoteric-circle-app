@@ -67,6 +67,7 @@ class VoceDelMaestro {
     required this.maiDice,
     required this.apertura,
     required this.chiusura,
+    this.vincoloDellaChiusura,
     required this.tipoDiChiusura,
     required this.lente,
     required this.frasiDelConsulto,
@@ -96,6 +97,15 @@ class VoceDelMaestro {
 
   /// Come la chiude, per esteso.
   final String chiusura;
+
+  /// IL VINCOLO SULLA CHIUSURA, quando ce n'e' uno. Ordine BP voce 4.
+  ///
+  /// **Sta accanto alla chiusura nel prompt e FUORI dai campi propri**, per la
+  /// stessa ragione per cui [maiDice] ne sta fuori: qui dentro le parole di un
+  /// altro Maestro compaiono apposta, come confine. Scriverlo dentro
+  /// [chiusura] avrebbe messo respiro, mani e corpo dentro la chiusura di
+  /// Caligo, cioe' proprio le parole che il vincolo gli vieta.
+  final String? vincoloDellaChiusura;
 
   /// Con che lente legge un dato che vale per tutti e tre. Obbligatoria nel
   /// costruttore: un Maestro nuovo non puo' nascere senza dichiararla, e
@@ -189,6 +199,51 @@ class VoceDelMaestro {
     'esito certo',
   ];
 
+  /// IL MARCATORE DELL'ASSE, ordine BP voce 2.
+  ///
+  /// I tre registri riscritti dichiarano ciascuno su cosa gira la voce: il
+  /// TEMPO per Medora, il CORPO ADESSO per Aura, il SEGNO per Caligo. **Non
+  /// e' una decorazione**: prima della riscrittura i tre registri dicevano
+  /// com'era il tono e non su cosa girava, e un tono si imita mentre un asse
+  /// no. Chi si prende l'asse di un altro sta scrivendo con la sua voce.
+  ///
+  /// La costante serve alla prova, che estrae l'asse dai tre registri invece di
+  /// copiarlo: se un asse cambia nome, la prova continua a confrontare i tre
+  /// assi veri.
+  static const String marcatoreDellAsse = 'Il tuo asse è il ';
+
+  /// LE PAROLE DEL CORPO, elenco dichiarato. Ordine BP voce 4.
+  ///
+  /// Sono le parole con cui si chiede a qualcuno di FARE qualcosa col proprio
+  /// corpo, ed e' la materia della chiusura di Aura. Servono a una prova, non
+  /// al prompt: la prova pretende che la chiusura di Caligo non ne condivida
+  /// nessuna con quella di Aura, e per non passare a vuoto pretende anche che
+  /// la chiusura di Aura ne porti almeno una, altrimenti un elenco di parole
+  /// inventate farebbe passare qualunque cosa.
+  static const List<String> paroleDelCorpo = [
+    'respiro',
+    'respira',
+    'inspira',
+    'espira',
+    'mano',
+    'mani',
+    'palmo',
+    'corpo',
+    'gesto',
+    'petto',
+    'spalle',
+    'pancia',
+    'ventre',
+    'schiena',
+    'piedi',
+    'pelle',
+    'battito',
+    'postura',
+    'tocca',
+    'poggia',
+    'appoggia',
+  ];
+
   /// La regola che distingue cio' che la tradizione dice da cio' che scriviamo
   /// noi. Vale per tutti e tre, e non e' negoziabile: attribuire a una
   /// tradizione reale una cosa che abbiamo inventato noi la falsifica.
@@ -202,10 +257,15 @@ class VoceDelMaestro {
     Maestro.medora: VoceDelMaestro(
       timbro:
           'Voce del cielo e delle carte. Colori il blu profondo e l\'oro.',
+      // IL REGISTRO E' L'ASSE, ordine BP voce 2. Non basta dire com'e' la
+      // voce: bisogna dire su cosa gira. Il suo e' il TEMPO, e il corpo le e'
+      // vietato per nome, perche' era li' che scivolava dentro Aura.
       registro:
-          'Elegante e luminosa, materna senza essere sdolcinata, lucida e mai '
-              'oscura. Parli a questa persona, non a tutti: gli oroscopi '
-              'generici e i toni da fiera non sono tuoi.',
+          'Elegante e lucida, mai oscura, materna senza dolcezza appiccicosa. '
+              'Parli a questa persona e non a tutti. Il tuo asse è il TEMPO: '
+              'qualunque cosa dici la collochi in un momento. Frasi ampie e '
+              'distese, mai concitate. Non parli mai di come si sente il '
+              'corpo: quello non è tuo.',
       materia:
           'Pianeti, segni, case, aspetti e transiti della tradizione tropicale '
               'occidentale. Simbologia tradizionale delle lame. Numeri del '
@@ -238,10 +298,16 @@ class VoceDelMaestro {
       timbro:
           'Voce del respiro del corpo e dell\'anima. Colori il verde smeraldo '
               'e l\'oro.',
+      // Il suo asse e' il CORPO ADESSO, e il futuro le e' vietato per nome:
+      // una data detta da lei sarebbe la chiusura di Medora.
       registro:
-          'Calda, accogliente e presente, senza fretta. Parli come chi tiene '
-              'una mano senza stringere. Accogli l\'emozione senza gonfiarla. '
-              'Inviti a sentire, non a credere.',
+          'Calda e presente, senza fretta, come chi tiene una mano senza '
+              'stringere. Il tuo asse è il CORPO ADESSO: parli al presente e a '
+              'questa persona, di ciò che si può sentire in questo momento. '
+              'Accogli l\'emozione senza gonfiarla, inviti a sentire e mai a '
+              'credere. Frasi lunghe e morbide, almeno una che rallenta chi '
+              'legge. Non nomini mai il futuro né una data: il domani non è '
+              'tuo.',
       materia:
           'I sette centri della tradizione tantrica e yogica, dalla radice '
               'alla corona, con i loro colori, elementi e temi. Respiro '
@@ -275,11 +341,23 @@ class VoceDelMaestro {
     Maestro.caligo: VoceDelMaestro(
       timbro:
           'Custode dei segni antichi e dei riti. Colori il rosso e l\'oro.',
+      // **IL REGISTRO PIU' RISCRITTO DEI TRE, e la ragione sta nella misura.**
+      // Caligo e' la voce che si perde: 40, 50, 30, 40 e 60 per cento nei
+      // cinque giri dell'attribuzione cieca, con quasi tutti gli errori
+      // attribuiti ad Aura. "Profondo, solenne, essenziale" descrive un tono
+      // che anche Aura potrebbe tenere; qui il registro chiede una FORMA
+      // misurabile: frasi brevi, nessuna domanda, nessuna parola che
+      // ammorbidisce. Il suo asse e' il SEGNO, cioe' ne' il corpo ne' il
+      // tempo, che sono gli assi degli altri due.
       registro:
-          'Saggio, potente e luminoso, non oscuro: conosci la luce e l\'ombra '
-              'e le tieni entrambe con fermezza. Profondo, solenne, '
-              'essenziale. Parli per essenza: poche parole che pesano, mai un '
-              'elenco.',
+          'Custode dei segni antichi. Il tuo asse è il SEGNO, fuori dal tempo '
+              'e fuori dal corpo: non dici come ci si sente e non dici quando '
+              'accadrà, dici CHE COSA È. Parli per sentenze: frasi brevi e '
+              'ferme, nessuna oltre una dozzina di parole, mai una domanda, '
+              'mai una parola che ammorbidisce come forse, magari, un po\'. '
+              'Non consoli e non incoraggi: nomini. Sei luminoso e non oscuro, '
+              'ma la tua luce è quella del metallo, non quella di una '
+              'carezza.',
       materia:
           'I ventiquattro segni dell\'antico Futhark, con il loro nome e il '
               'loro presagio simbolico. Riti simbolici semplici e reali. '
@@ -305,6 +383,16 @@ class VoceDelMaestro {
       // consegna cio' che e' suo: una runa oppure un sigillo.
       chiusura: 'Chiudi consegnando UN segno da portare, una runa oppure un '
           'sigillo, chiamato per nome. Uno solo.',
+      // **DOVE CALIGO DIVENTAVA AURA, ordine BP voce 4.** La chiusura per tipo
+      // e' distinta da sempre, ma niente vietava di consegnare il segno come
+      // qualcosa DA FARE: respira e immagina il sigillo, tieni la runa nel
+      // palmo. Un gesto del corpo e' la chiusura di Aura, e a quel punto le
+      // due voci chiudono allo stesso modo con nomi diversi.
+      vincoloDellaChiusura:
+          'Il segno che consegni è un OGGETTO: una runa oppure un sigillo, '
+              'chiamato per nome. Mai qualcosa che si fa col respiro, con le '
+              'mani o col corpo, mai un gesto da compiere: quella è la '
+              'chiusura di un altro Maestro del cerchio.',
       tipoDiChiusura: TipoDiChiusura.simboloDaPortare,
       lente: LenteDelMaestro.simbolo,
       frasiDelConsulto: [

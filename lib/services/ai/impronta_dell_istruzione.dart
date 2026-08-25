@@ -36,10 +36,10 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        'd526a5c7283ce80cb773bced61a7225ee5e1973cd967a68395fb339a106c9557',
-    'aura': 'a83d1c3045b78979f586a652d4b3dd4680a60a2612ac38b9d4988843bd4f1541',
+        '47e9f78152ae1b77c50a96610262dcb8b83494391d45f93014ade74f4ce0e8ee',
+    'aura': 'e59c8e380a035f48483c847dd7eafbc68838cb62d7139a92628f7fb32eadd525',
     'caligo':
-        '1fd6102129e8ed4ede276f2ba3b6fba46a44873ebd6b161484b4d0e4ae9f8f68',
+        '52bc003c493c6ad7ae2b8a7aaff5bda7856bd40b9dc30d2e8595412d4da26b20',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
@@ -70,6 +70,17 @@ class ImprontaDellIstruzione {
         'come vietate: 215 caratteri in più per ciascuno, identici nella '
         'forma e diversi nel contenuto, perché ognuno riceve le parole degli '
         'altri.',
+    'IL 25 AGOSTO 2026 PER POCHE ORE, cioè fra il gruppo 1 e il gruppo 2 '
+        'dell\'ordine BP: 7145, 7185 e 7246 caratteri. Impronte: '
+        'medora d526a5c7283ce80cb773bced61a7225ee5e1973cd967a68395fb339a106c9557, '
+        'aura a83d1c3045b78979f586a652d4b3dd4680a60a2612ac38b9d4988843bd4f1541, '
+        'caligo 1fd6102129e8ed4ede276f2ba3b6fba46a44873ebd6b161484b4d0e4ae9f8f68. '
+        '**SU QUESTA STRINGA NON È STATA PRESA NESSUNA MISURA: è dichiarato '
+        'apposta**. È vissuta il tempo di un commit, fra il divieto incrociato '
+        'dei lessici e la riscrittura dei tre registri. Una riga di storico '
+        'senza misura vale come le altre, perché dice che quella stringa è '
+        'esistita: saltarla farebbe sembrare che il divieto e i registri siano '
+        'entrati insieme.',
   ];
 
   /// **VERO SOLO QUANDO L'ATTRIBUZIONE CIECA E' STATA MISURATA SU QUESTE IMPRONTE
@@ -87,7 +98,9 @@ class ImprontaDellIstruzione {
   ///
   /// **DAL 25 AGOSTO 2026 I MOTIVI SONO DUE, ed e' peggio di uno.** Il primo resta:
   /// tutte e cinque le misure stanno sotto la soglia. Il secondo e' nuovo:
-  /// l'ordine BP ha cambiato l'istruzione per curare proprio quella causa, quindi
+  /// l'ordine BP ha cambiato l'istruzione DUE VOLTE per curare proprio quella
+  /// causa, col divieto incrociato dei lessici e con i tre registri riscritti,
+  /// quindi
   /// **quei cinque numeri non descrivono piu' la stringa di oggi** e sono scesi
   /// nello [storicoDelleImpronte] insieme alla stringa a cui appartengono. La
   /// misura nuova non e' stata presa: si prende dal PC del fondatore, con gcloud

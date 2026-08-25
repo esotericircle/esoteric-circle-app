@@ -178,7 +178,16 @@ class MaestroPersona {
       ..writeln()
       ..writeln('COME APRI E COME CHIUDI:')
       ..writeln('- ${voce.apertura}')
-      ..writeln('- ${voce.chiusura}')
+      ..writeln('- ${voce.chiusura}');
+    // IL VINCOLO SULLA CHIUSURA, ordine BP voce 4. Sta subito sotto la
+    // chiusura e non in fondo alle regole, perche' e' li' che serve: il
+    // modello lo legge mentre sta leggendo cosa deve consegnare. Chi non ne ha
+    // uno non riceve una riga vuota al suo posto: una riga vuota in mezzo a un
+    // blocco e' rumore, e il blocco e' cio' che il modello legge per ultimo
+    // prima di scrivere.
+    final vincolo = voce.vincoloDellaChiusura;
+    if (vincolo != null) buffer.writeln('- $vincolo');
+    buffer
       ..writeln('- La chiusura non è facoltativa: ogni risposta la porta.')
       // LA PAROLA DA PORTARE, NOMINATA DA LUI.
       //
