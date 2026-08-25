@@ -49,12 +49,14 @@ class ImprontaDellIstruzione {
   /// E HA PASSATO LA SOGLIA.** Sono due condizioni e non una, e il 14 agosto 2026 la
   /// prima e' diventata vera mentre la seconda e' diventata FALSA.
   ///
-  /// **DUE GIRI, NON DUE MISURE IN DISACCORDO.** Il 14 agosto ha dato 70,0 per
-  /// cento, il 15 agosto 78,3, e in mezzo le impronte NON sono cambiate: lo
-  /// dimostra la prova che le confronta, che e' verde. Stessa istruzione, due
-  /// giorni, otto punti di differenza. **Tutti e due stanno sotto la soglia di
-  /// 85**, quindi il rosso dice il vero in tutti e due i casi e il divario fra
-  /// loro non e' mai stato un motivo per cambiare questa riga.
+  /// **CINQUE GIRI, NON CINQUE MISURE IN DISACCORDO.** Il 14 agosto ha dato 70,0
+  /// per cento, il 15 agosto 78,3, e il 25 agosto 2026 tre giri di fila hanno dato
+  /// 70,0 poi 75,0 poi 81,7. In mezzo le impronte NON sono cambiate: lo dimostra
+  /// la prova che le confronta, verde prima dei tre giri del 25. Stessa istruzione,
+  /// cinque misure, **undici punti e sette di escursione fra la piu' bassa e la piu'
+  /// alta**. Tutte e cinque stanno sotto la soglia di 85, quindi il rosso dice il
+  /// vero in tutti i casi e il divario fra loro non e' mai stato un motivo per
+  /// cambiare questa riga.
   ///
   /// **NON SI PORTA A VERO PER FAR PASSARE LA SUITE, e non si abbassa la soglia.** Il
   /// rosso non dice piu' che manca una misura: adesso dice che la misura c'e' ed e'
@@ -65,33 +67,49 @@ class ImprontaDellIstruzione {
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
   /// numero senza il suo oggetto e' una leggenda.
   ///
-  /// **CE NE SONO DUE E NON UNA, ed e' voluto: una sola nasconderebbe
-  /// l'escursione, due la dichiarano.** Sono due giri della stessa misura sulla
-  /// stessa istruzione, non due misure in disaccordo.
+  /// **CE NE SONO CINQUE E NON UNA, ed e' voluto: una sola nasconderebbe
+  /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
+  /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'DUE GIRI SU QUESTE IMPRONTE. L\'istruzione non è cambiata in mezzo: lo '
+      'CINQUE GIRI SU QUESTE IMPRONTE. L\'istruzione non è cambiata in mezzo: lo '
       'dimostra la prova che confronta le tre impronte. Il 14 agosto 2026: 70,0 '
       'per cento (42 su 60). Il 15 agosto 2026: 78,3 per cento (47 su 60), '
-      'eseguita da Mauro dal suo PC. **L\'escursione fra i due giri è di otto '
-      'punti su sessanta**, quindi un giro solo non basta a dire dove sta '
-      'questa misura. Nel dettaglio: medora 14 e poi 17 su 20, caligo 8 e poi '
-      '10 su 20, aura 20 su 20 tutte e due le volte. Prima di tutto questo era '
-      '98,3 per cento (59 su 60) il 2 agosto, su una stringa di circa 6300 '
-      'caratteri, cioè su un\'ALTRA istruzione, prima che il commit 97bb997 '
+      'eseguita da Mauro dal suo PC. Il 25 agosto 2026, TRE GIRI DI FILA sempre '
+      'dal PC di Mauro: 70,0 per cento (42 su 60), poi 75,0 per cento (45 su 60), '
+      'poi 81,7 per cento (49 su 60); media dei tre 75,6 per cento (136 su 180). '
+      '**L\'escursione fra i tre giri dello stesso giorno è di undici punti e '
+      'sette su sessanta**, più larga degli otto punti fra il 14 e il 15 agosto: '
+      'quindi non era la distanza fra due giorni, era il rumore della misura, che '
+      'un giro solo non riesce a mostrare. Nel dettaglio, nell\'ordine dei cinque '
+      'giri: medora 14 poi 17 poi 16 poi 17 poi 17 su 20; caligo 8 poi 10 poi 6 '
+      'poi 8 poi 12 su 20; aura 20 su 20 tutte e cinque le volte. Prima di tutto '
+      'questo era 98,3 per cento (59 su 60) il 2 agosto, su una stringa di circa '
+      '6300 caratteri, cioè su un\'ALTRA istruzione, prima che il commit 97bb997 '
       'aggiungesse 636 caratteri netti con le voci S.15 e S.17.';
 
   /// LA MATRICE, e si tiene per intero perche' il numero da solo direbbe la cosa
   /// sbagliata.
   ///
   /// **Non e' un appiattimento simmetrico delle tre voci: e' AURA CHE ATTIRA.** Aura
-  /// resta riconoscibile al cento per cento, e le altre due finiscono dentro di lei.
-  /// In tutti gli errori la risposta e' stata attribuita ad Aura: nessuno scambio
-  /// nella direzione opposta, nessuno scambio fra Medora e Caligo.
+  /// resta riconoscibile al cento per cento in tutti e cinque i giri, e le altre due
+  /// finiscono dentro di lei. Nessun errore parte da Aura, mai, in centottanta
+  /// verdetti.
   ///
-  /// **QUI STANNO TUTTI E DUE I GIRI, per la stessa ragione di
-  /// [ultimaMisuraNota]**: fra il 14 e il 15 agosto il totale si e' mosso di otto
-  /// punti, mentre **l'unico fatto fermo e' che Aura non viene mai scambiata**, e
-  /// un fatto che regge a due giri vale piu' di un totale che si muove.
+  /// **UN'ECCEZIONE ESISTE E VA SCRITTA.** Fino al 15 agosto si poteva dire che fra
+  /// Medora e Caligo non c'era nessuno scambio: il primo giro del 25 agosto 2026
+  /// porta uno scambio caligo verso medora, quindi quella frase adesso non regge
+  /// piu' senza questa riga. E' un caso su centottanta, e cancellarlo per tenere
+  /// pulita una frase sarebbe la stessa cosa che scrivere il 98,3 accanto
+  /// all'impronta di oggi.
+  ///
+  /// **QUI STANNO TUTTI E CINQUE I GIRI, per la stessa ragione di
+  /// [ultimaMisuraNota]**: il totale si muove di undici punti e sette fra il giro
+  /// piu' basso e il piu' alto, mentre **l'unico fatto fermo e' che Aura non viene
+  /// mai scambiata**, e un fatto che regge a cinque giri vale piu' di un totale che
+  /// si muove. Il secondo fatto, meno fermo ma piu' grave, e' che **Caligo e' la
+  /// voce che si perde**: 40, 50, 30, 40 e 60 per cento nei cinque giri, trenta
+  /// punti di oscillazione, ed e' li' che sta il grosso degli errori. Chi vorra'
+  /// riportare questa misura sopra la soglia comincia da Caligo, non da Medora.
   static const String matrice =
       'GIRO DEL 14 AGOSTO 2026: medora 14 su 20 (70,0 per cento), sei volte '
       'scambiata per aura; aura 20 su 20 (100 per cento); caligo 8 su 20 '
@@ -100,15 +118,29 @@ class ImprontaDellIstruzione {
       'GIRO DEL 15 AGOSTO 2026: medora 17 su 20 (85,0 per cento); aura 20 su 20 '
       '(100 per cento); caligo 10 su 20 (50,0 per cento); tredici errori, '
       'tutti verso aura. '
-      'Verdetti illeggibili: zero. Caso cieco 33,3 per cento, soglia 85.';
+      'PRIMO GIRO DEL 25 AGOSTO 2026: medora 16 su 20 (80,0 per cento), quattro '
+      'volte scambiata per aura; aura 20 su 20 (100 per cento); caligo 6 su 20 '
+      '(30,0 per cento), tredici volte scambiato per aura e UNA VOLTA PER MEDORA; '
+      'diciotto errori, diciassette verso aura più quell\'unico verso medora. '
+      'SECONDO GIRO DEL 25 AGOSTO 2026: medora 17 su 20 (85,0 per cento), tre '
+      'volte scambiata per aura; aura 20 su 20 (100 per cento); caligo 8 su 20 '
+      '(40,0 per cento), dodici volte scambiato per aura; quindici errori, tutti '
+      'verso aura. '
+      'TERZO GIRO DEL 25 AGOSTO 2026: medora 17 su 20 (85,0 per cento), tre volte '
+      'scambiata per aura; aura 20 su 20 (100 per cento); caligo 12 su 20 (60,0 '
+      'per cento), otto volte scambiato per aura; undici errori, tutti verso aura. '
+      'Verdetti illeggibili: zero in tutti e cinque i giri. Caso cieco 33,3 per '
+      'cento, soglia 85.';
 
   /// Cosa si deve fare perche' [attribuzioneValida] torni vero.
   ///
-  /// **QUESTA PROVA NON SI ESEGUE UNA VOLTA SOLA, e i due giri del 14 e del 15
-  /// agosto 2026 dicono perche':** stessa istruzione, stesse impronte, otto punti
-  /// su sessanta di differenza. **Chi ne esegue uno solo e ci lavora sopra sta
-  /// inseguendo il rumore**, e rischia di dichiarare guarita una voce che il giro
-  /// dopo ricade, o malata una che stava bene.
+  /// **QUESTA PROVA NON SI ESEGUE UNA VOLTA SOLA, e i tre giri del 25 agosto 2026
+  /// lo dimostrano meglio dei due di agosto:** stessa istruzione, stesse impronte,
+  /// stesso giorno, uno dietro l'altro, e undici punti e sette su sessanta di
+  /// differenza fra il primo e il terzo. **Chi ne esegue uno solo e ci lavora sopra
+  /// sta inseguendo il rumore**, e rischia di dichiarare guarita una voce che il
+  /// giro dopo ricade, o malata una che stava bene: il 25 agosto Caligo e' passato
+  /// dal 30 al 60 per cento in tre giri, senza che nessuno toccasse una riga.
   ///
   /// **Tre giri, e si guarda l'escursione prima del totale.** Costa
   /// **ventotto secondi a giro**, non i trenta minuti che dice il tetto scritto
