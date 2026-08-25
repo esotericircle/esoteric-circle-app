@@ -1,5 +1,6 @@
 import '../astro/natal_chart.dart';
 import 'cielo_della_sinastria.dart';
+import 'possibilita_di_incontro.dart';
 import 'vip_catalog.dart';
 
 /// Una barra infografica del responso: etichetta, valore percentuale e una
@@ -37,6 +38,8 @@ class SynastryReport {
     required this.sparks,
     required this.meetingPercent,
     required this.meetingQuip,
+    required this.incontro,
+    this.eredita,
     this.aspetti = const [],
     this.oraDelVipNota = false,
     this.oraTuaNota = false,
@@ -56,11 +59,26 @@ class SynastryReport {
   final int mental;
   final int sparks;
 
-  /// Possibilita' di incontro, volutamente bassissima: 0,2 .. 4,0 per cento.
+  /// **LA POSSIBILITA' DI INCONTRO, ordine BO voce 03.** Sta qui dentro col
+  /// suo perche', e non e' piu' un numero nudo. Per chi non c'e' piu' non
+  /// esiste, e la scena non la mostra.
+  final PossibilitaDiIncontro incontro;
+
+  /// L'EREDITA', ordine BO voce 04: cosa del suo cielo vive nel tuo. Nulla
+  /// per chi e' in vita, dove la domanda giusta e' l'incontro.
+  final String? eredita;
+
+  /// La percentuale nuda, per chi la vuole come numero. Zero per chi non c'e'
+  /// piu': la barra non esiste, quindi non c'e' niente da riempire.
   final double meetingPercent;
 
-  /// Micro battuta sulla possibilita' di incontro.
+  /// Micro battuta sulla possibilita' di incontro. **Resta come campo e non
+  /// si mostra piu' sotto la barra**: al suo posto c'e' la riga che spiega il
+  /// numero, che dice un fatto invece di una battuta.
   final String meetingQuip;
+
+  /// Vero se il VIP non c'e' piu'. La scena cambia domanda.
+  bool get eScomparso => !incontro.esiste;
 
   /// GLI ASPETTI VERI FRA I DUE CIELI, dal piu' stretto al piu' largo.
   ///
@@ -81,23 +99,26 @@ class SynastryReport {
   List<AspettoDiSinastria> get aspettiPiuForti =>
       aspetti.length <= 3 ? aspetti : aspetti.sublist(0, 3);
 
-  /// Le quattro barre pronte per l'infografica, nell'ordine di layout.
+  /// LE BARRE PRONTE PER L'INFOGRAFICA, nell'ordine di layout.
+  ///
+  /// **Sono quattro per chi c'e', TRE per chi non c'e' piu'.** Ordine BO voce
+  /// 04: la barra dell'incontro non si mostra spenta ne' a zero, non esiste
+  /// proprio, perche' una barra vuota e' comunque una promessa mancata messa
+  /// sotto gli occhi.
   List<SynastryBar> get bars => [
         SynastryBar(label: 'Affinità d\'amore', value: love),
         SynastryBar(label: 'Intesa mentale', value: mental),
         SynastryBar(label: 'Scintille', value: sparks),
-        SynastryBar(
-          label: 'Possibilità di incontro',
-          value: meetingPercent.floor(),
-          quip: meetingQuip,
-        ),
+        if (incontro.esiste)
+          SynastryBar(
+            label: 'Possibilità di incontro',
+            value: incontro.percento.floor(),
+            quip: incontro.perche,
+          ),
       ];
 
   /// La possibilita' di incontro formattata con la virgola decimale italiana.
-  String get meetingLabel {
-    final s = meetingPercent.toStringAsFixed(1).replaceAll('.', ',');
-    return '$s%';
-  }
+  String get meetingLabel => incontro.etichetta;
 
   /// La riga sopra il tasto Condividi, con il nome del VIP.
   static String challengeLine(String vipName) =>
@@ -118,6 +139,7 @@ class SynastryReport {
   static SynastryReport perCieli({
     required CieloDiSinastria tuo,
     required Vip vip,
+    DoveSei? doveSei,
   }) {
     final suo = CieloDiSinastria.perVip(vip);
     final aspetti = AspettiDiSinastria.fra(tuo, suo);
@@ -148,17 +170,14 @@ class SynastryReport {
     final overall =
         (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99);
 
-    // La possibilita' di incontro, ancora dagli indici dei segni: la cura e'
-    // la voce BO.03, e fin li' resta cio' che era.
-    final vipSign = vip.sign;
-    final lo = tuo.segnoSolare.index < vipSign.index
-        ? tuo.segnoSolare.index
-        : vipSign.index;
-    final hi = tuo.segnoSolare.index < vipSign.index
-        ? vipSign.index
-        : tuo.segnoSolare.index;
-    final meeting = ((lo * 7 + hi * 13) % 39) / 10 + 0.2;
-    final meetingQuip = _meetingQuips[(lo * 7 + hi * 13) % _meetingQuips.length];
+    // **LA POSSIBILITA' DI INCONTRO DA FATTI VERI, ordine BO voce 03.** Se e'
+    // in vita, quanto dista la sua citta' dalla tua, quanto si fa vedere.
+    final incontro = PossibilitaDiIncontro.per(vip: vip, doveSei: doveSei);
+    // La battuta resta come dato per chi la vuole, ma sotto la barra adesso
+    // c'e' il PERCHE': una frase che dice un fatto vale piu' di una che fa
+    // sorridere e non dice niente.
+    final meetingQuip = _meetingQuips[
+        (tuo.segnoSolare.index + vip.sign.index) % _meetingQuips.length];
 
     return SynastryReport(
       overall: overall,
@@ -167,8 +186,10 @@ class SynastryReport {
       love: love,
       mental: mental,
       sparks: sparks,
-      meetingPercent: meeting,
+      meetingPercent: incontro.percento,
       meetingQuip: meetingQuip,
+      incontro: incontro,
+      eredita: EreditaDelCielo.per(vip, aspetti),
       aspetti: aspetti,
       oraDelVipNota: suo.oraNota,
       oraTuaNota: tuo.oraNota,

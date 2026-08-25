@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
+import 'package:esoteric_circle/core/synastry/possibilita_di_incontro.dart';
 import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/components/vip_frame.dart';
@@ -114,12 +115,28 @@ void main() {
       }
     });
 
-    test('La possibilita di incontro resta minima, tra 0,2 e 4 per cento', () {
+    test('La possibilita di incontro sta nella scala dichiarata', () {
+      // **QUESTA PROVA MISURAVA IL DIFETTO.** Pretendeva che il numero
+      // restasse fra 0,2 e 4,0 per cento *per tutti*, ed era esattamente cio'
+      // che il fondatore ha contestato: "la possibilita' di incontro e'
+      // sempre bassa, mentre se un vip abita nella mia citta' dovrebbe avere
+      // maggiori probabilita'". Il tetto e il pavimento adesso li dichiara
+      // `PossibilitaDiIncontro`, e cio' che si misura qui e' che il numero ci
+      // stia dentro, non che sia sempre piccolo. Che poi sia DIVERSO da VIP a
+      // VIP lo misura la prova dedicata alla voce BO.03.
       for (final user in Zodiac.values) {
         for (final vip in VipCatalog.vips) {
           final r = responso(user, vip);
-          expect(r.meetingPercent, inInclusiveRange(0.2, 4.0));
-          expect(r.meetingQuip, isNotEmpty);
+          if (!r.incontro.esiste) {
+            expect(r.meetingPercent, 0, reason: vip.name);
+            continue;
+          }
+          expect(
+              r.meetingPercent,
+              inInclusiveRange(PossibilitaDiIncontro.pavimento,
+                  PossibilitaDiIncontro.tetto),
+              reason: vip.name);
+          expect(r.incontro.perche, isNotEmpty, reason: vip.name);
         }
       }
     });
@@ -338,6 +355,21 @@ void main() {
       ),
     );
     expect(ritratto.name, 'Tu');
+  });
+
+  testWidgets('Per chi non c\'è più la scena cambia domanda', (tester) async {
+    // **Ordine BO voce 04, IN ALBERO e non solo nel dato.** La barra
+    // dell'incontro non deve esistere come widget: una barra a zero e'
+    // comunque una promessa mancata messa sotto gli occhi.
+    await pumpScreen(tester, vip: VipCatalog.conNome('Giorgio Armani')!);
+    expect(find.byKey(const Key('sinastria_eredita')), findsOneWidget,
+        reason: 'la scena non dice cosa resta');
+    expect(find.text('Possibilità di incontro'), findsNothing,
+        reason: 'la barra dell\'incontro è ancora in albero');
+    // E chi c'e' ce l'ha ancora.
+    await pumpScreen(tester, vip: VipCatalog.conNome('Zendaya')!);
+    expect(find.byKey(const Key('sinastria_eredita')), findsNothing);
+    expect(find.text('Possibilità di incontro'), findsOneWidget);
   });
 
   testWidgets('Il responso apre sul VIP passato, non sul primo del catalogo',

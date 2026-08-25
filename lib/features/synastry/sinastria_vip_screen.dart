@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,7 +8,9 @@ import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/identity/natal_identity.dart';
+import '../../core/astro/luogo_attuale.dart';
 import '../../core/synastry/cielo_della_sinastria.dart';
+import '../../core/synastry/possibilita_di_incontro.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -17,6 +21,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'sinastria_share_card.dart';
 import 'user_photo.dart';
 import '../../core/maestro/maestro.dart';
@@ -89,7 +94,15 @@ class SinastriaVipScreen extends StatefulWidget {
 
 class SinastriaVipScreenState extends State<SinastriaVipScreen>
     with SingleTickerProviderStateMixin {
-  late final Vip _vip = widget.vip ?? VipCatalog.first;
+  /// **IL VIP SEGUE IL WIDGET, e prima non lo faceva.** Era `late final`,
+  /// quindi lo State restava sul primo VIP anche se il widget ne portava un
+  /// altro. Nell'app non mordeva, perche' la schermata si apre sempre come
+  /// rotta nuova; l'ha trovato una prova che rimontava la stessa scena con
+  /// due VIP diversi e si vedeva ancora il primo. Un dato che ignora il suo
+  /// widget e' un difetto anche quando nessuno ci passa: il giorno che questa
+  /// scena diventera' una vista che cambia VIP senza cambiare rotta, sarebbe
+  /// stato invisibile.
+  Vip _vip = VipCatalog.first;
   late final UserPhotoController _photo =
       widget.photoController ?? UserPhotoController();
   final GlobalKey _cardKey = GlobalKey();
@@ -119,6 +132,15 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   /// nell'ordine BN: un `context.watch` fuori da `build` ferma la scena.
   CieloDiSinastria? _cieloTuo;
 
+  /// **DOVE SEI ADESSO, per la possibilita' di incontro.** Ordine BO voce 03.
+  ///
+  /// E' il luogo DICHIARATO, `LuogoAttuale`, cioe' dove vivi: non il luogo di
+  /// nascita, che puo' essere dall'altra parte del mondo. Si legge dal disco
+  /// una volta, e finche' non arriva vale il luogo di nascita, che e' meglio
+  /// di niente e viene dichiarato nella riga che spiega il numero. Se non c'e'
+  /// nemmeno quello, la distanza semplicemente non entra nel conto.
+  DoveSei? _doveSei;
+
   /// Il cielo da usare: quello vero della persona quando c'e', altrimenti
   /// quello dell'esempio, che e' lo stesso ripiego che questa schermata usava
   /// gia' per il segno.
@@ -146,11 +168,20 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   @override
   void initState() {
     super.initState();
+    _vip = widget.vip ?? VipCatalog.first;
     _anim = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1100),
     )..forward();
     _photo.addListener(_onPhotoChanged);
+    unawaited(_leggiDoveSei());
+  }
+
+  @override
+  void didUpdateWidget(covariant SinastriaVipScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final nuovo = widget.vip ?? VipCatalog.first;
+    if (nuovo.name != _vip.name) setState(() => _vip = nuovo);
   }
 
   @override
@@ -171,6 +202,16 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     try {
       final dettagli = context.read<BirthIdentityController>().details;
       if (dettagli != null) {
+        // IL RIPIEGO DELLA DISTANZA: finche' il luogo dichiarato non arriva
+        // dal disco, vale quello di nascita. E' una approssimazione, e la
+        // riga che spiega il numero non la spaccia per altro.
+        final nato = dettagli.place;
+        if (_doveSei == null && nato != null) {
+          _doveSei = DoveSei(
+              citta: nato.label,
+              latitudine: nato.latitude,
+              longitudine: nato.longitude);
+        }
         _cieloTuo = CieloDiSinastria.perNascita(
           momentoUtc: DateTime.utc(
             dettagli.date.year,
@@ -196,6 +237,16 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     }
   }
 
+  /// Legge il luogo dichiarato dal disco. Se non c'e', resta il ripiego.
+  Future<void> _leggiDoveSei() async {
+    final luogo = await DoveSonoAdesso.letto();
+    if (!mounted || luogo == null) return;
+    setState(() => _doveSei = DoveSei(
+        citta: luogo.citta,
+        latitudine: luogo.lat,
+        longitudine: luogo.lon));
+  }
+
   void _onPhotoChanged() {
     if (mounted) setState(() {});
   }
@@ -212,7 +263,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final report = SynastryReport.perCieli(tuo: _cielo, vip: _vip);
+    final report =
+        SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -369,8 +421,38 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               style: TypographyTokens.body(size: 16)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ),
+        // **L'EREDITA', per chi non c'e' piu'. Ordine BO voce 04.**
+        //
+        // Sta al posto in cui, per chi e' in vita, la scena spinge verso
+        // l'incontro. La domanda cambia, e cambia anche il tono: nessuna
+        // percentuale, nessuna mappa, nessuna promessa.
+        if (report.eredita != null) ...[
+          const SizedBox(height: SpacingTokens.md),
+          DepthCard(
+            padding: const EdgeInsets.all(SpacingTokens.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('QUELLO CHE RESTA',
+                    key: const Key('sinastria_eredita_titolo'),
+                    style: TypographyTokens.etichetta().copyWith(
+                        color: palette.goldSoft, letterSpacing: 1.4)),
+                const SizedBox(height: SpacingTokens.xs),
+                // Il narrato passa dalla porta comune dei paragrafi, e la
+                // misura viene dal RUOLO: una cifra scritta a mano qui
+                // sarebbe la duecentoventinovesima dell'app.
+                ParagrafiDiLettura(
+                    key: const Key('sinastria_eredita'),
+                    testo: report.eredita!,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary)),
+              ],
+            ),
+          ),
+        ],
         const SizedBox(height: SpacingTokens.md),
-        // Le quattro barre infografica animate.
+        // Le barre infografica animate: quattro per chi c'e', tre per chi non
+        // c'e' piu', perche' la barra dell'incontro non esiste proprio.
         DepthCard(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: AnimatedBuilder(
