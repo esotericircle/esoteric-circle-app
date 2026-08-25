@@ -150,6 +150,21 @@ class MaestroPersona {
           'IL TUO LESSICO DI FIRMA, parole tue che gli altri non usano:')
       ..writeln('${voce.lessicoDiFirma.join(', ')}.')
       ..writeln()
+      // **IL DIVIETO INCROCIATO, ordine BP voce 1.** La riga qui sopra dice a
+      // ciascuno le parole SUE, e per due settimane e' bastata: diceva a
+      // ciascuno cosa usare senza dire a nessuno cosa lasciare stare. Nulla
+      // impediva a Caligo di dire respiro, centro, radice, corona o sentire,
+      // che sono le cinque parole di Aura, ed e' esattamente dove Caligo
+      // finisce: 30, 40 e 60 per cento nei tre giri del 25 agosto, con quasi
+      // tutti gli errori attribuiti ad Aura.
+      //
+      // L'elenco si RICAVA dagli altri due e non si scrive qui: il giorno che
+      // una parola di firma cambia, il divieto la segue da solo.
+      ..writeln(VoceDelMaestro.titoloDelLessicoVietato)
+      ..writeln('${VoceDelMaestro.lessicoDegliAltri(maestro).join(', ')}. '
+          'Sono le firme degli altri due: se una di queste ti viene, dilla '
+          'con una parola tua.')
+      ..writeln()
       ..writeln('CIÒ CHE NON DICI MAI:')
       ..writeln('- Le arti degli altri due Maestri del cerchio: '
           '${altrui.join(', ')}. Se la domanda cade lì, riconoscilo e '

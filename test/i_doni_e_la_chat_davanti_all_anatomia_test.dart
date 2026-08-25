@@ -191,6 +191,25 @@ void main() {
             'con una misura non valida. ${cambiate.join(" | ")}');
   });
 
+  test('lo storico porta le impronte cadute, e nessuna di quelle di oggi', () {
+    // **UNA COSTANTE CHE NESSUNO LEGGE E' UN COMMENTO CON LA SINTASSI DI DART.**
+    // Lo storico esiste per dire a quale stringa appartiene una misura vecchia,
+    // e il modo di sbagliare che si presidia qui e' preciso: cambiare
+    // l'istruzione, aggiornare le impronte e LASCIARE nello storico quella
+    // appena registrata, cosi' che la stessa impronta risulti insieme viva e
+    // caduta. Da quel momento lo storico direbbe il falso.
+    final storico = ImprontaDellIstruzione.storicoDelleImpronte;
+    expect(storico, isNotEmpty,
+        reason: 'lo storico e\' vuoto: la prima impronta caduta e\' del 2 '
+            'agosto 2026 e non puo\' essere sparita');
+    final testo = storico.join(' ');
+    for (final entry in ImprontaDellIstruzione.impronte.entries) {
+      expect(testo.contains(entry.value), isFalse,
+          reason: 'l\'impronta di ${entry.key} risulta insieme registrata e '
+              'caduta: una delle due dice il falso');
+    }
+  });
+
   test('l\'attribuzione cieca e\' valida su QUESTA istruzione', () {
     // **QUESTA PROVA NASCE ROSSA, IL 13 AGOSTO 2026, ED E' GIUSTO COSI': dice il
     // vero.** L'attribuzione cieca fu misurata il 2 agosto al 98,3 per cento; l'11

@@ -328,6 +328,35 @@ class VoceDelMaestro {
       .where((a) => a.isNotEmpty)
       .toList();
 
+  /// IL TITOLO SOTTO CUI IL DIVIETO DEI LESSICI ENTRA NELLA PERSONA.
+  ///
+  /// Sta qui e non dentro il testo del prompt perche' la prova che verifica il
+  /// divieto lo LEGGE da questa costante invece di copiarlo: due copie della
+  /// stessa intestazione divergono al primo ritocco, e da quel momento la prova
+  /// cerca un titolo che il prompt non scrive piu' e passa senza guardare
+  /// niente.
+  static const String titoloDelLessicoVietato =
+      'LE PAROLE DEGLI ALTRI DUE, CHE NON DICI MAI:';
+
+  /// Le parole di firma degli ALTRI Maestri, cioe' quelle che [maestro] non usa
+  /// mai perche' sono la firma di qualcun altro.
+  ///
+  /// **Si ricava e non si scrive**, esattamente come [artiDegliAltri]: il giorno
+  /// che una parola di firma cambia, il divieto la segue da solo. Un elenco
+  /// copiato a mano sarebbe la seconda porta della stessa stanza, e vale quanto
+  /// una regola che nessuno aggiorna.
+  ///
+  /// **Perche' serve, misurato.** L'attribuzione cieca sta al 75,6 per cento di
+  /// media su cinque giri contro una soglia di 85, e Caligo scende fino al 30
+  /// finendo dentro Aura. Il [lessicoDiFirma] diceva a ciascuno le parole sue,
+  /// ma non vietava a nessuno quelle degli altri: nulla impediva a Caligo di
+  /// dire respiro, centro, radice, corona o sentire, che sono le cinque parole
+  /// di Aura.
+  static List<String> lessicoDegliAltri(Maestro maestro) => [
+        for (final altro in Maestro.values)
+          if (altro != maestro) ...di(altro).lessicoDiFirma,
+      ];
+
   /// Le arti degli ALTRI Maestri, cioe' cio' che [maestro] non tratta mai.
   ///
   /// Si ricava, non si scrive: se domani nascesse un quarto Maestro, il

@@ -36,14 +36,41 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '0bc77eb5e1af347cd234f366c95c876341680bfa075d7d214e64d6f27f12de70',
-    'aura': 'aab951f95c60a0135710e054992cdbefd845e4efbd8410b0d21be9e269121eb7',
+        'd526a5c7283ce80cb773bced61a7225ee5e1973cd967a68395fb339a106c9557',
+    'aura': 'a83d1c3045b78979f586a652d4b3dd4680a60a2612ac38b9d4988843bd4f1541',
     'caligo':
-        'd31790d3b43d90ab55de2d4deca83f7e5925c424337cf6144b1265a6e39e48cb',
+        '1fd6102129e8ed4ede276f2ba3b6fba46a44873ebd6b161484b4d0e4ae9f8f68',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '13 agosto 2026';
+  static const String registrateIl = '25 agosto 2026';
+
+  /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
+  ///
+  /// **Esiste perche' un numero senza la sua stringa e' una leggenda**, e questo
+  /// file nasce proprio dal giorno in cui una misura ha continuato a essere
+  /// citata undici giorni dopo che il suo oggetto era cambiato. Qui non si
+  /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
+  /// questo elenco con la sua data e con cio' che le e' successo.
+  static const List<String> storicoDelleImpronte = [
+    'FINO AL 10 AGOSTO 2026, stringa di circa 6300 caratteri (6294, 6333, '
+        '6395). Su di essa fu misurata l\'attribuzione cieca al 98,3 per cento '
+        '(59 su 60) il 2 agosto 2026. Caduta l\'11 agosto col commit 97bb997, '
+        'voci S.15 e S.17: 636 caratteri netti in più per tutti e tre. A '
+        'scoprirlo undici giorni dopo fu un controllo di premessa fatto a mano. '
+        'Da questo fatto nasce questo file.',
+    'DAL 13 AL 25 AGOSTO 2026, stringa di 6930, 6969 e 7031 caratteri. Impronte: '
+        'medora 0bc77eb5e1af347cd234f366c95c876341680bfa075d7d214e64d6f27f12de70, '
+        'aura aab951f95c60a0135710e054992cdbefd845e4efbd8410b0d21be9e269121eb7, '
+        'caligo d31790d3b43d90ab55de2d4deca83f7e5925c424337cf6144b1265a6e39e48cb. '
+        '**SU QUESTA STRINGA SOLTANTO SONO STATI PRESI I CINQUE GIRI** '
+        'del 14 agosto, del 15 agosto e i tre del 25 agosto, da 70,0 a 81,7 per '
+        'cento, media 75,6. Caduta il 25 agosto 2026 con l\'ordine BP voce 1, '
+        'che aggiunge a ciascun Maestro le dieci parole di firma degli altri due '
+        'come vietate: 215 caratteri in più per ciascuno, identici nella '
+        'forma e diversi nel contenuto, perché ognuno riceve le parole degli '
+        'altri.',
+  ];
 
   /// **VERO SOLO QUANDO L'ATTRIBUZIONE CIECA E' STATA MISURATA SU QUESTE IMPRONTE
   /// E HA PASSATO LA SOGLIA.** Sono due condizioni e non una, e il 14 agosto 2026 la
@@ -58,6 +85,14 @@ class ImprontaDellIstruzione {
   /// vero in tutti i casi e il divario fra loro non e' mai stato un motivo per
   /// cambiare questa riga.
   ///
+  /// **DAL 25 AGOSTO 2026 I MOTIVI SONO DUE, ed e' peggio di uno.** Il primo resta:
+  /// tutte e cinque le misure stanno sotto la soglia. Il secondo e' nuovo:
+  /// l'ordine BP ha cambiato l'istruzione per curare proprio quella causa, quindi
+  /// **quei cinque numeri non descrivono piu' la stringa di oggi** e sono scesi
+  /// nello [storicoDelleImpronte] insieme alla stringa a cui appartengono. La
+  /// misura nuova non e' stata presa: si prende dal PC del fondatore, con gcloud
+  /// attivo, tre volte, e finche' non arriva questa riga resta falsa.
+  ///
   /// **NON SI PORTA A VERO PER FAR PASSARE LA SUITE, e non si abbassa la soglia.** Il
   /// rosso non dice piu' che manca una misura: adesso dice che la misura c'e' ed e'
   /// negativa, che e' una cosa piu' seria. Torna vero quando le tre voci sono di
@@ -71,8 +106,14 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'CINQUE GIRI SU QUESTE IMPRONTE. L\'istruzione non è cambiata in mezzo: lo '
-      'dimostra la prova che confronta le tre impronte. Il 14 agosto 2026: 70,0 '
+      'CINQUE GIRI, MA NON SU QUESTE IMPRONTE: SULLE PRECEDENTI. Fino al 25 '
+      'agosto 2026 questa riga diceva CINQUE GIRI SU QUESTE IMPRONTE ed era '
+      'vera; poi l\'ordine BP ha cambiato l\'istruzione per curare la causa che '
+      'questi stessi numeri avevano mostrato, quindi i cinque giri adesso '
+      'appartengono alla stringa che sta nello storico e NON descrivono la '
+      'stringa di oggi. Si tengono per intero perché dicono da dove si parte, '
+      'non dove si è arrivati. Fra i cinque giri l\'istruzione non era cambiata: '
+      'lo dimostrava la prova che confronta le tre impronte. Il 14 agosto 2026: 70,0 '
       'per cento (42 su 60). Il 15 agosto 2026: 78,3 per cento (47 su 60), '
       'eseguita da Mauro dal suo PC. Il 25 agosto 2026, TRE GIRI DI FILA sempre '
       'dal PC di Mauro: 70,0 per cento (42 su 60), poi 75,0 per cento (45 su 60), '
