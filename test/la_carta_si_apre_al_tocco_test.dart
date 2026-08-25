@@ -91,15 +91,42 @@ void main() {
   }
 
   /// Il testo di un widget testuale, comunque sia dipinto.
+  /// Gli spazi bianchi contano come uno: e' cio' che rende confrontabile un
+  /// testo spezzato in blocchi con lo stesso testo scritto di seguito.
+  String normalizza(String t) =>
+      t.replaceAll(RegExp(r'\s+'), ' ').trim();
+
+  /// Il testo che quel punto dell'albero mostra davvero, comunque sia montato.
+  ///
+  /// **La forma e' cambiata, la grandezza misurata no.** Il narrato della carta
+  /// aperta passa dalla porta comune dei paragrafi, come pretende
+  /// `etichette_e_lettura`, quindi sotto la chiave non c'e' piu' un `Text`
+  /// solo ma i blocchi in cui quella porta lo dispone. Si raccolgono tutti e
+  /// si confrontano le PAROLE, normalizzando gli spazi: dove il testo va a
+  /// capo lo decide la porta comune ed e' una scelta di impaginazione, mentre
+  /// cio' che questa prova difende e' che le due copie non esistano. Una
+  /// parola cambiata da una parte fa cadere la prova come prima.
   String testoDi(WidgetTester tester, Finder dove) {
-    final t = tester.widgetList<Text>(dove);
-    if (t.isNotEmpty && t.first.data != null) return t.first.data!;
-    return tester
-        .widgetList<RichText>(
-            find.descendant(of: dove, matching: find.byType(RichText)))
-        .map((r) => r.text.toPlainText())
-        .join();
+    final pezzi = <String>[
+      for (final t in tester.widgetList<Text>(
+          find.descendant(of: dove, matching: find.byType(Text))))
+        if (t.data != null) t.data!,
+    ];
+    if (pezzi.isEmpty) {
+      pezzi.addAll(tester
+          .widgetList<RichText>(
+              find.descendant(of: dove, matching: find.byType(RichText)))
+          .map((r) => r.text.toPlainText()));
+    }
+    if (pezzi.isEmpty) {
+      final diretto = tester.widgetList<Text>(dove);
+      if (diretto.isNotEmpty && diretto.first.data != null) {
+        pezzi.add(diretto.first.data!);
+      }
+    }
+    return normalizza(pezzi.join(' '));
   }
+
 
   testWidgets('il testo della carta aperta e\' quello della bolla, uguale',
       (tester) async {
@@ -117,7 +144,7 @@ void main() {
       final testiDellaBolla = tester
           .widgetList<Text>(
               find.descendant(of: bolla, matching: find.byType(Text)))
-          .map((t) => t.data ?? '')
+          .map((t) => normalizza(t.data ?? ''))
           .where((t) => t.length > 40)
           .toList();
       expect(testiDellaBolla, isNotEmpty);

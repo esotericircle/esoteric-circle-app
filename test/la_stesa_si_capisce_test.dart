@@ -13,7 +13,6 @@ import 'package:esoteric_circle/core/tarot/tetti_della_stesa.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
-import 'package:esoteric_circle/features/tarot/filo_fra_le_carte.dart';
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';

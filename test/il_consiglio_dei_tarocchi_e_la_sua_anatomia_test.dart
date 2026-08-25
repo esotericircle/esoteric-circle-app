@@ -130,15 +130,28 @@ void main() {
     for (final t in TarotTopic.values) {
       for (var seme = 0; seme < 60; seme++) {
         final lettura = TarotReading.of(TarotSpread.draw(seed: seme), t);
+        // **LA FORMA E' CAMBIATA CON BN VOCE 06, LA GRANDEZZA MISURATA NO.**
+        // Prima la prosa era un blocco solo e i pezzi erano esattamente due.
+        // Adesso la prosa si presenta in DUE O TRE paragrafi, che e' quello
+        // che l'ordine BN ha chiesto e che la sua prova verifica: qui i pezzi
+        // sono quindi tre o quattro, l'ultimo e' la domanda e gli altri sono
+        // la prosa. Cio' che questa prova difende non e' il numero dei
+        // paragrafi ma che il taglio non decapiti, e adesso lo controlla su
+        // OGNI paragrafo invece che sul primo soltanto: la misura si e'
+        // allargata, non allentata.
         final pezzi = lettura.consiglio.split('\n\n');
-        expect(pezzi.length, 2,
+        expect(pezzi.length, inInclusiveRange(3, 4),
             reason: '${t.name} seme $seme: il consiglio non ha lo stacco fra la '
-                'prosa e la domanda');
-        final prosa = pezzi.first.trimRight();
-        if (!prosa.endsWith('.') && !prosa.endsWith('?') &&
-            !prosa.endsWith('!')) {
-          monchi.add('${t.name} seme $seme: la prosa finisce con '
-              '"...${prosa.substring(prosa.length - 30)}"');
+                'prosa e la domanda, oppure la prosa non e\' in due o tre '
+                'paragrafi come la voce BN.06 promette');
+        for (final paragrafo in pezzi.take(pezzi.length - 1)) {
+          final prosa = paragrafo.trimRight();
+          if (!prosa.endsWith('.') &&
+              !prosa.endsWith('?') &&
+              !prosa.endsWith('!')) {
+            monchi.add('${t.name} seme $seme: un paragrafo finisce con '
+                '"...${prosa.substring(prosa.length - 30)}"');
+          }
         }
         // E la domanda c'e' ancora, intera.
         if (pezzi.last.trim() != lettura.domanda) {
