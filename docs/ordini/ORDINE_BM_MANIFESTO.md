@@ -65,7 +65,30 @@ due punti che gia' lo disegnavano.
 **Altri asset dichiarati e mancanti nel dominio della ruota e del cielo**:
 nessuno. Il buco era solo sui caratteri.
 
-**I rossi della suite con `TZ=Europe/Rome`**: vedi BM.04 e la coda in fondo.
+**I rossi della suite con `TZ=Europe/Rome`, contati alla fine dell'ordine**:
+**3.506 verdi e UNO solo rosso**, l'attribuzione cieca AC.09
+(`i_doni_e_la_chat_davanti_all_anatomia_test.dart`), che e' il rosso di legge
+gia' dichiarato dal fondatore e si chiude solo rifacendo la misura dal suo PC
+con una sessione Vertex. Analyze a zero.
+
+All'inizio dell'ordine ne risultavano di piu', e vanno spiegati tutti perche'
+nessuno resti in giro senza nome:
+- `i_piani_del_cielo_si_muovono`: **curato da BM.04**, era la prova a essere
+  cieca.
+- `niente_lavoro_non_spinto`: era rosso perche' il lavoro non era ancora
+  spinto, ed e' tornato verde col push. E' una guardia che fa esattamente il
+  suo mestiere.
+- `i_doni_si_agganciano` (due voci): **non erano rossi veri**. Erano comparsi
+  in una esecuzione lanciata mentre io stavo modificando il `pubspec.yaml` e i
+  test: una suite letta mentre l'albero cambia sotto non misura niente. Nella
+  esecuzione finale, ad albero fermo, sono verdi.
+- I quattro tarati sul fuso italiano (`un_solo_istante` per due, `daily_strip`,
+  `niente_senza_dire_dovera`): verdi con `TZ=Europe/Rome`, come l'ordine BL
+  aveva gia' registrato.
+
+**LEZIONE DI METODO, e mi e' costata due volte in questa sessione**: una suite
+intera lanciata in secondo piano mentre si lavora restituisce rossi che non
+esistono. Il numero vale solo se l'albero e' fermo dal primo test all'ultimo.
 
 ## Le voci
 
