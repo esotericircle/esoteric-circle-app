@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
