@@ -3,6 +3,8 @@ import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
 import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -47,10 +49,20 @@ void main() {
         reason: 'Accento con apostrofo in $where: "$text"');
   }
 
+  // Ordine BO voce 02: il responso vuole un cielo e non piu' un segno. Una
+  // persona per segno, nata a mezzogiorno tre giorni dentro il segno.
+  final cieli = <Zodiac, CieloDiSinastria>{};
+  CieloDiSinastria cieloDi(Zodiac segno) => cieli.putIfAbsent(segno, () {
+        final (mese, giorno) = segno.from;
+        return CieloDiSinastria.perIdentita(BirthIdentity.fromParts(
+            birthDate:
+                DateTime(1990, mese, giorno).add(const Duration(days: 3))));
+      });
+
   test('I dati composti del responso usano accenti veri', () {
     for (final user in Zodiac.values) {
       for (final vip in VipCatalog.vips) {
-        final r = SynastryReport.forPair(user, vip);
+        final r = SynastryReport.perCieli(tuo: cieloDi(user), vip: vip);
         expectClean(r.reading, 'reading ${user.id}/${vip.stem}');
         expectClean(r.band, 'band');
         expectClean(r.meetingQuip, 'meetingQuip');

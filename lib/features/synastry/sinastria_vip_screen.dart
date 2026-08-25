@@ -5,6 +5,8 @@ import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/identity/natal_identity.dart';
+import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -82,10 +84,10 @@ class SinastriaVipScreen extends StatefulWidget {
   }
 
   @override
-  State<SinastriaVipScreen> createState() => _SinastriaVipScreenState();
+  State<SinastriaVipScreen> createState() => SinastriaVipScreenState();
 }
 
-class _SinastriaVipScreenState extends State<SinastriaVipScreen>
+class SinastriaVipScreenState extends State<SinastriaVipScreen>
     with SingleTickerProviderStateMixin {
   late final Vip _vip = widget.vip ?? VipCatalog.first;
   late final UserPhotoController _photo =
@@ -107,6 +109,39 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
   String get _userDate => italianLongDate(_userBirth);
 
   bool _seededFromProfile = false;
+
+  /// **IL CIELO DELLA PERSONA, LETTO UNA VOLTA SOLA E FUORI DA build.**
+  ///
+  /// Ordine BO voce 02: il responso non nasce piu' dal segno solare ma dal
+  /// cielo intero, e il cielo intero vuole data, ora e luogo, cioe' i dati
+  /// che vivono in `BirthIdentityController`, nel guscio dell'app. Si legge
+  /// in `didChangeDependencies` e non in `build` per la ragione imparata
+  /// nell'ordine BN: un `context.watch` fuori da `build` ferma la scena.
+  CieloDiSinastria? _cieloTuo;
+
+  /// Il cielo da usare: quello vero della persona quando c'e', altrimenti
+  /// quello dell'esempio, che e' lo stesso ripiego che questa schermata usava
+  /// gia' per il segno.
+  CieloDiSinastria get _cielo =>
+      _cieloTuo ?? cieloDiRipiego(_userBirth, widget.userSign, widget.userName);
+
+  /// **IL CIELO DI RIPIEGO, in una porta sola.** Anteprime e prove montano
+  /// questa scena senza il guscio dell'app: qui il cielo nasce dalla data che
+  /// la schermata ha in mano, col segno dichiarato perche' il cartiglio del
+  /// polo e il calcolo non possano mai dire due segni diversi. E' pubblica
+  /// perche' le prove che verificano cosa mostra la schermata devono poter
+  /// chiedere lo STESSO cielo, invece di ricostruirne uno somigliante.
+  static CieloDiSinastria cieloDiRipiego(
+          DateTime nascita, Zodiac? segno, String nome) =>
+      CieloDiSinastria.perNascita(
+        momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day,
+            nascita.hour, nascita.minute),
+        oraNota: false,
+        latitudine: null,
+        longitudineDelLuogo: null,
+        segnoDichiarato: segno,
+        nome: nome,
+      );
 
   @override
   void initState() {
@@ -131,6 +166,34 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
     try {
       _photo.seed(context.read<ProfileController>().avatarPhoto);
     } catch (_) {}
+    // IL CIELO VERO DELLA PERSONA, dalla stessa porta che l'Oroscopo usa.
+    // Se il guscio non c'e' (anteprime e prove isolate) resta il ripiego.
+    try {
+      final dettagli = context.read<BirthIdentityController>().details;
+      if (dettagli != null) {
+        _cieloTuo = CieloDiSinastria.perNascita(
+          momentoUtc: DateTime.utc(
+            dettagli.date.year,
+            dettagli.date.month,
+            dettagli.date.day,
+            dettagli.time?.hour ?? 12,
+            dettagli.time?.minute ?? 0,
+          ),
+          oraNota: dettagli.hasTime,
+          latitudine: dettagli.place?.latitude,
+          longitudineDelLuogo: dettagli.place?.longitude,
+          nome: widget.userName,
+        );
+      }
+    } catch (errore) {
+      // **SI IGNORA, E SI DICHIARA PERCHE'.** Il guscio dell'app non c'e' in
+      // anteprima e in certe prove isolate, e li' `BirthIdentityController`
+      // non e' nell'albero: chiederlo lancia. Non e' un errore da curare, e'
+      // l'assenza del guscio, e la scena ha gia' il suo cielo di ripiego.
+      // Qualunque altro errore qui vorrebbe dire un dato di nascita rotto, e
+      // anche in quel caso la scena deve aprirsi col ripiego invece di
+      // schiantarsi in faccia a chi ha toccato un VIP.
+    }
   }
 
   void _onPhotoChanged() {
@@ -149,7 +212,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final report = SynastryReport.forPair(_userSign, _vip);
+    final report = SynastryReport.perCieli(tuo: _cielo, vip: _vip);
 
     return Scaffold(
       backgroundColor: Colors.transparent,

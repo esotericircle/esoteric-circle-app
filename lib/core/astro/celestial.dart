@@ -46,6 +46,15 @@ class Celestial {
   /// Obliquita' dell'eclittica in gradi.
   static double _obliquity(double jd) => 23.439 - 0.0000004 * _n(jd);
 
+  /// L'OBLIQUITA' DELL'ECLITTICA in gradi, la stessa che il cielo del giorno
+  /// gia' usa.
+  ///
+  /// Era privata perche' finora la voleva solo questo file. L'Ascendente della
+  /// Sinastria, ordine BO voce 02, ha bisogno dello stesso numero: aprirlo
+  /// costa una riga, riscriverlo altrove sarebbe la seconda definizione di una
+  /// costante che deve restare una.
+  static double obliquitaEclittica(double jd) => _obliquity(jd);
+
   /// Tempo siderale medio di Greenwich in gradi.
   static double gmstDegrees(double jd) {
     final n = _n(jd);

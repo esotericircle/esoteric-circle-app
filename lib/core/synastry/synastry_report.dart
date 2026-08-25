@@ -1,4 +1,5 @@
-import '../astro/zodiac.dart';
+import '../astro/natal_chart.dart';
+import 'cielo_della_sinastria.dart';
 import 'vip_catalog.dart';
 
 /// Una barra infografica del responso: etichetta, valore percentuale e una
@@ -36,6 +37,9 @@ class SynastryReport {
     required this.sparks,
     required this.meetingPercent,
     required this.meetingQuip,
+    this.aspetti = const [],
+    this.oraDelVipNota = false,
+    this.oraTuaNota = false,
   });
 
   /// Percentuale del cerchio grande, sintesi pesata di amore, mente, scintille.
@@ -57,6 +61,25 @@ class SynastryReport {
 
   /// Micro battuta sulla possibilita' di incontro.
   final String meetingQuip;
+
+  /// GLI ASPETTI VERI FRA I DUE CIELI, dal piu' stretto al piu' largo.
+  ///
+  /// **Sono il responso, non un suo ornamento**: le tre barre nascono da qui,
+  /// e la voce BO.06 accendera' un filo di luce per ognuno di questi e per
+  /// nessun altro. Chi disegna guarda questa lista, non ne compone una sua.
+  final List<AspettoDiSinastria> aspetti;
+
+  /// Se l'ora di nascita del VIP e' nota. Falsa per tutti e cinquanta, oggi:
+  /// la lettura lo dichiara invece di fingere un Ascendente.
+  final bool oraDelVipNota;
+
+  /// Se l'ora di nascita della persona e' nota.
+  final bool oraTuaNota;
+
+  /// I tre aspetti piu' forti, che sono i primi tre della lista perche' la
+  /// lista e' gia' ordinata per orbo crescente. Servono alla card della sfida.
+  List<AspettoDiSinastria> get aspettiPiuForti =>
+      aspetti.length <= 3 ? aspetti : aspetti.sublist(0, 3);
 
   /// Le quattro barre pronte per l'infografica, nell'ordine di layout.
   List<SynastryBar> get bars => [
@@ -80,122 +103,218 @@ class SynastryReport {
   static String challengeLine(String vipName) =>
       'E tu con $vipName quanto fai? Sfida i tuoi amici.';
 
-  /// Compone il responso completo per l'utente e il VIP dati.
-  static SynastryReport forPair(Zodiac user, Vip vip) {
-    final vipSign = vip.sign;
-    final ea = user.element;
-    final eb = vipSign.element;
-    final sameSign = user == vipSign;
-    final sameElement = ea == eb;
-    final sep = _separation(user, vipSign);
-    final opposite = sep == 6;
-    final complementary = _complementary(ea, eb);
-    final tension = _tension(ea, eb);
-    final sameModality = _modality(user) == _modality(vipSign);
-    final airCount =
-        (ea == ZodiacElement.air ? 1 : 0) + (eb == ZodiacElement.air ? 1 : 0);
-    final fireCount =
-        (ea == ZodiacElement.fire ? 1 : 0) + (eb == ZodiacElement.fire ? 1 : 0);
+  /// COMPONE IL RESPONSO DAL CIELO INTERO. Ordine BO voce 02.
+  ///
+  /// **Il difetto che questa funzione ha smesso di avere.** Prima prendeva un
+  /// segno e un VIP, e del VIP guardava solo il segno solare: cinquanta
+  /// personaggi su dodici segni davano allo stesso utente **93 coppie di
+  /// responsi numericamente identici**, contate. Adesso prende due CIELI e
+  /// guarda gli aspetti veri fra i loro punti, calcolati dalle effemeridi
+  /// locali: due VIP dello stesso segno nati in giorni diversi hanno Luna,
+  /// Mercurio, Venere e Marte in punti diversi, e quindi responsi diversi.
+  ///
+  /// Resta deterministico: nessuna casualita', nessuna AI, nessuna rete. La
+  /// stessa coppia da' sempre lo stesso esito.
+  static SynastryReport perCieli({
+    required CieloDiSinastria tuo,
+    required Vip vip,
+  }) {
+    final suo = CieloDiSinastria.perVip(vip);
+    final aspetti = AspettiDiSinastria.fra(tuo, suo);
 
-    // --- Barra amore ---
-    var love = sameSign
-        ? 96
-        : opposite
-            ? 90
-            : sameElement
-                ? 88
-                : complementary
-                    ? 84
-                    : tension
-                        ? 70
-                        : 66;
-    if (sameModality && !sameSign) love += 3;
-    if (sep == 4) love += 3; // trigono
-    if (sep == 2) love += 2; // sestile
-    if (sep == 3) love -= 4; // quadrato
-    love = love.clamp(40, 99);
-
-    // --- Barra intesa mentale ---
-    var mental = 58 + airCount * 8;
-    if (sameModality) mental += 6;
-    if (sameElement) {
-      mental += 6;
-    } else if (complementary) {
-      mental += 4;
-    } else if (tension) {
-      mental += 2;
+    var amore = 0.0, mente = 0.0, scintille = 0.0;
+    for (final a in aspetti) {
+      final forza = a.forzaCon(AspettiDiSinastria.orbo[a.tipo]!);
+      amore += _pesoDAmore(a) * forza;
+      mente += _pesoDiMente(a) * forza;
+      scintille += _pesoDiScintille(a) * forza;
     }
-    if (sep == 2) mental += 4;
-    mental = mental.clamp(40, 98);
 
-    // --- Barra scintille, quanto litighereste ---
-    var sparks = 30;
-    if (sep == 3) sparks += 30; // quadrato: attrito
-    if (opposite) sparks += 14;
-    if (tension) sparks += 20;
-    if (sameModality) sparks += 14; // due caratteri dello stesso tipo si urtano
-    sparks += fireCount * 6;
-    sparks = sparks.clamp(8, 95);
+    // **DA UNA SOMMA DI ASPETTI A UNA PERCENTUALE, con una regola dichiarata.**
+    // La somma non ha un massimo naturale: dipende da quanti aspetti cadono
+    // dentro l'orbo, che varia da coppia a coppia. Si porta sulla scala con
+    // una curva morbida attorno a un valore di riferimento, cosi' nessun
+    // responso finisce incollato ai bordi e la differenza fra due coppie
+    // resta leggibile. I tre riferimenti sono diversi perche' i tre canali
+    // raccolgono un numero diverso di coppie di punti.
+    final love = _sullaScala(amore, riferimento: 2.4, minimo: 40, massimo: 99);
+    final mental = _sullaScala(mente, riferimento: 1.6, minimo: 40, massimo: 98);
+    final sparks =
+        _sullaScala(scintille, riferimento: 2.0, minimo: 8, massimo: 95);
 
-    // --- Cerchio grande: sintesi pesata delle prime tre, con l'amore in testa ---
+    // Il cerchio grande resta la sintesi pesata di prima, con l'amore in
+    // testa: la scala delle fasce non cambia significato sotto i piedi di chi
+    // l'ha gia' vista.
     final overall =
         (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99);
 
-    // --- Possibilita' di incontro, minima e simmetrica per la coppia ---
-    final lo = user.index < vipSign.index ? user.index : vipSign.index;
-    final hi = user.index < vipSign.index ? vipSign.index : user.index;
-    final meeting = ((lo * 7 + hi * 13) % 39) / 10 + 0.2; // 0,2 .. 4,0
+    // La possibilita' di incontro, ancora dagli indici dei segni: la cura e'
+    // la voce BO.03, e fin li' resta cio' che era.
+    final vipSign = vip.sign;
+    final lo = tuo.segnoSolare.index < vipSign.index
+        ? tuo.segnoSolare.index
+        : vipSign.index;
+    final hi = tuo.segnoSolare.index < vipSign.index
+        ? vipSign.index
+        : tuo.segnoSolare.index;
+    final meeting = ((lo * 7 + hi * 13) % 39) / 10 + 0.2;
     final meetingQuip = _meetingQuips[(lo * 7 + hi * 13) % _meetingQuips.length];
-
-    // --- Testo composto ---
-    final relation = _relationLine(
-      sameSign: sameSign,
-      sameElement: sameElement,
-      opposite: opposite,
-      ea: ea,
-      eb: eb,
-      complementary: complementary,
-      tension: tension,
-    );
-    final character = _characterClause(vip);
-    final closer =
-        _ironicClosers[(user.index + vipSign.index) % _ironicClosers.length];
-    final reading = '$relation $character. $closer';
 
     return SynastryReport(
       overall: overall,
       band: _band(overall),
-      reading: reading,
+      reading: _lettura(aspetti, vip, tuo, suo),
       love: love,
       mental: mental,
       sparks: sparks,
       meetingPercent: meeting,
       meetingQuip: meetingQuip,
+      aspetti: aspetti,
+      oraDelVipNota: suo.oraNota,
+      oraTuaNota: tuo.oraNota,
     );
   }
 
-  // Distanza angolare tra due segni, 0 (congiunzione) .. 6 (opposizione).
-  static int _separation(Zodiac a, Zodiac b) {
-    final diff = (a.index - b.index).abs();
-    return diff <= 6 ? diff : 12 - diff;
+  /// Quanto un aspetto pesa sull'amore.
+  ///
+  /// Le regole sono quelle della tradizione sinastrica e stanno scritte, non
+  /// indovinate: Venere e la Luna sono i punti del legame, il trigono e il
+  /// sestile scorrono, la congiunzione unisce, l'opposizione attrae e affatica
+  /// insieme, la quadratura toglie.
+  static double _pesoDAmore(AspettoDiSinastria a) {
+    const dolci = {
+      PuntoDelCielo.venere,
+      PuntoDelCielo.luna,
+      PuntoDelCielo.sole,
+      PuntoDelCielo.ascendente,
+    };
+    final tocca = dolci.contains(a.tuo) || dolci.contains(a.suo);
+    if (!tocca) return 0;
+    final cuore = a.tuo == PuntoDelCielo.venere ||
+        a.suo == PuntoDelCielo.venere ||
+        a.tuo == PuntoDelCielo.luna ||
+        a.suo == PuntoDelCielo.luna;
+    switch (a.tipo) {
+      case AspectType.trine:
+        return cuore ? 1.0 : 0.7;
+      case AspectType.conjunction:
+        return cuore ? 0.95 : 0.6;
+      case AspectType.sextile:
+        return cuore ? 0.65 : 0.45;
+      case AspectType.opposition:
+        return 0.3;
+      case AspectType.square:
+        return -0.45;
+    }
   }
 
-  // Modalita': 0 cardinale, 1 fisso, 2 mobile, dal ciclo dei dodici segni.
-  static int _modality(Zodiac z) => z.index % 3;
-
-  // Fuoco con Aria, Terra con Acqua: si alimentano.
-  static bool _complementary(ZodiacElement a, ZodiacElement b) {
-    final s = {a, b};
-    return (s.contains(ZodiacElement.fire) && s.contains(ZodiacElement.air)) ||
-        (s.contains(ZodiacElement.earth) && s.contains(ZodiacElement.water));
+  /// Quanto un aspetto pesa sull'intesa mentale. Mercurio e' il punto della
+  /// testa, il Sole e l'Ascendente dicono come ci si presenta all'altro.
+  static double _pesoDiMente(AspettoDiSinastria a) {
+    const testa = {
+      PuntoDelCielo.mercurio,
+      PuntoDelCielo.sole,
+      PuntoDelCielo.ascendente,
+    };
+    if (!testa.contains(a.tuo) && !testa.contains(a.suo)) return 0;
+    final mercurio =
+        a.tuo == PuntoDelCielo.mercurio || a.suo == PuntoDelCielo.mercurio;
+    switch (a.tipo) {
+      case AspectType.trine:
+        return mercurio ? 1.0 : 0.6;
+      case AspectType.conjunction:
+        return mercurio ? 0.9 : 0.55;
+      case AspectType.sextile:
+        return mercurio ? 0.7 : 0.4;
+      case AspectType.opposition:
+        return 0.15;
+      case AspectType.square:
+        return -0.3;
+    }
   }
 
-  // Fuoco con Acqua, Aria con Terra: opposti che si sfidano.
-  static bool _tension(ZodiacElement a, ZodiacElement b) {
-    final s = {a, b};
-    return (s.contains(ZodiacElement.fire) && s.contains(ZodiacElement.water)) ||
-        (s.contains(ZodiacElement.air) && s.contains(ZodiacElement.earth));
+  /// Quanto un aspetto pesa sulle scintille, cioe' su quanto vi urtereste.
+  /// Marte e' il punto dell'attrito, e gli aspetti duri sono quelli che
+  /// accendono.
+  static double _pesoDiScintille(AspettoDiSinastria a) {
+    final marte =
+        a.tuo == PuntoDelCielo.marte || a.suo == PuntoDelCielo.marte;
+    switch (a.tipo) {
+      case AspectType.square:
+        return marte ? 1.0 : 0.7;
+      case AspectType.opposition:
+        return marte ? 0.85 : 0.6;
+      case AspectType.conjunction:
+        return marte ? 0.6 : 0.15;
+      case AspectType.trine:
+        return marte ? 0.3 : 0.05;
+      case AspectType.sextile:
+        return marte ? 0.25 : 0.05;
+    }
   }
+
+  /// Porta una somma di aspetti sulla scala 0..100 con una curva morbida.
+  ///
+  /// La curva e' `x / (x + riferimento)`, che vale mezzo quando la somma
+  /// eguaglia il riferimento e non arriva mai al bordo: e' cio' che tiene i
+  /// responsi distinti invece di schiacciarli tutti sul massimo. Le somme
+  /// negative, che nascono da molte quadrature, scendono sotto il mezzo senza
+  /// sfondare il minimo.
+  static int _sullaScala(double somma,
+      {required double riferimento,
+      required int minimo,
+      required int massimo}) {
+    final x = somma < 0 ? 0.0 : somma;
+    final quota = x / (x + riferimento);
+    final penalita = somma < 0 ? (-somma / (-somma + riferimento)) * 0.5 : 0.0;
+    final valore = (quota - penalita).clamp(0.0, 1.0);
+    return (minimo + valore * (massimo - minimo)).round();
+  }
+
+  /// IL TESTO, che nomina il fatto vero invece di una frase generica.
+  static String _lettura(List<AspettoDiSinastria> aspetti, Vip vip,
+      CieloDiSinastria tuo, CieloDiSinastria suo) {
+    final character = _characterClause(vip);
+    final closer = _ironicClosers[
+        (tuo.segnoSolare.index + vip.sign.index) % _ironicClosers.length];
+    if (aspetti.isEmpty) {
+      // Puo' capitare, ed e' un fatto anche questo: due cieli che non si
+      // toccano in nessun punto entro l'orbo. Si dice, invece di inventare un
+      // aspetto che non c'e'.
+      return 'I vostri cieli si sfiorano senza toccarsi: nessuno dei punti '
+          'che contano cade in aspetto con i tuoi. $character. $closer';
+    }
+    final primo = aspetti.first;
+    final apertura = 'Il fatto è questo: ${primo.fatto}, '
+        'a ${_gradi(primo.orbo)} dall\'angolo esatto.';
+    final secondo = aspetti.length > 1 ? aspetti[1] : null;
+    final seguito =
+        secondo == null ? '' : ' Subito dopo viene ${secondo.fatto}.';
+    final senzaOra = suo.oraNota
+        ? ''
+        : ' Del suo cielo non si conosce l\'ora di nascita: questa lettura '
+            'parla ai pianeti e non all\'Ascendente. Non si finge di sapere '
+            'ciò che nessuna fonte dichiara.';
+    return '$apertura$seguito $character. $closer$senzaOra';
+  }
+
+  /// I gradi come si scrivono in italiano: "2,4 gradi".
+  static String _gradi(double g) {
+    final s = g.toStringAsFixed(1).replaceAll('.', ',');
+    return '$s gradi';
+  }
+
+  // **LE FUNZIONI DEL SOLO SEGNO SOLARE NON CI SONO PIU', ordine BO voce 02.**
+  //
+  // Erano `_separation`, `_modality`, `_complementary`, `_tension` e
+  // `_relationLine`: la separazione fra i due segni, la loro modalita', gli
+  // elementi che si alimentano o si sfidano, e le sei righe di apertura che ne
+  // nascevano. Sono state tolte e non spostate, perche' erano il difetto: da
+  // loro venivano i 93 responsi identici, e la riga di relazione era
+  // esattamente la "frase generica" che l'ordine chiede di sostituire col
+  // fatto vero. Il corpus che resta, i caratteri dei cinquanta e le chiusure
+  // ironiche, non e' stato toccato: quello parla della persona, non del
+  // calcolo.
 
   static String _band(int overall) {
     if (overall >= 85) return 'Anime gemelle';
@@ -203,32 +322,6 @@ class SynastryReport {
     if (overall >= 64) return 'Bella sintonia';
     if (overall >= 54) return 'Attrazione curiosa';
     return 'Due poli lontani';
-  }
-
-  // Riga sulla relazione tra i segni, dal corpus sinastria_testi.md. L'ordine
-  // dei rami conta: i segni opposti sono sempre anche complementari, quindi
-  // vanno intercettati prima per dare loro la riga dei contrari.
-  static String _relationLine({
-    required bool sameSign,
-    required bool sameElement,
-    required bool opposite,
-    required ZodiacElement ea,
-    required ZodiacElement eb,
-    required bool complementary,
-    required bool tension,
-  }) {
-    if (sameSign) return 'Stesso segno, stessa lunghezza d\'onda:';
-    if (sameElement) return 'Stesso elemento, vi capireste al volo:';
-    if (opposite) return 'Segni opposti, l\'attrazione dei contrari:';
-    final s = {ea, eb};
-    if (s.contains(ZodiacElement.fire) && s.contains(ZodiacElement.air)) {
-      return 'Fuoco e aria, insieme fareste scintille:';
-    }
-    if (s.contains(ZodiacElement.earth) && s.contains(ZodiacElement.water)) {
-      return 'Terra e acqua, un\'intesa che nutre:';
-    }
-    if (tension) return 'Elementi che si sfidano, tensione e chimica pura:';
-    return 'Due mondi diversi, curiosi l\'uno dell\'altro:';
   }
 
   // Carattere del VIP: la riga del corpus col nome del personaggio al posto del

@@ -217,7 +217,15 @@ void main() {
     // metodo che NESSUNO chiamava piu', trovato dalla bonifica analyze
     // (BF.05.g). Un consumatore che nessuno chiama non consuma niente:
     // toglierlo non toglie un dato a nessuno.
-    expect(elenco.length, 12,
+    // TREDICI DALL'ORDINE BO voce 02 del 25 agosto 2026, e il conto risale:
+    // la Sinastria VIP e' diventata un consumatore vero. Prima del cielo
+    // della persona le bastava il SEGNO, che si ricava dalla sola data;
+    // adesso il responso nasce dagli aspetti fra due carte, quindi le
+    // servono ora e luogo, e li chiede alla porta unica come tutti gli
+    // altri. Non tiene nessuna copia sua: legge una volta, in
+    // `didChangeDependencies`, e se il guscio non c'e' resta al cielo di
+    // ripiego che la scena si costruisce dalla data che ha in mano.
+    expect(elenco.length, 13,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
             '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
