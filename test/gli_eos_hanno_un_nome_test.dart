@@ -104,9 +104,33 @@ void main() {
       if (voce is! File || !voce.path.endsWith('.dart')) continue;
       final percorso = voce.path.replaceAll('\\', '/');
       final s = voce.readAsStringSync();
-      // Si cerca la parola dentro una stringa mostrata, non nei commenti.
-      final mostraEos = s.contains("Eos'") || s.contains('Eos "');
-      if (mostraEos && !puntiCheMostranoEos.contains(percorso)) {
+      // **LA GRANDEZZA MISURATA SI E' STRETTA UNA VOLTA, E STA SCRITTA QUI.**
+      //
+      // La prima stesura cercava la parola Eos in qualunque stringa, e con
+      // l'ordine BN voce 09 ha accusato la schermata della stesa, che la
+      // parola la scrive in una frase ("La stesa completa si apre con gli
+      // Eos") e non accanto a nessun numero. Il difetto che questa voce
+      // difende e' un altro, e il suo stesso motivo lo dice: "il loro NUMERO
+      // puo' nascere con un'icona qualunque". Dove non c'e' nessun numero non
+      // c'e' niente da vestire, e pretendere l'icona accanto a una frase
+      // vorrebbe dire mettere il segno del denaro dentro un discorso.
+      //
+      // Quindi si guarda la parola Eos in una stringa mostrata INSIEME a una
+      // cifra o a un valore interpolato sulla stessa riga: e' esattamente il
+      // caso in cui un numero in Eos prende vita, ed e' quello che la prova
+      // sorveglia. Il rosso e' dimostrato: scritta una riga con un prezzo in
+      // Eos dentro la schermata della stesa, questa prova cade col suo nome.
+      final righe = s.split('\n');
+      final mostraUnNumeroInEos = righe.any((r) {
+        if (r.trimLeft().startsWith('//')) return false;
+        if (!r.contains("Eos'") && !r.contains('Eos "') &&
+            !r.contains('Eos ')) {
+          return false;
+        }
+        if (!r.contains("'") && !r.contains('"')) return false;
+        return r.contains(RegExp(r'\$\{?\w')) || r.contains(RegExp(r'\d'));
+      });
+      if (mostraUnNumeroInEos && !puntiCheMostranoEos.contains(percorso)) {
         fuoriElenco.add(percorso);
       }
     }

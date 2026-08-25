@@ -93,6 +93,23 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
   approfondimenti: 60,
   confronti: 150,
   gettate: 60,
+  /**
+   * IL PREZZO DI UNA STESA COMPLETA, ordine BN voce 09.
+   *
+   * **Non e' un numero scelto qui: e' l'ancora del Briefing Progetto.** Il
+   * briefing spiega il benvenuto di 250 Eos dicendo che "bastano per
+   * un'esperienza premium di buon valore (una stesa completa o una sinastria
+   * extra)": mette la stesa e la sinastria sullo STESSO scaffale. La
+   * sinastria in piu' ha gia' un prezzo nel listino approvato con AN, 150,
+   * ed e' lo stesso da cui BG voce 05 ha preso il confronto. Quindi la stesa
+   * vale 150, e il benvenuto ne compra una con un resto: assaggio, non
+   * sostituzione del premium.
+   *
+   * Non e' 60 come la gettata di rune: la gettata e' un gesto breve che il
+   * Viandante ha comunque gratis una volta al giorno, la stesa completa e'
+   * l'esperienza che per il Viandante si compra e basta.
+   */
+  stese: 150,
 };
 
 /** Il motivo di un riscatto, dal budget: una forma sola, condivisa. */

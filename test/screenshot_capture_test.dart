@@ -2895,6 +2895,16 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     await montaLoSchermo(tester, const Size(360, 1020));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // **IL PIANO DELLA SCENA E' DICHIARATO, ordine BN voce 09.** Da quando la
+    // stesa ha il suo cancello, il Viandante la compra in Eos e il ventaglio
+    // non posa nessuna carta: questa cattura riguarda l'ATTESA e non il
+    // gating, quindi si guarda dal piano che le stese le comprende senza
+    // limite. Senza questa riga l'immagine mostrerebbe la scena di prima e
+    // nessuno saprebbe perche'.
+    tester
+        .element(find.byType(Navigator).first)
+        .read<EntitlementService>()
+        .setTier(Tier.tier3);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
         child: StesaTreCarteScreen(seed: 1, skipIntro: true),
@@ -2928,9 +2938,20 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(milliseconds: 200));
     }
-    // Dentro l'attesa, oltre la dissolvenza di ingresso: la si vuole piena.
+    // **DENTRO L'ATTESA, SENZA INDOVINARE QUANTO ASPETTARE.**
+    //
+    // Prima qui c'erano due pause scritte a mano, e bastava che la scena
+    // guadagnasse una battuta perche' la cattura cadesse fuori finestra: e'
+    // successo con la voce BN.08, che fra la terza carta e il pensiero di
+    // Medora ha infilato il filo. La misura non cambia, l'attesa deve essere
+    // IN SCENA quando si scatta; cambia il modo di arrivarci, che adesso
+    // guarda invece di contare.
     await tester.pump(AttesaDiMedora.dissolvenza);
-    await tester.pump(const Duration(milliseconds: 900));
+    for (var passi = 0;
+        passi < 60 && find.byKey(const Key('stesa_attesa')).evaluate().isEmpty;
+        passi++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(find.byKey(const Key('stesa_attesa')), findsOneWidget,
         reason: 'l\'attesa non e\' in scena: l\'immagine mostrerebbe la '
             'schermata di prima e la voce 06 resterebbe non guardata');

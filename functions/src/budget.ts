@@ -14,7 +14,12 @@
  * non infinito, ed e' un errore gia' fatto una volta.
  */
 export type Piano = "free" | "tier1" | "tier2" | "tier3";
-export type Budget = "domande" | "approfondimenti" | "confronti" | "gettate";
+export type Budget =
+  | "domande"
+  | "approfondimenti"
+  | "confronti"
+  | "gettate"
+  | "stese";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -22,6 +27,7 @@ export const BUDGET: Budget[] = [
   "approfondimenti",
   "confronti",
   "gettate",
+  "stese",
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
@@ -30,6 +36,28 @@ const LIMITI: Record<Budget, (number | null)[]> = {
   approfondimenti: [0, 3, 10, null],
   confronti: [0, 3, 5, null],
   gettate: [1, null, null, null],
+  /**
+   * LE STESE COMPLETE DI TAROCCHI, ordine BN voce 09.
+   *
+   * **Un budget PROPRIO, separato da quello delle gettate di rune**, perche'
+   * il listino le tiene su due righe distinte e tenerle sullo stesso
+   * contatore vorrebbe dire che chi ha gettato le rune non puo' piu' stendere
+   * le carte.
+   *
+   * **I NUMERI SONO QUELLI DELLA RIGA "Stese complete tarocchi", e non quelli
+   * della riga "Tarocchi carta singola".** L'ordine BN citava "una carta di
+   * tarocchi al giorno" del Viandante credendo di citare la stesa: quella
+   * frase e' l'altra riga, la carta singola. Il Briefing Progetto dice
+   * "carta singola quotidiana e stese complete, dalla tre carte alla Croce
+   * Celtica", quindi la stesa a tre carte e' una stesa COMPLETA, e il
+   * listino le promette cosi': Eos pieno, Eos scontati, cinque al giorno,
+   * illimitate. Zero non e' un vicolo cieco: e' il presupposto della strada
+   * degli Eos, che si apre al primo tocco.
+   *
+   * Prima dell'ordine BN la stesa non aveva nessun gating: le stese erano
+   * infinite e gratuite su tutti i piani, mentre il listino prometteva altro.
+   */
+  stese: [0, 0, 5, null],
 };
 
 /**
@@ -87,7 +115,21 @@ export function decidi(
   speso: number
 ): {concesso: boolean; resta: number | null; motivo?: string} {
   const limite = limiteDi(budget, piano);
-  if (limite === 0) {
+  // **IL LIMITE ZERO CEDE AL CREDITO COMPRATO, ordine BN voce 09.**
+  //
+  // Chi riscatta un uso con gli Eos porta lo speso a meno uno nella stessa
+  // transazione del saldo: e' il credito comprato in anticipo sul proprio
+  // piano, ed e' il modo in cui il riscatto funziona da BG voce 05. Qui
+  // pero' lo zero rifiutava PRIMA di guardare lo speso, quindi su un budget
+  // che il piano non comprende il server diceva di no anche a chi aveva
+  // appena pagato: il telefono concedeva il gesto, la chiamata tornava un
+  // no, e il conto locale si allineava buttando via l'acquisto. Valeva gia'
+  // per gli approfondimenti e i confronti del Viandante, e con le stese
+  // sarebbe stata la strada NORMALE, non l'eccezione.
+  //
+  // Adesso lo zero rifiuta solo quando non c'e' credito, cioe' quando lo
+  // speso non e' andato sotto zero.
+  if (limite === 0 && speso >= 0) {
     return {
       concesso: false,
       resta: 0,

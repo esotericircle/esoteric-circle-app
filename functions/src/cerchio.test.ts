@@ -194,6 +194,38 @@ test("il listino del riscatto e' il server a deciderlo", () => {
   assert.equal(PREZZI_DEL_RISCATTO.approfondimenti, 60);
   assert.equal(PREZZI_DEL_RISCATTO.confronti, 150);
   assert.equal(PREZZI_DEL_RISCATTO.gettate, 60);
+  // ORDINE BN VOCE 09: la stesa completa, allo stesso scaffale della
+  // sinastria in piu' del listino approvato con AN, che il Briefing Progetto
+  // le mette accanto spiegando il benvenuto di 250 Eos.
+  assert.equal(PREZZI_DEL_RISCATTO.stese, 150);
+});
+
+// --- ORDINE BN VOCE 09: il budget delle stese complete ---
+
+test("le stese hanno il budget del listino, e non quello della carta singola", () => {
+  assert.equal(limiteDi("stese", "free"), 0);
+  assert.equal(limiteDi("stese", "tier1"), 0);
+  assert.equal(limiteDi("stese", "tier2"), 5);
+  assert.equal(limiteDi("stese", "tier3"), null);
+  // E non e' il budget delle gettate: due contatori, due promesse.
+  assert.notDeepEqual(
+    ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("stese", p as never)),
+    ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("gettate", p as never))
+  );
+});
+
+test("il limite zero cede al credito comprato, e una volta sola", () => {
+  // Senza credito il piano che non comprende la cosa dice di no.
+  assert.equal(decidi("stese", "free", 0).concesso, false);
+  // Col riscatto lo speso e' andato a meno uno: adesso e' concesso, e dopo
+  // averlo usato si richiude. Prima di questa voce lo zero rifiutava PRIMA
+  // di guardare lo speso, quindi il server annullava un acquisto pagato.
+  const comprata = decidi("stese", "free", -1);
+  assert.equal(comprata.concesso, true);
+  assert.equal(comprata.resta, 0);
+  assert.equal(decidi("stese", "free", 0).concesso, false);
+  // Vale per ogni budget a limite zero, non solo per le stese.
+  assert.equal(decidi("approfondimenti", "free", -1).concesso, true);
 });
 
 test("il riscatto ignora il numero del client e usa il listino", () => {

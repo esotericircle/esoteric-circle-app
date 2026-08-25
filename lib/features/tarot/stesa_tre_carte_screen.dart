@@ -37,6 +37,10 @@ import 'tarot_selectors.dart';
 import '../maestri/rotta_arte.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/tier.dart';
+import '../../core/entitlement/question_allowance.dart';
+import '../pricing/upgrade_invite.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -605,6 +609,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _pick(int fanIndex) async {
     if (_complete || _taken.contains(fanIndex)) return;
     if (!_scene.accettaGesti) return;
+    // **IL CANCELLO DELLA STESA, ordine BN voce 09.** Si guarda alla PRIMA
+    // carta e non alla terza: chi non puo' stendere non deve scoprire di non
+    // poterlo fare dopo aver posato due carte. Da qui in poi la stesa e'
+    // cominciata, e cominciarla non costa niente: il conto si paga quando e'
+    // compiuta.
+    if (_drawn == 0 && !_laStesaSiPuoAprire(fanIndex)) return;
     _sensi.momento(MomentoSensoriale.volo);
     setState(() {
       _taken.add(fanIndex);
@@ -642,6 +652,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // di profondita' e coincidenza chiedono (tutti e quattro i semi, la
       // stessa carta in due stese, i sedici argomenti del ventaglio). Non si
       // va a cercare niente altrove: e' tutto qui, gia' pronto.
+      // **IL CONSUMO VERO, ordine BN voce 09: qui e non alla prima carta.**
+      // Una volta per stesa e non una per carta, nello stesso punto in cui la
+      // stesa entra nel cammino, cioe' quando e' compiuta. Una stesa
+      // cominciata e abbandonata non consuma niente.
+      final borsa = _forse<QuestionAllowance>(context);
+      if (borsa != null) {
+        borsa.registraStesa(_forse<EntitlementService>(context)?.tier ??
+            Tier.free);
+      }
       final carte = _spread.cards;
       unawaited(RegiaDelCammino.dopoUnGesto(
         context,
@@ -677,6 +696,75 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // MEDORA CI PENSA, ordine P voce 06: solo alla TERZA carta, perche' e' li'
     // che il responso comincia, e prima non c'e' niente da guardare insieme.
     if (_complete) await _medoraCiPensa();
+  }
+
+  /// Un servizio del guscio, se c'e'. Torna nullo dove non c'e' nessun
+  /// guscio, cioe' nelle anteprime e nelle prove che montano questa scena da
+  /// sola: e' la stessa tolleranza che `corredoDelRiscatto` gia' usa, e non
+  /// e' un modo per rendere facoltativo il gating nell'app vera.
+  T? _forse<T>(BuildContext context, {bool osserva = false}) {
+    try {
+      return osserva ? context.watch<T>() : context.read<T>();
+    } catch (errore) {
+      return null;
+    }
+  }
+
+  /// **LE DUE STRADE QUANDO LA RISERVA E' FINITA, ordine BN voce 09.**
+  ///
+  /// Mai un vicolo cieco: a stese esaurite il tocco sul ventaglio non e'
+  /// muto, apre l'invito con le due strade, riscattare una stesa con gli Eos
+  /// al prezzo del SERVER oppure salire di livello nel Cerchio. A riscatto
+  /// avvenuto la stesa riparte da sola, sulla stessa carta che il dito aveva
+  /// scelto, senza chiedere un secondo tocco.
+  ///
+  /// Il testo nomina le STESE e mai le gettate: sono due budget diversi, e
+  /// una parola sbagliata qui manderebbe la persona a cercare il residuo
+  /// dalla parte sbagliata dell'app.
+  bool _laStesaSiPuoAprire(int fanIndex) {
+    final borsa = _forse<QuestionAllowance>(context);
+    // **SENZA IL BORSELLINO NON SI SBARRA NIENTE.** Anteprime e prove
+    // montano questa scena da sola, senza il guscio dell'app: li' il denaro
+    // non esiste e una stesa non si puo' ne' contare ne' pagare. Che l'app
+    // VERA quei due servizi li abbia sopra la rotta dei tarocchi non lo
+    // decide questo `if`, lo dimostra la guardia
+    // `test/il_gating_della_stesa_test.dart`, che legge `lib/app.dart`.
+    if (borsa == null) return true;
+    final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    if (borsa.puoiStendere(piano)) return true;
+    final limite = borsa.limiteStese(piano);
+    final riscatto = corredoDelRiscatto(
+      context,
+      budget: 'stese',
+      cosaUna: 'una stesa completa',
+      onSuccesso: (_) {
+        if (!mounted) return;
+        _pick(fanIndex);
+      },
+    );
+    showUpgradeInvite(
+      context,
+      // **DUE SITUAZIONI DIVERSE MERITANO DUE FRASI DIVERSE.** Un piano che
+      // le stese complete le compra in Eos non ha "finito" niente: non aveva
+      // niente da finire, e dirgli che il giorno e' esaurito sarebbe falso.
+      title: limite == 0
+          ? 'La stesa completa si apre con gli Eos'
+          : 'Le stese di oggi sono finite',
+      message: limite == 0
+          ? 'Nel tuo piano la stesa completa non è compresa: puoi aprirne '
+              'una con gli Eos, oppure salire di livello nel Cerchio, dove '
+              'le stese sono comprese ogni giorno.'
+          : limite == 1
+              ? 'La stesa del giorno è stata fatta. Puoi riscattarne una con '
+                  'gli Eos, oppure salire di livello nel Cerchio: '
+                  'dall\'Illuminato le stese sono senza limiti.'
+              : 'Le $limite stese del giorno sono state fatte. Puoi '
+                  'riscattarne una con gli Eos, oppure salire di livello nel '
+                  'Cerchio: dall\'Illuminato le stese sono senza limiti.',
+      riscattoLabel: riscatto.label,
+      onRiscatta: riscatto.azione,
+    );
+    return false;
   }
 
   /// L'ATTESA FRA L'ULTIMA CARTA E IL PRIMO RESPONSO. Ordine P voce 06.
@@ -927,6 +1015,22 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
+  /// Il conto del giorno, osservato: cala nello stesso istante in cui la
+  /// stesa lo consuma, perche' qui si guarda il contatore vero.
+  int? get _steseRimaste {
+    final borsa = _forse<QuestionAllowance>(context, osserva: true);
+    if (borsa == null) return null;
+    return borsa.steseRimaste(
+        _forse<EntitlementService>(context, osserva: true)?.tier ?? Tier.free);
+  }
+
+  int? get _steseLimite {
+    final borsa = _forse<QuestionAllowance>(context, osserva: true);
+    if (borsa == null) return null;
+    return borsa.limiteStese(
+        _forse<EntitlementService>(context, osserva: true)?.tier ?? Tier.free);
+  }
+
   Widget _content(MaestroPalette palette) {
     return ListView(
       key: const Key('stesa_list'),
@@ -993,6 +1097,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 1.2),
           ),
+          // **QUANTE NE RESTANO, DETTO PRIMA E NON DOPO. Ordine BN voce 09.**
+          // Solo prima della prima carta: a stesa cominciata il conto e'
+          // rumore, e a stesa finita sarebbe un rimprovero. Il numero arriva
+          // dal listino attraverso il borsellino e non e' scritto qui.
+          if (_drawn == 0)
+            _ContoDelleStese(
+              rimaste: _steseRimaste,
+              limite: _steseLimite,
+              palette: palette,
+            ),
           const SizedBox(height: SpacingTokens.md),
           // Il ventaglio con la sua regia: ingresso a spirale, respiro,
           // taglio e vortice. Si ridisegna col battito delle quattro fasi.
@@ -1375,6 +1489,54 @@ class _Slot extends StatelessWidget {
 /// in oro alla misura minima, cioe' la cosa meno leggibile della schermata
 /// mentre e' l'unica che ribalta il significato della carta. Adesso e' una
 /// marcatura: una pastiglia col bordo, alla misura della didascalia.
+/// **IL CONTO DELLE STESE DEL GIORNO, ordine BN voce 09.**
+///
+/// Chi non ha limiti non legge nessun conto, perche' un residuo infinito e'
+/// rumore. Chi le stese le compra in Eos non legge un "zero su zero", che
+/// sarebbe un numero vero e una frase falsa: legge che quella porta si apre
+/// con gli Eos, che e' cio' che il listino promette davvero.
+class _ContoDelleStese extends StatelessWidget {
+  const _ContoDelleStese({
+    required this.rimaste,
+    required this.limite,
+    required this.palette,
+  });
+
+  final int? rimaste;
+  final int? limite;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    if (rimaste == null || limite == null) return const SizedBox.shrink();
+    final String testo;
+    if (limite == 0) {
+      // Il credito comprato porta il contatore sotto zero e i rimasti sopra:
+      // chi ha gia' pagato deve vedere che la stesa e' sua, non l'invito a
+      // ricomprarla.
+      testo = rimaste! > 0
+          ? 'Hai una stesa riscattata da aprire.'
+          : 'La stesa completa si apre con gli Eos.';
+    } else if (rimaste! > 0) {
+      testo = 'Stese di oggi: $rimaste di $limite';
+    } else {
+      testo = 'Le stese di oggi sono finite: si riparte domani.';
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: SpacingTokens.xs),
+      child: Text(
+        testo,
+        key: const Key('stesa_conto_stese'),
+        textAlign: TextAlign.center,
+        style: TypographyTokens.didascalia().copyWith(
+            color: rimaste! > 0
+                ? ColorTokens.textSecondary
+                : palette.goldSoft),
+      ),
+    );
+  }
+}
+
 class _BloccoDelleCarte extends StatelessWidget {
   const _BloccoDelleCarte({
     super.key,

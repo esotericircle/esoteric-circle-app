@@ -200,6 +200,7 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kApprofondimenti = 'allowance.approfondimenti';
   static const _kConfronti = 'allowance.confronti';
   static const _kGettate = 'allowance.gettate';
+  static const _kStese = 'allowance.stese';
   static const _kGiornoDelServer = 'allowance.giornoDelServer';
   static const _kCoda = 'allowance.coda';
   static const _kSaldo = 'allowance.saldoEos';
@@ -208,6 +209,15 @@ class QuestionAllowance extends ChangeNotifier {
   int _approfondimenti = 0;
   int _confronti = 0;
   int _gettate = 0;
+
+  /// LE STESE COMPLETE DI TAROCCHI CONSUMATE OGGI, ordine BN voce 09.
+  ///
+  /// Sta qui e non in un contatore suo per la stessa ragione delle
+  /// gettate: il confine del giorno e' uno solo, e un secondo contatore
+  /// con un giorno proprio divergerebbe alla prima ora legale. E' un
+  /// budget SEPARATO da quello delle gettate perche' il listino tiene le
+  /// due cose su due righe distinte.
+  int _stese = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -225,7 +235,7 @@ class QuestionAllowance extends ChangeNotifier {
     if (t != _day) {
       _day = t;
       _count = 0;
-      // I QUATTRO budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      // I CINQUE budget ribaltano INSIEME, perche' il giorno e' lo stesso.
       //
       // Un secondo confine del giorno accanto a questo divergerebbe alla prima
       // ora legale: `ConfineDelGiorno` e' uno, e questi contatori lo
@@ -235,6 +245,7 @@ class QuestionAllowance extends ChangeNotifier {
       _approfondimenti = 0;
       _confronti = 0;
       _gettate = 0;
+      _stese = 0;
     }
   }
 
@@ -419,6 +430,49 @@ class QuestionAllowance extends ChangeNotifier {
     _chiediAlServer('gettate');
   }
 
+  /// Quante STESE COMPLETE di tarocchi al giorno prevede il piano, oppure
+  /// null se sono illimitate. Il numero sta nella matrice, riga
+  /// [PlanCatalog.rigaStese], e non si scrive mai a mano in una schermata.
+  ///
+  /// **E' la riga delle stese complete, non quella della carta singola.** Il
+  /// briefing chiama la tre carte la piu' piccola delle stese complete, e le
+  /// due righe promettono cose diverse: la carta singola e' il gesto gratis
+  /// del giorno del Viandante, la stesa completa la compra in Eos.
+  int? limiteStese(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier);
+
+  /// Quante stese restano oggi, oppure null se sono illimitate.
+  int? steseRimaste(Tier tier) {
+    final limite = limiteStese(tier);
+    if (limite == null) return null;
+    _rollover();
+    final resta = limite - _stese;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// Se si puo' stendere adesso. Come per la gettata, il cancello guarda i
+  /// RIMASTI e non il piano: chi ha riscattato una stesa con gli Eos ha il
+  /// contatore sotto zero e quindi un rimasto, anche dove il piano non ne
+  /// prevede nessuna.
+  bool puoiStendere(Tier tier) {
+    final resta = steseRimaste(tier);
+    return resta == null || resta > 0;
+  }
+
+  /// Registra una stesa consumata. Chi ha l'illimitato non intacca niente.
+  ///
+  /// Si chiama UNA volta per stesa e non una per carta, nel momento in cui la
+  /// stesa e' compiuta: una stesa cominciata e abbandonata non consuma
+  /// niente.
+  void registraStesa(Tier tier) {
+    if (limiteStese(tier) == null) return;
+    _rollover();
+    _stese++;
+    notifyListeners();
+    _persist();
+    _chiediAlServer('stese');
+  }
+
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
   /// contatore; quello illimitato no.
   void record(Tier tier) {
@@ -444,6 +498,7 @@ class QuestionAllowance extends ChangeNotifier {
       _approfondimenti = prefs.getInt(_kApprofondimenti) ?? 0;
       _confronti = prefs.getInt(_kConfronti) ?? 0;
       _gettate = prefs.getInt(_kGettate) ?? 0;
+      _stese = prefs.getInt(_kStese) ?? 0;
       _giornoDelServer = prefs.getString(_kGiornoDelServer);
       _saldoEos = prefs.getInt(_kSaldo) ?? 0;
       _daMandare
@@ -503,6 +558,7 @@ class QuestionAllowance extends ChangeNotifier {
     _approfondimenti = stato.spesi['approfondimenti'] ?? 0;
     _confronti = stato.spesi['confronti'] ?? 0;
     _gettate = stato.spesi['gettate'] ?? 0;
+    _stese = stato.spesi['stese'] ?? 0;
     _saldoEos = stato.saldoEos;
     // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
     // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
@@ -615,6 +671,8 @@ class QuestionAllowance extends ChangeNotifier {
         _confronti--;
       case 'gettate':
         _gettate--;
+      case 'stese':
+        _stese--;
     }
     notifyListeners();
     await _persist();
@@ -691,6 +749,8 @@ class QuestionAllowance extends ChangeNotifier {
         _confronti = 1 << 20;
       case 'gettate':
         _gettate = 1 << 20;
+      case 'stese':
+        _stese = 1 << 20;
     }
     notifyListeners();
   }
@@ -721,6 +781,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kApprofondimenti, _approfondimenti);
       await prefs.setInt(_kConfronti, _confronti);
       await prefs.setInt(_kGettate, _gettate);
+      await prefs.setInt(_kStese, _stese);
       await prefs.setInt(_kSaldo, _saldoEos);
       await prefs.setString(_kCoda, jsonEncode(_daMandare));
       if (_giornoDelServer != null) {

@@ -215,6 +215,18 @@ class PlanCatalog {
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final cella = riga.first.values[ordine.indexOf(tier)];
     if (cella.toLowerCase().contains('illimitat')) return null;
+    // **UNA CELLA CHE DICE EOS NON REGALA NIENTE: VALE ZERO USI GRATIS.**
+    //
+    // Ordine BN voce 09, ed e' la stessa forma del difetto che il commento
+    // qui sotto racconta per il "No". Le righe dei tarocchi e degli oracoli
+    // promettono "Eos pieno", "Eos scontati", "Eos": vuol dire che quella
+    // cosa si COMPRA, non che si ha senza limite. Prima di questa riga
+    // "Eos pieno" cadeva in fondo alla funzione e tornava null, cioe' la
+    // stessa risposta di "Illimitate": il Viandante avrebbe avuto le stese
+    // complete gratis e infinite proprio dove il listino dice che le paga.
+    // Zero usi gratis non e' un vicolo cieco: e' il presupposto della strada
+    // degli Eos, che il gating a due strade apre subito.
+    if (cella.toLowerCase().contains('eos')) return 0;
     final numero = RegExp(r'(\d+)').firstMatch(cella);
     if (numero != null) return int.parse(numero.group(1)!);
     // UNA CELLA CHE NON PROMETTE NIENTE VALE ZERO, NON "SENZA LIMITE".
@@ -336,6 +348,18 @@ class PlanCatalog {
   static const String rigaConfronti = 'Confronti nel Cerchio';
   static const String rigaSinastria = 'Sinastria VIP';
   static const String rigaCartaSingola = 'Tarocchi carta singola';
+
+  /// Quante STESE COMPLETE di tarocchi al giorno, che e' una riga diversa da
+  /// [rigaCartaSingola] e non un suo sinonimo.
+  ///
+  /// **LA DISTINZIONE E' DEL BRIEFING E NON DI QUESTO FILE.** Il Briefing
+  /// Progetto, alla sezione della cartomanzia, dice "carta singola quotidiana
+  /// e stese complete, dalla tre carte alla Croce Celtica": la stesa a tre
+  /// carte e' la piu' piccola delle stese COMPLETE, non una carta singola.
+  /// Percio' la schermata della stesa legge questa riga, dove il Viandante
+  /// paga in Eos pieni e l'Iniziato in Eos scontati, e non quella della carta
+  /// singola, dove il Viandante ha il suo gesto gratis del giorno.
+  static const String rigaStese = 'Stese complete tarocchi';
 
   /// Quante gettate di rune al giorno. IL NUMERO VIVE QUI, ordine I voce 3:
   /// UNA per il Viandante (cosi' dice la matrice qui sotto, che e' sovrana),

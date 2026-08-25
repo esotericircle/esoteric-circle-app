@@ -22,6 +22,11 @@ void main() {
     'approfondimenti': PlanCatalog.rigaApprofondimenti,
     'confronti': PlanCatalog.rigaConfronti,
     'gettate': PlanCatalog.rigaGettate,
+    // ORDINE BN VOCE 09: le stese complete di tarocchi hanno un budget loro,
+    // e la riga che le promette e' quella delle stese COMPLETE, non quella
+    // della carta singola. Coperto qui senza nessuna modifica di comodo: il
+    // confronto e' lo stesso degli altri quattro, cella per cella.
+    'stese': PlanCatalog.rigaStese,
   };
   const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
 
