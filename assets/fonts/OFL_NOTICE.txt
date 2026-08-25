@@ -1,4 +1,22 @@
-I font Cinzel e EB Garamond sono distribuiti con SIL Open Font License 1.1.
+I font Cinzel, EB Garamond e Noto Sans Symbols sono distribuiti con SIL Open
+Font License 1.1.
 Cinzel: Copyright Natanael Gama (Ndiscovered).
 EB Garamond: Copyright The EB Garamond Project Authors.
+Noto Sans Symbols: Copyright The Noto Project Authors
+(https://github.com/notofonts/symbols).
 La licenza OFL consente l'inclusione dei font nel bundle dell'app.
+
+NOTA SUL SOTTOINSIEME, ordine BM voce 01. Il file
+`NotoSansSymbols-subset.ttf` non e' il font intero: e' ridotto ai 24 glifi che
+l'app passa davvero a quella famiglia, cioe' i dodici segni zodiacali, i nove
+pianeti oltre al Sole, e i tre punti che l'API delle effemeridi puo'
+restituire (Nodo Nord, Chirone, Lilith). Il peso passa da 179,3 KB a 5,1 KB.
+La OFL consente la modifica e la ridistribuzione, incluso il taglio dei
+glifi, purche' l'opera derivata non usi i Nomi Riservati del font: qui il
+nome del file dichiara il sottoinsieme e la famiglia resta quella originale
+per il solo uso interno all'app.
+
+Il glifo del Sole (U+2609) NON e' in questa famiglia, e non e' un taglio
+nostro: non c'e' nemmeno nel font intero, verificato. Per questo la ruota
+natale e la rivelazione della carta lo disegnano a mano, come facevano gia'
+prima di quest'ordine.

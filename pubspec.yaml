@@ -220,3 +220,11 @@ flutter:
     - family: EBGaramond
       fonts:
         - asset: assets/fonts/EBGaramond-variable.ttf
+    # I SIMBOLI ASTRONOMICI, ordine BM voce 01. Prima questa famiglia era
+    # citata dal codice e NON dichiarata qui: Flutter ripiegava sul carattere
+    # di sistema, che su Android di solito ce l'ha e su iOS non e' mai stato
+    # provato. Il file e' ridotto ai 24 glifi che l'app usa davvero, da 179,3
+    # KB a 5,1 KB. Il Sole non c'e' nemmeno nel font intero e si disegna.
+    - family: NotoSansSymbols
+      fonts:
+        - asset: assets/fonts/NotoSansSymbols-subset.ttf
