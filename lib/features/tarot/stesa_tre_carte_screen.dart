@@ -19,6 +19,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
+import 'carta_ingrandita.dart';
 import 'stesa_handoff.dart';
 import '../sigilli/regia_del_cammino.dart';
 import 'stesa_reveal.dart';
@@ -118,6 +119,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   StesaInCorso _stesaIniziale() {
     var stesa = StesaInCorso.nuova(mazzo: _mazzo, seme: _seme);
     if (!widget.revealAll) return stesa;
+    // Con revealAll la stesa nasce gia' compiuta e non c'e' nessuna attesa da
+    // aspettare: il responso e' pronto da subito.
+    _responsoPronto = true;
     // Ordine BN voce 02: si assegnano le prime posizioni dell'arco, e non tre
     // volte la posizione zero, che dalla cura non esiste piu' dopo la prima.
     for (var i = 0; i < SpreadPosition.values.length; i++) {
@@ -210,6 +214,22 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// carte restano ferme e composte, senza errori.
   final TiltListener _tilt = TiltListener();
 
+  /// APRE LA CARTA [slot] a tutta scena, ordine BN voce 04.
+  ///
+  /// Il testo mostrato e' `PosizioneLetta.testo`, cioe' lo stesso oggetto che
+  /// riempie la bolla piu' in basso: la descrizione si legge da dove gia'
+  /// vive, e non se ne scrive una seconda copia.
+  Future<void> _apriLaCarta(int slot) async {
+    final lette = _reading.posizioni;
+    if (slot < 0 || slot >= lette.length) return;
+    _sensi.momento(MomentoSensoriale.flip);
+    await mostraLaCartaIngrandita(
+      context,
+      letta: lette[slot],
+      palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
+    );
+  }
+
   /// L'aura elementale della carta appena scoperta.
   late final AnimationController _reveal = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 1100));
@@ -287,11 +307,32 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// L'ATTESA DI MEDORA, fra l'ultima carta e il primo responso. Voce 06.
   StatoDellAttesa _attesa = StatoDellAttesa.assente;
 
-  /// Vero quando il responso puo' stare a schermo: la stesa e' compiuta e
-  /// Medora non la sta piu' coprendo. In dissolvenza il responso c'e' gia',
-  /// sotto il velo che se ne va.
+  /// **IL RESPONSO APPARTIENE ALLA FASE CHE VIENE DOPO, ordine BN voce 03.**
+  ///
+  /// Parole del fondatore: "quando l'utente sceglie la terza o ultima Carta si
+  /// vede per un attimo immediatamente la risposta e dopo un attimo parte
+  /// l'animazione di riflessione, e' proprio una visione lampo molto
+  /// fastidiosa in cui si vede gia' il responso e poi sopra parte
+  /// l'animazione".
+  ///
+  /// Il difetto misurato: bastava `_complete` e che l'attesa non fosse ancora
+  /// PIENA. Ma fra il `setState` della terza carta e l'inizio dell'attesa c'e'
+  /// la fioritura dell'elemento, che dura: in quella finestra la condizione
+  /// era gia' vera e il responso entrava in albero **prima** che Medora
+  /// cominciasse a pensarci. Poi l'attesa gli si posava sopra, ed e' il lampo
+  /// che il fondatore ha visto.
+  ///
+  /// `assente` non poteva distinguere "l'attesa non e' ancora cominciata" da
+  /// "l'attesa e' finita", ed e' esattamente la stessa forma di difetto
+  /// dell'ordine BK: due stati diversi che condividono lo stesso valore. Ora
+  /// c'e' un fatto suo, [_responsoPronto], che diventa vero **una volta sola**
+  /// e solo quando l'attesa e' finita davvero.
   bool get _responsoInScena =>
-      _complete && _attesa != StatoDellAttesa.piena;
+      _responsoPronto && _attesa != StatoDellAttesa.piena;
+
+  /// Vero dal momento in cui Medora ha finito di pensare: da li' in poi il
+  /// responso puo' stare in albero, e prima no.
+  bool _responsoPronto = false;
 
   /// Quante stese sono state chiuse in questa sessione: sposta il punto di
   /// partenza delle righe dell'attesa, cosi' due stese vicine non aprono sulla
@@ -582,7 +623,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (!mounted) return;
     // La scena non sparisce di colpo: si dissolve, e il responso e' gia' sotto
     // di lei quando comincia a sparire. Nessuna parola viene tagliata.
-    setState(() => _attesa = StatoDellAttesa.inUscita);
+    // Il responso nasce QUI, sotto il velo che comincia ad andarsene: non un
+    // istante prima, o torna il lampo.
+    setState(() {
+      _attesa = StatoDellAttesa.inUscita;
+      _responsoPronto = true;
+    });
     await Future<void>.delayed(AttesaDiMedora.dissolvenza);
     if (!mounted) return;
     setState(() => _attesa = StatoDellAttesa.assente);
@@ -730,6 +776,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               position: SpreadPosition.values[i],
               drawn: i < _drawn ? _spread.cards[i] : null,
               palette: palette,
+              // **LA CARTA SI APRE AL TOCCO, ordine BN voce 04.** Prima le
+              // carte estratte erano l'unica cosa della scena a non
+              // rispondere al dito: erano l'oggetto del rito e restavano mute.
+              // Si apre solo quando c'e' qualcosa da leggere, cioe' a responso
+              // pronto: prima non esiste ancora nessuna descrizione da
+              // mostrare, e un ingrandimento vuoto sarebbe una porta su niente.
+              onApri: _responsoInScena && i < _drawn
+                  ? () => _apriLaCarta(i)
+                  : null,
               revealSpec: _revealSlot == i ? _revealSpec : null,
               revealProgress: _revealSlot == i ? _reveal.value : 0,
               // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
@@ -1042,6 +1097,7 @@ if (andata && mounted) {
 /// Il ventaglio di carte coperte, col dorso di Medora.
 class _Slot extends StatelessWidget {
   const _Slot({
+    this.onApri,
     required this.position,
     required this.drawn,
     required this.palette,
@@ -1055,6 +1111,9 @@ class _Slot extends StatelessWidget {
   final SpreadPosition position;
   final DrawnCard? drawn;
   final MaestroPalette palette;
+
+  /// Cosa fa il tocco sulla carta, o nulla quando non c'e' niente da aprire.
+  final VoidCallback? onApri;
 
   /// L'aura elementale, quando questa carta si sta scoprendo.
   final RevealSpec? revealSpec;
@@ -1088,6 +1147,11 @@ class _Slot extends StatelessWidget {
               // lei che l'elemento fiorisce, non dentro.
               clipBehavior: Clip.none,
               children: [
+                // **L'AREA TOCCABILE, ordine BN voce 04.** La carta e' ben
+                // piu' grande del minimo, ma il minimo si dichiara lo stesso:
+                // e' la stessa soglia che vale per ogni bersaglio dell'app, e
+                // scriverla qui vuol dire che nessuna futura riduzione della
+                // carta puo' portarla sotto senza che una prova lo dica.
                 AspectRatio(
                   // LA CHIAVE DELLA CARTA POSATA, ordine P voce 05: la prova
                   // che verifica che una carta gia' estratta non si muova di un
@@ -1098,10 +1162,27 @@ class _Slot extends StatelessWidget {
                   aspectRatio: kTarotAspect,
                   child: drawn == null
                       ? _EmptySlot(palette: palette)
-                      : _FlipCard(
-                          key: ValueKey('${position.name}_${drawn!.card.stem}'),
-                          drawn: drawn!,
-                          palette: palette),
+                      : Semantics(
+                          button: onApri != null,
+                          label: onApri != null
+                              ? 'Apri la carta ${drawn!.card.name}'
+                              : null,
+                          child: GestureDetector(
+                            key: Key('stesa_apri_${position.name}'),
+                            onTap: onApri,
+                            behavior: HitTestBehavior.opaque,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                  minWidth: 48, minHeight: 48),
+                              child: _FlipCard(
+                                key: ValueKey(
+                                    '${position.name}_${drawn!.card.stem}'),
+                                drawn: drawn!,
+                                palette: palette,
+                              ),
+                            ),
+                          ),
+                        ),
                 ),
                 // L'aura elementale, mentre la carta si scopre.
                 if (revealSpec != null && revealProgress > 0)
@@ -1303,7 +1384,7 @@ class _FlipCardState extends State<_FlipCard>
                   transform: Matrix4.identity()..rotateY(math.pi),
                   child: CardBack(palette: widget.palette),
                 )
-              : _CardFace(drawn: widget.drawn, palette: widget.palette),
+              : FacciaDellaCarta(drawn: widget.drawn, palette: widget.palette),
         );
       },
     );
@@ -1311,8 +1392,11 @@ class _FlipCardState extends State<_FlipCard>
 }
 
 /// La faccia della carta, con i cartigli riempiti a runtime.
-class _CardFace extends StatelessWidget {
-  const _CardFace({required this.drawn, required this.palette});
+/// LA FACCIA DELLA CARTA, pubblica dall'ordine BN voce 04: la carta che si
+/// apre al tocco mostra la stessa faccia della carta nella stesa, e una
+/// seconda copia del disegno sarebbe due carte che possono divergere.
+class FacciaDellaCarta extends StatelessWidget {
+  const FacciaDellaCarta({super.key, required this.drawn, required this.palette});
 
   final DrawnCard drawn;
   final MaestroPalette palette;
