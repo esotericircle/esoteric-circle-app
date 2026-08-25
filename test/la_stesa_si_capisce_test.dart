@@ -13,6 +13,7 @@ import 'package:esoteric_circle/core/tarot/tetti_della_stesa.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
+import 'package:esoteric_circle/features/tarot/filo_fra_le_carte.dart';
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
@@ -443,6 +444,17 @@ void main() {
       await monta(tester, revealAll: false, altezza: 1400);
       for (final indice in const [38, 39, 40]) {
         await pesca(tester, indice);
+      }
+      // **PRIMA DELL'ATTESA ADESSO CORRE IL FILO, ordine BN voce 08**: e' un
+      // momento in fila, non sovrapposto. Si aspetta che la scena di Medora
+      // compaia, invece di pompare una durata fissa: un'attesa a occhio o
+      // arriva troppo presto, mentre le carte si stanno ancora legando, o
+      // troppo tardi, quando la scena e' gia' passata.
+      var atteso = 0;
+      while (find.byKey(const Key('stesa_attesa')).evaluate().isEmpty &&
+          atteso < 4000) {
+        await tester.pump(const Duration(milliseconds: 60));
+        atteso += 60;
       }
       // Terza carta scelta: la scena dell'attesa e' in sovrimpressione e il
       // responso non c'e' ancora.

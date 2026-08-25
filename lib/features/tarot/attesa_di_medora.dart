@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/tempi_dell_attesa.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../maestri/widgets/busto_del_maestro.dart';
@@ -55,9 +56,21 @@ class AttesaDiMedora extends StatefulWidget {
     required this.palette,
     this.riduciMovimento = false,
     this.rotazione = 0,
+    this.fattoDelCielo,
   });
 
   final MaestroPalette palette;
+
+  /// **IL CIELO VERO DI OGGI, UNA RIGA SOLA. Ordine BN voce 07.**
+  ///
+  /// Mentre Medora pensa compare il fatto vero del giorno, preso da
+  /// `CieloDiOggi` e mai scritto a mano: e' lo stesso transito che l'Oroscopo
+  /// mostra nello stesso giorno, perche' e' la stessa porta.
+  ///
+  /// **Nulla quando il cielo non c'e'**: chi non ha ora e luogo di nascita non
+  /// vede nessuna riga, e non una riga generica. La durata dell'attesa non
+  /// cambia in nessuno dei due casi.
+  final String? fattoDelCielo;
 
   /// Con Riduci Movimento il cerchio non gira e la pausa si accorcia: resta la
   /// riga che dichiara cosa Medora sta guardando.
@@ -203,6 +216,17 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
                   style: TypographyTokens.display(size: 18)
                       .copyWith(color: palette.goldSoft),
                 ),
+                if (widget.fattoDelCielo != null) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    widget.fattoDelCielo!,
+                    key: const Key('stesa_attesa_cielo'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textSecondary,
+                        fontStyle: FontStyle.italic),
+                  ),
+                ],
               ],
             ),
           ),

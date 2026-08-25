@@ -96,10 +96,16 @@ class TarotReading {
   /// Strato 4: le azioni e il disclaimer stanno nella schermata, una sola volta.
 
   /// Compone la lettura di [spread] dentro [topic], alla profondita' [depth].
+  /// [fattoDelCielo] e' la riga del cielo VERO di oggi, quando c'e'. Ordine BN
+  /// voce 07: le due arti vivono nella stessa app e non si parlavano, e la
+  /// stesa non sapeva niente del cielo che l'Oroscopo calcola gia'. Nulla
+  /// quando la carta natale manca: in quel caso il consiglio resta quello di
+  /// oggi, e **non si finge nessun transito**.
   static TarotReading of(
     TarotSpread spread,
     TarotTopic topic, {
     AnswerDepth depth = AnswerDepth.free,
+    String? fattoDelCielo,
   }) {
     final domanda = domandaDi(spread, topic);
     return TarotReading(
@@ -112,7 +118,7 @@ class TarotReading {
         for (final drawn in spread.cards) PosizioneLetta.of(drawn, topic),
       ],
       chiave: chiaveDi(spread),
-      consiglio: consiglioDi(spread, topic, domanda),
+      consiglio: consiglioDi(spread, topic, domanda, fattoDelCielo),
       domanda: domanda,
     );
   }
@@ -134,8 +140,8 @@ class TarotReading {
   /// Resta deterministico: stesse carte e stesso argomento danno sempre lo
   /// stesso testo, quindi la bolla piu' lunga dell'app continua a non toccare
   /// l'LLM.
-  static String consiglioDi(
-      TarotSpread spread, TarotTopic topic, String domanda) {
+  static String consiglioDi(TarotSpread spread, TarotTopic topic, String domanda,
+      [String? fattoDelCielo]) {
     final pezzi = <String>[
       // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
       // portato le tre risposte che mancavano, una per gruppo, e il montaggio e'
@@ -171,7 +177,21 @@ class TarotReading {
       [pezzi[2], pezzi[3]].where((p) => p.isNotEmpty).join(' '),
       // I versi e i Maggiori, che possono non esserci: in quel caso i
       // paragrafi restano due, e due l'ordine li ammette.
-      pezzi[4],
+      // **IL CONSIGLIO RACCOGLIE IL CIELO, ordine BN voce 07.** Solo quando
+      // c'e' un fatto VERO: senza carta natale questa coda non esiste e il
+      // consiglio resta quello di oggi. Una frase generica travestita da
+      // transito sarebbe una promessa non mantenuta detta nella bolla che la
+      // persona porta via.
+      //
+      // Sta in CODA all'ultimo paragrafo e non ne apre uno suo: la voce 06
+      // vuole due o tre paragrafi, e il cielo non deve farne nascere un
+      // quarto. Le due voci dello stesso ordine devono stare in piedi
+      // insieme.
+      [
+        pezzi[4],
+        if (fattoDelCielo != null && fattoDelCielo.trim().isNotEmpty)
+          'E il cielo di oggi lo accompagna. $fattoDelCielo',
+      ].where((p) => p.trim().isNotEmpty).join(' '),
     ].where((p) => p.trim().isNotEmpty).toList();
     final prosa = paragrafi.join('\n\n');
     return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'

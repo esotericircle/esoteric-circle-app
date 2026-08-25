@@ -2,10 +2,15 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/astro/natal_chart.dart';
+import '../../core/horoscope/cielo_di_oggi.dart';
+import '../../core/horoscope/corrente_del_cielo.dart';
+import '../../core/identity/natal_identity.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/stesa_in_corso.dart';
@@ -20,6 +25,7 @@ import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
 import 'carta_ingrandita.dart';
+import 'filo_fra_le_carte.dart';
 import 'stesa_handoff.dart';
 import '../sigilli/regia_del_cammino.dart';
 import 'stesa_reveal.dart';
@@ -214,6 +220,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// carte restano ferme e composte, senza errori.
   final TiltListener _tilt = TiltListener();
 
+  /// FA CORRERE IL FILO fra le tre carte, ordine BN voce 08.
+  ///
+  /// Finisce PRIMA che l'attesa cominci: sono due momenti in fila, non due
+  /// cose sovrapposte. Con Riduci Movimento il filo si mostra fermo e intero
+  /// per la stessa durata, e non si salta.
+  Future<void> _corriIlFilo() async {
+    if (!mounted) return;
+    setState(() => _filoInScena = true);
+    if (_reduceMotion) {
+      _filo.value = 0.5; // il pieno del vigore, fermo
+      await Future<void>.delayed(FiloFraLeCarte.durata);
+    } else {
+      await _filo.forward(from: 0);
+    }
+    if (!mounted) return;
+    setState(() => _filoInScena = false);
+  }
+
   /// APRE LA CARTA [slot] a tutta scena, ordine BN voce 04.
   ///
   /// Il testo mostrato e' `PosizioneLetta.testo`, cioe' lo stesso oggetto che
@@ -334,6 +358,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// responso puo' stare in albero, e prima no.
   bool _responsoPronto = false;
 
+  /// **IL FILO FRA LE TRE CARTE, ordine BN voce 08.** Corre una volta sola,
+  /// fra la terza carta e l'inizio dell'attesa.
+  late final AnimationController _filo = AnimationController(
+      vsync: this, duration: FiloFraLeCarte.durata);
+
+  /// Vero mentre il filo e' in scena.
+  bool _filoInScena = false;
+
   /// Quante stese sono state chiuse in questa sessione: sposta il punto di
   /// partenza delle righe dell'attesa, cosi' due stese vicine non aprono sulla
   /// stessa frase.
@@ -356,12 +388,52 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
   /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
-  TarotReading get _reading =>
-      TarotReading.of(_spread, _setup.topic, depth: _setup.depth);
+  TarotReading get _reading => TarotReading.of(_spread, _setup.topic,
+      depth: _setup.depth, fattoDelCielo: _fattoDelCielo);
+
+  /// **IL CIELO VERO DI QUESTA PERSONA, ordine BN voce 07.**
+  ///
+  /// Le due arti vivevano nella stessa app senza parlarsi: la stesa non sapeva
+  /// niente del cielo, mentre l'Oroscopo calcola gia' il transito vero dalla
+  /// carta natale. La porta e' la stessa, `BirthIdentityController`, che vive
+  /// nel guscio dell'app ed e' raggiungibile da qualunque schermata: alla
+  /// stesa non mancava un dato, mancava la domanda.
+  ///
+  /// **Nulla quando il cielo vero non c'e'**: chi non ha ora e luogo di
+  /// nascita ha `ceCieloVero` falso, e allora la riga non compare affatto e il
+  /// consiglio resta quello di oggi. Nessuna frase generica travestita da
+  /// transito.
+  /// La carta natale, letta dalle dipendenze e non dal build.
+  ///
+  /// **`watch` qui sarebbe un errore, e l'ha detto una prova.** `_reading` non
+  /// serve solo al build: lo chiamano il filo, la carta che si apre e il
+  /// salvataggio della domanda, tutti fuori da un build. Un `watch` chiamato
+  /// li' solleva, e il difetto non si vedeva come un errore di provider ma
+  /// come una scena che non arrivava mai alla fase dopo.
+  ///
+  /// **Se la porta non c'e', non c'e' cielo, e non e' un errore**: la stesa si
+  /// monta anche fuori dal guscio dell'app, per esempio in una prova che
+  /// guarda una cosa sola. Senza controller non c'e' carta natale, e senza
+  /// carta natale non c'e' cielo vero: e' lo stesso ripiego per una strada
+  /// diversa.
+  NatalChart? _cartaNatale;
+
+  String? get _fattoDelCielo {
+    final cielo =
+        CieloDiOggi.perIlGiorno(adesso: _adesso, carta: _cartaNatale);
+    if (!cielo.ceCieloVero) return null;
+    return CorrenteDelCielo.fattoDelGiorno(cielo);
+  }
+
+  /// Il giorno della stesa, letto una volta sola: lo stesso istante per il
+  /// cielo e per il responso.
+  late final DateTime _adesso = DateTime.now();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _cartaNatale =
+        Provider.of<BirthIdentityController?>(context)?.cartaCompleta;
     _reduceMotion = MediaQuery.of(context).disableAnimations;
     if (_avviata) return;
     _avviata = true;
@@ -509,6 +581,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   @override
   void dispose() {
+    _filo.dispose();
     _tilt.dispose();
     _reveal.dispose();
     _galleggio.dispose();
@@ -598,6 +671,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // seme parla un istante, prima di lasciarla pulita e leggibile.
     _sensi.momento(MomentoSensoriale.flip);
     await _fiorisci(slot);
+    // IL FILO, ordine BN voce 08: dice che le tre carte sono una lettura sola,
+    // e lo dice PRIMA che Medora cominci a pensare.
+    if (_complete) await _corriIlFilo();
     // MEDORA CI PENSA, ordine P voce 06: solo alla TERZA carta, perche' e' li'
     // che il responso comincia, e prima non c'e' niente da guardare insieme.
     if (_complete) await _medoraCiPensa();
@@ -728,6 +804,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                     opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
                     duration: AttesaDiMedora.dissolvenza,
                     child: AttesaDiMedora(
+                      // Ordine BN voce 07: il cielo vero, se c'e'.
+                      fattoDelCielo: _fattoDelCielo,
                       palette: palette,
                       riduciMovimento: _reduceMotion,
                       rotazione: _giroDellAttesa,
@@ -766,6 +844,38 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   }
 
   Widget _slotsRow(MaestroPalette palette) {
+    // IL FILO STA SOPRA LE TRE CARTE, ordine BN voce 08: si disegna sulla
+    // fila intera, perche' e' la fila che deve leggersi come una cosa sola.
+    final fila = _filaDelleCarte(palette);
+    if (!_filoInScena) return fila;
+    return Stack(
+      children: [
+        fila,
+        Positioned.fill(
+          child: AnimatedBuilder(
+            animation: _filo,
+            builder: (context, _) => LayoutBuilder(
+              builder: (context, vincoli) {
+                final larga = vincoli.maxWidth / SpreadPosition.values.length;
+                return FiloFraLeCarte(
+                  centri: [
+                    for (var i = 0; i < SpreadPosition.values.length; i++)
+                      Offset(larga * (i + 0.5), vincoli.maxHeight * 0.42),
+                  ],
+                  dallaChiave: SpreadPosition.values
+                      .indexOf(_reading.chiave.drawn.position),
+                  avanzamento: _reduceMotion ? 0.5 : _filo.value,
+                  palette: palette,
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _filaDelleCarte(MaestroPalette palette) {
     return Row(
       key: const Key('stesa_slots'),
       crossAxisAlignment: CrossAxisAlignment.start,
