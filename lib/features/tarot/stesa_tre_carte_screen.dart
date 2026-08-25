@@ -118,8 +118,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   StesaInCorso _stesaIniziale() {
     var stesa = StesaInCorso.nuova(mazzo: _mazzo, seme: _seme);
     if (!widget.revealAll) return stesa;
-    for (final posizione in SpreadPosition.values) {
-      stesa = stesa.assegna(posizione, daIndice: 0);
+    // Ordine BN voce 02: si assegnano le prime posizioni dell'arco, e non tre
+    // volte la posizione zero, che dalla cura non esiste piu' dopo la prima.
+    for (var i = 0; i < SpreadPosition.values.length; i++) {
+      stesa = stesa.assegna(SpreadPosition.values[i], dalVentaglio: i);
     }
     return stesa;
   }
@@ -503,7 +505,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _inVolo = null;
       // LA CARTA SI ASSEGNA QUI, e da questo momento e' immutabile: esce dal
       // mazzo residuo ed entra nella stesa.
-      _stesa = _stesa.assegna(SpreadPosition.values[slot], daIndice: fanIndex);
+      // **LA POSIZIONE TOCCATA E' LA CARTA, ordine BN voce 02.** Prima qui
+      // passava l'indice del ventaglio come indice del mazzo RESIDUO, che e'
+      // un'altra lista: gli indici slittavano a ogni presa, mischia e taglio
+      // riordinavano il residuo sotto posizioni ferme, e oltre la lunghezza
+      // si ripiegava sulla prima carta del mazzo.
+      _stesa =
+          _stesa.assegna(SpreadPosition.values[slot], dalVentaglio: fanIndex);
       _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _drawn++;
       if (_complete) _scene = StesaScene.completa;

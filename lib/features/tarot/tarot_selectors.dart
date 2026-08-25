@@ -133,7 +133,17 @@ class TarotSetupPanel extends StatelessWidget {
   Widget build(BuildContext context) =>
       aperto ? _pannello(context) : _riga(context);
 
-  /// La riga richiusa: il riepilogo, tappabile per aprire.
+  /// **IL NOME DELLE SCELTE, E VIVE QUI SOLO.** Ordine BN voce 01, parole del
+  /// fondatore: "la prima bolla dove fare le scelte delle opzioni si deve
+  /// chiamare Scegli la tua stesa". Prima il pannello aperto diceva "LA TUA
+  /// STESA" e quello chiuso non diceva niente: la riga portava il riassunto
+  /// delle scelte gia' fatte, che risponde a "cosa ho scelto" e non a "cosa
+  /// devo fare". Adesso il nome e' lo stesso nei due stati e sta in una
+  /// costante, perche' due stringhe uguali in due punti diventano diverse al
+  /// primo che ne cambia una.
+  static const String titolo = 'Scegli la tua stesa';
+
+  /// La riga richiusa: il titolo, il riepilogo sotto, tappabile per aprire.
   Widget _riga(BuildContext context) {
     return Semantics(
       button: true,
@@ -155,11 +165,26 @@ class TarotSetupPanel extends StatelessWidget {
               Icon(Icons.tune_rounded, size: 15, color: palette.goldSoft),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(setup.riepilogo,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(titolo,
+                        key: const Key('stesa_setup_titolo_chiuso'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft, letterSpacing: 1.2)),
+                    const SizedBox(height: 2),
+                    // Il riassunto delle scelte resta, sotto il titolo: dice
+                    // cosa hai scelto, mentre il titolo dice cosa puoi fare.
+                    Text(setup.riepilogo,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: ColorTokens.textSecondary)),
+                  ],
+                ),
               ),
               // IL TRIANGOLO DEL SELETTORE, non la freccia in giu'.
               //
@@ -197,7 +222,9 @@ class TarotSetupPanel extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text('LA TUA STESA',
+                  child: Text(titolo,
+                      key: const Key('stesa_setup_titolo_aperto'),
+                      maxLines: 1,
                       style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 1.4)),
                 ),
