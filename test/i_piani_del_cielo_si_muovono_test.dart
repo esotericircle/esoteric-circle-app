@@ -207,17 +207,28 @@ void main() {
     // Le nebulose: indaco, il blu domina di parecchio sul rosso.
     bool eNebulosa(int r, int g, int b) => b > 60 && b - r > 25;
     // Le particelle vicine: oro, il rosso domina sul blu.
-    // **LA MASCHERA DEL VICINO SI E' STRETTA, ordine AM voce 02.** Le
-    // particelle vicine sono oro PIENO (goldSoft a mezza opacita'), gli
-    // aloni delle stelle protagoniste sono lo stesso oro molto piu' tenue
-    // (0,22) e vivono sul piano di FONDO. Finche' il fondo era diluito
-    // dalla scorta quegli aloni erano pochi e la maschera larga bastava;
-    // ora che il conto degli elementi segue l'area, il fondo e' popolato
-    // come prima delle scorte e i suoi aloni entravano nel campione del
-    // vicino, falsando la correlazione con un piano che non e' il loro.
-    // Si guarda la LUMINOSITA' oltre alla tinta: e' cio' che separa un oro
-    // pieno da un oro velato.
-    bool eParticella(int r, int g, int b) => r > 150 && r - b > 60;
+    //
+    // **LA MASCHERA SI ERA STRETTA OLTRE IL POSSIBILE, ordine BM voce 04.**
+    // L'ordine AM voce 02 l'aveva portata a `r > 150 && r - b > 60` per non
+    // confondere le particelle con gli aloni delle stelle protagoniste, che
+    // sono lo stesso oro molto piu' tenue e vivono sul piano di FONDO.
+    // L'intenzione era giusta, il numero no: **quelle due soglie nella scena
+    // vera non le raggiunge nessun pixel**, e la prova e' rimasta rossa senza
+    // che niente fosse rotto.
+    //
+    // MISURATO sulla scena montata da questa prova, 400 per 800 punti, senza
+    // pianeti: i pixel piu' caldi dell'intera immagine hanno **r fra 98 e
+    // 148** e **scarto rosso-blu fra 27 e 30**, con un massimo assoluto di
+    // scarto pari a **43** su un solo pixel. La ragione e' aritmetica: le
+    // particelle si dipingono con `goldSoft` (240, 215, 123) a mezza
+    // opacita' sopra un fondo in cui il blu domina, quindi il rosso composto
+    // non arriva mai a 150 e lo scarto non arriva mai a 60.
+    //
+    // Le soglie di adesso vengono da quella misura e non da una stima: sopra
+    // gli aloni del fondo, che a 0,22 di opacita' restano sotto lo scarto di
+    // 25, e sotto il tetto vero delle particelle. Prendono **29** pixel, che
+    // e' quanto quattordici cerchietti da uno o due punti possono dipingere.
+    bool eParticella(int r, int g, int b) => r > 90 && r - b > 25;
 
     final radice = GlobalKey();
     await tester.pumpWidget(
