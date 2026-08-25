@@ -165,6 +165,28 @@ void main() {
           percorso.contains('/services/')) {
         continue;
       }
+      // **IL CIELO DELLA SINASTRIA E' UN PRODUTTORE LEGITTIMO, ordine BO voce
+      // 06, E L'ECCEZIONE E' PIU' STRETTA DI QUANTO SEMBRI.**
+      //
+      // Questa prova difende una cosa sola: che la carta DELLA PERSONA abbia
+      // una fonte sola, la porta. Il cielo della Sinastria calcola anche
+      // quello di un VIP, che alla porta non puo' arrivare per definizione:
+      // la porta tiene chi usa l'app, non Rihanna. Serve un `NatalChart`
+      // perche' la ruota che l'app disegna gia' vuole quella forma, ed e'
+      // esattamente cio' che l'ordine chiede, riusare la ruota invece di
+      // scriverne una seconda.
+      //
+      // **L'eccezione non e' un lasciapassare**: qui sotto si pretende che
+      // quel file NON conosca il controller. Se un giorno provasse a
+      // ricostruirsi la carta della persona invece di chiederla alla porta,
+      // questa riga cadrebbe.
+      if (percorso.endsWith('cielo_della_sinastria.dart')) {
+        expect(testo.contains('BirthIdentityController'), isFalse,
+            reason: 'il cielo della Sinastria legge il controller e si '
+                'costruisce una carta sua: e\' la seconda copia che questa '
+                'prova esiste per impedire');
+        continue;
+      }
       // Chi COSTRUISCE una carta fuori da li' si sta facendo la sua copia.
       if (RegExp(r'NatalChart\(').hasMatch(testo)) {
         colpe.add('$percorso: costruisce una NatalChart per conto suo invece '

@@ -84,8 +84,11 @@ void main() {
     // Il numero e' un promemoria che si muove: se ne nasce uno nuovo, chi lo
     // scrive vede questa prova cadere e legge il motivo, invece di scoprire il
     // taglio da uno screenshot.
+    // DIECI DALL'ORDINE BO voce 05: il cielo dei volti mostra i cinquanta
+    // ritratti VIP sospesi su tre profondita', e passa dalla stessa miniatura
+    // che la griglia usava, con la stessa proporzione da carta.
     final punti = puntiConMiniature();
-    expect(punti.length, 9,
+    expect(punti.length, 10,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

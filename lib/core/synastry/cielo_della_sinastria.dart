@@ -166,6 +166,32 @@ class CieloDiSinastria {
     );
   }
 
+  /// **IL CIELO COME CARTA NATALE, per la ruota che l'app disegna gia'.**
+  ///
+  /// Ordine BO voce 06: la ruota e' `NatalWheel`, e vuole un `NatalChart`.
+  /// Questa non e' una seconda carta: e' lo stesso cielo detto nella forma che
+  /// il disegno capisce, con i sei punti che la Sinastria calcola e niente
+  /// altro. L'Ascendente entra come orientamento solo quando c'e' davvero.
+  NatalChart get comeCarta => NatalChart(
+        sunSign: segnoSolare,
+        hasTime: haAscendente,
+        ascendantLongitude: longitudini[PuntoDelCielo.ascendente],
+        ascendant: longitudini[PuntoDelCielo.ascendente] == null
+            ? null
+            : segnoDiLongitudine(longitudini[PuntoDelCielo.ascendente]!),
+        planets: [
+          for (final p in PuntoDelCielo.values)
+            if (p.corpo != null && longitudini[p] != null)
+              PlanetPosition(
+                id: p.corpo!.id,
+                name: p.nome,
+                glyph: p.glifo,
+                longitude: longitudini[p]!,
+                sign: segnoDiLongitudine(longitudini[p]!),
+              ),
+        ],
+      );
+
   /// Il segno in cui cade una longitudine eclittica.
   static Zodiac segnoDiLongitudine(double longitudine) {
     final l = ((longitudine % 360) + 360) % 360;

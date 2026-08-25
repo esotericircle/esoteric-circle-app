@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_BO_MANIFESTO.md');
 
-  const quante = 12;
+  const quante = 14;
 
   int marcatore(String testo, String nome) {
     final trovato =

@@ -11,6 +11,8 @@ import '../../core/identity/natal_identity.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/possibilita_di_incontro.dart';
+import '../../core/synastry/tempi_della_chiamata.dart';
+import 'chiamata_del_vip.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -52,6 +54,7 @@ class SinastriaVipScreen extends StatefulWidget {
     this.userBirth,
     this.vip,
     this.photoController,
+    this.saltaLaChiamata = false,
   });
 
   final Zodiac? userSign;
@@ -68,6 +71,12 @@ class SinastriaVipScreen extends StatefulWidget {
 
   /// Iniettabile nei test, cosi' la scelta foto non tocca camera ne galleria.
   final UserPhotoController? photoController;
+
+  /// **Salta la chiamata e apre direttamente sul verdetto.** Serve alle
+  /// anteprime e alle prove che guardano il RISULTATO: la scena della voce
+  /// BO.06 ha una prova sua, e farla girare dentro ogni altra prova
+  /// vorrebbe dire misurarla cinquanta volte per sbaglio.
+  final bool saltaLaChiamata;
 
   static Route<void> route({
     Zodiac? userSign,
@@ -106,6 +115,13 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   late final UserPhotoController _photo =
       widget.photoController ?? UserPhotoController();
   final GlobalKey _cardKey = GlobalKey();
+  /// **LA SCENA HA DUE FASI, ordine BO voci 06 e 07.** Prima la chiamata, che
+  /// e' il rito; poi il verdetto, che si compone. Un fatto suo e non un
+  /// booleano derivato: e' la stessa lezione del responso della stesa, dove
+  /// due stati diversi che condividevano un valore facevano lampeggiare il
+  /// testo.
+  bool _verdettoInScena = false;
+
   late final AnimationController _anim;
   bool _sharing = false;
 
@@ -169,10 +185,15 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   void initState() {
     super.initState();
     _vip = widget.vip ?? VipCatalog.first;
+    _verdettoInScena = widget.saltaLaChiamata;
+    // **IL VERDETTO SI COMPONE, ordine BO voce 07**: il conteggio, poi le
+    // barre sfalsate, poi il titolo della coppia da solo. La durata la
+    // dettano i tempi dichiarati, non un numero scritto qui.
     _anim = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1100),
-    )..forward();
+      duration: TempiDelVerdetto.intera(quanteBarre: 4),
+    );
+    if (_verdettoInScena) _anim.forward();
     _photo.addListener(_onPhotoChanged);
     unawaited(_leggiDoveSei());
   }
@@ -247,6 +268,14 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         longitudine: luogo.lon));
   }
 
+  /// La chiamata e' finita, oppure un tocco l'ha saltata: entra il verdetto,
+  /// che comincia a comporsi.
+  void _mostraIlVerdetto() {
+    if (!mounted || _verdettoInScena) return;
+    setState(() => _verdettoInScena = true);
+    _anim.forward(from: 0);
+  }
+
   void _onPhotoChanged() {
     if (mounted) setState(() {});
   }
@@ -299,7 +328,27 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         child: SafeArea(
           child: Stack(
             children: [
+              // Il verdetto sta sotto: durante la chiamata e' gia' composto
+              // in albero ma coperto, cosi' al salto non c'e' nessuna attesa
+              // di costruzione e il tocco arriva al risultato in un istante.
               _content(palette, report),
+              // **LA CHIAMATA E LA SOVRAPPOSIZIONE, ordine BO voce 06.** Sta
+              // sopra la scena e sotto la card dello scatto: e' la prima cosa
+              // che accade dopo il tocco su un VIP.
+              if (!_verdettoInScena)
+                Positioned.fill(
+                  child: ColoredBox(
+                    color: palette.deepest.withValues(alpha: 0.92),
+                    child: ChiamataDelVip(
+                      vip: _vip,
+                      tuo: _cielo,
+                      aspetti: report.aspetti,
+                      palette: palette,
+                      riduciMovimento: _riduciMovimento,
+                      onFinita: _mostraIlVerdetto,
+                    ),
+                  ),
+                ),
               // La card condivisibile, disegnata fuori campo solo durante lo
               // scatto, cosi' e' pronta da catturare a immagine senza mostrarla.
               if (_renderCard)
@@ -324,6 +373,52 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         ),
       ),
     );
+  }
+
+  /// **CON RIDUCI MOVIMENTO IL NUMERO APPARE GIA' SCRITTO**, ordine BO voce
+  /// 07: non si conta, non si sale, non si sfalsa. La grandezza resta la
+  /// stessa, cambia il modo di arrivarci.
+  bool get _riduciMovimento => MediaQuery.of(context).disableAnimations;
+
+  /// La frazione del conteggio, da 0 a 1.
+  double get _quantoDelConteggio {
+    if (_riduciMovimento) return 1;
+    final tutto = _anim.duration!.inMilliseconds;
+    final fino = TempiDelVerdetto.ilConteggio.inMilliseconds / tutto;
+    return Curves.easeOutCubic
+        .transform((_anim.value / fino).clamp(0.0, 1.0));
+  }
+
+  /// La frazione della barra [i], che parte sfalsata dalle altre.
+  double _quantoDellaBarra(int i) {
+    if (_riduciMovimento) return 1;
+    final tutto = _anim.duration!.inMilliseconds;
+    final inizio = (TempiDelVerdetto.ilConteggio +
+                TempiDelVerdetto.fraUnaBarraELaltra * i)
+            .inMilliseconds /
+        tutto;
+    final quanto = TempiDelVerdetto.unaBarra.inMilliseconds / tutto;
+    return Curves.easeOutCubic
+        .transform(((_anim.value - inizio) / quanto).clamp(0.0, 1.0));
+  }
+
+  /// La frazione della barra [i], per la prova che verifica lo sfalsamento.
+  ///
+  /// **Pubblica perche' lo sfalsamento non si vede da fuori.** Una barra a un
+  /// decimo e una a due decimi disegnano quasi lo stesso pixel: misurarlo
+  /// sull'immagine vorrebbe dire una soglia indovinata. Il fatto e' il
+  /// numero, e il numero sta qui.
+  @visibleForTesting
+  double quantoDellaBarraPerLaProva(int i) => _quantoDellaBarra(i);
+
+  /// La frazione del titolo della coppia, che arriva per ultimo.
+  double get _quantoDelTitolo {
+    if (_riduciMovimento) return 1;
+    final tutto = _anim.duration!.inMilliseconds;
+    final inizio =
+        (tutto - TempiDelVerdetto.ilTitolo.inMilliseconds) / tutto;
+    final quanto = TempiDelVerdetto.ilTitolo.inMilliseconds / tutto;
+    return ((_anim.value - inizio) / quanto).clamp(0.0, 1.0);
   }
 
   Widget _content(MaestroPalette palette, SynastryReport report) {
@@ -385,7 +480,12 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             child: AnimatedBuilder(
               animation: _anim,
               builder: (context, _) {
-                final t = Curves.easeOutCubic.transform(_anim.value);
+                // **IL NUMERO SI COMPONE CONTANDO, ordine BO voce 07.** Il
+                // conteggio prende la sua fetta della scena e finisce SUL
+                // numero esatto: la curva arriva a uno, quindi l'ultimo
+                // fotogramma non puo' che essere il numero del calcolo. Non
+                // sale mai oltre, perche' la curva non supera mai uno.
+                final t = _quantoDelConteggio;
                 final shown = (report.overall * t).round();
                 return CustomPaint(
                   key: const Key('sinastria_gauge'),
@@ -396,13 +496,21 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text('$shown%',
+                            key: const Key('sinastria_numero'),
                             style: TypographyTokens.display(size: 36)
                                 .copyWith(color: palette.goldSoft)),
-                        Text(report.band,
-                            textAlign: TextAlign.center,
-                            style: TypographyTokens.etichetta().copyWith(
-                                color: ColorTokens.textSecondary,
-                                letterSpacing: 0.6)),
+                        // **IL TITOLO DELLA COPPIA ARRIVA PER ULTIMO, DA
+                        // SOLO.** E' la frase che la persona porta via, e
+                        // arriva quando tutto il resto ha finito di muoversi.
+                        Opacity(
+                          opacity: _quantoDelTitolo,
+                          child: Text(report.band,
+                              key: const Key('sinastria_fascia'),
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color: ColorTokens.textSecondary,
+                                  letterSpacing: 0.6)),
+                        ),
                       ],
                     ),
                   ),
@@ -458,14 +566,18 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           child: AnimatedBuilder(
             animation: _anim,
             builder: (context, _) {
-              final t = Curves.easeOutCubic.transform(_anim.value);
+              final barre = report.bars;
               return Column(
                 children: [
-                  for (final bar in report.bars) ...[
+                  for (final bar in barre) ...[
+                    // **LE BARRE PARTONO SFALSATE, ordine BO voce 07**:
+                    // quattro barre che partono insieme sono un'unica
+                    // animazione con quattro teste, e l'occhio non sa dove
+                    // guardare.
                     SynastryBarRow(
                         bar: bar,
                         palette: palette,
-                        progress: t,
+                        progress: _quantoDellaBarra(barre.indexOf(bar)),
                         meetingReport: report),
                     if (bar != report.bars.last)
                       const SizedBox(height: SpacingTokens.sm),

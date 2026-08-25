@@ -30,6 +30,7 @@ class NatalWheel extends StatefulWidget {
     this.showAspects = false,
     this.highlightPlanetId,
     this.onPlanetTap,
+    this.avanzamento,
   });
 
   final NatalChart chart;
@@ -37,6 +38,16 @@ class NatalWheel extends StatefulWidget {
   final bool showAspects;
   final String? highlightPlanetId;
   final ValueChanged<String>? onPlanetTap;
+
+  /// **QUANTO DELLA RUOTA E' GIA' DISEGNATA, da fuori.** Ordine BO voce 06.
+  ///
+  /// Nullo vuol dire "fai da te", cioe' il comportamento di sempre: la ruota
+  /// si costruisce da sola in 3.600 millesimi. Quando invece la ruota fa parte
+  /// di una coreografia piu' grande, come la sovrapposizione delle due carte
+  /// nella Sinastria, il tempo lo detta la scena: **si passa il progresso e
+  /// non si scrive una seconda ruota**, che era il rischio vero di quella
+  /// voce.
+  final double? avanzamento;
 
   @override
   State<NatalWheel> createState() => _NatalWheelState();
@@ -105,7 +116,9 @@ class _NatalWheelState extends State<NatalWheel>
           animation: Listenable.merge([_build, _pulse]),
           builder: (context, _) => CustomPaint(
             painter: _WheelPainter(
-              progress: Curves.easeOut.transform(_build.value),
+              progress: widget.avanzamento != null
+                  ? widget.avanzamento!.clamp(0.0, 1.0)
+                  : Curves.easeOut.transform(_build.value),
               pulse: _pulse.value,
               chart: widget.chart,
               palette: palette,

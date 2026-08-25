@@ -12,6 +12,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'cielo_dei_volti.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -193,25 +194,24 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   ),
                 )
               else
+                // **IL CIELO DEI VOLTI AL POSTO DELLA GRIGLIA, ordine BO voce
+                // 05.** Era una `SliverGrid` di mattonelle tutte uguali e
+                // ferme: cinquanta ritratti in fila come un catalogo di
+                // prodotti. Adesso i volti stanno sospesi su tre profondita' e
+                // si muovono con la parallasse gia' esistente.
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                       SpacingTokens.lg, SpacingTokens.xxxl),
-                  sliver: SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: SpacingTokens.md,
-                      crossAxisSpacing: SpacingTokens.md,
-                      childAspectRatio: 0.66,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, i) => _VipTile(
-                        key: Key('vip_${filtrati[i].name}'),
-                        vip: filtrati[i],
-                        palette: palette,
-                        onTap: () => _apri(filtrati[i]),
-                      ),
-                      childCount: filtrati.length,
+                  sliver: SliverToBoxAdapter(
+                    child: CieloDeiVolti(
+                      vips: filtrati,
+                      // La larghezza la sa questa schermata: e' quella dello
+                      // schermo meno i due margini della lista. Chiederla a
+                      // un LayoutBuilder costava un rilayout per fotogramma.
+                      larghezza: MediaQuery.sizeOf(context).width -
+                          SpacingTokens.lg * 2,
+                      palette: palette,
+                      onApri: _apri,
                     ),
                   ),
                 ),
@@ -221,6 +221,64 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
       ),
     );
   }
+}
+
+/// LA COSTELLAZIONE DI UNA CATEGORIA, disegnata dal suo nome.
+///
+/// **Cinque stelle su un cerchio, unite in fila.** Le posizioni nascono dai
+/// caratteri del nome con la stessa dispersione a moltiplicatore usata nel
+/// cielo dei volti: nessuna casualita', nessun asset, nessuna tabella da
+/// tenere allineata. Il giorno che nasce una categoria nuova, la sua
+/// costellazione esiste gia'.
+class CostellazioneDellaCategoria extends CustomPainter {
+  const CostellazioneDellaCategoria({required this.nome, required this.colore});
+
+  final String nome;
+  final Color colore;
+
+  /// Quante stelle. Cinque e' il minimo perche' una figura si legga come
+  /// figura e non come tre punti in fila.
+  static const int stelle = 5;
+
+  /// I punti della costellazione, dentro un riquadro unitario. Pubblico
+  /// perche' la prova possa contarli senza dipingere.
+  static List<Offset> puntiDi(String nome) {
+    var seme = 2166136261;
+    for (final u in nome.codeUnits) {
+      seme = (seme ^ u) * 16777619 & 0x7fffffff;
+    }
+    final punti = <Offset>[];
+    for (var i = 0; i < stelle; i++) {
+      final a = 2 * math.pi * (i / stelle) + (seme % 360) * math.pi / 180;
+      final raggio = 0.28 + ((seme >> (i * 3)) % 100) / 100 * 0.18;
+      punti.add(Offset(0.5 + math.cos(a) * raggio, 0.5 + math.sin(a) * raggio));
+    }
+    return punti;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final punti = [
+      for (final p in puntiDi(nome)) Offset(p.dx * size.width, p.dy * size.height)
+    ];
+    final filo = Paint()
+      ..color = colore.withValues(alpha: 0.45)
+      ..strokeWidth = 0.8
+      ..style = PaintingStyle.stroke;
+    final tracciato = Path()..moveTo(punti.first.dx, punti.first.dy);
+    for (final p in punti.skip(1)) {
+      tracciato.lineTo(p.dx, p.dy);
+    }
+    canvas.drawPath(tracciato, filo);
+    final stella = Paint()..color = colore;
+    for (var i = 0; i < punti.length; i++) {
+      canvas.drawCircle(punti[i], i == 0 ? 1.6 : 1.1, stella);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CostellazioneDellaCategoria vecchio) =>
+      vecchio.nome != nome || vecchio.colore != colore;
 }
 
 /// La barra di ricerca che filtra i VIP per nome, dal vivo.
@@ -310,12 +368,34 @@ class _FiltriCategoria extends StatelessWidget {
                         : palette.gold.withValues(alpha: 0.3),
                     width: c == attiva ? 1.5 : 1),
               ),
-              child: Text(c,
-                  style: TypographyTokens.label(size: 12).copyWith(
-                      color: c == attiva
-                          ? palette.goldSoft
-                          : ColorTokens.textPrimary,
-                      letterSpacing: 0.4)),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // **LA CATEGORIA E' UNA COSTELLAZIONE, ordine BO voce 05.**
+                  // Non un'icona presa da un repertorio: un disegno di stelle
+                  // che nasce dal NOME, quindi ogni categoria ha il suo e due
+                  // categorie non possono averne uno uguale per distrazione.
+                  SizedBox(
+                    width: 22,
+                    height: 22,
+                    child: CustomPaint(
+                      painter: CostellazioneDellaCategoria(
+                        nome: c,
+                        colore: c == attiva
+                            ? palette.goldSoft
+                            : palette.gold.withValues(alpha: 0.55),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: SpacingTokens.xs),
+                  Text(c,
+                      style: TypographyTokens.label(size: 12).copyWith(
+                          color: c == attiva
+                              ? palette.goldSoft
+                              : ColorTokens.textPrimary,
+                          letterSpacing: 0.4)),
+                ],
+              ),
             ),
           ),
       ],
