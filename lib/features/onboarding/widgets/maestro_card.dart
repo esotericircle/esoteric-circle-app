@@ -3,10 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/maestro/maestro.dart';
-import '../../../core/maestro/rivelazione_in_video.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
-import 'velo_di_rivelazione.dart';
 
 /// Rivelazione cinematografica del Maestro: la figura, grande e presente, esce
 /// dalla propria cornice a carta (la testa rompe il bordo superiore), con aura
@@ -14,6 +12,14 @@ import 'velo_di_rivelazione.dart';
 ///
 /// L'animazione piena del personaggio arriva a C3; qui la figura non e' mai
 /// ferma nel vuoto.
+///
+/// **IL VIDEO DELLA RIVELAZIONE NON ABITA PIU' QUI, ordine BR voce 1.** Per un
+/// giorno il filmato del Maestro e' stato montato dentro questo Stack, sopra il
+/// ritratto e con le misure della cornice: era cio' che l'ordine BQ chiedeva, e
+/// cio' che l'ordine BQ chiedeva era sbagliato. Adesso il filmato e' lo sfondo
+/// dell'intera schermata di rivelazione e vive in `MaestroRevealScreen`; questa
+/// carta e' cio' che si vede quando un filmato non c'e', ed e' rimasta identica
+/// a com'era.
 class MaestroCardReveal extends StatefulWidget {
   const MaestroCardReveal({
     super.key,
@@ -22,7 +28,6 @@ class MaestroCardReveal extends StatefulWidget {
     this.reduceMotion = false,
     this.width = 240,
     this.height = 340,
-    this.fabbricaDelVideo = VeloDiRivelazione.lettoreVero,
   });
 
   final Maestro maestro;
@@ -30,11 +35,6 @@ class MaestroCardReveal extends StatefulWidget {
   final bool reduceMotion;
   final double width;
   final double height;
-
-  /// Chi costruisce il lettore del video. Sta qui e non dentro il velo perche'
-  /// le prove montano la carta, non il velo da solo: senza questa porta la
-  /// misura si fermerebbe un livello troppo in basso.
-  final FabbricaDiLettori fabbricaDelVideo;
 
   @override
   State<MaestroCardReveal> createState() => _MaestroCardRevealState();
@@ -139,34 +139,9 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
                     // Il Maestro che esce dalla cornice (testa sopra il bordo).
                     Positioned(
                       bottom: 8,
-                      child: SizedBox(
-                        height: widget.height + 58,
-                        child: Image.asset(
-                          widget.maestro.avatarAsset,
-                          fit: BoxFit.contain,
-                          alignment: Alignment.bottomCenter,
-                          errorBuilder: (_, __, ___) => Icon(
-                            widget.maestro.icon,
-                            size: 120,
-                            color: p.goldSoft,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // IL VIDEO DEL MAESTRO, ordine BQ, SOPRA l'immagine e mai
-                    // al suo posto: quando finisce, o se non parte affatto, si
-                    // toglie e scopre l'immagine che era li' da sempre. Nessun
-                    // passaggio da fare, quindi nessun fotogramma nero.
-                    Positioned(
-                      bottom: 8,
-                      child: SizedBox(
-                        width: widget.width,
-                        height: widget.height + 58,
-                        child: VeloDiRivelazione(
-                          maestro: widget.maestro,
-                          riduciMovimento: widget.reduceMotion,
-                          fabbrica: widget.fabbricaDelVideo,
-                        ),
+                      child: RitrattoInteroDelMaestro(
+                        maestro: widget.maestro,
+                        altezza: widget.height + 58,
                       ),
                     ),
                   ],
@@ -177,6 +152,51 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
           ),
         );
       },
+    );
+  }
+}
+
+/// LA FIGURA INTERA DEL MAESTRO, e la porta da cui passa.
+///
+/// **Esiste perche' la scelta dell'immagine del Maestro deve vivere in un punto
+/// solo, e la guardia `il_busto_e_la_forma_del_maestro_test` lo pretende
+/// sull'elenco dei file.** Le schermate in cui il Maestro presiede passano da
+/// `BustoDelMaestro`, che lo taglia dalla vita in su; qui invece il Maestro non
+/// presiede niente, e' la figura intera dentro la sua carta. Il velo della
+/// rivelazione ha bisogno della STESSA figura per tenerla sotto al filmato, e
+/// senza questa porta se la sarebbe presa da se': due punti che scelgono la
+/// stessa immagine divergono al primo cambiamento.
+class RitrattoInteroDelMaestro extends StatelessWidget {
+  const RitrattoInteroDelMaestro({
+    super.key,
+    required this.maestro,
+    required this.altezza,
+  });
+
+  final Maestro maestro;
+
+  /// L'altezza del riquadro. Nella carta e' l'altezza della cornice piu' i 58
+  /// della testa che esce dal bordo.
+  final double altezza;
+
+  /// L'altezza a cui la carta disegna la figura con le sue misure
+  /// predefinite: 340 di cornice piu' i 58 della testa che esce.
+  static const double altezzaNellaCarta = 340 + 58;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: altezza,
+      child: Image.asset(
+        maestro.avatarAsset,
+        fit: BoxFit.contain,
+        alignment: Alignment.bottomCenter,
+        errorBuilder: (_, __, ___) => Icon(
+          maestro.icon,
+          size: 120,
+          color: MaestroPalette.forKey(ThemeKey.of(maestro)).goldSoft,
+        ),
+      ),
     );
   }
 }
