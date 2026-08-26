@@ -3,26 +3,41 @@ import 'package:video_player/video_player.dart';
 
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/rivelazione_in_video.dart';
+import 'maestro_card.dart';
 
-/// IL VELO DI RIVELAZIONE: il video del Maestro, sopra la sua immagine ferma.
-/// Ordine BQ voci 2 e 3.
+/// IL VELO DI RIVELAZIONE: il video del Maestro, a schermo pieno, sotto a tutta
+/// la schermata. Ordine BQ voci 2 e 3, ordine BR voci 1 e 2.
 ///
-/// **NON SOSTITUISCE L'IMMAGINE, LE STA SOPRA, ed e' la decisione che regge
-/// tutte e due le voci.** Un widget che scambia l'immagine col video avrebbe
-/// avuto tre modi di lasciare la scena vuota: mentre il filmato si prepara, se
-/// il file non c'e', e nel fotogramma fra l'ultimo quadro e il ritorno
-/// all'immagine. Cosi' invece l'immagine e' SEMPRE in albero e il video le si
-/// posa davanti: quando finisce, o se non parte affatto, non c'e' nessun
-/// passaggio da fare e quindi nessun nero possibile.
+/// **NON E' PIU' UN INQUILINO DELLA CARTA, E' LO SFONDO DELLA SCHERMATA.**
+/// L'ordine BQ lo aveva messo dentro la cornice, al posto del ritratto: era
+/// esattamente cio' che l'ordine chiedeva, e cio' che l'ordine chiedeva era
+/// sbagliato. Parole del fondatore: "il video eravamo d'accordo che sarebbe
+/// stata full screen come sfondo", e "il video va sotto come sfondo e sopra ci
+/// metti i testi, info ecc.". Quindi il velo riempie tutto, si fa tagliare ai
+/// lati invece di lasciare due bande, e chi lo monta gli disegna sopra il testo
+/// e il piede.
 ///
-/// **Il video si riproduce una volta sola, senza ciclo**, e alla fine si toglie
-/// da solo scoprendo l'immagine che c'era gia'.
+/// **IL RITRATTO FERMO STA SEMPRE SOTTO AL FILMATO, ed e' la regola dell'ordine
+/// BQ che nessun ordine successivo tocca.** Un widget che scambiasse l'immagine
+/// col video avrebbe tre modi di lasciare la scena vuota: mentre il filmato si
+/// prepara, se il file non c'e', e nel fotogramma fra l'ultimo quadro e il
+/// ritorno all'immagine. Qui invece, ogni volta che c'e' un filmato da
+/// disegnare, sotto di lui c'e' gia' il Maestro: se la texture si svuotasse
+/// nessuno vedrebbe un rettangolo nero, vedrebbe il ritratto.
+///
+/// **IL FILMATO SI FERMA SULL'ULTIMO FOTOGRAMMA E CI RESTA**, voce BR.02.
+/// Sempre parole del fondatore: "il video si dovrebbe fermare all'ultimo frame
+/// in modo che resti come immagine fissa". Non si smonta niente e non si chiude
+/// niente quando la riproduzione arriva in fondo: si smette di riprodurre e
+/// basta, e cio' che era a video ci rimane finche' la persona non lascia la
+/// schermata.
 class VeloDiRivelazione extends StatefulWidget {
   const VeloDiRivelazione({
     super.key,
     required this.maestro,
     required this.riduciMovimento,
     this.fabbrica = lettoreVero,
+    this.ilVideoCopre,
   });
 
   final Maestro maestro;
@@ -35,9 +50,28 @@ class VeloDiRivelazione extends StatefulWidget {
   /// Chi costruisce il lettore. Le prove ne passano uno finto.
   final FabbricaDiLettori fabbrica;
 
+  /// **VERO QUANDO IL FILMATO E' A VIDEO**, in riproduzione o fermo sul suo
+  /// ultimo fotogramma. Chi monta il velo lo ascolta per togliere di scena la
+  /// carta con la cornice: due Maestri uno sopra l'altro sono la promessa
+  /// mancata che la voce BR.01 esiste per impedire. Il velo lo scrive e non lo
+  /// possiede: chi lo crea lo libera.
+  final ValueNotifier<bool>? ilVideoCopre;
+
   /// Il lettore vero, quello che usa `video_player` come gia' fa l'intro.
   static LettoreDiRivelazione lettoreVero(String asset) =>
       _LettoreConVideoPlayer(asset);
+
+  /// **PERCHE' IL RITRATTO SOTTO AL FILMATO NON E' A SCHERMO PIENO.** Sta alla
+  /// stessa altezza a cui la carta lo disegna, e la sceglie
+  /// `RitrattoInteroDelMaestro`, che e' la porta unica di quella figura. A
+  /// schermo pieno con `cover` verrebbe stirato: sul telefono di riferimento,
+  /// 360x797 punti a rapporto 3, sarebbero 2391 pixel fisici contro i 1700
+  /// della tela su cui gli avatar sono stati normalizzati, e la prova
+  /// `nessuno_disegna_oltre_la_tela` esiste per impedirlo. Sotto al filmato non
+  /// si vede comunque mai; il giorno che si vedesse, si vedrebbe il Maestro
+  /// alla misura giusta invece di un Maestro sfocato.
+  static const double altezzaDelRitratto =
+      RitrattoInteroDelMaestro.altezzaNellaCarta;
 
   @override
   State<VeloDiRivelazione> createState() => _VeloDiRivelazioneState();
@@ -46,6 +80,13 @@ class VeloDiRivelazione extends StatefulWidget {
 class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
     with WidgetsBindingObserver {
   LettoreDiRivelazione? _lettore;
+
+  /// Vero quando c'e' un fotogramma da mostrare, che sia in movimento o fermo.
+  /// **La fine del filmato NON conta come assenza**: e' la voce BR.02.
+  bool get _copre {
+    final l = _lettore;
+    return l != null && l.pronto;
+  }
 
   @override
   void initState() {
@@ -60,8 +101,7 @@ class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
 
   Future<void> _apri() async {
     if (!mounted) return;
-    final lettore =
-        widget.fabbrica(RivelazioneInVideo.assetDi(widget.maestro));
+    final lettore = widget.fabbrica(RivelazioneInVideo.assetDi(widget.maestro));
     _lettore = lettore;
     lettore.ascolta(_cambiato);
     await lettore.apri();
@@ -72,27 +112,40 @@ class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
       _lettore = null;
       return;
     }
-    setState(() {});
+    setState(_dichiaraLaCopertura);
   }
 
   void _cambiato() {
     if (!mounted) return;
-    setState(() {});
+    setState(_dichiaraLaCopertura);
+  }
+
+  /// **LA CARTA SPARISCE E IL VELO APPARE NELLO STESSO FOTOGRAMMA.** Il segnale
+  /// si scrive dentro il `setState` che ridisegna il velo, quindi chi ascolta si
+  /// sporca nello stesso giro di costruzione: non esiste un fotogramma con due
+  /// Maestri, ne uno con nessuno.
+  void _dichiaraLaCopertura() {
+    final notaio = widget.ilVideoCopre;
+    if (notaio == null) return;
+    final adesso = _copre;
+    if (notaio.value != adesso) notaio.value = adesso;
   }
 
   /// **L'APP CHE PASSA IN SECONDO PIANO CHIUDE IL FILMATO, non lo mette in
-  /// pausa.** E' la stessa regola dell'intro, presa dalla ricognizione di questa
-  /// voce, e qui il motivo e' anche piu' semplice: sotto il filmato c'e' gia'
-  /// l'immagine ferma del Maestro. Una pausa lascerebbe un fotogramma congelato
-  /// ad aspettare un ritorno che puo' arrivare mezz'ora dopo, e chi rientra
-  /// troverebbe il Maestro bloccato a meta' gesto invece del suo ritratto.
-  /// Chiudere non toglie niente a nessuno: scopre cio' che c'era gia'.
+  /// pausa.** E' la stessa regola dell'intro, presa dalla ricognizione della
+  /// voce BQ.02. Una pausa lascerebbe un fotogramma congelato ad aspettare un
+  /// ritorno che puo' arrivare mezz'ora dopo.
+  ///
+  /// **AL RITORNO SI SCOPRE LA CARTA COL RITRATTO FERMO, ed e' un esito
+  /// accettabile dichiarato dall'ordine BR**, non un difetto nascosto: il
+  /// filmato non riparte da solo, perche' un filmato che ricomincia mentre la
+  /// persona sta leggendo il suo primo momento sarebbe peggio del ritratto.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) return;
     _lettore?.chiudi();
     _lettore = null;
-    if (mounted) setState(() {});
+    if (mounted) setState(_dichiaraLaCopertura);
   }
 
   @override
@@ -109,15 +162,36 @@ class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
   @override
   Widget build(BuildContext context) {
     final lettore = _lettore;
-    // Niente lettore, non pronto, oppure gia' finito: non si disegna niente e
-    // resta cio' che c'e' sotto, cioe' l'immagine ferma. **Questo ramo e' la
-    // voce BQ.03 per intero**, e non ha bisogno di sapere PERCHE' il filmato
-    // non c'e': file assente, codec rifiutato o lettore fallito finiscono tutti
-    // qui, senza un messaggio e senza un'attesa.
-    if (lettore == null || !lettore.pronto || lettore.finito) {
+    // Niente lettore o non pronto: non si disegna niente e resta cio' che c'e'
+    // sotto, cioe' la schermata come e' sempre stata, carta compresa. **Questo
+    // ramo e' la voce BQ.03 per intero**, e non ha bisogno di sapere PERCHE' il
+    // filmato non c'e': file assente, codec rifiutato o lettore fallito
+    // finiscono tutti qui, senza un messaggio e senza un'attesa.
+    //
+    // **La fine del filmato non passa piu' di qui**: prima tornava un
+    // `SizedBox.shrink()` anche quando `finito` era vero, e l'ultimo fotogramma
+    // spariva. Voce BR.02.
+    if (lettore == null || !lettore.pronto) {
       return const SizedBox.shrink();
     }
-    return lettore.disegna();
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // IL RITRATTO FERMO, SOTTO AL FILMATO E SEMPRE. Non si vede mai finche'
+        // il filmato copre, ed e' esattamente il punto: e' la rete che rende
+        // impossibile il rettangolo nero, non una scommessa sul fatto che la
+        // texture conservi l'ultimo quadro. Sta in basso e alla sua misura,
+        // come nella carta: vedi altezzaDelRitratto.
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: RitrattoInteroDelMaestro(
+            maestro: widget.maestro,
+            altezza: VeloDiRivelazione.altezzaDelRitratto,
+          ),
+        ),
+        lettore.disegna(),
+      ],
+    );
   }
 }
 
@@ -163,10 +237,10 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
       // puo' fare.** Qui dentro finiscono tre cose che vogliono tutte la stessa
       // risposta: il file non c'e', il codec e' rifiutato, oppure non c'e'
       // nessuna piattaforma che decodifichi (una prova headless, per dirne
-      // una). In tutti e tre i casi la scena ha gia' il ritratto del Maestro
-      // sotto il velo, quindi non c'e' niente da salvare e niente da dire a
-      // nessuno: e' la voce BQ.03, la promessa mantenuta. Rilanciare
-      // trasformerebbe un filmato che manca in una schermata che si rompe.
+      // una). In tutti e tre i casi la scena ha gia' la carta col ritratto del
+      // Maestro, quindi non c'e' niente da salvare e niente da dire a nessuno:
+      // e' la voce BQ.03, la promessa mantenuta. Rilanciare trasformerebbe un
+      // filmato che manca in una schermata che si rompe.
       //
       // L'errore NON viene buttato: chi apre la console lo trova.
       debugPrint('Il video di rivelazione non parte, resta il ritratto: '
@@ -175,6 +249,11 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
     }
   }
 
+  /// **QUANDO IL FILMATO FINISCE NON SI CHIUDE NIENTE.** [finito] diventa vero e
+  /// lo dichiara a chi ascolta, ma il lettore resta vivo e la sua vista resta in
+  /// albero: e' cosi' che l'ultimo fotogramma resta a video. Misurato nella
+  /// ricognizione BR.00: dopo l'evento di fine il lettore non viene liberato, la
+  /// vista della piattaforma e' ancora montata e porta lo stesso numero.
   void _guarda() {
     final c = _c;
     if (c == null || _finito) return;
@@ -185,12 +264,18 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
     }
   }
 
+  /// **BoxFit.cover E NON contain, ed e' la voce BR.01 in una riga.** Un filmato
+  /// 9 a 16 dentro uno schermo piu' alto, con `contain`, lascia due bande: si
+  /// vedrebbe il cosmo sopra e sotto il Maestro invece di uno sfondo pieno. Con
+  /// `cover` il filmato riempie e si fa tagliare ai lati, che e' cio' che il
+  /// fondatore ha chiesto con la parola "full screen".
   @override
   Widget disegna() {
     final c = _c;
     if (c == null) return const SizedBox.shrink();
     return FittedBox(
-      fit: BoxFit.contain,
+      fit: BoxFit.cover,
+      clipBehavior: Clip.hardEdge,
       child: SizedBox(
         width: c.value.size.width,
         height: c.value.size.height,
