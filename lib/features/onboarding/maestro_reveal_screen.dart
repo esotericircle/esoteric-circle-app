@@ -10,6 +10,7 @@ import '../../core/astro/natal_chart_controller.dart';
 import '../../core/astro/natal_poetics.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/rivelazione_in_video.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -19,6 +20,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/breath_detector.dart';
 import 'widgets/maestro_card.dart';
 import 'widgets/ritual_object.dart';
+import 'widgets/velo_di_rivelazione.dart';
 import 'widgets/sensory_reveal.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 
@@ -36,10 +38,17 @@ class MaestroRevealScreen extends StatefulWidget {
     super.key,
     required this.maestro,
     required this.onRevealed,
+    this.fabbricaDelVideo = VeloDiRivelazione.lettoreVero,
   });
 
   final Maestro maestro;
   final ValueChanged<Maestro> onRevealed;
+
+  /// Chi costruisce il lettore del video. Stava sulla carta, ordine BQ; da
+  /// quando il filmato e' lo sfondo della schermata, ordine BR voce 1, la porta
+  /// sta qui: le prove montano questa schermata, e senza questa riga la misura
+  /// si fermerebbe un livello troppo in basso.
+  final FabbricaDiLettori fabbricaDelVideo;
 
   @override
   State<MaestroRevealScreen> createState() => _MaestroRevealScreenState();
@@ -70,6 +79,12 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
 
   bool _showCoach = false;
   bool _showSafetyTap = false;
+
+  /// **VERO QUANDO IL FILMATO E' A VIDEO**, in riproduzione o fermo sull'ultimo
+  /// fotogramma. Lo scrive il velo, lo legge la carta: finche' e' vero la carta
+  /// con la cornice non si monta, perche' mostrerebbe un secondo Maestro sopra
+  /// il primo. Voce BR.01.
+  final ValueNotifier<bool> _ilVideoCopre = ValueNotifier<bool>(false);
 
   // Soglie generose e perdonanti: il soffio piu' lieve basta e il dito reagisce
   // subito.
@@ -199,6 +214,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
     _ticker.dispose();
     _levelSub?.cancel();
     _breath.dispose();
+    _ilVideoCopre.dispose();
     super.dispose();
   }
 
@@ -222,92 +238,131 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
             delta: const Offset(9, 0),
           )),
       behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.lg),
-        child: Column(
-          children: [
-            const SizedBox(height: SpacingTokens.md),
-            Text(
-              _revealed ? 'Il tuo Maestro' : 'La rivelazione',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 3),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // IL VIDEO E' LO SFONDO DELLA SCHERMATA, ordine BR voce 1, e sta qui
+          // come PRIMO figlio dello Stack perche' qui vuol dire sotto: il
+          // testo in alto, la carta e il piede coi pulsanti si disegnano dopo,
+          // quindi sopra. Parole del fondatore: "il video va sotto come sfondo
+          // e sopra ci metti i testi, info ecc. ma tienili come sono adesso in
+          // basso cosi' copre solo la parte bassa del video, quindi dalla vita
+          // in giu' di ogni maestro". Non c'e' nessun Positioned: con
+          // StackFit.expand il velo riceve gia' le misure intere della
+          // schermata, bordi compresi.
+          //
+          // **Nasce solo a rivelazione avvenuta**: prima c'e' il rito del
+          // soffio, e un filmato che parte mentre la persona soffia sarebbe
+          // l'inizio della storia raccontato durante la domanda.
+          if (_revealed)
+            VeloDiRivelazione(
+              maestro: widget.maestro,
+              riduciMovimento: reduceMotion,
+              fabbrica: widget.fabbricaDelVideo,
+              ilVideoCopre: _ilVideoCopre,
             ),
-            const SizedBox(height: SpacingTokens.xs),
-            Text(
-              _revealed ? widget.maestro.displayName : _title,
-              style: TypographyTokens.cerimoniale(),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: SpacingTokens.md),
-            Expanded(
-              child: Center(
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: reduceMotion ? 0 : 600),
-                  child: _revealed
-                      ? MaestroCardReveal(
-                          key: const ValueKey('card'),
-                          maestro: widget.maestro,
-                          palette: palette,
-                          reduceMotion: reduceMotion,
-                        )
-                      : _RitualStage(
-                          key: const ValueKey('ritual'),
-                          maestro: widget.maestro,
-                          palette: palette,
-                          progress: _progress,
-                          level: _reactLevel,
-                          showCoach: _showCoach,
-                          micAvailable: _micAvailable,
-                          reduceMotion: reduceMotion,
-                        ),
+          Padding(
+            padding: const EdgeInsets.all(SpacingTokens.lg),
+            child: Column(
+              children: [
+                const SizedBox(height: SpacingTokens.md),
+                Text(
+                  _revealed ? 'Il tuo Maestro' : 'La rivelazione',
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 3),
                 ),
-              ),
+                const SizedBox(height: SpacingTokens.xs),
+                Text(
+                  _revealed ? widget.maestro.displayName : _title,
+                  style: TypographyTokens.cerimoniale(),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: SpacingTokens.md),
+                Expanded(
+                  child: Center(
+                    child: ValueListenableBuilder<bool>(
+                      valueListenable: _ilVideoCopre,
+                      builder: (context, copre, _) {
+                        // **LA CARTA SE NE VA DI COLPO, senza dissolvenza**, ordine
+                        // BR voce 1. Non e' un ramo dell'AnimatedSwitcher apposta:
+                        // una dissolvenza di sei decimi mostrerebbe il Maestro
+                        // della cornice sfumare SOPRA il Maestro del filmato, che
+                        // e' proprio il secondo Maestro che questa voce vieta. Lo
+                        // spazio resta suo, quindi il testo sopra e il piede sotto
+                        // non si muovono di un punto.
+                        if (copre) return const SizedBox.expand();
+                        return AnimatedSwitcher(
+                          duration: Duration(milliseconds: reduceMotion ? 0 : 600),
+                          child: _revealed
+                              ? MaestroCardReveal(
+                                  key: const ValueKey('card'),
+                                  maestro: widget.maestro,
+                                  palette: palette,
+                                  reduceMotion: reduceMotion,
+                                )
+                              : _RitualStage(
+                                  key: const ValueKey('ritual'),
+                                  maestro: widget.maestro,
+                                  palette: palette,
+                                  progress: _progress,
+                                  level: _reactLevel,
+                                  showCoach: _showCoach,
+                                  micAvailable: _micAvailable,
+                                  reduceMotion: reduceMotion,
+                                ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: SpacingTokens.md),
+                if (_revealed)
+                  _RevealedFooter(
+                    key: const Key('reveal_footer'),
+                    maestro: widget.maestro,
+                    palette: palette,
+                    identity: identity,
+                    chart: chart,
+                    onEnter: () => widget.onRevealed(widget.maestro),
+                  )
+                else
+                  // LA SCELTA RESTA, senza limite di tempo.
+                  //
+                  // Qui c'era un `else if (_showSafetyTap)` che SOSTITUIVA questo
+                  // blocco: dopo qualche secondo l'invito a soffiare spariva e
+                  // restava il solo "Tocca per svelare". Chi stava ancora
+                  // decidendo si vedeva togliere una delle due strade sotto gli
+                  // occhi. Adesso il tocco si AGGIUNGE come aiuto, e il soffio non
+                  // sparisce finche' la persona non ha deciso.
+                  Column(
+                    children: [
+                      ParagrafiDiLettura(testo: _micAvailable
+                            ? 'Soffia dolcemente, oppure trascina il dito per svelare'
+                            : 'Trascina il dito per svelare, come un gratta e vinci', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                            .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+                      // Il microfono si chiede solo qui, quando l'utente sceglie la
+                      // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
+                      if (!_micAvailable && !_micAsked) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        _VoiceInvite(
+                            key: const Key('reveal_voice_invite'),
+                            palette: palette,
+                            onTap: _askMic),
+                      ],
+                      if (_showSafetyTap) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        _SafetyTapInvite(
+                            key: const Key('reveal_safety_tap'),
+                            palette: palette,
+                            onTap: _finishByTap),
+                      ],
+                    ],
+                  ),
+                const SizedBox(height: SpacingTokens.md),
+              ],
             ),
-            const SizedBox(height: SpacingTokens.md),
-            if (_revealed)
-              _RevealedFooter(
-                maestro: widget.maestro,
-                palette: palette,
-                identity: identity,
-                chart: chart,
-                onEnter: () => widget.onRevealed(widget.maestro),
-              )
-            else
-              // LA SCELTA RESTA, senza limite di tempo.
-              //
-              // Qui c'era un `else if (_showSafetyTap)` che SOSTITUIVA questo
-              // blocco: dopo qualche secondo l'invito a soffiare spariva e
-              // restava il solo "Tocca per svelare". Chi stava ancora
-              // decidendo si vedeva togliere una delle due strade sotto gli
-              // occhi. Adesso il tocco si AGGIUNGE come aiuto, e il soffio non
-              // sparisce finche' la persona non ha deciso.
-              Column(
-                children: [
-                  ParagrafiDiLettura(testo: _micAvailable
-                        ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                        : 'Trascina il dito per svelare, come un gratta e vinci', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
-                  // Il microfono si chiede solo qui, quando l'utente sceglie la
-                  // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
-                  if (!_micAvailable && !_micAsked) ...[
-                    const SizedBox(height: SpacingTokens.sm),
-                    _VoiceInvite(
-                        key: const Key('reveal_voice_invite'),
-                        palette: palette,
-                        onTap: _askMic),
-                  ],
-                  if (_showSafetyTap) ...[
-                    const SizedBox(height: SpacingTokens.sm),
-                    _SafetyTapInvite(
-                        key: const Key('reveal_safety_tap'),
-                        palette: palette,
-                        onTap: _finishByTap),
-                  ],
-                ],
-              ),
-            const SizedBox(height: SpacingTokens.md),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -538,6 +593,7 @@ class _VoiceInvite extends StatelessWidget {
 
 class _RevealedFooter extends StatelessWidget {
   const _RevealedFooter({
+    super.key,
     required this.maestro,
     required this.palette,
     required this.identity,
