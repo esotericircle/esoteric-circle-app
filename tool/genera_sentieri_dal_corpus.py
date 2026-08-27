@@ -29,7 +29,12 @@ RADICE = pathlib.Path(__file__).resolve().parent.parent
 # giorni dentro tre, cioe' che non potevano maturare mai. La D2 applica la
 # LEGGE DELLA FINESTRA, l'arco vale circa una volta e mezza il numero
 # richiesto, e cosi' sette gradini dichiarati dormienti tornano vivi.
-CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_D2.json'
+# **IL CORPUS E' LA REVISIONE E. Ordine BS voce 01.** La D2 lasciava
+# centotrentadue voci senza 'cosa apre', che e' il campo di ammissione, e una
+# soglia che prometteva ventidue Arcani Maggiori e ne chiedeva uno. La E porta
+# le sezioni, la ragione di ogni voce, la porta che apre su tutte e 165 e
+# cinquantuno dormienti dichiarati dal corpus stesso invece che dedotti.
+CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_E.json'
 
 # I gesti che l'app REGISTRA davvero, censiti sui punti che chiamano la regia.
 # Una condizione che chiedesse un gesto fuori da questo elenco non potrebbe
@@ -46,6 +51,19 @@ GESTI_VIVI = {
 
 # Come si chiama, nel corpus, ciascun gesto dell'app.
 NOMI_DEI_GESTI = [
+    # **I NOMI DELLA REVISIONE E.** Ordine BS voce 01. Il corpus E scrive le
+    # condizioni in seconda persona e chiama i doni col nome di oggi:
+    # l'Arcano del Giorno al posto dell'Oracolo, il Segno del Tramonto al
+    # posto della Runa. Senza queste righe quarantaquattro voci non venivano
+    # riconosciute da nessuna regola e sarebbero dormite per un motivo che non
+    # esiste.
+    ('arcani del giorno', 'oracolo'),
+    ('arcano del giorno', 'oracolo'),
+    ('segni del tramonto', 'tramonto'),
+    ('segno del tramonto', 'tramonto'),
+    ('settantadue angeli', 'angelo_custode'),
+    ('persona famosa', 'sinastria'),
+    ('persone famose', 'sinastria'),
     # I PLURALI CONTANO: il corpus dice "Tre Oracoli del Giorno", e un elenco
     # che conosce solo il singolare lascia dormienti cinque traguardi veri.
     ('oracoli del giorno', 'oracolo'),
@@ -95,11 +113,18 @@ NUMERI = {
     'trentacinque': 35, 'quaranta': 40, 'quarantatre': 43,
     'quarantacinque': 45, 'cinquanta': 50, 'sessanta': 60, 'settanta': 70,
     'settantotto': 78, 'ottanta': 80, 'novanta': 90, 'cento': 100,
+    'cinquantaquattro': 54, 'settantadue': 72, 'trentanove': 39,
     'centoventi': 120, 'centottanta': 180, 'trecentosessantacinque': 365,
 }
 
 # Gli eventi del cielo, come li nomina il corpus.
 EVENTI = [
+    # **I NOMI DELLA REVISIONE E.** Ordine BS voce 01: il corpus E dice "passa
+    # sul grado del tuo Sole di nascita" dove la D2 diceva "transita sul tuo
+    # Sole". Il motore del cielo e' lo stesso, cambia solo come lo si nomina.
+    ('grado del tuo sole', 'transitoSulSole'),
+    ('grado del tuo ascendente', 'transitoSullAscendente'),
+    ('grado della tua luna', 'transitoSullaLuna'),
     # **I PIU' SPECIFICI PRIMA**: "Luna piena nel tuo segno" e' un evento suo,
     # e riconoscerlo come "luna piena" perderebbe proprio cio' che lo rende
     # raro. Il motore del cielo li ha gia' tutti.
@@ -182,12 +207,32 @@ def eventoIn(testo):
 def regolaDormienteDichiarato(v, testo):
     """Il corpus stesso dice che quella voce dorme."""
     if v.get('dormiente'):
-        return 'DORMIENTE', v.get('note') or 'dichiarato dormiente dal corpus'
+        # **IL PERCHE' NON PUO' ESSERE UN TELEGRAMMA.** Ordine BS voce 01: la
+        # revisione E scrive note brevissime come "DORMIENTE: fase 4", e chi
+        # trovera' quel gradino fra sei mesi non sapra' cosa manca. Si compone
+        # la ragione lunga attorno alla nota del corpus, senza toccarla: la
+        # nota resta verbatim, e attorno c'e' scritto chi lo ha deciso.
+        nota = (v.get('note') or '').strip()
+        if nota.upper().startswith('DORMIENTE'):
+            nota = nota.split(':', 1)[1].strip() if ':' in nota else nota
+        if not nota:
+            nota = 'nessuna ragione scritta nel corpus'
+        return ('DORMIENTE',
+                'il corpus della revisione E lo dichiara dormiente. La sua '
+                'ragione e\' questa: ' + nota)
     return None
 
 
 def regolaGradini(v, testo):
-    if 'gradini alle spalle' not in testo:
+    """I gradini di un sentiero che si hanno gia' alle spalle.
+
+    **LA REVISIONE E SPEZZA LA FRASE.** Ordine BS voce 01: il corpus E dice
+    "Dieci gradini qualunque della Costellazione alle spalle", e cercare la
+    coppia di parole attaccata, come faceva la revisione D2 con "gradini alle
+    spalle", non trovava piu' niente. Sono le quindici perle dei tre sentieri:
+    senza questa riga dormivano tutte e quindici, cioe' ogni gradino grande.
+    """
+    if 'gradini' not in testo or 'alle spalle' not in testo:
         return None
     # "Tutti i gradini alle spalle" e' il gradino che chiude il sentiero: sono
     # i cinquantaquattro che lo precedono.
@@ -224,6 +269,15 @@ def regolaVarieta(v, testo):
     if 'arcano maggiore' in testo or 'arcani maggiori' in testo or 'ventidue maggiori' in testo:
         quanti = numeroIn(testo) or 22
         return f"VarietaDelDettaglio('stesa', 'maggiori', {quanti})", None
+    # **"TRENTANOVE CARTE DIVERSE" E' UNA VARIETA', non un conteggio di stese.**
+    # Ordine BS voce 01: senza questa riga la frase finiva nella regola del
+    # conteggio e diventava "una Stesa qualunque", cioe' la stessa condizione
+    # della primissima Stesa. Lo ha trovato la guardia che vieta due traguardi
+    # con la stessa firma.
+    if 'carte diverse' in testo:
+        quanti = numeroIn(testo)
+        if quanti:
+            return f"VarietaDelDettaglio('stesa', 'carte', {quanti})", None
     if 'carta del mazzo' in testo or 'carte del mazzo' in testo or 'settantotto' in testo:
         return "VarietaDelDettaglio('stesa', 'carte', 78)", None
     if 'elder futhark' in testo or ('runa' in testo and 'ogni' in testo):
@@ -366,6 +420,62 @@ def regolaCostanzaLarga(v, testo):
     return f"GiorniDentroUnArco('{gesto}', {quanti}, {arco})", None
 
 
+def regolaCostanzaDentro(v, testo):
+    """**"DUE SEGNI DEL TRAMONTO DENTRO TRE GIORNI".** Ordine BS voce 01.
+
+    La revisione D2 diceva "nell'arco di 3 giorni" e scriveva i numeri in
+    cifre; la E dice "dentro tre giorni" e li scrive in lettere. E' la stessa
+    condizione, `GiorniDentroUnArco`, e senza questa regola le voci di costanza
+    larga della E finivano nella regola del conteggio, che le avrebbe rese
+    "due gesti in tutto", cioe' un traguardo di costanza regalato in un
+    pomeriggio.
+    """
+    if 'dentro' not in testo:
+        return None
+    m = re.search(r'dentro\s+([a-z]+)\s+giorni', testo)
+    if m is None:
+        return None
+    arco = numeroIn(m.group(1))
+    if arco is None:
+        return None
+    gesto = 'presenza' if 'presenza' in testo else gestoIn(testo)
+    if gesto is None:
+        return None
+    quanti = numeroIn(testo.split('dentro')[0])
+    if quanti is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', f'il gesto {gesto} non arriva alla regia'
+    # **UN ARCO PIU' STRETTO DI QUANTI GIORNI SERVONO E' IMPOSSIBILE**, e si
+    # dichiara invece di aggiustarlo di nascosto: il dato va corretto nel
+    # corpus, non qui.
+    if arco < quanti:
+        return ('DORMIENTE',
+                'il corpus chiede %d giorni dentro un arco di %d, che e '
+                'aritmeticamente impossibile: il dato va corretto nel corpus'
+                % (quanti, arco))
+    return f"GiorniDentroUnArco('{gesto}', {quanti}, {arco})", None
+
+
+def regolaModiDellaGettata(v, testo):
+    """**I MODI DI GETTARE LE RUNE.** Ordine BS voce 01.
+
+    "Provi due modi diversi di gettare le rune" e "Ogni modo di gettare le rune
+    provato almeno una volta" sono varieta' sul dettaglio `modo`, che la
+    schermata della gettata manda davvero. Senza questa regola la prima
+    finiva nel conteggio come "due gettate qualunque", che e' un'altra cosa.
+    """
+    if 'gettare le rune' not in testo and 'modi di gettare' not in testo:
+        return None
+    if 'ogni modo' in testo or 'tutti i modi' in testo:
+        return "VarietaDelDettaglio('gettata', 'modo', 4)", None
+    if 'modi' in testo:
+        quanti = numeroIn(testo)
+        if quanti:
+            return f"VarietaDelDettaglio('gettata', 'modo', {quanti})", None
+    return None
+
+
 def regolaGiorniDiSeguito(v, testo):
     if 'consecutiv' not in testo and 'di seguito' not in testo:
         return None
@@ -413,7 +523,14 @@ def regolaStessoGiorno(v, testo):
 
 
 def regolaRitorno(v, testo):
-    if 'assenza' not in testo and 'torni nel cerchio' not in testo:
+    """Chi torna dopo essere stato via.
+
+    **LA REVISIONE E NON DICE PIU' "ASSENZA".** Ordine BS voce 01: dice "Torni
+    a Medora dopo sette giorni in cui non l'hai cercata". La parola che regge
+    la condizione e' il verbo, non il sostantivo.
+    """
+    if ('assenza' not in testo and 'torni nel cerchio' not in testo
+            and not (testo.startswith('torni a') and 'giorni' in testo)):
         return None
     quanti = numeroIn(testo) or 3
     return f"RitornoDopoAssenza({quanti})", None
@@ -441,8 +558,13 @@ def regolaIdentita(v, testo):
         ('ora precisa della tua nascita', 'ora_di_nascita'),
         ('ora della tua nascita', 'ora_di_nascita'),
         ('volto', 'viso'),
+        ('data, ora e luogo', 'nascita_completa'),
+        ('sigillo personale', 'sigillo_del_cerchio'),
+        ('nome proprio', 'nome_proprio'),
+        ('luna della tua carta', 'luna_natale'),
+        ('numero che ti accompagna', 'numero_della_vita'),
     ]
-    if v.get('ragione') != 'Identità':
+    if v.get('ragione') not in ('Identità', 'Identita', "Identita'"):
         return None
     for nome, pezzo in pezzi:
         if nome in testo:
@@ -468,6 +590,125 @@ def regolaCondivisione(v, testo):
 
 
 def regolaNonCostruibile(v, testo):
+    # **QUANDO DUE FRASI DIVERSE FINISCONO SULLA STESSA CONDIZIONE, UNA DELLE
+    # DUE STA FINGENDO.** Ordine BS voce 00. Le ha trovate la guardia che vieta
+    # a due traguardi di chiedere la stessa identica cosa: ognuna di queste
+    # frasi promette qualcosa in piu' di cio' che la condizione misura, e senza
+    # queste righe il gradino si accendeva sul gesto nudo, cioe' regalava una
+    # promessa che non aveva mantenuto.
+    if 'senza interrompersi' in testo or 'fino alla fine' in testo:
+        return ('DORMIENTE',
+                "il Soffio non dice se e' stato tenuto fino alla fine: la "
+                'scena manda il gesto compiuto e basta. Servirebbe che '
+                "passasse la durata e l'interruzione")
+    if 'prima che il sole sorga' in testo:
+        return ('DORMIENTE',
+                "l app sa se un gesto cade nell ora rituale dell alba, non se "
+                'cade PRIMA del sorgere vero nel luogo di chi lo compie: '
+                "servirebbe l'ora del sorgere confrontata con l'istante del "
+                'gesto')
+    if 'ne avevi saltati' in testo:
+        return ('DORMIENTE',
+                "il diario conta i giorni di assenza dall app, non quelli in "
+                'cui si e saltato UN gesto in particolare: e una memoria per '
+                'rito che non tiene')
+    if 'con quella di un' in testo and 'persona' in testo:
+        return ('DORMIENTE',
+                'confrontare la propria lettura con quella di un altro chiede '
+                "il Cerchio degli altri, che nell app non esiste")
+    if 'cielo ti e' in testo and 'contrario' in testo:
+        return ('DORMIENTE',
+                'il catalogo del cielo non conosce nessun evento che si chiami '
+                "cielo contrario: sono transiti, fasi e retrogradi. "
+                'Inventarne uno vorrebbe dire inventare un astrologia')
+    if 'nella notte del solstizio' in testo:
+        return ('DORMIENTE',
+                "l ora del rito non viaggia con l'evento del cielo: l app sa "
+                'che oggi e solstizio e che il gesto e stato compiuto, non che '
+                'sia stato compiuto di notte')
+    if 'torni a medora' in testo:
+        return ('DORMIENTE',
+                "l app registra i gesti, non da quale Maestro si torni: "
+                '"torni a Medora dopo sette giorni" e "torni a Caligo dopo '
+                'sette giorni" misurano lo stesso identico fatto. Due '
+                'gradini per un fatto solo sono un gradino detto due volte')
+    # **LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO NON SI PUO' MISURARE.**
+    # Ordine BS voce 00. Il diario conta quante volte un valore e' tornato DA
+    # SEMPRE, non quante volte e' tornato dentro una settimana o dentro un mese:
+    # sono due domande diverse, e rispondere alla prima fingendo di rispondere
+    # alla seconda regala un traguardo dell anno al primo giorno.
+    #
+    # **Non e' teoria: e' il difetto trovato da questa voce.** med_31 prometteva
+    # "lo stesso Arcano del Giorno esce due volte in una settimana" e chiedeva
+    # una coincidenza sola, cioe' si accendeva alla prima carta; aur_32
+    # prometteva "lo stesso archetipo esce due volte in una settimana" e
+    # chiedeva un archetipo qualunque, cioe' si accendeva al primo test.
+    if ('stesso' in testo or 'stessa' in testo) and (
+            'in una settimana' in testo or 'in un mese' in testo
+            or 'in tre mesi' in testo or 'a distanza di' in testo):
+        return ('DORMIENTE',
+                'il diario conta le ripetizioni DA SEMPRE, non dentro una '
+                'finestra di tempo: "due volte in una settimana" chiede una '
+                'memoria con le date che il diario non tiene')
+    # **CIO' CHE ESCE DALL ARCANO DEL GIORNO NON VIAGGIA.** La scena manda il
+    # gesto e basta: quale carta sia uscita non lo sa nessuno, quindi "lo stesso
+    # Arcano" non e' verificabile.
+    if 'stesso arcano del giorno' in testo or 'stesso arcano' in testo and 'giorno' in testo:
+        return ('DORMIENTE',
+                "l Arcano del Giorno non passa quale carta e' uscita: la scena "
+                'manda il gesto e basta. Servirebbe un dettaglio nuovo')
+    # **IL CONTENUTO DI UN SOGNO NON VIAGGIA.** Vale per il simbolo che torna e
+    # per l Animale Guida che vi compare: il rito manda il gesto, non cio' che
+    # si e' sognato.
+    if 'sogn' in testo and ('compare' in testo or 'simbolo' in testo
+                            or 'annotat' in testo):
+        return ('DORMIENTE',
+                'il rito del sogno non passa cio che si e sognato: la scena '
+                'manda il gesto e basta. Servirebbe un dettaglio nuovo')
+    # **UNA RILETTURA CHE TROVA QUALCOSA DI DIVERSO** chiede di confrontare due
+    # letture nel tempo: il diario tiene i conti, non le letture.
+    if 'rilegg' in testo and 'divers' in testo:
+        return ('DORMIENTE',
+                'confrontare due letture a distanza di tempo chiede la memoria '
+                'delle letture, che il diario non tiene: tiene i conti')
+    # **LE VOCI DELLA REVISIONE E CHE CHIEDONO CIO' CHE L'APP NON MISURA.**
+    # Ordine BS voce 00. Ognuna dice quale gesto o quale dettaglio manca e dove
+    # andrebbe registrato: e' la differenza fra un traguardo che aspetta e un
+    # traguardo che finge.
+    if 'leggi fino in fondo' in testo or 'fino in fondo' in testo:
+        return ('DORMIENTE',
+                'la lettura FINO IN FONDO non arriva alla regia: la schermata '
+                "manda il gesto quando si apre, non quando si e' letta tutta. "
+                'Servirebbe che la scena segnasse la fine della lettura')
+    if 'rovesciat' in testo:
+        return ('DORMIENTE',
+                'la carta rovesciata non viaggia coi dettagli della stesa: la '
+                "scena manda carte, semi, maggiori e argomento. Servirebbe un "
+                'dettaglio nuovo, il verso della carta')
+    if 'runa coperta' in testo or 'girandola tu' in testo:
+        return ('DORMIENTE',
+                'girare una runa coperta invece di lasciarla al caso e un '
+                'gesto che la scena non distingue: manda la gettata e il suo '
+                'modo, non chi ha scoperto la runa')
+    if 'gli altri del cerchio' in testo:
+        return ('DORMIENTE',
+                'guardare cosa accompagna gli altri chiede il Cerchio degli '
+                'altri, che nell app non esiste: nessuna schermata lo mostra e '
+                'nessun gesto lo registra')
+    if 'sogni annotati' in testo or ('simbolo' in testo and 'sogn' in testo):
+        return ('DORMIENTE',
+                'il sogno non passa i propri simboli: la scena manda il gesto '
+                'e basta. Servirebbe un dettaglio nuovo sul rito del sogno')
+    if 'stessa ora' in testo:
+        return ('DORMIENTE',
+                "l app sa se un gesto cade nell ora rituale dell alba, del "
+                'tramonto o della notte, non se cade sempre alla STESSA ora: '
+                'servirebbe la memoria dell ora di ogni gesto')
+    if 'in privato' in testo:
+        return ('DORMIENTE',
+                'mandare un responso in privato invece che al mondo chiede il '
+                'canale della condivisione, che il gesto non porta: la regia '
+                'sa che si e condiviso, non dove')
     # **QUATTRO CONDIZIONI CHE L'APP OGGI NON SA RISPONDERE**, e il motivo va
     # scritto per intero perche' l'Architetto sappia cosa manca.
     if 'transiti di oggi' in testo and 'archetipo' in testo:
@@ -515,6 +756,26 @@ def regolaNonCostruibile(v, testo):
     return None
 
 
+def regolaScoperta(v, testo):
+    """**"SCOPRI QUALE DEI SETTANTADUE ANGELI TI ACCOMPAGNA" E' UNA VOLTA SOLA.**
+
+    Ordine BS voce 01. Il numero che la frase nomina dice quanti ce ne sono in
+    tutto, non quante volte bisogna compiere il gesto: senza questa regola il
+    conteggio leggeva settantadue e chiedeva settantadue scoperte dell Angelo
+    custode, cioe' un traguardo dei primi giorni diventava irraggiungibile.
+    Lo ha trovato la prova della curva, guardando quali gradini non si
+    accendevano mai in un anno.
+    """
+    if 'quale dei' not in testo and 'quale delle' not in testo:
+        return None
+    gesto = gestoIn(testo)
+    if gesto is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', f'il gesto {gesto} non arriva alla regia'
+    return f"GestiCompiuti('{gesto}', 1)", None
+
+
 def regolaConteggio(v, testo):
     """L'ultima spiaggia: quante volte un gesto e' stato compiuto."""
     gesto = gestoIn(testo)
@@ -530,6 +791,86 @@ def regolaConteggio(v, testo):
     return f"GestiCompiuti('{gesto}', {quanti})", None
 
 
+# --- LA VERIFICA, dopo la traduzione ---------------------------------------
+#
+# **UN TRAGUARDO CHE FINGE DI MISURARE E' PEGGIO DI UNO CHE ASPETTA.** Ordine BS
+# voce 00. Una regola puo' produrre un costruttore ben formato che pero' nomina
+# un gesto che nessuna schermata manda, un dettaglio che la scena non passa o un
+# pezzo dell'identita' che non esiste: la condizione compila, non e' dormiente,
+# e non si accendera' mai. E' successo davvero, e nessuno se n'era accorto.
+#
+# Qui si controlla ogni costruttore contro il vocabolario VERO dell'app, censito
+# dal codice e non ricordato a memoria. Cio' che non passa diventa dormiente col
+# suo perche', come tutto il resto.
+
+# I dettagli che ogni scena manda davvero, letti uno per uno dalle chiamate a
+# `dopoUnGesto`. Un dettaglio fuori da qui e' un dettaglio che non viaggia.
+DETTAGLI_VIVI = {
+    'stesa': {'carte', 'semi', 'maggiori', 'argomento'},
+    'gettata': {'modo'},
+    'tramonto': {'runa'},
+    'sinastria': {'vip'},
+    'oroscopo': {'periodo'},
+    'archetipo': {'archetipo'},
+    'animale_guida': {'animale'},
+}
+
+# I pezzi dell'identita' che maturano davvero: i nove di
+# `PezziDellIdentita.tutti` piu' i quattro composti che
+# `RegiaDelCammino.pezziDellIdentitaMaturi` aggiunge.
+PEZZI_VIVI = {
+    'carta_natale', 'passaporto', 'angelo_custode', 'animale_guida',
+    'archetipo', 'viso', 'numero_della_vita', 'ora_di_nascita',
+    'luogo_di_nascita',
+    'nascita_completa', 'sigillo_del_cerchio', 'luna_natale', 'nome_proprio',
+}
+
+# I gesti del Cerchio che la regia deriva davvero.
+CERCHIO_VIVI = {'condivisione_stella', 'condivisione_frutto',
+                'condivisione_petalo'}
+
+# I riti su cui il diario tiene una serie di giorni.
+RITI_VIVI = set(GESTI_VIVI) | {'presenza'}
+
+
+def verifica(costruttore):
+    """Il motivo per cui questo costruttore non potrebbe accendersi mai."""
+    m = re.match(r"(\w+)\((.*)\)$", costruttore, re.S)
+    if m is None:
+        return None
+    forma, dentro = m.group(1), m.group(2)
+    pezzi = [p.strip().strip(chr(39)) for p in dentro.split(',')]
+    if forma in ('VarietaDelDettaglio', 'CoincidenzaDelDettaglio'):
+        gesto, chiave = pezzi[0], pezzi[1]
+        if gesto not in DETTAGLI_VIVI:
+            return (f'il gesto {gesto} non passa nessun dettaglio alla regia, '
+                    f'quindi la varieta di {chiave} non si puo contare')
+        if chiave not in DETTAGLI_VIVI[gesto]:
+            return (f'il dettaglio {chiave} non viaggia col gesto {gesto}: la '
+                    f'scena manda {", ".join(sorted(DETTAGLI_VIVI[gesto]))}')
+    elif forma == 'PezzoDellIdentita':
+        if pezzi[0] not in PEZZI_VIVI:
+            return (f'il pezzo dell identita {pezzi[0]} non matura mai: non e '
+                    'fra quelli che la regia compone')
+    elif forma == 'GestoDelCerchio':
+        if pezzi[0] not in CERCHIO_VIVI:
+            return (f'il gesto del Cerchio {pezzi[0]} non arriva alla regia')
+    elif forma in ('GiorniDiSeguito', 'GiorniDentroUnArco'):
+        if pezzi[0] not in RITI_VIVI:
+            return f'il rito {pezzi[0]} non arriva alla regia'
+    elif forma == 'GestiCompiuti':
+        if pezzi[0] not in GESTI_VIVI:
+            return f'il gesto {pezzi[0]} non arriva alla regia'
+    elif forma == 'GestiNelloStessoGiorno':
+        for g in re.findall(chr(39) + r"(\w+)" + chr(39), dentro):
+            if g not in GESTI_VIVI:
+                return f'il gesto {g} non arriva alla regia'
+    elif forma == 'GradiniAlleSpalle':
+        if pezzi[0] not in ('costellazione', 'albero', 'loto'):
+            return f'il sentiero {pezzi[0]} non esiste'
+    return None
+
+
 REGOLE = [
     regolaDormienteDichiarato,
     # **CIO' CHE NON SI PUO' COSTRUIRE VIENE PRIMA DI TUTTO IL RESTO**, e
@@ -543,17 +884,29 @@ REGOLE = [
     regolaCoincidenza,
     regolaCielo,
     regolaCostanzaLarga,
+    regolaCostanzaDentro,
+    regolaModiDellaGettata,
     regolaGiorniDiSeguito,
     regolaStessoGiorno,
     regolaRitorno,
     regolaMemoria,
     regolaIdentita,
     regolaCondivisione,
+    regolaScoperta,
     regolaConteggio,
 ]
 
 
 FAMIGLIE = {
+    # **LE RAGIONI DELLA REVISIONE E.** Ordine BS voce 01: la E scrive
+    # "Profondita'" e "Identita'" con l'apostrofo e aggiunge "Ritorno" e
+    # "Perla". Senza queste righe ogni dormiente di quelle ragioni finiva nella
+    # famiglia di ripiego, e i minimi di famiglia cadevano su tre sentieri per
+    # un motivo che non c'entrava niente col cammino.
+    "Profondita'": 'profondita',
+    "Identita'": 'identita',
+    'Ritorno': 'ritorno',
+    'Perla': 'profondita',
     'Cielo': 'cielo',
     'Costanza': 'ritorno',
     'Coincidenza': 'giornata',
@@ -589,11 +942,51 @@ NOMI_NUOVI_DEI_DONI = {
 }
 
 
+# --- GLI ACCENTI VERI, e non l'apostrofo -----------------------------------
+#
+# **IL CORPUS SCRIVE "e\'" E "Meta\'", L'APP DEVE MOSTRARE "è" E "Metà".** Il
+# corpus e' un file di lavoro e chi lo scrive batte l'apostrofo; le stringhe che
+# finiscono a video, invece, hanno una regola di casa sorvegliata da
+# `testo_a_video_test`: l'accento e' un accento, non un apostrofo, perche' a
+# video la differenza si vede e fa sembrare l'app scritta male.
+#
+# **Non e' una riformulazione**: la parola resta identica, cambia il segno che
+# la chiude. I testi del corpus si usano verbatim, e questa e' ortografia, non
+# scrittura.
+VOCALI_ACCENTATE = {'a': 'à', 'e': 'è', 'i': 'ì', 'o': 'ò', 'u': 'ù'}
+
+# Le parole che vogliono l'accento ACUTO e non grave: sono quelle in -che' e i
+# due monosillabi ne' e se'.
+ACUTE = ('che', 'ne', 'se')
+
+
+def _accentaParola(parola):
+    corpo = parola[:-1]
+    if not corpo:
+        return parola
+    ultima = corpo[-1].lower()
+    if ultima not in VOCALI_ACCENTATE:
+        return parola
+    if any(corpo.lower().endswith(a) for a in ACUTE):
+        accentata = 'é'
+    else:
+        accentata = VOCALI_ACCENTATE[ultima]
+    if corpo[-1].isupper():
+        accentata = accentata.upper()
+    return corpo[:-1] + accentata
+
+
+def conGliAccenti(testo):
+    """La stessa frase, con gli accenti veri al posto degli apostrofi."""
+    return re.sub(r"\b\w+'(?![a-zA-Z])",
+                  lambda m: _accentaParola(m.group(0)), testo)
+
+
 def coiNomiNuovi(testo):
     """La frase del corpus, coi doni chiamati col loro nome di oggi."""
     for vecchio, nuovo in NOMI_NUOVI_DEI_DONI.items():
         testo = testo.replace(vecchio, nuovo)
-    return testo
+    return conGliAccenti(testo)
 
 
 def scappa(s):
@@ -610,6 +1003,11 @@ def costruisci(v):
         costruttore, perche = esito
         if costruttore == 'DORMIENTE':
             return None, perche
+        # **LA VERIFICA E' L'ULTIMA PAROLA**: una condizione ben formata che
+        # nomina cio' che l'app non misura non passa di qui.
+        storto = verifica(costruttore)
+        if storto is not None:
+            return None, storto
         return costruttore, None
     return None, 'nessuna regola riconosce questa condizione'
 
@@ -633,8 +1031,12 @@ def main():
                 # condizione finta uguale per tutti sarebbero sembrati lo
                 # stesso traguardo diciotto volte, e la guardia della legge
                 # li avrebbe accusati di accendersi insieme.
+                delCielo = (v.get('ragione') == 'Cielo'
+                            or bool(v.get('finestra_del_cielo')))
                 costruttore = (f"Dormiente('{v['id']}', "
-                               f"'{scappa(perche)}')")
+                               f"'{scappa(conGliAccenti(perche))}'"
+                               + (', eraDelCielo: true' if delCielo else '')
+                               + ")")
             # **LA FAMIGLIA SEGUE LA CONDIZIONE, non l'etichetta.** La
             # ragione del corpus dice perche' quel traguardo esiste; la
             # famiglia dice di che natura e' la sua condizione, ed e' quello
@@ -686,8 +1088,10 @@ def main():
                 f"    cosaApre: '{scappa(coiNomiNuovi(v.get('porta_che_apre') or ''))}',\n"
                 f"    eGrande: {str(bool(v['grande'])).lower()},\n"
                 f"    eos: {v['eos']},\n"
-                f"    fascia: '{scappa(v['fascia'])}',\n"
+                f"    fascia: '{scappa(conGliAccenti(v['fascia']))}',\n"
                 f"    dormiente: {str(eDormiente).lower()},\n"
+                f"    ragione: '{scappa(conGliAccenti(v.get('ragione') or ''))}',\n"
+                f"    sezioneDelCammino: '{scappa(conGliAccenti(v.get('famiglia') or ''))}',\n"
                 "  ),")
         testa = (
             "// GENERATO DA tool/genera_sentieri_dal_corpus.py: NON SI SCRIVE\n"
