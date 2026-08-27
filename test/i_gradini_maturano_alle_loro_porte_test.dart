@@ -92,13 +92,18 @@ void main() {
     final diario = await diarioVergine();
     await siAccendonoDopo(diario, ['carta_natale']);
     final porte = <String, (List<String>, String)>{
-      'aur_5': (['nome_proprio'], 'il primo saluto per nome'),
+      // **GLI IDENTIFICATIVI SEGUONO IL CORPUS, ordine BS voce 01.** La
+      // revisione E ha riscritto i 165 e i gradini dell'identita' hanno preso
+      // posizioni nuove: il saluto per nome e' aur_3 e non piu' aur_5, la Luna
+      // che vegliava e' aur_8 e non piu' aur_6. La pretesa non cambia di una
+      // virgola: ogni porta del Passaporto deve accendere il SUO gradino.
+      'aur_3': (['nome_proprio'], 'il primo saluto per nome'),
       'aur_10': (['passaporto', 'numero_della_vita'], 'il documento aperto'),
       'med_7': (
         ['carta_natale', 'ora_di_nascita', 'luogo_di_nascita'],
         'la propria carta aperta'
       ),
-      'aur_6': (['luna_natale'], 'il portale del cielo di nascita'),
+      'aur_8': (['luna_natale'], 'il portale del cielo di nascita'),
       'cal_6': (['sigillo_del_cerchio'], 'la schermata del Sigillo'),
     };
     for (final voce in porte.entries) {
