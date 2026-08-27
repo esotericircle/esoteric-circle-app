@@ -58,8 +58,16 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    *
    * Prima dell'ordine BN la stesa non aveva nessun gating: le stese erano
    * infinite e gratuite su tutti i piani, mentre il listino prometteva altro.
+   *
+   * **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04.** Decisione del
+   * fondatore sulla build 2208: "il viandante ha una stesa al giorno", e
+   * supera la lettura del listino fatta dalla voce BN 09, che aveva concluso
+   * zero. **Solo la prima cella cambia**: per Iniziato e Adepto l ordine
+   * proponeva 3 e 5, ma il tre non e dichiarato da nessuna parte, e la regola
+   * di casa dice di tenere quello di oggi quando il numero non e scritto.
+   * L Adepto era gia a cinque.
    */
-  stese: [0, 0, 5, null],
+  stese: [1, 0, 5, null],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *
