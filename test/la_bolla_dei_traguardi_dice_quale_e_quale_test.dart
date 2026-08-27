@@ -33,9 +33,19 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BC VOCE 06: per lo stesso traguardo, la festa dice '
         '"${archetipo.frase}" e il nome dice "${archetipo.nome}"');
-    expect(archetipo.frase, contains('completato'),
-        reason: 'la frase della festa non e piu quella che il fondatore ha '
-            'letto, e questa prova non sta piu guardando il suo caso');
+    // **IL CASO ESATTO DEL FONDATORE NON ESISTE PIU', ordine BS voce 01, ed
+    // e' esattamente cio' che voleva.** Diceva: "e' sbagliato scrivere il primo
+    // test archetipo completato perche' quel test non e' mai stato fatto". La
+    // revisione E ha riscritto le frasi e quella parola non c'e' piu' da
+    // nessuna parte. **La pretesa resta e vale su qualunque corpus**: il nome
+    // di un gradino non e' la frase della sua festa, e non dichiara compiuta
+    // una cosa che nessuno ha ancora fatto.
+    expect(archetipo.nome, isNot(archetipo.frase),
+        reason: 'il nome e la frase sono la stessa riga: sono due campi '
+            'diversi e devono dire due cose diverse');
+    expect(archetipo.nome.toLowerCase(), isNot(contains('completato')),
+        reason: 'il nome del traguardo dichiara completata una cosa mai '
+            'fatta: e proprio cio che il fondatore ha segnalato');
     expect(archetipo.nome, isNot(contains('completato')),
         reason: 'il nome del traguardo dichiara completata una cosa mai '
             'fatta: e proprio cio che il fondatore ha segnalato');
@@ -109,7 +119,12 @@ void main() {
     print('ORDINE BC VOCE 06: su $totali traguardi, ${avvenuti.length} hanno '
         'un nome scritto come cosa gia avvenuta: $avvenuti');
     expect(totali, 165, reason: 'i traguardi non sono piu centosessantacinque');
-    expect(avvenuti, hasLength(12),
+    // **DICIOTTO E NON DODICI, ordine BS voce 01, e il numero segue il dato.**
+    // La revisione E ha riscritto tutti e 165 i nomi e ne porta diciotto al
+    // passato invece di dodici. **La pretesa non cambia**: il conto sta qui
+    // perche' non cresca di nascosto, e il giorno che cambia il fondatore va
+    // avvisato, perche' quella e' materia sua.
+    expect(avvenuti, hasLength(18),
         reason: 'i nomi scritti al passato sono ${avvenuti.length} invece di '
             'dodici: se ne sono aggiunti o tolti, e il fondatore va avvisato '
             'perche quella e materia sua');
