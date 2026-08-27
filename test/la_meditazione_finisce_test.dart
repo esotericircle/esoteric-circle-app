@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/sigilli/gesti_delle_arti.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -22,18 +23,39 @@ import 'istante_dichiarato.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('aur_50 e aur_51 sono svegli e chiedono il gesto meditazione', () {
+  test('i gradini della meditazione, e chi li tiene addormentati', () {
+    // **LA REVISIONE E LI RIMETTE A DORMIRE, ed e' una decisione del corpus che
+    // il codice ha gia' superato.** Ordine BS voce 01. I gradini della
+    // meditazione nella revisione E sono aur_17 e aur_46, e il corpus li
+    // dichiara dormienti tutti e due; la nota di aur_17 dice "la meditazione
+    // oggi non ha una fine", **che dall'ordine BF voce 05.b non e' piu' vero**:
+    // la sessione dura dodici cicli, si compie, e la regia registra il gesto,
+    // come dimostrano le due prove qui sotto che non sono state toccate.
+    //
+    // **L'ordine BS dice che i dormienti dichiarati dal corpus restano
+    // dormienti**, quindi qui non si sveglia niente di nascosto: si scrive che
+    // la ragione e' scaduta, e la decisione di svegliarlo e' del fondatore,
+    // perche' il corpus e' materia sua.
     final loto = Sentieri.di(Sentiero.loto);
-    final primo = loto.firstWhere((t) => t.id == 'aur_50');
-    final settimo = loto.firstWhere((t) => t.id == 'aur_51');
-    expect(primo.dormiente, isFalse,
-        reason: 'aur_50 dorme ancora: la fine della meditazione non lo ha '
-            'svegliato');
-    expect(settimo.dormiente, isFalse);
-    expect(primo.condizione, isA<GestiCompiuti>());
-    expect((primo.condizione as GestiCompiuti).gesto, 'meditazione');
-    expect((primo.condizione as GestiCompiuti).quanti, 1);
-    expect((settimo.condizione as GestiCompiuti).quanti, 7);
+    final dellaMeditazione = [
+      for (final t in loto)
+        if (t.frase.toLowerCase().contains('meditazione')) t,
+    ];
+    // ignore: avoid_print
+    print('ORDINE BS VOCE 01: i gradini della meditazione sono '
+        '${dellaMeditazione.map((t) => "${t.id} dormiente ${t.dormiente}").join(", ")}');
+    expect(dellaMeditazione.map((t) => t.id), containsAll(['aur_17', 'aur_46']),
+        reason: 'i gradini della meditazione non sono piu\' quelli: il corpus '
+            'e\' cambiato ancora');
+    expect(dellaMeditazione.every((t) => t.dormiente), isTrue,
+        reason: 'un gradino della meditazione si e\' svegliato senza che il '
+            'corpus lo dicesse');
+    // **IL GESTO PERO' ESISTE E ARRIVA**, ed e' la promessa dell'ordine BF che
+    // resta in piedi: il giorno che il corpus toglie la dormienza, quel
+    // gradino matura senza toccare una riga di codice.
+    expect(GestiDelleArti.di('meditazione'), isNotNull,
+        reason: 'il gesto meditazione non e\' piu\' censito: allora la fine '
+            'della sessione non arriva a nessuno');
   });
 
   testWidgets('la sessione si compie, lo dice, e il gesto arriva al diario',
