@@ -10,6 +10,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -141,12 +142,18 @@ void main() {
       // I testi lunghi della bolla: la descrizione e', fra questi, quella che
       // l'ingrandimento deve mostrare IDENTICA. Non si concatenano, perche' la
       // bolla della carta chiave porta anche il perche', che e' un'altra cosa.
-      final testiDellaBolla = tester
-          .widgetList<Text>(
-              find.descendant(of: bolla, matching: find.byType(Text)))
-          .map((t) => normalizza(t.data ?? ''))
-          .where((t) => t.length > 40)
-          .toList();
+      // **IL TESTO NARRATO PASSA DA ParagrafiDiLettura, ordine BU voce 01**, e
+      // li' dentro il testo intero sta nel suo campo `testo`: i Text che ne
+      // escono sono i singoli paragrafi. Si guardano tutte e due le forme,
+      // altrimenti la prova cercherebbe un blocco unico che non esiste piu'.
+      final testiDellaBolla = <String>[
+        for (final t in tester.widgetList<Text>(
+            find.descendant(of: bolla, matching: find.byType(Text))))
+          normalizza(t.data ?? ''),
+        for (final p in tester.widgetList<ParagrafiDiLettura>(
+            find.descendant(of: bolla, matching: find.byType(ParagrafiDiLettura))))
+          normalizza(p.testo),
+      ].where((t) => t.length > 40).toList();
       expect(testiDellaBolla, isNotEmpty);
 
       // La carta si apre.
