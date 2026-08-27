@@ -89,7 +89,7 @@ class RegiaDelCammino {
     }
     await diario.segna(gesto, oraRituale: oraRituale, dettagli: dettagli);
     if (!context.mounted) return;
-    await guardaCosaSiAccende(context);
+    await guardaCosaSiAccende(context, gesto: gesto);
   }
 
   /// Guarda l'intero elenco e accende cio' che e' maturato.
@@ -99,7 +99,8 @@ class RegiaDelCammino {
   /// `dopoUnGesto` e il guardiano della coda. Resta comunque vero che un
   /// traguardo puo' maturare quando nessuna schermata puo' ospitare la
   /// sovrimpressione, ed e' per quello che esiste la coda.
-  static Future<void> guardaCosaSiAccende(BuildContext context) async {
+  static Future<void> guardaCosaSiAccende(BuildContext context,
+      {String? gesto}) async {
     final DiarioDelCammino diario;
     final NatalChartController carte;
     try {
@@ -221,6 +222,11 @@ class RegiaDelCammino {
     //    c'e' soltanto la festa, che e' il modo di dire "non hai perso niente,
     //    te lo racconto dopo".
     if (festeggiato) {
+      // **IL REGISTRO, ordine BU voce 05**: chi ha generato questa festa e
+      // quando. Serve a rispondere con un numero alla domanda se due feste
+      // attaccate nascano dallo stesso gesto.
+      RegistroDelleFeste.segna(
+          gesto: gesto ?? 'ignoto', traguardo: questaVolta.id);
       await DistanzaFraLeFeste.segnaFesta();
     } else {
       // Se la festa non e' comparsa, o perche' non c'era dove ospitarla o
@@ -366,6 +372,13 @@ class RegiaDelCammino {
       attendiLaFine: true,
     );
     if (festeggiato) {
+      // **IL REGISTRO, ordine BU voce 05**: chi ha generato questa festa e
+      // quando. Serve a rispondere con un numero alla domanda se due feste
+      // attaccate nascano dallo stesso gesto.
+      // **QUI IL GESTO NON SI SA, e si dichiara invece di indovinarlo**: la
+      // festa arriva dalla coda, cioe' da un gesto compiuto prima. Scrivere
+      // quello di adesso farebbe sembrare che due feste nascano insieme.
+      RegistroDelleFeste.segna(gesto: 'dalla coda', traguardo: traguardo.id);
       await DistanzaFraLeFeste.segnaFesta();
     } else {
       await coda.accoda(traguardo.id);
