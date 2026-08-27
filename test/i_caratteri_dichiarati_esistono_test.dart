@@ -120,19 +120,27 @@ void main() {
         reason: 'nessuna famiglia trovata in lib: la lettura non funziona e '
             'questa prova sarebbe verde per il motivo sbagliato');
 
-    // **UNA SOLA ECCEZIONE, DICHIARATA, e ha una data di scadenza.**
-    // `CormorantGaramond` e' chiesta dal Sigillo d'Intenzione e non e' nel
-    // pacchetto: quella schermata pero' il fondatore l'ha gia' approvata a
-    // video COSI' COM'E', cioe' col carattere di sistema. L'ordine BM voce 02
-    // non decide al posto suo: produce le tre anteprime a confronto e resta
-    // fermata finche' non ha guardato. Finche' quella voce e' aperta questa
-    // riga non deve essere rossa, ma l'eccezione sta scritta qui con la sua
-    // ragione, non nascosta: quando la decisione arriva, si toglie.
-    const inAttesaDiDecisione = {
-      'CormorantGaramond':
-          'ordine BM voce 02, in attesa della decisione del fondatore sulle '
-              'tre anteprime del Sigillo d\'Intenzione',
-    };
+    // **L'ECCEZIONE E' STATA TOLTA, NON AGGIORNATA. Ordine BT voce 01.**
+    // `CormorantGaramond` era chiesta dal Sigillo d'Intenzione e non era nel
+    // pacchetto: la deroga stava qui, scritta con la sua ragione e la sua
+    // scadenza, in attesa che il fondatore guardasse le tre anteprime
+    // dell'ordine BM voce 02. Il 27 agosto 2026, sulla build 2207, ha detto
+    // "ok per la (b), chiudiamo BM.02", e la ruota adesso scrive in
+    // EBGaramond, che il pacchetto dichiara.
+    //
+    // **Una deroga che sopravvive alla propria ragione e' il modo con cui i
+    // caratteri fantasma tornano**: la ragione non c'e' piu', e la deroga se
+    // ne va con lei.
+    const inAttesaDiDecisione = <String, String>{};
+    // ignore: avoid_print
+    print('ORDINE BT VOCE 01: eccezioni dichiarate '
+        '${inAttesaDiDecisione.length}, famiglie citate dal codice '
+        '${citate.length}');
+    expect(inAttesaDiDecisione, isEmpty,
+        reason: 'e\' tornata una deroga: ${inAttesaDiDecisione.keys.toList()}. '
+            'Ogni eccezione qui dentro e\' un carattere che sul telefono di '
+            'qualcuno diventa un altro carattere, e va chiusa invece che '
+            'rinnovata');
     final fantasmi = <String>[];
     citate.forEach((famiglia, dove) {
       if (dichiarate.contains(famiglia)) return;
