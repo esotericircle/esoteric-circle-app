@@ -105,6 +105,28 @@ void main() {
               'l\'audio sintetizzato che deve ancora arrivare',
     };
 
+    // **LE ECCEZIONI DEL CORPUS SI DICHIARANO A FRASE, non a file.** Ordine BS
+    // voce 01. I tre sentieri sono 165 testi scritti dal fondatore: escludere
+    // quei file intieri vorrebbe dire smettere di guardare centosessantacinque
+    // frasi per salvarne sei, ed e' esattamente l'errore che il commento qui
+    // sopra racconta. Ognuna di queste sei e' un uso legittimo: o e' proprio
+    // l'audio, o e' un grado, o e' una figura del parlare.
+    const frasiAmmesse = <String, String>{
+      'Il respiro guidato dalla voce di Aura':
+          'e\' proprio l\'audio: il respiro guidato SUONA, e la voce che lo '
+              'guida e\' quella sintetizzata',
+      'Una meditazione seguita con la voce di Aura':
+          'stessa cosa: e\' la meditazione con l\'audio, non Aura come '
+              'personaggio',
+      'la voce dei Maestri non': 'e\' la ragione per cui quel gradino dorme, '
+          'e nomina la funzione audio che non e\' ancora attiva',
+      'Il grado di Voce del Loto': 'e\' un GRADO, come Custode: un titolo che '
+          'si conquista, non il Maestro',
+      'Il grado di Voce del Cerchio': 'stesso grado, sull\'altro sentiero',
+      'La lettura a tre voci': 'e\' la figura del parlare comune: tre letture '
+          'che si sovrappongono, come si dice di un canto',
+    };
+
     final colpe = <String>[];
     final da = <FileSystemEntity>[Directory('lib')];
     while (da.isNotEmpty) {
@@ -123,6 +145,8 @@ void main() {
         // I commenti non si mostrano a nessuno: una riga che SPIEGA la regola
         // non e' una violazione della regola.
         if (riga.trimLeft().startsWith('//')) continue;
+        // Le frasi dichiarate qui sopra: uso legittimo, ragione accanto.
+        if (frasiAmmesse.keys.any(riga.contains)) continue;
         if (riga.trimLeft().startsWith('///')) continue;
         // Solo il testo dentro gli apici, cioe' quello che finisce a schermo.
         if (!riga.contains("'")) continue;
