@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/core/sigilli/stato_del_sigillo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'gli_accenti_del_corpus.dart';
+
 /// I QUATTRO CAMPI E IL SIGILLO, ordine P voci 19, 20 e 21, con la CORREZIONE
 /// del 12 agosto 2026 che ha priorita' su P.19.
 ///
@@ -109,12 +111,43 @@ void main() {
       final testo = allegato.readAsStringSync();
       // Quanti dei 165 hanno preso il testo dall'Allegato: si conta cercando
       // il "cosa apre" dentro l'allegato, invece di crederci.
+      // **LA SORGENTE DEI TRE CAMPI E' PASSATA AL CORPUS, ordine BS voce 01.**
+      // L'Allegato A resta nel repo e resta la ragione per cui i quattro campi
+      // esistono, ma i testi vivi sono quelli della revisione E, che il
+      // fondatore ha scritto dopo: la E porta un "cosa apre" su tutte e 165 le
+      // voci, mentre la D2 ne lasciava centotrentadue vuote. **La pretesa non
+      // cambia: i tre campi vengono da una fonte scritta e non dall'inventiva
+      // del codice**, e qui si controlla contro quella fonte.
+      expect(testo.isNotEmpty, isTrue,
+          reason: 'l\'Allegato A esiste ma e\' vuoto');
+      // **I DONI HANNO CAMBIATO NOME DOPO IL CORPUS.** L'Oracolo del Giorno e'
+      // diventato l'Arcano del Giorno e il Rito del Sogno il Sigillo del
+      // Sogno: sono decisioni di prodotto prese dopo, e il generatore le
+      // applica mentre scrive. Qui si applicano anche al corpus prima di
+      // confrontare, altrimenti due voci su 165 sembrerebbero inventate
+      // mentre sono le uniche due che portano il nome di oggi.
+      var corpusVivo =
+          File('docs/corpus/Traguardi_165_Revisione_E.json').readAsStringSync();
+      for (final nome in const {
+        'Oracolo del Giorno': 'Arcano del Giorno',
+        'Rito del Sogno': 'Sigillo del Sogno',
+      }.entries) {
+        corpusVivo = corpusVivo.replaceAll(nome.key, nome.value);
+      }
+      // E gli accenti veri al posto degli apostrofi, come fa il generatore:
+      // vedi gli_accenti_del_corpus.dart.
+      corpusVivo = conGliAccenti(corpusVivo);
       final presi = tutti
-          .where((t) => testo.contains(t.cosaApre.trim()))
+          .where((t) =>
+              t.cosaApre.trim().isNotEmpty &&
+              corpusVivo.contains(t.cosaApre.trim()))
           .length;
       expect(presi, greaterThan(0),
-          reason: 'nessuno dei 165 porta un testo dell\'Allegato A: '
+          reason: 'nessuno dei 165 porta un testo del corpus vivo: '
               'l\'accostamento non ha funzionato');
+      expect(presi, tutti.length,
+          reason: 'solo $presi dei ${tutti.length} portano il loro "cosa apre" '
+              'dal corpus: gli altri se lo sono inventato');
     });
   });
 
