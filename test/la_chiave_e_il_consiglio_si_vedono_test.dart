@@ -10,6 +10,8 @@ import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -101,7 +103,7 @@ void main() {
   /// Si guarda una cornice larga sei punti attorno al riquadro della carta,
   /// perche' e' li' che il segno vive: dentro c'e' la figura, che e' uguale
   /// per tutte e non direbbe niente.
-  Future<double> oroAttorno(
+  Future<double> azzurroAttorno(
       WidgetTester tester, GlobalKey radice, SpreadPosition posizione) async {
     final carta = find.byKey(Key('stesa_carta_${posizione.name}'));
     final r = tester.getRect(carta);
@@ -131,8 +133,12 @@ void main() {
           }
           final i = (py0 * img.width + px0) * 4;
           if (i + 2 >= px.length) continue;
-          // Oro: il rosso domina sul blu.
-          if (px[i] - px[i + 2] > 25) quanti++;
+          // **AZZURRO E NON PIU' ORO, ordine BU voce 02**, e il predicato
+          // e' piu' stretto perche' lo sfondo dell'app e' gia' blu scuro: si
+          // cerca un azzurro CHIARO, cioe' un blu che domina il rosso di
+          // sessanta E che sia luminoso. Il fondo (18, 32, 74) passerebbe la
+          // sola dominanza e farebbe contare tutte e tre le carte uguali.
+          if (px[i + 2] > 150 && px[i + 2] - px[i] > 60) quanti++;
         }
       }
     });
@@ -153,15 +159,15 @@ void main() {
 
       final misure = <SpreadPosition, double>{};
       for (final p in SpreadPosition.values) {
-        misure[p] = await oroAttorno(tester, radice, p);
+        misure[p] = await azzurroAttorno(tester, radice, p);
       }
       final altre = [
         for (final p in SpreadPosition.values)
           if (p != chiave) misure[p]!,
       ];
       // ignore: avoid_print
-      print('BN.05 MISURA seme $seed, chiave ${chiave.name}: '
-          'oro attorno alla chiave ${misure[chiave]!.toStringAsFixed(0)}, '
+      print('ORDINE BU VOCE 2 (misura BN.05) seme $seed, chiave ${chiave.name}: '
+          'azzurro attorno alla chiave ${misure[chiave]!.toStringAsFixed(0)}, '
           'alle altre ${altre.map((v) => v.toStringAsFixed(0)).join(" e ")}');
       for (final v in altre) {
         expect(misure[chiave]!, greaterThan(v * 1.5),
@@ -224,4 +230,276 @@ void main() {
       }
     }
   });
+
+  // --- ORDINE BU, LA STESA SI LEGGE -----------------------------------------
+
+  testWidgets('BU.01: il velo della carta ingrandita e\' opaco, e sotto non '
+      'passa niente', (tester) async {
+    // **LA MISURA E' SUI PIXEL, non sul numero scritto nel codice.** Il numero
+    // si legge lo stesso, perche' una prova che guarda solo i pixel non dice
+    // dove intervenire; ma cio' che conta e' che dentro il riquadro del testo
+    // non passi un solo pixel di cio' che sta sotto.
+    await monta(tester);
+
+    await tester.tap(find.byKey(const Key('stesa_apri_presente')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    final testo = find.byKey(const Key('carta_ingrandita_testo'));
+    expect(testo, findsOneWidget,
+        reason: 'la carta ingrandita non si e\' aperta');
+    // **LA GRANDEZZA MISURATA E' CAMBIATA DUE VOLTE, e le ragioni stanno
+    // qui.** La prima stesura contava l'oro del contenuto dentro il riquadro
+    // del testo: col velo rimesso a 0,72 quel numero restava zero, perche'
+    // dietro quel riquadro, in questa scena, non capita nessun titolo oro. La
+    // seconda contava i pixel non neri in una fascia fuori dalla carta: ma la
+    // carta ingrandita dipinge una sua fioritura su tutto lo schermo, quindi
+    // quella fascia non e' mai velo puro e il numero non cambiava col velo.
+    // **Un rosso che non scatta non si aggiusta abbassando la soglia: si
+    // cambia cio' che si misura.** Cio' che decide davvero se sotto passa
+    // qualcosa e' l'opacita' della barriera, e qui si legge DALLA ROTTA VIVA,
+    // non dal testo del sorgente: e' il numero che Flutter sta usando.
+    final barriere = find.byType(ModalBarrier).evaluate();
+    final opacita = [
+      for (final e in barriere)
+        if ((e.widget as ModalBarrier).color != null)
+          (e.widget as ModalBarrier).color!.a,
+    ];
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 1: opacita del velo della carta ingrandita '
+        '$opacita');
+    expect(opacita, isNotEmpty,
+        reason: 'la carta ingrandita non ha nessun velo: sotto si legge '
+            'tutto');
+    expect(opacita.every((o) => o == 1.0), isTrue,
+        reason: 'il velo ha opacita\' $opacita invece di 1: a 0,72 passa il '
+            'ventotto per cento di cio\' che sta sotto, ed e\' il contenuto '
+            'che il fondatore ha visto dietro le righe del testo');
+    // E la riga che dice DOVE intervenire, dopo il numero che dice quanto.
+    final sorgente =
+        File('lib/features/tarot/carta_ingrandita.dart').readAsStringSync();
+    expect(sorgente.contains('barrierColor: Colors.black,'), isTrue,
+        reason: 'il velo della carta ingrandita non e\' piu\' opaco pieno: '
+            'sotto tornano a leggersi i titoli della lista');
+  });
+
+  testWidgets('BU.01: nessun testo di contenuto sta sotto la misura di lettura',
+      (tester) async {
+    await monta(tester);
+    // I testi di CONTENUTO della schermata, enumerati uno per uno con la loro
+    // chiave: le etichette di servizio e i conti non stanno qui, perche' non
+    // sono cose da leggere ma cose da vedere.
+    const diContenuto = [
+      'stesa_closing',
+      'stesa_meaning_passato',
+      'stesa_meaning_presente',
+      'stesa_meaning_futuro',
+    ];
+    final misure = <String, double>{};
+    for (final chiave in diContenuto) {
+      final f = find.byKey(Key(chiave));
+      if (f.evaluate().isEmpty) continue;
+      // I testi di contenuto passano da ParagrafiDiLettura, che e' la porta
+      // unica del testo narrato: la misura si legge dal suo stile.
+      final w = tester.widget<ParagrafiDiLettura>(f);
+      misure[chiave] = w.stile.fontSize!;
+    }
+    // E i testi delle tre bolle, che non hanno una chiave loro.
+    final bolle = find.descendant(
+        of: find.byType(BollaDellaPosizione), matching: find.byType(Text));
+    for (final e in bolle.evaluate()) {
+      final w = e.widget as Text;
+      final testo = w.data ?? '';
+      // Le etichette di posizione sono maiuscole e brevi: sono servizio.
+      if (testo.length < 25) continue;
+      misure['bolla: ${testo.substring(0, 18)}...'] = w.style!.fontSize!;
+    }
+    final lettura = TypographyTokens.lettura().fontSize!;
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 1: misura di lettura $lettura, testi di contenuto '
+        '${misure.length}, il piu\' piccolo '
+        '${misure.values.reduce((a, b) => a < b ? a : b)}');
+    expect(misure, isNotEmpty,
+        reason: 'nessun testo di contenuto trovato: la prova gira a vuoto');
+    misure.forEach((dove, misura) {
+      expect(misura, greaterThanOrEqualTo(lettura),
+          reason: '$dove e\' scritto a $misura, sotto la misura di lettura '
+              'di $lettura: e\' il font piccolo che il fondatore ha visto');
+    });
+  });
+
+  testWidgets('BU.01: il consiglio ha paragrafi separati e non e\' oro',
+      (tester) async {
+    await monta(tester);
+    final bolla = find.byKey(const Key('stesa_consiglio'));
+    expect(bolla, findsOneWidget);
+    final paragrafi = find.descendant(
+        of: bolla, matching: find.byType(ParagrafiDiLettura));
+    expect(paragrafi, findsOneWidget,
+        reason: 'il consiglio e\' tornato un blocco solo: i paragrafi si '
+            'fondono e il testo diventa un muro');
+    final w = tester.widget<ParagrafiDiLettura>(paragrafi);
+    expect(w.stile.fontSize, TypographyTokens.lettura().fontSize,
+        reason: 'il consiglio non e\' alla misura di lettura');
+    expect(w.stile.color, isNot(MaestroPalette.medora.goldSoft),
+        reason: 'il consiglio e\' ancora tutto oro: un accento su ogni riga '
+            'non accenta niente');
+    final quanti = w.testo.split(RegExp(r'\n\s*\n')).length;
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 1: il consiglio ha $quanti paragrafi, misura '
+        '${w.stile.fontSize}, colore ${w.stile.color}');
+    expect(quanti, greaterThanOrEqualTo(2),
+        reason: 'il testo del consiglio non porta piu\' paragrafi: qui non '
+            'si misura la resa ma il dato che le sta sotto');
+  });
+
+  testWidgets('BU.01: le due etichette sono quelle nuove', (tester) async {
+    await monta(tester);
+    expect(find.text('LE CARTE, UNA ALLA VOLTA'), findsOneWidget,
+        reason: 'l\'intestazione della lista non e\' quella chiesta');
+    final lente = tester.widget<Text>(find.byKey(const Key('stesa_lente')));
+    expect(lente.style!.fontSize,
+        greaterThan(TypographyTokens.etichetta().fontSize!),
+        reason: 'l\'intestazione doveva essere scritta IN GRANDE');
+    final selettori =
+        File('lib/features/tarot/tarot_selectors.dart').readAsStringSync();
+    expect(selettori.contains("titolo: 'Scegli la tua domanda'"), isTrue,
+        reason: 'il selettore chiede ancora l\'argomento invece della domanda');
+  });
+
+  testWidgets('BU.02: sopra la carta chiave non si disegna niente',
+      (tester) async {
+    await monta(tester);
+    final lettura = TarotReading.of(
+      TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 2)),
+      TarotTopic.bivio,
+    );
+    final chiave = lettura.chiave.drawn.position;
+    final segno = find.byKey(Key('stesa_chiave_${chiave.name}'));
+    expect(segno, findsOneWidget, reason: 'il segno della chiave non c\'e\'');
+    final d = tester.widget<Container>(segno).decoration as BoxDecoration;
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 2: il segno della chiave ha fondo ${d.color}, '
+        'ombre ${d.boxShadow?.length ?? 0}, bordo '
+        '${(d.border as Border?)?.top.color}');
+    expect(d.color, isNull,
+        reason: 'sopra la carta chiave c\'e\' un fondo: e\' la '
+            'sovrapposizione che il fondatore non vuole');
+    expect(d.boxShadow, anyOf(isNull, isEmpty),
+        reason: 'sopra la carta chiave c\'e\' un alone: e\' la '
+            'sovrapposizione che il fondatore non vuole. Ha chiesto la '
+            'cornice');
+    expect((d.border as Border).top.color, MaestroPalette.medora.glow,
+        reason: 'la cornice della carta chiave non e\' l\'azzurro della '
+            'palette');
+  });
+
+  testWidgets('BU.02: la bolla chiave ha lo stesso fondo delle altre',
+      (tester) async {
+    await monta(tester);
+    final bolle = find.byType(BollaDellaPosizione);
+    expect(bolle, findsNWidgets(3));
+    final fondi = <Color?>[];
+    final ombre = <int>[];
+    for (final e in bolle.evaluate()) {
+      final container = find
+          .descendant(of: find.byWidget(e.widget), matching: find.byType(Container))
+          .evaluate()
+          .first
+          .widget as Container;
+      final d = container.decoration as BoxDecoration;
+      fondi.add(d.color);
+      ombre.add(d.boxShadow?.length ?? 0);
+    }
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 2: i fondi delle tre bolle $fondi, le ombre $ombre');
+    expect(fondi.toSet(), hasLength(1),
+        reason: 'la bolla chiave ha ancora un fondo suo: il fondatore ha '
+            'chiesto la cornice e niente altro');
+    expect(ombre.every((n) => n == 0), isTrue,
+        reason: 'una bolla porta ancora un alone');
+  });
+
+  /// Quanti pixel SCURI ci sono dentro un rettangolo.
+  ///
+  /// **E' la grandezza che distingue una cornice da una copertura, e ci sono
+  /// volute tre stesure.** Contare l'azzurro dentro la carta non funziona: le
+  /// carte dei tarocchi il blu ce l'hanno dentro, e un fondo blu traslucido
+  /// steso sopra si confonde col loro. Cio' che una copertura fa sempre,
+  /// qualunque colore abbia, e' SCHIARIRE le ombre della figura: un velo al
+  /// 62 per cento somma il suo colore anche al nero. Quindi si contano i
+  /// pixel scuri: se la carta chiave ne ha molti meno delle altre due,
+  /// qualcosa le e' stato steso sopra.
+  Future<int> scuriDentro(
+      WidgetTester tester, GlobalKey radice, Rect dentro) async {
+    var coperti = 0;
+    await tester.runAsync(() async {
+      final b =
+          radice.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      final img = await b.toImage();
+      final data = await img.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final px = data!.buffer.asUint8List();
+      final origine = tester.getRect(find.byKey(radice)).topLeft;
+      for (var y = dentro.top.round(); y < dentro.bottom.round(); y++) {
+        for (var x = dentro.left.round(); x < dentro.right.round(); x++) {
+          final px0 = (x - origine.dx).round();
+          final py0 = (y - origine.dy).round();
+          if (px0 < 0 || py0 < 0 || px0 >= img.width || py0 >= img.height) {
+            continue;
+          }
+          final i = (py0 * img.width + px0) * 4;
+          if (i + 2 >= px.length) continue;
+          if (px[i] + px[i + 1] + px[i + 2] < 120) coperti++;
+        }
+      }
+    });
+    return coperti;
+  }
+
+
+  testWidgets('BU.02: dentro la carta chiave non passa un pixel di copertura',
+      (tester) async {
+    // **LA MISURA SUI PIXEL, dentro il rettangolo della carta.** La prova
+    // strutturale qui sopra dice che il segno non ha fondo ne' ombra; questa
+    // guarda cio' che si vede: dentro la carta, tolta la cornice di tre punti,
+    // non deve esserci un solo pixel dell'azzurro che la cornice porta. Con un
+    // fondo azzurro steso sopra, anche traslucido, la figura ne prende dovunque.
+    final radice = await monta(tester);
+    final lettura = TarotReading.of(
+      TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 2)),
+      TarotTopic.bivio,
+    );
+    final chiave = lettura.chiave.drawn.position;
+    // **LA MISURA E' DIFFERENZIALE, e la prima stesura non lo era.** Contare
+    // l'azzurro dentro la carta chiave da' ottanta pixel anche quando sopra
+    // non c'e' niente: le carte dei tarocchi il blu ce l'hanno dentro. Il
+    // numero da solo non dice niente; cio' che dice qualcosa e' il confronto
+    // con le altre due carte, che nessuno copre. Una copertura stesa sopra la
+    // figura fa saltare quel rapporto di colpo, una cornice no.
+    final conti = <SpreadPosition, int>{};
+    for (final posizione in SpreadPosition.values) {
+      final r =
+          tester.getRect(find.byKey(Key('stesa_carta_${posizione.name}')));
+      // Otto punti di rientro, non tre: la cornice e' larga due, ma ha gli
+      // angoli arrotondati e il bordo sfuma, e tre punti ne lasciavano dentro
+      // ancora un pezzo. Otto e' lontano dal bordo e vicinissimo alla figura.
+      final dentro = Rect.fromLTRB(
+          r.left + 8, r.top + 8, r.right - 8, r.bottom - 8);
+      conti[posizione] = await scuriDentro(tester, radice, dentro);
+    }
+    final coperti = conti[chiave]!;
+    final altre = [
+      for (final p in SpreadPosition.values)
+        if (p != chiave) conti[p]!,
+    ];
+    final piuBassa = altre.reduce((x, y) => x < y ? x : y);
+    // ignore: avoid_print
+    print('ORDINE BU VOCE 2: pixel scuri DENTRO la carta chiave $coperti, '
+        'dentro le altre due ${altre.join(" e ")}');
+    expect(coperti, greaterThanOrEqualTo((piuBassa * 0.5).round()),
+        reason: 'dentro la carta chiave ci sono $coperti pixel scuri contro '
+            'i $piuBassa della meno scura fra le altre due: le ombre della '
+            'figura sono state schiarite, cioe\' qualcosa le e\' stato steso '
+            'sopra, ed e\' cio\' che il fondatore non vuole');
+  });
+
 }
