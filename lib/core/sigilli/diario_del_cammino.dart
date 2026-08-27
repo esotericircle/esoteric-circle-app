@@ -636,13 +636,16 @@ class DiarioDelCammino extends ChangeNotifier {
     );
   }
 
-  /// I TRAGUARDI CHE SI SONO APPENA ACCESI, in ordine di posizione.
+  /// TUTTI I TRAGUARDI CHE UNO STATO SODDISFA, in ordine di posizione.
   ///
-  /// Si guarda tutto in un colpo solo dopo un gesto: valutare un traguardo
-  /// alla volta, ognuno col suo controllo sparso, sarebbe il modo sicuro di
-  /// dimenticarne qualcuno.
-  Future<List<Traguardo>> quelliCheSiAccendono(StatoDelCammino stato) async {
-    final nuovi = <Traguardo>[];
+  /// **Non e' cio' che si accende: e' cio' che POTREBBE accendersi.** Serve
+  /// alla regola della voce BS.02, che fra questi ne sceglie uno, e serve alla
+  /// prova della contesa, che conta quante volte la scelta c'e' stata davvero.
+  /// Senza questa porta la prova avrebbe dovuto rifare il giro dei traguardi
+  /// per conto suo, cioe' misurare una copia della regola invece della regola.
+  @visibleForTesting
+  List<Traguardo> quelliSoddisfatti(StatoDelCammino stato) {
+    final soddisfatti = <Traguardo>[];
     for (final traguardo in Sentieri.tuttiITraguardi) {
       if (_accesi.contains(traguardo.id)) continue;
       // **UN DORMIENTE NON ARMA MAI, ordine AR voce 05.** La sua condizione
@@ -652,10 +655,73 @@ class DiarioDelCammino extends ChangeNotifier {
       // il difetto si vedrebbe dove va guardato, cioe' nel dato.
       if (traguardo.dormiente) continue;
       if (!traguardo.condizione.raggiunto(stato)) continue;
-      nuovi.add(traguardo);
+      soddisfatti.add(traguardo);
     }
-    nuovi.sort((a, b) => a.posizione.compareTo(b.posizione));
-    return nuovi;
+    soddisfatti.sort((a, b) => _chiVaPrima(a, b, stato));
+    return soddisfatti;
+  }
+
+  /// CHI VA PRIMA FRA DUE TRAGUARDI SODDISFATTI DALLO STESSO GESTO.
+  ///
+  /// **Primo: la posizione piu' bassa.** E' il gradino piu' vicino a chi
+  /// cammina, quello che stava per prendere comunque.
+  ///
+  /// **Secondo, a parita' di posizione: il sentiero che sta piu' indietro.**
+  /// Tre sentieri hanno tutti un gradino 11, e senza questa riga vincerebbe
+  /// sempre lo stesso, quello col nome alfabeticamente piu' basso: le perle si
+  /// accenderebbero tutte sullo stesso ramo. Parole del fondatore: "non mi
+  /// piace che i traguardi siano lineari, vorrei che le perle si accendessero
+  /// in piu' rami. Vorrei un ordine sparso".
+  ///
+  /// **Terzo: l'identificativo**, che non e' un criterio ma la garanzia che a
+  /// parita' di tutto la risposta sia sempre la stessa. Una scelta che cambia
+  /// da un giro all'altro non si puo' provare.
+  int _chiVaPrima(Traguardo a, Traguardo b, StatoDelCammino stato) {
+    final perPosizione = a.posizione.compareTo(b.posizione);
+    if (perPosizione != 0) return perPosizione;
+    final dietroA = stato.gradiniAlleSpalle[_sentieroDi(a).name] ?? 0;
+    final dietroB = stato.gradiniAlleSpalle[_sentieroDi(b).name] ?? 0;
+    final perRamo = dietroA.compareTo(dietroB);
+    if (perRamo != 0) return perRamo;
+    return a.id.compareTo(b.id);
+  }
+
+  Sentiero _sentieroDi(Traguardo traguardo) {
+    for (final s in Sentiero.values) {
+      if (Sentieri.di(s).any((t) => t.id == traguardo.id)) return s;
+    }
+    return Sentiero.values.first;
+  }
+
+  /// IL TRAGUARDO CHE SI ACCENDE, E NE ACCENDE UNO SOLO. Ordine BS voce 02.
+  ///
+  /// **Parole del fondatore, sulla build 2206**: "ogni volta che apro l'app, mi
+  /// sembra di giocare alla slot machine e continuo a vedere le feste di
+  /// traguardo uno dietro l'altro". Tredici feste in tre minuti, quattro delle
+  /// quali entrando nei Tarocchi. Nasceva qui: questo metodo accendeva TUTTI i
+  /// traguardi che trovava veri, e un gesto solo ne soddisfa spesso quattro o
+  /// cinque, perche' la prima volta, la varieta', il conteggio e la finestra
+  /// del cielo guardano tutti lo stesso gesto.
+  ///
+  /// **La regola non ha eccezioni: se ne accende UNO, quello di posizione piu'
+  /// bassa.** Gli altri NON si accendono e NON vanno in coda: **restano da
+  /// prendere**, e si accenderanno alla prima occasione successiva che li
+  /// soddisfa, con la loro festa piena. Un traguardo rimandato non e' un
+  /// traguardo perso: e' un traguardo che aspetta il suo momento invece di
+  /// essere buttato dentro una raffica insieme ad altri quattro.
+  ///
+  /// **Tutti e cinquantacinque i gradini di ogni sentiero restano attivi
+  /// insieme.** Non si arma un gradino alla volta e non si impone nessun
+  /// ordine: il fondatore ha scartato il cammino lineare e vuole le perle
+  /// sparse su rami diversi.
+  ///
+  /// **Nessun timer e nessuna distanza fra le feste**: la festa resta immediata
+  /// nell'istante del gesto, come deciso il 23 agosto. Gli Eos e il Sigillo
+  /// restano immediati come sempre.
+  Future<List<Traguardo>> quelliCheSiAccendono(StatoDelCammino stato) async {
+    final soddisfatti = quelliSoddisfatti(stato);
+    if (soddisfatti.isEmpty) return const <Traguardo>[];
+    return <Traguardo>[soddisfatti.first];
   }
 
   /// Il prossimo traguardo di un sentiero, cioe' il primo non ancora acceso.
