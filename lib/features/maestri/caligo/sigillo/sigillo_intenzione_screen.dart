@@ -601,7 +601,15 @@ class RuotaSigilloPainter extends CustomPainter {
         style: TextStyle(
           color: colore,
           fontSize: TypographyTokens.pavimento,
-          fontFamily: 'CormorantGaramond',
+        // **IL CARATTERE E' EBGaramond, e la scelta e' del fondatore.**
+        // Ordine BT voce 01, sulla build 2207: davanti alle tre anteprime
+        // dell'ordine BM voce 02 ha detto "ok per la (b), chiudiamo BM.02".
+        // EBGaramond il pacchetto lo dichiara gia' e l'app lo carica gia',
+        // quindi non entra un byte di asset in piu'. Prima qui c'era
+        // CormorantGaramond, che nel pacchetto non c'e' mai stato: la ruota
+        // si disegnava col carattere di sistema, cioe' con uno diverso su
+        // ogni telefono.
+          fontFamily: 'EBGaramond',
         ),
       ),
       textDirection: TextDirection.ltr,
