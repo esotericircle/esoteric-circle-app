@@ -397,8 +397,17 @@ class PlanCatalog {
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),
     FeatureRow('Tarocchi carta singola',
         ['1 al giorno', '3 al giorno', 'Illimitati', 'Illimitati']),
+    // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04, e la decisione
+    // e' del fondatore: "il viandante ha una stesa al giorno".** La cella
+    // diceva "Eos pieno", che questa classe legge come zero usi gratis: era
+    // la lettura del listino fatta dall'ordine BN voce 09, e il fondatore la
+    // supera. **La parola Eos non puo' restare nella cella**: chi legge i
+    // limiti guarda prima se c'e' scritto Eos e in quel caso risponde zero,
+    // quindi "1 al giorno, poi Eos" avrebbe continuato a valere zero. La
+    // strada degli Eos resta dopo la stesa del giorno, dove il gating la
+    // apre a 150 Eos: e' il cancello, non il listino.
     FeatureRow('Stese complete tarocchi',
-        ['Eos pieno', 'Eos scontati', '5 al giorno', 'Illimitate']),
+        ['1 al giorno', 'Eos scontati', '5 al giorno', 'Illimitate']),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
     // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O
