@@ -18,6 +18,7 @@ import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -190,11 +191,12 @@ void main() {
     ({ByteData dati, int larghezza, int altezza}) scatto,
     Rect rettangolo, {
     int alta = 6,
+    int da = 1,
   }) {
     var r = 0.0, g = 0.0, b = 0.0;
     var quanti = 0;
-    for (var y = rettangolo.top.round() + 1;
-        y < rettangolo.top.round() + 1 + alta;
+    for (var y = rettangolo.top.round() + da;
+        y < rettangolo.top.round() + da + alta;
         y++) {
       for (var x = rettangolo.left.round() + 1;
           x < rettangolo.right.round() - 1;
@@ -489,8 +491,17 @@ void main() {
       for (final posizione in SpreadPosition.values) {
         final bolla = find.byKey(Key('stesa_letta_${posizione.name}'));
         expect(bolla, findsOneWidget);
+        // **LA FASCIA SI E' SPOSTATA SUL BORDO, ordine BU voce 02, e la
+        // ragione precede il numero.** La distinzione della bolla chiave
+        // stava nel FONDO piu' intenso, e la fascia alta del rientro lo
+        // leggeva bene. Il fondatore ha chiesto di togliere quel fondo: "non
+        // voglio nessuna sovrapposizione che peggiora la visualizzazione
+        // della carta, ho chiesto la cornice". Adesso la distinzione vive
+        // nella cornice, quindi si misura la cornice: due punti dal bordo, non
+        // sei dal rientro. **La soglia non e' stata toccata**, e' cambiato il
+        // posto in cui si guarda.
         medie[posizione.name] =
-            mediaDellaFascia(scatto, tester.getRect(bolla));
+            mediaDellaFascia(scatto, tester.getRect(bolla), da: 0, alta: 2);
       }
       final dellaChiave = medie[chiave.name]!;
       final altre = SpreadPosition.values
@@ -629,17 +640,21 @@ void main() {
           final trovato = find.byKey(chiave);
           expect(trovato, findsOneWidget,
               reason: 'manca il testo $quale di ${posizione.name}');
-          final widget = tester.widget<Text>(trovato);
-          final testo = widget.data!;
+          // Il significato passa da ParagrafiDiLettura, il nome resta un
+          // Text: si legge da chi dei due c'e'.
+          final w = tester.widget(trovato);
+          final testo =
+              w is Text ? w.data! : (w as ParagrafiDiLettura).testo;
+          final stile = w is Text ? w.style : (w as ParagrafiDiLettura).stile;
           final larghezza = tester.getSize(trovato).width;
           final pittore = TextPainter(
-            text: TextSpan(text: testo, style: widget.style),
+            text: TextSpan(text: testo, style: stile),
             textDirection: TextDirection.ltr,
           )..layout(maxWidth: larghezza);
           final righe = pittore.computeLineMetrics().length;
           // Quante righe servirebbero con tutta la larghezza disponibile.
           final pieno = TextPainter(
-            text: TextSpan(text: testo, style: widget.style),
+            text: TextSpan(text: testo, style: stile),
             textDirection: TextDirection.ltr,
           )..layout(maxWidth: larghezzaReale - 32);
           final righeAlPieno = pieno.computeLineMetrics().length;
