@@ -215,12 +215,12 @@ guardare 165 testi per salvarne sei.
 - **L'unicita'**: **3.926 eventi** enumerati, su **151 configurazioni di cielo**
   raccolte percorrendo un anno vero giorno per giorno e **26 gesti** presi dal
   censimento. Il massimo acceso da un evento solo e' **1**, zero eccezioni.
-- **La contesa**: **37 contese su 3.926 eventi, cioe' lo 0,9 per cento**, contro
-  un tetto del 10. La contesa piu' affollata metteva in gara **8 traguardi**.
+- **La contesa**: **23 contese su 3.926 eventi, cioe' lo 0,6 per cento**, contro
+  un tetto del 10. La contesa piu' affollata metteva in gara **4 traguardi**.
 - **La curva**: un anno di uso tipico, **312 giorni aperti su 365**, con due arti
   di casa aperte quasi ogni giorno e una terza che cambia. **Il primo giorno
-  produce 3 feste** contro un tetto di 4. Feste per mese: **42, 9, 5, 3, 0, 4, 6,
-  0, 0, 0, 0, 5**, in tutto **74 gradini accesi su 94 vivi**. A fine anno **zero
+  produce 3 feste** contro un tetto di 4. Feste per mese: **37, 7, 5, 3, 0, 2, 8,
+  0, 0, 0, 0, 4**, in tutto **66 gradini accesi su 87 vivi**. A fine anno **zero
   gradini restavano soddisfatti e mai accesi**, cioe' nessun prigioniero.
 
 **QUI UNA GRANDEZZA MISURATA E' CAMBIATA, e va letta prima del numero.**
@@ -260,9 +260,9 @@ toccata.
   `viso: 2`.
 - **BS.03.** Alzate artificialmente le contese togliendo dal giro la riga che
   salta i traguardi gia' accesi. Verifica: la riga dell'iniezione trovata a 650.
-  La seconda prova e' caduta alla soglia del dieci per cento con **contese 3.925
-  su 3.926 eventi, cioe' il 100,0 per cento**, e la contesa piu' affollata
-  metteva in gara **56 traguardi**.
+  La seconda prova e' caduta alla soglia del dieci per cento con **contese 3.924
+  su 3.926 eventi, cioe' il 99,9 per cento**, e la contesa piu' affollata
+  metteva in gara **51 traguardi**.
 
 ## Cio' che questo ordine non ha toccato
 
