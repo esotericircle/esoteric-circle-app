@@ -37,6 +37,7 @@ import 'riflessione_del_cielo_view.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../sigilli/celebrazione.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -157,6 +158,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     _pienaQuestoConsulto = piena;
     _attesaPienaGiaSpesa = true;
     unawaited(MemoriaDellaRiflessione.segnaSpesaOggi(_date));
+    // **LA FESTA ASPETTA CHE LA RIFLESSIONE FINISCA, ordine BU voce 03.** La
+    // domanda che la tiene viva e' la fase: finche' e' raccolta o nomina, il
+    // cielo sta ancora parlando e nessuna festa ci si dipinge sopra.
+    RiflessioniInCorso.entra(() => mounted && _riflettendo);
     setState(() => _fase = _FaseDelConsulto.raccolta);
     // **LA SOGLIA, ordine BK voce 04.** Vibrazione leggera e suono di soglia,
     // dalla porta unica: l'interruttore che governa suono e vibrazione e'
@@ -193,6 +198,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _fase = _FaseDelConsulto.responso;
       _turnoDiScrittura = 0;
     });
+    // Scena libera: la festa che ha aspettato la riflessione riparte adesso.
+    unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
     // **LA RIVELAZIONE, ordine BK voce 04.** Parte alla comparsa del responso,
     // cioe' almeno un'intera riflessione dopo la soglia: i due suoni non si
     // sovrappongono mai, e ciascuno parte una volta sola per consulto.
