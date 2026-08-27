@@ -218,6 +218,17 @@ chiuso dall'ordine BS. L'Oroscopo e le sue animazioni, a parte la sola riga che
 dichiara la sua riflessione. La home coi tre Maestri. I tre video della
 rivelazione.
 
+## La distribuzione delle due funzioni
+
+**FATTA, e verificata sul server.** `firebase deploy --only
+functions:statoDelCerchio,functions:consumaDelGiorno` dalla cartella
+`functions/`, esito **Successful update operation** per tutte e due.
+`gcloud functions list` le dice **ACTIVE**, aggiornate il **27 agosto 2026
+alle 21:07 UTC**, contro le 16:15 della distribuzione precedente. **Il timeout
+della scoperta e' stato alzato a sessanta prima di cominciare**, come l'ordine
+prescrive: il 27 agosto il fondatore aveva incontrato "Cannot determine backend
+specification. Timeout after 10000" col codice sano.
+
 ## Cinque guardie di casa hanno preso questo ordine
 
 Nessuna delle prove scritte qui le guardava, e ognuna ha trovato una
