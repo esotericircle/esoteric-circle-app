@@ -4,11 +4,13 @@ import 'dart:io';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'gli_accenti_del_corpus.dart';
+
 /// I TRE SENTIERI NASCONO DAL DATO. Ordine AR voce 02.
 ///
 /// **Il corpus comanda, il codice e' la conseguenza.** I tre file dei sentieri
 /// non si scrivono a mano: li genera `tool/genera_sentieri_dal_corpus.py` da
-/// `docs/corpus/Traguardi_165_Revisione_D2.json`, che dall ordine AU voce 03 e
+/// `docs/corpus/Traguardi_165_Revisione_E.json`, che dall ordine AU voce 03 e
 /// il corpus vivo. Queste prove confrontano il
 /// codice col file, voce per voce: se qualcuno tocca un nome nel Dart senza
 /// toccare il corpus, cadono.
@@ -18,7 +20,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// traguardo si scopre solo il giorno in cui non si accende.
 void main() {
   final corpus = jsonDecode(
-      File('docs/corpus/Traguardi_165_Revisione_D2.json')
+      File('docs/corpus/Traguardi_165_Revisione_E.json')
           .readAsStringSync()) as Map<String, dynamic>;
   final voci = <Map<String, dynamic>>[
     for (final s in corpus['sentieri'] as List)
@@ -61,10 +63,12 @@ void main() {
         diversi.add('${v['id']} manca nel codice');
         continue;
       }
-      if (mio.nome != v['nome']) {
+      // **VERBATIM VUOL DIRE LE STESSE PAROLE, non gli stessi byte**: vedi
+      // gli_accenti_del_corpus.dart. Il corpus scrive "e'", l'app mostra "è".
+      if (mio.nome != conGliAccenti(v['nome'] as String)) {
         diversi.add('${v['id']} nome "${mio.nome}" invece di "${v['nome']}"');
       }
-      if (mio.fascia != v['fascia']) {
+      if (mio.fascia != conGliAccenti(v['fascia'] as String)) {
         diversi.add('${v['id']} fascia "${mio.fascia}"');
       }
       if (mio.eos != v['eos']) {
