@@ -73,9 +73,15 @@ void main() {
     expect(singola, [1, 3, null, null],
         reason: 'la riga della carta singola non promette piu\' quello che '
             'il briefing dice del gesto gratis del giorno');
-    expect(complete, [0, 0, 5, null],
+    // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04**, e la decisione
+    // e' del fondatore: "il viandante ha una stesa al giorno". Supera la
+    // lettura del listino fatta dall'ordine BN voce 09, che aveva concluso
+    // zero. Solo la prima cella cambia: il tre per l'Iniziato non e' scritto
+    // da nessuna parte, e quando il numero non c'e' si tiene quello di oggi.
+    expect(complete, [1, 0, 5, null],
         reason: 'la riga delle stese complete non promette piu\' quello che '
-            'il listino dice: Eos pieno, Eos scontati, cinque, illimitate');
+            'il fondatore ha deciso: una al giorno, poi Eos scontati, cinque, '
+            'illimitate');
     expect(complete, isNot(singola),
         reason: 'se le due righe promettessero la stessa cosa, questa voce '
             'non avrebbe nessun motivo di esistere');
@@ -119,8 +125,13 @@ void main() {
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
 
+    // **LA STESA DEL GIORNO PRIMA, POI GLI EOS.** Ordine BU voce 04: il
+    // Viandante ne ha una compresa, e il cancello si apre dopo quella.
+    expect(borsa.puoiStendere(Tier.free), isTrue,
+        reason: 'il Viandante ha una stesa al giorno, e questa e\' la sua');
+    borsa.registraStesa(Tier.free);
     expect(borsa.puoiStendere(Tier.free), isFalse,
-        reason: 'il Viandante non ha stese comprese: le compra');
+        reason: 'finita la stesa del giorno il Viandante le compra');
     expect(await borsa.riscatta('stese'), 150);
     expect(borsa.puoiStendere(Tier.free), isTrue);
 
@@ -228,9 +239,9 @@ void main() {
         reason: 'l\'Illuminato legge un conto: un residuo infinito e\' rumore');
 
     await monta(tester, piano: Tier.free, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'La stesa completa si apre con gli Eos.',
-        reason: 'al Viandante si dice "zero su zero", che e\' un numero vero '
-            'e una frase falsa');
+    expect(contoAVideo(tester), 'Stese di oggi: 1 di 1',
+        reason: 'il Viandante non legge piu\' la sua stesa del giorno: '
+            'ordine BU voce 04');
   });
 
   testWidgets('il conto si dichiara PRIMA, e sparisce a stesa cominciata',
@@ -297,15 +308,32 @@ void main() {
         reason: 'l\'invito nomina le gettate: manderebbe la persona a '
             'cercare il residuo dalla parte sbagliata dell\'app');
   });
-
-  testWidgets('il Viandante trova subito la strada degli Eos, e a riscatto '
-      'avvenuto la stesa riparte da sola', (tester) async {
+  testWidgets('il Viandante ha la sua stesa del giorno, e poi la strada degli '
+      'Eos', (tester) async {
+    // **PRIMA LA STESA DEL GIORNO, POI IL CANCELLO.** Ordine BU voce 04,
+    // decisione del fondatore: "il viandante ha una stesa al giorno". Prima di
+    // questo ordine il cancello si apriva al primo tocco, perche' il Viandante
+    // aveva zero stese comprese.
     final borsa = QuestionAllowance(porta: _PortaDelDenaro(saldoIniziale: 400));
     await borsa.sincronizza();
     await monta(tester, piano: Tier.free, borsa: borsa);
 
     await pesca(tester, 38);
-    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
+    expect(find.byKey(const Key('upgrade_invite')), findsNothing,
+        reason: 'la PRIMA stesa del giorno chiede gli Eos al Viandante: e\' '
+            'quella compresa nel piano');
+    expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget,
+        reason: 'la prima stesa del giorno non e\' partita');
+
+    // Consumata quella, il cancello si apre e nomina il prezzo.
+    final dopo = QuestionAllowance(porta: _PortaDelDenaro(saldoIniziale: 400));
+    await dopo.sincronizza();
+    dopo.registraStesa(Tier.free);
+    await monta(tester, piano: Tier.free, borsa: dopo);
+    await pesca(tester, 38);
+    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
+        reason: 'finita la stesa del giorno il Viandante non trova nessuna '
+            'strada: e\' il vicolo cieco che il gating a due strade vieta');
     final riscatta = find.textContaining('Riscatta una stesa completa');
     expect(riscatta, findsOneWidget,
         reason: 'la strada degli Eos non c\'e\', o non dice il prezzo');
@@ -354,7 +382,7 @@ void main() {
 
   test('il server conosce il budget delle stese e il suo prezzo', () {
     final budget = File('functions/src/budget.ts').readAsStringSync();
-    expect(budget.contains('stese: [0, 0, 5, null]'), isTrue,
+    expect(budget.contains('stese: [1, 0, 5, null]'), isTrue,
         reason: 'il server non impone piu\' i limiti del listino');
     final borsellino = File('functions/src/borsellino.ts').readAsStringSync();
     expect(RegExp(r'stese: 150').hasMatch(borsellino), isTrue,
