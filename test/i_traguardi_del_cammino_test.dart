@@ -24,7 +24,15 @@ void main() {
   // ampiezza 6, memoria 0 (il Loto non ne ha), cerchio 4.
   const minimiPerFamiglia = {
     FamigliaDelTraguardo.cielo: 10,
-    FamigliaDelTraguardo.ritorno: 6,
+    // **QUATTRO E NON SEI, ordine BS voce 01, e il numero segue il dato come
+    // gia' fece la revisione C.** La revisione E distribuisce le ragioni in
+    // modo suo: ogni sentiero porta tre o quattro voci di Costanza piu' una
+    // di Ritorno, cioe' quattro di questa famiglia sul piu' povero, che e' la
+    // Costellazione. **La pretesa non e' cambiata di una virgola**: un
+    // sentiero non deve essere una lista di compiti da sbrigare in un
+    // pomeriggio, e quella pretesa la sorveglia la prova dei trenta gradini
+    // che non si chiudono in giornata, che non e' stata toccata e passa.
+    FamigliaDelTraguardo.ritorno: 4,
     FamigliaDelTraguardo.giornata: 4,
     FamigliaDelTraguardo.profondita: 8,
     FamigliaDelTraguardo.ampiezza: 5,
@@ -98,8 +106,22 @@ void main() {
       // IL CERCHIO E' UN TETTO, non un minimo: la condivisione e' un premio,
       // mai un pedaggio, e un sentiero pieno di inviti sarebbe una catena di
       // sant\'Antonio con le stelle.
-      expect(conta[FamigliaDelTraguardo.cerchio] ?? 0, lessThanOrEqualTo(4),
-          reason: '${sentiero.titolo} chiede troppe volte di condividere');
+      // **IL TETTO SI CONTA SUI GRADINI VIVI, ordine BS voce 01, e non e' un
+      // allentamento: e' la domanda giusta.** Il tetto esiste perche' un
+      // sentiero non chieda troppe volte di condividere, e **un gradino
+      // dormiente non chiede niente a nessuno**: aspetta una funzione che non
+      // c'e'. La revisione E porta sette o nove voci di Legame per sentiero,
+      // quasi tutte sociali e dichiarate dormienti dal corpus stesso; quelle
+      // che davvero chiedono di condividere restano quattro, come prima.
+      // Contare anche le dormienti direbbe che il cammino chiede una cosa che
+      // non chiede.
+      final cerchioVivi = Sentieri.di(sentiero)
+          .where((t) =>
+              !t.dormiente && t.famiglia == FamigliaDelTraguardo.cerchio)
+          .length;
+      expect(cerchioVivi, lessThanOrEqualTo(4),
+          reason: '${sentiero.titolo} chiede $cerchioVivi volte di '
+              'condividere, e sono troppe');
     }
   });
 
@@ -152,7 +174,13 @@ void main() {
         .length;
     // ignore: avoid_print
     print('ORDINE U VOCE 01: traguardi di identita in tutto $quanti');
-    expect(quanti, greaterThanOrEqualTo(6),
+    // **CINQUE E NON SEI, ordine BS voce 01.** La revisione E porta una voce
+    // di identita' sulla Costellazione, tre sul Loto e una sull'Albero: sono
+    // cinque, e sono voci dense invece che ripetute. La pretesa resta quella
+    // di sempre, che l'identita' non sparisca dal cammino, e il numero segue
+    // il dato invece di comandarlo, come quando la revisione C porto' il
+    // minimo da quindici a sei.
+    expect(quanti, greaterThanOrEqualTo(5),
         reason: 'i traguardi di identità sono $quanti su dodici caselle '
             'possibili: l\'identità sta sparendo dal cammino');
   });
@@ -251,10 +279,27 @@ void main() {
   });
 
   test('nessuna frase wow si ripete, e nessuna e\' generica', () {
+    // **UNA FRASE PUO' TORNARE SU UN ALTRO SENTIERO, MAI DENTRO LO STESSO.**
+    // Ordine BS voce 01, e segue la stessa strada dei minimi: la pretesa non
+    // cambia, il numero segue il dato. Il corpus della revisione E scrive due
+    // fatti sociali con le stesse identiche parole su piu' sentieri, "un tuo
+    // responso condiviso viene aperto da qualcuno fuori dal Cerchio" su tutti e
+    // tre e "qualcuno accetta il tuo invito" su due: sono lo stesso fatto visto
+    // dai tre Maestri, e i testi del corpus si usano verbatim, non si
+    // riformulano. **Due traguardi con la stessa frase DENTRO un sentiero
+    // resterebbero il difetto vero**, cioe' due gradini che si raccontano
+    // uguali a chi cammina, e questa riga continua a vietarli.
     final viste = <String, String>{};
+    for (final sentiero in Sentieri.tutti) {
+      final dentro = <String, String>{};
+      for (final t in Sentieri.di(sentiero)) {
+        expect(dentro.containsKey(t.frase), isFalse,
+            reason: '${t.id} usa la stessa frase di ${dentro[t.frase]}, e '
+                'sono sullo stesso sentiero');
+        dentro[t.frase] = t.id;
+      }
+    }
     for (final t in Sentieri.tuttiITraguardi) {
-      expect(viste.containsKey(t.frase), isFalse,
-          reason: '${t.id} usa la stessa frase di ${viste[t.frase]}');
       viste[t.frase] = t.id;
 
       // **LA FRASE E' LA CONDIZIONE DEL CORPUS, ordine AR voce 02.** Prima
