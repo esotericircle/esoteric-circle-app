@@ -36,7 +36,13 @@ Future<void> mostraLaCartaIngrandita(
     // IL TOCCO FUORI CHIUDE: e' la prima delle tre uscite.
     barrierDismissible: true,
     barrierLabel: 'Chiudi la carta',
-    barrierColor: Colors.black.withValues(alpha: 0.72),
+    // **IL VELO E' OPACO PIENO, ordine BU voce 01.** Parole del fondatore
+    // sulla 2208: "perche' se faccio click su una carta il testo e' chiaro
+    // sottolineato di giallo?". Non era una sottolineatura: a 0,72 passava
+    // il ventotto per cento della schermata sotto, e i titoli oro della
+    // lista finivano dietro le righe del testo, riga per riga. Un velo che
+    // lascia leggere due cose insieme non e' un velo.
+    barrierColor: Colors.black,
     // Con Riduci Movimento la carta si apre GIA' COMPOSTA: nessuna rotazione,
     // nessuna salita, e il testo c'e' lo stesso. Chi ha tolto le animazioni
     // non ha chiesto di rinunciare ai dettagli della carta.
