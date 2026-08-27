@@ -79,10 +79,34 @@ void main() {
 
     // E il contrario: un registro che nomina gesti che nessun traguardo usa
     // e' un registro che invecchia in silenzio.
+    // **TRE GESTI RESTANO NEL REGISTRO SENZA UN TRAGUARDO CHE LI NOMINI, e si
+    // dichiarano invece di sparire.** Ordine BS voce 01. Il registro censisce
+    // cio' che l'app MANDA; il corpus decide su cosa costruire un gradino, e
+    // la revisione E ha fatto scelte sue. Toglierli dal registro sarebbe la
+    // cosa sbagliata: un gesto che l'app manda e nessuno censisce e' proprio
+    // il difetto che questa prova esiste per impedire.
+    const dichiaratiSenzaTraguardo = <String, String>{
+      'presenza': 'la revisione E scrive le costanze sulle arti, non sulla '
+          'presenza nuda: nessun gradino dice piu\' "sette giorni di '
+          'presenza". Il guscio continua a mandarla e il diario a contarla, '
+          'perche\' e\' la serie su cui poggia il ritorno.',
+      'ora_di_nascita': 'nessuna condizione lo nomina DA SOLO, ma med_7 lo '
+          'chiede insieme al luogo e alla carta dentro il pezzo composto '
+          'nascita_completa: e\' nominato, per composizione.',
+      'meditazione': 'i gradini della meditazione ci sono e il corpus li '
+          'dichiara dormienti, perche\' la meditazione oggi non ha una fine '
+          'che la scena possa segnare. Il gesto resta censito perche\' l\'arte '
+          'esiste.',
+    };
     final inutili = [
       for (final s in GestiDelleArti.tutte)
-        if (!nominati.contains(s.gesto)) s.gesto,
+        if (!nominati.contains(s.gesto) &&
+            !dichiaratiSenzaTraguardo.containsKey(s.gesto))
+          s.gesto,
     ]..sort();
+    // ignore: avoid_print
+    print('ORDINE BS VOCE 01: gesti censiti senza un traguardo che li nomini, '
+        'dichiarati ${dichiaratiSenzaTraguardo.keys.toList()..sort()}');
     expect(inutili, isEmpty,
         reason: 'il registro dichiara gesti che nessun traguardo nomina piu\': '
             '$inutili');
