@@ -9,6 +9,9 @@ import '../../design_system/components/natal_wheel.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'dart:async';
+import '../sigilli/celebrazione.dart';
+import '../sigilli/regia_del_cammino.dart';
 
 /// I MOMENTI DELLA CHIAMATA, nell'ordine in cui accadono.
 ///
@@ -99,9 +102,17 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
   @override
   void initState() {
     super.initState();
+    // **LA FESTA ASPETTA CHE LA CHIAMATA FINISCA, ordine BU voce 03.** E' la
+    // riflessione della Sinastria: finche' i fili si accendono, nessuna festa
+    // ci si dipinge sopra. La domanda che la tiene viva e' la scena stessa.
+    RiflessioniInCorso.entra(
+        () => mounted && !_saltata && _scena.status == AnimationStatus.forward);
     _scena = AnimationController(vsync: this, duration: _durata)
       ..addStatusListener((s) {
-        if (s == AnimationStatus.completed && !_saltata) widget.onFinita();
+        if (s == AnimationStatus.completed && !_saltata) {
+          widget.onFinita();
+          _laScenaELibera();
+        }
       })
       ..forward();
   }
@@ -120,6 +131,13 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
     _saltata = true;
     _scena.stop();
     widget.onFinita();
+    _laScenaELibera();
+  }
+
+  /// La festa che ha aspettato la chiamata riparte adesso.
+  void _laScenaELibera() {
+    if (!mounted) return;
+    unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
   }
 
   /// I confini dei momenti, in frazione della scena intera.
