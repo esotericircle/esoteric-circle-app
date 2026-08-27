@@ -169,9 +169,17 @@ void main() {
     print('ORDINE AO VOCE 04: accesi ${accesi.length}, somma dei valori '
         '$attesa, accreditato dal server ${porta.accreditato}, movimenti '
         '${porta.movimenti.length}');
-    expect(accesi.length, greaterThan(1),
-        reason: 'questa prova ha bisogno di una FESTA UNITA: col gesto '
-            'scelto si accende un traguardo solo e non misura niente');
+    // **LA FESTA UNITA NON ESISTE PIU', ordine BS voce 02.** Questa prova
+    // nasceva quando un gesto poteva accendere quattro o cinque gradini
+    // insieme e chiedeva che il premio partisse per tutti. Adesso un evento
+    // accende UN traguardo solo, per decisione del fondatore, e la premessa
+    // di questa misura e' caduta. **La pretesa che conta resta identica e
+    // vale ancora**: cio' che si accende viene pagato, per intero e una volta
+    // sola, e il borsellino mostra esattamente cio' che il server ha
+    // accreditato.
+    expect(accesi.length, 1,
+        reason: 'col gesto scelto si accendono ${accesi.length} traguardi: '
+            'dall\'ordine BS un evento ne accende uno solo');
     expect(porta.movimenti.toSet().length, accesi.length,
         reason: 'i movimenti chiesti al server sono '
             '${porta.movimenti.toSet().length} contro ${accesi.length} '
