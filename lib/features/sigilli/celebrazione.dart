@@ -113,6 +113,13 @@ class Celebrazione {
     // al primo momento utile. Due celebrazioni nello stesso istante sono
     // illeggibili, e il premio di entrambe si perde.
     if (FesteInCorso.unaCeGia) return false;
+    // **UNA FESTA NON SI DIPINGE SOPRA UNA RIFLESSIONE, ordine BU voce 03.**
+    // Parole del fondatore sulla 2208: "quando parte il calcolo con
+    // l'animazione di riflessione, se c'e' una festa la riflessione non si
+    // vede perche' sopra c'e' la festa". Chi ha chiamato la mette in coda, e
+    // la coda riparte appena la riflessione finisce: non e' un timer, e'
+    // una condizione sulla scena, quindi l'immediatezza dell'ordine BS resta.
+    if (RiflessioniInCorso.unaCeGia) return false;
     // **UNA SCENA SOLA PER TUTTI, ordine BE voce 05.** Qui c'era un bivio: i
     // grandi e il primo in assoluto prendevano la rotta piena, tutti gli
     // altri una sovrimpressione breve su velo scuro, senza spirale, senza
@@ -188,6 +195,87 @@ class FesteInCorso {
   }
 
   /// Segna una festa appena messa a schermo, con la domanda che la tiene viva.
+  static void entra(bool Function() ancoraViva) => _vive.add(ancoraViva);
+
+  /// Solo per le prove: dimentica tutto fra una scena e l'altra.
+  @visibleForTesting
+  static void azzera() => _vive.clear();
+}
+
+/// IL REGISTRO DELLE FESTE MOSTRATE. Ordine BU voce 05.
+///
+/// **Perche' esiste.** Il fondatore dice di vedere ancora due feste attaccate,
+/// e l'ordine BS garantisce che un evento ne accenda una sola. Delle due l'una,
+/// e senza un registro si discute: qui ogni festa che va a schermo lascia
+/// scritto il gesto che l'ha generata e l'istante, cosi' la domanda "sono nate
+/// dallo stesso gesto?" ha una risposta e non un'opinione.
+///
+/// **Non si vede a video e non tocca il disco**: vive quanto vive l'app, e
+/// serve alle prove e a chi guarda un rapporto.
+class RegistroDelleFeste {
+  const RegistroDelleFeste._();
+
+  static final List<({String gesto, String traguardo, DateTime quando})>
+      _mostrate = [];
+
+  /// Le feste mostrate, in ordine di comparsa.
+  static List<({String gesto, String traguardo, DateTime quando})>
+      get mostrate => List.unmodifiable(_mostrate);
+
+  /// Segna una festa appena andata a schermo.
+  static void segna(
+          {required String gesto,
+          required String traguardo,
+          DateTime? quando}) =>
+      _mostrate
+          .add((gesto: gesto, traguardo: traguardo, quando: quando ?? DateTime.now()));
+
+  /// Quante coppie di feste CONSECUTIVE sono nate dallo stesso gesto: e' il
+  /// numero che dice se la legge dell'ordine BS regge davvero.
+  static int get coppieDalloStessoGesto {
+    var quante = 0;
+    for (var i = 1; i < _mostrate.length; i++) {
+      if (_mostrate[i].gesto == _mostrate[i - 1].gesto) quante++;
+    }
+    return quante;
+  }
+
+  @visibleForTesting
+  static void azzera() => _mostrate.clear();
+}
+
+/// LE RIFLESSIONI IN CORSO, e una festa non ci si dipinge sopra.
+///
+/// **Parole del fondatore sulla build 2208**: "quando parte il calcolo con
+/// l'animazione di riflessione, se c'e' una festa la riflessione non si vede
+/// perche' sopra c'e' la festa". Ordine BU voce 03.
+///
+/// **Non e' un timer e non e' una coda a freddo**, e la differenza conta perche'
+/// l'ordine BS ha appena stabilito che la festa e' immediata: qui la festa non
+/// viene rimandata di un tempo, viene rimandata di una CONDIZIONE. Finche' la
+/// scena sta raccontando qualcosa la festa aspetta, e appena quella finisce si
+/// apre. Se la riflessione dura mezzo secondo, la festa arriva mezzo secondo
+/// dopo; se non c'e' nessuna riflessione, la festa arriva nell'istante del
+/// gesto, come sempre.
+///
+/// **La forma e' quella di [FesteInCorso], ed e' voluta**: un elenco di domande
+/// a cui si sa rispondere, non un contatore. Con un contatore chi entra deve
+/// ricordarsi di uscire, e una scena buttata via senza chiudere lascerebbe il
+/// conto a uno per sempre: da quel momento nessuna festa si aprirebbe piu'.
+/// Qui ogni riflessione lascia la domanda "stai ancora andando?", e chi non
+/// risponde piu' di si' esce da se'.
+class RiflessioniInCorso {
+  const RiflessioniInCorso._();
+
+  static final List<bool Function()> _vive = [];
+
+  /// Vero se un'animazione di riflessione sta ancora andando.
+  static bool get unaCeGia {
+    _vive.removeWhere((ancoraViva) => !ancoraViva());
+    return _vive.isNotEmpty;
+  }
+
+  /// Segna una riflessione appena partita, con la domanda che la tiene viva.
   static void entra(bool Function() ancoraViva) => _vive.add(ancoraViva);
 
   /// Solo per le prove: dimentica tutto fra una scena e l'altra.
