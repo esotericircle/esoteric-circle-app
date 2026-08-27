@@ -27,9 +27,9 @@ void main() {
   test('il corpus vivo e la revisione D2', () {
     final generatore =
         File('tool/genera_sentieri_dal_corpus.py').readAsStringSync();
-    expect(generatore.contains('Traguardi_165_Revisione_D2.json'), isTrue,
+    expect(generatore.contains('Traguardi_165_Revisione_E.json'), isTrue,
         reason: 'il generatore legge ancora un corpus vecchio');
-    expect(File('docs/corpus/Traguardi_165_Revisione_D2.json').existsSync(),
+    expect(File('docs/corpus/Traguardi_165_Revisione_E.json').existsSync(),
         isTrue);
   });
 
@@ -47,8 +47,15 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AS VOCE 12: costanze larghe nel codice $quante, impossibili '
         '${impossibili.length}');
-    expect(quante, greaterThanOrEqualTo(15),
-        reason: 'le costanze larghe sono $quante: il corpus D non e stato '
+    // **QUATTRO E NON QUINDICI, ordine BS voce 01, e il numero segue il dato.**
+    // La revisione D2 scriveva quasi ogni costanza come "nell'arco di N
+    // giorni", e quindici era il conto di quel dato. La revisione E, che il
+    // fondatore ha scritto dopo, ne lascia quattro a finestra e dice le altre
+    // in altro modo. **La pretesa che conta non e' quante siano: e' che
+    // nessuna chieda l'impossibile**, ed e' la riga qui sotto, che non e'
+    // stata toccata e vale su ogni voce.
+    expect(quante, greaterThanOrEqualTo(4),
+        reason: 'le costanze larghe sono $quante: il corpus non e stato '
             'applicato, oppure la regola non le riconosce piu');
     expect(impossibili, isEmpty,
         reason: 'queste condizioni chiedono piu giorni di quanti l arco ne '
