@@ -265,19 +265,34 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
             padding: const EdgeInsets.all(SpacingTokens.lg),
             child: Column(
               children: [
-                const SizedBox(height: SpacingTokens.md),
-                Text(
-                  _revealed ? 'Il tuo Maestro' : 'La rivelazione',
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft, letterSpacing: 3),
-                ),
-                const SizedBox(height: SpacingTokens.xs),
-                Text(
-                  _revealed ? widget.maestro.displayName : _title,
-                  style: TypographyTokens.cerimoniale(),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: SpacingTokens.md),
+                // **A MAESTRO RIVELATO LA TESTATA SPARISCE.** Ordine BT voce
+                // 02, parole del fondatore sulla build 2207: "nei video di
+                // rivelazione di Caligo e Aura, in entrambi il titolo in alto
+                // copre proprio la testa. basterebbe mettere il titolo il tuo
+                // Maestro a capo il nome del maestro in basso al posto di
+                // benvenuto nel cerchio, e quest'ultimo inserirlo come titolo
+                // della bolla subito sotto. cosi' in alto non ci sono titoli".
+                //
+                // **Prima della rivelazione i due testi restano, ed e' la
+                // parte che non si puo' sbagliare**: li' dicono "La
+                // rivelazione" e cosa fare per svelare il Maestro, e toglierli
+                // lascerebbe muta la scena del rito. Una prova apposta cade se
+                // spariscono anche di li'.
+                if (!_revealed) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  Text(
+                    'La rivelazione',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 3),
+                  ),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                    _title,
+                    style: TypographyTokens.cerimoniale(),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                ],
                 Expanded(
                   child: Center(
                     child: ValueListenableBuilder<bool>(
@@ -616,25 +631,56 @@ class _RevealedFooter extends StatelessWidget {
 
     return Column(
       children: [
-        // Il Maestro saluta per nome e nella forma scelta.
+        // **L'ETICHETTA E IL NOME SCENDONO QUI.** Ordine BT voce 02: stavano in
+        // cima alla schermata e coprivano la testa del Maestro nel filmato.
+        // Stesso testo, stesso stile, altro posto.
         Text(
-          identity.welcome(),
+          'Il tuo Maestro',
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft, letterSpacing: 3),
+        ),
+        const SizedBox(height: SpacingTokens.xs),
+        Text(
+          maestro.displayName,
+          style: TypographyTokens.cerimoniale(),
           textAlign: TextAlign.center,
-          style: TypographyTokens.titoloSezione()
-              .copyWith(color: palette.goldSoft),
         ),
         const SizedBox(height: SpacingTokens.sm),
-        if (first != null)
-          Container(
-            padding: const EdgeInsets.all(SpacingTokens.md),
-            decoration: BoxDecoration(
-              color: palette.surface.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-            ),
-            child: ParagrafiDiLettura(testo: first, textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+        // **IL SALUTO E' IL TITOLO DELLA BOLLA, e non sta piu' da solo.**
+        // Parole del fondatore: "quest'ultimo inserirlo come titolo della
+        // bolla subito sotto". Il saluto compare UNA volta sola in tutta la
+        // schermata, e una prova lo conta.
+        //
+        // **La bolla c'e' anche senza il primo momento**: il primo momento
+        // nasce dalla carta natale, e chi arriva qui senza carta avrebbe perso
+        // il saluto insieme alla bolla.
+        Container(
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          decoration: BoxDecoration(
+            color: palette.surface.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
           ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                identity.welcome(),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloSezione()
+                    .copyWith(color: palette.goldSoft),
+              ),
+              if (first != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                ParagrafiDiLettura(
+                    testo: first,
+                    textAlign: TextAlign.center,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+              ],
+            ],
+          ),
+        ),
         const SizedBox(height: SpacingTokens.md),
         SizedBox(
           width: double.infinity,
