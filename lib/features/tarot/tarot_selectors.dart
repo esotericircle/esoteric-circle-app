@@ -265,7 +265,7 @@ class TarotSetupPanel extends StatelessWidget {
                     width: w,
                     child: TendinaSelettore<TarotTopic>(
                       chiave: const Key('stesa_topic'),
-                      titolo: 'Scegli argomento',
+                      titolo: 'Scegli la tua domanda',
                       corrente: setup.topic,
                       voci: TarotTopic.values,
                       palette: palette,
