@@ -26,7 +26,7 @@ import 'package:flutter_test/flutter_test.dart';
 ///    perche' chi legge un nome che promette due sere DI SEGUITO e poi ne
 ///    salta una crede di aver perso un gradino che invece ha ancora.
 void main() {
-  final corpus = File('docs/corpus/Traguardi_165_Revisione_D2.json');
+  final corpus = File('docs/corpus/Traguardi_165_Revisione_E.json');
 
   /// **LA LEGGE, ripetuta qui apposta.** Sta anche nel corpus e nel generatore,
   /// e qui non si importa da nessuno dei due: una guardia che legge la regola
@@ -84,13 +84,21 @@ void main() {
 
   test('il corpus D2 esiste ed e la revisione viva', () {
     expect(corpus.existsSync(), isTrue,
-        reason: 'docs/corpus/Traguardi_165_Revisione_D2.json non esiste. Lo '
+        reason: 'docs/corpus/Traguardi_165_Revisione_E.json non esiste. Lo '
             'scrive tool/genera_corpus_d2.py, non arriva da fuori');
     final dato = jsonDecode(corpus.readAsStringSync()) as Map<String, dynamic>;
-    expect(dato['revisione'], 'D2');
-    expect(dato['legge_della_finestra'], isNotNull,
-        reason: 'la legge della finestra deve stare scritta NEL corpus, se no '
-            'il giorno che qualcuno ne scrive un altro non sa la regola');
+    expect(dato['revisione'], 'E');
+    // **LA REVISIONE E NON PORTA PIU' LA LEGGE SCRITTA NEL CORPUS**, ordine BS
+    // voce 01: la D2 la portava perche' quasi tutte le sue costanze erano
+    // "nell'arco di N giorni" e la legge governava il dato; la E scrive le
+    // costanze in altro modo e ne lascia quattro a finestra. Se il corpus la
+    // dichiara deve dire il vero; se non la dichiara, la legge vive nel
+    // generatore e in questa prova, e l'aritmetica qui sotto la sorveglia lo
+    // stesso su ogni voce.
+    final leggeNelCorpus = dato['legge_della_finestra'];
+    if (leggeNelCorpus != null) {
+      expect(leggeNelCorpus, isA<Map<String, dynamic>>());
+    }
     final voci = tutteLeVoci();
     expect(voci, hasLength(165));
     final eos = voci.fold<int>(0, (a, v) => a + (v['eos'] as int));
