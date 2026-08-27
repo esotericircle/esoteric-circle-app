@@ -200,7 +200,18 @@ sealed class CondizioneDelTraguardo {
 /// manifesto e il rapporto leggono, e il giorno che il motore mancante
 /// arriva basta cambiare la condizione nel corpus e rigenerare.
 class Dormiente extends CondizioneDelTraguardo {
-  const Dormiente(this.di, this.perche);
+  const Dormiente(this.di, this.perche, {this.eraDelCielo = false});
+
+  /// **UN DORMIENTE DEL CIELO APPARTIENE ANCORA AL CIELO.** Ordine BS voce 01.
+  /// La guardia che pretende almeno dieci gradini legati al cielo vero per
+  /// sentiero misura la FORMA del cammino, non cosa sia raggiungibile oggi: un
+  /// gradino che aspetta il motore delle eclissi resta un gradino del cielo, e
+  /// contarlo fra i terrestri direbbe una cosa falsa sul disegno. Lo dichiara
+  /// il corpus con la sua ragione, non lo indovina il codice.
+  final bool eraDelCielo;
+
+  @override
+  bool get chiedeIlCielo => eraDelCielo;
 
   /// L'id del traguardo che dorme. **Sta nella firma**, e la ragione e' che
   /// diciotto dormienti con la stessa ragione avevano la stessa firma, e la
@@ -546,7 +557,28 @@ class Traguardo {
     this.eos = 0,
     this.fascia = '',
     this.dormiente = false,
+    this.ragione = '',
+    this.sezioneDelCammino = '',
   });
+
+  /// PERCHE' QUESTO TRAGUARDO ESISTE, con la parola del corpus: Prima volta,
+  /// Costanza, Cielo, Coincidenza, Legame, Identita', Profondita', Ritorno,
+  /// Perla. Ordine BS voce 01.
+  ///
+  /// **Non e' la [famiglia], e le due non vanno confuse.** La ragione dice
+  /// perche' il traguardo e' stato scritto; la famiglia dice di che natura e'
+  /// la sua CONDIZIONE, ed e' dedotta dal costruttore proprio perche' le
+  /// guardie contano quella (quanti dipendono dal cielo, quanti non si
+  /// chiudono in giornata). Un traguardo di ragione Cielo la cui condizione
+  /// non guarda il cielo sarebbe una promessa mancata, e con due campi
+  /// distinti si vede.
+  final String ragione;
+
+  /// LA SEZIONE DEL CAMMINO a cui appartiene, col nome che le da' il corpus:
+  /// "LA COSTELLAZIONE NASCENTE", "IL LOTO CHE SI APRE". Ordine BS voce 01.
+  /// Serve a chi legge il sentiero, che vede i gradini raccolti per sezione
+  /// invece che in una scala lunga cinquantacinque.
+  final String sezioneDelCammino;
 
   /// PERCHE' CONTA, il terzo dei quattro campi. Ordine P voce 19.
   ///
