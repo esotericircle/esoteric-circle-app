@@ -211,9 +211,14 @@ void main() {
         sentiero: Sentiero.loto, gesto: 'soffio', sigillo: 'aur_1');
   });
 
-  testWidgets('l\'oracolo accende l\'orbo di med_3 sulla Costellazione',
+  // **L'IDENTIFICATIVO SEGUE IL CORPUS, ordine BS voce 01.** Nella revisione E
+  // il primo gradino che l'Arcano del Giorno accende e' med_4: med_2 chiede la
+  // scheda dell'Ascendente letta fino in fondo, e dorme perche' quella lettura
+  // non arriva alla regia. La pretesa non cambia: un gesto registrato deve
+  // accendere il suo gradino, e la lampadina deve vedersi.
+  testWidgets('l\'oracolo accende l\'orbo di med_4 sulla Costellazione',
       (tester) async {
     await provaSu(tester,
-        sentiero: Sentiero.costellazione, gesto: 'oracolo', sigillo: 'med_2');
+        sentiero: Sentiero.costellazione, gesto: 'oracolo', sigillo: 'med_4');
   });
 }
