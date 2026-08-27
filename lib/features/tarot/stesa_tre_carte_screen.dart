@@ -21,6 +21,8 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../sigilli/celebrazione.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
@@ -778,6 +780,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// non aspetta nessuna rete, e cio' che la chiude e' il suo stesso minimo.
   Future<void> _medoraCiPensa() async {
     if (!mounted) return;
+    // **LA FESTA ASPETTA CHE LA RIFLESSIONE FINISCA, ordine BU voce 03.**
+    // Parole del fondatore sulla 2208: "quando parte il calcolo con
+    // l'animazione di riflessione, se c'e' una festa la riflessione non si
+    // vede perche' sopra c'e' la festa". La domanda che tiene viva la
+    // riflessione e' lo stato dell'attesa: quando torna assente, la scena e'
+    // libera.
+    RiflessioniInCorso.entra(
+        () => mounted && _attesa != StatoDellAttesa.assente);
     setState(() {
       _attesa = StatoDellAttesa.piena;
       _giroDellAttesa++;
@@ -796,6 +806,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     await Future<void>.delayed(AttesaDiMedora.dissolvenza);
     if (!mounted) return;
     setState(() => _attesa = StatoDellAttesa.assente);
+    // Scena libera: la festa che ha aspettato riparte adesso, non fra
+    // novanta secondi.
+    if (mounted) {
+      unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
+    }
   }
 
   /// L'aura elementale della carta appena scoperta.
@@ -1107,7 +1122,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               limite: _steseLimite,
               palette: palette,
             ),
-          const SizedBox(height: SpacingTokens.md),
+          // **OTTO E NON SEDICI, ordine BU voce 01.** I testi di contenuto
+          // sono saliti alla misura di lettura, e sotto le carte pescate se
+          // ne accumulano due: dopo due pescaggi il ventaglio finiva a 861
+          // punti su uno schermo di 844, cioe' fuori campo, e una guardia
+          // della coreografia lo ha visto. Lo spazio che si toglie qui e'
+          // aria fra due blocchi; quello che si e" guadagnato sopra e'
+          // testo che si legge.
+          const SizedBox(height: SpacingTokens.xxs),
           // Il ventaglio con la sua regia: ingresso a spirale, respiro,
           // taglio e vortice. Si ridisegna col battito delle quattro fasi.
           AnimatedBuilder(
@@ -1223,9 +1245,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // Le tre posizioni col testo ricco letto nell'argomento. La lente sta
           // qui una volta sola: ripeterla su ogni posizione la rendeva una
           // formula.
-          Text('${_reading.posizioni.first.apertura}, carta per carta',
+          // **L'INTESTAZIONE DICE COSA SI STA PER LEGGERE, ordine BU voce 01.**
+          // Parole del fondatore: "anziche' nel momento che vivi, carta per
+          // carta scrivi ma in grande LE CARTE, UNA ALLA VOLTA". Era la lente
+          // dell'argomento scritta al pavimento della scala; adesso e' un
+          // titolo di sezione, e dice cosa viene dopo invece di ripetere cosa
+          // si era chiesto.
+          Text('LE CARTE, UNA ALLA VOLTA',
               key: const Key('stesa_lente'),
-              style: TypographyTokens.etichetta().copyWith(
+              style: TypographyTokens.titoloSezione().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.9),
                   letterSpacing: 1.2)),
           const SizedBox(height: SpacingTokens.xs),
@@ -1242,10 +1270,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             const SizedBox(height: SpacingTokens.sm),
           ],
           const SizedBox(height: SpacingTokens.sm),
-          Text(TarotSpread.closing,
+          ParagrafiDiLettura(
+              testo: TarotSpread.closing,
               key: const Key('stesa_closing'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia().copyWith(
+              stile: TypographyTokens.lettura().copyWith(
                   color: palette.goldSoft,
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
@@ -1421,10 +1450,15 @@ class _Slot extends StatelessWidget {
                           ),
                         ),
                 ),
-                // IL SEGNO DELLA CHIAVE, ordine BN voce 05: l'oro pieno che
-                // la bolla usa gia', portato attorno alla carta. Sta SOPRA la
-                // carta e sotto l'aura, e non tocca la figura: la carta resta
-                // leggibile, e cio' che cambia e' la cornice.
+                // IL SEGNO DELLA CHIAVE, ordine BN voce 05 e **ordine BU voce
+                // 02**: una CORNICE e niente altro. Parole del fondatore sulla
+                // 2208: "perche' la carta chiave ha ancora una sovrapposizione
+                // di Giallo? non voglio nessuna sovrapposizione che peggiora la
+                // visualizzazione della carta, ho chiesto la cornice". La
+                // sovrapposizione era l'alone: un `boxShadow` oro con diciotto
+                // di sfocatura, che intorbidava il bordo della figura. Adesso
+                // resta la sola linea, e passa dall'oro all'AZZURRO della
+                // palette, che e' il colore del Maestro e non un colore nuovo.
                 if (eLaChiave)
                   Positioned.fill(
                     child: IgnorePointer(
@@ -1434,15 +1468,7 @@ class _Slot extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(SpacingTokens.radiusMd),
                           border: Border.all(
-                              color: palette.gold.withValues(alpha: 0.95),
-                              width: 2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: palette.gold.withValues(alpha: 0.45),
-                              blurRadius: 18,
-                              spreadRadius: 1,
-                            ),
-                          ],
+                              color: palette.glow, width: 2),
                         ),
                       ),
                     ),
@@ -1461,7 +1487,7 @@ class _Slot extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: SpacingTokens.xs),
+        const SizedBox(height: SpacingTokens.xxs),
         Text(position.label.toUpperCase(),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta().copyWith(
@@ -1596,10 +1622,11 @@ class _BloccoDelleCarte extends StatelessWidget {
                       style: TypographyTokens.didascalia()
                           .copyWith(color: palette.goldSoft)),
                 ),
-              Text(drawn.summary,
+              ParagrafiDiLettura(
+                  testo: drawn.summary,
                   key: Key('stesa_meaning_${drawn.position.name}'),
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.35)),
+                  stile: TypographyTokens.lettura().copyWith(
+                      color: ColorTokens.textSecondary, height: 1.2)),
             ],
           ),
           const SizedBox(height: SpacingTokens.xs),
@@ -1776,11 +1803,22 @@ class _Strato extends StatelessWidget {
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 6),
-          Text(testo,
-              style: TypographyTokens.corpo().copyWith(
-                color: inEvidenza ? palette.goldSoft : ColorTokens.textPrimary,
-                height: 1.5,
-              )),
+          // **IL CONSIGLIO SI LEGGE, ordine BU voce 01.** Parole del fondatore:
+          // "il testo nella bolla del consiglio di Medora e' monotono, tutto
+          // giallo e senza paragrafi. inoltre e' scritto piccolo". Tre cose in
+          // una frase, e sono tre cose diverse: la MISURA sale da `corpo` a
+          // `lettura`, che e' il ruolo del testo che si legge per intero; il
+          // COLORE lascia l'oro e prende quello del testo, perche' l'oro qui
+          // dentro era su ogni riga e un accento su tutto non accenta niente;
+          // i PARAGRAFI restano separati invece di fondersi, e li tiene
+          // separati chi sa gia' farlo. Il titolo resta oro: quello e' un
+          // titolo.
+          ParagrafiDiLettura(
+            testo: testo,
+            stile: TypographyTokens.lettura().copyWith(
+              color: ColorTokens.textPrimary,
+            ),
+          ),
         ],
       ),
     );
@@ -1834,23 +1872,17 @@ class BollaDellaPosizione extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-        // IL BLU PIU' INTENSO: e' il primario del Maestro, non un colore nuovo.
-        color: eLaChiave
-            ? palette.primary.withValues(alpha: 0.62)
-            : palette.surfaceElevated.withValues(alpha: 0.55),
+        // **LO STESSO FONDO DELLE ALTRE, ordine BU voce 02.** La bolla chiave
+        // aveva un fondo blu piu' intenso e un alone oro: due sovrapposizioni
+        // per dire una cosa che la cornice dice gia'. Adesso si distingue come
+        // la carta, con la stessa linea azzurra e niente altro.
+        color: palette.surfaceElevated.withValues(alpha: 0.55),
         border: Border.all(
-          color: palette.gold.withValues(alpha: eLaChiave ? 0.95 : 0.25),
+          color: eLaChiave
+              ? palette.glow
+              : palette.gold.withValues(alpha: 0.25),
           width: eLaChiave ? 2 : 1,
         ),
-        boxShadow: eLaChiave
-            ? [
-                BoxShadow(
-                  color: palette.gold.withValues(alpha: 0.28),
-                  blurRadius: 14,
-                  spreadRadius: 1,
-                ),
-              ]
-            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1878,15 +1910,19 @@ class BollaDellaPosizione extends StatelessWidget {
               style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft, height: 1.2)),
           const SizedBox(height: SpacingTokens.xxs),
-          Text(letta.testo,
-              style: TypographyTokens.corpo().copyWith(
-                  color: ColorTokens.textPrimary, height: 1.5)),
+          // **ANCHE LE ALTRE BOLLE SALGONO, ordine BU voce 01**: "anche le
+          // altre bolle hanno il font piccolo".
+          ParagrafiDiLettura(
+              testo: letta.testo,
+              stile: TypographyTokens.lettura().copyWith(
+                  color: ColorTokens.textPrimary)),
           // LA MARCATURA PICCOLA CHE DICE PERCHE' E' QUELLA.
           if (eLaChiave) ...[
             const SizedBox(height: SpacingTokens.xs),
-            Text(perche!,
+            ParagrafiDiLettura(
+                testo: perche!,
                 key: Key('stesa_marcatura_${letta.drawn.position.name}'),
-                style: TypographyTokens.didascalia().copyWith(
+                stile: TypographyTokens.lettura().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.9),
                     height: 1.35,
                     fontStyle: FontStyle.italic)),
