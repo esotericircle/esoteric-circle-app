@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'gli_accenti_del_corpus.dart';
+
 /// I TESTI SEGUONO I NOMI NUOVI. Ordine AR voce 08.
 ///
 /// **Il difetto che questa guardia impedisce.** Un nome di traguardo copiato
@@ -22,7 +24,7 @@ void main() {
     return {
       for (final s in d['sentieri'] as List)
         for (final v in (s as Map)['voci'] as List)
-          (v as Map)['nome'] as String,
+          conGliAccenti((v as Map)['nome'] as String),
     };
   }
 
@@ -34,7 +36,7 @@ void main() {
     // "Cinque mattine", "Trenta mattine", "Sessanta mattine": non e' un nome
     // vecchio sopravvissuto, e' il nome che il fondatore ha chiesto. Leggendo
     // la revisione C questa prova accusava il corpus vivo di essere vecchio.
-    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_D2.json');
+    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_E.json');
     final vecchi = nomiDi('docs/corpus/Traguardi_165_Revisione_B.json')
         .where((n) => !nuovi.contains(n))
         .toList();
@@ -49,6 +51,13 @@ void main() {
       // **QUESTA PROVA NOMINA I NOMI VECCHI PER MESTIERE**: accusare se
       // stessa la renderebbe rossa per sempre.
       if (f.path.endsWith('i_testi_seguono_i_nomi_nuovi_test.dart')) continue;
+      // **LA LINGUA DEGLI EVENTI NON NOMINA TRAGUARDI**, ordine BS voce 01.
+      // Li' dentro "Mercurio torna diretto" e' come si dice un fatto del
+      // cielo, e il cielo non cambia nome quando cambia il corpus: la
+      // revisione E non ha piu' un traguardo che si chiama cosi', e senza
+      // questa riga la prova accusava una frase di astronomia di essere il
+      // nome di un gradino morto.
+      if (f.path.endsWith('lingua_degli_eventi.dart')) continue;
       final testo = f.readAsStringSync();
       for (final nome in vecchi) {
         // Il nome INTERO, fra apici: e' cosi' che un nome finisce in una
