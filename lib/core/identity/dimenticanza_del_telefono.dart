@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'cio_che_e_tuo.dart';
 
 /// COSA IL TELEFONO DIMENTICA QUANDO SI ESCE O SI CANCELLA TUTTO.
 /// Ordine AZ, voci 07 e 08.
@@ -20,50 +21,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DimenticanzaDelTelefono {
   const DimenticanzaDelTelefono._();
 
-  /// **I PREFISSI DELLE CHIAVI CHE APPARTENGONO A UNA PERSONA.**
+  /// **I PREFISSI DELLE CHIAVI CHE APPARTENGONO A UNA PERSONA, e adesso
+  /// vivono in un posto solo.** Ordine BZ voce 01.
   ///
-  /// **Sono prefissi e non un elenco di chiavi, e c'e' un motivo misurato**:
-  /// la prima stesura di questo file elencava nove chiavi scritte a memoria,
-  /// e **nessuna delle nove esisteva davvero**. Le chiavi vere sono
-  /// trentotto, contate leggendo le costanti di tutto `lib/`, e crescono a
-  /// ogni funzione nuova: un elenco a mano si sarebbe dimenticato proprio
-  /// quella aggiunta ieri.
-  ///
-  /// Per prefisso: `account.`, `allowance.`, `borsellino.`, `cammino.`,
-  /// `profile.`, `archetipo.`, `santuario.`, `sogni.`, piu'
-  /// `onboarding.done`.
-  static const prefissiDaDimenticare = <String>[
-    'account.',
-    'allowance.',
-    'borsellino.',
-    'cammino.',
-    'profile.',
-    'archetipo.',
-    'santuario.',
-    'sigilli.',
-    'rituale.',
-    'onboarding.',
-    // **I SOGNI ANNOTATI, ordine BX voce 11.** E' la memoria piu'
-    // privata che questa app custodisca: le parole che una persona
-    // scrive dei propri sogni. Se restasse, sarebbe l'eccezione che
-    // sopravvive alla cancellazione, e l'ordine BE voce 07 non ne
-    // ammette nessuna.
-    'sogni.',
-    // **LO STORICO DEL VOLTO E DEL RESPIRO, trovati dall'ordine BX voce
-    // 11 mentre cercava tutt'altro.** `viso.storico` tiene le letture
-    // del viso di una persona con le loro date, e restava dopo la
-    // cancellazione: nessuno dei due prefissi era in questo elenco.
-    'viso.',
-  ];
+  /// Questa lista era una delle DUE verita' dell'app su cosa e' della
+  /// persona, e non coincideva con l'altra: la via dell'Account cancellava
+  /// secondo questa, la via delle Impostazioni secondo quella di
+  /// `ProfileStore`, e le due promettevano alla persona la stessa cosa.
+  /// Adesso non c'e' piu' una lista qui: c'e' `CioCheETuo`, che le due vie e
+  /// lo scarico leggono tutte e tre.
+  static const List<String> prefissiDaDimenticare = CioCheETuo.prefissi;
 
-  /// **COSA NON SI DIMENTICA, ed e' una scelta.**
-  ///
-  /// Non si svuota tutto con un `clear()`: le preferenze tengono anche cose
-  /// che NON sono di nessuno, cioe' come questo telefono e' stato regolato.
-  /// La qualita' grafica, il movimento ridotto, i sottotitoli, il suono:
-  /// buttarli vorrebbe dire punire chi esce, e rimettere a mano
-  /// un'accessibilita' che qualcuno aveva scelto per necessita'.
-  static const prefissiCheRestano = <String>['settings.'];
+  /// Cio' che resta, con la ragione scritta accanto a ognuno: anche questa
+  /// viene dalla verita' unica, cosi' non puo' divergere.
+  static List<String> get prefissiCheRestano =>
+      CioCheETuo.restano.keys.toList(growable: false);
 
   /// Dimentica cio' che appartiene alla persona che se ne va.
   ///

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dimenticanza_del_telefono.dart';
+import 'cio_che_e_tuo.dart';
 
 /// SCARICA I TUOI DATI. Ordine BC voce 02, seconda delle quattro voci.
 ///
@@ -58,7 +59,35 @@ class ScaricoDeiTuoiDati {
     // diritto di riaverla.
     'sogni.': 'Il tuo quaderno dei sogni',
     'viso.': 'Le tue letture del viso',
+    // **E I DIECI GRUPPI DELL'ORDINE BZ VOCE 01.** Lo scarico costruiva il
+    // proprio elenco dalla lista della cancellazione, quindi cio' che non si
+    // cancellava non si scaricava nemmeno: dieci famiglie di dati esistevano
+    // sul telefono e non comparivano ne' nell'oblio ne' nell'archivio che la
+    // persona chiede.
+    'arti_preferite': 'Le arti che hai messo fra le preferite',
+    'avvisi.': 'Gli avvisi che ti sono stati proposti',
+    'carta.natale': 'La tua carta natale conservata',
+    'carta_natale_': 'La tua carta natale, nella forma vecchia',
+    'cielo_posizione': 'Il permesso di posizione per il cielo',
+    'filo.': 'Il filo del giorno',
+    'luogo.': 'Dove sei adesso',
+    'natal.': 'La tua carta natale dal Cerchio',
+    'oroscopo_': 'Le tue letture dell\'Oroscopo',
+    'permesso.': 'Quali permessi ti sono gia\' stati chiesti',
+    'ritual.': 'Le serie dei tuoi riti',
+    'sentiero.': 'Le mappe dei sentieri che hai aperto',
+    'sinastria.': 'Le coppie che hai scoperto',
+    'maestro.': 'Quali benvenuti ti hanno gia\' detto i Maestri',
+    'sunset_rune': 'Le tue Rune del Tramonto',
+    'device.id': 'L\'identita\' di questo dispositivo',
   };
+
+  /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ
+  /// voce 01: se domani nasce una chiave che appartiene alla persona e
+  /// nessuno le da' un nome qui, finisce comunque nell'archivio, sotto questo
+  /// gruppo. **Lo scarico non puo' perdere niente per una dimenticanza di
+  /// prosa**, e la prova che legge il codice dira' subito che manca il nome.
+  static const String gruppoSenzaNome = 'Altri tuoi dati';
 
   /// Tutto cio' che il telefono sa di te, in un albero.
   static Future<Map<String, Object?>> raccogli() async {
@@ -86,9 +115,21 @@ class ScaricoDeiTuoiDati {
   }
 
   static String? _gruppoDi(String chiave) {
+    // Il prefisso piu' lungo vince: `carta_natale_` e `carta.natale` non si
+    // rubano le chiavi a vicenda, e un gruppo piu' preciso batte uno generico.
+    String? scelto;
+    var lunghezza = -1;
     for (final voce in gruppi.entries) {
-      if (chiave.startsWith(voce.key)) return voce.value;
+      if (chiave.startsWith(voce.key) && voce.key.length > lunghezza) {
+        scelto = voce.value;
+        lunghezza = voce.key.length;
+      }
     }
+    if (scelto != null) return scelto;
+    // **CIO' CHE E' TUO ENTRA COMUNQUE.** Ordine BZ voce 01: la verita' unica
+    // dice se una chiave e' della persona, e se lo e' si consegna, col nome
+    // che ha o senza.
+    if (CioCheETuo.eTua(chiave)) return gruppoSenzaNome;
     return null;
   }
 

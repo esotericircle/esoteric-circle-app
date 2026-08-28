@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../chat/user_profile.dart';
 import 'birth_identity.dart';
 import 'birth_place.dart';
+import 'dimenticanza_del_telefono.dart';
+import 'cio_che_e_tuo.dart';
 
 /// Cio' che l'onboarding raccoglie e che va ritrovato al riavvio: il profilo
 /// (nome e vocativo) e l'identita' di nascita (data, ora se nota, luogo).
@@ -105,43 +107,25 @@ class ProfileStore {
   /// elenco scritto a mano resta indietro senza che nessuno se ne accorga.
   /// Il diritto all'oblio non puo' dipendere da chi si ricorda di aggiornare
   /// una lista.
-  static const List<String> personalPrefixes = [
-    'profile.',
-    'sunset_rune.',
-    'archetipo.',
-    'allowance.',
-    'ritual.',
-    'streak.',
-    'greeting.',
-  ];
-
-  /// Le chiavi personali che non stanno sotto un prefisso.
-  static const List<String> personalKeys = ['device.id'];
-
-  /// Cancella tutto quel che parla della persona: le otto chiavi del profilo,
-  /// compresa la fotografia del volto, l'identita' di nascita col luogo, la
-  /// memoria dei riti e l'identita' del dispositivo che regge i Doni.
+  /// **LA LISTA PERSONALE NON VIVE PIU' QUI. Ordine BZ voce 01.**
   ///
-  /// Non svuota tutte le preferenze, perche' li' dentro stanno anche cose che
-  /// della persona non parlano, come il token di debug di App Check e la
-  /// soglia dell'onboarding gia' fatto.
-  Future<void> clear() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final daTogliere = prefs
-          .getKeys()
-          .where((k) =>
-              personalKeys.contains(k) ||
-              personalPrefixes.any(k.startsWith))
-          .toList();
-      for (final k in daTogliere) {
-        await prefs.remove(k);
-      }
-    } catch (_) {
-      // Best effort: se le preferenze non rispondono non c'e' nulla da
-      // togliere, e la cancellazione remota resta comunque fatta.
-    }
-  }
+  /// C'erano sette prefissi e una chiave, e non coincidevano con i dodici
+  /// dell'altra via: due di questi (`streak.` e `greeting.`) non
+  /// corrispondevano a nessuna chiave scritta da nessuna parte, e `ritual.`
+  /// c'era qui e non di la'. Adesso la verita' e' una sola, in `CioCheETuo`,
+  /// e questi due nomi restano solo perche' chi li chiamava non debba
+  /// cambiare riga.
+  static List<String> get personalPrefixes => CioCheETuo.prefissi;
+
+  /// Non ci sono piu' chiavi personali fuori dai prefissi: `device.id` e'
+  /// dentro la verita' unica come tutte le altre.
+  static const List<String> personalKeys = <String>[];
+
+  /// **UNA SOLA MANO CANCELLA, ordine BZ voce 01.** Prima questo metodo
+  /// aveva il suo giro di chiavi e la sua lista; adesso chiama la stessa
+  /// dimenticanza che usa la via dell'Account, cosi' le due vie non possono
+  /// piu' lasciare per strada cose diverse.
+  Future<void> clear() => DimenticanzaDelTelefono.dimentica();
 
   /// Salva il profilo. Best effort: senza persistenza resta solo in memoria.
   Future<void> saveProfile(UserProfile profile) async {

@@ -207,34 +207,91 @@ class NatalChartController extends ChangeNotifier {
 class ArchivioCarta {
   const ArchivioCarta();
 
-  static const String _prefisso = 'carta_natale_';
+  /// **IL NOME DELLA CHIAVE NON DICE PIU' QUANDO E DOVE SEI NATO.** Ordine BZ
+  /// voce 01, terzo rilievo, ed era il piu' grave dei sei.
+  ///
+  /// La chiave si chiamava `carta_natale_` piu' la firma dei dati di nascita,
+  /// cioe' **data, ora, minuto, latitudine, longitudine e fuso in chiaro
+  /// DENTRO IL NOME**. Non il valore: il nome. Una chiave cosi' sopravviveva
+  /// a tutte e due le cancellazioni, quindi bastava leggere l'elenco dei nomi
+  /// per sapere quando e dove era nata una persona **dopo che aveva
+  /// cancellato tutto**.
+  ///
+  /// Adesso il nome e' uno solo e non dice niente. La firma vive DENTRO il
+  /// valore come impronta, quindi la carta conservata continua a invalidarsi
+  /// da sola quando la nascita cambia, ma **dall'impronta non si torna
+  /// indietro alla data**: e' una somma a scorrimento su trentadue bit, non
+  /// una cifratura, e non pretende di esserlo. Serve a distinguere due
+  /// nascite, non a nascondere un segreto: il segreto non c'e' piu', perche'
+  /// il dato non e' piu' li'.
+  static const String chiave = 'carta.natale.conservata';
 
-  Future<Map<String, dynamic>?> leggi(String chiave) async {
+  /// Il prefisso vecchio, scritto qui per una ragione sola: i telefoni che
+  /// hanno gia' quelle chiavi devono potersele togliere. La verita' unica lo
+  /// elenca fra i prefissi della persona, quindi il primo oblio le porta via,
+  /// e questa classe le toglie comunque appena tocca il disco.
+  static const String prefissoVecchio = 'carta_natale_';
+
+  /// L'impronta della firma di nascita: due nascite diverse danno numeri
+  /// diversi, e dal numero non si risale alla nascita.
+  static String impronta(String firma) {
+    var h = 2166136261;
+    for (final unita in firma.codeUnits) {
+      h ^= unita;
+      h = (h * 16777619) & 0xFFFFFFFF;
+    }
+    return h.toRadixString(16);
+  }
+
+  /// **PORTA VIA LE CHIAVI VECCHIE, quelle col nome che parla.** Si chiama a
+  /// ogni lettura e a ogni scrittura: chi aggiorna l'app non deve fare
+  /// niente, e chi non cancellera' mai i suoi dati se le ritrova tolte lo
+  /// stesso.
+  static Future<int> ripulisciLeVecchie(SharedPreferences prefs) async {
+    var quante = 0;
+    for (final vecchia in prefs.getKeys().toList()) {
+      if (!vecchia.startsWith(prefissoVecchio)) continue;
+      await prefs.remove(vecchia);
+      quante++;
+    }
+    return quante;
+  }
+
+  Future<Map<String, dynamic>?> leggi(String firma) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final testo = prefs.getString('$_prefisso$chiave');
+      await ripulisciLeVecchie(prefs);
+      final testo = prefs.getString(chiave);
       if (testo == null) return null;
       final json = jsonDecode(testo);
-      return json is Map<String, dynamic> ? json : null;
+      if (json is! Map<String, dynamic>) return null;
+      // La carta conservata vale solo per la nascita che l'ha prodotta: con
+      // un'impronta diversa si ricalcola, come prima faceva il nome diverso.
+      if (json['impronta'] != impronta(firma)) return null;
+      final carta = json['carta'];
+      return carta is Map<String, dynamic> ? carta : null;
     } catch (_) {
       // Memoria non disponibile: si ricalcola. Non e' un errore da mostrare.
       return null;
     }
   }
 
-  Future<void> scrivi(String chiave, Map<String, dynamic> risposta) async {
+  Future<void> scrivi(String firma, Map<String, dynamic> risposta) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('$_prefisso$chiave', jsonEncode(risposta));
+      await ripulisciLeVecchie(prefs);
+      await prefs.setString(
+          chiave, jsonEncode({'impronta': impronta(firma), 'carta': risposta}));
     } catch (_) {
       // Se non si riesce a conservare, pazienza: si ricalcolera'.
     }
   }
 
-  Future<void> dimentica(String chiave) async {
+  Future<void> dimentica(String firma) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('$_prefisso$chiave');
+      await ripulisciLeVecchie(prefs);
+      await prefs.remove(chiave);
     } catch (_) {
       // Niente da fare, e niente di grave.
     }

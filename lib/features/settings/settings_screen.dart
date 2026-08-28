@@ -21,6 +21,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
+import '../../core/identity/dimenticanza_del_telefono.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -439,8 +440,34 @@ class _DeleteDataTile extends StatelessWidget {
       // remoto su Firestore, piu' tutto quel che sta sul telefono. Prima
       // partiva solo la prima, quindi nome, data, luogo e fotografia del volto
       // tornavano al riavvio, mentre la finestra prometteva il contrario.
+      // **LE TRE META' DEL DIRITTO ALL'OBLIO. Ordine BZ voce 01.**
+      //
+      // Prima ce n'erano due, e mancava la piu' grande: il ramo remoto su
+      // Firestore e il profilo sul telefono. Il profilo cancellava secondo
+      // una lista sua, con sette prefissi, mentre la via dell'Account ne
+      // usava dodici: **chi cancellava da qui si teneva il cammino, il
+      // borsellino, i Sigilli, i sogni, le letture del viso e l'ingresso nel
+      // Cerchio**, mentre questa finestra gli prometteva tutto il cammino.
+      //
+      // Adesso la dimenticanza del telefono e' la stessa delle altre vie e
+      // legge la verita' unica: cio' che questa finestra promette e cio' che
+      // succede sono la stessa cosa.
+      // **LE TRE META' DEL DIRITTO ALL'OBLIO. Ordine BZ voce 01.**
+      //
+      // Prima ce n'erano due, e mancava la piu' grande: il ramo remoto su
+      // Firestore e il profilo sul telefono. Il profilo cancellava secondo
+      // una lista sua, con sette prefissi, mentre la via dell'Account ne
+      // usava dodici: **chi cancellava da qui si teneva il cammino, il
+      // borsellino, i Sigilli, i sogni, le letture del viso e l'ingresso nel
+      // Cerchio**, mentre questa finestra gli prometteva tutto il cammino.
+      //
+      // Adesso la dimenticanza del telefono e' la stessa delle altre vie e
+      // legge la verita' unica: cio' che questa finestra promette e cio' che
+      // succede sono la stessa cosa.
       await services.memory.deleteAllData();
       await profile.forget();
+      final quante = await DimenticanzaDelTelefono.dimentica();
+      debugPrint('Oblio dalle Impostazioni: $quante spazi cancellati.');
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
