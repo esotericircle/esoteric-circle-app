@@ -1088,6 +1088,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               eLaChiave: _responsoInScena &&
                   i < _drawn &&
                   _reading.chiave.drawn.position == SpreadPosition.values[i],
+              conIntestazione: _responsoInScena,
               revealSpec: _revealSlot == i ? _revealSpec : null,
               revealProgress: _revealSlot == i ? _reveal.value : 0,
               // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
@@ -1449,6 +1450,7 @@ class _Slot extends StatelessWidget {
   const _Slot({
     this.onApri,
     this.eLaChiave = false,
+    this.conIntestazione = false,
     required this.position,
     required this.drawn,
     required this.palette,
@@ -1468,6 +1470,16 @@ class _Slot extends StatelessWidget {
 
   /// Se questa e' la carta che regge la lettura. Ordine BN voce 05.
   final bool eLaChiave;
+
+  /// Se sopra le carte si tiene lo spazio delle parole. Ordine BZ voce 08.
+  ///
+  /// **Non e' sempre acceso, e la ragione e' misurata.** Lo spazio si riserva
+  /// a tutte e tre le carte perche' restino allineate, ma MENTRE SI PESCA
+  /// nessuna carta e' ancora la chiave: quei trentadue punti spingevano il
+  /// ventaglio piu' in basso e una guardia della coreografia lo ha visto
+  /// ("il ventaglio resta a portata anche dopo il secondo pescaggio"). Si
+  /// tiene solo quando la chiave c'e' davvero, cioe' a responso in scena.
+  final bool conIntestazione;
 
   /// L'aura elementale, quando questa carta si sta scoprendo.
   final RevealSpec? revealSpec;
@@ -1501,7 +1513,7 @@ class _Slot extends StatelessWidget {
         // 1,10, saliva fino a 430,8 mentre le parole finivano a 440, cioe' le
         // copriva di nove punti.
         SizedBox(
-          height: 32,
+          height: conIntestazione ? 32 : 0,
           child: eLaChiave
               ? Align(
                   alignment: Alignment.topCenter,
