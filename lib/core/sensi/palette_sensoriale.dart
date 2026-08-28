@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../settings/settings_controller.dart';
 import 'catalogo_suoni.dart';
 import 'motore_audio.dart';
+import 'voce_del_responso.dart';
+import '../maestro/maestro.dart';
 
 /// I QUATTRO SCHEMI APTICI del Cerchio, e nessuno di piu'.
 ///
@@ -71,7 +74,7 @@ class PaletteSensoriale {
   /// Se il file non c'e' ancora, non succede niente: e' il ripiego silenzioso
   /// dichiarato, che tiene l'app viva finche' gli asset non arrivano.
   static Future<void> suona(BuildContext context, SuonoDelCerchio suono) async {
-    if (!acceso(context)) return;
+    if (!suonoPermesso(context)) return;
     // La firma si sente all'apertura dell'app e mai a ogni ritorno in home: una
     // firma che si ripete a ogni passaggio smette di essere una firma.
     if (suono == SuonoDelCerchio.firma) {
@@ -126,6 +129,66 @@ class PaletteSensoriale {
     final s = Provider.of<SettingsController?>(context, listen: false);
     return s?.suonoEVibrazione ?? false;
   }
+
+  /// Se un SUONO puo' uscire adesso. Ordine BX voce 05: servono
+  /// l'interruttore unico e quello dei soli effetti sonori.
+  static bool suonoPermesso(BuildContext context) {
+    final s = Provider.of<SettingsController?>(context, listen: false);
+    return s?.suonoPermesso ?? false;
+  }
+
+  /// **LA VOCE DEL RESPONSO, una per Maestro. Ordine BX voce 05.**
+  ///
+  /// Passa di qui e non dal motore diretto, come ogni altro suono
+  /// dell'app: un suono che non passa dalla palette non rispetta gli
+  /// interruttori, ed e' esattamente il difetto che la guardia del
+  /// catalogo sorveglia da sempre.
+  ///
+  /// La vibrazione della rivelazione viene PRIMA, come in ogni momento del
+  /// Cerchio: chi tiene il telefono muto riceve solo quella.
+  static Future<void> responso(BuildContext context, Maestro maestro) async {
+    // **LA DECISIONE SI PRENDE SUBITO, prima di ogni attesa.** Cosi' chi
+    // guarda da fuori, prova o no, sa gia' che questo responso ha una voce,
+    // e la regia non deve restare appesa al suono per continuare il suo
+    // lavoro: misurato, aspettarla spostava la festa del cammino di un giro
+    // e lasciava un temporizzatore acceso nella cattura dell'Oroscopo.
+    // **NELLE ANTEPRIME IL RESPONSO NON TOCCA NIENTE, ne' suono ne'
+    // vibrazione.** Lo schema aptico della rivelazione e' fatto di colpi
+    // separati da attese, e ogni attesa e' un temporizzatore: nella cattura
+    // dell'Oroscopo restava acceso dopo lo smontaggio e la cattura cadeva su
+    // "A Timer is still pending". Un'anteprima misura la grafica.
+    if (voceSpentaPerLeProve) return;
+    final parla = suonoPermesso(context);
+    if (parla) spiaDelResponso?.call(maestro);
+    // **LA VIBRAZIONE ARRIVA COMUNQUE**, anche a suoni spenti: chi tiene il
+    // telefono muto ha solo quella, e il responso deve farsi sentire lo
+    // stesso.
+    await vibra(context, SchemaAptico.rivelazione);
+    if (!context.mounted || !parla) return;
+    // **NON SI ASPETTA IL SUONO, e non e' una scorciatoia.** Il responso e'
+    // gia' a schermo: chi legge non deve attendere che il lettore audio
+    // risponda, e in una prova senza il plugin quell'attesa non finisce mai.
+    // Misurato: la guardia di questa voce restava appesa oltre i dieci
+    // minuti finche' questa riga aspettava il motore.
+    unawaited(_motore.tono(VoceDelResponso.byteDi(maestro), inCiclo: false));
+  }
+
+  /// La spia della voce del responso, sorella di [spia]: dice CHI ha
+  /// parlato, perche' la prova possa contare i responsi che suonano senza
+  /// il plugin audio, che in prova non c'e'.
+  @visibleForTesting
+  static void Function(Maestro maestro)? spiaDelResponso;
+
+  /// **LA VOCE SPENTA, solo per le ANTEPRIME.**
+  ///
+  /// Un'anteprima misura la grafica e non il suono, e col plugin audio finto
+  /// il lettore lascia acceso un temporizzatore: la cattura dell'Oroscopo
+  /// cadeva su "A Timer is still pending" per un suono che nessuno sente.
+  /// **Nessun punto di `lib` la tocca, e vale falso in ogni build.** La
+  /// spia resta viva anche a voce spenta, cosi' una prova puo' contare chi
+  /// avrebbe parlato senza costruire nessun lettore.
+  @visibleForTesting
+  static bool voceSpentaPerLeProve = false;
 
   /// Esegue lo schema senza guardare l'interruttore.
   ///

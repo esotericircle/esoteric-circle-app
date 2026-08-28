@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/sensi/voce_del_responso.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
 
 /// Il livello sensoriale parte da un punto solo, e obbedisce a un comando solo.
 ///
@@ -187,14 +189,32 @@ void main() {
       }
     });
 
-    test('I tre Maestri non hanno tre suoni diversi', () {
-      // Una firma che cambia a seconda di chi parla non e piu una firma.
+    test('Il CATALOGO non ha suoni per Maestro, il RESPONSO si', () {
+      // **LA LEGGE E' CAMBIATA IL 27 AGOSTO 2026, e si dichiara.** Questa
+      // guardia diceva "i tre Maestri non hanno tre suoni diversi, sarebbe
+      // rumore e non identita", e l'ordine BX voce 05 chiede l'opposto:
+      // "ogni responso dell'app ha il suo effetto sonoro, coerente con il
+      // Maestro a cui appartiene".
+      //
+      // **La regola vecchia resta vera dove e\' nata**, ed e\' per questo che
+      // la guardia non e\' stata cancellata ma divisa in due. Il CATALOGO
+      // tiene i suoni dell'app, la firma dell'apertura per prima: quella e\'
+      // la voce del Cerchio e non di chi parla, e li\' un suono per Maestro
+      // sarebbe ancora rumore. Il RESPONSO e\' un'altra cosa: e\' il momento
+      // in cui un Maestro preciso ti sta rispondendo.
       final nomi = SuonoDelCerchio.values.map((s) => s.name.toLowerCase());
       for (final m in const ['medora', 'aura', 'caligo']) {
         expect(nomi.any((n) => n.contains(m)), isFalse,
-            reason: 'esiste un suono dedicato a $m: sarebbe rumore, non '
-                'identita');
+            reason: 'esiste un suono di CATALOGO dedicato a $m: la firma '
+                'dell apertura resta una sola per tutti');
       }
+      // E le tre voci del responso sono davvero tre, e diverse.
+      final voci = {
+        for (final m in Maestro.values) VoceDelResponso.fondamentaleDi(m),
+      };
+      expect(voci, hasLength(3),
+          reason: 'due Maestri parlano con la stessa voce: il responso non e '
+              'piu coerente con chi lo dice');
     });
 
     test('Il catalogo e un DATO, e nessuno suona fuori da esso', () {

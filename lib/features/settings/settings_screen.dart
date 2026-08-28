@@ -137,7 +137,8 @@ class SettingsScreen extends StatelessWidget {
 
               const SectionTitle(
                 title: 'Suono e vibrazione',
-                subtitle: 'Un comando solo per i due canali.',
+                subtitle: 'Il comando grande spegne tutto. Sotto, i soli '
+                    'suoni.',
               ),
               const SizedBox(height: SpacingTokens.sm),
               DepthCard(
@@ -151,6 +152,32 @@ class SettingsScreen extends StatelessWidget {
                       'vibrazioni. Chi vuole silenzio lo spegne una volta sola.',
                   value: settings.suonoEVibrazione,
                   onChanged: settings.setSuonoEVibrazione,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              // **SOLO GLI EFFETTI SONORI, ordine BX voce 05.** Il fondatore
+              // ha chiesto un comando che spenga i suoni: quello sopra
+              // spegne anche la vibrazione, che per chi tiene il telefono in
+              // silenzio e\' l'unico canale che resta. Chi vuole il silenzio
+              // senza perdere il tocco spegne questo.
+              //
+              // **Si spegne da solo quando l'interruttore unico e\' spento**,
+              // perche\' li\' non c'e\' piu\' niente da decidere: mostrarlo
+              // acceso sotto un comando gia\' spento direbbe il falso.
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: _ToggleRow(
+                  itemKey: const Key('settings_effetti_sonori'),
+                  icon: Icons.music_note_rounded,
+                  title: 'Effetti sonori',
+                  subtitle: 'I suoni dei responsi, uno per Maestro. Spegnili '
+                      'e la vibrazione resta.',
+                  value: settings.suonoPermesso,
+                  onChanged: settings.suonoEVibrazione
+                      ? settings.setEffettiSonori
+                      : null,
                   palette: palette,
                 ),
               ),
@@ -306,7 +333,9 @@ class _ToggleRow extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool value;
-  final ValueChanged<bool> onChanged;
+  /// Nullo quando la riga non si puo' toccare: l'interruttore unico e'
+  /// spento e sotto di lui non c'e' piu' niente da decidere.
+  final ValueChanged<bool>? onChanged;
   final MaestroPalette palette;
 
   @override

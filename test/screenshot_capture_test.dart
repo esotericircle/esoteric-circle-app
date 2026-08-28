@@ -142,6 +142,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
+import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -243,8 +244,21 @@ void main() {
           'onboarding.done': true,
           'santuario.greeted': true,
           'cammino.generazione': 2,
+          // **LE ANTEPRIME NON SUONANO, ordine BX voce 05.** La voce del
+          // responso costruisce un lettore audio, e col plugin finto quel
+          // lettore lascia un temporizzatore acceso: la cattura
+          // dell'Oroscopo cadeva su "A Timer is still pending". Un'anteprima
+          // misura la grafica, non il suono, ed e' la stessa ragione per cui
+          // qui i canali audio sono gia' muti.
+          'settings.effettiSonori': false,
         },
       ));
+
+  // E la voce del responso non costruisce nessun lettore: la preferenza di
+  // sopra arriva dal disco un attimo dopo l'avvio, e un responso che parte
+  // prima lascerebbe il temporizzatore acceso lo stesso.
+  setUp(() => PaletteSensoriale.voceSpentaPerLeProve = true);
+  tearDown(() => PaletteSensoriale.voceSpentaPerLeProve = false);
 
   Future<void> loadFont(String family, String path) async {
     final loader = FontLoader(family);
@@ -3522,6 +3536,45 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'impostazioni.png');
+  });
+
+  // --- La sezione del suono, con l'interruttore dei soli effetti sonori ---
+  testWidgets('Cattura le Impostazioni, la sezione del suono',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    await tester.tap(find.byKey(const Key('account_impostazioni')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    // Fino in fondo: la sezione del suono e' l'ultima.
+    final riga = find.byKey(const Key('settings_effetti_sonori'));
+    if (riga.evaluate().isNotEmpty || true) {
+      await tester.dragUntilVisible(
+          riga, find.byType(Scrollable).last, const Offset(0, -200));
+      await tester.ensureVisible(riga);
+      await step(tester);
+      // `ensureVisible` la porta al bordo, dove la barra del titolo le
+      // taglia la prima riga: un dito indietro e la scheda si legge intera.
+      await tester.drag(find.byType(Scrollable).last, const Offset(0, 220));
+      await step(tester);
+    }
+    await capture(tester, rootKey, 'impostazioni-suono.png');
   });
 
   // --- La sezione Profilo dell'Area Utente, col volto dell'utente ---

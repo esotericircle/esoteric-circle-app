@@ -25,20 +25,24 @@ class SettingsController extends ChangeNotifier {
     bool simpleMode = false,
     bool subtitles = true,
     bool suonoEVibrazione = true,
+    bool effettiSonori = true,
   })  : _reduceAnimations = reduceAnimations,
         _simpleMode = simpleMode,
         _subtitles = subtitles,
-        _suonoEVibrazione = suonoEVibrazione;
+        _suonoEVibrazione = suonoEVibrazione,
+        _effettiSonori = effettiSonori;
 
   static const _kReduce = 'settings.reduceAnimations';
   static const _kSimple = 'settings.simpleMode';
   static const _kSubtitles = 'settings.subtitles';
   static const _kSuono = 'settings.suonoEVibrazione';
+  static const _kEffetti = 'settings.effettiSonori';
 
   bool _reduceAnimations;
   bool _simpleMode;
   bool _subtitles;
   bool _suonoEVibrazione;
+  bool _effettiSonori;
 
   bool get reduceAnimations => _reduceAnimations;
   bool get simpleMode => _simpleMode;
@@ -51,6 +55,21 @@ class SettingsController extends ChangeNotifier {
   /// modo di non averne nessuno.
   bool get suonoEVibrazione => _suonoEVibrazione;
 
+  /// **SOLO GLI EFFETTI SONORI, ordine BX voce 05.**
+  ///
+  /// L'ordine chiede un comando che disattivi gli effetti sonori, e
+  /// l'interruttore unico non basta: quello spegne anche la vibrazione, che
+  /// per chi tiene il telefono in silenzio e' l'unico canale che resta.
+  /// **Chi vuole il silenzio senza perdere il tocco spegne questo**; chi
+  /// vuole il silenzio totale spegne l'altro, che comanda su tutti e due.
+  ///
+  /// Vero di partenza: l'app suona, e chi non lo vuole lo dice.
+  bool get effettiSonori => _effettiSonori;
+
+  /// Vero se un suono puo' uscire adesso: servono tutti e due gli
+  /// interruttori, e quello unico comanda.
+  bool get suonoPermesso => _suonoEVibrazione && _effettiSonori;
+
   /// Carica le preferenze salvate, best effort.
   Future<void> load() async {
     try {
@@ -59,6 +78,7 @@ class SettingsController extends ChangeNotifier {
       _simpleMode = prefs.getBool(_kSimple) ?? _simpleMode;
       _subtitles = prefs.getBool(_kSubtitles) ?? _subtitles;
       _suonoEVibrazione = prefs.getBool(_kSuono) ?? _suonoEVibrazione;
+      _effettiSonori = prefs.getBool(_kEffetti) ?? _effettiSonori;
       notifyListeners();
     } catch (_) {
       // Nessuna persistenza disponibile: si resta sui valori in memoria.
@@ -71,6 +91,14 @@ class SettingsController extends ChangeNotifier {
     _suonoEVibrazione = value;
     notifyListeners();
     _persist(_kSuono, value);
+  }
+
+  /// Accende o spegne i soli effetti sonori. Ordine BX voce 05.
+  void setEffettiSonori(bool value) {
+    if (value == _effettiSonori) return;
+    _effettiSonori = value;
+    notifyListeners();
+    _persist(_kEffetti, value);
   }
 
   void setReduceAnimations(bool value) {

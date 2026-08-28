@@ -16,6 +16,8 @@ import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/volo_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'celebrazione.dart';
+import '../../core/sensi/voce_del_responso.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// UNA SCATOLA PER UN NUMERO CHE ARRIVA DOPO.
 ///
@@ -89,6 +91,29 @@ class RegiaDelCammino {
     }
     await diario.segna(gesto, oraRituale: oraRituale, dettagli: dettagli);
     if (!context.mounted) return;
+    // **LA VOCE DEL RESPONSO, ordine BX voce 05.**
+    //
+    // **Sta QUI e in nessun altro posto, ed e' la ragione per cui la voce
+    // esiste.** Il fatto del fondatore era "gli effetti sonori ci sono solo
+    // su alcune funzioni e mancano sugli altri responsi": degli otto
+    // responsi ne suonava UNO, l'Oroscopo. Otto chiamate sparse in otto
+    // schermate sarebbero diventate sette il giorno che qualcuno ne
+    // dimentica una, ed e' la famiglia di difetto che questo progetto ha
+    // gia' incontrato molte volte. **Ogni responso passa di qui**, perche'
+    // ogni responso e' un gesto che arriva al cammino.
+    //
+    // **Non suona ogni gesto**: suonano solo quelli che il dato
+    // `VoceDelResponso.deiResponsi` dichiara responsi. Un suono a ogni
+    // gesto sarebbe il rumore che il catalogo dei suoni vieta dal primo
+    // giorno, e quella regola non e' cambiata.
+    final maestroDelResponso = VoceDelResponso.deiResponsi[gesto];
+    if (maestroDelResponso != null) {
+      // **NON SI ASPETTA.** La voce e la vibrazione non devono ritardare di
+      // un giro cio' che viene dopo: aspettarle spostava la festa del
+      // cammino e lasciava un temporizzatore acceso nella cattura
+      // dell'Oroscopo.
+      unawaited(PaletteSensoriale.responso(context, maestroDelResponso));
+    }
     await guardaCosaSiAccende(context, gesto: gesto);
   }
 
