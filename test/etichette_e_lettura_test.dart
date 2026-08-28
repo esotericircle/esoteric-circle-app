@@ -164,6 +164,15 @@ void main() {
       // famiglia dell'apertura dell'Oroscopo, che vive nel file ammesso
       // accanto e porta lo stesso ruolo in corsivo.
       'lib/features/horoscope/riflessione_del_cielo_view.dart',
+      // LA CARTA DEL DONO, ordine BV voce 06. L'orientamento del giorno e'
+      // salito alla misura di lettura come tutti gli altri responsi, ma
+      // qui resta un `Text`: questa non e' una schermata, e' un OGGETTO
+      // STAMPATO che si condivide, con un ingombro fisso, e i suoi testi
+      // li legge per chiave lo strumento del contrasto,
+      // `tool/censimento_contrasto.dart`, che cerca dei `Text`. Spezzare qui
+      // vorrebbe dire cambiare l'ingombro della carta e accecare quello
+      // strumento, per un testo che di righe ne occupa due.
+      'lib/features/rituals/ritual_gift_card.dart',
     };
     final colpe = <String>[];
     for (final f in Directory('lib')

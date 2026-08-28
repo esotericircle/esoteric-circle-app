@@ -27,6 +27,7 @@ import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 
 /// Come si entra nell'Animale Guida.
@@ -425,10 +426,15 @@ class _Messaggio extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
-                  Text(messaggio.testo,
+                  // **IL MESSAGGIO E' UN RESPONSO, ordine BV voce 06**, e
+                  // segue la misura del consiglio di Medora: misura di
+                  // lettura, colore primario, paragrafi separati dalla
+                  // porta unica invece che un blocco solo.
+                  ParagrafiDiLettura(
                       key: const Key('animal_message_text'),
-                      style: TypographyTokens.body(size: 16).copyWith(
-                          color: ColorTokens.textPrimary, height: 1.5)),
+                      testo: messaggio.testo,
+                      stile: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textPrimary)),
                 ],
               ),
             ),

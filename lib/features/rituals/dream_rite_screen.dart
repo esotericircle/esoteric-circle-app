@@ -32,6 +32,7 @@ import '../maestri/aura/meditation/meditation_audio.dart';
 import '../tarot/stesa_senses.dart' show TiltListener;
 import 'dream_rite_card.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 
@@ -534,10 +535,13 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             style: TypographyTokens.display(size: 32).copyWith(
                 color: _palette.goldSoft, letterSpacing: 1.6)),
         const SizedBox(height: SpacingTokens.sm),
-        Text(saluto,
+        // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e
+        // prende la misura di lettura come il consiglio di Medora.
+        ParagrafiDiLettura(
             key: const Key('dream_message'),
-            style: TypographyTokens.body(size: 16)
-                .copyWith(color: ColorTokens.textPrimary, height: 1.6)),
+            testo: saluto,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary)),
         const SizedBox(height: SpacingTokens.sm),
         Text(DreamRiteCorpus.provenienza(_luna),
             key: const Key('dream_provenienza'),

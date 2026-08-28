@@ -795,8 +795,9 @@ if (andata && mounted) {
                 child: ParagrafiDiLettura(
                     testo: ritratto.essenza,
                     textAlign: TextAlign.center,
+                    // IL COLORE DEL RESPONSO, ordine BV voce 06.
                     stile: TypographyTokens.lettura().copyWith(
-                        color: ColorTokens.textSecondary,
+                        color: ColorTokens.textPrimary,
                         fontStyle: FontStyle.italic)),
               ),
               if (delTest.secondo != null) ...[

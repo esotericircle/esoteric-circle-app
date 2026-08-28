@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -146,7 +147,13 @@ void main() {
     expect(find.byKey(const Key('dream_share')), findsOneWidget);
     // Il saluto e' quello deterministico dal cielo reale.
     final atteso = DreamRiteCorpus.saluto(quando);
-    expect(tester.widget<Text>(find.byKey(const Key('dream_message'))).data,
+    // **IL SALUTO PASSA DALLA PORTA UNICA, ordine BV voce 06**: non e' piu'
+    // un `Text` ma il blocco narrato comune, e il testo si legge da li'.
+    expect(
+        tester
+            .widget<ParagrafiDiLettura>(
+                find.byKey(const Key('dream_message')))
+            .testo,
         atteso);
     // Chiude con la buonanotte, il rito non si chiama piu' cosi'.
     expect(atteso.trim().endsWith('Buonanotte.'), isTrue);

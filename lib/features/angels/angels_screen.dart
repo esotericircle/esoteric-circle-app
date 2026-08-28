@@ -365,8 +365,11 @@ class _CartaAngelo extends StatelessWidget {
                 // lettura e regola comune dei paragrafi.
                 ParagrafiDiLettura(
                     testo: lore.reading,
+                    // **IL COLORE DEL RESPONSO, ordine BV voce 06**: il
+                    // secondario e' il colore di cio' che accompagna, e
+                    // questo e' il responso, non un contorno.
                     stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textSecondary)),
+                        .copyWith(color: ColorTokens.textPrimary)),
               ],
             ],
           ],

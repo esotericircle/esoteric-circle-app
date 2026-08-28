@@ -148,11 +148,17 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               //
               // Il tipo resta nel DATO, `gift.kind`, dove serve a chi compone
               // il dono: sparisce dallo schermo, non dal modello.
+              // **L'ORIENTAMENTO E' IL RESPONSO DEL DONO, ordine BV voce
+              // 06**: sale alla misura di lettura come il consiglio di
+              // Medora. Resta un `Text` e non passa dalla porta unica
+              // perche' questa e' una CARTA, un oggetto stampato che si
+              // condivide: spezzarlo in paragrafi ne cambierebbe
+              // l'ingombro, e l'ingombro qui e' fisso.
               Text(
                 gift.orientation,
                 key: const Key('alba_orientamento'),
-                style:
-                    TypographyTokens.corpo().copyWith(color: abito.inchiostro),
+                style: TypographyTokens.lettura()
+                    .copyWith(color: abito.inchiostro),
               ),
               // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
               // Ordine BB voce 06.
