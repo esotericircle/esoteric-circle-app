@@ -18,23 +18,30 @@ BZ.02. Guardia `test/ordine_bz_guard_test.dart`.
   passi numerati sono piu' sotto, e senza quelli la build non arriva.
 - **BZ.03** Le frasi dei Maestri. **FERMATA SU DECISIONE DEL FONDATORE.** Parole
   sue: "questa e' mia", cioe' dell'Architetto. Non l'ho toccata.
-- **BZ.04** Le notifiche non arrivano. **APERTA.**
+- **BZ.04** Le notifiche non arrivano. **CHIUSA.** Il permesso del sistema
+  l'app lo chiedeva in due sole schermate, e da Android 13 le notifiche
+  nascono negate: chi non ci entrava non ne riceveva nemmeno una. Adesso si
+  chiede all'avvio, una volta sola.
 - **BZ.05** Gli effetti sonori nascono spenti. **CHIUSA.** Su un telefono appena
   installato suonano zero responsi su otto; l'interruttore resta dov'era.
-- **BZ.06** L'animazione di riflessione dell'Oroscopo. **APERTA.**
+- **BZ.06** L'animazione di riflessione dell'Oroscopo. **CHIUSA.** Dura
+  4.000 millesimi invece di 2.800, la breve 3.000 invece di 1.000, la corona
+  resta per tutti e due i momenti e ogni corpo porta il suo glifo.
 - **BZ.07** Medora da sola prima della riflessione. **CHIUSA.** Erano sedici
   fotogrammi su sessanta, cioe' un secondo e sei decimi. Adesso sono zero.
 - **BZ.08** La carta chiave. **CHIUSA.** La cornice azzurra non c'e' piu': sopra
   la carta c'e' scritto Carta Chiave e le altre due sono piu' piccole.
-- **BZ.09** La Sinastria VIP parte dal confronto. **APERTA.**
+- **BZ.09** La Sinastria VIP parte dal confronto. **CHIUSA.** In cima ci sono
+  il titolo e le due carte; le due funzioni virali restano subito sotto; i
+  ritratti della lista passano da 101 a 165 punti dipinti.
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 3
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 7
 
 ## BZ.02, la build per i fondatori: cosa la fermava, e da quando
 
@@ -142,6 +149,107 @@ verificato: ramo `claude/esoteric-circle-master-order-e798aj`, commit
 `triggering`, quindi nessuna push fa partire niente. Si puo' aggiungere, e
 vorrebbe dire che ogni push consuma minuti del Mac: **e' una tua decisione**,
 non la prendo io.
+
+## BZ.04, le notifiche non arrivavano, e la causa era una riga
+
+**Parole del fondatore:** "LE NOTIFICHE NON FUNZIONANO! Stamattina e oggi me ne
+sarebbero dovute arrivare 3 invece nemmeno una."
+
+**La causa, contata nel codice.** Le cinque chiamate del giorno si programmano
+a ogni avvio dall'ordine BC voce 05, ma la prima riga di
+`programmaLeChiamateDelGiorno` e' "senza permesso non parte niente", e il
+permesso del sistema **l'app lo chiedeva in DUE SOLE schermate**: il Rito
+dell'Alba e il menu' Notifiche. Da Android 13 le notifiche nascono NEGATE, e
+chi non e' mai entrato li' dentro non ha mai visto il dialogo di sistema:
+`permessoConcesso` rispondeva no a ogni avvio, e non veniva programmata
+**nemmeno una** chiamata. L'app credeva di averle chieste; il telefono non ne
+aveva in coda nessuna.
+
+**Perche' nessuna prova lo aveva visto.** Tutte le prove degli avvisi
+costruiscono il servizio finto con `permesso = true`, cioe' misurano la catena
+a permesso gia' concesso. Ogni misura vera, la conclusione falsa: la catena
+funziona, e non parte mai.
+
+**La cura.** All'avvio, **una volta sola nella vita dell'installazione** e solo
+a chi e' gia' dentro il Cerchio, si mostra la stessa spiegazione delle altre due
+porte, che nomina i cinque Doni e le loro ore, e poi si chiede al sistema. Una
+volta sola perche' su Android il dialogo compare una volta e poi il no diventa
+definitivo: insistere non aggiunge una possibilita', la toglie. A chi sta
+entrando nel Cerchio non si chiede niente, perche' un foglio di sistema sopra
+la prima impressione dell'app e' il modo piu' rapido di farsi dire di no.
+
+**Il rosso**, misurato su **quante chiamate il sistema del telefono ha in coda
+dopo un avvio**, che e' la grandezza che l'ordine chiede per nome: **5 su 5**
+con la cura e il permesso chiesto una volta, **0 su 5** e zero richieste senza.
+
+**Cosa devi guardare tu sul telefono**, perche' una prova non puo' vederlo: al
+primo avvio della build nuova deve comparire il foglio "Posso chiamarti quando
+e' l'ora?". Se lo accetti, da quel momento le cinque chiamate sono in coda. Se
+il foglio non compare, vuol dire che il permesso risulta gia' concesso, e
+allora il difetto era altrove: dimmelo.
+
+## BZ.06, la riflessione dell'Oroscopo
+
+**Parole del fondatore:** "parte una animazione strana che dura una frazione di
+secondo... si formano dei piccoli cerchi gialli intorno all'emblema del segno e
+sotto appaiono delle parole... mi sembra cmq scarsa."
+
+Tre cose, tutte misurate a video.
+
+| cosa | prima | adesso |
+| --- | --- | --- |
+| la riflessione piena | 2.800 millesimi | **4.000** |
+| la riflessione breve, dalla seconda interrogazione del giorno | 1.000, cioe' la frazione di secondo | **3.000** |
+| la corona dei corpi in scena | 19 fotogrammi su 39 | **39 su 39** |
+| i glifi dei corpi | nessuno, dischi dorati nudi | **dieci**, dal Sole a Plutone |
+| il tempo davvero a video | 2.700 millesimi | **3.900** |
+
+**Era la riflessione BREVE il difetto**: due momenti da mezzo secondo per chi
+aveva gia' interrogato il cielo quel giorno.
+
+**I cerchi gialli erano cerchi gialli.** I dischi non portavano nessun simbolo
+perche' quando la corona nacque il font `NotoSansSymbols` non era un asset del
+repository; ci e' entrato con la cura del bosco, quindi adesso ogni corpo porta
+il suo glifo e i dischi crescono da 20/16/11 a 30/26/20 punti perche' il glifo
+si legga. **Anteprima**: `docs/preview/oroscopo-riflessione.png`.
+
+**I due tetti delle schede si spostano con lei**, da 3,5 e 6,0 secondi a 5,0 e
+7,0: e' la stessa legge dell'ordine BK applicata a una riflessione che il
+fondatore ha chiesto piu' lunga, e la finestra 2,8-3,2 secondi di quell'ordine
+non vale piu' perche' questa decisione e' dopo.
+
+## BZ.09, la Sinastria VIP parte dal confronto
+
+**Parole del fondatore:** "LA SINASTRIA VIP DEVE PARTIRE con la schermata dove
+ci sono le 2 carte in alto dove l'utente puo' scegliere il VIP a destra e a
+sinistra c'e' la carta dell'utente con titolo sopra La Tua Compatibilita' con un
+VIP. L'elenco delle carte adesso sono in ordine, ma andrebbero un po'
+ingrandite."
+
+**Cosa c'era.** La galleria si apriva sulla barra di ricerca e sulla tendina
+delle categorie: chi entrava vedeva un catalogo e doveva capire da solo cosa ci
+si facesse.
+
+**Cosa c'e' adesso**, in cima a tutto: il titolo, e sotto le due carte, la tua a
+sinistra e il segnaposto da scegliere a destra, col cuore in mezzo. Il
+segnaposto **non porta nessun VIP scelto dall'app**: al tocco porta l'occhio
+alla lista. Un'app che sceglie per te e' esattamente il difetto del confronto
+che dava sempre Angelina Jolie.
+
+**DOVE SONO FINITE LE DUE FUNZIONI VIRALI**, che l'ordine chiede di dichiarare:
+**non si sono mosse**. Stanno subito sotto l'intestazione nuova, nello stesso
+ordine di prima, e la prova pretende che ci siano tutte e due: "Trova il tuo
+gemello astrale VIP" e "Confronta 2 VIP".
+
+**Le carte della lista**: il massimo della colonna passa da 132 a 168, quindi le
+colonne da tre a due, e il ritratto **dipinto** da 101 a **165 punti**. Era il
+conto delle colonne a decidere la misura, non la spaziatura.
+
+**Una guardia sorella e' stata cambiata, non abbassata**: "in scena ci sono
+almeno sei ritratti" diventa quattro, perche' con due colonne in una schermata
+ne entrano meno, e **al suo posto entra la larghezza minima**, che e' la
+grandezza che il fondatore ha chiesto. **Anteprima**:
+`docs/preview/sinastria-galleria.png`.
 
 ## BZ.05, gli effetti sonori nascono spenti
 

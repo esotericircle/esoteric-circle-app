@@ -245,6 +245,14 @@ void main() {
           'onboarding.done': true,
           'santuario.greeted': true,
           'cammino.generazione': 2,
+          // **IL PERMESSO DEGLI AVVISI RISULTA GIA' CHIESTO, ordine BZ voce
+          // 04.** Dalla voce BZ.04 l'app, al primo avvio di chi e' gia' nel
+          // Cerchio, mostra il foglio delle cinque chiamate: senza questa
+          // riga potrebbe comparire sopra la scena fotografata, e
+          // l'anteprima mostrerebbe un foglio invece della schermata. Le
+          // anteprime mostrano l'app di chi la usa, non il suo primo minuto:
+          // il foglio ha la sua prova a parte.
+          'avvisi.primoGiorno.chiesto': true,
           // **LE ANTEPRIME NON SUONANO, ordine BX voce 05.** La voce del
           // responso costruisce un lettore audio, e col plugin finto quel
           // lettore lascia un temporizzatore acceso: la cattura
@@ -5549,8 +5557,17 @@ void main() {
       {required bool giaRisvegliato}) async {
     silenceSensors();
     await loadFonts();
-    SharedPreferences.setMockInitialValues(
-        giaRisvegliato ? {'onboarding.done': true} : {});
+    // **E IL PERMESSO DEGLI AVVISI RISULTA GIA' CHIESTO. Ordine BZ voce 04.**
+    // Dalla voce BZ.04 l'app, al primo avvio di chi e' gia' nel Cerchio,
+    // mostra il foglio che spiega le cinque chiamate e poi chiede al sistema.
+    // Nelle anteprime le preferenze nascono vuote a ogni scatto, quindi quel
+    // foglio potrebbe comparire sopra la scena fotografata: le immagini
+    // mostrerebbero un foglio invece della schermata. Qui si dichiara di aver
+    // gia' risposto, che e' lo stato di chi usa l'app da un minuto in poi. Il
+    // foglio ha la sua prova in test/le_notifiche_arrivano_davvero_test.dart.
+    SharedPreferences.setMockInitialValues(giaRisvegliato
+        ? {'onboarding.done': true, 'avvisi.primoGiorno.chiesto': true}
+        : {'avvisi.primoGiorno.chiesto': true});
     await montaLoSchermo(tester, schermoReale);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
