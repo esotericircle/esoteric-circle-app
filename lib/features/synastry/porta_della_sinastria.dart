@@ -260,8 +260,10 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
                         foregroundColor: palette.goldSoft,
                         minimumSize: const Size.fromHeight(48)),
                     icon: const Icon(Icons.person_rounded, size: 18),
+                    // Corpo e non maiuscoletto: una frase che va a capo
+                    // in maiuscoletto diventa un muro di lettere larghe.
                     label: Text('Rimetti il tuo cielo al primo posto',
-                        style: TypographyTokens.etichetta()),
+                        style: TypographyTokens.corpo()),
                   ),
                 ),
               ],

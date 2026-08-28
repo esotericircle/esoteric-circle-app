@@ -2,6 +2,7 @@ import '../astro/natal_chart.dart';
 import 'cielo_della_sinastria.dart';
 import 'altre_affinita.dart';
 import 'possibilita_di_incontro.dart';
+import 'responso_della_sinastria.dart';
 import 'vip_catalog.dart';
 
 /// Una barra infografica del responso: etichetta, valore percentuale e una
@@ -34,6 +35,10 @@ class SynastryReport {
     required this.overall,
     required this.band,
     required this.reading,
+    this.sopraIlCerchio = '',
+    this.titoloDellaBolla = '',
+    this.nota = '',
+    this.sfida = '',
     required this.love,
     required this.mental,
     required this.sparks,
@@ -55,9 +60,30 @@ class SynastryReport {
   /// Etichetta di fascia del cerchio grande (Anime gemelle, Grande intesa...).
   final String band;
 
-  /// Il testo del responso, medio, composto da relazione tra i segni piu'
-  /// carattere del VIP piu' chiusura ironica.
+  /// Il testo del responso: le quattro frasi cucite del corpus, cioe'
+  /// l'apertura sui due segni, il cielo reso leggibile, il personaggio con la
+  /// sua attualita' e la stoccata finale. Ordine CA voce 04.
   final String reading;
+
+  /// **LA FRASE SOPRA IL CERCHIO. Ordine CA voce 04.** Parole del fondatore:
+  /// "il testo nel cerchio e' quasi sempre lo stesso e deve cambiare e
+  /// adattarsi ed essere memorabile: io lo eliminerei dal cerchio, e lo
+  /// metterei sopra il cerchio, per attirare l'attenzione". Nasce dalla
+  /// relazione fra i due segni E dalla fascia, quindi cambia davvero: erano
+  /// cinque etichette in tutto, adesso sono trentacinque frasi.
+  final String sopraIlCerchio;
+
+  /// **IL TITOLO DELLA BOLLA**, che prima non esisteva: la bolla apriva sempre
+  /// con "Il fatto e' questo".
+  final String titoloDellaBolla;
+
+  /// **LA NOTA, FUORI DALLA BOLLA.** L'ora di nascita ignota occupava tre
+  /// righe su otto dentro il testo che deve diventare virale. Vuota quando
+  /// non c'e' niente da dichiarare.
+  final String nota;
+
+  /// La riga sopra il pulsante di condivisione, a rotazione fra cinque.
+  final String sfida;
 
   final int love;
   final int mental;
@@ -146,8 +172,12 @@ class SynastryReport {
   String get meetingLabel => incontro.etichetta;
 
   /// La riga sopra il tasto Condividi, con il nome del VIP.
-  static String challengeLine(String vipName) =>
-      'E tu con $vipName quanto fai? Sfida i tuoi amici.';
+  ///
+  /// **NON E' PIU' SEMPRE LA STESSA. Ordine CA voce 04**: il corpus ne porta
+  /// cinque e questa ne sceglie una per coppia. Chi ha in mano il responso usa
+  /// [sfida], che e' gia' scelta; questa resta per chi ha solo un nome.
+  static String challengeLine(String vipName, {int percento = 0}) =>
+      ResponsoDellaSinastria.laSfida(nome: vipName, percento: percento);
 
   /// COMPONE IL RESPONSO DAL CIELO INTERO. Ordine BO voce 02.
   ///
@@ -199,10 +229,23 @@ class SynastryReport {
     final meetingQuip = _meetingQuips[
         (tuo.segnoSolare.index + vip.sign.index) % _meetingQuips.length];
 
+    // **IL RESPONSO NASCE DAL CORPUS, revisione B. Ordine CA voce 04.**
+    final pezzi = ResponsoDellaSinastria.perTeConUnVip(
+      tuoSegno: tuo.segnoSolare,
+      vip: vip,
+      percento: overall,
+      aspetti: aspetti,
+      oraDelVipNota: suo.oraNota,
+      adesso: quando ?? DateTime.now(),
+    );
     return SynastryReport(
       overall: overall,
       band: _band(overall),
-      reading: _lettura(aspetti, vip, tuo, suo),
+      reading: pezzi.corpo,
+      sopraIlCerchio: pezzi.sopraIlCerchio,
+      titoloDellaBolla: pezzi.titoloDellaBolla,
+      nota: pezzi.nota,
+      sfida: pezzi.sfida,
       love: love,
       mental: mental,
       sparks: sparks,
@@ -244,10 +287,21 @@ class SynastryReport {
     final cieloB = CieloDiSinastria.perVip(secondo);
     final aspetti = AspettiDiSinastria.fra(cieloA, cieloB);
     final numeri = _numeriDa(aspetti);
+    final pezzi = ResponsoDellaSinastria.fraDueVip(
+      primo: primo,
+      secondo: secondo,
+      percento: numeri.overall,
+      aspetti: aspetti,
+      adesso: DateTime.now(),
+    );
     return SynastryReport(
       overall: numeri.overall,
       band: _band(numeri.overall),
-      reading: _letturaFraDue(aspetti, primo, secondo, cieloB),
+      reading: pezzi.corpo,
+      sopraIlCerchio: pezzi.sopraIlCerchio,
+      titoloDellaBolla: pezzi.titoloDellaBolla,
+      nota: pezzi.nota,
+      sfida: pezzi.sfida,
       love: numeri.love,
       mental: numeri.mental,
       sparks: numeri.sparks,
@@ -305,19 +359,6 @@ class SynastryReport {
         '${km.round()} km.';
   }
 
-  static String _letturaFraDue(List<AspettoDiSinastria> aspetti, Vip a, Vip b,
-      CieloDiSinastria cieloB) {
-    if (aspetti.isEmpty) {
-      return 'I cieli di ${a.name} e ${b.name} non si toccano in nessuno dei '
-          'punti che contano.';
-    }
-    final primo = aspetti.first;
-    return 'Fra ${a.name} e ${b.name} il fatto è questo: '
-        '${primo.tuo.ilSuo} ${primo.tuo.nome} '
-        'in ${primo.tipo.italianName.toLowerCase()} '
-        '${primo.suo.alSuo} ${primo.suo.nome}, '
-        'a ${_gradi(primo.orbo)} dall\'angolo esatto.';
-  }
 
   /// I tre numeri da una lista di aspetti. **Sta in un posto solo** perche' il
   /// confronto con te e quello fra due VIP devono dare la stessa scala: due
@@ -478,37 +519,17 @@ class SynastryReport {
   }
 
   /// IL TESTO, che nomina il fatto vero invece di una frase generica.
-  static String _lettura(List<AspettoDiSinastria> aspetti, Vip vip,
-      CieloDiSinastria tuo, CieloDiSinastria suo) {
-    final character = _characterClause(vip);
-    final closer = _ironicClosers[
-        (tuo.segnoSolare.index + vip.sign.index) % _ironicClosers.length];
-    if (aspetti.isEmpty) {
-      // Puo' capitare, ed e' un fatto anche questo: due cieli che non si
-      // toccano in nessun punto entro l'orbo. Si dice, invece di inventare un
-      // aspetto che non c'e'.
-      return 'I vostri cieli si sfiorano senza toccarsi: nessuno dei punti '
-          'che contano cade in aspetto con i tuoi. $character. $closer';
-    }
-    final primo = aspetti.first;
-    final apertura = 'Il fatto è questo: ${primo.fatto}, '
-        'a ${_gradi(primo.orbo)} dall\'angolo esatto.';
-    final secondo = aspetti.length > 1 ? aspetti[1] : null;
-    final seguito =
-        secondo == null ? '' : ' Subito dopo viene ${secondo.fatto}.';
-    final senzaOra = suo.oraNota
-        ? ''
-        : ' Del suo cielo non si conosce l\'ora di nascita: questa lettura '
-            'parla ai pianeti e non all\'Ascendente. Non si finge di sapere '
-            'ciò che nessuna fonte dichiara.';
-    return '$apertura$seguito $character. $closer$senzaOra';
-  }
+
+  // **LE DUE COMPOSIZIONI VECCHIE NON CI SONO PIU'. Ordine CA voce 04.**
+  //
+  // Erano `_lettura` e `_letturaFraDue`, e mettevano insieme tre frammenti:
+  // "Il fatto e' questo" con l'aspetto in gradi, la riga del personaggio senza
+  // cucitura, e una chiusura ironica sull'incontro sempre uguale, piu' tre
+  // righe di disclaimer dentro la bolla. Il fondatore le ha giudicate scarne.
+  // Adesso il responso lo compone `ResponsoDellaSinastria` dal corpus
+  // revisione B, e i pezzi sono cinque invece di tre.
 
   /// I gradi come si scrivono in italiano: "2,4 gradi".
-  static String _gradi(double g) {
-    final s = g.toStringAsFixed(1).replaceAll('.', ',');
-    return '$s gradi';
-  }
 
   // **LE FUNZIONI DEL SOLO SEGNO SOLARE NON CI SONO PIU', ordine BO voce 02.**
   //
@@ -532,23 +553,6 @@ class SynastryReport {
 
   // Carattere del VIP: la riga del corpus col nome del personaggio al posto del
   // pronome iniziale (lei/lui), cosi' la frase scorre.
-  static String _characterClause(Vip vip) {
-    final key = vip.stem == null
-        ? ''
-        : vip.stem!.replaceAll(RegExp(r'_v\d+$'), '');
-    var line = _vipCharacters[key] ?? 'che porta con sé il suo mondo';
-    line = line.replaceFirst(RegExp(r'^(lei|lui)\s+'), '');
-    return '${vip.name} $line';
-  }
-
-  /// Le chiusure ironiche sull'incontro, dal corpus. Se ne sceglie una in modo
-  /// deterministico per coppia, cosi' la card resta stabile.
-  static const List<String> _ironicClosers = [
-    'Che finiate allo stesso tavolo è tutto da vedere, ma il cielo ogni tanto ci prova.',
-    'Il destino ha i suoi tempi, ma un colpo di scena non si nega a nessuno.',
-    'Tra voi, per ora, c\'è di mezzo solo qualche milione di follower.',
-    'Mai dire mai: le storie migliori iniziano con un caffè inaspettato.',
-  ];
 
   /// Micro battute sulla barra dell'incontro, deterministiche per coppia.
   static const List<String> _meetingQuips = [
@@ -558,59 +562,10 @@ class SynastryReport {
     'praticamente da leggenda',
   ];
 
-  /// I cinquanta caratteri VIP dal corpus, per stem normalizzato senza `_vN`.
-  static const Map<String, String> _vipCharacters = {
-    'vip_angelina-jolie':
-        'divisa tra un set di Hollywood e mezzo mondo da salvare',
-    'vip_ariana-grande': 'che arriva a note che tu nemmeno immagini',
-    'vip_bad-bunny': 'che riempie gli stadi cantando in spagnolo',
-    'vip_beyonce': 'che quando entra si spengono le altre luci',
-    'vip_bill-gates': 'che ha riscritto il mondo partendo da un garage',
-    'vip_billie-eilish': 'che sussurra e la ascoltano in milioni',
-    'vip_brad-pitt': 'che invecchia meglio del vino',
-    'vip_chiara-ferragni': 'che di un post sa fare un impero',
-    'vip_damiano-david': 'che sul palco perde la camicia ma mai il ritmo',
-    'vip_dicaprio': 'che colleziona Oscar e tramonti',
-    'vip_drake': 'che trasforma ogni dispiacere in disco di platino',
-    'vip_dwayne-johnson': 'che solleva più peso del tuo intero condominio',
-    'vip_elon-musk': 'che twitta a mezzanotte e sposta i mercati',
-    'vip_emma-watson': 'che dai libri di magia è passata a quelli veri',
-    'vip_federer': 'che perdeva con eleganza pure quando vinceva',
-    'vip_fedez': 'che fa notizia più di un telegiornale',
-    'vip_giorgio-armani': 'che ha vestito il mondo di grigio elegante',
-    'vip_jeff-bezos': 'che ti consegna tutto tranne il suo tempo libero',
-    'vip_kanye-west': 'che una ne fa e cento ne pensa',
-    'vip_keanu-reeves': 'che resta gentile pure mentre salva il mondo',
-    'vip_kim-kardashian': 'che ha fatto della vita un impero',
-    'vip_kylie-jenner': 'che a vent\'anni contava i miliardi',
-    'vip_lady-gaga': 'che cambia faccia a ogni canzone ma non voce',
-    'vip_lebron-james': 'che a quarant\'anni vola ancora',
-    'vip_margot-robbie': 'che ha reso una bambola un fenomeno mondiale',
-    'vip_mark-zuckerberg': 'che sa tutto di te ma non risponde ai messaggi',
-    'vip_mbappe': 'che corre più veloce del tuo wifi',
-    'vip_messi': 'che parla poco e segna sempre',
-    'vip_michelle-obama': 'che ha rimesso di moda l\'intelligenza',
-    'vip_monica-bellucci': 'che il tempo lo guarda passare senza farsi toccare',
-    'vip_nadal': 'che non molla un punto nemmeno per sbaglio',
-    'vip_oprah-winfrey': 'che regala macchine e cambia vite',
-    'vip_priyanka-chopra': 'che ha conquistato due continenti',
-    'vip_rihanna':
-        'che tra un disco e l\'altro ti ha pure venduto il fondotinta',
-    'vip_ronaldo': 'che si allena mentre tu dormi',
-    'vip_scarlett-johansson': 'che ha dato la voce persino ai robot',
-    'vip_selena-gomez': 'che sopravvive a Hollywood col sorriso',
-    'vip_serena-williams': 'che serve più forte di quanto tu discuti',
-    'vip_shakira': 'che con i fianchi non sa mentire',
-    'vip_sinner': 'che resta di ghiaccio anche a Wimbledon',
-    'vip_snoop-dogg': 'che se la prende comoda da trent\'anni',
-    'vip_steve-jobs': 'che ha messo il futuro nella tasca di tutti',
-    'vip_taylor-swift': 'che se la lasci ci scrive un album',
-    'vip_the-weeknd': 'che canta le notti che tu dimentichi',
-    'vip_timothee-chalamet': 'che fa sospirare due generazioni insieme',
-    'vip_tom-cruise': 'che gli stunt se li fa da solo',
-    'vip_usain-bolt': 'che ha corso piano solo per salutare',
-    'vip_valentino-rossi': 'che in curva piega più di te sotto le scadenze',
-    'vip_warren-buffett': 'che a colazione compra aziende',
-    'vip_zendaya': 'che a ogni red carpet manda in tilt internet',
-  };
+  // **IL CORPUS DEI CINQUANTA CARATTERI NON VIVE PIU' QUI. Ordine CA voce
+  // 04.** Era `_vipCharacters`, cinquanta righe "lei che..." incollate in
+  // mezzo alla frase. Adesso le presentazioni stanno in
+  // `TestiDellaSinastria.presentazioni`, che nasce dal corpus, e ognuna e'
+  // scritta per stare DENTRO una frase invece che essere appiccicata.
+
 }

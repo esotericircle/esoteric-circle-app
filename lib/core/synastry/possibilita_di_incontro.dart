@@ -109,13 +109,36 @@ class PossibilitaDiIncontro {
   /// uguali. Qui la barra dice quanto quella possibilita' e' vicina al
   /// massimo che questo modello concede, e la riga sotto continua a dire la
   /// percentuale vera. Il numero non cambia: cambia quanto si vede.
-  int get indiceSullaScala => ((percento / tetto) * 100).round().clamp(0, 100);
+  int get indiceSullaScala =>
+      ((percento / scalaDiChiGuarda) * 100).round().clamp(0, 100);
+
+  /// **SU CHE SCALA SI LEGGE IL NUMERO. Ordine CA voce 06.**
+  ///
+  /// **Il rilievo riaperto dal fondatore**: sulla build 2211 la possibilita'
+  /// d'incontro segnava 1,8 per cento, e l'ordine BX aveva chiuso il rilievo
+  /// come falso perche' la MISURA era stata corretta. La misura si'; il valore
+  /// che la persona vede no, e restava schiacciato in fondo alla barra per
+  /// tutte le coppie.
+  ///
+  /// Il [tetto] e' la percentuale che tocca **alla persona piu' esposta del
+  /// catalogo se vive nella tua stessa citta'**: un caso che quasi nessuno
+  /// incontra, e infatti su venti coppie i valori mostrati stavano fra il 3 e
+  /// il 21 per cento di quel tetto. Una scala su cui nessuno arriva a meta'
+  /// non e' una scala, e' un fondo.
+  ///
+  /// La scala di lettura e' **un quinto del tetto**, cioe' 3,6 punti
+  /// percentuali: e' la misura vera del campo, presa dai valori che il modello
+  /// produce davvero, e sopra di lei si sta al massimo. **Il numero non
+  /// cambia**: la percentuale vera continua a essere scritta accanto alla
+  /// barra, ed e' quella che si legge. Cambia quanto si distingue una coppia
+  /// dall'altra, che e' cio' che l'ordine chiede.
+  static const double scalaDiChiGuarda = tetto / 5;
 
   /// **E IN PAROLE, che e' come una persona la legge davvero.** Cinque
   /// gradini, e due coppie che stanno su gradini diversi si distinguono a
   /// colpo d'occhio anche senza guardare il numero.
   String get inParole {
-    final quota = percento / tetto;
+    final quota = percento / scalaDiChiGuarda;
     if (quota < 0.08) return 'Quasi impossibile';
     if (quota < 0.16) return 'Molto improbabile';
     if (quota < 0.30) return 'Improbabile';

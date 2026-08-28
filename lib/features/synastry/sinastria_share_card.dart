@@ -336,11 +336,25 @@ class SynastryBarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMeeting = bar.quip.isNotEmpty;
-    // La barra dell'incontro e' volutamente cortissima: si usa la percentuale
-    // reale minima, non il valore intero, cosi' resta un filo di riempimento.
-    final fraction =
-        isMeeting ? (meetingReport.meetingPercent / 100) : (bar.value / 100);
-    final valueText = isMeeting ? meetingReport.meetingLabel : '${bar.value}%';
+    // **QUELLO CHE SI VEDE DEVE DISTINGUERE DUE COPPIE. Ordine CA voce 06.**
+    //
+    // Il rilievo era stato chiuso dall'ordine BX come falso, e la
+    // motivazione era giusta a meta': la possibilita' d'incontro NON e' sempre
+    // bassissima, lo era la misura, fatta con una citta' sola. La misura e'
+    // stata corretta; **il valore che la persona vede no**, e sulla build 2211
+    // il fondatore leggeva ancora 1,8 per cento.
+    //
+    // La causa stava qui: `bars` porta gia' `indiceSullaScala`, cioe' quanto
+    // quella possibilita' e' vicina al massimo che il modello concede, ma
+    // questa riga lo buttava via e ridisegnava la percentuale cruda, che su
+    // una scala da cento e' una barra vuota per tutti. Adesso la barra usa
+    // l'indice, e al posto del numero si legge il gradino in PAROLE, che
+    // distingue due coppie a colpo d'occhio. **La percentuale vera non
+    // sparisce**: sta nella riga sotto, insieme al perche'.
+    final fraction = bar.value / 100;
+    final valueText = isMeeting
+        ? meetingReport.incontro.inParole
+        : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -379,7 +393,9 @@ class SynastryBarRow extends StatelessWidget {
         ),
         if (isMeeting) ...[
           const SizedBox(height: 2),
-          Text(bar.quip,
+          // Il perche', con dentro la percentuale vera: il numero non si
+          // nasconde, si mette dove non fa credere che sia una barra vuota.
+          Text('${meetingReport.meetingLabel}. ${bar.quip}',
               style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),

@@ -125,8 +125,9 @@ la suite intera**: e' la ragione per cui si gira.
 
 Il lancio su Codemagic chiede l'accesso al tuo account: **nessuna credenziale
 passa da qui, quindi la build la fai partire tu.** Il codice e' gia' sul server,
-verificato: ramo `claude/esoteric-circle-master-order-e798aj`, commit
-`638c8b8e`. Sono cinque minuti.
+verificato con `git ls-remote`: ramo
+`claude/esoteric-circle-master-order-e798aj`, ultimo commit **`f69caa28`**, che
+porta tutte e sette le voci chiuse. Sono cinque minuti.
 
 1. Apri **codemagic.io** e fai l'accesso.
 2. Entra nell'applicazione **esoteric-circle-app**.

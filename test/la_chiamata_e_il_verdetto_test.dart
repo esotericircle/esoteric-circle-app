@@ -362,11 +362,22 @@ void main() {
     expect(t.data, '$atteso%',
         reason: 'al primo fotogramma il numero non è ancora quello: chi ha '
             'tolto le animazioni sta guardando un conteggio');
-    // E la fascia c'e' gia', non arriva dopo.
-    final fascia =
-        tester.widget<Opacity>(find.ancestor(
-            of: find.byKey(const Key('sinastria_fascia')),
-            matching: find.byType(Opacity)));
-    expect(fascia.opacity, 1.0);
+    // **E LA FRASE SOPRA IL CERCHIO C\'E\' GIA\', non arriva dopo.**
+    //
+    // Era l'etichetta di fascia dentro il cerchio; dall'ordine CA voce 04 il
+    // suo posto e' sopra il cerchio, con la frase che nasce dalla relazione
+    // fra i due segni. La misura non cambia: chi ha tolto le animazioni non
+    // deve aspettare niente.
+    // **E LA FRASE SOPRA IL CERCHIO C\'E\' SUBITO.**
+    //
+    // Era l'etichetta di fascia DENTRO il cerchio, e arrivava per ultima con
+    // una dissolvenza; dall'ordine CA voce 04 il suo posto e' sopra il
+    // cerchio e non ha nessuna dissolvenza, perche' e' la prima cosa che si
+    // legge. Per chi ha tolto le animazioni non cambia niente, ed e' cio' che
+    // questa prova difende: niente da aspettare.
+    final sopra = tester.widget<Text>(
+        find.byKey(const Key('sinastria_sopra_il_cerchio')));
+    expect(sopra.data, isNotEmpty,
+        reason: 'la frase sopra il cerchio non c\'e\'');
   });
 }

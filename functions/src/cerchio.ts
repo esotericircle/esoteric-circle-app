@@ -488,6 +488,35 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   //
   // **Il documento non esiste finche' non serve**: se manca, la mappa e'
   // vuota e vale il catalogo compilato, che e' cio' che era vero prima.
+  // **L'ATTUALITA' DEI PERSONAGGI, ordine CA voce 05.** Dallo stesso
+  // documento e dalla stessa chiamata dello stato in vita: un fatto pubblico e
+  // professionale per nome, con la data in cui e' stato verificato. **Non e'
+  // una frase generata**: e' un dato che una persona scrive nel documento
+  // `catalogo/vip`, campo `attualita`, e che l'app usa solo se non e' piu'
+  // vecchio di novanta giorni. Una voce scritta male si butta invece di
+  // indovinarla.
+  const attualitaDeiVip = await (async () => {
+    try {
+      const snap = await db.doc("catalogo/vip").get();
+      const grezze = snap.data()?.attualita;
+      if (!grezze || typeof grezze !== "object") return {};
+      const puliti: Record<string, {testo: string; verificata_il: string}> = {};
+      for (const [nome, voce] of Object.entries(grezze)) {
+        if (!voce || typeof voce !== "object") continue;
+        const testo = (voce as Record<string, unknown>).testo;
+        const quando = (voce as Record<string, unknown>).verificata_il;
+        if (typeof testo !== "string" || testo.trim() === "") continue;
+        if (typeof quando !== "string") continue;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(quando)) continue;
+        puliti[nome] = {testo: testo.trim(), verificata_il: quando};
+      }
+      return puliti;
+    } catch (senzaDocumento) {
+      logger.warn("attualita dei vip non letta", senzaDocumento);
+      return {};
+    }
+  })();
+
   const correzioniDeiVip = await (async () => {
     try {
       const snap = await db.doc("catalogo/vip").get();
@@ -542,6 +571,7 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // porta solo i nomi per cui il catalogo compilato dell'app dice una cosa
     // diversa da quella vera.
     correzioniDeiVip,
+    attualitaDeiVip,
     // **QUANTO VALE UN INVITO ACCOLTO. Ordine BX voce 05, trovato con
     // l'anteprima.** Uscendo dal listino della condivisione (voce BX.02) il
     // numero non arrivava piu' al telefono, e la riga sotto il pulsante

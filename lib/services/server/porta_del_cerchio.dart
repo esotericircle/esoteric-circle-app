@@ -23,6 +23,7 @@ class StatoDelCerchio {
     this.invitiAccolti = 0,
     this.invitiPerMaestro = const {},
     this.correzioniDeiVip = const {},
+    this.attualitaDeiVip = const {},
     this.premioDellInvitoAccolto,
   });
 
@@ -90,6 +91,10 @@ class StatoDelCerchio {
   /// vecchio dell'app: allora vale il catalogo compilato, che e' cio' che era
   /// vero prima.
   final Map<String, String> correzioniDeiVip;
+
+  /// Un fatto pubblico e professionale per nome, con la data di verifica.
+  /// Ordine CA voce 05.
+  final Map<String, Map<String, String>> attualitaDeiVip;
 
   /// **QUANTO COSTA RISCATTARE UN USO DI UN BUDGET FINITO.** Ordine BG voce
   /// 05: il prezzo lo decide il server, il client lo mostra sul pulsante e
@@ -178,6 +183,22 @@ class StatoDelCerchio {
         if (risposta['correzioniDeiVip'] is Map)
           for (final voce in (risposta['correzioniDeiVip'] as Map).entries)
             if (voce.value is String) '${voce.key}': voce.value as String,
+      },
+      // **L'ATTUALITA' DEI PERSONAGGI, ordine CA voce 05.** Stessa chiamata e
+      // stesso documento dello stato in vita: un fatto pubblico per nome, con
+      // la data in cui e' stato verificato. Cio' che non ha tutte e due le
+      // parti si butta invece di indovinarlo.
+      attualitaDeiVip: {
+        if (risposta['attualitaDeiVip'] is Map)
+          for (final voce in (risposta['attualitaDeiVip'] as Map).entries)
+            if (voce.value is Map &&
+                (voce.value as Map)['testo'] is String &&
+                (voce.value as Map)['verificata_il'] is String)
+              '${voce.key}': {
+                'testo': (voce.value as Map)['testo'] as String,
+                'verificata_il':
+                    (voce.value as Map)['verificata_il'] as String,
+              },
       },
     );
   }

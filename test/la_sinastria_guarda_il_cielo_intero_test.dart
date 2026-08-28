@@ -104,7 +104,15 @@ void main() {
     expect(suo.haAscendente, isFalse,
         reason: 'un Ascendente senza ora e\' un numero esatto e falso');
     final r = SynastryReport.perCieli(tuo: cielo, vip: v);
-    expect(r.reading, contains('non si conosce l\'ora di nascita'));
+    // **LA DICHIARAZIONE SI E' SPOSTATA, NON E' SPARITA. Ordine CA voce 04.**
+    // Occupava tre righe su otto dentro la bolla, cioe' dentro il testo che
+    // deve diventare virale: adesso vive nella NOTA, fuori dalla bolla e in
+    // corpo minore. Cio' che questa prova difende, cioe' che l'app non finga
+    // un Ascendente che nessuna fonte dichiara, non cambia.
+    expect(r.nota, contains('ora esatta di nascita'),
+        reason: 'la nota non dichiara che l\'ora del VIP non si conosce');
+    expect(r.reading.contains('ora esatta di nascita'), isFalse,
+        reason: 'la dichiarazione e\' tornata dentro la bolla');
     expect(r.oraDelVipNota, isFalse);
   });
 

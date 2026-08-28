@@ -488,7 +488,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               // due le caselle in scena: si torna li' e si tocca quella che si
               // vuole cambiare, e ognuna riempie se stessa.
               subtitle: Text('Torni alle due carte e ne scegli un altro',
-                  style: TypographyTokens.etichetta()
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary)),
               onTap: () {
                 Navigator.of(foglio).pop();
@@ -678,15 +678,10 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   @visibleForTesting
   double quantoDellaBarraPerLaProva(int i) => _quantoDellaBarra(i);
 
-  /// La frazione del titolo della coppia, che arriva per ultimo.
-  double get _quantoDelTitolo {
-    if (_riduciMovimento) return 1;
-    final tutto = _anim.duration!.inMilliseconds;
-    final inizio =
-        (tutto - TempiDelVerdetto.ilTitolo.inMilliseconds) / tutto;
-    final quanto = TempiDelVerdetto.ilTitolo.inMilliseconds / tutto;
-    return ((_anim.value - inizio) / quanto).clamp(0.0, 1.0);
-  }
+  // **LA FRAZIONE DEL TITOLO NON SERVE PIU'. Ordine CA voce 04.** Reggeva la
+  // dissolvenza dell'etichetta di fascia dentro il cerchio, che adesso non
+  // c'e' piu': al suo posto, sopra il cerchio, c'e' una frase che si legge
+  // subito e non arriva per ultima.
 
   Widget _content(MaestroPalette palette, SynastryReport report) {
     return ListView(
@@ -763,7 +758,24 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           ],
         ),
         const SizedBox(height: SpacingTokens.lg),
-        // Il cerchio grande con percentuale animata ed etichetta di fascia.
+        // **LA FRASE SOPRA IL CERCHIO. Ordine CA voce 04.** Parole del
+        // fondatore: "il testo nel cerchio e' quasi sempre lo stesso e deve
+        // cambiare e adattarsi ed essere memorabile: io lo eliminerei dal
+        // cerchio, e lo metterei sopra il cerchio, per attirare
+        // l'attenzione". Dentro il cerchio dipendeva dalla sola fascia, cioe'
+        // cinque etichette in tutto; qui nasce dalla relazione fra i due segni
+        // E dalla fascia, cioe' trentacinque frasi.
+        if (report.sopraIlCerchio.isNotEmpty) ...[
+          Text(
+            report.sopraIlCerchio,
+            key: const Key('sinastria_sopra_il_cerchio'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.titoloSezione()
+                .copyWith(color: palette.goldSoft, height: 1.25),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+        ],
+        // Il cerchio grande con la percentuale animata.
         Center(
           child: SizedBox(
             width: 180,
@@ -790,18 +802,14 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                             key: const Key('sinastria_numero'),
                             style: TypographyTokens.display(size: 36)
                                 .copyWith(color: palette.goldSoft)),
-                        // **IL TITOLO DELLA COPPIA ARRIVA PER ULTIMO, DA
-                        // SOLO.** E' la frase che la persona porta via, e
-                        // arriva quando tutto il resto ha finito di muoversi.
-                        Opacity(
-                          opacity: _quantoDelTitolo,
-                          child: Text(report.band,
-                              key: const Key('sinastria_fascia'),
-                              textAlign: TextAlign.center,
-                              style: TypographyTokens.etichetta().copyWith(
-                                  color: ColorTokens.textSecondary,
-                                  letterSpacing: 0.6)),
-                        ),
+                        // **L'ETICHETTA DI FASCIA NON STA PIU' NEL
+                        // CERCHIO. Ordine CA voce 04.** Era "Anime gemelle",
+                        // "Bella sintonia", cinque parole in tutto che si
+                        // ripetevano perche' dipendevano dalla sola
+                        // percentuale: al suo posto, sopra il cerchio, c'e'
+                        // una frase che nasce anche dalla relazione fra i due
+                        // segni. Il campo `band` resta e vive nella cartolina
+                        // da condividere, dove una parola sola serve.
                       ],
                     ),
                   ),
@@ -811,15 +819,40 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           ),
         ),
         const SizedBox(height: SpacingTokens.lg),
-        // Il testo del responso, PRIMA delle barre.
+        // Il testo del responso, PRIMA delle barre, col suo TITOLO.
         DepthCard(
           raised: true,
           padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: Text(report.reading,
-              key: const Key('sinastria_reading'),
-              style: TypographyTokens.body(size: 16)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // **IL TITOLO DELLA BOLLA, che prima non esisteva.** Ordine CA
+              // voce 04: la bolla apriva sempre con "Il fatto e' questo".
+              if (report.titoloDellaBolla.isNotEmpty) ...[
+                Text(report.titoloDellaBolla,
+                    key: const Key('sinastria_titolo_bolla'),
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.sm),
+              ],
+              Text(report.reading,
+                  key: const Key('sinastria_reading'),
+                  style: TypographyTokens.body(size: 16)
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+            ],
+          ),
         ),
+        // **LA NOTA, FUORI DALLA BOLLA E IN CORPO MINORE. Ordine CA voce 04.**
+        // L'ora di nascita ignota occupava tre righe su otto DENTRO il testo
+        // che deve diventare virale. Serve, perche' e' la regola di
+        // trasparenza del progetto, ma non sta in mezzo alla battuta.
+        if (report.nota.isNotEmpty) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text(report.nota,
+              key: const Key('sinastria_nota'),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+        ],
         // **IL CIELO DEL GIORNO SU QUESTA COPPIA, ordine BO voce 12.** La
         // geografia dice se un incontro e' possibile, il cielo dice quando.
         // Nessuna di queste righe promette un incontro: dicono quando quel
@@ -951,7 +984,10 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         ),
         const SizedBox(height: SpacingTokens.lg),
         // Il rilancio e il tasto Condividi.
-        Text(SynastryReport.challengeLine(_vip.name),
+        Text(
+            report.sfida.isEmpty
+                ? SynastryReport.challengeLine(_vip.name)
+                : report.sfida,
             textAlign: TextAlign.center,
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4)),

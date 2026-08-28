@@ -158,6 +158,14 @@ void main() {
     await tester.tap(find.byKey(Key('vip_${VipCatalog.first.name}')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('sinastria_list')), findsOneWidget);
+    // **IL RESPONSO E' PIU' LUNGO, ordine CA voce 04**: sopra la bolla c'e' il
+    // suo titolo e sotto la nota, quindi il tasto Cambia VIP non e' piu' in
+    // prima schermata. Si porta sotto gli occhi prima di toccarlo.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_change_vip')), 200,
+        scrollable: find.byType(Scrollable).first);
+    await tester.ensureVisible(find.byKey(const Key('sinastria_change_vip')));
+    await tester.pump();
     await tester.tap(find.byKey(const Key('sinastria_change_vip')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('sinastria_gallery')), findsOneWidget);

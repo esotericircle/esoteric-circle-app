@@ -131,6 +131,10 @@ enum FonteDelDato {
 /// disposizione cita un registro, e un'ora indovinata sposterebbe
 /// l'Ascendente di gradi interi.
 class Vip {
+  /// **QUANTI GIORNI VALE UN FATTO.** Novanta, dal corpus: oltre, il fatto
+  /// non e' piu' attualita' ed e' meglio non dirlo che dirlo vecchio.
+  static const int giorniDiValidita = 90;
+
   const Vip({
     required this.name,
     required this.sign,
@@ -141,6 +145,8 @@ class Vip {
     required this.esposizione,
     required this.fonti,
     this.category = '',
+    this.attualita = '',
+    this.attualitaVerificataIl,
     this.stem,
     this.ora = const OraDiNascita.ignota(),
     this.luogoDiNascita,
@@ -174,6 +180,23 @@ class Vip {
 
   /// La fonte di ogni campo compilato. La prova cade se ne manca una.
   final Map<CampoDelVip, FonteDelDato> fonti;
+
+  /// **L'ATTUALITA' DEL PERSONAGGIO. Ordine CA voce 05.**
+  ///
+  /// Un solo fatto pubblico e professionale, breve, con accanto il giorno in
+  /// cui e' stato verificato. **Nel catalogo compilato e' VUOTA per tutti e
+  /// cinquanta**, e non e' una dimenticanza: il corpus dice che il fatto "lo
+  /// scrive chi aggiorna il catalogo", e chi aggiorna non e' un modello
+  /// lasciato libero di raccontare la vita di una persona. Il fatto arriva
+  /// dal server, dalla stessa strada che gia' corregge lo stato in vita
+  /// (`CorrezioniDeiVip`), come DATO VERIFICABILE e non come frase generata.
+  ///
+  /// Quando manca, o e' piu' vecchia di novanta giorni, il testo la salta e
+  /// nessuno se ne accorge: la frase regge lo stesso.
+  final String attualita;
+
+  /// Il giorno in cui l'attualita' e' stata verificata. Nullo quando non c'e'.
+  final DateTime? attualitaVerificataIl;
 
   /// Categoria del VIP, per il banner basso della card. Vuota se non nota.
   final String category;
@@ -224,6 +247,23 @@ class Vip {
   /// Percorso del ritratto pieno, per la vista a fuoco o ingrandita.
   String? get fullPath =>
       stem == null ? null : FamilyImage.full(AssetFamily.vip, stem!);
+
+  /// **L'ATTUALITA' CHE VALE ADESSO**, o nulla.
+  ///
+  /// Torna il fatto solo se c'e', se la sua data di verifica c'e', se non e'
+  /// piu' vecchia di [giorniDiValidita], e se la persona e' ancora in vita:
+  /// per chi non c'e' piu' il corpus vuole il passato e nessuna attualita'.
+  /// La correzione del server vince sul catalogo, come per lo stato in vita.
+  String? attualitaAl(DateTime adesso) {
+    if (eScomparso) return null;
+    final dalServer = CorrezioniDeiVip.attualitaDi(name);
+    final testo = dalServer?.testo ?? attualita;
+    final quando = dalServer?.verificataIl ?? attualitaVerificataIl;
+    if (testo.trim().isEmpty || quando == null) return null;
+    final giorni = adesso.difference(quando).inDays;
+    if (giorni < 0 || giorni > giorniDiValidita) return null;
+    return testo.trim();
+  }
 
   bool get hasImage => stem != null;
   bool get hasCategory => category.isNotEmpty;
@@ -1287,6 +1327,47 @@ class CorrezioniDeiVip {
   static StatoInVita statoDi(String nome, StatoInVita dalCatalogo) =>
       _correzioni[nome] ?? dalCatalogo;
 
+  /// **L'ATTUALITA' ARRIVA DALLA STESSA STRADA. Ordine CA voce 05.**
+  ///
+  /// Un fatto pubblico e professionale, con la data in cui e' stato
+  /// verificato. Il server lo manda dentro `statoDelCerchio`, che l'app chiede
+  /// a ogni apertura: nessun canale nuovo, e nessun modello che scrive frasi
+  /// sulla vita di qualcuno. Una mappa vuota le toglie tutte.
+  static Map<String, AttualitaDelVip> _attualita = const {};
+
+  static void applicaAttualita(Map<String, Map<String, String>> dalServer) {
+    final lette = <String, AttualitaDelVip>{};
+    for (final voce in dalServer.entries) {
+      final testo = (voce.value['testo'] ?? '').trim();
+      final quando = DateTime.tryParse(voce.value['verificata_il'] ?? '');
+      if (testo.isEmpty || quando == null) continue;
+      lette[voce.key] = AttualitaDelVip(testo: testo, verificataIl: quando);
+    }
+    _attualita = Map.unmodifiable(lette);
+  }
+
+  /// L'attualita' che il server dichiara per quel nome, o nulla.
+  static AttualitaDelVip? attualitaDi(String nome) => _attualita[nome];
+
+  /// Quante attualita' sono in vigore adesso.
+  static int get quanteAttualita => _attualita.length;
+
   /// Solo per le prove: si riparte dal catalogo nudo.
-  static void azzera() => _correzioni = const {};
+  static void azzera() {
+    _correzioni = const {};
+    _attualita = const {};
+  }
+}
+
+/// UN FATTO PUBBLICO SU UN PERSONAGGIO, con la data in cui e' stato
+/// verificato. Ordine CA voce 05.
+///
+/// **Non e' una notizia di costume**, ed e' la regola che il corpus scrive:
+/// contiene un fatto pubblico, professionale e verificabile, mai qualcosa
+/// sulla vita privata di nessuno.
+class AttualitaDelVip {
+  const AttualitaDelVip({required this.testo, required this.verificataIl});
+
+  final String testo;
+  final DateTime verificataIl;
 }

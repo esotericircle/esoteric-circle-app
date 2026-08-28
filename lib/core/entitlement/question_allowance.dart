@@ -651,6 +651,11 @@ class QuestionAllowance extends ChangeNotifier {
     // vuoto di un server vecchio cancellerebbe un prezzo giusto: qui il
     // vuoto non cancella niente, riporta al catalogo.
     CorrezioniDeiVip.applica(stato.correzioniDeiVip);
+    // **E L'ATTUALITA', dalla stessa risposta. Ordine CA voce 05.** Un fatto
+    // pubblico e professionale per personaggio, con la data di verifica: entra
+    // come dato, non come frase generata, e il testo lo salta quando e' piu'
+    // vecchio di novanta giorni.
+    CorrezioniDeiVip.applicaAttualita(stato.attualitaDeiVip);
     // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
     // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
     // Cerchio dice sul denaro: una seconda casa per tre numeri sarebbe la
