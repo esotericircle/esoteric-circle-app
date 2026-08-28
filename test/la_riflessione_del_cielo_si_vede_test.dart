@@ -16,6 +16,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -191,40 +192,144 @@ void main() {
   // BK.03, le durate: i numeri dell'ordine contro i numeri del codice.
   // ------------------------------------------------------------------
   group('le durate stanno dentro cio\' che il fondatore ha chiesto', () {
-    test('la riflessione piena dura fra 2,8 e 3,2 secondi', () {
+    // **I NUMERI SONO QUELLI DELL'ORDINE BZ VOCE 06, e sostituiscono quelli
+    // dell'ordine BK.** Parole del fondatore: "parte una animazione strana che
+    // dura una frazione di secondo... mi sembra cmq scarsa". La finestra fra
+    // 2,8 e 3,2 secondi era una sua richiesta di prima; questa e' una sua
+    // richiesta di adesso, e vince l'ultima. **Le soglie non si abbassano**:
+    // qui salgono tutte, compresi i due tetti delle schede, che dalla durata
+    // della riflessione dipendono per costruzione.
+    test('la riflessione piena dura almeno 4 secondi', () {
       final intera = RiflessioneDelCielo.intera(piena: true);
-      expect(intera.inMilliseconds, greaterThanOrEqualTo(2800));
-      expect(intera.inMilliseconds, lessThanOrEqualTo(3200));
+      // ignore: avoid_print
+      print('ORDINE BZ VOCE 6: riflessione piena ${intera.inMilliseconds} '
+          'millesimi, breve '
+          '${RiflessioneDelCielo.intera(piena: false).inMilliseconds}');
+      expect(intera.inMilliseconds, greaterThanOrEqualTo(4000));
+      expect(intera.inMilliseconds, lessThanOrEqualTo(5000),
+          reason: 'oltre i cinque secondi non e\' piu\' una riflessione, e\' '
+              'un\'attesa');
     });
 
-    test('ciascuno dei due momenti resta almeno 1,2 secondi', () {
+    test('ciascuno dei due momenti resta almeno 1,5 secondi', () {
       expect(RiflessioneDelCielo.momento(piena: true).inMilliseconds,
-          greaterThanOrEqualTo(1200),
-          reason: 'sotto i 1.200 millesimi un momento e\' un lampo, non '
-              'qualcosa da leggere');
+          greaterThanOrEqualTo(1500),
+          reason: 'un momento troppo corto e\' un lampo, non qualcosa da '
+              'guardare');
       expect(RiflessioneDelCielo.numeroDeiMomenti, 2,
           reason: 'i momenti sono due, come il fondatore ha chiesto');
     });
 
-    test('la riflessione breve dura fra 0,8 e 1,2 secondi', () {
+    test('anche la riflessione breve dura almeno 3 secondi', () {
+      // **ERA QUI IL DIFETTO VISTO DAL FONDATORE**: chi aveva gia'
+      // interrogato il cielo quel giorno vedeva due momenti da mezzo secondo.
       final breve = RiflessioneDelCielo.intera(piena: false);
-      expect(breve.inMilliseconds, greaterThanOrEqualTo(800));
-      expect(breve.inMilliseconds, lessThanOrEqualTo(1200));
+      expect(breve.inMilliseconds, greaterThanOrEqualTo(3000),
+          reason: 'la seconda interrogazione del giorno dura '
+              '${breve.inMilliseconds} millesimi: e\' la frazione di secondo '
+              'che il fondatore ha visto');
+      expect(breve.inMilliseconds,
+          lessThan(RiflessioneDelCielo.intera(piena: true).inMilliseconds),
+          reason: 'la seconda volta resta piu\' svelta della prima');
     });
 
-    test('la prima scheda e\' intera entro 3,5 secondi dal tocco', () {
+    test('la prima scheda e\' intera entro 5,0 secondi dal tocco', () {
       expect(
           RiflessioneDelCielo.finoAllaPrimaScheda(piena: true).inMilliseconds,
-          lessThanOrEqualTo(3500));
+          lessThanOrEqualTo(5000));
     });
 
-    test('l\'ultima delle quattro e\' intera entro 6,0 secondi dal tocco', () {
+    test('l\'ultima delle quattro e\' intera entro 7,0 secondi dal tocco', () {
       expect(
           RiflessioneDelCielo.finoAllUltimaScheda(HoroscopeDomain.values.length,
                   piena: true)
               .inMilliseconds,
-          lessThanOrEqualTo(6000));
+          lessThanOrEqualTo(7000));
     });
+  });
+
+  // ------------------------------------------------------------------
+  // BZ.06, la durata MISURATA A VIDEO, non quella dichiarata in una costante.
+  // ------------------------------------------------------------------
+  testWidgets(
+      'BZ.06: la riflessione sta in scena per quattro secondi, e la corona '
+      'con lei', (tester) async {
+    // **LA GRANDEZZA MISURATA E\' IL TEMPO FRA IL PRIMO E L\'ULTIMO FOTOGRAMMA
+    // in cui la riflessione e\' in albero**, contato a passi di cento
+    // millesimi. Una costante puo\' dire quattromila e la scena sparire dopo
+    // cinquecento: quello che il fondatore ha visto e\' lo schermo, non il
+    // codice.
+    final adesso = DateTime(2026, 8, 20, 9);
+    await monta(tester, adesso);
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    var fotogrammi = 0;
+    var conLaCorona = 0;
+    final glifi = <String>[];
+    for (var t = 0; t < 12000; t += 100) {
+      await tester.pump(const Duration(milliseconds: 100));
+      final inScena = find
+          .byKey(const Key('oroscopo_riflessione_riga'))
+          .evaluate()
+          .isNotEmpty;
+      if (!inScena) {
+        if (fotogrammi > 0) break;
+        continue;
+      }
+      fotogrammi++;
+      if (find
+          .byKey(const Key('oroscopo_corona_dei_corpi'))
+          .evaluate()
+          .isNotEmpty) {
+        conLaCorona++;
+        // I glifi si guardano MENTRE la corona e' in scena: dopo non c'e'
+        // piu' niente da guardare, e la prima stesura li contava a scena
+        // finita trovandone zero.
+        if (glifi.isEmpty) {
+          for (final corpo in CorpoCeleste.values) {
+            final dove = find.byKey(Key('riflessione_glifo_${corpo.id}'));
+            if (dove.evaluate().isEmpty) continue;
+            final t = tester.widget<Text>(dove);
+            expect(t.data, corpo.glifo,
+                reason: 'il corpo ${corpo.nome} non porta il proprio glifo');
+            expect(t.style?.fontFamily, 'NotoSansSymbols',
+                reason: 'il glifo di ${corpo.nome} e\' scritto col carattere '
+                    'del testo, che quei simboli non li ha: a video resta un '
+                    'quadrato');
+            glifi.add(corpo.glifo);
+          }
+        }
+      }
+    }
+    final durata = fotogrammi * 100;
+    // ignore: avoid_print
+    print('ORDINE BZ VOCE 6: la riflessione resta in scena $durata millesimi, '
+        'con la corona dei corpi per $conLaCorona fotogrammi su $fotogrammi');
+    expect(durata, greaterThanOrEqualTo(3800),
+        reason: 'la riflessione resta a video $durata millesimi: e\' la '
+            'frazione di secondo che il fondatore ha visto');
+    expect(conLaCorona, fotogrammi,
+        reason: 'la corona dei corpi sparisce per ${fotogrammi - conLaCorona} '
+            'fotogrammi su $fotogrammi: la scena si svuota a meta\' e resta una '
+            'riga di testo');
+    // **E OGNI CORPO PORTA IL SUO GLIFO, non un cerchio giallo.**
+    //
+    // Parole del fondatore: "si formano dei piccoli cerchi gialli intorno
+    // all'emblema del segno... mi sembra cmq scarsa". Erano dischi dorati
+    // nudi, perche' quando la corona nacque il font dei simboli non era un
+    // asset di questo repository. Adesso lo e', e i glifi si sono guardati
+    // dentro il ciclo qui sopra, mentre la corona era in scena.
+    // ignore: avoid_print
+    print('ORDINE BZ VOCE 6: i corpi in corona portano i glifi $glifi');
+    expect(glifi.length, greaterThanOrEqualTo(7),
+        reason: 'in corona ci sono ${glifi.length} corpi col glifo: sotto i '
+            'sette il cielo non e\' quello vero');
+
+    // E dopo la riflessione il responso c'e' davvero, o si starebbe misurando
+    // una scena che non finisce mai.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    expect(find.byKey(const Key('oroscopo_riflessione_riga')), findsNothing);
   });
 
   // ------------------------------------------------------------------

@@ -30,19 +30,28 @@ class RiflessioneDelCielo {
 
   /// Quanto dura UN momento nella riflessione piena.
   ///
-  /// Mille e quattrocento millesimi per due momenti fanno **2.800**, dentro la
-  /// finestra fra 2,8 e 3,2 secondi chiesta dall'ordine, e ogni momento resta
-  /// a schermo ben oltre i 1.200 millesimi sotto i quali diventerebbe un
-  /// lampo invece che qualcosa da leggere.
-  static const Duration momentoPieno = Duration(milliseconds: 1400);
+  /// **DUEMILA, E NON PIU' MILLE E QUATTROCENTO. Ordine BZ voce 06.** Parole
+  /// del fondatore: "quando faccio click su Interroga il cielo, parte una
+  /// animazione strana che dura una frazione di secondo... mi sembra cmq
+  /// scarsa". Due momenti da duemila fanno **4.000**: la scena si guarda
+  /// invece di passare.
+  ///
+  /// **La finestra dell'ordine BK, fra 2,8 e 3,2 secondi, non vale piu'**, ed
+  /// e' una decisione del fondatore che ne sostituisce una sua di prima. Con
+  /// lei si spostano i due tetti delle schede, che da quella finestra
+  /// dipendevano: sono scritti qui sotto.
+  static const Duration momentoPieno = Duration(milliseconds: 2000);
 
   /// Quanto dura UN momento nella riflessione breve, dalla seconda
   /// interrogazione del giorno in poi.
   ///
-  /// Cinquecento per due fanno **1.000**, dentro la finestra fra 0,8 e 1,2
-  /// secondi. I momenti sono COMPRESSI e non saltati: chi torna una seconda
-  /// volta vede la stessa scena, piu' svelta.
-  static const Duration momentoBreve = Duration(milliseconds: 500);
+  /// **MILLECINQUECENTO, E NON PIU' CINQUECENTO.** Era qui il difetto che il
+  /// fondatore ha visto: chi aveva gia' interrogato il cielo quel giorno
+  /// vedeva due momenti da mezzo secondo, cioe' un secondo in tutto, ed e'
+  /// esattamente "una frazione di secondo". I momenti restano COMPRESSI
+  /// rispetto alla prima volta, tremila contro quattromila, ma smettono di
+  /// essere un lampo.
+  static const Duration momentoBreve = Duration(milliseconds: 1500);
 
   static Duration momento({required bool piena}) =>
       piena ? momentoPieno : momentoBreve;
@@ -69,9 +78,16 @@ class RiflessioneDelCielo {
   /// prima scheda sarebbe stata leggibile a 5.400, cioe' quasi due secondi
   /// oltre il tetto.
   ///
-  /// Coi numeri di qui, e la riflessione piena da 2.800:
-  /// la prima scheda e' intera a **3.400** (tetto 3.500), la quarta a
-  /// 2.800 + 3 x 700 + 600 = **5.500** (tetto 6.000).
+  /// **I DUE TETTI SI SPOSTANO COL MOMENTO. Ordine BZ voce 06.** Erano 3,5 e
+  /// 6,0 secondi e dipendevano da una riflessione da 2.800; con la
+  /// riflessione da 4.000 diventano **5,0 e 7,0**. Non e' una soglia
+  /// abbassata: e' la stessa legge (la prima scheda si legge presto, l'ultima
+  /// non fa aspettare) applicata a una riflessione che il fondatore ha
+  /// chiesto piu' lunga.
+  ///
+  /// Coi numeri di qui, e la riflessione piena da 4.000:
+  /// la prima scheda e' intera a **4.600** (tetto 5.000), la quarta a
+  /// 4.000 + 3 x 700 + 600 = **6.700** (tetto 7.000).
   static const Duration scritturaDiUnaScheda = Duration(milliseconds: 600);
 
   /// Quanto passa fra l'inizio di una scheda e l'inizio della successiva.

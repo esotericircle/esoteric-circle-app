@@ -383,8 +383,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // segno che qualcosa sta accadendo, e dura quanto la
                       // pausa dichiarata.
                       interrogazione: _riflettendo,
-                      // I CORPI VERI ATTORNO ALL'EMBLEMA, primo momento.
-                      corona: _fase == _FaseDelConsulto.raccolta,
+                      // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
+                      // TUTTA la riflessione (ordine BZ voce 06).
+                      //
+                      // **Prima stavano nel solo primo momento**, e al
+                      // secondo la corona spariva: restavano una riga di testo
+                      // e due pallini, cioe' la scena si svuotava a meta'
+                      // proprio mentre nominava il fatto del giorno. E' la
+                      // stessa forma di difetto della voce BZ.07, dove fra
+                      // l'ultima carta e la riflessione restava Medora da
+                      // sola. I corpi si compongono nel primo momento e
+                      // restano composti nel secondo.
+                      corona: _riflettendo,
                       adesso: _date,
                       durataDelMomento: RiflessioneDelCielo.momento(
                           piena: _pienaQuestoConsulto),

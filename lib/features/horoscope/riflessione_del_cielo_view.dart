@@ -73,10 +73,14 @@ class CoronaDeiCorpi extends StatelessWidget {
   /// I due luminari sono piu' grandi, gli altri no: e' la gerarchia che
   /// qualunque cielo disegnato ha sempre avuto, e serve a far leggere la scena
   /// in un'occhiata invece che come dieci punti uguali.
+  /// **PIU' GRANDI DI PRIMA, ordine BZ voce 06.** Erano 20, 16 e 11 punti: a
+  /// quella misura un disco col glifo dentro non si legge, e infatti il glifo
+  /// non c'era. La gerarchia resta quella: i due luminari davanti, gli altri
+  /// dietro.
   double _misuraDi(CorpoCeleste corpo) => switch (corpo) {
-        CorpoCeleste.sole => 20,
-        CorpoCeleste.luna => 16,
-        _ => 11,
+        CorpoCeleste.sole => 30,
+        CorpoCeleste.luna => 26,
+        _ => 20,
       };
 
   Widget _corpoAlSuoPosto(
@@ -96,23 +100,26 @@ class CoronaDeiCorpi extends StatelessWidget {
     // primo subito, l'ultimo poco prima della fine. Con Riduci Movimento sono
     // tutti gia' posati, perche' il momento va VISTO lo stesso.
     final quota = quanti <= 1 ? 0.0 : indice / quanti;
-    // **IL CORPO E' UN DISCO, E IL GLIFO GLI STA SOPRA.**
+    // **IL CORPO E' UN DISCO, E IL GLIFO GLI STA SOPRA. Ordine BZ voce 06.**
     //
-    // Misurato, non supposto: la prima anteprima aveva la corona in albero con
-    // opacita' piena e a video non si vedeva niente. I simboli astronomici non
-    // sono nel carattere del progetto, e `NotoSansSymbols`, che la ruota
-    // natale nomina, NON e' un asset di questo repository: sul telefono quel
-    // nome cade sul font di sistema, che di solito li ha, in prova su niente.
-    // Una scena che si vede solo dove il sistema e' generoso non e' una scena.
+    // **Il glifo adesso c'e', e prima no.** Il commento di qui diceva che
+    // `NotoSansSymbols` non era un asset di questo repository, e quando fu
+    // scritto era vero: il disco restava nudo. Il font e' entrato con la cura
+    // del bosco del Cerchio (`assets/fonts/NotoSansSymbols-subset.ttf`,
+    // dichiarato in pubspec.yaml), quindi il glifo si posa e si vede anche
+    // dove il sistema non ne ha di suoi.
     //
-    // Quindi il corpo celeste e' un disco dorato, che si vede sempre e sta
-    // dove sta davvero; il glifo gli si posa sopra quando il font c'e'. Se
-    // manca, resta un cielo di corpi veri invece di dieci quadrati vuoti.
+    // **Era questo il difetto che il fondatore ha guardato**: "si formano dei
+    // piccoli cerchi gialli intorno all'emblema del segno... mi sembra cmq
+    // scarsa". Dieci dischi dorati senza simbolo SONO dei cerchi gialli. Con
+    // il glifo sopra diventano il Sole, la Luna, Mercurio, e la scena dice
+    // cosa sta guardando.
     final misura = _misuraDi(corpo);
     final glifo = Container(
       key: Key('riflessione_corpo_${corpo.id}'),
       width: misura,
       height: misura,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: palette.gold.withValues(alpha: 0.30),
@@ -123,6 +130,17 @@ class CoronaDeiCorpi extends StatelessWidget {
             blurRadius: misura * 0.7,
           ),
         ],
+      ),
+      child: Text(
+        corpo.glifo,
+        key: Key('riflessione_glifo_${corpo.id}'),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'NotoSansSymbols',
+          fontSize: misura * 0.66,
+          height: 1,
+          color: ColorTokens.textPrimary,
+        ),
       ),
     );
 

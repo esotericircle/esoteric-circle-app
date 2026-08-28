@@ -2512,6 +2512,18 @@ void main() {
     // `oroscopo_apertura_dopo.png`.
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await step(tester);
+    // **LA RIFLESSIONE, GUARDATA IN FACCIA. Ordine BZ voce 06.** Parole del
+    // fondatore: "parte una animazione strana che dura una frazione di
+    // secondo... mi sembra cmq scarsa". Adesso dura quattro secondi e la
+    // corona dei corpi resta per tutti e due i momenti: questa immagine e' il
+    // primo momento, coi corpi raccolti attorno all'emblema.
+    for (var i = 0; i < 15; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(find.byKey(const Key('oroscopo_riflessione_riga')), findsOneWidget,
+        reason: 'lo scatto non e\' dentro la riflessione: mostrerebbe altro');
+    await capture(tester, rootKey, 'oroscopo-riflessione.png',
+        precarica: false);
     await tester.pump(const Duration(seconds: 3));
     await tester.pump(const Duration(seconds: 3));
     // Lascia completare la micro-animazione di riempimento delle forme.
