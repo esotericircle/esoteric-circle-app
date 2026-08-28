@@ -126,8 +126,15 @@ la suite intera**: e' la ragione per cui si gira.
 Il lancio su Codemagic chiede l'accesso al tuo account: **nessuna credenziale
 passa da qui, quindi la build la fai partire tu.** Il codice e' gia' sul server,
 verificato con `git ls-remote`: ramo
-`claude/esoteric-circle-master-order-e798aj`, ultimo commit **`f69caa28`**, che
-porta tutte e sette le voci chiuse. Sono cinque minuti.
+`claude/esoteric-circle-master-order-e798aj`, ultimo commit **`c88cf6d8`**.
+Sono cinque minuti.
+
+**LO SBARRAMENTO L'HO GIA' FATTO GIRARE IO SU QUESTO ALBERO**, con lo stesso
+comando che gira sulla macchina che costruisce: 3.840 prove, un rosso solo,
+quello accettato, e la stampa "ROSSI ACCETTATI, E SOLO QUELLI. L'ARCHIVIO SI
+PRODUCE". Da qui in avanti si fa cosi' prima di chiedere al fondatore di
+premere Start: venti minuti di questa macchina valgono venti minuti della sua
+e una figura in meno davanti ai fondatori.
 
 1. Apri **codemagic.io** e fai l'accesso.
 2. Entra nell'applicazione **esoteric-circle-app**.
