@@ -1484,6 +1484,36 @@ class _Slot extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // **LE PAROLE SOPRA LA CARTA CHIAVE, ordine BZ voce 08.**
+        //
+        // Parole del fondatore: "la Carta chiave evidenziata da cornice
+        // azzurra FA ANCORA SCHIFO: va bene la carta ingrandita, ma sopra
+        // bisogna scrivergli "Carta Chiave" ed e' meglio diminuire la
+        // grandezza delle altre 2 carte". La cornice non c'e' piu': al suo
+        // posto ci sono le parole, che dicono cosa sia invece di lasciarlo
+        // indovinare a una linea di colore.
+        //
+        // **L'ALTEZZA E' RISERVATA A TUTTE E TRE**, anche a chi non scrive
+        // niente: cosi' le tre carte restano allineate in cima e la chiave non
+        // scende rispetto alle vicine. Trentadue punti per quindici di
+        // scritta: l'aria che avanza non e' spreco, e' lo spazio in cui la
+        // carta chiave CRESCE. Misurato: con venti punti la carta, scalata a
+        // 1,10, saliva fino a 430,8 mentre le parole finivano a 440, cioe' le
+        // copriva di nove punti.
+        SizedBox(
+          height: 32,
+          child: eLaChiave
+              ? Align(
+                  alignment: Alignment.topCenter,
+                  child: Text('Carta Chiave',
+                      key: Key('stesa_parole_chiave_${position.name}'),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.glow, letterSpacing: 1.1)),
+                )
+              : null,
+        ),
         // La carta posata fluttua piano e si inclina col giroscopio, come
         // sospesa davanti a chi guarda. E' un effetto di superficie: non tocca
         // il testo sotto ne' il pescaggio.
@@ -1504,7 +1534,13 @@ class _Slot extends StatelessWidget {
             // Dieci per cento: abbastanza da leggersi a colpo d'occhio,
             // abbastanza poco da non toccare le vicine.
             child: Transform.scale(
-              scale: eLaChiave ? 1.10 : 1.0,
+              // **LA CHIAVE RESTA GRANDE E LE ALTRE DUE SCENDONO, ordine BZ
+              // voce 08.** Prima lo scarto era il solo dieci per cento della
+              // chiave; adesso le vicine scendono a ottantasei centesimi e lo
+              // scarto dipinto arriva a un quarto abbondante, che e' cio' che
+              // il fondatore ha chiesto quando ha detto di diminuire la
+              // grandezza delle altre due.
+              scale: eLaChiave ? 1.10 : 0.86,
               child: Stack(
               alignment: Alignment.center,
               // L'aura deve poter uscire dal bordo della carta: e' attorno a
@@ -1548,36 +1584,16 @@ class _Slot extends StatelessWidget {
                           ),
                         ),
                 ),
-                // IL SEGNO DELLA CHIAVE, ordine BN voce 05 e **ordine BU voce
-                // 02**: una CORNICE e niente altro. Parole del fondatore sulla
-                // 2208: "perche' la carta chiave ha ancora una sovrapposizione
-                // di Giallo? non voglio nessuna sovrapposizione che peggiora la
-                // visualizzazione della carta, ho chiesto la cornice". La
-                // sovrapposizione era l'alone: un `boxShadow` oro con diciotto
-                // di sfocatura, che intorbidava il bordo della figura. Adesso
-                // resta la sola linea, e passa dall'oro all'AZZURRO della
-                // palette, che e' il colore del Maestro e non un colore nuovo.
-                if (eLaChiave)
-                  // **LA CORNICE RESTA A FILO, E LA CARTA CRESCE, ordine BV
-                  // voce 04**: staccarla di sei punti si poteva, ma fra una
-                  // carta e la vicina ci sono OTTO punti soli, e una cornice
-                  // staccata entrava dentro la carta accanto. Fra le due
-                  // strade la piu' forte e' la scala, che si legge da un metro;
-                  // alla linea basta essere piu' spessa per non confondersi
-                  // col profilo dorato della carta.
-                  Positioned.fill(
-                    child: IgnorePointer(
-                      child: Container(
-                        key: Key('stesa_chiave_${position.name}'),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(SpacingTokens.radiusMd),
-                          border: Border.all(
-                              color: palette.glow, width: 3),
-                        ),
-                      ),
-                    ),
-                  ),
+                // **LA CORNICE AZZURRA NON C'E' PIU', ordine BZ voce 08.**
+                //
+                // Parole del fondatore: "la Carta chiave evidenziata da
+                // cornice azzurra FA ANCORA SCHIFO". Era il terzo tentativo
+                // sulla stessa cosa: alone d'oro (BN.05), poi la sola linea
+                // azzurra (BU.02), poi la linea piu' spessa con la carta
+                // cresciuta (BV.04). Il segno adesso non si disegna piu' sopra
+                // la carta: sono le PAROLE sopra di lei, in cima a questa
+                // colonna, piu' lo scarto di misura con le vicine. Chi legge
+                // non deve piu' interpretare un colore.
                 // L'aura elementale, mentre la carta si scopre.
                 if (revealSpec != null && revealProgress > 0)
                   Positioned.fill(

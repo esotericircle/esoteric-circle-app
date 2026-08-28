@@ -82,10 +82,12 @@ void main() {
       tester.renderObject(find.byType(MaterialApp).first);
 
   Future<GlobalKey> monta(WidgetTester tester,
-      {int seed = 2, double altezzaFinestra = 4400}) async {
+      {int seed = 2,
+      double altezzaFinestra = 4400,
+      double larghezzaFinestra = 360}) async {
     silenzia();
     await caricaCaratteri();
-    tester.view.physicalSize = Size(360, altezzaFinestra);
+    tester.view.physicalSize = Size(larghezzaFinestra, altezzaFinestra);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -104,15 +106,17 @@ void main() {
     return radice;
   }
 
-  /// Quanto oro c'e' attorno alla carta [posizione], misurato SUI PIXEL.
+  /// Quanto azzurro c'e' SOPRA la carta [posizione], misurato sui pixel.
   ///
-  /// Si guarda una cornice larga sei punti attorno al riquadro della carta,
-  /// perche' e' li' che il segno vive: dentro c'e' la figura, che e' uguale
-  /// per tutte e non direbbe niente.
-  Future<double> azzurroAttorno(
+  /// **Ordine BZ voce 08: e' li' che il segno vive adesso.** Fino alla voce
+  /// BV.04 il segno era una cornice attorno alla carta, e si misurava la
+  /// banda attorno al riquadro; il fondatore l'ha bocciata ("FA ANCORA
+  /// SCHIFO") e al suo posto ci sono le parole "Carta Chiave" in cima alla
+  /// colonna. La grandezza misurata cambia con lui: la striscia guardata e'
+  /// quella fra il bordo alto della carta e i trentadue punti sopra di lei.
+  Future<double> azzurroSopra(
       WidgetTester tester, GlobalKey radice, SpreadPosition posizione) async {
-    final carta = find.byKey(Key('stesa_carta_${posizione.name}'));
-    final r = tester.getRect(carta);
+    final r = tester.getRect(find.byKey(Key('stesa_carta_${posizione.name}')));
     var quanti = 0;
     await tester.runAsync(() async {
       final b =
@@ -121,17 +125,8 @@ void main() {
       final data = await img.toByteData(format: ui.ImageByteFormat.rawRgba);
       final px = data!.buffer.asUint8List();
       final origine = tester.getRect(find.byKey(radice)).topLeft;
-      const bordo = 6.0;
-      for (var y = (r.top - bordo).round(); y < (r.bottom + bordo).round(); y++) {
-        for (var x = (r.left - bordo).round();
-            x < (r.right + bordo).round();
-            x++) {
-          // Solo la cornice: dentro il riquadro non si guarda.
-          final dentro = x > r.left + bordo &&
-              x < r.right - bordo &&
-              y > r.top + bordo &&
-              y < r.bottom - bordo;
-          if (dentro) continue;
+      for (var y = (r.top - 32).round(); y < r.top.round(); y++) {
+        for (var x = r.left.round(); x < r.right.round(); x++) {
           final px0 = (x - origine.dx).round();
           final py0 = (y - origine.dy).round();
           if (px0 < 0 || py0 < 0 || px0 >= img.width || py0 >= img.height) {
@@ -139,11 +134,8 @@ void main() {
           }
           final i = (py0 * img.width + px0) * 4;
           if (i + 2 >= px.length) continue;
-          // **AZZURRO E NON PIU' ORO, ordine BU voce 02**, e il predicato
-          // e' piu' stretto perche' lo sfondo dell'app e' gia' blu scuro: si
-          // cerca un azzurro CHIARO, cioe' un blu che domina il rosso di
-          // sessanta E che sia luminoso. Il fondo (18, 32, 74) passerebbe la
-          // sola dominanza e farebbe contare tutte e tre le carte uguali.
+          // Lo stesso predicato della cornice: un azzurro CHIARO, che il
+          // fondo blu scuro dell'app non passa.
           if (px[i + 2] > 150 && px[i + 2] - px[i] > 60) quanti++;
         }
       }
@@ -165,16 +157,20 @@ void main() {
 
       final misure = <SpreadPosition, double>{};
       for (final p in SpreadPosition.values) {
-        misure[p] = await azzurroAttorno(tester, radice, p);
+        misure[p] = await azzurroSopra(tester, radice, p);
       }
       final altre = [
         for (final p in SpreadPosition.values)
           if (p != chiave) misure[p]!,
       ];
       // ignore: avoid_print
-      print('ORDINE BU VOCE 2 (misura BN.05) seme $seed, chiave ${chiave.name}: '
-          'azzurro attorno alla chiave ${misure[chiave]!.toStringAsFixed(0)}, '
-          'alle altre ${altre.map((v) => v.toStringAsFixed(0)).join(" e ")}');
+      print('ORDINE BZ VOCE 8 (misura BN.05) seme $seed, chiave '
+          '${chiave.name}: azzurro SOPRA la chiave '
+          '${misure[chiave]!.toStringAsFixed(0)}, sopra le altre '
+          '${altre.map((v) => v.toStringAsFixed(0)).join(" e ")}');
+      expect(misure[chiave]!, greaterThan(80),
+          reason: 'seme $seed: sopra la carta chiave non c\'e\' abbastanza '
+              'azzurro perche\' ci sia scritto qualcosa');
       for (final v in altre) {
         expect(misure[chiave]!, greaterThan(v * 1.5),
             reason: 'seme $seed: la carta chiave (${chiave.name}) non si '
@@ -372,31 +368,30 @@ void main() {
         reason: 'il selettore chiede ancora l\'argomento invece della domanda');
   });
 
-  testWidgets('BU.02: sopra la carta chiave non si disegna niente',
+  testWidgets('BZ.08: sopra la carta chiave non si disegna piu\' niente',
       (tester) async {
+    // **LA TERZA STESURA DELLO STESSO SEGNO, e la prima senza colore.**
+    // BN.05 ci aveva messo un alone d'oro, BU.02 la sola linea azzurra, BV.04
+    // la linea piu' spessa con la carta cresciuta. Parole del fondatore
+    // dell'ordine BZ: "la Carta chiave evidenziata da cornice azzurra FA
+    // ANCORA SCHIFO". Adesso sopra la carta non c'e' niente: il segno sono le
+    // parole in cima alla colonna e la misura.
     await monta(tester);
     final lettura = TarotReading.of(
       TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 2)),
       TarotTopic.bivio,
     );
     final chiave = lettura.chiave.drawn.position;
-    final segno = find.byKey(Key('stesa_chiave_${chiave.name}'));
-    expect(segno, findsOneWidget, reason: 'il segno della chiave non c\'e\'');
-    final d = tester.widget<Container>(segno).decoration as BoxDecoration;
-    // ignore: avoid_print
-    print('ORDINE BU VOCE 2: il segno della chiave ha fondo ${d.color}, '
-        'ombre ${d.boxShadow?.length ?? 0}, bordo '
-        '${(d.border as Border?)?.top.color}');
-    expect(d.color, isNull,
-        reason: 'sopra la carta chiave c\'e\' un fondo: e\' la '
-            'sovrapposizione che il fondatore non vuole');
-    expect(d.boxShadow, anyOf(isNull, isEmpty),
-        reason: 'sopra la carta chiave c\'e\' un alone: e\' la '
-            'sovrapposizione che il fondatore non vuole. Ha chiesto la '
-            'cornice');
-    expect((d.border as Border).top.color, MaestroPalette.medora.glow,
-        reason: 'la cornice della carta chiave non e\' l\'azzurro della '
-            'palette');
+    for (final p in SpreadPosition.values) {
+      expect(find.byKey(Key('stesa_chiave_${p.name}')), findsNothing,
+          reason: 'la cornice azzurra e\' tornata sopra la carta ${p.name}');
+    }
+    // E le parole ci sono, su UNA carta sola.
+    expect(find.byKey(Key('stesa_parole_chiave_${chiave.name}')),
+        findsOneWidget,
+        reason: 'sopra la carta chiave non c\'e\' scritto niente');
+    expect(find.text('Carta Chiave'), findsOneWidget,
+        reason: 'le parole "Carta Chiave" compaiono ${find.text('Carta Chiave').evaluate().length} volte invece di una');
   });
 
   testWidgets('BU.02: la bolla chiave ha lo stesso fondo delle altre',
@@ -523,10 +518,6 @@ void main() {
       TarotTopic.bivio,
     );
     final chiave = lettura.chiave.drawn.position;
-    final riquadri = <SpreadPosition, Rect>{
-      for (final p in SpreadPosition.values)
-        p: tester.getRect(find.byKey(Key('stesa_carta_${p.name}'))),
-    };
     // La misura vera e' quella DIPINTA, non quella del riquadro di layout: la
     // scala e' un Transform, e il riquadro non la vede.
     final dipinta = <SpreadPosition, Rect>{};
@@ -549,24 +540,39 @@ void main() {
         '${altaChiave.toStringAsFixed(1)} punti contro '
         '${altre.map((v) => v.toStringAsFixed(1)).join(" e ")}, cioe\' il '
         '${(scarto * 100).toStringAsFixed(1)} per cento in piu\'');
-    expect(scarto, greaterThanOrEqualTo(0.08),
+    // **LA SOGLIA SALE CON L'ORDINE BZ VOCE 8.** Con la sola chiave cresciuta
+    // lo scarto era il dieci per cento; adesso le vicine scendono a
+    // ottantasei centesimi e lo scarto dipinto passa il venti. Non si abbassa
+    // mai una soglia: questa si ALZA, perche' la grandezza misurata e'
+    // cambiata sotto.
+    expect(scarto, greaterThanOrEqualTo(0.20),
         reason: 'la carta chiave supera le altre di appena il '
             '${(scarto * 100).toStringAsFixed(1)} per cento: a colpo d\'occhio '
             'non si distingue, ed e\' cio\' che il fondatore ha detto della '
             'linea a filo');
 
-    // **LA CORNICE E' LA SECONDA META' DEL SEGNO**, e sta a filo del bordo:
-    // fra una carta e la vicina ci sono otto punti soli, e una cornice
-    // staccata di sei finiva dentro la carta accanto. La linea e' piu' spessa
-    // invece che piu' lontana.
-    final segno = tester.getRect(find.byKey(Key('stesa_chiave_${chiave.name}')));
-    final carta = riquadri[chiave]!;
+    // **LE PAROLE STANNO SOPRA LA CARTA CHIAVE, ordine BZ voce 08**, e sopra
+    // vuol dire piu' in alto del suo bordo: se finissero accanto, o sotto,
+    // sarebbero un'altra etichetta e non il nome di quella carta. Si misura
+    // dipinto, non di layout, perche' la carta e' scalata da un Transform.
+    final paroleRo = tester
+        .element(find.byKey(Key('stesa_parole_chiave_${chiave.name}')))
+        .renderObject! as RenderBox;
+    final parole = MatrixUtils.transformRect(
+        paroleRo.getTransformTo(radiceDipinta(tester)),
+        Offset.zero & paroleRo.size);
     // ignore: avoid_print
-    print('ORDINE BV VOCE 4: la cornice misura '
-        '${segno.width.toStringAsFixed(1)} punti contro i '
-        '${carta.width.toStringAsFixed(1)} della carta');
-    expect(segno.width, closeTo(carta.width, 0.5),
-        reason: 'la cornice non segue piu\' il riquadro della carta');
+    print('ORDINE BZ VOCE 8: le parole stanno da '
+        '${parole.top.toStringAsFixed(1)} a '
+        '${parole.bottom.toStringAsFixed(1)}, la carta chiave comincia a '
+        '${dipinta[chiave]!.top.toStringAsFixed(1)}');
+    expect(parole.bottom, lessThanOrEqualTo(dipinta[chiave]!.top + 1),
+        reason: 'le parole "Carta Chiave" non stanno sopra la carta: '
+            'finiscono a ${parole.bottom.toStringAsFixed(1)} mentre la carta '
+            'comincia a ${dipinta[chiave]!.top.toStringAsFixed(1)}');
+    expect(parole.center.dx,
+        closeTo(dipinta[chiave]!.center.dx, dipinta[chiave]!.width / 2),
+        reason: 'le parole non stanno sopra la colonna della carta chiave');
 
     // **E LA CARTA CRESCIUTA NON DEVE TOCCARE LE VICINE.** Un difetto nuovo
     // al posto di quello vecchio non sarebbe una cura.
@@ -590,8 +596,19 @@ void main() {
       (tester) async {
     // **LA LEZIONE DEL VENTAGLIO, ordine BU**: cio' che cresce puo' uscire di
     // scena, e lo si scopre solo misurandolo su uno schermo vero.
-    for (final altezza in const [797.0, 640.0]) {
-      await monta(tester, altezzaFinestra: altezza);
+    // **E ANCHE STRETTO, ordine BZ voce 08**: la chiave cresce del dieci per
+    // cento e le vicine calano, quindi la fila cambia forma, e il fondatore ha
+    // chiesto di controllare che le tre carte ci stiano ancora. Trecentoventi
+    // e' il piu' stretto degli schermi in commercio.
+    for (final misura in const [
+      [360.0, 797.0],
+      [360.0, 640.0],
+      [320.0, 640.0],
+    ]) {
+      final larghezza = misura[0];
+      final altezza = misura[1];
+      await monta(tester,
+          altezzaFinestra: altezza, larghezzaFinestra: larghezza);
       final fuori = <String>[];
       for (final p in SpreadPosition.values) {
         final ro = tester
@@ -600,17 +617,18 @@ void main() {
         final m = ro.getTransformTo(radiceDipinta(tester));
         final r = MatrixUtils.transformRect(m, Offset.zero & ro.size);
         // La cornice sta sei punti piu' in la', e conta anche lei.
-        if (r.left - 7 < 0 || r.right + 7 > 360) {
+        if (r.left - 7 < 0 || r.right + 7 > larghezza) {
           fuori.add('${p.name} da ${r.left.toStringAsFixed(1)} a '
               '${r.right.toStringAsFixed(1)}');
         }
       }
       // ignore: avoid_print
-      print('ORDINE BV VOCE 4: su 360 per ${altezza.toStringAsFixed(0)}, '
-          'carte fuori dai bordi: ${fuori.isEmpty ? "nessuna" : fuori}');
+      print('ORDINE BV VOCE 4: su ${larghezza.toStringAsFixed(0)} per '
+          '${altezza.toStringAsFixed(0)}, carte fuori dai bordi: '
+          '${fuori.isEmpty ? "nessuna" : fuori}');
       expect(fuori, isEmpty,
-          reason: 'su uno schermo 360x$altezza queste carte escono dai bordi: '
-              '$fuori');
+          reason: 'su uno schermo ${larghezza}x$altezza queste carte escono '
+              'dai bordi: $fuori');
     }
   });
 }
