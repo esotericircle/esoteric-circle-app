@@ -66,8 +66,14 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * proponeva 3 e 5, ma il tre non e dichiarato da nessuna parte, e la regola
    * di casa dice di tenere quello di oggi quando il numero non e scritto.
    * L Adepto era gia a cinque.
+   *
+   * **UNO, QUATTRO, SETTE E VENTI, ordine BV voce 03.** Decisione del
+   * fondatore sulla 2209, e supera i numeri della voce BU 04: "le stese devono
+   * essere gratis 1, tier 1 4 stese, tier 2 7 stese e tier 3 20 stese. tu mi
+   * hai insegnato di non fare nulla di illimitato". L illimitato sparisce anche
+   * dall ultimo livello.
    */
-  stese: [1, 0, 5, null],
+  stese: [1, 4, 7, 20],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *

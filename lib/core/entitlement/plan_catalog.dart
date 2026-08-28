@@ -406,8 +406,13 @@ class PlanCatalog {
     // quindi "1 al giorno, poi Eos" avrebbe continuato a valere zero. La
     // strada degli Eos resta dopo la stesa del giorno, dove il gating la
     // apre a 150 Eos: e' il cancello, non il listino.
+    // **UNO, QUATTRO, SETTE E VENTI, ordine BV voce 03, e supera i numeri
+    // dell'ordine BU.** Decisione del fondatore sulla 2209: "le stese devono
+    // essere gratis 1, tier 1 4 stese, tier 2 7 stese e tier 3 20 stese. tu mi
+    // hai insegnato di non fare nulla di illimitato". **L'illimitato sparisce
+    // anche dall'ultimo livello**, ed e' un principio, non un numero.
     FeatureRow('Stese complete tarocchi',
-        ['1 al giorno', 'Eos scontati', '5 al giorno', 'Illimitate']),
+        ['1 al giorno', '4 al giorno', '7 al giorno', '20 al giorno']),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
     // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O

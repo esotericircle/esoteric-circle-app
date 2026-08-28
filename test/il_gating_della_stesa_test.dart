@@ -78,10 +78,10 @@ void main() {
     // lettura del listino fatta dall'ordine BN voce 09, che aveva concluso
     // zero. Solo la prima cella cambia: il tre per l'Iniziato non e' scritto
     // da nessuna parte, e quando il numero non c'e' si tiene quello di oggi.
-    expect(complete, [1, 0, 5, null],
+    expect(complete, [1, 4, 7, 20],
         reason: 'la riga delle stese complete non promette piu\' quello che '
-            'il fondatore ha deciso: una al giorno, poi Eos scontati, cinque, '
-            'illimitate');
+            'il fondatore ha deciso: una, quattro, sette e venti, e niente '
+            'di illimitato');
     expect(complete, isNot(singola),
         reason: 'se le due righe promettessero la stessa cosa, questa voce '
             'non avrebbe nessun motivo di esistere');
@@ -96,24 +96,28 @@ void main() {
   test('il consumo e\' uno per stesa, e il conto cala solo quando cala',
       () async {
     final borsa = QuestionAllowance();
-    // L'Adepto ha cinque stese al giorno: e' l'unico piano dove il conto si
+    // L'Adepto ha sette stese, ordine BV voce 03, al giorno: e' l'unico piano dove il conto si
     // vede scendere senza passare dagli Eos.
-    expect(borsa.steseRimaste(Tier.tier2), 5);
+    expect(borsa.steseRimaste(Tier.tier2), 7);
     borsa.registraStesa(Tier.tier2);
-    expect(borsa.steseRimaste(Tier.tier2), 4);
-    for (var i = 0; i < 4; i++) {
+    expect(borsa.steseRimaste(Tier.tier2), 6);
+    for (var i = 0; i < 6; i++) {
       borsa.registraStesa(Tier.tier2);
     }
     expect(borsa.steseRimaste(Tier.tier2), 0);
     expect(borsa.puoiStendere(Tier.tier2), isFalse);
   });
 
-  test('l\'Illuminato non ha ne\' conto ne\' cancello', () {
+  test('l\'Illuminato ha venti stese, e niente e\' piu\' illimitato', () {
+    // **L'ILLIMITATO E' SPARITO, ordine BV voce 03**, ed e' un principio del
+    // fondatore prima che un numero: non fare nulla di illimitato. Prima
+    // l'Illuminato non aveva ne' conto ne' cancello; adesso ha venti stese al
+    // giorno e le vede scendere come tutti.
     final borsa = QuestionAllowance();
-    expect(borsa.limiteStese(Tier.tier3), isNull);
-    expect(borsa.steseRimaste(Tier.tier3), isNull,
-        reason: 'un residuo infinito e\' rumore, e non si mostra');
+    expect(borsa.limiteStese(Tier.tier3), 20);
+    expect(borsa.steseRimaste(Tier.tier3), 20);
     borsa.registraStesa(Tier.tier3);
+    expect(borsa.steseRimaste(Tier.tier3), 19);
     expect(borsa.puoiStendere(Tier.tier3), isTrue);
   });
 
@@ -229,14 +233,15 @@ void main() {
   testWidgets('il conto e\' quello del listino, e cambia col piano',
       (tester) async {
     await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Stese di oggi: 5 di 5',
+    expect(contoAVideo(tester), 'Stese di oggi: 7 di 7',
         reason: 'il numero non e\' quello che la matrice promette '
             'all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
     await monta(tester, piano: Tier.tier3, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), '',
-        reason: 'l\'Illuminato legge un conto: un residuo infinito e\' rumore');
+    expect(contoAVideo(tester), 'Stese di oggi: 20 di 20',
+        reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
+            'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
     await monta(tester, piano: Tier.free, borsa: QuestionAllowance());
     expect(contoAVideo(tester), 'Stese di oggi: 1 di 1',
@@ -257,22 +262,22 @@ void main() {
       'non consuma niente', (tester) async {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
-    expect(borsa.steseRimaste(Tier.tier2), 5);
+    expect(borsa.steseRimaste(Tier.tier2), 7);
 
     // Una carta sola: la stesa e' cominciata e non e' compiuta.
     await pesca(tester, 38);
-    expect(borsa.steseRimaste(Tier.tier2), 5,
+    expect(borsa.steseRimaste(Tier.tier2), 7,
         reason: 'una stesa cominciata ha gia\' consumato: chi cambia idea '
             'alla prima carta paga per niente');
 
     // La seconda e la terza: adesso la stesa e' compiuta.
     await pesca(tester, 39);
-    expect(borsa.steseRimaste(Tier.tier2), 5,
+    expect(borsa.steseRimaste(Tier.tier2), 7,
         reason: 'la seconda carta ha consumato: il conto e\' per carta e '
             'non per stesa');
     await pesca(tester, 40);
     await tester.pump(const Duration(seconds: 5));
-    expect(borsa.steseRimaste(Tier.tier2), 4,
+    expect(borsa.steseRimaste(Tier.tier2), 6,
         reason: 'la stesa e\' compiuta e non ha consumato niente: il '
             'listino promette un tetto che nessuno impone');
   });
@@ -281,7 +286,7 @@ void main() {
       (tester) async {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 7; i++) {
       borsa.registraStesa(Tier.tier2);
     }
     await tester.pump();
@@ -382,12 +387,72 @@ void main() {
 
   test('il server conosce il budget delle stese e il suo prezzo', () {
     final budget = File('functions/src/budget.ts').readAsStringSync();
-    expect(budget.contains('stese: [1, 0, 5, null]'), isTrue,
+    expect(budget.contains('stese: [1, 4, 7, 20]'), isTrue,
         reason: 'il server non impone piu\' i limiti del listino');
     final borsellino = File('functions/src/borsellino.ts').readAsStringSync();
     expect(RegExp(r'stese: 150').hasMatch(borsellino), isTrue,
         reason: 'il server non conosce piu\' il prezzo della stesa: senza '
             'prezzo il riscatto non si puo\' nemmeno offrire');
+  });
+
+  test('BV.03: il censimento di cio\' che resta illimitato', () {
+    // **IL FONDATORE HA CHIESTO IL CONTO, non la cura**: "voglio sapere cosa
+    // e' rimasto illimitato". Le stese hanno smesso di esserlo con questa
+    // voce; qui si contano le altre righe, si stampano col nome e col piano,
+    // e il numero resta scritto. **Non si tocca nessuna di quelle righe**:
+    // quanto valgono e' una decisione sua, e questa prova e' il posto dove
+    // accorgersi se una nuova nasce senza che nessuno lo dica.
+    const piani = ['Viandante', 'Iniziato', 'Adepto', 'Illuminato'];
+    final server = File('functions/src/budget.ts').readAsStringSync();
+    final righe = RegExp(r'^\s{2}(\w+):\s*\[([^\]]+)\],', multiLine: true)
+        .allMatches(server);
+    final senzaTetto = <String>[];
+    var quanteRighe = 0;
+    for (final m in righe) {
+      quanteRighe++;
+      final nome = m.group(1)!;
+      final celle = m.group(2)!.split(',').map((c) => c.trim()).toList();
+      for (var i = 0; i < celle.length && i < piani.length; i++) {
+        if (celle[i] == 'null') senzaTetto.add('$nome per ${piani[i]}');
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE BV VOCE 3: sul server ci sono $quanteRighe budget, e senza '
+        'tetto ne restano ${senzaTetto.length}: $senzaTetto');
+    expect(quanteRighe, greaterThanOrEqualTo(6),
+        reason: 'il censimento non sta leggendo la mappa dei limiti del '
+            'server: ha trovato solo $quanteRighe righe');
+    expect(senzaTetto.where((v) => v.startsWith('stese')), isEmpty,
+        reason: 'le stese sono tornate illimitate su qualche piano, ed e\' '
+            'cio\' che questa voce ha chiuso');
+    // Il numero segue il dato, la pretesa no: se domani una riga cambia, il
+    // conto va rifatto A VOCE, non allargato in silenzio.
+    expect(senzaTetto, const [
+      'domande per Illuminato',
+      'approfondimenti per Illuminato',
+      'confronti per Illuminato',
+      'gettate per Iniziato',
+      'gettate per Adepto',
+      'gettate per Illuminato',
+      'sinastrie per Illuminato',
+    ],
+        reason: 'il censimento degli illimitati e\' cambiato: adesso e\' '
+            '$senzaTetto. Va detto al fondatore, non aggiornato di nascosto');
+
+    // E la stessa domanda al listino, che e' cio' che la persona LEGGE.
+    final matrice = File('lib/core/entitlement/plan_catalog.dart')
+        .readAsStringSync();
+    final promesse = RegExp(r"FeatureRow\('([^']+)',\s*\[([^\]]+)\]")
+        .allMatches(matrice)
+        .where((m) => m.group(2)!.toLowerCase().contains('illimitat'))
+        .map((m) => m.group(1)!)
+        .toList();
+    // ignore: avoid_print
+    print('ORDINE BV VOCE 3: nel listino promettono ancora illimitato '
+        '${promesse.length} righe: $promesse');
+    expect(promesse.where((r) => r.toLowerCase().contains('stese')), isEmpty,
+        reason: 'il listino promette ancora stese illimitate: server e '
+            'listino direbbero due cose diverse');
   });
 }
 
