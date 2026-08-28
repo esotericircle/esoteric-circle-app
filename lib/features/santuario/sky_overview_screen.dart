@@ -621,24 +621,48 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     }
     // Negato o spento: si dichiara COSA si sta mostrando al posto suo, e si
     // offre la via giusta. Mai un vicolo cieco, mai un silenzio.
+    //
+    // **E I QUATTRO CASI SI DISTINGUONO A SCHERMO.** Segnalazione del
+    // fondatore dal suo iPhone 13: tocca "Orienta il cielo", il dialogo di
+    // sistema non compare, e nella pagina dell'app dentro Impostazioni la riga
+    // Posizione non esiste. Su iOS quella riga nasce solo quando l'app ha
+    // chiesto DAVVERO al sistema, quindi quel telefono dice che la richiesta
+    // non e' mai partita. Con un messaggio solo per tutti i casi non si poteva
+    // sapere quale dei quattro fosse: adesso ognuno ha la sua frase e la sua
+    // via, e il caso del telefono che non risponde porta con se' il motivo.
     final spento = risposta.esito == EsitoPosizione.servizioSpento;
+    final perSempre = risposta.esito == EsitoPosizione.negataPerSempre;
+    final muto = risposta.esito == EsitoPosizione.nonDisponibile;
+    final testo = spento
+        ? 'La Localizzazione del telefono è spenta: nessuna app può '
+            'chiedere dove sei. Resto sul cielo della tua nascita.'
+        : perSempre
+            ? 'Il permesso alla posizione è chiuso per questa app: si riapre '
+                'solo dalle impostazioni. Resto sul cielo della tua nascita.'
+            : muto
+                ? 'Il telefono non ha risposto alla richiesta di posizione. '
+                    'Resto sul cielo della tua nascita.'
+                : 'Resto sul cielo della tua nascita, senza il luogo dove ti '
+                    'trovi.';
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: const Key('sky_location_negata'),
-        duration: const Duration(seconds: 6),
-        content: Text(spento
-            ? 'La posizione del telefono è spenta: resto sul cielo della tua '
-                'nascita.'
-            : 'Resto sul cielo della tua nascita, senza il luogo dove ti '
-                'trovi.'),
+        duration: const Duration(seconds: 8),
+        content: Text(testo),
         action: SnackBarAction(
-          label: spento ? 'Impostazioni' : 'Permessi',
+          label: spento ? 'Localizzazione' : 'Permessi',
           onPressed: () => spento
               ? Geolocator.openLocationSettings()
               : Geolocator.openAppSettings(),
         ),
       ),
     );
+    if (muto && risposta.motivo != null) {
+      // Il motivo non si mostra alla persona, che non saprebbe che farsene, ma
+      // finisce nel registro del telefono: e' l'unico modo di sapere, da qui,
+      // cosa ha risposto un iPhone che non ho.
+      debugPrint('Cielo: la posizione non risponde (${risposta.motivo})');
+    }
   }
 
   // Il pre-avviso gentile, nel tono di Medora: spiega a cosa serve la posizione

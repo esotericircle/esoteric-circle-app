@@ -42,7 +42,10 @@ void main() {
     'lib/core/archetypes/archetype_history.dart': 2,
     'lib/core/astro/city_catalog.dart': 1,
     'lib/core/astro/natal_chart_controller.dart': 4,
-    'lib/core/astro/sky_location.dart': 2,
+    // Uno e non piu' due dal 29 agosto 2026: la richiesta di posizione non
+    // inghiotte piu' l'errore, lo porta fino a schermo. Era il catch che
+    // nascondeva perche' su un iPhone il dialogo di sistema non compariva.
+    'lib/core/astro/sky_location.dart': 1,
     'lib/core/entitlement/question_allowance.dart': 2,
     'lib/core/face/face_history.dart': 2,
     'lib/core/identity/device_id.dart': 1,

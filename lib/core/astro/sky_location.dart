@@ -1,4 +1,5 @@
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 
 /// Un luogo sulla Terra, ridotto a cio' che serve per orientare il cielo:
@@ -82,10 +83,24 @@ enum EsitoPosizione {
 
 /// Cosa e' successo quando si e' chiesta la posizione.
 class RispostaPosizione {
-  const RispostaPosizione(this.esito, [this.luogo]);
+  const RispostaPosizione(this.esito, [this.luogo, this.motivo]);
 
   final EsitoPosizione esito;
   final SkyPlace? luogo;
+
+  /// **COSA E' SUCCESSO DAVVERO, quando non e' successo niente.**
+  ///
+  /// Segnalazione del fondatore dal suo iPhone 13: tocca "Orienta il cielo",
+  /// il dialogo di sistema NON compare, e nella pagina dell'app dentro
+  /// Impostazioni la riga Posizione non esiste. Su iOS quella riga nasce solo
+  /// quando l'app ha chiesto davvero al sistema: se non c'e', la richiesta non
+  /// e' mai partita. Il perche' lo sa solo il telefono, e fino a ieri l'app lo
+  /// buttava via in un `catch` muto, che e' esattamente la cosa che questo
+  /// progetto vieta.
+  ///
+  /// Qui ci finisce il testo dell'errore, e la schermata lo mostra: la
+  /// prossima volta che succede si legge invece di indovinare.
+  final String? motivo;
 
   bool get concessa => esito == EsitoPosizione.concessa && luogo != null;
 }
@@ -193,6 +208,16 @@ class GeolocatorSkyLocation extends SkyLocation {
         return const RispostaPosizione(EsitoPosizione.negataPerSempre);
       }
       if (permission == LocationPermission.denied) {
+        // **PRIMA DI DIRE "hai detto di no", SI GUARDA SE POTEVA DIRE SI'.**
+        // Col servizio di sistema spento iOS non mostra nessun dialogo e
+        // l'API risponde negato lo stesso: dire alla persona che ha rifiutato
+        // sarebbe falso, e mandarla nei permessi dell'app la porterebbe in una
+        // pagina dove la riga Posizione non esiste nemmeno. La via giusta e'
+        // l'interruttore della Localizzazione, che sta nelle impostazioni del
+        // SISTEMA.
+        if (!await Geolocator.isLocationServiceEnabled()) {
+          return const RispostaPosizione(EsitoPosizione.servizioSpento);
+        }
         return const RispostaPosizione(EsitoPosizione.negata);
       }
       if (!await Geolocator.isLocationServiceEnabled()) {
@@ -203,9 +228,15 @@ class GeolocatorSkyLocation extends SkyLocation {
         EsitoPosizione.concessa,
         SkyPlace(latitude: pos.latitude, longitude: pos.longitude),
       );
-    } catch (_) {
-      // Nessun sensore, piattaforma senza posizione, timeout: ripiego pulito.
-      return const RispostaPosizione(EsitoPosizione.nonDisponibile);
+    } catch (errore) {
+      // **NESSUN CATCH MUTO, e qui costava caro.** Se il canale del plugin non
+      // risponde, o il sistema solleva, l'app tornava "non disponibile" senza
+      // dire altro: a schermo diventava "resto sul cielo della tua nascita", e
+      // nessuno poteva sapere che il dialogo di sistema non era mai partito.
+      // Adesso il motivo viaggia fino alla schermata.
+      debugPrint('SkyLocation.chiedi: la posizione non risponde ($errore)');
+      return RispostaPosizione(
+          EsitoPosizione.nonDisponibile, null, errore.toString());
     }
   }
 
