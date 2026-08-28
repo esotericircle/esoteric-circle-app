@@ -193,11 +193,29 @@ class RegiaDelCammino {
     // funzionano". A trattenere resta solo FesteInCorso, dentro
     // festeggiaInsieme: se una festa e' gia' a schermo questa entra in coda
     // e riparte appena quella si chiude.
+    // **LA FESTA DEL GESTO SI PORTA DIETRO CHI ASPETTAVA. Ordine BW voce
+    // 02**, fatto osservato dal fondatore sulla 2210: quattro feste
+    // consecutive in sessanta secondi, centocinquanta Eos, tre della famiglia
+    // del cielo e di due Maestri diversi. Non nascevano dal gesto: erano
+    // maturate prima, erano rimaste in coda perche' una riflessione occupava
+    // la scena, e la catena della chiusura le apriva una dietro l'altra.
+    //
+    // **Adesso la coda non fa una fila di scene, entra in QUESTA.** Legge del
+    // fondatore: non deve crearsi la condizione in cui una persona vede piu'
+    // di una festa di seguito. Nessun premio si perde, perche' gli Eos e il
+    // Sigillo sono gia' accreditati per traguardo; quello che si unisce e' la
+    // scena, e ogni nome resta scritto dentro.
+    final chiAspettava = await coda?.prendiTutte() ?? const <Traguardo>[];
+    final insieme = <Traguardo>[
+      questaVolta,
+      for (final t in chiAspettava)
+        if (t.id != questaVolta.id) t,
+    ];
     final festeggiato = context.mounted &&
         await Celebrazione.festeggiaInsieme(
           context,
-          traguardi: [questaVolta],
-          sentieri: [sentieroDi(questaVolta)],
+          traguardi: insieme,
+          sentieri: [for (final t in insieme) sentieroDi(t)],
           primoInAssoluto: primoInAssoluto,
           // **GLI EOS VOLANO QUANDO LA FESTA SE NE VA, ordine S voce 07.** E'
           // il momento in cui la barra torna visibile: lanciarlo prima
@@ -207,12 +225,10 @@ class RegiaDelCammino {
             if (context.mounted && arrivati.quanti > 0) {
               VoloDegliEos.lancia(context, quanti: arrivati.quanti);
             }
-            // **LA CODA RIPARTE APPENA QUESTA SI CHIUDE.** Ordine BD voce
-            // 08: chi ha maturato due traguardi insieme vede il secondo
-            // appena congeda il primo, non fra novanta secondi.
-            if (context.mounted) {
-              unawaited(svuotaLaCoda(context, appenaChiusaUna: true));
-            }
+            // **QUI NON RIPARTE PIU' NIENTE. Ordine BW voce 02**, e
+            // SOSTITUISCE la catena dell'ordine BD voce 08: era lei a
+            // trasformare tre traguardi in attesa in tre scene di fila.
+            // Chi aspettava e' gia' dentro questa festa.
           },
         );
 
@@ -230,8 +246,12 @@ class RegiaDelCammino {
       await DistanzaFraLeFeste.segnaFesta();
     } else {
       // Se la festa non e' comparsa, o perche' non c'era dove ospitarla o
-      // perche' e' troppo presto, anche il primo torna in coda.
-      await coda?.accoda(questaVolta.id);
+      // perche' la scena era occupata, tornano in coda TUTTI quelli che
+      // sarebbero stati nominati: una festa presa e non mostrata sarebbe
+      // persa, e quelli che aspettavano da prima aspettano ancora.
+      for (final t in insieme) {
+        await coda?.accoda(t.id);
+      }
     }
     for (final traguardo in inAttesa) {
       await coda?.accoda(traguardo.id);
@@ -344,23 +364,25 @@ class RegiaDelCammino {
     if (!appenaChiusaUna && !await DistanzaFraLeFeste.siPuoFesteggiare()) {
       return;
     }
-    final traguardo = await coda.prendiLaProssima();
-    if (traguardo == null) return;
+    // **TUTTA LA CODA IN UNA SCENA SOLA. Ordine BW voce 02.** Prima si
+    // prendeva la prossima e la chiusura chiamava di nuovo questa funzione:
+    // era una catena, e la catena e' quello che il fondatore ha visto come
+    // quattro feste consecutive.
+    final inCoda = await coda.prendiTutte();
+    if (inCoda.isEmpty) return;
+    final traguardo = inCoda.first;
     if (!context.mounted) {
-      // Si rimette dov'era: una festa presa e non mostrata sarebbe persa.
-      await coda.accoda(traguardo.id);
+      // Si rimettono dov'erano: una festa presa e non mostrata sarebbe persa.
+      for (final t in inCoda) {
+        await coda.accoda(t.id);
+      }
       return;
     }
     final festeggiato = await Celebrazione.festeggiaInsieme(
       context,
-      traguardi: [traguardo],
-      sentieri: [sentieroDi(traguardo)],
-      // La catena della coda: chiusa questa, si guarda se ce n'e' un'altra.
-      allaChiusura: () {
-        if (context.mounted) {
-          unawaited(svuotaLaCoda(context, appenaChiusaUna: true));
-        }
-      },
+      traguardi: inCoda,
+      sentieri: [for (final t in inCoda) sentieroDi(t)],
+      // Nessuna catena: dopo questa non c'e' nessun'altra da aprire.
       // **IL PRIMO IN ASSOLUTO SI CONTA TOGLIENDO CHI ASPETTA ANCORA.**
       // Ordine AU voce 06: da quando si celebra un traguardo alla volta, il
       // diario puo' averne tre accesi mentre la persona non ha ancora visto
@@ -381,7 +403,12 @@ class RegiaDelCammino {
       RegistroDelleFeste.segna(gesto: 'dalla coda', traguardo: traguardo.id);
       await DistanzaFraLeFeste.segnaFesta();
     } else {
-      await coda.accoda(traguardo.id);
+      // **TORNANO DENTRO TUTTI, non solo il primo. Ordine BW voce 02**: da
+      // quando la scena li nomina tutti, prenderli in blocco e rimetterne
+      // dentro uno solo vorrebbe dire buttare via le feste degli altri.
+      for (final t in inCoda) {
+        await coda.accoda(t.id);
+      }
     }
   }
 

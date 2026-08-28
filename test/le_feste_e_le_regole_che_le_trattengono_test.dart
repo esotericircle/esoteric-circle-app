@@ -71,18 +71,24 @@ void main() {
     expect(ciclo.contains('siPuoFesteggiare'), isFalse,
         reason: 'la maturazione fresca guarda di nuovo la distanza: la festa '
             'al traguardo torna a essere trattenuta (ordine BD voce 08)');
-    // E la chiusura di una festa rilancia la coda senza aspettare.
-    expect(regia.contains('appenaChiusaUna: true'), isTrue,
-        reason: 'la coda non riparte piu\' alla chiusura di una festa: chi '
-            'matura due traguardi insieme non vedra\' mai il secondo');
+    // **E LA CHIUSURA DI UNA FESTA NON NE APRE UN'ALTRA. Ordine BW voce
+    // 02**, e SOSTITUISCE la catena che questa riga sorvegliava: qui si
+    // pretendeva che la coda ripartisse alla chiusura, ed e\' proprio quella
+    // catena che il fondatore ha visto sulla 2210 come quattro feste
+    // consecutive. Chi aspettava non ha perso niente: adesso entra nella
+    // stessa scena invece di aprirne una propria.
+    expect(ciclo.contains('svuotaLaCoda(context'), isFalse,
+        reason: 'la chiusura di una festa riapre la coda: e\' la catena che '
+            'fa vedere piu\' feste di seguito (ordine BW voce 02)');
     // La distanza di novanta secondi resta scritta dove il guardiano legge.
     final distanza = File('lib/core/sigilli/distanza_fra_le_feste.dart')
         .readAsStringSync();
     expect(distanza.contains('Duration(seconds: 90)'), isTrue,
         reason: 'la distanza del guardiano non e\' piu\' novanta secondi');
     // ignore: avoid_print
-    print('ORDINE BD VOCE 08: il ciclo della regia non guarda la distanza, '
-        'la coda riparte alla chiusura, il guardiano tiene i 90 secondi');
+    print('ORDINE BD VOCE 08 con la correzione BW VOCE 02: il ciclo della '
+        'regia non guarda la distanza, la chiusura non riapre la coda, il '
+        'guardiano tiene i 90 secondi');
   });
 
   test('BD.08: una festa trattenuta non si perde, entra in coda', () async {

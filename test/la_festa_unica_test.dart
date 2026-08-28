@@ -135,58 +135,53 @@ void main() {
     expect(Celebrazione.partite, 1,
         reason: 'con tre feste in attesa deve partire UNA celebrazione, '
             'non una raffica: ne sono partite ${Celebrazione.partite}');
-    // **LA REGOLA E' CAMBIATA, ordine AU voce 06**, decisione del fondatore del
-    // 22 agosto 2026, e sostituisce quella del 16 agosto che questa prova
-    // sorvegliava.
+    // **LA REGOLA E' TORNATA QUELLA DI AGOSTO, ordine BW voce 02**, e
+    // SOSTITUISCE l'ordine AU voce 06 e la catena dell'ordine BD voce 08.
     //
-    // **Le due vietavano cose diverse.** Quella di agosto vietava la RAFFICA,
-    // cinque scene di fila, e per evitarla univa i nomi in una scena sola: e'
-    // cosi' che sulla 2188 e' nata una card che nominava CINQUE traguardi con
-    // centoventi Eos. La nuova vieta i DUE NOMI nella stessa card, e la
-    // raffica la tiene lontana in un altro modo, con la distanza fra le feste.
+    // **La storia, per intero e senza riscriverla.** Ordine AC del 16 agosto:
+    // una scena sola che le nomina tutte, per non vedere una raffica. Ordine
+    // AU del 22: una card con cinque nomi e centoventi Eos non e' una festa,
+    // e' un rendiconto, quindi un nome per card e le altre in coda. Ordine BD
+    // del 23: la coda riparte appena si congeda una festa, cosi' nessuno
+    // aspetta. **Il 28 agosto il fondatore ha visto dove porta la somma di
+    // quelle tre**: quattro feste consecutive in sessanta secondi, e ha
+    // dettato la legge che le chiude tutte: non deve crearsi la condizione in
+    // cui una persona vede piu' di una festa di seguito.
     //
-    // Cio' che questa prova sorveglia resta vero e importante: **con tre feste
-    // in attesa ne parte UNA sola**. Cambia solo cosa quella card nomina.
-    expect(find.text(nomeInTondo(tre.first.nome)), findsOneWidget,
-        reason: 'la card non nomina il traguardo che sta celebrando');
-    for (final t in tre.skip(1)) {
-      expect(find.text(nomeInTondo(t.nome)), findsNothing,
-          reason: 'la card nomina anche "${t.nome}": una card celebra UN SOLO '
-              'traguardo, mai due nomi nella stessa');
+    // Quindi la scena torna a nominarle tutte, e la catena sparisce.
+    for (final t in tre) {
+      expect(find.text(nomeInTondo(t.nome)), findsOneWidget,
+          reason: 'la card non nomina "${t.nome}": chi ha raggiunto tre '
+              'traguardi deve leggerli tutti e tre, e\' la seconda meta\' '
+              'della legge del fondatore');
     }
     await tester.tap(find.byKey(const Key('festa_salta')),
         warnIfMissed: false);
     await tester.pump();
-    // **GLI EOS SONO QUELLI DEL TRAGUARDO CELEBRATO, non piu' la somma.**
-    // Ordine AU voce 06: gli altri due non hanno perso nulla, il loro Sigillo
-    // e' acceso e i loro Eos sono gia' accreditati; in attesa c'e' solo la
-    // festa. La card mostra quello che sta celebrando, e centoventi Eos su una
-    // card sola erano proprio cio' che il fondatore ha visto e fermato.
-    expect(find.text('+${tre.first.eos} Eos'), findsOneWidget,
-        reason: 'la card non porta gli Eos del traguardo che celebra');
-    expect(coda.inAttesa, hasLength(2),
-        reason: 'la coda si e svuotata tutta in una volta: le altre due feste '
-            'devono restare in attesa, una per apertura');
+    // **GLI EOS SONO LA SOMMA**, perche' la scena e' una sola e i premi sono
+    // tre: si unisce la festa, non il premio.
+    final somma = tre.fold<int>(0, (a, t) => a + t.eos);
+    expect(find.text('+$somma Eos'), findsOneWidget,
+        reason: 'la card non porta la somma dei tre premi');
+    expect(coda.inAttesa, isEmpty,
+        reason: 'nella coda restano ${coda.inAttesa.length} feste: sono state '
+            'prese tutte e nominate tutte, non deve restarne nessuna');
 
-    // **E DOPO LA CHIUSURA PARTE LA PROSSIMA, ed e' la legge nuova.**
-    // Ordine BD voce 08, decisione del fondatore del 23 agosto 2026, che
-    // SOSTITUISCE la regola di AU che questa prova sorvegliava: "festa
-    // sempre, subito", e chi ha maturato piu' traguardi insieme vede il
-    // secondo appena congeda il primo. La raffica che AC e AU vietavano
-    // erano scene sovrapposte o card con cinque nomi: qui ogni festa e'
-    // intera, con un nome solo, e arriva al ritmo di chi la chiude.
+    // **E DOPO LA CHIUSURA NON PARTE PIU' NIENTE.** Ordine BW voce 02: era la
+    // catena dell'ordine BD a far vedere la seconda scena appena si congedava
+    // la prima.
     await tester.tap(find.byKey(const Key('celebrazione_continua')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     // ignore: avoid_print
-    print('ORDINE BD VOCE 08, prova 2 dopo la chiusura: partite '
+    print('ORDINE BW VOCE 02, prova 2 dopo la chiusura: partite '
         '${Celebrazione.partite}, in coda ${coda.inAttesa.length}');
-    expect(Celebrazione.partite, 2,
-        reason: 'chiusa la prima festa la seconda non e\' partita: chi '
-            'matura tre traguardi insieme deve vederli tutti, uno alla '
-            'volta, al ritmo con cui li congeda (ordine BD voce 08)');
-    expect(coda.inAttesa, hasLength(1),
-        reason: 'la coda non ha ceduto la seconda festa alla catena');
+    expect(Celebrazione.partite, 1,
+        reason: 'congedata la festa ne e\' partita un\'altra: sono '
+            '${Celebrazione.partite}, e la persona le vede una dietro '
+            'l\'altra');
+    expect(coda.inAttesa, isEmpty,
+        reason: 'la coda ha ceduto un\'altra festa alla catena');
   });
 
   testWidgets(
