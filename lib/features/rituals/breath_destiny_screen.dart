@@ -331,7 +331,13 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     final n = await const RitualStreak(id: 'breath').recordToday(date);
     if (!mounted) return;
     // IL CAMMINO SE NE ACCORGE: il rito e' compiuto, non aperto.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'soffio', oraRituale: null));
+    // **IL SOFFIO TENUTO FINO ALLA FINE, ordine BX voce 01.** Il corpus
+    // chiede "un Soffio del Destino tenuto fino alla fine senza
+    // interrompersi", e la scena mandava il gesto compiuto e basta. Qui ci si
+    // arriva solo dal ciclo completo del respiro: chi esce prima non passa da
+    // questa riga, e il dettaglio dice proprio quello.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'soffio',
+        oraRituale: null, dettagli: const {'tenuto': ['intero']}));
     setState(() => _streak = n);
   }
 

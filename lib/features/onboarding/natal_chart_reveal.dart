@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import '../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/natal_chart.dart';
@@ -61,6 +64,9 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _garantisciLaCarta());
+    // Il primo giro serve alle schede corte, che il fondo ce l'hanno subito.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _guardaSeSiELetta());
+    _scroll.addListener(_guardaSeSiELetta);
   }
 
   void _garantisciLaCarta() {
@@ -94,8 +100,31 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
     }
   }
 
+  /// **LA LETTURA FINO IN FONDO, ordine BX voce 01.** Il corpus chiede "apri
+  /// la scheda del tuo Ascendente e la leggi fino in fondo", e la scheda
+  /// dell'Ascendente e' questa: la carta natale che il Passport apre. Prima la
+  /// regia sapeva soltanto che la scheda era stata APERTA, quindi quel gradino
+  /// dormiva.
+  ///
+  /// **Fino in fondo vuol dire che la colonna e' arrivata in fondo davvero.**
+  /// Se il testo ci sta tutto senza scorrere, il fondo e' gia' li' e il gesto
+  /// vale lo stesso: chi legge una scheda corta l'ha letta tutta.
+  bool _lettaFinoInFondo = false;
+
+  void _guardaSeSiELetta() {
+    if (_lettaFinoInFondo || !mounted) return;
+    if (!_scroll.hasClients) return;
+    final metrica = _scroll.position;
+    final inFondo = metrica.maxScrollExtent <= 0 ||
+        metrica.pixels >= metrica.maxScrollExtent - 8;
+    if (!inFondo) return;
+    _lettaFinoInFondo = true;
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'ascendente'));
+  }
+
   @override
   void dispose() {
+    _scroll.removeListener(_guardaSeSiELetta);
     _scroll.dispose();
     super.dispose();
   }

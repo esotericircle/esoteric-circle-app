@@ -22,6 +22,7 @@ import '../../services/avvisi_locali.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
+import '../../core/astro/solar_time.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
 import 'dove_sei_adesso.dart';
@@ -432,8 +433,25 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     // mano: aprendo il rito a mezzogiorno il traguardo del cielo si accendeva
     // lo stesso, e il traguardo che non si affretta diventava il piu' facile
     // di tutti.
+    // **PRIMA CHE IL SOLE SORGA DAVVERO, ordine BX voce 01.** Il corpus
+    // chiede "un Rito dell'Alba compiuto prima che il sole sorga davvero, nel
+    // tuo luogo", e l'app sapeva solo se il gesto cadeva nell'ORA RITUALE
+    // dell'alba, che e' una fascia larga. Il sorgere vero l'app lo sa gia'
+    // calcolare, `SolarTime.albaPerData`, e il rito conosce gia' la posizione
+    // con cui si e' composto: qui le due cose si incontrano.
+    //
+    // **Senza posizione non si dice niente**, invece di inventare un sorgere:
+    // il dettaglio resta assente e il gradino aspetta un mattino in cui la
+    // posizione c'e'.
+    final dove = _posizione(date);
+    final sorgere = SunsetTime.albaPerData(date,
+        lat: dove.lat, lon: dove.lon, offset: date.timeZoneOffset);
+    final primaDelSole = sorgere != null && date.isBefore(sorgere);
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'alba',
-        oraRituale: OraRituale.diAdesso()));
+        oraRituale: OraRituale.diAdesso(),
+        dettagli: primaDelSole
+            ? const {'prima_del_sole': ['si']}
+            : const <String, Object?>{}));
     setState(() => _streak = n);
   }
 

@@ -14,6 +14,7 @@ import '../../core/identity/natal_identity.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/stesa_in_corso.dart';
+import '../../core/astro/moon_phase.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -706,6 +707,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           'rovescio': [
             for (final c in carte)
               if (c.reversed) c.card.stem,
+          ],
+          // **LA CARTA E LA LUNA SOTTO CUI E' USCITA, ordine BX voce 01.** Il
+          // corpus chiede "la stessa carta esce sotto tre fasi lunari
+          // diverse": non basta sapere quali carte sono uscite, serve sapere
+          // sotto quale cielo. Il dettaglio e' composto, 'carta@fase', ed e'
+          // la forma che il diario sa interrogare.
+          'carta_e_luna': [
+            for (final c in carte)
+              '${c.card.stem}@${MoonPhase.forDate(DateTime.now()).italianName}',
           ],
         },
       ));

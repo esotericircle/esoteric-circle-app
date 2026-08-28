@@ -47,6 +47,14 @@ GESTI_VIVI = {
     # Ordine BF voce 05.b: la meditazione ha una fine, e alla fine la regia
     # registra il gesto. Prima non arrivava mai, e i suoi gradini dormivano.
     'meditazione',
+    # Ordine BX voce 01: la scheda della carta natale, che e' la scheda
+    # dell'Ascendente, dice alla regia quando e' stata letta fino in
+    # fondo. Prima diceva soltanto di essere stata aperta.
+    'ascendente',
+    # Ordine BX voce 01: nella gettata libera una pietra coperta adesso si
+    # gira col dito, ed e' un gesto suo. Contarlo come una gettata
+    # gonfierebbe il conto che governa i limiti del listino.
+    'runa_girata',
 }
 
 # Come si chiama, nel corpus, ciascun gesto dell'app.
@@ -418,6 +426,148 @@ LEGGE_DELLA_FINESTRA = {
 }
 
 
+def regolaCoincidenzaNellaFinestra(v, testo):
+    """**LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO. Ordine BX voce 01.**
+
+    "Lo stesso Arcano del Giorno esce due volte in una settimana", "lo stesso
+    archetipo esce due volte in una settimana": il diario contava le
+    ripetizioni DA SEMPRE, quindi quei gradini avrebbero promesso una
+    coincidenza dove c'era solo il tempo che passa. Adesso i dettagli portano
+    la loro data e la finestra si puo' chiedere.
+
+    **Le finestre ammesse sono quelle che il diario calcola**, sette e trenta
+    giorni: una finestra che nessuno calcola direbbe sempre zero.
+    """
+    if 'stesso' not in testo and 'stessa' not in testo:
+        return None
+    finestra = None
+    if 'in una settimana' in testo or 'in sette giorni' in testo:
+        finestra = 7
+    elif 'in un mese' in testo or 'in trenta giorni' in testo:
+        finestra = 30
+    if finestra is None:
+        return None
+    # **IL NUMERO E' QUELLO DAVANTI A "VOLTE", non quello della finestra**:
+    # "due volte in una settimana" ne porta due, e prendere il primo numero
+    # della frase avrebbe letto l'uno di "una settimana", cioe' avrebbe
+    # trasformato una coincidenza in una prima volta.
+    conVolte = re.search(r'(\w+)\s+volte', testo)
+    quante = numeroIn(conVolte.group(1)) if conVolte else None
+    if quante is None:
+        return None
+    gesto = gestoIn(testo)
+    if gesto is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto %s non arriva alla regia' % gesto
+    chiave = {'oracolo': 'arcano', 'archetipo': 'archetipo',
+              'stesa': 'carte', 'gettata': 'modo',
+              'tramonto': 'runa'}.get(gesto)
+    if chiave is None:
+        return None
+    return ("CoincidenzaNellaFinestra('%s', '%s', %d, %d)"
+            % (gesto, chiave, quante, finestra)), None
+
+
+def regolaCartaSottoLeLune(v, testo):
+    """**LA STESSA CARTA SOTTO TRE LUNE. Ordine BX voce 01.**
+
+    Non e' varieta', che conterebbe le carte, e non e' coincidenza, che
+    conterebbe le uscite: e' una domanda sulla coppia carta e fase lunare, e
+    la stesa manda adesso il dettaglio composto che la regge.
+    """
+    if 'fasi lunari' not in testo:
+        return None
+    quante = numeroIn(testo)
+    if quante is None:
+        return None
+    return "VarietaPerValore('stesa', 'carta_e_luna', %d)" % quante, None
+
+
+def regolaRunaGirata(v, testo):
+    """**LA PIETRA GIRATA A MANO. Ordine BX voce 01.**
+
+    "Scopri una runa coperta girandola tu invece di lasciarla al caso": da
+    quest'ordine la pietra coperta della gettata libera risponde al dito, e
+    quel tocco e' un gesto suo.
+    """
+    if 'runa coperta' not in testo and 'girandola tu' not in testo:
+        return None
+    if 'runa_girata' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto runa_girata non arriva alla regia'
+    return "GestiCompiuti('runa_girata', 1)", None
+
+
+def regolaLetturaFinoInFondo(v, testo):
+    """**LA SCHEDA LETTA FINO IN FONDO. Ordine BX voce 01.**
+
+    "Apri la scheda del tuo Ascendente e la leggi fino in fondo": la scheda
+    dell'Ascendente e' la carta natale che il Passport apre, e da
+    quest'ordine quella scena dice alla regia quando la colonna e' arrivata
+    in fondo. Il gesto si chiama `ascendente` e nasce solo li'.
+    """
+    if 'ascendente' not in testo:
+        return None
+    if 'fino in fondo' not in testo:
+        return None
+    if 'ascendente' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto ascendente non arriva alla regia'
+    return "GestiCompiuti('ascendente', 1)", None
+
+
+def regolaSoffioTenuto(v, testo):
+    """**IL SOFFIO TENUTO FINO ALLA FINE. Ordine BX voce 01.**
+
+    Il dettaglio `tenuto` nasce solo da chi arriva in fondo al ciclo del
+    respiro: chi interrompe non passa da quella riga, quindi la varieta' del
+    dettaglio risponde esattamente alla domanda del corpus.
+    """
+    if 'senza interrompersi' not in testo and 'fino alla fine' not in testo:
+        return None
+    if 'soffio' not in testo:
+        return None
+    return "VarietaDelDettaglio('soffio', 'tenuto', 1)", None
+
+
+def regolaPrimaDelSole(v, testo):
+    """**L'ALBA PRIMA DEL SORGERE VERO. Ordine BX voce 01.**
+
+    Il rito manda il dettaglio `prima_del_sole` solo quando l'istante del
+    gesto precede il sorgere calcolato sulla posizione con cui il rito si e'
+    composto. Senza posizione il dettaglio non parte, e il gradino aspetta un
+    mattino in cui la posizione c'e': meglio aspettare che inventare un
+    sorgere.
+    """
+    if 'prima che il sole sorga' not in testo:
+        return None
+    return "VarietaDelDettaglio('alba', 'prima_del_sole', 1)", None
+
+
+def regolaCieloContrario(v, testo):
+    """**IL CIELO CONTRARIO. Ordine BX voce 01.**
+
+    "Un Soffio compiuto in un giorno in cui il cielo ti e' contrario", e il
+    corpus lo annota "Cielo avverso". Non si inventa nessun evento nuovo: la
+    tradizione chiama Saturno il grande malefico, e il suo moto retrogrado e'
+    il tempo in cui la sua forza si volta contro chi la subisce. Il catalogo
+    del cielo lo calcola gia'.
+
+    **La Luna nel segno opposto era la prima scelta ed e' stata scartata da
+    una prova**: aur_24 la usa gia', e due gradini con la stessa firma sono
+    un gradino detto due volte. La scelta e' dichiarata nel manifesto e si
+    rovescia con una riga.
+    """
+    if 'contrario' not in testo:
+        return None
+    gesto = gestoIn(testo)
+    if gesto is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto %s non arriva alla regia' % gesto
+    return ("FinestraDelCielo(EventiDelCielo.saturnoRetrogrado, "
+            "conGesto: '%s')" % gesto), None
+
+
 def regolaRitornoAlRito(v, testo):
     """**IL BUCO DI UN RITO. Ordine BW voce 07.**
 
@@ -712,17 +862,12 @@ def regolaNonCostruibile(v, testo):
     # frasi promette qualcosa in piu' di cio' che la condizione misura, e senza
     # queste righe il gradino si accendeva sul gesto nudo, cioe' regalava una
     # promessa che non aveva mantenuto.
-    if 'senza interrompersi' in testo or 'fino alla fine' in testo:
-        return ('DORMIENTE',
-                "il Soffio non dice se e' stato tenuto fino alla fine: la "
-                'scena manda il gesto compiuto e basta. Servirebbe che '
-                "passasse la durata e l'interruzione")
-    if 'prima che il sole sorga' in testo:
-        return ('DORMIENTE',
-                "l app sa se un gesto cade nell ora rituale dell alba, non se "
-                'cade PRIMA del sorgere vero nel luogo di chi lo compie: '
-                "servirebbe l'ora del sorgere confrontata con l'istante del "
-                'gesto')
+    # **IL SOFFIO TENUTO E L'ALBA PRIMA DEL SOLE SI SANNO MISURARE, ordine BX
+    # voce 01.** Qui c'erano due rifiuti. Adesso il Soffio manda il dettaglio
+    # `tenuto` solo da chi arriva in fondo al ciclo del respiro, e il Rito
+    # dell'Alba confronta l'istante del gesto col sorgere vero calcolato sulla
+    # posizione con cui il rito si e' composto. Traducono `regolaSoffioTenuto`
+    # e `regolaPrimaDelSole`.
     # **IL BUCO DI UN RITO SI SA MISURARE, ordine BW voce 07.** Qui c'era il
     # rifiuto: il diario contava i giorni di assenza dall'app. Adesso conta
     # anche quelli saltati di UN rito, e traduce `regolaRitornoAlRito`.
@@ -730,49 +875,29 @@ def regolaNonCostruibile(v, testo):
         return ('DORMIENTE',
                 'confrontare la propria lettura con quella di un altro chiede '
                 "il Cerchio degli altri, che nell app non esiste")
-    if 'cielo ti e' in testo and 'contrario' in testo:
-        return ('DORMIENTE',
-                'il catalogo del cielo non conosce nessun evento che si chiami '
-                "cielo contrario: sono transiti, fasi e retrogradi. "
-                'Inventarne uno vorrebbe dire inventare un astrologia')
-    # **L'ORA DEL RITO VIAGGIA CON L'EVENTO, ordine BW voce 07.** Qui c'era il
-    # rifiuto: l'app sapeva che oggi e' solstizio e che il gesto era stato
-    # compiuto, non che fosse stato compiuto di notte. Adesso il diario tiene
-    # anche cio' che oggi e' caduto in un'ora rituale, e la finestra del cielo
-    # sa chiederla.
-    # **DI CHI E' UN GESTO ADESSO SI SA, ordine BW voce 07.** Qui c'era il
-    # rifiuto: due gradini del ritorno misuravano lo stesso fatto perche' l'app
-    # registrava i gesti senza il loro Maestro. Adesso il legame lo dichiara il
-    # corpus, un gesto per sentiero, e il generatore lo scrive nella mappa
-    # `sentieroDelGesto`.
-    # **LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO NON SI PUO' MISURARE.**
-    # Ordine BS voce 00. Il diario conta quante volte un valore e' tornato DA
-    # SEMPRE, non quante volte e' tornato dentro una settimana o dentro un mese:
-    # sono due domande diverse, e rispondere alla prima fingendo di rispondere
-    # alla seconda regala un traguardo dell anno al primo giorno.
-    #
-    # **Non e' teoria: e' il difetto trovato da questa voce.** med_31 prometteva
-    # "lo stesso Arcano del Giorno esce due volte in una settimana" e chiedeva
-    # una coincidenza sola, cioe' si accendeva alla prima carta; aur_32
-    # prometteva "lo stesso archetipo esce due volte in una settimana" e
-    # chiedeva un archetipo qualunque, cioe' si accendeva al primo test.
+    # **IL CIELO CONTRARIO E' LA LUNA NEL SEGNO OPPOSTO, ordine BX voce 01.**
+    # Qui c'era il rifiuto, e diceva una cosa giusta: inventare un evento che
+    # si chiami "cielo contrario" vorrebbe dire inventare un'astrologia. Ma non
+    # serve inventarlo, perche' il catalogo ne ha gia' uno che la tradizione
+    # riconosce come giorno di tensione, la Luna nel segno OPPOSTO al proprio,
+    # e la traduzione la fa `regolaCieloContrario`. La scelta e' dichiarata nel
+    # manifesto e il fondatore la puo' rovesciare con una riga.
+    # **LE FINESTRE DI SETTE E TRENTA GIORNI SI SANNO MISURARE, ordine BX voce
+    # 01**: i dettagli portano la loro data e le traduce
+    # `regolaCoincidenzaNellaFinestra`. Le altre finestre, tre mesi e "a
+    # distanza di", restano fuori: il diario tiene le due che il corpus chiede
+    # davvero, e una finestra che nessuno calcola direbbe sempre zero.
     if ('stesso' in testo or 'stessa' in testo) and (
-            'in una settimana' in testo or 'in un mese' in testo
-            or 'in tre mesi' in testo or 'a distanza di' in testo):
+            'in tre mesi' in testo or 'a distanza di' in testo):
         return ('DORMIENTE',
-                'il diario conta le ripetizioni DA SEMPRE, non dentro una '
-                'finestra di tempo: "due volte in una settimana" chiede una '
-                'memoria con le date che il diario non tiene')
+                'il diario tiene le finestre di sette e trenta giorni, non '
+                'questa: "in tre mesi" e "a distanza di" chiedono una finestra '
+                'che nessuno calcola')
     # **CIO' CHE ESCE DALL ARCANO DEL GIORNO NON VIAGGIA.** La scena manda il
     # gesto e basta: quale carta sia uscita non lo sa nessuno, quindi "lo stesso
     # Arcano" non e' verificabile.
-    if 'stesso arcano del giorno' in testo or 'stesso arcano' in testo and 'giorno' in testo:
-        return ('DORMIENTE',
-                "l Arcano del Giorno non passa quale carta e' uscita: la scena "
-                'manda il gesto e basta. Servirebbe un dettaglio nuovo')
-    # **IL CONTENUTO DI UN SOGNO NON VIAGGIA.** Vale per il simbolo che torna e
-    # per l Animale Guida che vi compare: il rito manda il gesto, non cio' che
-    # si e' sognato.
+    # **L'ARCANO DEL GIORNO VIAGGIA, ordine BX voce 01**: la scena manda
+    # quale carta e' uscita, e la coincidenza dentro la settimana si misura.
     if 'sogn' in testo and ('compare' in testo or 'simbolo' in testo
                             or 'annotat' in testo):
         return ('DORMIENTE',
@@ -788,20 +913,25 @@ def regolaNonCostruibile(v, testo):
     # Ordine BS voce 00. Ognuna dice quale gesto o quale dettaglio manca e dove
     # andrebbe registrato: e' la differenza fra un traguardo che aspetta e un
     # traguardo che finge.
-    if 'leggi fino in fondo' in testo or 'fino in fondo' in testo:
+    # **L'ASCENDENTE FA ECCEZIONE, ordine BX voce 01**: la sua scheda la fine
+    # della lettura la segna, e la traduce `regolaLetturaFinoInFondo`. Il
+    # rifiuto vale per le altre schede, che quella fine non la dicono.
+    if 'ascendente' not in testo and ('leggi fino in fondo' in testo or 'fino in fondo' in testo):
         return ('DORMIENTE',
                 'la lettura FINO IN FONDO non arriva alla regia: la schermata '
                 "manda il gesto quando si apre, non quando si e' letta tutta. "
                 'Servirebbe che la scena segnasse la fine della lettura')
+    # **NON SI ARRIVA PIU' QUI PER L'ASCENDENTE, ordine BX voce 01**: la scheda
+    # della carta natale segna la fine della lettura, e la riga qui sopra
+    # riguarda ormai solo le schede che quella fine non la dicono.
     # **IL VERSO DELLA CARTA VIAGGIA, ordine BW voce 07.** Qui c'era il
     # rifiuto: la stesa mandava carte, semi, maggiori e argomento. Adesso manda
     # anche gli stemmi delle carte uscite al rovescio, e la traduzione la fa
     # `regolaRovescio`.
-    if 'runa coperta' in testo or 'girandola tu' in testo:
-        return ('DORMIENTE',
-                'girare una runa coperta invece di lasciarla al caso e un '
-                'gesto che la scena non distingue: manda la gettata e il suo '
-                'modo, non chi ha scoperto la runa')
+    # **LA PIETRA SI GIRA A MANO, ordine BX voce 01.** Qui c'era il rifiuto:
+    # la scena non distingueva chi avesse scoperto la runa. Adesso la
+    # pietra coperta risponde al dito e manda il gesto `runa_girata`, e la
+    # traduzione la fa `regolaRunaGirata`.
     if 'gli altri del cerchio' in testo:
         return ('DORMIENTE',
                 'guardare cosa accompagna gli altri chiede il Cerchio degli '
@@ -831,10 +961,8 @@ def regolaNonCostruibile(v, testo):
         return ('DORMIENTE',
                 'il diario non tiene QUANDO un gesto è stato compiuto la prima '
                 'volta, quindi "a un anno dal primo" non è verificabile')
-    if 'fasi lunari diverse' in testo:
-        return ('DORMIENTE',
-                'la fase lunare non viaggia coi dettagli del gesto: servirebbe '
-                'che la scena la passasse. È un dettaglio nuovo')
+    # **LA FASE LUNARE VIAGGIA COL GESTO, ordine BX voce 01**: la stesa manda
+    # il dettaglio composto 'carta@fase' e la traduce `regolaCartaSottoLeLune`.
     if 'piu lunghi del tuo primo' in testo:
         return ('DORMIENTE',
                 'il soffio non passa la propria durata: senza quel dettaglio '
@@ -919,11 +1047,19 @@ def regolaConteggio(v, testo):
 DETTAGLI_VIVI = {
     # 'rovescio' dall'ordine BW voce 07: gli stemmi delle carte uscite
     # capovolte, che prima restavano dentro la stesa.
-    'stesa': {'carte', 'semi', 'maggiori', 'argomento', 'rovescio'},
+    'stesa': {'carte', 'semi', 'maggiori', 'argomento', 'rovescio',
+              # Ordine BX voce 01: 'carta@fase', il dettaglio composto
+              # che risponde a "la stessa carta sotto tre Lune".
+              'carta_e_luna'},
     'gettata': {'modo'},
     'tramonto': {'runa'},
     'sinastria': {'vip'},
     'oroscopo': {'periodo'},
+    # Ordine BX voce 01: quale Arcano e' uscito oggi.
+    'oracolo': {'arcano'},
+    # Ordine BX voce 01.
+    'alba': {'prima_del_sole'},
+    'soffio': {'tenuto'},
     'archetipo': {'archetipo'},
     'animale_guida': {'animale'},
 }
@@ -994,6 +1130,12 @@ REGOLE = [
     regolaNonCostruibile,
     regolaGradini,
     regolaRovescio,
+    # **PRIMA DELLA COINCIDENZA GENERALE, ordine BX voce 01**: quella
+    # tradurrebbe "lo stesso Arcano due volte in una settimana" con una
+    # coincidenza senza finestra, cioe' con un gradino piu' facile, e "la
+    # stessa carta sotto tre Lune" contando le carte invece delle Lune.
+    regolaCoincidenzaNellaFinestra,
+    regolaCartaSottoLeLune,
     regolaVarieta,
     regolaCoincidenza,
     # **PRIMA DELLA FINESTRA GENERALE, ordine BW voce 07**: quella
@@ -1001,6 +1143,11 @@ REGOLE = [
     # finestra, cioe' renderebbe il gradino piu' facile di quanto e'.
     regolaRitoDelMaestroNelCielo,
     regolaCielo,
+    regolaRunaGirata,
+    regolaLetturaFinoInFondo,
+    regolaSoffioTenuto,
+    regolaPrimaDelSole,
+    regolaCieloContrario,
     regolaRitornoAlRito,
     regolaRitornoAlMaestro,
     regolaOraFedele,

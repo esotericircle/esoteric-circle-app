@@ -474,6 +474,58 @@ class StessaOraPerGiorni extends CondizioneDelTraguardo {
       (stato.oraFedelePerGesto[gesto] ?? 0) >= quantiGiorni;
 }
 
+/// LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO.
+///
+/// **Ordine BX voce 01.** "Lo stesso Arcano del Giorno esce due volte in
+/// una settimana": il diario contava le ripetizioni da sempre, quindi
+/// quel gradino si sarebbe acceso anche a due anni di distanza, cioe'
+/// avrebbe promesso una coincidenza dove c'era solo il tempo che passa.
+class CoincidenzaNellaFinestra extends CondizioneDelTraguardo {
+  const CoincidenzaNellaFinestra(
+      this.gesto, this.chiave, this.quante, this.giorni);
+
+  final String gesto;
+  final String chiave;
+  final int quante;
+  final int giorni;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'finestra:$gesto:$chiave:$quante:$giorni';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.ripetizioniNellaFinestra['$gesto.$chiave:$giorni'] ?? 0) >=
+      quante;
+}
+
+/// LO STESSO VALORE SOTTO COMPAGNI DIVERSI.
+///
+/// **Ordine BX voce 01.** "La stessa carta esce sotto tre fasi lunari
+/// diverse" non e' varieta', che conterebbe le carte, e non e'
+/// coincidenza, che conterebbe le uscite: e' una domanda sulla COPPIA
+/// carta e fase, e chiede quante fasi diverse ha visto la carta piu'
+/// accompagnata.
+class VarietaPerValore extends CondizioneDelTraguardo {
+  const VarietaPerValore(this.gesto, this.chiave, this.quanti);
+
+  final String gesto;
+  final String chiave;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'perValore:$gesto:$chiave:$quanti';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.variePerValore['$gesto.$chiave'] ?? 0) >= quanti;
+}
+
 /// IL RITORNO A UN RITO LASCIATO: lo si riprende dopo averlo saltato.
 ///
 /// **Ordine BW voce 07.** Il corpus chiede "un Soffio compiuto in un giorno
@@ -806,6 +858,8 @@ class StatoDelCammino {
     this.oggiHaFattoNellOra = const {},
     this.giorniSaltatiPerRito = const {},
     this.giorniDiAssenzaDalSentiero = const {},
+    this.ripetizioniNellaFinestra = const {},
+    this.variePerValore = const {},
     this.eventiDelCieloDiOggi = const {},
     this.pezziDellIdentita = const {},
     this.memoria = const {},
@@ -839,6 +893,22 @@ class StatoDelCammino {
 
   /// Quante volte un gesto e' caduto nella sua ora rituale.
   final Map<String, int> gestiNellOraGiusta;
+
+  /// **QUANTE VOLTE UN VALORE E' TORNATO DENTRO UNA FINESTRA DI GIORNI.**
+  /// Ordine BX voce 01. La chiave e' 'gesto.chiave:giorni', per esempio
+  /// 'oracolo.arcano:7', e il valore e' quante volte e' tornato il piu'
+  /// insistente dentro quella finestra. **Non e' [massimeRipetizioni]**,
+  /// che conta DA SEMPRE: "lo stesso Arcano due volte in una settimana"
+  /// e "due volte in due anni" sono due gradini diversi, e prima l'app
+  /// sapeva rispondere solo al secondo.
+  final Map<String, int> ripetizioniNellaFinestra;
+
+  /// **QUANTI COMPAGNI DIVERSI HA AVUTO IL VALORE PIU' ACCOMPAGNATO.**
+  /// Ordine BX voce 01. Per i dettagli composti, scritti 'x@y': per
+  /// ogni x, quanti y diversi si sono visti, e qui c'e' il massimo.
+  /// Serve a "la stessa carta esce sotto tre fasi lunari diverse", che
+  /// non e' ne' varieta' ne' coincidenza: e' una domanda su una coppia.
+  final Map<String, int> variePerValore;
 
   /// **CIO' CHE OGGI E' STATO FATTO IN UN'ORA RITUALE, ordine BW voce
   /// 07.** Le chiavi sono '$gesto@$ora', per esempio 'gettata@notte'.

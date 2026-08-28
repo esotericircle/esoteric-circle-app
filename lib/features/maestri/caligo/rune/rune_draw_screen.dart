@@ -1710,6 +1710,17 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
   /// L'ombra sta sul telo nel punto di caduta: larga e chiara quando la
   /// pietra e' in aria, stretta e scura al contatto, e il piccolo rimbalzo
   /// dell'ombra viene da se', perche' segue la quota che rimbalza.
+  /// **LE PIETRE GIRATE A MANO, ordine BX voce 01.** Nella gettata libera
+  /// alcune rune cadono in ombra e restano coperte: si leggono quelle in luce,
+  /// e le altre il caso le tiene per se'. Il corpus chiede "scopri una runa
+  /// coperta girandola tu invece di lasciarla al caso", e quel gesto non
+  /// esisteva: la pietra coperta non rispondeva al dito.
+  ///
+  /// **Il gesto e' suo e si chiama `runa_girata`**, non un secondo `gettata`:
+  /// contarlo come una gettata gonfierebbe il conto delle gettate del giorno,
+  /// che governa i limiti del listino.
+  final Set<int> _girateAMano = {};
+
   List<Widget> _pietraConOmbra(FisicaDellaGettata fisica, int i,
       RunaGettata runa, double t, double w, double h) {
     final StatoPietra stato;
@@ -1757,11 +1768,27 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
           opacity: opacita,
           child: Transform.rotate(
             angle: stato.rotazione,
-            child: _PietraPosata(
-                key: Key('runa_posata_$i'),
-                runa: runa,
-                palette: widget.palette,
-                coperta: runa.coperta),
+            child: Builder(builder: (ctx) {
+              final ancoraCoperta =
+                  runa.coperta && !_girateAMano.contains(i);
+              final pietra = _PietraPosata(
+                  key: Key('runa_posata_$i'),
+                  runa: runa,
+                  palette: widget.palette,
+                  coperta: ancoraCoperta);
+              if (!ancoraCoperta) return pietra;
+              return GestureDetector(
+                key: Key('runa_gira_$i'),
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  setState(() => _girateAMano.add(i));
+                  PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
+                  unawaited(
+                      RegiaDelCammino.dopoUnGesto(ctx, 'runa_girata'));
+                },
+                child: pietra,
+              );
+            }),
           ),
         ),
       ),

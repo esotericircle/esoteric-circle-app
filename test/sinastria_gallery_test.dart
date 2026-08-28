@@ -68,17 +68,24 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('La galleria mostra ricerca, filtri, In evidenza e la griglia',
+  testWidgets('La galleria mostra ricerca, la tendina e la griglia',
       (tester) async {
+    // **LA FILA DI PULSANTI E LA SEZIONE IN EVIDENZA NON CI SONO PIU'.**
+    // Parole del fondatore del 28 agosto 2026: "elimina la sezione Vip in
+    // evidenza che non serve a nulla" e "anziche' usare un pulsante per ogni
+    // categoria, usa un unico selettore menu' a tendina Categoria VIP con
+    // tutte le opzioni". Il VIP a caso resta, spostato accanto alla ricerca:
+    // toglierlo non l'ha chiesto nessuno.
     await pump(tester);
     expect(find.byKey(const Key('sinastria_gallery')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_search')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_random')), findsOneWidget);
-    expect(find.byKey(const Key('sinastria_filter_Tutti')), findsOneWidget);
-    // I filtri sono costruiti dalle categorie del catalogo.
-    for (final c in VipCatalog.categorie) {
-      expect(find.byKey(Key('sinastria_filter_$c')), findsOneWidget);
-    }
+    expect(find.byKey(const Key('sinastria_categoria')), findsOneWidget,
+        reason: 'la tendina delle categorie non c\'e\'');
+    expect(find.byKey(const Key('sinastria_filter_Tutti')), findsNothing,
+        reason: 'la fila di pulsanti per categoria e\' tornata');
+    expect(find.text('VIP in evidenza'), findsNothing,
+        reason: 'la sezione in evidenza e\' tornata');
     // Il primo VIP della griglia c'e'.
     expect(find.byKey(Key('vip_${VipCatalog.first.name}')), findsOneWidget);
   });
@@ -101,9 +108,12 @@ void main() {
     expect(find.byKey(const Key('sinastria_gallery_empty')), findsOneWidget);
   });
 
-  testWidgets('Il filtro per categoria restringe la griglia', (tester) async {
+  testWidgets('La tendina delle categorie restringe la griglia',
+      (tester) async {
     await pump(tester);
-    await tester.tap(find.byKey(const Key('sinastria_filter_Sport')));
+    await tester.tap(find.byKey(const Key('sinastria_categoria')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('sinastria_categoria_Sport')).last);
     await tester.pumpAndSettle();
     // Un VIP Sport resta, uno di un'altra categoria sparisce.
     expect(find.byKey(const Key('vip_Roger Federer')), findsOneWidget);

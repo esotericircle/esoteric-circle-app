@@ -97,9 +97,14 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           : null,
       // L'ORACOLO ENTRA NEL CAMMINO, ordine P voce 35: alla rivelazione, che
       // e' il momento in cui il dono e' davvero ricevuto.
+      // **QUALE ARCANO E' USCITO, ordine BX voce 01.** Il corpus chiede "lo
+      // stesso Arcano del Giorno esce due volte in una settimana", e il gesto
+      // arrivava nudo: la regia sapeva che l'Arcano era stato ricevuto, non
+      // quale fosse.
       onReveal: () => unawaited(RegiaDelCammino.dopoUnGesto(
           context, 'oracolo',
-          oraRituale: OraRituale.diAdesso(adesso: date))),
+          oraRituale: OraRituale.diAdesso(adesso: date),
+          dettagli: {'arcano': [carta.stem]})),
       // COSA STAI PER RICEVERE, prima del gesto: nessuno compie un gesto senza
       // sapere cosa ne esce.
       cosaRicevi: 'Una carta degli Arcani Maggiori, la tua per tutta la '

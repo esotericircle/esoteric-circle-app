@@ -47,6 +47,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _oraDelGesto.clear();
     _ultimoGiornoPerOra.clear();
     _dettagli.clear();
+    _dettagliRecenti.clear();
     _seriePerRito.clear();
     _ultimoGiornoPerRito.clear();
     _giorniPerRito.clear();
@@ -97,6 +98,7 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kUltimoGiornoPerOra = 'cammino.ultimoGiornoPerOra';
   static const _kOggiNellOra = 'cammino.oggiNellOra';
   static const _kUltimoPerSentiero = 'cammino.ultimoPerSentiero';
+  static const _kDettagliRecenti = 'cammino.dettagliRecenti';
 
   final Map<String, int> _gestiCompiuti = {};
   final Map<String, int> _giorniConGesto = {};
@@ -114,6 +116,24 @@ class DiarioDelCammino extends ChangeNotifier {
   /// domande: quanti valori DIVERSI si sono visti, e quante volte e' tornato
   /// il piu' insistente.
   final Map<String, Map<String, int>> _dettagli = {};
+
+  /// **I DETTAGLI CON LA LORO DATA, ordine BX voce 01.** Per
+  /// 'gesto.chiave', un elenco di 'valore|giorno'. La mappa qui sopra
+  /// conta da sempre e non sa rispondere a "due volte in una
+  /// settimana": quella domanda ha bisogno delle date, e sono queste.
+  ///
+  /// **Quanto pesa e' dichiarato**: al massimo [quantiDettagliRecenti]
+  /// voci per chiave, le piu' recenti, che coprono con margine le
+  /// finestre che il corpus chiede.
+  final Map<String, List<String>> _dettagliRecenti = {};
+
+  /// Quante voci datate si tengono per chiave.
+  static const int quantiDettagliRecenti = 60;
+
+  /// **LE FINESTRE CHE IL CORPUS CHIEDE**, e nessun'altra: chiederle
+  /// tutte sarebbe un conto per ogni giorno possibile, per rispondere a
+  /// domande che nessun traguardo fa.
+  static const List<int> finestreDeiDettagli = [7, 30];
 
   /// **QUANTO PESA SUL DISCO, dichiarato.** Al massimo questo numero di
   /// valori distinti per chiave: le carte sono settantotto, le rune
@@ -271,6 +291,7 @@ class DiarioDelCammino extends ChangeNotifier {
       _leggiTesti(prefs.getString(_kUltimoGiornoPerOra),
           _ultimoGiornoPerOra);
       _leggiIDettagli(prefs.getString(_kDettagli), sommando: fondi);
+      _leggiIDettagliRecenti(prefs.getString(_kDettagliRecenti));
       if (!fondi) _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
       _oggiHaFatto.addAll(prefs.getStringList(_kOggi) ?? const []);
       _oggiHaFattoNellOra
@@ -448,6 +469,81 @@ class DiarioDelCammino extends ChangeNotifier {
   /// stringhe e quante volte sono comparsi. Non si tiene quando, non si
   /// tiene in che ordine, e non si tiene niente che la scena non abbia gia'
   /// in mano: dove un dato utile non c'e', non si inventa.
+  /// Rilegge i dettagli datati dal disco. Si UNISCONO, non si sommano:
+  /// una voce datata e' un fatto, e due letture dello stesso fatto non
+  /// ne fanno due.
+  void _leggiIDettagliRecenti(String? grezzo) {
+    if (grezzo == null) return;
+    try {
+      final letto = jsonDecode(grezzo);
+      if (letto is! Map) return;
+      for (final voce in letto.entries) {
+        final dentro = voce.value;
+        if (dentro is! List) continue;
+        final miei = _dettagliRecenti.putIfAbsent(
+            voce.key.toString(), () => <String>[]);
+        for (final v in dentro) {
+          if (v is String && !miei.contains(v)) miei.add(v);
+        }
+        if (miei.length > quantiDettagliRecenti) {
+          miei.removeRange(0, miei.length - quantiDettagliRecenti);
+        }
+      }
+    } catch (errore) {
+      // Un elenco illeggibile vale come elenco vuoto, la stessa regola
+      // dei giorni per rito: non si spegne il cammino per una chiave.
+    }
+  }
+
+  /// **LE RIPETIZIONI DENTRO LE FINESTRE CHIESTE DAL CORPUS.**
+  /// Ordine BX voce 01.
+  Map<String, int> _ripetizioniNellaFinestra() {
+    final risposte = <String, int>{};
+    final oggi = _giornoDallaChiave(
+        ConfineDelGiorno.chiaveDi(_orologio()));
+    if (oggi == null) return const {};
+    for (final voce in _dettagliRecenti.entries) {
+      for (final finestra in finestreDeiDettagli) {
+        final conta = <String, int>{};
+        for (final riga in voce.value) {
+          final taglio = riga.lastIndexOf('|');
+          if (taglio <= 0) continue;
+          final quando = _giornoDallaChiave(riga.substring(taglio + 1));
+          if (quando == null) continue;
+          if (oggi.difference(quando).inDays >= finestra) continue;
+          final valore = riga.substring(0, taglio);
+          conta[valore] = (conta[valore] ?? 0) + 1;
+        }
+        if (conta.isEmpty) continue;
+        risposte['${voce.key}:$finestra'] =
+            conta.values.reduce((a, b) => a > b ? a : b);
+      }
+    }
+    return Map.unmodifiable(risposte);
+  }
+
+  /// **QUANTI COMPAGNI DIVERSI HA IL VALORE PIU' ACCOMPAGNATO.**
+  /// Ordine BX voce 01: i dettagli composti si scrivono 'x@y', e qui si
+  /// guarda, per ogni x, quanti y diversi ha visto.
+  Map<String, int> _variePerValore() {
+    final risposte = <String, int>{};
+    for (final voce in _dettagli.entries) {
+      final compagni = <String, Set<String>>{};
+      for (final valore in voce.value.keys) {
+        final taglio = valore.indexOf('@');
+        if (taglio <= 0) continue;
+        compagni
+            .putIfAbsent(valore.substring(0, taglio), () => <String>{})
+            .add(valore.substring(taglio + 1));
+      }
+      if (compagni.isEmpty) continue;
+      risposte[voce.key] = compagni.values
+          .map((s) => s.length)
+          .reduce((a, b) => a > b ? a : b);
+    }
+    return Map.unmodifiable(risposte);
+  }
+
   void _registraIDettagli(String gesto, Map<String, Object?> dettagli) {
     for (final voce in dettagli.entries) {
       final valori = <String>[];
@@ -461,6 +557,16 @@ class DiarioDelCammino extends ChangeNotifier {
       }
       if (valori.isEmpty) continue;
       final chiave = '$gesto.${voce.key}';
+      // **CON LA DATA, ordine BX voce 01.** Serve alle coincidenze dentro una
+      // finestra di tempo: il conto senza date non le sa distinguere.
+      final oggi = ConfineDelGiorno.chiaveDi(_orologio());
+      final recenti = _dettagliRecenti.putIfAbsent(chiave, () => <String>[]);
+      for (final valore in valori) {
+        recenti.add('$valore|$oggi');
+      }
+      if (recenti.length > quantiDettagliRecenti) {
+        recenti.removeRange(0, recenti.length - quantiDettagliRecenti);
+      }
       final dentro = _dettagli.putIfAbsent(chiave, () => <String, int>{});
       for (final valore in valori) {
         if (!dentro.containsKey(valore) &&
@@ -613,6 +719,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _oraDelGesto.clear();
     _ultimoGiornoPerOra.clear();
     _dettagli.clear();
+    _dettagliRecenti.clear();
     _ultimoGiornoPerRito.clear();
     _oggiHaFatto.clear();
     _oggiHaFattoNellOra.clear();
@@ -679,6 +786,8 @@ class DiarioDelCammino extends ChangeNotifier {
       oggiHaFatto: Set.unmodifiable(_oggiHaFatto),
       oggiHaFattoNellOra: Set.unmodifiable(_oggiHaFattoNellOra),
       giorniSaltatiPerRito: _giorniSaltatiPerRito(),
+      ripetizioniNellaFinestra: _ripetizioniNellaFinestra(),
+      variePerValore: _variePerValore(),
       giorniDiAssenzaDalSentiero:
           Map.unmodifiable(_assenzaDalSentiero),
       seriePerRito: seriePerRito,
@@ -960,6 +1069,8 @@ class DiarioDelCammino extends ChangeNotifier {
       await prefs.setStringList(_kAccesi, _accesi.toList());
       await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
       await prefs.setString(_kDettagli, jsonEncode(_dettagli));
+      await prefs.setString(
+          _kDettagliRecenti, jsonEncode(_dettagliRecenti));
       await prefs.setStringList(_kCondivisi, _condivisi.toList());
       if (_primoGiorno != null) {
         await prefs.setString(_kPrimoGiorno, _primoGiorno!);

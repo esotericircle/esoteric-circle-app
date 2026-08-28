@@ -17,7 +17,6 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/gemello_astrale.dart';
-import 'cielo_dei_volti.dart';
 import '../../core/synastry/collezione_delle_coppie.dart';
 import 'collezione_screen.dart';
 import 'rivelazione_del_gemello.dart';
@@ -82,7 +81,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   static const String _tutti = 'Tutti';
 
   final TextEditingController _ricerca = TextEditingController();
-  late final math.Random _rng = widget.random ?? math.Random();
 
   String _query = '';
   String _categoria = _tutti;
@@ -91,6 +89,33 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// all'apertura: cinquanta responsi costano poco, ma calcolarli per chi non
   /// li ha chiesti sarebbe lavoro buttato a ogni apertura della galleria.
   GemelloAstrale? _gemello;
+
+  late final math.Random _rng = widget.random ?? math.Random();
+
+  void _aCaso() {
+    const vips = VipCatalog.vips;
+    _apri(vips[_rng.nextInt(vips.length)]);
+  }
+
+  /// **SI SCEGLIE IL PRIMO VIP, non lo sceglie l'app.** Parole del fondatore
+  /// del 28 agosto 2026: "il confronto tra 2 vip lo da' sempre con Angelina
+  /// Jolie e non ha senso". Era vero e la causa stava in una riga: il
+  /// pulsante chiamava `_sostituisciLaPrimaCasella(VipCatalog.first)`, cioe'
+  /// il primo del catalogo, che e' Angelina Jolie. Adesso il tocco apre la
+  /// SCELTA del primo, e la persona tocca la carta che vuole.
+  bool _scegliIlPrimo = false;
+
+  /// Rimette il proprio cielo al posto del primo VIP: e' la via del ritorno
+  /// che mancava del tutto.
+  void _tornaATe() {
+    if (widget.primoVip != null) {
+      // Questa galleria e' la seconda, aperta sopra la prima: si torna
+      // indietro, e sotto c'e' la galleria di se stessi.
+      Navigator.of(context).maybePop();
+      return;
+    }
+    setState(() => _scegliIlPrimo = false);
+  }
 
   @override
   void dispose() {
@@ -110,6 +135,17 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// Vero mentre la schermata di un VIP e' aperta: da quel momento la scena
   /// sta raccontando, e nessuna festa ci si dipinge sopra. Ordine BV voce 02.
   bool _unVipEAperto = false;
+
+  /// Cosa fa il tocco su una carta: aprire quel VIP, oppure sceglierlo come
+  /// primo dei due quando la persona ha chiesto il confronto fra due VIP.
+  void _tocca(Vip vip) {
+    if (_scegliIlPrimo) {
+      setState(() => _scegliIlPrimo = false);
+      _sostituisciLaPrimaCasella(vip);
+      return;
+    }
+    _apri(vip);
+  }
 
   void _apri(Vip vip) {
     // **LA SCENA SI DICHIARA OCCUPATA PRIMA DEL GESTO, ordine BV voce 02.**
@@ -203,10 +239,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
     ));
   }
 
-  void _aCaso() {
-    const vips = VipCatalog.vips;
-    _apri(vips[_rng.nextInt(vips.length)]);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,43 +282,63 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _BarraRicerca(
-                        controller: _ricerca,
-                        palette: palette,
-                        onCambia: (v) => setState(() => _query = v),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _BarraRicerca(
+                              controller: _ricerca,
+                              palette: palette,
+                              onCambia: (v) => setState(() => _query = v),
+                            ),
+                          ),
+                          // **IL VIP A CASO RESTA, e cambia posto.** Viveva
+                          // dentro la sezione "VIP in evidenza" che il
+                          // fondatore ha fatto togliere: la sezione se ne va,
+                          // la funzione no, perche' toglierla non gliel'ha
+                          // chiesto nessuno.
+                          IconButton(
+                            key: const Key('sinastria_random'),
+                            onPressed: _aCaso,
+                            tooltip: 'Un VIP a caso',
+                            icon: Icon(Icons.casino_rounded,
+                                color: palette.goldSoft),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: SpacingTokens.md),
-                      _FiltriCategoria(
+                      // **UNA TENDINA SOLA AL POSTO DELLA FILA DI PULSANTI.**
+                      // Parole del fondatore del 28 agosto 2026: "anziche'
+                      // usare un pulsante per ogni categoria, usa un unico
+                      // selettore menu' a tendina Categoria VIP con tutte le
+                      // opzioni". La fila scorreva e le categorie in fondo non
+                      // si vedevano; la tendina le mostra tutte in una volta.
+                      _TendinaDelleCategorie(
                         categorie: categorie,
                         attiva: _categoria,
                         palette: palette,
                         onScegli: (c) => setState(() => _categoria = c),
                       ),
                       const SizedBox(height: SpacingTokens.lg),
-                      _InEvidenza(
-                        palette: palette,
-                        onApri: _apri,
-                        onACaso: _aCaso,
-                      ),
-                      const SizedBox(height: SpacingTokens.lg),
-                      // **IL GEMELLO ASTRALE, ordine BO voce 10.**
+                      // **VIA LA SEZIONE "VIP IN EVIDENZA".** Parole del
+                      // fondatore: "elimina la sezione Vip in evidenza che non
+                      // serve a nulla". Prendeva l'altezza di una schermata
+                      // sopra la galleria vera.
+                      // **LE DUE PORTE CHE DEVONO RISALTARE.** Parole del
+                      // fondatore del 28 agosto 2026: il gemello astrale "e'
+                      // una funzione potenzialmente virale e deve risaltare",
+                      // e il confronto fra due VIP "deve essere anche una
+                      // funzione ben visibile". Erano due righe di testo con
+                      // un'iconcina, in fondo a una colonna: adesso sono due
+                      // porte alte, col fondo del Maestro e il bordo d'oro.
                       if (_gemello == null)
-                        Center(
-                          child: OutlinedButton.icon(
-                            key: const Key('sinastria_cerca_gemello'),
-                            onPressed: _cercaIlGemello,
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: palette.goldSoft,
-                              side: BorderSide(
-                                  color:
-                                      palette.gold.withValues(alpha: 0.6)),
-                              minimumSize: const Size.fromHeight(48),
-                            ),
-                            icon: const Icon(Icons.auto_awesome, size: 18),
-                            label: Text('Trova il tuo gemello astrale',
-                                style: TypographyTokens.etichetta()
-                                    .copyWith(letterSpacing: 0.6)),
-                          ),
+                        _PortaGrande(
+                          chiave: const Key('sinastria_cerca_gemello'),
+                          titolo: 'Trova il tuo gemello astrale VIP',
+                          sotto: 'Il volto famoso che porta il tuo stesso '
+                              'cielo',
+                          icona: Icons.auto_awesome,
+                          palette: palette,
+                          onTocco: _cercaIlGemello,
                         )
                       else
                         GestureDetector(
@@ -299,20 +351,31 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       // prima casella sei tu in modo predefinito, e da qui si
                       // sostituisce: la galleria si riapre per scegliere chi
                       // gli mettere contro.
-                      if (widget.primoVip == null)
-                        Center(
-                          child: TextButton.icon(
-                            key: const Key('sinastria_due_vip'),
-                            onPressed: () =>
-                                _sostituisciLaPrimaCasella(VipCatalog.first),
-                            style: TextButton.styleFrom(
-                                foregroundColor: palette.goldSoft,
-                                minimumSize: const Size.fromHeight(48)),
-                            icon: const Icon(Icons.compare_arrows_rounded,
-                                size: 18),
-                            label: Text('Metti due VIP uno contro l\'altro',
-                                style: TypographyTokens.etichetta()),
-                          ),
+                      if (widget.primoVip == null && !_scegliIlPrimo)
+                        _PortaGrande(
+                          chiave: const Key('sinastria_due_vip'),
+                          titolo: 'Confronta 2 VIP',
+                          sotto: 'Scegli tu i due volti da mettere uno '
+                              'contro l\'altro',
+                          icona: Icons.compare_arrows_rounded,
+                          palette: palette,
+                          onTocco: () =>
+                              setState(() => _scegliIlPrimo = true),
+                        ),
+                      // **E LA VIA DEL RITORNO A SE STESSI.** Domanda del
+                      // fondatore: "quando l'utente e' in modalita' confronto
+                      // tra 2 VIP, come fa a tornare a mettere se stesso?".
+                      // Non poteva: la seconda galleria si apriva col primo
+                      // VIP gia' fissato e nessuna riga tornava indietro.
+                      if (widget.primoVip != null || _scegliIlPrimo)
+                        _PortaGrande(
+                          chiave: const Key('sinastria_torna_a_te'),
+                          titolo: 'Torna a te',
+                          sotto: 'Rimetti il tuo cielo al posto del primo '
+                              'VIP',
+                          icona: Icons.person_rounded,
+                          palette: palette,
+                          onTocco: _tornaATe,
                         ),
                       const SizedBox(height: SpacingTokens.md),
                       Center(
@@ -333,10 +396,12 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       ),
                       const SizedBox(height: SpacingTokens.lg),
                       Text(
-                          widget.primoVip == null
-                              ? 'Tutti i VIP'
-                              : 'Scegli chi mettere contro '
-                                  '${widget.primoVip!.name}',
+                          _scegliIlPrimo
+                              ? 'Scegli il primo dei due VIP'
+                              : widget.primoVip == null
+                                  ? 'Tutti i VIP'
+                                  : 'Scegli chi mettere contro '
+                                      '${widget.primoVip!.name}',
                           style: TypographyTokens.display(size: 18)
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: SpacingTokens.sm),
@@ -357,24 +422,36 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   ),
                 )
               else
-                // **IL CIELO DEI VOLTI AL POSTO DELLA GRIGLIA, ordine BO voce
-                // 05.** Era una `SliverGrid` di mattonelle tutte uguali e
-                // ferme: cinquanta ritratti in fila come un catalogo di
-                // prodotti. Adesso i volti stanno sospesi su tre profondita' e
-                // si muovono con la parallasse gia' esistente.
+                // **LA GRIGLIA ORDINATA TORNA, e SOSTITUISCE il cielo dei
+                // volti dell'ordine BO voce 05.** Parole del fondatore del 28
+                // agosto 2026: "la visualizzazione dei vip come le carte
+                // mischiate senza ordine e con dimensioni diverse non va bene,
+                // non si vedono i nomi dei vip, ma non si riconoscono nemmeno
+                // i volti". Erano tutte e due vere: i ritratti stavano su tre
+                // piani di profondita', quindi tre misure diverse, e il nome
+                // scendeva fino al 55 per cento di opacita' sul piano piu'
+                // lontano.
+                //
+                // Qui i ritratti hanno la STESSA misura, stanno in fila e
+                // ognuno porta il suo nome pieno sotto.
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                       SpacingTokens.lg, SpacingTokens.xxxl),
-                  sliver: SliverToBoxAdapter(
-                    child: CieloDeiVolti(
-                      vips: filtrati,
-                      // La larghezza la sa questa schermata: e' quella dello
-                      // schermo meno i due margini della lista. Chiederla a
-                      // un LayoutBuilder costava un rilayout per fotogramma.
-                      larghezza: MediaQuery.sizeOf(context).width -
-                          SpacingTokens.lg * 2,
-                      palette: palette,
-                      onApri: _apri,
+                  sliver: SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 132,
+                      mainAxisSpacing: SpacingTokens.md,
+                      crossAxisSpacing: SpacingTokens.sm,
+                      childAspectRatio: 0.72,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) => _CartaDelVip(
+                        vip: filtrati[i],
+                        palette: palette,
+                        onTocco: () => _tocca(filtrati[i]),
+                      ),
+                      childCount: filtrati.length,
                     ),
                   ),
                 ),
@@ -491,9 +568,18 @@ class _BarraRicerca extends StatelessWidget {
   }
 }
 
-/// La riga dei filtri per categoria, con "Tutti" davanti.
-class _FiltriCategoria extends StatelessWidget {
-  const _FiltriCategoria({
+
+
+
+/// LA TENDINA DELLE CATEGORIE, una sola al posto della fila di pulsanti.
+///
+/// **Parole del fondatore del 28 agosto 2026**: "anziche' usare un pulsante
+/// per ogni categoria, usa un unico selettore menu' a tendina Categoria VIP
+/// con tutte le opzioni". La fila di prima scorreva in orizzontale, quindi le
+/// categorie oltre la terza esistevano solo per chi si accorgeva di poterla
+/// trascinare.
+class _TendinaDelleCategorie extends StatelessWidget {
+  const _TendinaDelleCategorie({
     required this.categorie,
     required this.attiva,
     required this.palette,
@@ -507,196 +593,195 @@ class _FiltriCategoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Un Wrap, non una lista orizzontale: tutte le categorie sono sempre a
-    // vista, nessuna resta nascosta oltre il bordo.
-    return Wrap(
-      spacing: SpacingTokens.sm,
-      runSpacing: SpacingTokens.sm,
-      children: [
-        for (final c in categorie)
-          GestureDetector(
-            key: Key('sinastria_filter_$c'),
-            onTap: () => onScegli(c),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-                color: c == attiva
-                    ? palette.primary.withValues(alpha: 0.5)
-                    : palette.surface.withValues(alpha: 0.35),
-                border: Border.all(
-                    color: c == attiva
-                        ? palette.goldSoft
-                        : palette.gold.withValues(alpha: 0.3),
-                    width: c == attiva ? 1.5 : 1),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+    return Container(
+      key: const Key('sinastria_categoria'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.md, vertical: SpacingTokens.xxs),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        color: palette.deepest.withValues(alpha: 0.55),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: attiva,
+          isExpanded: true,
+          dropdownColor: palette.surfaceElevated,
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          icon: Icon(Icons.arrow_drop_down_rounded, color: palette.goldSoft),
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textPrimary),
+          // L'etichetta sta DENTRO la tendina chiusa, sopra il valore: chi la
+          // guarda deve sapere cosa sta scegliendo prima di aprirla.
+          selectedItemBuilder: (context) => [
+            for (final c in categorie)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // **LA CATEGORIA E' UNA COSTELLAZIONE, ordine BO voce 05.**
-                  // Non un'icona presa da un repertorio: un disegno di stelle
-                  // che nasce dal NOME, quindi ogni categoria ha il suo e due
-                  // categorie non possono averne uno uguale per distrazione.
-                  SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CustomPaint(
-                      painter: CostellazioneDellaCategoria(
-                        nome: c,
-                        colore: c == attiva
-                            ? palette.goldSoft
-                            : palette.gold.withValues(alpha: 0.55),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: SpacingTokens.xs),
+                  Text('CATEGORIA VIP',
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 0.8)),
                   Text(c,
-                      style: TypographyTokens.label(size: 12).copyWith(
-                          color: c == attiva
-                              ? palette.goldSoft
-                              : ColorTokens.textPrimary,
-                          letterSpacing: 0.4)),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textPrimary)),
                 ],
               ),
-            ),
-          ),
-      ],
+          ],
+          items: [
+            for (final c in categorie)
+              DropdownMenuItem<String>(
+                value: c,
+                key: Key('sinastria_categoria_$c'),
+                child: Text(c,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: c == attiva
+                            ? palette.goldSoft
+                            : ColorTokens.textPrimary)),
+              ),
+          ],
+          onChanged: (c) {
+            if (c != null) onScegli(c);
+          },
+        ),
+      ),
     );
   }
 }
 
-/// La fascia "In evidenza": una selezione curata piu' il tasto "A caso".
-class _InEvidenza extends StatelessWidget {
-  const _InEvidenza({
+/// UNA PORTA CHE SI VEDE: titolo grande, una riga di spiegazione, il fondo del
+/// Maestro e il bordo d'oro.
+///
+/// **Parole del fondatore del 28 agosto 2026**: il gemello astrale "e' una
+/// funzione potenzialmente virale e deve risaltare", e il confronto fra due
+/// VIP "deve essere anche una funzione ben visibile". Erano due `TextButton`
+/// con un'icona da diciotto punti.
+class _PortaGrande extends StatelessWidget {
+  const _PortaGrande({
+    required this.chiave,
+    required this.titolo,
+    required this.sotto,
+    required this.icona,
     required this.palette,
-    required this.onApri,
-    required this.onACaso,
+    required this.onTocco,
   });
 
+  final Key chiave;
+  final String titolo;
+  final String sotto;
+  final IconData icona;
   final MaestroPalette palette;
-  final ValueChanged<Vip> onApri;
-  final VoidCallback onACaso;
+  final VoidCallback onTocco;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text('In evidenza',
-                  style: TypographyTokens.display(size: 18)
-                      .copyWith(color: palette.goldSoft)),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: chiave,
+          onTap: onTocco,
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.md, vertical: SpacingTokens.md),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              color: palette.surfaceElevated.withValues(alpha: 0.85),
+              border: Border.all(color: palette.gold, width: 1.5),
             ),
-            FilledButton.icon(
-              key: const Key('sinastria_random'),
-              onPressed: onACaso,
-              style: FilledButton.styleFrom(
-                  backgroundColor: palette.primary,
-                  foregroundColor: palette.onPrimary,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.md, vertical: SpacingTokens.xs)),
-              icon: const Icon(Icons.casino_rounded, size: 18),
-              label: Text('A caso',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(letterSpacing: 0.4)),
-            ),
-          ],
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        SizedBox(
-          height: 150,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: VipCatalog.inEvidenza.length,
-            separatorBuilder: (_, __) => const SizedBox(width: SpacingTokens.md),
-            itemBuilder: (context, i) {
-              final vip = VipCatalog.inEvidenza[i];
-              return SizedBox(
-                width: 96,
-                child: _VipTile(
-                  key: Key('vip_evidenza_${vip.name}'),
-                  vip: vip,
-                  palette: palette,
-                  onTap: () => onApri(vip),
-                  compatta: true,
+            child: Row(
+              children: [
+                Icon(icona, size: 28, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(titolo,
+                          style: TypographyTokens.titoloScheda()
+                              .copyWith(color: palette.goldSoft)),
+                      const SizedBox(height: 2),
+                      Text(sotto,
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: ColorTokens.textPrimary)),
+                    ],
+                  ),
                 ),
-              );
-            },
+                Icon(Icons.chevron_right_rounded,
+                    color: palette.goldSoft, size: 22),
+              ],
+            ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
 
-/// Una tessera VIP: il volto nella cornice, sotto il nome e il segno.
-class _VipTile extends StatelessWidget {
-  const _VipTile({
-    super.key,
+/// LA CARTA DI UN VIP NELLA GRIGLIA: stessa misura per tutti, nome leggibile.
+///
+/// **Parole del fondatore del 28 agosto 2026**: "la visualizzazione dei vip
+/// come le carte mischiate senza ordine e con dimensioni diverse non va bene,
+/// non si vedono i nomi dei vip, ma non si riconoscono nemmeno i volti".
+class _CartaDelVip extends StatelessWidget {
+  const _CartaDelVip({
     required this.vip,
     required this.palette,
-    required this.onTap,
-    this.compatta = false,
+    required this.onTocco,
   });
 
   final Vip vip;
   final MaestroPalette palette;
-  final VoidCallback onTap;
-  final bool compatta;
+  final VoidCallback onTocco;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      key: Key('vip_${vip.name}'),
+      onTap: onTocco,
+      behavior: HitTestBehavior.opaque,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      palette.surfaceElevated.withValues(alpha: 0.7),
-                      palette.deepest.withValues(alpha: 0.7),
-                    ],
-                  ),
-                  border:
-                      Border.all(color: palette.gold.withValues(alpha: 0.6)),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: vip.hasImage
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                border:
+                    Border.all(color: palette.gold.withValues(alpha: 0.45)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                child: vip.thumbPath != null
+                    // La miniatura e non il ritratto pieno: cinquanta ritratti
+                    // interi in scena sarebbero un ordine di grandezza di
+                    // memoria in piu'.
                     ? Image.asset(vip.thumbPath!,
-                        // Un ritratto e' un soggetto: con cover il volto veniva
-                        // tagliato dal riquadro. Trovato da una prova che
-                        // enumera, non da una segnalazione.
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
-                            color: palette.goldSoft, size: 28))
+                            color: palette.goldSoft, size: 24))
                     : Icon(Icons.auto_awesome,
-                        color: palette.goldSoft, size: 28),
+                        color: palette.goldSoft, size: 24),
               ),
             ),
           ),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(vip.name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: compatta ? 12 : 13)
-                  .copyWith(color: ColorTokens.textPrimary)),
-          Text(vip.sign.italianName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 0.4)),
+          const SizedBox(height: SpacingTokens.xxs),
+          // **IL NOME A PIENO CONTRASTO**, non al cinquantacinque per cento:
+          // era quello il motivo per cui non si leggeva.
+          Text(
+            vip.name,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.15),
+          ),
         ],
       ),
     );

@@ -80,9 +80,16 @@ void main() {
     expect(r.width, greaterThanOrEqualTo(48.0));
     expect(r.height, greaterThanOrEqualTo(48.0));
 
+    // **IL TOCCO ADESSO CHIEDE COSA FARE.** Ordine del fondatore del 28
+    // agosto 2026: "l'utente fa click sulla carta e puo' cambiare il vip". Il
+    // ritratto si apre dalla prima voce del foglio; la carta resta
+    // ingrandibile al click, che era il difetto 2 dell'ordine BO.
     await tester.tap(polo);
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('sinastria_scelte_carta')), findsOneWidget,
+        reason: 'il tocco sulla carta non offre piu\' nessuna scelta');
+    await tester.tap(find.byKey(const Key('sinastria_apri_carta')));
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('ritratto_figura')), findsOneWidget,
         reason: 'il ritratto del VIP non si apre: era il difetto 2 del '
             'fondatore, "la Carta vip deve essere ingrandibile al click"');
@@ -106,8 +113,9 @@ void main() {
       (tester) async {
     await monta(tester, VipCatalog.conNome('Zendaya')!);
     await tester.tap(find.byKey(const Key('sinastria_pole_vip')));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('sinastria_apri_carta')));
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('ritratto_figura')), findsOneWidget);
     // E' una rotta, quindi il gesto indietro ce l'ha per costruzione.
     Navigator.of(tester.element(find.byType(MaestroScope).first)).maybePop();

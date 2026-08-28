@@ -434,6 +434,83 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     super.dispose();
   }
 
+  /// **COSA FA IL TOCCO SU UNA CARTA VIP. Ordine del fondatore del 28 agosto
+  /// 2026**: "l'utente fa click sulla carta e puo' cambiare il vip", e la
+  /// domanda che veniva dopo, "quando l'utente e' in modalita' confronto tra 2
+  /// VIP, come fa a tornare a mettere se stesso?".
+  ///
+  /// Prima il tocco faceva una cosa sola, aprire il ritratto: chi voleva
+  /// cambiare il VIP doveva tornare indietro e ricominciare, e chi era finito
+  /// nel confronto fra due VIP non aveva nessuna strada per rimettersi al
+  /// proprio posto. Adesso il tocco chiede cosa si vuole fare.
+  Future<void> _cosaFareCon(Vip quale, {required bool eIlPrimo}) async {
+    final palette = MaestroScope.of(context);
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: palette.surfaceElevated,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(SpacingTokens.radiusLg)),
+      ),
+      builder: (foglio) => SafeArea(
+        child: Column(
+          key: const Key('sinastria_scelte_carta'),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              key: const Key('sinastria_apri_carta'),
+              leading: Icon(Icons.zoom_in_rounded, color: palette.goldSoft),
+              title: Text('Apri la carta di ${quale.name}',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textPrimary)),
+              onTap: () {
+                Navigator.of(foglio).pop();
+                mostraIlRitrattoIngrandito(context,
+                    vip: quale, palette: palette);
+              },
+            ),
+            ListTile(
+              key: const Key('sinastria_cambia_questo_vip'),
+              leading:
+                  Icon(Icons.swap_horiz_rounded, color: palette.goldSoft),
+              title: Text('Cambia questo VIP',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textPrimary)),
+              subtitle: Text('Torni alla galleria e ne scegli un altro',
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: ColorTokens.textSecondary)),
+              onTap: () {
+                Navigator.of(foglio).pop();
+                Navigator.of(context).maybePop();
+              },
+            ),
+            if (eIlPrimo)
+              ListTile(
+                key: const Key('sinastria_rimetti_te'),
+                leading:
+                    Icon(Icons.person_rounded, color: palette.goldSoft),
+                title: Text('Rimetti te al posto di ${quale.name}',
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textPrimary)),
+                onTap: () {
+                  Navigator.of(foglio).pop();
+                  Navigator.of(context).pushReplacement(
+                    SinastriaVipScreen.route(
+                      userSign: widget.userSign,
+                      userName: widget.userName,
+                      userBirth: widget.userBirth,
+                      vip: _vip,
+                      giaScoperta: true,
+                    ),
+                  );
+                },
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
@@ -628,9 +705,9 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                       key: const Key('sinastria_pole_primo_vip'),
                       palette: palette,
                       sign: widget.primoVip!.sign,
-                      hint: 'Apri la carta di ${widget.primoVip!.name}',
-                      onTap: () => mostraIlRitrattoIngrandito(context,
-                          vip: widget.primoVip!, palette: palette),
+                      hint: 'Apri o cambia ${widget.primoVip!.name}',
+                      onTap: () => _cosaFareCon(widget.primoVip!,
+                          eIlPrimo: true),
                       portrait: VipFramedPortrait(
                         palette: palette,
                         name: widget.primoVip!.name,
@@ -653,9 +730,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                 // **LA CARTA SI APRE AL TOCCO, ordine BO voce 08.** Era
                 // l'unica cosa della scena a non rispondere al dito, ed e' il
                 // difetto 2 del fondatore.
-                hint: 'Apri la carta di ${_vip.name}',
-                onTap: () => mostraIlRitrattoIngrandito(context,
-                    vip: _vip, palette: palette),
+                hint: 'Apri o cambia ${_vip.name}',
+                onTap: () => _cosaFareCon(_vip, eIlPrimo: false),
                 // Il ritratto VIP con la sua cornice originale, senza aggiunte.
                 portrait: VipFramedPortrait(
                   palette: palette,

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/maestro_del_gesto.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'istante_dichiarato.dart';
 
 /// LE CONDIZIONI COSTRUITE. Ordine BW voce 07.
 ///
@@ -235,6 +239,220 @@ void main() {
       expect(voce.condizione.raggiunto(stato), isFalse,
           reason: 'il gradino si accende anche di giorno: l\'ora non conta '
               'davvero');
+    });
+  });
+
+  group('BX.01, i dettagli che adesso viaggiano col gesto', () {
+    /// **DUE META' DI UNA PROVA SOLA.** Una condizione costruita vale se il
+    /// dato la accende E se la scena manda quel dato: misurare solo la prima
+    /// meta' vorrebbe dire sorvegliare una condizione che nessuno alimenta,
+    /// ed e' esattamente il difetto che teneva dormienti queste voci.
+    void laScenaManda(String file, String pezzo, String cosa) {
+      final sorgente = File(file).readAsStringSync();
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: $cosa parte da $file? '
+          '${sorgente.contains(pezzo)}');
+      expect(sorgente.contains(pezzo), isTrue,
+          reason: 'la scena $file non manda piu\' $cosa: la condizione resta '
+              'viva e nessuno la alimenta');
+    }
+
+    test('Il Soffio tenuto fino alla fine accende aur_7', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      await diario.segna('soffio', dettagli: const {'tenuto': ['intero']});
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_7');
+      expect(voce.dormiente, isFalse, reason: 'aur_7 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'il Soffio tenuto non accende "${voce.nome}"');
+      laScenaManda('lib/features/rituals/breath_destiny_screen.dart',
+          "'tenuto': ['intero']", 'il respiro tenuto');
+    });
+
+    test('Un Soffio interrotto non accende aur_7', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      // Il gesto c'e', il dettaglio no: e' il Soffio lasciato a meta'.
+      await diario.segna('soffio');
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_7');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse,
+          reason: 'un Soffio qualunque accende il gradino di chi lo tiene '
+              'fino alla fine');
+    });
+
+    test('L\'Alba prima del sorgere vero accende aur_18', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      await diario
+          .segna('alba', dettagli: const {'prima_del_sole': ['si']});
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_18');
+      expect(voce.dormiente, isFalse, reason: 'aur_18 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'l\'Alba prima del sole non accende "${voce.nome}"');
+      laScenaManda('lib/features/rituals/dawn_rite_screen.dart',
+          "'prima_del_sole': ['si']", 'il sorgere vero');
+      laScenaManda('lib/features/rituals/dawn_rite_screen.dart',
+          'SunsetTime.albaPerData', 'il calcolo del sorgere');
+    });
+
+    test('La pietra girata a mano accende cal_8', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      await diario.segna('runa_girata');
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_8');
+      expect(voce.dormiente, isFalse, reason: 'cal_8 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'la pietra girata non accende "${voce.nome}"');
+      laScenaManda('lib/features/maestri/caligo/rune/rune_draw_screen.dart',
+          "dopoUnGesto(ctx, 'runa_girata')", 'il gesto della pietra girata');
+      // E il conto delle gettate non si gonfia: e' il conto che governa i
+      // limiti del listino.
+      expect(diario.statoDelCammino().gestiCompiuti['gettata'] ?? 0, 0,
+          reason: 'girare una pietra ha contato come una gettata');
+    });
+
+    test('La scheda dell\'Ascendente letta fino in fondo accende med_2',
+        () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      await diario.segna('ascendente');
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_2');
+      expect(voce.dormiente, isFalse, reason: 'med_2 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'la lettura fino in fondo non accende "${voce.nome}"');
+      laScenaManda('lib/features/onboarding/natal_chart_reveal.dart',
+          "dopoUnGesto(context, 'ascendente')", 'la fine della lettura');
+    });
+  });
+
+  group('BX.01, il cielo contrario e le finestre di tempo', () {
+    test('Il cielo contrario e\' la Luna nel segno opposto', () {
+      // **LA TRADUZIONE E' UNA SCELTA, dichiarata nel manifesto.** Il corpus
+      // dice "un Soffio compiuto in un giorno in cui il cielo ti e'
+      // contrario" e lo annota "Cielo avverso", e nel catalogo non esiste
+      // nessun evento con quel nome. Inventarlo vorrebbe dire inventare
+      // un'astrologia; la tradizione pero' chiama Saturno il grande malefico e
+      // il suo retrogrado il tempo in cui si volta contro, e il catalogo lo
+      // calcola gia'.
+      //
+      // **La Luna nel segno opposto era la prima scelta e l'ha scartata una
+      // prova di casa**: aur_24 la usa gia', e due gradini con la stessa
+      // firma sono un gradino detto due volte. Il fondatore puo' rovesciare
+      // la scelta con una riga.
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_40');
+      final condizione = voce.condizione;
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: il cielo contrario e\' tradotto con '
+          '${condizione.firma}');
+      expect(voce.dormiente, isFalse, reason: 'aur_40 dorme ancora');
+      expect(condizione.firma, contains('saturno_retrogrado'),
+          reason: 'la traduzione del cielo contrario e\' cambiata senza '
+              'dirlo: adesso e\' ${condizione.firma}');
+      final acceso = condizione.raggiunto(const StatoDelCammino(
+        oggiHaFatto: {'soffio'},
+        eventiDelCieloDiOggi: {'saturno_retrogrado'},
+      ));
+      expect(acceso, isTrue,
+          reason: 'il Soffio nel giorno di Saturno retrogrado non accende '
+              '"${voce.nome}"');
+      final senzaLaLuna = condizione.raggiunto(
+          const StatoDelCammino(oggiHaFatto: {'soffio'}));
+      expect(senzaLaLuna, isFalse,
+          reason: 'il gradino si accende in un giorno qualunque');
+    });
+
+    test('Lo stesso Arcano due volte in una settimana accende med_31',
+        () async {
+      // **IL GESTO VERO**: l'Arcano del Giorno ricevuto lunedi' e di nuovo
+      // giovedi', ed e' lo stesso. Prima il diario contava le ripetizioni DA
+      // SEMPRE, quindi due uscite a due anni di distanza sarebbero valse
+      // uguale.
+      SharedPreferences.setMockInitialValues(const {});
+      var adesso = DateTime(2026, 8, 10, 9);
+      final diario = DiarioDelCammino(orologio: () => adesso);
+      await diario.carica();
+      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      adesso = DateTime(2026, 8, 13, 9);
+      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      final stato = diario.statoDelCammino();
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: lo stesso Arcano dentro sette giorni e\' '
+          'tornato ${stato.ripetizioniNellaFinestra['oracolo.arcano:7']} volte');
+      expect(stato.ripetizioniNellaFinestra['oracolo.arcano:7'], 2);
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_31');
+      expect(voce.dormiente, isFalse, reason: 'med_31 dorme ancora');
+      expect(voce.condizione.raggiunto(stato), isTrue,
+          reason: 'due Arcani uguali in una settimana non accendono '
+              '"${voce.nome}"');
+      final scena =
+          File('lib/features/rituals/day_oracle_screen.dart').readAsStringSync();
+      expect(scena.contains("'arcano': [carta.stem]"), isTrue,
+          reason: 'la scena dell\'Arcano non manda piu\' quale carta e\' '
+              'uscita: la condizione resta viva e nessuno la alimenta');
+    });
+
+    test('Lo stesso Arcano a un mese di distanza non accende med_31',
+        () async {
+      // **LA FINESTRA E' LA SOSTANZA DEL GRADINO**: senza, sarebbe una
+      // coincidenza promessa dove c'e' solo il tempo che passa.
+      SharedPreferences.setMockInitialValues(const {});
+      var adesso = DateTime(2026, 7, 1, 9);
+      final diario = DiarioDelCammino(orologio: () => adesso);
+      await diario.carica();
+      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      adesso = DateTime(2026, 8, 10, 9);
+      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      final stato = diario.statoDelCammino();
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: a quaranta giorni di distanza, dentro la '
+          'settimana ne conta ${stato.ripetizioniNellaFinestra['oracolo.arcano:7']}');
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_31');
+      expect(voce.condizione.raggiunto(stato), isFalse,
+          reason: 'due Arcani uguali a quaranta giorni di distanza accendono '
+              'un gradino che chiede una settimana');
+    });
+
+    test('La stessa carta sotto tre Lune diverse accende med_41', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      for (final luna in ['Luna nuova', 'Primo quarto', 'Luna piena']) {
+        await diario.segna('stesa',
+            dettagli: {'carta_e_luna': ['ilMatto@$luna']});
+      }
+      final stato = diario.statoDelCammino();
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: la carta piu\' accompagnata ha visto '
+          '${stato.variePerValore['stesa.carta_e_luna']} Lune diverse');
+      expect(stato.variePerValore['stesa.carta_e_luna'], 3);
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_41');
+      expect(voce.dormiente, isFalse, reason: 'med_41 dorme ancora');
+      expect(voce.condizione.raggiunto(stato), isTrue,
+          reason: 'la stessa carta sotto tre Lune non accende "${voce.nome}"');
+    });
+
+    test('Tre carte diverse sotto tre Lune non accendono med_41', () async {
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      const carte = ['ilMatto', 'laTorre', 'lEremita'];
+      const lune = ['Luna nuova', 'Primo quarto', 'Luna piena'];
+      for (var i = 0; i < 3; i++) {
+        await diario.segna('stesa',
+            dettagli: {'carta_e_luna': ['${carte[i]}@${lune[i]}']});
+      }
+      final stato = diario.statoDelCammino();
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_41');
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 1: tre carte diverse danno '
+          '${stato.variePerValore['stesa.carta_e_luna']} come massimo');
+      expect(voce.condizione.raggiunto(stato), isFalse,
+          reason: 'tre carte DIVERSE accendono il gradino della stessa carta');
     });
   });
 }
