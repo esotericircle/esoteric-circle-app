@@ -93,6 +93,36 @@ class PossibilitaDiIncontro {
   /// sarebbe una promessa, sotto sarebbe la stessa piattezza di prima.
   static const double tetto = 18.0;
 
+  /// **QUANTO SI VEDE LA DIFFERENZA FRA DUE COPPIE. Ordine BX voce 09,
+  /// secondo rilievo.**
+  ///
+  /// **Il fatto, misurato su seicento coppie vere prima di toccare
+  /// qualsiasi cosa**: la possibilita' andava da 0,00 a 4,46 per cento, con
+  /// mediana 2,62. Il fondatore ha ragione a dire che sembra sempre
+  /// bassissima, ma **il numero e' vero**: la probabilita' di incontrare
+  /// davvero una persona famosa che vive lontano E' piccola, e gonfiarla
+  /// sarebbe una bugia scritta bene.
+  ///
+  /// **Quello che si puo' fare senza mentire e' farla LEGGERE.** La barra
+  /// mostrava la percentuale cruda su una scala da cento: due per cento su
+  /// cento e' una barra vuota per tutti, e due coppie diverse sembravano
+  /// uguali. Qui la barra dice quanto quella possibilita' e' vicina al
+  /// massimo che questo modello concede, e la riga sotto continua a dire la
+  /// percentuale vera. Il numero non cambia: cambia quanto si vede.
+  int get indiceSullaScala => ((percento / tetto) * 100).round().clamp(0, 100);
+
+  /// **E IN PAROLE, che e' come una persona la legge davvero.** Cinque
+  /// gradini, e due coppie che stanno su gradini diversi si distinguono a
+  /// colpo d'occhio anche senza guardare il numero.
+  String get inParole {
+    final quota = percento / tetto;
+    if (quota < 0.08) return 'Quasi impossibile';
+    if (quota < 0.16) return 'Molto improbabile';
+    if (quota < 0.30) return 'Improbabile';
+    if (quota < 0.55) return 'Possibile';
+    return 'Alla vostra portata';
+  }
+
   /// Il pavimento: nessuna possibilita' scende a zero, perche' zero vorrebbe
   /// dire impossibile, e non lo e'.
   static const double pavimento = 0.1;

@@ -194,7 +194,20 @@ class Vip {
       );
 
   /// Vero se il VIP non e' piu' in vita.
-  bool get eScomparso => statoInVita == StatoInVita.scomparso;
+  ///
+  /// **PASSA DALLE CORREZIONI DEL SERVER, ordine BX voce 09, quarto rilievo.**
+  /// Il catalogo e' una costante Dart: prima di quest'ordine lo stato in vita
+  /// di una persona poteva cambiare SOLO pubblicando una versione nuova
+  /// dell'app, e per una persona famosa che muore quella e' una bugia a
+  /// schermo per tutto il tempo che passa fra il fatto e la pubblicazione.
+  /// **Verificato, non dedotto**: `vips` e' `static const List<Vip>`, quindi
+  /// nessuna riga di codice puo' cambiarne un campo a runtime.
+  ///
+  /// Adesso il server puo' correggere lo stato, e la correzione arriva con
+  /// `statoDelCerchio`, che l'app chiede a ogni apertura. Il catalogo resta la
+  /// verita' di partenza; la correzione e' l'ultima parola.
+  bool get eScomparso =>
+      CorrezioniDeiVip.statoDi(name, statoInVita) == StatoInVita.scomparso;
 
   /// La data di nascita per esteso, in italiano.
   ///
@@ -1228,4 +1241,52 @@ class VipCatalog {
         for (final nome in inEvidenzaNomi)
           vips.firstWhere((v) => v.name == nome),
       ];
+}
+
+
+/// LE CORREZIONI DEL CATALOGO CHE ARRIVANO DAL SERVER. Ordine BX voce 09.
+///
+/// **Perche' esiste.** Il catalogo dei VIP e' una costante compilata dentro
+/// l'app: il giorno che una persona famosa muore, l'app continua a proporre
+/// la possibilita' di incontrarla finche' non esce una versione nuova. Non e'
+/// un difetto di gusto, e' una cosa falsa detta a chi legge.
+///
+/// **Cosa puo' correggere, e cosa no.** Solo lo stato in vita, che e' l'unico
+/// campo che cambia da solo nel mondo: la data di nascita e il luogo non
+/// cambiano mai, e lasciarli correggibili vorrebbe dire lasciare che il
+/// server riscriva l'astrologia di una persona.
+///
+/// **Vive in memoria e non tocca il disco**: arriva con lo stato a ogni
+/// apertura, e senza rete l'app usa il catalogo compilato, che e' l'ultima
+/// verita' conosciuta.
+class CorrezioniDeiVip {
+  const CorrezioniDeiVip._();
+
+  static Map<String, StatoInVita> _correzioni = const {};
+
+  /// Quante correzioni sono in vigore adesso.
+  static int get quante => _correzioni.length;
+
+  /// Applica le correzioni arrivate dal server. Una mappa vuota le toglie
+  /// tutte, ed e' cio' che deve succedere se il server smette di mandarle.
+  static void applica(Map<String, String> dalServer) {
+    final lette = <String, StatoInVita>{};
+    for (final voce in dalServer.entries) {
+      final stato = switch (voce.value.trim().toLowerCase()) {
+        'scomparso' => StatoInVita.scomparso,
+        'in_vita' || 'invita' || 'vivo' => StatoInVita.inVita,
+        _ => null,
+      };
+      if (stato != null) lette[voce.key] = stato;
+    }
+    _correzioni = Map.unmodifiable(lette);
+  }
+
+  /// Lo stato che vale adesso per quel nome: la correzione se c'e', altrimenti
+  /// quello del catalogo.
+  static StatoInVita statoDi(String nome, StatoInVita dalCatalogo) =>
+      _correzioni[nome] ?? dalCatalogo;
+
+  /// Solo per le prove: si riparte dal catalogo nudo.
+  static void azzera() => _correzioni = const {};
 }

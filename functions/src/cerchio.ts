@@ -468,6 +468,46 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // la cancellazione e' immediata e totale, e lo stato non ha piu' niente
   // da raccontare in proposito.
 
+  // **LE CORREZIONI DEL CATALOGO DEI VIP. Ordine BX voce 09, quarto
+  // rilievo.**
+  //
+  // Il catalogo dei 50 personaggi vive dentro l'app come costante compilata:
+  // il giorno che una persona famosa muore, l'app continua a proporre la
+  // possibilita' di incontrarla finche' non esce una versione nuova sugli
+  // store, che sono giorni. Questo documento e' l'unico modo di dire la
+  // verita' prima.
+  //
+  // **Solo lo stato in vita**: la data e il luogo di nascita non cambiano
+  // mai, e lasciarli correggibili vorrebbe dire lasciare che un documento
+  // riscriva l'astrologia di una persona.
+  //
+  // **Nessuna callable nuova**, per la stessa ragione del cammino, del
+  // listino e degli inviti: `statoDelCerchio` e' cio' che si chiede a ogni
+  // apertura, e un secondo canale sullo stesso momento sarebbe la seconda
+  // porta sullo stesso dato.
+  //
+  // **Il documento non esiste finche' non serve**: se manca, la mappa e'
+  // vuota e vale il catalogo compilato, che e' cio' che era vero prima.
+  const correzioniDeiVip = await (async () => {
+    try {
+      const snap = await db.doc("catalogo/vip").get();
+      const grezze = snap.data()?.statoInVita;
+      if (!grezze || typeof grezze !== "object") return {};
+      const puliti: Record<string, string> = {};
+      for (const [nome, stato] of Object.entries(grezze)) {
+        if (typeof stato !== "string") continue;
+        if (stato !== "scomparso" && stato !== "in_vita") continue;
+        puliti[nome] = stato;
+      }
+      return puliti;
+    } catch (senzaDocumento) {
+      // Una correzione che non si riesce a leggere non deve impedire
+      // l'apertura del Cerchio: vale il catalogo compilato.
+      logger.warn("correzioni dei vip non lette", senzaDocumento);
+      return {};
+    }
+  })();
+
   return {
     giorno,
     piano,
@@ -498,6 +538,10 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // chiede a ogni apertura, e un secondo canale sarebbe la seconda porta.
     invitiAccolti: invitiDi.accolti,
     invitiPerMaestro: invitiDi.perMaestro,
+    // **LO STATO IN VITA CORRETTO, ordine BX voce 09.** Vuoto quasi sempre:
+    // porta solo i nomi per cui il catalogo compilato dell'app dice una cosa
+    // diversa da quella vera.
+    correzioniDeiVip,
     // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
     // server. Il client lo mostra sul pulsante e non lo detta mai.
     listinoDelRiscatto: PREZZI_DEL_RISCATTO,

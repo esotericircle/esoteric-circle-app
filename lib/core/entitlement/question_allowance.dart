@@ -8,6 +8,7 @@ import '../cammino/cammino_da_custodire.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'tier.dart';
+import '../synastry/vip_catalog.dart';
 
 /// Contatore locale delle domande ai Maestri, per tier.
 ///
@@ -623,6 +624,17 @@ class QuestionAllowance extends ChangeNotifier {
     // voci lo aspettano.
     _invitiAccolti = stato.invitiAccolti;
     _invitiPerMaestro = stato.invitiPerMaestro;
+    // **LE CORREZIONI DEL CATALOGO DEI VIP, ordine BX voce 09.** Il catalogo
+    // dei 50 personaggi e' una costante compilata: senza questa riga, lo
+    // stato in vita di una persona puo' cambiare solo pubblicando una
+    // versione nuova dell'app.
+    //
+    // **Si applica sempre, anche vuoto**: una mappa vuota vuol dire che
+    // vale il catalogo compilato, che e' l'ultima verita' conosciuta e cio'
+    // che era vero prima di quest'ordine. Non e' come i listini, dove il
+    // vuoto di un server vecchio cancellerebbe un prezzo giusto: qui il
+    // vuoto non cancella niente, riporta al catalogo.
+    CorrezioniDeiVip.applica(stato.correzioniDeiVip);
     // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
     // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
     // Cerchio dice sul denaro: una seconda casa per tre numeri sarebbe la

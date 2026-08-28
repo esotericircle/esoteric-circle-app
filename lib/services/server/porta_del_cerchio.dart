@@ -22,6 +22,7 @@ class StatoDelCerchio {
     this.accreditati = const [],
     this.invitiAccolti = 0,
     this.invitiPerMaestro = const {},
+    this.correzioniDeiVip = const {},
   });
 
   final String giorno;
@@ -71,6 +72,16 @@ class StatoDelCerchio {
   /// **DA QUALE PORTA SONO ENTRATI.** Ordine BX voce 02: il corpus ha tre
   /// voci, una per Maestro, e senza la porta misurerebbero lo stesso fatto.
   final Map<String, int> invitiPerMaestro;
+
+  /// **LO STATO IN VITA CORRETTO DAL SERVER. Ordine BX voce 09.**
+  ///
+  /// Il catalogo dei VIP e' una costante compilata dentro l'app: senza questo
+  /// canale, il giorno che una persona famosa muore l'app continua a
+  /// proporre la possibilita' di incontrarla finche' non esce una versione
+  /// nuova sugli store. Vuota quasi sempre, e vuota anche con un server piu'
+  /// vecchio dell'app: allora vale il catalogo compilato, che e' cio' che era
+  /// vero prima.
+  final Map<String, String> correzioniDeiVip;
 
   /// **QUANTO COSTA RISCATTARE UN USO DI UN BUDGET FINITO.** Ordine BG voce
   /// 05: il prezzo lo decide il server, il client lo mostra sul pulsante e
@@ -151,6 +162,11 @@ class StatoDelCerchio {
           for (final voce
               in (risposta['invitiPerMaestro'] as Map).entries)
             if (voce.value is num) '${voce.key}': (voce.value as num).toInt(),
+      },
+      correzioniDeiVip: {
+        if (risposta['correzioniDeiVip'] is Map)
+          for (final voce in (risposta['correzioniDeiVip'] as Map).entries)
+            if (voce.value is String) '${voce.key}': voce.value as String,
       },
     );
   }

@@ -1,5 +1,6 @@
 import '../astro/natal_chart.dart';
 import 'cielo_della_sinastria.dart';
+import 'altre_affinita.dart';
 import 'possibilita_di_incontro.dart';
 import 'vip_catalog.dart';
 
@@ -36,6 +37,9 @@ class SynastryReport {
     required this.love,
     required this.mental,
     required this.sparks,
+    this.terraComune = 50,
+    this.ritmo = 50,
+    this.vitaQuotidiana = 50,
     required this.meetingPercent,
     required this.meetingQuip,
     required this.incontro,
@@ -58,6 +62,13 @@ class SynastryReport {
   final int love;
   final int mental;
   final int sparks;
+
+  /// **LE TRE DIMENSIONI IN PIU', ordine BX voce 09.** Fondate su tradizione
+  /// documentata e calcolate in modo deterministico dai due cieli, come le
+  /// tre di prima: vedi `AltreAffinita` per la fonte di ognuna.
+  final int terraComune;
+  final int ritmo;
+  final int vitaQuotidiana;
 
   /// **LA POSSIBILITA' DI INCONTRO, ordine BO voce 03.** Sta qui dentro col
   /// suo perche', e non e' piu' un numero nudo. Per chi non c'e' piu' non
@@ -109,10 +120,24 @@ class SynastryReport {
         SynastryBar(label: 'Affinità d\'amore', value: love),
         SynastryBar(label: 'Intesa mentale', value: mental),
         SynastryBar(label: 'Scintille', value: sparks),
+        // **TRE DIMENSIONI IN PIU', ordine BX voce 09, terzo rilievo.** Le
+        // tre di prima guardavano tutte lo stesso materiale, gli aspetti fra
+        // i punti personali. Queste guardano cose diverse e ognuna poggia su
+        // una tradizione documentata: gli elementi, le qualita' e gli aspetti
+        // della Luna con l'Ascendente. Il perche' di ognuna vive in
+        // `AltreAffinita`, con la fonte scritta.
+        SynastryBar(label: 'Terra comune', value: terraComune),
+        SynastryBar(label: 'Ritmo', value: ritmo),
+        SynastryBar(label: 'Vita quotidiana', value: vitaQuotidiana),
         if (incontro.esiste)
           SynastryBar(
             label: 'Possibilità di incontro',
-            value: incontro.percento.floor(),
+            // **LA BARRA DICE QUANTO SI E' VICINI AL MASSIMO POSSIBILE,
+            // ordine BX voce 09**: la percentuale cruda su una scala da
+            // cento era una barra vuota per tutti, e due coppie diverse
+            // sembravano uguali. La riga sotto continua a dire la
+            // percentuale vera.
+            value: incontro.indiceSullaScala,
             quip: incontro.perche,
           ),
       ];
@@ -181,6 +206,9 @@ class SynastryReport {
       love: love,
       mental: mental,
       sparks: sparks,
+      terraComune: AltreAffinita.terraComune(tuo, suo),
+      ritmo: AltreAffinita.ritmo(tuo, suo),
+      vitaQuotidiana: AltreAffinita.vitaQuotidiana(aspetti),
       meetingPercent: incontro.percento,
       meetingQuip: meetingQuip,
       incontro: incontro,
@@ -223,6 +251,11 @@ class SynastryReport {
       love: numeri.love,
       mental: numeri.mental,
       sparks: numeri.sparks,
+      // Le tre dimensioni in piu' valgono anche fra due VIP: e' la stessa
+      // scala, ordine BX voce 09.
+      terraComune: AltreAffinita.terraComune(cieloA, cieloB),
+      ritmo: AltreAffinita.ritmo(cieloA, cieloB),
+      vitaQuotidiana: AltreAffinita.vitaQuotidiana(aspetti),
       meetingPercent: 0,
       meetingQuip: '',
       incontro: PossibilitaDiIncontro(
@@ -298,10 +331,30 @@ class SynastryReport {
       mente += _pesoDiMente(a) * forza;
       scintille += _pesoDiScintille(a) * forza;
     }
-    final love = _sullaScala(amore, riferimento: 2.4, minimo: 40, massimo: 99);
-    final mental = _sullaScala(mente, riferimento: 1.6, minimo: 40, massimo: 98);
+    // **LA SCALA USA TUTTO L'INTERVALLO UTILE. Ordine BX voce 09, primo
+    // rilievo.**
+    //
+    // **Il fatto, misurato prima di toccare qualsiasi cosa**, su seicento
+    // coppie vere (dodici nascite sparse nell'anno per cinquanta VIP):
+    // l'affinita' totale andava da 35 a 76, ma **quattrocentonovantadue coppie
+    // su seicento cadevano fra 45 e 65**, e la fascia dal decimo al novantesimo
+    // percentile era larga venti punti soli, da 43 a 63. Il fondatore aveva
+    // ragione: due coppie molto diverse davano numeri che si somigliavano.
+    //
+    // **La causa erano i pavimenti e la curva.** I minimi partivano da 40, e
+    // la curva `x/(x+riferimento)` satura verso il mezzo: due terzi della
+    // scala non venivano mai usati.
+    //
+    // **La cura non cambia l'astrologia**: i pesi degli aspetti, gli orbi e le
+    // regole della tradizione restano identici, e l'ORDINE fra due coppie non
+    // cambia mai. Cambia quanto la stessa differenza si vede: i pavimenti
+    // scendono e la distanza dal mezzo si allarga.
+    final love =
+        _sullaScala(amore, riferimento: 2.4, minimo: 8, massimo: 99);
+    final mental =
+        _sullaScala(mente, riferimento: 1.6, minimo: 8, massimo: 98);
     final sparks =
-        _sullaScala(scintille, riferimento: 2.0, minimo: 8, massimo: 95);
+        _sullaScala(scintille, riferimento: 2.0, minimo: 4, massimo: 96);
     return (
       overall: (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99),
       love: love,
@@ -395,6 +448,18 @@ class SynastryReport {
   /// responsi distinti invece di schiacciarli tutti sul massimo. Le somme
   /// negative, che nascono da molte quadrature, scendono sotto il mezzo senza
   /// sfondare il minimo.
+  /// **DOVE STA IL MEZZO VERO, e non dove si crederebbe.** Ordine BX voce 09.
+  /// Misurato su seicento coppie: la quota grezza della curva ha mediana
+  /// intorno a 0,30, non a 0,50. Allargare attorno a mezzo senza saperlo
+  /// spingeva tutte le coppie in basso, e la misura lo ha detto subito: la
+  /// mediana dell'affinita' era scesa a diciannove.
+  static const double _centro = 0.30;
+
+  /// Quanto si allarga la distanza dal centro vero. Uno vorrebbe dire
+  /// lasciare le cose come stavano; il numero e' scelto sulla misura delle
+  /// seicento coppie e la sua prova lo sorveglia.
+  static const double _allargamento = 1.6;
+
   static int _sullaScala(double somma,
       {required double riferimento,
       required int minimo,
@@ -403,7 +468,13 @@ class SynastryReport {
     final quota = x / (x + riferimento);
     final penalita = somma < 0 ? (-somma / (-somma + riferimento)) * 0.5 : 0.0;
     final valore = (quota - penalita).clamp(0.0, 1.0);
-    return (minimo + valore * (massimo - minimo)).round();
+    // **LA DISTANZA DAL MEZZO SI ALLARGA, ordine BX voce 09.** E' una
+    // trasformazione MONOTONA: chi stava sopra resta sopra, chi stava sotto
+    // resta sotto, e nessun aspetto cambia peso. Serve solo a far vedere una
+    // differenza che c'era gia' e che la curva schiacciava verso il mezzo.
+    final allargato =
+        (0.5 + (valore - _centro) * _allargamento).clamp(0.0, 1.0);
+    return (minimo + allargato * (massimo - minimo)).round();
   }
 
   /// IL TESTO, che nomina il fatto vero invece di una frase generica.
