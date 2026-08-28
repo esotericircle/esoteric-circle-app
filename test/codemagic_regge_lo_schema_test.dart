@@ -389,6 +389,26 @@ void main() {
               'contatore e\' condiviso con Android e si alza in pubspec.yaml.');
     });
 
+    test('la cache tiene l\'SDK, cosi\' non si riscarica ogni volta', () {
+      // **Ordine BZ voce 02, rettifica del 28 agosto 2026.** Il passo che
+      // installa gli strumenti scaricava OGNI VOLTA i 2.211.439.713 byte
+      // dell\'archivio di Flutter, con un tetto interno di 300 secondi: su
+      // tre costruzioni osservate dal fondatore ha impiegato 49 secondi, 51
+      // secondi e un\'ora e venti. Senza cache la costruzione dipende dal
+      // riuscire a scaricare due giga a ogni giro.
+      final cache = w['cache'] as Map<String, dynamic>?;
+      expect(cache, isNotNull,
+          reason: 'il workflow non dichiara nessuna cache: gli strumenti si '
+              'riscaricano a ogni costruzione');
+      final percorsi = (cache!['cache_paths'] as List).cast<String>();
+      // ignore: avoid_print
+      print('ORDINE BZ VOCE 2: percorsi in cache $percorsi');
+      expect(percorsi, contains(r'$FLUTTER_ROOT'),
+          reason: 'l\'SDK di Flutter non e\' in cache, ed e\' lui i due giga');
+      expect(percorsi.length, greaterThanOrEqualTo(2),
+          reason: 'in cache c\'e\' solo l\'SDK: anche i pacchetti Dart e i pod '
+              'si riscaricano ogni volta');
+    });
     test('nessuna credenziale dentro il file', () {
       // **SI GUARDA IL CONTENUTO, NON I COMMENTI.** La prima stesura cercava
       // le parole vietate in tutto il testo e cadeva su ".p8", che nel file

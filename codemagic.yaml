@@ -123,7 +123,69 @@ workflows:
       #
       # La creazione va chiesta, e si chiede con gli script piu' sotto.
 
+    # **LA CACHE, E PERCHE' ESISTE. Ordine BZ voce 02, rettifica del 28
+    # agosto 2026.**
+    #
+    # Fatto del fondatore su tre costruzioni osservate: 49 secondi, 51
+    # secondi, poi un blocco di un'ora e venti, poi un altro passaggio a otto
+    # minuti e ancora in corso. Il registro dice cosa fa quel passo: scarica
+    # OGNI VOLTA da zero l'archivio di Flutter 3.44.5, cioe' 2.211.439.713
+    # byte, e lo scompatta in 18.256 file, con un tetto interno di 300
+    # secondi sul comando che scarica. Una costruzione che dipende dal
+    # riuscire a scaricare due giga a ogni giro non e' una costruzione, e' una
+    # scommessa.
+    #
+    # **La cura non tocca la versione**, che resta quella sovrana di
+    # `docs/versione_flutter.json`: si tiene l'SDK gia' scaricato fra una
+    # costruzione e l'altra. `$FLUTTER_ROOT` e' la cartella dove Codemagic
+    # installa la versione chiesta; le altre due righe sono i pacchetti Dart e
+    # i pod di CocoaPods, che si riscaricano per le stesse ragioni.
+    #
+    # **Cosa deve guardare il fondatore per accertarlo**, perche' senza la
+    # macchina che costruisce io non posso misurarlo: nel registro della
+    # PROSSIMA costruzione, il passo che installa gli strumenti deve dire che
+    # la cache e' stata ripristinata e non deve piu' nominare i due giga
+    # dell'archivio. Dalla seconda costruzione in poi quel passo dura secondi.
+    # Alla PRIMA costruzione dopo questa riga la cache e' ancora vuota, quindi
+    # scarichera' come prima: e' la volta che la riempie.
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT
+        - $HOME/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
+
     scripts:
+      - name: Che strumenti ha questa macchina, prima di ogni altra cosa
+        script: |
+          # **QUESTO PASSO NON COSTRUISCE NIENTE: MISURA. Ordine BZ voce 02,
+          # aggiornamento delle 23:12 del 28 agosto 2026.**
+          #
+          # Fatto del fondatore su CINQUE costruzioni: 51 secondi, 49 secondi,
+          # un'ora e venti, otto minuti, e infine un fallimento dopo tredici
+          # minuti e trentacinque secondi. Quattro su cinque fuori dai tempi
+          # normali, e il passo che si pianta e' sempre quello che installa gli
+          # strumenti: scarica l'archivio di Flutter 3.44.5, 2.211.439.713
+          # byte, e lo scompatta in 18.256 file.
+          #
+          # **Il sospetto dell'Architetto e' che 3.44.5 non sia fra le versioni
+          # gia' presenti su queste macchine.** Io da qui non posso ne'
+          # confermarlo ne' abbatterlo: la macchina non ce l'ho. Queste righe
+          # lo mettono nero su bianco nel registro della prossima costruzione,
+          # ed e' il dato che serve a decidere.
+          #
+          # **Non tocco il numero fisso.** Vive in quattro file per l'ordine BF
+          # voce 05.i, con la sua guardia: cambiarlo vuol dire cambiarlo
+          # ovunque e farlo installare anche al portatile del fondatore, ed e'
+          # una sua decisione, non mia.
+          echo "== VERSIONE CHIESTA: $(grep -E '^      flutter:' codemagic.yaml || true)"
+          echo "== VERSIONE ATTIVA:"
+          flutter --version || true
+          echo "== VERSIONI GIA' SULLA MACCHINA:"
+          ls -1 "$HOME/programs" 2>/dev/null || true
+          ls -1 "$HOME/programs/flutter" 2>/dev/null | head -20 || true
+          echo "== CACHE RIPRISTINATA?"
+          du -sh "$FLUTTER_ROOT" 2>/dev/null || echo "FLUTTER_ROOT non misurabile"
+
       - name: La configurazione di Firebase, scritta dalla variabile cifrata
         script: |
           # **IL PLIST NON STA NEL REPOSITORY, ED E' UNA DECISIONE.** Porta le
