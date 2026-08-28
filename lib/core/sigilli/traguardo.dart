@@ -1,4 +1,5 @@
 import '../maestro/maestro.dart';
+import 'maestro_del_gesto.dart';
 
 /// LE OTTO FAMIGLIE DEI TRAGUARDI, e non sono un'etichetta.
 ///
@@ -448,9 +449,83 @@ class GestoNellOraGiusta extends CondizioneDelTraguardo {
       (stato.gestiNellOraGiusta['$gesto@$ora'] ?? 0) >= quanteVolte;
 }
 
+/// L'ORA FEDELE: lo stesso gesto, sempre alla stessa ora, per tanti giorni.
+///
+/// **Ordine BW voce 07, e prima non si poteva misurare.** Il corpus chiede
+/// "Apri l'Oroscopo alla stessa ora per cinque giorni", e l'app sapeva solo
+/// se un gesto cadeva nell'ora rituale dell'alba, del tramonto o della notte:
+/// tre traguardi della famiglia Costanza, uno per Maestro, dormivano per
+/// questo. Adesso il diario ricorda l'ora dell'orologio di ogni gesto e conta
+/// i GIORNI, non le aperture.
+class StessaOraPerGiorni extends CondizioneDelTraguardo {
+  const StessaOraPerGiorni(this.gesto, this.quantiGiorni);
+
+  final String gesto;
+  final int quantiGiorni;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'orafedele:$gesto:$quantiGiorni';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.oraFedelePerGesto[gesto] ?? 0) >= quantiGiorni;
+}
+
+/// IL RITORNO A UN RITO LASCIATO: lo si riprende dopo averlo saltato.
+///
+/// **Ordine BW voce 07.** Il corpus chiede "un Soffio compiuto in un giorno
+/// in cui ne avevi saltati tre", e l'app contava solo i giorni di assenza
+/// DALL'APP: chi apriva ogni giorno e saltava il Soffio aveva assenza zero, e
+/// quel gradino non poteva accendersi. Qui il buco e' quello del rito.
+class RitornoAlRito extends CondizioneDelTraguardo {
+  const RitornoAlRito(this.rito, this.giorniSaltati);
+
+  final String rito;
+  final int giorniSaltati;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'ritornoalrito:$rito:$giorniSaltati';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giorniSaltatiPerRito[rito] ?? 0) >= giorniSaltati;
+}
+
+/// IL RITORNO A UN MAESTRO: si torna da chi non si cercava da giorni.
+///
+/// **Ordine BW voce 07.** "Torni a Medora dopo sette giorni in cui non l'hai
+/// cercata": l'app registrava i gesti e non da quale Maestro si tornasse,
+/// quindi i tre gradini del ritorno, uno per Maestro, misuravano lo stesso
+/// identico fatto. Il legame fra un gesto e il suo Maestro lo dichiara il
+/// corpus, un gesto per sentiero, e il generatore lo scrive.
+class RitornoAlMaestro extends CondizioneDelTraguardo {
+  const RitornoAlMaestro(this.sentiero, this.giorniDiAssenza);
+
+  /// Il nome del sentiero: costellazione, loto, albero.
+  final String sentiero;
+  final int giorniDiAssenza;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'ritornoalmaestro:$sentiero:$giorniDiAssenza';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giorniDiAssenzaDalSentiero[sentiero] ?? 0) >= giorniDiAssenza;
+}
+
 /// LA FINESTRA DEL CIELO: si apre quando il cielo vuole, non quando vuoi tu.
 class FinestraDelCielo extends CondizioneDelTraguardo {
-  const FinestraDelCielo(this.evento, {this.conGesto});
+  const FinestraDelCielo(this.evento,
+      {this.conGesto, this.conSentiero, this.nellOra});
 
   /// Il nome dell'evento, dal catalogo di `EventiDelCielo`.
   final String evento;
@@ -459,6 +534,18 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
   /// esserci: aprire l'app quel giorno.
   final String? conGesto;
 
+  /// **UN RITO DI QUEL MAESTRO, chiunque sia. Ordine BW voce 07.** Il corpus
+  /// dice "un rito di Caligo nella notte del solstizio": non nomina un gesto,
+  /// nomina un Maestro. Il nome e' quello del sentiero, e di chi sia un gesto
+  /// lo dichiara il corpus nella mappa generata `sentieroDelGesto`.
+  final String? conSentiero;
+
+  /// **L'ORA RITUALE, quando la finestra la chiede. Ordine BW voce 07.**
+  /// 'alba', 'tramonto' o 'notte'. Il corpus dice "un rito di Caligo nella
+  /// notte del solstizio": il giorno giusto non basta, ci vuole anche l'ora,
+  /// e prima l'app sapeva che il rito era stato compiuto ma non quando.
+  final String? nellOra;
+
   @override
   bool get chiedeUnAltroGiorno => true;
 
@@ -466,12 +553,27 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
   bool get chiedeIlCielo => true;
 
   @override
-  String get firma => 'cielo:$evento:${conGesto ?? "presenza"}';
+  String get firma => 'cielo:$evento:'
+      '${conGesto ?? conSentiero ?? "presenza"}'
+      '${nellOra == null ? "" : ":$nellOra"}';
 
   @override
   bool raggiunto(StatoDelCammino stato) {
     if (!stato.eventiDelCieloDiOggi.contains(evento)) return false;
+    if (conSentiero != null) {
+      for (final fatto in nellOra == null
+          ? stato.oggiHaFatto
+          : stato.oggiHaFattoNellOra) {
+        final gesto = fatto.split('@').first;
+        if (sentieroDelGesto[gesto] != conSentiero) continue;
+        if (nellOra == null || fatto.endsWith('@$nellOra')) return true;
+      }
+      return false;
+    }
     if (conGesto == null) return true;
+    if (nellOra != null) {
+      return stato.oggiHaFattoNellOra.contains('$conGesto@$nellOra');
+    }
     return stato.oggiHaFatto.contains(conGesto);
   }
 }
@@ -700,6 +802,10 @@ class StatoDelCammino {
     this.oggiHaFatto = const {},
     this.seriePerRito = const {},
     this.gestiNellOraGiusta = const {},
+    this.oraFedelePerGesto = const {},
+    this.oggiHaFattoNellOra = const {},
+    this.giorniSaltatiPerRito = const {},
+    this.giorniDiAssenzaDalSentiero = const {},
     this.eventiDelCieloDiOggi = const {},
     this.pezziDellIdentita = const {},
     this.memoria = const {},
@@ -733,6 +839,36 @@ class StatoDelCammino {
 
   /// Quante volte un gesto e' caduto nella sua ora rituale.
   final Map<String, int> gestiNellOraGiusta;
+
+  /// **CIO' CHE OGGI E' STATO FATTO IN UN'ORA RITUALE, ordine BW voce
+  /// 07.** Le chiavi sono '$gesto@$ora', per esempio 'gettata@notte'.
+  /// Serve alle finestre del cielo che chiedono anche l'ora: il
+  /// solstizio si celebra di notte, e sapere che il rito e' stato
+  /// compiuto oggi non basta a dire che sia stato compiuto stanotte.
+  final Set<String> oggiHaFattoNellOra;
+
+  /// **QUANTI GIORNI ERANO STATI SALTATI, per rito. Ordine BW voce
+  /// 07.** Per ogni rito, quanti giorni sono passati fra la volta
+  /// precedente e oggi, meno uno: e' il buco che si e' appena chiuso.
+  /// L'assenza generale, quella dall'app, e' un'altra cosa e vive in
+  /// [giorniDiAssenzaPrimaDiOggi]: chi apre l'app tutti i giorni ma
+  /// salta il Soffio per tre giorni ha assenza zero e buco tre.
+  final Map<String, int> giorniSaltatiPerRito;
+
+  /// **DA QUANTI GIORNI NON SI CERCAVA UN MAESTRO. Ordine BW voce
+  /// 07.** La chiave e' il nome del sentiero, e il valore e' quanti
+  /// giorni erano passati dall'ultimo gesto di quel Maestro prima di
+  /// oggi. Il legame fra un gesto e il suo Maestro non e' inventato
+  /// qui: lo dichiara il corpus, un gesto per sentiero, e il
+  /// generatore lo scrive in `maestro_del_gesto.dart`.
+  final Map<String, int> giorniDiAssenzaDalSentiero;
+
+  /// **L'ORA FEDELE, ordine BW voce 07.** Per ogni gesto, in quanti
+  /// giorni diversi e' caduto sempre alla stessa ora dell'orologio. Non
+  /// e' l'ora rituale della riga qui sopra, che sa dire alba, tramonto e
+  /// notte: questa distingue chi apre l'Oroscopo sempre alle sette da chi
+  /// lo apre quando capita, ed e' cio' che il corpus chiama costanza.
+  final Map<String, int> oraFedelePerGesto;
 
   /// Gli eventi del cielo veri di oggi, dal catalogo `EventiDelCielo`.
   final Set<String> eventiDelCieloDiOggi;

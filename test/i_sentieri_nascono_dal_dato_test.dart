@@ -211,7 +211,7 @@ void main() {
               '$svegliPerErrore');
     });
 
-    test('I ventisette che dormono in piu\' hanno tutti la loro ragione', () {
+    test('Quelli che dormono in piu\' hanno tutti la loro ragione', () {
       // **IL NUMERO CHE IL FONDATORE DEVE VEDERE.** In app dormono
       // SETTANTOTTO voci, non cinquantuno: le altre ventisette il corpus le
       // vuole vive, ma l'app non sa misurarne la condizione, e un gradino che
@@ -235,10 +235,15 @@ void main() {
           'addormentate dal generatore perche\' l\'app non sa misurarle; '
           'senza ragione scritta ${senzaRagione.length}');
       // ignore: avoid_print
-      print('ORDINE BW VOCE 1: le ventisette sono '
+      print('ORDINE BW VOCE 1: quelle ancora addormentate dal generatore sono '
           '${inPiu.map((t) => t.id).join(", ")}');
-      expect(inApp.length, 78,
-          reason: 'in app dormono ${inApp.length} voci invece di 78: il numero '
+      // **IL NUMERO SCENDE MENTRE L'ORDINE BW VOCE 07 COSTRUISCE**, e il
+      // fondatore lo ha chiesto proprio cosi': "sistema le 27 dormienti". Era
+      // 78 quando la voce e' cominciata, ed e' 51 quando sara' finita, che e'
+      // il Coming soon voluto dal corpus. Il numero segue il dato, e ogni
+      // scalino si dichiara nel manifesto.
+      expect(inApp.length, 71,
+          reason: 'in app dormono ${inApp.length} voci invece di 71: il numero '
               'segue il dato, ma un cambiamento va detto al fondatore');
       expect(senzaRagione.map((t) => t.id), isEmpty,
           reason: 'questi dormono senza dire perche\': '

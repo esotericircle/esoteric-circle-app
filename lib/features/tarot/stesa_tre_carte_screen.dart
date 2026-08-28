@@ -697,6 +697,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               if (c.card.arcana == TarotArcana.maggiore) c.card.stem,
           ],
           'argomento': (widget.topic ?? TarotTopic.predefinito).name,
+          // **IL VERSO DELLA CARTA, ordine BW voce 07.** Il corpus chiede "per
+          // la prima volta una carta esce rovesciata e tu la leggi", e la
+          // scena mandava carte, semi, maggiori e argomento: il verso restava
+          // dentro la stesa e il gradino dormiva. Si mandano gli stemmi delle
+          // sole carte uscite al rovescio, cosi' la domanda "e' mai successo"
+          // e quella "quante volte" hanno tutte e due una risposta.
+          'rovescio': [
+            for (final c in carte)
+              if (c.reversed) c.card.stem,
+          ],
         },
       ));
       // LA DOMANDA SI SALVA, ordine P voce 09 e voce 18.

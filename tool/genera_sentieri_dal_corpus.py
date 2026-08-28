@@ -244,6 +244,24 @@ def regolaGradini(v, testo):
     return f"GradiniAlleSpalle('{v['_sentiero']}', {quanti})", None
 
 
+def regolaRovescio(v, testo):
+    """**LA CARTA AL ROVESCIO. Ordine BW voce 07.**
+
+    "Per la prima volta una carta esce rovesciata e tu la leggi": e' una
+    varieta' sul dettaglio `rovescio` della stesa, che da quest'ordine viaggia
+    col gesto. Un valore distinto vuol dire che almeno una carta e' uscita
+    capovolta, ed e' esattamente cio' che il corpus chiede.
+    """
+    if 'rovesciat' not in testo:
+        return None
+    if 'stesa' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto stesa non arriva alla regia'
+    quanti = numeroIn(testo)
+    if 'prima volta' in testo or quanti is None:
+        quanti = 1
+    return "VarietaDelDettaglio('stesa', 'rovescio', %d)" % quanti, None
+
+
 def regolaVarieta(v, testo):
     # "Coppe, Spade, Denari e Bastoni: ognuno uscito almeno una volta"
     if 'coppe' in testo and 'spade' in testo and 'denari' in testo:
@@ -313,6 +331,36 @@ def regolaCoincidenza(v, testo):
     return None
 
 
+def regolaRitoDelMaestroNelCielo(v, testo):
+    """**UN RITO DI QUEL MAESTRO, DENTRO UNA FINESTRA E A UN'ORA. Ordine BW
+    voce 07.**
+
+    "Un rito di Caligo nella notte del solstizio" non nomina un gesto, nomina
+    un Maestro e un'ora. Tradurlo con la sola finestra del cielo, come
+    faceva la regola generale, lo avrebbe reso piu' facile di quanto il corpus
+    chiede: sarebbe bastato esserci quel giorno. Qui il gradino pretende tutte
+    e tre le cose, il giorno, il Maestro e l'ora.
+    """
+    if 'rito di' not in testo:
+        return None
+    evento = eventoIn(testo) or eventoIn(senzaAccenti(v.get(
+        'finestra_del_cielo') or ''))
+    if evento is None:
+        return None
+    sentiero = v.get('_sentiero')
+    if sentiero is None:
+        return None
+    ora = None
+    for nome in ('notte', 'alba', 'tramonto'):
+        if nome in testo:
+            ora = nome
+            break
+    if ora is None:
+        return None
+    return ("FinestraDelCielo(EventiDelCielo.%s, conSentiero: '%s', "
+            "nellOra: '%s')" % (evento, sentiero, ora)), None
+
+
 def regolaCielo(v, testo):
     evento = eventoIn(testo)
     if evento is None and not v.get('finestra_del_cielo'):
@@ -368,6 +416,74 @@ def regolaCielo(v, testo):
 LEGGE_DELLA_FINESTRA = {
     2: 3, 3: 5, 5: 8, 7: 10, 14: 20, 21: 30, 30: 45, 40: 60, 60: 85, 90: 130,
 }
+
+
+def regolaRitornoAlRito(v, testo):
+    """**IL BUCO DI UN RITO. Ordine BW voce 07.**
+
+    "Un Soffio del Destino compiuto in un giorno in cui ne avevi saltati tre":
+    non e' l'assenza dall'app, che il diario gia' contava, e' il buco di QUEL
+    rito. Chi apre l'app ogni giorno e salta il Soffio per tre giorni ha
+    assenza zero e buco tre, e prima quel gradino non poteva accendersi.
+    """
+    if 'ne avevi saltati' not in testo:
+        return None
+    gesto = gestoIn(testo)
+    if gesto is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto %s non arriva alla regia' % gesto
+    quanti = numeroIn(testo.split('saltati')[-1]) or numeroIn(testo)
+    if quanti is None:
+        return None
+    return "RitornoAlRito('%s', %d)" % (gesto, quanti), None
+
+
+def regolaRitornoAlMaestro(v, testo):
+    """**IL RITORNO A UN MAESTRO. Ordine BW voce 07.**
+
+    "Torni a Medora dopo sette giorni in cui non l'hai cercata": il Maestro e'
+    quello del sentiero in cui la voce vive, che il corpus dichiara, e i giorni
+    li conta il diario per sentiero.
+    """
+    if 'torni a ' not in testo:
+        return None
+    if 'giorni' not in testo:
+        return None
+    sentiero = v.get('_sentiero')
+    if sentiero is None:
+        return None
+    quanti = numeroIn(testo)
+    if quanti is None:
+        return None
+    return "RitornoAlMaestro('%s', %d)" % (sentiero, quanti), None
+
+
+def regolaOraFedele(v, testo):
+    """**L'ORA FEDELE. Ordine BW voce 07.**
+
+    Il corpus chiede "alla stessa ora per cinque giorni", tre volte, una per
+    Maestro: l'Oroscopo, il Rito dell'Alba, il Segno del Tramonto. Prima l'app
+    sapeva solo se un gesto cadeva nell'ORA RITUALE, cioe' alba, tramonto o
+    notte, e queste tre voci dormivano dicendolo. Adesso il diario ricorda
+    l'ora dell'orologio di ogni gesto e conta i giorni in cui e' stata la
+    stessa.
+
+    **Sta PRIMA della costanza larga e della serie**, perche' quelle frasi
+    nominano i giorni e le regole piu' generose le prenderebbero per una
+    presenza qualunque, cioe' cambierebbero cosa chiede il gradino.
+    """
+    if 'stessa ora' not in testo:
+        return None
+    gesto = gestoIn(testo)
+    if gesto is None:
+        return None
+    if gesto not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto %s non arriva alla regia' % gesto
+    quanti = numeroIn(testo)
+    if quanti is None:
+        return None
+    return "StessaOraPerGiorni('%s', %d)" % (gesto, quanti), None
 
 
 def regolaCostanzaLarga(v, testo):
@@ -607,11 +723,9 @@ def regolaNonCostruibile(v, testo):
                 'cade PRIMA del sorgere vero nel luogo di chi lo compie: '
                 "servirebbe l'ora del sorgere confrontata con l'istante del "
                 'gesto')
-    if 'ne avevi saltati' in testo:
-        return ('DORMIENTE',
-                "il diario conta i giorni di assenza dall app, non quelli in "
-                'cui si e saltato UN gesto in particolare: e una memoria per '
-                'rito che non tiene')
+    # **IL BUCO DI UN RITO SI SA MISURARE, ordine BW voce 07.** Qui c'era il
+    # rifiuto: il diario contava i giorni di assenza dall'app. Adesso conta
+    # anche quelli saltati di UN rito, e traduce `regolaRitornoAlRito`.
     if 'con quella di un' in testo and 'persona' in testo:
         return ('DORMIENTE',
                 'confrontare la propria lettura con quella di un altro chiede '
@@ -621,17 +735,16 @@ def regolaNonCostruibile(v, testo):
                 'il catalogo del cielo non conosce nessun evento che si chiami '
                 "cielo contrario: sono transiti, fasi e retrogradi. "
                 'Inventarne uno vorrebbe dire inventare un astrologia')
-    if 'nella notte del solstizio' in testo:
-        return ('DORMIENTE',
-                "l ora del rito non viaggia con l'evento del cielo: l app sa "
-                'che oggi e solstizio e che il gesto e stato compiuto, non che '
-                'sia stato compiuto di notte')
-    if 'torni a medora' in testo:
-        return ('DORMIENTE',
-                "l app registra i gesti, non da quale Maestro si torni: "
-                '"torni a Medora dopo sette giorni" e "torni a Caligo dopo '
-                'sette giorni" misurano lo stesso identico fatto. Due '
-                'gradini per un fatto solo sono un gradino detto due volte')
+    # **L'ORA DEL RITO VIAGGIA CON L'EVENTO, ordine BW voce 07.** Qui c'era il
+    # rifiuto: l'app sapeva che oggi e' solstizio e che il gesto era stato
+    # compiuto, non che fosse stato compiuto di notte. Adesso il diario tiene
+    # anche cio' che oggi e' caduto in un'ora rituale, e la finestra del cielo
+    # sa chiederla.
+    # **DI CHI E' UN GESTO ADESSO SI SA, ordine BW voce 07.** Qui c'era il
+    # rifiuto: due gradini del ritorno misuravano lo stesso fatto perche' l'app
+    # registrava i gesti senza il loro Maestro. Adesso il legame lo dichiara il
+    # corpus, un gesto per sentiero, e il generatore lo scrive nella mappa
+    # `sentieroDelGesto`.
     # **LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO NON SI PUO' MISURARE.**
     # Ordine BS voce 00. Il diario conta quante volte un valore e' tornato DA
     # SEMPRE, non quante volte e' tornato dentro una settimana o dentro un mese:
@@ -680,11 +793,10 @@ def regolaNonCostruibile(v, testo):
                 'la lettura FINO IN FONDO non arriva alla regia: la schermata '
                 "manda il gesto quando si apre, non quando si e' letta tutta. "
                 'Servirebbe che la scena segnasse la fine della lettura')
-    if 'rovesciat' in testo:
-        return ('DORMIENTE',
-                'la carta rovesciata non viaggia coi dettagli della stesa: la '
-                "scena manda carte, semi, maggiori e argomento. Servirebbe un "
-                'dettaglio nuovo, il verso della carta')
+    # **IL VERSO DELLA CARTA VIAGGIA, ordine BW voce 07.** Qui c'era il
+    # rifiuto: la stesa mandava carte, semi, maggiori e argomento. Adesso manda
+    # anche gli stemmi delle carte uscite al rovescio, e la traduzione la fa
+    # `regolaRovescio`.
     if 'runa coperta' in testo or 'girandola tu' in testo:
         return ('DORMIENTE',
                 'girare una runa coperta invece di lasciarla al caso e un '
@@ -699,11 +811,10 @@ def regolaNonCostruibile(v, testo):
         return ('DORMIENTE',
                 'il sogno non passa i propri simboli: la scena manda il gesto '
                 'e basta. Servirebbe un dettaglio nuovo sul rito del sogno')
-    if 'stessa ora' in testo:
-        return ('DORMIENTE',
-                "l app sa se un gesto cade nell ora rituale dell alba, del "
-                'tramonto o della notte, non se cade sempre alla STESSA ora: '
-                'servirebbe la memoria dell ora di ogni gesto')
+    # **L'ORA FEDELE SI SA MISURARE, ordine BW voce 07.** Qui c'era il rifiuto:
+    # l'app sapeva solo l'ora rituale, alba, tramonto e notte. Adesso il diario
+    # ricorda l'ora dell'orologio di ogni gesto e conta i giorni, e la
+    # traduzione la fa `regolaOraFedele`.
     if 'in privato' in testo:
         return ('DORMIENTE',
                 'mandare un responso in privato invece che al mondo chiede il '
@@ -806,7 +917,9 @@ def regolaConteggio(v, testo):
 # I dettagli che ogni scena manda davvero, letti uno per uno dalle chiamate a
 # `dopoUnGesto`. Un dettaglio fuori da qui e' un dettaglio che non viaggia.
 DETTAGLI_VIVI = {
-    'stesa': {'carte', 'semi', 'maggiori', 'argomento'},
+    # 'rovescio' dall'ordine BW voce 07: gli stemmi delle carte uscite
+    # capovolte, che prima restavano dentro la stesa.
+    'stesa': {'carte', 'semi', 'maggiori', 'argomento', 'rovescio'},
     'gettata': {'modo'},
     'tramonto': {'runa'},
     'sinastria': {'vip'},
@@ -880,9 +993,17 @@ REGOLE = [
     # da un giorno.
     regolaNonCostruibile,
     regolaGradini,
+    regolaRovescio,
     regolaVarieta,
     regolaCoincidenza,
+    # **PRIMA DELLA FINESTRA GENERALE, ordine BW voce 07**: quella
+    # tradurrebbe "un rito di Caligo nella notte del solstizio" con la sola
+    # finestra, cioe' renderebbe il gradino piu' facile di quanto e'.
+    regolaRitoDelMaestroNelCielo,
     regolaCielo,
+    regolaRitornoAlRito,
+    regolaRitornoAlMaestro,
+    regolaOraFedele,
     regolaCostanzaLarga,
     regolaCostanzaDentro,
     regolaModiDellaGettata,
@@ -1015,6 +1136,9 @@ def costruisci(v):
 def main():
     corpus = json.loads(CORPUS.read_text(encoding='utf-8'))
     dormienti = []
+    # Ordine BW voce 07: quali gesti nomina ogni sentiero, per scrivere la
+    # mappa del Maestro di ogni gesto senza deciderla a mano.
+    gestiPerSentiero = {}
     for sentiero in corpus['sentieri']:
         prefisso = sentiero['prefisso_id']
         nomeSentiero, nomeLista, nomeFile = SENTIERI[prefisso]
@@ -1023,6 +1147,14 @@ def main():
             v['_sentiero'] = nomeSentiero
             costruttore, perche = costruisci(v)
             eDormiente = costruttore is None
+            if not eDormiente:
+                for g in re.findall(
+                        r"(?:GestiCompiuti|GiorniDiSeguito|GiorniDentroUnArco|"
+                        r"GestoNellOraGiusta|VarietaDelDettaglio|"
+                        r"CoincidenzaDelDettaglio|StessaOraPerGiorni|"
+                        r"RitornoAlRito|GestiNelloStessoGiorno)\('(\w+)'",
+                        costruttore):
+                    gestiPerSentiero.setdefault(nomeSentiero, set()).add(g)
             if eDormiente:
                 dormienti.append((v['id'], v['nome'], perche))
                 # **UN DORMIENTE NON SI INVENTA E NON SPARISCE**: resta nel
@@ -1106,6 +1238,44 @@ def main():
             f"final List<Traguardo> {nomeLista} = [\n")
         (RADICE / 'lib' / 'core' / 'sigilli' / f'{nomeFile}.dart').write_text(
             testa + '\n'.join(righe) + '\n];\n', encoding='utf-8')
+    # **IL MAESTRO DI OGNI GESTO, generato dal corpus. Ordine BW voce 07.**
+    #
+    # "Torni a Medora dopo sette giorni in cui non l'hai cercata" chiede di
+    # sapere di chi e' un gesto, e l'app registrava i gesti senza il loro
+    # Maestro: i tre gradini del ritorno, uno per sentiero, misuravano lo
+    # stesso identico fatto. Il legame NON si scrive a mano qui: si LEGGE dal
+    # corpus, guardando in quale sentiero vivono i traguardi che nominano quel
+    # gesto. Se domani un gesto comparisse in due sentieri, non sarebbe piu' di
+    # nessuno e resterebbe fuori da questa mappa, che e' il modo giusto di non
+    # rispondere.
+    perGesto = {}
+    for sentiero, dentro in gestiPerSentiero.items():
+        for gesto in dentro:
+            perGesto.setdefault(gesto, set()).add(sentiero)
+    soli = {g: list(s)[0] for g, s in sorted(perGesto.items()) if len(s) == 1}
+    contesi = sorted(g for g, s in perGesto.items() if len(s) > 1)
+    righeMappa = [
+        "// GENERATO DA tool/genera_sentieri_dal_corpus.py: NON SI SCRIVE",
+        "// A MANO. Ordine BW voce 07.",
+        "//",
+        "// **Di chi e' un gesto.** Non e' una scelta di questo file: e' cio'",
+        "// che il corpus dichiara, perche' un gesto compare nelle condizioni",
+        "// di un sentiero solo. Serve ai gradini del ritorno, che chiedono da",
+        "// quanti giorni non si cercava QUEL Maestro.",
+        "//",
+        "// I gesti nominati da piu' sentieri non entrano qui: non sono di",
+        "// nessuno, e una mappa che rispondesse lo stesso direbbe il falso.",
+        "// Oggi sono " + (', '.join(contesi) if contesi else 'nessuno') + ".",
+        "",
+        "const Map<String, String> sentieroDelGesto = {",
+    ]
+    for gesto, sentiero in soli.items():
+        righeMappa.append("  '%s': '%s'," % (gesto, sentiero))
+    righeMappa.append('};')
+    (RADICE / 'lib' / 'core' / 'sigilli' / 'maestro_del_gesto.dart').write_text(
+        '\n'.join(righeMappa) + '\n', encoding='utf-8')
+    print('scritta la mappa dei gesti: %d di un Maestro solo, %d contesi'
+          % (len(soli), len(contesi)))
     print(f'generati tre sentieri, dormienti {len(dormienti)}')
     for id_, nome, perche in dormienti:
         print(f'  {id_} "{nome}": {perche}')

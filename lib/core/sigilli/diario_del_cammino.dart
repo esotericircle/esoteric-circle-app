@@ -10,6 +10,7 @@ import '../cammino/cammino_da_custodire.dart';
 import '../astro/zodiac.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'eventi_del_cielo.dart';
+import 'maestro_del_gesto.dart';
 import 'sentieri.dart';
 
 /// IL DIARIO DEL CAMMINO: cio' che hai fatto, quando lo hai fatto.
@@ -43,11 +44,14 @@ class DiarioDelCammino extends ChangeNotifier {
     _gestiCompiuti.clear();
     _giorniConGesto.clear();
     _gestiNellOraGiusta.clear();
+    _oraDelGesto.clear();
+    _ultimoGiornoPerOra.clear();
     _dettagli.clear();
     _seriePerRito.clear();
     _ultimoGiornoPerRito.clear();
     _giorniPerRito.clear();
     _oggiHaFatto.clear();
+    _oggiHaFattoNellOra.clear();
     _accesi.clear();
     _quandoAccesi.clear();
     _condivisi.clear();
@@ -84,9 +88,26 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kDettagli = 'cammino.dettagli';
   static const _kGiorniPerRito = 'cammino.giorniPerRito';
 
+  /// **L'ORA FEDELE, ordine BW voce 07.** Per '$gesto@$ora', in quanti
+  /// giorni DIVERSI quel gesto e' caduto in quell'ora dell'orologio. Non
+  /// e' l'ora rituale, che dice alba, tramonto o notte: e' l'ora vera,
+  /// quella che distingue chi apre l'Oroscopo sempre alle sette da chi lo
+  /// apre quando capita.
+  static const _kOraDelGesto = 'cammino.oraDelGesto';
+  static const _kUltimoGiornoPerOra = 'cammino.ultimoGiornoPerOra';
+  static const _kOggiNellOra = 'cammino.oggiNellOra';
+  static const _kUltimoPerSentiero = 'cammino.ultimoPerSentiero';
+
   final Map<String, int> _gestiCompiuti = {};
   final Map<String, int> _giorniConGesto = {};
   final Map<String, int> _gestiNellOraGiusta = {};
+
+  /// Per '$gesto@$ora', quanti giorni diversi. Ordine BW voce 07.
+  final Map<String, int> _oraDelGesto = {};
+
+  /// L'ultimo giorno contato per ogni '$gesto@$ora': senza di lui cinque
+  /// aperture nello stesso pomeriggio varrebbero cinque giorni.
+  final Map<String, String> _ultimoGiornoPerOra = {};
 
   /// I dettagli visti, per `gesto.chiave` e poi per valore: quante volte quel
   /// valore e' comparso. Con questa forma si risponde a tutte e due le
@@ -135,6 +156,20 @@ class DiarioDelCammino extends ChangeNotifier {
   /// tiene quello con margine, ed e' meno di mezzo chilobyte per rito.
   static const int quantiGiorniPerRito = 140;
   final Set<String> _oggiHaFatto = {};
+
+  /// **CIO' CHE OGGI E' CADUTO IN UN'ORA RITUALE, ordine BW voce 07.**
+  /// Le chiavi sono '$gesto@$ora'. Vive quanto il giorno: si svuota
+  /// insieme a [_oggiHaFatto], perche' la domanda che serve e'
+  /// "stanotte", non "qualche notte".
+  final Set<String> _oggiHaFattoNellOra = {};
+
+  /// L'ultimo giorno in cui si e' cercato un Maestro, per sentiero.
+  /// Ordine BW voce 07.
+  final Map<String, String> _ultimoGiornoPerSentiero = {};
+
+  /// Quanti giorni erano passati dall'ultima volta, per sentiero.
+  /// Si calcola quando il gesto arriva e resta li' per la giornata.
+  final Map<String, int> _assenzaDalSentiero = {};
   String _giornoDiOggi = '';
   String? _primoGiorno;
   String? _ultimoGiorno;
@@ -228,9 +263,20 @@ class DiarioDelCammino extends ChangeNotifier {
       _leggiMappa(prefs.getString(_kGesti), _gestiCompiuti, sommando: fondi);
       _leggiMappa(prefs.getString(_kGiorni), _giorniConGesto, sommando: fondi);
       _leggiMappa(prefs.getString(_kOre), _gestiNellOraGiusta, sommando: fondi);
+      // **L'ORA FEDELE NON SI SOMMA, si tiene la piu' lunga**: due letture
+      // dello stesso giorno non fanno due giorni, la stessa ragione della
+      // serie qui sotto.
+      _leggiMappa(prefs.getString(_kOraDelGesto), _oraDelGesto,
+          tenendoIlMassimo: fondi);
+      _leggiTesti(prefs.getString(_kUltimoGiornoPerOra),
+          _ultimoGiornoPerOra);
       _leggiIDettagli(prefs.getString(_kDettagli), sommando: fondi);
       if (!fondi) _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
       _oggiHaFatto.addAll(prefs.getStringList(_kOggi) ?? const []);
+      _oggiHaFattoNellOra
+          .addAll(prefs.getStringList(_kOggiNellOra) ?? const []);
+      _leggiTesti(prefs.getString(_kUltimoPerSentiero),
+          _ultimoGiornoPerSentiero);
       // Il primo giorno e' il PIU' VECCHIO dei due, mai quello nato adesso.
       _primoGiorno = prefs.getString(_kPrimoGiorno) ?? _primoGiorno;
       if (!fondi) _ultimoGiorno = prefs.getString(_kUltimoGiorno);
@@ -306,6 +352,7 @@ class DiarioDelCammino extends ChangeNotifier {
     if (_giornoDiOggi == oggi) return;
     _giornoDiOggi = oggi;
     _oggiHaFatto.clear();
+    _oggiHaFattoNellOra.clear();
     final ultimo = _ultimoGiorno == null ? null : DateTime.tryParse(_ultimoGiorno!);
     _giorniDiAssenza =
         ultimo == null ? 0 : _orologio().difference(ultimo).inDays - 1;
@@ -331,8 +378,36 @@ class DiarioDelCammino extends ChangeNotifier {
     if (oraRituale != null) {
       final chiave = '$gesto@$oraRituale';
       _gestiNellOraGiusta[chiave] = (_gestiNellOraGiusta[chiave] ?? 0) + 1;
+      // **E ANCHE OGGI, ordine BW voce 07**: il conto qui sopra e' di sempre,
+      // e "la notte del solstizio" chiede stanotte.
+      _oggiHaFattoNellOra.add(chiave);
+    }
+    // **DA QUANTI GIORNI NON SI CERCAVA QUESTO MAESTRO, ordine BW voce 07.**
+    // Il legame fra il gesto e il suo sentiero lo dichiara il corpus, e il
+    // generatore lo scrive in `sentieroDelGesto`: qui non si decide niente.
+    final suo = sentieroDelGesto[gesto];
+    if (suo != null) {
+      final oggiChiave = ConfineDelGiorno.chiaveDi(_orologio());
+      final ultimo = _ultimoGiornoPerSentiero[suo];
+      if (ultimo != null && ultimo != oggiChiave) {
+        final prima = _giornoDallaChiave(ultimo);
+        final adesso = _giornoDallaChiave(oggiChiave);
+        if (prima != null && adesso != null) {
+          _assenzaDalSentiero[suo] = adesso.difference(prima).inDays;
+        }
+      }
+      _ultimoGiornoPerSentiero[suo] = oggiChiave;
     }
     final oggi = ConfineDelGiorno.chiaveDi(_orologio());
+    // **L'ORA FEDELE, ordine BW voce 07.** Si conta il GIORNO, non il gesto:
+    // chi apre l'Oroscopo tre volte alle sette di lunedi' ha un giorno solo
+    // alle sette. Cosi' "alla stessa ora per cinque giorni" chiede davvero
+    // cinque giorni.
+    final oraVera = '$gesto@${_orologio().hour}';
+    if (_ultimoGiornoPerOra[oraVera] != oggi) {
+      _ultimoGiornoPerOra[oraVera] = oggi;
+      _oraDelGesto[oraVera] = (_oraDelGesto[oraVera] ?? 0) + 1;
+    }
     _primoGiorno ??= _orologio().toIso8601String();
     _ultimoGiorno = _orologio().toIso8601String();
     _giornoDiOggi = oggi;
@@ -535,9 +610,12 @@ class DiarioDelCammino extends ChangeNotifier {
     _gestiCompiuti.clear();
     _giorniConGesto.clear();
     _gestiNellOraGiusta.clear();
+    _oraDelGesto.clear();
+    _ultimoGiornoPerOra.clear();
     _dettagli.clear();
     _ultimoGiornoPerRito.clear();
     _oggiHaFatto.clear();
+    _oggiHaFattoNellOra.clear();
     _accesi.clear();
     _quandoAccesi.clear();
     _condivisi.clear();
@@ -599,6 +677,10 @@ class DiarioDelCammino extends ChangeNotifier {
       gestiCompiuti: Map.unmodifiable(_gestiCompiuti),
       giorniConGesto: Map.unmodifiable(_giorniConGesto),
       oggiHaFatto: Set.unmodifiable(_oggiHaFatto),
+      oggiHaFattoNellOra: Set.unmodifiable(_oggiHaFattoNellOra),
+      giorniSaltatiPerRito: _giorniSaltatiPerRito(),
+      giorniDiAssenzaDalSentiero:
+          Map.unmodifiable(_assenzaDalSentiero),
       seriePerRito: seriePerRito,
       // **LE COSTANZE LARGHE, ordine AS voce 12.** Gli archi da guardare non
       // si inventano: li DICHIARA il corpus, cioe' i traguardi stessi, e qui
@@ -607,6 +689,11 @@ class DiarioDelCammino extends ChangeNotifier {
       // domande che nessuno fa.
       costanzeLarghe: costanzeLarghe(_archiChiestiDalCorpus()),
       gestiNellOraGiusta: Map.unmodifiable(_gestiNellOraGiusta),
+      // **L'ORA FEDELE, ordine BW voce 07**: per ogni gesto, il massimo
+      // fra le sue ore, cioe' in quanti giorni e' caduto sempre alla
+      // stessa. La fotografia porta un numero solo per gesto, perche' la
+      // domanda del cammino e' quella.
+      oraFedelePerGesto: _oraFedelePerGesto(),
       eventiDelCieloDiOggi: EventiDelCielo.diOggi(
         adesso: _orologio(),
         carta: carta,
@@ -634,6 +721,54 @@ class DiarioDelCammino extends ChangeNotifier {
         for (final s in Sentiero.values) s.name: quantiAccesiDi(s),
       },
     );
+  }
+
+  /// **LA CHIAVE DEL GIORNO NON E' UNA DATA ISO, e va letta a mano.**
+  /// `ConfineDelGiorno.chiaveDi` scrive '2026-8-10', senza lo zero davanti:
+  /// `DateTime.tryParse` su quella stringa torna nullo, e i due conti dei
+  /// giorni saltati rispondevano sempre zero. Lo ha detto la prova.
+  static DateTime? _giornoDallaChiave(String chiave) {
+    final pezzi = chiave.split('-');
+    if (pezzi.length != 3) return null;
+    final anno = int.tryParse(pezzi[0]);
+    final mese = int.tryParse(pezzi[1]);
+    final giorno = int.tryParse(pezzi[2]);
+    if (anno == null || mese == null || giorno == null) return null;
+    return DateTime(anno, mese, giorno);
+  }
+
+  /// **PER OGNI RITO, QUANTI GIORNI ERANO STATI SALTATI PRIMA DI OGGI.**
+  /// Ordine BW voce 07. Si guardano gli ultimi due giorni in cui quel
+  /// rito e' stato compiuto: la distanza fra loro, meno uno, e' il buco
+  /// che si e' appena chiuso. Con meno di due giorni non c'e' nessun
+  /// buco da misurare, e la risposta e' zero invece di un numero
+  /// inventato.
+  Map<String, int> _giorniSaltatiPerRito() {
+    final buchi = <String, int>{};
+    for (final voce in _giorniPerRito.entries) {
+      final giorni = voce.value;
+      if (giorni.length < 2) continue;
+      final ultimo = _giornoDallaChiave(giorni.last);
+      final prima = _giornoDallaChiave(giorni[giorni.length - 2]);
+      if (ultimo == null || prima == null) continue;
+      final salto = ultimo.difference(prima).inDays - 1;
+      if (salto > 0) buchi[voce.key] = salto;
+    }
+    return Map.unmodifiable(buchi);
+  }
+
+  /// **PER OGNI GESTO, IN QUANTI GIORNI E' CADUTO SEMPRE ALLA STESSA
+  /// ORA.** Ordine BW voce 07. Delle sue ore si tiene la migliore: se
+  /// qualcuno ha aperto l'Oroscopo alle sette per quattro giorni e alle
+  /// otto per uno, la sua fedelta' e' quattro, non cinque.
+  Map<String, int> _oraFedelePerGesto() {
+    final migliori = <String, int>{};
+    for (final voce in _oraDelGesto.entries) {
+      final gesto = voce.key.split('@').first;
+      final quanti = voce.value;
+      if (quanti > (migliori[gesto] ?? 0)) migliori[gesto] = quanti;
+    }
+    return Map.unmodifiable(migliori);
   }
 
   /// TUTTI I TRAGUARDI CHE UNO STATO SODDISFA, in ordine di posizione.
@@ -813,7 +948,14 @@ class DiarioDelCammino extends ChangeNotifier {
       await prefs.setString(_kGesti, jsonEncode(_gestiCompiuti));
       await prefs.setString(_kGiorni, jsonEncode(_giorniConGesto));
       await prefs.setString(_kOre, jsonEncode(_gestiNellOraGiusta));
+      await prefs.setString(_kOraDelGesto, jsonEncode(_oraDelGesto));
+      await prefs.setString(
+          _kUltimoGiornoPerOra, jsonEncode(_ultimoGiornoPerOra));
       await prefs.setStringList(_kOggi, _oggiHaFatto.toList());
+      await prefs.setStringList(
+          _kOggiNellOra, _oggiHaFattoNellOra.toList());
+      await prefs.setString(
+          _kUltimoPerSentiero, jsonEncode(_ultimoGiornoPerSentiero));
       await prefs.setString(_kGiornoDiOggi, _giornoDiOggi);
       await prefs.setStringList(_kAccesi, _accesi.toList());
       await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
