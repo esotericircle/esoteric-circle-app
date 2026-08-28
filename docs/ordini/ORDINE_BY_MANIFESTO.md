@@ -218,6 +218,22 @@ svegliata**: cambiare una nota del corpus non e' una decisione tecnica, e
 questa riga sta qui perche' il fondatore la prenda guardando. Vale 45 Eos e
 porterebbe i dormienti da 51 a 50.
 
+## LA CONSEGNA, coi numeri
+
+| cosa | esito |
+| --- | --- |
+| `flutter analyze lib test` | **zero avvisi** |
+| suite intera, `TZ=Europe/Rome` | **3.794 verdi, 1 rossa**, che e' l'attribuzione cieca dichiarata alla voce BY.04 |
+| impronta dell'albero prima del primo test | `a0d201d9f7c07130011d48123911d227f4592982` |
+| impronta dopo l'ultimo | `a0d201d9f7c07130011d48123911d227f4592982`, la stessa: **albero fermo** |
+| prove del server, `npm test` in `functions/` | **44 verdi, 0 rosse** |
+| tipi del server, `tsc --noEmit` | pulito |
+| funzioni distribuite | **dieci**, verificate sul server |
+| build consegnata | **2211**, release `28vocfcn871i0`, verificata sul server |
+
+**L'unica cosa scritta dopo la suite e' questa tabella**, che dei numeri della
+suite ha bisogno per esistere.
+
 ## Marcatori, per chi legge a macchina
 
 VOCI_TOTALI: 5
