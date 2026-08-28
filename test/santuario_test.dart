@@ -304,13 +304,25 @@ void main() {
     expect(find.byKey(const Key('account_list')), findsOneWidget);
     // **Le voci seguono il menu di BH.06**: Privacy e' diventata la porta
     // del sottomenu, in fondo alla lista.
+    // **SI SCORRE PER CERCARE, ordine BX voce 04.** La lista e\' pigra: cio\'
+    // che sta sotto il bordo non viene costruito, quindi cercarlo senza
+    // scorrere dice "non c'e\'" anche quando c'e\'. Con la voce "Chi ti ha
+    // invitato" dell'ordine BX voce 02 le voci sono diventate sette e
+    // l'ultima e\' scesa sotto il bordo: la guardia e\' caduta li\', e la voce
+    // era al suo posto.
     for (final id in const [
       'profilo',
       'impostazioni',
       'abbonamento',
       'notifiche',
+      'invito',
       'privacy_e_dati',
     ]) {
+      await tester.scrollUntilVisible(
+          find.byKey(Key('account_$id')), 120,
+          scrollable: find.descendant(
+              of: find.byKey(const Key('account_list')),
+              matching: find.byType(Scrollable)));
       expect(find.byKey(Key('account_$id')), findsOneWidget);
     }
   });

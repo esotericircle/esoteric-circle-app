@@ -143,7 +143,19 @@ Offset _soloDiLato(Offset o) =>
 /// **QUANTO DELL'ALTEZZA DELLO SCHERMO DEVE PRENDERE IL BUSTO CENTRALE.**
 /// Ordine AV voce 03: il trentaquattro per cento, e sul telefono del fondatore
 /// riporta i Maestri alla grandezza della 2188.
-const double quotaDelBustoSulloSchermo = 0.34;
+///
+/// **DA 0,34 A 0,40, ordine BX voce 04.** Il fondatore ha segnalato per la
+/// terza volta che in home i tre Maestri sono troppo piccoli, e la misura
+/// col metodo dell'ordine BA ha detto da dove veniva il limite: a 390 per
+/// 844 il busto valeva 287 punti esatti, cioe' 844 per 0,34. **Non era il
+/// carosello a decidere, era questa costante**, e le altre due leve provate
+/// prima (il pavimento della scala dei laterali, il tetto del carosello) non
+/// spostavano nulla perche' arrivavano dopo di lei nel minimo.
+///
+/// **Il vincolo dello spazio concesso resta davanti a tutti**: se il blocco
+/// del cielo non lascia posto, comanda lui, e la figura non risale dentro il
+/// testo. Questa quota alza il tetto, non lo sfonda.
+const double quotaDelBustoSulloSchermo = 0.40;
 
 /// **QUANTO SPAZIO C'ERA E QUANTO SE N'E' PRESO**, per le prove. Ordine AU
 /// voce 05: l'ipotesi del fondatore diceva che il pavimento vinceva sul
@@ -730,7 +742,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // uno schermo basso il carosello usciva dalla scena e i tre Maestri
           // finivano fuori dallo schermo. Si prende `math.max` col minimo,
           // perche' un `clamp` con il tetto sotto il minimo solleva.
-          final tettoCentrale = math.max(220.0, h * 0.54);
+          // **IL TETTO SALE DA 0,54 A 0,60, ordine BX voce 04.** Era lui a
+          // decidere l'altezza vera, non il coefficiente sotto: con
+          // `clamp(220, h*0,54)` il valore usato era h*0,54, e il h*0,60
+          // della riga seguente non ha mai avuto effetto su uno schermo
+          // normale. Alzando il tetto la figura cresce senza che nessun
+          // altro numero della scena cambi.
+          final tettoCentrale = math.max(220.0, h * 0.60);
           final centralH = (h * 0.60).clamp(220.0, tettoCentrale);
           // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
           final entryBottom = ariaSottoLIngresso(h);
@@ -1516,12 +1534,52 @@ class _CarouselState extends State<_Carousel>
                 // Da 0,58 a 0,70 di pavimento: anche chi sta dietro e'
                 // grande, e la sovrapposizione con la centrale racconta la
                 // distanza meglio di quanto facesse il rimpicciolire.
-                scala: 0.70 + 0.30 * ((profondita + 1) / 2),
+                //
+                // **E DA 0,70 A 0,78, ordine BX voce 04.** Il fondatore ha
+                // ripetuto per la terza volta che in home i tre Maestri sono
+                // troppo piccoli. La misura di partenza, presa col metodo
+                // dell'ordine BA (si dipinge la home, si ridipinge senza la
+                // vernice dei Maestri, si contano i pixel che cambiano): i
+                // tre dipingevano il 26,6 per cento della prima schermata a
+                // 390 per 844. Il pavimento della scala e' l'unica leva che
+                // li ingrandisce SENZA alzare il carosello dentro il blocco
+                // del cielo, perche' i laterali sono ancorati in basso.
+                scala: 0.78 + 0.22 * ((profondita + 1) / 2),
               ));
             }
             // Dietro prima, davanti dopo: cosi' chi e' vicino copre chi e'
             // lontano, senza nessuna scelta scritta a mano.
             posti.sort((a, b) => a.profondita.compareTo(b.profondita));
+
+            // **I NOMI DELLE ARTI DEI DUE LATERALI, ordine BX voce 04.**
+            //
+            // Fatto del fondatore: "le arti che offrono sono poco evidenti".
+            // Contate a schermo prima di toccare niente: le arti dichiarate
+            // erano UNA su tre, quelle del Maestro al centro, e per leggere
+            // le altre bisognava girare il carosello.
+            //
+            // Stanno qui e non nel blocco d'ingresso perche' li' costavano
+            // venti punti di altezza al busto: vedi il commento in
+            // `_DomainEntry`, con i numeri della misura che l'ha bocciato.
+            // Sotto i piedi dei laterali lo spazio c'e' gia', perche' i
+            // laterali posano piu' in alto del centrale.
+            //
+            // **Una parola sola**, e anche questa e' una misura: con due
+            // ("Oroscopo, Tarocchi") a schermo si leggeva "Orosco...", e tre
+            // puntini al posto di meta' parola sono peggio del silenzio.
+            // Le prove non lo hanno visto perche' nessuna prova guarda i
+            // puntini: l'ha visto l'anteprima.
+            Widget nomeDelleArti(_PostoInCerchio p) => Text(
+                  p.maestro.domainArtiBrevi,
+                  key: Key('santuario_arti_${p.maestro.id}'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.etichetta().copyWith(
+                    color: MaestroPalette.forKey(ThemeKey.of(p.maestro))
+                        .goldSoft
+                        .withValues(alpha: 0.85),
+                  ),
+                );
 
             // Le chiavi seguono il RUOLO visivo, non il Maestro: chi sta
             // davanti si chiama sempre allo stesso modo, e chi sta dietro a
@@ -1693,6 +1751,18 @@ class _CarouselState extends State<_Carousel>
                         ),
                       );
                     }),
+                  if (dietro.isNotEmpty)
+                    Positioned(
+                      left: SpacingTokens.sm,
+                      bottom: 0,
+                      child: nomeDelleArti(dietro.first),
+                    ),
+                  if (dietro.length > 1)
+                    Positioned(
+                      right: SpacingTokens.sm,
+                      bottom: 0,
+                      child: nomeDelleArti(dietro.last),
+                    ),
                 ],
               ),
             ),
@@ -1747,6 +1817,30 @@ class _DomainEntry extends StatelessWidget {
     // Adesso sono la prima cosa dopo il nome: sopra il pulsante, al corpo del
     // testo di lettura, in oro pieno. Il pulsante resta sotto, ed e' giusto
     // cosi': prima si legge COSA c'e', poi si tocca per entrarci.
+    // **E LE ARTI DEGLI ALTRI DUE, ordine BX voce 04.** Fatto del fondatore:
+    // "le arti che offrono sono poco evidenti", e i fondatori hanno aggiunto
+    // che dalla home deve risultare che l'app e' anzitutto oroscopo,
+    // cartomanzia e rune. Contate a schermo prima di toccare niente: le arti
+    // dichiarate erano UNA su tre, quelle del Maestro al centro, e per
+    // leggere le altre bisognava girare il carosello.
+    //
+    // **Nello stesso spazio di prima, e non e' un vezzo**: il blocco
+    // d'ingresso e' ancorato in basso e cresce verso l'ALTO, cioe' verso la
+    // figura del Maestro, e ogni punto in piu' e' un punto che la bolla
+    // ruba al busto. Le tre voci stanno su una riga sola: chi e' al centro
+    // tiene il corpo di lettura e l'oro pieno, gli altri due il ruolo
+    // piccolo e l'oro tenue, che e' esattamente il loro posto nella scena.
+    //
+    // **I NOMI DEI DUE LATERALI NON STANNO QUI, e ci hanno provato.** Su una
+    // riga sola con la centrale non ci stavano: a 390 punti la centrale ne
+    // chiede circa duecento e ai lati ne restavano sessantacinque, cioe'
+    // "Astrolo..." e "Rune, R...". Su una riga propria sopra ci stavano, ma
+    // quei venti punti li paga il busto: **il blocco d'ingresso e' ancorato
+    // in basso e cresce verso l'alto**, quindi il carosello sale, e su
+    // schermo medio la copertura del testo del cielo e' passata dall'11 al
+    // 27,6 per cento, cioe' oltre il tetto che il fondatore ha accettato.
+    // La misura ha bocciato la scorciatoia, e i due nomi sono andati DENTRO
+    // il carosello, sotto i piedi dei laterali, dove lo spazio c'e' gia'.
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

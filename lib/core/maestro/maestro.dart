@@ -63,6 +63,26 @@ enum Maestro {
   /// Le tre arti del Maestro, in riga sotto il pulsante di ingresso al dominio.
   final String domainArts;
 
+  /// **LE ARTI IN DUE PAROLE, ordine BX voce 04.** Servono ai due Maestri di
+  /// lato nella home, dove lo spazio e' un terzo di riga: le tre arti per
+  /// esteso ci finirebbero troncate a meta' parola, che e' peggio di non
+  /// scriverle.
+  ///
+  /// **Le parole sono quelle del fondatore**, non una sintesi mia: i
+  /// fondatori hanno chiesto che dalla home risulti che l'app e' anzitutto
+  /// oroscopo, cartomanzia e rune, e queste sono le prime due arti di
+  /// ognuno con quei nomi.
+  /// **UNA PAROLA SOLA, e la ragione e' l'immagine.** La prima stesura ne
+  /// metteva due ("Oroscopo, Tarocchi"), e a schermo si leggevano
+  /// "Orosco..." e "Rune, R...": tre puntini al posto della meta' di ogni
+  /// parola sono peggio del silenzio. Le prove non lo hanno visto, perche'
+  /// nessuna prova guarda i puntini; l'ha visto l'anteprima.
+  String get domainArtiBrevi => switch (this) {
+        Maestro.medora => 'Astrologia',
+        Maestro.aura => 'Chakra',
+        Maestro.caligo => 'Rune',
+      };
+
   /// Le tre arti come frase, con la "e" prima dell'ultima e senza virgola
   /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino".
   ///

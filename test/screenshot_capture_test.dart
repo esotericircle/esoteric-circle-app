@@ -3502,9 +3502,17 @@ void main() {
     // dell'account, "Il tuo account", voce Impostazioni.
     // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
     // sottile in alto, e il primo tocco la apre invece di portare via.
+    // **AL PIU\' DUE TOCCHI, E SI SMETTE QUANDO IL PANNELLO E\' APERTO.** I
+    // due tocchi fissi cadevano quando bastava il primo: se al primo avvio
+    // c'e\' una festa in scena la barra sottile si ritira (ordine BX voce 07)
+    // e il secondo tocco non trova piu' nessuna porta.
     for (var tocco = 0; tocco < 2; tocco++) {
-      await tester.tap(find.byKey(const Key('porta_dell_account')).last,
-          warnIfMissed: false);
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
       for (var g = 0; g < 5; g++) {
         await tester.pump(const Duration(milliseconds: 120));
       }
@@ -3587,9 +3595,17 @@ void main() {
     // dell'account, "Il tuo account", voce Impostazioni.
     // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
     // sottile in alto, e il primo tocco la apre invece di portare via.
+    // **AL PIU\' DUE TOCCHI, E SI SMETTE QUANDO IL PANNELLO E\' APERTO.** I
+    // due tocchi fissi cadevano quando bastava il primo: se al primo avvio
+    // c'e\' una festa in scena la barra sottile si ritira (ordine BX voce 07)
+    // e il secondo tocco non trova piu' nessuna porta.
     for (var tocco = 0; tocco < 2; tocco++) {
-      await tester.tap(find.byKey(const Key('porta_dell_account')).last,
-          warnIfMissed: false);
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
       for (var g = 0; g < 5; g++) {
         await tester.pump(const Duration(milliseconds: 120));
       }
