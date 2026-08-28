@@ -9,6 +9,7 @@ import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'tier.dart';
 import '../synastry/vip_catalog.dart';
+import '../sigilli/bonus_della_condivisione.dart';
 
 /// Contatore locale delle domande ai Maestri, per tier.
 ///
@@ -77,7 +78,9 @@ class QuestionAllowance extends ChangeNotifier {
       // in `EOS_DELL_INVITO_ACCOLTO` sul server e arriva con lo stato.
       // Senza questa riga la card diceva "Eos quando il tuo amico entra nel
       // Cerchio", senza cifra, e l'ha visto l'anteprima.
-      (motivo == 'invito_con_download' ? _premioDellInvitoAccolto : null);
+      (motivo == ModoDellaCondivisione.invitoConDownload.motivo
+          ? _premioDellInvitoAccolto
+          : null);
 
   int? _premioDellInvitoAccolto;
 

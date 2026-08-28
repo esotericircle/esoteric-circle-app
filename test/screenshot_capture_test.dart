@@ -1875,7 +1875,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
-    await montaLoSchermo(tester, const Size(390, 1200));
+    await montaLoSchermo(tester, const Size(360, 1200));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(BoscoDelCerchio.route(mio: 'Lupo')));
     await step(tester);
@@ -1888,7 +1888,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
-    await montaLoSchermo(tester, const Size(390, 900));
+    await montaLoSchermo(tester, const Size(360, 900));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(DreamRiteScreen.route(now: DateTime(2026, 7, 30, 23))));
     await step(tester);
@@ -1938,7 +1938,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    await montaLoSchermo(tester, const Size(390, 844));
+    await montaLoSchermo(tester, const Size(360, 844));
     // **DALLA VIA VERA, non chiamando la funzione da fuori.** Aperto dal
     // Navigator della radice il foglio finisce SOTTO la barra di navigazione
     // del guscio, che si dipinge piu' in alto: l'immagine mostrava il campo

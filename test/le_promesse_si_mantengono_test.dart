@@ -80,7 +80,20 @@ void main() {
     final b = leggi('lib/core/sigilli/bonus_della_condivisione.dart');
     // Si guarda la FRASE A SCHERMO (quandoArriva), non i commenti, che la
     // storia del perche' la citano apposta.
-    expect(b.contains("quandoArriva: 'Eos quando il tuo amico entra"), isTrue,
+    // **SI GUARDA IL SENSO, non la lettera.** Ordine BX: la parola "Eos" e\'
+    // uscita dalla frase, perche\' la riga si componeva come "$quanti Eos ..."
+    // e senza numero a schermo si leggeva "Eos quando il tuo amico entra nel
+    // Cerchio". Cio\' che questa riga sorveglia non e\' cambiato: la frase
+    // promette l\'INGRESSO, che il Cerchio sa vedere da quando esiste
+    // `riscattaLInvito`, e non il download, che nessuno puo\' osservare.
+    final frase = RegExp(r"quandoArriva: '([^']*amico[^']*)'").firstMatch(b);
+    expect(frase, isNotNull,
+        reason: 'la frase dell\'invito non parla piu\' dell\'amico');
+    // ignore: avoid_print
+    print('ORDINE BX: la frase dell\'invito dice "${frase!.group(1)}"');
+    expect(frase.group(1), contains('entra nel Cerchio'),
+        reason: 'la frase dell\'invito non promette piu\' l\'ingresso');
+    expect(frase.group(1)!.toLowerCase(), isNot(contains('scarica')),
         reason: 'la frase dell\'invito promette di vedere il download, che '
             'il sistema non puo\' osservare');
   });
