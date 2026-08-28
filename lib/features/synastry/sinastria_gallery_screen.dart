@@ -24,6 +24,7 @@ import 'rivelazione_del_gemello.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../sigilli/celebrazione.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -106,7 +107,25 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
     }).toList(growable: false);
   }
 
+  /// Vero mentre la schermata di un VIP e' aperta: da quel momento la scena
+  /// sta raccontando, e nessuna festa ci si dipinge sopra. Ordine BV voce 02.
+  bool _unVipEAperto = false;
+
   void _apri(Vip vip) {
+    // **LA SCENA SI DICHIARA OCCUPATA PRIMA DEL GESTO, ordine BV voce 02.**
+    // Il gesto qui sotto puo' far maturare un traguardo, e la festa si
+    // aprirebbe nell'istante fra il tocco e la comparsa della chiamata: e' lo
+    // stesso difetto che la stesa aveva, visto da un'altra scena.
+    //
+    // **Qui l'annuncio copre l'intera schermata del VIP e non la sola
+    // chiamata**, e la ragione e' che questa scena non sa quando l'animazione
+    // finisce: il gesto si registra qui, l'animazione vive nella rotta
+    // spinta, e legare l'annuncio alla sola animazione avrebbe lasciato la
+    // festa in coda senza nessuno che la faccia ripartire. Cosi' invece la
+    // festa arriva appena si torna indietro, e la riga qui sotto svuota la
+    // coda proprio li'.
+    _unVipEAperto = true;
+    RiflessioniInCorso.entra(() => mounted && _unVipEAperto);
     // LA SINASTRIA ENTRA NEL CAMMINO, ordine P voce 35: il confronto fra due
     // carte e' il gesto, e qui e' scelto.
     // **CON CHI, ordine AR voce 11.** La scena sa quale ritratto e' stato
@@ -117,13 +136,21 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
       'sinastria',
       dettagli: {'vip': vip.name},
     ));
-    Navigator.of(context).push(SinastriaVipScreen.route(
+    unawaited(Navigator.of(context)
+        .push(SinastriaVipScreen.route(
       vip: vip,
       userSign: widget.userSign,
       userName: widget.userName,
       userBirth: widget.userBirth,
       primoVip: widget.primoVip,
-    ));
+    ))
+        .then((_) {
+      _unVipEAperto = false;
+      if (mounted) {
+        unawaited(
+            RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
+      }
+    }));
   }
 
   /// Calcola il gemello e lo rivela.

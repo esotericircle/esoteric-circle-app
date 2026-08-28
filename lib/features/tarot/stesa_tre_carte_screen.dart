@@ -337,6 +337,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// L'ATTESA DI MEDORA, fra l'ultima carta e il primo responso. Voce 06.
   StatoDellAttesa _attesa = StatoDellAttesa.assente;
 
+  /// **VERO DA QUANDO LA STESA E' COMPLETA A QUANDO L'ATTESA E' FINITA.**
+  /// Ordine BV voce 02: e' la finestra in cui la scena e' occupata, e comincia
+  /// PRIMA che il gesto venga registrato, cioe' prima che un traguardo possa
+  /// maturare. Senza di lui la festa nasceva nell'istante fra il gesto e
+  /// l'inizio dell'animazione, trovava la scena libera e si apriva.
+  bool _stoPerRiflettere = false;
+
   /// **IL RESPONSO APPARTIENE ALLA FASE CHE VIENE DOPO, ordine BN voce 03.**
   ///
   /// Parole del fondatore: "quando l'utente sceglie la terza o ultima Carta si
@@ -658,6 +665,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // Una volta per stesa e non una per carta, nello stesso punto in cui la
       // stesa entra nel cammino, cioe' quando e' compiuta. Una stesa
       // cominciata e abbandonata non consuma niente.
+      // **LA RIFLESSIONE SI DICHIARA PRIMA DEL GESTO, ordine BV voce 02.**
+      // L'ordine BU aveva messo la dichiarazione dove l'animazione PARTE, e
+      // per la festa che nasce mentre gira era giusto. Ma il caso vero e' un
+      // altro, ed e' quello che il fondatore ha continuato a vedere: posando
+      // l'ultima carta il traguardo matura qui sotto, la festa si apre in
+      // quell'istante e trova la scena ancora libera, perche' Medora comincia
+      // a pensare tre righe piu' giu'. **Chi sta per riflettere lo dice prima
+      // di muovere qualunque cosa**, e da quel momento la scena e' occupata.
+      _stoPerRiflettere = true;
+      RiflessioniInCorso.entra(() =>
+          mounted &&
+          (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
       final borsa = _forse<QuestionAllowance>(context);
       if (borsa != null) {
         borsa.registraStesa(_forse<EntitlementService>(context)?.tier ??
@@ -780,14 +799,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// non aspetta nessuna rete, e cio' che la chiude e' il suo stesso minimo.
   Future<void> _medoraCiPensa() async {
     if (!mounted) return;
-    // **LA FESTA ASPETTA CHE LA RIFLESSIONE FINISCA, ordine BU voce 03.**
-    // Parole del fondatore sulla 2208: "quando parte il calcolo con
-    // l'animazione di riflessione, se c'e' una festa la riflessione non si
-    // vede perche' sopra c'e' la festa". La domanda che tiene viva la
-    // riflessione e' lo stato dell'attesa: quando torna assente, la scena e'
-    // libera.
-    RiflessioniInCorso.entra(
-        () => mounted && _attesa != StatoDellAttesa.assente);
+    // **LA DICHIARAZIONE E' GIA' STATA FATTA, ordine BV voce 02**, nel punto
+    // in cui la stesa si e' completata: da li' in poi la scena e' occupata, e
+    // qui comincia soltanto l'animazione. Se questa scena venisse aperta senza
+    // passare di la', la riga qui sotto la dichiara lo stesso.
+    if (!_stoPerRiflettere) {
+      _stoPerRiflettere = true;
+      RiflessioniInCorso.entra(() =>
+          mounted &&
+          (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
+    }
     setState(() {
       _attesa = StatoDellAttesa.piena;
       _giroDellAttesa++;
@@ -805,6 +826,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     });
     await Future<void>.delayed(AttesaDiMedora.dissolvenza);
     if (!mounted) return;
+    _stoPerRiflettere = false;
     setState(() => _attesa = StatoDellAttesa.assente);
     // Scena libera: la festa che ha aspettato riparte adesso, non fra
     // novanta secondi.
@@ -1407,7 +1429,17 @@ class _Slot extends StatelessWidget {
               ..setEntry(3, 2, 0.0012)
               ..rotateX(tiltY)
               ..rotateY(tiltX),
-            child: Stack(
+            // **LA CARTA CHIAVE E' PIU' GRANDE DELLE ALTRE DUE, ordine BV voce
+            // 04.** Il fondatore: "il contorno della carta azzurro c'e', ma si
+            // vede poco e non mette in evidenza la Carta chiave tra le tre".
+            // Una linea segue il bordo e si confonde col profilo dorato della
+            // carta; **una differenza di SCALA si vede da un metro**, non
+            // copre un pixel della figura e non aggiunge nessun colore sopra.
+            // Dieci per cento: abbastanza da leggersi a colpo d'occhio,
+            // abbastanza poco da non toccare le vicine.
+            child: Transform.scale(
+              scale: eLaChiave ? 1.10 : 1.0,
+              child: Stack(
               alignment: Alignment.center,
               // L'aura deve poter uscire dal bordo della carta: e' attorno a
               // lei che l'elemento fiorisce, non dentro.
@@ -1460,6 +1492,13 @@ class _Slot extends StatelessWidget {
                 // resta la sola linea, e passa dall'oro all'AZZURRO della
                 // palette, che e' il colore del Maestro e non un colore nuovo.
                 if (eLaChiave)
+                  // **LA CORNICE RESTA A FILO, E LA CARTA CRESCE, ordine BV
+                  // voce 04**: staccarla di sei punti si poteva, ma fra una
+                  // carta e la vicina ci sono OTTO punti soli, e una cornice
+                  // staccata entrava dentro la carta accanto. Fra le due
+                  // strade la piu' forte e' la scala, che si legge da un metro;
+                  // alla linea basta essere piu' spessa per non confondersi
+                  // col profilo dorato della carta.
                   Positioned.fill(
                     child: IgnorePointer(
                       child: Container(
@@ -1468,7 +1507,7 @@ class _Slot extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(SpacingTokens.radiusMd),
                           border: Border.all(
-                              color: palette.glow, width: 2),
+                              color: palette.glow, width: 3),
                         ),
                       ),
                     ),
@@ -1484,7 +1523,7 @@ class _Slot extends StatelessWidget {
                     ),
                   ),
               ],
-            ),
+            )),
           ),
         ),
         const SizedBox(height: SpacingTokens.xxs),

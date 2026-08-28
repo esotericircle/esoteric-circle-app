@@ -76,10 +76,16 @@ void main() {
         ),
       );
 
-  Future<GlobalKey> monta(WidgetTester tester, {int seed = 2}) async {
+  /// Il riquadro dipinto DAVVERO, scala compresa: `getRect` legge il
+  /// riquadro di layout, e un `Transform` non ci entra. Ordine BV voce 04.
+  RenderObject radiceDipinta(WidgetTester tester) =>
+      tester.renderObject(find.byType(MaterialApp).first);
+
+  Future<GlobalKey> monta(WidgetTester tester,
+      {int seed = 2, double altezzaFinestra = 4400}) async {
     silenzia();
     await caricaCaratteri();
-    tester.view.physicalSize = const Size(360, 4400);
+    tester.view.physicalSize = Size(360, altezzaFinestra);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -502,4 +508,109 @@ void main() {
             'sopra, ed e\' cio\' che il fondatore non vuole');
   });
 
+
+  testWidgets('BV.04: la carta chiave e\' piu\' grande, e la cornice si stacca',
+      (tester) async {
+    // **LA FORMA E' UNA SCELTA, e questa prova la misura invece di crederci.**
+    // Il fondatore ha detto che la linea azzurra a filo si vede poco e non
+    // mette in evidenza la chiave, e ha lasciato la forma a me: la chiave e'
+    // piu' GRANDE delle altre due, che si legge da un metro e non aggiunge
+    // niente sopra la figura, e la cornice si stacca dal bordo invece di
+    // seguirlo.
+    await monta(tester);
+    final lettura = TarotReading.of(
+      TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 2)),
+      TarotTopic.bivio,
+    );
+    final chiave = lettura.chiave.drawn.position;
+    final riquadri = <SpreadPosition, Rect>{
+      for (final p in SpreadPosition.values)
+        p: tester.getRect(find.byKey(Key('stesa_carta_${p.name}'))),
+    };
+    // La misura vera e' quella DIPINTA, non quella del riquadro di layout: la
+    // scala e' un Transform, e il riquadro non la vede.
+    final dipinta = <SpreadPosition, Rect>{};
+    for (final p in SpreadPosition.values) {
+      final ro = tester
+          .element(find.byKey(Key('stesa_carta_${p.name}')))
+          .renderObject! as RenderBox;
+      final m = ro.getTransformTo(radiceDipinta(tester));
+      dipinta[p] = MatrixUtils.transformRect(m, Offset.zero & ro.size);
+    }
+    final altaChiave = dipinta[chiave]!.height;
+    final altre = [
+      for (final p in SpreadPosition.values)
+        if (p != chiave) dipinta[p]!.height,
+    ];
+    final piuAlta = altre.reduce((x, y) => x > y ? x : y);
+    final scarto = (altaChiave - piuAlta) / piuAlta;
+    // ignore: avoid_print
+    print('ORDINE BV VOCE 4: la carta chiave e\' alta '
+        '${altaChiave.toStringAsFixed(1)} punti contro '
+        '${altre.map((v) => v.toStringAsFixed(1)).join(" e ")}, cioe\' il '
+        '${(scarto * 100).toStringAsFixed(1)} per cento in piu\'');
+    expect(scarto, greaterThanOrEqualTo(0.08),
+        reason: 'la carta chiave supera le altre di appena il '
+            '${(scarto * 100).toStringAsFixed(1)} per cento: a colpo d\'occhio '
+            'non si distingue, ed e\' cio\' che il fondatore ha detto della '
+            'linea a filo');
+
+    // **LA CORNICE E' LA SECONDA META' DEL SEGNO**, e sta a filo del bordo:
+    // fra una carta e la vicina ci sono otto punti soli, e una cornice
+    // staccata di sei finiva dentro la carta accanto. La linea e' piu' spessa
+    // invece che piu' lontana.
+    final segno = tester.getRect(find.byKey(Key('stesa_chiave_${chiave.name}')));
+    final carta = riquadri[chiave]!;
+    // ignore: avoid_print
+    print('ORDINE BV VOCE 4: la cornice misura '
+        '${segno.width.toStringAsFixed(1)} punti contro i '
+        '${carta.width.toStringAsFixed(1)} della carta');
+    expect(segno.width, closeTo(carta.width, 0.5),
+        reason: 'la cornice non segue piu\' il riquadro della carta');
+
+    // **E LA CARTA CRESCIUTA NON DEVE TOCCARE LE VICINE.** Un difetto nuovo
+    // al posto di quello vecchio non sarebbe una cura.
+    final segnoDipinto = dipinta[chiave]!;
+    for (final p in SpreadPosition.values) {
+      if (p == chiave) continue;
+      final aria = segnoDipinto.left > dipinta[p]!.left
+          ? segnoDipinto.left - dipinta[p]!.right
+          : dipinta[p]!.left - segnoDipinto.right;
+      final sovrapposto = segnoDipinto.overlaps(dipinta[p]!);
+      // ignore: avoid_print
+      print('ORDINE BV VOCE 4: fra la chiave e la carta ${p.name} restano '
+          '${aria.toStringAsFixed(1)} punti, si toccano? $sovrapposto');
+      expect(sovrapposto, isFalse,
+          reason: 'la carta chiave, cresciuta, entra dentro la carta '
+              '${p.name}');
+    }
+  });
+
+  testWidgets('BV.04: le tre carte restano dentro lo schermo, anche piccolo',
+      (tester) async {
+    // **LA LEZIONE DEL VENTAGLIO, ordine BU**: cio' che cresce puo' uscire di
+    // scena, e lo si scopre solo misurandolo su uno schermo vero.
+    for (final altezza in const [797.0, 640.0]) {
+      await monta(tester, altezzaFinestra: altezza);
+      final fuori = <String>[];
+      for (final p in SpreadPosition.values) {
+        final ro = tester
+            .element(find.byKey(Key('stesa_carta_${p.name}')))
+            .renderObject! as RenderBox;
+        final m = ro.getTransformTo(radiceDipinta(tester));
+        final r = MatrixUtils.transformRect(m, Offset.zero & ro.size);
+        // La cornice sta sei punti piu' in la', e conta anche lei.
+        if (r.left - 7 < 0 || r.right + 7 > 360) {
+          fuori.add('${p.name} da ${r.left.toStringAsFixed(1)} a '
+              '${r.right.toStringAsFixed(1)}');
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE BV VOCE 4: su 360 per ${altezza.toStringAsFixed(0)}, '
+          'carte fuori dai bordi: ${fuori.isEmpty ? "nessuna" : fuori}');
+      expect(fuori, isEmpty,
+          reason: 'su uno schermo 360x$altezza queste carte escono dai bordi: '
+              '$fuori');
+    }
+  });
 }

@@ -117,10 +117,14 @@ void main() {
       // **LE TRE SCENE, enumerate sul sorgente.** La stesa, l'Oroscopo e la
       // Sinastria: se domani ne nasce una quarta che non si dichiara, la festa
       // tornera' a coprirla, e questa riga e' il posto dove accorgersene.
+      // **QUATTRO DALL\'ORDINE BV**: la galleria dei VIP era la quarta scena
+      // che animava senza dirlo, e il fondatore ci ha visto sopra la festa.
       const scene = {
         'la stesa': 'lib/features/tarot/stesa_tre_carte_screen.dart',
         'l\'Oroscopo': 'lib/features/horoscope/oroscopo_screen.dart',
         'la Sinastria': 'lib/features/synastry/chiamata_del_vip.dart',
+        'la galleria dei VIP':
+            'lib/features/synastry/sinastria_gallery_screen.dart',
       };
       final mute = <String>[];
       scene.forEach((nome, percorso) {
@@ -230,6 +234,59 @@ void main() {
               'gesto: senza questo conto la domanda del fondatore resta '
               'un\'opinione');
       RegistroDelleFeste.azzera();
+    });
+  });
+  group('BV.02, chi sta per riflettere lo dice prima di muovere il cammino',
+      () {
+    // **IL DIFETTO CHE RESTAVA.** L'ordine BU aveva messo la dichiarazione
+    // dove l'animazione PARTE, e per la festa che nasce mentre gira era
+    // giusto. Ma il caso vero e' un altro: posando l'ultima carta il traguardo
+    // matura NELLO STESSO GESTO, la festa si apre in quell'istante e trova la
+    // scena ancora libera, perche' il Maestro comincia a pensare qualche riga
+    // piu' giu'. Qui si misura l'ORDINE delle due righe nel sorgente, che e'
+    // la grandezza da cui dipende tutto.
+    test('La dichiarazione sta prima della registrazione del gesto', () {
+      final tarde = <String>[];
+      var quante = 0;
+      for (final f in Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.dart'))) {
+        final testo = f.readAsStringSync();
+        if (!testo.contains('RiflessioniInCorso.entra(')) continue;
+        if (!testo.contains('RegiaDelCammino.dopoUnGesto(')) continue;
+        quante++;
+        final dichiara = testo.indexOf('RiflessioniInCorso.entra(');
+        final gesto = testo.indexOf('RegiaDelCammino.dopoUnGesto(');
+        if (dichiara > gesto) {
+          tarde.add('${f.path} (dichiara al carattere $dichiara, muove il '
+              'cammino al $gesto)');
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE BV VOCE 2: scene che dichiarano e muovono il cammino '
+          '$quante, di cui in ritardo ${tarde.isEmpty ? "nessuna" : tarde}');
+      expect(quante, greaterThan(0),
+          reason: 'nessuna scena dichiara e muove il cammino: il conto sta '
+              'guardando nel posto sbagliato');
+      expect(tarde, isEmpty,
+          reason: 'queste scene muovono il cammino PRIMA di dire che stanno '
+              'per riflettere, e la festa che matura in quel gesto trova la '
+              'scena ancora libera: $tarde');
+    });
+
+    test('La festa che nasce nello stesso istante del gesto aspetta', () {
+      // La sequenza vera, ridotta all'osso: si dichiara, si muove il cammino,
+      // il traguardo matura, la festa chiede di aprirsi. Deve trovare la
+      // scena occupata.
+      var riflette = true;
+      RiflessioniInCorso.entra(() => riflette);
+      expect(RiflessioniInCorso.unaCeGia, isTrue,
+          reason: 'la dichiarazione fatta prima del gesto non occupa la '
+              'scena: la festa passerebbe lo stesso');
+      riflette = false;
+      expect(RiflessioniInCorso.unaCeGia, isFalse,
+          reason: 'la scena resta occupata anche a riflessione finita');
     });
   });
 }
