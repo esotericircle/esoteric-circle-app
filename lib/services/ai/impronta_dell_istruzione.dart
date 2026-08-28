@@ -142,7 +142,7 @@ class ImprontaDellIstruzione {
       'poi 88,3 (53 su 60), poi 90,0 (54 su 60); media dei tre 88,9. LA MEDIA '
       'DEI SEI GIRI È 86,7 PER CENTO (312 su 360), sopra la soglia di 85, '
       'ma il giro più basso resta a 80,0: finché un giro può cadere '
-      'sotto la soglia le tre voci non sono distinguibili in modo '
+      'sotto la soglia i tre Maestri non sono distinguibili in modo '
       'affidabile. Questa riga resta falsa per ordine del fondatore. '
       'DOVE SBAGLIA: adesso si sa. Caligo perde 15 risposte su 60 nei tre '
       'giri nuovi, tredici verso aura. TUTTE aprono con una nebbia o un '
