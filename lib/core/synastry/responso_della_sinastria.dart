@@ -186,7 +186,7 @@ class ResponsoDellaSinastria {
     final stem =
         vip.stem == null ? '' : vip.stem!.replaceAll(RegExp(r'_v\d+$'), '');
     return TestiDellaSinastria.presentazioni[stem] ??
-        'porta con se\' il suo mondo';
+        'porta con sé il suo mondo';
   }
 
   static String _laStoccata(Vip vip, FasciaDiAffinita fascia, int seme) {
