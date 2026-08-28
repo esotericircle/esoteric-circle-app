@@ -153,4 +153,49 @@ void main() {
               'denaro e li decide il server');
     }
   });
+
+  testWidgets('BW.03: lo stato dell\'invito si legge una volta sola',
+      (tester) async {
+    // **Fatto osservato dal fondatore sulla build 2210**, in quattro schermate
+    // di festa su quattro, sotto il pulsante "Invita qualcuno nel Cerchio":
+    // "60 Eos quando il tuo amico entra nel Cerchio. In attesa. In attesa."
+    //
+    // **Lo dicevano due porte.** La frase del corpus finiva gia' con lo stato,
+    // e chi compone la riga lo aggiunge a ogni modo non pagato subito. La
+    // grandezza misurata e' quante volte la stessa parola di stato compare
+    // nella riga sotto il pulsante.
+    SharedPreferences.setMockInitialValues({});
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
+    final grande = Sentieri.grandiDi(Sentiero.costellazione).first;
+    await tester.pumpWidget(attorno(
+      CelebrazioneAScermoPieno(
+        traguardi: [grande],
+        sentieri: const [Sentiero.costellazione],
+      ),
+      diario,
+    ));
+    await tester.pump(const Duration(milliseconds: 600));
+
+    final riga = tester.widget<Text>(
+        find.byKey(const Key('quando_arriva_invito_con_download')));
+    final testo = riga.data!;
+    final quante = 'In attesa'.allMatches(testo).length;
+    // ignore: avoid_print
+    print('ORDINE BW VOCE 3: la riga sotto l\'invito dice "$testo", e la '
+        'parola di stato ci compare $quante volte');
+    expect(quante, 1,
+        reason: 'lo stato dell\'invito compare $quante volte nella stessa '
+            'riga: "$testo"');
+
+    // E le altre due vie, che il premio lo pagano subito, non devono portare
+    // nessuno stato: dirlo li' sarebbe falso.
+    for (final modo in const ['social_pubblico', 'condivisione_privata']) {
+      final altra =
+          tester.widget<Text>(find.byKey(Key('quando_arriva_$modo')));
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 3: la via $modo dice "${altra.data}"');
+      expect('In attesa'.allMatches(altra.data!).length, 0,
+          reason: 'la via $modo dice di essere in attesa, ma paga subito');
+    }
+  });
 }

@@ -25,7 +25,14 @@ enum ModoDellaCondivisione {
     // dice che l'utente cerca risposte: qui la risposta e' QUANDO arrivano gli
     // Eos, e bastano quattro parole. La frase lunga si mangiava tre righe
     // sotto ogni pulsante, in un grigio che per giunta non si leggeva.
-    quandoArriva: 'Eos quando il tuo amico entra nel Cerchio. In attesa.',
+    // **LO STATO LO METTE CHI COMPONE LA RIGA, non questa stringa. Ordine
+    // BW voce 03**: il fondatore ha letto "In attesa. In attesa." sotto il
+    // pulsante, in quattro schermate di festa su quattro. Lo dicevano tutte
+    // e due le porte, questa e la regola generale di chi compone la riga,
+    // che aggiunge lo stato a ogni modo non pagato subito. La regola resta
+    // dov'era, perche' vale anche per il modo che nascera' domani; qui la
+    // frase dice solo QUANDO arrivano gli Eos.
+    quandoArriva: 'Eos quando il tuo amico entra nel Cerchio.',
     subitoPagato: false,
   ),
 
