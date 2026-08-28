@@ -137,7 +137,21 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 28 AGOSTO 2026, SU QUESTE IMPRONTE, ordine BX: 85,0 per '
+      'SEI GIRI DEL 28 AGOSTO 2026, SU QUESTE IMPRONTE. Ordine BY voce 04, '
+      'altri tre giri dopo quelli dell\'ordine BX: 88,3 per cento (53 su 60), '
+      'poi 88,3 (53 su 60), poi 90,0 (54 su 60); media dei tre 88,9. LA MEDIA '
+      'DEI SEI GIRI È 86,7 PER CENTO (312 su 360), sopra la soglia di 85, '
+      'ma il giro più basso resta a 80,0: finché un giro può cadere '
+      'sotto la soglia le tre voci non sono distinguibili in modo '
+      'affidabile. Questa riga resta falsa per ordine del fondatore. '
+      'DOVE SBAGLIA: adesso si sa. Caligo perde 15 risposte su 60 nei tre '
+      'giri nuovi, tredici verso aura. TUTTE aprono con una nebbia o un '
+      'velo che avvolge; medora ne perde 5, tutte verso aura, tutte aperte '
+      'col cielo che vela, riflette o invita a guardarsi dentro; aura non '
+      'viene mai scambiata in duecentoquaranta verdetti. Non è il ritmo, '
+      'che è già lontano: è l\'immagine di apertura, che appartiene '
+      'ad aura. Le frasi per esteso stanno nel manifesto dell\'ordine BY. '
+      'I TRE GIRI DELL\'ORDINE BX: 85,0 per '
       'cento (51 su 60), poi 80,0 (48 su 60), poi 88,3 (53 su 60); media dei '
       'tre 84,4 per cento (152 su 180), contro una soglia di 85. Escursione '
       'fra il giro più basso e il più alto: otto punti e tre su '

@@ -184,6 +184,13 @@ void main() {
     };
     var nonDeciso = 0;
 
+    // Le risposte che il giudice ha attribuito a un altro: ordine BY voce 04.
+    final sbagliate = <({
+      Maestro autore,
+      Maestro creduto,
+      String domanda,
+      String testo
+    })>[];
     stdout.writeln('Faccio giudicare ${risposte.length} risposte...');
     for (var i = 0; i < risposte.length; i += insieme) {
       final lotto = risposte.skip(i).take(insieme).toList();
@@ -207,6 +214,19 @@ void main() {
         }
         matrice[esito.risposta.autore]![indovinato] =
             matrice[esito.risposta.autore]![indovinato]! + 1;
+        // **LE FRASI CHE SBAGLIANO SI TENGONO, ordine BY voce 04.** La
+        // matrice dice QUANTO si sbaglia, e quel numero da solo non si puo\'
+        // correggere: chi riscrive le voci ha bisogno di sapere SU QUALI
+        // frasi il giudice si e\' perso. Qui si conservano le risposte
+        // attribuite a un altro Maestro, con la domanda che le ha chiamate.
+        if (indovinato != esito.risposta.autore) {
+          sbagliate.add((
+            autore: esito.risposta.autore,
+            creduto: indovinato,
+            domanda: esito.risposta.domanda,
+            testo: esito.risposta.testo,
+          ));
+        }
       }
       stdout.writeln('  ${(i + lotto.length)}/${risposte.length}');
     }
@@ -246,6 +266,8 @@ void main() {
 
     // ---- IL RITMO DELLE VOCI, ordine BP voce 3.
     //
+    _stampaGliSbagli(sbagliate);
+
     // **Un registro scritto non e' un registro ottenuto.** La matrice dice se
     // il giudice distingue le tre voci; questi nove numeri dicono COME suonano,
     // e si leggono confrontandoli col giro precedente. Non hanno soglia e non
@@ -298,6 +320,27 @@ class _Risposta {
   final Maestro autore;
   final String domanda;
   final String testo;
+}
+
+/// Stampa le frasi su cui il giudice si e\' perso, raggruppate per chi le ha
+/// scritte: e\' cio\' che serve a chi deve riscriverle. Ordine BY voce 04.
+void _stampaGliSbagli(
+    List<({Maestro autore, Maestro creduto, String domanda, String testo})>
+        sbagliate) {
+  if (sbagliate.isEmpty) return;
+  stdout.writeln('');
+  stdout.writeln('LE FRASI SU CUI IL GIUDICE SI E\' PERSO');
+  for (final autore in Maestro.values) {
+    final sue = sbagliate.where((s) => s.autore == autore).toList();
+    if (sue.isEmpty) continue;
+    stdout.writeln('--- ${autore.id}: ${sue.length} risposte attribuite ad '
+        'altri');
+    for (final s in sue) {
+      final primo = s.testo.trim().split(RegExp(r'(?<=[.!?])\s+')).first;
+      stdout.writeln('  [creduto ${s.creduto.id}] domanda: ${s.domanda}');
+      stdout.writeln('     prima frase: $primo');
+    }
+  }
 }
 
 /// Legge il verdetto del giudice, che a volte aggiunge punteggiatura.
