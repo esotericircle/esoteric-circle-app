@@ -245,6 +245,25 @@ class TarotSetupPanel extends StatelessWidget {
                 spacing: SpacingTokens.xs,
                 runSpacing: SpacingTokens.xs,
                 children: [
+                  // **LA DOMANDA PER PRIMA, ordine BV voce 05.** Era la
+                  // seconda e uguale alle altre quattro: la scelta che
+                  // cambia il responso stava in mezzo al contorno.
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<TarotTopic>(
+                      chiave: const Key('stesa_topic'),
+                      titolo: 'Scegli la tua domanda',
+                      inRilievo: true,
+                      corrente: setup.topic,
+                      voci: TarotTopic.values,
+                      palette: palette,
+                      etichetta: (t) => t.label,
+                      gruppo: (t) => t.group.label,
+                      bloccata: (_) => false,
+                      onSelect: (t) => onChanged(setup.copyWith(topic: t)),
+                      onLocked: (_) {},
+                    ),
+                  ),
                   // Il tipo di stesa: da qui viene anche il titolo in alto.
                   SizedBox(
                     width: w,
@@ -259,21 +278,6 @@ class TarotSetupPanel extends StatelessWidget {
                       bloccata: (t) => !t.disponibile,
                       onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
                       onLocked: (t) => onLocked(t.nome),
-                    ),
-                  ),
-                  SizedBox(
-                    width: w,
-                    child: TendinaSelettore<TarotTopic>(
-                      chiave: const Key('stesa_topic'),
-                      titolo: 'Scegli la tua domanda',
-                      corrente: setup.topic,
-                      voci: TarotTopic.values,
-                      palette: palette,
-                      etichetta: (t) => t.label,
-                      gruppo: (t) => t.group.label,
-                      bloccata: (_) => false,
-                      onSelect: (t) => onChanged(setup.copyWith(topic: t)),
-                      onLocked: (_) {},
                     ),
                   ),
                   SizedBox(
@@ -363,6 +367,7 @@ class TendinaSelettore<T> extends StatelessWidget {
     required this.onLocked,
     this.sottotitolo,
     this.gruppo,
+    this.inRilievo = false,
   });
 
   /// La chiave del bottone, per i test.
@@ -380,6 +385,11 @@ class TendinaSelettore<T> extends StatelessWidget {
 
   /// Se le voci vanno raccolte per gruppi, il nome del gruppo.
   final String Function(T)? gruppo;
+
+  /// Se questa tendina va messa in rilievo rispetto alle altre. Ordine BV
+  /// voce 05: la domanda e' la scelta che cambia il responso, le altre sono
+  /// contorno, e finche' sono tutte uguali non si vede quale conta.
+  final bool inRilievo;
 
   final bool Function(T) bloccata;
   final ValueChanged<T> onSelect;
@@ -468,8 +478,14 @@ class TendinaSelettore<T> extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          color: palette.deepest.withValues(alpha: 0.45),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+          color: palette.deepest.withValues(alpha: inRilievo ? 0.65 : 0.45),
+          // **IL COLORE DEL MAESTRO, non un colore nuovo**: il bagliore della
+          // palette, che sulle altre tendine non compare mai.
+          border: Border.all(
+              color: inRilievo
+                  ? palette.glow
+                  : palette.gold.withValues(alpha: 0.35),
+              width: inRilievo ? 1.5 : 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -479,7 +495,11 @@ class TendinaSelettore<T> extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.etichetta().copyWith(
-                    color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+                    color: inRilievo
+                        ? palette.glow
+                        : ColorTokens.textSecondary,
+                    fontWeight: inRilievo ? FontWeight.w700 : null,
+                    letterSpacing: 0.8)),
             const SizedBox(height: 2),
             Row(
               children: [
