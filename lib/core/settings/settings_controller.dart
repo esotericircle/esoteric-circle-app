@@ -25,7 +25,7 @@ class SettingsController extends ChangeNotifier {
     bool simpleMode = false,
     bool subtitles = true,
     bool suonoEVibrazione = true,
-    bool effettiSonori = true,
+    bool effettiSonori = false,
   })  : _reduceAnimations = reduceAnimations,
         _simpleMode = simpleMode,
         _subtitles = subtitles,
@@ -63,7 +63,12 @@ class SettingsController extends ChangeNotifier {
   /// **Chi vuole il silenzio senza perdere il tocco spegne questo**; chi
   /// vuole il silenzio totale spegne l'altro, che comanda su tutti e due.
   ///
-  /// Vero di partenza: l'app suona, e chi non lo vuole lo dice.
+  /// **FALSO DI PARTENZA, ordine BZ voce 05.** Parole del fondatore del 28
+  /// agosto 2026: "gli effetti sonori vanno per ora disabilitati per
+  /// default, almeno fino a quando non ne scegliero qualcuno decente,
+  /// adesso sembrano un giochino anni 80". Chi apre l'app per la prima volta
+  /// non sente niente; l'interruttore resta dov'e' e chi lo accende lo
+  /// ritrova acceso alla riapertura, come prima.
   bool get effettiSonori => _effettiSonori;
 
   /// Vero se un suono puo' uscire adesso: servono tutti e due gli

@@ -192,12 +192,73 @@ void main() {
     });
   });
 
+  group('BZ.05, su un telefono nuovo non suona niente', () {
+    tearDown(() => PaletteSensoriale.spiaDelResponso = null);
+
+    testWidgets('Nessuno degli otto responsi suona a installazione nuova',
+        (tester) async {
+      // **LA GRANDEZZA MISURATA E\' IL NUMERO DI RESPONSI CHE SUONANO su un
+      // telefono appena installato**, senza che nessuno apra le
+      // impostazioni: le preferenze sono vuote e il controllore nasce come
+      // nasce nell'app vera.
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      final impostazioni = SettingsController();
+      await impostazioni.load();
+      late BuildContext preso;
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+          ChangeNotifierProvider<SettingsController>.value(value: impostazioni),
+        ],
+        child: MaterialApp(
+          home: Builder(builder: (context) {
+            preso = context;
+            return const SizedBox.shrink();
+          }),
+        ),
+      ));
+      var quanti = 0;
+      PaletteSensoriale.spiaDelResponso = (_) => quanti++;
+      await tester.runAsync(() async {
+        for (final gesto in VoceDelResponso.deiResponsi.keys) {
+          await RegiaDelCammino.dopoUnGesto(preso, gesto);
+        }
+      });
+      await tester.pump();
+      // ignore: avoid_print
+      print('ORDINE BZ VOCE 5: su un telefono nuovo suonano $quanti responsi '
+          'su ${VoceDelResponso.deiResponsi.length}');
+      expect(quanti, 0,
+          reason: '$quanti responsi suonano su un telefono appena installato: '
+              'chi apre l\'app per la prima volta sente il giochino');
+      // E la vibrazione resta: e\' il suono che parte spento, non il tocco.
+      expect(impostazioni.suonoEVibrazione, isTrue,
+          reason: 'anche la vibrazione nasce spenta: l\'ordine chiede solo il '
+              'silenzio dei suoni');
+    });
+  });
+
   group('BX.05, la scelta resta e le voci sono coerenti', () {
     test('Il comando spento sopravvive alla riapertura dell\'app', () async {
       SharedPreferences.setMockInitialValues(const {});
       final prima = SettingsController();
-      expect(prima.effettiSonori, isTrue,
-          reason: 'di partenza l\'app deve suonare');
+      // **DI PARTENZA L\'APP NON SUONA PIU\', ordine BZ voce 05.** Parole del
+      // fondatore: "gli effetti sonori vanno per ora disabilitati per
+      // default, almeno fino a quando non ne scegliero qualcuno decente,
+      // adesso sembrano un giochino anni 80". L\'interruttore resta dov\'e\' e
+      // funziona come prima: cambia solo da dove parte.
+      expect(prima.effettiSonori, isFalse,
+          reason: 'di partenza l\'app suona di nuovo');
+      prima.setEffettiSonori(true);
+      await Future<void>.delayed(Duration.zero);
+      final riacceso = SettingsController();
+      await riacceso.load();
+      expect(riacceso.effettiSonori, isTrue,
+          reason: 'chi accende gli effetti sonori non li ritrova accesi');
+      prima.setEffettiSonori(false);
+      await Future<void>.delayed(Duration.zero);
       prima.setEffettiSonori(false);
       // Il salvataggio e' best effort e asincrono: si lascia girare.
       await Future<void>.delayed(Duration.zero);
