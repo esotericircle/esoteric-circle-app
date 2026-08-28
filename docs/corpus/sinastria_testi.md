@@ -85,7 +85,7 @@ sola, breve, che si legge prima della percentuale.
 
 - leggendaria: "Siete la stessa persona in due corpi. Che paura."
 - alta: "Stesso segno, stessi difetti, stessa faccia tosta."
-- buona: "Vi capireste anche al buio, e infatti spesso lo fate."
+- buona: "Vi capireste anche al buio e infatti spesso lo fate."
 - curiosa: "Uguali sì, ma non è detto che sia un complimento."
 - attrito: "Due copie dello stesso originale non fanno una coppia."
 
@@ -95,7 +95,7 @@ sola, breve, che si legge prima della percentuale.
 - alta: "Parlate la stessa lingua senza aver mai preso lezioni."
 - buona: "Vi riconoscete a distanza, come fa la gente della stessa razza."
 - curiosa: "Stessa sostanza, forme diverse: vi somigliate a giorni alterni."
-- attrito: "Anche l'acqua e il ghiaccio sono la stessa cosa, e non vanno d'accordo."
+- attrito: "Anche l'acqua e il ghiaccio sono la stessa cosa e non vanno d'accordo."
 
 ### fuoco e aria
 
@@ -119,13 +119,13 @@ sola, breve, che si legge prima della percentuale.
 - alta: "Il contrario esatto di te ti sta guardando. Buona fortuna."
 - buona: "L'attrazione dei contrari, quella che nessuno sa spiegare."
 - curiosa: "Opposti abbastanza da incuriosirvi, non abbastanza da capirvi."
-- attrito: "Vi guardate dai due capi del tavolo, e il tavolo è lungo."
+- attrito: "Vi guardate dai due capi del tavolo e il tavolo è lungo."
 
 ### elementi in tensione
 
 - leggendaria: "Una tensione così alta di solito finisce sui giornali."
 - alta: "Chimica pura e nessuna via d'uscita: complimenti."
-- buona: "Vi sfidate, e la cosa vi diverte più di quanto ammettiate."
+- buona: "Vi sfidate e la cosa vi diverte più di quanto ammettiate."
 - curiosa: "Scintille sì, incendio non pervenuto."
 - attrito: "Due elementi che si annullano a vicenda, con garbo."
 
@@ -135,7 +135,7 @@ sola, breve, che si legge prima della percentuale.
 - alta: "Due mondi diversi che hanno deciso di piacersi lo stesso."
 - buona: "Curiosi l'uno dell'altro, che è già più di quanto capiti di solito."
 - curiosa: "Vi guardate come si guarda una lingua straniera."
-- attrito: "Due mondi diversi, e i visti non si sono trovati."
+- attrito: "Due mondi diversi e i visti non si sono trovati."
 
 ## 2. I TITOLI DELLA BOLLA
 
@@ -145,7 +145,7 @@ giornale.
 ### stesso segno
 
 - leggendaria: "Lo specchio perfetto"
-- alta: "Due gocce d'acqua, e una tempesta"
+- alta: "Due gocce d'acqua e una tempesta"
 - buona: "Conosco già tutti i tuoi trucchi"
 - curiosa: "Troppo simili per stupirsi"
 - attrito: "Il difetto in doppia copia"
@@ -207,19 +207,19 @@ SEGNO_B sono i due segni, NOME è il personaggio.
 
 ### stesso
 
-- "Due SEGNO_A nella stessa stanza sono uno spettacolo o un disastro, e non c'è mai una terza possibilità."
-- "Sei un SEGNO_A e hai davanti un altro SEGNO_A: sai già come va a finire, ed è questo il problema."
-- "Stesso segno vuol dire stesse virtù, ma soprattutto stessi vizi, e i vizi in doppia copia si notano."
+- "Due SEGNO_A nella stessa stanza sono uno spettacolo o un disastro e non c'è mai una terza possibilità."
+- "Sei un SEGNO_A e hai davanti un altro SEGNO_A: sai già come va a finire ed è questo il problema."
+- "Stesso segno vuol dire stesse virtù, ma soprattutto stessi vizi e i vizi in doppia copia si notano."
 
 ### elemento
 
-- "SEGNO_A e SEGNO_B sono fatti della stessa materia, e la materia si riconosce da lontano."
+- "SEGNO_A e SEGNO_B sono fatti della stessa materia e la materia si riconosce da lontano."
 - "Stesso elemento, forme diverse: vi capite prima di parlare, il che vi risparmia parecchie discussioni."
 - "Fra un SEGNO_A e un SEGNO_B non serve spiegarsi: serve semmai decidere chi comanda."
 
 ### fuocoaria
 
-- "Il fuoco di SEGNO_A e l'aria di SEGNO_B: uno accende, l'altra alimenta, e nessuno dei due sa dove finisce."
+- "Il fuoco di SEGNO_A e l'aria di SEGNO_B: uno accende, l'altra alimenta e nessuno dei due sa dove finisce."
 - "Mettere insieme SEGNO_A e SEGNO_B è come lasciare una finestra aperta accanto a un camino acceso."
 - "SEGNO_A brucia, SEGNO_B soffia: la fisica è dalla vostra parte, la prudenza molto meno."
 
@@ -233,17 +233,17 @@ SEGNO_B sono i due segni, NOME è il personaggio.
 
 - "SEGNO_A e SEGNO_B stanno ai due capi opposti del cerchio, il che significa che avete lo stesso identico problema visto da due lati."
 - "Un SEGNO_A e un SEGNO_B sono la stessa medaglia girata: per questo vi attraete e per questo vi date sui nervi."
-- "Nello zodiaco SEGNO_A e SEGNO_B si guardano da lontano, e non riescono a smettere."
+- "Nello zodiaco SEGNO_A e SEGNO_B si guardano da lontano e non riescono a smettere."
 
 ### tensione
 
-- "SEGNO_A e SEGNO_B appartengono a elementi che non si sono mai piaciuti, e le storie migliori nascono così."
-- "Fra SEGNO_A e SEGNO_B c'è attrito, e l'attrito è l'unica cosa che produce calore."
+- "SEGNO_A e SEGNO_B appartengono a elementi che non si sono mai piaciuti e le storie migliori nascono così."
+- "Fra SEGNO_A e SEGNO_B c'è attrito e l'attrito è l'unica cosa che produce calore."
 - "SEGNO_A e SEGNO_B si sfidano per natura: la domanda non è se litigherete, è quanto vi divertirete."
 
 ### estranei
 
-- "SEGNO_A e SEGNO_B non hanno quasi niente in comune, e questo li rende reciprocamente inspiegabili."
+- "SEGNO_A e SEGNO_B non hanno quasi niente in comune e questo li rende reciprocamente inspiegabili."
 - "Fra un SEGNO_A e un SEGNO_B non c'è una lingua comune: si comincia imparandola."
 - "SEGNO_A e SEGNO_B vengono da due mondi che non si erano mai parlati prima di adesso."
 
@@ -264,18 +264,18 @@ parentesi.
 ### Con Venere
 
 - Venere congiunzione Venere: "Vi piacciono le stesse cose, il che è comodo e pericoloso insieme."
-- Venere opposizione Venere: "Vi piacciono cose opposte, e nessuno dei due ha intenzione di cedere."
+- Venere opposizione Venere: "Vi piacciono cose opposte e nessuno dei due ha intenzione di cedere."
 - Venere trigono Venere: "Avete lo stesso gusto senza esservi messi d'accordo."
 - Venere sestile Mercurio: "Uno parla e l'altro trova affascinante il modo in cui lo dice."
 - Sole opposizione Venere: "Lui è esattamente il tipo che non dovresti trovare interessante."
-- Venere quadrato Marte: "Vi attirate e vi irritate nello stesso istante, ed è quello il punto."
+- Venere quadrato Marte: "Vi attirate e vi irritate nello stesso istante ed è quello il punto."
 
 ### Con la Luna
 
 - Luna congiunzione Luna: "Reagite alle cose nello stesso modo, spesso nello stesso momento."
 - Marte sestile Luna: "Uno si muove e l'altro lo sente prima che accada."
 - Luna opposizione Sole: "Uno illumina, l'altro assorbe: funziona finché nessuno pretende il contrario."
-- Luna quadrato Mercurio: "Uno sente, l'altro spiega, e non si trovano mai sulla stessa frase."
+- Luna quadrato Mercurio: "Uno sente, l'altro spiega e non si trovano mai sulla stessa frase."
 
 ### Con Marte
 
@@ -286,8 +286,8 @@ parentesi.
 ### Con Mercurio
 
 - Mercurio congiunzione Sole: "Pensa a voce alta e voi lo capite al primo tentativo."
-- Mercurio trigono Mercurio: "Due teste che corrono alla stessa velocità, e si annoiano insieme del resto del mondo."
-- Mercurio quadrato Saturno: "Uno propone, l'altro obietta, e alla fine hanno ragione entrambi."
+- Mercurio trigono Mercurio: "Due teste che corrono alla stessa velocità e si annoiano insieme del resto del mondo."
+- Mercurio quadrato Saturno: "Uno propone, l'altro obietta e alla fine hanno ragione entrambi."
 
 ### La regola per le combinazioni non elencate
 
@@ -295,11 +295,11 @@ Quando il motore produce una combinazione che non ha una riga sua, si usa la
 riga generica del pianeta più lento fra i due, e non si inventa nulla:
 
 - Sole: "C'è qualcosa nel suo modo di stare al mondo che non ti lascia indifferente."
-- Luna: "Vi toccate un nervo scoperto, e non sempre nello stesso modo."
+- Luna: "Vi toccate un nervo scoperto e non sempre nello stesso modo."
 - Mercurio: "Il modo in cui pensate si incrocia più di quanto sembri."
 - Venere: "Sul bello e sul piacere avete parecchio da dirvi."
 - Marte: "Quando si tratta di agire, vi accorgete l'uno dell'altro."
-- Saturno: "C'è un peso in mezzo, e i pesi tengono insieme più di quanto separino."
+- Saturno: "C'è un peso in mezzo e i pesi tengono insieme più di quanto separino."
 
 ## 5. I CINQUANTA PERSONAGGI
 
@@ -322,8 +322,8 @@ non se ne accorge nessuno: la frase regge lo stesso.
 - **vip_ariana-grande**: arriva a note che il resto dell'umanità nemmeno immagina. *Attualità: album, tour, film.*
 - **vip_bad-bunny**: riempie gli stadi cantando in spagnolo e non ha mai chiesto permesso. *Attualità: album, tour, premi.*
 - **vip_beyonce**: quando entra lei, le altre luci si spengono da sole. *Attualità: album, tour, premi.*
-- **vip_bill-gates**: ha riscritto il mondo partendo da un garage, e adesso prova a ripararlo. *Attualità: iniziative pubbliche, libri.*
-- **vip_billie-eilish**: sussurra, e la ascoltano in milioni. *Attualità: album, colonne sonore, premi.*
+- **vip_bill-gates**: ha riscritto il mondo partendo da un garage e adesso prova a ripararlo. *Attualità: iniziative pubbliche, libri.*
+- **vip_billie-eilish**: sussurra e la ascoltano in milioni. *Attualità: album, colonne sonore, premi.*
 - **vip_brad-pitt**: invecchia meglio del vino e lo sa benissimo. *Attualità: film, produzioni.*
 - **vip_chiara-ferragni**: di un post ha saputo fare un impero. *Attualità: progetti imprenditoriali pubblici.*
 - **vip_damiano-david**: sul palco perde la camicia ma mai il ritmo. *Attualità: album, tour.*
@@ -333,15 +333,15 @@ non se ne accorge nessuno: la frase regge lo stesso.
 - **vip_elon-musk**: twitta a mezzanotte e sposta i mercati. *Attualità: lanci, aziende, annunci pubblici.*
 - **vip_emma-watson**: dai libri di magia è passata a quelli veri. *Attualità: film, studi, cause pubbliche.*
 - **vip_federer**: perdeva con eleganza anche quando vinceva. *Attualità: apparizioni, iniziative.*
-- **vip_fedez**: fa notizia più di un telegiornale, e con meno sforzo. *Attualità: musica, progetti pubblici.*
+- **vip_fedez**: fa notizia più di un telegiornale e con meno sforzo. *Attualità: musica, progetti pubblici.*
 - **vip_giorgio-armani**: ha vestito il mondo di grigio elegante. *Attualità: sfilate, riconoscimenti.*
 - **vip_jeff-bezos**: ti consegna tutto tranne il suo tempo libero. *Attualità: aziende, lanci spaziali.*
-- **vip_kanye-west**: una ne fa e cento ne pensa, e le pensa ad alta voce. *Attualità: album, progetti.*
+- **vip_kanye-west**: una ne fa e cento ne pensa e le pensa ad alta voce. *Attualità: album, progetti.*
 - **vip_keanu-reeves**: resta gentile pure mentre salva il mondo. *Attualità: film, progetti.*
 - **vip_kim-kardashian**: della propria vita ha fatto un impero quotato. *Attualità: imprese, studi legali.*
 - **vip_kylie-jenner**: a vent'anni contava già i miliardi. *Attualità: imprese, lanci.*
 - **vip_lady-gaga**: cambia faccia a ogni canzone ma non cambia mai voce. *Attualità: album, tour, film.*
-- **vip_lebron-james**: a quarant'anni vola ancora, e la cosa comincia a innervosire. *Attualità: stagione, primati.*
+- **vip_lebron-james**: a quarant'anni vola ancora e la cosa comincia a innervosire. *Attualità: stagione, primati.*
 - **vip_margot-robbie**: ha reso una bambola un fenomeno mondiale. *Attualità: film, produzioni.*
 - **vip_mark-zuckerberg**: sa tutto di te ma non risponde ai messaggi. *Attualità: prodotti, annunci.*
 - **vip_mbappe**: corre più veloce del tuo wifi. *Attualità: stagione, trofei.*
@@ -352,18 +352,18 @@ non se ne accorge nessuno: la frase regge lo stesso.
 - **vip_oprah-winfrey**: regala macchine e cambia vite, spesso nello stesso pomeriggio. *Attualità: interviste, progetti.*
 - **vip_priyanka-chopra**: ha conquistato due continenti senza chiedere il permesso a nessuno. *Attualità: film, serie, imprese.*
 - **vip_rihanna**: tra un disco e l'altro ti ha pure venduto il fondotinta. *Attualità: musica, imprese.*
-- **vip_ronaldo**: si allena mentre tu dormi, e te lo fa sapere. *Attualità: stagione, primati.*
+- **vip_ronaldo**: si allena mentre tu dormi e te lo fa sapere. *Attualità: stagione, primati.*
 - **vip_scarlett-johansson**: ha dato la voce persino ai robot. *Attualità: film, regia.*
 - **vip_selena-gomez**: sopravvive a Hollywood col sorriso, che è la cosa più difficile. *Attualità: musica, serie, imprese.*
 - **vip_serena-williams**: serve più forte di quanto tu discuta. *Attualità: imprese, apparizioni.*
 - **vip_shakira**: con i fianchi non sa mentire, con il resto nemmeno. *Attualità: album, tour.*
 - **vip_sinner**: resta di ghiaccio anche quando il campo prende fuoco. *Attualità: tornei, classifica.*
 - **vip_snoop-dogg**: se la prende comoda da trent'anni e non ha mai avuto fretta. *Attualità: musica, apparizioni.*
-- **vip_steve-jobs**: ha messo il futuro nella tasca di tutti. *Attualità: nessuna, e il testo lo dichiara.*
-- **vip_taylor-swift**: se la lasci ci scrive un album, e vende tutto. *Attualità: album, tour, primati.*
+- **vip_steve-jobs**: ha messo il futuro nella tasca di tutti. *Attualità: nessuna e il testo lo dichiara.*
+- **vip_taylor-swift**: se la lasci ci scrive un album e vende tutto. *Attualità: album, tour, primati.*
 - **vip_the-weeknd**: canta le notti che tu dimentichi. *Attualità: album, tour.*
 - **vip_timothee-chalamet**: fa sospirare due generazioni contemporaneamente. *Attualità: film, premi.*
-- **vip_tom-cruise**: gli stunt se li fa da solo, e a una certa età è quasi un dispetto. *Attualità: film, imprese.*
+- **vip_tom-cruise**: gli stunt se li fa da solo e a una certa età è quasi un dispetto. *Attualità: film, imprese.*
 - **vip_usain-bolt**: ha corso piano solo per salutare. *Attualità: apparizioni, imprese.*
 - **vip_valentino-rossi**: in curva piega più di te sotto le scadenze. *Attualità: gare, squadra.*
 - **vip_warren-buffett**: a colazione compra aziende. *Attualità: operazioni, lettera annuale.*
@@ -375,9 +375,9 @@ L'attualità non è una frase a sé: si innesta nella presentazione con una di
 queste giunture, scelte a rotazione. NOME è il personaggio, FATTO è il
 contenuto del campo.
 
-- "NOME, che PRESENTAZIONE, e che in questi mesi FATTO."
+- "NOME, che PRESENTAZIONE e che in questi mesi FATTO."
 - "NOME PRESENTAZIONE. Di questi tempi, poi, FATTO."
-- "Aggiungi che NOME FATTO, e capisci con chi hai a che fare."
+- "Aggiungi che NOME FATTO e capisci con chi hai a che fare."
 
 Quando il campo manca, è vecchio o il personaggio non è più in vita, si usa
 la sola presentazione, e nessuno si accorge che manchi qualcosa.
@@ -420,15 +420,15 @@ fila.
 
 ### curiosa
 
-- "Il cielo non si sbilancia, e fa bene."
+- "Il cielo non si sbilancia e fa bene."
 - "Né un sì né un no: il cosmo prende tempo."
 - "Abbastanza per incuriosirsi, non abbastanza per fare progetti."
 - "Una di quelle percentuali che dipendono più da voi che dalle stelle."
-- "Il cielo lascia la porta socchiusa, e vediamo chi la spinge."
+- "Il cielo lascia la porta socchiusa e vediamo chi la spinge."
 
 ### attrito
 
-- "Il cielo è stato chiaro, e non è colpa nostra."
+- "Il cielo è stato chiaro e non è colpa nostra."
 - "Su questo, francamente, le stelle hanno delle riserve."
 - "Poche percentuali, ma le storie migliori nascono così, dicono."
 - "Il cosmo dice di no. Il cosmo però ha sbagliato altre volte."

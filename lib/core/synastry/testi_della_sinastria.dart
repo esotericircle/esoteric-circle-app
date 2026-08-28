@@ -83,7 +83,7 @@ class TestiDellaSinastria {
     RelazioneFraSegni.stesso: <FasciaDiAffinita, String>{
       FasciaDiAffinita.leggendaria: 'Siete la stessa persona in due corpi. Che paura.',
       FasciaDiAffinita.alta: 'Stesso segno, stessi difetti, stessa faccia tosta.',
-      FasciaDiAffinita.buona: 'Vi capireste anche al buio, e infatti spesso lo fate.',
+      FasciaDiAffinita.buona: 'Vi capireste anche al buio e infatti spesso lo fate.',
       FasciaDiAffinita.curiosa: 'Uguali sì, ma non è detto che sia un complimento.',
       FasciaDiAffinita.attrito: 'Due copie dello stesso originale non fanno una coppia.',
     },
@@ -92,7 +92,7 @@ class TestiDellaSinastria {
       FasciaDiAffinita.alta: 'Parlate la stessa lingua senza aver mai preso lezioni.',
       FasciaDiAffinita.buona: 'Vi riconoscete a distanza, come fa la gente della stessa razza.',
       FasciaDiAffinita.curiosa: 'Stessa sostanza, forme diverse: vi somigliate a giorni alterni.',
-      FasciaDiAffinita.attrito: 'Anche l\'acqua e il ghiaccio sono la stessa cosa, e non vanno d\'accordo.',
+      FasciaDiAffinita.attrito: 'Anche l\'acqua e il ghiaccio sono la stessa cosa e non vanno d\'accordo.',
     },
     RelazioneFraSegni.fuocoaria: <FasciaDiAffinita, String>{
       FasciaDiAffinita.leggendaria: 'Uno accende, l\'altra soffia. È così che nascono gli incendi.',
@@ -113,12 +113,12 @@ class TestiDellaSinastria {
       FasciaDiAffinita.alta: 'Il contrario esatto di te ti sta guardando. Buona fortuna.',
       FasciaDiAffinita.buona: 'L\'attrazione dei contrari, quella che nessuno sa spiegare.',
       FasciaDiAffinita.curiosa: 'Opposti abbastanza da incuriosirvi, non abbastanza da capirvi.',
-      FasciaDiAffinita.attrito: 'Vi guardate dai due capi del tavolo, e il tavolo è lungo.',
+      FasciaDiAffinita.attrito: 'Vi guardate dai due capi del tavolo e il tavolo è lungo.',
     },
     RelazioneFraSegni.tensione: <FasciaDiAffinita, String>{
       FasciaDiAffinita.leggendaria: 'Una tensione così alta di solito finisce sui giornali.',
       FasciaDiAffinita.alta: 'Chimica pura e nessuna via d\'uscita: complimenti.',
-      FasciaDiAffinita.buona: 'Vi sfidate, e la cosa vi diverte più di quanto ammettiate.',
+      FasciaDiAffinita.buona: 'Vi sfidate e la cosa vi diverte più di quanto ammettiate.',
       FasciaDiAffinita.curiosa: 'Scintille sì, incendio non pervenuto.',
       FasciaDiAffinita.attrito: 'Due elementi che si annullano a vicenda, con garbo.',
     },
@@ -127,7 +127,7 @@ class TestiDellaSinastria {
       FasciaDiAffinita.alta: 'Due mondi diversi che hanno deciso di piacersi lo stesso.',
       FasciaDiAffinita.buona: 'Curiosi l\'uno dell\'altro, che è già più di quanto capiti di solito.',
       FasciaDiAffinita.curiosa: 'Vi guardate come si guarda una lingua straniera.',
-      FasciaDiAffinita.attrito: 'Due mondi diversi, e i visti non si sono trovati.',
+      FasciaDiAffinita.attrito: 'Due mondi diversi e i visti non si sono trovati.',
     },
   };
 
@@ -136,7 +136,7 @@ class TestiDellaSinastria {
       <RelazioneFraSegni, Map<FasciaDiAffinita, String>>{
     RelazioneFraSegni.stesso: <FasciaDiAffinita, String>{
       FasciaDiAffinita.leggendaria: 'Lo specchio perfetto',
-      FasciaDiAffinita.alta: 'Due gocce d\'acqua, e una tempesta',
+      FasciaDiAffinita.alta: 'Due gocce d\'acqua e una tempesta',
       FasciaDiAffinita.buona: 'Conosco già tutti i tuoi trucchi',
       FasciaDiAffinita.curiosa: 'Troppo simili per stupirsi',
       FasciaDiAffinita.attrito: 'Il difetto in doppia copia',
@@ -189,17 +189,17 @@ class TestiDellaSinastria {
   static const Map<RelazioneFraSegni, List<String>> aperture =
       <RelazioneFraSegni, List<String>>{
     RelazioneFraSegni.stesso: <String>[
-      'Due SEGNO_A nella stessa stanza sono uno spettacolo o un disastro, e non c\'è mai una terza possibilità.',
-      'Sei un SEGNO_A e hai davanti un altro SEGNO_A: sai già come va a finire, ed è questo il problema.',
-      'Stesso segno vuol dire stesse virtù, ma soprattutto stessi vizi, e i vizi in doppia copia si notano.',
+      'Due SEGNO_A nella stessa stanza sono uno spettacolo o un disastro e non c\'è mai una terza possibilità.',
+      'Sei un SEGNO_A e hai davanti un altro SEGNO_A: sai già come va a finire ed è questo il problema.',
+      'Stesso segno vuol dire stesse virtù, ma soprattutto stessi vizi e i vizi in doppia copia si notano.',
     ],
     RelazioneFraSegni.elemento: <String>[
-      'SEGNO_A e SEGNO_B sono fatti della stessa materia, e la materia si riconosce da lontano.',
+      'SEGNO_A e SEGNO_B sono fatti della stessa materia e la materia si riconosce da lontano.',
       'Stesso elemento, forme diverse: vi capite prima di parlare, il che vi risparmia parecchie discussioni.',
       'Fra un SEGNO_A e un SEGNO_B non serve spiegarsi: serve semmai decidere chi comanda.',
     ],
     RelazioneFraSegni.fuocoaria: <String>[
-      'Il fuoco di SEGNO_A e l\'aria di SEGNO_B: uno accende, l\'altra alimenta, e nessuno dei due sa dove finisce.',
+      'Il fuoco di SEGNO_A e l\'aria di SEGNO_B: uno accende, l\'altra alimenta e nessuno dei due sa dove finisce.',
       'Mettere insieme SEGNO_A e SEGNO_B è come lasciare una finestra aperta accanto a un camino acceso.',
       'SEGNO_A brucia, SEGNO_B soffia: la fisica è dalla vostra parte, la prudenza molto meno.',
     ],
@@ -211,15 +211,15 @@ class TestiDellaSinastria {
     RelazioneFraSegni.opposti: <String>[
       'SEGNO_A e SEGNO_B stanno ai due capi opposti del cerchio, il che significa che avete lo stesso identico problema visto da due lati.',
       'Un SEGNO_A e un SEGNO_B sono la stessa medaglia girata: per questo vi attraete e per questo vi date sui nervi.',
-      'Nello zodiaco SEGNO_A e SEGNO_B si guardano da lontano, e non riescono a smettere.',
+      'Nello zodiaco SEGNO_A e SEGNO_B si guardano da lontano e non riescono a smettere.',
     ],
     RelazioneFraSegni.tensione: <String>[
-      'SEGNO_A e SEGNO_B appartengono a elementi che non si sono mai piaciuti, e le storie migliori nascono così.',
-      'Fra SEGNO_A e SEGNO_B c\'è attrito, e l\'attrito è l\'unica cosa che produce calore.',
+      'SEGNO_A e SEGNO_B appartengono a elementi che non si sono mai piaciuti e le storie migliori nascono così.',
+      'Fra SEGNO_A e SEGNO_B c\'è attrito e l\'attrito è l\'unica cosa che produce calore.',
       'SEGNO_A e SEGNO_B si sfidano per natura: la domanda non è se litigherete, è quanto vi divertirete.',
     ],
     RelazioneFraSegni.estranei: <String>[
-      'SEGNO_A e SEGNO_B non hanno quasi niente in comune, e questo li rende reciprocamente inspiegabili.',
+      'SEGNO_A e SEGNO_B non hanno quasi niente in comune e questo li rende reciprocamente inspiegabili.',
       'Fra un SEGNO_A e un SEGNO_B non c\'è una lingua comune: si comincia imparandola.',
       'SEGNO_A e SEGNO_B vengono da due mondi che non si erano mai parlati prima di adesso.',
     ],
@@ -228,32 +228,32 @@ class TestiDellaSinastria {
   /// Il cielo reso leggibile: prima cosa significa, poi come si chiama.
   static const Map<String, String> cieloLeggibile = <String, String>{
     'Venere congiunzione Venere': 'Vi piacciono le stesse cose, il che è comodo e pericoloso insieme.',
-    'Venere opposizione Venere': 'Vi piacciono cose opposte, e nessuno dei due ha intenzione di cedere.',
+    'Venere opposizione Venere': 'Vi piacciono cose opposte e nessuno dei due ha intenzione di cedere.',
     'Venere trigono Venere': 'Avete lo stesso gusto senza esservi messi d\'accordo.',
     'Venere sestile Mercurio': 'Uno parla e l\'altro trova affascinante il modo in cui lo dice.',
     'Sole opposizione Venere': 'Lui è esattamente il tipo che non dovresti trovare interessante.',
-    'Venere quadrato Marte': 'Vi attirate e vi irritate nello stesso istante, ed è quello il punto.',
+    'Venere quadrato Marte': 'Vi attirate e vi irritate nello stesso istante ed è quello il punto.',
     'Luna congiunzione Luna': 'Reagite alle cose nello stesso modo, spesso nello stesso momento.',
     'Marte sestile Luna': 'Uno si muove e l\'altro lo sente prima che accada.',
     'Luna opposizione Sole': 'Uno illumina, l\'altro assorbe: funziona finché nessuno pretende il contrario.',
-    'Luna quadrato Mercurio': 'Uno sente, l\'altro spiega, e non si trovano mai sulla stessa frase.',
+    'Luna quadrato Mercurio': 'Uno sente, l\'altro spiega e non si trovano mai sulla stessa frase.',
     'Marte congiunzione Marte': 'Stessa energia, stessa fretta, stesso muro contro cui andare.',
     'Marte sestile Ascendente': 'Uno entra in una stanza e l\'altro se ne accorge subito.',
     'Marte trigono Sole': 'Uno spinge e l\'altro non si tira indietro.',
     'Mercurio congiunzione Sole': 'Pensa a voce alta e voi lo capite al primo tentativo.',
-    'Mercurio trigono Mercurio': 'Due teste che corrono alla stessa velocità, e si annoiano insieme del resto del mondo.',
-    'Mercurio quadrato Saturno': 'Uno propone, l\'altro obietta, e alla fine hanno ragione entrambi.',
+    'Mercurio trigono Mercurio': 'Due teste che corrono alla stessa velocità e si annoiano insieme del resto del mondo.',
+    'Mercurio quadrato Saturno': 'Uno propone, l\'altro obietta e alla fine hanno ragione entrambi.',
   };
 
   /// La riga generica del pianeta piu' lento, quando la combinazione non ha
   /// una riga sua. Non si inventa nulla.
   static const Map<String, String> genericoPerPianeta = <String, String>{
     'Sole': 'C\'è qualcosa nel suo modo di stare al mondo che non ti lascia indifferente.',
-    'Luna': 'Vi toccate un nervo scoperto, e non sempre nello stesso modo.',
+    'Luna': 'Vi toccate un nervo scoperto e non sempre nello stesso modo.',
     'Mercurio': 'Il modo in cui pensate si incrocia più di quanto sembri.',
     'Venere': 'Sul bello e sul piacere avete parecchio da dirvi.',
     'Marte': 'Quando si tratta di agire, vi accorgete l\'uno dell\'altro.',
-    'Saturno': 'C\'è un peso in mezzo, e i pesi tengono insieme più di quanto separino.',
+    'Saturno': 'C\'è un peso in mezzo e i pesi tengono insieme più di quanto separino.',
   };
 
   /// Le cinquanta presentazioni: la carta d'identita' pubblica, che non
@@ -263,8 +263,8 @@ class TestiDellaSinastria {
     'vip_ariana-grande': 'arriva a note che il resto dell\'umanità nemmeno immagina.',
     'vip_bad-bunny': 'riempie gli stadi cantando in spagnolo e non ha mai chiesto permesso.',
     'vip_beyonce': 'quando entra lei, le altre luci si spengono da sole.',
-    'vip_bill-gates': 'ha riscritto il mondo partendo da un garage, e adesso prova a ripararlo.',
-    'vip_billie-eilish': 'sussurra, e la ascoltano in milioni.',
+    'vip_bill-gates': 'ha riscritto il mondo partendo da un garage e adesso prova a ripararlo.',
+    'vip_billie-eilish': 'sussurra e la ascoltano in milioni.',
     'vip_brad-pitt': 'invecchia meglio del vino e lo sa benissimo.',
     'vip_chiara-ferragni': 'di un post ha saputo fare un impero.',
     'vip_damiano-david': 'sul palco perde la camicia ma mai il ritmo.',
@@ -274,15 +274,15 @@ class TestiDellaSinastria {
     'vip_elon-musk': 'twitta a mezzanotte e sposta i mercati.',
     'vip_emma-watson': 'dai libri di magia è passata a quelli veri.',
     'vip_federer': 'perdeva con eleganza anche quando vinceva.',
-    'vip_fedez': 'fa notizia più di un telegiornale, e con meno sforzo.',
+    'vip_fedez': 'fa notizia più di un telegiornale e con meno sforzo.',
     'vip_giorgio-armani': 'ha vestito il mondo di grigio elegante.',
     'vip_jeff-bezos': 'ti consegna tutto tranne il suo tempo libero.',
-    'vip_kanye-west': 'una ne fa e cento ne pensa, e le pensa ad alta voce.',
+    'vip_kanye-west': 'una ne fa e cento ne pensa e le pensa ad alta voce.',
     'vip_keanu-reeves': 'resta gentile pure mentre salva il mondo.',
     'vip_kim-kardashian': 'della propria vita ha fatto un impero quotato.',
     'vip_kylie-jenner': 'a vent\'anni contava già i miliardi.',
     'vip_lady-gaga': 'cambia faccia a ogni canzone ma non cambia mai voce.',
-    'vip_lebron-james': 'a quarant\'anni vola ancora, e la cosa comincia a innervosire.',
+    'vip_lebron-james': 'a quarant\'anni vola ancora e la cosa comincia a innervosire.',
     'vip_margot-robbie': 'ha reso una bambola un fenomeno mondiale.',
     'vip_mark-zuckerberg': 'sa tutto di te ma non risponde ai messaggi.',
     'vip_mbappe': 'corre più veloce del tuo wifi.',
@@ -293,7 +293,7 @@ class TestiDellaSinastria {
     'vip_oprah-winfrey': 'regala macchine e cambia vite, spesso nello stesso pomeriggio.',
     'vip_priyanka-chopra': 'ha conquistato due continenti senza chiedere il permesso a nessuno.',
     'vip_rihanna': 'tra un disco e l\'altro ti ha pure venduto il fondotinta.',
-    'vip_ronaldo': 'si allena mentre tu dormi, e te lo fa sapere.',
+    'vip_ronaldo': 'si allena mentre tu dormi e te lo fa sapere.',
     'vip_scarlett-johansson': 'ha dato la voce persino ai robot.',
     'vip_selena-gomez': 'sopravvive a Hollywood col sorriso, che è la cosa più difficile.',
     'vip_serena-williams': 'serve più forte di quanto tu discuta.',
@@ -301,10 +301,10 @@ class TestiDellaSinastria {
     'vip_sinner': 'resta di ghiaccio anche quando il campo prende fuoco.',
     'vip_snoop-dogg': 'se la prende comoda da trent\'anni e non ha mai avuto fretta.',
     'vip_steve-jobs': 'ha messo il futuro nella tasca di tutti.',
-    'vip_taylor-swift': 'se la lasci ci scrive un album, e vende tutto.',
+    'vip_taylor-swift': 'se la lasci ci scrive un album e vende tutto.',
     'vip_the-weeknd': 'canta le notti che tu dimentichi.',
     'vip_timothee-chalamet': 'fa sospirare due generazioni contemporaneamente.',
-    'vip_tom-cruise': 'gli stunt se li fa da solo, e a una certa età è quasi un dispetto.',
+    'vip_tom-cruise': 'gli stunt se li fa da solo e a una certa età è quasi un dispetto.',
     'vip_usain-bolt': 'ha corso piano solo per salutare.',
     'vip_valentino-rossi': 'in curva piega più di te sotto le scadenze.',
     'vip_warren-buffett': 'a colazione compra aziende.',
@@ -313,9 +313,9 @@ class TestiDellaSinastria {
 
   /// Le tre giunture con cui l'attualita' entra nella presentazione.
   static const List<String> giunture = <String>[
-    'NOME, che PRESENTAZIONE, e che in questi mesi FATTO.',
+    'NOME, che PRESENTAZIONE e che in questi mesi FATTO.',
     'NOME PRESENTAZIONE. Di questi tempi, poi, FATTO.',
-    'Aggiungi che NOME FATTO, e capisci con chi hai a che fare.',
+    'Aggiungi che NOME FATTO e capisci con chi hai a che fare.',
   ];
 
   /// Le cinque stoccate per fascia: l'ultima frase della bolla.
@@ -343,14 +343,14 @@ class TestiDellaSinastria {
       'Un buon risultato, di quelli che non si vantano ma tengono.',
     ],
     FasciaDiAffinita.curiosa: <String>[
-      'Il cielo non si sbilancia, e fa bene.',
+      'Il cielo non si sbilancia e fa bene.',
       'Né un sì né un no: il cosmo prende tempo.',
       'Abbastanza per incuriosirsi, non abbastanza per fare progetti.',
       'Una di quelle percentuali che dipendono più da voi che dalle stelle.',
-      'Il cielo lascia la porta socchiusa, e vediamo chi la spinge.',
+      'Il cielo lascia la porta socchiusa e vediamo chi la spinge.',
     ],
     FasciaDiAffinita.attrito: <String>[
-      'Il cielo è stato chiaro, e non è colpa nostra.',
+      'Il cielo è stato chiaro e non è colpa nostra.',
       'Su questo, francamente, le stelle hanno delle riserve.',
       'Poche percentuali, ma le storie migliori nascono così, dicono.',
       'Il cosmo dice di no. Il cosmo però ha sbagliato altre volte.',
