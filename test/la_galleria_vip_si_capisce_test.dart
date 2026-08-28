@@ -94,9 +94,19 @@ void main() {
       larghezze.add(r.width);
       righe.add(r.top.roundToDouble());
     }
-    expect(larghezze.length, greaterThanOrEqualTo(6),
+    // **QUATTRO E NON PIU' SEI, ordine BZ voce 09.** Parole del fondatore:
+    // "l'elenco delle carte adesso sono in ordine, ma andrebbero un po'
+    // ingrandite". Le colonne sono passate da tre a due, quindi in una
+    // schermata ne entrano meno: il numero cala PERCHE' la misura cresce, ed
+    // e' la misura che questa prova difende. La larghezza vera si misura piu'
+    // sotto, e quella e' una soglia che sale.
+    expect(larghezze.length, greaterThanOrEqualTo(4),
         reason: 'in scena ci sono solo ${larghezze.length} ritratti: la '
             'prova non sta guardando la griglia');
+    expect(larghezze.first, greaterThanOrEqualTo(140),
+        reason: 'i ritratti della lista sono larghi '
+            '${larghezze.first.toStringAsFixed(1)} punti: il fondatore li ha '
+            'chiesti piu\' grandi, ed erano 101');
     final piuLarga = larghezze.reduce((a, b) => a > b ? a : b);
     final piuStretta = larghezze.reduce((a, b) => a < b ? a : b);
     // ignore: avoid_print
@@ -200,6 +210,49 @@ void main() {
         reason: 'da qui non si torna a mettere se stessi');
   });
 
+  testWidgets('BZ.09: la Sinastria VIP parte dal confronto, e si vede subito',
+      (tester) async {
+    // **LA GRANDEZZA MISURATA E' COSA STA IN CIMA ALLA SCHERMATA**, in punti
+    // dipinti: il titolo del confronto e le due carte devono stare sopra la
+    // barra di ricerca e sopra le due porte grandi. Parole del fondatore:
+    // "LA SINASTRIA VIP DEVE PARTIRE con la schermata dove ci sono le 2
+    // carte in alto dove l'utente puo' scegliere il VIP a destra e a sinistra
+    // c'e' la carta dell'utente con titolo sopra La Tua Compatibilità con un
+    // VIP".
+    await monta(tester);
+    final titolo = find.byKey(const Key('sinastria_titolo_confronto'));
+    expect(titolo, findsOneWidget,
+        reason: 'il titolo del confronto non c\'e\'');
+    expect(tester.widget<Text>(titolo).data, 'La Tua Compatibilità con un VIP',
+        reason: 'il titolo non e\' quello che il fondatore ha scritto');
+
+    final tua = tester.getRect(find.byKey(const Key('sinastria_carta_tua')));
+    final daScegliere = tester
+        .getRect(find.byKey(const Key('sinastria_carta_da_scegliere')));
+    final ricerca = tester.getRect(find.byKey(const Key('sinastria_search')));
+    final gemello =
+        tester.getRect(find.byKey(const Key('sinastria_cerca_gemello')));
+    // ignore: avoid_print
+    print('ORDINE BZ VOCE 9: titolo a ${tester.getRect(titolo).top.round()}, '
+        'carta tua a ${tua.top.round()}, carta da scegliere a '
+        '${daScegliere.top.round()}, ricerca a ${ricerca.top.round()}, '
+        'porta del gemello a ${gemello.top.round()}');
+    expect(tester.getRect(titolo).top, lessThan(ricerca.top),
+        reason: 'il titolo del confronto sta sotto la barra di ricerca: la '
+            'schermata non parte dal confronto');
+    expect(tua.top, lessThan(ricerca.top),
+        reason: 'la carta della persona non e\' in cima');
+    expect(daScegliere.top, lessThan(gemello.top),
+        reason: 'la carta da scegliere sta sotto le due porte');
+    // La TUA a sinistra, quella da scegliere a destra, come chiesto.
+    expect(tua.center.dx, lessThan(daScegliere.center.dx),
+        reason: 'le due carte sono invertite: la tua deve stare a sinistra');
+
+    // **E LE DUE FUNZIONI VIRALI RESTANO RAGGIUNGIBILI**, subito sotto.
+    expect(gemello, isNotNull);
+    expect(find.byKey(const Key('sinastria_due_vip')), findsOneWidget,
+        reason: 'la porta del confronto fra due VIP e\' sparita');
+  });
   testWidgets('I titoli non rubano il posto al contenuto', (tester) async {
     // **ORDINE BX VOCE 06, QUARTO RILIEVO: "i titoli della schermata sono
     // troppo grandi".** L'ordine lascia scegliere la grandezza misurabile e
@@ -229,6 +282,12 @@ void main() {
       // Le sole voci che contano sono i TITOLI, cioe\' le righe brevi: un
       // paragrafo lungo non e\' un titolo nemmeno se e\' scritto grande.
       if (testo.length > 40) continue;
+      // **E NON E\' UN TITOLO NEANCHE UN SIMBOLO DENTRO UNA CARTA.**
+      // Ordine BZ voce 09: l\'intestazione nuova monta la carta della
+      // persona, e dove non c\'e\' una foto la cornice disegna il simbolo
+      // del segno in grande. E\' un DISEGNO, non una riga che ruba il posto:
+      // un carattere solo non e\' un titolo.
+      if (testo.trim().length <= 2) continue;
       corpi[testo] = corpo;
     }
     final piuGrande =
@@ -261,6 +320,12 @@ void main() {
     final primo = VipCatalog.vips[2];
     await tester.scrollUntilVisible(find.byKey(Key('vip_${primo.name}')), 120,
         scrollable: find.byType(Scrollable).first);
+    // **`scrollUntilVisible` SI FERMA APPENA IL WIDGET ESISTE**, e puo\'
+    // esistere ancora sotto il bordo: con le carte piu\' grandi dell\'ordine
+    // BZ voce 09 il tocco cadeva a 1.429 su una finestra alta 600, e non
+    // colpiva niente. `ensureVisible` lo porta davvero dentro.
+    await tester.ensureVisible(find.byKey(Key('vip_${primo.name}')));
+    await tester.pump();
     await tester.tap(find.byKey(Key('vip_${primo.name}')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -281,6 +346,8 @@ void main() {
         scrollable: find
             .descendant(of: inCima, matching: find.byType(Scrollable))
             .first);
+    await tester.ensureVisible(cartaDelSecondo);
+    await tester.pump();
     await tester.tap(cartaDelSecondo);
     await tester.pump();
     for (var i = 0; i < 6; i++) {

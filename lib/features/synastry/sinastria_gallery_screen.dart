@@ -9,6 +9,7 @@ import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -104,6 +105,17 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// il primo del catalogo, che e' Angelina Jolie. Adesso il tocco apre la
   /// SCELTA del primo, e la persona tocca la carta che vuole.
   bool _scegliIlPrimo = false;
+
+  /// **DOVE COMINCIA LA LISTA**, per portarci lo sguardo dal segnaposto della
+  /// carta da scegliere. Ordine BZ voce 09.
+  final GlobalKey _inizioDellaLista = GlobalKey();
+
+  Future<void> _portamiAllaLista() async {
+    final ctx = _inizioDellaLista.currentContext;
+    if (ctx == null) return;
+    await Scrollable.ensureVisible(ctx,
+        duration: const Duration(milliseconds: 400), alignment: 0.05);
+  }
 
   /// Rimette il proprio cielo al posto del primo VIP: e' la via del ritorno
   /// che mancava del tutto.
@@ -282,6 +294,26 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // **LA SINASTRIA VIP PARTE DAL CONFRONTO. Ordine BZ
+                      // voce 09.** Parole del fondatore: "LA SINASTRIA VIP
+                      // DEVE PARTIRE con la schermata dove ci sono le 2 carte
+                      // in alto dove l'utente puo' scegliere il VIP a destra e
+                      // a sinistra c'e' la carta dell'utente con titolo sopra
+                      // La Tua Compatibilita' con un VIP".
+                      //
+                      // Prima si apriva sulla ricerca e sulla tendina: chi
+                      // entrava vedeva un catalogo e doveva capire da solo
+                      // cosa ci si facesse. Adesso la prima cosa in scena e'
+                      // il confronto, con la propria carta gia' al suo posto.
+                      _IntestazioneDelConfronto(
+                        palette: palette,
+                        userSign: widget.userSign,
+                        userName: widget.userName,
+                        userBirth: widget.userBirth,
+                        primoVip: widget.primoVip,
+                        onScegli: _portamiAllaLista,
+                      ),
+                      const SizedBox(height: SpacingTokens.lg),
                       Row(
                         children: [
                           Expanded(
@@ -396,6 +428,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       ),
                       const SizedBox(height: SpacingTokens.lg),
                       Text(
+                          key: _inizioDellaLista,
                           _scegliIlPrimo
                               ? 'Scegli il primo dei due VIP'
                               : widget.primoVip == null
@@ -440,7 +473,16 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   sliver: SliverGrid(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 132,
+                      // **PIU' GRANDI, ordine BZ voce 09.** Parole del
+                      // fondatore: "l'elenco delle carte adesso sono in
+                      // ordine, ma andrebbero un po' ingrandite". Con 132 di
+                      // massimo, su uno schermo da 360 ci stavano TRE colonne
+                      // e ogni ritratto usciva a 101 punti; con 168 le colonne
+                      // diventano due e il ritratto passa a 152, cioe' meta'
+                      // piu' grande. Il numero da cambiare era questo, non la
+                      // spaziatura: e' il conto delle colonne a decidere la
+                      // misura.
+                      maxCrossAxisExtent: 168,
                       mainAxisSpacing: SpacingTokens.md,
                       crossAxisSpacing: SpacingTokens.sm,
                       childAspectRatio: 0.72,
@@ -459,6 +501,133 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// LE DUE CARTE IN CIMA, E IL TITOLO SOPRA DI LORO. Ordine BZ voce 09.
+///
+/// **Parole del fondatore:** "LA SINASTRIA VIP DEVE PARTIRE con la schermata
+/// dove ci sono le 2 carte in alto dove l'utente puo' scegliere il VIP a
+/// destra e a sinistra c'e' la carta dell'utente con titolo sopra La Tua
+/// Compatibilità con un VIP".
+///
+/// **La carta di destra e' un segnaposto e lo dichiara**: non porta un VIP
+/// scelto dall'app, perche' l'app che sceglie per te e' esattamente il difetto
+/// del confronto che dava sempre Angelina Jolie. Al tocco porta l'occhio alla
+/// lista, che e' dove si sceglie.
+///
+/// **LE DUE FUNZIONI VIRALI RESTANO DOVE ERANO**, cioe' subito sotto questa
+/// intestazione: "Trova il tuo gemello astrale VIP" e "Confronta 2 VIP" sono
+/// le due porte grandi, e nessuna delle due si e' mossa.
+class _IntestazioneDelConfronto extends StatelessWidget {
+  const _IntestazioneDelConfronto({
+    required this.palette,
+    required this.onScegli,
+    this.userSign,
+    this.userName,
+    this.userBirth,
+    this.primoVip,
+  });
+
+  final MaestroPalette palette;
+  final VoidCallback onScegli;
+  final Zodiac? userSign;
+  final String? userName;
+  final DateTime? userBirth;
+  final Vip? primoVip;
+
+  String get _dataTua {
+    final d = userBirth;
+    if (d == null) return '';
+    return '${d.day}.${d.month}.${d.year}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Col primo VIP scelto il titolo dice l'altra cosa vera: non e' piu' la
+    // TUA compatibilità, sono due volti messi uno contro l'altro.
+    final titolo = primoVip == null
+        ? 'La Tua Compatibilità con un VIP'
+        : 'La Compatibilità fra ${primoVip!.name} e un VIP';
+    return Column(
+      children: [
+        Text(
+          titolo,
+          key: const Key('sinastria_titolo_confronto'),
+          textAlign: TextAlign.center,
+          style: TypographyTokens.display(size: 20)
+              .copyWith(color: palette.goldSoft, height: 1.2),
+        ),
+        const SizedBox(height: SpacingTokens.md),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  primoVip == null
+                      ? VipFramedPortrait(
+                          key: const Key('sinastria_carta_tua'),
+                          palette: palette,
+                          name: userName ?? 'Il tuo cielo',
+                          date: _dataTua,
+                          sign: userSign?.symbol,
+                        )
+                      : VipFramedPortrait(
+                          key: const Key('sinastria_carta_tua'),
+                          palette: palette,
+                          name: primoVip!.name,
+                          date: primoVip!.note,
+                          sign: primoVip!.sign.symbol,
+                          vipAsset: primoVip!.fullPath,
+                        ),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                    primoVip == null ? 'Tu' : primoVip!.name,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 64),
+              child: Icon(Icons.favorite_rounded,
+                  color: palette.goldSoft, size: 24),
+            ),
+            Expanded(
+              child: GestureDetector(
+                key: const Key('sinastria_carta_da_scegliere'),
+                onTap: onScegli,
+                behavior: HitTestBehavior.opaque,
+                child: Column(
+                  children: [
+                    VipFramedPortrait(
+                      palette: palette,
+                      name: 'Scegli il VIP',
+                      date: '',
+                      sign: '?',
+                    ),
+                    const SizedBox(height: SpacingTokens.xs),
+                    Text(
+                      'Scegli il VIP',
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: ColorTokens.textSecondary),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
