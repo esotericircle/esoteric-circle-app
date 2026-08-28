@@ -92,7 +92,18 @@ class CartaIngrandita extends StatelessWidget {
     // guardata da vicino, non un fondale.
     final largaCarta = (larghezza * 0.62).clamp(160.0, 320.0);
 
-    return ColoredBox(
+    // **IL MATERIAL, ED E' LA CAUSA VERA DELLE RIGHE GIALLE. Ordine BV voce
+    // 01.** Il fondatore le ha viste ancora sulla 2209, col velo gia' nero
+    // pieno: non erano trasparenza, erano righe DISEGNATE. Un testo che non
+    // ha un `Material` fra i suoi antenati ricade sul `DefaultTextStyle` di
+    // sistema, che porta `TextDecoration.underline` doppia e gialla; una
+    // rotta costruita con `showGeneralDialog` non ne ha nessuno, e l'ordine
+    // AL voce 04 lo aveva perfino scritto in un commento senza vederne la
+    // conseguenza. **Il tipo e' `transparency`**: serve lo stile, non una
+    // superficie, e il fondo deve restare il velo.
+    return Material(
+      type: MaterialType.transparency,
+      child: ColoredBox(
       color: backgroundColor,
       child: Semantics(
         label: 'La carta ${letta.drawn.card.name} aperta, '
@@ -126,6 +137,7 @@ class CartaIngrandita extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

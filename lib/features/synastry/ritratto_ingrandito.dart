@@ -62,7 +62,14 @@ class RitrattoIngrandito extends StatelessWidget {
   Widget build(BuildContext context) {
     final larghezza = MediaQuery.of(context).size.width;
     final larga = (larghezza * 0.78).clamp(180.0, 420.0);
-    return ColoredBox(
+    // **IL MATERIAL, ordine BV voce 01, stessa causa della carta ingrandita.**
+    // Senza un Material fra gli antenati, ogni testo di questa rotta ricade
+    // sul DefaultTextStyle di sistema e prende la sottolineatura doppia e
+    // gialla. Il tipo e' transparency: serve lo stile, non una superficie, e
+    // il fondo deve restare il velo.
+    return Material(
+      type: MaterialType.transparency,
+      child: ColoredBox(
       color: backgroundColor,
       child: Semantics(
         label: 'La carta di ${vip.name} aperta, tocca fuori per chiudere',
@@ -108,6 +115,7 @@ class RitrattoIngrandito extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }
