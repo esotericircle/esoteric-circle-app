@@ -102,7 +102,21 @@ void main() {
         {'invito_con_download', 'social_pubblico', 'condivisione_privata'},
         reason: 'i motivi non combaciano piu\' con quelli del server');
     final server = File('functions/src/borsellino.ts').readAsStringSync();
-    expect(server.contains('invito_con_download: 60'), isTrue);
+    // **L'INVITO NON STA PIU' IN QUESTO LISTINO, ordine BX voce 02.** Il
+    // premio non si paga alla condivisione, perche' bastava mandare il link
+    // a se stessi: lo paga riscattaLInvito quando una persona invitata entra
+    // davvero. Il valore vive in EOS_DELL_INVITO_ACCOLTO e vale sempre
+    // sessanta. La grandezza misurata cambia col fatto: qui si pretende che
+    // NON ci sia, e che ci sia dove adesso vive.
+    expect(RegExp(r'^\s*invito_con_download\s*:', multiLine: true)
+            .hasMatch(RegExp(r'BONUS_DELLA_CONDIVISIONE[^}]*}', dotAll: true)
+                    .firstMatch(server)
+                    ?.group(0) ??
+                ''),
+        isFalse,
+        reason: 'il listino della condivisione paga di nuovo l\'invito');
+    expect(server.contains('EOS_DELL_INVITO_ACCOLTO = 60'), isTrue,
+        reason: 'il premio dell\'invito accolto non vale piu\' sessanta Eos');
     expect(server.contains('social_pubblico: 30'), isTrue);
     expect(server.contains('condivisione_privata: 15'), isTrue);
     expect(server.contains('TETTO_CONDIVISIONI_PREMIATE = 3'), isTrue,

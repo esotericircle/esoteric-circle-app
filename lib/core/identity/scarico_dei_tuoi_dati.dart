@@ -50,6 +50,14 @@ class ScaricoDeiTuoiDati {
     'rituale.': 'I tuoi riti',
     'santuario.': 'Il Santuario',
     'onboarding.': 'Il tuo ingresso nel Cerchio',
+    // **I DUE GRUPPI NUOVI DELL'ORDINE BX VOCE 11.** Il quaderno dei sogni e
+    // lo storico delle letture del viso si cancellano con tutto il resto:
+    // devono anche potersi scaricare, perche' l'ordine BC voce 02 dice che
+    // non si scarica meno di quello che si cancella. Il quaderno e' la
+    // memoria piu' privata che questa app custodisca, e chi la scrive ha
+    // diritto di riaverla.
+    'sogni.': 'Il tuo quaderno dei sogni',
+    'viso.': 'Le tue letture del viso',
   };
 
   /// Tutto cio' che il telefono sa di te, in un albero.

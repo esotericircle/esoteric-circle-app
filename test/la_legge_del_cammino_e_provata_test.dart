@@ -69,13 +69,25 @@ void main() {
       for (final t in Sentieri.di(s)) {
         if (t.dormiente) continue;
         final c = t.condizione;
+        // **IL GESTO PORTA CON SE' IL DETTAGLIO CHE LO DISTINGUE.** Ordine
+        // BX: la legge dice che un gesto solo non deve far maturare due
+        // traguardi di due Maestri diversi, e cio' che la fa vivere non e'
+        // il nome del gesto, e' QUALE gesto e' avvenuto davvero.
+        //
+        // **Il caso che lo ha mostrato.** Le tre voci del canale privato
+        // (med_14, aur_13, cal_13) chiedono tutte il gesto "condivisione",
+        // ma con dettagli diversi: privato_medora, privato_aura,
+        // privato_caligo. Un responso appartiene a un Maestro solo, quindi
+        // una condivisione ne accende UNA: guardando il solo nome del gesto
+        // questa prova vedeva tre incroci che a schermo non esistono.
+        // Guardando la coppia gesto e dettaglio vede cio' che succede.
         final gesti = <String>[
           if (c is GestiCompiuti) c.gesto,
           if (c is GiorniDiSeguito) c.rito,
           if (c is FinestraDelCielo && c.conGesto != null) c.conGesto!,
           if (c is GestiNelloStessoGiorno) ...c.gesti,
-          if (c is VarietaDelDettaglio) c.gesto,
-          if (c is CoincidenzaDelDettaglio) c.gesto,
+          if (c is VarietaDelDettaglio) '${c.gesto}#${c.chiave}',
+          if (c is CoincidenzaDelDettaglio) '${c.gesto}#${c.chiave}',
         ];
         for (final g in gesti) {
           // I gesti comuni a tutti i sentieri per progetto non sono un

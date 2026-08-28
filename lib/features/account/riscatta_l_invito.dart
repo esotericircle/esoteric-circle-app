@@ -50,7 +50,7 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
           const SizedBox(height: SpacingTokens.xs),
           ParagrafiDiLettura(
             testo: 'Incolla qui il codice che hai ricevuto: chi ti ha portato '
-                'nel Cerchio ricevera\' il suo premio. Si fa una volta sola.',
+                'nel Cerchio riceverà il suo premio. Si fa una volta sola.',
             stile: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
@@ -103,8 +103,8 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(accolto
-        ? 'Fatto: chi ti ha invitato ricevera\' il suo premio.'
-        : 'Questo codice non vale: forse e\' il tuo, o lo hai gia\' usato.'),
+        ? 'Fatto: chi ti ha invitato riceverà il suo premio.'
+        : 'Questo codice non vale: forse è il tuo, o lo hai già usato.'),
   ));
 }
 

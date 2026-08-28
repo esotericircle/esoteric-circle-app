@@ -772,8 +772,13 @@ class _CartaDelVip extends StatelessWidget {
                     // La miniatura e non il ritratto pieno: cinquanta ritratti
                     // interi in scena sarebbero un ordine di grandezza di
                     // memoria in piu'.
+                    // **INTERA, non adattata al riempimento.** La cornice
+                    // di questi ritratti e' arte, e `cover` le tagliava i
+                    // bordi: la guardia delle miniature intere lo ha visto,
+                    // ed e' la stessa regola che vale per angeli, animali e
+                    // tarocchi.
                     ? Image.asset(vip.thumbPath!,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
                             color: palette.goldSoft, size: 24))
                     : Icon(Icons.auto_awesome,

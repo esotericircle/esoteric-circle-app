@@ -141,15 +141,24 @@ void main() {
       }
     });
 
-    test('Le quattro barre ci sono tutte, nell ordine di layout', () {
+    test('Le sette barre ci sono tutte, nell ordine di layout', () {
+      // **DA QUATTRO A SETTE, ordine BX voce 09.** Il fondatore ha chiesto
+      // altre dimensioni di affinita\' oltre a quelle presenti: le tre nuove
+      // sono Terra comune (elementi, Tetrabiblos I.17-18), Ritmo (qualita\',
+      // I.12) e Vita quotidiana (aspetti di Luna e Ascendente). L'ordine
+      // delle prime tre e l'ultimo posto della possibilita\' di incontro non
+      // sono cambiati: le nuove stanno in mezzo.
       final r = responso(Zodiac.aries, VipCatalog.first);
-      expect(r.bars, hasLength(4));
+      expect(r.bars, hasLength(7));
       expect(r.bars[0].label, contains('amore'));
       expect(r.bars[1].label, contains('mentale'));
       expect(r.bars[2].label, 'Scintille');
-      expect(r.bars[3].label, contains('incontro'));
+      expect(r.bars[3].label, 'Terra comune');
+      expect(r.bars[4].label, 'Ritmo');
+      expect(r.bars[5].label, 'Vita quotidiana');
+      expect(r.bars[6].label, contains('incontro'));
       // Solo l ultima barra porta la micro battuta.
-      expect(r.bars[3].quip, isNotEmpty);
+      expect(r.bars[6].quip, isNotEmpty);
       expect(r.bars[0].quip, isEmpty);
     });
 
@@ -315,6 +324,14 @@ void main() {
     expect(find.byKey(const Key('sinastria_gauge')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_pole_vip')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_reading')), findsOneWidget);
+    // **SI SCORRE PER CERCARLO.** La lista e' pigra e con le tre barre nuove
+    // dell'ordine BX voce 09 il tasto Condividi e' sceso sotto il bordo:
+    // cercarlo senza scorrere diceva "non c'e'" mentre era al suo posto.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_share')), 200,
+        scrollable: find.descendant(
+            of: find.byKey(const Key('sinastria_list')),
+            matching: find.byType(Scrollable)));
     expect(find.byKey(const Key('sinastria_share')), findsOneWidget);
     // Il selettore in fondo non c'e' piu': al suo posto il tasto Cambia VIP.
     expect(find.byKey(const Key('sinastria_change_vip')), findsOneWidget);

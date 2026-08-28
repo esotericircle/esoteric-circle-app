@@ -69,7 +69,7 @@ class BoscoDelCerchio extends StatelessWidget {
         children: [
           ParagrafiDiLettura(
             testo: 'Dodici animali accompagnano chi cammina nel Cerchio, uno '
-                'per ogni segno. Questo e\' il bosco: guardando gli altri '
+                'per ogni segno. Questo è il bosco: guardando gli altri '
                 'riconosci anche il tuo.',
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary),
@@ -142,7 +142,7 @@ class _AbitanteDelBosco extends StatelessWidget {
                           : animale.name,
                       style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: SpacingTokens.xxs),
                   Text(animale.summary,
                       style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textPrimary)),

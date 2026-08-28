@@ -64,7 +64,12 @@ void main() {
     final r = SynastryReport.fraDueVip(
         primo: VipCatalog.conNome('Zendaya')!,
         vip2: VipCatalog.conNome('Drake')!);
-    expect(r.bars, hasLength(3));
+    // **SEI E NON TRE, ordine BX voce 09**: le dimensioni dell'affinita' sono
+    // passate da quattro a sette, quindi fra due VIP, dove la possibilita' di
+    // incontro non ha senso, restano le altre sei. Il numero segue il dato;
+    // cio' che questa riga sorveglia, che la barra dell'incontro non ci sia,
+    // e' la riga sotto e non e' cambiato.
+    expect(r.bars, hasLength(6));
     expect(r.bars.any((b) => b.label.contains('incontro')), isFalse);
   });
 

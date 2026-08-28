@@ -161,6 +161,36 @@ class GestiDelleArti {
     SorgenteDelGesto(gesto: 'condivisione_stella', derivato: true),
     SorgenteDelGesto(gesto: 'condivisione_frutto', derivato: true),
     SorgenteDelGesto(gesto: 'condivisione_petalo', derivato: true),
+
+    // --- I GESTI NUOVI DEGLI ORDINI BW E BX, ognuno con la sua schermata ---
+    //
+    // **Un gesto che l'app manda e nessuno censisce e' il difetto che questa
+    // lista esiste per impedire.** Svegliando i gradini che dormivano sono
+    // nati gesti nuovi: qui si dichiara chi li manda, come per tutti gli
+    // altri.
+    SorgenteDelGesto(
+        gesto: 'ascendente',
+        schermata: 'lib/features/onboarding/natal_chart_reveal.dart'),
+    SorgenteDelGesto(
+        gesto: 'runa_girata',
+        schermata:
+            'lib/features/maestri/caligo/rune/rune_draw_screen.dart'),
+    SorgenteDelGesto(
+        gesto: 'bosco',
+        schermata:
+            'lib/features/maestri/caligo/animal/bosco_del_cerchio.dart'),
+    SorgenteDelGesto(
+        gesto: 'due_volti',
+        schermata:
+            'lib/features/maestri/aura/face/face_constellation_screen.dart'),
+    // **I TRE INVITI ACCOLTI ARRIVANO DAL SERVER, non da una schermata.**
+    // Ordine BX voce 02: il telefono non puo' sapere se qualcuno e' entrato
+    // col tuo invito, lo sa il Cerchio quando quella persona riscatta il
+    // codice. La regia li allinea al cammino a ogni apertura, dal conto che
+    // lo stato porta con se'.
+    SorgenteDelGesto(gesto: 'invito_medora', derivato: true),
+    SorgenteDelGesto(gesto: 'invito_aura', derivato: true),
+    SorgenteDelGesto(gesto: 'invito_caligo', derivato: true),
   ];
 
   static SorgenteDelGesto? di(String gesto) {

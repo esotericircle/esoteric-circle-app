@@ -53,7 +53,7 @@ Future<void> annotaIlSogno(BuildContext context) async {
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.xs),
             ParagrafiDiLettura(
-              testo: 'Scegli i simboli che hai visto e scrivi cio\' che '
+              testo: 'Scegli i simboli che hai visto e scrivi ciò che '
                   'ricordi. Resta sul tuo telefono.',
               stile: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),
@@ -171,7 +171,7 @@ Future<void> rileggiUnSogno(BuildContext context, SognoAnnotato sogno) async {
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.xs),
           if (sogno.simboli.isNotEmpty)
-            Text(sogno.simboli.join(' · '),
+            Text(sogno.simboli.join(', '),
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.sm),

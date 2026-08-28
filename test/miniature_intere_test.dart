@@ -91,7 +91,13 @@ void main() {
     // volti che sfilano, e la collezione mostra i due volti di ogni coppia
     // scoperta. Tutti e due passano dalla miniatura, come gli altri.
     final punti = puntiConMiniature();
-    expect(punti.length, 12,
+    // **UNDICI E NON DODICI, e il numero segue il dato.** Il dodicesimo era
+    // `cielo_dei_volti.dart`, la sezione "VIP in evidenza": il fondatore l'ha
+    // fatta togliere il 28 agosto 2026 ("elimina la sezione Vip in evidenza
+    // che non serve a nulla"), e con lei se n'e' andato un punto che mostrava
+    // miniature. Cio' che questa riga sorveglia non e' il numero in se': e'
+    // che nessun punto nuovo nasca senza passare da qui.
+    expect(punti.length, 11,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

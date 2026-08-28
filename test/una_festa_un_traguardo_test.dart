@@ -77,29 +77,49 @@ void main() {
         'pezzo dell identita sono ${dellIdentita.length}: $dellIdentita');
   });
 
-  test('la card non nomina mai due traguardi', () {
-    // **LA REGOLA SI SORVEGLIA NEL CODICE CHE CELEBRA**, non solo a video: la
-    // scena sa disegnare piu' nomi, e finche' lo sa qualcuno potrebbe
-    // ripassargliene due. Qui si conta che la regia ne passi UNO.
+  test('la coda si svuota in UNA festa, e nessuna catena la segue', () {
+    // **QUESTA PROVA MISURAVA UNA LEGGE CHE NON C\'E\' PIU\', e lo ha detto da
+    // sola.** Cercava nella regia le liste scritte a mano, "traguardi: [x]",
+    // per contare che ne passasse UNO: da quando la festa unica prende la
+    // coda intera (ordine AC voce 04, decisione del fondatore del 16 agosto
+    // 2026, e ordine BW voce 02, "quattro feste in sessanta secondi") quelle
+    // liste sono diventate variabili, la ricerca non trovava piu\' niente e
+    // la guardia cadeva sul suo stesso controllo: "questa prova non sta
+    // guardando cio\' che dice di guardare". Aveva ragione.
+    //
+    // **La legge di oggi, e si misura questa.** Una festa sola, che nomina
+    // tutti i traguardi maturati insieme, e nessuna catena dopo di lei. Il
+    // premio non si unisce: gli Eos e il Sigillo restano per traguardo.
     final regia =
         File('lib/features/sigilli/regia_del_cammino.dart').readAsStringSync();
-    final passaggi = RegExp(r'traguardi: \[([^\]]*)\]')
-        .allMatches(regia)
-        .map((m) => m.group(1)!.trim())
-        .toList();
+    final quanteFeste =
+        RegExp(r'Celebrazione\.festeggiaInsieme\(').allMatches(regia).length;
     // ignore: avoid_print
-    print('ORDINE AU VOCE 06: la regia passa alla festa $passaggi');
-    expect(passaggi, isNotEmpty,
-        reason: 'la regia non passa piu nessun traguardo alla festa: questa '
-            'prova non sta guardando cio che dice di guardare');
-    for (final uno in passaggi) {
-      expect(uno.contains(','), isFalse,
-          reason: 'la regia passa piu di un traguardo alla stessa card: '
-              '"$uno". Una card celebra UN SOLO traguardo');
+    print('ORDINE BW VOCE 2: la regia apre la festa in $quanteFeste punti');
+    expect(quanteFeste, 2,
+        reason: 'i punti che aprono una festa nella regia sono '
+            '$quanteFeste: dovrebbero essere due, il gesto e lo svuotamento '
+            'della coda');
+
+    // **NESSUNA CATENA**: chiusa la festa non se ne apre un'altra. Era
+    // questo il difetto che il fondatore ha visto come quattro feste di
+    // seguito.
+    final dentroLaChiusura = RegExp(r'allaChiusura: \(\) \{(.*?)\n          \}',
+            dotAll: true)
+        .allMatches(regia)
+        .map((m) => m.group(1)!)
+        .toList();
+    for (final corpo in dentroLaChiusura) {
+      expect(corpo.contains('svuotaLaCoda'), isFalse,
+          reason: 'alla chiusura di una festa se ne apre un\'altra: e\' la '
+              'catena che il fondatore ha visto');
     }
-    expect(regia.contains('await coda.prendiTutte()'), isFalse,
-        reason: 'lo svuotamento della coda prende ancora tutte le feste '
-            'insieme: cosi la card torna a nominarne piu di una');
+
+    // E la coda si prende INTERA, una volta sola: prenderne una per volta
+    // era il modo in cui le feste diventavano quattro.
+    expect(regia.contains('prendiTutte()'), isTrue,
+        reason: 'la coda non si prende piu\' intera: le feste tornano a '
+            'uscire una dopo l\'altra');
   });
 
   test('il guardiano a freddo aspetta novanta secondi, non di piu', () async {

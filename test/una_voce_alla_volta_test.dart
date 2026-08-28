@@ -55,6 +55,26 @@ void main() {
     // niente con cio' che sorveglia. Un'eccezione ancorata a un numero di riga
     // si rompe ogni volta che qualcosa sopra si muove.
     const eccezioni = <String, String>{
+      // **LA VOCE DEL RESPONSO NON E\' UNA RISPOSTA CHIESTA A UN MAESTRO.**
+      // Ordine BX voce 05: e\' un suono, cioe\' un tono sintetizzato sul
+      // telefono, e non tocca Vertex ne\' nessuna quota. Nomina un Maestro
+      // perche\' ogni responso ha la voce del suo, ed e\' proprio quello che
+      // l'ordine chiedeva.
+      'lib/features/sigilli/regia_del_cammino.dart|'
+          'PaletteSensoriale.responso(':
+          'e\' il suono del responso, non una risposta: nessuna chiamata a '
+              'Vertex, nessuna quota, e non si aspetta perche\' il responso e\' '
+              'gia\' a schermo',
+      'lib/core/sensi/palette_sensoriale.dart|'
+          '_motore.tono(':
+          'e\' il lettore audio che suona un tono generato qui: la parola '
+              'Maestro compare perche\' ogni Maestro ha la sua nota',
+      // Il gesto che entra nel cammino dopo una condivisione non chiede
+      // niente a nessun Maestro: registra un fatto nel diario.
+      'lib/core/condivisione/premio_della_condivisione.dart|'
+          'RegiaDelCammino.dopoUnGesto(':
+          'e\' un gesto che entra nel cammino, non una risposta chiesta a un '
+              'Maestro',
       'lib/features/maestri/chat/maestro_chat_controller.dart|'
           '_memory.loadProfile()':
           'sono tre LETTURE della memoria per UN Maestro, non tre risposte '

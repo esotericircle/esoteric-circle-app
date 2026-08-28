@@ -1365,8 +1365,8 @@ class _DueVolti extends StatelessWidget {
                     testo: mio.dominante == secondo.dominante
                         ? 'Vi accompagna lo stesso tratto: '
                             '${mio.dominante.nome}.'
-                        : 'Il tuo tratto e\' ${mio.dominante.nome}, il '
-                            'suo e\' ${secondo.dominante.nome}.',
+                        : 'Il tuo tratto è ${mio.dominante.nome}, il '
+                            'suo è ${secondo.dominante.nome}.',
                     stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary),
                   ),
