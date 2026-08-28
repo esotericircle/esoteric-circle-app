@@ -82,8 +82,16 @@ void main() {
         ChangeNotifierProvider(create: (_) => ProfileController()),
         ChangeNotifierProvider(create: (_) => BirthIdentityController()),
         ChangeNotifierProvider(
-            create: (_) =>
-                SettingsController(suonoEVibrazione: suonoAcceso)),
+            // **GLI EFFETTI SONORI SI ACCENDONO QUI, ordine BZ voce 02.**
+            // Dalla voce BZ.05 nascono spenti, per parole del fondatore:
+            // "adesso sembrano un giochino anni 80". Questa prova misura
+            // QUALI suoni escono e QUANDO, non il valore di partenza
+            // dell'interruttore: senza accenderlo misurerebbe il silenzio e
+            // direbbe che i due suoni non si sovrappongono perche' non ce
+            // n'e' nessuno. Il valore di partenza ha la sua guardia, in
+            // test/ogni_responso_ha_la_sua_voce_test.dart.
+            create: (_) => SettingsController(
+                suonoEVibrazione: suonoAcceso, effettiSonori: suonoAcceso)),
       ],
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),

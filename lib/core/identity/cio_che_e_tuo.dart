@@ -104,10 +104,10 @@ class CioCheETuo {
   /// La prova le legge da qui: se una chiave nuova non e' ne' tua ne'
   /// dichiarata qui, la prova cade.
   static const Map<String, String> restano = <String, String>{
-    'settings.': 'come questo telefono e\' regolato, non chi lo usa: qualita\' '
+    'settings.': 'come questo telefono è regolato, non chi lo usa: qualità '
         'grafica, movimento ridotto, sottotitoli, suono. Buttarli vorrebbe '
-        'dire punire chi esce e rimettere a mano un\'accessibilita\' che '
-        'qualcuno aveva scelto per necessita\'.',
+        'dire punire chi esce e rimettere a mano un\'accessibilità che '
+        'qualcuno aveva scelto per necessità.',
     'app_check_debug_token': 'il gettone di prova di App Check, che appartiene '
         'alla macchina e non alla persona.',
   };

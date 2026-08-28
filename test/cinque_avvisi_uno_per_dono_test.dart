@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/rituals/avvisi_del_rito.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/scelta_degli_avvisi.dart';
 import 'package:esoteric_circle/services/avvisi_locali.dart';
+import 'package:esoteric_circle/core/identity/cio_che_e_tuo.dart';
+import 'package:esoteric_circle/core/identity/dimenticanza_del_telefono.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -342,11 +344,18 @@ void main() {
           reason: 'la chiave di ${d.name} non ha il prefisso che la '
               'cancellazione dimentica');
     }
-    final dimenticanza =
-        File('lib/core/identity/dimenticanza_del_telefono.dart')
-            .readAsStringSync();
-    expect(dimenticanza.contains("'rituale.'"), isTrue,
+    // **SI CHIEDE ALLA VERITA', NON AL FILE. Ordine BZ voce 02.** Qui si
+    // leggeva il testo di dimenticanza_del_telefono.dart cercandoci dentro la
+    // stringa: dalla voce BZ.01 l'elenco vive in CioCheETuo e quel file lo
+    // rimanda, quindi la prova e' diventata rossa mentre il prefisso era
+    // ancora dimenticato. Una prova che legge un file invece del dato dice il
+    // falso il giorno che il dato trasloca.
+    expect(DimenticanzaDelTelefono.prefissiDaDimenticare, contains('rituale.'),
         reason: 'il prefisso rituale non e piu fra quelli dimenticati');
+    expect(CioCheETuo.eTua(SceltaDegliAvvisi.chiaveDi(DailyElement.values.first)),
+        isTrue,
+        reason: 'la chiave della scelta degli avvisi non risulta della '
+            'persona, quindi nessuna delle due vie la cancella');
   });
 
   test('BC.05: ogni Dono ha il suo canale di sistema, con un nome leggibile',

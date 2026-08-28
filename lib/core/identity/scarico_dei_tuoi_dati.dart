@@ -73,13 +73,13 @@ class ScaricoDeiTuoiDati {
     'luogo.': 'Dove sei adesso',
     'natal.': 'La tua carta natale dal Cerchio',
     'oroscopo_': 'Le tue letture dell\'Oroscopo',
-    'permesso.': 'Quali permessi ti sono gia\' stati chiesti',
+    'permesso.': 'Quali permessi ti sono già stati chiesti',
     'ritual.': 'Le serie dei tuoi riti',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
-    'maestro.': 'Quali benvenuti ti hanno gia\' detto i Maestri',
+    'maestro.': 'Quali benvenuti ti hanno già detto i Maestri',
     'sunset_rune': 'Le tue Rune del Tramonto',
-    'device.id': 'L\'identita\' di questo dispositivo',
+    'device.id': 'L\'identità di questo dispositivo',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ

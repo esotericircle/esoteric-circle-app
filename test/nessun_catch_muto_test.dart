@@ -46,7 +46,9 @@ void main() {
     'lib/core/entitlement/question_allowance.dart': 2,
     'lib/core/face/face_history.dart': 2,
     'lib/core/identity/device_id.dart': 1,
-    'lib/core/identity/profile_store.dart': 7,
+    // Sei e non piu' sette dal 28 agosto 2026: la voce BZ.01 ha tolto il
+    // ciclo che cancellava le chiavi a mano, e con lui il suo catch muto.
+    'lib/core/identity/profile_store.dart': 6,
     'lib/core/motion/parallax_controller.dart': 1,
     'lib/core/onboarding/onboarding_controller.dart': 3,
     'lib/core/rituals/ritual_streak.dart': 2,

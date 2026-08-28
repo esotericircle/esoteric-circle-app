@@ -112,12 +112,22 @@ void main() {
     await step(tester);
     expect(riga, findsOneWidget,
         reason: 'nelle impostazioni non c\'e\' il comando degli effetti sonori');
-    expect(settings.effettiSonori, isTrue);
+    // **SI PARTE DA SPENTO, dalla voce BZ.05**, parole del fondatore: "gli
+    // effetti sonori vanno per ora disabilitati per default". Questa prova
+    // non misura il valore di partenza, che ha la sua guardia in
+    // test/ogni_responso_ha_la_sua_voce_test.dart: misura che la riga
+    // OBBEDISCA, e per misurarlo la si tocca due volte.
+    expect(settings.effettiSonori, isFalse,
+        reason: 'gli effetti sonori non nascono piu\' spenti');
     await tester.tap(riga);
     await step(tester);
     // ignore: avoid_print
     print('ORDINE BX VOCE 5: toccata la riga, gli effetti sonori sono '
         '${settings.effettiSonori ? "accesi" : "spenti"}');
+    expect(settings.effettiSonori, isTrue,
+        reason: 'la riga degli effetti sonori non accende niente');
+    await tester.tap(riga);
+    await step(tester);
     expect(settings.effettiSonori, isFalse,
         reason: 'la riga degli effetti sonori non spegne niente');
 

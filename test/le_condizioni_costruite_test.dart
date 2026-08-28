@@ -4,6 +4,7 @@ import 'package:esoteric_circle/core/rituals/diario_dei_sogni.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/maestro_del_gesto.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/core/identity/dimenticanza_del_telefono.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -666,11 +667,14 @@ void main() {
           '${quaderno.vuoto}');
       expect(quaderno.vuoto, isTrue,
           reason: 'i sogni restano in mano dopo la cancellazione');
-      final prefissi =
-          File('lib/core/identity/dimenticanza_del_telefono.dart')
-              .readAsStringSync();
-      for (final prefisso in const ["'sogni.'", "'viso.'"]) {
-        expect(prefissi.contains(prefisso), isTrue,
+      // **SI CHIEDE ALLA VERITA', NON AL FILE. Ordine BZ voce 02.** Qui si
+      // cercava la stringa dentro dimenticanza_del_telefono.dart: dalla voce
+      // BZ.01 l'elenco vive in CioCheETuo, e questa prova e' diventata rossa
+      // mentre i due prefissi erano ancora dimenticati. Una prova che legge
+      // un file invece del dato dice il falso il giorno che il dato trasloca.
+      for (final prefisso in const ['sogni.', 'viso.']) {
+        expect(DimenticanzaDelTelefono.prefissiDaDimenticare,
+            contains(prefisso),
             reason: 'il prefisso $prefisso non e\' fra quelli che la '
                 'cancellazione porta via dal disco');
       }
