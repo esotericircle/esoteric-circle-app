@@ -151,6 +151,25 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
 
   Future<void> _concludi(FaceReading reading, FaceConstellation cost,
       {String? fotoPath}) async {
+    // **IL VOLTO CHE CAMBIA, ordine BX voci 10 e 11.** Il corpus chiede "la
+    // Costellazione del Viso ti rilegge a distanza di un mese e trova un
+    // tratto diverso", e quel gradino dormiva perche' nessuno confrontava due
+    // letture. La memoria con la data c'era gia', `FaceHistory` tiene ogni
+    // esito col suo istante: mancava soltanto la domanda.
+    //
+    // **Si guarda la lettura piu' RECENTE fra quelle vecchie di almeno un
+    // mese**: se il tratto dominante di allora e' diverso da quello di
+    // adesso, il volto e' cambiato davvero, e non e' l'oscillazione di due
+    // letture fatte nello stesso pomeriggio.
+    final adesso = _clock();
+    final vecchie = _storico.esiti
+        .where((e) => adesso.difference(e.quando).inDays >= 30)
+        .toList();
+    final primaDiUnMese = vecchie.isEmpty
+        ? null
+        : vecchie.reduce((a, b) => a.quando.isAfter(b.quando) ? a : b);
+    final tratoCambiato = primaDiUnMese != null &&
+        primaDiUnMese.reading.dominante != reading.dominante;
     await _storico.registra(reading);
     if (!mounted) return;
     setState(() {
@@ -160,7 +179,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
       _fase = _Fase.risultato;
     });
     // LA COSTELLAZIONE DEL VISO ENTRA NEL CAMMINO, ordine P voce 35.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'viso'));
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'viso',
+        dettagli: {
+          'tratto': [reading.dominante.name],
+          if (tratoCambiato) 'tratto_cambiato': const ['si'],
+        }));
   }
 
   @override

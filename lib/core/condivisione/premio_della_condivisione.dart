@@ -1,6 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:async';
+
+import '../../design_system/theme/maestro_scope.dart';
+import '../../features/sigilli/regia_del_cammino.dart';
+import 'porta_della_condivisione.dart';
 import '../entitlement/question_allowance.dart';
 import '../sigilli/bonus_della_condivisione.dart';
 import '../entitlement/registro_degli_eos.dart';
@@ -50,7 +55,46 @@ class PremioDellaCondivisione {
   /// appena condiviso sta finendo un rito, e il premio che non arriva (rete
   /// assente, tetto raggiunto) non deve rompere il momento; il saldo giusto
   /// torna con la prossima sincronia.
+  /// **IL RESPONSO MANDATO IN PRIVATO ENTRA NEL CAMMINO. Ordine BX voce 10.**
+  ///
+  /// Il corpus porta tre voci, una per Maestro, che chiedono "mandi un
+  /// responso a qualcuno in privato, non al mondo". Dormivano perche' la regia
+  /// sapeva che si era condiviso, non DOVE. Adesso la porta della
+  /// condivisione ricorda quale applicazione ha ricevuto e da li' si legge il
+  /// canale; **quando non lo riconosce non si registra niente**, invece di
+  /// contare per privato una condivisione che forse era una piazza.
+  ///
+  /// Il Maestro e' quello della scena: i responsi vivono dentro lo scope del
+  /// proprio Maestro, e il gesto porta il suo nome cosi' le tre voci non
+  /// misurano lo stesso identico fatto.
+  static void _segnaIlCanale(BuildContext context) {
+    final canale = PortaDellaCondivisione.canaleDellUltima;
+    if (canale == null) return;
+    String? maestro;
+    try {
+      maestro = MaestroScope.of(context).key.maestro?.name;
+    } catch (senzaScope) {
+      maestro = null;
+    }
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'condivisione',
+      dettagli: {
+        'canale': [canale],
+        // **UNA CHIAVE PER MAESTRO, e non una coppia.** Le tre voci del corpus
+        // sono tre fatti distinti, uno per Maestro: con una chiave sola che
+        // porta il nome del Maestro come valore, una condivisione privata di
+        // Aura avrebbe acceso anche il gradino di Caligo, perche' la varieta'
+        // conta quanti valori diversi si sono visti, non quale.
+        if (maestro != null && canale == 'privato') 'privato_$maestro': ['si'],
+      },
+    ));
+  }
+
   static Future<void> premia(BuildContext context, {required String cosa}) async {
+    // Il canale si segna PRIMA di parlare col server: e' un fatto del
+    // cammino, e non deve dipendere da una rete che puo' non rispondere.
+    _segnaIlCanale(context);
     final QuestionAllowance borsa;
     try {
       borsa = context.read<QuestionAllowance>();

@@ -242,8 +242,8 @@ void main() {
       // 78 quando la voce e' cominciata, ed e' 51 quando sara' finita, che e'
       // il Coming soon voluto dal corpus. Il numero segue il dato, e ogni
       // scalino si dichiara nel manifesto.
-      expect(inApp.length, 63,
-          reason: 'in app dormono ${inApp.length} voci invece di 63: il numero '
+      expect(inApp.length, 56,
+          reason: 'in app dormono ${inApp.length} voci invece di 56: il numero '
               'segue il dato, ma un cambiamento va detto al fondatore');
       expect(senzaRagione.map((t) => t.id), isEmpty,
           reason: 'questi dormono senza dire perche\': '

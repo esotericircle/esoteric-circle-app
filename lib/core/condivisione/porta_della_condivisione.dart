@@ -27,6 +27,49 @@ class PortaDellaCondivisione {
   /// La firma comune col nome del file delle immagini condivise.
   static const String nomeDelFile = 'esoteric-circle.png';
 
+  /// **DOVE E' ANDATA L'ULTIMA CONDIVISIONE, e vive un istante. Ordine BX
+  /// voce 10.**
+  ///
+  /// Il corpus chiede "mandi un responso a qualcuno in privato, non al
+  /// mondo", e per tre voci, una per Maestro. Il foglio di sistema non
+  /// chiede alla persona che canale sia: dice pero' QUALE APPLICAZIONE ha
+  /// ricevuto, in `ShareResult.raw`, e da li' il canale si legge.
+  ///
+  /// **Sta qui e non in un valore di ritorno** perche' i dodici chiamanti
+  /// leggono un booleano: cambiargli la firma vorrebbe dire toccare dodici
+  /// scene per un dato che serve a una riga sola. Lo si scrive qui e lo si
+  /// legge subito dopo, nel premio, che e' l'unico a chiederlo.
+  static String? ultimoBersaglio;
+
+  /// **IL CANALE, dedotto da chi ha ricevuto.** Le famiglie sono dichiarate
+  /// qui e non indovinate ogni volta: i messaggeri sono privati, le piazze
+  /// sono pubbliche, e cio' che non si riconosce resta ignoto invece di
+  /// essere contato per una delle due. **Non sapere non e' sapere**, ed e'
+  /// la stessa prudenza con cui questa porta tratta `unavailable`.
+  static const Map<String, List<String>> canaliRiconosciuti = {
+    'privato': [
+      'whatsapp', 'telegram', 'signal', 'messenger', 'mms', 'sms',
+      'messages', 'gmail', 'mail', 'outlook', 'threema', 'viber',
+      'discord', 'slack',
+    ],
+    'pubblico': [
+      'instagram', 'facebook', 'twitter', 'x.', 'tiktok', 'snapchat',
+      'linkedin', 'pinterest', 'reddit', 'tumblr', 'threads',
+    ],
+  };
+
+  /// Il canale dell'ultima condivisione: 'privato', 'pubblico' o nullo.
+  static String? get canaleDellUltima {
+    final dove = ultimoBersaglio?.toLowerCase();
+    if (dove == null || dove.isEmpty) return null;
+    for (final famiglia in canaliRiconosciuti.entries) {
+      for (final pezzo in famiglia.value) {
+        if (dove.contains(pezzo)) return famiglia.key;
+      }
+    }
+    return null;
+  }
+
   /// **LA CONDIVISIONE E' AVVENUTA DAVVERO?** Ordine AN voce 08.
   ///
   /// Fino a ieri queste tre vie tornavano VERO appena il foglio di sistema
@@ -41,8 +84,12 @@ class PortaDellaCondivisione {
   /// resta acceso e il bonus resta in attesa, incassabile piu' tardi
   /// riaprendo la card: meglio un premio che arriva dopo di un premio dato
   /// per una cosa che forse non e' successa.
-  static bool avvenuta(ShareResult esito) =>
-      esito.status == ShareResultStatus.success;
+  static bool avvenuta(ShareResult esito) {
+    // **SI SEGNA DOVE E' ANDATA, ordine BX voce 10.** Qui passano tutte e tre
+    // le vie di questa porta, quindi e' l'unico punto che deve saperlo.
+    ultimoBersaglio = esito.raw;
+    return esito.status == ShareResultStatus.success;
+  }
 
   /// Manda del TESTO. Torna falso se la condivisione non e' partita.
   static Future<bool> testo(String cosa, {String? oggetto}) async {

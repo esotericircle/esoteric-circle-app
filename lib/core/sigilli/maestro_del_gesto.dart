@@ -8,7 +8,7 @@
 //
 // I gesti nominati da piu' sentieri non entrano qui: non sono di
 // nessuno, e una mappa che rispondesse lo stesso direbbe il falso.
-// Oggi sono nessuno.
+// Oggi sono condivisione.
 
 const Map<String, String> sentieroDelGesto = {
   'alba': 'loto',
@@ -25,6 +25,8 @@ const Map<String, String> sentieroDelGesto = {
   'sinastria': 'costellazione',
   'soffio': 'loto',
   'sogno': 'albero',
+  'sogno_annotato': 'albero',
+  'sogno_riletto': 'albero',
   'stesa': 'costellazione',
   'tramonto': 'albero',
   'viso': 'loto',

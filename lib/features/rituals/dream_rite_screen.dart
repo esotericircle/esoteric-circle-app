@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../core/sigilli/ora_rituale.dart';
 
 import '../sigilli/regia_del_cammino.dart';
@@ -15,7 +16,9 @@ import '../../design_system/components/luna_reale.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
+import '../../core/rituals/diario_dei_sogni.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
+import 'annota_il_sogno.dart';
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
@@ -548,7 +551,60 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             style: TypographyTokens.etichetta().copyWith(
                 color: _palette.goldSoft.withValues(alpha: 0.85),
                 letterSpacing: 0.5)),
-        const SizedBox(height: SpacingTokens.lg),
+        const SizedBox(height: SpacingTokens.md),
+        // **IL QUADERNO DEI SOGNI, ordine BX voci 10 e 11.** Il rito della
+        // notte finiva col saluto, e cio' che la persona aveva sognato non
+        // trovava posto da nessuna parte: tre voci del corpus parlano di sogni
+        // ANNOTATI e dormivano per questo.
+        // **IL QUADERNO SI CHIEDE, NON SI PRETENDE.** Le prove e le anteprime
+        // montano questa scena con una parte sola dei provider, e un
+        // `Consumer` che pretende avrebbe fatto cadere venti prove lontane da
+        // qui: e' una famiglia di guasti che questo progetto ha gia' pagato.
+        // Senza quaderno il rito resta intero e la rilettura non compare.
+        Builder(
+          builder: (context) {
+            DiarioDeiSogni? quaderno;
+            try {
+              quaderno = context.watch<DiarioDeiSogni>();
+            } catch (senzaQuaderno) {
+              quaderno = null;
+            }
+            return Column(
+            children: [
+              OutlinedButton.icon(
+                key: const Key('dream_annota'),
+                onPressed: () => annotaIlSogno(context),
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: _palette.goldSoft,
+                    side: BorderSide(
+                        color: _palette.gold.withValues(alpha: 0.6)),
+                    minimumSize: const Size.fromHeight(48)),
+                icon: const Icon(Icons.edit_note_rounded, size: 18),
+                label: Text('Annota il tuo sogno',
+                    style: TypographyTokens.etichetta()),
+              ),
+              if (quaderno != null && !quaderno.vuoto) ...[
+                const SizedBox(height: SpacingTokens.xs),
+                TextButton.icon(
+                  key: const Key('dream_rileggi'),
+                  onPressed: () =>
+                      rileggiUnSogno(context, quaderno!.sogni.first),
+                  style: TextButton.styleFrom(
+                      foregroundColor: _palette.goldSoft,
+                      minimumSize: const Size.fromHeight(48)),
+                  icon: const Icon(Icons.history_rounded, size: 18),
+                  label: Text(
+                      'Rileggi il sogno del '
+                      '${quaderno.sogni.first.quando.day}/'
+                      '${quaderno.sogni.first.quando.month}',
+                      style: TypographyTokens.etichetta()),
+                ),
+              ],
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: SpacingTokens.md),
         _Azioni(
           palette: _palette,
           luna: _luna,

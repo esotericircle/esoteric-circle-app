@@ -30,7 +30,8 @@ class DimenticanzaDelTelefono {
   /// quella aggiunta ieri.
   ///
   /// Per prefisso: `account.`, `allowance.`, `borsellino.`, `cammino.`,
-  /// `profile.`, `archetipo.`, `santuario.`, piu' `onboarding.done`.
+  /// `profile.`, `archetipo.`, `santuario.`, `sogni.`, piu'
+  /// `onboarding.done`.
   static const prefissiDaDimenticare = <String>[
     'account.',
     'allowance.',
@@ -42,6 +43,17 @@ class DimenticanzaDelTelefono {
     'sigilli.',
     'rituale.',
     'onboarding.',
+    // **I SOGNI ANNOTATI, ordine BX voce 11.** E' la memoria piu'
+    // privata che questa app custodisca: le parole che una persona
+    // scrive dei propri sogni. Se restasse, sarebbe l'eccezione che
+    // sopravvive alla cancellazione, e l'ordine BE voce 07 non ne
+    // ammette nessuna.
+    'sogni.',
+    // **LO STORICO DEL VOLTO E DEL RESPIRO, trovati dall'ordine BX voce
+    // 11 mentre cercava tutt'altro.** `viso.storico` tiene le letture
+    // del viso di una persona con le loro date, e restava dopo la
+    // cancellazione: nessuno dei due prefissi era in questo elenco.
+    'viso.',
   ];
 
   /// **COSA NON SI DIMENTICA, ed e' una scelta.**

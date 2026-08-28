@@ -38,6 +38,7 @@ import 'core/identity/account_del_cerchio.dart';
 import 'core/rituals/scelta_degli_avvisi.dart';
 import 'core/sigilli/coda_delle_feste.dart';
 import 'features/sigilli/regia_del_cammino.dart';
+import 'core/rituals/diario_dei_sogni.dart';
 import 'core/sigilli/diario_del_cammino.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
@@ -278,6 +279,9 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
         // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
         // sono del server, la storia del cammino e' del dispositivo.
         ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
+        // IL QUADERNO DEI SOGNI, ordine BX voce 11: vive sul telefono e
+        // non parla col server.
+        ChangeNotifierProvider(create: (_) => DiarioDeiSogni()..carica()),
         // LA CODA DELLE FESTE, ordine P voce 34: un traguardo che si accende
         // quando nessuna schermata puo' ospitare la sovrimpressione non si
         // perde, entra qui e si celebra al primo momento utile. La coda sta su

@@ -55,6 +55,13 @@ GESTI_VIVI = {
     # gira col dito, ed e' un gesto suo. Contarlo come una gettata
     # gonfierebbe il conto che governa i limiti del listino.
     'runa_girata',
+    # Ordine BX voce 10: la condivisione di un responso, col canale che il
+    # foglio di sistema ha scelto e col Maestro della scena.
+    'condivisione',
+    # Ordine BX voci 10 e 11: il quaderno dei sogni. Annotare e rileggere
+    # sono due gesti distinti, perche' il corpus li distingue.
+    'sogno_annotato',
+    'sogno_riletto',
 }
 
 # Come si chiama, nel corpus, ciascun gesto dell'app.
@@ -484,6 +491,76 @@ def regolaCartaSottoLeLune(v, testo):
     return "VarietaPerValore('stesa', 'carta_e_luna', %d)" % quante, None
 
 
+def regolaVoltoCheCambia(v, testo):
+    """**IL VOLTO CHE CAMBIA. Ordine BX voci 10 e 11.**
+
+    "La Costellazione del Viso ti rilegge a distanza di un mese e trova un
+    tratto diverso": la memoria con la data c'era gia', `FaceHistory` tiene
+    ogni lettura col suo istante; mancava la domanda. Adesso la scena
+    confronta il tratto dominante con quello della lettura piu' recente fra
+    le vecchie di almeno un mese, e manda il dettaglio solo se e' cambiato.
+    """
+    if 'costellazione del viso' not in testo:
+        return None
+    if 'tratto diverso' not in testo:
+        return None
+    if 'viso' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto viso non arriva alla regia'
+    return "VarietaDelDettaglio('viso', 'tratto_cambiato', 1)", None
+
+
+def regolaSognoAnnotato(v, testo):
+    """**I SOGNI ANNOTATI. Ordine BX voci 10 e 11.**
+
+    Due voci: "lo stesso simbolo torna in due sogni annotati", che e' una
+    coincidenza sui simboli, e "il tuo Animale Guida compare in un sogno che
+    hai annotato", che la scena riconosce da se' perche' l'animale di una
+    persona lo decide il suo segno.
+    """
+    if 'annotat' not in testo or 'sogn' not in testo:
+        return None
+    if 'sogno_annotato' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto sogno_annotato non arriva alla regia'
+    if 'animale' in testo:
+        return "VarietaDelDettaglio('sogno_annotato', 'animale_guida', 1)", None
+    if 'stesso simbolo' in testo or 'simbolo' in testo:
+        quante = numeroIn(testo) or 2
+        return ("CoincidenzaDelDettaglio('sogno_annotato', 'simbolo', %d)"
+                % quante), None
+    return None
+
+
+def regolaSognoRiletto(v, testo):
+    """**IL SOGNO RILETTO A DISTANZA DI GIORNI. Ordine BX voci 10 e 11.**
+
+    Il quaderno tiene la data di ogni sogno, quindi la rilettura sa dire
+    quanti giorni sono passati: il dettaglio parte solo quando la distanza
+    c'e' davvero, e rileggere stanotte il sogno di stanotte non conta.
+    """
+    if 'rilegg' not in testo or 'sogn' not in testo:
+        return None
+    if 'sogno_riletto' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto sogno_riletto non arriva alla regia'
+    return "VarietaDelDettaglio('sogno_riletto', 'a_distanza', 1)", None
+
+
+def regolaCondivisionePrivata(v, testo):
+    """**IL RESPONSO MANDATO IN PRIVATO. Ordine BX voce 10.**
+
+    "Mandi un responso di Aura a qualcuno in privato": il gesto porta adesso
+    il canale, letto da chi ha ricevuto la condivisione, e il Maestro della
+    scena, cosi' le tre voci non misurano lo stesso identico fatto.
+    """
+    if 'in privato' not in testo:
+        return None
+    if 'condivisione' not in GESTI_VIVI:
+        return 'DORMIENTE', 'il gesto condivisione non arriva alla regia'
+    maestro = {'costellazione': 'medora', 'loto': 'aura',
+               'albero': 'caligo'}[v['_sentiero']]
+    return ("VarietaDelDettaglio('condivisione', 'privato_%s', 1)"
+            % maestro), None
+
+
 def regolaRunaGirata(v, testo):
     """**LA PIETRA GIRATA A MANO. Ordine BX voce 01.**
 
@@ -898,24 +975,12 @@ def regolaNonCostruibile(v, testo):
     # Arcano" non e' verificabile.
     # **L'ARCANO DEL GIORNO VIAGGIA, ordine BX voce 01**: la scena manda
     # quale carta e' uscita, e la coincidenza dentro la settimana si misura.
-    if 'sogn' in testo and ('compare' in testo or 'simbolo' in testo
-                            or 'annotat' in testo):
-        return ('DORMIENTE',
-                'il rito del sogno non passa cio che si e sognato: la scena '
-                'manda il gesto e basta. Servirebbe un dettaglio nuovo')
-    # **UNA RILETTURA CHE TROVA QUALCOSA DI DIVERSO** chiede di confrontare due
-    # letture nel tempo: il diario tiene i conti, non le letture.
-    if 'rilegg' in testo and 'divers' in testo:
-        return ('DORMIENTE',
-                'confrontare due letture a distanza di tempo chiede la memoria '
-                'delle letture, che il diario non tiene: tiene i conti')
-    # **LE VOCI DELLA REVISIONE E CHE CHIEDONO CIO' CHE L'APP NON MISURA.**
-    # Ordine BS voce 00. Ognuna dice quale gesto o quale dettaglio manca e dove
-    # andrebbe registrato: e' la differenza fra un traguardo che aspetta e un
-    # traguardo che finge.
-    # **L'ASCENDENTE FA ECCEZIONE, ordine BX voce 01**: la sua scheda la fine
-    # della lettura la segna, e la traduce `regolaLetturaFinoInFondo`. Il
-    # rifiuto vale per le altre schede, che quella fine non la dicono.
+    # **CIO' CHE SI E' SOGNATO ADESSO SI PUO' SCRIVERE, ordine BX voci 10 e
+    # 11**: il quaderno dei sogni tiene simboli, parole e data, e le due
+    # regole qui sopra traducono le tre voci del corpus.
+    # **LA MEMORIA DELLE LETTURE C'ERA GIA', ordine BX voce 11**:
+    # `FaceHistory` tiene ogni lettura del viso col suo istante, e mancava
+    # soltanto la domanda. La traduce `regolaVoltoCheCambia`.
     if 'ascendente' not in testo and ('leggi fino in fondo' in testo or 'fino in fondo' in testo):
         return ('DORMIENTE',
                 'la lettura FINO IN FONDO non arriva alla regia: la schermata '
@@ -937,21 +1002,10 @@ def regolaNonCostruibile(v, testo):
                 'guardare cosa accompagna gli altri chiede il Cerchio degli '
                 'altri, che nell app non esiste: nessuna schermata lo mostra e '
                 'nessun gesto lo registra')
-    if 'sogni annotati' in testo or ('simbolo' in testo and 'sogn' in testo):
-        return ('DORMIENTE',
-                'il sogno non passa i propri simboli: la scena manda il gesto '
-                'e basta. Servirebbe un dettaglio nuovo sul rito del sogno')
-    # **L'ORA FEDELE SI SA MISURARE, ordine BW voce 07.** Qui c'era il rifiuto:
-    # l'app sapeva solo l'ora rituale, alba, tramonto e notte. Adesso il diario
-    # ricorda l'ora dell'orologio di ogni gesto e conta i giorni, e la
-    # traduzione la fa `regolaOraFedele`.
-    if 'in privato' in testo:
-        return ('DORMIENTE',
-                'mandare un responso in privato invece che al mondo chiede il '
-                'canale della condivisione, che il gesto non porta: la regia '
-                'sa che si e condiviso, non dove')
-    # **QUATTRO CONDIZIONI CHE L'APP OGGI NON SA RISPONDERE**, e il motivo va
-    # scritto per intero perche' l'Architetto sappia cosa manca.
+    # **IL QUADERNO DEI SOGNI ESISTE, ordine BX voci 10 e 11.** Qui c'era il
+    # rifiuto: il rito mandava il gesto e basta. Adesso la persona annota
+    # simboli e parole, il quaderno tiene la data, e le traducono
+    # `regolaSognoAnnotato` e `regolaSognoRiletto`.
     if 'transiti di oggi' in testo and 'archetipo' in testo:
         return ('DORMIENTE',
                 "rileggere l'archetipo coi transiti di oggi è un gesto che la "
@@ -1057,10 +1111,19 @@ DETTAGLI_VIVI = {
     'oroscopo': {'periodo'},
     # Ordine BX voce 01: quale Arcano e' uscito oggi.
     'oracolo': {'arcano'},
+    # Ordine BX voce 10.
+    'condivisione': {'canale', 'privato_medora', 'privato_aura',
+                     'privato_caligo'},
+    # Ordine BX voci 10 e 11.
+    'sogno_annotato': {'simbolo', 'animale_guida'},
+    'sogno_riletto': {'giorni', 'a_distanza'},
     # Ordine BX voce 01.
     'alba': {'prima_del_sole'},
     'soffio': {'tenuto'},
     'archetipo': {'archetipo'},
+    # Ordine BX voci 10 e 11: il tratto dominante del viso e il suo
+    # cambiamento a distanza di un mese.
+    'viso': {'tratto', 'tratto_cambiato'},
     'animale_guida': {'animale'},
 }
 
@@ -1134,6 +1197,10 @@ REGOLE = [
     # tradurrebbe "lo stesso Arcano due volte in una settimana" con una
     # coincidenza senza finestra, cioe' con un gradino piu' facile, e "la
     # stessa carta sotto tre Lune" contando le carte invece delle Lune.
+    regolaVoltoCheCambia,
+    regolaSognoAnnotato,
+    regolaSognoRiletto,
+    regolaCondivisionePrivata,
     regolaCoincidenzaNellaFinestra,
     regolaCartaSottoLeLune,
     regolaVarieta,

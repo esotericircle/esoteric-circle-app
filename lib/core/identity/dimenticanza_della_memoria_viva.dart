@@ -12,6 +12,7 @@ import '../entitlement/registro_degli_eos.dart';
 import '../onboarding/onboarding_controller.dart';
 import '../rituals/scelta_degli_avvisi.dart';
 import '../sigilli/coda_delle_feste.dart';
+import '../rituals/diario_dei_sogni.dart';
 import '../sigilli/diario_del_cammino.dart';
 import 'identity_controller.dart';
 import 'natal_identity.dart';
@@ -93,6 +94,9 @@ class DimenticanzaDellaMemoriaViva {
     prova(() => context.read<CollezioneDelleCoppie>().dimenticaChiSeNeVa());
     prova(() => context.read<BirthIdentityController>().clear());
     prova(() => context.read<DiarioDelCammino>().dimenticaChiSeNeVa());
+    // ORDINE BX VOCE 11: i sogni annotati sono la memoria piu' privata
+    // che l'app custodisca, e non fanno eccezione.
+    prova(() => context.read<DiarioDeiSogni>().dimenticaChiSeNeVa());
     prova(() => context.read<CodaDelleFeste>().dimenticaChiSeNeVa());
     prova(() => context.read<RegistroDegliEos>().dimenticaChiSeNeVa());
     prova(() => context.read<ZodiacController>().dimenticaChiSeNeVa());
