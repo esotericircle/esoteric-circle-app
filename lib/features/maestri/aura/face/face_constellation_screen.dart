@@ -197,15 +197,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     // mese**: se il tratto dominante di allora e' diverso da quello di
     // adesso, il volto e' cambiato davvero, e non e' l'oscillazione di due
     // letture fatte nello stesso pomeriggio.
-    final adesso = _clock();
-    final vecchie = _storico.esiti
-        .where((e) => adesso.difference(e.quando).inDays >= 30)
-        .toList();
-    final primaDiUnMese = vecchie.isEmpty
-        ? null
-        : vecchie.reduce((a, b) => a.quando.isAfter(b.quando) ? a : b);
-    final tratoCambiato = primaDiUnMese != null &&
-        primaDiUnMese.reading.dominante != reading.dominante;
+    // **LA REGOLA STA NELLO STORICO, non qui.** Stava in questa riga, e
+    // nessuna prova poteva interrogarla: la guardia del mese restava verde
+    // anche togliendo il mese. Adesso risponde `FaceHistory`, che ha le date
+    // e si puo' misurare da sola.
+    final tratoCambiato = _storico.ilTrattoECambiatoInUnMese(reading);
     await _storico.registra(reading);
     if (!mounted) return;
     setState(() {

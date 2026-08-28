@@ -8,6 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
+import 'package:esoteric_circle/core/face/face_trait.dart';
+import 'package:esoteric_circle/core/face/face_history.dart';
+import 'package:esoteric_circle/core/face/face_classifier.dart';
 
 /// LE CONDIZIONI COSTRUITE. Ordine BW voce 07.
 ///
@@ -589,7 +592,54 @@ void main() {
     });
 
     test('Il volto che cambia accende aur_16, e solo dopo un mese', () async {
+      // **LA GRANDEZZA MISURATA E\' CAMBIATA, E LA SOGLIA NO.** La prima
+      // stesura di questa guardia scriveva a mano il dettaglio
+      // 'tratto_cambiato' nel diario e guardava se il gradino si accendeva:
+      // misurava il diario, non la regola del mese, e infatti restava verde
+      // anche togliendo il mese dal codice. Il difetto e\' stato trovato
+      // proprio cosi\', iniettando il difetto e leggendo un verde. Adesso
+      // risponde la regola, che vive nello storico e ha le date.
       SharedPreferences.setMockInitialValues(const {});
+      final adesso = orologioDelleProve();
+      var quando = adesso;
+      final storico = FaceHistory(clock: () => quando);
+      FaceReading conDominante(FaceTrait tratto) => FaceReading(letture: [
+            TraitLettura(tratto: tratto, marcatezza: 0.9),
+            TraitLettura(tratto: FaceTrait.values.first, marcatezza: 0.1),
+          ]);
+      final primo = conDominante(FaceTrait.values[1]);
+      final diverso = conDominante(FaceTrait.values[2]);
+      expect(storico.ilTrattoECambiatoInUnMese(diverso), isFalse,
+          reason: 'senza nessuna lettura passata il volto risulta gia\' '
+              'cambiato');
+
+      // Una lettura di IERI, con un tratto diverso: il mese non e\' passato e
+      // il gradino non si deve accendere.
+      quando = adesso.subtract(const Duration(days: 1));
+      await storico.registra(primo);
+      quando = adesso;
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 11: con una lettura di ieri, il volto risulta '
+          'cambiato? ${storico.ilTrattoECambiatoInUnMese(diverso)}');
+      expect(storico.ilTrattoECambiatoInUnMese(diverso), isFalse,
+          reason: 'un tratto diverso a un giorno di distanza accende gia\' il '
+              'gradino: la distanza di un mese non e\' misurata');
+
+      // Una lettura di trentun giorni fa, con un tratto diverso: adesso si\'.
+      quando = adesso.subtract(const Duration(days: 31));
+      await storico.registra(primo);
+      quando = adesso;
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 11: con una lettura di trentun giorni fa, il '
+          'volto risulta cambiato? '
+          '${storico.ilTrattoECambiatoInUnMese(diverso)}');
+      expect(storico.ilTrattoECambiatoInUnMese(diverso), isTrue,
+          reason: 'un tratto diverso dopo un mese non accende il gradino');
+      expect(storico.ilTrattoECambiatoInUnMese(primo), isFalse,
+          reason: 'lo stesso tratto di un mese fa risulta cambiato');
+
+      // E il gradino del corpus si accende con quel dettaglio, che e\' cio\'
+      // che la schermata manda quando la regola dice di si\'.
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       await diario.segna('viso', dettagli: const {'tratto': ['fuoco']});

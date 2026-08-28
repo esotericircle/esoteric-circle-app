@@ -77,6 +77,35 @@ class FaceHistory extends ChangeNotifier {
         .length;
   }
 
+  /// **IL VOLTO E' CAMBIATO DAVVERO? Ordine BX voce 11.**
+  ///
+  /// Il corpus chiede "la Costellazione del Viso ti rilegge a distanza di un
+  /// mese e trova un tratto diverso": due condizioni insieme, la distanza e
+  /// la differenza. Si guarda la lettura piu' RECENTE fra quelle vecchie di
+  /// almeno un mese, e si confronta il tratto dominante di allora con quello
+  /// di adesso.
+  ///
+  /// **Perche' vive qui e non nella schermata.** Stava dentro `_concludi`,
+  /// in mezzo alla fotocamera e allo stato della scena, e nessuna prova
+  /// poteva chiedergli niente: la guardia del mese passava anche togliendo
+  /// il mese, perche' misurava la reazione del diario a un dettaglio scritto
+  /// a mano invece della regola. **La grandezza misurata e' cambiata, non la
+  /// soglia**: adesso e' la regola stessa a rispondere, e con le date vere.
+  ///
+  /// **Meno di un mese non basta**, e non e' pedanteria: due letture fatte
+  /// nello stesso pomeriggio possono dare tratti diversi solo per la luce, e
+  /// il gradino direbbe che il volto e' cambiato quando non e' cambiato
+  /// niente.
+  bool ilTrattoECambiatoInUnMese(FaceReading adesso) {
+    final ora = _clock();
+    final vecchie =
+        _esiti.where((e) => ora.difference(e.quando).inDays >= 30).toList();
+    if (vecchie.isEmpty) return false;
+    final piuRecente =
+        vecchie.reduce((a, b) => a.quando.isAfter(b.quando) ? a : b);
+    return piuRecente.reading.dominante != adesso.dominante;
+  }
+
   Future<void> carica() async {
     try {
       final p = await SharedPreferences.getInstance();
