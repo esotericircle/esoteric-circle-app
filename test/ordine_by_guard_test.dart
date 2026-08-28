@@ -89,28 +89,49 @@ void main() {
 
   test('la consegna porta i numeri letti dal server, non a memoria', () {
     // **BY.02 chiede tre cose per nome**: il numero di build,
-    // l'identificativo della consegna e l'ora, letti dalla consegna vera. Un
+    // l\'identificativo della consegna e l\'ora, letti dalla consegna vera. Un
     // manifesto che li dichiarasse a memoria sarebbe la cosa che questo
-    // progetto ha gia' pagato due volte, con la 2206 rimasta fuori dal
+    // progetto ha gia\' pagato due volte, con la 2206 rimasta fuori dal
     // registro e con la 2161 consegnata senza accendersi.
+    //
+    // **I NUMERI SI LEGGONO DAL MANIFESTO, NON DAL REGISTRO DI OGGI.**
+    // Ordine CA, notte del 29 agosto 2026: questa guardia confrontava il
+    // manifesto col registro `docs/versione_distribuita.json`, che dice
+    // l\'ULTIMA consegna fatta. Ha funzionato finche\' l\'ultima consegna era
+    // quella dell\'ordine BY; alla consegna successiva, la 2213, il registro
+    // e\' andato avanti e la guardia ha fatto cadere la build dei fondatori
+    // per un manifesto che diceva il vero. **Una guardia che diventa rossa
+    // perche\' il lavoro va avanti non sorveglia niente, disturba.**
+    //
+    // Adesso legge dal manifesto il numero e l\'identificativo che BY ha
+    // consegnato, e pretende che quella consegna sia REALMENTE avvenuta: il
+    // registro deve essere arrivato almeno a quel numero. La cosa difesa non
+    // cambia, cioe\' che il manifesto non dichiari numeri a memoria.
     final testo = manifesto.readAsStringSync();
     final registro = File('docs/versione_distribuita.json').readAsStringSync();
-    final numero =
-        RegExp(r'"ultimo_distribuito":\s*(\d+)').firstMatch(registro)!.group(1)!;
-    final release =
-        RegExp(r'"release":\s*"([^"]+)"').firstMatch(registro)!.group(1)!;
+    final oggi = int.parse(RegExp(r'"ultimo_distribuito":\s*(\d+)')
+        .firstMatch(registro)!
+        .group(1)!);
+    final dichiarato = RegExp(r'build consegnata \| \*\*(\d+)\*\*, release `([^`]+)`')
+        .firstMatch(testo);
+    expect(dichiarato, isNotNull,
+        reason: 'il manifesto non dichiara quale build ha consegnato e con '
+            'quale identificativo');
+    final numero = int.parse(dichiarato!.group(1)!);
+    final release = dichiarato.group(2)!;
     // ignore: avoid_print
-    print('ORDINE BY: il registro dice build $numero, consegna $release');
-    expect(testo.contains(numero), isTrue,
-        reason: 'il manifesto non porta il numero di build $numero che il '
-            'registro della consegna dichiara');
-    expect(testo.contains(release), isTrue,
-        reason: 'il manifesto non porta l\'identificativo $release della '
+    print('ORDINE BY: il manifesto dichiara la build $numero, consegna '
+        '$release; il registro oggi e\' arrivato a $oggi');
+    expect(release.length, greaterThanOrEqualTo(8),
+        reason: 'l\'identificativo della consegna non ha la forma di un '
+            'identificativo vero');
+    expect(oggi, greaterThanOrEqualTo(numero),
+        reason: 'il manifesto dichiara la build $numero ma il registro delle '
+            'consegne non ci e\' mai arrivato: quel numero non viene da nessuna '
             'consegna vera');
     expect(RegExp(r'\d\d:\d\d:\d\d').hasMatch(testo), isTrue,
         reason: 'il manifesto non porta nessuna ora della consegna');
   });
-
   test('cio\' che resta dichiarato non e\' una sezione vuota', () {
     // **BY.05 chiede tre cose insieme**: le funzioni Coming soon, gli Eos
     // raggiungibili contro i 6.030, e la voce med_43. Una sezione che ne
