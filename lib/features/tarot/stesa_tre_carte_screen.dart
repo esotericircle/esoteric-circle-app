@@ -368,6 +368,26 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   bool get _responsoInScena =>
       _responsoPronto && _attesa != StatoDellAttesa.piena;
 
+  /// LE TRE CARTE RESTANO IN SCENA FRA L'ULTIMA SCELTA E LA RIFLESSIONE.
+  /// Ordine BZ voce 07.
+  ///
+  /// **Il difetto misurato.** Alla terza carta la stesa diventa compiuta, e da
+  /// quell'istante la scena si svuotava: il pannello, gli slot e il ventaglio
+  /// sono appesi a `!_complete`, il responso e le sue carte a
+  /// [_responsoInScena], che e' falso finche' Medora non ha finito di pensare.
+  /// Fra i due restava soltanto il ritratto, e dentro quel buco giravano due
+  /// animazioni che nessuno poteva vedere: la fioritura dell'elemento della
+  /// terza carta e il filo fra le carte dell'ordine BN voce 08. Sedici
+  /// fotogrammi su sessanta, cioe' un secondo e sei decimi di ritratto solo.
+  /// Parole del fondatore: "prima di tutto si vede per un secondo circa Medora
+  /// da sola e poi parte l'animazione: ELIMINA LA PRIMA PARTE DOVE SI VEDE
+  /// MEDORA DA SOLA".
+  ///
+  /// **Non si e' tolto il filo**, che dice che le tre carte sono una lettura
+  /// sola: si e' rimesso in scena cio' su cui il filo corre. Chi guarda vede
+  /// l'ultima carta fiorire e le tre carte legarsi, e poi Medora pensa.
+  bool get _carteDopoLUltima => _complete && !_responsoPronto;
+
   /// Vero dal momento in cui Medora ha finito di pensare: da li' in poi il
   /// responso puo' stare in albero, e prima no.
   bool _responsoPronto = false;
@@ -981,10 +1001,29 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   ///
   /// Stanno sopra il ventaglio mentre si pesca e sopra la lettura quando la
   /// stesa e' fatta: e' lo stesso blocco, cambia solo dove si trova.
+  /// LA CHIAVE GLOBALE DEGLI SLOT, ordine BZ voce 07.
+  ///
+  /// I tre slot compaiono in TRE punti diversi della lista, secondo il momento:
+  /// sopra il ventaglio mentre si pesca, sotto Medora fra l'ultima carta e la
+  /// riflessione, sotto la sintesi a responso pronto. Senza una chiave globale
+  /// Flutter, vedendoli cambiare posto, li considera widget nuovi: butta lo
+  /// stato e le tre carte RIGIRANO SUL DORSO, perche' `_FlipCard` fa partire il
+  /// suo giro quando nasce. **Si vede nell'anteprima**
+  /// `stesa-dopo-l-ultima-carta.png`, che alla prima stesura mostrava tre dorsi
+  /// dove dovevano esserci tre figure gia' scoperte. Con la chiave globale
+  /// l'elemento trasloca invece di rinascere, e il giro resta fatto.
+  ///
+  /// Ne esiste UNO SOLO in albero per volta: i tre momenti si escludono a
+  /// vicenda (`!_complete`, `_carteDopoLUltima`, `_responsoInScena`).
+  final GlobalKey _chiaveDegliSlot = GlobalKey(debugLabel: 'stesa_slots');
+
   Widget _slots(MaestroPalette palette) {
-    return AnimatedBuilder(
-      animation: Listenable.merge([_reveal, _galleggio, _tilt]),
-      builder: (context, _) => _slotsRow(palette),
+    return KeyedSubtree(
+      key: _chiaveDegliSlot,
+      child: AnimatedBuilder(
+        animation: Listenable.merge([_reveal, _galleggio, _tilt]),
+        builder: (context, _) => _slotsRow(palette),
+      ),
     );
   }
 
@@ -1259,6 +1298,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               style: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.md),
+        ],
+        // Le carte: quelle del responso, e quelle del momento fra l'ultima
+        // scelta e la riflessione, che e' lo stesso blocco (ordine BZ voce
+        // 07). Sotto, la spaziatura che le stacca da Medora quando sono sole.
+        if (_carteDopoLUltima) ...[
+          _slots(palette),
+          const SizedBox(height: SpacingTokens.lg),
         ],
         if (_responsoInScena) _slots(palette),
         if (_responsoInScena) ...[

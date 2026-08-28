@@ -3121,7 +3121,7 @@ void main() {
     // Il ventaglio ne mostra una quindicina attorno al centro, quindi chiedere
     // la carta 20 vuol dire chiedere una carta che non e' montata: la prima
     // stesura cascava li'.
-    for (final indice in const [38, 36, 41]) {
+    for (final indice in const [38, 36]) {
       await tester.tap(find.byKey(Key('stesa_fan_$indice')));
       await tester.pump();
       await tester.pump(const Duration(seconds: 2));
@@ -3129,6 +3129,48 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(milliseconds: 200));
     }
+    // L'ULTIMA CARTA, E IL MOMENTO CHE STAVA A SCHERMO VUOTO.
+    //
+    // **Ordine BZ voce 07.** Fra la terza carta e il pensiero di Medora la
+    // scena mostrava il solo ritratto per un secondo e sei decimi, mentre la
+    // fioritura dell'elemento e il filo giravano su niente. Adesso le tre
+    // carte restano, e questa e' l'immagine che lo fa vedere: si scatta dentro
+    // la finestra, non dopo.
+    await tester.tap(find.byKey(const Key('stesa_fan_41')));
+    await tester.pump();
+    // MILLE E SEICENTO, A PASSI PICCOLI. Il volo della carta dal ventaglio
+    // allo slot occupa i primi settecento millesimi, e a seicento la stesa non
+    // e' ancora compiuta: la prima stesura di questo scatto ha fotografato il
+    // ventaglio con scritto "Scegli ancora 1". La finestra misurata dalla
+    // prova della voce va da 700 a 2300 millesimi, e si scatta in mezzo.
+    //
+    // **I PASSI PICCOLI NON SONO UN VEZZO.** Con un salto solo il giro della
+    // terza carta comincia nell'ultimo fotogramma e non avanza di un
+    // millesimo: l'immagine usciva col dorso, che nell'app non si vede mai
+    // perche' li' i fotogrammi sono sedici millesimi l'uno.
+    await tester.pump(const Duration(milliseconds: 800));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    // Senza precaricare: il precaricamento gira nel tempo vero e questa
+    // finestra dura un secondo e mezzo (la nota dell'ordine AV voce 01 qui
+    // sopra). Le carte di questa stesa sono gia' precaricate all'inizio.
+    await capture(tester, rootKey, 'stesa-dopo-l-ultima-carta.png',
+        precarica: false);
+    // **LA STESA DEVE ESSERE COMPIUTA**, o si sta fotografando il pescaggio
+    // e l'immagine non dice niente sulla voce: il suggerimento "Scegli ancora"
+    // vive solo finche' mancano carte.
+    expect(find.byKey(const Key('stesa_prompt')), findsNothing,
+        reason: 'lo scatto e\' arrivato prima che la terza carta atterrasse');
+    expect(find.byKey(const Key('stesa_slots')), findsOneWidget,
+        reason: 'lo scatto e\' uscito dalla finestra: mostrerebbe Medora sola, '
+            'che e\' il difetto invece della cura');
+    expect(find.byKey(const Key('stesa_attesa')), findsNothing,
+        reason: 'lo scatto e\' arrivato dopo l\'inizio della riflessione');
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
     // **DENTRO L'ATTESA, SENZA INDOVINARE QUANTO ASPETTARE.**
     //
     // Prima qui c'erano due pause scritte a mano, e bastava che la scena
