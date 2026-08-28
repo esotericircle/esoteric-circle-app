@@ -206,7 +206,7 @@ class ImprontaDellIstruzione {
       'per aura; sette errori, sei verso aura e uno verso medora. '
       'IL FATTO FERMO RESTA: aura non viene mai scambiata, in duecentoquaranta '
       'verdetti. IL FATTO CHE CAMBIA: caligo non è più la voce che si '
-      'perde, sale dal 30-60 per cento al 60-80, e adesso i due sbagli sono '
+      'perde: sale dal 30-60 per cento al 60-80. Adesso i due sbagli sono '
       'della stessa taglia. '
       'LE MATRICI PRECEDENTI, su un\'altra istruzione. '
       'GIRO DEL 14 AGOSTO 2026: medora 14 su 20 (70,0 per cento), sei volte '
