@@ -25,6 +25,20 @@ import 'package:flutter_test/flutter_test.dart';
 /// un istante gia' in UTC non veniva toccato, uno civile veniva convertito due
 /// volte, quindi i due modi di scrivere lo stesso momento non potevano dare lo
 /// stesso cielo. Una causa sola per due difetti che sembravano distinti.
+/// **GLI ISTANTI SONO ASSOLUTI, NON L'ORA DELLA MACCHINA. Ordine BZ voce 02.**
+///
+/// Questa prova nasceva con `DateTime(2026, 8, 1, 18, 4)`, che non e' un
+/// istante: e' un orologio da parete, e dice un momento diverso su ogni
+/// macchina. Sul PC del fondatore, a Roma, valeva le 16:04 UTC; sul Mac di
+/// Codemagic, che gira a UTC, valeva le 18:04 UTC, cioe' due ore di cielo piu'
+/// in la': la Bilancia usciva a 35,14 gradi invece di 29,4 e la build dei
+/// fondatori non si produceva. **Le due ore erano la differenza fra l'Italia
+/// d'agosto e UTC, non un difetto del calcolo.**
+///
+/// Adesso gli istanti si scrivono in UTC e l'ora civile italiana si dichiara
+/// nel commento: 18:04 a Milano il 1 agosto 2026 sono le 16:04 UTC, perche'
+/// d'estate l'Italia sta due ore avanti. Il risultato non dipende piu' dal
+/// fuso della macchina che lancia la suite.
 void main() {
   const milano = BirthPlace(
     label: 'Milano',
@@ -55,7 +69,8 @@ void main() {
     // gradi verso SUD-OVEST. Questa prova e' rossa sul codice di prima, dove
     // la direzione rispondeva sud-est: quella era la volta ruotata di due ore
     // in piu' del dovuto.
-    final b = bilanciaA(DateTime(2026, 8, 2, 0, 0));
+    // Mezzanotte fra l'1 e il 2 agosto a Milano, cioe' le 22:00 UTC dell'1.
+    final b = bilanciaA(DateTime.utc(2026, 8, 1, 22, 0));
     expect(b.altDeg, closeTo(13.0, 1.0),
         reason: 'l\'altezza non e\' quella della mezzanotte dichiarata');
     // Sud-ovest: azimut fra 180 e 270, contato da nord verso est.
@@ -69,7 +84,8 @@ void main() {
   test('E alle 18:04 sono i numeri delle 18:04, non altri', () {
     // L'altro capo della verifica: se il fuso torna a essere tolto due volte,
     // questa cade insieme all'altra.
-    final b = bilanciaA(DateTime(2026, 8, 1, 18, 4));
+    // Le 18:04 di Milano, cioe' le 16:04 UTC.
+    final b = bilanciaA(DateTime.utc(2026, 8, 1, 16, 4));
     expect(b.altDeg, closeTo(29.4, 1.0));
     expect(b.azDeg, closeTo(147.0, 3.0),
         reason: 'a sud-est, come dice il calcolo indipendente');
@@ -78,9 +94,13 @@ void main() {
   test('Lo stesso istante scritto nei due modi da\' lo stesso cielo', () {
     // I 123,7 GRADI, chiusi. Un'ora civile e la sua UTC sono lo stesso
     // momento: se i due cieli non coincidono, uno dei due e' sbagliato.
-    final civile = DateTime(2026, 8, 1, 18, 4);
+    // **L'ISTANTE E' UNO SOLO E SI PARTE DA QUELLO ASSOLUTO**: prima qui
+    // c'era un orario da parete, e su una macchina a UTC le due scritture
+    // erano lo stesso oggetto, cioe' la prova non confrontava piu' niente.
+    final assoluto = DateTime.utc(2026, 8, 1, 16, 4);
+    final civile = assoluto.toLocal();
     final a = bilanciaA(civile);
-    final b = bilanciaA(civile.toUtc());
+    final b = bilanciaA(assoluto);
     expect((a.azDeg - b.azDeg).abs(), lessThan(0.01),
         reason: 'lo stesso istante produce due cieli diversi: il fuso viene '
             'applicato una volta di troppo da qualche parte');
@@ -105,7 +125,8 @@ void main() {
   test('Il punto della figura e\' dichiarato, ed e\' uno solo', () {
     // Le stelle della Bilancia stanno fra 0,8 e 13 gradi ALLO STESSO ISTANTE:
     // dire "13 gradi" senza dire di cosa non e' un dato, e' un numero.
-    final cielo = buildSkyFor(catalogo, DateTime(2026, 8, 2, 0, 0), milano);
+    final cielo =
+        buildSkyFor(catalogo, DateTime.utc(2026, 8, 1, 22, 0), milano);
     for (final c in cielo.constellations) {
       if (!c.name.toLowerCase().contains('bilanc')) continue;
       final alte =

@@ -251,17 +251,28 @@ void main() {
     // mezzanotte: li' alle 23 l'elemento corrente e' la Notte, la stima dal
     // fuso dice tramontato e la posizione vera dice di no, e la casella
     // dichiara quale delle due sta ascoltando.
+    // **LA POSIZIONE SI CALCOLA DAL FUSO DELLA MACCHINA. Ordine BZ voce 02.**
+    //
+    // Qui c'era la longitudine -30 battuta a mano, scelta perche' sul PC del
+    // fondatore, che sta a Roma, cade sessanta gradi a ovest del proprio fuso.
+    // Sul Mac di Codemagic, che gira a UTC, quei sessanta gradi diventano
+    // trenta e la scena non distingue piu' niente: la prova cadeva sulla sua
+    // stessa guardia ("la prova non distingue"). Cio' che conta non e' il
+    // numero, e' lo SCARTO dal proprio fuso, e adesso e' quello a essere
+    // scritto: sessanta gradi a ovest, ovunque la suite giri.
     final quando = DateTime(2026, 6, 21, 23, 0);
-    const luogo = _LuogoFinto(SkyPlace(latitude: 41.9, longitude: -30));
+    final lon = SunsetTime.longitudineDaFuso(quando.timeZoneOffset) - 60;
+    final luogo = _LuogoFinto(SkyPlace(latitude: 41.9, longitude: lon));
     final veroLaggiu = SunsetTime.perData(SunsetRune.giornoRituale(quando),
-        lat: 41.9, lon: -30, offset: quando.timeZoneOffset)!;
+        lat: 41.9, lon: lon, offset: quando.timeZoneOffset)!;
     final stimaDalFuso = SunsetTime.perData(SunsetRune.giornoRituale(quando),
         lat: SunsetTime.latDiRipiego,
         lon: SunsetTime.longitudineDaFuso(quando.timeZoneOffset),
         offset: quando.timeZoneOffset)!;
     // ignore: avoid_print
-    print('ORDINE AO VOCE 03: alle $quando, tramonto sulla posizione vera '
-        '$veroLaggiu, stima dal fuso $stimaDalFuso');
+    print('ORDINE AO VOCE 03: alle $quando, fuso ${quando.timeZoneOffset}, '
+        'longitudine $lon, tramonto sulla posizione vera $veroLaggiu, stima '
+        'dal fuso $stimaDalFuso');
     expect(quando.isAfter(stimaDalFuso), isTrue,
         reason: 'la prova non distingue: a quella ora la stima non e ancora '
             'passata');

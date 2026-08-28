@@ -1,0 +1,26 @@
+# IL REGISTRO DEI ROSSI ACCETTATI. Ordine BZ voce 02.
+#
+# **Perche' esiste.** Lo sbarramento dell'ordine P voce 03 non conosce che due
+# stati: suite verde e archivio, suite rossa e niente archivio. In mezzo c'e'
+# un terzo caso vero, ed e' quello che ha fermato la build dei fondatori: un
+# rosso GIA' VISTO, gia' capito, gia' dichiarato al fondatore, che nessuno ha
+# tolto perche' toglierlo vorrebbe dire nascondere una misura che vale.
+# Finche' quel rosso e' li', nessuna build esce piu': non e' una guardia, e'
+# una porta murata.
+#
+# **Cosa fa questo file.** Elenca i rossi che il fondatore ha accettato, uno
+# per riga, col NOME ESATTO della prova come lo stampa flutter test e la sua
+# ragione. Se la suite cade SOLO su rossi elencati qui, l'archivio si produce
+# e il registro della build li stampa tutti. Se cade su un rosso NUOVO, anche
+# uno solo, l'archivio non si produce: e' esattamente lo sbarramento di prima.
+#
+# **Non e' uno scavalco.** SPEDISCO_SU_ROSSO resta e serve ad altro: quello
+# passa su QUALUNQUE rosso, anche uno mai visto. Qui ogni riga ha un nome e
+# una ragione, e una riga scritta a mano da qualcuno resta leggibile da tutti.
+#
+# **Una riga che non cade piu' va tolta.** Lo sbarramento lo dice a video: un
+# registro che accumula ragioni vecchie e' il modo con cui questa cura
+# diventerebbe il difetto di prima.
+#
+# Formato: nome esatto della prova | ragione, con la data
+l'attribuzione cieca e' valida su QUESTA istruzione | Rosso DICHIARATO E VOLUTO, acceso il 13 agosto 2026. La misura dell'attribuzione cieca vale per l'istruzione che le e' stata data, e l'istruzione e' cambiata dopo: la prova dice il vero, cioe' che il numero noto non appartiene piu' a questo testo. Il fondatore l'ha confermata rossa nell'ordine BY voce 04 del 28 agosto 2026: sui sei giri la misura sta all'86,7 per cento contro una soglia di 85, ma il giro piu' basso resta a 80,0, e finche' un giro puo' cadere sotto la soglia le tre voci non sono distinguibili in modo affidabile. Torna verde quando le frasi dei Maestri saranno riscritte (ordine BZ voce 03, che e' dell'Architetto) e la misura rifatta.

@@ -100,7 +100,13 @@ void main() {
 
     test('Cielo: due luoghi diversi danno due cieli diversi', () {
       final catalogo = _catalogoDiProva();
-      final istante = DateTime(2026, 7, 30, 22, 30);
+      // **L'ISTANTE E' ASSOLUTO, ordine BZ voce 02**: le 22:30 di Milano, cioe'
+      // le 20:30 UTC. Con l'ora da parete la prova cambiava istante secondo il
+      // fuso della macchina, e su UTC le due stelle finivano quasi alla stessa
+      // altezza: la prova cadeva sul Mac di Codemagic e reggeva sul PC. E' lo
+      // stesso "istante sfortunato" che il commento qui sotto racconta, e la
+      // cura e' smettere di lasciarlo scegliere all'orologio.
+      final istante = DateTime.utc(2026, 7, 30, 20, 30);
       final milano = buildSkyFor(catalogo, istante,
           const BirthPlace(label: 'Milano', latitude: 45.46, longitude: 9.19, timezone: 'l'));
       final sydney = buildSkyFor(catalogo, istante,
@@ -132,8 +138,9 @@ void main() {
       final catalogo = _catalogoDiProva();
       const luogo = BirthPlace(
           label: 'Milano', latitude: 45.46, longitude: 9.19, timezone: 'l');
-      final sera = buildSkyFor(catalogo, DateTime(2026, 7, 30, 21), luogo);
-      final alba = buildSkyFor(catalogo, DateTime(2026, 7, 31, 6), luogo);
+      // Le 21 e le 6 del mattino di Milano, in istanti assoluti.
+      final sera = buildSkyFor(catalogo, DateTime.utc(2026, 7, 30, 19), luogo);
+      final alba = buildSkyFor(catalogo, DateTime.utc(2026, 7, 31, 4), luogo);
       expect(sera.centerAzDeg, isNot(alba.centerAzDeg),
           reason: 'a nove ore di distanza il cielo risulta identico: l\'ora non '
               'entra nel calcolo');

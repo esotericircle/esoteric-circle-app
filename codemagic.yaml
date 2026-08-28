@@ -75,6 +75,17 @@ workflows:
         - code-signing
 
       vars:
+        # **IL FUSO DELLA MACCHINA CHE COSTRUISCE. Ordine BZ voce 02.**
+        #
+        # Il Mac di Codemagic gira a UTC, il PC del fondatore sta a Roma. In
+        # agosto sono due ore, e due ore sono due ore di CIELO: la prova del
+        # cielo di Milano chiedeva 29,4 gradi e ne trovava 35,14, cioe' la
+        # stessa suite dava verde su una macchina e rosso sull'altra. Le prove
+        # di quel gruppo adesso scrivono istanti assoluti e non dipendono piu'
+        # dall'orologio della macchina; questa riga e' la seconda meta' della
+        # cura, e vale per tutto cio' che verra' scritto domani: le due
+        # macchine girano nella stessa ora.
+        TZ: "Europe/Rome"
         # L'identificativo del pacchetto, lo stesso che sta su App Store
         # Connect e nel progetto Xcode. Se questi due divergono, la firma
         # riesce e il caricamento viene rifiutato.
@@ -218,9 +229,19 @@ workflows:
           # ORDINE P VOCE 03. Qui c'era `ignore_failure: true`, cioe' il
           # permesso scritto di spedire su rosso: e' cosi' che la 2171 e'
           # uscita con due test rossi. Adesso il comando ESCE CON ERRORE e
-          # l'archivio non si produce. L'unico scavalco e' la variabile
+          # l'archivio non si produce. L'unico scavalco cieco e' la variabile
           # SPEDISCO_SU_ROSSO, che stampa il proprio nome nel registro: una
           # spedizione su rosso resta possibile, in silenzio no.
+          #
+          # **E ORDINE BZ VOCE 02, che distingue due rossi.** La build 2167 e'
+          # arrivata sugli iPhone dei fondatori l'8 agosto 2026, quando questo
+          # passo era ancora `ignore_failure: true`; lo sbarramento e' entrato
+          # il 12 agosto, e da quando in suite vive un rosso DICHIARATO e
+          # accettato nessuna build puo' piu' uscire. Adesso lo sbarramento
+          # legge tool/rossi_accettati.txt: se la suite cade solo su prove
+          # elencate li', con nome e ragione, l'archivio si produce e il
+          # registro della build le stampa tutte; se cade su una prova NUOVA,
+          # anche una sola, l'archivio non si produce.
           bash tool/sbarramento.sh
 
       - name: L'archivio
