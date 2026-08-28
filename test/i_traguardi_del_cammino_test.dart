@@ -33,7 +33,23 @@ void main() {
     // pomeriggio, e quella pretesa la sorveglia la prova dei trenta gradini
     // che non si chiudono in giornata, che non e' stata toccata e passa.
     FamigliaDelTraguardo.ritorno: 4,
-    FamigliaDelTraguardo.giornata: 4,
+    // **DUE E NON QUATTRO, e il numero segue il dato come per il Ritorno.**
+    // Ordine BX: finche\' le voci di Coincidenza dormivano, la famiglia
+    // veniva dalla ragione scritta nel corpus, che per loro dice
+    // Coincidenza, e la mappa delle ragioni la traduceva in giornata.
+    // Svegliandole (ordini BW voce 07 e BX voce 01) la famiglia ha
+    // ricominciato a seguire la CONDIZIONE, come questa casa vuole: lo
+    // stesso Arcano due volte in una settimana e\' memoria, la stessa carta
+    // sotto tre Lune diverse e\' profondita\', e nella giornata restano le due
+    // che davvero chiedono due cose nello stesso giorno.
+    //
+    // **La pretesa non e\' cambiata**: la famiglia giornata esiste perche\' un
+    // sentiero abbia le sue vittorie brevi, e quelle voci ci sono ancora
+    // tutte, misurate meglio di prima. Cio\' che questa riga sorvegliava, che
+    // un sentiero non si chiuda in un pomeriggio, lo sorveglia la prova dei
+    // trenta gradini che non si chiudono in giornata, che non e\' stata
+    // toccata e passa.
+    FamigliaDelTraguardo.giornata: 2,
     FamigliaDelTraguardo.profondita: 8,
     FamigliaDelTraguardo.ampiezza: 5,
     // **IDENTITA' NON STA PIU' QUI, e non e' un allentamento: e' aritmetica.**

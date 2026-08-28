@@ -110,6 +110,24 @@ class ImprontaDellIstruzione {
   /// rosso non dice piu' che manca una misura: adesso dice che la misura c'e' ed e'
   /// negativa, che e' una cosa piu' seria. Torna vero quando le tre voci sono di
   /// nuovo distinguibili e la misura lo dimostra.
+  /// **LA MISURA E\' STATA RIFATTA IL 28 AGOSTO 2026, e questa riga resta
+  /// falsa lo stesso.** Ordine BX, legge di consegna: la suite non si
+  /// spedisce su rosso, quindi il rosso e\' stato affrontato invece che
+  /// aggirato. Tre giri dal PC del fondatore, con gcloud attivo, sulle
+  /// impronte di OGGI: 85,0 poi 80,0 poi 88,3 per cento, media 84,4 (152 su
+  /// 180). **La soglia e\' 85, e 84,4 non la passa.**
+  ///
+  /// **La cura dell'ordine BP ha morso, e si vede**: la media sale da 75,6 a
+  /// 84,4 e Caligo passa dal 30-60 per cento al 60-80. Due giri su tre
+  /// arrivano alla soglia da soli. Ma la misura si legge sulla media dei
+  /// tre, perche\' un giro solo non dice dove sta.
+  ///
+  /// **E il ritmo dice che la causa non e\' piu\' il registro**, che era la
+  /// domanda che l'ordine BP lasciava aperta: la frase mediana di Caligo e\'
+  /// scesa a sette-otto parole con zero parole che ammorbidiscono, mentre
+  /// Aura sta a diciassette-diciannove con venti. Le due voci sono lontane
+  /// nel ritmo e il giudice le confonde lo stesso: cio\' che resta da
+  /// correggere non e\' come parlano, e\' cosa dicono.
   static const bool attribuzioneValida = false;
 
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
@@ -119,6 +137,17 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
+      'TRE GIRI DEL 28 AGOSTO 2026, SU QUESTE IMPRONTE, ordine BX: 85,0 per '
+      'cento (51 su 60), poi 80,0 (48 su 60), poi 88,3 (53 su 60); media dei '
+      'tre 84,4 per cento (152 su 180), contro una soglia di 85. Escursione '
+      'fra il giro piu\' basso e il piu\' alto: otto punti e tre su '
+      'sessanta. Nel dettaglio: medora 16, 16, 17 su 20; aura 20 su 20 tutte e '
+      'tre le volte; caligo 15, 12, 16 su 20. Ritmo delle voci, frase mediana '
+      'in parole e parole che ammorbidiscono: medora 13,5 e 8, poi 14,0 e 11, '
+      'poi 15,0 e 9; aura 19,0 e 16, poi 18,0 e 20, poi 17,0 e 20; caligo 8,0 '
+      'e 0, poi 8,0 e 1, poi 7,0 e 0. Verdetti illeggibili: zero in tutti e '
+      'tre. LE MISURE PRECEDENTI, che appartengono a un\'altra istruzione e '
+      'si tengono perche\' dicono da dove si parte. '
       'CINQUE GIRI, MA NON SU QUESTE IMPRONTE: SULLE PRECEDENTI. Fino al 25 '
       'agosto 2026 questa riga diceva CINQUE GIRI SU QUESTE IMPRONTE ed era '
       'vera; poi l\'ordine BP ha cambiato l\'istruzione per curare la causa che '
@@ -165,6 +194,21 @@ class ImprontaDellIstruzione {
   /// punti di oscillazione, ed e' li' che sta il grosso degli errori. Chi vorra'
   /// riportare questa misura sopra la soglia comincia da Caligo, non da Medora.
   static const String matrice =
+      'I TRE GIRI DEL 28 AGOSTO 2026, ordine BX, sulle impronte di oggi. '
+      'PRIMO: medora 16 su 20 (80,0 per cento), quattro volte scambiata per '
+      'aura; aura 20 su 20; caligo 15 su 20 (75,0 per cento), cinque volte '
+      'scambiato per aura; nove errori, tutti verso aura. '
+      'SECONDO: medora 16 su 20 (80,0 per cento), quattro volte per aura; '
+      'aura 20 su 20; caligo 12 su 20 (60,0 per cento), due volte per medora '
+      'e sei per aura; dodici errori, dieci verso aura e due verso medora. '
+      'TERZO: medora 17 su 20 (85,0 per cento), tre volte per aura; aura 20 '
+      'su 20; caligo 16 su 20 (80,0 per cento), una volta per medora e tre '
+      'per aura; sette errori, sei verso aura e uno verso medora. '
+      'IL FATTO FERMO RESTA: aura non viene mai scambiata, in duecentoquaranta '
+      'verdetti. IL FATTO CHE CAMBIA: caligo non e\' piu\' la voce che si '
+      'perde, sale dal 30-60 per cento al 60-80, e adesso i due sbagli sono '
+      'della stessa taglia. '
+      'LE MATRICI PRECEDENTI, su un\'altra istruzione. '
       'GIRO DEL 14 AGOSTO 2026: medora 14 su 20 (70,0 per cento), sei volte '
       'scambiata per aura; aura 20 su 20 (100 per cento); caligo 8 su 20 '
       '(40,0 per cento), dodici volte scambiato per aura; diciotto errori, '

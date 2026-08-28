@@ -166,6 +166,18 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
+    // **PRIMA SI CONGEDA LA FESTA, se ce n\'e\' una.** Ordine BX voce 07: la
+    // barra dell\'identita\' si ritira mentre una celebrazione e\' in scena,
+    // perche\' durante una festa si deve vedere la festa e nient\'altro. Al
+    // primo avvio una festa c\'e\', e senza congedarla questa prova
+    // misurerebbe quella regola invece della propria.
+    final congedo = find.byKey(const Key('celebrazione_continua'));
+    if (congedo.evaluate().isNotEmpty) {
+      await tester.tap(congedo);
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
     expect(barra, findsOneWidget,
         reason: 'la barra non segue il Passaporto');
     expect(find.byKey(const Key('porta_dell_account')), findsOneWidget,

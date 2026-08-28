@@ -1356,19 +1356,28 @@ class _DueVolti extends StatelessWidget {
                       style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.xs),
-                  Text(
-                      mio.dominante == secondo.dominante
-                          ? 'Vi accompagna lo stesso tratto: '
-                              '${mio.dominante.nome}.'
-                          : 'Il tuo tratto e\' ${mio.dominante.nome}, il '
-                              'suo e\' ${secondo.dominante.nome}.',
-                      style: TypographyTokens.lettura()
-                          .copyWith(color: ColorTokens.textPrimary)),
+                  // **DALLA PORTA UNICA, non un Text diretto.** La regola
+                  // di casa vuole che il testo che si legge passi da
+                  // `ParagrafiDiLettura`: un Text nel ruolo lettura e\' la
+                  // famiglia da cui il muro di testo torna, e la guardia di
+                  // casa lo ha visto.
+                  ParagrafiDiLettura(
+                    testo: mio.dominante == secondo.dominante
+                        ? 'Vi accompagna lo stesso tratto: '
+                            '${mio.dominante.nome}.'
+                        : 'Il tuo tratto e\' ${mio.dominante.nome}, il '
+                            'suo e\' ${secondo.dominante.nome}.',
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary),
+                  ),
                   const SizedBox(height: SpacingTokens.xs),
+                  // **NON IN MAIUSCOLETTO.** L'etichetta e\' un segnale, non
+                  // un testo: questa frase va a capo, e in maiuscoletto
+                  // diventava un muro di lettere larghe.
                   Text(
                       'Niente di questa lettura esce dal tuo telefono: vive '
                       'quanto questa schermata.',
-                      style: TypographyTokens.etichetta()
+                      style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textSecondary)),
                 ],
               ),

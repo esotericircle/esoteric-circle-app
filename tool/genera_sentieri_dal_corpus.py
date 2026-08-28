@@ -1423,13 +1423,37 @@ def main():
                 famiglia = 'cielo'
             elif (costruttore.startswith('GiorniDiSeguito')
                   or costruttore.startswith('GiorniDentroUnArco')
-                  or costruttore.startswith('RitornoDopoAssenza')):
+                  or costruttore.startswith('RitornoDopoAssenza')
+                  # **LE TRE CONDIZIONI NUOVE DELL'ORDINE BW VOCE 07 SONO
+                  # RITORNO, e prima finivano nell'ampiezza.** Ordine BX: la
+                  # famiglia segue la condizione, e queste tre parlano tutte
+                  # di tornare. La stessa ora per piu' giorni e' costanza; il
+                  # ritorno a un rito lasciato e il ritorno a un Maestro
+                  # dicono da quanto non ci si tornava. Finche' quelle voci
+                  # dormivano, la famiglia veniva dalla ragione del corpus,
+                  # che per loro dice Costanza o Ritorno: **svegliandole si
+                  # sono spostate nell'ampiezza per il ripiego finale**, e il
+                  # minimo di famiglia del Ritorno e' caduto da quattro a due
+                  # sulla Costellazione e sull'Albero. Il difetto e' nato
+                  # svegliando i gradini, non scrivendoli.
+                  or costruttore.startswith('StessaOraPerGiorni')
+                  or costruttore.startswith('RitornoAlRito')
+                  or costruttore.startswith('RitornoAlMaestro')):
                 famiglia = 'ritorno'
             elif costruttore.startswith('GestiNelloStessoGiorno'):
                 famiglia = 'giornata'
-            elif costruttore.startswith('VarietaDelDettaglio') or                     costruttore.startswith('GradiniAlleSpalle'):
+            elif (costruttore.startswith('VarietaDelDettaglio')
+                  or costruttore.startswith('GradiniAlleSpalle')
+                  # La varieta' per valore e' varieta': stessa natura, altro
+                  # modo di contarla.
+                  or costruttore.startswith('VarietaPerValore')):
                 famiglia = 'profondita'
-            elif costruttore.startswith('CoincidenzaDelDettaglio') or                     costruttore.startswith('MemoriaDelCerchio'):
+            elif (costruttore.startswith('CoincidenzaDelDettaglio')
+                  or costruttore.startswith('MemoriaDelCerchio')
+                  # Stessa ragione delle tre di sopra: la ripetizione dentro
+                  # una finestra di giorni e' memoria, perche' chiede al
+                  # diario di ricordare cosa era gia' successo.
+                  or costruttore.startswith('CoincidenzaNellaFinestra')):
                 famiglia = 'memoria'
             elif costruttore.startswith('PezzoDellIdentita'):
                 famiglia = 'identita'

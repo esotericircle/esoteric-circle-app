@@ -192,8 +192,16 @@ void main() {
     // dieci sonde al giorno per account) e `secondoFattore` (voce 04, il
     // codice numerico via email chiesto dal fondatore, una callable sola
     // con le due operazioni manda e verifica).
-    expect(callable.length, 9,
-        reason: 'le callable non sono piu\' nove: $callable. Se ne serviva '
+    // **DA NOVE A DIECI, ordine BX voce 02**, e si dichiara qui come la
+    // prova chiede. La nuova e\' `riscattaLInvito`, e non poteva viaggiare
+    // dentro `statoDelCerchio` come il cammino, il listino e il conto degli
+    // inviti: quelle sono cose CHE RIGUARDANO CHI CHIAMA, e questa scrive
+    // nel borsellino di un ALTRO, cioe\' di chi ha invitato. Un'azione che
+    // tocca il conto di un terzo ha bisogno della sua porta, con le sue
+    // difese: non ci si invita da soli, non si riscatta due volte, e il
+    // premio e\' un movimento idempotente.
+    expect(callable.length, 10,
+        reason: 'le callable non sono piu\' dieci: $callable. Se ne serviva '
             'una nuova andava dichiarata e motivata nel rapporto');
   });
 

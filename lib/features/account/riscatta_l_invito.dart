@@ -13,8 +13,8 @@ import '../../services/app_services.dart';
 ///
 /// **Perche' esiste.** Il premio dell'invito si pagava alla condivisione:
 /// bastava mandare il link a se stessi per incassare sessanta Eos, mentre la
-/// riga sotto il pulsante prometteva "60 Eos quando il tuo amico entra nel
-/// Cerchio". Adesso il premio lo paga l'ingresso vero, e l'ingresso ha bisogno
+/// riga sotto il pulsante prometteva sessanta Eos quando l'amico entra nel
+/// Cerchio. Adesso il premio lo paga l'ingresso vero, e l'ingresso ha bisogno
 /// di una porta: questa.
 ///
 /// **Perche' si incolla un codice e non si apre un link.** Firebase Dynamic

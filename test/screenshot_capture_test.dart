@@ -1727,6 +1727,10 @@ void main() {
       await tester.tap(find.byKey(Key('dream_star_$i')));
       await tester.pump(const Duration(milliseconds: 80));
     }
+    // Come sopra: la figura unita ha una sua entrata, e va aspettata.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
     await capture(tester, rootKey, 'rito-sogno-costellazione.png');
 
     // Dalla figura unita scende il saluto della notte.
@@ -3442,6 +3446,13 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     await tester.tap(find.text('Passport'));
     await step(tester);
+    // **LA SCENA DEVE FINIRE DI ENTRARE.** Con un solo passo l'immagine
+    // usciva sbiadita, colta mentre il Passaporto stava ancora comparendo:
+    // la guardia delle anteprime non velate misura il punto piu' chiaro, e
+    // lo trovava a 177 su 255.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
     await capture(tester, rootKey, 'passport.png');
   });
 
