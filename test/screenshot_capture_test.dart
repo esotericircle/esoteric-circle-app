@@ -1870,6 +1870,23 @@ void main() {
   // vedevano: i nomi delle arti troncati coi puntini e i nomi dei VIP
   // tagliati a meta' riga.
 
+  // --- IL PRIMO AVVIO, che e' la prima cosa che chi decide vede ---
+  testWidgets('Cattura il primo avvio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // **NESSUNA PREFERENZA: e' un telefono che non ha mai aperto l'app.** Il
+    // `setUp` di questo file dichiara l'onboarding gia' fatto, che e' giusto
+    // per tutte le altre catture e falso per questa.
+    SharedPreferences.setMockInitialValues(const {});
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 797));
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await capture(tester, rootKey, 'primo-avvio.png');
+  });
+
   testWidgets('Cattura il bosco del Cerchio', (tester) async {
     silenceSensors();
     await loadFonts();
@@ -2499,6 +2516,17 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
     // Lascia completare la micro-animazione di riempimento delle forme.
     await tester.pump(const Duration(seconds: 2));
+    // **SI CONGEDA LA FESTA, ordine BY.** Interrogare il cielo e leggere fino
+    // in fondo fa maturare "Il primo oroscopo letto intero", e la
+    // celebrazione copre tutto: l'anteprima dell'Oroscopo mostrava la festa
+    // invece dell'Oroscopo. La festa ha gia' le sue immagini.
+    final congedoOroscopo = find.byKey(const Key('celebrazione_continua'));
+    if (congedoOroscopo.evaluate().isNotEmpty) {
+      await tester.tap(congedoOroscopo);
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+    }
     await capture(tester, rootKey, 'oroscopo.png');
   });
 
@@ -4247,6 +4275,14 @@ void main() {
           await mount(tester, await buildServices(maestro, seeded: true));
       await openChat(tester, maestro);
       await precacheFaces(tester);
+      // **SI ASPETTA CHE LA VOCE FINISCA DI SCRIVERE.** Ordine BY, giro di
+      // grazia: la bolla riserva l'altezza della frase intera mentre il testo
+      // si scrive, quindi l'immagine colta a meta' mostrava una frase
+      // troncata e un vuoto grande dentro la bolla. Chi guarda l'anteprima
+      // non vede una scrittura in corso, vede un difetto.
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 400));
+      }
       await capture(tester, rootKey, '$id-chat.png');
     });
 

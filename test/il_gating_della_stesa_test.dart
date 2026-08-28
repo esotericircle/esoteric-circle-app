@@ -233,18 +233,18 @@ void main() {
   testWidgets('il conto e\' quello del listino, e cambia col piano',
       (tester) async {
     await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Stese di oggi: 7 di 7',
+    expect(contoAVideo(tester), 'Ti restano 7 stese di 7, oggi',
         reason: 'il numero non e\' quello che la matrice promette '
             'all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
     await monta(tester, piano: Tier.tier3, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Stese di oggi: 20 di 20',
+    expect(contoAVideo(tester), 'Ti restano 20 stese di 20, oggi',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
     await monta(tester, piano: Tier.free, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Stese di oggi: 1 di 1',
+    expect(contoAVideo(tester), 'Ti resta 1 stesa di 1, oggi',
         reason: 'il Viandante non legge piu\' la sua stesa del giorno: '
             'ordine BU voce 04');
   });

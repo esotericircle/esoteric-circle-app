@@ -1603,7 +1603,14 @@ class _ContoDelleStese extends StatelessWidget {
           ? 'Hai una stesa riscattata da aprire.'
           : 'La stesa completa si apre con gli Eos.';
     } else if (rimaste! > 0) {
-      testo = 'Stese di oggi: $rimaste di $limite';
+      // **DICE COSA RESTA, non quante se ne sono fatte.** Ordine BY, giro di
+      // grazia: "Stese di oggi: 1 di 1" si legge in due modi opposti, e
+      // davanti a chi guarda per la prima volta il modo sbagliato e' quello
+      // che spaventa, cioe' "le hai gia' usate tutte". Il numero e' lo
+      // stesso, la frase no.
+      testo = rimaste == 1
+          ? 'Ti resta 1 stesa di $limite, oggi'
+          : 'Ti restano $rimaste stese di $limite, oggi';
     } else {
       testo = 'Le stese di oggi sono finite: si riparte domani.';
     }
