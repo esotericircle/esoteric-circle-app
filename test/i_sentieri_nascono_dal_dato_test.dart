@@ -138,4 +138,171 @@ void main() {
         reason: 'il generatore non esiste piu: il corpus nuovo non si potrebbe '
             'piu applicare');
   });
+
+  group('Ordine BW voce 01, il cammino rispecchia la revisione E', () {
+    test('La porta che apre arriva in app per ogni voce, verbatim', () {
+      // **LA PORTA E' IL PEZZO CHE DICE A COSA SERVE UN GRADINO**, e il
+      // corpus la porta per tutte e centosessantacinque le voci. In app vive
+      // nel campo `cosaApre`: se una si perdesse per strada, quel gradino
+      // diventerebbe un premio senza destinazione.
+      final mancanti = <String>[];
+      final diverse = <String>[];
+      var trasformate = 0;
+      for (final v in voci) {
+        final t = Sentieri.tuttiITraguardi
+            .where((x) => x.id == v['id'])
+            .firstOrNull;
+        if (t == null) {
+          mancanti.add('${v['id']} non esiste in app');
+          continue;
+        }
+        final attesa = (v['porta_che_apre'] as String).trim();
+        if (attesa.isEmpty) {
+          mancanti.add('${v['id']} non ha porta nel corpus');
+          continue;
+        }
+        // **DUE TRASFORMAZIONI DICHIARATE, e non sono riscritture.** Il
+        // generatore porta gli accenti veri al posto dell'apostrofo, che e'
+        // ortografia e non scrittura, e traduce i nomi dei doni rinominati
+        // dopo che il corpus era stato scritto. Qui si applicano le stesse
+        // due regole prima di confrontare: senza, la prova chiamerebbe
+        // differenza cio' che e' una regola di casa.
+        final normalizzata = conGliAccenti(coiNomiNuovi(attesa));
+        if (t.cosaApre.trim() != normalizzata) {
+          diverse.add('${v['id']}: in app "${t.cosaApre}", dal corpus '
+              '"$normalizzata"');
+        } else if (t.cosaApre.trim() != attesa) {
+          trasformate++;
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: porte lette dal corpus ${voci.length}, '
+          'mancanti ${mancanti.length}, trasformate dalle due regole di casa '
+          '$trasformate, diverse ${diverse.length}'
+          '${diverse.isEmpty ? "" : ": ${diverse.join(" | ")}"}');
+      expect(mancanti, isEmpty, reason: 'queste voci non hanno porta: '
+          '$mancanti');
+      expect(diverse, isEmpty,
+          reason: 'la porta in app non e\' quella del corpus: $diverse');
+    });
+
+    test('I dormienti del corpus dormono tutti in app', () {
+      // **I CINQUANTUNO CHE IL CORPUS DICHIARA.** Nessuno di loro puo\' essere
+      // sveglio in app: sarebbero gradini che promettono qualcosa che non
+      // esiste ancora.
+      final svegliPerErrore = <String>[];
+      var dichiarati = 0;
+      for (final v in voci) {
+        if (v['dormiente'] != true) continue;
+        dichiarati++;
+        final t = Sentieri.tuttiITraguardi
+            .where((x) => x.id == v['id'])
+            .firstOrNull;
+        if (t != null && !t.dormiente) svegliPerErrore.add('${v['id']}');
+      }
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: dormienti dichiarati dal corpus $dichiarati, '
+          'di cui svegli in app ${svegliPerErrore.length}');
+      expect(dichiarati, 51,
+          reason: 'il corpus dichiara $dichiarati dormienti invece di 51: se '
+              'il file e\' cambiato il numero segue il dato, ma va detto');
+      expect(svegliPerErrore, isEmpty,
+          reason: 'questi dormienti del corpus sono svegli in app: '
+              '$svegliPerErrore');
+    });
+
+    test('I ventisette che dormono in piu\' hanno tutti la loro ragione', () {
+      // **IL NUMERO CHE IL FONDATORE DEVE VEDERE.** In app dormono
+      // SETTANTOTTO voci, non cinquantuno: le altre ventisette il corpus le
+      // vuole vive, ma l'app non sa misurarne la condizione, e un gradino che
+      // non si puo\' misurare non si accendera\' mai. Il generatore le
+      // addormenta col loro perche\', e questa prova pretende che ognuna lo
+      // porti scritto: un dormiente senza ragione sarebbe un gradino perso in
+      // silenzio.
+      final inApp = Sentieri.tuttiITraguardi.where((t) => t.dormiente).toList();
+      final dalCorpus = {
+        for (final v in voci)
+          if (v['dormiente'] == true) v['id'] as String,
+      };
+      final inPiu = inApp.where((t) => !dalCorpus.contains(t.id)).toList();
+      final senzaRagione = inPiu.where((t) {
+        final c = t.condizione;
+        return c is! Dormiente || c.perche.trim().isEmpty;
+      }).toList();
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: in app dormono ${inApp.length} voci, '
+          '${dalCorpus.length} dichiarate dal corpus e ${inPiu.length} '
+          'addormentate dal generatore perche\' l\'app non sa misurarle; '
+          'senza ragione scritta ${senzaRagione.length}');
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: le ventisette sono '
+          '${inPiu.map((t) => t.id).join(", ")}');
+      expect(inApp.length, 78,
+          reason: 'in app dormono ${inApp.length} voci invece di 78: il numero '
+              'segue il dato, ma un cambiamento va detto al fondatore');
+      expect(senzaRagione.map((t) => t.id), isEmpty,
+          reason: 'questi dormono senza dire perche\': '
+              '${senzaRagione.map((t) => t.id)}');
+    });
+
+    test('Le ventisette voci sociali ci sono, e otto sono gia\' vive', () {
+      // **LE VOCI CHE CHIEDONO UN'ALTRA PERSONA.** Il corpus ne porta
+      // ventisette e le marca da se\', nel campo `note`. Otto sono gia\'
+      // vive, e sono quelle della condivisione, che nell'app esiste; le
+      // altre aspettano il gesto dell'invito, che alla regia non arriva.
+      // Il numero si stampa perche\' dice quanto del Cerchio sociale sia
+      // gia\' in piedi.
+      // Il corpus le marca da se', nel campo `note`: non si indovinano
+      // leggendo i nomi.
+      final sociali = voci
+          .where((v) => '${v['note']}'.toUpperCase().contains('SOCIALE'))
+          .toList();
+      final sveglie = <String>[];
+      for (final v in sociali) {
+        final t = Sentieri.tuttiITraguardi
+            .where((x) => x.id == v['id'])
+            .firstOrNull;
+        if (t != null && !t.dormiente) sveglie.add('${v['id']} ${v['nome']}');
+      }
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: voci sociali nel corpus ${sociali.length}, '
+          'di cui sveglie in app ${sveglie.length}'
+          '${sveglie.isEmpty ? "" : " ($sveglie)"}');
+      expect(sociali.length, 27,
+          reason: 'le voci sociali sono ${sociali.length} invece di 27');
+    });
+
+    test('Le perle non si accendono nell\'ordine di un ramo solo', () {
+      // **L'ACCENSIONE NON SEGUE UN RAMO SOLO**, e il modo di misurarlo e\'
+      // guardare da dove vengono le condizioni: se ogni perla dipendesse dal
+      // gradino precedente dello stesso sentiero, il cammino sarebbe una
+      // scala unica. Qui si contano le voci la cui condizione NON e\' il
+      // conto dei gradini alle spalle, cioe\' quelle che si accendono per un
+      // fatto proprio, e le famiglie di condizione distinte che il cammino
+      // usa davvero.
+      var perGradini = 0;
+      final tipi = <String>{};
+      for (final t in Sentieri.tuttiITraguardi) {
+        final tipo = t.condizione.runtimeType.toString();
+        tipi.add(tipo);
+        if (tipo == 'GradiniAlleSpalle') perGradini++;
+      }
+      // ignore: avoid_print
+      print('ORDINE BW VOCE 1: famiglie di condizione distinte '
+          '${tipi.length} (${(tipi.toList()..sort()).join(", ")}), e le voci '
+          'legate al solo conto dei gradini sono $perGradini su '
+          '${Sentieri.tuttiITraguardi.length}');
+      expect(tipi.length, greaterThanOrEqualTo(8),
+          reason: 'il cammino usa solo ${tipi.length} famiglie di condizione: '
+              'con cosi\' poche l\'accensione finisce per seguire un ramo solo');
+      expect(perGradini, lessThan(Sentieri.tuttiITraguardi.length ~/ 3),
+          reason: 'ci sono $perGradini voci che dipendono solo dai gradini '
+              'alle spalle: il cammino sta diventando una scala unica');
+    });
+  });
 }
+
+/// I doni rinominati dopo la scrittura del corpus, lo stesso elenco.
+String coiNomiNuovi(String testo) => testo
+    .replaceAll('Oracolo del Giorno', 'Arcano del Giorno')
+    .replaceAll('Rito del Sogno', 'Sigillo del Sogno');
