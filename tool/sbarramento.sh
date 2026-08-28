@@ -69,7 +69,27 @@ grep -E "^  [A-Za-z]:.*_test[.]dart" "$REGISTRO" | sort -u || true
 # Vale sia col rapporto compatto sia con quello esteso, che usano la stessa
 # riga. Una riga "loading /percorso.dart" e' un errore di compilazione, e non
 # essendo il nome di nessuna prova non puo' finire fra gli accettati.
-CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' "$REGISTRO" | sort -u)"
+# **IL PERCORSO SI TOGLIE, ordine BZ voce 02, integrazione del 28 agosto.**
+#
+# Quando `flutter test` gira su PIU' file, il rapporto mette davanti al nome
+# della prova il PERCORSO ASSOLUTO del file; su un file solo non lo mette. Il
+# registro dei rossi accettati porta il nome della prova, quindi nella suite
+# intera il confronto non combaciava MAI: la stessa prova risultava insieme
+# "guarita" (il registro non la trovava fra le cadute) e "nuova" (la caduta non
+# si trovava nel registro). E' la contraddizione letta nel registro di
+# costruzione, e le due righe dicevano il vero tutte e due.
+#
+# **Non era la macchina.** Il percorso della macchina che costruisce e'
+# /Users/builder/clone/test/..., quello del PC C:/Users/...: cambiano tutti e
+# due, ma il confronto falliva anche sul PC. Il difetto era che il percorso
+# entrava nel confronto, non quale percorso fosse. La guardia dello sbarramento
+# non lo vedeva perche' i rapporti finti che le davo erano scritti SENZA
+# percorso, cioe' nella forma del file singolo: adesso ne porta di tutte e due
+# le forme, compresa quella del Mac che costruisce.
+#
+# Si toglie tutto cio' che sta prima del primo ".dart: ".
+CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' "$REGISTRO" \
+  | sed -E 's#^.*[.]dart: ##' | sort -u)"
 
 if [ -z "$CADUTE" ]; then
   echo ""
@@ -86,7 +106,11 @@ fi
 # I NOMI ACCETTATI: la riga fino alla barra verticale, senza commenti.
 ACCETTATE=""
 if [ -f "$ACCETTATI" ]; then
-  ACCETTATE="$(grep -v '^[[:space:]]*#' "$ACCETTATI" | grep -v '^[[:space:]]*$' | sed -E 's/[[:space:]]*[|].*$//')"
+  # Anche qui si toglie il percorso: una riga del registro scritta come la
+  # stampa il rapporto ("percorso.dart: nome") vale quanto una scritta col
+  # nome nudo, e le due forme non possono piu' divergere.
+  ACCETTATE="$(grep -v '^[[:space:]]*#' "$ACCETTATI" | grep -v '^[[:space:]]*$' \
+    | sed -E 's/[[:space:]]*[|].*$//' | sed -E 's#^.*[.]dart: ##')"
 fi
 
 NUOVE=""

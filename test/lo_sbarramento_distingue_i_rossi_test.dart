@@ -110,12 +110,26 @@ void main() {
           workingDirectory: Directory.current.path);
     }
 
-    const unaCaduta = '00:12 +3790 -1: Una prova qualunque che cade [E]\n'
-        '  Expected: true\n'
-        '  Actual: false\n'
-        '\n'
-        'Failing tests:\n'
-        '  C:/qualcosa/test/una_prova_test.dart: Una prova qualunque che cade\n';
+    // **I RAPPORTI FINTI PORTANO IL PERCORSO, ordine BZ voce 02,
+    // integrazione del 28 agosto.** Quando `flutter test` gira su PIU' file
+    // il rapporto mette davanti al nome della prova il PERCORSO ASSOLUTO
+    // del file; su un file solo non lo mette. Questi rapporti erano scritti
+    // nella forma del file singolo, quindi la guardia era CIECA sul caso
+    // vero, che e' la suite intera: la stessa prova risultava insieme
+    // guarita e nuova, e la build dei fondatori non usciva.
+    //
+    // Adesso ce ne sono TRE forme: senza percorso, col percorso del PC, e
+    // col percorso della macchina che costruisce, /Users/builder/clone.
+    // Quest'ultima e' l'unica che risponde alla domanda dell'ordine, cioe'
+    // se il riconoscimento regge su una macchina che qui non c'e'.
+    const nome = 'Una prova qualunque che cade';
+    const cadutaNuda = '00:12 +3790 -1: $nome [E]\n';
+    const cadutaDalPc = '00:12 +3790 -1: '
+        'C:/Users/user/Desktop/esoteric-circle-app/test/una_prova_test.dart: '
+        '$nome [E]\n';
+    const cadutaDalMac = '00:12 +3790 -1: '
+        '/Users/builder/clone/test/una_prova_test.dart: $nome [E]\n';
+    const unaCaduta = cadutaNuda;
 
     const ragione = 'Una prova qualunque che cade | ragione scritta per la '
         'prova, con la data del 28 agosto 2026';
@@ -164,6 +178,40 @@ void main() {
           contains('Una seconda prova, che nessuno ha mai visto'));
     });
 
+    test('Un rosso accettato si riconosce ANCHE col percorso del PC', () {
+      if (bash.isEmpty) return;
+      final r = giudica(cadutaDalPc, 1, ragione);
+      expect(r.exitCode, 0,
+          reason: 'col percorso davanti al nome il registro non riconosce '
+              'piu\' la propria riga: e\' il difetto che ha tenuto fermo '
+              'l\'archivio');
+      expect(r.stdout.toString(), contains('ROSSI ACCETTATI'));
+      expect(r.stdout.toString(), isNot(contains('AVVISO')),
+          reason: 'la stessa prova risulta insieme accettata e guarita');
+    });
+
+    test('E ANCHE col percorso della macchina che costruisce', () {
+      if (bash.isEmpty) return;
+      // **QUESTA E' LA DOMANDA DELL'ORDINE**: una prova gia' accettata viene
+      // riconosciuta su QUALUNQUE macchina? Il percorso del Mac di Codemagic
+      // qui non esiste, ma nel confronto non entra piu': si verifica dando
+      // allo sbarramento una riga scritta come la scrive quella macchina.
+      final r = giudica(cadutaDalMac, 1, ragione);
+      expect(r.exitCode, 0,
+          reason: 'sulla macchina che costruisce il registro non riconosce '
+              'la propria riga, e l\'archivio non si produce');
+      expect(r.stdout.toString(), contains('ROSSI ACCETTATI'));
+      expect(r.stdout.toString(), isNot(contains('ROSSI NUOVI')));
+    });
+
+    test('E un rosso NUOVO sbarra anche col percorso del Mac', () {
+      if (bash.isEmpty) return;
+      final r = giudica(cadutaDalMac, 1, '');
+      expect(r.exitCode, 1,
+          reason: 'togliendo il percorso dal confronto e\' passato anche un '
+              'rosso che nessuno ha accettato');
+      expect(r.stdout.toString(), contains('ROSSI NUOVI'));
+    });
     test('Un rosso accettato che non cade piu\' viene segnalato', () {
       if (bash.isEmpty) return;
       final r = giudica(

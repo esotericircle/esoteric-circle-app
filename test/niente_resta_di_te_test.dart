@@ -57,12 +57,26 @@ void main() {
     'remove', 'containsKey',
   ];
 
+  /// I sorgenti di `lib/`, **IN ORDINE DICHIARATO E NON IN ORDINE DI DISCO.**
+  ///
+  /// Ordine BZ voce 02, integrazione del 28 agosto. `listSync` torna i file
+  /// nell'ordine che il filesystem preferisce, e non e' lo stesso su NTFS e su
+  /// APFS: la mappa globale delle costanti si costruisce scorrendo i file, e
+  /// per una costante definita con lo stesso nome in due file diversi **vince
+  /// l'ultimo letto**. Cinque nomi sono in questo caso, fra cui `_chiave` con
+  /// tre valori diversi e `chiave` con due. Oggi tutti e cinque i valori sono
+  /// coperti, quindi l'esito non cambia; ma una prova che dipende dall'ordine
+  /// del disco puo' dire il vero sul PC e il falso sulla macchina che
+  /// costruisce, e quella e' la peggior forma di prova. Si ordina.
   List<File> sorgenti() {
     final fuori = <File>[];
     for (final voce in Directory('lib').listSync(recursive: true)) {
       if (voce is! File || !voce.path.endsWith('.dart')) continue;
       fuori.add(voce);
     }
+    fuori.sort((a, b) => a.path
+        .replaceAll(Platform.pathSeparator, '/')
+        .compareTo(b.path.replaceAll(Platform.pathSeparator, '/')));
     return fuori;
   }
 
