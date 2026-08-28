@@ -302,9 +302,12 @@ decisione sul prodotto di un altro, e per la REGOLA UNO ci si ferma li'.
 
 ## LE GUARDIE ROSSE TROVATE DALLA SUITE, e curate
 
-La suite intera ha mostrato ventiquattro rossi, ventitre dei quali lasciati dal
-lavoro di questo stesso ordine e mai eseguiti prima. Sono tutti curati, e la
-lista sta nei due commit "giro di chiusura". I tre che valgono come lezione:
+**Ventisette guardie rosse in tutto**, trovate in quattro giri di suite intera:
+ventiquattro al primo giro, una al secondo, tre all'ultimo. **Ventisei erano
+lasciate dal lavoro di questo stesso ordine e mai eseguite prima**; la
+ventisettesima e' l'attribuzione cieca, che appartiene all'ordine BP ed e'
+l'unica che resta. Sono tutte curate, e la lista sta nei tre commit "giro di
+chiusura" e in quello del controllo a video. Le tre che valgono come lezione:
 
 - **La famiglia delle condizioni nuove.** Svegliando i gradini, la famiglia ha
   smesso di venire dalla ragione del corpus e ha ricominciato a seguire il
@@ -337,6 +340,18 @@ Il comando, dalla radice del repository:
 ```bash
 firebase deploy --only functions --project esoteric-circle
 ```
+
+## LA CONSEGNA, coi numeri
+
+| cosa | esito |
+| --- | --- |
+| `flutter analyze lib test` | **zero avvisi** |
+| suite intera, `TZ=Europe/Rome` | **3.788 verdi, 1 rosso**, che e' l'attribuzione cieca dichiarata qui sopra |
+| impronta dell'albero prima del primo test | `0b26e2c021a095e86ca7489342a4648753248e1d` |
+| impronta dopo l'ultimo | `0b26e2c021a095e86ca7489342a4648753248e1d`, la stessa: **albero fermo** |
+| prove del server, `npm test` in `functions/` | **44 verdi, 0 rosse** |
+| tipi del server, `tsc --noEmit` | pulito |
+| anteprime | rigenerate tutte, e le tre schermate nuove dell'ordine adesso ne hanno una |
 
 ## Marcatori, per chi legge a macchina
 
