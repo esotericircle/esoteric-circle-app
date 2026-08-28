@@ -211,7 +211,7 @@ void main() {
               '$svegliPerErrore');
     });
 
-    test('Quelli che dormono in piu\' hanno tutti la loro ragione', () {
+    test('In app dormono soltanto i cinquantuno del corpus', () {
       // **IL NUMERO CHE IL FONDATORE DEVE VEDERE.** In app dormono
       // SETTANTOTTO voci, non cinquantuno: le altre ventisette il corpus le
       // vuole vive, ma l'app non sa misurarne la condizione, e un gradino che
@@ -237,13 +237,17 @@ void main() {
       // ignore: avoid_print
       print('ORDINE BW VOCE 1: quelle ancora addormentate dal generatore sono '
           '${inPiu.map((t) => t.id).join(", ")}');
-      // **IL NUMERO SCENDE MENTRE L'ORDINE BW VOCE 07 COSTRUISCE**, e il
-      // fondatore lo ha chiesto proprio cosi': "sistema le 27 dormienti". Era
-      // 78 quando la voce e' cominciata, ed e' 51 quando sara' finita, che e'
-      // il Coming soon voluto dal corpus. Il numero segue il dato, e ogni
-      // scalino si dichiara nel manifesto.
-      expect(inApp.length, 56,
-          reason: 'in app dormono ${inApp.length} voci invece di 56: il numero '
+      // **CI SIAMO ARRIVATI.** Erano 78 all'inizio dell'ordine BW voce 07,
+      // sono 51 alla fine dell'ordine BX voce 10: esattamente quelle che il
+      // corpus dichiara dormienti, cioe' il Coming soon voluto dal fondatore.
+      // **Nessuna voce resta spenta perche' l'app non sa misurarla**, ed e'
+      // questa la riga che lo dice: `inPiu` deve restare vuota.
+      expect(inPiu.map((t) => t.id), isEmpty,
+          reason: 'queste voci dormono perche\' l\'app non sa misurarle, '
+              'e non perche\' il corpus le voglia dormienti: '
+              '${inPiu.map((t) => t.id).toList()}');
+      expect(inApp.length, 51,
+          reason: 'in app dormono ${inApp.length} voci invece di 51: il numero '
               'segue il dato, ma un cambiamento va detto al fondatore');
       expect(senzaRagione.map((t) => t.id), isEmpty,
           reason: 'questi dormono senza dire perche\': '

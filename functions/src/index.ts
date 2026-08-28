@@ -10,6 +10,9 @@ export {
   statoDelCerchio,
   consumaDelGiorno,
   muoviGliEos,
+  // ORDINE BX VOCE 02: il premio dell'invito si paga quando qualcuno entra
+  // davvero, e questa e' la porta che lo dice.
+  riscattaLInvito,
   scriviLaMemoria,
   azzeraIDatiDelCerchio,
   cancellaIlCerchio,

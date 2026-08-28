@@ -20,6 +20,8 @@ class StatoDelCerchio {
     this.premioDellaRegistrazione,
     this.cerchioNuovo,
     this.accreditati = const [],
+    this.invitiAccolti = 0,
+    this.invitiPerMaestro = const {},
   });
 
   final String giorno;
@@ -57,6 +59,18 @@ class StatoDelCerchio {
   /// parole di persona, e il borsellino mostra la storia. Vuoto quando il
   /// server non ha accreditato niente, o e' piu' vecchio dell'app.
   final List<AccreditoDellaDote> accreditati;
+
+  /// **QUANTI INVITI SONO STATI ACCOLTI. Ordine BX voce 02.**
+  ///
+  /// Tre voci del cammino chiedono che qualcuno accetti il tuo invito ed entri
+  /// nel Cerchio, e il telefono non lo puo' sapere: lo sa solo il server,
+  /// quando la persona invitata riscatta il codice. **Zero quando il server e'
+  /// piu' vecchio dell'app**, che e' esattamente cio' che era vero prima.
+  final int invitiAccolti;
+
+  /// **DA QUALE PORTA SONO ENTRATI.** Ordine BX voce 02: il corpus ha tre
+  /// voci, una per Maestro, e senza la porta misurerebbero lo stesso fatto.
+  final Map<String, int> invitiPerMaestro;
 
   /// **QUANTO COSTA RISCATTARE UN USO DI UN BUDGET FINITO.** Ordine BG voce
   /// 05: il prezzo lo decide il server, il client lo mostra sul pulsante e
@@ -129,6 +143,15 @@ class StatoDelCerchio {
       cerchioNuovo:
           risposta['cerchioNuovo'] is bool ? risposta['cerchioNuovo'] as bool : null,
       accreditati: accreditati,
+      invitiAccolti: risposta['invitiAccolti'] is num
+          ? (risposta['invitiAccolti'] as num).toInt()
+          : 0,
+      invitiPerMaestro: {
+        if (risposta['invitiPerMaestro'] is Map)
+          for (final voce
+              in (risposta['invitiPerMaestro'] as Map).entries)
+            if (voce.value is num) '${voce.key}': (voce.value as num).toInt(),
+      },
     );
   }
 }
@@ -200,6 +223,15 @@ abstract class PortaDelCerchio {
   /// dimenticare il cammino sul server e' una cosa che solo il server puo'
   /// fare: gli si dice qui, dentro la richiesta che gia' parte a ogni
   /// apertura, invece di aprire una seconda porta per una cosa sola.
+  /// **RISCATTA UN INVITO. Ordine BX voce 02.**
+  ///
+  /// Chi arriva nel Cerchio con un codice lo consegna qui, una volta sola: il
+  /// server segna da chi e' arrivato, incrementa il conto degli inviti accolti
+  /// di chi ha invitato e gli accredita il premio. **Torna vero solo se
+  /// l'invito e' stato accolto davvero**: un codice gia' usato, o il proprio,
+  /// tornano falso senza rompere niente.
+  Future<bool> riscattaLInvito(String codice) async => false;
+
   Future<StatoDelCerchio?> stato(
       {CamminoDaCustodire? cammino, bool azzeraIlCammino = false});
 
@@ -312,6 +344,17 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
       // e' la stessa.
       return null;
     }
+  }
+
+  @override
+  Future<bool> riscattaLInvito(String codice) async {
+    // **IL CODICE VA AL SERVER E BASTA.** Qui non si decide niente: chi ha
+    // invitato, se il codice vale, se e' gia' stato usato e quanto vale il
+    // premio lo sa solo il ramo di chi ha invitato, che il telefono non puo'
+    // nemmeno leggere.
+    final risposta = await _chiama('riscattaLInvito', {'codice': codice});
+    if (risposta is! Map) return false;
+    return risposta['accolto'] == true;
   }
 
   @override

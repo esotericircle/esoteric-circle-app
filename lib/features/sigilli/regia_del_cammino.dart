@@ -141,6 +141,11 @@ class RegiaDelCammino {
     // che potrebbe non esserci piu'.
     final RegistroDegliEos? registro = _registro(context);
     final CodaDelleFeste? coda = _codaSeCe(context);
+    // **GLI INVITI ACCOLTI ENTRANO NEL CAMMINO PRIMA DI GUARDARE, ordine BX
+    // voce 02**: il conto arriva dal server con lo stato, e tre voci lo
+    // aspettano. Allinearlo dopo vorrebbe dire accorgersene un gesto dopo.
+    await diario.allineaGliInviti(borsa.invitiAccolti,
+        perMaestro: borsa.invitiPerMaestro);
     final nuovi = await diario.quelliCheSiAccendono(stato);
     if (nuovi.isEmpty) return;
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../sigilli/celebrazione.dart';
+
 import '../../design_system/components/borsellino.dart';
 import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -60,16 +62,33 @@ class BarraDellIdentita extends StatefulWidget {
 class _BarraDellIdentitaState extends State<BarraDellIdentita> {
   String? _schermata;
 
+  /// **LA BARRA SPARISCE DURANTE UNA FESTA. Ordine BX voce 07.**
+  ///
+  /// Questa barra sta SOPRA il Navigator, quindi si dipinge su ogni rotta,
+  /// compresa la celebrazione: il velo della festa, per quanto fitto, non la
+  /// puo' coprire perche' non le sta davanti. Il fondatore ha letto
+  /// "Eventi Cosmici" sopra quattro schermate di festa e l'ha presa per
+  /// l'intestazione della festa stessa: ci ha scritto sopra un ordine intero,
+  /// su una famiglia di traguardi che non esiste.
+  ///
+  /// Durante una festa si vede la festa e nient'altro.
+  bool _festaInScena = false;
+
   @override
   void initState() {
     super.initState();
     widget.observatore.cambi.addListener(_pilaCambiata);
+    // **E ANCHE LE FESTE, ordine BX voce 07**: una festa puo' entrare in scena
+    // senza che la pila delle schermate cambi, e la barra deve sparire lo
+    // stesso.
+    FesteInCorso.cambi.addListener(_pilaCambiata);
     _pilaCambiata();
   }
 
   @override
   void dispose() {
     widget.observatore.cambi.removeListener(_pilaCambiata);
+    FesteInCorso.cambi.removeListener(_pilaCambiata);
     super.dispose();
   }
 
@@ -78,11 +97,13 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final cima = widget.observatore.schermataInCima();
-      if (cima == _schermata) return;
+      final festa = FesteInCorso.unaCeGia;
+      if (cima == _schermata && festa == _festaInScena) return;
       // Cambiando schermata la barra torna sottile: l'apertura apparteneva
       // alla lettura di prima. E' la via 2 e la via 4 del ritiro.
       setState(() {
         _schermata = cima;
+        _festaInScena = festa;
       });
     });
   }
@@ -91,7 +112,8 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final siVede = BarraDellIdentita.siVede(_schermata);
+    final siVede =
+        BarraDellIdentita.siVede(_schermata) && !_festaInScena;
     // **UN SOLO STATO, ordine AR voce 10.** La barra non si apre piu': era
     // alta 30 punti a riposo e 66 da aperta, e il primo tocco serviva ad
     // aprirla invece che a portare da qualche parte. Decisione di Mauro del

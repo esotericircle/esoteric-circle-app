@@ -110,6 +110,23 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   bool _pronto = false;
 
   FaceReading? _reading;
+
+  /// **IL SECONDO VOLTO, e non esce mai da questo telefono. Ordine BX voce
+  /// 03.**
+  ///
+  /// La condizione del corpus e' "confronti la tua Costellazione del Viso con
+  /// quella di un'altra persona". Il minimo che quella condizione richiede e'
+  /// un'altra persona QUI, che si fa leggere adesso: nessun dato di nessuno
+  /// viene mandato, salvato o chiesto a un server, e la lettura del secondo
+  /// volto vive quanto vive questa schermata.
+  ///
+  /// **E' il minimo dell'ordine BX voce 03 preso alla lettera**: se la porta
+  /// si puo' costruire senza mostrare l'identita' di nessuno, si costruisce
+  /// cosi', e questa si puo'.
+  FaceReading? _secondoVolto;
+
+  /// Vero mentre si sta leggendo il volto dell'altra persona.
+  bool _leggoLAltro = false;
   FaceConstellation? _costellazione;
   String? _fotoPath;
 
@@ -149,8 +166,27 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     return f(_clock());
   }
 
+  /// Il secondo volto e' stato letto: si confronta e si dice al cammino che
+  /// due volti sono stati messi nello stesso Cerchio.
+  Future<void> _concludiIlSecondo(FaceReading reading) async {
+    if (!mounted) return;
+    setState(() {
+      _secondoVolto = reading;
+      _leggoLAltro = false;
+      _fase = _Fase.risultato;
+    });
+    // Alla regia va il FATTO, non i due volti: che un confronto e' avvenuto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'due_volti'));
+  }
+
   Future<void> _concludi(FaceReading reading, FaceConstellation cost,
       {String? fotoPath}) async {
+    // Quando si sta leggendo l'altra persona il risultato non sostituisce il
+    // proprio: si affianca.
+    if (_leggoLAltro) {
+      await _concludiIlSecondo(reading);
+      return;
+    }
     // **IL VOLTO CHE CAMBIA, ordine BX voci 10 e 11.** Il corpus chiede "la
     // Costellazione del Viso ti rilegge a distanza di un mese e trova un
     // tratto diverso", e quel gradino dormiva perche' nessuno confrontava due
@@ -238,14 +274,29 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                       onFatto: (reading) => _concludi(
                           reading, FaceConstellation.da(FaceSilhouette.contorni())),
                     ),
-                  _Fase.risultato => _Risultato(
-                      palette: palette,
-                      reading: _reading!,
-                      costellazione: _costellazione!,
-                      fotoPath: _fotoPath,
-                      conCielo: _conCielo,
-                      pianeti: _pianeti,
-                      onCielo: (v) => setState(() => _conCielo = v),
+                  _Fase.risultato => Column(
+                      children: [
+                        Expanded(
+                          child: _Risultato(
+                            palette: palette,
+                            reading: _reading!,
+                            costellazione: _costellazione!,
+                            fotoPath: _fotoPath,
+                            conCielo: _conCielo,
+                            pianeti: _pianeti,
+                            onCielo: (v) => setState(() => _conCielo = v),
+                          ),
+                        ),
+                        _DueVolti(
+                          palette: palette,
+                          mio: _reading!,
+                          altro: _secondoVolto,
+                          onLeggiLAltro: () => setState(() {
+                            _leggoLAltro = true;
+                            _fase = _Fase.cattura;
+                          }),
+                        ),
+                      ],
                     ),
                 },
         ),
@@ -1253,5 +1304,79 @@ class _Scelta extends StatelessWidget {
       default:
         return Icons.star_outline_rounded;
     }
+  }
+}
+
+/// DUE VOLTI NELLO STESSO CERCHIO. Ordine BX voce 03.
+///
+/// **Il minimo che la condizione richiede, e niente di piu'.** Il corpus
+/// chiede "confronti la tua Costellazione del Viso con quella di un'altra
+/// persona": l'altra persona e' QUI e si fa leggere adesso. Nessun dato esce
+/// da questo telefono, nessuno viene salvato, nessuna identita' viene chiesta:
+/// la lettura del secondo volto vive quanto vive la schermata.
+class _DueVolti extends StatelessWidget {
+  const _DueVolti({
+    required this.palette,
+    required this.mio,
+    required this.altro,
+    required this.onLeggiLAltro,
+  });
+
+  final MaestroPalette palette;
+  final FaceReading mio;
+  final FaceReading? altro;
+  final VoidCallback onLeggiLAltro;
+
+  @override
+  Widget build(BuildContext context) {
+    final secondo = altro;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
+          SpacingTokens.lg),
+      child: secondo == null
+          ? OutlinedButton.icon(
+              key: const Key('face_leggi_altro'),
+              onPressed: onLeggiLAltro,
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: palette.goldSoft,
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                  minimumSize: const Size.fromHeight(48)),
+              icon: const Icon(Icons.group_outlined, size: 18),
+              label: Text('Leggi un altro volto e confronta',
+                  style: TypographyTokens.etichetta()),
+            )
+          : Container(
+              key: const Key('face_due_volti'),
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                color: palette.surfaceElevated.withValues(alpha: 0.85),
+                border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Due volti nello stesso Cerchio',
+                      style: TypographyTokens.titoloScheda()
+                          .copyWith(color: palette.goldSoft)),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                      mio.dominante == secondo.dominante
+                          ? 'Vi accompagna lo stesso tratto: '
+                              '${mio.dominante.nome}.'
+                          : 'Il tuo tratto e\' ${mio.dominante.nome}, il '
+                              'suo e\' ${secondo.dominante.nome}.',
+                      style: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textPrimary)),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                      'Niente di questa lettura esce dal tuo telefono: vive '
+                      'quanto questa schermata.',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                ],
+              ),
+            ),
+    );
   }
 }

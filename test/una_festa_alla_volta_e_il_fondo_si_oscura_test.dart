@@ -287,6 +287,21 @@ void main() {
     // un testo bianco in grassetto da quaranta punti non si legge piu': resta
     // un'ombra, e un'ombra e' quello che il velo puo' lasciare.
     const massimoCheSiVede = 24.0;
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 7: del testo di sotto passano '
+        '${passa.toStringAsFixed(1)} livelli di luce su '
+        '${scoperto.toStringAsFixed(1)}');
+    // **E ADESSO NON PASSA PIU' NIENTE. Ordine BX voce 07.** La soglia di
+    // leggibilita' qui sopra resta scritta perche' e' la storia di questa
+    // misura, ma la pretesa e' diventata piu' dura: il fondatore ha letto
+    // l'etichetta della barra dell'identita' attraverso il velo al 96 per
+    // cento e l'ha presa per l'intestazione della festa. Durante una festa si
+    // vede la festa e nient'altro, e zero livelli e' l'unico numero che lo
+    // dice.
+    expect(passa, 0,
+        reason: 'del testo di sotto passano ${passa.toStringAsFixed(1)} '
+            'livelli di luce: durante la festa si vede ancora qualcosa della '
+            'schermata sotto');
     expect(passa, lessThan(massimoCheSiVede),
         reason: 'del testo di sotto passano ${passa.toStringAsFixed(1)} livelli '
             'di luce su ${scoperto.toStringAsFixed(1)}, e il massimo concesso '

@@ -26,6 +26,7 @@ import {
 import {
   BONUS_DELLA_CONDIVISIONE,
   ACCREDITO_DEL_GIORNO,
+  EOS_DELL_INVITO_ACCOLTO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
   PREZZI_DEL_RISCATTO,
@@ -440,6 +441,27 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     return fuso;
   });
 
+  // **IL CONTO DEGLI INVITI ACCOLTI, ordine BX voce 02**: sta sul ramo di chi
+  // ha invitato, e nessun telefono lo puo' scrivere.
+  const invitiDi = await (async () => {
+    const snap = await utente(uid).collection("stato").doc("inviti").get();
+    const dati = snap.data() as Record<string, unknown> | undefined;
+    const quanti = dati?.accolti;
+    const perMaestro = (dati?.perMaestro ?? {}) as Record<string, unknown>;
+    const puliti: Record<string, number> = {};
+    for (const [chiave, valore] of Object.entries(perMaestro)) {
+      if (typeof valore === "number" && Number.isFinite(valore)) {
+        puliti[chiave] = valore;
+      }
+    }
+    return {
+      accolti: typeof quanti === "number" && Number.isFinite(quanti) ?
+        quanti :
+        0,
+      perMaestro: puliti,
+    };
+  })();
+
   // **SE L'OBLIO E' IN ATTESA, LO STATO LO DICE.** Ordine BC voce 02.
   //
   // I trenta giorni di ripensamento non esistono piu', ordine BE voce 07:
@@ -467,6 +489,15 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // il server, che dal motivo sa quanto vale. Un listino che arriva al
     // telefono e' un'informazione, non un'autorizzazione.
     listinoDellaCondivisione: BONUS_DELLA_CONDIVISIONE,
+    // **QUANTI INVITI SONO STATI ACCOLTI. Ordine BX voce 02.**
+    //
+    // Tre voci del cammino chiedono che qualcuno accetti il tuo invito ed
+    // entri nel Cerchio, e il telefono non lo puo' sapere: lo sa solo il
+    // server, quando la persona invitata riscatta il codice. Viaggia con lo
+    // stato per la stessa ragione del cammino e del listino: e' cio' che si
+    // chiede a ogni apertura, e un secondo canale sarebbe la seconda porta.
+    invitiAccolti: invitiDi.accolti,
+    invitiPerMaestro: invitiDi.perMaestro,
     // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
     // server. Il client lo mostra sul pulsante e non lo detta mai.
     listinoDelRiscatto: PREZZI_DEL_RISCATTO,
@@ -557,6 +588,103 @@ export const consumaDelGiorno = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
  * nella stessa transazione, quindi non possono discordare, e l'identificativo
  * rende innocuo ogni ritentativo.
  */
+/**
+ * L'INVITO ACCOLTO. Ordine BX voce 02.
+ *
+ * **Il difetto che chiude.** Fino a qui il premio dell'invito si pagava
+ * quando l'invito veniva CONDIVISO: bastava aprire il foglio di sistema e
+ * mandare il link a se stessi per incassare sessanta Eos, mentre la riga
+ * sotto il pulsante prometteva "60 Eos quando il tuo amico entra nel
+ * Cerchio". Nessuna attribuzione esisteva.
+ *
+ * **Come funziona adesso.** Chi invita porta nel link un codice, che e' il
+ * suo uid. Chi arriva lo riscatta una volta sola, alla registrazione: il
+ * server segna sul ramo dell'invitato da chi e' arrivato, incrementa il conto
+ * degli inviti accolti dell'invitante e gli accredita il premio con un
+ * movimento idempotente.
+ *
+ * **Le tre difese, e sono tutte necessarie.** Non ci si invita da soli
+ * (codice uguale al proprio uid). Non si riscatta due volte (il ramo
+ * dell'invitato porta gia' il suo invitante). E il premio e' un movimento con
+ * identificativo `invito-<uid invitato>`, quindi due chiamate uguali pagano
+ * una volta sola, come ogni altro movimento di questo file.
+ *
+ * **Firebase Dynamic Links non c'entra e non serve**: e' un servizio spento
+ * da Google nell'agosto 2025, e questo non ne ha bisogno. Il codice viaggia
+ * come parametro del link e la persona lo incolla, oppure lo digita.
+ */
+export const riscattaLInvito = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
+  const uid = uidDi(request);
+  const grezzo = String(request.data?.codice ?? "").trim();
+  // **IL CODICE PORTA ANCHE LA PORTA DA CUI L'INVITO E' PARTITO. Ordine BX
+  // voce 02.** Il corpus ha tre voci, una per Maestro: "il primo che entra
+  // grazie a te", "grazie ad Aura", "grazie a Caligo". Senza la porta le tre
+  // voci misurerebbero lo stesso identico fatto, e sarebbero un gradino detto
+  // tre volte. La forma e' `uid.maestro`; senza il punto vale il Maestro di
+  // chi non lo dichiara, cioe' nessuno dei tre.
+  const punto = grezzo.lastIndexOf(".");
+  const codice = punto > 0 ? grezzo.slice(0, punto) : grezzo;
+  const porta = punto > 0 ? grezzo.slice(punto + 1) : "";
+  const maestro = ["medora", "aura", "caligo"].includes(porta) ? porta : null;
+  if (codice.length < 8 || codice.length > 200) {
+    throw new HttpsError("invalid-argument", "codice non valido");
+  }
+  if (codice === uid) {
+    // Non e' un guasto: e' qualcuno che prova a invitarsi da solo.
+    return {accolto: false, perche: "e il tuo stesso codice"};
+  }
+  const mio = utente(uid).collection("stato").doc("inviti");
+  const suo = utente(codice).collection("stato").doc("inviti");
+  const esito = await db.runTransaction(async (tx) => {
+    const mioSnap = await tx.get(mio);
+    const gia = (mioSnap.data() ?? {}) as Record<string, unknown>;
+    if (typeof gia.invitatoDa === "string" && gia.invitatoDa.length > 0) {
+      return {accolto: false, perche: "hai gia un invitante"};
+    }
+    const suoSnap = await tx.get(suo);
+    const suoi = (suoSnap.data() ?? {}) as Record<string, unknown>;
+    const accolti = typeof suoi.accolti === "number" ? suoi.accolti : 0;
+    const perPorta = (suoi.perMaestro ?? {}) as Record<string, number>;
+    const quantiDaQui = typeof perPorta[maestro ?? ""] === "number" ?
+      perPorta[maestro ?? ""] :
+      0;
+    tx.set(mio, {invitatoDa: codice, quando: FieldValue.serverTimestamp()},
+      {merge: true});
+    tx.set(suo, {
+      accolti: accolti + 1,
+      ...(maestro === null ? {} : {
+        perMaestro: {...perPorta, [maestro]: quantiDaQui + 1},
+      }),
+      ultimo: FieldValue.serverTimestamp(),
+    }, {merge: true});
+    return {accolto: true, perche: null};
+  });
+  if (!esito.accolto) return esito;
+
+  // **IL PREMIO VA A CHI HA INVITATO, non a chi arriva**, ed e' idempotente
+  // come ogni movimento di questo file: due riscatti dello stesso invitato
+  // pagano una volta sola.
+  await db.runTransaction(async (tx) => {
+    const doc = borsellinoDoc(codice);
+    const movimento = utente(codice)
+      .collection("movimenti")
+      .doc(`invito-${uid}`);
+    const giaPagato = await tx.get(movimento);
+    if (giaPagato.exists) return;
+    const snap = await tx.get(doc);
+    const dati = (snap.data() ?? {}) as Record<string, unknown>;
+    const saldo = typeof dati.saldo === "number" ? dati.saldo : 0;
+    tx.set(doc, {saldo: saldo + EOS_DELL_INVITO_ACCOLTO}, {merge: true});
+    tx.set(movimento, {
+      causale: "premio_rituale",
+      motivo: "invito_accolto",
+      quanti: EOS_DELL_INVITO_ACCOLTO,
+      quando: FieldValue.serverTimestamp(),
+    });
+  });
+  return esito;
+});
+
 export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
   const causale = causaleValida(request.data?.causale);

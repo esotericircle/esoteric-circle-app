@@ -99,11 +99,31 @@ enum ModoDellaCondivisione {
 class TestoDellaCondivisione {
   const TestoDellaCondivisione._();
 
-  static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo) {
+  /// **IL CODICE DELL'INVITO VIAGGIA NEL LINK. Ordine BX voce 02.**
+  ///
+  /// Prima il link era nudo: chi arrivava non portava con se' nessuna traccia
+  /// di chi lo aveva invitato, quindi il premio si pagava alla condivisione e
+  /// non all'ingresso. Adesso il link porta `?invito=<uid>.<maestro>`: l'uid
+  /// per attribuire, il Maestro perche' il corpus ha tre voci, una per porta.
+  ///
+  /// **Senza uid il link resta quello di prima**, e il premio semplicemente
+  /// non si potra' attribuire: meglio un invito senza codice di un invito che
+  /// finge di averne uno.
+  static String codiceDellInvito(String? uid, String? maestro) {
+    if (uid == null || uid.trim().isEmpty) return '';
+    final porta = (maestro ?? '').trim();
+    return porta.isEmpty ? uid.trim() : '${uid.trim()}.$porta';
+  }
+
+  static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo,
+      {String? codiceInvito}) {
     switch (modo) {
       case ModoDellaCondivisione.invitoConDownload:
+        final link = (codiceInvito ?? '').isEmpty
+            ? Brand.url
+            : '${Brand.url}?invito=$codiceInvito';
         return 'Sto camminando nel Cerchio e ho appena acceso un Sigillo: '
-            '"${traguardo.nome}". Vieni a vedere il tuo cielo. ${Brand.url}';
+            '"${traguardo.nome}". Vieni a vedere il tuo cielo. $link';
       case ModoDellaCondivisione.socialPubblico:
         return 'Un Sigillo acceso nel Cerchio: "${traguardo.nome}". '
             '${traguardo.frase} ${Brand.name}.';

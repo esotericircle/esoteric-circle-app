@@ -626,4 +626,62 @@ void main() {
       }
     });
   });
+  group('BX.03, le due porte del Cerchio', () {
+    test('Il bosco si guarda, e accende cal_10', () async {
+      // **IL MINIMO CHE LA CONDIZIONE RICHIEDE, e niente di piu'.** "Guardi
+      // quali Animali Guida accompagnano gli altri del Cerchio" nomina QUALI
+      // animali, non di chi: il bosco si mostra per intero senza il dato di
+      // nessuno, senza mandare niente da nessuna parte e senza che
+      // l'identita' di una persona sfiori quella schermata.
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_10');
+      expect(voce.dormiente, isFalse, reason: 'cal_10 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse);
+      await diario.segna('bosco');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'guardare il bosco non accende "${voce.nome}"');
+      // E la scena esiste, con la sua porta.
+      final schermo = File(
+              'lib/features/maestri/caligo/animal/bosco_del_cerchio.dart')
+          .readAsStringSync();
+      expect(schermo.contains("dopoUnGesto(context, 'bosco')"), isTrue,
+          reason: 'il bosco non dice piu\' al cammino di essere stato '
+              'guardato');
+      // **E NON CHIEDE NIENTE A NESSUNO**: nessuna riga di quella scena parla
+      // col server o legge un altro utente.
+      for (final vietato in const ['PortaDelCerchio', 'Firestore', 'http']) {
+        expect(schermo.contains(vietato), isFalse,
+            reason: 'il bosco tocca $vietato');      }
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 3: il bosco accende cal_10 e non chiede niente a '
+          'nessuno');
+    });
+
+    test('Due volti letti qui accendono aur_31', () async {
+      // **L'ALTRA PERSONA E' PRESENTE E SI FA LEGGERE ADESSO.** Niente esce
+      // dal telefono, niente viene salvato, nessuna identita' viene chiesta:
+      // la lettura del secondo volto vive quanto vive la schermata.
+      SharedPreferences.setMockInitialValues(const {});
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_31');
+      expect(voce.dormiente, isFalse, reason: 'aur_31 dorme ancora');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse);
+      await diario.segna('due_volti');
+      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
+          reason: 'due volti letti non accendono la voce');
+      final scena = File(
+              'lib/features/maestri/aura/face/face_constellation_screen.dart')
+          .readAsStringSync();
+      expect(scena.contains("dopoUnGesto(context, 'due_volti')"), isTrue,
+          reason: 'la lettura del secondo volto non arriva al cammino');
+      expect(scena.contains('FaceReading? _secondoVolto'), isTrue,
+          reason: 'il secondo volto non vive nella schermata');
+      // ignore: avoid_print
+      print('ORDINE BX VOCE 3: due volti accendono aur_31, e il secondo volto '
+          'vive solo dentro la schermata');
+    });
+  });
 }

@@ -62,6 +62,10 @@ GESTI_VIVI = {
     # sono due gesti distinti, perche' il corpus li distingue.
     'sogno_annotato',
     'sogno_riletto',
+    # Ordine BX voce 03: le due porte del Cerchio. Il bosco si guarda senza
+    # il dato di nessuno; i due volti si leggono qui, sullo stesso telefono.
+    'bosco',
+    'due_volti',
 }
 
 # Come si chiama, nel corpus, ciascun gesto dell'app.
@@ -489,6 +493,44 @@ def regolaCartaSottoLeLune(v, testo):
     if quante is None:
         return None
     return "VarietaPerValore('stesa', 'carta_e_luna', %d)" % quante, None
+
+
+def regolaLeDuePorte(v, testo):
+    """**LE DUE PORTE DEL CERCHIO. Ordine BX voce 03.**
+
+    "Guardi quali Animali Guida accompagnano gli altri del Cerchio" e
+    "confronti la tua Costellazione del Viso con quella di un'altra persona".
+    Tutte e due si costruiscono col minimo che la condizione richiede: il
+    bosco senza il dato di nessuno, perche' la condizione nomina QUALI animali
+    e non di chi; i due volti sullo stesso telefono, perche' l'altra persona
+    e' presente e si fa leggere adesso.
+    """
+    if 'animali guida' in testo and 'altri del cerchio' in testo:
+        if 'bosco' not in GESTI_VIVI:
+            return 'DORMIENTE', 'il gesto bosco non arriva alla regia'
+        return "GestiCompiuti('bosco', 1)", None
+    if 'costellazione del viso' in testo and 'altra persona' in testo:
+        if 'due_volti' not in GESTI_VIVI:
+            return 'DORMIENTE', 'il gesto due_volti non arriva alla regia'
+        return "GestiCompiuti('due_volti', 1)", None
+    return None
+
+
+def regolaInvitoAccolto(v, testo):
+    """**L'INVITO ACCOLTO. Ordine BX voce 02.**
+
+    Tre voci, una per Maestro: "qualcuno accetta il tuo invito ed entra nel
+    Cerchio", "da questa porta". Il conto arriva dal server, che sa da quale
+    porta l'invito e' partito perche' il codice la porta con se'.
+    """
+    if 'accetta il tuo invito' not in testo:
+        return None
+    maestro = {'costellazione': 'medora', 'loto': 'aura',
+               'albero': 'caligo'}[v['_sentiero']]
+    if 'invito_%s' % maestro not in CERCHIO_VIVI:
+        return 'DORMIENTE', 'il gesto del Cerchio invito non arriva alla regia'
+    quanti = numeroIn(testo) or 1
+    return "GestoDelCerchio('invito_%s', %d)" % (maestro, quanti), None
 
 
 def regolaVoltoCheCambia(v, testo):
@@ -948,22 +990,9 @@ def regolaNonCostruibile(v, testo):
     # **IL BUCO DI UN RITO SI SA MISURARE, ordine BW voce 07.** Qui c'era il
     # rifiuto: il diario contava i giorni di assenza dall'app. Adesso conta
     # anche quelli saltati di UN rito, e traduce `regolaRitornoAlRito`.
-    if 'con quella di un' in testo and 'persona' in testo:
-        return ('DORMIENTE',
-                'confrontare la propria lettura con quella di un altro chiede '
-                "il Cerchio degli altri, che nell app non esiste")
-    # **IL CIELO CONTRARIO E' LA LUNA NEL SEGNO OPPOSTO, ordine BX voce 01.**
-    # Qui c'era il rifiuto, e diceva una cosa giusta: inventare un evento che
-    # si chiami "cielo contrario" vorrebbe dire inventare un'astrologia. Ma non
-    # serve inventarlo, perche' il catalogo ne ha gia' uno che la tradizione
-    # riconosce come giorno di tensione, la Luna nel segno OPPOSTO al proprio,
-    # e la traduzione la fa `regolaCieloContrario`. La scelta e' dichiarata nel
-    # manifesto e il fondatore la puo' rovesciare con una riga.
-    # **LE FINESTRE DI SETTE E TRENTA GIORNI SI SANNO MISURARE, ordine BX voce
-    # 01**: i dettagli portano la loro data e le traduce
-    # `regolaCoincidenzaNellaFinestra`. Le altre finestre, tre mesi e "a
-    # distanza di", restano fuori: il diario tiene le due che il corpus chiede
-    # davvero, e una finestra che nessuno calcola direbbe sempre zero.
+    # **I DUE VOLTI SI LEGGONO QUI, ordine BX voce 03.** Qui c'era il
+    # rifiuto: il Cerchio degli altri non esiste. Non serve: l'altra persona
+    # e' presente e si fa leggere adesso, e niente esce dal telefono.
     if ('stesso' in testo or 'stessa' in testo) and (
             'in tre mesi' in testo or 'a distanza di' in testo):
         return ('DORMIENTE',
@@ -997,15 +1026,10 @@ def regolaNonCostruibile(v, testo):
     # la scena non distingueva chi avesse scoperto la runa. Adesso la
     # pietra coperta risponde al dito e manda il gesto `runa_girata`, e la
     # traduzione la fa `regolaRunaGirata`.
-    if 'gli altri del cerchio' in testo:
-        return ('DORMIENTE',
-                'guardare cosa accompagna gli altri chiede il Cerchio degli '
-                'altri, che nell app non esiste: nessuna schermata lo mostra e '
-                'nessun gesto lo registra')
-    # **IL QUADERNO DEI SOGNI ESISTE, ordine BX voci 10 e 11.** Qui c'era il
-    # rifiuto: il rito mandava il gesto e basta. Adesso la persona annota
-    # simboli e parole, il quaderno tiene la data, e le traducono
-    # `regolaSognoAnnotato` e `regolaSognoRiletto`.
+    # **IL BOSCO SI GUARDA SENZA IL DATO DI NESSUNO, ordine BX voce 03.**
+    # La condizione nomina QUALI animali, non di chi: il legame fra un segno
+    # e il suo animale e' una tabella di curatela che l'app gia' porta, e la
+    # traduce `regolaLeDuePorte`.
     if 'transiti di oggi' in testo and 'archetipo' in testo:
         return ('DORMIENTE',
                 "rileggere l'archetipo coi transiti di oggi è un gesto che la "
@@ -1139,7 +1163,11 @@ PEZZI_VIVI = {
 
 # I gesti del Cerchio che la regia deriva davvero.
 CERCHIO_VIVI = {'condivisione_stella', 'condivisione_frutto',
-                'condivisione_petalo'}
+                'condivisione_petalo',
+                # Ordine BX voce 02: il conto degli inviti ACCOLTI arriva dal
+                # server con lo stato ed entra nel cammino come gesto.
+                'invito', 'invito_medora', 'invito_aura',
+                'invito_caligo'}
 
 # I riti su cui il diario tiene una serie di giorni.
 RITI_VIVI = set(GESTI_VIVI) | {'presenza'}
@@ -1197,6 +1225,8 @@ REGOLE = [
     # tradurrebbe "lo stesso Arcano due volte in una settimana" con una
     # coincidenza senza finestra, cioe' con un gradino piu' facile, e "la
     # stessa carta sotto tre Lune" contando le carte invece delle Lune.
+    regolaLeDuePorte,
+    regolaInvitoAccolto,
     regolaVoltoCheCambia,
     regolaSognoAnnotato,
     regolaSognoRiletto,

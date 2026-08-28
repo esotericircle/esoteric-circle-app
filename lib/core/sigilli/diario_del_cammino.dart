@@ -846,6 +846,38 @@ class DiarioDelCammino extends ChangeNotifier {
     return DateTime(anno, mese, giorno);
   }
 
+  /// **QUANTI INVITI SONO STATI ACCOLTI, e lo dice il server. Ordine BX voce
+  /// 02.**
+  ///
+  /// Tre voci del cammino chiedono che qualcuno accetti il tuo invito ed entri
+  /// nel Cerchio, e questo il telefono non lo puo' sapere: lo sa il server,
+  /// quando la persona invitata riscatta il codice. Qui il numero entra nel
+  /// cammino come un gesto compiuto, `invito`, perche' e' la forma che le
+  /// condizioni del Cerchio sanno leggere.
+  ///
+  /// **Si ALLINEA, non si somma**: il server dice quanti sono in tutto, e
+  /// sommarli a ogni apertura li moltiplicherebbe.
+  Future<void> allineaGliInviti(int quanti,
+      {Map<String, int> perMaestro = const {}}) async {
+    if (quanti < 0) return;
+    var cambiato = false;
+    if ((_gestiCompiuti['invito'] ?? 0) != quanti) {
+      _gestiCompiuti['invito'] = quanti;
+      cambiato = true;
+    }
+    // **E UNO PER PORTA**: il corpus ha tre voci, una per Maestro, e senza la
+    // porta misurerebbero lo stesso identico fatto.
+    for (final maestro in const ['medora', 'aura', 'caligo']) {
+      final da = perMaestro[maestro] ?? 0;
+      if ((_gestiCompiuti['invito_$maestro'] ?? 0) == da) continue;
+      _gestiCompiuti['invito_$maestro'] = da;
+      cambiato = true;
+    }
+    if (!cambiato) return;
+    notifyListeners();
+    await _salva();
+  }
+
   /// **PER OGNI RITO, QUANTI GIORNI ERANO STATI SALTATI PRIMA DI OGGI.**
   /// Ordine BW voce 07. Si guardano gli ultimi due giorni in cui quel
   /// rito e' stato compiuto: la distanza fra loro, meno uno, e' il buco

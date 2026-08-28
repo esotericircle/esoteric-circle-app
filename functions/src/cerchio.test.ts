@@ -203,10 +203,19 @@ test("il listino del riscatto e' il server a deciderlo", () => {
 // --- ORDINE BN VOCE 09: il budget delle stese complete ---
 
 test("le stese hanno il budget del listino, e non quello della carta singola", () => {
-  assert.equal(limiteDi("stese", "free"), 0);
-  assert.equal(limiteDi("stese", "tier1"), 0);
-  assert.equal(limiteDi("stese", "tier2"), 5);
-  assert.equal(limiteDi("stese", "tier3"), null);
+  // **I NUMERI SEGUONO IL DATO, ordine BV voce 03**: il fondatore ha portato
+  // le stese a una, quattro, sette e venti al giorno, e niente e' piu'
+  // illimitato su questa riga. La pretesa non cambia: le stese hanno un
+  // budget proprio, diverso da quello delle gettate.
+  //
+  // **Queste due prove sono rimaste rosse per un ordine intero**, perche' la
+  // suite di Flutter non esegue le prove del server: l'ha trovato l'ordine BX
+  // voce 02 mentre lavorava qui accanto, ed e' il motivo per cui adesso la
+  // legge di consegna le include.
+  assert.equal(limiteDi("stese", "free"), 1);
+  assert.equal(limiteDi("stese", "tier1"), 4);
+  assert.equal(limiteDi("stese", "tier2"), 7);
+  assert.equal(limiteDi("stese", "tier3"), 20);
   // E non e' il budget delle gettate: due contatori, due promesse.
   assert.notDeepEqual(
     ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("stese", p as never)),
@@ -215,17 +224,20 @@ test("le stese hanno il budget del listino, e non quello della carta singola", (
 });
 
 test("il limite zero cede al credito comprato, e una volta sola", () => {
-  // Senza credito il piano che non comprende la cosa dice di no.
-  assert.equal(decidi("stese", "free", 0).concesso, false);
+  // **IL BUDGET A ZERO NON E' PIU' QUELLO DELLE STESE**, ordine BV voce 03:
+  // il Viandante ha una stesa al giorno. La pretesa resta identica e si
+  // misura su un budget che a zero ci sta davvero, gli approfondimenti.
+  assert.equal(decidi("approfondimenti", "free", 0).concesso, false);
   // Col riscatto lo speso e' andato a meno uno: adesso e' concesso, e dopo
   // averlo usato si richiude. Prima di questa voce lo zero rifiutava PRIMA
   // di guardare lo speso, quindi il server annullava un acquisto pagato.
-  const comprata = decidi("stese", "free", -1);
+  const comprata = decidi("approfondimenti", "free", -1);
   assert.equal(comprata.concesso, true);
   assert.equal(comprata.resta, 0);
-  assert.equal(decidi("stese", "free", 0).concesso, false);
-  // Vale per ogni budget a limite zero, non solo per le stese.
-  assert.equal(decidi("approfondimenti", "free", -1).concesso, true);
+  assert.equal(decidi("approfondimenti", "free", 0).concesso, false);
+  // E la stesa comprata oltre il proprio limite si comporta allo stesso modo.
+  assert.equal(decidi("stese", "free", 1).concesso, false);
+  assert.equal(decidi("stese", "free", 0).concesso, true);
 });
 
 test("il riscatto ignora il numero del client e usa il listino", () => {

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
+import '../../core/identity/account_del_cerchio.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -188,18 +189,35 @@ class FesteInCorso {
   /// niente da ricordarsi.
   static final List<bool Function()> _vive = [];
 
+  /// **CHI VUOLE SAPERLO SI METTE IN ASCOLTO. Ordine BX voce 07.**
+  ///
+  /// La barra dell'identita' sta SOPRA il Navigator e si dipinge su ogni
+  /// rotta, festa compresa: per sparire deve sapere quando una festa entra in
+  /// scena, e l'osservatore della pila non basta perche' la festa puo'
+  /// arrivare da una rotta che quella pila non racconta. Il numero cambia a
+  /// ogni ingresso e a ogni uscita, e chi ascolta si ridisegna.
+  static final ValueNotifier<int> cambi = ValueNotifier<int>(0);
+
   /// Vero se una festa e' gia' a schermo.
   static bool get unaCeGia {
+    final prima = _vive.length;
     _vive.removeWhere((ancoraViva) => !ancoraViva());
+    if (_vive.length != prima) cambi.value++;
     return _vive.isNotEmpty;
   }
 
   /// Segna una festa appena messa a schermo, con la domanda che la tiene viva.
-  static void entra(bool Function() ancoraViva) => _vive.add(ancoraViva);
+  static void entra(bool Function() ancoraViva) {
+    _vive.add(ancoraViva);
+    cambi.value++;
+  }
 
   /// Solo per le prove: dimentica tutto fra una scena e l'altra.
   @visibleForTesting
-  static void azzera() => _vive.clear();
+  static void azzera() {
+    _vive.clear();
+    cambi.value++;
+  }
 }
 
 /// IL REGISTRO DELLE FESTE MOSTRATE. Ordine BU voce 05.
@@ -294,16 +312,23 @@ class RiflessioniInCorso {
 class VeloDellaCelebrazione {
   const VeloDellaCelebrazione._();
 
-  /// L'OPACITA' DEL VELO A PIENO REGIME.
+  /// L'OPACITA' DEL VELO A PIENO REGIME: **PIENA. Ordine BX voce 07.**
   ///
-  /// Novantasei centesimi. **La misura diceva che bastavano novantadue, e
-  /// l'anteprima ha detto di no:** sotto il velo al 92 per cento le tre righe del
-  /// sentiero restavano un fantasma che si leggeva ancora, e la prova non lo
-  /// vedeva perche' la sua soglia ammette ventiquattro livelli di luce su 255. Le
-  /// anteprime vedono cio' che le prove non cercano. Non e' opaco del tutto perche' la scena sotto deve restare
-  /// riconoscibile: la festa e' successa DENTRO qualcosa, e coprirla del tutto
-  /// farebbe sembrare la celebrazione un'altra schermata.
-  static const double opacita = 0.96;
+  /// **La storia di questo numero, per intero.** Era 0,92, e l'anteprima
+  /// mostro' che le tre righe del sentiero si leggevano ancora sotto: si passo'
+  /// a 0,96, lasciando di proposito un quattro per cento perche' "la festa e'
+  /// successa DENTRO qualcosa" e coprire tutto l'avrebbe fatta sembrare
+  /// un'altra schermata.
+  ///
+  /// **Quel quattro per cento e' bastato a ingannare il fondatore.** Sulla
+  /// 2210 ha letto l'etichetta della barra dell'identita' che passava
+  /// attraverso il velo, "Eventi Cosmici", e l'ha presa per l'intestazione
+  /// della festa: ha scritto un ordine intero su una famiglia di traguardi che
+  /// non esiste. Un velo che lascia leggere una parola non e' un velo.
+  ///
+  /// La decisione del 28 agosto 2026 sostituisce quella estetica: durante una
+  /// festa si vede la festa e nient'altro.
+  static const double opacita = 1;
 
   /// Quanto dura la dissolvenza in entrata e in uscita.
   static const Duration dissolvenza = Duration(milliseconds: 420);
@@ -1011,8 +1036,20 @@ Future<void> condividiIlTraguardo(
   final registro = _registroDegliEos(context);
 
   // 1. SI CONDIVIDE DAVVERO.
+  // **IL LINK PORTA IL CODICE DELL'INVITO, ordine BX voce 02**: l'uid di chi
+  // invita e la porta del Maestro da cui l'invito parte. Senza uid, per
+  // esempio prima della registrazione, il link resta quello nudo di prima e
+  // il premio semplicemente non si potra' attribuire.
+  String? uid;
+  try {
+    uid = context.read<AccountDelCerchio>().uid;
+  } catch (senzaAccount) {
+    uid = null;
+  }
+  final maestro = MaestroScope.forse(context)?.key.maestro?.name;
   final andata = await PortaDellaCondivisione.testo(
-    TestoDellaCondivisione.perIlTraguardo(traguardo, modo),
+    TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
+        codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro)),
   );
   if (!andata) return;
 

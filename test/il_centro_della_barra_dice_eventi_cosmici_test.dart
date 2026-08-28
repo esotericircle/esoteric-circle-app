@@ -5,6 +5,10 @@ import 'package:esoteric_circle/features/calendario/calendario_degli_eventi_scre
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
+
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -148,5 +152,41 @@ void main() {
             .readAsStringSync();
     expect(calendario.contains('ProssimiEventi.da('), isTrue,
         reason: 'il Calendario non chiede piu\' le date al motore unico');
+  });
+
+  testWidgets('BX.07: durante una festa la barra sparisce', (tester) async {
+    // **IL FONDATORE HA LETTO QUESTA ETICHETTA SOPRA QUATTRO FESTE** e l'ha
+    // presa per l'intestazione della celebrazione: ci ha scritto sopra un
+    // ordine intero, su una famiglia di traguardi che non esiste. La causa non
+    // era il velo, che non c'entra: questa barra sta SOPRA il Navigator,
+    // quindi si dipinge su ogni rotta e nessun velo le sta davanti.
+    await apri(tester);
+    expect(centro, findsOneWidget,
+        reason: 'la barra non si vede nemmeno prima della festa: la '
+            'prova non sta misurando niente');
+
+    // **IL CONTESTO DEVE STARE DENTRO IL NAVIGATOR**, e la barra sta sopra:
+    // chiedendo la festa dal contesto della barra, `Navigator.maybeOf` guarda
+    // in su e non trova niente, quindi la festa non parte affatto. Lo ha detto
+    // la prova stampando "feste partite 0".
+    final dentro = tester.element(find.byType(Scaffold).last);
+    final traguardo = Sentieri.tuttiITraguardi.firstWhere((t) => !t.dormiente);
+    unawaited(Celebrazione.festeggiaInsieme(
+      dentro,
+      traguardi: [traguardo],
+      sentieri: const [Sentiero.costellazione],
+      primoInAssoluto: false,
+    ));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 7: feste partite ${Celebrazione.partite}, una '
+        'in scena ${FesteInCorso.unaCeGia}, etichetta visibile '
+        '${centro.evaluate().isNotEmpty}');
+    expect(centro, findsNothing,
+        reason: 'durante la festa si legge ancora l\'etichetta della barra: '
+            'e\' quella che il fondatore ha preso per l\'intestazione '
+            'della festa');
   });
 }

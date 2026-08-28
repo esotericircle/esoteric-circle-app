@@ -45,6 +45,15 @@ class QuestionAllowance extends ChangeNotifier {
 
   /// IL SALDO EOS, che il client non scrive mai: lo legge e lo mostra.
   int _saldoEos = 0;
+
+  /// Quanti inviti accolti il server dichiara. Ordine BX voce 02.
+  int _invitiAccolti = 0;
+
+  int get invitiAccolti => _invitiAccolti;
+
+  Map<String, int> _invitiPerMaestro = const {};
+
+  Map<String, int> get invitiPerMaestro => _invitiPerMaestro;
   int get saldoEos => _saldoEos;
 
   /// **QUANTI EOS VALE OGNI MODO DI CONDIVIDERE, detto dal server.**
@@ -608,6 +617,12 @@ class QuestionAllowance extends ChangeNotifier {
     _stese = stato.spesi['stese'] ?? 0;
     _sinastrie = stato.spesi['sinastrie'] ?? 0;
     _saldoEos = stato.saldoEos;
+    // **QUANTI INVITI SONO STATI ACCOLTI, ordine BX voce 02.** Il telefono non
+    // lo puo' sapere: lo sa il server, quando la persona invitata riscatta il
+    // codice. Qui si tiene il numero, e la regia lo porta al cammino, dove tre
+    // voci lo aspettano.
+    _invitiAccolti = stato.invitiAccolti;
+    _invitiPerMaestro = stato.invitiPerMaestro;
     // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
     // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
     // Cerchio dice sul denaro: una seconda casa per tre numeri sarebbe la

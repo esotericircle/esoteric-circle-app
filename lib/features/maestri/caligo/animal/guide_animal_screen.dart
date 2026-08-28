@@ -24,6 +24,7 @@ import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'animal_journey.dart';
 import 'animal_reveal.dart';
+import 'bosco_del_cerchio.dart';
 import 'guide_animal_share_card.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -450,6 +451,19 @@ class _Messaggio extends StatelessWidget {
             icon: Icon(Icons.auto_stories_outlined,
                 size: 18, color: palette.goldSoft),
             label: Text("Chi è il tuo animale",
+                style: TypographyTokens.label(size: 13)
+                    .copyWith(color: palette.goldSoft)),
+          ),
+          // **IL BOSCO DEL CERCHIO, ordine BX voce 03.** "Guardi quali
+          // Animali Guida accompagnano gli altri del Cerchio": la condizione
+          // nomina quali animali, non di chi, e il bosco si mostra per intero
+          // senza il dato di nessuno.
+          TextButton.icon(
+            key: const Key('animal_bosco_link'),
+            onPressed: () => BoscoDelCerchio.apri(context, mio: animal.name),
+            icon: Icon(Icons.forest_outlined,
+                size: 18, color: palette.goldSoft),
+            label: Text('Il bosco del Cerchio',
                 style: TypographyTokens.label(size: 13)
                     .copyWith(color: palette.goldSoft)),
           ),

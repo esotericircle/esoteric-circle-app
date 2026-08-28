@@ -27,6 +27,7 @@ import '../pricing/pricing_screen.dart';
 import '../settings/settings_screen.dart';
 import 'profile_screen.dart';
 import 'dati_di_nascita_screen.dart';
+import 'riscatta_l_invito.dart';
 import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
 
@@ -69,6 +70,18 @@ class AccountScreen extends StatelessWidget {
         icon: Icons.cake_outlined,
         onTap: (context) =>
             Navigator.of(context).push(DatiDiNascitaScreen.route()),
+      ),
+      // **CHI TI HA INVITATO, ordine BX voce 02.** Il premio dell'invito lo
+      // paga l'ingresso vero di una persona, e l'ingresso ha bisogno di una
+      // porta: questa. Sta qui e non nell'onboarding perche' chi arriva col
+      // link puo' riconoscere chi lo ha invitato quando vuole, e non solo nei
+      // primi minuti.
+      const _AccountEntry(
+        id: 'invito',
+        title: 'Chi ti ha invitato',
+        subtitle: 'Incolla il codice e chi ti ha portato riceve il premio',
+        icon: Icons.person_add_alt_1_outlined,
+        onTap: apriIlRiscattoDellInvito,
       ),
       // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
       // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a

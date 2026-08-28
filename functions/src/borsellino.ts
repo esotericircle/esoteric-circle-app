@@ -57,7 +57,18 @@ export const CAUSALI_CHIEDIBILI: CausaleEos[] = [
  * dell'economia: quello che non e' provvisorio e' che li decide il server.
  */
 export const BONUS_DELLA_CONDIVISIONE: Record<string, number> = {
-  invito_con_download: 60,
+  // **L'INVITO NON SI PAGA PIU' QUI. Ordine BX voce 02.**
+  //
+  // Fino a quest'ordine bastava CONDIVIDERE un invito per incassare sessanta
+  // Eos, e la riga che la persona leggeva prometteva un'altra cosa: "60 Eos
+  // quando il tuo amico entra nel Cerchio". Nessuna attribuzione esisteva,
+  // quindi chi condivideva e non portava nessuno incassava lo stesso, e chi
+  // portava qualcuno non prendeva niente in piu'.
+  //
+  // Adesso il premio dell'invito lo paga `riscattaLInvito`, quando una
+  // persona invitata entra davvero: il valore vive in
+  // `EOS_DELL_INVITO_ACCOLTO` e non in questo listino, perche' questo listino
+  // e' quello che il client puo' chiedere.
   social_pubblico: 30,
   condivisione_privata: 15,
   // Ordine BG voce 04: OGNI condivisione dell'app premia e lo dichiara sul
@@ -75,6 +86,16 @@ export const BONUS_DELLA_CONDIVISIONE: Record<string, number> = {
  * di cammino.
  */
 export const TETTO_CONDIVISIONI_PREMIATE = 3;
+
+/**
+ * QUANTO VALE UN INVITO ACCOLTO. Ordine BX voce 02.
+ *
+ * Sessanta Eos, il numero che la riga sotto il pulsante promette da sempre.
+ * **Lo paga soltanto `riscattaLInvito`**, e una volta sola per persona
+ * invitata: il client non puo' chiederlo, perche' questo non sta nel listino
+ * dei motivi chiedibili.
+ */
+export const EOS_DELL_INVITO_ACCOLTO = 60;
 
 /**
  * IL LISTINO DEL RISCATTO, ordine BG voce 05: quando un budget del giorno e'
