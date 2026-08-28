@@ -476,7 +476,18 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               title: Text('Cambia questo VIP',
                   style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textPrimary)),
-              subtitle: Text('Torni alla galleria e ne scegli un altro',
+              // **LA CARTA CHE SI TOCCA E' LA CARTA CHE CAMBIA. Ordine CA
+              // voce 02.** Il fondatore: "toccando la carta di sinistra per
+              // cambiare quel personaggio, viene cambiato sempre quello di
+              // destra". Era vero, e la causa era qui: questa riga tornava
+              // indietro di UNA rotta, e sotto c'era sempre la galleria che
+              // aveva scelto il SECONDO. La pila del Navigator non sa quale
+              // casella volevi.
+              //
+              // Adesso sotto c'e' la porta della Sinastria, che tiene tutte e
+              // due le caselle in scena: si torna li' e si tocca quella che si
+              // vuole cambiare, e ognuna riempie se stessa.
+              subtitle: Text('Torni alle due carte e ne scegli un altro',
                   style: TypographyTokens.etichetta()
                       .copyWith(color: ColorTokens.textSecondary)),
               onTap: () {

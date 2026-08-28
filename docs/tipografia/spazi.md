@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 147 -->
+<!-- VUOTI_CENSITI: 146 -->
 <!-- FILE_CON_VUOTI: 60 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **147** |
+| Vuoti verticali dichiarati | **146** |
 | File che ne contengono | **60** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 79 |
+| 2 | 78 |
 | 3 | 8 |
 | 4 | 28 |
 | 5 | 1 |
@@ -42,7 +42,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/synastry/sinastria_share_card.dart:125` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:721` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:732` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -87,7 +87,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
 | `lib/features/settings/riga_di_messa_a_punto.dart` | 2 | 0 |
 | `lib/features/sigilli/la_mappa_del_sentiero.dart` | 2 | 0 |
-| `lib/features/synastry/sinastria_gallery_screen.dart` | 2 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 1 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 1 | 0 |
 | `lib/design_system/components/art_card.dart` | 1 | 0 |
@@ -107,4 +106,5 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
 | `lib/features/sigilli/card_del_traguardo.dart` | 1 | 0 |
 | `lib/features/sigilli/disegno_del_sentiero.dart` | 1 | 0 |
+| `lib/features/synastry/sinastria_gallery_screen.dart` | 1 | 0 |
 | `lib/features/tarot/stesa_fan.dart` | 1 | 0 |

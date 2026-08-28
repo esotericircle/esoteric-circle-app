@@ -9,7 +9,6 @@ import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
-import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -42,6 +41,9 @@ class SinastriaGalleryScreen extends StatefulWidget {
     this.userBirth,
     this.random,
     this.primoVip,
+    this.restituisci = false,
+    this.cercaSubitoIlGemello = false,
+    this.titolo,
   });
 
   /// **LA PRIMA CASELLA, ordine BO voce 13.** Quando la galleria si apre per
@@ -56,10 +58,53 @@ class SinastriaGalleryScreen extends StatefulWidget {
   /// produzione resta nullo e si usa un `Random` vero.
   final math.Random? random;
 
+  /// **LA GALLERIA RESTITUISCE IL VOLTO INVECE DI APRIRE IL RESPONSO.**
+  /// Ordine CA voci 01 e 02.
+  ///
+  /// Prima la galleria era la porta d'ingresso della Sinastria e faceva due
+  /// mestieri: sceglieva un volto E apriva il responso. Da li' nasceva il
+  /// difetto della voce CA.02, cioe' che la carta toccata e la carta cambiata
+  /// potevano essere due carte diverse: chi cambiava tornava indietro nella
+  /// pila del Navigator, e la pila non sa quale casella volevi. Adesso, in
+  /// questo modo, la galleria sceglie e basta: chiama `Navigator.pop(vip)` e
+  /// chi l'ha aperta riempie la casella che aveva in mente.
+  final bool restituisci;
+
+  /// Cerca il gemello astrale appena si apre. Ordine CA voce 01: la porta
+  /// d'ingresso porta le tre scelte, e questa e' la terza.
+  final bool cercaSubitoIlGemello;
+
+  /// Il titolo della barra, che cambia col mestiere: "Scegli il tuo VIP"
+  /// quando si sfoglia, la richiesta precisa quando si sta riempiendo una
+  /// casella.
+  final String? titolo;
+
+  /// LA ROTTA DELLA SOLA SCELTA: torna il Vip scelto, o nulla se si esce.
+  static Route<Vip> scegliUnVip({
+    Zodiac? userSign,
+    String? userName,
+    DateTime? userBirth,
+    String? titolo,
+  }) {
+    return MaterialPageRoute<Vip>(
+      builder: (_) => MaestroScope(
+        maestro: Maestro.medora,
+        child: SinastriaGalleryScreen(
+          userSign: userSign,
+          userName: userName,
+          userBirth: userBirth,
+          restituisci: true,
+          titolo: titolo,
+        ),
+      ),
+    );
+  }
+
   static Route<void> route({
     Zodiac? userSign,
     String? userName,
     DateTime? userBirth,
+    bool cercaSubitoIlGemello = false,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => SogliaArte(
@@ -69,6 +114,7 @@ class SinastriaGalleryScreen extends StatefulWidget {
           userSign: userSign,
           userName: userName,
           userBirth: userBirth,
+          cercaSubitoIlGemello: cercaSubitoIlGemello,
         ),
       ),
     );
@@ -106,29 +152,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// SCELTA del primo, e la persona tocca la carta che vuole.
   bool _scegliIlPrimo = false;
 
-  /// **DOVE COMINCIA LA LISTA**, per portarci lo sguardo dal segnaposto della
-  /// carta da scegliere. Ordine BZ voce 09.
-  final GlobalKey _inizioDellaLista = GlobalKey();
-
-  Future<void> _portamiAllaLista() async {
-    final ctx = _inizioDellaLista.currentContext;
-    if (ctx == null) return;
-    await Scrollable.ensureVisible(ctx,
-        duration: const Duration(milliseconds: 400), alignment: 0.05);
-  }
-
-  /// Rimette il proprio cielo al posto del primo VIP: e' la via del ritorno
-  /// che mancava del tutto.
-  void _tornaATe() {
-    if (widget.primoVip != null) {
-      // Questa galleria e' la seconda, aperta sopra la prima: si torna
-      // indietro, e sotto c'e' la galleria di se stessi.
-      Navigator.of(context).maybePop();
-      return;
-    }
-    setState(() => _scegliIlPrimo = false);
-  }
-
   @override
   void dispose() {
     _ricerca.dispose();
@@ -151,6 +174,11 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// Cosa fa il tocco su una carta: aprire quel VIP, oppure sceglierlo come
   /// primo dei due quando la persona ha chiesto il confronto fra due VIP.
   void _tocca(Vip vip) {
+    // **SI RESTITUISCE E BASTA. Ordine CA voci 01 e 02.**
+    if (widget.restituisci) {
+      Navigator.of(context).pop(vip);
+      return;
+    }
     if (_scegliIlPrimo) {
       setState(() => _scegliIlPrimo = false);
       _sostituisciLaPrimaCasella(vip);
@@ -199,6 +227,19 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
             RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
       }
     }));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // **IL GEMELLO SI CERCA ALL'APERTURA, se la porta lo ha chiesto.**
+    // Ordine CA voce 01: la terza delle tre scelte vive nella porta
+    // d'ingresso, e apre questa galleria con la ricerca gia' chiesta.
+    if (widget.cercaSubitoIlGemello) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _cercaIlGemello();
+      });
+    }
   }
 
   /// Calcola il gemello e lo rivela.
@@ -273,7 +314,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
         // entro un minimo dichiarato.
         title: TitoloCheNonSiRompe(
-            testo: 'Scegli il tuo VIP',
+            testo: widget.titolo ?? 'Scegli il tuo VIP',
             stile: TypographyTokens.display(size: 19)),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -294,26 +335,13 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // **LA SINASTRIA VIP PARTE DAL CONFRONTO. Ordine BZ
-                      // voce 09.** Parole del fondatore: "LA SINASTRIA VIP
-                      // DEVE PARTIRE con la schermata dove ci sono le 2 carte
-                      // in alto dove l'utente puo' scegliere il VIP a destra e
-                      // a sinistra c'e' la carta dell'utente con titolo sopra
-                      // La Tua Compatibilita' con un VIP".
-                      //
-                      // Prima si apriva sulla ricerca e sulla tendina: chi
-                      // entrava vedeva un catalogo e doveva capire da solo
-                      // cosa ci si facesse. Adesso la prima cosa in scena e'
-                      // il confronto, con la propria carta gia' al suo posto.
-                      _IntestazioneDelConfronto(
-                        palette: palette,
-                        userSign: widget.userSign,
-                        userName: widget.userName,
-                        userBirth: widget.userBirth,
-                        primoVip: widget.primoVip,
-                        onScegli: _portamiAllaLista,
-                      ),
-                      const SizedBox(height: SpacingTokens.lg),
+                      // **L'INTESTAZIONE COL CONFRONTO SE N'E' ANDATA DI
+                      // SOPRA. Ordine CA voce 01.** La voce BZ.09 l'aveva
+                      // messa in cima a questa galleria; il fondatore ha
+                      // chiesto che sia una schermata a se', la prima che si
+                      // vede, con dentro anche le tre scelte. Vive in
+                      // `PortaDellaSinastria`, e qui la galleria torna a fare
+                      // un mestiere solo: scegliere un volto.
                       Row(
                         children: [
                           Expanded(
@@ -355,60 +383,26 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       // fondatore: "elimina la sezione Vip in evidenza che non
                       // serve a nulla". Prendeva l'altezza di una schermata
                       // sopra la galleria vera.
-                      // **LE DUE PORTE CHE DEVONO RISALTARE.** Parole del
-                      // fondatore del 28 agosto 2026: il gemello astrale "e'
-                      // una funzione potenzialmente virale e deve risaltare",
-                      // e il confronto fra due VIP "deve essere anche una
-                      // funzione ben visibile". Erano due righe di testo con
-                      // un'iconcina, in fondo a una colonna: adesso sono due
-                      // porte alte, col fondo del Maestro e il bordo d'oro.
-                      if (_gemello == null)
-                        _PortaGrande(
-                          chiave: const Key('sinastria_cerca_gemello'),
-                          titolo: 'Trova il tuo gemello astrale VIP',
-                          sotto: 'Il volto famoso che porta il tuo stesso '
-                              'cielo',
-                          icona: Icons.auto_awesome,
-                          palette: palette,
-                          onTocco: _cercaIlGemello,
-                        )
-                      else
+                      //
+                      // **E VIA ANCHE LE DUE PORTE GRANDI. Ordine CA voce
+                      // 01.** "Trova il tuo gemello astrale VIP" e "Confronta
+                      // 2 VIP" stavano qui dentro; parole del fondatore: "le
+                      // bolle di fai sinastria vip oppure calcola il tuo
+                      // gemello astrale VIP devono stare nella prima
+                      // schermata che vede l'utente e non nella schermata di
+                      // scelta del vip". Adesso stanno in
+                      // `PortaDellaSinastria` insieme alle due carte. **La
+                      // rivelazione del gemello resta qui**, perche' e' qui
+                      // che si sfoglia: la porta apre questa galleria
+                      // chiedendo di cercarlo subito.
+                      if (_gemello != null) ...[
                         GestureDetector(
                           onTap: () => _apri(_gemello!.vip),
                           child: RivelazioneDelGemello(
                               gemello: _gemello!, palette: palette),
                         ),
-                      const SizedBox(height: SpacingTokens.md),
-                      // **METTI UN VIP AL TUO POSTO, ordine BO voce 13.** La
-                      // prima casella sei tu in modo predefinito, e da qui si
-                      // sostituisce: la galleria si riapre per scegliere chi
-                      // gli mettere contro.
-                      if (widget.primoVip == null && !_scegliIlPrimo)
-                        _PortaGrande(
-                          chiave: const Key('sinastria_due_vip'),
-                          titolo: 'Confronta 2 VIP',
-                          sotto: 'Scegli tu i due volti da mettere uno '
-                              'contro l\'altro',
-                          icona: Icons.compare_arrows_rounded,
-                          palette: palette,
-                          onTocco: () =>
-                              setState(() => _scegliIlPrimo = true),
-                        ),
-                      // **E LA VIA DEL RITORNO A SE STESSI.** Domanda del
-                      // fondatore: "quando l'utente e' in modalita' confronto
-                      // tra 2 VIP, come fa a tornare a mettere se stesso?".
-                      // Non poteva: la seconda galleria si apriva col primo
-                      // VIP gia' fissato e nessuna riga tornava indietro.
-                      if (widget.primoVip != null || _scegliIlPrimo)
-                        _PortaGrande(
-                          chiave: const Key('sinastria_torna_a_te'),
-                          titolo: 'Torna a te',
-                          sotto: 'Rimetti il tuo cielo al posto del primo '
-                              'VIP',
-                          icona: Icons.person_rounded,
-                          palette: palette,
-                          onTocco: _tornaATe,
-                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
                       const SizedBox(height: SpacingTokens.md),
                       Center(
                         child: TextButton.icon(
@@ -428,7 +422,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       ),
                       const SizedBox(height: SpacingTokens.lg),
                       Text(
-                          key: _inizioDellaLista,
                           _scegliIlPrimo
                               ? 'Scegli il primo dei due VIP'
                               : widget.primoVip == null
@@ -501,133 +494,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// LE DUE CARTE IN CIMA, E IL TITOLO SOPRA DI LORO. Ordine BZ voce 09.
-///
-/// **Parole del fondatore:** "LA SINASTRIA VIP DEVE PARTIRE con la schermata
-/// dove ci sono le 2 carte in alto dove l'utente puo' scegliere il VIP a
-/// destra e a sinistra c'e' la carta dell'utente con titolo sopra La Tua
-/// Compatibilità con un VIP".
-///
-/// **La carta di destra e' un segnaposto e lo dichiara**: non porta un VIP
-/// scelto dall'app, perche' l'app che sceglie per te e' esattamente il difetto
-/// del confronto che dava sempre Angelina Jolie. Al tocco porta l'occhio alla
-/// lista, che e' dove si sceglie.
-///
-/// **LE DUE FUNZIONI VIRALI RESTANO DOVE ERANO**, cioe' subito sotto questa
-/// intestazione: "Trova il tuo gemello astrale VIP" e "Confronta 2 VIP" sono
-/// le due porte grandi, e nessuna delle due si e' mossa.
-class _IntestazioneDelConfronto extends StatelessWidget {
-  const _IntestazioneDelConfronto({
-    required this.palette,
-    required this.onScegli,
-    this.userSign,
-    this.userName,
-    this.userBirth,
-    this.primoVip,
-  });
-
-  final MaestroPalette palette;
-  final VoidCallback onScegli;
-  final Zodiac? userSign;
-  final String? userName;
-  final DateTime? userBirth;
-  final Vip? primoVip;
-
-  String get _dataTua {
-    final d = userBirth;
-    if (d == null) return '';
-    return '${d.day}.${d.month}.${d.year}';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Col primo VIP scelto il titolo dice l'altra cosa vera: non e' piu' la
-    // TUA compatibilità, sono due volti messi uno contro l'altro.
-    final titolo = primoVip == null
-        ? 'La Tua Compatibilità con un VIP'
-        : 'La Compatibilità fra ${primoVip!.name} e un VIP';
-    return Column(
-      children: [
-        Text(
-          titolo,
-          key: const Key('sinastria_titolo_confronto'),
-          textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 20)
-              .copyWith(color: palette.goldSoft, height: 1.2),
-        ),
-        const SizedBox(height: SpacingTokens.md),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  primoVip == null
-                      ? VipFramedPortrait(
-                          key: const Key('sinastria_carta_tua'),
-                          palette: palette,
-                          name: userName ?? 'Il tuo cielo',
-                          date: _dataTua,
-                          sign: userSign?.symbol,
-                        )
-                      : VipFramedPortrait(
-                          key: const Key('sinastria_carta_tua'),
-                          palette: palette,
-                          name: primoVip!.name,
-                          date: primoVip!.note,
-                          sign: primoVip!.sign.symbol,
-                          vipAsset: primoVip!.fullPath,
-                        ),
-                  const SizedBox(height: SpacingTokens.xs),
-                  Text(
-                    primoVip == null ? 'Tu' : primoVip!.name,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 64),
-              child: Icon(Icons.favorite_rounded,
-                  color: palette.goldSoft, size: 24),
-            ),
-            Expanded(
-              child: GestureDetector(
-                key: const Key('sinastria_carta_da_scegliere'),
-                onTap: onScegli,
-                behavior: HitTestBehavior.opaque,
-                child: Column(
-                  children: [
-                    VipFramedPortrait(
-                      palette: palette,
-                      name: 'Scegli il VIP',
-                      date: '',
-                      sign: '?',
-                    ),
-                    const SizedBox(height: SpacingTokens.xs),
-                    Text(
-                      'Scegli il VIP',
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: ColorTokens.textSecondary),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
@@ -816,77 +682,6 @@ class _TendinaDelleCategorie extends StatelessWidget {
           onChanged: (c) {
             if (c != null) onScegli(c);
           },
-        ),
-      ),
-    );
-  }
-}
-
-/// UNA PORTA CHE SI VEDE: titolo grande, una riga di spiegazione, il fondo del
-/// Maestro e il bordo d'oro.
-///
-/// **Parole del fondatore del 28 agosto 2026**: il gemello astrale "e' una
-/// funzione potenzialmente virale e deve risaltare", e il confronto fra due
-/// VIP "deve essere anche una funzione ben visibile". Erano due `TextButton`
-/// con un'icona da diciotto punti.
-class _PortaGrande extends StatelessWidget {
-  const _PortaGrande({
-    required this.chiave,
-    required this.titolo,
-    required this.sotto,
-    required this.icona,
-    required this.palette,
-    required this.onTocco,
-  });
-
-  final Key chiave;
-  final String titolo;
-  final String sotto;
-  final IconData icona;
-  final MaestroPalette palette;
-  final VoidCallback onTocco;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          key: chiave,
-          onTap: onTocco,
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.md, vertical: SpacingTokens.md),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              color: palette.surfaceElevated.withValues(alpha: 0.85),
-              border: Border.all(color: palette.gold, width: 1.5),
-            ),
-            child: Row(
-              children: [
-                Icon(icona, size: 28, color: palette.goldSoft),
-                const SizedBox(width: SpacingTokens.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(titolo,
-                          style: TypographyTokens.titoloScheda()
-                              .copyWith(color: palette.goldSoft)),
-                      const SizedBox(height: 2),
-                      Text(sotto,
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: ColorTokens.textPrimary)),
-                    ],
-                  ),
-                ),
-                Icon(Icons.chevron_right_rounded,
-                    color: palette.goldSoft, size: 22),
-              ],
-            ),
-          ),
         ),
       ),
     );

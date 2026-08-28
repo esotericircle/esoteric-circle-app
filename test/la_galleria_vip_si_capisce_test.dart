@@ -8,13 +8,11 @@ import 'package:esoteric_circle/core/synastry/collezione_delle_coppie.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
-import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_gallery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 
 /// LA GALLERIA VIP SI CAPISCE. Ordine del fondatore del 28 agosto 2026.
 ///
@@ -157,102 +155,15 @@ void main() {
             'che non si leggeva');
   });
 
-  testWidgets('Le due funzioni virali sono porte grandi, non righe di testo',
-      (tester) async {
-    // **LA GRANDEZZA MISURATA E' L'ALTEZZA DELLA PORTA E IL CORPO DEL SUO
-    // TITOLO.** Erano due pulsanti di testo alti quarantotto punti con
-    // l'etichetta a dodici; una funzione che deve risaltare non si scrive
-    // cosi'.
-    await monta(tester);
-    for (final porta in const [
-      ('sinastria_cerca_gemello', 'Trova il tuo gemello astrale VIP'),
-      ('sinastria_due_vip', 'Confronta 2 VIP'),
-    ]) {
-      final f = find.byKey(Key(porta.$1));
-      expect(f, findsOneWidget, reason: 'la porta ${porta.$1} non c\'e\'');
-      final r = tester.getRect(f);
-      final titolo = tester.widget<Text>(find.descendant(
-          of: f, matching: find.text(porta.$2)));
-      // ignore: avoid_print
-      print('ORDINE DEL 28 AGOSTO: la porta "${porta.$2}" e\' alta '
-          '${r.height.toStringAsFixed(1)} punti e il titolo e\' scritto a '
-          '${titolo.style!.fontSize}');
-      expect(r.height, greaterThanOrEqualTo(64),
-          reason: 'la porta "${porta.$2}" e\' alta '
-              '${r.height.toStringAsFixed(1)} punti: non risalta');
-      expect(titolo.style!.fontSize,
-          greaterThanOrEqualTo(TypographyTokens.titoloScheda().fontSize!),
-          reason: 'il titolo di "${porta.$2}" e\' scritto a '
-              '${titolo.style!.fontSize}, cioe\' come un\'etichetta');
-    }
-  });
+  // **TRE PROVE HANNO TRASLOCATO, ordine CA voce 01.** Misuravano le due
+  // porte virali, il confronto che non parte da un VIP scelto dall'app e le
+  // due carte in cima: tutte e tre quelle cose adesso vivono nella PORTA
+  // della Sinastria, non nella galleria, per parole del fondatore ("le bolle
+  // ... devono stare nella prima schermata che vede l'utente e non nella
+  // schermata di scelta del vip"). Le stesse misure, sulla schermata giusta,
+  // stanno in test/la_porta_della_sinastria_test.dart. **Nessuna e' stata
+  // cancellata**: una guardia che misura una cosa spostata si sposta con lei.
 
-  testWidgets('Il confronto fra due VIP non parte da un VIP scelto dall\'app',
-      (tester) async {
-    // **IL DIFETTO ERA UNA RIGA SOLA**: il pulsante chiamava
-    // `_sostituisciLaPrimaCasella(VipCatalog.first)`, e il primo del catalogo
-    // e' Angelina Jolie. Adesso il tocco apre la scelta.
-    await monta(tester);
-    await tester.tap(find.byKey(const Key('sinastria_due_vip')));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-    // ignore: avoid_print
-    print('ORDINE DEL 28 AGOSTO: dopo il tocco su "Confronta 2 VIP" la '
-        'schermata chiede di scegliere? '
-        '${find.text('Scegli il primo dei due VIP').evaluate().isNotEmpty}');
-    expect(find.text('Scegli il primo dei due VIP'), findsOneWidget,
-        reason: 'il confronto non chiede chi mettere per primo');
-    expect(find.byKey(const Key('sinastria_gauge')), findsNothing,
-        reason: 'il confronto e\' partito da solo su un VIP che nessuno ha '
-            'scelto: era sempre Angelina Jolie');
-    // E la via del ritorno a se stessi c'e', in quel momento.
-    expect(find.byKey(const Key('sinastria_torna_a_te')), findsOneWidget,
-        reason: 'da qui non si torna a mettere se stessi');
-  });
-
-  testWidgets('BZ.09: la Sinastria VIP parte dal confronto, e si vede subito',
-      (tester) async {
-    // **LA GRANDEZZA MISURATA E' COSA STA IN CIMA ALLA SCHERMATA**, in punti
-    // dipinti: il titolo del confronto e le due carte devono stare sopra la
-    // barra di ricerca e sopra le due porte grandi. Parole del fondatore:
-    // "LA SINASTRIA VIP DEVE PARTIRE con la schermata dove ci sono le 2
-    // carte in alto dove l'utente puo' scegliere il VIP a destra e a sinistra
-    // c'e' la carta dell'utente con titolo sopra La Tua Compatibilità con un
-    // VIP".
-    await monta(tester);
-    final titolo = find.byKey(const Key('sinastria_titolo_confronto'));
-    expect(titolo, findsOneWidget,
-        reason: 'il titolo del confronto non c\'e\'');
-    expect(tester.widget<Text>(titolo).data, 'La Tua Compatibilità con un VIP',
-        reason: 'il titolo non e\' quello che il fondatore ha scritto');
-
-    final tua = tester.getRect(find.byKey(const Key('sinastria_carta_tua')));
-    final daScegliere = tester
-        .getRect(find.byKey(const Key('sinastria_carta_da_scegliere')));
-    final ricerca = tester.getRect(find.byKey(const Key('sinastria_search')));
-    final gemello =
-        tester.getRect(find.byKey(const Key('sinastria_cerca_gemello')));
-    // ignore: avoid_print
-    print('ORDINE BZ VOCE 9: titolo a ${tester.getRect(titolo).top.round()}, '
-        'carta tua a ${tua.top.round()}, carta da scegliere a '
-        '${daScegliere.top.round()}, ricerca a ${ricerca.top.round()}, '
-        'porta del gemello a ${gemello.top.round()}');
-    expect(tester.getRect(titolo).top, lessThan(ricerca.top),
-        reason: 'il titolo del confronto sta sotto la barra di ricerca: la '
-            'schermata non parte dal confronto');
-    expect(tua.top, lessThan(ricerca.top),
-        reason: 'la carta della persona non e\' in cima');
-    expect(daScegliere.top, lessThan(gemello.top),
-        reason: 'la carta da scegliere sta sotto le due porte');
-    // La TUA a sinistra, quella da scegliere a destra, come chiesto.
-    expect(tua.center.dx, lessThan(daScegliere.center.dx),
-        reason: 'le due carte sono invertite: la tua deve stare a sinistra');
-
-    // **E LE DUE FUNZIONI VIRALI RESTANO RAGGIUNGIBILI**, subito sotto.
-    expect(gemello, isNotNull);
-    expect(find.byKey(const Key('sinastria_due_vip')), findsOneWidget,
-        reason: 'la porta del confronto fra due VIP e\' sparita');
-  });
   testWidgets('I titoli non rubano il posto al contenuto', (tester) async {
     // **ORDINE BX VOCE 06, QUARTO RILIEVO: "i titoli della schermata sono
     // troppo grandi".** L'ordine lascia scegliere la grandezza misurabile e
@@ -302,75 +213,8 @@ void main() {
             'testo che deve far leggere');
   });
 
-  testWidgets('Alla fine del percorso doppio i due soggetti sono i due VIP',
-      (tester) async {
-    // **ORDINE BX VOCE 06, SETTIMO RILIEVO**: "nel confronto doppio si
-    // finisce per tornare a se\' stessi". La guardia sopra misura come
-    // COMINCIA il percorso; questa misura come FINISCE, che e\' quello che
-    // l'ordine chiede per nome: l'identita\' dei due soggetti confrontati
-    // alla fine del percorso doppio.
-    await monta(tester);
-    // Si chiede il confronto fra due VIP.
-    await tester.tap(find.byKey(const Key('sinastria_due_vip')));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-
-    // Si sceglie il PRIMO, e non e\' il primo del catalogo: si prende il
-    // terzo, cosi\' se un giorno tornasse un valore scritto a mano si vede.
-    final primo = VipCatalog.vips[2];
-    await tester.scrollUntilVisible(find.byKey(Key('vip_${primo.name}')), 120,
-        scrollable: find.byType(Scrollable).first);
-    // **`scrollUntilVisible` SI FERMA APPENA IL WIDGET ESISTE**, e puo\'
-    // esistere ancora sotto il bordo: con le carte piu\' grandi dell\'ordine
-    // BZ voce 09 il tocco cadeva a 1.429 su una finestra alta 600, e non
-    // colpiva niente. `ensureVisible` lo porta davvero dentro.
-    await tester.ensureVisible(find.byKey(Key('vip_${primo.name}')));
-    await tester.pump();
-    await tester.tap(find.byKey(Key('vip_${primo.name}')));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 400));
-
-    // Adesso la galleria si e\' riaperta per il secondo, e lo dice.
-    expect(find.textContaining(primo.name), findsWidgets,
-        reason: 'la seconda galleria non dice chi e\' il primo scelto');
-
-    // Si sceglie il SECONDO.
-    final secondo = VipCatalog.vips[5];
-    // **SOLO LA GALLERIA IN CIMA.** Le due gallerie convivono nella pila del
-    // Navigator, e ognuna ha la sua carta per lo stesso VIP: cercare per
-    // chiave senza dire dove trova due widget con la stessa chiave.
-    final inCima = find.byType(SinastriaGalleryScreen).last;
-    final cartaDelSecondo = find.descendant(
-        of: inCima, matching: find.byKey(Key('vip_${secondo.name}')));
-    await tester.scrollUntilVisible(cartaDelSecondo, 120,
-        scrollable: find
-            .descendant(of: inCima, matching: find.byType(Scrollable))
-            .first);
-    await tester.ensureVisible(cartaDelSecondo);
-    await tester.pump();
-    await tester.tap(cartaDelSecondo);
-    await tester.pump();
-    for (var i = 0; i < 6; i++) {
-      await tester.pump(const Duration(seconds: 1));
-    }
-
-    // **E ADESSO SI GUARDA CHI E\' A CONFRONTO.** Non i testi, che potrebbero
-    // nominare chiunque: la schermata del responso dichiara i suoi due
-    // soggetti, e sono quelli che si leggono.
-    final schermata =
-        tester.widget<SinastriaVipScreen>(find.byType(SinastriaVipScreen));
-    // ignore: avoid_print
-    print('ORDINE BX VOCE 6: alla fine del percorso doppio si confrontano '
-        '"${schermata.primoVip?.name ?? "TU"}" e "${schermata.vip?.name}"');
-    expect(schermata.primoVip?.name, primo.name,
-        reason: 'il primo soggetto non e\' il VIP scelto: il confronto e\' '
-            'tornato a te');
-    expect(schermata.vip?.name, secondo.name,
-        reason: 'il secondo soggetto non e\' il VIP scelto per secondo');
-    // E a schermo compaiono tutti e due i nomi, nessuno dei due sostituito.
-    for (final chi in [primo, secondo]) {
-      expect(find.textContaining(chi.name), findsWidgets,
-          reason: 'il nome di ${chi.name} non compare nel confronto');
-    }
-  });
+  // **E ANCHE LA QUARTA HA TRASLOCATO, ordine CA voce 01.** "Alla fine del
+  // percorso doppio i due soggetti sono i due VIP" cominciava toccando
+  // "Confronta 2 VIP", che adesso sta nella porta: la stessa misura, sulla
+  // strada nuova, sta in test/la_porta_della_sinastria_test.dart.
 }

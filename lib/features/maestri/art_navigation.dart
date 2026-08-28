@@ -14,7 +14,7 @@ import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
-import '../synastry/sinastria_gallery_screen.dart';
+import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
 import '../../core/astro/night_sky.dart';
 import '../account/dati_di_nascita_screen.dart';
@@ -95,12 +95,13 @@ Route<void>? artRouteFor(
       // cielo di qualcun altro.
       if (userSign == null) return DatiDiNascitaScreen.route();
       return OroscopoScreen.route(userSign: userSign);
-    // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un
-    // risultato precaricato: si sceglie, poi si vede il responso.
+    // **LA SINASTRIA VIP APRE SULLA PORTA, ordine CA voce 01.** Non piu' sulla
+    // galleria di scelta: la prima cosa che si vede sono le due carte col
+    // titolo sopra e le tre scelte, e la galleria e' il passo dopo.
     case 'synastry_vip':
       // Anche qui: senza data non c'e' sinastria, e si va a darla.
       if (userSign == null) return DatiDiNascitaScreen.route();
-      return SinastriaGalleryScreen.route(
+      return PortaDellaSinastria.route(
           userSign: userSign, userBirth: userBirth, userName: userName);
     case 'tarot_spread_three':
       return StesaTreCarteScreen.route();
