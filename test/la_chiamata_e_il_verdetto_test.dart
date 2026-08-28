@@ -59,17 +59,86 @@ void main() {
         ),
       );
 
+  // --- CA.03, LA RIFLESSIONE SI GUARDA E MOSTRA DUE CARTE ---
+
+  testWidgets(
+      'CA.03: la chiamata resta in scena abbastanza da leggerla, e porta DUE '
+      'carte', (tester) async {
+    // **DUE GRANDEZZE MISURATE, ed e' l'ordine a chiederle per nome:** il
+    // tempo fra il primo fotogramma in cui la scena compare e l'ultimo in cui
+    // e' ancora in albero, e il NUMERO DI CARTE presenti mentre i due cerchi
+    // si fondono. Parole del fondatore: "l'animazione e' troppo veloce e sembra
+    // bloccarsi a meta', e il testo che compare sotto non si fa in tempo a
+    // leggerlo", e "quando ci sono 2 VIP dovrebbero comparire le due carte
+    // nei rispettivi cerchi che si fondono tra loro".
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final tuo = CieloDiSinastria.perVip(VipCatalog.vips[7]);
+    final aspetti = SynastryReport.fraDueVip(
+            primo: VipCatalog.vips[7], vip2: VipCatalog.first)
+        .aspetti;
+    var finita = false;
+    await tester.pumpWidget(attorno(Material(
+      child: ChiamataDelVip(
+        vip: VipCatalog.first,
+        tuo: tuo,
+        primoVip: VipCatalog.vips[7],
+        aspetti: aspetti,
+        palette: MaestroPalette.medora,
+        onFinita: () => finita = true,
+      ),
+    )));
+    await tester.pump();
+    var fotogrammi = 0;
+    var conDueCarte = 0;
+    var fusioneVista = 0;
+    for (var t = 0; t < 12000 && !finita; t += 100) {
+      fotogrammi++;
+      final sua = find.byKey(const Key('sinastria_ritratto_chiamato'));
+      final tua = find.byKey(const Key('sinastria_ritratto_tuo'));
+      final dueRuote = find
+              .byKey(const Key('sinastria_ruota_vip'))
+              .evaluate()
+              .isNotEmpty &&
+          find.byKey(const Key('sinastria_ruota_tua')).evaluate().isNotEmpty;
+      if (dueRuote) {
+        fusioneVista++;
+        if (sua.evaluate().isNotEmpty && tua.evaluate().isNotEmpty) {
+          conDueCarte++;
+        }
+      }
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    final durata = fotogrammi * 100;
+    // ignore: avoid_print
+    print('ORDINE CA VOCE 3: la chiamata resta in scena $durata millesimi, '
+        'con i due cerchi in $fusioneVista fotogrammi e le due carte in '
+        '$conDueCarte');
+    expect(durata, greaterThanOrEqualTo(5000),
+        reason: 'la chiamata dura $durata millesimi: e\' la scena troppo '
+            'veloce che il fondatore ha visto');
+    expect(fusioneVista, greaterThan(3),
+        reason: 'i due cerchi non si sono mai visti insieme: la prova non sta '
+            'guardando la fusione');
+    expect(conDueCarte, fusioneVista,
+        reason: 'mentre i due cerchi si fondono ci sono due carte in '
+            '$conDueCarte fotogrammi su $fusioneVista: nel confronto fra due '
+            'VIP se ne vedeva una sola');
+  });
   // --- BO.06, I TEMPI E I FILI ---
 
-  test('la sequenza intera sta dentro i sei secondi del vincolo V1', () {
+  test('la sequenza intera sta dentro il tetto, che adesso e\' otto secondi',
+      () {
     final durata = TempiDellaChiamata.alPeggio;
     // ignore: avoid_print
     print('ORDINE BO VOCE 06: dal tocco al verdetto '
         '${durata.inMilliseconds} millesimi, tetto '
         '${TempiDellaChiamata.tetto.inMilliseconds}');
     expect(durata, lessThan(TempiDellaChiamata.tetto),
-        reason: 'la scena sfonda il tetto dei sei secondi: chi ne fa dieci di '
-            'seguito viene punito');
+        reason: 'la scena sfonda il tetto: chi ne fa dieci di seguito viene '
+            'punito');
     // E anche col conteggio del verdetto attaccato dietro resta sotto: il
     // numero finisce di comporsi prima che i sei secondi siano passati.
     expect(durata + TempiDelVerdetto.ilConteggio,

@@ -65,10 +65,29 @@ class ChiamataDelVip extends StatefulWidget {
     required this.palette,
     required this.onFinita,
     this.riduciMovimento = false,
+    this.primoVip,
+    this.nomeTuo,
+    this.segnoTuo,
   });
 
   final Vip vip;
   final CieloDiSinastria tuo;
+
+  /// **CHI STA NELL'ALTRO CERCHIO. Ordine CA voce 03.**
+  ///
+  /// Parole del fondatore: "quando ci sono 2 VIP dovrebbero comparire le due
+  /// carte nei rispettivi cerchi che si fondono tra loro". Prima al centro
+  /// saliva UN ritratto solo, quello di [vip], e nel confronto fra due VIP
+  /// l'altro non compariva da nessuna parte: si vedevano due ruote e una
+  /// faccia. Quando qui c'e' un VIP, la sua carta sta nel cerchio che sale dal
+  /// basso; quando e' nullo, in quel cerchio c'e' la carta della persona, col
+  /// suo nome e il suo segno.
+  final Vip? primoVip;
+
+  /// Il nome e il segno della persona, per la carta dell'altro cerchio quando
+  /// il primo posto non e' di un VIP.
+  final String? nomeTuo;
+  final String? segnoTuo;
 
   /// Gli aspetti VERI, gia' ordinati dal piu' stretto al piu' largo.
   final List<AspettoDiSinastria> aspetti;
@@ -255,13 +274,24 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
               ),
             ),
           ),
-        // IL RITRATTO, che sale al centro e sta FERMO: si muove la luce.
+        // **DUE CARTE, UNA PER CERCHIO. Ordine CA voce 03.**
+        //
+        // La sua sta nel cerchio di sopra, che e' il suo; l'altra nel cerchio
+        // che sale dal basso. Seguono i due cerchi mentre si avvicinano,
+        // perche' e' questo che il fondatore ha chiesto: "le due carte nei
+        // rispettivi cerchi che si fondono tra loro". Prima ne saliva una
+        // sola, al centro, e nel confronto fra due VIP l'altro non c'era.
         Positioned(
           left: centro.dx - larga * 0.20,
-          top: centro.dy - larga * 0.26 - chiamata * 8,
+          top: centro.dy -
+              larga * 0.26 -
+              chiamata * 8 -
+              avvicinamento * 0.5 -
+              larga * 0.12,
           child: Opacity(
             opacity: chiamata,
             child: _RitrattoNellaLuce(
+              chiave: const Key('sinastria_ritratto_chiamato'),
               vip: widget.vip,
               lato: larga * 0.40,
               palette: palette,
@@ -269,8 +299,29 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
             ),
           ),
         ),
+        if (tuaRuota > 0)
+          Positioned(
+            left: centro.dx - larga * 0.20,
+            top: centro.dy -
+                larga * 0.26 +
+                salita +
+                avvicinamento * 0.5 +
+                larga * 0.12,
+            child: Opacity(
+              opacity: tuaRuota,
+              child: _RitrattoNellaLuce(
+                chiave: const Key('sinastria_ritratto_tuo'),
+                vip: widget.primoVip,
+                nome: widget.nomeTuo,
+                segno: widget.segnoTuo,
+                lato: larga * 0.40,
+                palette: palette,
+                luce: widget.riduciMovimento ? 0.5 : t,
+              ),
+            ),
+          ),
         // I FILI DEGLI ASPETTI, uno alla volta, col loro nome.
-        if (aspetti > 0)
+        if (aspetti > 0 && _fili > 0)
           Positioned.fill(
             child: IgnorePointer(
               child: CustomPaint(
@@ -285,7 +336,13 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
               ),
             ),
           ),
-        if (aspetti > 0) _nomeDellAspetto(aspetti, palette),
+        // **E SE DI ASPETTI NON CE N'E' NESSUNO, non si nomina niente.**
+        // Trovato allungando i tempi (ordine CA voce 03): con zero fili il
+        // momento degli aspetti dura zero, quindi all'ultimo fotogramma
+        // risultava compiuto, e `clamp(0, -1)` faceva cadere la scena con un
+        // ArgumentError. Due cieli che non si toccano in nessun punto sono un
+        // caso vero, non un errore.
+        if (aspetti > 0 && _fili > 0) _nomeDellAspetto(aspetti, palette),
       ],
     );
   }
@@ -316,21 +373,32 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
 /// dei Maestri.
 class _RitrattoNellaLuce extends StatelessWidget {
   const _RitrattoNellaLuce({
+    required this.chiave,
     required this.vip,
     required this.lato,
     required this.palette,
     required this.luce,
+    this.nome,
+    this.segno,
   });
 
-  final Vip vip;
+  final Key chiave;
+
+  /// Il volto, quando da questa parte c'e' un VIP. Nullo quando c'e' la
+  /// persona: al suo posto si disegnano il segno e il nome, che e' cio' che
+  /// l'app sa di lei senza chiederle una foto.
+  final Vip? vip;
+  final String? nome;
+  final String? segno;
   final double lato;
   final MaestroPalette palette;
   final double luce;
 
   @override
   Widget build(BuildContext context) {
+    final v = vip;
     return SizedBox(
-      key: const Key('sinastria_ritratto_chiamato'),
+      key: chiave,
       width: lato,
       height: lato / 0.78,
       child: ClipRRect(
@@ -338,13 +406,29 @@ class _RitrattoNellaLuce extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            if (vip.hasImage)
-              Image.asset(vip.fullPath!,
+            if (v != null && v.hasImage)
+              Image.asset(v.fullPath!,
                   fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) =>
                       Icon(Icons.auto_awesome, color: palette.goldSoft))
             else
-              Icon(Icons.auto_awesome, color: palette.goldSoft),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(segno ?? v?.sign.symbol ?? '',
+                        style: TypographyTokens.cerimonialeGrande()
+                            .copyWith(color: palette.goldSoft)),
+                    if ((nome ?? v?.name) != null)
+                      Text((nome ?? v!.name).toUpperCase(),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TypographyTokens.etichetta()
+                              .copyWith(color: palette.goldSoft)),
+                  ],
+                ),
+              ),
             // LA LUCE che scorre: e' l'unica cosa che si muove sul ritratto.
             IgnorePointer(
               child: DecoratedBox(

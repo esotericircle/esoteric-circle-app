@@ -602,6 +602,13 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                     child: ChiamataDelVip(
                       vip: _vip,
                       tuo: _cielo,
+                      // **CHI STA NELL'ALTRO CERCHIO. Ordine CA voce 03.**
+                      // Nel confronto fra due VIP la scena mostrava un volto
+                      // solo; adesso ogni cerchio porta la sua carta.
+                      primoVip: widget.primoVip,
+                      nomeTuo: widget.primoVip == null ? widget.userName : null,
+                      segnoTuo:
+                          widget.primoVip == null ? _userSign.symbol : null,
                       aspetti: report.aspetti,
                       palette: palette,
                       riduciMovimento: _riduciMovimento,

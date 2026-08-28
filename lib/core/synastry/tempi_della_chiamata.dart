@@ -8,8 +8,14 @@
 class TempiDellaChiamata {
   const TempiDellaChiamata._();
 
-  /// IL TETTO DEL VINCOLO V1: dal tocco al verdetto, sei secondi.
-  static const Duration tetto = Duration(milliseconds: 6000);
+  /// IL TETTO: dal tocco al verdetto.
+  ///
+  /// **OTTO SECONDI E NON PIU' SEI. Ordine CA voce 03.** Il vincolo V1 diceva
+  /// sei, e con sei ogni aspetto restava acceso trecentottanta millesimi:
+  /// parole del fondatore, "l'animazione e' troppo veloce e sembra bloccarsi a
+  /// meta', e il testo che compare sotto non si fa in tempo a leggerlo". Il
+  /// nome di un aspetto e' un testo, e un testo si legge o non si scrive.
+  static const Duration tetto = Duration(milliseconds: 8000);
 
   /// Il ritratto sale al centro e il resto sprofonda.
   static const Duration laChiamata = Duration(milliseconds: 520);
@@ -21,10 +27,20 @@ class TempiDellaChiamata {
   static const Duration laTuaRuota = Duration(milliseconds: 1150);
 
   /// Le due ruote si avvicinano e si compenetrano, ruotando in senso opposto.
-  static const Duration laSovrapposizione = Duration(milliseconds: 880);
+  ///
+  /// **MILLE E DUECENTO, ordine CA voce 03**: e' il momento in cui i due cieli
+  /// si fondono e in cui si vedono le due carte, ed e' anche il momento in cui
+  /// il fondatore ha detto che la scena "sembra bloccarsi a meta'". Non si
+  /// bloccava: passava troppo in fretta per leggersi come un gesto.
+  static const Duration laSovrapposizione = Duration(milliseconds: 1200);
 
   /// Ogni aspetto si accende, uno alla volta, dal piu' stretto al piu' largo.
-  static const Duration unAspetto = Duration(milliseconds: 380);
+  ///
+  /// **NOVECENTO E NON PIU' TRECENTOTTANTA. Ordine CA voce 03.** Sotto questa
+  /// riga compare il nome dell'aspetto, e trecentottanta millesimi sono meno
+  /// del tempo che serve a leggere tre parole: il testo cambiava prima che
+  /// l'occhio ci arrivasse.
+  static const Duration unAspetto = Duration(milliseconds: 900);
 
   /// Quanti aspetti si accendono al massimo.
   ///
