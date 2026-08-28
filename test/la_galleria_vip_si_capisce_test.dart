@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 
 /// LA GALLERIA VIP SI CAPISCE. Ordine del fondatore del 28 agosto 2026.
 ///
@@ -108,6 +109,32 @@ void main() {
             '${piuLarga.toStringAsFixed(1)}: e\' la galleria mischiata che il '
             'fondatore ha fermato');
 
+    // **E I VOLTI SONO ALTI UGUALI.** Ordine BX voce 06, trovato guardando
+    // l'anteprima: col nome libero di stare su una riga o su due, il
+    // ritratto sopra prendeva cio\' che restava, e nella stessa riga della
+    // griglia un volto stava piu\' in alto dell'altro. E\' la stessa "galleria
+    // mischiata" che il fondatore aveva gia\' fermato, arrivata da un'altra
+    // strada.
+    final altezzeDeiVolti = <double>[];
+    for (final vip in VipCatalog.vips.take(12)) {
+      final f = find.descendant(
+          of: find.byKey(Key('vip_${vip.name}')),
+          matching: find.byType(ClipRRect));
+      if (f.evaluate().isEmpty) continue;
+      altezzeDeiVolti.add(tester.getRect(f.first).height);
+    }
+    final piuAlto = altezzeDeiVolti.reduce((a, b) => a > b ? a : b);
+    final piuBasso = altezzeDeiVolti.reduce((a, b) => a < b ? a : b);
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 6: ${altezzeDeiVolti.length} volti, il piu\' alto '
+        '${piuAlto.toStringAsFixed(1)} e il piu\' basso '
+        '${piuBasso.toStringAsFixed(1)} punti');
+    expect(piuAlto - piuBasso, lessThan(1.0),
+        reason: 'i volti hanno altezze diverse, dal '
+            '${piuBasso.toStringAsFixed(1)} al ${piuAlto.toStringAsFixed(1)}: '
+            'un nome su due righe sposta il ritratto e la griglia si '
+            'scompiglia');
+
     // I nomi si leggono: colore pieno, non una velatura.
     final nome = tester.widget<Text>(find.descendant(
         of: find.byKey(Key('vip_${VipCatalog.first.name}')),
@@ -171,5 +198,112 @@ void main() {
     // E la via del ritorno a se stessi c'e', in quel momento.
     expect(find.byKey(const Key('sinastria_torna_a_te')), findsOneWidget,
         reason: 'da qui non si torna a mettere se stessi');
+  });
+
+  testWidgets('I titoli non rubano il posto al contenuto', (tester) async {
+    // **ORDINE BX VOCE 06, QUARTO RILIEVO: "i titoli della schermata sono
+    // troppo grandi".** L'ordine lascia scegliere la grandezza misurabile e
+    // chiede di dichiararla prima: **il corpo del titolo piu\' grande della
+    // schermata, in rapporto al corpo del testo che si legge**, che vale
+    // sedici punti in tutta l'app. Un titolo e\' troppo grande quando pesa
+    // piu\' di una volta e mezza cio\' che deve far leggere.
+    //
+    // **MISURATO, IL RILIEVO NON SI E\' RIPRODOTTO.** Sulla galleria il
+    // titolo piu\' grande e\' quello della barra, diciannove punti, e le due
+    // porte grandi stanno a diciotto; sul responso il titolo della barra sta
+    // a venti. Nessuno arriva a ventiquattro, cioe\' una volta e mezza il
+    // testo. Nel codice della Sinastria esistono due soli corpi sopra i
+    // ventidue, e nessuno dei due e\' un titolo: il ventisei della cartolina
+    // da condividere, che e\' un'immagine e non una schermata, e il trentasei
+    // del numero dentro la ruota, che e\' il responso stesso.
+    //
+    // La guardia resta perche\' da qui in avanti il fatto sia sorvegliato: se
+    // un titolo cresce oltre la misura, cade.
+    await monta(tester);
+    final corpi = <String, double>{};
+    for (final e in find.byType(Text).evaluate()) {
+      final w = e.widget as Text;
+      final testo = w.data ?? '';
+      final corpo = w.style?.fontSize;
+      if (testo.trim().isEmpty || corpo == null) continue;
+      // Le sole voci che contano sono i TITOLI, cioe\' le righe brevi: un
+      // paragrafo lungo non e\' un titolo nemmeno se e\' scritto grande.
+      if (testo.length > 40) continue;
+      corpi[testo] = corpo;
+    }
+    final piuGrande =
+        corpi.entries.reduce((a, b) => a.value >= b.value ? a : b);
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 6: il titolo piu\' grande della galleria e\' '
+        '"${piuGrande.key}" a ${piuGrande.value} punti, su un testo di '
+        'lettura da 16');
+    expect(piuGrande.value, lessThanOrEqualTo(24.0),
+        reason: 'il titolo "${piuGrande.key}" e\' scritto a '
+            '${piuGrande.value} punti, cioe\' piu\' di una volta e mezza il '
+            'testo che deve far leggere');
+  });
+
+  testWidgets('Alla fine del percorso doppio i due soggetti sono i due VIP',
+      (tester) async {
+    // **ORDINE BX VOCE 06, SETTIMO RILIEVO**: "nel confronto doppio si
+    // finisce per tornare a se\' stessi". La guardia sopra misura come
+    // COMINCIA il percorso; questa misura come FINISCE, che e\' quello che
+    // l'ordine chiede per nome: l'identita\' dei due soggetti confrontati
+    // alla fine del percorso doppio.
+    await monta(tester);
+    // Si chiede il confronto fra due VIP.
+    await tester.tap(find.byKey(const Key('sinastria_due_vip')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    // Si sceglie il PRIMO, e non e\' il primo del catalogo: si prende il
+    // terzo, cosi\' se un giorno tornasse un valore scritto a mano si vede.
+    final primo = VipCatalog.vips[2];
+    await tester.scrollUntilVisible(find.byKey(Key('vip_${primo.name}')), 120,
+        scrollable: find.byType(Scrollable).first);
+    await tester.tap(find.byKey(Key('vip_${primo.name}')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    // Adesso la galleria si e\' riaperta per il secondo, e lo dice.
+    expect(find.textContaining(primo.name), findsWidgets,
+        reason: 'la seconda galleria non dice chi e\' il primo scelto');
+
+    // Si sceglie il SECONDO.
+    final secondo = VipCatalog.vips[5];
+    // **SOLO LA GALLERIA IN CIMA.** Le due gallerie convivono nella pila del
+    // Navigator, e ognuna ha la sua carta per lo stesso VIP: cercare per
+    // chiave senza dire dove trova due widget con la stessa chiave.
+    final inCima = find.byType(SinastriaGalleryScreen).last;
+    final cartaDelSecondo = find.descendant(
+        of: inCima, matching: find.byKey(Key('vip_${secondo.name}')));
+    await tester.scrollUntilVisible(cartaDelSecondo, 120,
+        scrollable: find
+            .descendant(of: inCima, matching: find.byType(Scrollable))
+            .first);
+    await tester.tap(cartaDelSecondo);
+    await tester.pump();
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+
+    // **E ADESSO SI GUARDA CHI E\' A CONFRONTO.** Non i testi, che potrebbero
+    // nominare chiunque: la schermata del responso dichiara i suoi due
+    // soggetti, e sono quelli che si leggono.
+    final schermata =
+        tester.widget<SinastriaVipScreen>(find.byType(SinastriaVipScreen));
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 6: alla fine del percorso doppio si confrontano '
+        '"${schermata.primoVip?.name ?? "TU"}" e "${schermata.vip?.name}"');
+    expect(schermata.primoVip?.name, primo.name,
+        reason: 'il primo soggetto non e\' il VIP scelto: il confronto e\' '
+            'tornato a te');
+    expect(schermata.vip?.name, secondo.name,
+        reason: 'il secondo soggetto non e\' il VIP scelto per secondo');
+    // E a schermo compaiono tutti e due i nomi, nessuno dei due sostituito.
+    for (final chi in [primo, secondo]) {
+      expect(find.textContaining(chi.name), findsWidgets,
+          reason: 'il nome di ${chi.name} non compare nel confronto');
+    }
   });
 }

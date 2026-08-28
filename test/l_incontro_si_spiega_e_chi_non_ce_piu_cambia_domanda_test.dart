@@ -113,7 +113,14 @@ void main() {
       expect(r.incontro.esiste, isFalse, reason: nome);
       expect(r.eScomparso, isTrue, reason: nome);
       // **LA BARRA NON ESISTE IN ALBERO**: non e' a zero, non c'e'.
-      expect(r.bars, hasLength(3), reason: nome);
+      //
+      // **DA TRE A SEI, ordine BX voce 09.** Il numero segue il dato: le
+      // dimensioni dell'affinita' sono passate da quattro a sette, quindi
+      // per chi non c'e' piu' restano sei, tutte tranne quella
+      // dell'incontro. Non e' una soglia abbassata, e' un'altra grandezza:
+      // cio' che questa riga sorveglia e' che la barra dell'incontro non
+      // esista, e resta vero.
+      expect(r.bars, hasLength(6), reason: nome);
       expect(r.bars.any((b) => b.label.contains('incontro')), isFalse,
           reason: '$nome: la barra dell\'incontro è ancora nelle barre');
       // E nessuna parola del responso promette un incontro.
@@ -141,10 +148,12 @@ void main() {
     }
   });
 
-  test('chi è in vita ha ancora le sue quattro barre', () {
+  test('chi è in vita ha ancora tutte le sue barre', () {
     final r = SynastryReport.perCieli(
         tuo: tuo, vip: VipCatalog.conNome('Zendaya')!, doveSei: losAngeles);
-    expect(r.bars, hasLength(4));
+    // Sette dall'ordine BX voce 09, che ne ha aggiunte tre: il numero segue
+    // il dato, e le tre nuove hanno la loro prova altrove.
+    expect(r.bars, hasLength(7));
     expect(r.bars.last.label, contains('incontro'));
     expect(r.bars.last.quip, isNotEmpty,
         reason: 'sotto la barra deve esserci la riga che spiega il numero');

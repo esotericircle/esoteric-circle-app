@@ -1843,7 +1843,39 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheSinastria(tester);
+    // **LA SCENA DEVE FINIRE DI ENTRARE.** Il responso della Sinastria si
+    // compone contando (ordine BO voce 07): con due soli fotogrammi
+    // l'anteprima mostrava lo zero per cento, il ritratto ancora sopra il
+    // testo e tutto in dissolvenza, cioe' una schermata che non esiste.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
     await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- La meta' bassa della Sinastria: le barre e la mappa ---
+  testWidgets('Cattura la Sinastria VIP, le barre e la mappa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1340));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaVipScreen.route()));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    // Fino in fondo, dove vivono le sette barre e la mappa della distanza.
+    for (var i = 0; i < 6; i++) {
+      await tester.drag(
+          find.byType(Scrollable).last, const Offset(0, -600));
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await tester.pump(const Duration(seconds: 1));
+    await capture(tester, rootKey, 'sinastria-vip-basso.png');
   });
 
   testWidgets('Cattura la Sinastria VIP col nome utente reale', (tester) async {

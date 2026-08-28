@@ -23,6 +23,18 @@ class InquadraturaDellaMappa {
   /// Il centro dell'inquadratura, in gradi.
   final ({double lat, double lon}) centro;
 
+  /// **Vero se quel punto sta dentro il riquadro visibile.** Il riquadro e'
+  /// largo [larghezzaInGradi] e alto la stessa cosa diviso il rapporto della
+  /// scena, che vale 1,6: la mappa e' piu' larga che alta, e in latitudine
+  /// ci sta meno.
+  bool contiene(({double lat, double lon}) punto) {
+    const rapporto = 1.6;
+    final mezzaLarghezza = larghezzaInGradi / 2;
+    final mezzaAltezza = larghezzaInGradi / rapporto / 2;
+    return (punto.lon - centro.lon).abs() <= mezzaLarghezza &&
+        (punto.lat - centro.lat).abs() <= mezzaAltezza;
+  }
+
   /// Quanto e' larga l'inquadratura, in gradi di longitudine.
   final double larghezzaInGradi;
 
@@ -53,10 +65,27 @@ class InquadraturaDellaMappa {
     // La corsa e' esponenziale perche' lo zoom si legge cosi': raddoppiare
     // due volte sembra lo stesso salto, sommare due volte no.
     final larghezza = partenza * math.pow(arrivo / partenza, t);
+    // **LA CORSA FINISCE IN MEZZO AI DUE, NON SU DI LUI. Ordine BX voce 06,
+    // quinto rilievo.**
+    //
+    // **Il fatto del fondatore era "le mappe si vedono troppo ingrandite", e
+    // la causa non era lo zoom: era il centro.** La corsa portava il centro
+    // fino alla citta' del VIP, mentre la larghezza restava quella che serve
+    // a tenere dentro la DISTANZA fra i due. Con il centro su di lui, il tuo
+    // punto sta a una distanza intera dal centro mentre il riquadro ne
+    // contiene sette decimi per lato: **alla fine della corsa tu eri fuori
+    // dall'inquadratura**, e la mappa mostrava una citta' sola ingrandita.
+    // Non c'era modo di rimediare guardando, perche' l'unica cosa che
+    // mancava era proprio l'altro capo della distanza.
+    //
+    // Adesso il centro arriva a META' STRADA: con la larghezza di prima, che
+    // vale 1,4 volte la distanza, i due punti stanno dentro tutti e due con
+    // due decimi di margine per lato.
+    final meta = (lat: (tu.lat + lui.lat) / 2, lon: (tu.lon + lui.lon) / 2);
     return InquadraturaDellaMappa(
       centro: (
-        lat: tu.lat + (lui.lat - tu.lat) * t,
-        lon: tu.lon + (lui.lon - tu.lon) * t,
+        lat: tu.lat + (meta.lat - tu.lat) * t,
+        lon: tu.lon + (meta.lon - tu.lon) * t,
       ),
       larghezzaInGradi: larghezza.toDouble(),
     );

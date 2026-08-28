@@ -184,10 +184,27 @@ void main() {
         greaterThan(partenza.larghezzaInGradi * 100),
         reason: 'lo zoom non si allarga abbastanza da tenere dentro Los '
             'Angeles');
-    // E l'inquadratura finale contiene davvero tutti e due i punti.
-    expect(arrivo.larghezzaInGradi,
-        greaterThanOrEqualTo((lui.lon - tu.lon).abs()),
-        reason: 'l\'inquadratura finale taglia fuori uno dei due punti');
+    // **E L\'INQUADRATURA FINALE CONTIENE DAVVERO I DUE PUNTI, ordine BX
+    // voce 06, quinto rilievo.**
+    //
+    // **La grandezza misurata e\' cambiata, e la soglia no.** Qui si guardava
+    // solo la LARGHEZZA, e la larghezza bastava: il difetto stava nel
+    // CENTRO, che a fine corsa si fermava sulla citta\' del VIP invece che a
+    // meta\' strada, e il tuo punto restava fuori dal riquadro. Una prova
+    // sulla larghezza non poteva vederlo, ed e\' per questo che il fondatore
+    // ha dovuto segnalarlo lui: "le mappe si vedono troppo ingrandite".
+    // Adesso si chiede all\'inquadratura se contiene i punti, che e\' la
+    // domanda vera.
+    // ignore: avoid_print
+    print('ORDINE BX VOCE 6: a fine corsa il centro sta a '
+        '${arrivo.centro.lat.toStringAsFixed(2)}, '
+        '${arrivo.centro.lon.toStringAsFixed(2)}; contiene te? '
+        '${arrivo.contiene(tu)}; contiene lui? ${arrivo.contiene(lui)}');
+    expect(arrivo.contiene(tu), isTrue,
+        reason: 'a fine corsa il TUO punto sta fuori dall\'inquadratura: la '
+            'mappa mostra una citta\' sola ingrandita');
+    expect(arrivo.contiene(lui), isTrue,
+        reason: 'a fine corsa il punto del VIP sta fuori dall\'inquadratura');
   });
 
   test('nella stessa città lo zoom NON si allarga, e quella è la sorpresa',

@@ -740,6 +740,16 @@ class _CartaDelVip extends StatelessWidget {
   final MaestroPalette palette;
   final VoidCallback onTocco;
 
+  /// Due righe del ruolo didascalia con interlinea 1,15: il nome piu' lungo
+  /// e quello piu' corto occupano lo stesso posto, e i volti restano in fila.
+  ///
+  /// **Trentotto e non trentadue, e la differenza si vedeva.** Il ruolo vale
+  /// sedici punti e l'interlinea 1,15, quindi due righe ne chiedono 36,8:
+  /// con trentadue la seconda riga di "Chiara Ferragni" e "Leonardo
+  /// DiCaprio" restava tagliata a meta' altezza. Il numero viene dal conto,
+  /// non dall'occhio, ma e' stato l'occhio a chiederlo.
+  static const double _altezzaDelNome = 38;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -774,13 +784,24 @@ class _CartaDelVip extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xxs),
           // **IL NOME A PIENO CONTRASTO**, non al cinquantacinque per cento:
           // era quello il motivo per cui non si leggeva.
-          Text(
-            vip.name,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textPrimary, height: 1.15),
+          //
+          // **E L'ALTEZZA E' FISSA, DUE RIGHE SEMPRE.** Ordine BX voce 06,
+          // trovato guardando l'anteprima: col nome libero di stare su una
+          // riga o su due, il ritratto sopra prendeva cio' che restava, e
+          // "Brad Pitt" veniva piu' alto di "Chiara Ferragni" nella stessa
+          // riga della griglia. Il fondatore aveva gia' fermato una galleria
+          // per lo stesso motivo, "carte mischiate senza ordine": due nomi
+          // di lunghezza diversa non devono spostare i volti.
+          SizedBox(
+            height: _altezzaDelNome,
+            child: Text(
+              vip.name,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.15),
+            ),
           ),
         ],
       ),
