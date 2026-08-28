@@ -70,7 +70,16 @@ class QuestionAllowance extends ChangeNotifier {
   /// Quanti Eos vale quel modo, oppure nullo se il server non lo ha ancora
   /// detto.
   int? eosPerLaCondivisione(String motivo) =>
-      _listinoDellaCondivisione[motivo];
+      _listinoDellaCondivisione[motivo] ??
+      // **L'INVITO HA IL SUO NUMERO ALTROVE, ordine BX.** Il premio
+      // dell'invito accolto e' uscito dal listino della condivisione con la
+      // voce BX.02, perche' non si paga piu' condividendo: il valore vive
+      // in `EOS_DELL_INVITO_ACCOLTO` sul server e arriva con lo stato.
+      // Senza questa riga la card diceva "Eos quando il tuo amico entra nel
+      // Cerchio", senza cifra, e l'ha visto l'anteprima.
+      (motivo == 'invito_con_download' ? _premioDellInvitoAccolto : null);
+
+  int? _premioDellInvitoAccolto;
 
   int _condivisioniPremiateOggi = 0;
 
@@ -624,6 +633,10 @@ class QuestionAllowance extends ChangeNotifier {
     // voci lo aspettano.
     _invitiAccolti = stato.invitiAccolti;
     _invitiPerMaestro = stato.invitiPerMaestro;
+    // Come ogni listino: si sostituisce solo se il server lo ha mandato.
+    if (stato.premioDellInvitoAccolto != null) {
+      _premioDellInvitoAccolto = stato.premioDellInvitoAccolto;
+    }
     // **LE CORREZIONI DEL CATALOGO DEI VIP, ordine BX voce 09.** Il catalogo
     // dei 50 personaggi e' una costante compilata: senza questa riga, lo
     // stato in vita di una persona puo' cambiare solo pubblicando una

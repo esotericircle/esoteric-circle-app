@@ -128,9 +128,16 @@ class _AbitanteDelBosco extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // **IL SIMBOLO VUOLE IL SUO CARATTERE.** Il font del display non
+            // ha i glifi dello zodiaco: a schermo uscivano dodici rettangoli
+            // vuoti, e nessuna prova li vede. L'ha visti l'anteprima. Il
+            // carattere dei simboli e' quello dichiarato nel pubspec e usato
+            // dalla carta natale.
             Text(segno.symbol,
-                style: TypographyTokens.display(size: 22)
-                    .copyWith(color: palette.goldSoft)),
+                style: TextStyle(
+                    fontFamily: 'NotoSansSymbols',
+                    fontSize: 22,
+                    color: palette.goldSoft)),
             const SizedBox(width: SpacingTokens.md),
             Expanded(
               child: Column(

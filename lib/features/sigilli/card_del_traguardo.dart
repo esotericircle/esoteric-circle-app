@@ -228,8 +228,16 @@ class VieDellaCondivisione extends StatelessWidget {
       quanti = null;
     }
     final coda = modo.subitoPagato ? '' : ' In attesa.';
-    if (quanti == null) return '${modo.quandoArriva}$coda';
-    return '$quanti ${modo.quandoArriva}$coda';
+    // **SENZA IL NUMERO LA FRASE COMINCIA DA CAPO, e non da "Eos".** Ordine
+    // BX: la riga era composta come "$quanti Eos ..." con la parola Eos
+    // dentro il testo del modo, quindi quando il numero mancava a schermo si
+    // leggeva "Eos quando il tuo amico entra nel Cerchio". L'ha visto
+    // l'anteprima della festa del primo sogno.
+    if (quanti == null) {
+      final q = modo.quandoArriva;
+      return '${q[0].toUpperCase()}${q.substring(1)}$coda';
+    }
+    return '$quanti Eos ${modo.quandoArriva}$coda';
   }
 
   void _apriLeVie(BuildContext context) {

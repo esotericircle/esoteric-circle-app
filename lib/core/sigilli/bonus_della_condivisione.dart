@@ -32,7 +32,7 @@ enum ModoDellaCondivisione {
     // che aggiunge lo stato a ogni modo non pagato subito. La regola resta
     // dov'era, perche' vale anche per il modo che nascera' domani; qui la
     // frase dice solo QUANDO arrivano gli Eos.
-    quandoArriva: 'Eos quando il tuo amico entra nel Cerchio.',
+    quandoArriva: 'quando il tuo amico entra nel Cerchio.',
     subitoPagato: false,
   ),
 
@@ -40,7 +40,7 @@ enum ModoDellaCondivisione {
   socialPubblico(
     'social_pubblico',
     'Condividi pubblicamente',
-    quandoArriva: 'Eos a condivisione avvenuta.',
+    quandoArriva: 'a condivisione avvenuta.',
     subitoPagato: true,
   ),
 
@@ -48,7 +48,7 @@ enum ModoDellaCondivisione {
   condivisionePrivata(
     'condivisione_privata',
     'Manda a qualcuno',
-    quandoArriva: 'Eos a condivisione avvenuta.',
+    quandoArriva: 'a condivisione avvenuta.',
     subitoPagato: true,
   );
 

@@ -542,6 +542,13 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // porta solo i nomi per cui il catalogo compilato dell'app dice una cosa
     // diversa da quella vera.
     correzioniDeiVip,
+    // **QUANTO VALE UN INVITO ACCOLTO. Ordine BX voce 05, trovato con
+    // l'anteprima.** Uscendo dal listino della condivisione (voce BX.02) il
+    // numero non arrivava piu' al telefono, e la riga sotto il pulsante
+    // diceva "Eos quando il tuo amico entra nel Cerchio", senza cifra. Il
+    // valore resta del server, come ogni altro prezzo: il client lo scrive e
+    // non lo detta.
+    premioDellInvitoAccolto: EOS_DELL_INVITO_ACCOLTO,
     // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
     // server. Il client lo mostra sul pulsante e non lo detta mai.
     listinoDelRiscatto: PREZZI_DEL_RISCATTO,

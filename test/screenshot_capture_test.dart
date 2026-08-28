@@ -143,6 +143,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/bosco_del_cerchio.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -270,6 +271,11 @@ void main() {
   Future<void> loadFonts() async {
     await loadFont('Cinzel', 'assets/fonts/Cinzel-variable.ttf');
     await loadFont('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf');
+    // **ANCHE IL CARATTERE DEI SIMBOLI, ordine BX.** Senza, ogni glifo dello
+    // zodiaco esce come un rettangolo vuoto e l'anteprima racconta un difetto
+    // che sul telefono non c'e': il font e' dichiarato nel pubspec e sul
+    // dispositivo si disegna. Trovato guardando il bosco del Cerchio.
+    await loadFont('NotoSansSymbols', 'assets/fonts/NotoSansSymbols-subset.ttf');
     // Le icone Material NON si caricano piu' qui. Stavano dentro questa
     // funzione, cioe' dentro il corredo soltanto: ogni altro file di cattura
     // disegnava quadrati vuoti al posto delle icone senza che nessuno lo
@@ -1855,6 +1861,113 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
     }
     await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- LE TRE SCHERMATE NUOVE DELL'ORDINE BX ---
+  //
+  // **Si guardano perche' nessuna prova guarda un'immagine.** Le anteprime
+  // di quest'ordine hanno gia' trovato due difetti che le prove non
+  // vedevano: i nomi delle arti troncati coi puntini e i nomi dei VIP
+  // tagliati a meta' riga.
+
+  testWidgets('Cattura il bosco del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    await montaLoSchermo(tester, const Size(390, 1200));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(BoscoDelCerchio.route(mio: 'Lupo')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'bosco-del-cerchio.png');
+  });
+
+  testWidgets('Cattura il quaderno dei sogni', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    await montaLoSchermo(tester, const Size(390, 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DreamRiteScreen.route(now: DateTime(2026, 7, 30, 23))));
+    await step(tester);
+    await step(tester);
+    // Si salta la nebbia col ripiego tattile e si arriva al saluto, dove
+    // vive il tasto per annotare.
+    final salta = find.byKey(const Key('dream_fog_skip'));
+    if (salta.evaluate().isNotEmpty) {
+      await tester.tap(salta);
+      await step(tester);
+    }
+    // Si uniscono le stelle: il tasto per annotare arriva col saluto della
+    // notte, cioe' dopo la figura.
+    final figura = kZodiacConstellations
+        .firstWhere((c) => c.sign == NightSky.moonSign(DateTime(2026, 7, 30, 23)));
+    for (var i = 0; i < figura.points.length; i++) {
+      final stella = find.byKey(Key('dream_star_$i'));
+      if (stella.evaluate().isEmpty) continue;
+      await tester.tap(stella);
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    // Il primo sogno accende un traguardo: si congeda la festa, che ha gia'
+    // la sua anteprima, e si arriva al quaderno.
+    final congedo = find.byKey(const Key('celebrazione_continua'));
+    if (congedo.evaluate().isNotEmpty) {
+      await tester.tap(congedo);
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+    }
+    final annota = find.byKey(const Key('dream_annota'));
+    if (annota.evaluate().isNotEmpty) {
+      await tester.ensureVisible(annota);
+      await tester.tap(annota);
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+    }
+    await capture(tester, rootKey, 'annota-il-sogno.png');
+  });
+
+  testWidgets('Cattura la voce Chi ti ha invitato', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(390, 844));
+    // **DALLA VIA VERA, non chiamando la funzione da fuori.** Aperto dal
+    // Navigator della radice il foglio finisce SOTTO la barra di navigazione
+    // del guscio, che si dipinge piu' in alto: l'immagine mostrava il campo
+    // e il pulsante attraverso la home. Dalla porta dell'account il foglio
+    // sale dove deve.
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_invito')).evaluate().isNotEmpty) break;
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('account_invito')), 120,
+        scrollable: find.descendant(
+            of: find.byKey(const Key('account_list')),
+            matching: find.byType(Scrollable)));
+    await tester.tap(find.byKey(const Key('account_invito')),
+        warnIfMissed: false);
+    // Il foglio sale: si aspetta che abbia finito, altrimenti l'immagine lo
+    // coglie a meta' corsa e il suo fondo copre solo meta' del contenuto.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await capture(tester, rootKey, 'riscatta-l-invito.png');
   });
 
   // --- La meta' bassa della Sinastria: le barre e la mappa ---

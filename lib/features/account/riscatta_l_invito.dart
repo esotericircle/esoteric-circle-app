@@ -33,7 +33,20 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
       borderRadius:
           BorderRadius.vertical(top: Radius.circular(SpacingTokens.radiusLg)),
     ),
-    builder: (foglio) => Padding(
+    // **IL FONDO SE LO DIPINGE IL FOGLIO, e non e' una ridondanza.** Ordine
+    // BX: nell'anteprima il colore del foglio copriva il titolo e il
+    // paragrafo e finiva li', mentre il campo e il pulsante restavano
+    // trasparenti sopra la home, che si leggeva attraverso. Un foglio che
+    // lascia vedere la schermata di sotto e' lo stesso difetto che la voce
+    // BX.07 ha curato sulla festa. Il colore resta anche in
+    // `backgroundColor`, perche' quello veste gli angoli arrotondati del
+    // foglio; questo veste il contenuto.
+    builder: (foglio) => Container(
+      decoration: BoxDecoration(
+        color: palette.surfaceElevated,
+        borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(SpacingTokens.radiusLg)),
+      ),
       padding: EdgeInsets.only(
           left: SpacingTokens.lg,
           right: SpacingTokens.lg,

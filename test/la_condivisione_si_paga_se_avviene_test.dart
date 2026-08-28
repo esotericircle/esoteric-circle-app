@@ -69,8 +69,17 @@ void main() {
     for (final modo in ModoDellaCondivisione.values) {
       expect(modo.quandoArriva.trim(), isNotEmpty,
           reason: '${modo.motivo} non dice quando arrivano i suoi Eos');
-      expect(modo.quandoArriva, contains('Eos'),
-          reason: '${modo.motivo} non nomina cio\' che fa arrivare');
+      // **LA PAROLA "EOS" E\' USCITA DALLA FRASE, ordine BX.** Stava dentro
+      // il testo del modo, e la riga si componeva come "$quanti Eos ...":
+      // quando il numero mancava, a schermo si leggeva "Eos quando il tuo
+      // amico entra nel Cerchio", che comincia col nulla. Adesso la parola
+      // la mette chi compone la riga, insieme al numero, e la frase del modo
+      // dice il QUANDO e basta.
+      expect(modo.quandoArriva, isNot(contains('Eos')),
+          reason: '${modo.motivo} torna a portarsi dentro la parola Eos: '
+              'senza numero la riga ricomincia da quella parola');
+      expect(modo.quandoArriva.trim().split(' ').length, greaterThan(2),
+          reason: '${modo.motivo} non dice quando arriva il premio');
     }
     // ignore: avoid_print
     print('ORDINE AN VOCE 08: frasi ${[

@@ -23,6 +23,7 @@ class StatoDelCerchio {
     this.invitiAccolti = 0,
     this.invitiPerMaestro = const {},
     this.correzioniDeiVip = const {},
+    this.premioDellInvitoAccolto,
   });
 
   final String giorno;
@@ -72,6 +73,13 @@ class StatoDelCerchio {
   /// **DA QUALE PORTA SONO ENTRATI.** Ordine BX voce 02: il corpus ha tre
   /// voci, una per Maestro, e senza la porta misurerebbero lo stesso fatto.
   final Map<String, int> invitiPerMaestro;
+
+  /// **QUANTO VALE UN INVITO ACCOLTO, dal listino del server.** Ordine BX:
+  /// da quando il premio non si paga piu' alla condivisione (voce BX.02) il
+  /// numero non stava piu' nel listino della condivisione, e la riga sotto il
+  /// pulsante restava senza cifra. Nullo con un server piu' vecchio dell'app,
+  /// e allora la riga dice quando arriva senza dire quanto.
+  final int? premioDellInvitoAccolto;
 
   /// **LO STATO IN VITA CORRETTO DAL SERVER. Ordine BX voce 09.**
   ///
@@ -163,6 +171,9 @@ class StatoDelCerchio {
               in (risposta['invitiPerMaestro'] as Map).entries)
             if (voce.value is num) '${voce.key}': (voce.value as num).toInt(),
       },
+      premioDellInvitoAccolto: risposta['premioDellInvitoAccolto'] is num
+          ? (risposta['premioDellInvitoAccolto'] as num).toInt()
+          : null,
       correzioniDeiVip: {
         if (risposta['correzioniDeiVip'] is Map)
           for (final voce in (risposta['correzioniDeiVip'] as Map).entries)

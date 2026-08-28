@@ -351,8 +351,11 @@ class _IntestazioneDiChiSei extends StatelessWidget {
       sotto = 'Vive solo su questo telefono';
     } else {
       titolo = email ?? (via.isEmpty ? 'Il tuo cielo è custodito' : 'Entrato con $via');
+      // **LA RIGA SOTTO NON RIPETE QUELLA SOPRA.** Ordine BX: senza email e
+      // senza fornitore le due righe dicevano tutte e due "Il tuo cielo è
+      // custodito", una sotto l'altra. L'ha visto l'anteprima.
       sotto = via.isEmpty
-          ? 'Il tuo cielo è custodito'
+          ? 'Ti ritrova al rientro, su qualunque telefono'
           : 'Il tuo cielo è custodito, via $via';
     }
     return Padding(
