@@ -30,6 +30,7 @@ import '../../rotta_arte.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
@@ -90,14 +91,12 @@ class GuideAnimalScreen extends StatefulWidget {
     DateTime Function()? clock,
     GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => conLaSoglia(GuideAnimalScreen(
+    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(GuideAnimalScreen(
           userSign: userSign,
           userBirth: userBirth,
           clock: clock,
           modo: modo,
-        )),
-    );
+        )));
   }
 
   @override

@@ -22,6 +22,7 @@ import '../../services/app_services.dart';
 import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -32,9 +33,7 @@ import '../../core/identity/dimenticanza_del_telefono.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const MaestroScope(child: SettingsScreen()),
-      );
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: SettingsScreen()));
 
   @override
   Widget build(BuildContext context) {

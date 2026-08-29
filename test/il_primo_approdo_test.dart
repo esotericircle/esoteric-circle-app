@@ -18,7 +18,7 @@ void main() {
   group('i cinque fumetti', () {
     test('sono cinque, nell\'ordine del fondatore, coi suoi bersagli', () {
       expect(cinqueFumetti, hasLength(5));
-      expect(cinqueFumetti[0].titolo, 'Sei nel Cerchio');
+      expect(cinqueFumetti[0].titolo, 'IL CERCHIO TI ACCOGLIE');
       expect(cinqueFumetti[0].ancora, isNull,
           reason: 'il benvenuto e la soglia: l\'ordine dice "Nessuna freccia"');
       expect(cinqueFumetti[0].lato, LatoDelFumetto.soglia);
@@ -127,7 +127,7 @@ void main() {
 
     testWidgets('armato parte, e mostra il primo fumetto', (tester) async {
       await monta(tester, armato: true);
-      expect(find.text('Sei nel Cerchio'), findsOneWidget);
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget);
       expect(find.text('1 di 5'), findsOneWidget);
     });
 
@@ -149,7 +149,7 @@ void main() {
       await monta(tester, armato: true);
       await tester.tap(find.byKey(const Key('primo_approdo_salta')));
       await tester.pumpAndSettle();
-      expect(find.text('Sei nel Cerchio'), findsNothing);
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing);
       final p = await SharedPreferences.getInstance();
       expect(p.getBool(MemoriaDelPrimoApprodo.chiave), isTrue,
           reason: 'chi ha saltato lo rivedra\' al prossimo avvio');
@@ -230,7 +230,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
       await tester.pumpAndSettle();
-      expect(find.text('I tre Maestri'), findsOneWidget,
+      expect(find.text('I TRE MAESTRI'), findsOneWidget,
           reason: 'senza il suo bersaglio il fumetto sparisce, e il racconto '
               'perde un pezzo');
     });

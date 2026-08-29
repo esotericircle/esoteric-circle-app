@@ -1970,6 +1970,56 @@ void main() {
     }
   });
 
+  // **I TRE MOMENTI DELLA CORSA DELLO ZODIACO. Ordine CC voce 03.**
+  //
+  // Cio' che si muove si guarda nei suoi momenti, non in uno: la corsa mentre
+  // gira, il segno appena si ferma, e la scena mentre si dissolve sul responso.
+  // Tre immagini a 360 punti logici, la larghezza vera del telefono.
+  testWidgets('Cattura i tre momenti della corsa dello zodiaco',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora), schermo: const Size(360, 797));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.leo, now: DateTime(2026, 7, 14, 13))));
+    await step(tester);
+    await step(tester);
+    // Il gesto che apre il consulto: prima del tocco la corsa non esiste.
+    final interroga = find.byKey(const Key('oroscopo_interroga'));
+    if (interroga.evaluate().isNotEmpty) {
+      await tester.tap(interroga, warnIfMissed: false);
+    }
+    // 1. LA CORSA GIRA.
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'corsa-zodiaco-1-gira.png');
+    // 2. IL SEGNO SI E' FERMATO, e cresce.
+    for (var i = 0; i < 70; i++) {
+      await tester.pump(const Duration(milliseconds: 40));
+    }
+    await capture(tester, rootKey, 'corsa-zodiaco-2-si-ferma.png');
+    // 3. LA DISSOLVENZA SCOPRE IL RESPONSO.
+    //
+    // **Si scatta DENTRO la dissolvenza, non dopo.** Con quaranta passi da
+    // sessanta millesimi la scena era gia' sparita e al suo posto c'era la
+    // festa del traguardo: un'immagine vera di un momento successivo, che
+    // pero' non diceva niente su cio' che questa voce deve mostrare.
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await capture(tester, rootKey, 'corsa-zodiaco-3-dissolvenza.png');
+    // **SI LASCIA FINIRE LA SCENA prima di smontare.** Scattando dentro la
+    // dissolvenza restano in volo i tempi della cascata delle schede e della
+    // festa: chiudere qui fa cadere la cattura con "A Timer is still
+    // pending", che non e' un difetto della scena ma della fretta di questa
+    // prova.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+  });
+
   testWidgets('Cattura la voce Chi ti ha invitato', (tester) async {
     silenceSensors();
     await loadFonts();

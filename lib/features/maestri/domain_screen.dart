@@ -9,6 +9,7 @@ import '../shell/vie_del_cerchio.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
 import 'rotta_arte.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Il dominio di un Maestro, come route spinta sopra il Santuario.
 ///
@@ -25,22 +26,20 @@ class DomainScreen extends StatelessWidget {
     required Maestro maestro,
     required AppServices services,
   }) {
-    return MaterialPageRoute<void>(
-      // LA ROTTA DICHIARA LA PROPRIA DESTINAZIONE, rotta piu' argomento.
+    return PassaggioDelCerchio.rotta<void>(// LA ROTTA DICHIARA LA PROPRIA DESTINAZIONE, rotta piu' argomento.
       //
       // E' il dato su cui la barra decide se TORNARE a una stanza gia' aperta
       // o aprirne una nuova. Sta QUI, nella fabbrica, e non in chi spinge:
       // cosi' ogni porta che apre un dominio, barra, Santuario o guscio, la
       // dichiara senza doverlo sapere. Il perche' un nome o un tipo non
       // bastano sta scritto su DestinazioneDominio.
-      settings: RouteSettings(arguments: DestinazioneDominio(maestro)),
+      
       // LA ROTTA DICHIARA ANCHE IL PROPRIETARIO, ordine 2163 voce 6: senza
       // `maestro:` lo scope seguiva il controller, e la barra dentro il
       // dominio non sapeva di chi fosse la stanza (voce spenta, colore
       // della provenienza). E' la stessa dichiarazione che la chat fa gia'.
-      builder: (_) => MaestroScope(
-          maestro: maestro, child: DomainScreen(maestro: maestro)),
-    );
+      (_) => MaestroScope(
+          maestro: maestro, child: DomainScreen(maestro: maestro)), settings: RouteSettings(arguments: DestinazioneDominio(maestro)));
   }
 
   @override

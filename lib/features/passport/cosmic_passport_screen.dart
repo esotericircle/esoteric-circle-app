@@ -38,6 +38,8 @@ import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../design_system/components/miniatura_intera.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -524,8 +526,7 @@ class _NatalChartCard extends StatelessWidget {
           unawaited(RegiaDelCammino.dopoUnGesto(context, 'luogo_di_nascita'));
         }
         Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (ctx) => MaestroScope(
+        PassaggioDelCerchio.rotta<void>((ctx) => MaestroScope(
             maestro: Maestro.medora,
             // ImmersiveScaffold e non il nudo widget: senza un antenato
             // Material, Flutter disegna una riga gialla sotto OGNI testo e il
@@ -541,8 +542,7 @@ class _NatalChartCard extends StatelessWidget {
                 onContinue: () => Navigator.of(ctx).maybePop(),
               ),
             ),
-          ),
-        ),
+          )),
       );
       },
       emblem: Icon(Icons.explore_rounded, color: palette.goldSoft, size: 28),
@@ -600,9 +600,9 @@ class _ActiveFactCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(value, style: TypographyTokens.display(size: 19)),
                 const SizedBox(height: 4),
-                Text(
-                  meaning,
-                  style: TypographyTokens.corpo()
+                ParagrafiDiLettura(
+                  testo: meaning,
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 if (isExample) ...[

@@ -32,6 +32,7 @@ import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -215,26 +216,22 @@ class SkyOverviewScreen extends StatefulWidget {
   final SkyPlace? luogoIniziale;
 
   static Route<void> route({DateTime? now, SkyLocation? location}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: Maestro.medora,
         child: SkyOverviewScreen(
           now: now,
           location: location ?? const GeolocatorSkyLocation(),
         ),
-      ),
-    );
+      ));
   }
 
   /// Il cielo di nascita, ancorato alla notte di nascita e fisso. Riusa il
   /// motore immersivo del cielo di adesso, con la voce di Medora sull'identita'.
   static Route<void> birthRoute({required DateTime birthMoment}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: Maestro.medora,
         child: SkyOverviewScreen(now: birthMoment, birth: true),
-      ),
-    );
+      ));
   }
 
   @override

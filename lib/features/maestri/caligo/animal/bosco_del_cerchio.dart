@@ -12,6 +12,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../sigilli/regia_del_cammino.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// IL BOSCO DEL CERCHIO. Ordine BX voce 03.
 ///
@@ -38,9 +39,7 @@ class BoscoDelCerchio extends StatelessWidget {
   /// segno non si sa ancora.
   final String? mio;
 
-  static Route<void> route({String? mio}) => MaterialPageRoute<void>(
-        builder: (_) => BoscoDelCerchio(mio: mio),
-      );
+  static Route<void> route({String? mio}) => PassaggioDelCerchio.rotta<void>((_) => BoscoDelCerchio(mio: mio));
 
   @override
   Widget build(BuildContext context) {

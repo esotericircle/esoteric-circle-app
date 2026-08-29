@@ -44,6 +44,7 @@ import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../pricing/upgrade_invite.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -83,9 +84,7 @@ class StesaTreCarteScreen extends StatefulWidget {
   /// l'anteprima.
   final bool skipIntro;
 
-  static Route<void> route({int? seed}) => MaterialPageRoute<void>(
-        builder: (_) => SogliaArte(id: 'tarot_spread_three', maestro: Maestro.medora, child: StesaTreCarteScreen(seed: seed)),
-      );
+  static Route<void> route({int? seed}) => PassaggioDelCerchio.rotta<void>((_) => SogliaArte(id: 'tarot_spread_three', maestro: Maestro.medora, child: StesaTreCarteScreen(seed: seed)));
 
   @override
   State<StesaTreCarteScreen> createState() => StesaTreCarteScreenState();

@@ -14,6 +14,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// LA SCENA DEL RITROVAMENTO. Ordine AP voce 05.
 ///
@@ -42,15 +43,13 @@ class ScenaDelRitrovamento extends StatelessWidget {
     required Ritrovamento ritrovamento,
     required VoidCallback onProsegui,
   }) =>
-      MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           maestro: Maestro.medora,
           child: ScenaDelRitrovamento(
             ritrovamento: ritrovamento,
             onProsegui: onProsegui,
           ),
-        ),
-      );
+        ));
 
   @override
   Widget build(BuildContext context) {

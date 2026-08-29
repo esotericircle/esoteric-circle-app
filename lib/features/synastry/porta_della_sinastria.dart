@@ -15,6 +15,7 @@ import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import 'sinastria_gallery_screen.dart';
 import 'sinastria_vip_screen.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// LA PORTA DELLA SINASTRIA VIP. Ordine CA voce 01.
 ///
@@ -67,8 +68,7 @@ class PortaDellaSinastria extends StatefulWidget {
     String? userName,
     DateTime? userBirth,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
         id: 'synastry_vip',
         maestro: Maestro.medora,
         child: PortaDellaSinastria(
@@ -76,8 +76,7 @@ class PortaDellaSinastria extends StatefulWidget {
           userName: userName,
           userBirth: userBirth,
         ),
-      ),
-    );
+      ));
   }
 
   @override

@@ -17,6 +17,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/avvisi_locali.dart';
 import '../../services/regia_delle_chiamate.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// IL MENU' DELLE NOTIFICHE: CINQUE ORARI, CINQUE INTERRUTTORI.
 /// Ordine BC voce 05.
@@ -47,9 +48,7 @@ class NotificheScreen extends StatefulWidget {
   /// ferma. E' la stessa iniezione che usa gia' il Rito dell'Alba.
   final ServizioAvvisi? avvisi;
 
-  static Route<void> route() => MaterialPageRoute(
-        builder: (_) => const NotificheScreen(),
-      );
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const NotificheScreen());
 
   @override
   State<NotificheScreen> createState() => _NotificheScreenState();

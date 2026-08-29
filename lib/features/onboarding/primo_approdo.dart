@@ -75,28 +75,46 @@ abstract final class BersagliDelPrimoApprodo {
 /// **L'ordine non si riordina** ed e' scritto nell'ordine CB: benvenuto, i
 /// Maestri, Esplora in basso, i Doni del Giorno, la barra in alto.
 const List<FumettoDelPrimoApprodo> cinqueFumetti = [
+  // **I TESTI SONO DEL FONDATORE, ordine CC voce 01.** La prima stesura era
+  // dell'Architetto; il fondatore li ha riscritti di suo pugno la sera del 29
+  // agosto 2026. Si usano come sono scritti: nessuna riformulazione, nessun
+  // sinonimo, nessun accorciamento, e i maiuscoli sono i suoi.
   FumettoDelPrimoApprodo(
-    titolo: 'Sei nel Cerchio',
-    testo: 'Il primo ecosistema esoterico al mondo. Qui le domande che tieni '
-        'dentro, quelle intime e quelle che cercano una guida, trovano una '
-        'voce che risponde. Un minuto e sai muoverti.',
+    titolo: 'IL CERCHIO TI ACCOGLIE',
+    testo: 'Qui trovi le risposte alle domande che non fai a nessuno. '
+        'Universo, Oracoli, Simboli, Energia e Spiritualità con un solo '
+        'click. Nulla di inventato: solo arti, pratiche e tradizioni '
+        'accreditate.',
     lato: LatoDelFumetto.soglia,
   ),
   FumettoDelPrimoApprodo(
-    titolo: 'I tre Maestri',
-    testo: 'Medora legge il cielo e le carte. Aura ascolta il respiro e '
-        'l\'energia. Caligo incide rune e riti. Ognuno custodisce le sue '
-        'arti: tocca il suo volto ed entri nel suo dominio.',
+    titolo: 'I TRE MAESTRI',
+    testo: 'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, '
+        'Divinazione. Caligo: Runologia, Simbologia, Ritualistica. Aura: '
+        'Energia, Meditazione, Equilibrio. Tocca un volto e gli parli: '
+        'risponde a te, con la tua data e la tua ora.',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.trio,
   ),
   FumettoDelPrimoApprodo(
-    titolo: 'Esplora',
-    testo: 'Qui sotto tieni la via più corta. Da ogni punto del Cerchio '
-        'ti riporta dove vuoi andare, senza perdere il filo.',
+    titolo: 'IL CERCHIO A UN CLICK',
+    testo: 'Raggiungi immediatamente, ovunque tu sia, il dominio e le arti '
+        'di ogni maestro con un tap del dito.',
     lato: LatoDelFumetto.sopra,
     ancora: BersagliDelPrimoApprodo.esplora,
   ),
+  // **QUESTO TESTO ASPETTA UNA DECISIONE DEL FONDATORE. Ordine CC voce 01.**
+  //
+  // Il testo nuovo dice "cinque doni a cinque ore diverse, creati incrociando
+  // il Cielo di oggi e la tua Carta natale". Misurato: **due doni su cinque
+  // nascono davvero da quell'incrocio**, l'Alba e il Soffio. L'Arcano del
+  // giorno non nasce da nessuno dei due, e' lo stesso per tutti e dipende solo
+  // dalla data (`ArcanoDelGiorno.di(DateTime giorno)`); la Runa del tramonto e
+  // il Sigillo del sogno guardano il cielo ma non la carta natale.
+  //
+  // L'ordine vieta di riscrivere un testo del fondatore: resta quello di
+  // prima, che dice il vero, finche' lui non decide se cambiare il testo o i
+  // doni.
   FumettoDelPrimoApprodo(
     titolo: 'I Doni del Giorno',
     testo: 'Il Cerchio ti lascia qualcosa ogni giorno, a ore diverse. Non si '
@@ -126,6 +144,15 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
   //
   // E' stata aggiunta la via di guadagno piu' frequente di tutte, che il testo
   // non nominava: l'accredito di ogni giorno.
+  // **ANCHE QUESTO ASPETTA UNA DECISIONE. Ordine CC voce 01.**
+  //
+  // Il testo nuovo dice "guadagna e spendi EOS ogni giorno per acquistare
+  // nuove esperienze e arti". Rimisurato sul listino del server: gli Eos
+  // comprano cinque cose, e sono tutte una dose in piu' di un'arte che la
+  // persona ha gia' (una domanda 80, un approfondimento 60, una gettata 60, un
+  // confronto 150, una stesa completa 250). **Nessuna arte dormiente si apre
+  // con gli Eos**: quelle le accendono i feature flag, non il borsellino.
+  // "Esperienze" e' vero, "arti" no.
   FumettoDelPrimoApprodo(
     titolo: 'Eos, la moneta del Cerchio',
     testo: 'Qui in alto stanno il tuo profilo, il cielo che si muove sopra di '
@@ -372,7 +399,13 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
 
   /// Quanto respiro fra il bersaglio e il fumetto, e quanto e' alta la freccia.
   static const double _aria = SpacingTokens.sm;
-  static const double _freccia = 12;
+  /// **QUANTO E' ALTA LA FRECCIA. Ordine CC voce 02.**
+  ///
+  /// Era dodici punti, ed era la meta' del problema: dodici punti di triangolo
+  /// scuro su un velo scuro non li vede nessuno. Sedici e' l'altezza a cui il
+  /// triangolo regge il proprio colore anche sopra la parte piu' chiara di una
+  /// scena, ed e' ancora un terzo dell'aria che lo circonda.
+  static const double _freccia = 16;
 
   /// Quanto respiro resta fra il fumetto e il bordo dello schermo.
   static const double _orlo = SpacingTokens.md;
@@ -528,10 +561,10 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: centro.clamp(SpacingTokens.md, 1000)),
       child: CustomPaint(
-        size: const Size(_freccia * 2, _freccia),
+        size: const Size(_freccia * 1.9, _freccia),
         painter: _Freccia(
-          colore: palette.surface,
-          bordo: palette.gold,
+          colore: palette.gold,
+          bordo: palette.deepest,
           versoIlBasso: versoIlBasso,
         ),
       ),
@@ -704,13 +737,18 @@ class _Freccia extends CustomPainter {
       via.lineTo(size.width / 2, 0);
     }
     via.close();
-    canvas.drawPath(via, Paint()..color = colore);
+    // **L'ALONE PRIMA, SOTTO IL TRIANGOLO. Ordine CC voce 02.** Rilievo del
+    // fondatore: "la freccia delle bolle sono poco visibili". La freccia era
+    // dipinta col colore della CARTA, cioe' un viola scuro, sopra un velo
+    // quasi nero: due scuri uno sull'altro. Adesso e' oro pieno, che e' lo
+    // stesso oro del bordo della carta, e l'alone la stacca anche quando sotto
+    // passa la parte chiara di una scena illuminata.
     canvas.drawPath(
         via,
         Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1
-          ..color = bordo.withValues(alpha: 0.55));
+          ..color = bordo.withValues(alpha: 0.65)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
+    canvas.drawPath(via, Paint()..color = colore);
   }
 
   @override

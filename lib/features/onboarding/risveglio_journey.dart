@@ -28,6 +28,7 @@ import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
 import 'trionfi_screen.dart';
 import 'primo_approdo.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -45,9 +46,7 @@ class RisveglioJourney extends StatefulWidget {
   static Route<void> route({required BirthDetails details}) {
     // Porta il MaestroScope con se': il cosmo profondo e le schermate natali lo
     // leggono per la palette (neutra finche' non si sceglie il Maestro).
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(child: RisveglioJourney(details: details)),
-    );
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(child: RisveglioJourney(details: details)));
   }
 
   @override

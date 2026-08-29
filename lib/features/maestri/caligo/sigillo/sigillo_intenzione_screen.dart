@@ -16,6 +16,8 @@ import '../../../../services/app_services.dart';
 import '../../chat/maestro_chat_screen.dart';
 import '../../rotta_arte.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// Il Sigillo dell'Intenzione, terza arte distintiva di Caligo.
 ///
@@ -33,13 +35,11 @@ import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 class SigilloIntenzioneScreen extends StatefulWidget {
   const SigilloIntenzioneScreen({super.key});
 
-  static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const SogliaArte(
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const SogliaArte(
         id: 'magic_sigil',
         maestro: Maestro.caligo,
           child: SigilloIntenzioneScreen(),
-        ),
-      );
+        ));
 
   /// Quanto dura il tracciamento del cammino, tratto dopo tratto.
   static const Duration tracciamento = Duration(milliseconds: 2400);
@@ -354,8 +354,9 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                     style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: SpacingTokens.xxs),
-                Text('"${lettura.riformulata}"',
-                    style: TypographyTokens.body(size: 16)
+                ParagrafiDiLettura(
+                    testo: '"${lettura.riformulata}"',
+                    stile: TypographyTokens.lettura()
                         .copyWith(height: 1.45)),
                 if (lettura.eStataRiformulata) ...[
                   const SizedBox(height: SpacingTokens.sm),
@@ -369,11 +370,11 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                   ),
                 ],
                 const SizedBox(height: SpacingTokens.sm),
-                Text(
+                ParagrafiDiLettura(
                   // Dopo una riformulazione la parola che l'ha innescata NON
                   // si ripete: rimetterebbe sotto gli occhi proprio la cosa
                   // che si e' appena tolta, e suonerebbe come un rimprovero.
-                  lettura.eStataRiformulata
+                  testo: lettura.eStataRiformulata
                       ? 'Un desiderio che riguarda il cuore appartiene alla '
                           '${lettura.via.nome}.'
                       : lettura.riconosciuta
@@ -383,7 +384,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                               'tue parole, quindi ho scelto la Via Bianca, '
                               'che è quella della chiarezza.',
                   key: const Key('sigillo_perche'),
-                  style: TypographyTokens.corpo().copyWith(
+                  stile: TypographyTokens.lettura().copyWith(
                       color: ColorTokens.textSecondary, height: 1.45),
                 ),
               ],

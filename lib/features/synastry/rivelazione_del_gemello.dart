@@ -6,6 +6,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// LA RIVELAZIONE DEL GEMELLO ASTRALE. Ordine BO voce 10.
 ///
@@ -131,10 +132,11 @@ class _RivelazioneDelGemelloState extends State<RivelazioneDelGemello>
                     .copyWith(color: widget.palette.goldSoft)),
             if (finita) ...[
               const SizedBox(height: SpacingTokens.xs),
-              Text(widget.gemello.annuncio,
+              ParagrafiDiLettura(
                   key: const Key('sinastria_gemello_annuncio'),
+                  testo: widget.gemello.annuncio,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.corpo()
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textSecondary)),
             ],
           ],

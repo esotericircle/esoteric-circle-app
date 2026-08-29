@@ -38,6 +38,7 @@ import '../../core/maestro/maestro.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -105,8 +106,7 @@ class SinastriaVipScreen extends StatefulWidget {
     Vip? primoVip,
     bool giaScoperta = false,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: Maestro.medora,
         child: SinastriaVipScreen(
           userSign: userSign,
@@ -116,8 +116,7 @@ class SinastriaVipScreen extends StatefulWidget {
           primoVip: primoVip,
           giaScoperta: giaScoperta,
         ),
-      ),
-    );
+      ));
   }
 
   @override

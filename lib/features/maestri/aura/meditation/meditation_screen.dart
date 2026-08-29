@@ -15,6 +15,8 @@ import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// Meditazione di Aura con suono e cimatica.
 ///
@@ -34,9 +36,7 @@ class MeditationScreen extends StatefulWidget {
   final TonePlayer player;
 
   static Route<void> route({TonePlayer? player}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(id: 'meditation', maestro: Maestro.aura, child: MeditationScreen(player: player)),
-    );
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(id: 'meditation', maestro: Maestro.aura, child: MeditationScreen(player: player)));
   }
 
   @override
@@ -255,10 +255,10 @@ class _MeditationScreenState extends State<MeditationScreen>
                             size: 16, color: palette.goldSoft),
                         const SizedBox(width: SpacingTokens.xs),
                         Expanded(
-                          child: Text(
-                            'La meditazione è portata a compimento: porta '
-                            'questa calma con te.',
-                            style: TypographyTokens.corpo()
+                          child: ParagrafiDiLettura(
+                            testo: 'La meditazione è portata a compimento: '
+                                'porta questa calma con te.',
+                            stile: TypographyTokens.lettura()
                                 .copyWith(color: palette.goldSoft),
                           ),
                         ),

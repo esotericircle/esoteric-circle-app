@@ -18,6 +18,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'ritual_view.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// L'ARCANO DEL GIORNO, dominio Medora. Ordine AS voce 08.
 ///
@@ -40,9 +41,7 @@ class DayOracleScreen extends StatefulWidget {
 
   final DateTime? now;
 
-  static Route<void> route({DateTime? now}) => MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(child: DayOracleScreen(now: now)),
-      );
+  static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(child: DayOracleScreen(now: now)));
 
   @override
   State<DayOracleScreen> createState() => _DayOracleScreenState();

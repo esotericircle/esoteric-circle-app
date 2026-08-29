@@ -20,6 +20,7 @@ import 'le_tre_righe_del_sentiero.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import 'la_mappa_del_sentiero.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// IL SENTIERO DEI SIGILLI: Albero, Costellazione o Loto.
 ///
@@ -58,12 +59,10 @@ class SentieroScreen extends StatefulWidget {
   // fondatore: "non sono funzionalita' che possono e devono finire tra i
   // preferiti in home". Del guscio serviva solo il colore del Maestro, e
   // resta solo quello.
-  static Route<void> route(Sentiero sentiero) => MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(
+  static Route<void> route(Sentiero sentiero) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           maestro: sentiero.maestro,
           child: SentieroScreen(sentiero: sentiero),
-        ),
-      );
+        ));
 
   @override
   State<SentieroScreen> createState() => _SentieroScreenState();

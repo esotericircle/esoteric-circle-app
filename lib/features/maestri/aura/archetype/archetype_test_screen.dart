@@ -33,6 +33,7 @@ import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
@@ -58,16 +59,14 @@ class ArchetypeTestScreen extends StatefulWidget {
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
         id: 'archetype_test',
         maestro: Maestro.aura,
         child: ArchetypeTestScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
         ),
-      ),
-    );
+      ));
   }
 
   @override

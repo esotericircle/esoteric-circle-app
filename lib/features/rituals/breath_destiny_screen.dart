@@ -32,6 +32,7 @@ import '../../core/rituals/risposta_del_soffio.dart';
 import 'ritual_gift_card.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Soffio del Destino, dominio Aura.
 ///
@@ -98,9 +99,7 @@ class BreathDestinyScreen extends StatefulWidget {
 
   final DateTime? now;
 
-  static Route<void> route({DateTime? now}) => MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(child: BreathDestinyScreen(now: now)),
-      );
+  static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(child: BreathDestinyScreen(now: now)));
 
   @override
   State<BreathDestinyScreen> createState() => _BreathDestinyScreenState();

@@ -11,6 +11,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'chat/maestro_chat_screen.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La soglia di un'arte che si apre ma non ha ancora la sua esperienza piena.
 ///
@@ -30,11 +31,9 @@ class ArtIntroScreen extends StatelessWidget {
   final Maestro maestro;
 
   static Route<void> route({required ArtEntry art, required Maestro maestro}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         child: ArtIntroScreen(art: art, maestro: maestro),
-      ),
-    );
+      ));
   }
 
   @override

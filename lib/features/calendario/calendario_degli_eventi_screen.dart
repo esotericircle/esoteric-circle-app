@@ -17,6 +17,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../shell/vie_del_cerchio.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// IL CALENDARIO DEGLI EVENTI. Ordine AN voce 03.
 ///
@@ -53,13 +55,10 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
     'luna_nuova_nel_tuo_segno',
   };
 
-  static Route<void> route({DateTime? adesso}) => MaterialPageRoute<void>(
-        settings: const RouteSettings(arguments: PortaDelCerchio.calendario),
-        builder: (_) => MaestroScope(
+  static Route<void> route({DateTime? adesso}) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           maestro: Maestro.medora,
           child: CalendarioDegliEventiScreen(adesso: adesso),
-        ),
-      );
+        ), settings: const RouteSettings(arguments: PortaDelCerchio.calendario));
 
   @override
   Widget build(BuildContext context) {
@@ -120,10 +119,10 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
                 SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xxxl),
             children: [
-              Text(
-                'Le date che il cielo ha già deciso, calcolate sul tuo '
-                'fuso orario.',
-                style: TypographyTokens.corpo()
+              ParagrafiDiLettura(
+                testo: 'Le date che il cielo ha già deciso, calcolate sul tuo '
+                    'fuso orario.',
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.lg),

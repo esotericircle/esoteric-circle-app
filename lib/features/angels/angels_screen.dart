@@ -17,6 +17,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/maestro/maestro.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
 ///
@@ -35,9 +36,7 @@ class AngelsScreen extends StatefulWidget {
   static const Duration ingresso = Duration(milliseconds: 2200);
 
   static Route<void> route({required BirthIdentity identity}) =>
-      MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(maestro: Maestro.medora, child: AngelsScreen(identity: identity)),
-      );
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(maestro: Maestro.medora, child: AngelsScreen(identity: identity)));
 
   @override
   State<AngelsScreen> createState() => _AngelsScreenState();

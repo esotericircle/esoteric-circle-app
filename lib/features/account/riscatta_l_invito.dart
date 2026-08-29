@@ -64,7 +64,7 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
           ParagrafiDiLettura(
             testo: 'Incolla qui il codice che hai ricevuto: chi ti ha portato '
                 'nel Cerchio riceverà il suo premio. Si fa una volta sola.',
-            stile: TypographyTokens.didascalia()
+            stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.md),

@@ -38,6 +38,8 @@ import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../sigilli/celebrazione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'corsa_dello_zodiaco.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -87,12 +89,10 @@ class OroscopoScreen extends StatefulWidget {
   final DateTime? now;
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
           id: 'horoscope',
           maestro: Maestro.medora,
-          child: OroscopoScreen(userSign: userSign, now: now)),
-    );
+          child: OroscopoScreen(userSign: userSign, now: now)));
   }
 
   @override
@@ -123,6 +123,28 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// quattro combinazioni, e una sola era quella giusta: una fase sola non ha
   /// combinazioni sbagliate da assumere.
   _FaseDelConsulto _fase = _FaseDelConsulto.attesa;
+
+  /// **IL SEGNO SU CUI LA CORSA SI FERMA. Ordine CC voce 03.**
+  ///
+  /// Non si va a cercarlo da nessuna parte: la schermata dell'Oroscopo lo ha
+  /// gia' in mano, perche' e' il segno con cui e' stata aperta. Una seconda
+  /// via per lo stesso dato sarebbe la solita seconda porta.
+  Zodiac get _segnoDiChiGuarda => widget.userSign;
+
+  /// **LA CORSA RESTA IN SCENA MENTRE SI DISSOLVE. Ordine CC voce 03.**
+  ///
+  /// Il fondatore ha scritto "poi in dissolvenza torni a mostrare la schermata
+  /// di responso": la dissolvenza deve avvenire SOPRA il responso, non prima.
+  /// Legandola ai due momenti della riflessione, la scena sparirebbe
+  /// nell'istante in cui il responso nasce, e il responso comparirebbe di
+  /// botto sotto un velo gia' tolto: cioe' il difetto che questa voce chiude.
+  bool _corsaInScena = false;
+
+  /// Il tempo che la corsa resta sopra il responso mentre si dissolve.
+  Timer? _fineDellaCorsa;
+
+  /// Quanto dura la sola dissolvenza, dentro il tempo della corsa.
+  static const Duration _dissolvenzaDellaCorsa = Duration(milliseconds: 700);
 
   /// Vero mentre uno dei due momenti della riflessione e' a schermo.
   bool get _riflettendo =>
@@ -162,7 +184,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // domanda che la tiene viva e' la fase: finche' e' raccolta o nomina, il
     // cielo sta ancora parlando e nessuna festa ci si dipinge sopra.
     RiflessioniInCorso.entra(() => mounted && _riflettendo);
-    setState(() => _fase = _FaseDelConsulto.raccolta);
+    setState(() {
+      _fase = _FaseDelConsulto.raccolta;
+      _corsaInScena = true;
+    });
     // **LA SOGLIA, ordine BK voce 04.** Vibrazione leggera e suono di soglia,
     // dalla porta unica: l'interruttore che governa suono e vibrazione e'
     // quello che c'e' gia', e non ne nasce un secondo.
@@ -198,8 +223,30 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _fase = _FaseDelConsulto.responso;
       _turnoDiScrittura = 0;
     });
-    // Scena libera: la festa che ha aspettato la riflessione riparte adesso.
-    unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
+    // La corsa non sparisce col cambio di fase: resta sopra il responso il
+    // tempo della sua dissolvenza, ed e' quella dissolvenza a scoprirlo.
+    //
+    // **UN TIMER CHE SI PUO' SPEGNERE, non un Future.** Un Future in volo
+    // sopravvive alla schermata chiusa: la guardia `mounted` evita il guasto,
+    // ma la prova cade lo stesso con "A Timer is still pending". Chi apre e
+    // chiude in fretta l'Oroscopo lascerebbe indietro un pezzo di scena.
+    _fineDellaCorsa?.cancel();
+    _fineDellaCorsa = Timer(_dissolvenzaDellaCorsa, () {
+      if (!mounted) return;
+      setState(() => _corsaInScena = false);
+      // Scena libera: la festa che ha aspettato la riflessione riparte adesso.
+      unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
+    });
+    // **LA FESTA ASPETTA CHE LA SCENA SI SIA TOLTA. Ordine CC voce 03.**
+    //
+    // La festa di un traguardo e' una rotta spinta sopra tutto: partendo qui,
+    // copriva la corsa dello zodiaco proprio mentre si dissolveva, e
+    // l'anteprima del terzo momento mostrava un cielo di stelle al posto della
+    // dissolvenza. Chi legge il suo primo oroscopo vedeva la scena sparire
+    // sotto una festa invece che scoprire il responso.
+    //
+    // Adesso parte quando la corsa se n'e' andata, insieme alla riga che la
+    // toglie: e' lo stesso istante, scritto in un posto solo.
     // **LA RIVELAZIONE, ordine BK voce 04.** Parte alla comparsa del responso,
     // cioe' almeno un'intera riflessione dopo la soglia: i due suoni non si
     // sovrappongono mai, e ciascuno parte una volta sola per consulto.
@@ -294,6 +341,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
 
   @override
   void dispose() {
+    _fineDellaCorsa?.cancel();
     _cascata?.cancel();
     _pulse.dispose();
     super.dispose();
@@ -339,7 +387,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             voce.key: voce.value == AnswerDepth.profonda,
         });
 
-    return Scaffold(
+    return Stack(
+      children: [
+        Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -516,6 +566,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   // dirla. Adesso sta in un posto solo, nell'area privacy.
                 ],
               ),
+
               if (_renderCard)
                 Positioned(
                   left: -3000,
@@ -530,6 +581,36 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           ),
         ),
       ),
+        ),
+        // **LA CORSA DELLO ZODIACO STA SOPRA TUTTO. Ordine CC voce 03.**
+        //
+        // Parole del fondatore: "VOGLIO che ci sia una schermata nuova sopra
+        // tutto con tutti i simboli dello zodiaco grandi che velocemente si
+        // succedono uno dopo l'altro e poi si ferma sul segno zodiacale
+        // dell'utente".
+        //
+        // **Sta FUORI dallo Scaffold, e me l'ha insegnato l'anteprima.** Prima
+        // stava dentro il corpo, e restavano scoperte la freccia Indietro e il
+        // cuore della barra: una schermata nuova che lascia visibili i comandi
+        // di quella vecchia non e' una schermata nuova. Prima ancora stava
+        // dentro la colonna dell'eroe, dove un `Positioned.fill` non ha
+        // significato e Flutter lo dice con un errore.
+        //
+        // **Restano fuori le due barre sottili dell'app**, e lo dichiaro:
+        // quelle vivono sopra il Navigator, cioe' sopra ogni rotta, e per
+        // coprirle bisognerebbe portare questa scena fuori dalla schermata che
+        // la possiede, cioe' aprire una seconda porta sullo stesso momento.
+        if (_corsaInScena)
+          CorsaDelloZodiaco(
+            key: const Key('corsa_dello_zodiaco'),
+            segno: _segnoDiChiGuarda,
+            palette: palette,
+            durata: RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) *
+                    2 +
+                _dissolvenzaDellaCorsa,
+            riduciMovimento: MediaQuery.of(context).disableAnimations,
+          ),
+      ],
     );
   }
 

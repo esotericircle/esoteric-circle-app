@@ -44,6 +44,7 @@ import '../../../../core/rituals/sunset_rune_memory.dart';
 import '../../../../core/responsi/anatomia_del_responso.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -94,10 +95,8 @@ class RuneDrawScreen extends StatefulWidget {
     DateTime? userBirth,
     math.Random? random,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => conLaSoglia(RuneDrawScreen(
-            userSign: userSign, userBirth: userBirth, random: random)),
-    );
+    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(RuneDrawScreen(
+            userSign: userSign, userBirth: userBirth, random: random)));
   }
 
   @override

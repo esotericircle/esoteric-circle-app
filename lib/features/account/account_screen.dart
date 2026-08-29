@@ -31,6 +31,7 @@ import 'riscatta_l_invito.dart';
 import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
 import '../onboarding/primo_approdo.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -44,10 +45,7 @@ class AccountScreen extends StatelessWidget {
   /// **LA ROTTA DICHIARA LA SUA DESTINAZIONE.** Ordine AU voce 10: senza
   /// questa riga nessuno puo' accorgersi che il menu' utente e' gia' aperto, e
   /// ogni tocco ne impila un altro sopra quello di prima.
-  static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const AccountScreen(),
-        settings: const RouteSettings(arguments: PortaDelCerchio.account),
-      );
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const AccountScreen(), settings: const RouteSettings(arguments: PortaDelCerchio.account));
 
   @override
   Widget build(BuildContext context) {
@@ -1285,9 +1283,7 @@ class _AccountTile extends StatelessWidget {
 class PrivacyEDatiScreen extends StatelessWidget {
   const PrivacyEDatiScreen({super.key});
 
-  static Route<void> route() => MaterialPageRoute(
-        builder: (_) => const MaestroScope(child: PrivacyEDatiScreen()),
-      );
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: PrivacyEDatiScreen()));
 
   @override
   Widget build(BuildContext context) {

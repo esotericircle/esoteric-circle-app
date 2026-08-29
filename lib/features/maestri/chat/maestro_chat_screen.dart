@@ -45,6 +45,7 @@ import '../../../services/ai/voce_sorvegliata.dart';
 import 'widgets/diagnostics_dialog.dart';
 import '../widgets/maestro_bust.dart';
 import '../../../core/config/app_flags.dart';
+import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -74,11 +75,10 @@ class MaestroChatScreen extends StatefulWidget {
     String? initialTheme,
     String? initialUserMessage,
   }) {
-    return MaterialPageRoute<void>(
-      // Il contesto della rotta, non quello del builder interno: da qui si
+    return PassaggioDelCerchio.rotta<void>(// Il contesto della rotta, non quello del builder interno: da qui si
       // leggono il contatore delle domande e il piano attivo, che senza
       // questo passaggio la chat non vedrebbe mai.
-      builder: (rotta) => ChangeNotifierProvider<MaestroChatController>(
+      (rotta) => ChangeNotifierProvider<MaestroChatController>(
         create: (_) => MaestroChatController(
           maestro: maestro,
           ai: services.ai,
@@ -105,8 +105,7 @@ class MaestroChatScreen extends StatefulWidget {
             initialUserMessage: initialUserMessage,
           ),
         ),
-      ),
-    );
+      ));
   }
 
   @override

@@ -37,6 +37,7 @@ import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
+import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -86,12 +87,10 @@ class FaceConstellationScreen extends StatefulWidget {
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => conLaSoglia(FaceConstellationScreen(
+    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(FaceConstellationScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
-        )),
-    );
+        )));
   }
 
   @override

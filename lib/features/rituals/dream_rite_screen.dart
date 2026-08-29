@@ -35,6 +35,7 @@ import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
@@ -69,10 +70,8 @@ class DreamRiteScreen extends StatefulWidget {
     DateTime? now,
     TonePlayer? player,
   }) =>
-      MaterialPageRoute<void>(
-        builder: (_) =>
-            MaestroScope(child: DreamRiteScreen(now: now, player: player)),
-      );
+      PassaggioDelCerchio.rotta<void>((_) =>
+            MaestroScope(child: DreamRiteScreen(now: now, player: player)));
 
   @override
   State<DreamRiteScreen> createState() => _DreamRiteScreenState();

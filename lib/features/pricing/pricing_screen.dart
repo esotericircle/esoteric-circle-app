@@ -10,6 +10,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La schermata dei piani del Cerchio, in stile 2.5D.
 ///
@@ -25,9 +26,7 @@ class PricingScreen extends StatelessWidget {
   final bool isDemo;
 
   static Route<void> route() {
-    return MaterialPageRoute<void>(
-      builder: (_) => const MaestroScope(child: PricingScreen()),
-    );
+    return PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: PricingScreen()));
   }
 
   @override

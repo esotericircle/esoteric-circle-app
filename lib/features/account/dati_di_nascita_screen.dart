@@ -11,6 +11,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// DOVE SI CORREGGONO I DATI DI NASCITA DOPO IL RISVEGLIO.
 ///
@@ -40,12 +41,10 @@ class DatiDiNascitaScreen extends StatefulWidget {
   ///
   /// Una schermata che dipende da uno scope deve portarselo, non sperare che
   /// glielo dia chi la apre.
-  static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const MaestroScope(
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(
           maestro: Maestro.medora,
           child: DatiDiNascitaScreen(),
-        ),
-      );
+        ));
 
   @override
   State<DatiDiNascitaScreen> createState() => _DatiDiNascitaScreenState();

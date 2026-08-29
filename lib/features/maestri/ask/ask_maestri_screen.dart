@@ -35,6 +35,8 @@ import '../widgets/maestro_bust.dart';
 import '../widgets/tre_volti.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../rotta_arte.dart';
+import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
@@ -99,16 +101,14 @@ class AskMaestriScreen extends StatefulWidget {
     required String tema,
     required List<MaestroLens> lenti,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: starter,
         child: AskMaestriScreen(
           starter: starter,
           temaIniziale: tema,
           lentiIniziali: lenti,
         ),
-      ),
-    );
+      ));
   }
 
   // IL COSTRUTTORE DI ROTTA SENZA TEMA E' STATO TOLTO.
@@ -719,8 +719,9 @@ class _SynthesisCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),
-          Text(synthesis,
-              style: TypographyTokens.corpo()
+          ParagrafiDiLettura(
+              testo: synthesis,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
         ],
       ),
@@ -888,8 +889,9 @@ class _LensCard extends StatelessWidget {
           // campo vuoto: e' la stessa correzione per tutte e due.
           if (lens.glance.trim().isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text(lens.glance,
-                style: TypographyTokens.corpo().copyWith(
+            ParagrafiDiLettura(
+                testo: lens.glance,
+                stile: TypographyTokens.lettura().copyWith(
                   color: palette.goldSoft,
                   fontStyle: FontStyle.italic,
                   height: 1.35,

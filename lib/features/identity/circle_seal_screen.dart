@@ -17,6 +17,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'seal_painter.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Il Sigillo del Cerchio, a fine onboarding subito dopo la carta natale.
 ///
@@ -46,10 +47,8 @@ class CircleSealScreen extends StatefulWidget {
     String name = 'Anima del Cerchio',
     BirthIdentity? identity,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) =>
-          MaestroScope(child: CircleSealScreen(name: name, identity: identity)),
-    );
+    return PassaggioDelCerchio.rotta<void>((_) =>
+          MaestroScope(child: CircleSealScreen(name: name, identity: identity)));
   }
 
   @override

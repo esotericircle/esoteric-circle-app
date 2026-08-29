@@ -37,6 +37,7 @@ import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// Rito dell'Alba, prototipo di riferimento dei cinque riti quotidiani.
 ///
@@ -81,15 +82,13 @@ class DawnRiteScreen extends StatefulWidget {
   /// partiva davvero sul telefono. Le prove continuano a iniettare il finto.
   static Route<void> route(
           {DateTime? now, SkyLocation? location, ServizioAvvisi? avvisi}) =>
-      MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           child: DawnRiteScreen(
             now: now,
             location: location ?? const GeolocatorSkyLocation(),
             avvisi: avvisi ?? avvisiDelCerchio,
           ),
-        ),
-      );
+        ));
 
   @override
   State<DawnRiteScreen> createState() => _DawnRiteScreenState();

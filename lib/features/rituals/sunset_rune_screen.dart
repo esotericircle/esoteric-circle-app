@@ -42,6 +42,7 @@ import '../../core/sensi/palette_sensoriale.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
@@ -74,8 +75,7 @@ class SunsetRuneScreen extends StatefulWidget {
     Zodiac? segno,
     SkyLocation location = const GeolocatorSkyLocation(),
   }) =>
-      MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: Maestro.caligo,
           child: SunsetRuneScreen(
             now: now,
@@ -83,8 +83,7 @@ class SunsetRuneScreen extends StatefulWidget {
             segno: segno,
             location: location,
           ),
-        ),
-      );
+        ));
 
   @override
   State<SunsetRuneScreen> createState() => _SunsetRuneScreenState();

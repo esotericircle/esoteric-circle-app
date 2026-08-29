@@ -34,6 +34,7 @@ import 'planisfero.dart';
 import 'risveglio_ignitions.dart';
 import 'sigillo_step.dart';
 import 'risveglio_journey.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// "Il Risveglio": la primissima soglia del cerchio, un rituale a passi sul
 /// cosmo, mostrato una sola volta al primo avvio prima del Santuario.
@@ -68,11 +69,8 @@ class OnboardingScreen extends StatefulWidget {
   }) {
     // Il cosmo di fondo legge la palette dal MaestroScope: la rotta lo porta con
     // se', cosi' vive anche fuori dalla home (dove sta l'altro MaestroScope).
-    return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
-          child: OnboardingScreen(clock: clock, ritrovata: ritrovata)),
-      fullscreenDialog: false,
-    );
+    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+          child: OnboardingScreen(clock: clock, ritrovata: ritrovata)), fullscreenDialog: false);
   }
 
   @override

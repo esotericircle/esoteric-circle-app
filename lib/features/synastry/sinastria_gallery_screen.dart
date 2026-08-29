@@ -24,6 +24,7 @@ import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../sigilli/celebrazione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -86,8 +87,7 @@ class SinastriaGalleryScreen extends StatefulWidget {
     DateTime? userBirth,
     String? titolo,
   }) {
-    return MaterialPageRoute<Vip>(
-      builder: (_) => MaestroScope(
+    return PassaggioDelCerchio.rotta<Vip>((_) => MaestroScope(
         maestro: Maestro.medora,
         child: SinastriaGalleryScreen(
           userSign: userSign,
@@ -96,8 +96,7 @@ class SinastriaGalleryScreen extends StatefulWidget {
           restituisci: true,
           titolo: titolo,
         ),
-      ),
-    );
+      ));
   }
 
   static Route<void> route({
@@ -106,8 +105,7 @@ class SinastriaGalleryScreen extends StatefulWidget {
     DateTime? userBirth,
     bool cercaSubitoIlGemello = false,
   }) {
-    return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
         id: 'synastry_vip',
         maestro: Maestro.medora,
         child: SinastriaGalleryScreen(
@@ -116,8 +114,7 @@ class SinastriaGalleryScreen extends StatefulWidget {
           userBirth: userBirth,
           cercaSubitoIlGemello: cercaSubitoIlGemello,
         ),
-      ),
-    );
+      ));
   }
 
   @override
@@ -279,8 +276,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// Mette un VIP nella prima casella, al posto della persona: la galleria si
   /// riapre per scegliere il secondo.
   void _sostituisciLaPrimaCasella(Vip primo) {
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+    Navigator.of(context).push(PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
         maestro: Maestro.medora,
         child: SinastriaGalleryScreen(
           primoVip: primo,
@@ -288,8 +284,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
           userName: widget.userName,
           userBirth: widget.userBirth,
         ),
-      ),
-    ));
+      )));
   }
 
 

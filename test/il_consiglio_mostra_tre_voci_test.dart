@@ -149,7 +149,27 @@ void main() {
     // ENUMERA tutti i punti che mostrano o compongono un dominio, prompt della
     // sintesi compreso. E' la famiglia di difetti piu' numerosa del progetto,
     // e l'ultima e' sfuggita perche' una prova guardava due file scelti a mano.
-    const modiLeciti = ['domainArts', 'domainArtsPhrase'];
+    // **IL SECONDO FUMETTO DEL TUTORIAL E' SCRITTO DAL FONDATORE. Ordine CC
+    // voce 01.**
+    //
+    // La regola qui sopra vale e resta: un dominio non si scrive a mano, nasce
+    // dal Maestro. Il secondo fumetto del primo approdo e' l'unica eccezione,
+    // e non e' una scappatoia: quelle parole le ha scritte il fondatore di suo
+    // pugno il 29 agosto 2026, e l'ordine vieta di riformularle.
+    //
+    // **E le sue parole NON coincidono con `domainArts`**, cosa che sta
+    // dichiarata nel manifesto dell'ordine CC voce 01: lui scrive
+    // "Divinazione" dove il codice dice "Destino", "Runologia, Simbologia,
+    // Ritualistica" dove il codice dice "Rune, Rituali, Cabala", "Energia,
+    // Meditazione, Equilibrio" dove il codice dice "Chakra, Energia,
+    // Archetipi". Allineare l'uno all'altro e' una decisione sua, non mia:
+    // finche' non la prende, l'app dice le sue parole nel tutorial e quelle
+    // del codice altrove.
+    const modiLeciti = [
+      'domainArts',
+      'domainArtsPhrase',
+      'Tre voci, tre mondi',
+    ];
     final colpe = <String>[];
     final da = <FileSystemEntity>[Directory('lib')];
     while (da.isNotEmpty) {
