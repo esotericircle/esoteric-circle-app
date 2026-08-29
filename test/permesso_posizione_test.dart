@@ -109,10 +109,21 @@ void main() {
       (tester) async {
     await apri(
         tester, const RispostaPosizione(EsitoPosizione.servizioSpento));
-    expect(find.textContaining('posizione del telefono è spenta'),
+    // **LA FRASE E\' CAMBIATA CON L\'ORDINE BZ VOCE 04, e questa prova era
+    // rimasta alla frase di prima.** Il fondatore ha toccato "Orienta il tuo
+    // cielo" sul suo iPhone e non e\' comparso nessun dialogo: la
+    // Localizzazione di sistema era spenta, e in quel caso NESSUNA app puo\'
+    // chiedere niente. La frase adesso lo dice con quelle parole, e la via
+    // d\'uscita porta alla Localizzazione di SISTEMA: mandare ai permessi
+    // dell\'app chi ha la Localizzazione spenta lo porta in una pagina dove la
+    // riga Posizione non esiste nemmeno. La prova insegue il testo vero,
+    // altrimenti difende una frase che nessuno legge piu\'.
+    expect(find.textContaining('Localizzazione del telefono è spenta'),
         findsOneWidget);
-    // Impostazioni del DISPOSITIVO, non dei permessi dell'app: mandare ai
-    // permessi chi ha il GPS spento e' un giro a vuoto.
-    expect(find.text('Impostazioni'), findsOneWidget);
+    expect(find.text('Localizzazione'), findsOneWidget,
+        reason: 'la via d\'uscita non porta alla Localizzazione di sistema');
+    expect(find.text('Permessi'), findsNothing,
+        reason: 'coi permessi dell\'app chi ha la Localizzazione spenta fa un '
+            'giro a vuoto');
   });
 }

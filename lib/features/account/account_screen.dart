@@ -30,6 +30,7 @@ import 'dati_di_nascita_screen.dart';
 import 'riscatta_l_invito.dart';
 import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
+import '../onboarding/primo_approdo.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -159,6 +160,26 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.password_rounded,
           onTap: (context) => _chiediLaParolaNuova(context),
         ),
+      // **RIVEDI IL PRIMO APPRODO. Ordine CB voce 02.** Parole del fondatore:
+      // "potra' farlo riapparire dal menu' utente".
+      //
+      // **Sta qui e non dentro Privacy e dati**, perche' non e' un dato ne'
+      // una impostazione: e' la spiegazione dell'app, e chi la cerca la cerca
+      // vicino al proprio nome. Al tocco riarma il tutorial e riporta al
+      // Cerchio, perche' i cinque fumetti puntano cose che vivono solo li':
+      // aprirlo da qui lascerebbe quattro frecce nel vuoto.
+      _AccountEntry(
+        id: 'rivedi_primo_approdo',
+        title: 'Rivedi il primo approdo',
+        subtitle: 'I cinque fumetti che spiegano il Cerchio, in un minuto',
+        icon: Icons.explore_outlined,
+        onTap: (context) async {
+          await MemoriaDelPrimoApprodo.rivedi();
+          if (!context.mounted) return;
+          Navigator.of(context).popUntil((r) => r.isFirst);
+          rivediIlPrimoApprodo.value++;
+        },
+      ),
       _AccountEntry(
         id: 'abbonamento',
         title: 'Abbonamento',

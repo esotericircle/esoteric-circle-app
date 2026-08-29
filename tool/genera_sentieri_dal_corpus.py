@@ -58,10 +58,13 @@ GESTI_VIVI = {
     # Ordine BX voce 10: la condivisione di un responso, col canale che il
     # foglio di sistema ha scelto e col Maestro della scena.
     'condivisione',
-    # Ordine BX voci 10 e 11: il quaderno dei sogni. Annotare e rileggere
-    # sono due gesti distinti, perche' il corpus li distingue.
-    'sogno_annotato',
-    'sogno_riletto',
+    # **IL QUADERNO DEI SOGNI NON C'E' PIU'. Ordine CB voce 01.** Annotare
+    # e rileggere erano due gesti dell'ordine BX, nati per svegliare tre
+    # gradini del corpus. Il fondatore ha fatto togliere il quaderno, e coi
+    # gesti spariti quei tre gradini tornano dormienti dichiarati: il
+    # generatore lo fa da se', che e' la ragione per cui esiste.
+    # 'sogno_annotato',
+    # 'sogno_riletto',
     # Ordine BX voce 03: le due porte del Cerchio. Il bosco si guarda senza
     # il dato di nessuno; i due volti si leggono qui, sullo stesso telefono.
     'bosco',
@@ -562,7 +565,9 @@ def regolaSognoAnnotato(v, testo):
     if 'annotat' not in testo or 'sogn' not in testo:
         return None
     if 'sogno_annotato' not in GESTI_VIVI:
-        return 'DORMIENTE', 'il gesto sogno_annotato non arriva alla regia'
+        return 'DORMIENTE', ("il quaderno dei sogni e' stato tolto dall'ordine CB voce 01, "
+                            "quindi nessuno annota piu' un sogno e il gesto non arriva "
+                            "alla regia")
     if 'animale' in testo:
         return "VarietaDelDettaglio('sogno_annotato', 'animale_guida', 1)", None
     if 'stesso simbolo' in testo or 'simbolo' in testo:
@@ -582,7 +587,9 @@ def regolaSognoRiletto(v, testo):
     if 'rilegg' not in testo or 'sogn' not in testo:
         return None
     if 'sogno_riletto' not in GESTI_VIVI:
-        return 'DORMIENTE', 'il gesto sogno_riletto non arriva alla regia'
+        return 'DORMIENTE', ("il quaderno dei sogni e' stato tolto dall'ordine CB voce 01, "
+                           "quindi non c'e' piu' niente da rileggere e il gesto non "
+                           "arriva alla regia")
     return "VarietaDelDettaglio('sogno_riletto', 'a_distanza', 1)", None
 
 
@@ -1138,9 +1145,8 @@ DETTAGLI_VIVI = {
     # Ordine BX voce 10.
     'condivisione': {'canale', 'privato_medora', 'privato_aura',
                      'privato_caligo'},
-    # Ordine BX voci 10 e 11.
-    'sogno_annotato': {'simbolo', 'animale_guida'},
-    'sogno_riletto': {'giorni', 'a_distanza'},
+    # Ordine CB voce 01: il quaderno dei sogni non c'e' piu', e con lui i
+    # suoi dettagli.
     # Ordine BX voce 01.
     'alba': {'prima_del_sole'},
     'soffio': {'tenuto'},

@@ -224,7 +224,23 @@ void main() {
         for (final v in voci)
           if (v['dormiente'] == true) v['id'] as String,
       };
-      final inPiu = inApp.where((t) => !dalCorpus.contains(t.id)).toList();
+      // **I TRE CHE DORMONO PERCHE' IL FONDATORE HA TOLTO IL QUADERNO.**
+      // Ordine CB voce 01. Non e' l'app che non sa misurarli: e' che il
+      // gesto non esiste piu', perche' il diario dei sogni e' stato
+      // eliminato per ordine del fondatore. Dichiararli qui col nome e' la
+      // strada di questo progetto, e allungare invece la lista dei permessi
+      // in silenzio sarebbe l'opposto.
+      const tolti = <String, String>{
+        'cal_17': 'Il sogno riletto, chiedeva di tornare su un sogno annotato',
+        'cal_31': 'Il sogno che si ripete, chiedeva due sogni annotati',
+        'cal_32': 'Il tuo Animale nel sogno, chiedeva un sogno annotato',
+      };
+      final inPiu = inApp
+          .where((t) => !dalCorpus.contains(t.id) && !tolti.containsKey(t.id))
+          .toList();
+      // ignore: avoid_print
+      print('ORDINE CB VOCE 01: dormono per il quaderno tolto '
+          '${tolti.keys.join(", ")}, ottanta Eos che oggi nessuno raggiunge');
       final senzaRagione = inPiu.where((t) {
         final c = t.condizione;
         return c is! Dormiente || c.perche.trim().isEmpty;
@@ -246,9 +262,13 @@ void main() {
           reason: 'queste voci dormono perche\' l\'app non sa misurarle, '
               'e non perche\' il corpus le voglia dormienti: '
               '${inPiu.map((t) => t.id).toList()}');
-      expect(inApp.length, 51,
-          reason: 'in app dormono ${inApp.length} voci invece di 51: il numero '
-              'segue il dato, ma un cambiamento va detto al fondatore');
+      expect(inApp.length, dalCorpus.length + tolti.length,
+          reason: 'in app dormono ${inApp.length} voci invece di '
+              '${dalCorpus.length + tolti.length}: il numero segue il dato, '
+              'ma un cambiamento va detto al fondatore');
+      expect(inApp.length, 54,
+          reason: 'erano 51 fino all\'ordine CB, e i tre in piu\' sono quelli '
+              'del quaderno dei sogni tolto: ${tolti.keys}');
       expect(senzaRagione.map((t) => t.id), isEmpty,
           reason: 'questi dormono senza dire perche\': '
               '${senzaRagione.map((t) => t.id)}');

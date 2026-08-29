@@ -1908,56 +1908,6 @@ void main() {
     await capture(tester, rootKey, 'bosco-del-cerchio.png');
   });
 
-  testWidgets('Cattura il quaderno dei sogni', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
-    await montaLoSchermo(tester, const Size(360, 900));
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(DreamRiteScreen.route(now: DateTime(2026, 7, 30, 23))));
-    await step(tester);
-    await step(tester);
-    // Si salta la nebbia col ripiego tattile e si arriva al saluto, dove
-    // vive il tasto per annotare.
-    final salta = find.byKey(const Key('dream_fog_skip'));
-    if (salta.evaluate().isNotEmpty) {
-      await tester.tap(salta);
-      await step(tester);
-    }
-    // Si uniscono le stelle: il tasto per annotare arriva col saluto della
-    // notte, cioe' dopo la figura.
-    final figura = kZodiacConstellations
-        .firstWhere((c) => c.sign == NightSky.moonSign(DateTime(2026, 7, 30, 23)));
-    for (var i = 0; i < figura.points.length; i++) {
-      final stella = find.byKey(Key('dream_star_$i'));
-      if (stella.evaluate().isEmpty) continue;
-      await tester.tap(stella);
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 400));
-    }
-    // Il primo sogno accende un traguardo: si congeda la festa, che ha gia'
-    // la sua anteprima, e si arriva al quaderno.
-    final congedo = find.byKey(const Key('celebrazione_continua'));
-    if (congedo.evaluate().isNotEmpty) {
-      await tester.tap(congedo);
-      for (var i = 0; i < 8; i++) {
-        await tester.pump(const Duration(milliseconds: 300));
-      }
-    }
-    final annota = find.byKey(const Key('dream_annota'));
-    if (annota.evaluate().isNotEmpty) {
-      await tester.ensureVisible(annota);
-      await tester.tap(annota);
-      for (var i = 0; i < 6; i++) {
-        await tester.pump(const Duration(milliseconds: 300));
-      }
-    }
-    await capture(tester, rootKey, 'annota-il-sogno.png');
-  });
-
   testWidgets('Cattura la voce Chi ti ha invitato', (tester) async {
     silenceSensors();
     await loadFonts();

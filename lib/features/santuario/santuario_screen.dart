@@ -35,6 +35,7 @@ import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'widgets/tue_arti_view.dart';
+import '../onboarding/primo_approdo.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -599,8 +600,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             // La striscia del giorno, fissa in cima e sempre visibile: i quattro
             // elementi giornalieri, quello dell'ora attuale in evidenza. Stesso
             // orologio dell'eroe, cosi' striscia e centro concordano.
-            DailyStrip(
+            // **IL BERSAGLIO DEL QUARTO FUMETTO. Ordine CB voce 02.**
+            AncoraDelPrimoApprodo(
+              nome: BersagliDelPrimoApprodo.doni,
+              child: DailyStrip(
               clock: widget.clock,
+            ),
             ),
             Expanded(
               child: LayoutBuilder(
@@ -1638,6 +1643,9 @@ class _CarouselState extends State<_Carousel>
               // smorzamento verticale della parallasse qui sotto resta, ed e'
               // lui a garantire che la copertura sia leggera: dieci punti di
               // corsa, non centocinque.
+              child: // **IL BERSAGLIO DEL SECONDO FUMETTO. Ordine CB voce 02.**
+              AncoraDelPrimoApprodo(
+              nome: BersagliDelPrimoApprodo.trio,
               child: GestureDetector(
               key: const Key('santuario_carosello'),
               onHorizontalDragUpdate: (d) => _trascina(d, w),
@@ -1766,6 +1774,7 @@ class _CarouselState extends State<_Carousel>
                 ],
               ),
             ),
+              ),
             );
           },
         );

@@ -12,6 +12,7 @@ import 'navigation_controller.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import 'santuario_bottom_bar.dart';
 import 'vie_del_cerchio.dart';
+import '../onboarding/primo_approdo.dart';
 
 /// LA BARRA DEL CERCHIO, UNA SOLA IN TUTTA L'APP.
 ///
@@ -241,6 +242,9 @@ class _LaBarra extends StatelessWidget {
     return MaestroScope(
       maestro: maestro,
       neutro: schermata == 'AskMaestriScreen',
+      child: // **IL BERSAGLIO DEL TERZO FUMETTO. Ordine CB voce 02.**
+      AncoraDelPrimoApprodo(
+      nome: BersagliDelPrimoApprodo.esplora,
       child: SantuarioBottomBar(
         view: nav.view,
         // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista; fuori dal guscio
@@ -251,6 +255,7 @@ class _LaBarra extends StatelessWidget {
         onSantuario: () => NavigazioneDellaBarra.alCerchio(context),
         onMaestro: (m) => NavigazioneDellaBarra.alDominio(context, m),
         onPassport: () => NavigazioneDellaBarra.alPassport(context),
+      ),
       ),
     );
   }

@@ -27,8 +27,6 @@ const Map<String, String> sentieroDelGesto = {
   'sinastria': 'costellazione',
   'soffio': 'loto',
   'sogno': 'albero',
-  'sogno_annotato': 'albero',
-  'sogno_riletto': 'albero',
   'stesa': 'costellazione',
   'tramonto': 'albero',
   'viso': 'loto',

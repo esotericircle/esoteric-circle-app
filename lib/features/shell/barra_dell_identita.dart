@@ -10,6 +10,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'barra_del_cerchio.dart';
 import 'dove_si_vede_la_barra.dart';
+import '../onboarding/primo_approdo.dart';
 
 /// LA BARRA SOTTILE DELL'IDENTITA', CASA UNICA. Ordine AM voce 04, forma
 /// decisa da Mauro dal collaudo della 2180.
@@ -164,7 +165,10 @@ class _LaBarra extends StatelessWidget {
 
     return Material(
       type: MaterialType.transparency,
-      child: Container(
+      child: // **IL BERSAGLIO DEL QUINTO FUMETTO. Ordine CB voce 02.**
+      AncoraDelPrimoApprodo(
+        nome: BersagliDelPrimoApprodo.identita,
+        child: Container(
         key: const Key('barra_dell_identita'),
         // La fascia occupa anche l'area sicura di sistema: sta SOTTO
         // l'orologio del telefono e non ci finisce mai sopra.
@@ -219,6 +223,7 @@ class _LaBarra extends StatelessWidget {
             SizedBox(width: SpacingTokens.sm),
           ],
         ),
+      ),
       ),
     );
   }

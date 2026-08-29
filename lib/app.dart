@@ -29,6 +29,7 @@ import 'design_system/components/cosmos_background.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/debug/app_check_debug_view.dart';
+import 'features/onboarding/primo_approdo.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
@@ -39,7 +40,6 @@ import 'core/identity/account_del_cerchio.dart';
 import 'core/rituals/scelta_degli_avvisi.dart';
 import 'core/sigilli/coda_delle_feste.dart';
 import 'features/sigilli/regia_del_cammino.dart';
-import 'core/rituals/diario_dei_sogni.dart';
 import 'core/sigilli/diario_del_cammino.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
@@ -296,7 +296,6 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
         ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
         // IL QUADERNO DEI SOGNI, ordine BX voce 11: vive sul telefono e
         // non parla col server.
-        ChangeNotifierProvider(create: (_) => DiarioDeiSogni()..carica()),
         // LA CODA DELLE FESTE, ordine P voce 34: un traguardo che si accende
         // quando nessuna schermata puo' ospitare la sovrimpressione non si
         // perde, entra qui e si celebra al primo momento utile. La coda sta su
@@ -447,7 +446,15 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
                   // dentro questo Consumer: farglielo cercare da sola
                   // vorrebbe dire una seconda porta sullo stesso dato.
                   conSuono: settings.suonoEVibrazione,
-                  child: BarraDelCerchio(
+                  child: // **IL TUTORIAL DI PRIMO APPRODO STA QUI, ordine CB voce 02**,
+                  // cioe' FUORI dalle due barre e DENTRO l'intro. Fuori dalle
+                  // barre perche' due dei cinque fumetti puntano proprio le
+                  // barre, e un velo montato piu' in dentro le lascerebbe
+                  // illuminate sopra di se'. Dentro l'intro perche' l'intro
+                  // viene prima: il tutorial e' cio' che si trova ad apertura
+                  // finita.
+                  PrimoApprodo(
+                    child: BarraDelCerchio(
                     observatore: _pila,
                     // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
                     // fogli dal basso e i dialoghi vivono come rotte del
@@ -470,6 +477,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
                         child: child ?? const SizedBox.shrink(),
                       ),
                     ),
+                  ),
                   ),
                 )),
               );

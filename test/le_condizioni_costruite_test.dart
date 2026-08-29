@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/core/rituals/diario_dei_sogni.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/maestro_del_gesto.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
@@ -461,135 +460,24 @@ void main() {
     });
   });
 
-  group('BX.11, la memoria con la data', () {
-    test('Il quaderno dei sogni tiene la data, e la rilettura la usa',
-        () async {
-      // **IL GESTO VERO**: si annota il sogno di stanotte, e ci si torna sopra
-      // tre giorni dopo. La distanza e' la grandezza che il corpus chiede, "a
-      // distanza di giorni", e senza la data non si puo' nemmeno decidere.
-      SharedPreferences.setMockInitialValues(const {});
-      var adesso = DateTime(2026, 8, 10, 23);
-      final quaderno = DiarioDeiSogni(orologio: () => adesso);
-      await quaderno.carica();
-      final sogno = await quaderno.annota(
-          simboli: const ['Lupo', 'Acqua'], parole: 'Correvo nel bosco');
-      expect(sogno.quando, DateTime(2026, 8, 10, 23));
-
-      adesso = DateTime(2026, 8, 13, 9);
-      final giorni = await quaderno.rileggi(sogno);
-      // ignore: avoid_print
-      print('ORDINE BX VOCE 11: fra il sogno e la rilettura sono passati '
-          '$giorni giorni');
-      expect(giorni, 2,
-          reason: 'la distanza fra il sogno e la rilettura non si misura');
-
-      // E rileggere lo stesso sogno la notte stessa non e' tornarci sopra.
-      adesso = DateTime(2026, 8, 13, 23);
-      final subito = await quaderno.annota(
-          simboli: const ['Fuoco'], parole: 'Una porta rossa');
-      final zero = await quaderno.rileggi(subito);
-      // ignore: avoid_print
-      print('ORDINE BX VOCE 11: rileggere il sogno di stanotte vale '
-          '$zero giorni');
-      expect(zero, 0);
-    });
-
-    test('Lo stesso simbolo in due sogni accende cal_31', () async {
-      SharedPreferences.setMockInitialValues(const {});
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      await diario.segna('sogno_annotato',
-          dettagli: const {'simbolo': ['Lupo', 'Acqua']});
-      await diario.segna('sogno_annotato',
-          dettagli: const {'simbolo': ['Lupo', 'Porta']});
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_31');
-      final stato = diario.statoDelCammino();
-      // ignore: avoid_print
-      print('ORDINE BX VOCE 11: il simbolo piu\' insistente torna '
-          '${stato.massimeRipetizioni['sogno_annotato.simbolo']} volte');
-      expect(voce.dormiente, isFalse, reason: 'cal_31 dorme ancora');
-      expect(voce.condizione.raggiunto(stato), isTrue,
-          reason: 'lo stesso simbolo in due sogni non accende "${voce.nome}"');
-    });
-
-    test('Un simbolo solo, in un sogno solo, non basta', () async {
-      SharedPreferences.setMockInitialValues(const {});
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      await diario.segna('sogno_annotato',
-          dettagli: const {'simbolo': ['Lupo']});
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_31');
-      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse,
-          reason: 'un sogno solo accende il gradino dei due sogni');
-    });
-
-    test('Il proprio Animale in un sogno accende cal_32', () async {
-      SharedPreferences.setMockInitialValues(const {});
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      await diario.segna('sogno_annotato',
-          dettagli: const {'simbolo': ['Lupo'], 'animale_guida': ['si']});
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_32');
-      expect(voce.dormiente, isFalse, reason: 'cal_32 dorme ancora');
-      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
-          reason: 'l\'Animale nel sogno non accende "${voce.nome}"');
-      // E il quaderno sa rispondere alla stessa domanda per conto suo.
-      final quaderno = DiarioDeiSogni(orologio: orologioDelleProve);
-      await quaderno.annota(simboli: const ['Lupo'], parole: '');
-      expect(quaderno.portaLAnimale('Lupo'), isTrue);
-      expect(quaderno.portaLAnimale('Cervo'), isFalse);
-    });
-
-    test('Il sogno riletto a distanza accende cal_17', () async {
-      SharedPreferences.setMockInitialValues(const {});
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      await diario.segna('sogno_riletto',
-          dettagli: const {'giorni': ['3'], 'a_distanza': ['si']});
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_17');
-      expect(voce.dormiente, isFalse, reason: 'cal_17 dorme ancora');
-      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
-          reason: 'il sogno riletto non accende "${voce.nome}"');
-    });
-
-    test('Il sogno riletto la notte stessa non accende cal_17', () async {
-      SharedPreferences.setMockInitialValues(const {});
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      // Nessun 'a_distanza': la scena lo manda solo quando i giorni ci sono.
-      await diario.segna('sogno_riletto', dettagli: const {'giorni': ['0']});
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_17');
-      expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse,
-          reason: 'rileggere il sogno di stanotte accende il gradino della '
-              'distanza');
-    });
-
+  group('BX.11 e CB.01, quel che resta del quaderno dei sogni', () {
     test('E la scena manda davvero quei dettagli', () {
       // La seconda meta' di ogni condizione costruita: che la scena la
       // alimenti. Senza, resta una condizione viva che nessuno accende.
-      final sogni = File('lib/features/rituals/annota_il_sogno.dart')
-          .readAsStringSync();
-      final rito =
-          File('lib/features/rituals/dream_rite_screen.dart').readAsStringSync();
+      // **DUE DEI TRE FILE NON ESISTONO PIU'. Ordine CB voce 01.** Questa
+      // prova guardava tre scene: il quaderno dei sogni, il rito della notte
+      // e la Costellazione del Viso. Il quaderno e' stato eliminato per
+      // ordine del fondatore, e coi suoi dettagli se ne sono andati i tre
+      // gradini che li chiedevano: dormono dichiarati, e lo sorveglia
+      // `il_quaderno_dei_sogni_non_torna_test.dart`. Resta il volto.
       final viso = File(
               'lib/features/maestri/aura/face/face_constellation_screen.dart')
           .readAsStringSync();
-      for (final pezzo in const [
-        ("'sogno_annotato'", 'il gesto del sogno annotato'),
-        ("'sogno_riletto'", 'il gesto del sogno riletto'),
-        ("'animale_guida': const ['si']", 'l\'Animale nel sogno'),
-        ("'a_distanza': const ['si']", 'la distanza della rilettura'),
-      ]) {
-        expect(sogni.contains(pezzo.$1), isTrue,
-            reason: 'la scena del quaderno non manda piu\' ${pezzo.$2}');
-      }
-      expect(rito.contains("Key('dream_annota')"), isTrue,
-          reason: 'il rito della notte non offre piu\' di annotare il sogno');
       expect(viso.contains("'tratto_cambiato': const ['si']"), isTrue,
           reason: 'la Costellazione del Viso non dice piu\' quando il tratto '
               'cambia');
       // ignore: avoid_print
-      print('ORDINE BX VOCE 11: le tre scene mandano i loro dettagli');
+      print('ORDINE CB VOCE 01: la scena del volto manda il suo dettaglio');
     });
 
     test('Il volto che cambia accende aur_16, e solo dopo un mese', () async {
@@ -654,32 +542,25 @@ void main() {
           reason: 'il tratto cambiato non accende "${voce.nome}"');
     });
 
-    test('I sogni annotati se ne vanno con chi se ne va', () async {
-      // **ORDINE BE VOCE 07, richiamato dalla voce BX.11**: la cancellazione
-      // porta via tutto, e questa memoria non e' l'eccezione.
-      SharedPreferences.setMockInitialValues(const {});
-      final quaderno = DiarioDeiSogni(orologio: orologioDelleProve);
-      await quaderno.annota(simboli: const ['Lupo'], parole: 'Un bosco');
-      expect(quaderno.vuoto, isFalse);
-      quaderno.dimenticaChiSeNeVa();
-      // ignore: avoid_print
-      print('ORDINE BX VOCE 11: dopo la cancellazione il quaderno e\' vuoto? '
-          '${quaderno.vuoto}');
-      expect(quaderno.vuoto, isTrue,
-          reason: 'i sogni restano in mano dopo la cancellazione');
-      // **SI CHIEDE ALLA VERITA', NON AL FILE. Ordine BZ voce 02.** Qui si
-      // cercava la stringa dentro dimenticanza_del_telefono.dart: dalla voce
-      // BZ.01 l'elenco vive in CioCheETuo, e questa prova e' diventata rossa
-      // mentre i due prefissi erano ancora dimenticati. Una prova che legge
-      // un file invece del dato dice il falso il giorno che il dato trasloca.
+    test('La chiave dei sogni se ne va lo stesso, con chi se ne va', () async {
+      // **LA CHIAVE VIVE ANCORA SUI TELEFONI. Ordine CB voce 01.** Il
+      // quaderno non c'e' piu' nel codice, ma `sogni.annotati` sta gia' sul
+      // disco di chi ha installato una build da meta' agosto in poi, e da
+      // sola l'app non la tocchera' mai piu'. Togliere il prefisso
+      // dall'elenco della cancellazione lascerebbe quel dato sul telefono
+      // per sempre: resta, e questa prova lo pretende.
       for (final prefisso in const ['sogni.', 'viso.']) {
         expect(DimenticanzaDelTelefono.prefissiDaDimenticare,
             contains(prefisso),
             reason: 'il prefisso $prefisso non e\' fra quelli che la '
                 'cancellazione porta via dal disco');
       }
+      // ignore: avoid_print
+      print('ORDINE CB VOCE 01: la cancellazione porta via anche sogni., che '
+          'nessuno scrive piu\' e qualcuno ha ancora sul telefono');
     });
   });
+
   group('BX.03, le due porte del Cerchio', () {
     test('Il bosco si guarda, e accende cal_10', () async {
       // **IL MINIMO CHE LA CONDIZIONE RICHIEDE, e niente di piu'.** "Guardi
