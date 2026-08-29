@@ -12,10 +12,9 @@ BZ.02. Guardia `test/ordine_bz_guard_test.dart`.
   tutto, e una prova che diventa rossa DA SOLA quando nasce una memoria che
   nessuna via cancella. L'ha gia' fatto: ha trovato la quarantaseiesima chiave
   senza che nessuno la cercasse.
-- **BZ.02** La build per i fondatori. **FERMATA IN ATTESA DELLE MANI DEL FONDATORE.** L'archivio adesso si produce: le prove del cielo non dipendono
-  piu' dall'ora della macchina e il rosso dichiarato non mura piu' la porta.
-  Lanciare la build su Codemagic chiede credenziali che non passano da qui: i
-  passi numerati sono piu' sotto, e senza quelli la build non arriva.
+- **BZ.02** La build per i fondatori. **CHIUSA.** L'archivio si e' prodotto e la
+  build **2212** e' su TestFlight e sull'iPhone del fondatore, che l'ha
+  installata e provata: parole sue, "la build 2212 e' sul mio iPhone e funziona".
 - **BZ.03** Le frasi dei Maestri. **FERMATA SU DECISIONE DEL FONDATORE.** Parole
   sue: "questa e' mia", cioe' dell'Architetto. Non l'ho toccata.
 - **BZ.04** Le notifiche non arrivano. **CHIUSA.** Il permesso del sistema
@@ -38,10 +37,10 @@ BZ.02. Guardia `test/ordine_bz_guard_test.dart`.
 VOCI_TOTALI: 9
 VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
-VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE: 1
+VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
-VOCI_CHIUSE: 7
+VOCI_CHIUSE: 8
 
 ## BZ.02, la build per i fondatori: cosa la fermava, e da quando
 
@@ -258,6 +257,34 @@ almeno sei ritratti" diventa quattro, perche' con due colonne in una schermata
 ne entrano meno, e **al suo posto entra la larghezza minima**, che e' la
 grandezza che il fondatore ha chiesto. **Anteprima**:
 `docs/preview/sinastria-galleria.png`.
+
+### LA CONSEGNA, E COSA E' SERVITO PERCHE' AVVENISSE
+
+**La build 2212 e' su TestFlight e sull'iPhone del fondatore**, installata e
+provata. E' la prima build iOS che esce **dal 12 agosto 2026**, cioe' da quando
+lo sbarramento e' entrato in vigore.
+
+**Come lo so, dichiarato:** me l'ha detto il fondatore, e non l'ho letto da App
+Store Connect, perche' le credenziali di quel server non passano da questa chat.
+Non e' una parola qualunque, e' la prova piu' forte che esista: l'app e'
+installata e gira su un telefono vero. Il numero **2212** e' quello che
+`pubspec.yaml` portava al commit costruito, ed e' lo stesso che TestFlight
+mostra.
+
+**Cinque cose hanno dovuto cadere prima**, e ognuna ha lasciato una guardia:
+
+| cosa fermava la build | come si e' chiusa |
+| --- | --- |
+| quattro prove del cielo leggevano l'ora della macchina, e fra Roma e UTC ci sono due ore di cielo | istanti assoluti, piu' il fuso dichiarato in `codemagic.yaml` e nello sbarramento |
+| lo sbarramento non distingueva un rosso dichiarato da uno nuovo | `tool/rossi_accettati.txt`, col nome e la ragione di ognuno |
+| il registro dei rossi non riconosceva la propria riga, perche' nella suite intera il rapporto mette davanti il PERCORSO ASSOLUTO | il percorso esce dal confronto, e la guardia adesso prova anche la forma della macchina che costruisce |
+| il passo che installa gli strumenti scaricava due giga a ogni giro, con un fallimento su cinque costruzioni | cache di `$FLUTTER_ROOT`, dei pacchetti Dart e dei pod, piu' un passo che dichiara nel registro cosa ha quella macchina |
+| la guardia dell'ordine BY confrontava il suo manifesto col registro dell'ULTIMA consegna, e la consegna della 2213 l'ha fatta cadere | la guardia legge i numeri dal manifesto e chiede che quella consegna sia avvenuta |
+
+**La regola che nasce da questa notte, e vale da adesso:** lo sbarramento si fa
+girare **sul PC prima** di chiedere al fondatore di premere Start. Due
+costruzioni sono morte su rossi che si potevano vedere da qui, e ognuna e'
+costata al fondatore venti minuti e una figura davanti ai fondatori.
 
 ## BZ.05, gli effetti sonori nascono spenti
 
