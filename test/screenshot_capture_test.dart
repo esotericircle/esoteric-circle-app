@@ -144,6 +144,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'istante_dichiarato.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/bosco_del_cerchio.dart';
+import 'package:esoteric_circle/features/onboarding/domanda_dell_invito.dart';
+import 'package:esoteric_circle/features/settings/consenso_alla_misura.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -4649,6 +4652,70 @@ void main() {
     );
     await tester.pump(const Duration(milliseconds: 400));
     await capture(tester, rootKey, 'custodia-del-cielo.png');
+  });
+
+  // --- LE DUE DOMANDE CHE IL CERCHIO FA A CHI ARRIVA ---
+  //
+  // Ordine CC voci 08 e 09. Sono due fogli dal basso che si vedono una volta
+  // sola nella vita di chi installa l'app, quindi non li incontra nessuno per
+  // caso: senza un'immagine alla larghezza vera non si puo' giudicare se il
+  // no si trova, se i due pulsanti sono davvero uguali e se il testo entra.
+  testWidgets('Cattura la domanda dell\'invito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: const Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Align(
+              alignment: Alignment.bottomCenter,
+              child: DomandaDellInvito(),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'domanda-dell-invito.png');
+  });
+
+  testWidgets('Cattura la domanda della misura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Align(
+              alignment: Alignment.bottomCenter,
+              child: DomandaDellaMisura(onRisposta: (_) {}),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'domanda-della-misura.png');
   });
 
   // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---

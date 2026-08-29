@@ -73,13 +73,18 @@ enum ModoDellaCondivisione {
   /// **SE IL BONUS SI ACCREDITA SUBITO, a condivisione avvenuta.**
   ///
   /// Per l'INVITO e' falso, e qui si dice la verita' invece di fingere:
-  /// sapere che l'amico ha scaricato richiede un'attribuzione
-  /// dell'installazione che nel progetto NON esiste (verificato: nessun
-  /// Dynamic Link, nessun Install Referrer). Pagare l'invito all'apertura
-  /// del foglio, mostrando "quando il tuo amico scarica", sarebbe una bugia
-  /// a schermo. Quindi l'invito resta DICHIARATO IN ATTESA e si accreditera'
-  /// quando l'attribuzione esistera', in un ordine suo che comincera'
-  /// scegliendo la strada con l'Architetto.
+  /// pagare l'invito all'apertura del foglio, mostrando "quando il tuo amico
+  /// scarica", sarebbe una bugia a schermo. Il premio lo paga l'ingresso
+  /// vero, e lo paga il server dentro `riscattaLInvito`.
+  ///
+  /// **DA DOVE ARRIVA IL CODICE, ordine CC voce 08.** Non da
+  /// un'attribuzione automatica dell'installazione: quella su Android
+  /// esiste e si chiama Play Install Referrer, su iOS non ha un equivalente
+  /// aperto, e in questo progetto non c'e' (verificato: nessun Dynamic Link,
+  /// nessun Install Referrer, nessun `intent-filter` oltre a MAIN e
+  /// LAUNCHER). Arriva dalla domanda che il Cerchio fa a chi entra, una
+  /// volta, quando il link e' ancora negli appunti del suo telefono:
+  /// `DomandaDellInvito`.
   final bool subitoPagato;
 }
 

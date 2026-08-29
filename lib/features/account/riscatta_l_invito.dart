@@ -108,6 +108,23 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
   final codice = codiceDaCioCheEStatoIncollato(esito ?? '');
   scritto.dispose();
   if (codice.isEmpty || !context.mounted) return;
+  await riscattaIlCodiceDellInvito(context, codice);
+}
+
+/// **IL RISCATTO VERO, in un punto solo.** Ordine CC voce 08.
+///
+/// Prima questa strada viveva dentro il foglio del menu' Account, e chiunque
+/// altro avesse voluto riscattare un invito avrebbe dovuto ricopiarla: la
+/// chiamata, il rinfresco dello stato e la frase da dire. Due copie della
+/// stessa regola divergono al primo che ne cambia una, e qui la regola tocca
+/// un premio in Eos.
+///
+/// **Le tre difese non stanno qui, e non si toccano.** Non ci si invita da
+/// soli, non si riscatta due volte e il premio e' idempotente: sono tre
+/// controlli del SERVER, dentro `riscattaLInvito`. Un controllo sul telefono
+/// non e' una difesa, e' una cortesia.
+Future<void> riscattaIlCodiceDellInvito(
+    BuildContext context, String codice) async {
   final porta = context.read<AppServices>().porta;
   final accolto = await porta.riscattaLInvito(codice);
   if (!context.mounted) return;

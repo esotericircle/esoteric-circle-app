@@ -39,6 +39,8 @@ import '../onboarding/primo_approdo.dart';
 import '../../core/misura/misura_del_ritorno.dart';
 import '../../core/misura/registro_del_ritorno.dart';
 import '../settings/consenso_alla_misura.dart';
+import '../onboarding/domanda_dell_invito.dart';
+import '../account/riscatta_l_invito.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -335,7 +337,46 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // stessa ragione dell'invito a custodire il cielo: non si chiede addosso a
     // un rito.
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _forseChiediLaMisura());
+        .addPostFrameCallback((_) => _forseChiediCioCheVaChiesto());
+  }
+
+  /// **UNA DOMANDA PER APERTURA, e l'invito viene prima. Ordine CC voce 08.**
+  ///
+  /// Due fogli in fila alla prima apertura sono un pedaggio, e chi lo paga
+  /// risponde a caso al secondo. **L'invito ha la precedenza perche' scade**:
+  /// il codice sta negli appunti di chi e' appena arrivato da un link, e fra
+  /// due giorni non ci sara' piu'. La misura del ritorno non scade, e aspetta
+  /// l'apertura dopo.
+  Future<void> _forseChiediCioCheVaChiesto() async {
+    if (await _forseChiediLInvito()) return;
+    await _forseChiediLaMisura();
+  }
+
+  /// **TI HA INVITATO QUALCUNO? Ordine CC voce 08.** Torna vero se la domanda
+  /// e' stata fatta adesso, cosi' chi la chiama sa che questa apertura ha gia'
+  /// speso la sua domanda.
+  ///
+  /// **Sta in casa e non nel rito di risveglio**, per la stessa ragione per cui
+  /// ci sta il tutorial: il rito non e' il posto dove si chiedono le cose, e
+  /// una domanda in mezzo all'onboarding si risponde per liberarsene.
+  Future<bool> _forseChiediLInvito() async {
+    if (!mounted) return false;
+    if (await MemoriaDellInvito.giaChiesto()) return false;
+    // **Solo a chi ha gia' visto il Cerchio.** Prima del tutorial questa
+    // domanda arriverebbe a chi non sa ancora cosa sia un invito qui dentro.
+    if (!await MemoriaDelPrimoApprodo.visto()) return false;
+    if (!mounted) return false;
+    // Si segna PRIMA di mostrarla: chiesta vuol dire chiesta, e una domanda
+    // che torna perche' l'app e' morta mentre era aperta e' la stessa domanda
+    // due volte.
+    await MemoriaDellInvito.segnaChiesta();
+    if (!mounted) return true;
+    final codice = await DomandaDellInvito.chiedi(context);
+    if (codice == null || codice.isEmpty || !mounted) return true;
+    // Da qui in poi e' esattamente la strada che il menu' Account gia' usa:
+    // una porta sola verso la callable, e nessuna seconda copia della regola.
+    await riscattaIlCodiceDellInvito(context, codice);
+    return true;
   }
 
   /// **LA DOMANDA SI FA UNA VOLTA SOLA, e DOPO il primo approdo.**

@@ -24,12 +24,12 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 - **CC.05** Censimento globale delle dimensioni dei caratteri. **CHIUSA.** Ventidue arti censite: sei mostravano il responso a 16 punti e adesso tutte lo mostrano a 18, la misura del responso dei Tarocchi.
 - **CC.06** La Sinastria VIP, nove rilievi. **CHIUSA.** Tutti e nove: le mappe dicono dove sei, i fili sono corde, la bolla e' tecnica per il 17 per cento invece che per il 36, e i transiti dicono di chi sono.
 - **CC.07** Il catalogo delle citta' fuori dall'Italia. **APERTA.**
-- **CC.08** L'attribuzione vera degli inviti. **APERTA.**
+- **CC.08** L'attribuzione vera degli inviti. **CHIUSA.** Il Cerchio chiede a chi arriva se lo ha invitato qualcuno, e il codice entra con un tocco dagli appunti; le tre difese del server sono ancora tutte e tre in piedi.
 - **CC.09** La misura del ritorno delle persone. **CHIUSA.** Cinque gesti contati per giorno, zero profili, zero pacchetti nuovi, il consenso chiesto una volta con due pulsanti uguali e la policy allineata nella stessa voce.
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 6
-VOCI_APERTE: 2
+VOCI_CHIUSE: 7
+VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -477,6 +477,122 @@ card da condividere usano gia': una porta sola per i cartigli.
 Residenza, poi subito le barre. I tre transiti dicono il nome del personaggio,
 la mappa dice in quali citta' siete, e ingrandendo la carta i cartigli portano
 ancora il nome e la data.**
+
+## CC.08, l'attribuzione vera degli inviti
+
+**Debito in coda, verbatim:** "il premio piu' alto della condivisione e' quello
+dell'invito che porta qualcuno dentro davvero, e vale 60 Eos. Il server sa
+pagarlo, ma l'app non sa da quale invito arriva chi la installa. Firebase
+Dynamic Links non e' piu' una strada." **Conseguenza scritta da lui:** "oggi
+quel premio si riscuote solo se la persona invitata incolla il codice a mano."
+**Vincolo:** le tre difese gia' costruite non si indeboliscono.
+
+### Cosa ho misurato prima di scegliere
+
+| domanda | risposta misurata |
+| --- | --- |
+| `riscattaLInvito` e' distribuita? | **si'**, dal 28 agosto 2026, ordine BY, revisione `riscattalinvito-00001-suj`. L'affermazione dell'ordine, che la diceva scritta ma non distribuita, e' **superata dai fatti** ed e' gia' dichiarata nella tabella delle premesse |
+| esiste una gestione dei collegamenti in arrivo? | **no**. In `android/app/src/main/AndroidManifest.xml` c'e' un solo `intent-filter`, `MAIN`/`LAUNCHER`; in `pubspec.yaml` non ci sono ne `app_links`, ne `uni_links`, ne `install_referrer` |
+| dove vive oggi la porta per riscattare? | **dentro il menu' Account**, `apriIlRiscattoDellInvito`, raggiunta da `account_screen.dart` e da nessun altro punto |
+| il link dell'invito porta il codice? | **si'**, `${Brand.url}?invito=<uid>.<maestro>`, composto in `bonus_della_condivisione.dart` |
+
+### La scelta, e perche' questa
+
+**Il difetto vero non e' che il codice vada incollato: e' che nessuno lo chiede
+mai.** Il lato che paga esiste e funziona, il link porta gia' il codice, e chi
+arriva grazie a un invito non ha nessun motivo di andare a cercare una voce nel
+menu' Account. Quindi la domanda si fa: **una volta, in casa, dopo il
+tutorial**, quando il link e' ancora negli appunti del telefono di chi e'
+appena arrivato. Il codice entra con **un tocco** sul pulsante Incolla.
+
+**Perche' non prima del tutorial.** Chi apre l'app la prima volta ha davanti i
+cinque fumetti del primo approdo: una domanda in mezzo a quelli e' la sesta
+cosa da leggere prima di aver visto niente.
+
+**Una domanda per apertura, e l'invito passa davanti alla misura di CC.09.**
+Due fogli in fila alla prima apertura sono un pedaggio, e chi lo paga risponde
+a caso al secondo. **L'invito ha la precedenza perche' scade**: il codice sta
+negli appunti di chi e' appena arrivato da un link, e fra due giorni non ci
+sara' piu'. La misura del ritorno non scade, e aspetta l'apertura dopo.
+
+**Gli appunti si leggono SOLO sul tocco della persona.** Un'app che li guarda
+da sola all'avvio legge tutto quello che c'e' li' dentro, che spesso e' una
+password o un indirizzo, e su iOS il sistema lo dice pure a schermo. Qui si
+legge dopo il tocco su Incolla, e si tiene solo cio' che ha la forma di un
+codice nostro, **con i limiti del server e non con altri**: sotto gli 8
+caratteri e sopra i 200 non entra niente. Se negli appunti c'e' altro, il campo
+resta vuoto e a schermo compare una riga che dice solo che li' dentro non
+c'era un codice: **cio' che la persona aveva copiato non viene mai rimesso a
+video**.
+
+**Il riscatto vero e' passato in un punto solo**, `riscattaIlCodiceDellInvito`:
+prima viveva dentro il foglio del menu' Account, e chiunque altro avesse voluto
+riscattare avrebbe dovuto ricopiare la chiamata, il rinfresco dello stato e la
+frase da dire. Due copie di una regola che muove un premio in Eos divergono al
+primo che ne cambia una.
+
+**Le tre difese non sono state toccate, e sono tre controlli del SERVER.** Un
+controllo sul telefono non e' una difesa, e' una cortesia. Una prova le rilegge
+in `functions/src/cerchio.ts` una per una: non ci si invita da soli
+(`codice === uid`), non si riscatta due volte (`gia.invitatoDa` dentro una
+transazione), il premio e' idempotente (il movimento si chiama `invito-<uid>` e
+se esiste non si paga).
+
+### Cosa questa voce NON risolve, detto e non nascosto
+
+**L'attribuzione automatica dell'installazione, quella che non chiede niente a
+nessuno, resta fuori.** Su Android esiste e si chiama Play Install Referrer; su
+iOS **non esiste un equivalente aperto**, e Firebase Dynamic Links e' spento da
+Google dall'agosto 2025. Portare dentro l'Install Referrer vuol dire un
+pacchetto nuovo, codice nativo, e una **build vera** per provarlo: le build le
+ordina il fondatore, e un pezzo nativo scritto senza poterlo mai accendere
+sarebbe codice creduto, non codice provato. Copre inoltre solo il lato Android,
+e solo per chi installa dal Play Store.
+
+**Il commento che diceva il vecchio stato e' stato allineato ai fatti**, in
+`bonus_della_condivisione.dart`: prometteva "un ordine suo che comincera'
+scegliendo la strada con l'Architetto", e adesso dice da dove il codice arriva
+davvero.
+
+### Le misure, in numeri
+
+| misura | prima | dopo |
+| --- | --- | --- |
+| punti dell'app che chiedono a chi arriva se e' stato invitato | **0** | **1** |
+| tocchi per riscattare, avendo il link negli appunti | 5, e bisogna sapere che il menu' esiste | **2**, Incolla e conferma |
+| difese del server in piedi | 3 | **3** |
+| letture degli appunti prima di un tocco della persona | non c'erano appunti letti | **0** |
+| copie della strada che riscatta | 1, dentro un foglio | **1**, in una funzione riusabile |
+
+### Il rosso, dimostrato due volte
+
+**Primo, sul lavoro nuovo.** Tolto il filtro sulla forma del codice, cioe'
+messo `if (trovato.isNotEmpty)` al posto di `if (sembraUnCodiceDInvito(trovato))`,
+verificato col grep che nel file non restasse nessuna chiamata al filtro
+**prima** di leggere l'esito: la prova e' diventata rossa, perche' la frase
+"la mia password segreta" finiva nel campo. Rimesso, verde.
+
+**Secondo, sul vincolo.** Sostituito `if (codice === uid)` con `if (false)` in
+`functions/src/cerchio.ts`, verificato col grep che il confronto non ci fosse
+piu' **prima** di leggere l'esito: la prova e' diventata rossa dicendo "difese
+del server in piedi 2 su 3". Rimesso, verde.
+
+### L'anteprima
+
+`docs/preview/domanda-dell-invito.png`, alla larghezza vera del telefono. **Il
+primo giro l'ha bocciata**: i due pulsanti mostravano rettangoli al posto delle
+lettere, perche' il testo delle etichette non passava da `TypographyTokens`, e
+il campo del codice era stretto al punto da troncare il suo suggerimento. Le
+etichette adesso portano il carattere del Cerchio, e il pulsante Incolla ha un
+tetto di larghezza: ogni punto in piu' lo perderebbe il campo, che e' dove si
+legge il codice.
+
+### La frase di accettazione della voce CC.08
+
+**Manda a qualcuno il link dell'invito, fagli installare l'app e fargli fare il
+tutorial: alla schermata di casa il Cerchio gli chiede se lo ha invitato
+qualcuno, lui tocca Incolla, il codice compare da solo, e tu ricevi i tuoi
+sessanta Eos.**
 
 ## CC.09, la misura del ritorno delle persone
 
