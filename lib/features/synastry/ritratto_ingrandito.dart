@@ -233,9 +233,10 @@ Future<void> mostraIlSignificatoDellAspetto(
           // esserci il nome: "il mercurio di Fedez e' in sestile con la tua
           // venere"". `fatto` vive dentro una frase piu' lunga e li' il verbo
           // sarebbe di troppo; qui la riga sta da sola.
-          Text(aspetto.laFrase,
+          ParagrafiDiLettura(
               key: const Key('sinastria_significato_fatto'),
-              style: TypographyTokens.lettura()
+              testo: aspetto.laFrase,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.xs),
           Text('A ${aspetto.gradi} dall\'angolo esatto.',

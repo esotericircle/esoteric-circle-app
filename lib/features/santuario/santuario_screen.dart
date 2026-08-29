@@ -36,6 +36,9 @@ import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'widgets/tue_arti_view.dart';
 import '../onboarding/primo_approdo.dart';
+import '../../core/misura/misura_del_ritorno.dart';
+import '../../core/misura/registro_del_ritorno.dart';
+import '../settings/consenso_alla_misura.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -328,6 +331,36 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // in un punto solo, e questa schermata si limita a obbedirle.
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _forseChiediLaCustodia());
+    // **LA DOMANDA SULLA MISURA, ordine CC voce 09.** Sta qui, in casa, per la
+    // stessa ragione dell'invito a custodire il cielo: non si chiede addosso a
+    // un rito.
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _forseChiediLaMisura());
+  }
+
+  /// **LA DOMANDA SI FA UNA VOLTA SOLA, e DOPO il primo approdo.**
+  ///
+  /// **Perche' dopo il tutorial e non prima.** Chi apre l'app la prima volta
+  /// ha davanti cinque fumetti che gli spiegano dove sono le cose: una domanda
+  /// sulla misura in mezzo a quelli sarebbe la sesta cosa da leggere prima di
+  /// aver visto niente, e la risposta la darebbe per liberarsene. Si chiede a
+  /// chi il Cerchio lo ha gia' visto.
+  ///
+  /// **Chi risponde no usa l'app intera**: questa domanda non blocca niente,
+  /// non torna, e la risposta si cambia dalle Impostazioni.
+  Future<void> _forseChiediLaMisura() async {
+    if (!mounted) return;
+    if (await ConsensoDellaMisura.letto() != ConsensoAllaMisura.nonChiesto) {
+      return;
+    }
+    if (!await MemoriaDelPrimoApprodo.visto()) return;
+    if (!mounted) return;
+    final risposta = await DomandaDellaMisura.chiedi(context);
+    // Chi chiude il foglio senza scegliere non ha risposto, e la domanda
+    // tornera' la prossima volta: un foglio scartato non e' un no.
+    if (risposta == null) return;
+    await ConsensoDellaMisura.segna(risposta);
+    await RegistroDelRitorno.corrente?.rileggiIlConsenso();
   }
 
   static const _chiaveUltimoInvito =

@@ -6,6 +6,8 @@ import 'package:timezone/data/latest_10y.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../core/rituals/avvisi_del_rito.dart';
+import '../core/misura/misura_del_ritorno.dart';
+import '../core/misura/registro_del_ritorno.dart';
 
 /// L'IMPLEMENTAZIONE VERA degli avvisi, sopra `flutter_local_notifications`.
 ///
@@ -99,6 +101,21 @@ class AvvisiLocali extends ServizioAvvisi {
     await _plugin.initialize(
       onDidReceiveNotificationResponse: (risposta) {
         final carico = risposta.payload ?? '';
+        // **IL RITORNO DA UN AVVISO SI SEGNA QUI. Ordine CC voce 09.**
+        //
+        // E' la sola riga dell'app che sa che si e' entrati toccando una
+        // notifica, e la voce chiede proprio "quale notifica le riporta
+        // dentro". Il contesto e' il nome del Dono, che sta in un elenco
+        // chiuso: il carico ha la forma `dono:<nome>` e nient'altro viene
+        // passato, cosi' un carico di domani con dentro qualcosa di diverso
+        // non finisce nella misura per sbaglio.
+        const prefisso = 'dono:';
+        RegistroDelRitorno.segnalo(
+          EventoDelRitorno.ritornoDaAvviso,
+          contesto: carico.startsWith(prefisso)
+              ? carico.substring(prefisso.length)
+              : null,
+        );
         if (carico.isNotEmpty) AvvisiLocali.suApertura?.call(carico);
       },
       settings: const InitializationSettings(

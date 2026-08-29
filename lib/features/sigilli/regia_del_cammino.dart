@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/entitlement/question_allowance.dart';
+import '../../core/misura/misura_del_ritorno.dart';
+import '../../core/misura/registro_del_ritorno.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/coda_delle_feste.dart';
@@ -108,6 +110,18 @@ class RegiaDelCammino {
     // giorno, e quella regola non e' cambiata.
     final maestroDelResponso = VoceDelResponso.deiResponsi[gesto];
     if (maestroDelResponso != null) {
+      // **IL RITO COMPIUTO SI SEGNA QUI. Ordine CC voce 09.**
+      //
+      // Dentro questo `if` e non fuori, e la ragione e' doppia. La prima: la
+      // documentazione di questo metodo dice "da chiamare quando un gesto e'
+      // COMPIUTO, non quando una scena si apre", ma i gesti sono molti piu'
+      // dei riti, e contarli tutti come riti finiti darebbe un numero che
+      // nessuno puo' confrontare con i riti cominciati. La seconda: dentro
+      // questo `if` il nome del gesto e' per costruzione una chiave di
+      // `VoceDelResponso.deiResponsi`, quindi il contesto viene da un elenco
+      // chiuso, che e' il vincolo di questa voce.
+      RegistroDelRitorno.segnalo(EventoDelRitorno.ritoCompiuto,
+          contesto: gesto);
       // **NON SI ASPETTA.** La voce e la vibrazione non devono ritardare di
       // un giro cio' che viene dopo: aspettarle spostava la festa del
       // cammino e lasciava un temporizzatore acceso nella cattura

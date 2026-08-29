@@ -271,6 +271,20 @@ abstract final class MemoriaDelPrimoApprodo {
     return !(p.getBool(chiave) ?? false);
   }
 
+  /// **VERO SE IL TUTORIAL E' GIA' STATO VISTO.** Ordine CC voce 09.
+  ///
+  /// Non e' [daMostrare] al contrario: quella e' falsa anche per chi non
+  /// e' mai stato armato, cioe' per chi il tutorial non l'ha ancora avuto.
+  /// Qui serve sapere se il Cerchio e' gia' stato spiegato a qualcuno.
+  static Future<bool> visto() async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      return p.getBool(chiave) ?? false;
+    } catch (errore) {
+      return false;
+    }
+  }
+
   static Future<void> segnaVisto() async {
     final p = await SharedPreferences.getInstance();
     await p.setBool(chiave, true);

@@ -25,11 +25,11 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 - **CC.06** La Sinastria VIP, nove rilievi. **CHIUSA.** Tutti e nove: le mappe dicono dove sei, i fili sono corde, la bolla e' tecnica per il 17 per cento invece che per il 36, e i transiti dicono di chi sono.
 - **CC.07** Il catalogo delle citta' fuori dall'Italia. **APERTA.**
 - **CC.08** L'attribuzione vera degli inviti. **APERTA.**
-- **CC.09** La misura del ritorno delle persone. **APERTA.**
+- **CC.09** La misura del ritorno delle persone. **CHIUSA.** Cinque gesti contati per giorno, zero profili, zero pacchetti nuovi, il consenso chiesto una volta con due pulsanti uguali e la policy allineata nella stessa voce.
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 5
-VOCI_APERTE: 3
+VOCI_CHIUSE: 6
+VOCI_APERTE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -477,6 +477,128 @@ card da condividere usano gia': una porta sola per i cartigli.
 Residenza, poi subito le barre. I tre transiti dicono il nome del personaggio,
 la mappa dice in quali citta' siete, e ingrandendo la carta i cartigli portano
 ancora il nome e la data.**
+
+## CC.09, la misura del ritorno delle persone
+
+**Debito in coda, verbatim:** "non si sa quante persone tornano il giorno dopo,
+quante dopo una settimana, quale notifica le riporta dentro, quanti arrivano in
+fondo a un rito e quanti lo abbandonano. Che quelle grandezze si possano
+leggere." **Vincoli del fondatore:** il consenso va chiesto, chi dice no usa
+l'app intera, il monitoraggio di produzione vive su Google Cloud e mai sui
+crediti Anthropic, e la privacy policy va allineata nella stessa voce.
+
+**La premessa P10 e' vera, misurata:** zero `firebase_analytics` e zero
+`logEvent` in `lib/` e in `pubspec.yaml`. Non c'era niente.
+
+### Cosa si misura, e cosa NON si misura
+
+Cinque eventi, dichiarati uno per uno e in un elenco chiuso:
+
+| evento | risponde a | contesto che porta con se' |
+| --- | --- | --- |
+| `apertura` | quante persone tornano il giorno dopo, quante dopo una settimana | nessuno |
+| `ritorno_da_avviso` | quale notifica le riporta dentro | il nome del Dono, dai cinque dichiarati |
+| `rito_cominciato` | quanti cominciano | l'identificativo dell'arte, dal catalogo |
+| `rito_compiuto` | quanti arrivano in fondo e quanti abbandonano | il nome del gesto, dalle chiavi dei responsi |
+| `responso_condiviso` | quanto si usa la sola porta di crescita che l'app ha | privato o pubblico, mai il nome dell'applicazione |
+
+**Si contano i GESTI, non le persone.** Non esiste nessuna riga per persona con
+dentro cosa ha fatto: esistono contatori per giorno e per tipo, in
+`users/{uid}/ritorno/{giorno}` e in `ritorno/{giorno}`. Dal secondo si legge
+quante persone tornano, e non si legge chi. **Nessun testo scritto da nessuno
+esce mai**: il contesto e' una parola sola, presa da un elenco chiuso, tagliata
+a 40 caratteri sul server.
+
+### Dove i cinque eventi nascono, e perche' proprio li'
+
+| evento | punto unico | perche' quello e non un altro |
+| --- | --- | --- |
+| `apertura` | `lib/app.dart`, il provider del registro, dichiarato non pigro | se il registro nascesse alla prima lettura nascerebbe dentro una schermata a caso, e l'apertura non sarebbe mai contata |
+| `rito_cominciato` | `SogliaArte.initState`, in `lib/features/maestri/rotta_arte.dart` | e' la soglia di **ogni** arte: ventidue schermate ci passano e nessun'altra riga le vede tutte. In `initState` e non in `build`, perche' un'arte si ricostruisce decine di volte mentre la si usa |
+| `rito_compiuto` | `RegiaDelCammino.dopoUnGesto`, dentro il ramo dei responsi | i gesti sono molti piu' dei riti: contarli tutti darebbe un numero non confrontabile con i cominciati. Dentro quel ramo il nome e' per costruzione una chiave di `VoceDelResponso.deiResponsi`, cioe' un elenco chiuso |
+| `responso_condiviso` | `PortaDellaCondivisione.avvenuta` | il file dichiara gia' di se' che li' passano tutte e tre le vie, e una prova esistente cade se qualcuno condivide scavalcandola. Si conta solo `success`: un foglio aperto e chiuso non e' una condivisione |
+| `ritorno_da_avviso` | `AvvisiLocali`, dentro `onDidReceiveNotificationResponse` | e' la sola riga dell'app che sa che si e' entrati toccando una notifica |
+
+**Il registro e' raggiungibile senza `BuildContext`, ed e' una scelta
+dichiarata.** Due dei cinque punti non ne hanno uno: la porta della
+condivisione e' una classe di soli metodi statici, e il tocco su una notifica
+arriva prima di qualunque widget. In questo progetto pretendere un provider
+dentro un servizio condiviso ha gia' fatto cadere quaranta prove lontane dal
+punto toccato. `RegistroDelRitorno.corrente` e' **nullo di suo e nullo resta
+nelle prove**: nessuna schermata montata da sola cambia comportamento perche'
+questa voce esiste.
+
+### Il consenso
+
+**Si chiede una volta, dopo il tutorial, in casa.** Non addosso a un rito, e
+non prima dei cinque fumetti del primo approdo: sei cose da leggere prima di
+aver visto il Cerchio si accettano per liberarsene. La domanda ha **due
+pulsanti uguali** uno accanto all'altro, `misura_si` e `misura_no`, e nessun
+`FilledButton`: un pulsante pieno accanto a uno vuoto e' una spinta. Chi chiude
+il foglio senza scegliere non ha risposto, e la domanda torna: un foglio
+scartato non e' un no.
+
+**Chi dice no usa l'app intera.** Niente si spegne, niente si blocca, niente si
+ripropone. La risposta si cambia dalle Impostazioni, sotto "Privacy e dati",
+riga `settings_misura`.
+
+**La chiave sta sotto `permesso.`**, che e' gia' fra i 28 prefissi di
+`CioCheETuo`: chi cancella tutto se ne va anche da qui, e al rientro la domanda
+torna, perche' per l'app e' una persona nuova.
+
+**Nessun credito Anthropic e nessuno strumento nuovo.** Nessun pacchetto
+aggiunto, nessun identificativo pubblicitario, nessun secondo posto dove vivono
+i dati di una persona: la misura passa dalla porta che il Cerchio ha gia', una
+callable su Cloud Run in `europe-west1`, e i numeri si leggono da Firestore
+nella console Google.
+
+### La privacy policy, allineata nella stessa voce
+
+Sezione nuova, "La misura di come va l'app", dentro `sezioniDellaPolicy`. Dice
+i cinque gesti con le parole di chi legge, dice che non e' un profilo, dice che
+la risposta si cambia dalle Impostazioni e dice che i conti restano 24 mesi.
+**Una prova pretende che le tre liste coincidano**, cioe' il client, il server e
+la policy: tre elenchi che divergono sono una misura che perde pezzi in
+silenzio e una policy che dice il falso.
+
+### Le misure, in numeri
+
+| misura | numero |
+| --- | --- |
+| eventi dichiarati nel client | 5 |
+| eventi ammessi dal server | 5 |
+| eventi nominati nella policy | 5 |
+| eventi dichiarati senza un punto che li manda | **0** |
+| eventi partiti senza aver chiesto niente a nessuno | **0** |
+| eventi partiti dopo un no | **0** |
+| chiamate in una sessione impazzita, e quante ne partono | 70, ne partono **50** |
+| pacchetti aggiunti | **0** |
+
+### Il rosso, dimostrato due volte
+
+**Primo.** Tolto `"responso_condiviso"` da `EVENTI_AMMESSI` sul server,
+verificato col grep che il file ne avesse **zero** occorrenze **prima** di
+leggere l'esito, e la prova e' diventata rossa dicendo che client e server non
+ammettono gli stessi eventi. Rimesso, verificata **una** occorrenza, verde.
+
+**Secondo.** Tolto l'aggancio della condivisione da
+`PortaDellaCondivisione.avvenuta`, verificato col grep che nel file non
+restasse nessun `responsoCondiviso` **prima** di leggere l'esito, e la prova
+degli orfani e' diventata rossa: "eventi dichiarati 5, senza un punto che li
+mandano 1". Rimesso, verde.
+
+**Un rosso trovato per strada, e riparato.** La riga del transito nella carta
+ingrandita, cambiata dalla voce CC.06h, era un `Text` diretto nel ruolo
+lettura: la guardia `etichette_e_lettura` l'ha vista. E' passata da
+`ParagrafiDiLettura`, e la pretesa della sua prova segue adesso il dato, cioe'
+la frase intera col verbo invece del transito nudo.
+
+### La frase di accettazione della voce CC.09
+
+**Apri l'app dopo il tutorial: ti viene chiesto una volta se puoi contare i
+gesti, con due pulsanti uguali. Rispondi no e non cambia niente. Vai in
+Impostazioni, Privacy e dati, e trovi l'interruttore per cambiare idea, con
+sotto la stessa frase che c'e' nella privacy policy.**
 
 ## LE SCELTE CHE HO PRESO IO E PERCHE'
 

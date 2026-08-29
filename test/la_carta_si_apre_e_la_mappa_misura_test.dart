@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 
 /// LA CARTA SI APRE, LA LETTURA SI ESPLORA, LA MAPPA MISURA.
 /// Ordine BO voci 08 e 09.
@@ -148,10 +149,16 @@ void main() {
     expect(find.byKey(const Key('sinastria_significato')), findsOneWidget);
     // **IL TESTO E' IDENTICO CARATTERE PER CARATTERE**, perché è lo stesso
     // oggetto da cui nasce il responso, non una seconda copia.
+    // **LA RIGA DICE ADESSO LA FRASE INTERA, ordine CC voce 06h**: col nome
+    // e col verbo, "il mercurio di X e' in sestile con la tua venere". Prima
+    // diceva `fatto`, che e' lo stesso transito senza verbo perche' dentro il
+    // responso vive in mezzo a una frase piu' lunga. La pretesa segue il dato:
+    // qui si confronta cio' che la riga mostra davvero.
     final fatto = tester
-        .widget<Text>(find.byKey(const Key('sinastria_significato_fatto')))
-        .data!;
-    expect(fatto, primo.fatto);
+        .widget<ParagrafiDiLettura>(
+            find.byKey(const Key('sinastria_significato_fatto')))
+        .testo;
+    expect(fatto, primo.laFrase);
     expect(report.reading, contains(primo.fatto),
         reason: 'il responso e la bolla del filo dicono cose diverse: sono '
             'due copie, e al primo che ne cambia una divergono');

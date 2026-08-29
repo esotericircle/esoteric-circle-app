@@ -107,6 +107,22 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'senza nessun legame con te. Anche quello lo conserviamo 24 mesi.',
   ),
   SezioneDellaPolicy(
+    titolo: 'La misura di come va l\'app',
+    // **QUESTA SEZIONE NASCE CON LA MISURA, ordine CC voce 09.** La policy e'
+    // dato dentro l'app dall'ordine BH voce 07, e una guardia ancora le sue
+    // affermazioni al codice: qui i cinque eventi sono gli stessi cinque che
+    // il client dichiara e che il server ammette, e se le tre liste divergono
+    // la prova cade.
+    corpo: 'Se ce lo permetti, contiamo cinque gesti per capire cosa '
+        'funziona: le aperture dell\'app, i riti cominciati, i riti finiti, i '
+        'ritorni da una notifica e i responsi condivisi. Sono numeri per '
+        'giorno, non un profilo: non registriamo chi ha fatto cosa, non '
+        'registriamo niente che tu abbia scritto e non usiamo nessun '
+        'identificativo pubblicitario. Te lo chiediamo una volta e la '
+        'risposta si cambia dalle Impostazioni; se dici no, l\'app resta '
+        'esattamente com\'è. I conti restano 24 mesi.',
+  ),
+  SezioneDellaPolicy(
     titolo: 'I tuoi diritti',
     corpo: 'Puoi scaricare i tuoi dati in un file (voce "Scarica i tuoi '
         'dati"), correggerli dal profilo, cancellarli o cancellare '

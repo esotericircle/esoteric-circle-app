@@ -309,6 +309,14 @@ abstract class PortaDelCerchio {
   /// sono piu'.
   Future<bool> cancellaIlCerchio();
 
+  /// **SEGNA UN EVENTO DELLA MISURA DEL RITORNO. Ordine CC voce 09.**
+  ///
+  /// Torna vero solo se il server ha davvero registrato. La porta finta non
+  /// registra niente e torna falso: una misura che si finge riuscita e'
+  /// peggio di una misura che manca.
+  Future<bool> segnaLEvento({required String nome, String? contesto}) async =>
+      false;
+
   /// **AZZERA I DATI TENENDO L'ACCOUNT, sul server.** Ordine BE voce 07,
   /// punto 3: la voce "cancella i tuoi dati" puliva solo il telefono, il
   /// ramo sul server restava e al ritorno dell'identita' rendeva tutto.
@@ -392,6 +400,20 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
       // e' la stessa.
       return null;
     }
+  }
+
+  @override
+  Future<bool> segnaLEvento(
+      {required String nome, String? contesto}) async {
+    // **NIENTE ASPETTA QUESTA CHIAMATA.** Chi la fa non la attende, e il nulla
+    // che torna da `_chiama` e' una risposta come le altre: rete giu',
+    // funzione non distribuita, tempo scaduto. Nessuno di questi casi deve
+    // arrivare a chi sta usando l'app.
+    final esito = await _chiama('segnaLEvento', {
+      'nome': nome,
+      if (contesto != null) 'contesto': contesto,
+    });
+    return esito is Map && esito['segnato'] == true;
   }
 
   @override

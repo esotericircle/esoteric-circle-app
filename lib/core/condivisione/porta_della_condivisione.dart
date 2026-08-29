@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:share_plus/share_plus.dart';
+import '../misura/misura_del_ritorno.dart';
+import '../misura/registro_del_ritorno.dart';
 
 /// LA PORTA UNICA DELLA CONDIVISIONE. Ordine P voce 28.
 ///
@@ -88,7 +90,24 @@ class PortaDellaCondivisione {
     // **SI SEGNA DOVE E' ANDATA, ordine BX voce 10.** Qui passano tutte e tre
     // le vie di questa porta, quindi e' l'unico punto che deve saperlo.
     ultimoBersaglio = esito.raw;
-    return esito.status == ShareResultStatus.success;
+    final riuscita = esito.status == ShareResultStatus.success;
+    // **IL RESPONSO CONDIVISO SI SEGNA QUI. Ordine CC voce 09.**
+    //
+    // Questo metodo dichiara gia' di se' "qui passano tutte e tre le vie di
+    // questa porta, quindi e' l'unico punto che deve saperlo", e una prova
+    // esistente cade se qualcuno condivide scavalcandola: e' il solo punto da
+    // cui la misura non puo' perdere un pezzo.
+    //
+    // **Si conta solo cio' che e' avvenuto davvero**, con la stessa prudenza
+    // con cui questa porta tratta `unavailable`: un foglio aperto e chiuso non
+    // e' una condivisione. Il contesto e' la famiglia del bersaglio, privato o
+    // pubblico, che e' un elenco chiuso dichiarato sopra: mai il nome
+    // dell'applicazione, che direbbe con chi si parla.
+    if (riuscita) {
+      RegistroDelRitorno.segnalo(EventoDelRitorno.responsoCondiviso,
+          contesto: canaleDellUltima);
+    }
+    return riuscita;
   }
 
   /// Manda del TESTO. Torna falso se la condivisione non e' partita.

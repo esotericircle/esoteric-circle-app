@@ -23,6 +23,8 @@ import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../core/misura/misura_del_ritorno.dart';
+import '../../core/misura/registro_del_ritorno.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -233,6 +235,17 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
+              // **LA MISURA DEL RITORNO, ordine CC voce 09.** Sta sotto
+              // "Privacy e dati" e non fra i comandi dell'esperienza, perche'
+              // non cambia niente di cio' che si vede: cambia solo cosa
+              // sappiamo noi. Chi ha risposto no una volta trova qui
+              // l'interruttore spento, e puo' cambiare idea senza cercare.
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: _MisuraTile(palette: palette),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
               DepthCard(
                 raised: true,
                 child: _DeleteDataTile(palette: palette),
@@ -315,6 +328,68 @@ class SettingsScreen extends StatelessWidget {
         endIndent: SpacingTokens.md,
         color: palette.gold.withValues(alpha: 0.12),
       );
+}
+
+/// **L'INTERRUTTORE DELLA MISURA. Ordine CC voce 09.**
+///
+/// **Perche' una classe sua e non un [_ToggleRow] nudo.** Le altre righe di
+/// questa schermata leggono da `SettingsController`, che e' gia' in memoria;
+/// il consenso alla misura vive nelle preferenze e si legge dal disco, quindi
+/// serve qualcuno che aspetti quella lettura senza far comparire un
+/// interruttore acceso per un istante prima di sapere com'e'.
+///
+/// **Finche' non si sa, non si mostra niente.** Un interruttore che sbatte da
+/// spento ad acceso mentre la schermata si apre dice due cose diverse in
+/// mezzo secondo, e chi guarda non sa quale delle due e' la sua.
+class _MisuraTile extends StatefulWidget {
+  const _MisuraTile({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  State<_MisuraTile> createState() => _MisuraTileState();
+}
+
+class _MisuraTileState extends State<_MisuraTile> {
+  ConsensoAllaMisura? _risposta;
+
+  @override
+  void initState() {
+    super.initState();
+    _leggi();
+  }
+
+  Future<void> _leggi() async {
+    final letto = await ConsensoDellaMisura.letto();
+    if (mounted) setState(() => _risposta = letto);
+  }
+
+  Future<void> _cambia(bool acceso) async {
+    setState(() => _risposta =
+        acceso ? ConsensoAllaMisura.concesso : ConsensoAllaMisura.negato);
+    await ConsensoDellaMisura.segna(acceso);
+    // Il registro tiene il consenso in memoria per non leggere il disco a ogni
+    // gesto: se cambia qui, deve rileggerlo, o la scelta varrebbe dal prossimo
+    // avvio.
+    await RegistroDelRitorno.corrente?.rileggiIlConsenso();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final r = _risposta;
+    if (r == null) return const SizedBox(height: 72);
+    return _ToggleRow(
+      itemKey: const Key('settings_misura'),
+      icon: Icons.insights_outlined,
+      title: 'Conta i gesti, non te',
+      subtitle: 'Aperture, riti cominciati e finiti, ritorni da una notifica '
+          'e responsi condivisi. Numeri per giorno, senza nome. Spegnilo e '
+          'l\'app resta identica.',
+      value: r == ConsensoAllaMisura.concesso,
+      onChanged: _cambia,
+      palette: widget.palette,
+    );
+  }
 }
 
 class _ToggleRow extends StatelessWidget {

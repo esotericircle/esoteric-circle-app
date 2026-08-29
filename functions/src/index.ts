@@ -30,6 +30,12 @@ export {secondoFattore} from "./secondo_fattore";
 // `scadenze.ts`.
 export {pulisciLeScadenze} from "./pulizia";
 
+// LA MISURA DEL RITORNO, ordine CC voce 09: quante persone tornano il giorno
+// dopo, quante dopo una settimana, quanti riti arrivano in fondo. Conta i
+// gesti per giorno, non le persone: non esiste nessun profilo, esistono
+// contatori, e l'elenco degli eventi ammessi e' chiuso e dichiarato.
+export {segnaLEvento} from "./ritorno";
+
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati
 // RIMOSSI per decisione del fondatore. La cancellazione e' immediata e

@@ -46,6 +46,8 @@ import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
 import 'services/regia_delle_chiamate.dart';
 import 'features/intro/sequenza_intro.dart';
+import 'core/misura/misura_del_ritorno.dart';
+import 'core/misura/registro_del_ritorno.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
 ///
@@ -244,6 +246,24 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
     return MultiProvider(
       providers: [
         Provider<AppServices>.value(value: runtime),
+        // **IL REGISTRO DEL RITORNO. Ordine CC voce 09.**
+        //
+        // Sta fra i servizi e non dentro una schermata: gli eventi nascono in
+        // punti lontani fra loro, e una regola sul consenso ripetuta in ogni
+        // punto diventerebbe venti regole diverse.
+        Provider<RegistroDelRitorno>(
+          // **NON PIGRO, e l'apertura si segna qui.** L'evento che risponde a
+          // "quante persone tornano il giorno dopo" e' l'apertura dell'app: se
+          // il registro nascesse alla prima lettura, nascerebbe dentro una
+          // schermata a caso e l'apertura non sarebbe mai contata.
+          lazy: false,
+          create: (_) {
+            final registro = RegistroDelRitorno(porta: runtime.porta);
+            RegistroDelRitorno.corrente = registro;
+            registro.segnaSenzaAspettare(EventoDelRitorno.apertura);
+            return registro;
+          },
+        ),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => ProfileController()..load()),
         // Sottosistema della Carta Natale: identita' (nome e forma), motore del

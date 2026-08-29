@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/arts/arti_preferite.dart';
+import '../../core/misura/misura_del_ritorno.dart';
+import '../../core/misura/registro_del_ritorno.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -18,7 +20,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 ///
 /// Prende il posto del MaestroScope nelle rotte delle arti: fa la stessa cosa,
 /// piu' il cuore.
-class SogliaArte extends StatelessWidget {
+class SogliaArte extends StatefulWidget {
   const SogliaArte({
     super.key,
     required this.id,
@@ -36,12 +38,33 @@ class SogliaArte extends StatelessWidget {
   final Widget child;
 
   @override
+  State<SogliaArte> createState() => _SogliaArteState();
+}
+
+class _SogliaArteState extends State<SogliaArte> {
+  @override
+  void initState() {
+    super.initState();
+    // **IL RITO COMINCIATO SI SEGNA QUI. Ordine CC voce 09.**
+    //
+    // Questa e' la soglia di OGNI arte: ventidue schermate ci passano, e
+    // nessun'altra riga dell'app le vede tutte. Il contesto e'
+    // l'identificativo dell'arte nel catalogo, che e' un elenco chiuso
+    // scritto da noi: non e' testo di nessuno.
+    //
+    // **Sta in initState e non in build**, perche' un'arte si ricostruisce
+    // decine di volte mentre la si usa e il rito comincia una volta sola.
+    RegistroDelRitorno.segnalo(EventoDelRitorno.ritoCominciato,
+        contesto: widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) => MaestroScope(
-        maestro: maestro,
+        maestro: widget.maestro,
         child: ArteCorrente(
-          id: id,
+          id: widget.id,
           reclamato: ValueNotifier<bool>(false),
-          child: ConCuore(id: id, child: child),
+          child: ConCuore(id: widget.id, child: widget.child),
         ),
       );
 }
