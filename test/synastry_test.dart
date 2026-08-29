@@ -334,6 +334,16 @@ void main() {
             matching: find.byType(Scrollable)));
     expect(find.byKey(const Key('sinastria_share')), findsOneWidget);
     // Il selettore in fondo non c'e' piu': al suo posto il tasto Cambia VIP.
+    //
+    // **SI SCORRE FINO A LUI, non fino al tasto sopra.** L'elenco e' pigro, e
+    // Cambia VIP sta sotto Condividi: dopo l'ordine CC voce 06f l'infografica
+    // e' salita sotto la bolla e la coda della pagina si e' ridisposta, quindi
+    // fermarsi su Condividi lasciava Cambia VIP appena fuori dal viewport.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_change_vip')), 200,
+        scrollable: find.descendant(
+            of: find.byKey(const Key('sinastria_list')),
+            matching: find.byType(Scrollable)));
     expect(find.byKey(const Key('sinastria_change_vip')), findsOneWidget);
     expect(find.text('Il tuo VIP'), findsNothing);
   });

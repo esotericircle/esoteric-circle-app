@@ -231,6 +231,8 @@ class AspettoDiSinastria {
     required this.suo,
     required this.tipo,
     required this.orbo,
+    this.nomeSuo = '',
+    this.nomeTuo = '',
   });
 
   /// Il punto della persona che guarda.
@@ -244,14 +246,53 @@ class AspettoDiSinastria {
   /// Di quanto l'aspetto e' lontano dall'angolo esatto, in gradi.
   final double orbo;
 
+  /// **DI CHI SONO I DUE PUNTI. Ordine CC voce 06h.**
+  ///
+  /// Rilievo del fondatore, 29 agosto 2026, verbatim: "ci sono 3 pulsanti con
+  /// 3 transiti e se li apro non si capisce a chi si riferisce perche' dice
+  /// "il suo mercurio..." oppure "la sua venere..." ma il suo mercurio o la
+  /// sua venere di Chi? deve esserci il nome: "il mercurio di Fedez e' in
+  /// sestile con la tua venere". questo difetto e' ancora peggiore nella
+  /// sinastria con 2 vip dove non si capisce a quale vip si riferisce".
+  ///
+  /// **Vuoti vuol dire "il suo" e "il tuo"**, che e' come si parlava prima:
+  /// cosi' nessun punto che non conosce i nomi si rompe, e chi li conosce li
+  /// dice.
+  final String nomeSuo;
+  final String nomeTuo;
+
   /// Quanto e' forte: uno all'angolo esatto, zero al limite dell'orbo.
   double forzaCon(double orboAmmesso) =>
       orboAmmesso <= 0 ? 0 : (1 - orbo / orboAmmesso).clamp(0.0, 1.0);
 
   /// **IL FATTO VERO, DETTO IN UNA RIGA.** E' cio' che l'ordine chiede al
   /// responso: quale pianeta di lui tocca quale punto tuo, e con che angolo.
-  String get fatto => '${suo.ilSuo} ${suo.nome} '
-      'in ${tipo.italianName.toLowerCase()} ${tuo.alTuo} ${tuo.nome}';
+  String get fatto {
+    final mio = nomeSuo.isEmpty
+        ? '${suo.ilSuo} ${suo.nome}'
+        : '${suo.femminile ? "la" : "il"} ${suo.nome} di $nomeSuo';
+    final altro = nomeTuo.isEmpty
+        ? '${tuo.alTuo} ${tuo.nome}'
+        : '${tuo.femminile ? "alla" : "al"} ${tuo.nome} di $nomeTuo';
+    return '$mio in ${tipo.italianName.toLowerCase()} $altro';
+  }
+
+  /// **LO STESSO FATTO, DETTO PER INTERO. Ordine CC voce 06h.**
+  ///
+  /// Il fondatore l'ha scritto proprio cosi': "il mercurio di Fedez e' in
+  /// sestile con la tua venere". [fatto] vive DENTRO una frase piu' lunga,
+  /// dove un verbo in mezzo sarebbe di troppo; questa forma sta DA SOLA, nella
+  /// bolla che si apre toccando uno dei tre transiti, ed e' li' che il verbo
+  /// serve.
+  String get laFrase {
+    final mio = nomeSuo.isEmpty
+        ? '${suo.ilSuo} ${suo.nome}'
+        : '${suo.femminile ? "la" : "il"} ${suo.nome} di $nomeSuo';
+    final altro = nomeTuo.isEmpty
+        ? '${tuo.ilTuo} ${tuo.nome}'
+        : '${tuo.femminile ? "la" : "il"} ${tuo.nome} di $nomeTuo';
+    return '$mio è in ${tipo.italianName.toLowerCase()} con $altro';
+  }
 
   /// Come si nomina in una lista, col grado di scarto.
   String get titolo => '${suo.nome} ${tipo.italianName} ${tuo.nome}';
@@ -363,8 +404,13 @@ class AspettiDiSinastria {
   /// orbo vince l'ordine dei punti, cosi' due esecuzioni danno sempre la
   /// stessa lista: **il responso e' deterministico e non contiene nessuna
   /// casualita'**.
+  /// [ancheIlTuoHaUnNome] serve al confronto fra DUE VIP, dove nessuno dei due
+  /// lati sei tu: li' tutti e due i punti prendono il nome del personaggio, e
+  /// senza questo il responso direbbe "la tua Venere" a chi non c'entra
+  /// niente. E' il caso che il fondatore ha chiamato "ancora peggiore".
   static List<AspettoDiSinastria> fra(
-      CieloDiSinastria tuo, CieloDiSinastria suo) {
+      CieloDiSinastria tuo, CieloDiSinastria suo,
+      {bool ancheIlTuoHaUnNome = false}) {
     final trovati = <AspettoDiSinastria>[];
     for (final a in PuntoDelCielo.values) {
       final la = tuo.longitudini[a];
@@ -377,7 +423,14 @@ class AspettiDiSinastria {
               ChartAspect(aLongitude: la, bLongitude: lb, type: tipo);
           if (candidato.orbe <= orbo[tipo]!) {
             trovati.add(AspettoDiSinastria(
-                tuo: a, suo: b, tipo: tipo, orbo: candidato.orbe));
+                tuo: a,
+                suo: b,
+                tipo: tipo,
+                orbo: candidato.orbe,
+                // I nomi arrivano dai due cieli, che gia' li portano: cosi' il
+                // fatto sa dirsi da solo, e nessuna schermata deve rimontarlo.
+                nomeSuo: suo.nome,
+                nomeTuo: ancheIlTuoHaUnNome ? tuo.nome : ''));
             // Due aspetti diversi non possono valere fra la stessa coppia di
             // punti: gli angoli tolemaici distano almeno trenta gradi e
             // l'orbo piu' largo e' sei.

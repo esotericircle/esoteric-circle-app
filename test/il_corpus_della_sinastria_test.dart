@@ -98,12 +98,21 @@ void main() {
     expect(report.titoloDellaBolla, isNotEmpty,
         reason: 'il titolo della bolla non c\'e\'');
     expect(report.sfida, isNotEmpty, reason: 'la sfida non c\'e\'');
-    // **LA NOTA STA FUORI DALLA BOLLA**: il disclaimer dell'ora di nascita
-    // non deve piu' occupare tre righe su otto dentro il testo virale.
-    expect(report.nota, contains('ora esatta di nascita'),
-        reason: 'la nota non porta il disclaimer dell\'ora');
+    // **IL DISCLAIMER DELL\'ORA NON C\'E\' PIU\', E NON E\' UNA PERDITA.**
+    // Ordine CC voce 06g, parole del fondatore: "quando non si conosce
+    // l\'orario di nascita del vip c\'e\' sempre un testo che dice "non si finge
+    // cio\' che non si conosce" ecc. eliminalo! al suo posto, ma in ogni
+    // responso inserisci 2 righe con Ora di Nascita: e Luogo di Residenza:".
+    //
+    // **La cosa difesa resta**, ed e\' piu\' difesa di prima: che l\'app dichiari
+    // quando non conosce l\'ora. Prima lo diceva con tre righe e solo quando
+    // mancava; adesso con due parole e in OGNI responso.
+    expect(report.oraDiNascita, contains('Ora di Nascita:'),
+        reason: 'la riga dell\'ora di nascita non c\'e\'');
+    expect(report.luogoDiResidenza, contains('Luogo di Residenza:'),
+        reason: 'la riga del luogo di residenza non c\'e\'');
     expect(report.reading.contains('ora esatta di nascita'), isFalse,
-        reason: 'il disclaimer e\' ancora dentro la bolla');
+        reason: 'il disclaimer e\' tornato dentro la bolla');
     expect(report.reading.startsWith('Il fatto è questo'), isFalse,
         reason: 'la bolla apre ancora sempre allo stesso modo');
   });

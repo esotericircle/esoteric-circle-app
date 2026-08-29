@@ -496,11 +496,21 @@ class FiliDegliAspetti extends CustomPainter {
       final quanto = ((avanzamento - i * fetta) / fetta).clamp(0.0, 1.0);
       if (quanto <= 0) continue;
       final a = aspetti[i];
-      // I due punti stanno su due cerchi concentrici, uno per cielo: il tuo
-      // dentro, il suo fuori, cosi' il filo attraversa lo spazio fra le due
-      // ruote invece di correre lungo un bordo.
+      // **I DUE PUNTI STANNO TUTTI E DUE SUL CERCHIO. Ordine CC voce 06b.**
+      //
+      // Rilievo del fondatore, 29 agosto 2026, verbatim: "le linee tracciate
+      // devono partire da un punto del cerchio e finire in un altro punto del
+      // cerchio, mentre adesso arrivano a meta' e sembrano troncarsi Senza
+      // motivo".
+      //
+      // **Aveva ragione, e la causa era qui.** I due capi stavano su due
+      // cerchi concentrici, il suo sul bordo e il tuo su un cerchio interno
+      // largo il 62 per cento: il filo finiva nel vuoto a meta' strada, e
+      // nessuno poteva sapere che quel punto interno era un punto. Adesso e'
+      // una corda: parte da un punto del cerchio e arriva a un altro punto
+      // dello stesso cerchio.
       final da = puntoDi(_gradiDi(a.suo, i), centro, raggio);
-      final aPunto = puntoDi(_gradiDi(a.tuo, i + 3), centro, raggio * 0.62);
+      final aPunto = puntoDi(_gradiDi(a.tuo, i + 3), centro, raggio);
       tracciato.moveTo(da.dx, da.dy);
       tracciato.lineTo(da.dx + (aPunto.dx - da.dx) * quanto,
           da.dy + (aPunto.dy - da.dy) * quanto);

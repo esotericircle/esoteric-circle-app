@@ -7,6 +7,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../onboarding/nazioni_del_mondo.dart';
+import '../../core/astro/city_catalog.dart';
 
 /// L'INQUADRATURA DELLA MAPPA, in gradi di longitudine.
 ///
@@ -92,6 +93,55 @@ class InquadraturaDellaMappa {
   }
 }
 
+/// I RIFERIMENTI DELLA MAPPA: le citta' che dicono dove sei. Ordine CC voce 06a.
+///
+/// **Rilievo del fondatore, 29 agosto 2026, verbatim:** "avevo gia' chiesto di
+/// rivedere tutte le mappe delle distanze tra vip e utente o tra 2 vip perche'
+/// quando sono vicini, non si capisce visivamente dove si trovano, nemmeno la
+/// nazione e magari inserisci i nomi delle capitali o capoluoghi o citta' piu'
+/// grandi come riferimento, ma anche le citta' dove vivono".
+///
+/// **Da dove vengono i nomi, e perche' non serve nessuna rete.** Dal catalogo
+/// dei luoghi che l'app ha gia' nel bundle, `assets/data/luoghi.csv`: undicimila
+/// citta' con le loro coordinate, **ordinate per popolazione decrescente**. Le
+/// prime che cadono dentro l'inquadratura sono le piu' grandi che si vedono, e
+/// sono esattamente i riferimenti che il fondatore chiede.
+///
+/// **Quante**: al massimo sei. Una mappa piccola con venti nomi sopra non dice
+/// dove sei, dice che c'e' molta gente.
+abstract final class RiferimentiDellaMappa {
+  /// Quanti nomi al massimo, oltre ai due punti della coppia.
+  static const int quanti = 6;
+
+  /// Le citta' piu' grandi dentro [q], escluse quelle troppo vicine ai due
+  /// punti della coppia, che avrebbero il nome sovrapposto.
+  static List<City> dentro(
+    InquadraturaDellaMappa q, {
+    required ({double lat, double lon}) tu,
+    required ({double lat, double lon}) lui,
+  }) {
+    final fuoriMano = <({double lat, double lon})>[tu, lui];
+    // Quanto vicino e' "troppo vicino": un decimo della larghezza inquadrata.
+    final troppoVicino = q.larghezzaInGradi * 0.1;
+    final out = <City>[];
+    for (final c in CityCatalog.luoghi) {
+      if (out.length >= quanti) break;
+      final p = (lat: c.latitude, lon: c.longitude);
+      if (!q.contiene(p)) continue;
+      final addosso = fuoriMano.any((x) =>
+          (x.lat - p.lat).abs() < troppoVicino &&
+          (x.lon - p.lon).abs() < troppoVicino);
+      if (addosso) continue;
+      final gia = out.any((y) =>
+          (y.latitude - c.latitude).abs() < troppoVicino &&
+          (y.longitude - c.longitude).abs() < troppoVicino);
+      if (gia) continue;
+      out.add(c);
+    }
+    return out;
+  }
+}
+
 /// LA MAPPA DELLA DISTANZA. Ordine BO voce 09.
 ///
 /// **Si usa il disegno delle nazioni gia' presente nel repository**, cioe'
@@ -173,6 +223,10 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
                     tu: tu,
                     lui: lui,
                     palette: widget.palette,
+                    tuaCitta: widget.doveSei.citta,
+                    suaCitta: sua.suaCitta,
+                    riferimenti: RiferimentiDellaMappa.dentro(q,
+                        tu: tu, lui: lui),
                   ),
                   child: const SizedBox.expand(),
                 ),
@@ -210,12 +264,23 @@ class _DisegnoDellaMappa extends CustomPainter {
     required this.tu,
     required this.lui,
     required this.palette,
+    required this.tuaCitta,
+    required this.suaCitta,
+    required this.riferimenti,
   });
 
   final InquadraturaDellaMappa inquadratura;
   final ({double lat, double lon}) tu;
   final ({double lat, double lon}) lui;
   final MaestroPalette palette;
+
+  /// Come si chiamano i due punti. Senza i nomi, due pallini su una linea non
+  /// dicono dove sei: e' il rilievo del fondatore.
+  final String tuaCitta;
+  final String? suaCitta;
+
+  /// Le citta' grandi attorno, che danno il senso del luogo.
+  final List<City> riferimenti;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -254,6 +319,16 @@ class _DisegnoDellaMappa extends CustomPainter {
       }
     }
 
+    // **I RIFERIMENTI, prima del filo.** Ordine CC voce 06a: stanno sotto,
+    // perche' sono il fondale, e la coppia deve restare sopra a tutto.
+    for (final c in riferimenti) {
+      final o = dove((lat: c.latitude, lon: c.longitude));
+      canvas.drawCircle(
+          o, 2, Paint()..color = palette.goldSoft.withValues(alpha: 0.45));
+      _scrivi(canvas, c.name, o + const Offset(5, -6), size,
+          palette.goldSoft.withValues(alpha: 0.7), 9);
+    }
+
     // IL FILO FRA I DUE PUNTI, e i due punti.
     final a = dove(tu);
     final b = dove(lui);
@@ -277,11 +352,50 @@ class _DisegnoDellaMappa extends CustomPainter {
           ..color = palette.goldSoft
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1);
+
+    // **I NOMI DELLE DUE CITTA', e sono la meta' del rilievo.** Il fondatore:
+    // "non si capisce visivamente dove si trovano, nemmeno la nazione [...] ma
+    // anche le citta' dove vivono". Due pallini su una linea non dicono dove
+    // sei.
+    _scrivi(canvas, tuaCitta, a + const Offset(7, -8), size,
+        palette.goldSoft, 11);
+    if (suaCitta != null) {
+      _scrivi(canvas, suaCitta!, b + const Offset(9, -8), size,
+          palette.goldSoft, 11);
+    }
+  }
+
+  /// Scrive un nome sulla mappa, tenendolo dentro il riquadro.
+  ///
+  /// **Il nome non esce dal bordo**, e non e' pignoleria: sulla mappa stretta
+  /// la citta' di chi guarda sta al centro e quella del VIP sul bordo, quindi
+  /// meta' dei nomi cadrebbe fuori dal riquadro e verrebbe tagliata proprio
+  /// mentre la scena serve a dire dove sono.
+  void _scrivi(Canvas canvas, String testo, Offset dove, Size size,
+      Color colore, double misura) {
+    final p = TextPainter(
+      text: TextSpan(
+        text: testo,
+        style: TextStyle(
+          color: colore,
+          fontSize: misura,
+          fontFamily: 'EBGaramond',
+          shadows: const [
+            Shadow(color: Color(0xCC000000), blurRadius: 3),
+          ],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final x = dove.dx.clamp(2.0, size.width - p.width - 2);
+    final y = dove.dy.clamp(2.0, size.height - p.height - 2);
+    p.paint(canvas, Offset(x, y));
   }
 
   @override
   bool shouldRepaint(_DisegnoDellaMappa vecchio) =>
       vecchio.inquadratura.larghezzaInGradi !=
           inquadratura.larghezzaInGradi ||
-      vecchio.inquadratura.centro != inquadratura.centro;
+      vecchio.inquadratura.centro != inquadratura.centro ||
+      vecchio.riferimenti.length != riferimenti.length;
 }

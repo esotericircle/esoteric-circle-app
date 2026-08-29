@@ -7,6 +7,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../design_system/components/vip_frame.dart';
 
 /// LA CARTA DEL VIP SI APRE AL TOCCO. Ordine BO voce 08.
 ///
@@ -139,13 +140,29 @@ class RitrattoIngrandito extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            if (vip.hasImage)
-              Image.asset(vip.fullPath!,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) =>
-                      Icon(Icons.auto_awesome, color: palette.goldSoft))
-            else
-              Icon(Icons.auto_awesome, color: palette.goldSoft),
+            // **LA CARTA INGRANDITA PORTA I SUOI CARTIGLI. Ordine CC voce
+            // 06i.**
+            //
+            // Rilievo del fondatore, 29 agosto 2026, verbatim: "quando
+            // ingrandisco la Carta del vip, i testi nei cartigli della carta
+            // spariscono".
+            //
+            // **Aveva ragione, e la causa e' una regola del progetto.** Gli
+            // artwork dei VIP hanno i cartigli VUOTI: il nome e la data si
+            // posano a runtime, cosi' un set solo di immagini vale per tutte
+            // le lingue. Qui si montava `Image.asset` nudo, cioe' l'arte senza
+            // chi la posa: la cornice c'era e i cartigli restavano bianchi.
+            //
+            // `VipFramedPortrait` e' il componente che quei due testi li
+            // scrive, ed e' lo stesso che la porta della Sinastria e la card
+            // da condividere usano gia': una porta sola per i cartigli.
+            VipFramedPortrait(
+              palette: palette,
+              name: vip.name,
+              date: vip.note,
+              sign: vip.sign.symbol,
+              vipAsset: vip.hasImage ? vip.fullPath : null,
+            ),
             // LA LUCE, l'unica cosa che si muove sul ritratto.
             IgnorePointer(
               child: AnimatedBuilder(
@@ -211,9 +228,14 @@ Future<void> mostraIlSignificatoDellAspetto(
               style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
           const SizedBox(height: SpacingTokens.xs),
-          Text(aspetto.fatto,
+          // **QUI IL TRANSITO SI DICE PER INTERO, col nome e col verbo.**
+          // Ordine CC voce 06h. Il fondatore l'ha scritto cosi': "deve
+          // esserci il nome: "il mercurio di Fedez e' in sestile con la tua
+          // venere"". `fatto` vive dentro una frase piu' lunga e li' il verbo
+          // sarebbe di troppo; qui la riga sta da sola.
+          Text(aspetto.laFrase,
               key: const Key('sinastria_significato_fatto'),
-              style: TypographyTokens.corpo()
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.xs),
           Text('A ${aspetto.gradi} dall\'angolo esatto.',

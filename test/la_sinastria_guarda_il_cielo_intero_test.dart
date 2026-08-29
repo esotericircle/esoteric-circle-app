@@ -109,8 +109,13 @@ void main() {
     // deve diventare virale: adesso vive nella NOTA, fuori dalla bolla e in
     // corpo minore. Cio' che questa prova difende, cioe' che l'app non finga
     // un Ascendente che nessuna fonte dichiara, non cambia.
-    expect(r.nota, contains('ora esatta di nascita'),
-        reason: 'la nota non dichiara che l\'ora del VIP non si conosce');
+    // **ADESSO LO DICE UNA RIGA, non un disclaimer.** Ordine CC voce 06g:
+    // il fondatore ha fatto togliere il testo del "non si finge" e al suo
+    // posto ha chiesto due righe in ogni responso. Cio\' che questa prova
+    // difende non cambia: che l\'app non finga un Ascendente che nessuna fonte
+    // dichiara, e che lo DICA.
+    expect(r.oraDiNascita, contains('SCONOSCIUTO'),
+        reason: 'senza l\'ora del VIP la riga non dice SCONOSCIUTO');
     expect(r.reading.contains('ora esatta di nascita'), isFalse,
         reason: 'la dichiarazione e\' tornata dentro la bolla');
     expect(r.oraDelVipNota, isFalse);

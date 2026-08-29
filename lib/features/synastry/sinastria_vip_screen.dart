@@ -841,6 +841,63 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             ],
           ),
         ),
+        // **LE DUE RIGHE DEL PERSONAGGIO, in OGNI responso. Ordine CC voce
+        // 06g.**
+        //
+        // Parole del fondatore: "quando non si conosce l'orario di nascita del
+        // vip c'e' sempre un testo che dice "non si finge cio' che non si
+        // conosce" ecc. eliminalo! al suo posto, ma in ogni responso inserisci
+        // 2 righe con Ora di Nascita: e Luogo di Residenza: e se non si
+        // conosce si mette semplicemente "SCONOSCIUTO" dopo i due punti".
+        if (report.oraDiNascita.isNotEmpty) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text(report.oraDiNascita,
+              key: const Key('sinastria_ora_di_nascita'),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+          const SizedBox(height: SpacingTokens.xxs),
+          Text(report.luogoDiResidenza,
+              key: const Key('sinastria_luogo_di_residenza'),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+        ],
+        // **L'INFOGRAFICA STA SUBITO DOPO LA BOLLA. Ordine CC voce 06f.**
+        //
+        // Parole del fondatore: "subito dopo questa bolla voglio la bolla
+        // della infografica con le barre affinita', intesa, scintille, ecc."
+        //
+        // Prima stava in fondo, dopo la nota, il cielo del giorno, la mappa
+        // della distanza e le pastiglie degli aspetti: cinque blocchi in mezzo
+        // fra il verdetto e il suo grafico.
+        const SizedBox(height: SpacingTokens.md),
+        // Le barre infografica animate: quattro per chi c'e', tre per chi non
+        // c'e' piu', perche' la barra dell'incontro non esiste proprio.
+        DepthCard(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: AnimatedBuilder(
+            animation: _anim,
+            builder: (context, _) {
+              final barre = report.bars;
+              return Column(
+                children: [
+                  for (final bar in barre) ...[
+                    // **LE BARRE PARTONO SFALSATE, ordine BO voce 07**:
+                    // quattro barre che partono insieme sono un'unica
+                    // animazione con quattro teste, e l'occhio non sa dove
+                    // guardare.
+                    SynastryBarRow(
+                        bar: bar,
+                        palette: palette,
+                        progress: _quantoDellaBarra(barre.indexOf(bar)),
+                        meetingReport: report),
+                    if (bar != report.bars.last)
+                      const SizedBox(height: SpacingTokens.sm),
+                  ],
+                ],
+              );
+            },
+          ),
+        ),
         // **LA NOTA, FUORI DALLA BOLLA E IN CORPO MINORE. Ordine CA voce 04.**
         // L'ora di nascita ignota occupava tre righe su otto DENTRO il testo
         // che deve diventare virale. Serve, perche' e' la regola di
@@ -952,35 +1009,6 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             ),
           ),
         ],
-        const SizedBox(height: SpacingTokens.md),
-        // Le barre infografica animate: quattro per chi c'e', tre per chi non
-        // c'e' piu', perche' la barra dell'incontro non esiste proprio.
-        DepthCard(
-          padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: AnimatedBuilder(
-            animation: _anim,
-            builder: (context, _) {
-              final barre = report.bars;
-              return Column(
-                children: [
-                  for (final bar in barre) ...[
-                    // **LE BARRE PARTONO SFALSATE, ordine BO voce 07**:
-                    // quattro barre che partono insieme sono un'unica
-                    // animazione con quattro teste, e l'occhio non sa dove
-                    // guardare.
-                    SynastryBarRow(
-                        bar: bar,
-                        palette: palette,
-                        progress: _quantoDellaBarra(barre.indexOf(bar)),
-                        meetingReport: report),
-                    if (bar != report.bars.last)
-                      const SizedBox(height: SpacingTokens.sm),
-                  ],
-                ],
-              );
-            },
-          ),
-        ),
         const SizedBox(height: SpacingTokens.lg),
         // Il rilancio e il tasto Condividi.
         Text(

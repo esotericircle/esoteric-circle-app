@@ -22,14 +22,14 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 - **CC.03** L'animazione di riflessione dell'Oroscopo si rifa' da capo. **CHIUSA.** I dodici segni corrono grandi, la corsa rallenta e si ferma sul tuo, il segno cresce e la scena si dissolve sul responso.
 - **CC.04** Il lampo fra le schermate diventa nero, e vale ovunque. **CHIUSA.** Quarantadue rotte sotto una legge sola, due veli trasparenti dichiarati fuori, e il lampo dei Tarocchi non e' piu' bianco.
 - **CC.05** Censimento globale delle dimensioni dei caratteri. **CHIUSA.** Ventidue arti censite: sei mostravano il responso a 16 punti e adesso tutte lo mostrano a 18, la misura del responso dei Tarocchi.
-- **CC.06** La Sinastria VIP, nove rilievi. **APERTA.**
+- **CC.06** La Sinastria VIP, nove rilievi. **CHIUSA.** Tutti e nove: le mappe dicono dove sei, i fili sono corde, la bolla e' tecnica per il 17 per cento invece che per il 36, e i transiti dicono di chi sono.
 - **CC.07** Il catalogo delle citta' fuori dall'Italia. **APERTA.**
 - **CC.08** L'attribuzione vera degli inviti. **APERTA.**
 - **CC.09** La misura del ritorno delle persone. **APERTA.**
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 4
-VOCI_APERTE: 4
+VOCI_CHIUSE: 5
+VOCI_APERTE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -323,8 +323,177 @@ diventata rossa nominando l'arte.
 **Apri il Consiglio dei Maestri, la Carta natale, la Meditazione e il Sigillo:
 i loro testi si leggono grandi come il responso dei Tarocchi, non piu' piccoli.**
 
+## CC.06, i nove rilievi della Sinastria
+
+Tutti e nove vengono dallo stesso messaggio del 29 agosto 2026, dato guardando
+l'app sul telefono con otto schermate a corredo. **Nessuno e' stato escluso.**
+
+### a) LE MAPPE DELLE DISTANZE
+
+**Verbatim:** "quando sono vicini, non si capisce visivamente dove si trovano,
+nemmeno la nazione e magari inserisci i nomi delle capitali o capoluoghi o
+citta' piu' grandi come riferimento, ma anche le citta' dove vivono".
+
+**Cosa c'era**: i contorni delle nazioni, due pallini e una linea. **Zero
+nomi.** Due pallini su una linea non dicono dove sei.
+
+**Cosa c'e' adesso**: il nome della tua citta' e quello della sua sui due
+punti, piu' fino a **sei citta' di riferimento** dentro l'inquadratura. I nomi
+vengono dal catalogo che l'app ha gia' nel bundle, `assets/data/luoghi.csv`,
+**ordinato per popolazione decrescente**: le prime che cadono nell'inquadratura
+sono le piu' grandi che si vedono. Nessuna rete, nessuna chiave, nessun
+riquadro grigio offline.
+
+**Le due cure che l'occhio chiede**: un riferimento troppo vicino a uno dei due
+punti non si scrive, perche' i nomi si sovrapporrebbero; e nessun nome esce dal
+riquadro, perche' sulla mappa stretta meta' dei nomi cadrebbe fuori.
+
+### b) LE LINEE DELL'ANIMAZIONE
+
+**Verbatim:** "le linee tracciate devono partire da un punto del cerchio e
+finire in un altro punto del cerchio, mentre adesso arrivano a meta' e sembrano
+troncarsi Senza motivo".
+
+**Aveva ragione, e la causa era una riga.** I due capi stavano su due cerchi
+CONCENTRICI: il suo sul bordo, il tuo su un cerchio interno largo il **62 per
+cento**. Il filo finiva nel vuoto a meta' strada, e nessuno poteva sapere che
+quel punto interno fosse un punto. Adesso e' una corda: parte da un punto del
+cerchio e arriva a un altro punto dello stesso cerchio.
+
+### c) LA BOLLA ERA TROPPO TECNICA
+
+**Verbatim:** "parla per 3/4 di transiti e il resto lo dedica alla risposta
+vera e propria che interessa all'utente, ma deve essere il contrario".
+
+**Misurato sul testo vero, prima e dopo:**
+
+| | prima | dopo |
+| --- | --- | --- |
+| corpo della bolla | 366 caratteri | 349 |
+| di cui tecnici | **131, il 36 per cento** | **58, il 17 per cento** |
+
+**Cosa e' uscito**: i gradi di scarto dall'angolo esatto, che erano la parte
+piu' tecnica di tutta la bolla. **Non sono spariti**: vivono nella pastiglia
+toccabile sotto il responso, dove chi vuole quell'aspetto lo tocca. **Il nome
+dell'aspetto resta**, breve e fra parentesi, perche' e' la prova che il numero
+non e' inventato.
+
+**E due difetti di punteggiatura, trovati misurando:** si leggeva "vi accorgete
+l'uno dell'altro.: il suo Marte", con un punto prima dei due punti, e "mezzo
+mondo da salvare..", con due punti di fila.
+
+### d) IL PARAGRAFO DELL'ATTUALITA'
+
+**Verbatim:** "vorrei un paragrafo in piu' di testo che riguardi l'attualita'
+del vip".
+
+L'attualita' era una subordinata dentro la frase di presentazione. Adesso e' un
+paragrafo suo, cucito da **quattro frasi PROVVISORIE** dichiarate come tali in
+`TestiDellaSinastria.attualitaProvvisorie`: il corpus e' materia del fondatore,
+e le riscrivera' come ha fatto coi cinque fumetti.
+
+**Il vincolo del 28 agosto vale dentro quelle frasi**: girano attorno alla
+cronaca pubblica e professionale e non aggiungono niente di loro. **Per chi non
+c'e' piu' il paragrafo non esiste**, e una prova lo pretende: non si fa cronaca
+su chi non puo' smentirla.
+
+### e) IL TONO GOLIARDICO
+
+**Verbatim:** "in generale il testo deve essere goliardico."
+
+**Misurato: il corpus e' gia' scritto in quel registro.** Le 287 righe che
+compongono il responso sono divise in dieci famiglie, e le quattro che formano
+il corpo della bolla portano gia' la battuta: le 21 aperture ("come lasciare
+una finestra aperta accanto a un camino acceso"), le 32 letture del cielo ("il
+che e' comodo e pericoloso insieme"), le 96 presentazioni, le 25 stoccate ("uno
+dei due non sa nemmeno che esisti").
+
+**Quello che NON era goliardico era la clausola tecnica**, "a 1,4 gradi
+dall'angolo esatto", che spezzava il tono in mezzo alla battuta. **E' uscita
+con la voce c).** Non ho riscritto nessuna riga del corpus: quelle sono sue.
+
+### f) L'INFOGRAFICA SUBITO DOPO
+
+**Verbatim:** "subito dopo questa bolla voglio la bolla della infografica con
+le barre affinita', intesa, scintille, ecc."
+
+Le barre stavano in fondo, e fra la bolla e loro c'erano **cinque blocchi**: la
+nota, il cielo del giorno, il giorno piu' acceso, la mappa della distanza e le
+pastiglie degli aspetti. Adesso stanno subito sotto, e una prova legge la
+posizione dei tre blocchi nel sorgente invece di crederci.
+
+### g) LE DUE RIGHE, E VIA IL "NON SI FINGE"
+
+**Verbatim:** "eliminalo! al suo posto, ma in ogni responso inserisci 2 righe
+con Ora di Nascita: e Luogo di Residenza: e se non si conosce si mette
+semplicemente "SCONOSCIUTO" dopo i due punti".
+
+Fatto alla lettera, e le due righe ci sono in OGNI responso, anche quando i due
+dati si conoscono: prima il silenzio voleva dire "si sa", e nessuno poteva
+esserne sicuro.
+
+**Il testo del "non si finge" era in DUE posti, non uno.** Il secondo, dentro
+la riga del cielo del giorno, lo ha trovato l'anteprima: si leggeva tre righe
+sotto la riga nuova che gia' dice SCONOSCIUTO.
+
+**Due guardie difendevano il disclaimer**, e sono state riscritte per difendere
+la stessa cosa nella forma nuova: che l'app dichiari di non conoscere l'ora. Lo
+fa in ogni responso, invece che in tre righe e solo quando manca.
+
+### h) I TRANSITI DICONO DI CHI SONO
+
+**Verbatim:** "il suo mercurio o la sua venere di Chi? deve esserci il nome:
+"il mercurio di Fedez e' in sestile con la tua venere". questo difetto e'
+ancora peggiore nella sinastria con 2 vip dove non si capisce a quale vip si
+riferisce".
+
+**Adesso**, con un VIP: *il Mercurio di Fedez in sestile alla tua Venere*. Fra
+due VIP: *il Mercurio di Fedez in sestile alla Venere di Chiara*, che e'
+esattamente il caso che ha chiamato "ancora peggiore". Nella bolla che si apre
+toccando uno dei tre transiti la riga sta da sola e prende il verbo, come
+l'aveva scritta lui: *il Mercurio di Fedez e' in sestile con la tua Venere*.
+
+**Il lato di chi guarda resta "il tuo"**, e non e' una svista: e' la sua frase.
+
+**Il rosso, dimostrato**: tolto il nome dal calcolo degli aspetti, verificato
+col grep, la prova e' diventata rossa dicendo "aspetti calcolati 5, senza il
+nome del personaggio 5".
+
+### i) I CARTIGLI DELLA CARTA INGRANDITA
+
+**Verbatim:** "quando ingrandisco la Carta del vip, i testi nei cartigli della
+carta spariscono".
+
+**Aveva ragione, e la causa e' una regola del progetto.** Gli artwork dei VIP
+hanno i cartigli VUOTI, perche' il nome e la data si posano a runtime e un set
+solo di immagini vale per tutte le lingue. La carta ingrandita montava
+`Image.asset` nudo, cioe' l'arte senza chi la posa. Adesso monta
+`VipFramedPortrait`, lo stesso componente che la porta della Sinastria e la
+card da condividere usano gia': una porta sola per i cartigli.
+
+### La frase di accettazione della voce CC.06
+
+**Apri una Sinastria VIP: sotto la bolla leggi Ora di Nascita e Luogo di
+Residenza, poi subito le barre. I tre transiti dicono il nome del personaggio,
+la mappa dice in quali citta' siete, e ingrandendo la carta i cartigli portano
+ancora il nome e la data.**
+
 ## LE SCELTE CHE HO PRESO IO E PERCHE'
 
+- **CC.06a, i riferimenti sono al massimo sei, e vengono dal catalogo per
+  popolazione.** Venti nomi su una mappa piccola non dicono dove sei, dicono
+  che c'e' molta gente.
+- **CC.06c, il nome dell'aspetto resta e i gradi escono.** Toglierlo tutto
+  farebbe di una lettura una battuta; i gradi vivono gia' nella pastiglia
+  toccabile, dove li cerca chi li vuole.
+- **CC.06d, le quattro frasi dell'attualita' sono PROVVISORIE e marcate.** Il
+  corpus e' materia del fondatore.
+- **CC.06e, non ho riscritto nessuna riga del corpus.** Misurato che il
+  registro goliardico c'e' gia' in tutte e quattro le famiglie che compongono
+  la bolla: quello che stonava era la clausola tecnica, ed e' uscita con la
+  voce c.
+- **CC.06h, il lato di chi guarda resta "il tuo".** E' la frase del fondatore,
+  ed e' anche l'unica che non suona ridicola a chi legge il proprio responso.
 - **CC.05, la misura di riferimento si LEGGE dal token, non si riscrive.** La
   prova prende 18 da `lettura()`: il giorno che il responso dei Tarocchi cambia
   misura, cambiano tutte le altre senza che nessuno tocchi la prova.

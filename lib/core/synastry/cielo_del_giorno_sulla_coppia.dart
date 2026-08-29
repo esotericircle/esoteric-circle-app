@@ -171,10 +171,18 @@ class MoltiplicatoreCeleste {
       return 'Oggi nessun pianeta passa sui gradi dove i vostri cieli si '
           'toccano: il cielo non aggiunge niente alla distanza.';
     }
-    final coda = soloPianeti
-        ? ' Del suo cielo non si conosce l\'ora di nascita, quindi si guarda '
-            'ai pianeti e non agli angoli.'
-        : '';
+    // **LA CODA SULL'ORA IGNOTA NON C'E' PIU'. Ordine CC voce 06g.**
+    //
+    // Il fondatore ha fatto togliere il testo che dice "non si finge cio'"
+    // che non si conosce, e al suo posto ha chiesto due righe in ogni
+    // responso: Ora di Nascita e Luogo di Residenza. Questa coda diceva la
+    // stessa cosa un'altra volta, dentro la riga del cielo del giorno:
+    // l'anteprima la mostrava tre righe sotto la riga nuova, che gia' dice
+    // SCONOSCIUTO.
+    //
+    // Cio' che si difendeva resta: l'app non finge un Ascendente che
+    // nessuna fonte dichiara, e lo dice dove il fondatore ha chiesto.
+    const coda = '';
     if (valore >= 1.5) {
       return 'Oggi ${t.nome} passa sul grado di ${a.titolo}: è uno dei giorni '
           'in cui quel legame è più acceso.$coda';

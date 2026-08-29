@@ -371,6 +371,27 @@ class TestiDellaSinastria {
   static const String notaAttualita = 'Le notizie su questa persona sono aggiornate al GIORNO.';
 
   /// Le cinque sfide da condividere. NOME e PERCENTO si sostituiscono.
+  /// **IL PARAGRAFO DELL'ATTUALITA'. Ordine CC voce 06d.**
+  ///
+  /// Rilievo del fondatore, 29 agosto 2026, verbatim: "vorrei un paragrafo in
+  /// piu' di testo che riguardi l'attualita' del vip".
+  ///
+  /// **SONO PROVVISORIE, e lo dichiaro qui.** Il corpus della Sinastria e'
+  /// materia del fondatore: queste quattro righe sono mie, servono a far
+  /// vivere il paragrafo, e lui le riscrivera' come ha fatto coi cinque
+  /// fumetti del tutorial.
+  ///
+  /// **Il vincolo del 28 agosto 2026 vale dentro queste righe**: nessuna
+  /// parola sulla vita privata, sui sentimenti, sulla salute o sui guai di una
+  /// persona reale. Le frasi girano attorno a FATTO, che e' cronaca pubblica e
+  /// professionale, e non aggiungono niente di loro sul personaggio.
+  static const List<String> attualitaProvvisorie = <String>[
+    'E intanto, nel mondo di fuori: FATTO. Il cielo non se ne accorge, ma tu sì.',
+    'Cosa combina di questi tempi: FATTO. Prendine nota, semmai vi incontraste.',
+    'Nel frattempo, dalle cronache: FATTO. Voi due, invece, siete qui.',
+    'Aggiornamento dal fronte: FATTO. Il resto lo dice il cielo qui sopra.',
+  ];
+
   static const List<String> sfide = <String>[
     'E tu con NOME quanto fai? Sfida i tuoi amici.',
     'PERCENTO con NOME. Scommetti che il tuo amico fa peggio?',

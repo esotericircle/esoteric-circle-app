@@ -17,6 +17,8 @@ class PezziDelResponso {
     required this.corpo,
     required this.nota,
     required this.sfida,
+    this.oraDiNascita = '',
+    this.luogoDiResidenza = '',
   });
 
   /// La riga che si legge PRIMA della percentuale. Sostituisce l'etichetta
@@ -36,6 +38,20 @@ class PezziDelResponso {
 
   /// La riga sopra il pulsante di condivisione.
   final String sfida;
+
+  /// **LE DUE RIGHE DEL PERSONAGGIO, in OGNI responso. Ordine CC voce 06g.**
+  ///
+  /// Rilievo del fondatore, 29 agosto 2026, verbatim: "quando non si conosce
+  /// l'orario di nascita del vip c'e' sempre un testo che dice "non si finge
+  /// cio' che non si conosce" ecc. eliminalo! al suo posto, ma in ogni responso
+  /// inserisci 2 righe con Ora di Nascita: e Luogo di Residenza: e se non si
+  /// conosce si mette semplicemente "SCONOSCIUTO" dopo i due punti".
+  ///
+  /// **Ci sono sempre**, anche quando i due dati si conoscono: e' la richiesta
+  /// alla lettera, ed e' anche piu' onesta di prima, perche' prima il silenzio
+  /// voleva dire "si sa" e nessuno poteva esserne sicuro.
+  final String oraDiNascita;
+  final String luogoDiResidenza;
 }
 
 /// COMPONE IL RESPONSO SECONDO IL CORPUS, revisione B. Ordine CA voce 04.
@@ -81,10 +97,15 @@ class ResponsoDellaSinastria {
         _apertura(relazione, tuoSegno, vip.sign, seme),
         _ilCielo(aspetti),
         personaggio,
+        // **IL PARAGRAFO DELL'ATTUALITA', che prima era una subordinata.**
+        // Ordine CC voce 06d: il fondatore ne vuole uno suo.
+        _lAttualita(vip, seme, adesso),
         _laStoccata(vip, fascia, seme),
       ].where((p) => p.isNotEmpty).join(' '),
       nota: _laNota(vip: vip, oraDelVipNota: oraDelVipNota, adesso: adesso),
       sfida: laSfida(nome: vip.name, percento: percento, seme: seme),
+      oraDiNascita: _oraDiNascita(oraDelVipNota),
+      luogoDiResidenza: _luogoDiResidenza(vip),
     );
   }
 
@@ -111,10 +132,13 @@ class ResponsoDellaSinastria {
         'Da una parte ${_ilPersonaggio(primo, seme, adesso, conNome: false)}'
             '; dall\'altra '
             '${_ilPersonaggio(secondo, seme + 1, adesso, conNome: false)}',
+        _lAttualita(secondo, seme, adesso),
         _laStoccata(secondo, fascia, seme),
       ].where((p) => p.isNotEmpty).join(' '),
       nota: _laNota(vip: secondo, oraDelVipNota: false, adesso: adesso),
       sfida: laSfida(nome: secondo.name, percento: percento, seme: seme),
+      oraDiNascita: _oraDiNascita(false),
+      luogoDiResidenza: _luogoDiResidenza(secondo),
     );
   }
 
@@ -133,11 +157,26 @@ class ResponsoDellaSinastria {
         .replaceAll('SEGNO_B', b.italianName);
   }
 
-  /// IL CIELO RESO LEGGIBILE: prima cosa significa, poi come si chiama.
+  /// IL CIELO RESO LEGGIBILE: quello che vi riguarda, e in coda da dove viene.
   ///
-  /// Il nome tecnico resta, perche' e' la prova che il numero non e'
-  /// inventato, ma viene dopo. Senza aspetti si dice quello, che e' un fatto
-  /// anche lui, invece di inventarne uno.
+  /// **Rilievo del fondatore, 29 agosto 2026, verbatim:** "la bolla di
+  /// responso e' troppo tecnica: parla per 3/4 di transiti e il resto lo dedica
+  /// alla risposta vera e propria che interessa all'utente, ma deve essere il
+  /// contrario".
+  ///
+  /// **Cosa e' uscito, e dove e' andato.** I gradi di scarto dall'angolo
+  /// esatto: erano la parte piu' tecnica di tutta la bolla e non dicono niente
+  /// a chi non fa astrologia. **Non sono spariti**: vivono nella pastiglia
+  /// toccabile sotto il responso, dove chi vuole sapere di quell'aspetto lo
+  /// tocca e li trova insieme al significato.
+  ///
+  /// **Il nome dell'aspetto resta**, breve e fra parentesi, perche' e' la prova
+  /// che il numero non e' inventato: toglierlo del tutto farebbe di una lettura
+  /// una battuta.
+  ///
+  /// **E il punto fermo di troppo non c'e' piu'.** Le frasi del corpus finiscono
+  /// gia' col punto, e qui se ne aggiungeva un altro coi due punti: a video si
+  /// leggeva "vi accorgete l'uno dell'altro.: il suo Marte...".
   static String _ilCielo(List<AspettoDiSinastria> aspetti) {
     if (aspetti.isEmpty) {
       return 'I vostri cieli si sfiorano senza toccarsi: nessuno dei punti '
@@ -148,10 +187,10 @@ class ResponsoDellaSinastria {
     final significato = TestiDellaSinastria.cieloLeggibile[chiave] ??
         TestiDellaSinastria.genericoPerPianeta[primo.suo.nome] ??
         TestiDellaSinastria.genericoPerPianeta['Sole']!;
-    final scarto = primo.orbo < 1
-        ? 'esatto al grado'
-        : 'a ${primo.gradi} dall\'angolo esatto';
-    return '$significato: ${primo.fatto}, $scarto.';
+    final senzaPunto = significato.endsWith('.')
+        ? significato.substring(0, significato.length - 1)
+        : significato;
+    return '$senzaPunto (${primo.fatto}).';
   }
 
   /// IL PERSONAGGIO, con la sua attualita' quando c'e' e vale.
@@ -162,15 +201,11 @@ class ResponsoDellaSinastria {
       // **PER CHI NON C'E' PIU' il tempo cambia e non si fa dell'ironia sulla
       // morte**: la forma e' quella che il corpus dichiara, e nessuna
       // attualita' entra.
-      return conNome
-          ? '${vip.name}, che $presentazione.'
-          : '${vip.name}, che $presentazione';
+      return _chiusa('${vip.name}, che $presentazione', conNome);
     }
     final fatto = vip.attualitaAl(adesso);
     if (fatto == null) {
-      return conNome
-          ? '${vip.name}, che $presentazione.'
-          : '${vip.name}, che $presentazione';
+      return _chiusa('${vip.name}, che $presentazione', conNome);
     }
     final giuntura = TestiDellaSinastria
         .giunture[(seme + 1) % TestiDellaSinastria.giunture.length];
@@ -179,6 +214,35 @@ class ResponsoDellaSinastria {
         .replaceAll('PRESENTAZIONE', presentazione)
         .replaceAll('FATTO', fatto);
     return conNome ? composta : composta.replaceAll(RegExp(r'\.$'), '');
+  }
+
+  /// Chiude la frase col punto, e UNO SOLO.
+  ///
+  /// **Il punto doppio si vedeva a video.** Ordine CC voce 06c: alcune
+  /// presentazioni del corpus finiscono gia' col punto, e qui se ne aggiungeva
+  /// un altro. L'anteprima leggeva "mezzo mondo da salvare..", che sembra un
+  /// puntino di sospensione mancato invece di un errore.
+  static String _chiusa(String frase, bool conNome) {
+    final nuda = frase.endsWith('.')
+        ? frase.substring(0, frase.length - 1)
+        : frase;
+    return conNome ? '$nuda.' : nuda;
+  }
+
+  /// **IL PARAGRAFO DELL'ATTUALITA'. Ordine CC voce 06d.**
+  ///
+  /// Vuoto quando non c'e' niente di verificato da dire, e per chi non c'e'
+  /// piu': e' la stessa regola dell'ordine BO voce 04, e non si fa cronaca su
+  /// chi non puo' smentirla.
+  ///
+  /// **Le frasi che lo cuciono sono PROVVISORIE**, dichiarate in
+  /// `TestiDellaSinastria.attualitaProvvisorie`.
+  static String _lAttualita(Vip vip, int seme, DateTime adesso) {
+    if (vip.eScomparso) return '';
+    final fatto = vip.attualitaAl(adesso);
+    if (fatto == null) return '';
+    const righe = TestiDellaSinastria.attualitaProvvisorie;
+    return righe[(seme + 3) % righe.length].replaceAll('FATTO', fatto);
   }
 
   /// La presentazione dal corpus, per lo stem del ritratto.
@@ -198,6 +262,24 @@ class ResponsoDellaSinastria {
     return righe[(seme + 3) % righe.length];
   }
 
+  /// **LA PAROLA CHE IL FONDATORE HA SCELTO** quando un dato non si conosce.
+  /// Maiuscola, come l'ha scritta lui.
+  static const String sconosciuto = 'SCONOSCIUTO';
+
+  /// La riga dell'ora di nascita, che c'e' sempre.
+  static String _oraDiNascita(bool nota) =>
+      nota ? 'Ora di Nascita: nota' : 'Ora di Nascita: $sconosciuto';
+
+  /// La riga del luogo di residenza, che c'e' sempre.
+  ///
+  /// Per chi non c'e' piu' non si scrive una residenza, e non e' una
+  /// dimenticanza: e' la stessa regola per cui l'attualita' non entra.
+  static String _luogoDiResidenza(Vip vip) {
+    final dove = vip.eScomparso ? null : vip.luogoDiOggi;
+    if (dove == null) return 'Luogo di Residenza: $sconosciuto';
+    return 'Luogo di Residenza: ${dove.nome}, ${dove.nazione}';
+  }
+
   /// LA NOTA, fuori dalla bolla e in corpo minore.
   ///
   /// Serve, perche' e' la regola di trasparenza del progetto, ma non deve
@@ -209,7 +291,9 @@ class ResponsoDellaSinastria {
     required DateTime adesso,
   }) {
     final pezzi = <String>[];
-    if (!oraDelVipNota) pezzi.add(TestiDellaSinastria.notaOraIgnota);
+    // **IL TESTO DEL "NON SI FINGE" NON C'E' PIU'. Ordine CC voce 06g.** Il
+    // fondatore: "eliminalo!". Al suo posto ci sono le due righe di sopra, che
+    // dicono la stessa cosa in due parole e stanno in OGNI responso.
     if (vip.luogoDiOggi == null && !vip.eScomparso) {
       pezzi.add(TestiDellaSinastria.notaLuogoIgnoto);
     }

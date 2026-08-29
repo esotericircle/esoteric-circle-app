@@ -39,6 +39,8 @@ class SynastryReport {
     this.titoloDellaBolla = '',
     this.nota = '',
     this.sfida = '',
+    this.oraDiNascita = '',
+    this.luogoDiResidenza = '',
     required this.love,
     required this.mental,
     required this.sparks,
@@ -84,6 +86,12 @@ class SynastryReport {
 
   /// La riga sopra il pulsante di condivisione, a rotazione fra cinque.
   final String sfida;
+
+  /// **LE DUE RIGHE DEL PERSONAGGIO. Ordine CC voce 06g.** Ci sono in ogni
+  /// responso, e quando il dato non si conosce portano la parola che il
+  /// fondatore ha scelto: SCONOSCIUTO.
+  final String oraDiNascita;
+  final String luogoDiResidenza;
 
   final int love;
   final int mental;
@@ -246,6 +254,8 @@ class SynastryReport {
       titoloDellaBolla: pezzi.titoloDellaBolla,
       nota: pezzi.nota,
       sfida: pezzi.sfida,
+      oraDiNascita: pezzi.oraDiNascita,
+      luogoDiResidenza: pezzi.luogoDiResidenza,
       love: love,
       mental: mental,
       sparks: sparks,
@@ -285,7 +295,10 @@ class SynastryReport {
     final secondo = vip2;
     final cieloA = CieloDiSinastria.perVip(primo);
     final cieloB = CieloDiSinastria.perVip(secondo);
-    final aspetti = AspettiDiSinastria.fra(cieloA, cieloB);
+    // Fra due VIP nessuno dei due lati e' tuo: tutti e due i punti portano
+    // il nome del personaggio. Ordine CC voce 06h.
+    final aspetti = AspettiDiSinastria.fra(cieloA, cieloB,
+        ancheIlTuoHaUnNome: true);
     final numeri = _numeriDa(aspetti);
     final pezzi = ResponsoDellaSinastria.fraDueVip(
       primo: primo,
@@ -302,6 +315,8 @@ class SynastryReport {
       titoloDellaBolla: pezzi.titoloDellaBolla,
       nota: pezzi.nota,
       sfida: pezzi.sfida,
+      oraDiNascita: pezzi.oraDiNascita,
+      luogoDiResidenza: pezzi.luogoDiResidenza,
       love: numeri.love,
       mental: numeri.mental,
       sparks: numeri.sparks,
