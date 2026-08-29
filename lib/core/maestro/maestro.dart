@@ -31,13 +31,20 @@ enum Maestro {
     avatarAsset: 'assets/avatars_webp/Aura-1.webp',
   ),
 
-  /// Rune, rituali, simbologia, magia, Cabala. Rosso con oro.
+  /// Rune, rituali, simbologia, magia, Numerologia. Rosso con oro.
+  ///
+  /// **LA MACRO CATEGORIA CABALA E' DIVENTATA NUMEROLOGIA.** Ordine CC voce
+  /// 01, decisione del fondatore del 29 agosto 2026, chiesta dai fondatori:
+  /// "la macro categoria di Caligo Cabala diventera' Numerologia e all'interno
+  /// ci sara' anche la Cabala". Il nome cambia qui e nel catalogo delle arti,
+  /// e da qui lo prendono tutti i punti a video, perche' il dominio nasce dal
+  /// Maestro e da nessun altro posto.
   caligo(
     id: 'caligo',
     displayName: 'Caligo',
     tagline: 'Custode delle rune e dei riti antichi',
     domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
-    domainArts: 'Rune, Rituali, Cabala',
+    domainArts: 'Rune, Rituali, Numerologia',
     icon: Icons.local_fire_department_outlined,
     avatarAsset: 'assets/avatars_webp/Caligo-1.webp',
   );

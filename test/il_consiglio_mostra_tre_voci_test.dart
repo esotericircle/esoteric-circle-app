@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/features/onboarding/primo_approdo.dart';
 
 /// IL CONSIGLIO MOSTRA LE TRE VOCI, SUBITO.
 ///
@@ -157,19 +158,21 @@ void main() {
     // e non e' una scappatoia: quelle parole le ha scritte il fondatore di suo
     // pugno il 29 agosto 2026, e l'ordine vieta di riformularle.
     //
-    // **E le sue parole NON coincidono con `domainArts`**, cosa che sta
-    // dichiarata nel manifesto dell'ordine CC voce 01: lui scrive
-    // "Divinazione" dove il codice dice "Destino", "Runologia, Simbologia,
-    // Ritualistica" dove il codice dice "Rune, Rituali, Cabala", "Energia,
-    // Meditazione, Equilibrio" dove il codice dice "Chakra, Energia,
-    // Archetipi". Allineare l'uno all'altro e' una decisione sua, non mia:
-    // finche' non la prende, l'app dice le sue parole nel tutorial e quelle
-    // del codice altrove.
+    // **E ADESSO LE SUE PAROLE COINCIDONO CON `domainArts`**, dopo le sue
+    // decisioni del 29 agosto 2026: ha allineato le sue parole all'app per
+    // Medora e per Aura, e l'app alle sue per Caligo, dove la macro categoria
+    // Cabala e' diventata Numerologia.
+    //
+    // **L'eccezione non e' piu' una scappatoia, e' pagata.** Il file del
+    // tutorial esce da questa regola perche' quel testo e' suo e non si
+    // compone, ma la prova qui sotto, "il fumetto dei Maestri dice
+    // esattamente i domini", pretende che contenga i tre domini carattere per
+    // carattere: se domani uno dei due cambia senza l'altro, cade.
     const modiLeciti = [
       'domainArts',
       'domainArtsPhrase',
-      'Tre voci, tre mondi',
     ];
+    const fuoriRegola = 'lib/features/onboarding/primo_approdo.dart';
     final colpe = <String>[];
     final da = <FileSystemEntity>[Directory('lib')];
     while (da.isNotEmpty) {
@@ -180,6 +183,7 @@ void main() {
       }
       if (voce is! File || !voce.path.endsWith('.dart')) continue;
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
+      if (percorso.endsWith(fuoriRegola)) continue;
       final righe = voce.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         final riga = righe[i];
@@ -209,6 +213,28 @@ void main() {
     expect(colpe, isEmpty,
         reason: 'il dominio deve nascere dal Maestro e da nessun altro '
             'posto:\n${colpe.join("\n")}');
+  });
+
+  /// **IL FUMETTO DEI MAESTRI DICE ESATTAMENTE I DOMINI. Ordine CC voce 01.**
+  ///
+  /// E' il prezzo dell'eccezione qui sopra. Quel testo e' del fondatore e non
+  /// si compone da `domainArts`, perche' comporlo vorrebbe dire che domani un
+  /// cambio nel codice riscrive le sue parole senza che lui lo sappia. In
+  /// cambio si pretende che le due cose dicano lo stesso: **tre domini, nove
+  /// parole, carattere per carattere**.
+  test('il fumetto dei Maestri dice esattamente i domini', () {
+    final testo = cinqueFumetti[1].testo;
+    final mute = <String>[];
+    for (final m in Maestro.values) {
+      final atteso = '${m.displayName}: ${m.domainArts}';
+      if (!testo.contains(atteso)) mute.add(atteso);
+    }
+    // ignore: avoid_print
+    print('ORDINE CC VOCE 01: domini del fumetto che non coincidono col '
+        'Maestro ${mute.length} su ${Maestro.values.length}');
+    expect(mute, isEmpty,
+        reason: 'il tutorial e il codice dicono domini diversi, e chi legge '
+            'trova due Cerchi: $mute');
   });
 
   test('Il dominio mostrato e\' quello INTERO del Maestro', () {

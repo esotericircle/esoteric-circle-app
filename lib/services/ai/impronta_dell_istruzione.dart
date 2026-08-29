@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '47e9f78152ae1b77c50a96610262dcb8b83494391d45f93014ade74f4ce0e8ee',
-    'aura': 'e59c8e380a035f48483c847dd7eafbc68838cb62d7139a92628f7fb32eadd525',
+        '47eda20aab8dfdc8dc74a64a6b861f6b9002eaa6b0e5c287f46d7ebae1ec591f',
+    'aura': 'ee70fb027222e348c4abcb7b0deaa20fa01f2bafe199b275ad1bb05825ebd266',
     'caligo':
-        '52bc003c493c6ad7ae2b8a7aaff5bda7856bd40b9dc30d2e8595412d4da26b20',
+        'a5a59abf8d101ddbefb6561987b13fa7360b69c80c6c4c5a2f3cc376ee6df478',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '25 agosto 2026';
+  static const String registrateIl = '30 agosto 2026';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,24 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 25 AL 30 AGOSTO 2026, stringa di 7250, 7398 e 7723 caratteri. '
+        'Impronte: medora '
+        '47e9f78152ae1b77c50a96610262dcb8b83494391d45f93014ade74f4ce0e8ee, '
+        'aura e59c8e380a035f48483c847dd7eafbc68838cb62d7139a92628f7fb32eadd525, '
+        'caligo 52bc003c493c6ad7ae2b8a7aaff5bda7856bd40b9dc30d2e8595412d4da26b20. '
+        'SU QUESTA STRINGA sono stati presi i sei giri dell\'attribuzione '
+        'cieca citati nell\'ordine BY voce 04, da 80,0 a 90,0 per cento, '
+        'media 86,7. Caduta il 30 agosto 2026 con l\'ordine CC voce 01: il '
+        'fondatore ha cambiato la macro categoria di Caligo da Cabala a '
+        'Numerologia. **È cambiata l\'istruzione di TUTTI E TRE, non solo '
+        'quella di Caligo**: la ragione è misurata, perché ogni Maestro '
+        'porta dentro di sé le arti degli altri due, nella riga "Le arti '
+        'degli altri due Maestri del cerchio", quindi il dominio di uno '
+        'vive dentro l\'istruzione di tutti. **L\'attribuzione cieca NON è '
+        'stata rifatta**: era già dichiarata non valida su questa '
+        'istruzione per decisione del fondatore. Resta non valida: '
+        'adesso lo è anche perché la stringa su cui fu misurata non '
+        'esiste più.',
     'FINO AL 10 AGOSTO 2026, stringa di circa 6300 caratteri (6294, 6333, '
         '6395). Su di essa fu misurata l\'attribuzione cieca al 98,3 per cento '
         '(59 su 60) il 2 agosto 2026. Caduta l\'11 agosto col commit 97bb997, '

@@ -80,7 +80,7 @@ void main() {
       // dell'Intenzione: senza, aveva due sottocategorie vive contro le
       // tre di Medora e di Aura.
       expect(ArtCatalog.forMaestro(Maestro.caligo).map((s) => s.title),
-          ['Rune', 'Rituali', 'Magia', 'Cabala']);
+          ['Rune', 'Rituali', 'Magia', 'Numerologia']);
     });
 
     test('Nessuna arte compare due volte, in nessun dominio', () {
@@ -255,34 +255,37 @@ void main() {
             for (final s in ArtCatalog.visibleFor(Maestro.caligo, demo: demo))
               s.title: s.arts.length,
           };
-      // Rune, Rituali e Magia hanno la loro distintiva viva. La Cabala no:
+      // Rune, Rituali e Magia hanno la loro distintiva viva. La Numerologia no:
       // uscito l'Albero della Vita dalla Demo, le restano solo arti in
       // cammino. Il Sigillo NON e' una voce nuova: e' il Sigillo Magico
       // Personale, spostato dai Rituali e acceso, quindi i Rituali ne
       // hanno una in meno.
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
-          ['Rune', 'Rituali', 'Magia', 'Cabala']);
+          ['Rune', 'Rituali', 'Magia', 'Numerologia']);
       expect(conta(true),
-          {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Cabala': 4});
+          {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Numerologia': 5});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
-      // perdono i Rituali Guidati. La Cabala no: senza piu' nulla di vivo e'
+      // perdono i Rituali Guidati. La Numerologia no: senza piu' nulla di vivo e'
       // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
       // tocco, come vuole la regola del catalogo.
       expect(conta(false),
-          {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Cabala': 4});
+          // **CINQUE E NON PIU' QUATTRO.** Ordine CC voce 01, decisione del
+          // fondatore del 30 agosto 2026: la Cabala e' entrata come arte
+          // dentro la Numerologia. Il numero segue il dato.
+          {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Numerologia': 5});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
           .firstWhere((s) => s.title == titolo)
           .arts;
 
-      // Una sola distintiva viva per sottocategoria, dove c'e'. La Cabala non
+      // Una sola distintiva viva per sottocategoria, dove c'e'. La Numerologia non
       // ne ha piu': l'Albero della Vita e' uscito dalla Demo.
       for (final t in const ['Rune', 'Rituali', 'Magia']) {
         expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
             reason: t);
       }
-      expect(arti('Cabala').where((a) => a.state == ArtState.attiva), isEmpty);
+      expect(arti('Numerologia').where((a) => a.state == ArtState.attiva), isEmpty);
       expect(arti('Rune').map((a) => a.id), [
         'rune_draw',
         'i_ching',
@@ -311,20 +314,24 @@ void main() {
         expect(a.title.toLowerCase().contains('magia nera'), isFalse,
             reason: a.title);
       }
-      expect(arti('Cabala').map((a) => a.id), [
+      // **LA CABALA E' ENTRATA COME ARTE.** Ordine CC voce 01, decisione del
+      // fondatore del 30 agosto 2026: la macro categoria si chiama
+      // Numerologia e la Cabala e' una delle arti che ci stanno dentro.
+      expect(arti('Numerologia').map((a) => a.id), [
         'angel_numbers',
         'numerology',
+        'kabbalah',
         'human_design',
         'cosmic_wrapped',
       ]);
       // L'Albero della Vita e' uscito dalla Demo, e con lui i settantadue nomi
       // che ne erano contenuto. La Compatibilita' Angelica e' passata alla
       // Sinastria Approfondita.
-      expect(arti('Cabala').map((a) => a.id), isNot(contains('tree_of_life')));
-      expect(arti('Cabala').map((a) => a.id), isNot(contains('angels_72')));
+      expect(arti('Numerologia').map((a) => a.id), isNot(contains('tree_of_life')));
+      expect(arti('Numerologia').map((a) => a.id), isNot(contains('angels_72')));
       expect(
-          arti('Cabala').map((a) => a.id), isNot(contains('angel_compatibility')));
-      expect(arti('Cabala').firstWhere((a) => a.id == 'angel_numbers').title,
+          arti('Numerologia').map((a) => a.id), isNot(contains('angel_compatibility')));
+      expect(arti('Numerologia').firstWhere((a) => a.id == 'angel_numbers').title,
           'Numeri Ricorrenti');
       // Nessuna arte di Caligo nomina piu' gli Angeli.
       for (final a in ArtCatalog.forMaestro(Maestro.caligo).expand((s) => s.arts)) {
@@ -569,10 +576,17 @@ void main() {
       }
     });
 
-    test('La Numerologia e\' di Caligo, sotto Cabala', () {
-      final cabala = ArtCatalog.forMaestro(Maestro.caligo)
-          .firstWhere((s) => s.title == 'Cabala');
-      expect(cabala.arts.map((a) => a.id), contains('numerology'));
+    // **LA SEZIONE E L'ARTE PORTANO LO STESSO NOME, ed e' voluto.** Ordine
+    // CC voce 01: la macro categoria di Caligo si chiama Numerologia dal 29
+    // agosto 2026, e dentro ci vive "Numerologia del Destino", che era gia'
+    // li' quando la sezione si chiamava Cabala. Non sono due nomi per la
+    // stessa cosa: uno e' il ripiano, l'altra e' una delle quattro arti che
+    // ci stanno sopra.
+    test('La Numerologia del Destino e\' di Caligo, sotto Numerologia',
+        () {
+      final numerologia = ArtCatalog.forMaestro(Maestro.caligo)
+          .firstWhere((s) => s.title == 'Numerologia');
+      expect(numerologia.arts.map((a) => a.id), contains('numerology'));
       expect(
         ArtCatalog.forMaestro(Maestro.medora)
             .expand((s) => s.arts)
@@ -917,7 +931,7 @@ void main() {
       await tester.pump();
 
       expect(DomainPillars.of(Maestro.caligo).join(' · '),
-          'Rune · Rituali · Cabala');
+          'Rune · Rituali · Numerologia');
 
       final rosso = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
       List<Color> sfondoDi(String id) {
@@ -935,7 +949,7 @@ void main() {
       expect(find.byKey(const Key('art_i_ching')), findsNothing);
       expect(find.byKey(const Key('art_soon_toggle_rune')), findsOneWidget);
 
-      // I Rituali con la loro viva in mostra. La Cabala non ne ha piu'.
+      // I Rituali con la loro viva in mostra. La Numerologia non ne ha piu'.
       for (final voce in const [
         ('rituali', 'guide_animal'),
       ]) {
@@ -949,23 +963,23 @@ void main() {
         expect(find.byKey(Key('art_state_attiva_${voce.$2}')), findsOneWidget);
         expect(find.byKey(Key('art_soon_toggle_${voce.$1}')), findsOneWidget);
       }
-      // Rune e Rituali hanno la loro viva, quindi nessuna dicitura. La Cabala,
+      // Rune e Rituali hanno la loro viva, quindi nessuna dicitura. La Numerologia,
       // uscito l'Albero della Vita dalla Demo, e' tutta in cammino: porta la
       // dicitura onesta e non il toggle, che vale solo dove c'e' gia' del vivo.
       for (final t in const ['rune', 'rituali']) {
         expect(find.byKey(Key('art_section_soon_$t')), findsNothing);
       }
       await tester.scrollUntilVisible(
-        find.byKey(const Key('art_section_cabala')),
+        find.byKey(const Key('art_section_numerologia')),
         260,
         scrollable: find.byType(Scrollable).first,
       );
-      expect(find.byKey(const Key('art_section_soon_cabala')), findsOneWidget);
-      expect(find.byKey(const Key('art_soon_toggle_cabala')), findsNothing);
+      expect(find.byKey(const Key('art_section_soon_numerologia')), findsOneWidget);
+      expect(find.byKey(const Key('art_soon_toggle_numerologia')), findsNothing);
 
-      // Un'arte in cammino non porta l'accento del Maestro: si apre la Cabala
+      // Un'arte in cammino non porta l'accento del Maestro: si apre la Numerologia
       // dalla sua intestazione, che qui e' tutta l'area di tocco.
-      await tocca(tester, const Key('art_section_header_cabala'));
+      await tocca(tester, const Key('art_section_header_numerologia'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
       expect(sfondoDi('angel_numbers').first.toARGB32(),

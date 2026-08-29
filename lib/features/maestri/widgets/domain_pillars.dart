@@ -9,7 +9,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 /// Sono le tre arti principali che il Maestro dichiara di se'
 /// (`Maestro.domainArts`), non un elenco scritto a mano: Astrologia,
 /// Cartomanzia e Destino per Medora, Chakra, Energia e Archetipi per Aura,
-/// Rune, Rituali e Cabala per Caligo. Separati da un punto mediano.
+/// Rune, Rituali e Numerologia per Caligo. Separati da un punto mediano.
 ///
 /// E' un sottotitolo e basta: dice di che cosa e' fatto il dominio prima ancora
 /// che si scorra, e non si tocca. Le sottocategorie si raggiungono scorrendo,

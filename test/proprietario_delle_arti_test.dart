@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   /// Chi possiede cosa, secondo `art_catalog.dart`: Medora ha Astrologia,
   /// Compatibilita', Cartomanzia, Lunologia e Destino; Aura ha Chakra, Energia
-  /// e Archetipi; Caligo ha Rune, Rituali, Magia e Cabala.
+  /// e Archetipi; Caligo ha Rune, Rituali, Magia e Numerologia.
   const attese = <String, String>{
     'lib/features/horoscope/oroscopo_screen.dart': 'medora',
     'lib/features/synastry/sinastria_vip_screen.dart': 'medora',

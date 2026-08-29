@@ -17,7 +17,7 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 
 ## Le nove voci
 
-- **CC.01** I cinque testi del tutorial si sostituiscono. **FERMATA IN ATTESA DI DECISIONE.** Tre testi su cinque sono in vigore; due promettono cose che il codice non fa, e l'ordine stesso vieta di riscriverli.
+- **CC.01** I cinque testi del tutorial si sostituiscono. **CHIUSA.** Quattro testi su cinque sono suoi e sono a video; il quinto resta quello di prima per sua decisione, perche' aspetta il lavoro sui doni. La macro categoria Cabala di Caligo e' diventata Numerologia.
 - **CC.02** La freccia dei fumetti e' poco visibile. **CHIUSA.** Il contrasto della freccia sul velo passa da 1,24 a 9,33, contro una soglia dichiarata di 3,0.
 - **CC.03** L'animazione di riflessione dell'Oroscopo si rifa' da capo. **CHIUSA.** I dodici segni corrono grandi, la corsa rallenta e si ferma sul tuo, il segno cresce e la scena si dissolve sul responso.
 - **CC.04** Il lampo fra le schermate diventa nero, e vale ovunque. **CHIUSA.** Quarantadue rotte sotto una legge sola, due veli trasparenti dichiarati fuori, e il lampo dei Tarocchi non e' piu' bianco.
@@ -28,10 +28,10 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 - **CC.09** La misura del ritorno delle persone. **CHIUSA.** Cinque gesti contati per giorno, zero profili, zero pacchetti nuovi, il consenso chiesto una volta con due pulsanti uguali e la policy allineata nella stessa voce.
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 8
+VOCI_CHIUSE: 9
 VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 
 ## LE AFFERMAZIONI DI QUESTO ORDINE CHE HO TROVATO FALSE
@@ -56,9 +56,90 @@ superata dai fatti.**
 
 ## CC.01, i cinque testi del tutorial
 
-**FERMATA IN ATTESA DI DECISIONE**, ed e' l'ordine stesso a chiederlo: "se il
-testo mente, FERMATI e riportalo al fondatore invece di riscriverlo da solo:
-questi testi sono suoi".
+**CHIUSA.** La voce e' stata ferma il tempo che serviva, ed e' l'ordine stesso
+ad averlo chiesto: "se il testo mente, FERMATI e riportalo al fondatore invece
+di riscriverlo da solo: questi testi sono suoi". Il fondatore ha deciso il 29
+agosto 2026, e le sue decisioni sono qui sotto insieme alle misure che le hanno
+provocate.
+
+### LE TRE DECISIONI DEL FONDATORE, e cosa hanno cambiato
+
+**1. Il fumetto 2 si allinea, in tutte e due le direzioni.** Le sue parole
+diventano "Medora: Astrologia, Cartomanzia, Destino. Caligo: Rune, Rituali,
+Numerologia. Aura: Chakra, Energia, Archetipi", che e' l'app per Medora e per
+Aura, e l'app che si muove per Caligo. **I tre pilastri di Aura non si sono
+toccati**: restano Chakra, Energia e Archetipi, e l'arte Meditazione resta
+dentro Energia col suo nome.
+
+**2. La macro categoria di Caligo passa da Cabala a Numerologia.** Parole sue:
+"la macro categoria di Caligo Cabala diventera' Numerologia e all'interno ci
+sara' anche la Cabala, questo per una richiesta dei fondatori e credo abbiano
+ragione."
+
+**3. Il fumetto 5 perde la parola "arti".** Diventa "IL CAMMINO E GLI EOS",
+"Qui in alto: il tuo profilo, gli eventi cosmici speciali e IL TUO BORSELLINO:
+guadagna e spendi EOS ogni giorno per acquistare nuove esperienze". I maiuscoli
+sono suoi e non si normalizzano.
+
+**E il fumetto 4 resta quello di prima, per sua decisione e non per
+indecisione.** La sua frase, "creati incrociando il Cielo di oggi e la tua
+Carta natale", resta come la vuole, e **nel prossimo ordine si costruisce
+l'incrocio nei doni che oggi non ce l'hanno**. Fino ad allora a video resta il
+testo attuale, perche' metterla oggi sarebbe una promessa falsa, e la guardia
+che sorveglia quel fumetto resta al suo posto.
+
+### IL CAMBIO DI NOME, punto per punto
+
+**Otto punti toccati in tutto**, tre nel codice che l'app esegue e cinque nelle
+prove:
+
+| dove | cosa era | cosa e' |
+| --- | --- | --- |
+| `lib/core/maestro/maestro.dart`, `domainArts` di Caligo | `Rune, Rituali, Cabala` | `Rune, Rituali, Numerologia` |
+| `lib/core/arts/art_catalog.dart`, il titolo della sezione | `Cabala` | `Numerologia` |
+| `lib/features/onboarding/primo_approdo.dart`, il fumetto 2 | Runologia, Simbologia, Ritualistica | Rune, Rituali, Numerologia |
+| `test/art_catalog_test.dart` | 19 nomi e 4 chiavi di widget | rinominati |
+| `test/consulta_header_test.dart` | la frase del dominio | rinominata |
+| `test/proprietario_delle_arti_test.dart` | il commento che elenca le sezioni | rinominato |
+| `test/screenshot_capture_test.dart` | la chiave della sezione nella cattura | rinominata |
+| `lib/features/maestri/widgets/domain_pillars.dart` | il commento dei tre pilastri | rinominato |
+
+**Cosa il titolo tocca davvero, verificato e non supposto.** Nessuna memoria
+sul telefono, nessun feature flag e nessuna condizione del cammino usano quel
+nome per riconoscere qualcosa, quindi **non c'e' niente da migrare**: lo stato
+aperto o chiuso di una sezione vive in una mappa che nasce e muore con la
+schermata. **Ma il titolo genera lo slug delle chiavi dei widget**,
+`art_section_$slug` e le sue sorelle in `maestro_screen.dart`, e quelle chiavi
+le usano cinque punti nelle prove: sono cambiate con lui.
+
+### DUE FATTI CHE RIPORTO INVECE DI RISOLVERE, come l'ordine chiede
+
+**1. Un'arte chiamata Numerologia esiste gia', e sta proprio li' dentro.**
+E' `numerology`, "Numerologia del Destino", e viveva nella sezione Cabala fin
+da prima di questa decisione. Dal 29 agosto **la sezione e l'arte portano lo
+stesso nome**: uno e' il ripiano, l'altra e' una delle quattro arti che ci
+stanno sopra. Non sono due nomi per la stessa cosa, ma e' una cosa che devi
+vedere, perche' a video si legge "Numerologia" due volte, come titolo di
+sezione e dentro il titolo di una card.
+
+**2. Nella sezione non c'era nessuna Cabala da mettere dentro, e il fondatore
+ha deciso che ce ne fosse una.** Riportato il fatto: le quattro arti li' dentro
+erano Numeri Ricorrenti, Numerologia del Destino, Human Design e Cosmic
+Wrapped, perche' **l'Albero della Vita e i settantadue nomi dello Shem erano
+usciti dalla Demo per una sua decisione precedente**, e con loro era uscito
+tutto cio' che si chiamava Cabala.
+
+**La sua risposta, il 30 agosto 2026:** "la Cabala diventa un'arte di Caligo
+nella categoria Numerologia". Fatto: la sezione porta adesso **cinque arti** e
+non quattro, e la nuova si chiama Cabala, `kabbalah`, in arrivo alla Fase 2.
+
+**Non e' il ritorno dell'Albero della Vita ne' dei settantadue nomi**, che
+restano fuori dalla Demo per la sua decisione precedente: e' una card sola che
+nomina la tradizione. La fase e' la Fase 2 perche' e' quella che quella stessa
+decisione aveva nominato per il Journal. **Il numero della sezione segue il
+dato**: due prove che contavano quattro adesso contano cinque, in tutte e due
+le viste, quella della Demo e quella della persona.
+
 
 ### LE QUATTRO VERIFICHE, una per una
 
@@ -130,11 +211,73 @@ l'ordine CB voce 02.
 **La parola "esperienze" e' vera**, perche' una stesa completa o un confronto in
 piu' sono esattamente esperienze. **La parola "arti" no.**
 
-### COSA E' GIA' IN VIGORE E COSA ASPETTA TE
+### COSA E' A VIDEO ADESSO
 
-I tre testi verificati veri sono a video. I due che promettono cose che il
-codice non fa restano quelli di prima, che dicono il vero, finche' non decidi.
+**Quattro testi su cinque sono suoi**, e una prova li custodisce carattere per
+carattere. Il quinto, cioe' il quarto fumetto, resta quello dell'ordine CB
+finche' i doni non nascono davvero dall'incrocio.
 
+**L'eccezione della guardia dei domini non e' piu' una scappatoia, e' pagata.**
+Il file del tutorial esce dalla regola "un dominio non si scrive a mano"
+perche' quel testo e' del fondatore e non si compone da `domainArts`: comporlo
+vorrebbe dire che domani un cambio nel codice riscrive le sue parole senza che
+lui lo sappia. In cambio **una prova nuova pretende che il fumetto contenga i
+tre domini carattere per carattere**, e se uno dei due cambia senza l'altro
+cade.
+
+### UNA CONSEGUENZA CHE NON AVEVO PREVISTO, misurata e non taciuta
+
+**Cambiare il dominio di Caligo ha cambiato l'istruzione di sistema di tutti e
+tre i Maestri.** Se ne e' accorta la guardia delle impronte, che era li'
+apposta: `l'impronta dell'istruzione coincide con quella registrata` e' andata
+rossa nella suite intera.
+
+**Perche' tutti e tre e non solo Caligo**, misurato e non supposto: ogni
+Maestro porta dentro la propria istruzione **le arti degli altri due**, nella
+riga "Le arti degli altri due Maestri del cerchio", quindi il dominio di uno
+vive dentro l'istruzione di tutti. Le stringhe passano da 7.250, 7.398 e 7.723
+caratteri a 7.256, 7.404 e 7.726.
+
+**Le impronte nuove sono registrate e le vecchie sono scese nello storico**, con
+la data e con cio' che e' successo, che e' esattamente cio' che quella guardia
+pretende: "non e' vietato cambiarla, e' vietato cambiarla in silenzio".
+
+**L'attribuzione cieca NON e' stata rifatta**, e si consegna dichiarandolo. Era
+gia' dichiarata non valida su questa istruzione per decisione del fondatore
+dell'ordine BY voce 04, quindi resta rossa e accettata nel registro dei rossi;
+ma da oggi lo e' anche per una seconda ragione, cioe' che la stringa su cui i
+sei giri furono misurati non esiste piu'. Rifarla vuole il provider AI a
+runtime, e le frasi dei Maestri sono materia dell'Architetto per l'ordine BZ
+voce 03.
+
+### Il rosso, dimostrato due volte
+
+**Primo, sull'allineamento.** Rimesso `domainArts: 'Rune, Rituali, Cabala'` in
+`maestro.dart`, verificato col grep che nel file non restasse nessun
+`Rituali, Numerologia` **prima** di leggere l'esito: la prova nuova e' diventata
+rossa dicendo "il tutorial e il codice dicono domini diversi, e chi legge trova
+due Cerchi: [Caligo: Rune, Rituali, Cabala]". Rimesso, verde.
+
+**Secondo, sulle parole del fondatore.** Tolta la parola "speciali" dal quinto
+fumetto, verificato col grep che non ci fosse piu' **prima** di leggere
+l'esito: la guardia dei testi e' diventata rossa dicendo "il testo del fumetto
+5 e' stato riscritto: queste parole sono del fondatore e si usano come sono".
+Rimessa, verde.
+
+### Le anteprime
+
+`docs/preview/primo-approdo-2.png` e `primo-approdo-5.png`, rigenerate a 360
+punti e guardate. Il secondo fumetto entra nella carta senza sfondare, il
+quinto punta la barra in alto dove stanno davvero il profilo, gli eventi
+cosmici e il borsellino con il suo conto. Rigenerate anche
+`dominio-caligo.png` e `dominio-caligo-aperto.png`, dove la sezione adesso si
+legge Numerologia.
+
+### La frase di accettazione della voce CC.01
+
+**Rivedi il tutorial dal menu' utente: il secondo fumetto dice i domini
+esattamente come li dice l'app, e il quinto non promette piu' di comprare arti.
+Entra nel Dominio di Caligo: la macro categoria si chiama Numerologia.**
 ## CC.02, la freccia dei fumetti
 
 **Rilievo del fondatore, verbatim:** "la freccia delle bolle sono poco

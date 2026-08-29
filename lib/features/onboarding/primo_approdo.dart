@@ -87,12 +87,25 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
         'accreditate.',
     lato: LatoDelFumetto.soglia,
   ),
+  // **IL SECONDO E' STATO DECISO DAL FONDATORE IL 29 AGOSTO 2026.**
+  //
+  // La prima stesura nominava domini che l'app non usava da nessuna parte,
+  // "Divinazione", "Runologia, Simbologia, Ritualistica", "Energia,
+  // Meditazione, Equilibrio", e io avevo misurato che non coincidevano con
+  // `Maestro.domainArts`. **Adesso coincidono, tutte e nove le parole**, e
+  // non perche' io abbia riscritto il testo: il fondatore ha allineato le sue
+  // parole all'app per Medora e per Aura, e ha allineato l'app alle sue per
+  // Caligo, dove la macro categoria Cabala e' diventata Numerologia.
+  //
+  // **La coincidenza non e' lasciata alla buona volonta'**: una prova pretende
+  // che questo testo contenga, carattere per carattere, il dominio che ogni
+  // Maestro dichiara di se'. Se domani uno dei due cambia senza l'altro, cade.
   FumettoDelPrimoApprodo(
     titolo: 'I TRE MAESTRI',
-    testo: 'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, '
-        'Divinazione. Caligo: Runologia, Simbologia, Ritualistica. Aura: '
-        'Energia, Meditazione, Equilibrio. Tocca un volto e gli parli: '
-        'risponde a te, con la tua data e la tua ora.',
+    testo: 'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, Destino. '
+        'Caligo: Rune, Rituali, Numerologia. Aura: Chakra, Energia, '
+        'Archetipi. Tocca un volto e gli parli: risponde a te, con la tua '
+        'data e la tua ora.',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.trio,
   ),
@@ -103,7 +116,8 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
     lato: LatoDelFumetto.sopra,
     ancora: BersagliDelPrimoApprodo.esplora,
   ),
-  // **QUESTO TESTO ASPETTA UNA DECISIONE DEL FONDATORE. Ordine CC voce 01.**
+  // **QUESTO TESTO ASPETTA IL LAVORO SUI DONI. Ordine CC voce 01, decisione
+  // del fondatore del 29 agosto 2026.**
   //
   // Il testo nuovo dice "cinque doni a cinque ore diverse, creati incrociando
   // il Cielo di oggi e la tua Carta natale". Misurato: **due doni su cinque
@@ -112,9 +126,11 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
   // dalla data (`ArcanoDelGiorno.di(DateTime giorno)`); la Runa del tramonto e
   // il Sigillo del sogno guardano il cielo ma non la carta natale.
   //
-  // L'ordine vieta di riscrivere un testo del fondatore: resta quello di
-  // prima, che dice il vero, finche' lui non decide se cambiare il testo o i
-  // doni.
+  // **Il fondatore ha deciso di tenere la sua frase e di costruire l'incrocio
+  // nei doni che oggi non ce l'hanno**, in un ordine suo. Fino ad allora a
+  // video resta questo testo, perche' mettere quella frase oggi sarebbe una
+  // promessa falsa. Non e' piu' una voce ferma in attesa di una decisione: la
+  // decisione c'e', ed e' che il testo aspetta il lavoro.
   FumettoDelPrimoApprodo(
     titolo: 'I Doni del Giorno',
     testo: 'Il Cerchio ti lascia qualcosa ogni giorno, a ore diverse. Non si '
@@ -144,22 +160,23 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
   //
   // E' stata aggiunta la via di guadagno piu' frequente di tutte, che il testo
   // non nominava: l'accredito di ogni giorno.
-  // **ANCHE QUESTO ASPETTA UNA DECISIONE. Ordine CC voce 01.**
+  // **IL QUINTO E' STATO DECISO DAL FONDATORE IL 29 AGOSTO 2026.**
   //
-  // Il testo nuovo dice "guadagna e spendi EOS ogni giorno per acquistare
-  // nuove esperienze e arti". Rimisurato sul listino del server: gli Eos
-  // comprano cinque cose, e sono tutte una dose in piu' di un'arte che la
-  // persona ha gia' (una domanda 80, un approfondimento 60, una gettata 60, un
-  // confronto 150, una stesa completa 250). **Nessuna arte dormiente si apre
-  // con gli Eos**: quelle le accendono i feature flag, non il borsellino.
-  // "Esperienze" e' vero, "arti" no.
+  // Il testo che aspettava prometteva di comprare "nuove esperienze e arti".
+  // Misurato due volte sul listino del server, `PREZZI_DEL_RISCATTO`: gli Eos
+  // comprano cinque cose, tutte una dose in piu' di un'arte che la persona ha
+  // gia' (una domanda 80, un approfondimento 60, una gettata 60, un confronto
+  // 150, una stesa completa 250). **Nessuna arte dormiente si apre con gli
+  // Eos**: quelle le accendono i feature flag, non il borsellino.
+  //
+  // **Il fondatore ha fatto cadere la parola "arti" e ha tenuto il resto.**
+  // I maiuscoli sono suoi e non si normalizzano: IL TUO BORSELLINO ed EOS
+  // stanno in maiuscolo perche' li ha scritti cosi'.
   FumettoDelPrimoApprodo(
-    titolo: 'Eos, la moneta del Cerchio',
-    testo: 'Qui in alto stanno il tuo profilo, il cielo che si muove sopra di '
-        'te e il tuo borsellino. Gli Eos ti arrivano ogni giorno, dai '
-        'traguardi del tuo cammino e dai primi responsi che condividi. Si '
-        'spendono per una domanda in più o per una lettura che il giorno '
-        'non ti dava.',
+    titolo: 'IL CAMMINO E GLI EOS',
+    testo: 'Qui in alto: il tuo profilo, gli eventi cosmici speciali e IL TUO '
+        'BORSELLINO: guadagna e spendi EOS ogni giorno per acquistare nuove '
+        'esperienze.',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.identita,
   ),

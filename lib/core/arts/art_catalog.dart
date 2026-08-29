@@ -584,7 +584,7 @@ class ArtCatalog {
     ]),
   ];
 
-  // --- Caligo: Rune, Rituali, Cabala ---
+  // --- Caligo: Rune, Rituali, Numerologia ---
   //
   // Vincolo di contenuto, mai a video: i riti attingono soltanto a pratiche
   // reali e documentate, mai inventate, e restano fuori i riti sulla volonta'
@@ -746,7 +746,18 @@ class ArtCatalog {
         cornice: true,
       ),
     ]),
-    ArtSection(title: 'Cabala', arts: [
+    // **DA CABALA A NUMEROLOGIA.** Ordine CC voce 01, decisione del
+    // fondatore del 29 agosto 2026, chiesta dai fondatori.
+    //
+    // **Cosa il titolo tocca davvero, verificato e non supposto.** Nessuna
+    // memoria sul telefono, nessun flag e nessuna condizione del cammino lo
+    // usano per riconoscere qualcosa, quindi il cambio non lascia dietro di
+    // se' niente da migrare: lo stato aperto o chiuso di una sezione vive in
+    // una mappa che nasce e muore con la schermata. **Ma il titolo genera lo
+    // slug delle chiavi dei widget**, `art_section_$slug` e le sue sorelle in
+    // `maestro_screen.dart`, quindi le prove che toccano questa sezione
+    // cambiano chiave con lei: sono cinque punti, tutti in `test/`.
+    ArtSection(title: 'Numerologia', arts: [
       // L'Albero della Vita e' uscito del tutto dalla Demo per decisione di
       // Mauro: il concetto resta nei documenti, per la Fase 2 del Journal, non
       // qui. Con lui restano fuori i settantadue nomi dello Shem, che erano
@@ -769,6 +780,24 @@ class ArtCatalog {
         icon: Icons.pin_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase3,
+        cornice: true,
+      ),
+      // **LA CABALA E' UN'ARTE, e sta qui dentro.** Ordine CC voce 01,
+      // decisione del fondatore del 30 agosto 2026: "la Cabala diventa
+      // un'arte di Caligo nella categoria Numerologia".
+      //
+      // **Non e' il ritorno dell'Albero della Vita ne' dei settantadue nomi**,
+      // che restano fuori dalla Demo per la decisione precedente scritta qui
+      // sopra: e' una card sola, che nomina la tradizione. La fase e' la Fase
+      // 2 perche' e' quella che quella stessa decisione aveva nominato per il
+      // Journal.
+      ArtEntry(
+        id: 'kabbalah',
+        title: 'Cabala',
+        teaser: 'L\'albero dei nomi e le lettere che compongono il mondo.',
+        icon: Icons.account_tree_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
         cornice: true,
       ),
       ArtEntry(

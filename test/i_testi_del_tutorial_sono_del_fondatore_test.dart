@@ -10,10 +10,14 @@ import 'package:flutter_test/flutter_test.dart';
 /// scorrevole, una virgola tolta per far stare la riga, e quelle parole non
 /// sono piu' le sue. La prova non giudica il testo: pretende che sia IDENTICO.
 ///
-/// **I due che aspettano una decisione sono dichiarati qui, non nascosti.** Il
-/// quarto e il quinto testo nuovo promettono cose che il codice non fa, e
-/// l'ordine vieta di riscriverli: restano quelli di prima, e questa prova
-/// custodisce anche quelli, cosi' nessuno li tocca mentre aspettano.
+/// **QUATTRO SU CINQUE SONO SUOI, dopo le decisioni del 29 agosto 2026.** Il
+/// secondo e il quinto aspettavano una sua parola e l'hanno avuta: il secondo
+/// perche' i domini che nominava non erano quelli dell'app, il quinto perche'
+/// prometteva di comprare arti che gli Eos non comprano. Il quarto resta
+/// quello di prima, e non per indecisione: il fondatore tiene la sua frase e
+/// nel prossimo ordine si costruisce l'incrocio nei doni che oggi non ce
+/// l'hanno. Questa prova custodisce anche quello, cosi' nessuno lo tocca
+/// mentre aspetta il lavoro.
 void main() {
   /// **I TESTI DEL FONDATORE, copiati dall'ordine CC voce 01.** Chi cambia una
   /// parola qui deve avere in mano un messaggio del fondatore che la cambia.
@@ -26,10 +30,10 @@ void main() {
     ),
     1: (
       'I TRE MAESTRI',
-      'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, Divinazione. '
-          'Caligo: Runologia, Simbologia, Ritualistica. Aura: Energia, '
-          'Meditazione, Equilibrio. Tocca un volto e gli parli: risponde a te, '
-          'con la tua data e la tua ora.'
+      'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, Destino. '
+          'Caligo: Rune, Rituali, Numerologia. Aura: Chakra, Energia, '
+          'Archetipi. Tocca un volto e gli parli: risponde a te, con la tua '
+          'data e la tua ora.'
     ),
     2: (
       'IL CERCHIO A UN CLICK',
@@ -38,25 +42,29 @@ void main() {
     ),
   };
 
-  /// **I DUE IN ATTESA**, col testo che resta a video finche' il fondatore non
-  /// decide. Sono quelli dell'ordine CB, gia' misurati veri.
+  /// **IL QUINTO, deciso il 29 agosto 2026.** Cade la parola "arti", che il
+  /// listino del server ha dimostrato falsa, e restano i maiuscoli suoi.
+  const quinto = (
+    'IL CAMMINO E GLI EOS',
+    'Qui in alto: il tuo profilo, gli eventi cosmici speciali e IL TUO '
+        'BORSELLINO: guadagna e spendi EOS ogni giorno per acquistare nuove '
+        'esperienze.'
+  );
+
+  /// **L'UNICO IN ATTESA**, col testo che resta a video finche' i doni non
+  /// nascono davvero dall'incrocio. E' quello dell'ordine CB, gia' misurato
+  /// vero.
   const inAttesa = <int, (String, String)>{
     3: (
       'I Doni del Giorno',
       'Il Cerchio ti lascia qualcosa ogni giorno, a ore diverse. Non si '
           'cercano: si ricevono e chi torna li trova.'
     ),
-    4: (
-      'Eos, la moneta del Cerchio',
-      'Qui in alto stanno il tuo profilo, il cielo che si muove sopra di te e '
-          'il tuo borsellino. Gli Eos ti arrivano ogni giorno, dai traguardi '
-          'del tuo cammino e dai primi responsi che condividi. Si spendono per '
-          'una domanda in più o per una lettura che il giorno non ti dava.'
-    ),
   };
 
-  test('i tre testi del fondatore sono a video, carattere per carattere', () {
-    for (final voce in suoi.entries) {
+  test('i quattro testi del fondatore sono a video, carattere per carattere',
+      () {
+    for (final voce in {...suoi, 4: quinto}.entries) {
       final f = cinqueFumetti[voce.key];
       expect(f.titolo, voce.value.$1,
           reason: 'il titolo del fumetto ${voce.key + 1} non e\' piu\' quello '
@@ -66,10 +74,11 @@ void main() {
               'queste parole sono del fondatore e si usano come sono');
     }
     // ignore: avoid_print
-    print('ORDINE CC VOCE 01: testi del fondatore a video ${suoi.length} su 5');
+    print('ORDINE CC VOCE 01: testi del fondatore a video '
+        '${suoi.length + 1} su 5');
   });
 
-  test('i due in attesa non sono stati sostituiti di nascosto', () {
+  test('quello in attesa non e\' stato sostituito di nascosto', () {
     for (final voce in inAttesa.entries) {
       final f = cinqueFumetti[voce.key];
       expect(f.titolo, voce.value.$1);
@@ -78,13 +87,13 @@ void main() {
               'aspettava la decisione del fondatore');
     }
     // ignore: avoid_print
-    print('ORDINE CC VOCE 01: testi in attesa di decisione '
+    print('ORDINE CC VOCE 01: testi che aspettano il lavoro sui doni '
         '${inAttesa.length} su 5');
   });
 
   test('i cinque restano cinque, nell\'ordine del fondatore', () {
     expect(cinqueFumetti, hasLength(5));
-    expect(suoi.length + inAttesa.length, 5,
+    expect(suoi.length + 1 + inAttesa.length, 5,
         reason: 'la prova custodisce meno di cinque testi: uno e\' scoperto');
   });
 }
