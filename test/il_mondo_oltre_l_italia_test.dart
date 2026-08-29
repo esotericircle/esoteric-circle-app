@@ -48,21 +48,28 @@ void main() {
 
   testWidgets('BD.03: un paese con una citta\' sola ha comunque la sua regione',
       (tester) async {
-    final liberia = await nazioneDi(tester, 'Monrovia');
+    // **IL PAESE NON E' PIU' LA LIBERIA. Ordine CC voce 07.** Questa prova
+    // diceva di se' stessa "se questo numero sale il buco si sta chiudendo":
+    // il buco si e' chiuso, la Liberia e' passata da una citta' a **sedici**,
+    // e i paesi con una citta' sola sono scesi da 116 a 49. Il fatto che BD.03
+    // difende non e' la poverta' della Liberia, e' che **un paese con una
+    // citta' sola abbia comunque la sua finestra e la sua costa**: qui si
+    // prende Barbados, che una citta' sola ce l'ha ancora.
+    final barbados = await nazioneDi(tester, 'Bridgetown');
     // ignore: avoid_print
-    print('ORDINE BD VOCE 03: la Liberia porta ${liberia?.punti.length} '
-        'citta\' e ${liberia?.sfondo.length} punti di costa, finestra alta '
-        '${(liberia!.nord - liberia.sud).toStringAsFixed(1)} gradi');
-    expect(liberia.eRegione, isTrue);
-    expect(liberia.punti, hasLength(1),
-        reason: 'il buco del catalogo e\' dichiarato: la Liberia ha una '
+    print('ORDINE BD VOCE 03: Barbados porta ${barbados?.punti.length} '
+        'citta\' e ${barbados?.sfondo.length} punti di costa, finestra alta '
+        '${(barbados!.nord - barbados.sud).toStringAsFixed(1)} gradi');
+    expect(barbados.eRegione, isTrue);
+    expect(barbados.punti, hasLength(1),
+        reason: 'il buco del catalogo e\' dichiarato: Barbados ha una '
             'citta\' sola, e se questo numero sale il buco si sta chiudendo');
-    expect(liberia.nord - liberia.sud,
+    expect(barbados.nord - barbados.sud,
         greaterThanOrEqualTo(MappaDellaNazione.latoMinimoDellaRegione),
         reason: 'la finestra di un paese con una citta\' sola deve allargarsi '
             'al lato minimo, se no il quadro e\' vuoto');
-    expect(liberia.sfondo, isNotEmpty,
-        reason: 'nemmeno un punto di costa attorno a Monrovia: il quadro '
+    expect(barbados.sfondo, isNotEmpty,
+        reason: 'nemmeno un punto di costa attorno a Bridgetown: il quadro '
             'sarebbe una stella nel nulla');
   });
 

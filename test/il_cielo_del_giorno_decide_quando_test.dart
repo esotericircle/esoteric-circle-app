@@ -190,8 +190,17 @@ void main() {
     final m = moltiplicatore(v, oggi);
     expect(CieloDiSinastria.perVip(v).haAscendente, isFalse);
     expect(m.soloPianeti, isTrue);
+    // **LA CODA SULL'ORA IGNOTA NON C'E' PIU', ordine CC voce 06g**, e la
+    // pretesa segue la decisione del fondatore invece di difendere il testo
+    // che lui ha tolto: "quando non si conosce l'orario di nascita del vip
+    // c'e' sempre un testo che dice non si finge cio' che non si conosce ecc.
+    // eliminalo!". Al suo posto ogni responso porta due righe, e la prima dice
+    // ORA DI NASCITA: SCONOSCIUTO. Qui si difende che la coda **non** ci sia
+    // piu': se qualcuno la rimette, questa prova cade.
     if (m.transito != null) {
-      expect(m.riga, contains('non si conosce l\'ora di nascita'));
+      expect(m.riga.contains('non si conosce l\'ora di nascita'), isFalse,
+          reason: 'la coda sull\'ora ignota e\' tornata dentro la riga del '
+              'cielo, e il fondatore l\'ha fatta togliere');
     }
   });
 

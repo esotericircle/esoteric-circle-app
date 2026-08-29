@@ -27,7 +27,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   /// La luminanza relativa di un colore, come la definiscono le linee guida.
-  double _luminanza(Color c) {
+  double luminanza(Color c) {
     double canale(double v) =>
         v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
     return 0.2126 * canale(c.r) + 0.7152 * canale(c.g) + 0.0722 * canale(c.b);
@@ -35,8 +35,8 @@ void main() {
 
   /// Il rapporto di contrasto fra due colori, da 1 a 21.
   double contrasto(Color a, Color b) {
-    final la = _luminanza(a);
-    final lb = _luminanza(b);
+    final la = luminanza(a);
+    final lb = luminanza(b);
     final alto = math.max(la, lb);
     final basso = math.min(la, lb);
     return (alto + 0.05) / (basso + 0.05);

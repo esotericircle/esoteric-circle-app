@@ -24,21 +24,26 @@ import 'nazioni_del_mondo.dart';
 /// punto esatto in cui si chiede a qualcuno dove e' nato, mostrargli il paese
 /// fatto dei suoi paesi vale piu' di un contorno.
 ///
-/// **PERCHE' OGGI UN PAESE SOLO SUPERA IL CRITERIO, e il criterio non e' un
-/// elenco travestito.** Perche' una nuvola di citta' disegni il paese serve
-/// che sia DENSA: se i punti sono radi si vede una spruzzata, non una forma.
-/// Misurato sui 242 paesi del catalogo, i luoghi per grado quadrato sono:
+/// **PERCHE' TRE PAESI SUPERANO IL CRITERIO, e il criterio non e' un elenco
+/// travestito.** Perche' una nuvola di citta' disegni il paese servono due
+/// cose: che sia DENSA, perche' punti radi sono una spruzzata, e che sia
+/// ABBASTANZA GRANDE, perche' con poche centinaia di punti non c'e' un dentro
+/// e un fuori. Misurato sul catalogo di oggi, 40.846 luoghi:
 ///
-/// | paese | luoghi | per grado quadrato |
-/// |---|---:|---:|
-/// | Italia | 8.438 | **64** |
-/// | Giappone | 134 | 0,29 |
-/// | Cina | 430 | 0,20 |
-/// | Stati Uniti | 132 | 0,04 |
+/// | paese | luoghi | per grado quadrato | disegna |
+/// |---|---:|---:|---|
+/// | Italia | 8.438 | 62 | si' |
+/// | Germania | 1.135 | 17 | si' |
+/// | Regno Unito | 860 | 12 | si' |
+/// | Paesi Bassi | 251 | 29 | no, troppo pochi punti |
+/// | Belgio | 223 | 38 | no, troppo pochi punti |
+/// | Francia | 691 | 5,4 | no, troppo rada |
+/// | Stati Uniti | 2.948 | 0,73 | no, troppo rada |
 ///
-/// Fra l'Italia e il secondo corrono **duecento volte**, quindi la soglia non
-/// sta sul filo di niente: sta in mezzo a un abisso. Le nuvole degli altri
-/// sono state guardate una per una, e non disegnano il loro paese.
+/// **Le tre nuvole che passano sono state GUARDATE**, una per una, come
+/// questa regola pretende da chi la allarga: `docs/preview/nazione-*.png`.
+/// Belgio e Paesi Bassi si disegnano invece dal loro contorno vero, che per
+/// un paese piccolo dice piu' di duecento puntini.
 ///
 /// **Cosa resta scoperto, detto qui e non taciuto.** Per gli altri 241 paesi
 /// resta il planisfero. Servirebbe una vera fonte di contorni, e ne esiste una
@@ -95,9 +100,29 @@ class MappaDellaNazione {
   /// parte.
   static const double densitaMinima = 8.0;
 
-  /// Sotto questo numero di luoghi non si guarda nemmeno la densita': due
-  /// citta' vicine hanno una densita' altissima e non disegnano niente.
-  static const int luoghiMinimi = 200;
+  /// **SOTTO QUESTO NUMERO DI LUOGHI NON SI GUARDA NEMMENO LA DENSITA'.**
+  /// Due citta' vicine hanno una densita' altissima e non disegnano niente.
+  ///
+  /// **Era 200, ed e' diventato 500 con l'ordine CC voce 07.** Il catalogo e'
+  /// passato da 3.108 luoghi fuori dall'Italia a 32.408, e a duecento punti
+  /// entravano paesi le cui nuvole ho GUARDATO una per una, come la guardia
+  /// di BB.12 chiede a chi allarga: Germania (1.135 punti) e Regno Unito (860)
+  /// si riconoscono, il Belgio (223) e' una macchia senza dentro ne' fuori.
+  ///
+  /// **Il numero non e' scelto per escludere il Belgio**, che sarebbe un
+  /// elenco travestito da regola, ed e' proprio cio' che BB.12 vieta. E'
+  /// scelto sulla geometria: perche' una nuvola abbia un dentro e un fuori
+  /// serve che i suoi punti riempiano piu' celle di quante ne servano a
+  /// segnare un contorno, e con qualche centinaio di punti su una griglia
+  /// abbastanza fitta da mostrare una costa ogni cella ne prende al massimo
+  /// uno. Misurato: il Belgio riempie l'82 per cento delle celle che PUO'
+  /// riempire, il Regno Unito il 35, la Germania il 50. Chi riempie quasi
+  /// tutto cio' che puo' non sta disegnando una forma, sta finendo i punti.
+  ///
+  /// **E chi resta fuori non perde niente, ci guadagna.** Belgio e Paesi Bassi
+  /// hanno il loro contorno vero in `NazioniDelMondo`, e da qui in poi si
+  /// disegnano pieni da quello: un Belgio vero vale piu' di duecento puntini.
+  static const int luoghiMinimi = 500;
 
   /// Il margine attorno al riquadro, in parti del suo lato: senza, la citta'
   /// piu' a nord starebbe appiccicata al bordo.

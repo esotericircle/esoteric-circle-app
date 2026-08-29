@@ -147,6 +147,9 @@ import 'package:esoteric_circle/features/maestri/caligo/animal/bosco_del_cerchio
 import 'package:esoteric_circle/features/onboarding/domanda_dell_invito.dart';
 import 'package:esoteric_circle/features/settings/consenso_alla_misura.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
+import 'package:esoteric_circle/features/onboarding/mappa_della_nazione.dart';
+import 'package:esoteric_circle/features/onboarding/planisfero.dart';
+import 'package:esoteric_circle/core/astro/city_catalog.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -4653,6 +4656,64 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     await capture(tester, rootKey, 'custodia-del-cielo.png');
   });
+
+  // --- I PAESI CHE ADESSO SI DISEGNANO DA SOLI, ordine CC voce 07 ---
+  //
+  // Il catalogo e' passato da 3.108 luoghi fuori dall'Italia a 32.408, e la
+  // regola dell'ordine BB voce 12, che era scritta come regola e non come
+  // elenco, ha fatto entrare quattro paesi nuovi. Quella guardia dice di se'
+  // stessa che "non ha occhi": questi scatti sono gli occhi. Una nuvola rada
+  // non disegna niente, e va vista prima di lasciarla a schermo.
+  // **LA CITTA' SI CERCA COL SUO PAESE, e non col solo nome.** Il primo giro
+  // ha scattato il Canada al posto del Regno Unito: nel catalogo la capitale
+  // inglese si chiama Londra, con London come nome alternativo, e London
+  // secco e' quella dell'Ontario. Un omonimo che passa inosservato fa
+  // giudicare buona o cattiva la mappa sbagliata.
+  //
+  // **IL NOME DEL FILE E' SCRITTO PER INTERO**, e non composto: il corredo
+  // delle anteprime enumera i nomi letterali, e un nome messo insieme a
+  // runtime gli risulta orfano, cioe' un'immagine che non rigenera nessuno.
+  for (final citta in const [
+    ('Berlin', 'Germania', 'germania', 'nazione-germania.png'),
+    ('Londra', 'Regno Unito', 'regno-unito', 'nazione-regno-unito.png'),
+  ]) {
+    testWidgets('Cattura la nazione di ${citta.$3}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues(const {});
+      await montaLoSchermo(tester, schermoReale);
+      final catalogo = CityCatalog.parse(
+          File('assets/data/luoghi.csv').readAsStringSync());
+      final punto = catalogo.firstWhere(
+          (c) => c.name == citta.$1 && c.country == citta.$2);
+      final nazione = MappaDellaNazione.perIlLuogo(
+          punto.latitude, punto.longitude, catalogo);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Center(
+              child: SizedBox(
+                width: 340,
+                height: 340,
+                child: Planisfero(
+                  palette: MaestroPalette.medora,
+                  luogo: (lat: punto.latitude, lon: punto.longitude),
+                  nazione: nazione,
+                  reduceMotion: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 400));
+      await capture(tester, rootKey, citta.$4);
+    });
+  }
 
   // --- LE DUE DOMANDE CHE IL CERCHIO FA A CHI ARRIVA ---
   //

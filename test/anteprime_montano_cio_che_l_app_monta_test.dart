@@ -44,7 +44,14 @@ void main() {
         expect(s, contains('static Widget conLaSoglia('),
             reason: '$percorso non dichiara piu\' la sua soglia, quindi chi la '
                 'monta da fuori deve indovinare id e Maestro');
-        expect(s, contains('builder: (_) => conLaSoglia('),
+        // **SI CERCA IL FATTO, NON LA VECCHIA FORMA. Ordine CC voce 07.**
+        // Fino a ieri qui c'era `builder: (_) => conLaSoglia(`, che era la
+        // forma di `MaterialPageRoute`. Con l'ordine CC voce 04 le rotte sono
+        // passate a `PassaggioDelCerchio.rotta`, che prende il costruttore
+        // senza il nome `builder`: la guardia cadeva sulla lettera mentre il
+        // fatto che difende, cioe' che la rotta passi dalla soglia dichiarata,
+        // era ancora vero. Adesso si cerca la chiamata.
+        expect(s, contains('=> conLaSoglia('),
             reason: 'la rotta di $percorso non passa dalla soglia dichiarata: '
                 'sono tornate due dichiarazioni dello stesso fatto');
         // L'identificativo si DICHIARA una volta sola.

@@ -262,9 +262,40 @@ def leggi_italia(path):
     return comuni, extra
 
 
+# **QUANTI ABITANTI SERVONO PERCHE' UN LUOGO ENTRI. Ordine CC voce 07.**
+#
+# **Prima era 200.000, e quel numero costringeva la gente a mentire.** Con
+# quella soglia il catalogo aveva 3.108 luoghi fuori dall'Italia su 241 paesi,
+# e 116 paesi erano rappresentati da UNA SOLA citta': la Francia ne aveva 13,
+# la Svizzera 3, l'Albania 1. Chi e' nato a Basilea, a Digione o a Valona non
+# trovava la sua citta' e doveva sceglierne un'altra, quindi la sua carta
+# natale nasceva su coordinate che non erano le sue. Per una carta natale le
+# coordinate NON sono un dettaglio: la longitudine sposta l'ora locale e con
+# lei le case, la latitudine sposta l'Ascendente.
+#
+# **Adesso e' 15.000, e non e' una soglia nuova: e' una potatura tolta.** Il
+# file `cities15000.txt` contiene esattamente i luoghi sopra i quindicimila
+# abitanti, quindi il vecchio filtro era una seconda potatura sopra la prima.
+# Togliendola entra tutto cio' che la fonte ha, che e' anche il criterio piu'
+# facile da difendere: **non e' una scelta nostra su chi merita di esistere**,
+# e' la fonte per intero.
+#
+# **Nessuna fonte nuova, quindi nessuna licenza nuova.** E' lo stesso dump
+# GeoNames che il catalogo usa dal primo giorno, CC BY 4.0, che consente l'uso
+# commerciale a patto di attribuire: l'attribuzione vive dentro l'app, in
+# `FontiDeiDati`, e una prova pretende che sia a schermo.
+#
+# **Cosa resta scoperto, detto e non taciuto.** Chi e' nato in un paese sotto i
+# quindicimila abitanti continua a non trovarlo, e sceglie il centro vicino.
+# L'unico modo per averli tutti sarebbe `allCountries`, che scompattato pesa
+# oltre un gigabyte: non e' un asset che si mette dentro un'app.
+SOGLIA_DEL_MONDO = 15000
+
+
 def leggi_mondo(path):
-    """Le citta' del mondo fuori dall'Italia: sopra i duecentomila abitanti,
-    piu' tutte le capitali, che contano a prescindere dalla dimensione."""
+    """Le citta' del mondo fuori dall'Italia: tutto cio' che la fonte ha sopra
+    [SOGLIA_DEL_MONDO] abitanti, piu' tutte le capitali, che contano a
+    prescindere dalla dimensione."""
     fuori = []
     with io.open(path, encoding='utf-8') as f:
         for line in f:
@@ -272,7 +303,7 @@ def leggi_mondo(path):
             if len(c) < 19 or c[8] == 'IT':
                 continue
             pop = int(c[14] or 0)
-            if pop < 200000 and c[7] != 'PPLC':
+            if pop < SOGLIA_DEL_MONDO and c[7] != 'PPLC':
                 continue
             paese = PAESI.get(c[8])
             if paese is None:

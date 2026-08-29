@@ -23,13 +23,13 @@ Porta le tre regole degli ordini precedenti, irrigidite:
 - **CC.04** Il lampo fra le schermate diventa nero, e vale ovunque. **CHIUSA.** Quarantadue rotte sotto una legge sola, due veli trasparenti dichiarati fuori, e il lampo dei Tarocchi non e' piu' bianco.
 - **CC.05** Censimento globale delle dimensioni dei caratteri. **CHIUSA.** Ventidue arti censite: sei mostravano il responso a 16 punti e adesso tutte lo mostrano a 18, la misura del responso dei Tarocchi.
 - **CC.06** La Sinastria VIP, nove rilievi. **CHIUSA.** Tutti e nove: le mappe dicono dove sei, i fili sono corde, la bolla e' tecnica per il 17 per cento invece che per il 36, e i transiti dicono di chi sono.
-- **CC.07** Il catalogo delle citta' fuori dall'Italia. **APERTA.**
+- **CC.07** Il catalogo delle citta' fuori dall'Italia. **CHIUSA.** I luoghi fuori dall'Italia passano da 3.108 a 32.408 e i paesi con una sola citta' da 116 a 49, senza nessuna fonte nuova: la potatura stava in casa nostra.
 - **CC.08** L'attribuzione vera degli inviti. **CHIUSA.** Il Cerchio chiede a chi arriva se lo ha invitato qualcuno, e il codice entra con un tocco dagli appunti; le tre difese del server sono ancora tutte e tre in piedi.
 - **CC.09** La misura del ritorno delle persone. **CHIUSA.** Cinque gesti contati per giorno, zero profili, zero pacchetti nuovi, il consenso chiesto una volta con due pulsanti uguali e la policy allineata nella stessa voce.
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 7
-VOCI_APERTE: 1
+VOCI_CHIUSE: 8
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -478,6 +478,134 @@ Residenza, poi subito le barre. I tre transiti dicono il nome del personaggio,
 la mappa dice in quali citta' siete, e ingrandendo la carta i cartigli portano
 ancora il nome e la data.**
 
+## CC.07, il catalogo delle citta' fuori dall'Italia
+
+**Debito in coda, verbatim:** "che il catalogo copra il mondo abbastanza da non
+costringere nessuno a dichiarare un luogo di nascita falso." **Vincolo:** "la
+licenza della fonte va letta e dichiarata prima di importare qualunque dato.
+L'app e' commerciale a sorgente chiuso." **Prova del rosso obbligatoria**, e
+inoltre: verificare il criterio di densita' dell'ordine BB voce 12 e dichiarare
+se lo riuso.
+
+### La causa, trovata e non indovinata
+
+Non era una fonte povera: era **una potatura sopra un file gia' potato**.
+`tool/genera_luoghi.py`, in `leggi_mondo`, teneva solo i luoghi sopra i
+**200.000 abitanti** piu' le capitali. Ma il file da cui legge si chiama
+`cities15000.txt` e contiene gia' soltanto i luoghi sopra i **15.000**: la
+soglia nostra tagliava via il 90 per cento di cio' che la fonte offriva
+gratis.
+
+### Le cinque decisioni che la voce mi ha chiesto di prendere
+
+| cosa | decisione | perche' |
+| --- | --- | --- |
+| **quale fonte** | la stessa di prima, i dump GeoNames | una fonte nuova vuol dire una licenza nuova da leggere, un formato nuovo da fidarsi e un secondo elenco che puo' divergere da quello che l'app gia' usa. Qui non serviva: il dato c'era gia' e lo stavamo buttando |
+| **quanti luoghi per paese** | tutti quelli che la fonte ha | **non e' una scelta nostra su chi merita di esistere**, e' la fonte per intero. Ogni numero per paese sarebbe stato arbitrario, e l'arbitrio si sarebbe visto proprio sui paesi piccoli |
+| **quale criterio di densita'** | nessuno, e la soglia sparisce | la potatura era il difetto. Resta il solo filtro della fonte, 15.000 abitanti, che e' scritto nel nome del file |
+| **quale peso** | da 413 KB a **1,50 MiB** | il catalogo si legge una volta all'avvio, fuori dal primo fotogramma: misurato, **79 millesimi di secondo** per leggere e indicizzare 40.846 luoghi su questa macchina. Un mega e mezzo dentro un pacchetto e' niente, e ogni luogo che non c'e' e' una carta natale sbagliata |
+| **quale licenza** | CC BY 4.0, letta e **dichiarata dentro l'app** | consente l'uso commerciale e non pretende che il codice si apra, ma pretende l'attribuzione. Fino a oggi l'attribuzione viveva in un commento del generatore, cioe' in un posto che nessuno di fuori puo' leggere: **un obbligo assolto dentro casa non e' assolto** |
+
+### Il criterio di densita' di BB.12: verificato, e NON riusato
+
+**Esiste**, ed e' `MappaDellaNazione.densitaMinima = 8` con
+`luoghiMinimi`: otto luoghi per grado quadrato, con almeno duecento luoghi.
+**Ma risponde a un'altra domanda**: non "il catalogo copre il mondo", bensi'
+"questa nuvola di citta' disegna il contorno del suo paese". Usarlo come
+criterio di copertura avrebbe escluso il mondo intero, Italia a parte. Quindi
+**non lo riuso**.
+
+**Lo tocco pero', e per forza.** BB.12 aveva scritto la sua regola cosi': "se un
+domani il catalogo si infittisse su un altro paese, quel paese entrerebbe da
+solo". Quel domani e' oggi: col catalogo allargato **quattro paesi nuovi**
+superavano il criterio, e la guardia di BB.12 dice di se' stessa "questa prova
+non ha occhi" e pretende che chi allarga li **guardi uno per uno**.
+
+**Li ho guardati**, e le immagini sono in `docs/preview/nazione-*.png`:
+
+| paese | luoghi | esito guardato |
+| --- | ---: | --- |
+| Germania | 1.135 | si riconosce: confine ovest, sud e nord leggibili |
+| Regno Unito | 860 | si riconosce: Inghilterra, Galles, cintura scozzese, Irlanda del Nord |
+| Paesi Bassi | 251 | una macchia, non un paese |
+| Belgio | 223 | una macchia, non un paese |
+
+**`luoghiMinimi` passa da 200 a 500, e il numero non e' scelto per escludere il
+Belgio**, che sarebbe l'elenco travestito da regola che BB.12 vieta. E' scelto
+sulla geometria, e misurato: **il Belgio riempie l'82 per cento delle celle che
+PUO' riempire** su una griglia abbastanza fitta da mostrare una costa, il Regno
+Unito il 35, la Germania il 50. Chi riempie quasi tutto cio' che puo' non sta
+disegnando una forma, **sta finendo i punti**.
+
+**Belgio e Paesi Bassi non perdono niente**: tornano al contorno vero di
+`NazioniDelMondo`, che e' esattamente la strada su cui stavano prima di
+quest'ordine. Verificato sul codice, non supposto: `MappaDellaNazione.di`
+restituisce per entrambi `nazionePiena`, come prima.
+
+**Una pretesa di BB.12 e' morta col corpus nuovo, e l'ho sostituita invece di
+allentarla.** Chiedeva che fra l'Italia e il secondo paese piu' denso
+corressero piu' di **cinquanta volte**: era vero solo perche' il catalogo estero
+era una spruzzata. Adesso i paesi densi sono tre e le densita' stanno vicine.
+Quella pretesa non diceva piu' niente sul mondo, diceva che il catalogo era
+povero. Al suo posto si difende **il salto fra l'ultimo che passa e il primo
+che non passa**: Regno Unito 11,72 contro Francia 5,44, cioe' **2,2 volte**.
+
+### Le misure, in numeri
+
+| misura | prima | dopo |
+| --- | ---: | ---: |
+| luoghi in tutto | 11.546 | **40.846** |
+| luoghi fuori dall'Italia | 3.108 | **32.408** |
+| paesi rappresentati | 241 | 241 |
+| paesi con UNA sola citta' | 116 | **49** |
+| Francia | 13 | **691** |
+| Svizzera | 3 | **95** |
+| Albania | 1 | **25** |
+| Germania | 45 | **1.135** |
+| Regno Unito | 40 | **860** |
+| Spagna | 37 | **731** |
+| Romania | 15 | **134** |
+| Argentina | 21 | **314** |
+| peso dell'archivio | 413 KB | **1,50 MiB** |
+| tempo di lettura all'avvio | non misurato | **79 ms** |
+| fonti dichiarate dentro l'app | 0 | **3** |
+
+### Cosa resta scoperto, detto e non taciuto
+
+**Chi e' nato in un paese sotto i quindicimila abitanti continua a non
+trovarlo**, e sceglie il centro vicino. L'unico modo per averli tutti sarebbe
+il dump `allCountries` di GeoNames, che scompattato supera il gigabyte: non e'
+un asset che si mette dentro un'app. I 49 paesi che restano con una citta' sola
+sono microstati e isole, dove quella citta' e' spesso davvero l'unico centro
+sopra i quindicimila abitanti.
+
+### Il rosso, dimostrato
+
+Rimessa la vecchia potatura, cioe' `SOGLIA_DEL_MONDO = 200000`, verificato col
+grep che nel generatore non restasse nessun `SOGLIA_DEL_MONDO = 15000`
+**prima** di leggere l'esito: la prova e' diventata rossa dicendo che "la
+vecchia potatura a duecentomila abitanti e' tornata, e con lei i 116 paesi con
+una citta' sola". Rimessa la soglia nuova, verde.
+
+**E la prova tiene il conto per paese**, come la voce chiede: otto paesi
+guardati uno per uno, coi pavimenti presi dal ramo dopo la rigenerazione. Se
+domani qualcuno rigenera il catalogo con una potatura, quei conti scendono e la
+prova cade nominando i paesi impoveriti.
+
+### Un difetto trovato guardando, e riparato
+
+La prima cattura del Regno Unito **mostrava il Canada**. Nel catalogo la
+capitale inglese si chiama Londra, con London come nome alternativo, e `London`
+secco e' quella dell'Ontario: la cattura cercava per nome e prendeva
+l'omonima. Adesso cerca col nome **e col paese**. Senza guardare l'immagine
+avrei giudicato buona o cattiva la mappa sbagliata.
+
+### La frase di accettazione della voce CC.07
+
+**Nell'onboarding cerca Basilea, Digione, Valona o il paese di tua nonna fuori
+dall'Italia: adesso ci sono. E in Impostazioni, Privacy e dati, la riga "Da
+dove vengono i numeri" dice chi pubblica i luoghi e con quale licenza.**
+
 ## CC.08, l'attribuzione vera degli inviti
 
 **Debito in coda, verbatim:** "il premio piu' alto della condivisione e' quello
@@ -709,6 +837,23 @@ lettura: la guardia `etichette_e_lettura` l'ha vista. E' passata da
 `ParagrafiDiLettura`, e la pretesa della sua prova segue adesso il dato, cioe'
 la frase intera col verbo invece del transito nudo.
 
+### Il lavoro sul server, da distribuire dal PC del fondatore
+
+`segnaLEvento` e' scritta, provata e esportata da `functions/src/index.ts`, ma
+**non e' ancora sul server**: distribuirla richiede la sessione `firebase` del
+fondatore, e nessuna credenziale passa da nessuna parte. Il comando, dalla
+cartella del repository, e' questo, e la variabile davanti serve perche' senza
+la CLI si da' dieci secondi per analizzare il codice e muore su "Cannot
+determine backend specification":
+
+```bash
+FUNCTIONS_DISCOVERY_TIMEOUT=120 firebase deploy --only functions:segnaLEvento
+```
+
+Finche' non e' distribuita **non si perde niente e non si rompe niente**: la
+porta risponde di no, il registro non finge di aver registrato, e i contatori
+cominciano dal giorno della distribuzione.
+
 ### La frase di accettazione della voce CC.09
 
 **Apri l'app dopo il tutorial: ti viene chiesto una volta se puoi contare i
@@ -716,7 +861,78 @@ gesti, con due pulsanti uguali. Rispondi no e non cambia niente. Vai in
 Impostazioni, Privacy e dati, e trovi l'interruttore per cambiare idea, con
 sotto la stessa frase che c'e' nella privacy policy.**
 
+## I ROSSI CHE LA SUITE INTERA HA TROVATO, E CHE HO CURATO
+
+La suite intera, **3.956 prove**, ha trovato **nove rossi**. Uno solo era gia'
+noto e accettato, `l'attribuzione cieca e' valida su QUESTA istruzione`, che sta
+in `tool/rossi_accettati.txt` per decisione del fondatore dell'ordine BY voce
+04. **Gli altri otto erano miei**, e nessuno e' stato messo a tacere allungando
+quel registro.
+
+**Cinque erano guardie che difendevano la LETTERA vecchia di un fatto che il
+fondatore ha fatto cambiare.** In tutte e cinque ho spostato la pretesa sul
+fatto nuovo, mai allentato la guardia:
+
+| prova | cosa difendeva | cosa difende adesso |
+| --- | --- | --- |
+| `anteprime_montano_cio_che_l_app_monta` | che la rotta di un'arte dicesse `builder: (_) => conLaSoglia(`, cioe' la forma di `MaterialPageRoute` | che la rotta chiami `=> conLaSoglia(`, qualunque sia la forma della rotta. **Il velo nero di CC.04 ha cambiato la forma, non il fatto** |
+| `le_chiamate_del_giorno` | apriva la rotta con `as MaterialPageRoute`, e con CC.04 quel cast lancia | accetta anche `PageRouteBuilder`, perche' il fatto e' **quale scena la rotta apre** |
+| `il_cielo_del_giorno_decide_quando` | che la riga del cielo portasse la coda "non si conosce l'ora di nascita" | che quella coda **non ci sia piu'**: il fondatore in CC.06g ha scritto "eliminalo!", e al suo posto ogni responso porta ORA DI NASCITA: SCONOSCIUTO |
+| `il_mondo_oltre_l_italia` | che la Liberia avesse **una** citta' sola | lo stesso fatto su Barbados. La prova diceva di se' stessa "se questo numero sale il buco si sta chiudendo": si e' chiuso, la Liberia e' passata da 1 a 16 |
+| `il_luogo_di_nascita_e_la_sua_nazione` | che i luoghi fossero 11.546 e che un paese solo si disegnasse | 40.846 luoghi e tre paesi, guardati uno per uno |
+
+**Tre erano conti da rifare, non guardie da cambiare.** Il censimento
+tipografico e' sceso da 226 misure a mano a **225**, perche' la voce CC.05
+aveva tolto un `Text` nudo; i vuoti verticali sono saliti da 146 a **147**, e
+prima di rigenerare il documento ho convertito le due misure nuove che avevo
+scritto a mano in `SpacingTokens.xxs`; e `niente_lavoro_non_spinto` cadeva
+perche' il lavoro della voce CC.07 non era ancora committato.
+
+**Due anteprime sono state tolte invece di curate.** `nazione-belgio.png` e
+`nazione-paesi-bassi.png` erano sotto la soglia di luminosita' del corredo, 165
+e 186 contro 200. Non era un difetto di cattura: dopo l'alzata di
+`luoghiMinimi` quei due paesi non passano piu' dalle loro citta', quindi quelle
+immagini **non documentavano piu' cio' per cui le avevo fatte**. Restano le due
+che contano, `nazione-germania.png` e `nazione-regno-unito.png`.
+
 ## LE SCELTE CHE HO PRESO IO E PERCHE'
+
+- **CC.07, nessuna fonte nuova.** La causa non era una fonte povera, era una
+  potatura nostra sopra un file gia' potato: una fonte nuova avrebbe portato
+  una licenza da leggere, un formato da fidarsi e un secondo elenco che puo'
+  divergere da quello che l'app gia' usa.
+- **CC.07, entrano tutti i luoghi che la fonte ha.** Qualunque numero per
+  paese sarebbe stato arbitrio, e l'arbitrio si sarebbe visto proprio sui
+  paesi piccoli, che sono quelli per cui la voce esiste.
+- **CC.07, `luoghiMinimi` da 200 a 500, e non e' un elenco travestito.** Il
+  numero e' scelto sulla geometria e misurato: chi riempie l'82 per cento delle
+  celle che PUO' riempire non sta disegnando una forma, sta finendo i punti.
+- **CC.07, ho guardato le quattro mappe nuove prima di tenerle.** La guardia di
+  BB.12 dice di se' stessa che non ha occhi: quelle immagini sono i suoi occhi,
+  e la prima mi ha mostrato il Canada al posto del Regno Unito.
+- **CC.07, l'attribuzione esce dal commento e va a schermo.** La licenza
+  pretende che sia raggiungibile: un obbligo assolto dentro casa non e'
+  assolto.
+- **CC.08, la domanda si fa a chi arriva invece di aspettarlo in un menu'.**
+  Il lato che paga esisteva gia' e il link portava gia' il codice: mancava solo
+  che qualcuno chiedesse, e nel momento in cui il link e' ancora negli appunti.
+- **CC.08, gli appunti si leggono solo sul tocco.** Un'app che li guarda da
+  sola legge tutto quello che c'e' li' dentro, che spesso e' una password.
+- **CC.08, l'Install Referrer non l'ho scritto.** Vuole un pacchetto nuovo,
+  codice nativo e una build vera per provarlo: le build le ordina il fondatore,
+  e un pezzo nativo mai acceso sarebbe codice creduto, non provato.
+- **CC.09, nessuno strumento nuovo e nessun pacchetto.** Firebase Analytics
+  avrebbe portato un secondo identificativo e un secondo posto dove vivono i
+  dati di una persona, proprio mentre l'ordine CB voce 05 ha appena messo una
+  scadenza a ognuno.
+- **CC.09, si contano i gesti e non le persone.** Da contatori per giorno si
+  legge quante persone tornano, e non si legge chi.
+- **CC.09, il registro e' raggiungibile senza `BuildContext`.** Due dei cinque
+  punti non ne hanno uno, e pretendere un provider dentro un servizio condiviso
+  in questo progetto ha gia' fatto cadere quaranta prove lontane dal punto
+  toccato.
+- **CC.08 prima di CC.09, una domanda per apertura.** Il codice negli appunti
+  scade, la misura del ritorno no.
 
 - **CC.06a, i riferimenti sono al massimo sei, e vengono dal catalogo per
   popolazione.** Venti nomi su una mappa piccola non dicono dove sei, dicono

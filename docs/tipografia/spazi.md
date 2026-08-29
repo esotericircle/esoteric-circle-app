@@ -1,8 +1,8 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 146 -->
+<!-- VUOTI_CENSITI: 147 -->
 <!-- FILE_CON_VUOTI: 60 -->
-<!-- VUOTI_ECCESSIVI: 2 -->
+<!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
 ## Cosa misura, e cosa no
@@ -11,9 +11,9 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **146** |
+| Vuoti verticali dichiarati | **147** |
 | File che ne contengono | **60** |
-| Oltre la soglia di 48 punti | **2** |
+| Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
 
@@ -37,12 +37,14 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 40 | 1 |
 | 44 | 1 |
 | 60 | 1 |
+| 72 | 1 |
 | 90 | 1 |
 
 ## I vuoti oltre la soglia
 
+- `lib/features/settings/settings_screen.dart:494` sizedBox 72 punti
 - `lib/features/synastry/sinastria_share_card.dart:125` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:732` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:733` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -54,12 +56,12 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/design_system/components/guida_del_respiro.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 5 | 0 |
+| `lib/features/settings/settings_screen.dart` | 5 | 1 |
 | `lib/features/tarot/tarot_selectors.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
-| `lib/features/settings/settings_screen.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |

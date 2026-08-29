@@ -44,7 +44,17 @@ void main() {
     expect(rotta, isNotNull,
         reason: 'Un carico conosciuto deve avere la sua rotta: senza, il '
             'tocco sull avviso lascia la persona sulla home.');
-    Widget dentro = (rotta! as MaterialPageRoute<void>).builder(ctx);
+    // **LA ROTTA NON E' PIU' UNA `MaterialPageRoute`. Ordine CC voce 07.**
+    // Con la voce CC.04 ogni passaggio fra schermate e' passato al velo nero,
+    // cioe' a `PassaggioDelCerchio.rotta`, che costruisce un
+    // `PageRouteBuilder`: il cast secco qui sopra lanciava, e la prova cadeva
+    // su un errore di tipo invece che sul fatto che difende. Si accettano
+    // tutte e due le forme, perche' il fatto e' quale scena la rotta apre.
+    final r = rotta!;
+    Widget dentro = r is MaterialPageRoute<void>
+        ? r.builder(ctx)
+        : (r as PageRouteBuilder<void>).pageBuilder(
+            ctx, kAlwaysCompleteAnimation, kAlwaysDismissedAnimation);
     while (dentro is MaestroScope || dentro is SogliaArte) {
       dentro = dentro is MaestroScope
           ? dentro.child

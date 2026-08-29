@@ -25,6 +25,7 @@ import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../core/misura/misura_del_ritorno.dart';
 import '../../core/misura/registro_del_ritorno.dart';
+import '../../core/legal/fonti_dei_dati.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -246,6 +247,20 @@ class SettingsScreen extends StatelessWidget {
                 child: _MisuraTile(palette: palette),
               ),
               const SizedBox(height: SpacingTokens.sm),
+              // **DA DOVE VENGONO I NUMERI. Ordine CC voce 07.** Il catalogo
+              // dei luoghi di nascita viene dai dump di GeoNames, che stanno
+              // sotto Creative Commons Attribution 4.0: quella licenza
+              // consente l'uso commerciale e non pretende che il codice si
+              // apra, ma **pretende l'attribuzione**. Fino a oggi
+              // l'attribuzione viveva in un commento del generatore, cioe' in
+              // un posto che nessuno di fuori puo' leggere, e un obbligo
+              // assolto dentro casa non e' assolto.
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: _FontiTile(palette: palette),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
               DepthCard(
                 raised: true,
                 child: _DeleteDataTile(palette: palette),
@@ -328,6 +343,105 @@ class SettingsScreen extends StatelessWidget {
         endIndent: SpacingTokens.md,
         color: palette.gold.withValues(alpha: 0.12),
       );
+}
+
+/// **LE FONTI DEI DATI, dietro una riga. Ordine CC voce 07.**
+///
+/// **Perche' una riga che si apre e non un blocco sempre a schermo.** Le fonti
+/// interessano a poche persone, e a quelle poche interessano davvero: un
+/// blocco fisso sotto "Privacy e dati" allungherebbe la schermata per tutti
+/// per servire quei pochi, e la regola dell'app e' che ogni riga a schermo si
+/// guadagni il suo posto. La licenza chiede che l'attribuzione sia
+/// raggiungibile, non che sia addosso.
+class _FontiTile extends StatelessWidget {
+  const _FontiTile({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      key: const Key('settings_fonti'),
+      onTap: () => showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (foglio) => _FoglioDelleFonti(palette: palette),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.md, vertical: SpacingTokens.md),
+        child: Row(
+          children: [
+            Icon(Icons.menu_book_outlined, size: 20, color: palette.goldSoft),
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Da dove vengono i numeri',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: ColorTokens.textPrimary)),
+                  const SizedBox(height: SpacingTokens.xxs),
+                  Text(
+                      'Luoghi, pianeti e stelle: chi li pubblica e con quale '
+                      'licenza.',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FoglioDelleFonti extends StatelessWidget {
+  const _FoglioDelleFonti({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('foglio_delle_fonti'),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      decoration: BoxDecoration(
+        color: palette.surfaceElevated,
+        borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(SpacingTokens.radiusLg)),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Da dove vengono i numeri',
+                  style: TypographyTokens.titoloScheda()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.md),
+              for (final f in fontiDeiDati) ...[
+                Text(f.cosa,
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: ColorTokens.textPrimary)),
+                const SizedBox(height: SpacingTokens.xxs),
+                Text('${f.chi}. ${f.licenza}. ${f.dove}',
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary)),
+                const SizedBox(height: SpacingTokens.md),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// **L'INTERRUTTORE DELLA MISURA. Ordine CC voce 09.**

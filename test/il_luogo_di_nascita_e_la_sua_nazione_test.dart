@@ -45,7 +45,10 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BB VOCE 12: luoghi ${catalogo.length}, di cui italiani '
         '${paesi["Italia"]}, paesi distinti ${paesi.length}');
-    expect(catalogo, hasLength(11546));
+    // **IL NUMERO SEGUE IL DATO. Ordine CC voce 07.** Erano 11.546, di cui
+    // 3.108 fuori dall'Italia; adesso sono 40.846, di cui 32.408 fuori. Non e'
+    // una prova nuova, e' la stessa che rilegge il catalogo di oggi.
+    expect(catalogo, hasLength(40846));
     expect(paesi['Italia'], 8438,
         reason: 'i luoghi italiani non sono piu quelli contati nel manifesto');
   });
@@ -85,18 +88,35 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE BB VOCE 12: superano il criterio $passano');
-    expect(passano, ['Italia'],
+    // **TRE, E NON PIU' UNO. Ordine CC voce 07.** Col catalogo allargato
+    // erano arrivati quattro paesi nuovi, e questa prova dice di se' stessa
+    // che non ha occhi: li ho guardati uno per uno, e le immagini sono in
+    // `docs/preview/nazione-*.png`. Germania e Regno Unito si riconoscono e
+    // restano. Belgio e Paesi Bassi erano macchie di due centinaia di punti,
+    // e sono usciti alzando `luoghiMinimi` da 200 a 500: tornano al contorno
+    // vero, che e' dove stavano anche prima di quest'ordine.
+    expect(passano, ['Italia', 'Regno Unito', 'Germania'],
         reason: 'sono cambiati i paesi disegnabili: se ne sono arrivati di '
             'nuovi vanno GUARDATI uno per uno prima di allargare, perche una '
             'nuvola rada non disegna niente e questa prova non ha occhi');
 
-    // **LA SOGLIA NON STA SUL FILO**, e questo e cio che la rende una regola
-    // e non un elenco travestito: fra chi passa e chi no c e un abisso.
-    final secondo = ordinati[1];
+    // **LA SOGLIA NON STA SUL FILO**, e questo e' cio' che la rende una
+    // regola e non un elenco travestito.
+    //
+    // **LA PRETESA E' CAMBIATA COL CORPUS. Ordine CC voce 07.** Prima qui si
+    // chiedeva che fra l'Italia e il secondo corressero piu' di cinquanta
+    // volte, e con 3.108 luoghi esteri era vero perche' il secondo era una
+    // spruzzata. Adesso i paesi densi sono tre e le loro densita' stanno
+    // vicine: quella pretesa non dice piu' niente sul mondo, dice solo che il
+    // catalogo era povero. **Il salto che conta e' fra l'ultimo che passa e
+    // il primo che non passa**, ed e' quello che questa prova difende.
+    final ultimoCheSupera = ordinati.lastWhere((e) => passano.contains(e.key));
+    final primoCheNo = ordinati.firstWhere((e) => !passano.contains(e.key));
     // ignore: avoid_print
-    print('ORDINE BB VOCE 12: fra l Italia e ${secondo.key} corrono '
-        '${(ordinati.first.value / secondo.value).round()} volte');
-    expect(ordinati.first.value / secondo.value, greaterThan(50),
+    print('ORDINE BB VOCE 12: fra ${ultimoCheSupera.key} che passa e '
+        '${primoCheNo.key} che non passa corrono '
+        '${(ultimoCheSupera.value / primoCheNo.value).toStringAsFixed(1)} volte');
+    expect(ultimoCheSupera.value / primoCheNo.value, greaterThan(2),
         reason: 'la soglia e diventata una scelta arbitraria fra due valori '
             'vicini');
   });
