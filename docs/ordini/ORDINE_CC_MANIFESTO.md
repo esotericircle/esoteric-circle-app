@@ -273,6 +273,44 @@ cosmici e il borsellino con il suo conto. Rigenerate anche
 `dominio-caligo.png` e `dominio-caligo-aperto.png`, dove la sezione adesso si
 legge Numerologia.
 
+### DUE DIFETTI CHE HA TROVATO IL FONDATORE GUARDANDO LE ANTEPRIME
+
+**1. "Il titolo della categoria Numerologia e' molto piu' piccolo degli altri
+titoli di categoria."** Vero, e la causa non era la lunghezza della parola. Il
+titolo vive dentro un `FittedBox` che lo rimpicciolisce invece di spezzarlo a
+meta' parola, e nella riga di una sottocategoria senza arti vive c'era anche
+uno `Spacer`: **i due si dividevano lo spazio libero a meta'**, e il titolo
+veniva scalato giu' mentre accanto restava vuoto. Adesso il gruppo di sinistra
+sta dentro un `Expanded` e la freccetta gli sta dopo, e i due stacchi passano
+da 8 punti a 4.
+
+**Misurato prima e dopo, sui dodici titoli dei tre domini**: prima **quattro
+erano rimpiccioliti**, il peggiore a **12,4 punti su 21,0**, cioe' il 41 per
+cento in meno; adesso **zero**, tutti e dodici a 21,0. Il difetto non era di
+Numerologia: era di ogni sottocategoria senza arti vive, e con "Cabala", sette
+lettere, non si vedeva. **Una prova nuova misura la grandezza vera a cui ogni
+titolo viene dipinto**, `FittedBox` compreso, e cade se uno si rimpicciolisce
+mentre gli altri no.
+
+**2. "La bolla taglia la testa ai Maestri che stanno sotto."** Vero, e
+guardato: il fumetto dei Maestri li tagliava tutti e tre al collo. Il corpus
+chiede quel fumetto SOTTO il carosello; a 360 punti non ci sta ne' sotto ne'
+sopra, e la vecchia regola sceglieva **il lato con piu' spazio**, cioe' sopra,
+scendendo sulla parte alta delle carte, che e' dove stanno le facce.
+
+**Adesso, quando non ci sta da nessuna parte, vince il lato che il corpus
+chiede.** Un ritratto si riconosce dalla faccia: se la carta deve sovrapporsi
+per forza, che si sovrapponga sulle vesti e non sulle teste. Misurato a 360x797:
+il bersaglio va da 262 a 536, la carta comincia a **531**, cioe' cinque punti
+sopra il bordo basso del bersaglio.
+
+**La guardia che avrebbe dovuto vederlo guardava un francobollo.** La finestra
+era gia' quella di un telefono, ma il bersaglio era un riquadro di 200 per 60
+messo al centro: con un bersaglio basso la carta ci sta comodamente sotto e la
+prova diceva verde. Adesso il bersaglio della prova e' alto **274**, come il
+carosello vero a 360 punti, e la prova pretende che la carta non copra la meta'
+alta di cio' di cui parla.
+
 ### La frase di accettazione della voce CC.01
 
 **Rivedi il tutorial dal menu' utente: il secondo fumetto dice i domini

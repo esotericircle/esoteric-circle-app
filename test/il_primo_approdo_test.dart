@@ -95,20 +95,22 @@ void main() {
 
   group('il velo', () {
     Future<void> monta(WidgetTester tester,
-        {required bool armato, Size schermo = const Size(360, 800)}) async {
+        {required bool armato,
+        Size schermo = const Size(360, 800),
+        double altoIlBersaglio = 60}) async {
       SharedPreferences.setMockInitialValues(
           armato ? {MemoriaDelPrimoApprodo.chiaveArmata: true} : const {});
       tester.view.devicePixelRatio = 1.0;
       tester.view.physicalSize = schermo;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
-      await tester.pumpWidget(const MaterialApp(
+      await tester.pumpWidget(MaterialApp(
         home: PrimoApprodo(
           child: Scaffold(
             body: Center(
               child: AncoraDelPrimoApprodo(
                 nome: BersagliDelPrimoApprodo.trio,
-                child: SizedBox(width: 200, height: 60),
+                child: SizedBox(width: 200, height: altoIlBersaglio),
               ),
             ),
           ),
@@ -170,7 +172,21 @@ void main() {
 
     testWidgets('la freccia punta il bersaglio, non il centro dello schermo',
         (tester) async {
-      await monta(tester, armato: true);
+      // **IL BERSAGLIO E' ALTO COME QUELLO VERO, e prima era un
+      // francobollo.**
+      //
+      // La finestra era gia' quella di un telefono, 360 punti di larghezza: a
+      // ingannare questa prova era il BERSAGLIO, un riquadro di 200 per 60
+      // messo al centro dello schermo. Con un bersaglio basso la carta ci sta
+      // comodamente sotto e la prova diceva verde, mentre il carosello dei
+      // Maestri vero a 360 punti e' alto **274 su 797**, cioe' mezzo schermo:
+      // li' la carta non ci stava ne' sotto ne' sopra, finiva sopra i tre
+      // Maestri e li tagliava al collo. L'ha visto il fondatore in
+      // un'anteprima, non questa prova.
+      await monta(tester,
+          armato: true,
+          schermo: const Size(360, 797),
+          altoIlBersaglio: 274);
       // Si passa al secondo fumetto, che e' il primo con una freccia.
       await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
       await tester.pumpAndSettle();
@@ -182,8 +198,15 @@ void main() {
       // ignore: avoid_print
       print('ORDINE CB VOCE 02: bersaglio a ${bersaglio!.top.round()}, '
           'fumetto a ${carta.top.round()}');
-      expect(carta.top, greaterThan(bersaglio.bottom),
-          reason: 'il fumetto dei Maestri copre la cosa di cui parla');
+      // **LA CARTA STA SOTTO IL BERSAGLIO, e la parte alta del bersaglio
+      // resta scoperta.** Quando la carta non ci sta ne' sotto ne' sopra si
+      // sovrappone per forza: qui si pretende che si sovrapponga dal basso,
+      // cosi' le facce dei tre Maestri restano visibili. Il numero e' la meta'
+      // dell'altezza del bersaglio: piu' in su di cosi' e le teste vanno.
+      final meta = bersaglio.top + bersaglio.height / 2;
+      expect(carta.top, greaterThan(meta),
+          reason: 'il fumetto dei Maestri copre la meta\' alta di cio\' di cui '
+              'parla, cioe\' le loro facce');
     });
 
     testWidgets('nessuno dei cinque esce dallo schermo a 360 punti',

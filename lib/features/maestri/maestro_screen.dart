@@ -290,46 +290,73 @@ class _ArtSectionBox extends StatelessWidget {
   /// e, quando non c'e' nulla di vivo, la dicitura onesta piu' la freccetta.
   /// Tutta la riga e' area di tocco, non la sola freccetta.
   Widget _header(BuildContext context, MaestroPalette palette) {
+    // **IL TITOLO NON GAREGGIA CON LO SPAZIO VUOTO.**
+    //
+    // **Il fatto del fondatore, il 30 agosto 2026**: "il titolo della
+    // categoria Numerologia e' molto piu' piccolo degli altri titoli di
+    // categoria". Vero, e la causa non era la lunghezza della parola.
+    //
+    // Il titolo vive dentro un `FittedBox` che lo rimpicciolisce invece di
+    // spezzarlo a meta' parola, e quello serve: in Cinzel, tutto maiuscolo,
+    // "Lunologia" andava a capo come LUNOL OGIA. Ma prima il titolo era un
+    // `Flexible` con flex 1 e piu' avanti nella stessa riga c'era uno
+    // `Spacer`, che e' un `Expanded` con flex 1: **i due si dividevano lo
+    // spazio libero a meta'**, il titolo ne riceveva la sua parte e il
+    // `FittedBox` lo scalava giu' mentre accanto restava vuoto.
+    //
+    // Succedeva **solo alle sottocategorie senza nemmeno un'arte viva**,
+    // perche' sono le sole che portano la dicitura, lo `Spacer` e la
+    // freccetta. Con "Cabala", sette lettere, lo scarto era piccolo; con
+    // "Numerologia", undici, si vede.
+    //
+    // Adesso il gruppo di sinistra sta dentro un `Expanded` e la freccetta gli
+    // sta dopo: il titolo prende tutto lo spazio che avanza, e il `FittedBox`
+    // scatta solo quando non basta davvero.
     final riga = Row(
       children: [
-        // Il titolo si rimpicciolisce invece di spezzarsi a meta' parola: in
-        // Cinzel, tutto maiuscolo, "Lunologia" andava a capo come LUNOL OGIA.
-        Flexible(
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              section.title,
-              maxLines: 1,
-              style: TypographyTokens.display(size: 18)
-                  .copyWith(color: palette.goldSoft),
-            ),
+        Expanded(
+          child: Row(
+            children: [
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    section.title,
+                    maxLines: 1,
+                    style: TypographyTokens.display(size: 18)
+                        .copyWith(color: palette.goldSoft),
+                  ),
+                ),
+              ),
+              const SizedBox(width: SpacingTokens.xxs),
+              // Il contatore delle arti della sottocategoria: dice a colpo
+              // d'occhio quanto e' ampio il territorio, contando quel che si
+              // vede davvero.
+              Text(
+                '· ${section.arts.length}',
+                key: Key('art_section_count_$_slug'),
+                style: TypographyTokens.label(size: 13).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.75),
+                  letterSpacing: 0.4,
+                ),
+              ),
+              if (!_hasActive) ...[
+                const SizedBox(width: SpacingTokens.xxs),
+                Text(
+                  '· In arrivo',
+                  key: Key('art_section_soon_$_slug'),
+                  style: TypographyTokens.label(size: 12).copyWith(
+                    color: ColorTokens.textSecondary,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+              ],
+            ],
           ),
         ),
-        const SizedBox(width: SpacingTokens.xs),
-        // Il contatore delle arti della sottocategoria: dice a colpo d'occhio
-        // quanto e' ampio il territorio, contando quel che si vede davvero.
-        Text(
-          '· ${section.arts.length}',
-          key: Key('art_section_count_$_slug'),
-          style: TypographyTokens.label(size: 13).copyWith(
-            color: palette.goldSoft.withValues(alpha: 0.75),
-            letterSpacing: 0.4,
-          ),
-        ),
-        if (!_hasActive) ...[
-          const SizedBox(width: SpacingTokens.xs),
-          Text(
-            '· In arrivo',
-            key: Key('art_section_soon_$_slug'),
-            style: TypographyTokens.label(size: 12).copyWith(
-              color: ColorTokens.textSecondary,
-              letterSpacing: 0.4,
-            ),
-          ),
-          const Spacer(),
+        if (!_hasActive)
           FreccettaDelCollasso(aperto: open, color: palette.goldSoft),
-        ],
       ],
     );
     if (_hasActive) {

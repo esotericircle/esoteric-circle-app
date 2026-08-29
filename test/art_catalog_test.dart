@@ -609,6 +609,55 @@ void main() {
   });
 
   group('Il dominio del Maestro', () {
+    /// **I TITOLI DELLE SOTTOCATEGORIE SONO TUTTI DELLA STESSA MISURA.**
+    ///
+    /// **Il fatto del fondatore, il 30 agosto 2026**: "il titolo della
+    /// categoria Numerologia e' molto piu' piccolo degli altri titoli di
+    /// categoria". Il titolo vive dentro un `FittedBox`, che lo rimpicciolisce
+    /// invece di spezzarlo a meta' parola, e nella riga di una sottocategoria
+    /// senza arti vive c'era anche uno `Spacer`: i due si dividevano lo spazio
+    /// libero, e il titolo veniva scalato giu' **mentre accanto restava
+    /// vuoto**.
+    ///
+    /// Qui si misura la grandezza VERA a cui ogni titolo viene dipinto, non
+    /// quella scritta nello stile: si prende il rettangolo del testo cosi'
+    /// come finisce a schermo, `FittedBox` compreso. Se uno si rimpicciolisce
+    /// e gli altri no, questa prova cade e dice quale.
+    testWidgets('Nessun titolo di sottocategoria si rimpicciolisce da solo',
+        (tester) async {
+      tester.view.physicalSize = const Size(360, 4000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final misure = <String, double>{};
+      for (final m in Maestro.values) {
+        await tester.pumpWidget(domain(m));
+        await tester.pump();
+        for (final s in ArtCatalog.visibleFor(m, demo: true)) {
+          final f = find.text(s.title);
+          if (f.evaluate().isEmpty) continue;
+          misure['${m.id}/${s.title}'] = tester.getRect(f.first).height;
+        }
+      }
+      expect(misure, isNotEmpty, reason: 'la prova gira a vuoto');
+      final piuAlto = misure.values.reduce((a, b) => a > b ? a : b);
+      final piccoli = <String>[];
+      misure.forEach((nome, alto) {
+        // Un punto di tolleranza: sotto quello e' arrotondamento, sopra e' un
+        // titolo che qualcuno ha schiacciato.
+        if (alto < piuAlto - 1) {
+          piccoli.add('$nome a ${alto.toStringAsFixed(1)}');
+        }
+      });
+      // ignore: avoid_print
+      print('ORDINE CC VOCE 01: titoli di sottocategoria misurati '
+          '${misure.length}, il piu\' alto '
+          '${piuAlto.toStringAsFixed(1)}, rimpiccioliti ${piccoli.length}');
+      expect(piccoli, isEmpty,
+          reason: 'questi titoli sono dipinti piu\' piccoli degli '
+              'altri: $piccoli');
+    });
+
     testWidgets('Mostra i riquadri per sottocategoria', (tester) async {
       await tester.pumpWidget(domain(Maestro.medora));
       await tester.pump();

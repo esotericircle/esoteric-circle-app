@@ -526,13 +526,30 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     final volutoSotto = fumetto.lato == LatoDelFumetto.sotto;
     // Il lato voluto se ci sta, l'altro se ci sta l'altro, e se non ci sta
     // nessuno dei due quello che ha piu' spazio.
+    // **QUANDO NON CI STA DA NESSUNA PARTE, VINCE IL LATO CHE IL CORPUS
+    // CHIEDE, non quello con piu' spazio.**
+    //
+    // **Il fatto del fondatore, il 30 agosto 2026**: "la bolla taglia la testa
+    // ai Maestri che stanno sotto e visivamente sta proprio male". Vero, e
+    // guardato: il fumetto dei Maestri tagliava tutti e tre al collo.
+    //
+    // La causa era qui. Il corpus chiede il fumetto SOTTO il carosello, con la
+    // freccia in su. A 360 punti non ci sta ne' sotto ne' sopra, e la vecchia
+    // regola sceglieva **il lato con piu' spazio**, cioe' sopra: la carta
+    // scendeva sulla parte alta delle tre carte dei Maestri, che e' dove
+    // stanno le facce.
+    //
+    // **Un ritratto si riconosce dalla faccia.** Se la carta deve sovrapporsi
+    // per forza, che si sovrapponga dove il bersaglio dice meno: sotto, cioe'
+    // sulle vesti e sui piedi. Il lato voluto dal corpus e' una scelta di chi
+    // ha scritto quel fumetto, e regge anche qui.
     final sotto = volutoSotto
         ? (alta <= sottoLibero
             ? true
-            : (alta <= sopraLibero ? false : sottoLibero >= sopraLibero))
+            : (alta <= sopraLibero ? false : true))
         : (alta <= sopraLibero
             ? false
-            : (alta <= sottoLibero ? true : sottoLibero > sopraLibero));
+            : (alta <= sottoLibero ? true : false));
 
     // **E QUANDO NON CI STA, SI TIENE DENTRO LO SCHERMO, non al centro.**
     // Al centro il fumetto copriva per intero i tre Maestri di cui parla: il
