@@ -232,6 +232,10 @@ class _PortaCheRegistra implements PortaDellIdentita {
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
       EsitoDellaCustodia.riuscita;
 
+  @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
   final List<String> diario = [];
   int uscite = 0;
   @override

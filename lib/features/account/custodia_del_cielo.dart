@@ -603,6 +603,21 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
 /// "minimo 8 caratteri, almeno una maiuscola, almeno un numero e almeno un
 /// carattere speciale e devi scrivere queste regole e validarle". Torna la
 /// frase del guaio, o nulla se la password rispetta la regola.
+/// **IL CANCELLO DELL'EMAIL, in un punto solo.** Ordine CB voce 03.
+///
+/// La regola stava scritta a mano dentro il modulo della registrazione. Il
+/// cambio dell'email del menu' utente ne aveva bisogno identica, e copiarla
+/// avrebbe fatto due regole che il giorno dopo dicono cose diverse: come per
+/// la parola, il cancello e' una funzione sola e le due schermate la chiamano.
+String? guaioDellEmail(String email) {
+  if (email.isEmpty) return "Manca l'email";
+  if (!email.contains(String.fromCharCode(64)) || !email.contains('.')) {
+    return 'Questo indirizzo non sembra completo: manca la chiocciola o il '
+        'punto';
+  }
+  return null;
+}
+
 String? guaioDellaPassword(String parola) {
   if (parola.isEmpty) return 'Manca la Password';
   if (parola.length < 8) {
@@ -656,11 +671,7 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     final parola = widget.parola.text;
     setState(() {
       _detto = null;
-      _guaioEmail = email.isEmpty
-          ? "Manca l'email"
-          : (!email.contains('@') || !email.contains('.')
-              ? "Questo indirizzo non sembra completo: manca la chiocciola o il punto"
-              : null);
+      _guaioEmail = guaioDellEmail(email);
       // **LA REGOLA DEL FONDATORE, ordine BI voce 02**: otto caratteri,
       // maiuscola, numero, carattere speciale, scritti e validati.
       _guaioParola = guaioDellaPassword(parola);

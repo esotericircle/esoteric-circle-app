@@ -187,6 +187,10 @@ class _PortaCheRiconosce implements PortaDellIdentita {
       EsitoDellaCustodia.riuscita;
 
   @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
     if (_riconosciuta == null) return EsitoDellaCustodia.nonRiuscita;
     entrato = true;

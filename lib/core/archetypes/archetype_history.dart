@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'archetype.dart';
 import 'archetype_scoring.dart';
+import '../identity/scadenze_del_telefono.dart';
 
 /// Un test archetipo gia' fatto, con la sua data e il profilo intero.
 ///
@@ -146,8 +147,26 @@ class ArchetypeHistory extends ChangeNotifier {
         }
       }
       if (_scritture != atteso) return;
-      letti.sort((a, b) => b.quando.compareTo(a.quando));
-      _esiti = letti;
+      // **LA POTATURA DI CIO' CHE E' SCADUTO. Ordine CB voce 05.**
+      //
+      // La lista si limitava per NUMERO, quaranta righe, e non per tempo: chi
+      // ne fa una al mese si porta dietro tre anni di letture. Il tempo lo
+      // decide `ScadenzeDelTelefono`, che porta anche la ragione scritta.
+      //
+      // **Si pota leggendo, non con un lavoro a parte**, perche' questo e'
+      // l'unico momento in cui la lista viene aperta davvero: un servizio che
+      // girasse all'avvio farebbe lo stesso lavoro in un momento in cui alla
+      // persona serve la scena, non la pulizia.
+      final vivi = [
+        for (final e in letti)
+          if (!ScadenzeDelTelefono.archetipo.scaduta(e.quando, _clock())) e
+      ];
+      if (vivi.length != letti.length) {
+        await p.setStringList(
+            _chiave, [for (final e in vivi) jsonEncode(e.toJson())]);
+      }
+      vivi.sort((a, b) => b.quando.compareTo(a.quando));
+      _esiti = vivi;
       notifyListeners();
     } catch (_) {
       // Memoria non disponibile: si continua senza storico, mai un errore.

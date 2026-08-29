@@ -335,6 +335,25 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
+  /// PORTA A SCHERMO UNA VOCE DELL'ELENCO DELL'ACCOUNT, poi si tocca.
+  ///
+  /// L'elenco e' pigro: cio' che sta sotto la piega non esiste ancora come
+  /// widget, e un `tap` su un dito che non c'e' non fallisce con calma, fa
+  /// cadere la cattura. Se la voce e' gia' visibile non si scorre di un punto.
+  Future<void> scorriFinoAllaVoce(WidgetTester tester, String chiave) async {
+    final voce = find.byKey(Key(chiave));
+    if (voce.evaluate().isNotEmpty) return;
+    final lista = find.byType(Scrollable);
+    if (lista.evaluate().isEmpty) return;
+    try {
+      await tester.scrollUntilVisible(voce, 200, scrollable: lista.last);
+    } catch (_) {
+      // Nessuna lista da scorrere: si prosegue e sara' il tocco a dire come
+      // e' andata.
+    }
+    await step(tester);
+  }
+
   List<(ChatRole, String)> seedFor(Maestro maestro) {
     switch (maestro) {
       case Maestro.medora:
@@ -1906,6 +1925,49 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'bosco-del-cerchio.png');
+  });
+
+  // **I CINQUE FUMETTI DEL PRIMO APPRODO. Ordine CB voce 02.**
+  //
+  // Si guardano alla larghezza vera del telefono del fondatore, 360 punti
+  // logici, che e' la sola misura su cui si giudica: e' li' che un titolo si
+  // spezza e una riga sfonda. La riga dei tasti in fondo al fumetto ha gia'
+  // sfondato di 35 punti proprio qui, ed e' stata rifatta.
+  testWidgets('Cattura i cinque fumetti del primo approdo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Il tutorial non nasce acceso: qui si arma a mano, come fa l'onboarding
+    // quando finisce. Le altre anteprime restano quelle di chi l'app la usa
+    // gia', senza velo sopra.
+    SharedPreferences.setMockInitialValues(const {
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'avvisi.primoGiorno.chiesto': true,
+      'avvisi.primoApprodo.armato': true,
+    });
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora), schermo: const Size(360, 797));
+    // **I NOMI SI SCRIVONO PER INTERO, non composti a runtime.** La guardia
+    // del corredo cerca il nome del file DENTRO questo sorgente per sapere che
+    // qualcuno lo rigenera: un nome costruito con un contatore la faceva
+    // cadere dichiarando cinque anteprime orfane, che orfane non erano.
+    const nomi = [
+      'primo-approdo-1.png',
+      'primo-approdo-2.png',
+      'primo-approdo-3.png',
+      'primo-approdo-4.png',
+      'primo-approdo-5.png',
+    ];
+    for (var i = 0; i < nomi.length; i++) {
+      await step(tester);
+      await capture(tester, rootKey, nomi[i]);
+      final avanti = find.byKey(const Key('primo_approdo_avanti'));
+      if (avanti.evaluate().isEmpty) break;
+      await tester.tap(avanti);
+      await step(tester);
+    }
   });
 
   testWidgets('Cattura la voce Chi ti ha invitato', (tester) async {
@@ -3727,6 +3789,12 @@ void main() {
         await tester.pump(const Duration(milliseconds: 120));
       }
     }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
     await tester.tap(find.byKey(const Key('account_impostazioni')),
         warnIfMissed: false);
     await step(tester);
@@ -3754,6 +3822,12 @@ void main() {
         await tester.pump(const Duration(milliseconds: 120));
       }
     }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
     await tester.tap(find.byKey(const Key('account_impostazioni')),
         warnIfMissed: false);
     await step(tester);
@@ -3859,6 +3933,12 @@ void main() {
         await tester.pump(const Duration(milliseconds: 120));
       }
     }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
     await tester.tap(find.byKey(const Key('account_impostazioni')),
         warnIfMissed: false);
     await step(tester);

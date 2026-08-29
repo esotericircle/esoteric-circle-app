@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../features/onboarding/primo_approdo.dart';
 
 /// Governa il primo avvio: la prima apertura dell'app mostra l'onboarding
 /// "Il Risveglio", le successive vanno dirette al Santuario.
@@ -81,12 +80,6 @@ class OnboardingController extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_kDone, true);
-      // **QUI SI ARMA IL PRIMO APPRODO. Ordine CB voce 02.** Il fondatore lo
-      // vuole "solo appena l'utente approda per la prima volta nella Home il
-      // cerchio", e questo e' l'istante esatto: il rito e' finito, la prossima
-      // cosa che la persona vede e' il Cerchio. Si scrive la chiave e basta,
-      // il tutorial la trovera' da se'.
-      await prefs.setBool(MemoriaDelPrimoApprodo.chiaveArmata, true);
     } catch (_) {
       // Best effort: senza persistenza lo stato resta solo in memoria.
     }

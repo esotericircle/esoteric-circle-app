@@ -27,6 +27,7 @@ import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
 import 'trionfi_screen.dart';
+import 'primo_approdo.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -182,6 +183,19 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
       unawaited(RegiaDelCammino.dopoUnGesto(context, 'carta_natale'));
     }
     context.read<OnboardingController>().complete();
+    // **QUI SI ARMA IL PRIMO APPRODO. Ordine CB voce 02.** Il fondatore lo
+    // vuole "solo appena l'utente approda per la prima volta nella Home il
+    // cerchio", e questo e' l'istante: il Risveglio e' finito, la prossima
+    // cosa che si vede e' il Cerchio.
+    //
+    // **Sta nel RITO e non dentro `complete()`, e la ragione e' misurata.**
+    // Messo dentro il controller, si armava anche per le prove che chiamano
+    // `complete()` per portarsi nello stato "dentro il Cerchio": tredici
+    // prove hanno smesso di funzionare in un colpo, perche' il velo del
+    // tutorial si prendeva i tocchi destinati alla scena. `complete()` dice
+    // che il rito e' fatto; arrivare nel Cerchio per la prima volta e' una
+    // cosa che succede QUI, e solo qui.
+    unawaited(MemoriaDelPrimoApprodo.arma());
     // pop e non maybePop: maybePop passa dal PopScope qui sotto, che rifiuta
     // sempre. Questa e' l'uscita legittima, la sola, e deve poter uscire.
     Navigator.of(context).pop();

@@ -76,9 +76,22 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
   ),
   SezioneDellaPolicy(
     titolo: 'Quanto li conserviamo',
-    corpo: 'Finché il tuo account vive. Se cancelli i tuoi dati o il tuo '
-        'account, la cancellazione è immediata e totale, sul telefono e '
-        'sul server: non c\'è un periodo di attesa.',
+    // **I NUMERI QUI SONO GLI STESSI CHE IL SERVER USA. Ordine CB voce 05.**
+    // Fino a quest'ordine questa sezione diceva "finché il tuo account vive",
+    // e da quando esistono le scadenze non sarebbe più stato vero. Una prova
+    // lega ogni numero di questa pagina al listino delle scadenze: se un tempo
+    // cambia nel codice e non qui, la prova cade prima che la pagina diventi
+    // una bugia pubblicata.
+    corpo: 'Quello che è tuo resta finché vive il tuo account: il cammino, i '
+        'Sigilli, gli Eos, la carta natale, il profilo e le coppie della '
+        'Sinastria. Quello che è un registro, invece, ha una scadenza: la '
+        'memoria delle conversazioni coi Maestri resta 12 mesi, il registro '
+        'dei movimenti degli Eos 24 mesi, i segni tecnici dei consumi '
+        'giornalieri 30 giorni, le tue letture del viso e lo storico '
+        'dell\'Archetipo 24 mesi sul telefono. Scaduto quel tempo li '
+        'cancelliamo noi, senza che tu debba chiedere niente. Se cancelli i '
+        'tuoi dati o il tuo account, la cancellazione è immediata e totale, '
+        'sul telefono e sul server: non c\'è un periodo di attesa.',
   ),
   SezioneDellaPolicy(
     titolo: 'Prevenzione degli abusi',
@@ -89,9 +102,9 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'in chiaro), che resta anche dopo la cancellazione dell\'account. '
         'Da quell\'impronta non si può risalire a chi sei: è una misura '
         'pseudonimizzata, fondata sul legittimo interesse a prevenire le '
-        'frodi. Se alla cancellazione ci dici perché te ne vai, il tuo '
-        'commento viene salvato in forma anonima, senza nessun legame con '
-        'te.',
+        'frodi. La conserviamo 24 mesi. Se alla cancellazione ci dici '
+        'perché te ne vai, il tuo commento viene salvato in forma anonima '
+        'senza nessun legame con te. Anche quello lo conserviamo 24 mesi.',
   ),
   SezioneDellaPolicy(
     titolo: 'I tuoi diritti',

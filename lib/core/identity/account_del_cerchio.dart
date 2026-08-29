@@ -168,6 +168,20 @@ abstract class PortaDellIdentita {
   /// `requires-recent-login`, e la persona deve rientrare. Si dice, invece di
   /// far fallire in silenzio.
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova);
+
+  /// **CAMBIARE L'EMAIL.** Ordine CB voce 03.
+  ///
+  /// **Non si scrive la nuova email e basta.** Si manda un messaggio
+  /// ALL'INDIRIZZO NUOVO e l'account cambia solo quando quel messaggio viene
+  /// aperto: e' `verifyBeforeUpdateEmail`, e la differenza non e' formale.
+  /// Con `updateEmail` un errore di battitura sposterebbe l'account su una
+  /// casella che non esiste, e da quel momento nessuno potrebbe piu' ne'
+  /// entrare ne' recuperare la parola. Con la verifica prima, l'indirizzo
+  /// vecchio resta valido finche' il nuovo non risponde.
+  ///
+  /// Firebase pretende anche qui una sessione recente, e quando manca
+  /// risponde `requires-recent-login`.
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova);
 }
 
 /// Chi e' stato riconosciuto da un tentativo di custodia finito su un
@@ -560,6 +574,30 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   }
 
   @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async {
+    final utente = _utente;
+    if (utente == null) return EsitoDellaCustodia.nonRiuscita;
+    try {
+      await utente.verifyBeforeUpdateEmail(nuova);
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      switch (errore.code) {
+        case 'requires-recent-login':
+          return EsitoDellaCustodia.nonRiconosciuto;
+        case 'email-already-in-use':
+        case 'credential-already-in-use':
+          // Quell'indirizzo e' gia' di un altro Cerchio: e' lo stesso caso
+          // delicato dell'elevazione, e si chiama con lo stesso nome.
+          return EsitoDellaCustodia.giaDiUnAltroCerchio;
+        default:
+          return EsitoDellaCustodia.nonRiuscita;
+      }
+    } catch (errore) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async {
     final utente = _utente;
     if (utente == null) return EsitoDellaCustodia.nonRiuscita;
@@ -709,6 +747,10 @@ class IdentitaAssente implements PortaDellIdentita {
 
   @override
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async =>
       EsitoDellaCustodia.nonRiuscita;
 }
 
@@ -867,6 +909,18 @@ class AccountDelCerchio extends ChangeNotifier {
   /// Il cambio della parola. Ordine AZ voce 12.
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async {
     final esito = await _porta.cambiaLaParola(nuova);
+    rileggi();
+    return esito;
+  }
+
+  /// Il cambio dell'email. Ordine CB voce 03.
+  ///
+  /// **L'email a schermo NON cambia adesso, e non e' un difetto**: cambia
+  /// quando la persona apre il messaggio arrivato all'indirizzo nuovo. Si
+  /// rilegge lo stesso, perche' dopo l'operazione il gettone puo' essere
+  /// diverso, e dire il vero su cio' che si sa vale piu' di sembrare pronti.
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async {
+    final esito = await _porta.cambiaLEmail(nuova);
     rileggi();
     return esito;
   }

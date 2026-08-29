@@ -42,6 +42,54 @@ void main() {
     expect(tutto.contains('anonima'), isTrue);
   });
 
+  test('i tempi scritti nella policy sono quelli che il codice usa', () {
+    // **UNA POLICY CHE PROMETTE UN TEMPO DIVERSO DA QUELLO CHE IL CODICE FA
+    // E' UNA BUGIA PUBBLICATA.** Ordine CB voce 05. Qui non si controlla che
+    // la frase esista: si prende ogni numero dal listino delle scadenze e si
+    // pretende che la pagina lo dica.
+    final tutto =
+        sezioniDellaPolicy.map((s) => '${s.titolo} ${s.corpo}').join(' ');
+    final server = File('functions/src/scadenze.ts').readAsStringSync();
+    final telefono =
+        File('lib/core/identity/scadenze_del_telefono.dart').readAsStringSync();
+
+    // I giorni dichiarati nel listino del server, categoria per categoria.
+    final giorni = <String, int>{};
+    for (final m in RegExp(r'(\w+): \{\s*nome:[^}]*?giorni: (\d+)',
+            multiLine: true, dotAll: true)
+        .allMatches(server)) {
+      giorni[m.group(1)!] = int.parse(m.group(2)!);
+    }
+    // ignore: avoid_print
+    print('ORDINE CB VOCE 05: scadenze del server $giorni');
+    expect(giorni.length, greaterThanOrEqualTo(5),
+        reason: 'il listino delle scadenze del server non si legge piu\'');
+
+    // Come si dice quel numero a una persona: mesi se e' un multiplo tondo.
+    String aParole(int g) => g == 30
+        ? '30 giorni'
+        : g == 365
+            ? '12 mesi'
+            : g == 730
+                ? '24 mesi'
+                : '$g giorni';
+
+    final mute = <String>[];
+    for (final voce in giorni.entries) {
+      if (!tutto.contains(aParole(voce.value))) {
+        mute.add('${voce.key} (${aParole(voce.value)})');
+      }
+    }
+    // E i due tempi del telefono, che sono scritti nell'altro listino.
+    for (final m in RegExp(r'giorni: (\d+)').allMatches(telefono)) {
+      final quanto = aParole(int.parse(m.group(1)!));
+      if (!tutto.contains(quanto)) mute.add('telefono ($quanto)');
+    }
+    expect(mute, isEmpty,
+        reason: 'la policy non dice questi tempi, che il codice invece '
+            'applica: $mute');
+  });
+
   test('la pagina monta la policy e il sottomenu la apre', () {
     final schermo = File('lib/features/account/privacy_policy_screen.dart')
         .readAsStringSync();

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'face_classifier.dart';
 import 'face_trait.dart';
+import '../identity/scadenze_del_telefono.dart';
 
 /// Una Costellazione del Viso gia' letta, con la sua data e la lettura intera.
 @immutable
@@ -118,8 +119,26 @@ class FaceHistory extends ChangeNotifier {
           if (e != null) letti.add(e);
         }
       }
-      letti.sort((a, b) => b.quando.compareTo(a.quando));
-      _esiti = letti;
+      // **LA POTATURA DI CIO' CHE E' SCADUTO. Ordine CB voce 05.**
+      //
+      // La lista si limitava per NUMERO, quaranta righe, e non per tempo: chi
+      // ne fa una al mese si porta dietro tre anni di letture. Il tempo lo
+      // decide `ScadenzeDelTelefono`, che porta anche la ragione scritta.
+      //
+      // **Si pota leggendo, non con un lavoro a parte**, perche' questo e'
+      // l'unico momento in cui la lista viene aperta davvero: un servizio che
+      // girasse all'avvio farebbe lo stesso lavoro in un momento in cui alla
+      // persona serve la scena, non la pulizia.
+      final vivi = [
+        for (final e in letti)
+          if (!ScadenzeDelTelefono.viso.scaduta(e.quando, _clock())) e
+      ];
+      if (vivi.length != letti.length) {
+        await p.setStringList(
+            _chiave, [for (final e in vivi) jsonEncode(e.toJson())]);
+      }
+      vivi.sort((a, b) => b.quando.compareTo(a.quando));
+      _esiti = vivi;
       notifyListeners();
     } catch (_) {
       // Memoria non disponibile: si continua senza storico, mai un errore.

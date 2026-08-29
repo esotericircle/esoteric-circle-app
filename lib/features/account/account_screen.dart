@@ -150,6 +150,26 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.mark_email_unread_outlined,
           onTap: (context) => _verificaLaTuaEmail(context),
         ),
+      // **CAMBIARE L'EMAIL. Ordine CB voce 03.**
+      //
+      // Il fondatore aveva fatto una DOMANDA il 27 agosto, "dal menu' utente
+      // e' possibile cambiare email e password?", e il 29 l'ha resa un
+      // ordine. La risposta misurata era: la password si', l'email no.
+      //
+      // **Si mostra solo a chi e' entrato con un'email e una parola.** A chi
+      // entra con Google o con Apple l'indirizzo lo governa il fornitore: da
+      // qui si cambierebbe solo la copia tenuta da Firebase, e la persona si
+      // ritroverebbe due indirizzi diversi per lo stesso Cerchio senza aver
+      // fatto niente di sbagliato. E' la stessa regola che l'ordine AZ voce
+      // 12 ha gia' applicato alla parola.
+      if (_haUnaParola(context))
+        _AccountEntry(
+          id: 'cambia_email',
+          title: 'Cambia la tua email',
+          subtitle: 'Ti scriviamo al nuovo indirizzo. Cambia quando rispondi',
+          icon: Icons.alternate_email_rounded,
+          onTap: (context) => _chiediLEmailNuova(context),
+        ),
       // **CAMBIARE LA PAROLA. Ordine AZ voce 12, situazione S20.** Anche
       // questa solo a chi ha una parola da cambiare.
       if (_haUnaParola(context))
@@ -520,6 +540,112 @@ Future<void> _mandaLaVerifica(BuildContext context) async {
 /// Firebase pretende un accesso recente per cambiare la parola. Senza dirlo,
 /// il cambio fallirebbe con la frase generica e nessuno capirebbe che basta
 /// uscire e rientrare: e' il tipo di vicolo cieco che questo ordine chiude.
+/// **IL CAMBIO DELL'EMAIL. Ordine CB voce 03.**
+///
+/// **Le scelte che ho preso io, perche' l'ordine le lascia a me**, e ognuna
+/// col suo perche':
+///
+/// - **Il flusso e' un foglio solo**, non una procedura a passi: si scrive
+///   l'indirizzo nuovo e si conferma. Un cambio email non e' una
+///   registrazione, e farne un rito in tre schermate lo farebbe sembrare piu'
+///   pericoloso di quanto e'.
+/// - **La riautenticazione non si chiede prima.** Chiederla a chiunque tocchi
+///   la voce costerebbe un gesto a tutti per un caso che riguarda solo chi e'
+///   dentro da tanto: si prova, e se Firebase dice che serve un accesso
+///   recente si dice cosa fare. E' la stessa strada del cambio della parola,
+///   e le due voci si comportano uguale.
+/// - **La verifica arriva all'indirizzo NUOVO**, non al vecchio, e l'account
+///   cambia solo quando quel messaggio viene aperto: un errore di battitura
+///   non porta via il Cerchio a nessuno.
+/// - **Nessun tetto scritto qui.** Il ritmo lo governa gia' Firebase, che
+///   rifiuta i tentativi troppo fitti: un secondo tetto nostro sarebbe un
+///   numero inventato che diverge dal primo il giorno che il primo cambia.
+/// - **Tre errori, tre frasi**: indirizzo scritto male, indirizzo gia' di un
+///   altro Cerchio, accesso non abbastanza recente. Mai un "non e' riuscito"
+///   buono per tutto.
+Future<void> _chiediLEmailNuova(BuildContext context) async {
+  final campo = TextEditingController();
+  final adesso = context.read<AccountDelCerchio>().email;
+  String? guaio;
+  final nuova = await showDialog<String>(
+    context: context,
+    builder: (dialogo) => StatefulBuilder(
+      builder: (dialogo, aggiorna) => AlertDialog(
+        key: const Key('email_nuova_form'),
+        backgroundColor: ColorTokens.neutralSurface,
+        title:
+            Text('Cambia la tua email', style: TypographyTokens.titoloScheda()),
+        content: TextField(
+          key: const Key('email_nuova_campo'),
+          controller: campo,
+          autofocus: true,
+          keyboardType: TextInputType.emailAddress,
+          autofillHints: const [AutofillHints.email],
+          style:
+              TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+          decoration: InputDecoration(
+            labelText: 'La tua email nuova',
+            helperText: adesso == null
+                ? 'Ti scriviamo lì. Il Cerchio cambia quando apri quel '
+                    'messaggio'
+                : 'Adesso entri con $adesso. Ti scriviamo al nuovo '
+                    'indirizzo. Il Cerchio cambia quando apri quel messaggio',
+            helperMaxLines: 3,
+            errorText: guaio,
+            errorMaxLines: 2,
+          ),
+        ),
+        actions: [
+          TextButton(
+            style:
+                TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
+            onPressed: () => Navigator.of(dialogo).pop(),
+            child: const Text('Annulla'),
+          ),
+          TextButton(
+            key: const Key('email_nuova_conferma'),
+            onPressed: () {
+              final scritta = campo.text.trim();
+              final trovato = guaioDellEmail(scritta);
+              if (trovato != null) {
+                aggiorna(() => guaio = trovato);
+                return;
+              }
+              if (scritta.toLowerCase() == (adesso ?? '').toLowerCase()) {
+                aggiorna(() => guaio = 'Questa è già la tua email');
+                return;
+              }
+              Navigator.of(dialogo).pop(scritta);
+            },
+            child: const Text('Cambia'),
+          ),
+        ],
+      ),
+    ),
+  );
+  if (nuova == null || !context.mounted) return;
+  final esito = await context.read<AccountDelCerchio>().cambiaLEmail(nuova);
+  if (!context.mounted) return;
+  final String frase;
+  switch (esito) {
+    case EsitoDellaCustodia.riuscita:
+      frase = 'Ti abbiamo scritto a $nuova. Apri quel messaggio e il Cerchio '
+          'passa al nuovo indirizzo.';
+    case EsitoDellaCustodia.nonRiconosciuto:
+      frase = 'Per cambiare email serve un accesso recente. Esci e rientra, '
+          'poi riprova.';
+    case EsitoDellaCustodia.giaDiUnAltroCerchio:
+      frase = "Quell'indirizzo appartiene già a un altro Cerchio. La tua email "
+          'di adesso vale ancora.';
+    default:
+      frase = "Non è riuscito adesso. La tua email di prima vale ancora.";
+  }
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    key: const Key('email_cambiata'),
+    content: Text(frase),
+  ));
+}
+
 Future<void> _chiediLaParolaNuova(BuildContext context) async {
   final campo = TextEditingController();
   // **LA STESSA REGOLA DELLA REGISTRAZIONE, ordine BI voce 02**: otto

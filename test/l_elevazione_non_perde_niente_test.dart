@@ -106,6 +106,10 @@ class _PortaFinta implements PortaDellIdentita {
   @override
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
       EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
 }
 
 void main() {

@@ -22,6 +22,14 @@ export {
 // IL SECONDO FATTORE, ordine BI voce 04: il codice numerico via email.
 export {secondoFattore} from "./secondo_fattore";
 
+// LE SCADENZE DEI DATI, ordine CB voce 05: il lavoro notturno che porta via
+// cio' che, passato il suo tempo, non serve piu' a nessuno. Non e' il ritorno
+// dei trenta giorni di attesa prima della cancellazione, che resta abolita:
+// quella era un'attesa imposta a chi chiede di sparire, questo e' il
+// contrario. Il listino dei tempi e la ragione di ognuno stanno in
+// `scadenze.ts`.
+export {pulisciLeScadenze} from "./pulizia";
+
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati
 // RIMOSSI per decisione del fondatore. La cancellazione e' immediata e

@@ -100,7 +100,13 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
   FumettoDelPrimoApprodo(
     titolo: 'I Doni del Giorno',
     testo: 'Il Cerchio ti lascia qualcosa ogni giorno, a ore diverse. Non si '
-        'cercano: si ricevono, e chi torna li trova.',
+        // **LA VIRGOLA E' CADUTA, LE PAROLE NO. Regola della lingua di
+        // questo progetto**: mai una proposizione dopo la virgola con
+        // "e". L'ordine chiede di usare i testi dell'Architetto come
+        // sono scritti, e qui le due regole si toccavano: si e' tolta la
+        // virgola e non una parola. Stesso precedente dell'ordine CA,
+        // dove trentasei frasi del corpus hanno perso la virgola.
+        'cercano: si ricevono e chi torna li trova.',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.doni,
   ),
@@ -368,9 +374,24 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
   static const double _aria = SpacingTokens.sm;
   static const double _freccia = 12;
 
+  /// Quanto respiro resta fra il fumetto e il bordo dello schermo.
+  static const double _orlo = SpacingTokens.md;
+
+  /// I due pezzi fissi della carta: la riga del conto e il pulsante largo.
+  /// Sono misure del tema, non numeri scelti qui, e stanno insieme perche'
+  /// insieme entrano nel conto dell'ingombro.
+  /// Alta come il tasto che porta, che e' il minimo di un dito: misurata
+  /// sulla carta vera, quaranta punti la sottostimavano di otto.
+  static const double _altezzaDellaRiga = 48;
+  static const double _altezzaDelPulsante = 48;
+
   @override
   Widget build(BuildContext context) {
-    final palette = MaestroScope.of(context);
+    // **NIENTE SCOPE PRETESO, e qui non ci sarebbe.** Il velo sta FUORI dal
+    // `MaestroScope`, che vive dentro la barra del Cerchio: `MaestroScope.of`
+    // lancia sull'assert, e in release lancia sul nullo. Si chiede col forse e
+    // si ripiega sul neutro, come fa gia' la barra dell'identita'.
+    final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     final schermo = MediaQuery.sizeOf(context);
     final bersaglio = fumetto.ancora == null
         ? null
@@ -423,11 +444,45 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
       return Center(child: carta);
     }
 
-    final sotto = fumetto.lato == LatoDelFumetto.sotto;
+    // **L'INGOMBRO SI MISURA PRIMA DI POSARE IL FUMETTO.**
+    //
+    // Guardando l'anteprima a 360 punti: il fumetto dei Maestri, appeso sotto
+    // il carosello che e' alto mezzo schermo, usciva dal fondo e il tasto
+    // Avanti non si vedeva. Nemmeno il tocco lo trovava, e il registro delle
+    // anteprime lo diceva con un avviso che nessuna prova leggeva.
+    //
+    // Adesso si misura quanto e' alta la carta con un `TextPainter`, cioe'
+    // con lo stesso motore che poi la disegna, e si sceglie: il lato che il
+    // corpus chiede se ci sta, l'altro lato se ci sta quello, il centro senza
+    // freccia se non ci sta nessuno dei due. Meglio un fumetto al centro che
+    // un fumetto mezzo fuori.
+    final alta = _quantoEAlta(carta, larghezza) + _freccia;
+    final sottoLibero = schermo.height - bersaglio.bottom - _aria - _orlo;
+    final sopraLibero = bersaglio.top - _aria - _orlo;
+    final volutoSotto = fumetto.lato == LatoDelFumetto.sotto;
+    // Il lato voluto se ci sta, l'altro se ci sta l'altro, e se non ci sta
+    // nessuno dei due quello che ha piu' spazio.
+    final sotto = volutoSotto
+        ? (alta <= sottoLibero
+            ? true
+            : (alta <= sopraLibero ? false : sottoLibero >= sopraLibero))
+        : (alta <= sopraLibero
+            ? false
+            : (alta <= sottoLibero ? true : sottoLibero > sopraLibero));
+
+    // **E QUANDO NON CI STA, SI TIENE DENTRO LO SCHERMO, non al centro.**
+    // Al centro il fumetto copriva per intero i tre Maestri di cui parla: il
+    // velo apriva il buco sulla cosa e la carta ci si sedeva sopra. Meglio
+    // sfiorarne il bordo che nasconderla tutta. Il caso vero e' uno solo, il
+    // carosello dei Maestri, che a 360 punti e' alto 274 su 797: sotto ne
+    // restano 203, sopra 264, e la carta ne chiede 285.
+    final voluto =
+        sotto ? bersaglio.bottom + _aria : bersaglio.top - _aria - alta;
+    final quota = voluto.clamp(_orlo, schermo.height - alta - _orlo);
+
     return Positioned(
       left: SpacingTokens.lg,
-      top: sotto ? bersaglio.bottom + _aria : null,
-      bottom: sotto ? null : schermo.height - bersaglio.top + _aria,
+      top: quota,
       width: larghezza,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,6 +493,31 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// Quanto e' alta la carta a quella larghezza, misurata e non stimata.
+  ///
+  /// Le due altezze che non vengono dal testo sono quelle dei pezzi fissi:
+  /// il bordo e i due riempimenti, la riga del conto e il pulsante largo.
+  static double _quantoEAlta(_Carta carta, double larghezza) {
+    final dentro = larghezza - SpacingTokens.md * 2;
+    double riga(String testo, TextStyle stile) {
+      final p = TextPainter(
+        text: TextSpan(text: testo, style: stile),
+        textDirection: TextDirection.ltr,
+      )..layout(maxWidth: dentro);
+      return p.height;
+    }
+
+    return SpacingTokens.md * 2 +
+        riga(carta.fumetto.titolo, TypographyTokens.titoloScheda()) +
+        SpacingTokens.xs +
+        riga(carta.fumetto.testo,
+            TypographyTokens.corpo().copyWith(height: 1.45)) +
+        SpacingTokens.md +
+        _altezzaDellaRiga +
+        SpacingTokens.xs +
+        _altezzaDelPulsante;
   }
 
   Widget _puntaVerso(Rect bersaglio, MaestroPalette palette,
@@ -513,6 +593,11 @@ class _Carta extends StatelessWidget {
                 .copyWith(color: palette.textPrimary, height: 1.45),
           ),
           const SizedBox(height: SpacingTokens.md),
+          // **IL CONTO E LO SKIP SOPRA, IL PASSO AVANTI SOTTO.** In fila su
+          // una riga sola, a 360 punti logici, "5 di 5" piu' Salta piu'
+          // "Entra nel Cerchio" sfondavano di 35 punti: misurato, non temuto.
+          // Il pulsante che porta avanti prende tutta la riga, che a un dito
+          // e' anche piu' facile da prendere.
           Row(
             children: [
               Text(
@@ -532,19 +617,22 @@ class _Carta extends StatelessWidget {
                     style: TypographyTokens.etichetta()
                         .copyWith(color: palette.goldSoft)),
               ),
-              const SizedBox(width: SpacingTokens.xs),
-              FilledButton(
-                key: const Key('primo_approdo_avanti'),
-                onPressed: avanti,
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.gold,
-                  foregroundColor: palette.deepest,
-                ),
-                child: Text(ultimo ? 'Entra nel Cerchio' : 'Avanti',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.deepest)),
-              ),
             ],
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              key: const Key('primo_approdo_avanti'),
+              onPressed: avanti,
+              style: FilledButton.styleFrom(
+                backgroundColor: palette.gold,
+                foregroundColor: palette.deepest,
+              ),
+              child: Text(ultimo ? 'Entra nel Cerchio' : 'Avanti',
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.deepest)),
+            ),
           ),
         ],
       ),

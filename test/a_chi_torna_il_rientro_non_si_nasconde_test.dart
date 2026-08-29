@@ -175,6 +175,10 @@ class _PortaCheProponeONo implements PortaDellIdentita {
   Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
       EsitoDellaCustodia.riuscita;
 
+  @override
+  Future<EsitoDellaCustodia> cambiaLEmail(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
   _PortaCheProponeONo({this.bentornato});
 
   final String? bentornato;
