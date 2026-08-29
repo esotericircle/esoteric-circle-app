@@ -30,10 +30,11 @@ void main() {
     ),
     1: (
       'I TRE MAESTRI',
-      'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, Destino. '
-          'Caligo: Rune, Rituali, Numerologia. Aura: Chakra, Energia, '
-          'Archetipi. Tocca un volto e gli parli: risponde a te, con la tua '
-          'data e la tua ora.'
+      'Tre Voci, Tre Mondi, Tre Personalità\n'
+          '- MEDORA: Astrologia, Cartomanzia, Destino\n'
+          '- CALIGO: Rune, Rituali, Numerologia\n'
+          '- AURA: Chakra, Energia, Archetipi\n'
+          'Tocca un volto ed entra nel suo dominio'
     ),
     2: (
       'IL CERCHIO A UN CLICK',

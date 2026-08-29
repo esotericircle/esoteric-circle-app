@@ -223,10 +223,14 @@ void main() {
   /// cambio si pretende che le due cose dicano lo stesso: **tre domini, nove
   /// parole, carattere per carattere**.
   test('il fumetto dei Maestri dice esattamente i domini', () {
-    final testo = cinqueFumetti[1].testo;
+    // **IL CONFRONTO NON GUARDA LE MAIUSCOLE.** Il fondatore scrive i nomi
+    // in maiuscolo dentro l'elenco, MEDORA invece di Medora: le maiuscole
+    // sono una sua scelta di stile, le tre arti sono il fatto. Si confronta
+    // quello.
+    final testo = cinqueFumetti[1].testo.toUpperCase();
     final mute = <String>[];
     for (final m in Maestro.values) {
-      final atteso = '${m.displayName}: ${m.domainArts}';
+      final atteso = '${m.displayName}: ${m.domainArts}'.toUpperCase();
       if (!testo.contains(atteso)) mute.add(atteso);
     }
     // ignore: avoid_print

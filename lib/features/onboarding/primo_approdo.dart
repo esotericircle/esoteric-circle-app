@@ -100,12 +100,20 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
   // **La coincidenza non e' lasciata alla buona volonta'**: una prova pretende
   // che questo testo contenga, carattere per carattere, il dominio che ogni
   // Maestro dichiara di se'. Se domani uno dei due cambia senza l'altro, cade.
+  //
+  // **LA FORMA A ELENCO E' SUA, del 30 agosto 2026.** Prima i tre domini
+  // stavano in fila dentro un periodo unico, e a video erano un muretto di
+  // testo; adesso ognuno ha la sua riga, col nome in maiuscolo. I capoversi
+  // sono nel testo, il `Text` li disegna e il `TextPainter` che misura
+  // l'ingombro prima di posare la carta li conta: le due cose leggono la
+  // stessa stringa, quindi non possono divergere.
   FumettoDelPrimoApprodo(
     titolo: 'I TRE MAESTRI',
-    testo: 'Tre voci, tre mondi. Medora: Astrologia, Cartomanzia, Destino. '
-        'Caligo: Rune, Rituali, Numerologia. Aura: Chakra, Energia, '
-        'Archetipi. Tocca un volto e gli parli: risponde a te, con la tua '
-        'data e la tua ora.',
+    testo: 'Tre Voci, Tre Mondi, Tre Personalità\n'
+        '- MEDORA: Astrologia, Cartomanzia, Destino\n'
+        '- CALIGO: Rune, Rituali, Numerologia\n'
+        '- AURA: Chakra, Energia, Archetipi\n'
+        'Tocca un volto ed entra nel suo dominio',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.trio,
   ),
