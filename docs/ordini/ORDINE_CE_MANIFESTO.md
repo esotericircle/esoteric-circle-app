@@ -29,13 +29,13 @@ Porta le tre regole degli ordini precedenti:
 - **CE.12** I suggerimenti al primo uso. **CHIUSA.** Quattro zone, una riga ciascuna, una volta sola. Nessun foglio, nessun velo, nessuna barriera: il suggerimento vive DENTRO la colonna della zona e mentre e' li' tutto quello che c'e' sotto si tocca. **La premessa dell'ordine regge**: sotto `lib/` non esisteva nessun sistema di suggerimento per zona.
 - **CE.13** L'incrocio nei Doni del Giorno. **CHIUSA.** Tutti e cinque cambiano adesso al cambiare della carta natale, a parita' di giorno, e una prova lo misura chiedendo il responso due volte. **Tre premesse dell'ordine sono cadute alla misura**, elencate qui sotto.
 - **CE.14** La spirale della festa che non si legge come spirale. **CHIUSA.** L'ipotesi dell'Architetto era giusta, e la misura lo dice: l'angolo di nascita era indipendente dall'istante di nascita, quindi a ogni raggio gli angoli erano uniformi per costruzione. Adesso la spirale ha tre bracci avvolti, e due grandezze nuove li misurano. **Un vincolo dell'ordine AV e' sceso, e non si poteva fare altrimenti**: la ragione sta qui sotto.
-- **CE.15** Il censimento delle stringhe per la traduzione. **APERTA.**
+- **CE.15** Il censimento delle stringhe per la traduzione. **CHIUSA.** 6.751 stringhe rivolte alla persona in 283 file, e nessuna passa da un sistema di traduzione, perche' quel sistema non esiste: verificato, niente `.arb`, niente `lib/l10n`, niente `intl`. **Il censimento risponde alla domanda del fondatore**: sono due lavori, non uno.
 - **CE.16** Il motore delle eclissi. **APERTA.**
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 14
-VOCI_APERTE: 3
+VOCI_CHIUSE: 15
+VOCI_APERTE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -502,3 +502,41 @@ copertura era piu' alta, 62,3 per cento, ma nell'anteprima i bracci erano masse
 d'oro compatte in cui le singole stelle non si distinguevano: una spirale di
 macchie invece che di stelle. A 0,9 si vedono le stelle. Il numero piu' grande
 non era la scena migliore.
+
+### CE.15, la risposta alla domanda "un ordine o tre"
+
+Il documento sta in `docs/traduzione/censimento.md` e **si rigenera**, come gli
+altri censimenti del progetto: uno scritto a mano invecchia il giorno dopo e
+nessuno se ne accorge. Lo genera `tool/censimento_stringhe.dart`.
+
+| grandezza | valore |
+| --- | --- |
+| stringhe rivolte alla persona | 6.751 |
+| che portano CONTENUTO, sotto `lib/core` e `lib/services` | 5.324, cioe' il 79 per cento |
+| che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | 1.427 |
+| che cambiano con genere o numero | 96 |
+| che passano da un sistema di traduzione | 0 |
+| file che ne contengono | 283 |
+
+**La risposta: sono due lavori di taglia molto diversa, e vanno separati.**
+L'interfaccia e' un ordine solo, millequattrocento stringhe corte e ripetute che
+un traduttore fa con un glossario. Il contenuto non e' un ordine, e' un
+progetto: cinquemila stringhe che sono i responsi dei tarocchi, il sapere delle
+rune, le voci degli angeli, i sentieri, l'oroscopo, la sinastria. **Tradurli e'
+riscrivere un corpus esoterico in un'altra lingua**, e chi lo fa deve conoscere
+la tradizione in quella lingua e non solo la lingua: un traduttore generico qui
+produce testo corretto e falso.
+
+E c'e' un terzo lavoro, piccolo di numero e grande di rischio: i 96 punti in cui
+la frase cambia con chi legge o con quanti sono. Vanno affrontati PRIMA di
+tradurre, perche' decidono la forma delle chiavi.
+
+**Una lezione sul metodo del censimento stesso.** La prima stesura distingueva
+il contenuto dall'interfaccia con un elenco di nomi di file ("corpus", "lore",
+"catalog"), e lasciava fuori i tarocchi, i sentieri, gli angeli e l'oroscopo,
+cioe' i corpus piu' grossi: dava 1.116 stringhe di contenuto invece di 5.324. La
+riga di taglio adesso e' la cartella, che e' un fatto della struttura e non un
+nome che qualcuno sceglie.
+
+**Nessuna riga di traduzione e nessun pacchetto aggiunto**, come la voce chiede,
+e una prova lo sorveglia insieme alla premessa.
