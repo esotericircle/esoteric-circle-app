@@ -26,7 +26,7 @@ Porta le tre regole degli ordini precedenti:
 - **CE.09** I pacchetti di Eos. **CHIUSA.** Tre: 300 Eos a 2,99, 900 a 7,99, 2.500 a 19,99. Nessuno arriva ai 6.030 che il Cammino conia.
 - **CE.10** L'uniformazione dei testi da leggere. **CHIUSA.** Sette punti censiti, quattro erano fuori misura, adesso zero: l'Arcano stava a sedici, la Runa a diciassette in due punti, l'intro di un'arte a diciassette e a sedici, il foglio di una funzione a sedici. Tutti passano dalla porta unica, salvo la carta di un Dono, l'eccezione gia' dichiarata.
 - **CE.11** I 119 titoli gialli. **CHIUSA.** Erano centoventuno su quindici grandezze diverse: adesso sono tre, e sono i tre punti che calcolano davvero. Il debito tipografico dell'app scende da 225 a 103 misure scritte a mano, in 38 file invece di 61. **Non una misura sola, sei ruoli**: la scelta e' motivata qui sotto.
-- **CE.12** I suggerimenti al primo uso. **APERTA.**
+- **CE.12** I suggerimenti al primo uso. **CHIUSA.** Quattro zone, una riga ciascuna, una volta sola. Nessun foglio, nessun velo, nessuna barriera: il suggerimento vive DENTRO la colonna della zona e mentre e' li' tutto quello che c'e' sotto si tocca. **La premessa dell'ordine regge**: sotto `lib/` non esisteva nessun sistema di suggerimento per zona.
 - **CE.13** L'incrocio nei Doni del Giorno. **APERTA.**
 - **CE.14** La spirale della festa che non si legge come spirale. **APERTA.**
 - **CE.15** Il censimento delle stringhe per la traduzione. **APERTA.**
@@ -34,8 +34,8 @@ Porta le tre regole degli ordini precedenti:
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 11
-VOCI_APERTE: 6
+VOCI_CHIUSE: 12
+VOCI_APERTE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -350,3 +350,48 @@ a quattro larghezze scelte a mano e trovava tre colpe a duecentodieci punti: sol
 che a duecentodieci punti, in quest'app, ci vive il titolo di una riga, non
 quello di una sezione. Adesso le coppie di ruolo e larghezza si raccolgono
 dall'albero vero.
+
+### CE.12, le zone non le ho scelte io: le dichiara l'app
+
+L'ordine lascia a Code forma, numero e collocazione. **Il numero l'ho contato,
+non scelto**: le zone sono esattamente le vie della barra del Cerchio, cioe' la
+divisione che la persona vede e tocca ogni giorno. Sono cinque, e Il Cerchio non
+ne ha una perche' e' la zona che il tutorial spiega per intero: dirlo due volte
+sarebbe la ripetizione che il fondatore ha gia' rifiutato per il disclaimer.
+Restano quattro: il dominio di un Maestro, la conversazione, il Consiglio dei
+Maestri e il Passaporto.
+
+**La forma e' l'opposto di un foglio, e non per gusto.** Il fondatore ha appena
+fatto togliere due fogli dal Santuario chiamandoli un ostacolo: questa voce non
+poteva rimettere lo stesso ostacolo con un altro nome. Il suggerimento e' un
+widget dentro la colonna della zona, sopra il suo contenuto. Non c'e' nessun
+gesto obbligatorio per farlo sparire: si segna visto QUANDO COMPARE, non quando
+si chiude, cosi' chi lo legge e se ne va lo ha comunque avuto e non se lo
+ritrova. La crocetta serve a chi lo vuole via subito, e a nessun altro.
+
+**NASCONO SPENTI E LI ARMA IL TUTORIAL.** E' la lezione che il primo approdo
+porta gia' scritta addosso, e in questo progetto e' costata: un avviso che
+nascesse acceso comparirebbe in ogni prova e in ogni anteprima, dove il disco e'
+vuoto e "mai visto" e "appena arrivato" sono la stessa cosa. Qui l'arma la mette
+lo stesso gesto che chiude la prima meta' dell'arrivo, perche' le due meta' sono
+una decisione sola del fondatore e vanno accese insieme. Chi chiede di rivedere
+il tutorial rivede anche le zone: rivedere meta' spiegazione non e' rivedere la
+spiegazione.
+
+**Le chiavi stanno sotto `avvisi.`**, che la cancellazione gia' porta via: chi
+cancella tutto e torna e' una persona nuova e li rivede, come rivede il
+tutorial. Nessun prefisso nuovo da dichiarare.
+
+**I QUATTRO TESTI SONO PROVVISORI**, marcati come tali nel codice e sorvegliati
+da una prova: i testi definitivi li approva il fondatore.
+
+I tre rossi sono stati dimostrati uno per uno: tolto il segno del visto la zona
+si ripresenta al ritorno; tolta la condizione dell'arma le zone si accendono col
+disco vuoto; rimesso un `showDialog` il gesto della zona non passa piu' e anche
+la guardia della forma lo vede.
+
+**E una lezione sul modo di provare.** Il primo giro passava sulla prima zona e
+girava a vuoto sulle altre tre: `setMockInitialValues` cambia il magazzino ma
+non l'istanza gia' consegnata, e Flutter riusa lo stesso elemento quando al suo
+posto arriva un widget dello stesso tipo. Adesso il disco si azzera davvero a
+ogni giro e il componente si richiede quando la zona cambia.

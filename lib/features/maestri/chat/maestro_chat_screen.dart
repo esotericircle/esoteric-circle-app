@@ -48,6 +48,8 @@ import '../../../core/config/app_flags.dart';
 import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
+import '../../../core/primo_uso/suggerimenti_di_zona.dart';
+import '../../../design_system/components/suggerimento_al_primo_uso.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -673,6 +675,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // **LA ZONA SI PRESENTA, la prima volta e una sola.** Ordine CE
+            // voce 12. Sta qui e non dentro la lista dei messaggi perche' la
+            // lista e' ROVESCIATA: un suggerimento infilato li' comparirebbe
+            // in fondo alla conversazione invece che davanti agli occhi.
+            // Sopra il campo e' il punto in cui si sta per scrivere, cioe'
+            // il momento in cui quel che dice serve. Il compositore misura la
+            // propria altezza a ogni fotogramma e la lista si accorcia di
+            // conseguenza, quindi non copre niente.
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+              child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
+            ),
             // **QUANTO TI RESTA, DETTO PRIMA DI SCRIVERE.** Ordine CE voce 04:
             // "l'utente deve Sapere quante ne mancano". Le due righe stanno
             // sopra il campo e non dentro un foglio, perche' sono

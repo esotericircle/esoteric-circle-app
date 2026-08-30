@@ -27,6 +27,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/primo_uso/suggerimenti_di_zona.dart';
 
 
 /// Dove sta il fumetto rispetto al suo bersaglio.
@@ -314,6 +315,12 @@ abstract final class MemoriaDelPrimoApprodo {
     final p = await SharedPreferences.getInstance();
     await p.setBool(chiave, true);
     await p.remove(chiaveArmata);
+    // **QUI SI ARMA LA SECONDA META' DELL'ARRIVO**, ordine CE voce 12: chi ha
+    // avuto il tutorial e' pronto a incontrare le zone, e da adesso ognuna si
+    // presenta la prima volta che serve. Si arma DA QUI e non dall'avvio,
+    // perche' un avviso che nascesse acceso comparirebbe anche nelle prove e
+    // nelle anteprime: e' la stessa ragione per cui il tutorial si arma.
+    await MemoriaDeiSuggerimenti.arma();
   }
 
   /// La via del menu' utente: si dimentica di averlo visto e si riarma.
@@ -321,6 +328,9 @@ abstract final class MemoriaDelPrimoApprodo {
     final p = await SharedPreferences.getInstance();
     await p.remove(chiave);
     await p.setBool(chiaveArmata, true);
+    // Le due meta' tornano insieme: rivedere meta' spiegazione non e'
+    // rivedere la spiegazione.
+    await MemoriaDeiSuggerimenti.rivedi();
   }
 }
 

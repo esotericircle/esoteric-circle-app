@@ -39,6 +39,8 @@ import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
+import '../../../core/primo_uso/suggerimenti_di_zona.dart';
+import '../../../design_system/components/suggerimento_al_primo_uso.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
@@ -551,6 +553,11 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                           SpacingTokens.xxxl +
                               SpazioDellaBarraNelloScroll.quanto(context)),
                       children: [
+                        // **LA ZONA SI PRESENTA, la prima volta e una
+                        // sola.** Ordine CE voce 12: dentro la lista,
+                        // sopra i pareri, e scorre via con loro.
+                        const SuggerimentoAlPrimoUso(
+                            zona: ZonaDelCerchio.consiglio),
                         // **QUANTI CONFRONTI TI RESTANO, ordine CE voce 04.**
                         // La Consulta spende sul budget dei confronti nel
                         // Cerchio, e questa era una delle cinque porte che

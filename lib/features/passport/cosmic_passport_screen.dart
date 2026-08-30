@@ -40,6 +40,8 @@ import '../../core/astro/natal_chart_controller.dart';
 import '../../design_system/components/miniatura_intera.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../core/primo_uso/suggerimenti_di_zona.dart';
+import '../../design_system/components/suggerimento_al_primo_uso.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -115,6 +117,13 @@ class _CosmicPassportState extends State<CosmicPassport> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // **LA ZONA SI PRESENTA, la prima volta e una sola.**
+                  // Ordine CE voce 12: qui sotto c'e' un documento che
+                  // cresce da solo, e chi arriva la prima volta non ha
+                  // modo di saperlo.
+                  const SizedBox(height: SpacingTokens.xl),
+                  const SuggerimentoAlPrimoUso(
+                      zona: ZonaDelCerchio.passaporto),
                   // Margine in alto: il titolo non deve mai finire sotto un
                   // eventuale pulsante nell'angolo in alto a sinistra.
                   const SizedBox(height: SpacingTokens.xl),

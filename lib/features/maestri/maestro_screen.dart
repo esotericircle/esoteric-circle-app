@@ -31,6 +31,8 @@ import 'art_navigation.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'widgets/busto_del_maestro.dart';
 import '../../design_system/components/titolo_che_non_si_spezza.dart';
+import '../../core/primo_uso/suggerimenti_di_zona.dart';
+import '../../design_system/components/suggerimento_al_primo_uso.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -98,6 +100,12 @@ class _MaestroScreenState extends State<MaestroScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // **LA ZONA SI PRESENTA, la prima volta e una sola.**
+                  // Ordine CE voce 12. Sta qui in cima e dentro la
+                  // colonna, non sopra di essa: cosi' tutto quello che c'e'
+                  // sotto resta toccabile mentre si legge.
+                  const SuggerimentoAlPrimoUso(
+                      zona: ZonaDelCerchio.dominio),
                   // In cima la presenza del Maestro: il nome e i tre pilastri
                   // del dominio stanno gia' nella barra, quindi qui nessuna
                   // carta identitaria ridondante. IL BUSTO DALLA PORTA UNICA,

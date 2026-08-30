@@ -44,7 +44,6 @@ import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.da
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_share_card.dart';
 import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
-import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
@@ -162,6 +161,8 @@ import 'package:esoteric_circle/core/feature_flags/feature_catalog.dart';
 import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
 import 'package:esoteric_circle/features/maestri/art_intro_screen.dart';
 import 'package:esoteric_circle/design_system/components/feature_sheet.dart';
+import 'package:esoteric_circle/core/primo_uso/suggerimenti_di_zona.dart';
+import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -6088,6 +6089,53 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'striscia-altre-arti.png');
+  });
+
+  // **I SUGGERIMENTI AL PRIMO USO.** Ordine CE voce 12. Nelle altre catture
+  // non si vedono, ed e' giusto: nascono spenti e li arma il tutorial, quindi
+  // qui si arma a mano cio' che nell'app arma il primo approdo.
+  testWidgets('Cattura il suggerimento del dominio, al primo uso',
+      (tester) async {
+    silenceSensors();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      MemoriaDeiSuggerimenti.chiaveArmata: true,
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline())));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'suggerimento-dominio.png');
+  });
+
+  testWidgets('Cattura il suggerimento del Passaporto, al primo uso',
+      (tester) async {
+    silenceSensors();
+    // Il cammino e' gia' percorso: senza, la festa dei traguardi copre la
+    // scena con la sua pioggia d'oro e la cattura non mostra il suggerimento.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+      MemoriaDeiSuggerimenti.chiaveArmata: true,
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+        builder: (_) => const MaestroScope(
+            child: Scaffold(body: CosmicPassport())))));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'suggerimento-passaporto.png');
   });
 
   testWidgets('Cattura la barra in una chat', (tester) async {
