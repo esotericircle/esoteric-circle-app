@@ -114,13 +114,22 @@ void main() {
   });
 
   test('l\'attribuzione e\' raggiungibile dall\'app, non solo dal codice', () {
+    // **HA CAMBIATO POSTO, NON E' SPARITA. Ordine CE voce 03.** Il fondatore
+    // ha fatto spostare tutto il blocco della privacy in un sotto menu'
+    // dedicato: l'elenco delle fonti vive li' dentro, e le Impostazioni ci
+    // portano con una riga. La licenza CC BY 4.0 pretende che
+    // l'attribuzione sia RAGGIUNGIBILE, non che stia in prima pagina: due
+    // tocchi da una schermata di sistema sono il modo in cui ogni app
+    // assolve questo obbligo.
     final impostazioni =
         File('lib/features/settings/settings_screen.dart').readAsStringSync();
-    expect(impostazioni.contains("Key('settings_fonti')"), isTrue,
-        reason: 'nessuna riga dell\'app porta alle fonti, e l\'attribuzione '
-            'che la licenza pretende resta dentro un commento');
-    expect(impostazioni.contains('fontiDeiDati'), isTrue,
-        reason: 'la schermata non mostra l\'elenco vero, quindi mostrerebbe '
+    expect(impostazioni.contains("Key('settings_privacy_e_permessi')"), isTrue,
+        reason: 'nessuna riga delle Impostazioni porta al sotto menu\', quindi '
+            'l\'attribuzione non e\' piu\' raggiungibile');
+    final sotto = File('lib/features/settings/privacy_e_permessi_screen.dart')
+        .readAsStringSync();
+    expect(sotto.contains('fontiDeiDati'), isTrue,
+        reason: 'il sotto menu\' non mostra l\'elenco vero, quindi mostrerebbe '
             'una seconda copia scritta a mano');
   });
 }

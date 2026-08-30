@@ -83,16 +83,21 @@ void main() {
             'nessuna riga dell\'app li manda: $orfani');
   });
 
-  test('la domanda si fa dopo il tutorial, non prima', () {
+  test('il consenso si chiede nella registrazione, e mai in casa', () {
+    // **HA CAMBIATO CASA, ordine CE voci 01 e 02.** Prima la domanda era un
+    // foglio che il Santuario mostrava dopo il tutorial; il fondatore ha fatto
+    // togliere quel foglio con parole non equivocabili, e adesso il consenso
+    // vive dentro il gesto della registrazione, come una riga sopra le vie
+    // d'accesso.
     final casa = File('lib/features/santuario/santuario_screen.dart')
         .readAsStringSync();
-    // La domanda non parte se il primo approdo non e' ancora stato visto:
-    // cinque fumetti piu' una domanda sono sei cose da leggere prima di aver
-    // visto il Cerchio, e la risposta si darebbe per liberarsene.
-    expect(casa.contains('MemoriaDelPrimoApprodo.visto()'), isTrue,
-        reason: 'la domanda sulla misura non aspetta il primo approdo');
-    expect(casa.contains('ConsensoAllaMisura.nonChiesto'), isTrue,
-        reason: 'la domanda non guarda se e\' gia\' stata fatta, e tornerebbe');
+    expect(casa.contains('DomandaDellaMisura'), isFalse,
+        reason: 'il foglio della misura e\' tornato nel Santuario');
+    final vie =
+        File('lib/features/account/custodia_del_cielo.dart').readAsStringSync();
+    expect(vie.contains('ConsensiDellaRegistrazione()'), isTrue,
+        reason: 'il consenso non si chiede piu\' da nessuna parte, quindi '
+            'nessuno potrebbe mai concederlo');
   });
 
   test('senza consenso non parte niente', () async {
@@ -162,18 +167,6 @@ void main() {
         reason: 'la risposta sulla misura sopravvivrebbe a chi se ne va');
   });
 
-  test('la domanda non ha una risposta preselezionata', () {
-    final foglio =
-        File('lib/features/settings/consenso_alla_misura.dart')
-            .readAsStringSync();
-    // Due pulsanti uguali, uno accanto all'altro: nessun FilledButton che
-    // spinge da una parte sola.
-    expect(foglio.contains('FilledButton'), isFalse,
-        reason: 'un pulsante pieno accanto a uno vuoto e\' una spinta, e '
-            'questa domanda non deve spingere');
-    expect(foglio.contains("Key('misura_si')"), isTrue);
-    expect(foglio.contains("Key('misura_no')"), isTrue);
-  });
 }
 
 /// Una porta che tiene il conto di cosa le hanno chiesto di segnare.

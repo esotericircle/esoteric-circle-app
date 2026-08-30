@@ -36,11 +36,6 @@ import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'widgets/tue_arti_view.dart';
 import '../onboarding/primo_approdo.dart';
-import '../../core/misura/misura_del_ritorno.dart';
-import '../../core/misura/registro_del_ritorno.dart';
-import '../settings/consenso_alla_misura.dart';
-import '../onboarding/domanda_dell_invito.dart';
-import '../account/riscatta_l_invito.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -333,75 +328,31 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // in un punto solo, e questa schermata si limita a obbedirle.
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _forseChiediLaCustodia());
-    // **LA DOMANDA SULLA MISURA, ordine CC voce 09.** Sta qui, in casa, per la
-    // stessa ragione dell'invito a custodire il cielo: non si chiede addosso a
-    // un rito.
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _forseChiediCioCheVaChiesto());
-  }
-
-  /// **UNA DOMANDA PER APERTURA, e l'invito viene prima. Ordine CC voce 08.**
-  ///
-  /// Due fogli in fila alla prima apertura sono un pedaggio, e chi lo paga
-  /// risponde a caso al secondo. **L'invito ha la precedenza perche' scade**:
-  /// il codice sta negli appunti di chi e' appena arrivato da un link, e fra
-  /// due giorni non ci sara' piu'. La misura del ritorno non scade, e aspetta
-  /// l'apertura dopo.
-  Future<void> _forseChiediCioCheVaChiesto() async {
-    if (await _forseChiediLInvito()) return;
-    await _forseChiediLaMisura();
-  }
-
-  /// **TI HA INVITATO QUALCUNO? Ordine CC voce 08.** Torna vero se la domanda
-  /// e' stata fatta adesso, cosi' chi la chiama sa che questa apertura ha gia'
-  /// speso la sua domanda.
-  ///
-  /// **Sta in casa e non nel rito di risveglio**, per la stessa ragione per cui
-  /// ci sta il tutorial: il rito non e' il posto dove si chiedono le cose, e
-  /// una domanda in mezzo all'onboarding si risponde per liberarsene.
-  Future<bool> _forseChiediLInvito() async {
-    if (!mounted) return false;
-    if (await MemoriaDellInvito.giaChiesto()) return false;
-    // **Solo a chi ha gia' visto il Cerchio.** Prima del tutorial questa
-    // domanda arriverebbe a chi non sa ancora cosa sia un invito qui dentro.
-    if (!await MemoriaDelPrimoApprodo.visto()) return false;
-    if (!mounted) return false;
-    // Si segna PRIMA di mostrarla: chiesta vuol dire chiesta, e una domanda
-    // che torna perche' l'app e' morta mentre era aperta e' la stessa domanda
-    // due volte.
-    await MemoriaDellInvito.segnaChiesta();
-    if (!mounted) return true;
-    final codice = await DomandaDellInvito.chiedi(context);
-    if (codice == null || codice.isEmpty || !mounted) return true;
-    // Da qui in poi e' esattamente la strada che il menu' Account gia' usa:
-    // una porta sola verso la callable, e nessuna seconda copia della regola.
-    await riscattaIlCodiceDellInvito(context, codice);
-    return true;
-  }
-
-  /// **LA DOMANDA SI FA UNA VOLTA SOLA, e DOPO il primo approdo.**
-  ///
-  /// **Perche' dopo il tutorial e non prima.** Chi apre l'app la prima volta
-  /// ha davanti cinque fumetti che gli spiegano dove sono le cose: una domanda
-  /// sulla misura in mezzo a quelli sarebbe la sesta cosa da leggere prima di
-  /// aver visto niente, e la risposta la darebbe per liberarsene. Si chiede a
-  /// chi il Cerchio lo ha gia' visto.
-  ///
-  /// **Chi risponde no usa l'app intera**: questa domanda non blocca niente,
-  /// non torna, e la risposta si cambia dalle Impostazioni.
-  Future<void> _forseChiediLaMisura() async {
-    if (!mounted) return;
-    if (await ConsensoDellaMisura.letto() != ConsensoAllaMisura.nonChiesto) {
-      return;
-    }
-    if (!await MemoriaDelPrimoApprodo.visto()) return;
-    if (!mounted) return;
-    final risposta = await DomandaDellaMisura.chiedi(context);
-    // Chi chiude il foglio senza scegliere non ha risposto, e la domanda
-    // tornera' la prossima volta: un foglio scartato non e' un no.
-    if (risposta == null) return;
-    await ConsensoDellaMisura.segna(risposta);
-    await RegistroDelRitorno.corrente?.rileggiIlConsenso();
+    // **I DUE FOGLI NON ESCONO PIU' DA QUI. Ordine CE voce 02.**
+    //
+    // **Le parole del fondatore**, dopo aver incontrato il foglio dell'invito
+    // usando l'app senza registrarsi: "ma che cazzo di modo e'? MA QUALE CAZZO
+    // DI ALTRA APP FA QUESTA MERDA? PERCHE NON POSSO AVERE LA NORMALITA',
+    // CAZZO? Se un utente accetta di scaricare l'app, dopo la mia
+    // condivisione, il tracciamento e premio deve essere automatico".
+    //
+    // **Un fatto che gli e' stato riportato e che non cambia la decisione**:
+    // quel foglio non chiedeva nessuna email, chiedeva un codice, e gli
+    // appunti li leggeva solo sul tocco del pulsante Incolla. Il difetto per
+    // lui non era cosa chiedeva: era che chiedesse.
+    //
+    // **Il prezzo, accettato da lui per iscritto**: "e' una demo per ora, si
+    // toglie e accettiamo che per ora nessuno riscuote i 60 EOS, ma va
+    // sistemato prima della pubblicazione". Il debito sta nel manifesto
+    // dell'ordine CE e in `docs/ordini/RIPRESA.md`, non solo in una
+    // conversazione.
+    //
+    // **Dove sono finiti i due consensi.** Quello sulla misura del ritorno
+    // vive adesso nel percorso della registrazione, voce CE.01, e
+    // l'interruttore per revocarlo sta nel sotto menu' della voce CE.03. La
+    // porta per riscattare un invito a mano resta nel menu' Account: il
+    // fondatore ha chiesto di togliere i popup, non ogni strada, e senza
+    // quella nessuno potrebbe piu' riscattare nemmeno volendo.
   }
 
   static const _chiaveUltimoInvito =

@@ -1,10 +1,8 @@
 import 'riga_di_messa_a_punto.dart';
-import '../../core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';
 
 import '../account/account_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
@@ -23,9 +21,8 @@ import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
-import '../../core/misura/misura_del_ritorno.dart';
-import '../../core/misura/registro_del_ritorno.dart';
-import '../../core/legal/fonti_dei_dati.dart';
+import 'privacy_e_permessi_screen.dart';
+import 'riga_interruttore.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -94,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    _ToggleRow(
+                    RigaInterruttore(
                       itemKey: const Key('settings_reduce'),
                       icon: Icons.motion_photos_paused_rounded,
                       title: 'Riduci animazioni',
@@ -104,7 +101,7 @@ class SettingsScreen extends StatelessWidget {
                       palette: palette,
                     ),
                     _divider(palette),
-                    _ToggleRow(
+                    RigaInterruttore(
                       itemKey: const Key('settings_simple'),
                       icon: Icons.blur_off_rounded,
                       title: 'Modalità semplice',
@@ -126,7 +123,7 @@ class SettingsScreen extends StatelessWidget {
               DepthCard(
                 raised: true,
                 padding: EdgeInsets.zero,
-                child: _ToggleRow(
+                child: RigaInterruttore(
                   itemKey: const Key('settings_subtitles'),
                   icon: Icons.subtitles_rounded,
                   title: 'Sottotitoli',
@@ -147,7 +144,7 @@ class SettingsScreen extends StatelessWidget {
               DepthCard(
                 raised: true,
                 padding: EdgeInsets.zero,
-                child: _ToggleRow(
+                child: RigaInterruttore(
                   itemKey: const Key('settings_suono_vibrazione'),
                   icon: Icons.graphic_eq_rounded,
                   title: 'Suono e vibrazione',
@@ -171,7 +168,7 @@ class SettingsScreen extends StatelessWidget {
               DepthCard(
                 raised: true,
                 padding: EdgeInsets.zero,
-                child: _ToggleRow(
+                child: RigaInterruttore(
                   itemKey: const Key('settings_effetti_sonori'),
                   icon: Icons.music_note_rounded,
                   title: 'Effetti sonori',
@@ -187,78 +184,48 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: SpacingTokens.xl),
 
               const SectionTitle(
-                title: 'Permessi',
-                subtitle: 'Quello che hai negato si concede da qui.',
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              DepthCard(
-                raised: true,
-                padding: const EdgeInsets.all(SpacingTokens.md),
-                child: _PermessiTile(palette: palette),
-              ),
-              const SizedBox(height: SpacingTokens.xl),
-
-              const SectionTitle(
                 title: 'Privacy e dati',
                 subtitle: 'Il tuo cammino è tuo.',
               ),
               const SizedBox(height: SpacingTokens.sm),
-              // IL DISCLAIMER, E QUESTO E' L'UNICO POSTO DOVE COMPARE.
+              // **TUTTO IL BLOCCO E' ANDATO IN UN SOTTO MENU'. Ordine CE voce
+              // 03**, parole del fondatore: "ma tutto quel blocco di permessi
+              // deve andare in un sotto menu' dedicato".
               //
-              // Ne esistevano SETTE a schermo: una finestra modale
-              // all'apertura della chat, e poi Angeli, Oroscopo, intro delle
-              // arti, schermata del Maestro, Rune, Stesa a tre carte. Le linee
-              // guida dicevano da sempre "una volta sola", e per sette volte
-              // ognuno ha pensato che il proprio fosse quella volta.
-              //
-              // Un disclaimer ripetuto smette di essere letto, e diventa un
-              // modo di scaricare la responsabilita' invece di dirla. Qui sta
-              // dove chi lo cerca lo trova, e chi non lo cerca non se lo
-              // ritrova addosso su ogni carta.
+              // Qui restano due righe sole: la porta del sotto menu' e la
+              // cancellazione, che lui non ha chiesto di spostare e che e' la
+              // cosa piu' grave che si possa fare da questa schermata.
               DepthCard(
                 raised: true,
-                child: Row(
-                  key: const Key('privacy_disclaimer'),
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.eco_outlined, size: 18, color: palette.goldSoft),
-                    const SizedBox(width: SpacingTokens.md),
-                    Expanded(
-                      child: Text(
-                        ArtCatalog.disclaimerCornice,
-                        style: TypographyTokens.corpo().copyWith(
-                          color: ColorTokens.textSecondary,
-                          height: 1.45,
+                child: InkWell(
+                  key: const Key('settings_privacy_e_permessi'),
+                  onTap: () => Navigator.of(context)
+                      .push(PrivacyEPermessiScreen.route()),
+                  child: Row(
+                    children: [
+                      Icon(Icons.shield_outlined,
+                          color: palette.goldSoft, size: 22),
+                      const SizedBox(width: SpacingTokens.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Privacy e permessi',
+                                style: TypographyTokens.display(size: 16)),
+                            const SizedBox(height: SpacingTokens.xxs),
+                            Text(
+                              'Cosa contiamo, da dove vengono i numeri e cosa '
+                              'il Cerchio puo\' toccare del telefono.',
+                              style: TypographyTokens.corpo()
+                                  .copyWith(color: ColorTokens.textSecondary),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              // **LA MISURA DEL RITORNO, ordine CC voce 09.** Sta sotto
-              // "Privacy e dati" e non fra i comandi dell'esperienza, perche'
-              // non cambia niente di cio' che si vede: cambia solo cosa
-              // sappiamo noi. Chi ha risposto no una volta trova qui
-              // l'interruttore spento, e puo' cambiare idea senza cercare.
-              DepthCard(
-                raised: true,
-                padding: EdgeInsets.zero,
-                child: _MisuraTile(palette: palette),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              // **DA DOVE VENGONO I NUMERI. Ordine CC voce 07.** Il catalogo
-              // dei luoghi di nascita viene dai dump di GeoNames, che stanno
-              // sotto Creative Commons Attribution 4.0: quella licenza
-              // consente l'uso commerciale e non pretende che il codice si
-              // apra, ma **pretende l'attribuzione**. Fino a oggi
-              // l'attribuzione viveva in un commento del generatore, cioe' in
-              // un posto che nessuno di fuori puo' leggere, e un obbligo
-              // assolto dentro casa non e' assolto.
-              DepthCard(
-                raised: true,
-                padding: EdgeInsets.zero,
-                child: _FontiTile(palette: palette),
               ),
               const SizedBox(height: SpacingTokens.sm),
               DepthCard(
@@ -343,237 +310,6 @@ class SettingsScreen extends StatelessWidget {
         endIndent: SpacingTokens.md,
         color: palette.gold.withValues(alpha: 0.12),
       );
-}
-
-/// **LE FONTI DEI DATI, dietro una riga. Ordine CC voce 07.**
-///
-/// **Perche' una riga che si apre e non un blocco sempre a schermo.** Le fonti
-/// interessano a poche persone, e a quelle poche interessano davvero: un
-/// blocco fisso sotto "Privacy e dati" allungherebbe la schermata per tutti
-/// per servire quei pochi, e la regola dell'app e' che ogni riga a schermo si
-/// guadagni il suo posto. La licenza chiede che l'attribuzione sia
-/// raggiungibile, non che sia addosso.
-class _FontiTile extends StatelessWidget {
-  const _FontiTile({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      key: const Key('settings_fonti'),
-      onTap: () => showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (foglio) => _FoglioDelleFonti(palette: palette),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.md, vertical: SpacingTokens.md),
-        child: Row(
-          children: [
-            Icon(Icons.menu_book_outlined, size: 20, color: palette.goldSoft),
-            const SizedBox(width: SpacingTokens.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Da dove vengono i numeri',
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: ColorTokens.textPrimary)),
-                  const SizedBox(height: SpacingTokens.xxs),
-                  Text(
-                      'Luoghi, pianeti e stelle: chi li pubblica e con quale '
-                      'licenza.',
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textSecondary)),
-                ],
-              ),
-            ),
-            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FoglioDelleFonti extends StatelessWidget {
-  const _FoglioDelleFonti({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const Key('foglio_delle_fonti'),
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      decoration: BoxDecoration(
-        color: palette.surfaceElevated,
-        borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(SpacingTokens.radiusLg)),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Da dove vengono i numeri',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: SpacingTokens.md),
-              for (final f in fontiDeiDati) ...[
-                Text(f.cosa,
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: ColorTokens.textPrimary)),
-                const SizedBox(height: SpacingTokens.xxs),
-                Text('${f.chi}. ${f.licenza}. ${f.dove}',
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary)),
-                const SizedBox(height: SpacingTokens.md),
-              ],
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// **L'INTERRUTTORE DELLA MISURA. Ordine CC voce 09.**
-///
-/// **Perche' una classe sua e non un [_ToggleRow] nudo.** Le altre righe di
-/// questa schermata leggono da `SettingsController`, che e' gia' in memoria;
-/// il consenso alla misura vive nelle preferenze e si legge dal disco, quindi
-/// serve qualcuno che aspetti quella lettura senza far comparire un
-/// interruttore acceso per un istante prima di sapere com'e'.
-///
-/// **Finche' non si sa, non si mostra niente.** Un interruttore che sbatte da
-/// spento ad acceso mentre la schermata si apre dice due cose diverse in
-/// mezzo secondo, e chi guarda non sa quale delle due e' la sua.
-class _MisuraTile extends StatefulWidget {
-  const _MisuraTile({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  State<_MisuraTile> createState() => _MisuraTileState();
-}
-
-class _MisuraTileState extends State<_MisuraTile> {
-  ConsensoAllaMisura? _risposta;
-
-  @override
-  void initState() {
-    super.initState();
-    _leggi();
-  }
-
-  Future<void> _leggi() async {
-    final letto = await ConsensoDellaMisura.letto();
-    if (mounted) setState(() => _risposta = letto);
-  }
-
-  Future<void> _cambia(bool acceso) async {
-    setState(() => _risposta =
-        acceso ? ConsensoAllaMisura.concesso : ConsensoAllaMisura.negato);
-    await ConsensoDellaMisura.segna(acceso);
-    // Il registro tiene il consenso in memoria per non leggere il disco a ogni
-    // gesto: se cambia qui, deve rileggerlo, o la scelta varrebbe dal prossimo
-    // avvio.
-    await RegistroDelRitorno.corrente?.rileggiIlConsenso();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final r = _risposta;
-    if (r == null) return const SizedBox(height: 72);
-    return _ToggleRow(
-      itemKey: const Key('settings_misura'),
-      icon: Icons.insights_outlined,
-      title: 'Conta i gesti, non te',
-      subtitle: 'Aperture, riti cominciati e finiti, ritorni da una notifica '
-          'e responsi condivisi. Numeri per giorno, senza nome. Spegnilo e '
-          'l\'app resta identica.',
-      value: r == ConsensoAllaMisura.concesso,
-      onChanged: _cambia,
-      palette: widget.palette,
-    );
-  }
-}
-
-class _ToggleRow extends StatelessWidget {
-  const _ToggleRow({
-    required this.itemKey,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.value,
-    required this.onChanged,
-    required this.palette,
-  });
-
-  final Key itemKey;
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final bool value;
-  /// Nullo quando la riga non si puo' toccare: l'interruttore unico e'
-  /// spento e sotto di lui non c'e' piu' niente da decidere.
-  final ValueChanged<bool>? onChanged;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.xs,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: palette.goldSoft, size: 22),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: TypographyTokens.display(size: 16)),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          Switch(
-            key: itemKey,
-            value: value,
-            onChanged: onChanged,
-            thumbColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? palette.deepest
-                  : palette.goldSoft.withValues(alpha: 0.7),
-            ),
-            trackColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? palette.gold
-                  : palette.surfaceElevated,
-            ),
-            trackOutlineColor: WidgetStateProperty.all(
-              palette.gold.withValues(alpha: 0.35),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 /// Riga di cancellazione dei dati, con conferma di custodia (mai punitiva).
@@ -710,47 +446,6 @@ class _DeleteDataTile extends StatelessWidget {
 /// dall'app: il sistema smette di mostrare la richiesta. Senza questa via, chi
 /// aveva detto no al microfono restava senza soffio per sempre, senza sapere
 /// dove rimediare.
-class _PermessiTile extends StatelessWidget {
-  const _PermessiTile({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      key: const Key('settings_permessi'),
-      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-      // Geolocator apre le impostazioni DELL'APP, non quelle della posizione:
-      // e' la stessa via che il cielo usa gia' quando il permesso e' negato per
-      // sempre. Nessuna dipendenza nuova per una riga.
-      onTap: () => Geolocator.openAppSettings(),
-      child: Row(
-        children: [
-          Icon(Icons.tune_rounded, color: palette.goldSoft, size: 22),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Microfono, fotocamera e movimento',
-                    style: TypographyTokens.display(size: 16)),
-                const SizedBox(height: 2),
-                Text(
-                  'Apri i permessi di sistema. Ogni esperienza che li usa '
-                  'funziona anche col solo tocco.',
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-        ],
-      ),
-    );
-  }
-}
-
 /// Riga del piano attuale, con la via ai piani del Cerchio.
 class _PlanTile extends StatelessWidget {
   const _PlanTile({required this.palette});

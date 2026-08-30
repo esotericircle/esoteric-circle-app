@@ -9,7 +9,9 @@ import 'package:flutter_test/flutter_test.dart';
 /// detto no al microfono restava senza soffio per sempre, senza sapere dove
 /// rimediare.
 void main() {
-  final s = File('lib/features/settings/settings_screen.dart').readAsStringSync();
+  // **I PERMESSI VIVONO NEL SOTTO MENU'. Ordine CE voce 03.**
+  final s = File('lib/features/settings/permessi_di_sistema.dart')
+      .readAsStringSync();
 
   test('Esiste la voce dei permessi', () {
     expect(s.contains("Key('settings_permessi')"), isTrue,

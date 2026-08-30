@@ -1,3 +1,12 @@
+## DEBITO DA CHIUDERE PRIMA DELLA PUBBLICAZIONE, ordine CE voce 02
+
+**Nessuno puo' piu' riscuotere il premio dell'invito senza cercarlo.** Il foglio
+che lo chiedeva e' stato tolto dal Santuario per ordine del fondatore, che lo ha
+accettato per iscritto: "e' una demo per ora, si toglie e accettiamo che per ora
+nessuno riscuote i 60 EOS, ma va sistemato prima della pubblicazione". Resta la
+porta a mano nel menu' Account. La strada automatica e' materia della voce
+CE.17, che produce lo studio per Android e per iOS.
+
 # RIPRESA, ARCHIVIO CHIUSO
 
 **QUESTO FILE NON E' LO STATO VIVO, ED E' FERMO AL 5 AGOSTO 2026.**

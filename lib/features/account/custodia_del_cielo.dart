@@ -13,6 +13,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'consensi_della_registrazione.dart';
 
 /// LE TRE VIE PER CUSTODIRE IL PROPRIO CIELO, in un componente solo.
 ///
@@ -55,6 +56,13 @@ class VieDellaCustodia extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // **I CONSENSI STANNO QUI, sopra le vie, e in nessun altro posto.**
+        // Ordine CE voce 01. Le vie d'accesso vivono in tre schermate diverse:
+        // montare i consensi accanto a ognuna vorrebbe dire tre copie che
+        // divergono al primo che ne cambia una. Qui sono una cosa sola col
+        // gesto che le usa.
+        const ConsensiDellaRegistrazione(),
+        const SizedBox(height: SpacingTokens.md),
         _PulsanteDellaVia(
           chiave: const Key('custodia_google'),
           etichetta: 'Continua con Google',

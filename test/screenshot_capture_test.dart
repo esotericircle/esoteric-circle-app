@@ -156,6 +156,7 @@ import 'package:esoteric_circle/core/synastry/possibilita_di_incontro.dart';
 import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
 import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
+import 'package:esoteric_circle/features/settings/privacy_e_permessi_screen.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -3961,6 +3962,47 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'impostazioni.png');
+  });
+
+  // --- IL SOTTO MENU' PRIVACY E PERMESSI, ordine CE voce 03 ---
+  //
+  // **L'ordine chiede di guardare il menu' e il sotto menu' a 360 punti prima
+  // di chiudere la voce.** Il menu' ha gia' la sua cattura, `impostazioni.png`,
+  // che adesso mostra due righe sole sotto "Privacy e dati". Questa e' la
+  // seconda meta': cosa si trova aprendo quella riga.
+  //
+  // **Si monta la schermata da sola e non la si raggiunge a tocchi.** La
+  // strada vera sarebbe Passport, account, Impostazioni, poi la riga: quattro
+  // tocchi dentro un elenco pigro, cioe' quattro modi di rompersi che non
+  // dicono niente su cio' che si deve guardare. La cattura del menu' quella
+  // strada la percorre gia'.
+  testWidgets('Cattura il sotto menu\' Privacy e permessi', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, const Size(360, 1200));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: const PrivacyEPermessiScreen(),
+        ),
+      ),
+    ));
+    // **L'INTERRUTTORE ASPETTA IL DISCO.** Finche' non ha letto il consenso
+    // non si disegna, quindi una cattura a due fotogrammi mostrerebbe un buco
+    // al posto della riga.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await capture(tester, rootKey, 'privacy-e-permessi.png');
   });
 
   // --- La sezione del suono, con l'interruttore dei soli effetti sonori ---
