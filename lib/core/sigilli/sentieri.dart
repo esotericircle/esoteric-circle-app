@@ -46,6 +46,20 @@ class Sentieri {
   static List<Traguardo> get tuttiITraguardi =>
       [for (final s in tutti) ...di(s)];
 
+  /// **I TRAGUARDI CHE UNA PERSONA PUO' DAVVERO RAGGIUNGERE OGGI.**
+  /// Ordine CF voce 01.
+  ///
+  /// Sono i 165 meno i dormienti, cioe' le voci che il corpus dichiara
+  /// scritte ma non ancora agganciate a un gesto vivo. **Serve perche'
+  /// l\'anello del livello si riempie su questo denominatore e non sui
+  /// 165**: un anello che non puo' chiudersi nemmeno giocando per anni
+  /// sarebbe una promessa falsa disegnata addosso al volto della persona.
+  ///
+  /// Il giorno che un dormiente si sveglia questo numero cresce da solo,
+  /// perche' legge il corpus e non una costante scritta a mano.
+  static List<Traguardo> get raggiungibili =>
+      tuttiITraguardi.where((t) => !t.dormiente).toList();
+
   /// I cinquanta piccoli di un sentiero, in ordine di posizione.
   static List<Traguardo> miniDi(Sentiero sentiero) =>
       di(sentiero).where((t) => !t.eGrande).toList()

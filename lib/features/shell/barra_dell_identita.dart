@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../sigilli/celebrazione.dart';
 
 import '../../design_system/components/borsellino.dart';
+import 'anello_del_livello.dart';
 import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -44,7 +45,21 @@ class BarraDellIdentita extends StatefulWidget {
   /// SafeArea gia' scritto ne tiene conto da solo e nessuna testata finisce
   /// coperta. E' una misura che descrive una resa, e la prova la confronta
   /// con l'altezza vera.
-  static const double altezzaChiusa = 30;
+  /// **TRENTOTTO DALL\'ORDINE CF VOCE 01, ed erano trenta.** Il fondatore
+  /// ha chiesto la barra alzata "di qualche pixel" per fare posto a un
+  /// anello di riempimento attorno al volto. **Gli otto punti non sono
+  /// scelti a occhio**: il volto misura ventidue, l\'anello gli gira
+  /// attorno con due di stacco e due e mezzo di tratto per parte, quindi
+  /// il suo diametro esterno e' trentuno. Trenta lo avrebbe tagliato,
+  /// trentotto gli lascia tre punti e mezzo sopra e sotto: abbastanza
+  /// perche' l\'oro non tocchi il filo del bordo, poco perche' la barra
+  /// resti sottile come il fondatore la vuole.
+  ///
+  /// **E la barra RESTA IN ALTO.** Il fondatore aveva ipotizzato di
+  /// spostarla in basso e ha annullato l\'ipotesi lui stesso il 30 agosto
+  /// 2026: "esteticamente deve restare in alto, ma alzata di qualche
+  /// pixel".
+  static const double altezzaChiusa = 38;
 
 
 
@@ -199,11 +214,18 @@ class _LaBarra extends StatelessWidget {
               // qui dentro `Navigator.of(context)` non trova niente, quindi
               // il volto non puo' usare la sua via di casa e riceve quella
               // che passa dall'osservatore della pila.
-              child: PortaDellAccount(
-                misura: 22,
-                suTocco: NavigazioneDellaBarra.allAccount,
+              child: AnelloDelLivello(
+                misuraDelVolto: 22,
+                child: PortaDellAccount(
+                  misura: 22,
+                  suTocco: NavigazioneDellaBarra.allAccount,
+                ),
               ),
             ),
+            // 1-bis. IL NUMERO DEL LIVELLO, accanto al volto. Ordine CF
+            // voce 01: e' lo stesso numero che riempie l\'anello, letto
+            // dalla stessa porta, non un secondo conto.
+            NumeroDelLivello(),
             // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
             // PRIMO tocco.
             Expanded(child: _PortaDegliEventiCosmici()),

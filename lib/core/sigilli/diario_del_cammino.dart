@@ -1031,6 +1031,27 @@ class DiarioDelCammino extends ChangeNotifier {
   int quantiAccesiDi(Sentiero sentiero) =>
       Sentieri.di(sentiero).where((t) => _accesi.contains(t.id)).length;
 
+  /// **IL PROGRESSO DEL CAMMINO, UN CONTO SOLO. Ordine CF voce 01.**
+  ///
+  /// Torna il numeratore e il denominatore INSIEME, di proposito. La
+  /// voce CF.01 chiedeva un anello di riempimento attorno al volto e il
+  /// fondatore ha scritto nell\'ordine la ragione per cui questa porta e'
+  /// una sola: **due conteggi diversi della stessa cosa sono la famiglia
+  /// di difetti piu' numerosa di questo progetto**. Chi disegna l\'anello,
+  /// chi scrive il numero accanto al volto e chi domani mostrera' la
+  /// stessa progressione altrove leggono questa riga e nessun\'altra.
+  ///
+  /// **Non e' il livello XP**, che non esiste ancora e questa voce non
+  /// lo inventa: e' il numero di Sigilli accesi, che e' l\'unica
+  /// grandezza di progressione che il progetto possiede davvero.
+  ({int accesi, int quanti}) get progressoDelCammino {
+    final possibili = Sentieri.raggiungibili;
+    return (
+      accesi: possibili.where((t) => _accesi.contains(t.id)).length,
+      quanti: possibili.length,
+    );
+  }
+
   void _leggiTesti(String? grezzo, Map<String, String> dentro) {
     if (grezzo == null) return;
     try {

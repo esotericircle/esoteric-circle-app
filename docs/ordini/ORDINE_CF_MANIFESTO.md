@@ -21,9 +21,9 @@ Porta le tre regole degli ordini precedenti:
 
 ## Le diciotto voci
 
-- **CF.01** La barra sottile piu' alta, con l'anello del livello. **APERTA.**
-- **CF.02** La striscia dei Doni piu' bassa. **APERTA.**
-- **CF.03** La barra Esplora piu' bassa. **APERTA.**
+- **CF.01** La barra sottile piu' alta, con l'anello del livello. **CHIUSA.**
+- **CF.02** La striscia dei Doni piu' bassa. **CHIUSA.**
+- **CF.03** La barra Esplora piu' bassa. **CHIUSA.**
 - **CF.04** Le notifiche dei Doni, e le push. **APERTA.**
 - **CF.05** "Bentornata Mauro", al femminile. **APERTA.**
 - **CF.06** Rimasto sul Risveglio invece che in home. **APERTA.**
@@ -41,8 +41,8 @@ Porta le tre regole degli ordini precedenti:
 - **CF.18** Il secondo cancello. **APERTA.**
 
 VOCI_TOTALI: 18
-VOCI_CHIUSE: 0
-VOCI_APERTE: 18
+VOCI_CHIUSE: 3
+VOCI_APERTE: 15
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -109,7 +109,102 @@ qualcuno ne aggiunge uno, e nella voce CF.01 si tocca proprio
 
 ## LE SCELTE CHE HO PRESO IO E PERCHE'
 
-Da riempire voce per voce.
+### CF.01, la barra sottile sale da 30 a 38 punti
+
+**Otto punti, e non sono scelti a occhio.** Il volto misura ventidue.
+L'anello gli gira attorno con due punti di stacco e due e mezzo di tratto per
+parte, quindi il suo diametro esterno e' trentuno. A trenta la riga lo
+schiacciava a ventinove e a video diventava un'ellisse tagliata sopra e sotto,
+misurato. Trentotto gli lascia tre punti e mezzo per parte: abbastanza perche'
+l'oro non tocchi il filo del bordo, poco perche' la barra resti sottile come il
+fondatore la vuole.
+
+### CF.01, il valore dell'anello viene dai Sigilli del Cammino
+
+**Il livello XP non esiste e questa voce non lo ha inventato**, come l'ordine
+chiedeva. Cercato prima di decidere: in tutto `lib/` la parola livello compare
+solo come piano di abbonamento e come livello di personalizzazione
+dell'oroscopo, mai come esperienza accumulata. **L'unica grandezza di
+progressione che il progetto possiede sono i Sigilli**, e l'anello si riempie
+su quelli.
+
+**La porta e' una sola, e questa e' la parte che conta.** Il fondatore ha
+scritto nell'ordine che due conteggi diversi della stessa cosa sono la famiglia
+di difetti piu' numerosa del progetto: percio' il numeratore e il denominatore
+escono INSIEME da `DiarioDelCammino.progressoDelCammino`, e chi disegna
+l'anello, chi scrive il numero accanto al volto e chiunque domani mostri la
+stessa progressione altrove legge quella riga e nessun'altra.
+
+### CF.01, il denominatore sono 114 e non 165
+
+**Misurato: dei centosessantacinque traguardi scritti, cinquantuno sono
+dormienti**, cioe' presenti nel corpus e non ancora agganciati a un gesto vivo.
+Un anello sui 165 non potrebbe chiudersi nemmeno giocando per anni, e sarebbe
+una promessa falsa disegnata addosso al volto della persona. `Sentieri.raggiungibili`
+legge il corpus e non una costante, quindi il giorno che un dormiente si sveglia
+il denominatore cresce da solo.
+
+### CF.01, il numero accanto al volto e' provvisorio e va dichiarato
+
+Il fondatore ha chiesto "il livello di esperienza" accanto al volto. Finche' il
+livello XP non esiste, li' c'e' il numero dei Sigilli accesi, che e' lo stesso
+numero che riempie l'anello. **E' un testo provvisorio, marcato come tale nel
+codice**: i testi definitivi li approva lui.
+
+### CF.02, la striscia dei Doni scende da 122 a 108
+
+**Quattordici punti, e stavano vuoti.** Misurata a 360, 390 e 412 prima di
+toccarla: fascia 122, composta da quattro stacchi da 4, la riga del titolo alta
+17, la fila delle caselle alta 85, la barra di scorrimento alta 3 e il filo
+d'oro sotto. **Dentro gli 85 della fila, il contenuto di una casella ne usa
+sessantotto**: cerchio dell'icona 46, stacco 4, etichetta 18. La colonna e'
+centrata, quindi diciassette punti restavano vuoti sopra e sotto senza disegnare
+niente. Se ne prendono quattordici e tre restano di respiro, che e' il margine
+perche' un arrotondamento del testo fra due versioni di Flutter non faccia
+traboccare la casella.
+
+**Niente viene dall'area di tocco**, di nuovo: il cerchio resta 46 e il
+bersaglio del punto interrogativo resta 44 per 44, che non pesa sul calcolo
+perche' sborda dalla riga invece di occuparla. **E niente viene dall'etichetta**:
+il `FittedBox` attorno al nome oggi non riduce niente, padre e figlio misurano
+tutti e due 18, e deve restare cosi' perche' la voce CF.10 dice che i caratteri
+dei Doni sono gia' troppo piccoli.
+
+**Il tetto della guardia scende da 126 a 112**, quattro sopra il misurato come
+la volta scorsa. A 126 sarebbe rimasta una soglia che lasciava tornare
+all'altezza vecchia in silenzio.
+
+### CF.03, l'alone della scritta ESPLORA e' stato allargato
+
+**Non era in programma, ed e' un difetto vecchio che si e' visto adesso.**
+Abbassando la barra, la scritta ESPLORA e' scesa di sedici punti e la prova del
+contrasto ha misurato **4,28 contro il 4,5** che la legge chiede. La causa,
+misurata: il raggio di un `RadialGradient` e' una frazione del **lato piu' corto**
+del riquadro, e quel riquadro e' alto ventisette punti e largo piu' di cento.
+Con 0,85 il fondo pieno arrivava a ventitre punti dal centro, cioe' copriva solo
+la meta' di mezzo della parola e lasciava le due estremita' su un alone gia'
+quasi trasparente. Finche' la barra era alta 134 dietro quelle estremita'
+passava roba scura e nessuno se ne accorgeva.
+
+Il raggio passa a 3,0 e il riquadro non cambia di un punto, quindi **nessuna
+altezza torna indietro**. Misurato dopo: **5,64**, sopra il 5,48 che la stessa
+prova leggeva prima di questa voce. Guardata l'anteprima: la scritta non ha
+nessuna fascia dietro.
+
+### CF.03, la barra Esplora scende da 134 a 112
+
+**Ventidue punti, e la parte che il fondatore ha indicato ne valeva due.**
+Misurato prima di toccare: lo spazio fra la scritta ESPLORA e le icone valeva
+DUE punti, piu' i cinque dell'alone sotto il testo. **Ridurre solo quello non
+poteva bastare**, e va detto perche' e' esattamente la parte dell'ordine che
+non reggeva. I ventidue vengono da dove c'era margine vero: dodici dal margine
+esterno della barra, otto dall'aria attorno alle cinque voci, due dallo spazio
+che lui ha nominato.
+
+**Nessuno viene dal bersaglio del dito**, che resta un cerchio da quarantaquattro
+dentro un'area da cinquantadue, sopra il minimo di quarantotto. **E nessuno
+dall'alone del titolo**, che l'ordine A aveva alzato da tre a cinque per una
+ragione di contrasto misurata, 4,31 contro il 4,5 richiesto.
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 

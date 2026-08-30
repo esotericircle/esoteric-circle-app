@@ -39,10 +39,17 @@ void main() {
   /// ridotti. Si scrive il tetto e non il numero esatto, perche' un tetto
   /// regge un ritocco della tipografia mentre un'uguaglianza cadrebbe al
   /// primo punto di differenza fra due versioni di Flutter.
-  const tetto = 126.0;
+  /// **CENTODODICI DALL\'ORDINE CF VOCE 02.** Valeva 126, ed era una
+  /// soglia che non sorvegliava piu' niente: la fascia scende a 108, e un
+  /// tetto diciotto punti sopra il vero avrebbe lasciato passare in
+  /// silenzio un ritorno all\'altezza vecchia. Quattro sopra il misurato,
+  /// come la volta scorsa, che e' il margine di un arrotondamento del
+  /// testo e non lo spazio per un ripensamento.
+  const tetto = 112.0;
 
-  /// Quanto era prima, per non perdere il confronto.
-  const primaEra = 146.0;
+  /// Quanto era prima, per non perdere il confronto: 146 nasceva
+  /// dall\'ordine AO, 122 e' quello che l\'ordine CF ha trovato e misurato.
+  const primaEra = 122.0;
 
   Future<double> altezzaA(WidgetTester tester, double larghezza) async {
     SharedPreferences.setMockInitialValues({});
@@ -150,4 +157,54 @@ void main() {
     print('ORDINE AO VOCE 03: nella spiegazione si legge '
         '"${tester.widget<Text>(orario).data}"');
   });
+
+  /// **CHI VEDE POCO INGRANDISCE IL TESTO, E LA FASCIA DEVE SEGUIRLO.**
+  /// Ordine CF voce 02.
+  ///
+  /// Scendere da 122 a 108 ha reso rosse nove prove che montano il Santuario
+  /// a `TextScaler.linear(1.6)`: la casella traboccava di quattordici punti,
+  /// e misurando si e' scoperto che a 122 il margine era ESATTAMENTE ZERO.
+  /// Il tetto qui sopra vale alla scala normale; questa prova sorveglia
+  /// l'altra meta' della cosa, cioe' che ingrandendo il testo la fascia
+  /// cresca invece di tagliare.
+  for (final scala in const [1.0, 1.3, 1.6, 2.0]) {
+    testWidgets('a scala $scala la fascia non taglia la casella',
+        (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ],
+        child: MaterialApp(
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx)
+                .copyWith(textScaler: TextScaler.linear(scala)),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            body: Column(children: [
+              DailyStrip(clock: () => DateTime(2026, 8, 18, 10, 30)),
+              const Expanded(child: SizedBox()),
+            ]),
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 300));
+      final alta =
+          tester.getRect(find.byKey(const Key('santuario_daily_strip'))).height;
+      final cella =
+          tester.getRect(find.byKey(const Key('daily_element_dawn'))).height;
+      // ignore: avoid_print
+      print('ORDINE CF VOCE 02: a scala $scala la fascia e\' alta $alta e la '
+          'casella $cella');
+      expect(tester.takeException(), isNull,
+          reason: 'a scala $scala la fascia alta $alta taglia la casella: chi '
+              'ingrandisce il testo perde un pezzo dei Doni');
+    });
+  }
 }

@@ -368,8 +368,26 @@ class _DailyStripState extends State<DailyStrip>
   /// dall'area di tocco**, che resta intera: cerchio dell'icona
   /// quarantasei, bersaglio dell'aiuto quarantaquattro per quarantaquattro,
   /// e una prova cade se qualcuno prova a stringerli per far posto.
-  static const double _heightLarga = 122;
-  static const double _heightStretta = 122;
+  /// **CENTOTTO DALL\'ORDINE CF VOCE 02, e i quattordici punti erano
+  /// vuoti.** Il fondatore ha chiesto la striscia piu' bassa. Misurata
+  /// prima di toccarla a 360, 390 e 412: fascia 122, e dentro la fila
+  /// delle caselle alta 85 il contenuto di una casella ne usava
+  /// SESSANTOTTO, cioe' cerchio dell\'icona 46, stacco 4, etichetta 18.
+  /// La colonna e' centrata, quindi diciassette punti restavano vuoti
+  /// sopra e sotto senza disegnare niente. **Se ne prendono quattordici
+  /// e tre restano di respiro**, che e' il margine perche' un
+  /// arrotondamento del testo fra due versioni di Flutter non faccia
+  /// traboccare la casella.
+  ///
+  /// **Niente viene dall\'area di tocco, di nuovo**: il cerchio resta 46 e
+  /// il bersaglio del punto interrogativo resta 44 per 44, e quello non
+  /// pesa sul calcolo perche' sborda dalla riga invece di occuparla.
+  /// **E niente viene dall\'etichetta**: il `FittedBox` attorno alla riga
+  /// del nome oggi non riduce niente, figlio e padre misurano tutti e due
+  /// 18, e deve restare cosi' perche' la voce CF.10 dice che i caratteri
+  /// dei Doni sono gia' troppo piccoli.
+  static const double _heightLarga = 108;
+  static const double _heightStretta = 108;
 
   /// L'altezza della fascia, che SI ADATTA alla larghezza.
   ///
@@ -384,8 +402,31 @@ class _DailyStripState extends State<DailyStrip>
   /// Le due misure oggi coincidono, e la funzione resta perche' il contenuto di
   /// una casella non cambia mentre lo spazio per disporlo si': se domani
   /// l'etichetta cresce, la soglia e' gia' il posto dove dirlo.
-  static double altezzaPer(double larghezza) =>
-      larghezza < _sogliaStretta ? _heightStretta : _heightLarga;
+  /// **E ADESSO SI ADATTA ANCHE ALLA SCALA DEL TESTO. Ordine CF voce
+  /// 02, e senza questo la voce sarebbe stata un difetto.** Portando la
+  /// fascia da 122 a 108 sono diventate rosse nove prove che montano il
+  /// Santuario con `TextScaler.linear(1.6)`, cioe' la scala che una
+  /// persona che vede poco imposta nel telefono: la casella traboccava
+  /// di quattordici punti. **Misurato: a 122 lo spazio era esattamente
+  /// al limite**, zero margine, e quello spiega perche' nessuno se ne era
+  /// accorto prima.
+  ///
+  /// Le due righe di testo della fascia, il titolo e l\'etichetta della
+  /// casella, valgono diciassette punti ciascuna alla scala normale: se
+  /// la persona le ingrandisce, la fascia cresce con loro invece di
+  /// tagliarle. **La stima e' lineare e quindi generosa**, perche' il
+  /// `FittedBox` attorno all\'etichetta la rimpicciolisce anche in altezza
+  /// quando non ci sta in larghezza: meglio qualche punto di troppo alle
+  /// scale grandi che una casella tagliata.
+  static double altezzaPer(double larghezza, [double scalaDelTesto = 1]) {
+    final base = larghezza < _sogliaStretta ? _heightStretta : _heightLarga;
+    final oltre = (scalaDelTesto - 1).clamp(0.0, double.infinity);
+    return base + _righeDiTesto * oltre;
+  }
+
+  /// I punti che le due righe di testo della fascia occupano alla scala
+  /// normale: diciassette il titolo e diciassette l\'etichetta, misurati.
+  static const double _righeDiTesto = 34;
 
   /// Sotto questa larghezza la fascia serve piu' alta. Trecentottanta sta fra
   /// i 360 del telefono reale e i 390 del riferimento.
@@ -503,7 +544,8 @@ class _DailyStripState extends State<DailyStrip>
     final current = DailyElements.current(now);
     return Container(
       key: const Key('santuario_daily_strip'),
-      height: altezzaPer(MediaQuery.of(context).size.width),
+      height: altezzaPer(MediaQuery.of(context).size.width,
+          MediaQuery.textScalerOf(context).scale(1)),
       decoration: BoxDecoration(
         // Una fascia scura appena accennata con un filo d'oro sotto, cosi' si
         // stacca dal cosmo senza pesare.

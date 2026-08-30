@@ -99,10 +99,15 @@ class SantuarioBottomBar extends StatelessWidget {
       ),
       child: SafeArea(
         top: false,
+        // **SEI E NON PIU\' DODICI, ordine CF voce 03.** Parole del
+        // fondatore: "anche la barra ESPLORA e' molto alta". Il margine
+        // esterno era lo spazio piu' grande della barra, ventiquattro punti
+        // fra sopra e sotto, e non serviva a niente che si veda: sotto c'e'
+        // gia' il `SafeArea`, sopra c'e' gia' l'alone del titolo.
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: SpacingTokens.sm,
-            vertical: SpacingTokens.sm,
+            vertical: 6,
           ),
           // LE VOCI VENGONO DALL'ELENCO UNICO, non da qui.
           //
@@ -136,14 +141,33 @@ class SantuarioBottomBar extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                 decoration: BoxDecoration(
+                  // **IL RAGGIO DELL\'ALONE DA 0,85 A 3,0. Ordine CF voce 03.**
+                  //
+                  // **Il difetto era vecchio e si e' visto adesso.** Il raggio
+                  // di un `RadialGradient` e' una frazione del LATO PIU' CORTO
+                  // del riquadro, e quel riquadro e' alto ventisette punti e
+                  // largo piu' di cento: con 0,85 il fondo pieno arrivava a
+                  // ventitre punti dal centro, cioe' copriva la meta' di mezzo
+                  // della parola e lasciava le due ESTREMITA' di ESPLORA su
+                  // un alone gia' quasi trasparente. Finche' la barra era alta
+                  // 134 dietro quelle estremita' passava roba scura e non si
+                  // notava; abbassandola a 112 la scritta e' scesa di sedici
+                  // punti, e li' la prova del contrasto ha misurato 4,28
+                  // contro il 4,5 che la legge chiede.
+                  //
+                  // **Il riquadro non cambia di un punto**, quindi nessuna
+                  // altezza torna indietro: cambia solo quanto lontano dal
+                  // centro il fondo resta pieno. Misurato dopo: 5,64,
+                  // sopra il 5,48 che la stessa prova leggeva prima di
+                  // questa voce.
                   gradient: RadialGradient(
-                    radius: 0.85,
+                    radius: 3.0,
                     colors: [
                       palette.deepest,
-                      palette.deepest.withValues(alpha: 0.92),
+                      palette.deepest.withValues(alpha: 0.97),
                       palette.deepest.withValues(alpha: 0.0),
                     ],
-                    stops: const [0.0, 0.62, 1.0],
+                    stops: const [0.0, 0.55, 1.0],
                   ),
                 ),
                 child: Text(
@@ -159,7 +183,15 @@ class SantuarioBottomBar extends StatelessWidget {
                 ),
                 ),
               ),
-              const SizedBox(height: 2),
+              // **LO SPAZIO CHE IL FONDATORE HA NOMINATO, e valeva due
+              // punti.** Parole sue: "basterebbe anche solo ridurre lo
+              // spazio tra la scritta 'esplora' e le icone sottostanti".
+              // Misurato prima di toccarlo: erano DUE, piu' i cinque
+              // dell\'alone sotto il testo. **Ridurre solo quello non poteva
+              // bastare**, e infatti la barra scende soprattutto altrove.
+              // I cinque dell\'alone non si toccano: l\'ordine A li ha portati
+              // da tre a cinque per una ragione di contrasto misurata,
+              // 4,31 contro il 4,5 richiesto.
               Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -229,7 +261,17 @@ class SantuarioBottomBar extends StatelessWidget {
   /// per lato, quindi la barra e' cresciuta di cinque. Anche stavolta il numero
   /// non e' una stima: e' la stessa prova che lo ha denunciato, misurando 5,0
   /// di scarto contro i 2,0 che tollera.
-  static const double altezzaResa = 134;
+  /// **CENTODODICI DALL\'ORDINE CF VOCE 03, e la storia si ferma di
+  /// crescere.** Il fondatore ha chiesto la barra piu' bassa e ha indicato
+  /// lo spazio fra la scritta e le icone: misurato, quello valeva DUE
+  /// punti, quindi non poteva bastare. I ventidue vengono da dove c'era
+  /// margine vero: dodici dal margine esterno della barra, otto dall\'aria
+  /// attorno alle cinque voci, due dallo spazio che lui ha nominato.
+  /// **Nessuno viene dal bersaglio del dito**, che resta un cerchio da
+  /// quarantaquattro dentro un\'area da cinquantadue, ne' dall\'alone del
+  /// titolo, che l\'ordine A aveva alzato per una ragione di contrasto
+  /// misurata.
+  static const double altezzaResa = 112;
 
   /// IL COLORE DEL TITOLO: L'ORO DELLA PALETTE. Deciso da Mauro il 7 agosto
   /// 2026, e SUPERA la decisione del mattino del 6 agosto che lo voleva nel
@@ -319,9 +361,13 @@ class _BarItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        // **QUATTRO E NON PIU\' OTTO, ordine CF voce 03.** Il cerchio resta
+        // quarantaquattro, che e' il bersaglio del dito e non si tocca: qui
+        // scende solo l\'aria attorno, e il bersaglio resta cinquantadue
+        // punti di altezza, sopra il minimo di quarantotto.
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: SpacingTokens.xs, horizontal: 2),
+              vertical: 4, horizontal: 2),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
