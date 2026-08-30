@@ -33,11 +33,29 @@ export const BUDGET: Budget[] = [
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
+/**
+ * **NESSUN BUDGET E' PIU' SENZA TETTO. Ordine CE voce 08.**
+ *
+ * **Parole del fondatore:** "illimitato mi espone all'abuso o uso
+ * incontrollato o bot, quindi e' da eliminare e da sostituire con un numero
+ * abbastanza ampio da essere piu' che sufficiente per l'utente ovvero
+ * difficilmente raggiungera' il limite imposto anche con uso intensivo."
+ *
+ * **Il server e' il sovrano, quindi qui conta piu' che nell'app.** Togliere
+ * l'illimitato solo dalla matrice del telefono avrebbe lasciato il tetto vero
+ * aperto: chi chiama la callable direttamente non passa da nessuna schermata.
+ *
+ * **I numeri, e la ragione di ognuno.** Ogni tetto dell'Illuminato e' almeno
+ * il triplo di quello del piano sotto, e sta molto sopra un uso umano
+ * intensivo: cinquanta domande, trenta approfondimenti, venti confronti,
+ * cinquanta gettate, venticinque sinastrie. Le stese avevano gia' venti dalla
+ * voce BV.03, e restano.
+ */
 const LIMITI: Record<Budget, (number | null)[]> = {
-  domande: [3, 5, 10, null],
-  approfondimenti: [0, 3, 10, null],
-  confronti: [0, 3, 5, null],
-  gettate: [1, null, null, null],
+  domande: [3, 5, 10, 50],
+  approfondimenti: [0, 3, 10, 30],
+  confronti: [0, 3, 5, 20],
+  gettate: [1, 20, 30, 50],
   /**
    * LE STESE COMPLETE DI TAROCCHI, ordine BN voce 09.
    *
@@ -98,7 +116,7 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * gratuita su tutti i piani, e quindi la leva non era chiusa, era
    * ingovernata.
    */
-  sinastrie: [3, 5, 5, null],
+  sinastrie: [3, 5, 5, 25],
 };
 
 /**

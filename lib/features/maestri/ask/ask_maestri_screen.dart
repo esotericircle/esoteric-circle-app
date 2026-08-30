@@ -37,6 +37,8 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../rotta_arte.dart';
 import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../../core/entitlement/budget_del_giorno.dart';
+import '../../../design_system/components/riga_del_residuo.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
@@ -549,6 +551,12 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                           SpacingTokens.xxxl +
                               SpazioDellaBarraNelloScroll.quanto(context)),
                       children: [
+                        // **QUANTI CONFRONTI TI RESTANO, ordine CE voce 04.**
+                        // La Consulta spende sul budget dei confronti nel
+                        // Cerchio, e questa era una delle cinque porte che
+                        // consumavano senza dire niente.
+                        const RigaDelResiduo(
+                            budget: BudgetDelGiorno.confronti),
                         for (final m in _ordineDelConfronto)
                           if (_responders.contains(m)) ...[
                             // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta

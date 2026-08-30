@@ -18,11 +18,11 @@ Porta le tre regole degli ordini precedenti:
 - **CE.01** I consensi in un percorso unico alla registrazione. **CHIUSA.** Un atto solo, il pulsante stesso; la misura del ritorno e' un interruttore separato che nasce spento, perche' un consenso pre-acceso non e' libero.
 - **CE.02** Via i due popup dal Santuario. **CHIUSA.** Nessuno dei due fogli esce piu' da li'. La porta a mano nel menu' Account resta, con la ragione scritta.
 - **CE.03** Il sotto menu' dedicato. **CHIUSA.** "Privacy e permessi": disclaimer, interruttore della misura, fonti dei dati e permessi di sistema, tutti e quattro dentro, e nelle Impostazioni restano due righe.
-- **CE.04** Il conteggio residuo prima del gesto. **APERTA.**
+- **CE.04** Il conteggio residuo prima del gesto. **CHIUSA.** Tutti e sei i budget hanno una casa sola, `BudgetDelGiorno`, e una prova li enumera: da cinque punti muti su otto si passa a zero.
 - **CE.05** Il pulsante di consenso esplicito dove si spendono Eos. **APERTA.**
 - **CE.06** Il borsellino quando gli Eos non bastano. **APERTA.**
-- **CE.07** I tre prezzi annuali nuovi. **APERTA.**
-- **CE.08** L'illimitato si elimina ovunque. **APERTA.**
+- **CE.07** I tre prezzi annuali nuovi. **CHIUSA.** 99,90, 189,90 e 279,90, e gli sconti ricalcolati dal prezzo: 16, 21 e 22 per cento invece di 24, 25 e 25.
+- **CE.08** L'illimitato si elimina ovunque. **CHIUSA.** Nove celle nell'app e cinque sul server, piu' la logica che traduceva la parola in "nessun tetto". Adesso una cella che dicesse "Illimitato" varrebbe zero.
 - **CE.09** I pacchetti di Eos. **APERTA.**
 - **CE.10** L'uniformazione dei testi da leggere. **APERTA.**
 - **CE.11** I 119 titoli gialli. **APERTA.**
@@ -34,8 +34,8 @@ Porta le tre regole degli ordini precedenti:
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 3
-VOCI_APERTE: 14
+VOCI_CHIUSE: 6
+VOCI_APERTE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -124,6 +124,53 @@ lavoro vorrebbe dire misurarla su un codice diverso.
   Cerchio dice di se'" e "Cosa puo' toccare del telefono" andavano a capo
   lasciando una parola orfana sulla seconda riga. Adesso sono "Cosa diciamo di
   noi" e "Cosa tocca del telefono", e stanno su una riga sola a 360 punti.
+
+### CE.04
+
+- **I sei budget vivono in un elenco, `BudgetDelGiorno`.** Il difetto non era
+  che mancasse un conto: era che i sei budget non avessero un posto dove stare
+  insieme. Con l'elenco la prova puo' ENUMERARE, e il budget che nasce domani o
+  si dichiara o cade.
+- **La riga condivisa non e' obbligatoria, il fatto si'.** Due schermate
+  leggevano gia' il proprio contatore e lo passavano al pezzo che avevano:
+  pretendere una forma sola avrebbe voluto dire riscrivere schermate che il
+  fondatore non ha toccato. La prova cerca il fatto, cioe' che il numero si
+  veda, non da quale widget esca.
+- **La guardia legge il CODICE e non i commenti**, e questa riga nasce da un
+  rosso che non e' scattato: tolta la riga del residuo dalla Sinastria, la
+  prova restava verde perche' trovava il nome del contatore dentro il commento
+  che avevo appena scritto sopra. Una guardia che legge i propri commenti
+  misura se stessa.
+
+### CE.07
+
+- **Gli sconti non si scrivono, si calcolano dal prezzo.** Erano 24, 25 e 25
+  per cento; col prezzo nuovo sono **16, 21 e 22**, che e' esattamente lo
+  "sconto minore" che il fondatore ha chiesto. Il conto e'
+  `1 - annuale / (mensile * 12)`. Anche il per-mese e' rifatto.
+- **Settimanale e mensile non si toccano**, ed e' un fatto misurato: i numeri
+  che il fondatore ha indicato come nuovi erano gia' quelli in vigore.
+
+### CE.08
+
+- **I tetti dell'Illuminato, e la ragione di ognuno.** Domande **50**,
+  approfondimenti **30**, confronti **20**, carte singole **50**, gettate
+  **50**, sinastrie **25**. Il criterio e' il suo: ampio da non raggiungere con
+  uso intensivo, ma un tetto. Ogni numero e' almeno il triplo del piano sotto,
+  e nessuno e' avvicinabile da una persona in un giorno: chi fa cinquanta
+  gettate in ventiquattro ore e' il bot che lui teme.
+- **Anche i piani sotto perdono l'illimitato**: le gettate erano senza tetto
+  dall'Iniziato in su, e adesso valgono 20, 30 e 50.
+- **La LOGICA e' stata tolta, non solo le parole.** C'era
+  `if (cella.contains('illimitat')) return null`, e il nullo ogni chiamante lo
+  legge come "nessun tetto": togliere la parola dalle celle avrebbe lasciato la
+  porta aperta al primo che la riscrive. Adesso una cella che dicesse
+  "Illimitato" cade in fondo alla funzione e vale **zero**: nel dubbio si
+  sbaglia dalla parte del tetto, non dell'abuso.
+- **Il server per primo.** `functions/src/budget.ts` aveva cinque celle a
+  `null`, e il server e' il sovrano: chi chiama la callable direttamente non
+  passa da nessuna schermata. Togliere l'illimitato solo dall'app avrebbe
+  lasciato il tetto vero aperto.
 
 ## IL DEBITO DA CHIUDERE PRIMA DELLA PUBBLICAZIONE
 

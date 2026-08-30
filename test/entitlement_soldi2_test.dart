@@ -112,11 +112,14 @@ void main() {
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.free),
           1);
+      // **NON PIU" + E + " ILLIMITATI, ordine CE voce 08.** L\'Adepto ha trenta
+      // carte singole al giorno e l\'Illuminato cinquanta: numeri ampi, ma
+      // numeri.
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.tier2),
-          isNull,
-          reason: 'l\'Adepto ha i tarocchi illimitati');
+          30,
+          reason: 'il tetto delle carte singole dell\'Adepto e\' cambiato');
     });
 
     test('Il contatore rifiuta oltre soglia e si azzera col giorno', () {

@@ -70,7 +70,7 @@ void main() {
       for (final t in ordine)
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, t)
     ];
-    expect(singola, [1, 3, null, null],
+    expect(singola, [1, 3, 30, 50],
         reason: 'la riga della carta singola non promette piu\' quello che '
             'il briefing dice del gesto gratis del giorno');
     // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04**, e la decisione
@@ -395,13 +395,12 @@ void main() {
             'prezzo il riscatto non si puo\' nemmeno offrire');
   });
 
-  test('BV.03: il censimento di cio\' che resta illimitato', () {
-    // **IL FONDATORE HA CHIESTO IL CONTO, non la cura**: "voglio sapere cosa
-    // e' rimasto illimitato". Le stese hanno smesso di esserlo con questa
-    // voce; qui si contano le altre righe, si stampano col nome e col piano,
-    // e il numero resta scritto. **Non si tocca nessuna di quelle righe**:
-    // quanto valgono e' una decisione sua, e questa prova e' il posto dove
-    // accorgersi se una nuova nasce senza che nessuno lo dica.
+  test('CE.08: sul server non resta piu\' niente di illimitato', () {
+    // **IL FONDATORE AVEVA CHIESTO IL CONTO, e adesso ha chiesto la cura.**
+    // Con l\'ordine BV voce 03 questa prova contava cosa restava senza tetto
+    // e stampava l\'elenco; con l\'ordine CE voce 08 quell\'elenco deve
+    // essere VUOTO, sul server prima ancora che nell\'app: chi chiama la
+    // callable direttamente non passa da nessuna schermata.
     const piani = ['Viandante', 'Iniziato', 'Adepto', 'Illuminato'];
     final server = File('functions/src/budget.ts').readAsStringSync();
     final righe = RegExp(r'^\s{2}(\w+):\s*\[([^\]]+)\],', multiLine: true)
@@ -417,42 +416,13 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE BV VOCE 3: sul server ci sono $quanteRighe budget, e senza '
-        'tetto ne restano ${senzaTetto.length}: $senzaTetto');
-    expect(quanteRighe, greaterThanOrEqualTo(6),
-        reason: 'il censimento non sta leggendo la mappa dei limiti del '
-            'server: ha trovato solo $quanteRighe righe');
-    expect(senzaTetto.where((v) => v.startsWith('stese')), isEmpty,
-        reason: 'le stese sono tornate illimitate su qualche piano, ed e\' '
-            'cio\' che questa voce ha chiuso');
-    // Il numero segue il dato, la pretesa no: se domani una riga cambia, il
-    // conto va rifatto A VOCE, non allargato in silenzio.
-    expect(senzaTetto, const [
-      'domande per Illuminato',
-      'approfondimenti per Illuminato',
-      'confronti per Illuminato',
-      'gettate per Iniziato',
-      'gettate per Adepto',
-      'gettate per Illuminato',
-      'sinastrie per Illuminato',
-    ],
-        reason: 'il censimento degli illimitati e\' cambiato: adesso e\' '
-            '$senzaTetto. Va detto al fondatore, non aggiornato di nascosto');
-
-    // E la stessa domanda al listino, che e' cio' che la persona LEGGE.
-    final matrice = File('lib/core/entitlement/plan_catalog.dart')
-        .readAsStringSync();
-    final promesse = RegExp(r"FeatureRow\('([^']+)',\s*\[([^\]]+)\]")
-        .allMatches(matrice)
-        .where((m) => m.group(2)!.toLowerCase().contains('illimitat'))
-        .map((m) => m.group(1)!)
-        .toList();
-    // ignore: avoid_print
-    print('ORDINE BV VOCE 3: nel listino promettono ancora illimitato '
-        '${promesse.length} righe: $promesse');
-    expect(promesse.where((r) => r.toLowerCase().contains('stese')), isEmpty,
-        reason: 'il listino promette ancora stese illimitate: server e '
-            'listino direbbero due cose diverse');
+    print('ORDINE CE VOCE 08: righe di budget sul server $quanteRighe, '
+        'celle senza tetto ${senzaTetto.length}');
+    expect(quanteRighe, greaterThan(0),
+        reason: 'la prova non ha letto nessuna riga: sta guardando altrove');
+    expect(senzaTetto, isEmpty,
+        reason: 'queste celle del SERVER restano senza tetto, e il server '
+            'il sovrano: $senzaTetto');
   });
 }
 

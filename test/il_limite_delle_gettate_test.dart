@@ -34,11 +34,15 @@ void main() {
     expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.free),
         1,
         reason: 'La matrice non promette piu\' una gettata al Viandante.');
-    for (final t in [Tier.tier1, Tier.tier2, Tier.tier3]) {
-      expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, t), isNull,
-          reason: 'Dal Tier 1 in su le gettate sono illimitate, e per '
-              '$t la matrice dice altro.');
-    }
+    // **NON PIU" + E + " ILLIMITATE, ordine CE voce 08.** Erano senza tetto dal
+    // Tier 1 in su e adesso hanno venti, trenta e cinquanta al giorno:
+    // numeri che nessun uso umano intensivo raggiunge, ma numeri.
+    const tetti = {Tier.tier1: 20, Tier.tier2: 30, Tier.tier3: 50};
+    tetti.forEach((t, atteso) {
+      expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, t), atteso,
+          reason: 'il tetto delle gettate per $t non e\' piu\' quello '
+              'deciso dall\'ordine CE voce 08');
+    });
   });
 
   Future<QuestionAllowance> monta(WidgetTester tester,
@@ -129,7 +133,10 @@ void main() {
         findsNothing,
         reason: 'Il pulsante del Tier 1 si e\' spento: il limite sta '
             'mordendo il piano sbagliato.');
-    expect(borsa.gettateRimaste(Tier.tier1), isNull,
-        reason: 'Per il Tier 1 non c\'e\' un residuo da contare.');
+    // **UN RESIDUO ADESSO C\'E\', ordine CE voce 08.** Il Tier 1 ha venti
+    // gettate al giorno: al quarto getto ne restano sedici, e la strada e\'
+    // ancora larga.
+    expect(borsa.gettateRimaste(Tier.tier1), 16,
+        reason: 'il conto del Tier 1 non segue il tetto nuovo');
   });
 }

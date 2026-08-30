@@ -84,13 +84,13 @@ void main() {
             'domani.');
   });
 
-  testWidgets('chi non ha limite non vede nessun conto', (tester) async {
+  testWidgets('adesso anche il Tier 1 vede il suo conto', (tester) async {
+    // **NON C\'E\' PIU\' NESSUNO SENZA LIMITE, ordine CE voce 08.** Questa
+    // prova difendeva il silenzio per chi aveva le gettate illimitate: da
+    // quando l\'illimitato non esiste, quel silenzio sarebbe un conto
+    // nascosto. Il Tier 1 ha venti gettate al giorno e le vede.
     await monta(tester, piano: Tier.tier1);
-    expect(find.byKey(const Key('rune_conto_gettate')), findsNothing,
-        reason: 'Il Tier 1 ha le gettate illimitate: un contatore a '
-            'infinito e\' rumore.');
-    await getta(tester);
-    expect(find.byKey(const Key('rune_conto_gettate')), findsNothing,
-        reason: 'Dopo un getto il conto e\' comparso a chi non ha limite.');
+    expect(find.byKey(const Key('rune_conto_gettate')), findsOneWidget,
+        reason: 'il Tier 1 ha un tetto e non lo vede');
   });
 }

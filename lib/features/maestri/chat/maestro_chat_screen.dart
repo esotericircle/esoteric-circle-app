@@ -46,6 +46,8 @@ import 'widgets/diagnostics_dialog.dart';
 import '../widgets/maestro_bust.dart';
 import '../../../core/config/app_flags.dart';
 import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../core/entitlement/budget_del_giorno.dart';
+import '../../../design_system/components/riga_del_residuo.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -671,6 +673,24 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // **QUANTO TI RESTA, DETTO PRIMA DI SCRIVERE.** Ordine CE voce 04:
+            // "l'utente deve Sapere quante ne mancano". Le due righe stanno
+            // sopra il campo e non dentro un foglio, perche' sono
+            // un'informazione e non un ostacolo, e stanno insieme perche' la
+            // chat spende su due budget: la domanda e l'approfondimento. La
+            // riprova non e' un terzo budget, spende sulle domande come la
+            // domanda che ha sostituito.
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RigaDelResiduo(budget: BudgetDelGiorno.domande),
+                  RigaDelResiduo(budget: BudgetDelGiorno.approfondimenti),
+                ],
+              ),
+            ),
             // L'avviso di configurazione e' uno strumento come il campo:
             // sta sopra di lui, non in fondo alla colonna del contenuto,
             // altrimenti torna la fascia piena sotto la barra.

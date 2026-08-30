@@ -100,6 +100,23 @@ class PlanCatalog {
     'Illuminato',
   ];
 
+  /// **I TRE PREZZI ANNUALI SONO CAMBIATI. Ordine CE voce 07.**
+  ///
+  /// Decisione del fondatore del 29 agosto 2026: l'Iniziato passa da 89,90 a
+  /// **99,90**, l'Adepto da 179,90 a **189,90**, l'Illuminato da 269,90 a
+  /// **279,90**. La sua ragione, verbatim: "gli abbonamenti annuali avranno
+  /// una sconto minore rispetto adesso".
+  ///
+  /// **Settimanale e mensile non si toccano**, ed e' un fatto misurato: i
+  /// numeri che il fondatore ha indicato come nuovi per l'Iniziato, 2,90 alla
+  /// settimana e 9,90 al mese, erano gia' esattamente quelli in vigore.
+  ///
+  /// **Gli sconti sono RICALCOLATI dal prezzo e non lasciati scritti a mano.**
+  /// Erano 24, 25 e 25 per cento e adesso sono **16, 21 e 22**, cioe'
+  /// esattamente lo sconto minore che il fondatore ha chiesto. Il conto e'
+  /// `1 - annuale / (mensile * 12)`, arrotondato all'intero: 99,90 contro
+  /// 118,80 fa il 15,9; 189,90 contro 238,80 fa il 20,5; 279,90 contro 358,80
+  /// fa il 22,0. Anche il per-mese e' rifatto: annuale diviso dodici.
   static const List<Plan> plans = [
     Plan(
       tier: Tier.free,
@@ -126,9 +143,9 @@ class PlanCatalog {
       price: PlanPrice(
         weekly: '2,90 €',
         monthly: '9,90 €',
-        yearly: '89,90 €',
-        yearlyPerMonth: '7,49 € al mese',
-        yearlyDiscountPercent: 24,
+        yearly: '99,90 €',
+        yearlyPerMonth: '8,33 € al mese',
+        yearlyDiscountPercent: 16,
       ),
       highlights: [
         'Tutto di Viandante, senza pubblicità',
@@ -152,20 +169,20 @@ class PlanCatalog {
       price: PlanPrice(
         weekly: '4,90 €',
         monthly: '19,90 €',
-        yearly: '179,90 €',
-        yearlyPerMonth: '14,99 € al mese',
-        yearlyDiscountPercent: 25,
+        yearly: '189,90 €',
+        yearlyPerMonth: '15,83 € al mese',
+        yearlyDiscountPercent: 21,
       ),
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri, esclusiva',
         '10 domande al giorno ai Maestri',
-        'Tarocchi carta singola illimitati',
+        'Tarocchi carta singola, 30 al giorno',
         '5 stese complete di tarocchi al giorno',
         'Sinastria VIP fino a 5 al giorno',
         'Rune, I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
-        'Oracoli secondari, meditazioni e frequenze illimitati',
+        'Oracoli secondari, meditazioni e frequenze, 30 al giorno',
         'Transit tracker con alert',
         'Cosmic Journal con AI',
         'Memoria AI profonda, riconosce pattern e cicli',
@@ -178,15 +195,15 @@ class PlanCatalog {
       price: PlanPrice(
         weekly: '6,90 €',
         monthly: '29,90 €',
-        yearly: '269,90 €',
-        yearlyPerMonth: '22,49 € al mese',
-        yearlyDiscountPercent: 25,
+        yearly: '279,90 €',
+        yearlyPerMonth: '23,32 € al mese',
+        yearlyDiscountPercent: 22,
       ),
       highlights: [
-        'Tutto di Adepto, davvero illimitato',
-        'Domande ai Maestri illimitate',
-        'Stese di tarocchi illimitate',
-        'Sinastria VIP illimitata',
+        'Tutto di Adepto, coi tetti piu\' alti del Cerchio',
+        '50 domande ai Maestri al giorno',
+        '50 stese di tarocchi al giorno',
+        '25 sinastrie VIP al giorno',
         'Una domanda al mese al Maestro reale, risposta entro 48 ore',
         'Compatibilità a tre livelli, esclusiva',
         'Albero della Vita dinamico, esclusivo',
@@ -214,7 +231,20 @@ class PlanCatalog {
     if (riga.isEmpty) return null;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final cella = riga.first.values[ordine.indexOf(tier)];
-    if (cella.toLowerCase().contains('illimitat')) return null;
+    // **L'ILLIMITATO NON ESISTE PIU', E NON C'E' PIU' LA STRADA PER
+    // RIAPRIRLO.** Ordine CE voce 08.
+    //
+    // **Le parole del fondatore:** "illimitato mi espone all'abuso o uso
+    // incontrollato o bot, quindi e' da eliminare e da sostituire con un
+    // numero abbastanza ampio da essere piu' che sufficiente per l'utente".
+    //
+    // Qui c'era `if (cella.contains('illimitat')) return null`, e il nullo
+    // ogni chiamante lo legge come "nessun tetto": togliere la parola dalle
+    // celle senza togliere questa riga avrebbe lasciato la porta aperta al
+    // primo che la riscrive. **Adesso una cella che dicesse "Illimitato"
+    // cadrebbe in fondo a questa funzione e varrebbe ZERO**, cioe' si
+    // chiuderebbe invece di aprirsi: nel dubbio si sbaglia dalla parte del
+    // tetto, non dell'abuso. E una prova enumera ogni cella della matrice.
     // **UNA CELLA CHE DICE EOS NON REGALA NIENTE: VALE ZERO USI GRATIS.**
     //
     // Ordine BN voce 09, ed e' la stessa forma del difetto che il commento
@@ -383,20 +413,20 @@ class PlanCatalog {
     // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il
     // Viandante non ce l'ha, l'Iniziato tre, l'Adepto cinque, l'Illuminato
     // senza limite col tetto di correttezza.
-    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', 'Illimitato']),
+    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', '20 al giorno']),
     // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.
     // Diceva UNO, e l'app non mentiva: leggeva questo dato e lo ripeteva
     // fedelmente. A mentire era il dato. Era finito qui il 31 luglio, quando
     // una divergenza fra matrice e codice e' stata risolta facendo vincere la
     // matrice: la correzione era giusta nel metodo, sbagliata nel valore.
     FeatureRow('Domande a un Maestro',
-        ['3 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']),
+        ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno']),
     FeatureRow('Vai più a fondo',
-        ['No', '3 al giorno', '10 al giorno', 'Illimitati']),
+        ['No', '3 al giorno', '10 al giorno', '30 al giorno']),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),
     FeatureRow('Tarocchi carta singola',
-        ['1 al giorno', '3 al giorno', 'Illimitati', 'Illimitati']),
+        ['1 al giorno', '3 al giorno', '30 al giorno', '50 al giorno']),
     // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04, e la decisione
     // e' del fondatore: "il viandante ha una stesa al giorno".** La cella
     // diceva "Eos pieno", che questa classe legge come zero usi gratis: era
@@ -420,9 +450,9 @@ class PlanCatalog {
     // la gettata e' il gesto che porta indietro domani, e tre al giorno lo
     // consumavano in un pomeriggio. Dal Tier 1 in su restano illimitate.
     FeatureRow('Gettate di rune',
-        ['1 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']),
+        ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno']),
     FeatureRow('Sinastria VIP',
-        ['3 al giorno', '5 al giorno', '5 al giorno', 'Illimitata']),
+        ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno']),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Cosmic Journal',
         ['Base', 'Completo', 'Completo + AI', 'Completo + AI + report']),

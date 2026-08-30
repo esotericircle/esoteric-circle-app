@@ -19,6 +19,7 @@ import '../tokens/typography_tokens.dart';
 import 'icona_degli_eos.dart';
 import 'volo_degli_eos.dart';
 import '../../features/pricing/pricing_screen.dart';
+import '../../core/entitlement/budget_del_giorno.dart';
 
 /// IL BORSELLINO, SEMPRE NELLO STESSO ANGOLO. Ordine S voce 06.
 ///
@@ -483,17 +484,15 @@ class PortafoglioDelCerchio {
       righe.add('$detto. Domani torna intero.');
     }
 
-    aggiungi(borsa.dailyLimit(tier), borsa.remaining(tier),
-        uno: 'domanda ai Maestri',
-        molti: 'domande ai Maestri',
-        femminile: true);
-    aggiungi(borsa.limiteApprofondimenti(tier),
-        borsa.approfondimentiRimasti(tier),
-        uno: 'approfondimento', molti: 'approfondimenti');
-    aggiungi(borsa.limiteConfronti(tier), borsa.confrontiRimasti(tier),
-        uno: 'confronto di sinastria', molti: 'confronti di sinastria');
-    aggiungi(borsa.limiteGettate(tier), borsa.gettateRimaste(tier) ?? 0,
-        uno: 'gettata di rune', molti: 'gettate di rune', femminile: true);
+    // **TUTTI E SEI, e non piu' quattro. Ordine CE voce 04.** Il foglio ne
+    // dichiarava quattro: mancavano le stese e le sinastrie, cioe' due budget
+    // che la persona consuma e di cui il borsellino taceva. Adesso l'elenco
+    // non si scrive qui, si ENUMERA da : il budget che nasce
+    // domani compare in questo foglio senza che nessuno se lo ricordi.
+    for (final b in BudgetDelGiorno.values) {
+      aggiungi(b.limite(borsa, tier), b.rimasti(borsa, tier) ?? 0,
+          uno: b.uno, molti: b.molti, femminile: b.femminile);
+    }
     return righe;
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// Entitlement: il contatore giornaliero delle domande per tier e i piani.
 void main() {
   group('Contatore delle domande', () {
-    test('Il limite giornaliero segue i tier: 3, 5, 10, illimitate', () {
+    test('Il limite giornaliero segue i tier: 3, 5, 10, 50', () {
       final a = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
       // TRE, che e' il numero deciso e approvato dal fondatore.
       //
@@ -19,7 +19,10 @@ void main() {
       expect(a.dailyLimit(Tier.free), 3);
       expect(a.dailyLimit(Tier.tier1), 5);
       expect(a.dailyLimit(Tier.tier2), 10);
-      expect(a.dailyLimit(Tier.tier3), isNull);
+      // **NON PIU' NULLO, ordine CE voce 08.** L'illimitato e' uscito
+      // dalla matrice e dalla logica: l'Illuminato ha cinquanta domande
+      // al giorno, che nessun uso umano intensivo raggiunge.
+      expect(a.dailyLimit(Tier.tier3), 50);
     });
 
     test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo',
@@ -51,12 +54,18 @@ void main() {
       expect(allowance.canAsk(Tier.tier1), isTrue);
     });
 
-    test('L\'Illuminato non consuma il contatore', () {
+    test('L\'Illuminato consuma anche lui, e ha un tetto alto', () {
+      // **NON PIU' "non consuma", ordine CE voce 08.** Finche' il piano
+      // era illimitato il contatore lo saltava; adesso l'Illuminato ha
+      // cinquanta domande al giorno, quindi consuma come tutti. Il tetto
+      // e' ampio per scelta: il fondatore voleva un numero che un uso
+      // umano intensivo non raggiunge, non un piano senza conto.
       final allowance = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
       allowance.record(Tier.tier3);
       allowance.record(Tier.tier3);
-      expect(allowance.usedToday(), 0);
+      expect(allowance.usedToday(), 2);
       expect(allowance.canAsk(Tier.tier3), isTrue);
+      expect(allowance.remaining(Tier.tier3), 48);
     });
 
     test('Il confronto a piu Maestri e riservato al Tier a pagamento', () {
@@ -87,8 +96,11 @@ void main() {
       final iniziato = PlanCatalog.forTier(Tier.tier1);
       expect(iniziato.price!.weekly, '2,90 €');
       expect(iniziato.price!.monthly, '9,90 €');
-      expect(iniziato.price!.yearly, '89,90 €');
-      expect(iniziato.price!.yearlyDiscountPercent, 24);
+      expect(iniziato.price!.yearly, '99,90 €');
+      // **LO SCONTO SEGUE IL PREZZO, ordine CE voce 07.** Era 24 e adesso
+      // e 16, che e lo sconto minore che il fondatore ha chiesto: 99,90
+      // contro 118,80 di dodici mensili.
+      expect(iniziato.price!.yearlyDiscountPercent, 16);
       // L'Iniziato apre col riepilogo del gratuito, poi la Memoria AI.
       expect(iniziato.highlights.first, contains('Tutto di Viandante'));
       expect(iniziato.highlights.any((h) => h.contains('Memoria AI')), isTrue);
@@ -96,7 +108,7 @@ void main() {
       final adepto = PlanCatalog.forTier(Tier.tier2);
       expect(adepto.price!.monthly, '19,90 €');
       final illuminato = PlanCatalog.forTier(Tier.tier3);
-      expect(illuminato.price!.yearly, '269,90 €');
+      expect(illuminato.price!.yearly, '279,90 €');
     });
 
     test('Gli highlights usano solo "Maestri", mai "Guide" o "Guida"', () {
@@ -145,7 +157,7 @@ void main() {
           isTrue);
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
-      expect(illuminato.any((h) => h.contains('Domande ai Maestri illimitate')),
+      expect(illuminato.any((h) => h.contains('50 domande ai Maestri')),
           isTrue);
       expect(
           illuminato.any((h) =>
@@ -168,7 +180,7 @@ void main() {
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
       // Mauro: erano tre dall'ordine I.
       expect(gettate.values,
-          ['1 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']);
+          ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno']);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }
@@ -178,7 +190,7 @@ void main() {
       final domande = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Domande a un Maestro');
       expect(domande.values,
-          ['3 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']);
+          ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno']);
       final voce = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Voce AI dei Maestri');
       expect(voce.values, ['No', 'No', 'Esclusiva', 'Sì']);

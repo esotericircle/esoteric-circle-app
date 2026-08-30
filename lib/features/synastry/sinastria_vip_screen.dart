@@ -39,6 +39,8 @@ import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../core/entitlement/budget_del_giorno.dart';
+import '../../design_system/components/riga_del_residuo.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -688,6 +690,17 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
           SpacingTokens.lg, SpacingTokens.xxxl),
       children: [
+        // **QUANTE SINASTRIE TI RESTANO, ordine CE voce 04.** Parole del
+        // fondatore: "in sinastria vip, non avevo chiesto che doveva esserci
+        // il conteggio delle sinastrie rimaste? l'utente deve Sapere quante ne
+        // mancano". Il conto esisteva gia' in `sinastrieRimaste` e non lo
+        // leggeva nessuno: stava scritto e non detto.
+        //
+        // **Sta in cima e non accanto al tasto**, perche' qui il gesto che
+        // consuma non e' un tasto: e' scegliere un VIP, e quando la scelta e'
+        // fatta il consumo e' gia' avvenuto.
+        const RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
+
         // I due poli nella cornice VIP col cuore.
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,

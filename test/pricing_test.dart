@@ -91,7 +91,7 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('choose_tier1')),
-        matching: find.textContaining('89,90 € all\'anno'),
+        matching: find.textContaining('99,90 € all\'anno'),
       ),
       findsOneWidget,
     );
