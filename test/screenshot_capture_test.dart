@@ -157,6 +157,11 @@ import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
 import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
 import 'package:esoteric_circle/features/settings/privacy_e_permessi_screen.dart';
+import 'package:esoteric_circle/core/arts/art_catalog.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_catalog.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
+import 'package:esoteric_circle/features/maestri/art_intro_screen.dart';
+import 'package:esoteric_circle/design_system/components/feature_sheet.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -1560,6 +1565,15 @@ void main() {
         find.byKey(const Key('ritual_gesture')), const Offset(250, 0));
     await tester.pump(const Duration(milliseconds: 700));
     await capture(tester, rootKey, 'arcano-del-giorno.png');
+    // **IL RESPONSO STA SOTTO LA PIEGA.** Ordine CE voce 10: la misura del
+    // responso e' cio' che questa voce cambia, e nella cattura di sopra il
+    // testo non entra nemmeno nello schermo. Qui si scorre fino a lui.
+    await tester.drag(find.byType(SingleChildScrollView).last,
+        const Offset(0, -900));
+    // Il cosmo respira sempre: `pumpAndSettle` non tornerebbe mai.
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-il-responso.png');
   });
 
   // La Runa del Tramonto ha un flusso lungo: attesa, getto, incisione, due voci,
@@ -6110,6 +6124,47 @@ void main() {
             child: StesaTreCarteScreen(skipIntro: true, revealAll: true))));
     await step(tester);
     await capture(tester, rootKey, 'barra-assente-in-immersiva.png');
+  });
+
+  // **LE DUE SCHERMATE CHE SI VEDONO PRIMA DI CHIEDERE UN RESPONSO.** Ordine CE
+  // voce 10: il fondatore ha scritto "anche prima di chiedere un responso", e
+  // queste due non erano mai state fotografate. Portano il testo PIU' LUNGO che
+  // l'app puo' davvero mostrare, misurato sul catalogo e non scelto a occhio:
+  // e' li' che un testo fuori misura si vede, non sulla frase corta.
+  testWidgets('Cattura l\'intro di un\'arte, il testo piu\' lungo',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Lunology, 179 caratteri di anticipo: il piu' lungo delle ventidue arti.
+    final arte = ArtCatalog.all.firstWhere((a) => a.id == 'lunology');
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(
+        ArtIntroScreen.route(art: arte, maestro: Maestro.medora)));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'intro-di-un-arte.png');
+  });
+
+  testWidgets('Cattura il foglio di una funzione, il testo piu\' lungo',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // La chiromanzia, 98 caratteri: l'anticipo piu' lungo del catalogo.
+    final funzione =
+        FeatureCatalog.all.firstWhere((f) => f.id == 'palmistry');
+    // Il foglio chiede la tavolozza del Maestro, quindi il contesto deve
+    // stare SOTTO lo scope: quello di MaterialApp gli sta sopra e cade.
+    final contesto = tester.element(find.descendant(
+        of: find.byType(MaestroScope), matching: find.byType(Scaffold)).first);
+    unawaited(showFeatureSheet(contesto,
+        feature: funzione, status: FeatureStatus.comingSoon));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'foglio-di-una-funzione.png');
   });
 
 }

@@ -12,6 +12,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'chat/maestro_chat_screen.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// La soglia di un'arte che si apre ma non ha ancora la sua esperienza piena.
 ///
@@ -82,22 +83,23 @@ class ArtIntroScreen extends StatelessWidget {
                     style: TypographyTokens.display(size: 24)
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
-                Text(
-                  art.teaser,
-                  style: TypographyTokens.body(size: 17).copyWith(
-                    color: ColorTokens.textPrimary,
-                    height: 1.5,
-                  ),
+                // **ALLA MISURA DEL RESPONSO. Ordine CE voce 10.** Parole del fondatore:
+                // "nella maggior parte delle funzionalita' NON SI LEGGE BENE IL TESTO. anche
+                // nei doni o tutte le funzionalita' anche prima di chiedere un responso". La
+                // misura non si sceglie, si prende: e' `lettura()`, la stessa del responso dei
+                // Tarocchi e dell'Oroscopo.
+                ParagrafiDiLettura(
+                  testo: art.teaser,
+                  stile: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textPrimary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
                 Text(
                   'L\'esperienza piena di quest\'arte sta prendendo forma nelle '
                   'mani di ${maestro.displayName}. Intanto puoi portargliela '
                   'come domanda: il Cerchio risponde già adesso.',
-                  style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textSecondary,
-                    height: 1.45,
-                  ),
+                  style: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textSecondary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
                 FilledButton.icon(

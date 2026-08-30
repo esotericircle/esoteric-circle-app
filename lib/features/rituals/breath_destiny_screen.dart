@@ -33,6 +33,7 @@ import 'ritual_gift_card.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// Soffio del Destino, dominio Aura.
 ///
@@ -626,20 +627,24 @@ class _LaRisposta extends StatelessWidget {
                     superficie: SuperficiDelSoffio.velo),
                 letterSpacing: 3)),
         const SizedBox(height: SpacingTokens.sm),
+        // **LA RISPOSTA DEL SOFFIO SI LEGGE, E STAVA A SEDICI.** Ordine
+        // CE voce 10. L'ordine dava per buona la misura di questo Dono e
+        // per mancante solo la porta: misurato, era il contrario, i due
+        // paragrafi stavano a sedici punti come l'Arcano.
         if (risposta.apre != null)
-          Text(risposta.apre!,
+          ParagrafiDiLettura(
               key: const Key('soffio_apre'),
-              style: TypographyTokens.body(size: 16).copyWith(
-                  color: SuperficiDelSoffio.inchiostroDellaRisposta,
-                  height: 1.5)),
+              testo: risposta.apre!,
+              stile: TypographyTokens.lettura().copyWith(
+                  color: SuperficiDelSoffio.inchiostroDellaRisposta)),
         if (risposta.apre != null && risposta.nonForzare != null)
           const SizedBox(height: SpacingTokens.sm),
         if (risposta.nonForzare != null)
-          Text(risposta.nonForzare!,
+          ParagrafiDiLettura(
               key: const Key('soffio_non_forzare'),
-              style: TypographyTokens.body(size: 16).copyWith(
-                  color: SuperficiDelSoffio.inchiostroSecondarioDellaRisposta,
-                  height: 1.5)),
+              testo: risposta.nonForzare!,
+              stile: TypographyTokens.lettura().copyWith(
+                  color: SuperficiDelSoffio.inchiostroSecondarioDellaRisposta)),
       ],
       ),
     );

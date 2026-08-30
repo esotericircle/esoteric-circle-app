@@ -1355,9 +1355,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               style: TypographyTokens.label(size: 12.5)
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.8)),
           const SizedBox(height: SpacingTokens.xs),
-          Text(testo,
-              style: TypographyTokens.body(size: 17)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
+          // **DICIOTTO E NON DICIASSETTE. Ordine CE voce 10.** Un punto di
+          // differenza non si vede da solo, si vede accanto: la Runa stava a
+          // diciassette e l'Oroscopo a diciotto, e il fondatore ha letto le
+          // due cose una dopo l'altra.
+          ParagrafiDiLettura(
+              testo: testo,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
         ],
       ),
     );
@@ -1501,8 +1506,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           const SizedBox(height: SpacingTokens.sm),
           Text(didascalia,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 17)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+              style: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
         ],
       ),
     );

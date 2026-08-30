@@ -6,6 +6,7 @@ import '../theme/maestro_scope.dart';
 import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
+import '../typography/paragrafi_di_lettura.dart';
 
 /// Mostra l'anticipo elegante (Coming soon) o l'invito all'upgrade (premium).
 ///
@@ -97,9 +98,14 @@ class _FeatureSheetContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
-          Text(
-            feature.teaser,
-            style: TypographyTokens.body(size: 16)
+          // **ALLA MISURA DEL RESPONSO. Ordine CE voce 10.** Parole del fondatore:
+          // "nella maggior parte delle funzionalita' NON SI LEGGE BENE IL TESTO. anche
+          // nei doni o tutte le funzionalita' anche prima di chiedere un responso". La
+          // misura non si sceglie, si prende: e' `lettura()`, la stessa del responso dei
+          // Tarocchi e dell'Oroscopo.
+          ParagrafiDiLettura(
+            testo: feature.teaser,
+            stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.xl),

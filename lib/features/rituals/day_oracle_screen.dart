@@ -19,6 +19,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'ritual_view.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// L'ARCANO DEL GIORNO, dominio Medora. Ordine AS voce 08.
 ///
@@ -162,10 +163,15 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
               style: TypographyTokens.lettura()
                   .copyWith(color: palette.goldSoft, height: 1.4)),
           const SizedBox(height: SpacingTokens.sm),
-          Text(carta.upright,
+          // **IL RESPONSO DELL'ARCANO ALLA MISURA DEL RESPONSO.** Ordine CE
+          // voce 10: stava a `corpo()`, cioe' sedici punti, mentre il
+          // responso dei Tarocchi ne ha diciotto. E' lo stesso gesto, letto
+          // per intero, e adesso ha la stessa misura.
+          ParagrafiDiLettura(
               key: const Key('arcano_responso'),
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+              testo: carta.upright,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
         ],
       ),
     );
