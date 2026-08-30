@@ -5,6 +5,7 @@ import '../astro/natal_chart.dart';
 import '../astro/night_sky.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/zodiac.dart';
+import '../astro/eclissi.dart';
 
 /// GLI EVENTI DEL CIELO VERI DI OGGI, in un punto solo.
 ///
@@ -40,6 +41,11 @@ class EventiDelCielo {
   static const ritornoSolare = 'ritorno_solare';
   static const solstizio = 'solstizio';
   static const equinozio = 'equinozio';
+  /// **L'ECLISSI, dall'ordine CE voce 16.** Prima non c'era, e tre gradini
+  /// del Cammino dormivano per questo. Il giorno si intende in Tempo
+  /// Universale, come lo data il canone: e' lo stesso confine con cui il
+  /// mondo intero nomina un'eclissi.
+  static const eclissi = 'eclissi';
   static const mercurioRetrogrado = 'mercurio_retrogrado';
   static const mercurioDiretto = 'mercurio_diretto';
   static const venereRetrograda = 'venere_retrograda';
@@ -61,6 +67,9 @@ class EventiDelCielo {
 
   /// Tutti gli eventi che questo catalogo sa riconoscere.
   static const List<String> tutti = [
+    // L'eclissi, dall'ordine CE voce 16: senza questa riga il catalogo non la
+    // riconoscerebbe e i tre gradini non si accenderebbero mai.
+    eclissi,
     lunaPiena,
     lunaNuova,
     primoQuarto,
@@ -157,6 +166,12 @@ class EventiDelCielo {
     }
     for (final grado in const [90.0, 270.0]) {
       if (_haAttraversato(soleIeri, soleOggi, grado)) eventi.add(solstizio);
+    }
+
+    // **L'ECLISSI, ordine CE voce 16.** Il motore la sa dire per il giorno,
+    // e la sa dire offline: e' un conto di Meeus, non una chiamata.
+    if (MotoreDelleEclissi.nelGiornoDi(adesso.toUtc()) != null) {
+      eventi.add(eclissi);
     }
 
     // IL RITORNO SOLARE: il Sole torna dov'era alla nascita. E' il compleanno

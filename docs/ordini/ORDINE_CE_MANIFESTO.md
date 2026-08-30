@@ -30,12 +30,12 @@ Porta le tre regole degli ordini precedenti:
 - **CE.13** L'incrocio nei Doni del Giorno. **CHIUSA.** Tutti e cinque cambiano adesso al cambiare della carta natale, a parita' di giorno, e una prova lo misura chiedendo il responso due volte. **Tre premesse dell'ordine sono cadute alla misura**, elencate qui sotto.
 - **CE.14** La spirale della festa che non si legge come spirale. **CHIUSA.** L'ipotesi dell'Architetto era giusta, e la misura lo dice: l'angolo di nascita era indipendente dall'istante di nascita, quindi a ogni raggio gli angoli erano uniformi per costruzione. Adesso la spirale ha tre bracci avvolti, e due grandezze nuove li misurano. **Un vincolo dell'ordine AV e' sceso, e non si poteva fare altrimenti**: la ragione sta qui sotto.
 - **CE.15** Il censimento delle stringhe per la traduzione. **CHIUSA.** 6.751 stringhe rivolte alla persona in 283 file, e nessuna passa da un sistema di traduzione, perche' quel sistema non esiste: verificato, niente `.arb`, niente `lib/l10n`, niente `intl`. **Il censimento risponde alla domanda del fondatore**: sono due lavori, non uno.
-- **CE.16** Il motore delle eclissi. **APERTA.**
-- **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
+- **CE.16** Il motore delle eclissi. **CHIUSA.** Il motore esiste, e' verificato contro il canone della NASA su 44 eclissi dal 2021 al 2030, e i tre gradini dormienti si sono svegliati: **i dormienti scendono da 54 a 51**. Scarto peggiore sull'istante del massimo: **un minuto e mezzo**. Specie sbagliate: **zero**.
+- **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **CHIUSA.** Lo studio sta in `docs/studi/attribuzione_automatica_dellinvito.md`, e i tre fatti sono verificati sul ramo. **Le due piattaforme non si equivalgono**: su Android l'attribuzione automatica e' un fatto della piattaforma, su iOS l'automatismo pieno non esiste senza prendere l'impronta del dispositivo.
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 15
-VOCI_APERTE: 2
+VOCI_CHIUSE: 17
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -540,3 +540,90 @@ nome che qualcuno sceglie.
 
 **Nessuna riga di traduzione e nessun pacchetto aggiunto**, come la voce chiede,
 e una prova lo sorveglia insieme alla premessa.
+
+### CE.16, il motore e la sua verifica
+
+**La fonte del motore e' quella gia' in uso nel progetto**: Jean Meeus,
+*Astronomical Algorithms*, seconda edizione, capitolo 49 per l'istante delle
+fasi lunari vere e capitolo 54 per le eclissi. E' lo stesso libro da cui vengono
+le effemeridi dei pianeti.
+
+**La fonte terza e' un'altra**, come l'ordine chiede: il canone di Fred Espenak
+e Jean Meeus pubblicato dalla NASA su `eclipse.gsfc.nasa.gov`, tabelle decennali
+`SEdecade2021` e `LEdecade2021`, calcolato con le effemeridi complete del JPL.
+Ventidue eclissi solari e ventidue lunari dal 2021 al 2030: quarantaquattro
+misure indipendenti, trascritte nella prova.
+
+| grandezza | valore |
+| --- | --- |
+| eclissi del canone trovate dal motore | 43 su 44 |
+| eclissi inventate dal motore | 0 |
+| specie sbagliate | 0 su 43 |
+| scarto peggiore sull'istante del massimo | **1,5 minuti**, il 21 settembre 2025 |
+| soglia dichiarata | 3 minuti |
+
+**L'ACCURATEZZA PRETESA, scelta e motivata.** All'app serve sapere se un giorno
+porta un'eclissi e di che specie, perche' e' cio' che i tre gradini chiedono.
+Non serve dove la si vede: quello chiede la posizione dell'osservatore e il
+profilo dell'ombra sulla superficie terrestre, cioe' un altro ordine di conto.
+La finestra verificata e' 2015-2030 e sta dichiarata nel codice.
+
+**I DUE BUCHI, dichiarati invece che nascosti.**
+
+- **Una penombrale su quarantaquattro sfugge**, quella del 18 luglio 2027. Il
+  criterio del capitolo 54 e' di prima approssimazione e le penombrali piu'
+  rasenti gli passano accanto. Prenderla vorrebbe dire calcolare la latitudine
+  vera della Luna a ogni sizigia, cioe' un altro motore. Per i tre gradini non
+  cambia niente: una penombrale rasente non si vede a occhio nudo, e un gradino
+  che si accendesse per un'ombra invisibile mentirebbe piu' di uno che tace. **La
+  prova pretende quella e solo quella**: se domani ne perdesse due, cade.
+- **L'eclissi ibrida non e' riconosciuta come tale**: il canone ne segna una in
+  dieci anni, il 20 aprile 2023, e il motore la chiama totale o anulare.
+
+### Come i tre gradini si sono svegliati, senza toccare il corpus
+
+Il corpus della revisione E dichiara quei tre dormienti scrivendo il perche':
+"il motore delle eclissi non esiste". **Quella nota e' un fatto del giorno in cui
+e' stata scritta, e il corpus non si tocca**: e' la fonte.
+
+Ma un motore che nasce rende falsa la sua nota, e un gradino che continua a
+dormire per una ragione risolta e' un gradino perso in silenzio. Il generatore
+ha adesso un elenco di **ragioni risolte**, ognuna con l'ordine che l'ha risolta:
+quando la nota del corpus corrisponde, il flag si scavalca e la frase torna alle
+regole normali, che le danno la sua condizione vera. **Non e' una mano che
+sveglia un gradino: e' il generatore che sa una cosa in piu' del corpus, e lo
+dice**, come l'ordine chiede.
+
+### CE.17, i tre fatti e le due strade
+
+**I tre fatti che l'ordine chiede di verificare, verificati sul ramo.**
+
+- **L'app non gestisce nessun collegamento in arrivo.** L'unico `intent-filter`
+  di Android e' `MAIN` e `LAUNCHER`; l'unico `CFBundleURLTypes` di iOS e' lo
+  schema di ritorno dell'accesso Google, che non e' un collegamento all'app.
+  Nel `pubspec.yaml` non c'e' ne' `app_links`, ne' `uni_links`, ne'
+  `install_referrer`.
+- **`riscattaLInvito` esiste, e' distribuita e paga**, in
+  `functions/src/cerchio.ts`, con le tre difese misurate dall'ordine CC voce 08.
+- **Firebase Dynamic Links e' stato spento da Google il 25 agosto 2025**,
+  verificato alla fonte e non a memoria: `firebase.google.com/support/dynamic-links-faq`.
+  Google indirizza ai fornitori terzi oppure ad App Links e Universal Links.
+
+**LE DUE PIATTAFORME NON SI EQUIVALGONO, e fingere che si equivalgano
+costerebbe caro.** Su Android il Play Install Referrer consegna il codice
+dell'invito senza chiedere permessi e senza mostrare niente: e' la cosa piu'
+automatica e discreta che esista, ed e' quello che il fondatore ha chiesto.
+Dodici ore, e per provarla basta una traccia interna del Play Store: **non serve
+pubblicare**.
+
+Su iOS un equivalente **non esiste**: Apple non consegna all'app il parametro
+del link da cui l'installazione e' partita. I fornitori terzi lo aggirano con
+l'impronta del dispositivo, che e' l'opposto della discrezione richiesta e
+contro le regole di Apple. La via onesta e' Universal Links piu' una pagina
+ponte, e la persona alla prima apertura trova il codice gia' scritto e conferma
+con un tocco. Diciotto ore.
+
+**Android automatico, iOS a un tocco**, trenta ore in tutto, nessun fornitore
+terzo dentro l'app e la stessa `riscattaLInvito` sotto tutte e due.
+
+Il debito e' scritto anche in `docs/ordini/RIPRESA.md`, come l'ordine chiede.

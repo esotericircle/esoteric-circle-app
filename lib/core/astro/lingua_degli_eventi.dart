@@ -27,6 +27,8 @@ class LinguaDegliEventi {
     EventiDelCielo.ritornoSolare: 'Il tuo ritorno solare',
     EventiDelCielo.solstizio: 'Solstizio',
     EventiDelCielo.equinozio: 'Equinozio',
+    // L'eclissi, dall'ordine CE voce 16.
+    EventiDelCielo.eclissi: 'Eclissi',
     EventiDelCielo.mercurioRetrogrado: 'Mercurio retrogrado',
     EventiDelCielo.mercurioDiretto: 'Mercurio torna diretto',
     EventiDelCielo.venereRetrograda: 'Venere retrograda',
@@ -75,6 +77,13 @@ class LinguaDegliEventi {
     EventiDelCielo.solstizio:
         'Il Sole raggiunge la sua massima distanza dall\'equatore celeste: '
             'il giorno più lungo o più corto dell\'anno.',
+    // **L\'ECLISSI, ordine CE voce 16.** Il testo dice anche il confine
+    // onesto: il giorno e' quello del canone, ma non ogni eclissi si vede
+    // da dove sei.
+    EventiDelCielo.eclissi:
+        'Il Sole o la Luna entrano nell\'ombra. Per qualche ora il cielo '
+            'cambia regola. Il giorno è quello del canone astronomico: '
+            'dove la si veda dipende da dove sei.',
     EventiDelCielo.equinozio:
         'Il giorno e la notte durano uguale su tutta la Terra. Da qui '
             'cominciavano molti anni antichi.',

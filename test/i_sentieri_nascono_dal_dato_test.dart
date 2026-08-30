@@ -206,6 +206,19 @@ void main() {
       expect(dichiarati, 51,
           reason: 'il corpus dichiara $dichiarati dormienti invece di 51: se '
               'il file e\' cambiato il numero segue il dato, ma va detto');
+      // **TRE DI QUEI CINQUANTUNO ADESSO SONO SVEGLI, ED E\' GIUSTO COSI\'.**
+      // Ordine CE voce 16: il corpus li dichiara dormienti scrivendo
+      // perche\', "il motore delle eclissi non esiste", e quella nota era
+      // vera il giorno in cui e\' stata scritta. Il motore adesso esiste, e il
+      // generatore ha un elenco di ragioni risolte che scavalca il flag del
+      // corpus. **Il corpus non si tocca**: e\' la fonte, e riscriverlo
+      // sarebbe cancellare la storia.
+      //
+      // La riga qui sotto pretende ESATTAMENTE quei tre e nessun altro: un
+      // quarto gradino che si svegliasse senza una ragione risolta la fa
+      // cadere, che e\' precisamente il guasto da cui questa guardia nasce.
+      const svegliatiDaUnaRagioneRisolta = ['med_50', 'aur_49', 'cal_50'];
+      svegliPerErrore.removeWhere(svegliatiDaUnaRagioneRisolta.contains);
       expect(svegliPerErrore, isEmpty,
           reason: 'questi dormienti del corpus sono svegli in app: '
               '$svegliPerErrore');
@@ -262,11 +275,26 @@ void main() {
           reason: 'queste voci dormono perche\' l\'app non sa misurarle, '
               'e non perche\' il corpus le voglia dormienti: '
               '${inPiu.map((t) => t.id).toList()}');
-      expect(inApp.length, dalCorpus.length + tolti.length,
+      // **E I RISVEGLIATI SI SOTTRAGGONO, ordine CE voce 16.** Tre voci che
+      // il corpus dichiara dormienti non dormono piu\' in app, perche\' la
+      // ragione scritta nel corpus e\' stata risolta da un ordine: il motore
+      // delle eclissi adesso esiste. Il conto le toglie invece di
+      // pretenderle, e la riga di sopra ha gia\' preteso che siano
+      // esattamente quelle tre.
+      final risvegliati = dalCorpus
+          .where((id) =>
+              Sentieri.tuttiITraguardi
+                  .where((t) => t.id == id && t.dormiente)
+                  .isEmpty)
+          .length;
+      expect(inApp.length, dalCorpus.length + tolti.length - risvegliati,
           reason: 'in app dormono ${inApp.length} voci invece di '
-              '${dalCorpus.length + tolti.length}: il numero segue il dato, '
-              'ma un cambiamento va detto al fondatore');
-      expect(inApp.length, 54,
+              '${dalCorpus.length + tolti.length - risvegliati}: il numero '
+              'segue il dato, ma un cambiamento va detto al fondatore');
+      // **CINQUANTUNO DALL\'ORDINE CE VOCE 16**, e il numero segue il dato:
+      // erano cinquantaquattro, e i tre gradini delle eclissi si sono
+      // svegliati perche\' il loro motore adesso esiste.
+      expect(inApp.length, 51,
           reason: 'erano 51 fino all\'ordine CB, e i tre in piu\' sono quelli '
               'del quaderno dei sogni tolto: ${tolti.keys}');
       expect(senzaRagione.map((t) => t.id), isEmpty,

@@ -4,8 +4,26 @@
 che lo chiedeva e' stato tolto dal Santuario per ordine del fondatore, che lo ha
 accettato per iscritto: "e' una demo per ora, si toglie e accettiamo che per ora
 nessuno riscuote i 60 EOS, ma va sistemato prima della pubblicazione". Resta la
-porta a mano nel menu' Account. La strada automatica e' materia della voce
-CE.17, che produce lo studio per Android e per iOS.
+porta a mano nel menu' Account.
+
+**LO STUDIO C'E', ordine CE voce 17**: sta in
+`docs/studi/attribuzione_automatica_dellinvito.md`. In sintesi, e i tre fatti
+sono verificati sul ramo: l'app oggi non gestisce nessun collegamento in
+arrivo, `riscattaLInvito` esiste ed e' distribuita, e **Firebase Dynamic Links
+e' stato spento da Google il 25 agosto 2025**, quindi la strada che il progetto
+avrebbe usato non esiste piu'.
+
+**Su Android l'attribuzione automatica si fa**, col Play Install Referrer, che
+e' nativo, non chiede permessi e non mostra niente: dodici ore, e serve una
+traccia interna del Play Store per provarla, non la pubblicazione.
+
+**Su iOS l'automatismo pieno non esiste** senza un fornitore terzo che prenda
+l'impronta del dispositivo, cioe' l'opposto della discrezione che il fondatore
+chiede: la via onesta e' Universal Links piu' una pagina ponte, e la persona
+trova il codice gia' scritto e conferma con un tocco. Diciotto ore.
+
+Trenta ore in tutto, nessun fornitore terzo dentro l'app, e la stessa
+`riscattaLInvito` sotto tutte e due le piattaforme.
 
 # RIPRESA, ARCHIVIO CHIUSO
 

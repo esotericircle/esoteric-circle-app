@@ -177,6 +177,12 @@ EVENTI = [
     ('sole nel tuo segno', 'soleNelTuoSegno'),
     ('ritorno solare', 'ritornoSolare'),
     ('compleanno', 'ritornoSolare'),
+    # **L'ECLISSI, ordine CE voce 16.** Il motore delle eclissi adesso
+    # esiste, quindi la parola si traduce invece di lasciare dormire il
+    # gradino. La nota del corpus dice ancora che il motore non c'e': il
+    # generatore NON la tocca, ma questa regola arriva prima di quella dei
+    # dormienti dichiarati e la scavalca, e la ragione sta qui scritta.
+    ('eclissi', 'eclissi'),
     ('solstizio', 'solstizio'),
     ('equinozio', 'equinozio'),
     ('mercurio retrogrado', 'mercurioRetrogrado'),
@@ -226,9 +232,43 @@ def eventoIn(testo):
 # prima che riconosce vince: l'ordine conta, e per questo le regole piu'
 # specifiche stanno prima.
 
+# **LE RAGIONI DI DORMIENZA CHE NON VALGONO PIU'.** Ordine CE voce 16.
+#
+# Il corpus della revisione E dichiara dormienti certi gradini scrivendo
+# PERCHE': "il motore delle eclissi non esiste", "serve il conto degli inviti
+# accolti". Quelle note sono un fatto del giorno in cui sono state scritte, e il
+# corpus non si tocca: e' la fonte, e riscriverlo sarebbe cancellare la storia.
+#
+# **Ma un motore che nasce rende falsa la sua nota**, e un gradino che continua
+# a dormire per una ragione risolta e' un gradino perso in silenzio. Qui le
+# ragioni risolte stanno scritte una per una, con l'ordine che le ha risolte:
+# quando una nota corrisponde, il flag `dormiente` del corpus si scavalca e la
+# frase torna alle regole normali, che le daranno la sua condizione vera.
+#
+# **La riga non e' una mano che sveglia un gradino**: e' il generatore che sa
+# una cosa in piu' del corpus, e lo dice.
+RAGIONI_RISOLTE = [
+    ('il motore delle eclissi non esiste',
+     'ordine CE voce 16: il motore esiste, ed e\' verificato contro il canone '
+     'della NASA su quarantaquattro eclissi dal 2021 al 2030'),
+]
+
+
+def ragioneRisolta(nota):
+    """La ragione di dormienza e' stata risolta da un ordine? Torna il perche'."""
+    n = senzaAccenti((nota or '').strip().lower())
+    for frase, perche in RAGIONI_RISOLTE:
+        if senzaAccenti(frase) in n:
+            return perche
+    return None
+
+
 def regolaDormienteDichiarato(v, testo):
     """Il corpus stesso dice che quella voce dorme."""
     if v.get('dormiente'):
+        # **SALVO CHE LA RAGIONE NON VALGA PIU'.** Vedi RAGIONI_RISOLTE.
+        if ragioneRisolta(v.get('note')):
+            return None
         # **IL PERCHE' NON PUO' ESSERE UN TELEGRAMMA.** Ordine BS voce 01: la
         # revisione E scrive note brevissime come "DORMIENTE: fase 4", e chi
         # trovera' quel gradino fra sei mesi non sapra' cosa manca. Si compone
@@ -381,6 +421,40 @@ def regolaRitoDelMaestroNelCielo(v, testo):
         return None
     return ("FinestraDelCielo(EventiDelCielo.%s, conSentiero: '%s', "
             "nellOra: '%s')" % (evento, sentiero, ora)), None
+
+
+def regolaGestoDelMaestroNelCielo(v, testo):
+    """**UN GESTO DI QUEL MAESTRO DENTRO UNA FINESTRA DEL CIELO.** Ordine CE
+    voce 16.
+
+    "Un responso di Medora nelle ore di un'eclissi" e "Un rito di Caligo nelle
+    ore di un'eclissi" sono due gradini diversi: cambiano il Maestro. Senza
+    questa regola la finestra generale li traduceva tutti e due nella stessa
+    condizione, e la guardia dei doppioni lo diceva: `cal_50` ripeteva `med_50`.
+
+    La regola del rito nel cielo che c'era gia' pretende anche un'ORA (notte,
+    alba, tramonto), e qui l'ora non c'e': c'e' un Maestro e basta. Questa la
+    riconosce, e lega il gradino al sentiero di quel Maestro.
+    """
+    evento = eventoIn(testo) or eventoIn(senzaAccenti(v.get(
+        'finestra_del_cielo') or ''))
+    if evento is None:
+        return None
+    sentiero = v.get('_sentiero')
+    if sentiero is None:
+        return None
+    # Il nome del Maestro nella frase, non il sentiero del gradino: sono la
+    # stessa cosa, ma solo quando la frase lo dice davvero.
+    maestri = {'medora': 'costellazione', 'caligo': 'albero', 'aura': 'loto'}
+    quale = None
+    for nome, suo in maestri.items():
+        if nome in testo:
+            quale = suo
+            break
+    if quale is None or quale != sentiero:
+        return None
+    return ("FinestraDelCielo(EventiDelCielo.%s, conSentiero: '%s')"
+            % (evento, sentiero)), None
 
 
 def regolaCielo(v, testo):
@@ -1245,6 +1319,7 @@ REGOLE = [
     # tradurrebbe "un rito di Caligo nella notte del solstizio" con la sola
     # finestra, cioe' renderebbe il gradino piu' facile di quanto e'.
     regolaRitoDelMaestroNelCielo,
+    regolaGestoDelMaestroNelCielo,
     regolaCielo,
     regolaRunaGirata,
     regolaLetturaFinoInFondo,
