@@ -20,6 +20,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'ritual_view.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import 'package:provider/provider.dart';
+import '../../core/identity/natal_identity.dart';
 
 /// L'ARCANO DEL GIORNO, dominio Medora. Ordine AS voce 08.
 ///
@@ -48,6 +50,19 @@ class DayOracleScreen extends StatefulWidget {
   State<DayOracleScreen> createState() => _DayOracleScreenState();
 }
 
+/// La data di nascita, se c'e', senza pretendere il provider.
+///
+/// **Un `context.read` preteso in un punto condiviso fa cadere lontano**: e'
+/// una lezione gia' pagata da questo progetto, con quaranta prove cadute
+/// altrove. Qui il Dono si apre anche dove il provider non c'e'.
+DateTime? _forseLaNascita(BuildContext context) {
+  try {
+    return context.read<BirthIdentityController>().details?.date;
+  } catch (errore) {
+    return null;
+  }
+}
+
 class _DayOracleScreenState extends State<DayOracleScreen> {
   /// Quante volte si e' chiesto di riprovare. Cambia la chiave della vista,
   /// cosi' il rito riparte davvero invece di restare dov'era.
@@ -57,7 +72,11 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
   Widget build(BuildContext context) {
     final date = widget.now ?? DateTime.now();
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final carta = ArcanoDelGiorno.di(date);
+    // **LA CARTA E' TUA, non del calendario.** Ordine CE voce 13: qui entra
+    // la data di nascita, e con lei la carta di nascita dei tarocchi. Chi non
+    // l'ha data riceve comunque il Dono, con la carta del giorno.
+    final nascita = _forseLaNascita(context);
+    final carta = ArcanoDelGiorno.di(date, nascita: nascita);
 
     return RitualView(
       key: ValueKey('oracolo_$_tentativo'),

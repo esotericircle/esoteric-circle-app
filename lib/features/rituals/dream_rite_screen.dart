@@ -36,6 +36,8 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'package:provider/provider.dart';
+import '../../core/identity/natal_identity.dart';
 
 /// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
@@ -85,6 +87,16 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   late final Maestro _maestro = DailyRituals.nightMaestro(_date);
   late final MaestroPalette _palette = MaestroPalette.forKey(ThemeKey.of(_maestro));
   late final BirthMoon _luna = DreamRiteCorpus.lunaDi(_date);
+
+  /// La data di nascita, se c'e', senza pretendere il provider: un
+  /// `context.read` preteso in un punto condiviso fa cadere prove lontane.
+  DateTime? _forseLaNascita(BuildContext context) {
+    try {
+      return context.read<BirthIdentityController>().details?.date;
+    } catch (errore) {
+      return null;
+    }
+  }
   late final ZodiacConstellation _figura =
       kZodiacConstellations.firstWhere((c) => c.sign == _luna.sign);
 
@@ -262,7 +274,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   @override
   Widget build(BuildContext context) {
-    final saluto = DreamRiteCorpus.saluto(_date);
+    // **IL SALUTO E' TUO, non solo della notte.** Ordine CE voce 13: qui
+    // entra la data di nascita, e con lei la Luna natale.
+    final saluto = DreamRiteCorpus.saluto(_date, nascita: _forseLaNascita(context));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
@@ -615,7 +629,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                     style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
-                Text(DreamRiteCorpus.daDoveNasce(_luna),
+                Text(
+                    DreamRiteCorpus.daDoveNasceCon(
+                        _luna,
+                        DreamRiteCorpus.relazione(
+                            _date, _forseLaNascita(context))),
                     style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),

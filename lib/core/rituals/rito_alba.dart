@@ -346,9 +346,11 @@ class RitoAlba {
   static RitoDiOggi? diOggi(
     DateTime giorno, {
     PosizioneDiStamattina? posizione,
+    Zodiac? soleNatale,
   }) {
     final cielo = CieloDiStamattina.per(giorno, posizione: posizione);
-    return componi(giorno, DailyRituals.dawnMaestro(giorno), cielo);
+    return componi(giorno, DailyRituals.dawnMaestro(giorno), cielo,
+        soleNatale: soleNatale);
   }
 
   /// Compone il rito per un Maestro e un cielo dati.
@@ -357,11 +359,12 @@ class RitoAlba {
   /// cosa che non accade finche' la fase lunare si calcola in locale: e' una
   /// cintura, non un caso atteso.
   static RitoDiOggi? componi(
-      DateTime giorno, Maestro maestro, CieloDiStamattina cielo) {
+      DateTime giorno, Maestro maestro, CieloDiStamattina cielo,
+      {Zodiac? soleNatale}) {
     final forme = RitoAlbaCorpus.perMaestro(maestro);
     if (forme.isEmpty) return null;
 
-    final seme = _seme(giorno, maestro);
+    final seme = _seme(giorno, maestro, soleNatale);
     final forma = forme[seme % forme.length];
 
     // Solo le varianti il cui dato c'e' davvero.
@@ -465,7 +468,7 @@ class RitoAlba {
   ) {
     if (!fascia.contiene(istante)) return null;
     final righe = RitoAlbaCorpus.righeDelRisveglio[maestro]!;
-    return righe[_derivato(_seme(istante, maestro), 4) % righe.length];
+    return righe[_derivato(_seme(istante, maestro, null), 4) % righe.length];
   }
 
   /// Mette i valori veri al posto dei segnaposto.
@@ -486,9 +489,20 @@ class RitoAlba {
   /// cambierebbe la runa e l'animale che escono a tutti, che e' un cambiamento
   /// di comportamento che quest'ordine non chiede. Resta un debito dichiarato:
   /// una porta sola per il seme del giorno merita un ordine suo.
-  static int _seme(DateTime giorno, Maestro maestro) {
+  /// Il seme del rito. **Dal 30 agosto 2026 ci entra anche il segno solare
+  /// di nascita**, ordine CE voce 13: il quarto fumetto del tutorial
+  /// promette che i cinque Doni nascono "incrociando il Cielo di oggi e la
+  /// tua Carta natale", e questo Dono l\'incrocio ce l\'aveva soltanto nella
+  /// scheda "da dove nasce": chi lo compiva non incontrava mai la propria
+  /// carta dentro cio' che leggeva. Il gesto, il respiro e la parola
+  /// nascono adesso anche dal suo Sole.
+  ///
+  /// **Chi non ha dato la nascita non perde il Dono**: senza segno la
+  /// chiave e' esattamente quella di prima.
+  static int _seme(DateTime giorno, Maestro maestro, Zodiac? soleNatale) {
     final chiave = '${giorno.year}-${giorno.month}-${giorno.day}|'
-        '${maestro.name}';
+        '${maestro.name}'
+        '${soleNatale == null ? '' : '|${soleNatale.name}'}';
     var hash = 0x811c9dc5;
     for (final unita in chiave.codeUnits) {
       hash = (hash ^ unita) & 0xFFFFFFFF;

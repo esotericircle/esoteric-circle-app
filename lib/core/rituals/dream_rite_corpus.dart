@@ -3,6 +3,7 @@ import '../astro/zodiac.dart';
 import '../identity/birth_moon.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
+import 'relazione_lunare.dart';
 
 /// La voce del Sigillo del Sogno per un segno della Luna: una parola calmante e le
 /// righe che guardano al giorno appena concluso.
@@ -174,13 +175,36 @@ class DreamRiteCorpus {
 
   /// Il saluto della notte: guarda al passato e al presente della giornata
   /// conclusa, mai al futuro. Deterministico da Maestro di turno, segno e fase.
-  static String saluto(DateTime quando) {
+  /// Il saluto della notte, per chi e' nato il [nascita].
+  ///
+  /// **DAL 30 AGOSTO 2026 NON E' PIU' LA STESSA NOTTE PER TUTTI.** Ordine CE
+  /// voce 13: il quarto fumetto del tutorial promette che i cinque Doni
+  /// nascono "incrociando il Cielo di oggi e la tua Carta natale", e questo
+  /// Dono, misurato, guardava soltanto la Luna di stanotte. Adesso entra anche
+  /// la LUNA DI NASCITA, e il rapporto fra le due si legge come lo legge
+  /// l'astrologia occidentale: dall'angolo che le separa.
+  ///
+  /// **Chi non ha dato la nascita non perde il Dono**: senza data il saluto e'
+  /// esattamente quello di prima.
+  static String saluto(DateTime quando, {DateTime? nascita}) {
     final maestro = DailyRituals.nightMaestro(quando);
     final luna = lunaDi(quando);
     final v = voce(luna.sign);
-    return '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, ${v.immagine}. '
-        'Oggi ${v.giorno}. Se guardi indietro, ${v.riconoscimento}. '
-        'Ora ${v.posa}. Buonanotte.';
+    final base = '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, '
+        '${v.immagine}. Oggi ${v.giorno}. Se guardi indietro, '
+        '${v.riconoscimento}. Ora ${v.posa}.';
+    final tua = nascita == null ? null : lunaDi(nascita);
+    if (tua == null) return '$base Buonanotte.';
+    final r = RelazioneLunare.fra(luna.sign, tua.sign);
+    return '$base ${r.riga} Buonanotte.';
+  }
+
+  /// La relazione fra la Luna di stanotte e quella di nascita, quando la
+  /// nascita si sa. Serve alla scheda "da dove nasce", che deve poterla
+  /// nominare senza ricomporre il saluto.
+  static RelazioneLunare? relazione(DateTime quando, DateTime? nascita) {
+    if (nascita == null) return null;
+    return RelazioneLunare.fra(lunaDi(quando).sign, lunaDi(nascita).sign);
   }
 
   /// La riga della provenienza, per la carta: segno e fase reali di stanotte.
@@ -189,6 +213,22 @@ class DreamRiteCorpus {
 
   /// Il testo del tooltip "Da dove nasce questo dono": dichiara il cielo reale,
   /// la Luna di stanotte e il confine onesto sull'allineamento.
+  /// La stessa scheda, quando la nascita si sa: dichiara anche l'aspetto fra
+  /// la Luna di stanotte e quella natale, che dal 30 agosto 2026 entra nel
+  /// saluto. **Una scheda che non nominasse l'incrocio direbbe il falso su
+  /// come nasce il Dono**, ed e' proprio la cosa che questa scheda esiste per
+  /// non fare.
+  static String daDoveNasceCon(BirthMoon luna, RelazioneLunare? relazione) {
+    final base = daDoveNasce(luna);
+    if (relazione == null) return base;
+    return '$base La riga finale nasce dall\'angolo fra questa Luna e '
+        'la Luna del tuo giorno di nascita, calcolata anche lei sul '
+        'dispositivo: stanotte è un ${relazione.nome}. L\'aspetto fra '
+        'un pianeta in transito e lo stesso pianeta natale è la '
+        'lettura più antica che l\'astrologia occidentale fa dei '
+        'transiti.';
+  }
+
   static String daDoveNasce(BirthMoon luna) =>
       'Il cielo che vedi è il cielo notturno reale di questo momento. Stanotte '
       'la Luna è in ${luna.sign.italianName}, in fase '

@@ -1,4 +1,5 @@
 import '../tarot/tarot_card.dart';
+import 'carta_di_nascita_dei_tarocchi.dart';
 
 /// L'ARCANO DEL GIORNO. Ordine AS voce 08.
 ///
@@ -31,25 +32,49 @@ class ArcanoDelGiorno {
       .where((c) => c.arcana == TarotArcana.maggiore)
       .toList(growable: false);
 
-  /// La carta di [giorno].
+  /// La carta di [giorno], per chi e' nato il [nascita].
   ///
   /// **Il conto non e' il giorno dell'anno**, che darebbe a tutti gli anni la
   /// stessa carta nello stesso giorno e farebbe tornare il Matto ogni
   /// ventidue giorni esatti, cioe' un ciclo che si riconosce. Qui si mescola
   /// anche l'anno e il mese, con una moltiplicazione di numeri primi: resta
   /// deterministico e ripetibile, ma il passo non si legge a occhio.
-  static TarotCard di(DateTime giorno) {
+  ///
+  /// **E DAL 30 AGOSTO 2026 NON E\' PIU\' LA STESSA CARTA PER TUTTI.**
+  /// Ordine CE voce 13. Il quarto fumetto del tutorial promette che i
+  /// cinque Doni nascono "incrociando il Cielo di oggi e la tua Carta
+  /// natale", e questo Dono, misurato, non incrociava niente: il seme
+  /// veniva dal solo calendario. Adesso nel seme entra anche la CARTA DI
+  /// NASCITA DEI TAROCCHI, che non e' una formula inventata qui ma la via
+  /// che la tradizione del mazzo offre da sempre per legare una persona
+  /// agli Arcani (vedi `CartaDiNascitaDeiTarocchi`).
+  ///
+  /// **Chi non ha dato la nascita non perde il Dono**: senza data il conto
+  /// e' esattamente quello di prima, e la carta resta quella del giorno.
+  /// Un'app che chiedesse la nascita per aprire un Dono sarebbe un
+  /// pedaggio, e questo Dono si riceve appena si arriva.
+  static TarotCard di(DateTime giorno, {DateTime? nascita}) {
     final carte = maggiori;
     final seme = giorno.year * 10000 + giorno.month * 100 + giorno.day;
-    final mescolato = (seme * 2654435761) ^ (seme >> 3);
+    var mescolato = (seme * 2654435761) ^ (seme >> 3);
+    if (nascita != null) {
+      // Il numero della carta di nascita entra nel seme come fattore, non
+      // come somma: una somma avrebbe solo traslato l'elenco, e due
+      // persone a un giorno di distanza avrebbero visto la carta che
+      // l'altra aveva ieri.
+      final natale = CartaDiNascitaDeiTarocchi.numeroDi(nascita);
+      mescolato = (mescolato ^ (natale * 2246822519)) * 40503;
+    }
     return carte[mescolato.abs() % carte.length];
   }
 
   /// Il colpo d'occhio: una frase sola, quella che il corpus dei tarocchi ha
   /// gia' scritto come sommario della carta diritta.
-  static String sommarioDi(DateTime giorno) => di(giorno).uprightSummary;
+  static String sommarioDi(DateTime giorno, {DateTime? nascita}) =>
+      di(giorno, nascita: nascita).uprightSummary;
 
   /// Il responso della giornata: il testo della carta diritta, che nel corpus
   /// e' gia' scritto in seconda persona e finisce con cosa fare.
-  static String responsoDi(DateTime giorno) => di(giorno).upright;
+  static String responsoDi(DateTime giorno, {DateTime? nascita}) =>
+      di(giorno, nascita: nascita).upright;
 }

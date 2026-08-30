@@ -6138,6 +6138,46 @@ void main() {
     await capture(tester, rootKey, 'suggerimento-passaporto.png');
   });
 
+  // **IL SIGILLO DEL SOGNO CON UNA CARTA NATALE VERA.** Ordine CE voce 13.
+  // Nelle altre catture la nascita non c'e', e il Dono cade con grazia sul
+  // saluto della sola notte: qui si mette una nascita, cosi' si vede la riga
+  // che nasce dall'incrocio fra la Luna di stanotte e quella di nascita.
+  testWidgets('Cattura il Sigillo del Sogno, con la carta natale',
+      (tester) async {
+    silenceSensors();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // La nascita del 2 novembre 1975: Luna in Ariete, cioe' un aspetto vero
+    // con la Luna in Cancro di quella notte.
+    tester.element(find.byType(MaterialApp)).read<BirthIdentityController>()
+        .setBirth(BirthDetails(date: DateTime(1975, 11, 2)), null);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DreamRiteScreen.route(now: quando)));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('dream_fog_skip')));
+    await step(tester);
+    final figura = kZodiacConstellations
+        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+    for (var i = 0; i < figura.points.length; i++) {
+      await tester.tap(find.byKey(Key('dream_star_$i')));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    await montaLoSchermo(tester, const Size(360, 1250));
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    await capture(tester, rootKey, 'sogno-con-la-carta-natale.png');
+  });
+
   testWidgets('Cattura la barra in una chat', (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);

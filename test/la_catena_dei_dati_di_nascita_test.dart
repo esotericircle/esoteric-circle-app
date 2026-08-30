@@ -225,9 +225,18 @@ void main() {
     // altri. Non tiene nessuna copia sua: legge una volta, in
     // `didChangeDependencies`, e se il guscio non c'e' resta al cielo di
     // ripiego che la scena si costruisce dalla data che ha in mano.
-    expect(elenco.length, 13,
+    // QUINDICI DALL'ORDINE CE VOCE 13 del 30 agosto 2026, e il conto risale
+    // ancora di due. L'Arcano del Giorno e il Sigillo del Sogno sono diventati
+    // consumatori: il quarto fumetto del tutorial promette che i cinque Doni
+    // nascono "incrociando il Cielo di oggi e la tua Carta natale", e quei due,
+    // misurati, non incrociavano niente. Adesso l'Arcano chiede la data per la
+    // carta di nascita dei tarocchi e il Sogno per la Luna natale. Nessuno dei
+    // due tiene una copia sua, e nessuno dei due pretende il dato: senza
+    // nascita il Dono resta quello del giorno, perche' chiedere la nascita per
+    // aprire un Dono sarebbe un pedaggio.
+    expect(elenco.length, 15,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 15:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

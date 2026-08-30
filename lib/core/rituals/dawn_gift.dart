@@ -160,7 +160,13 @@ class DawnGift {
     // al segno solare natale.
     //
     // Il cielo si LEGGE da lib/core/astro, non si ricalcola qui.
-    final rito = RitoAlba.diOggi(date, posizione: posizione);
+    // **IL SOLE NATALE ENTRA NEL RITO, non solo nella scheda.** Ordine CE
+    // voce 13: prima `natalSun` finiva soltanto in `GiftSource`, cioe' nel
+    // "da dove nasce", e chi compiva il rito non incontrava mai la propria
+    // carta dentro cio' che leggeva. Adesso il gesto, il respiro e la parola
+    // del giorno nascono anche dal suo Sole.
+    final rito =
+        RitoAlba.diOggi(date, posizione: posizione, soleNatale: natalSun);
 
     return DawnGift(
       maestro: maestro,

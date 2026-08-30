@@ -27,15 +27,15 @@ Porta le tre regole degli ordini precedenti:
 - **CE.10** L'uniformazione dei testi da leggere. **CHIUSA.** Sette punti censiti, quattro erano fuori misura, adesso zero: l'Arcano stava a sedici, la Runa a diciassette in due punti, l'intro di un'arte a diciassette e a sedici, il foglio di una funzione a sedici. Tutti passano dalla porta unica, salvo la carta di un Dono, l'eccezione gia' dichiarata.
 - **CE.11** I 119 titoli gialli. **CHIUSA.** Erano centoventuno su quindici grandezze diverse: adesso sono tre, e sono i tre punti che calcolano davvero. Il debito tipografico dell'app scende da 225 a 103 misure scritte a mano, in 38 file invece di 61. **Non una misura sola, sei ruoli**: la scelta e' motivata qui sotto.
 - **CE.12** I suggerimenti al primo uso. **CHIUSA.** Quattro zone, una riga ciascuna, una volta sola. Nessun foglio, nessun velo, nessuna barriera: il suggerimento vive DENTRO la colonna della zona e mentre e' li' tutto quello che c'e' sotto si tocca. **La premessa dell'ordine regge**: sotto `lib/` non esisteva nessun sistema di suggerimento per zona.
-- **CE.13** L'incrocio nei Doni del Giorno. **APERTA.**
+- **CE.13** L'incrocio nei Doni del Giorno. **CHIUSA.** Tutti e cinque cambiano adesso al cambiare della carta natale, a parita' di giorno, e una prova lo misura chiedendo il responso due volte. **Tre premesse dell'ordine sono cadute alla misura**, elencate qui sotto.
 - **CE.14** La spirale della festa che non si legge come spirale. **APERTA.**
 - **CE.15** Il censimento delle stringhe per la traduzione. **APERTA.**
 - **CE.16** Il motore delle eclissi. **APERTA.**
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 12
-VOCI_APERTE: 5
+VOCI_CHIUSE: 13
+VOCI_APERTE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -395,3 +395,55 @@ girava a vuoto sulle altre tre: `setMockInitialValues` cambia il magazzino ma
 non l'istanza gia' consegnata, e Flutter riusa lo stesso elemento quando al suo
 posto arriva un widget dello stesso tipo. Adesso il disco si azzera davvero a
 ogni giro e il componente si richiede quando la zona cambia.
+
+### CE.13, tre premesse su cinque erano sbagliate
+
+L'ordine elencava lo stato dei cinque Doni. Misurato uno per uno sul ramo:
+
+| Dono | l'ordine diceva | la misura dice |
+| --- | --- | --- |
+| Soffio del Destino | incrocia, e lo porta nel gesto | **vero** |
+| Rito dell'Alba | incrocia, ma solo nella scheda "da dove nasce" | **vero**: `natalSun` finiva in `GiftSource` e non toccava ne' gesto ne' parola |
+| Arcano del Giorno | non incrocia niente, stessa carta per tutti | **vero** |
+| Runa del Tramonto | cielo si', carta natale no | **FALSO**: la chiave dell'estrazione porta gia' l'identita', cioe' la nascita con l'ora |
+| Sigillo del Sogno | Luna di stanotte e Luna di nascita | **FALSO**: la Luna di nascita non c'era affatto, guardava solo stanotte |
+
+Quindi il lavoro vero era su **Arcano, Sogno e Alba**, e non sulla Runa.
+
+### Come l'incrocio e' entrato, e perche' proprio cosi'
+
+Il vincolo dell'ordine e' che i contenuti restino fondati su tradizioni reali.
+Ogni Dono ha preso la via che la SUA tradizione offre gia', invece di una
+formula inventata per l'occasione.
+
+**L'Arcano del Giorno: la carta di nascita dei tarocchi.** Nella linea della
+Golden Dawn, codificata nella pratica moderna da Angeles Arrien e Mary K.
+Greer, si sommano le cifre della data di nascita e si riduce sotto il ventidue:
+il numero che resta indica un Arcano Maggiore che accompagna quella persona per
+tutta la vita. E' la via che il mazzo offre da sempre per legare una persona
+agli Arcani, e adesso quel numero entra nel seme del giorno come fattore, non
+come somma: una somma avrebbe solo traslato l'elenco, e due persone a un giorno
+di distanza avrebbero visto la carta che l'altra aveva ieri.
+
+**Il Sigillo del Sogno: l'aspetto fra la Luna di stanotte e la tua.** E' la
+tecnica occidentale da manuale, l'angolo fra un pianeta in transito e lo stesso
+pianeta natale, e la Luna e' l'esempio piu' sentito perche' il suo ciclo si
+chiude in ventotto giorni. Lavorando per segno gli angoli sono cinque:
+congiunzione, sestile, quadratura, trigono, opposizione. La riga che ne nasce
+entra nel saluto della notte.
+
+**Il Rito dell'Alba: il Sole natale nel seme.** Il segno solare di nascita c'era
+gia' nelle mani del Dono e finiva soltanto nella scheda: adesso entra nella
+chiave da cui nascono il gesto, il respiro e la parola del giorno, cioe' dentro
+cio' che si legge.
+
+**CHI NON HA DATO LA NASCITA NON PERDE NESSUN DONO.** Senza data il conto e'
+esattamente quello di prima, in tutti e tre. Un'app che chiedesse la nascita per
+aprire un Dono sarebbe un pedaggio, e questi Doni si ricevono appena si arriva.
+
+**I testi nuovi sono provvisori**, marcati come tali: le cinque righe degli
+aspetti lunari le approva il fondatore.
+
+Il rosso e' stato dimostrato come l'ordine chiede: tolta la carta natale
+dall'ingresso dei tre motori, l'esito e' tornato identico per due carte diverse
+e le tre righe sono cadute.
