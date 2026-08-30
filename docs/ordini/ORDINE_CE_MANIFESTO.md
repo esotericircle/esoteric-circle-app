@@ -28,14 +28,14 @@ Porta le tre regole degli ordini precedenti:
 - **CE.11** I 119 titoli gialli. **CHIUSA.** Erano centoventuno su quindici grandezze diverse: adesso sono tre, e sono i tre punti che calcolano davvero. Il debito tipografico dell'app scende da 225 a 103 misure scritte a mano, in 38 file invece di 61. **Non una misura sola, sei ruoli**: la scelta e' motivata qui sotto.
 - **CE.12** I suggerimenti al primo uso. **CHIUSA.** Quattro zone, una riga ciascuna, una volta sola. Nessun foglio, nessun velo, nessuna barriera: il suggerimento vive DENTRO la colonna della zona e mentre e' li' tutto quello che c'e' sotto si tocca. **La premessa dell'ordine regge**: sotto `lib/` non esisteva nessun sistema di suggerimento per zona.
 - **CE.13** L'incrocio nei Doni del Giorno. **CHIUSA.** Tutti e cinque cambiano adesso al cambiare della carta natale, a parita' di giorno, e una prova lo misura chiedendo il responso due volte. **Tre premesse dell'ordine sono cadute alla misura**, elencate qui sotto.
-- **CE.14** La spirale della festa che non si legge come spirale. **APERTA.**
+- **CE.14** La spirale della festa che non si legge come spirale. **CHIUSA.** L'ipotesi dell'Architetto era giusta, e la misura lo dice: l'angolo di nascita era indipendente dall'istante di nascita, quindi a ogni raggio gli angoli erano uniformi per costruzione. Adesso la spirale ha tre bracci avvolti, e due grandezze nuove li misurano. **Un vincolo dell'ordine AV e' sceso, e non si poteva fare altrimenti**: la ragione sta qui sotto.
 - **CE.15** Il censimento delle stringhe per la traduzione. **APERTA.**
 - **CE.16** Il motore delle eclissi. **APERTA.**
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 13
-VOCI_APERTE: 4
+VOCI_CHIUSE: 14
+VOCI_APERTE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -447,3 +447,58 @@ aspetti lunari le approva il fondatore.
 Il rosso e' stato dimostrato come l'ordine chiede: tolta la carta natale
 dall'ingresso dei tre motori, l'esito e' tornato identico per due carte diverse
 e le tre righe sono cadute.
+
+### CE.14, misurato prima di curare
+
+L'ordine chiede di misurare l'ipotesi invece di crederla. Misurato: le ampiezze
+delle prime sei armoniche della distribuzione angolare stavano **fra 0,01 e
+0,15** su tre corone e quattro istanti. Per qualche centinaio di stelle il
+rumore statistico vale circa 0,05, quindi erano tutte a livello del rumore e
+nessuna dominava. **Un disco uniforme, esattamente cio' che il fondatore ha
+visto.** L'ipotesi dell'Architetto era giusta.
+
+### Le due grandezze scelte, e perche' ne servono due
+
+**IL CONTRASTO ANGOLARE** distingue un tappeto da una figura a bracci:
+l'ampiezza dell'armonica che corrisponde al numero dei bracci vale zero per un
+disco uniforme e sale verso uno quando le stelle si raccolgono.
+
+**L'AVVOLGIMENTO** distingue una spirale da un ventaglio a tre pale, che ha
+bracci ma non gira: si misura la fase della stessa armonica dentro e fuori, e si
+chiede che non coincidano. Il contrasto da solo non basterebbe, e la prova del
+rosso lo dimostra: togliendo l'avvolgimento il contrasto SALE a 0,886 e il
+disegno diventa un ventaglio.
+
+Dopo la cura: contrasto **0,343** nel punto peggiore contro una soglia di 0,30,
+avvolgimento **0,158** radianti contro 0,10. Le due prove del rosso: rimesso
+l'angolo casuale il contrasto crolla a **0,025**; tolto l'avvolgimento lo scarto
+fra le corone va a **0,000**.
+
+### IL CONFLITTO FRA DUE VINCOLI, e come l'ho sciolto
+
+L'ordine dice che i vincoli gia' misurati dall'ordine AV non devono peggiorare,
+e fra questi c'e' la copertura della scena al 71,4 per cento. **Quel numero era
+stato misurato su un tappeto, e un tappeto copre per definizione piu' di una
+spirale**: una spirale ha i bracci, e fra un braccio e l'altro c'e' cielo vuoto.
+Il fondatore ha chiesto proprio quel vuoto.
+
+Misurato, non stimato: con i bracci stretti la copertura si ferma attorno al
+sessanta per cento e **non sale piu' nemmeno raddoppiando le stelle**, perche' il
+vuoto resta vuoto (43,8 per cento a 2.600 stelle, 60,3 a 4.600, 60,3 a 8.000).
+Allargando i bracci la copertura risale ma il contrasto crolla: a 1,6 radianti
+di spessore si torna al 70,4 per cento e il contrasto scende a 0,107, cioe' di
+nuovo un tappeto. **Le due grandezze si muovono in senso opposto e non esiste
+un punto che le soddisfi entrambe.**
+
+**La decisione, e la motivo.** Fra i due vincoli ho tenuto quello che il
+fondatore ha chiesto ADESSO, guardando l'anteprima: vedere una spirale. La
+copertura scende dal 71,4 al 59,9 per cento e la festa riempie ancora la scena.
+Gli altri tre vincoli dell'ordine AV restano intatti: una sola chiamata
+`drawAtlas`, 1,8 millesimi di disegno contro un tetto di 8, e le stelle salgono
+da 2.600 a 6.000 proprio per riempire i bracci.
+
+**E una cosa l'ho cambiata solo perche' l'ho guardata.** A stelle grandi 1,1 la
+copertura era piu' alta, 62,3 per cento, ma nell'anteprima i bracci erano masse
+d'oro compatte in cui le singole stelle non si distinguevano: una spirale di
+macchie invece che di stelle. A 0,9 si vedono le stelle. Il numero piu' grande
+non era la scena migliore.

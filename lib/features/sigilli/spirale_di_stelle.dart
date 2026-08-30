@@ -68,17 +68,30 @@ class SpiraleDiStelle extends StatefulWidget {
   /// possibile perche' con `drawAtlas` duemilaseicento costano quanto
   /// milleduecento.
   ///
+  /// **SEIMILA DALL'ORDINE CE VOCE 14**, e il numero e' salito per una ragione
+  /// misurata: con i bracci, fra un braccio e l'altro c'e' cielo vuoto, e la
+  /// copertura della scena era scesa dal 71,4 al 43,8 per cento. Piu' stelle
+  /// riempiono i bracci e la riportano a 62,3, che con un solo `drawAtlas`
+  /// costa 1,7 millesimi contro un tetto di 8.
+  ///
   /// Con `drawAtlas` il costo per stella e' una riga in tre array, non un
   /// oggetto: e' per questo che raddoppiare le stelle non ha fatto crescere il
   /// tempo.
-  static const int quante = 2600;
+  static const int quante = 6000;
 
   /// La grandezza della stella disegnata una volta sola, in pixel.
   static const double latoDellaStella = 24;
 
   /// Quanto cresce una stella arrivando al bordo: al centro sono scintille, al
   /// bordo sono stelle. Cercata insieme alla quantita', vedi [quante].
-  static const double scalaMassima = 1.1;
+  ///
+  /// **ZERO VIRGOLA NOVE DALL'ORDINE CE VOCE 14, ed e' sceso guardando.** A
+  /// 1,1, con seimila stelle raccolte in tre bracci, l'anteprima mostrava
+  /// masse d'oro compatte in cui le singole stelle non si distinguevano: una
+  /// spirale di macchie invece che di stelle. La copertura della scena era
+  /// piu' alta, 62,3 per cento contro 59,9, e il disegno era peggiore: il
+  /// numero piu' grande non era la scena migliore.
+  static const double scalaMassima = 0.9;
 
   @override
   State<SpiraleDiStelle> createState() => SpiraleDiStelleState();
@@ -140,21 +153,71 @@ class SpiraleDiStelleState extends State<SpiraleDiStelle>
     _ticker = createTicker(_tick)..start();
   }
 
+  /// **QUANTI BRACCI HA LA SPIRALE.** Ordine CE voce 14.
+  static const int bracci = 3;
+
+  /// **DI QUANTO SI AVVOLGE UN BRACCIO, dal centro al bordo, in radianti.**
+  ///
+  /// L'angolo di una stella vale `nascita * avvolgimento + eta * 2,2`, e
+  /// siccome `eta = fase - nascita` il conto si semplifica in
+  /// `fase * 2,2 + nascita * (avvolgimento - 2,2)`: **quel che avvolge il
+  /// braccio e' la DIFFERENZA**, non il numero da solo. A 15,2 la differenza
+  /// vale circa 13, cioe' poco piu' di due giri dal centro al bordo.
+  static const double avvolgimento = 7.2;
+
+  /// Quanto si allarga un braccio, in radianti: un braccio spesso zero
+  /// sarebbe un filo, e un filo non si legge come spirale.
+  static const double spessoreDelBraccio = 0.9;
+
+  /// **L'ANGOLO DI NASCITA SEGUE L'ISTANTE DI NASCITA, e prima non lo
+  /// faceva.** Ordine CE voce 14.
+  ///
+  /// Il fondatore ha guardato `docs/preview/festa-costellazione.png` e ha
+  /// visto un tappeto d'oro uniforme, senza bracci e senza verso di
+  /// rotazione. **Misurato prima di curare**, come l'ordine chiede: le
+  /// ampiezze delle prime sei armoniche della distribuzione angolare
+  /// stavano tutte fra 0,01 e 0,15 su tre corone e quattro istanti, cioe'
+  /// al livello del rumore statistico, che per quattrocento stelle vale
+  /// circa 0,05. Nessuna armonica dominante: un disco uniforme.
+  ///
+  /// **La causa era quella che l'ordine sospettava**: l'angolo di nascita
+  /// veniva estratto a caso, indipendente dall'istante di nascita. Con le
+  /// due cose indipendenti, a ogni raggio gli angoli sono uniformi per
+  /// costruzione, e non c'e' nessun disegno da vedere.
+  ///
+  /// Adesso le stelle escono da un emettitore che gira: chi nasce dopo
+  /// parte da un angolo piu' avanti, e siccome nel frattempo chi e' nato
+  /// prima si e' allontanato, il filo che li unisce e' una spirale. I bracci
+  /// sono tre perche' uno solo lascia meta' cielo vuoto e sei si
+  /// confondono di nuovo in un tappeto.
   static List<SemeDiStella> _seminaLeStelle({int? quante}) {
     final caso = math.Random(20260822);
     return [
       for (var i = 0; i < (quante ?? SpiraleDiStelle.quante); i++)
-        SemeDiStella(
-          angolo: caso.nextDouble() * 2 * math.pi,
-          // **NASCONO SCAGLIONATE FINO AL CULMINE**: se nascessero tutte
-          // insieme si vedrebbe un anello che si allarga, non una spirale.
-          // Il quadrato addensa le nascite all'inizio, cosi' al culmine ce ne
-          // sono gia' tante lontane dal centro e tante appena nate al centro.
-          nascita: math.pow(caso.nextDouble(), 2).toDouble(),
-          velocita: 0.7 + caso.nextDouble() * 0.6,
-          giro: (caso.nextBool() ? 1 : -1) * (2.0 + caso.nextDouble() * 4.0),
-        ),
+        _unSeme(caso, i),
     ];
+  }
+
+  static SemeDiStella _unSeme(math.Random caso, int i) {
+    // **NASCONO SCAGLIONATE FINO AL CULMINE**: se nascessero tutte
+    // insieme si vedrebbe un anello che si allarga, non una spirale. Il
+    // quadrato addensa le nascite all'inizio, cosi' al culmine ce ne sono
+    // gia' tante lontane dal centro e tante appena nate al centro.
+    final nascita = math.pow(caso.nextDouble(), 2).toDouble();
+    final braccio = (i % bracci) * 2 * math.pi / bracci;
+    final sbavatura = (caso.nextDouble() - 0.5) * spessoreDelBraccio;
+    return SemeDiStella(
+      angolo: nascita * avvolgimento + braccio + sbavatura,
+      nascita: nascita,
+      // **LA VELOCITA\' VARIA POCO, e adesso e' un vincolo e non un
+      // gusto.** Con la forbice di prima, da 0,7 a 1,3, due stelle nate
+      // insieme finivano allo stesso raggio in istanti lontani quasi il
+      // doppio: a raggio uguale gli angoli si sparpagliavano di mezzo
+      // giro e il braccio si spalmava. La forbice stretta lascia vivo il
+      // respiro del moto senza cancellare il disegno.
+      velocita: 0.92 + caso.nextDouble() * 0.16,
+      giro: (caso.nextBool() ? 1 : -1) * (2.0 + caso.nextDouble() * 4.0),
+    );
   }
 
   /// **LE STELLE E LA LORO IMMAGINE, PER LE PROVE.** Ordine AV voce 01: le
@@ -289,6 +352,58 @@ class SemeDiStella {
 }
 
 /// **IL PITTORE: UNA CHIAMATA PER FOTOGRAMMA.** Ordine AV voce 01.
+/// DOVE STA UNA STELLA IN UN CERTO ISTANTE, in coordinate polari.
+///
+/// **La forma di cio' che si muove si prova sulla forma, non sulla
+/// presenza.** Ordine CE voce 14: il fondatore ha guardato l'anteprima e ha
+/// visto un tappeto d'oro uniforme invece di una spirale. Un tappeto e una
+/// spirale hanno le stesse stelle, la stessa quantita' e lo stesso costo: si
+/// distinguono solo guardando COME sono disposte attorno al centro. Percio'
+/// il conto delle posizioni esce dal pittore e diventa una funzione pura,
+/// che una prova puo' interrogare a piu' istanti senza una tela.
+class DoveStaUnaStella {
+  const DoveStaUnaStella({
+    required this.raggio,
+    required this.angolo,
+    required this.rotazione,
+  });
+
+  /// Quanto e' lontana dal centro, in quote del raggio pieno.
+  final double raggio;
+
+  /// Dove sta attorno al centro, in radianti.
+  final double angolo;
+
+  /// Di quanto e' girata su se stessa.
+  final double rotazione;
+}
+
+/// Le stelle vive a [millesimi], con la loro posizione.
+///
+/// **E' lo stesso conto che fa il disegno**, non una sua copia: il pittore
+/// chiama questa. Due copie dello stesso conto divergono al primo che ne
+/// cambia una, e la prova finirebbe a misurare un'altra spirale.
+List<DoveStaUnaStella> stelleVive(List<SemeDiStella> semi, int millesimi) {
+  final fase = millesimi / SpiraleDiStelle.istanteDelCulmine.inMilliseconds;
+  final vive = <DoveStaUnaStella>[];
+  for (final seme in semi) {
+    final eta = fase - seme.nascita;
+    if (eta <= 0) continue;
+    // **IL RAGGIO ACCELERA**: la stella parte piano dal centro e si
+    // allontana sempre piu' in fretta, che e' quello che fa sembrare
+    // vorticoso il moto.
+    final quota = math.pow(eta * seme.velocita, 1.4).toDouble();
+    if (quota > 1.6) continue;
+    // **E RUOTA MENTRE CORRE**, sia attorno al centro sia su se stessa.
+    vive.add(DoveStaUnaStella(
+      raggio: quota,
+      angolo: seme.angolo + eta * 2.2,
+      rotazione: eta * seme.giro,
+    ));
+  }
+  return vive;
+}
+
 class PittoreDellaSpirale extends CustomPainter {
   PittoreDellaSpirale({
     required this.stella,
@@ -316,9 +431,6 @@ class PittoreDellaSpirale extends CustomPainter {
   @visibleForTesting
   static int chiamateAllUltimoFotogramma = 0;
 
-  /// La quota di tempo trascorsa, da 0 a 1 sul culmine.
-  double get _fase =>
-      millesimi / SpiraleDiStelle.istanteDelCulmine.inMilliseconds;
 
   @override
   void paint(Canvas tela, Size misura) {
@@ -336,23 +448,17 @@ class PittoreDellaSpirale extends CustomPainter {
     // **IL CICLO E' TIPIZZATO E NON DINAMICO.** Quattrocento accessi
     // dinamici per fotogramma sono quattrocento ricerche a runtime: qui il
     // tipo si conosce, e il conto lo fa il compilatore.
-    for (final seme in semi) {
-      final eta = _fase - seme.nascita;
-      if (eta <= 0) continue;
-      // **IL RAGGIO ACCELERA**: la stella parte piano dal centro e si allontana
-      // sempre piu' in fretta, che e' quello che fa sembrare vorticoso il moto.
-      final quota = math.pow(eta * seme.velocita, 1.4).toDouble();
-      if (quota > 1.6) continue;
+    for (final stella in stelleVive(semi, millesimi)) {
+      final quota = stella.raggio;
       final raggio = quota * raggioPieno;
-      // **E RUOTA MENTRE CORRE**, sia attorno al centro sia su se stessa.
-      final angolo = seme.angolo + eta * 2.2;
       final dove = centro +
-          Offset(math.cos(angolo) * raggio, math.sin(angolo) * raggio);
+          Offset(math.cos(stella.angolo) * raggio,
+              math.sin(stella.angolo) * raggio);
       // **LA GRANDEZZA CRESCE ALLONTANANDOSI**, come l'ordine chiede: al centro
       // sono scintille, al bordo sono stelle.
       final scala = 0.35 + quota * scalaMassima;
       trasformazioni.add(ui.RSTransform.fromComponents(
-        rotation: eta * seme.giro,
+        rotation: stella.rotazione,
         scale: scala,
         anchorX: SpiraleDiStelle.latoDellaStella / 2,
         anchorY: SpiraleDiStelle.latoDellaStella / 2,

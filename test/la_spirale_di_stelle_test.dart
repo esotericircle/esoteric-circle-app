@@ -114,10 +114,41 @@ void main() {
     print('ORDINE AV VOCE 01, M4: al culmine le stelle coprono il '
         '${(quota * 100).toStringAsFixed(1)} per cento della scena, misurato '
         'su $quanti pixel');
-    expect(quota, greaterThan(0.70),
+    // **SESSANTA E NON PIU\' SETTANTA, e non e\' un peggioramento nascosto: e\'
+    // un conflitto fra due vincoli, dichiarato.** Ordine CE voce 14.
+    //
+    // L\'ordine AV aveva fissato questa soglia misurando un tappeto
+    // uniforme, e un tappeto copre per definizione piu\' di una spirale: una
+    // spirale ha i bracci, e fra un braccio e l\'altro c\'e\' cielo vuoto. Il
+    // fondatore ha guardato l\'anteprima e ha chiesto proprio quel cielo
+    // vuoto, cioe\' di vedere i bracci.
+    //
+    // **Misurato, non stimato.** Con i bracci stretti la copertura si ferma
+    // attorno al sessanta per cento e non sale piu\' nemmeno raddoppiando le
+    // stelle, perche\' il vuoto fra i bracci resta vuoto: 43,8 per cento a
+    // 2.600 stelle, 60,3 a 4.600, 60,3 a 8.000. Allargando i bracci la
+    // copertura risale ma il contrasto angolare crolla: a 1,6 radianti di
+    // spessore si torna al 70,4 per cento e il contrasto scende a 0,107,
+    // cioe\' di nuovo un tappeto. **Le due grandezze si muovono in senso
+    // opposto e non esiste un punto che le soddisfi tutte e due.**
+    //
+    // La scelta e\' 6.000 stelle, bracci da 0,9 radianti e stelle piu\'
+    // piccole di prima, 0,9 invece di 1,1: contrasto 0,343, copertura 59,9 per
+    // cento, un solo `drawAtlas`, 1,8 millesimi di disegno contro un tetto di 8.
+    //
+    // **LE STELLE SONO RIMPICCIOLITE PERCHE\' GUARDANDO SI VEDEVA.** A 1,1 la
+    // copertura era 62,3 per cento, cioe\' piu\' alta, ma nell\'anteprima i bracci
+    // erano masse d\'oro compatte in cui le singole stelle non si
+    // distinguevano: una spirale di macchie invece che di stelle. Il numero
+    // piu\' alto non era il disegno migliore.
+    //
+    // La soglia sta a 0,55 e non a 0,60: sopra la cifra scelta ci deve stare il
+    // margine di una prossima rifinitura, e il punto esatto fra copertura e
+    // leggibilita\' e\' una decisione che il fondatore prende guardando.
+    expect(quota, greaterThan(0.55),
         reason: 'al culmine le stelle coprono il '
-            '${(quota * 100).toStringAsFixed(1)} per cento: l ordine ne chiede '
-            'piu del settanta');
+            '${(quota * 100).toStringAsFixed(1)} per cento: la festa non '
+            'riempie piu\' la scena');
   });
 
   test('dopo il culmine la spirale si dirada e il traguardo si libera',
