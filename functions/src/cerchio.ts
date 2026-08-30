@@ -237,7 +237,38 @@ export const esisteIlCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   }
 });
 
-export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
+/**
+ * LE OPZIONI DELLO STATO, con il pepe del benvenuto attaccato.
+ *
+ * **Un segreto impostato non arriva a nessuno finche' una funzione non lo
+ * DICHIARA.** Ordine del fondatore del 30 agosto 2026: il segreto
+ * `BENVENUTO_PEPPER` e' stato creato in Secret Manager, ma in functions v2
+ * una funzione riceve soltanto i segreti che chiede. Senza questa riga
+ * `process.env.BENVENUTO_PEPPER` resterebbe vuoto e l'impronta della lapide
+ * continuerebbe a essere uno SHA-256 nudo dell'email, con qualcuno convinto
+ * di avere risolto.
+ *
+ * **Solo qui e non nelle opzioni comuni**, che otto callable condividono:
+ * `statoDelCerchio` e' l'unica che chiama `improntaDellEmail`, e montare un
+ * segreto dove non serve allarga la superficie senza guadagnare niente.
+ *
+ * **La misura del prima, per il rapporto**: una delle due lapidi gia' sul
+ * server valeva esattamente `sha256("cloud@esotericircle.app")`, cioe'
+ * chiunque conoscesse l'indirizzo poteva calcolare l'identificativo e sapere
+ * se quella persona aveva gia' incassato il benvenuto. Col pepe non si puo'
+ * piu'.
+ *
+ * **E le due lapidi vecchie non corrispondono piu'**, perche' sono state
+ * scritte col sale vuoto: le due email che avevano gia' incassato i 250 Eos
+ * possono incassarli una volta ancora. E' il prezzo dichiarato del cambio, e
+ * il fondatore lo ha accettato sapendolo.
+ */
+const OPZIONI_DELLO_STATO = {
+  ...OPZIONI_DEL_CERCHIO,
+  secrets: ["BENVENUTO_PEPPER"],
+};
+
+export const statoDelCerchio = onCall(OPZIONI_DELLO_STATO, async (request) => {
   const uid = uidDi(request);
   const giorno = chiaveDelGiorno();
   const piano = await pianoDi(uid);

@@ -47,9 +47,13 @@ test("il giorno e' quello di Roma, non quello di chi chiama", () => {
 test("i limiti del giorno sono quelli del piano", () => {
   assert.equal(limiteDi("domande", "free"), 3);
   assert.equal(limiteDi("domande", "tier2"), 10);
-  assert.equal(limiteDi("domande", "tier3"), null);
+  // **L'ILLIMITATO NON ESISTE PIU', ordine CE voce 08.** Il fondatore ha
+  // chiesto che sparisca da ogni cella: dove queste righe dicevano `null`
+  // adesso c'e' un numero, e il numero segue il listino invece di
+  // anticiparlo.
+  assert.equal(limiteDi("domande", "tier3"), 50);
   assert.equal(limiteDi("gettate", "free"), 1);
-  assert.equal(limiteDi("gettate", "tier1"), null);
+  assert.equal(limiteDi("gettate", "tier1"), 20);
   // "No" nella matrice vale ZERO, non "senza limite": e' l'errore che
   // regalerebbe una funzione a chi non l'ha nel piano.
   assert.equal(limiteDi("approfondimenti", "free"), 0);
@@ -70,12 +74,23 @@ test("chi non ha la cosa nel piano non la consuma, la trova chiusa", () => {
   assert.match(esito.motivo ?? "", /piano/);
 });
 
-test("senza limite resta il tetto di correttezza, e le gettate no", () => {
-  assert.equal(restaOggi("domande", "tier3", 0), TETTO_DI_CORRETTEZZA);
-  assert.equal(decidi("domande", "tier3", TETTO_DI_CORRETTEZZA).concesso, false);
-  // Le gettate sono un calcolo locale: nessun modello da difendere.
-  assert.equal(restaOggi("gettate", "tier1", 100), null);
-  assert.equal(decidi("gettate", "tier1", 100).concesso, true);
+test("adesso ogni piano ha il suo tetto, e il residuo lo dice", () => {
+  // **IL NOME DI QUESTA PROVA E' CAMBIATO COL DATO.** Si chiamava "senza
+  // limite resta il tetto di correttezza": dall'ordine CE voce 08 non c'e'
+  // piu' nessuna cella senza limite, quindi il residuo viene dal listino e
+  // non dalla rete di sicurezza.
+  assert.equal(restaOggi("domande", "tier3", 0), 50);
+  assert.equal(decidi("domande", "tier3", 50).concesso, false);
+  // E le gettate, che erano l'esempio di cio' che non si difendeva, adesso
+  // hanno anche loro il loro numero.
+  assert.equal(restaOggi("gettate", "tier1", 100), 0);
+  assert.equal(decidi("gettate", "tier1", 100).concesso, false);
+  // **LA RETE DI SICUREZZA RESTA, e si prova che c'e' ancora.** Nessuna
+  // cella la usa oggi, ma il giorno che una tornasse a dire "nessun tetto"
+  // il server non deve regalare chiamate al modello all'infinito: il valore
+  // e' dichiarato e questa riga lo tiene in vita.
+  assert.equal(typeof TETTO_DI_CORRETTEZZA, "number");
+  assert.ok(TETTO_DI_CORRETTEZZA > 0);
 });
 
 test("il valore di un premio lo dice il server, non chi lo chiede", () => {
