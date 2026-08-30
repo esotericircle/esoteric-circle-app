@@ -8,6 +8,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../onboarding/nazioni_del_mondo.dart';
 import '../../core/astro/city_catalog.dart';
+import '../../design_system/tokens/color_tokens.dart';
 
 /// L'INQUADRATURA DELLA MAPPA, in gradi di longitudine.
 ///
@@ -109,6 +110,43 @@ class InquadraturaDellaMappa {
 ///
 /// **Quante**: al massimo sei. Una mappa piccola con venti nomi sopra non dice
 /// dove sei, dice che c'e' molta gente.
+/// **DA UN PUNTO ALLA SUA NAZIONE. Ordine CD voce 02a.**
+///
+/// Il fondatore aveva scritto "non si capisce visivamente dove si trovano,
+/// **nemmeno la nazione**", e le citta' di riferimento dell'ordine CC voce 06a
+/// rispondevano solo a meta': a chi conosce Torino e Bologna dicono l'Italia,
+/// a chiunque altro no, e su una mappa di due punti stranieri non dicono
+/// niente.
+///
+/// **Nessun dato nuovo.** La nazione si ricava dal catalogo dei luoghi, che
+/// questa mappa gia' apre per scegliere i riferimenti: si prende il paese
+/// della citta' piu' vicina al punto. Con 40.846 luoghi in catalogo, dopo
+/// l'ordine CC voce 07, il piu' vicino a una capitale e' la capitale stessa.
+abstract final class NazioneDelPunto {
+  /// Oltre questa distanza in gradi non si dichiara nessuna nazione: meglio
+  /// tacere che scrivere il paese sbagliato per un punto in mezzo al mare.
+  static const double troppoLontano = 3.0;
+
+  static String? di(({double lat, double lon}) punto) {
+    String? vicina;
+    var minimo = double.infinity;
+    for (final c in CityCatalog.luoghi) {
+      final dlat = c.latitude - punto.lat;
+      final dlon = c.longitude - punto.lon;
+      final d = dlat * dlat + dlon * dlon;
+      if (d < minimo) {
+        minimo = d;
+        vicina = c.country;
+      }
+    }
+    if (vicina == null || minimo > troppoLontano * troppoLontano) return null;
+    // Nel catalogo i luoghi italiani portano la sigla della provincia, due
+    // lettere maiuscole, e gli esteri il nome del paese in italiano.
+    if (vicina.length == 2 && vicina == vicina.toUpperCase()) return 'Italia';
+    return vicina;
+  }
+}
+
 abstract final class RiferimentiDellaMappa {
   /// Quanti nomi al massimo, oltre ai due punti della coppia.
   static const int quanti = 6;
@@ -225,6 +263,12 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
                     palette: widget.palette,
                     tuaCitta: widget.doveSei.citta,
                     suaCitta: sua.suaCitta,
+                    // La nazione si ricava una volta sola qui e non dentro il
+                    // pittore: il pittore ridipinge a ogni fotogramma della
+                    // corsa dello zoom, e cercare la citta' piu' vicina fra
+                    // quarantamila a ogni fotogramma sarebbe uno spreco.
+                    tuaNazione: NazioneDelPunto.di(tu),
+                    suaNazione: NazioneDelPunto.di(lui),
                     riferimenti: RiferimentiDellaMappa.dentro(q,
                         tu: tu, lui: lui),
                   ),
@@ -266,6 +310,8 @@ class _DisegnoDellaMappa extends CustomPainter {
     required this.palette,
     required this.tuaCitta,
     required this.suaCitta,
+    required this.tuaNazione,
+    required this.suaNazione,
     required this.riferimenti,
   });
 
@@ -278,6 +324,11 @@ class _DisegnoDellaMappa extends CustomPainter {
   /// dicono dove sei: e' il rilievo del fondatore.
   final String tuaCitta;
   final String? suaCitta;
+
+  /// Il paese di ognuno dei due punti, ricavato dal catalogo dei luoghi.
+  /// Nullo quando il punto e' troppo lontano da qualunque citta' conosciuta.
+  final String? tuaNazione;
+  final String? suaNazione;
 
   /// Le citta' grandi attorno, che danno il senso del luogo.
   final List<City> riferimenti;
@@ -362,6 +413,22 @@ class _DisegnoDellaMappa extends CustomPainter {
     if (suaCitta != null) {
       _scrivi(canvas, suaCitta!, b + const Offset(9, -8), size,
           palette.goldSoft, 11);
+    }
+
+    // **E LA NAZIONE SOTTO IL NOME. Ordine CD voce 02a.** Il fondatore aveva
+    // scritto "nemmeno la nazione": la citta' dice dove, il paese dice in che
+    // mondo. Piu' piccola e piu' spenta del nome, perche' e' la seconda cosa
+    // che si legge, non la prima. Quando i due punti stanno nello stesso
+    // paese il nome compare una volta sola, sotto il tuo: ripeterlo sarebbe
+    // rumore.
+
+    if (tuaNazione != null) {
+      _scrivi(canvas, tuaNazione!, a + const Offset(7, 4), size,
+          ColorTokens.textSecondary, 9);
+    }
+    if (suaCitta != null && suaNazione != null && suaNazione != tuaNazione) {
+      _scrivi(canvas, suaNazione!, b + const Offset(9, 4), size,
+          ColorTokens.textSecondary, 9);
     }
   }
 

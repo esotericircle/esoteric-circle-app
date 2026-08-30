@@ -150,6 +150,12 @@ import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/features/onboarding/mappa_della_nazione.dart';
 import 'package:esoteric_circle/features/onboarding/planisfero.dart';
 import 'package:esoteric_circle/core/astro/city_catalog.dart';
+import 'package:esoteric_circle/features/synastry/mappa_della_distanza.dart';
+import 'package:esoteric_circle/features/synastry/ritratto_ingrandito.dart';
+import 'package:esoteric_circle/core/synastry/possibilita_di_incontro.dart';
+import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
+import 'package:esoteric_circle/core/synastry/synastry_report.dart';
+import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -1886,14 +1892,113 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheSinastria(tester);
-    // **LA SCENA DEVE FINIRE DI ENTRARE.** Il responso della Sinastria si
-    // compone contando (ordine BO voce 07): con due soli fotogrammi
-    // l'anteprima mostrava lo zero per cento, il ritratto ancora sopra il
-    // testo e tutto in dissolvenza, cioe' una schermata che non esiste.
-    for (var i = 0; i < 6; i++) {
+    // **LA SCENA DEVE FINIRE DI ENTRARE, E SONO DUE SCENE.** Il responso
+    // della Sinastria si compone contando (ordine BO voce 07): con due soli
+    // fotogrammi l'anteprima mostrava lo zero per cento, il ritratto ancora
+    // sopra il testo e tutto in dissolvenza, cioe' una schermata che non
+    // esiste.
+    //
+    // **SEI SECONDI NON BASTAVANO PIU', ordine CD voce 02.** Prima viene la
+    // chiamata, che e' un rito a se', e solo quando finisce parte il
+    // conteggio del verdetto: l'ordine CA voce 03 ha portato la chiamata da
+    // 4.100 a 5.000 millesimi, e da allora al sesto secondo il conteggio era
+    // appena partito. L'anteprima mostrava un anello vuoto con dentro ZERO
+    // PER CENTO mentre i numeri delle barre dicevano sessanta e novanta, ed
+    // e' cosi' che l'ha vista il fondatore. Adesso si aspetta la somma delle
+    // due scene, con margine: il numero non e' scelto a caso, e' la chiamata
+    // piu' il verdetto piu' un secondo.
+    for (var i = 0; i < 12; i++) {
       await tester.pump(const Duration(seconds: 1));
     }
     await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- LA MAPPA DELLA DISTANZA E LA CARTA INGRANDITA, ordine CD voce 02 ---
+  //
+  // **L'ordine chiede di GUARDARE le voci visive, e queste due non avevano
+  // nessuna immagine.** Il fatto del fondatore sulla mappa e' "quando sono
+  // vicini, non si capisce visivamente dove si trovano, nemmeno la nazione":
+  // il caso duro e' due punti a poche centinaia di chilometri, quindi si
+  // prende Roma contro Milano, cioe' chi guarda contro Chiara Ferragni, che
+  // nel catalogo vive a Milano. Sulla schermata intera la mappa non compare,
+  // perche' chiede di sapere dove sei e nell'anteprima quel dato non c'e':
+  // qui si monta il pezzo con dati veri, che e' cio' che il fondatore deve
+  // vedere.
+  testWidgets('Cattura la mappa della distanza, due citta\' vicine',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final chiara = VipCatalog.conNome('Chiara Ferragni')!;
+    final tuo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(1990, 4, 12, 7, 30),
+      oraNota: true,
+      latitudine: 41.9,
+      longitudineDelLuogo: 12.5,
+      nome: 'Mauro',
+    );
+    const roma = DoveSei(citta: 'Roma', latitudine: 41.9028, longitudine: 12.4964);
+    final report = SynastryReport.perCieli(
+        tuo: tuo, vip: chiara, doveSei: roma, quando: DateTime(2026, 8, 30));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: ColorTokens.medoraDeepest,
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: MappaDellaDistanza(
+                incontro: report.incontro,
+                doveSei: roma,
+                palette: MaestroPalette.medora,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    // La mappa stringe lo zoom in 1.400 millesimi: si aspetta che arrivi.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    await capture(tester, rootKey, 'sinastria-mappa-vicini.png');
+  });
+
+  // **LA CARTA DEL VIP INGRANDITA.** Il fatto del fondatore: "quando
+  // ingrandisco la Carta del vip, i testi nei cartigli della carta
+  // spariscono". I cartigli sono il nome in alto e la data in basso, che
+  // l'arte lascia VUOTI di proposito perche' un solo set valga per tutte le
+  // lingue: li scrive il Flutter a runtime.
+  testWidgets('Cattura la carta del VIP ingrandita', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final chiara = VipCatalog.conNome('Chiara Ferragni')!;
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MaestroScope(
+          maestro: Maestro.medora,
+          child: RitrattoIngrandito(
+            vip: chiara,
+            palette: MaestroPalette.medora,
+            entrata: const AlwaysStoppedAnimation<double>(1),
+            riduciMovimento: true,
+            backgroundColor: ColorTokens.medoraDeepest,
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 600));
+    await precaricaCioCheLaScenaMonta(tester);
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'sinastria-carta-ingrandita.png',
+        precarica: false);
   });
 
   // --- LE TRE SCHERMATE NUOVE DELL'ORDINE BX ---
