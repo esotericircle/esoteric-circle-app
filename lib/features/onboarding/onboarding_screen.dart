@@ -10,6 +10,7 @@ import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import 'mappa_della_nazione.dart';
 import '../../core/astro/city_catalog.dart';
+import '../../core/astro/ricerca_del_luogo.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/chat/user_profile.dart';
@@ -209,6 +210,38 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       _timeKnown = _hour != null;
     }
     if (ritrovata.nome != null) _nameCtrl.text = ritrovata.nome!;
+    // **E IL LUOGO, ordine CF voce 07, che prima si perdeva qui.**
+    //
+    // **Il fatto del fondatore, verbatim**: "i miei dati di nascita, luogo
+    // ecc non sono rimasti memorizzati e ho dovuto reinserirli". Misurato: la
+    // custodia il luogo lo portava, con nome, latitudine, longitudine e fuso,
+    // e questa funzione riprendeva giorno, ora e nome e LUI NO. Il rito
+    // ripartiva dal primo passo mancante e poi proseguiva in fila, quindi
+    // arrivava comunque al passo del luogo con il campo vuoto: cio' che il
+    // Cerchio aveva custodito la persona doveva riscriverlo.
+    final luogo = ritrovata.luogo;
+    final lat = ritrovata.latitudine;
+    final lon = ritrovata.longitudine;
+    if (luogo != null && lat != null && lon != null) {
+      _place = BirthPlace(
+        city: luogo,
+        latitude: lat,
+        longitude: lon,
+        timeZoneId: ritrovata.fuso ?? 'Europe/Rome',
+        // Lo scarto viene dal catalogo, come nella ricostruzione della
+        // custodia: la custodia i minuti non li porta, il fuso si.
+        utcOffsetMinutes: ritrovata.scarto ??
+            (CityCatalog.luoghi
+                    .where((c) =>
+                        c.name.toLowerCase() ==
+                        luogo.split(',').first.trim().toLowerCase())
+                    .firstOrNull
+                    ?.utcOffsetMinutes ??
+                60),
+        isApproximate: ritrovata.fuso == null,
+      );
+      _placeCtrl.text = luogo;
+    }
     final mancanti = Ritrovamento.da(
       CamminoDaCustodire(identita: ritrovata),
     ).passiDaChiedere;
@@ -428,16 +461,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // catalogo quel nome e' unico, il luogo si sceglie da solo e nessuno gli
     // chiede di confermare cio' che ha appena scritto. Se il nome e' ambiguo
     // qui non succede niente, perche' quale sia delle due lo sa solo lei.
-    final unica = CityCatalog.unicaEsatta(query);
-    if (unica != null) {
-      setState(() {
-        _place = unica.toPlace();
-        _placeResults = const [];
-      });
-      return;
-    }
+    //
+    // **MA L'ELENCO NON SI SVUOTA PIU', ordine CF voce 08.** Qui c'era un
+    // `return` che, scelto il luogo, lasciava la persona davanti a un elenco
+    // vuoto: e' cio' che il fondatore ha letto come "non trovava nulla nel
+    // suo elenco". La regola adesso vive in `RicercaDelLuogo` e vale identica
+    // anche per la schermata dei dati di nascita, che e' l'altra porta.
+    final risposta = RicercaDelLuogo.per(query);
     setState(() {
-      _placeResults = CityCatalog.search(query);
+      _placeResults = risposta.risultati;
+      if (risposta.scelta != null) {
+        _place = risposta.scelta!.toPlace();
+        return;
+      }
       // Se stava riscrivendo, la scelta di prima non vale piu': tenerla
       // farebbe partire un cielo calcolato su una citta' che nel campo non
       // c'e' piu'.
@@ -1595,7 +1631,12 @@ class _PlaceField extends StatelessWidget {
               ),
             ),
           ),
-        if (chosen != null && results.isEmpty) ...[
+        // **LA CONFERMA SI VEDE ANCHE COL SUO ELENCO SOTTO, ordine CF voce
+        // 08.** Prima compariva solo a elenco vuoto, e reggeva perche' la
+        // scelta automatica svuotava l'elenco: adesso che l'elenco resta,
+        // legarla al vuoto vorrebbe dire farla sparire proprio quando
+        // qualcuno ha scritto per intero il nome della sua citta'.
+        if (chosen != null) ...[
           const SizedBox(height: SpacingTokens.sm),
           Row(
             key: const Key('risveglio_luogo_scelto'),

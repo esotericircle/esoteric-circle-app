@@ -40,9 +40,23 @@ class ProfileController extends ChangeNotifier {
 
   /// Profilo d'esempio della Demo, dichiarato: nome reale con cui il cerchio
   /// accoglie la persona nella presentazione. L'onboarding lo sovrascrive.
+  /// **IL GENERE NON STA PIU' QUI DENTRO, ordine CF voce 05, ed era il
+  /// difetto.** Questo profilo non e' soltanto quello della Demo: e' lo
+  /// stato INIZIALE del controller in tutta l'app, perche' `app.dart` lo
+  /// costruisce senza argomenti e poi chiama `load()`. Su un telefono
+  /// appena reinstallato non c'e' niente da caricare, quindi la forma di
+  /// cortesia restava quella scritta qui, cioe' FEMMINILE, e il
+  /// riconoscimento successivo rimetteva il nome vero senza toccarla. Il
+  /// fondatore ha letto "Bentornata Mauro" per questa riga.
+  ///
+  /// **Il nome resta, il genere no**, e la differenza e' netta: un nome
+  /// d'esempio e' una didascalia che l'onboarding sostituisce alla prima
+  /// riga scritta, mentre un genere e' un'affermazione su una persona
+  /// vera. Ignoto vuol dire che i testi usano la forma neutra, che il
+  /// progetto possiede gia' per intero.
   static final UserProfile _demoProfile = UserProfile(
     displayName: 'Sofia',
-    courtesyForm: CourtesyForm.feminine,
+    courtesyForm: CourtesyForm.unknown,
   );
 
   final ProfileStore _store;

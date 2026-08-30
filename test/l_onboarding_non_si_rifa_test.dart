@@ -43,8 +43,19 @@ void main() {
   test('senza niente dal Cerchio, il rito si fa tutto', () {
     final esito = Ritrovamento.da(null);
     expect(esito.siSalta, isFalse);
-    expect(esito.passiDaChiedere, Ritrovamento.tuttiIPassi,
-        reason: 'chi arriva per la prima volta deve fare il rito intero');
+    // **QUESTO ELENCO E' CIO' CHE TRATTIENE, non i passi del rito.**
+    // Ordine CF voce 06: l\'ora e' uscita dai passi che trattengono, perche'
+    // e' facoltativa e chi non la sa non aveva nessuna risposta per
+    // liberarsene. Il rito ne ha ancora quattro, e chi arriva per la prima
+    // volta li attraversa tutti: quello che cambia e' che l\'ora non e'
+    // piu' una porta chiusa.
+    expect(
+        esito.passiDaChiedere,
+        Ritrovamento.tuttiIPassi
+            .where((p) => p != PassoDelRito.ora)
+            .toList(),
+        reason: 'chi arriva per la prima volta deve dare tutto cio\' che '
+            'trattiene');
   });
 
   test('con l\'identita\' completa il rito non si fa affatto', () {
@@ -75,19 +86,34 @@ void main() {
     ));
     // ignore: avoid_print
     print('ORDINE AP VOCE 05: senza ora, si chiede ${esito.passiDaChiedere}');
-    expect(esito.siSalta, isFalse,
-        reason: 'manca l\'ora e il rito e\' stato saltato lo stesso: '
-            'l\'Ascendente resterebbe fuori per sempre');
-    expect(esito.passiDaChiedere, [PassoDelRito.ora],
-        reason: 'si chiede piu\' di cio\' che manca: ${esito.passiDaChiedere}');
+    // **QUESTA PRETESA E' CAMBIATA, ordine CF voce 06, e si dichiara cosa
+    // supera.** Qui si pretendeva `siSalta` falso, con la ragione che
+    // altrimenti l'Ascendente sarebbe restato fuori per sempre. La ragione
+    // era giusta, la cura no: l'ora nel Cerchio e' FACOLTATIVA, e chi al
+    // rito aveva risposto "non la so" aveva `ora` nulla per sempre, quindi
+    // non c'era nessuna risposta che potesse liberarlo. Il fondatore lo ha
+    // vissuto sulla build 2215: "sono rimasto alla piena schermata del
+    // risveglio anziche' portarmi alla home".
+    //
+    // **All'obiezione dell'ordine AP si e' risposto invece di ignorarla**:
+    // lo Specchio dei dati adesso offre il gesto "Aggiungi l'ora", che prima
+    // aveva solo il luogo, quindi l'Ascendente ha una via per rientrare.
+    expect(esito.siSalta, isTrue,
+        reason: 'manca la sola ora e il rito non si salta: chi l\'ora non la '
+            'sa resta dentro il Risveglio a ogni reinstallazione, e nessuna '
+            'risposta lo libera');
+    expect(esito.passiDaChiedere, isEmpty,
+        reason: 'si chiede qualcosa che non trattiene: '
+            '${esito.passiDaChiedere}');
   });
 
   test('col solo giorno si chiedono ora, luogo e nome', () {
     final esito = Ritrovamento.da(CamminoDaCustodire(
       identita: identita(giorno: DateTime(1990, 4, 12)),
     ));
+    // L'ora non e' piu' in elenco, ordine CF voce 06: non trattiene.
     expect(esito.passiDaChiedere,
-        [PassoDelRito.ora, PassoDelRito.luogo, PassoDelRito.nome]);
+        [PassoDelRito.luogo, PassoDelRito.nome]);
     expect(esito.passiDaChiedere, isNot(contains(PassoDelRito.data)),
         reason: 'si richiede la data di nascita, che il Cerchio ha gia\'');
   });

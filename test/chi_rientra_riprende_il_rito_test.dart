@@ -82,9 +82,16 @@ void main() {
         '${esito.passiDaChiedere.first.name}');
 
     expect(esito.siSalta, isFalse);
-    expect(esito.passiDaChiedere.first, PassoDelRito.ora,
+    // **NON PIU' L\'ORA, ordine CF voce 06.** L\'ora e' uscita dai passi che
+    // trattengono, perche' e' facoltativa e chi non la sa non aveva
+    // nessuna risposta per liberarsene: adesso il primo passo che manca
+    // davvero e' il luogo. La pretesa vera di questa prova resta intatta,
+    // cioe' che il giorno gia' dato non si richieda.
+    expect(esito.passiDaChiedere.first, PassoDelRito.luogo,
         reason: 'il primo passo da chiedere non e quello giusto: chi ha gia '
             'dato il giorno se lo vedrebbe chiedere di nuovo');
+    expect(esito.passiDaChiedere, isNot(contains(PassoDelRito.data)),
+        reason: 'si richiede il giorno, che il Cerchio ha gia');
     // **E l'identita' c'e' lo stesso**, che e' il punto: senza, il Risveglio
     // ripartirebbe dall'accoglienza invece che dall'ora.
     expect(esito.identita?.giorno, isNotNull);
@@ -97,7 +104,8 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AZ, F2: senza niente, passi ${esito.passiDaChiedere.length}, '
         'identita ${esito.identita == null ? "assente" : "presente"}');
-    expect(esito.passiDaChiedere, hasLength(4));
+    // Tre e non piu' quattro, ordine CF voce 06: l\'ora non trattiene.
+    expect(esito.passiDaChiedere, hasLength(3));
     expect(esito.identita, isNull,
         reason: 'si sta rimontando il rito con un identita che non esiste');
   });

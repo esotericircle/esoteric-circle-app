@@ -1,3 +1,4 @@
+import '../astro/city_catalog.dart';
 import '../astro/birth_details.dart';
 import '../identity/birth_identity.dart';
 import '../identity/birth_place.dart';
@@ -168,6 +169,7 @@ class CamminoDaCustodire {
 class IdentitaDaCustodire {
   const IdentitaDaCustodire({
     this.nome,
+    this.forma,
     this.giorno,
     this.ora,
     this.luogo,
@@ -178,6 +180,16 @@ class IdentitaDaCustodire {
   });
 
   final String? nome;
+
+  /// **LA FORMA DI CORTESIA, ordine CF voce 07.** Il nome della voce di
+  /// `CourtesyForm`, oppure nulla quando la persona non l'ha mai scelta.
+  ///
+  /// **Perche' e' entrata nella custodia.** Il nome tornava e il genere no:
+  /// chi rientrava su un telefono appena reinstallato si vedeva chiamare con
+  /// la forma iniziale del controller, che fino all'ordine CF voce 05 era il
+  /// femminile. Curare il valore iniziale toglie l'affermazione sbagliata;
+  /// custodire la forma restituisce quella giusta, che e' l'altra meta'.
+  final String? forma;
 
   /// Il giorno di nascita, solo la data.
   final DateTime? giorno;
@@ -202,6 +214,7 @@ class IdentitaDaCustodire {
 
   Map<String, Object?> aMappa() => {
         if (nome != null) 'nome': nome,
+        if (forma != null) 'forma': forma,
         if (giorno != null)
           'giorno': giorno!.toIso8601String().substring(0, 10),
         if (ora != null) 'ora': ora,
@@ -215,6 +228,7 @@ class IdentitaDaCustodire {
   static IdentitaDaCustodire? daMappa(Object? grezzo) {
     if (grezzo is! Map) return null;
     final nome = grezzo['nome'];
+    final forma = grezzo['forma'];
     final ora = grezzo['ora'];
     final luogo = grezzo['luogo'];
     final lat = grezzo['latitudine'];
@@ -222,6 +236,7 @@ class IdentitaDaCustodire {
     final fuso = grezzo['fuso'];
     final identita = IdentitaDaCustodire(
       nome: nome is String && nome.isNotEmpty ? nome : null,
+      forma: forma is String && forma.isNotEmpty ? forma : null,
       giorno: DateTime.tryParse('${grezzo['giorno']}'),
       ora: ora is String && ora.isNotEmpty ? ora : null,
       luogo: luogo is String && luogo.isNotEmpty ? luogo : null,
@@ -235,6 +250,19 @@ class IdentitaDaCustodire {
         identita.ora == null &&
         identita.luogo == null;
     return vuota ? null : identita;
+  }
+
+  /// I minuti di scarto dal tempo universale che il catalogo conosce per un
+  /// luogo, oppure nulla se quel luogo non e' in catalogo.
+  static int? _scartoDelLuogo(String etichetta) {
+    final nome = etichetta.split(',').first.trim();
+    if (nome.isEmpty) return null;
+    for (final c in CityCatalog.luoghi) {
+      if (c.name.toLowerCase() == nome.toLowerCase()) {
+        return c.utcOffsetMinutes;
+      }
+    }
+    return null;
   }
 
   /// L'identita' di nascita come la vuole il resto dell'app.
@@ -268,7 +296,14 @@ class IdentitaDaCustodire {
               // senza fuso non si puo' collocare nel tempo, e inventarne uno
               // a zero sposterebbe la carta di due ore.
               timeZoneId: fuso ?? 'Europe/Rome',
-              utcOffsetMinutes: scarto ?? 60,
+              // **LO SCARTO SI CERCA IN CATALOGO PRIMA DI INVENTARLO.**
+              // Ordine CF voce 07. `daiDettagli` non puo' scriverlo, perche'
+              // il `BirthPlace` dell'astronomia porta il fuso IANA e non i
+              // minuti: quindi al ritorno `scarto` e' SEMPRE nullo, e questa
+              // riga metteva sessanta a chiunque, cioe' l'ora di Roma anche a
+              // chi e' nato a Tokyo. Il catalogo dei luoghi quei minuti li
+              // ha, e il nome del luogo custodito basta a trovarli.
+              utcOffsetMinutes: scarto ?? _scartoDelLuogo(luogo!) ?? 60,
               isApproximate: fuso == null,
             ),
     );
@@ -284,12 +319,14 @@ class IdentitaDaCustodire {
   static IdentitaDaCustodire? daiDettagli(
     BirthDetails? dettagli, {
     String? nome,
+    String? forma,
   }) {
     if (dettagli == null) return null;
     String due(int n) => n.toString().padLeft(2, '0');
     final ora = dettagli.time;
     return IdentitaDaCustodire(
       nome: nome,
+      forma: forma,
       giorno: DateTime(
           dettagli.date.year, dettagli.date.month, dettagli.date.day),
       ora: ora == null ? null : '${due(ora.hour)}:${due(ora.minute)}',

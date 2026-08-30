@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/city_catalog.dart';
+import '../../core/astro/ricerca_del_luogo.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
 import '../../core/identity/profile_controller.dart';
@@ -92,8 +93,20 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
     super.dispose();
   }
 
-  void _cercaLuogo(String q) =>
-      setState(() => _risultati = CityCatalog.search(q));
+  /// **LA STESSA REGOLA DELL'ALTRA PORTA, ordine CF voce 08.** Questa
+  /// schermata cercava col solo `search` e il rito dell'accoglienza col
+  /// `unicaEsatta`: stessa domanda, due risposte, ed e' la famiglia di
+  /// difetti piu' numerosa del progetto. Adesso tutte e due chiamano
+  /// `RicercaDelLuogo`, quindi chi scrive per intero il nome della propria
+  /// citta' se la vede scegliere anche qui, e l'elenco resta a video in tutti
+  /// e due i posti.
+  void _cercaLuogo(String q) {
+    final risposta = RicercaDelLuogo.per(q);
+    setState(() {
+      _risultati = risposta.risultati;
+      if (risposta.scelta != null) _luogo = risposta.scelta!.toPlace();
+    });
+  }
 
   void _scegliCitta(City c) {
     setState(() {

@@ -25,10 +25,10 @@ Porta le tre regole degli ordini precedenti:
 - **CF.02** La striscia dei Doni piu' bassa. **CHIUSA.**
 - **CF.03** La barra Esplora piu' bassa. **CHIUSA.**
 - **CF.04** Le notifiche dei Doni, e le push. **APERTA.**
-- **CF.05** "Bentornata Mauro", al femminile. **APERTA.**
-- **CF.06** Rimasto sul Risveglio invece che in home. **APERTA.**
-- **CF.07** I dati di nascita non erano rimasti memorizzati. **APERTA.**
-- **CF.08** La ricerca della citta' non funziona nel popup. **APERTA.**
+- **CF.05** "Bentornata Mauro", al femminile. **CHIUSA.**
+- **CF.06** Rimasto sul Risveglio invece che in home. **CHIUSA.**
+- **CF.07** I dati di nascita non erano rimasti memorizzati. **CHIUSA.**
+- **CF.08** La ricerca della citta' non funziona nel popup. **CHIUSA.**
 - **CF.09** Il lampo nero non c'e' ovunque. **APERTA.**
 - **CF.10** Caratteri troppo piccoli nei Doni e altrove. **APERTA.**
 - **CF.11** Il conteggio delle sinastrie. **APERTA.**
@@ -41,8 +41,8 @@ Porta le tre regole degli ordini precedenti:
 - **CF.18** Il secondo cancello. **APERTA.**
 
 VOCI_TOTALI: 18
-VOCI_CHIUSE: 3
-VOCI_APERTE: 15
+VOCI_CHIUSE: 7
+VOCI_APERTE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -205,6 +205,106 @@ che lui ha nominato.
 dentro un'area da cinquantadue, sopra il minimo di quarantotto. **E nessuno
 dall'alone del titolo**, che l'ordine A aveva alzato da tre a cinque per una
 ragione di contrasto misurata, 4,31 contro il 4,5 richiesto.
+
+### CF.05, il genere non si indovina piu'
+
+**La causa, misurata.** `ProfileController` nasceva con un profilo d'esempio
+che dichiarava `CourtesyForm.feminine`, e quel profilo non e' solo quello della
+Demo: e' lo stato INIZIALE del controller in tutta l'app, perche' `app.dart` lo
+costruisce senza argomenti e poi chiama `load()`. Su un telefono appena
+reinstallato non c'e' niente da caricare, quindi la forma restava femminile e il
+riconoscimento rimetteva il nome vero senza toccarla. **"Bentornata Mauro" nasce
+da quella riga**, e la prova del rosso la riproduce parola per parola.
+
+**Il nome resta, il genere no.** Un nome d'esempio e' una didascalia che
+l'onboarding sostituisce; un genere e' un'affermazione su una persona vera.
+
+**Il censimento chiesto dall'ordine, coi numeri.** Stringhe che dichiarano un
+genere rivolgendosi alla persona: **undici prima, dieci adesso**. Vivono in
+cinque file, e quattro di quelli SONO le porte del genere, cioe' scelgono la
+forma guardando la persona. **Una sola era fuori**: nel registro degli Eos il
+motivo del dono si chiamava "Benvenuto nel Cerchio", quindi a chi aveva scelto
+il femminile il Cerchio diceva comunque "Benvenuto". Adesso si chiama **"Dono di
+benvenuto"**, che non ha genere e non ne serve uno. **Testo provvisorio**: le
+parole che la persona legge le approva il fondatore.
+
+**Due guardie e non una.** La prima pretende che nessuna stringa dichiari un
+genere fuori dalle porte; la seconda pretende che ogni porta porti ANCORA tutte
+e due le declinazioni, perche' senza di lei la prima si potrebbe far passare
+cancellando meta' di una coppia, e allora il Cerchio smetterebbe di parlare a
+chi ha scelto quella forma.
+
+### CF.06, l'ora non trattiene piu' nessuno dentro il rito
+
+**La causa, misurata.** L'uscita dal rito passa da `Ritrovamento.siSalta`, vero
+solo quando `passiDaChiedere` e' vuoto. In quell'elenco c'era l'ORA. Ma l'ora nel
+Cerchio e' FACOLTATIVA per costruzione: l'Ascendente si calcola quando c'e' e si
+dichiara assente quando non c'e', e il rito stesso offre "non la so". **Chi
+aveva risposto cosi' aveva `ora` nulla per sempre**, quindi non esisteva nessuna
+risposta capace di liberarlo: a ogni reinstallazione rifaceva il rito intero.
+
+**All'obiezione dell'ordine AP si e' risposto, non l'ho ignorata.** La guardia
+dell'ordine AP voce 05 pretendeva `siSalta` falso con la ragione che altrimenti
+l'Ascendente sarebbe restato fuori per sempre, e la ragione era giusta. Lo
+Specchio dei dati dichiarava gia' l'ora mancante e la sua conseguenza, **ma non
+offriva nessun gesto per darla**, mentre per il luogo il gesto c'era. Adesso c'e'
+anche per l'ora, e porta alla stessa schermata dei dati di nascita. **Tre prove
+degli ordini AP e AZ sono state cambiate, e ognuna dichiara nel proprio testo
+quale decisione supera e perche'.**
+
+### CF.07, cosa la custodia prometteva e cosa non manteneva
+
+**Misurato voce per voce, prima di curare.** La custodia dichiara nove campi
+dell'identita': nome, giorno, ora, luogo, latitudine, longitudine, fuso, scarto,
+e adesso forma. Il giro fra `aMappa` e `daMappa` non ne perdeva nessuno. **Le
+perdite erano tre, e stavano tutte fuori dalla mappa:**
+
+1. **Il luogo non tornava nel campo.** La ripresa del rito riprendeva giorno,
+   ora e nome, e il luogo no: il rito ripartiva dal primo passo mancante e poi
+   proseguiva in fila, quindi arrivava al passo del luogo col campo vuoto. **E'
+   il fatto del fondatore parola per parola**: "i miei dati di nascita, luogo
+   ecc non sono rimasti memorizzati e ho dovuto reinserirli".
+2. **Il nome e la forma non tornavano nel profilo.** L'adozione del cammino
+   rimetteva l'identita' di nascita e basta: chi usciva dal rito perche' non
+   c'era piu' niente da chiedere restava chiamato col nome d'esempio.
+3. **Lo scarto dal tempo universale non tornava mai, ed e' il peggiore.**
+   `daiDettagli` non puo' scriverlo, perche' il `BirthPlace` dell'astronomia
+   porta il fuso IANA e non i minuti: al ritorno `scarto` era SEMPRE nullo, e la
+   ricostruzione metteva sessanta a chiunque, cioe' **l'ora di Roma anche a chi
+   e' nato a Tokyo**. Misurato dopo la cura: Tokyo torna a **540 minuti** invece
+   di 60. Il catalogo dei luoghi quei minuti li aveva gia'.
+
+**La guardia ENUMERA il sorgente invece di elencare a mano**, perche' un elenco
+a mano invecchia in silenzio: e' esattamente il modo in cui `scarto` e' rimasto
+per mesi un campo che nessuno riempiva.
+
+### CF.08, due porte sulla ricerca della citta', e ne resta una
+
+**La causa, misurata.** Il rito dell'accoglienza cercava con
+`CityCatalog.unicaEsatta` e, quando il nome scritto per intero combaciava con un
+solo luogo, **svuotava l'elenco dei suggerimenti** e usciva; la schermata dei
+dati di nascita, quella del menu' utente, non aveva quella riga e l'elenco lo
+mostrava sempre. **Stessa domanda, due risposte.** Chi scriveva "Roma" nel rito
+vedeva l'elenco vuoto e concludeva che il Cerchio non conoscesse Roma. Misurato
+dopo: "Roma" sceglie Roma **e mostra otto suggerimenti**, dove prima ne mostrava
+zero.
+
+**La cura e' togliere la porta, non correggerla nel chiamante.** La regola vive
+in `RicercaDelLuogo` e le due schermate la chiamano; una prova sul sorgente cade
+se una delle due torna a cercare per conto suo. **La scelta automatica resta**,
+perche' e' una decisione precedente del fondatore e non si rovescia: cio' che
+cambia e' che l'elenco non si svuota, e la riga di conferma del luogo scelto non
+dipende piu' dall'elenco vuoto, altrimenti sparirebbe proprio quando qualcuno
+scrive per intero il nome della sua citta'.
+
+**Cio' che NON ho potuto verificare, e va detto.** Il fondatore chiama
+"schermata popup" quella in cui la ricerca non funzionava. In `lib/` non esiste
+nessun foglio ne' dialogo che chieda i dati di nascita con un campo citta': le
+sole tre porte che cercano un luogo sono il rito dell'accoglienza, la schermata
+dei dati di nascita e il "dove sei adesso" del Rito dell'Alba. **Ho identificato
+la schermata per esclusione**, cioe' il rito ripreso dopo il riconoscimento, che
+compare all'improvviso ed e' l'unica delle tre che divergeva. La divergenza era
+reale e misurata; l'abbinamento alla parola "popup" e' mio.
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 

@@ -98,6 +98,17 @@ class SpecchioDeiDati extends StatelessWidget {
                     '${dettagli.time!.minute.toString().padLeft(2, '0')}'
                 : 'Non l\'hai data: l\'Ascendente resta fuori',
             manca: !(dettagli?.hasTime ?? false),
+            // **IL GESTO C\'E' ANCHE QUI, ordine CF voce 06.** Il luogo
+            // aveva il suo e l\'ora no: dichiarava la mancanza e la sua
+            // conseguenza, e lasciava la persona senza una via per darla.
+            // Dall\'ordine CF voce 06 l\'ora non trattiene piu' dentro il
+            // rito, quindi questa e' la via con cui l\'Ascendente rientra.
+            azione: !(dettagli?.hasTime ?? false)
+                ? (
+                    'Aggiungi l\'ora',
+                    () => CompletaLOra.chiedi(context),
+                  )
+                : null,
           ),
           _Riga(
             chiave: const Key('specchio_luogo'),

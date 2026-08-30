@@ -11,6 +11,7 @@ import '../arts/arti_preferite.dart';
 import '../entitlement/question_allowance.dart';
 import '../entitlement/registro_degli_eos.dart';
 import '../identity/natal_identity.dart';
+import '../chat/user_profile.dart';
 import '../identity/profile_controller.dart';
 import '../sigilli/diario_del_cammino.dart';
 import '../../features/onboarding/scena_del_ritrovamento.dart';
@@ -68,10 +69,21 @@ class CustodeDelCammino {
     final stato = diario?.statoDelCammino();
 
     String? nome;
+    // **E ANCHE LA FORMA DI CORTESIA, ordine CF voce 07.** Il nome viaggiava
+    // e il genere no: chi rientrava su un telefono appena reinstallato si
+    // sentiva chiamare con la forma iniziale del controller invece che con
+    // la sua. Si legge dallo stesso profilo e nello stesso `try`, perche'
+    // senza quel provider non c'e' ne' l'uno ne' l'altra.
+    String? forma;
     try {
-      nome = context.read<ProfileController>().profile.displayName;
+      final profilo = context.read<ProfileController>().profile;
+      nome = profilo.displayName;
+      forma = profilo.courtesyForm == CourtesyForm.unknown
+          ? null
+          : profilo.courtesyForm.name;
     } catch (errore) {
       nome = null;
+      forma = null;
     }
 
     IdentitaDaCustodire? identita;
@@ -79,6 +91,7 @@ class CustodeDelCammino {
       identita = IdentitaDaCustodire.daiDettagli(
         context.read<BirthIdentityController>().details,
         nome: nome,
+        forma: forma,
       );
     } catch (errore) {
       identita = null;
@@ -385,6 +398,32 @@ class CustodeDelCammino {
         // Idem: senza il controller non c'e' identita' da riprendere.
       }
     }
+    // **IL NOME E LA FORMA TORNANO NEL PROFILO, ordine CF voce 07.**
+    //
+    // **Prima non tornavano, ed e' misurato.** La custodia il nome lo
+    // portava gia', ma qui si adottava soltanto l'identita' di nascita:
+    // il profilo restava quello iniziale, cioe' il nome d'esempio della
+    // Demo. Chi usciva dal rito perche' non c'era piu' niente da chiedere
+    // si ritrovava chiamato con un nome che non era il suo.
+    //
+    // **Si scrive solo cio' che il Cerchio ha davvero**: un campo nullo
+    // nella custodia non cancella quello che c'e' sul telefono, perche'
+    // il ritrovamento e' una fusione e non una sostituzione.
+    final custodita = cammino.identita;
+    if (custodita != null &&
+        (custodita.nome != null || custodita.forma != null)) {
+      try {
+        final profilo = context.read<ProfileController>();
+        profilo.setProfile(profilo.profile.copyWith(
+          displayName: custodita.nome ?? profilo.profile.displayName,
+          courtesyForm: custodita.forma == null
+              ? profilo.profile.courtesyForm
+              : CourtesyForm.fromId(custodita.forma),
+        ));
+      } catch (errore) {
+        // Senza il controller del profilo non c'e' niente da riprendere.
+      }
+    }
     if (!context.mounted) return;
     if (cammino.artiPreferite.isNotEmpty) {
       try {
@@ -427,7 +466,14 @@ class CustodeDelCammino {
     }
     for (final accredito in borsa.prendiGliAccreditiDaRaccontare()) {
       final perche = switch (accredito.motivo) {
-        'benvenuto' => 'Benvenuto nel Cerchio',
+        // **"DONO DI BENVENUTO" E NON "BENVENUTO NEL CERCHIO", ordine CF
+        // voce 05.** Era l'unica stringa dell'app che dichiarava un genere
+        // fuori dalle porte del genere: qui non c'e' nessuna scelta di
+        // forma, quindi a chi aveva scelto il femminile il registro degli
+        // Eos diceva comunque "Benvenuto". Un nome di dono non ha genere e
+        // non ne serve uno. **Testo provvisorio**: le parole che la
+        // persona legge le approva il fondatore.
+        'benvenuto' => 'Dono di benvenuto',
         'accredito_del_giorno' => 'Dono del giorno',
         // Un motivo nuovo del server non deve sparire dalla storia: si
         // racconta con la parola piu' larga che resti vera.

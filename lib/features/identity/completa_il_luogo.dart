@@ -30,3 +30,25 @@ class CompletaIlLuogo {
   static Future<void> chiedi(BuildContext context) =>
       Navigator.of(context).push(DatiDiNascitaScreen.route());
 }
+
+/// DOVE SI VA A DARE L'ORA CHE MANCA. Ordine CF voce 06.
+///
+/// **Perche' nasce.** L'ora e' un dato facoltativo, e dall'ordine CF voce
+/// 06 la sua assenza non trattiene piu' nessuno dentro il rito: chi
+/// rientra col giorno, il luogo e il nome custoditi arriva in home. La
+/// guardia dell'ordine AP voce 05 obiettava, con ragione, che cosi'
+/// l'Ascendente resterebbe fuori per sempre. **Questa e' la risposta a
+/// quell'obiezione**: lo Specchio dei dati dichiarava gia' l'ora mancante
+/// e la sua conseguenza, ma non offriva nessun gesto per darla, mentre per
+/// il luogo il gesto c'era. Adesso c'e' anche qui.
+///
+/// **La destinazione e' la stessa**, perche' e' la stessa schermata a
+/// correggere data, ora e luogo insieme: cio' che cambia e' il nome della
+/// mancanza da cui si parte, e un nome che dice il vero vale la classe.
+class CompletaLOra {
+  const CompletaLOra._();
+
+  /// Porta la persona dove puo' dare l'ora che le manca.
+  static Future<void> chiedi(BuildContext context) =>
+      Navigator.of(context).push(DatiDiNascitaScreen.route());
+}

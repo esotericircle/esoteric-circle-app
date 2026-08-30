@@ -190,9 +190,25 @@ class Ritrovamento {
     bool senzaRisposta = false,
   }) {
     final identita = cammino?.identita;
+    // **L'ORA NON TRATTIENE PIU' NESSUNO NEL RITO. Ordine CF voce 06.**
+    //
+    // **Il fatto del fondatore, verbatim**: "sono rimasto alla piena
+    // schermata del risveglio anziche' portarmi alla home."
+    //
+    // **La causa, misurata.** `siSalta` e' vero solo quando questo elenco e'
+    // vuoto, e qui dentro c'era l'ora. Ma l'ora nel Cerchio e' un dato
+    // FACOLTATIVO per costruzione: l'Ascendente si calcola quando c'e' e si
+    // dichiara assente quando non c'e', e il rito stesso offre "non la so".
+    // Chi ha risposto cosi' aveva `ora` nulla per sempre, quindi il rito non
+    // si saltava mai piu': a ogni reinstallazione lo rifaceva per intero, e
+    // non c'era nessuna risposta che potesse liberarlo.
+    //
+    // **Non si perde niente**: l'ora resta chiedibile dal menu' utente, in
+    // "Dati di nascita", che e' il posto dove un dato facoltativo si aggiunge
+    // quando la persona lo scopre. Cio' che trattiene restano il giorno, il
+    // luogo e il nome, che senza non c'e' ne' carta ne' vocativo.
     final manca = <PassoDelRito>[
       if (identita?.giorno == null) PassoDelRito.data,
-      if (identita?.ora == null) PassoDelRito.ora,
       if (identita?.luogo == null) PassoDelRito.luogo,
       if (identita?.nome == null) PassoDelRito.nome,
     ];
