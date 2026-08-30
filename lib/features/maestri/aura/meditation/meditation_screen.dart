@@ -174,7 +174,7 @@ class _MeditationScreenState extends State<MeditationScreen>
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
             testo: 'Meditazione',
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
@@ -406,7 +406,7 @@ class _PresetChip extends StatelessWidget {
               Text(
                 preset.label,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 16).copyWith(
+                style: TypographyTokens.titoloDiRiga().copyWith(
                   color:
                       selected ? palette.goldSoft : ColorTokens.textSecondary,
                 ),

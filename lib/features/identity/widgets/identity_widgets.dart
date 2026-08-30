@@ -61,7 +61,7 @@ class MoonPhaseFactCard extends StatelessWidget {
                   sign != null
                       ? '${facts.moonPhaseName} in ${sign.italianName}'
                       : facts.moonPhaseName,
-                  style: TypographyTokens.display(size: 19),
+                  style: TypographyTokens.titoloDiSchermata(),
                 ),
                 const SizedBox(height: 4),
                 Text(facts.moonMeaning,
@@ -100,7 +100,7 @@ class LifeNumberFactCard extends StatelessWidget {
                         .copyWith(color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: 4),
                 Text('${facts.lifeNumber}, ${facts.lifeTitle}',
-                    style: TypographyTokens.display(size: 19)),
+                    style: TypographyTokens.titoloDiSchermata()),
                 const SizedBox(height: 4),
                 Text(facts.lifeMeaning,
                     style: TypographyTokens.body(size: 16)
@@ -174,7 +174,7 @@ class _BirthSkyPortalState extends State<BirthSkyPortal> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Il tuo cielo di nascita',
-                    style: TypographyTokens.display(size: 19)),
+                    style: TypographyTokens.titoloDiSchermata()),
                 const SizedBox(height: 4),
                 Text('Tocca per rivedere il cielo autentico della tua notte.',
                     style: TypographyTokens.corpo().copyWith(

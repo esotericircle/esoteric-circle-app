@@ -72,7 +72,7 @@ class SunsetRuneCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             if (!sigillo)
               Text(estrazione.rune.name.toUpperCase(),
-                  style: TypographyTokens.display(size: 28)
+                  style: TypographyTokens.cerimoniale()
                       .copyWith(color: palette.goldSoft)),
             const SizedBox(height: 2),
             Text(

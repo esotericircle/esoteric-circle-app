@@ -116,7 +116,7 @@ class PannelloDiMessaAPunto extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Messa a punto', style: TypographyTokens.display(size: 20)),
+          Text('Messa a punto', style: TypographyTokens.titoloDiSchermata()),
           const SizedBox(height: SpacingTokens.md),
           _StatusRow(
             // Non "Voce del Maestro": qui si dice se il MAESTRO risponde,

@@ -104,13 +104,17 @@ void main() {
       expect(contatore.puoiApprofondire(Tier.free), isFalse);
     });
 
-    test('Iniziato tre, Adepto dieci, Illuminato senza limite', () {
+    test('Iniziato tre, Adepto dieci, Illuminato trenta', () {
+      // **TRENTA, E NON PIU' "SENZA LIMITE".** Ordine CE voce 08: il
+      // fondatore ha chiesto che l'illimitato sparisca da ogni cella. Il
+      // numero segue il dato del listino, non lo anticipa, e il residuo
+      // dell'Illuminato adesso e' un conto vero invece del tetto di
+      // correttezza che si usava quando non c'era nessun tetto.
       final contatore = QuestionAllowance();
       expect(contatore.limiteApprofondimenti(Tier.tier1), 3);
       expect(contatore.limiteApprofondimenti(Tier.tier2), 10);
-      expect(contatore.limiteApprofondimenti(Tier.tier3), isNull);
-      expect(contatore.approfondimentiRimasti(Tier.tier3),
-          QuestionAllowance.kTettoDiCorrettezza);
+      expect(contatore.limiteApprofondimenti(Tier.tier3), 30);
+      expect(contatore.approfondimentiRimasti(Tier.tier3), 30);
     });
 
     test('Una lettura intera NON consuma una domanda del giorno', () {

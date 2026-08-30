@@ -98,8 +98,8 @@ class VieDellaCustodia extends StatelessWidget {
                 },
           child: Text(
             'Preferisco un\'email',
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft),
+            style:
+                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
         ),
       ],
@@ -134,7 +134,6 @@ class VieDellaCustodia extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _PulsanteDellaVia extends StatelessWidget {
@@ -434,8 +433,7 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       // registrazione poco dopo oppure nel menu utente". La frase comune
       // dice il primo pezzo; qui, solo sulla porta di chi torna, si
       // aggiunge la strada in avanti.
-      if (widget.perChiTorna &&
-          esito == EsitoDellaCustodia.nonRiconosciuto) {
+      if (widget.perChiTorna && esito == EsitoDellaCustodia.nonRiconosciuto) {
         _guaio = '${_guaio!} Se non ti sei mai registrato, potrai farlo '
             'tra poco, alla fine del rito, oppure dal menu utente.';
       }
@@ -468,128 +466,137 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       ),
       child: SafeArea(
         top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.shield_moon_outlined,
-                    color: palette.goldSoft, size: 22),
-                const SizedBox(width: SpacingTokens.sm),
-                Expanded(
-                  child: Text(
-                      widget.perChiTorna
-                          ? 'Il Cerchio ti stava aspettando'
-                          : (senzaMomenti
-                              ? 'Il Cerchio può custodire il tuo cielo'
-                              : 'Il Cerchio custodisce $quanti'),
-                      key: const Key('invito_numero_dei_momenti'),
-                      style: TypographyTokens.titoloScheda()
-                          .copyWith(color: palette.goldSoft)),
+        // **IL FOGLIO SCORRE, ordine CE voce 01.** Qui dentro sono entrati i
+        // consensi, e il foglio ha smesso di essere di altezza fissa: nel
+        // caso in cui il Cerchio risulta gia' di un altro, con la riga
+        // onesta e "Continua come" in piu', la colonna traboccava di 24
+        // punti e quel che stava sotto non si vedeva. Un foglio che cresce
+        // col contenuto deve poter scorrere.
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.shield_moon_outlined,
+                      color: palette.goldSoft, size: 22),
+                  const SizedBox(width: SpacingTokens.sm),
+                  Expanded(
+                    child: Text(
+                        widget.perChiTorna
+                            ? 'Il Cerchio ti stava aspettando'
+                            : (senzaMomenti
+                                ? 'Il Cerchio può custodire il tuo cielo'
+                                : 'Il Cerchio custodisce $quanti'),
+                        key: const Key('invito_numero_dei_momenti'),
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                widget.perChiTorna
+                    ? 'Entra con l\'account che usavi: ritrovi la tua carta '
+                        'natale, i Sigilli accesi e i tuoi Eos.'
+                    : (senzaMomenti
+                        ? 'Stai usando il Cerchio senza un account: ciò che '
+                            'farai vive solo su questo telefono. Registrarsi è '
+                            'gratuito, basta un tocco e nulla si perde più.'
+                        : 'Vuoi che restino tuoi anche se cambi telefono? '
+                            'Registrarsi è gratuito e basta un tocco: nulla di '
+                            'quello che hai fatto si perde.'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+              ),
+              // **LA PROMESSA DELLA REGISTRAZIONE, ordine BH voce 01.** Il
+              // premio scritto nell'invito, col numero del server, in oro:
+              // e' la riga che motiva. Chi torna non la vede: il suo
+              // benvenuto e' gia' stato pagato, promettere qui sarebbe
+              // promettere il falso.
+              if (!widget.perChiTorna) ...[
+                const SizedBox(height: SpacingTokens.xs),
+                Text(
+                  PromessaDellaRegistrazione.frase(context),
+                  key: const Key('promessa_della_registrazione'),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.goldSoft, height: 1.4),
                 ),
               ],
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(
-              widget.perChiTorna
-                  ? 'Entra con l\'account che usavi: ritrovi la tua carta '
-                      'natale, i Sigilli accesi e i tuoi Eos.'
-                  : (senzaMomenti
-                      ? 'Stai usando il Cerchio senza un account: ciò che '
-                          'farai vive solo su questo telefono. Registrarsi è '
-                          'gratuito, basta un tocco e nulla si perde più.'
-                      : 'Vuoi che restino tuoi anche se cambi telefono? '
-                          'Registrarsi è gratuito e basta un tocco: nulla di '
-                          'quello che hai fatto si perde.'),
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-            ),
-            // **LA PROMESSA DELLA REGISTRAZIONE, ordine BH voce 01.** Il
-            // premio scritto nell'invito, col numero del server, in oro:
-            // e' la riga che motiva. Chi torna non la vede: il suo
-            // benvenuto e' gia' stato pagato, promettere qui sarebbe
-            // promettere il falso.
-            if (!widget.perChiTorna) ...[
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                PromessaDellaRegistrazione.frase(context),
-                key: const Key('promessa_della_registrazione'),
-                style: TypographyTokens.corpo()
-                    .copyWith(color: palette.goldSoft, height: 1.4),
-              ),
-            ],
-            if (_guaio != null) ...[
-              const SizedBox(height: SpacingTokens.sm),
-              Text(_guaio!,
-                  key: const Key('invito_guaio'),
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: palette.goldSoft, height: 1.4)),
-            ],
-            // LA VIA IN AVANTI, ordine AL voce 07: quando il Cerchio e' di
-            // un altro, si puo' entrarci col proprio nome, dopo la riga
-            // onesta. "Piu' tardi" resta qui sotto, come sempre.
-            if (_riconosciuto) ...[
-              const SizedBox(height: SpacingTokens.md),
-              ContinuaComeRiconosciuto(
-                account: widget.account,
-                suEsito: (esito) async {
-                  if (!mounted) return;
-                  if (esito == EsitoDellaCustodia.riuscita) {
-                    // **ANCHE DA QUI IL CAMMINO TORNA, ordine AP voce 06.**
-                    // Il foglio si chiude prima, perche' la scena del
-                    // ritrovamento e' una rotta e non deve aprirsi dietro un
-                    // foglio che sta per sparire; il giro del Custode e' lo
-                    // stesso della porta piccola della voce 04.
-                    final navigatore = Navigator.of(context);
-                    final radice = navigatore.context;
-                    navigatore.pop(true);
-                    await CustodeDelCammino.dopoIlRiconoscimento(radice);
-                    return;
-                  }
-                  setState(() => _guaio = frasePerEsito(esito));
-                },
-              ),
-            ],
-            const SizedBox(height: SpacingTokens.lg),
-            // **LA PORTA DI CHI TORNA SONDA, NON SEMBRA UNA REGISTRAZIONE.**
-            // Ordine BI voce 01, parole del fondatore: "deve solo
-            // controllare che effettivamente l'email dell'utente sia gia'
-            // presente nel server e comunicarlo all'utente. Se non esiste,
-            // l'utente deve proseguire per forza con l'onboarding". Prima
-            // l'email, poi il server risponde e la porta instrada: niente
-            // account creati in silenzio, niente rifiuti senza spiegazione.
-            if (widget.perChiTorna)
-              _SondaDellIngresso(
-                account: widget.account,
-                inCorso: _inCorso,
-                suScelta: (via, {email, parola}) {
-                  _custodisci(via, email: email, parola: parola);
-                },
-                suProsegui: () => Navigator.of(context).pop(false),
-              )
-            else
-              VieDellaCustodia(inCorso: _inCorso,
+              if (_guaio != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(_guaio!,
+                    key: const Key('invito_guaio'),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: palette.goldSoft, height: 1.4)),
+              ],
+              // LA VIA IN AVANTI, ordine AL voce 07: quando il Cerchio e' di
+              // un altro, si puo' entrarci col proprio nome, dopo la riga
+              // onesta. "Piu' tardi" resta qui sotto, come sempre.
+              if (_riconosciuto) ...[
+                const SizedBox(height: SpacingTokens.md),
+                ContinuaComeRiconosciuto(
+                  account: widget.account,
+                  suEsito: (esito) async {
+                    if (!mounted) return;
+                    if (esito == EsitoDellaCustodia.riuscita) {
+                      // **ANCHE DA QUI IL CAMMINO TORNA, ordine AP voce 06.**
+                      // Il foglio si chiude prima, perche' la scena del
+                      // ritrovamento e' una rotta e non deve aprirsi dietro un
+                      // foglio che sta per sparire; il giro del Custode e' lo
+                      // stesso della porta piccola della voce 04.
+                      final navigatore = Navigator.of(context);
+                      final radice = navigatore.context;
+                      navigatore.pop(true);
+                      await CustodeDelCammino.dopoIlRiconoscimento(radice);
+                      return;
+                    }
+                    setState(() => _guaio = frasePerEsito(esito));
+                  },
+                ),
+              ],
+              const SizedBox(height: SpacingTokens.lg),
+              // **LA PORTA DI CHI TORNA SONDA, NON SEMBRA UNA REGISTRAZIONE.**
+              // Ordine BI voce 01, parole del fondatore: "deve solo
+              // controllare che effettivamente l'email dell'utente sia gia'
+              // presente nel server e comunicarlo all'utente. Se non esiste,
+              // l'utente deve proseguire per forza con l'onboarding". Prima
+              // l'email, poi il server risponde e la porta instrada: niente
+              // account creati in silenzio, niente rifiuti senza spiegazione.
+              if (widget.perChiTorna)
+                _SondaDellIngresso(
+                  account: widget.account,
+                  inCorso: _inCorso,
                   suScelta: (via, {email, parola}) {
-                _custodisci(via, email: email, parola: parola);
-              }),
-            const SizedBox(height: SpacingTokens.xs),
-            Align(
-              alignment: Alignment.center,
-              child: TextButton(
-                key: const Key('invito_piu_tardi'),
-                onPressed: _inCorso != null
-                    ? null
-                    : () {
-                        widget.account.rimanda();
-                        Navigator.of(context).pop(false);
-                      },
-                child: Text('Più tardi',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: ColorTokens.textSecondary)),
+                    _custodisci(via, email: email, parola: parola);
+                  },
+                  suProsegui: () => Navigator.of(context).pop(false),
+                )
+              else
+                VieDellaCustodia(
+                    inCorso: _inCorso,
+                    suScelta: (via, {email, parola}) {
+                      _custodisci(via, email: email, parola: parola);
+                    }),
+              const SizedBox(height: SpacingTokens.xs),
+              Align(
+                alignment: Alignment.center,
+                child: TextButton(
+                  key: const Key('invito_piu_tardi'),
+                  onPressed: _inCorso != null
+                      ? null
+                      : () {
+                          widget.account.rimanda();
+                          Navigator.of(context).pop(false);
+                        },
+                  child: Text('Più tardi',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -696,7 +703,7 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     if (!email.contains('@')) {
       setState(() => _guaioEmail =
           "Scrivi qui la tua email e te ne mandiamo una per reimpostare "
-          "la Password");
+              "la Password");
       return;
     }
     final account = context.read<AccountDelCerchio>();
@@ -726,74 +733,77 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
       // credenziali appena la registrazione riesce.
       content: AutofillGroup(
         child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            key: const Key('custodia_email_campo'),
-            controller: widget.email,
-            keyboardType: TextInputType.emailAddress,
-            autocorrect: false,
-            autofillHints: const [AutofillHints.username, AutofillHints.email],
-            style:
-                TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              labelText: 'La tua email',
-              errorText: _guaioEmail,
-              errorMaxLines: 3,
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          TextField(
-            key: const Key('custodia_parola_campo'),
-            controller: widget.parola,
-            obscureText: _passwordCoperta,
-            autofillHints: const [AutofillHints.newPassword],
-            style:
-                TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              labelText: 'Password',
-              helperText: regolaDellaPassword,
-              helperMaxLines: 2,
-              errorText: _guaioParola,
-              errorMaxLines: 2,
-              // **L'OCCHIOLINO, ordine BI voce 02**: si rivela e si copre
-              // con un tocco, cosi' si e' certi di quello che si scrive.
-              suffixIcon: IconButton(
-                key: const Key('custodia_occhiolino'),
-                icon: Icon(
-                  _passwordCoperta
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                  color: ColorTokens.textSecondary,
-                ),
-                onPressed: () =>
-                    setState(() => _passwordCoperta = !_passwordCoperta),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              key: const Key('custodia_email_campo'),
+              controller: widget.email,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              autofillHints: const [
+                AutofillHints.username,
+                AutofillHints.email
+              ],
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary),
+              decoration: InputDecoration(
+                labelText: 'La tua email',
+                errorText: _guaioEmail,
+                errorMaxLines: 3,
               ),
             ),
-          ),
-          if (_detto != null) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text(
-              _detto!,
-              key: const Key('custodia_parola_persa_detto'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: palette.goldSoft),
+            TextField(
+              key: const Key('custodia_parola_campo'),
+              controller: widget.parola,
+              obscureText: _passwordCoperta,
+              autofillHints: const [AutofillHints.newPassword],
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                helperText: regolaDellaPassword,
+                helperMaxLines: 2,
+                errorText: _guaioParola,
+                errorMaxLines: 2,
+                // **L'OCCHIOLINO, ordine BI voce 02**: si rivela e si copre
+                // con un tocco, cosi' si e' certi di quello che si scrive.
+                suffixIcon: IconButton(
+                  key: const Key('custodia_occhiolino'),
+                  icon: Icon(
+                    _passwordCoperta
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: ColorTokens.textSecondary,
+                  ),
+                  onPressed: () =>
+                      setState(() => _passwordCoperta = !_passwordCoperta),
+                ),
+              ),
             ),
-          ],
-          const SizedBox(height: SpacingTokens.xs),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              key: const Key('custodia_parola_persa'),
-              onPressed: _parolaPersa,
-              child: Text(
-                'Hai perso la Password?',
+            if (_detto != null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                _detto!,
+                key: const Key('custodia_parola_persa_detto'),
                 style: TypographyTokens.didascalia()
                     .copyWith(color: palette.goldSoft),
               ),
+            ],
+            const SizedBox(height: SpacingTokens.xs),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                key: const Key('custodia_parola_persa'),
+                onPressed: _parolaPersa,
+                child: Text(
+                  'Hai perso la Password?',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
       // **I BOTTONI COI COLORI DI CASA, ordine BI voce 02**: il blu del
@@ -816,7 +826,6 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     );
   }
 }
-
 
 /// LA SONDA DELL'INGRESSO. Ordine BI voce 01.
 ///
@@ -863,8 +872,8 @@ class _SondaDellIngressoState extends State<_SondaDellIngresso> {
   Future<void> _controlla() async {
     final email = _email.text.trim().toLowerCase();
     if (email.isEmpty || !email.contains('@') || !email.contains('.')) {
-      setState(() => _guaio =
-          'Scrivi la tua email per controllare se ha un Cerchio');
+      setState(() =>
+          _guaio = 'Scrivi la tua email per controllare se ha un Cerchio');
       return;
     }
     setState(() {

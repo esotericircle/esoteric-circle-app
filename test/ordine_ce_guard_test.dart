@@ -131,7 +131,7 @@ void main() {
             'fatta');
   });
 
-  test('l\'ordine CC non e\' finito finche\' una voce resta aperta', () {
+  test('l\'ordine CE non e\' finito finche\' una voce resta aperta', () {
     final aperte = marcatore(manifesto.readAsStringSync(), 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE nell\'ordine CE. Questa riga '

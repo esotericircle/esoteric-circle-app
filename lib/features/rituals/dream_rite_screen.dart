@@ -282,7 +282,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
             testo: 'Sigillo del Sogno',
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         actions: [
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -487,7 +487,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                     : 'Unisci le stelle.'),
             key: const Key('dream_invito_cielo'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 20)
+            style: TypographyTokens.titoloDiSchermata()
                 .copyWith(color: _palette.goldSoft)),
         const SizedBox(height: SpacingTokens.xs),
         Text(
@@ -526,12 +526,12 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         const SizedBox(height: SpacingTokens.sm),
         Text('Il saluto di ${_maestro.displayName}',
             key: const Key('dream_message_title'),
-            style: TypographyTokens.display(size: 19)
+            style: TypographyTokens.titoloDiSchermata()
                 .copyWith(color: _palette.goldSoft)),
         const SizedBox(height: SpacingTokens.xs),
         Text(DreamRiteCorpus.parola(_luna.sign).toUpperCase(),
             key: const Key('dream_word'),
-            style: TypographyTokens.display(size: 32).copyWith(
+            style: TypographyTokens.cerimonialeGrande().copyWith(
                 color: _palette.goldSoft, letterSpacing: 1.6)),
         const SizedBox(height: SpacingTokens.sm),
         // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e
@@ -612,7 +612,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Da dove nasce questo dono',
-                    style: TypographyTokens.display(size: 19)
+                    style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(DreamRiteCorpus.daDoveNasce(_luna),

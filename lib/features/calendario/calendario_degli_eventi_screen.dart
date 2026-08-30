@@ -109,7 +109,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
         title: Text('Il cielo che viene',
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloDiSchermata()),
       ),
       body: CosmosBackground(
         seed: 23,

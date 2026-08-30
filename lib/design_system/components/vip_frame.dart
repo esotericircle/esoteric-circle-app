@@ -331,6 +331,11 @@ class CartiglioText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final upper = text.toUpperCase();
+    // **QUARANTA NON E' UN RUOLO, E' IL PUNTO DI PARTENZA DI UN CALCOLO.**
+    // Ordine CE voce 11: qui sotto `resolveCartiglioFit` restringe il
+    // nome finche' non riempie il cartiglio, e la misura vera la decide
+    // la larghezza disponibile, non questa riga. Un ruolo non puo'
+    // saperlo in anticipo, quindi qui la misura resta scritta.
     final base = TypographyTokens.display(size: 40).copyWith(
       color: palette.goldSoft,
       letterSpacing: _lsBase,

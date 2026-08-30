@@ -138,7 +138,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
             testo: 'Il Sigillo dell\'Intenzione',
-            stile: TypographyTokens.display(size: 20)
+            stile: TypographyTokens.titoloDiSchermata()
                 .copyWith(color: palette.goldSoft)),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -214,7 +214,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         const SizedBox(height: SpacingTokens.xl),
         Text('La tua intenzione',
             textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 22)
+            style: TypographyTokens.titoloSezione()
                 .copyWith(color: palette.goldSoft)),
         const SizedBox(height: SpacingTokens.lg),
         DepthCard(
@@ -338,7 +338,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           Text(lettura.via.nome,
               key: const Key('sigillo_via'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: 24)
+              style: TypographyTokens.titoloSezione()
                   .copyWith(color: colore)),
           const SizedBox(height: SpacingTokens.xxs),
           Text(lettura.via.dominio,

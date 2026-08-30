@@ -71,7 +71,7 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Controlli dimostrativi',
-              style: TypographyTokens.display(size: 20)),
+              style: TypographyTokens.titoloDiSchermata()),
           const SizedBox(height: SpacingTokens.xxs),
           Text(
             'Strumento di revisione del checkpoint, non visibile in produzione.',

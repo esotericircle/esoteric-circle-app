@@ -96,6 +96,10 @@ List<String> splitNomeCartiglio(String nome, {int sogliaCaratteri = 13}) {
 }
 
 /// Lo stile di partenza dei cartigli: oro del Maestro, inciso sul blu.
+//
+// **QUARANTA E' LA PARTENZA, NON LA MISURA FINALE.** Ordine CE voce 11:
+// il cartiglio di una carta si riempie, e chi lo riempie e' il calcolo qui
+// sotto, non un ruolo della scala.
 TextStyle cartiglioBaseStyle(MaestroPalette palette) =>
     TypographyTokens.display(size: 40).copyWith(
       color: palette.goldSoft,
@@ -269,7 +273,7 @@ class _PaintedCard extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       child: Text(card.name,
           textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 16)
+          style: TypographyTokens.titoloDiRiga()
               .copyWith(color: palette.goldSoft)),
     );
   }

@@ -114,7 +114,7 @@ class ConsultoDelCieloView extends StatefulWidget {
         )..layout(maxWidth: massimo))
         .height;
 
-    var somma = alta(frase, TypographyTokens.display(size: 18));
+    var somma = alta(frase, TypographyTokens.titoloScheda());
     // **ANCHE L'INVITO OCCUPA SPAZIO.** Senza questa riga la scena sforava di
     // 1,7 pixel appena Aura, senza archetipo, aggiungeva la riga che invita al
     // Test: la riserva misurava una riga e a schermo ne comparivano due.
@@ -278,7 +278,7 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
               frase,
               key: ValueKey('consulto_frase_$_corrente'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: 18)
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.textPrimary),
             ),
             // L'INVITO, solo quando il simbolo manca DAVVERO.

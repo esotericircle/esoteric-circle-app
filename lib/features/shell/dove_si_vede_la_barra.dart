@@ -98,6 +98,11 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // 06 e 07): pagine di lettura e di gestione, la barra non c'entra.
   'PrivacyEDatiScreen': PresenzaDellaBarra.assente,
   'PrivacyPolicyScreen': PresenzaDellaBarra.assente,
+  // **PRIVACY E PERMESSI**, ordine CE voce 03: il sotto menu' dove il
+  // fondatore ha chiesto di raccogliere disclaimer, misura del ritorno, fonti
+  // dei dati e permessi di sistema. E' una pagina di regolazione come le
+  // Impostazioni da cui si apre, e la barra non c'entra.
+  'PrivacyEPermessiScreen': PresenzaDellaBarra.assente,
   'SettingsScreen': PresenzaDellaBarra.assente,
   // Il menu' delle notifiche, ordine BC voce 05: si apre dall'account ed e'
   // una schermata di regolazione, come le Impostazioni.

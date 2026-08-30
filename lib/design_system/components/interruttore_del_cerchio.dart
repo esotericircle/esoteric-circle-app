@@ -48,7 +48,7 @@ class InterruttoreDelCerchio extends StatelessWidget {
       trackOutlineColor:
           WidgetStatePropertyAll(palette.goldSoft.withValues(alpha: 0.45)),
       title: Text(titolo,
-          style: TypographyTokens.display(size: 16)
+          style: TypographyTokens.titoloDiRiga()
               .copyWith(color: ColorTokens.textPrimary)),
       subtitle: sotto == null
           ? null

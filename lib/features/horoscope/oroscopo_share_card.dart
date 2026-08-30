@@ -125,7 +125,7 @@ class OroscopoShareCard extends StatelessWidget {
                       sign: sign, size: 92, art: ZodiacEmblemArt.emblem),
                 ),
                 Text(sign.italianName,
-                    style: TypographyTokens.display(size: 26)
+                    style: TypographyTokens.cerimoniale()
                         .copyWith(color: palette.goldSoft)),
               ],
             ),
@@ -321,7 +321,7 @@ class _LevelTile extends StatelessWidget {
           // dentro una parola mai: quando la parola piu' lunga non ci sta,
           // il corpo scende di quel tanto che la fa stare.
           Builder(builder: (context) {
-            var stile = TypographyTokens.display(size: 16)
+            var stile = TypographyTokens.titoloDiRiga()
                 .copyWith(color: palette.goldSoft, height: 1.15);
             var piuLarga = 0.0;
             for (final parola in card.title.split(' ')) {

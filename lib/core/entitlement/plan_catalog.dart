@@ -200,7 +200,7 @@ class PlanCatalog {
         yearlyDiscountPercent: 22,
       ),
       highlights: [
-        'Tutto di Adepto, coi tetti piu\' alti del Cerchio',
+        'Tutto di Adepto, coi tetti più alti del Cerchio',
         '50 domande ai Maestri al giorno',
         '50 stese di tarocchi al giorno',
         '25 sinastrie VIP al giorno',

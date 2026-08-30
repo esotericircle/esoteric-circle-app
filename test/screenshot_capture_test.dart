@@ -6068,6 +6068,28 @@ void main() {
     await capture(tester, rootKey, 'barra-dominio.png');
   });
 
+  // **LA STRISCIA DELLE ALTRE ARTI, DOVE I NOMI LUNGHI SI SCHIACCIAVANO.**
+  // Ordine CE voce 11: qui "Oroscopo Personalizzato" veniva dipinto a otto
+  // punti e sei invece dei sedici dichiarati, cioe' quasi la meta', e nessuna
+  // prova poteva vederlo. La cattura arriva fin la' scorrendo, perche' la
+  // striscia sta sotto la piega.
+  testWidgets('Cattura la striscia delle altre arti, i nomi piu\' lunghi',
+      (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await tester.drag(
+        find.byType(CustomScrollView).last, const Offset(0, -2400));
+    // Il cosmo respira sempre: `pumpAndSettle` non tornerebbe mai.
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'striscia-altre-arti.png');
+  });
+
   testWidgets('Cattura la barra in una chat', (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);

@@ -195,7 +195,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 Text(
                   word,
                   key: const Key('gift_word'),
-                  style: TypographyTokens.display(size: 32).copyWith(
+                  style: TypographyTokens.cerimonialeGrande().copyWith(
                     color: accento,
                     letterSpacing: 1.4,
                   ),

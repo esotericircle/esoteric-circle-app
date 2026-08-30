@@ -255,7 +255,7 @@ class _RitualViewState extends State<RitualView>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text(widget.title, style: TypographyTokens.display(size: 20)),
+        title: Text(widget.title, style: TypographyTokens.titoloDiSchermata()),
       ),
       body: RitualBackdrop(
         palette: palette,

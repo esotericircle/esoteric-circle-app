@@ -131,7 +131,7 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   Text(
                     'Cosmic Passport',
                     maxLines: 2,
-                    style: TypographyTokens.display(size: 26),
+                    style: TypographyTokens.cerimoniale(),
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(
@@ -257,7 +257,7 @@ class _BirthSkyPortalCard extends StatelessWidget {
                 children: [
                   Text(
                     'Il tuo cielo di nascita',
-                    style: TypographyTokens.display(size: 18),
+                    style: TypographyTokens.titoloScheda(),
                   ),
                   const SizedBox(height: 2),
                   Text(
@@ -318,7 +318,7 @@ class _CircleSealCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Il tuo Sigillo del Cerchio',
-                    style: TypographyTokens.display(size: 18)),
+                    style: TypographyTokens.titoloScheda()),
                 const SizedBox(height: 2),
                 Text(
                   'Il tuo emblema, dal segno, dal numero e dall\'elemento.',
@@ -598,7 +598,7 @@ class _ActiveFactCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(value, style: TypographyTokens.display(size: 19)),
+                Text(value, style: TypographyTokens.titoloDiSchermata()),
                 const SizedBox(height: 4),
                 ParagrafiDiLettura(
                   testo: meaning,
@@ -700,7 +700,9 @@ class _LifePathSigil extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: '$number',
-        style: TypographyTokens.display(size: _isMaster ? 18 : 22)
+        style: (_isMaster
+                ? TypographyTokens.titoloScheda()
+                : TypographyTokens.titoloSezione())
             .copyWith(color: palette.goldSoft),
       ),
       textAlign: TextAlign.center,
@@ -850,7 +852,7 @@ class _TesseraArchetipo extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
                     child: Text('Archetipo',
-                        maxLines: 1, style: TypographyTokens.display(size: 18)),
+                        maxLines: 1, style: TypographyTokens.titoloScheda()),
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -950,7 +952,7 @@ class _PassportEntryCard extends StatelessWidget {
                     child: Text(
                       entry.title,
                       maxLines: 1,
-                      style: TypographyTokens.display(size: 18),
+                      style: TypographyTokens.titoloScheda(),
                     ),
                   ),
                 ),

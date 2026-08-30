@@ -46,7 +46,7 @@ class PricingScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text('I piani del Cerchio',
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloDiSchermata()),
       ),
       body: SafeArea(
         top: false,
@@ -81,7 +81,7 @@ class PricingScreen extends StatelessWidget {
                   ],
                   const SizedBox(height: SpacingTokens.sm),
                   Text('Confronto completo',
-                      style: TypographyTokens.display(size: 18)
+                      style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.sm),
                   _ComparativeTable(palette: palette),
@@ -140,7 +140,7 @@ class _DemoCard extends StatelessWidget {
               const SizedBox(width: SpacingTokens.sm),
               Expanded(
                 child: Text('Demo',
-                    style: TypographyTokens.display(size: 22)),
+                    style: TypographyTokens.titoloSezione()),
               ),
               _Badge(text: 'Piano Attuale', palette: palette),
             ],
@@ -193,7 +193,7 @@ class _PlanCardState extends State<_PlanCard> {
             children: [
               Expanded(
                 child: Text(plan.name,
-                    style: TypographyTokens.display(size: 22)),
+                    style: TypographyTokens.titoloSezione()),
               ),
               if (isCurrent)
                 _Badge(text: 'Piano Attuale', palette: palette)
@@ -359,7 +359,7 @@ class _CycleBox extends StatelessWidget {
               const SizedBox(height: 4),
               Text(price.amount(cycle),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 16).copyWith(
+                  style: TypographyTokens.titoloDiRiga().copyWith(
                       color: selected
                           ? ColorTokens.textPrimary
                           : ColorTokens.textSecondary)),
@@ -515,7 +515,7 @@ class _ComparativeTable extends StatelessWidget {
         : TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textPrimary, height: 1.25);
     final cellStyle = header
-        ? TypographyTokens.display(size: 16).copyWith(color: palette.goldSoft)
+        ? TypographyTokens.titoloDiRiga().copyWith(color: palette.goldSoft)
         : TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.25);
     return Container(
@@ -594,7 +594,7 @@ class _ChoosePlanButton extends StatelessWidget {
             ),
             child: Text(label,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 16)
+                style: TypographyTokens.titoloDiRiga()
                     .copyWith(color: palette.goldSoft)),
           ),
         ),
@@ -627,7 +627,7 @@ class _ChoosePlanButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Passa a ${plan.name}',
-                  style: TypographyTokens.display(size: 20)
+                  style: TypographyTokens.titoloDiSchermata()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(

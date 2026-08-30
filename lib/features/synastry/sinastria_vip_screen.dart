@@ -551,7 +551,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
             testo: 'Sinastria VIP',
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
@@ -812,7 +812,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                       children: [
                         Text('$shown%',
                             key: const Key('sinastria_numero'),
-                            style: TypographyTokens.display(size: 36)
+                            style: TypographyTokens.cerimonialeGrande()
                                 .copyWith(color: palette.goldSoft)),
                         // **L'ETICHETTA DI FASCIA NON STA PIU' NEL
                         // CERCHIO. Ordine CA voce 04.** Era "Anime gemelle",
@@ -1141,7 +1141,7 @@ if (andata && mounted) {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('La tua foto nella cornice',
-                    style: TypographyTokens.display(size: 18)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(

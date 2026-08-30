@@ -213,7 +213,7 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
                   riga,
                   key: ValueKey('stesa_attesa_riga_$_corrente'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 18)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft),
                 ),
                 if (widget.fattoDelCielo != null) ...[

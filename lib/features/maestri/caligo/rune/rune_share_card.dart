@@ -53,7 +53,7 @@ class RuneShareCard extends StatelessWidget {
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
             const SizedBox(height: 2),
             Text(esito.gettata.nome.toUpperCase(),
-                style: TypographyTokens.display(size: 22)
+                style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.sm),
             // IL SIGILLO, l'elemento grafico forte per la condivisione.

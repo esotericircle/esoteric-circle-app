@@ -143,7 +143,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
         title: Text('I tuoi dati di nascita',
-            style: TypographyTokens.display(size: 19)),
+            style: TypographyTokens.titoloDiSchermata()),
       ),
       body: CosmosBackground(
         seed: 11,
@@ -190,7 +190,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: SpacingTokens.sm),
                       child: Text(':',
-                          style: TypographyTokens.display(size: 20)
+                          style: TypographyTokens.titoloDiSchermata()
                               .copyWith(color: palette.goldSoft)),
                     ),
                     _Ruota(
@@ -331,7 +331,7 @@ class _Riga extends StatelessWidget {
                 style: TypographyTokens.body(size: TypographyTokens.guide)
                     .copyWith(color: ColorTokens.textSecondary)),
             Text(valore,
-                style: TypographyTokens.display(size: 16)
+                style: TypographyTokens.titoloDiRiga()
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -375,7 +375,7 @@ class _Ruota extends StatelessWidget {
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.display(size: 18)
+        style: TypographyTokens.titoloScheda()
             .copyWith(color: palette.goldSoft),
         items: [
           for (final v in valori)

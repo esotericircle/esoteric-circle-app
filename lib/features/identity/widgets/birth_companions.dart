@@ -71,7 +71,7 @@ class BirthCompanions extends StatelessWidget {
                         style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft, letterSpacing: 2)),
                     Text(animale.name,
-                        style: TypographyTokens.display(size: 18)),
+                        style: TypographyTokens.titoloScheda()),
                   ],
                 ),
               ),

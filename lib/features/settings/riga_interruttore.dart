@@ -50,7 +50,7 @@ class RigaInterruttore extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TypographyTokens.display(size: 16)),
+                Text(title, style: TypographyTokens.titoloDiRiga()),
                 const SizedBox(height: SpacingTokens.xxs),
                 Text(
                   subtitle,

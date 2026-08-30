@@ -234,6 +234,12 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                         child: _riduciMovimento
                             ? Text('$_conto',
                                 key: ValueKey<int>(_conto!),
+                                // **SESSANTAQUATTRO PER RIEMPIRE UN
+                                // CERCHIO DI OTTANTAQUATTRO.** Ordine CE
+                                // voce 11: e' un numero che si guarda, non
+                                // un titolo che si legge, e la sua misura
+                                // viene dall'altezza del cerchio che lo
+                                // ospita.
                                 style: TypographyTokens.display(size: 64)
                                     .copyWith(
                                         color: inchiostroDelConteggio))
@@ -282,7 +288,7 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                         // dietro. La regola vale per tutti e tre i riti che
                         // montano questa guida: un caso speciale per il
                         // Soffio sarebbe un'altra regola su una porta sola.
-                        style: TypographyTokens.display(size: 18).copyWith(
+                        style: TypographyTokens.titoloScheda().copyWith(
                           color: inchiostroDelConteggio,
                           letterSpacing: 0.4,
                         ),

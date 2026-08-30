@@ -134,6 +134,31 @@ class TypographyTokens {
   static TextStyle titoloScheda({double weight = 600}) =>
       display(size: 18, weight: weight);
 
+  /// Il titolo di una SCHERMATA: la barra in alto, e l'intestazione di un
+  /// blocco che apre una sezione dentro la pagina.
+  ///
+  /// **VENTI PUNTI, e non e' un numero scelto adesso: e' quello che l'app
+  /// gia' usava.** Ordine CE voce 11. Contati, i titoli con la misura
+  /// scritta a mano erano centoventuno su quindici grandezze diverse, e
+  /// venti era la piu' frequente di tutte, ventisei punti: la barra delle
+  /// Impostazioni, quella del Calendario, quella del Bosco, le
+  /// intestazioni dei Doni. Il difetto non era la misura, era che
+  /// nessuno le avesse dato un nome, e ogni schermata nuova ne
+  /// inventava una vicina: diciannove, ventuno.
+  static TextStyle titoloDiSchermata({double weight = 600}) =>
+      display(size: 20, weight: weight);
+
+  /// Il titolo di una RIGA in un elenco: la voce delle Impostazioni, la
+  /// riga di un permesso, il nome di una funzione dentro una lista.
+  ///
+  /// **SEDICI, e vale come il [titoloScheda] sta a una scheda.** Ordine CE
+  /// voce 11: ventidue punti dell'app lo usavano gia', e la riga di un
+  /// elenco e' il gradino sotto la scheda, non un titolo rimpicciolito a
+  /// caso. Sotto questo non si scende: il [pavimento] resta il pavimento.
+  static TextStyle titoloDiRiga({double weight = 600}) =>
+      display(size: 16, weight: weight);
+
+
   /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
   /// tornare a capo molte volte di seguito.

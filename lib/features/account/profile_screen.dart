@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
           color: ColorTokens.textPrimary,
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Profilo', style: TypographyTokens.display(size: 20)),
+        title: Text('Profilo', style: TypographyTokens.titoloDiSchermata()),
       ),
       body: SafeArea(
         top: false,
@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
             Center(
               child: Text(
                 profile.hasName ? profile.vocative : 'Anima del Cerchio',
-                style: TypographyTokens.display(size: 22),
+                style: TypographyTokens.titoloSezione(),
               ),
             ),
             const SizedBox(height: SpacingTokens.xs),
@@ -136,7 +136,7 @@ class _ConsentSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Il tuo volto nel Cerchio',
-                style: TypographyTokens.display(size: 19)
+                style: TypographyTokens.titoloDiSchermata()
                     .copyWith(color: ColorTokens.goldLight)),
             const SizedBox(height: SpacingTokens.sm),
             Text(

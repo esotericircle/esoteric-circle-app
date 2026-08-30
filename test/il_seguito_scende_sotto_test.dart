@@ -151,6 +151,27 @@ void main() {
     return osservatore;
   }
 
+  /// **PORTA UN COMANDO DOVE IL DITO LO RAGGIUNGE DAVVERO.**
+  ///
+  /// Ordine CE voce 04: sopra il campo sono comparse due righe, il residuo
+  /// delle domande e quello degli approfondimenti. Il compositore galleggia
+  /// SOPRA la lista, quindi `ensureVisible` porta la freccia dentro la
+  /// finestra di scorrimento ma sotto quelle righe, e il tocco cade su di
+  /// loro: misurato, la riga "Ti restano 4 domande ai Maestri su 5, oggi"
+  /// stava esattamente sul punto della freccia. Qui si scorre fino in fondo,
+  /// dove il margine basso della lista tiene l'ultimo messaggio sopra il
+  /// compositore.
+  Future<void> portaSottoIlDito(WidgetTester tester, Finder bersaglio) async {
+    await tester.ensureVisible(bersaglio);
+    await tester.pump();
+    final lista = find.byType(Scrollable).first;
+    for (var i = 0; i < 8; i++) {
+      await tester.drag(lista, const Offset(0, -200), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await tester.pump(const Duration(milliseconds: 200));
+  }
+
   group('VOCE 1. Al tocco non si torna indietro', () {
     testWidgets('La scena piena e\' per la domanda, MAI per il seguito',
         (tester) async {
@@ -172,6 +193,12 @@ void main() {
 
       final freccia = find.byKey(const Key('chat_approfondisci'));
       expect(freccia, findsOneWidget);
+      // **PRIMA SI PORTA SOTTO IL DITO, poi si tocca.** Ordine CE voce 04:
+      // sopra il campo sono comparse due righe, il residuo delle domande e
+      // quello degli approfondimenti, e la lista dei messaggi si e' accorciata
+      // di quel tanto. La freccia c'era ancora ma stava fuori dalla vista, e
+      // il tocco cadeva nel vuoto senza che la prova lo dicesse.
+      await portaSottoIlDito(tester, freccia);
       await tester.tap(freccia);
 
       var vistaAlSeguito = 0;
@@ -210,6 +237,9 @@ void main() {
       expect(prima, _corpo,
           reason: 'la prova parte da un primo strato che non e\' quello vero');
 
+      // Come sopra: la freccia si porta sotto il dito prima di toccarla.
+      await portaSottoIlDito(
+          tester, find.byKey(const Key('chat_approfondisci')));
       await tester.tap(find.byKey(const Key('chat_approfondisci')));
 
       // DURANTE, e non solo dopo: il difetto vero stava qui in mezzo. La bolla
@@ -252,6 +282,9 @@ void main() {
       expect(bolla, findsOneWidget);
       final altezzaPrima = tester.getSize(bolla).height;
 
+      // Come sopra: la freccia si porta sotto il dito prima di toccarla.
+      await portaSottoIlDito(
+          tester, find.byKey(const Key('chat_approfondisci')));
       await tester.tap(find.byKey(const Key('chat_approfondisci')));
       for (var i = 0; i < 80; i++) {
         await tester.pump(const Duration(milliseconds: 50));

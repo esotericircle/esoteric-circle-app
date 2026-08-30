@@ -30,8 +30,10 @@ import 'package:provider/provider.dart';
 /// mentre ogni tocco sono due chiamate al modello.
 void main() {
   group('Il tetto vive nel listino, e non in un secondo posto', () {
-    test('Viandante lucchetto, Iniziato 3, Adepto 5, Illuminato senza limite',
-        () {
+    test('Viandante lucchetto, Iniziato 3, Adepto 5, Illuminato 20', () {
+      // **VENTI, E NON PIU\' "SENZA LIMITE".** Ordine CE voce 08: il
+      // fondatore ha chiesto che l\'illimitato sparisca da ogni cella, e il
+      // numero qui segue il dato del listino, non lo anticipa.
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.free),
           0);
@@ -43,7 +45,7 @@ void main() {
           5);
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier3),
-          isNull);
+          20);
     });
 
     test('`canCompare` CHIEDE al listino invece di decidere da solo', () {
@@ -134,8 +136,11 @@ void main() {
       expect(c.residuoDeiConfronti(Tier.free), isNull,
           reason: 'a chi non ce l\'ha nel piano si mostra un numero invece '
               'della porta');
-      expect(c.residuoDeiConfronti(Tier.tier3), isNull,
-          reason: 'a chi non ha limite si mostra un conto da tenere');
+      // **E ALL'ILLUMINATO ADESSO SI DICE, ordine CE voce 08.** Prima non
+      // aveva nessun tetto e non c'era niente da contare; adesso ne ha venti,
+      // e il residuo si vede come a tutti gli altri.
+      expect(c.residuoDeiConfronti(Tier.tier3), 'Oggi te ne restano 20 su 20',
+          reason: 'chi ha un tetto deve vederlo, anche quando e\' alto');
     });
   });
 

@@ -100,7 +100,7 @@ class ArtCard extends StatelessWidget {
                         art.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TypographyTokens.display(size: 16)
+                        style: TypographyTokens.titoloDiRiga()
                             .copyWith(color: ColorTokens.textPrimary),
                       ),
                     ),

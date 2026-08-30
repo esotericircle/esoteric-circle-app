@@ -682,7 +682,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         // entro un minimo dichiarato.
         title: TitoloCheNonSiRompe(
             testo: 'La Runa del Tramonto',
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         actions: [
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -997,7 +997,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 const SizedBox(height: SpacingTokens.md),
                 Text('Getta la runa',
                     key: const Key('sunset_getta'),
-                    style: TypographyTokens.display(size: 22)
+                    style: TypographyTokens.titoloSezione()
                         .copyWith(color: _palette.goldSoft)),
               ],
             ),
@@ -1224,7 +1224,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           Center(
             child: Text(_e.rune.name.toUpperCase(),
                 key: const Key('sunset_nome'),
-                style: TypographyTokens.display(size: 30)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: _palette.goldSoft)),
           ),
           Center(
@@ -1504,9 +1504,12 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             deduplica: true,
           ),
           const SizedBox(height: SpacingTokens.sm),
-          Text(didascalia,
+          // Dalla porta unica anche qui: la didascalia della settimana e'
+          // un testo che si legge per intero, non un'etichetta.
+          ParagrafiDiLettura(
+              testo: didascalia,
               textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary)),
         ],
       ),
@@ -1551,7 +1554,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Fonti e metodo',
-                    style: TypographyTokens.display(size: 20)
+                    style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 ParagrafiDiLettura(testo: _fontiEMetodo(tramonto), stile: TypographyTokens.lettura().copyWith(

@@ -95,7 +95,7 @@ class FaceShareCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             Text(dom.titoloEvocativo,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 24)
+                style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: 2),
             Text(dom.nome,

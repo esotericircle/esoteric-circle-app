@@ -96,7 +96,7 @@ class ArchetypeShareCard extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(dom.conArticolo.toUpperCase(),
-                style: TypographyTokens.display(size: 26)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: 2),
             // La percentuale del dominante e il co-dominante, quando c'e'.

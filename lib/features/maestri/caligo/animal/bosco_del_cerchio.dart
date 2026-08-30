@@ -58,7 +58,7 @@ class BoscoDelCerchio extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text('Il bosco del Cerchio',
-            style: TypographyTokens.display(size: 20)
+            style: TypographyTokens.titoloDiSchermata()
                 .copyWith(color: palette.goldSoft)),
       ),
       body: ListView(

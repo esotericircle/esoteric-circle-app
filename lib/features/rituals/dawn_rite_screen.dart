@@ -512,7 +512,7 @@ if (andata && mounted) {
         title: TitoloCheNonSiRompe(
             chiaveDelTesto: const Key('alba_titolo'),
             testo: 'Rito dell\'Alba',
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.

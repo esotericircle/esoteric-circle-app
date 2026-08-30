@@ -26,7 +26,13 @@ void main() {
     ///
     /// Un disclaimer ripetuto smette di essere letto, e diventa un modo di
     /// scaricare la responsabilita' invece di dirla.
-    const casa = 'lib/features/settings/settings_screen.dart';
+    ///
+    /// **DAL SOTTO MENU' E NON PIU' DALLE IMPOSTAZIONI**, ordine CE voce 03:
+    /// il fondatore ha chiesto un sotto menu' dedicato dove stanno insieme il
+    /// disclaimer, la misura del ritorno, le fonti dei dati e i permessi di
+    /// sistema. La casa del disclaimer si e' spostata di una porta, e resta
+    /// una sola.
+    const casa = 'lib/features/settings/privacy_e_permessi_screen.dart';
 
     test('Nessun\'altra schermata mostra un disclaimer', () {
       // COSA SI CERCA: il TESTO, non la parola "disclaimer". Un file puo'

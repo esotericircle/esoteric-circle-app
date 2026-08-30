@@ -36,7 +36,7 @@ class PermessiDiSistema extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Microfono, fotocamera e movimento',
-                    style: TypographyTokens.display(size: 16)),
+                    style: TypographyTokens.titoloDiRiga()),
                 const SizedBox(height: SpacingTokens.xxs),
                 Text(
                   'Apri i permessi di sistema. Ogni esperienza che li usa '

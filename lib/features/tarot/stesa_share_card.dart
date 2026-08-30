@@ -102,7 +102,7 @@ class StesaShareCard extends StatelessWidget {
                   Expanded(
                     child: Text(drawn.displayName,
                         maxLines: 2,
-                        style: TypographyTokens.display(size: 17).copyWith(
+                        style: TypographyTokens.titoloScheda().copyWith(
                             color: ColorTokens.textPrimary, height: 1.15)),
                   ),
                 ],
@@ -119,7 +119,7 @@ class StesaShareCard extends StatelessWidget {
             ),
             child: Text(reading.sintesi,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 17)
+                style: TypographyTokens.titoloScheda()
                     .copyWith(color: palette.goldSoft, height: 1.25)),
           ),
           const SizedBox(height: SpacingTokens.sm),
@@ -139,7 +139,7 @@ class StesaShareCard extends StatelessWidget {
               Flexible(
                 child: Text(reading.chiave.drawn.displayName,
                     key: const Key('share_chiave'),
-                    style: TypographyTokens.display(size: 16)
+                    style: TypographyTokens.titoloDiRiga()
                         .copyWith(color: palette.goldSoft)),
               ),
             ],

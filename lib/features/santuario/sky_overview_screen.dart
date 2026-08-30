@@ -442,7 +442,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Fonti e metodo',
-                  style: TypographyTokens.display(size: 22)
+                  style: TypographyTokens.titoloSezione()
                       .copyWith(color: palette.textPrimary)),
               const SizedBox(height: SpacingTokens.xs),
               Text(
@@ -693,7 +693,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                   const SizedBox(width: SpacingTokens.sm),
                   Expanded(
                     child: Text('Oriento il cielo sul tuo luogo?',
-                        style: TypographyTokens.display(size: 18)
+                        style: TypographyTokens.titoloScheda()
                             .copyWith(color: palette.goldSoft)),
                   ),
                 ],
@@ -896,7 +896,7 @@ if (andata && context.mounted) {
               Text(
                   PremioDellaCondivisione.etichetta(context,
                       base: 'Condividi il tuo cielo'),
-                  style: TypographyTokens.display(size: 18)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.md),
               _FormatOption(
@@ -1031,7 +1031,7 @@ if (andata && context.mounted) {
         // entro un minimo dichiarato.
         title: TitoloCheNonSiRompe(
             testo: SkyPostcard.titleFor(birth: widget.birth),
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         actions: [
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -1824,7 +1824,7 @@ class _SkyInfoCard extends StatelessWidget {
             Text(
               s.coordinate ?? s.label,
               key: const Key('sky_coordinate'),
-              style: TypographyTokens.display(size: 17)
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft, height: 1.3),
             ),
           ],
@@ -1869,7 +1869,7 @@ class _FormatOption extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TypographyTokens.display(size: 17)),
+                  Text(title, style: TypographyTokens.titoloScheda()),
                   Text(
                     subtitle,
                     style: TypographyTokens.corpo()

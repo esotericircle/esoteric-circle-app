@@ -30,7 +30,7 @@ class SectionTitle extends StatelessWidget {
             Flexible(
               child: Text(
                 title.toUpperCase(),
-                style: TypographyTokens.display(size: 16, weight: 600)
+                style: TypographyTokens.titoloDiRiga(weight: 600)
                     .copyWith(letterSpacing: 2, color: palette.goldSoft),
               ),
             ),

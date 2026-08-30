@@ -79,7 +79,16 @@ void main() {
       // La levetta di Material e' quella che la persona riconosce da tutte le
       // altre app quando accende una notifica.
       'lib/features/account/notifiche_screen.dart',
-      'lib/features/settings/settings_screen.dart',
+      // **LA RIGA CON LA LEVETTA DELLE IMPOSTAZIONI**, ordine CE voce 03.
+      // Stava dentro `settings_screen.dart` e ne e' uscita quando il blocco
+      // della privacy e' andato nel suo sotto menu': e' lo stesso comando di
+      // sistema di prima, in un file suo.
+      'lib/features/settings/riga_interruttore.dart',
+      // **IL CONSENSO ALLA MISURA DEL RITORNO**, ordine CE voce 01: vive
+      // dentro il gesto della registrazione ed e' un comando di sistema,
+      // non un gesto dentro un'arte. Nasce spento, e la levetta che la
+      // persona riconosce da ogni altra app e' quella di Material.
+      'lib/features/account/consensi_della_registrazione.dart',
       'lib/features/tarot/tarot_selectors.dart',
     };
     final trovati = <String>{};

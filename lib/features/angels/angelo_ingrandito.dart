@@ -151,7 +151,7 @@ class AngeloIngrandito extends StatelessWidget {
             const SizedBox(height: SpacingTokens.xxs),
             Text('${angelo.number}. ${angelo.name}',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 28)),
+                style: TypographyTokens.cerimoniale()),
             const SizedBox(height: SpacingTokens.xs),
             Text(
               'Coro dei ${angelo.choir.name}, retto da '

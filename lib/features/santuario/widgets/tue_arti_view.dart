@@ -51,7 +51,7 @@ class TueArtiView extends StatelessWidget {
             children: [
               Text('Le arti preferite',
                   key: const Key('tue_arti_titolo'),
-                  style: TypographyTokens.display(size: 20)
+                  style: TypographyTokens.titoloDiSchermata()
                       .copyWith(color: palette.textPrimary)),
               const SizedBox(width: SpacingTokens.xs),
               // La matita accanto al titolo: si personalizza da qui, non da un
@@ -190,7 +190,7 @@ class _FoglioScelta extends StatelessWidget {
               ),
             ),
             Text('Le arti preferite',
-                style: TypographyTokens.display(size: 22)
+                style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.textPrimary)),
             const SizedBox(height: SpacingTokens.xs),
             Text(

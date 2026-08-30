@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Impostazioni', style: TypographyTokens.display(size: 20)),
+        title: Text('Impostazioni', style: TypographyTokens.titoloDiSchermata()),
       ),
       body: CosmosBackground(
         seed: 16,
@@ -211,11 +211,11 @@ class SettingsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Privacy e permessi',
-                                style: TypographyTokens.display(size: 16)),
+                                style: TypographyTokens.titoloDiRiga()),
                             const SizedBox(height: SpacingTokens.xxs),
                             Text(
                               'Cosa contiamo, da dove vengono i numeri e cosa '
-                              'il Cerchio puo\' toccare del telefono.',
+                              'il Cerchio può toccare del telefono.',
                               style: TypographyTokens.corpo()
                                   .copyWith(color: ColorTokens.textSecondary),
                             ),
@@ -262,7 +262,7 @@ class SettingsScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Il tuo account',
-                              style: TypographyTokens.display(size: 16),
+                              style: TypographyTokens.titoloDiRiga(),
                             ),
                             Text(
                               'Profilo, accesso e dati di nascita',
@@ -328,7 +328,7 @@ class _DeleteDataTile extends StatelessWidget {
           side: BorderSide(color: palette.gold.withValues(alpha: 0.3)),
         ),
         title: Text('Cancellare i tuoi dati?',
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloDiSchermata()),
         content: Text(
           'Lasceremo andare tutto il tuo cammino: profilo, ricordi dei Maestri '
           'e conversazioni. Non è una perdita, è il tuo diritto. Il cerchio '
@@ -423,7 +423,7 @@ class _DeleteDataTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Cancella i miei dati',
-                    style: TypographyTokens.display(size: 16)),
+                    style: TypographyTokens.titoloDiRiga()),
                 const SizedBox(height: 2),
                 Text(
                   'Profilo, ricordi e conversazioni. Il tuo diritto all\'oblio.',
@@ -470,7 +470,7 @@ class _PlanTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Piano ${plan.name}',
-                    style: TypographyTokens.display(size: 16)),
+                    style: TypographyTokens.titoloDiRiga()),
                 const SizedBox(height: 2),
                 Text(
                   'Vedi i piani del Cerchio e cosa aprono.',

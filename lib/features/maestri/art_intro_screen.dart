@@ -54,7 +54,7 @@ class ArtIntroScreen extends StatelessWidget {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text(art.title, style: TypographyTokens.display(size: 19)),
+        title: Text(art.title, style: TypographyTokens.titoloDiSchermata()),
       ),
       body: CosmosBackground(
         seed: 6,
@@ -80,7 +80,7 @@ class ArtIntroScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: SpacingTokens.md),
                 Text(art.title,
-                    style: TypographyTokens.display(size: 24)
+                    style: TypographyTokens.titoloSezione()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 // **ALLA MISURA DEL RESPONSO. Ordine CE voce 10.** Parole del fondatore:
@@ -94,11 +94,15 @@ class ArtIntroScreen extends StatelessWidget {
                       .copyWith(color: ColorTokens.textPrimary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
-                Text(
-                  'L\'esperienza piena di quest\'arte sta prendendo forma nelle '
-                  'mani di ${maestro.displayName}. Intanto puoi portargliela '
-                  'come domanda: il Cerchio risponde già adesso.',
-                  style: TypographyTokens.lettura()
+                // Anche questo passa dalla porta unica: un `Text` diretto
+                // nel ruolo di lettura e' la seconda porta, e la regola
+                // dei paragrafi non lo raggiunge.
+                ParagrafiDiLettura(
+                  testo: 'L\'esperienza piena di quest\'arte sta prendendo '
+                      'forma nelle mani di ${maestro.displayName}. Intanto '
+                      'puoi portargliela come domanda: il Cerchio risponde '
+                      'già adesso.',
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),

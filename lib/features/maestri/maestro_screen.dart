@@ -30,6 +30,7 @@ import '../../services/app_services.dart';
 import 'art_navigation.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'widgets/busto_del_maestro.dart';
+import '../../design_system/components/titolo_che_non_si_spezza.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -122,8 +123,7 @@ class _MaestroScreenState extends State<MaestroScreen> {
           // I riquadri delle sottocategorie: a colpo d'occhio si sceglie la
           // sezione, e dentro le arti coi loro tre stati.
           SliverPadding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             sliver: SliverList.separated(
               itemCount: sections.length,
               separatorBuilder: (_, __) =>
@@ -136,10 +136,10 @@ class _MaestroScreenState extends State<MaestroScreen> {
                   demo: widget.demo,
                   open: _open[s.title] ?? true,
                   soonOpen: _soon[s.title] ?? false,
-                  onToggleSection: () =>
-                      setState(() => _open[s.title] = !(_open[s.title] ?? true)),
-                  onToggleSoon: () =>
-                      setState(() => _soon[s.title] = !(_soon[s.title] ?? false)),
+                  onToggleSection: () => setState(
+                      () => _open[s.title] = !(_open[s.title] ?? true)),
+                  onToggleSoon: () => setState(
+                      () => _soon[s.title] = !(_soon[s.title] ?? false)),
                 );
               },
             ),
@@ -324,7 +324,7 @@ class _ArtSectionBox extends StatelessWidget {
                   child: Text(
                     section.title,
                     maxLines: 1,
-                    style: TypographyTokens.display(size: 18)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft),
                   ),
                 ),
@@ -383,8 +383,7 @@ class _ArtSectionBox extends StatelessWidget {
 
   /// L'apri e chiudi delle sole arti in cammino, dentro una sottocategoria che
   /// ha gia' qualcosa di vivo.
-  Widget _soonToggle(
-      BuildContext context, MaestroPalette palette, int quante) {
+  Widget _soonToggle(BuildContext context, MaestroPalette palette, int quante) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -487,7 +486,12 @@ class CircleArtTile extends StatelessWidget {
         onTap: () => _open(context),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         child: Container(
-          width: 172,
+          // **CENTOTTANTOTTO, E IL NUMERO VIENE DALLA PAROLA PIU' LUNGA.**
+          // Ordine CE voce 11. A centosettantadue restavano 138 punti di
+          // contenuto, e "Astrocartografia" ne chiede 150 anche sceso al
+          // pavimento dei tredici: piu' stretto di cosi', quella parola si
+          // spezza a meta' comunque si faccia. Misurato, non stimato.
+          width: 188,
           padding: const EdgeInsets.all(SpacingTokens.md),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
@@ -525,30 +529,55 @@ class CircleArtTile extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Icon(art.icon, color: propria.goldSoft, size: 22),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Il nome si adatta a scendere invece di spezzarsi a meta'
-                  // parola: "Meditazione" e' una parola sola e in Cinzel, che e'
-                  // tutto maiuscolo, andava a capo male.
-                  SizedBox(
-                    width: double.infinity,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerLeft,
-                      child: Text(art.title,
-                          maxLines: 1,
-                          style: TypographyTokens.display(size: 16)
-                              .copyWith(color: palette.textPrimary)),
+              // **IL BLOCCO DEL NOME E' FLESSIBILE.** Ordine CE voce 11: la
+              // striscia ha un'altezza fissa e il nome adesso puo' andare a
+              // capo, quindi senza questo la colonna traboccherebbe. Succede
+              // anche in prova, dove il carattere di ripiego e' molto piu'
+              // largo di Cinzel e porta lo stesso nome a cinque righe.
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Il nome si adatta a scendere invece di spezzarsi a meta'
+                    // parola: "Meditazione" e' una parola sola e in Cinzel, che e'
+                    // tutto maiuscolo, andava a capo male.
+                    //
+                    // **MA IL `FittedBox` SCENDEVA SENZA FONDO.** Ordine CE voce
+                    // 11, misurato: qui dentro "Oroscopo Personalizzato"
+                    // dichiarava sedici punti e ne veniva dipinto OTTO E SEI,
+                    // cioe' quasi la meta', e "Estrazione Rune" tredici e sei.
+                    // Nessuna prova poteva vederlo, perche' il testo c'e' tutto e
+                    // la misura dichiarata e' giusta: si vede solo misurando
+                    // quanto il disegno lo scala.
+                    //
+                    // `TitoloCheNonSiSpezza` fa la stessa cosa ma con un fondo:
+                    // scende finche' la parola piu' lunga ci sta, non sotto
+                    // tredici punti, e li' preferisce andare a capo che
+                    // diventare illeggibile.
+                    Flexible(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: TitoloCheNonSiSpezza(
+                          art.title,
+                          allineamento: TextAlign.left,
+                          minimo: 13,
+                          // Due righe e non tre: la striscia ha un'altezza fissa,
+                          // e tre nomi del catalogo ne prendevano tre.
+                          righeMassime: 2,
+                          stile: TypographyTokens.titoloDiRiga()
+                              .copyWith(color: palette.textPrimary),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(maestro.displayName,
-                      style: TypographyTokens.etichetta().copyWith(
-                        color: propria.goldSoft.withValues(alpha: 0.95),
-                        letterSpacing: 0.6,
-                      )),
-                ],
+                    const SizedBox(height: 2),
+                    Text(maestro.displayName,
+                        style: TypographyTokens.etichetta().copyWith(
+                          color: propria.goldSoft.withValues(alpha: 0.95),
+                          letterSpacing: 0.6,
+                        )),
+                  ],
+                ),
               ),
             ],
           ),
@@ -557,7 +586,6 @@ class CircleArtTile extends StatelessWidget {
     );
   }
 }
-
 
 /// L'azione principale del dominio: una sola voce per la conversazione.
 ///
@@ -594,7 +622,8 @@ class _ConsultaMaestroCard extends StatelessWidget {
               border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
             ),
             alignment: Alignment.center,
-            child: Icon(Icons.forum_outlined, color: palette.goldSoft, size: 24),
+            child:
+                Icon(Icons.forum_outlined, color: palette.goldSoft, size: 24),
           ),
           const SizedBox(width: SpacingTokens.md),
           Expanded(
@@ -603,7 +632,7 @@ class _ConsultaMaestroCard extends StatelessWidget {
               children: [
                 Text(
                   'Consulta ${maestro.displayName}',
-                  style: TypographyTokens.display(size: 18),
+                  style: TypographyTokens.titoloScheda(),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -667,7 +696,7 @@ Future<void> showArtPreview(
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Text(art.title,
-                      style: TypographyTokens.display(size: 19)
+                      style: TypographyTokens.titoloDiSchermata()
                           .copyWith(color: palette.goldSoft)),
                 ),
               ],

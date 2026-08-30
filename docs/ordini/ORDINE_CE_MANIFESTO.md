@@ -24,8 +24,8 @@ Porta le tre regole degli ordini precedenti:
 - **CE.07** I tre prezzi annuali nuovi. **CHIUSA.** 99,90, 189,90 e 279,90, e gli sconti ricalcolati dal prezzo: 16, 21 e 22 per cento invece di 24, 25 e 25.
 - **CE.08** L'illimitato si elimina ovunque. **CHIUSA.** Nove celle nell'app e cinque sul server, piu' la logica che traduceva la parola in "nessun tetto". Adesso una cella che dicesse "Illimitato" varrebbe zero.
 - **CE.09** I pacchetti di Eos. **CHIUSA.** Tre: 300 Eos a 2,99, 900 a 7,99, 2.500 a 19,99. Nessuno arriva ai 6.030 che il Cammino conia.
-- **CE.10** L'uniformazione dei testi da leggere. **APERTA.**
-- **CE.11** I 119 titoli gialli. **APERTA.**
+- **CE.10** L'uniformazione dei testi da leggere. **CHIUSA.** Sette punti censiti, quattro erano fuori misura, adesso zero: l'Arcano stava a sedici, la Runa a diciassette in due punti, l'intro di un'arte a diciassette e a sedici, il foglio di una funzione a sedici. Tutti passano dalla porta unica, salvo la carta di un Dono, l'eccezione gia' dichiarata.
+- **CE.11** I 119 titoli gialli. **CHIUSA.** Erano centoventuno su quindici grandezze diverse: adesso sono tre, e sono i tre punti che calcolano davvero. Il debito tipografico dell'app scende da 225 a 103 misure scritte a mano, in 38 file invece di 61. **Non una misura sola, sei ruoli**: la scelta e' motivata qui sotto.
 - **CE.12** I suggerimenti al primo uso. **APERTA.**
 - **CE.13** L'incrocio nei Doni del Giorno. **APERTA.**
 - **CE.14** La spirale della festa che non si legge come spirale. **APERTA.**
@@ -34,8 +34,8 @@ Porta le tre regole degli ordini precedenti:
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 9
-VOCI_APERTE: 8
+VOCI_CHIUSE: 11
+VOCI_APERTE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -261,3 +261,92 @@ che ti chiede se qualcuno ti ha invitato o se puoi essere contato.
 
 **CE.03.** Impostazioni, Privacy e dati: due righe sole. La prima porta a
 Privacy e permessi, e li' dentro c'e' tutto il blocco.
+
+## LE DECISIONI DELLE VOCI 10 E 11, E PERCHE'
+
+### CE.11, "una misura sola" non si poteva prendere alla lettera
+
+L'ordine dice: "i titoli vanno a una misura sola, scelta e motivata da Code".
+Misurato prima di obbedire, come chiede la REGOLA ZERO: **quei centoventuno
+punti non sono un ruolo solo.** Sono il numero dentro il cerchio del respiro
+(sessantaquattro punti), il nome su un cartiglio di una carta (quaranta, e
+calcolato), il titolo di una schermata (venti), quello di una riga in un elenco
+(sedici). Portarli tutti a una grandezza sola avrebbe cancellato la gerarchia
+visiva dell'app, cioe' avrebbe peggiorato esattamente la cosa che il fondatore
+chiede di migliorare.
+
+**Cio' che era vero e' il difetto sotto:** ognuno di quei punti sceglieva il
+proprio numero A MANO, e la scala dei ruoli ne conosceva quattro mentre l'app
+ne usava quindici. Il file dei token lo diceva gia' di se stesso: "chiamarla con
+una misura e' debito, non una eccezione".
+
+**Decisione, e la motivo.** Sei ruoli, non uno. I quattro che c'erano piu' i due
+che l'app usava senza nominarli, e i loro numeri non li ho scelti io: li ho
+contati.
+
+| ruolo | punti | perche' quel numero |
+| --- | --- | --- |
+| `cerimonialeGrande` | 34 | c'era gia' |
+| `cerimoniale` | 28 | c'era gia' |
+| `titoloSezione` | 22 | c'era gia' |
+| `titoloDiSchermata` | **20** | **la grandezza piu' usata di tutte**, ventisei punti: la barra delle Impostazioni, del Calendario, del Bosco |
+| `titoloScheda` | 18 | c'era gia' |
+| `titoloDiRiga` | **16** | ventidue punti la usavano gia': la voce di un elenco, la riga di un permesso |
+
+Le grandezze intermedie, che erano il rumore, salgono al ruolo piu' vicino e
+**si arrotonda in su a parita' di distanza**, perche' il difetto che il fondatore
+ha visto e' testo troppo piccolo, mai troppo grande: 17 e 19 sparivano fra
+sedici e venti, 21 fra venti e ventidue, 24 e 26 e 30 e 32 e 36 fra i tre
+gradini alti. Quaranta titoli cambiano di grandezza, ottanta entrano nella scala
+senza muoversi di un punto.
+
+**I tre punti che restano a mano hanno diritto di starci, e la ragione sta
+scritta accanto al codice:** i due cartigli, dove la misura la decide un calcolo
+che riempie una cornice, e il numero del respiro, che riempie un cerchio.
+
+### CE.11, il difetto che nessuno aveva mai misurato
+
+**"Oroscopo Personalizzato" dichiarava sedici punti e ne veniva dipinto otto e
+sei.** Sulla piastrella di un'arte nel dominio di un Maestro, un `FittedBox`
+senza fondo lo schiacciava a meta' della sua misura, e "Estrazione Rune" a
+tredici e sei. Nessuna prova poteva vederlo: il testo c'e' tutto, il widget e'
+nell'albero e la misura DICHIARATA e' giusta.
+
+La cura e' un rimedio che l'app aveva gia', `TitoloCheNonSiSpezza`: scende
+finche' la parola piu' lunga ci sta, ma non sotto tredici punti, e li' preferisce
+andare a capo. E la piastrella passa da 172 punti a 188, **e il numero viene
+dalla parola piu' lunga del catalogo**: "Astrocartografia" chiede 150 punti anche
+scesa al pavimento, e a 172 ne restavano 138.
+
+### CE.10, due premesse dell'ordine sono cadute alla misura
+
+L'ordine dava il Rito dell'Alba e il Soffio del Destino per "misura giusta,
+porta mancante". Misurati:
+
+- **il Rito dell'Alba non ha nessun testo da leggere per intero.** Il suo unico
+  `lettura()` sta su un invito breve, "Trascina in alto, oppure tocca", cioe'
+  proprio cio' che il fondatore ha escluso dalla voce.
+- **il Soffio del Destino era fuori misura, non dentro.** I due paragrafi della
+  sua risposta stavano a sedici punti come l'Arcano.
+
+## I DUE ROSSI CHE NON SCATTAVANO, E COSA HO CAMBIATO
+
+**Sulla voce 10.** La guardia misurava "il file nomina `lettura()`". Rimesso
+`corpo()` sul responso dell'Arcano restava verde, perche' in quel file
+`lettura()` c'era ancora, sul sommario. Non ho spostato la soglia: adesso ogni
+punto porta il SUO marcatore, e il rosso scatta.
+
+**Sulla voce 11, due volte.** La prima stesura leggeva la scala dipinta da
+`getTransformTo`, che e' la via che sembra giusta: misurata a mano su un
+`SizedBox` da quaranta punti attorno a un testo da venti, quella torna 1,0
+mentre il riquadro dice 0,125. Adesso la scala si prende da `applyBoxFit`, cioe'
+dallo stesso conto che fa il disegno. Poi, stretta la piastrella per provare il
+rosso sugli a capo, la prova restava verde ancora: un titolo che si e' gia'
+abbassato non porta piu' la misura del ruolo, e il setaccio lo perdeva. Adesso
+si riconosce da chi lo ha creato.
+
+**E una terza prova era una prova su un'app che non esiste.** Provava ogni ruolo
+a quattro larghezze scelte a mano e trovava tre colpe a duecentodieci punti: solo
+che a duecentodieci punti, in quest'app, ci vive il titolo di una riga, non
+quello di una sezione. Adesso le coppie di ruolo e larghezza si raccolgono
+dall'albero vero.

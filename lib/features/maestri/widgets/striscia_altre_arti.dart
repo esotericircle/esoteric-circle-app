@@ -157,7 +157,14 @@ class StrisciaAltreArti extends StatelessWidget {
         ),
         const SizedBox(height: SpacingTokens.md),
         SizedBox(
-          height: 148,
+          // **CENTOSESSANTOTTO, E IL NUMERO E' MISURATO.** Ordine CE voce 11:
+          // qui il nome di un'arte stava su una riga sola perche' un
+          // `FittedBox` lo schiacciava, e "Oroscopo Personalizzato" finiva
+          // dipinto a otto punti e sei invece dei sedici dichiarati. Adesso
+          // scende di corpo con un pavimento e puo' andare a capo su due
+          // righe, che col carattere vero sono 38 punti invece di 19: la
+          // striscia fa posto a quei diciannove.
+          height: 168,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding:

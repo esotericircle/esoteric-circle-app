@@ -310,7 +310,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         // entro un minimo dichiarato.
         title: TitoloCheNonSiRompe(
             testo: widget.titolo ?? 'Scegli il tuo VIP',
-            stile: TypographyTokens.display(size: 19)),
+            stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
@@ -423,7 +423,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                                   ? 'Tutti i VIP'
                                   : 'Scegli chi mettere contro '
                                       '${widget.primoVip!.name}',
-                          style: TypographyTokens.display(size: 18)
+                          style: TypographyTokens.titoloScheda()
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: SpacingTokens.sm),
                     ],

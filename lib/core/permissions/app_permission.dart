@@ -177,7 +177,7 @@ class _PreludeSheet extends StatelessWidget {
             const SizedBox(height: SpacingTokens.md),
             Text(copy.title,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 21)),
+                style: TypographyTokens.titoloSezione()),
             const SizedBox(height: SpacingTokens.sm),
             Text(copy.body,
                 textAlign: TextAlign.center,

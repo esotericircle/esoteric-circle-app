@@ -423,7 +423,7 @@ if (andata && mounted) {
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title:
-            Text('Soffio del Destino', style: TypographyTokens.display(size: 20)),
+            Text('Soffio del Destino', style: TypographyTokens.titoloDiSchermata()),
       ),
       // LA SCENA HA UN NOME, ordine P voce 26.
       //

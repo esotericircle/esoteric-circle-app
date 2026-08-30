@@ -291,7 +291,7 @@ class AccountScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text('Il tuo account',
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloDiSchermata()),
       ),
       body: SafeArea(
         top: false,
@@ -1228,7 +1228,7 @@ class _AccountTile extends StatelessWidget {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Text(entry.title,
-                            style: TypographyTokens.display(size: 17)),
+                            style: TypographyTokens.titoloScheda()),
                         if (!entry.isLive)
                           Container(
                             padding: const EdgeInsets.symmetric(

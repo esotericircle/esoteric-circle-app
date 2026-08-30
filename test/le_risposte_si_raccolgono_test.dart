@@ -197,6 +197,19 @@ void main() {
       final freccette = find.byKey(const Key('chat_raccogli'));
       expect(freccette, findsOneWidget,
           reason: 'la freccetta sta sulla risposta raccolta, e su nessun\'altra');
+      // **PRIMA SI PORTA DOVE IL DITO LA RAGGIUNGE.** Ordine CE voce 04:
+      // sopra il campo sono comparse due righe, il residuo delle domande e
+      // quello degli approfondimenti. Il compositore galleggia SOPRA la
+      // lista, quindi la freccetta puo' finire sotto quelle righe e il tocco
+      // cade su di loro senza che la prova lo dica. Si scorre fino in fondo,
+      // dove il margine basso tiene l'ultimo messaggio sopra il compositore.
+      await tester.ensureVisible(freccette);
+      await tester.pump();
+      // Un solo passo, e non fino in fondo: scorrendo troppo la risposta
+      // raccolta esce dalla lista e viene smontata, e la freccetta con lei.
+      await tester.drag(find.byType(Scrollable).first, const Offset(0, -140),
+          warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 120));
       await tester.tap(freccette);
       for (var i = 0; i < 8; i++) {
         await tester.pump(const Duration(milliseconds: 100));

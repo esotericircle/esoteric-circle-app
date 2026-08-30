@@ -81,7 +81,7 @@ class FeatureCatalog {
       id: 'extended_oracles',
       title: 'Oracoli Estesi',
       teaser:
-          'I-Ching, pendolo, cristalli e fondi di caffe si uniranno al cerchio. Presto disponibili.',
+          'I-Ching, pendolo, cristalli e fondi di caffè si uniranno al cerchio. Presto disponibili.',
       icon: Icons.blur_on,
       owner: Maestro.caligo,
       defaultAvailability: RemoteAvailability.comingSoon,

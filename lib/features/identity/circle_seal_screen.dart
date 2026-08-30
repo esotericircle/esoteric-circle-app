@@ -126,7 +126,7 @@ if (andata && mounted) {
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text('Il tuo Sigillo del Cerchio',
-            style: TypographyTokens.display(size: 18)),
+            style: TypographyTokens.titoloScheda()),
       ),
       body: SafeArea(
         top: false,
@@ -150,7 +150,7 @@ if (andata && mounted) {
               const SizedBox(height: SpacingTokens.sm),
               Text(_seal.name,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 24)
+                  style: TypographyTokens.titoloSezione()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: 4),
               Text(
@@ -261,7 +261,7 @@ class _MeaningPanel extends StatelessWidget {
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Text('Cosa significa',
-                      style: TypographyTokens.display(size: 17)
+                      style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
                 ),
                 Icon(
@@ -342,7 +342,7 @@ class _MeaningBlock extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: TypographyTokens.display(size: 16)
+                  style: TypographyTokens.titoloDiRiga()
                       .copyWith(color: ColorTokens.textPrimary)),
               const SizedBox(height: 2),
               Text(body,
@@ -405,7 +405,7 @@ class _ShareButton extends StatelessWidget {
                         base: 'Condividi il sigillo'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.display(size: 16)
+                    style: TypographyTokens.titoloDiRiga()
                         .copyWith(color: palette.goldSoft)),
               ),
             ],

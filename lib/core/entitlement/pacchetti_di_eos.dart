@@ -82,7 +82,7 @@ const List<PacchettoDiEos> pacchettiDiEos = [
     nome: 'Borsa di Eos',
     eos: 900,
     prezzo: '7,99 €',
-    perche: 'Una settimana di letture in piu\', senza pensarci ogni volta.',
+    perche: 'Una settimana di letture in più, senza pensarci ogni volta.',
   ),
   PacchettoDiEos(
     id: 'eos_2500',

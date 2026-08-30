@@ -83,7 +83,7 @@ class DomainScreen extends StatelessWidget {
           children: [
             Text(maestro.displayName,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 20)),
+                style: TypographyTokens.titoloDiSchermata()),
             const SizedBox(height: 2),
             DomainPillars(maestro: maestro),
           ],

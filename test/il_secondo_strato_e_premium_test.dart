@@ -88,9 +88,15 @@ void main() {
   });
 
   group('I tetti governano l\'ACCESSO, non la produzione', () {
-    test('Tre, dieci, senza limite, dal listino e non da qui', () {
+    test('Tre, dieci, trenta, dal listino e non da qui', () {
       // Un solo meccanismo di gating: `PlanCatalog`, la stessa matrice che
       // dice chi ha la memoria dei Maestri.
+      //
+      // **TRENTA, E NON PIU' "SENZA LIMITE".** Ordine CE voce 08: il fondatore
+      // ha chiesto che l'illimitato sparisca da ogni cella, e il numero qui
+      // segue il dato del listino invece di anticiparlo. Trenta e' lo stesso
+      // numero che prima era solo un tetto di correttezza, cioe' il freno che
+      // si teneva quando un tetto vero non c'era.
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaApprofondimenti, Tier.free),
@@ -106,7 +112,7 @@ void main() {
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaApprofondimenti, Tier.tier3),
-          isNull);
+          30);
       expect(QuestionAllowance.kTettoDiCorrettezza, 30);
     });
 

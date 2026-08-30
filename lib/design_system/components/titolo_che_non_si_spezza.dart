@@ -25,6 +25,7 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
     required this.stile,
     this.allineamento = TextAlign.center,
     this.minimo = 20,
+    this.righeMassime,
   });
 
   final String testo;
@@ -34,6 +35,16 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
   /// Sotto questo corpo non si scende: un titolo illeggibile e' peggio di un
   /// titolo spezzato.
   final double minimo;
+
+  /// Quante righe puo' occupare al massimo, quando chi lo ospita ha
+  /// un'altezza fissa.
+  ///
+  /// **Ordine CE voce 11.** Sulla piastrella di un'arte, tolto il
+  /// `FittedBox` che schiacciava i nomi lunghi a otto punti, tre nomi del
+  /// catalogo prendevano tre righe e la striscia traboccava di 45 punti.
+  /// Il rimedio non e' tagliare il nome: e' scendere ancora un poco di
+  /// corpo, sempre entro il [minimo], finche' le righe ci stanno.
+  final int? righeMassime;
 
   /// **IL CORPO PIU' GRANDE CON CUI IL TESTO ENTRA SU UNA RIGA.** Ordine AU
   /// voce 07.
@@ -81,12 +92,39 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
     return minimo;
   }
 
+  /// Il corpo piu' grande con cui il testo sta in [righe] righe, mai sotto
+  /// [minimo]. Parte da [partenza], che di solito e' gia' il corpo a cui la
+  /// parola piu' lunga entra.
+  static double corpoCheStaInRighe(
+    String testo,
+    TextStyle stile,
+    double larghezza,
+    int righe, {
+    required double partenza,
+    double minimo = 20,
+  }) {
+    if (!larghezza.isFinite || larghezza <= 0) return partenza;
+    for (var corpo = partenza; corpo > minimo; corpo -= 1) {
+      final pittore = TextPainter(
+        text: TextSpan(text: testo, style: stile.copyWith(fontSize: corpo)),
+        textDirection: TextDirection.ltr,
+      )..layout(maxWidth: larghezza);
+      if (pittore.computeLineMetrics().length <= righe) return corpo;
+    }
+    return minimo;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, vincoli) {
-        final corpo =
+        var corpo =
             corpoCheEntra(testo, stile, vincoli.maxWidth, minimo: minimo);
+        if (righeMassime != null) {
+          corpo = corpoCheStaInRighe(
+              testo, stile, vincoli.maxWidth, righeMassime!,
+              partenza: corpo, minimo: minimo);
+        }
         return Text(
           testo,
           textAlign: allineamento,

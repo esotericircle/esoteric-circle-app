@@ -54,7 +54,7 @@ class PrivacyEPermessiScreen extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
         title: Text('Privacy e permessi',
-            style: TypographyTokens.display(size: 20)
+            style: TypographyTokens.titoloDiSchermata()
                 .copyWith(color: palette.goldSoft)),
       ),
       body: SafeArea(
@@ -73,7 +73,7 @@ class PrivacyEPermessiScreen extends StatelessWidget {
             // lo cerca non se lo ritrova addosso su ogni carta.
             const SectionTitle(
               title: 'Cosa diciamo di noi',
-              subtitle: 'Una volta sola, e non su ogni carta.',
+              subtitle: 'Una volta sola, non su ogni carta.',
             ),
             const SizedBox(height: SpacingTokens.sm),
             DepthCard(
@@ -110,7 +110,7 @@ class PrivacyEPermessiScreen extends StatelessWidget {
 
             const SectionTitle(
               title: 'Da dove vengono i numeri',
-              subtitle: 'Chi pubblica i dati, e con quale licenza.',
+              subtitle: 'Chi pubblica i dati e con quale licenza.',
             ),
             const SizedBox(height: SpacingTokens.sm),
             DepthCard(

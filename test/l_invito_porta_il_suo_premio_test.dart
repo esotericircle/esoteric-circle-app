@@ -42,20 +42,35 @@ void main() {
             'indeboliscono, e queste non ci sono piu\': $cadute');
   });
 
-  test('la domanda si fa a chi arriva, e una volta sola', () {
+  test('a chi arriva non si chiede piu\' niente, e il Santuario tace', () {
+    // **LA DOMANDA NON SI FA PIU\', E NON E\' UNA REGRESSIONE: E\' UN ORDINE.**
+    // Ordine CE voce 02, parole del fondatore su quel popup incontrato
+    // usando l\'app senza registrarsi: "ma che cazzo di modo e'? [...] Se un
+    // utente accetta di scaricare l\'app, dopo la mia condivisione, il
+    // tracciamento e premio deve essere automatico".
+    //
+    // E la decisione sul prezzo di toglierlo, sempre sue parole: "e' una
+    // demo per ora, si toglie e accettiamo che per ora nessuno riscuote i
+    // 60 EOS, ma va sistemato prima della pubblicazione". **Il debito sta
+    // scritto in `docs/ordini/RIPRESA.md` e nel manifesto dell'ordine CE**,
+    // cosi' non lo tiene in vita soltanto una conversazione.
     final casa = File('lib/features/santuario/santuario_screen.dart')
         .readAsStringSync();
-    expect(casa.contains('DomandaDellInvito.chiedi'), isTrue,
-        reason: 'nessuno chiede piu\' a chi arriva se lo ha invitato '
-            'qualcuno, e il premio resta nel menu\' Account');
-    expect(casa.contains('MemoriaDellInvito.giaChiesto()'), isTrue,
-        reason: 'la domanda tornerebbe a ogni apertura');
-    // **L'INVITO VIENE PRIMA DELLA MISURA**, e una domanda per apertura: due
-    // fogli in fila si rispondono a caso.
-    expect(casa.indexOf('_forseChiediLInvito()') <
-        casa.indexOf('_forseChiediLaMisura()'), isTrue,
-        reason: 'la misura, che non scade, passa davanti all\'invito, che sta '
-            'negli appunti solo per pochi giorni');
+    expect(casa.contains('DomandaDellInvito.chiedi'), isFalse,
+        reason: 'il foglio dell\'invito e\' tornato a comparire da solo a chi '
+            'arriva: il fondatore lo ha tolto');
+    expect(casa.contains('ConsensoAllaMisura'), isFalse,
+        reason: 'anche il foglio del consenso alla misura e\' tornato nel '
+            'Santuario');
+    // **MA LA STRADA A MANO RESTA**, e la scelta e' di Code, motivata nel
+    // manifesto: il fondatore ha chiesto di togliere i popup, non ogni
+    // strada. Chi ha davvero un codice puo' ancora riscuoterlo dal menu'
+    // Account, dove ci va di sua volonta' invece di trovarselo addosso.
+    final conto = File('lib/features/account/account_screen.dart')
+        .readAsStringSync();
+    expect(conto.contains('apriIlRiscattoDellInvito'), isTrue,
+        reason: 'tolto il popup e\' sparita anche la porta a mano: chi ha un '
+            'codice non ha piu\' nessun modo di usarlo');
   });
 
   test('la chiave della domanda se ne va con la cancellazione', () {

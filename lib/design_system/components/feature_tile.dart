@@ -76,7 +76,7 @@ class FeatureTile extends StatelessWidget {
               const SizedBox(height: SpacingTokens.md),
               Text(
                 feature.title,
-                style: TypographyTokens.display(size: 17),
+                style: TypographyTokens.titoloScheda(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

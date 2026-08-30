@@ -230,10 +230,15 @@ void main() {
     expect(titolo, findsOneWidget);
 
     // Quanto e' alta una riga sola di quel titolo, con quel carattere.
+    //
+    // **LA MISURA SI LEGGE DAL RUOLO, NON SI RICOPIA.** Ordine CE voce 11:
+    // qui c'era scritto diciassette, e il giorno che il titolo e' entrato
+    // nella scala dei ruoli quel numero e' diventato falso senza che nessuno
+    // se ne accorgesse. Adesso lo chiede al ruolo che la schermata usa.
     final unaRiga = (TextPainter(
       text: TextSpan(
           text: 'Sintesi comparativa',
-          style: TypographyTokens.display(size: 17)),
+          style: TypographyTokens.titoloScheda()),
       textDirection: TextDirection.ltr,
     )..layout())
         .height;

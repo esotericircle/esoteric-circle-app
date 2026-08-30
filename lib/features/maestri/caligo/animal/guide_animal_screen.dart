@@ -184,7 +184,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         // un'altra: a capo FRA le parole, e la misura scende solo quanto
         // serve, entro un minimo dichiarato.
         titolo: TitoloCheNonSiRompe(
-            testo: 'Animale Guida', stile: TypographyTokens.display(size: 19)),
+            testo: 'Animale Guida', stile: TypographyTokens.titoloDiSchermata()),
         azioni: [
           IconButton(
             key: const Key('animal_sources'),
@@ -257,7 +257,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Il tuo animale ti sta cercando',
-                  style: TypographyTokens.display(size: 21)
+                  style: TypographyTokens.titoloSezione()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(
@@ -332,7 +332,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Fonti e metodo',
-                  style: TypographyTokens.display(size: 19)
+                  style: TypographyTokens.titoloDiSchermata()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(GuideAnimalCorpus.fontiEMetodo,
@@ -394,7 +394,7 @@ class _Messaggio extends StatelessWidget {
           Center(
             child: Text(animal.name.toUpperCase(),
                 key: const Key('animal_name'),
-                style: TypographyTokens.display(size: 30)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: palette.goldSoft)),
           ),
           Center(
@@ -557,7 +557,7 @@ class _Identita extends StatelessWidget {
           Center(
             child: Text(animal.name.toUpperCase(),
                 key: const Key('animal_name'),
-                style: TypographyTokens.display(size: 30)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: palette.goldSoft)),
           ),
           Center(

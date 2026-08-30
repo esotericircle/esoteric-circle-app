@@ -523,7 +523,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         // entro un minimo dichiarato.
         title: TitoloCheNonSiRompe(
             testo: titoloDelConsiglio,
-            stile: TypographyTokens.display(size: 20)),
+            stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
@@ -656,7 +656,7 @@ class _ContinueInChat extends StatelessWidget {
             const SizedBox(width: SpacingTokens.sm),
             Expanded(
               child: Text('Continua con ${maestro.displayName}',
-                  style: TypographyTokens.display(size: 16)
+                  style: TypographyTokens.titoloDiRiga()
                       .copyWith(color: palette.goldSoft)),
             ),
             Icon(Icons.arrow_forward_rounded, size: 16, color: palette.goldSoft),
@@ -708,20 +708,27 @@ class _SynthesisCard extends StatelessWidget {
               // astrologica il rischio e' piu' alto, non piu' basso.
               // La misura non e' un gusto, e' una misura. I tre volti sono
               // piu' larghi di un'icona: a 24 il titolo diventava "Sintesi
-              // comparat...", visto nell'anteprima e non dedotto. Lo spazio interno
-              // della card e' 262 punti, il titolo ne chiede 206,8, i volti a
-              // 18 ne occupano 42 piu' 8 di stacco: restano 212. La prova
-              // "Il titolo della Sintesi si legge intero" li rimisura.
+              // comparat...", visto nell'anteprima e non dedotto.
+              //
+              // **QUATTORDICI E NON PIU' DICIOTTO, ordine CE voce 11.** Il
+              // titolo e' salito da diciassette a diciotto punti, entrando
+              // nella scala dei ruoli, e a diciotto ne chiede 219 invece di
+              // 206,8. Lo spazio interno della card e' 262: i volti a diciotto
+              // ne occupavano 42 piu' 8 di stacco e ne restavano 212, cioe'
+              // sette meno del necessario, e il titolo andava a capo. La cura
+              // e' quella che la prova stessa indica, restringere i volti e non
+              // accorciare il nome. La prova "Il titolo della Sintesi si legge
+              // intero" li rimisura.
               //
               // Via anche i puntini: `maxLines: 1` con l'ellissi tagliava il
               // titolo in silenzio, e in un'altra lingua taglierebbe ancora.
               // Senza, il peggio che puo' capitare e' che vada a capo, cioe'
               // che si legga tutto lo stesso.
-              const TreVolti(misura: 18),
+              const TreVolti(misura: 14),
               const SizedBox(width: SpacingTokens.xs),
               Expanded(
                 child: Text('Sintesi comparativa',
-                    style: TypographyTokens.display(size: 17)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
               ),
             ],
@@ -831,7 +838,7 @@ class _TestaDellaCarta extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(maestro.displayName,
-                  style: TypographyTokens.display(size: 18)),
+                  style: TypographyTokens.titoloScheda()),
               const SizedBox(height: 2),
               Text(maestro.domainArtsPhrase,
                   key: Key('ask_dominio_${maestro.id}'),

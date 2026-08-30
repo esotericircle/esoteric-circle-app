@@ -126,7 +126,17 @@ void main() {
       await tester.drag(lista, const Offset(0, -500), warnIfMissed: false);
       await tester.pump(const Duration(milliseconds: 120));
     }
-    for (var i = 0; i < 14; i++) {
+    // **SI RISALE FINO IN CIMA DAVVERO, non per un numero di gesti.** Ordine
+    // CE voce 04: sopra le schede e' comparsa la riga del residuo, la lista
+    // si e' allungata di quel tanto e quattordici trascinate non bastavano
+    // piu' a tornare al primo posto. Un numero di gesti non e' una posizione:
+    // qui si risale finche' la lista non e' ferma in cima.
+    final scorrevole =
+        find.descendant(of: lista, matching: find.byType(Scrollable));
+    double dovESiamo() =>
+        tester.state<ScrollableState>(scorrevole).position.pixels;
+    for (var i = 0; i < 40; i++) {
+      if (dovESiamo() <= 0.5) break;
       await tester.drag(lista, const Offset(0, 500), warnIfMissed: false);
       await tester.pump(const Duration(milliseconds: 120));
     }
@@ -134,7 +144,14 @@ void main() {
 
     // LA SCHEDA DI MEDORA: e' una lente INIZIALE, quindi porta il testo
     // lungo del harness; quella dello starter viene dall'oracolo.
+    // **LA SCHEDA SI CERCA SCORRENDO, non si presume in cima.** Ordine CE
+    // voce 04: sopra le schede e' comparsa la riga del residuo, e la scheda
+    // di Medora e' scesa oltre il bordo della lista con la sua zona di
+    // riserva. Cercarla dove stava prima e' una posizione presunta, non
+    // misurata: qui si scorre fino a lei.
     final carta = find.byKey(const Key('ask_lens_medora'));
+    await tester.scrollUntilVisible(carta, 200, scrollable: scorrevole);
+    await tester.pump(const Duration(milliseconds: 300));
     expect(carta, findsOneWidget);
     final testi = find.descendant(of: carta, matching: find.byType(Text));
     // SOLO IL TESTO VISIBILE: la macchina da scrivere tiene una copia

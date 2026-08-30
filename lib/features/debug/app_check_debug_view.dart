@@ -154,7 +154,7 @@ class RipristinaRisveglioRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Ripeti il Risveglio',
-                      style: TypographyTokens.display(size: 16)),
+                      style: TypographyTokens.titoloDiRiga()),
                   const SizedBox(height: 2),
                   Text(
                     'Azzera profilo e identità, poi riapre il rito. Solo '

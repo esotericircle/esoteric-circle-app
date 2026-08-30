@@ -170,7 +170,7 @@ class SinastriaShareCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('${report.overall}%',
-                        style: TypographyTokens.display(size: 26)
+                        style: TypographyTokens.cerimoniale()
                             .copyWith(color: palette.goldSoft)),
                     Text(report.band.toUpperCase(),
                         textAlign: TextAlign.center,

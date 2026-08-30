@@ -66,7 +66,7 @@ class DreamRiteCard extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(DreamRiteCorpus.parola(luna.sign).toUpperCase(),
-                style: TypographyTokens.display(size: 30)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: palette.goldSoft, letterSpacing: 1.5)),
             const SizedBox(height: SpacingTokens.sm),
             Text(saluto,

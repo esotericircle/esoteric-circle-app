@@ -102,8 +102,8 @@ class _PortaDellaSpesaState extends State<PortaDellaSpesa> {
         // niente, e dirlo e' meglio che far finta che sia successo qualcosa.
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Non si e\' potuto spendere adesso. '
-              'Non ti e\' stato tolto niente.'),
+          content: Text('Non si è potuto spendere adesso. '
+              'Non ti è stato tolto niente.'),
         ));
     }
   }

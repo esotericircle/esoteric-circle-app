@@ -61,7 +61,7 @@ Future<bool> showUpgradeInvite(
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Text(title,
-                      style: TypographyTokens.display(size: 19)
+                      style: TypographyTokens.titoloDiSchermata()
                           .copyWith(color: palette.goldSoft)),
                 ),
               ],

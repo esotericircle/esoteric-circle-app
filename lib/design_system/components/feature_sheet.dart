@@ -92,7 +92,7 @@ class _FeatureSheetContent extends StatelessWidget {
               Expanded(
                 child: Text(
                   feature.title,
-                  style: TypographyTokens.display(size: 22),
+                  style: TypographyTokens.titoloSezione(),
                 ),
               ),
             ],
