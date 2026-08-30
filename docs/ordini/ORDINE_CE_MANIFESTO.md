@@ -19,11 +19,11 @@ Porta le tre regole degli ordini precedenti:
 - **CE.02** Via i due popup dal Santuario. **CHIUSA.** Nessuno dei due fogli esce piu' da li'. La porta a mano nel menu' Account resta, con la ragione scritta.
 - **CE.03** Il sotto menu' dedicato. **CHIUSA.** "Privacy e permessi": disclaimer, interruttore della misura, fonti dei dati e permessi di sistema, tutti e quattro dentro, e nelle Impostazioni restano due righe.
 - **CE.04** Il conteggio residuo prima del gesto. **CHIUSA.** Tutti e sei i budget hanno una casa sola, `BudgetDelGiorno`, e una prova li enumera: da cinque punti muti su otto si passa a zero.
-- **CE.05** Il pulsante di consenso esplicito dove si spendono Eos. **APERTA.**
-- **CE.06** Il borsellino quando gli Eos non bastano. **APERTA.**
+- **CE.05** Il pulsante di consenso esplicito dove si spendono Eos. **CHIUSA.** La casa unica esiste, si difende dal doppio tocco e paga sull'esito. **Oggi nessun punto dell'app spende Eos**, misurato: la prova che enumera i chiamanti e' la trappola per il primo che nascera'.
+- **CE.06** Il borsellino quando gli Eos non bastano. **CHIUSA.** L'avvertenza, i tre pacchetti col loro prezzo e la seconda via, l'abbonamento. Nessun pulsante che finge un acquisto che non avviene.
 - **CE.07** I tre prezzi annuali nuovi. **CHIUSA.** 99,90, 189,90 e 279,90, e gli sconti ricalcolati dal prezzo: 16, 21 e 22 per cento invece di 24, 25 e 25.
 - **CE.08** L'illimitato si elimina ovunque. **CHIUSA.** Nove celle nell'app e cinque sul server, piu' la logica che traduceva la parola in "nessun tetto". Adesso una cella che dicesse "Illimitato" varrebbe zero.
-- **CE.09** I pacchetti di Eos. **APERTA.**
+- **CE.09** I pacchetti di Eos. **CHIUSA.** Tre: 300 Eos a 2,99, 900 a 7,99, 2.500 a 19,99. Nessuno arriva ai 6.030 che il Cammino conia.
 - **CE.10** L'uniformazione dei testi da leggere. **APERTA.**
 - **CE.11** I 119 titoli gialli. **APERTA.**
 - **CE.12** I suggerimenti al primo uso. **APERTA.**
@@ -34,8 +34,8 @@ Porta le tre regole degli ordini precedenti:
 - **CE.17** L'attribuzione automatica dell'invito: studio e rapporto. **APERTA.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 6
-VOCI_APERTE: 11
+VOCI_CHIUSE: 9
+VOCI_APERTE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -171,6 +171,41 @@ lavoro vorrebbe dire misurarla su un codice diverso.
   `null`, e il server e' il sovrano: chi chiama la callable direttamente non
   passa da nessuna schermata. Togliere l'illimitato solo dall'app avrebbe
   lasciato il tetto vero aperto.
+
+### CE.05
+
+- **Un fatto misurato che cambia la portata della voce: oggi nessun punto
+  dell'app spende Eos.** `SpesaDegliEos.perLaVoce` non ha nessun chiamante
+  sotto `lib/features`, e nemmeno `muoviGliEos`. La porta non ripara quindi un
+  difetto in vigore: e' la casa che il primo punto che spendera' Eos dovra'
+  attraversare, e la prova enumera i chiamanti perche' nessuno nasca fuori.
+- **Il doppio tocco si ferma nella porta e non nel chiamante.** Un chiamante
+  che se lo dimentica spende due volte: qui il pulsante si spegne al primo
+  tocco e torna quando la chiamata e' finita.
+- **Il consumo si paga sull'esito.** Se la spesa non riesce, cio' che viene
+  dopo non parte e non si addebita niente. E' la stessa legge di
+  `CostoDelTurno` sulla chat, verificata: paga solo quando la risposta e'
+  arrivata davvero.
+
+### CE.06 e CE.09
+
+- **Tre pacchetti, e non due ne' cinque.** Con due la scelta e' "poco o tanto"
+  e chi ha un bisogno medio si pente in tutti e due i casi; con cinque il
+  listino diventa un problema da risolvere e chi voleva solo finire una lettura
+  abbandona.
+- **300, 900 e 2.500 Eos**, commisurati al conio del Cammino, che e' 2.010 per
+  sentiero e 6.030 in tutto. Il piccolo tappa un buco, il medio copre una
+  settimana, il grande sta appena sotto un sentiero intero. **Nessuno arriva ai
+  6.030**, ed e' una scelta: il Cammino deve restare la via piu' ricca.
+- **2,99, 7,99 e 19,99 euro**, cioe' da 0,0100 a 0,0080 per Eos: la scala c'e'
+  ed e' mite. Uno sconto forte sul grande spingerebbe a comprare scorte invece
+  di abbonarsi, e il pacchetto deve restare una comodita' mentre l'abbonamento
+  resta la strada.
+- **Nessun pulsante che finge.** Gli acquisti veri non sono collegati a nessun
+  negozio, e l'ordine dice che in quel caso ci si ferma e lo si dichiara a
+  schermo: il borsellino mostra cosa saranno i pacchetti e dice che arrivano con
+  la pubblicazione. Una costante sola, `acquistiCollegatiAUnNegozio`, si
+  spegnera' il giorno che il negozio esiste.
 
 ## IL DEBITO DA CHIUDERE PRIMA DELLA PUBBLICAZIONE
 

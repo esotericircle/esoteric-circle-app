@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/design_system/components/borsellino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/core/entitlement/budget_del_giorno.dart';
 
 /// IL BORSELLINO DICE TUTTO, E INVITA. Ordine BB voce 02.
 ///
@@ -17,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 
-  test('BB.02: i limiti enumerati sono quattro, e vengono dal codice', () {
+  test('CE.04: i limiti enumerati sono SEI, e vengono dal codice', () {
     final borsa = QuestionAllowance();
     final righe = PortafoglioDelCerchio.tuttiILimiti(borsa, Tier.free);
     // ignore: avoid_print
@@ -25,9 +26,14 @@ void main() {
       // ignore: avoid_print
       print('ORDINE BB VOCE 02: "$r"');
     }
-    expect(righe, hasLength(4),
-        reason: 'i limiti mostrati sono ${righe.length} invece di quattro: il '
-            'foglio mostra meno di quello che il piano limita');
+    // **ERANO QUATTRO E ADESSO SONO SEI. Ordine CE voce 04.** Mancavano le
+    // stese e le sinastrie: due budget che la persona consuma e di cui il
+    // borsellino taceva. Il numero non e' piu' scritto qui, viene
+    // dall'elenco: il budget che nasce domani compare da solo.
+    expect(righe, hasLength(BudgetDelGiorno.values.length),
+        reason: 'i limiti mostrati sono ${righe.length} invece di '
+            '${BudgetDelGiorno.values.length}: il foglio mostra meno di '
+            'quello che il piano limita');
 
     // **CIASCUNO NOMINA LA PROPRIA COSA**, se no e' un elenco di numeri.
     //
@@ -39,6 +45,8 @@ void main() {
       'approfondiment',
       'confront',
       'gettat',
+      'stes',
+      'sinastri',
     ]) {
       // Senza maiuscole: dall'ordine BG voce 02 le righe del piano che non
       // porta una cosa iniziano col nome della cosa ("Approfondimenti: non

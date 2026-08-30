@@ -20,6 +20,7 @@ import 'icona_degli_eos.dart';
 import 'volo_degli_eos.dart';
 import '../../features/pricing/pricing_screen.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
+import '../../core/entitlement/pacchetti_di_eos.dart';
 
 /// IL BORSELLINO, SEMPRE NELLO STESSO ANGOLO. Ordine S voce 06.
 ///
@@ -653,6 +654,71 @@ class _FoglioDelPortafoglio extends StatelessWidget {
           // voce 02: il fondatore ha aperto il borsellino e ha trovato una
           // riga sola sulle domande ai Maestri. I budget sono quattro, e chi
           // guarda i propri Eos sta guardando proprio cosa puo' fare oggi.
+          // **I PACCHETTI DI EOS, E LA VIA QUANDO NON BASTANO.** Ordine CE
+          // voci 06 e 09.
+          //
+          // **Le parole del fondatore:** "se l'utente vuole comprare EOS, ma
+          // cmq non ne ha abbastanza, viene trasportato al borsellino e nel
+          // borsellino c'e' l'avvertenza che gli EOS disponibili non bastano
+          // con il pulsante acquista un pacchetto EOS o abbonati per
+          // continuare o altro testo elegante".
+          //
+          // **Sta qui e non in fondo**, perche' chi arriva al borsellino dopo
+          // un saldo insufficiente deve trovare la via subito sotto il proprio
+          // saldo, non dopo tre elenchi.
+          //
+          // **Nessun pulsante che finge.** Gli acquisti veri non sono ancora
+          // collegati a un negozio, e l'ordine dice che in quel caso ci si
+          // ferma e lo si dichiara a schermo: qui si mostra cosa saranno i
+          // pacchetti e si dice che arrivano con la pubblicazione. Promettere
+          // un acquisto che non avviene sarebbe la stessa bugia dei tre
+          // pulsanti che non aprivano nessun foglio.
+          _Titoletto('Se gli Eos non bastano', palette),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            pacchettiNonAncoraInVendita,
+            key: const Key('portafoglio_pacchetti_avvertenza'),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          for (final p in pacchettiDiEos) ...[
+            Padding(
+              key: Key('portafoglio_pacchetto_${p.id}'),
+              padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+              child: Row(
+                children: [
+                  IconaDegliEos(misura: 18, colore: palette.goldSoft),
+                  const SizedBox(width: SpacingTokens.xs),
+                  Expanded(
+                    child: Text(
+                      '${p.nome}, ${p.eos} Eos',
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textPrimary),
+                    ),
+                  ),
+                  Text(
+                    p.prezzo,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: palette.goldSoft),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.sm),
+          // **E LA SECONDA VIA, che il fondatore ha nominato accanto alla
+          // prima: "o abbonati per continuare".** Non e' un ripiego, e' la
+          // strada piu' conveniente, e l'invito ai piani esiste gia' in questo
+          // foglio poco piu' sotto.
+          Text(
+            'Oppure sali di livello nel Cerchio: ogni giorno budget nuovi, '
+            'senza comprare niente.',
+            key: const Key('portafoglio_oppure_abbonati'),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
           _Titoletto('Cosa puoi fare oggi', palette),
           const SizedBox(height: SpacingTokens.xs),
           for (final riga
