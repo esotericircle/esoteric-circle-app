@@ -134,6 +134,56 @@ export const scriviIRicordi = onCall(OPZIONI, async (request) => {
 });
 
 /**
+ * QUANTI MOVIMENTI DEGLI EOS SI RESTITUISCONO IN UN GIRO.
+ *
+ * Duecento. Il telefono ne tiene otto, che bastano al borsellino e non
+ * bastano ai Ricordi: la voce CG.10 chiede che nei Ricordi si vedano i due
+ * anni che il server tiene davvero. Duecento coprono con margine i movimenti
+ * di una persona molto attiva in due anni senza far diventare la lettura un
+ * viaggio che si paga a peso.
+ */
+export const QUANTI_MOVIMENTI_PER_GIRO = 200;
+
+/**
+ * IL REGISTRO DEI MOVIMENTI DEGLI EOS, come lo tiene il server.
+ *
+ * **Perche' non bastano gli otto del telefono.** `RegistroDegliEos` ne tiene
+ * otto, che e' la misura giusta per il borsellino, dove servono gli ultimi
+ * movimenti. Nei Ricordi la domanda e' un'altra, cioe' "quanti Eos ho
+ * guadagnato quel mese", e a quella otto righe non rispondono. Il server i
+ * movimenti li tiene due anni, che e' esattamente l'orizzonte dell'indice dei
+ * Ricordi: qui si restituiscono quelli.
+ */
+export const leggiIMovimenti = onCall(OPZIONI, async (request) => {
+  const uid = uidDi(request);
+  const quanti = Math.min(
+    Number(request.data?.quanti ?? QUANTI_MOVIMENTI_PER_GIRO) ||
+      QUANTI_MOVIMENTI_PER_GIRO,
+    QUANTI_MOVIMENTI_PER_GIRO
+  );
+  const snap = await db
+    .collection("users")
+    .doc(uid)
+    .collection("movimenti")
+    .orderBy("quando", "desc")
+    .limit(quanti)
+    .get();
+
+  const movimenti = snap.docs.map((d) => {
+    const dati = d.data() as Record<string, unknown>;
+    const quando = dati.quando as {toDate?: () => Date} | undefined;
+    return {
+      id: d.id,
+      quanti: typeof dati.quanti === "number" ? dati.quanti : 0,
+      causale: typeof dati.causale === "string" ? dati.causale : "",
+      motivo: typeof dati.motivo === "string" ? dati.motivo : "",
+      quando: quando?.toDate ? quando.toDate().toISOString() : null,
+    };
+  });
+  return {movimenti};
+});
+
+/**
  * RILEGGE UN MESE.
  *
  * Serve solo quando qualcuno scende indietro oltre i dodici mesi che il

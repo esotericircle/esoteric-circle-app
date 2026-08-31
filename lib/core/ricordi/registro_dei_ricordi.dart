@@ -55,6 +55,43 @@ abstract class PortaDeiRicordi {
 
   /// Rilegge un mese dal server. Vuoto quando non c'e' niente.
   Future<List<VoceDelRicordo>> leggi(String mese);
+
+  /// I MOVIMENTI DEGLI EOS COME LI TIENE IL SERVER, ordine CG voce 10.
+  ///
+  /// **Perche' non bastano gli otto del telefono.** `RegistroDegliEos` ne
+  /// tiene otto, che e' la misura giusta per il borsellino, dove servono gli
+  /// ULTIMI movimenti. Nei Ricordi la domanda e' un'altra, cioe' quanti Eos
+  /// hai guadagnato in quel mese, e a quella otto righe non rispondono. Il
+  /// server li tiene due anni, che e' lo stesso orizzonte dell'indice.
+  Future<List<MovimentoDelRicordo>> movimenti() async => const [];
+}
+
+/// Un movimento di Eos come arriva dal server: quanti, quando, e perche'.
+class MovimentoDelRicordo {
+  const MovimentoDelRicordo({
+    required this.quanti,
+    required this.quando,
+    required this.causale,
+    required this.motivo,
+  });
+
+  final int quanti;
+  final DateTime quando;
+  final String causale;
+  final String motivo;
+
+  static MovimentoDelRicordo? daMappa(Object? grezzo) {
+    if (grezzo is! Map) return null;
+    final quanti = grezzo['quanti'];
+    final quando = DateTime.tryParse('${grezzo['quando']}');
+    if (quanti is! int || quando == null) return null;
+    return MovimentoDelRicordo(
+      quanti: quanti,
+      quando: quando,
+      causale: '${grezzo['causale'] ?? ''}',
+      motivo: '${grezzo['motivo'] ?? ''}',
+    );
+  }
 }
 
 /// La porta spenta: non manda niente e non legge niente.

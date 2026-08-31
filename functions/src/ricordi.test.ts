@@ -104,11 +104,30 @@ test("l'uid viene dal token e mai dal corpo", () => {
   );
 });
 
-test("le due callable sono esportate, altrimenti Firebase non le conosce", () => {
+test("le tre callable sono esportate, altrimenti Firebase non le conosce", () => {
   const indice = readFileSync(join(__dirname, "..", "src", "index.ts"), "utf8");
+  for (const nome of ["scriviIRicordi", "leggiIRicordi", "leggiIMovimenti"]) {
+    assert.ok(indice.includes(nome), `${nome} non e' esportata`);
+  }
+});
+
+test("i movimenti si leggono dal server, ordinati e con un tetto", () => {
+  // **La voce CG.10 chiede i DUE ANNI del server, non gli otto del
+  // telefono.** Senza l'ordinamento decrescente la lettura restituirebbe i
+  // movimenti piu' vecchi, cioe' esattamente quelli che non servono.
   assert.ok(
-    indice.includes("scriviIRicordi"),
-    "scriviIRicordi non e' esportata"
+    sorgente.includes('.orderBy("quando", "desc")'),
+    "i movimenti non sono ordinati dal piu' recente"
   );
-  assert.ok(indice.includes("leggiIRicordi"), "leggiIRicordi non e' esportata");
+  const tetto = /QUANTI_MOVIMENTI_PER_GIRO = (\d+)/.exec(sorgente);
+  assert.ok(tetto, "il tetto dei movimenti non e' dichiarato");
+  assert.ok(
+    Number(tetto![1]) > 8,
+    `il tetto e' ${tetto![1]}: gli otto del telefono bastano al borsellino e ` +
+      "non ai Ricordi, e questa voce esiste per superarli"
+  );
+  assert.ok(
+    sorgente.includes(".limit(quanti)"),
+    "la lettura non ha un tetto: una persona di due anni la pagherebbe a peso"
+  );
 });

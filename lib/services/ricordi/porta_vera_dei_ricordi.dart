@@ -45,6 +45,30 @@ class PortaVeraDeiRicordi extends PortaDeiRicordi {
   }
 
   @override
+  Future<List<MovimentoDelRicordo>> movimenti() async {
+    try {
+      final esito =
+          await _funzioni.httpsCallable('leggiIMovimenti').call<Object?>({});
+      final dati = esito.data;
+      if (dati is! Map) return const [];
+      final righe = dati['movimenti'];
+      if (righe is! List) return const [];
+      final fuori = <MovimentoDelRicordo>[];
+      for (final voce in righe) {
+        final m = MovimentoDelRicordo.daMappa(voce);
+        if (m != null) fuori.add(m);
+      }
+      return fuori;
+    } catch (errore) {
+      // **IL VUOTO E' LA RISPOSTA, e i Ricordi lo dicono a video.** Un elenco
+      // vuoto per rete assente non deve sembrare una persona che non ha mai
+      // guadagnato niente.
+      debugPrint('Ricordi: i movimenti non si rileggono. $errore');
+      return const [];
+    }
+  }
+
+  @override
   Future<List<VoceDelRicordo>> leggi(String mese) async {
     try {
       final esito = await _funzioni
