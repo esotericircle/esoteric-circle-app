@@ -38,6 +38,15 @@ export {pulisciLeScadenze} from "./pulizia";
  */
 export {sfocaLeConversazioni} from "./sfocatura";
 
+/**
+ * LE LAPIDI VECCHIE COL SALE VUOTO. Ordine CG voce 15.
+ *
+ * Un lavoro a orario e non una callable: una via che accettasse un indirizzo e
+ * riscrivesse una lapide sarebbe una superficie nuova su un dato antifrode.
+ * E si spegne da solo, perche e idempotente.
+ */
+export {sistemaLeLapidi} from "./lapidi";
+
 // LA MISURA DEL RITORNO, ordine CC voce 09: quante persone tornano il giorno
 // dopo, quante dopo una settimana, quanti riti arrivano in fondo. Conta i
 // gesti per giorno, non le persone: non esiste nessun profilo, esistono
