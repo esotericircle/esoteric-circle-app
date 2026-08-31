@@ -13,6 +13,8 @@ import '../onboarding/onboarding_controller.dart';
 import '../rituals/scelta_degli_avvisi.dart';
 import '../sigilli/coda_delle_feste.dart';
 import '../sigilli/diario_del_cammino.dart';
+import '../ricordi/registro_dei_ricordi.dart';
+import '../ricordi/scrigno_dei_custoditi.dart';
 import 'identity_controller.dart';
 import 'natal_identity.dart';
 import 'profile_controller.dart';
@@ -63,11 +65,20 @@ class DimenticanzaDellaMemoriaViva {
   ///   stessa ragione per cui il prefisso `settings.` non si cancella dal
   ///   disco**: buttarlo vorrebbe dire punire chi se ne va, e rimettere a mano
   ///   un'accessibilita' che qualcuno aveva scelto per necessita'.
+  /// - `AccountDelCerchio`: **NON tiene niente di suo, e va detto perche' la
+  ///   guardia lo ha scoperto solo il 31 agosto 2026.** Il suo stato lo
+  ///   RICALCOLA a ogni `rileggi()` chiedendolo alla porta dell'autenticazione,
+  ///   e la cancellazione chiama `rileggi()` subito dopo: svuotarlo qui non
+  ///   toglierebbe niente, perche' un istante dopo tornerebbe a leggere la
+  ///   stessa verita' dal fornitore. **La ragione era vera e non era scritta**,
+  ///   e la guardia non poteva vederlo perche' il suo RegExp cercava
+  ///   `=> Classe()` e questo provider nasce con un argomento.
   static const impersonali = <String>[
     'MaestroController',
     'ParallaxController',
     'QualityTierController',
     'SettingsController',
+    'AccountDelCerchio',
   ];
 
   /// Svuota tutto cio' che l'app tiene in mano di una persona.
@@ -112,6 +123,12 @@ class DimenticanzaDellaMemoriaViva {
     prova(() => context.read<GreetingController>().dimenticaChiSeNeVa());
     prova(() => context.read<ArtiPreferiteController>().dimenticaChiSeNeVa());
     prova(() => context.read<OnboardingController>().dimenticaChiSeNeVa());
+    // **I RICORDI DEL CERCHIO, ordine CG voci 03 e 06.** L'indice porta le
+    // righe magre di tutto cio' che la persona ha fatto, lo scrigno i responsi
+    // che ha dichiarato di voler tenere: sono la memoria piu' completa che
+    // l'app abbia mai avuto di qualcuno, e se ne vanno con lei.
+    prova(() => context.read<RegistroDeiRicordi>().dimentica());
+    prova(() => context.read<ScrignoDeiCustoditi>().dimentica());
     return quanti;
   }
 }

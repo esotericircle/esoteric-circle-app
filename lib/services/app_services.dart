@@ -1,4 +1,8 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'ricordi/porta_vera_dei_ricordi.dart';
+import 'ricordi/porta_vera_dello_scrigno.dart';
+import '../core/ricordi/registro_dei_ricordi.dart';
+import '../core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -31,6 +35,8 @@ class AppServices {
     this.diagnostics,
     this.porta = const PortaSpentaDelCerchio(),
     this.identita,
+    this.ricordi,
+    this.scrigno,
   });
 
   /// LA PORTA DEL SERVER, ordine N: contatori, memoria e saldo passano di
@@ -40,6 +46,17 @@ class AppServices {
   /// LA PORTA DELL'IDENTITA', per elevare l'account anonimo ad account vero
   /// senza perdere niente. Nulla quando Firebase non e' partito.
   final PortaDellIdentita? identita;
+
+  /// LA PORTA DELL'INDICE DEI RICORDI, ordine CG voce 03. Nulla quando
+  /// Firebase non e' partito, e allora l'indice vive solo sul telefono: la
+  /// timeline funziona lo stesso, e la sincronia riparte quando la rete torna
+  /// perche' il mese resta fra gli sporchi.
+  final PortaDeiRicordi? ricordi;
+
+  /// LA PORTA DELLO SCRIGNO DEI CUSTODITI, ordine CG voce 06. Nulla senza
+  /// Firebase: i custoditi restano sul telefono e salgono alla prima
+  /// occasione.
+  final PortaDelloScrigno? scrigno;
 
   /// Monta i servizi avvolgendo la voce nella sorveglianza, sempre.
   ///
@@ -60,6 +77,8 @@ class AppServices {
     String? diagnostics,
     PortaDelCerchio porta = const PortaSpentaDelCerchio(),
     PortaDellIdentita? identita,
+    PortaDeiRicordi? ricordi,
+    PortaDelloScrigno? scrigno,
   }) {
     final VoceSorvegliata sorvegliata;
     if (ai is VoceSorvegliata) {
@@ -79,6 +98,8 @@ class AppServices {
       diagnostics: diagnostics,
       porta: porta,
       identita: identita,
+      ricordi: ricordi,
+      scrigno: scrigno,
     );
   }
 
@@ -180,12 +201,20 @@ class AppServices {
     // preferita, e' l'unica.
     PortaDelCerchio porta = const PortaSpentaDelCerchio();
     PortaDellIdentita? identita;
+    // **LE DUE PORTE DEI RICORDI NASCONO CON LE ALTRE, ordine CG voci 03 e
+    // 06.** Restano spente finche' non c'e' un account: senza uid non c'e'
+    // nessun posto dove scrivere, e una porta viva senza destinatario
+    // fallirebbe a ogni sincronia invece di tacere.
+    PortaDeiRicordi? ricordi;
+    PortaDelloScrigno? scrigno;
     try {
       identita = PortaDellIdentitaFirebase();
       final uid = await identita.assicuraUnAccount();
       if (uid != null) {
         porta = PortaVeraDelCerchio();
         memory = FirestoreMaestroMemoryRepository(uid: uid, porta: porta);
+        ricordi = PortaVeraDeiRicordi();
+        scrigno = PortaVeraDelloScrigno();
         persistent = true;
       } else {
         note = 'Auth anonima senza utente: memoria solo di sessione.';
@@ -200,6 +229,8 @@ class AppServices {
       memoryPersistent: persistent,
       porta: porta,
       identita: identita,
+      ricordi: ricordi,
+      scrigno: scrigno,
       guasti: registro,
       attestazione: esitoAttestazione,
       appCheckDebugToken: debugToken,

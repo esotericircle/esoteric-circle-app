@@ -176,10 +176,28 @@ void main() {
     final porta =
         File('lib/core/identity/dimenticanza_della_memoria_viva.dart')
             .readAsStringSync();
-    final dichiarati = RegExp(r'=> ([A-Z][A-Za-z]+)\(\)')
+    // **LA GUARDIA ERA CIECA, e il 31 agosto 2026 si e' misurato quanto.**
+    // Il RegExp di prima cercava `=> Classe()`, cioe' i soli provider
+    // costruiti SENZA argomenti: ne vedeva diciannove su ventitre. I quattro
+    // che non vedeva erano `AccountDelCerchio`, `FeatureFlagService`,
+    // `QuestionAllowance` e i due nati con l'ordine CG, e fra loro c'erano
+    // proprio quelli che ricevono una porta, cioe' quelli che parlano col
+    // server. **Un controller nuovo che nascesse con un argomento passava
+    // sotto la guardia in silenzio**, che e' esattamente il difetto che questa
+    // prova esiste per impedire.
+    //
+    // Si e' cambiata la GRANDEZZA MISURATA e non la soglia: adesso si cercano
+    // i provider dove sono davvero dichiarati, cioe' dietro un `create:`, con
+    // o senza argomenti. La forma `create: (_) => Classe(` esclude da sola i
+    // widget dell'albero, che prima entravano nel conto largo.
+    final dichiarati = RegExp(r'create:\s*\(_\)\s*=>\s*([A-Z][A-Za-z]+)\(')
         .allMatches(app)
         .map((m) => m.group(1)!)
         .toSet();
+    expect(dichiarati.length, greaterThanOrEqualTo(20),
+        reason: 'la guardia vede ${dichiarati.length} provider: se il numero '
+            'crolla, il RegExp ha smesso di trovarli e la prova e\' tornata '
+            'cieca invece di essere soddisfatta');
     final scoperti = <String>[];
     for (final c in dichiarati) {
       if (DimenticanzaDellaMemoriaViva.impersonali.contains(c)) continue;

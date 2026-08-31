@@ -41,6 +41,8 @@ import 'core/rituals/scelta_degli_avvisi.dart';
 import 'core/sigilli/coda_delle_feste.dart';
 import 'features/sigilli/regia_del_cammino.dart';
 import 'core/sigilli/diario_del_cammino.dart';
+import 'core/ricordi/registro_dei_ricordi.dart';
+import 'core/ricordi/scrigno_dei_custoditi.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
@@ -338,6 +340,22 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
           create: (_) => AccountDelCerchio(
             porta: runtime.identita ?? const IdentitaAssente(),
           )..rileggi(),
+        ),
+        // I RICORDI DEL CERCHIO, ordine CG voci 03 e 06. Due magazzini
+        // diversi e non uno: l'indice porta le righe magre di tutto cio' che
+        // e' successo e scade a due anni; lo scrigno porta i responsi che la
+        // persona ha dichiarato di voler tenere, e quelli non scadono mai.
+        // Fonderli vorrebbe dire dare una scadenza a cio' che deve restare,
+        // oppure tenere per sempre cio' che nessuno rilegge.
+        ChangeNotifierProvider(
+          create: (_) => RegistroDeiRicordi(
+            porta: runtime.ricordi ?? const PortaSpentaDeiRicordi(),
+          )..carica(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ScrignoDeiCustoditi(
+            porta: runtime.scrigno ?? const PortaSpentaDelloScrigno(),
+          )..carica(),
         ),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),

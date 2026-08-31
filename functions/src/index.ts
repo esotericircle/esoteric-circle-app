@@ -43,7 +43,14 @@ export {segnaLEvento} from "./ritorno";
  * ogni mese vecchio che qualcuno va a ripescare oltre i dodici che il
  * telefono tiene.
  */
-export {scriviIRicordi, leggiIRicordi, leggiIMovimenti} from "./ricordi";
+export {
+  scriviIRicordi,
+  leggiIRicordi,
+  leggiIMovimenti,
+  custodisciIlResponso,
+  leggiICustoditi,
+  lasciaIlResponso,
+} from "./ricordi";
 
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati

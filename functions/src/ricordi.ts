@@ -200,3 +200,70 @@ export const leggiIRicordi = onCall(OPZIONI, async (request) => {
   const dentro = doc.data()?.righe;
   return {righe: dentro && typeof dentro === "object" ? dentro : {}};
 });
+
+/**
+ * LO SCRIGNO DEI RESPONSI CUSTODITI. Ordine CG voce 06.
+ *
+ * **I custoditi NON SCADONO, ed e' una decisione dichiarata.** La pulizia
+ * notturna non li tocca: sono decine e non migliaia, quindi non pesano, e sono
+ * esattamente cio' che la persona ha dichiarato di voler tenere. Il documento
+ * non porta nessun campo `quando` di scadenza proprio per questo: se un giorno
+ * qualcuno aggiungesse una scadenza, dovrebbe anche aggiungere il campo, e la
+ * prova che pretende che nessuna scadenza li nomini cadrebbe prima.
+ */
+const custoditoDoc = (uid: string, chiave: string) =>
+  db.collection("users").doc(uid).collection("custoditi").doc(chiave);
+
+/** Il tetto di peso di un custodito, in byte. Duemila, cioe' il doppio del
+ * tetto che il telefono si impone: cosi' un responso lungo un po' piu' del
+ * previsto non si perde, e un client compromesso non riempie comunque niente.
+ */
+export const MASSIMI_BYTE_PER_CUSTODITO = 2000;
+
+/** Quanti custoditi si restituiscono in un giro. */
+export const QUANTI_CUSTODITI_PER_GIRO = 500;
+
+/** La forma di una chiave di custodito: minuti, un punto, il nome dell arte. */
+const FORMA_DELLA_CHIAVE = /^\d+\.[a-z_]+$/;
+
+export const custodisciIlResponso = onCall(OPZIONI, async (request) => {
+  const uid = uidDi(request);
+  const chiave = String(request.data?.chiave ?? "").trim();
+  const ricordo = request.data?.ricordo;
+  if (!FORMA_DELLA_CHIAVE.test(chiave)) {
+    throw new HttpsError("invalid-argument", "Chiave non valida.");
+  }
+  if (ricordo === null || typeof ricordo !== "object" || Array.isArray(ricordo)) {
+    throw new HttpsError("invalid-argument", "Ricordo non valido.");
+  }
+  if (JSON.stringify(ricordo).length > MASSIMI_BYTE_PER_CUSTODITO) {
+    throw new HttpsError("invalid-argument", "Ricordo troppo grande.");
+  }
+  await custoditoDoc(uid, chiave).set(
+    {...(ricordo as Record<string, unknown>),
+      custoditoIl: FieldValue.serverTimestamp()},
+    {merge: true}
+  );
+  return {custodito: true};
+});
+
+export const leggiICustoditi = onCall(OPZIONI, async (request) => {
+  const uid = uidDi(request);
+  const snap = await db
+    .collection("users")
+    .doc(uid)
+    .collection("custoditi")
+    .limit(QUANTI_CUSTODITI_PER_GIRO)
+    .get();
+  return {custoditi: snap.docs.map((d) => d.data())};
+});
+
+export const lasciaIlResponso = onCall(OPZIONI, async (request) => {
+  const uid = uidDi(request);
+  const chiave = String(request.data?.chiave ?? "").trim();
+  if (!FORMA_DELLA_CHIAVE.test(chiave)) {
+    throw new HttpsError("invalid-argument", "Chiave non valida.");
+  }
+  await custoditoDoc(uid, chiave).delete();
+  return {lasciato: true};
+});
