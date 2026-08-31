@@ -19,6 +19,27 @@ Porta le tre regole degli ordini precedenti:
 - **REGOLA DUE.** Le decisioni delegate si prendono e si motivano per iscritto;
   quelle non delegate si riportano come fatti.
 
+## LA CONSEGNA, MISURATA DAL CANCELLO
+
+**Passata da `tool/sbarramento.sh`, che dall'ordine CF voce 18 fa girare tutte
+e due le suite.** Non due giri separati letti a mano: un cancello solo, che
+confronta le cadute col registro dei rossi accettati e decide.
+
+| cosa | numero |
+| --- | --- |
+| Prove Flutter passate | **4.088** |
+| Prove Flutter cadute | **1**, ed e' quella accettata |
+| Prove del server, `npm test` dentro `functions/` | **50 passate, 0 cadute** |
+| `flutter analyze` | **zero avvisi** |
+| Esito del cancello | **l'archivio si produce**, uscita 0 |
+
+**L'unico rosso e' quello dichiarato**, "l'attribuzione cieca e' valida su
+QUESTA istruzione", acceso il 13 agosto 2026 e confermato dal fondatore
+nell'ordine BY voce 04: torna verde quando le frasi dei Maestri saranno
+riscritte e la misura rifatta.
+
+**Nessuna build.** Il fondatore in questo ordine non ne ha ordinate.
+
 ## I NUMERI, PRIMA E DOPO
 
 Una riga per voce, col numero che si e' mosso. Il perche' sta nella sezione
