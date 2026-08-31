@@ -27,6 +27,7 @@ import '../sigilli/celebrazione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
+import 'schermata_del_gemello.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -258,6 +259,27 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
     setState(() => _gemello = GemelloAstrale.per(cielo));
   }
 
+  /// **PORTA ALLA SCHERMATA DEL GEMELLO. Ordine CF voce 14.** Il cielo si
+  /// ricalcola qui perche' e' lo stesso da cui il gemello e' nato: passarne
+  /// un altro vorrebbe dire un responso che non appartiene a quella scelta.
+  void _apriIlGemello(MaestroPalette palette) {
+    final gemello = _gemello;
+    if (gemello == null) return;
+    final nascita = widget.userBirth ?? BirthIdentity.example.birthMoment;
+    final cielo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day, 12),
+      oraNota: false,
+      latitudine: null,
+      longitudineDelLuogo: null,
+      segnoDichiarato: widget.userSign,
+    );
+    Navigator.of(context).push(SchermataDelGemello.route(
+      gemello: gemello,
+      tuoCielo: cielo,
+      tuoSegno: cielo.segnoSolare,
+    ));
+  }
+
   /// Apre la collezione. **Riaprire una coppia da li' non consuma niente.**
   void _apriLaCollezione() {
     Navigator.of(context).push(CollezioneScreen.route(onApri: (coppia) {
@@ -408,8 +430,21 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       // che si sfoglia: la porta apre questa galleria
                       // chiedendo di cercarlo subito.
                       if (_gemello != null) ...[
+                        // **IL TOCCO PORTA ALLA SCHERMATA DEL GEMELLO, e
+                        // non piu' dritto nella sinastria. Ordine CF voce
+                        // 14.** Parole del fondatore: "la funzione di
+                        // trova il tuo gemello astrale non e'
+                        // assolutamente appagante: serve animazione e
+                        // responso simile a quello della sinastria".
+                        //
+                        // **Aprire dritto la sinastria consumava un
+                        // budget per un gesto che sembrava una curiosita'.**
+                        // Adesso il Gemello ha la sua schermata, che non
+                        // consuma niente, e da li' la sinastria intera si
+                        // apre con la riga del residuo davanti.
                         GestureDetector(
-                          onTap: () => _apri(_gemello!.vip),
+                          key: const Key('gemello_apri_la_schermata'),
+                          onTap: () => _apriIlGemello(palette),
                           child: RivelazioneDelGemello(
                               gemello: _gemello!, palette: palette),
                         ),

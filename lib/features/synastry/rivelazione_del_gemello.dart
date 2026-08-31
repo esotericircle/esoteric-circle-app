@@ -34,6 +34,20 @@ class RivelazioneDelGemello extends StatefulWidget {
   /// Quanto dura la sfilata.
   static const Duration sfilata = Duration(milliseconds: 1600);
 
+  /// **LA REGOLA DELLA SFILATA, tirata fuori perche' la usa anche la
+  /// schermata del Gemello. Ordine CF voce 14.** Due sfilate con due
+  /// regole diverse mostrerebbero due ordini di volti per lo stesso
+  /// gemello, e la seconda smentirebbe la prima.
+  static Vip voltoDellaSfilata(GemelloAstrale gemello, double t) {
+    if (t >= 1) return gemello.vip;
+    final rallentata = Curves.easeOutCubic.transform(t.clamp(0.0, 1.0));
+    final quanti = (RivelazioneDelGemello.sfilata.inMilliseconds / 1000 *
+            RivelazioneDelGemello.voltiAlSecondo)
+        .round();
+    final i = (rallentata * quanti).floor() % VipCatalog.vips.length;
+    return VipCatalog.vips[i];
+  }
+
   /// Quanti volti passano al secondo, al massimo della corsa.
   static const int voltiAlSecondo = 14;
 
@@ -67,15 +81,9 @@ class _RivelazioneDelGemelloState extends State<RivelazioneDelGemello>
   /// La corsa rallenta come una ruota che si ferma, e **l'ultimo fotogramma e'
   /// sempre il gemello**: non e' il caso che decide dove si ferma, e' il
   /// calcolo, e la sfilata e' solo il modo di dirlo.
-  Vip _volto(double t) {
-    if (t >= 1) return widget.gemello.vip;
-    final rallentata = Curves.easeOutCubic.transform(t);
-    final quanti = (RivelazioneDelGemello.sfilata.inMilliseconds / 1000 *
-            RivelazioneDelGemello.voltiAlSecondo)
-        .round();
-    final i = (rallentata * quanti).floor() % VipCatalog.vips.length;
-    return VipCatalog.vips[i];
-  }
+  Vip _volto(double t) =>
+      RivelazioneDelGemello.voltoDellaSfilata(widget.gemello, t);
+
 
   bool _fermo(BuildContext context) =>
       widget.riduciMovimento ?? MediaQuery.of(context).disableAnimations;

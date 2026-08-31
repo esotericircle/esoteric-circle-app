@@ -163,6 +163,8 @@ import 'package:esoteric_circle/features/maestri/art_intro_screen.dart';
 import 'package:esoteric_circle/design_system/components/feature_sheet.dart';
 import 'package:esoteric_circle/core/primo_uso/suggerimenti_di_zona.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/features/synastry/schermata_del_gemello.dart';
+import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -1892,6 +1894,46 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'sinastria-galleria.png');
+  });
+
+  // --- LA SCHERMATA DEL GEMELLO ASTRALE, ordine CF voce 14 ---
+  //
+  // **Il fondatore l'ha chiamata non appagante**, e l'ordine chiede le
+  // anteprime guardate: questa cattura l'istante in cui il racconto e' finito,
+  // cioe' volto fermo, nome e responso della Sinastria.
+  testWidgets('Cattura la schermata del Gemello astrale', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1200));
+    final cielo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(1972, 5, 20, 12),
+      oraNota: false,
+      latitudine: null,
+      longitudineDelLuogo: null,
+      segnoDichiarato: Zodiac.taurus,
+    );
+    final gemello = GemelloAstrale.per(cielo)!;
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SchermataDelGemello.route(
+      gemello: gemello,
+      tuoCielo: cielo,
+      tuoSegno: Zodiac.taurus,
+      adesso: DateTime(2026, 8, 31),
+    )));
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SchermataDelGemello));
+      if (gemello.vip.fullPath != null) {
+        await precacheImage(AssetImage(gemello.vip.fullPath!), element);
+      }
+    });
+    // Fino in fondo al racconto: volto fermo, nome, responso.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 600));
+    }
+    await capture(tester, rootKey, 'gemello-astrale.png');
   });
 
   testWidgets('Cattura la Sinastria VIP', (tester) async {

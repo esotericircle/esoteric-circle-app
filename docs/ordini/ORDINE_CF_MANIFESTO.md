@@ -34,15 +34,15 @@ Porta le tre regole degli ordini precedenti:
 - **CF.11** Il conteggio delle sinastrie. **CHIUSA.**
 - **CF.12** La carta del VIP ingrandita e' schiacciata. **CHIUSA.**
 - **CF.13** Le mappe calcolano sulla citta' natale. **CHIUSA.**
-- **CF.14** Il Gemello astrale non e' appagante. **APERTA.**
+- **CF.14** Il Gemello astrale non e' appagante. **CHIUSA.**
 - **CF.15** La riga della privacy policy manca a chi rientra. **CHIUSA.**
 - **CF.16** Due porte quasi identiche, e ne resta una sola. **CHIUSA.**
 - **CF.17** Le due lapidi vecchie, scritte col sale vuoto. **FERMATA IN ATTESA DI DECISIONE.**
 - **CF.18** Il secondo cancello. **CHIUSA.**
 
 VOCI_TOTALI: 18
-VOCI_CHIUSE: 14
-VOCI_APERTE: 1
+VOCI_CHIUSE: 15
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
@@ -631,6 +631,43 @@ che cosa succede davvero sul tuo RMX5056: **se le chiamate sono in coda e la
 prova immediata arriva**, allora le push non curano un difetto, aggiungono una
 funzione, e vanno ordinate come tale invece che come rimedio. Se invece la coda
 e' vuota, il difetto e' nel Cerchio e si cura senza push.
+
+### CF.14, il Gemello astrale ha la sua schermata, e le tre scelte sono mie
+
+**Cosa c'era, misurato**: nessuna schermata propria, una sfilata di 1600
+millesimi dentro la galleria, una miniatura da 120 punti, e **una frase sola**
+in due varianti. Il tocco portava dritto nella Sinastria, cioe' **consumava un
+budget per quello che sembrava una curiosita'**.
+
+**1. Il responso NON e' scritto da me: e' quello della Sinastria.** Il Gemello
+e' la stessa sinastria chiesta a tutti e cinquanta invece che a uno, quindi il
+suo responso e' il responso di quella coppia. `SynastryReport` il testo lo porta
+gia', titolo, corpo e nota: chiamare il corpus una seconda volta da qui avrebbe
+creato due strade verso lo stesso testo. **Cosi' lo stile goliardico e' garantito
+per costruzione, e la regola del 28 agosto sull'attualita' dei personaggi vale
+gia' dentro quel corpus**, senza doverla rifare e senza rischiare di allentarla.
+**Nessun testo nuovo e' nato in questa voce**, quindi non c'e' niente di
+provvisorio da approvare.
+
+**2. Il racconto ha tre momenti e non piu' uno.** La sfilata dura 3200
+millesimi invece di 1600, dentro una cornice da 220 punti alla forma vera
+dell'artwork; **il nome arriva dopo il volto**, a 3800; **il responso dopo il
+nome**, a 4600. Un'animazione e' una successione di momenti, e con un momento
+solo non c'e' niente da guardare. La regola della sfilata e' una sola per tutte
+e due le scene, altrimenti la seconda smentirebbe la prima sullo stesso gemello.
+
+**3. Non consuma niente, quindi non chiede niente.** Trovare il gemello e' un
+calcolo su cinquanta cieli. **Il gesto che consuma e' aprire la sinastria
+intera**, e li' la riga del residuo sta davanti, come vuole la voce CF.11.
+
+**La prova guarda il MOVIMENTO e non la presenza**, come l'ordine chiede:
+confronta due istanti della sfilata e cade se mostrano lo stesso volto. Rosso
+dimostrato fermando la sfilata: a 300 e a 1200 millesimi compariva Ariana
+Grande tutte e due le volte.
+
+**Anteprima guardata**, e ha trovato un difetto che nessuna prova cercava: il
+titolo "Il tuo gemello astrale" finiva troncato con tre puntini a 360 punti.
+Adesso e' "Il tuo gemello".
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 
