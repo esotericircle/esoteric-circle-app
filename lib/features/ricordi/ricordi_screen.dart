@@ -1,0 +1,997 @@
+/// I RICORDI DEL CERCHIO. Ordine CG voci 01, 02, 04, 05 e 07.
+///
+/// **Il nome viene dal fondatore**, 31 agosto 2026: "in effetti chiamerei la
+/// funzione Ricordi del Cerchio o libro dei ricordi".
+///
+/// **Due viste dentro la stessa schermata, e non due schermate.** IL CAMMINO
+/// e' la mappa dei tre sentieri come sta oggi, senza modifiche; I RICORDI sono
+/// la lettura nel tempo. Le due viste leggono la STESSA fonte: dalla mappa,
+/// toccando un traguardo acceso, si arriva al giorno in cui e' successo; dal
+/// giorno, toccando il traguardo, si torna sulla mappa. Non nasce nessun
+/// secondo conteggio di niente.
+///
+/// **Una rotta sola, e tre porte che ci arrivano.** Il menu' utente sotto il
+/// nome, un rimando dal Passaporto accanto ai traguardi, una riga in cima a
+/// ogni chat. Una prova enumera i punti di `lib/` che aprono i Ricordi e
+/// pretende che portino tutti qui: due schermate che mostrano le stesse cose
+/// sono la famiglia di difetti piu' numerosa di questo progetto.
+///
+/// **Il livello visivo prima del testo**, che e' la regola di casa: l'anno e'
+/// dodici caselle col loro peso e il loro colore, e non un elenco di numeri.
+/// Nessun testo da leggere per capire dove hai camminato.
+library;
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/maestro/maestro.dart';
+import '../../core/ricordi/arti_con_responso.dart';
+import '../../core/ricordi/conti_delle_arti.dart';
+import '../../core/ricordi/registro_dei_ricordi.dart';
+import '../../core/ricordi/riassunti_del_tempo.dart';
+import '../../core/ricordi/ricordo_custodito.dart';
+import '../../core/ricordi/scrigno_dei_custoditi.dart';
+import '../../core/ricordi/vista_dei_ricordi.dart';
+import '../../core/ricordi/voce_del_ricordo.dart';
+import '../../core/sigilli/sentieri.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../sigilli/segno_del_sentiero.dart';
+import '../sigilli/sentiero_screen.dart';
+
+/// Quale delle due viste e' davanti.
+enum VistaDelJournal { cammino, ricordi }
+
+class RicordiScreen extends StatefulWidget {
+  const RicordiScreen({
+    super.key,
+    this.vistaIniziale = VistaDelJournal.ricordi,
+    this.maestroIniziale,
+    this.orologio,
+  });
+
+  /// Con quale vista si apre. Dal Passaporto si arriva sul Cammino, dal menu'
+  /// utente e dalla chat sui Ricordi: la porta dice cosa si stava cercando.
+  final VistaDelJournal vistaIniziale;
+
+  /// Il Maestro su cui filtrare all'apertura, quando si arriva dalla sua chat.
+  final Maestro? maestroIniziale;
+
+  final DateTime Function()? orologio;
+
+  /// **LA ROTTA E' UNA SOLA**, ed e' il punto che la guardia enumera.
+  static Route<void> route({
+    VistaDelJournal vista = VistaDelJournal.ricordi,
+    Maestro? maestro,
+  }) =>
+      PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(
+          child: RicordiScreen(
+            vistaIniziale: vista,
+            maestroIniziale: maestro,
+          ),
+        ),
+      );
+
+  @override
+  State<RicordiScreen> createState() => _RicordiScreenState();
+}
+
+class _RicordiScreenState extends State<RicordiScreen> {
+  VistaDelJournal _vista = VistaDelJournal.cammino;
+  VistaDeiRicordi? _timeline;
+  final TextEditingController _ricerca = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _vista = widget.vistaIniziale;
+  }
+
+  @override
+  void dispose() {
+    _ricerca.dispose();
+    _timeline?.dispose();
+    super.dispose();
+  }
+
+  VistaDeiRicordi _laTimeline(BuildContext context) {
+    final gia = _timeline;
+    if (gia != null) return gia;
+    final nuova = VistaDeiRicordi(
+      registro: context.read<RegistroDeiRicordi>(),
+      gestiDeiDoni: ContiDelleArti.gestiDeiDoni.values.toSet(),
+      orologio: widget.orologio ?? DateTime.now,
+    );
+    final maestro = widget.maestroIniziale;
+    if (maestro != null) {
+      // Si arriva dalla chat di un Maestro: le sue voci per prime, che e'
+      // quello che la riga "i giorni prima" promette.
+      nuova.alterna(switch (maestro) {
+        Maestro.medora => FiltroDeiRicordi.medora,
+        Maestro.aura => FiltroDeiRicordi.aura,
+        Maestro.caligo => FiltroDeiRicordi.caligo,
+      });
+    }
+    _timeline = nuova;
+    return nuova;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Scaffold(
+      backgroundColor: ColorTokens.neutralDeepest,
+      appBar: AppBar(
+        backgroundColor: palette.deepest.withValues(alpha: 0.4),
+        title: Text('Cosmic Journal',
+            key: const Key('ricordi_titolo'),
+            style: TypographyTokens.titoloScheda()),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            _LevettaDelleViste(
+              vista: _vista,
+              onCambia: (v) => setState(() => _vista = v),
+              palette: palette,
+            ),
+            Expanded(
+              child: _vista == VistaDelJournal.cammino
+                  ? const _IlCammino(key: Key('ricordi_vista_cammino'))
+                  : _IRicordi(
+                      key: const Key('ricordi_vista_ricordi'),
+                      vista: _laTimeline(context),
+                      ricerca: _ricerca,
+                      palette: palette,
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// La levetta in cima, con le due viste.
+class _LevettaDelleViste extends StatelessWidget {
+  const _LevettaDelleViste({
+    required this.vista,
+    required this.onCambia,
+    required this.palette,
+  });
+
+  final VistaDelJournal vista;
+  final ValueChanged<VistaDelJournal> onCambia;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: SegmentedButton<VistaDelJournal>(
+        key: const Key('ricordi_levetta'),
+        segments: const [
+          ButtonSegment(
+            value: VistaDelJournal.cammino,
+            label: Text('Il Cammino'),
+            icon: Icon(Icons.route_rounded),
+          ),
+          ButtonSegment(
+            value: VistaDelJournal.ricordi,
+            label: Text('I Ricordi'),
+            icon: Icon(Icons.auto_stories_rounded),
+          ),
+        ],
+        selected: {vista},
+        onSelectionChanged: (s) => onCambia(s.first),
+        style: SegmentedButton.styleFrom(
+          selectedBackgroundColor: palette.primary,
+          selectedForegroundColor: palette.onPrimary,
+          foregroundColor: palette.goldSoft,
+        ),
+      ),
+    );
+  }
+}
+
+/// LA VISTA DEL CAMMINO: la mappa dei tre sentieri, come sta oggi.
+///
+/// **Senza modifiche, come l'ordine chiede.** Le tre righe portano alle stesse
+/// schermate dei sentieri che il Passaporto gia' apre: non nasce una seconda
+/// mappa, si mostra quella che c'e' da un secondo posto.
+class _IlCammino extends StatelessWidget {
+  const _IlCammino({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+      children: [
+        for (final sentiero in Sentieri.tutti)
+          ListTile(
+            key: Key('ricordi_sentiero_${sentiero.name}'),
+            leading: SegnoDelSentiero(
+              sentiero: sentiero,
+              colore: ColorTokens.goldLight,
+              misura: 24,
+            ),
+            title:
+                Text(sentiero.titolo, style: TypographyTokens.titoloScheda()),
+            subtitle: Text(sentiero.promessa,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
+            trailing: const Icon(Icons.chevron_right_rounded,
+                color: ColorTokens.goldLight),
+            onTap: () =>
+                Navigator.of(context).push(SentieroScreen.route(sentiero)),
+          ),
+        const SizedBox(height: SpacingTokens.xxxl),
+      ],
+    );
+  }
+}
+
+/// LA VISTA DEI RICORDI: la ricerca, le pastiglie e i quattro livelli.
+class _IRicordi extends StatelessWidget {
+  const _IRicordi({
+    super.key,
+    required this.vista,
+    required this.ricerca,
+    required this.palette,
+  });
+
+  final VistaDeiRicordi vista;
+  final TextEditingController ricerca;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: vista,
+      builder: (context, _) {
+        return Column(
+          children: [
+            _CampoDellaRicerca(
+                vista: vista, controllore: ricerca, palette: palette),
+            _LePastiglie(vista: vista, palette: palette),
+            Expanded(
+              // **LE TUE CARTE SONO UNA PASTIGLIA, non una schermata,
+              // ordine CG voce 07.** Due magazzini che contengono le stesse
+              // cose sono la famiglia di difetti piu' numerosa di questo
+              // progetto: qui e' la stessa fonte, guardata a griglia perche'
+              // i custoditi sono oggetti visivi e non righe di testo.
+              child: vista.cercato.isNotEmpty
+                  ? _IRisultati(vista: vista, palette: palette)
+                  : (vista.filtri.contains(FiltroDeiRicordi.custoditi)
+                      ? _LeTueCarte(vista: vista, palette: palette)
+                      : _ILivelli(vista: vista, palette: palette)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _CampoDellaRicerca extends StatelessWidget {
+  const _CampoDellaRicerca({
+    required this.vista,
+    required this.controllore,
+    required this.palette,
+  });
+
+  final VistaDeiRicordi vista;
+  final TextEditingController controllore;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+      child: TextField(
+        key: const Key('ricordi_ricerca'),
+        controller: controllore,
+        onChanged: vista.cerca,
+        style: TypographyTokens.corpo(),
+        decoration: InputDecoration(
+          hintText: 'Cerca fra le tue domande',
+          prefixIcon: Icon(Icons.search_rounded, color: palette.goldSoft),
+          border: const OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+/// LE PASTIGLIE: sono FILTRI che si sommano, non sezioni che aprono schermate.
+class _LePastiglie extends StatelessWidget {
+  const _LePastiglie({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  static const Map<FiltroDeiRicordi, String> _nomi = {
+    FiltroDeiRicordi.medora: 'Medora',
+    FiltroDeiRicordi.aura: 'Aura',
+    FiltroDeiRicordi.caligo: 'Caligo',
+    FiltroDeiRicordi.arti: 'Le arti',
+    FiltroDeiRicordi.conversazioni: 'Conversazioni',
+    FiltroDeiRicordi.custoditi: 'Le tue Carte',
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        children: [
+          for (final voce in _nomi.entries) ...[
+            FilterChip(
+              key: Key('ricordi_pastiglia_${voce.key.name}'),
+              label: Text(voce.value),
+              selected: vista.filtri.contains(voce.key),
+              onSelected: (_) => vista.alterna(voce.key),
+              selectedColor: palette.primary,
+            ),
+            const SizedBox(width: SpacingTokens.sm),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// I QUATTRO LIVELLI: anno, mese, settimana, giorno. Si scende toccando.
+class _ILivelli extends StatelessWidget {
+  const _ILivelli({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (vista.livello) {
+      LivelloDeiRicordi.anno => _LAnno(vista: vista, palette: palette),
+      LivelloDeiRicordi.mese => _IlMese(vista: vista, palette: palette),
+      LivelloDeiRicordi.settimana =>
+        _LaSettimana(vista: vista, palette: palette),
+      LivelloDeiRicordi.giorno => _IlGiorno(vista: vista, palette: palette),
+    };
+  }
+}
+
+/// L'ANNO: dodici caselle, ognuna col suo peso e col suo colore dominante.
+///
+/// **Nessun testo da leggere per capire dove hai camminato**, che e' la regola
+/// del progetto sul livello visivo. Il numero c'e', ma sotto la casella.
+class _LAnno extends StatelessWidget {
+  const _LAnno({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  static const List<String> _mesi = [
+    'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu',
+    'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final mesi = vista.iDodiciMesi;
+    final massimo =
+        mesi.fold<int>(0, (m, r) => r.quanteVoci > m ? r.quanteVoci : m);
+    return GridView.count(
+      key: const Key('ricordi_anno'),
+      crossAxisCount: 3,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      mainAxisSpacing: SpacingTokens.sm,
+      crossAxisSpacing: SpacingTokens.sm,
+      children: [
+        for (var i = 0; i < 12; i++)
+          _CasellaDelMese(
+            key: Key('ricordi_mese_${i + 1}'),
+            nome: _mesi[i],
+            riassunto: mesi[i],
+            peso: mesi[i].pesoContro(massimo),
+            palette: palette,
+            onTap: mesi[i].vuoto
+                ? null
+                : () => vista.scendiA(LivelloDeiRicordi.mese,
+                    quando: DateTime(vista.dove.year, i + 1, 1)),
+          ),
+      ],
+    );
+  }
+}
+
+class _CasellaDelMese extends StatelessWidget {
+  const _CasellaDelMese({
+    super.key,
+    required this.nome,
+    required this.riassunto,
+    required this.peso,
+    required this.palette,
+    this.onTap,
+  });
+
+  final String nome;
+  final RiassuntoDelTempo riassunto;
+  final double peso;
+  final MaestroPalette palette;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final dominante = riassunto.maestroDominante;
+    final colore = _coloreDi(dominante) ?? palette.gold;
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: colore.withValues(alpha: 0.12 + 0.5 * peso),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          border: Border.all(color: colore.withValues(alpha: 0.4)),
+        ),
+        padding: const EdgeInsets.all(SpacingTokens.sm),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(nome, style: TypographyTokens.etichetta()),
+            const SizedBox(height: SpacingTokens.xs),
+            Text('${riassunto.quanteVoci}',
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Color? _coloreDi(String? maestro) => switch (maestro) {
+        'medora' => MaestroPalette.medora.primary,
+        'aura' => MaestroPalette.aura.primary,
+        'caligo' => MaestroPalette.caligo.primary,
+        _ => null,
+      };
+}
+
+/// IL MESE: le settimane in fila, ognuna con la sua riga di sintesi.
+class _IlMese extends StatelessWidget {
+  const _IlMese({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final settimane = vista.leSettimaneDelMese;
+    return ListView(
+      key: const Key('ricordi_mese'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      children: [
+        _RigaDelRitorno(
+          etichetta: 'Torna all\'anno',
+          onTap: () => vista.scendiA(LivelloDeiRicordi.anno),
+        ),
+        for (final s in settimane)
+          _RigaDiSintesi(
+            key: Key('ricordi_settimana_${s.chiave}'),
+            titolo: _titoloDellaSettimana(s.chiave),
+            riassunto: s,
+            palette: palette,
+            onTap: s.vuoto
+                ? null
+                : () => vista.scendiA(LivelloDeiRicordi.settimana,
+                    quando: _primoGiornoDi(s.chiave)),
+          ),
+      ],
+    );
+  }
+
+  static DateTime _primoGiornoDi(String chiave) {
+    final pezzi = chiave.split('..').first.split('-');
+    return DateTime(
+        int.parse(pezzi[0]), int.parse(pezzi[1]), int.parse(pezzi[2]));
+  }
+
+  static String _titoloDellaSettimana(String chiave) {
+    final da = _primoGiornoDi(chiave);
+    final a = da.add(const Duration(days: 6));
+    return 'Dal ${da.day} al ${a.day}';
+  }
+}
+
+/// LA SETTIMANA: i giorni in fila, con la stessa forma di riga del mese.
+class _LaSettimana extends StatelessWidget {
+  const _LaSettimana({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  static const List<String> _giorni = [
+    'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato',
+    'Domenica',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final giorni = vista.iGiorniDellaSettimana;
+    final lunedi = RiassuntiDelTempo.lunediDi(vista.dove);
+    return ListView(
+      key: const Key('ricordi_settimana'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      children: [
+        _RigaDelRitorno(
+          etichetta: 'Torna al mese',
+          onTap: () => vista.scendiA(LivelloDeiRicordi.mese),
+        ),
+        for (var i = 0; i < giorni.length; i++)
+          _RigaDiSintesi(
+            key: Key('ricordi_giorno_${giorni[i].chiave}'),
+            titolo: '${_giorni[i]} ${lunedi.add(Duration(days: i)).day}',
+            riassunto: giorni[i],
+            palette: palette,
+            onTap: giorni[i].vuoto
+                ? null
+                : () => vista.scendiA(LivelloDeiRicordi.giorno,
+                    quando: lunedi.add(Duration(days: i))),
+          ),
+      ],
+    );
+  }
+}
+
+/// IL GIORNO: il riepilogo in una riga, e sotto le voci raggruppate.
+class _IlGiorno extends StatelessWidget {
+  const _IlGiorno({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final giorno = vista.ilGiorno;
+    final gruppi = vista.iGruppiDelGiorno;
+    return ListView(
+      key: const Key('ricordi_giorno'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      children: [
+        _RigaDelRitorno(
+          etichetta: 'Torna alla settimana',
+          onTap: () => vista.scendiA(LivelloDeiRicordi.settimana),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+          child: Text(
+            _riepilogo(giorno),
+            key: const Key('ricordi_riepilogo_del_giorno'),
+            style: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary),
+          ),
+        ),
+        for (final g in gruppi)
+          _RigaDelGruppo(
+            key: Key('ricordi_gruppo_${g.arte}_'
+                '${g.voci.first.quando.millisecondsSinceEpoch}'),
+            gruppo: g,
+            palette: palette,
+          ),
+        const SizedBox(height: SpacingTokens.xxxl),
+      ],
+    );
+  }
+
+  /// **IL RIEPILOGO E' UN CONTO, non una frase generata.**
+  static String _riepilogo(RiassuntoDelTempo r) {
+    if (r.vuoto) return 'Quel giorno il Cerchio è rimasto in silenzio.';
+    final pezzi = <String>[
+      '${r.quanteVoci} ${r.quanteVoci == 1 ? "momento" : "momenti"}',
+      '${r.quantiDoni} Doni su ${ContiDelleArti.gestiDeiDoni.length}',
+      if (r.quantiTraguardi > 0)
+        '${r.quantiTraguardi} ${r.quantiTraguardi == 1 ? "traguardo" : "traguardi"}',
+    ];
+    final dominante = r.maestroDominante;
+    final coda = dominante == null ? '' : ', soprattutto con ${_nome(dominante)}';
+    return '${pezzi.join(", ")}$coda.';
+  }
+
+  static String _nome(String maestro) => switch (maestro) {
+        'medora' => 'Medora',
+        'aura' => 'Aura',
+        'caligo' => 'Caligo',
+        _ => maestro,
+      };
+}
+
+/// Una riga di sintesi, la stessa forma per la settimana e per il giorno.
+class _RigaDiSintesi extends StatelessWidget {
+  const _RigaDiSintesi({
+    super.key,
+    required this.titolo,
+    required this.riassunto,
+    required this.palette,
+    this.onTap,
+  });
+
+  final String titolo;
+  final RiassuntoDelTempo riassunto;
+  final MaestroPalette palette;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      title: Text(titolo, style: TypographyTokens.titoloScheda()),
+      subtitle: Text(
+        riassunto.vuoto
+            ? 'Niente'
+            : '${riassunto.quanteVoci} momenti, '
+                '${riassunto.quantiTraguardi} traguardi',
+        style: TypographyTokens.didascalia()
+            .copyWith(color: ColorTokens.textSecondary),
+      ),
+      trailing: riassunto.vuoto
+          ? null
+          : const Icon(Icons.chevron_right_rounded,
+              color: ColorTokens.goldLight),
+    );
+  }
+}
+
+/// Una riga del giorno: una voce sola, oppure un gruppo che si apre.
+class _RigaDelGruppo extends StatefulWidget {
+  const _RigaDelGruppo({super.key, required this.gruppo, required this.palette});
+
+  final GruppoDelGiorno gruppo;
+  final MaestroPalette palette;
+
+  @override
+  State<_RigaDelGruppo> createState() => _RigaDelGruppoState();
+}
+
+class _RigaDelGruppoState extends State<_RigaDelGruppo> {
+  bool _aperto = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final g = widget.gruppo;
+    if (!g.chiuso) {
+      return _RigaDellaVoce(voce: g.voci.first, palette: widget.palette);
+    }
+    final titolo = ArtiConResponso.di(g.arte)?.titolo ?? g.arte;
+    return Column(
+      children: [
+        ListTile(
+          key: Key('ricordi_gruppo_chiuso_${g.arte}'),
+          title: Text('$titolo, ${g.quante} volte',
+              style: TypographyTokens.titoloScheda()),
+          trailing: Icon(
+              _aperto ? Icons.expand_less_rounded : Icons.expand_more_rounded,
+              color: ColorTokens.goldLight),
+          onTap: () => setState(() => _aperto = !_aperto),
+        ),
+        if (_aperto)
+          for (final v in g.voci)
+            Padding(
+              padding: const EdgeInsets.only(left: SpacingTokens.lg),
+              child: _RigaDellaVoce(voce: v, palette: widget.palette),
+            ),
+      ],
+    );
+  }
+}
+
+class _RigaDellaVoce extends StatelessWidget {
+  const _RigaDellaVoce({required this.voce, required this.palette});
+
+  final VoceDelRicordo voce;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      key: Key('ricordi_voce_${voce.chiave}'),
+      leading: Icon(Icons.circle, size: 10, color: _colore(voce.maestro)),
+      title: Text(voce.titolo, style: TypographyTokens.corpo()),
+      subtitle: Text(
+        '${voce.quando.hour.toString().padLeft(2, '0')}:'
+        '${voce.quando.minute.toString().padLeft(2, '0')}',
+        style: TypographyTokens.didascalia()
+            .copyWith(color: ColorTokens.textSecondary),
+      ),
+      onTap: voce.riferimento == null
+          ? null
+          : () => _apriIlRicordo(context, voce),
+    );
+  }
+
+  static Color _colore(String maestro) => switch (maestro) {
+        'medora' => MaestroPalette.medora.primary,
+        'aura' => MaestroPalette.aura.primary,
+        'caligo' => MaestroPalette.caligo.primary,
+        _ => ColorTokens.goldLight,
+      };
+
+  /// **IL RICORDO SI RIAPRE COM'ERA, ordine CG voce 04.**
+  static void _apriIlRicordo(BuildContext context, VoceDelRicordo voce) {
+    if (voce.tipo == TipoDelRicordo.responso) {
+      final scrigno = context.read<ScrignoDeiCustoditi>();
+      final custodito = scrigno.di(voce.riferimento!);
+      if (custodito != null) {
+        Navigator.of(context).push(RicordoApertoScreen.route(custodito));
+      }
+      return;
+    }
+    // Le conversazioni si riaprono AL PUNTO del turno: la chat ci arriva col
+    // suo identificativo, non con una posizione.
+    Navigator.of(context).push(RicordoApertoScreen.rottaDelTurno(voce));
+  }
+}
+
+class _RigaDelRitorno extends StatelessWidget {
+  const _RigaDelRitorno({required this.etichetta, required this.onTap});
+
+  final String etichetta;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      key: const Key('ricordi_torna_su'),
+      onPressed: onTap,
+      icon: const Icon(Icons.arrow_back_rounded, size: 18),
+      label: Text(etichetta),
+    );
+  }
+}
+
+/// I RISULTATI DELLA RICERCA, che non dipendono dal livello.
+class _IRisultati extends StatelessWidget {
+  const _IRisultati({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final trovate = vista.risultati;
+    if (trovate.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Text(
+            'Nessun ricordo con queste parole. La ricerca guarda le tue '
+            'domande e i titoli dei responsi.',
+            key: const Key('ricordi_nessun_risultato'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ),
+      );
+    }
+    return ListView(
+      key: const Key('ricordi_risultati'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      children: [
+        for (final v in trovate) _RigaDellaVoce(voce: v, palette: palette),
+      ],
+    );
+  }
+}
+
+/// IL RICORDO APERTO. Ordine CG voce 04.
+///
+/// **Un responso custodito torna nella sua forma originale**, col suo segno
+/// grafico e col suo pulsante di condivisione.
+class RicordoApertoScreen extends StatelessWidget {
+  const RicordoApertoScreen({super.key, required this.custodito});
+
+  final RicordoCustodito custodito;
+
+  static Route<void> route(RicordoCustodito custodito) =>
+      PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(child: RicordoApertoScreen(custodito: custodito)),
+      );
+
+  /// **LA CONVERSAZIONE SI RIAPRE AL PUNTO DEL TURNO, non in cima.**
+  ///
+  /// La rotta porta l'identificativo del turno e non la sua posizione: aprire
+  /// per posizione vorrebbe dire mostrare un turno diverso appena la
+  /// cronologia cambia di una riga.
+  static Route<void> rottaDelTurno(VoceDelRicordo voce) =>
+      PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(child: _ConversazioneRiaperta(voce: voce)),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Scaffold(
+      backgroundColor: ColorTokens.neutralDeepest,
+      appBar: AppBar(
+        backgroundColor: palette.deepest.withValues(alpha: 0.4),
+        title: Text(custodito.titolo,
+            key: const Key('ricordo_aperto_titolo'),
+            style: TypographyTokens.titoloScheda()),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          children: [
+            Text(
+              '${custodito.quando.day}/${custodito.quando.month}/'
+              '${custodito.quando.year}',
+              key: const Key('ricordo_aperto_quando'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+            Text(custodito.testo,
+                key: const Key('ricordo_aperto_testo'),
+                style: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// La conversazione riaperta al punto del turno toccato.
+class _ConversazioneRiaperta extends StatelessWidget {
+  const _ConversazioneRiaperta({required this.voce});
+
+  final VoceDelRicordo voce;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Scaffold(
+      backgroundColor: ColorTokens.neutralDeepest,
+      appBar: AppBar(
+        backgroundColor: palette.deepest.withValues(alpha: 0.4),
+        title: Text('Quel giorno', style: TypographyTokens.titoloScheda()),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          children: [
+            Text(voce.titolo,
+                key: const Key('turno_riaperto_titolo'),
+                style: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
+            const SizedBox(height: SpacingTokens.md),
+            Text(
+              'Turno ${voce.riferimento}',
+              key: const Key('turno_riaperto_riferimento'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// LE TUE CARTE. Ordine CG voce 07.
+///
+/// **Parole del fondatore**: "potra' avere anche una funzione, un menu, una
+/// schermata dedicata alla ricerca delle card generate e condivise, una specie
+/// di menu le tue carte".
+///
+/// **Non e' una schermata separata dai Ricordi: e' una loro pastiglia.** La
+/// ragione, che vale piu' della scelta: due magazzini che contengono le stesse
+/// cose sono la famiglia di difetti piu' numerosa di questo progetto. Qui il
+/// magazzino e' quello dello scrigno, lo stesso che riempie la timeline.
+///
+/// **Si vede a griglia, con le carte disegnate e non con righe di testo**,
+/// perche' sono oggetti visivi: e' la regola di casa sul livello visivo prima
+/// del testo.
+class _LeTueCarte extends StatelessWidget {
+  const _LeTueCarte({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final scrigno = context.watch<ScrignoDeiCustoditi>();
+    final carte = scrigno.tutti;
+    if (carte.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Text(
+            'Non hai ancora custodito niente. Sotto ogni responso trovi '
+            'Custodisci: quello che tieni resta qui per sempre.',
+            key: const Key('ricordi_carte_vuote'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ),
+      );
+    }
+    return GridView.count(
+      key: const Key('ricordi_le_tue_carte'),
+      crossAxisCount: 2,
+      childAspectRatio: 0.7,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      mainAxisSpacing: SpacingTokens.md,
+      crossAxisSpacing: SpacingTokens.md,
+      children: [
+        for (final c in carte) _CartaCustodita(custodito: c, palette: palette),
+      ],
+    );
+  }
+}
+
+class _CartaCustodita extends StatelessWidget {
+  const _CartaCustodita({required this.custodito, required this.palette});
+
+  final RicordoCustodito custodito;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final colore = switch (custodito.maestro) {
+      'medora' => MaestroPalette.medora.primary,
+      'aura' => MaestroPalette.aura.primary,
+      'caligo' => MaestroPalette.caligo.primary,
+      _ => palette.primary,
+    };
+    return InkWell(
+      key: Key('ricordi_carta_${custodito.chiave}'),
+      onTap: () =>
+          Navigator.of(context).push(RicordoApertoScreen.route(custodito)),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              colore.withValues(alpha: 0.35),
+              ColorTokens.neutralDeepest,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+        ),
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${custodito.quando.day}/${custodito.quando.month}/'
+              '${custodito.quando.year}',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(custodito.titolo,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TypographyTokens.titoloScheda()),
+            const SizedBox(height: SpacingTokens.sm),
+            Expanded(
+              child: Text(custodito.testo,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../ricordi/ricordi_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -563,6 +564,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             children: [
               Column(
             children: [
+              // **I GIORNI PRIMA, ordine CG voce 01.** Terza porta delle tre
+              // che aprono i Ricordi, e l'unica che arriva gia' filtrata su
+              // questo Maestro: chi sta parlando con Caligo e vuole rivedere
+              // cosa si erano detti non deve prima passare dal menu' e poi
+              // accendere una pastiglia.
+              _IGiorniPrima(maestro: widget.maestro),
               // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
               // la conversazione, cioe' nello spazio che rovesciando la lista
               // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
@@ -1126,3 +1133,32 @@ class _ConfigNotice extends StatelessWidget {
 }
 
 /// Striscia con l'invito a riprovare, quando l'ultimo turno e' fallito.
+
+/// LA RIGA "I GIORNI PRIMA", in cima a ogni chat. Ordine CG voce 01.
+///
+/// **Apre i Ricordi gia' filtrati su questo Maestro.** E' la terza delle tre
+/// porte, e porta alla stessa rotta delle altre due: due schermate che
+/// mostrano le stesse cose sono la famiglia di difetti piu' numerosa di questo
+/// progetto.
+class _IGiorniPrima extends StatelessWidget {
+  const _IGiorniPrima({required this.maestro});
+
+  final Maestro maestro;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: TextButton.icon(
+          key: const Key('chat_i_giorni_prima'),
+          onPressed: () => Navigator.of(context).push(
+              RicordiScreen.route(maestro: maestro)),
+          icon: const Icon(Icons.history_rounded, size: 16),
+          label: const Text('I giorni prima'),
+        ),
+      ),
+    );
+  }
+}

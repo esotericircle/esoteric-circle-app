@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ricordi/ricordi_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/feature_flags/feature_flag.dart';
@@ -232,6 +233,19 @@ class AccountScreen extends StatelessWidget {
       // notifiche nel menu' notifiche". Prima il tocco chiedeva il permesso e
       // programmava tutto insieme: un interruttore solo per cinque
       // appuntamenti, e per spegnerne uno bisognava uscire dall'app.
+      // **I RICORDI DEL CERCHIO, ordine CG voce 01.** Prima porta delle tre:
+      // il menu' utente sotto il nome. Le altre due sono il rimando del
+      // Passaporto accanto ai traguardi e la riga in cima a ogni chat, e
+      // tutte e tre portano alla STESSA rotta: due schermate che mostrano le
+      // stesse cose sono la famiglia di difetti piu' numerosa del progetto.
+      _AccountEntry(
+        id: 'ricordi',
+        title: 'Cosmic Journal',
+        subtitle: 'Il tuo cammino e i tuoi ricordi, giorno per giorno',
+        icon: Icons.auto_stories_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(RicordiScreen.route()),
+      ),
       _AccountEntry(
         id: 'notifiche',
         title: 'Notifiche',

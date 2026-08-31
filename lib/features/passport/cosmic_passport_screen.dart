@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../ricordi/ricordi_screen.dart';
 import '../maestri/aura/archetype/archetype_test_screen.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../sigilli/segno_del_sentiero.dart';
@@ -1050,6 +1051,23 @@ class _SentieriDelCammino extends StatelessWidget {
           // piu' lungo (il diario tiene solo le serie non rotte), e con
           // nessun filo vivo la riga tace: uno zero qui sarebbe un rimprovero.
           _FiloDeiGiorni(palette: palette),
+          // **IL RIMANDO AI RICORDI, ordine CG voce 01.** Seconda porta delle
+          // tre, e sta accanto ai traguardi perche' e' li' che la persona
+          // guarda cosa ha fatto: dalla mappa si scende al giorno in cui un
+          // traguardo si e' acceso, e dal giorno si torna sulla mappa.
+          ListTile(
+            key: const Key('passaporto_ai_ricordi'),
+            leading: Icon(Icons.auto_stories_outlined, color: palette.goldSoft),
+            title: Text('I Ricordi del Cerchio',
+                style: TypographyTokens.titoloScheda()),
+            subtitle: Text('Giorno per giorno, cosa hai fatto',
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
+            trailing: const Icon(Icons.chevron_right_rounded,
+                color: ColorTokens.goldLight),
+            onTap: () => Navigator.of(context).push(
+                RicordiScreen.route(vista: VistaDelJournal.ricordi)),
+          ),
           for (final sentiero in Sentieri.tutti) ...[
             ListTile(
               key: Key('porta_${sentiero.name}'),
