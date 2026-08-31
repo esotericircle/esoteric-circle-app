@@ -15,6 +15,7 @@ import '../sigilli/coda_delle_feste.dart';
 import '../sigilli/diario_del_cammino.dart';
 import '../ricordi/registro_dei_ricordi.dart';
 import '../ricordi/scrigno_dei_custoditi.dart';
+import '../ricordi/lettura_del_mese.dart';
 import 'identity_controller.dart';
 import 'natal_identity.dart';
 import 'profile_controller.dart';
@@ -129,6 +130,7 @@ class DimenticanzaDellaMemoriaViva {
     // l'app abbia mai avuto di qualcuno, e se ne vanno con lei.
     prova(() => context.read<RegistroDeiRicordi>().dimentica());
     prova(() => context.read<ScrignoDeiCustoditi>().dimentica());
+    prova(() => context.read<LetturaDelMese>().dimentica());
     return quanti;
   }
 }

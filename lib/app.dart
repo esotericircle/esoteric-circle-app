@@ -43,6 +43,7 @@ import 'features/sigilli/regia_del_cammino.dart';
 import 'core/sigilli/diario_del_cammino.dart';
 import 'core/ricordi/registro_dei_ricordi.dart';
 import 'core/ricordi/scrigno_dei_custoditi.dart';
+import 'core/ricordi/lettura_del_mese.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
@@ -355,6 +356,13 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
         ChangeNotifierProvider(
           create: (_) => ScrignoDeiCustoditi(
             porta: runtime.scrigno ?? const PortaSpentaDelloScrigno(),
+          )..carica(),
+        ),
+        // LA LETTURA IN PROSA DEL MESE, ordine CG voce 11. L'unica prosa
+        // generata della funzione, e l'unica parte che chiede un piano.
+        ChangeNotifierProvider(
+          create: (_) => LetturaDelMese(
+            penna: runtime.penna ?? const PennaSpentaDelMese(),
           )..carica(),
         ),
         ChangeNotifierProvider(create: (_) => QualityTierController()),

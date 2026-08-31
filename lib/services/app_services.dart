@@ -3,6 +3,8 @@ import 'ricordi/porta_vera_dei_ricordi.dart';
 import 'ricordi/porta_vera_dello_scrigno.dart';
 import '../core/ricordi/registro_dei_ricordi.dart';
 import '../core/ricordi/scrigno_dei_custoditi.dart';
+import '../core/ricordi/lettura_del_mese.dart';
+import 'ricordi/penna_vera_del_mese.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -37,6 +39,7 @@ class AppServices {
     this.identita,
     this.ricordi,
     this.scrigno,
+    this.penna,
   });
 
   /// LA PORTA DEL SERVER, ordine N: contatori, memoria e saldo passano di
@@ -57,6 +60,11 @@ class AppServices {
   /// Firebase: i custoditi restano sul telefono e salgono alla prima
   /// occasione.
   final PortaDelloScrigno? scrigno;
+
+  /// LA PENNA DELLA LETTURA DEL MESE, ordine CG voce 11. Nulla senza Firebase:
+  /// in quel caso la lettura non compare, e non compare nemmeno un messaggio
+  /// di errore, perche' una lettura mancata non e' un guasto da gestire.
+  final PennaDelMese? penna;
 
   /// Monta i servizi avvolgendo la voce nella sorveglianza, sempre.
   ///
@@ -79,6 +87,7 @@ class AppServices {
     PortaDellIdentita? identita,
     PortaDeiRicordi? ricordi,
     PortaDelloScrigno? scrigno,
+    PennaDelMese? penna,
   }) {
     final VoceSorvegliata sorvegliata;
     if (ai is VoceSorvegliata) {
@@ -100,6 +109,7 @@ class AppServices {
       identita: identita,
       ricordi: ricordi,
       scrigno: scrigno,
+      penna: penna,
     );
   }
 
@@ -207,6 +217,7 @@ class AppServices {
     // fallirebbe a ogni sincronia invece di tacere.
     PortaDeiRicordi? ricordi;
     PortaDelloScrigno? scrigno;
+    PennaDelMese? penna;
     try {
       identita = PortaDellIdentitaFirebase();
       final uid = await identita.assicuraUnAccount();
@@ -215,6 +226,7 @@ class AppServices {
         memory = FirestoreMaestroMemoryRepository(uid: uid, porta: porta);
         ricordi = PortaVeraDeiRicordi();
         scrigno = PortaVeraDelloScrigno();
+        penna = const PennaVeraDelMese();
         persistent = true;
       } else {
         note = 'Auth anonima senza utente: memoria solo di sessione.';
@@ -231,6 +243,7 @@ class AppServices {
       identita: identita,
       ricordi: ricordi,
       scrigno: scrigno,
+      penna: penna,
       guasti: registro,
       attestazione: esitoAttestazione,
       appCheckDebugToken: debugToken,

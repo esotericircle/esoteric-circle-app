@@ -22,6 +22,9 @@
 library;
 
 import 'package:flutter/material.dart';
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/tier.dart';
+import '../../core/ricordi/lettura_del_mese.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -479,6 +482,11 @@ class _IlMese extends StatelessWidget {
           etichetta: 'Torna all\'anno',
           onTap: () => vista.scendiA(LivelloDeiRicordi.anno),
         ),
+        // **LA LETTURA DEL MESE, ordine CG voce 11.** E' l'unica prosa
+        // generata di tutta la funzione, e sta IN CIMA al livello mese: chi
+        // apre il mese legge prima cosa quel mese ha significato, poi i
+        // numeri delle settimane.
+        _LaLetturaDelMese(vista: vista, palette: palette),
         for (final s in settimane)
           _RigaDiSintesi(
             key: Key('ricordi_settimana_${s.chiave}'),
@@ -991,6 +999,99 @@ class _CartaCustodita extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// LA LETTURA DEL MESE, oppure l'invito. Ordine CG voce 11.
+///
+/// **Per chi non paga la riga non compare in grigio e non ha un lucchetto
+/// sopra il testo.** Compare al suo posto un invito che dichiara cosa
+/// otterrebbe, secondo le regole di casa sugli inviti: mostrare a meta' cio'
+/// che manca e' peggio che non mostrarlo.
+class _LaLetturaDelMese extends StatefulWidget {
+  const _LaLetturaDelMese({required this.vista, required this.palette});
+
+  final VistaDeiRicordi vista;
+  final MaestroPalette palette;
+
+  @override
+  State<_LaLetturaDelMese> createState() => _LaLetturaDelMeseState();
+}
+
+class _LaLetturaDelMeseState extends State<_LaLetturaDelMese> {
+  String? _scritta;
+  bool _chiesta = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _chiedi();
+  }
+
+  Future<void> _chiedi() async {
+    if (_chiesta) return;
+    _chiesta = true;
+    final LetturaDelMese lettura;
+    final Tier tier;
+    try {
+      lettura = context.read<LetturaDelMese>();
+      tier = context.read<EntitlementService>().tier;
+    } catch (errore) {
+      // Un provider assente non spegne la schermata: la riga semplicemente
+      // non compare, che e' cio' che succede anche a chi non ha il piano.
+      debugPrint('Lettura del mese: i provider non ci sono. $errore');
+      return;
+    }
+    if (!LetturaDelMese.laVede(tier)) return;
+    final mese = VoceDelRicordo.chiaveDelMese(widget.vista.dove);
+    final fuori = await lettura.per(
+      mese: mese,
+      tier: tier,
+      riassunto: _riassuntoDelMese(),
+      settimane: widget.vista.leSettimaneDelMese,
+    );
+    if (!mounted) return;
+    setState(() => _scritta = fuori);
+  }
+
+  RiassuntoDelTempo _riassuntoDelMese() {
+    final mese = VoceDelRicordo.chiaveDelMese(widget.vista.dove);
+    for (final r in widget.vista.iDodiciMesi) {
+      if (r.chiave == mese) return r;
+    }
+    return RiassuntiDelTempo.di(mese, const []);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Tier tier;
+    try {
+      tier = context.watch<EntitlementService>().tier;
+    } catch (errore) {
+      return const SizedBox.shrink();
+    }
+    if (!LetturaDelMese.laVede(tier)) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+        child: Text(
+          LetturaDelMese.invito,
+          key: const Key('ricordi_invito_alla_lettura'),
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textSecondary),
+        ),
+      );
+    }
+    final scritta = _scritta;
+    if (scritta == null) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+      child: Text(
+        scritta,
+        key: const Key('ricordi_lettura_del_mese'),
+        style: TypographyTokens.lettura()
+            .copyWith(color: ColorTokens.textPrimary),
       ),
     );
   }

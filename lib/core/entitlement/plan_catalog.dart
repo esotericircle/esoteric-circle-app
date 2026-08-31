@@ -454,8 +454,26 @@ class PlanCatalog {
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno']),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
-    FeatureRow('Cosmic Journal',
-        ['Base', 'Completo', 'Completo + AI', 'Completo + AI + report']),
+    // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
+    //
+    // Diceva `['Base', 'Completo', 'Completo + AI', 'Completo + AI + report']`,
+    // cioe' la lettura AI dal Tier 2. Decisione del fondatore del 31 agosto
+    // 2026, parole sue: "per la 6 la lettura e' a partire dall'abbonamento a
+    // 9,90". L'abbonamento a 9,90 al mese e' l'Iniziato, cioe' il TIER 1.
+    //
+    // **Il Tier 1 e il Tier 2 dicono la stessa cosa su questa riga, ed e'
+    // onesto**: la lettura del mese scende al Tier 1, quindi su questa riga
+    // l'Adepto non aggiunge niente. Scrivere una differenza che non c'e'
+    // sarebbe una promessa falsa; le ragioni per salire all'Adepto stanno
+    // nelle altre righe della matrice.
+    //
+    // **Testo provvisorio**: il fondatore lo corregge con una riga.
+    FeatureRow('Cosmic Journal', [
+      'Cammino e Ricordi',
+      'Con la lettura del mese',
+      'Con la lettura del mese',
+      'Con la lettura del mese e il report',
+    ]),
     FeatureRow('Compatibilità a tre livelli', ['No', 'No', 'No', 'Esclusiva']),
     FeatureRow('Albero della Vita dinamico', [
       'Contemplativo',
