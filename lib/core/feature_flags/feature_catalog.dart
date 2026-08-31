@@ -54,6 +54,30 @@ class FeatureCatalog {
       owner: Maestro.caligo,
     ),
 
+    // --- I RICORDI DEL CERCHIO, ordine CG voce 13 ---
+    //
+    // **QUESTA VOCE SUPERA LO SCOPE DELLA DEMO CONGELATO**, e va scritto
+    // perche' altrimenti la prossima sessione trova due decisioni che si
+    // contraddicono. Parole del fondatore, 31 agosto 2026: "la 7 perche'
+    // voglio che entri nella demo".
+    //
+    // **ATTIVA e non premium.** La timeline, la ricerca e le Carte sono di
+    // tutti; la sola parte che chiede un piano e' la lettura in prosa del
+    // mese, che vive nella voce CG.11 e ha il suo cancello li'.
+    //
+    // **Non sta sullo scaffale del Santuario, e non e' una dimenticanza**: il
+    // Cosmic Journal non e' un'arte, e ha tre porte sue, cioe' il menu'
+    // utente, il Passaporto e la riga in cima a ogni chat.
+    FeatureDefinition(
+      id: 'ricordi_del_cerchio',
+      title: 'Cosmic Journal',
+      teaser:
+          'Il tuo cammino e i tuoi ricordi, giorno per giorno, con le carte '
+          'che hai custodito.',
+      icon: Icons.auto_stories_outlined,
+      defaultAvailability: RemoteAvailability.enabled,
+    ),
+
     // --- Coming soon (non ancora pronte in questa fase) ---
     // Viva, non piu' in arrivo: lo scaffale del Santuario e il manifest
     // `docs/stato_funzioni.json` la dicono viva da tempo, e questo catalogo
