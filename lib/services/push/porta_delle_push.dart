@@ -50,11 +50,11 @@ class ScelteDaMandare {
       };
 
   @override
-  bool operator ==(Object altro) =>
-      altro is ScelteDaMandare &&
-      altro.token == token &&
-      altro.fuso == fuso &&
-      _stesseScelte(altro.doni, doni);
+  bool operator ==(Object other) =>
+      other is ScelteDaMandare &&
+      other.token == token &&
+      other.fuso == fuso &&
+      _stesseScelte(other.doni, doni);
 
   @override
   int get hashCode => Object.hash(token, fuso,
