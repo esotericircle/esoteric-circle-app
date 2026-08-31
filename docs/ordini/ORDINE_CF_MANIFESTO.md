@@ -19,6 +19,32 @@ Porta le tre regole degli ordini precedenti:
 - **REGOLA DUE.** Le decisioni delegate si prendono e si motivano per iscritto;
   quelle non delegate si riportano come fatti.
 
+## I NUMERI, PRIMA E DOPO
+
+Una riga per voce, col numero che si e' mosso. Il perche' sta nella sezione
+di ognuna.
+
+| voce | prima | dopo |
+| --- | --- | --- |
+| CF.01 | barra sottile 30 punti, nessun anello, nessun livello | **38 punti**, anello da 31 attorno al volto, numero a 18 punti sui 114 traguardi raggiungibili |
+| CF.02 | striscia dei Doni 122 punti, e a scala 1,6 zero margine | **112 punti**, e l'altezza segue la scala del testo |
+| CF.03 | barra Esplora 134 punti, alone col fondo pieno a 23 punti dal centro | **112 punti**, alone a raggio 3,0 e contrasto della scritta da 5,48 a **5,64** |
+| CF.04 | nessun modo di sapere se le chiamate sono in coda | il conto vero delle chiamate in coda e una prova immediata del canale |
+| CF.05 | 11 stringhe che dichiarano un genere, 1 fuori dalle porte, forma iniziale FEMMINILE | **10 stringhe, 0 fuori dalle porte**, forma iniziale ignota |
+| CF.06 | senza l'ora il rito non si saltava mai | l'ora non trattiene, e lo Specchio dei dati offre il gesto per darla |
+| CF.07 | 8 campi custoditi, il luogo perso alla ripresa, Tokyo ricostruita a **60** minuti | **9 campi**, il luogo ripreso, Tokyo a **540** minuti, nome e forma rimessi nel profilo |
+| CF.08 | "Roma" nel rito mostrava **0** suggerimenti, nella schermata dei dati li mostrava | **8 suggerimenti** in tutte e due, da una regola sola |
+| CF.09 | 43 rotte sotto la legge, **52 fogli e dialoghi fuori** | **0 fuori**, velo `#060B1A` a 0,72 invece del `black54` del framework |
+| CF.10 | premessa: i Doni a 18 punti, vera | **14 testi sotto i 16 punti**, di cui 8 nella striscia dei Doni a **12** |
+| CF.11 | residuo in 4 punti su 6, quello delle sinastrie DOPO il gesto, e parlava senza il server | **6 su 6 prima del gesto**, da una porta sola, e **6 su 6 tacciono** senza il server |
+| CF.12 | rapporto 0,78 contro l'artwork 0,667: **14,53 per cento** di compressione | **0 per cento**, e il numero si legge da `VipFrame.aspect` in tutti e tre i punti |
+| CF.13 | `luogo.attuale` scritto da **1 punto solo**, dentro un rito, e la mappa taceva | il campo sta coi dati della persona, e la mappa dichiara da quale luogo misura |
+| CF.14 | sfilata 1600 millesimi, miniatura 120 punti, **1 frase** | schermata propria, **3 momenti** (3200, 3800, 4600), cornice 220, responso della Sinastria |
+| CF.15 | riga del consenso su **1 via su 2** | **2 su 2**, e l'assenza dei termini dichiarata invece che promessa |
+| CF.16 | 2 porte "Privacy e dati" con la stessa icona | **1 porta**, 5 voci nel sotto menu', 2 vincoli di legge verificati per nome |
+| CF.17 | premessa: 2 lapidi col sale vuoto | **3 lapidi**, due col sale vuoto e una gia' col pepe |
+| CF.18 | lo sbarramento guardava **1 suite** | **2 suite**, e i rossi del server passano dallo stesso registro |
+
 ## Le diciotto voci
 
 - **CF.01** La barra sottile piu' alta, con l'anello del livello. **CHIUSA.**
