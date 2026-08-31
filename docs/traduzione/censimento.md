@@ -1,11 +1,11 @@
 # Censimento delle stringhe rivolte alla persona
 
-<!-- TOTALE_STRINGHE: 6751 -->
-<!-- NEI_CORPUS: 5324 -->
-<!-- NEL_CODICE: 1427 -->
-<!-- CON_ACCORDO: 96 -->
+<!-- TOTALE_STRINGHE: 6799 -->
+<!-- NEI_CORPUS: 5368 -->
+<!-- NEL_CODICE: 1431 -->
+<!-- CON_ACCORDO: 97 -->
 <!-- DA_UN_SISTEMA_DI_TRADUZIONE: 0 -->
-<!-- FILE_TOCCATI: 283 -->
+<!-- FILE_TOCCATI: 288 -->
 <!-- Generato da tool/censimento_stringhe.dart. Non si scrive a mano: si rigenera. -->
 
 Ordine CE voce 15. **Questa voce non traduce niente**, e non aggiunge nessun pacchetto: misura quanto costerebbe tradurre, cosi' la decisione si prende su un numero invece che su un'impressione.
@@ -14,12 +14,12 @@ Ordine CE voce 15. **Questa voce non traduce niente**, e non aggiunge nessun pac
 
 | grandezza | valore |
 | --- | --- |
-| Stringhe rivolte alla persona | **6751** |
-| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **5324** |
-| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **1427** |
-| Che cambiano con genere o numero | **96** |
+| Stringhe rivolte alla persona | **6799** |
+| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **5368** |
+| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **1431** |
+| Che cambiano con genere o numero | **97** |
 | Che passano da un sistema di traduzione | **0** |
-| File che ne contengono | **283** |
+| File che ne contengono | **288** |
 
 ## Il metodo, e cosa NON conta
 
@@ -37,21 +37,21 @@ Sono le stringhe piu' care da tradurre, perche' una lingua diversa accorda in mo
 
 La domanda del fondatore e' se l'internazionalizzazione sia un ordine o tre. **Il censimento risponde: sono due lavori di taglia molto diversa, e vanno separati.**
 
-**L'INTERFACCIA e' un ordine solo.** Sono 1427 stringhe, corte, ripetute e senza contenuto esoterico: pulsanti, etichette, titoli, avvisi. Un traduttore le fa con un glossario, e un sistema di localizzazione le regge tutte.
+**L'INTERFACCIA e' un ordine solo.** Sono 1431 stringhe, corte, ripetute e senza contenuto esoterico: pulsanti, etichette, titoli, avvisi. Un traduttore le fa con un glossario, e un sistema di localizzazione le regge tutte.
 
-**IL CONTENUTO NON E' UN ORDINE, e' un progetto.** Sono 5324 stringhe, cioe' 79 per cento del totale, e non sono frasi da tradurre: sono i responsi dei tarocchi, il sapere delle rune, i nomi e le voci degli angeli, i sentieri, l'oroscopo, i testi della sinastria. **Tradurli e' riscrivere un corpus esoterico in un'altra lingua**, e chi lo fa deve conoscere la tradizione in quella lingua, non solo la lingua. Un traduttore generico qui produce testo corretto e falso.
+**IL CONTENUTO NON E' UN ORDINE, e' un progetto.** Sono 5368 stringhe, cioe' 79 per cento del totale, e non sono frasi da tradurre: sono i responsi dei tarocchi, il sapere delle rune, i nomi e le voci degli angeli, i sentieri, l'oroscopo, i testi della sinastria. **Tradurli e' riscrivere un corpus esoterico in un'altra lingua**, e chi lo fa deve conoscere la tradizione in quella lingua, non solo la lingua. Un traduttore generico qui produce testo corretto e falso.
 
-**E c'e' un terzo lavoro, piccolo di numero e grande di rischio: l'accordo.** Sono 96 punti in cui la frase cambia con chi legge o con quanti sono. In italiano si risolvono con un plurale e una `d` eufonica; in una lingua che declina, o che ha generi diversi dai nostri due, ognuno di questi punti e' una decisione. Vanno affrontati PRIMA di tradurre, perche' decidono la forma delle chiavi.
+**E c'e' un terzo lavoro, piccolo di numero e grande di rischio: l'accordo.** Sono 97 punti in cui la frase cambia con chi legge o con quanti sono. In italiano si risolvono con un plurale e una `d` eufonica; in una lingua che declina, o che ha generi diversi dai nostri due, ognuno di questi punti e' una decisione. Vanno affrontati PRIMA di tradurre, perche' decidono la forma delle chiavi.
 
 ## Da dove conviene cominciare
 
 | file | stringhe |
 | --- | --- |
 | `lib/core/tarot/tarot_card.dart` | 364 |
-| `lib/core/sigilli/sentiero_albero.dart` | 295 |
-| `lib/core/sigilli/sentiero_costellazione.dart` | 291 |
-| `lib/core/sigilli/sentiero_loto.dart` | 289 |
+| `lib/core/sigilli/sentiero_albero.dart` | 294 |
+| `lib/core/sigilli/sentiero_costellazione.dart` | 290 |
 | `lib/core/angels/angel_lore.dart` | 288 |
+| `lib/core/sigilli/sentiero_loto.dart` | 288 |
 | `lib/core/rituals/rito_alba_corpus.dart` | 241 |
 | `lib/core/synastry/testi_della_sinastria.dart` | 221 |
 | `lib/core/rituals/rune_lore.g.dart` | 195 |
@@ -61,11 +61,11 @@ La domanda del fondatore e' se l'internazionalizzazione sia un ordine o tre. **I
 | `lib/services/ai/impronta_dell_istruzione.dart` | 122 |
 | `lib/services/ai/maestro_persona.dart` | 111 |
 | `lib/core/arts/art_catalog.dart` | 106 |
+| `lib/features/account/account_screen.dart` | 102 |
 | `lib/core/maestro/voce_del_maestro.dart` | 102 |
-| `lib/features/account/account_screen.dart` | 100 |
 | `lib/core/domande/cornici_del_presagio.dart` | 88 |
+| `lib/core/astro/lingua_degli_eventi.dart` | 86 |
 | `lib/core/legal/privacy_policy.dart` | 83 |
-| `lib/core/astro/lingua_degli_eventi.dart` | 83 |
 | `lib/core/domande/domande_del_cerchio.dart` | 78 |
 
 ## Cosa NON esiste oggi, verificato

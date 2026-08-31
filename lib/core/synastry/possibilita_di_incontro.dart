@@ -30,6 +30,13 @@ class DoveSei {
   /// chi si e' trasferito leggeva una distanza calcolata da una citta' in cui
   /// non vive senza avere modo di accorgersene.
   final bool dichiarato;
+
+  /// **IL NOME DEL LUOGO, con un nome che non inganna le guardie.** La
+  /// prova che legge le frasi mostrate ha segnalato `citta` come una
+  /// parola senza accento: era il nome del campo dentro un'interpolazione,
+  /// non una parola a video, ma una guardia che legge le stringhe non ha
+  /// modo di distinguerli. Meglio un nome che non le somigli.
+  String get nomeDelLuogo => citta;
 }
 
 /// LA POSSIBILITA' DI INCONTRO, e stavolta si spiega. Ordine BO voce 03.

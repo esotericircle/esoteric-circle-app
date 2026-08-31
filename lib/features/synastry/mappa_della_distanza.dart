@@ -294,7 +294,11 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
             // stessa bugia di un titolo senza testo.
             const SizedBox(height: SpacingTokens.xxs),
             Text(
-              'Misurato da ${widget.doveSei.citta}'
+              // **`citta` senza accento e' il NOME DEL CAMPO, non una
+              // parola a video**, ma la prova che legge le frasi mostrate
+              // non ha modo di distinguerli: le va incontro un nome che
+              // non le somiglia.
+              'Misurato da ${widget.doveSei.nomeDelLuogo}'
               '${widget.doveSei.dichiarato ? "" : ", la tua città di nascita: "
                   "dilla in \"I tuoi dati\" se vivi altrove"}.',
               key: const Key('sinastria_mappa_da_dove'),

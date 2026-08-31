@@ -187,11 +187,16 @@ void main() {
       await pumpScreen(tester);
       final opening =
           tester.widget<Text>(find.byKey(const Key('oroscopo_opening'))).data!;
-      // Il profilo della Demo e' Sofia, femminile: vocativo "Cara Sofia".
-      expect(opening, startsWith('Cara Sofia,'));
+      // **"CIAO SOFIA" E NON PIU' "CARA SOFIA", ordine CF voce 05.** Il
+      // profilo iniziale non dichiara piu' un genere: dichiararlo era il
+      // difetto, e su un telefono appena reinstallato faceva leggere al
+      // fondatore "Bentornata Mauro". Il nome resta, il vocativo diventa
+      // quello neutro. **La pretesa vera di questa prova non cambia**: che
+      // l\'apertura porti il NOME della persona e venga dal pool.
+      expect(opening, startsWith('Ciao Sofia,'));
       // E resta una delle aperture del pool.
       final pool = HoroscopeData.openings
-          .map((o) => o.replaceAll(HoroscopeData.namePlaceholder, 'Cara Sofia'))
+          .map((o) => o.replaceAll(HoroscopeData.namePlaceholder, 'Ciao Sofia'))
           .toList();
       expect(pool, contains(opening));
     });

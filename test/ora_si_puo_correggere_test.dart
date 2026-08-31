@@ -67,6 +67,13 @@ void main() {
     await posa(tester);
     await tester.tap(find.text('09').last);
     await posa(tester);
+    // **PRIMA SI PORTA SOTTO GLI OCCHI, ordine CF voce 13.** La schermata
+    // ha un campo in piu', "Dove vivi adesso", e il pulsante e' sceso
+    // sotto la piega: un tocco su un riquadro fuori campo non arriva, e la
+    // prova vedeva l'ora non salvata credendo che il salvataggio fosse
+    // rotto.
+    await tester.ensureVisible(find.byKey(const Key('nascita_salva')));
+    await posa(tester);
     await tester.tap(find.byKey(const Key('nascita_salva')));
     await posa(tester);
 
@@ -85,6 +92,13 @@ void main() {
     await tester.tap(find.byKey(const Key('nascita_ora')));
     await posa(tester);
     await tester.tap(find.text('09').last);
+    await posa(tester);
+    // **PRIMA SI PORTA SOTTO GLI OCCHI, ordine CF voce 13.** La schermata
+    // ha un campo in piu', "Dove vivi adesso", e il pulsante e' sceso
+    // sotto la piega: un tocco su un riquadro fuori campo non arriva, e la
+    // prova vedeva l'ora non salvata credendo che il salvataggio fosse
+    // rotto.
+    await tester.ensureVisible(find.byKey(const Key('nascita_salva')));
     await posa(tester);
     await tester.tap(find.byKey(const Key('nascita_salva')));
     await posa(tester);
@@ -123,6 +137,13 @@ void main() {
     await posa(tester);
     await tester.tap(find.text('09').last);
     await posa(tester);
+    // **PRIMA SI PORTA SOTTO GLI OCCHI, ordine CF voce 13.** La schermata
+    // ha un campo in piu', "Dove vivi adesso", e il pulsante e' sceso
+    // sotto la piega: un tocco su un riquadro fuori campo non arriva, e la
+    // prova vedeva l'ora non salvata credendo che il salvataggio fosse
+    // rotto.
+    await tester.ensureVisible(find.byKey(const Key('nascita_salva')));
+    await posa(tester);
     await tester.tap(find.byKey(const Key('nascita_salva')));
     await posa(tester);
 
@@ -150,6 +171,13 @@ void main() {
         reason: 'da questa schermata non si puo scegliere una citta, quindi il '
             'luogo non si puo dare e la carta natale non arrivera mai');
     await tester.tap(citta);
+    await posa(tester);
+    // **PRIMA SI PORTA SOTTO GLI OCCHI, ordine CF voce 13.** La schermata
+    // ha un campo in piu', "Dove vivi adesso", e il pulsante e' sceso
+    // sotto la piega: un tocco su un riquadro fuori campo non arriva, e la
+    // prova vedeva l'ora non salvata credendo che il salvataggio fosse
+    // rotto.
+    await tester.ensureVisible(find.byKey(const Key('nascita_salva')));
     await posa(tester);
     await tester.tap(find.byKey(const Key('nascita_salva')));
     await posa(tester);

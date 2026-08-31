@@ -74,7 +74,13 @@ void main() {
     expect(sorgente.contains('prendiGliAccreditiDaRaccontare'), isTrue,
         reason: 'nessuno porta piu\' gli accrediti al registro: il saldo '
             'torna un numero senza ragione');
-    expect(sorgente.contains('Benvenuto nel Cerchio'), isTrue,
+    // **"DONO DI BENVENUTO" E NON "BENVENUTO NEL CERCHIO", ordine CF voce
+    // 05.** Era l'unica stringa dell'app che dichiarava un genere fuori
+    // dalle porte del genere: qui non c'e' nessuna scelta di forma, quindi
+    // a chi aveva scelto il femminile il registro diceva comunque
+    // "Benvenuto". **La pretesa non cambia**: che il benvenuto abbia la
+    // sua parola invece di un codice.
+    expect(sorgente.contains('Dono di benvenuto'), isTrue,
         reason: 'il benvenuto non ha piu\' la sua parola nel registro');
     expect(sorgente.contains('Dono del giorno'), isTrue,
         reason: 'l\'accredito del giorno non ha piu\' la sua parola');

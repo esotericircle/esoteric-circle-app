@@ -101,7 +101,16 @@ Future<T?> dialogoGeneraleDelCerchio<T>({
 }) {
   return showGeneralDialog<T>(
     context: context,
-    pageBuilder: pageBuilder,
+    // **LA ROTTA SI VESTE DA SOLA, ordine CF voce 09.** Una rotta aperta
+    // con `showGeneralDialog` non ha nessun `Material` sopra di se', e i
+    // suoi testi ricadono sulla riga gialla di sistema: e' un difetto che
+    // il progetto ha gia' incontrato, e una guardia lo sorveglia. Adesso
+    // che tutti i dialoghi generali passano da qui, il `Material` si
+    // mette in un punto solo invece che in ognuno.
+    pageBuilder: (contesto, entra, esce) => Material(
+      type: MaterialType.transparency,
+      child: pageBuilder(contesto, entra, esce),
+    ),
     barrierDismissible: barrierDismissible,
     barrierLabel: barrierLabel,
     barrierColor: barrierColor ?? VeloDelCerchio.barriera,

@@ -1,8 +1,5 @@
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/chat/chat_message.dart';
-import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -11,9 +8,7 @@ import 'package:esoteric_circle/core/settings/settings_controller.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/settings/settings_screen.dart';
-import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
-import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -60,6 +55,7 @@ void main() {
         ],
         child: const MaterialApp(home: MaestroScope(child: SettingsScreen())),
       );
+
 
   test('Riduci animazioni e Modalita semplice partono spenti', () {
     final s = SettingsController();
@@ -147,38 +143,44 @@ void main() {
         reason: 'la riga dice acceso mentre nessun suono puo\' uscire');
   });
 
-  testWidgets('La cancellazione GDPR chiede conferma e azzera i dati',
+  testWidgets('La cancellazione non vive piu\' nelle Impostazioni',
       (tester) async {
+    // **LA PORTA SI E\' SPOSTATA, ordine CF voce 16.** Parole del fondatore
+    // del 30 agosto 2026: "devi eliminare dal menu\' impostazioni 'privacy e
+    // permessi' [...] e deve eliminare anche 'cancella i miei dati': questi
+    // devono esistere al massimo in un unico posto e cioe\' nel menu\' utente
+    // in un sotto menu\'". Il doppione era reale: il menu\' utente aveva gia\'
+    // una voce "Privacy e dati" col nome quasi identico e la stessa icona.
+    //
+    // **QUESTA PROVA HA CAMBIATO OGGETTO, e va detto invece di cancellarla.**
+    // Prima guidava la cancellazione dalle Impostazioni e pretendeva che i
+    // dati si azzerassero. Quel comportamento non e\' sparito: vive nel menu\'
+    // utente, in due gradi, e a sorvegliarlo e\' `niente_resta_di_te_test`,
+    // che guarda le vie vere fino alla dimenticanza del telefono. **Qui resta
+    // cio\' che riguarda queste Impostazioni**: che la seconda porta non
+    // ricompaia.
     silence();
-    final repo = InMemoryMaestroMemoryRepository();
-    await repo.saveProfile(UserProfile(displayName: 'Sofia'));
-    await repo.appendMessage(
-        Maestro.medora, const ChatMessage(role: ChatRole.user, text: 'ciao'));
-    final services = AppServices(
-      ai: const UnavailableMaestroAiProvider(),
-      memory: repo,
-      memoryPersistent: false,
-      diagnostics: 'test',
-    );
-
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 1600);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-
-    await tester.pumpWidget(host(SettingsController(), services));
+    await tester.pumpWidget(host(SettingsController(), AppServices.offline()));
     await step(tester);
 
-    // Tocca la riga: appare la conferma di custodia.
-    await tester.tap(find.byKey(const Key('settings_delete')));
-    await step(tester);
-    expect(find.text('Cancellare i tuoi dati?'), findsOneWidget);
-
-    // Conferma: i dati si azzerano davvero.
-    await tester.tap(find.byKey(const Key('settings_delete_confirm')));
-    await step(tester);
-    expect((await repo.loadProfile()).displayName, isNull);
-    expect(await repo.recentMessages(Maestro.medora), isEmpty);
+    final rimaste = <String>[];
+    for (final segno in const [
+      'settings_delete',
+      'settings_privacy_e_permessi',
+    ]) {
+      if (find.byKey(Key(segno)).evaluate().isNotEmpty) rimaste.add(segno);
+    }
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 16: porte doppie rimaste nelle Impostazioni '
+        '${rimaste.length}');
+    expect(rimaste, isEmpty,
+        reason: 'nelle Impostazioni sono tornate queste porte: $rimaste. '
+            'Sono le stesse che vivono nel menu\' utente, e due porte sulla '
+            'cosa piu\' grave che si possa fare sono una di troppo');
   });
 
   testWidgets('E raggiungibile dal Cosmic Passport', (tester) async {

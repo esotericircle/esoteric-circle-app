@@ -97,7 +97,12 @@ void main() {
     // che non serve a nulla"), e con lei se n'e' andato un punto che mostrava
     // miniature. Cio' che questa riga sorveglia non e' il numero in se': e'
     // che nessun punto nuovo nasca senza passare da qui.
-    expect(punti.length, 11,
+    // **TREDICI DALL\'ORDINE CF VOCE 14**, e i due nuovi sono la schermata
+    // del Gemello e il suo podio. Passano tutti e due dal componente
+    // condiviso, `VipFramedPortrait`, che e' proprio cio' che questa riga
+    // sorveglia: il numero segue il dato, e cio' che conta e' che nessun
+    // punto nuovo nasca fuori dalla porta comune.
+    expect(punti.length, 13,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

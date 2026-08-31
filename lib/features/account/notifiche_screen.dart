@@ -99,7 +99,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
     if (!mounted) return;
     setState(() => _esitoDellaProva =
         'Mandata adesso. Se non compare nella tenda del telefono, il '
-        'problema e\' nel sistema e non nel Cerchio.');
+        'problema è nel sistema e non nel Cerchio.');
   }
 
   Future<void> _guardaIlPermesso() async {

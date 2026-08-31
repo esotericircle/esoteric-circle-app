@@ -73,7 +73,6 @@ void main() {
     'lib/features/rituals/sunset_rune_screen.dart': 3,
     'lib/features/santuario/greeting_controller.dart': 1,
     'lib/features/santuario/sky_overview_screen.dart': 5,
-    'lib/features/settings/settings_screen.dart': 1,
     'lib/features/synastry/sinastria_vip_screen.dart': 2,
     'lib/features/synastry/user_photo.dart': 1,
     'lib/features/tarot/stesa_senses.dart': 2,

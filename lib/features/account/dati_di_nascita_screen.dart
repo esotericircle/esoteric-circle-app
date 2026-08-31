@@ -15,6 +15,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'dart:async';
 import '../../core/astro/luogo_attuale.dart';
+import '../../design_system/theme/maestro_palette.dart';
 
 /// DOVE SI CORREGGONO I DATI DI NASCITA DOPO IL RISVEGLIO.
 ///
@@ -109,6 +110,28 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
   /// `RicercaDelLuogo`, quindi chi scrive per intero il nome della propria
   /// citta' se la vede scegliere anche qui, e l'elenco resta a video in tutti
   /// e due i posti.
+  /// **LE TRE MISURE SCRITTE A MANO, IN UN PUNTO SOLO. Ordine CF voce 13.**
+  ///
+  /// Questa schermata portava tre misure fuori dalla scala, ripetute a ogni
+  /// campo: aggiungendo il campo "Dove vivi adesso" sarebbero diventate sei,
+  /// e la prova che sorveglia il debito tipografico se n'e' accorta subito
+  /// ("da qui in avanti quel numero puo' solo scendere"). **Il campo nuovo non
+  /// ne ha aggiunta nessuna**: le tre vivono qui, e i due campi le chiamano.
+  ///
+  /// **Non e' un ruolo nuovo della scala**, e non lo diventa: un ruolo vale
+  /// per tutta l'app, queste tre valgono per questa schermata sola e restano
+  /// debito dichiarato finche' qualcuno non le porta dentro la scala.
+  TextStyle _etichettaDelCampo(MaestroPalette palette) =>
+      TypographyTokens.label(size: 13)
+          .copyWith(color: palette.goldSoft, letterSpacing: 2);
+
+  TextStyle _testoDelCampo(MaestroPalette palette) =>
+      TypographyTokens.body(size: 17).copyWith(color: palette.goldSoft);
+
+  TextStyle get _invitoDelCampo =>
+      TypographyTokens.body(size: 16)
+          .copyWith(color: ColorTokens.textSecondary);
+
   void _cercaLuogo(String q) {
     final risposta = RicercaDelLuogo.per(q);
     setState(() {
@@ -219,8 +242,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 ),
                 const SizedBox(height: SpacingTokens.md),
                 Text('Ora di nascita',
-                    style: TypographyTokens.label(size: 13)
-                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                    style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 Row(
                   children: [
@@ -258,20 +280,17 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 ),
                 const SizedBox(height: SpacingTokens.lg),
                 Text('Luogo di nascita',
-                    style: TypographyTokens.label(size: 13)
-                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                    style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 TextField(
                   key: const Key('nascita_luogo_field'),
                   controller: _luogoCtrl,
                   onChanged: _cercaLuogo,
-                  style: TypographyTokens.body(size: 17)
-                      .copyWith(color: palette.goldSoft),
+                  style: _testoDelCampo(palette),
                   cursorColor: palette.goldSoft,
                   decoration: InputDecoration(
                     hintText: 'Cerca la tua città',
-                    hintStyle: TypographyTokens.body(size: 16)
-                        .copyWith(color: ColorTokens.textSecondary),
+                    hintStyle: _invitoDelCampo,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                           color: palette.gold.withValues(alpha: 0.35)),
@@ -319,20 +338,17 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 // aspetta il pulsante, perche' quel pulsante rifa' la carta
                 // natale e questo dato con la carta non c'entra.
                 Text('Dove vivi adesso',
-                    style: TypographyTokens.label(size: 13)
-                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                    style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 TextField(
                   key: const Key('dove_vivi_field'),
                   controller: _doveCtrl,
                   onChanged: _cercaDove,
-                  style: TypographyTokens.body(size: 17)
-                      .copyWith(color: palette.goldSoft),
+                  style: _testoDelCampo(palette),
                   cursorColor: palette.goldSoft,
                   decoration: InputDecoration(
                     hintText: 'Cerca la città in cui vivi',
-                    hintStyle: TypographyTokens.body(size: 16)
-                        .copyWith(color: ColorTokens.textSecondary),
+                    hintStyle: _invitoDelCampo,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                           color: palette.gold.withValues(alpha: 0.35)),

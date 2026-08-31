@@ -35,8 +35,15 @@ void main() {
   test('ogni foglio e ogni dialogo dichiarano il loro fondo', () {
     final porte = <String>[];
     final orfane = <String>[];
+    // **I NOMI SONO CAMBIATI, ordine CF voce 09.** Dopo che fogli e dialoghi
+    // sono passati sotto la legge del velo, nell'app le funzioni del
+    // framework non le chiama piu' nessuno: le chiamano le tre porte del
+    // velo, e chiunque altro chiama LORO. Cercando i vecchi nomi questa
+    // enumerazione trovava tre porte invece di trentaquattro, e per poco non
+    // dichiarava guarita un'app che aveva solo cambiato parola.
     final nomi = RegExp(
-        r'show(ModalBottomSheet|Dialog|GeneralDialog|CupertinoModalPopup)\b');
+        r'(show(ModalBottomSheet|Dialog|GeneralDialog|CupertinoModalPopup)'
+        r'|foglioDelCerchio|dialogoDelCerchio|dialogoGeneraleDelCerchio)\b');
     for (final file in Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
@@ -85,9 +92,27 @@ void main() {
             ? 'velo dichiarato'
             : 'velo di legge';
         porte.add('$dove ($velo)');
+        // **LA PORTA STESSA NON E' UNA PORTA, ordine CF voce 09.** Dentro
+        // `velo_del_cerchio.dart` vivono le tre funzioni che TUTTI
+        // chiamano: li' dentro il fondo si INOLTRA, non si sceglie, e
+        // pretenderlo vorrebbe dire chiedere alla porta di decidere al
+        // posto di chi la usa. Che il foglio lo inoltri davvero lo
+        // pretende la prova qui sotto.
+        if (dove.contains('velo_del_cerchio.dart')) continue;
         if (!blocco.contains('backgroundColor:')) orfane.add(dove);
       }
     }
+    // **E LA PORTA INOLTRA DAVVERO IL FONDO.** Senza questa riga
+    // l'esenzione qui sopra sarebbe un buco: basterebbe togliere
+    // `backgroundColor` dalla porta e tutti i fogli dell'app tornerebbero
+    // bianchi con la prova verde.
+    final porta =
+        File('lib/design_system/transizioni/velo_del_cerchio.dart')
+            .readAsStringSync();
+    expect(porta.contains('backgroundColor: backgroundColor,'), isTrue,
+        reason: 'la porta del velo non inoltra piu\' il fondo: ogni foglio '
+            'dell\'app torna bianco e nessuna delle porte enumerate se ne '
+            'accorge');
     // ignore: avoid_print
     print('ORDINE AL VOCE 04: porte enumerate ${porte.length}');
     expect(porte.length, greaterThanOrEqualTo(30),
