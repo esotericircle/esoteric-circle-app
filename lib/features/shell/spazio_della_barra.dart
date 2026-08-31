@@ -55,8 +55,7 @@ class SpazioDellaBarraNelloScroll extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      SizedBox(height: quanto(context));
+  Widget build(BuildContext context) => SizedBox(height: quanto(context));
 }
 
 /// La stessa coda, per gli scroll a sliver.

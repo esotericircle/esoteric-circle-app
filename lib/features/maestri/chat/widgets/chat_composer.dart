@@ -254,11 +254,9 @@ class _SendButton extends StatelessWidget {
             colors: enabled
                 ? [palette.goldSoft, palette.gold]
                 : [
-                    Color.alphaBlend(
-                        palette.surface.withValues(alpha: 0.6),
+                    Color.alphaBlend(palette.surface.withValues(alpha: 0.6),
                         palette.deepest),
-                    Color.alphaBlend(
-                        palette.surface.withValues(alpha: 0.4),
+                    Color.alphaBlend(palette.surface.withValues(alpha: 0.4),
                         palette.deepest),
                   ],
           ),

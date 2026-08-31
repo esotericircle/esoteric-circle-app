@@ -26,6 +26,7 @@ import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
+import '../../shell/corsa_della_barra.dart';
 import '../../shell/spazio_della_barra.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -678,69 +679,93 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       left: 0,
       right: 0,
       bottom: spazioBarra,
-      child: KeyedSubtree(
-        key: _chiaveComposer,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // **LA ZONA SI PRESENTA, la prima volta e una sola.** Ordine CE
-            // voce 12. Sta qui e non dentro la lista dei messaggi perche' la
-            // lista e' ROVESCIATA: un suggerimento infilato li' comparirebbe
-            // in fondo alla conversazione invece che davanti agli occhi.
-            // Sopra il campo e' il punto in cui si sta per scrivere, cioe'
-            // il momento in cui quel che dice serve. Il compositore misura la
-            // propria altezza a ogni fotogramma e la lista si accorcia di
-            // conseguenza, quindi non copre niente.
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-              child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
-            ),
-            // **QUANTO TI RESTA, DETTO PRIMA DI SCRIVERE.** Ordine CE voce 04:
-            // "l'utente deve Sapere quante ne mancano". Le due righe stanno
-            // sopra il campo e non dentro un foglio, perche' sono
-            // un'informazione e non un ostacolo, e stanno insieme perche' la
-            // chat spende su due budget: la domanda e l'approfondimento. La
-            // riprova non e' un terzo budget, spende sulle domande come la
-            // domanda che ha sostituito.
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RigaDelResiduo(budget: BudgetDelGiorno.domande),
-                  RigaDelResiduo(budget: BudgetDelGiorno.approfondimenti),
-                ],
+      // **IL CAMPO SEGUE LA BARRA, DIPINGENDOSI ALTROVE.** Ordine CI voce 03.
+      //
+      // Il fatto: quando la barra si ritira, sotto il campo restava una
+      // fascia vuota alta quanto lei e il campo sembrava sospeso a mezz'aria.
+      // Lo spazio riservato NON si tocca, cioe' la regola del 6 agosto 2026
+      // resta: qui si sposta solo il disegno, con la stessa durata e la
+      // stessa curva della barra, cosi' i due si muovono insieme e niente
+      // viene rilayato. Chi sta sotto non si sposta, perche' sotto non c'e'
+      // piu' niente.
+      child: ValueListenableBuilder<CorsaBersaglio>(
+        valueListenable: CorsaDellaBarra.di(context),
+        builder: (context, corsa, figlio) => TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: corsa.discesa, end: corsa.discesa),
+          duration:
+              corsa.perUnTocco && !MediaQuery.of(context).disableAnimations
+                  ? const Duration(milliseconds: 220)
+                  : Duration.zero,
+          curve: Curves.easeOut,
+          builder: (context, quanto, dentro) =>
+              Transform.translate(offset: Offset(0, quanto), child: dentro),
+          child: figlio,
+        ),
+        child: KeyedSubtree(
+          key: _chiaveComposer,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // **LA ZONA SI PRESENTA, la prima volta e una sola.** Ordine CE
+              // voce 12. Sta qui e non dentro la lista dei messaggi perche' la
+              // lista e' ROVESCIATA: un suggerimento infilato li' comparirebbe
+              // in fondo alla conversazione invece che davanti agli occhi.
+              // Sopra il campo e' il punto in cui si sta per scrivere, cioe'
+              // il momento in cui quel che dice serve. Il compositore misura la
+              // propria altezza a ogni fotogramma e la lista si accorcia di
+              // conseguenza, quindi non copre niente.
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+                child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
               ),
-            ),
-            // L'avviso di configurazione e' uno strumento come il campo:
-            // sta sopra di lui, non in fondo alla colonna del contenuto,
-            // altrimenti torna la fascia piena sotto la barra.
-            if (!controller.aiReady)
-              _ConfigNotice(palette: context.palette, maestro: widget.maestro),
-            ChatComposer(
-              enabled: controller.aiReady && !controller.sending,
-              hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
-                  '${widget.maestro.displayName}',
-              // A chat vuota, se si arriva dalla chiusura del cerchio, il
-              // campo si apre gia' col tema del Consulta.
-              initialText: hasMessages ? null : widget.initialTheme,
-              onSend: controller.send,
-              // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
-              // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
-              // filtrate sul vero dalla porta unica _famiglieCorrenti.
-              onSuggestions: () {
-                final famiglie = _famiglieCorrenti(context);
-                showSuggestionsPanel(
-                  context,
-                  maestro: widget.maestro,
-                  onSend: controller.send,
-                  frequenti: famiglie.frequenti,
-                  personali: famiglie.personali,
-                );
-              },
-            ),
-          ],
+              // **QUANTO TI RESTA, DETTO PRIMA DI SCRIVERE.** Ordine CE voce 04:
+              // "l'utente deve Sapere quante ne mancano". Le due righe stanno
+              // sopra il campo e non dentro un foglio, perche' sono
+              // un'informazione e non un ostacolo, e stanno insieme perche' la
+              // chat spende su due budget: la domanda e l'approfondimento. La
+              // riprova non e' un terzo budget, spende sulle domande come la
+              // domanda che ha sostituito.
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RigaDelResiduo(budget: BudgetDelGiorno.domande),
+                    RigaDelResiduo(budget: BudgetDelGiorno.approfondimenti),
+                  ],
+                ),
+              ),
+              // L'avviso di configurazione e' uno strumento come il campo:
+              // sta sopra di lui, non in fondo alla colonna del contenuto,
+              // altrimenti torna la fascia piena sotto la barra.
+              if (!controller.aiReady)
+                _ConfigNotice(
+                    palette: context.palette, maestro: widget.maestro),
+              ChatComposer(
+                enabled: controller.aiReady && !controller.sending,
+                hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
+                    '${widget.maestro.displayName}',
+                // A chat vuota, se si arriva dalla chiusura del cerchio, il
+                // campo si apre gia' col tema del Consulta.
+                initialText: hasMessages ? null : widget.initialTheme,
+                onSend: controller.send,
+                // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
+                // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
+                // filtrate sul vero dalla porta unica _famiglieCorrenti.
+                onSuggestions: () {
+                  final famiglie = _famiglieCorrenti(context);
+                  showSuggestionsPanel(
+                    context,
+                    maestro: widget.maestro,
+                    onSend: controller.send,
+                    frequenti: famiglie.frequenti,
+                    personali: famiglie.personali,
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

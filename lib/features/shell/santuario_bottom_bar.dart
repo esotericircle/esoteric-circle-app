@@ -79,166 +79,166 @@ class SantuarioBottomBar extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: Container(
-      decoration: BoxDecoration(
-        // Una sfumatura morbida che nasce dal basso e muore molto prima del
-        // titolo: da' peso al piede della barra senza essere un fondo.
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            palette.deepest.withValues(alpha: 0.38),
-            palette.deepest.withValues(alpha: 0.88),
-            palette.deepest.withValues(alpha: 0.94),
-          ],
-          // La sfumatura sale in fretta: il titolo vive nei primi venti punti
-          // della barra, e con la salita lenta il contrasto nel Consiglio si
-          // fermava a 4,23 contro il 4,5 richiesto. In cima resta comunque
-          // trasparente, cioe' il contenuto entra nella barra e si vede.
-          stops: const [0.0, 0.16, 1.0],
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        // **SEI E NON PIU\' DODICI, ordine CF voce 03.** Parole del
-        // fondatore: "anche la barra ESPLORA e' molto alta". Il margine
-        // esterno era lo spazio piu' grande della barra, ventiquattro punti
-        // fra sopra e sotto, e non serviva a niente che si veda: sotto c'e'
-        // gia' il `SafeArea`, sopra c'e' gia' l'alone del titolo.
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.sm,
-            vertical: 6,
+        decoration: BoxDecoration(
+          // Una sfumatura morbida che nasce dal basso e muore molto prima del
+          // titolo: da' peso al piede della barra senza essere un fondo.
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              palette.deepest.withValues(alpha: 0.38),
+              palette.deepest.withValues(alpha: 0.88),
+              palette.deepest.withValues(alpha: 0.94),
+            ],
+            // La sfumatura sale in fretta: il titolo vive nei primi venti punti
+            // della barra, e con la salita lenta il contrasto nel Consiglio si
+            // fermava a 4,23 contro il 4,5 richiesto. In cima resta comunque
+            // trasparente, cioe' il contenuto entra nella barra e si vede.
+            stops: const [0.0, 0.16, 1.0],
           ),
-          // LE VOCI VENGONO DALL'ELENCO UNICO, non da qui.
-          //
-          // Il nome, il disegno e l'ordine stanno in `ViaDelCerchio`. Qui
-          // restano le cose che appartengono davvero alla barra, cioe' quale
-          // voce e' accesa e cosa succede al tocco.
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // IL TITOLO, IN ORO. Sta sopra le voci, piccolo, senza icona e
-              // senza tocco, e la sua riga e' alta quanto una lettera. Il
-              // colore si legge da [coloreDelTitolo], un punto solo: chi lo
-              // scrive a mano qui dentro fa cadere una prova.
-              // L'ALONE MORBIDO DIETRO LA SCRITTA, ordine 2164 voce 1.
-              //
-              // **Non e' la fascia che Mauro ha tolto, e la differenza si
-              // vede.** La fascia del 2163 era un rettangolo pieno alto
-              // quanto il titolo e largo quanto lo schermo: un fondo. Questo
-              // e' un alone radiale che sfuma a zero, senza bordi, cioe' cio'
-              // che l'ordine chiama ombra morbida. Serve perche' gli aloni
-              // del testo nascono dai glifi e sopra e sotto le lettere si
-              // spengono: col solo testo ombreggiato il Consiglio misurava
-              // 3,85 di contrasto contro il 4,5 richiesto, con le schede
-              // chiare che gli passavano dietro.
-              Container(
-                // CINQUE E NON TRE, dall'ordine A: il titolo e' passato da
-                // undici punti al pavimento di dodici, quindi il suo rettangolo
-                // e' cresciuto e l'alone, restando fermo, ne copriva una quota
-                // minore. Misurato nel Consiglio: 4,31 di contrasto contro il
-                // 4,5 richiesto. L'alone cresce quanto e' cresciuto il testo.
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                decoration: BoxDecoration(
-                  // **IL RAGGIO DELL\'ALONE DA 0,85 A 3,0. Ordine CF voce 03.**
-                  //
-                  // **Il difetto era vecchio e si e' visto adesso.** Il raggio
-                  // di un `RadialGradient` e' una frazione del LATO PIU' CORTO
-                  // del riquadro, e quel riquadro e' alto ventisette punti e
-                  // largo piu' di cento: con 0,85 il fondo pieno arrivava a
-                  // ventitre punti dal centro, cioe' copriva la meta' di mezzo
-                  // della parola e lasciava le due ESTREMITA' di ESPLORA su
-                  // un alone gia' quasi trasparente. Finche' la barra era alta
-                  // 134 dietro quelle estremita' passava roba scura e non si
-                  // notava; abbassandola a 112 la scritta e' scesa di sedici
-                  // punti, e li' la prova del contrasto ha misurato 4,28
-                  // contro il 4,5 che la legge chiede.
-                  //
-                  // **Il riquadro non cambia di un punto**, quindi nessuna
-                  // altezza torna indietro: cambia solo quanto lontano dal
-                  // centro il fondo resta pieno. Misurato dopo: 5,64,
-                  // sopra il 5,48 che la stessa prova leggeva prima di
-                  // questa voce.
-                  gradient: RadialGradient(
-                    radius: 3.0,
-                    colors: [
-                      palette.deepest,
-                      palette.deepest.withValues(alpha: 0.97),
-                      palette.deepest.withValues(alpha: 0.0),
+        ),
+        child: SafeArea(
+          top: false,
+          // **SEI E NON PIU\' DODICI, ordine CF voce 03.** Parole del
+          // fondatore: "anche la barra ESPLORA e' molto alta". Il margine
+          // esterno era lo spazio piu' grande della barra, ventiquattro punti
+          // fra sopra e sotto, e non serviva a niente che si veda: sotto c'e'
+          // gia' il `SafeArea`, sopra c'e' gia' l'alone del titolo.
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.sm,
+              vertical: 6,
+            ),
+            // LE VOCI VENGONO DALL'ELENCO UNICO, non da qui.
+            //
+            // Il nome, il disegno e l'ordine stanno in `ViaDelCerchio`. Qui
+            // restano le cose che appartengono davvero alla barra, cioe' quale
+            // voce e' accesa e cosa succede al tocco.
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // IL TITOLO, IN ORO. Sta sopra le voci, piccolo, senza icona e
+                // senza tocco, e la sua riga e' alta quanto una lettera. Il
+                // colore si legge da [coloreDelTitolo], un punto solo: chi lo
+                // scrive a mano qui dentro fa cadere una prova.
+                // L'ALONE MORBIDO DIETRO LA SCRITTA, ordine 2164 voce 1.
+                //
+                // **Non e' la fascia che Mauro ha tolto, e la differenza si
+                // vede.** La fascia del 2163 era un rettangolo pieno alto
+                // quanto il titolo e largo quanto lo schermo: un fondo. Questo
+                // e' un alone radiale che sfuma a zero, senza bordi, cioe' cio'
+                // che l'ordine chiama ombra morbida. Serve perche' gli aloni
+                // del testo nascono dai glifi e sopra e sotto le lettere si
+                // spengono: col solo testo ombreggiato il Consiglio misurava
+                // 3,85 di contrasto contro il 4,5 richiesto, con le schede
+                // chiare che gli passavano dietro.
+                Container(
+                  // CINQUE E NON TRE, dall'ordine A: il titolo e' passato da
+                  // undici punti al pavimento di dodici, quindi il suo rettangolo
+                  // e' cresciuto e l'alone, restando fermo, ne copriva una quota
+                  // minore. Misurato nel Consiglio: 4,31 di contrasto contro il
+                  // 4,5 richiesto. L'alone cresce quanto e' cresciuto il testo.
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                  decoration: BoxDecoration(
+                    // **IL RAGGIO DELL\'ALONE DA 0,85 A 3,0. Ordine CF voce 03.**
+                    //
+                    // **Il difetto era vecchio e si e' visto adesso.** Il raggio
+                    // di un `RadialGradient` e' una frazione del LATO PIU' CORTO
+                    // del riquadro, e quel riquadro e' alto ventisette punti e
+                    // largo piu' di cento: con 0,85 il fondo pieno arrivava a
+                    // ventitre punti dal centro, cioe' copriva la meta' di mezzo
+                    // della parola e lasciava le due ESTREMITA' di ESPLORA su
+                    // un alone gia' quasi trasparente. Finche' la barra era alta
+                    // 134 dietro quelle estremita' passava roba scura e non si
+                    // notava; abbassandola a 112 la scritta e' scesa di sedici
+                    // punti, e li' la prova del contrasto ha misurato 4,28
+                    // contro il 4,5 che la legge chiede.
+                    //
+                    // **Il riquadro non cambia di un punto**, quindi nessuna
+                    // altezza torna indietro: cambia solo quanto lontano dal
+                    // centro il fondo resta pieno. Misurato dopo: 5,64,
+                    // sopra il 5,48 che la stessa prova leggeva prima di
+                    // questa voce.
+                    gradient: RadialGradient(
+                      radius: 3.0,
+                      colors: [
+                        palette.deepest,
+                        palette.deepest.withValues(alpha: 0.97),
+                        palette.deepest.withValues(alpha: 0.0),
+                      ],
+                      stops: const [0.0, 0.55, 1.0],
+                    ),
+                  ),
+                  child: Text(
+                    titolo,
+                    key: const Key('barra_titolo'),
+                    style: TypographyTokens.etichetta().copyWith(
+                      color: coloreDelTitolo(palette),
+                      letterSpacing: 3.2,
+                      // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'
+                      // cio' che tiene il titolo leggibile adesso che dietro
+                      // di lui passa il contenuto.
+                      shadows: ombraDelTitolo(palette),
+                    ),
+                  ),
+                ),
+                // **LO SPAZIO CHE IL FONDATORE HA NOMINATO, e valeva due
+                // punti.** Parole sue: "basterebbe anche solo ridurre lo
+                // spazio tra la scritta 'esplora' e le icone sottostanti".
+                // Misurato prima di toccarlo: erano DUE, piu' i cinque
+                // dell\'alone sotto il testo. **Ridurre solo quello non poteva
+                // bastare**, e infatti la barra scende soprattutto altrove.
+                // I cinque dell\'alone non si toccano: l\'ordine A li ha portati
+                // da tre a cinque per una ragione di contrasto misurata,
+                // 4,31 contro il 4,5 richiesto.
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    for (final via in ViaDelCerchio.tutte) ...[
+                      // Il Passport, staccato dai Maestri da un filo verticale.
+                      if (via.specie == SpecieDiVia.passport)
+                        Container(
+                          width: 1,
+                          height: 34,
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          color: palette.gold.withValues(alpha: 0.2),
+                        ),
+                      _BarItem(
+                        // La chiave dichiara QUALE voce e': da quando la striscia
+                        // delle arti vive anche in home, il nome di un Maestro a
+                        // video non e' piu' uno solo, e chi deve toccare la barra
+                        // la nomina per chiave, non per testo.
+                        key: Key('barra_voce_${via.id}'),
+                        label: via.etichetta,
+                        icona: via.icona,
+                        // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista: nel
+                        // Santuario le icone Maestro restano spente, perche' li' sono
+                        // scorciatoie e non lo stato del centro. Fuori dal guscio lo
+                        // dice il Maestro di cui si sta guardando il dominio o la
+                        // chat, e allora la sua voce si accende.
+                        selected: switch (via.specie) {
+                          SpecieDiVia.cerchio => !fuoriDalGuscio &&
+                              maestroCorrente == null &&
+                              onSantuarioView,
+                          SpecieDiVia.maestro => via.maestro == maestroCorrente,
+                          SpecieDiVia.passport => !fuoriDalGuscio &&
+                              maestroCorrente == null &&
+                              view == ShellView.passport,
+                        },
+                        onTap: () => switch (via.specie) {
+                          SpecieDiVia.cerchio => onSantuario(),
+                          SpecieDiVia.maestro => onMaestro(via.maestro!),
+                          SpecieDiVia.passport => onPassport(),
+                        },
+                      ),
                     ],
-                    stops: const [0.0, 0.55, 1.0],
-                  ),
-                ),
-                child: Text(
-                titolo,
-                key: const Key('barra_titolo'),
-                style: TypographyTokens.etichetta().copyWith(
-                  color: coloreDelTitolo(palette),
-                  letterSpacing: 3.2,
-                  // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'
-                  // cio' che tiene il titolo leggibile adesso che dietro
-                  // di lui passa il contenuto.
-                  shadows: ombraDelTitolo(palette),
-                ),
-                ),
-              ),
-              // **LO SPAZIO CHE IL FONDATORE HA NOMINATO, e valeva due
-              // punti.** Parole sue: "basterebbe anche solo ridurre lo
-              // spazio tra la scritta 'esplora' e le icone sottostanti".
-              // Misurato prima di toccarlo: erano DUE, piu' i cinque
-              // dell\'alone sotto il testo. **Ridurre solo quello non poteva
-              // bastare**, e infatti la barra scende soprattutto altrove.
-              // I cinque dell\'alone non si toccano: l\'ordine A li ha portati
-              // da tre a cinque per una ragione di contrasto misurata,
-              // 4,31 contro il 4,5 richiesto.
-              Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              for (final via in ViaDelCerchio.tutte) ...[
-                // Il Passport, staccato dai Maestri da un filo verticale.
-                if (via.specie == SpecieDiVia.passport)
-                  Container(
-                    width: 1,
-                    height: 34,
-                    margin: const EdgeInsets.symmetric(horizontal: 2),
-                    color: palette.gold.withValues(alpha: 0.2),
-                  ),
-                _BarItem(
-                  // La chiave dichiara QUALE voce e': da quando la striscia
-                  // delle arti vive anche in home, il nome di un Maestro a
-                  // video non e' piu' uno solo, e chi deve toccare la barra
-                  // la nomina per chiave, non per testo.
-                  key: Key('barra_voce_${via.id}'),
-                  label: via.etichetta,
-                  icona: via.icona,
-                  // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista: nel
-                  // Santuario le icone Maestro restano spente, perche' li' sono
-                  // scorciatoie e non lo stato del centro. Fuori dal guscio lo
-                  // dice il Maestro di cui si sta guardando il dominio o la
-                  // chat, e allora la sua voce si accende.
-                  selected: switch (via.specie) {
-                    SpecieDiVia.cerchio => !fuoriDalGuscio &&
-                        maestroCorrente == null &&
-                        onSantuarioView,
-                    SpecieDiVia.maestro => via.maestro == maestroCorrente,
-                    SpecieDiVia.passport => !fuoriDalGuscio &&
-                        maestroCorrente == null &&
-                        view == ShellView.passport,
-                  },
-                  onTap: () => switch (via.specie) {
-                    SpecieDiVia.cerchio => onSantuario(),
-                    SpecieDiVia.maestro => onMaestro(via.maestro!),
-                    SpecieDiVia.passport => onPassport(),
-                  },
+                  ],
                 ),
               ],
-            ],
-          ),
-            ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -299,8 +299,7 @@ class SantuarioBottomBar extends StatelessWidget {
         Shadow(color: palette.deepest, blurRadius: 8),
         Shadow(color: palette.deepest, blurRadius: 14),
         Shadow(color: palette.deepest, blurRadius: 20),
-        Shadow(
-            color: palette.deepest.withValues(alpha: 0.98), blurRadius: 28),
+        Shadow(color: palette.deepest.withValues(alpha: 0.98), blurRadius: 28),
       ];
 }
 
@@ -366,8 +365,7 @@ class _BarItem extends StatelessWidget {
         // scende solo l\'aria attorno, e il bersaglio resta cinquantadue
         // punti di altezza, sopra il minimo di quarantotto.
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: 4, horizontal: 2),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -444,7 +442,8 @@ class _BarItem extends StatelessWidget {
   static int _larghezzaDel(String label, bool selected) {
     final tp = TextPainter(
       text: TextSpan(
-          text: label, style: _stileDellaVoce(const Color(0xFFFFFFFF), selected)),
+          text: label,
+          style: _stileDellaVoce(const Color(0xFFFFFFFF), selected)),
       textDirection: TextDirection.ltr,
       maxLines: 1,
     )..layout();

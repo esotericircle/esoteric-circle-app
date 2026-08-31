@@ -136,7 +136,8 @@ class MaestroChatController extends ChangeNotifier {
 
   /// Gli ancoraggi disponibili adesso per questa persona. Vuoto quando non c'e'
   /// niente da ancorare, e in quel caso il controllo NON scatta.
-  List<Ancoraggio> get ancoraggiDisponibili => VerificaAncoraggio.disponibiliPer(
+  List<Ancoraggio> get ancoraggiDisponibili =>
+      VerificaAncoraggio.disponibiliPer(
         natal: _natal?.call() ?? NatalContext.none,
         profile: _profile,
         memory: _memoryState,
@@ -242,8 +243,6 @@ class MaestroChatController extends ChangeNotifier {
   // `disclaimerAcceptedAt` resta nel profilo: e' la data in cui una
   // persona vera ha accettato una cosa vera, e cancellarla sarebbe
   // riscrivere il passato.
-
-
 
   /// Invia un messaggio dell'utente e attende la risposta del Maestro.
   Future<void> send(String text) async {
@@ -524,8 +523,7 @@ class MaestroChatController extends ChangeNotifier {
       // riga che dice "sta scendendo dell'altro" e resta li' per sempre e'
       // peggio di nessuna riga.
       if (indice < _messages.length && _messages[indice].seguitoInArrivo) {
-        _messages[indice] =
-            _messages[indice].copyWith(seguitoInArrivo: false);
+        _messages[indice] = _messages[indice].copyWith(seguitoInArrivo: false);
       }
       notifyListeners();
     }
@@ -648,7 +646,7 @@ class MaestroChatController extends ChangeNotifier {
             history: priorHistory,
             userMessage: userText,
             natal: natal,
-            );
+          );
         } on MaestroAiTroncata catch (errore, traccia) {
           troncatureConsegnate++;
           annotaGuastoInnocuo(
@@ -660,18 +658,20 @@ class MaestroChatController extends ChangeNotifier {
           // Si consegna una lettura vera e DICHIARATA, come per ogni altro
           // silenzio della voce: meglio un ripiego riconoscibile che un
           // moncone scambiato per la parola del Maestro.
-          await _consegna(pending.copyWith(
-            text: LetturaDiRipiego.componi(
-              maestro: chiRisponde,
-              domanda: userText,
-              natal: natal,
-              profile: _profile,
-              memory: _memoryState,
-            ),
-            pending: false,
-            failed: true,
-            ripiego: true,
-          ), cronometro);
+          await _consegna(
+              pending.copyWith(
+                text: LetturaDiRipiego.componi(
+                  maestro: chiRisponde,
+                  domanda: userText,
+                  natal: natal,
+                  profile: _profile,
+                  memory: _memoryState,
+                ),
+                pending: false,
+                failed: true,
+                ripiego: true,
+              ),
+              cronometro);
           return EsitoDelTurno.rispostaTroncata;
         }
       }
@@ -723,12 +723,14 @@ class MaestroChatController extends ChangeNotifier {
       unawaited(_maybeDistill());
       return EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {
-      await _consegna(pending.copyWith(
-        text: RipiegoDelMaestro.nonConfiguratoDi(chiRisponde),
-        pending: false,
-        failed: true,
-        ripiego: true,
-      ), cronometro);
+      await _consegna(
+          pending.copyWith(
+            text: RipiegoDelMaestro.nonConfiguratoDi(chiRisponde),
+            pending: false,
+            failed: true,
+            ripiego: true,
+          ),
+          cronometro);
       return EsitoDelTurno.ripiego;
     } catch (errore, traccia) {
       // Il guasto e' gia' stato scritto nel registro da `VoceSorvegliata`, che
@@ -736,25 +738,29 @@ class MaestroChatController extends ChangeNotifier {
       // sceglie solo cosa mostrare. L'annotazione resta perche' l'errore vero
       // esista anche per chi guarda i log senza aprire il pannello.
       annotaGuastoInnocuo(
-          'rispondendo nella chat di ${chiRisponde.displayName}', errore, traccia);
+          'rispondendo nella chat di ${chiRisponde.displayName}',
+          errore,
+          traccia);
       // IL SILENZIO NON LASCIA A MANI VUOTE. Il Maestro non si scusa e basta:
       // consegna una lettura VERA costruita dai dati sul dispositivo, dichiarata
       // come lettura del cielo e non come la sua voce. Sotto, una via che porta
       // da qualche parte, dallo stesso instradamento deterministico che gia'
       // esiste. Dopo questa riga, nella chat non c'e' nessuno stato senza uscita.
       final natal = _natal?.call() ?? NatalContext.none;
-      await _consegna(pending.copyWith(
-        text: LetturaDiRipiego.componi(
-          maestro: chiRisponde,
-          domanda: userText,
-          natal: natal,
-          profile: _profile,
-          memory: _memoryState,
-        ),
-        pending: false,
-        failed: true,
-        ripiego: true,
-      ), cronometro);
+      await _consegna(
+          pending.copyWith(
+            text: LetturaDiRipiego.componi(
+              maestro: chiRisponde,
+              domanda: userText,
+              natal: natal,
+              profile: _profile,
+              memory: _memoryState,
+            ),
+            pending: false,
+            failed: true,
+            ripiego: true,
+          ),
+          cronometro);
       // L'attestazione fallita si distingue dagli altri guasti: non costa
       // niente lo stesso, ma chi legge il registro deve poterla riconoscere.
       return errore.toString().contains('attestation')
@@ -805,8 +811,7 @@ class MaestroChatController extends ChangeNotifier {
     // **IN DEMO LA MEMORIA E' ACCESA, ordine BG voce 03.** La demo esiste per
     // far vedere il prodotto vero, e il prodotto vero ricorda.
     final piano = _tier?.call();
-    final memoriaViva =
-        _demo || piano == null || PlanCatalog.haMemoria(piano);
+    final memoriaViva = _demo || piano == null || PlanCatalog.haMemoria(piano);
     if (!memoriaViva) return;
     if (_turnsSinceDistill < _distillEvery) return;
     _turnsSinceDistill = 0;

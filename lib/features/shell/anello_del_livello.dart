@@ -33,7 +33,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// provider: in quel caso l'anello si disegna vuoto, che e' il vero, invece
 /// di far cadere quaranta prove lontane da qui.
 class AnelloDelLivello extends StatelessWidget {
-  const AnelloDelLivello({super.key, required this.misuraDelVolto, required this.child});
+  const AnelloDelLivello(
+      {super.key, required this.misuraDelVolto, required this.child});
 
   /// Il diametro del volto attorno a cui l'anello gira.
   final double misuraDelVolto;

@@ -319,8 +319,7 @@ class _CausaBox extends StatelessWidget {
               'Non è un difetto dell\'app. Sul progetto Google manca l\'API '
               'firebasevertexai.googleapis.com: finché resta spenta nessuna '
               'chiamata arriva a Gemini.',
-              style: TypographyTokens.corpo()
-                  .copyWith(color: palette.goldSoft),
+              style: TypographyTokens.corpo().copyWith(color: palette.goldSoft),
             ),
           ],
         ],
@@ -367,7 +366,8 @@ class _DebugTokenBox extends StatelessWidget {
                   const SnackBar(content: Text('Token copiato')),
                 );
               },
-              child: Icon(Icons.copy_rounded, color: palette.goldSoft, size: 20),
+              child:
+                  Icon(Icons.copy_rounded, color: palette.goldSoft, size: 20),
             ),
           ],
         ],

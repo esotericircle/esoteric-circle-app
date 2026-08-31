@@ -203,8 +203,7 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
               height: 4,
               decoration: BoxDecoration(
                 color: palette.gold.withValues(alpha: 0.5),
-                borderRadius:
-                    BorderRadius.circular(SpacingTokens.radiusPill),
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
               ),
             ),
           ),
@@ -212,8 +211,7 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
           // I DUE TITOLI AFFIANCATI. Una famiglia vuota non porta il suo
           // titolo: la regola del vero, mai un titolo che apre il nulla.
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             child: Row(
               children: [
                 if (widget.frequenti.isNotEmpty)
@@ -223,8 +221,8 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
                       testo: 'DOMANDE FREQUENTI',
                       scelto: _scelta == SuggestionGroup.frequent,
                       palette: palette,
-                      onTap: () => setState(
-                          () => _scelta = SuggestionGroup.frequent),
+                      onTap: () =>
+                          setState(() => _scelta = SuggestionGroup.frequent),
                     ),
                   ),
                 if (widget.personali.isNotEmpty)
@@ -234,8 +232,8 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
                       testo: 'DOMANDE PERSONALI',
                       scelto: _scelta == SuggestionGroup.personal,
                       palette: palette,
-                      onTap: () => setState(
-                          () => _scelta = SuggestionGroup.personal),
+                      onTap: () =>
+                          setState(() => _scelta = SuggestionGroup.personal),
                     ),
                   ),
               ],
@@ -250,8 +248,8 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
               child: ListView.separated(
                 key: const Key('elenco_suggerimenti'),
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.lg),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
                 itemCount: _domande.length,
                 separatorBuilder: (_, __) => Divider(
                   height: 1,
@@ -298,9 +296,8 @@ class _TitoloDiFamiglia extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: scelto
-                  ? palette.gold
-                  : palette.gold.withValues(alpha: 0.12),
+              color:
+                  scelto ? palette.gold : palette.gold.withValues(alpha: 0.12),
               width: scelto ? 2 : 1,
             ),
           ),

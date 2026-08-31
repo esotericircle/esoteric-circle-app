@@ -61,8 +61,6 @@ class BarraDellIdentita extends StatefulWidget {
   /// pixel".
   static const double altezzaChiusa = 38;
 
-
-
   /// **DOVE SI VEDE, e l'elenco non sta piu' qui. Ordine AP voce 07.**
   ///
   /// Le soglie vivevano dentro questo file, e la barra storica aveva il suo
@@ -124,12 +122,10 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final siVede =
-        BarraDellIdentita.siVede(_schermata) && !_festaInScena;
+    final siVede = BarraDellIdentita.siVede(_schermata) && !_festaInScena;
     // **UN SOLO STATO, ordine AR voce 10.** La barra non si apre piu': era
     // alta 30 punti a riposo e 66 da aperta, e il primo tocco serviva ad
     // aprirla invece che a portare da qualche parte. Decisione di Mauro del
@@ -181,71 +177,71 @@ class _LaBarra extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: // **IL BERSAGLIO DEL QUINTO FUMETTO. Ordine CB voce 02.**
-      AncoraDelPrimoApprodo(
+          AncoraDelPrimoApprodo(
         nome: BersagliDelPrimoApprodo.identita,
         child: Container(
-        key: const Key('barra_dell_identita'),
-        // La fascia occupa anche l'area sicura di sistema: sta SOTTO
-        // l'orologio del telefono e non ci finisce mai sopra.
-        padding: EdgeInsets.only(top: mq.padding.top),
-        height: BarraDellIdentita.altezzaChiusa + mq.padding.top,
-        decoration: BoxDecoration(
-          // Un velo di colore, mai una sfocatura per fotogramma.
-          color: palette.deepest.withValues(alpha: 0.72),
-          border: Border(
-            bottom:
-                BorderSide(color: palette.goldSoft.withValues(alpha: 0.22)),
+          key: const Key('barra_dell_identita'),
+          // La fascia occupa anche l'area sicura di sistema: sta SOTTO
+          // l'orologio del telefono e non ci finisce mai sopra.
+          padding: EdgeInsets.only(top: mq.padding.top),
+          height: BarraDellIdentita.altezzaChiusa + mq.padding.top,
+          decoration: BoxDecoration(
+            // Un velo di colore, mai una sfocatura per fotogramma.
+            color: palette.deepest.withValues(alpha: 0.72),
+            border: Border(
+              bottom:
+                  BorderSide(color: palette.goldSoft.withValues(alpha: 0.22)),
+            ),
           ),
-        ),
-        child: const Row(
-          children: [
-            SizedBox(width: SpacingTokens.sm),
-            // 1. IL VOLTO, e SOLO il volto. Ordine AR voce 10: il nome e'
-            // uscito dalla barra, perche' con un nome lungo si sovrapponeva
-            // al resto. Chi sono lo dice il volto, che e' anche la porta
-            // dell'account.
-            _AreaDiTocco(
-              chiave: Key('barra_volto'),
-              // **AL PRIMO TOCCO SI VA ALL'ACCOUNT.** Prima il volto apriva
-              // la barra e solo da aperta portava all'account.
-              suTocco: NavigazioneDellaBarra.allAccount,
-              // **IL VOLTO RICEVE LA VIA DALL'OSSERVATORE.** La barra vive
-              // nel `builder` di `MaterialApp`, che AVVOLGE il Navigator:
-              // qui dentro `Navigator.of(context)` non trova niente, quindi
-              // il volto non puo' usare la sua via di casa e riceve quella
-              // che passa dall'osservatore della pila.
-              child: AnelloDelLivello(
-                misuraDelVolto: 22,
-                child: PortaDellAccount(
-                  misura: 22,
-                  suTocco: NavigazioneDellaBarra.allAccount,
+          child: const Row(
+            children: [
+              SizedBox(width: SpacingTokens.sm),
+              // 1. IL VOLTO, e SOLO il volto. Ordine AR voce 10: il nome e'
+              // uscito dalla barra, perche' con un nome lungo si sovrapponeva
+              // al resto. Chi sono lo dice il volto, che e' anche la porta
+              // dell'account.
+              _AreaDiTocco(
+                chiave: Key('barra_volto'),
+                // **AL PRIMO TOCCO SI VA ALL'ACCOUNT.** Prima il volto apriva
+                // la barra e solo da aperta portava all'account.
+                suTocco: NavigazioneDellaBarra.allAccount,
+                // **IL VOLTO RICEVE LA VIA DALL'OSSERVATORE.** La barra vive
+                // nel `builder` di `MaterialApp`, che AVVOLGE il Navigator:
+                // qui dentro `Navigator.of(context)` non trova niente, quindi
+                // il volto non puo' usare la sua via di casa e riceve quella
+                // che passa dall'osservatore della pila.
+                child: AnelloDelLivello(
+                  misuraDelVolto: 22,
+                  child: PortaDellAccount(
+                    misura: 22,
+                    suTocco: NavigazioneDellaBarra.allAccount,
+                  ),
                 ),
               ),
-            ),
-            // 1-bis. IL NUMERO DEL LIVELLO, accanto al volto. Ordine CF
-            // voce 01: e' lo stesso numero che riempie l\'anello, letto
-            // dalla stessa porta, non un secondo conto.
-            NumeroDelLivello(),
-            // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
-            // PRIMO tocco.
-            Expanded(child: _PortaDegliEventiCosmici()),
-            // 3. IL BORSELLINO, moneta d'oro e saldo, che apre il borsellino
-            // al primo tocco.
-            _AreaDiTocco(
-              chiave: Key('barra_borsellino'),
-              suTocco: null,
-              child: SegnoDelBorsellino(
-                compatta: true,
-                monetaDOro: true,
-                senzaVeste: true,
-                contestoDelFoglio:
-                    NavigazioneDellaBarra.contestoDelNavigatore,
+              // 1-bis. IL NUMERO DEL LIVELLO, accanto al volto. Ordine CF
+              // voce 01: e' lo stesso numero che riempie l\'anello, letto
+              // dalla stessa porta, non un secondo conto.
+              NumeroDelLivello(),
+              // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
+              // PRIMO tocco.
+              Expanded(child: _PortaDegliEventiCosmici()),
+              // 3. IL BORSELLINO, moneta d'oro e saldo, che apre il borsellino
+              // al primo tocco.
+              _AreaDiTocco(
+                chiave: Key('barra_borsellino'),
+                suTocco: null,
+                child: SegnoDelBorsellino(
+                  compatta: true,
+                  monetaDOro: true,
+                  senzaVeste: true,
+                  contestoDelFoglio:
+                      NavigazioneDellaBarra.contestoDelNavigatore,
+                ),
               ),
-            ),
-            SizedBox(width: SpacingTokens.sm),
-          ],
+              SizedBox(width: SpacingTokens.sm),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -357,8 +353,8 @@ class _PortaDegliEventiCosmici extends StatelessWidget {
             'Eventi Cosmici',
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft),
+            style:
+                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
         ),
       ),

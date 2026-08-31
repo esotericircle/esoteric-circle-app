@@ -98,8 +98,7 @@ class ViaDelCerchio {
   /// Le cinque vie, nell'ordine in cui si leggono da sinistra a destra.
   static final List<ViaDelCerchio> tutte = List<ViaDelCerchio>.unmodifiable([
     const ViaDelCerchio._(SpecieDiVia.cerchio),
-    for (final m in Maestro.fixedOrder)
-      ViaDelCerchio._(SpecieDiVia.maestro, m),
+    for (final m in Maestro.fixedOrder) ViaDelCerchio._(SpecieDiVia.maestro, m),
     const ViaDelCerchio._(SpecieDiVia.passport),
   ]);
 

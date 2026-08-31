@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'corsa_della_barra.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -69,6 +71,17 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
   /// seguire col dito.
   double _discesa = 0;
 
+  /// **LA CORSA, DETTA A CHI LE STA SOPRA.** Ordine CI voce 03: il campo di
+  /// scrittura della chat la ascolta e si sposta con lei, cosi' sotto di lui
+  /// non resta piu' la fascia vuota. Si aggiorna insieme a `_discesa` e non
+  /// al posto suo: due sorgenti della stessa misura sarebbero due misure.
+  final ValueNotifier<CorsaBersaglio> _corsa =
+      ValueNotifier<CorsaBersaglio>(const CorsaBersaglio());
+
+  void _diciLaCorsa() {
+    _corsa.value = CorsaBersaglio(discesa: _discesa, perUnTocco: _perUnTocco);
+  }
+
   /// Vero quando il valore e' cambiato per un TOCCO e non per il dito che
   /// scorre: solo allora il cambio si anima, perche' il dito non c'e' e non
   /// c'e' niente da seguire.
@@ -98,6 +111,7 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
   @override
   void dispose() {
     widget.observatore.cambi.removeListener(_pilaCambiata);
+    _corsa.dispose();
     super.dispose();
   }
 
@@ -112,6 +126,7 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
           // prima apparteneva a un'altra lettura.
           _discesa = 0;
           _perUnTocco = true;
+          _diciLaCorsa();
         });
       }
     });
@@ -172,12 +187,14 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
                 // Con Riduci Movimento non si segue niente: si commuta, che e'
                 // esattamente cio' che quell'impostazione chiede.
                 _discesa = dito < 0 ? BarraDelCerchio.corsa : 0;
+                // La riga che dichiara la corsa sta in fondo al setState, e
+                // vale per tutti e due i rami.
               } else {
                 // Dito verso l'alto, cioe' si legge: la barra scende di
                 // altrettanto. Dito verso il basso: risale di altrettanto.
-                _discesa =
-                    (_discesa - dito).clamp(0.0, BarraDelCerchio.corsa);
+                _discesa = (_discesa - dito).clamp(0.0, BarraDelCerchio.corsa);
               }
+              _diciLaCorsa();
             });
             return false;
           },
@@ -188,7 +205,14 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
               viewPadding: mq.viewPadding
                   .copyWith(bottom: mq.viewPadding.bottom + quantoOccupa),
             ),
-            child: widget.child,
+            // **LO SPAZIO RISERVATO RESTA COSTANTE**, cioe' la regola del 6
+            // agosto 2026 non si tocca: qui sotto passa solo la NOTIZIA di
+            // quanto la barra e' scesa, e chi la ascolta si sposta
+            // dipingendosi altrove, senza che niente venga rilayato.
+            child: CorsaDellaBarra(
+              notifier: _corsa,
+              child: widget.child,
+            ),
           ),
         ),
         if (siVede)
@@ -243,19 +267,19 @@ class _LaBarra extends StatelessWidget {
       maestro: maestro,
       neutro: schermata == 'AskMaestriScreen',
       child: // **IL BERSAGLIO DEL TERZO FUMETTO. Ordine CB voce 02.**
-      AncoraDelPrimoApprodo(
-      nome: BersagliDelPrimoApprodo.esplora,
-      child: SantuarioBottomBar(
-        view: nav.view,
-        // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista; fuori dal guscio
-      // lo dice il Maestro di cui si sta guardando il dominio o la chat, che e'
-      // lo stesso dato da cui la palette prende il colore.
-        maestroCorrente: maestro,
-        fuoriDalGuscio: fuoriDalGuscio,
-        onSantuario: () => NavigazioneDellaBarra.alCerchio(context),
-        onMaestro: (m) => NavigazioneDellaBarra.alDominio(context, m),
-        onPassport: () => NavigazioneDellaBarra.alPassport(context),
-      ),
+          AncoraDelPrimoApprodo(
+        nome: BersagliDelPrimoApprodo.esplora,
+        child: SantuarioBottomBar(
+          view: nav.view,
+          // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista; fuori dal guscio
+          // lo dice il Maestro di cui si sta guardando il dominio o la chat, che e'
+          // lo stesso dato da cui la palette prende il colore.
+          maestroCorrente: maestro,
+          fuoriDalGuscio: fuoriDalGuscio,
+          onSantuario: () => NavigazioneDellaBarra.alCerchio(context),
+          onMaestro: (m) => NavigazioneDellaBarra.alDominio(context, m),
+          onPassport: () => NavigazioneDellaBarra.alPassport(context),
+        ),
       ),
     );
   }
@@ -492,8 +516,7 @@ class NavigazioneDellaBarra {
     apriUnaVoltaSola(
       destinazione: DestinazioneDominio(maestro),
       quandoCiSiMuove: () => controller.selectMaestro(maestro),
-      costruisci: () =>
-          DomainScreen.route(maestro: maestro, services: servizi),
+      costruisci: () => DomainScreen.route(maestro: maestro, services: servizi),
     );
   }
 

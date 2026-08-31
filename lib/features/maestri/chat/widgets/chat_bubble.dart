@@ -71,7 +71,6 @@ class ChatBubble extends StatefulWidget {
   /// Nullo quando non c'e' un numero da dire.
   final String? residuoDeiConfronti;
 
-
   /// Vero se questa risposta si puo' raccogliere, cioe' non e' piu' quella
   /// viva. La regola sta in `RaccoltaDelleRisposte`, qui arriva gia' decisa.
   final bool siPuoRaccogliere;
@@ -105,7 +104,8 @@ class ChatBubble extends StatefulWidget {
   /// del cosmo mette una stella, quindi le stesse tinte si fondono in anticipo
   /// sul fondo della palette. A occhio la superficie e' identica, ma sotto non
   /// passa piu' niente.
-  static List<Color> superficieDi(MaestroPalette palette, {required bool isUser}) {
+  static List<Color> superficieDi(MaestroPalette palette,
+      {required bool isUser}) {
     // LA TESSERA DELLA PERSONA E' NEUTRA E UNA SOLA, ordine 2163 voce 8:
     // prima era l'oro al 20 per cento composto sul fondale della casa, che
     // a video usciva verde oliva, un colore di nessuna palette, quasi
@@ -130,8 +130,7 @@ class ChatBubble extends StatefulWidget {
     const tinteDelMaestro = [0.95, 0.80];
     return [
       Color.alphaBlend(
-          palette.surfaceElevated.withValues(alpha: tinteDelMaestro[0]),
-          fondo),
+          palette.surfaceElevated.withValues(alpha: tinteDelMaestro[0]), fondo),
       Color.alphaBlend(
           palette.surface.withValues(alpha: tinteDelMaestro[1]), fondo),
     ];
@@ -231,9 +230,8 @@ class _ChatBubbleState extends State<ChatBubble> {
                                   message.text,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TypographyTokens.didascalia()
-                                      .copyWith(
-                                          color: ColorTokens.textSecondary),
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: ColorTokens.textSecondary),
                                 ),
                         ),
                         FreccettaDelCollasso(
@@ -250,259 +248,264 @@ class _ChatBubbleState extends State<ChatBubble> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                TestoCheSiScrive(
-                  key: _chiaveDelTesto,
-                  // LO STRATO CHE SI STA LEGGENDO, e il punto che decide dove
-                  // La bolla non taglia da sola: se tagliasse qui, una seconda
-                  // superficie che mostra la stessa lettura taglierebbe in un
-                  // altro punto, e il primo strato non sarebbe piu' lo stesso
-                  // testo a seconda di dove lo si legge.
-                  // IL CORPO, SENZA LA RIGA DEL CONSIGLIO.
-                  //
-                  // Il consiglio si toglie da qui e si rimette in fondo alla
-                  // bolla, sotto tutto: e' l'unico modo perche' resti l'ultima
-                  // riga anche dopo che il seguito e' arrivato. Un consiglio in
-                  // mezzo al testo non e' piu' un consiglio.
-                  //
-                  // **Cosa e' sparito da qui.** Il testo veniva tagliato in
-                  // due strati da `DueStratiDellaLettura`, che cercava il
-                  // confine dentro una risposta lunga: adesso i due pezzi
-                  // arrivano gia' separati, il breve in `text` e il seguito in
-                  // `seguito`, e quel taglio non serve piu' a nessuno.
-                  testo: ConsiglioFinale.corpoDa(message.text),
-                  // A RIVELAZIONE FATTA NON SI RISCRIVE.
-                  //
-                  // Il testo cambia, da breve a intero, e la macchina da
-                  // scrivere riparte quando il testo cambia: senza questa
-                  // riga, toccare la freccia avrebbe fatto ricomparire da capo
-                  // anche le righe gia' lette. Il secondo strato e' gia'
-                  // scritto, quindi compare, non si scrive.
-                  attiva: scrive && !message.approfondita,
-                  durataMassima: widget.durataMassimaDiScrittura,
-                  stile: TypographyTokens.lettura().copyWith(
-                    color: isUser
-                        ? ColorTokens.textPrimary
-                        : palette.textPrimary,
-                    height: 1.5,
-                  ),
-                  // L'ENFASI SUI NOMI NOTI E' NOSTRA, e non del modello.
-                  //
-                  // Nella bolla dell'utente no: li' scrive la persona, e
-                  // colorarle le parole sarebbe correggerla. E nemmeno quando
-                  // non c'e' niente da mettere in risalto: comporre un testo
-                  // ricco senza motivo toglie il `data` al widget, e ogni prova
-                  // che cerca una frase a schermo smette di trovarla.
-                  componi: isUser ||
-                          !TestoDelResponso.portaUnNomeNoto(message.text)
-                      ? null
-                      : (testo, stile) => TextSpan(
-                            children: [
-                              for (final pezzo
-                                  in TestoDelResponso.pezzi(testo))
-                                TextSpan(
-                                  text: pezzo.testo,
-                                  style: pezzo.inOro
-                                      ? stile.copyWith(
-                                          color: palette.goldSoft,
-                                          fontWeight: FontWeight.w600,
-                                        )
-                                      : stile,
+                      TestoCheSiScrive(
+                        key: _chiaveDelTesto,
+                        // LO STRATO CHE SI STA LEGGENDO, e il punto che decide dove
+                        // La bolla non taglia da sola: se tagliasse qui, una seconda
+                        // superficie che mostra la stessa lettura taglierebbe in un
+                        // altro punto, e il primo strato non sarebbe piu' lo stesso
+                        // testo a seconda di dove lo si legge.
+                        // IL CORPO, SENZA LA RIGA DEL CONSIGLIO.
+                        //
+                        // Il consiglio si toglie da qui e si rimette in fondo alla
+                        // bolla, sotto tutto: e' l'unico modo perche' resti l'ultima
+                        // riga anche dopo che il seguito e' arrivato. Un consiglio in
+                        // mezzo al testo non e' piu' un consiglio.
+                        //
+                        // **Cosa e' sparito da qui.** Il testo veniva tagliato in
+                        // due strati da `DueStratiDellaLettura`, che cercava il
+                        // confine dentro una risposta lunga: adesso i due pezzi
+                        // arrivano gia' separati, il breve in `text` e il seguito in
+                        // `seguito`, e quel taglio non serve piu' a nessuno.
+                        testo: ConsiglioFinale.corpoDa(message.text),
+                        // A RIVELAZIONE FATTA NON SI RISCRIVE.
+                        //
+                        // Il testo cambia, da breve a intero, e la macchina da
+                        // scrivere riparte quando il testo cambia: senza questa
+                        // riga, toccare la freccia avrebbe fatto ricomparire da capo
+                        // anche le righe gia' lette. Il secondo strato e' gia'
+                        // scritto, quindi compare, non si scrive.
+                        attiva: scrive && !message.approfondita,
+                        durataMassima: widget.durataMassimaDiScrittura,
+                        stile: TypographyTokens.lettura().copyWith(
+                          color: isUser
+                              ? ColorTokens.textPrimary
+                              : palette.textPrimary,
+                          height: 1.5,
+                        ),
+                        // L'ENFASI SUI NOMI NOTI E' NOSTRA, e non del modello.
+                        //
+                        // Nella bolla dell'utente no: li' scrive la persona, e
+                        // colorarle le parole sarebbe correggerla. E nemmeno quando
+                        // non c'e' niente da mettere in risalto: comporre un testo
+                        // ricco senza motivo toglie il `data` al widget, e ogni prova
+                        // che cerca una frase a schermo smette di trovarla.
+                        componi: isUser ||
+                                !TestoDelResponso.portaUnNomeNoto(message.text)
+                            ? null
+                            : (testo, stile) => TextSpan(
+                                  children: [
+                                    for (final pezzo
+                                        in TestoDelResponso.pezzi(testo))
+                                      TextSpan(
+                                        text: pezzo.testo,
+                                        style: pezzo.inOro
+                                            ? stile.copyWith(
+                                                color: palette.goldSoft,
+                                                fontWeight: FontWeight.w600,
+                                              )
+                                            : stile,
+                                      ),
+                                  ],
                                 ),
+                      ),
+                      // Un ripiego lo dichiara la bolla stessa, sotto il testo: la
+                      // persona deve poter distinguere a colpo d'occhio la voce del
+                      // Maestro da cio' che l'app ha messo al suo posto. Senza questa
+                      // riga il ripiego si legge come una risposta.
+                      if (message.ripiego) ...[
+                        const SizedBox(height: SpacingTokens.xs),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.cloud_off_outlined,
+                              size: 13,
+                              color: ColorTokens.textMuted,
+                            ),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                RipiegoDelMaestro.etichettaDi(maestro),
+                                style: TypographyTokens.didascalia()
+                                    .copyWith(color: ColorTokens.textMuted),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      if (message.intentId != null) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        _IntentButton(
+                          intentId: message.intentId!,
+                          palette: palette,
+                          onTap: () => onOpenIntent?.call(message.intentId!),
+                        ),
+                      ],
+                      // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
+                      //
+                      // E' il posto che il vincolo del consiglio decide: la bolla e'
+                      // corpo, poi seguito, poi stella. Incollarlo in coda a `text`
+                      // lo avrebbe messo SOTTO il consiglio, cioe' avrebbe reso il
+                      // consiglio una frase in mezzo al testo.
+                      //
+                      // **E per una consegna stava piu' in basso davvero.** Il blocco
+                      // era scritto DOPO la riga del consiglio e dopo "Vai piu' a
+                      // fondo": il commento diceva "fra il corpo e il consiglio", la
+                      // colonna diceva un'altra cosa, e chi toccava la freccia si
+                      // trovava il seguito sotto la stella, cioe' sotto la firma
+                      // della lettura. Adesso il posto e' quello che il commento
+                      // dichiara, e una prova lo sorveglia.
+                      //
+                      // Non si scrive a macchina: e' arrivato adesso, ma la persona
+                      // sta gia' leggendo, e vedere ricomparire lettera per lettera
+                      // sotto gli occhi cio' che si sta leggendo distrae.
+                      if (message.seguito != null &&
+                          message.seguito!.trim().isNotEmpty) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        ParagrafiDiLettura(
+                            key: const Key('chat_seguito'),
+                            testo: message.seguito!,
+                            stile: TypographyTokens.lettura().copyWith(
+                              color: isUser
+                                  ? ColorTokens.textPrimary
+                                  : palette.textPrimary,
+                              height: 1.5,
+                            )),
+                      ],
+                      // L'ATTESA DEL SEGUITO, DENTRO LA BOLLA.
+                      //
+                      // **Piccola apposta.** Mentre il seguito scende, la persona sta
+                      // leggendo il primo strato: se qui comparisse la scena piena,
+                      // o anche solo qualcosa di grosso, le si toglierebbe di sotto
+                      // agli occhi il testo che sta leggendo. Una riga sottile in
+                      // fondo alla bolla dice che sta arrivando dell'altro senza
+                      // spostare una parola di quello che c'e' gia'.
+                      if (message.seguitoInArrivo) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        Row(
+                          key: const Key('chat_seguito_in_arrivo'),
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: 12,
+                              height: 12,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    palette.goldSoft),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Sto scendendo più a fondo',
+                              style: TypographyTokens.didascalia()
+                                  .copyWith(color: palette.goldSoft),
+                            ),
+                          ],
+                        ),
+                      ],
+                      // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
+                      //
+                      // Sta dopo il corpo e dopo il seguito, e PRIMA dei comandi.
+                      //
+                      // **La prima stesura lo metteva dopo "Vai piu' a fondo", e
+                      // nell'anteprima si e' visto perche' e' sbagliato:** la
+                      // freccia in giu' promette "qui sotto c'e' altro testo", e
+                      // sotto ci finiva il consiglio, cioe' la freccia sembrava
+                      // indicare lui. I comandi non sono testo del Maestro, sono
+                      // cose che si toccano, e vanno dopo tutto cio' che ha detto.
+                      if (!isUser && message.portaUnResponso)
+                        RigaDelConsiglio(
+                          maestro: maestro,
+                          testo: message.text,
+                          quando: message.at ?? DateTime.now(),
+                        ),
+                      // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
+                      // bolla: la profondita' non si sceglie prima di leggere, si
+                      // chiede dopo aver letto.
+                      //
+                      // **LA FRECCIA IN GIU' MANTIENE CIO' CHE PROMETTE.** Prima
+                      // buttava la risposta letta e ne chiedeva un'altra al Maestro,
+                      // con tutta l'attesa da capo: un'icona che dice "qui sotto
+                      // c'e' altro testo, te lo mostro" mentre in realta' ricomincia
+                      // da zero. Adesso il testo c'e' gia', e il tocco lo scopre.
+                      if (onApprofondisci != null) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        GestureDetector(
+                          key: const Key('chat_approfondisci'),
+                          onTap: onApprofondisci,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.expand_more_rounded,
+                                  color: palette.goldSoft, size: 18),
+                              const SizedBox(width: 4),
+                              Text(
+                                'Vai più a fondo',
+                                style: TypographyTokens.didascalia(weight: 600)
+                                    .copyWith(color: palette.goldSoft),
+                              ),
                             ],
                           ),
-                ),
-                // Un ripiego lo dichiara la bolla stessa, sotto il testo: la
-                // persona deve poter distinguere a colpo d'occhio la voce del
-                // Maestro da cio' che l'app ha messo al suo posto. Senza questa
-                // riga il ripiego si legge come una risposta.
-                if (message.ripiego) ...[
-                  const SizedBox(height: SpacingTokens.xs),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.cloud_off_outlined,
-                        size: 13,
-                        color: ColorTokens.textMuted,
-                      ),
-                      const SizedBox(width: 4),
-                      Flexible(
-                        child: Text(
-                          RipiegoDelMaestro.etichettaDi(maestro),
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: ColorTokens.textMuted),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-                if (message.intentId != null) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  _IntentButton(
-                    intentId: message.intentId!,
-                    palette: palette,
-                    onTap: () => onOpenIntent?.call(message.intentId!),
-                  ),
-                ],
-                // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
-                //
-                // E' il posto che il vincolo del consiglio decide: la bolla e'
-                // corpo, poi seguito, poi stella. Incollarlo in coda a `text`
-                // lo avrebbe messo SOTTO il consiglio, cioe' avrebbe reso il
-                // consiglio una frase in mezzo al testo.
-                //
-                // **E per una consegna stava piu' in basso davvero.** Il blocco
-                // era scritto DOPO la riga del consiglio e dopo "Vai piu' a
-                // fondo": il commento diceva "fra il corpo e il consiglio", la
-                // colonna diceva un'altra cosa, e chi toccava la freccia si
-                // trovava il seguito sotto la stella, cioe' sotto la firma
-                // della lettura. Adesso il posto e' quello che il commento
-                // dichiara, e una prova lo sorveglia.
-                //
-                // Non si scrive a macchina: e' arrivato adesso, ma la persona
-                // sta gia' leggendo, e vedere ricomparire lettera per lettera
-                // sotto gli occhi cio' che si sta leggendo distrae.
-                if (message.seguito != null &&
-                    message.seguito!.trim().isNotEmpty) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  ParagrafiDiLettura(key: const Key('chat_seguito'), testo: message.seguito!, stile: TypographyTokens.lettura().copyWith(
-                      color: isUser
-                          ? ColorTokens.textPrimary
-                          : palette.textPrimary,
-                      height: 1.5,
-                    )),
-                ],
-                // L'ATTESA DEL SEGUITO, DENTRO LA BOLLA.
-                //
-                // **Piccola apposta.** Mentre il seguito scende, la persona sta
-                // leggendo il primo strato: se qui comparisse la scena piena,
-                // o anche solo qualcosa di grosso, le si toglierebbe di sotto
-                // agli occhi il testo che sta leggendo. Una riga sottile in
-                // fondo alla bolla dice che sta arrivando dell'altro senza
-                // spostare una parola di quello che c'e' gia'.
-                if (message.seguitoInArrivo) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Row(
-                    key: const Key('chat_seguito_in_arrivo'),
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        width: 12,
-                        height: 12,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 1.5,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(palette.goldSoft),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Sto scendendo più a fondo',
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: palette.goldSoft),
-                      ),
-                    ],
-                  ),
-                ],
-                // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
-                //
-                // Sta dopo il corpo e dopo il seguito, e PRIMA dei comandi.
-                //
-                // **La prima stesura lo metteva dopo "Vai piu' a fondo", e
-                // nell'anteprima si e' visto perche' e' sbagliato:** la
-                // freccia in giu' promette "qui sotto c'e' altro testo", e
-                // sotto ci finiva il consiglio, cioe' la freccia sembrava
-                // indicare lui. I comandi non sono testo del Maestro, sono
-                // cose che si toccano, e vanno dopo tutto cio' che ha detto.
-                if (!isUser && message.portaUnResponso)
-                  RigaDelConsiglio(
-                    maestro: maestro,
-                    testo: message.text,
-                    quando: message.at ?? DateTime.now(),
-                  ),
-                // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
-                // bolla: la profondita' non si sceglie prima di leggere, si
-                // chiede dopo aver letto.
-                //
-                // **LA FRECCIA IN GIU' MANTIENE CIO' CHE PROMETTE.** Prima
-                // buttava la risposta letta e ne chiedeva un'altra al Maestro,
-                // con tutta l'attesa da capo: un'icona che dice "qui sotto
-                // c'e' altro testo, te lo mostro" mentre in realta' ricomincia
-                // da zero. Adesso il testo c'e' gia', e il tocco lo scopre.
-                if (onApprofondisci != null) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  GestureDetector(
-                    key: const Key('chat_approfondisci'),
-                    onTap: onApprofondisci,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.expand_more_rounded,
-                            color: palette.goldSoft, size: 18),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Vai più a fondo',
-                          style: TypographyTokens.didascalia(weight: 600)
-                              .copyWith(color: palette.goldSoft),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-                // LE ALTRE VOCI, dentro la bolla della risposta a cui si
-                // riferiscono.
-                //
-                // Era un'icona a bilancia nell'intestazione: dorata, in una
-                // schermata di astrologia, si leggeva come il SEGNO della
-                // Bilancia. E portava altrove, dove la conversazione
-                // ricominciava da zero. Qui invece i due volti dicono da soli
-                // chi sono le altre voci, e al tocco arrivano sotto.
-                if (onChiediAgliAltri != null && altreVoci.isNotEmpty) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  GestureDetector(
-                    key: const Key('chat_altre_voci'),
-                    onTap: onChiediAgliAltri,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (final altro in altreVoci) ...[
-                          MaestroBust(maestro: altro, ring: 26, popOut: false),
-                          const SizedBox(width: 4),
+                      // LE ALTRE VOCI, dentro la bolla della risposta a cui si
+                      // riferiscono.
+                      //
+                      // Era un'icona a bilancia nell'intestazione: dorata, in una
+                      // schermata di astrologia, si leggeva come il SEGNO della
+                      // Bilancia. E portava altrove, dove la conversazione
+                      // ricominciava da zero. Qui invece i due volti dicono da soli
+                      // chi sono le altre voci, e al tocco arrivano sotto.
+                      if (onChiediAgliAltri != null &&
+                          altreVoci.isNotEmpty) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        GestureDetector(
+                          key: const Key('chat_altre_voci'),
+                          onTap: onChiediAgliAltri,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              for (final altro in altreVoci) ...[
+                                MaestroBust(
+                                    maestro: altro, ring: 26, popOut: false),
+                                const SizedBox(width: 4),
+                              ],
+                              const SizedBox(width: 2),
+                              Text(
+                                'Chiedi anche agli altri',
+                                style: TypographyTokens.didascalia(weight: 600)
+                                    .copyWith(color: palette.goldSoft),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // IL RESIDUO SI VEDE PRIMA DEL TOCCO.
+                        //
+                        // Chi tocca deve sapere cosa spende prima di spenderlo. La
+                        // frase la compone `QuestionAllowance.comeSiDiceIlResiduo`,
+                        // che tiene l'accordo: "non te ne resta nessuno" a zero,
+                        // "te ne resta 1" a uno, "te ne restano 3" da due in su.
+                        // Qui non si sceglie niente, si mostra.
+                        //
+                        // Nulla quando non c'e' un numero da dire: senza il piano
+                        // non e' un residuo, e' un lucchetto, e lo dice la porta.
+                        if (residuoDeiConfronti != null) ...[
+                          const SizedBox(height: 2),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: Text(
+                              residuoDeiConfronti,
+                              key: const Key('chat_residuo_confronti'),
+                              style: TypographyTokens.etichetta().copyWith(
+                                color: ColorTokens.textSecondary,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                          ),
                         ],
-                        const SizedBox(width: 2),
-                        Text(
-                          'Chiedi anche agli altri',
-                          style: TypographyTokens.didascalia(weight: 600)
-                              .copyWith(color: palette.goldSoft),
-                        ),
                       ],
-                    ),
-                  ),
-                  // IL RESIDUO SI VEDE PRIMA DEL TOCCO.
-                  //
-                  // Chi tocca deve sapere cosa spende prima di spenderlo. La
-                  // frase la compone `QuestionAllowance.comeSiDiceIlResiduo`,
-                  // che tiene l'accordo: "non te ne resta nessuno" a zero,
-                  // "te ne resta 1" a uno, "te ne restano 3" da due in su.
-                  // Qui non si sceglie niente, si mostra.
-                  //
-                  // Nulla quando non c'e' un numero da dire: senza il piano
-                  // non e' un residuo, e' un lucchetto, e lo dice la porta.
-                  if (residuoDeiConfronti != null) ...[
-                    const SizedBox(height: 2),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: Text(
-                        residuoDeiConfronti,
-                        key: const Key('chat_residuo_confronti'),
-                        style: TypographyTokens.etichetta().copyWith(
-                          color: ColorTokens.textSecondary,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
                     ],
                   ),
                 ),
@@ -560,7 +563,8 @@ class _ChatBubbleState extends State<ChatBubble> {
           children: [
             Flexible(child: bolla),
             const SizedBox(width: SpacingTokens.xs),
-            UserAvatar.forUser(context, size: 28, key: const Key('chat_user_avatar')),
+            UserAvatar.forUser(context,
+                size: 28, key: const Key('chat_user_avatar')),
           ],
         ),
       );
