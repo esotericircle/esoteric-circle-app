@@ -101,6 +101,6 @@ class PennaVeraDelMese extends PennaDelMese {
       'che raccontino il suo mese guardando quei numeri: dove è tornata '
       'spesso, cosa ha lasciato stare, cosa è cambiato da una settimana '
       'all\'altra. Parla a lei in seconda persona, con parole di uso comune. '
-      'Non inventare nulla che i numeri non dicano, e non parlare della sua '
+      'Non inventare nulla che i numeri non dicano. Non parlare della sua '
       'vita fuori dal Cerchio: tu vedi il cammino, non la persona.';
 }

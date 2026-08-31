@@ -174,7 +174,10 @@ void main() {
       // di rune, tre al giorno per il Viandante e illimitate dal Tier 1.
       // VENTISETTE dall'ordine AN voce 07: la riga della dote in Eos alla
       // sottoscrizione entra nella pagina come valore del piano.
-      expect(PlanCatalog.matrix.length, 27);
+      // VENTOTTO dall'ordine CG voce 16: la riga delle notifiche del Cerchio,
+      // premium dal primo piano a pagamento con un mese di prova per chi non
+      // paga. Il numero segue il dato.
+      expect(PlanCatalog.matrix.length, 28);
       final gettate = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

@@ -130,11 +130,11 @@ class ArtiConResponso {
       doveViveIlResponso:
           'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart',
       apertura: 'sigillo',
-      perche: 'NON HA UN CONDIVIDI, e non e\' una dimenticanza: il Sigillo '
+      perche: 'NON HA UN CONDIVIDI. Non è una dimenticanza: il Sigillo '
           'non produce una carta da mandare, produce un segno tracciato col '
           'dito. Inventargli un\'immagine da condividere sarebbe una '
           'funzione nuova e non questa voce. Custodisci e Parlane ci sono, '
-          'perche\' quelli non hanno bisogno di un\'immagine.',
+          'perché quelli non hanno bisogno di un\'immagine.',
     ),
     // --- I CINQUE DONI DEL GIORNO -------------------------------------
     // Non sono arti dello scaffale, ma un responso lo producono eccome, ed e'
@@ -159,9 +159,9 @@ class ArtiConResponso {
       titolo: 'Arcano del Giorno',
       doveViveIlResponso: 'lib/features/rituals/day_oracle_screen.dart',
       apertura: 'oracolo',
-      perche: 'NON HA UN CONDIVIDI, e non e\' una dimenticanza: l\'artwork '
-          'del mazzo e\' arte del Cerchio e non un responso della persona, '
-          'quindi non c\'e\' una carta sua da mandare. Custodisci e Parlane '
+      perche: 'NON HA UN CONDIVIDI. Non è una dimenticanza: l\'artwork '
+          'del mazzo è arte del Cerchio e non un responso della persona, '
+          'quindi non c\'è una carta sua da mandare. Custodisci e Parlane '
           'ci sono.',
     ),
     ArteConResponso(
@@ -189,26 +189,26 @@ class ArtiConResponso {
     CondivideSenzaResponso(
       dove: 'lib/features/sigilli/celebrazione.dart',
       perche: 'condivide un TRAGUARDO acceso, non un responso. Il traguardo '
-          'vive gia\' per sempre nel Diario del Cammino e nella mappa dei '
+          'vive già per sempre nel Diario del Cammino e nella mappa dei '
           'sentieri: custodirlo una seconda volta sarebbe un secondo '
           'magazzino della stessa cosa.',
     ),
     CondivideSenzaResponso(
       dove: 'lib/features/identity/circle_seal_screen.dart',
-      perche: 'condivide il Sigillo del Cerchio, che e\' l\'identita\' della '
+      perche: 'condivide il Sigillo del Cerchio, che è l\'identità della '
           'persona e non un responso: non nasce da una domanda e non cambia '
           'da un giorno all\'altro.',
     ),
     CondivideSenzaResponso(
       dove: 'lib/features/santuario/sky_overview_screen.dart',
       perche: 'condivide la veduta del cielo di adesso, che e\' un dato '
-          'astronomico e non una lettura: il cielo di stasera lo puo\' '
+          'astronomico e non una lettura: il cielo di stasera lo può '
           'ridisegnare chiunque in qualunque momento, quindi non c\'e\' '
           'niente da custodire.',
     ),
     CondivideSenzaResponso(
       dove: 'lib/features/account/account_screen.dart',
-      perche: 'e\' lo scarico dei tuoi dati, che manda dei file e non un '
+      perche: 'è lo scarico dei tuoi dati, che manda dei file e non un '
           'responso.',
     ),
   ];
@@ -216,9 +216,9 @@ class ArtiConResponso {
   /// **LE ARTI VIVE CHE UN RESPONSO NON LO PRODUCONO.**
   static const Map<String, String> senzaResponso = {
     'meditation': 'la meditazione non produce un responso, produce un tempo '
-        'passato: non c\'e\' nessun testo da custodire ne\' da portare in '
-        'chat, e un pulsante che promettesse di parlarne aprirebbe una '
-        'conversazione su niente.',
+        'passato: non c\'è nessun testo da custodire né da portare in chat. '
+        'Un pulsante che promettesse di parlarne aprirebbe una conversazione '
+        'su niente.',
   };
 
   static ArteConResponso? di(String arte) {

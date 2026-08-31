@@ -94,7 +94,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'sul telefono e sul server: non c\'è un periodo di attesa.\n\n'
         'Del testo delle conversazioni teniamo per intero le più recenti; '
         'dopo due settimane ne conserviamo un riassunto per Maestro e per '
-        'settimana insieme ai fatti che ne emergono, e il testo integrale '
+        'settimana insieme ai fatti che ne emergono; il testo integrale '
         'sparisce comunque ai 12 mesi. I riassunti e i fatti restano oltre, '
         'perché sono ciò che permette al Maestro di riconoscerti. '
         'L\'indice dei Ricordi del Cerchio, cioè le righe che dicono quando '
@@ -104,7 +104,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'perché sono esattamente ciò che hai dichiarato di voler tenere. '
         'Per mandarti le notifiche del Cerchio anche ad app chiusa teniamo il '
         'gettone del tuo apparecchio, insieme ai Doni che hai acceso, alle '
-        'ore che hai scelto e al tuo fuso orario: senza quelle tre cose non '
+        'ore che hai scelto, al tuo fuso orario: senza quelle tre cose non '
         'sapremmo a che ora raggiungerti. Il gettone sparisce quando spegni '
         'le notifiche e quando cancelli il tuo account.',
   ),

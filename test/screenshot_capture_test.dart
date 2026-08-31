@@ -6441,6 +6441,9 @@ void main() {
         ],
         child: MaterialApp(
           theme: AppTheme.dark(),
+          // **IL NASTRO SPENTO**: un'anteprima col nastro di debug e' una
+          // schermata che l'app non produce, e la guardia lo ha trovato.
+          debugShowCheckedModeBanner: false,
           home: MaestroScope(
             maestro: Maestro.medora,
             child: RicordiScreen(
@@ -6531,6 +6534,7 @@ void main() {
       key: rootKey,
       child: MaterialApp(
         theme: AppTheme.dark(),
+        debugShowCheckedModeBanner: false,
         home: MaestroScope(
           maestro: Maestro.caligo,
           child: RicordoApertoScreen(

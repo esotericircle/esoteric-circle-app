@@ -457,16 +457,20 @@ class _CasellaDelMese extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // **SI SPEGNE LA CASELLA, NON LE PAROLE.** Il primo tentativo
+            // sbiadiva anche il nome del mese e il suo zero, e la guardia dei
+            // grigi lo ha bocciato a 3,87 contro il 4,5 che la legge chiede:
+            // un mese vuoto resta un mese, e il suo nome si deve leggere. La
+            // differenza fra vuoto e pieno la fa il riquadro, che e' il
+            // livello visivo, non il testo.
             Text(nome,
                 style: TypographyTokens.etichetta().copyWith(
-                    color: vuoto
-                        ? ColorTokens.textSecondary.withValues(alpha: 0.5)
-                        : null)),
+                    color: vuoto ? ColorTokens.textSecondary : null)),
             const SizedBox(height: SpacingTokens.xs),
             Text('${riassunto.quanteVoci}',
                 style: TypographyTokens.titoloScheda().copyWith(
                     color: vuoto
-                        ? ColorTokens.textSecondary.withValues(alpha: 0.5)
+                        ? ColorTokens.textSecondary
                         : ColorTokens.textPrimary)),
           ],
         ),
