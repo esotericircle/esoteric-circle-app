@@ -25,7 +25,7 @@ Porta le tre regole degli ordini precedenti:
 - **CG.04** Il ricordo aperto. **CHIUSA.**
 - **CG.05** La ricerca. **CHIUSA.**
 - **CG.06** Custodisci, e la custodia automatica di cio' che si condivide. **CHIUSA.**
-- **CG.07** Le tue Carte. **CHIUSA.**
+- **CG.07** Le tue card, la galleria dei responsi custoditi. **CHIUSA**, in due stesure.
 - **CG.08** Parlane col Maestro sotto ogni arte. **CHIUSA.**
 - **CG.09** La memoria a strati, e la sfocatura settimanale. **CHIUSA.**
 - **CG.10** I conti delle arti si tengono, i contenuti no. **CHIUSA.**
@@ -63,7 +63,7 @@ si chiude quando quel comando e' passato.
 | CG.04 | la chat carica 40 turni e non risale | il turno si riapre per identificativo, non per posizione |
 | CG.05 | niente | ricerca su 1.200 voci in **4 millesimi** contro una soglia di 100, zero letture |
 | CG.06 | 3 arti su 13 salvavano il responso, e nessuna offriva Custodisci | **13 su 13**, e la condivisione avvenuta custodisce da sola |
-| CG.07 | niente | una pastiglia sullo stesso magazzino, a griglia |
+| CG.07 | niente | una pastiglia sullo stesso magazzino, a griglia, e **8 arti su 13** ridisegnano la loro arte dai dati custoditi: **24 file** verificati a uno a uno nel bundle |
 | CG.08 | **6 arti su 13** avevano il pulsante verso la chat | **13 su 13**, e il responso entra nel primo turno |
 | CG.09 | distillazione a ogni tre turni, **0,029 dollari** per utente al mese | lotti settimanali, **0,0084**, e 12.014 stringhe censite con **zero** promesse di memoria integrale |
 | CG.10 | nessuna guardia dal catalogo al conto | **9 arti vive su 9** col loro conto, piu' i cinque Doni |
@@ -200,6 +200,66 @@ nuova e non questa voce.** Custodisci e Parlane ci sono lo stesso.
 **E la forma dorata.** Tre arti di Medora avevano gia' un Condividi in oro
 pieno con la sua attesa: e' l'invito che chiude quei responsi, non un
 accidente. Una porta sola non vuol dire un aspetto solo.
+
+### CG.07, la griglia mostra l'ARTE e non un estratto, e si chiama Le tue card
+
+**La prima stesura era un elenco travestito da griglia.** Ogni riquadro
+portava data, titolo e le prime righe del responso: informazioni giuste, forma
+sbagliata. Le parole dell'ordine erano "la ricerca delle **card** generate e
+condivise", e una card generata e' un'immagine.
+
+**Il fondatore lo ha visto guardando la schermata**, il 31 agosto 2026, e ha
+posto anche la domanda del nome: "io chiamerei le tue card e non le tue carte,
+e' un inglesismo ma non si confonde con le carte dei tarocchi".
+
+**Sul nome ho riportato tre fatti e una raccomandazione.** Primo, la
+collisione e' reale: in un'app la cui arte di punta e' la cartomanzia,
+"Carte" e' la parola del mazzo. Secondo, "card" non era un inglesismo nuovo:
+compare gia' in dieci punti di testo mostrato, in `art_catalog`,
+`plan_catalog`, la privacy policy, i permessi e l'oroscopo, e ogni volta vuol
+dire **l'immagine da condividere**. Terzo, e qui stava il problema vero,
+quella pastiglia allora mostrava riquadri di testo: "Le tue card" avrebbe
+promesso immagini e consegnato paragrafi, cioe' scambiato una collisione con
+una piu' sottile. La raccomandazione era quindi doppia: o il nome del gesto
+che la riempie, "I Custoditi", o l'artwork vero e allora "Le tue card". Il
+fondatore ha scelto la seconda, aggiungendo la richiesta che chiude il
+cerchio: "sarebbe l'ideale che al click si potesse rivedere l'artwork che hai
+gia' creato a suo tempo".
+
+**Cosa e' stato costruito, e la misura.** Una porta sola,
+`lib/core/ricordi/artwork_del_ricordo.dart`, che dai dati custoditi ritrova i
+file dell'arte. **Tredici arti con un responso: otto ridisegnano la loro arte,
+cinque no, e ognuno dei cinque no porta il motivo scritto.** I dati per
+ridisegnare c'erano gia', ed e' una scelta vecchia di `RicordoCustodito`: si
+conservano i dati e non l'immagine, perche' un'immagine per responso
+riempirebbe il telefono mentre l'arte sta gia' tutta nel bundle. Mancava solo
+il pezzo che dai dati arriva ai file.
+
+**I tarocchi passano da una porta diversa dalle altre famiglie, e non e' un
+capriccio**: i loro artwork hanno i cartigli VUOTI, con nome e numero
+sovrapposti a runtime, perche' un solo mazzo valga per tutte le lingue.
+Disegnarli col percorso nudo darebbe carte senza nome, quindi passano da
+`TarotCardArt`; le altre sei famiglie passano da `MiniaturaIntera`, che non
+ritaglia mai il soggetto.
+
+**La runa in ombra si rivede capovolta**, come nel Rito del Tramonto e
+nell'Estrazione: il verso e' cio' che ne cambia il presagio, e mostrarla
+dritta direbbe un'altra cosa.
+
+**Tre difetti li ha trovati guardare l'anteprima, non le prove.** L'arte
+usciva alta un terzo del riquadro e sembrava una figurina in mezzo al vuoto,
+perche' prendeva lo spazio che avanzava dopo il testo: adesso il riquadro e'
+alto quanto una carta e l'arte viene prima. La misura si calcolava come se
+ogni figura fosse un tarocco, due a tre, e le pietre quadrate uscivano piccole:
+adesso la proporzione la dichiara il pezzo che disegna. E il titolo si chiudeva
+sui puntini proprio dove dice la cosa utile, "La tua gettata: l...", perche'
+questi titoli cominciano tutti con "La tua" e il pezzo informativo sta in
+fondo.
+
+**La prova del rosso, tre volte.** Cambiata la chiave della stesa da una parte
+sola, la guardia nomina il file che non la scrive; puntato un artwork a un file
+inventato, la guardia lo apre e lo dice; tolto il capovolgimento alla runa in
+ombra, la guardia dice che il presagio mostrato e' un altro.
 
 ### CG.09, la finestra e il modello
 

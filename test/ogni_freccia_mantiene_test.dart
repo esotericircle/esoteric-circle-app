@@ -55,6 +55,12 @@ void main() {
     'lib/features/rituals/ritual_gift_card.dart':
         'il dono del rituale: expand_less quando e\' aperto, expand_more '
             'quando e\' chiuso, e apre il testo in posto.',
+    'lib/features/ricordi/ricordi_screen.dart':
+        'il gruppo del giorno nei Ricordi, ordine CG voce 02: sopra le tre '
+            'voci uguali la riga si chiude col suo conto, per esempio '
+            '"Estrazione Rune, dodici volte", e la freccia la apre IN POSTO '
+            'mostrando le voci una per una. expand_less quando e\' aperto, '
+            'expand_more quando e\' chiuso, come il Collassabile.',
   };
 
   test('Ogni freccia in giu\' del progetto e\' dichiarata', () {
@@ -110,19 +116,61 @@ void main() {
   /// Qui si risale per rientro: da una riga, l'antenato e' la prima riga sopra
   /// con un rientro minore, e cosi' via. E' esattamente l'annidamento che il
   /// Dart formattato mette a schermo.
-  List<String> antenatiDi(List<String> righe, int indice) {
+  /// I WIDGET DI RIGA, dove il gesto e' fratello e non antenato.
+  ///
+  /// **Buco chiuso il 31 agosto 2026, ed era della guardia.** Nei Ricordi il
+  /// gruppo del giorno e' un `ListTile` con l'`onTap` sulla riga e la freccia
+  /// nel suo `trailing`. A schermo la riga intera si tocca, freccia compresa,
+  /// ma `onTap` e `trailing` stanno allo STESSO rientro: per la risalita non
+  /// e' un antenato, e' un fratello, e la guardia chiamava decorazione una
+  /// freccia viva.
+  ///
+  /// **La cura non e' allargare la vicinanza**, che e' esattamente l'errore
+  /// che questa prova aveva gia' smentito con una prova del rosso. E' dire
+  /// quali widget hanno UN SOLO gesto per tutta la riga: in un `ListTile` il
+  /// tocco copre leading, title e trailing insieme, quindi il gesto scritto
+  /// fra le sue proprieta' raggiunge davvero la freccia. In una `Column` no,
+  /// e infatti la `Column` in questo elenco non c'e'.
+  const widgetDiRiga = ['ListTile(', 'SwitchListTile(', 'CheckboxListTile('];
+
+  /// Vero quando un gesto raggiunge DAVVERO la riga [indice].
+  ///
+  /// **Perche' non basta guardarle intorno.** La prima stesura leggeva venti
+  /// righe sopra e venti sotto, e una prova del rosso l'ha smentita:
+  /// togliendo il `GestureDetector` da "Vai piu' a fondo" la prova restava
+  /// verde, perche' sei righe piu' su c'era l'`onTap` di un ALTRO pulsante.
+  /// Vicinanza non e' contenimento, e in un `build` denso i comandi si
+  /// toccano.
+  ///
+  /// Qui si risale per rientro: da una riga, l'antenato e' la prima riga
+  /// sopra con un rientro minore, e cosi' via. E' esattamente l'annidamento
+  /// che il Dart formattato mette a schermo. Sopra un widget di riga si
+  /// guardano anche le sue proprieta' DIRETTE, e solo quelle: il gesto di un
+  /// fratello qualsiasi resta invisibile, come deve.
+  bool raggiuntaDaUnGesto(List<String> righe, int indice, List<String> gesti) {
     int rientro(String r) => r.length - r.trimLeft().length;
-    final catena = <String>[];
     var soglia = rientro(righe[indice]);
-    for (var i = indice - 1; i >= 0 && catena.length < 6; i--) {
-      final r = righe[i];
+    var risaliti = 0;
+    for (var k = indice - 1; k >= 0 && risaliti < 6; k--) {
+      final r = righe[k];
       if (r.trim().isEmpty || r.trimLeft().startsWith('//')) continue;
       final q = rientro(r);
       if (q >= soglia) continue;
-      catena.add(r);
+      risaliti++;
       soglia = q;
+      if (gesti.any(r.contains)) return true;
+      if (!widgetDiRiga.any(r.contains)) continue;
+      for (var j = k + 1; j < righe.length; j++) {
+        final f = righe[j];
+        if (f.trim().isEmpty || f.trimLeft().startsWith('//')) continue;
+        // Finito il blocco di questo widget di riga.
+        if (rientro(f) <= q) break;
+        // Solo le sue proprieta' dirette, non tutto il sottoalbero.
+        if (rientro(f) != q + 2) continue;
+        if (gesti.any(f.contains)) return true;
+      }
     }
-    return catena;
+    return false;
   }
 
   test('Nessuna freccia in giu\' e\' senza un tocco che la raggiunge', () {
@@ -166,7 +214,7 @@ void main() {
       for (var i = 0; i < righe.length; i++) {
         if (righe[i].trimLeft().startsWith('//')) continue;
         if (!frecceInGiu.any(righe[i].contains)) continue;
-        if (gesti.any(antenatiDi(righe, i).join('\n').contains)) continue;
+        if (raggiuntaDaUnGesto(righe, i, gesti)) continue;
         if (_scusata(composteInUnaVariabile, righe, i)) continue;
         nude.add('$percorso riga ${i + 1}: ${righe[i].trim()}');
       }
@@ -187,7 +235,7 @@ void main() {
         if (righe[i].trimLeft().startsWith('//')) continue;
         if (!righe[i].contains('FreccettaDelCollasso(')) continue;
         usi++;
-        if (gesti.any(antenatiDi(righe, i).join('\n').contains)) continue;
+        if (raggiuntaDaUnGesto(righe, i, gesti)) continue;
         if (_scusata(composteInUnaVariabile, righe, i)) continue;
         senzaGesto.add('$percorso riga ${i + 1}');
       }

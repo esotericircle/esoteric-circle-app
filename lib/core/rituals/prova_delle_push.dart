@@ -105,7 +105,7 @@ class ProvaDellePush {
   /// fondatore.
   static String rigaDellaProva(int giorni) => giorni == 1
       ? 'Ultimo giorno di prova delle notifiche del Cerchio.'
-      : 'Le notifiche del Cerchio sono in prova: ti restano $giorni giorni.';
+      : 'Le notifiche del Cerchio sono in prova per altri $giorni giorni.';
 
   /// **COSA SI DICE A CHI LA PROVA L'HA FINITA.**
   ///

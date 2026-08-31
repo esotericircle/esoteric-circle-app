@@ -281,6 +281,24 @@ void main() {
             'telefono restano: non e\' un vicolo cieco');
   });
 
+  test('CG.16 punto 1: il permesso e\' lo STESSO delle chiamate locali', () {
+    // **Verificato sul manifesto vero, non creduto.** L'ordine dice che su
+    // Android 13 e oltre il permesso delle push e' lo stesso che le chiamate
+    // locali chiedono gia': se fosse un secondo permesso, la persona vedrebbe
+    // due richieste per la stessa cosa.
+    final manifesto =
+        File('android/app/src/main/AndroidManifest.xml').readAsStringSync();
+    final quanti =
+        RegExp('POST_NOTIFICATIONS').allMatches(manifesto).length;
+    // ignore: avoid_print
+    print('ORDINE CG VOCE 16: POST_NOTIFICATIONS dichiarato $quanti volta nel '
+        'manifesto Android');
+    expect(quanti, 1,
+        reason: 'il permesso deve esserci UNA volta sola: zero vorrebbe dire '
+            'che le push non arrivano su Android 13 e oltre, due che qualcuno '
+            'lo ha dichiarato una seconda volta per le push');
+  });
+
   test('CG.16: il mese di prova dura trenta giorni, e la ragione e\' scritta',
       () {
     expect(ProvaDellePush.giorniDiProva, 30);

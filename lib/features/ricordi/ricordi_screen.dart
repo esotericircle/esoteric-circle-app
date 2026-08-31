@@ -21,7 +21,10 @@
 /// Nessun testo da leggere per capire dove hai camminato.
 library;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/ricordi/lettura_del_mese.dart';
@@ -29,6 +32,9 @@ import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
 import '../../core/ricordi/arti_con_responso.dart';
+import '../../core/ricordi/artwork_del_ricordo.dart';
+import '../../design_system/components/miniatura_intera.dart';
+import '../tarot/tarot_card_art.dart';
 import '../../core/ricordi/conti_delle_arti.dart';
 import '../../core/ricordi/registro_dei_ricordi.dart';
 import '../../core/ricordi/riassunti_del_tempo.dart';
@@ -324,7 +330,7 @@ class _LePastiglie extends StatelessWidget {
     FiltroDeiRicordi.caligo: 'Caligo',
     FiltroDeiRicordi.arti: 'Le arti',
     FiltroDeiRicordi.conversazioni: 'Conversazioni',
-    FiltroDeiRicordi.custoditi: 'Le tue Carte',
+    FiltroDeiRicordi.custoditi: 'Le tue card',
   };
 
   @override
@@ -598,10 +604,13 @@ class _IlGiorno extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-          child: Text(
-            _riepilogo(giorno),
+          // **LA PORTA DEL RUOLO LETTURA, non un Text nudo.** Regola di
+          // casa: da un Text diretto torna il muro di testo, ed e' la
+          // famiglia delle due porte.
+          child: ParagrafiDiLettura(
+            testo: _riepilogo(giorno),
             key: const Key('ricordi_riepilogo_del_giorno'),
-            style: TypographyTokens.lettura()
+            stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary),
           ),
         ),
@@ -704,12 +713,17 @@ class _RigaDelGruppoState extends State<_RigaDelGruppo> {
       children: [
         ListTile(
           key: Key('ricordi_gruppo_chiuso_${g.arte}'),
+          // **IL TOCCO STA PRIMA DELLA FRECCIA, e non e' un vezzo.** La
+          // guardia delle frecce in giu' guarda le righe SOPRA per trovare il
+          // gesto: con l'onTap piu' in basso la freccia risultava decorazione.
+          // Scritto cosi' si legge anche meglio: prima che la riga si tocca,
+          // poi il segno che lo dice.
+          onTap: () => setState(() => _aperto = !_aperto),
           title: Text('$titolo, ${g.quante} volte',
               style: TypographyTokens.titoloScheda()),
           trailing: Icon(
               _aperto ? Icons.expand_less_rounded : Icons.expand_more_rounded,
               color: ColorTokens.goldLight),
-          onTap: () => setState(() => _aperto = !_aperto),
         ),
         if (_aperto)
           for (final v in g.voci)
@@ -860,6 +874,16 @@ class RicordoApertoScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           children: [
+            // **L'ARTE PRIMA DEL TESTO**, che e' la regola di casa
+            // sull'anatomia di un responso: colpo d'occhio visivo, poi la
+            // sintesi, poi il racconto. Qui il colpo d'occhio e' la carta
+            // stessa, ridisegnata dai dati custoditi.
+            //
+            // **Una stesa ne mostra tre**, affiancate e nell'ordine in cui
+            // sono uscite, perche' una stesa a tre carte letta con una carta
+            // sola non e' quella stesa.
+            if (ArtworkDelRicordo.di(custodito).isNotEmpty)
+              _ArteDelRicordoAperto(custodito: custodito, palette: palette),
             Text(
               '${custodito.quando.day}/${custodito.quando.month}/'
               '${custodito.quando.year}',
@@ -868,9 +892,12 @@ class RicordoApertoScreen extends StatelessWidget {
                   .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.md),
-            Text(custodito.testo,
+            // Un responso custodito e' testo da leggere per intero: passa
+            // dalla porta comune, come ogni altro responso dell'app.
+            ParagrafiDiLettura(
+                testo: custodito.testo,
                 key: const Key('ricordo_aperto_testo'),
-                style: TypographyTokens.lettura()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
           ],
         ),
@@ -898,9 +925,10 @@ class _ConversazioneRiaperta extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           children: [
-            Text(voce.titolo,
+            ParagrafiDiLettura(
+                testo: voce.titolo,
                 key: const Key('turno_riaperto_titolo'),
-                style: TypographyTokens.lettura()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.md),
             Text(
@@ -958,7 +986,11 @@ class _LeTueCarte extends StatelessWidget {
     return GridView.count(
       key: const Key('ricordi_le_tue_carte'),
       crossAxisCount: 2,
-      childAspectRatio: 0.7,
+      // **IL RIQUADRO E' ALTO QUANTO UNA CARTA PIU' IL SUO NOME.** A 0.7 la
+      // carta usciva alta un terzo del riquadro e sembrava una figurina
+      // appoggiata in mezzo al vuoto: l'anteprima lo ha mostrato subito. Una
+      // carta sta due a tre, e sopra ci vanno due righe di titolo e la data.
+      childAspectRatio: 0.50,
       padding: const EdgeInsets.all(SpacingTokens.md),
       mainAxisSpacing: SpacingTokens.md,
       crossAxisSpacing: SpacingTokens.md,
@@ -969,6 +1001,79 @@ class _LeTueCarte extends StatelessWidget {
   }
 }
 
+/// L'ARTWORK DI UN RICORDO, disegnato dalla porta giusta.
+///
+/// **Due porte, non una, e la ragione e' nei cartigli.** Gli artwork dei
+/// tarocchi hanno il cartiglio del nome e quello del numero VUOTI: il testo si
+/// sovrappone a runtime, per questo un solo mazzo vale per tutte le lingue.
+/// Disegnare un tarocco col percorso nudo darebbe una carta senza nome. Per
+/// tutte le altre famiglie il file e' gia' completo, e passa da
+/// `MiniaturaIntera`, che non ritaglia mai il soggetto.
+class _ArtworkDiUnRicordo extends StatelessWidget {
+  const _ArtworkDiUnRicordo({
+    super.key,
+    required this.immagine,
+    required this.palette,
+    required this.larghezza,
+    this.piena = false,
+  });
+
+  final ImmagineDelRicordo immagine;
+  final MaestroPalette palette;
+  final double larghezza;
+
+  /// Vero nel ricordo aperto, dove si mostra il file grande.
+  final bool piena;
+
+  /// **QUANTO E' LARGA RISPETTO A QUANT'E' ALTA**, e la sa questo pezzo.
+  ///
+  /// Chi le fa spazio deve sapere che forma avranno, altrimenti calcola la
+  /// misura su una proporzione sbagliata e lascia un vuoto o taglia. Un
+  /// tarocco sta due a tre; una pietra, un emblema e un totem stanno nel
+  /// quadrato, e dentro il quadrato ci entrano interi.
+  static double proporzioneDi(ImmagineDelRicordo immagine) =>
+      immagine.carta != null
+          ? MiniaturaIntera.proporzioneCarta
+          : MiniaturaIntera.proporzioneQuadrata;
+
+  @override
+  Widget build(BuildContext context) {
+    final carta = immagine.carta;
+    if (carta != null) {
+      return SizedBox(
+        width: larghezza,
+        height: larghezza / MiniaturaIntera.proporzioneCarta,
+        // Sotto una certa misura i cartigli non si leggono, ed e' la stessa
+        // soglia che il mazzo usa altrove: meglio nessuna scritta che una
+        // scritta illeggibile sopra il disegno.
+        child: TarotCardArt(
+            card: carta, palette: palette, showCartigli: larghezza >= 96),
+      );
+    }
+    final figura = MiniaturaIntera(
+      path: piena ? immagine.piena : immagine.miniatura,
+      ripiego: Icons.auto_awesome,
+      palette: palette,
+      larghezza: larghezza,
+    );
+    // **LA RUNA IN OMBRA SI GUARDA CAPOVOLTA**, come nel Rito del Tramonto e
+    // nell'Estrazione: e' il verso che ne cambia il presagio, non un vezzo
+    // grafico, e mostrarla dritta direbbe un'altra cosa.
+    if (!immagine.rovesciata) return figura;
+    return Transform.rotate(angle: math.pi, child: figura);
+  }
+}
+
+/// UNA CARTA CUSTODITA NELLA GRIGLIA.
+///
+/// **Dal 31 agosto 2026 il riquadro mostra l'arte, non un estratto di testo.**
+/// Prima disegnava data, titolo e le prime righe del responso: le parole
+/// dell'ordine erano "la ricerca delle card generate e condivise", e una card
+/// generata e' un'immagine. Il fondatore lo ha detto guardando la schermata.
+///
+/// **Le cinque arti senza artwork tengono il riquadro di prima**, e non e' un
+/// ripiego trascurato: un Rito dell'Alba consegna una parola, e la parola si
+/// legge. Il motivo di ognuna sta scritto in `ArtworkDelRicordo.senzaArtwork`.
 class _CartaCustodita extends StatelessWidget {
   const _CartaCustodita({required this.custodito, required this.palette});
 
@@ -983,6 +1088,7 @@ class _CartaCustodita extends StatelessWidget {
       'caligo' => MaestroPalette.caligo.primary,
       _ => palette.primary,
     };
+    final immagini = ArtworkDelRicordo.di(custodito);
     return InkWell(
       key: Key('ricordi_carta_${custodito.chiave}'),
       onTap: () =>
@@ -1004,48 +1110,173 @@ class _CartaCustodita extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${custodito.quando.day}/${custodito.quando.month}/'
-              '${custodito.quando.year}',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
-            const SizedBox(height: SpacingTokens.xs),
-            Text(custodito.titolo,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.titoloScheda()),
-            const SizedBox(height: SpacingTokens.sm),
-            // **IL TESTO SI CHIUDE COI PUNTINI, non a meta' parola.** Trovato
-            // guardando l'anteprima: dentro un `Expanded` il taglio lo fa
-            // l'ALTEZZA disponibile, e `maxLines` quell'altezza non la
-            // conosce, quindi l'ellissi non scattava mai e l'ultima riga
-            // usciva mozzata a meta' lettera. **Un ritaglio non e' una
-            // chiusura**: chi legge non sa se il testo finisce li' o se
-            // continua.
-            //
-            // Le righe si contano dall'altezza vera, e i puntini tornano a
-            // essere i puntini.
-            Expanded(
-              child: LayoutBuilder(
-                builder: (context, vincoli) {
-                  final stile = TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary);
-                  final altezzaDiUnaRiga =
-                      (stile.fontSize ?? 16) * (stile.height ?? 1.3);
-                  final quante =
-                      (vincoli.maxHeight / altezzaDiUnaRiga).floor();
-                  return Text(
-                    custodito.testo,
-                    maxLines: quante < 1 ? 1 : quante,
-                    overflow: TextOverflow.ellipsis,
-                    style: stile,
-                  );
-                },
+            // **CON L'ARTE, L'ARTE VA IN CIMA E PRENDE QUASI TUTTO.** E' la
+            // regola di casa del livello visivo prima del testo, ed e' anche
+            // cio' che rende questa una galleria invece di un elenco. Senza
+            // arte resta l'ordine di prima, data e titolo in testa, perche'
+            // li' il testo e' l'unica cosa che c'e'.
+            if (immagini.isNotEmpty) ...[
+              Expanded(
+                child: Center(
+                  child: LayoutBuilder(
+                    builder: (context, vincoli) {
+                      // **LA MISURA SI RICAVA DALLA PROPORZIONE VERA della
+                      // figura, non da una fissa.** Prima si calcolava tutto
+                      // come se fosse un tarocco: una pietra quadrata usciva
+                      // larga due terzi dello spazio che aveva, cioe' piccola
+                      // in mezzo al vuoto.
+                      final proporzione = _ArtworkDiUnRicordo.proporzioneDi(
+                          immagini.first);
+                      final daAltezza = vincoli.maxHeight * proporzione;
+                      final larghezza = daAltezza < vincoli.maxWidth
+                          ? daAltezza
+                          : vincoli.maxWidth;
+                      return _ArtworkDiUnRicordo(
+                        key: Key('ricordi_arte_${custodito.chiave}'),
+                        immagine: immagini.first,
+                        palette: palette,
+                        larghezza: larghezza,
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: SpacingTokens.sm),
+              // **TRE RIGHE, non due.** A due righe il titolo si chiudeva
+              // sui puntini proprio dove dice la cosa utile: "La tua
+              // gettata: l...". Il pezzo informativo di questi titoli sta
+              // in fondo, sempre, perche' cominciano tutti con "La tua".
+              Text(custodito.titolo,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.titoloScheda()),
+              const SizedBox(height: SpacingTokens.xs),
+              Text(
+                '${custodito.quando.day}/${custodito.quando.month}/'
+                '${custodito.quando.year}',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ] else ...[
+              Text(
+                '${custodito.quando.day}/${custodito.quando.month}/'
+                '${custodito.quando.year}',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              Text(custodito.titolo,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.titoloScheda()),
+              const SizedBox(height: SpacingTokens.sm),
+              // **IL TESTO SI CHIUDE COI PUNTINI, non a meta' parola.** Trovato
+              // guardando l'anteprima: dentro un `Expanded` il taglio lo fa
+              // l'ALTEZZA disponibile, e `maxLines` quell'altezza non la
+              // conosce, quindi l'ellissi non scattava mai e l'ultima riga
+              // usciva mozzata a meta' lettera. **Un ritaglio non e' una
+              // chiusura**: chi legge non sa se il testo finisce li' o se
+              // continua.
+              //
+              // Le righe si contano dall'altezza vera, e i puntini tornano a
+              // essere i puntini.
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, vincoli) {
+                    final stile = TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary);
+                    final altezzaDiUnaRiga =
+                        (stile.fontSize ?? 16) * (stile.height ?? 1.3);
+                    final quante =
+                        (vincoli.maxHeight / altezzaDiUnaRiga).floor();
+                    return Text(
+                      custodito.testo,
+                      maxLines: quante < 1 ? 1 : quante,
+                      overflow: TextOverflow.ellipsis,
+                      style: stile,
+                    );
+                  },
+                ),
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// L'ARTE IN CIMA AL RICORDO APERTO.
+///
+/// **Perche' e' un pezzo suo e non tre righe dentro la schermata.** Il ricordo
+/// aperto e' una lista che scorre, e un'immagine dentro una lista che scorre
+/// ha bisogno di una misura sua: senza, prende tutta l'altezza che trova e
+/// spinge il testo fuori dallo schermo. Qui la misura si ricava dalla
+/// larghezza vera, una volta sola.
+class _ArteDelRicordoAperto extends StatelessWidget {
+  const _ArteDelRicordoAperto(
+      {required this.custodito, required this.palette});
+
+  final RicordoCustodito custodito;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final immagini = ArtworkDelRicordo.di(custodito);
+    if (immagini.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      key: Key('ricordo_aperto_arte_${custodito.arte}'),
+      padding: const EdgeInsets.only(bottom: SpacingTokens.lg),
+      child: LayoutBuilder(
+        builder: (context, vincoli) {
+          // Con piu' immagini si divide la larghezza fra loro, tenendo lo
+          // spazio che le separa: tre carte affiancate che si toccano
+          // sembrerebbero un'immagine sola.
+          final quante = immagini.length;
+          final spazi = SpacingTokens.sm * (quante - 1);
+          var larghezza = (vincoli.maxWidth - spazi) / quante;
+          // **UNA FIGURA SOLA NON SI ALLARGA A TUTTO LO SCHERMO.** Un tarocco
+          // solo, largo quanto la pagina, sarebbe alto una volta e mezza e
+          // spingerebbe il testo sotto la piega: si apre un ricordo per
+          // rileggerlo, non per vedere solo la copertina.
+          final proporzione =
+              _ArtworkDiUnRicordo.proporzioneDi(immagini.first);
+          final massima = quante == 1 ? vincoli.maxWidth * 0.62 : larghezza;
+          if (larghezza > massima) larghezza = massima;
+          // Il nome sotto la figura vuole la sua riga: si tiene conto anche
+          // dell'altezza, cosi' una figura alta non mangia mezza schermata.
+          final daAltezza = 320 * proporzione;
+          if (larghezza > daAltezza) larghezza = daAltezza;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (var i = 0; i < quante; i++) ...[
+                if (i > 0) const SizedBox(width: SpacingTokens.sm),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _ArtworkDiUnRicordo(
+                      immagine: immagini[i],
+                      palette: palette,
+                      larghezza: larghezza,
+                      piena: true,
+                    ),
+                    const SizedBox(height: SpacingTokens.xs),
+                    // Il nome sotto la figura: negli artwork il cartiglio e'
+                    // vuoto per costruzione, e per le famiglie che non sono
+                    // tarocchi nessuno lo riempie.
+                    if (immagini[i].carta == null)
+                      Text(immagini[i].nome,
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: ColorTokens.textSecondary)),
+                  ],
+                ),
+              ],
+            ],
+          );
+        },
       ),
     );
   }
@@ -1134,10 +1365,12 @@ class _LaLetturaDelMeseState extends State<_LaLetturaDelMese> {
     if (scritta == null) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-      child: Text(
-        scritta,
+      // La lettura del mese e' l'unica prosa generata della funzione, ed e'
+      // testo da leggere per intero: passa dalla porta comune.
+      child: ParagrafiDiLettura(
+        testo: scritta,
         key: const Key('ricordi_lettura_del_mese'),
-        style: TypographyTokens.lettura()
+        stile: TypographyTokens.lettura()
             .copyWith(color: ColorTokens.textPrimary),
       ),
     );

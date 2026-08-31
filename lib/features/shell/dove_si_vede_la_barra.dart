@@ -51,6 +51,15 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // luogo dove si guarda il proprio cammino, non uno da cui si naviga: la
   // barra non li accompagna, come per le altre scene d'arte.
 
+  // --- I RICORDI DEL CERCHIO, ordine CG voce 01 --------------------------
+  //
+  // **Non portano la barra**, e la ragione e' la stessa dei sentieri dei
+  // Sigilli: sono un luogo dove si guarda il proprio cammino, non uno da cui
+  // si naviga. Ci si arriva da tre porte e si torna indietro da dove si e'
+  // entrati.
+  'RicordiScreen': PresenzaDellaBarra.assente,
+  'RicordoApertoScreen': PresenzaDellaBarra.assente,
+
   // --- I CINQUE DONI DEL GIORNO ------------------------------------------
   // Ognuno e' un appuntamento che si compie con un gesto: la barra li
   // interromperebbe proprio mentre il gesto e' in corso.

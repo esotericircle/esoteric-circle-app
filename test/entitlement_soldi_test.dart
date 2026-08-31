@@ -94,6 +94,25 @@ class _RepoContatore extends InMemoryMaestroMemoryRepository {
     scrittureMemoria++;
     return super.saveMemory(maestro, memory);
   }
+
+  /// **LE SINTESI CHE IL SERVER AVREBBE SFOCATO. Ordine CG voce 09.**
+  ///
+  /// **Quale decisione supera.** Fino a quest'ordine la chat distillava da
+  /// sola ogni tre turni, e questa prova contava le scritture che ne
+  /// nascevano. Adesso la sfocatura e' un lavoro settimanale sul server, e la
+  /// memoria calda RILEGGE cio' che quel lavoro ha gia' scritto: senza queste
+  /// righe il magazzino in memoria non avrebbe niente da rileggere, e la
+  /// prova misurerebbe il vuoto invece del cancello.
+  ///
+  /// **Cio' che la prova misura non cambia**, ed e' la parte che conta: la
+  /// memoria e' venduta come esclusiva di chi paga, e qui si guarda se il
+  /// gratuito la riceve lo stesso.
+  @override
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async =>
+      const MemoryDigest(
+        summary: 'Avete parlato del lavoro.',
+        facts: ['Cerca chiarezza sul lavoro'],
+      );
 }
 
 Future<void> _posa() async {

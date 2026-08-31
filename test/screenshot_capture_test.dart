@@ -3673,6 +3673,10 @@ void main() {
     await step(tester);
     await tester.tap(find.byKey(const Key('porta_dell_account')));
     await step(tester);
+    // **LA VOCE E' SCESA SOTTO LA PIEGA**, ordine CG: sopra le Notifiche
+    // e' entrata la voce dei Ricordi, e l'elenco dell'account e' pigro.
+    // Senza questo scorrimento il tocco cade su un dito che non esiste ancora.
+    await scorriFinoAllaVoce(tester, 'account_notifiche');
     await tester.tap(find.byKey(const Key('account_notifiche')));
     await step(tester);
     await step(tester);
@@ -6384,6 +6388,11 @@ void main() {
     return registro;
   }
 
+  /// **QUATTRO CUSTODITI, e la stesa non e' un riempitivo.** Il tarocco e'
+  /// l'unica famiglia che passa da `TarotCardArt` invece che dalla miniatura,
+  /// perche' e' l'unica i cui artwork hanno i cartigli VUOTI e il nome
+  /// sovrapposto a runtime. Senza una stesa nel seme, l'anteprima non
+  /// guarderebbe mai quel ramo, ed e' il piu' facile da rompere.
   Future<ScrignoDeiCustoditi> scrignoConTreCarte() async {
     final scrigno = ScrignoDeiCustoditi();
     await scrigno.carica();
@@ -6394,6 +6403,11 @@ void main() {
       titolo: 'La tua gettata: le tre Norne',
       testo: 'Uruz ti chiede di non trattenere la forza che hai già. '
           'Quello che stai rimandando non aspetta te, aspetta un tuo gesto.',
+      // **I DATI PER RIDISEGNARE, come li scrive la schermata vera.** Senza
+      // di loro l'anteprima mostrerebbe i riquadri di testo di prima, cioe'
+      // proprio la cosa che questa griglia ha smesso di essere: un'anteprima
+      // che non puo' cadere non serve a niente.
+      dati: const {'gettata': 'le tre Norne', 'rune': 'Uruz,Fehu,Laguz'},
       comeENato: ComeENato.gesto,
     ));
     await scrigno.custodisci(RicordoCustodito(
@@ -6403,6 +6417,7 @@ void main() {
       titolo: 'Il tuo oroscopo, Bilancia',
       testo: 'La Luna passa sulla tua casa del lavoro e mette in luce una '
           'cosa che sai già. Oggi non serve decidere: serve guardare.',
+      dati: const {'segno': 'Bilancia'},
       comeENato: ComeENato.condivisione,
     ));
     await scrigno.custodisci(RicordoCustodito(
@@ -6412,7 +6427,18 @@ void main() {
       titolo: 'La tua runa del tramonto: Laguz',
       testo: 'L\'acqua non spinge, scava. Stanotte lascia fuori la fretta '
           'di capire tutto insieme.',
+      dati: const {'runa': 'Laguz', 'verso': 'dritta'},
       comeENato: ComeENato.gesto,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 28, 14, 15),
+      arte: 'stesa',
+      maestro: 'medora',
+      titolo: 'La tua stesa a tre carte',
+      testo: 'Il Matto apre la strada, la Papessa chiede di aspettare '
+          'ancora un poco, e il Mago dice che gli strumenti ce li hai già.',
+      dati: const {'carte': 'Il Matto,La Papessa,Il Mago'},
+      comeENato: ComeENato.condivisione,
     ));
     return scrigno;
   }
@@ -6429,6 +6455,12 @@ void main() {
       key: rootKey,
       child: MultiProvider(
         providers: [
+          // **IL CONTROLLORE DEL MAESTRO, che nell app c e sempre.** Il
+          // ricordo aperto si apre dentro un MaestroScope, e quello scope
+          // il controllore lo pretende: senza, la cattura moriva sulla
+          // rotta, non sull anteprima. Un banco di prova a cui manca cio
+          // che l app ha non sta provando l app.
+          ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
           ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -6508,7 +6540,39 @@ void main() {
     await capture(tester, rootKey, 'ricordi-il-giorno.png');
   });
 
-  testWidgets('Cattura i Ricordi, Le tue Carte', (tester) async {
+  testWidgets('Cattura un ricordo aperto, con la sua arte', (tester) async {
+    // **IL GESTO CHE IL FONDATORE HA CHIESTO**, 31 agosto 2026: "sarebbe
+    // l'ideale che al click si potesse rivedere l'artwork". Questa cattura e'
+    // il click, e l'anteprima e' l'unico modo di sapere se l'arte ci arriva
+    // davvero e alla misura giusta.
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ricordi_pastiglia_custoditi')),
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await tester.tap(find.byKey(const Key('ricordi_pastiglia_custoditi')));
+    await step(tester);
+    await step(tester);
+    // La prima carta della griglia, cioe' la gettata delle tre rune: e' quella
+    // con piu' di un'immagine, quindi la piu' facile da sbagliare.
+    final carte = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_carta_'));
+    expect(carte, findsWidgets,
+        reason: 'nella griglia non c\'e\' nessuna carta da aprire');
+    await tester.tap(carte.first);
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'ricordo-aperto-con-arte.png');
+  });
+
+  testWidgets('Cattura i Ricordi, Le tue card', (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =

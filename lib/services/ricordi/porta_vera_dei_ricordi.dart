@@ -39,7 +39,7 @@ class PortaVeraDeiRicordi extends PortaDeiRicordi {
     } catch (errore) {
       // **IL FALSO E' LA RISPOSTA, e non e' una perdita.** Il registro lascia
       // il mese fra gli sporchi e riprova alla prossima sincronia.
-      debugPrint('Ricordi: la sincronia del mese $mese non e\' passata. $errore');
+      debugPrint('Ricordi: la sincronia del mese $mese non è passata. $errore');
       return false;
     }
   }

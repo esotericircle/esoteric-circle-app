@@ -76,8 +76,19 @@ void main() {
         findsOneWidget,
         reason: 'la bolla non porta il titolo "I tuoi traguardi"');
     expect(find.text('I tuoi traguardi'), findsOneWidget);
-    final porte =
-        find.descendant(of: bolla, matching: find.byType(ListTile));
+    // **LE PORTE SI CONTANO PER CHIAVE, NON PER TIPO.** Fino al 31 agosto
+    // 2026 qui si contavano i ListTile della bolla, e i ListTile della bolla
+    // erano i sentieri. Con l ordine CG dentro la bolla e entrata anche la
+    // porta dei Ricordi, e la prova cadeva dicendo quattro invece di tre: il
+    // difetto era suo, perche contava un contenitore al posto di una cosa.
+    // Adesso guarda le chiavi porta_, che sono i sentieri e nient altro, e
+    // una porta nuova nella bolla non la fa piu cadere a torto.
+    final porte = find.descendant(
+        of: bolla,
+        matching: find.byWidgetPredicate((w) =>
+            w is ListTile &&
+            w.key is ValueKey<String> &&
+            (w.key as ValueKey<String>).value.startsWith('porta_')));
     expect(porte, findsNWidgets(3),
         reason: 'la bolla deve contenere le TRE porte dei sentieri, ne trova '
             '${porte.evaluate().length}');

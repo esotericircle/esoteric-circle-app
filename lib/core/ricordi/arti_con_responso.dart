@@ -201,9 +201,9 @@ class ArtiConResponso {
     ),
     CondivideSenzaResponso(
       dove: 'lib/features/santuario/sky_overview_screen.dart',
-      perche: 'condivide la veduta del cielo di adesso, che e\' un dato '
+      perche: 'condivide la veduta del cielo di adesso, che è un dato '
           'astronomico e non una lettura: il cielo di stasera lo può '
-          'ridisegnare chiunque in qualunque momento, quindi non c\'e\' '
+          'ridisegnare chiunque in qualunque momento, quindi non c\'è '
           'niente da custodire.',
     ),
     CondivideSenzaResponso(

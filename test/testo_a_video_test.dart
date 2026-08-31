@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter_test/flutter_test.dart';
-
 /// IL TESTO CHE LA PERSONA LEGGE E' TESTO, non codice e non ripieghi.
 ///
 /// Due difetti segnalati dal fondatore sulla 2111, in una riga sola della scheda
@@ -12,6 +8,23 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// La prova che c'era non li prendeva perche' controllava solo che ci fosse una
 /// cifra. Queste due cadono su entrambi, e su chiunque li rifaccia altrove.
+library;
+
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+
+/// **CIO' CHE UNA PERSONA LEGGE DAVVERO, senza il codice in mezzo.**
+///
+/// Le stringhe di `lib` portano le interpolazioni scritte com'e' il sorgente,
+/// e dentro quelle graffe stanno nomi di variabili e chiamate di metodo che
+/// nessuno legge mai. Una guardia che le contasse come parole cadrebbe su
+/// codice corretto, ed e' successo due volte il 31 agosto 2026: una volta su
+/// un nome di variabile e una volta su un valore seguito dalla sua unita'.
+String _senzaInterpolazioni(String testo) => testo
+    .replaceAll(RegExp(r'\$\{[^}]*\}'), ' ')
+    .replaceAll(RegExp(r'\$[A-Za-z_][A-Za-z0-9_]*'), ' ');
+
 void main() {
   /// Tutte le stringhe letterali di `lib`, riga per riga, saltando i commenti.
   List<(String file, int riga, String testo)> stringheDiLib() {
@@ -54,7 +67,11 @@ void main() {
       // Solo frasi, non identificatori: un id come "aura_aura" non e' un difetto
       // di lettura, e le chiavi non le legge nessuno.
       if (!testo.contains(' ')) continue;
-      final m = doppia.firstMatch(testo);
+      // **L'INTERPOLAZIONE NON E' TESTO MOSTRATO**, stesso buco della prova
+      // degli accenti. In 'per altri $giorni giorni' la parola che precede e'
+      // un VALORE, non la parola: a video si legge "per altri 12 giorni", e
+      // chi legge non vede nessuna ripetizione.
+      final m = doppia.firstMatch(_senzaInterpolazioni(testo));
       if (m == null) continue;
       // Alcune ripetizioni sono italiano voluto, non sviste: "passo passo" e'
       // una locuzione, e una prova che la denuncia insegna a ignorarla.
@@ -152,7 +169,14 @@ void main() {
     final colpevoli = <String>[];
     for (final (file, riga, testo) in stringheDiLib()) {
       if (!testo.contains(' ')) continue;
-      final pulito = testo.replaceAll(r"\'", "'");
+      // **CIO' CHE STA DENTRO UN'INTERPOLAZIONE NON E' TESTO MOSTRATO, ed e'
+      // un buco di questa guardia trovato il 31 agosto 2026.** In una stringa
+      // come '${lunedi.add(...)}' la parola `lunedi` e' il nome di una
+      // variabile, e nessuno la legge mai: la guardia la contava come una
+      // parola senza accento e cadeva su codice corretto. **Si misura il
+      // testo, non il sorgente**: le interpolazioni si tolgono prima di
+      // cercare, come si toglie il tracciato quando si cercano le promesse.
+      final pulito = _senzaInterpolazioni(testo).replaceAll(r"\'", "'");
       for (final m in parole.allMatches(pulito)) {
         final p = m.group(0)!.toLowerCase();
         if (!vietate.contains(p)) continue;

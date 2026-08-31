@@ -39,7 +39,21 @@ void main() {
         .where((f) => f.path.endsWith('.dart'))) {
       final percorso = f.path.replaceAll('\\', '/');
       if (esenti.contains(percorso)) continue;
-      final testo = f.readAsStringSync();
+      // **SI GUARDA IL CODICE, NON I COMMENTI, e il buco l'ha trovato
+      // l'ordine CG.** Un file che SPIEGA come funziona la condivisione
+      // nomina `PortaDellaCondivisione` in una riga di documentazione, e
+      // questa guardia lo accusava di condividere senza pagare il premio:
+      // e' successo ad `azioni_del_responso.dart`, che la condivisione non
+      // la fa, la delega a chi gliela passa. Si tolgono i commenti prima di
+      // cercare.
+      final testo = f
+          .readAsLinesSync()
+          .where((r) {
+            final t = r.trimLeft();
+            return !t.startsWith('//') && !t.startsWith('*') &&
+                !t.startsWith('/*');
+          })
+          .join('\n');
       if (!testo.contains('PortaDellaCondivisione.')) continue;
       // Gli AIUTANTI delle card non hanno un contesto: restituiscono
       // l'esito vero della porta (return PortaDellaCondivisione...) e il

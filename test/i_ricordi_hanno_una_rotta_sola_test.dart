@@ -9,6 +9,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -252,8 +253,14 @@ void main() {
         RicordoApertoScreen(custodito: custodito), registro, scrigno));
     await tester.pumpAndSettle();
 
+    // **IL TESTO DEL RICORDO PASSA DA ParagrafiDiLettura**, non da un
+    // Text nudo: e' la porta sola del ruolo lettura, e questa prova
+    // ancora chiedeva un Text. Cadeva col tipo sbagliato, non sul fatto.
     expect(
-        tester.widget<Text>(find.byKey(const Key('ricordo_aperto_testo'))).data,
+        tester
+            .widget<ParagrafiDiLettura>(
+                find.byKey(const Key('ricordo_aperto_testo')))
+            .testo,
         'Uruz ti chiede di non trattenere la forza che hai.',
         reason: 'il ricordo torna nella sua forma originale, col suo testo');
     expect(find.byKey(const Key('ricordo_aperto_quando')), findsOneWidget,

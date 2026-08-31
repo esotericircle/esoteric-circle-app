@@ -154,7 +154,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
       // montano una schermata sola lo scrigno puo' non esserci, e un responso
       // che morisse per questo sarebbe un difetto peggiore di quello che
       // questa voce cura.
-      debugPrint('Azioni: lo scrigno non c\'e\'. $errore');
+      debugPrint('Azioni: lo scrigno non risponde. $errore');
       return false;
     }
     if (!entrato) return false;
@@ -170,7 +170,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
         riferimento: ricordo.chiave,
       ));
     } catch (errore) {
-      debugPrint('Azioni: il registro dei Ricordi non c\'e\'. $errore');
+      debugPrint('Azioni: il registro dei Ricordi non risponde. $errore');
     }
     return true;
   }

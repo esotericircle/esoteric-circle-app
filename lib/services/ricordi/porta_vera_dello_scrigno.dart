@@ -32,7 +32,7 @@ class PortaVeraDelloScrigno extends PortaDelloScrigno {
       });
       return true;
     } catch (errore) {
-      debugPrint('Scrigno: il custodito non e\' salito. $errore');
+      debugPrint('Scrigno: il custodito non è salito. $errore');
       return false;
     }
   }

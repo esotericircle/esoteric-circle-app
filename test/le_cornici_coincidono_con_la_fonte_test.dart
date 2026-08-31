@@ -90,7 +90,21 @@ void main() {
 
   /// Estrae dalla fonte le coppie apertura e chiusura, per titolo di sezione.
   Map<String, ({String apertura, String chiusura})> leggiLaFonte() {
-    final testo = File('docs/responsi/cornici.md').readAsStringSync();
+    // **LE RIGHE VUOTE SI CONTANO IN CARATTERI, NON IN BYTE DEL CHECKOUT.**
+    //
+    // Buco trovato il 31 agosto 2026, ed e' della guardia. La fonte era nel
+    // repository con i fine riga di Windows, cioe' ritorno piu' a capo, e il
+    // paragrafo qui sotto si chiude cercando due a capo di fila: due a capo di
+    // fila non ci sono mai stati, quindi ogni cornice si prendeva tutto fino
+    // in fondo alla sua sezione. L'apertura conteneva la chiusura, e l'ultima
+    // sezione conteneva perfino le regole di attuazione. Due prove su tre
+    // restavano verdi su un testo che nessuno aveva mai letto.
+    //
+    // Si normalizza il fine riga prima di guardare: un documento non cambia
+    // significato a seconda della macchina che lo ha scritto.
+    final testo = File('docs/responsi/cornici.md')
+        .readAsStringSync()
+        .replaceAll('\r\n', '\n');
     final fuori = <String, ({String apertura, String chiusura})>{};
     // Le sezioni cominciano con "## ": si spezza su di loro e si guarda dentro.
     final sezioni = testo.split(RegExp(r'^## ', multiLine: true));
@@ -201,7 +215,10 @@ void main() {
     // `docs/responsi/consiglio.md`, portata nel repository senza toccarne un
     // carattere, e le trasformazioni ammesse sono le stesse tre dichiarate qui
     // sopra.
-    final testo = File('docs/responsi/consiglio.md').readAsStringSync();
+    // Stesso fine riga di Windows della fonte qui sopra, stesso rimedio.
+    final testo = File('docs/responsi/consiglio.md')
+        .readAsStringSync()
+        .replaceAll('\r\n', '\n');
     // Ogni risposta sta sotto il titolo del suo gruppo, in maiuscolo.
     final perGruppo = <TarotTopicGroup, String>{
       TarotTopicGroup.amore: 'AMORE E SENTIMENTI',
