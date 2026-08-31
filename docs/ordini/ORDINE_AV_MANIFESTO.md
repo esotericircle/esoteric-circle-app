@@ -45,6 +45,11 @@ conta sulle righe.
   otto. M3: **una sola `drawAtlas`**, zero altre chiamate di disegno, zero
   filtri, contati da una tela finta che registra cio' che arriva davvero al
   motore. M4 copertura al culmine: **71,4 per cento**, misurata sui pixel.
+  **AGGIORNATO DALL'ORDINE CE VOCE 14, e il debito lo salda l'ordine CF:**
+  quel vincolo e' sceso al **59,9 per cento**. Il numero qui sopra resta
+  scritto perche' e' la misura di quel giorno e non si riscrive la storia,
+  ma **cio' che la guardia pretende oggi e' 59,9**: chi legge questa riga
+  cercando la soglia viva la trova li', non qui.
   M5: la scheda si accende a **800 millesimi esatti**.
   **DEMOLITO PER INTERO**: la cartella `assets/transizioni/` con i tre WebP, la
   voce in `pubspec.yaml`, `transizione_di_stelle.dart`, e le tre prove che lo

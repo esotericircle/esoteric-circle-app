@@ -51,6 +51,67 @@ echo "== LE PROVE, PRIMA DI COSTRUIRE, con TZ=$TZ =="
 flutter test "$@" 2>&1 | tee "$REGISTRO"
 ESITO=${PIPESTATUS[0]}
 
+# **IL SECONDO CANCELLO: ANCHE LA SUITE DEL SERVER. Ordine CF voce 18.**
+#
+# **Il fatto che lo motiva.** L'ordine CE e' stato consegnato dichiarando
+# "4.032 prove, un solo rosso", ed era vero solo per le prove Flutter: le prove
+# del server, che girano con `npm test` dentro `functions/`, erano DUE ROSSE.
+# Erano il seguito delle voci CE.07 e CE.08, cioe' aspettavano ancora `null`
+# dove adesso ci sono i numeri che hanno sostituito l'illimitato. **Nessuno le
+# guardava, perche' quella suite non era toccata ne' da `flutter test` ne' da
+# questo file.**
+#
+# **E' la stessa forma dello sbarramento cieco che tenne ferma la build iOS per
+# diciassette giorni**: allora la rete di sicurezza non sapeva quali rossi
+# fossero ammessi, adesso non sapeva che esistesse una seconda suite. Una suite
+# che nessun cancello guarda non e' una rete di sicurezza.
+#
+# **Stesso trattamento dei rossi accettati.** I nomi delle prove cadute sul
+# server finiscono nello stesso registro delle cadute di Flutter, quindi un
+# rosso del server passa solo se e' dichiarato in `tool/rossi_accettati.txt`,
+# con un nome e una ragione, come ogni altro.
+#
+# **Si salta solo se le dipendenze non ci sono**, e lo si dice a voce alta:
+# una macchina senza `node_modules` non e' una macchina dove la suite e' verde,
+# e chi legge il registro deve poterlo distinguere.
+# La crocetta pesante con cui `node --test` marca una prova caduta.
+CROCE='✖'
+FUNZIONI="$(cd "$QUI/.." && pwd)/functions"
+if [ -d "$FUNZIONI/node_modules" ]; then
+  echo ""
+  echo "== LE PROVE DEL SERVER, con npm test dentro functions/ =="
+  REGISTRO_SERVER="$(mktemp)"
+  ( cd "$FUNZIONI" && npm test ) 2>&1 | tee "$REGISTRO_SERVER"
+  ESITO_SERVER=${PIPESTATUS[0]}
+  # **I NOMI DELLE PROVE CADUTE DEL SERVER, e la forma non era quella che
+  # avevo scritto per prima.** Avevo cercato "not ok 3 - nome", cioe' il
+  # formato TAP: `node --test` qui usa il rapporto a spec, che scrive
+  # "X nome (1.53ms)" con la crocetta pesante. La prova del rosso non
+  # scattava, e la grandezza misurata e' cambiata, non la soglia. Il nome
+  # compare due volte, in linea e nel riepilogo, e la riga "failing tests:"
+  # non e' il nome di nessuna prova.
+  grep -aE "^[[:space:]]*$CROCE " "$REGISTRO_SERVER" \
+    | sed -E "s/^[[:space:]]*$CROCE //" \
+    | sed -E 's/ \([0-9.]+ms\)[[:space:]]*$//' \
+    | grep -av '^failing tests:$' \
+    | sort -u \
+    | while IFS= read -r nome; do
+        [ -z "$nome" ] && continue
+        echo "00:00 +0 -1: $nome [E]" >> "$REGISTRO"
+      done
+  rm -f "$REGISTRO_SERVER"
+  if [ "$ESITO_SERVER" -ne 0 ]; then
+    ESITO=1
+    echo ""
+    echo "== LA SUITE DEL SERVER E' ROSSA =="
+  fi
+else
+  echo ""
+  echo "!! LE PROVE DEL SERVER NON SONO STATE ESEGUITE: manca"
+  echo "!! $FUNZIONI/node_modules. Esegui 'npm install' dentro functions/."
+  echo "!! Questa build non ha guardato la seconda suite."
+fi
+
 if [ "$ESITO" -eq 0 ]; then
   echo "== SUITE VERDE: la build puo' procedere =="
   rm -f "$REGISTRO"

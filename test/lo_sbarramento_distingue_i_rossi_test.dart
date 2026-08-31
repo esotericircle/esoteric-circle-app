@@ -39,6 +39,28 @@ void main() {
             'un rosso dichiarato tornerebbe a murare la porta');
   });
 
+  test('IL SECONDO CANCELLO: lo sbarramento guarda anche la suite del '
+      'server', () {
+    // **Ordine CF voce 18, e il fatto che lo motiva.** L'ordine CE e'
+    // stato consegnato dichiarando "4.032 prove, un solo rosso", ed era
+    // vero solo per le prove Flutter: le prove del server erano DUE
+    // ROSSE, e nessuno le guardava perche' quella suite non era toccata
+    // ne' da `flutter test` ne' da questo file. **Una suite che nessun
+    // cancello guarda non e' una rete di sicurezza.**
+    final testo = sbarramento.readAsStringSync();
+    expect(testo.contains('npm test'), isTrue,
+        reason: 'lo sbarramento non esegue piu\' la suite del server: torna '
+            'a esistere una seconda suite che nessuno guarda');
+    expect(testo.contains('functions'), isTrue,
+        reason: 'lo sbarramento non sa dove vive la suite del server');
+    // **E i suoi rossi finiscono nello STESSO registro**, quindi passano
+    // solo se dichiarati, come ogni altro.
+    expect(testo.contains('REGISTRO_SERVER'), isTrue,
+        reason: 'lo sbarramento non legge i nomi delle prove cadute del '
+            'server: un rosso del server fermerebbe la build senza dire '
+            'quale prova, e non potrebbe mai essere accettato per nome');
+  });
+
   test('Ogni riga del registro porta un nome E una ragione', () {
     final righe = registro
         .readAsLinesSync()

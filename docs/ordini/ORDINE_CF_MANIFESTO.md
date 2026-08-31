@@ -37,22 +37,32 @@ Porta le tre regole degli ordini precedenti:
 - **CF.14** Il Gemello astrale non e' appagante. **APERTA.**
 - **CF.15** La riga della privacy policy manca a chi rientra. **CHIUSA.**
 - **CF.16** Due porte quasi identiche, e ne resta una sola. **CHIUSA.**
-- **CF.17** Le due lapidi vecchie, scritte col sale vuoto. **APERTA.**
-- **CF.18** Il secondo cancello. **APERTA.**
+- **CF.17** Le due lapidi vecchie, scritte col sale vuoto. **FERMATA IN ATTESA DI DECISIONE.**
+- **CF.18** Il secondo cancello. **CHIUSA.**
 
 VOCI_TOTALI: 18
-VOCI_CHIUSE: 13
-VOCI_APERTE: 4
+VOCI_CHIUSE: 14
+VOCI_APERTE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 
 ## LE AFFERMAZIONI DI QUESTO ORDINE CHE HO TROVATO FALSE
 
-**Nessuna. Diciotto premesse su diciotto sono vere**, e va detto perche' e' il
-contrario esatto dell'ordine CE, dove sette su diciassette erano false e tre di
-quelle erano state ereditate da un rapporto vecchio invece che rimisurate.
-Questa volta l'Architetto ha misurato prima di scrivere.
+**Alla verifica iniziale erano vere tutte e diciotto**, ed era il contrario
+esatto dell'ordine CE, dove sette su diciassette erano false. **Lavorandoci ne
+sono cadute due, e le due sono mie e sue:**
+
+- **P18, e la premessa e' dell'ordine: le lapidi sono TRE, non due.** La terza
+  e' del 30 agosto alle 20:39, cioe' scritta dopo che il pepe era montato, e
+  infatti non si riconosce col sale vuoto. I dettagli stanno nella sezione
+  CF.17.
+- **E una premessa MIA, che vale come una sua.** Nella voce CF.02 avevo
+  misurato diciassette punti vuoti dentro la casella dei Doni e li avevo presi:
+  non erano vuoti, erano lo spazio in cui vive il bersaglio dell'aiuto. Il
+  rosso e' scattato in suite intera, sulla prova che l'ordine AO aveva scritto
+  contro esattamente questo errore. **La regola zero vale anche sulle misure di
+  chi esegue.**
 
 Verificate tutte sulla testa `88e587ee`, prima di toccare una riga.
 
@@ -75,7 +85,7 @@ Verificate tutte sulla testa `88e587ee`, prima di toccare una riga.
 | P15 | **vera, e il numero coincide** | `height: larga / 0.78` con `StackFit.expand` sopra un `AspectRatio` a 2 su 3 e `BoxFit.fill`: compressione verticale **14,53 per cento** |
 | P16 | **vera** | `luogo.attuale` e' scritta solo da `dove_sei_adesso.dart`, montato solo nel Rito dell'Alba, e il profilo ha un solo campo, "Luogo di nascita" |
 | P17 | **vera** | sfilata di 1600 millesimi, una miniatura da 120, una frase in due varianti, dentro `sinastria_gallery_screen.dart` |
-| P18 | **vera** | `BENVENUTO_PEPPER` versione 1 montato da `statoDelCerchio`, revisione `statodelcerchio-00018-vat` |
+| P18 | **vera a meta**, e la meta falsa e nella riga sotto | `BENVENUTO_PEPPER` versione 1 montato da `statoDelCerchio`, revisione `statodelcerchio-00018-vat`. **Ma le lapidi vecchie non sono due: sono tre**, e la terza porta gia il pepe |
 
 ### La domanda a parte, e la sua premessa e' falsa
 
@@ -486,6 +496,84 @@ proprio testo quale decisione supera: quella del catalogo, che cercava la riga
 nelle Impostazioni; quella dei consensi, che pretendeva una copia sola della
 riga e la cancellazione nelle Impostazioni; e quella dell'oblio, che guardava il
 file sbagliato.
+
+### CF.18, il secondo cancello
+
+**Il fatto che lo motiva, scritto perche' l'ordine lo chiede.** L'ordine CE e'
+stato consegnato dichiarando "4.032 prove, un solo rosso", **ed era vero solo
+per le prove Flutter**: le prove del server, che girano con `npm test` dentro
+`functions/`, erano DUE ROSSE, seguito delle voci CE.07 e CE.08, e aspettavano
+ancora `null` dove adesso ci sono i numeri che hanno sostituito l'illimitato.
+Nessuno le guardava, perche' quella suite non e' toccata ne' da `flutter test`
+ne' da `tool/sbarramento.sh`. **E' la stessa forma dello sbarramento cieco che
+tenne ferma la build iOS per diciassette giorni.**
+
+**Come e' fatto.** Lo sbarramento esegue `npm test` dentro `functions/` dopo la
+suite Flutter, e i nomi delle prove cadute del server finiscono nello STESSO
+registro delle cadute di Flutter: quindi un rosso del server passa solo se e'
+dichiarato in `tool/rossi_accettati.txt` con un nome e una ragione, come ogni
+altro. Senza `node_modules` la suite si salta **e lo si dice a voce alta**: una
+macchina senza dipendenze non e' una macchina dove la suite e' verde.
+
+**La prova del rosso, e la prima stesura non scattava.** Iniettata una prova
+rossa nel server, lo sbarramento ha rifiutato l'archivio ma **non sapeva dire
+quale prova**: cercavo "not ok 3 - nome", cioe' il formato TAP, mentre
+`node --test` qui usa il rapporto a spec, che scrive la crocetta pesante e il
+nome. Cambiata la grandezza misurata e non la soglia, il cancello ha stampato
+"PROVA DEL ROSSO DELL ORDINE CF VOCE 18" fra i rossi nuovi e ha rifiutato
+l'archivio con uscita 1. **Poi la stessa riga e' stata messa fra i rossi
+accettati e l'archivio si e' prodotto**, che e' l'altra meta' del trattamento.
+Iniezione e riga temporanea sono state tolte, e la suite del server e' verde:
+**50 prove, zero cadute.**
+
+### CF.17, le lapidi: sono TRE e non due, e una e' il tuo account
+
+**L'ordine chiede di dichiarare le due email PRIMA di toccare qualsiasi cosa, e
+di fermarsi se una non e' un indirizzo di prova. Le ho lette, e mi fermo.**
+
+**Prima premessa falsa: le lapidi sono tre, non due.** Lette da Firestore, nella
+collezione `lapidi_del_benvenuto`:
+
+| quando | impronta | chi e', riconosciuta col sale VUOTO |
+| --- | --- | --- |
+| 24 agosto 2026, 15:42 | `e79399895e1db263...` | **maobatta@gmail.com** |
+| 28 agosto 2026, 16:39 | `b24dc7957aecb2ec...` | **cloud@esotericircle.app** |
+| 30 agosto 2026, 20:39 | `9cb1487e3fb6a17e...` | **nessuna corrispondenza col sale vuoto** |
+
+**Come le ho riconosciute senza mai leggere il pepe.** Le due vecchie sono
+SHA-256 nudi dell'indirizzo, quindi si ricalcolano col sale vuoto e si
+confrontano: e' proprio la debolezza che il pepe e' venuto a chiudere. La terza
+non combacia con nessun indirizzo noto **ed e' stata scritta il 30 agosto alle
+20:39, cioe' dopo che il segreto era montato**: il fatto che non si riconosca e'
+la prova che il pepe funziona, e quella lapide e' gia' giusta.
+
+**Perche' mi fermo, e sono due ragioni indipendenti.**
+
+**Prima: una delle due non e' un indirizzo di prova.** `maobatta@gmail.com` e'
+il tuo account personale, quello con cui entri nel Cerchio: lo trovo scritto nel
+repository come indirizzo dei collaudatori. `cloud@esotericircle.app` e'
+l'indirizzo di distribuzione, e quello e' di prova. **L'ordine dice: se una
+delle due non e' un indirizzo di prova, fermati e chiedi prima di riscriverla.**
+Riscriverla vuol dire togliere a quell'account la possibilita' di incassare i
+250 Eos del benvenuto una seconda volta, ed e' il tuo account: la decisione e'
+tua, non mia.
+
+**Seconda, e vale a prescindere: dal mio lato la lapide nuova non si puo'
+calcolare.** L'impronta col pepe si ottiene solo conoscendo il pepe, e il pepe
+non si legge, non si stampa e non finisce in nessun log. **L'unico posto che
+puo' calcolarla e' la funzione stessa**, che il segreto ce l'ha montato. Farlo
+vorrebbe dire aggiungere una via che accetta un indirizzo e riscrive una lapide:
+e' una superficie nuova su un dato antifrode, costruita per essere usata due
+volte, e non la apro senza che tu lo abbia chiesto.
+
+**Cosa serve da te, in una riga.** Se `maobatta@gmail.com` va trattato come un
+indirizzo di prova, dimmelo e le due lapidi vecchie si sistemano. Se invece
+quell'account deve tenersi il suo benvenuto, allora si riscrive la sola
+`cloud@esotericircle.app`. **In tutti e due i casi mi dirai anche quale delle
+due vie preferisci**: la via dalla funzione, con una porta di servizio che
+nasce e muore col lavoro, oppure la cancellazione delle lapidi vecchie, che e'
+piu' semplice ma **regala un secondo benvenuto** a chi ci sta dietro, cioe' il
+contrario di quello che vuoi.
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 
