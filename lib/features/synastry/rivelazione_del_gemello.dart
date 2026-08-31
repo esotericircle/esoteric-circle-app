@@ -129,12 +129,20 @@ class _RivelazioneDelGemelloState extends State<RivelazioneDelGemello>
                           .withValues(alpha: finita ? 0.9 : 0.35),
                       width: finita ? 2 : 1),
                 ),
+                // **I CARTIGLI SI SCRIVONO A RUNTIME, ordine CF voce 14,
+                // coda del 31 agosto 2026.** Anche la miniatura della
+                // galleria montava l'arte nuda, e le targhe restavano
+                // bianche: il nome e la data si posano in Flutter, ed e'
+                // `VipFramedPortrait` a posarli.
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                  child: vip.hasImage
-                      ? Image.asset(vip.thumbPath!, fit: BoxFit.contain)
-                      : Icon(Icons.auto_awesome,
-                          color: widget.palette.goldSoft),
+                  child: VipFramedPortrait(
+                    palette: widget.palette,
+                    name: vip.name,
+                    date: vip.note,
+                    sign: vip.sign.symbol,
+                    vipAsset: vip.hasImage ? vip.thumbPath : null,
+                  ),
                 ),
               ),
             ),

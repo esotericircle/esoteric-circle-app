@@ -210,18 +210,33 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                       child: ClipRRect(
                         borderRadius:
                             BorderRadius.circular(SpacingTokens.radiusLg),
-                        child: volto.hasImage
-                            ? Image.asset(
-                                _voltoFermo
-                                    ? volto.fullPath!
-                                    : volto.thumbPath!,
-                                fit: BoxFit.contain,
-                                errorBuilder: (_, __, ___) => Icon(
-                                    Icons.auto_awesome,
-                                    color: palette.goldSoft),
-                              )
-                            : Icon(Icons.auto_awesome,
-                                color: palette.goldSoft),
+                        // **I CARTIGLI SI SCRIVONO A RUNTIME, e montare
+                        // l'arte nuda li lascia bianchi.** Rilievo del
+                        // fondatore del 31 agosto 2026, guardando questa
+                        // anteprima: "perche' i cartigli delle carte sono
+                        // vuoti?"
+                        //
+                        // **E' lo stesso difetto che l'ordine CC voce 06i
+                        // aveva gia' curato sulla carta ingrandita**, e l'ho
+                        // rifatto qui: gli artwork dei VIP hanno i cartigli
+                        // VUOTI di proposito, perche' il nome e la data si
+                        // posano in Flutter e cosi' un set solo di immagini
+                        // vale per tutte le lingue. `Image.asset` nudo e'
+                        // l'arte senza chi la posa: `VipFramedPortrait` e' il
+                        // componente che quei due testi li scrive, ed e' lo
+                        // stesso che la Sinastria e la card da condividere
+                        // usano gia'.
+                        child: VipFramedPortrait(
+                          palette: palette,
+                          name: volto.name,
+                          date: volto.note,
+                          sign: volto.sign.symbol,
+                          vipAsset: volto.hasImage
+                              ? (_voltoFermo
+                                  ? volto.fullPath
+                                  : volto.thumbPath)
+                              : null,
+                        ),
                       ),
                     ),
                   ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -229,6 +231,52 @@ void main() {
     expect(mancanti, isEmpty,
         reason: 'il fondatore ha chiesto queste cose e non ci sono: '
             '$mancanti');
+  });
+
+  testWidgets('i cartigli delle carte non restano vuoti', (tester) async {
+    // **Rilievo del fondatore del 31 agosto 2026, guardando l'anteprima**:
+    // "perche' i cartigli delle carte sono vuoti?"
+    //
+    // **E' lo stesso difetto che l'ordine CC voce 06i aveva gia' curato sulla
+    // carta ingrandita, e l'avevo rifatto io.** Gli artwork dei VIP hanno i
+    // cartigli VUOTI di proposito: il nome e la data si posano a runtime,
+    // cosi' un set solo di immagini vale per tutte le lingue. Chi monta
+    // `Image.asset` nudo monta l'arte senza chi la posa.
+    //
+    // **La prova guarda il sorgente e non lo schermo**, perche' a schermo i
+    // due testi vivono dentro il componente della cornice e un `find` non li
+    // distinguerebbe dal disegno.
+    const schermate = <String>[
+      'lib/features/synastry/schermata_del_gemello.dart',
+      'lib/features/synastry/podio_del_gemello.dart',
+      'lib/features/synastry/rivelazione_del_gemello.dart',
+    ];
+    final nude = <String>[];
+    for (final percorso in schermate) {
+      final sorgente = File(percorso)
+          .readAsStringSync()
+          .split('\n')
+          .where((r) => !r.trimLeft().startsWith('//'))
+          .join('\n');
+      if (!sorgente.contains('VipFramedPortrait(')) {
+        nude.add('$percorso non monta VipFramedPortrait');
+      }
+      for (final nudo in const [
+        'Image.asset(volto.',
+        'Image.asset(vip.',
+        'Image.asset(voce.vip.',
+      ]) {
+        if (sorgente.contains(nudo)) {
+          nude.add('$percorso monta ancora l\'arte nuda con $nudo');
+        }
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 14: schermate col ritratto ${schermate.length}, '
+        'con l\'arte nuda ${nude.length}');
+    expect(nude, isEmpty,
+        reason: 'qui i cartigli restano bianchi, perche\' l\'arte e\' '
+            'montata senza chi le posa il nome e la data: $nude');
   });
 
   testWidgets('il responso e\' quello della Sinastria, e porta al suo cielo',

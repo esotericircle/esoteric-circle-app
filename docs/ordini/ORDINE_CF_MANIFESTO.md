@@ -744,6 +744,18 @@ scombinate. E la frase evocativa diceva **"Lui, o lei, senti l'aria di una
 stanza"**, cioe' la frase scritta per il TU riusata per un altro: adesso le due
 voci hanno due mappe.
 
+**E un difetto che ha visto lui, non le guardie: i cartigli vuoti.** Verbatim,
+31 agosto 2026: "perché i cartigli delle carte sono vuoti?" **Aveva ragione, ed
+è un difetto già curato che avevo rifatto io.** Gli artwork dei VIP hanno i
+cartigli VUOTI di proposito, perché il nome e la data si posano in Flutter e
+così un set solo di immagini vale per tutte le lingue: montare `Image.asset`
+nudo è montare l'arte senza chi la posa. L'ordine CC voce 06i lo aveva già
+curato sulla carta ingrandita, con le stesse parole del fondatore, e io l'ho
+ripetuto in **tre punti**: la cornice grande del Gemello, le tre carte del podio
+e la miniatura nella galleria. Adesso tutti e tre montano `VipFramedPortrait`, e
+**una prova sul sorgente cade se qualcuno torna all'arte nuda**: rosso
+dimostrato rimettendola sul podio.
+
 **E un errore mio che le guardie hanno preso:** le stringhe nuove le avevo
 scritte con `e'` e `piu'` invece degli accenti veri, e una portava la virgola
 piu' "e". `language_rule_test` e `accenti_veri_test` le hanno fermate prima

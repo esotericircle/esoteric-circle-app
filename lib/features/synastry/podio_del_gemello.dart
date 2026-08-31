@@ -104,14 +104,20 @@ class _UnPosto extends StatelessWidget {
                 width: primo ? 2 : 1,
               ),
             ),
+            // **ANCHE QUI I CARTIGLI SI SCRIVONO, ordine CF voce 14, coda
+            // del 31 agosto 2026.** Gli artwork dei VIP hanno i cartigli
+            // vuoti di proposito e i due testi si posano in Flutter:
+            // `Image.asset` nudo e' l'arte senza chi la posa, e sul podio
+            // si vedevano tre cornici con le targhe bianche.
             child: ClipRRect(
               borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              child: voce.vip.hasImage
-                  ? Image.asset(voce.vip.thumbPath!,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) =>
-                          Icon(Icons.auto_awesome, color: palette.goldSoft))
-                  : Icon(Icons.auto_awesome, color: palette.goldSoft),
+              child: VipFramedPortrait(
+                palette: palette,
+                name: voce.vip.name,
+                date: voce.vip.note,
+                sign: voce.vip.sign.symbol,
+                vipAsset: voce.vip.hasImage ? voce.vip.thumbPath : null,
+              ),
             ),
           ),
         ),
