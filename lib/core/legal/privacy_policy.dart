@@ -91,7 +91,17 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'dell\'Archetipo 24 mesi sul telefono. Scaduto quel tempo li '
         'cancelliamo noi, senza che tu debba chiedere niente. Se cancelli i '
         'tuoi dati o il tuo account, la cancellazione è immediata e totale, '
-        'sul telefono e sul server: non c\'è un periodo di attesa.',
+        'sul telefono e sul server: non c\'è un periodo di attesa.\n\n'
+        'Del testo delle conversazioni teniamo per intero le più recenti; '
+        'dopo due settimane ne conserviamo un riassunto per Maestro e per '
+        'settimana insieme ai fatti che ne emergono, e il testo integrale '
+        'sparisce comunque ai 12 mesi. I riassunti e i fatti restano oltre, '
+        'perché sono ciò che permette al Maestro di riconoscerti. '
+        'L\'indice dei Ricordi del Cerchio, cioè le righe che dicono quando '
+        'hai usato quale arte e con quale Maestro, resta 24 mesi. '
+        'I responsi che scegli di custodire, col gesto Custodisci o '
+        'condividendoli, non scadono: restano finché vive il tuo account, '
+        'perché sono esattamente ciò che hai dichiarato di voler tenere.',
   ),
   SezioneDellaPolicy(
     titolo: 'Prevenzione degli abusi',
