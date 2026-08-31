@@ -78,6 +78,20 @@ export const SCADENZE: Record<string, Scadenza> = {
       "tornando; dopo due anni chi torna e' una persona nuova per davvero, e " +
       "tenere un'impronta per sempre e' sproporzionato al fine.",
   },
+  ricordi: {
+    nome: "L'indice dei Ricordi del Cerchio",
+    giorni: 730,
+    perche:
+      "e' la riga magra di cio' che hai fatto, e regge la timeline dei " +
+      "Ricordi: DUE ANNI e non uno, cioe' piu' dei messaggi, perche' il " +
+      "testo di una conversazione se ne va a 365 giorni mentre il fatto che " +
+      "quel giorno tu abbia parlato con Caligo resta leggibile. E' la " +
+      "memoria umana che l'ordine CG chiede: prima sfuma il dettaglio, poi " +
+      "il ricordo. Due anni e non di piu' perche' e' lo stesso orizzonte dei " +
+      "movimenti degli Eos, che nei Ricordi si leggono accanto: due " +
+      "orizzonti diversi sulla stessa schermata mostrerebbero un movimento " +
+      "senza il giorno in cui e' successo.",
+  },
   congedi: {
     nome: "I perche' di chi se ne va",
     giorni: 730,
@@ -163,6 +177,14 @@ export async function pulisciCioCheEScaduto(
     "lapidi",
     db.collection("lapidi_del_benvenuto")
       .where("quando", "<", confineDi("lapidi", adesso))
+  );
+  // **L'indice dei Ricordi, ordine CG voce 03.** Il campo `quando` di un mese
+  // e' il primo istante di quel mese e non la data dell'ultima sincronia: un
+  // mese vecchio risincronizzato oggi non deve tornare giovane.
+  await portaVia(
+    "ricordi",
+    db.collectionGroup("ricordi")
+      .where("quando", "<", confineDi("ricordi", adesso))
   );
   await portaVia(
     "congedi",

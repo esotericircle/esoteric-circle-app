@@ -85,6 +85,9 @@ class CioCheETuo {
     // TROVATA LA PROVA**, non una persona: e' la quarantaseiesima chiave, e
     // non la cancellava nessuna delle due vie.
     'maestro.',
+    // L'indice dei Ricordi del Cerchio: le righe magre di cio' che hai fatto,
+    // mese per mese, e la data dell'ultima sincronia. Ordine CG voce 03.
+    'ricordi.',
     // Il quaderno dei sogni, con le parole che hai scritto.
     'sogni.',
     // La Runa del Tramonto: la settimana e la cerniera. **Senza il punto**,

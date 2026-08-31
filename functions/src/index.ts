@@ -36,6 +36,15 @@ export {pulisciLeScadenze} from "./pulizia";
 // contatori, e l'elenco degli eventi ammessi e' chiuso e dichiarato.
 export {segnaLEvento} from "./ritorno";
 
+/**
+ * L'INDICE DEI RICORDI DEL CERCHIO. Ordine CG voce 03.
+ *
+ * Una scrittura per persona al giorno per il mese sporco, una lettura per
+ * ogni mese vecchio che qualcuno va a ripescare oltre i dodici che il
+ * telefono tiene.
+ */
+export {scriviIRicordi, leggiIRicordi} from "./ricordi";
+
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati
 // RIMOSSI per decisione del fondatore. La cancellazione e' immediata e

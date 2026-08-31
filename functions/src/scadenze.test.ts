@@ -68,7 +68,7 @@ test("si cerca il campo della data che quella collezione scrive davvero", () => 
     scadenze.includes('.where("createdAt", "<", confineDi("messaggi"'),
     "la pulizia dei messaggi non cerca createdAt"
   );
-  for (const collezione of ["consumi", "movimenti", "lapidi", "congedi"]) {
+  for (const collezione of ["consumi", "movimenti", "lapidi", "congedi", "ricordi"]) {
     assert.ok(
       scadenze.includes(`.where("quando", "<", confineDi("${collezione}"`),
       `la pulizia di ${collezione} non cerca il campo quando`
