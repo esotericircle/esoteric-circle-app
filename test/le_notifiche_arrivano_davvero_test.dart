@@ -30,6 +30,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// permesso concesso, e il permesso si concede solo se qualcuno lo CHIEDE al
 /// sistema. Conta anche quante volte glielo si e' chiesto.
 class _TelefonoFinto extends ServizioAvvisi {
+  @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {
+    suonateSubito.add(titolo);
+  }
+
+  /// I titoli suonati subito, ordine CF voce 04.
+  final List<String> suonateSubito = <String>[];
+
   _TelefonoFinto({this.rispondeSi = true});
 
   /// Cosa risponde la persona quando il sistema chiede.

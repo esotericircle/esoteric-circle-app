@@ -10,6 +10,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Un servizio finto, che registra cosa gli e' stato chiesto senza toccare
 /// nessuna piattaforma.
 class _AvvisiFinti extends ServizioAvvisi {
+  @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {
+    suonateSubito.add(titolo);
+  }
+
+  /// I titoli suonati subito, ordine CF voce 04.
+  final List<String> suonateSubito = <String>[];
+
   _AvvisiFinti({this.permesso = true});
 
   bool permesso;

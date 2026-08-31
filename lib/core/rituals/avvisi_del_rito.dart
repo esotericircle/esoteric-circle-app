@@ -61,6 +61,23 @@ abstract class ServizioAvvisi {
 
   /// Gli id degli avvisi in attesa, per poterli contare in una prova.
   Future<List<int>> inAttesa();
+
+  /// **SUONA ADESSO, senza aspettare l'ora. Ordine CF voce 04.**
+  ///
+  /// **Perche' esiste.** Il fondatore, verbatim: "da quando ho iniziato a
+  /// installare le varie build dell'APP NON HO MAI RICEVUTO ALCUNA NOTIFICA
+  /// PUSH PER I DONI, MAI!" Fra "il Cerchio non ha programmato niente" e "il
+  /// telefono non esegue cio' che e' in coda" ci sono due difetti diversi, e
+  /// dall'esterno si vedono uguali. Questa e' la via per distinguerli: se
+  /// l'avviso immediato arriva, il canale funziona e il problema e' nella
+  /// consegna a tempo; se non arriva, il problema sta prima.
+  ///
+  /// **Non e' un avviso del Cerchio**: non porta a nessuna scena e non entra
+  /// nella regia delle chiamate. E' uno strumento di misura, e lo dice.
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  });
 }
 
 /// Avvisi spenti: non chiede niente, non programma niente, non fallisce mai.
@@ -69,6 +86,12 @@ abstract class ServizioAvvisi {
 /// tocca il sistema di notifiche per sbaglio.
 class AvvisiSpenti extends ServizioAvvisi {
   const AvvisiSpenti();
+
+  @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {}
 
   @override
   bool get disponibile => false;

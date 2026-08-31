@@ -67,6 +67,41 @@ class _NotificheScreenState extends State<NotificheScreen> {
 
   ServizioAvvisi get _porta => widget.avvisi ?? avvisiDelCerchio;
 
+  /// **QUANTE CHIAMATE SONO DAVVERO IN CODA SUL TELEFONO. Ordine CF voce
+  /// 04.** Nullo finche' non si e' guardato.
+  List<int>? _inCoda;
+
+  /// Vero mentre si sta guardando, cosi' il tocco non si ripete a vuoto.
+  bool _sistoGuardando = false;
+
+  /// L'esito dell'ultima prova immediata, da dire a video.
+  String? _esitoDellaProva;
+
+  Future<void> _contaLaCoda() async {
+    final porta = _porta;
+    if (!porta.disponibile) return;
+    setState(() => _sistoGuardando = true);
+    final coda = await porta.inAttesa();
+    if (!mounted) return;
+    setState(() {
+      _inCoda = coda;
+      _sistoGuardando = false;
+    });
+  }
+
+  Future<void> _provaAdesso() async {
+    final porta = _porta;
+    if (!porta.disponibile) return;
+    await porta.mostraAdesso(
+      titolo: 'Prova del Cerchio',
+      testo: 'Se leggi questo, il canale funziona.',
+    );
+    if (!mounted) return;
+    setState(() => _esitoDellaProva =
+        'Mandata adesso. Se non compare nella tenda del telefono, il '
+        'problema e\' nel sistema e non nel Cerchio.');
+  }
+
   Future<void> _guardaIlPermesso() async {
     final porta = _porta;
     final ok = porta.disponibile && await porta.permessoConcesso();
@@ -247,6 +282,34 @@ class _NotificheScreenState extends State<NotificheScreen> {
                     style: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textMuted),
                   ),
+                  const SizedBox(height: SpacingTokens.lg),
+                  // **LA VIA PER MISURARE, ordine CF voce 04.**
+                  //
+                  // **Fatto del fondatore, verbatim**: "da quando ho iniziato
+                  // a installare le varie build dell'APP NON HO MAI RICEVUTO
+                  // ALCUNA NOTIFICA PUSH PER I DONI, MAI!"
+                  //
+                  // **Da fuori due difetti diversi si vedono uguali**: il
+                  // Cerchio che non programma niente, e il telefono che non
+                  // esegue cio' che ha in coda. Il secondo e' una causa nota
+                  // sui telefoni di certi produttori, che addormentano le
+                  // chiamate approssimate per risparmiare batteria. Senza un
+                  // modo di guardare, la diagnosi sarebbe una supposizione.
+                  //
+                  // **Qui non si suppone: si contano le chiamate in coda e si
+                  // prova il canale subito.** Se la prova arriva e le chiamate
+                  // in coda ci sono, allora quello che manca e' l'esecuzione a
+                  // tempo, ed e' un fatto da portare al produttore del
+                  // telefono, non un difetto da cercare nel codice.
+                  _LaCodaDelTelefono(
+                    inCoda: _inCoda,
+                    sistoGuardando: _sistoGuardando,
+                    esitoDellaProva: _esitoDellaProva,
+                    palette: palette,
+                    suGuarda: _contaLaCoda,
+                    suProva: _provaAdesso,
+                  ),
+                  const SizedBox(height: SpacingTokens.lg),
                 ],
               ),
           ),
@@ -423,6 +486,98 @@ class _UnAppuntamento extends StatelessWidget {
             onChanged: attivabile ? (v) => suScelta(v) : null,
             activeThumbColor: palette.gold,
           ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// LA CODA DEL TELEFONO, guardata invece che supposta. Ordine CF voce 04.
+///
+/// **Non e' una schermata di diagnostica nascosta**: sta nella pagina delle
+/// notifiche, dove una persona arriva proprio quando non le arriva niente, ed
+/// e' scritta con le sue parole e non con quelle del sistema.
+class _LaCodaDelTelefono extends StatelessWidget {
+  const _LaCodaDelTelefono({
+    required this.inCoda,
+    required this.sistoGuardando,
+    required this.esitoDellaProva,
+    required this.palette,
+    required this.suGuarda,
+    required this.suProva,
+  });
+
+  final List<int>? inCoda;
+  final bool sistoGuardando;
+  final String? esitoDellaProva;
+  final MaestroPalette palette;
+  final VoidCallback suGuarda;
+  final VoidCallback suProva;
+
+  @override
+  Widget build(BuildContext context) {
+    final coda = inCoda;
+    final String detto;
+    if (sistoGuardando) {
+      detto = 'Sto guardando...';
+    } else if (coda == null) {
+      detto = 'Non l\'ho ancora guardata.';
+    } else if (coda.isEmpty) {
+      detto = 'Nessuna chiamata in coda. Il Cerchio non ne ha programmata '
+          'nessuna: accendi un Dono qui sotto.';
+    } else {
+      detto = coda.length == 1
+          ? 'Una chiamata in coda sul telefono.'
+          : '${coda.length} chiamate in coda sul telefono.';
+    }
+    return DepthCard(
+      raised: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Le chiamate arrivano?',
+              style: TypographyTokens.titoloDiRiga()
+                  .copyWith(color: palette.goldSoft)),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            detto,
+            key: const Key('notifiche_coda_detto'),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          if (esitoDellaProva != null) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              esitoDellaProva!,
+              key: const Key('notifiche_esito_prova'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.sm),
+          // **A CAPO E NON IN FILA, misurato.** Su 360 punti i due nomi in
+          // riga sbordavano di trenta: `Wrap` li manda a capo invece di
+          // stringerli, che e' cio' che un dito preferisce.
+          Wrap(
+            spacing: SpacingTokens.sm,
+            children: [
+              TextButton(
+                key: const Key('notifiche_guarda_la_coda'),
+                onPressed: sistoGuardando ? null : suGuarda,
+                child: Text('Guarda la coda',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+              TextButton(
+                key: const Key('notifiche_prova_adesso'),
+                onPressed: suProva,
+                child: Text('Provala adesso',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ],
           ),
         ],
       ),

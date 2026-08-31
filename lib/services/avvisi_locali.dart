@@ -227,6 +227,37 @@ class AvvisiLocali extends ServizioAvvisi {
     );
   }
 
+  /// **SUONA ADESSO, ordine CF voce 04.** Lo stesso canale e lo stesso
+  /// motore delle chiamate vere, senza la coda: cosi' se questo arriva e
+  /// quelli no, la differenza non e' nel canale.
+  @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {
+    await _prepara();
+    final (nome, descrizione) = canali['rito_alba']!;
+    await _plugin.show(
+      id: _idDellaProva,
+      title: titolo,
+      body: testo,
+      notificationDetails: NotificationDetails(
+        android: AndroidNotificationDetails(
+          'rito_alba',
+          nome,
+          channelDescription: descrizione,
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+        ),
+        iOS: const DarwinNotificationDetails(),
+      ),
+    );
+  }
+
+  /// L'identificativo della prova, lontano da quelli dei cinque Doni cosi'
+  /// non ne cancella nessuno.
+  static const int _idDellaProva = 90001;
+
   @override
   Future<void> annulla(int id) async {
     await _prepara();

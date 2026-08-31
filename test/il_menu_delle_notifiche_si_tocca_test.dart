@@ -28,6 +28,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// ferme credendo di guardare cinque scelte.
 class _AvvisiCheDicono extends ServizioAvvisi {
   @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {
+    suonateSubito.add(titolo);
+  }
+
+  /// I titoli suonati subito, ordine CF voce 04.
+  final List<String> suonateSubito = <String>[];
+
+  @override
   bool get disponibile => true;
   @override
   Future<bool> chiediPermesso() async => true;

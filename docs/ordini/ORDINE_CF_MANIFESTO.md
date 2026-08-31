@@ -24,7 +24,7 @@ Porta le tre regole degli ordini precedenti:
 - **CF.01** La barra sottile piu' alta, con l'anello del livello. **CHIUSA.**
 - **CF.02** La striscia dei Doni piu' bassa. **CHIUSA.**
 - **CF.03** La barra Esplora piu' bassa. **CHIUSA.**
-- **CF.04** Le notifiche dei Doni, e le push. **APERTA.**
+- **CF.04** Le notifiche dei Doni, e le push. **FERMATA IN ATTESA DI DECISIONE.**
 - **CF.05** "Bentornata Mauro", al femminile. **CHIUSA.**
 - **CF.06** Rimasto sul Risveglio invece che in home. **CHIUSA.**
 - **CF.07** I dati di nascita non erano rimasti memorizzati. **CHIUSA.**
@@ -42,9 +42,9 @@ Porta le tre regole degli ordini precedenti:
 
 VOCI_TOTALI: 18
 VOCI_CHIUSE: 14
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 
 ## LE AFFERMAZIONI DI QUESTO ORDINE CHE HO TROVATO FALSE
@@ -574,6 +574,63 @@ due vie preferisci**: la via dalla funzione, con una porta di servizio che
 nasce e muore col lavoro, oppure la cancellazione delle lapidi vecchie, che e'
 piu' semplice ma **regala un secondo benvenuto** a chi ci sta dietro, cioe' il
 contrario di quello che vuoi.
+
+### CF.04, le notifiche: la parte uno e' fatta, la parte due si dichiara
+
+**PARTE UNO, IL DIFETTO: costruita la via per misurare, che e' quello che
+l'ordine chiede.** "Da verificare sul dispositivo, non dedurre. Serve una via
+per misurare se le chiamate sono davvero in coda sul telefono e se il sistema le
+esegue."
+
+Dentro la pagina delle notifiche, in fondo alle cinque scelte, c'e' adesso un
+blocco che dice quante chiamate il telefono ha DAVVERO in coda, leggendole da
+`pendingNotificationRequests`, e un gesto che manda un avviso **subito**, sullo
+stesso canale delle chiamate vere.
+
+**Perche' proprio queste due cose.** Da fuori due difetti diversi si vedono
+uguali: il Cerchio che non programma niente, e il telefono che non esegue cio'
+che ha in coda. Adesso si distinguono in due tocchi:
+
+- **coda vuota** vuol dire che il Cerchio non ha programmato: il difetto e' nel
+  codice, e la riga dice anche cosa fare, cioe' accendere un Dono;
+- **coda piena e prova immediata che arriva**: il canale funziona, le chiamate
+  ci sono, e cio' che manca e' l'esecuzione a tempo. Su quel telefono la causa
+  nota e' la gestione della batteria del produttore, che addormenta le chiamate
+  approssimate. **E' un fatto da portare al telefono, non un difetto da cercare
+  nel codice.**
+- **prova immediata che NON arriva**: il problema sta prima delle chiamate, nel
+  permesso o nel canale.
+
+**Il metodo `inAttesa()` esisteva gia' e non lo leggeva nessuno**: era scritto
+"per poterli contare in una prova", e nell'app non aveva lettori. Adesso ne ha
+uno, ed e' la persona.
+
+**PARTE DUE, LE PUSH VERE: dichiarata e non scritta, e l'ordine lo prevede.**
+"Se questa parte non si puo' provare senza una build vera, si dichiara invece di
+scriverla alla cieca."
+
+**Non si puo' provare, e le ragioni sono tre.** Il canale push chiede la
+dipendenza `firebase_messaging`, e il pezzo che conta, cioe' la registrazione
+del token dell'apparecchio, **non si esercita in nessuna prova**: vuole i
+servizi Google Play e un telefono vero. Il lavoro sul server puo' avere le sue
+prove, ma spingerebbe verso nessuno finche' il primo pezzo non esiste. E il
+fondatore in questo ordine **non ha ordinato nessuna build**, quindi niente di
+cio' che scrivessi potrebbe essere provato prima della consegna.
+
+**Cosa servirebbe, perche' tu possa ordinarlo sapendo cosa costa.** Quattro
+pezzi, in questo ordine: la dipendenza e il permesso, che su Android 13 e oltre
+e' lo stesso che le chiamate locali chiedono gia'; **il token custodito accanto
+al Cerchio della persona**, che e' un dato nuovo e va nella custodia con gli
+altri; un lavoro pianificato sul server che, all'ora del Dono **nel fuso della
+persona**, spinge il messaggio; e la cura del caso in cui il token scade, che e'
+la parte che tutti dimenticano. Il runtime resta Google, cioe' Firebase Cloud
+Messaging, mai le API Anthropic.
+
+**Il mio consiglio, e la ragione.** Prima si guarda col blocco della parte uno
+che cosa succede davvero sul tuo RMX5056: **se le chiamate sono in coda e la
+prova immediata arriva**, allora le push non curano un difetto, aggiungono una
+funzione, e vanno ordinate come tale invece che come rimedio. Se invece la coda
+e' vuota, il difetto e' nel Cerchio e si cura senza push.
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 

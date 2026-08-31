@@ -27,6 +27,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// **Gli orari erano gia' scritti nei Doni**, e sono quelli concordati: Alba
 /// 7:00, Soffio 10:30, Arcano 13:00, Tramonto 18:30, Notte 22:30.
 class _AvvisiFinti extends ServizioAvvisi {
+  @override
+  Future<void> mostraAdesso({
+    required String titolo,
+    required String testo,
+  }) async {
+    suonateSubito.add(titolo);
+  }
+
+  /// I titoli suonati subito, ordine CF voce 04.
+  final List<String> suonateSubito = <String>[];
+
   _AvvisiFinti({this.permesso = true});
 
   bool permesso;
