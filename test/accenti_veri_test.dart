@@ -28,13 +28,6 @@ void main() {
     "QUALITA'": 'QUALITÀ',
     "ATTIVITA'": 'ATTIVITÀ',
     "citta'": 'città',
-    "perche'": 'perché',
-    "piu'": 'più',
-    "gia'": 'già',
-    "puo'": 'può',
-    "cioe'": 'cioè',
-    "sara'": 'sarà',
-    "verita'": 'verità',
   };
 
   test('Nessuna stringa mostrata usa l\'apostrofo al posto dell\'accento', () {
@@ -54,16 +47,35 @@ void main() {
         // apici, senza inseguire le sequenze di fuga. Basta allo scopo.
         final pezzi = riga.split("'");
         for (var k = 1; k < pezzi.length; k += 2) {
-          final testo = pezzi[k];
+          // **VIA LA BARRA DI PROTEZIONE, e questa riga nasce da un buco
+          // vero.** Ordine CF voce 14, coda del 31 agosto 2026. Nel codice
+          // l\'apice dentro una stringa si scrive protetto, e allora lo
+          // spezzone che arriva qui finisce con la barra: "Perche" seguito
+          // dalla barra non e\' uguale a "Perche", e la parola sbagliata
+          // passava. **E\' successo davvero**: `Text('Perche\\' proprio lui')`
+          // e\' arrivato fino all\'anteprima con questa prova verde, e a
+          // trovarlo e\' stato l\'occhio sull\'immagine.
+          final testo = pezzi[k].endsWith(r'\')
+              ? pezzi[k].substring(0, pezzi[k].length - 1)
+              : pezzi[k];
+          // **E SENZA BADARE ALLE MAIUSCOLE, seconda meta' dello stesso
+          // buco.** L'elenco porta "PERCHE'" e "perche'", e "Perche'" con la
+          // sola iniziale grande non era nessuno dei due: e' proprio la forma
+          // con cui la parola sbagliata e' passata. Un elenco che deve
+          // prevedere ogni maiuscola e' un elenco che dimentica sempre una
+          // forma.
+          final testoBasso = testo.toLowerCase();
           for (final e in sbagliate.entries) {
-            final chiaveSenzaApice = e.key.substring(0, e.key.length - 1);
+            final chiaveSenzaApice =
+                e.key.substring(0, e.key.length - 1).toLowerCase();
             // La stringa e' spezzata sull'apice, quindi la forma sbagliata
             // compare come parola che FINISCE il pezzo: "TI DIRA" seguito
             // dall'apice che ha spezzato.
-            if (testo.endsWith(chiaveSenzaApice) &&
-                (testo.length == chiaveSenzaApice.length ||
+            if (testoBasso.endsWith(chiaveSenzaApice) &&
+                (testoBasso.length == chiaveSenzaApice.length ||
                     ' .,;:!?('.contains(
-                        testo[testo.length - chiaveSenzaApice.length - 1]))) {
+                        testoBasso[
+                            testoBasso.length - chiaveSenzaApice.length - 1]))) {
               colpevoli.add('${f.path}:$n  "$testo" va scritto ${e.value}');
             }
           }

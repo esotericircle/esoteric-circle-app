@@ -273,7 +273,7 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                     ),
                   ),
                   const SizedBox(height: SpacingTokens.md),
-                  Text('IL PODIO DEI TRE PIU\' VICINI',
+                  Text('IL PODIO DEI TRE PIÙ VICINI',
                       textAlign: TextAlign.center,
                       style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 1.6)),
@@ -308,7 +308,7 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                         // cielo, l'evocativa cosa vuol dire: la prima da sola
                         // sembra un referto, la seconda da sola un oroscopo
                         // da rivista.
-                        Text('Perche\' proprio lui',
+                        Text('Perché proprio lui',
                             key: const Key('gemello_perche_titolo'),
                             style: TypographyTokens.titoloDiRiga()
                                 .copyWith(color: palette.goldSoft)),
