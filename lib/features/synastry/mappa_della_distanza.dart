@@ -298,7 +298,7 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
               // parola a video**, ma la prova che legge le frasi mostrate
               // non ha modo di distinguerli: le va incontro un nome che
               // non le somiglia.
-              'Misurato da ${widget.doveSei.nomeDelLuogo}'
+              'Misurato da ${widget.doveSei.luogoDetto}'
               '${widget.doveSei.dichiarato ? "" : ", la tua città di nascita: "
                   "dilla in \"I tuoi dati\" se vivi altrove"}.',
               key: const Key('sinastria_mappa_da_dove'),

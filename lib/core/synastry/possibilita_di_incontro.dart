@@ -36,7 +36,13 @@ class DoveSei {
   /// parola senza accento: era il nome del campo dentro un'interpolazione,
   /// non una parola a video, ma una guardia che legge le stringhe non ha
   /// modo di distinguerli. Meglio un nome che non le somigli.
-  String get nomeDelLuogo => citta;
+  /// **SI CHIAMA COSI' E NON `nomeDelLuogo`, e il nome se l'e' scelto una
+  /// guardia.** Nel progetto il prefisso `nomeDe...` e' riservato ai nomi
+  /// che devono dichiarare se li si vuole al singolare o al plurale, ed e'
+  /// cosi' che si evita "I tuoi Stella": una citta' quella forma non ce
+  /// l'ha, e prendere in prestito quel prefisso avrebbe fatto cadere la
+  /// prova che la sorveglia.
+  String get luogoDetto => citta;
 }
 
 /// LA POSSIBILITA' DI INCONTRO, e stavolta si spiega. Ordine BO voce 03.
