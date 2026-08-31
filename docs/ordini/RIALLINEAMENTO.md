@@ -24,8 +24,11 @@ Tre voci di CF sono ferme e non sono lavoro rimandato.
 
 **CF.10, i caratteri piccoli.** Il censimento sta in
 `docs/tipografia/caratteri_piccoli.md`: quattordici testi sotto i sedici punti,
-e **otto sono la striscia dei Doni, tutta a dodici punti**, cioè al pavimento
-tipografico. Il fondatore ha già deciso che l'uniformazione tocca i soli testi
+e **sette sono la striscia dei Doni, tutta a dodici punti**, cioè al pavimento
+tipografico. **Il numero era otto e l'ho corretto rimisurando il censimento**:
+i cinque cerchietti "?" sono lo stesso testo e il censimento li raccoglie in
+una riga sola, quindi la striscia porta sette righe e non otto. I quattordici
+si dividono in quattro inviti al gesto, sette della striscia e tre fuori scala. Il fondatore ha già deciso che l'uniformazione tocca i soli testi
 da leggere: alzare i testi brevi è materia sua. **Non si esegue, si riporta.**
 
 **CF.17, le lapidi del benvenuto.** Sono **tre e non due**, contro la premessa

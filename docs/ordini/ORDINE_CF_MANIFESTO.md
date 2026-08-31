@@ -459,9 +459,14 @@ distinti sotto i sedici punti su quattro schermate**. Il fatto che conta:
 
 - **I nomi dei cinque Doni nella striscia stanno a DODICI punti**, cioe' al
   pavimento assoluto dell'app, e con loro il titolo "I tuoi doni del giorno" e i
-  cinque cerchietti "?". **Sono otto testi su quattordici, e sono la prima cosa
+  cinque cerchietti "?". **Sono sette testi su quattordici, e sono la prima cosa
   che si vede aprendo il Cerchio**: quando il fondatore scrive "i doni... SONO
   TROPPO PICCOLI I CARATTERI", questa e' la riga che ha davanti.
+  **Correzione del 31 agosto 2026, ed e' un mio errore di conto**: qui avevo
+  scritto otto sommando a mano cinque nomi, un titolo e cinque cerchietti,
+  mentre il censimento raccoglie i cinque "?" in una riga sola perche' sono lo
+  stesso testo. Le righe della striscia sono SETTE, contate sul file: quattro
+  piu' sette piu' tre fa quattordici, che e' il totale giusto.
 - **Due inviti al gesto stanno a dodici punti**: "Inclina o scorri per rivelare"
   nell'Arcano e "Dirada la nebbia" nella Notte, piu' le due righe che spiegano
   il ripiego tattile.
