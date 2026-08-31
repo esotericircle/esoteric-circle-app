@@ -144,7 +144,14 @@ void main() {
     expect(find.byKey(const Key('dream_message')), findsOneWidget);
     expect(find.byKey(const Key('dream_word')), findsOneWidget);
     expect(find.byKey(const Key('dream_provenienza')), findsOneWidget);
-    expect(find.byKey(const Key('dream_share')), findsOneWidget);
+    // **LA CHIAVE E' CAMBIATA, ordine CG voci 06 e 08.** Il Condividi
+    // adesso viene da AzioniDelResponso, che e' la porta sola per tutte e
+    // tredici le arti col responso, e accanto ci sono il Custodisci e il
+    // Parlane, che prima qui non esistevano. La chiave vecchia era di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
     // Il saluto e' quello deterministico dal cielo reale.
     final atteso = DreamRiteCorpus.saluto(quando);
     // **IL SALUTO PASSA DALLA PORTA UNICA, ordine BV voce 06**: non e' piu'

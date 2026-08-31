@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -151,7 +153,6 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   bool? _permesso;
 
   late final AnimationController _anim;
-  bool _sharing = false;
 
   /// La card condivisibile vive nell'albero solo l'istante dello scatto, cosi'
   /// non raddoppia i testi a schermo ne pesa a ogni frame.
@@ -1042,29 +1043,25 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
         const SizedBox(height: SpacingTokens.sm),
-        Center(
-          child: FilledButton.icon(
-            key: const Key('sinastria_share'),
-            onPressed: _sharing ? null : _onShare,
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.gold,
-              foregroundColor: palette.deepest,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
-            ),
-            icon: _sharing
-                ? const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2))
-                : const Icon(Icons.ios_share_rounded, size: 18),
-            label: Text(
-            _sharing
-                ? 'Preparo la card'
-                : PremioDellaCondivisione.etichetta(context),
-                style: TypographyTokens.label(size: 13)
-                    .copyWith(letterSpacing: 0.6)),
+        // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Il
+        // Condividi in oro resta com'era; accanto sono nati il Custodisci e
+        // il Parlane con Medora, col responso gia' dentro la conversazione.
+        AzioniDelResponso(
+          palette: palette,
+          maestro: Maestro.medora,
+          dorato: true,
+          responso: ResponsoDaCustodire(
+            arte: 'sinastria',
+            titolo: 'La tua sinastria con ${_vip.name}',
+            testo: report.reading,
+            dati: {
+              'vip': _vip.name,
+              'punteggio': '${report.overall}',
+            },
           ),
+          condividi: _onShare,
+          aperturaDellaChat:
+              ChatOpeners.sinastria(_vip.name, report.overall),
         ),
         const SizedBox(height: SpacingTokens.lg),
         // Il selettore in fondo non c'e' piu': la scelta del VIP si fa nella
@@ -1089,11 +1086,9 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     );
   }
 
-  Future<void> _onShare() async {
-    setState(() {
-      _sharing = true;
-      _renderCard = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _onShare() async {
+    setState(() => _renderCard = true);
     try {
       // Assicura il ritratto del VIP e la cornice decodificati, poi lascia un
       // paio di frame perche' la card fuori campo sia disegnata prima dello scatto.
@@ -1109,25 +1104,24 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         boundaryKey: _cardKey,
         text: SynastryReport.challengeLine(_vip.name),
       );
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la sinastria');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la sinastria');
+      }
+      return andata;
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Non riesco a preparare la card ora.')),
         );
       }
+      // Un errore non e' una condivisione avvenuta, quindi non custodisce.
+      return false;
     } finally {
-      if (mounted) {
-        setState(() {
-          _sharing = false;
-          _renderCard = false;
-        });
-      }
+      // Chi spegne il pulsante mentre si condivide adesso e' la porta sola.
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 

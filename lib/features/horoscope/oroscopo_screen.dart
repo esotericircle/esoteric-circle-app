@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 
 import 'package:flutter/material.dart';
 import '../sigilli/regia_del_cammino.dart';
@@ -556,6 +558,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       palette: palette,
                       sharing: _sharing,
                       onShare: _onShare,
+                      segno: widget.userSign.italianName,
+                      // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
+                      // LETTO**, cioe' le schede del cielo di oggi in fila:
+                      // custodire un testo diverso da quello a video sarebbe
+                      // riaprire domani un responso che non e' mai comparso.
+                      testoDelResponso: cards
+                          .map((c) => '${c.title}\n${c.text}')
+                          .join('\n\n'),
                     ),
                   // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
                   //
@@ -663,7 +673,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     });
   }
 
-  Future<void> _onShare() async {
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero che
+  /// esce di qui e\' quello su cui scatta la custodia automatica.
+  Future<bool> _onShare() async {
     setState(() {
       _sharing = true;
       _renderCard = true;
@@ -682,12 +694,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         await PremioDellaCondivisione.premia(context,
             cosa: 'Hai condiviso il tuo oroscopo');
       }
+      return andata;
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Non riesco a preparare la card ora.')),
         );
       }
+      // **UN ERRORE NON \' UNA CONDIVISIONE AVVENUTA**, quindi non custodisce
+      // niente: e\' la stessa regola del foglio aperto e poi chiuso.
+      return false;
     } finally {
       if (mounted) {
         setState(() {
@@ -1550,13 +1566,27 @@ class _NotaDelCielo extends StatelessWidget {
   }
 }
 
+/// **LE TRE AZIONI SOTTO IL RESPONSO DELL\'OROSCOPO, ordine CG voci 06 e 08.**
+///
+/// Prima qui c\'era il solo Condividi, in oro pieno, con la sua attesa: quella
+/// forma resta, perche\' e\' l\'invito che chiude il responso e non un accidente.
+/// Accanto sono nati il Custodisci e il Parlane con Medora, e vengono dalla
+/// porta sola che vale per tutte e tredici le arti col responso.
 class _ShareBlock extends StatelessWidget {
   const _ShareBlock(
-      {required this.palette, required this.sharing, required this.onShare});
+      {required this.palette,
+      required this.sharing,
+      required this.onShare,
+      required this.segno,
+      required this.testoDelResponso});
 
   final MaestroPalette palette;
   final bool sharing;
-  final Future<void> Function() onShare;
+  final Future<bool> Function() onShare;
+  final String segno;
+
+  /// Il testo che si custodisce: le schede del cielo di oggi, in fila.
+  final String testoDelResponso;
 
   @override
   Widget build(BuildContext context) {
@@ -1567,26 +1597,18 @@ class _ShareBlock extends StatelessWidget {
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary)),
         const SizedBox(height: SpacingTokens.sm),
-        FilledButton.icon(
-          key: const Key('oroscopo_share'),
-          onPressed: sharing ? null : onShare,
-          style: FilledButton.styleFrom(
-            backgroundColor: palette.gold,
-            foregroundColor: palette.deepest,
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
+        AzioniDelResponso(
+          palette: palette,
+          maestro: Maestro.medora,
+          dorato: true,
+          responso: ResponsoDaCustodire(
+            arte: 'oroscopo',
+            titolo: 'Il tuo oroscopo, $segno',
+            testo: testoDelResponso,
+            dati: {'segno': segno},
           ),
-          icon: sharing
-              ? const SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2))
-              : const Icon(Icons.ios_share_rounded, size: 18),
-          label: Text(
-              sharing
-                  ? 'Preparo la card'
-                  : PremioDellaCondivisione.etichetta(context),
-              style: TypographyTokens.etichetta().copyWith(letterSpacing: 0.6)),
+          condividi: onShare,
+          aperturaDellaChat: ChatOpeners.oroscopo(segno),
         ),
       ],
     );

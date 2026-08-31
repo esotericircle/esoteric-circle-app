@@ -47,7 +47,20 @@ class RitualGiftCard extends StatefulWidget {
     required this.streak,
     required this.onShare,
     this.domandaDiIeri,
+    this.azioni,
   });
+
+  /// **LE TRE AZIONI SOTTO IL RESPONSO, ordine CG voci 06 e 08.**
+  ///
+  /// La scheda non le costruisce: non sa quale Dono sta mostrando ne' quale
+  /// testo la persona debba poter custodire. Le costruisce la schermata e le
+  /// posa qui, dove prima stava il solo Condividi della parola.
+  ///
+  /// Nulla nelle prove che montano la scheda da sola, e in quel caso al suo
+  /// posto resta il vecchio pulsante: una scheda che sparisse per un
+  /// parametro mancante sarebbe un difetto peggiore di quello che questa voce
+  /// cura.
+  final Widget? azioni;
 
   /// LA DOMANDA CHE MEDORA HA LASCIATO IERI NELLA STESA. Ordine P voce 18.
   ///
@@ -279,7 +292,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   // La condivisione della parola torna quando la parola e' reale.
-                  if (word != null)
+                  if (word != null && widget.azioni == null)
                     _ShareWordButton(
                         onShare: widget.onShare, accento: accento),
                   if (widget.streak >= 1)
@@ -289,6 +302,14 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                         accento: accento),
                 ],
               ),
+              // **LE TRE AZIONI, quando la schermata le ha posate.** Stanno
+              // sotto la fila delle pastiglie e non dentro: il Custodisci e il
+              // Parlane non sono etichette, sono gesti, e un gesto in mezzo
+              // alle pastiglie si legge come una di loro.
+              if (widget.azioni != null) ...[
+                const SizedBox(height: SpacingTokens.md),
+                widget.azioni!,
+              ],
             ],
             ),
           ),

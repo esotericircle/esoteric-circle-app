@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -349,21 +351,25 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// sparire anche di qui**, se no si condivide con gli altri una cosa che chi
   /// riceve non trovera' aprendo l'app. Resta l'orientamento del giorno, che
   /// e' cio' che il dono dice davvero.
-  Future<void> _shareWord(DawnGift gift) async {
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _shareWord(DawnGift gift) async {
     try {
       final andata = await PortaDellaCondivisione.testo('Il mio Soffio del Destino di oggi: '
               '${gift.orientation} Con Esoteric Circle.');
 // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
 // a condivisione davvero avvenuta.
-if (andata && mounted) {
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso il Soffio del Destino');
-}
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il Soffio del Destino');
+      }
+      return andata;
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted) return false;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Condivisione non disponibile ora.')),
       );
+      // Un errore non e' una condivisione avvenuta, quindi non custodisce.
+      return false;
     }
   }
 
@@ -566,6 +572,25 @@ if (andata && mounted) {
                                 giorno: widget.now ?? DateTime.now(),
                                 streak: _streak,
                                 onShare: () => _shareWord(_gift!),
+                                // **LE TRE AZIONI, ordine CG voci 06 e 08.**
+                                // Cio' che si custodisce e' l'orientamento del
+                                // giorno, che e' cio' che il dono dice
+                                // davvero: la parola era uscita dalla scheda
+                                // per decisione del fondatore, e custodire una
+                                // cosa che non si vede sarebbe la stessa
+                                // bugia di condividerla.
+                                azioni: AzioniDelResponso(
+                                  palette: palette,
+                                  maestro: Maestro.aura,
+                                  responso: ResponsoDaCustodire(
+                                    arte: 'soffio',
+                                    titolo: 'Il tuo Soffio del Destino',
+                                    testo: _gift!.orientation,
+                                  ),
+                                  condividi: () => _shareWord(_gift!),
+                                  aperturaDellaChat: ChatOpeners.soffio(
+                                      _gift!.orientation),
+                                ),
                               ),
                               if (_risposta != null) ...[
                                 const SizedBox(height: SpacingTokens.lg),

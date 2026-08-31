@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 
 import 'package:flutter/material.dart';
 import '../../core/sigilli/ora_rituale.dart';
@@ -191,6 +193,23 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
               testo: carta.upright,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary)),
+          const SizedBox(height: SpacingTokens.lg),
+          // **LE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Qui il
+          // Condividi non c'e' e non e' una dimenticanza: l'Arcano non
+          // produce una carta da mandare, l'artwork del mazzo e' arte del
+          // Cerchio e non un responso della persona. Restano il Custodisci e
+          // il Parlane, che di un'immagine non hanno bisogno.
+          AzioniDelResponso(
+            palette: palette,
+            maestro: Maestro.medora,
+            responso: ResponsoDaCustodire(
+              arte: 'oracolo',
+              titolo: 'Il tuo arcano del giorno: ${carta.name}',
+              testo: carta.upright,
+              dati: {'carta': carta.name},
+            ),
+            aperturaDellaChat: ChatOpeners.oracolo(carta.name),
+          ),
         ],
       ),
     );

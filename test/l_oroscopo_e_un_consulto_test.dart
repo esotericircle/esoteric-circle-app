@@ -65,7 +65,12 @@ void main() {
     // cielo di oggi con te" col pulsante Condividi, e la card che ne sarebbe
     // uscita portava i quattro responsi mai comparsi a video. Togliere il
     // testo e lasciare il modo di spedirlo non toglie il difetto, lo nasconde.
-    expect(find.byKey(const Key('oroscopo_share')), findsNothing,
+    // **LA CHIAVE E' CAMBIATA, ordine CG voci 06 e 08.** Il Condividi
+    // adesso viene da AzioniDelResponso, che e' la porta sola per tutte e
+    // tredici le arti col responso, e accanto ci sono il Custodisci e il
+    // Parlane, che prima qui non esistevano. La chiave vecchia era di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsNothing,
         reason: 'prima del consulto si puo\' gia\' condividere l\'oroscopo: '
             'si spedirebbe una lettura che nessuno ha chiesto ne\' letto');
 
@@ -80,7 +85,7 @@ void main() {
         piena: true));
     await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 3));
-    expect(find.byKey(const Key('oroscopo_share')), findsOneWidget,
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget,
         reason: 'dopo il consulto non si puo\' piu\' condividere: la '
             'correzione ha tolto la funzione invece di rimandarla');
   });

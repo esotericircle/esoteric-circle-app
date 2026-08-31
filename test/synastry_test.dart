@@ -328,11 +328,18 @@ void main() {
     // dell'ordine BX voce 09 il tasto Condividi e' sceso sotto il bordo:
     // cercarlo senza scorrere diceva "non c'e'" mentre era al suo posto.
     await tester.scrollUntilVisible(
-        find.byKey(const Key('sinastria_share')), 200,
+        find.byKey(const Key('responso_condividi')), 200,
         scrollable: find.descendant(
             of: find.byKey(const Key('sinastria_list')),
             matching: find.byType(Scrollable)));
-    expect(find.byKey(const Key('sinastria_share')), findsOneWidget);
+    // **LA CHIAVE E' CAMBIATA, ordine CG voci 06 e 08.** Il Condividi
+    // adesso viene da AzioniDelResponso, che e' la porta sola per tutte e
+    // tredici le arti col responso, e accanto ci sono il Custodisci e il
+    // Parlane, che prima qui non esistevano. La chiave vecchia era di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
     // Il selettore in fondo non c'e' piu': al suo posto il tasto Cambia VIP.
     //
     // **SI SCORRE FINO A LUI, non fino al tasto sopra.** L'elenco e' pigro, e

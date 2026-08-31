@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -705,26 +707,25 @@ class _Azioni extends StatefulWidget {
 
 class _AzioniState extends State<_Azioni> {
   final GlobalKey _boundary = GlobalKey();
-  bool _condividendo = false;
   bool _rendi = false;
 
-  Future<void> _condividi() async {
-    setState(() {
-      _condividendo = true;
-      _rendi = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _condividi() async {
+    setState(() => _rendi = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la carta della notte');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la carta della notte');
+      }
+      return andata;
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      // Chi spegne il pulsante mentre si condivide adesso e' la porta sola.
+      if (mounted) setState(() => _rendi = false);
     }
   }
 
@@ -732,19 +733,20 @@ if (andata && mounted) {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            key: const Key('dream_share'),
-            style: OutlinedButton.styleFrom(
-                foregroundColor: widget.palette.goldSoft,
-                side: BorderSide(
-                    color: widget.palette.gold.withValues(alpha: 0.6))),
-            onPressed: _condividendo ? null : _condividi,
-            icon: const Icon(Icons.ios_share_rounded),
-            label: Text(PremioDellaCondivisione.etichetta(context,
-                base: 'Condividi la carta della notte')),
+        // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.**
+        // Cio' che si custodisce e' il saluto della notte, cioe' il testo che
+        // la persona ha davanti: la carta e' il vestito di quel testo.
+        AzioniDelResponso(
+          palette: widget.palette,
+          maestro: Maestro.caligo,
+          responso: ResponsoDaCustodire(
+            arte: 'sogno',
+            titolo: 'Il tuo Rito della Notte',
+            testo: widget.saluto,
+            dati: {'maestro': widget.maestroNome},
           ),
+          condividi: _condividi,
+          aperturaDellaChat: ChatOpeners.sogno(widget.saluto),
         ),
         if (_rendi)
           Positioned(

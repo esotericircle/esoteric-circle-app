@@ -90,4 +90,52 @@ class ChatOpeners {
     final art = _articoloTratto[categoria] ?? 'il';
     return 'Il mio tratto dominante è $art ${nome.toLowerCase()}, cosa racconta di me?';
   }
+
+  // --- LE OTTO APERTURE NATE CON L\'ORDINE CG VOCE 08 -------------------
+  //
+  // **Sette arti su tredici non avevano nessuna via verso la chat**, e le
+  // altre sei ce l\'avevano scritta a mano nella propria schermata. Il
+  // fondatore: "quasi ogni funzionalità, alla fine sotto, dà l\'opportunità di
+  // approfondire in chat tramite parlane col maestro". Adesso sono tredici su
+  // tredici, e ogni prima domanda nasce da qui.
+  //
+  // **Testi provvisori**: le parole che la persona legge le approva il
+  // fondatore.
+
+  /// Dall\'Oroscopo verso Medora, col segno vero.
+  static String oroscopo(String segno) =>
+      'Ho letto il mio oroscopo di oggi, $segno. Cosa vuole dirmi il cielo che '
+      'non ho colto?';
+
+  /// Dalla Stesa di Tarocchi verso Medora, con le carte uscite.
+  static String stesa(List<String> carte) =>
+      'Nella mia stesa sono uscite ${_elenco(carte)}. Come si legge questa '
+      'sequenza sulla mia situazione?';
+
+  /// Dalla Sinastria verso Medora, col nome del VIP e la percentuale.
+  static String sinastria(String nome, int punteggio) =>
+      'La mia sinastria con $nome dice $punteggio per cento. Cosa ci lega '
+      'davvero?';
+
+  /// Dal Sigillo dell\'Intenzione verso Caligo, con l\'intenzione posata.
+  static String sigillo(String intenzione) =>
+      'Ho sigillato questa intenzione: «$intenzione». Come la tengo viva?';
+
+  /// Dal Rito dell\'Alba verso Medora, con la parola del giorno.
+  static String alba(String parola) =>
+      'La mia parola di stamattina è «$parola». Come la porto dentro la '
+      'giornata?';
+
+  /// Dal Soffio del Destino verso Aura, col responso del soffio.
+  static String soffio(String responso) =>
+      'Il mio soffio di oggi dice: «$responso». Cosa mi chiede di lasciare '
+      'andare?';
+
+  /// Dall\'Arcano del Giorno verso Medora, con la carta uscita.
+  static String oracolo(String carta) =>
+      'L\'arcano di oggi è $carta. Cosa mi sta indicando adesso?';
+
+  /// Dal Rito della Notte verso Caligo, col responso della notte.
+  static String sogno(String responso) =>
+      'Stanotte il Cerchio mi dice: «$responso». Cosa porto nel sonno?';
 }

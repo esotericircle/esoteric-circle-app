@@ -130,6 +130,11 @@ class ArtiConResponso {
       doveViveIlResponso:
           'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart',
       apertura: 'sigillo',
+      perche: 'NON HA UN CONDIVIDI, e non e\' una dimenticanza: il Sigillo '
+          'non produce una carta da mandare, produce un segno tracciato col '
+          'dito. Inventargli un\'immagine da condividere sarebbe una '
+          'funzione nuova e non questa voce. Custodisci e Parlane ci sono, '
+          'perche\' quelli non hanno bisogno di un\'immagine.',
     ),
     // --- I CINQUE DONI DEL GIORNO -------------------------------------
     // Non sono arti dello scaffale, ma un responso lo producono eccome, ed e'
@@ -154,6 +159,10 @@ class ArtiConResponso {
       titolo: 'Arcano del Giorno',
       doveViveIlResponso: 'lib/features/rituals/day_oracle_screen.dart',
       apertura: 'oracolo',
+      perche: 'NON HA UN CONDIVIDI, e non e\' una dimenticanza: l\'artwork '
+          'del mazzo e\' arte del Cerchio e non un responso della persona, '
+          'quindi non c\'e\' una carta sua da mandare. Custodisci e Parlane '
+          'ci sono.',
     ),
     ArteConResponso(
       arte: 'tramonto',

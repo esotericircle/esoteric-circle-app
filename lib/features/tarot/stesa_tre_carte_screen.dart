@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -413,7 +415,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   final Set<int> _taken = {};
 
   final GlobalKey _cardKey = GlobalKey();
-  bool _sharing = false;
   bool _renderCard = false;
 
   /// I selettori prima della stesa. Le voci non pronte restano Coming soon.
@@ -1361,29 +1362,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.lg),
-          Center(
-            child: FilledButton.icon(
-              key: const Key('stesa_share'),
-              onPressed: _sharing ? null : _onShare,
-              style: FilledButton.styleFrom(
-                backgroundColor: palette.gold,
-                foregroundColor: palette.deepest,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
-              ),
-              icon: _sharing
-                  ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2))
-                  : const Icon(Icons.ios_share_rounded, size: 18),
-              label: Text(
-              _sharing
-                  ? 'Preparo la card'
-                  : PremioDellaCondivisione.etichetta(context),
-                  style: TypographyTokens.etichetta()
-                      .copyWith(letterSpacing: 0.6)),
+          // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Il
+          // Condividi in oro resta com'era, perche' e' l'invito che chiude il
+          // responso; accanto sono nati il Custodisci e il Parlane con Medora.
+          AzioniDelResponso(
+            palette: palette,
+            maestro: Maestro.medora,
+            dorato: true,
+            responso: ResponsoDaCustodire(
+              arte: 'stesa',
+              titolo: 'La tua stesa a tre carte',
+              testo: _spread.reading,
+              dati: {
+                'carte': _spread.cards.map((c) => c.card.name).join(','),
+              },
             ),
+            condividi: _onShare,
+            aperturaDellaChat: ChatOpeners.stesa(
+                _spread.cards.map((c) => c.card.name).toList()),
           ),
         ],
             // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
@@ -1403,11 +1399,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
-  Future<void> _onShare() async {
-    setState(() {
-      _sharing = true;
-      _renderCard = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _onShare() async {
+    setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -1415,25 +1409,25 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         boundaryKey: _cardKey,
         text: 'La mia stesa a tre carte. Esoteric Circle.',
       );
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la tua stesa');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la tua stesa');
+      }
+      return andata;
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Non riesco a preparare la card ora.')),
         );
       }
+      // Un errore non e' una condivisione avvenuta, quindi non custodisce.
+      return false;
     } finally {
-      if (mounted) {
-        setState(() {
-          _sharing = false;
-          _renderCard = false;
-        });
-      }
+      // Chi spegne il pulsante mentre si condivide adesso e' la porta sola:
+      // due stati per la stessa attesa sarebbero due verita'.
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 }

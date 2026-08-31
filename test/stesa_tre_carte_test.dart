@@ -588,7 +588,17 @@ void main() {
       }
       // 7. Le azioni. Il disclaimer non sta piu' qui: ne esistevano NOVE a
       // schermo, e adesso ne esiste UNO, nell'area privacy.
-      expect(find.byKey(const Key('stesa_share')), findsOneWidget);
+      // **LA CHIAVE E' CAMBIATA, ordine CG voci 06 e 08.** Il Condividi
+      // adesso viene da AzioniDelResponso, che e' la porta sola per tutte e
+      // tredici le arti col responso, e accanto ci sono il Custodisci e il
+      // Parlane, che prima qui non esistevano. La chiave vecchia era di
+      // questa schermata e basta.
+      expect(find.byKey(const Key('responso_condividi')),
+          findsOneWidget);
+      expect(find.byKey(const Key('responso_custodisci')),
+          findsOneWidget);
+      expect(find.byKey(const Key('responso_parlane')),
+          findsOneWidget);
       expect(find.byKey(const Key('stesa_disclaimer')), findsNothing);
       expect(tester.takeException(), isNull);
     });

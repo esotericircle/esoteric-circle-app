@@ -1,7 +1,8 @@
 import 'dart:async';
+import '../../chat/chat_openers.dart';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'package:flutter/material.dart';
 import '../../../sigilli/regia_del_cammino.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/magic/intention_sigil.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -12,8 +13,6 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import '../../../../services/app_services.dart';
-import '../../chat/maestro_chat_screen.dart';
 import '../../rotta_arte.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
@@ -393,33 +392,21 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           const SizedBox(height: SpacingTokens.md),
           _FontiEMetodo(palette: palette),
           const SizedBox(height: SpacingTokens.lg),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              key: const Key('sigillo_parlane'),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
-                padding: const EdgeInsets.symmetric(
-                    vertical: SpacingTokens.md),
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
-                ),
-              ),
-              onPressed: () => Navigator.of(context).push(
-                MaestroChatScreen.route(
-                  maestro: Maestro.caligo,
-                  services: context.read<AppServices>(),
-                  initialUserMessage:
-                      'Ho tracciato il mio sigillo sull\'intenzione '
-                      '"${lettura.riformulata}", ricondotta alla '
-                      '${lettura.via.nome}. Cosa mi dici di questo cammino?',
-                ),
-              ),
-              child: Text('Parlane con Caligo',
-                  style: TypographyTokens.body(size: 16)
-                      .copyWith(color: palette.goldSoft)),
+          // **LE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Qui
+          // il Condividi non c'e' e non e' una dimenticanza: il Sigillo
+          // produce un segno tracciato col dito, non una carta da
+          // mandare. Restano il Custodisci e il Parlane, che di
+          // un'immagine non hanno bisogno.
+          AzioniDelResponso(
+            palette: palette,
+            maestro: Maestro.caligo,
+            responso: ResponsoDaCustodire(
+              arte: 'sigillo',
+              titolo: 'Il tuo sigillo: ${lettura.via.nome}',
+              testo: lettura.riformulata,
+              dati: {'via': lettura.via.nome},
             ),
+            aperturaDellaChat: ChatOpeners.sigillo(lettura.riformulata),
           ),
           const SizedBox(height: SpacingTokens.lg),
         ] else

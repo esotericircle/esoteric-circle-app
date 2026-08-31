@@ -71,7 +71,7 @@ class AzioniDelResponso extends StatefulWidget {
     required this.palette,
     required this.maestro,
     required this.responso,
-    required this.condividi,
+    this.condividi,
     required this.aperturaDellaChat,
     this.orologio,
     this.dorato = false,
@@ -87,7 +87,13 @@ class AzioniDelResponso extends StatefulWidget {
   /// Come quest'arte condivide. Torna VERO quando la condivisione e' avvenuta
   /// davvero, cioe' cio' che `PortaDellaCondivisione.avvenuta` risponde: e' su
   /// quel vero che scatta la custodia automatica.
-  final Future<bool> Function() condividi;
+  ///
+  /// **NULLO quando quell'arte non ha niente da condividere**, e non e' una
+  /// dimenticanza. Il Sigillo dell'Intenzione e l'Arcano del Giorno non hanno
+  /// una carta da mandare: inventargliela sarebbe una funzione nuova, non
+  /// questa voce. Custodisci e Parlane restano, perche' quelli non hanno
+  /// bisogno di un'immagine.
+  final Future<bool> Function()? condividi;
 
   /// La prima domanda con cui si apre la chat, composta da `ChatOpeners`.
   final String aperturaDellaChat;
@@ -170,9 +176,11 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   }
 
   Future<void> _condividi() async {
+    final porta = widget.condividi;
+    if (porta == null) return;
     setState(() => _condividendo = true);
     try {
-      final avvenuta = await widget.condividi();
+      final avvenuta = await porta();
       // **SOLO SE E' AVVENUTA.** Un foglio aperto e poi chiuso non custodisce
       // niente, ed e' la misura di accettazione dell'ordine.
       if (avvenuta) {
@@ -220,7 +228,9 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget.dorato)
+          if (widget.condividi == null)
+            const SizedBox.shrink()
+          else if (widget.dorato)
             Center(
               child: FilledButton.icon(
                 key: const Key('responso_condividi'),
@@ -253,7 +263,8 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
               icon: const Icon(Icons.ios_share_rounded),
               label: Text(PremioDellaCondivisione.etichetta(context)),
             ),
-          const SizedBox(height: SpacingTokens.sm),
+          if (widget.condividi != null)
+            const SizedBox(height: SpacingTokens.sm),
           OutlinedButton.icon(
             key: const Key('responso_custodisci'),
             style: OutlinedButton.styleFrom(

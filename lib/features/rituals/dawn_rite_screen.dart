@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -462,9 +464,10 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   /// ne faccio adesso di questa parola". Anche condividendola le due cose
   /// restano insieme: una parola spedita nuda a chi non ha l'app davanti
   /// sarebbe ancora piu' muta che a schermo.
-  Future<void> _shareWord(DawnGift gift) async {
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _shareWord(DawnGift gift) async {
     final word = gift.word;
-    if (word == null) return;
+    if (word == null) return false;
     // Si chiama "ragione" e non "perche" di proposito: il nome della
     // variabile finisce dentro l'interpolazione della stringa condivisa, e
     // l'esame degli accenti, che legge le stringhe come testo mostrato, vi
@@ -476,15 +479,18 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
           '${ragione == null ? '' : ' $ragione'} Con Esoteric Circle.');
 // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
 // a condivisione davvero avvenuta.
-if (andata && mounted) {
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la parola del giorno');
-}
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la parola del giorno');
+      }
+      return andata;
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted) return false;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Condivisione non disponibile ora.')),
       );
+      // Un errore non e' una condivisione avvenuta, quindi non custodisce.
+      return false;
     }
   }
 
@@ -595,6 +601,23 @@ if (andata && mounted) {
                                 streak: _streak,
                                 domandaDiIeri: _domandaDiIeri,
                                 onShare: () => _shareWord(_gift!),
+                                // **LE TRE AZIONI, ordine CG voci 06 e 08.**
+                                // La parola del giorno e' un responso come
+                                // gli altri: si custodisce e se ne parla col
+                                // Maestro che l'ha data.
+                                azioni: AzioniDelResponso(
+                                  palette: palette,
+                                  maestro: maestro,
+                                  responso: ResponsoDaCustodire(
+                                    arte: 'alba',
+                                    titolo: 'La tua parola del giorno',
+                                    testo: _gift!.word ?? '',
+                                    dati: {'parola': _gift!.word ?? ''},
+                                  ),
+                                  condividi: () => _shareWord(_gift!),
+                                  aperturaDellaChat: ChatOpeners.alba(
+                                      _gift!.word ?? ''),
+                                ),
                               ),
                               // DOVE SEI ADESSO, ordine P voce 23. Compare solo
                               // quando l'ora del sorgere non si puo'
