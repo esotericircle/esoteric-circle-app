@@ -250,10 +250,14 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                       style: TypographyTokens.cerimoniale()
                           .copyWith(color: palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.xs),
-                  Text(widget.gemello.annuncio,
+                  // **DAL PARAGRAFO E NON DA UN `Text` NUDO.** Nel ruolo
+                  // lettura la porta e' una sola, e una prova la sorveglia:
+                  // da un `Text` diretto torna il muro di testo.
+                  ParagrafiDiLettura(
                       key: const Key('gemello_annuncio'),
+                      testo: widget.gemello.annuncio,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.lettura()
+                      stile: TypographyTokens.lettura()
                           .copyWith(color: ColorTokens.textSecondary)),
                 ],
                 // **LA GRAFICA PRIMA DEL TESTO, ed e' la regola del
@@ -313,14 +317,16 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                             style: TypographyTokens.titoloDiRiga()
                                 .copyWith(color: palette.goldSoft)),
                         const SizedBox(height: SpacingTokens.xs),
-                        Text(parole.tecnica,
+                        ParagrafiDiLettura(
                             key: const Key('gemello_perche_tecnica'),
-                            style: TypographyTokens.lettura()
+                            testo: parole.tecnica,
+                            stile: TypographyTokens.lettura()
                                 .copyWith(color: ColorTokens.textPrimary)),
                         const SizedBox(height: SpacingTokens.sm),
-                        Text(parole.evocativa,
+                        ParagrafiDiLettura(
                             key: const Key('gemello_perche_evocativa'),
-                            style: TypographyTokens.lettura()
+                            testo: parole.evocativa,
+                            stile: TypographyTokens.lettura()
                                 .copyWith(color: ColorTokens.textPrimary)),
                         const SizedBox(height: SpacingTokens.md),
                         ParagrafiDiLettura(
