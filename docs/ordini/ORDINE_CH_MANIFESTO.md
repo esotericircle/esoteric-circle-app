@@ -20,15 +20,49 @@ quelle si e' rivelata sbagliata proprio perche' veniva da un mio rapporto.
 - **CH.08** Il comando di build entra nel registro. **CHIUSA.**
 - **CH.09** Il peso lo scrive la consegna, e il codice morto esce. **CHIUSA.**
 - **CH.10** Il peso della 2215 nel registro si corregge. **CHIUSA.**
-- **CH.11** La build nuova, e la 2216 non si consegna piu' a nessuno. **CHIUSA.**
+- **CH.11** La build nuova, e la 2216 non si consegna piu' a nessuno. **FERMATA SU DECISIONE DEL FONDATORE.**
 - **CH.12** Un solo foglio di istruzioni per il fondatore. **CHIUSA.**
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 12
+VOCI_CHIUSE: 11
 VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
-VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
+
+## CH.11, LA BUILD C'E' E NON E' STATA CONSEGNATA
+
+**L'ordine chiedeva di costruire E consegnare la 2217. La build e' stata
+fatta e verificata, la consegna no: il fondatore l'ha fermata mentre il
+cancello girava**, parole sue del 31 agosto 2026: "non mi serve la build
+adesso". Non e' un ostacolo tecnico e non e' una voce lasciata a meta': e' una
+decisione di prodotto che non era delegata, quindi si riporta come fatto e non
+si esegue.
+
+**Cosa esiste davvero, misurato sull'archivio e non sul comando.**
+
+| | 2216, consegnata | 2217, costruita e non consegnata |
+| --- | ---: | ---: |
+| numero letto con aapt2 | 2216 | **2217** |
+| cartelle `lib/` | 2 | **1** |
+| architetture | `arm64-v8a`, `armeabi-v7a` | **`arm64-v8a`** |
+| librerie nella cartella | 7 e **5** | **7** |
+| `libflutter.so` a 32 bit | assente | la cartella non esiste |
+| occorrenze di `armeabi` | 5 | **0** |
+| peso | 174.780.993 | **169.244.205** |
+
+L'archivio sta in `build/app/outputs/flutter-apk/app-release.apk`, ha passato
+tutti e cinque i controlli della voce CH.07, ed e' pronto: quando il fondatore
+lo vorra', si consegna senza rifarlo.
+
+**L'ultima build consegnata resta la 2216**, e
+`docs/versione_distribuita.json` continua a dirlo, perche' nessuna consegna e'
+avvenuta. Il numero nel pubspec e' 2217 e supera l'ultimo consegnato, che e'
+la condizione che la guardia della versione pretende.
+
+**La prova di accensione non e' stata fatta**, e nemmeno tentata, perche' non
+si e' arrivati alla consegna. Resta vero il conto: sarebbe stata la quarta
+build consecutiva senza, dopo la 2214, la 2215 accesa e la 2216.
 
 ## LA COSA CHE VALE PIU' DELLE ALTRE
 
