@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
-import '../../core/identity/profile_controller.dart';
 import '../../core/settings/settings_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
@@ -16,12 +15,9 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../../services/app_services.dart';
 import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
-import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
-import 'privacy_e_permessi_screen.dart';
 import 'riga_interruttore.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
@@ -183,57 +179,28 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: SpacingTokens.xl),
 
-              const SectionTitle(
-                title: 'Privacy e dati',
-                subtitle: 'Il tuo cammino è tuo.',
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              // **TUTTO IL BLOCCO E' ANDATO IN UN SOTTO MENU'. Ordine CE voce
-              // 03**, parole del fondatore: "ma tutto quel blocco di permessi
-              // deve andare in un sotto menu' dedicato".
+              // **LA SEZIONE "PRIVACY E DATI" SE N'E' ANDATA NEL MENU'
+              // UTENTE. Ordine CF voce 16.**
               //
-              // Qui restano due righe sole: la porta del sotto menu' e la
-              // cancellazione, che lui non ha chiesto di spostare e che e' la
-              // cosa piu' grave che si possa fare da questa schermata.
-              DepthCard(
-                raised: true,
-                child: InkWell(
-                  key: const Key('settings_privacy_e_permessi'),
-                  onTap: () => Navigator.of(context)
-                      .push(PrivacyEPermessiScreen.route()),
-                  child: Row(
-                    children: [
-                      Icon(Icons.shield_outlined,
-                          color: palette.goldSoft, size: 22),
-                      const SizedBox(width: SpacingTokens.md),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Privacy e permessi',
-                                style: TypographyTokens.titoloDiRiga()),
-                            const SizedBox(height: SpacingTokens.xxs),
-                            Text(
-                              'Cosa contiamo, da dove vengono i numeri e cosa '
-                              'il Cerchio può toccare del telefono.',
-                              style: TypographyTokens.corpo()
-                                  .copyWith(color: ColorTokens.textSecondary),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              DepthCard(
-                raised: true,
-                child: _DeleteDataTile(palette: palette),
-              ),
-              const SizedBox(height: SpacingTokens.xl),
-
+              // **Richiesta del fondatore, verbatim**: "devi eliminare
+              // dal menu' impostazioni 'privacy e permessi' [...] e deve
+              // eliminare anche 'cancella i miei dati': questi devono
+              // esistere al massimo in un unico posto e cioe' nel menu'
+              // utente in un sotto menu'."
+              //
+              // **Il doppione era reale**: il menu' utente ha gia' una voce
+              // "Privacy e dati" con dentro la policy, lo scarico e le due
+              // cancellazioni, e questa sezione si chiamava allo stesso
+              // modo e portava la stessa identica icona.
+              //
+              // **Niente e' andato perso, e due cose erano di legge.**
+              // "Privacy e permessi" vive adesso dentro quel sotto menu',
+              // con dentro l'attribuzione delle fonti, che la licenza
+              // CC BY 4.0 del catalogo delle citta' pretende raggiungibile,
+              // e l'interruttore della misura, che e' la via con cui si
+              // revoca il consenso. La cancellazione dei dati vive nello
+              // stesso sotto menu', in due gradi: il cammino che riparte e
+              // l'account che sparisce.
               const SectionTitle(
                 title: 'Account',
                 subtitle: 'Accesso e profilo.',
@@ -312,133 +279,6 @@ class SettingsScreen extends StatelessWidget {
       );
 }
 
-/// Riga di cancellazione dei dati, con conferma di custodia (mai punitiva).
-class _DeleteDataTile extends StatelessWidget {
-  const _DeleteDataTile({required this.palette});
-
-  final MaestroPalette palette;
-
-  Future<void> _confirmAndDelete(BuildContext context) async {
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: palette.surfaceElevated,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-          side: BorderSide(color: palette.gold.withValues(alpha: 0.3)),
-        ),
-        title: Text('Cancellare i tuoi dati?',
-            style: TypographyTokens.titoloDiSchermata()),
-        content: Text(
-          'Lasceremo andare tutto il tuo cammino: profilo, ricordi dei Maestri '
-          'e conversazioni. Non è una perdita, è il tuo diritto. Il cerchio '
-          'ti accoglierà di nuovo come il primo giorno.',
-          style: TypographyTokens.corpo()
-              .copyWith(color: ColorTokens.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: Text('Resta',
-                style:
-                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
-          ),
-          FilledButton(
-            key: const Key('settings_delete_confirm'),
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.gold,
-              foregroundColor: palette.deepest,
-            ),
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Cancella i miei dati'),
-          ),
-        ],
-      ),
-    );
-
-    if (ok != true || !context.mounted) return;
-    final services = context.read<AppServices>();
-    final profile = context.read<ProfileController>();
-    try {
-      // Le due meta' del diritto all'oblio, dentro lo stesso try: il ramo
-      // remoto su Firestore, piu' tutto quel che sta sul telefono. Prima
-      // partiva solo la prima, quindi nome, data, luogo e fotografia del volto
-      // tornavano al riavvio, mentre la finestra prometteva il contrario.
-      // **LE TRE META' DEL DIRITTO ALL'OBLIO. Ordine BZ voce 01.**
-      //
-      // Prima ce n'erano due, e mancava la piu' grande: il ramo remoto su
-      // Firestore e il profilo sul telefono. Il profilo cancellava secondo
-      // una lista sua, con sette prefissi, mentre la via dell'Account ne
-      // usava dodici: **chi cancellava da qui si teneva il cammino, il
-      // borsellino, i Sigilli, i sogni, le letture del viso e l'ingresso nel
-      // Cerchio**, mentre questa finestra gli prometteva tutto il cammino.
-      //
-      // Adesso la dimenticanza del telefono e' la stessa delle altre vie e
-      // legge la verita' unica: cio' che questa finestra promette e cio' che
-      // succede sono la stessa cosa.
-      // **LE TRE META' DEL DIRITTO ALL'OBLIO. Ordine BZ voce 01.**
-      //
-      // Prima ce n'erano due, e mancava la piu' grande: il ramo remoto su
-      // Firestore e il profilo sul telefono. Il profilo cancellava secondo
-      // una lista sua, con sette prefissi, mentre la via dell'Account ne
-      // usava dodici: **chi cancellava da qui si teneva il cammino, il
-      // borsellino, i Sigilli, i sogni, le letture del viso e l'ingresso nel
-      // Cerchio**, mentre questa finestra gli prometteva tutto il cammino.
-      //
-      // Adesso la dimenticanza del telefono e' la stessa delle altre vie e
-      // legge la verita' unica: cio' che questa finestra promette e cio' che
-      // succede sono la stessa cosa.
-      await services.memory.deleteAllData();
-      await profile.forget();
-      final quante = await DimenticanzaDelTelefono.dimentica();
-      debugPrint('Oblio dalle Impostazioni: $quante spazi cancellati.');
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Fatto. Il cerchio riparte da capo, quando vorrai.'),
-        ),
-      );
-    } catch (_) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Non è stato possibile ora. Riprova più tardi.'),
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      key: const Key('settings_delete'),
-      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-      onTap: () => _confirmAndDelete(context),
-      child: Row(
-        children: [
-          Icon(Icons.delete_outline_rounded, color: palette.goldSoft, size: 22),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Cancella i miei dati',
-                    style: TypographyTokens.titoloDiRiga()),
-                const SizedBox(height: 2),
-                Text(
-                  'Profilo, ricordi e conversazioni. Il tuo diritto all\'oblio.',
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-        ],
-      ),
-    );
-  }
-}
 
 /// Riga dei permessi: riporta alle impostazioni di sistema dell'app.
 ///

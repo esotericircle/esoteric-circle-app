@@ -25,6 +25,7 @@ import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
 import 'sentiero_screen.dart';
 import '../../design_system/components/icona_degli_eos.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA CELEBRAZIONE DI UN TRAGUARDO, nelle sue due forme.
 ///
@@ -974,7 +975,7 @@ Future<void> mostraLaCardDelTraguardo(
   } catch (diarioAssente) {
     quando = null;
   }
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

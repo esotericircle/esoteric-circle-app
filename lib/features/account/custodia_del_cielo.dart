@@ -14,6 +14,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'consensi_della_registrazione.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LE TRE VIE PER CUSTODIRE IL PROPRIO CIELO, in un componente solo.
 ///
@@ -120,7 +121,7 @@ class VieDellaCustodia extends StatelessWidget {
     final email = TextEditingController();
     final parola = TextEditingController();
     final palette = context.palette;
-    return showDialog<(String, String)>(
+    return dialogoDelCerchio<(String, String)>(
       context: context,
       builder: (dialogo) => _FoglioDellEmail(
         email: email,
@@ -259,6 +260,22 @@ class ContinuaComeRiconosciuto extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
+        // **I CONSENSI CI SONO ANCHE QUI, ordine CF voce 15.**
+        //
+        // **Domanda del fondatore, verbatim**: "quando mi registro la prima
+        // volta o quando disinstallo e poi reinstallo inserendo poi la mia
+        // e-mail precedente, non dovrebbe esserci scritto che 'facendo click
+        // accetti la privacy policy'?"
+        //
+        // **Aveva ragione a meta', ed era la meta' peggiore.** La riga esiste,
+        // e' una sola in tutto il codice, e compare nella prima registrazione
+        // con email e in quella con Google o Apple, perche' tutte e tre
+        // montano `VieDellaCustodia`. **Questo ramo no**: chi rientra con
+        // un'email gia' registrata vede questo pulsante, che e' costruito
+        // qui e non passa di la'. Premerlo e' un ingresso nel Cerchio come
+        // gli altri, quindi la riga che dice cosa si accetta deve esserci.
+        const ConsensiDellaRegistrazione(),
+        const SizedBox(height: SpacingTokens.sm),
         Text(
           'I passi fatti su questo telefono si uniscono al cammino di quel '
           'Cerchio: Eos e ricordi restano quelli del Cerchio in cui entri.',
@@ -305,7 +322,7 @@ Future<bool> mostraInvitoACustodire(
   // avviso, e la gratuita'.
   final palette = context.palette;
   final account = context.read<AccountDelCerchio>();
-  final esito = await showModalBottomSheet<bool>(
+  final esito = await foglioDelCerchio<bool>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -338,7 +355,7 @@ Future<bool> mostraInvitoACustodire(
 Future<bool> mostraLaPortaPerChiTorna(BuildContext context) async {
   final palette = context.palette;
   final account = context.read<AccountDelCerchio>();
-  final esito = await showModalBottomSheet<bool>(
+  final esito = await foglioDelCerchio<bool>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

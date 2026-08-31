@@ -12,6 +12,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA FESTA DELLA REGISTRAZIONE. Ordine BH voce 02.
 ///
@@ -123,7 +124,7 @@ class FestaDellaRegistrazione extends StatelessWidget {
       mandato = null;
     }
     if (!context.mounted || mandato == null || !mandato.mandato) return false;
-    final verificato = await showDialog<bool>(
+    final verificato = await dialogoDelCerchio<bool>(
           context: context,
           // Il fondo si dichiara dove la porta si apre (legge AL.04).
           builder: (dialogo) => _FoglioDelCodice(

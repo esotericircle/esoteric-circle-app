@@ -284,6 +284,24 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
               style: TypographyTokens.didascalia()
                   .copyWith(color: widget.palette.goldSoft),
             ),
+            // **DA DOVE SI MISURA, DETTO. Ordine CF voce 13.**
+            //
+            // **Rilievo del fondatore, verbatim**: "il calcolo viene fatto
+            // sulla citta' natale, ma se adesso vivessi in altro luogo?"
+            // Misurato: la mappa legge il luogo dichiarato quando c'e' e
+            // ripiega su quello di nascita quando non c'e', **e non lo diceva
+            // a nessuno**. Un numero che non dichiara da dove nasce e' la
+            // stessa bugia di un titolo senza testo.
+            const SizedBox(height: SpacingTokens.xxs),
+            Text(
+              'Misurato da ${widget.doveSei.citta}'
+              '${widget.doveSei.dichiarato ? "" : ", la tua città di nascita: "
+                  "dilla in \"I tuoi dati\" se vivi altrove"}.',
+              key: const Key('sinastria_mappa_da_dove'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
           ],
         );
       },

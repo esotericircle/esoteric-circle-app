@@ -5,6 +5,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../maestro/maestro.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// I permessi di sistema che l'app puo' chiedere. Ognuno si chiede solo nel
 /// momento in cui serve la sua funzione, mai tutti all'avvio.
@@ -114,7 +115,7 @@ Future<bool> requestPermissionWithPrelude(
   PermissionCopy? copy,
 }) async {
   final c = copy ?? permissionCopy(permission, maestro: maestro);
-  final accepted = await showModalBottomSheet<bool>(
+  final accepted = await foglioDelCerchio<bool>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,

@@ -9,6 +9,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../account/riscatta_l_invito.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// **TI HA INVITATO QUALCUNO? Ordine CC voce 08.**
 ///
@@ -91,7 +92,7 @@ class DomandaDellInvito extends StatefulWidget {
   const DomandaDellInvito({super.key});
 
   static Future<String?> chiedi(BuildContext context) {
-    return showModalBottomSheet<String>(
+    return foglioDelCerchio<String>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,

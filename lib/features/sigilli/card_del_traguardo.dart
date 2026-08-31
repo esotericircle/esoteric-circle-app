@@ -12,6 +12,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import 'package:provider/provider.dart';
 import '../../core/entitlement/question_allowance.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA CARD CONDIVISIBILE DI UN TRAGUARDO, nel formato unico gia' in uso.
 ///
@@ -241,7 +242,7 @@ class VieDellaCondivisione extends StatelessWidget {
   }
 
   void _apriLeVie(BuildContext context) {
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (foglio) => Container(

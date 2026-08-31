@@ -140,6 +140,22 @@ class QuestionAllowance extends ChangeNotifier {
   /// Vero se i numeri che si stanno mostrando vengono dal server.
   bool get dalServer => _giornoDelServer != null;
 
+  /// **DICHIARA CHE IL SERVER HA PARLATO, solo per le prove.** Ordine CF
+  /// voce 11.
+  ///
+  /// Dalla voce CF.11 la riga del residuo TACE finche' il server non ha
+  /// risposto, perche' un numero locale spacciato per vero e' peggio di
+  /// nessun numero. Le prove che vogliono misurare la riga hanno quindi
+  /// bisogno di una borsa che abbia sentito il server, e l'unica via era
+  /// montare una porta finta: questa seconda porta esiste per non
+  /// obbligare ogni prova di schermata a montarne una.
+  ///
+  /// **Nell'app non la chiama nessuno**, e una prova lo verifica.
+  @visibleForTesting
+  void ilServerHaParlato([String giorno = '2026-08-31']) {
+    _giornoDelServer = giorno;
+  }
+
   /// Un limite imposto dall'esterno, solo per i test: nell'app resta nullo e
   /// il numero arriva dalla matrice.
   final int? freeDailyLimit;

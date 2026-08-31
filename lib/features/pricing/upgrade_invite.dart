@@ -10,6 +10,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'pricing_screen.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Invito gentile all'upgrade, mai un vicolo cieco.
 ///
@@ -32,7 +33,7 @@ Future<bool> showUpgradeInvite(
   Future<void> Function()? onRiscatta,
 }) async {
   final palette = context.palette;
-  final result = await showModalBottomSheet<bool>(
+  final result = await foglioDelCerchio<bool>(
     context: context,
     backgroundColor: Colors.transparent,
     builder: (sheetContext) => Container(

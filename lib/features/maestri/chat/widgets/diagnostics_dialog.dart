@@ -8,6 +8,7 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../services/ai/voce_sorvegliata.dart';
 import '../../../../services/firebase/attestazione.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Pannello diagnostico della chat, discreto e a portata di tocco.
 ///
@@ -25,7 +26,7 @@ Future<void> showChatDiagnostics(
   String? nota,
   String? appCheckDebugToken,
 }) {
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,

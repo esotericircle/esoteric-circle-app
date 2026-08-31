@@ -50,6 +50,7 @@ import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -908,7 +909,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   void _showComingSoon(BuildContext context, String intentId) {
     final intent = ImmersiveIntents.all.firstWhere((i) => i.id == intentId);
     final palette = context.palette;
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => Container(

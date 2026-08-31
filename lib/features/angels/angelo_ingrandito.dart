@@ -7,6 +7,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// I tre ruoli della triade, come li ha decisi Mauro il 28 luglio 2026.
 ///
@@ -74,7 +75,7 @@ class AngeloIngrandito extends StatelessWidget {
     // La palette si legge QUI, dove lo scope c'e' ancora, e viaggia col
     // widget: dentro il foglio non ci sarebbe piu' nessuno a darla.
     final palette = context.palette;
-    return showModalBottomSheet<void>(
+    return foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

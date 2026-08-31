@@ -19,6 +19,7 @@ import '../onboarding/onboarding_controller.dart';
 import 'cammino_da_custodire.dart';
 import 'rinascita_del_cammino.dart';
 import 'ritrovamento.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// IL CUSTODE DEL CAMMINO: lo raccoglie, lo manda, e adotta cio' che torna.
 /// Ordine AP voci 02 e 03.
@@ -313,7 +314,7 @@ class CustodeDelCammino {
         } catch (senzaProvider) {
           doteArrivata = false;
         }
-        await showDialog<void>(
+        await dialogoDelCerchio<void>(
           context: context,
           builder: (dialogo) => AlertDialog(
             key: const Key('cerchio_appena_nato'),

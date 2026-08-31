@@ -45,6 +45,8 @@ import '../../core/entitlement/tier.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../pricing/upgrade_invite.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/components/riga_del_residuo.dart';
+import '../../core/entitlement/budget_del_giorno.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -1111,21 +1113,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
-  /// Il conto del giorno, osservato: cala nello stesso istante in cui la
-  /// stesa lo consuma, perche' qui si guarda il contatore vero.
-  int? get _steseRimaste {
-    final borsa = _forse<QuestionAllowance>(context, osserva: true);
-    if (borsa == null) return null;
-    return borsa.steseRimaste(
-        _forse<EntitlementService>(context, osserva: true)?.tier ?? Tier.free);
-  }
 
-  int? get _steseLimite {
-    final borsa = _forse<QuestionAllowance>(context, osserva: true);
-    if (borsa == null) return null;
-    return borsa.limiteStese(
-        _forse<EntitlementService>(context, osserva: true)?.tier ?? Tier.free);
-  }
 
   Widget _content(MaestroPalette palette) {
     return ListView(
@@ -1197,11 +1185,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // Solo prima della prima carta: a stesa cominciata il conto e'
           // rumore, e a stesa finita sarebbe un rimprovero. Il numero arriva
           // dal listino attraverso il borsellino e non e' scritto qui.
+          // **LA PORTA E' UNA SOLA, ordine CF voce 11.** Qui viveva un
+          // contatore scritto apposta per questa schermata: diceva la
+          // stessa cosa della riga comune, con parole sue e una regola
+          // sua. Due porte sullo stesso fatto sono la famiglia di
+          // difetti piu' numerosa del progetto, e questa in particolare
+          // non conosceva la legge del silenzio, cioe' scriveva il
+          // numero locale anche quando il server non aveva parlato.
           if (_drawn == 0)
-            _ContoDelleStese(
-              rimaste: _steseRimaste,
-              limite: _steseLimite,
-              palette: palette,
+            const RigaDelResiduo(
+              budget: BudgetDelGiorno.stese,
+              allineamento: MainAxisAlignment.center,
             ),
           // **OTTO E NON SEDICI, ordine BU voce 01.** I testi di contenuto
           // sono saliti alla misura di lettura, e sotto le carte pescate se
@@ -1649,58 +1643,6 @@ class _Slot extends StatelessWidget {
 /// marcatura: una pastiglia col bordo, alla misura della didascalia.
 /// **IL CONTO DELLE STESE DEL GIORNO, ordine BN voce 09.**
 ///
-/// Chi non ha limiti non legge nessun conto, perche' un residuo infinito e'
-/// rumore. Chi le stese le compra in Eos non legge un "zero su zero", che
-/// sarebbe un numero vero e una frase falsa: legge che quella porta si apre
-/// con gli Eos, che e' cio' che il listino promette davvero.
-class _ContoDelleStese extends StatelessWidget {
-  const _ContoDelleStese({
-    required this.rimaste,
-    required this.limite,
-    required this.palette,
-  });
-
-  final int? rimaste;
-  final int? limite;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    if (rimaste == null || limite == null) return const SizedBox.shrink();
-    final String testo;
-    if (limite == 0) {
-      // Il credito comprato porta il contatore sotto zero e i rimasti sopra:
-      // chi ha gia' pagato deve vedere che la stesa e' sua, non l'invito a
-      // ricomprarla.
-      testo = rimaste! > 0
-          ? 'Hai una stesa riscattata da aprire.'
-          : 'La stesa completa si apre con gli Eos.';
-    } else if (rimaste! > 0) {
-      // **DICE COSA RESTA, non quante se ne sono fatte.** Ordine BY, giro di
-      // grazia: "Stese di oggi: 1 di 1" si legge in due modi opposti, e
-      // davanti a chi guarda per la prima volta il modo sbagliato e' quello
-      // che spaventa, cioe' "le hai gia' usate tutte". Il numero e' lo
-      // stesso, la frase no.
-      testo = rimaste == 1
-          ? 'Ti resta 1 stesa di $limite, oggi'
-          : 'Ti restano $rimaste stese di $limite, oggi';
-    } else {
-      testo = 'Le stese di oggi sono finite: si riparte domani.';
-    }
-    return Padding(
-      padding: const EdgeInsets.only(top: SpacingTokens.xs),
-      child: Text(
-        testo,
-        key: const Key('stesa_conto_stese'),
-        textAlign: TextAlign.center,
-        style: TypographyTokens.didascalia().copyWith(
-            color: rimaste! > 0
-                ? ColorTokens.textSecondary
-                : palette.goldSoft),
-      ),
-    );
-  }
-}
 
 class _BloccoDelleCarte extends StatelessWidget {
   const _BloccoDelleCarte({

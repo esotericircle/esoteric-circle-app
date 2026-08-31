@@ -145,7 +145,16 @@ class NumeroDelLivello extends StatelessWidget {
       child: Text(
         '${p.accesi}',
         key: const Key('barra_numero_del_livello'),
-        style: TypographyTokens.etichetta().copyWith(color: palette.gold),
+        // **DICIOTTO E NON DODICI, e la ragione e' misurata.** Ordine CF
+        // voce 01. Alla misura del pavimento l'oro del Maestro faceva 5,42
+        // contro i 7,0 che la legge chiede a un testo piccolo, e il
+        // censimento dei grigi lo ha visto subito. Le vie erano due:
+        // schiarire l'oro fino a non essere piu' oro, oppure alzare il
+        // numero. **Alzarlo e' la via giusta due volte**: sopra i diciotto
+        // punti e mezzo la soglia diventa 4,5 e l'oro passa senza
+        // cambiare colore, e la voce CF.10 dice che nel Cerchio si legge
+        // troppo piccolo.
+        style: TypographyTokens.titoloScheda().copyWith(color: palette.gold),
       ),
     );
   }

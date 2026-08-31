@@ -11,6 +11,7 @@ import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/rotta_arte.dart';
 import '../santuario_screen.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// "Le arti preferite": lo scaffale personale, in cima all'elenco.
 ///
@@ -137,7 +138,7 @@ Maestro? _proprietarioDi(String id) {
 void mostraSceltaArti(BuildContext context) {
   final preferite = context.read<ArtiPreferiteController>();
   final palette = MaestroScope.of(context);
-  showModalBottomSheet<void>(
+  foglioDelCerchio<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,

@@ -31,6 +31,7 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
@@ -234,7 +235,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   void _mostraPopup(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
     final verdeAura = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
-    showDialog<void>(
+    dialogoDelCerchio<void>(
       context: context,
       barrierColor: palette.deepest.withValues(alpha: 0.7),
       builder: (dialog) => Dialog(
@@ -308,7 +309,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   }
 
   void _mostraFonti(BuildContext context, MaestroPalette palette) {
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheet) => Container(

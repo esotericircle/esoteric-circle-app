@@ -7,6 +7,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA DOMANDA SULLA MISURA. Ordine CC voce 09.
 ///
@@ -31,7 +32,7 @@ class DomandaDellaMisura extends StatelessWidget {
   /// **Non si mostra mai due volte**: chi la chiama guarda prima
   /// [ConsensoDellaMisura.letto].
   static Future<bool?> chiedi(BuildContext context) {
-    return showModalBottomSheet<bool>(
+    return foglioDelCerchio<bool>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,

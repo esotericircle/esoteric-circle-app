@@ -32,6 +32,8 @@ import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
 import '../onboarding/primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../settings/privacy_e_permessi_screen.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -476,7 +478,7 @@ bool _haUnaParola(BuildContext context) {
 /// benvenuto arriva adesso, si festeggia adesso.
 Future<void> _verificaLaTuaEmail(BuildContext context) async {
   final account = context.read<AccountDelCerchio>();
-  final scelta = await showDialog<String>(
+  final scelta = await dialogoDelCerchio<String>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('verifica_email_foglio'),
@@ -565,7 +567,7 @@ Future<void> _chiediLEmailNuova(BuildContext context) async {
   final campo = TextEditingController();
   final adesso = context.read<AccountDelCerchio>().email;
   String? guaio;
-  final nuova = await showDialog<String>(
+  final nuova = await dialogoDelCerchio<String>(
     context: context,
     builder: (dialogo) => StatefulBuilder(
       builder: (dialogo, aggiorna) => AlertDialog(
@@ -651,7 +653,7 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
   // validati A VOCE (il vecchio cancello era muto: sotto i sei caratteri
   // il tocco non faceva niente e non diceva niente).
   String? guaio;
-  final nuova = await showDialog<String>(
+  final nuova = await dialogoDelCerchio<String>(
     context: context,
     builder: (dialogo) => StatefulBuilder(
       builder: (dialogo, aggiorna) {
@@ -726,7 +728,7 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
 /// "perdi tutto": il cammino resta custodito sul Cerchio ed e' proprio questo
 /// che rende l'uscita una cosa che si puo' fare senza paura.
 Future<void> _chiediDiUscire(BuildContext context) async {
-  final conferma = await showDialog<bool>(
+  final conferma = await dialogoDelCerchio<bool>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('uscita_conferma'),
@@ -853,7 +855,7 @@ Future<String?> _chiediIlPerche(BuildContext context) async {
     'Preferisco non dirlo',
   ];
   var scelta = ragioni.last;
-  final esito = await showDialog<String>(
+  final esito = await dialogoDelCerchio<String>(
     context: context,
     builder: (dialogo) => StatefulBuilder(
       builder: (dialogo, aggiorna) => AlertDialog(
@@ -904,7 +906,7 @@ Future<String?> _chiediIlPerche(BuildContext context) async {
 /// senza niente di nuovo da leggere, solo la domanda secca.
 Future<bool> _neSeiDavveroSicuro(BuildContext context,
     {required String verbo}) async {
-  final sicuro = await showDialog<bool>(
+  final sicuro = await dialogoDelCerchio<bool>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('cancellazione_ultima_conferma'),
@@ -937,7 +939,7 @@ Future<bool> _neSeiDavveroSicuro(BuildContext context,
 }
 
 Future<void> _azzeraIDati(BuildContext context) async {
-  final conferma = await showDialog<bool>(
+  final conferma = await dialogoDelCerchio<bool>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('azzera_conferma'),
@@ -1031,7 +1033,7 @@ Future<void> _chiediLOblio(BuildContext context) async {
   }
   final custodito = account != null && !account.eAnonimo;
   if (!custodito) {
-    await showDialog<void>(
+    await dialogoDelCerchio<void>(
       context: context,
       builder: (dialogo) => AlertDialog(
         key: const Key('oblio_nessun_account'),
@@ -1055,7 +1057,7 @@ Future<void> _chiediLOblio(BuildContext context) async {
     );
     return;
   }
-  final conferma = await showDialog<bool>(
+  final conferma = await dialogoDelCerchio<bool>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('oblio_conferma'),
@@ -1295,6 +1297,34 @@ class PrivacyEDatiScreen extends StatelessWidget {
         icon: Icons.menu_book_outlined,
         onTap: (context) =>
             Navigator.of(context).push(PrivacyPolicyScreen.route()),
+      ),
+      // **PRIVACY E PERMESSI ARRIVA QUI DALLE IMPOSTAZIONI. Ordine CF voce
+      // 16.**
+      //
+      // **Richiesta del fondatore, verbatim**: "devi eliminare dal menu'
+      // impostazioni 'privacy e permessi' [...] e deve eliminare anche
+      // 'cancella i miei dati': questi devono esistere al massimo in un unico
+      // posto e cioe' nel menu' utente in un sotto menu'."
+      //
+      // **Il doppione era reale e recentissimo**: le Impostazioni avevano una
+      // sezione "Privacy e dati" con dentro "Privacy e permessi", costruita
+      // dall'ordine CE voce 03, e questo sotto menu' si chiama gia' "Privacy
+      // e dati". **Le due porte avevano nomi quasi identici e la stessa
+      // identica icona**, `Icons.shield_outlined`.
+      //
+      // **Non si costruisce niente di nuovo: si sposta.** Le quattro cose
+      // dentro `PrivacyEPermessiScreen` cambiano posto, non esistenza, e due
+      // di loro sono di legge: l'attribuzione delle fonti, che la licenza
+      // CC BY 4.0 del catalogo delle citta' pretende raggiungibile, e
+      // l'interruttore della misura, che e' la via con cui si revoca il
+      // consenso.
+      _AccountEntry(
+        id: 'permessi',
+        title: 'Privacy e permessi',
+        subtitle: 'Cosa contiamo, da dove vengono i numeri, cosa tocchiamo',
+        icon: Icons.tune_rounded,
+        onTap: (context) =>
+            Navigator.of(context).push(PrivacyEPermessiScreen.route()),
       ),
       _AccountEntry(
         id: 'scarica',

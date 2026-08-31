@@ -25,6 +25,8 @@ import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../sigilli/celebrazione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/components/riga_del_residuo.dart';
+import '../../core/entitlement/budget_del_giorno.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -330,6 +332,21 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // **IL RESIDUO STA QUI, PRIMA DEL GESTO. Ordine CF
+                      // voce 11.**
+                      //
+                      // **Fatto del fondatore, verbatim**: "Nella sinastria
+                      // vip ANCORA NON VEDO IL CONTEGGIO DELLE SINASTRIE CHE
+                      // MANCANO". La riga esisteva ed era montata, ma dentro
+                      // la lista del VERDETTO, cioe' si leggeva solo DOPO che
+                      // la coppia era stata scelta e il consumo era gia'
+                      // avvenuto: arrivava quando non serviva piu'.
+                      //
+                      // **Il gesto che consuma e' scegliere un volto, e si
+                      // sceglie qui.** Questa e' la schermata della scelta,
+                      // quindi questo e' il posto in cui il numero cambia
+                      // qualcosa per chi lo legge.
+                      const RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
                       // **L'INTESTAZIONE COL CONFRONTO SE N'E' ANDATA DI
                       // SOPRA. Ordine CA voce 01.** La voce BZ.09 l'aveva
                       // messa in cima a questa galleria; il fondatore ha

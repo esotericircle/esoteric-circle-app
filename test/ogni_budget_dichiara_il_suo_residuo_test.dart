@@ -30,8 +30,11 @@ void main() {
     BudgetDelGiorno.gettate:
         'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
     BudgetDelGiorno.stese: 'lib/features/tarot/stesa_tre_carte_screen.dart',
+    // **LA GALLERIA E NON IL VERDETTO, ordine CF voce 11.** Il gesto che
+    // consuma una sinastria e' scegliere un volto, e si sceglie qui: nella
+    // schermata del verdetto il numero arriva a consumo avvenuto.
     BudgetDelGiorno.sinastrie:
-        'lib/features/synastry/sinastria_vip_screen.dart',
+        'lib/features/synastry/sinastria_gallery_screen.dart',
   };
 
   test('ogni budget ha una schermata che lo dichiara', () {
@@ -51,16 +54,21 @@ void main() {
           .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
-      // **SI CERCA IL FATTO, non il widget.** Cio' che conta e' che il numero
-      // si veda prima del gesto: alcune schermate montano la riga condivisa,
-      // altre leggono il proprio contatore e lo passano al pezzo che gia'
-      // avevano. Pretendere una forma sola vorrebbe dire riscrivere schermate
-      // che il fondatore non ha toccato.
-      final suo = '${b.name[0].toUpperCase()}${b.name.substring(1)}';
-      final dichiara = testo.contains('BudgetDelGiorno.${b.name}') ||
-          testo.contains('residuoDei$suo') ||
-          testo.contains('${b.name}Rimast') ||
-          testo.contains('${b.name.substring(0, b.name.length - 1)}eRimast');
+      // **ADESSO SI CERCA IL WIDGET, non una menzione. Ordine CF voce 11.**
+      //
+      // **Questa prova era verde mentre il difetto era a schermo**, ed e' il
+      // motivo per cui la voce CF.11 esiste. Accettava che il nome del budget
+      // comparisse da qualche parte nel file: nella Sinastria compariva, ma
+      // dentro la lista del VERDETTO, cioe' DOPO che la coppia era stata
+      // scelta e il consumo era gia' avvenuto. Il fondatore non lo vedeva
+      // perche' arrivava quando non serviva piu', e la prova diceva di si'.
+      //
+      // Adesso si pretende la riga vera, `RigaDelResiduo`, montata col suo
+      // budget: una forma sola, che e' anche cio' che ha permesso di togliere
+      // i due contatori privati delle rune e dei tarocchi.
+      final dichiara =
+          testo.contains('RigaDelResiduo(') &&
+              testo.contains('budget: BudgetDelGiorno.${b.name}');
       if (!dichiara) muti.add('${b.name} in $percorso');
     }
     // ignore: avoid_print
@@ -89,9 +97,41 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CE VOCE 04: a borsa vuota, budget che tacciono $muti su '
         '${BudgetDelGiorno.values.length}');
-    // Non si pretende quanti tacciano: si pretende che tacere sia possibile,
-    // cioe' che nessuno inventi un numero quando non ce l'ha.
-    expect(muti, greaterThanOrEqualTo(0));
+    // **ADESSO SI PRETENDE IL SILENZIO INTERO, ordine CF voce 11.** Questa
+    // riga diceva `greaterThanOrEqualTo(0)`, cioe' non pretendeva niente: un
+    // numero maggiore o uguale a zero lo e' sempre. Intanto il codice
+    // scriveva il numero LOCALE anche senza la risposta del server, mentre la
+    // sua stessa documentazione dichiarava di tacere. Fra il codice e il
+    // commento vince il fondatore: si tace, e adesso la prova lo misura.
+    expect(muti, BudgetDelGiorno.values.length,
+        reason: 'senza la risposta del server $muti budget su '
+            '${BudgetDelGiorno.values.length} tacciono: gli altri scrivono un '
+            'numero che nessuno ha confermato');
+  });
+
+  test('la porta delle prove non e\' mai aperta nell\'app', () {
+    // **`ilServerHaParlato` esiste per le prove e per nessun altro.**
+    // Ordine CF voce 11: senza questa riga la seconda porta diventerebbe
+    // un modo per far dire alla riga del residuo un numero che il server
+    // non ha mai confermato, cioe' esattamente il difetto che la voce ha
+    // appena chiuso.
+    final colpe = <String>[];
+    for (final f in Directory('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))) {
+      final percorso = f.path.replaceAll(r'\\', '/');
+      if (percorso.endsWith('question_allowance.dart')) continue;
+      if (f.readAsStringSync().contains('ilServerHaParlato')) {
+        colpe.add(percorso);
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 11: punti dell\'app che aprono la porta delle '
+        'prove ${colpe.length}');
+    expect(colpe, isEmpty,
+        reason: 'questi punti dell\'app dichiarano da soli che il server ha '
+            'parlato: $colpe');
   });
 
   test('la riga si accorda in italiano, e in tutti e tre i modi', () {

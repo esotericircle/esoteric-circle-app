@@ -21,6 +21,7 @@ import 'volo_degli_eos.dart';
 import '../../features/pricing/pricing_screen.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
 import '../../core/entitlement/pacchetti_di_eos.dart';
+import '../transizioni/velo_del_cerchio.dart';
 
 /// IL BORSELLINO, SEMPRE NELLO STESSO ANGOLO. Ordine S voce 06.
 ///
@@ -544,7 +545,7 @@ class PortafoglioDelCerchio {
     // respiro.
     final schermo = MediaQuery.of(context);
     const altezzaDellaBarraSottile = 30.0; // = BarraDellIdentita.altezzaChiusa
-    return showModalBottomSheet<void>(
+    return foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

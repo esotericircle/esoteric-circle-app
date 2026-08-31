@@ -39,8 +39,7 @@ import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
-import '../../core/entitlement/budget_del_giorno.dart';
-import '../../design_system/components/riga_del_residuo.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -277,7 +276,10 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           _doveSei = DoveSei(
               citta: nato.label,
               latitudine: nato.latitude,
-              longitudine: nato.longitude);
+              longitudine: nato.longitude,
+              // **E SI DICHIARA RIPIEGO, ordine CF voce 13**, cosi' la mappa
+              // puo' dire da dove sta misurando invece di lasciarlo credere.
+              dichiarato: false);
         }
         _cieloTuo = CieloDiSinastria.perNascita(
           momentoUtc: DateTime.utc(
@@ -446,7 +448,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   /// proprio posto. Adesso il tocco chiede cosa si vuole fare.
   Future<void> _cosaFareCon(Vip quale, {required bool eIlPrimo}) async {
     final palette = MaestroScope.of(context);
-    await showModalBottomSheet<void>(
+    await foglioDelCerchio<void>(
       context: context,
       backgroundColor: palette.surfaceElevated,
       shape: const RoundedRectangleBorder(
@@ -699,7 +701,15 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         // **Sta in cima e non accanto al tasto**, perche' qui il gesto che
         // consuma non e' un tasto: e' scegliere un VIP, e quando la scelta e'
         // fatta il consumo e' gia' avvenuto.
-        const RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
+        // **LA RIGA DEL RESIDUO SE N'E' ANDATA DI SOPRA, nella galleria.
+        // Ordine CF voce 11.** Qui stava in cima al verdetto, cioe' si
+        // leggeva solo DOPO che la coppia era stata scelta e il consumo
+        // era gia' avvenuto: e' il fatto che il fondatore ha riportato,
+        // "ANCORA NON VEDO IL CONTEGGIO DELLE SINASTRIE CHE MANCANO".
+        // Adesso vive dove si sceglie il volto, che e' il gesto che
+        // consuma. **Non resta anche qui di proposito**: due righe sullo
+        // stesso numero renderebbero impossibile a una guardia dire se
+        // quella che conta sta prima o dopo.
 
         // I due poli nella cornice VIP col cuore.
         Row(
@@ -1125,7 +1135,7 @@ if (andata && mounted) {
   // foto resta sul dispositivo ed entra solo nella card condivisa.
   Future<void> _openPhotoSheet() async {
     final palette = context.palette;
-    await showModalBottomSheet<void>(
+    await foglioDelCerchio<void>(
       context: context,
       backgroundColor: palette.surface,
       shape: const RoundedRectangleBorder(

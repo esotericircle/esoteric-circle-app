@@ -7,6 +7,7 @@ import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
 import '../typography/paragrafi_di_lettura.dart';
+import '../transizioni/velo_del_cerchio.dart';
 
 /// Mostra l'anticipo elegante (Coming soon) o l'invito all'upgrade (premium).
 ///
@@ -23,7 +24,7 @@ Future<void> showFeatureSheet(
   final palette = context.palette;
   final bool isPremium = status == FeatureStatus.premiumLocked;
 
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

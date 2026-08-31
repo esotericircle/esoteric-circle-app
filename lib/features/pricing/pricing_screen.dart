@@ -11,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// La schermata dei piani del Cerchio, in stile 2.5D.
 ///
@@ -604,7 +605,7 @@ class _ChoosePlanButton extends StatelessWidget {
 
   void _openSheet(BuildContext context) {
     final entitlement = context.read<EntitlementService>();
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => Container(

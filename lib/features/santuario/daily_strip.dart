@@ -18,6 +18,7 @@ import '../rituals/dawn_rite_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 const Color _gold = Color(0xFFE8C463);
 
@@ -196,7 +197,7 @@ void _showElementInfo(
   Maestro maestro,
   Color accent,
 ) {
-  showDialog<void>(
+  dialogoDelCerchio<void>(
     context: context,
     barrierColor: ColorTokens.scrim,
     builder: (context) => Dialog(
@@ -368,26 +369,40 @@ class _DailyStripState extends State<DailyStrip>
   /// dall'area di tocco**, che resta intera: cerchio dell'icona
   /// quarantasei, bersaglio dell'aiuto quarantaquattro per quarantaquattro,
   /// e una prova cade se qualcuno prova a stringerli per far posto.
-  /// **CENTOTTO DALL\'ORDINE CF VOCE 02, e i quattordici punti erano
-  /// vuoti.** Il fondatore ha chiesto la striscia piu' bassa. Misurata
-  /// prima di toccarla a 360, 390 e 412: fascia 122, e dentro la fila
-  /// delle caselle alta 85 il contenuto di una casella ne usava
-  /// SESSANTOTTO, cioe' cerchio dell\'icona 46, stacco 4, etichetta 18.
-  /// La colonna e' centrata, quindi diciassette punti restavano vuoti
-  /// sopra e sotto senza disegnare niente. **Se ne prendono quattordici
-  /// e tre restano di respiro**, che e' il margine perche' un
-  /// arrotondamento del testo fra due versioni di Flutter non faccia
-  /// traboccare la casella.
+  /// **CENTODODICI DALL\'ORDINE CF VOCE 02, e la prima misura era
+  /// SBAGLIATA.** Il fondatore ha chiesto la striscia piu' bassa.
   ///
-  /// **Niente viene dall\'area di tocco, di nuovo**: il cerchio resta 46 e
-  /// il bersaglio del punto interrogativo resta 44 per 44, e quello non
-  /// pesa sul calcolo perche' sborda dalla riga invece di occuparla.
-  /// **E niente viene dall\'etichetta**: il `FittedBox` attorno alla riga
-  /// del nome oggi non riduce niente, figlio e padre misurano tutti e due
-  /// 18, e deve restare cosi' perche' la voce CF.10 dice che i caratteri
-  /// dei Doni sono gia' troppo piccoli.
-  static const double _heightLarga = 108;
-  static const double _heightStretta = 108;
+  /// **La prima stesura era scesa a 108 contando male, e va scritto.**
+  /// Misurata la fila delle caselle, alta 85, il contenuto disegnato ne
+  /// usava sessantotto: cerchio 46, stacco 4, etichetta 18. Diciassette
+  /// punti sembravano vuoti. **Non erano vuoti: erano lo spazio in cui
+  /// vive il bersaglio dell\'aiuto**, quarantaquattro punti posati
+  /// ventitre sotto il centro della casella, che sborda dalla riga
+  /// dell\'etichetta e ha bisogno della casella attorno per raccogliere il
+  /// tocco. Fuori dai propri limiti un riquadro il tocco non lo prende
+  /// piu', e a 108 la prova che tocca sedici punti sotto il cerchio "?"
+  /// e' diventata rossa. **Il commento dell\'ordine AO lo diceva gia':
+  /// "una prova cade se qualcuno prova a stringerli per far posto".**
+  ///
+  /// **Cercato il pavimento vero con la bisezione**: a 120 la prova regge,
+  /// a 119 no. Quindi togliendo solo dalla casella si guadagnavano DUE
+  /// punti, che non e' una risposta a "occupa veramente troppo spazio".
+  ///
+  /// **I dieci punti vengono da dove non c'e' nessun bersaglio.** Otto dai
+  /// quattro stacchi della fascia, portati da quattro a due: sono aria
+  /// fra il bordo, il titolo, le caselle e la barra di scorrimento, e
+  /// nessuno di loro raccoglie un tocco. Due dallo stacco fra l\'icona e
+  /// l\'etichetta dentro la casella, che scende da quattro a due: la
+  /// casella passa da 85 a 83, e l\'etichetta sale di un punto, quindi il
+  /// bersaglio dell\'aiuto resta raggiungibile dove lo era.
+  ///
+  /// **Niente dall\'area di tocco**: il cerchio resta 46 e il bersaglio
+  /// resta 44 per 44. **E niente dall\'etichetta**: il `FittedBox` attorno
+  /// alla riga del nome non riduce niente, padre e figlio misurano tutti e
+  /// due 18, e deve restare cosi' perche' la voce CF.10 dice che i
+  /// caratteri dei Doni sono gia' troppo piccoli.
+  static const double _heightLarga = 112;
+  static const double _heightStretta = 112;
 
   /// L'altezza della fascia, che SI ADATTA alla larghezza.
   ///
@@ -567,7 +582,7 @@ class _DailyStripState extends State<DailyStrip>
           // a ridosso della tacca. **Da otto a quattro, ordine AO voce 03**:
           // sopra c'e' gia' la barra sottile dell'identita' che tiene la sua
           // distanza, quindi qui il respiro era doppio.
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           // Riga sottile che annuncia la striscia, centrata.
           Text(
             'I tuoi doni del giorno',
@@ -585,7 +600,7 @@ class _DailyStripState extends State<DailyStrip>
               letterSpacing: 1.2,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Expanded(
             // **I DONI TORNANO A TUTTA LARGHEZZA, ordine AM voce 03.** La
             // capsula se n'e' andata e con lei la riserva di destra: resta
@@ -644,11 +659,11 @@ class _DailyStripState extends State<DailyStrip>
               ),
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           // Barra di scorrimento sottile: segnala che le icone continuano oltre
           // quelle visibili, nell'oro del tema.
           _StripScrollbar(controller: _scroll),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
         ],
       ),
     );
@@ -784,6 +799,10 @@ class _StripItem extends StatelessWidget {
   /// cerchio "?" sta circa venti punti sotto il centro; il bersaglio si posa a
   /// ventitre, cosi' la sua fascia alta non copre il centro dell'icona, che deve
   /// restare il tocco che apre il Dono.
+  /// Lo scarto verticale del bersaglio di aiuto dal centro della casella. Il
+  /// cerchio "?" sta circa venti punti sotto il centro; il bersaglio si posa a
+  /// ventitre, cosi' la sua fascia alta non copre il centro dell'icona, che deve
+  /// restare il tocco che apre il Dono.
   static const double _scartoAiuto = 23;
 
   /// Lo scarto orizzontale del centro del cerchio "?" dal centro della casella.
@@ -852,7 +871,7 @@ class _StripItem extends StatelessWidget {
             // stacco che non li usava. L'altra meta' viene dall'altezza della
             // fascia. Prenderli tutti dalla fascia avrebbe tolto alla carta del
             // Maestro centrale lo spazio che una prova le garantisce.
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             // Etichetta e, a fianco, il cerchio "?" che apre la spiegazione.
             //
             // Dentro un FittedBox: la riga e' etichetta piu' cinque piu'

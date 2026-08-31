@@ -86,6 +86,12 @@ enum BudgetDelGiorno {
   /// voce 04, che nasce dal giorno in cui una schermata scriveva un numero
   /// suo mentre il server ne aveva un altro.
   String? riga(QuestionAllowance borsa, Tier tier) {
+    if (!borsa.dalServer) return null;
+    // **E QUI SI TACE DAVVERO, ordine CF voce 11.** La documentazione qui
+    // sopra lo dichiarava gia' da due ordini, e il codice non lo faceva: senza
+    // la risposta del server la borsa ha comunque i suoi contatori locali, e
+    // la riga scriveva quel numero come se fosse il vero. **Fra il codice e il
+    // commento vince il fondatore: si tace.**
     final tetto = limite(borsa, tier);
     if (tetto == null) return null;
     final resta = rimasti(borsa, tier);

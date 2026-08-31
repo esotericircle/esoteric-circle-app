@@ -8,6 +8,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/app_services.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// CHI TI HA INVITATO. Ordine BX voce 02.
 ///
@@ -25,7 +26,7 @@ import '../../services/app_services.dart';
 Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
   final palette = MaestroScope.of(context);
   final scritto = TextEditingController();
-  final esito = await showModalBottomSheet<String>(
+  final esito = await foglioDelCerchio<String>(
     context: context,
     isScrollControlled: true,
     backgroundColor: palette.surfaceElevated,

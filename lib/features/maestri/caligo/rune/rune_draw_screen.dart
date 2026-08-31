@@ -45,6 +45,9 @@ import '../../../../core/responsi/anatomia_del_responso.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../../../design_system/components/riga_del_residuo.dart';
+import '../../../../core/entitlement/budget_del_giorno.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -446,7 +449,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   }
 
   void _mostraFonti(BuildContext context, MaestroPalette palette) {
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -668,10 +671,17 @@ class _Preparazione extends StatelessWidget {
                 : Icons.casino_outlined),
             label: const Text('Getta le rune'),
           ),
-          _ContoDelleGettate(
-              rimaste: gettateRimaste,
-              limite: gettateLimite,
-              palette: palette),
+          // **LA PORTA E' UNA SOLA, ordine CF voce 11.** Qui viveva un
+          // contatore scritto apposta per questa schermata: diceva la
+          // stessa cosa della riga comune, con parole sue e una regola
+          // sua. Due porte sullo stesso fatto sono la famiglia di
+          // difetti piu' numerosa del progetto, e questa in particolare
+          // non conosceva la legge del silenzio, cioe' scriveva il
+          // numero locale anche quando il server non aveva parlato.
+          const RigaDelResiduo(
+            budget: BudgetDelGiorno.gettate,
+            allineamento: MainAxisAlignment.center,
+          ),
 
           // IL TESTO DINAMICO, che cambia con la scelta.
           DepthCard(
@@ -862,10 +872,17 @@ class _Responso extends StatelessWidget {
                 : Icons.casino_outlined),
             label: const Text('Getta ancora'),
           ),
-          _ContoDelleGettate(
-              rimaste: gettateRimaste,
-              limite: gettateLimite,
-              palette: palette),
+          // **LA PORTA E' UNA SOLA, ordine CF voce 11.** Qui viveva un
+          // contatore scritto apposta per questa schermata: diceva la
+          // stessa cosa della riga comune, con parole sue e una regola
+          // sua. Due porte sullo stesso fatto sono la famiglia di
+          // difetti piu' numerosa del progetto, e questa in particolare
+          // non conosceva la legge del silenzio, cioe' scriveva il
+          // numero locale anche quando il server non aveva parlato.
+          const RigaDelResiduo(
+            budget: BudgetDelGiorno.gettate,
+            allineamento: MainAxisAlignment.center,
+          ),
           // LE PILLOLE DELLA STESA, anche qui: vedi il commento sul campo
           // onAltraGettata.
           const SizedBox(height: SpacingTokens.md),
@@ -1433,38 +1450,6 @@ class _SelettoreGettate extends StatelessWidget {
   }
 }
 
-/// Un suggerimento di domanda tappabile, a pillola.
-class _ContoDelleGettate extends StatelessWidget {
-  const _ContoDelleGettate({
-    required this.rimaste,
-    required this.limite,
-    required this.palette,
-  });
-
-  final int? rimaste;
-  final int? limite;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    if (rimaste == null || limite == null) return const SizedBox.shrink();
-    final testo = rimaste! > 0
-        ? 'Gettate di oggi: $rimaste di $limite'
-        : 'Le gettate di oggi sono finite: si riparte domani.';
-    return Padding(
-      padding: const EdgeInsets.only(top: SpacingTokens.xs),
-      child: Text(
-        testo,
-        key: const Key('rune_conto_gettate'),
-        textAlign: TextAlign.center,
-        style: TypographyTokens.didascalia().copyWith(
-            color: rimaste! > 0
-                ? ColorTokens.textSecondary
-                : palette.goldSoft),
-      ),
-    );
-  }
-}
 
 class _PozzoUrdhr extends StatefulWidget {
   const _PozzoUrdhr({

@@ -6,6 +6,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA RIGA ONESTA DELLA RINASCITA. Ordine AR voce 06.
 ///
@@ -28,7 +29,7 @@ class FoglioDellaRinascita {
     CustodeDelCammino.rinascitaDaRaccontare = false;
     if (!context.mounted) return;
     final palette = MaestroScope.forse(context);
-    await showModalBottomSheet<void>(
+    await foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (foglio) => Container(

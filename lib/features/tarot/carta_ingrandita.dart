@@ -8,6 +8,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'stesa_reveal.dart';
 import 'stesa_tre_carte_screen.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA CARTA SI APRE AL TOCCO. Ordine BN voce 04.
 ///
@@ -31,7 +32,7 @@ Future<void> mostraLaCartaIngrandita(
   required MaestroPalette palette,
 }) {
   final riduciMovimento = MediaQuery.of(context).disableAnimations;
-  return showGeneralDialog<void>(
+  return dialogoGeneraleDelCerchio<void>(
     context: context,
     // IL TOCCO FUORI CHIUDE: e' la prima delle tre uscite.
     barrierDismissible: true,

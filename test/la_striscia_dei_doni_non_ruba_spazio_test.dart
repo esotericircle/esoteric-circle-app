@@ -34,18 +34,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  /// **LA SOGLIA, dichiarata e non indovinata.** Viene dal misurato: 146
-  /// prima, meno i dodici dello slot morto e meno dieci dei quattro stacchi
-  /// ridotti. Si scrive il tetto e non il numero esatto, perche' un tetto
-  /// regge un ritocco della tipografia mentre un'uguaglianza cadrebbe al
-  /// primo punto di differenza fra due versioni di Flutter.
-  /// **CENTODODICI DALL\'ORDINE CF VOCE 02.** Valeva 126, ed era una
-  /// soglia che non sorvegliava piu' niente: la fascia scende a 108, e un
-  /// tetto diciotto punti sopra il vero avrebbe lasciato passare in
-  /// silenzio un ritorno all\'altezza vecchia. Quattro sopra il misurato,
-  /// come la volta scorsa, che e' il margine di un arrotondamento del
-  /// testo e non lo spazio per un ripensamento.
-  const tetto = 112.0;
+  /// **CENTOSEDICI DALL\'ORDINE CF VOCE 02**, e valeva 126: una soglia
+  /// diciotto punti sopra il vero avrebbe lasciato passare in silenzio un
+  /// ritorno all\'altezza vecchia. Quattro sopra il misurato, che e' il
+  /// margine di un arrotondamento del testo e non lo spazio per un
+  /// ripensamento.
+  const tetto = 116.0;
 
   /// Quanto era prima, per non perdere il confronto: 146 nasceva
   /// dall\'ordine AO, 122 e' quello che l\'ordine CF ha trovato e misurato.

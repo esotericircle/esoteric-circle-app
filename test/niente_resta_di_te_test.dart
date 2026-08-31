@@ -276,15 +276,28 @@ void main() {
         reason: 'sono tornate chiavi personali fuori dalla verita\' unica');
   });
 
-  test('la via delle Impostazioni passa dalla dimenticanza', () {
+  test('la via del menu\' utente passa dalla dimenticanza', () {
+    // **LA VIA HA CAMBIATO CASA, ordine CF voce 16.** Stava nelle
+    // Impostazioni, sotto "Cancella i miei dati", e il fondatore l'ha
+    // fatta togliere perche' il menu' utente ne aveva gia' una col nome
+    // quasi identico: "questi devono esistere al massimo in un unico posto
+    // e cioe' nel menu' utente in un sotto menu'". La pretesa non e'
+    // cambiata, e' cambiato il file dove si guarda.
+    //
     // La schermata non si puo' montare qui senza mezza app: si guarda il
     // punto del sorgente, che e' la cosa che era mancata.
-    final testo =
-        File('lib/features/settings/settings_screen.dart').readAsStringSync();
+    final testo = File('lib/features/account/account_screen.dart')
+        .readAsStringSync();
     expect(testo.contains('DimenticanzaDelTelefono.dimentica()'), isTrue,
-        reason: 'la via "Cancella i miei dati" delle Impostazioni non passa '
-            'piu\' dalla dimenticanza del telefono: torna a cancellare '
-            'secondo una lista sua, e promette il cammino intero');
+        reason: 'la via della cancellazione non passa piu\' dalla '
+            'dimenticanza del telefono: torna a cancellare secondo una '
+            'lista sua, e promette il cammino intero');
+    final impostazioni =
+        File('lib/features/settings/settings_screen.dart').readAsStringSync();
+    expect(impostazioni.contains('DimenticanzaDelTelefono.dimentica()'),
+        isFalse,
+        reason: 'la cancellazione e\' tornata anche nelle Impostazioni: sono '
+            'due porte sulla cosa piu\' grave che si possa fare');
   });
 
   test('nessun dato di nascita vive nel NOME di una chiave', () {

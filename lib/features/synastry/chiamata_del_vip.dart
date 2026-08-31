@@ -12,6 +12,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'dart:async';
 import '../sigilli/celebrazione.dart';
 import '../sigilli/regia_del_cammino.dart';
+import '../../design_system/components/vip_frame.dart';
 
 /// I MOMENTI DELLA CHIAMATA, nell'ordine in cui accadono.
 ///
@@ -400,7 +401,22 @@ class _RitrattoNellaLuce extends StatelessWidget {
     return SizedBox(
       key: chiave,
       width: lato,
-      height: lato / 0.78,
+      // **IL RAPPORTO E' QUELLO DELL'ARTWORK, ordine CF voce 12.**
+      //
+      // **Rilievo del fondatore, verbatim**: "nella sinastria vip se
+      // ingrandisco la Carta del vip, questa e' schiacciata
+      // verticalmente". Aveva ragione, e il numero e' esatto: il
+      // riquadro imponeva 0,78, lo `Stack` con `StackFit.expand` passava
+      // vincoli STRETTI ai figli, e sotto vincoli stretti l'`AspectRatio`
+      // a 2 su 3 di `VipFrame` non poteva cambiare misura, quindi il suo
+      // rapporto veniva ignorato. Con `BoxFit.fill` l'immagine si
+      // stirava: l'altezza giusta e' 1,5 volte la larghezza, quella
+      // reale era 1,282, cioe' **una compressione verticale del 14,53
+      // per cento**.
+      //
+      // **Adesso il numero non si scrive piu': si legge da `VipFrame`**,
+      // che e' l'unico posto dove il rapporto dell'artwork e' dichiarato.
+      height: lato / VipFrame.aspect,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         child: Stack(

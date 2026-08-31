@@ -29,23 +29,23 @@ Porta le tre regole degli ordini precedenti:
 - **CF.06** Rimasto sul Risveglio invece che in home. **CHIUSA.**
 - **CF.07** I dati di nascita non erano rimasti memorizzati. **CHIUSA.**
 - **CF.08** La ricerca della citta' non funziona nel popup. **CHIUSA.**
-- **CF.09** Il lampo nero non c'e' ovunque. **APERTA.**
-- **CF.10** Caratteri troppo piccoli nei Doni e altrove. **APERTA.**
-- **CF.11** Il conteggio delle sinastrie. **APERTA.**
-- **CF.12** La carta del VIP ingrandita e' schiacciata. **APERTA.**
-- **CF.13** Le mappe calcolano sulla citta' natale. **APERTA.**
+- **CF.09** Il lampo nero non c'e' ovunque. **CHIUSA.**
+- **CF.10** Caratteri troppo piccoli nei Doni e altrove. **FERMATA SU DECISIONE DEL FONDATORE.**
+- **CF.11** Il conteggio delle sinastrie. **CHIUSA.**
+- **CF.12** La carta del VIP ingrandita e' schiacciata. **CHIUSA.**
+- **CF.13** Le mappe calcolano sulla citta' natale. **CHIUSA.**
 - **CF.14** Il Gemello astrale non e' appagante. **APERTA.**
-- **CF.15** La riga della privacy policy manca a chi rientra. **APERTA.**
-- **CF.16** Due porte quasi identiche, e ne resta una sola. **APERTA.**
+- **CF.15** La riga della privacy policy manca a chi rientra. **CHIUSA.**
+- **CF.16** Due porte quasi identiche, e ne resta una sola. **CHIUSA.**
 - **CF.17** Le due lapidi vecchie, scritte col sale vuoto. **APERTA.**
 - **CF.18** Il secondo cancello. **APERTA.**
 
 VOCI_TOTALI: 18
-VOCI_CHIUSE: 7
-VOCI_APERTE: 11
+VOCI_CHIUSE: 13
+VOCI_APERTE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
-VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 
 ## LE AFFERMAZIONI DI QUESTO ORDINE CHE HO TROVATO FALSE
 
@@ -151,28 +151,41 @@ livello XP non esiste, li' c'e' il numero dei Sigilli accesi, che e' lo stesso
 numero che riempie l'anello. **E' un testo provvisorio, marcato come tale nel
 codice**: i testi definitivi li approva lui.
 
-### CF.02, la striscia dei Doni scende da 122 a 108
+### CF.02, la striscia dei Doni scende da 122 a 112, e la mia prima misura era falsa
 
-**Quattordici punti, e stavano vuoti.** Misurata a 360, 390 e 412 prima di
-toccarla: fascia 122, composta da quattro stacchi da 4, la riga del titolo alta
-17, la fila delle caselle alta 85, la barra di scorrimento alta 3 e il filo
-d'oro sotto. **Dentro gli 85 della fila, il contenuto di una casella ne usa
-sessantotto**: cerchio dell'icona 46, stacco 4, etichetta 18. La colonna e'
-centrata, quindi diciassette punti restavano vuoti sopra e sotto senza disegnare
-niente. Se ne prendono quattordici e tre restano di respiro, che e' il margine
-perche' un arrotondamento del testo fra due versioni di Flutter non faccia
-traboccare la casella.
+**Va scritto per primo perche' e' un mio errore, non dell'ordine.** Misurata la
+fila delle caselle, alta 85, il contenuto disegnato ne usava sessantotto:
+cerchio 46, stacco 4, etichetta 18. Diciassette punti sembravano vuoti, e li ho
+presi. **Non erano vuoti: erano lo spazio in cui vive il bersaglio
+dell'aiuto**, quarantaquattro punti posati ventitre sotto il centro della
+casella, che sborda dalla riga dell'etichetta e ha bisogno della casella
+attorno per raccogliere il tocco. Fuori dai propri limiti un riquadro il tocco
+non lo prende piu'.
 
-**Niente viene dall'area di tocco**, di nuovo: il cerchio resta 46 e il
-bersaglio del punto interrogativo resta 44 per 44, che non pesa sul calcolo
-perche' sborda dalla riga invece di occuparla. **E niente viene dall'etichetta**:
-il `FittedBox` attorno al nome oggi non riduce niente, padre e figlio misurano
-tutti e due 18, e deve restare cosi' perche' la voce CF.10 dice che i caratteri
-dei Doni sono gia' troppo piccoli.
+**Il rosso e' scattato in suite intera, non nella mia prova**: a 108 la prova
+`Un tocco lontano dal cerchio apre comunque l'aiuto` e' diventata rossa, ed e'
+esattamente la prova che l'ordine AO aveva scritto contro questo errore. Il
+commento di quell'ordine lo diceva gia': "una prova cade se qualcuno prova a
+stringerli per far posto".
 
-**Il tetto della guardia scende da 126 a 112**, quattro sopra il misurato come
-la volta scorsa. A 126 sarebbe rimasta una soglia che lasciava tornare
-all'altezza vecchia in silenzio.
+**Cercato il pavimento vero con la bisezione: a 120 regge, a 119 no.** Quindi
+togliendo dalla casella si guadagnavano DUE punti, che non e' una risposta a
+"occupa veramente troppo spazio verticale".
+
+**I dieci punti veri vengono da dove non c'e' nessun bersaglio.** Otto dai
+quattro stacchi della fascia, portati da quattro a due: sono aria fra il bordo,
+il titolo, le caselle e la barra di scorrimento, e nessuno di loro raccoglie un
+tocco. Due dallo stacco fra l'icona e l'etichetta, che scende da quattro a due:
+la casella passa da 85 a 83 e l'etichetta sale di un punto, quindi il bersaglio
+resta raggiungibile dove lo era.
+
+**Il tetto della guardia scende da 126 a 116**, quattro sopra il misurato.
+
+**E la fascia adesso segue la scala del testo.** Scendere sotto i 122 aveva
+reso rosse nove prove che montano il Santuario a `TextScaler.linear(1.6)`, cioe'
+la scala che una persona che vede poco imposta nel telefono: misurato, **a 122
+il margine era esattamente zero**. Adesso l'altezza cresce con le due righe di
+testo della fascia, e una guardia nuova la misura a quattro scale.
 
 ### CF.03, l'alone della scritta ESPLORA e' stato allargato
 
@@ -306,6 +319,174 @@ la schermata per esclusione**, cioe' il rito ripreso dopo il riconoscimento, che
 compare all'improvviso ed e' l'unica delle tre che divergeva. La divergenza era
 reale e misurata; l'abbinamento alla parola "popup" e' mio.
 
+### CF.09, il velo e' uno solo, e la prova di CC misurava un'altra cosa
+
+**Rimisurato prima di lavorare: le rotte sono ancora a posto.** Il censimento
+dell'ordine CC contava 42 `PassaggioDelCerchio.rotta`; oggi sono 43, e le due
+eccezioni sono ancora quelle dichiarate. **Quella prova non ha mai mentito: ha
+guardato un'altra cosa.** Un foglio che sale e un dialogo che appare non
+passano da `Navigator.push` e non hanno una `PageRoute`, quindi un censimento
+delle rotte non aveva nessun modo di vederli, e per la persona davanti allo
+schermo sono cambi di schermata identici a una rotta.
+
+**Cosa impone la legge nuova.** Non un lampo nero SOPRA un foglio, che
+coprirebbe la schermata da cui il foglio nasce: il velo dietro il foglio e' lo
+stesso nero del passaggio, `PassaggioDelCerchio.nero` a 0,72 di opacita', per
+la stessa durata. Il nero di Flutter e' `Colors.black54`, cioe' un grigio
+neutro: sul cosmo blu si vede, ed e' la ragione per cui i fogli sembravano di
+un'altra app.
+
+**Numeri.** **52 chiamate in 37 file** sono passate da `showModalBottomSheet`,
+`showDialog` e `showGeneralDialog` alle tre porte del velo. **Eccezioni che
+restano fuori: nessuna.** Il file della porta e' l'unico posto dove le funzioni
+del framework si nominano, e una prova sul sorgente lo pretende.
+
+### CF.11, il residuo prima del gesto, da una porta sola, e il silenzio
+
+**Perche' la prova di CE.04 era verde.** Accettava che il NOME del budget
+comparisse da qualche parte nel file. Nella Sinastria compariva: dentro la
+lista del VERDETTO, cioe' dopo che la coppia era stata scelta e il consumo era
+gia' avvenuto. **La prova misurava una menzione, non un posto.** E la sua terza
+prova, quella del silenzio, diceva `expect(muti, greaterThanOrEqualTo(0))`,
+cioe' non pretendeva niente: un numero maggiore o uguale a zero lo e' sempre.
+
+**Le tre cose che l'ordine chiedeva di chiudere insieme.**
+
+1. **Il residuo delle sinastrie si dichiara nella galleria**, che e' la
+   schermata dove si sceglie il volto, cioe' dove sta il gesto che consuma.
+   **La riga del verdetto e' stata tolta**, non duplicata: due righe sullo
+   stesso numero renderebbero impossibile a una guardia dire se quella che
+   conta sta prima o dopo.
+2. **Le gettate e le stese passano dalla porta comune.** Avevano due contatori
+   scritti per loro sole, `_ContoDelleGettate` e `_ContoDelleStese`, piu' due
+   getter privati: dicevano gia' il residuo prima del gesto, ma con parole loro
+   e senza la legge del silenzio. Sono spariti tutti e quattro.
+   **Conseguenza sui testi, e va dichiarata**: le rune dicevano "Gettate di
+   oggi: 1 di 1" e adesso dicono "Ti resta 1 gettata di rune su 1, oggi"; i
+   tarocchi dicevano "di 7" e adesso dicono "su 7". Sono le parole comuni agli
+   altri quattro budget. **I testi definitivi li approva il fondatore.**
+3. **Si tace quando il server non ha parlato.** La documentazione lo
+   dichiarava da due ordini e il codice non lo faceva. Adesso `riga()` esce
+   subito se `!borsa.dalServer`, e la prova pretende che tacciano **sei su
+   sei**. Per poter misurare la riga, le prove hanno una porta dichiarata,
+   `ilServerHaParlato`, e una guardia verifica che nell'app non la chiami
+   nessuno.
+
+### CF.12, la carta del VIP e il rapporto dell'artwork
+
+**La premessa dell'ordine e' vera fino all'ultima cifra, e la prova del rosso
+la ristampa: 14,53 per cento.** Il riquadro imponeva 0,78, lo `Stack` con
+`StackFit.expand` passava vincoli stretti, e sotto vincoli stretti
+l'`AspectRatio` a 2 su 3 di `VipFrame` non poteva cambiare misura: il suo
+rapporto veniva ignorato e `BoxFit.fill` stirava l'immagine.
+
+**Tutti e tre i punti sotto una regola sola.** Il numero non si scrive piu': si
+legge da `VipFrame.aspect`, che e' l'unico posto dove la forma dell'artwork e'
+dichiarata. Nel gemello e nella chiamata del VIP l'immagine usava
+`BoxFit.contain` e quindi non si stirava, **ma il riquadro era comunque della
+forma sbagliata** e la figura viveva dentro due bande vuote.
+
+### CF.10, i caratteri piccoli: i fatti, e la decisione resta al fondatore
+
+**Questa voce riporta e non esegue, come l'ordine chiede.** Alzare inviti,
+sottotitoli, didascalie ed etichette e' materia del fondatore, che alla domanda
+sull'uniformazione ha gia' risposto A, cioe' solo i testi da leggere.
+
+**La premessa dell'Architetto regge alla misura**: i testi lunghi dei Doni
+stanno a 18 punti e nessun `fontSize` esplicito li abbassa.
+
+**Cosa ho misurato, a 360 punti, montando le schermate vere.** Il censimento sta
+in `docs/tipografia/caratteri_piccoli.md`, lo produce
+`test/il_censimento_dei_caratteri_test.dart`, e porta **quattordici testi
+distinti sotto i sedici punti su quattro schermate**. Il fatto che conta:
+
+- **I nomi dei cinque Doni nella striscia stanno a DODICI punti**, cioe' al
+  pavimento assoluto dell'app, e con loro il titolo "I tuoi doni del giorno" e i
+  cinque cerchietti "?". **Sono otto testi su quattordici, e sono la prima cosa
+  che si vede aprendo il Cerchio**: quando il fondatore scrive "i doni... SONO
+  TROPPO PICCOLI I CARATTERI", questa e' la riga che ha davanti.
+- **Due inviti al gesto stanno a dodici punti**: "Inclina o scorri per rivelare"
+  nell'Arcano e "Dirada la nebbia" nella Notte, piu' le due righe che spiegano
+  il ripiego tattile.
+- **Tre testi stanno a 13 e 14 punti senza nessun ruolo dichiarato**, cioe' con
+  una misura scritta a mano fuori dalla scala. Questo non e' materia di gusto,
+  e' debito: una misura fuori scala non la governa nessuno.
+
+**Cosa NON ho cambiato, e perche'.** Nessuno di questi testi e' stato alzato: il
+fondatore ha deciso che l'uniformazione tocca i testi da leggere, e questi sono
+tutti testi brevi. **La voce resta FERMATA SU DECISIONE DEL FONDATORE**, non
+chiusa, perche' cio' che manca non e' lavoro ma una sua parola.
+
+**Una cosa e' cambiata, e per un'altra ragione.** Il numero del livello nato
+nella voce CF.01 era a dodici punti in oro, e il censimento dei grigi ha
+misurato 5,42 contro il 7,0 che la legge chiede a un testo piccolo: e' salito a
+diciotto, dove la soglia diventa 4,5 e l'oro passa senza schiarirsi.
+
+### CF.13, dove vivi adesso, e la mappa dichiara da dove misura
+
+**Misurato, e il fatto era peggiore di come l'ordine lo descriveva.** La mappa
+legge davvero `LuogoAttuale` e ripiega sul luogo di nascita quando la chiave e'
+vuota. Ma quella chiave era scritta **da un punto solo in tutta l'app**, dentro
+il Rito dell'Alba, dove viene chiesta per sapere a che ora sorge il sole. Chi
+quel rito non lo aveva mai compiuto **non aveva nessun modo di dire dove vive**,
+e la mappa gli misurava la distanza dalla citta' di nascita senza dirglielo.
+
+**Come l'ho costruito, e perche' cosi'.** Il campo "Dove vivi adesso" sta nella
+schermata dei dati della persona, non in un rito, che e' il vincolo dell'ordine.
+**Si salva al tocco e non aspetta il pulsante "Salva"**, perche' quel pulsante
+rifa' la carta natale e questo dato con la carta non c'entra: e' la stessa
+ragione per cui la citta' di nascita si sceglie al tocco. E si rilegge
+all'apertura, cosi' chi lo ha gia' detto lo vede invece di riscriverlo.
+
+**La mappa lo dichiara a video.** `DoveSei` porta adesso un campo `dichiarato`,
+falso quando il luogo e' il ripiego sulla nascita, e la riga sotto la mappa dice
+"Misurato da Roma" oppure "Misurato da Roma, la tua citta' di nascita: dilla in
+I tuoi dati se vivi altrove". **Un numero che non dice da dove nasce e' la
+stessa bugia di un titolo senza testo.**
+
+### CF.15, la riga del consenso, e i termini che non esistono
+
+**Misurato: aveva ragione a meta', ed era la meta' peggiore.** La riga esiste,
+e' una sola, e compare nella prima registrazione con email e in quella con
+Google o Apple, perche' tutte e tre montano `VieDellaCustodia`. **Il ramo di chi
+rientra con un'email gia' registrata costruisce il proprio pulsante e non passa
+di la'**: adesso monta la stessa riga, prima del gesto, e una prova enumera le
+vie d'ingresso invece di visitarne una.
+
+**Il secondo fatto: il Cerchio NON ha termini di servizio.** Zero occorrenze in
+tutto `lib/`, nessun indirizzo, nessuna schermata, mentre il commento del file
+prometteva "coi due nomi toccabili". **Non li ho inventati**: un documento
+legale e' materia del fondatore. Il commento adesso dichiara che non esistono,
+e una prova cade se qualcuno torna a prometterne due. Il giorno che i termini
+esisteranno, la riga li nomina.
+
+### CF.16, due porte quasi identiche, e ne resta una
+
+**Il doppione era reale e recentissimo.** Le Impostazioni avevano una sezione
+"Privacy e dati" con dentro "Privacy e permessi", costruita dall'ordine CE voce
+03 il giorno prima, piu' "Cancella i miei dati"; il menu' utente aveva gia' una
+voce "Privacy e dati" col suo sotto menu'. **Nomi quasi identici e la stessa
+identica icona.**
+
+**Questa voce non ha costruito niente: ha spostato.** "Privacy e permessi" vive
+dentro il sotto menu' del menu' utente, e dalle Impostazioni la sezione e'
+sparita insieme alla cancellazione. **Le cinque voci del sotto menu' adesso
+sono: la policy, i permessi, lo scarico dei dati, la cancellazione del cammino e
+la cancellazione dell'account.**
+
+**I due vincoli di legge, verificati e dichiarati.** L'attribuzione delle fonti
+e' dentro `PrivacyEPermessiScreen` e legge `fontiDeiDati`, che e' l'elenco vero:
+la licenza CC BY 4.0 del catalogo delle citta' pretende che sia raggiungibile,
+non che stia in prima pagina, e due tocchi dal menu' utente lo sono.
+L'interruttore della misura, che e' la via con cui si revoca il consenso, e'
+nella stessa schermata. **Una prova pretende tutte e due per nome.**
+
+**Tre guardie di ordini precedenti sono state cambiate**, e ognuna dichiara nel
+proprio testo quale decisione supera: quella del catalogo, che cercava la riga
+nelle Impostazioni; quella dei consensi, che pretendeva una copia sola della
+riga e la cancellazione nelle Impostazioni; e quella dell'oblio, che guardava il
+file sbagliato.
+
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 
 ### CF.03 supera una decisione precedente del fondatore
@@ -317,8 +498,20 @@ CF.03 la esegue per ordine esplicito.
 
 ### CF.09, CF.10 e CF.11 nascono da voci dichiarate chiuse
 
-Da riempire alla chiusura di ognuna, con la ragione per cui la loro prova era
-verde.
+**CF.09, e la prova di CC non ha mai mentito.** Contava le ROTTE, e sulle rotte
+diceva il vero allora e lo dice oggi. Fogli e dialoghi non sono rotte: non
+passano da `Navigator.push` e non hanno una `PageRoute`, quindi quel censimento
+non aveva nessun modo di vederli. **La grandezza misurata non conteneva il
+difetto.**
+
+**CF.11, e qui la prova si accontentava.** Pretendeva che il NOME del budget
+comparisse nel file della schermata, non che la riga fosse montata prima del
+gesto: nella Sinastria il nome c'era, dentro la lista del verdetto. E la prova
+del silenzio non pretendeva niente, perche' chiedeva un numero maggiore o
+uguale a zero. **Una soglia che nessun valore puo' violare non e' una soglia.**
+
+**CF.10** e' la voce che riporta fatti e non esegue, e la ragione sta nella sua
+sezione.
 
 ### Il debito lasciato aperto dall'ordine CE
 

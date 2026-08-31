@@ -8,6 +8,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/user_photo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// La sezione Profilo dell'Area Utente: qui l'utente da' un volto al suo posto
 /// nel Cerchio, la sua foto oppure l'identita' di default a tema (il segno, le
@@ -93,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
   Future<void> _pickPhoto(BuildContext context) async {
     final controller = context.read<ProfileController>();
     final service = photoService ?? ImagePickerPhotoService();
-    final source = await showModalBottomSheet<UserPhotoSource>(
+    final source = await foglioDelCerchio<UserPhotoSource>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => _ConsentSheet(),

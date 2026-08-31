@@ -11,6 +11,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../shell/barra_del_cerchio.dart';
 import 'segno_del_sentiero.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// LA MAPPA DEL SENTIERO. Ordine AU voce 13.
 ///
@@ -47,7 +48,7 @@ class LaMappaDelSentiero {
 
   /// Apre la mappa. La chiama il primo ingresso e il punto interrogativo.
   static Future<void> mostra(BuildContext context, Sentiero sentiero) {
-    return showModalBottomSheet<void>(
+    return foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

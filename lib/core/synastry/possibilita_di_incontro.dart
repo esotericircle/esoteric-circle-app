@@ -15,11 +15,21 @@ class DoveSei {
     required this.citta,
     required this.latitudine,
     required this.longitudine,
+    this.dichiarato = true,
   });
 
   final String citta;
   final double latitudine;
   final double longitudine;
+
+  /// **VERO SE LA PERSONA HA DETTO DOVE VIVE, ordine CF voce 13.** Falso
+  /// quando questo luogo e' il RIPIEGO sulla citta' di nascita.
+  ///
+  /// **Non e' un dettaglio di comodo: e' cio' che la mappa dichiara a
+  /// video.** Prima la mappa ripiegava sul luogo di nascita in silenzio, e
+  /// chi si e' trasferito leggeva una distanza calcolata da una citta' in cui
+  /// non vive senza avere modo di accorgersene.
+  final bool dichiarato;
 }
 
 /// LA POSSIBILITA' DI INCONTRO, e stavolta si spiega. Ordine BO voce 03.

@@ -38,6 +38,7 @@ import '../../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -300,7 +301,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   }
 
   void _mostraFonti(BuildContext context, MaestroPalette palette) {
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheet) => Container(

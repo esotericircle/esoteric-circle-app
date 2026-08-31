@@ -10,6 +10,7 @@ import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Pannello dimostrativo per il checkpoint C1.
 ///
@@ -19,7 +20,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 /// strumento di revisione. In produzione il tier arrivera' dallo stato reale
 /// di abbonamento.
 Future<void> showDemoControls(BuildContext context) {
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

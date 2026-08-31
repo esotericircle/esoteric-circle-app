@@ -38,6 +38,7 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'package:provider/provider.dart';
 import '../../core/identity/natal_identity.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
@@ -600,7 +601,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
       ];
 
   void _mostraProvenienza() {
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

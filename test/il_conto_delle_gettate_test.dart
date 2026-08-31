@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/design_system/components/riga_del_residuo.dart';
+import 'package:esoteric_circle/core/entitlement/budget_del_giorno.dart';
 
 /// IL CONTO DELLE GETTATE SI VEDE E DICE IL VERO, ordine L voce 2.
 ///
@@ -42,7 +44,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => SettingsController()),
         ChangeNotifierProvider(
             create: (_) => EntitlementService(initial: piano)),
-        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(
+            create: (_) => QuestionAllowance()..ilServerHaParlato()),
       ],
       child: MaterialApp(
         builder: (ctx, child) => MediaQuery(
@@ -62,10 +65,22 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
+  /// **IL CONTO ADESSO E' LA RIGA COMUNE, ordine CF voce 11.** Le rune
+  /// avevano un contatore scritto per loro sole, `_ContoDelleGettate`, con
+  /// parole sue e senza la legge del silenzio. Adesso montano
+  /// `RigaDelResiduo`, come gli altri cinque budget, e le parole sono quelle
+  /// comuni: **"Ti resta 1 gettata di rune su 1, oggi"** invece di "Gettate di
+  /// oggi: 1 di 1". Il cambio di parole e' la conseguenza voluta di avere una
+  /// porta sola, e va dichiarato al fondatore.
   String conto(WidgetTester tester) {
-    final t = tester
-        .widget<Text>(find.byKey(const Key('rune_conto_gettate')).first);
-    return t.data!;
+    final riga = find.byKey(RigaDelResiduo.chiaveDi(BudgetDelGiorno.gettate));
+    if (riga.evaluate().isEmpty) return '';
+    final testi = find
+        .descendant(of: riga.first, matching: find.byType(Text))
+        .evaluate()
+        .map((e) => (e.widget as Text).data ?? '')
+        .where((t) => t.isNotEmpty);
+    return testi.isEmpty ? '' : testi.first;
   }
 
   // I DUE STATI DEL CONTO, e sono due perche' il limite e' UNO dall'ordine O
@@ -75,13 +90,12 @@ void main() {
   testWidgets('i due stati del conto: pieno e finito', (tester) async {
     await monta(tester, piano: Tier.free);
     // Sempre presente per chi ha un limite, gia' prima del primo getto.
-    expect(conto(tester), 'Gettate di oggi: 1 di 1',
-        reason: 'Prima del primo getto il conto non dice uno di uno.');
+    expect(conto(tester), 'Ti resta 1 gettata di rune su 1, oggi',
+        reason: 'Prima del primo getto il conto non dice uno su uno.');
     await getta(tester);
-    expect(conto(tester),
-        'Le gettate di oggi sono finite: si riparte domani.',
-        reason: 'Dopo la gettata del giorno il conto non dice che si riparte '
-            'domani.');
+    expect(conto(tester), 'Non ti resta nessuna gettata di rune, oggi',
+        reason: 'Dopo la gettata del giorno il conto non dice che non ne '
+            'resta nessuna.');
   });
 
   testWidgets('adesso anche il Tier 1 vede il suo conto', (tester) async {
@@ -90,7 +104,8 @@ void main() {
     // quando l\'illimitato non esiste, quel silenzio sarebbe un conto
     // nascosto. Il Tier 1 ha venti gettate al giorno e le vede.
     await monta(tester, piano: Tier.tier1);
-    expect(find.byKey(const Key('rune_conto_gettate')), findsOneWidget,
+    expect(find.byKey(RigaDelResiduo.chiaveDi(BudgetDelGiorno.gettate)),
+        findsWidgets,
         reason: 'il Tier 1 ha un tetto e non lo vede');
   });
 }

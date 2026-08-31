@@ -17,6 +17,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/design_system/components/riga_del_residuo.dart';
+import 'package:esoteric_circle/core/entitlement/budget_del_giorno.dart';
 
 /// IL GATING DELLA STESA. Ordine BN voce 09.
 ///
@@ -224,37 +226,48 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
   }
 
+  /// **IL CONTO ADESSO E' LA RIGA COMUNE, ordine CF voce 11.** La stesa
+  /// aveva un contatore scritto per lei sola, `_ContoDelleStese`, che
+  /// diceva la stessa cosa con parole sue e non conosceva la legge del
+  /// silenzio. Adesso monta `RigaDelResiduo`, come tutti gli altri cinque
+  /// budget, e la sua chiave e' quella comune.
   String contoAVideo(WidgetTester tester) {
-    final conto = find.byKey(const Key('stesa_conto_stese'));
+    final conto = find.byKey(RigaDelResiduo.chiaveDi(BudgetDelGiorno.stese));
     if (conto.evaluate().isEmpty) return '';
-    return tester.widget<Text>(conto).data ?? '';
+    final testi = find
+        .descendant(of: conto, matching: find.byType(Text))
+        .evaluate()
+        .map((e) => (e.widget as Text).data ?? '')
+        .where((t) => t.isNotEmpty);
+    return testi.isEmpty ? '' : testi.first;
   }
 
   testWidgets('il conto e\' quello del listino, e cambia col piano',
       (tester) async {
-    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Ti restano 7 stese di 7, oggi',
+    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
+    expect(contoAVideo(tester), 'Ti restano 7 stese su 7, oggi',
         reason: 'il numero non e\' quello che la matrice promette '
             'all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
-    await monta(tester, piano: Tier.tier3, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Ti restano 20 stese di 20, oggi',
+    await monta(tester, piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
+    expect(contoAVideo(tester), 'Ti restano 20 stese su 20, oggi',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
-    await monta(tester, piano: Tier.free, borsa: QuestionAllowance());
-    expect(contoAVideo(tester), 'Ti resta 1 stesa di 1, oggi',
+    await monta(tester, piano: Tier.free, borsa: QuestionAllowance()..ilServerHaParlato());
+    expect(contoAVideo(tester), 'Ti resta 1 stesa su 1, oggi',
         reason: 'il Viandante non legge piu\' la sua stesa del giorno: '
             'ordine BU voce 04');
   });
 
   testWidgets('il conto si dichiara PRIMA, e sparisce a stesa cominciata',
       (tester) async {
-    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance());
+    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
     expect(contoAVideo(tester), isNotEmpty);
     await pesca(tester, 38);
-    expect(find.byKey(const Key('stesa_conto_stese')), findsNothing,
+    expect(find.byKey(RigaDelResiduo.chiaveDi(BudgetDelGiorno.stese)),
+        findsNothing,
         reason: 'a stesa cominciata il conto e\' rumore');
   });
 
@@ -366,10 +379,19 @@ void main() {
         reason: 'la stesa non offre piu\' il riscatto del budget giusto');
     expect(s.contains("budget: 'gettate'"), isFalse,
         reason: 'la stesa riscatta le GETTATE: e\' il budget delle rune');
-    // Il numero non si scrive a mano: arriva dal borsellino, che lo legge
-    // dalla matrice.
-    expect(s.contains('limiteStese('), isTrue);
-    expect(s.contains('steseRimaste('), isTrue);
+    // **IL NUMERO NON SI SCRIVE A MANO, e adesso non si legge nemmeno qui.**
+    // Ordine CF voce 11: la schermata aveva due getter suoi, `_steseRimaste`
+    // e `_steseLimite`, che leggevano la borsa per passarli a un contatore
+    // scritto per lei sola. Quei tre pezzi sono spariti insieme, e al loro
+    // posto c'e' la riga comune: il numero lo legge lei, da una porta sola,
+    // e tace quando il server non ha parlato.
+    expect(s.contains('RigaDelResiduo('), isTrue,
+        reason: 'la stesa non monta piu\' la riga comune del residuo');
+    expect(s.contains('budget: BudgetDelGiorno.stese'), isTrue,
+        reason: 'la riga del residuo non dichiara il budget delle stese');
+    expect(s.contains('_ContoDelleStese'), isFalse,
+        reason: 'il contatore scritto per questa schermata sola e\' tornato: '
+            'due porte sullo stesso numero');
   });
 
   test('il guscio dell\'app porta il denaro sopra la rotta dei tarocchi', () {

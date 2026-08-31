@@ -33,6 +33,7 @@ import 'widgets/busto_del_maestro.dart';
 import '../../design_system/components/titolo_che_non_si_spezza.dart';
 import '../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../design_system/components/suggerimento_al_primo_uso.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -675,7 +676,7 @@ Future<void> showArtPreview(
       ? 'Questa arte è pronta e vive nel Cerchio: si apre '
           '${art.requiredTier == null ? 'con l\'abbonamento' : conPiano(PlanCatalog.forTier(art.requiredTier!).name)}.'
       : 'Questa arte è in cammino. Quando sarà pronta la troverai qui.$fase';
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     builder: (sheetContext) => Container(

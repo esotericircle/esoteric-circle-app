@@ -43,6 +43,7 @@ import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
@@ -1528,7 +1529,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   void _mostraFonti() {
     final tramonto = _tramonto;
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,

@@ -93,12 +93,27 @@ void main() {
     });
 
     test('il sotto menu\' e\' raggiungibile da una riga sola', () {
-      expect(impostazioni.contains("Key('settings_privacy_e_permessi')"), isTrue,
+      // **LA RIGA HA CAMBIATO CASA, ordine CF voce 16, e si dichiara cosa
+      // supera.** Questa prova pretendeva la riga nelle IMPOSTAZIONI, ed era
+      // giusto quando la voce CE.03 l'aveva messa li'. Il giorno dopo il
+      // fondatore ha chiesto il contrario, con parole sue: "devi eliminare
+      // dal menu' impostazioni 'privacy e permessi' [...] questi devono
+      // esistere al massimo in un unico posto e cioe' nel menu' utente in un
+      // sotto menu'". Il doppione era reale: il menu' utente aveva gia' una
+      // voce "Privacy e dati" col nome quasi identico e la stessa icona.
+      final menu = File('lib/features/account/account_screen.dart')
+          .readAsStringSync();
+      expect(menu.contains("title: 'Privacy e permessi'"), isTrue,
           reason: 'il sotto menu\' esiste e non ci porta nessuno');
-      expect(impostazioni.contains('PrivacyEPermessiScreen.route()'), isTrue);
-      // E la cancellazione resta dov'era: il fondatore non l'ha spostata.
-      expect(impostazioni.contains('_DeleteDataTile'), isTrue,
-          reason: 'la cancellazione doveva restare nelle Impostazioni');
+      expect(menu.contains('PrivacyEPermessiScreen.route()'), isTrue);
+      // **E LA CANCELLAZIONE SI E' SPOSTATA ANCHE LEI**, per la stessa
+      // richiesta: nelle Impostazioni non c'e' piu', nel menu' utente ci sono
+      // i suoi due gradi, il cammino che riparte e l'account che sparisce.
+      expect(impostazioni.contains('_DeleteDataTile'), isFalse,
+          reason: 'la cancellazione e\' tornata nelle Impostazioni: sono due '
+              'porte sulla stessa cosa');
+      expect(menu.contains("title: 'Cancella i tuoi dati'"), isTrue,
+          reason: 'la cancellazione del cammino non si raggiunge piu\'');
     });
   });
 
@@ -147,11 +162,24 @@ void main() {
       expect(vie.contains('ConsensiDellaRegistrazione()'), isTrue,
           reason: 'i consensi non sono piu\' dentro il gesto della '
               'registrazione');
-      // **Una copia sola.** Le vie d'accesso vivono in tre schermate: se i
-      // consensi si montassero accanto a ognuna, tre copie divergerebbero.
+      // **DUE COPIE, E LA SECONDA E' LA CURA DELLA VOCE CF.15.** Qui si
+      // pretendeva UNA copia sola, con la ragione che le vie d'accesso vivono
+      // in tre schermate e tre copie divergerebbero. La ragione regge per le
+      // tre vie della registrazione, che infatti passano tutte da
+      // `VieDellaCustodia`. **Ma il ramo di chi rientra con un'email gia'
+      // registrata non passa di li'**: costruisce il proprio pulsante, e
+      // premerlo e' un ingresso nel Cerchio come gli altri. Il fondatore lo
+      // ha notato: "quando disinstallo e poi reinstallo inserendo poi la mia
+      // e-mail precedente, non dovrebbe esserci scritto che 'facendo click
+      // accetti la privacy policy'?"
+      //
+      // **Due montaggi non sono due copie**: il widget e' uno solo, e cio'
+      // che dice sta scritto in un punto solo.
       final quante = 'ConsensiDellaRegistrazione()'.allMatches(vie).length;
-      expect(quante, 1,
-          reason: 'i consensi sono montati $quante volte nello stesso file');
+      expect(quante, 2,
+          reason: 'i consensi sono montati $quante volte: le vie d\'ingresso '
+              'sono due, la registrazione e il rientro, e tutte e due devono '
+              'dire cosa si accetta');
     });
 
     test('chi non si registra non viene contato', () {

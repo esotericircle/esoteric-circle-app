@@ -18,6 +18,7 @@ import '../../core/maestro/maestro.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
 ///
@@ -80,7 +81,7 @@ class _AngelsScreenState extends State<AngelsScreen>
   /// chiede fiducia cieca, e questa app non la chiede.
   void _mostraFonti(BuildContext context) {
     final palette = context.palette;
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: palette.surfaceElevated,
       shape: const RoundedRectangleBorder(

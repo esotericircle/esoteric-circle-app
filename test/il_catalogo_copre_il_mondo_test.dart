@@ -121,10 +121,15 @@ void main() {
     // l'attribuzione sia RAGGIUNGIBILE, non che stia in prima pagina: due
     // tocchi da una schermata di sistema sono il modo in cui ogni app
     // assolve questo obbligo.
-    final impostazioni =
-        File('lib/features/settings/settings_screen.dart').readAsStringSync();
-    expect(impostazioni.contains("Key('settings_privacy_e_permessi')"), isTrue,
-        reason: 'nessuna riga delle Impostazioni porta al sotto menu\', quindi '
+    // **E ADESSO LA RIGA STA NEL MENU' UTENTE. Ordine CF voce 16.** Il
+    // fondatore ha fatto togliere dalle Impostazioni la sezione "Privacy e
+    // dati", perche' il menu' utente ne aveva gia' una col nome quasi
+    // identico e la stessa icona. La via c'e' ancora, e sta in un posto
+    // solo: quello che la licenza pretende e' che sia raggiungibile.
+    final menu = File('lib/features/account/account_screen.dart')
+        .readAsStringSync();
+    expect(menu.contains('PrivacyEPermessiScreen.route()'), isTrue,
+        reason: 'nessuna riga del menu\' utente porta al sotto menu\', quindi '
             'l\'attribuzione non e\' piu\' raggiungibile');
     final sotto = File('lib/features/settings/privacy_e_permessi_screen.dart')
         .readAsStringSync();

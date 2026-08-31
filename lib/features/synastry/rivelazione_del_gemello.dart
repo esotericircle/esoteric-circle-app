@@ -7,6 +7,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../design_system/components/vip_frame.dart';
 
 /// LA RIVELAZIONE DEL GEMELLO ASTRALE. Ordine BO voce 10.
 ///
@@ -106,7 +107,12 @@ class _RivelazioneDelGemelloState extends State<RivelazioneDelGemello>
             const SizedBox(height: SpacingTokens.sm),
             SizedBox(
               width: 120,
-              height: 120 / 0.78,
+              // Il rapporto dell'artwork e non un numero scritto a
+              // mano, ordine CF voce 12: qui l'immagine usa
+              // `BoxFit.contain` e non si stirava, ma il riquadro era
+              // comunque della forma sbagliata e la miniatura viveva
+              // dentro due bande vuote.
+              height: 120 / VipFrame.aspect,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),

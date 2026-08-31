@@ -33,6 +33,7 @@ import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -417,7 +418,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   void _mostraFontiEMetodo() {
     final palette = context.palette;
     final cielo = _cielo;
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -666,7 +667,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   // prima che il sistema mostri la sua richiesta secca.
   Future<bool?> _askLocationConsent() {
     final palette = context.palette;
-    return showDialog<bool>(
+    return dialogoDelCerchio<bool>(
       context: context,
       builder: (dialogContext) => Dialog(
         key: const Key('sky_location_prompt'),
@@ -872,7 +873,7 @@ if (andata && context.mounted) {
 
   Future<PostcardFormat?> _chooseFormat(
       BuildContext context, MaestroPalette palette) {
-    return showModalBottomSheet<PostcardFormat>(
+    return foglioDelCerchio<PostcardFormat>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => Container(

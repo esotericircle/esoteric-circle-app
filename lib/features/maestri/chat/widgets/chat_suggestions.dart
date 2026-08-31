@@ -7,6 +7,7 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Le due famiglie di suggerimenti.
 enum SuggestionGroup { frequent, personal }
@@ -118,7 +119,7 @@ Future<void> showSuggestionsPanel(
   required List<String> frequenti,
   required List<String> personali,
 }) {
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,

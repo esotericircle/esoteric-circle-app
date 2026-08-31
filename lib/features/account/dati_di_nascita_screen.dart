@@ -13,6 +13,8 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'dart:async';
+import '../../core/astro/luogo_attuale.dart';
 
 /// DOVE SI CORREGGONO I DATI DI NASCITA DOPO IL RISVEGLIO.
 ///
@@ -85,11 +87,18 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
     _luogo = identita.birthPlace;
     if (_luogo != null) _luogoCtrl.text = _luogo!.city;
     CityCatalog.ensureLoaded();
+    // Il luogo attuale gia' dichiarato, se c'e': si mostra invece di
+    // chiederlo di nuovo.
+    DoveSonoAdesso.letto().then((luogo) {
+      if (!mounted || luogo == null) return;
+      setState(() => _doveCtrl.text = luogo.citta);
+    });
   }
 
   @override
   void dispose() {
     _luogoCtrl.dispose();
+    _doveCtrl.dispose();
     super.dispose();
   }
 
@@ -106,6 +115,30 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       _risultati = risposta.risultati;
       if (risposta.scelta != null) _luogo = risposta.scelta!.toPlace();
     });
+  }
+
+  /// **DOVE VIVI ADESSO, ordine CF voce 13.** Il luogo attuale, come il
+  /// disco lo conosce.
+  City? _dove;
+  final TextEditingController _doveCtrl = TextEditingController();
+  List<City> _risultatiDove = const [];
+
+  void _cercaDove(String q) {
+    final risposta = RicercaDelLuogo.per(q);
+    setState(() {
+      _risultatiDove = risposta.risultati;
+      if (risposta.scelta != null) _dove = risposta.scelta;
+    });
+  }
+
+  void _scegliDove(City c) {
+    setState(() {
+      _dove = c;
+      _doveCtrl.text = c.label;
+      _risultatiDove = const [];
+    });
+    FocusScope.of(context).unfocus();
+    unawaited(DoveSonoAdesso.scrivi(LuogoAttuale.dallaCitta(c)));
   }
 
   void _scegliCitta(City c) {
@@ -261,6 +294,70 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 Text(
                   'Serve alla carta natale: senza il luogo non si calcolano '
                   'Ascendente, Case e la mappa dei pianeti.',
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+                // **DOVE VIVI ADESSO, ordine CF voce 13.**
+                //
+                // **Rilievo del fondatore, verbatim**: "nelle mappe della
+                // sinastria vip, dove calcola la distanza tra me e il vip, il
+                // calcolo viene fatto sulla citta' natale, ma se adesso
+                // vivessi in altro luogo?"
+                //
+                // **Misurato: il luogo attuale esisteva, e non c'era modo di
+                // darlo.** La chiave `luogo.attuale` era scritta da un punto
+                // solo in tutta l'app, dentro il Rito dell'Alba, dove viene
+                // chiesta per sapere a che ora sorge il sole. Chi quel rito
+                // non lo aveva mai compiuto non aveva nessuna via per dire
+                // dove vive, e la mappa gli misurava la distanza dalla citta'
+                // di nascita senza dirglielo.
+                //
+                // **Sta qui e non in un rito**, perche' e' un dato della
+                // persona e va dove stanno gli altri suoi dati. Si salva al
+                // tocco, come la citta' di nascita si sceglie al tocco: non
+                // aspetta il pulsante, perche' quel pulsante rifa' la carta
+                // natale e questo dato con la carta non c'entra.
+                Text('Dove vivi adesso',
+                    style: TypographyTokens.label(size: 13)
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                const SizedBox(height: SpacingTokens.sm),
+                TextField(
+                  key: const Key('dove_vivi_field'),
+                  controller: _doveCtrl,
+                  onChanged: _cercaDove,
+                  style: TypographyTokens.body(size: 17)
+                      .copyWith(color: palette.goldSoft),
+                  cursorColor: palette.goldSoft,
+                  decoration: InputDecoration(
+                    hintText: 'Cerca la città in cui vivi',
+                    hintStyle: TypographyTokens.body(size: 16)
+                        .copyWith(color: ColorTokens.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: palette.gold.withValues(alpha: 0.35)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: palette.goldSoft),
+                    ),
+                  ),
+                ),
+                for (final c in _risultatiDove.take(6))
+                  ListTile(
+                    key: Key('dove_${c.name}_${c.country}'),
+                    dense: true,
+                    title: Text(c.label,
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                    onTap: () => _scegliDove(c),
+                  ),
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                  _dove == null
+                      ? 'Se non lo dici, le distanze si misurano dalla tua '
+                          'città di nascita.'
+                      : 'Le distanze si misurano da ${_dove!.label}.',
+                  key: const Key('dove_vivi_spiegazione'),
                   style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
