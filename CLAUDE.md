@@ -29,6 +29,7 @@ Claude costruisce l'app, Gemini la fa girare. Tutta l'AI a runtime (oracoli, sin
 
 ## Regole non negoziabili
 
+- **UN RAMO SOLO.** Il lavoro si spinge sul solo ramo `claude/esoteric-circle-master-order-e798aj`, e nessun altro ramo si crea senza un ordine che lo dica per nome. Il lavoro dell'ordine CG e' finito in parte su un ramo laterale che il fondatore non aveva chiesto, e chi avesse aperto il canonico non avrebbe trovato ne' la rinomina in card ne' la build: due rami che dicono cose diverse sullo stesso ordine sono due verita'. Rimediato con l'ordine CH del 31 agosto 2026.
 - Non usare mai il trattino lungo. Usa formulazioni alternative.
 - Rispondi e commenta sempre in italiano.
 - Ogni funzione esoterica poggia su tradizioni reali e documentate, con disclaimer. Il disclaimer si mostra una sola volta a onboarding e registrazione, mai su ogni card o responso.

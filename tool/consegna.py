@@ -29,6 +29,8 @@ import time
 import urllib.error
 import urllib.request
 
+import ispeziona_archivio
+
 APP = '1:425821975933:android:1b1ca4db8d4df69b940814'
 SERVIZIO = 'distributore-app@esoteric-circle.iam.gserviceaccount.com'
 # **IL DESTINATARIO E' UNO SOLO.** L'ordine AR voce 09 ne aveva messi due,
@@ -164,30 +166,14 @@ def numero_da_aapt2(archivio):
     """Il versionCode letto dall'archivio con aapt2, quando nessun dispositivo
     lo ha potuto leggere. Serve al registro: il numero e' dell'ARCHIVIO, mai
     del pubspec."""
-    radice = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android',
-                          'sdk', 'build-tools')
-    aapt2 = None
-    if os.path.isdir(radice):
-        for versione in sorted(os.listdir(radice), reverse=True):
-            candidato = os.path.join(radice, versione, 'aapt2.exe')
-            if os.path.isfile(candidato):
-                aapt2 = candidato
-                break
-    if not aapt2:
-        raise SystemExit('aapt2 non trovato sotto ' + radice + ': senza '
-                         'dispositivo e senza aapt2 il numero non si legge, '
-                         'e un registro col numero del pubspec direbbe una '
-                         'cosa non misurata.')
-    codice, fuori = _corri([aapt2, 'dump', 'badging', archivio])
-    if codice != 0:
-        raise SystemExit('aapt2 dump badging fallito:\n' + fuori)
-    for pezzo in fuori.split():
-        if pezzo.startswith("versionCode='"):
-            numero = pezzo.split("'")[1]
-            os.environ.setdefault('NUMERO_CONSEGNATO', numero)
-            print('numero letto dall\'archivio con aapt2: ' + numero)
-            return
-    raise SystemExit('aapt2 non ha stampato un versionCode:\n' + fuori[:400])
+    # **UNA PORTA SOLA PER IL NUMERO, ordine CH voce 07.** La lettura con
+    # aapt2 viveva qui e serviva anche all'ispezione dell'archivio: due modi
+    # di leggere lo stesso numero sono due numeri che un giorno divergono, ed
+    # e' la famiglia di difetti piu' numerosa di questo progetto. Adesso sta
+    # in ispeziona_archivio, che e' il posto che guarda dentro il file.
+    numero = ispeziona_archivio.versione_dall_archivio(archivio)
+    os.environ.setdefault('NUMERO_CONSEGNATO', str(numero))
+    print('numero letto dall\'archivio con aapt2: ' + str(numero))
 
 
 def main():
@@ -243,6 +229,54 @@ def main():
     peso = os.path.getsize(archivio)
     print('archivio: ' + archivio + '  ' + '{:,}'.format(peso).replace(',', '.')
           + ' byte')
+
+    # **SI GUARDA DENTRO L'ARCHIVIO, PRIMA DI CARICARLO. Ordine CH voce 07.**
+    #
+    # Il cancello guarda il codice: le prove del client, quelle del server,
+    # l'analisi. Nessuna di loro apre mai il file che il telefono scarica, e
+    # fra il codice che passa le prove e l'archivio che parte ci sono Gradle,
+    # gli AAR dei plugin, i filtri degli ABI e le esclusioni del
+    # confezionamento. La 2216 e' uscita di li' senza il motore per i telefoni
+    # a 32 bit, ha superato 4.175 prove e lo sbarramento, e a trovarla e'
+    # stato il fondatore leggendo due pesi su App Tester.
+    #
+    # Da qui in avanti, se l'archivio non contiene cio' che promette la
+    # consegna SI FERMA e dice quale controllo e' caduto.
+    print('')
+    print('== L\'ARCHIVIO, GUARDATO DENTRO PRIMA DI CARICARE ==')
+    guai, righe = ispeziona_archivio.ispeziona(archivio)
+    for r in righe:
+        print('  ' + r)
+    if guai:
+        print('')
+        print('LA CONSEGNA SI FERMA: l\'archivio non contiene cio\' che '
+              'promette.')
+        for g in guai:
+            print('  - ' + g)
+        raise SystemExit('archivio rifiutato, niente e\' stato caricato')
+    print('  tutti i controlli passati.')
+    print('')
+
+    # **IL COMANDO CHE HA COSTRUITO QUESTO ARCHIVIO. Ordine CH voce 08.**
+    #
+    # Il comando della 2215 non era registrato da nessuna parte, e per sapere
+    # come fosse stata costruita si e' dovuto DEDURLO aprendo l'archivio. E'
+    # la ragione per cui una build fatta in modo diverso e' potuta uscire
+    # senza che nessuno se ne accorgesse.
+    #
+    # **Perche' si chiede invece di misurarlo.** Il comando non e' dentro il
+    # file: un archivio non conserva la riga che lo ha prodotto, e dedurlo
+    # dall'inventario e' un indizio, non una lettura. Quindi si dichiara. Cio'
+    # che cambia rispetto a prima e' che adesso e' OBBLIGATORIO e lo scrive la
+    # consegna nel registro: prima era facoltativo e non lo scriveva nessuno.
+    comando = os.environ.get('COMANDO_DI_BUILD', '').strip()
+    if not comando:
+        raise SystemExit(
+            'COMANDO_DI_BUILD non impostato: il registro resterebbe senza il '
+            'comando che ha prodotto questo archivio, ed e\' esattamente il '
+            'buco della 2215. Rilancia dichiarandolo, per esempio '
+            'COMANDO_DI_BUILD="flutter build apk --release"')
+    print('comando di build dichiarato: ' + comando)
 
     tok = token()
 
@@ -307,10 +341,8 @@ def main():
 
     # 5. IL REGISTRO, DENTRO LA PROCEDURA e non a mano, e solo adesso: prima di
     #    qui non c'era niente di consegnato da registrare.
-    numero = int(release.rstrip('/').split('/')[-1]) if False else None
     # Il numero vero e' quello dell'archivio, letto da chi ci ha gia' guardato
-    # dentro con aapt2 e passato qui: si prende dal pubspec solo come ultima
-    # risorsa, e si dichiara.
+    # dentro con aapt2 e passato qui: dal pubspec non si prende mai.
     numero = int(os.environ.get('NUMERO_CONSEGNATO', '0'))
     if numero <= 0:
         raise SystemExit('NUMERO_CONSEGNATO non impostato: il registro non si '
@@ -320,6 +352,16 @@ def main():
     reg['ultimo_distribuito'] = numero
     reg['quando'] = time.strftime('%Y-%m-%d')
     reg['release'] = release.rstrip('/').split('/')[-1]
+    # **IL PESO E IL COMANDO LI SCRIVE LA CONSEGNA. Ordine CH voci 08 e 09.**
+    #
+    # Il peso era gia' calcolato qualche riga piu' su e finiva solo a video,
+    # mentre il campo del registro lo aggiornava una persona a mano: ha
+    # portato lo STESSO numero, 173.822.285, per cinque consegne di fila dalla
+    # 2208 alla 2213, poi 195.580.347 per la 2214 e ancora per la 2215, mentre
+    # l'archivio vero della 2215 ne pesa 195.596.827. E' stato giusto solo
+    # quando qualcuno si e' ricordato di scriverlo.
+    reg['peso_archivio_byte'] = peso
+    reg['comando_di_build'] = comando
     io.open(REGISTRO, 'w', encoding='utf-8').write(
         json.dumps(reg, ensure_ascii=False, indent=2) + '\n')
     print('registro aggiornato: ' + str(prima) + ' -> ' + str(numero))

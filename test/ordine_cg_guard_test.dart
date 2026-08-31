@@ -184,6 +184,6 @@ void main() {
             'legge di consegna** finche\' tutte e sedici non hanno uno stato '
             'terminale. Oggi e\' CG.15, il ripesamento della lapide col sale '
             'vuoto, che chiede una distribuzione delle funzioni: le due righe '
-            'da lanciare stanno in docs/ordini/ISTRUZIONI_CG_15_LAPIDI.md');
+            'da lanciare stanno in docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md');
   });
 }

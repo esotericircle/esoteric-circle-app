@@ -112,8 +112,60 @@ else
   echo "!! Questa build non ha guardato la seconda suite."
 fi
 
+# **LE CADUTE E GLI ACCETTATI SI LEGGONO PRIMA DEL BIVIO. Ordine CH voce 04.**
+#
+# Fino al 31 agosto 2026 questo confronto viveva soltanto nel ramo rosso, e
+# quando la suite era VERDE non veniva eseguito affatto: un registro pieno di
+# righe vecchie passava inosservato proprio nel caso in cui e' piu' facile
+# accorgersene, cioe' quando nessuna di quelle prove cade piu'. E quando
+# veniva eseguito diceva "AVVISO", che nessuno e' obbligato a leggere.
+#
+# Quel registro e' l'unico posto in cui un difetto puo' essere messo a tacere
+# legalmente. Una riga che sopravvive alla sua ragione spegne un pezzo della
+# rete di sicurezza senza che nessuno se ne accorga, ed e' cosi' che questo
+# progetto ha gia' perso diciassette giorni di build.
+CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' "$REGISTRO" \
+  | sed -E 's#^.*[.]dart: ##' | sort -u)"
+
+ACCETTATE=""
+if [ -f "$ACCETTATI" ]; then
+  # Il percorso si toglie da tutte e due le parti: una riga scritta come la
+  # stampa il rapporto ("percorso.dart: nome") vale quanto una col nome nudo,
+  # e le due forme non possono piu' divergere.
+  ACCETTATE="$(grep -v '^[[:space:]]*#' "$ACCETTATI" | grep -v '^[[:space:]]*$' \
+    | sed -E 's/[[:space:]]*[|].*$//' | sed -E 's#^.*[.]dart: ##')"
+fi
+
+DI_TROPPO=""
+if [ -n "$ACCETTATE" ]; then
+  while IFS= read -r nome; do
+    [ -z "$nome" ] && continue
+    if ! echo "$CADUTE" | grep -Fxq "$nome"; then
+      DI_TROPPO="$DI_TROPPO$nome
+"
+    fi
+  done <<< "$ACCETTATE"
+fi
+
+if [ -n "$DI_TROPPO" ]; then
+  echo ""
+  echo "======================================================================"
+  echo "  RIGHE DI TROPPO NEL REGISTRO DEI ROSSI ACCETTATI."
+  echo "======================================================================"
+  echo "  Queste righe mettono a tacere una prova che OGGI PASSA:"
+  echo "$DI_TROPPO" | sed 's/^/    /'
+  echo "  Una riga che sopravvive alla sua ragione spegne la rete di"
+  echo "  sicurezza un pezzo alla volta. Toglila da:"
+  echo "    $ACCETTATI"
+  echo "  L'ARCHIVIO NON SI PRODUCE."
+  echo "======================================================================"
+  rm -f "$REGISTRO"
+  exit 1
+fi
+
 if [ "$ESITO" -eq 0 ]; then
   echo "== SUITE VERDE: la build puo' procedere =="
+  echo "== E il registro dei rossi accettati e' vuoto o dice il vero =="
   rm -f "$REGISTRO"
   exit 0
 fi
@@ -149,8 +201,8 @@ grep -E "^  [A-Za-z]:.*_test[.]dart" "$REGISTRO" | sort -u || true
 # le forme, compresa quella del Mac che costruisce.
 #
 # Si toglie tutto cio' che sta prima del primo ".dart: ".
-CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' "$REGISTRO" \
-  | sed -E 's#^.*[.]dart: ##' | sort -u)"
+# CADUTE e ACCETTATE sono gia' state lette prima del bivio, per la voce CH.04:
+# qui non si rileggono, perche' due letture della stessa cosa sono due verita'.
 
 if [ -z "$CADUTE" ]; then
   echo ""
@@ -164,16 +216,6 @@ else
   echo "$CADUTE" | sed 's/^/  /'
 fi
 
-# I NOMI ACCETTATI: la riga fino alla barra verticale, senza commenti.
-ACCETTATE=""
-if [ -f "$ACCETTATI" ]; then
-  # Anche qui si toglie il percorso: una riga del registro scritta come la
-  # stampa il rapporto ("percorso.dart: nome") vale quanto una scritta col
-  # nome nudo, e le due forme non possono piu' divergere.
-  ACCETTATE="$(grep -v '^[[:space:]]*#' "$ACCETTATI" | grep -v '^[[:space:]]*$' \
-    | sed -E 's/[[:space:]]*[|].*$//' | sed -E 's#^.*[.]dart: ##')"
-fi
-
 NUOVE=""
 if [ -n "$CADUTE" ]; then
   while IFS= read -r nome; do
@@ -183,18 +225,6 @@ if [ -n "$CADUTE" ]; then
 "
     fi
   done <<< "$CADUTE"
-fi
-
-# Le righe del registro che NON sono cadute: vanno tolte, o il registro
-# diventa un elenco di permessi che nessuno rilegge piu'.
-if [ -n "$ACCETTATE" ]; then
-  while IFS= read -r nome; do
-    [ -z "$nome" ] && continue
-    if ! echo "$CADUTE" | grep -Fxq "$nome"; then
-      echo "AVVISO: nel registro dei rossi accettati c'e' \"$nome\", che oggi"
-      echo "        non cade piu'. Va tolto da $ACCETTATI."
-    fi
-  done <<< "$ACCETTATE"
 fi
 
 if [ -z "$NUOVE" ] && [ -n "$CADUTE" ]; then

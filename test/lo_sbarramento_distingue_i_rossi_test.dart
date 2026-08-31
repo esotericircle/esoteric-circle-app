@@ -234,15 +234,56 @@ void main() {
               'rosso che nessuno ha accettato');
       expect(r.stdout.toString(), contains('ROSSI NUOVI'));
     });
-    test('Un rosso accettato che non cade piu\' viene segnalato', () {
+    // **UNA RIGA CHE SOPRAVVIVE ALLA SUA RAGIONE FA CADERE. Ordine CH voce
+    // 04.** Fino al 31 agosto 2026 questo caso stampava "AVVISO" e la build
+    // usciva lo stesso, e per giunta il confronto viveva SOLO nel ramo rosso:
+    // con la suite verde non veniva eseguito affatto, cioe' proprio nel caso
+    // in cui una riga vecchia si riconosce meglio.
+    //
+    // Quel registro e' l'unico posto in cui un difetto puo' essere messo a
+    // tacere legalmente: se una riga ci resta dopo che la sua ragione e'
+    // finita, la rete di sicurezza si spegne un pezzo alla volta.
+    test('Un rosso accettato che non cade piu\' FERMA la build', () {
       if (bash.isEmpty) return;
       final r = giudica(
           unaCaduta,
           1,
           '$ragione\nUna prova che non cade piu\' | ragione vecchia di un '
               'rosso che qualcuno ha gia\' curato');
-      expect(r.stdout.toString(), contains('AVVISO'));
-      expect(r.stdout.toString(), contains('Una prova che non cade piu'));
+      expect(r.exitCode, 1,
+          reason: 'una riga del registro che mette a tacere una prova oggi '
+              'verde non ferma la build: il registro e\' diventato un elenco '
+              'di permessi che nessuno rilegge');
+      expect(r.stdout.toString(), contains('RIGHE DI TROPPO'));
+      expect(r.stdout.toString(), contains('Una prova che non cade piu'),
+          reason: 'lo sbarramento non dice QUALE riga e\' di troppo, quindi '
+              'chi legge non sa cosa togliere');
+    });
+
+    // **E il controllo gira anche a SUITE VERDE**, che e' il buco vero: prima
+    // il ramo verde usciva con exit 0 senza guardare il registro nemmeno una
+    // volta.
+    test('Verde con una riga di troppo: l\'archivio NON si produce', () {
+      if (bash.isEmpty) return;
+      final r = giudica('00:12 +3794: All tests passed!\n', 0,
+          'Una prova che passa da mesi | ragione di un rosso gia\' curato');
+      expect(r.exitCode, 1,
+          reason: 'con la suite tutta verde e una riga vecchia nel registro '
+              'la build esce lo stesso: il controllo non gira in questo ramo');
+      expect(r.stdout.toString(), contains('RIGHE DI TROPPO'));
+      expect(r.stdout.toString(), contains('Una prova che passa da mesi'));
+      expect(r.stdout.toString(), isNot(contains('SUITE VERDE')),
+          reason: 'dice verde e poi si ferma: chi legge non sa a cosa '
+              'credere');
+    });
+
+    test('Verde col registro VUOTO: l\'archivio si produce', () {
+      if (bash.isEmpty) return;
+      // Senza questa riga la prova qui sopra passerebbe anche se lo
+      // sbarramento fermasse SEMPRE la build a suite verde.
+      final r = giudica('00:12 +3794: All tests passed!\n', 0, '');
+      expect(r.exitCode, 0);
+      expect(r.stdout.toString(), contains('SUITE VERDE'));
     });
   });
 }

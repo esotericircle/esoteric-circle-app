@@ -1,3 +1,11 @@
+## IL RAMO E' UNO SOLO, e si legge prima di ogni altra cosa
+
+**Il lavoro si spinge sul solo ramo `claude/esoteric-circle-master-order-e798aj`, e nessun altro ramo si crea senza un ordine che lo dica per nome.**
+
+Sta qui e in `CLAUDE.md` perche' una regola che vive solo negli ordini e nei documenti dell'Architetto e' una regola che una sessione puo' non aprire mai, e una regola che nessuno rilegge nel momento giusto non protegge niente.
+
+Il fatto che l'ha fatta scrivere, ordine CH voce 05 del 31 agosto 2026: tre commit dell'ordine CG sono stati spinti su `claude/riallineamento-cf-dbbd4797`, un ramo che il fondatore non aveva chiesto. Non era un difetto del codice, era un difetto di continuita': chi avesse aperto il canonico il giorno dopo non avrebbe trovato la rinomina in card, ne' la riga dei rossi accettati, ne' la build. I tre commit sono tornati sul canonico con un avanzamento veloce, senza riscrivere nessuno sha, e il ramo laterale e' stato cancellato dal remoto.
+
 ## DEBITO DA CHIUDERE PRIMA DELLA PUBBLICAZIONE, ordine CE voce 02
 
 **Nessuno puo' piu' riscuotere il premio dell'invito senza cercarlo.** Il foglio

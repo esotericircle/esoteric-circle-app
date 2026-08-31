@@ -49,7 +49,7 @@ vero prima 3 e dopo 2. Il secondo, il ripesamento col pepe di
 `cloud@esotericircle.app`, e' scritto e provato ma **non eseguito**, perche'
 richiede una distribuzione delle funzioni sul server: e la distribuzione la
 ordina il fondatore, non chi esegue. Le due righe da lanciare stanno in
-`docs/ordini/ISTRUZIONI_CG_15_LAPIDI.md`. **La misura di accettazione
+`docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`. **La misura di accettazione
 dell'ordine dice ZERO lapidi col sale vuoto, e adesso ne resta UNA**: la voce
 si chiude quando quel comando e' passato.
 
@@ -113,6 +113,50 @@ cinque cerchietti, mentre il censimento raccoglie i cinque "?" in una riga sola
 perche' sono lo stesso testo. Corretto nel manifesto CF e nel riallineamento
 prima di cominciare. **La regola zero vale anche sulle misure di chi esegue**,
 e questa era mia.
+
+## IL LAVORO E' FINITO SU UN RAMO CHE NESSUNO AVEVA CHIESTO
+
+**Il fatto, misurato e non ricordato.** Tre commit di quest'ordine, `e2777480`
+la seconda stesura delle card, `e102b9cc` la riga dei rossi accettati e
+`f8b70d50` la build 2216, sono stati spinti su
+`claude/riallineamento-cf-dbbd4797` invece che sul ramo canonico
+`claude/esoteric-circle-master-order-e798aj`.
+
+**Non e' un difetto del codice, e' un difetto di continuita'.** Chi avesse
+aperto il canonico il giorno dopo non avrebbe trovato la rinomina in card, non
+avrebbe trovato la riga dei rossi accettati e non avrebbe trovato la build. Due
+rami che dicono cose diverse sullo stesso ordine sono due verita'. Ed era gia'
+successo: nella copia di lavoro del fondatore, verificata il 31 agosto 2026,
+`docs/ordini/ORDINE_CG_MANIFESTO.md` non c'era, `ISTRUZIONI_CG_15_LAPIDI.md`, che l'ordine CH ha poi fatto confluire in `DISTRIBUZIONI_DAL_TUO_PC.md`,
+non c'era e `functions/src/lapidi.ts` non c'era, perche' quel checkout sta sul
+canonico e il suo `.git/HEAD` non viene toccato dal 15 agosto 2026.
+
+**PERCHE' E' SUCCESSO: non e' ricostruibile, e si scrive invece di
+inventarne una ragione.** Il fondatore, interrogato, ha dichiarato che la sua
+unica richiesta durante i lavori riguardava il nome, card invece di carte.
+Nessun ordine lo autorizzava: cercata la parola ramo dentro i manifesti CF e CG
+e dentro il riallineamento, le sole occorrenze dicono di VERIFICARE sul ramo e
+parlano del puntatore della testa, e nessuna parla di dove si spinge. Il ramo
+laterale portava il nome del riallineamento CF, quindi era nato prima
+dell'ordine CG e il lavoro CG e' semplicemente proseguito dove la sessione si
+trovava. Questa e' una ricostruzione plausibile, non una misura, e come tale
+va letta.
+
+**COME SI E' RIMEDIATO, ordine CH voci 01 e 02 del 31 agosto 2026.**
+`078d24b4`, la testa del canonico, era gia' un antenato di `f8b70d50`,
+verificato con `git merge-base --is-ancestor`: quindi e' bastato un
+AVANZAMENTO VELOCE, senza rebase e senza commit di fusione. Nessuno sha e'
+cambiato, e questo era un vincolo, perche' i manifesti CF e CG citano sha che
+non potevano smettere di esistere. Misurato dopo il lavoro: commit del ramo
+laterale assenti dal canonico ZERO, file che differiscono fra le due teste
+ZERO, sha citati nei manifesti che non esistono piu' ZERO. Poi il ramo
+laterale e' stato cancellato dal remoto, perche' un ramo abbandonato che
+contiene lo stesso lavoro e' il posto da cui domani qualcuno riparte per
+sbaglio.
+
+**E la regola adesso vive dove Code la legge**, non solo negli ordini: una
+riga in `CLAUDE.md` fra le regole non negoziabili e la stessa riga in cima a
+`docs/ordini/RIPRESA.md`, che e' il file da cui una sessione riparte.
 
 ## LE CINQUE GUARDIE CIECHE TROVATE
 
@@ -383,7 +427,7 @@ fondatore del 31 agosto 2026: "la 7 perche' voglio che entri nella demo".
 
 - **CG.15, il ripesamento**: una lapide col sale vuoto resta, e serve la
   distribuzione delle funzioni. Istruzioni in
-  `docs/ordini/ISTRUZIONI_CG_15_LAPIDI.md`.
+  `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`.
 - **La meta' degli obiettivi del Cosmic Journal** non entra in questo ordine,
   come l'ordine stesso dichiara: i briefing la descrivono e il codice non ce
   l'ha.
