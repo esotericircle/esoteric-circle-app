@@ -489,8 +489,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         TextButton(
           key: const Key('dream_fog_skip'),
           onPressed: _apriIlCielo,
+          // **SEDICI E NON DODICI, ordine CG voce 14.** E' il ripiego tattile
+          // di chi non riesce col soffio: illeggibile proprio a chi ne ha
+          // bisogno.
           child: Text('Dirada la nebbia',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: _palette.goldSoft)),
         ),
       ];
@@ -672,11 +675,14 @@ class _Riga extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icona, size: 14, color: palette.goldSoft),
+        Icon(icona, size: 16, color: palette.goldSoft),
         const SizedBox(width: 6),
         Expanded(
+          // **SEDICI E NON DODICI, ordine CG voce 14.** La riga che spiega il
+          // sensore e il suo ripiego: al pavimento tipografico era illeggibile
+          // esattamente nel momento in cui serviva di piu'.
           child: Text(testo,
-              style: TypographyTokens.etichetta().copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.75),
                 letterSpacing: 0.2,
                 height: 1.4,

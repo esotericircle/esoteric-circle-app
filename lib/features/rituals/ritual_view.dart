@@ -480,8 +480,14 @@ class _PromptPill extends StatelessWidget {
         color: palette.deepest.withValues(alpha: 0.5),
         border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
       ),
+      // **SEDICI E NON DODICI, ordine CG voce 14.** Questa pastiglia dice come
+      // si compie il gesto: "Inclina o scorri per rivelare", "Dirada la
+      // nebbia". Un invito al gesto che non si legge non invita nessuno, ed
+      // era una misura scritta a mano fuori da ogni ruolo. Adesso e'
+      // `didascalia`, che l'ordine CE ha creato per la riga di servizio sotto
+      // un contenuto.
       child: Text(label,
-          style: TypographyTokens.label(size: 12)
+          style: TypographyTokens.didascalia()
               .copyWith(color: palette.goldSoft, letterSpacing: 0.8)),
     );
   }
@@ -500,11 +506,15 @@ class _HintRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 13, color: palette.goldSoft),
+        Icon(icon, size: 16, color: palette.goldSoft),
         const SizedBox(width: 6),
         Expanded(
+          // **SEDICI E NON DODICI, ordine CG voce 14.** E' la riga che spiega
+          // il ripiego tattile, cioe' quella che una persona legge proprio
+          // quando il sensore non le funziona: al pavimento tipografico era
+          // illeggibile esattamente nel momento in cui serviva di piu'.
           child: Text(text,
-              style: TypographyTokens.etichetta().copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.7),
                 letterSpacing: 0.3,
                 height: 1.4,

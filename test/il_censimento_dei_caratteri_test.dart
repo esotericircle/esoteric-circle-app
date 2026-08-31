@@ -107,12 +107,24 @@ void main() {
   /// gli sembra piccola.
   final piccoli = <(String dove, String ruolo, double misura, String testo)>[];
 
+  /// **QUANTI TESTI SONO STATI GUARDATI IN TUTTO, e non solo i piccoli.**
+  ///
+  /// Ordine CG voce 14. La guardia di prima pretendeva che i piccoli fossero
+  /// almeno uno, con la ragione che un elenco vuoto vorrebbe dire che le
+  /// schermate non si sono montate. **La ragione era giusta e la grandezza
+  /// sbagliata**: il giorno che il difetto viene curato, cioe' oggi, i piccoli
+  /// sono ZERO e la prova cadrebbe proprio quando dovrebbe essere contenta.
+  /// Cio' che dice se le schermate si sono montate e' quanti testi si sono
+  /// GUARDATI, non quanti erano troppo piccoli.
+  var guardati = 0;
+
   void censisci(WidgetTester tester, String dove) {
     void scendi(RenderObject r) {
       if (r is RenderParagraph) {
         final misura = r.text.style?.fontSize;
         var testo = r.text.toPlainText().trim().replaceAll('\n', ' ');
         if (testo.length > 48) testo = '${testo.substring(0, 45)}...';
+        if (testo.isNotEmpty) guardati++;
         if (misura != null && misura < soglia && testo.isNotEmpty) {
           final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
           final gia = piccoli.any((v) =>
@@ -167,12 +179,17 @@ void main() {
     final righe = <String>[
       '# I CARATTERI SOTTO I SEDICI PUNTI, MISURATI',
       '',
-      'Censimento dell\'ordine CF voce 10, prodotto da',
+      'Censimento nato con l\'ordine CF voce 10 e CHIUSO con l\'ordine CG',
+      'voce 14, prodotto da',
       '`test/il_censimento_dei_caratteri_test.dart` a 360 punti logici.',
       '',
-      '**Questo documento riporta, non decide.** Il fondatore ha gia\' detto',
-      'che l\'uniformazione tocca i soli testi da leggere: alzare i testi',
-      'brevi e\' materia sua, e questa e\' la misura su cui decidere.',
+      '**Cosa e\' cambiato.** Nell\'ordine CF questo documento riportava e non',
+      'decideva, perche\' la decisione era del fondatore. Il 31 agosto 2026 il',
+      'fondatore ha delegato la risposta, e i quattordici testi che stavano',
+      'sotto i sedici punti sono saliti dentro un ruolo dichiarato della scala',
+      'tipografica. **La tabella qui sotto adesso e\' vuota, ed e\' il suo',
+      'stato giusto**: una riga che ricomparisse vorrebbe dire che qualcuno ha',
+      'rimesso una misura sotto il pavimento della leggibilita\'.',
       '',
       '| schermata | misura | ruolo | cosa c\'e\' scritto |',
       '| --- | --- | --- | --- |',
@@ -195,10 +212,20 @@ void main() {
         .writeAsStringSync('${righe.join('\n')}\n');
 
     // ignore: avoid_print
-    print('ORDINE CF VOCE 10: testi distinti sotto i $soglia punti $quanti, '
-        'su ${piccoli.map((v) => v.$1).toSet().length} schermate');
-    expect(piccoli, isNotEmpty,
-        reason: 'il censimento non ha trovato nessun testo: le schermate non '
-            'si sono montate, e un documento vuoto direbbe che va tutto bene');
+    print('ORDINE CG VOCE 14: testi guardati in tutto $guardati, di cui '
+        'distinti sotto i $soglia punti $quanti, su '
+        '${piccoli.map((v) => v.$1).toSet().length} schermate');
+    // **LA GRANDEZZA CHE DICE SE LE SCHERMATE SI SONO MONTATE.** Ordine CG
+    // voce 14: prima era il numero dei testi PICCOLI, e valeva finche' il
+    // difetto c'era. Curato il difetto, quel numero diventa zero e la prova
+    // cadrebbe proprio quando dovrebbe essere contenta.
+    expect(guardati, greaterThan(20),
+        reason: 'il censimento ha guardato solo $guardati testi: le schermate '
+            'non si sono montate, e un documento vuoto direbbe che va tutto '
+            'bene. IL ROSSO SI DIMOSTRA togliendo il pump di una schermata');
+    expect(quanti, 0,
+        reason: 'ci sono ancora $quanti testi sotto i $soglia punti: '
+            '$piccoli. La voce CG.14 li ha alzati tutti dentro un ruolo '
+            'dichiarato, e ZERO e\' la misura di accettazione dell\'ordine');
   });
 }

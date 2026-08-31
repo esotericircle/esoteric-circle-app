@@ -803,7 +803,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // Misura reale, sopra il minimo del token: a 10 sarebbe stata alzata a 12.5
     // in silenzio, e la gerarchia fra nota di servizio e invito sarebbe stata
     // solo dichiarata, non vera.
-    final stile = TypographyTokens.label(size: 13).copyWith(
+    // **FUORI SCALA, ordine CG voce 14.** Tredici punti scritti a mano non
+    // erano dentro nessun ruolo: una misura fuori scala non la governa
+    // nessuno. Adesso e' `didascalia`, che vale sedici.
+    final stile = TypographyTokens.didascalia().copyWith(
       color: Colors.white.withValues(alpha: 0.6),
       letterSpacing: 0.3,
       shadows: _ombraTesto,

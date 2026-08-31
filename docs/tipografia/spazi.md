@@ -44,7 +44,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 
 - `lib/features/settings/interruttore_della_misura.dart:61` sizedBox 72 punti
 - `lib/features/synastry/sinastria_share_card.dart:125` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:756` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:757` padding 90 punti
 
 ## I vuoti, file per file
 

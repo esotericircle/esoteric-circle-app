@@ -595,7 +595,14 @@ class _DailyStripState extends State<DailyStrip>
             maxLines: 1,
             softWrap: false,
             overflow: TextOverflow.visible,
-            style: TypographyTokens.etichetta().copyWith(
+            // **SEDICI E NON DODICI, ordine CG voce 14.** Stava al pavimento
+            // tipografico, cioe' alla misura piu' piccola che l'app conosce, ed
+            // e' la prima riga che si vede aprendo il Cerchio: e' esattamente
+            // la riga che il fondatore aveva davanti scrivendo "i doni... SONO
+            // TROPPO PICCOLI I CARATTERI". Il ruolo e' `titoloDiRiga`, che
+            // l'ordine CE ha creato per il titolo di una voce in un elenco, ed
+            // e' quello che questa riga e': il titolo della fila dei Doni.
+            style: TypographyTokens.titoloDiRiga().copyWith(
               color: ColorTokens.textSecondary,
               letterSpacing: 1.2,
             ),
@@ -812,7 +819,11 @@ class _StripItem extends StatelessWidget {
     final tp = TextPainter(
       text: TextSpan(
         text: element.shortLabel,
-        style: TypographyTokens.etichetta().copyWith(letterSpacing: 0.4),
+        // **LO STESSO STILE DEL TESTO VERO, ordine CG voce 14.** Questa misura
+        // decide dove sta il bersaglio dell'aiuto: se restasse all'etichetta
+        // da dodici mentre il nome e' salito a sedici, il bersaglio finirebbe
+        // sotto la parola sbagliata e il tocco cadrebbe nel vuoto.
+        style: TypographyTokens.titoloDiRiga().copyWith(letterSpacing: 0.4),
       ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
@@ -891,7 +902,12 @@ class _StripItem extends StatelessWidget {
                   element.shortLabel,
                   maxLines: 1,
                   softWrap: false,
-                  style: TypographyTokens.etichetta().copyWith(
+                  // **SEDICI E NON DODICI, ordine CG voce 14.** I nomi dei
+                  // cinque Doni stavano al pavimento tipografico. Il ruolo e'
+                  // `titoloDiRiga`: ognuno di questi e' il nome di una
+                  // funzione dentro una fila, che e' esattamente cio' che
+                  // l'ordine CE ha dichiarato quando ha creato quel ruolo.
+                  style: TypographyTokens.titoloDiRiga().copyWith(
                     color: active ? _gold : ColorTokens.textSecondary,
                     letterSpacing: 0.4,
                   ),
@@ -913,7 +929,13 @@ class _StripItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     '?',
-                    style: TypographyTokens.etichetta().copyWith(
+                    // **SEDICI E NON DODICI, ordine CG voce 14.** Il
+                    // cerchietto e' un invito a toccare, e un invito che non
+                    // si legge non invita nessuno. Il riquadro resta di
+                    // diciotto punti e il tocco lo raccoglie il bersaglio da
+                    // quarantaquattro che gli sta sotto: qui cambia solo il
+                    // segno, non la stanza in cui vive.
+                    style: TypographyTokens.titoloDiRiga().copyWith(
                       color: accent.withValues(alpha: 0.95),
                       letterSpacing: 0,
                     ),
