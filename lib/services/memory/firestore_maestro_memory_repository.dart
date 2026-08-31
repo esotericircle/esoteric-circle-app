@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
@@ -175,6 +176,41 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         'updatedAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true)),
     );
+  }
+
+  /// LE SINTESI SETTIMANALI SFOCATE DAL SERVER. Ordine CG voce 09.
+  ///
+  /// **Si legge l'ULTIMA settimana sfocata, non tutte.** Le vecchie stanno
+  /// dietro a quella e non aggiungono niente al contesto di adesso: leggerle
+  /// tutte costerebbe una lettura per settimana passata, per sempre.
+  ///
+  /// **Una lettura sola**, e il vuoto quando non c'e' niente: un server piu'
+  /// vecchio dell'app, o una persona che non ha ancora una settimana passata,
+  /// non devono spegnere la chat.
+  @override
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async {
+    try {
+      const vuoto = MemoryDigest(summary: '', facts: []);
+      final snap = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('maestri')
+          .doc(maestro.id)
+          .collection('sintesi')
+          .orderBy('quando', descending: true)
+          .limit(1)
+          .get();
+      if (snap.docs.isEmpty) return vuoto;
+      final dati = snap.docs.first.data();
+      final fatti = dati['fatti'];
+      return MemoryDigest(
+        summary: '${dati['sintesi'] ?? ''}',
+        facts: fatti is List ? [for (final f in fatti) '$f'] : const [],
+      );
+    } catch (errore) {
+      debugPrint('Memoria: le sintesi sfocate non si rileggono. $errore');
+      return const MemoryDigest(summary: '', facts: []);
+    }
   }
 
   @override

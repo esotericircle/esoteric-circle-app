@@ -46,6 +46,14 @@ class InMemoryMaestroMemoryRepository implements MaestroMemoryRepository {
     _memory[maestro] = memory;
   }
 
+  /// **LA MEMORIA IN MEMORIA NON SFOCA NIENTE.** Ordine CG voce 09: le
+  /// sintesi settimanali le scrive il lavoro sul server, e questo magazzino
+  /// vive in una sessione sola, quindi non ha nessuna settimana passata da
+  /// riassumere.
+  @override
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async =>
+      const MemoryDigest(summary: '', facts: []);
+
   @override
   Future<List<ChatMessage>> recentMessages(Maestro maestro,
       {int limit = 40}) async {

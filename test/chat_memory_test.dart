@@ -141,8 +141,9 @@ void main() {
         containsAll(['Parlami del mio segno', 'Le stelle ti ascoltano.']));
   });
 
-  test('Ogni tre turni la memoria calda si aggiorna dal distillato', () async {
-    final repo = InMemoryMaestroMemoryRepository();
+  test('CG.09: la memoria calda si aggiorna dalle SINTESI SFOCATE dal server',
+      () async {
+    final repo = _RepoConSintesi();
     await repo.saveProfile(
       UserProfile(disclaimerAcceptedAt: DateTime(2026, 1, 1)),
     );
@@ -159,9 +160,45 @@ void main() {
       await _settle();
     }
 
-    expect(ai.distills, greaterThanOrEqualTo(1));
+    // **QUESTA RIGA SUPERA LA DECISIONE DI PRIMA. Ordine CG voce 09.**
+    //
+    // Fino all'ordine CG la conversazione si distillava ogni tre turni,
+    // dentro la chat, chiamando il modello a spese di chi stava parlando.
+    // Adesso la sfocatura e' un lavoro settimanale sul server, e il conto e'
+    // la ragione: a ogni conversazione costa circa 0,029 dollari per utente
+    // al mese, a lotti settimanali circa 0,0084.
+    //
+    // **E dentro la finestra non serviva comunque**: il primo dei quattro
+    // strati dice che le conversazioni recenti entrano nel contesto per
+    // intero, quindi una sintesi degli stessi turni non aggiungeva niente.
+    expect(ai.distills, 0,
+        reason: 'la chat non deve piu\' chiamare il modello per distillare: '
+            'quel lavoro e\' passato al giro settimanale sul server');
     final m = await repo.loadMemory(Maestro.aura);
-    expect(m.facts, contains('Cerca chiarezza sul lavoro'));
+    expect(m.facts, contains('Cerca chiarezza sul lavoro'),
+        reason: 'i fatti arrivano dalle sintesi che il lavoro settimanale ha '
+            'gia\' scritto sul server, non da una distillazione fatta qui');
     expect(m.sessionSummary, 'Avete parlato del lavoro.');
+    expect(repo.quanteVolteHaLetto, greaterThanOrEqualTo(1),
+        reason: 'la memoria calda deve RILEGGERE le sintesi sfocate');
   });
 }
+
+/// Un magazzino in memoria che porta le sintesi che il server avrebbe sfocato.
+///
+/// **Serve a provare il secondo dei quattro strati.** Ordine CG voce 09: la
+/// memoria calda non distilla piu' da sola, rilegge cio' che il lavoro
+/// settimanale ha gia' scritto.
+class _RepoConSintesi extends InMemoryMaestroMemoryRepository {
+  int quanteVolteHaLetto = 0;
+
+  @override
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async {
+    quanteVolteHaLetto++;
+    return const MemoryDigest(
+      summary: 'Avete parlato del lavoro.',
+      facts: ['Cerca chiarezza sul lavoro'],
+    );
+  }
+}
+

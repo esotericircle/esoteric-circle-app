@@ -778,42 +778,56 @@ class MaestroChatController extends ChangeNotifier {
     }
   }
 
-  /// Ogni tot turni distilla la conversazione e aggiorna la memoria. Best
-  /// effort: qualunque errore lascia la memoria com'era.
+  /// LA DISTILLAZIONE E' PASSATA AI LOTTI SETTIMANALI. Ordine CG voce 09.
+  ///
+  /// **Quale decisione supera.** Fino all'ordine CG la conversazione si
+  /// distillava ogni tre turni, dentro la chat, a spese di chi stava
+  /// parlando. La voce CG.09 la sposta a un lavoro settimanale sul server, e
+  /// il conto e' la ragione: a ogni conversazione costa circa 0,029 dollari
+  /// per utente al mese, a lotti settimanali circa 0,0084, cioe' un terzo e
+  /// mezzo in meno.
+  ///
+  /// **E non serve piu' qui, ed e' la parte che conta piu' del costo.** Il
+  /// primo dei quattro strati dice che dentro la finestra le conversazioni
+  /// entrano nel contesto PER INTERO, parola per parola: finche' i turni veri
+  /// ci sono, una sintesi degli stessi turni non aggiunge niente. La sintesi
+  /// serve DOPO la finestra, ed e' esattamente quando il lavoro settimanale
+  /// l'ha gia' prodotta.
+  ///
+  /// **Il metodo resta e non chiama piu' il modello**: i fatti che arrivano
+  /// dal server continuano ad aggiornare la memoria calda, e il turno in
+  /// corso non paga niente.
   Future<void> _maybeDistill() async {
     // La memoria dei Maestri e' venduta come esclusiva dell'Iniziato in su, e
     // veniva distillata anche per il gratuito: il valore usciva senza che
-    // nessuno lo avesse comprato. Chi non ha diritto non paga il costo della
-    // distillazione e non lascia traccia.
+    // nessuno lo avesse comprato.
+    //
+    // **IN DEMO LA MEMORIA E' ACCESA, ordine BG voce 03.** La demo esiste per
+    // far vedere il prodotto vero, e il prodotto vero ricorda.
     final piano = _tier?.call();
-    // **IN DEMO LA MEMORIA E' ACCESA, ordine BG voce 03.** La demo esiste
-    // per far vedere il prodotto vero, e il prodotto vero ricorda: girava a
-    // tier free e non distillava mai, quindi i Maestri della presentazione
-    // avevano l'amnesia. Il contratto del listino resta intatto per il
-    // gratuito fuori demo.
     final memoriaViva =
         _demo || piano == null || PlanCatalog.haMemoria(piano);
     if (!memoriaViva) return;
     if (_turnsSinceDistill < _distillEvery) return;
     _turnsSinceDistill = 0;
     try {
-      final digest = await _ai.distill(
-        maestro: maestro,
-        profile: _profile,
-        previous: _memoryState,
-        history: _messages.where((m) => !m.pending && !m.failed).toList(),
-      );
-      if (digest == null || digest.isEmpty) return;
+      // **SI RILEGGE cio' che il server ha gia' sfocato, non si distilla di
+      // nuovo.** Ordine CG voce 09: distillare qui cio' che il lavoro
+      // settimanale ha gia' distillato vorrebbe dire pagare due volte lo
+      // stesso riassunto.
+      final digest = await _memory.sintesiSfocate(maestro);
+      if (digest.isEmpty) return;
       _memoryState = _memoryState.copyWith(
-        sessionSummary:
-            digest.summary.isNotEmpty ? digest.summary : _memoryState.sessionSummary,
+        sessionSummary: digest.summary.isNotEmpty
+            ? digest.summary
+            : _memoryState.sessionSummary,
         facts: _mergeFacts(_memoryState.facts, digest.facts),
       );
       await _memory.saveMemory(maestro, _memoryState);
     } catch (errore, traccia) {
       // Nessun impatto sulla conversazione in corso.
       annotaGuastoInnocuo(
-          'distillando la memoria di ${maestro.displayName}', errore, traccia);
+          'rileggendo la memoria di ${maestro.displayName}', errore, traccia);
     }
   }
 

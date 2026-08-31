@@ -30,6 +30,14 @@ export {secondoFattore} from "./secondo_fattore";
 // `scadenze.ts`.
 export {pulisciLeScadenze} from "./pulizia";
 
+/**
+ * LA SFOCATURA SETTIMANALE DELLE CONVERSAZIONI. Ordine CG voce 09.
+ *
+ * Gira il lunedi alle quattro e dieci, dopo la pulizia notturna: cosi non
+ * lavora su documenti che la pulizia sta per portare via.
+ */
+export {sfocaLeConversazioni} from "./sfocatura";
+
 // LA MISURA DEL RITORNO, ordine CC voce 09: quante persone tornano il giorno
 // dopo, quante dopo una settimana, quanti riti arrivano in fondo. Conta i
 // gesti per giorno, non le persone: non esiste nessun profilo, esistono

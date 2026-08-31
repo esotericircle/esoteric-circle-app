@@ -25,6 +25,20 @@ abstract interface class MaestroMemoryRepository {
   /// Ultimi messaggi scambiati con un Maestro, dal piu' vecchio al piu' nuovo.
   Future<List<ChatMessage>> recentMessages(Maestro maestro, {int limit = 40});
 
+  /// LE SINTESI SETTIMANALI SFOCATE DAL SERVER. Ordine CG voce 09.
+  ///
+  /// **Sono il secondo dei quattro strati della memoria.** Dentro la finestra
+  /// dei quattordici giorni il contesto porta i turni veri; oltre, porta
+  /// queste sintesi. Le scrive il lavoro settimanale `sfocaLeConversazioni`,
+  /// una chiamata per Maestro per settimana, e il telefono le RILEGGE invece
+  /// di rifarle: distillare di nuovo cio' che il server ha gia' distillato
+  /// vorrebbe dire pagare due volte lo stesso riassunto.
+  ///
+  /// **Vuoto per default**, cosi' le implementazioni finte delle prove non si
+  /// rompono e un server piu' vecchio dell'app non spegne la chat.
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async =>
+      const MemoryDigest(summary: '', facts: []);
+
   /// Aggiunge un messaggio alla cronologia persistente del Maestro.
   Future<void> appendMessage(Maestro maestro, ChatMessage message);
 
