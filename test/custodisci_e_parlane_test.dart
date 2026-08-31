@@ -253,4 +253,47 @@ void main() {
             'custodendo l\'immagine invece del testo: un PNG pesa mille volte '
             'tanto');
   });
+
+  test('CG.06 e CG.08: ogni arte censita monta le tre azioni da UNA porta',
+      () {
+    // **La pretesa che rende vero il censimento.** Senza di lei l'elenco
+    // dichiarerebbe tredici arti e le schermate potrebbero averne zero: e'
+    // esattamente la forma della prova di CE.04, che si accontentava di una
+    // menzione invece di guardare dove la riga fosse montata.
+    final mute = <String>[];
+    for (final arte in ArtiConResponso.tutte) {
+      final file = File(arte.doveViveIlResponso);
+      if (!file.existsSync()) continue;
+      final sorgente = file.readAsStringSync();
+      if (!sorgente.contains('AzioniDelResponso(')) {
+        mute.add(arte.arte);
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CG VOCI 06 e 08: arti che montano le tre azioni '
+        '${ArtiConResponso.tutte.length - mute.length} su '
+        '${ArtiConResponso.tutte.length}');
+    expect(mute, isEmpty,
+        reason: 'queste arti producono un responso e non offrono le tre '
+            'azioni: $mute. IL ROSSO SI DIMOSTRA togliendo il widget a '
+            'un\'arte, e la prova deve cadere nominandola');
+  });
+
+  test('CG.08: nessuna arte apre la chat per conto suo', () {
+    // **La porta e' una sola.** Una schermata che costruisse da se' il
+    // pulsante verso la chat tornerebbe a essere invisibile al censimento, che
+    // e' il difetto da cui questa voce nasce.
+    final fuori = <String>[];
+    for (final arte in ArtiConResponso.tutte) {
+      final file = File(arte.doveViveIlResponso);
+      if (!file.existsSync()) continue;
+      final sorgente = file.readAsStringSync();
+      if (sorgente.contains('MaestroChatScreen.route(')) {
+        fuori.add(arte.arte);
+      }
+    }
+    expect(fuori, isEmpty,
+        reason: 'queste arti aprono la chat per conto loro invece di passare '
+            'da AzioniDelResponso: $fuori');
+  });
 }

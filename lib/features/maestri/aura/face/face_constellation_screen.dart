@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -26,9 +27,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
-import '../../../../services/app_services.dart';
 import '../../chat/chat_openers.dart';
-import '../../chat/maestro_chat_screen.dart';
 import 'face_constellation.dart';
 import 'face_constellation_painter.dart';
 import 'face_share_card.dart';
@@ -808,7 +807,6 @@ class _RisultatoState extends State<_Risultato>
   );
 
   final GlobalKey _cardBoundary = GlobalKey();
-  bool _condividendo = false;
   bool _renderCard = false;
 
   @override
@@ -828,11 +826,13 @@ class _RisultatoState extends State<_Risultato>
     super.dispose();
   }
 
-  Future<void> _condividi() async {
-    setState(() {
-      _condividendo = true;
-      _renderCard = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero
+  /// che esce di qui e\' quello su cui scatta la custodia automatica:
+  /// prima restava dentro questo metodo e nessuno poteva sapere, da
+  /// fuori, se la condivisione fosse avvenuta o se il foglio fosse
+  /// stato solo aperto.
+  Future<bool> _condividi() async {
+    setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -844,8 +844,9 @@ if (andata && mounted) {
   await PremioDellaCondivisione.premia(context,
       cosa: 'Hai condiviso la tua Costellazione del Viso');
 }
+      return andata;
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 
@@ -951,31 +952,22 @@ if (andata && mounted) {
               ),
 
               const SizedBox(height: SpacingTokens.lg),
-              OutlinedButton.icon(
-                key: const Key('face_share'),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-                onPressed: _condividendo ? null : _condividi,
-                icon: const Icon(Icons.ios_share_rounded),
-                label: Text(PremioDellaCondivisione.etichetta(context)),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              FilledButton.icon(
-                key: const Key('face_consulta'),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary),
-                onPressed: () {
-                  final services = context.read<AppServices>();
-                  Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.aura,
-                      services: services,
-                      initialUserMessage: ChatOpeners.viso(
-                          dom.categoria.name, dom.nome)));
-                },
-                icon: const Icon(Icons.forum_outlined),
-                label: const Text('Parlane con Aura'),
+              // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06
+              // e 08.** Prima qui c\'erano due pulsanti scritti a mano e
+              // nessun Custodisci: adesso Condividi, Custodisci e
+              // Parlane vivono in un punto solo, e una guardia enumera
+              // le arti e chiede a ognuna se lo monta.
+              AzioniDelResponso(
+                palette: palette,
+                maestro: Maestro.aura,
+                responso: ResponsoDaCustodire(
+                  arte: 'viso',
+                  titolo: 'La tua Costellazione del Viso',
+                  testo: FaceCorpus.sintesi(widget.reading.marcati),
+                  dati: {'tratto': dom.nome, 'categoria': dom.categoria.name},
+                ),
+                condividi: _condividi,
+                aperturaDellaChat: ChatOpeners.viso(dom.categoria.name, dom.nome),
               ),
               const SizedBox(height: SpacingTokens.xxxl),
             ],

@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../../../../services/app_services.dart';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -21,14 +23,12 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
-import '../../../../services/app_services.dart';
 import '../../../../services/regia_delle_chiamate.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 import '../../../../core/rituals/runes.dart';
 import '../../../rituals/rune_strokes.dart';
 import '../../../rituals/retro_della_runa.dart';
 import '../../chat/chat_openers.dart';
-import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
 import 'fisica_della_gettata.dart';
@@ -1305,14 +1305,15 @@ class _Azioni extends StatefulWidget {
 
 class _AzioniState extends State<_Azioni> {
   final GlobalKey _cardBoundary = GlobalKey();
-  bool _condividendo = false;
   bool _renderCard = false;
 
-  Future<void> _condividi() async {
-    setState(() {
-      _condividendo = true;
-      _renderCard = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero
+  /// che esce di qui e\' quello su cui scatta la custodia automatica:
+  /// prima restava dentro questo metodo e nessuno poteva sapere, da
+  /// fuori, se la condivisione fosse avvenuta o se il foglio fosse
+  /// stato solo aperto.
+  Future<bool> _condividi() async {
+    setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -1323,8 +1324,9 @@ if (andata && mounted) {
   await PremioDellaCondivisione.premia(context,
       cosa: 'Hai condiviso la tua gettata di rune');
 }
+      return andata;
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 
@@ -1338,34 +1340,22 @@ if (andata && mounted) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              OutlinedButton.icon(
-                key: const Key('rune_share'),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side:
-                        BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-                onPressed: _condividendo ? null : _condividi,
-                icon: const Icon(Icons.ios_share_rounded),
-                label: Text(PremioDellaCondivisione.etichetta(context)),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              FilledButton.icon(
-                key: const Key('rune_consulta'),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary),
-                onPressed: () {
-                  final services = context.read<AppServices>();
-                  final nomi =
-                      widget.esito.rune.map((r) => r.rune.name).toList();
-                  Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.caligo,
-                      services: services,
-                      initialUserMessage: ChatOpeners.runa(
-                          widget.esito.gettata.nome, nomi)));
-                },
-                icon: const Icon(Icons.forum_outlined),
-                label: const Text('Parlane con Caligo'),
+              // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06
+              // e 08.** Prima qui c\'erano due pulsanti scritti a mano e
+              // nessun Custodisci: adesso Condividi, Custodisci e
+              // Parlane vivono in un punto solo, e una guardia enumera
+              // le arti e chiede a ognuna se lo monta.
+              AzioniDelResponso(
+                palette: palette,
+                maestro: Maestro.caligo,
+                responso: ResponsoDaCustodire(
+                  arte: 'gettata',
+                  titolo: 'La tua gettata: ${widget.esito.gettata.nome}',
+                  testo: widget.presagio,
+                  dati: {'gettata': widget.esito.gettata.nome, 'rune': widget.esito.rune.map((r) => r.rune.name).join(',')},
+                ),
+                condividi: _condividi,
+                aperturaDellaChat: ChatOpeners.runa(widget.esito.gettata.nome, widget.esito.rune.map((r) => r.rune.name).toList()),
               ),
             ],
           ),

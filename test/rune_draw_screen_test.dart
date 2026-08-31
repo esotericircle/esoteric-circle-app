@@ -165,8 +165,14 @@ void main() {
         matching: find.byType(Text));
     expect(presagio, findsWidgets);
     expect(tester.widget<Text>(presagio.first).data!.trim(), isNotEmpty);
-    expect(find.byKey(const Key('rune_share')), findsOneWidget);
-    expect(find.byKey(const Key('rune_consulta')), findsOneWidget);
+    // **LE CHIAVI SONO CAMBIATE, ordine CG voci 06 e 08.** Condividi e
+    // Parlane adesso vengono da AzioniDelResponso, che e la porta sola
+    // per tutte e tredici le arti col responso, e in mezzo c e anche il
+    // Custodisci, che prima non esisteva. Le chiavi vecchie erano di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
   });
 
   testWidgets('La Croce delle Cinque posa cinque rune', (tester) async {

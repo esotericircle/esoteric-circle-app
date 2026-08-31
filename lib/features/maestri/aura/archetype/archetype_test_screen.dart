@@ -24,9 +24,8 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
-import '../../../../services/app_services.dart';
 import '../../chat/chat_openers.dart';
-import '../../chat/maestro_chat_screen.dart';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'archetype_share_card.dart';
 import 'archetype_wheel.dart';
 import '../../rotta_arte.dart';
@@ -651,7 +650,6 @@ class _RisultatoState extends State<_Risultato>
 
   /// La statua voltata nella sua Ombra al tocco, come rivelazione tattile.
   bool _statuaVoltata = false;
-  bool _condividendo = false;
   bool _renderCard = false;
 
   @override
@@ -674,24 +672,26 @@ class _RisultatoState extends State<_Risultato>
       ? ArchetypeTransits.applica(widget.profilo, widget.pianeti)
       : null;
 
-  Future<void> _condividi(ArchetypeProfile profilo) async {
-    setState(() {
-      _condividendo = true;
-      _renderCard = true;
-    });
+  /// **TORNA LO ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero che
+  /// esce di qui e quello su cui scatta la custodia automatica.
+  Future<bool> _condividi(ArchetypeProfile profilo) async {
+    setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareArchetypeCard(
           boundaryKey: _cardBoundary, dominante: profilo.dominante);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso il tuo archetipo');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo archetipo');
+      }
+      return andata;
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      // Chi spegne il pulsante mentre si condivide adesso e la porta sola:
+      // due stati per la stessa attesa sarebbero due verita.
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 
@@ -933,17 +933,6 @@ if (andata && mounted) {
               ),
 
               const SizedBox(height: SpacingTokens.lg),
-              OutlinedButton.icon(
-                key: const Key('archetype_share'),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-                onPressed:
-                    _condividendo ? null : () => _condividi(delTest),
-                icon: const Icon(Icons.ios_share_rounded),
-                label: Text(PremioDellaCondivisione.etichetta(context)),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
               // L'EMBLEMA E' GIA' NEL PASSAPORTO, e lo si dice qui dentro.
               //
               // Dentro la scena e non in un avviso di sistema: un riquadro che
@@ -962,22 +951,21 @@ if (andata && mounted) {
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
-              // Il pulsante alla Consulta, nel VERDE di Aura.
-              FilledButton.icon(
-                key: const Key('archetype_consulta'),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary),
-                onPressed: () {
-                  final services = context.read<AppServices>();
-                  Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.aura,
-                      services: services,
-                      initialUserMessage:
-                          ChatOpeners.archetipo(dom.conArticolo)));
-                },
-                icon: const Icon(Icons.forum_outlined),
-                label: const Text('Parlane con Aura'),
+              // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.**
+              // La nota del Passaporto resta SOPRA e non in mezzo: e' la
+              // chiusura di cio' che la persona ha appena scoperto, e
+              // spezzarla coi comandi la trasformerebbe in un avviso.
+              AzioniDelResponso(
+                palette: palette,
+                maestro: Maestro.aura,
+                responso: ResponsoDaCustodire(
+                  arte: 'archetipo',
+                  titolo: 'Il tuo archetipo: ${dom.conArticolo}',
+                  testo: ritratto.essenza,
+                  dati: {'archetipo': dom.name},
+                ),
+                condividi: () => _condividi(delTest),
+                aperturaDellaChat: ChatOpeners.archetipo(dom.conArticolo),
               ),
               const SizedBox(height: SpacingTokens.xxxl),
             ],

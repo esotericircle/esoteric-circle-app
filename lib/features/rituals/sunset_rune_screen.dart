@@ -1,4 +1,5 @@
 import 'retro_della_runa.dart';
+import '../ricordi/azioni_del_responso.dart';
 export 'retro_della_runa.dart' show pathVergineDi;
 import 'dart:async';
 import 'dart:math' as math;
@@ -31,10 +32,8 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
-import '../../services/app_services.dart';
 import '../maestri/caligo/rune/bindrune.dart';
 import '../maestri/chat/chat_openers.dart';
-import '../maestri/chat/maestro_chat_screen.dart';
 import 'rune_strokes.dart';
 import 'sunset_rune_card.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
@@ -2217,14 +2216,12 @@ class _Azioni extends StatefulWidget {
 
 class _AzioniState extends State<_Azioni> {
   final GlobalKey _boundary = GlobalKey();
-  bool _condividendo = false;
   bool _rendi = false;
 
-  Future<void> _condividi() async {
-    setState(() {
-      _condividendo = true;
-      _rendi = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero che
+  /// esce di qui e\' quello su cui scatta la custodia automatica.
+  Future<bool> _condividi() async {
+    setState(() => _rendi = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -2236,15 +2233,12 @@ if (andata && mounted) {
   await PremioDellaCondivisione.premia(context,
       cosa: 'Hai condiviso la runa del tramonto');
 }
+      return andata;
     } finally {
       // La carta fuori campo torna a non essere renderizzata: senza questo
-      // resta a decodificare inutilmente dopo ogni condivisione.
-      if (mounted) {
-        setState(() {
-          _condividendo = false;
-          _rendi = false;
-        });
-      }
+      // resta a decodificare inutilmente dopo ogni condivisione. Chi spegne
+      // il pulsante mentre si condivide adesso e\' la porta sola.
+      if (mounted) setState(() => _rendi = false);
     }
   }
 
@@ -2258,35 +2252,22 @@ if (andata && mounted) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              OutlinedButton.icon(
-                key: const Key('sunset_share'),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side:
-                        BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-                onPressed: _condividendo ? null : _condividi,
-                icon: const Icon(Icons.ios_share_rounded),
-                label: Text(PremioDellaCondivisione.etichetta(context)),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              FilledButton.icon(
-                key: const Key('sunset_consulta'),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary),
-                onPressed: () {
-                  final services = context.read<AppServices>();
-                  final verso = widget.estrazione.inOmbra
-                      ? 'in merkstave (rovesciata)'
-                      : 'dritta';
-                  Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.caligo,
-                      services: services,
-                      initialUserMessage: ChatOpeners.runaTramonto(
-                          widget.estrazione.rune.name, verso)));
-                },
-                icon: const Icon(Icons.forum_outlined),
-                label: const Text('Parlane con Caligo'),
+              // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06
+              // e 08.** Prima qui c\'erano due pulsanti scritti a mano e
+              // nessun Custodisci: adesso Condividi, Custodisci e
+              // Parlane vivono in un punto solo, e una guardia enumera
+              // le arti e chiede a ognuna se lo monta.
+              AzioniDelResponso(
+                palette: palette,
+                maestro: Maestro.caligo,
+                responso: ResponsoDaCustodire(
+                  arte: 'tramonto',
+                  titolo: 'La tua runa del tramonto: ${widget.estrazione.rune.name}',
+                  testo: widget.estrazione.riga,
+                  dati: {'runa': widget.estrazione.rune.name, 'verso': widget.estrazione.inOmbra ? 'ombra' : 'dritta'},
+                ),
+                condividi: _condividi,
+                aperturaDellaChat: ChatOpeners.runaTramonto(widget.estrazione.rune.name, widget.estrazione.inOmbra ? 'in merkstave (rovesciata)' : 'dritta'),
               ),
             ],
           ),

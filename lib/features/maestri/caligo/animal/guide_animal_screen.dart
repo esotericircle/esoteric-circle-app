@@ -18,10 +18,9 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import '../../../../services/app_services.dart';
 import '../../../maestri/aura/archetype/archetype_test_screen.dart';
 import '../../chat/chat_openers.dart';
-import '../../chat/maestro_chat_screen.dart';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'animal_journey.dart';
 import 'animal_reveal.dart';
 import 'bosco_del_cerchio.dart';
@@ -468,7 +467,11 @@ class _Messaggio extends StatelessWidget {
                     .copyWith(color: palette.goldSoft)),
           ),
           const SizedBox(height: SpacingTokens.md),
-          _Azioni(palette: palette, animal: animal, origine: origine),
+          _Azioni(
+              palette: palette,
+              animal: animal,
+              origine: origine,
+              testoDelResponso: messaggio.testo),
           const SizedBox(height: SpacingTokens.xxxl),
         ],
       ),
@@ -601,7 +604,11 @@ class _Identita extends StatelessWidget {
           ],
 
           const SizedBox(height: SpacingTokens.lg),
-          _Azioni(palette: palette, animal: animal, origine: origine),
+          _Azioni(
+              palette: palette,
+              animal: animal,
+              origine: origine,
+              testoDelResponso: r.natura),
           const SizedBox(height: SpacingTokens.xxxl),
         ],
       ),
@@ -650,11 +657,21 @@ class _Bolla extends StatelessWidget {
 
 /// Condividi e Parlane con Caligo, piu' la card fuori campo per lo scatto.
 class _Azioni extends StatefulWidget {
-  const _Azioni({required this.palette, required this.animal, required this.origine});
+  const _Azioni(
+      {required this.palette,
+      required this.animal,
+      required this.origine,
+      required this.testoDelResponso});
 
   final MaestroPalette palette;
   final GuideAnimal animal;
   final String origine;
+
+  /// **IL TESTO CHE SI CUSTODISCE, ordine CG voce 06.** Non l\'immagine: un
+  /// testo sta in qualche centinaio di byte, un PNG in qualche centinaio di
+  /// chilobyte. Lo passa chi monta le azioni, perche\'e chi sa quale
+  /// responso la persona ha davanti.
+  final String testoDelResponso;
 
   @override
   State<_Azioni> createState() => _AzioniState();
@@ -662,27 +679,32 @@ class _Azioni extends StatefulWidget {
 
 class _AzioniState extends State<_Azioni> {
   final GlobalKey _cardBoundary = GlobalKey();
-  bool _condividendo = false;
   bool _renderCard = false;
 
-  Future<void> _condividi() async {
-    setState(() {
-      _condividendo = true;
-      _renderCard = true;
-    });
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.** Il vero che
+  /// esce di qui e\' quello su cui scatta la custodia automatica: prima
+  /// restava dentro questo metodo e nessuno poteva sapere, da fuori, se la
+  /// condivisione fosse avvenuta o se il foglio fosse stato solo aperto.
+  Future<bool> _condividi() async {
+    setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareGuideAnimalCard(
           boundaryKey: _cardBoundary, animal: widget.animal);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso il tuo animale guida');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo animale guida');
+      }
+      return andata;
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      // **La card fuori campo si smonta appena lo scatto e' finito.** Chi
+      // spegne il pulsante mentre si condivide adesso e' AzioniDelResponso,
+      // che e' la porta sola: due stati per la stessa attesa sarebbero due
+      // verita' sullo stesso momento.
+      if (mounted) setState(() => _renderCard = false);
     }
   }
 
@@ -693,40 +715,21 @@ if (andata && mounted) {
       children: [
         // Larghezza piena e pulsanti stirati, cosi' sono centrati orizzontalmente
         // come negli altri responsi, non piu' a sinistra col Column a contenuto.
-        SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              OutlinedButton.icon(
-                key: const Key('animal_share'),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side:
-                        BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-                onPressed: _condividendo ? null : _condividi,
-                icon: const Icon(Icons.ios_share_rounded),
-                label: Text(PremioDellaCondivisione.etichetta(context)),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              FilledButton.icon(
-                key: const Key('animal_consulta'),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary),
-                onPressed: () {
-                  final services = context.read<AppServices>();
-                  Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.caligo,
-                      services: services,
-                      initialUserMessage:
-                          ChatOpeners.animale(widget.animal.name)));
-                },
-                icon: const Icon(Icons.forum_outlined),
-                label: const Text('Parlane con Caligo'),
-              ),
-            ],
+        // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Prima
+        // qui c'erano due pulsanti scritti a mano e nessun Custodisci: adesso
+        // Condividi, Custodisci e Parlane vivono in un punto solo, e una
+        // guardia enumera le arti e chiede a ognuna se lo monta.
+        AzioniDelResponso(
+          palette: palette,
+          maestro: Maestro.caligo,
+          responso: ResponsoDaCustodire(
+            arte: 'animale_guida',
+            titolo: 'Il tuo animale guida: ${widget.animal.name}',
+            testo: widget.testoDelResponso,
+            dati: {'animale': widget.animal.name},
           ),
+          condividi: _condividi,
+          aperturaDellaChat: ChatOpeners.animale(widget.animal.name),
         ),
         if (_renderCard)
           Positioned(

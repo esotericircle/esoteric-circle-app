@@ -99,8 +99,14 @@ void main() {
     expect(find.text(FaceTrait.occhiGrandi.titoloEvocativo), findsOneWidget);
     expect(find.byKey(const Key('face_synthesis')), findsOneWidget);
     expect(find.byKey(const Key('face_trait_occhiGrandi')), findsWidgets);
-    expect(find.byKey(const Key('face_share')), findsOneWidget);
-    expect(find.byKey(const Key('face_consulta')), findsOneWidget);
+    // **LE CHIAVI SONO CAMBIATE, ordine CG voci 06 e 08.** Condividi e
+    // Parlane adesso vengono da AzioniDelResponso, che e la porta sola
+    // per tutte e tredici le arti col responso, e in mezzo c e anche il
+    // Custodisci, che prima non esisteva. Le chiavi vecchie erano di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
   });
 
   testWidgets('Il sottotitolo segue l\'interruttore dei transiti',
@@ -176,7 +182,7 @@ void main() {
 
     final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     final btn =
-        tester.widget<FilledButton>(find.byKey(const Key('face_consulta')));
+        tester.widget<FilledButton>(find.byKey(const Key('responso_parlane')));
     expect(btn.style!.backgroundColor!.resolve({}), verde.primary);
   });
 

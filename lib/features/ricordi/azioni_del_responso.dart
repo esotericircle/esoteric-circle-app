@@ -74,6 +74,7 @@ class AzioniDelResponso extends StatefulWidget {
     required this.condividi,
     required this.aperturaDellaChat,
     this.orologio,
+    this.dorato = false,
   });
 
   final MaestroPalette palette;
@@ -93,6 +94,16 @@ class AzioniDelResponso extends StatefulWidget {
 
   /// Iniettabile, cosi' le prove sanno che ora e' senza aspettare il minuto.
   final DateTime Function()? orologio;
+
+  /// **LA FORMA DORATA DEL CONDIVIDI, e perche' esiste.**
+  ///
+  /// Tre arti di Medora (Oroscopo, Stesa, Sinastria) avevano gia' un
+  /// Condividi in oro pieno, centrato, con la sua attesa "Preparo la card":
+  /// non e' un accidente, e' l'invito che chiude quei tre responsi. Una porta
+  /// sola non vuol dire un aspetto solo: qui cambia il vestito di UN pulsante,
+  /// mentre il gesto, la custodia automatica e la guardia restano gli stessi
+  /// per tutte e tredici le arti.
+  final bool dorato;
 
   @override
   State<AzioniDelResponso> createState() => _AzioniDelResponsoState();
@@ -209,15 +220,39 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          OutlinedButton.icon(
-            key: const Key('responso_condividi'),
-            style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-            onPressed: _condividendo ? null : _condividi,
-            icon: const Icon(Icons.ios_share_rounded),
-            label: Text(PremioDellaCondivisione.etichetta(context)),
-          ),
+          if (widget.dorato)
+            Center(
+              child: FilledButton.icon(
+                key: const Key('responso_condividi'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.xl,
+                      vertical: SpacingTokens.sm),
+                ),
+                onPressed: _condividendo ? null : _condividi,
+                icon: _condividendo
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2))
+                    : const Icon(Icons.ios_share_rounded, size: 18),
+                label: Text(_condividendo
+                    ? 'Preparo la card'
+                    : PremioDellaCondivisione.etichetta(context)),
+              ),
+            )
+          else
+            OutlinedButton.icon(
+              key: const Key('responso_condividi'),
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: palette.goldSoft,
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+              onPressed: _condividendo ? null : _condividi,
+              icon: const Icon(Icons.ios_share_rounded),
+              label: Text(PremioDellaCondivisione.etichetta(context)),
+            ),
           const SizedBox(height: SpacingTokens.sm),
           OutlinedButton.icon(
             key: const Key('responso_custodisci'),

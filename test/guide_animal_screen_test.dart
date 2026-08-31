@@ -110,8 +110,17 @@ void main() {
     expect(find.byKey(const Key('animal_daily_message')), findsOneWidget);
     expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
     expect(find.byKey(const Key('animal_identity_link')), findsOneWidget);
-    expect(find.byKey(const Key('animal_share')), findsOneWidget);
-    expect(find.byKey(const Key('animal_consulta')), findsOneWidget);
+    // **LE CHIAVI SONO CAMBIATE, ordine CG voci 06 e 08, e la decisione che
+    // questa riga supera e' quella di avere due pulsanti scritti a mano in
+    // questa schermata.** Condividi e Parlane adesso vengono da
+    // `AzioniDelResponso`, che e' la porta sola per tutte e tredici le arti
+    // col responso: le chiavi `animal_share` e `animal_consulta` erano di
+    // questa schermata e basta, quindi una guardia che le cercasse non
+    // direbbe piu' niente sulle altre dodici. In mezzo c'e' anche il
+    // Custodisci, che prima non esisteva.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
     // Non c'e' piu' il Chiedi ancora: un solo messaggio al giorno.
     expect(find.byKey(const Key('animal_ask_again')), findsNothing);
     // Le bolle di identita' NON stanno nel viaggio: sono nella lettura fissa.

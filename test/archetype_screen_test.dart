@@ -210,9 +210,14 @@ void main() {
     expect(ordinati.first, Archetype.realista);
     expect(primo, lessThan(secondo));
 
-    // La classifica sta sopra i due pulsanti finali.
+    // La classifica sta sopra i pulsanti finali.
+    //
+    // **LA CHIAVE E CAMBIATA, ordine CG voci 06 e 08**: Condividi non e piu
+    // un pulsante di questa schermata, viene da AzioniDelResponso, che e la
+    // porta sola per tutte e tredici le arti col responso. Cio che questa
+    // riga misura non cambia: la classifica sta sopra i comandi.
     final ranking = tester.getCenter(find.byKey(const Key('archetype_ranking'))).dy;
-    final share = tester.getCenter(find.byKey(const Key('archetype_share'))).dy;
+    final share = tester.getCenter(find.byKey(const Key('responso_condividi'))).dy;
     expect(ranking, lessThan(share));
   });
 
@@ -453,8 +458,10 @@ void main() {
     await rispondiTutte(tester, 3);
 
     final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+    // Stessa ragione della riga sopra: il pulsante verso Aura adesso nasce
+    // dalla porta sola, e il verde di Aura ci arriva dalla palette.
     final btn = tester.widget<FilledButton>(
-        find.byKey(const Key('archetype_consulta')));
+        find.byKey(const Key('responso_parlane')));
     final bg = btn.style!.backgroundColor!.resolve({});
     expect(bg, verde.primary);
     // Il verde di Aura non e' il viola neutro.
