@@ -30,6 +30,10 @@ const Map<String, List<String>> datiNuoviDaNominare = {
   'indice dei Ricordi del Cerchio': ['Ricordi del Cerchio'],
   'i responsi custoditi': ['custodire', 'non scadono'],
   'le sintesi settimanali': ['riassunto per Maestro', 'fatti'],
+  'il gettone dell\'apparecchio': [
+    'gettone del tuo apparecchio',
+    'fuso orario',
+  ],
 };
 
 void main() {

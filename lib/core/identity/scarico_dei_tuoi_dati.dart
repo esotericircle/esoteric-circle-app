@@ -74,6 +74,7 @@ class ScaricoDeiTuoiDati {
     'natal.': 'La tua carta natale dal Cerchio',
     'oroscopo_': 'Le tue letture dell\'Oroscopo',
     'permesso.': 'Quali permessi ti sono già stati chiesti',
+    'push.': 'Il gettone con cui ti raggiungono le notifiche',
     'ricordi.': 'L\'indice dei tuoi Ricordi del Cerchio',
     'ritual.': 'Le serie dei tuoi riti',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',

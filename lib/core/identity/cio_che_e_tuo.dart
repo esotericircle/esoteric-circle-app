@@ -85,6 +85,10 @@ class CioCheETuo {
     // TROVATA LA PROVA**, non una persona: e' la quarantaseiesima chiave, e
     // non la cancellava nessuna delle due vie.
     'maestro.',
+    // Il gettone con cui il Cerchio raggiunge questo telefono per le
+    // notifiche push, e cio' che si e' gia' mandato al server. Ordine CG
+    // voce 16: e' un dato nuovo, e se ne va con te.
+    'push.',
     // L'indice dei Ricordi del Cerchio: le righe magre di cio' che hai fatto,
     // mese per mese, e la data dell'ultima sincronia. Ordine CG voce 03.
     'ricordi.',

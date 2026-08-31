@@ -108,6 +108,17 @@ dependencies:
   camera: ^0.11.0
   google_mlkit_face_detection: ^0.13.1
   video_player: ^2.13.0
+  # **IL CANALE DELLE PUSH. Ordine CG voce 16.**
+  #
+  # Parole del fondatore, 31 agosto 2026: "devi aggiungere le notifiche push
+  # legate a ogni dono del giorno... adesso le voglio". Il fatto che l'ha
+  # aperta, del 30 agosto: "da quando ho iniziato a installare le varie build
+  # dell'APP NON HO MAI RICEVUTO ALCUNA NOTIFICA PUSH PER I DONI, MAI!", e la
+  # ragione era che il canale non esisteva.
+  #
+  # **Le chiamate locali restano**, accese e gratuite per tutti: le push si
+  # aggiungono, non sostituiscono.
+  firebase_messaging: ^16.0.4
   flutter_local_notifications: ^22.2.0
   timezone: ^0.11.1
 

@@ -47,6 +47,19 @@ export {sfocaLeConversazioni} from "./sfocatura";
  */
 export {sistemaLeLapidi} from "./lapidi";
 
+/**
+ * LE PUSH DEI DONI DEL GIORNO. Ordine CG voce 16.
+ *
+ * Il giro chiede SOLO i destinatari del quarto d ora, e non scorre tutti gli
+ * utenti: e la differenza fra 45 e 864 dollari al mese a un milione di
+ * persone. Il conto sta scritto nell intestazione di push.ts.
+ */
+export {
+  scriviLeScelteDellePush,
+  togliLeScelteDellePush,
+  spingiIDoni,
+} from "./push";
+
 // LA MISURA DEL RITORNO, ordine CC voce 09: quante persone tornano il giorno
 // dopo, quante dopo una settimana, quanti riti arrivano in fondo. Conta i
 // gesti per giorno, non le persone: non esiste nessun profilo, esistono

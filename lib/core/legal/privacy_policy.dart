@@ -101,7 +101,12 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'hai usato quale arte e con quale Maestro, resta 24 mesi. '
         'I responsi che scegli di custodire, col gesto Custodisci o '
         'condividendoli, non scadono: restano finché vive il tuo account, '
-        'perché sono esattamente ciò che hai dichiarato di voler tenere.',
+        'perché sono esattamente ciò che hai dichiarato di voler tenere. '
+        'Per mandarti le notifiche del Cerchio anche ad app chiusa teniamo il '
+        'gettone del tuo apparecchio, insieme ai Doni che hai acceso, alle '
+        'ore che hai scelto e al tuo fuso orario: senza quelle tre cose non '
+        'sapremmo a che ora raggiungerti. Il gettone sparisce quando spegni '
+        'le notifiche e quando cancelli il tuo account.',
   ),
   SezioneDellaPolicy(
     titolo: 'Prevenzione degli abusi',

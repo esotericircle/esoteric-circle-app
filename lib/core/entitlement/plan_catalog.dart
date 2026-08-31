@@ -474,6 +474,20 @@ class PlanCatalog {
       'Con la lettura del mese',
       'Con la lettura del mese e il report',
     ]),
+    // **LA RIGA DELLE NOTIFICHE PUSH. Ordine CG voce 16 punto 6.**
+    //
+    // Premium dal primo piano a pagamento in su, con UN MESE di prova per chi
+    // non paga, una sola volta nella vita del Cerchio. Chi finisce la prova
+    // torna alle notifiche locali, che restano accese e gratuite per tutti:
+    // per questo la prima cella non dice "No".
+    //
+    // **Testo provvisorio**: il fondatore lo corregge con una riga.
+    FeatureRow('Notifiche del Cerchio', [
+      'Un mese di prova, poi gli avvisi del telefono',
+      'Sempre, anche a Cerchio chiuso',
+      'Sempre, anche a Cerchio chiuso',
+      'Sempre, anche a Cerchio chiuso',
+    ]),
     FeatureRow('Compatibilità a tre livelli', ['No', 'No', 'No', 'Esclusiva']),
     FeatureRow('Albero della Vita dinamico', [
       'Contemplativo',
