@@ -81,37 +81,38 @@ class MaestroChatScreen extends StatefulWidget {
     String? initialTheme,
     String? initialUserMessage,
   }) {
-    return PassaggioDelCerchio.rotta<void>(// Il contesto della rotta, non quello del builder interno: da qui si
-      // leggono il contatore delle domande e il piano attivo, che senza
-      // questo passaggio la chat non vedrebbe mai.
-      (rotta) => ChangeNotifierProvider<MaestroChatController>(
-        create: (_) => MaestroChatController(
-          maestro: maestro,
-          ai: services.ai,
-          memory: services.memory,
-          allowance: rotta.read<QuestionAllowance>(),
-          tier: () => rotta.read<EntitlementService>().tier,
-          // Il cielo della persona arriva al Maestro. Una funzione, non un
-          // valore: chi completa i dati di nascita mentre la chat e' aperta
-          // deve essere riconosciuto al turno dopo.
-          natal: () => SorgenteNatale.daIdentita(
-              rotta.read<BirthIdentityController>()),
-        )..init(),
-        // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
-        // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
-        // scope seguiva `MaestroController`, e chi apriva la chat da una strada
-        // che non passa dal Santuario vedeva le bolle nel viola della palette
-        // neutra invece che nel blu di Medora. E' lo stesso difetto gia'
-        // corretto nell'Oroscopo, e la correzione e' la stessa.
-        child: MaestroScope(
-          maestro: maestro,
-          child: MaestroChatScreen(
-            maestro: maestro,
-            initialTheme: initialTheme,
-            initialUserMessage: initialUserMessage,
-          ),
-        ),
-      ));
+    return PassaggioDelCerchio.rotta<void>(
+        // Il contesto della rotta, non quello del builder interno: da qui si
+        // leggono il contatore delle domande e il piano attivo, che senza
+        // questo passaggio la chat non vedrebbe mai.
+        (rotta) => ChangeNotifierProvider<MaestroChatController>(
+              create: (_) => MaestroChatController(
+                maestro: maestro,
+                ai: services.ai,
+                memory: services.memory,
+                allowance: rotta.read<QuestionAllowance>(),
+                tier: () => rotta.read<EntitlementService>().tier,
+                // Il cielo della persona arriva al Maestro. Una funzione, non un
+                // valore: chi completa i dati di nascita mentre la chat e' aperta
+                // deve essere riconosciuto al turno dopo.
+                natal: () => SorgenteNatale.daIdentita(
+                    rotta.read<BirthIdentityController>()),
+              )..init(),
+              // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
+              // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
+              // scope seguiva `MaestroController`, e chi apriva la chat da una strada
+              // che non passa dal Santuario vedeva le bolle nel viola della palette
+              // neutra invece che nel blu di Medora. E' lo stesso difetto gia'
+              // corretto nell'Oroscopo, e la correzione e' la stessa.
+              child: MaestroScope(
+                maestro: maestro,
+                child: MaestroChatScreen(
+                  maestro: maestro,
+                  initialTheme: initialTheme,
+                  initialUserMessage: initialUserMessage,
+                ),
+              ),
+            ));
   }
 
   @override
@@ -252,28 +253,28 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _attesaDellaMisura = Timer(TempiDellAttesa.dissolvenza, () {
       if (!mounted) return;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted || !_scroll.hasClients) return;
-      final contesto = _chiaveUltimaRisposta.currentContext;
-      final riquadro = contesto?.findRenderObject();
-      if (riquadro is! RenderBox || !riquadro.hasSize) {
-        _scrollToEnd();
-        return;
-      }
-      final lista = _chiaveDellaLista.currentContext?.findRenderObject();
-      if (lista is! RenderBox || !lista.hasSize) {
-        _scrollToEnd();
-        return;
-      }
-      _scroll.animateTo(
-        ScorrimentoDellaLettura.bersaglio(
-          offsetAttuale: _scroll.offset,
-          cimaDellaRisposta: riquadro.localToGlobal(Offset.zero).dy,
-          cimaDellaLista: lista.localToGlobal(Offset.zero).dy,
-          massimo: _scroll.position.maxScrollExtent,
-        ),
-        duration: const Duration(milliseconds: 380),
-        curve: Curves.easeOut,
-      );
+        if (!mounted || !_scroll.hasClients) return;
+        final contesto = _chiaveUltimaRisposta.currentContext;
+        final riquadro = contesto?.findRenderObject();
+        if (riquadro is! RenderBox || !riquadro.hasSize) {
+          _scrollToEnd();
+          return;
+        }
+        final lista = _chiaveDellaLista.currentContext?.findRenderObject();
+        if (lista is! RenderBox || !lista.hasSize) {
+          _scrollToEnd();
+          return;
+        }
+        _scroll.animateTo(
+          ScorrimentoDellaLettura.bersaglio(
+            offsetAttuale: _scroll.offset,
+            cimaDellaRisposta: riquadro.localToGlobal(Offset.zero).dy,
+            cimaDellaLista: lista.localToGlobal(Offset.zero).dy,
+            massimo: _scroll.position.maxScrollExtent,
+          ),
+          duration: const Duration(milliseconds: 380),
+          curve: Curves.easeOut,
+        );
       });
     });
   }
@@ -446,8 +447,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<MaestroChatController>();
@@ -500,9 +499,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // dire che questa e' la prima volta che si guarda, cioe' che i messaggi
       // arrivano dalla memoria e non dalla rete.
       // E il secondo strato NON si riscrive: e' gia' scritto, quindi compare.
-      _scriviLUltima = risposta &&
-          primaFirma.isNotEmpty &&
-          !ultimoMessaggio.approfondita;
+      _scriviLUltima =
+          risposta && primaFirma.isNotEmpty && !ultimoMessaggio.approfondita;
       if (risposta) {
         _scorriAllInizioDellaRisposta();
       } else {
@@ -563,102 +561,104 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           child: Stack(
             children: [
               Column(
-            children: [
-              // **I GIORNI PRIMA, ordine CG voce 01.** Terza porta delle tre
-              // che aprono i Ricordi, e l'unica che arriva gia' filtrata su
-              // questo Maestro: chi sta parlando con Caligo e vuole rivedere
-              // cosa si erano detti non deve prima passare dal menu' e poi
-              // accendere una pastiglia.
-              _IGiorniPrima(maestro: widget.maestro),
-              // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
-              // la conversazione, cioe' nello spazio che rovesciando la lista
-              // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
-              // sta aspettando, a costo di inferenza zero.
-              // LA SCENA NON SPARISCE DI COLPO.
-              //
-              // Prima compariva e spariva con un `if`, quindi al momento
-              // giusto, cioe' quando la risposta arriva, faceva un salto. La
-              // dissolvenza dura quanto dice il dato, e la stessa uscita vale
-              // anche quando la risposta FALLISCE: la scena si chiude e sotto
-              // c'e' il ripiego, invece del vuoto improvviso.
-              // LA SCENA STA SOPRA LA CONVERSAZIONE, E PRENDE CIO' CHE
-              // AVANZA.
-              //
-              // Prima era un fratello della lista dentro la stessa colonna,
-              // quindi il suo spazio lo TOGLIEVA alla conversazione: con un
-              // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
-              // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
-              // la conversazione si dispone per prima e prende cio' che le
-              // serve, poi alla scena si dice quanto e' rimasto. **Con la
-              // conversazione piena non restava ZERO e la scena spariva da
-              // tutte le chat col passare della storia**: dal 7 agosto 2026
-              // la scena VIVA pretende la sua altezza minima e si stende
-              // sopra la cima della conversazione, che non si muove. La
-              // ragione intera sta su ScenaSopraLaConversazione.
-              Expanded(
-                child: ScenaSopraLaConversazione(
-                  altezzaMinimaDellaScena: controller.mostraLaScenaDiAttesa
-                      ? ScenaSopraLaConversazione.altezzaDelConsulto
-                      : 0,
-                  scena: AnimatedSwitcher(
-                    // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
-                    //
-                    // La dissolvenza e' movimento quanto un'animazione, e chi
-                    // ha chiesto di ridurlo non ha chiesto un movimento piu'
-                    // lento. E' anche la ragione per cui le due anteprime
-                    // pesavano lo stesso numero di byte: a riposo le due scene
-                    // sono identiche, e la differenza vive solo DURANTE la
-                    // comparsa.
-                    duration: controller.riduciMovimento
-                        ? Duration.zero
-                        : TempiDellAttesa.dissolvenza,
-                    // UNA DISSOLVENZA, non uno scorrimento laterale. Il corpo
-                    // si posa dove sta, non entra da un lato: entrare da un
-                    // lato lo farebbe leggere come una carta che passa, e qui
-                    // non passa niente, si guarda.
-                    transitionBuilder: (figlio, anim) =>
-                        FadeTransition(opacity: anim, child: figlio),
-                    child: controller.mostraLaScenaDiAttesa
-                        ? Padding(
-                            key: const Key('riquadro_attesa'),
-                            padding: const EdgeInsets.fromLTRB(
-                                SpacingTokens.md,
-                                SpacingTokens.sm,
-                                SpacingTokens.md,
-                                SpacingTokens.sm),
-                            child: ConsultoDelCieloView(
-                            // La chiave porta CHI si consulta: cambiando voce
-                            // la scena si rifa' con le battute di quel Maestro
-                            // invece di restare su quelle di prima.
-                            key: ValueKey(
-                                'consulto ${controller.maestroInAscolto?.id}'),
-                            natal: _natalCorrente(context),
-                            maestro:
-                                controller.maestroInAscolto ?? widget.maestro,
-                            // L'ARCHETIPO GIA' SCOPERTO, che e' il simbolo di
-                            // Aura. Dallo storico condiviso, che l'app carica
-                            // all'avvio: nullo vuol dire "non ancora
-                            // scoperto", e la scena lo dice invece di
-                            // mostrare al posto suo un simbolo che direbbe
-                            // una cosa falsa.
-                            archetipo:
-                                context.watch<ArchetypeHistory>().ultimo?.dominante,
-                            rotazione: controller.rotazioneDelConsulto,
-                          ))
-                        : const SizedBox.shrink(
-                            key: ValueKey('nessun consulto')),
+                children: [
+                  // **I GIORNI PRIMA, ordine CG voce 01.** Terza porta delle tre
+                  // che aprono i Ricordi, e l'unica che arriva gia' filtrata su
+                  // questo Maestro: chi sta parlando con Caligo e vuole rivedere
+                  // cosa si erano detti non deve prima passare dal menu' e poi
+                  // accendere una pastiglia.
+                  _IGiorniPrima(maestro: widget.maestro),
+                  // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
+                  // la conversazione, cioe' nello spazio che rovesciando la lista
+                  // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
+                  // sta aspettando, a costo di inferenza zero.
+                  // LA SCENA NON SPARISCE DI COLPO.
+                  //
+                  // Prima compariva e spariva con un `if`, quindi al momento
+                  // giusto, cioe' quando la risposta arriva, faceva un salto. La
+                  // dissolvenza dura quanto dice il dato, e la stessa uscita vale
+                  // anche quando la risposta FALLISCE: la scena si chiude e sotto
+                  // c'e' il ripiego, invece del vuoto improvviso.
+                  // LA SCENA STA SOPRA LA CONVERSAZIONE, E PRENDE CIO' CHE
+                  // AVANZA.
+                  //
+                  // Prima era un fratello della lista dentro la stessa colonna,
+                  // quindi il suo spazio lo TOGLIEVA alla conversazione: con un
+                  // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
+                  // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
+                  // la conversazione si dispone per prima e prende cio' che le
+                  // serve, poi alla scena si dice quanto e' rimasto. **Con la
+                  // conversazione piena non restava ZERO e la scena spariva da
+                  // tutte le chat col passare della storia**: dal 7 agosto 2026
+                  // la scena VIVA pretende la sua altezza minima e si stende
+                  // sopra la cima della conversazione, che non si muove. La
+                  // ragione intera sta su ScenaSopraLaConversazione.
+                  Expanded(
+                    child: ScenaSopraLaConversazione(
+                      altezzaMinimaDellaScena: controller.mostraLaScenaDiAttesa
+                          ? ScenaSopraLaConversazione.altezzaDelConsulto
+                          : 0,
+                      scena: AnimatedSwitcher(
+                        // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
+                        //
+                        // La dissolvenza e' movimento quanto un'animazione, e chi
+                        // ha chiesto di ridurlo non ha chiesto un movimento piu'
+                        // lento. E' anche la ragione per cui le due anteprime
+                        // pesavano lo stesso numero di byte: a riposo le due scene
+                        // sono identiche, e la differenza vive solo DURANTE la
+                        // comparsa.
+                        duration: controller.riduciMovimento
+                            ? Duration.zero
+                            : TempiDellAttesa.dissolvenza,
+                        // UNA DISSOLVENZA, non uno scorrimento laterale. Il corpo
+                        // si posa dove sta, non entra da un lato: entrare da un
+                        // lato lo farebbe leggere come una carta che passa, e qui
+                        // non passa niente, si guarda.
+                        transitionBuilder: (figlio, anim) =>
+                            FadeTransition(opacity: anim, child: figlio),
+                        child: controller.mostraLaScenaDiAttesa
+                            ? Padding(
+                                key: const Key('riquadro_attesa'),
+                                padding: const EdgeInsets.fromLTRB(
+                                    SpacingTokens.md,
+                                    SpacingTokens.sm,
+                                    SpacingTokens.md,
+                                    SpacingTokens.sm),
+                                child: ConsultoDelCieloView(
+                                  // La chiave porta CHI si consulta: cambiando voce
+                                  // la scena si rifa' con le battute di quel Maestro
+                                  // invece di restare su quelle di prima.
+                                  key: ValueKey(
+                                      'consulto ${controller.maestroInAscolto?.id}'),
+                                  natal: _natalCorrente(context),
+                                  maestro: controller.maestroInAscolto ??
+                                      widget.maestro,
+                                  // L'ARCHETIPO GIA' SCOPERTO, che e' il simbolo di
+                                  // Aura. Dallo storico condiviso, che l'app carica
+                                  // all'avvio: nullo vuol dire "non ancora
+                                  // scoperto", e la scena lo dice invece di
+                                  // mostrare al posto suo un simbolo che direbbe
+                                  // una cosa falsa.
+                                  archetipo: context
+                                      .watch<ArchetypeHistory>()
+                                      .ultimo
+                                      ?.dominante,
+                                  rotazione: controller.rotazioneDelConsulto,
+                                ))
+                            : const SizedBox.shrink(
+                                key: ValueKey('nessun consulto')),
+                      ),
+                      conversazione: _buildBody(controller),
+                    ),
                   ),
-                  conversazione: _buildBody(controller),
-                ),
-              ),
-              // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
-              // SINTETIZZARE.
-              //
-              // Prima si raggiungeva sempre, da un'icona nell'intestazione, e
-              // apriva un confronto fra una voce sola e nessun'altra. La
-              // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
-              // letture VERE: due ripieghi non sono due voci.
-            ],
+                  // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
+                  // SINTETIZZARE.
+                  //
+                  // Prima si raggiungeva sempre, da un'icona nell'intestazione, e
+                  // apriva un confronto fra una voce sola e nessun'altra. La
+                  // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
+                  // letture VERE: due ripieghi non sono due voci.
+                ],
               ),
               _composerSospeso(controller),
             ],
@@ -717,29 +717,28 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             // sta sopra di lui, non in fondo alla colonna del contenuto,
             // altrimenti torna la fascia piena sotto la barra.
             if (!controller.aiReady)
-              _ConfigNotice(
-                  palette: context.palette, maestro: widget.maestro),
+              _ConfigNotice(palette: context.palette, maestro: widget.maestro),
             ChatComposer(
-          enabled: controller.aiReady && !controller.sending,
-          hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
-              '${widget.maestro.displayName}',
-          // A chat vuota, se si arriva dalla chiusura del cerchio, il
-          // campo si apre gia' col tema del Consulta.
-          initialText: hasMessages ? null : widget.initialTheme,
-          onSend: controller.send,
-          // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
-          // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
-          // filtrate sul vero dalla porta unica _famiglieCorrenti.
-          onSuggestions: () {
-            final famiglie = _famiglieCorrenti(context);
-            showSuggestionsPanel(
-              context,
-              maestro: widget.maestro,
+              enabled: controller.aiReady && !controller.sending,
+              hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
+                  '${widget.maestro.displayName}',
+              // A chat vuota, se si arriva dalla chiusura del cerchio, il
+              // campo si apre gia' col tema del Consulta.
+              initialText: hasMessages ? null : widget.initialTheme,
               onSend: controller.send,
-              frequenti: famiglie.frequenti,
-              personali: famiglie.personali,
-            );
-          },
+              // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
+              // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
+              // filtrate sul vero dalla porta unica _famiglieCorrenti.
+              onSuggestions: () {
+                final famiglie = _famiglieCorrenti(context);
+                showSuggestionsPanel(
+                  context,
+                  maestro: widget.maestro,
+                  onSend: controller.send,
+                  frequenti: famiglie.frequenti,
+                  personali: famiglie.personali,
+                );
+              },
             ),
           ],
         ),
@@ -770,8 +769,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        spazioInFondo: _altezzaComposer +
-            SpazioDellaBarraNelloScroll.quanto(context),
+        spazioInFondo:
+            _altezzaComposer + SpazioDellaBarraNelloScroll.quanto(context),
       );
     }
     // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui
@@ -821,78 +820,79 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         return MaestroScope(
           maestro: autore,
           child: ChatBubble(
-          key: posizione == ultimo && messaggio.isMaestro
-              ? _chiaveUltimaRisposta
-              : null,
-          message: messaggio,
-          maestro: autore,
-          // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
-          // UNA LETTURA VERA.
-          //
-          // La macchina da scrivere e' il Maestro che scrive: un ripiego non lo
-          // scrive lui, lo scrive l'app al posto suo, e farlo comparire lettera
-          // per lettera lo spaccerebbe per la sua voce proprio mentre la bolla
-          // dichiara il contrario. Vale anche per il messaggio del limite e per
-          // un errore, che uno aspetta di leggere subito. La distinzione non e'
-          // nuova ed e' gia' nel dato: `portaUnResponso`.
-          scriviti:
-              posizione == ultimo && _scriviLUltima && messaggio.portaUnResponso,
-          durataMassimaDiScrittura: TempiDellAttesa.perScrivere(
-            controller.ultimaAttesaMs,
-            riduciMovimento: controller.riduciMovimento,
+            key: posizione == ultimo && messaggio.isMaestro
+                ? _chiaveUltimaRisposta
+                : null,
+            message: messaggio,
+            maestro: autore,
+            // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
+            // UNA LETTURA VERA.
+            //
+            // La macchina da scrivere e' il Maestro che scrive: un ripiego non lo
+            // scrive lui, lo scrive l'app al posto suo, e farlo comparire lettera
+            // per lettera lo spaccerebbe per la sua voce proprio mentre la bolla
+            // dichiara il contrario. Vale anche per il messaggio del limite e per
+            // un errore, che uno aspetta di leggere subito. La distinzione non e'
+            // nuova ed e' gia' nel dato: `portaUnResponso`.
+            scriviti: posizione == ultimo &&
+                _scriviLUltima &&
+                messaggio.portaUnResponso,
+            durataMassimaDiScrittura: TempiDellAttesa.perScrivere(
+              controller.ultimaAttesaMs,
+              riduciMovimento: controller.riduciMovimento,
+            ),
+            onOpenIntent: (id) => _openIntent(context, id),
+            // Il Riprova sta attaccato SOTTO la bolla che ha fallito, non in
+            // mezzo allo spazio libero: un comando lontano dalla cosa che
+            // comanda costringe a indovinare a cosa si riferisce.
+            onRetry: posizione == ultimo &&
+                    messaggio.isMaestro &&
+                    messaggio.failed &&
+                    !controller.sending
+                ? controller.retryLast
+                : null,
+            // L'invito si vede SEMPRE sull'ultima risposta vera, anche per il
+            // Viandante: al tocco decide `_approfondisci`, che per chi non ha
+            // l'approfondimento nel piano apre l'invito a salire invece di un
+            // lucchetto muto.
+            onApprofondisci:
+                posizione == ultimo && controller.puoiChiedereDiApprofondire
+                    ? () => _approfondisci(context, controller)
+                    : null,
+            // LE ALTRE VOCI, sotto la lettura a cui si riferiscono.
+            //
+            // Sull'ULTIMA lettura vera, come "Vai piu' a fondo": la riga porta
+            // agli altri l'ULTIMA domanda, e metterla anche sotto le risposte
+            // vecchie lascerebbe indovinare quale domanda parte.
+            onChiediAgliAltri:
+                posizione == ultimo && controller.puoiChiedereAgliAltri
+                    ? () => _chiediAgliAltri(context, controller)
+                    : null,
+            // IL RESIDUO SI VEDE PRIMA DEL TOCCO: chi tocca deve sapere cosa
+            // spende prima di spenderlo. La formula la compone chi sa contare,
+            // cioe' il contatore del giorno, e qui si passa e basta.
+            residuoDeiConfronti:
+                posizione == ultimo && controller.puoiChiedereAgliAltri
+                    ? context.watch<QuestionAllowance>().residuoDeiConfronti(
+                        context.watch<EntitlementService>().tier)
+                    : null,
+            // LE RISPOSTE SI RACCOLGONO QUANDO NE ARRIVA UNA NUOVA.
+            //
+            // Non appena l'hai letta, che nessuno sa quando succede: quando ne
+            // arriva un'altra. Fino ad allora quella che hai in mano resta in
+            // mano. La regola sta in `RaccoltaDelleRisposte`, qui si chiede.
+            siPuoRaccogliere:
+                RaccoltaDelleRisposte.siPuoRaccogliere(messaggi, posizione),
+            aperta: RaccoltaDelleRisposte.eAperta(messaggi, posizione,
+                riaperte: _riaperte),
+            onApriChiudi: () => setState(() {
+              if (!_riaperte.remove(posizione)) _riaperte.add(posizione);
+            }),
+            altreVoci: [
+              for (final altro in AltreVoci.altriDi(widget.maestro))
+                if (!controller.vociDelCerchio.contains(altro)) altro,
+            ],
           ),
-          onOpenIntent: (id) => _openIntent(context, id),
-          // Il Riprova sta attaccato SOTTO la bolla che ha fallito, non in
-          // mezzo allo spazio libero: un comando lontano dalla cosa che
-          // comanda costringe a indovinare a cosa si riferisce.
-          onRetry: posizione == ultimo &&
-                  messaggio.isMaestro &&
-                  messaggio.failed &&
-                  !controller.sending
-              ? controller.retryLast
-              : null,
-          // L'invito si vede SEMPRE sull'ultima risposta vera, anche per il
-          // Viandante: al tocco decide `_approfondisci`, che per chi non ha
-          // l'approfondimento nel piano apre l'invito a salire invece di un
-          // lucchetto muto.
-          onApprofondisci:
-              posizione == ultimo && controller.puoiChiedereDiApprofondire
-                  ? () => _approfondisci(context, controller)
-                  : null,
-          // LE ALTRE VOCI, sotto la lettura a cui si riferiscono.
-          //
-          // Sull'ULTIMA lettura vera, come "Vai piu' a fondo": la riga porta
-          // agli altri l'ULTIMA domanda, e metterla anche sotto le risposte
-          // vecchie lascerebbe indovinare quale domanda parte.
-          onChiediAgliAltri:
-              posizione == ultimo && controller.puoiChiedereAgliAltri
-                  ? () => _chiediAgliAltri(context, controller)
-                  : null,
-          // IL RESIDUO SI VEDE PRIMA DEL TOCCO: chi tocca deve sapere cosa
-          // spende prima di spenderlo. La formula la compone chi sa contare,
-          // cioe' il contatore del giorno, e qui si passa e basta.
-          residuoDeiConfronti: posizione == ultimo &&
-                  controller.puoiChiedereAgliAltri
-              ? context.watch<QuestionAllowance>().residuoDeiConfronti(
-                  context.watch<EntitlementService>().tier)
-              : null,
-          // LE RISPOSTE SI RACCOLGONO QUANDO NE ARRIVA UNA NUOVA.
-          //
-          // Non appena l'hai letta, che nessuno sa quando succede: quando ne
-          // arriva un'altra. Fino ad allora quella che hai in mano resta in
-          // mano. La regola sta in `RaccoltaDelleRisposte`, qui si chiede.
-          siPuoRaccogliere:
-              RaccoltaDelleRisposte.siPuoRaccogliere(messaggi, posizione),
-          aperta: RaccoltaDelleRisposte.eAperta(messaggi, posizione,
-              riaperte: _riaperte),
-          onApriChiudi: () => setState(() {
-            if (!_riaperte.remove(posizione)) _riaperte.add(posizione);
-          }),
-          altreVoci: [
-            for (final altro in AltreVoci.altriDi(widget.maestro))
-              if (!controller.vociDelCerchio.contains(altro)) altro,
-          ],
-        ),
         );
       },
     );
@@ -976,8 +976,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     final natal = SorgenteNatale.daIdentita(birth);
     // In demo il benvenuto riprende la memoria come per il premium: la
     // demo mostra il prodotto vero. Ordine BG voce 03.
-    final premium = AppFlags.isDemo ||
-        context.read<EntitlementService>().tier != Tier.free;
+    final premium =
+        AppFlags.isDemo || context.read<EntitlementService>().tier != Tier.free;
     return MaestroWelcome.compose(
       maestro: widget.maestro,
       profile: controller.profile,
@@ -1147,14 +1147,31 @@ class _IGiorniPrima extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **IL COLORE VIENE DALLA TAVOLOZZA DEL MAESTRO, e prima non veniva da
+    // nessuna parte.** Ordine CI voci 02 e 08.
+    //
+    // Il fatto: questa riga si leggeva in viola scuro sul cosmo, e a schermo
+    // era quasi invisibile. La causa NON era una tinta sbagliata scelta qui,
+    // era che qui non se ne sceglieva nessuna: un `TextButton` nudo prende il
+    // primario dello schema Material, che in `AppTheme.dark()` e' il primario
+    // della tavolozza NEUTRA. Per questo il viola era identico su Medora, su
+    // Aura e su Caligo, misurato sulle tre anteprime: non e' il colore di
+    // nessuno dei tre, e' il colore di nessuno.
+    //
+    // L'oro tenue del Maestro e' la tinta che questa app usa per i comandi
+    // secondari sopra il cosmo, la stessa dell'etichetta ESPLORA, e passa da
+    // `context.palette`, che e' la porta sola: qui non c'e' nessun valore
+    // scritto a mano, e cambiando la tavolozza cambia anche questa riga.
+    final palette = context.palette;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
       child: Align(
         alignment: Alignment.centerLeft,
         child: TextButton.icon(
           key: const Key('chat_i_giorni_prima'),
-          onPressed: () => Navigator.of(context).push(
-              RicordiScreen.route(maestro: maestro)),
+          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
+          onPressed: () =>
+              Navigator.of(context).push(RicordiScreen.route(maestro: maestro)),
           icon: const Icon(Icons.history_rounded, size: 16),
           label: const Text('I giorni prima'),
         ),

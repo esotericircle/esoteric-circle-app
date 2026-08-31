@@ -21,6 +21,7 @@ import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_empty_state.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
@@ -4660,6 +4661,70 @@ void main() {
       await capture(tester, rootKey, '$id-chat-suggerimenti.png');
     });
 
+    // **LA CHAT NUOVA SI LEGGE INTERA, ANCHE COL TESTO AL MASSIMO.**
+    // Ordine CI voce 01.
+    //
+    // Il fatto: aprendo una conversazione nuova i testi in alto risultavano
+    // sovrapposti. La misura ha detto QUALI, e non erano quelli che si
+    // pensava: non il benvenuto e l'intestazione, e nemmeno il benvenuto e i
+    // tre inviti, che qui non ci sono piu' da due ordini. Erano **il
+    // benvenuto e il COMPOSITORE**: col corpo del testo al massimo consentito
+    // dal sistema, cioe' 1,3, il saluto va a tre righe, finiva a 599 e il
+    // compositore comincia a 571. Ventotto punti di testo dietro i pulsanti.
+    //
+    // Questa prova gira alla scala massima perche' e' li' che il difetto
+    // vive: a scala uno non si vedeva niente, ed e' il motivo per cui nessuna
+    // delle prove che c'erano lo ha mai preso.
+    testWidgets('CI.01: la chat nuova si legge intera a scala massima, $id',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
+
+      final saluto = tester.getRect(find.byKey(const Key('chat_benvenuto')));
+      final composer = tester.getRect(find.byType(ChatComposer));
+      final busto = tester.getRect(find.byType(BustoDelMaestro).first);
+
+      // **NON SI SOVRAPPONGONO**, che e' la meta' facile.
+      expect(saluto.bottom, lessThanOrEqualTo(composer.top),
+          reason: 'il benvenuto finisce a ${saluto.bottom} e il compositore '
+              'comincia a ${composer.top}: '
+              '${saluto.bottom - composer.top} punti di testo stanno dietro '
+              'i pulsanti, e nessuno dei due si legge');
+
+      // **E SI LEGGE PER INTERO**, che e' la meta' che conta: togliendo il
+      // compositore dalla viewport la sovrapposizione spariva ma il saluto
+      // usciva TAGLIATO, cioe' un difetto scambiato per un altro. Il saluto
+      // sta dentro l'area libera solo se il busto ha ceduto la sua altezza,
+      // e questa riga misura proprio quello.
+      expect(busto.height,
+          lessThanOrEqualTo(BustoDelMaestro.altezzaCanonica + 0.5));
+      expect(busto.bottom, lessThan(saluto.top),
+          reason: 'il busto e il saluto si toccano');
+      final areaLibera = composer.top;
+      expect(saluto.bottom, lessThan(areaLibera),
+          reason: 'il saluto non sta nell\'area libera: e\' tagliato, e un '
+              'testo tagliato non e\' un testo che si legge');
+
+      // Senza questa riga la prova passerebbe anche con un busto sparito.
+      expect(busto.height,
+          greaterThanOrEqualTo(ChatEmptyState.altezzaMinimaDelBusto - 0.5),
+          reason: 'il busto e\' sceso sotto la sua misura minima dichiarata: '
+              'non e\' piu\' un ritratto');
+      // ignore: avoid_print
+      print('CI.01 $id: busto ${busto.height.toStringAsFixed(0)}, saluto fino '
+          'a ${saluto.bottom.toStringAsFixed(0)}, compositore da '
+          '${composer.top.toStringAsFixed(0)}');
+      if (maestro == Maestro.medora) {
+        await capture(tester, rootKey, 'chat-vuota-scala-massima.png');
+      }
+    });
+
     testWidgets('Cattura lo stato vuoto, $id', (tester) async {
       silenceSensors();
       await loadFonts();

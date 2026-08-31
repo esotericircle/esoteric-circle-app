@@ -57,12 +57,11 @@ void main() {
     'casa di Medora': ColorTokens.medoraSurface,
     'casa di Caligo': ColorTokens.caligoSurface,
     'casa di Aura': ColorTokens.auraSurface,
-    'vetro sopra Medora': composto(
-        ColorTokens.glassTint, ColorTokens.medoraDeep),
-    'vetro sopra Caligo': composto(
-        ColorTokens.glassTint, ColorTokens.caligoDeep),
-    'vetro sopra Aura':
-        composto(ColorTokens.glassTint, ColorTokens.auraDeep),
+    'vetro sopra Medora':
+        composto(ColorTokens.glassTint, ColorTokens.medoraDeep),
+    'vetro sopra Caligo':
+        composto(ColorTokens.glassTint, ColorTokens.caligoDeep),
+    'vetro sopra Aura': composto(ColorTokens.glassTint, ColorTokens.auraDeep),
   };
 
   /// **OGNI COLORE CHE PORTA TESTO**, token del progetto e tinte delle tre
@@ -123,8 +122,7 @@ void main() {
     final stile = RegExp(
         r'TypographyTokens\.(\w+)\([^()]*\)[\s\n]*\.copyWith\(([^;]{0,400}?)\)',
         multiLine: true);
-    final colore = RegExp(
-        r'color:\s*((?:ColorTokens|palette)\.\w+)'
+    final colore = RegExp(r'color:\s*((?:ColorTokens|palette)\.\w+)'
         r'(?:\s*\.withValues\(alpha:\s*([0-9.]+)\))?');
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
@@ -163,8 +161,8 @@ void main() {
             colore: tutti['$casa.$corto']!,
             fondi: {
               'fondo piu scuro': fondi['fondo piu scuro']!,
-              'casa di ${casa[0].toUpperCase()}${casa.substring(1)}':
-                  fondi['casa di ${casa[0].toUpperCase()}${casa.substring(1)}']!,
+              'casa di ${casa[0].toUpperCase()}${casa.substring(1)}': fondi[
+                  'casa di ${casa[0].toUpperCase()}${casa.substring(1)}']!,
               'vetro sopra ${casa[0].toUpperCase()}${casa.substring(1)}': fondi[
                   'vetro sopra ${casa[0].toUpperCase()}${casa.substring(1)}']!,
             },
@@ -202,8 +200,8 @@ void main() {
             'lettura dei sorgenti si e rotta, e un censimento che non trova '
             'niente e verde per cecita');
     final misure = censimento()
-      ..sort((a, b) =>
-          (a.rapporto / a.soglia).compareTo(b.rapporto / b.soglia));
+      ..sort(
+          (a, b) => (a.rapporto / a.soglia).compareTo(b.rapporto / b.soglia));
     // ignore: avoid_print
     print('ORDINE AU VOCE 08: ${punti.length} punti del codice dipingono '
         'testo, e fanno ${misure.length} misure sui fondi che quei testi '
@@ -213,7 +211,8 @@ void main() {
         'devono rispettare');
     for (final m in misure.take(20)) {
       // ignore: avoid_print
-      print('  ${m.rapporto.toStringAsFixed(2)} contro ${m.soglia} : ${m.voce}');
+      print(
+          '  ${m.rapporto.toStringAsFixed(2)} contro ${m.soglia} : ${m.voce}');
     }
     final sotto = misure.where((m) => m.rapporto < m.soglia).length;
     // ignore: avoid_print
@@ -233,5 +232,113 @@ void main() {
     expect(elenco, isEmpty,
         reason: 'questi testi non arrivano alla loro soglia sul fondo su cui '
             'sono dipinti, e sono ${elenco.length}:\n  ${elenco.join("\n  ")}');
+  });
+  // --- IL COLORE CHE NESSUNO HA SCRITTO. Ordine CI voce 08. ---
+
+  /// **IL PRIMARIO NON PORTA MAI TESTO, ne' scritto ne' ereditato.**
+  ///
+  /// **La cecita' vera di questo censimento, e non era quella che si
+  /// pensava.** L'ordine supponeva che guardasse solo coppie di grigi: non e'
+  /// cosi', gli ori e le tinte dei tre Maestri ci sono da sempre. Il buco era
+  /// un altro e piu' insidioso: **questo censimento legge i SORGENTI cercando
+  /// `color:`**, quindi vede solo i colori che qualcuno ha scritto. Un widget
+  /// che il colore non lo scrive, e se lo prende dal tema, per lui non esiste.
+  ///
+  /// E' esattamente cosi' che la riga "I giorni prima" e' arrivata a schermo
+  /// in viola su fondo scuro: un `TextButton` nudo prende il primario dello
+  /// schema Material, che in `AppTheme.dark()` e' il primario della tavolozza
+  /// NEUTRA. Per questo era identica su tutti e tre i Maestri: non era il
+  /// colore di nessuno dei tre.
+  ///
+  /// **La misura che chiude la questione**: i quattro primari contro i sette
+  /// fondi veri di questo censimento fanno 28 coppie, e **26 non arrivano
+  /// nemmeno a 4,5**, cioe' alla soglia dei titoli grandi, figurarsi ai 7 dei
+  /// testi piccoli. I primari sono colori di MARCHIO: stanno benissimo su un
+  /// bordo, su un riempimento, su un anello, e non devono portare testo mai.
+  test('il primario non porta mai testo, e la misura dice perche', () {
+    final colori = <String, Color>{
+      'neutra.primary': MaestroPalette.neutral.primary,
+      'medora.primary': MaestroPalette.medora.primary,
+      'aura.primary': MaestroPalette.aura.primary,
+      'caligo.primary': MaestroPalette.caligo.primary,
+    };
+    var coppie = 0;
+    var sotto = 0;
+    for (final c in colori.entries) {
+      for (final f in fondi.entries) {
+        coppie++;
+        if (contrasto(c.value, f.value) < 4.5) sotto++;
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CI VOCE 08: coppie di primari esaminate $coppie, sotto la '
+        'soglia dei titoli grandi $sotto');
+    expect(coppie, 28);
+    expect(sotto, greaterThanOrEqualTo(26),
+        reason: 'i primari sono diventati leggibili come testo: se e\' vero '
+            'questa regola si puo\' allentare, ma va rimisurata e riscritta, '
+            'non tolta in silenzio');
+  });
+
+  /// **NESSUN COMANDO DI TESTO EREDITA IL COLORE DAL TEMA.**
+  ///
+  /// Un `TextButton` senza stile prende il primario, e il primario non porta
+  /// testo: e' la regola qui sopra applicata al posto in cui il difetto
+  /// nasce davvero. Questa prova enumera invece di campionare, perche' era
+  /// proprio il campionamento a non vedere niente.
+  ///
+  /// **LE DEROGHE SONO DICHIARATE, e non sono un permesso.** Sono i punti che
+  /// esistevano gia' il 1 settembre 2026, contati e non stimati: diciassette,
+  /// quasi tutti in fogli e finestre di dialogo che stanno sopra una
+  /// superficie Material e non sopra il cosmo. **L'ordine CI dice di
+  /// elencarli e non di correggerli tutti**, perche' correggerli e' un
+  /// lavoro di prodotto che va guardato a schermo uno per uno. L'elenco puo'
+  /// solo accorciarsi: una riga nuova fa cadere questa prova.
+  test('nessun comando di testo prende il colore dal tema senza dirlo', () {
+    const deroghe = <String>{
+      'lib/core/cammino/custode_del_cammino.dart',
+      'lib/core/permissions/avviso_del_permesso.dart',
+      'lib/features/account/account_screen.dart',
+      'lib/features/account/custodia_del_cielo.dart',
+      'lib/features/onboarding/custodia_del_cielo_step.dart',
+      'lib/features/pricing/pricing_screen.dart',
+      'lib/features/ricordi/ricordi_screen.dart',
+    };
+    final nudi = <String>[];
+    var quanti = 0;
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      final percorso = f.path.replaceAll(Platform.pathSeparator, '/');
+      final righe = f.readAsLinesSync();
+      for (var i = 0; i < righe.length; i++) {
+        if (righe[i].trimLeft().startsWith('//')) continue;
+        if (!righe[i].contains('TextButton(') &&
+            !righe[i].contains('TextButton.icon(')) {
+          continue;
+        }
+        quanti++;
+        final blocco =
+            righe.sublist(i, (i + 14).clamp(0, righe.length)).join('\n');
+        if (blocco.contains('style:')) continue;
+        if (deroghe.contains(percorso)) continue;
+        nudi.add('$percorso riga ${i + 1}');
+      }
+    }
+    expect(quanti, greaterThan(50),
+        reason: 'questa prova ha guardato solo $quanti comandi: o sono spariti '
+            'o non li sta piu\' trovando');
+    expect(nudi, isEmpty,
+        reason: 'questi comandi non dichiarano il loro colore, quindi lo '
+            'prendono dal primario del tema, che su questi fondi sta fra 1,40 '
+            'e 2,53 di contrasto:\n${nudi.join("\n")}');
+
+    // E NESSUNA DEROGA RESTA APPESA A UN FILE CHE NON NE HA PIU' BISOGNO.
+    final spente = <String>[];
+    for (final d in deroghe) {
+      final testo = File(d).existsSync() ? File(d).readAsStringSync() : '';
+      if (!testo.contains('TextButton')) spente.add(d);
+    }
+    expect(spente, isEmpty,
+        reason: 'queste deroghe non hanno piu\' niente da scusare: $spente');
   });
 }
