@@ -433,23 +433,41 @@ class _CasellaDelMese extends StatelessWidget {
   Widget build(BuildContext context) {
     final dominante = riassunto.maestroDominante;
     final colore = _coloreDi(dominante) ?? palette.gold;
+    // **UN MESE VUOTO NON SI VESTE COME UN MESE IN PAREGGIO.** Trovato
+    // guardando l'anteprima: l'oro voleva dire due cose diverse, "in questo
+    // mese hai usato due Maestri alla pari" e "in questo mese non hai fatto
+    // niente", e a colpo d'occhio erano la stessa casella. Adesso il vuoto e'
+    // spento e senza bordo acceso: si legge che li' non c'e' niente prima di
+    // leggere lo zero.
+    final vuoto = riassunto.vuoto;
     return InkWell(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: colore.withValues(alpha: 0.12 + 0.5 * peso),
+          color: vuoto
+              ? Colors.transparent
+              : colore.withValues(alpha: 0.12 + 0.5 * peso),
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          border: Border.all(color: colore.withValues(alpha: 0.4)),
+          border: Border.all(
+              color: vuoto
+                  ? ColorTokens.textSecondary.withValues(alpha: 0.15)
+                  : colore.withValues(alpha: 0.4)),
         ),
         padding: const EdgeInsets.all(SpacingTokens.sm),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(nome, style: TypographyTokens.etichetta()),
+            Text(nome,
+                style: TypographyTokens.etichetta().copyWith(
+                    color: vuoto
+                        ? ColorTokens.textSecondary.withValues(alpha: 0.5)
+                        : null)),
             const SizedBox(height: SpacingTokens.xs),
             Text('${riassunto.quanteVoci}',
-                style: TypographyTokens.titoloScheda()
-                    .copyWith(color: ColorTokens.textPrimary)),
+                style: TypographyTokens.titoloScheda().copyWith(
+                    color: vuoto
+                        ? ColorTokens.textSecondary.withValues(alpha: 0.5)
+                        : ColorTokens.textPrimary)),
           ],
         ),
       ),
@@ -600,7 +618,11 @@ class _IlGiorno extends StatelessWidget {
     if (r.vuoto) return 'Quel giorno il Cerchio è rimasto in silenzio.';
     final pezzi = <String>[
       '${r.quanteVoci} ${r.quanteVoci == 1 ? "momento" : "momenti"}',
-      '${r.quantiDoni} Doni su ${ContiDelleArti.gestiDeiDoni.length}',
+      // **UNO SI DICE DONO, non Doni.** Trovato guardando l'anteprima: la
+      // riga diceva "1 Doni su 5". E' la stessa famiglia dei "I tuoi Stella"
+      // che l'ordine P voce 38 aveva gia' chiuso altrove.
+      '${r.quantiDoni} ${r.quantiDoni == 1 ? "Dono" : "Doni"} su '
+          '${ContiDelleArti.gestiDeiDoni.length}',
       if (r.quantiTraguardi > 0)
         '${r.quantiTraguardi} ${r.quantiTraguardi == 1 ? "traguardo" : "traguardi"}',
     ];
@@ -990,12 +1012,33 @@ class _CartaCustodita extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.titoloScheda()),
             const SizedBox(height: SpacingTokens.sm),
+            // **IL TESTO SI CHIUDE COI PUNTINI, non a meta' parola.** Trovato
+            // guardando l'anteprima: dentro un `Expanded` il taglio lo fa
+            // l'ALTEZZA disponibile, e `maxLines` quell'altezza non la
+            // conosce, quindi l'ellissi non scattava mai e l'ultima riga
+            // usciva mozzata a meta' lettera. **Un ritaglio non e' una
+            // chiusura**: chi legge non sa se il testo finisce li' o se
+            // continua.
+            //
+            // Le righe si contano dall'altezza vera, e i puntini tornano a
+            // essere i puntini.
             Expanded(
-              child: Text(custodito.testo,
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary)),
+              child: LayoutBuilder(
+                builder: (context, vincoli) {
+                  final stile = TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary);
+                  final altezzaDiUnaRiga =
+                      (stile.fontSize ?? 16) * (stile.height ?? 1.3);
+                  final quante =
+                      (vincoli.maxHeight / altezzaDiUnaRiga).floor();
+                  return Text(
+                    custodito.testo,
+                    maxLines: quante < 1 ? 1 : quante,
+                    overflow: TextOverflow.ellipsis,
+                    style: stile,
+                  );
+                },
+              ),
             ),
           ],
         ),

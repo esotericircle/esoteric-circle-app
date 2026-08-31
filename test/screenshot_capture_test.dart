@@ -1,4 +1,10 @@
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
+import 'package:esoteric_circle/core/ricordi/lettura_del_mese.dart';
+import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
+import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
+import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
+import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
+import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -6318,6 +6324,237 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'foglio-di-una-funzione.png');
   });
+
+  // ================================================================
+  // I RICORDI DEL CERCHIO. Ordine CG voci 01, 02, 05 e 07.
+  //
+  // **Cinque scene, perche' la schermata ne ha cinque.** Le due viste della
+  // levetta, i tre livelli della timeline che una persona vede scendendo, e
+  // la griglia delle Carte: una schermata con piu' scene si cattura scena per
+  // scena, altrimenti l'anteprima mostra solo la prima e nessuno guarda le
+  // altre.
+  // ================================================================
+
+  /// Il registro dei Ricordi con dentro un mese vissuto davvero.
+  ///
+  /// **Non e' un mese finto pieno di niente**: le voci sono sparse su giorni
+  /// diversi, con arti e Maestri diversi, cosi' le caselle dell'anno hanno
+  /// pesi diversi e il colore dominante si vede. Un mese tutto uguale
+  /// mostrerebbe dodici caselle identiche, cioe' un'anteprima che non dice
+  /// niente di quello che la schermata fa.
+  Future<RegistroDeiRicordi> registroConUnMese() async {
+    final registro =
+        RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31, 21));
+    await registro.carica();
+    const arti = [
+      ('gettata', 'caligo', 'Una gettata di rune'),
+      ('oroscopo', 'medora', 'Il tuo oroscopo di oggi'),
+      ('alba', 'medora', 'La tua parola del giorno'),
+      ('meditazione', 'aura', 'Dieci minuti di respiro'),
+      ('tramonto', 'caligo', 'La runa del tramonto'),
+      ('sinastria', 'medora', 'La tua sinastria con Ariana Grande'),
+      ('viso', 'aura', 'La tua Costellazione del Viso'),
+    ];
+    for (var giorno = 1; giorno <= 28; giorno++) {
+      final quante = (giorno % 4) + 1;
+      for (var i = 0; i < quante; i++) {
+        final a = arti[(giorno + i) % arti.length];
+        await registro.segna(VoceDelRicordo(
+          quando: DateTime(2026, 8, giorno, 8 + i * 3, 15),
+          arte: a.$1,
+          maestro: a.$2,
+          titolo: a.$3,
+          tipo: TipoDelRicordo.gesto,
+        ));
+      }
+    }
+    // E qualche mese prima, perche' l'anno non sia una casella sola accesa.
+    for (var mese = 3; mese <= 7; mese++) {
+      for (var i = 0; i < mese * 2; i++) {
+        final a = arti[(mese + i) % arti.length];
+        await registro.segna(VoceDelRicordo(
+          quando: DateTime(2026, mese, (i % 27) + 1, 9),
+          arte: a.$1,
+          maestro: a.$2,
+          titolo: a.$3,
+          tipo: TipoDelRicordo.gesto,
+        ));
+      }
+    }
+    return registro;
+  }
+
+  Future<ScrignoDeiCustoditi> scrignoConTreCarte() async {
+    final scrigno = ScrignoDeiCustoditi();
+    await scrigno.carica();
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 24, 19, 40),
+      arte: 'gettata',
+      maestro: 'caligo',
+      titolo: 'La tua gettata: le tre Norne',
+      testo: 'Uruz ti chiede di non trattenere la forza che hai già. '
+          'Quello che stai rimandando non aspetta te, aspetta un tuo gesto.',
+      comeENato: ComeENato.gesto,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 18, 9, 5),
+      arte: 'oroscopo',
+      maestro: 'medora',
+      titolo: 'Il tuo oroscopo, Bilancia',
+      testo: 'La Luna passa sulla tua casa del lavoro e mette in luce una '
+          'cosa che sai già. Oggi non serve decidere: serve guardare.',
+      comeENato: ComeENato.condivisione,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 11, 21, 30),
+      arte: 'tramonto',
+      maestro: 'caligo',
+      titolo: 'La tua runa del tramonto: Laguz',
+      testo: 'L\'acqua non spinge, scava. Stanotte lascia fuori la fretta '
+          'di capire tutto insieme.',
+      comeENato: ComeENato.gesto,
+    ));
+    return scrigno;
+  }
+
+  Future<GlobalKey> montaIRicordi(
+    WidgetTester tester, {
+    required VistaDelJournal vista,
+  }) async {
+    await montaLoSchermo(tester, const Size(360, 800));
+    final registro = await registroConUnMese();
+    final scrigno = await scrignoConTreCarte();
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
+          ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          // **LA LETTURA DEL MESE C'E' ANCHE NELLE ANTEPRIME.** Senza questo
+          // provider la riga non compare affatto, e l'anteprima del mese
+          // mostrerebbe una schermata a cui manca un pezzo. Il piano resta
+          // quello di partenza, il Viandante, quindi si vede l'INVITO: che e'
+          // esattamente cio' che vede la maggior parte delle persone.
+          ChangeNotifierProvider(create: (_) => LetturaDelMese()..carica()),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.dark(),
+          home: MaestroScope(
+            maestro: Maestro.medora,
+            child: RicordiScreen(
+              vistaIniziale: vista,
+              orologio: () => DateTime(2026, 8, 31, 21),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  testWidgets('Cattura i Ricordi, la vista del Cammino', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.cammino);
+    await capture(tester, rootKey, 'ricordi-il-cammino.png');
+  });
+
+  testWidgets('Cattura i Ricordi, l\'anno a dodici caselle', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await capture(tester, rootKey, 'ricordi-lanno.png');
+  });
+
+  testWidgets('Cattura i Ricordi, il mese in settimane', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.tap(find.byKey(const Key('ricordi_mese_8')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-il-mese.png');
+  });
+
+  testWidgets('Cattura i Ricordi, il giorno coi suoi momenti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.tap(find.byKey(const Key('ricordi_mese_8')));
+    await step(tester);
+    // La prima settimana che ha qualcosa dentro.
+    final settimane = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_settimana_'));
+    await tester.tap(settimane.at(1));
+    await step(tester);
+    final giorni = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_giorno_'));
+    await tester.tap(giorni.at(0));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-il-giorno.png');
+  });
+
+  testWidgets('Cattura i Ricordi, Le tue Carte', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ricordi_pastiglia_custoditi')),
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await tester.tap(find.byKey(const Key('ricordi_pastiglia_custoditi')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-le-tue-carte.png');
+  });
+
+  testWidgets('Cattura un ricordo riaperto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(360, 800));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        theme: AppTheme.dark(),
+        home: MaestroScope(
+          maestro: Maestro.caligo,
+          child: RicordoApertoScreen(
+            custodito: RicordoCustodito(
+              quando: DateTime(2026, 8, 24, 19, 40),
+              arte: 'gettata',
+              maestro: 'caligo',
+              titolo: 'La tua gettata: le tre Norne',
+              testo: 'Uruz ti chiede di non trattenere la forza che hai '
+                  'gia\'. Quello che stai rimandando non aspetta te, '
+                  'aspetta un tuo gesto. Ansuz porta la parola che non hai '
+                  'detto, e Laguz dice che non serve dirla tutta in una '
+                  'volta.',
+              comeENato: ComeENato.gesto,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordo-riaperto.png');
+  });
+
 
 }
 
