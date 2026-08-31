@@ -17,6 +17,8 @@ class GemelloAstrale {
     required this.punteggio,
     required this.secondo,
     required this.punteggioDelSecondo,
+    required this.terzo,
+    required this.punteggioDelTerzo,
   });
 
   final Vip vip;
@@ -26,6 +28,11 @@ class GemelloAstrale {
   /// una prova per verificare che il primo sia davvero il primo.
   final Vip secondo;
   final int punteggioDelSecondo;
+
+  /// **IL TERZO DEL PODIO.** Richiesta del fondatore del 31 agosto 2026: la
+  /// classifica dei primi tre, col podio disegnato.
+  final Vip terzo;
+  final int punteggioDelTerzo;
 
   /// Di quanto il gemello stacca il secondo.
   int get distacco => punteggio - punteggioDelSecondo;
@@ -40,30 +47,40 @@ class GemelloAstrale {
   /// potrebbero dare due gemelli diversi, che e' esattamente cio' che
   /// "deterministico" esclude.
   static GemelloAstrale? per(CieloDiSinastria tuo) {
-    Vip? primo;
-    var punteggioPrimo = -1;
-    Vip? secondo;
-    var punteggioSecondo = -1;
-    for (final v in VipCatalog.vips) {
-      final p = SynastryReport.perCieli(tuo: tuo, vip: v).overall;
-      if (p > punteggioPrimo) {
-        secondo = primo;
-        punteggioSecondo = punteggioPrimo;
-        primo = v;
-        punteggioPrimo = p;
-      } else if (p > punteggioSecondo) {
-        secondo = v;
-        punteggioSecondo = p;
-      }
-    }
-    if (primo == null || secondo == null) return null;
+    // **IL PODIO SI COSTRUISCE ORDINANDO, non con tre variabili. Richiesta
+    // del fondatore del 31 agosto 2026.** Il conto teneva primo e secondo con
+    // due coppie di variabili, e per il terzo ne sarebbe servita una terza:
+    // tre coppie che si scambiano a mano sono il modo in cui un podio nasce
+    // sbagliato. Cinquanta punteggi si ordinano in un soffio.
+    final conto = <(Vip, int)>[
+      for (final v in VipCatalog.vips)
+        (v, SynastryReport.perCieli(tuo: tuo, vip: v).overall),
+    ];
+    // **A parita' di punteggio vince chi viene prima nel catalogo**, e non e'
+    // un dettaglio: senza una regola di spareggio dichiarata due esecuzioni
+    // potrebbero dare due gemelli diversi. `sort` in Dart e' stabile, quindi
+    // l'ordine del catalogo regge da solo.
+    conto.sort((a, b) => b.$2.compareTo(a.$2));
+    if (conto.length < 3) return null;
     return GemelloAstrale(
-      vip: primo,
-      punteggio: punteggioPrimo,
-      secondo: secondo,
-      punteggioDelSecondo: punteggioSecondo,
+      vip: conto[0].$1,
+      punteggio: conto[0].$2,
+      secondo: conto[1].$1,
+      punteggioDelSecondo: conto[1].$2,
+      terzo: conto[2].$1,
+      punteggioDelTerzo: conto[2].$2,
     );
   }
+
+  /// **IL PODIO, primo secondo e terzo.** Richiesta del fondatore del 31
+  /// agosto 2026: "inserirei prima di tutto una classifica dei primi 3
+  /// risultati/carte vip con una specie di podio graficamente, come in
+  /// Formula uno".
+  List<({Vip vip, int punteggio, int posto})> get podio => [
+        (vip: vip, punteggio: punteggio, posto: 1),
+        (vip: secondo, punteggio: punteggioDelSecondo, posto: 2),
+        (vip: terzo, punteggio: punteggioDelTerzo, posto: 3),
+      ];
 
   /// La riga che lo annuncia, col fatto invece di un superlativo.
   String get annuncio => distacco <= 1

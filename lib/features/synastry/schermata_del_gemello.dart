@@ -17,6 +17,9 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'rivelazione_del_gemello.dart';
 import 'sinastria_vip_screen.dart';
+import '../../core/synastry/perche_proprio_lui.dart';
+import 'podio_del_gemello.dart';
+import 'sinastria_share_card.dart';
 
 /// LA SCHERMATA DEL GEMELLO ASTRALE. Ordine CF voce 14.
 ///
@@ -88,8 +91,16 @@ class SchermataDelGemello extends StatefulWidget {
   /// Quando arriva il nome, dopo il volto.
   static const Duration ilNome = Duration(milliseconds: 3800);
 
-  /// Quando arriva il responso, dopo il nome.
-  static const Duration ilResponso = Duration(milliseconds: 4600);
+  /// **QUANDO SALE IL PODIO E SI RIEMPIE IL CERCHIO.** Richiesta del
+  /// fondatore del 31 agosto 2026: la parte grafica viene prima del testo,
+  /// quindi arriva prima del responso e non dopo.
+  static const Duration laGrafica = Duration(milliseconds: 4400);
+
+  /// Quanto ci mettono i gradini a salire e l'arco a chiudersi.
+  static const Duration corsaDellaGrafica = Duration(milliseconds: 900);
+
+  /// Quando arriva il responso, per ultimo.
+  static const Duration ilResponso = Duration(milliseconds: 5600);
 
   @override
   State<SchermataDelGemello> createState() => _SchermataDelGemelloState();
@@ -120,8 +131,20 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
 
   bool get _voltoFermo => _quando >= SchermataDelGemello.sfilata.inMilliseconds;
   bool get _nomeArrivato => _quando >= SchermataDelGemello.ilNome.inMilliseconds;
+  bool get _graficaArrivata =>
+      _quando >= SchermataDelGemello.laGrafica.inMilliseconds;
   bool get _responsoArrivato =>
       _quando >= SchermataDelGemello.ilResponso.inMilliseconds;
+
+  /// Da zero a uno: quanto il podio e' salito e il cerchio si e' riempito.
+  double get _quantoDellaGrafica {
+    if (!_graficaArrivata) return 0;
+    final passati =
+        _quando - SchermataDelGemello.laGrafica.inMilliseconds;
+    return (passati /
+            SchermataDelGemello.corsaDellaGrafica.inMilliseconds)
+        .clamp(0.0, 1.0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +159,11 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
       tuo: widget.tuoCielo,
       vip: vip,
       quando: widget.adesso,
+    );
+    final parole = PercheProprioLui.perIlGemello(
+      widget.gemello,
+      widget.tuoCielo,
+      rapporto,
     );
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
@@ -209,11 +237,52 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                           .copyWith(color: palette.goldSoft)),
                 if (_nomeArrivato) ...[
                   const SizedBox(height: SpacingTokens.xs),
+                  // **IL TITOLO CHE SI CONDIVIDE.** Richiesta del fondatore
+                  // del 31 agosto 2026: "un titolo accattivante e anche un
+                  // po' meme, che spinga alla condivisione, qualcosa di
+                  // memorabile". Nasce dai due elementi e dal punteggio,
+                  // quindi due persone leggono due titoli diversi, ed e'
+                  // quello che rende una cosa condivisibile.
+                  // **Testo provvisorio**: le parole le approva lui.
+                  Text(parole.titolo,
+                      key: const Key('gemello_titolo_meme'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.cerimoniale()
+                          .copyWith(color: palette.goldSoft)),
+                  const SizedBox(height: SpacingTokens.xs),
                   Text(widget.gemello.annuncio,
                       key: const Key('gemello_annuncio'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.lettura()
                           .copyWith(color: ColorTokens.textSecondary)),
+                ],
+                // **LA GRAFICA PRIMA DEL TESTO, ed e' la regola del
+                // progetto.** Richiesta del fondatore del 31 agosto 2026: "la
+                // parte grafica o infografica e' prioritaria". Il cerchio dice
+                // il punteggio senza farlo leggere, e il podio dice in un
+                // istante se il gemello e' netto o se sono tre quasi pari:
+                // "stacca il secondo di dieci punti" e' un fatto, tre gradini
+                // di altezza diversa lo fanno VEDERE.
+                if (_graficaArrivata) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  Center(
+                    child: CerchioDellaPercentuale(
+                      percento: rapporto.overall,
+                      palette: palette,
+                      avanzamento: _quantoDellaGrafica,
+                    ),
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                  Text('IL PODIO DEI TRE PIU\' VICINI',
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.6)),
+                  const SizedBox(height: SpacingTokens.sm),
+                  PodioDelGemello(
+                    gemello: widget.gemello,
+                    palette: palette,
+                    avanzamento: _quantoDellaGrafica,
+                  ),
                 ],
                 // **IL RESPONSO ARRIVA PER ULTIMO, ed e' quello della
                 // Sinastria**: le stesse parole, lo stesso corpus, lo stesso
@@ -231,6 +300,29 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                             style: TypographyTokens.titoloScheda()
                                 .copyWith(color: palette.goldSoft)),
                         const SizedBox(height: SpacingTokens.sm),
+                        // **PERCHE' PROPRIO LUI: due risposte e non una.**
+                        // Richiesta del fondatore del 31 agosto 2026: "vorra'
+                        // una risposta tecnica che riguarda le stelle, ma
+                        // soprattutto una risposta evocativa legata alla
+                        // personalita'". La tecnica dice cos'e' successo nel
+                        // cielo, l'evocativa cosa vuol dire: la prima da sola
+                        // sembra un referto, la seconda da sola un oroscopo
+                        // da rivista.
+                        Text('Perche\' proprio lui',
+                            key: const Key('gemello_perche_titolo'),
+                            style: TypographyTokens.titoloDiRiga()
+                                .copyWith(color: palette.goldSoft)),
+                        const SizedBox(height: SpacingTokens.xs),
+                        Text(parole.tecnica,
+                            key: const Key('gemello_perche_tecnica'),
+                            style: TypographyTokens.lettura()
+                                .copyWith(color: ColorTokens.textPrimary)),
+                        const SizedBox(height: SpacingTokens.sm),
+                        Text(parole.evocativa,
+                            key: const Key('gemello_perche_evocativa'),
+                            style: TypographyTokens.lettura()
+                                .copyWith(color: ColorTokens.textPrimary)),
+                        const SizedBox(height: SpacingTokens.md),
                         ParagrafiDiLettura(
                           key: const Key('gemello_responso'),
                           testo: rapporto.reading,
@@ -242,6 +334,33 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                           Text(rapporto.nota,
                               style: TypographyTokens.didascalia().copyWith(
                                   color: ColorTokens.textSecondary)),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                  // **LE BARRE DELLA PERSONALITA', le stesse della
+                  // Sinastria.** Richiesta del fondatore del 31 agosto 2026:
+                  // "inserirei delle barre di personalita' (come nel responso
+                  // di una sinastria vip) per rafforzare il gemellaggio col
+                  // vip". Sono le stesse per costruzione: `report.bars` e'
+                  // l'unico posto dove quelle dimensioni vivono, e una
+                  // seconda copia direbbe numeri diversi per la stessa
+                  // coppia.
+                  DepthCard(
+                    padding: const EdgeInsets.all(SpacingTokens.lg),
+                    child: Column(
+                      key: const Key('gemello_barre'),
+                      children: [
+                        for (final bar in rapporto.bars) ...[
+                          SynastryBarRow(
+                            bar: bar,
+                            palette: palette,
+                            progress: 1,
+                            meetingReport: rapporto,
+                          ),
+                          if (bar != rapporto.bars.last)
+                            const SizedBox(height: SpacingTokens.sm),
                         ],
                       ],
                     ),

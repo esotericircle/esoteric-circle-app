@@ -95,8 +95,16 @@ void main() {
     final nomeDopo = find.byKey(const Key('gemello_nome')).evaluate().length;
     final responsoInMezzo =
         find.byKey(const Key('gemello_responso')).evaluate().length;
-    // Alla fine, tutti e tre.
-    await tester.pump(const Duration(milliseconds: 1200));
+    // Alla fine, tutti e tre. **Ci si scorre**, perche' con il podio e il
+    // cerchio la schermata e' diventata alta e la lista non costruisce cio'
+    // che sta molto sotto la piega: una prova che non scorresse direbbe
+    // che il responso non arriva mai.
+    await tester.pump(const Duration(milliseconds: 2200));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('gemello_responso')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     final responsoDopo =
         find.byKey(const Key('gemello_responso')).evaluate().length;
     // ignore: avoid_print
@@ -112,11 +120,129 @@ void main() {
     expect(responsoDopo, 1, reason: 'il responso non arriva mai');
   });
 
+  testWidgets('la grafica arriva PRIMA del testo, ed e\' la regola',
+      (tester) async {
+    // **Richiesta del fondatore del 31 agosto 2026**: "come regola UX, la
+    // parte grafica o infografica e' prioritaria". Qui si misura l'ordine:
+    // il cerchio e il podio ci sono gia' quando il responso non c'e' ancora.
+    final g = await gemello();
+    await apri(tester, g);
+    await tester.pump(const Duration(milliseconds: 4600));
+    final cerchio =
+        find.byKey(const Key('gemello_cerchio_percentuale')).evaluate().length;
+    // Il podio sta sotto il cerchio, quindi sotto la piega: si scorre.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('gemello_podio')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    final podio = find.byKey(const Key('gemello_podio')).evaluate().length;
+    final responso =
+        find.byKey(const Key('gemello_responso')).evaluate().length;
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 14: a 4600 millesimi cerchio $cerchio, podio '
+        '$podio, responso $responso');
+    expect(cerchio, 1, reason: 'il cerchio della percentuale non arriva');
+    expect(podio, 1, reason: 'il podio dei tre non arriva');
+    expect(responso, 0,
+        reason: 'il responso arriva insieme alla grafica: la regola del '
+            'progetto dice che il livello visivo viene PRIMA del testo');
+  });
+
+  testWidgets('il podio ha tre gradini, e il primo e\' il piu\' alto',
+      (tester) async {
+    // **Richiesta del fondatore**: "una classifica dei primi 3 risultati con
+    // una specie di podio graficamente, come in Formula uno". Un podio in cui
+    // i gradini sono uguali non dice niente: la loro altezza E' il fatto.
+    final g = await gemello();
+    await apri(tester, g);
+    await tester.pump(const Duration(milliseconds: 6000));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('gemello_podio')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    final altezze = <int, double>{};
+    for (final posto in const [1, 2, 3]) {
+      final f = find.byKey(Key('gemello_podio_gradino_$posto'));
+      expect(f, findsOneWidget, reason: 'manca il gradino del posto $posto');
+      altezze[posto] = tester.getSize(f).height;
+    }
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 14: gradini $altezze, e i tre punteggi sono '
+        '${g.podio.map((v) => v.punteggio).toList()}');
+    expect(altezze[1]! > altezze[2]!, isTrue,
+        reason: 'il gradino del primo non e\' piu\' alto di quello del '
+            'secondo: non e\' un podio, e\' una fila');
+    expect(altezze[2]! > altezze[3]!, isTrue,
+        reason: 'il gradino del secondo non e\' piu\' alto di quello del '
+            'terzo');
+  });
+
+  test('il podio dice i tre veri, in ordine di punteggio', () {
+    final g = GemelloAstrale.per(cielo)!;
+    final punteggi = g.podio.map((v) => v.punteggio).toList();
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 14: il podio dice ${g.podio.map((v) => v.vip.name)} '
+        'con $punteggi');
+    expect(g.podio, hasLength(3), reason: 'il podio non ha tre posti');
+    expect(punteggi[0] >= punteggi[1], isTrue,
+        reason: 'il primo del podio non ha il punteggio piu\' alto');
+    expect(punteggi[1] >= punteggi[2], isTrue,
+        reason: 'il secondo del podio sta sotto il terzo');
+    // **E i tre sono DIVERSI**: un podio con due volte la stessa faccia
+    // vorrebbe dire che l'ordinamento ha perso un pezzo.
+    final nomi = g.podio.map((v) => v.vip.name).toSet();
+    expect(nomi, hasLength(3), reason: 'sul podio c\'e\' due volte la '
+        'stessa persona');
+  });
+
+  testWidgets('il titolo, le due risposte e le barre ci sono tutti',
+      (tester) async {
+    // **Le quattro cose che il fondatore ha chiesto il 31 agosto 2026**, e
+    // ognuna ha la sua ragione nella sua sezione del manifesto.
+    final g = await gemello();
+    await apri(tester, g);
+    await tester.pump(const Duration(milliseconds: 6000));
+    final mancanti = <String>[];
+    const attese = <String, String>{
+      'il titolo che si condivide': 'gemello_titolo_meme',
+      'la risposta tecnica': 'gemello_perche_tecnica',
+      'la risposta evocativa': 'gemello_perche_evocativa',
+      'le barre della personalita\'': 'gemello_barre',
+    };
+    for (final voce in attese.entries) {
+      final f = find.byKey(Key(voce.value));
+      if (f.evaluate().isEmpty) {
+        // Puo\' stare sotto la piega: si scorre prima di dirlo mancante.
+        await tester.scrollUntilVisible(
+          f,
+          300,
+          scrollable: find.byType(Scrollable).first,
+        );
+      }
+      if (f.evaluate().isEmpty) mancanti.add(voce.key);
+    }
+    // ignore: avoid_print
+    print('ORDINE CF VOCE 14: delle ${attese.length} cose chieste ne mancano '
+        '${mancanti.length}');
+    expect(mancanti, isEmpty,
+        reason: 'il fondatore ha chiesto queste cose e non ci sono: '
+            '$mancanti');
+  });
+
   testWidgets('il responso e\' quello della Sinastria, e porta al suo cielo',
       (tester) async {
     final g = await gemello();
     await apri(tester, g);
-    await tester.pump(const Duration(milliseconds: 5000));
+    await tester.pump(const Duration(milliseconds: 6000));
+    // La schermata e' alta: si scorre fino al responso, che sta sotto il
+    // podio e sotto il cerchio della percentuale.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('gemello_responso')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     final responso = find.byKey(const Key('gemello_responso'));
     expect(responso, findsOneWidget);
     final titolo = find.byKey(const Key('gemello_titolo_responso'));

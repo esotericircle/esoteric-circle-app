@@ -1906,7 +1906,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    await montaLoSchermo(tester, const Size(360, 1200));
+    await montaLoSchermo(tester, const Size(360, 2200));
     final cielo = CieloDiSinastria.perNascita(
       momentoUtc: DateTime.utc(1972, 5, 20, 12),
       oraNota: false,
@@ -2088,7 +2088,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
-    await montaLoSchermo(tester, const Size(360, 1200));
+    await montaLoSchermo(tester, const Size(360, 2200));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(BoscoDelCerchio.route(mio: 'Lupo')));
     await step(tester);
@@ -4037,7 +4037,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     SharedPreferences.setMockInitialValues(const {});
-    await montaLoSchermo(tester, const Size(360, 1200));
+    await montaLoSchermo(tester, const Size(360, 2200));
     final rootKey = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: rootKey,

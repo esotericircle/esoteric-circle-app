@@ -39,7 +39,7 @@ di ognuna.
 | CF.11 | residuo in 4 punti su 6, quello delle sinastrie DOPO il gesto, e parlava senza il server | **6 su 6 prima del gesto**, da una porta sola, e **6 su 6 tacciono** senza il server |
 | CF.12 | rapporto 0,78 contro l'artwork 0,667: **14,53 per cento** di compressione | **0 per cento**, e il numero si legge da `VipFrame.aspect` in tutti e tre i punti |
 | CF.13 | `luogo.attuale` scritto da **1 punto solo**, dentro un rito, e la mappa taceva | il campo sta coi dati della persona, e la mappa dichiara da quale luogo misura |
-| CF.14 | sfilata 1600 millesimi, miniatura 120 punti, **1 frase** | schermata propria, **3 momenti** (3200, 3800, 4600), cornice 220, responso della Sinastria |
+| CF.14 | sfilata 1600 millesimi, miniatura 120 punti, **1 frase**, nessuna grafica | schermata propria, **5 momenti**, cerchio della percentuale, **podio dei 3** a gradini 64/44/30, due risposte al perche', le barre della Sinastria e un titolo da condividere |
 | CF.15 | riga del consenso su **1 via su 2** | **2 su 2**, e l'assenza dei termini dichiarata invece che promessa |
 | CF.16 | 2 porte "Privacy e dati" con la stessa icona | **1 porta**, 5 voci nel sotto menu', 2 vincoli di legge verificati per nome |
 | CF.17 | premessa: 2 lapidi col sale vuoto | **3 lapidi**, due col sale vuoto e una gia' col pepe |
@@ -694,6 +694,60 @@ Grande tutte e due le volte.
 **Anteprima guardata**, e ha trovato un difetto che nessuna prova cercava: il
 titolo "Il tuo gemello astrale" finiva troncato con tre puntini a 360 punti.
 Adesso e' "Il tuo gemello".
+
+### CF.14, la coda del 31 agosto: il fondatore ha guardato l'anteprima
+
+**Ha visto l'anteprima mentre la voce era gia' chiusa e ha chiesto altre cinque
+cose.** Verbatim: "c'e' una percentuale descritta e sarebbe utile avere una
+vista grafica (cerchio con percentuale)... ti ricordo che come regola UX, la
+parte grafica o infografica e' prioritaria... la principale domanda a cui vorra'
+l'utente sara': 'perche' proprio questo Vip e' il mio gemello?'... aggiungerei
+prima di tutto una classifica dei primi 3 risultati/carte vip con una specie di
+podio graficamente, come in Formula uno... inserirei delle barre di personalita'
+(come nel responso di una sinastria vip)... come attrattiva principale un titolo
+accattivante e anche un po' meme, che spinga alla condivisione."
+
+**1. Il cerchio della percentuale, e arriva PRIMA del testo.** E' la regola del
+progetto, non un abbellimento: il livello visivo viene prima. Un numero scritto
+in una frase e' testo; lo stesso numero disegnato si legge prima di leggere. Una
+prova misura l'ordine: a 4600 millesimi il cerchio e il podio ci sono e il
+responso no.
+
+**2. Il podio dei tre, e il Gemello adesso conta fino a tre.** Il calcolo teneva
+primo e secondo con due coppie di variabili scambiate a mano: per il terzo ne
+sarebbe servita una terza, ed e' il modo in cui un podio nasce sbagliato. Adesso
+si ordinano cinquanta punteggi, e `sort` stabile conserva la regola di
+spareggio gia' dichiarata, cioe' vince chi viene prima in catalogo. **I gradini
+hanno tre altezze diverse (64, 44, 30)**, perche' un podio a gradini uguali non
+dice niente: "stacca il secondo di dieci punti" e' un fatto, tre gradini di
+altezza diversa lo fanno VEDERE. Rosso dimostrato pareggiandoli.
+
+**3. Perche' proprio lui: due risposte e non una.** La tecnica nomina i fili
+veri che il rapporto ha gia' trovato, senza inventarne nessuno, e chiude
+sull'elemento; l'evocativa dice come si sta al mondo. **La tecnica da sola
+sembra un referto, l'evocativa da sola un oroscopo da rivista.** Tutte e due
+parlano dei due SEGNI e mai della vita di una persona reale, che e' la regola
+del fondatore del 28 agosto 2026.
+
+**4. Le barre della personalita' sono LE STESSE della Sinastria.** `report.bars`
+e' l'unico posto dove quelle dimensioni vivono: una seconda copia direbbe numeri
+diversi per la stessa coppia.
+
+**5. Il titolo che si condivide.** Nasce dai due elementi e dal punteggio,
+quindi due persone leggono due titoli diversi, ed e' quello che rende una cosa
+condivisibile. **Testi provvisori**, come tutti quelli nati in questa coda.
+
+**Tre difetti trovati GUARDANDO l'anteprima, che nessuna prova cercava.** Il
+titolo ripeteva il nome che stava gia' nella riga sopra. I tre nomi del podio
+andavano a capo un numero diverso di volte, e i gradini partivano da tre linee
+scombinate. E la frase evocativa diceva **"Lui, o lei, senti l'aria di una
+stanza"**, cioe' la frase scritta per il TU riusata per un altro: adesso le due
+voci hanno due mappe.
+
+**E un errore mio che le guardie hanno preso:** le stringhe nuove le avevo
+scritte con `e'` e `piu'` invece degli accenti veri, e una portava la virgola
+piu' "e". `language_rule_test` e `accenti_veri_test` le hanno fermate prima
+dell'anteprima.
 
 ## LE TRE COSE CHE QUEST'ORDINE PRETENDE SIANO SCRITTE
 
