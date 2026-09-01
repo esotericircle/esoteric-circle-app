@@ -51,8 +51,9 @@ void main() {
     final senzaSimbolo = <String>[];
     for (final runa in kElderFuthark) {
       if (runa.meaning.trim().isEmpty) senzaSimbolo.add(runa.name);
-      if (runa.keyword.trim().isEmpty)
+      if (runa.keyword.trim().isEmpty) {
         senzaSimbolo.add('${runa.name} (parola)');
+      }
     }
     expect(senzaSimbolo, isEmpty,
         reason:

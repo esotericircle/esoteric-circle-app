@@ -363,8 +363,9 @@ class _VoceCheCadeSu extends _VoceViva {
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
   }) async {
-    if (maestro == chiCade)
+    if (maestro == chiCade) {
       throw const MaestroAiUnavailable('la rete non risponde');
+    }
     return super.consult(
         maestro: maestro, theme: theme, profile: profile, memory: memory);
   }

@@ -85,8 +85,9 @@ void main() {
     var quanti = 0;
     for (var y = zona.top.round(); y < zona.bottom.round(); y++) {
       for (var x = zona.left.round(); x < zona.right.round(); x++) {
-        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza)
+        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza) {
           continue;
+        }
         final i = (y * tela.larghezza + x) * 4;
         somma += 0.2126 * tela.pixel[i] +
             0.7152 * tela.pixel[i + 1] +

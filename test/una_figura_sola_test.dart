@@ -83,8 +83,9 @@ void main() {
       for (var dx = -raggio; dx <= raggio; dx++) {
         final x = dove.dx.round() + dx;
         final y = dove.dy.round() + dy;
-        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza)
+        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza) {
           continue;
+        }
         final i = (y * tela.larghezza + x) * 4;
         for (var canale = 0; canale < 3; canale++) {
           final v = tela.dati.getUint8(i + canale);

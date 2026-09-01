@@ -114,8 +114,9 @@ void main() {
               [0, -1]
             ]) {
               final nx = x + d[0], ny = y + d[1];
-              if (nx < 0 || ny < 0 || nx >= larghezza || ny >= altezza)
+              if (nx < 0 || ny < 0 || nx >= larghezza || ny >= altezza) {
                 continue;
+              }
               final kk = ny * larghezza + nx;
               if (!cambiati[kk] || visto[kk]) continue;
               visto[kk] = true;

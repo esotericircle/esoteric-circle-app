@@ -35,8 +35,9 @@ void main() {
     final sbagliate = <String>[];
     prove.forEach((atteso, punto) {
       final trovata = NazioneDelPunto.di(punto);
-      if (trovata != atteso)
+      if (trovata != atteso) {
         sbagliate.add('$punto: $trovata invece di $atteso');
+      }
     });
     // ignore: avoid_print
     print('ORDINE CD VOCE 02a: punti provati ${prove.length}, '
