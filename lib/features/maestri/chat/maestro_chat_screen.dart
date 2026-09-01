@@ -26,6 +26,7 @@ import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../core/ricordi/registro_dei_ricordi.dart';
 import '../../../core/ricordi/voce_del_ricordo.dart';
@@ -57,7 +58,6 @@ import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
-import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -1258,7 +1258,10 @@ class _ConversazioneNuova {
 
   static Future<void> chiedi(
       BuildContext context, MaestroChatController controller) async {
-    final si = await showDialog<bool>(
+    // **DAL VELO DEL CERCHIO, non da showDialog.** Un dialogo aperto per conto
+    // suo arriva su un fondo che non e' il nostro, e la guardia
+    // `il_velo_e_uno_solo` lo ha preso subito.
+    final si = await dialogoDelCerchio<bool>(
       context: context,
       builder: (context) => AlertDialog(
         key: const Key('chat_conferma_conversazione_nuova'),

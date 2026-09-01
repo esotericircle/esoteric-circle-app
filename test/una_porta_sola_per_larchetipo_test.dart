@@ -439,7 +439,13 @@ void main() {
     // fatto il Test".
     final chat = File('lib/features/maestri/chat/maestro_chat_screen.dart')
         .readAsStringSync();
-    expect(chat.contains('context.watch<ArchetypeHistory>()'), isTrue,
+    // **GLI SPAZI SI TOLGONO PRIMA DI CERCARE.** Il formattatore spezza
+    // `context.watch<ArchetypeHistory>()` su due righe appena la riga si
+    // allunga, e questa guardia cercava la forma su una riga sola: e'
+    // diventata rossa su codice giusto il 1 settembre 2026. Una guardia che
+    // legge il codice come testo deve leggerlo senza la sua impaginazione.
+    final chatSenzaSpazi = chat.replaceAll(RegExp(r'\s+'), '');
+    expect(chatSenzaSpazi.contains('.watch<ArchetypeHistory>()'), isTrue,
         reason: 'la chat non legge piu lo storico condiviso');
     expect(chat.contains('ArchetypeHistory('), isFalse,
         reason: 'la chat si costruisce uno storico suo');

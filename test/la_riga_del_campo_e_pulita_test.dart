@@ -123,22 +123,44 @@ void main() {
             'controlli (ordine BF voce 05.c).');
   });
 
-  testWidgets('le stelline sono allineate al centro del campo', (tester) async {
+  // **LA FORMA E' CAMBIATA, e questa guardia con lei.** Ordine CI, 1
+  // settembre 2026, parole del fondatore: "nelle chat metti sopra il campo
+  // suggerimenti e sotto il campo scrivi a nome maestro con bolle della
+  // stessa dimensione, e a fianco delle bolle, a destra, la bolla con la
+  // freccia verso l'alto".
+  //
+  // Prima le stelline stavano IN RIGA col campo e questa prova pretendeva che
+  // fossero centrate su di lui. Adesso stanno SOPRA, e pretenderlo ancora
+  // vorrebbe dire sorvegliare una regola che il fondatore ha superato.
+  //
+  // **Ma non si toglie e basta**: cambia la grandezza misurata, non la
+  // soglia. Quello che deve restare vero e' che le due bolle siano larghe
+  // uguali e non si sovrappongano, che e' esattamente cio' che e' stato
+  // chiesto.
+  testWidgets('le due bolle sono larghe uguali e non si toccano',
+      (tester) async {
     final radice = GlobalKey();
     await chatDi(tester, Maestro.aura, radice);
     final campo = tester.getRect(find.byKey(const Key('chat_campo')));
     final stelline = tester.getRect(find.byKey(const Key('chat_stelline')));
-    final scarto = (stelline.center.dy - campo.center.dy).abs();
+
+    expect(stelline.bottom, lessThanOrEqualTo(campo.top + 0.5),
+        reason: 'la bolla dei Suggerimenti non sta piu\' SOPRA il campo: '
+            'finisce a ${stelline.bottom} e il campo comincia a ${campo.top}');
+
+    // **LARGHE UGUALI**, che e' la parola che il fondatore ha usato. La
+    // chiave `chat_stelline` sta gia' sulla BOLLA e non sull'icona, quindi si
+    // misura direttamente lei.
+    final scarto = (stelline.width - campo.width).abs();
+    final bolla = stelline;
     // ignore: avoid_print
-    print('STELLINE: scarto fra il centro dell\'icona e quello del campo = '
-        '${scarto.toStringAsFixed(1)} punti (massimo $scartoMassimo)');
-    expect(scarto, lessThanOrEqualTo(scartoMassimo),
-        reason: 'Le stelline stanno ${scarto.toStringAsFixed(1)} punti '
-            'fuori dal centro del campo: la scritta Suggerimenti torna a '
-            'sbordare su cio\' che sta sopra.');
-    // E non escono in alto oltre il campo, che era il visto di Mauro.
-    expect(stelline.top, greaterThanOrEqualTo(campo.top - scartoMassimo),
-        reason: 'Le stelline salgono sopra il campo.');
+    print('LE DUE BOLLE: suggerimenti ${bolla.width.toStringAsFixed(1)}, '
+        'campo ${campo.width.toStringAsFixed(1)}, scarto '
+        '${scarto.toStringAsFixed(1)}');
+    expect(scarto, lessThanOrEqualTo(1.0),
+        reason: 'le due bolle non sono larghe uguali: '
+            '${bolla.width.toStringAsFixed(1)} contro '
+            '${campo.width.toStringAsFixed(1)}');
   });
 
   testWidgets('sul primo schermo c\'e\' il solo benvenuto', (tester) async {
