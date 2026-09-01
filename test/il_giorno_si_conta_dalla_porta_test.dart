@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/tempo/confine_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL GIORNO SI CONTA DALLA PORTA, IN TUTTA L'APP. Ordine BL.
 ///
@@ -39,10 +39,7 @@ void main() {
     // la sua.
     final colpevoli = <String>[];
     var osservati = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       osservati++;
       final percorso = f.path.replaceAll(r'\', '/');
       final righe = f.readAsLinesSync();

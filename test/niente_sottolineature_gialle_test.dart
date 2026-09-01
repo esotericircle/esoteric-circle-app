@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
@@ -9,6 +7,8 @@ import 'package:esoteric_circle/features/synastry/ritratto_ingrandito.dart';
 import 'package:esoteric_circle/features/tarot/carta_ingrandita.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// NIENTE SOTTOLINEATURE GIALLE. Ordine BV voce 01.
 ///
@@ -112,10 +112,7 @@ void main() {
     // nascera' domani non tornera' muta al difetto di oggi.
     final nude = <String>[];
     var quante = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final testo = f.readAsStringSync();
       if (!testo.contains('showGeneralDialog')) continue;
       quante++;

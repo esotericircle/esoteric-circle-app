@@ -9,6 +9,8 @@ import 'package:esoteric_circle/services/free_astro_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Il client della carta natale ora passa dalla callable Firebase: la chiave e'
 /// lato server. Qui la callable e' simulata (nessuna rete, nessun Firebase): si
 /// verifica il successo col parsing, l'errore col ripiego essenziale, e che
@@ -101,10 +103,7 @@ void main() {
   });
 
   test('nessuna chiave API resta nel codice dell\'app', () {
-    final dartFiles = Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'));
+    final dartFiles = sorgentiDiLib();
     for (final f in dartFiles) {
       final src = f.readAsStringSync();
       expect(src.contains('FREEASTRO_API_KEY'), isFalse,

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL RESPIRO GUIDATO VIVE NEL SOFFIO, E IN NESSUN ALTRO RITO. Ordine S voce 13.
 ///
 /// **Il fatto.** Nell'Alba era comparsa la meditazione col respiro, arrivata come
@@ -19,8 +21,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('la guida del respiro la monta solo il Soffio del Destino', () {
     final montaggi = <String>[];
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll('\\', '/');
       // Il componente stesso non conta: e' la sua definizione.
       if (percorso.endsWith('guida_del_respiro.dart')) continue;

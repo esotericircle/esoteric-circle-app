@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE DESCRIZIONI HANNO UNA MISURA SOLA. Ordine CC voce 05.
 ///
 /// **Rilievo del fondatore, 29 agosto 2026, verbatim:** "volgio un censimento
@@ -94,10 +96,7 @@ void main() {
     // possono divergere senza che nessuno se ne accorga.
     final fuori = <String>[];
     var quanti = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(r'\', '/');
       if (p.endsWith('paragrafi_di_lettura.dart')) continue;
       final righe = f.readAsStringSync().split('\n');
@@ -128,10 +127,7 @@ void main() {
     // controllali". I titoli non si toccano, si CONTANO: se domani qualcuno ne
     // scrive uno con una misura a mano, questa riga lo dice.
     final aMano = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(r'\', '/');
       if (p.contains('typography')) continue;
       for (final m in RegExp(r'TypographyTokens\.display\(size:\s*(\d+)')

@@ -16,6 +16,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA CARTA NATALE ARRIVA, oppure arriva un errore. Mai il cerchio per sempre.
 ///
 /// **La segnalazione.** Dal Passport si apriva la Carta natale e restava sul
@@ -189,8 +191,7 @@ void main() {
     // terza, chi la scrive vede questa prova cadere e legge il motivo, invece
     // di scoprire il caricamento eterno da uno screenshot del fondatore.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('natal_chart_reveal.dart')) continue;
       if (f.readAsStringSync().contains('NatalChartReveal(')) porte.add(p);

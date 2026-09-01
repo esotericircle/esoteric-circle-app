@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL GATING NON PASSA DALLE SNACKBAR DI SISTEMA, ordine L voce 1.
 ///
@@ -43,10 +43,7 @@ void main() {
 
     final spie = ['premium', 'abbonati', 'abbonamento', 'piano superiore'];
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final s = f.readAsStringSync();
       final percorso = f.path.replaceAll(r'\', '/');
       for (final m in RegExp(r'showSnackBar\s*\(').allMatches(s)) {

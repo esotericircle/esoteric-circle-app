@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA PAROLA "VOCE" RESTA ALL'AUDIO.
 ///
 /// **Il dato che ha fatto nascere questo file, dal fondatore.** Nell'app "voce"
@@ -128,14 +130,7 @@ void main() {
     };
 
     final colpe = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
-    while (da.isNotEmpty) {
-      final voce = da.removeLast();
-      if (voce is Directory) {
-        da.addAll(voce.listSync());
-        continue;
-      }
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       if (eccezioni.containsKey(percorso)) continue;
 

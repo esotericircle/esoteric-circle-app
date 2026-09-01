@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/identity/profile_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// I DATI DI NASCITA SI SALVANO, E SBLOCCANO IL MOTORE ASTROLOGICO.
 ///
 /// **Verifica dell'Architetto, che non rifaccio.** La callable `natalChart`
@@ -109,8 +111,7 @@ void main() {
     // La data di nascita e' gia' entrata da DUE porte. Se l'ora la segue, sono
     // le stesse due: correggerne una lascerebbe l'altra a riscrivere il difetto.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('profile_controller.dart')) continue;
       if (f.readAsStringSync().contains('setIdentity(')) porte.add(p);

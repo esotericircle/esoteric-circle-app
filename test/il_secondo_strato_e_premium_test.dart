@@ -18,6 +18,8 @@ import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL SECONDO STRATO E' UN PREMIUM, ED ERA SMESSO DI ESSERLO.
 ///
 /// **Il difetto, misurato.** Nell'ordine 9 il budget era stato spostato a
@@ -163,8 +165,7 @@ void main() {
     // dei Maestri e la profondita' dell'oroscopo. Due sistemi che decidono
     // chi puo' cosa divergono sempre.
     final colpe = <String>[];
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       // Il listino E' il meccanismo: li' dentro i livelli si nominano per
       // forza.

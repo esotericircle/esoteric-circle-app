@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// OGNI FUNZIONE CHE USA UN SENSORE OFFRE UNA VIA TOCCABILE, E LO DICE.
 ///
 /// Ordine 2166, voce 3. Nell'Indice delle Prescrizioni la riga "Ripiego
@@ -71,10 +73,8 @@ void main() {
   /// pretende il ripiego LI'.
   List<File> chiLoUsa(File logica) {
     final nome = logica.path.split(RegExp(r'[\\/]')).last;
-    return Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart') && f.path != logica.path)
+    return sorgentiDiLib()
+        .where((f) => f.path != logica.path)
         .where((f) => f.readAsStringSync().contains(nome))
         .toList();
   }

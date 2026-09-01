@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'INTRO DI APERTURA: il video di Mauro, il tocco che lo salta, e quello che
 /// l'intro deve rispettare mentre lo mostra.
 ///
@@ -91,11 +93,10 @@ void main() {
       // debba essere, si scrive che ce n'e' uno. Chiedere il nome vorrebbe
       // dire ricavare l'atteso dalla costante che si sta sorvegliando, e il
       // nome e' gia' fissato dalla prova qui sopra.
-      final dentro = Directory('brand_assets/intro')
-          .listSync()
-          .whereType<File>()
-          .map((f) => f.uri.pathSegments.last)
-          .toList();
+      final dentro =
+          fileScoperti('brand_assets/intro', minimo: 1, ricorsiva: false)
+              .map((f) => f.uri.pathSegments.last)
+              .toList();
       expect(dentro.length, 1,
           reason: 'nella cartella dell intro ci sono $dentro: quelli che non '
               'si aprono piu pesano lo stesso, e sono la porta sbagliata da '

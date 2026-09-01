@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE PAROLE DICONO "TIENI PREMUTO", E NESSUNA PARLA PIU' DI TRACCIARE.
 ///
 /// Ordine 2161, voce 7. Decisione di Mauro, da non ribaltare mai piu': il
@@ -46,11 +48,7 @@ void main() {
   test('nel contesto delle rune nessuna stringa viva parla di tracciare', () {
     // Lo scopo e' il Tramonto e l'Estrazione: nel Rito dell'Alba e nel
     // Sigillo il tracciare e' il gesto VOLUTO di quei riti, non un residuo.
-    final inAmbito = Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))
-        .where((f) {
+    final inAmbito = sorgentiDiLib().where((f) {
       final p = f.path.replaceAll('\\', '/');
       return p.contains('sunset') || p.contains('caligo/rune');
     });
@@ -76,10 +74,7 @@ void main() {
     expect(testo.contains('Tieni premuto sulla pietra'), isTrue,
         reason: 'L\'invito dell\'incisione non dice piu\' il gesto vero.');
     var occorrenze = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       occorrenze +=
           'Tieni premuto sulla pietra'.allMatches(f.readAsStringSync()).length;
     }

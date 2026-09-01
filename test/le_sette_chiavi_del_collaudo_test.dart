@@ -157,7 +157,17 @@ void main() {
     // chiavi in tutto `lib/` invece di elencarle a mano.
     final guardia =
         File('test/niente_resta_di_te_test.dart').readAsStringSync();
-    expect(guardia.contains("Directory('lib')"), isTrue,
+    // **NON SI PRETENDE UN IDIOMA, SI PRETENDE CHE LEGGA I SORGENTI.**
+    // Questa riga chiedeva il nome esatto della vecchia camminata a
+    // mano. Il 1 settembre 2026 le guardie sono passate alla porta
+    // comune, e una riga cosi" sarebbe diventata rossa su codice
+    // giusto: una guardia che insegue la forma invece della sostanza
+    // non sorveglia, ostacola.
+    final leggeISorgenti = guardia.contains("Directory('lib')") ||
+        guardia.contains('sorgentiDiLib(') ||
+        guardia.contains('sorgentiDiCartelle(') ||
+        guardia.contains('righeDiLib(');
+    expect(leggeISorgenti, isTrue,
         reason: 'la guardia di BZ.01 non legge piu\' il codice: se elenca '
             'chiavi a mano, la prossima chiave nuova passera\' inosservata');
     expect(guardia.contains('CioCheETuo'), isTrue,

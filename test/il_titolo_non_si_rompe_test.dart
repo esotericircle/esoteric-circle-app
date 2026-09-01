@@ -20,6 +20,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL TITOLO DELLA BARRA NON SI ROMPE. Correzione nata dalla voce S.05.
 ///
 /// **Due difetti diversi, uno dietro l'altro.** Prima il titolo si troncava coi
@@ -186,8 +188,8 @@ void main() {
     // dipinge fuori dalla propria scatola. Sono tre modi diversi di rompere lo
     // stesso titolo, e la prova li enumera invece di visitarne uno.
     final colpevoli = <String>[];
-    for (final voce in Directory('lib/features').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final righe = voce.readAsStringSync().split('\n');
       for (var i = 0; i < righe.length; i++) {
         if (!righe[i].contains('titolo: ')) continue;

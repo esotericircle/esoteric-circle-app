@@ -1,7 +1,5 @@
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
-import 'dart:io';
-
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -17,6 +15,8 @@ import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// Un ripiego non costa la domanda del giorno.
 ///
@@ -158,10 +158,7 @@ void main() {
     // CostoDelTurno. Si enumerano i chiamanti nel sorgente, cosi' la terza
     // superficie che nascera' domani non potra' sbagliarlo in silenzio.
     final colpe = <String>[];
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final percorso = file.path.replaceAll(r'\', '/');
       if (percorso.endsWith('core/entitlement/question_allowance.dart')) {
         continue;

@@ -11,6 +11,8 @@ import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
 import 'package:esoteric_circle/core/tempo/confine_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE CINQUE PROVE DEL ROSSO DELLA VOCE 1, piu' quella sulle firme.
 ///
 /// Ognuna nasce da un modo preciso in cui questo lavoro poteva andare storto, e
@@ -37,10 +39,7 @@ void main() {
           RegExp('(?<![0-9.])${RegExp.escape(numero)}(?![0-9])');
 
       final colpevoli = <String, List<String>>{};
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final testo = f.readAsStringSync();
         final normalizzato = f.path.replaceAll(r'\', '/');
         if (normalizzato.endsWith('lib/core/astro/effemeridi.dart')) continue;
@@ -117,10 +116,7 @@ void main() {
 
   group('ConfineDelGiorno non e\' stato toccato', () {
     test('vive in un punto solo e ha ancora i suoi due metodi', () {
-      final definizioni = Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))
+      final definizioni = sorgentiDiLib()
           .where((f) => f.readAsStringSync().contains('class ConfineDelGiorno'))
           .map((f) => f.path.replaceAll(r'\', '/'))
           .toList();

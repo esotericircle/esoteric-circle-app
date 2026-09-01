@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/feature_flags/feature_flag_service.dart';
 import 'package:esoteric_circle/features/santuario/greeting_controller.dart';
@@ -22,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL BUSTO E' LA FORMA DEL MAESTRO IN ALTO, ordine I voce 1.
 ///
@@ -54,10 +54,7 @@ void main() {
       'lib/core/maestro/maestro.dart',
     };
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\', '/');
       final s = f.readAsStringSync();
       if (!s.contains('avatarAsset') && !s.contains('avatars_webp')) continue;

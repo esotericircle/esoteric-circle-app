@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -11,6 +9,8 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// LA CARTA NATALE SOPRAVVIVE ALLA CHIUSURA, E CHI LA LEGGE DICE IL VERO.
 ///
@@ -147,10 +147,7 @@ void main() {
     // la carta per conto suo, o che tiene una copia sua, e' una porta in piu'
     // e domani dira' una cosa diversa dalle altre.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final testo = f.readAsStringSync();
       final percorso = f.path.replaceAll('\\', '/');
       // I due punti che la carta la producono davvero: il controller, che e'
@@ -201,10 +198,7 @@ void main() {
     // dato: due condizioni scritte a mano in due schermate diverse diventano
     // due verita' il giorno che una cambia.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final testo = f.readAsStringSync();
       final percorso = f.path.replaceAll('\\', '/');
       // **SI GUARDA IL CODICE, NON I COMMENTI, e la misura e' cambiata.** La

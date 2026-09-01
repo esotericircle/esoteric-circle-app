@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// NESSUNA AZIONE AUTOMATICA COMMITTA SUL RAMO CANONICO.
 ///
 /// **Il difetto che questa guardia chiude, e ha fatto danni veri.**
@@ -25,13 +27,20 @@ import 'package:flutter_test/flutter_test.dart';
 /// cronologia di nessuno. Quel che non si fa e' `git commit` piu' `git push`
 /// dentro un workflow, e il permesso `contents: write` che lo consente.
 void main() {
-  final cartella = Directory('.github/workflows');
+  // **QUI C'ERA UNA CECITA' VIVA, tolta il 1 settembre 2026.** Ogni
+  // prova cominciava con `if (!cartella.existsSync()) return;`: il
+  // giorno che i flussi di lavoro fossero spariti, o che la prova
+  // fosse stata lanciata da un'altra cartella, **queste guardie
+  // sarebbero uscite verdi senza aver letto un solo file**, e il
+  // divieto di committare da soli sarebbe rimasto scritto senza
+  // essere sorvegliato. La porta comune non torna a mani vuote: o
+  // trova i flussi, o dice ad alta voce che non ci sono.
+  List<File> flussi() =>
+      fileScoperti('.github/workflows', minimo: 2, ricorsiva: false);
 
   test('nessun workflow committa o spinge dentro il repository', () {
-    if (!cartella.existsSync()) return;
     final colpevoli = <String>[];
-    for (final voce in cartella.listSync()) {
-      if (voce is! File) continue;
+    for (final voce in flussi()) {
       final nome = voce.uri.pathSegments.last;
       if (!nome.endsWith('.yml') && !nome.endsWith('.yaml')) continue;
       final testo = voce.readAsStringSync();

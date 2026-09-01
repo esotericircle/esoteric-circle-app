@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// La carta natale aperta dal Passport ha la sua scaffalatura.
 ///
 /// **Tre sintomi, una causa.** Aprendola dal Passport ogni testo compariva
@@ -55,11 +57,7 @@ void main() {
     // domanda vera, e la rete e' piu' stretta di prima, non piu' larga.
     final scaffalate = <String>{};
     final pezzoDi = <String, String>{};
-    final tuttiIFile = Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))
-        .toList();
+    final tuttiIFile = sorgentiDiLib().toList();
     // **I COMMENTI NON CONTANO, ed e' la riga che ha salvato questa rete.**
     // `CosmosBackground` non ha nessuno scaffale, ma un suo commento nomina
     // "il nero dello Scaffold": tanto e' bastato per promuoverlo, e da lui la

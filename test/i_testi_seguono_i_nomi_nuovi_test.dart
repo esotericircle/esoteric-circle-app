@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'gli_accenti_del_corpus.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// I TESTI SEGUONO I NOMI NUOVI. Ordine AR voce 08.
 ///
 /// **Il difetto che questa guardia impedisce.** Un nome di traguardo copiato
@@ -43,11 +45,10 @@ void main() {
     expect(vecchi, isNotEmpty,
         reason: 'la revisione B non ha piu nomi propri: la prova gira a vuoto');
     final colpe = <String>[];
-    for (final f in [
-      ...Directory('lib').listSync(recursive: true).whereType<File>(),
-      ...Directory('test').listSync(recursive: true).whereType<File>(),
-    ]) {
-      if (!f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiCartelle(
+      ['lib', 'test'],
+      minimo: 900,
+    )) {
       // **QUESTA PROVA NOMINA I NOMI VECCHI PER MESTIERE**: accusare se
       // stessa la renderebbe rossa per sempre.
       if (f.path.endsWith('i_testi_seguono_i_nomi_nuovi_test.dart')) continue;

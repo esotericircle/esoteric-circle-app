@@ -18,6 +18,8 @@ import 'package:esoteric_circle/core/rituals/prova_delle_push.dart';
 import 'package:esoteric_circle/core/rituals/scelta_degli_avvisi.dart';
 import 'package:esoteric_circle/services/push/porta_delle_push.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Una porta che non tocca la rete e conta cosa le passa davanti.
 class _PortaContata extends PortaDelleScelte {
   final List<ScelteDaMandare> mandate = [];
@@ -142,8 +144,7 @@ void main() {
     // STESSE cinque scelte di SceltaDegliAvvisi, con le STESSE ore. Non nasce
     // un secondo elenco di interruttori."
     final fuori = <String>[];
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll('\\', '/');
       // La casa delle scelte e' l'unica che puo' scrivere le sue chiavi.
       if (percorso.endsWith('lib/core/rituals/scelta_degli_avvisi.dart')) {

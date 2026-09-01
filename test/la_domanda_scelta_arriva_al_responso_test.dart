@@ -18,6 +18,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA DOMANDA SCELTA ARRIVA AL RESPONSO. Ordine S voce 21.
 ///
 /// **Il difetto che questa voce chiude.** Il campo della domanda stava SOTTO il
@@ -250,10 +252,7 @@ void main() {
       for (final d in DomandeDelCerchio.personaliPerLaGettata) d.testo,
       for (final d in DomandeDelCerchio.dellaChat) d.testo,
     };
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final nudo = f.path.replaceAll('\\', '').replaceAll('/', '');
       if (nudo == casa || nudo == mappa) continue;
       final testo = f.readAsStringSync();

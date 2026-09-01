@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE ALTRE VOCI ARRIVANO UNA ALLA VOLTA.
 ///
 /// **L'ipotesi dell'ordine, verificata prima di correggere, ed E' CADUTA.**
@@ -81,14 +83,7 @@ void main() {
     };
 
     final colpe = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
-    while (da.isNotEmpty) {
-      final voce = da.removeLast();
-      if (voce is Directory) {
-        da.addAll(voce.listSync());
-        continue;
-      }
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       final righe = voce.readAsLinesSync();
 

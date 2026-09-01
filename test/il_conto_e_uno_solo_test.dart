@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/features/sigilli/le_tre_righe_del_sentiero.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL CONTO DEL SENTIERO E' UNO SOLO, E LE TRE RIGHE LO USANO. Ordine S voce 03.
 ///
@@ -58,8 +58,8 @@ void main() {
       // SI ENUMERANO I FILE invece di visitarne uno: un totale scritto a mano in
       // una schermata nuova e' il modo in cui i conti tornano a essere due.
       final colpevoli = <String>[];
-      for (final voce in Directory('lib/features').listSync(recursive: true)) {
-        if (voce is! File || !voce.path.endsWith('.dart')) continue;
+      for (final voce in fileScoperti('lib/features',
+          minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
         final testo = voce.readAsStringSync();
         for (final forma in const ['di 50', 'su 50', 'di 55', 'su 55']) {
           if (testo.contains("'$forma") || testo.contains(' $forma ')) {

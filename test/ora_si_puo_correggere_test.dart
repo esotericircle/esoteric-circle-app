@@ -13,6 +13,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ORA DI NASCITA SI PUO' DARE ANCHE DOPO IL RISVEGLIO.
 ///
 /// **La domanda decisiva, e la sua risposta.** Il fondatore ha segnalato tre
@@ -194,8 +196,7 @@ void main() {
     // Era UNA, l'onboarding, ed e' esattamente il difetto: bastava averlo
     // concluso perche' il dato diventasse immodificabile per sempre.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('profile_controller.dart')) continue;
       if (f.readAsStringSync().contains('setIdentity(')) porte.add(p);

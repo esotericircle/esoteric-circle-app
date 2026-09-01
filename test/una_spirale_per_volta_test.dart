@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// UNA SPIRALE PER VOLTA. Ordine AV voce 01.
 ///
 /// **Riscritta sulla nuova animazione.** Sorvegliava il lettore di WebP
@@ -12,8 +14,7 @@ void main() {
   test('un solo punto in tutto lib monta la spirale', () {
     var punti = 0;
     final dove = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final nome = f.path.split(Platform.pathSeparator).last;
       if (nome == 'spirale_di_stelle.dart') continue;
       final quante =
@@ -71,8 +72,7 @@ void main() {
         isFalse,
         reason: 'pubspec.yaml dichiara ancora i filmati fra gli asset');
     var richiami = 0;
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       if (f.readAsStringSync().contains('TransizioneDiStelle')) richiami++;
     }
     expect(richiami, 0,

@@ -1,3 +1,53 @@
+## Protocollo delle guardie, si applica a ogni ordine
+
+Ordine CM voci 04, 05, 06 e 07, 1 settembre 2026. Nasce da un numero: prima
+dell'ordine CL, **su duecentoquarantadue guardie soltanto nove erano mai state
+viste rosse**, il tre virgola sette per cento. Tutte le altre erano verdi, e
+di nessuna si sapeva se quel verde volesse dire qualcosa.
+
+### Regola A, una guardia nasce rossa
+
+**Nessuna guardia nuova si scrive senza averla vista rossa.** La prova del
+rosso non e' un passo successivo da fare quando avanza tempo: e' parte dello
+scrivere la guardia, come compilare fa parte dello scrivere il codice. Si
+introduce a mano il difetto che la guardia deve prendere, si verifica **col
+grep** che il difetto sia davvero entrato nel file, e solo dopo si legge
+l'esito. Chi legge l'esito senza aver verificato l'innesto non sta misurando
+la guardia, sta misurando un errore suo.
+
+Quando il rosso non scatta, **si cambia la grandezza misurata, mai la
+soglia**. Abbassare la soglia finche' la prova cade e' il modo piu' rapido di
+costruire una guardia che non serve a niente.
+
+Una guardia che gira su un insieme scoperto a esecuzione **dichiara il suo
+cardinale minimo**, cioe' quante cose si aspetta di trovare, altrimenti su un
+insieme vuoto e' verde senza aver guardato niente. Le porte comuni stanno in
+`test/sorgenti_di_lib.dart`, il cardinale in `test/cardinale_minimo.dart`.
+
+### Regola B, chi tocca una zona la prova rossa prima
+
+**Chi lavora su una zona gia' coperta da una guardia la vede rossa PRIMA di
+metterci mano**, e aggiorna la data nel registro `docs/guardie.md`. Serve a
+sapere se la rete che sta per proteggere il lavoro e' viva o e' un ricordo.
+Costa un minuto e vale un ordine intero: e' esattamente cosi' che nell'ordine
+CM la guardia che sorveglia le altre e' stata colta mentre si degradava,
+**dentro lo stesso lavoro che la stava degradando**, invece di tre ordini
+dopo.
+
+Se la guardia non diventa rossa, quella guardia non copre piu' la zona, e la
+prima cosa da riparare e' lei, non il lavoro che si era venuti a fare.
+
+### Regola C, ogni difetto ha un padre
+
+**Ogni difetto nominato in un rapporto e' attribuito alla voce che l'ha
+causato**, con il suo numero d'ordine e di voce. Quando non si riesce a
+risalire, si scrive **PROVENIENZA IGNOTA** per esteso, e quella dicitura e'
+essa stessa un'informazione: dice che il difetto e' entrato senza lasciare
+traccia, che e' la cosa piu' preoccupante che possa dirsene.
+
+Un difetto senza padre torna. Un elenco di difetti senza padri non insegna
+niente a chi lo legge, e trasforma il rapporto in un lamento.
+
 ## IL RAMO E' UNO SOLO, e si legge prima di ogni altra cosa
 
 **Il lavoro si spinge sul solo ramo `claude/esoteric-circle-master-order-e798aj`, e nessun altro ramo si crea senza un ordine che lo dica per nome.**

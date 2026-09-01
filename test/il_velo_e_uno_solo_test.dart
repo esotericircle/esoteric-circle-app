@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/design_system/transizioni/passaggio_del_cerchio.dart';
 import 'package:esoteric_circle/design_system/transizioni/velo_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL VELO E' UNO SOLO: fogli, dialoghi e rotte. Ordine CF voce 09.
 ///
@@ -97,10 +97,7 @@ void main() {
     ];
     final colpe = <String>[];
     var quante = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\', '/');
       if (percorso == porta || eccezioni.contains(percorso)) continue;
       final sorgente = f

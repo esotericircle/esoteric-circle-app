@@ -29,6 +29,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/features/onboarding/primo_approdo.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL CONSIGLIO MOSTRA LE TRE VOCI, SUBITO.
 ///
 /// **Cosa aveva chiesto il fondatore, e cosa aveva avuto.** Un pulsante che
@@ -175,14 +177,7 @@ void main() {
     ];
     const fuoriRegola = 'lib/features/onboarding/primo_approdo.dart';
     final colpe = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
-    while (da.isNotEmpty) {
-      final voce = da.removeLast();
-      if (voce is Directory) {
-        da.addAll(voce.listSync());
-        continue;
-      }
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       if (percorso.endsWith(fuoriRegola)) continue;
       final righe = voce.readAsLinesSync();

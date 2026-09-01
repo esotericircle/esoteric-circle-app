@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// I TESTI DEL DONO NON STANNO SULLA CARTA. Ordine AU voce 12.
 ///
 /// **Il difetto, sullo screenshot della 2187**: la riga "cosa stai per
@@ -102,8 +104,8 @@ void main() {
     // impaginazioni sono due difetti diversi da curare due volte.
     final quanti = DailyElement.values.length;
     var conVista = 0;
-    for (final f in Directory('lib/features/rituals').listSync()) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in fileScoperti('lib/features/rituals',
+        minimo: 8, ricorsiva: false, estensione: '.dart')) {
       if (f.readAsStringSync().contains('cosaRicevi:')) conVista++;
     }
     // ignore: avoid_print

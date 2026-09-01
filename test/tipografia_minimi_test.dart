@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// Nessuna misura tipografica sotto il minimo del suo token.
 ///
@@ -52,10 +52,7 @@ void main() {
         r'TypographyTokens\.(label|body|display)\(\s*size:\s*([0-9]+(?:\.[0-9]+)?)');
 
     final colpevoli = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))
+    for (final f in sorgentiDiLib()
         .where((f) => !debitoStorico.contains(f.path.replaceAll(r'\', '/')))) {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {

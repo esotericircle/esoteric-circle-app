@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL BORSELLINO SI AGGIORNA OVUNQUE. Ordine AU voce 11.
 ///
 /// **Il fatto del fondatore**: in home la barra mostra 0 mentre il server ne ha
@@ -35,8 +37,7 @@ void main() {
 
   test('il censimento: quanti punti leggono il saldo, e chi li chiama', () {
     final punti = <String, int>{};
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final quanti =
           RegExp(r'\.saldoEos\b').allMatches(f.readAsStringSync()).length;
       if (quanti > 0) {
@@ -54,8 +55,7 @@ void main() {
     // altro se lo tiene: se un giorno qualcuno ne facesse una copia sua, la
     // barra e il Passport potrebbero mostrare due numeri diversi.
     final sorgenti = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final nome = f.path.split(RegExp(r'[\\/]')).last;
       if (nome == 'question_allowance.dart') continue;
       // **UN CAMPO, NON UN PARAMETRO**: la prima stesura di questa riga

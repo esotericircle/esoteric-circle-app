@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA CATENA DEI DATI DI NASCITA, ENUMERATA.
 ///
 /// Ordine 2169, voce 7. **Non basta che i dati siano scritti sul disco: la
@@ -247,10 +249,7 @@ void main() {
     // il fuso in modo diverso, e la carta cambierebbe a seconda di chi la
     // chiede.
     final fonti = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final t = f.readAsStringSync();
       if (t.contains('astro.BirthDetails(') || t.contains('BirthDetails(\n')) {
         fonti.add(f.path.replaceAll('\\', '/'));

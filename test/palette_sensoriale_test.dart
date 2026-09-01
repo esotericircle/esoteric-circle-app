@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:esoteric_circle/core/sensi/voce_del_responso.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Il livello sensoriale parte da un punto solo, e obbedisce a un comando solo.
 ///
 /// **L'aptica viene prima del suono.** La maggior parte delle persone tiene il
@@ -148,8 +150,7 @@ void main() {
     // conto proprio, quella vibrazione non rispetterebbe l'interruttore e non
     // apparterrebbe a nessuno dei quattro schemi.
     final colpevoli = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll('\\', '/');
       if (p.endsWith('core/sensi/palette_sensoriale.dart')) continue;
       final righe = f.readAsLinesSync();
@@ -222,8 +223,7 @@ void main() {
       // Se una schermata riproducesse un file audio per conto proprio, quel
       // suono non rispetterebbe l'interruttore e non sarebbe nel catalogo.
       final colpevoli = <String>[];
-      for (final f in Directory('lib').listSync(recursive: true)) {
-        if (f is! File || !f.path.endsWith('.dart')) continue;
+      for (final f in sorgentiDiLib()) {
         final p = f.path.replaceAll(Platform.pathSeparator, '/');
         if (p.contains('core/sensi/')) continue;
         final righe = f.readAsLinesSync();

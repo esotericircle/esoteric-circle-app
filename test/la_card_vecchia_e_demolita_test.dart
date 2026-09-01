@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA CARD VECCHIA E' DEMOLITA. Ordine BE voce 05.
 ///
 /// **Fatto del fondatore, build 2199, maiuscole sue**: "mi ha dato 2
@@ -59,10 +61,7 @@ void main() {
               'ancora in celebrazione.dart (ordine BE voce 05)');
     }
     // E fuori da celebrazione.dart nessuno la chiama piu'.
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       expect(f.readAsStringSync().contains('mostraLaSovrimpressione'), isFalse,
           reason: '${f.path} chiama ancora la sovrimpressione breve');
     }

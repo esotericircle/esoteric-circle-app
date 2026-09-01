@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL NOME DEL CONSIGLIO VIVE IN UN PUNTO SOLO.
 ///
 /// **Si chiama Il Consiglio dei Maestri dal 6 agosto 2026**, per decisione di
@@ -18,10 +20,8 @@ void main() {
   /// per esteso.
   const laPorta = 'lib/features/maestri/ask/ask_maestri_screen.dart';
 
-  Iterable<File> sorgenti(String cartella) => Directory(cartella)
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'));
+  Iterable<File> sorgenti(String cartella, int minimo) =>
+      fileScoperti(cartella, minimo: minimo, estensione: '.dart');
 
   String relativo(File f) {
     final p = f.path.replaceAll(r'\', '/');
@@ -35,7 +35,7 @@ void main() {
 
   test('nessuno scrive il nome a mano fuori dal punto unico', () {
     final colpevoli = <String>[];
-    for (final f in sorgenti('lib')) {
+    for (final f in sorgenti('lib', quantiFileHaLib)) {
       final dove = relativo(f);
       if (dove == laPorta) continue;
       if (f.readAsStringSync().contains(titoloDelConsiglio)) {
@@ -55,7 +55,10 @@ void main() {
     // trova quel nome in un vecchio appunto.
     const vecchio = 'Il Consiglio del Cerchio';
     final residui = <String>[];
-    for (final f in [...sorgenti('lib'), ...sorgenti('test')]) {
+    for (final f in [
+      ...sorgenti('lib', quantiFileHaLib),
+      ...sorgenti('test', quanteProveCiSono)
+    ]) {
       final dove = relativo(f);
       final testo = f.readAsStringSync();
       if (!testo.contains(vecchio)) continue;

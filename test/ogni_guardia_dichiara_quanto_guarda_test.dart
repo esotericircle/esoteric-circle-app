@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'codice_senza_testo.dart';
+
 /// OGNI GUARDIA CHE SCORRE I SORGENTI DICHIARA QUANTO HA GUARDATO.
 /// Ordine CL voce 04.
 ///
@@ -26,95 +28,22 @@ import 'package:flutter_test/flutter_test.dart';
 /// guardati. Chi non fa ne' l'una ne' l'altra sta in un elenco scritto qui
 /// sotto, **e quell'elenco puo' solo accorciarsi**.
 void main() {
-  /// **IL DEBITO, CONTATO E NON STIMATO.** Il 1 settembre 2026 le guardie che
-  /// scorrono `lib` sono 108: 17 dichiarano gia' il loro cardinale, 12 sono
-  /// state portate alla porta comune dall'ordine CL, e queste restano.
+  /// **IL DEBITO E' CHIUSO, e questo elenco e' vuoto.** Ordine CM voce
+  /// 02, 1 settembre 2026.
   ///
-  /// **Non sono cieche**, e va detto: sono guardie che non hanno ancora
-  /// dichiarato quanto guardano, cioe' non sappiamo se il loro verde valga.
-  /// Ognuna esce da questo elenco il giorno che qualcuno la porta alla porta
-  /// comune, che e' una riga sola di lavoro.
-  const senzaCardinale = <String>{
-    'aspetti_di_oggi_test.dart',
-    'attestazione_non_ferma_la_voce_test.dart',
-    'avvisi_del_rito_test.dart',
-    'carta_natale_arriva_test.dart',
-    'cosmo_e_interruttori_test.dart',
-    'costellazione_ripetuta_test.dart',
-    'dati_nascita_sbloccano_test.dart',
-    'dove_si_spendono_eos_test.dart',
-    'entitlement_soldi2_test.dart',
-    'free_astro_client_test.dart',
-    'i_nove_ereditati_test.dart',
-    'i_ricordi_hanno_una_rotta_sola_test.dart',
-    'i_testi_seguono_i_nomi_nuovi_test.dart',
-    'il_benvenuto_e_la_dote_test.dart',
-    'il_borsellino_si_aggiorna_ovunque_test.dart',
-    'il_borsellino_si_vede_sempre_test.dart',
-    'il_busto_e_la_forma_del_maestro_test.dart',
-    'il_censimento_delle_stringhe_dice_il_vero_test.dart',
-    'il_cielo_arriva_al_maestro_test.dart',
-    'il_cielo_dice_da_dove_test.dart',
-    'il_cielo_si_muove_test.dart',
-    'il_consiglio_mostra_tre_voci_test.dart',
-    'il_continua_come_restituisce_il_cammino_test.dart',
-    'il_filo_si_traccia_test.dart',
-    'il_gating_non_ha_fondi_bianchi_test.dart',
-    'il_genere_non_si_indovina_test.dart',
-    'il_giorno_si_conta_dalla_porta_test.dart',
-    'il_listino_vivo_test.dart',
-    'il_motore_locale_e_per_oggi_test.dart',
-    'il_quaderno_dei_sogni_non_torna_test.dart',
-    'il_respiro_vive_nel_soffio_test.dart',
-    'il_ripiego_non_si_traveste_da_carta_test.dart',
-    'il_secondo_strato_e_premium_test.dart',
-    'il_suono_si_ferma_test.dart',
-    'il_velo_e_uno_solo_test.dart',
-    'l_alba_si_legge_test.dart',
-    'l_onboarding_riconosce_e_propone_test.dart',
-    'la_barra_sottile_e_la_casa_unica_test.dart',
-    'la_card_vecchia_e_demolita_test.dart',
-    'la_carta_natale_sopravvive_test.dart',
-    'la_catena_dei_dati_di_nascita_test.dart',
-    'la_celebrazione_offre_sempre_la_condivisione_test.dart',
-    'la_colonna_dei_suggerimenti_non_esiste_piu_test.dart',
-    'la_domanda_scelta_arriva_al_responso_test.dart',
-    'la_festa_aspetta_la_riflessione_test.dart',
-    'la_misura_del_ritorno_test.dart',
-    'la_nota_non_mente_test.dart',
-    'la_parola_voce_resta_allaudio_test.dart',
-    'la_registrazione_non_interrompe_il_risveglio_test.dart',
-    'la_striscia_delle_arti_anche_in_home_test.dart',
-    'le_descrizioni_hanno_una_misura_sola_test.dart',
-    'le_due_cose_che_non_servivano_test.dart',
-    'le_frasi_della_custodia_dicono_il_vero_test.dart',
-    'le_parole_dicono_tieni_premuto_test.dart',
-    'le_push_dei_doni_test.dart',
-    'le_sette_chiavi_del_collaudo_test.dart',
-    'lo_spazio_dentro_lo_scroll_test.dart',
-    'motore_audio_unico_test.dart',
-    'nessun_catch_muto_test.dart',
-    'niente_eco_test.dart',
-    'niente_sottolineature_gialle_test.dart',
-    'niente_vocativo_a_schermo_test.dart',
-    'nove_arti_test.dart',
-    'ogni_rotta_passa_dal_nero_test.dart',
-    'ogni_sensore_ha_il_suo_ripiego_test.dart',
-    'ora_di_nascita_test.dart',
-    'ora_e_luogo_sopravvivono_test.dart',
-    'ora_si_puo_correggere_test.dart',
-    'palette_sensoriale_test.dart',
-    'passport_carta_natale_test.dart',
-    'porta_dati_nascita_test.dart',
-    'simboli_dello_zodiaco_test.dart',
-    'tarot_accordo_rovescio_test.dart',
-    'tipografia_minimi_test.dart',
-    'un_ripiego_non_costa_test.dart',
-    'una_luna_sola_test.dart',
-    'una_sola_porta_per_i_transiti_test.dart',
-    'una_spirale_per_volta_test.dart',
-    'una_voce_alla_volta_test.dart',
-  };
+  /// L'ordine CL aveva lasciato settantotto guardie che scorrevano i
+  /// sorgenti senza dichiarare quanto guardavano: non cieche, ma senza
+  /// modo di sapere se il loro verde valesse. Sessantasei sono passate
+  /// alla porta comune `sorgentiDiLib()`, cinque a `sorgentiDiCartelle()`
+  /// perche' guardano anche `test` e `tool`, una si e' scritta il
+  /// cardinale proprio sul sottoinsieme che filtra.
+  ///
+  /// **L'elenco resta qui da vuoto, e non e' un residuo da cancellare.**
+  /// E' il posto dove una deroga futura dovra' scriversi col suo perche',
+  /// sotto gli occhi di chi legge questa prova, invece di nascondersi
+  /// dentro una guardia. La prova qui sotto pretende che resti vuoto:
+  /// **una deroga si aggiunge solo con una decisione, mai per inerzia.**
+  const senzaCardinale = <String>{};
 
   test('chi scorre i sorgenti dichiara quanto ha guardato', () {
     final nudi = <String>[];
@@ -122,17 +51,59 @@ void main() {
     for (final f in Directory('test').listSync()) {
       if (f is! File || !f.path.endsWith('_test.dart')) continue;
       final nome = f.path.split(Platform.pathSeparator).last;
-      final testo = f.readAsStringSync();
-      if (!testo.contains("Directory('lib')")) continue;
+      // **SI GUARDA CIO' CHE IL SORGENTE CHIAMA, non cio' che nomina.**
+      // Due prove citano `Directory('lib')` dentro una stringa, perche'
+      // il loro mestiere e' cercarlo nelle altre: contarle fra chi
+      // scorre i sorgenti le classificava male, e il conto restava
+      // coerente con se stesso. **Un conto sbagliato che quadra non
+      // chiede di essere guardato**, ed e' il peggiore.
+      final nudo = codiceSenzaTesto(f.readAsStringSync());
+
+      // **LA POPOLAZIONE E' PIU' LARGA DI `lib`.** Fino al 1 settembre
+      // 2026 questa prova guardava solo chi scorreva i sorgenti di
+      // `lib`. Ma la cecita' non riguarda quella cartella: riguarda
+      // **qualunque insieme di file scoperto a esecuzione**, e ventisette
+      // guardie scoprono cartelle diverse, le anteprime, il corredo, gli
+      // asset. Restringere a `lib` lasciava fuori proprio quelle che
+      // guardano cose che cambiano piu' spesso.
+      final dallaPorta = nudo.contains('sorgentiDiLib(') ||
+          nudo.contains('sorgentiDiCartelle(') ||
+          nudo.contains('righeDiLib(');
+      // **IL GESTO CHE SCOPRE E' ELENCARE, non costruire.** Alcune
+      // prove costruiscono una `Directory` per SCRIVERCI dentro
+      // un'anteprima: non scoprono niente, e pretendere da loro un
+      // cardinale vorrebbe dire chiedere il minimo di un insieme che
+      // non guardano.
+      final scopreUnInsieme = dallaPorta || nudo.contains('.listSync(');
+      if (!scopreUnInsieme) continue;
       scorrono++;
-      if (testo.contains('sorgentiDiLib(') || testo.contains('righeDiLib(')) {
-        continue;
-      }
-      if (RegExp(r'expect\((quanti|guardati|controllate|usi|trovate|censiti|'
-              r'esaminate|contate|[a-zA-Z]+\.length), greaterThan')
-          .hasMatch(testo)) {
-        continue;
-      }
+
+      // Il cardinale si dichiara in tre modi: passando da una delle due
+      // porte comuni, chiamando cardinaleMinimo di persona, oppure con un
+      // expect sul numero di cose guardate.
+      if (dallaPorta) continue;
+      if (nudo.contains('cardinaleMinimo(')) continue;
+      // **LE FORME LEGITTIME DI CARDINALE SONO QUATTRO**, e non una
+      // sola. Fino al 1 settembre 2026 questa prova ne riconosceva
+      // una, e accusava di essere nude due guardie che il loro
+      // cardinale ce l'avevano da sempre, una perfino piu' forte del
+      // minimo: `expect(misure.length, 24)` dice quante cose devono
+      // esserci, non quante almeno.
+      //
+      // **Riconoscere una forma sola non e' rigore, e' un'accusa
+      // sbagliata**, e le accuse sbagliate insegnano a non credere
+      // alla guardia che le fa.
+      final forme = [
+        // Un minimo esplicito: expect(quanti, greaterThan(...)).
+        RegExp(r'expect\((quanti|guardati|controllate|usi|trovate|censiti|'
+            r'esaminate|contate|scorrono|osservate|[a-zA-Z]+\.length), '
+            r'greaterThan'),
+        // Un numero esatto: expect(misure.length, 24).
+        RegExp(r'expect\([a-zA-Z]+\.length, [1-9][0-9]*'),
+        // Il minimo piu' debole che esista, ma dichiarato: uno.
+        RegExp(r'expect\([a-zA-Z]+, isNotEmpty'),
+      ];
+      if (forme.any((f) => f.hasMatch(nudo))) continue;
       if (senzaCardinale.contains(nome)) continue;
       nudi.add(nome);
     }
@@ -154,18 +125,34 @@ void main() {
             'guardati. L\'elenco delle deroghe puo\' solo accorciarsi.');
 
     // ignore: avoid_print
-    print('ORDINE CL VOCE 04: guardie che scorrono i sorgenti $scorrono, '
-        'senza cardinale ${senzaCardinale.length}');
+    print('ORDINE CM VOCE 02: guardie che scorrono i sorgenti $scorrono, '
+        'senza cardinale ${nudi.length + senzaCardinale.length}');
   });
 
-  test('nessuna deroga resta appesa a una guardia che non c\'e\' piu\'', () {
+  test(
+      'l\'elenco delle deroghe e\' vuoto, e ogni nome che ci torni e\' una decisione',
+      () {
+    // **QUESTA PROVA NON E' VUOTA PER COSTRUZIONE anche se l'elenco lo
+    // e'.** Cade nel momento esatto in cui qualcuno rimette un nome qui
+    // dentro, ed e' il punto: dopo l'ordine CM, aggiungere una deroga
+    // non e' piu' una riga silenziosa, e' una prova rossa che chiede di
+    // essere motivata.
+    expect(senzaCardinale, isEmpty,
+        reason:
+            'qualcuno ha rimesso una deroga nell\'elenco: $senzaCardinale.\n'
+            'Il debito era chiuso il 1 settembre 2026. Se la deroga serve '
+            'davvero, scrivi QUI SOPRA perche\' quella guardia non puo\' '
+            'passare da sorgentiDiLib() ne\' dichiarare un cardinale '
+            'proprio, e allora la riga vale. Senza quel perche\' e\' '
+            'soltanto un debito che torna.');
+
+    // E le deroghe non restano appese a guardie che non esistono piu'.
     final sparite = <String>[];
     for (final nome in senzaCardinale) {
       if (!File('test/$nome').existsSync()) sparite.add(nome);
     }
     expect(sparite, isEmpty,
-        reason: 'queste deroghe non hanno piu\' una guardia da scusare, e un '
-            'elenco di scuse per file che non esistono e\' il modo in cui '
-            'questa regola smetterebbe di significare qualcosa: $sparite');
+        reason:
+            'queste deroghe non hanno piu\' una guardia da scusare: $sparite');
   });
 }

@@ -12,6 +12,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL CIELO DICE DA DOVE E' CALCOLATO.
 ///
 /// Ordine 2168, voce 4. Sotto il cielo compare il luogo da cui e' stato
@@ -146,10 +148,7 @@ void main() {
     // schermata, la promessa fatta alla persona smetterebbe di essere
     // verificabile in un posto solo.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll('\\', '/');
       if (percorso.endsWith('core/astro/sky_location.dart')) continue;
       final testo = f.readAsStringSync();

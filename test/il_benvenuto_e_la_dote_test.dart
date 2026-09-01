@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL BENVENUTO, L'ACCREDITO DEL GIORNO E LA DOTE. Ordine AN voce 07.
 ///
@@ -51,8 +51,7 @@ void main() {
     final sospetti = RegExp(
         r'''(premio|bonus)_(login|oracolo|soffio|mood|meditazione|video)''');
     var osservati = 0;
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       osservati++;
       final trovato = sospetti.firstMatch(voce.readAsStringSync());
       if (trovato != null) {

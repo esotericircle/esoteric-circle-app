@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL SUONO SI FERMA. Sempre, e da un punto solo.
 ///
 /// **La segnalazione.** Avviata la Meditazione col suono, cambiando funzione o
@@ -122,8 +124,7 @@ void main() {
       // Non basta che la Meditazione si comporti bene: le porte sono tutte le
       // schermate che suonano, oggi due e domani dieci.
       var trovato = false;
-      for (final f in Directory('lib').listSync(recursive: true)) {
-        if (f is! File || !f.path.endsWith('.dart')) continue;
+      for (final f in sorgentiDiLib()) {
         final t = f.readAsStringSync();
         if (t.contains('didChangeAppLifecycleState') ||
             t.contains('AppLifecycleListener')) {
@@ -170,8 +171,7 @@ void main() {
       // apertura della Meditazione. Un commento che mente e' peggio di un
       // difetto, perche' chi legge smette di verificare.
       final costruzioni = <String>[];
-      for (final f in Directory('lib').listSync(recursive: true)) {
-        if (f is! File || !f.path.endsWith('.dart')) continue;
+      for (final f in sorgentiDiLib()) {
         final p = f.path.replaceAll(Platform.pathSeparator, '/');
         final righe = f.readAsLinesSync();
         for (var i = 0; i < righe.length; i++) {

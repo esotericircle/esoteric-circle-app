@@ -4,6 +4,9 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+import 'sorgenti_di_lib.dart';
+
 /// L'accordo della parola del rovescio, verificato contro il corpus.
 ///
 /// "La Papessa rovesciato" e' un errore che si legge subito. Il corpus
@@ -112,12 +115,23 @@ void main() {
     // sorgente, e si ignorano i commenti: la parola nel commento che spiega
     // la regola e' legittima.
     final colpevoli = <String>[];
-    for (final f
-        in Directory('lib').listSync(recursive: true).whereType<File>()) {
-      final path = f.path.replaceAll(r'\', '/');
-      if (!path.endsWith('.dart')) continue;
-      if (!path.contains('/tarot')) continue;
-      if (path.endsWith('tarot_card.dart')) continue;
+    // Il sottoinsieme che conta qui non e' lib intera: sono i sorgenti
+    // dei tarocchi. **La porta comune protegge dal primo svuotamento,
+    // questo cardinale dal secondo**: il giorno che i tarocchi
+    // cambiassero cartella, il filtro non troverebbe piu' niente e
+    // questa guardia sarebbe verde su zero file.
+    final deiTarocchi = sorgentiDiLib()
+        .map((f) => f.path.replaceAll(r'\', '/'))
+        .where((p) => p.contains('/tarot'))
+        .where((p) => !p.endsWith('tarot_card.dart'))
+        .toList();
+    cardinaleMinimo(deiTarocchi.length, 8,
+        cosa: 'sorgenti dentro una cartella dei tarocchi',
+        perche: 'Sono quattordici il 1 settembre 2026: se il filtro /tarot '
+            'non trova piu\' niente, la regola del rovescio non e\' '
+            'rispettata, e\' soltanto non guardata.');
+    for (final path in deiTarocchi) {
+      final f = File(path);
 
       var riga = 0;
       for (final linea in f.readAsLinesSync()) {

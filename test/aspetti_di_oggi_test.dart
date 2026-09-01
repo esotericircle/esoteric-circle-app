@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE SEI PROVE DEL ROSSO DELLA VOCE 2, piu' l'enumerazione delle porte.
 void main() {
   /// Una carta natale finta ma ben formata, con longitudini scelte a mano.
@@ -49,10 +51,7 @@ void main() {
       // file le passavano sotto il naso. L'ha trovata la mutazione.
       final aspetto = <String>[];
       final tipo = <String>[];
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final testo = f.readAsStringSync();
         final percorso = f.path.replaceAll(r'\', '/');
         for (final m
@@ -215,10 +214,7 @@ void main() {
       };
 
       final chiLegge = <String>{};
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final percorso = f.path.replaceAll(r'\', '/');
         if (percorso.endsWith('lib/core/horoscope/horoscope_data.dart')) {
           continue;

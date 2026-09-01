@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -8,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// "I TUOI DATI DI NASCITA" SI APRE DA OGNI PORTA, E MOSTRA I SUOI CAMPI.
 ///
@@ -78,8 +78,7 @@ void main() {
     // divergono al primo cambio, ed e' la forma che questo progetto ha gia'
     // incontrato dieci volte.
     var costruzioni = 0;
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       for (final r in f.readAsLinesSync()) {
         if (r.trimLeft().startsWith('//')) continue;
         // La dichiarazione del costruttore non e' una costruzione.

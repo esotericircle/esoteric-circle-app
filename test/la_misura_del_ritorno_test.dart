@@ -8,6 +8,8 @@ import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA MISURA DEL RITORNO. Ordine CC voce 09.
 ///
 /// **Cosa difende questa prova**, che e' quello che la voce fissa: che senza
@@ -60,10 +62,8 @@ void main() {
     // cosa che non succede. Questa prova cade il giorno che qualcuno aggiunge
     // un evento senza agganciarlo, o toglie l'aggancio di uno che c'era.
     final punti = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is File && f.path.endsWith('.dart')) {
-        punti.add(f.readAsStringSync());
-      }
+    for (final f in sorgentiDiLib()) {
+      punti.add(f.readAsStringSync());
     }
     final tutto = punti.join('\n');
     final orfani = <String>[];

@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/identity/profile_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ORA DI NASCITA SI REGISTRA, e si ritrova dopo aver chiuso l'app.
 ///
 /// **La segnalazione.** "Non registra l'ora di nascita." A conferma lo diceva
@@ -95,8 +97,7 @@ void main() {
     // le stesse due: correggerne una lascerebbe l'altra a riscrivere il
     // difetto. Questa prova le conta invece di visitarne una.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('profile_controller.dart')) continue;
       if (p.endsWith('birth_identity.dart')) continue;

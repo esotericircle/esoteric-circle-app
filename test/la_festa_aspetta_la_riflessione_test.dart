@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA FESTA NON COPRE UN'ANIMAZIONE IN CORSO. Ordine BU voci 03 e 05.
 ///
 /// **Parole del fondatore sulla build 2208**: "quando parte il calcolo con
@@ -249,10 +251,7 @@ void main() {
     test('La dichiarazione sta prima della registrazione del gesto', () {
       final tarde = <String>[];
       var quante = 0;
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final testo = f.readAsStringSync();
         if (!testo.contains('RiflessioniInCorso.entra(')) continue;
         if (!testo.contains('RegiaDelCammino.dopoUnGesto(')) continue;

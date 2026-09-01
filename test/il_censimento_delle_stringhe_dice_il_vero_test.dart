@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL CENSIMENTO DELLE STRINGHE DICE IL VERO. Ordine CE voce 15.
 ///
 /// **Un documento scritto a mano invecchia il giorno dopo, e nessuno se ne
@@ -74,8 +76,7 @@ void main() {
     // **NESSUNA RIGA DI TRADUZIONE.** L'ordine e' esplicito: il documento e'
     // il prodotto della voce, e non doveva nascerne codice di traduzione.
     final segni = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final s = f.readAsStringSync();
       if (s.contains('AppLocalizations') ||
           s.contains('S.of(context)') ||

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// GLI EOS HANNO UN NOME E UNA LORO ICONA. Ordine S voce 05.
 ///
 /// **Il difetto: in barra il saldo era `Icons.auto_awesome`**, la scintilla di
@@ -100,8 +102,8 @@ void main() {
     // nell'elenco, questa prova cade col suo nome: e' il solo modo in cui
     // l'enumerazione resta vera nel tempo invece di invecchiare in silenzio.
     final fuoriElenco = <String>[];
-    for (final voce in Directory('lib/features').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final percorso = voce.path.replaceAll('\\', '/');
       final s = voce.readAsStringSync();
       // **LA GRANDEZZA MISURATA SI E' STRETTA UNA VOLTA, E STA SCRITTA QUI.**

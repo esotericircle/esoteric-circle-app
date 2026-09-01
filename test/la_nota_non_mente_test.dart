@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA NOTA DEL CIELO DICE COSA E' CALCOLATO E COSA NON C'E'.
 ///
 /// Diceva "Orientato sul tuo luogo. La posizione esatta di ogni astro nel cielo
@@ -33,8 +35,7 @@ void main() {
     // se la nota fosse scritta due volte, i due testi divergerebbero al primo
     // cambio, ed e' la famiglia delle due porte.
     var punti = 0;
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final righe = f
           .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))

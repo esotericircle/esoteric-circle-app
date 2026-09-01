@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/rituals/ritual_streak.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Un servizio finto, che registra cosa gli e' stato chiesto senza toccare
 /// nessuna piattaforma.
 class _AvvisiFinti extends ServizioAvvisi {
@@ -211,10 +213,7 @@ void main() {
       const ilTrasporto = 'lib/services/avvisi_locali.dart';
 
       final colpevoli = <String>[];
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final percorso = f.path.replaceAll(r'\', '/');
         final relativo = percorso.substring(percorso.indexOf('lib/'));
         if (relativo == laPorta || relativo == ilTrasporto) continue;

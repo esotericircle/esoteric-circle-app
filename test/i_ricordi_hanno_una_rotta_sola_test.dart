@@ -22,11 +22,12 @@ import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Tutti i file di `lib/` che nominano la schermata dei Ricordi.
 List<File> _fileCheNominanoIRicordi() {
   final fuori = <File>[];
-  for (final voce in Directory('lib').listSync(recursive: true)) {
-    if (voce is! File || !voce.path.endsWith('.dart')) continue;
+  for (final voce in sorgentiDiLib()) {
     if (voce.path
         .replaceAll('\\', '/')
         .endsWith('lib/features/ricordi/ricordi_screen.dart')) {

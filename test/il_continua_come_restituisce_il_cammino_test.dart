@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL "CONTINUA COME" RESTITUISCE IL CAMMINO. Ordine AP voce 06.
 ///
 /// **Il caso.** Chi non nota la porta piccola della voce 04 e rifa'
@@ -59,10 +61,7 @@ void main() {
     // richiederebbe la nascita a chi l'aveva gia' data. La decisione vive in
     // `Ritrovamento` e le schermate la leggono.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll('\\', '/');
       if (percorso.endsWith('core/cammino/ritrovamento.dart')) continue;
       final codice = f

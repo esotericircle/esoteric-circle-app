@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yaml/yaml.dart';
 
+import 'cardinale_minimo.dart';
+
 void main() {
   final manifest = jsonDecode(File('docs/stato_asset.json').readAsStringSync())
       as Map<String, dynamic>;
@@ -24,6 +26,11 @@ void main() {
 
   test('i conteggi file in brand_assets coincidono col manifest', () {
     final conteggi = bundle['brand_assets_conteggi'] as Map<String, dynamic>;
+    // Il ciclo qui sotto gira sulle voci del manifesto: se il
+    // manifesto perdesse le sue voci, non ci sarebbe niente da
+    // confrontare e la prova direbbe di si' su niente.
+    cardinaleMinimo(conteggi.length, 3,
+        cosa: 'cartelle di brand_assets dichiarate nel manifesto');
     conteggi.forEach((cartella, atteso) {
       final dir = Directory('brand_assets/$cartella');
       final reale =
@@ -36,6 +43,8 @@ void main() {
 
   test('i conteggi delle sei famiglie coincidono in piena e miniatura', () {
     final famiglie = bundle['famiglie_conteggi'] as Map<String, dynamic>;
+    cardinaleMinimo(famiglie.length, 4,
+        cosa: 'famiglie di arte dichiarate nel manifesto');
     famiglie.forEach((famiglia, atteso) {
       for (final base in const ['assets/img', 'assets/img_thumb']) {
         final dir = Directory('$base/$famiglia');

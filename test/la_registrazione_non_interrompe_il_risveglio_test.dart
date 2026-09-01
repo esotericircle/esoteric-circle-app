@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA REGISTRAZIONE NON INTERROMPE IL RISVEGLIO. Ordine BJ voce 01.
 ///
 /// Parole del fondatore sulla 2204: "la prima cosa che esce e' la
@@ -37,10 +39,7 @@ void main() {
 
   test('la chiave dell\'invito vive in una casa sola', () {
     var quante = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       quante += RegExp("'account\\.ultimoInvito'")
           .allMatches(f.readAsStringSync())
           .length;

@@ -19,6 +19,8 @@ import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Il cielo della persona arriva al Maestro, da OGNI superficie.
 ///
 /// Prima ci arrivava da una sola: il Consulta passava i dati natali, la chat no.
@@ -34,10 +36,7 @@ void main() {
       final colpe = <String>[];
       final chiamata = RegExp(r'\.(reply|consult)\(');
 
-      for (final file in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final file in sorgentiDiLib()) {
         final percorso = file.path.replaceAll(r'\', '/');
         // Il provider e la sorveglianza SONO il confine: la' dentro il
         // parametro si dichiara, non si passa.
@@ -78,10 +77,7 @@ void main() {
       // divergono: e' gia' successo, e una delle due serviva al benvenuto
       // invece che al Maestro.
       final colpe = <String>[];
-      for (final file in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final file in sorgentiDiLib()) {
         final percorso = file.path.replaceAll(r'\', '/');
         if (percorso.endsWith('core/maestro/sorgente_natale.dart')) continue;
         if (percorso.endsWith('core/maestro/natal_context.dart')) continue;

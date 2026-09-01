@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/features/maestri/widgets/striscia_altre_arti.dart';
@@ -9,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// LA STRISCIA "SCOPRI ALTRE ARTI" STA ANCHE IN FONDO ALLA HOME, E UNA SOLA.
 ///
@@ -109,10 +109,7 @@ void main() {
   });
 
   test('la striscia e\' UNA nel codice, non una copia per posto', () {
-    final lib = Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'));
+    final lib = sorgentiDiLib();
     var definizioni = 0;
     var titoli = 0;
     final montaggi = <String>[];

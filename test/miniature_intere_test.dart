@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE MINIATURE NON TAGLIANO MAI L'IMMAGINE.
 ///
 /// **La segnalazione, ripetuta.** Nel Passport il lupo era tagliato dal cerchio
@@ -22,8 +24,8 @@ void main() {
   /// I file che mostrano miniature di angelo, animale o carta.
   List<String> puntiConMiniature() {
     final trovati = <String>[];
-    for (final f in Directory('lib/features').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final t = f.readAsStringSync();
       final mostra = t.contains('AssetFamily.angeli') ||
           t.contains('AssetFamily.animali') ||

@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// La parola "vocativo" non si mostra a nessuno.
 ///
@@ -22,8 +22,7 @@ void main() {
   List<String> porteAperte() {
     final trovate = <String>[];
     final letterale = RegExp("'[^']*'");
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         final t = righe[i].trimLeft();
@@ -64,8 +63,7 @@ void main() {
     // La regola vale per tutti i testi, non solo per il benvenuto.
     final sospette = <String>[];
     final letterale = RegExp(r"'[^']*[a-z](o/a|a/o|o/e|to/ta)[^']*'");
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         if (righe[i].trimLeft().startsWith('//')) continue;
@@ -96,8 +94,7 @@ void main() {
     final sospette = <String>[];
     final elenco = RegExp(
         r"[a-z]+(?:ata|ato|uta|uto|ita|ito),\s*o\s+[a-z]+(?:ata|ato|uta|uto|ita|ito)");
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         if (righe[i].trimLeft().startsWith('//')) continue;

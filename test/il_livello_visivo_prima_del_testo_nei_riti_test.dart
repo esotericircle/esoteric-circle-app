@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL LIVELLO VISIVO PRIMA DEL TESTO, IN TUTTI I RITI. Ordine S voce 11.
 ///
 /// **Il fatto, visto sulla 2177.** Nel Rito del Tramonto le tre righe "Cosa fai",
@@ -82,8 +84,8 @@ void main() {
     // e' nell'elenco, questa cade col suo nome: e' il solo modo in cui
     // un'enumerazione resta vera invece di invecchiare in silenzio.
     final fuori = <String>[];
-    for (final voce in Directory('lib/features').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final percorso = voce.path.replaceAll('\\', '/');
       if (!voce.readAsStringSync().contains('LeTreRigheDelRito(')) continue;
       if (riti.containsKey(percorso)) continue;

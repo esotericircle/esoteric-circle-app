@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
@@ -17,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// LO SPAZIO DELLA BARRA VIVE DENTRO CIO' CHE SCORRE, E IL TITOLO E' D'ORO.
 ///
@@ -322,10 +322,7 @@ void main() {
       // La regola vive in coloreDelTitolo: se una seconda superficie
       // scrivesse ESPLORA con un colore proprio, questa prova la nomina.
       final colpevoli = <String>[];
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final testo = f.readAsStringSync();
         if (!testo.contains("'ESPLORA'")) continue;
         if (!f.path.endsWith('santuario_bottom_bar.dart')) {

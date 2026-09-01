@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
@@ -8,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// LA COLONNA DEI SUGGERIMENTI NON ESISTE PIU': ERA UNA SECONDA PORTA.
 ///
@@ -102,10 +102,7 @@ void main() {
     var inviti = 0;
     var stelline = 0;
     var pannelli = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final testo = f.readAsStringSync();
       famiglie += "Key('chat_famiglia_".allMatches(testo).length;
       assaggi += "Key('chat_assaggio')".allMatches(testo).length;

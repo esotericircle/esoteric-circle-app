@@ -7,6 +7,8 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL COSMO ARRIVA IN FONDO, E GLI INTERRUTTORI SONO DEL CERCHIO.
 void main() {
   testWidgets('Il cosmo riempie l\'altezza anche col contenuto corto',
@@ -92,8 +94,7 @@ void main() {
       'lib/features/tarot/tarot_selectors.dart',
     };
     final trovati = <String>{};
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('interruttore_del_cerchio.dart')) continue;
       final t = f.readAsStringSync();

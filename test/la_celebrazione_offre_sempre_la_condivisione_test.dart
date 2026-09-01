@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE TRE GUARDIE DELLA CELEBRAZIONE, ordine O voce 3i.
 ///
 /// 1. nessun traguardo esiste senza la sua via di condivisione, ne' quando si
@@ -114,10 +116,7 @@ void main() {
     // NESSUNA SECONDA LOGICA: fuori dal file del bonus, nessun punto del
     // client nomina le causali o si inventa un importo.
     final colpevoli = <String>[];
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final percorso = file.path.replaceAll(r'\', '/');
       if (percorso.endsWith('core/sigilli/bonus_della_condivisione.dart')) {
         continue;

@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// I SIMBOLI VERI NELL'ATTESA DELLA CHAT.
 ///
 /// **La correzione del fondatore.** Quando l'ordine precedente diceva
@@ -139,8 +141,7 @@ void main() {
       // Se un giorno il loto arrivera', questa prova cade ed e' il momento di
       // rimettere il ripiego che l'ordine chiedeva.
       final trovati = <String>[];
-      for (final voce in Directory('assets').listSync(recursive: true)) {
-        if (voce is! File) continue;
+      for (final voce in fileScoperti('assets', minimo: 400)) {
         final nome = voce.path.toLowerCase();
         if (nome.contains('loto') || nome.contains('lotus')) {
           trovati.add(voce.path);

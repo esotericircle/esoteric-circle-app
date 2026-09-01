@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -14,6 +13,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL CIELO SI MUOVE, ordine M voce 1.
 ///
@@ -44,10 +45,7 @@ void main() {
     // file di lib lo leggesse, il gelo delle anteprime potrebbe salire
     // sull'app vera.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       if (f.readAsStringSync().contains("fromEnvironment('STATO'")) {
         colpe.add(f.path);
       }

@@ -13,6 +13,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL GENERE NON SI INDOVINA. Ordine CF voce 05.
 ///
 /// **Il fatto del fondatore, verbatim**: "ho reinserito l'email gia'
@@ -123,10 +125,7 @@ void main() {
   test('nessuna stringa dichiara un genere fuori dalle porte del genere', () {
     final colpe = <String>[];
     var quante = 0;
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\', '/');
       final stringhe = stringheDi(f.readAsStringSync());
       for (final s in stringhe) {

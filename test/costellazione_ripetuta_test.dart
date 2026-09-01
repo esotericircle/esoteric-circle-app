@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// La costellazione riconoscibile che tornava ovunque.
 ///
@@ -52,10 +52,7 @@ void main() {
 
   test('Una sola schermata accende l\'asterismo', () {
     final acceso = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final src = f.readAsStringSync();
       if (src.contains('showZodiac: true')) {
         acceso.add(f.path.replaceAll('\\', '/'));

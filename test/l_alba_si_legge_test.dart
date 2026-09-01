@@ -15,6 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ALBA SI LEGGE, ordine P voci da 11 a 15.
 ///
 /// **P.11, misurare prima di correggere.** Questa prova non giudica soltanto:
@@ -447,9 +449,7 @@ void main() {
       // token stesso.
       final dichiarate = SuperficieChiara.values.map((s) => s.file).toSet();
       final colpevoli = <String>[];
-      final radice = Directory('lib');
-      for (final voce in radice.listSync(recursive: true)) {
-        if (voce is! File || !voce.path.endsWith('.dart')) continue;
+      for (final voce in sorgentiDiLib()) {
         final percorso = voce.path.replaceAll('\\', '/');
         if (percorso.endsWith('tokens/regime_chiaro.dart')) continue;
         final sorgente = voce.readAsStringSync();

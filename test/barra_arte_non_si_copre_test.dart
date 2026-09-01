@@ -8,6 +8,8 @@ import 'package:esoteric_circle/features/maestri/rotta_arte.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA BARRA IN ALTO: le azioni non si coprono, per costruzione.
 ///
 /// **La segnalazione, con tre screenshot del fondatore.** Test Archetipo,
@@ -32,8 +34,8 @@ void main() {
   /// dentro.
   List<String> schermateConBarraEAzioni() {
     final trovate = <String>[];
-    for (final f in Directory('lib/features').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final testo = f.readAsStringSync();
       if (!testo.contains('SogliaArte(')) continue;
       if (!testo.contains('actions:')) continue;

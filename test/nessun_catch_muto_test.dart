@@ -1,6 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// Nessun catch muto nuovo, in tutto `lib`.
 ///
@@ -83,15 +83,8 @@ void main() {
   };
 
   test('nessun catch muto nuovo in lib', () {
-    final radice = Directory('lib');
-    expect(radice.existsSync(), isTrue,
-        reason: 'la prova va eseguita dalla radice del progetto');
-
     final conteggi = <String, int>{};
-    for (final file in radice
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final percorso = file.path.replaceAll(r'\', '/');
       final quanti = _catchMutiIn(file.readAsStringSync());
       if (quanti > 0) conteggi[percorso] = quanti;

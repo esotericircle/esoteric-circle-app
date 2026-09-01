@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// OGNI ROTTA PASSA DAL NERO. Ordine CC voce 04.
 ///
 /// **Rilievo del fondatore, 29 agosto 2026, verbatim:** "quando entro nella
@@ -16,11 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// conto suo. Il giorno che nasce una schermata nuova con
 /// `MaterialPageRoute`, questa riga diventa rossa da sola.
 void main() {
-  final dentroLib = Directory('lib')
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
-      .toList();
+  final dentroLib = sorgentiDiLib().toList();
 
   /// **LE DUE ROTTE CHE NON SONO CAMBI DI SCHERMATA, dichiarate col perche'.**
   ///

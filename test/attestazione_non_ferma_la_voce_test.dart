@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
@@ -7,6 +5,8 @@ import 'package:esoteric_circle/services/ai/registro_dei_guasti.dart';
 import 'package:esoteric_circle/services/firebase/attestazione.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// L'attestazione che non riesce NON ferma la voce.
 ///
@@ -107,10 +107,7 @@ void main() {
     // toccasse, il servizio si registrerebbe lo stesso e la correzione
     // sparirebbe senza che nessuno se ne accorga.
     final colpe = <String>[];
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final percorso = file.path.replaceAll(r'\', '/');
       final righe = file
           .readAsLinesSync()

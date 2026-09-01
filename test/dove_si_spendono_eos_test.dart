@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/core/entitlement/pacchetti_di_eos.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// DOVE SI SPENDONO EOS, IL GESTO NON PARTE DA SOLO. Ordine CE voci 05, 06 e
 /// 09.
 ///
@@ -13,11 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// acquista un pacchetto EOS o abbonati per continuare".
 void main() {
   /// Tutti i file dell'app, letti una volta sola.
-  final files = Directory('lib')
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
-      .toList();
+  final files = sorgentiDiLib().toList();
 
   String senzaCommenti(File f) => f
       .readAsLinesSync()

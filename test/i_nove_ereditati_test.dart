@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:ui' as ui;
 
+import 'sorgenti_di_lib.dart';
+
 /// I NOVE DIFETTI EREDITATI, ordine P voci da 22 a 30.
 ///
 /// Sono voci vecchie del Registro dei Difetti, mai richiuse. **Quale sia gia'
@@ -45,8 +47,7 @@ void main() {
       // che facevano la stessa cosa, cioe' tredici occasioni di farla in modo
       // diverso.
       final colpevoli = <String>[];
-      for (final voce in Directory('lib').listSync(recursive: true)) {
-        if (voce is! File || !voce.path.endsWith('.dart')) continue;
+      for (final voce in sorgentiDiLib()) {
         final percorso = voce.path.replaceAll('\\', '/');
         if (percorso
             .endsWith('core/condivisione/porta_della_condivisione.dart')) {

@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/identity/dimenticanza_del_telefono.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL QUADERNO DEI SOGNI NON TORNA. Ordine CB voce 01.
 ///
 /// **Cosa il fondatore ha ordinato**, con parole sue: "elimina tutta sta roba
@@ -23,11 +25,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// dormienti col perche' scritto; e che la cancellazione porti via lo stesso
 /// la chiave rimasta sui telefoni.
 void main() {
-  final dentroLib = Directory('lib')
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
-      .toList();
+  final dentroLib = sorgentiDiLib().toList();
 
   test('nessun file del quaderno esiste piu', () {
     for (final morto in const [

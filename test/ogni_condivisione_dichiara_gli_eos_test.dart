@@ -8,6 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// OGNI CONDIVISIONE DICHIARA GLI EOS, E LI PAGA DAVVERO. Ordine BG voce 04.
 ///
 /// Parole del fondatore: "quando ho la risposta da una funzionalita' e
@@ -33,10 +35,8 @@ void main() {
       'lib/features/account/account_screen.dart',
     };
     final senzaPremio = <String>[];
-    for (final f in Directory('lib/features')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in fileScoperti('lib/features',
+        minimo: quantiFileHannoLeFunzioni, estensione: '.dart')) {
       final percorso = f.path.replaceAll('\\', '/');
       if (esenti.contains(percorso)) continue;
       // **SI GUARDA IL CODICE, NON I COMMENTI, e il buco l'ha trovato

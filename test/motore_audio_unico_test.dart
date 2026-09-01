@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_audio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Un motore audio solo, e l'app non e' piu' muta.
 ///
 /// **Il fatto di partenza.** L'app era MUTA per costruzione: l'unico lettore di
@@ -37,8 +39,7 @@ void main() {
 
   test('Il motore audio vive in un file solo', () {
     final motori = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final righe = f
           .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))

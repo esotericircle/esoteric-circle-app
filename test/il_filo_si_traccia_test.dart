@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL FILO SI TRACCIA, E IL RITO DEL SOGNO CAMBIA NOME. Ordine AS voce 10.
 ///
 /// **Le due cose che la voce chiede.** Che il dono si chiami Sigillo del Sogno
@@ -50,10 +52,7 @@ void main() {
   test('il dono si chiama Sigillo del Sogno, ovunque', () {
     var osservati = 0;
     final vecchi = <String>[];
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final testo = file.readAsStringSync();
       osservati++;
       if (testo.contains('Rito del Sogno')) {

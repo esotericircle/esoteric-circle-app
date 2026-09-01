@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ECO NON ESISTE PIU', E NON NE RESTANO PEZZI.
 ///
 /// **La decisione del fondatore, del 3 agosto 2026.** Non una rifinitura: la
@@ -39,18 +41,10 @@ void main() {
     ];
 
     final colpe = <String>[];
-    final da = <FileSystemEntity>[
-      Directory('lib'),
-      Directory('test'),
-      Directory('tool'),
-    ];
-    while (da.isNotEmpty) {
-      final voce = da.removeLast();
-      if (voce is Directory) {
-        da.addAll(voce.listSync());
-        continue;
-      }
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiCartelle(
+      ['lib', 'test', 'tool'],
+      minimo: 900,
+    )) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       // Questo file NOMINA i simboli per poterli vietare: e' l'unico posto in
       // cui devono comparire.

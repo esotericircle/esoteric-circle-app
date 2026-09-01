@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LA PAROLA CHE SERVE, E IL PONTE CHE NON SERVIVA. Ordine BB, voci 06 e 07.
 ///
 /// **BB.06, e questa prova e' stata RIBALTATA una volta, per un errore che va
@@ -109,8 +111,7 @@ void main() {
   test('e il Soffio del Destino resta raggiungibile dalla sua fascia', () {
     // **LA CONTROPROVA, e senza di lei si sarebbe tolto un rito.**
     var vie = 0;
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       if (f.path.endsWith('ritual_gift_card.dart')) continue;
       if (f.path.endsWith('breath_destiny_screen.dart')) continue;
       if (soloCodice(f.path).contains('BreathDestinyScreen.route')) vie++;

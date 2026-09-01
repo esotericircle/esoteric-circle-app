@@ -22,6 +22,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'istante_dichiarato.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL BORSELLINO E' SEMPRE VISIBILE. Ordine S voce 06.
 ///
 /// **Il difetto.** Il saldo esisteva in UNA schermata, il sentiero dei Sigilli,
@@ -110,8 +112,7 @@ void main() {
     // Le vecchie liste restano nel file come storia (conBorsellino,
     // senzaBorsellino) e non governano piu' niente.
     final copie = <String>[];
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll('\\', '/');
       // La casa unica del saldo e il componente stesso non sono copie.
       if (percorso.endsWith('barra_dell_identita.dart') ||

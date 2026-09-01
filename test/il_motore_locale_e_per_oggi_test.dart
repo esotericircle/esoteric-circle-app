@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL MOTORE LOCALE E' PER IL CIELO DI OGGI, NON PER LE NASCITE.
 ///
@@ -84,10 +84,7 @@ void main() {
     // questo elenco e' vuoto: se domani qualcuno collegasse `Effemeridi` a un
     // calcolo di nascita per risparmiare una chiamata, si troverebbe qui.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll('\\', '/');
       final testo = f.readAsStringSync();
       // Chi nomina insieme la carta natale e le effemeridi locali.

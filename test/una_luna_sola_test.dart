@@ -8,6 +8,8 @@ import 'package:esoteric_circle/design_system/components/luna_reale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// NEL PROGETTO ESISTE UNA LUNA SOLA, E LA PAROLA COINCIDE COL DISEGNO.
 ///
 /// **Il dato che ha fatto nascere questo file.** Nell'anteprima del consulto,
@@ -42,14 +44,7 @@ void main() {
     const primitiveDellaCurva = ['Radius.elliptical', 'arcToPoint'];
 
     final colpe = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
-    while (da.isNotEmpty) {
-      final voce = da.removeLast();
-      if (voce is Directory) {
-        da.addAll(voce.listSync());
-        continue;
-      }
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
       if (percorso.endsWith(LunaReale.casa.split('/').last) &&
           LunaReale.casa.endsWith(percorso.split('lib/').last)) {

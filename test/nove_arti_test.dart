@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LO SCAFFALE NASCE CON NOVE ARTI, TRE PER MAESTRO.
 ///
 /// **Il difetto veniva prima della regola.** Lo scaffale mostrava tre arti e
@@ -54,8 +56,7 @@ void main() {
     // legame sta nel guscio dell'app, dove il Maestro e lo scaffale si
     // incontrano, e questa prova conta le porte invece di visitarne una.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('arti_preferite.dart')) continue;
       if (f.readAsStringSync().contains('setMaestro(')) porte.add(p);

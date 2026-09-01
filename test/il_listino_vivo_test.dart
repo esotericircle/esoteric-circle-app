@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -14,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL LISTINO VIVO. Ordine AN voce 05.
 ///
@@ -44,8 +44,7 @@ void main() {
     final colpevoli = <String>[];
     final prezzo = RegExp(r'''['"]\s*\d{2,4}\s*Eos''');
     var osservati = 0;
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll('\\', '/');
       if (percorso.endsWith('listino_degli_eos.dart')) continue;
       osservati++;

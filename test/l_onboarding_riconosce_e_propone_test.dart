@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// "CONTINUA COME [NOME]". Ordine AL voce 07.
 ///
 /// Quando la custodia risponde che l'identita' vive gia' in un altro
@@ -92,10 +94,7 @@ void main() {
 
   test('nessuna promessa di unione sta nei sorgenti', () {
     final colpevoli = <String>[];
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       if (file.readAsStringSync().contains('uniremo')) {
         colpevoli.add(file.path);
       }

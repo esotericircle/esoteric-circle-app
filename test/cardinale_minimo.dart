@@ -1,5 +1,3 @@
-import 'package:flutter_test/flutter_test.dart';
-
 /// IL CARDINALE MINIMO DI UNA GUARDIA. Ordine CL voce 04.
 ///
 /// **Il difetto che questa porta uccide, e ne uccide due specie su quattro.**
@@ -34,21 +32,46 @@ import 'package:flutter_test/flutter_test.dart';
 /// **E il messaggio dice la cosa giusta.** Quando cade, non dice "il contenuto
 /// e' sbagliato": dice **che l'insieme si e' svuotato**, perche' sono due
 /// guasti diversi e chi legge deve sapere quale dei due sta guardando.
+///
+/// **Perche' non usa `expect`.** Lo usava, fino al 1 settembre 2026. Poi due
+/// guardie hanno chiamato la porta comune al livello di `main()`, per
+/// calcolare il corpus una volta sola prima dei loro `test()`, **che e' un
+/// modo legittimo di scrivere una prova**, e sono morte al caricamento con un
+/// `OutsideTestException` senza messaggio: `expect` vive solo dentro il corpo
+/// di una prova. Un cardinale che funziona in un posto e muore muto
+/// nell'altro non e' un cardinale. Qui si solleva [InsiemeSvuotato], che il
+/// suo messaggio lo porta con se' in tutti e due i posti.
+library;
+
+/// L'insieme su cui una guardia doveva girare si e' svuotato.
+///
+/// Ha un `toString` che restituisce il messaggio per intero: le eccezioni
+/// senza `toString` proprio, al caricamento di una prova, si stampano come
+/// "Instance of ..." e portano via con se' la ragione del guasto.
+class InsiemeSvuotato implements Exception {
+  const InsiemeSvuotato(this.messaggio);
+
+  final String messaggio;
+
+  @override
+  String toString() => messaggio;
+}
+
 void cardinaleMinimo(
   int quanti,
   int minimo, {
   required String cosa,
   String? perche,
 }) {
-  expect(quanti, greaterThanOrEqualTo(minimo),
-      reason: 'QUESTA GUARDIA HA GUARDATO $quanti $cosa, e ne pretende '
-          'almeno $minimo.\n'
-          'Non e\' il contenuto a essere sbagliato: **e\' l\'insieme che si '
-          'e\' svuotato**, e una guardia che gira su un insieme vuoto e\' '
-          'verde senza aver controllato niente.\n'
-          '${perche ?? ''}'
-          '\nO il bersaglio e\' stato tolto da un lavoro recente, e allora la '
-          'cosa da riparare e\' quella; oppure e\' stato spostato, e allora '
-          'questa guardia va portata dove e\' andato. In nessuno dei due casi '
-          'si abbassa questo numero per farla tacere.');
+  if (quanti >= minimo) return;
+  throw InsiemeSvuotato('QUESTA GUARDIA HA GUARDATO $quanti $cosa, e ne '
+      'pretende almeno $minimo.\n'
+      'Non e\' il contenuto a essere sbagliato: **e\' l\'insieme che si e\' '
+      'svuotato**, e una guardia che gira su un insieme vuoto e\' verde senza '
+      'aver controllato niente.\n'
+      '${perche ?? ''}'
+      '\nO il bersaglio e\' stato tolto da un lavoro recente, e allora la '
+      'cosa da riparare e\' quella; oppure e\' stato spostato, e allora '
+      'questa guardia va portata dove e\' andato. In nessuno dei due casi si '
+      'abbassa questo numero per farla tacere.');
 }

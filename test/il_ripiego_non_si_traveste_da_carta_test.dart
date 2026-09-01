@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
@@ -8,6 +6,8 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// IL RIPIEGO NON SI TRAVESTE DA CARTA.
 ///
@@ -103,10 +103,7 @@ void main() {
     // non dichiara niente, questa prova cade.
     const marcatore = 'basta-il-segno';
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll('\\', '/');
       // La porta stessa e' esclusa: e' lei a definire le due letture.
       if (percorso.endsWith('core/identity/natal_identity.dart')) continue;

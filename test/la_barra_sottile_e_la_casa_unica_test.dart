@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/features/account/account_screen.dart';
@@ -10,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// LA BARRA SOTTILE E' LA CASA UNICA. Ordine AM voce 04, forma decisa da
 /// Mauro dal collaudo della 2180.
@@ -192,8 +192,7 @@ void main() {
       'lib/design_system/components/zodiac_glyph.dart',
     ];
     var osservati = 0;
-    for (final voce in Directory('lib').listSync(recursive: true)) {
-      if (voce is! File || !voce.path.endsWith('.dart')) continue;
+    for (final voce in sorgentiDiLib()) {
       final percorso = voce.path.replaceAll('\\', '/');
       if (casa.contains(percorso)) continue;
       osservati++;

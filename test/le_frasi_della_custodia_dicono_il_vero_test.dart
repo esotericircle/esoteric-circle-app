@@ -15,6 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE FRASI DELLA CUSTODIA DICONO IL VERO. Ordine AP voce 08.
 ///
 /// **Il difetto piu' grave dell'ordine AP non era una schermata, era una
@@ -149,10 +151,7 @@ void main() {
     // sarebbe la seconda strada per lo stesso dato, e un giorno le due
     // direbbero cose diverse.
     final quanti = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final codice = f
           .readAsStringSync()
           .split('\n')

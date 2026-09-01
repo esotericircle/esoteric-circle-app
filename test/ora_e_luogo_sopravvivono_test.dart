@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ORA E IL LUOGO SOPRAVVIVONO ALLA CHIUSURA DELL'APP.
 ///
 /// **Una causa sola per due difetti che sembravano distinti.** Il fondatore ha
@@ -104,8 +106,7 @@ void main() {
     // profilo persistito. Non introduce una fonte nuova: consegna un cielo
     // ai dati che ci sono gia'.
     final porte = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       if (p.endsWith('natal_identity.dart')) continue;
       final t = f.readAsStringSync();

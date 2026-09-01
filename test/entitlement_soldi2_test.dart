@@ -9,6 +9,8 @@ import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
 import 'package:esoteric_circle/core/santuario/function_shelf.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Le altre quattro voci sui soldi.
 void main() {
   group('V3, la Profonda deve aprirsi a chi ha pagato', () {
@@ -19,10 +21,7 @@ void main() {
       // anche a chi l'ha comprata, e nessun test di widget potrebbe vederlo
       // perche' non esiste una schermata dove sia aperta.
       final montaggi = <String>[];
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         final src = f.readAsStringSync();
         if (!src.contains('AnswerDepthSelector(')) continue;
         if (f.path.endsWith('answer_depth.dart')) continue;
