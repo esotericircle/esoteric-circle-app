@@ -12,6 +12,7 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'bindrune.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
+import '../../../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile dell'Estrazione Rune, cornice oro e rossa di Caligo:
 /// la gettata, le rune nelle loro posizioni col verso, e il presagio in sintesi.
@@ -32,76 +33,83 @@ class RuneShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
-    return Container(
-      key: const Key('rune_share_card'),
-      width: larghezza,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [palette.surfaceElevated, palette.deepest],
+    // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
+    // Ordine CN voce 12: la scala del testo di chi la crea non entra
+    // nell'immagine, perche' l'immagine la guardano altri.
+    return CardAMisuraFissa(
+      child: Container(
+        key: const Key('rune_share_card'),
+        width: larghezza,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          border:
+              Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
         ),
-        border:
-            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.lg),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('ESTRAZIONE RUNE',
-                style: TypographyTokens.label(size: 12)
-                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
-            const SizedBox(height: 2),
-            Text(esito.gettata.nome.toUpperCase(),
-                style: TypographyTokens.titoloSezione()
-                    .copyWith(color: palette.goldSoft)),
-            const SizedBox(height: SpacingTokens.sm),
-            // IL SIGILLO, l'elemento grafico forte per la condivisione.
-            BindruneSigillo(
-              runeNames: [for (final r in esito.rune) r.rune.name],
-              oro: palette.gold,
-              alone: palette.goldSoft,
-              lato: 190,
-            ),
-            Text('Il sigillo del giorno, una bindrune',
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.85),
-                    letterSpacing: 0.8)),
-            Text('glifi intrecciati autentici della tradizione runica',
-                textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary.withValues(alpha: 0.6),
-                    letterSpacing: 0.3)),
-            const SizedBox(height: SpacingTokens.md),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: SpacingTokens.md,
-              runSpacing: SpacingTokens.md,
-              children: [
-                for (final r in esito.rune)
-                  _RunaTile(
-                      runa: r, palette: palette, libera: esito.gettata.libera),
-              ],
-            ),
-            const SizedBox(height: SpacingTokens.md),
-            Container(height: 1, color: palette.gold.withValues(alpha: 0.3)),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(presagio,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.corpo()
-                    .copyWith(color: palette.textPrimary, height: 1.45)),
-            const SizedBox(height: SpacingTokens.md),
-            Text('Esoteric Circle · Caligo',
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.7),
-                    letterSpacing: 1.0)),
-            const SizedBox(height: 2),
-            Text('Getta le rune su Esoteric Circle',
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary.withValues(alpha: 0.6),
-                    letterSpacing: 0.4)),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('ESTRAZIONE RUNE',
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
+              const SizedBox(height: 2),
+              Text(esito.gettata.nome.toUpperCase(),
+                  style: TypographyTokens.titoloSezione()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.sm),
+              // IL SIGILLO, l'elemento grafico forte per la condivisione.
+              BindruneSigillo(
+                runeNames: [for (final r in esito.rune) r.rune.name],
+                oro: palette.gold,
+                alone: palette.goldSoft,
+                lato: 190,
+              ),
+              Text('Il sigillo del giorno, una bindrune',
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.85),
+                      letterSpacing: 0.8)),
+              Text('glifi intrecciati autentici della tradizione runica',
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary.withValues(alpha: 0.6),
+                      letterSpacing: 0.3)),
+              const SizedBox(height: SpacingTokens.md),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: SpacingTokens.md,
+                runSpacing: SpacingTokens.md,
+                children: [
+                  for (final r in esito.rune)
+                    _RunaTile(
+                        runa: r,
+                        palette: palette,
+                        libera: esito.gettata.libera),
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              Container(height: 1, color: palette.gold.withValues(alpha: 0.3)),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(presagio,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.textPrimary, height: 1.45)),
+              const SizedBox(height: SpacingTokens.md),
+              Text('Esoteric Circle · Caligo',
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.7),
+                      letterSpacing: 1.0)),
+              const SizedBox(height: 2),
+              Text('Getta le rune su Esoteric Circle',
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary.withValues(alpha: 0.6),
+                      letterSpacing: 0.4)),
+            ],
+          ),
         ),
       ),
     );

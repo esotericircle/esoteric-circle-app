@@ -11,6 +11,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import '../../../../core/condivisione/porta_della_condivisione.dart';
+import '../../../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile dell'Animale Guida, nella cornice oro e rossa di
 /// Caligo. Il totem sul cielo del profilo, il nome, la sintesi, l'origine dal
@@ -33,69 +34,74 @@ class GuideAnimalShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
-    return Container(
-      key: const Key('guide_animal_share_card'),
-      width: larghezza,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [palette.surfaceElevated, palette.deepest],
+    // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
+    // Ordine CN voce 12: la scala del testo di chi la crea non entra
+    // nell'immagine, perche' l'immagine la guardano altri.
+    return CardAMisuraFissa(
+      child: Container(
+        key: const Key('guide_animal_share_card'),
+        width: larghezza,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          border:
+              Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
         ),
-        border:
-            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.lg),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('ANIMALE GUIDA',
-                style: TypographyTokens.label(size: 12)
-                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
-            const SizedBox(height: SpacingTokens.md),
-            // Il totem sul cielo del profilo: la wow, l'animale composto col cosmo.
-            SizedBox(
-              width: _latoTotem,
-              height: _latoTotem,
-              child: Stack(
-                fit: StackFit.expand,
-                alignment: Alignment.center,
-                children: [
-                  CustomPaint(painter: _CieloPainter(palette: palette)),
-                  Image.asset(animal.fullPath,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) =>
-                          Icon(Icons.pets, size: 150, color: palette.goldSoft)),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('ANIMALE GUIDA',
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
+              const SizedBox(height: SpacingTokens.md),
+              // Il totem sul cielo del profilo: la wow, l'animale composto col cosmo.
+              SizedBox(
+                width: _latoTotem,
+                height: _latoTotem,
+                child: Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.center,
+                  children: [
+                    CustomPaint(painter: _CieloPainter(palette: palette)),
+                    Image.asset(animal.fullPath,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Icon(Icons.pets,
+                            size: 150, color: palette.goldSoft)),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(animal.name.toUpperCase(),
-                style: TypographyTokens.cerimoniale()
-                    .copyWith(color: palette.goldSoft)),
-            const SizedBox(height: 2),
-            Text(animal.summary,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary, fontStyle: FontStyle.italic)),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(origine,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.textPrimary.withValues(alpha: 0.75),
-                    letterSpacing: 0.5)),
-            const SizedBox(height: SpacingTokens.md),
-            Text('Esoteric Circle · Caligo',
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.7),
-                    letterSpacing: 1.0)),
-            const SizedBox(height: 2),
-            Text('Scopri il tuo animale guida su Esoteric Circle',
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary.withValues(alpha: 0.6),
-                    letterSpacing: 0.4)),
-          ],
+              const SizedBox(height: SpacingTokens.sm),
+              Text(animal.name.toUpperCase(),
+                  style: TypographyTokens.cerimoniale()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: 2),
+              Text(animal.summary,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary, fontStyle: FontStyle.italic)),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(origine,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.textPrimary.withValues(alpha: 0.75),
+                      letterSpacing: 0.5)),
+              const SizedBox(height: SpacingTokens.md),
+              Text('Esoteric Circle · Caligo',
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.7),
+                      letterSpacing: 1.0)),
+              const SizedBox(height: 2),
+              Text('Scopri il tuo animale guida su Esoteric Circle',
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary.withValues(alpha: 0.6),
+                      letterSpacing: 0.4)),
+            ],
+          ),
         ),
       ),
     );

@@ -19,6 +19,8 @@ import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'riga_interruttore.dart';
+import 'riga_che_apre.dart';
+import 'suono_screen.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -154,29 +156,33 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
-              // **SOLO GLI EFFETTI SONORI, ordine BX voce 05.** Il fondatore
-              // ha chiesto un comando che spenga i suoni: quello sopra
-              // spegne anche la vibrazione, che per chi tiene il telefono in
-              // silenzio e\' l'unico canale che resta. Chi vuole il silenzio
-              // senza perdere il tocco spegne questo.
+              // **LA RIGA DIVENTA UNA PORTA, ordine CN voce 07.**
               //
-              // **Si spegne da solo quando l'interruttore unico e\' spento**,
-              // perche\' li\' non c'e\' piu\' niente da decidere: mostrarlo
-              // acceso sotto un comando gia\' spento direbbe il falso.
+              // Qui stava l'interruttore dei soli effetti sonori, nato con
+              // l'ordine BX voce 05. Non sparisce e non cambia comportamento:
+              // **si sposta di una schermata**, insieme a quello della musica
+              // e ai due cursori del volume, perche' quattro comandi del suono
+              // in fila allungherebbero la strada verso tutto il resto delle
+              // Impostazioni per servire chi li tocca una volta.
+              //
+              // **La lista non si allunga**: una riga esce, una riga entra. E'
+              // una precauzione voluta, perche' una voce in piu' in questa
+              // schermata spinge sotto la piega tutto cio' che sta sotto.
+              //
+              // **Si spegne da solo quando l'interruttore unico e' spento**,
+              // perche' li' dentro non c'e' piu' niente da decidere.
               DepthCard(
                 raised: true,
                 padding: EdgeInsets.zero,
-                child: RigaInterruttore(
-                  itemKey: const Key('settings_effetti_sonori'),
+                child: RigaCheApre(
+                  itemKey: const Key('settings_suono'),
                   icon: Icons.music_note_rounded,
-                  title: 'Effetti sonori',
-                  subtitle: 'I suoni dei responsi, uno per Maestro. Spegnili '
-                      'e la vibrazione resta.',
-                  value: settings.suonoPermesso,
-                  onChanged: settings.suonoEVibrazione
-                      ? settings.setEffettiSonori
-                      : null,
+                  title: 'Suono',
+                  subtitle: 'Effetti e musica, con un volume per ognuno.',
                   palette: palette,
+                  onTap: settings.suonoEVibrazione
+                      ? () => Navigator.of(context).push(SuonoScreen.route())
+                      : null,
                 ),
               ),
               const SizedBox(height: SpacingTokens.xl),

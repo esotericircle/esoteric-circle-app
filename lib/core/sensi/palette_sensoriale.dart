@@ -8,6 +8,7 @@ import 'catalogo_suoni.dart';
 import 'motore_audio.dart';
 import 'voce_del_responso.dart';
 import '../maestro/maestro.dart';
+import 'regia_della_musica.dart';
 
 /// I QUATTRO SCHEMI APTICI del Cerchio, e nessuno di piu'.
 ///
@@ -69,10 +70,18 @@ class PaletteSensoriale {
   @visibleForTesting
   static void Function(SuonoDelCerchio suono)? spia;
 
-  /// Riproduce uno dei cinque suoni del catalogo, se il livello e' acceso.
+  /// Riproduce uno dei tredici suoni del catalogo, se il livello e'
+  /// acceso.
   ///
-  /// Se il file non c'e' ancora, non succede niente: e' il ripiego silenzioso
-  /// dichiarato, che tiene l'app viva finche' gli asset non arrivano.
+  /// Se il file non c'e' ancora, non succede niente: e' il ripiego
+  /// silenzioso dichiarato, che tiene l'app viva finche' gli asset non
+  /// arrivano.
+  ///
+  /// **E LA MUSICA SCENDE DA QUI, ordine CN voce 07.** L'abbassamento sta
+  /// dentro la porta dei suoni e non nelle schermate che suonano: se ogni
+  /// schermata dovesse ricordarsi di abbassare il tappeto, la prima che
+  /// se ne dimenticasse avrebbe un effetto coperto dalla musica, e
+  /// nessuno saprebbe dove cercare. **Una porta sola, una regola sola.**
   static Future<void> suona(BuildContext context, SuonoDelCerchio suono) async {
     if (!suonoPermesso(context)) return;
     // La firma si sente all'apertura dell'app e mai a ogni ritorno in home: una
@@ -82,6 +91,10 @@ class PaletteSensoriale {
       _giaEmessi.add(suono);
     }
     spia?.call(suono);
+    // La musica scende PRIMA che l'effetto attacchi, e non dopo: la
+    // discesa dura 220 millisecondi, cioe' meno del piu' breve dei
+    // tredici suoni, quindi non ritarda niente di percepibile.
+    unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(suono.durataAttesa));
     await _motore.effetto(suono.percorso);
   }
 

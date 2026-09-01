@@ -54,6 +54,7 @@ import 'services/regia_delle_chiamate.dart';
 import 'features/intro/sequenza_intro.dart';
 import 'core/misura/misura_del_ritorno.dart';
 import 'core/misura/registro_del_ritorno.dart';
+import 'features/shell/custode_della_musica.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
 ///
@@ -430,170 +431,178 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
       // gia', e sopra il Navigator, cosi' non muore cambiando schermata.
       child: CustodeMontato(
         recapito: const RecapitoVero(),
-        child: PonteDellaCarta(
-          child: MaterialApp(
-            navigatorKey: _navigatore,
-            title: 'Esoteric Circle',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.dark(),
-            // L'osservatore della pila: tiene le rotte vive, che servono sia a
-            // sapere quale schermata e' in cima sia alla regola contro il doppione.
-            // E' UN DATO SOLO, montato qui e passato alla barra: due copie della
-            // pila divergerebbero al primo pop.
-            navigatorObservers: [_pila, osservatoreDelCielo],
-            // La striscia col token di debug di App Check sta sopra il Navigator,
-            // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
-            // In release non compare: lo decidono i servizi, non questa riga.
-            //
-            // QUI STA ANCHE L'INTRO, e ci sta per una ragione che ho imparato
-            // sbagliando: era dentro `home`, cioe' dentro la ROUTE INIZIALE, e il
-            // Risveglio non e' un ramo dell'albero, e' un `push`. Un push mette una
-            // route SOPRA, quindi copriva l'intro: si sentiva la voce e si vedeva
-            // il Risveglio, perche' l'intro era viva e sepolta. Il builder avvolge
-            // il Navigator intero, quindi sta davvero davanti a tutto, comprese le
-            // schermate che verranno spinte sopra domani.
-            builder: (context, child) => AppCheckDebugBanner(
-              child: Consumer<SettingsController>(
-                builder: (context, settings, _) {
-                  // Modalita' semplice: abbassa la qualita' grafica. Applicata
-                  // fuori dal build per non scrivere stato durante la costruzione.
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    final q = context.read<QualityTierController>();
-                    final target = settings.simpleMode
-                        ? QualityTier.low
-                        : QualityTier.high;
-                    if (q.tier != target) q.setTier(target);
-                  });
-                  // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
-                  // il codice che rispetta Riduci Movimento lo onora. Da qui vale
-                  // anche per le route spinte sopra, che prima ne restavano fuori.
-                  final mq = MediaQuery.of(context);
-                  return MediaQuery(
-                    data: mq.copyWith(
-                      disableAnimations:
-                          mq.disableAnimations || settings.reduceAnimations,
-                      // IL CORPO DEL TESTO DI SISTEMA SI RISPETTA, NON SI SPEGNE.
-                      // Chi ha alzato il carattere nelle impostazioni del telefono
-                      // lo ha fatto per un motivo, spesso perche' senza non legge,
-                      // quindi la scala arriva fino a 1,3 e l'app si allarga con
-                      // lei. Il tetto esiste perche' oltre quella soglia le nostre
-                      // schermate non si limitano a diventare grandi: le cornici
-                      // cerimoniali, gli anelli e le carte hanno misure fisse e il
-                      // testo comincia a uscirne. Il pavimento a 0,9 e' l'altra
-                      // meta' della stessa regola: chi rimpicciolisce il sistema
-                      // non deve poter portare l'app sotto la soglia di
-                      // leggibilita' che i token difendono in ogni altro punto.
-                      // Sta QUI e in nessun altro posto, sopra il Navigator, cosi'
-                      // vale anche per le rotte spinte sopra il guscio, comprese le
-                      // chat e le immersive, che hanno un proprio Scaffold.
-                      // **IL TETTO E' UNA SCELTA, NON UN VINCOLO DI
-                      // SISTEMA.** Ordine CM voce 08, 1 settembre 2026.
-                      //
-                      // I sistemi arrivano molto piu' in alto di 1,3:
-                      // Android porta la misura del testo fino al doppio
-                      // dalle impostazioni di accessibilita', e iOS con
-                      // le misure di accessibilita' arriva a circa il
-                      // triplo. **Questi due numeri vanno riverificati sul
-                      // dispositivo**, perche' non si leggono in questo
-                      // repository.
-                      //
-                      // **La decisione: si tiene un tetto, e si alza a
-                      // 1,6.** Accogliere l'intera scala di sistema non
-                      // e' un problema di impaginazione, e' una questione
-                      // di direzione artistica: a tre volte il testo, la
-                      // ruota dello zodiaco, le cornici delle carte e i
-                      // busti dentro il loro cerchio non si allargano, e
-                      // la regola del mezzobusto del 6 agosto 2026
-                      // cadrebbe su ogni ritratto tondo.
-                      //
-                      // **1,6 perche' e' alto davvero**: copre per intero
-                      // la scala standard di iOS e il suo primo passo di
-                      // accessibilita', e il passo piu' grande della
-                      // misura standard di Android con margine. Il
-                      // pubblico di quest'app e' mediamente piu' anziano
-                      // e il testo grande lo imposta davvero.
-                      //
-                      // **Il tetto sale a 1,6 solo quando il corredo e'
-                      // pulito a 1,6**, non prima: alzarlo su schermate
-                      // che si rompono vorrebbe dire spostare il guasto
-                      // dagli occhi di chi prova a quelli di chi usa.
-                      // Finche' resta a 1,3, il numero qui sotto e' il
-                      // debito, non la scelta.
-                      textScaler: mq.textScaler.clamp(
-                        minScaleFactor: 0.9,
-                        maxScaleFactor: 1.3,
+        // **IL CUSTODE DELLA MUSICA STA QUI**, ordine CN voce 03: sopra
+        // il Navigator, come la barra, perche' da qui vede anche le
+        // rotte spinte sopra il guscio. Legge la stessa pila della
+        // barra, e non una sua: due elenchi delle stesse rotte
+        // divergerebbero al primo pop.
+        child: CustodeDellaMusica(
+          pila: _pila,
+          child: PonteDellaCarta(
+            child: MaterialApp(
+              navigatorKey: _navigatore,
+              title: 'Esoteric Circle',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              // L'osservatore della pila: tiene le rotte vive, che servono sia a
+              // sapere quale schermata e' in cima sia alla regola contro il doppione.
+              // E' UN DATO SOLO, montato qui e passato alla barra: due copie della
+              // pila divergerebbero al primo pop.
+              navigatorObservers: [_pila, osservatoreDelCielo],
+              // La striscia col token di debug di App Check sta sopra il Navigator,
+              // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
+              // In release non compare: lo decidono i servizi, non questa riga.
+              //
+              // QUI STA ANCHE L'INTRO, e ci sta per una ragione che ho imparato
+              // sbagliando: era dentro `home`, cioe' dentro la ROUTE INIZIALE, e il
+              // Risveglio non e' un ramo dell'albero, e' un `push`. Un push mette una
+              // route SOPRA, quindi copriva l'intro: si sentiva la voce e si vedeva
+              // il Risveglio, perche' l'intro era viva e sepolta. Il builder avvolge
+              // il Navigator intero, quindi sta davvero davanti a tutto, comprese le
+              // schermate che verranno spinte sopra domani.
+              builder: (context, child) => AppCheckDebugBanner(
+                child: Consumer<SettingsController>(
+                  builder: (context, settings, _) {
+                    // Modalita' semplice: abbassa la qualita' grafica. Applicata
+                    // fuori dal build per non scrivere stato durante la costruzione.
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      final q = context.read<QualityTierController>();
+                      final target = settings.simpleMode
+                          ? QualityTier.low
+                          : QualityTier.high;
+                      if (q.tier != target) q.setTier(target);
+                    });
+                    // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
+                    // il codice che rispetta Riduci Movimento lo onora. Da qui vale
+                    // anche per le route spinte sopra, che prima ne restavano fuori.
+                    final mq = MediaQuery.of(context);
+                    return MediaQuery(
+                      data: mq.copyWith(
+                        disableAnimations:
+                            mq.disableAnimations || settings.reduceAnimations,
+                        // IL CORPO DEL TESTO DI SISTEMA SI RISPETTA, NON SI SPEGNE.
+                        // Chi ha alzato il carattere nelle impostazioni del telefono
+                        // lo ha fatto per un motivo, spesso perche' senza non legge,
+                        // quindi la scala arriva fino a 1,3 e l'app si allarga con
+                        // lei. Il tetto esiste perche' oltre quella soglia le nostre
+                        // schermate non si limitano a diventare grandi: le cornici
+                        // cerimoniali, gli anelli e le carte hanno misure fisse e il
+                        // testo comincia a uscirne. Il pavimento a 0,9 e' l'altra
+                        // meta' della stessa regola: chi rimpicciolisce il sistema
+                        // non deve poter portare l'app sotto la soglia di
+                        // leggibilita' che i token difendono in ogni altro punto.
+                        // Sta QUI e in nessun altro posto, sopra il Navigator, cosi'
+                        // vale anche per le rotte spinte sopra il guscio, comprese le
+                        // chat e le immersive, che hanno un proprio Scaffold.
+                        // **IL TETTO E' UNA SCELTA, NON UN VINCOLO DI
+                        // SISTEMA.** Ordine CM voce 08, 1 settembre 2026.
+                        //
+                        // I sistemi arrivano molto piu' in alto di 1,3:
+                        // Android porta la misura del testo fino al doppio
+                        // dalle impostazioni di accessibilita', e iOS con
+                        // le misure di accessibilita' arriva a circa il
+                        // triplo. **Questi due numeri vanno riverificati sul
+                        // dispositivo**, perche' non si leggono in questo
+                        // repository.
+                        //
+                        // **La decisione: si tiene un tetto, e si alza a
+                        // 1,6.** Accogliere l'intera scala di sistema non
+                        // e' un problema di impaginazione, e' una questione
+                        // di direzione artistica: a tre volte il testo, la
+                        // ruota dello zodiaco, le cornici delle carte e i
+                        // busti dentro il loro cerchio non si allargano, e
+                        // la regola del mezzobusto del 6 agosto 2026
+                        // cadrebbe su ogni ritratto tondo.
+                        //
+                        // **1,6 perche' e' alto davvero**: copre per intero
+                        // la scala standard di iOS e il suo primo passo di
+                        // accessibilita', e il passo piu' grande della
+                        // misura standard di Android con margine. Il
+                        // pubblico di quest'app e' mediamente piu' anziano
+                        // e il testo grande lo imposta davvero.
+                        //
+                        // **Il tetto sale a 1,6 solo quando il corredo e'
+                        // pulito a 1,6**, non prima: alzarlo su schermate
+                        // che si rompono vorrebbe dire spostare il guasto
+                        // dagli occhi di chi prova a quelli di chi usa.
+                        // Finche' resta a 1,3, il numero qui sotto e' il
+                        // debito, non la scelta.
+                        textScaler: mq.textScaler.clamp(
+                          minScaleFactor: 0.9,
+                          maxScaleFactor: 1.3,
+                        ),
                       ),
-                    ),
-                    // LA BARRA STA QUI, e ci sta per la stessa ragione dell'intro:
-                    // il builder avvolge il Navigator INTERO, quindi vede anche le
-                    // rotte spinte sopra il guscio, comprese le chat e i domini,
-                    // che hanno un proprio Scaffold. Dentro `home`, cioe' dentro
-                    // `AppShell`, vedeva solo le due viste del guscio, ed e' il
-                    // motivo per cui ne serviva una seconda. E' il solo punto che
-                    // decide dove la barra si vede: le schermate non lo sanno e non
-                    // lo devono sapere.
-                    // IL RACCONTO DELLA DIAGNOSI sta SOPRA l'intro: l'app muore
-                    // anche durante l'intro, e la briciola della corsa prima si
-                    // deve leggere comunque. Fuori diagnosi e' trasparente.
-                    child: RaccontoDellaCorsa(
-                        child: SequenzaIntro(
-                      mostra: widget.conIntro,
-                      // Il silenzio dell'app vale anche per l'apertura. Passa da
-                      // qui e non si legge dentro l'intro perche' l'intro e' gia'
-                      // dentro questo Consumer: farglielo cercare da sola
-                      // vorrebbe dire una seconda porta sullo stesso dato.
-                      conSuono: settings.suonoEVibrazione,
-                      child: // **IL TUTORIAL DI PRIMO APPRODO STA QUI, ordine CB voce 02**,
-                          // cioe' FUORI dalle due barre e DENTRO l'intro. Fuori dalle
-                          // barre perche' due dei cinque fumetti puntano proprio le
-                          // barre, e un velo montato piu' in dentro le lascerebbe
-                          // illuminate sopra di se'. Dentro l'intro perche' l'intro
-                          // viene prima: il tutorial e' cio' che si trova ad apertura
-                          // finita.
-                          PrimoApprodo(
-                        child: BarraDelCerchio(
-                          observatore: _pila,
-                          // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
-                          // fogli dal basso e i dialoghi vivono come rotte del
-                          // Navigator radice: lo scope dentro `home` per loro non
-                          // esiste, e in release l'assert di MaestroScope.of
-                          // sparisce, il `!` lancia sul nullo e il builder del
-                          // foglio muore in un foglio MUTO. E' il foglio bianco che
-                          // Mauro ha toccato sulla 2179 aprendo un traguardo acceso.
-                          // Questo scope neutro e' il pavimento: ogni rotta spinta
-                          // sopra puo' sempre vestire il suo Maestro, e il piu'
-                          // vicino vince.
-                          // **LA BARRA SOTTILE DELL'IDENTITA', ordine AM voce
-                          // 04**, al posto della capsula che Mauro ha voluto via:
-                          // sopra il Navigator come la barra del Cerchio, quindi
-                          // UNA per tutta l'app, e le testate non ne tengono copia.
-                          // Sta DENTRO lo scope, che le da' il velo del Maestro.
-                          child: MaestroScope(
-                            child: BarraDellIdentita(
-                              observatore: _pila,
-                              child: child ?? const SizedBox.shrink(),
+                      // LA BARRA STA QUI, e ci sta per la stessa ragione dell'intro:
+                      // il builder avvolge il Navigator INTERO, quindi vede anche le
+                      // rotte spinte sopra il guscio, comprese le chat e i domini,
+                      // che hanno un proprio Scaffold. Dentro `home`, cioe' dentro
+                      // `AppShell`, vedeva solo le due viste del guscio, ed e' il
+                      // motivo per cui ne serviva una seconda. E' il solo punto che
+                      // decide dove la barra si vede: le schermate non lo sanno e non
+                      // lo devono sapere.
+                      // IL RACCONTO DELLA DIAGNOSI sta SOPRA l'intro: l'app muore
+                      // anche durante l'intro, e la briciola della corsa prima si
+                      // deve leggere comunque. Fuori diagnosi e' trasparente.
+                      child: RaccontoDellaCorsa(
+                          child: SequenzaIntro(
+                        mostra: widget.conIntro,
+                        // Il silenzio dell'app vale anche per l'apertura. Passa da
+                        // qui e non si legge dentro l'intro perche' l'intro e' gia'
+                        // dentro questo Consumer: farglielo cercare da sola
+                        // vorrebbe dire una seconda porta sullo stesso dato.
+                        conSuono: settings.suonoEVibrazione,
+                        child: // **IL TUTORIAL DI PRIMO APPRODO STA QUI, ordine CB voce 02**,
+                            // cioe' FUORI dalle due barre e DENTRO l'intro. Fuori dalle
+                            // barre perche' due dei cinque fumetti puntano proprio le
+                            // barre, e un velo montato piu' in dentro le lascerebbe
+                            // illuminate sopra di se'. Dentro l'intro perche' l'intro
+                            // viene prima: il tutorial e' cio' che si trova ad apertura
+                            // finita.
+                            PrimoApprodo(
+                          child: BarraDelCerchio(
+                            observatore: _pila,
+                            // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
+                            // fogli dal basso e i dialoghi vivono come rotte del
+                            // Navigator radice: lo scope dentro `home` per loro non
+                            // esiste, e in release l'assert di MaestroScope.of
+                            // sparisce, il `!` lancia sul nullo e il builder del
+                            // foglio muore in un foglio MUTO. E' il foglio bianco che
+                            // Mauro ha toccato sulla 2179 aprendo un traguardo acceso.
+                            // Questo scope neutro e' il pavimento: ogni rotta spinta
+                            // sopra puo' sempre vestire il suo Maestro, e il piu'
+                            // vicino vince.
+                            // **LA BARRA SOTTILE DELL'IDENTITA', ordine AM voce
+                            // 04**, al posto della capsula che Mauro ha voluto via:
+                            // sopra il Navigator come la barra del Cerchio, quindi
+                            // UNA per tutta l'app, e le testate non ne tengono copia.
+                            // Sta DENTRO lo scope, che le da' il velo del Maestro.
+                            child: MaestroScope(
+                              child: BarraDellIdentita(
+                                observatore: _pila,
+                                child: child ?? const SizedBox.shrink(),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )),
-                  );
-                },
+                      )),
+                    );
+                  },
+                ),
               ),
-            ),
-            // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
-            // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
-            //
-            // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide
-            // dove si va, ritarda solo il momento in cui si vede.
-            // IL GUARDIANO DELLE FESTE sta DENTRO il guscio, cioe' sotto il
-            // Navigator: e' l'unico posto da cui si vede l'Overlay della radice,
-            // quello in cui una festa in attesa puo' comparire sopra ogni rotta.
-            // Sopra il Navigator, nel builder, non vedrebbe nessun Overlay e la
-            // coda non si svuoterebbe mai.
-            home: GuardianoDelleFeste(
-              child: _OnboardingLauncher(
-                child: MaestroScope(child: AppShell(clock: clock)),
+              // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
+              // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
+              //
+              // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide
+              // dove si va, ritarda solo il momento in cui si vede.
+              // IL GUARDIANO DELLE FESTE sta DENTRO il guscio, cioe' sotto il
+              // Navigator: e' l'unico posto da cui si vede l'Overlay della radice,
+              // quello in cui una festa in attesa puo' comparire sopra ogni rotta.
+              // Sopra il Navigator, nel builder, non vedrebbe nessun Overlay e la
+              // coda non si svuoterebbe mai.
+              home: GuardianoDelleFeste(
+                child: _OnboardingLauncher(
+                  child: MaestroScope(child: AppShell(clock: clock)),
+                ),
               ),
             ),
           ),

@@ -1,0 +1,211 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+
+import '../settings/settings_controller.dart';
+import 'catalogo_musiche.dart';
+import 'motore_audio.dart';
+
+/// LA REGIA DELLA MUSICA: tutte le regole del tappeto, in un posto solo.
+/// Ordine CN voce 07, 1 settembre 2026.
+///
+/// **Perche' esiste una regia e non una chiamata per schermata.** Le regole
+/// della musica non sono di una schermata: sono del rapporto FRA le schermate.
+/// Quando si passa da Medora a Caligo, chi decide la dissolvenza non e' ne'
+/// l'una ne' l'altra. Se ogni schermata suonasse per conto suo, il passaggio
+/// sarebbe un taglio, e nessuno saprebbe dove ripararlo.
+///
+/// **Le regole, e da dove viene ogni numero.**
+///
+/// - **La musica scende sotto un effetto e risale quando finisce.** Scende al
+///   35 per cento in 220 millisecondi, risale in 600. La discesa e' rapida
+///   perche' deve essere gia' avvenuta quando l'effetto attacca, altrimenti
+///   l'attacco, che e' la parte che si riconosce, resta coperto. La risalita e'
+///   lenta perche' un tappeto che torna di colpo si nota, e un tappeto che si
+///   nota non e' piu' un tappeto.
+/// - **Il passaggio da una traccia all'altra e' una dissolvenza incrociata**
+///   di 1200 millisecondi, mai un taglio.
+/// - **La musica tace quando l'app va in secondo piano e riprende al ritorno**,
+///   e riprende dov'era: quello lo fa il motore, chiamato dalla Guardia del
+///   Suono.
+/// - **Nessuna musica dedicata ai Doni del Giorno**: il Dono non ha una sua
+///   traccia, e quella che sta suonando continua. Spegnerla farebbe del Dono un
+///   buco di silenzio.
+///
+/// **I cursori riflettono, non scavalcano.** Il volume che esce e' sempre il
+/// prodotto di tre cose: l'interruttore unico, quello della musica, e il
+/// cursore. Se uno dei due interruttori dice di no, il cursore non fa uscire
+/// niente. Un cursore che suona mentre un interruttore dice di no e' un'app che
+/// non obbedisce.
+class RegiaDellaMusica {
+  RegiaDellaMusica._();
+
+  /// L'unica regia. Come il motore, e per la stessa ragione: due registi
+  /// vogliono dire due tappeti sovrapposti.
+  static final RegiaDellaMusica sola = RegiaDellaMusica._();
+
+  /// Quanto scende la musica sotto un effetto: al 35 per cento, cioe' nove
+  /// decibel sotto. Gli effetti stanno gia' sette decibel sopra la musica per
+  /// come sono normalizzati: nove in piu' li mette chiaramente davanti senza
+  /// far sparire il tappeto, che deve restare percepibile.
+  static const double quotaAbbassata = 0.35;
+
+  /// Quanto ci mette a scendere. Rapida: deve aver finito prima dell'attacco.
+  static const Duration discesa = Duration(milliseconds: 220);
+
+  /// Quanto ci mette a risalire. Lenta: una risalita che si nota e' un difetto.
+  static const Duration risalita = Duration(milliseconds: 600);
+
+  /// La dissolvenza incrociata fra due tracce.
+  static const Duration incrocio = Duration(milliseconds: 1200);
+
+  /// Ogni quanto si muove il volume durante una dissolvenza. Cinquanta
+  /// millisecondi sono venti passi al secondo: sotto questa soglia l'orecchio
+  /// sente una rampa e non una scala.
+  static const Duration passo = Duration(milliseconds: 50);
+
+  /// La spia delle prove: ogni cambio di traccia passa di qui.
+  ///
+  /// Serve perche' una prova non puo' ascoltare: senza questa riga, una
+  /// guardia sulla musica potrebbe solo verificare che il codice esista, non
+  /// che la traccia giusta parta nel posto giusto.
+  @visibleForTesting
+  static void Function(MusicaDelCerchio? traccia)? spia;
+
+  MusicaDelCerchio? _corrente;
+  double _volumeVoluto = 0.0;
+  int _effettiInCorso = 0;
+  Timer? _dissolvenza;
+
+  /// La traccia che sta suonando adesso, o nulla se tace.
+  MusicaDelCerchio? get corrente => _corrente;
+
+  /// Quanto vale il volume in questo istante, prima dell'abbassamento.
+  double get volumeVoluto => _volumeVoluto;
+
+  /// Vero se la musica sta scendendo sotto un effetto.
+  bool get abbassata => _effettiInCorso > 0;
+
+  double _volumeDa(SettingsController s) =>
+      s.musicaPermessa ? s.volumeMusica : 0.0;
+
+  /// **PORTA IL LUOGO, NON IL BRANO.** Chi chiama dice dove si trova, e la
+  /// regia decide cosa suona: non esiste un comando che scelga un brano,
+  /// perche' la licenza non lo consente e perche' un selettore non e' quello
+  /// che questa app vuole essere.
+  Future<void> vaiA(MusicaDelCerchio? luogo, SettingsController s) async {
+    if (luogo == _corrente) {
+      // Stessa traccia: si aggiorna solo il volume, che puo' essere cambiato
+      // sotto le dita di chi muove il cursore.
+      await _applica(_volumeDa(s));
+      return;
+    }
+
+    _dissolvenza?.cancel();
+
+    if (luogo == null) {
+      await _sfuma(da: _volumeAttuale(), a: 0.0, quanto: incrocio);
+      await MotoreAudio.condiviso.fermaMusica();
+      _corrente = null;
+      _volumeVoluto = 0.0;
+      spia?.call(null);
+      return;
+    }
+
+    // **LA DISSOLVENZA INCROCIATA CON UN LETTORE SOLO.** Due lettori
+    // suonerebbero davvero insieme, ma vorrebbero dire due tappeti e un
+    // secondo motore, che questo progetto vieta. Con uno solo si scende a
+    // zero e si risale sulla traccia nuova: e' una dissolvenza in serie, e
+    // all'orecchio la differenza sta nel mezzo secondo centrale, dove un
+    // taglio si sentirebbe e questo no.
+    final meta = Duration(milliseconds: incrocio.inMilliseconds ~/ 2);
+    if (_corrente != null) {
+      await _sfuma(da: _volumeAttuale(), a: 0.0, quanto: meta);
+    }
+
+    final voluto = _volumeDa(s);
+    final partita = await MotoreAudio.condiviso
+        .musica(luogo.percorso, volume: _corrente == null ? voluto : 0.0);
+    if (!partita) {
+      // Nessun asset, nessun lettore: si resta in silenzio senza mentire su
+      // cosa sta suonando.
+      _corrente = null;
+      _volumeVoluto = 0.0;
+      spia?.call(null);
+      return;
+    }
+    _corrente = luogo;
+    _volumeVoluto = voluto;
+    spia?.call(luogo);
+    if (voluto > 0) {
+      await _sfuma(da: 0.0, a: voluto, quanto: meta);
+    }
+  }
+
+  /// La musica scende, perche' sta per suonare un effetto.
+  ///
+  /// Si conta quanti effetti sono in corso: due effetti ravvicinati non devono
+  /// far risalire il tappeto in mezzo, che sarebbe un'onda invece di un
+  /// abbassamento.
+  Future<void> scendiSottoUnEffetto(Duration quantoDura) async {
+    _effettiInCorso++;
+    await _sfuma(
+        da: _volumeAttuale(),
+        a: _volumeVoluto * quotaAbbassata,
+        quanto: discesa);
+    Future<void>.delayed(quantoDura + discesa, _risali);
+  }
+
+  Future<void> _risali() async {
+    if (_effettiInCorso > 0) _effettiInCorso--;
+    if (_effettiInCorso > 0) return;
+    await _sfuma(da: _volumeAttuale(), a: _volumeVoluto, quanto: risalita);
+  }
+
+  /// Il volume cambia perche' qualcuno ha mosso un cursore o un interruttore.
+  Future<void> aggiorna(SettingsController s) async {
+    _volumeVoluto = _volumeDa(s);
+    if (_volumeVoluto == 0 && _corrente != null) {
+      await MotoreAudio.condiviso.volumeDellaMusica(0);
+      return;
+    }
+    await _applica(_volumeVoluto);
+  }
+
+  double _volumeAttuale() =>
+      _effettiInCorso > 0 ? _volumeVoluto * quotaAbbassata : _volumeVoluto;
+
+  Future<void> _applica(double v) async {
+    _volumeVoluto = v;
+    await MotoreAudio.condiviso.volumeDellaMusica(_volumeAttuale());
+  }
+
+  /// Muove il volume a passi, invece che di colpo.
+  Future<void> _sfuma({
+    required double da,
+    required double a,
+    required Duration quanto,
+  }) async {
+    _dissolvenza?.cancel();
+    final passi = (quanto.inMilliseconds / passo.inMilliseconds).ceil();
+    if (passi <= 1) {
+      await MotoreAudio.condiviso.volumeDellaMusica(a);
+      return;
+    }
+    for (var i = 1; i <= passi; i++) {
+      final v = da + (a - da) * (i / passi);
+      await MotoreAudio.condiviso.volumeDellaMusica(v);
+      if (i < passi) await Future<void>.delayed(passo);
+    }
+  }
+
+  /// Dimentica tutto: serve alle prove, che devono partire da un silenzio
+  /// noto invece che da cio' che ha lasciato la prova prima.
+  @visibleForTesting
+  void dimentica() {
+    _dissolvenza?.cancel();
+    _corrente = null;
+    _volumeVoluto = 0.0;
+    _effettiInCorso = 0;
+  }
+}

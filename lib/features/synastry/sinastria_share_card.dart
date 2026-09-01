@@ -16,6 +16,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile della Sinastria: i due volti nella cornice VIP col
 /// cuore, il cerchio dell'affinita', le quattro barre, la cornice oro e blu di
@@ -50,11 +51,16 @@ class SinastriaShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      key: const Key('sinastria_card'),
-      width: width,
-      height: width / rapportoDellaStoria,
-      child: _dentro(),
+    // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
+    // Ordine CN voce 12: la scala del testo di chi la crea non entra
+    // nell'immagine, perche' l'immagine la guardano altri.
+    return CardAMisuraFissa(
+      child: SizedBox(
+        key: const Key('sinastria_card'),
+        width: width,
+        height: width / rapportoDellaStoria,
+        child: _dentro(),
+      ),
     );
   }
 

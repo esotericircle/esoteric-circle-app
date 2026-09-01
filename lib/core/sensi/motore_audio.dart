@@ -38,11 +38,15 @@ class MotoreAudio implements MotoreSonoro {
   /// facoltativo, non la sua esistenza.
   AudioPlayer? _effettiPigro;
   AudioPlayer? _toniPigro;
+  AudioPlayer? _musicaPigro;
 
   AudioPlayer get _effetti =>
       _effettiPigro ??= AudioPlayer(playerId: 'cerchio_effetti');
 
   AudioPlayer get _toni => _toniPigro ??= AudioPlayer(playerId: 'cerchio_toni');
+
+  AudioPlayer get _musica =>
+      _musicaPigro ??= AudioPlayer(playerId: 'cerchio_musica');
 
   /// Riproduce un effetto breve da un file negli asset.
   ///
@@ -70,6 +74,65 @@ class MotoreAudio implements MotoreSonoro {
     }
   }
 
+  /// **LA MUSICA D'AMBIENTE, in ciclo continuo.** Ordine CN.
+  ///
+  /// Un terzo lettore e non un terzo motore: la regola di questo file
+  /// resta una sola istanza. Serve un lettore suo perche' la musica deve
+  /// poter scendere sotto un effetto **mentre l'effetto suona**, e un
+  /// lettore che fa tutti e due i mestieri non puo' abbassarsi da solo.
+  ///
+  /// Torna vero se la musica e' partita davvero: chi chiama deve poter
+  /// distinguere "sta suonando" da "ho chiesto e non e' successo",
+  /// altrimenti la regia crederebbe di avere un tappeto che non c'e'.
+  Future<bool> musica(String percorsoAsset, {double volume = 1.0}) async {
+    try {
+      await _musica.setReleaseMode(ReleaseMode.loop);
+      await _musica.setVolume(volume.clamp(0.0, 1.0));
+      await _musica.play(AssetSource(percorsoAsset));
+      return true;
+    } catch (e) {
+      // Nessuna musica: l'app resta viva e muta, come senza asset.
+      debugPrint('Musica non riprodotta ($percorsoAsset): $e');
+      return false;
+    }
+  }
+
+  /// Quanto forte suona la musica adesso, da 0 a 1.
+  Future<void> volumeDellaMusica(double volume) async {
+    try {
+      await _musicaPigro?.setVolume(volume.clamp(0.0, 1.0));
+    } catch (_) {
+      // Nessun lettore: niente da regolare.
+    }
+  }
+
+  /// Ferma la musica. Gli effetti in corso non si toccano.
+  Future<void> fermaMusica() async {
+    try {
+      await _musicaPigro?.stop();
+    } catch (_) {
+      // Gia' ferma: nulla da fare.
+    }
+  }
+
+  /// Sospende la musica lasciandola dov'e', per riprenderla al ritorno.
+  Future<void> sospendiMusica() async {
+    try {
+      await _musicaPigro?.pause();
+    } catch (_) {
+      // Gia' ferma: nulla da fare.
+    }
+  }
+
+  /// Riprende la musica dal punto in cui era.
+  Future<void> riprendiMusica() async {
+    try {
+      await _musicaPigro?.resume();
+    } catch (_) {
+      // Nessun lettore: niente da riprendere.
+    }
+  }
+
   /// Riproduce byte sintetizzati, per esempio un tono binaurale in WAV.
   ///
   /// In ciclo continuo quando [inCiclo] e' vero, che e' il caso della
@@ -90,6 +153,11 @@ class MotoreAudio implements MotoreSonoro {
   @override
   Future<void> fermaTutto() async {
     await fermaTono();
+    // **LA MUSICA SI SOSPENDE, NON SI FERMA.** Ordine CN voce 07:
+    // l'app che torna in primo piano deve riprendere dov'era, non
+    // ricominciare il tappeto da capo, che si sentirebbe come un
+    // salto.
+    await sospendiMusica();
     try {
       await _effettiPigro?.stop();
     } catch (_) {
@@ -97,10 +165,15 @@ class MotoreAudio implements MotoreSonoro {
     }
   }
 
-  /// La Guardia non la chiama mai: il suono non riparte da solo. Esiste perche'
-  /// il confine lo prevede, e domani potrebbe servire a chi riavvia un rito.
+  /// **AL RITORNO RIPRENDE LA SOLA MUSICA.** Ordine CN voce 07.
+  ///
+  /// Gli effetti no, e i toni nemmeno: un effetto e' la risposta a un
+  /// gesto, e un gesto fatto un minuto fa non merita una risposta
+  /// adesso. La musica invece e' un luogo, e il luogo e' ancora quello.
   @override
-  Future<void> riprendi() async {}
+  Future<void> riprendi() async {
+    await riprendiMusica();
+  }
 
   /// Ferma i toni lunghi. Gli effetti brevi finiscono da soli.
   Future<void> fermaTono() async {
@@ -114,5 +187,6 @@ class MotoreAudio implements MotoreSonoro {
   Future<void> dispose() async {
     await _effettiPigro?.dispose();
     await _toniPigro?.dispose();
+    await _musicaPigro?.dispose();
   }
 }

@@ -112,6 +112,7 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // dei dati e permessi di sistema. E' una pagina di regolazione come le
   // Impostazioni da cui si apre, e la barra non c'entra.
   'PrivacyEPermessiScreen': PresenzaDellaBarra.assente,
+  'SuonoScreen': PresenzaDellaBarra.assente,
   'SettingsScreen': PresenzaDellaBarra.assente,
   // Il menu' delle notifiche, ordine BC voce 05: si apre dall'account ed e'
   // una schermata di regolazione, come le Impostazioni.

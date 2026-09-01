@@ -13,6 +13,7 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'archetype_wheel.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
+import '../../../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile del Test Archetipo, nella cornice verde e oro di Aura.
 ///
@@ -47,104 +48,109 @@ class ArchetypeShareCard extends StatelessWidget {
     final ritratto = ArchetypeCorpus.di(dom);
     final secondo = profilo.secondo;
     final primiTre = profilo.graduatoria.take(3).toList();
-    return Container(
-      key: const Key('archetype_share_card'),
-      width: larghezza,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [palette.surfaceElevated, palette.deepest],
+    // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
+    // Ordine CN voce 12: la scala del testo di chi la crea non entra
+    // nell'immagine, perche' l'immagine la guardano altri.
+    return CardAMisuraFissa(
+      child: Container(
+        key: const Key('archetype_share_card'),
+        width: larghezza,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          border:
+              Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
         ),
-        border:
-            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.lg),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Provenienza in alto: da dove arriva l'immagine.
-            Text('TEST ARCHETIPO',
-                style: TypographyTokens.label(size: 12)
-                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
-            const SizedBox(height: SpacingTokens.md),
-            // La ruota vera del risultato, grande, con la statua al centro. La
-            // fetta del dominante e' in oro, quella del co-dominante piu' tenue.
-            SizedBox(
-              width: _latoRuota,
-              height: _latoRuota,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  ArchetypeWheel(
-                    profilo: profilo,
-                    palette: palette,
-                    lato: _latoRuota,
-                    accendiSecondo: true,
-                  ),
-                  // La statua sopra il poligono, dentro il disco, dimensionata
-                  // per non toccare l'anello dei nomi.
-                  Image.asset(dom.artePiena,
-                      height: _latoRuota * 0.66,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(
-                          Icons.person_outline_rounded,
-                          size: 150,
-                          color: palette.goldSoft)),
-                ],
-              ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(dom.conArticolo.toUpperCase(),
-                style: TypographyTokens.cerimoniale()
-                    .copyWith(color: palette.goldSoft)),
-            const SizedBox(height: 2),
-            // La percentuale del dominante e il co-dominante, quando c'e'.
-            Text(
-              secondo != null
-                  ? '${profilo.percentualeDi(dom).round()}% · accanto ${secondo.conArticolo}'
-                  : '${profilo.percentualeDi(dom).round()}%',
-              style: TypographyTokens.label(size: 12).copyWith(
-                  color: palette.textPrimary.withValues(alpha: 0.85),
-                  letterSpacing: 0.5),
-            ),
-            const SizedBox(height: SpacingTokens.xs),
-            // Il motto, cioe' l'essenza dal corpus.
-            Text(ritratto.essenza,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary, fontStyle: FontStyle.italic)),
-            const SizedBox(height: SpacingTokens.md),
-            // La prima bolla del responso, "La sua luce", nello stesso stile.
-            _Bolla(
-              titolo: 'La sua luce',
-              testo: ritratto.luce,
-              palette: palette,
-            ),
-            const SizedBox(height: SpacingTokens.md),
-            // La classifica compatta dei primi tre: cerchio, nome, percentuale.
-            for (final a in primiTre)
-              Padding(
-                padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-                child: _RigaTre(
-                  archetipo: a,
-                  percentuale: profilo.percentualeDi(a).round(),
-                  dominante: a == dom,
-                  palette: palette,
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Provenienza in alto: da dove arriva l'immagine.
+              Text('TEST ARCHETIPO',
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
+              const SizedBox(height: SpacingTokens.md),
+              // La ruota vera del risultato, grande, con la statua al centro. La
+              // fetta del dominante e' in oro, quella del co-dominante piu' tenue.
+              SizedBox(
+                width: _latoRuota,
+                height: _latoRuota,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ArchetypeWheel(
+                      profilo: profilo,
+                      palette: palette,
+                      lato: _latoRuota,
+                      accendiSecondo: true,
+                    ),
+                    // La statua sopra il poligono, dentro il disco, dimensionata
+                    // per non toccare l'anello dei nomi.
+                    Image.asset(dom.artePiena,
+                        height: _latoRuota * 0.66,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Icon(
+                            Icons.person_outline_rounded,
+                            size: 150,
+                            color: palette.goldSoft)),
+                  ],
                 ),
               ),
-            const SizedBox(height: SpacingTokens.sm),
-            Text('Esoteric Circle · Aura',
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.7),
-                    letterSpacing: 1.0)),
-            const SizedBox(height: 2),
-            Text('Scopri il tuo archetipo su Esoteric Circle',
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary.withValues(alpha: 0.6),
-                    letterSpacing: 0.4)),
-          ],
+              const SizedBox(height: SpacingTokens.sm),
+              Text(dom.conArticolo.toUpperCase(),
+                  style: TypographyTokens.cerimoniale()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: 2),
+              // La percentuale del dominante e il co-dominante, quando c'e'.
+              Text(
+                secondo != null
+                    ? '${profilo.percentualeDi(dom).round()}% · accanto ${secondo.conArticolo}'
+                    : '${profilo.percentualeDi(dom).round()}%',
+                style: TypographyTokens.label(size: 12).copyWith(
+                    color: palette.textPrimary.withValues(alpha: 0.85),
+                    letterSpacing: 0.5),
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              // Il motto, cioe' l'essenza dal corpus.
+              Text(ritratto.essenza,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary, fontStyle: FontStyle.italic)),
+              const SizedBox(height: SpacingTokens.md),
+              // La prima bolla del responso, "La sua luce", nello stesso stile.
+              _Bolla(
+                titolo: 'La sua luce',
+                testo: ritratto.luce,
+                palette: palette,
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              // La classifica compatta dei primi tre: cerchio, nome, percentuale.
+              for (final a in primiTre)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                  child: _RigaTre(
+                    archetipo: a,
+                    percentuale: profilo.percentualeDi(a).round(),
+                    dominante: a == dom,
+                    palette: palette,
+                  ),
+                ),
+              const SizedBox(height: SpacingTokens.sm),
+              Text('Esoteric Circle · Aura',
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.7),
+                      letterSpacing: 1.0)),
+              const SizedBox(height: 2),
+              Text('Scopri il tuo archetipo su Esoteric Circle',
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.textPrimary.withValues(alpha: 0.6),
+                      letterSpacing: 0.4)),
+            ],
+          ),
         ),
       ),
     );

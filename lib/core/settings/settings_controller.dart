@@ -26,23 +26,35 @@ class SettingsController extends ChangeNotifier {
     bool subtitles = true,
     bool suonoEVibrazione = true,
     bool effettiSonori = false,
+    bool musicaAttiva = true,
+    double volumeMusica = 0.6,
+    double volumeEffetti = 1.0,
   })  : _reduceAnimations = reduceAnimations,
         _simpleMode = simpleMode,
         _subtitles = subtitles,
         _suonoEVibrazione = suonoEVibrazione,
-        _effettiSonori = effettiSonori;
+        _effettiSonori = effettiSonori,
+        _musicaAttiva = musicaAttiva,
+        _volumeMusica = volumeMusica,
+        _volumeEffetti = volumeEffetti;
 
   static const _kReduce = 'settings.reduceAnimations';
   static const _kSimple = 'settings.simpleMode';
   static const _kSubtitles = 'settings.subtitles';
   static const _kSuono = 'settings.suonoEVibrazione';
   static const _kEffetti = 'settings.effettiSonori';
+  static const _kMusica = 'settings.musicaAttiva';
+  static const _kVolumeMusica = 'settings.volumeMusica';
+  static const _kVolumeEffetti = 'settings.volumeEffetti';
 
   bool _reduceAnimations;
   bool _simpleMode;
   bool _subtitles;
   bool _suonoEVibrazione;
   bool _effettiSonori;
+  bool _musicaAttiva;
+  double _volumeMusica;
+  double _volumeEffetti;
 
   bool get reduceAnimations => _reduceAnimations;
   bool get simpleMode => _simpleMode;
@@ -75,6 +87,38 @@ class SettingsController extends ChangeNotifier {
   /// interruttori, e quello unico comanda.
   bool get suonoPermesso => _suonoEVibrazione && _effettiSonori;
 
+  /// **LA MUSICA D'AMBIENTE, ordine CN del 1 settembre 2026.**
+  ///
+  /// **NASCE ACCESA, e gli effetti no. Non e' una svista.** Gli effetti
+  /// nascono spenti dall'ordine BZ per una ragione precisa e scritta:
+  /// quelli di allora "sembravano un giochino anni 80". Quella ragione
+  /// non riguarda la musica, che e' nuova ed e' stata scelta dal
+  /// fondatore uno per uno.
+  ///
+  /// E c'e' una ragione di disegno: l'ordine CN vuole che lo Shaman parta
+  /// con la PRIMA schermata del Risveglio e prosegua senza interrompersi
+  /// fino alla home. **Nascerla spenta cancellerebbe proprio quel
+  /// disegno**, cioe' la prima impressione che qualcuno ha scelto.
+  bool get musicaAttiva => _musicaAttiva;
+
+  /// Quanto forte suona la musica, da 0 a 1. Sessanta per cento di
+  /// partenza, deciso dal fondatore.
+  ///
+  /// Il cursore **riflette** lo stato globale e non lo scavalca: se
+  /// l'interruttore unico e' spento, o quello della musica lo e', questo
+  /// numero non fa uscire niente. Un cursore che suona mentre un
+  /// interruttore dice di no e' un'app che non obbedisce.
+  double get volumeMusica => _volumeMusica;
+
+  /// Quanto forte suonano gli effetti, da 0 a 1. Cento per cento di
+  /// partenza, deciso dal fondatore: gli effetti sono gia' normalizzati
+  /// sette decibel sopra la musica, e il rapporto giusto c'e' prima che
+  /// qualcuno tocchi un cursore.
+  double get volumeEffetti => _volumeEffetti;
+
+  /// Vero se la musica puo' uscire adesso.
+  bool get musicaPermessa => _suonoEVibrazione && _musicaAttiva;
+
   /// Carica le preferenze salvate, best effort.
   Future<void> load() async {
     try {
@@ -84,6 +128,9 @@ class SettingsController extends ChangeNotifier {
       _subtitles = prefs.getBool(_kSubtitles) ?? _subtitles;
       _suonoEVibrazione = prefs.getBool(_kSuono) ?? _suonoEVibrazione;
       _effettiSonori = prefs.getBool(_kEffetti) ?? _effettiSonori;
+      _musicaAttiva = prefs.getBool(_kMusica) ?? _musicaAttiva;
+      _volumeMusica = prefs.getDouble(_kVolumeMusica) ?? _volumeMusica;
+      _volumeEffetti = prefs.getDouble(_kVolumeEffetti) ?? _volumeEffetti;
       notifyListeners();
     } catch (_) {
       // Nessuna persistenza disponibile: si resta sui valori in memoria.
@@ -106,6 +153,34 @@ class SettingsController extends ChangeNotifier {
     _persist(_kEffetti, value);
   }
 
+  /// Accende o spegne la sola musica d'ambiente.
+  void setMusicaAttiva(bool value) {
+    if (value == _musicaAttiva) return;
+    _musicaAttiva = value;
+    notifyListeners();
+    _persist(_kMusica, value);
+  }
+
+  /// Quanto forte la musica. Il valore si stringe fra 0 e 1 qui e non
+  /// dove viene usato: una preferenza fuori scala salvata sul disco
+  /// tornerebbe fuori scala a ogni apertura.
+  void setVolumeMusica(double value) {
+    final v = value.clamp(0.0, 1.0);
+    if (v == _volumeMusica) return;
+    _volumeMusica = v;
+    notifyListeners();
+    _persistDouble(_kVolumeMusica, v);
+  }
+
+  /// Quanto forte gli effetti.
+  void setVolumeEffetti(double value) {
+    final v = value.clamp(0.0, 1.0);
+    if (v == _volumeEffetti) return;
+    _volumeEffetti = v;
+    notifyListeners();
+    _persistDouble(_kVolumeEffetti, v);
+  }
+
   void setReduceAnimations(bool value) {
     if (value == _reduceAnimations) return;
     _reduceAnimations = value;
@@ -125,6 +200,15 @@ class SettingsController extends ChangeNotifier {
     _subtitles = value;
     notifyListeners();
     _persist(_kSubtitles, value);
+  }
+
+  Future<void> _persistDouble(String key, double value) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setDouble(key, value);
+    } catch (_) {
+      // Nessuna persistenza disponibile: resta in memoria.
+    }
   }
 
   Future<void> _persist(String key, bool value) async {

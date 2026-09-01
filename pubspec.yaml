@@ -181,6 +181,10 @@ flutter:
     # I cinque suoni del Cerchio. La cartella e' dichiarata anche se vuota:
     # cosi' appena i file arrivano suonano senza toccare una riga di codice.
     - assets/audio/
+    # I QUATTRO ANELLI D'AMBIENTE, ordine CN del 1 settembre 2026. Stanno in
+    # una cartella loro e non con gli effetti, perche' pesano due ordini di
+    # grandezza di piu': un budget solo li nasconderebbe tutti e due.
+    - assets/music/
     # LE TRE TRANSIZIONI DI STELLE, ordine AT voce 02: un WebP animato con
     # alpha per Maestro, due secondi esatti.
     - assets/
