@@ -302,12 +302,24 @@ alla scala uno qualunque cosa la persona abbia impostato nel sistema.
 `sky_postcard` non ci passa **perche' non e' un widget**: disegna direttamente
 in byte, e la scala di sistema non lo tocca gia' oggi.
 
-**Quante schermate ha chiuso, misurate col corredo a scala massima:
-QUATTRO.** Le tre che l'ordine CM aveva attribuito alla card delle Rune, piu'
-la cattura della card stessa, che il manifesto CM aveva classificato come "una
-pretesa della cattura" e invece era lo stesso difetto. **I rossi a testo
-massimo scendono da diciotto a quattordici**, e il manifesto CM e' stato
-aggiornato con la data, non riscritto.
+**Quante schermate ha chiuso, MISURATE e non stimate: UNA.** La cattura della
+card dell'Estrazione Rune, che il manifesto CM aveva classificato come "una
+pretesa della cattura" e invece era il difetto della card. **I rossi a testo
+massimo scendono da diciotto a diciassette.**
+
+**E qui ho sbagliato due volte prima di misurare.** Avevo attribuito alla card
+delle Rune anche "la corsa dello zodiaco" e i due "dono col colore del
+Maestro", e le avevo tolte dai rossi accettati dandole per chiuse. **Il
+cancello me le ha rimesse davanti come rossi nuovi**, e il corredo girato a
+scala massima ha detto il numero vero. Sono tornate nell'elenco con la loro
+ragione corretta: la misura fissa toglie la crescita del testo, ma la cornice
+resta piu' corta del contenuto.
+
+**La lezione, ed e' la ragione per cui il cancello esiste.** Avevo dedotto
+l'attribuzione da un rapporto di traboccamenti letto a occhio, invece di
+rigirare il corredo. **Un'attribuzione dedotta e' un'ipotesi**, e mettere
+un'ipotesi dentro il registro dei rossi accettati vuol dire spegnere una
+guardia su una supposizione.
 
 ## VOCE 13, I DUE FILE CHE PESANO UGUALE
 

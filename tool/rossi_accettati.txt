@@ -42,20 +42,23 @@ l'ordine CG non e' finito finche' una voce resta aperta | Rosso PER LEGGE DI CON
 # fa cadere l'archivio se un nome resta scritto qui mentre quella cattura ha
 # smesso di rompersi. Nessuna riga nuova ci entra da sola.
 # =====================================================================
-SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno | Sfora 10 punti a destra da lib/features/onboarding/onboarding_screen.dart:1760, riga di comandi del Risveglio. Famiglia B, contenitore di misura fissa. Si chiude nell'ordine dopo il CM.
-SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente | Stessa causa della riga sopra, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, il luogo scelto | Stessa causa, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, il luogo offline | Stessa causa, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, il genere, schermo basso | Stessa causa, onboarding_screen.dart:1760, su schermo basso.
-SCALA 1,3: Cattura il Risveglio, il sigillo | Stessa causa, onboarding_screen.dart:1760, all'ultimo passo.
-SCALA 1,3: Cattura la custodia del cielo | Sfora 2 punti in basso da lib/features/onboarding/custodia_del_cielo_step.dart:123. Famiglia B. Due punti soli, ma sono due punti di testo tagliato.
+SCALA 1,3: CI.04: a dito alzato la barra non resta a meta | Non e' un traboccamento: la prova misura in punti quanto la barra si ritira, e a testo grande la barra e' piu' alta. Stessa cura della riga sopra.
 SCALA 1,3: Cattura Chiedi ai Maestri, vista comparativa | Sfora 134 punti in basso da lib/core/permissions/app_permission.dart:165, la scheda del permesso: colonna con cerchio da 64 fisso piu' testo. Famiglia B, ed e' il traboccamento piu' grosso rimasto.
+SCALA 1,3: Cattura i tre momenti della corsa dello zodiaco | Sfora in basso dalla card da condividere delle Rune. **La voce CN.12 NON l'ha chiusa**: la misura fissa toglie la crescita del testo ma la cornice resta piu' corta del contenuto a testo grande. Attribuita per errore alla card nel manifesto CN, corretto qui col numero misurato.
+SCALA 1,3: Cattura il Risveglio, il genere, schermo basso | Stessa causa, onboarding_screen.dart:1760, su schermo basso.
+SCALA 1,3: Cattura il Risveglio, il luogo offline | Stessa causa, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, il luogo scelto | Stessa causa, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, il sigillo | Stessa causa, onboarding_screen.dart:1760, all'ultimo passo.
+SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente | Stessa causa della riga sopra, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno | Sfora 10 punti a destra da lib/features/onboarding/onboarding_screen.dart:1760, riga di comandi del Risveglio. Famiglia B, contenitore di misura fissa. Si chiude nell'ordine dopo il CM.
 SCALA 1,3: Cattura il Sigillo, schermo basso | Stessa causa, app_permission.dart:165, su schermo basso.
-# LE TRE DELLA CARD DELLE RUNE SONO USCITE, ordine CN voce 12 del 1 settembre
-# 2026: la card da condividere si disegna a misura fissa, quindi il testo non
-# cresce piu' dentro la cornice e non sfonda di 137 punti.
-SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in basso da lib/features/synastry/sinastria_gallery_screen.dart:694, la tendina delle categorie: DropdownButton impone l'altezza della voce chiusa. Famiglia B.
+SCALA 1,3: Cattura il dono col colore del Maestro, giorno 0 | Stessa causa della riga sopra, e stessa attribuzione corretta.
+SCALA 1,3: Cattura il dono col colore del Maestro, giorno 1 | Stessa causa della card delle Rune, al giorno dopo: la cornice resta piu' corta del contenuto a testo grande.
 SCALA 1,3: Cattura l'Oroscopo | Sfora 5 punti in basso da lib/features/horoscope/oroscopo_screen.dart:1202, la pastiglia della tradizione. Famiglia B.
 SCALA 1,3: Cattura l'Oroscopo dai transiti veri | Stessa causa, oroscopo_screen.dart:1202.
 SCALA 1,3: Cattura la chat con la barra fuori | Non e' un traboccamento: la cattura pretende una posizione della barra misurata in punti, e a testo grande la barra sta altrove. La pretesa va rifatta in proporzione, non in punti.
-SCALA 1,3: CI.04: a dito alzato la barra non resta a meta | Non e' un traboccamento: la prova misura in punti quanto la barra si ritira, e a testo grande la barra e' piu' alta. Stessa cura della riga sopra.
+SCALA 1,3: Cattura la custodia del cielo | Sfora 2 punti in basso da lib/features/onboarding/custodia_del_cielo_step.dart:123. Famiglia B. Due punti soli, ma sono due punti di testo tagliato.
+SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in basso da lib/features/synastry/sinastria_gallery_screen.dart:694, la tendina delle categorie: DropdownButton impone l'altezza della voce chiusa. Famiglia B.
+# LE TRE DELLA CARD DELLE RUNE SONO USCITE, ordine CN voce 12 del 1 settembre
+# 2026: la card da condividere si disegna a misura fissa, quindi il testo non
+# cresce piu' dentro la cornice e non sfonda di 137 punti.

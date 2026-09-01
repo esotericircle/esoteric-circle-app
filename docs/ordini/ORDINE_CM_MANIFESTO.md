@@ -230,7 +230,7 @@ discussa.**
 **Il numero della premessa e' esatto: 42 catture su 182 si rompevano a 1,3.**
 Poco meno di una su quattro, come diceva l'ordine.
 
-**Ne restano DICIOTTO alla chiusura di quest'ordine, quattordici dopo l'ordine CN. Ventiquattro sono riparate qui**, e non una per una: le
+**Ne restano DICIOTTO alla chiusura di quest'ordine, diciassette dopo l'ordine CN. Ventiquattro sono riparate qui**, e non una per una: le
 famiglie di causa erano quattro, e ognuna si e' chiusa in pochi punti.
 
 | famiglia | cos'era | quante ne ha chiuse |
@@ -317,10 +317,10 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO QUATTORDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
+**RESTANO DICIASSETTE SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
 
-**Erano diciotto quando quest'ordine si e' chiuso, e sono diventate quattordici la
-sera stessa**, poi quattordici, quando l'ordine CN voce 12 ha portato la decisione
+**Erano diciotto quando quest'ordine si e' chiuso, e sono diventate diciassette la
+sera stessa** e' scesa a diciassette, quando l'ordine CN voce 12 ha portato la decisione
 sulla card da condividere. **Il numero di stamattina non si cancella**: era
 vero quando e' stato scritto, e toglierlo toglierebbe la misura del cammino.
 Una su dodici, contro una su quattro di stamattina.
@@ -348,7 +348,7 @@ perche' e' un'immagine guardata da altri sui loro schermi, e cuocerci dentro
 un'impostazione personale di accessibilita' produrrebbe card di proporzioni
 diverse per ogni utente. Le tre schermate sono chiuse.
 
-**E poi c'e' il tetto.** Le quattordici di oggi si contano a 1,3, che e' il tetto
+**E poi c'e' il tetto.** Le diciassette di oggi si contano a 1,3, che e' il tetto
 di adesso. **Alla decisione della voce 08, cioe' a 1,6, il conto va rifatto da
 capo**: quello che a 1,3 sfora di 2 punti, a 1,6 ne sfora molti di piu', e
 schermate che oggi passano potrebbero non passare. Il numero delle schermate

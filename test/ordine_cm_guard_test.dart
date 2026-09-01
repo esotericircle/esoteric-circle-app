@@ -158,11 +158,11 @@ void main() {
     expect(dichiarate, isNotNull,
         reason: 'il manifesto non dice piu\' quante schermate restano rotte, '
             'che e\' la domanda con cui l\'ordine CM si chiude');
-    expect(dichiarate!.group(1), 'QUATTORDICI',
+    expect(dichiarate!.group(1), 'DICIASSETTE',
         reason: 'il manifesto dice ${dichiarate.group(1)} e il registro dei '
             'rossi ne elenca ${aScala.length}: quando le due non coincidono, '
             'a mentire e\' quasi sempre la parola scritta a mano');
-    expect(aScala.length, 14,
+    expect(aScala.length, 17,
         reason: 'il registro elenca ${aScala.length} schermate rotte al testo '
             'massimo, il manifesto ne dichiara diciotto');
 
