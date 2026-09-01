@@ -25,7 +25,10 @@ void main() {
 
   /// Quanto puo' distare il centro dell'icona dal centro del campo. Due
   /// punti: e' il resto di un arrotondamento, non un allineamento diverso.
-  const scartoMassimo = 2.0;
+  // **LA SOGLIA DELL'ALLINEAMENTO NON SERVE PIU'**, e si toglie invece di
+  // restare li' inutilizzata: l'ordine CI ha cambiato la forma della riga, e
+  // adesso si misura che le due bolle siano larghe uguali, non che un'icona
+  // sia centrata su un campo che non le sta piu' accanto.
 
   void silenzia() {
     final messenger = binding.defaultBinaryMessenger;
