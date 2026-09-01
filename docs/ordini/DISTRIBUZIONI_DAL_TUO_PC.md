@@ -42,7 +42,7 @@ git log --oneline -1
 
 **Cosa devi leggere**: la riga deve cominciare con lo sha della testa di
 oggi oppure con uno piu' recente, e NON con `078d24b4`. **La testa del 1
-settembre 2026, ordine CN, comincia con `SHA_DELLA_TESTA`.**
+settembre 2026, ordine CN, comincia con ``345b5ccb``.**
 
 **Se `git pull` si rifiuta** dicendo qualcosa su modifiche locali, vuol dire
 che in quella cartella c'e' del lavoro non salvato. Non forzare niente:
