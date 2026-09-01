@@ -39,11 +39,11 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 105 |
+| Guardie che passano dalla porta comune | 106 |
 | Guardie con un cardinale proprio dichiarato | 28 |
-| Guardie che non scoprono nessun insieme di file | 111 |
-| **Somma delle categorie** | **244** |
-| **Guardie secondo la definizione** | **244** |
+| Guardie che non scoprono nessun insieme di file | 113 |
+| **Somma delle categorie** | **247** |
+| **Guardie secondo la definizione** | **247** |
 
 Le due righe in grassetto **coincidono**, contate il 1 settembre 2026. La terza
 categoria non e' un debito: sono guardie che sorvegliano un'assenza, una
@@ -59,15 +59,15 @@ combatte nel codice, due conti della stessa cosa, arrivata dentro i documenti.
 
 | | quante |
 | --- | ---: |
-| File di prova nella cartella `test` | 707 |
-| Di questi, censiti come guardie | 244 |
-| File di prova che scorrono i sorgenti | 124 |
-| **Guardie** censite che scorrono i sorgenti | 122 |
+| File di prova nella cartella `test` | 711 |
+| Di questi, censiti come guardie | 247 |
+| File di prova che scorrono i sorgenti | 126 |
+| **Guardie** censite che scorrono i sorgenti | 123 |
 
 Il **17** dell'ordine CL contava le guardie censite che scorrono i sorgenti
 **e** avevano gia' un cardinale proprio. Il **79** contava, su **tutti** i file
 di prova, quelli che scorrevano i sorgenti senza cardinale. Denominatori
-diversi: 244 contro 707. La differenza fra le due popolazioni e' di **2** file,
+diversi: 247 contro 711. La differenza fra le due popolazioni e' di **3** file,
 prove che leggono i sorgenti senza essere guardie secondo la definizione.
 
 **Come si evita che ricapiti.** Ogni numero scritto qui dice su quale insieme
@@ -78,12 +78,12 @@ questo registro.
 
 | | |
 | --- | ---: |
-| File di prova totali | 707 |
-| **Guardie secondo la definizione** | **244** |
-| Guardie che scorrono i sorgenti di `lib` | 122 |
-| Di queste, passate alla porta comune | 105 |
+| File di prova totali | 711 |
+| **Guardie secondo la definizione** | **247** |
+| Guardie che scorrono i sorgenti di `lib` | 123 |
+| Di queste, passate alla porta comune | 106 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
-| **Guardie mai viste rosse** | **230** |
+| **Guardie mai viste rosse** | **227** |
 
 ## Come si legge la tavola
 
@@ -132,7 +132,7 @@ le altre.
 | `i_caratteri_dichiarati_esistono_test.dart` | i caratteri dichiarati esistono | 1, 2 | proprio, dichiarato | mai | 2 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
-| `i_grigi_si_leggono_test.dart` | i grigi si leggono | 1 | dalla porta comune | 01/09/2026, CL | 2 |
+| `i_grigi_si_leggono_test.dart` | i grigi si leggono | 1 | dalla porta comune | 01/09/2026, CN | 2 |
 | `i_maestri_non_coprono_il_cielo_test.dart` | i maestri non coprono il cielo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_non_perdono_la_testa_test.dart` | i maestri non perdono la testa | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_sui_pixel_e_non_sui_rettangoli_test.dart` | i maestri sui pixel e non sui rettangoli | 4 | non scopre insiemi di file | mai | 3 |
@@ -208,6 +208,7 @@ le altre.
 | `il_simbolo_si_compone_test.dart` | il simbolo si compone | 1, 2 | dalla porta comune | mai | 3 |
 | `il_soffio_non_somiglia_all_alba_test.dart` | il soffio non somiglia all alba | 2, 4 | non scopre insiemi di file | mai | 3 |
 | `il_solco_scava_la_pietra_vera_test.dart` | il solco scava la pietra vera | 4 | non scopre insiemi di file | mai | 3 |
+| `il_suono_dice_il_vero_test.dart` | il suono dice il vero | 1, 2 | non scopre insiemi di file | 01/09/2026, CN, cinque innesti | 3 |
 | `il_suono_si_ferma_test.dart` | il suono si ferma | 1, 2 | dalla porta comune | mai | 3 |
 | `il_target_ios_e_il_massimo_dei_plugin_test.dart` | il target ios e il massimo dei plugin | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_titolo_del_respiro_sta_sul_velo_test.dart` | il titolo del respiro sta sul velo | 4 | non scopre insiemi di file | mai | 3 |
@@ -247,6 +248,7 @@ le altre.
 | `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | mai | 3 |
 | `la_lampadina_si_distingue_test.dart` | la lampadina si distingue | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
+| `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |
 | `la_parola_voce_resta_allaudio_test.dart` | la parola voce resta allaudio | 1 | dalla porta comune | mai | 3 |
 | `la_porta_della_sinastria_test.dart` | la porta della sinastria | 1 | non scopre insiemi di file | mai | 3 |
@@ -278,7 +280,7 @@ le altre.
 | `miniature_intere_test.dart` | miniature intere | 1, 2 | dalla porta comune | mai | 3 |
 | `motore_audio_unico_test.dart` | motore audio unico | 1, 2 | dalla porta comune | mai | 3 |
 | `nessun_campo_dice_di_aspettare_test.dart` | nessun campo dice di aspettare | 1, 2 | proprio, dichiarato | mai | 3 |
-| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | mai | 3 |
+| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nessun_quadrato_rosso_test.dart` | nessun quadrato rosso | 4 | non scopre insiemi di file | mai | 3 |
@@ -306,7 +308,8 @@ le altre.
 | `ora_e_luogo_sopravvivono_test.dart` | ora e luogo sopravvivono | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_si_puo_correggere_test.dart` | ora si puo correggere | 1, 2 | dalla porta comune | mai | 3 |
 | `ordine_ch_guard_test.dart` | ordine ch guard | 1, 2 | non scopre insiemi di file | mai | 3 |
-| `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | mai | 3 |
+| `ordine_cn_guard_test.dart` | ordine cn guard | 1, 2 | non scopre insiemi di file | 01/09/2026, CN, sul manifesto vero | 3 |
+| `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |
 | `porta_dati_nascita_test.dart` | porta dati nascita | 1, 2 | dalla porta comune | mai | 3 |
@@ -323,7 +326,7 @@ le altre.
 | `sigillo_al_centro_test.dart` | sigillo al centro | 1 | non scopre insiemi di file | mai | 3 |
 | `simboli_dello_zodiaco_test.dart` | simboli dello zodiaco | 1, 2 | dalla porta comune | mai | 3 |
 | `sinastria_accents_test.dart` | sinastria accents | 1 | non scopre insiemi di file | mai | 3 |
-| `stato_asset_test.dart` | stato asset | 1 | non scopre insiemi di file | mai | 3 |
+| `stato_asset_test.dart` | stato asset | 1 | non scopre insiemi di file | 01/09/2026, CN | 3 |
 | `stesa_tre_carte_test.dart` | stesa tre carte | 1 | non scopre insiemi di file | mai | 3 |
 | `sunset_incisione_pixel_test.dart` | sunset incisione pixel | 4 | non scopre insiemi di file | mai | 3 |
 | `tarot_accordo_rovescio_test.dart` | tarot accordo rovescio | 1, 2 | dalla porta comune | mai | 3 |

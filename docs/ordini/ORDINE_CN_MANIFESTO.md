@@ -445,9 +445,18 @@ E' questo documento. La riga finale sta in fondo.
 
 ## QUANTE GUARDIE SONO STATE VISTE ROSSE, E LA PERCENTUALE NUOVA
 
-Sei prove del rosso in quest'ordine, tutte con l'innesto verificato col grep
-prima di leggere l'esito. Il registro `docs/guardie.md` passa da tredici
-guardie mai viste rosse in meno a quindici viste almeno una volta.
+**Sei prove del rosso con l'innesto verificato col grep**, su due guardie
+nuove. **Il registro passa da quindici guardie viste rosse a venti su
+duecentoquarantasette, cioe' dal 6,1 all'8,1 per cento.** Prima dell'ordine CL
+erano nove su duecentoquarantadue, il 3,7.
+
+**E qui devo essere preciso su cosa NON ho fatto.** La Regola B chiede di
+vedere rossa una guardia **prima** di toccare la sua zona. Le nove che sono
+cadute lavorando, dal conto dei suoni al contrasto dei grigi, **non le ho
+provate prima: sono cadute da sole**. Il risultato e' lo stesso, cioe' sapere
+che erano vive, ma il momento no: l'ho scoperto dopo aver rotto, non prima. Le
+loro date sono nel registro perche' quel giorno le ho viste rosse davvero,
+non perche' abbia seguito la regola alla lettera.
 
 **E c'e' una cosa che la Regola B ha fatto senza che nessuno la cercasse.**
 Toccando il suono sono cadute **nove guardie su zone che non pensavo di
