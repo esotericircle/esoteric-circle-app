@@ -55,10 +55,19 @@ class ChatMessage {
     this.tipo,
     this.intentId,
     this.autore,
+    this.conversazione,
   });
 
   final ChatRole role;
   final String text;
+
+  /// **A QUALE CONVERSAZIONE APPARTIENE. Ordine CI voce 06.**
+  ///
+  /// Nullo per tutti i messaggi scritti prima di questa voce, e vuol dire "la
+  /// prima conversazione": **nessuna migrazione**. E' la ragione per cui la
+  /// conversazione e' una MARCATURA e non un documento a parte, ed e' la
+  /// decisione delegata di questa voce.
+  final String? conversazione;
 
   /// Se il messaggio del Maestro instrada verso una funzione immersiva, l'id
   /// dell'intento: la bolla mostra il pulsante che la apre. Nullo altrimenti.
@@ -160,6 +169,9 @@ class ChatMessage {
       role: role,
       text: text ?? this.text,
       at: at,
+      // La marcatura della conversazione viaggia con la copia: un messaggio
+      // che cambia stato non cambia conversazione.
+      conversazione: conversazione,
       pending: pending ?? this.pending,
       failed: failed ?? this.failed,
       ripiego: ripiego ?? this.ripiego,

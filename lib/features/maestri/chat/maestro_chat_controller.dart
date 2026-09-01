@@ -42,6 +42,7 @@ class MaestroChatController extends ChangeNotifier {
     NatalContext Function()? natal,
     Duration? attesaMinima,
     bool? demo,
+    this.segnaNeiRicordi,
   })  : _ai = ai,
         _demo = demo ?? AppFlags.isDemo,
         _attesaMinima = attesaMinima,
@@ -182,7 +183,77 @@ class MaestroChatController extends ChangeNotifier {
   /// configurata: la UI mostra un avviso in tono, non un errore.
   bool get aiReady => _ai.isReady;
 
+  /// **DOVE FINISCE UN TURNO DI CHAT, ordine CI voce 06 vincolo d.**
+  ///
+  /// **Il buco trovato verificando invece di dare per scontato.** L'ordine
+  /// chiedeva che una conversazione chiusa restasse raggiungibile dai Ricordi
+  /// costruiti da CG, e di **verificare che ci arrivi davvero, non che
+  /// dovrebbe arrivarci**. Verificato: nei Ricordi esistono
+  /// `TipoDelRicordo.conversazione` e il filtro `Conversazioni`, e **nessuno
+  /// ci scriveva niente**. La pastiglia era vuota per costruzione, e dopo un
+  /// "Ricomincia" la conversazione di prima sarebbe stata irraggiungibile.
+  ///
+  /// E' la stessa famiglia del custode delle push: una cosa dichiarata,
+  /// provata, e non agganciata a niente.
+  ///
+  /// **Una funzione e non il registro**, perche' il controllore non deve
+  /// conoscere Firestore ne' i provider: chi lo costruisce sa dove scrivere.
+  /// Nulla nelle prove, e allora non si scrive niente.
+  final void Function(ChatMessage domanda)? segnaNeiRicordi;
+
   int _turnsSinceDistill = 0;
+
+  /// **LA CONVERSAZIONE CORRENTE. Ordine CI voce 06.**
+  ///
+  /// Nulla vuol dire la prima, quella di sempre: e' il valore che hanno tutti
+  /// i messaggi scritti prima di questa voce.
+  String? _conversazione;
+  String? get conversazione => _conversazione;
+
+  /// **APRE UNA CONVERSAZIONE NUOVA, e non e' un comando di pulizia.**
+  ///
+  /// Cosa fa: da qui in avanti i messaggi portano una marcatura nuova, e a
+  /// schermo la chat riparte pulita.
+  ///
+  /// **Cosa NON fa, ed e' la parte che conta.**
+  ///
+  /// 1. **Non cancella niente.** I messaggi di prima restano dove sono, e
+  ///    restano leggibili: si ritrovano dai Ricordi del Cerchio, che li hanno
+  ///    indicizzati turno per turno.
+  /// 2. **Non azzera la memoria del Maestro.** `_memoryState` non si tocca:
+  ///    la memoria e' la cosa per cui l'abbonato paga, e un comando che la
+  ///    spegnesse senza dirlo sarebbe il difetto piu' costoso dell'app. Il
+  ///    Maestro dimentica il FILO del discorso, non la persona.
+  /// 3. **Non consuma nessuna domanda.** Non passa dal budget del giorno:
+  ///    cominciare a parlare non e' parlare.
+  ///
+  /// **Zero letture e zero scritture.** La marcatura viaggia col prossimo
+  /// messaggio: finche' non si scrive niente, non e' successo niente.
+  void iniziaUnaConversazioneNuova({DateTime? adesso}) {
+    final quando = adesso ?? DateTime.now();
+    _conversazione = 'c${quando.millisecondsSinceEpoch}';
+    _messages.clear();
+    _turnsSinceDistill = 0;
+    notifyListeners();
+  }
+
+  /// **I MESSAGGI DELLA CONVERSAZIONE CORRENTE, e nient'altro.**
+  ///
+  /// Si taglia dalla coda: la cronologia arriva dal piu' recente al piu'
+  /// vecchio, e appena compare un messaggio di un'altra conversazione si
+  /// smette. **Nessuna lettura in piu'**: e' lo stesso `limit(40)` di sempre,
+  /// filtrato a schermo.
+  List<ChatMessage> _soloLaCorrente(List<ChatMessage> tutti) {
+    if (_conversazione == null) {
+      // Prima conversazione: si tengono i messaggi senza marcatura e quelli
+      // marcati non esistono ancora.
+      return tutti;
+    }
+    return [
+      for (final m in tutti)
+        if (m.conversazione == _conversazione) m,
+    ];
+  }
 
   /// Carica profilo, memoria e cronologia recente all'apertura della chat.
   Future<void> init() async {
@@ -194,9 +265,16 @@ class MaestroChatController extends ChangeNotifier {
       ]);
       _profile = results[0] as UserProfile;
       _memoryState = results[1] as MaestroMemory;
+      final cronologia = results[2] as List<ChatMessage>;
+      // **LA CONVERSAZIONE CORRENTE E' QUELLA DEL MESSAGGIO PIU' RECENTE.**
+      // Ordine CI voce 06: non si conserva da nessuna parte, si legge da cio'
+      // che c'e' gia'. Un posto in piu' dove tenerla sarebbe un secondo conto
+      // della stessa cosa.
+      _conversazione =
+          cronologia.isEmpty ? null : cronologia.last.conversazione;
       _messages
         ..clear()
-        ..addAll(_chiudiIVoli(results[2] as List<ChatMessage>));
+        ..addAll(_chiudiIVoli(_soloLaCorrente(cronologia)));
     } catch (errore, traccia) {
       // Un errore di lettura non deve impedire di iniziare a parlare, ma non
       // deve nemmeno sparire: senza annotazione una memoria che non si carica
@@ -275,9 +353,17 @@ class MaestroChatController extends ChangeNotifier {
       role: ChatRole.user,
       text: trimmed,
       at: DateTime.now(),
+      // La marcatura viaggia col messaggio: e' cosi' che una conversazione
+      // nuova comincia a esistere, senza scrivere niente prima.
+      conversazione: _conversazione,
     );
     _messages.add(userMessage);
     unawaited(_persist(userMessage));
+    // **IL TURNO ENTRA NEI RICORDI, ordine CI voce 06 vincolo d.** Si segna
+    // la DOMANDA e non la risposta: e' quello che la persona riconosce
+    // scorrendo la sua storia, ed e' anche cio' su cui la ricerca dei Ricordi
+    // lavora, perche' Firestore non sa cercare dentro un testo lungo.
+    segnaNeiRicordi?.call(userMessage);
 
     // Instradamento: se la richiesta e' un'esperienza immersiva dedicata, il
     // Maestro invita ad aprire la funzione, senza chiamare l'AI e senza
@@ -597,7 +683,11 @@ class MaestroChatController extends ChangeNotifier {
     // Non esiste piu' uno stato in cui una domanda e' salvata e il suo turno
     // no.
     final pending = ChatMessage(
-        role: ChatRole.maestro, text: '', pending: true, autore: chiRisponde);
+        role: ChatRole.maestro,
+        text: '',
+        pending: true,
+        autore: chiRisponde,
+        conversazione: _conversazione);
     _messages.add(pending);
     await _persist(pending);
     notifyListeners();

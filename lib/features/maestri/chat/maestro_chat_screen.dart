@@ -26,6 +26,9 @@ import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
+import '../../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../../core/ricordi/registro_dei_ricordi.dart';
+import '../../../core/ricordi/voce_del_ricordo.dart';
 import '../../../core/voce/dettatura.dart';
 import '../../../services/voce/dettatura_vera.dart';
 import '../../shell/corsa_della_barra.dart';
@@ -100,6 +103,22 @@ class MaestroChatScreen extends StatefulWidget {
         (rotta) => ChangeNotifierProvider<MaestroChatController>(
               create: (_) => MaestroChatController(
                 maestro: maestro,
+                // **I TURNI ENTRANO NEI RICORDI, ordine CI voce 06.** Qui,
+                // dove il registro c'e' gia': il controllore non conosce
+                // Firestore e non deve conoscerlo.
+                segnaNeiRicordi: (domanda) {
+                  try {
+                    rotta.read<RegistroDeiRicordi>().segna(VoceDelRicordo(
+                          quando: domanda.at ?? DateTime.now(),
+                          arte: 'chat',
+                          maestro: maestro.id,
+                          titolo: domanda.text,
+                          tipo: TipoDelRicordo.conversazione,
+                        ));
+                  } catch (errore) {
+                    debugPrint('Chat: il turno non entra nei Ricordi. $errore');
+                  }
+                },
                 ai: services.ai,
                 memory: services.memory,
                 allowance: rotta.read<QuestionAllowance>(),
@@ -586,7 +605,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // questo Maestro: chi sta parlando con Caligo e vuole rivedere
                   // cosa si erano detti non deve prima passare dal menu' e poi
                   // accendere una pastiglia.
-                  _IGiorniPrima(maestro: widget.maestro),
+                  // **LA RIGA IN CIMA PORTA DUE COSE, ordine CI voce 06:**
+                  // dove sono finiti i giorni prima, e come cominciare da
+                  // capo. Stanno insieme perche' sono la stessa domanda vista
+                  // da due lati, cioe' cosa ne e' di quello che ci siamo
+                  // detti.
+                  Row(
+                    children: [
+                      _IGiorniPrima(maestro: widget.maestro),
+                      const Spacer(),
+                      _ConversazioneNuova(controller: controller),
+                    ],
+                  ),
                   // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
                   // la conversazione, cioe' nello spazio che rovesciando la lista
                   // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
@@ -1181,6 +1211,74 @@ class _ConfigNotice extends StatelessWidget {
 }
 
 /// Striscia con l'invito a riprovare, quando l'ultimo turno e' fallito.
+
+/// COMINCIARE UNA CONVERSAZIONE NUOVA. Ordine CI voce 06.
+///
+/// **Questo comando non cancella e non dimentica, e va detto a chi lo tocca.**
+/// Aprire una conversazione nuova lascia dove sono tutti i messaggi di prima,
+/// che restano leggibili dai Ricordi, e **non azzera la memoria del Maestro**,
+/// che e' la cosa per cui l'abbonato paga. Il Maestro perde il filo del
+/// discorso, non la persona.
+///
+/// **Non consuma nessuna domanda del giorno**: cominciare a parlare non e'
+/// parlare.
+///
+/// **Perche' chiede conferma.** Non perche' sia pericoloso, ma perche' a
+/// schermo la chat si svuota, e una schermata che si svuota sembra sempre una
+/// cancellazione: la conferma e' il posto in cui si dice che non lo e'.
+class _ConversazioneNuova extends StatelessWidget {
+  const _ConversazioneNuova({required this.controller});
+
+  final MaestroChatController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    // A conversazione gia' vuota non c'e' niente da ricominciare, e un
+    // comando che non fa niente e' peggio di un comando assente.
+    if (controller.messages.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+      child: TextButton.icon(
+        key: const Key('chat_conversazione_nuova'),
+        style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
+        onPressed: () => _chiedi(context),
+        icon: const Icon(Icons.add_comment_outlined, size: 16),
+        label: const Text('Ricomincia'),
+      ),
+    );
+  }
+
+  Future<void> _chiedi(BuildContext context) async {
+    final si = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        key: const Key('chat_conferma_conversazione_nuova'),
+        title:
+            Text('Cominciamo da capo?', style: TypographyTokens.titoloScheda()),
+        content: ParagrafiDiLettura(
+          testo: 'Quello che vi siete detti finora resta dov\'e\', e lo '
+              'ritrovi nei Ricordi. Anche quello che il Maestro sa di te '
+              'resta: dimentica solo il filo di questa conversazione. Non ti '
+              'costa nessuna domanda.',
+          stile: TypographyTokens.lettura(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Continua cosi\''),
+          ),
+          FilledButton(
+            key: const Key('chat_conferma_si'),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Ricomincia'),
+          ),
+        ],
+      ),
+    );
+    if (si == true) controller.iniziaUnaConversazioneNuova();
+  }
+}
 
 /// LA RIGA "I GIORNI PRIMA", in cima a ogni chat. Ordine CG voce 01.
 ///

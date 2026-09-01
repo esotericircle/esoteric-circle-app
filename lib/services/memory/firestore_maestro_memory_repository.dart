@@ -282,6 +282,11 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         if (m.autore != null) 'autore': m.autore!.id,
         if (m.intentId != null) 'intentId': m.intentId,
         if (m.tipo != null) 'tipo': m.tipo!.name,
+        // **LA CONVERSAZIONE E' UNA MARCATURA, ordine CI voce 06.** Assente
+        // sui messaggi vecchi, e vuol dire la prima conversazione: nessuna
+        // migrazione, che a un milione di persone sarebbero quaranta milioni
+        // di scritture per niente.
+        if (m.conversazione != null) 'conversazione': m.conversazione,
       };
 
   /// GLI STESSI CAMPI, ma trasportabili in una chiamata.
@@ -379,6 +384,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       intentId: data['intentId'] as String?,
       autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
       tipo: _primoDove(TipoDiMessaggio.values, (t) => t.name == data['tipo']),
+      conversazione: data['conversazione'] as String?,
     );
   }
 }
