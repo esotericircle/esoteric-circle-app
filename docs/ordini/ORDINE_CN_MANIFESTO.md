@@ -302,6 +302,13 @@ alla scala uno qualunque cosa la persona abbia impostato nel sistema.
 `sky_postcard` non ci passa **perche' non e' un widget**: disegna direttamente
 in byte, e la scala di sistema non lo tocca gia' oggi.
 
+**Quante schermate ha chiuso, misurate col corredo a scala massima:
+QUATTRO.** Le tre che l'ordine CM aveva attribuito alla card delle Rune, piu'
+la cattura della card stessa, che il manifesto CM aveva classificato come "una
+pretesa della cattura" e invece era lo stesso difetto. **I rossi a testo
+massimo scendono da diciotto a quattordici**, e il manifesto CM e' stato
+aggiornato con la data, non riscritto.
+
 ## VOCE 13, I DUE FILE CHE PESANO UGUALE
 
 Chiusa dalla premessa R1: non sono lo stesso file, e non serve procurare
@@ -333,3 +340,91 @@ prova non arrivano mai al lettore. La musica nasce accesa per decisione, e la
 stessa protezione andava scritta a mano. Adesso la regia non tocca il lettore
 sotto `flutter test`, **ma continua a dire quale traccia avrebbe scelto**, cosi'
 una prova puo' ancora verificare cosa suonerebbe.
+
+## VOCE 14, LA BUILD
+
+**Numero: 2218.** La 2217, costruita dall'ordine CI e mai consegnata, decade
+come l'ordine dispone.
+
+| | byte |
+| --- | ---: |
+| Archivio del 31 agosto 2026, la 2216 | 169.244.205 |
+| **Archivio della 2218** | **176.723.356** |
+| **Differenza** | **+7.479.151, cioe' +7,13 MB** |
+
+**Meno della stima, che diceva +10,7 MB**, e il conto di dove sta la
+differenza:
+
+| | byte |
+| --- | ---: |
+| i quattro anelli d'ambiente | +7.457.075 |
+| i tredici effetti, contro i sei di prima | +215.043 |
+| i tre video ricompressi, contro i tre di prima | **-405.341** |
+| somma degli asset | +7.266.777 |
+| il resto e' impacchettamento | +212.374 |
+
+**I video hanno fatto CALARE l'archivio di 405.341 byte pur avendo guadagnato
+la traccia audio che prima non c'era.**
+
+**Il peso della musica si conta a parte da quello degli effetti**, come
+l'ordine chiede: 7.457.075 contro 352.813, cioe' ventuno volte tanto. Un
+budget solo li avrebbe nascosti tutti e due.
+
+Il comando di costruzione e il peso finiscono nel registro delle consegne,
+scritti da `tool/consegna.py` come stabilito da CH.08 e CH.09, e la guardia
+della consegna apre l'archivio e ne verifica il contenuto come CH.07.
+
+## VOCE 15, IL FOGLIO PER IL FONDATORE
+
+`docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`, che resta **l'unico foglio**: due
+fogli per lo stesso PC sono due verita' su cosa manca. Aggiornato con la testa
+nuova e col passo della distribuzione ai fondatori.
+
+## VOCE 16, IL REFERTO
+
+E' questo documento. La riga finale sta in fondo.
+
+---
+
+## QUANTE GUARDIE SONO STATE VISTE ROSSE, E LA PERCENTUALE NUOVA
+
+Sei prove del rosso in quest'ordine, tutte con l'innesto verificato col grep
+prima di leggere l'esito. Il registro `docs/guardie.md` passa da tredici
+guardie mai viste rosse in meno a quindici viste almeno una volta.
+
+**E c'e' una cosa che la Regola B ha fatto senza che nessuno la cercasse.**
+Toccando il suono sono cadute **nove guardie su zone che non pensavo di
+toccare**: il conto dei suoni del catalogo, la durata massima, l'interruttore
+degli effetti, i catch muti, il manifesto degli asset, il censimento degli
+spazi, il contrasto dei grigi, la cattura delle Impostazioni e l'icona
+dell'utente. **Nessuna di queste era un difetto del suono**: erano guardie che
+sorvegliavano davvero, e che si sono accorte di un cambiamento prima di me.
+
+---
+
+## COSA IL FONDATORE SENTIRA' DI DIVERSO APRENDO QUESTA BUILD
+
+**Per la prima volta l'app non e' muta.** Dalla prima schermata del Risveglio
+parte lo Shaman e non si ferma piu': accompagna la registrazione, resta sulla
+home, continua sotto i Doni del Giorno. Entrando nel dominio di un Maestro il
+tappeto **cambia in dissolvenza**, senza tagli: l'atmosfera di Medora, il
+deserto di Caligo, il bambu' di Aura. Nella Meditazione tace, perche' li' c'e'
+il battito a 7 Hz e non deve avere niente sopra.
+
+**Gli effetti restano spenti**, come deciso ad agosto: per sentirli si va in
+Impostazioni, Suono, e si accende. Sono tredici e non piu' sei, e adesso si
+sentono tutti allo stesso volume: prima il sigillo del Custodisci era quindici
+decibel piu' basso delle pietre, cioe' inudibile accanto a loro.
+
+**La gettata delle rune suona.** Per venticinque giorni ha vibrato in silenzio,
+perche' il catalogo dichiarava una pietra che sul disco non c'era.
+
+**Quando un effetto suona, la musica scende sotto e poi risale da sola**, in
+due decimi di secondo giu' e sei decimi su: non si sente il gesto, si sente
+solo che l'effetto sta davanti.
+
+**Le tre rivelazioni dei Maestri hanno una voce**, e pesano meno di prima.
+
+**E in Impostazioni c'e' una pagina nuova**, Suono, con due interruttori e due
+cursori: la musica parte al sessanta, gli effetti al cento, e sotto c'e'
+scritto perche' non sono pari.

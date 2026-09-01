@@ -1,6 +1,8 @@
 # LE DISTRIBUZIONI CHE ASPETTANO IL TUO PC
 
-Ordine CH voce 12. Scritto il 31 agosto 2026. **Questo e' l'unico foglio di
+Ordine CH voce 12, scritto il 31 agosto 2026; aggiornato dall'ordine CN
+voce 15 il 1 settembre 2026, che ci aggiunge la distribuzione della build
+ai fondatori. **Questo e' l'unico foglio di
 istruzioni sulle distribuzioni pendenti**: il foglio delle lapidi, che stava a
 parte, e' confluito qui dentro. Due fogli per lo stesso PC sono due verita' su
 cosa manca.
@@ -38,8 +40,9 @@ git pull --ff-only
 git log --oneline -1
 ```
 
-**Cosa devi leggere**: la riga deve cominciare con `f8b70d50` oppure con uno
-sha piu' recente, e NON con `078d24b4`.
+**Cosa devi leggere**: la riga deve cominciare con lo sha della testa di
+oggi oppure con uno piu' recente, e NON con `078d24b4`. **La testa del 1
+settembre 2026, ordine CN, comincia con `SHA_DELLA_TESTA`.**
 
 **Se `git pull` si rifiuta** dicendo qualcosa su modifiche locali, vuol dire
 che in quella cartella c'e' del lavoro non salvato. Non forzare niente:
@@ -229,6 +232,49 @@ Riconosci il caso cosi': il comando resta fermo su una riga che parla di
    `functions:`.
 3. **Se muore anche una funzione sola**, fermati e mandami quello che leggi a
    video. Non e' piu' un problema di tempo.
+
+---
+
+## PASSO 6. LA BUILD AI FONDATORI
+
+**Questa la faccio io, e questo passo serve solo se un giorno devi rifarla tu.**
+La build 2218 dell'ordine CN e' gia' costruita e consegnata dal mio lato: la
+trovi in Firebase App Distribution, e chi e' nel gruppo dei tester la riceve
+per posta.
+
+**Se devi rifarla dal tuo PC**, in ordine:
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app
+flutter build apk --release
+```
+
+**Cosa devi leggere.** In fondo una riga che comincia con la spunta e dice
+`Built build\app\outputs\flutter-apk\app-release.apk`, con un peso fra
+parentesi. Se leggi `FAILURE` fermati e mandami quello che vedi.
+
+Poi la consegna, che vuole una sessione gcloud attiva:
+
+```powershell
+$env:COMANDO_DI_BUILD = "flutter build apk --release"
+python tool/consegna.py build/app/outputs/flutter-apk/app-release.apk "Le note della build"
+```
+
+**Cosa devi leggere.** Righe che dicono che l'archivio e' stato ispezionato,
+caricato e distribuito, e in fondo il numero della release. Lo strumento
+aggiorna da solo `docs/versione_distribuita.json`: **non scrivere quel file a
+mano**, e' esattamente il passo che saltava prima che questo strumento
+esistesse.
+
+**Se la consegna si ferma dicendo qualcosa sul token**, la tua sessione gcloud
+e' scaduta:
+
+```powershell
+gcloud auth login
+```
+
+e poi rilancia la consegna. **Nessuna chiave e nessun segreto si incolla da
+nessuna parte**: il token si prende al volo e dura un'ora.
 
 ---
 

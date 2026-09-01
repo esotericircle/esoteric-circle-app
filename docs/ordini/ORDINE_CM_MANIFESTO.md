@@ -230,7 +230,7 @@ discussa.**
 **Il numero della premessa e' esatto: 42 catture su 182 si rompevano a 1,3.**
 Poco meno di una su quattro, come diceva l'ordine.
 
-**Ne restano DICIOTTO. Ventiquattro sono riparate**, e non una per una: le
+**Ne restano DICIOTTO alla chiusura di quest'ordine, quattordici dopo l'ordine CN. Ventiquattro sono riparate qui**, e non una per una: le
 famiglie di causa erano quattro, e ognuna si e' chiusa in pochi punti.
 
 | famiglia | cos'era | quante ne ha chiuse |
@@ -317,8 +317,13 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO DICIOTTO SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.** Una
-su dieci, contro una su quattro di stamattina.
+**RESTANO QUATTORDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
+
+**Erano diciotto quando quest'ordine si e' chiuso, e sono diventate quattordici la
+sera stessa**, poi quattordici, quando l'ordine CN voce 12 ha portato la decisione
+sulla card da condividere. **Il numero di stamattina non si cancella**: era
+vero quando e' stato scritto, e toglierlo toglierebbe la misura del cammino.
+Una su dodici, contro una su quattro di stamattina.
 
 **Si chiudono in DUE ordini, e non in uno, perche' due delle cause non sono
 questioni di impaginazione ma decisioni di prodotto.**
@@ -335,15 +340,15 @@ cura e' la stessa gia' usata oggi: far cedere l'altezza dove e' decisa a monte.
 | `custodia_del_cielo_step.dart:123` | 1 | 2 punti in basso |
 | tre catture che pretendono una posizione in punti | 3 | non traboccano: la pretesa va rifatta in proporzione |
 
-**Ordine successivo, tre schermate, e prima serve una decisione tua.** Le tre
-che passano da `rune_share_card.dart:49` sfondano di 137 punti perche' **la
-card da condividere ha una misura fissa per l'esportazione**. La domanda non e'
-tecnica: **una card che esce dal telefono e va guardata altrove deve seguire la
-misura del testo di chi la crea?** Se si', la card si allarga e cambia
-proporzioni; se no, il testo dentro resta alla scala uno e la card smette di
-crescere. Non la decido io.
+**~~Ordine successivo, tre schermate.~~ GIA' CHIUSO, la sera stessa.** La
+domanda era: una card che esce dal telefono e va guardata altrove deve seguire
+la misura del testo di chi la crea? **Il fondatore ha risposto no**, ordine CN
+voce 12 del 1 settembre 2026: la card si disegna alla scala uno, sempre,
+perche' e' un'immagine guardata da altri sui loro schermi, e cuocerci dentro
+un'impostazione personale di accessibilita' produrrebbe card di proporzioni
+diverse per ogni utente. Le tre schermate sono chiuse.
 
-**E poi c'e' il tetto.** Le diciotto di oggi si contano a 1,3, che e' il tetto
+**E poi c'e' il tetto.** Le quattordici di oggi si contano a 1,3, che e' il tetto
 di adesso. **Alla decisione della voce 08, cioe' a 1,6, il conto va rifatto da
 capo**: quello che a 1,3 sfora di 2 punti, a 1,6 ne sfora molti di piu', e
 schermate che oggi passano potrebbero non passare. Il numero delle schermate
