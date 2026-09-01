@@ -140,7 +140,8 @@ class TarotReading {
   /// Resta deterministico: stesse carte e stesso argomento danno sempre lo
   /// stesso testo, quindi la bolla piu' lunga dell'app continua a non toccare
   /// l'LLM.
-  static String consiglioDi(TarotSpread spread, TarotTopic topic, String domanda,
+  static String consiglioDi(
+      TarotSpread spread, TarotTopic topic, String domanda,
       [String? fattoDelCielo]) {
     final pezzi = <String>[
       // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
@@ -217,9 +218,8 @@ class TarotReading {
   /// tradizione, non ornamenti.
   static String _letturaDeiVersi(TarotSpread spread) {
     final rovesciate = spread.cards.where((c) => c.reversed).length;
-    final maggiori = spread.cards
-        .where((c) => c.card.arcana == TarotArcana.maggiore)
-        .length;
+    final maggiori =
+        spread.cards.where((c) => c.card.arcana == TarotArcana.maggiore).length;
     final versi = switch (rovesciate) {
       // LA PAROLA DEL ROVESCIO NON SI SCRIVE A MANO, nemmeno qui. La parola
       // accordata alla carta vive in `DrawnCard.versoLabel`, e una parola fissa
@@ -263,8 +263,8 @@ class TarotReading {
         perche: 'È la carta del momento che vivi, il centro della stesa.',
       );
     }
-    maggiori.sort((a, b) => (b.card.majorNumber ?? 0)
-        .compareTo(a.card.majorNumber ?? 0));
+    maggiori.sort(
+        (a, b) => (b.card.majorNumber ?? 0).compareTo(a.card.majorNumber ?? 0));
     final scelta = maggiori.first;
     return CartaChiave(
       drawn: scelta,

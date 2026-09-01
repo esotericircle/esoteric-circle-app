@@ -87,8 +87,7 @@ class RipiegoDelMaestro {
   /// Il ripiego del [maestro] quando la voce tace. Mai nullo: un Maestro senza
   /// ripiego sarebbe un Maestro che resta muto, che e' il difetto da cui
   /// nasce questo file.
-  static String silenzioDi(Maestro maestro) =>
-      perMaestro[maestro]!.silenzio;
+  static String silenzioDi(Maestro maestro) => perMaestro[maestro]!.silenzio;
 
   /// Il ripiego del [maestro] quando la voce non e' configurata.
   static String nonConfiguratoDi(Maestro maestro) =>

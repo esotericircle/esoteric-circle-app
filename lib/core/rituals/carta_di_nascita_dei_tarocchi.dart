@@ -25,7 +25,8 @@ abstract final class CartaDiNascitaDeiTarocchi {
   /// Si sommano tutte le cifre di giorno, mese e anno; se la somma supera
   /// ventidue si sommano di nuovo le sue cifre, finche' non ci sta.
   static int numeroDi(DateTime nascita) {
-    var somma = _cifre(nascita.day) + _cifre(nascita.month) + _cifre(nascita.year);
+    var somma =
+        _cifre(nascita.day) + _cifre(nascita.month) + _cifre(nascita.year);
     while (somma > 22) {
       somma = _cifre(somma);
     }

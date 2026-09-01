@@ -135,8 +135,7 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
     // toglie mai.
     _passo = Timer.periodic(AttesaDiMedora.durataRiga, (_) {
       if (!mounted) return;
-      setState(() =>
-          _corrente = (_corrente + 1) % AttesaDiMedora.righe.length);
+      setState(() => _corrente = (_corrente + 1) % AttesaDiMedora.righe.length);
     });
   }
 
@@ -155,82 +154,82 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
     // `Positioned.fill`, e infilandola dentro la dissolvenza Flutter si trovava
     // un dato di posizione senza uno Stack a cui darlo.
     return DecoratedBox(
-        // La sovrimpressione copre la scena: la stesa che sta sotto non deve
-        // rubare l'attenzione a cio' che Medora sta facendo.
-        decoration: BoxDecoration(
-          color: palette.deepest.withValues(alpha: 0.88),
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            child: Column(
-              key: const Key('stesa_attesa'),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 176,
-                  height: 176,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (_giro != null)
-                        AnimatedBuilder(
-                          animation: _giro!,
-                          builder: (context, _) => CustomPaint(
-                            size: const Size.square(176),
-                            painter: _CerchioDiStelle(
-                              giro: _giro!.value,
-                              palette: palette,
-                            ),
-                          ),
-                        )
-                      else
-                        CustomPaint(
+      // La sovrimpressione copre la scena: la stesa che sta sotto non deve
+      // rubare l'attenzione a cio' che Medora sta facendo.
+      decoration: BoxDecoration(
+        color: palette.deepest.withValues(alpha: 0.88),
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            key: const Key('stesa_attesa'),
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 176,
+                height: 176,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    if (_giro != null)
+                      AnimatedBuilder(
+                        animation: _giro!,
+                        builder: (context, _) => CustomPaint(
                           size: const Size.square(176),
-                          painter: _CerchioDiStelle(giro: 0, palette: palette),
-                        ),
-                      // IL RITRATTO DI MEDORA, dalla porta unica del busto: qui
-                      // non nasce un secondo modo di mostrare un Maestro.
-                      ClipOval(
-                        child: SizedBox(
-                          width: 116,
-                          height: 116,
-                          child: BustoDelMaestro(
-                            maestro: Maestro.medora,
-                            height: 116,
-                            // L'alone e' gia' il cerchio di stelle attorno: due
-                            // aloni sommati fanno una macchia.
-                            aura: false,
-                            respira: !widget.riduciMovimento,
+                          painter: _CerchioDiStelle(
+                            giro: _giro!.value,
+                            palette: palette,
                           ),
+                        ),
+                      )
+                    else
+                      CustomPaint(
+                        size: const Size.square(176),
+                        painter: _CerchioDiStelle(giro: 0, palette: palette),
+                      ),
+                    // IL RITRATTO DI MEDORA, dalla porta unica del busto: qui
+                    // non nasce un secondo modo di mostrare un Maestro.
+                    ClipOval(
+                      child: SizedBox(
+                        width: 116,
+                        height: 116,
+                        child: BustoDelMaestro(
+                          maestro: Maestro.medora,
+                          height: 116,
+                          // L'alone e' gia' il cerchio di stelle attorno: due
+                          // aloni sommati fanno una macchia.
+                          aura: false,
+                          respira: !widget.riduciMovimento,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: SpacingTokens.md),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              Text(
+                riga,
+                key: ValueKey('stesa_attesa_riga_$_corrente'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: palette.goldSoft),
+              ),
+              if (widget.fattoDelCielo != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
                 Text(
-                  riga,
-                  key: ValueKey('stesa_attesa_riga_$_corrente'),
+                  widget.fattoDelCielo!,
+                  key: const Key('stesa_attesa_cielo'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: ColorTokens.textSecondary,
+                      fontStyle: FontStyle.italic),
                 ),
-                if (widget.fattoDelCielo != null) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    widget.fattoDelCielo!,
-                    key: const Key('stesa_attesa_cielo'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textSecondary,
-                        fontStyle: FontStyle.italic),
-                  ),
-                ],
               ],
-            ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
@@ -268,7 +267,8 @@ class _CerchioDiStelle extends CustomPainter {
       canvas.drawCircle(
         punto,
         1.6 + 1.4 * vivezza,
-        Paint()..color = palette.goldSoft.withValues(alpha: 0.25 + 0.6 * vivezza),
+        Paint()
+          ..color = palette.goldSoft.withValues(alpha: 0.25 + 0.6 * vivezza),
       );
     }
   }

@@ -123,8 +123,7 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   // cresce da solo, e chi arriva la prima volta non ha
                   // modo di saperlo.
                   const SizedBox(height: SpacingTokens.xl),
-                  const SuggerimentoAlPrimoUso(
-                      zona: ZonaDelCerchio.passaporto),
+                  const SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.passaporto),
                   // Margine in alto: il titolo non deve mai finire sotto un
                   // eventuale pulsante nell'angolo in alto a sinistra.
                   const SizedBox(height: SpacingTokens.xl),
@@ -536,24 +535,24 @@ class _NatalChartCard extends StatelessWidget {
           unawaited(RegiaDelCammino.dopoUnGesto(context, 'luogo_di_nascita'));
         }
         Navigator.of(context).push(
-        PassaggioDelCerchio.rotta<void>((ctx) => MaestroScope(
-            maestro: Maestro.medora,
-            // ImmersiveScaffold e non il nudo widget: senza un antenato
-            // Material, Flutter disegna una riga gialla sotto OGNI testo e il
-            // fondo resta nero. Erano tre sintomi con una causa sola, e la
-            // causa era questa rotta scritta da me senza scaffalatura:
-            // sottolineature, fondo nero, cosmo in parallasse perduto.
-            child: ImmersiveScaffold(
-              seed: 21,
-              child: NatalChartReveal(
-                // La Risonanza qui e' gia' avvenuta: l'invito del Risveglio non
-                // significherebbe niente.
-                etichettaAzione: 'Torna al Passport',
-                onContinue: () => Navigator.of(ctx).maybePop(),
-              ),
-            ),
-          )),
-      );
+          PassaggioDelCerchio.rotta<void>((ctx) => MaestroScope(
+                maestro: Maestro.medora,
+                // ImmersiveScaffold e non il nudo widget: senza un antenato
+                // Material, Flutter disegna una riga gialla sotto OGNI testo e il
+                // fondo resta nero. Erano tre sintomi con una causa sola, e la
+                // causa era questa rotta scritta da me senza scaffalatura:
+                // sottolineature, fondo nero, cosmo in parallasse perduto.
+                child: ImmersiveScaffold(
+                  seed: 21,
+                  child: NatalChartReveal(
+                    // La Risonanza qui e' gia' avvenuta: l'invito del Risveglio non
+                    // significherebbe niente.
+                    etichettaAzione: 'Torna al Passport',
+                    onContinue: () => Navigator.of(ctx).maybePop(),
+                  ),
+                ),
+              )),
+        );
       },
       emblem: Icon(Icons.explore_rounded, color: palette.goldSoft, size: 28),
     );
@@ -806,13 +805,13 @@ class _TesseraArchetipo extends StatelessWidget {
         key: const Key('passport_archetipo_vuoto_tocco'),
         onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
         entry: const _PassportEntry(
-            icon: Icons.psychology_alt,
-            title: 'Archetipo',
-            // **LA FRASE DICE DOVE PORTA IL TOCCO**, invece di ordinare di
-            // fare qualcosa altrove.
-            description: 'Tocca per fare il Test Archetipo: la tua figura '
-                'comparirà qui.',
-          ),
+          icon: Icons.psychology_alt,
+          title: 'Archetipo',
+          // **LA FRASE DICE DOVE PORTA IL TOCCO**, invece di ordinare di
+          // fare qualcosa altrove.
+          description: 'Tocca per fare il Test Archetipo: la tua figura '
+              'comparirà qui.',
+        ),
       );
     }
     // **L'EMBLEMA SI TOCCA E APRE, ordine AO voce 06.** Prima era un'immagine
@@ -831,70 +830,71 @@ class _TesseraArchetipo extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
       child: DepthCard(
-      key: const Key('passport_archetipo'),
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Il suo emblema vero, non un'icona di sistema: e' una cosa sua.
-          ClipRRect(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            child: Image.asset(
-              dominante.arteThumb,
-              width: 44,
-              height: 44,
-              // INTERA, mai adattata al riempimento: e' un'arte di brand, e
-              // `cover` le taglia i bordi. Lo dice una prova che enumera tutti
-              // i punti dove queste immagini compaiono, e l'ha presa.
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) =>
-                  Icon(Icons.psychology_alt, color: palette.goldSoft, size: 28),
+        key: const Key('passport_archetipo'),
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Il suo emblema vero, non un'icona di sistema: e' una cosa sua.
+            ClipRRect(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              child: Image.asset(
+                dominante.arteThumb,
+                width: 44,
+                height: 44,
+                // INTERA, mai adattata al riempimento: e' un'arte di brand, e
+                // `cover` le taglia i bordi. Lo dice una prova che enumera tutti
+                // i punti dove queste immagini compaiono, e l'ha presa.
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => Icon(Icons.psychology_alt,
+                    color: palette.goldSoft, size: 28),
+              ),
             ),
-          ),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text('Archetipo',
-                        maxLines: 1, style: TypographyTokens.titoloScheda()),
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text('Archetipo',
+                          maxLines: 1, style: TypographyTokens.titoloScheda()),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  dominante.conArticolo,
-                  key: const Key('passport_archetipo_nome'),
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: palette.goldSoft),
-                ),
-                const SizedBox(height: 2),
-                // LA DATA DELL'ULTIMO TEST, in cifre.
-                //
-                // In cifre e non "3 agosto 2026" perche' nel progetto non
-                // esiste nessun posto che sappia scrivere i mesi in italiano, e
-                // aprirne uno qui per una riga vorrebbe dire un vocabolario in
-                // piu' da tenere allineato. La forma e' la stessa che la
-                // piccola timeline del Test usa gia', con l'anno in coda.
-                Text(
-                  'Scoperto il ${ultimo!.quando.day}/${ultimo.quando.month}/'
-                  '${ultimo.quando.year}',
-                  key: const Key('passport_archetipo_quando'),
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
-              ],
+                  const SizedBox(height: 2),
+                  Text(
+                    dominante.conArticolo,
+                    key: const Key('passport_archetipo_nome'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: palette.goldSoft),
+                  ),
+                  const SizedBox(height: 2),
+                  // LA DATA DELL'ULTIMO TEST, in cifre.
+                  //
+                  // In cifre e non "3 agosto 2026" perche' nel progetto non
+                  // esiste nessun posto che sappia scrivere i mesi in italiano, e
+                  // aprirne uno qui per una riga vorrebbe dire un vocabolario in
+                  // piu' da tenere allineato. La forma e' la stessa che la
+                  // piccola timeline del Test usa gia', con l'anno in coda.
+                  Text(
+                    'Scoperto il ${ultimo!.quando.day}/${ultimo.quando.month}/'
+                    '${ultimo.quando.year}',
+                    key: const Key('passport_archetipo_quando'),
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ],
+              ),
             ),
-          ),
-          // Il segno che si tocca: senza, la tessera aprirebbe qualcosa senza
-          // averlo mai detto.
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft, size: 20),
-        ],
-      ),
+            // Il segno che si tocca: senza, la tessera aprirebbe qualcosa senza
+            // averlo mai detto.
+            Icon(Icons.chevron_right_rounded,
+                color: palette.goldSoft, size: 20),
+          ],
+        ),
       ),
     );
   }
@@ -1030,86 +1030,86 @@ class _SentieriDelCammino extends StatelessWidget {
     return DepthCard(
       key: const Key('bolla_dei_traguardi'),
       child: Material(
-      type: MaterialType.transparency,
-      child: Column(
-        key: const Key('sentieri_del_cammino'),
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
-                SpacingTokens.sm, SpacingTokens.md, 0),
-            child: Text('I tuoi traguardi',
-                key: const Key('titolo_dei_traguardi'),
-                // Il preset di sezione, non una misura scritta a mano: il
-                // conto della tipografia nel dato non deve crescere.
-                style: TypographyTokens.titoloSezione()
-                    .copyWith(color: palette.goldSoft)),
-          ),
-          // **IL FILO DEI GIORNI, mossa 3 del documento RETENTION, ordine BG
-          // voce 06.** Un segno discreto di continuita', nel Passport e non
-          // in faccia: la serie invita, non ricatta. Si mostra il filo VIVO
-          // piu' lungo (il diario tiene solo le serie non rotte), e con
-          // nessun filo vivo la riga tace: uno zero qui sarebbe un rimprovero.
-          _FiloDeiGiorni(palette: palette),
-          // **IL RIMANDO AI RICORDI, ordine CG voce 01.** Seconda porta delle
-          // tre, e sta accanto ai traguardi perche' e' li' che la persona
-          // guarda cosa ha fatto: dalla mappa si scende al giorno in cui un
-          // traguardo si e' acceso, e dal giorno si torna sulla mappa.
-          ListTile(
-            key: const Key('passaporto_ai_ricordi'),
-            leading: Icon(Icons.auto_stories_outlined, color: palette.goldSoft),
-            title: Text('I Ricordi del Cerchio',
-                style: TypographyTokens.titoloScheda()),
-            subtitle: Text('Giorno per giorno, cosa hai fatto',
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary)),
-            trailing: const Icon(Icons.chevron_right_rounded,
-                color: ColorTokens.goldLight),
-            onTap: () => Navigator.of(context).push(
-                RicordiScreen.route(vista: VistaDelJournal.ricordi)),
-          ),
-          for (final sentiero in Sentieri.tutti) ...[
+        type: MaterialType.transparency,
+        child: Column(
+          key: const Key('sentieri_del_cammino'),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  SpacingTokens.md, SpacingTokens.sm, SpacingTokens.md, 0),
+              child: Text('I tuoi traguardi',
+                  key: const Key('titolo_dei_traguardi'),
+                  // Il preset di sezione, non una misura scritta a mano: il
+                  // conto della tipografia nel dato non deve crescere.
+                  style: TypographyTokens.titoloSezione()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+            // **IL FILO DEI GIORNI, mossa 3 del documento RETENTION, ordine BG
+            // voce 06.** Un segno discreto di continuita', nel Passport e non
+            // in faccia: la serie invita, non ricatta. Si mostra il filo VIVO
+            // piu' lungo (il diario tiene solo le serie non rotte), e con
+            // nessun filo vivo la riga tace: uno zero qui sarebbe un rimprovero.
+            _FiloDeiGiorni(palette: palette),
+            // **IL RIMANDO AI RICORDI, ordine CG voce 01.** Seconda porta delle
+            // tre, e sta accanto ai traguardi perche' e' li' che la persona
+            // guarda cosa ha fatto: dalla mappa si scende al giorno in cui un
+            // traguardo si e' acceso, e dal giorno si torna sulla mappa.
             ListTile(
-              key: Key('porta_${sentiero.name}'),
-              // **I TRE SEGNI DISEGNATI, NON I GLIFI DI SISTEMA. Ordine AT
-              // voce 03.** Qui c'erano `star_rounded`, `spa_rounded` e
-              // `local_florist_rounded`, cioe' proprio i tre glifi che
-              // l'ordine manda via dalle feste, e per la stessa ragione:
-              // **`spa_rounded` E' un fiore di loto**, quindi l'Albero e il
-              // Loto portavano lo stesso fiore. Il progetto ha gia' le tre
-              // forme disegnate da noi, nate con l'ordine AQ voce 02: si usano
-              // anche qui, e i glifi di sistema escono dal Cammino per intero.
-              leading: SegnoDelSentiero(
-                sentiero: sentiero,
-                colore: ColorTokens.goldLight,
-                misura: 24,
-              ),
-              title:
-                  Text(sentiero.titolo, style: TypographyTokens.titoloScheda()),
-              // LA FRASE INTERA, ordine P voce 38. Qui si leggeva "I tuoi
-              // Stella: cinquanta piccoli con cinque grandi": il nome
-              // singolare incollato dentro una frase al plurale, e un
-              // inventario al posto di una ragione per entrare. La promessa
-              // del sentiero e' scritta per intero nel dato, non composta
-              // qui incollando pezzi.
-              subtitle: Text(
-                sentiero.promessa,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
+              key: const Key('passaporto_ai_ricordi'),
+              leading:
+                  Icon(Icons.auto_stories_outlined, color: palette.goldSoft),
+              title: Text('I Ricordi del Cerchio',
+                  style: TypographyTokens.titoloScheda()),
+              subtitle: Text('Giorno per giorno, cosa hai fatto',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary)),
               trailing: const Icon(Icons.chevron_right_rounded,
                   color: ColorTokens.goldLight),
-              onTap: () =>
-                  Navigator.of(context).push(SentieroScreen.route(sentiero)),
+              onTap: () => Navigator.of(context)
+                  .push(RicordiScreen.route(vista: VistaDelJournal.ricordi)),
             ),
+            for (final sentiero in Sentieri.tutti) ...[
+              ListTile(
+                key: Key('porta_${sentiero.name}'),
+                // **I TRE SEGNI DISEGNATI, NON I GLIFI DI SISTEMA. Ordine AT
+                // voce 03.** Qui c'erano `star_rounded`, `spa_rounded` e
+                // `local_florist_rounded`, cioe' proprio i tre glifi che
+                // l'ordine manda via dalle feste, e per la stessa ragione:
+                // **`spa_rounded` E' un fiore di loto**, quindi l'Albero e il
+                // Loto portavano lo stesso fiore. Il progetto ha gia' le tre
+                // forme disegnate da noi, nate con l'ordine AQ voce 02: si usano
+                // anche qui, e i glifi di sistema escono dal Cammino per intero.
+                leading: SegnoDelSentiero(
+                  sentiero: sentiero,
+                  colore: ColorTokens.goldLight,
+                  misura: 24,
+                ),
+                title: Text(sentiero.titolo,
+                    style: TypographyTokens.titoloScheda()),
+                // LA FRASE INTERA, ordine P voce 38. Qui si leggeva "I tuoi
+                // Stella: cinquanta piccoli con cinque grandi": il nome
+                // singolare incollato dentro una frase al plurale, e un
+                // inventario al posto di una ragione per entrare. La promessa
+                // del sentiero e' scritta per intero nel dato, non composta
+                // qui incollando pezzi.
+                subtitle: Text(
+                  sentiero.promessa,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                trailing: const Icon(Icons.chevron_right_rounded,
+                    color: ColorTokens.goldLight),
+                onTap: () =>
+                    Navigator.of(context).push(SentieroScreen.route(sentiero)),
+              ),
+            ],
           ],
-        ],
-      ),
+        ),
       ),
     );
   }
 }
-
 
 /// IL FILO DEI GIORNI: il rito con la serie viva piu' lunga, in una riga.
 class _FiloDeiGiorni extends StatelessWidget {
@@ -1141,7 +1141,8 @@ class _FiloDeiGiorni extends StatelessWidget {
     MapEntry<String, int>? migliore;
     for (final voce in serie.entries) {
       if (!_nomi.containsKey(voce.key)) continue;
-      if (voce.value >= 2 && (migliore == null || voce.value > migliore.value)) {
+      if (voce.value >= 2 &&
+          (migliore == null || voce.value > migliore.value)) {
         migliore = voce;
       }
     }

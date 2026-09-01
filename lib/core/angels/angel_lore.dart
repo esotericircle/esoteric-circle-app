@@ -61,9 +61,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Vehuiah',
     degrees: 'da 0 a 5 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 3,4 nella numerazione della Vulgata (3,3 nelle Bibbie italiane correnti): «Tu autem Domine susceptor meus es, gloria mea et exaltans caput meum».',
-    tradition: 'La tradizione lo lega ai cominciamenti, alle imprese che nessuno vuole prendere in mano, alla lucidità che smonta un inganno. Non è una previsione di esito. Serve a leggere il momento in cui muoversi.',
-    reading: 'Qui si lavora la volontà che apre. Chiediti dove stai aspettando il permesso di qualcuno per cominciare: quel punto è il tuo esercizio.',
+    psalm:
+        'Salmo 3,4 nella numerazione della Vulgata (3,3 nelle Bibbie italiane correnti): «Tu autem Domine susceptor meus es, gloria mea et exaltans caput meum».',
+    tradition:
+        'La tradizione lo lega ai cominciamenti, alle imprese che nessuno vuole prendere in mano, alla lucidità che smonta un inganno. Non è una previsione di esito. Serve a leggere il momento in cui muoversi.',
+    reading:
+        'Qui si lavora la volontà che apre. Chiediti dove stai aspettando il permesso di qualcuno per cominciare: quel punto è il tuo esercizio.',
     confidence: 'alta',
   ),
   2: AngelLore(
@@ -71,9 +74,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ieliel',
     degrees: 'da 5 a 10 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 22,20 nella numerazione ebraica (21,20 nella Vulgata): «Tu autem Domine ne elongaveris auxilium tuum a me; ad defensionem meam conspice».',
-    tradition: 'Serve a leggere cosa tiene insieme un rapporto, non a garantirne la durata.',
-    reading: 'Qui si lavora il legame che tiene. La fedeltà di cui parla questa chiave non è sentimento. Riguarda la costanza di tornare alla stessa persona dopo il disaccordo.',
+    psalm:
+        'Salmo 22,20 nella numerazione ebraica (21,20 nella Vulgata): «Tu autem Domine ne elongaveris auxilium tuum a me; ad defensionem meam conspice».',
+    tradition:
+        'Serve a leggere cosa tiene insieme un rapporto, non a garantirne la durata.',
+    reading:
+        'Qui si lavora il legame che tiene. La fedeltà di cui parla questa chiave non è sentimento. Riguarda la costanza di tornare alla stessa persona dopo il disaccordo.',
     confidence: 'alta',
   ),
   3: AngelLore(
@@ -81,9 +87,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Sitael',
     degrees: 'da 10 a 15 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 91,2 nella numerazione ebraica (90,2 nella Vulgata): «Dicet Domino: susceptor meus es tu et refugium meum; Deus meus, sperabo in eum».',
-    tradition: 'La tradizione lo lega alla costruzione, alla responsabilità presa davanti agli altri, alla tenuta nelle avversità. Riguarda le opere lente, quelle che si misurano in anni.',
-    reading: 'Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che sei disposto a dedicarle quando smette di convenirti.',
+    psalm:
+        'Salmo 91,2 nella numerazione ebraica (90,2 nella Vulgata): «Dicet Domino: susceptor meus es tu et refugium meum; Deus meus, sperabo in eum».',
+    tradition:
+        'La tradizione lo lega alla costruzione, alla responsabilità presa davanti agli altri, alla tenuta nelle avversità. Riguarda le opere lente, quelle che si misurano in anni.',
+    reading:
+        'Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che sei disposto a dedicarle quando smette di convenirti.',
     confidence: 'alta',
   ),
   4: AngelLore(
@@ -91,9 +100,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Elemiah',
     degrees: 'da 15 a 20 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 6,5 nella numerazione della Vulgata e in quella ebraica (6,4 nelle Bibbie italiane correnti): «Convertere Domine et eripe animam meam; salvum me fac propter misericordiam tuam».',
-    tradition: 'La tradizione lo lega al lavoro, ai viaggi, alle situazioni che si sono inceppate per cause non dette. Serve a distinguere l\'ostacolo reale dal proprio tumulto interiore.',
-    reading: 'Qui si lavora il discernimento su chi hai intorno. Riconoscere una slealtà per tempo vale più di qualunque rivincita presa dopo.',
+    psalm:
+        'Salmo 6,5 nella numerazione della Vulgata e in quella ebraica (6,4 nelle Bibbie italiane correnti): «Convertere Domine et eripe animam meam; salvum me fac propter misericordiam tuam».',
+    tradition:
+        'La tradizione lo lega al lavoro, ai viaggi, alle situazioni che si sono inceppate per cause non dette. Serve a distinguere l\'ostacolo reale dal proprio tumulto interiore.',
+    reading:
+        'Qui si lavora il discernimento su chi hai intorno. Riconoscere una slealtà per tempo vale più di qualunque rivincita presa dopo.',
     confidence: 'alta',
   ),
   5: AngelLore(
@@ -101,9 +113,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mahasiah',
     degrees: 'da 20 a 25 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 34,5 nella numerazione ebraica (33,5 nella Vulgata, 34,4 nelle Bibbie italiane correnti): «Exquisivi Dominum et exaudivit me; et ex omnibus tribulationibus meis eripuit me».',
-    tradition: 'La tradizione lo lega allo studio, alle prove d\'esame, alla riconciliazione fra persone che si sono allontanate. Riguarda il clima che porti in una stanza prima ancora di parlare.',
-    reading: 'Qui si lavora la capacità di stare in pace senza cedere. Chi impara in fretta di solito ha smesso di difendersi da ciò che studia.',
+    psalm:
+        'Salmo 34,5 nella numerazione ebraica (33,5 nella Vulgata, 34,4 nelle Bibbie italiane correnti): «Exquisivi Dominum et exaudivit me; et ex omnibus tribulationibus meis eripuit me».',
+    tradition:
+        'La tradizione lo lega allo studio, alle prove d\'esame, alla riconciliazione fra persone che si sono allontanate. Riguarda il clima che porti in una stanza prima ancora di parlare.',
+    reading:
+        'Qui si lavora la capacità di stare in pace senza cedere. Chi impara in fretta di solito ha smesso di difendersi da ciò che studia.',
     confidence: 'alta',
   ),
   6: AngelLore(
@@ -111,9 +126,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Lelahel',
     degrees: 'da 25 a 30 gradi',
     sign: 'Ariete',
-    psalm: 'Salmo 9,12 nella numerazione della Vulgata e in quella ebraica (9,11 nelle Bibbie italiane correnti): «Psallite Domino qui habitat in Sion; annuntiate inter gentes studia eius».',
-    tradition: 'La tradizione lo lega alle arti, alle scienze, alla notorietà che nasce dal merito. Indica piuttosto l\'uso che fai delle tue capacità.',
-    reading: 'Qui si lavora la luce che chiarisce, non quella che abbaglia. Un talento riconosciuto resta utile finché continui a usarlo anche per qualcun altro.',
+    psalm:
+        'Salmo 9,12 nella numerazione della Vulgata e in quella ebraica (9,11 nelle Bibbie italiane correnti): «Psallite Domino qui habitat in Sion; annuntiate inter gentes studia eius».',
+    tradition:
+        'La tradizione lo lega alle arti, alle scienze, alla notorietà che nasce dal merito. Indica piuttosto l\'uso che fai delle tue capacità.',
+    reading:
+        'Qui si lavora la luce che chiarisce, non quella che abbaglia. Un talento riconosciuto resta utile finché continui a usarlo anche per qualcun altro.',
     confidence: 'alta',
   ),
   7: AngelLore(
@@ -121,9 +139,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Achaiah',
     degrees: 'da 30 a 35 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors».',
-    tradition: 'La tradizione lo lega alla ricerca, alle scoperte, alla trasmissione del sapere, al ritrovare un senso dopo averlo perso. Riguarda il tempo lungo dell\'apprendere.',
-    reading: 'Qui si lavora la pazienza che continua a osservare. Capire una cosa fino in fondo richiede di tornarci anche quando ha smesso di essere interessante.',
+    psalm:
+        'Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors».',
+    tradition:
+        'La tradizione lo lega alla ricerca, alle scoperte, alla trasmissione del sapere, al ritrovare un senso dopo averlo perso. Riguarda il tempo lungo dell\'apprendere.',
+    reading:
+        'Qui si lavora la pazienza che continua a osservare. Capire una cosa fino in fondo richiede di tornarci anche quando ha smesso di essere interessante.',
     confidence: 'alta',
   ),
   8: AngelLore(
@@ -131,9 +152,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Cahethel',
     degrees: 'da 35 a 40 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 95,6 nella numerazione ebraica (94,6 nella Vulgata Clementina): «Venite, adoremus, et procidamus, et ploremus ante Dominum qui fecit nos». La Nova Vulgata numera lo stesso passo 95,6 con la lezione «et genua flectamus» al posto di «et ploremus».',
-    tradition: 'La tradizione lo lega al raccolto, al lavoro della terra, ai beni guadagnati, alla casa. Riguarda il rapporto fra la fatica investita e il frutto che ne viene.',
-    reading: 'Qui si lavora la gratitudine concreta, quella che si vede nei gesti. Riconoscere da dove viene ciò che hai cambia il modo in cui lo amministri.',
+    psalm:
+        'Salmo 95,6 nella numerazione ebraica (94,6 nella Vulgata Clementina): «Venite, adoremus, et procidamus, et ploremus ante Dominum qui fecit nos». La Nova Vulgata numera lo stesso passo 95,6 con la lezione «et genua flectamus» al posto di «et ploremus».',
+    tradition:
+        'La tradizione lo lega al raccolto, al lavoro della terra, ai beni guadagnati, alla casa. Riguarda il rapporto fra la fatica investita e il frutto che ne viene.',
+    reading:
+        'Qui si lavora la gratitudine concreta, quella che si vede nei gesti. Riconoscere da dove viene ciò che hai cambia il modo in cui lo amministri.',
     confidence: 'alta',
   ),
   9: AngelLore(
@@ -141,9 +165,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Haziel',
     degrees: 'da 40 a 45 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 25,6 (Vulgata 24,6): «Ricordati, Signore, del tuo amore, della tua fedeltà che è da sempre»',
-    tradition: 'Riguarda i legami da ricucire, le promesse mantenute, la fiducia data alle persone giuste. Tocca il modo in cui dai senza aprire in silenzio un debito che poi pretenderai.',
-    reading: 'La tua forza è la clemenza consapevole. Perdoni perché scegli di non portare più quel peso, non perché fingi che il torto non ci sia stato.',
+    psalm:
+        'Salmo 25,6 (Vulgata 24,6): «Ricordati, Signore, del tuo amore, della tua fedeltà che è da sempre»',
+    tradition:
+        'Riguarda i legami da ricucire, le promesse mantenute, la fiducia data alle persone giuste. Tocca il modo in cui dai senza aprire in silenzio un debito che poi pretenderai.',
+    reading:
+        'La tua forza è la clemenza consapevole. Perdoni perché scegli di non portare più quel peso, non perché fingi che il torto non ci sia stato.',
     confidence: 'alta',
   ),
   10: AngelLore(
@@ -151,9 +178,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Aladiah',
     degrees: 'da 45 a 50 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 33,22 (Vulgata 32,22): «Signore, sia su di noi la tua grazia, perché in te speriamo»',
-    tradition: 'Riguarda la ripartenza dopo una rottura, l\'attenzione al proprio corpo, il rapporto con la colpa che ti porti dietro. Tocca anche il modo in cui tratti chi ha sbagliato con te.',
-    reading: 'Sai ricominciare senza cancellare quello che è successo. La tua qualità è permettere a un errore di smettere di definirti.',
+    psalm:
+        'Salmo 33,22 (Vulgata 32,22): «Signore, sia su di noi la tua grazia, perché in te speriamo»',
+    tradition:
+        'Riguarda la ripartenza dopo una rottura, l\'attenzione al proprio corpo, il rapporto con la colpa che ti porti dietro. Tocca anche il modo in cui tratti chi ha sbagliato con te.',
+    reading:
+        'Sai ricominciare senza cancellare quello che è successo. La tua qualità è permettere a un errore di smettere di definirti.',
     confidence: 'alta',
   ),
   11: AngelLore(
@@ -161,9 +191,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Lauviah',
     degrees: 'da 50 a 55 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 18,47 (Vulgata 17,47): «Viva il Signore, benedetta la mia rupe, sia esaltato il Dio della mia salvezza»',
-    tradition: 'Riguarda il riconoscimento pubblico, la reputazione, i progetti lunghi che vanno difesi nel tempo. Tocca il rapporto fra quello che vali davvero e quello che gli altri vedono.',
-    reading: 'Hai resistenza, il tipo che regge quando l\'entusiasmo iniziale è finito. La riuscita per te è questione di costanza, non di colpo di fortuna.',
+    psalm:
+        'Salmo 18,47 (Vulgata 17,47): «Viva il Signore, benedetta la mia rupe, sia esaltato il Dio della mia salvezza»',
+    tradition:
+        'Riguarda il riconoscimento pubblico, la reputazione, i progetti lunghi che vanno difesi nel tempo. Tocca il rapporto fra quello che vali davvero e quello che gli altri vedono.',
+    reading:
+        'Hai resistenza, il tipo che regge quando l\'entusiasmo iniziale è finito. La riuscita per te è questione di costanza, non di colpo di fortuna.',
     confidence: 'media',
   ),
   12: AngelLore(
@@ -171,9 +204,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Hahaiah',
     degrees: 'da 55 a 60 gradi',
     sign: 'Toro',
-    psalm: 'Salmo 10,1 (Vulgata 9,22): «Perché, Signore, stai lontano, nel tempo dell\'angoscia ti nascondi?»',
-    tradition: 'Riguarda la vita interiore, i sogni, il bisogno di un luogo sicuro quando fuori è complicato. Tocca la discrezione con cui tratti quello che ti viene confidato.',
-    reading: 'Sai stare nel silenzio senza scappare. La tua qualità è ascoltare quello che arriva di notte, dai sogni o dalle intuizioni, senza pretendere subito una spiegazione.',
+    psalm:
+        'Salmo 10,1 (Vulgata 9,22): «Perché, Signore, stai lontano, nel tempo dell\'angoscia ti nascondi?»',
+    tradition:
+        'Riguarda la vita interiore, i sogni, il bisogno di un luogo sicuro quando fuori è complicato. Tocca la discrezione con cui tratti quello che ti viene confidato.',
+    reading:
+        'Sai stare nel silenzio senza scappare. La tua qualità è ascoltare quello che arriva di notte, dai sogni o dalle intuizioni, senza pretendere subito una spiegazione.',
     confidence: 'alta',
   ),
   13: AngelLore(
@@ -181,9 +217,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Iezalel',
     degrees: 'da 60 a 65 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 98,4 (Vulgata 97,4): «Acclami al Signore tutta la terra, gridate, esultate, cantate inni»',
-    tradition: 'Riguarda i legami di coppia, le amicizie lunghe, le riconciliazioni, la parola data. Tocca il modo in cui tieni insieme un gruppo senza doverlo comandare.',
-    reading: 'La fedeltà per te è memoria attiva, non abitudine. Ricordi chi sono le persone anche quando loro se ne dimenticano.',
+    psalm:
+        'Salmo 98,4 (Vulgata 97,4): «Acclami al Signore tutta la terra, gridate, esultate, cantate inni»',
+    tradition:
+        'Riguarda i legami di coppia, le amicizie lunghe, le riconciliazioni, la parola data. Tocca il modo in cui tieni insieme un gruppo senza doverlo comandare.',
+    reading:
+        'La fedeltà per te è memoria attiva, non abitudine. Ricordi chi sono le persone anche quando loro se ne dimenticano.',
     confidence: 'alta',
   ),
   14: AngelLore(
@@ -191,9 +230,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mebahel',
     degrees: 'da 65 a 70 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 9,10 (Vulgata 9,10): «Il Signore sarà un rifugio per l\'oppresso, un riparo nei momenti di angoscia». Nelle Bibbie di lingua inglese e nella numerazione masoretica lo stesso versetto è 9,9',
-    tradition: 'Riguarda le controversie, la difesa di chi non ha voce, la libertà personale. Tocca gli accordi, i contratti, tutto quello che si firma o si promette davanti a testimoni.',
-    reading: 'Dici le cose come stanno senza usare la verità come un\'arma. La tua misura è la giustizia applicata prima di tutto a te stesso.',
+    psalm:
+        'Salmo 9,10 (Vulgata 9,10): «Il Signore sarà un rifugio per l\'oppresso, un riparo nei momenti di angoscia». Nelle Bibbie di lingua inglese e nella numerazione masoretica lo stesso versetto è 9,9',
+    tradition:
+        'Riguarda le controversie, la difesa di chi non ha voce, la libertà personale. Tocca gli accordi, i contratti, tutto quello che si firma o si promette davanti a testimoni.',
+    reading:
+        'Dici le cose come stanno senza usare la verità come un\'arma. La tua misura è la giustizia applicata prima di tutto a te stesso.',
     confidence: 'alta',
   ),
   15: AngelLore(
@@ -201,9 +243,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Hariel',
     degrees: 'da 70 a 75 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 94,22 (Vulgata 93,22): «Ma il Signore è la mia difesa, la roccia del mio rifugio è il mio Dio»',
-    tradition: 'Riguarda lo studio, la ricerca, il lavoro creativo, la pulizia degli ambienti come delle abitudini. Tocca il momento in cui un\'intuizione diventa un metodo.',
-    reading: 'Vedi i nessi che gli altri non collegano. La tua qualità è mettere ordine nelle idee prima ancora che nelle cose.',
+    psalm:
+        'Salmo 94,22 (Vulgata 93,22): «Ma il Signore è la mia difesa, la roccia del mio rifugio è il mio Dio»',
+    tradition:
+        'Riguarda lo studio, la ricerca, il lavoro creativo, la pulizia degli ambienti come delle abitudini. Tocca il momento in cui un\'intuizione diventa un metodo.',
+    reading:
+        'Vedi i nessi che gli altri non collegano. La tua qualità è mettere ordine nelle idee prima ancora che nelle cose.',
     confidence: 'alta',
   ),
   16: AngelLore(
@@ -211,9 +256,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Hakamiah',
     degrees: 'da 75 a 80 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 88,2 (Vulgata 87,2): «Signore, Dio della mia salvezza, davanti a te grido giorno e notte». Nelle Bibbie di lingua inglese lo stesso versetto è 88,1',
-    tradition: 'Riguarda la fedeltà alla parola data, la protezione di chi dipende da te, le situazioni di conflitto aperto. Tocca il rapporto con chi comanda, sia quando lo subisci sia quando comandi tu.',
-    reading: 'Il coraggio che ti riguarda è restare al proprio posto quando sparire converrebbe. Parli chiaro anche quando la franchezza ti costa qualcosa.',
+    psalm:
+        'Salmo 88,2 (Vulgata 87,2): «Signore, Dio della mia salvezza, davanti a te grido giorno e notte». Nelle Bibbie di lingua inglese lo stesso versetto è 88,1',
+    tradition:
+        'Riguarda la fedeltà alla parola data, la protezione di chi dipende da te, le situazioni di conflitto aperto. Tocca il rapporto con chi comanda, sia quando lo subisci sia quando comandi tu.',
+    reading:
+        'Il coraggio che ti riguarda è restare al proprio posto quando sparire converrebbe. Parli chiaro anche quando la franchezza ti costa qualcosa.',
     confidence: 'alta',
   ),
   17: AngelLore(
@@ -221,9 +269,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Lauviah II',
     degrees: 'da 80 a 85 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 8,2 (numerazione CEI 1974): «O Signore, nostro Dio, quanto è grande il tuo nome su tutta la terra». Corrisponde a 8,1 nella numerazione ebraico-inglese, il punto citato da Ambelain. La CEI 2008 legge «quanto è mirabile il tuo nome». Il ritornello si ripete identico alla chiusura del salmo, dove alcuni repertori italiani lo citano come 8,10.',
-    tradition: 'Sogni, intuizione, ricerca, scoperte, studio delle cose nascoste. Qui si decide se la tua notte lavora per te oppure ti consuma.',
-    reading: 'Rivelazione. Cogli il collegamento prima degli altri, spesso di notte o nel silenzio. Trattalo come un dato da verificare, non come una certezza già acquisita.',
+    psalm:
+        'Salmo 8,2 (numerazione CEI 1974): «O Signore, nostro Dio, quanto è grande il tuo nome su tutta la terra». Corrisponde a 8,1 nella numerazione ebraico-inglese, il punto citato da Ambelain. La CEI 2008 legge «quanto è mirabile il tuo nome». Il ritornello si ripete identico alla chiusura del salmo, dove alcuni repertori italiani lo citano come 8,10.',
+    tradition:
+        'Sogni, intuizione, ricerca, scoperte, studio delle cose nascoste. Qui si decide se la tua notte lavora per te oppure ti consuma.',
+    reading:
+        'Rivelazione. Cogli il collegamento prima degli altri, spesso di notte o nel silenzio. Trattalo come un dato da verificare, non come una certezza già acquisita.',
     confidence: 'alta',
   ),
   18: AngelLore(
@@ -231,9 +282,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Caliel',
     degrees: 'da 85 a 90 gradi',
     sign: 'Gemelli',
-    psalm: 'Salmo 7,9 (numerazione CEI): «Il Signore decide la causa dei popoli: giudicami, Signore, secondo la mia giustizia». Corrisponde a 7,8 nella numerazione ebraico-inglese usata da Ambelain.',
-    tradition: 'Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a te stesso.',
-    reading: 'Giustizia. Distingui il fatto dall\'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per essere creduto.',
+    psalm:
+        'Salmo 7,9 (numerazione CEI): «Il Signore decide la causa dei popoli: giudicami, Signore, secondo la mia giustizia». Corrisponde a 7,8 nella numerazione ebraico-inglese usata da Ambelain.',
+    tradition:
+        'Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a te stesso.',
+    reading:
+        'Giustizia. Distingui il fatto dall\'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per essere creduto.',
     confidence: 'media',
   ),
   19: AngelLore(
@@ -241,9 +295,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Leuviah',
     degrees: 'da 90 a 95 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 40,2 (numerazione CEI): «Ho sperato: ho sperato nel Signore ed egli su di me si è chinato». Corrisponde a 40,1 nella numerazione ebraico-inglese citata da Ambelain.',
-    tradition: 'Memoria, apprendimento, riconciliazione, capacità di reggere il peso di quanto è accaduto. Tocca il modo in cui chiudi le questioni rimaste aperte.',
-    reading: 'Memoria. Ricordi con precisione, quindi puoi ricostruire ciò che gli altri hanno perso per strada. Serve per capire, non per rinfacciare.',
+    psalm:
+        'Salmo 40,2 (numerazione CEI): «Ho sperato: ho sperato nel Signore ed egli su di me si è chinato». Corrisponde a 40,1 nella numerazione ebraico-inglese citata da Ambelain.',
+    tradition:
+        'Memoria, apprendimento, riconciliazione, capacità di reggere il peso di quanto è accaduto. Tocca il modo in cui chiudi le questioni rimaste aperte.',
+    reading:
+        'Memoria. Ricordi con precisione, quindi puoi ricostruire ciò che gli altri hanno perso per strada. Serve per capire, non per rinfacciare.',
     confidence: 'alta',
   ),
   20: AngelLore(
@@ -251,9 +308,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Pahaliah',
     degrees: 'da 95 a 100 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 120,2: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice». Ambelain concorda sul versetto 2.',
-    tradition: 'Etica, ricerca di senso, vocazione, uscita da abitudini che ti tengono fermo. Riguarda ciò che decidi di considerare non negoziabile.',
-    reading: 'Redenzione. Sai cambiare direzione anche a metà strada, senza fingere che il passato non ci sia stato. È una scelta da rinnovare, non un evento unico.',
+    psalm:
+        'Salmo 120,2: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice». Ambelain concorda sul versetto 2.',
+    tradition:
+        'Etica, ricerca di senso, vocazione, uscita da abitudini che ti tengono fermo. Riguarda ciò che decidi di considerare non negoziabile.',
+    reading:
+        'Redenzione. Sai cambiare direzione anche a metà strada, senza fingere che il passato non ci sia stato. È una scelta da rinnovare, non un evento unico.',
     confidence: 'media',
   ),
   21: AngelLore(
@@ -261,9 +321,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Nelchael',
     degrees: 'da 100 a 105 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 31,15 (numerazione CEI): «Io confido in te, Signore; dico: Tu sei il mio Dio». Corrisponde a 31,14 nella numerazione ebraico-inglese citata da Ambelain. Una fonte italiana estende la citazione ai versetti 15-16.',
-    tradition: 'Scienze astratte, matematica, astronomia, filosofia, insegnamento, difesa dalla calunnia. Riguarda anche il modo in cui trasmetti quello che sai.',
-    reading: 'Studio. Impari in fretta perché sopporti di non capire subito. Il sapere ti serve per costruire qualcosa, non per avere ragione.',
+    psalm:
+        'Salmo 31,15 (numerazione CEI): «Io confido in te, Signore; dico: Tu sei il mio Dio». Corrisponde a 31,14 nella numerazione ebraico-inglese citata da Ambelain. Una fonte italiana estende la citazione ai versetti 15-16.',
+    tradition:
+        'Scienze astratte, matematica, astronomia, filosofia, insegnamento, difesa dalla calunnia. Riguarda anche il modo in cui trasmetti quello che sai.',
+    reading:
+        'Studio. Impari in fretta perché sopporti di non capire subito. Il sapere ti serve per costruire qualcosa, non per avere ragione.',
     confidence: 'alta',
   ),
   22: AngelLore(
@@ -271,9 +334,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ieiaiel',
     degrees: 'da 105 a 110 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 121,5: «Il Signore è il tuo custode, il Signore è la tua ombra e sta alla tua destra».',
-    tradition: 'Fama, commercio, diplomazia, viaggi e scambi, rapporti con chi ti valuta dall\'esterno. Riguarda l\'uso che fai della visibilità ottenuta.',
-    reading: 'Riconoscimento. Qui la lettura riguarda il lavoro che regge nel tempo, non l\'applauso rincorso. Il criterio è consegnare cose solide.',
+    psalm:
+        'Salmo 121,5: «Il Signore è il tuo custode, il Signore è la tua ombra e sta alla tua destra».',
+    tradition:
+        'Fama, commercio, diplomazia, viaggi e scambi, rapporti con chi ti valuta dall\'esterno. Riguarda l\'uso che fai della visibilità ottenuta.',
+    reading:
+        'Riconoscimento. Qui la lettura riguarda il lavoro che regge nel tempo, non l\'applauso rincorso. Il criterio è consegnare cose solide.',
     confidence: 'alta',
   ),
   23: AngelLore(
@@ -281,9 +347,11 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Melahel',
     degrees: 'da 110 a 115 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 121,8 (numerazione CEI): «Il Signore veglierà sulla tua uscita e sul tuo ingresso, da ora e per sempre». Nella numerazione della Vulgata il salmo è il 120.',
+    psalm:
+        'Salmo 121,8 (numerazione CEI): «Il Signore veglierà sulla tua uscita e sul tuo ingresso, da ora e per sempre». Nella numerazione della Vulgata il salmo è il 120.',
     tradition: 'Riguarda la prevenzione più della riparazione.',
-    reading: 'Cura. La tradizione lo lega all\'acqua, ai prodotti della terra, alle piante impiegate come rimedio. Qui la costanza conta più del rimedio raro.',
+    reading:
+        'Cura. La tradizione lo lega all\'acqua, ai prodotti della terra, alle piante impiegate come rimedio. Qui la costanza conta più del rimedio raro.',
     confidence: 'media',
   ),
   24: AngelLore(
@@ -291,9 +359,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Haheuiah',
     degrees: 'da 115 a 120 gradi',
     sign: 'Cancro',
-    psalm: 'Salmo 33,18: «Ecco, l\'occhio del Signore è su chi lo teme, su chi spera nel suo amore».',
-    tradition: 'Esilio, distacchi, prigionia, ingiustizia subita, ritorno dopo un allontanamento. Riguarda anche il confine che decidi di porre intorno a te.',
-    reading: 'Protezione. Sai stare accanto a chi è fuori posto, perché quella condizione la conosci. La fermezza qui è più utile della pietà.',
+    psalm:
+        'Salmo 33,18: «Ecco, l\'occhio del Signore è su chi lo teme, su chi spera nel suo amore».',
+    tradition:
+        'Esilio, distacchi, prigionia, ingiustizia subita, ritorno dopo un allontanamento. Riguarda anche il confine che decidi di porre intorno a te.',
+    reading:
+        'Protezione. Sai stare accanto a chi è fuori posto, perché quella condizione la conosci. La fermezza qui è più utile della pietà.',
     confidence: 'media',
   ),
   25: AngelLore(
@@ -301,9 +372,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Nithhaiah',
     degrees: 'da 120 a 125 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 9,2 nella numerazione CEI 2008 (9,1 nelle bibbie di tradizione inglese, Vulgata 9,2): «Renderò grazie al Signore con tutto il cuore, annuncerò tutte le tue meraviglie»',
-    tradition: 'Tocca lo studio delle cose nascoste, i sogni che insegnano, le intuizioni che arrivano quando smetti di cercarle. Riguarda anche la capacità di restare lucido davanti a ciò che non si spiega subito.',
-    reading: 'La tua forza sta nel silenzio che precede la parola. Impari più da un\'ora di raccoglimento che da dieci discussioni.',
+    psalm:
+        'Salmo 9,2 nella numerazione CEI 2008 (9,1 nelle bibbie di tradizione inglese, Vulgata 9,2): «Renderò grazie al Signore con tutto il cuore, annuncerò tutte le tue meraviglie»',
+    tradition:
+        'Tocca lo studio delle cose nascoste, i sogni che insegnano, le intuizioni che arrivano quando smetti di cercarle. Riguarda anche la capacità di restare lucido davanti a ciò che non si spiega subito.',
+    reading:
+        'La tua forza sta nel silenzio che precede la parola. Impari più da un\'ora di raccoglimento che da dieci discussioni.',
     confidence: 'alta',
   ),
   26: AngelLore(
@@ -311,9 +385,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Haaiah',
     degrees: 'da 125 a 130 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 119,145 (Vulgata 118,145): «Invoco con tutto il cuore: Signore, rispondimi; custodirò i tuoi decreti»',
-    tradition: 'Riguarda accordi, mediazioni, rapporti da tenere insieme quando le posizioni si irrigidiscono. Tocca anche la parola data, i patti, la coerenza fra ciò che prometti e ciò che fai.',
-    reading: 'Sai vedere il punto di incontro dove gli altri vedono solo lo scontro. La tua misura sta nel dire la cosa giusta al momento giusto, senza alzare la voce.',
+    psalm:
+        'Salmo 119,145 (Vulgata 118,145): «Invoco con tutto il cuore: Signore, rispondimi; custodirò i tuoi decreti»',
+    tradition:
+        'Riguarda accordi, mediazioni, rapporti da tenere insieme quando le posizioni si irrigidiscono. Tocca anche la parola data, i patti, la coerenza fra ciò che prometti e ciò che fai.',
+    reading:
+        'Sai vedere il punto di incontro dove gli altri vedono solo lo scontro. La tua misura sta nel dire la cosa giusta al momento giusto, senza alzare la voce.',
     confidence: 'alta',
   ),
   27: AngelLore(
@@ -321,9 +398,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ierathel',
     degrees: 'da 130 a 135 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 140,2 nella numerazione CEI 2008 (140,1 nelle bibbie di tradizione inglese, Vulgata 139,2): «Liberami, Signore, dall\'uomo malvagio, proteggimi dall\'uomo violento»',
-    tradition: 'Tocca la diffusione del sapere, lo studio, la scrittura, tutto ciò che allarga la comprensione di una comunità. Riguarda anche le situazioni in cui devi tenere una posizione contro una pressione ingiusta.',
-    reading: 'Hai il compito di portare chiarezza dove c\'è confusione, senza trasformare la chiarezza in condanna. La tua fermezza serve a difendere, non a colpire.',
+    psalm:
+        'Salmo 140,2 nella numerazione CEI 2008 (140,1 nelle bibbie di tradizione inglese, Vulgata 139,2): «Liberami, Signore, dall\'uomo malvagio, proteggimi dall\'uomo violento»',
+    tradition:
+        'Tocca la diffusione del sapere, lo studio, la scrittura, tutto ciò che allarga la comprensione di una comunità. Riguarda anche le situazioni in cui devi tenere una posizione contro una pressione ingiusta.',
+    reading:
+        'Hai il compito di portare chiarezza dove c\'è confusione, senza trasformare la chiarezza in condanna. La tua fermezza serve a difendere, non a colpire.',
     confidence: 'alta',
   ),
   28: AngelLore(
@@ -331,9 +411,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Seheiah',
     degrees: 'da 135 a 140 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 71,12 (Vulgata 70,12, indicato 70,13 nelle edizioni che contano il titolo come primo versetto): «O Dio, da me non stare lontano: Dio mio, vieni presto in mio aiuto»',
-    tradition: 'Riguarda l\'ascolto del corpo, i ritmi lunghi, la scelta di un passo sostenibile invece dello strappo. Tocca anche la costruzione di abitudini che reggono nel tempo.',
-    reading: 'La tua qualità è la prudenza che guarda avanti, non la paura che frena. Vedi in anticipo dove la strada cede, così puoi scegliere il passo.',
+    psalm:
+        'Salmo 71,12 (Vulgata 70,12, indicato 70,13 nelle edizioni che contano il titolo come primo versetto): «O Dio, da me non stare lontano: Dio mio, vieni presto in mio aiuto»',
+    tradition:
+        'Riguarda l\'ascolto del corpo, i ritmi lunghi, la scelta di un passo sostenibile invece dello strappo. Tocca anche la costruzione di abitudini che reggono nel tempo.',
+    reading:
+        'La tua qualità è la prudenza che guarda avanti, non la paura che frena. Vedi in anticipo dove la strada cede, così puoi scegliere il passo.',
     confidence: 'alta',
   ),
   29: AngelLore(
@@ -341,9 +424,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Reiiel',
     degrees: 'da 140 a 145 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 54,6 nella numerazione CEI 2008 (54,4 nelle bibbie di tradizione inglese, Vulgata 53,6 oppure 53,4 secondo l\'edizione): «Ecco, Dio è il mio aiuto, il Signore sostiene la mia vita»',
-    tradition: 'Tocca l\'uscita da condizionamenti, credenze ereditate, ambienti che non ti appartengono più. Riguarda anche la ricerca personale della verità, al di là di ciò che ti hanno insegnato.',
-    reading: 'Sai riconoscere ciò che ti trattiene, hai la forza di scioglierlo senza rancore. La libertà che cerchi comincia da un legame lasciato andare.',
+    psalm:
+        'Salmo 54,6 nella numerazione CEI 2008 (54,4 nelle bibbie di tradizione inglese, Vulgata 53,6 oppure 53,4 secondo l\'edizione): «Ecco, Dio è il mio aiuto, il Signore sostiene la mia vita»',
+    tradition:
+        'Tocca l\'uscita da condizionamenti, credenze ereditate, ambienti che non ti appartengono più. Riguarda anche la ricerca personale della verità, al di là di ciò che ti hanno insegnato.',
+    reading:
+        'Sai riconoscere ciò che ti trattiene, hai la forza di scioglierlo senza rancore. La libertà che cerchi comincia da un legame lasciato andare.',
     confidence: 'alta',
   ),
   30: AngelLore(
@@ -351,9 +437,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Omael',
     degrees: 'da 145 a 150 gradi',
     sign: 'Leone',
-    psalm: 'Salmo 71,5 (Vulgata 70,5): «Sei tu, mio Signore, la mia speranza, la mia fiducia, Signore, fin dalla mia giovinezza»',
-    tradition: 'Tocca anche la perseveranza nei periodi in cui nulla sembra muoversi.',
-    reading: 'La tua qualità è la pazienza che fa crescere, quella di chi sa che certe cose maturano solo col tempo. Non forzi il raccolto, prepari il terreno.',
+    psalm:
+        'Salmo 71,5 (Vulgata 70,5): «Sei tu, mio Signore, la mia speranza, la mia fiducia, Signore, fin dalla mia giovinezza»',
+    tradition:
+        'Tocca anche la perseveranza nei periodi in cui nulla sembra muoversi.',
+    reading:
+        'La tua qualità è la pazienza che fa crescere, quella di chi sa che certe cose maturano solo col tempo. Non forzi il raccolto, prepari il terreno.',
     confidence: 'alta',
   ),
   31: AngelLore(
@@ -361,9 +450,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Lecabel',
     degrees: 'da 150 a 155 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 71,16 (Vulgata 70,16): «Verrò a cantare le imprese del Signore Dio: farò memoria della tua giustizia, di te solo»',
-    tradition: 'Tocca lo studio applicato, il calcolo, la progettazione, il lavoro che richiede precisione e pazienza tecnica. Riguarda anche le decisioni pratiche, quando servono dati invece di impressioni.',
-    reading: 'Vedi il dettaglio senza perdere l\'insieme, questa è la tua misura. Il tuo talento sta nel trasformare un\'idea in un metodo che funziona.',
+    psalm:
+        'Salmo 71,16 (Vulgata 70,16): «Verrò a cantare le imprese del Signore Dio: farò memoria della tua giustizia, di te solo»',
+    tradition:
+        'Tocca lo studio applicato, il calcolo, la progettazione, il lavoro che richiede precisione e pazienza tecnica. Riguarda anche le decisioni pratiche, quando servono dati invece di impressioni.',
+    reading:
+        'Vedi il dettaglio senza perdere l\'insieme, questa è la tua misura. Il tuo talento sta nel trasformare un\'idea in un metodo che funziona.',
     confidence: 'alta',
   ),
   32: AngelLore(
@@ -371,9 +463,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Vasariah',
     degrees: 'da 155 a 160 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 33,4 (Vulgata 32,4): «perché retta è la parola del Signore e fedele ogni sua opera»',
-    tradition: 'Riguarda le questioni di diritto, gli accordi scritti, la difesa di ciò che hai creato. Tocca anche la memoria, la parola pubblica, la capacità di esporre una posizione con ordine.',
-    reading: 'La tua qualità è la giustizia temperata dalla clemenza, sai distinguere l\'errore dalla persona. Misuri prima di giudicare, questo ti rende affidabile.',
+    psalm:
+        'Salmo 33,4 (Vulgata 32,4): «perché retta è la parola del Signore e fedele ogni sua opera»',
+    tradition:
+        'Riguarda le questioni di diritto, gli accordi scritti, la difesa di ciò che hai creato. Tocca anche la memoria, la parola pubblica, la capacità di esporre una posizione con ordine.',
+    reading:
+        'La tua qualità è la giustizia temperata dalla clemenza, sai distinguere l\'errore dalla persona. Misuri prima di giudicare, questo ti rende affidabile.',
     confidence: 'alta',
   ),
   33: AngelLore(
@@ -381,9 +476,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Iehuiah',
     degrees: 'da 160 a 165 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 94, 11 (Vulgata 93, 11): «Il Signore conosce i pensieri dell\'uomo: non sono che un soffio». Latino: «Dominus scit cogitationes hominum, quoniam vanae sunt».',
-    tradition: 'Tocca i rapporti con chi sta sopra di te, il lavoro dentro un\'organizzazione, la lealtà messa alla prova. Qui si vede se una promessa regge quando costa qualcosa.',
-    reading: 'Sai stare dentro una struttura senza perderti. Riconosci chi comanda davvero, distingui il ruolo dalla persona che lo occupa.',
+    psalm:
+        'Salmo 94, 11 (Vulgata 93, 11): «Il Signore conosce i pensieri dell\'uomo: non sono che un soffio». Latino: «Dominus scit cogitationes hominum, quoniam vanae sunt».',
+    tradition:
+        'Tocca i rapporti con chi sta sopra di te, il lavoro dentro un\'organizzazione, la lealtà messa alla prova. Qui si vede se una promessa regge quando costa qualcosa.',
+    reading:
+        'Sai stare dentro una struttura senza perderti. Riconosci chi comanda davvero, distingui il ruolo dalla persona che lo occupa.',
     confidence: 'alta',
   ),
   34: AngelLore(
@@ -391,9 +489,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Lehahiah',
     degrees: 'da 165 a 170 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 131, 3 (Vulgata 130, 3): «Speri Israele nel Signore, da ora e per sempre». Latino: «Speret Israel in Domino, ex hoc nunc et usque in saeculum».',
-    tradition: 'Governa la collera, i conflitti che si incancreniscono, la fiducia che ti accordano i superiori. Riguarda anche la forma stabile che prende un progetto portato avanti a lungo.',
-    reading: 'La calma che tiene mentre gli altri alzano la voce. Non è mitezza, è una forza che ha scelto di non esplodere.',
+    psalm:
+        'Salmo 131, 3 (Vulgata 130, 3): «Speri Israele nel Signore, da ora e per sempre». Latino: «Speret Israel in Domino, ex hoc nunc et usque in saeculum».',
+    tradition:
+        'Governa la collera, i conflitti che si incancreniscono, la fiducia che ti accordano i superiori. Riguarda anche la forma stabile che prende un progetto portato avanti a lungo.',
+    reading:
+        'La calma che tiene mentre gli altri alzano la voce. Non è mitezza, è una forza che ha scelto di non esplodere.',
     confidence: 'alta',
   ),
   35: AngelLore(
@@ -401,9 +502,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Chavakhiah',
     degrees: 'da 170 a 175 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 116, 1 (Vulgata 114, 1): «Amo il Signore, perché ascolta la voce della mia preghiera». Latino: «Dilexi, quoniam exaudiet Dominus vocem orationis meae».',
-    tradition: 'I rapporti di famiglia, le eredità materiali insieme a quelle simboliche, le rotture che durano da anni. Il terreno dove si decide se una frattura resta aperta oppure si ricuce.',
-    reading: 'Sai fare il primo passo verso chi hai ferito. Riconciliare non significa avere torto, significa scegliere il legame al posto della ragione.',
+    psalm:
+        'Salmo 116, 1 (Vulgata 114, 1): «Amo il Signore, perché ascolta la voce della mia preghiera». Latino: «Dilexi, quoniam exaudiet Dominus vocem orationis meae».',
+    tradition:
+        'I rapporti di famiglia, le eredità materiali insieme a quelle simboliche, le rotture che durano da anni. Il terreno dove si decide se una frattura resta aperta oppure si ricuce.',
+    reading:
+        'Sai fare il primo passo verso chi hai ferito. Riconciliare non significa avere torto, significa scegliere il legame al posto della ragione.',
     confidence: 'alta',
   ),
   36: AngelLore(
@@ -411,9 +515,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Menadel',
     degrees: 'da 175 a 180 gradi',
     sign: 'Vergine',
-    psalm: 'Salmo 26, 8 (Vulgata 25, 8): «Signore, amo la casa dove tu dimori, il luogo dove abita la tua gloria». Latino: «Domine, dilexi decorem domus tuae et locum habitationis gloriae tuae».',
-    tradition: 'L\'occupazione come luogo dove ti riconosci, il rapporto con il lavoro nel tempo lungo, la reputazione difesa dalla calunnia. Riguarda anche ciò che hai lasciato indietro, chi non senti da tempo, quello che credevi perduto. La tradizione parla di impieghi ottenuti insieme ad abbondanza materiale, formula che qui viene letta come chiave di carattere, senza alcuna promessa di risultato economico.',
-    reading: 'Il lavoro come luogo dove diventi qualcuno, non come condanna. Sai restare al tuo posto finché quel posto ha ancora qualcosa da insegnarti.',
+    psalm:
+        'Salmo 26, 8 (Vulgata 25, 8): «Signore, amo la casa dove tu dimori, il luogo dove abita la tua gloria». Latino: «Domine, dilexi decorem domus tuae et locum habitationis gloriae tuae».',
+    tradition:
+        'L\'occupazione come luogo dove ti riconosci, il rapporto con il lavoro nel tempo lungo, la reputazione difesa dalla calunnia. Riguarda anche ciò che hai lasciato indietro, chi non senti da tempo, quello che credevi perduto. La tradizione parla di impieghi ottenuti insieme ad abbondanza materiale, formula che qui viene letta come chiave di carattere, senza alcuna promessa di risultato economico.',
+    reading:
+        'Il lavoro come luogo dove diventi qualcuno, non come condanna. Sai restare al tuo posto finché quel posto ha ancora qualcosa da insegnarti.',
     confidence: 'alta',
   ),
   37: AngelLore(
@@ -421,9 +528,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Aniel',
     degrees: 'da 180 a 185 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 80, 8 nella numerazione CEI, che corrisponde a Vulgata 79, 8 e a 80, 7 nella numerazione ebraica: «Dio degli eserciti, fa\' che ritorniamo, mostra il tuo volto, noi saremo salvi». Latino: «Deus virtutum, converte nos, et ostende faciem tuam, et salvi erimus». Versetto contestato fra le fonti, vedi note.',
-    tradition: 'Lo studio, la ricerca, i segreti della natura, gli assedi che sembrano non finire mai. Qui si tratta di capire un meccanismo, poi di uscirne.',
-    reading: 'La forza di rompere un cerchio che si ripete. Non l\'urto, la decisione lucida di smettere di girare intorno alla stessa cosa.',
+    psalm:
+        'Salmo 80, 8 nella numerazione CEI, che corrisponde a Vulgata 79, 8 e a 80, 7 nella numerazione ebraica: «Dio degli eserciti, fa\' che ritorniamo, mostra il tuo volto, noi saremo salvi». Latino: «Deus virtutum, converte nos, et ostende faciem tuam, et salvi erimus». Versetto contestato fra le fonti, vedi note.',
+    tradition:
+        'Lo studio, la ricerca, i segreti della natura, gli assedi che sembrano non finire mai. Qui si tratta di capire un meccanismo, poi di uscirne.',
+    reading:
+        'La forza di rompere un cerchio che si ripete. Non l\'urto, la decisione lucida di smettere di girare intorno alla stessa cosa.',
     confidence: 'media',
   ),
   38: AngelLore(
@@ -431,9 +541,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Haamiah',
     degrees: 'da 185 a 190 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 91, 9 (Vulgata 90, 9): «Poiché tu sei, Signore, il mio rifugio, hai posto l\'Altissimo come tua dimora». Latino: «Quoniam tu es, Domine, spes mea; Altissimum posuisti refugium tuum».',
-    tradition: 'La ricerca spirituale, il culto, la purificazione del desiderio, la protezione dagli errori grossolani. Il terreno dove la forma sostiene il contenuto.',
-    reading: 'Il gesto ripetuto che tiene insieme il senso. Sai che un rito non serve a ottenere, serve a ricordarti chi sei mentre lo compi.',
+    psalm:
+        'Salmo 91, 9 (Vulgata 90, 9): «Poiché tu sei, Signore, il mio rifugio, hai posto l\'Altissimo come tua dimora». Latino: «Quoniam tu es, Domine, spes mea; Altissimum posuisti refugium tuum».',
+    tradition:
+        'La ricerca spirituale, il culto, la purificazione del desiderio, la protezione dagli errori grossolani. Il terreno dove la forma sostiene il contenuto.',
+    reading:
+        'Il gesto ripetuto che tiene insieme il senso. Sai che un rito non serve a ottenere, serve a ricordarti chi sei mentre lo compi.',
     confidence: 'alta',
   ),
   39: AngelLore(
@@ -441,9 +554,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Rehael',
     degrees: 'da 190 a 195 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 30, 11 nella numerazione CEI: «Ascolta, Signore, abbi pietà di me, Signore, vieni in mio aiuto». Nella Vulgata lo stesso versetto è 29, 11 con i verbi al passato: «Audivit Dominus, et misertus est mei; Dominus factus est adiutor meus», che in italiano suona «Il Signore ha ascoltato, ha avuto pietà di me, il Signore è divenuto il mio aiuto».',
-    tradition: 'Il rapporto fra padri e figli, il rispetto dentro la famiglia, la sofferenza mentale guardata senza fretta di risolverla. Riguarda quello che passa per via familiare, nel bene come nel peso.',
-    reading: 'Il rispetto che si dà prima di essere meritato. Guardare un genitore oppure un figlio senza il conto aperto degli anni precedenti.',
+    psalm:
+        'Salmo 30, 11 nella numerazione CEI: «Ascolta, Signore, abbi pietà di me, Signore, vieni in mio aiuto». Nella Vulgata lo stesso versetto è 29, 11 con i verbi al passato: «Audivit Dominus, et misertus est mei; Dominus factus est adiutor meus», che in italiano suona «Il Signore ha ascoltato, ha avuto pietà di me, il Signore è divenuto il mio aiuto».',
+    tradition:
+        'Il rapporto fra padri e figli, il rispetto dentro la famiglia, la sofferenza mentale guardata senza fretta di risolverla. Riguarda quello che passa per via familiare, nel bene come nel peso.',
+    reading:
+        'Il rispetto che si dà prima di essere meritato. Guardare un genitore oppure un figlio senza il conto aperto degli anni precedenti.',
     confidence: 'alta',
   ),
   40: AngelLore(
@@ -451,9 +567,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ieiazel',
     degrees: 'da 195 a 200 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 88, 15 nella numerazione CEI: «Perché, Signore, mi respingi? Perché mi nascondi il tuo volto?». Nella Vulgata lo stesso versetto è 87, 15 e il primo emistichio parla di preghiera: «Ut quid, Domine, repellis orationem meam, avertis faciem tuam a me?», che in italiano suona «Perché, Signore, respingi la mia preghiera, perché mi nascondi il tuo volto?».',
-    tradition: 'La liberazione da ciò che ti tiene chiuso, prigioni reali oppure abitudini. Riguarda anche l\'immaginazione, la scrittura, tutto quello che si stampa o si pubblica.',
-    reading: 'La consolazione che non nega il dolore. Restare accanto senza spiegare, senza fretta di far passare la tristezza a chi la sta attraversando.',
+    psalm:
+        'Salmo 88, 15 nella numerazione CEI: «Perché, Signore, mi respingi? Perché mi nascondi il tuo volto?». Nella Vulgata lo stesso versetto è 87, 15 e il primo emistichio parla di preghiera: «Ut quid, Domine, repellis orationem meam, avertis faciem tuam a me?», che in italiano suona «Perché, Signore, respingi la mia preghiera, perché mi nascondi il tuo volto?».',
+    tradition:
+        'La liberazione da ciò che ti tiene chiuso, prigioni reali oppure abitudini. Riguarda anche l\'immaginazione, la scrittura, tutto quello che si stampa o si pubblica.',
+    reading:
+        'La consolazione che non nega il dolore. Restare accanto senza spiegare, senza fretta di far passare la tristezza a chi la sta attraversando.',
     confidence: 'alta',
   ),
   41: AngelLore(
@@ -461,9 +580,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Hahahel',
     degrees: 'da 200 a 205 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 120,2 nella numerazione ebraica, Salmo 119,2 nella Vulgata: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice» (Domine, libera animam meam a labiis mendacii, a lingua dolosa).',
-    tradition: 'Riguarda la vocazione, cioè la coerenza fra quello che dici di credere e quello che fai quando nessuno guarda. Tocca chi insegna, chi cura, chi parla in pubblico, tutti i mestieri in cui la fiducia altrui è lo strumento di lavoro.',
-    reading: 'Il sacro non è un luogo dove ti rechi la domenica, è il modo in cui tratti quello che hai davanti. Hahahel indica la grandezza d\'animo di chi mette la propria parola al servizio di qualcosa che lo supera, poi ne risponde.',
+    psalm:
+        'Salmo 120,2 nella numerazione ebraica, Salmo 119,2 nella Vulgata: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice» (Domine, libera animam meam a labiis mendacii, a lingua dolosa).',
+    tradition:
+        'Riguarda la vocazione, cioè la coerenza fra quello che dici di credere e quello che fai quando nessuno guarda. Tocca chi insegna, chi cura, chi parla in pubblico, tutti i mestieri in cui la fiducia altrui è lo strumento di lavoro.',
+    reading:
+        'Il sacro non è un luogo dove ti rechi la domenica, è il modo in cui tratti quello che hai davanti. Hahahel indica la grandezza d\'animo di chi mette la propria parola al servizio di qualcosa che lo supera, poi ne risponde.',
     confidence: 'alta',
   ),
   42: AngelLore(
@@ -471,9 +593,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mikael',
     degrees: 'da 205 a 210 gradi',
     sign: 'Bilancia',
-    psalm: 'Salmo 121,7 nella numerazione ebraica, Salmo 120,7 nella Vulgata: «Il Signore ti proteggerà da ogni male, egli proteggerà la tua vita» (Dominus custodiet te ab omni malo, custodiet animam tuam Dominus).',
-    tradition: 'Governa i rapporti con l\'autorità, i viaggi, le trattative, tutto quello che passa attraverso un accordo fra parti. Riguarda anche il riconoscere per tempo una manovra ai tuoi danni, prima che diventi un danno.',
-    reading: 'L\'ordine interiore che ti permette di vedere le cose come stanno prima di prendere posizione. Mikael lega intelligenza attiva a senso di responsabilità, senza che l\'una faccia da scusa all\'altra.',
+    psalm:
+        'Salmo 121,7 nella numerazione ebraica, Salmo 120,7 nella Vulgata: «Il Signore ti proteggerà da ogni male, egli proteggerà la tua vita» (Dominus custodiet te ab omni malo, custodiet animam tuam Dominus).',
+    tradition:
+        'Governa i rapporti con l\'autorità, i viaggi, le trattative, tutto quello che passa attraverso un accordo fra parti. Riguarda anche il riconoscere per tempo una manovra ai tuoi danni, prima che diventi un danno.',
+    reading:
+        'L\'ordine interiore che ti permette di vedere le cose come stanno prima di prendere posizione. Mikael lega intelligenza attiva a senso di responsabilità, senza che l\'una faccia da scusa all\'altra.',
     confidence: 'alta',
   ),
   43: AngelLore(
@@ -481,9 +606,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Veualiah',
     degrees: 'da 210 a 215 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 88,13 nella numerazione ebraica, Salmo 87,14 nella Vulgata: «Ma io a te grido, Signore, al mattino la mia preghiera ti viene incontro» (Et ego ad te, Domine, clamavi, et mane oratio mea praeveniet te).',
-    tradition: 'Riguarda le imprese che chiedono di reggere l\'urto, la liberazione da vincoli e dipendenze, materiali oppure psicologiche. È il territorio di chi deve ricominciare dopo una sconfitta netta.',
-    reading: 'La capacità di portare a termine. Veualiah non promette successo, indica la disciplina che serve a trasformare un\'intenzione in un risultato verificabile.',
+    psalm:
+        'Salmo 88,13 nella numerazione ebraica, Salmo 87,14 nella Vulgata: «Ma io a te grido, Signore, al mattino la mia preghiera ti viene incontro» (Et ego ad te, Domine, clamavi, et mane oratio mea praeveniet te).',
+    tradition:
+        'Riguarda le imprese che chiedono di reggere l\'urto, la liberazione da vincoli e dipendenze, materiali oppure psicologiche. È il territorio di chi deve ricominciare dopo una sconfitta netta.',
+    reading:
+        'La capacità di portare a termine. Veualiah non promette successo, indica la disciplina che serve a trasformare un\'intenzione in un risultato verificabile.',
     confidence: 'alta',
   ),
   44: AngelLore(
@@ -491,9 +619,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ielahiah',
     degrees: 'da 215 a 220 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 119,108 nella numerazione ebraica, Salmo 118,108 nella Vulgata: «Signore, accetta le offerte delle mie labbra, insegnami i tuoi giudizi» (Voluntaria oris mei beneplacita sint, Domine, et iudicia tua doce me).',
-    tradition: 'Governa il coraggio operativo, la difesa di quello che ritieni giusto, il rapporto con i conflitti dichiarati. Tocca chi affronta contenziosi, chi viaggia, chi lavora in ambienti ostili.',
-    reading: 'Rettitudine sotto pressione. È la qualità di chi tiene la parola data proprio quando mantenerla costa qualcosa, non quando è comodo.',
+    psalm:
+        'Salmo 119,108 nella numerazione ebraica, Salmo 118,108 nella Vulgata: «Signore, accetta le offerte delle mie labbra, insegnami i tuoi giudizi» (Voluntaria oris mei beneplacita sint, Domine, et iudicia tua doce me).',
+    tradition:
+        'Governa il coraggio operativo, la difesa di quello che ritieni giusto, il rapporto con i conflitti dichiarati. Tocca chi affronta contenziosi, chi viaggia, chi lavora in ambienti ostili.',
+    reading:
+        'Rettitudine sotto pressione. È la qualità di chi tiene la parola data proprio quando mantenerla costa qualcosa, non quando è comodo.',
     confidence: 'alta',
   ),
   45: AngelLore(
@@ -501,9 +632,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Sealiah',
     degrees: 'da 220 a 225 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 94,18 nella numerazione ebraica, Salmo 93,18 nella Vulgata: «Quando dicevo, il mio piede vacilla, la tua misericordia, Signore, mi ha sostenuto» (Si dicebam, motus est pes meus, misericordia tua, Domine, adiuvabat me).',
-    tradition: 'Tocca il rialzarsi dopo una caduta, i passaggi in cui bisogna ricominciare dal principio.',
-    reading: 'La volontà applicata alle cose lente. Sealiah è la qualità di chi rimette in moto quello che si era fermato, senza pretendere che accada subito.',
+    psalm:
+        'Salmo 94,18 nella numerazione ebraica, Salmo 93,18 nella Vulgata: «Quando dicevo, il mio piede vacilla, la tua misericordia, Signore, mi ha sostenuto» (Si dicebam, motus est pes meus, misericordia tua, Domine, adiuvabat me).',
+    tradition:
+        'Tocca il rialzarsi dopo una caduta, i passaggi in cui bisogna ricominciare dal principio.',
+    reading:
+        'La volontà applicata alle cose lente. Sealiah è la qualità di chi rimette in moto quello che si era fermato, senza pretendere che accada subito.',
     confidence: 'alta',
   ),
   46: AngelLore(
@@ -511,9 +645,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ariel',
     degrees: 'da 225 a 230 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 145,9 nella numerazione ebraica, Salmo 144,9 nella Vulgata: «Buono è il Signore verso tutti, la sua tenerezza si espande su tutte le creature» (Suavis Dominus universis, et miserationes eius super omnia opera eius).',
-    tradition: 'Governa l\'intuizione applicata, i sogni che portano informazione, la scoperta di risorse che non sapevi di avere. Riguarda ricerca, indagine, lavoro con i simboli.',
-    reading: 'La percezione che precede la prova. Ariel è la capacità di accorgersi di un dettaglio prima che diventi evidente a tutti, poi di verificarlo invece di innamorarsene.',
+    psalm:
+        'Salmo 145,9 nella numerazione ebraica, Salmo 144,9 nella Vulgata: «Buono è il Signore verso tutti, la sua tenerezza si espande su tutte le creature» (Suavis Dominus universis, et miserationes eius super omnia opera eius).',
+    tradition:
+        'Governa l\'intuizione applicata, i sogni che portano informazione, la scoperta di risorse che non sapevi di avere. Riguarda ricerca, indagine, lavoro con i simboli.',
+    reading:
+        'La percezione che precede la prova. Ariel è la capacità di accorgersi di un dettaglio prima che diventi evidente a tutti, poi di verificarlo invece di innamorarsene.',
     confidence: 'alta',
   ),
   47: AngelLore(
@@ -521,9 +658,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Asaliah',
     degrees: 'da 230 a 235 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 104,24 nella numerazione ebraica, Salmo 103,24 nella Vulgata: «Quanto sono grandi le tue opere, Signore, tutto hai fatto con saggezza» (Quam magnificata sunt opera tua, Domine, omnia in sapientia fecisti).',
-    tradition: 'Riguarda la giustizia nei rapporti, la contemplazione, lo studio delle discipline nascoste. Tocca chi deve dirimere, arbitrare, dire una parola che pesa sulla vita di altri.',
-    reading: 'Il senso della misura fra le persone. Asaliah è la qualità di chi cerca il vero prima del comodo, anche nei casi in cui il vero lo mette in torto.',
+    psalm:
+        'Salmo 104,24 nella numerazione ebraica, Salmo 103,24 nella Vulgata: «Quanto sono grandi le tue opere, Signore, tutto hai fatto con saggezza» (Quam magnificata sunt opera tua, Domine, omnia in sapientia fecisti).',
+    tradition:
+        'Riguarda la giustizia nei rapporti, la contemplazione, lo studio delle discipline nascoste. Tocca chi deve dirimere, arbitrare, dire una parola che pesa sulla vita di altri.',
+    reading:
+        'Il senso della misura fra le persone. Asaliah è la qualità di chi cerca il vero prima del comodo, anche nei casi in cui il vero lo mette in torto.',
     confidence: 'alta',
   ),
   48: AngelLore(
@@ -531,9 +671,11 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mihael',
     degrees: 'da 235 a 240 gradi',
     sign: 'Scorpione',
-    psalm: 'Salmo 98,2 nella numerazione ebraica, Salmo 97,2 nella Vulgata: «Il Signore ha manifestato la sua salvezza, agli occhi dei popoli ha rivelato la sua giustizia» (Notum fecit Dominus salutare suum, in conspectu gentium revelavit iustitiam suam).',
+    psalm:
+        'Salmo 98,2 nella numerazione ebraica, Salmo 97,2 nella Vulgata: «Il Signore ha manifestato la sua salvezza, agli occhi dei popoli ha rivelato la sua giustizia» (Notum fecit Dominus salutare suum, in conspectu gentium revelavit iustitiam suam).',
     tradition: 'Riguarda tutto quello che nasce dall\'incontro fra due.',
-    reading: 'La fedeltà come pratica quotidiana, non come giuramento pronunciato una volta. Mihael è la capacità di restare presente in un legame anche nelle fasi in cui quel legame non restituisce niente.',
+    reading:
+        'La fedeltà come pratica quotidiana, non come giuramento pronunciato una volta. Mihael è la capacità di restare presente in un legame anche nelle fasi in cui quel legame non restituisce niente.',
     confidence: 'alta',
   ),
   49: AngelLore(
@@ -541,9 +683,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Vehuel',
     degrees: 'da 240 a 245 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 145,3 nella numerazione ebraica e moderna: «Magnus Dominus et laudabilis nimis, et magnitudinis eius non est investigatio» (Nova Vulgata). Nella Vulgata Clementina il passo è 144,3 con lezione diversa: «Magnus Dominus, et laudabilis nimis; et magnitudinis ejus non est finis»',
-    tradition: 'La tradizione lo colloca dove serve la parola: scrittura, insegnamento, diplomazia, mediazione fra posizioni lontane. È il terreno di chi mette d\'accordo, non di chi vince la discussione.',
-    reading: 'Hai un metro di misura alto, prima di tutto verso te stesso. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.',
+    psalm:
+        'Salmo 145,3 nella numerazione ebraica e moderna: «Magnus Dominus et laudabilis nimis, et magnitudinis eius non est investigatio» (Nova Vulgata). Nella Vulgata Clementina il passo è 144,3 con lezione diversa: «Magnus Dominus, et laudabilis nimis; et magnitudinis ejus non est finis»',
+    tradition:
+        'La tradizione lo colloca dove serve la parola: scrittura, insegnamento, diplomazia, mediazione fra posizioni lontane. È il terreno di chi mette d\'accordo, non di chi vince la discussione.',
+    reading:
+        'Hai un metro di misura alto, prima di tutto verso te stesso. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.',
     confidence: 'alta',
   ),
   50: AngelLore(
@@ -551,9 +696,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Daniel',
     degrees: 'da 245 a 250 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 103,8: «Miserator et misericors Dominus, longanimis et multae misericordiae» (Nova Vulgata). Vulgata Clementina 102,8: «Miserator et misericors Dominus, longanimis, et multum misericors»',
-    tradition: 'Il campo è quello della decisione: giustizia, avvocatura, consulenza, scelte rimandate troppo a lungo. Serve a passare dal dubbio alla scelta, senza pretendere che la scelta sia indolore.',
-    reading: 'Sai vedere le ragioni di chi hai davanti prima di giudicarle. Questa è la tua vera eloquenza, non la capacità di avere sempre l\'ultima parola.',
+    psalm:
+        'Salmo 103,8: «Miserator et misericors Dominus, longanimis et multae misericordiae» (Nova Vulgata). Vulgata Clementina 102,8: «Miserator et misericors Dominus, longanimis, et multum misericors»',
+    tradition:
+        'Il campo è quello della decisione: giustizia, avvocatura, consulenza, scelte rimandate troppo a lungo. Serve a passare dal dubbio alla scelta, senza pretendere che la scelta sia indolore.',
+    reading:
+        'Sai vedere le ragioni di chi hai davanti prima di giudicarle. Questa è la tua vera eloquenza, non la capacità di avere sempre l\'ultima parola.',
     confidence: 'alta',
   ),
   51: AngelLore(
@@ -561,9 +709,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Hahasiah',
     degrees: 'da 250 a 255 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 104,31: «Sit gloria Domini in aeternum, laetetur Dominus in operibus suis» (Nova Vulgata). Vulgata Clementina 103,31: «Sit gloria Domini in saeculum; laetabitur Dominus in operibus suis»',
-    tradition: 'Il terreno di chi vuole sapere come funziona una cosa prima di metterci le mani.',
-    reading: 'Tienila come metodo di lavoro, non come pretesa di aver già capito tutto.',
+    psalm:
+        'Salmo 104,31: «Sit gloria Domini in aeternum, laetetur Dominus in operibus suis» (Nova Vulgata). Vulgata Clementina 103,31: «Sit gloria Domini in saeculum; laetabitur Dominus in operibus suis»',
+    tradition:
+        'Il terreno di chi vuole sapere come funziona una cosa prima di metterci le mani.',
+    reading:
+        'Tienila come metodo di lavoro, non come pretesa di aver già capito tutto.',
     confidence: 'alta',
   ),
   52: AngelLore(
@@ -571,9 +722,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Imamiah',
     degrees: 'da 255 a 260 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 7,17 (Vulgata 7,18): «Confitebor Domino secundum iustitiam eius, et psallam nomini Domini Altissimi»',
-    tradition: 'Viaggi, passaggi, situazioni chiuse da cui si cerca l\'uscita. Anche le prigioni interne: rancori tenuti in caldo per anni, legami che vincolano più di quanto sostengano.',
-    reading: 'Sai riconoscere un tuo errore senza trasformarlo in condanna. Il riconoscimento è già la prima parte della riparazione, il resto sono fatti.',
+    psalm:
+        'Salmo 7,17 (Vulgata 7,18): «Confitebor Domino secundum iustitiam eius, et psallam nomini Domini Altissimi»',
+    tradition:
+        'Viaggi, passaggi, situazioni chiuse da cui si cerca l\'uscita. Anche le prigioni interne: rancori tenuti in caldo per anni, legami che vincolano più di quanto sostengano.',
+    reading:
+        'Sai riconoscere un tuo errore senza trasformarlo in condanna. Il riconoscimento è già la prima parte della riparazione, il resto sono fatti.',
     confidence: 'alta',
   ),
   53: AngelLore(
@@ -581,9 +735,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Nanael',
     degrees: 'da 260 a 265 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 119,75 (Vulgata 118,75): «Cognovi, Domine, quia aequitas iudicia tua, et in veritate tua humiliasti me»',
-    tradition: 'Studio, contemplazione, discipline che chiedono silenzio e tempo lungo. Anche l\'arte di trasmettere quello che hai capito senza umiliare chi ti ascolta.',
-    reading: 'Questa preferenza ti costa qualcosa in popolarità, ti rende però una persona su cui si può contare.',
+    psalm:
+        'Salmo 119,75 (Vulgata 118,75): «Cognovi, Domine, quia aequitas iudicia tua, et in veritate tua humiliasti me»',
+    tradition:
+        'Studio, contemplazione, discipline che chiedono silenzio e tempo lungo. Anche l\'arte di trasmettere quello che hai capito senza umiliare chi ti ascolta.',
+    reading:
+        'Questa preferenza ti costa qualcosa in popolarità, ti rende però una persona su cui si può contare.',
     confidence: 'alta',
   ),
   54: AngelLore(
@@ -591,9 +748,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Nithael',
     degrees: 'da 265 a 270 gradi',
     sign: 'Sagittario',
-    psalm: 'Salmo 103,19 (Vulgata 102,19): «Dominus in caelo paravit sedem suam, et regnum ipsius omnibus dominabitur»',
-    tradition: 'Due letture tradizionali convivono. Nella linea di Ambelain il campo è quello della continuità legittima del potere e della durata delle dinastie. Nella linea Kabaleb è quello dell\'arte, della forma e delle opere che restano oltre chi le ha fatte. Il nucleo comune è la durata di ciò che si trasmette.',
-    reading: 'Riconosci la bellezza dove altri passano oltre, sai anche mostrarla. Farla vedere agli altri è un gesto di generosità, non un vezzo estetico.',
+    psalm:
+        'Salmo 103,19 (Vulgata 102,19): «Dominus in caelo paravit sedem suam, et regnum ipsius omnibus dominabitur»',
+    tradition:
+        'Due letture tradizionali convivono. Nella linea di Ambelain il campo è quello della continuità legittima del potere e della durata delle dinastie. Nella linea Kabaleb è quello dell\'arte, della forma e delle opere che restano oltre chi le ha fatte. Il nucleo comune è la durata di ciò che si trasmette.',
+    reading:
+        'Riconosci la bellezza dove altri passano oltre, sai anche mostrarla. Farla vedere agli altri è un gesto di generosità, non un vezzo estetico.',
     confidence: 'alta',
   ),
   55: AngelLore(
@@ -601,9 +761,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mebahiah',
     degrees: 'da 270 a 275 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 102,12 (Vulgata 101,13): «Tu autem, Domine, in aeternum permanes, et memoriale tuum in generationem et generationem»',
-    tradition: 'Coerenza fra pensiero e condotta, parola che consola, capacità di trasmettere. La tradizione lo lega alla generazione, intesa in senso letterale come figli oppure simbolico come opere e allievi.',
-    reading: 'Hai le idee chiare su cosa consideri giusto. Il lavoro vero è renderlo gesto quotidiano, non principio dichiarato agli altri.',
+    psalm:
+        'Salmo 102,12 (Vulgata 101,13): «Tu autem, Domine, in aeternum permanes, et memoriale tuum in generationem et generationem»',
+    tradition:
+        'Coerenza fra pensiero e condotta, parola che consola, capacità di trasmettere. La tradizione lo lega alla generazione, intesa in senso letterale come figli oppure simbolico come opere e allievi.',
+    reading:
+        'Hai le idee chiare su cosa consideri giusto. Il lavoro vero è renderlo gesto quotidiano, non principio dichiarato agli altri.',
     confidence: 'alta',
   ),
   56: AngelLore(
@@ -611,9 +774,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Poyel',
     degrees: 'da 275 a 280 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 145,14 (Vulgata 144,14): «Allevat Dominus omnes qui corruunt, et erigit omnes elisos»',
-    tradition: 'Sostegno nei momenti in cui qualcosa cede: mezzi, reputazione, fiducia in sé. È il campo del rialzarsi più che quello del salire.',
-    reading: 'Chiedi poco, senza per questo togliere peso a quello che chiedi. La modestia qui non è timidezza, funziona come misura di quanto serve davvero.',
+    psalm:
+        'Salmo 145,14 (Vulgata 144,14): «Allevat Dominus omnes qui corruunt, et erigit omnes elisos»',
+    tradition:
+        'Sostegno nei momenti in cui qualcosa cede: mezzi, reputazione, fiducia in sé. È il campo del rialzarsi più che quello del salire.',
+    reading:
+        'Chiedi poco, senza per questo togliere peso a quello che chiedi. La modestia qui non è timidezza, funziona come misura di quanto serve davvero.',
     confidence: 'media',
   ),
   57: AngelLore(
@@ -621,9 +787,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Nemamiah',
     degrees: 'da 280 a 285 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 115, versetto 11 (numerazione ebraica), corrispondente al Salmo 113, versetto 19 della Vulgata: «Qui timent Dominum speraverunt in Domino; adiutor eorum et protector eorum est», cioè «Quelli che temono il Signore hanno confidato nel Signore; egli è loro aiuto e loro scudo». Le traduzioni italiane correnti rendono l\'ebraico all\'imperativo: «Voi che temete il Signore, confidate nel Signore».',
-    tradition: 'Le imprese che chiedono strategia e responsabilità, le cause da difendere, le situazioni in cui qualcuno resta bloccato.',
-    reading: 'Il discernimento che separa la sostanza dall\'apparenza. Ti permette di decidere in fretta senza tradire quello che hai capito.',
+    psalm:
+        'Salmo 115, versetto 11 (numerazione ebraica), corrispondente al Salmo 113, versetto 19 della Vulgata: «Qui timent Dominum speraverunt in Domino; adiutor eorum et protector eorum est», cioè «Quelli che temono il Signore hanno confidato nel Signore; egli è loro aiuto e loro scudo». Le traduzioni italiane correnti rendono l\'ebraico all\'imperativo: «Voi che temete il Signore, confidate nel Signore».',
+    tradition:
+        'Le imprese che chiedono strategia e responsabilità, le cause da difendere, le situazioni in cui qualcuno resta bloccato.',
+    reading:
+        'Il discernimento che separa la sostanza dall\'apparenza. Ti permette di decidere in fretta senza tradire quello che hai capito.',
     confidence: 'alta',
   ),
   58: AngelLore(
@@ -631,9 +800,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Ieialel',
     degrees: 'da 285 a 290 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioè «La mia anima è tutta sconvolta, ma tu, Signore, fino a quando?».',
-    tradition: 'Il lavoro paziente e metodico, le scienze esatte, la costruzione, la lavorazione dei metalli.',
-    reading: 'La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finché non ne vedi la causa.',
+    psalm:
+        'Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioè «La mia anima è tutta sconvolta, ma tu, Signore, fino a quando?».',
+    tradition:
+        'Il lavoro paziente e metodico, le scienze esatte, la costruzione, la lavorazione dei metalli.',
+    reading:
+        'La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finché non ne vedi la causa.',
     confidence: 'alta',
   ),
   59: AngelLore(
@@ -641,9 +813,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Harahel',
     degrees: 'da 290 a 295 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioè «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».',
-    tradition: 'Lo studio, l\'amministrazione del denaro, gli archivi, la stampa, tutto ciò che conserva o diffonde sapere.',
-    reading: 'L\'apertura che sa apprezzare senza svalutare. Ti da\' misura nel giudizio insieme al gusto di trasmettere quello che sai.',
+    psalm:
+        'Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioè «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».',
+    tradition:
+        'Lo studio, l\'amministrazione del denaro, gli archivi, la stampa, tutto ciò che conserva o diffonde sapere.',
+    reading:
+        'L\'apertura che sa apprezzare senza svalutare. Ti da\' misura nel giudizio insieme al gusto di trasmettere quello che sai.',
     confidence: 'alta',
   ),
   60: AngelLore(
@@ -651,9 +826,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mitzrael',
     degrees: 'da 295 a 300 gradi',
     sign: 'Capricorno',
-    psalm: 'Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioè «Giusto è il Signore in tutte le sue vie, santo in tutte le sue opere».',
-    tradition: 'La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.',
-    reading: 'La capacità di riparare quello che si è rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.',
+    psalm:
+        'Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioè «Giusto è il Signore in tutte le sue vie, santo in tutte le sue opere».',
+    tradition:
+        'La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.',
+    reading:
+        'La capacità di riparare quello che si è rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.',
     confidence: 'alta',
   ),
   61: AngelLore(
@@ -661,9 +839,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Umabel',
     degrees: 'da 300 a 305 gradi',
     sign: 'Acquario',
-    psalm: 'Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioè «Sia benedetto il nome del Signore, da ora e per sempre».',
-    tradition: 'Le amicizie, i legami elettivi, la musica, l\'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.',
-    reading: 'L\'affinità, cioè la capacità di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.',
+    psalm:
+        'Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioè «Sia benedetto il nome del Signore, da ora e per sempre».',
+    tradition:
+        'Le amicizie, i legami elettivi, la musica, l\'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.',
+    reading:
+        'L\'affinità, cioè la capacità di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.',
     confidence: 'alta',
   ),
   62: AngelLore(
@@ -671,9 +852,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Iahhel',
     degrees: 'da 305 a 310 gradi',
     sign: 'Acquario',
-    psalm: 'Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioè «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.',
-    tradition: 'Lo studio filosofico, la ricerca interiore, la parola misurata, la retorica, la pace domestica. La tradizione lo lega a chi cerca una solitudine feconda invece dell\'isolamento.',
-    reading: 'La saggezza che nasce dal silenzio scelto. Ti mostra quanto vale ritirarti un momento prima di rispondere.',
+    psalm:
+        'Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioè «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.',
+    tradition:
+        'Lo studio filosofico, la ricerca interiore, la parola misurata, la retorica, la pace domestica. La tradizione lo lega a chi cerca una solitudine feconda invece dell\'isolamento.',
+    reading:
+        'La saggezza che nasce dal silenzio scelto. Ti mostra quanto vale ritirarti un momento prima di rispondere.',
     confidence: 'alta',
   ),
   63: AngelLore(
@@ -681,9 +865,11 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Anauel',
     degrees: 'da 310 a 315 gradi',
     sign: 'Acquario',
-    psalm: 'Le fonti divergono. Linea Lenain: Salmo 100, versetto 2 nella numerazione ebraica, corrispondente al Salmo 99, versetto 2 della Vulgata, «Servite Domino in laetitia», cioè «Servite il Signore nella gioia». Linea Kabaleb con i repertori italiani e spagnoli: Salmo 2, versetto 11, identico nelle due numerazioni, «Servite Domino in timore et exsultate ei cum tremore», cioè «Servite il Signore con timore, esultate per lui con tremore».',
+    psalm:
+        'Le fonti divergono. Linea Lenain: Salmo 100, versetto 2 nella numerazione ebraica, corrispondente al Salmo 99, versetto 2 della Vulgata, «Servite Domino in laetitia», cioè «Servite il Signore nella gioia». Linea Kabaleb con i repertori italiani e spagnoli: Salmo 2, versetto 11, identico nelle due numerazioni, «Servite Domino in timore et exsultate ei cum tremore», cioè «Servite il Signore con timore, esultate per lui con tremore».',
     tradition: 'La tradizione lo indica come protezione dagli incidenti.',
-    reading: 'La percezione dell\'unità fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.',
+    reading:
+        'La percezione dell\'unità fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.',
     confidence: 'media',
   ),
   64: AngelLore(
@@ -691,9 +877,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mehiel',
     degrees: 'da 315 a 320 gradi',
     sign: 'Acquario',
-    psalm: 'Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioè «Ecco, l\'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».',
-    tradition: 'La scrittura, l\'editoria, l\'insegnamento, l\'oratoria, tutto ciò che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.',
-    reading: 'La capacità di dare forma viva a un\'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.',
+    psalm:
+        'Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioè «Ecco, l\'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».',
+    tradition:
+        'La scrittura, l\'editoria, l\'insegnamento, l\'oratoria, tutto ciò che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.',
+    reading:
+        'La capacità di dare forma viva a un\'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.',
     confidence: 'alta',
   ),
   65: AngelLore(
@@ -701,9 +890,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Damabiah',
     degrees: 'da 320 a 325 gradi',
     sign: 'Acquario',
-    psalm: 'Salmo 89, versetto 13 (numerazione Vulgata): "Convertere, Domine, usquequo? et deprecabilis esto super servos tuos". Corrisponde al Salmo 90, versetto 13 nella numerazione ebraica e nelle Bibbie moderne.',
-    tradition: 'Tutto ciò che scorre: le acque, i viaggi per mare, i legami che si sciolgono senza rancore. La tradizione lo invoca anche contro i malefici, riferimento da riportare come dato storico e non come garanzia di protezione.',
-    reading: 'Sai attingere a una sorgente interna che non dipende da nessuno. La tua saggezza non viene dai libri, viene dal silenzio in cui ascolti prima di parlare.',
+    psalm:
+        'Salmo 89, versetto 13 (numerazione Vulgata): "Convertere, Domine, usquequo? et deprecabilis esto super servos tuos". Corrisponde al Salmo 90, versetto 13 nella numerazione ebraica e nelle Bibbie moderne.',
+    tradition:
+        'Tutto ciò che scorre: le acque, i viaggi per mare, i legami che si sciolgono senza rancore. La tradizione lo invoca anche contro i malefici, riferimento da riportare come dato storico e non come garanzia di protezione.',
+    reading:
+        'Sai attingere a una sorgente interna che non dipende da nessuno. La tua saggezza non viene dai libri, viene dal silenzio in cui ascolti prima di parlare.',
     confidence: 'alta',
   ),
   66: AngelLore(
@@ -711,9 +903,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Manakel',
     degrees: 'da 325 a 330 gradi',
     sign: 'Acquario',
-    psalm: 'Salmo 37, versetto 22 (numerazione Vulgata): "Ne derelinquas me, Domine Deus meus, ne discesseris a me". Corrisponde al Salmo 38, versetto 21 nella numerazione ebraica e nelle Bibbie moderne.',
-    tradition: 'Il sonno e i sogni, la memoria di ciò che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.',
-    reading: 'Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non è timidezza ma scelta di non occupare tutto lo spazio.',
+    psalm:
+        'Salmo 37, versetto 22 (numerazione Vulgata): "Ne derelinquas me, Domine Deus meus, ne discesseris a me". Corrisponde al Salmo 38, versetto 21 nella numerazione ebraica e nelle Bibbie moderne.',
+    tradition:
+        'Il sonno e i sogni, la memoria di ciò che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.',
+    reading:
+        'Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non è timidezza ma scelta di non occupare tutto lo spazio.',
     confidence: 'media',
   ),
   67: AngelLore(
@@ -721,9 +916,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Eiael',
     degrees: 'da 330 a 335 gradi',
     sign: 'Pesci',
-    psalm: 'Salmo 36, versetto 4 (numerazione Vulgata): "Delectare in Domino, et dabit tibi petitiones cordis tui". Corrisponde al Salmo 37, versetto 4 nella numerazione ebraica.',
-    tradition: 'Lo studio prolungato, le scienze occulte, le arti, la solitudine scelta. Anche i cambiamenti che trasformano una condizione in un\'altra senza rompere nulla.',
-    reading: 'Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facoltà.',
+    psalm:
+        'Salmo 36, versetto 4 (numerazione Vulgata): "Delectare in Domino, et dabit tibi petitiones cordis tui". Corrisponde al Salmo 37, versetto 4 nella numerazione ebraica.',
+    tradition:
+        'Lo studio prolungato, le scienze occulte, le arti, la solitudine scelta. Anche i cambiamenti che trasformano una condizione in un\'altra senza rompere nulla.',
+    reading:
+        'Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facoltà.',
     confidence: 'alta',
   ),
   68: AngelLore(
@@ -731,9 +929,11 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Habuhiah',
     degrees: 'da 335 a 340 gradi',
     sign: 'Pesci',
-    psalm: 'Salmo 105, versetto 1 (numerazione Vulgata): "Confitemini Domino, quoniam bonus, quoniam in saeculum misericordia eius". Corrisponde al Salmo 106, versetto 1 nella numerazione ebraica.',
+    psalm:
+        'Salmo 105, versetto 1 (numerazione Vulgata): "Confitemini Domino, quoniam bonus, quoniam in saeculum misericordia eius". Corrisponde al Salmo 106, versetto 1 nella numerazione ebraica.',
     tradition: '',
-    reading: 'Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosità resta pratica, si vede nei gesti quotidiani prima che nelle parole.',
+    reading:
+        'Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosità resta pratica, si vede nei gesti quotidiani prima che nelle parole.',
     confidence: 'media',
   ),
   69: AngelLore(
@@ -741,9 +941,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Rochel',
     degrees: 'da 340 a 345 gradi',
     sign: 'Pesci',
-    psalm: 'Salmo 15, versetto 5 (numerazione Vulgata): "Dominus pars hereditatis meae et calicis mei, tu es qui restitues hereditatem meam mihi". Corrisponde al Salmo 16, versetto 5 nella numerazione ebraica.',
-    tradition: 'Ciò che è stato perso o sottratto, le eredità, i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce.',
-    reading: 'Vedi lontano perché non hai fretta di giudicare. La tua onestà risulta scomoda, resta però l\'unica cosa che ti tiene in piedi quando il resto si muove.',
+    psalm:
+        'Salmo 15, versetto 5 (numerazione Vulgata): "Dominus pars hereditatis meae et calicis mei, tu es qui restitues hereditatem meam mihi". Corrisponde al Salmo 16, versetto 5 nella numerazione ebraica.',
+    tradition:
+        'Ciò che è stato perso o sottratto, le eredità, i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce.',
+    reading:
+        'Vedi lontano perché non hai fretta di giudicare. La tua onestà risulta scomoda, resta però l\'unica cosa che ti tiene in piedi quando il resto si muove.',
     confidence: 'alta',
   ),
   70: AngelLore(
@@ -751,9 +954,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Iabamiah',
     degrees: 'da 345 a 350 gradi',
     sign: 'Pesci',
-    psalm: 'Nessun salmo. La tradizione gli assegna Genesi, capitolo 1, versetto 1: "In principio creavit Deus caelum et terram".',
-    tradition: 'I passaggi di stato: una fine che diventa inizio, un errore che diventa metodo, un dolore che diventa comprensione. Anche la rigenerazione fisica dopo un periodo lungo.',
-    reading: 'Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perché sai quanto costa restare al pezzo mentre la forma cambia.',
+    psalm:
+        'Nessun salmo. La tradizione gli assegna Genesi, capitolo 1, versetto 1: "In principio creavit Deus caelum et terram".',
+    tradition:
+        'I passaggi di stato: una fine che diventa inizio, un errore che diventa metodo, un dolore che diventa comprensione. Anche la rigenerazione fisica dopo un periodo lungo.',
+    reading:
+        'Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perché sai quanto costa restare al pezzo mentre la forma cambia.',
     confidence: 'media',
   ),
   71: AngelLore(
@@ -761,9 +967,12 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Haiaiel',
     degrees: 'da 350 a 355 gradi',
     sign: 'Pesci',
-    psalm: 'Salmo 108, versetto 30 (numerazione Vulgata): "Confitebor Domino nimis in ore meo, et in medio multorum laudabo eum". Corrisponde al Salmo 109, versetto 30 nella numerazione ebraica.',
-    tradition: 'Le controversie, la protezione di persone e beni, le scelte in cui bisogna dire no. Anche l\'ascolto, inteso come capacità di sentire ciò che non viene detto.',
-    reading: 'Il tuo coraggio non nasce dall\'impulso, nasce da una decisione presa a mente fredda. Difendi chi non riesce a difendersi senza chiedere applausi in cambio.',
+    psalm:
+        'Salmo 108, versetto 30 (numerazione Vulgata): "Confitebor Domino nimis in ore meo, et in medio multorum laudabo eum". Corrisponde al Salmo 109, versetto 30 nella numerazione ebraica.',
+    tradition:
+        'Le controversie, la protezione di persone e beni, le scelte in cui bisogna dire no. Anche l\'ascolto, inteso come capacità di sentire ciò che non viene detto.',
+    reading:
+        'Il tuo coraggio non nasce dall\'impulso, nasce da una decisione presa a mente fredda. Difendi chi non riesce a difendersi senza chiedere applausi in cambio.',
     confidence: 'alta',
   ),
   72: AngelLore(
@@ -771,9 +980,11 @@ const Map<int, AngelLore> kAngelLore = {
     name: 'Mumiah',
     degrees: 'da 355 a 360 gradi',
     sign: 'Pesci',
-    psalm: 'Salmo 114, versetto 7 (numerazione Vulgata): "Convertere, anima mea, in requiem tuam, quia Dominus benefecit tibi". Corrisponde al Salmo 116, versetto 7 nella numerazione ebraica e nelle Bibbie moderne.',
+    psalm:
+        'Salmo 114, versetto 7 (numerazione Vulgata): "Convertere, anima mea, in requiem tuam, quia Dominus benefecit tibi". Corrisponde al Salmo 116, versetto 7 nella numerazione ebraica e nelle Bibbie moderne.',
     tradition: 'Anche il tatto, inteso come contatto diretto con la materia.',
-    reading: 'Sai chiudere. Porti a termine ciò che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.',
+    reading:
+        'Sai chiudere. Porti a termine ciò che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.',
     confidence: 'alta',
   ),
 };

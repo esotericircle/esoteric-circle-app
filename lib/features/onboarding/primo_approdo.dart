@@ -29,7 +29,6 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/primo_uso/suggerimenti_di_zona.dart';
 
-
 /// Dove sta il fumetto rispetto al suo bersaglio.
 enum LatoDelFumetto {
   /// Il fumetto scende sotto il bersaglio, e la freccia punta in su.
@@ -448,6 +447,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
 
   /// Quanto respiro fra il bersaglio e il fumetto, e quanto e' alta la freccia.
   static const double _aria = SpacingTokens.sm;
+
   /// **QUANTO E' ALTA LA FRECCIA. Ordine CC voce 02.**
   ///
   /// Era dodici punti, ed era la meta' del problema: dodici punti di triangolo
@@ -562,12 +562,8 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     // sulle vesti e sui piedi. Il lato voluto dal corpus e' una scelta di chi
     // ha scritto quel fumetto, e regge anche qui.
     final sotto = volutoSotto
-        ? (alta <= sottoLibero
-            ? true
-            : (alta <= sopraLibero ? false : true))
-        : (alta <= sopraLibero
-            ? false
-            : (alta <= sottoLibero ? true : false));
+        ? (alta <= sottoLibero ? true : (alta <= sopraLibero ? false : true))
+        : (alta <= sopraLibero ? false : (alta <= sottoLibero ? true : false));
 
     // **E QUANDO NON CI STA, SI TIENE DENTRO LO SCHERMO, non al centro.**
     // Al centro il fumetto copriva per intero i tre Maestri di cui parla: il
@@ -682,7 +678,8 @@ class _Carta extends StatelessWidget {
           Text(
             fumetto.titolo,
             key: Key('primo_approdo_titolo_$passo'),
-            style: TypographyTokens.titoloScheda().copyWith(color: palette.gold),
+            style:
+                TypographyTokens.titoloScheda().copyWith(color: palette.gold),
           ),
           const SizedBox(height: SpacingTokens.xs),
           Text(
@@ -759,8 +756,8 @@ class _VeloForato extends CustomPainter {
       canvas.drawRect(tutto, velo);
       return;
     }
-    final foro = RRect.fromRectAndRadius(
-        buco!.inflate(4), const Radius.circular(14));
+    final foro =
+        RRect.fromRectAndRadius(buco!.inflate(4), const Radius.circular(14));
     canvas.saveLayer(tutto, Paint());
     canvas.drawRect(tutto, velo);
     canvas.drawRRect(foro, Paint()..blendMode = BlendMode.clear);

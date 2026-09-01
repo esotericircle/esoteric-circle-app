@@ -62,9 +62,8 @@ class _PittoreDegliEos extends CustomPainter {
       ..color = colore;
 
     // 1. IL SOLE, la meta' sopra l'orizzonte.
-    tela.drawArc(
-        Rect.fromCircle(center: centro, radius: raggio), math.pi, math.pi, true,
-        pieno);
+    tela.drawArc(Rect.fromCircle(center: centro, radius: raggio), math.pi,
+        math.pi, true, pieno);
 
     // 2. L'ORIZZONTE, che esce dai fianchi del sole: e' la riga che dice
     // "sorge" invece di "sta".
@@ -73,7 +72,11 @@ class _PittoreDegliEos extends CustomPainter {
 
     // 3. I TRE RAGGI, uno in verticale e due obliqui. Tre e non cinque: a sedici
     // punti il quarto e il quinto si toccano e diventano una macchia.
-    for (final angolo in const [-math.pi / 2, -math.pi / 2 - 0.85, -math.pi / 2 + 0.85]) {
+    for (final angolo in const [
+      -math.pi / 2,
+      -math.pi / 2 - 0.85,
+      -math.pi / 2 + 0.85
+    ]) {
       final da = Offset(centro.dx + math.cos(angolo) * raggio * 1.35,
           centro.dy + math.sin(angolo) * raggio * 1.35);
       final a = Offset(centro.dx + math.cos(angolo) * raggio * 1.95,

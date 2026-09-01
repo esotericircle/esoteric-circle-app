@@ -79,7 +79,7 @@ class DistanzaFraLeFeste {
   @visibleForTesting
   static Future<void> fingiCheSiaPassato(Duration quanto) async {
     final disco = await SharedPreferences.getInstance();
-    await disco.setInt(_chiaveUltima,
-        DateTime.now().subtract(quanto).millisecondsSinceEpoch);
+    await disco.setInt(
+        _chiaveUltima, DateTime.now().subtract(quanto).millisecondsSinceEpoch);
   }
 }

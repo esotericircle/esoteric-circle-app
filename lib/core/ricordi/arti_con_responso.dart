@@ -87,8 +87,7 @@ class ArtiConResponso {
       arte: 'sinastria',
       maestro: 'medora',
       titolo: 'Sinastria VIP',
-      doveViveIlResponso:
-          'lib/features/synastry/sinastria_vip_screen.dart',
+      doveViveIlResponso: 'lib/features/synastry/sinastria_vip_screen.dart',
       apertura: 'sinastria',
     ),
     ArteConResponso(

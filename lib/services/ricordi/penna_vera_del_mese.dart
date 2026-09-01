@@ -67,15 +67,15 @@ class PennaVeraDelMese extends PennaDelMese {
     required List<RiassuntoDelTempo> settimane,
     required String maestro,
   }) async {
-    final chi = Maestro.values.firstWhere((m) => m.id == maestro,
-        orElse: () => Maestro.medora);
+    final chi = Maestro.values
+        .firstWhere((m) => m.id == maestro, orElse: () => Maestro.medora);
     try {
       final model = FirebaseAI.vertexAI().generativeModel(
         model: FirebaseMaestroAiProvider.kMaestroBreveModel,
         systemInstruction: Content.system(_istruzione(chi)),
       );
-      final testo = ingresso(
-          mese: mese, riassunto: riassunto, settimane: settimane);
+      final testo =
+          ingresso(mese: mese, riassunto: riassunto, settimane: settimane);
       final risposta = await model.generateContent([Content.text(testo)]);
       final fuori = risposta.text?.trim();
       if (fuori == null || fuori.isEmpty) return null;

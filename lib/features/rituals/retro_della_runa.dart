@@ -56,16 +56,14 @@ class RetroDellaRuna extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final percorso = pathVergineDi(stem);
-    Widget faiRipiego(BuildContext c) =>
-        ripiego?.call(c) ?? _sassoDipinto();
+    Widget faiRipiego(BuildContext c) => ripiego?.call(c) ?? _sassoDipinto();
     return SizedBox(
       width: width,
       height: height,
       child: percorso == null
           ? faiRipiego(context)
           : Image.asset(percorso,
-              fit: BoxFit.contain,
-              errorBuilder: (c, _, __) => faiRipiego(c)),
+              fit: BoxFit.contain, errorBuilder: (c, _, __) => faiRipiego(c)),
     );
   }
 

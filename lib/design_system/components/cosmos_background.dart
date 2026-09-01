@@ -118,8 +118,7 @@ class CosmosBackground extends StatefulWidget {
 /// UNO solo e pigro, quindi al piu' una iscrizione al sensore anche li'.
 /// Nell'app vera non nasce mai, perche' il provider esiste dall'avvio.
 ParallaxController? _ripiego;
-ParallaxController _parallasseDiRipiego() =>
-    _ripiego ??= ParallaxController();
+ParallaxController _parallasseDiRipiego() => _ripiego ??= ParallaxController();
 
 /// L'OSSERVATORE DELLE ROTTE per la sospensione del cielo. Ordine AJ voce
 /// 01: la schermata COPERTA da una rotta spinta sopra continuava a
@@ -318,7 +317,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     // un confronto fra due booleani: non e' lavoro per fotogramma, e' una
     // mano sul polso. Quando trova il cielo fermo mentre lo stato dice che
     // deve girare, riparte e lo registra.
-    _sentinella = Timer.periodic(CosmosBackground.intervalloDellaSentinella, (_) {
+    _sentinella =
+        Timer.periodic(CosmosBackground.intervalloDellaSentinella, (_) {
       if (!mounted) return;
       if (_deveGirare && _movimentoConsentito && !_controller.isAnimating) {
         _accordaIlGiro(daSentinella: true);
@@ -359,10 +359,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     final paletteDelPittore = widget.paletteOverride ??
         MaestroScope.destinazioneDi(context) ??
         palette;
-    final quality = context
-            .watch<QualityTierController?>()
-            ?.tier ??
-        QualityTier.medium;
+    final quality =
+        context.watch<QualityTierController?>()?.tier ?? QualityTier.medium;
     // **DA COPERTO NON SI ASCOLTA**: il watch qui sotto ricostruiva questo
     // albero a ogni tick del sensore anche sotto una funzionalita' aperta.
     // Da coperto si legge senza iscriversi, e il giro sta fermo.
@@ -392,9 +390,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     // riparte e la ripartenza si CONTA: un guasto che non lascia traccia e'
     // un guasto che nessuno potra' spiegare.
     _movimentoConsentito = quality != QualityTier.low && !reduceMotion;
-    final eraFermoMaDoveva = _deveGirare &&
-        _movimentoConsentito &&
-        !_controller.isAnimating;
+    final eraFermoMaDoveva =
+        _deveGirare && _movimentoConsentito && !_controller.isAnimating;
     _accordaIlGiro(daSentinella: eraFermoMaDoveva);
 
     return Stack(
@@ -872,8 +869,8 @@ class _CosmosPainter extends CustomPainter {
     const fermo = Offset.zero;
     // Le tele coi margini di scorta: i pittori riempiono anche la scorta,
     // perche' un margine vuoto sarebbe la stessa linea spostata piu' in la'.
-    final teloLontano = Size(size.width + 2 * margineLontano,
-        size.height + 2 * margineLontano);
+    final teloLontano =
+        Size(size.width + 2 * margineLontano, size.height + 2 * margineLontano);
     final teloFondo =
         Size(size.width + 2 * margineFondo, size.height + 2 * margineFondo);
     final teloMedio =
@@ -907,8 +904,7 @@ class _CosmosPainter extends CustomPainter {
         ? null
         : _dipingiUnaVolta(teloLontano, densita, (tela) {
             _paintStarDust(tela, teloLontano, fermo, 0,
-                quante: quantiSulTelo(
-                    _dustStars, teloLontano, size));
+                quante: quantiSulTelo(_dustStars, teloLontano, size));
           });
 
     // PIANO DI FONDO: le stelle di campo, le costellazioni e GLI ALONI delle
@@ -926,8 +922,7 @@ class _CosmosPainter extends CustomPainter {
     // pulsazione la porta il nucleo che gli sta sopra.
     cielo.fondo = _dipingiUnaVolta(teloFondo, densita, (tela) {
       _paintFieldStars(tela, teloFondo, fermo, 0,
-          quante: quantiSulTelo(
-              _fieldStars, teloFondo, size));
+          quante: quantiSulTelo(_fieldStars, teloFondo, size));
       if (showZodiac) _paintZodiac(tela, teloFondo, fermo, 0);
       _aloniDelleProtagoniste(tela, teloFondo, fermo);
     });
@@ -950,8 +945,8 @@ class _CosmosPainter extends CustomPainter {
         Paint()
           ..shader = const LinearGradient(
             colors: [Color(0x00FFFFFF), Color(0xFFFFFFFF)],
-          ).createShader(const Rect.fromLTWH(
-              0, 0, lunghezzaDellaScia, altezzaDellaScia))
+          ).createShader(
+              const Rect.fromLTWH(0, 0, lunghezzaDellaScia, altezzaDellaScia))
           ..strokeWidth = 2
           ..strokeCap = StrokeCap.round,
       );
@@ -1133,10 +1128,8 @@ class _CosmosPainter extends CustomPainter {
       final alpha = (0.05 + 0.13 * twinkle).clamp(0.0, 1.0);
       paint.color = const Color(0xFFEAF0FF).withValues(alpha: alpha);
       // Polvere lontana: deriva ridotta, si muove pochissimo.
-      canvas.drawCircle(
-          Offset(x * size.width, y * size.height) + off * 0.5,
-          0.3 + rng.nextDouble() * 0.5,
-          paint);
+      canvas.drawCircle(Offset(x * size.width, y * size.height) + off * 0.5,
+          0.3 + rng.nextDouble() * 0.5, paint);
     }
   }
 
@@ -1154,8 +1147,7 @@ class _CosmosPainter extends CustomPainter {
       (Offset(0.82, 0.3), 7.0),
     ];
     // Stessa mappatura delle nebulose, e per la stessa ragione.
-    final visibile =
-        Size(size.width - 2 * margine, size.height - 2 * margine);
+    final visibile = Size(size.width - 2 * margine, size.height - 2 * margine);
     for (var i = 0; i < _planetCount && i < spots.length; i++) {
       final (pos, r) = spots[i];
       final center = Offset(margine + pos.dx * visibile.width,
@@ -1241,8 +1233,7 @@ class _CosmosPainter extends CustomPainter {
       final c = figure[i];
       final bool isHi = c.sign == highlighted;
 
-      final breath =
-          0.5 + 0.5 * math.sin(2 * math.pi * (t + i * 0.11));
+      final breath = 0.5 + 0.5 * math.sin(2 * math.pi * (t + i * 0.11));
 
       // Mappa i punti locali nello schermo.
       final center =
@@ -1253,12 +1244,9 @@ class _CosmosPainter extends CustomPainter {
           center + Offset((p.dx - 0.5) * fig, (p.dy - 0.5) * fig),
       ];
 
-      final double lineAlpha =
-          isHi ? 0.6 + 0.3 * breath : 0.10 + 0.10 * breath;
-      final double dotAlpha =
-          isHi ? 0.8 + 0.2 * breath : 0.32 + 0.22 * breath;
-      final Color lineColor =
-          isHi ? palette.goldSoft : palette.gold;
+      final double lineAlpha = isHi ? 0.6 + 0.3 * breath : 0.10 + 0.10 * breath;
+      final double dotAlpha = isHi ? 0.8 + 0.2 * breath : 0.32 + 0.22 * breath;
+      final Color lineColor = isHi ? palette.goldSoft : palette.gold;
 
       // Alone dorato sotto la costellazione evidenziata.
       if (isHi && tier != QualityTier.low) {
@@ -1266,7 +1254,8 @@ class _CosmosPainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 4.0
           ..strokeCap = StrokeCap.round
-          ..color = palette.goldSoft.withValues(alpha: 0.38 * (0.6 + 0.4 * breath))
+          ..color =
+              palette.goldSoft.withValues(alpha: 0.38 * (0.6 + 0.4 * breath))
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
         for (final (a, b) in c.edges) {
           canvas.drawLine(pts[a], pts[b], glow);
@@ -1310,8 +1299,7 @@ class _CosmosPainter extends CustomPainter {
     // scorta di AJ.02 il telo e' 2,73 volte lo schermo: distribuite su tutto
     // il telo, a video ne restava circa una. Qui la coordinata normalizzata
     // mappa la finestra visibile, e le tre nebulose tornano dov'erano.
-    final visibile =
-        Size(size.width - 2 * margine, size.height - 2 * margine);
+    final visibile = Size(size.width - 2 * margine, size.height - 2 * margine);
     for (var i = 0; i < _nebulaClusters && i < centers.length; i++) {
       final base = Offset(margine + centers[i].dx * visibile.width,
               margine + centers[i].dy * visibile.height) +

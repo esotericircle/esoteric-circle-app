@@ -53,12 +53,31 @@ class IntentionSigil {
   /// sola E e chi scrive "perché" intende quella.
   static List<String> lettereUniche(String frase) {
     const accenti = {
-      'À': 'A', 'Á': 'A', 'Â': 'A', 'Ä': 'A',
-      'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E',
-      'Ì': 'I', 'Í': 'I', 'Î': 'I', 'Ï': 'I',
-      'Ò': 'O', 'Ó': 'O', 'Ô': 'O', 'Ö': 'O',
-      'Ù': 'U', 'Ú': 'U', 'Û': 'U', 'Ü': 'U',
-      'J': 'I', 'K': 'C', 'W': 'V', 'X': 'S', 'Y': 'I',
+      'À': 'A',
+      'Á': 'A',
+      'Â': 'A',
+      'Ä': 'A',
+      'È': 'E',
+      'É': 'E',
+      'Ê': 'E',
+      'Ë': 'E',
+      'Ì': 'I',
+      'Í': 'I',
+      'Î': 'I',
+      'Ï': 'I',
+      'Ò': 'O',
+      'Ó': 'O',
+      'Ô': 'O',
+      'Ö': 'O',
+      'Ù': 'U',
+      'Ú': 'U',
+      'Û': 'U',
+      'Ü': 'U',
+      'J': 'I',
+      'K': 'C',
+      'W': 'V',
+      'X': 'S',
+      'Y': 'I',
     };
     final viste = <String>{};
     final out = <String>[];
@@ -153,35 +172,96 @@ class LettoreIntenzione {
   /// Le parole che portano alla Via Rossa: il cuore, il desiderio, il coraggio
   /// di esporsi. Sempre riferite a chi scrive, mai a un terzo.
   static const List<String> _rosse = [
-    'amore', 'amare', 'amata', 'amato', 'cuore', 'passione', 'desiderio',
-    'desidero', 'coraggio', 'audacia', 'fuoco', 'slancio', 'incontro',
-    'legame', 'affetto', 'attrazione', 'vitalità', 'ardore',
+    'amore',
+    'amare',
+    'amata',
+    'amato',
+    'cuore',
+    'passione',
+    'desiderio',
+    'desidero',
+    'coraggio',
+    'audacia',
+    'fuoco',
+    'slancio',
+    'incontro',
+    'legame',
+    'affetto',
+    'attrazione',
+    'vitalità',
+    'ardore',
   ];
 
   /// Le parole della Via Bianca: protezione, chiarezza, quiete, confini.
   static const List<String> _bianche = [
-    'protezione', 'proteggere', 'protetto', 'protetta', 'chiarezza',
-    'chiaro', 'chiara', 'pace', 'quiete', 'calma', 'lucidità',
-    'confine', 'confini', 'difesa', 'serenità', 'silenzio',
-    'purezza', 'discernimento', 'verità',
+    'protezione',
+    'proteggere',
+    'protetto',
+    'protetta',
+    'chiarezza',
+    'chiaro',
+    'chiara',
+    'pace',
+    'quiete',
+    'calma',
+    'lucidità',
+    'confine',
+    'confini',
+    'difesa',
+    'serenità',
+    'silenzio',
+    'purezza',
+    'discernimento',
+    'verità',
   ];
 
   /// Le parole della Via Verde: erbe, natura, radici, crescita, corpo inteso
   /// come radicamento. Nessuna promessa di guarigione, mai.
   static const List<String> _verdi = [
-    'terra', 'natura', 'radice', 'radici', 'radicamento', 'erba', 'erbe',
-    'pianta', 'piante', 'albero', 'bosco', 'crescita', 'crescere', 'seme',
-    'semi', 'fiorire', 'raccolto', 'stagione', 'abbondanza', 'nutrire',
+    'terra',
+    'natura',
+    'radice',
+    'radici',
+    'radicamento',
+    'erba',
+    'erbe',
+    'pianta',
+    'piante',
+    'albero',
+    'bosco',
+    'crescita',
+    'crescere',
+    'seme',
+    'semi',
+    'fiorire',
+    'raccolto',
+    'stagione',
+    'abbondanza',
+    'nutrire',
   ];
 
   /// Le parole che indicano una richiesta sulla volonta' di un altro. Queste
   /// non si rifiutano: si riformulano, perche' dietro c'e' quasi sempre un
   /// bisogno legittimo detto male.
   static const List<String> _suTerzi = [
-    'faccia', 'facciano', 'mi ami', 'si innamori', 'innamorare', 'torni da me',
-    'lasci', 'obbedisca', 'costringere', 'costringi', 'legare a me',
-    'sottometti', 'convincilo', 'convincila', 'far si che lui',
-    'far si che lei', 'fammi avere lui', 'fammi avere lei',
+    'faccia',
+    'facciano',
+    'mi ami',
+    'si innamori',
+    'innamorare',
+    'torni da me',
+    'lasci',
+    'obbedisca',
+    'costringere',
+    'costringi',
+    'legare a me',
+    'sottometti',
+    'convincilo',
+    'convincila',
+    'far si che lui',
+    'far si che lei',
+    'fammi avere lui',
+    'fammi avere lei',
   ];
 
   /// Legge la frase e restituisce via, motivo e testo da usare.
@@ -237,8 +317,16 @@ class LettoreIntenzione {
   /// Le vocali accentate ridotte alla loro base, per il confronto.
   static String _senzaAccenti(String t) {
     const m = {
-      'à': 'a', 'á': 'a', 'è': 'e', 'é': 'e', 'ì': 'i', 'í': 'i',
-      'ò': 'o', 'ó': 'o', 'ù': 'u', 'ú': 'u',
+      'à': 'a',
+      'á': 'a',
+      'è': 'e',
+      'é': 'e',
+      'ì': 'i',
+      'í': 'i',
+      'ò': 'o',
+      'ó': 'o',
+      'ù': 'u',
+      'ú': 'u',
     };
     final b = StringBuffer();
     for (final ch in t.split('')) {

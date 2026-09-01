@@ -17,7 +17,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: PrivacyPolicyScreen()));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
+      (_) => const MaestroScope(child: PrivacyPolicyScreen()));
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
       body: CosmosBackground(
         child: ListView(
           key: const Key('privacy_policy_lista'),
-          padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
-              SpacingTokens.sm, SpacingTokens.md, SpacingTokens.xl),
+          padding: const EdgeInsets.fromLTRB(SpacingTokens.md, SpacingTokens.sm,
+              SpacingTokens.md, SpacingTokens.xl),
           children: [
             Text('Ultimo aggiornamento: $dataDellaPolicy',
                 key: const Key('privacy_policy_data'),
@@ -41,8 +42,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.sm),
             Text(titolareDellaPolicy,
-                style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textPrimary, height: 1.5)),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
             for (final sezione in sezioniDellaPolicy) ...[
               const SizedBox(height: SpacingTokens.lg),
               Text(sezione.titolo,
@@ -50,8 +51,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.xs),
               Text(sezione.corpo,
-                  style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.5)),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.5)),
             ],
           ],
         ),

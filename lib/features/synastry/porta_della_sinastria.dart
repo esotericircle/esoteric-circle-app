@@ -69,14 +69,14 @@ class PortaDellaSinastria extends StatefulWidget {
     DateTime? userBirth,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
-        id: 'synastry_vip',
-        maestro: Maestro.medora,
-        child: PortaDellaSinastria(
-          userSign: userSign,
-          userName: userName,
-          userBirth: userBirth,
-        ),
-      ));
+          id: 'synastry_vip',
+          maestro: Maestro.medora,
+          child: PortaDellaSinastria(
+            userSign: userSign,
+            userName: userName,
+            userBirth: userBirth,
+          ),
+        ));
   }
 
   @override
@@ -228,8 +228,8 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
         child: SafeArea(
           child: ListView(
             key: const Key('sinastria_porta'),
-            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                kToolbarHeight, SpacingTokens.lg, SpacingTokens.xxxl),
+            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
+                SpacingTokens.lg, SpacingTokens.xxxl),
             children: [
               Text(
                 _primo == null
@@ -398,8 +398,7 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
             border: Border.all(color: palette.goldSoft.withValues(alpha: 0.5)),
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
             child: DropdownButton<ModoDellaSinastria>(
               key: const Key('sinastria_tendina_modo'),
               value: _modo,
@@ -458,8 +457,8 @@ class _Casella extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft),
+            style:
+                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
         ],
       ),
@@ -492,8 +491,8 @@ class _PortaDelModo extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: palette.surfaceElevated
-              .withValues(alpha: attivo ? 0.95 : 0.65),
+          color:
+              palette.surfaceElevated.withValues(alpha: attivo ? 0.95 : 0.65),
           borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
           border: Border.all(
               color: palette.goldSoft.withValues(alpha: attivo ? 0.9 : 0.4),

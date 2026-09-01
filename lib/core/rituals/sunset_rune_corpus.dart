@@ -323,14 +323,16 @@ class SunsetRuneCorpus {
 
   /// La Voce A completa: cosa lasci fuori, più il registro lunare, più la
   /// clausola di insistenza quando la runa ritorna.
-  static String vocePrimaLasciare(EstrazioneTramonto e, {String? insistenzaClausola}) {
+  static String vocePrimaLasciare(EstrazioneTramonto e,
+      {String? insistenzaClausola}) {
     final voce = voceRuna(e.rune.name, e.verso);
     return _unisci([voce.lasciare, registroLunare(e.fase), insistenzaClausola]);
   }
 
   /// La Voce B completa: cosa porti dentro la notte, più la clausola di segno,
   /// più la clausola di insistenza quando la runa ritorna.
-  static String vocePortare(EstrazioneTramonto e, {String? insistenzaClausola}) {
+  static String vocePortare(EstrazioneTramonto e,
+      {String? insistenzaClausola}) {
     final voce = voceRuna(e.rune.name, e.verso);
     return _unisci([voce.porta, clausolaSegno(e.segno), insistenzaClausola]);
   }

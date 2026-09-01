@@ -194,8 +194,10 @@ class CieloDiStamattina {
       };
 
   /// I dati disponibili stamattina.
-  Set<DatoDelCielo> get disponibili =>
-      {for (final d in DatoDelCielo.values) if (ha(d)) d};
+  Set<DatoDelCielo> get disponibili => {
+        for (final d in DatoDelCielo.values)
+          if (ha(d)) d
+      };
 }
 
 /// IL RITO DELL'ALBA DI OGGI, composto e pronto.
@@ -286,8 +288,7 @@ class FasciaDelRisveglio {
     PosizioneDiStamattina? posizione,
   }) {
     if (posizione == null || !posizione.oraDichiarabile) {
-      return const FasciaDelRisveglio(
-          inizio: null, durata: durataStandard);
+      return const FasciaDelRisveglio(inizio: null, durata: durataStandard);
     }
     return FasciaDelRisveglio(
       inizio: SunsetTime.albaPerData(giorno,

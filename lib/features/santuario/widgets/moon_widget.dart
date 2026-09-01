@@ -55,8 +55,8 @@ class MoonWidget extends StatelessWidget {
               child: Image.asset(
                 imageAsset,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
-                    CustomPaint(painter: _MoonDiscFallbackPainter(glow: glowColor)),
+                errorBuilder: (_, __, ___) => CustomPaint(
+                    painter: _MoonDiscFallbackPainter(glow: glowColor)),
               ),
             ),
           ),

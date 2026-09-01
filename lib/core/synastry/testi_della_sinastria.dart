@@ -78,62 +78,92 @@ class TestiDellaSinastria {
   /// Le trentacinque frasi SOPRA il cerchio: una riga sola, la prima che si
   /// legge. Sostituisce l'etichetta fissa che stava dentro il cerchio e che si
   /// ripeteva perche' dipendeva dalla sola fascia.
-  static const Map<RelazioneFraSegni, Map<FasciaDiAffinita, String>> sopraIlCerchio =
-      <RelazioneFraSegni, Map<FasciaDiAffinita, String>>{
+  static const Map<RelazioneFraSegni, Map<FasciaDiAffinita, String>>
+      sopraIlCerchio = <RelazioneFraSegni, Map<FasciaDiAffinita, String>>{
     RelazioneFraSegni.stesso: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Siete la stessa persona in due corpi. Che paura.',
-      FasciaDiAffinita.alta: 'Stesso segno, stessi difetti, stessa faccia tosta.',
-      FasciaDiAffinita.buona: 'Vi capireste anche al buio e infatti spesso lo fate.',
-      FasciaDiAffinita.curiosa: 'Uguali sì, ma non è detto che sia un complimento.',
-      FasciaDiAffinita.attrito: 'Due copie dello stesso originale non fanno una coppia.',
+      FasciaDiAffinita.leggendaria:
+          'Siete la stessa persona in due corpi. Che paura.',
+      FasciaDiAffinita.alta:
+          'Stesso segno, stessi difetti, stessa faccia tosta.',
+      FasciaDiAffinita.buona:
+          'Vi capireste anche al buio e infatti spesso lo fate.',
+      FasciaDiAffinita.curiosa:
+          'Uguali sì, ma non è detto che sia un complimento.',
+      FasciaDiAffinita.attrito:
+          'Due copie dello stesso originale non fanno una coppia.',
     },
     RelazioneFraSegni.elemento: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Stessa materia, stessa fiamma, stessa follia.',
-      FasciaDiAffinita.alta: 'Parlate la stessa lingua senza aver mai preso lezioni.',
-      FasciaDiAffinita.buona: 'Vi riconoscete a distanza, come fa la gente della stessa razza.',
-      FasciaDiAffinita.curiosa: 'Stessa sostanza, forme diverse: vi somigliate a giorni alterni.',
-      FasciaDiAffinita.attrito: 'Anche l\'acqua e il ghiaccio sono la stessa cosa e non vanno d\'accordo.',
+      FasciaDiAffinita.leggendaria:
+          'Stessa materia, stessa fiamma, stessa follia.',
+      FasciaDiAffinita.alta:
+          'Parlate la stessa lingua senza aver mai preso lezioni.',
+      FasciaDiAffinita.buona:
+          'Vi riconoscete a distanza, come fa la gente della stessa razza.',
+      FasciaDiAffinita.curiosa:
+          'Stessa sostanza, forme diverse: vi somigliate a giorni alterni.',
+      FasciaDiAffinita.attrito:
+          'Anche l\'acqua e il ghiaccio sono la stessa cosa e non vanno d\'accordo.',
     },
     RelazioneFraSegni.fuocoaria: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Uno accende, l\'altra soffia. È così che nascono gli incendi.',
-      FasciaDiAffinita.alta: 'Insieme fareste saltare la corrente a mezzo quartiere.',
+      FasciaDiAffinita.leggendaria:
+          'Uno accende, l\'altra soffia. È così che nascono gli incendi.',
+      FasciaDiAffinita.alta:
+          'Insieme fareste saltare la corrente a mezzo quartiere.',
       FasciaDiAffinita.buona: 'Vi date fuoco a vicenda, ma nel senso bello.',
-      FasciaDiAffinita.curiosa: 'C\'è aria per bruciare, manca solo qualcuno che accenda.',
-      FasciaDiAffinita.attrito: 'Troppo vento spegne anche il fuoco più deciso.',
+      FasciaDiAffinita.curiosa:
+          'C\'è aria per bruciare, manca solo qualcuno che accenda.',
+      FasciaDiAffinita.attrito:
+          'Troppo vento spegne anche il fuoco più deciso.',
     },
     RelazioneFraSegni.terracqua: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Una terra così e un\'acqua così fanno nascere qualsiasi cosa.',
+      FasciaDiAffinita.leggendaria:
+          'Una terra così e un\'acqua così fanno nascere qualsiasi cosa.',
       FasciaDiAffinita.alta: 'Uno tiene, l\'altra nutre: si chiama fortuna.',
       FasciaDiAffinita.buona: 'Un\'intesa che non fa rumore e regge il peso.',
-      FasciaDiAffinita.curiosa: 'Terreno buono, pioggia incerta: vediamo che raccolto viene.',
+      FasciaDiAffinita.curiosa:
+          'Terreno buono, pioggia incerta: vediamo che raccolto viene.',
       FasciaDiAffinita.attrito: 'Troppa acqua su troppa terra fa solo fango.',
     },
     RelazioneFraSegni.opposti: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Agli antipodi dello zodiaco e non riuscite a smettere di guardarvi.',
-      FasciaDiAffinita.alta: 'Il contrario esatto di te ti sta guardando. Buona fortuna.',
-      FasciaDiAffinita.buona: 'L\'attrazione dei contrari, quella che nessuno sa spiegare.',
-      FasciaDiAffinita.curiosa: 'Opposti abbastanza da incuriosirvi, non abbastanza da capirvi.',
-      FasciaDiAffinita.attrito: 'Vi guardate dai due capi del tavolo e il tavolo è lungo.',
+      FasciaDiAffinita.leggendaria:
+          'Agli antipodi dello zodiaco e non riuscite a smettere di guardarvi.',
+      FasciaDiAffinita.alta:
+          'Il contrario esatto di te ti sta guardando. Buona fortuna.',
+      FasciaDiAffinita.buona:
+          'L\'attrazione dei contrari, quella che nessuno sa spiegare.',
+      FasciaDiAffinita.curiosa:
+          'Opposti abbastanza da incuriosirvi, non abbastanza da capirvi.',
+      FasciaDiAffinita.attrito:
+          'Vi guardate dai due capi del tavolo e il tavolo è lungo.',
     },
     RelazioneFraSegni.tensione: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Una tensione così alta di solito finisce sui giornali.',
-      FasciaDiAffinita.alta: 'Chimica pura e nessuna via d\'uscita: complimenti.',
-      FasciaDiAffinita.buona: 'Vi sfidate e la cosa vi diverte più di quanto ammettiate.',
+      FasciaDiAffinita.leggendaria:
+          'Una tensione così alta di solito finisce sui giornali.',
+      FasciaDiAffinita.alta:
+          'Chimica pura e nessuna via d\'uscita: complimenti.',
+      FasciaDiAffinita.buona:
+          'Vi sfidate e la cosa vi diverte più di quanto ammettiate.',
       FasciaDiAffinita.curiosa: 'Scintille sì, incendio non pervenuto.',
-      FasciaDiAffinita.attrito: 'Due elementi che si annullano a vicenda, con garbo.',
+      FasciaDiAffinita.attrito:
+          'Due elementi che si annullano a vicenda, con garbo.',
     },
     RelazioneFraSegni.estranei: <FasciaDiAffinita, String>{
-      FasciaDiAffinita.leggendaria: 'Non avete niente in comune e vi trovate benissimo. Spiegatelo voi.',
-      FasciaDiAffinita.alta: 'Due mondi diversi che hanno deciso di piacersi lo stesso.',
-      FasciaDiAffinita.buona: 'Curiosi l\'uno dell\'altro, che è già più di quanto capiti di solito.',
-      FasciaDiAffinita.curiosa: 'Vi guardate come si guarda una lingua straniera.',
-      FasciaDiAffinita.attrito: 'Due mondi diversi e i visti non si sono trovati.',
+      FasciaDiAffinita.leggendaria:
+          'Non avete niente in comune e vi trovate benissimo. Spiegatelo voi.',
+      FasciaDiAffinita.alta:
+          'Due mondi diversi che hanno deciso di piacersi lo stesso.',
+      FasciaDiAffinita.buona:
+          'Curiosi l\'uno dell\'altro, che è già più di quanto capiti di solito.',
+      FasciaDiAffinita.curiosa:
+          'Vi guardate come si guarda una lingua straniera.',
+      FasciaDiAffinita.attrito:
+          'Due mondi diversi e i visti non si sono trovati.',
     },
   };
 
   /// I trentacinque titoli della bolla: poche parole, da titolo di giornale.
-  static const Map<RelazioneFraSegni, Map<FasciaDiAffinita, String>> titoliDellaBolla =
-      <RelazioneFraSegni, Map<FasciaDiAffinita, String>>{
+  static const Map<RelazioneFraSegni, Map<FasciaDiAffinita, String>>
+      titoliDellaBolla = <RelazioneFraSegni, Map<FasciaDiAffinita, String>>{
     RelazioneFraSegni.stesso: <FasciaDiAffinita, String>{
       FasciaDiAffinita.leggendaria: 'Lo specchio perfetto',
       FasciaDiAffinita.alta: 'Due gocce d\'acqua e una tempesta',
@@ -227,43 +257,62 @@ class TestiDellaSinastria {
 
   /// Il cielo reso leggibile: prima cosa significa, poi come si chiama.
   static const Map<String, String> cieloLeggibile = <String, String>{
-    'Venere congiunzione Venere': 'Vi piacciono le stesse cose, il che è comodo e pericoloso insieme.',
-    'Venere opposizione Venere': 'Vi piacciono cose opposte e nessuno dei due ha intenzione di cedere.',
-    'Venere trigono Venere': 'Avete lo stesso gusto senza esservi messi d\'accordo.',
-    'Venere sestile Mercurio': 'Uno parla e l\'altro trova affascinante il modo in cui lo dice.',
-    'Sole opposizione Venere': 'Lui è esattamente il tipo che non dovresti trovare interessante.',
-    'Venere quadrato Marte': 'Vi attirate e vi irritate nello stesso istante ed è quello il punto.',
-    'Luna congiunzione Luna': 'Reagite alle cose nello stesso modo, spesso nello stesso momento.',
+    'Venere congiunzione Venere':
+        'Vi piacciono le stesse cose, il che è comodo e pericoloso insieme.',
+    'Venere opposizione Venere':
+        'Vi piacciono cose opposte e nessuno dei due ha intenzione di cedere.',
+    'Venere trigono Venere':
+        'Avete lo stesso gusto senza esservi messi d\'accordo.',
+    'Venere sestile Mercurio':
+        'Uno parla e l\'altro trova affascinante il modo in cui lo dice.',
+    'Sole opposizione Venere':
+        'Lui è esattamente il tipo che non dovresti trovare interessante.',
+    'Venere quadrato Marte':
+        'Vi attirate e vi irritate nello stesso istante ed è quello il punto.',
+    'Luna congiunzione Luna':
+        'Reagite alle cose nello stesso modo, spesso nello stesso momento.',
     'Marte sestile Luna': 'Uno si muove e l\'altro lo sente prima che accada.',
-    'Luna opposizione Sole': 'Uno illumina, l\'altro assorbe: funziona finché nessuno pretende il contrario.',
-    'Luna quadrato Mercurio': 'Uno sente, l\'altro spiega e non si trovano mai sulla stessa frase.',
-    'Marte congiunzione Marte': 'Stessa energia, stessa fretta, stesso muro contro cui andare.',
-    'Marte sestile Ascendente': 'Uno entra in una stanza e l\'altro se ne accorge subito.',
+    'Luna opposizione Sole':
+        'Uno illumina, l\'altro assorbe: funziona finché nessuno pretende il contrario.',
+    'Luna quadrato Mercurio':
+        'Uno sente, l\'altro spiega e non si trovano mai sulla stessa frase.',
+    'Marte congiunzione Marte':
+        'Stessa energia, stessa fretta, stesso muro contro cui andare.',
+    'Marte sestile Ascendente':
+        'Uno entra in una stanza e l\'altro se ne accorge subito.',
     'Marte trigono Sole': 'Uno spinge e l\'altro non si tira indietro.',
-    'Mercurio congiunzione Sole': 'Pensa a voce alta e voi lo capite al primo tentativo.',
-    'Mercurio trigono Mercurio': 'Due teste che corrono alla stessa velocità e si annoiano insieme del resto del mondo.',
-    'Mercurio quadrato Saturno': 'Uno propone, l\'altro obietta e alla fine hanno ragione entrambi.',
+    'Mercurio congiunzione Sole':
+        'Pensa a voce alta e voi lo capite al primo tentativo.',
+    'Mercurio trigono Mercurio':
+        'Due teste che corrono alla stessa velocità e si annoiano insieme del resto del mondo.',
+    'Mercurio quadrato Saturno':
+        'Uno propone, l\'altro obietta e alla fine hanno ragione entrambi.',
   };
 
   /// La riga generica del pianeta piu' lento, quando la combinazione non ha
   /// una riga sua. Non si inventa nulla.
   static const Map<String, String> genericoPerPianeta = <String, String>{
-    'Sole': 'C\'è qualcosa nel suo modo di stare al mondo che non ti lascia indifferente.',
+    'Sole':
+        'C\'è qualcosa nel suo modo di stare al mondo che non ti lascia indifferente.',
     'Luna': 'Vi toccate un nervo scoperto e non sempre nello stesso modo.',
     'Mercurio': 'Il modo in cui pensate si incrocia più di quanto sembri.',
     'Venere': 'Sul bello e sul piacere avete parecchio da dirvi.',
     'Marte': 'Quando si tratta di agire, vi accorgete l\'uno dell\'altro.',
-    'Saturno': 'C\'è un peso in mezzo e i pesi tengono insieme più di quanto separino.',
+    'Saturno':
+        'C\'è un peso in mezzo e i pesi tengono insieme più di quanto separino.',
   };
 
   /// Le cinquanta presentazioni: la carta d'identita' pubblica, che non
   /// scade mai. La chiave e' lo stem del ritratto.
   static const Map<String, String> presentazioni = <String, String>{
     'vip_angelina-jolie': 'divide la vita fra un set e mezzo mondo da salvare.',
-    'vip_ariana-grande': 'arriva a note che il resto dell\'umanità nemmeno immagina.',
-    'vip_bad-bunny': 'riempie gli stadi cantando in spagnolo e non ha mai chiesto permesso.',
+    'vip_ariana-grande':
+        'arriva a note che il resto dell\'umanità nemmeno immagina.',
+    'vip_bad-bunny':
+        'riempie gli stadi cantando in spagnolo e non ha mai chiesto permesso.',
     'vip_beyonce': 'quando entra lei, le altre luci si spengono da sole.',
-    'vip_bill-gates': 'ha riscritto il mondo partendo da un garage e adesso prova a ripararlo.',
+    'vip_bill-gates':
+        'ha riscritto il mondo partendo da un garage e adesso prova a ripararlo.',
     'vip_billie-eilish': 'sussurra e la ascoltano in milioni.',
     'vip_brad-pitt': 'invecchia meglio del vino e lo sa benissimo.',
     'vip_chiara-ferragni': 'di un post ha saputo fare un impero.',
@@ -282,29 +331,36 @@ class TestiDellaSinastria {
     'vip_kim-kardashian': 'della propria vita ha fatto un impero quotato.',
     'vip_kylie-jenner': 'a vent\'anni contava già i miliardi.',
     'vip_lady-gaga': 'cambia faccia a ogni canzone ma non cambia mai voce.',
-    'vip_lebron-james': 'a quarant\'anni vola ancora e la cosa comincia a innervosire.',
+    'vip_lebron-james':
+        'a quarant\'anni vola ancora e la cosa comincia a innervosire.',
     'vip_margot-robbie': 'ha reso una bambola un fenomeno mondiale.',
     'vip_mark-zuckerberg': 'sa tutto di te ma non risponde ai messaggi.',
     'vip_mbappe': 'corre più veloce del tuo wifi.',
-    'vip_messi': 'parla poco e segna sempre, che è il modo migliore di rispondere.',
+    'vip_messi':
+        'parla poco e segna sempre, che è il modo migliore di rispondere.',
     'vip_michelle-obama': 'ha rimesso di moda l\'intelligenza.',
     'vip_monica-bellucci': 'il tempo lo guarda passare senza farsi toccare.',
     'vip_nadal': 'non molla un punto nemmeno per sbaglio.',
-    'vip_oprah-winfrey': 'regala macchine e cambia vite, spesso nello stesso pomeriggio.',
-    'vip_priyanka-chopra': 'ha conquistato due continenti senza chiedere il permesso a nessuno.',
+    'vip_oprah-winfrey':
+        'regala macchine e cambia vite, spesso nello stesso pomeriggio.',
+    'vip_priyanka-chopra':
+        'ha conquistato due continenti senza chiedere il permesso a nessuno.',
     'vip_rihanna': 'tra un disco e l\'altro ti ha pure venduto il fondotinta.',
     'vip_ronaldo': 'si allena mentre tu dormi e te lo fa sapere.',
     'vip_scarlett-johansson': 'ha dato la voce persino ai robot.',
-    'vip_selena-gomez': 'sopravvive a Hollywood col sorriso, che è la cosa più difficile.',
+    'vip_selena-gomez':
+        'sopravvive a Hollywood col sorriso, che è la cosa più difficile.',
     'vip_serena-williams': 'serve più forte di quanto tu discuta.',
     'vip_shakira': 'con i fianchi non sa mentire, con il resto nemmeno.',
     'vip_sinner': 'resta di ghiaccio anche quando il campo prende fuoco.',
-    'vip_snoop-dogg': 'se la prende comoda da trent\'anni e non ha mai avuto fretta.',
+    'vip_snoop-dogg':
+        'se la prende comoda da trent\'anni e non ha mai avuto fretta.',
     'vip_steve-jobs': 'ha messo il futuro nella tasca di tutti.',
     'vip_taylor-swift': 'se la lasci ci scrive un album e vende tutto.',
     'vip_the-weeknd': 'canta le notti che tu dimentichi.',
     'vip_timothee-chalamet': 'fa sospirare due generazioni contemporaneamente.',
-    'vip_tom-cruise': 'gli stunt se li fa da solo e a una certa età è quasi un dispetto.',
+    'vip_tom-cruise':
+        'gli stunt se li fa da solo e a una certa età è quasi un dispetto.',
     'vip_usain-bolt': 'ha corso piano solo per salutare.',
     'vip_valentino-rossi': 'in curva piega più di te sotto le scadenze.',
     'vip_warren-buffett': 'a colazione compra aziende.',
@@ -366,9 +422,12 @@ class TestiDellaSinastria {
   ];
 
   /// La nota fuori dalla bolla, in corpo minore.
-  static const String notaOraIgnota = 'Del suo cielo non si conosce l\'ora esatta di nascita: questa lettura guarda i pianeti, non l\'Ascendente. Non si finge di sapere ciò che nessuna fonte dichiara.';
-  static const String notaLuogoIgnoto = 'Dove viva non è cosa pubblica, quindi la distanza non entra nel conto.';
-  static const String notaAttualita = 'Le notizie su questa persona sono aggiornate al GIORNO.';
+  static const String notaOraIgnota =
+      'Del suo cielo non si conosce l\'ora esatta di nascita: questa lettura guarda i pianeti, non l\'Ascendente. Non si finge di sapere ciò che nessuna fonte dichiara.';
+  static const String notaLuogoIgnoto =
+      'Dove viva non è cosa pubblica, quindi la distanza non entra nel conto.';
+  static const String notaAttualita =
+      'Le notizie su questa persona sono aggiornate al GIORNO.';
 
   /// Le cinque sfide da condividere. NOME e PERCENTO si sostituiscono.
   /// **IL PARAGRAFO DELL'ATTUALITA'. Ordine CC voce 06d.**

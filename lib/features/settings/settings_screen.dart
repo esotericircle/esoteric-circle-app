@@ -29,7 +29,8 @@ import 'riga_interruttore.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: SettingsScreen()));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
+      (_) => const MaestroScope(child: SettingsScreen()));
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,8 @@ class SettingsScreen extends StatelessWidget {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Impostazioni', style: TypographyTokens.titoloDiSchermata()),
+        title:
+            Text('Impostazioni', style: TypographyTokens.titoloDiSchermata()),
       ),
       body: CosmosBackground(
         seed: 16,
@@ -278,7 +280,6 @@ class SettingsScreen extends StatelessWidget {
         color: palette.gold.withValues(alpha: 0.12),
       );
 }
-
 
 /// Riga dei permessi: riporta alle impostazioni di sistema dell'app.
 ///

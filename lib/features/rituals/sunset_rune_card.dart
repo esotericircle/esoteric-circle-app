@@ -160,6 +160,7 @@ Future<bool> shareSunsetRuneCard({
       : (estrazione.inOmbra ? 'in merkstave (rovesciata)' : 'dritta');
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
           'Scopri la tua con Caligo, su Esoteric Circle.');
 }

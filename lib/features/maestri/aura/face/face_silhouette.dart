@@ -111,8 +111,8 @@ class FaceSilhouettePainter extends CustomPainter {
     for (final segno in [-1, 1]) {
       final bx = cx + segno * w * 0.13;
       final by = h * 0.36;
-      canvas.drawLine(
-          Offset(bx - w * 0.07, by), Offset(bx + w * 0.07, by - h * 0.006), tenue);
+      canvas.drawLine(Offset(bx - w * 0.07, by),
+          Offset(bx + w * 0.07, by - h * 0.006), tenue);
     }
     // Occhi.
     for (final segno in [-1, 1]) {

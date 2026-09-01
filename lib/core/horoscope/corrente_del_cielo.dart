@@ -289,9 +289,8 @@ class CorrenteDelCielo {
       return '$g $frase';
     }
     final g = giunturaCoiDuePunti[indice % giunturaCoiDuePunti.length];
-    final minuscola = frase.isEmpty
-        ? frase
-        : frase[0].toLowerCase() + frase.substring(1);
+    final minuscola =
+        frase.isEmpty ? frase : frase[0].toLowerCase() + frase.substring(1);
     return '$g $minuscola';
   }
 

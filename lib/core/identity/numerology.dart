@@ -5,7 +5,8 @@
 /// riduzione si conservano i numeri maestri 11, 22 e 33, che non si riducono
 /// oltre. Nessuna rete, nessun dato esterno, solo la data.
 class LifePath {
-  const LifePath({required this.number, required this.title, required this.meaning});
+  const LifePath(
+      {required this.number, required this.title, required this.meaning});
 
   /// La cifra finale: 1..9 oppure un numero maestro 11, 22, 33.
   final int number;
@@ -21,11 +22,13 @@ class LifePath {
 
   /// Calcola il Numero della vita dalla data di nascita.
   factory LifePath.forDate(DateTime date) {
-    final root = _reduce(_reduce(date.day) + _reduce(date.month) + _reduce(date.year));
+    final root =
+        _reduce(_reduce(date.day) + _reduce(date.month) + _reduce(date.year));
     return LifePath(
       number: root,
       title: _titles[root] ?? 'Numero della vita',
-      meaning: _meanings[root] ?? 'La cifra che riduce il tuo giorno di nascita.',
+      meaning:
+          _meanings[root] ?? 'La cifra che riduce il tuo giorno di nascita.',
     );
   }
 
@@ -141,7 +144,8 @@ class LifePathBreakdown {
       'Mese ${date.month}: ${LifePath.explainReduction(date.month)}',
       'Anno ${date.year}: ${LifePath.explainReduction(date.year)}',
     ];
-    final sumLine = StringBuffer('Somma: $dayRoot + $monthRoot + $yearRoot = $sum');
+    final sumLine =
+        StringBuffer('Somma: $dayRoot + $monthRoot + $yearRoot = $sum');
     if (sum != number) sumLine.write(' → $number');
     lines.add(sumLine.toString());
     return lines;

@@ -56,7 +56,8 @@ class ArchetypeShareCard extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [palette.surfaceElevated, palette.deepest],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
       ),
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -65,8 +66,8 @@ class ArchetypeShareCard extends StatelessWidget {
           children: [
             // Provenienza in alto: da dove arriva l'immagine.
             Text('TEST ARCHETIPO',
-                style: TypographyTokens.label(size: 12).copyWith(
-                    color: palette.goldSoft, letterSpacing: 2.0)),
+                style: TypographyTokens.label(size: 12)
+                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
             const SizedBox(height: SpacingTokens.md),
             // La ruota vera del risultato, grande, con la statua al centro. La
             // fetta del dominante e' in oro, quella del co-dominante piu' tenue.
@@ -242,10 +243,8 @@ class _RigaTre extends StatelessWidget {
         Expanded(
           child: Text(archetipo.nome,
               style: TypographyTokens.corpo().copyWith(
-                  color:
-                      dominante ? palette.goldSoft : palette.textPrimary,
-                  fontWeight:
-                      dominante ? FontWeight.w700 : FontWeight.w400)),
+                  color: dominante ? palette.goldSoft : palette.textPrimary,
+                  fontWeight: dominante ? FontWeight.w700 : FontWeight.w400)),
         ),
         Text('$percentuale%',
             style: TypographyTokens.label(size: 12).copyWith(
@@ -271,7 +270,8 @@ Future<bool> shareArchetypeCard({
   await file.writeAsBytes(png, flush: true);
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'Il mio archetipo è ${dominante.conArticolo}. '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo: 'Il mio archetipo è ${dominante.conArticolo}. '
           'Scopri il tuo con Aura, su Esoteric Circle. '
           'https://esotericircle.app/aura/archetype_test');
 }

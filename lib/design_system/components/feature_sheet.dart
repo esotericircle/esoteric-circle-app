@@ -118,8 +118,7 @@ class _FeatureSheetContent extends StatelessWidget {
                 foregroundColor: palette.deepest,
                 padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
                 ),
               ),
               onPressed: () => Navigator.of(context).pop(),

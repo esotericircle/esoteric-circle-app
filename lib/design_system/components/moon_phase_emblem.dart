@@ -34,9 +34,9 @@ class _MoonPhaseEmblemState extends State<MoonPhaseEmblem>
   void initState() {
     super.initState();
     if (widget.animate) {
-      _c = AnimationController(
-          vsync: this, duration: const Duration(seconds: 6))
-        ..repeat();
+      _c =
+          AnimationController(vsync: this, duration: const Duration(seconds: 6))
+            ..repeat();
     }
   }
 

@@ -48,7 +48,9 @@ class AccountScreen extends StatelessWidget {
   /// **LA ROTTA DICHIARA LA SUA DESTINAZIONE.** Ordine AU voce 10: senza
   /// questa riga nessuno puo' accorgersi che il menu' utente e' gia' aperto, e
   /// ogni tocco ne impila un altro sopra quello di prima.
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const AccountScreen(), settings: const RouteSettings(arguments: PortaDelCerchio.account));
+  static Route<void> route() =>
+      PassaggioDelCerchio.rotta<void>((_) => const AccountScreen(),
+          settings: const RouteSettings(arguments: PortaDelCerchio.account));
 
   @override
   Widget build(BuildContext context) {
@@ -206,8 +208,7 @@ class AccountScreen extends StatelessWidget {
         title: 'Abbonamento',
         subtitle: 'Il tuo piano e i livelli del Cerchio',
         icon: Icons.workspace_premium_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(PricingScreen.route()),
+        onTap: (context) => Navigator.of(context).push(PricingScreen.route()),
       ),
       // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
       // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
@@ -243,24 +244,21 @@ class AccountScreen extends StatelessWidget {
         title: 'Cosmic Journal',
         subtitle: 'Il tuo cammino e i tuoi ricordi, giorno per giorno',
         icon: Icons.auto_stories_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(RicordiScreen.route()),
+        onTap: (context) => Navigator.of(context).push(RicordiScreen.route()),
       ),
       _AccountEntry(
         id: 'notifiche',
         title: 'Notifiche',
         subtitle: 'Gli appuntamenti dei doni del giorno',
         icon: Icons.notifications_none_rounded,
-        onTap: (context) =>
-            Navigator.of(context).push(NotificheScreen.route()),
+        onTap: (context) => Navigator.of(context).push(NotificheScreen.route()),
       ),
       _AccountEntry(
         id: 'impostazioni',
         title: 'Impostazioni',
         subtitle: 'Preferenze, lingua, qualità grafica',
         icon: Icons.settings_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(SettingsScreen.route()),
+        onTap: (context) => Navigator.of(context).push(SettingsScreen.route()),
       ),
       // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
       // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
@@ -306,8 +304,8 @@ class AccountScreen extends StatelessWidget {
           color: ColorTokens.textPrimary,
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Il tuo account',
-            style: TypographyTokens.titoloDiSchermata()),
+        title:
+            Text('Il tuo account', style: TypographyTokens.titoloDiSchermata()),
       ),
       body: SafeArea(
         top: false,
@@ -336,12 +334,13 @@ class AccountScreen extends StatelessWidget {
             // la regola che lo rendeva necessario.
             Expanded(
               child: ListView.separated(
-          key: const Key('account_list'),
-          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-              SpacingTokens.lg, SpacingTokens.xxxl),
-          itemCount: entries.length,
-          separatorBuilder: (_, __) => const SizedBox(height: SpacingTokens.sm),
-          itemBuilder: (context, i) => _AccountTile(entry: entries[i]),
+                key: const Key('account_list'),
+                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                    SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xxxl),
+                itemCount: entries.length,
+                separatorBuilder: (_, __) =>
+                    const SizedBox(height: SpacingTokens.sm),
+                itemBuilder: (context, i) => _AccountTile(entry: entries[i]),
               ),
             ),
           ],
@@ -364,8 +363,6 @@ bool _eAnonimo(BuildContext context) {
     return false;
   }
 }
-
-
 
 /// **L'INTESTAZIONE CHE DICE CHI SEI.** Ordine AZ voce 09, situazione S36.
 ///
@@ -405,7 +402,8 @@ class _IntestazioneDiChiSei extends StatelessWidget {
       titolo = 'Il tuo cielo non è ancora custodito';
       sotto = 'Vive solo su questo telefono';
     } else {
-      titolo = email ?? (via.isEmpty ? 'Il tuo cielo è custodito' : 'Entrato con $via');
+      titolo = email ??
+          (via.isEmpty ? 'Il tuo cielo è custodito' : 'Entrato con $via');
       // **LA RIGA SOTTO NON RIPETE QUELLA SOPRA.** Ordine BX: senza email e
       // senza fornitore le due righe dicevano tutte e due "Il tuo cielo è
       // custodito", una sotto l'altra. L'ha visto l'anteprima.
@@ -464,7 +462,6 @@ String? _nomeDelFornitore(String id) {
       return null;
   }
 }
-
 
 /// Vero se questa persona ha un'email da verificare. Ordine AZ voce 06.
 bool _emailDaVerificare(BuildContext context) {
@@ -611,8 +608,8 @@ Future<void> _chiediLEmailNuova(BuildContext context) async {
         ),
         actions: [
           TextButton(
-            style:
-                TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
+            style: TextButton.styleFrom(
+                foregroundColor: ColorTokens.textSecondary),
             onPressed: () => Navigator.of(dialogo).pop(),
             child: const Text('Annulla'),
           ),
@@ -672,45 +669,45 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
     builder: (dialogo) => StatefulBuilder(
       builder: (dialogo, aggiorna) {
         return AlertDialog(
-            key: const Key('parola_nuova_form'),
-            backgroundColor: ColorTokens.neutralSurface,
-            title: Text('Una Password nuova',
-                style: TypographyTokens.titoloScheda()),
-            content: TextField(
-              key: const Key('parola_nuova_campo'),
-              controller: campo,
-              obscureText: true,
-              autofillHints: const [AutofillHints.newPassword],
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary),
-              decoration: InputDecoration(
-                labelText: 'La Password nuova',
-                helperText: regolaDellaPassword,
-                helperMaxLines: 2,
-                errorText: guaio,
-                errorMaxLines: 2,
-              ),
+          key: const Key('parola_nuova_form'),
+          backgroundColor: ColorTokens.neutralSurface,
+          title: Text('Una Password nuova',
+              style: TypographyTokens.titoloScheda()),
+          content: TextField(
+            key: const Key('parola_nuova_campo'),
+            controller: campo,
+            obscureText: true,
+            autofillHints: const [AutofillHints.newPassword],
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: 'La Password nuova',
+              helperText: regolaDellaPassword,
+              helperMaxLines: 2,
+              errorText: guaio,
+              errorMaxLines: 2,
             ),
-            actions: [
-              TextButton(
-                style: TextButton.styleFrom(
-                    foregroundColor: ColorTokens.textSecondary),
-                onPressed: () => Navigator.of(dialogo).pop(),
-                child: const Text('Annulla'),
-              ),
-              TextButton(
-                key: const Key('parola_nuova_conferma'),
-                onPressed: () {
-                  final trovato = guaioDellaPassword(campo.text);
-                  if (trovato != null) {
-                    aggiorna(() => guaio = trovato);
-                    return;
-                  }
-                  Navigator.of(dialogo).pop(campo.text);
-                },
-                child: const Text('Cambia'),
-              ),
-            ],
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: ColorTokens.textSecondary),
+              onPressed: () => Navigator.of(dialogo).pop(),
+              child: const Text('Annulla'),
+            ),
+            TextButton(
+              key: const Key('parola_nuova_conferma'),
+              onPressed: () {
+                final trovato = guaioDellaPassword(campo.text);
+                if (trovato != null) {
+                  aggiorna(() => guaio = trovato);
+                  return;
+                }
+                Navigator.of(dialogo).pop(campo.text);
+              },
+              child: const Text('Cambia'),
+            ),
+          ],
         );
       },
     ),
@@ -735,7 +732,6 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
   ));
 }
 
-
 /// **LA DOMANDA PRIMA DI USCIRE.** Ordine AZ voce 07.
 ///
 /// Si dice cosa resta e cosa se ne va, perche' "esci" da solo suona come
@@ -747,7 +743,8 @@ Future<void> _chiediDiUscire(BuildContext context) async {
     builder: (dialogo) => AlertDialog(
       key: const Key('uscita_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title: Text('Uscire dal Cerchio?', style: TypographyTokens.titoloScheda()),
+      title:
+          Text('Uscire dal Cerchio?', style: TypographyTokens.titoloScheda()),
       content: Text(
         'Il tuo cammino resta custodito e ti ritrova appena rientri. Questo '
         'telefono torna come nuovo: dovrai accedere di nuovo per rivedere i '
@@ -925,8 +922,8 @@ Future<bool> _neSeiDavveroSicuro(BuildContext context,
     builder: (dialogo) => AlertDialog(
       key: const Key('cancellazione_ultima_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title:
-          Text('Ne sei davvero sicuro?', style: TypographyTokens.titoloScheda()),
+      title: Text('Ne sei davvero sicuro?',
+          style: TypographyTokens.titoloScheda()),
       content: Text(
         'È l\'ultimo passo. Non si torna indietro.',
         style: TypographyTokens.corpo()
@@ -958,8 +955,8 @@ Future<void> _azzeraIDati(BuildContext context) async {
     builder: (dialogo) => AlertDialog(
       key: const Key('azzera_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title: Text('Ricominciare da zero?',
-          style: TypographyTokens.titoloScheda()),
+      title:
+          Text('Ricominciare da zero?', style: TypographyTokens.titoloScheda()),
       content: Text(
         'Spariscono il tuo cammino, i Sigilli accesi, gli Eos e la memoria '
         'che i Maestri hanno di te, qui e sul server. Il tuo account resta: '
@@ -1145,7 +1142,6 @@ Future<void> _chiediLOblio(BuildContext context) async {
   Navigator.of(context).popUntil((r) => r.isFirst);
 }
 
-
 class _AccountEntry {
   const _AccountEntry({
     required this.id,
@@ -1219,8 +1215,8 @@ class _AccountTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: ColorTokens.neutralDeep,
-                  border:
-                      Border.all(color: ColorTokens.gold.withValues(alpha: 0.4)),
+                  border: Border.all(
+                      color: ColorTokens.gold.withValues(alpha: 0.4)),
                 ),
                 alignment: Alignment.center,
                 child: Icon(entry.icon, color: ColorTokens.goldLight, size: 22),
@@ -1254,8 +1250,8 @@ class _AccountTile extends StatelessWidget {
                                   SpacingTokens.radiusPill),
                               color: ColorTokens.gold.withValues(alpha: 0.16),
                               border: Border.all(
-                                  color: ColorTokens.gold
-                                      .withValues(alpha: 0.5)),
+                                  color:
+                                      ColorTokens.gold.withValues(alpha: 0.5)),
                             ),
                             child: Text('In arrivo',
                                 style: TypographyTokens.etichetta()
@@ -1290,7 +1286,6 @@ class _AccountTile extends StatelessWidget {
 // **IL RICHIAMO DELL'OBLIO IN ATTESA E' STATO RIMOSSO, ordine BE voce 07**:
 // i trenta giorni non esistono piu', la cancellazione e' immediata.
 
-
 /// PRIVACY E DATI, il sottomenu. Ordine BH voce 06.
 ///
 /// Vive in fondo al menu utente, dietro una porta sua: la policy, lo
@@ -1299,7 +1294,8 @@ class _AccountTile extends StatelessWidget {
 class PrivacyEDatiScreen extends StatelessWidget {
   const PrivacyEDatiScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: PrivacyEDatiScreen()));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
+      (_) => const MaestroScope(child: PrivacyEDatiScreen()));
 
   @override
   Widget build(BuildContext context) {

@@ -135,8 +135,7 @@ class DoveSonoAdesso {
       final prefs = await SharedPreferences.getInstance();
       final grezzo = prefs.getString(_chiave);
       if (grezzo == null) return null;
-      return LuogoAttuale.fromJson(
-          jsonDecode(grezzo) as Map<String, dynamic>);
+      return LuogoAttuale.fromJson(jsonDecode(grezzo) as Map<String, dynamic>);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: senza preferenze il luogo non si
       // ricorda e il rito resta intero, senza nominare l'ora del sorgere.

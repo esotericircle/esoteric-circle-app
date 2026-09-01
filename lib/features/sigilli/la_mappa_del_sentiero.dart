@@ -121,8 +121,7 @@ class _FoglioDellaMappa extends StatelessWidget {
     final palette = MaestroPalette.forKey(ThemeKey.of(sentiero.maestro));
     final diario = context.watch<DiarioDelCammino>();
     final tutti = Sentieri.di(sentiero);
-    final accesi =
-        tutti.where((t) => diario.accesi.contains(t.id)).length;
+    final accesi = tutti.where((t) => diario.accesi.contains(t.id)).length;
     final prossimo = diario.prossimoDi(sentiero);
 
     return SafeArea(

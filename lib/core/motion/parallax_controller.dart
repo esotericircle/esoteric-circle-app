@@ -142,8 +142,8 @@ class ParallaxController extends ChangeNotifier {
   void _tryListenTilt() {
     try {
       _sub = accelerometerEventStream(
-        samplingPeriod: const Duration(
-            milliseconds: periodoDelSensoreInMillesimi),
+        samplingPeriod:
+            const Duration(milliseconds: periodoDelSensoreInMillesimi),
       ).listen(
         _onAccel,
         onError: (_) => _sensorActive = false,
@@ -219,8 +219,7 @@ class ParallaxController extends ChangeNotifier {
 
   /// Solo per la ricerca della terna: rimette i valori di partenza.
   @visibleForTesting
-  static void tara(
-      {double? zona, double? fondoInGradi, double? esponente}) {
+  static void tara({double? zona, double? fondoInGradi, double? esponente}) {
     if (zona != null) zonaMorta = zona;
     if (fondoInGradi != null) {
       fondoCorsaInGradi = fondoInGradi;
@@ -493,8 +492,8 @@ class ParallaxController extends ChangeNotifier {
   /// secondi, e notifica. **Se e' arrivato, il ticker si ferma**: un telefono
   /// fermo non deve costare un fotogramma al secondo.
   void _avvicinaAlBersaglio(double dt) {
-    final quantoResta = math.max((_bersaglioX - _tiltX).abs(),
-        (_bersaglioY - _tiltY).abs());
+    final quantoResta =
+        math.max((_bersaglioX - _tiltX).abs(), (_bersaglioY - _tiltY).abs());
     if (quantoResta < _abbastanzaVicino) {
       if (_tiltX != _bersaglioX || _tiltY != _bersaglioY) {
         _tiltX = _bersaglioX;

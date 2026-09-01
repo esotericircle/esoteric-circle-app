@@ -135,14 +135,16 @@ class _AstrolabioPainter extends CustomPainter {
       ..color = palette.gold.withValues(alpha: 0.16);
     for (var i = 0; i < n; i++) {
       final a = _angoloFetta(i) - _passo / 2;
-      canvas.drawLine(c, c + Offset(math.cos(a), math.sin(a)) * rDisco, divisione);
+      canvas.drawLine(
+          c, c + Offset(math.cos(a), math.sin(a)) * rDisco, divisione);
     }
 
     // Il profilo, poligono a dodici vertici sulle fette. Grande: parte da una
     // base piu' alta e usa quasi tutto il disco, cosi' la distribuzione del
     // test si legge con forza.
-    final massimo =
-        Archetype.values.map(profilo.percentualeDi).fold<double>(0.0001, math.max);
+    final massimo = Archetype.values
+        .map(profilo.percentualeDi)
+        .fold<double>(0.0001, math.max);
     final punti = <Offset>[];
     for (var i = 0; i < n; i++) {
       final quota = profilo.percentualeDi(Archetype.values[i]) / massimo;
@@ -172,7 +174,8 @@ class _AstrolabioPainter extends CustomPainter {
       fetta(iDom, 0.24);
     }
 
-    canvas.drawCircle(punti[iDom], 6 * avanzamento, Paint()..color = palette.goldSoft);
+    canvas.drawCircle(
+        punti[iDom], 6 * avanzamento, Paint()..color = palette.goldSoft);
 
     if (!etichette) return;
 
@@ -184,7 +187,8 @@ class _AstrolabioPainter extends CustomPainter {
     // la sua fetta con un margine visibile sui due lati, cosi' nessun nome tocca
     // i vicini, ne' in alto ne' in basso.
     final rTesto = rEsterno - 7;
-    const riempi = 0.84; // quota della fetta occupata dal testo, resto a margine
+    const riempi =
+        0.84; // quota della fetta occupata dal testo, resto a margine
     final arcoMax = _passo * riempi * rTesto;
     // Misura il nome piu' largo a una taglia di riferimento, poi scala: con la
     // spaziatura proporzionale alla taglia la larghezza cresce in modo lineare,
@@ -195,7 +199,8 @@ class _AstrolabioPainter extends CustomPainter {
       largMax = math.max(largMax,
           _larghezzaTesto(a.nome.toUpperCase(), _stileAnello(riferimento)));
     }
-    final taglia = (riferimento * arcoMax / largMax).clamp(7.0, 12.0).toDouble();
+    final taglia =
+        (riferimento * arcoMax / largMax).clamp(7.0, 12.0).toDouble();
     for (var i = 0; i < n; i++) {
       _nomeCurvo(
         canvas,
@@ -241,8 +246,8 @@ class _AstrolabioPainter extends CustomPainter {
   /// Disegna [testo] curvato su un arco di raggio [r] centrato sull'angolo
   /// [centro]. Lettera per lettera, tangente alla circonferenza. Se il centro
   /// sta nella meta' bassa, il testo si capovolge cosi' resta dritto.
-  void _nomeCurvo(Canvas canvas, Offset c, double r, double centro, String testo,
-      TextStyle stile) {
+  void _nomeCurvo(Canvas canvas, Offset c, double r, double centro,
+      String testo, TextStyle stile) {
     // Larghezze delle lettere, per distribuirle sull'arco simmetricamente.
     final glifi = <TextPainter>[];
     var larghezzaTot = 0.0;

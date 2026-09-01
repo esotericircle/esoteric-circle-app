@@ -147,7 +147,6 @@ class _BarraArteState extends State<BarraArte> {
   }
 }
 
-
 /// L'ANGOLO DESTRO DI UNA BARRA, che dall'ordine AL voce 08 e' lo SPAZIO
 /// DELLA CAPSULA.
 ///
@@ -348,8 +347,8 @@ class CuorePreferita extends StatelessWidget {
         duration: const Duration(seconds: 3),
         backgroundColor: palette.surfaceElevated,
         content: Text(testo,
-            style: TypographyTokens.corpo()
-                .copyWith(color: palette.textPrimary)),
+            style:
+                TypographyTokens.corpo().copyWith(color: palette.textPrimary)),
       ));
   }
 }

@@ -44,7 +44,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 /// Il disegno non e' piu' un quadrato: prende almeno il
 /// [quotaDelDisegno] dell'altezza utile, e all'apertura ci sta dentro tutto.
 class SentieroScreen extends StatefulWidget {
-  const SentieroScreen({super.key, required this.sentiero, this.senzaVolo = false});
+  const SentieroScreen(
+      {super.key, required this.sentiero, this.senzaVolo = false});
 
   final Sentiero sentiero;
 
@@ -59,10 +60,11 @@ class SentieroScreen extends StatefulWidget {
   // fondatore: "non sono funzionalita' che possono e devono finire tra i
   // preferiti in home". Del guscio serviva solo il colore del Maestro, e
   // resta solo quello.
-  static Route<void> route(Sentiero sentiero) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          maestro: sentiero.maestro,
-          child: SentieroScreen(sentiero: sentiero),
-        ));
+  static Route<void> route(Sentiero sentiero) =>
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+            maestro: sentiero.maestro,
+            child: SentieroScreen(sentiero: sentiero),
+          ));
 
   @override
   State<SentieroScreen> createState() => _SentieroScreenState();
@@ -184,7 +186,8 @@ class _SentieroScreenState extends State<SentieroScreen> {
       return;
     }
     _scorrimento.animateTo(meta,
-        duration: const Duration(milliseconds: 600), curve: Curves.easeOutCubic);
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOutCubic);
   }
 
   @override
@@ -273,89 +276,89 @@ class _SentieroScreenState extends State<SentieroScreen> {
         body: LayoutBuilder(builder: (context, vincoli) {
           final altezzaDelDisegno = vincoli.maxHeight * quotaDelDisegno;
           return CustomScrollView(
-          key: const Key('sentiero_scorrimento'),
-          controller: _scorrimento,
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
-                    SpacingTokens.sm, SpacingTokens.md, SpacingTokens.sm),
-                child: SizedBox(
-                  key: const Key('sentiero_disegno'),
-                  height: altezzaDelDisegno,
-                  child: DisegnoDelSentiero(
-                    sentiero: widget.sentiero,
-                    accesi: accesi,
-                    evidenziato: _evidenziato,
-                    suTocco: _vaiAlTraguardo,
+            key: const Key('sentiero_scorrimento'),
+            controller: _scorrimento,
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
+                      SpacingTokens.sm, SpacingTokens.md, SpacingTokens.sm),
+                  child: SizedBox(
+                    key: const Key('sentiero_disegno'),
+                    height: altezzaDelDisegno,
+                    child: DisegnoDelSentiero(
+                      sentiero: widget.sentiero,
+                      accesi: accesi,
+                      evidenziato: _evidenziato,
+                      suTocco: _vaiAlTraguardo,
+                    ),
                   ),
                 ),
               ),
-            ),
-            // LE TRE RIGHE, sotto il disegno: dove sei, cosa vedi, cosa
-            // guadagni. Ordine S voce 03.
-            SliverToBoxAdapter(
-              child: LeTreRigheDelSentiero(
-                sentiero: widget.sentiero,
-                accesi: accesi.length,
-                palette: palette,
-              ),
-            ),
-            // IL COMANDO DISCRETO, che fa quello che prima si faceva da se'.
-            SliverToBoxAdapter(
-              child: Center(
-                child: TextButton.icon(
-                  key: const Key('sentiero_vai_al_punto'),
-                  onPressed: _scendiAlPunto,
-                  style: TextButton.styleFrom(
-                      foregroundColor: palette.goldSoft,
-                      textStyle: TypographyTokens.didascalia()),
-                  icon: const Icon(Icons.south_rounded, size: 15),
-                  label: const Text('Vai al punto in cui sei'),
+              // LE TRE RIGHE, sotto il disegno: dove sei, cosa vedi, cosa
+              // guadagni. Ordine S voce 03.
+              SliverToBoxAdapter(
+                child: LeTreRigheDelSentiero(
+                  sentiero: widget.sentiero,
+                  accesi: accesi.length,
+                  palette: palette,
                 ),
               ),
-            ),
-            // LA FASCIA DEI CINQUE GRANDI NON C'E' PIU'. Ordine S voce 02,
-            // punto 7, ed e' la strada che l'Architetto raccomandava.
-            //
-            // Erano cinque anelli grigi coi numeri 10, 20, 30, 40 e 50: una
-            // tessera punti di sistema appoggiata sopra un cielo, che con la
-            // gerarchia nuova diceva una cosa che il disegno dice meglio. Le
-            // cinque stelle principali stanno dentro la figura e si vedono
-            // SPENTE in anticipo: e' quella la tessera punti, ed e' fatta della
-            // materia del sentiero invece che di cerchi di sistema. Tenerla
-            // avrebbe voluto dire due tessere per lo stesso conto, e una delle
-            // due con le icone di serie dentro.
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
-              // UNA COLONNA E NON UNA LISTA PIGRA, ed e' una scelta della
-              // voce 36. Una lista pigra dispone soltanto le righe dentro il
-              // viewport: le altre non hanno una posizione, quindi la discesa
-              // non potrebbe MISURARE dove si ferma e tornerebbe a stimarla
-              // da un'altezza scritta a mano, che e' il difetto di partenza.
-              // Le righe sono cinquanta: costruirle tutte non costa niente e
-              // rende la misura possibile.
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    for (final traguardo in mini)
-                      GradinoDelSentiero(
-                        key: _chiaviDeiGradini.putIfAbsent(
-                            traguardo.id, GlobalKey.new),
-                        traguardo: traguardo,
-                        sentiero: widget.sentiero,
-                        diario: diario,
-                        piano: piano,
-                        evidenziato: _evidenziato == traguardo.id,
-                        suTocco: () =>
-                            setState(() => _evidenziato = traguardo.id),
-                      ),
-                  ],
+              // IL COMANDO DISCRETO, che fa quello che prima si faceva da se'.
+              SliverToBoxAdapter(
+                child: Center(
+                  child: TextButton.icon(
+                    key: const Key('sentiero_vai_al_punto'),
+                    onPressed: _scendiAlPunto,
+                    style: TextButton.styleFrom(
+                        foregroundColor: palette.goldSoft,
+                        textStyle: TypographyTokens.didascalia()),
+                    icon: const Icon(Icons.south_rounded, size: 15),
+                    label: const Text('Vai al punto in cui sei'),
+                  ),
                 ),
               ),
-            ),
-          ],
+              // LA FASCIA DEI CINQUE GRANDI NON C'E' PIU'. Ordine S voce 02,
+              // punto 7, ed e' la strada che l'Architetto raccomandava.
+              //
+              // Erano cinque anelli grigi coi numeri 10, 20, 30, 40 e 50: una
+              // tessera punti di sistema appoggiata sopra un cielo, che con la
+              // gerarchia nuova diceva una cosa che il disegno dice meglio. Le
+              // cinque stelle principali stanno dentro la figura e si vedono
+              // SPENTE in anticipo: e' quella la tessera punti, ed e' fatta della
+              // materia del sentiero invece che di cerchi di sistema. Tenerla
+              // avrebbe voluto dire due tessere per lo stesso conto, e una delle
+              // due con le icone di serie dentro.
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
+                // UNA COLONNA E NON UNA LISTA PIGRA, ed e' una scelta della
+                // voce 36. Una lista pigra dispone soltanto le righe dentro il
+                // viewport: le altre non hanno una posizione, quindi la discesa
+                // non potrebbe MISURARE dove si ferma e tornerebbe a stimarla
+                // da un'altezza scritta a mano, che e' il difetto di partenza.
+                // Le righe sono cinquanta: costruirle tutte non costa niente e
+                // rende la misura possibile.
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      for (final traguardo in mini)
+                        GradinoDelSentiero(
+                          key: _chiaviDeiGradini.putIfAbsent(
+                              traguardo.id, GlobalKey.new),
+                          traguardo: traguardo,
+                          sentiero: widget.sentiero,
+                          diario: diario,
+                          piano: piano,
+                          evidenziato: _evidenziato == traguardo.id,
+                          suTocco: () =>
+                              setState(() => _evidenziato = traguardo.id),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           );
         }),
       ),
@@ -468,8 +471,7 @@ class GradinoDelSentiero extends StatelessWidget {
         decoration: evidenziato
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.55)),
+                border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
               )
             : null,
         child: Row(
@@ -487,8 +489,7 @@ class GradinoDelSentiero extends StatelessWidget {
               // continua a dire che c'e' qualcosa in attesa: il contenuto non
               // si toglie mai.
               child: _SigilloPulsante(
-                pulsa: stato.pulsa &&
-                    !MediaQuery.of(context).disableAnimations,
+                pulsa: stato.pulsa && !MediaQuery.of(context).disableAnimations,
                 child: Icon(
                   acceso
                       ? Icons.auto_awesome
@@ -565,8 +566,8 @@ class GradinoDelSentiero extends StatelessWidget {
                   IconaDegliEos(misura: 12, colore: colore),
                   const SizedBox(width: 3),
                   Text('${traguardo.eos}',
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: colore)),
+                      style:
+                          TypographyTokens.etichetta().copyWith(color: colore)),
                 ],
               ),
             ),

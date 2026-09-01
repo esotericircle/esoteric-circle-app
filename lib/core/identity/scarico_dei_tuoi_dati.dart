@@ -199,8 +199,8 @@ class ScaricoDeiTuoiDati {
   /// aggiungerlo qui, ci sarebbe un dato che l'app cancella e non sa
   /// mostrare: la prova `test/scaricare_i_tuoi_dati_test.dart` confronta le
   /// due liste e cade col nome del prefisso che manca.
-  static List<String> prefissiScoperti() => DimenticanzaDelTelefono
-      .prefissiDaDimenticare
-      .where((p) => !gruppi.containsKey(p))
-      .toList();
+  static List<String> prefissiScoperti() =>
+      DimenticanzaDelTelefono.prefissiDaDimenticare
+          .where((p) => !gruppi.containsKey(p))
+          .toList();
 }

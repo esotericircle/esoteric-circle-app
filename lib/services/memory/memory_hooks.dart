@@ -51,7 +51,8 @@ class NoopHistoryArchiveHook implements HistoryArchiveHook {
   const NoopHistoryArchiveHook();
 
   @override
-  Future<void> archive(String uid, Maestro maestro, ChatMessage message) async {}
+  Future<void> archive(
+      String uid, Maestro maestro, ChatMessage message) async {}
 
   @override
   Future<void> purge(String uid) async {}

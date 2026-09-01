@@ -87,7 +87,8 @@ class CircleSeal {
 
   Color get color => element.color;
 
-  factory CircleSeal.from({required String name, required BirthIdentity identity}) {
+  factory CircleSeal.from(
+      {required String name, required BirthIdentity identity}) {
     final sign = NightSky.sunSign(identity.birthMoment);
     return CircleSeal(
       name: name,

@@ -297,8 +297,8 @@ class SynastryReport {
     final cieloB = CieloDiSinastria.perVip(secondo);
     // Fra due VIP nessuno dei due lati e' tuo: tutti e due i punti portano
     // il nome del personaggio. Ordine CC voce 06h.
-    final aspetti = AspettiDiSinastria.fra(cieloA, cieloB,
-        ancheIlTuoHaUnNome: true);
+    final aspetti =
+        AspettiDiSinastria.fra(cieloA, cieloB, ancheIlTuoHaUnNome: true);
     final numeri = _numeriDa(aspetti);
     final pezzi = ResponsoDellaSinastria.fraDueVip(
       primo: primo,
@@ -374,7 +374,6 @@ class SynastryReport {
         '${km.round()} km.';
   }
 
-
   /// I tre numeri da una lista di aspetti. **Sta in un posto solo** perche' il
   /// confronto con te e quello fra due VIP devono dare la stessa scala: due
   /// formule per la stessa cosa divergerebbero al primo ritocco.
@@ -405,14 +404,13 @@ class SynastryReport {
     // regole della tradizione restano identici, e l'ORDINE fra due coppie non
     // cambia mai. Cambia quanto la stessa differenza si vede: i pavimenti
     // scendono e la distanza dal mezzo si allarga.
-    final love =
-        _sullaScala(amore, riferimento: 2.4, minimo: 8, massimo: 99);
-    final mental =
-        _sullaScala(mente, riferimento: 1.6, minimo: 8, massimo: 98);
+    final love = _sullaScala(amore, riferimento: 2.4, minimo: 8, massimo: 99);
+    final mental = _sullaScala(mente, riferimento: 1.6, minimo: 8, massimo: 98);
     final sparks =
         _sullaScala(scintille, riferimento: 2.0, minimo: 4, massimo: 96);
     return (
-      overall: (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99),
+      overall:
+          (0.6 * love + 0.25 * mental + 0.15 * sparks).round().clamp(0, 99),
       love: love,
       mental: mental,
       sparks: sparks,
@@ -481,8 +479,7 @@ class SynastryReport {
   /// Marte e' il punto dell'attrito, e gli aspetti duri sono quelli che
   /// accendono.
   static double _pesoDiScintille(AspettoDiSinastria a) {
-    final marte =
-        a.tuo == PuntoDelCielo.marte || a.suo == PuntoDelCielo.marte;
+    final marte = a.tuo == PuntoDelCielo.marte || a.suo == PuntoDelCielo.marte;
     switch (a.tipo) {
       case AspectType.square:
         return marte ? 1.0 : 0.7;
@@ -582,5 +579,4 @@ class SynastryReport {
   // mezzo alla frase. Adesso le presentazioni stanno in
   // `TestiDellaSinastria.presentazioni`, che nasce dal corpus, e ognuna e'
   // scritta per stare DENTRO una frase invece che essere appiccicata.
-
 }

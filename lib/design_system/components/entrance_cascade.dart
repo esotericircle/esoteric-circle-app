@@ -79,9 +79,8 @@ class _EntranceCascadeState extends State<EntranceCascade>
     const maxStep = 0.07;
     final n = widget.items.length;
     const lastStart = 1.0 - span;
-    final step = n <= 1
-        ? 0.0
-        : math.min(maxStep, (lastStart - heroEnd) / (n - 1));
+    final step =
+        n <= 1 ? 0.0 : math.min(maxStep, (lastStart - heroEnd) / (n - 1));
     final start = heroEnd + i * step;
     final raw = (t - start) / span;
     return Curves.easeOutCubic.transform(raw.clamp(0.0, 1.0));
@@ -93,10 +92,8 @@ class _EntranceCascadeState extends State<EntranceCascade>
       animation: _controller,
       builder: (context, _) {
         final t = _controller.value;
-        final heroT =
-            Curves.easeOutCubic.transform((t / 0.40).clamp(0.0, 1.0));
-        final scale = widget.introScale +
-            (1.0 - widget.introScale) * heroT;
+        final heroT = Curves.easeOutCubic.transform((t / 0.40).clamp(0.0, 1.0));
+        final scale = widget.introScale + (1.0 - widget.introScale) * heroT;
 
         return ListView(
           key: widget.listKey,

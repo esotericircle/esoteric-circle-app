@@ -43,8 +43,7 @@ class OraDiNascita {
   final AffidabilitaDellOra affidabilita;
 
   /// Vera solo quando c'e' un'ora E una fonte che la regge.
-  bool get eNota =>
-      ore != null && affidabilita != AffidabilitaDellOra.ignota;
+  bool get eNota => ore != null && affidabilita != AffidabilitaDellOra.ignota;
 }
 
 /// Un luogo con le sue coordinate: serve alla carta e alla distanza.
@@ -96,7 +95,14 @@ enum EsposizionePubblica {
 
 /// I campi del dossier che devono portare una fonte. Chi ne aggiunge uno lo
 /// aggiunge anche qui, e la prova lo pretende.
-enum CampoDelVip { data, ora, luogoDiNascita, cittaDiOggi, statoInVita, esposizione }
+enum CampoDelVip {
+  data,
+  ora,
+  luogoDiNascita,
+  cittaDiOggi,
+  statoInVita,
+  esposizione
+}
 
 /// DA DOVE VIENE UN DATO. Ordine BO, vincolo V4: solo fonti pubbliche, e ogni
 /// dato porta la sua.
@@ -295,7 +301,11 @@ class VipCatalog {
       annoDiNascita: 1975,
       meseDiNascita: 6,
       giornoDiNascita: 4,
-      luogoDiNascita: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -313,7 +323,11 @@ class VipCatalog {
       annoDiNascita: 1993,
       meseDiNascita: 6,
       giornoDiNascita: 26,
-      luogoDiNascita: LuogoDelVip(nome: 'Boca Raton', nazione: 'Stati Uniti', latitudine: 26.3683, longitudine: -80.1289),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Boca Raton',
+          nazione: 'Stati Uniti',
+          latitudine: 26.3683,
+          longitudine: -80.1289),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -331,8 +345,16 @@ class VipCatalog {
       annoDiNascita: 1994,
       meseDiNascita: 3,
       giornoDiNascita: 10,
-      luogoDiNascita: LuogoDelVip(nome: 'Vega Baja', nazione: 'Portorico', latitudine: 18.4444, longitudine: -66.3877),
-      luogoDiOggi: LuogoDelVip(nome: 'San Juan', nazione: 'Portorico', latitudine: 18.4663, longitudine: -66.1057),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Vega Baja',
+          nazione: 'Portorico',
+          latitudine: 18.4444,
+          longitudine: -66.3877),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'San Juan',
+          nazione: 'Portorico',
+          latitudine: 18.4663,
+          longitudine: -66.1057),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -351,8 +373,16 @@ class VipCatalog {
       annoDiNascita: 1981,
       meseDiNascita: 9,
       giornoDiNascita: 4,
-      luogoDiNascita: LuogoDelVip(nome: 'Houston', nazione: 'Stati Uniti', latitudine: 29.7633, longitudine: -95.3633),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Houston',
+          nazione: 'Stati Uniti',
+          latitudine: 29.7633,
+          longitudine: -95.3633),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -371,8 +401,16 @@ class VipCatalog {
       annoDiNascita: 1955,
       meseDiNascita: 10,
       giornoDiNascita: 28,
-      luogoDiNascita: LuogoDelVip(nome: 'Seattle', nazione: 'Stati Uniti', latitudine: 47.6062, longitudine: -122.3321),
-      luogoDiOggi: LuogoDelVip(nome: 'Medina', nazione: 'Stati Uniti', latitudine: 47.6207, longitudine: -122.2287),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Seattle',
+          nazione: 'Stati Uniti',
+          latitudine: 47.6062,
+          longitudine: -122.3321),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Medina',
+          nazione: 'Stati Uniti',
+          latitudine: 47.6207,
+          longitudine: -122.2287),
       esposizione: EsposizionePubblica.bassa,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -391,7 +429,11 @@ class VipCatalog {
       annoDiNascita: 2001,
       meseDiNascita: 12,
       giornoDiNascita: 18,
-      luogoDiNascita: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -409,7 +451,11 @@ class VipCatalog {
       annoDiNascita: 1963,
       meseDiNascita: 12,
       giornoDiNascita: 18,
-      luogoDiNascita: LuogoDelVip(nome: 'Shawnee', nazione: 'Stati Uniti', latitudine: 35.3273, longitudine: -96.9253),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Shawnee',
+          nazione: 'Stati Uniti',
+          latitudine: 35.3273,
+          longitudine: -96.9253),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -427,8 +473,16 @@ class VipCatalog {
       annoDiNascita: 1987,
       meseDiNascita: 5,
       giornoDiNascita: 7,
-      luogoDiNascita: LuogoDelVip(nome: 'Cremona', nazione: 'Italia', latitudine: 45.1333, longitudine: 10.0227),
-      luogoDiOggi: LuogoDelVip(nome: 'Milano', nazione: 'Italia', latitudine: 45.4642, longitudine: 9.192),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Cremona',
+          nazione: 'Italia',
+          latitudine: 45.1333,
+          longitudine: 10.0227),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Milano',
+          nazione: 'Italia',
+          latitudine: 45.4642,
+          longitudine: 9.192),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -447,7 +501,11 @@ class VipCatalog {
       annoDiNascita: 1999,
       meseDiNascita: 1,
       giornoDiNascita: 8,
-      luogoDiNascita: LuogoDelVip(nome: 'Roma', nazione: 'Italia', latitudine: 41.9004, longitudine: 12.4957),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Roma',
+          nazione: 'Italia',
+          latitudine: 41.9004,
+          longitudine: 12.4957),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -465,7 +523,11 @@ class VipCatalog {
       annoDiNascita: 1974,
       meseDiNascita: 11,
       giornoDiNascita: 11,
-      luogoDiNascita: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -483,8 +545,16 @@ class VipCatalog {
       annoDiNascita: 1986,
       meseDiNascita: 10,
       giornoDiNascita: 24,
-      luogoDiNascita: LuogoDelVip(nome: 'Toronto', nazione: 'Canada', latitudine: 43.7064, longitudine: -79.3986),
-      luogoDiOggi: LuogoDelVip(nome: 'Toronto', nazione: 'Canada', latitudine: 43.7064, longitudine: -79.3986),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Toronto',
+          nazione: 'Canada',
+          latitudine: 43.7064,
+          longitudine: -79.3986),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Toronto',
+          nazione: 'Canada',
+          latitudine: 43.7064,
+          longitudine: -79.3986),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -503,7 +573,11 @@ class VipCatalog {
       annoDiNascita: 1972,
       meseDiNascita: 5,
       giornoDiNascita: 2,
-      luogoDiNascita: LuogoDelVip(nome: 'Hayward', nazione: 'Stati Uniti', latitudine: 37.6688, longitudine: -122.0808),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Hayward',
+          nazione: 'Stati Uniti',
+          latitudine: 37.6688,
+          longitudine: -122.0808),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -521,8 +595,16 @@ class VipCatalog {
       annoDiNascita: 1971,
       meseDiNascita: 6,
       giornoDiNascita: 28,
-      luogoDiNascita: LuogoDelVip(nome: 'Pretoria', nazione: 'Sudafrica', latitudine: -25.7449, longitudine: 28.1878),
-      luogoDiOggi: LuogoDelVip(nome: 'Austin', nazione: 'Stati Uniti', latitudine: 30.2672, longitudine: -97.7431),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Pretoria',
+          nazione: 'Sudafrica',
+          latitudine: -25.7449,
+          longitudine: 28.1878),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Austin',
+          nazione: 'Stati Uniti',
+          latitudine: 30.2672,
+          longitudine: -97.7431),
       esposizione: EsposizionePubblica.bassa,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -541,7 +623,11 @@ class VipCatalog {
       annoDiNascita: 1990,
       meseDiNascita: 4,
       giornoDiNascita: 15,
-      luogoDiNascita: LuogoDelVip(nome: 'Parigi', nazione: 'Francia', latitudine: 48.8534, longitudine: 2.3488),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Parigi',
+          nazione: 'Francia',
+          latitudine: 48.8534,
+          longitudine: 2.3488),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -559,8 +645,16 @@ class VipCatalog {
       annoDiNascita: 1981,
       meseDiNascita: 8,
       giornoDiNascita: 8,
-      luogoDiNascita: LuogoDelVip(nome: 'Basilea', nazione: 'Svizzera', latitudine: 47.5596, longitudine: 7.5886),
-      luogoDiOggi: LuogoDelVip(nome: 'Wollerau', nazione: 'Svizzera', latitudine: 47.1833, longitudine: 8.7167),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Basilea',
+          nazione: 'Svizzera',
+          latitudine: 47.5596,
+          longitudine: 7.5886),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Wollerau',
+          nazione: 'Svizzera',
+          latitudine: 47.1833,
+          longitudine: 8.7167),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -579,8 +673,16 @@ class VipCatalog {
       annoDiNascita: 1989,
       meseDiNascita: 10,
       giornoDiNascita: 15,
-      luogoDiNascita: LuogoDelVip(nome: 'Milano', nazione: 'Italia', latitudine: 45.4642, longitudine: 9.192),
-      luogoDiOggi: LuogoDelVip(nome: 'Milano', nazione: 'Italia', latitudine: 45.4642, longitudine: 9.192),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Milano',
+          nazione: 'Italia',
+          latitudine: 45.4642,
+          longitudine: 9.192),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Milano',
+          nazione: 'Italia',
+          latitudine: 45.4642,
+          longitudine: 9.192),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -599,7 +701,11 @@ class VipCatalog {
       annoDiNascita: 1934,
       meseDiNascita: 7,
       giornoDiNascita: 11,
-      luogoDiNascita: LuogoDelVip(nome: 'Piacenza', nazione: 'Italia', latitudine: 45.0526, longitudine: 9.6929),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Piacenza',
+          nazione: 'Italia',
+          latitudine: 45.0526,
+          longitudine: 9.6929),
       esposizione: EsposizionePubblica.riservata,
       statoInVita: StatoInVita.scomparso,
       annoDellaScomparsa: 2025,
@@ -618,8 +724,16 @@ class VipCatalog {
       annoDiNascita: 1964,
       meseDiNascita: 1,
       giornoDiNascita: 12,
-      luogoDiNascita: LuogoDelVip(nome: 'Albuquerque', nazione: 'Stati Uniti', latitudine: 35.0844, longitudine: -106.6504),
-      luogoDiOggi: LuogoDelVip(nome: 'Miami', nazione: 'Stati Uniti', latitudine: 25.7743, longitudine: -80.1937),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Albuquerque',
+          nazione: 'Stati Uniti',
+          latitudine: 35.0844,
+          longitudine: -106.6504),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Miami',
+          nazione: 'Stati Uniti',
+          latitudine: 25.7743,
+          longitudine: -80.1937),
       esposizione: EsposizionePubblica.bassa,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -638,7 +752,11 @@ class VipCatalog {
       annoDiNascita: 1977,
       meseDiNascita: 6,
       giornoDiNascita: 8,
-      luogoDiNascita: LuogoDelVip(nome: 'Atlanta', nazione: 'Stati Uniti', latitudine: 33.749, longitudine: -84.388),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Atlanta',
+          nazione: 'Stati Uniti',
+          latitudine: 33.749,
+          longitudine: -84.388),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -656,7 +774,11 @@ class VipCatalog {
       annoDiNascita: 1964,
       meseDiNascita: 9,
       giornoDiNascita: 2,
-      luogoDiNascita: LuogoDelVip(nome: 'Beirut', nazione: 'Libano', latitudine: 33.8938, longitudine: 35.5018),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Beirut',
+          nazione: 'Libano',
+          latitudine: 33.8938,
+          longitudine: 35.5018),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -674,8 +796,16 @@ class VipCatalog {
       annoDiNascita: 1980,
       meseDiNascita: 10,
       giornoDiNascita: 21,
-      luogoDiNascita: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -694,8 +824,16 @@ class VipCatalog {
       annoDiNascita: 1997,
       meseDiNascita: 8,
       giornoDiNascita: 10,
-      luogoDiNascita: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -714,7 +852,11 @@ class VipCatalog {
       annoDiNascita: 1986,
       meseDiNascita: 3,
       giornoDiNascita: 28,
-      luogoDiNascita: LuogoDelVip(nome: 'New York', nazione: 'Stati Uniti', latitudine: 40.7143, longitudine: -74.006),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'New York',
+          nazione: 'Stati Uniti',
+          latitudine: 40.7143,
+          longitudine: -74.006),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -732,8 +874,16 @@ class VipCatalog {
       annoDiNascita: 1984,
       meseDiNascita: 12,
       giornoDiNascita: 30,
-      luogoDiNascita: LuogoDelVip(nome: 'Akron', nazione: 'Stati Uniti', latitudine: 41.0814, longitudine: -81.519),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Akron',
+          nazione: 'Stati Uniti',
+          latitudine: 41.0814,
+          longitudine: -81.519),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -752,7 +902,11 @@ class VipCatalog {
       annoDiNascita: 1990,
       meseDiNascita: 7,
       giornoDiNascita: 2,
-      luogoDiNascita: LuogoDelVip(nome: 'Dalby', nazione: 'Australia', latitudine: -27.1806, longitudine: 151.2622),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Dalby',
+          nazione: 'Australia',
+          latitudine: -27.1806,
+          longitudine: 151.2622),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -770,8 +924,16 @@ class VipCatalog {
       annoDiNascita: 1984,
       meseDiNascita: 5,
       giornoDiNascita: 14,
-      luogoDiNascita: LuogoDelVip(nome: 'White Plains', nazione: 'Stati Uniti', latitudine: 41.034, longitudine: -73.7629),
-      luogoDiOggi: LuogoDelVip(nome: 'Palo Alto', nazione: 'Stati Uniti', latitudine: 37.4419, longitudine: -122.143),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'White Plains',
+          nazione: 'Stati Uniti',
+          latitudine: 41.034,
+          longitudine: -73.7629),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Palo Alto',
+          nazione: 'Stati Uniti',
+          latitudine: 37.4419,
+          longitudine: -122.143),
       esposizione: EsposizionePubblica.bassa,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -790,8 +952,16 @@ class VipCatalog {
       annoDiNascita: 1998,
       meseDiNascita: 12,
       giornoDiNascita: 20,
-      luogoDiNascita: LuogoDelVip(nome: 'Parigi', nazione: 'Francia', latitudine: 48.8534, longitudine: 2.3488),
-      luogoDiOggi: LuogoDelVip(nome: 'Madrid', nazione: 'Spagna', latitudine: 40.4165, longitudine: -3.7026),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Parigi',
+          nazione: 'Francia',
+          latitudine: 48.8534,
+          longitudine: 2.3488),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Madrid',
+          nazione: 'Spagna',
+          latitudine: 40.4165,
+          longitudine: -3.7026),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -810,8 +980,16 @@ class VipCatalog {
       annoDiNascita: 1987,
       meseDiNascita: 6,
       giornoDiNascita: 24,
-      luogoDiNascita: LuogoDelVip(nome: 'Rosario', nazione: 'Argentina', latitudine: -32.9468, longitudine: -60.6393),
-      luogoDiOggi: LuogoDelVip(nome: 'Miami', nazione: 'Stati Uniti', latitudine: 25.7743, longitudine: -80.1937),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Rosario',
+          nazione: 'Argentina',
+          latitudine: -32.9468,
+          longitudine: -60.6393),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Miami',
+          nazione: 'Stati Uniti',
+          latitudine: 25.7743,
+          longitudine: -80.1937),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -830,8 +1008,16 @@ class VipCatalog {
       annoDiNascita: 1964,
       meseDiNascita: 1,
       giornoDiNascita: 17,
-      luogoDiNascita: LuogoDelVip(nome: 'Chicago', nazione: 'Stati Uniti', latitudine: 41.85, longitudine: -87.65),
-      luogoDiOggi: LuogoDelVip(nome: 'Washington', nazione: 'Stati Uniti', latitudine: 38.8951, longitudine: -77.0364),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Chicago',
+          nazione: 'Stati Uniti',
+          latitudine: 41.85,
+          longitudine: -87.65),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Washington',
+          nazione: 'Stati Uniti',
+          latitudine: 38.8951,
+          longitudine: -77.0364),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -850,7 +1036,11 @@ class VipCatalog {
       annoDiNascita: 1964,
       meseDiNascita: 9,
       giornoDiNascita: 30,
-      luogoDiNascita: LuogoDelVip(nome: 'Città di Castello', nazione: 'Italia', latitudine: 43.465, longitudine: 12.24),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Città di Castello',
+          nazione: 'Italia',
+          latitudine: 43.465,
+          longitudine: 12.24),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -868,8 +1058,16 @@ class VipCatalog {
       annoDiNascita: 1986,
       meseDiNascita: 6,
       giornoDiNascita: 3,
-      luogoDiNascita: LuogoDelVip(nome: 'Manacor', nazione: 'Spagna', latitudine: 39.5697, longitudine: 3.2089),
-      luogoDiOggi: LuogoDelVip(nome: 'Manacor', nazione: 'Spagna', latitudine: 39.5697, longitudine: 3.2089),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Manacor',
+          nazione: 'Spagna',
+          latitudine: 39.5697,
+          longitudine: 3.2089),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Manacor',
+          nazione: 'Spagna',
+          latitudine: 39.5697,
+          longitudine: 3.2089),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -888,8 +1086,16 @@ class VipCatalog {
       annoDiNascita: 1954,
       meseDiNascita: 1,
       giornoDiNascita: 29,
-      luogoDiNascita: LuogoDelVip(nome: 'Kosciusko', nazione: 'Stati Uniti', latitudine: 33.0576, longitudine: -89.5873),
-      luogoDiOggi: LuogoDelVip(nome: 'Montecito', nazione: 'Stati Uniti', latitudine: 34.4367, longitudine: -119.632),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Kosciusko',
+          nazione: 'Stati Uniti',
+          latitudine: 33.0576,
+          longitudine: -89.5873),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Montecito',
+          nazione: 'Stati Uniti',
+          latitudine: 34.4367,
+          longitudine: -119.632),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -908,7 +1114,11 @@ class VipCatalog {
       annoDiNascita: 1982,
       meseDiNascita: 7,
       giornoDiNascita: 18,
-      luogoDiNascita: LuogoDelVip(nome: 'Jamshedpur', nazione: 'India', latitudine: 22.8046, longitudine: 86.2029),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Jamshedpur',
+          nazione: 'India',
+          latitudine: 22.8046,
+          longitudine: 86.2029),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -926,7 +1136,11 @@ class VipCatalog {
       annoDiNascita: 1988,
       meseDiNascita: 2,
       giornoDiNascita: 20,
-      luogoDiNascita: LuogoDelVip(nome: 'Bridgetown', nazione: 'Barbados', latitudine: 13.1073, longitudine: -59.6202),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Bridgetown',
+          nazione: 'Barbados',
+          latitudine: 13.1073,
+          longitudine: -59.6202),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -944,8 +1158,16 @@ class VipCatalog {
       annoDiNascita: 1985,
       meseDiNascita: 2,
       giornoDiNascita: 5,
-      luogoDiNascita: LuogoDelVip(nome: 'Funchal', nazione: 'Portogallo', latitudine: 32.6669, longitudine: -16.9241),
-      luogoDiOggi: LuogoDelVip(nome: 'Riad', nazione: 'Arabia Saudita', latitudine: 24.6877, longitudine: 46.7219),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Funchal',
+          nazione: 'Portogallo',
+          latitudine: 32.6669,
+          longitudine: -16.9241),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Riad',
+          nazione: 'Arabia Saudita',
+          latitudine: 24.6877,
+          longitudine: 46.7219),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -964,7 +1186,11 @@ class VipCatalog {
       annoDiNascita: 1984,
       meseDiNascita: 11,
       giornoDiNascita: 22,
-      luogoDiNascita: LuogoDelVip(nome: 'New York', nazione: 'Stati Uniti', latitudine: 40.7143, longitudine: -74.006),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'New York',
+          nazione: 'Stati Uniti',
+          latitudine: 40.7143,
+          longitudine: -74.006),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -982,7 +1208,11 @@ class VipCatalog {
       annoDiNascita: 1992,
       meseDiNascita: 7,
       giornoDiNascita: 22,
-      luogoDiNascita: LuogoDelVip(nome: 'Grand Prairie', nazione: 'Stati Uniti', latitudine: 32.746, longitudine: -96.9978),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Grand Prairie',
+          nazione: 'Stati Uniti',
+          latitudine: 32.746,
+          longitudine: -96.9978),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1000,7 +1230,11 @@ class VipCatalog {
       annoDiNascita: 1981,
       meseDiNascita: 9,
       giornoDiNascita: 26,
-      luogoDiNascita: LuogoDelVip(nome: 'Saginaw', nazione: 'Stati Uniti', latitudine: 43.4195, longitudine: -83.9508),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Saginaw',
+          nazione: 'Stati Uniti',
+          latitudine: 43.4195,
+          longitudine: -83.9508),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1018,8 +1252,16 @@ class VipCatalog {
       annoDiNascita: 1977,
       meseDiNascita: 2,
       giornoDiNascita: 2,
-      luogoDiNascita: LuogoDelVip(nome: 'Barranquilla', nazione: 'Colombia', latitudine: 10.9685, longitudine: -74.7813),
-      luogoDiOggi: LuogoDelVip(nome: 'Miami', nazione: 'Stati Uniti', latitudine: 25.7743, longitudine: -80.1937),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Barranquilla',
+          nazione: 'Colombia',
+          latitudine: 10.9685,
+          longitudine: -74.7813),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Miami',
+          nazione: 'Stati Uniti',
+          latitudine: 25.7743,
+          longitudine: -80.1937),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1038,8 +1280,16 @@ class VipCatalog {
       annoDiNascita: 2001,
       meseDiNascita: 8,
       giornoDiNascita: 16,
-      luogoDiNascita: LuogoDelVip(nome: 'San Candido', nazione: 'Italia', latitudine: 46.7333, longitudine: 12.2833),
-      luogoDiOggi: LuogoDelVip(nome: 'Monte Carlo', nazione: 'Monaco', latitudine: 43.7372, longitudine: 7.4215),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'San Candido',
+          nazione: 'Italia',
+          latitudine: 46.7333,
+          longitudine: 12.2833),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Monte Carlo',
+          nazione: 'Monaco',
+          latitudine: 43.7372,
+          longitudine: 7.4215),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1058,8 +1308,16 @@ class VipCatalog {
       annoDiNascita: 1971,
       meseDiNascita: 10,
       giornoDiNascita: 20,
-      luogoDiNascita: LuogoDelVip(nome: 'Long Beach', nazione: 'Stati Uniti', latitudine: 33.7701, longitudine: -118.1937),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Long Beach',
+          nazione: 'Stati Uniti',
+          latitudine: 33.7701,
+          longitudine: -118.1937),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1078,7 +1336,11 @@ class VipCatalog {
       annoDiNascita: 1955,
       meseDiNascita: 2,
       giornoDiNascita: 24,
-      luogoDiNascita: LuogoDelVip(nome: 'San Francisco', nazione: 'Stati Uniti', latitudine: 37.7749, longitudine: -122.4194),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'San Francisco',
+          nazione: 'Stati Uniti',
+          latitudine: 37.7749,
+          longitudine: -122.4194),
       esposizione: EsposizionePubblica.riservata,
       statoInVita: StatoInVita.scomparso,
       annoDellaScomparsa: 2011,
@@ -1097,8 +1359,16 @@ class VipCatalog {
       annoDiNascita: 1989,
       meseDiNascita: 12,
       giornoDiNascita: 13,
-      luogoDiNascita: LuogoDelVip(nome: 'West Reading', nazione: 'Stati Uniti', latitudine: 40.3348, longitudine: -75.9463),
-      luogoDiOggi: LuogoDelVip(nome: 'Nashville', nazione: 'Stati Uniti', latitudine: 36.1627, longitudine: -86.7816),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'West Reading',
+          nazione: 'Stati Uniti',
+          latitudine: 40.3348,
+          longitudine: -75.9463),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Nashville',
+          nazione: 'Stati Uniti',
+          latitudine: 36.1627,
+          longitudine: -86.7816),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1117,7 +1387,11 @@ class VipCatalog {
       annoDiNascita: 1990,
       meseDiNascita: 2,
       giornoDiNascita: 16,
-      luogoDiNascita: LuogoDelVip(nome: 'Toronto', nazione: 'Canada', latitudine: 43.7064, longitudine: -79.3986),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Toronto',
+          nazione: 'Canada',
+          latitudine: 43.7064,
+          longitudine: -79.3986),
       esposizione: EsposizionePubblica.altissima,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1135,7 +1409,11 @@ class VipCatalog {
       annoDiNascita: 1995,
       meseDiNascita: 12,
       giornoDiNascita: 27,
-      luogoDiNascita: LuogoDelVip(nome: 'New York', nazione: 'Stati Uniti', latitudine: 40.7143, longitudine: -74.006),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'New York',
+          nazione: 'Stati Uniti',
+          latitudine: 40.7143,
+          longitudine: -74.006),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1153,7 +1431,11 @@ class VipCatalog {
       annoDiNascita: 1962,
       meseDiNascita: 7,
       giornoDiNascita: 3,
-      luogoDiNascita: LuogoDelVip(nome: 'Syracuse', nazione: 'Stati Uniti', latitudine: 43.0481, longitudine: -76.1474),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Syracuse',
+          nazione: 'Stati Uniti',
+          latitudine: 43.0481,
+          longitudine: -76.1474),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1171,8 +1453,16 @@ class VipCatalog {
       annoDiNascita: 1986,
       meseDiNascita: 8,
       giornoDiNascita: 21,
-      luogoDiNascita: LuogoDelVip(nome: 'Sherwood Content', nazione: 'Giamaica', latitudine: 18.3667, longitudine: -77.65),
-      luogoDiOggi: LuogoDelVip(nome: 'Kingston', nazione: 'Giamaica', latitudine: 17.997, longitudine: -76.7936),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Sherwood Content',
+          nazione: 'Giamaica',
+          latitudine: 18.3667,
+          longitudine: -77.65),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Kingston',
+          nazione: 'Giamaica',
+          latitudine: 17.997,
+          longitudine: -76.7936),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1191,8 +1481,16 @@ class VipCatalog {
       annoDiNascita: 1979,
       meseDiNascita: 2,
       giornoDiNascita: 16,
-      luogoDiNascita: LuogoDelVip(nome: 'Urbino', nazione: 'Italia', latitudine: 43.7298, longitudine: 12.6356),
-      luogoDiOggi: LuogoDelVip(nome: 'Tavullia', nazione: 'Italia', latitudine: 43.8975, longitudine: 12.7517),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Urbino',
+          nazione: 'Italia',
+          latitudine: 43.7298,
+          longitudine: 12.6356),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Tavullia',
+          nazione: 'Italia',
+          latitudine: 43.8975,
+          longitudine: 12.7517),
       esposizione: EsposizionePubblica.media,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1211,8 +1509,16 @@ class VipCatalog {
       annoDiNascita: 1930,
       meseDiNascita: 8,
       giornoDiNascita: 30,
-      luogoDiNascita: LuogoDelVip(nome: 'Omaha', nazione: 'Stati Uniti', latitudine: 41.2563, longitudine: -95.9404),
-      luogoDiOggi: LuogoDelVip(nome: 'Omaha', nazione: 'Stati Uniti', latitudine: 41.2563, longitudine: -95.9404),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Omaha',
+          nazione: 'Stati Uniti',
+          latitudine: 41.2563,
+          longitudine: -95.9404),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Omaha',
+          nazione: 'Stati Uniti',
+          latitudine: 41.2563,
+          longitudine: -95.9404),
       esposizione: EsposizionePubblica.bassa,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1231,8 +1537,16 @@ class VipCatalog {
       annoDiNascita: 1996,
       meseDiNascita: 9,
       giornoDiNascita: 1,
-      luogoDiNascita: LuogoDelVip(nome: 'Oakland', nazione: 'Stati Uniti', latitudine: 37.8044, longitudine: -122.2712),
-      luogoDiOggi: LuogoDelVip(nome: 'Los Angeles', nazione: 'Stati Uniti', latitudine: 34.0522, longitudine: -118.2437),
+      luogoDiNascita: LuogoDelVip(
+          nome: 'Oakland',
+          nazione: 'Stati Uniti',
+          latitudine: 37.8044,
+          longitudine: -122.2712),
+      luogoDiOggi: LuogoDelVip(
+          nome: 'Los Angeles',
+          nazione: 'Stati Uniti',
+          latitudine: 34.0522,
+          longitudine: -118.2437),
       esposizione: EsposizionePubblica.alta,
       statoInVita: StatoInVita.inVita,
       fonti: {
@@ -1242,7 +1556,8 @@ class VipCatalog {
         CampoDelVip.statoInVita: FonteDelDato.biografiaPubblica,
         CampoDelVip.esposizione: FonteDelDato.scalaDelCerchio,
       },
-    ),  ];
+    ),
+  ];
 
   static Vip get first => vips.first;
 
@@ -1282,7 +1597,6 @@ class VipCatalog {
           vips.firstWhere((v) => v.name == nome),
       ];
 }
-
 
 /// LE CORREZIONI DEL CATALOGO CHE ARRIVANO DAL SERVER. Ordine BX voce 09.
 ///

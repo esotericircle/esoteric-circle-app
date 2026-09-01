@@ -88,9 +88,7 @@ class LetturaDelGiorno {
   static String _primaFrase(String testo) {
     final punto = testo.indexOf('. ');
     if (punto < 0) {
-      return testo.endsWith('.')
-          ? testo.substring(0, testo.length - 1)
-          : testo;
+      return testo.endsWith('.') ? testo.substring(0, testo.length - 1) : testo;
     }
     return testo.substring(0, punto);
   }

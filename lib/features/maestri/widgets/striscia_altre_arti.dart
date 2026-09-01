@@ -110,8 +110,6 @@ List<ArtEntry> artiDaScoprire(
 /// che le costruisce in un albero vero.
 String? rottaDiProva(String id) => artRouteFor(id) == null ? null : id;
 
-
-
 /// La striscia orizzontale "Scopri altre arti del Cerchio": le arti degli altri
 /// Maestri, ciascuna tessera nel COLORE del Maestro a cui l'arte appartiene,
 /// cosi' si vede da subito di chi e'. Scorre in orizzontale, con un accenno di
@@ -129,8 +127,7 @@ class StrisciaAltreArti extends StatelessWidget {
   Widget build(BuildContext context) {
     final gia = context.watch<ArtiPreferiteController?>()?.ids.toSet() ??
         const <String>{};
-    final arts =
-        artiDaScoprire(corrente, gia: gia, giorno: DateTime.now());
+    final arts = artiDaScoprire(corrente, gia: gia, giorno: DateTime.now());
     // **A FILA VUOTA LA SEZIONE SPARISCE INTERA, senza lasciare aria**:
     // ordine AK voce 02. Un titolo sopra il niente sarebbe una promessa.
     if (arts.isEmpty) return const SizedBox.shrink();
@@ -152,7 +149,8 @@ class StrisciaAltreArti extends StatelessWidget {
                 )
               : const SectionTitle(
                   title: 'Scopri altre arti del Cerchio',
-                  subtitle: 'Le arti degli altri Maestri, oltre il tuo dominio.',
+                  subtitle:
+                      'Le arti degli altri Maestri, oltre il tuo dominio.',
                 ),
         ),
         const SizedBox(height: SpacingTokens.md),
@@ -167,8 +165,7 @@ class StrisciaAltreArti extends StatelessWidget {
           height: 168,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding:
-                const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             itemCount: arts.length,
             separatorBuilder: (_, __) =>
                 const SizedBox(width: SpacingTokens.sm),
@@ -185,4 +182,3 @@ class StrisciaAltreArti extends StatelessWidget {
     );
   }
 }
-

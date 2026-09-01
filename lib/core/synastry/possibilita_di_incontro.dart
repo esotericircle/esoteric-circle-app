@@ -280,9 +280,8 @@ class PossibilitaDiIncontro {
         );
       }
     }
-    final percento = (base * (celeste?.valore ?? 1.0))
-        .clamp(pavimento, tetto)
-        .toDouble();
+    final percento =
+        (base * (celeste?.valore ?? 1.0)).clamp(pavimento, tetto).toDouble();
 
     return PossibilitaDiIncontro(
       esiste: true,

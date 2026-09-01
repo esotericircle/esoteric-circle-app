@@ -102,9 +102,9 @@ class _DoveSeiAdessoState extends State<DoveSeiAdesso> {
           case EsitoPosizione.servizioSpento:
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               key: Key('alba_posizione_servizio_spento'),
-              content: Text(
-                  'La posizione del telefono è spenta: accendila dalle '
-                  'impostazioni, oppure scegli la tua città qui sotto.'),
+              content:
+                  Text('La posizione del telefono è spenta: accendila dalle '
+                      'impostazioni, oppure scegli la tua città qui sotto.'),
               duration: Duration(seconds: 6),
             ));
           case EsitoPosizione.negata:
@@ -158,8 +158,8 @@ class _DoveSeiAdessoState extends State<DoveSeiAdesso> {
           // rito sta rinunciando a dire una cosa vera.
           Text(
             'Non so dove sei, quindi non ti dico l\'ora del sorgere: '
-                'preferisco tacerla che sbagliarla. Chi è nato a Sydney e vive '
-                'a Milano riceverebbe l\'alba di Sydney.',
+            'preferisco tacerla che sbagliarla. Chi è nato a Sydney e vive '
+            'a Milano riceverebbe l\'alba di Sydney.',
             key: const Key('dove_sei_perche'),
             style: TypographyTokens.didascalia().copyWith(height: 1.4),
           ),

@@ -55,7 +55,8 @@ class SunsetTime {
     final c = 1.9148 * sin(mr) + 0.0200 * sin(2 * mr) + 0.0003 * sin(3 * mr);
     final lambda = _norm360(m + c + 180 + 102.9372); // longitudine eclittica
     final lr = _rad(lambda);
-    final jTransit = 2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
+    final jTransit =
+        2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
     final decl = asin(sin(lr) * sin(_rad(_obliquita)));
     final latR = _rad(lat);
     final cosH = (sin(_rad(_altezzaTramonto)) - sin(latR) * sin(decl)) /
@@ -159,7 +160,8 @@ class SunsetTime {
     final c = 1.9148 * sin(mr) + 0.0200 * sin(2 * mr) + 0.0003 * sin(3 * mr);
     final lambda = _norm360(m + c + 180 + 102.9372);
     final lr = _rad(lambda);
-    final jTransit = 2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
+    final jTransit =
+        2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
     final decl = asin(sin(lr) * sin(_rad(_obliquita)));
     final latR = _rad(lat);
     final cosH = (sin(_rad(_altezzaTramonto)) - sin(latR) * sin(decl)) /

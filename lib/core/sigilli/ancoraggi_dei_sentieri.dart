@@ -194,6 +194,5 @@ class AncoraggiDeiSentieri {
 
   /// Gli ancoraggi di un sentiero, o nulla se la sua arte non
   /// e' ancora leggibile.
-  static List<AncoraggioDelSentiero>? di(Sentiero sentiero) =>
-      tutti[sentiero];
+  static List<AncoraggioDelSentiero>? di(Sentiero sentiero) => tutti[sentiero];
 }

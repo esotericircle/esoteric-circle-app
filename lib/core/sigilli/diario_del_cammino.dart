@@ -27,7 +27,6 @@ import 'sentieri.dart';
 /// a decidere se un Sigillo si accende. Sono due cose diverse, e tenerle
 /// separate evita che un traguardo consumi una gettata.
 class DiarioDelCammino extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
   ///
   /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati
@@ -72,6 +71,7 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kPrimoGiorno = 'cammino.primoGiorno';
   static const _kUltimoGiorno = 'cammino.ultimoGiorno';
   static const _kAccesi = 'cammino.accesi';
+
   /// **QUANDO OGNI SIGILLO SI E' ACCESO, ordine AP voce 01.** Serviva al
   /// Cerchio per custodire il cammino: un Sigillo si accende una volta sola,
   /// e quella data e' un primato che la fusione difende. Prima esisteva solo
@@ -288,16 +288,15 @@ class DiarioDelCammino extends ChangeNotifier {
       // serie qui sotto.
       _leggiMappa(prefs.getString(_kOraDelGesto), _oraDelGesto,
           tenendoIlMassimo: fondi);
-      _leggiTesti(prefs.getString(_kUltimoGiornoPerOra),
-          _ultimoGiornoPerOra);
+      _leggiTesti(prefs.getString(_kUltimoGiornoPerOra), _ultimoGiornoPerOra);
       _leggiIDettagli(prefs.getString(_kDettagli), sommando: fondi);
       _leggiIDettagliRecenti(prefs.getString(_kDettagliRecenti));
       if (!fondi) _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
       _oggiHaFatto.addAll(prefs.getStringList(_kOggi) ?? const []);
       _oggiHaFattoNellOra
           .addAll(prefs.getStringList(_kOggiNellOra) ?? const []);
-      _leggiTesti(prefs.getString(_kUltimoPerSentiero),
-          _ultimoGiornoPerSentiero);
+      _leggiTesti(
+          prefs.getString(_kUltimoPerSentiero), _ultimoGiornoPerSentiero);
       // Il primo giorno e' il PIU' VECCHIO dei due, mai quello nato adesso.
       _primoGiorno = prefs.getString(_kPrimoGiorno) ?? _primoGiorno;
       if (!fondi) _ultimoGiorno = prefs.getString(_kUltimoGiorno);
@@ -374,7 +373,8 @@ class DiarioDelCammino extends ChangeNotifier {
     _giornoDiOggi = oggi;
     _oggiHaFatto.clear();
     _oggiHaFattoNellOra.clear();
-    final ultimo = _ultimoGiorno == null ? null : DateTime.tryParse(_ultimoGiorno!);
+    final ultimo =
+        _ultimoGiorno == null ? null : DateTime.tryParse(_ultimoGiorno!);
     _giorniDiAssenza =
         ultimo == null ? 0 : _orologio().difference(ultimo).inDays - 1;
     if (_giorniDiAssenza < 0) _giorniDiAssenza = 0;
@@ -447,14 +447,13 @@ class DiarioDelCammino extends ChangeNotifier {
       for (final voce in letto.entries) {
         final dentro = voce.value;
         if (dentro is! Map) continue;
-        final mio = _dettagli.putIfAbsent(
-            voce.key.toString(), () => <String, int>{});
+        final mio =
+            _dettagli.putIfAbsent(voce.key.toString(), () => <String, int>{});
         for (final v in dentro.entries) {
           final quante = v.value is int ? v.value as int : 0;
           if (quante <= 0) continue;
           final chiave = v.key.toString();
-          if (!mio.containsKey(chiave) &&
-              mio.length >= quantiValoriPerChiave) {
+          if (!mio.containsKey(chiave) && mio.length >= quantiValoriPerChiave) {
             continue;
           }
           mio[chiave] = sommando ? (mio[chiave] ?? 0) + quante : quante;
@@ -480,8 +479,8 @@ class DiarioDelCammino extends ChangeNotifier {
       for (final voce in letto.entries) {
         final dentro = voce.value;
         if (dentro is! List) continue;
-        final miei = _dettagliRecenti.putIfAbsent(
-            voce.key.toString(), () => <String>[]);
+        final miei =
+            _dettagliRecenti.putIfAbsent(voce.key.toString(), () => <String>[]);
         for (final v in dentro) {
           if (v is String && !miei.contains(v)) miei.add(v);
         }
@@ -499,8 +498,7 @@ class DiarioDelCammino extends ChangeNotifier {
   /// Ordine BX voce 01.
   Map<String, int> _ripetizioniNellaFinestra() {
     final risposte = <String, int>{};
-    final oggi = _giornoDallaChiave(
-        ConfineDelGiorno.chiaveDi(_orologio()));
+    final oggi = _giornoDallaChiave(ConfineDelGiorno.chiaveDi(_orologio()));
     if (oggi == null) return const {};
     for (final voce in _dettagliRecenti.entries) {
       for (final finestra in finestreDeiDettagli) {
@@ -537,9 +535,8 @@ class DiarioDelCammino extends ChangeNotifier {
             .add(valore.substring(taglio + 1));
       }
       if (compagni.isEmpty) continue;
-      risposte[voce.key] = compagni.values
-          .map((s) => s.length)
-          .reduce((a, b) => a > b ? a : b);
+      risposte[voce.key] =
+          compagni.values.map((s) => s.length).reduce((a, b) => a > b ? a : b);
     }
     return Map.unmodifiable(risposte);
   }
@@ -602,8 +599,8 @@ class DiarioDelCammino extends ChangeNotifier {
   /// proprio perche' non si possono affrettare.
   void _aggiornaLaSerie(String gesto) {
     final oggi = ConfineDelGiorno.chiaveDi(_orologio());
-    final ieri =
-        ConfineDelGiorno.chiaveDi(_orologio().subtract(const Duration(days: 1)));
+    final ieri = ConfineDelGiorno.chiaveDi(
+        _orologio().subtract(const Duration(days: 1)));
     final ultimo = _ultimoGiornoPerRito[gesto];
     if (ultimo == oggi) return;
     _seriePerRito[gesto] = ultimo == ieri ? (_seriePerRito[gesto] ?? 0) + 1 : 1;
@@ -668,8 +665,8 @@ class DiarioDelCammino extends ChangeNotifier {
   /// La continuita' corrente di ogni rito, per la fotografia del cammino.
   Map<String, int> get seriePerRito {
     final oggi = ConfineDelGiorno.chiaveDi(_orologio());
-    final ieri =
-        ConfineDelGiorno.chiaveDi(_orologio().subtract(const Duration(days: 1)));
+    final ieri = ConfineDelGiorno.chiaveDi(
+        _orologio().subtract(const Duration(days: 1)));
     // Una serie vale solo se l'ultimo giorno e' oggi o ieri: altrimenti e'
     // gia' rotta, e leggerla intera direbbe il falso fino al gesto seguente.
     return {
@@ -757,7 +754,8 @@ class DiarioDelCammino extends ChangeNotifier {
       }
     }
     final primo = cammino.primoGiorno?.toIso8601String();
-    if (primo != null && (_primoGiorno == null || primo.compareTo(_primoGiorno!) < 0)) {
+    if (primo != null &&
+        (_primoGiorno == null || primo.compareTo(_primoGiorno!) < 0)) {
       _primoGiorno = primo;
     }
     notifyListeners();
@@ -788,8 +786,7 @@ class DiarioDelCammino extends ChangeNotifier {
       giorniSaltatiPerRito: _giorniSaltatiPerRito(),
       ripetizioniNellaFinestra: _ripetizioniNellaFinestra(),
       variePerValore: _variePerValore(),
-      giorniDiAssenzaDalSentiero:
-          Map.unmodifiable(_assenzaDalSentiero),
+      giorniDiAssenzaDalSentiero: Map.unmodifiable(_assenzaDalSentiero),
       seriePerRito: seriePerRito,
       // **LE COSTANZE LARGHE, ordine AS voce 12.** Gli archi da guardare non
       // si inventano: li DICHIARA il corpus, cioe' i traguardi stessi, e qui
@@ -1009,15 +1006,14 @@ class DiarioDelCammino extends ChangeNotifier {
   /// dell'ordine AQ, dove in fondo alla festa si leggeva il nome appena
   /// festeggiato. Chi celebra passa gli id in `escludendo` e la risposta non
   /// dipende piu' dall'ordine con cui arrivano l'accensione e la scena.
-  Traguardo? prossimoDi(Sentiero sentiero, {Set<String> escludendo = const {}}) {
+  Traguardo? prossimoDi(Sentiero sentiero,
+      {Set<String> escludendo = const {}}) {
     // **LA SCALA SCAVALCA I DORMIENTI, ordine AR voce 05.** Se il prossimo
     // gradino fosse uno che non si puo' raggiungere, la scala si bloccherebbe
     // li' per sempre e il sentiero finirebbe in un vicolo cieco: si arma il
     // successivo, e il Journal mostra il dormiente come in arrivo.
     bool libero(Traguardo t) =>
-        !_accesi.contains(t.id) &&
-        !escludendo.contains(t.id) &&
-        !t.dormiente;
+        !_accesi.contains(t.id) && !escludendo.contains(t.id) && !t.dormiente;
     for (final t in Sentieri.miniDi(sentiero)) {
       if (libero(t)) return t;
     }
@@ -1114,16 +1110,14 @@ class DiarioDelCammino extends ChangeNotifier {
       await prefs.setString(
           _kUltimoGiornoPerOra, jsonEncode(_ultimoGiornoPerOra));
       await prefs.setStringList(_kOggi, _oggiHaFatto.toList());
-      await prefs.setStringList(
-          _kOggiNellOra, _oggiHaFattoNellOra.toList());
+      await prefs.setStringList(_kOggiNellOra, _oggiHaFattoNellOra.toList());
       await prefs.setString(
           _kUltimoPerSentiero, jsonEncode(_ultimoGiornoPerSentiero));
       await prefs.setString(_kGiornoDiOggi, _giornoDiOggi);
       await prefs.setStringList(_kAccesi, _accesi.toList());
       await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
       await prefs.setString(_kDettagli, jsonEncode(_dettagli));
-      await prefs.setString(
-          _kDettagliRecenti, jsonEncode(_dettagliRecenti));
+      await prefs.setString(_kDettagliRecenti, jsonEncode(_dettagliRecenti));
       await prefs.setStringList(_kCondivisi, _condivisi.toList());
       if (_primoGiorno != null) {
         await prefs.setString(_kPrimoGiorno, _primoGiorno!);
@@ -1133,8 +1127,7 @@ class DiarioDelCammino extends ChangeNotifier {
       }
       await prefs.setString(_kSerie, jsonEncode(_seriePerRito));
       await prefs.setString(_kGiorniPerRito, jsonEncode(_giorniPerRito));
-      await prefs.setString(
-          _kUltimoPerRito, jsonEncode(_ultimoGiornoPerRito));
+      await prefs.setString(_kUltimoPerRito, jsonEncode(_ultimoGiornoPerRito));
     } catch (errore) {
       // Si ignora: senza disco il cammino vale per questa sessione. Meglio
       // un Sigillo che vive un giorno di un\'app che cade mentre festeggia.

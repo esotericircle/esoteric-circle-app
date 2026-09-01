@@ -30,9 +30,9 @@ class CollezioneScreen extends StatelessWidget {
 
   static Route<void> route({required void Function(CoppiaScoperta) onApri}) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          maestro: Maestro.medora,
-          child: CollezioneScreen(onApri: onApri),
-        ));
+            maestro: Maestro.medora,
+            child: CollezioneScreen(onApri: onApri),
+          ));
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +57,8 @@ class CollezioneScreen extends StatelessWidget {
         child: SafeArea(
           child: ListView(
             key: const Key('collezione_lista'),
-            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                kToolbarHeight, SpacingTokens.lg, SpacingTokens.xxxl),
+            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
+                SpacingTokens.lg, SpacingTokens.xxxl),
             children: [
               // **LA RIGA IN TESTA: quante ne hai scoperte e quante ne
               // esistono.** Il totale si calcola dal catalogo e non si scrive

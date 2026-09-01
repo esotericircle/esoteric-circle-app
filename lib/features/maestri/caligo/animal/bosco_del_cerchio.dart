@@ -39,7 +39,8 @@ class BoscoDelCerchio extends StatelessWidget {
   /// segno non si sa ancora.
   final String? mio;
 
-  static Route<void> route({String? mio}) => PassaggioDelCerchio.rotta<void>((_) => BoscoDelCerchio(mio: mio));
+  static Route<void> route({String? mio}) =>
+      PassaggioDelCerchio.rotta<void>((_) => BoscoDelCerchio(mio: mio));
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +52,8 @@ class BoscoDelCerchio extends StatelessWidget {
         return null;
       }
     }();
-    final mioAnimale =
-        mio ?? (segno == null ? null : GuideAnimalDerivation.forSign(segno).name);
+    final mioAnimale = mio ??
+        (segno == null ? null : GuideAnimalDerivation.forSign(segno).name);
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(
@@ -79,7 +80,8 @@ class BoscoDelCerchio extends StatelessWidget {
               segno: segnoDelBosco,
               animale: GuideAnimalDerivation.forSign(segnoDelBosco),
               eIlMio: mioAnimale != null &&
-                  GuideAnimalDerivation.forSign(segnoDelBosco).name == mioAnimale,
+                  GuideAnimalDerivation.forSign(segnoDelBosco).name ==
+                      mioAnimale,
               palette: palette,
             ),
         ],
@@ -119,9 +121,8 @@ class _AbitanteDelBosco extends StatelessWidget {
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           color: palette.surfaceElevated.withValues(alpha: eIlMio ? 0.9 : 0.5),
           border: Border.all(
-              color: eIlMio
-                  ? palette.gold
-                  : palette.gold.withValues(alpha: 0.3),
+              color:
+                  eIlMio ? palette.gold : palette.gold.withValues(alpha: 0.3),
               width: eIlMio ? 1.5 : 1),
         ),
         child: Row(
@@ -142,10 +143,7 @@ class _AbitanteDelBosco extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      eIlMio
-                          ? '${animale.name}, il tuo'
-                          : animale.name,
+                  Text(eIlMio ? '${animale.name}, il tuo' : animale.name,
                       style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.xxs),

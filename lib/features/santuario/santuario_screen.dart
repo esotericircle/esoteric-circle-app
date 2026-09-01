@@ -95,6 +95,7 @@ bool maestriSpentiPerLaProva = false;
 /// avrebbe dichiarato risolto un difetto **non guardandolo**.
 final ValueNotifier<bool> testoDelCieloSpentoPerLaProva =
     ValueNotifier<bool>(false);
+
 ///
 /// **Il minimo e' il 34 per cento dell'altezza dello schermo**, come l'ordine
 /// chiede, con questo valore come pavimento assoluto per gli schermi piu'
@@ -284,7 +285,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   /// la lingua, e un numero fisso qui vuol dire indovinare.
   double? _altezzaDelCielo;
 
-
   /// L'altezza vera della riga personale, che ora vive sotto il trio.
 
   // Ciclo lungo che alimenta la deriva automatica del cosmo e le stelle cadenti
@@ -389,7 +389,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       // corso da proteggere: si prosegue con le regole normali.
     }
     final prefs = await SharedPreferences.getInstance();
-    final ultima = DateTime.tryParse(prefs.getString(_chiaveUltimoInvito) ?? '');
+    final ultima =
+        DateTime.tryParse(prefs.getString(_chiaveUltimoInvito) ?? '');
     if (!mounted) return;
     final momenti = await context.read<AppServices>().memory.quantiMomenti();
     if (!mounted) return;
@@ -480,13 +481,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     if (route != null) Navigator.of(context).push(route);
   }
 
-  
   /// La rotta di una funzione dello scaffale: la stessa mappa unica del dominio
   /// (`artRouteFor`), cosi' la stessa arte si apre sempre alla stessa schermata.
   /// Porta anche nome e data reali del profilo, quando ci sono, cosi' la
   /// Sinastria VIP mostra la persona vera invece del segnaposto.
-  
-  
+
   /// La riga personale del Maestro al centro, col nome reale dell'utente e il
   /// suo segno, cosi' parla proprio a lui. Per Medora la parte astronomica e'
   /// vera (luce e tendenza reali della Luna); Aura e Caligo sono testo
@@ -592,9 +591,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     final nuda = personalLineBreve.startsWith(prefisso)
         ? personalLineBreve.substring(prefisso.length)
         : personalLineBreve;
-    final personalLineNuda = nuda.isEmpty
-        ? nuda
-        : nuda[0].toUpperCase() + nuda.substring(1);
+    final personalLineNuda =
+        nuda.isEmpty ? nuda : nuda[0].toUpperCase() + nuda.substring(1);
     final personalLinee = <String>[
       personalLine,
       if (userSign != null) _personalLineCompatta(central, userSign),
@@ -603,7 +601,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     ];
 
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
-    Offset depth(double d) => reduceMotion ? Offset.zero : parallax.layerOffset(d);
+    Offset depth(double d) =>
+        reduceMotion ? Offset.zero : parallax.layerOffset(d);
 
     // Alla prima interazione l'invito al cielo si dissolve. L'alto del Santuario
     // riempie il primo schermo, pulito, senza bolle sopra l'immagine; lo
@@ -629,8 +628,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             AncoraDelPrimoApprodo(
               nome: BersagliDelPrimoApprodo.doni,
               child: DailyStrip(
-              clock: widget.clock,
-            ),
+                clock: widget.clock,
+              ),
             ),
             Expanded(
               child: LayoutBuilder(
@@ -742,334 +741,332 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     Offset Function(double) depth,
   ) {
     return LayoutBuilder(
-        builder: (context, constraints) {
-          final w = constraints.maxWidth;
-          final h = constraints.maxHeight;
-          // **L'ALTEZZA DELLO SCHERMO, non quella della scena.** Ordine AV voce
-          // 03: il trentaquattro per cento si misura sullo schermo intero,
-          // perche' e' quello che l'occhio vede, e la scena e' solo la parte
-          // che l'eroe possiede.
-          final alturaDelloSchermo = MediaQuery.sizeOf(context).height;
-          // Blocco eroe (carte, arti e pulsante) sfrutta lo spazio verticale
-          // fino alla barra inferiore, senza sovrapposizioni. Il pulsante e le
-          // arti stanno in basso; le carte poggiano appena sopra con un margine
-          // pulito, cosi' figura, arti e pulsante respirano.
-          // LA CARTA PRENDE LO SPAZIO CHE AVANZA. Era `h * 0.5` col tetto a
-          // 430, e a 797 punti dava una carta alta 297 su 797, il 37 per cento:
-          // sopra di lei restavano piu' di 350 punti vuoti mentre sotto ne
-          // avanzavano 35. Lo spazio non mancava, era distribuito male.
-          //
-          // Il tetto sale con lui: a 430 il valore restava tagliato sugli
-          // schermi alti, e alzare solo il coefficiente non avrebbe cambiato
-          // niente proprio dove c'e' piu' spazio da recuperare.
-          //
-          // NON e' il calcolo per differenza dallo spazio libero, gia' tentato
-          // qui e rientrato: quello inseguiva la zona d'ingresso, che si misura
-          // a sua volta, e i due si rincorrevano di fotogramma in fotogramma.
-          // Questo e' un rapporto fisso con l'altezza, che non insegue nulla.
-          //
-          // Il tetto e' PROPORZIONALE e non un numero fisso: con 560 fissi, su
-          // uno schermo basso il carosello usciva dalla scena e i tre Maestri
-          // finivano fuori dallo schermo. Si prende `math.max` col minimo,
-          // perche' un `clamp` con il tetto sotto il minimo solleva.
-          // **IL TETTO SALE DA 0,54 A 0,60, ordine BX voce 04.** Era lui a
-          // decidere l'altezza vera, non il coefficiente sotto: con
-          // `clamp(220, h*0,54)` il valore usato era h*0,54, e il h*0,60
-          // della riga seguente non ha mai avuto effetto su uno schermo
-          // normale. Alzando il tetto la figura cresce senza che nessun
-          // altro numero della scena cambi.
-          final tettoCentrale = math.max(220.0, h * 0.60);
-          final centralH = (h * 0.60).clamp(220.0, tettoCentrale);
-          // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
-          final entryBottom = ariaSottoLIngresso(h);
-          // L'altezza della zona d'ingresso si MISURA, non si indovina. Era
-          // una costante di 78: il pulsante piu' la riga delle arti la
-          // superano appena il testo di sistema cresce o il nome del Maestro
-          // e' lungo, e allora la bolla saliva sopra i busti. Finche' la
-          // misura non c'e' si parte dalla stima, e al primo fotogramma
-          // subentra quella vera.
-          // **LA STIMA DI PARTENZA SEGUE IL BLOCCO NUOVO. Ordine AS voce 11.**
-          // Era 78, misurata quando le arti stavano SOTTO il pulsante nel ruolo
-          // piu' piccolo. Adesso stanno sopra e al corpo della lettura: il
-          // blocco misura di piu', e finche' la misura vera non arriva (un
-          // fotogramma dopo) le carte scendevano dentro la zona della bolla.
-          // Misurato dalla prova differenziale: 46.673 pixel di figura dentro
-          // la bolla con la stima vecchia, 2.356 con lo spazio stretto, zero
-          // con la stima giusta.
-          final entryZone = _altezzaIngresso ?? 96.0;
-          // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
-          //
-          // Il margine era il due per cento e NON bastava, perche' la figura
-          // del Maestro SBORDA dal riquadro della propria carta con Clip.none:
-          // il rettangolo del carosello finiva sopra la bolla mentre i pixel
-          // dipinti della figura arrivavano a toccarla. Misurato per immagine:
-          // meno zero virgola due punti di distanza, cioe' contatto.
-          //
-          // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
-          // il margine richiesto, e il trio guadagna l'aria che gli serve.
-          // La riga personale e' tornata sotto la Luna (ordine M): il blocco
-          // del cielo la misura con se', e il carosello prende cio' che resta.
-          // La fascia della riga personale non esiste piu' quaggiu': la riga
-          // e' tornata sotto la Luna (ordine M voce 1c) e il suo posto e'
-          // stato reso al carosello.
-          // Il cuscino sotto la figura: la carta del centrale sborda coi
-          // pixel dipinti, e la bolla d'ingresso pretende otto punti d'aria
-          // veri, misurati dalla prova della bolla. Dodici punti li danno
-          // con margine su tutte le misure provate.
-          // **IL CUSCINO SI STRINGE, ordine BE voce 01.** Parole del
-          // fondatore sulla 2199: "c'e' troppo spazio sotto i 3 maestri".
-          // Dodici punti fissi piu' il due per cento dell'eroe facevano
-          // ventotto punti d'aria a 797: scendono a otto piu' l'otto per
-          // mille, quattordici, e i punti risparmiati vanno al busto, che
-          // per la catena del vincolo cresce di altrettanto.
-          final carouselBottom =
-              entryBottom + entryZone + 8.0 + h * 0.008;
-          // IL TRIO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava: il nome
-          // della fase lunare stava da 277,2 a 295,2 mentre le carte laterali
-          // cominciavano a 274,3, misurato sull'app montata a 360 per 797.
-          //
-          // **Il vincolo sta sull'altezza del BUSTO, non sul riquadro**: le
-          // figure escono dal proprio riquadro con `Clip.none`, quindi
-          // restringere il carosello non sposta di un punto i pixel dipinti.
-          // Quanto sale un laterale si ricava dalle due costanti del carosello:
-          // sta piu' in alto di 0,44 volte l'altezza del centrale e ne e' alto
-          // 0,58, quindi la sua cima arriva a 1,02 volte quell'altezza sopra il
-          // fondo della scena. Verificato: col busto a 373,4 la cima cadeva a
-          // 274,3, e il fondo meno la cima fa 380,9, cioe' 1,02 volte.
-          final cieloFinisce = (h * 0.012) + (_altezzaDelCielo ?? 150.0);
-          // **QUANTO SALE UN LATERALE, e non si sconta la dissolvenza.**
-          // Ordine BC voce 01.
-          //
-          // **Una strada e' stata presa e rifatta, e vale la pena scriverlo.**
-          // Il fondatore ha chiesto Maestri piu' grandi, e questo conto e' cio'
-          // che li limita: un laterale sale fino a 1,02 volte l'altezza del
-          // centrale sopra il fondo della scena, e li' sopra non deve esserci
-          // il cielo. Si e' pensato di scontare la fascia che il ritaglio
-          // dissolve, portando 1,02 a 0,94: il busto passava da 247 a 268
-          // punti e **i pixel di testo coperti restavano zero**, quindi il
-          // conto tornava.
-          //
-          // **Ma guardando l'anteprima, i tre Maestri erano decapitati.** In
-          // quella fascia non c'e' aria: **ci sono le loro teste**, ed e'
-          // proprio quello che il fondatore aveva segnalato nella stessa
-          // frase, "sparisce la loro testa o i loro piedi". Una misura sui
-          // pixel del TESTO non poteva vederlo, perche' guardava dall'altra
-          // parte: l'ha trovato l'occhio, sull'immagine.
-          //
-          // Lo spazio per farli piu' grandi si prende dove il fondatore ha
-          // detto di prenderlo, cioe' avvicinando le due righe sopra di loro,
-          // e da nessun'altra parte.
-          // **LA SALITA DEL LATERALE E' FINITA.** Ordine BD voce 01: il
-          // conto 0,44 piu' 0,58 teneva conto di una geometria in cui il
-          // laterale poteva svettare sul centrale. Coi numeri di oggi non
-          // puo': il laterale e' alto 0,775 del centrale e posa a 0,11 dal
-          // fondo, quindi la sua cima arriva a 0,885 del centrale. Il
-          // divisore e' uno, e il due per cento che tratteneva va al busto.
-          const salitaDelLaterale = 1.0;
-          final fondoDellaScena = h - carouselBottom;
-          final altezzaConcessa =
-              (fondoDellaScena - cieloFinisce - SpacingTokens.md) /
-                  salitaDelLaterale;
-          // **IL PAVIMENTO DI 220 VINCEVA SUL VINCOLO, e adesso non piu'.**
-          // Ordine AU voce 05. Misurato montando la home a tre misure di
-          // schermo: lo spazio concesso e' 275,7 punti su uno schermo alto ma
-          // scende a 193,3 su uno medio e a 133,3 su uno basso, mentre il
-          // pavimento ne pretendeva 220 comunque. Quando il pavimento vince,
-          // il busto e' piu' alto dello spazio che c'e', e i pixel dipinti
-          // salgono dentro il blocco del cielo: erano 21.767 pixel di testo
-          // coperti su schermo medio e 10.238 su schermo basso.
-          //
-          // **IL PAVIMENTO NON SPARISCE, SI ABBASSA A CIO' CHE E' DAVVERO
-          // MINIMO.** Serviva a impedire che su uno schermo cortissimo i tre
-          // Maestri diventassero francobolli, ed e' un bisogno vero; ma un
-          // minimo che sfonda il vincolo non protegge la scena, la rompe.
-          // Adesso vale 150, che e' l'altezza sotto la quale una figura non si
-          // riconosce piu', e sopra quella soglia comanda lo spazio.
-          //
-          // **NON SI INVERTE L'ORDINE DI PILA**, che sarebbe la strada corta:
-          // se le due zone occupano gli stessi punti verticali una copre
-          // l'altra comunque, e col testo davanti la scena sarebbe illeggibile
-          // al contrario. Le due zone non si devono toccare.
-          final altezzaBusto =
-              // **IL BUSTO NON SCENDE SOTTO IL TRENTAQUATTRO PER CENTO DELLO
-              // SCHERMO.** Ordine AV voce 03: sono i Maestri i protagonisti, e
-              // lo spazio lo cede il cielo. Il pavimento assoluto resta per gli
-              // schermi cosi' piccoli che nemmeno il trentaquattro per cento ci
-              // sta.
-              // **IL VINCOLO COMANDA, E IL MINIMO E' UN PAVIMENTO VERO.**
-              // Ordine AV voce 03.
-              //
-              // Il busto prende tutto lo spazio che il blocco del cielo gli
-              // concede, e la riga personale su una riga sola gliene cede: si
-              // passa da 188,7 punti della 2189 a **209,2**. Il minimo resta
-              // per gli schermi cosi' piccoli che nemmeno quello ci sta.
-              //
-              // **NON SI SCAVALCA IL VINCOLO PER ARRIVARE A 220.** Provato e
-              // misurato: portando il busto a 220 quando lo spazio ne concede
-              // 209, i pixel dipinti risalgono sopra la riga personale e la
-              // prova che misura i PIXEL, non i rettangoli, la dichiara
-              // **coperta al 74 per cento**. Undici punti di Maestro in piu'
-              // valgono meno di una riga che si legge.
-              // **IL VINCOLO COMANDA, E IL PAVIMENTO NON LO SCAVALCA PIU'.**
-              // Ordine BA voce 02, misurato sui PIXEL e non sui rettangoli.
-              //
-              // **Il `math.max` qui sopra faceva vincere il pavimento ogni
-              // volta che lo spazio concesso era piu' piccolo di lui**, e in
-              // quel caso il busto e' per definizione piu' alto dello spazio
-              // che c'e': i pixel dipinti salgono dentro il blocco del cielo.
-              // **Misurato dipingendo la home due volte, con e senza la
-              // vernice dei Maestri, e contando i pixel del testo che
-              // cambiano: 37.621 su schermo alto, 46.642 sul medio, 39.277 sul
-              // basso.** Le tre misure precedenti dicevano zero perche'
-              // confrontavano rettangoli di layout, e le figure escono dal
-              // proprio riquadro con `Clip.none`.
-              //
-              // **La decisione, e perche' e' questa.** L'ordine AV voce 03
-              // dice che i Maestri sono i protagonisti e che lo spazio lo cede
-              // il cielo; l'ordine BA voce 02 dice che il testo sopra di loro
-              // deve leggersi. Quando le due cose non stanno insieme **vince
-              // il testo**: un Maestro un po' piu' piccolo si riconosce
-              // ancora, una frase coperta a meta' non si legge affatto. E lo
-              // spazio non si prende comprimendo il blocco del cielo, che
-              // cambierebbe cio' che c'e' scritto.
-              //
-              // **Il pavimento assoluto resta**, per gli schermi cosi' corti
-              // che nemmeno il vincolo lascia una figura riconoscibile: sotto
-              // i 150 punti un Maestro non e' piu' un Maestro. Quello e' un
-              // minimo vero, non una preferenza.
-              math.max(
-                  altezzaMinimaAssolutaDelBusto,
-                  math.min(
-                      math.min(centralH,
-                          alturaDelloSchermo * quotaDelBustoSulloSchermo),
-                      altezzaConcessa));
-          assert(() {
-            ultimaMisuraDelBusto =
-                (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);
-            return true;
-          }());
-          // **IL RIQUADRO DEL CAROSELLO NON PUO' SALIRE SOPRA IL CIELO, e
-          // prima poteva.** Ordine BA voce 02.
-          //
-          // Il ritaglio da solo non bastava, ed e' stato misurato: su schermo
-          // alto portava i pixel di inchiostro coperti da 210 a **zero**, ma
-          // su medio e basso restavano 854 e 5.966. Il motivo e' che il
-          // ritaglio taglia al RIQUADRO del carosello, e quando il pavimento
-          // minimo del busto vince sullo spazio concesso **e' il riquadro
-          // stesso a entrare nel blocco del cielo**: tagliare al suo bordo non
-          // toglie niente.
-          //
-          // Adesso l'altezza del riquadro e' limitata allo spazio vero, e il
-          // busto dentro resta alto quanto gli serve per essere riconoscibile:
-          // la parte che avanza si dissolve nel ritaglio invece di salire sul
-          // testo. **Le due cose insieme sono la cura**, e nessuna delle due
-          // da sola lo era.
-          final spazioPerIlCarosello =
-              fondoDellaScena - cieloFinisce - SpacingTokens.md;
-          // **E IL RIQUADRO NON SCENDE MAI SOTTO IL BUSTO CHE CONTIENE.**
-          // Ordine BC voce 01, difetto trovato dopo la consegna della 2197 e
-          // riparato subito.
-          //
-          // Scrivendo `math.max(0.0, ...)` avevo dato per scontato che lo
-          // spazio fosse sempre positivo. Su una finestra molto corta non lo
-          // e': lo spazio va sotto zero, il pavimento zero vince, e **il
-          // riquadro del carosello diventa alto ZERO**. Misurato sulla
-          // finestra di prova, 800 per 600: `Rect.fromLTRB(0, 366.4, 800,
-          // 366.4)`.
-          //
-          // **Un riquadro alto zero non si vede mancare, si vede smettere di
-          // rispondere.** Le figure continuano a disegnarsi, perche' sbordano
-          // con `Clip.none` e restano a video; ma il ritaglio moltiplica per
-          // tre l'altezza del riquadro, e tre volte zero e' ancora zero:
-          // dentro quel ritaglio non cade nessun dito. Il Santuario si vedeva
-          // intatto e non si apriva piu': **ventiquattro prove cadute in
-          // famiglie lontane** (chat, navigazione, accenti, tipografia), tutte
-          // ferme sullo stesso tocco al busto centrale.
-          //
-          // Il pavimento giusto e' lo stesso principio gia' scritto sopra per
-          // il busto: **cio' che e' davvero minimo**. Un riquadro piu' basso
-          // della figura che contiene non protegge niente, perche' la figura
-          // resta comunque disegnata; toglie solo il dito.
-          final carouselHeight = math.min(
-            altezzaBusto * 1.12,
-            math.max(altezzaBusto, spazioPerIlCarosello),
-          );
-          // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
-          // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga
-          // personale stava da 301,2 a 337,2 mentre il rettangolo del carosello
-          // cominciava a 245,0 e le carte dipinte a 274,3. La frase finiva
-          // dietro le carte dei tre Maestri e si leggeva a meta'.
-          //
-          // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
-          // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
-          // cioe' illeggibile lo stesso, solo al contrario. Le due zone
-          // occupavano gli stessi punti verticali, e finche' e' cosi' una delle
-          // due copre l'altra qualunque sia l'ordine.
-          //
-          // Il carosello e' ancorato in basso, quindi il vincolo si applica
-          // alla sua ALTEZZA: al massimo lo spazio che resta fra la fine del
-          // cielo e il suo ancoraggio, meno un'aria di dodici punti. Finche' la
-          // misura del cielo non arriva si parte dalla stima, come per la zona
-          // d'ingresso, e al primo fotogramma subentra quella vera.
-          // LA FRASE PERSONALE E' USCITA DA QUESTA ZONA, e con lei il
-          // conflitto. Fino all'ordine D stava dentro il blocco del cielo, cioe'
-          // negli stessi punti verticali delle carte: misurato sull'app montata
-          // a 360 per 797, il testo finiva a 337,2 e le carte laterali
-          // cominciavano a 274,3, quindi la frase si leggeva a meta'.
-          //
-          // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
-          // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
-          // illeggibile lo stesso, solo al contrario. Le due zone occupavano gli
-          // stessi punti, e finche' e' cosi' una copre l'altra comunque.
-          //
-          // Vincolare l'altezza del busto liberava il testo ma portava la carta
-          // del Maestro centrale dal quaranta al TRENTUNO per cento dello
-          // schermo, sotto la soglia che `pulsante_non_copre_carta_test`
-          // garantisce: le due regole non stanno insieme in questa fascia.
-          // Mauro ha scelto: il trio resta l'eroe e la frase scende sotto di
-          // lui, dove ci sono i punti liberi fra le carte e il pulsante del
-          // dominio.
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        final h = constraints.maxHeight;
+        // **L'ALTEZZA DELLO SCHERMO, non quella della scena.** Ordine AV voce
+        // 03: il trentaquattro per cento si misura sullo schermo intero,
+        // perche' e' quello che l'occhio vede, e la scena e' solo la parte
+        // che l'eroe possiede.
+        final alturaDelloSchermo = MediaQuery.sizeOf(context).height;
+        // Blocco eroe (carte, arti e pulsante) sfrutta lo spazio verticale
+        // fino alla barra inferiore, senza sovrapposizioni. Il pulsante e le
+        // arti stanno in basso; le carte poggiano appena sopra con un margine
+        // pulito, cosi' figura, arti e pulsante respirano.
+        // LA CARTA PRENDE LO SPAZIO CHE AVANZA. Era `h * 0.5` col tetto a
+        // 430, e a 797 punti dava una carta alta 297 su 797, il 37 per cento:
+        // sopra di lei restavano piu' di 350 punti vuoti mentre sotto ne
+        // avanzavano 35. Lo spazio non mancava, era distribuito male.
+        //
+        // Il tetto sale con lui: a 430 il valore restava tagliato sugli
+        // schermi alti, e alzare solo il coefficiente non avrebbe cambiato
+        // niente proprio dove c'e' piu' spazio da recuperare.
+        //
+        // NON e' il calcolo per differenza dallo spazio libero, gia' tentato
+        // qui e rientrato: quello inseguiva la zona d'ingresso, che si misura
+        // a sua volta, e i due si rincorrevano di fotogramma in fotogramma.
+        // Questo e' un rapporto fisso con l'altezza, che non insegue nulla.
+        //
+        // Il tetto e' PROPORZIONALE e non un numero fisso: con 560 fissi, su
+        // uno schermo basso il carosello usciva dalla scena e i tre Maestri
+        // finivano fuori dallo schermo. Si prende `math.max` col minimo,
+        // perche' un `clamp` con il tetto sotto il minimo solleva.
+        // **IL TETTO SALE DA 0,54 A 0,60, ordine BX voce 04.** Era lui a
+        // decidere l'altezza vera, non il coefficiente sotto: con
+        // `clamp(220, h*0,54)` il valore usato era h*0,54, e il h*0,60
+        // della riga seguente non ha mai avuto effetto su uno schermo
+        // normale. Alzando il tetto la figura cresce senza che nessun
+        // altro numero della scena cambi.
+        final tettoCentrale = math.max(220.0, h * 0.60);
+        final centralH = (h * 0.60).clamp(220.0, tettoCentrale);
+        // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
+        final entryBottom = ariaSottoLIngresso(h);
+        // L'altezza della zona d'ingresso si MISURA, non si indovina. Era
+        // una costante di 78: il pulsante piu' la riga delle arti la
+        // superano appena il testo di sistema cresce o il nome del Maestro
+        // e' lungo, e allora la bolla saliva sopra i busti. Finche' la
+        // misura non c'e' si parte dalla stima, e al primo fotogramma
+        // subentra quella vera.
+        // **LA STIMA DI PARTENZA SEGUE IL BLOCCO NUOVO. Ordine AS voce 11.**
+        // Era 78, misurata quando le arti stavano SOTTO il pulsante nel ruolo
+        // piu' piccolo. Adesso stanno sopra e al corpo della lettura: il
+        // blocco misura di piu', e finche' la misura vera non arriva (un
+        // fotogramma dopo) le carte scendevano dentro la zona della bolla.
+        // Misurato dalla prova differenziale: 46.673 pixel di figura dentro
+        // la bolla con la stima vecchia, 2.356 con lo spazio stretto, zero
+        // con la stima giusta.
+        final entryZone = _altezzaIngresso ?? 96.0;
+        // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
+        //
+        // Il margine era il due per cento e NON bastava, perche' la figura
+        // del Maestro SBORDA dal riquadro della propria carta con Clip.none:
+        // il rettangolo del carosello finiva sopra la bolla mentre i pixel
+        // dipinti della figura arrivavano a toccarla. Misurato per immagine:
+        // meno zero virgola due punti di distanza, cioe' contatto.
+        //
+        // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
+        // il margine richiesto, e il trio guadagna l'aria che gli serve.
+        // La riga personale e' tornata sotto la Luna (ordine M): il blocco
+        // del cielo la misura con se', e il carosello prende cio' che resta.
+        // La fascia della riga personale non esiste piu' quaggiu': la riga
+        // e' tornata sotto la Luna (ordine M voce 1c) e il suo posto e'
+        // stato reso al carosello.
+        // Il cuscino sotto la figura: la carta del centrale sborda coi
+        // pixel dipinti, e la bolla d'ingresso pretende otto punti d'aria
+        // veri, misurati dalla prova della bolla. Dodici punti li danno
+        // con margine su tutte le misure provate.
+        // **IL CUSCINO SI STRINGE, ordine BE voce 01.** Parole del
+        // fondatore sulla 2199: "c'e' troppo spazio sotto i 3 maestri".
+        // Dodici punti fissi piu' il due per cento dell'eroe facevano
+        // ventotto punti d'aria a 797: scendono a otto piu' l'otto per
+        // mille, quattordici, e i punti risparmiati vanno al busto, che
+        // per la catena del vincolo cresce di altrettanto.
+        final carouselBottom = entryBottom + entryZone + 8.0 + h * 0.008;
+        // IL TRIO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava: il nome
+        // della fase lunare stava da 277,2 a 295,2 mentre le carte laterali
+        // cominciavano a 274,3, misurato sull'app montata a 360 per 797.
+        //
+        // **Il vincolo sta sull'altezza del BUSTO, non sul riquadro**: le
+        // figure escono dal proprio riquadro con `Clip.none`, quindi
+        // restringere il carosello non sposta di un punto i pixel dipinti.
+        // Quanto sale un laterale si ricava dalle due costanti del carosello:
+        // sta piu' in alto di 0,44 volte l'altezza del centrale e ne e' alto
+        // 0,58, quindi la sua cima arriva a 1,02 volte quell'altezza sopra il
+        // fondo della scena. Verificato: col busto a 373,4 la cima cadeva a
+        // 274,3, e il fondo meno la cima fa 380,9, cioe' 1,02 volte.
+        final cieloFinisce = (h * 0.012) + (_altezzaDelCielo ?? 150.0);
+        // **QUANTO SALE UN LATERALE, e non si sconta la dissolvenza.**
+        // Ordine BC voce 01.
+        //
+        // **Una strada e' stata presa e rifatta, e vale la pena scriverlo.**
+        // Il fondatore ha chiesto Maestri piu' grandi, e questo conto e' cio'
+        // che li limita: un laterale sale fino a 1,02 volte l'altezza del
+        // centrale sopra il fondo della scena, e li' sopra non deve esserci
+        // il cielo. Si e' pensato di scontare la fascia che il ritaglio
+        // dissolve, portando 1,02 a 0,94: il busto passava da 247 a 268
+        // punti e **i pixel di testo coperti restavano zero**, quindi il
+        // conto tornava.
+        //
+        // **Ma guardando l'anteprima, i tre Maestri erano decapitati.** In
+        // quella fascia non c'e' aria: **ci sono le loro teste**, ed e'
+        // proprio quello che il fondatore aveva segnalato nella stessa
+        // frase, "sparisce la loro testa o i loro piedi". Una misura sui
+        // pixel del TESTO non poteva vederlo, perche' guardava dall'altra
+        // parte: l'ha trovato l'occhio, sull'immagine.
+        //
+        // Lo spazio per farli piu' grandi si prende dove il fondatore ha
+        // detto di prenderlo, cioe' avvicinando le due righe sopra di loro,
+        // e da nessun'altra parte.
+        // **LA SALITA DEL LATERALE E' FINITA.** Ordine BD voce 01: il
+        // conto 0,44 piu' 0,58 teneva conto di una geometria in cui il
+        // laterale poteva svettare sul centrale. Coi numeri di oggi non
+        // puo': il laterale e' alto 0,775 del centrale e posa a 0,11 dal
+        // fondo, quindi la sua cima arriva a 0,885 del centrale. Il
+        // divisore e' uno, e il due per cento che tratteneva va al busto.
+        const salitaDelLaterale = 1.0;
+        final fondoDellaScena = h - carouselBottom;
+        final altezzaConcessa =
+            (fondoDellaScena - cieloFinisce - SpacingTokens.md) /
+                salitaDelLaterale;
+        // **IL PAVIMENTO DI 220 VINCEVA SUL VINCOLO, e adesso non piu'.**
+        // Ordine AU voce 05. Misurato montando la home a tre misure di
+        // schermo: lo spazio concesso e' 275,7 punti su uno schermo alto ma
+        // scende a 193,3 su uno medio e a 133,3 su uno basso, mentre il
+        // pavimento ne pretendeva 220 comunque. Quando il pavimento vince,
+        // il busto e' piu' alto dello spazio che c'e', e i pixel dipinti
+        // salgono dentro il blocco del cielo: erano 21.767 pixel di testo
+        // coperti su schermo medio e 10.238 su schermo basso.
+        //
+        // **IL PAVIMENTO NON SPARISCE, SI ABBASSA A CIO' CHE E' DAVVERO
+        // MINIMO.** Serviva a impedire che su uno schermo cortissimo i tre
+        // Maestri diventassero francobolli, ed e' un bisogno vero; ma un
+        // minimo che sfonda il vincolo non protegge la scena, la rompe.
+        // Adesso vale 150, che e' l'altezza sotto la quale una figura non si
+        // riconosce piu', e sopra quella soglia comanda lo spazio.
+        //
+        // **NON SI INVERTE L'ORDINE DI PILA**, che sarebbe la strada corta:
+        // se le due zone occupano gli stessi punti verticali una copre
+        // l'altra comunque, e col testo davanti la scena sarebbe illeggibile
+        // al contrario. Le due zone non si devono toccare.
+        final altezzaBusto =
+            // **IL BUSTO NON SCENDE SOTTO IL TRENTAQUATTRO PER CENTO DELLO
+            // SCHERMO.** Ordine AV voce 03: sono i Maestri i protagonisti, e
+            // lo spazio lo cede il cielo. Il pavimento assoluto resta per gli
+            // schermi cosi' piccoli che nemmeno il trentaquattro per cento ci
+            // sta.
+            // **IL VINCOLO COMANDA, E IL MINIMO E' UN PAVIMENTO VERO.**
+            // Ordine AV voce 03.
+            //
+            // Il busto prende tutto lo spazio che il blocco del cielo gli
+            // concede, e la riga personale su una riga sola gliene cede: si
+            // passa da 188,7 punti della 2189 a **209,2**. Il minimo resta
+            // per gli schermi cosi' piccoli che nemmeno quello ci sta.
+            //
+            // **NON SI SCAVALCA IL VINCOLO PER ARRIVARE A 220.** Provato e
+            // misurato: portando il busto a 220 quando lo spazio ne concede
+            // 209, i pixel dipinti risalgono sopra la riga personale e la
+            // prova che misura i PIXEL, non i rettangoli, la dichiara
+            // **coperta al 74 per cento**. Undici punti di Maestro in piu'
+            // valgono meno di una riga che si legge.
+            // **IL VINCOLO COMANDA, E IL PAVIMENTO NON LO SCAVALCA PIU'.**
+            // Ordine BA voce 02, misurato sui PIXEL e non sui rettangoli.
+            //
+            // **Il `math.max` qui sopra faceva vincere il pavimento ogni
+            // volta che lo spazio concesso era piu' piccolo di lui**, e in
+            // quel caso il busto e' per definizione piu' alto dello spazio
+            // che c'e': i pixel dipinti salgono dentro il blocco del cielo.
+            // **Misurato dipingendo la home due volte, con e senza la
+            // vernice dei Maestri, e contando i pixel del testo che
+            // cambiano: 37.621 su schermo alto, 46.642 sul medio, 39.277 sul
+            // basso.** Le tre misure precedenti dicevano zero perche'
+            // confrontavano rettangoli di layout, e le figure escono dal
+            // proprio riquadro con `Clip.none`.
+            //
+            // **La decisione, e perche' e' questa.** L'ordine AV voce 03
+            // dice che i Maestri sono i protagonisti e che lo spazio lo cede
+            // il cielo; l'ordine BA voce 02 dice che il testo sopra di loro
+            // deve leggersi. Quando le due cose non stanno insieme **vince
+            // il testo**: un Maestro un po' piu' piccolo si riconosce
+            // ancora, una frase coperta a meta' non si legge affatto. E lo
+            // spazio non si prende comprimendo il blocco del cielo, che
+            // cambierebbe cio' che c'e' scritto.
+            //
+            // **Il pavimento assoluto resta**, per gli schermi cosi' corti
+            // che nemmeno il vincolo lascia una figura riconoscibile: sotto
+            // i 150 punti un Maestro non e' piu' un Maestro. Quello e' un
+            // minimo vero, non una preferenza.
+            math.max(
+                altezzaMinimaAssolutaDelBusto,
+                math.min(
+                    math.min(centralH,
+                        alturaDelloSchermo * quotaDelBustoSulloSchermo),
+                    altezzaConcessa));
+        assert(() {
+          ultimaMisuraDelBusto =
+              (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);
+          return true;
+        }());
+        // **IL RIQUADRO DEL CAROSELLO NON PUO' SALIRE SOPRA IL CIELO, e
+        // prima poteva.** Ordine BA voce 02.
+        //
+        // Il ritaglio da solo non bastava, ed e' stato misurato: su schermo
+        // alto portava i pixel di inchiostro coperti da 210 a **zero**, ma
+        // su medio e basso restavano 854 e 5.966. Il motivo e' che il
+        // ritaglio taglia al RIQUADRO del carosello, e quando il pavimento
+        // minimo del busto vince sullo spazio concesso **e' il riquadro
+        // stesso a entrare nel blocco del cielo**: tagliare al suo bordo non
+        // toglie niente.
+        //
+        // Adesso l'altezza del riquadro e' limitata allo spazio vero, e il
+        // busto dentro resta alto quanto gli serve per essere riconoscibile:
+        // la parte che avanza si dissolve nel ritaglio invece di salire sul
+        // testo. **Le due cose insieme sono la cura**, e nessuna delle due
+        // da sola lo era.
+        final spazioPerIlCarosello =
+            fondoDellaScena - cieloFinisce - SpacingTokens.md;
+        // **E IL RIQUADRO NON SCENDE MAI SOTTO IL BUSTO CHE CONTIENE.**
+        // Ordine BC voce 01, difetto trovato dopo la consegna della 2197 e
+        // riparato subito.
+        //
+        // Scrivendo `math.max(0.0, ...)` avevo dato per scontato che lo
+        // spazio fosse sempre positivo. Su una finestra molto corta non lo
+        // e': lo spazio va sotto zero, il pavimento zero vince, e **il
+        // riquadro del carosello diventa alto ZERO**. Misurato sulla
+        // finestra di prova, 800 per 600: `Rect.fromLTRB(0, 366.4, 800,
+        // 366.4)`.
+        //
+        // **Un riquadro alto zero non si vede mancare, si vede smettere di
+        // rispondere.** Le figure continuano a disegnarsi, perche' sbordano
+        // con `Clip.none` e restano a video; ma il ritaglio moltiplica per
+        // tre l'altezza del riquadro, e tre volte zero e' ancora zero:
+        // dentro quel ritaglio non cade nessun dito. Il Santuario si vedeva
+        // intatto e non si apriva piu': **ventiquattro prove cadute in
+        // famiglie lontane** (chat, navigazione, accenti, tipografia), tutte
+        // ferme sullo stesso tocco al busto centrale.
+        //
+        // Il pavimento giusto e' lo stesso principio gia' scritto sopra per
+        // il busto: **cio' che e' davvero minimo**. Un riquadro piu' basso
+        // della figura che contiene non protegge niente, perche' la figura
+        // resta comunque disegnata; toglie solo il dito.
+        final carouselHeight = math.min(
+          altezzaBusto * 1.12,
+          math.max(altezzaBusto, spazioPerIlCarosello),
+        );
+        // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
+        // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga
+        // personale stava da 301,2 a 337,2 mentre il rettangolo del carosello
+        // cominciava a 245,0 e le carte dipinte a 274,3. La frase finiva
+        // dietro le carte dei tre Maestri e si leggeva a meta'.
+        //
+        // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
+        // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
+        // cioe' illeggibile lo stesso, solo al contrario. Le due zone
+        // occupavano gli stessi punti verticali, e finche' e' cosi' una delle
+        // due copre l'altra qualunque sia l'ordine.
+        //
+        // Il carosello e' ancorato in basso, quindi il vincolo si applica
+        // alla sua ALTEZZA: al massimo lo spazio che resta fra la fine del
+        // cielo e il suo ancoraggio, meno un'aria di dodici punti. Finche' la
+        // misura del cielo non arriva si parte dalla stima, come per la zona
+        // d'ingresso, e al primo fotogramma subentra quella vera.
+        // LA FRASE PERSONALE E' USCITA DA QUESTA ZONA, e con lei il
+        // conflitto. Fino all'ordine D stava dentro il blocco del cielo, cioe'
+        // negli stessi punti verticali delle carte: misurato sull'app montata
+        // a 360 per 797, il testo finiva a 337,2 e le carte laterali
+        // cominciavano a 274,3, quindi la frase si leggeva a meta'.
+        //
+        // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
+        // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
+        // illeggibile lo stesso, solo al contrario. Le due zone occupavano gli
+        // stessi punti, e finche' e' cosi' una copre l'altra comunque.
+        //
+        // Vincolare l'altezza del busto liberava il testo ma portava la carta
+        // del Maestro centrale dal quaranta al TRENTUNO per cento dello
+        // schermo, sotto la soglia che `pulsante_non_copre_carta_test`
+        // garantisce: le due regole non stanno insieme in questa fascia.
+        // Mauro ha scelto: il trio resta l'eroe e la frase scende sotto di
+        // lui, dove ci sono i punti liberi fra le carte e il pulsante del
+        // dominio.
 
+        return Stack(
+          children: [
+            // Il cielo qui e' quello del motore unico dello shell: il
+            // Santuario non sovrappone piu' un secondo strato di nebulose che
+            // leggeva lo stesso controller con coefficienti diversi.
 
-          return Stack(
-            children: [
-              // Il cielo qui e' quello del motore unico dello shell: il
-              // Santuario non sovrappone piu' un secondo strato di nebulose che
-              // leggeva lo stesso controller con coefficienti diversi.
-
-              // Il cielo in alto e' toccabile: apre "Il cielo sopra di te".
-              // Ordine pulito, poco testo: prima il titolo, poi la grafica
-              // della Luna con l'occhiello della fase, poi la riga personale
-              // nella voce del Maestro al centro. Un margine comodo in cima
-              // (oltre la safe area) tiene il titolo staccato dal bordo, mai
-              // sotto il notch o l'isola dinamica.
-              Positioned(
-                top: h * 0.012,
-                left: 0,
-                right: 0,
-                // **IL TESTO SI PUO' SPEGNERE, e serve a misurare l'unica
-                // cosa che conta.** Ordine BA voce 02.
-                //
-                // La misura precedente contava i pixel che cambiano dentro il
-                // RETTANGOLO del testo, e un rettangolo di testo e' quasi
-                // tutto vuoto: sopra le lettere, sotto, fra una riga e
-                // l'altra. Dipinta la mappa della differenza, su schermo alto
-                // i Maestri toccavano solo le ultime quattordici righe del
-                // rettangolo, **dove lettere non ce ne sono**, e la prova
-                // dichiarava 830 pixel coperti mentre a video non era coperto
-                // niente. Era lo stesso difetto denunciato tre volte, il
-                // rettangolo al posto della vernice, spostato di un livello.
-                //
-                // Con questa bandiera la prova dipinge una terza volta senza
-                // il testo, e la differenza fra quella e la scena senza
-                // Maestri **e' l'insieme esatto delle lettere**. Da li' in
-                // poi la domanda "i Maestri coprono il testo" ha una risposta
-                // che non ammette interpretazioni.
-                child: ValueListenableBuilder<bool>(
-                  valueListenable: testoDelCieloSpentoPerLaProva,
-                  builder: (context, spento, figlio) =>
-                      Opacity(opacity: spento ? 0.0 : 1.0, child: figlio),
-                  child: GestureDetector(
+            // Il cielo in alto e' toccabile: apre "Il cielo sopra di te".
+            // Ordine pulito, poco testo: prima il titolo, poi la grafica
+            // della Luna con l'occhiello della fase, poi la riga personale
+            // nella voce del Maestro al centro. Un margine comodo in cima
+            // (oltre la safe area) tiene il titolo staccato dal bordo, mai
+            // sotto il notch o l'isola dinamica.
+            Positioned(
+              top: h * 0.012,
+              left: 0,
+              right: 0,
+              // **IL TESTO SI PUO' SPEGNERE, e serve a misurare l'unica
+              // cosa che conta.** Ordine BA voce 02.
+              //
+              // La misura precedente contava i pixel che cambiano dentro il
+              // RETTANGOLO del testo, e un rettangolo di testo e' quasi
+              // tutto vuoto: sopra le lettere, sotto, fra una riga e
+              // l'altra. Dipinta la mappa della differenza, su schermo alto
+              // i Maestri toccavano solo le ultime quattordici righe del
+              // rettangolo, **dove lettere non ce ne sono**, e la prova
+              // dichiarava 830 pixel coperti mentre a video non era coperto
+              // niente. Era lo stesso difetto denunciato tre volte, il
+              // rettangolo al posto della vernice, spostato di un livello.
+              //
+              // Con questa bandiera la prova dipinge una terza volta senza
+              // il testo, e la differenza fra quella e la scena senza
+              // Maestri **e' l'insieme esatto delle lettere**. Da li' in
+              // poi la domanda "i Maestri coprono il testo" ha una risposta
+              // che non ammette interpretazioni.
+              child: ValueListenableBuilder<bool>(
+                valueListenable: testoDelCieloSpentoPerLaProva,
+                builder: (context, spento, figlio) =>
+                    Opacity(opacity: spento ? 0.0 : 1.0, child: figlio),
+                child: GestureDetector(
                   key: const Key('santuario_sky_tap'),
                   behavior: HitTestBehavior.opaque,
                   onTap: () => _openSky(context),
@@ -1083,148 +1080,147 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       }
                     },
                     child: Column(
-                    children: [
-                      // 1. Titolo fisso, in cima. Un margine orizzontale ampio lo
-                      // tiene staccato dall'icona Utente nell'angolo, che resta
-                      // isolata; se serve va a capo, mai a ridosso dell'avatar.
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 64),
-                        child: _SkyTitle(
-                            key: Key('santuario_sky_title')),
-                      ),
-                      const SizedBox(height: 2),
-                      // 2. Grafica della Luna e del cielo, con l'occhiello della
-                      // fase reale sotto. Footprint compatto: meno vuoto attorno
-                      // alla Luna, piu' spazio alle carte dei Maestri sotto.
-                      // **LA LUNA CEDE PUNTI AI MAESTRI.** Ordine BD voci 01
-                      // e 04: il blocco del cielo e il carosello si dividono
-                      // la stessa altezza, e il fondatore ha chiesto i
-                      // Maestri "ancora piu' grandi". Il tetto scende da 100
-                      // a 84 e il pavimento da 54 a 46: la fase resta
-                      // leggibile, e ogni punto tolto qui finisce nel busto.
-                      MoonWidget(
-                          phase: moon, size: (w * 0.12).clamp(46.0, 84.0)),
-                      // **LE DUE RIGHE SI STRINGONO, E LO SPAZIO VA AI
-                      // MAESTRI.** Ordine BC voce 01, parole del fondatore:
-                      // "le due righe (bianca e giallo oro) devono essere piu'
-                      // vicine per risparmiare spazio".
-                      //
-                      // Non e' una richiesta di stile: **il blocco del cielo e
-                      // il carosello si dividono la stessa altezza**, e ogni
-                      // punto che il cielo non usa lo prende il busto dei
-                      // Maestri. L'interlinea a uno serve piu' del vuoto che
-                      // le stava sotto.
-                      Text(
-                        moon.italianName.toUpperCase(),
-                        style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft,
-                          letterSpacing: 1.6,
-                          height: 1.0,
+                      children: [
+                        // 1. Titolo fisso, in cima. Un margine orizzontale ampio lo
+                        // tiene staccato dall'icona Utente nell'angolo, che resta
+                        // isolata; se serve va a capo, mai a ridosso dell'avatar.
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 64),
+                          child: _SkyTitle(key: Key('santuario_sky_title')),
                         ),
-                      ),
-                      // 3. LA RIGA PERSONALE TORNA QUI, ordine M voce 1c,
-                      // sotto la Luna dove stava prima dell'ordine D. Il
-                      // conflitto di allora non torna PER COSTRUZIONE: la
-                      // riga vive DENTRO il blocco misurato del cielo
-                      // (`_altezzaDelCielo` la conta), e il carosello riceve
-                      // solo lo spazio che resta sotto quel blocco, quindi
-                      // le carte non possono piu' condividere i suoi punti
-                      // verticali. Lo spazio si ripaga da solo: la fascia
-                      // che la riga occupava sotto il trio e' stata resa al
-                      // carosello.
-                      Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 40),
-                        // **UNA RIGA SOLA, E SI ACCORCIA COI PUNTINI.**
-                        // Ordine AV voce 03: lo spazio si prende dal blocco del
-                        // cielo, mai dai Maestri. Questa riga andava a capo e
-                        // ogni capo rubava una fascia al carosello, cioe'
-                        // rimpiccioliva i tre protagonisti dell'app per far
-                        // stare una frase: **le tre guide sono il prodotto, la
-                        // riga di testo no**.
-                        child: LayoutBuilder(builder: (context, box) {
-                          final stile = TypographyTokens.didascalia().copyWith(
-                            color: ColorTokens.textSecondary,
-                            fontStyle: FontStyle.italic,
-                            height: 1.15,
-                          );
-                          // Prima dei puntini si scende la scala: col
-                          // segno, senza segno, senza nome. Un taglio a
-                          // mezza parola sulla faccia dell'app e' peggio
-                          // di un nome non ripetuto.
-                          var riga = personalLinee.last;
-                          for (final candidata in personalLinee) {
-                            final misura = TextPainter(
-                              text: TextSpan(text: candidata, style: stile),
-                              maxLines: 1,
-                              textDirection: TextDirection.ltr,
-                            )..layout(maxWidth: double.infinity);
-                            // Col respiro di quattro punti: al pelo
-                            // (279,99 contro 280,0) il painter dice che ci
-                            // sta e il Text mette i puntini lo stesso. E'
-                            // la stessa lezione del titolo di tessera
-                            // dell'Oroscopo (ordine BD voce 07).
-                            if (misura.width <= box.maxWidth - 4.0) {
-                              riga = candidata;
-                              break;
+                        const SizedBox(height: 2),
+                        // 2. Grafica della Luna e del cielo, con l'occhiello della
+                        // fase reale sotto. Footprint compatto: meno vuoto attorno
+                        // alla Luna, piu' spazio alle carte dei Maestri sotto.
+                        // **LA LUNA CEDE PUNTI AI MAESTRI.** Ordine BD voci 01
+                        // e 04: il blocco del cielo e il carosello si dividono
+                        // la stessa altezza, e il fondatore ha chiesto i
+                        // Maestri "ancora piu' grandi". Il tetto scende da 100
+                        // a 84 e il pavimento da 54 a 46: la fase resta
+                        // leggibile, e ogni punto tolto qui finisce nel busto.
+                        MoonWidget(
+                            phase: moon, size: (w * 0.12).clamp(46.0, 84.0)),
+                        // **LE DUE RIGHE SI STRINGONO, E LO SPAZIO VA AI
+                        // MAESTRI.** Ordine BC voce 01, parole del fondatore:
+                        // "le due righe (bianca e giallo oro) devono essere piu'
+                        // vicine per risparmiare spazio".
+                        //
+                        // Non e' una richiesta di stile: **il blocco del cielo e
+                        // il carosello si dividono la stessa altezza**, e ogni
+                        // punto che il cielo non usa lo prende il busto dei
+                        // Maestri. L'interlinea a uno serve piu' del vuoto che
+                        // le stava sotto.
+                        Text(
+                          moon.italianName.toUpperCase(),
+                          style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft,
+                            letterSpacing: 1.6,
+                            height: 1.0,
+                          ),
+                        ),
+                        // 3. LA RIGA PERSONALE TORNA QUI, ordine M voce 1c,
+                        // sotto la Luna dove stava prima dell'ordine D. Il
+                        // conflitto di allora non torna PER COSTRUZIONE: la
+                        // riga vive DENTRO il blocco misurato del cielo
+                        // (`_altezzaDelCielo` la conta), e il carosello riceve
+                        // solo lo spazio che resta sotto quel blocco, quindi
+                        // le carte non possono piu' condividere i suoi punti
+                        // verticali. Lo spazio si ripaga da solo: la fascia
+                        // che la riga occupava sotto il trio e' stata resa al
+                        // carosello.
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          // **UNA RIGA SOLA, E SI ACCORCIA COI PUNTINI.**
+                          // Ordine AV voce 03: lo spazio si prende dal blocco del
+                          // cielo, mai dai Maestri. Questa riga andava a capo e
+                          // ogni capo rubava una fascia al carosello, cioe'
+                          // rimpiccioliva i tre protagonisti dell'app per far
+                          // stare una frase: **le tre guide sono il prodotto, la
+                          // riga di testo no**.
+                          child: LayoutBuilder(builder: (context, box) {
+                            final stile =
+                                TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary,
+                              fontStyle: FontStyle.italic,
+                              height: 1.15,
+                            );
+                            // Prima dei puntini si scende la scala: col
+                            // segno, senza segno, senza nome. Un taglio a
+                            // mezza parola sulla faccia dell'app e' peggio
+                            // di un nome non ripetuto.
+                            var riga = personalLinee.last;
+                            for (final candidata in personalLinee) {
+                              final misura = TextPainter(
+                                text: TextSpan(text: candidata, style: stile),
+                                maxLines: 1,
+                                textDirection: TextDirection.ltr,
+                              )..layout(maxWidth: double.infinity);
+                              // Col respiro di quattro punti: al pelo
+                              // (279,99 contro 280,0) il painter dice che ci
+                              // sta e il Text mette i puntini lo stesso. E'
+                              // la stessa lezione del titolo di tessera
+                              // dell'Oroscopo (ordine BD voce 07).
+                              if (misura.width <= box.maxWidth - 4.0) {
+                                riga = candidata;
+                                break;
+                              }
                             }
-                          }
-                          return Text(
-                            riga,
-                            key: const Key('santuario_riga_personale'),
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: stile,
-                          );
-                        }),
-                      ),
-                    ],
-                    ),
-                  ),
-                ),
-                ),
-              ),
-
-              // Invito al tocco del cielo: in alto, accanto alla Luna, cosi'
-              // invita a toccare il cielo e non i Maestri. E' sopra la scena ma
-              // trasparente ai tocchi, che passano alla zona toccabile del
-              // cielo sottostante: mano e zona coincidono in quest'area alta.
-              // Compare dopo qualche secondo, si dissolve alla prima
-              // interazione, ferma con Riduci Movimento.
-              // Piu' in alto e piu' a destra di prima: cosi' com'era, la
-              // riga 'Tocca il cielo' finiva sopra il nome della fase
-              // lunare, e due scritte sovrapposte sono illeggibili tutte e
-              // due. L'invito sta ora nella fascia libera accanto alla Luna.
-              Positioned(
-                top: h * 0.055,
-                left: 0,
-                right: 0,
-                child: IgnorePointer(
-                  child: Align(
-                    alignment: const Alignment(0.72, 0),
-                    child: _SkyTapHint(
-                      visible: _showSkyHint,
-                      pulse: _tapPulse,
-                      reduceMotion: reduceMotion,
-                      color: palette.goldSoft,
+                            return Text(
+                              riga,
+                              key: const Key('santuario_riga_personale'),
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: stile,
+                            );
+                          }),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
+            ),
 
-              // Palco e busti, alzati verso il centro della scena.
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: carouselBottom,
-                height: carouselHeight,
-                child: Visibility(
-                  visible: widget.disegnaTrio,
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  child: _Carousel(
+            // Invito al tocco del cielo: in alto, accanto alla Luna, cosi'
+            // invita a toccare il cielo e non i Maestri. E' sopra la scena ma
+            // trasparente ai tocchi, che passano alla zona toccabile del
+            // cielo sottostante: mano e zona coincidono in quest'area alta.
+            // Compare dopo qualche secondo, si dissolve alla prima
+            // interazione, ferma con Riduci Movimento.
+            // Piu' in alto e piu' a destra di prima: cosi' com'era, la
+            // riga 'Tocca il cielo' finiva sopra il nome della fase
+            // lunare, e due scritte sovrapposte sono illeggibili tutte e
+            // due. L'invito sta ora nella fascia libera accanto alla Luna.
+            Positioned(
+              top: h * 0.055,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: Align(
+                  alignment: const Alignment(0.72, 0),
+                  child: _SkyTapHint(
+                    visible: _showSkyHint,
+                    pulse: _tapPulse,
+                    reduceMotion: reduceMotion,
+                    color: palette.goldSoft,
+                  ),
+                ),
+              ),
+            ),
+
+            // Palco e busti, alzati verso il centro della scena.
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: carouselBottom,
+              height: carouselHeight,
+              child: Visibility(
+                visible: widget.disegnaTrio,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                child: _Carousel(
                   central: central,
                   selected: selected,
                   centralHeight: altezzaBusto,
@@ -1258,83 +1254,82 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   sideDepth: _soloDiLato(depth(0.28)),
                   onTapCentral: () => _enterDomain(context, central),
                   onTapSide: (m) => _selectSide(context, m),
+                ),
+              ),
+            ),
+
+            // La bolla di ingresso al dominio, sotto la figura: un invito di
+            // due righe su cosa si trova dentro, il pulsante Entra nel Dominio
+            // del Maestro al centro nella sua palette, e sotto la riga con le
+            // sue tre arti. Formato uniforme per tutti; per i riti che ruotano
+            // (Alba, Buonanotte) invito e arti seguono il Maestro di turno,
+            // perche' il centro e' gia' quel Maestro.
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: entryBottom,
+              child: _MisuraAltezza(
+                onMisura: (v) {
+                  if (_altezzaIngresso == null ||
+                      (_altezzaIngresso! - v).abs() > 0.5) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted) setState(() => _altezzaIngresso = v);
+                    });
+                  }
+                },
+                child: Visibility(
+                  visible: widget.disegnaIngresso,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: _DomainEntry(
+                    maestro: central,
+                    onTap: () => _enterDomain(context, central),
                   ),
                 ),
               ),
+            ),
 
-              // La bolla di ingresso al dominio, sotto la figura: un invito di
-              // due righe su cosa si trova dentro, il pulsante Entra nel Dominio
-              // del Maestro al centro nella sua palette, e sotto la riga con le
-              // sue tre arti. Formato uniforme per tutti; per i riti che ruotano
-              // (Alba, Buonanotte) invito e arti seguono il Maestro di turno,
-              // perche' il centro e' gia' quel Maestro.
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: entryBottom,
-                child: _MisuraAltezza(
-                  onMisura: (v) {
-                    if (_altezzaIngresso == null ||
-                        (_altezzaIngresso! - v).abs() > 0.5) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        if (mounted) setState(() => _altezzaIngresso = v);
-                      });
-                    }
-                  },
-                  child: Visibility(
-                    visible: widget.disegnaIngresso,
-                    maintainSize: true,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    child: _DomainEntry(
-                      maestro: central,
-                      onTap: () => _enterDomain(context, central),
-                    ),
-                  ),
-                ),
+            // **LA PILLOLA E LA PORTA NON VIVONO PIU' QUI, ordine AL voce
+            // 08.** La capsula dell'identita' sta sopra il Navigator, una
+            // per tutta l'app: una copia per testata era esattamente la
+            // famiglia delle due porte che la capsula chiude.
+            // **L'AREA DI TOCCO DEL CIELO STA IN CIMA ALLA PILA.**
+            // Ordine BB voce 01, fatto del fondatore: "se tocco sulla luna
+            // il click non funziona".
+            //
+            // **Il rilevatore c'era gia' e avvolgeva la Luna**: il difetto
+            // non era la sua misura, era CHI GLI STAVA SOPRA. Il carosello
+            // dei Maestri viene dopo nella pila, quindi copre, e il suo
+            // rilevatore di trascinamento orizzontale **si prende i tocchi
+            // diretti al cielo**. E' la stessa famiglia del difetto misurato
+            // in BA voce 02, dove i Maestri coprono anche i pixel del testo:
+            // li' rubano la vista, qui rubano il dito.
+            //
+            // **Si separa la vernice dal tocco.** Il cielo continua a
+            // disegnarsi dov'e', sotto; qui sopra c'e' un rettangolo
+            // invisibile della stessa altezza che raccoglie i tocchi e apre
+            // la schermata del cielo. **Non si inverte l'ordine di pila**,
+            // che sposterebbe anche la vernice e cambierebbe cosa copre
+            // cosa: si sposta soltanto chi risponde al dito.
+            //
+            // Il carosello perde i tocchi nella fascia del cielo, ed e'
+            // giusto: li' sopra comanda il cielo, e per girare i Maestri
+            // resta tutta la loro fascia piu' in basso.
+            Positioned(
+              top: h * 0.012,
+              left: 0,
+              right: 0,
+              height: _altezzaDelCielo ?? 150.0,
+              child: GestureDetector(
+                key: const Key('santuario_sky_tap_in_cima'),
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _openSky(context),
               ),
-
-
-              // **LA PILLOLA E LA PORTA NON VIVONO PIU' QUI, ordine AL voce
-              // 08.** La capsula dell'identita' sta sopra il Navigator, una
-              // per tutta l'app: una copia per testata era esattamente la
-              // famiglia delle due porte che la capsula chiude.
-              // **L'AREA DI TOCCO DEL CIELO STA IN CIMA ALLA PILA.**
-              // Ordine BB voce 01, fatto del fondatore: "se tocco sulla luna
-              // il click non funziona".
-              //
-              // **Il rilevatore c'era gia' e avvolgeva la Luna**: il difetto
-              // non era la sua misura, era CHI GLI STAVA SOPRA. Il carosello
-              // dei Maestri viene dopo nella pila, quindi copre, e il suo
-              // rilevatore di trascinamento orizzontale **si prende i tocchi
-              // diretti al cielo**. E' la stessa famiglia del difetto misurato
-              // in BA voce 02, dove i Maestri coprono anche i pixel del testo:
-              // li' rubano la vista, qui rubano il dito.
-              //
-              // **Si separa la vernice dal tocco.** Il cielo continua a
-              // disegnarsi dov'e', sotto; qui sopra c'e' un rettangolo
-              // invisibile della stessa altezza che raccoglie i tocchi e apre
-              // la schermata del cielo. **Non si inverte l'ordine di pila**,
-              // che sposterebbe anche la vernice e cambierebbe cosa copre
-              // cosa: si sposta soltanto chi risponde al dito.
-              //
-              // Il carosello perde i tocchi nella fascia del cielo, ed e'
-              // giusto: li' sopra comanda il cielo, e per girare i Maestri
-              // resta tutta la loro fascia piu' in basso.
-              Positioned(
-                top: h * 0.012,
-                left: 0,
-                right: 0,
-                height: _altezzaDelCielo ?? 150.0,
-                child: GestureDetector(
-                  key: const Key('santuario_sky_tap_in_cima'),
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => _openSky(context),
-                ),
-              ),
-            ],
-          );
-        },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -1472,8 +1467,8 @@ class _CarouselState extends State<_Carousel>
 
   /// La strada piu' corta fino a quel Maestro, nel verso che gira meno.
   void _ruotaVerso(Maestro m) {
-    _assestaSu(_piuVicino(
-        Maestro.fixedOrder.indexOf(m).toDouble(), _posto, _quanti));
+    _assestaSu(
+        _piuVicino(Maestro.fixedOrder.indexOf(m).toDouble(), _posto, _quanti));
   }
 
   void _assestaSu(double bersaglio) {
@@ -1535,8 +1530,7 @@ class _CarouselState extends State<_Carousel>
         return LayoutBuilder(
           builder: (context, c) {
             final w = c.maxWidth;
-            final breathValue =
-                widget.reduceMotion ? 0.5 : widget.breath.value;
+            final breathValue = widget.reduceMotion ? 0.5 : widget.breath.value;
             final centralW = widget.centralHeight * 0.75;
             // Il raggio orizzontale del cerchio visto di taglio: quanto si
             // spostano di lato quelli che stanno dietro.
@@ -1669,136 +1663,138 @@ class _CarouselState extends State<_Carousel>
               // lui a garantire che la copertura sia leggera: dieci punti di
               // corsa, non centocinque.
               child: // **IL BERSAGLIO DEL SECONDO FUMETTO. Ordine CB voce 02.**
-              AncoraDelPrimoApprodo(
-              nome: BersagliDelPrimoApprodo.trio,
-              child: GestureDetector(
-              key: const Key('santuario_carosello'),
-              onHorizontalDragUpdate: (d) => _trascina(d, w),
-              onHorizontalDragEnd: (d) => _rilascia(d, w),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  // Uno strato trasparente che prende il trascinamento anche
-                  // dove non c'e' un busto: senza, il dito funziona solo se
-                  // parte esattamente da una figura.
-                  Positioned.fill(
-                      child: Container(color: Colors.transparent)),
-                  for (final p in posti)
-                    Builder(builder: (context) {
-                      final davanti = p.profondita > 0.5;
-                      final altezza = widget.centralHeight * p.scala;
-                      final larghezza = centralW * p.scala;
-                      // I piani lontani si inclinano meno col giroscopio: e'
-                      // la stessa parallasse di prima, ora continua.
-                      final deriva = Offset.lerp(
-                        widget.sideDepth,
-                        widget.centralDepth,
-                        ((p.profondita + 1) / 2).clamp(0.0, 1.0),
-                      )!;
-                      // **LA FLUTTUAZIONE E' TORNATA, ordine BE voce 01.**
-                      // Parole del fondatore: "prima i 3 maestri fluttuavano
-                      // e voglio ancora l'effetto fluttuazione". Un dondolio
-                      // verticale lento sul respiro gia' esistente, sfasato
-                      // per posto cosi' i tre non salgono e scendono in
-                      // coro; con Riduci Movimento resta fermo.
-                      final fluttua = widget.reduceMotion
-                          ? 0.0
-                          : math.sin(2 *
-                                  math.pi *
-                                  (breathValue +
-                                      Maestro.fixedOrder.indexOf(p.maestro) *
-                                          0.33)) *
-                              5.0;
-                      return Positioned(
-                        left: p.x - larghezza / 2,
-                        // Chi sta dietro sta anche piu' in alto: e' cio' che
-                        // da' profondita' a una scena vista di tre quarti.
-                        // Sui posti stretti l'innalzamento scende a 0,08:
-                        // misurato a 320 per 568, con 0,22 la testa del
-                        // laterale saliva fino a bucare il titolo del cielo.
-                        //
-                        // **E DA 0,22 A 0,14 OVUNQUE, ordine BE voce 01**: il
-                        // vuoto sotto i tre Maestri che il fondatore ha visto
-                        // era per meta' il fianco alzato, i laterali che
-                        // finivano cinquantotto punti sopra il fondo. La
-                        // profondita' la raccontano gia' la scala e la
-                        // sovrapposizione di BD.01.
-                        bottom: (1 - p.profondita) *
-                                widget.centralHeight *
-                                (widget.spazioStretto ? 0.08 : 0.14) +
-                            fluttua,
-                        width: larghezza,
-                        height: altezza,
-                        child: Transform.translate(
-                          offset: deriva,
-                          // **IL TOCCO SEGUE LA CORNICE VISIBILE, NON LA
-                          // SCATOLA.** Ordine BD voce 01. Con la
-                          // sovrapposizione voluta dal fondatore, la scatola
-                          // del centrale (larga 0,754 dell'altezza, cornice
-                          // 0,58 piu' margini trasparenti) arriva a coprire il
-                          // CENTRO del laterale: il dito toccava il laterale e
-                          // rispondeva il centrale, attraverso pixel che non
-                          // esistono. Misurato dalla prova della rotazione a
-                          // 390 per 844: il centro del laterale sta a 90,3 e
-                          // la scatola del centrale comincia a 87.
-                          //
-                          // La figura si spegne al tocco e il dito cade su una
-                          // colonna larga quanto la cornice: dove le colonne
-                          // si sovrappongono vince chi sta davanti nella pila,
-                          // che e' esattamente chi si vede.
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              IgnorePointer(
-                                child: MaestroBust(
-                                  maestro: p.maestro,
-                                  height: altezza,
-                                  central: davanti,
-                                  breath: davanti ? breathValue : 0.5,
-                                  // La penombra cresce con la lontananza,
-                                  // invece di essere accesa o spenta.
-                                  dim: davanti
-                                      ? 0
-                                      : 0.55 * (1 - (p.profondita + 1) / 2),
-                                  preferred: p.maestro == widget.preferred,
-                                ),
+                  AncoraDelPrimoApprodo(
+                nome: BersagliDelPrimoApprodo.trio,
+                child: GestureDetector(
+                  key: const Key('santuario_carosello'),
+                  onHorizontalDragUpdate: (d) => _trascina(d, w),
+                  onHorizontalDragEnd: (d) => _rilascia(d, w),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      // Uno strato trasparente che prende il trascinamento anche
+                      // dove non c'e' un busto: senza, il dito funziona solo se
+                      // parte esattamente da una figura.
+                      Positioned.fill(
+                          child: Container(color: Colors.transparent)),
+                      for (final p in posti)
+                        Builder(builder: (context) {
+                          final davanti = p.profondita > 0.5;
+                          final altezza = widget.centralHeight * p.scala;
+                          final larghezza = centralW * p.scala;
+                          // I piani lontani si inclinano meno col giroscopio: e'
+                          // la stessa parallasse di prima, ora continua.
+                          final deriva = Offset.lerp(
+                            widget.sideDepth,
+                            widget.centralDepth,
+                            ((p.profondita + 1) / 2).clamp(0.0, 1.0),
+                          )!;
+                          // **LA FLUTTUAZIONE E' TORNATA, ordine BE voce 01.**
+                          // Parole del fondatore: "prima i 3 maestri fluttuavano
+                          // e voglio ancora l'effetto fluttuazione". Un dondolio
+                          // verticale lento sul respiro gia' esistente, sfasato
+                          // per posto cosi' i tre non salgono e scendono in
+                          // coro; con Riduci Movimento resta fermo.
+                          final fluttua = widget.reduceMotion
+                              ? 0.0
+                              : math.sin(2 *
+                                      math.pi *
+                                      (breathValue +
+                                          Maestro.fixedOrder
+                                                  .indexOf(p.maestro) *
+                                              0.33)) *
+                                  5.0;
+                          return Positioned(
+                            left: p.x - larghezza / 2,
+                            // Chi sta dietro sta anche piu' in alto: e' cio' che
+                            // da' profondita' a una scena vista di tre quarti.
+                            // Sui posti stretti l'innalzamento scende a 0,08:
+                            // misurato a 320 per 568, con 0,22 la testa del
+                            // laterale saliva fino a bucare il titolo del cielo.
+                            //
+                            // **E DA 0,22 A 0,14 OVUNQUE, ordine BE voce 01**: il
+                            // vuoto sotto i tre Maestri che il fondatore ha visto
+                            // era per meta' il fianco alzato, i laterali che
+                            // finivano cinquantotto punti sopra il fondo. La
+                            // profondita' la raccontano gia' la scala e la
+                            // sovrapposizione di BD.01.
+                            bottom: (1 - p.profondita) *
+                                    widget.centralHeight *
+                                    (widget.spazioStretto ? 0.08 : 0.14) +
+                                fluttua,
+                            width: larghezza,
+                            height: altezza,
+                            child: Transform.translate(
+                              offset: deriva,
+                              // **IL TOCCO SEGUE LA CORNICE VISIBILE, NON LA
+                              // SCATOLA.** Ordine BD voce 01. Con la
+                              // sovrapposizione voluta dal fondatore, la scatola
+                              // del centrale (larga 0,754 dell'altezza, cornice
+                              // 0,58 piu' margini trasparenti) arriva a coprire il
+                              // CENTRO del laterale: il dito toccava il laterale e
+                              // rispondeva il centrale, attraverso pixel che non
+                              // esistono. Misurato dalla prova della rotazione a
+                              // 390 per 844: il centro del laterale sta a 90,3 e
+                              // la scatola del centrale comincia a 87.
+                              //
+                              // La figura si spegne al tocco e il dito cade su una
+                              // colonna larga quanto la cornice: dove le colonne
+                              // si sovrappongono vince chi sta davanti nella pila,
+                              // che e' esattamente chi si vede.
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  IgnorePointer(
+                                    child: MaestroBust(
+                                      maestro: p.maestro,
+                                      height: altezza,
+                                      central: davanti,
+                                      breath: davanti ? breathValue : 0.5,
+                                      // La penombra cresce con la lontananza,
+                                      // invece di essere accesa o spenta.
+                                      dim: davanti
+                                          ? 0
+                                          : 0.55 * (1 - (p.profondita + 1) / 2),
+                                      preferred: p.maestro == widget.preferred,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    child: GestureDetector(
+                                      key: ruoloDi(p),
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () => davanti
+                                          ? widget.onTapCentral()
+                                          : widget.onTapSide(p.maestro),
+                                      // 0,58 e' la larghezza della cornice in
+                                      // MaestroBust, e l'altezza e' tutta la
+                                      // colonna, testa compresa.
+                                      child: SizedBox(
+                                          width: altezza * 0.58,
+                                          height: altezza),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Positioned(
-                                bottom: 0,
-                                child: GestureDetector(
-                                  key: ruoloDi(p),
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () => davanti
-                                      ? widget.onTapCentral()
-                                      : widget.onTapSide(p.maestro),
-                                  // 0,58 e' la larghezza della cornice in
-                                  // MaestroBust, e l'altezza e' tutta la
-                                  // colonna, testa compresa.
-                                  child: SizedBox(
-                                      width: altezza * 0.58, height: altezza),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          );
+                        }),
+                      if (dietro.isNotEmpty)
+                        Positioned(
+                          left: SpacingTokens.sm,
+                          bottom: 0,
+                          child: nomeDelleArti(dietro.first),
                         ),
-                      );
-                    }),
-                  if (dietro.isNotEmpty)
-                    Positioned(
-                      left: SpacingTokens.sm,
-                      bottom: 0,
-                      child: nomeDelleArti(dietro.first),
-                    ),
-                  if (dietro.length > 1)
-                    Positioned(
-                      right: SpacingTokens.sm,
-                      bottom: 0,
-                      child: nomeDelleArti(dietro.last),
-                    ),
-                ],
-              ),
-            ),
+                      if (dietro.length > 1)
+                        Positioned(
+                          right: SpacingTokens.sm,
+                          bottom: 0,
+                          child: nomeDelleArti(dietro.last),
+                        ),
+                    ],
+                  ),
+                ),
               ),
             );
           },
@@ -1981,7 +1977,6 @@ class _EnterDomainButton extends StatelessWidget {
 /// altre mostrano un anticipo. L'ordine vive nella configurazione dedicata
 /// (`function_shelf.dart`), qui resta solo la resa.
 
-
 /// Una card dello scaffale, nel colore del Maestro di dominio. Livello visivo
 /// prima del testo: l'emblema tondo, poi il nome, poi una riga di anticipo. Le
 /// funzioni non ancora vive portano il badge Coming soon, mai un vicolo cieco.
@@ -2076,7 +2071,6 @@ class ShelfCard extends StatelessWidget {
 }
 
 /// Il badge dorato Coming soon delle funzioni in arrivo.
-
 
 /// Invito al tocco del cielo: una silhouette di mano con l'indice teso che fa
 /// il gesto del tocco, pulsa dolcemente e manda un'onda dal polpastrello, con
@@ -2186,7 +2180,8 @@ class TapHandPainter extends CustomPainter {
     final hand = _handPath(cx);
     canvas.drawPath(
       hand,
-      Paint()..color = color.withValues(alpha: motion ? 0.55 + 0.3 * press : 0.7),
+      Paint()
+        ..color = color.withValues(alpha: motion ? 0.55 + 0.3 * press : 0.7),
     );
     final tratto = Paint()
       ..style = PaintingStyle.stroke
@@ -2259,7 +2254,6 @@ class TapHandPainter extends CustomPainter {
     p.cubicTo(ix - 4, 26, ix - 3.5, 25, ix - 3, 24);
     p.close();
     return p;
-  
   }
 
   /// Le pieghe fra le dita piegate: due archi corti, disegnati in tratto sopra
@@ -2283,8 +2277,6 @@ class TapHandPainter extends CustomPainter {
   bool shouldRepaint(TapHandPainter old) =>
       old.phase != phase || old.color != color;
 }
-
-
 
 /// Misura l'altezza del proprio figlio e la riferisce, una volta per cambio.
 ///

@@ -34,11 +34,12 @@ import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 class SigilloIntenzioneScreen extends StatefulWidget {
   const SigilloIntenzioneScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const SogliaArte(
-        id: 'magic_sigil',
-        maestro: Maestro.caligo,
-          child: SigilloIntenzioneScreen(),
-        ));
+  static Route<void> route() =>
+      PassaggioDelCerchio.rotta<void>((_) => const SogliaArte(
+            id: 'magic_sigil',
+            maestro: Maestro.caligo,
+            child: SigilloIntenzioneScreen(),
+          ));
 
   /// Quanto dura il tracciamento del cammino, tratto dopo tratto.
   static const Duration tracciamento = Duration(milliseconds: 2400);
@@ -238,8 +239,8 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         ),
         const SizedBox(height: SpacingTokens.md),
         Text('Oppure parti da qui',
-            style: TypographyTokens.etichetta().copyWith(
-                color: palette.goldSoft, letterSpacing: 2)),
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 2)),
         const SizedBox(height: SpacingTokens.sm),
         Wrap(
           spacing: SpacingTokens.sm,
@@ -250,18 +251,16 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                 key: Key('sigillo_invito_${_suggerimenti.indexOf(s)}'),
                 onTap: () => setState(() {
                   _campo.text = s;
-                  _campo.selection =
-                      TextSelection.collapsed(offset: s.length);
+                  _campo.selection = TextSelection.collapsed(offset: s.length);
                 }),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.md,
-                      vertical: SpacingTokens.xs),
+                      horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(SpacingTokens.radiusPill),
-                    border: Border.all(
-                        color: palette.gold.withValues(alpha: 0.4)),
+                    border:
+                        Border.all(color: palette.gold.withValues(alpha: 0.4)),
                   ),
                   child: Text(s,
                       style: TypographyTokens.corpo()
@@ -337,8 +336,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           Text(lettura.via.nome,
               key: const Key('sigillo_via'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.titoloSezione()
-                  .copyWith(color: colore)),
+              style: TypographyTokens.titoloSezione().copyWith(color: colore)),
           const SizedBox(height: SpacingTokens.xxs),
           Text(lettura.via.dominio,
               textAlign: TextAlign.center,
@@ -350,13 +348,12 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('LA TUA INTENZIONE',
-                    style: TypographyTokens.etichetta().copyWith(
-                        color: palette.goldSoft, letterSpacing: 2)),
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: SpacingTokens.xxs),
                 ParagrafiDiLettura(
                     testo: '"${lettura.riformulata}"',
-                    stile: TypographyTokens.lettura()
-                        .copyWith(height: 1.45)),
+                    stile: TypographyTokens.lettura().copyWith(height: 1.45)),
                 if (lettura.eStataRiformulata) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   Text(
@@ -383,8 +380,8 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                               'tue parole, quindi ho scelto la Via Bianca, '
                               'che è quella della chiarezza.',
                   key: const Key('sigillo_perche'),
-                  stile: TypographyTokens.lettura().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.45),
+                  stile: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.45),
                 ),
               ],
             ),
@@ -435,8 +432,8 @@ class _FontiEMetodo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('FONTI E METODO',
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.goldSoft, letterSpacing: 2)),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 2)),
           const SizedBox(height: SpacingTokens.xs),
           Text(
             'Il metodo delle lettere viene da Austin Osman Spare, che nel '
@@ -500,7 +497,8 @@ class RuotaSigilloPainter extends CustomPainter {
         final toccata = lettere.contains(l);
         canvas.drawCircle(q, toccata ? 3.4 : 2.0,
             toccata ? (Paint()..color = oro.withValues(alpha: 0.8)) : tenue);
-        _lettera(canvas, l, q, size, toccata ? oro : oro.withValues(alpha: 0.3));
+        _lettera(
+            canvas, l, q, size, toccata ? oro : oro.withValues(alpha: 0.3));
       }
       // Il cerchio che tiene insieme i petali, appena accennato.
       canvas.drawCircle(
@@ -589,14 +587,14 @@ class RuotaSigilloPainter extends CustomPainter {
         style: TextStyle(
           color: colore,
           fontSize: TypographyTokens.pavimento,
-        // **IL CARATTERE E' EBGaramond, e la scelta e' del fondatore.**
-        // Ordine BT voce 01, sulla build 2207: davanti alle tre anteprime
-        // dell'ordine BM voce 02 ha detto "ok per la (b), chiudiamo BM.02".
-        // EBGaramond il pacchetto lo dichiara gia' e l'app lo carica gia',
-        // quindi non entra un byte di asset in piu'. Prima qui c'era
-        // CormorantGaramond, che nel pacchetto non c'e' mai stato: la ruota
-        // si disegnava col carattere di sistema, cioe' con uno diverso su
-        // ogni telefono.
+          // **IL CARATTERE E' EBGaramond, e la scelta e' del fondatore.**
+          // Ordine BT voce 01, sulla build 2207: davanti alle tre anteprime
+          // dell'ordine BM voce 02 ha detto "ok per la (b), chiudiamo BM.02".
+          // EBGaramond il pacchetto lo dichiara gia' e l'app lo carica gia',
+          // quindi non entra un byte di asset in piu'. Prima qui c'era
+          // CormorantGaramond, che nel pacchetto non c'e' mai stato: la ruota
+          // si disegnava col carattere di sistema, cioe' con uno diverso su
+          // ogni telefono.
           fontFamily: 'EBGaramond',
         ),
       ),

@@ -101,8 +101,8 @@ class _QuelloCheAvanza extends MultiChildLayoutDelegate {
     }
 
     // Cio' che avanza, MA MAI SOTTO LA MINIMA quando una minima c'e'.
-    final avanza = math.max(
-        fascia, math.max(0.0, size.height - altezzaConversazione));
+    final avanza =
+        math.max(fascia, math.max(0.0, size.height - altezzaConversazione));
 
     if (hasChild(ScenaSopraLaConversazione.idScena)) {
       layoutChild(

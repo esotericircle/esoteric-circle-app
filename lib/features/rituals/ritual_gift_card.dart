@@ -113,207 +113,204 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
       }
     })();
     final Widget vetro = Container(
-          decoration: BoxDecoration(
-            color: effettiPieni
-                ? abito.velatura
-                : abito.velatura.withValues(alpha: 0.96),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: abito.bordo),
-          ),
-          padding: const EdgeInsets.all(SpacingTokens.lg),
-          // **La scheda scorre**, e da oggi le serve. Finche' il dono era un
-          // segnaposto di tre righe ci stava sempre; adesso porta un gesto, un
-          // respiro contato e la via col dito, e su uno schermo basso il
-          // pulsante della base finiva fuori dalla scheda senza che nessuno
-          // potesse toccarlo. L'ha trovato una prova gia' esistente, non io.
-          child: SingleChildScrollView(
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Livello zero: chi parla. Sta sopra tutto perche' e' la prima
-              // cosa da sapere prima di leggere un responso.
-              RigaDelDono(
-                dono: widget.dono,
-                giorno: widget.giorno,
-                superficie: abito.superficiePeggiore,
-              ),
-              // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
-              // cosa ti resta. In testa, prima di tutto il resto.
-              LeTreRigheDelRito(
-                rito: widget.dono,
-                inchiostro: abito.inchiostro,
-                accento: accento,
-                // Il perche' scende nella base apribile, ordine AS voce 06:
-                // qui sopra restano cosa fai e cosa ti resta, che sono la
-                // risposta.
-                conIlPerche: false,
-              ),
-              const SizedBox(height: SpacingTokens.md),
-              // **VIA L'ETICHETTA DEL TIPO DI DONO. Ordine AS voce 06.**
-              //
-              // Diceva "Orientamento del giorno", "Intenzione del giorno" o
-              // "Monito del giorno": e' la CATEGORIA del contenuto, cioe' come
-              // lo chiamiamo noi, non cosa dice alla persona. Chi apre l'alba
-              // vuole sapere cosa fare oggi, e sopra c'e' gia' la riga che
-              // dice chi parla. La regola trasversale di quest'ordine dice che
-              // dove un testo si puo' togliere, si toglie invece di
-              // rimpicciolirlo: e questo si poteva togliere.
-              //
-              // Il tipo resta nel DATO, `gift.kind`, dove serve a chi compone
-              // il dono: sparisce dallo schermo, non dal modello.
-              // **L'ORIENTAMENTO E' IL RESPONSO DEL DONO, ordine BV voce
-              // 06**: sale alla misura di lettura come il consiglio di
-              // Medora. Resta un `Text` e non passa dalla porta unica
-              // perche' questa e' una CARTA, un oggetto stampato che si
-              // condivide: spezzarlo in paragrafi ne cambierebbe
-              // l'ingombro, e l'ingombro qui e' fisso.
+      decoration: BoxDecoration(
+        color: effettiPieni
+            ? abito.velatura
+            : abito.velatura.withValues(alpha: 0.96),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: abito.bordo),
+      ),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      // **La scheda scorre**, e da oggi le serve. Finche' il dono era un
+      // segnaposto di tre righe ci stava sempre; adesso porta un gesto, un
+      // respiro contato e la via col dito, e su uno schermo basso il
+      // pulsante della base finiva fuori dalla scheda senza che nessuno
+      // potesse toccarlo. L'ha trovato una prova gia' esistente, non io.
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Livello zero: chi parla. Sta sopra tutto perche' e' la prima
+            // cosa da sapere prima di leggere un responso.
+            RigaDelDono(
+              dono: widget.dono,
+              giorno: widget.giorno,
+              superficie: abito.superficiePeggiore,
+            ),
+            // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
+            // cosa ti resta. In testa, prima di tutto il resto.
+            LeTreRigheDelRito(
+              rito: widget.dono,
+              inchiostro: abito.inchiostro,
+              accento: accento,
+              // Il perche' scende nella base apribile, ordine AS voce 06:
+              // qui sopra restano cosa fai e cosa ti resta, che sono la
+              // risposta.
+              conIlPerche: false,
+            ),
+            const SizedBox(height: SpacingTokens.md),
+            // **VIA L'ETICHETTA DEL TIPO DI DONO. Ordine AS voce 06.**
+            //
+            // Diceva "Orientamento del giorno", "Intenzione del giorno" o
+            // "Monito del giorno": e' la CATEGORIA del contenuto, cioe' come
+            // lo chiamiamo noi, non cosa dice alla persona. Chi apre l'alba
+            // vuole sapere cosa fare oggi, e sopra c'e' gia' la riga che
+            // dice chi parla. La regola trasversale di quest'ordine dice che
+            // dove un testo si puo' togliere, si toglie invece di
+            // rimpicciolirlo: e questo si poteva togliere.
+            //
+            // Il tipo resta nel DATO, `gift.kind`, dove serve a chi compone
+            // il dono: sparisce dallo schermo, non dal modello.
+            // **L'ORIENTAMENTO E' IL RESPONSO DEL DONO, ordine BV voce
+            // 06**: sale alla misura di lettura come il consiglio di
+            // Medora. Resta un `Text` e non passa dalla porta unica
+            // perche' questa e' una CARTA, un oggetto stampato che si
+            // condivide: spezzarlo in paragrafi ne cambierebbe
+            // l'ingombro, e l'ingombro qui e' fisso.
+            Text(
+              gift.orientation,
+              key: const Key('alba_orientamento'),
+              style:
+                  TypographyTokens.lettura().copyWith(color: abito.inchiostro),
+            ),
+            // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
+            // Ordine BB voce 06.
+            //
+            // **La domanda del fondatore era "cosa ne faccio adesso di
+            // questa parola?", e aveva ragione perche' la risposta non
+            // c'era.** La parola compariva grande e sola: un titolo senza
+            // testo. Chi la leggeva cercava cosa farne e non trovava nulla,
+            // e quel vuoto se lo portava dietro per tutto il rito.
+            //
+            // **Il legame esisteva gia' nel corpus e non arrivava a
+            // schermo.** Ogni parola porta con se' il suo `perche`, cioe'
+            // cosa indica in questo giorno, e l'ordine AS voce 06 aveva gia'
+            // fatto in modo che la parola nascesse dal GESTO e non da un
+            // terzo seme. Mancava l'ultimo passo: mostrarlo. Adesso sotto la
+            // parola si legge cosa vuol dire, ed e' quello a rispondere alla
+            // domanda.
+            //
+            // **Solo all'Alba.** Nel Soffio del Destino la parola non
+            // compare: e' il rito dell'aria e del destino, non quello della
+            // parola da portarsi dietro, e la stessa cosa in due riti
+            // diversi li fa sembrare lo stesso rito.
+            if (widget.dono == DailyElement.dawn && word != null) ...[
+              const SizedBox(height: SpacingTokens.lg),
               Text(
-                gift.orientation,
-                key: const Key('alba_orientamento'),
-                style: TypographyTokens.lettura()
-                    .copyWith(color: abito.inchiostro),
-              ),
-              // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
-              // Ordine BB voce 06.
-              //
-              // **La domanda del fondatore era "cosa ne faccio adesso di
-              // questa parola?", e aveva ragione perche' la risposta non
-              // c'era.** La parola compariva grande e sola: un titolo senza
-              // testo. Chi la leggeva cercava cosa farne e non trovava nulla,
-              // e quel vuoto se lo portava dietro per tutto il rito.
-              //
-              // **Il legame esisteva gia' nel corpus e non arrivava a
-              // schermo.** Ogni parola porta con se' il suo `perche`, cioe'
-              // cosa indica in questo giorno, e l'ordine AS voce 06 aveva gia'
-              // fatto in modo che la parola nascesse dal GESTO e non da un
-              // terzo seme. Mancava l'ultimo passo: mostrarlo. Adesso sotto la
-              // parola si legge cosa vuol dire, ed e' quello a rispondere alla
-              // domanda.
-              //
-              // **Solo all'Alba.** Nel Soffio del Destino la parola non
-              // compare: e' il rito dell'aria e del destino, non quello della
-              // parola da portarsi dietro, e la stessa cosa in due riti
-              // diversi li fa sembrare lo stesso rito.
-              if (widget.dono == DailyElement.dawn && word != null) ...[
-                const SizedBox(height: SpacingTokens.lg),
-                Text(
-                  'Parola del giorno',
-                  key: const Key('alba_etichetta_parola'),
-                  style: TypographyTokens.didascalia().copyWith(
-                    color: abito.inchiostroMuto,
-                    letterSpacing: 0.6,
-                  ),
+                'Parola del giorno',
+                key: const Key('alba_etichetta_parola'),
+                style: TypographyTokens.didascalia().copyWith(
+                  color: abito.inchiostroMuto,
+                  letterSpacing: 0.6,
                 ),
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              Text(
+                word,
+                key: const Key('gift_word'),
+                style: TypographyTokens.cerimonialeGrande().copyWith(
+                  color: accento,
+                  letterSpacing: 1.4,
+                ),
+              ),
+              // **E SUBITO SOTTO, COSA VUOL DIRE.** E' la riga che mancava:
+              // senza, la parola resta un titolo senza testo.
+              if (gift.rito?.perche != null) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Text(
-                  word,
-                  key: const Key('gift_word'),
-                  style: TypographyTokens.cerimonialeGrande().copyWith(
-                    color: accento,
-                    letterSpacing: 1.4,
-                  ),
+                  gift.rito!.perche,
+                  key: const Key('alba_perche_della_parola'),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: abito.inchiostro, height: 1.4),
                 ),
-                // **E SUBITO SOTTO, COSA VUOL DIRE.** E' la riga che mancava:
-                // senza, la parola resta un titolo senza testo.
-                if (gift.rito?.perche != null) ...[
-                  const SizedBox(height: SpacingTokens.xs),
-                  Text(
-                    gift.rito!.perche,
-                    key: const Key('alba_perche_della_parola'),
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: abito.inchiostro, height: 1.4),
-                  ),
-                ],
-              ],
-              // **E NEMMENO IL PONTE VERSO IL SOFFIO.** Ordine BB voce 07,
-              // parole del fondatore: "nel rito dell'Alba c'e' un testo
-              // collegato che porta al soffio del destino, perche'?
-              // Eliminalo."
-              //
-              // **Un dono del giorno non fa da corridoio a un altro dono.**
-              // La riga era nata nell'ordine S voce 13 per togliere il respiro
-              // guidato dall'Alba, ed era giusta allora: il rito del mattino
-              // non doveva contenere il rito della sera. Ma la porta lasciata
-              // al suo posto ha lo stesso difetto in piccolo, perche' ognuno
-              // dei doni ha la sua ora e il suo posto nella fascia, e chi
-              // arriva all'Alba non deve essere mandato altrove.
-              // LA DOMANDA DI IERI, ordine P voce 18: il filo fra la stesa di
-              // ieri e il dono di stamattina.
-              if (widget.domandaDiIeri != null) ...[
-                const SizedBox(height: SpacingTokens.md),
-                Container(
-                  key: const Key('domanda_di_ieri'),
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(SpacingTokens.sm),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    color: abito.incasso,
-                    border: Border.all(color: accento.withValues(alpha: 0.4)),
-                  ),
-                  child: Text(
-                    FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
-                    key: const Key('alba_domanda_di_ieri'),
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: abito.inchiostro, height: 1.4),
-                  ),
-                ),
-              ],
-              const SizedBox(height: SpacingTokens.md),
-              // Livello tre: la base apribile, da dove nasce il dono.
-              _BaseToggle(
-                open: _baseOpen,
-                onTap: () => setState(() => _baseOpen = !_baseOpen),
-                accento: accento,
-              ),
-              AnimatedSize(
-                duration: const Duration(milliseconds: 200),
-                alignment: Alignment.topCenter,
-                child: _baseOpen
-                    ? _BasePanel(
-                        abito: abito,
-                        source: gift.source,
-                        // **IL PERCHE' DEL RITO STA QUI DENTRO**, ordine AS
-                        // voce 06: la base e' il posto delle ragioni, ed e'
-                        // apribile da chi le cerca.
-                        percheDelRito: widget.dono.perche,
-                      )
-                    : const SizedBox(width: double.infinity),
-              ),
-              const SizedBox(height: SpacingTokens.md),
-              // **Wrap e non Row, e il motivo e' che la parola adesso esiste.**
-              // Finche' `word` era nulla il pulsante di condivisione non veniva
-              // mai costruito, e la riga conteneva la sola spilla: ci stava
-              // sempre. Dal momento in cui il rito porta una parola vera i due
-              // elementi convivono, e su schermo stretto la riga sforava di
-              // novantotto pixel. L'ha trovato la cattura delle anteprime.
-              Wrap(
-                spacing: SpacingTokens.md,
-                runSpacing: SpacingTokens.sm,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  // La condivisione della parola torna quando la parola e' reale.
-                  if (word != null && widget.azioni == null)
-                    _ShareWordButton(
-                        onShare: widget.onShare, accento: accento),
-                  if (widget.streak >= 1)
-                    _StreakChip(
-                        abito: abito,
-                        days: widget.streak,
-                        accento: accento),
-                ],
-              ),
-              // **LE TRE AZIONI, quando la schermata le ha posate.** Stanno
-              // sotto la fila delle pastiglie e non dentro: il Custodisci e il
-              // Parlane non sono etichette, sono gesti, e un gesto in mezzo
-              // alle pastiglie si legge come una di loro.
-              if (widget.azioni != null) ...[
-                const SizedBox(height: SpacingTokens.md),
-                widget.azioni!,
               ],
             ],
+            // **E NEMMENO IL PONTE VERSO IL SOFFIO.** Ordine BB voce 07,
+            // parole del fondatore: "nel rito dell'Alba c'e' un testo
+            // collegato che porta al soffio del destino, perche'?
+            // Eliminalo."
+            //
+            // **Un dono del giorno non fa da corridoio a un altro dono.**
+            // La riga era nata nell'ordine S voce 13 per togliere il respiro
+            // guidato dall'Alba, ed era giusta allora: il rito del mattino
+            // non doveva contenere il rito della sera. Ma la porta lasciata
+            // al suo posto ha lo stesso difetto in piccolo, perche' ognuno
+            // dei doni ha la sua ora e il suo posto nella fascia, e chi
+            // arriva all'Alba non deve essere mandato altrove.
+            // LA DOMANDA DI IERI, ordine P voce 18: il filo fra la stesa di
+            // ieri e il dono di stamattina.
+            if (widget.domandaDiIeri != null) ...[
+              const SizedBox(height: SpacingTokens.md),
+              Container(
+                key: const Key('domanda_di_ieri'),
+                width: double.infinity,
+                padding: const EdgeInsets.all(SpacingTokens.sm),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: abito.incasso,
+                  border: Border.all(color: accento.withValues(alpha: 0.4)),
+                ),
+                child: Text(
+                  FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
+                  key: const Key('alba_domanda_di_ieri'),
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: abito.inchiostro, height: 1.4),
+                ),
+              ),
+            ],
+            const SizedBox(height: SpacingTokens.md),
+            // Livello tre: la base apribile, da dove nasce il dono.
+            _BaseToggle(
+              open: _baseOpen,
+              onTap: () => setState(() => _baseOpen = !_baseOpen),
+              accento: accento,
             ),
-          ),
-        );
+            AnimatedSize(
+              duration: const Duration(milliseconds: 200),
+              alignment: Alignment.topCenter,
+              child: _baseOpen
+                  ? _BasePanel(
+                      abito: abito,
+                      source: gift.source,
+                      // **IL PERCHE' DEL RITO STA QUI DENTRO**, ordine AS
+                      // voce 06: la base e' il posto delle ragioni, ed e'
+                      // apribile da chi le cerca.
+                      percheDelRito: widget.dono.perche,
+                    )
+                  : const SizedBox(width: double.infinity),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+            // **Wrap e non Row, e il motivo e' che la parola adesso esiste.**
+            // Finche' `word` era nulla il pulsante di condivisione non veniva
+            // mai costruito, e la riga conteneva la sola spilla: ci stava
+            // sempre. Dal momento in cui il rito porta una parola vera i due
+            // elementi convivono, e su schermo stretto la riga sforava di
+            // novantotto pixel. L'ha trovato la cattura delle anteprime.
+            Wrap(
+              spacing: SpacingTokens.md,
+              runSpacing: SpacingTokens.sm,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                // La condivisione della parola torna quando la parola e' reale.
+                if (word != null && widget.azioni == null)
+                  _ShareWordButton(onShare: widget.onShare, accento: accento),
+                if (widget.streak >= 1)
+                  _StreakChip(
+                      abito: abito, days: widget.streak, accento: accento),
+              ],
+            ),
+            // **LE TRE AZIONI, quando la schermata le ha posate.** Stanno
+            // sotto la fila delle pastiglie e non dentro: il Custodisci e il
+            // Parlane non sono etichette, sono gesti, e un gesto in mezzo
+            // alle pastiglie si legge come una di loro.
+            if (widget.azioni != null) ...[
+              const SizedBox(height: SpacingTokens.md),
+              widget.azioni!,
+            ],
+          ],
+        ),
+      ),
+    );
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: effettiPieni
@@ -325,7 +322,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
     );
   }
 }
-
 
 /// La riga che apre e chiude la base del dono.
 class _BaseToggle extends StatelessWidget {
@@ -394,8 +390,7 @@ class _BasePanel extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         color: abito.incasso,
-        border:
-            Border.all(color: abito.inchiostroMuto.withValues(alpha: 0.28)),
+        border: Border.all(color: abito.inchiostroMuto.withValues(alpha: 0.28)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -529,8 +524,7 @@ class _ShareWordButton extends StatelessWidget {
       ),
       icon: const Icon(Icons.ios_share_rounded, size: 16),
       label: Text(
-        PremioDellaCondivisione.etichetta(context,
-            base: 'Condividi la parola'),
+        PremioDellaCondivisione.etichetta(context, base: 'Condividi la parola'),
         key: const Key('alba_condividi_etichetta'),
         style: TypographyTokens.didascalia()
             .copyWith(color: accento, letterSpacing: 0.5),

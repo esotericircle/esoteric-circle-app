@@ -67,7 +67,6 @@ class MovimentoDegliEos {
 /// vedrebbe due saldi diversi nella stessa schermata. Questo registro racconta,
 /// non conta.
 class RegistroDegliEos extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
   ///
   /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati

@@ -77,8 +77,8 @@ class _GreetingBannerState extends State<GreetingBanner> {
     return SafeArea(
       child: Padding(
         // Sale sopra la barra inferiore, lontano dal titolo e dalla figura.
-        padding: const EdgeInsets.fromLTRB(SpacingTokens.md, 0, SpacingTokens.md,
-            SpacingTokens.xxl + SpacingTokens.lg),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.md, 0,
+            SpacingTokens.md, SpacingTokens.xxl + SpacingTokens.lg),
         child: GestureDetector(
           key: const Key('santuario_greeting'),
           onTap: () => context.read<GreetingController>().dismiss(),

@@ -41,8 +41,8 @@ class StesaShareCard extends StatelessWidget {
     final reading = TarotReading.of(spread, topic);
     return Container(
       width: width,
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
-          SpacingTokens.lg, SpacingTokens.md, SpacingTokens.lg),
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.md, SpacingTokens.lg,
+          SpacingTokens.md, SpacingTokens.lg),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         gradient: LinearGradient(
@@ -54,7 +54,8 @@ class StesaShareCard extends StatelessWidget {
             palette.deepest,
           ],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -78,7 +79,8 @@ class StesaShareCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (var i = 0; i < spread.cards.length; i++) ...[
-                Expanded(child: _CardTile(drawn: spread.cards[i], palette: palette)),
+                Expanded(
+                    child: _CardTile(drawn: spread.cards[i], palette: palette)),
                 if (i < spread.cards.length - 1) const SizedBox(width: 5),
               ],
             ],
@@ -159,8 +161,8 @@ class StesaShareCard extends StatelessWidget {
             child: Text(reading.consiglio.split('\n\n').first,
                 key: const Key('share_consiglio'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.goldSoft, height: 1.4)),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: palette.goldSoft, height: 1.4)),
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text(TarotSpread.closing,

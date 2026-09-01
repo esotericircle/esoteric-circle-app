@@ -78,7 +78,8 @@ abstract interface class TonePlayer {
 /// Il motore e' quello condiviso del Cerchio, non uno suo: due motori audio
 /// vorrebbero dire due volumi e due modi di fermarsi.
 class LettoreToniReale implements TonePlayer {
-  LettoreToniReale({MotoreAudio? motore, this.generator = const ToneGenerator()})
+  LettoreToniReale(
+      {MotoreAudio? motore, this.generator = const ToneGenerator()})
       : _motore = motore ?? MotoreAudio.condiviso;
 
   final MotoreAudio _motore;

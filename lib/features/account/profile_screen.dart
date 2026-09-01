@@ -23,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
   final UserPhotoService? photoService;
 
   static Route<void> route({UserPhotoService? photoService}) =>
-      PassaggioDelCerchio.rotta<void>((_) => ProfileScreen(photoService: photoService));
+      PassaggioDelCerchio.rotta<void>(
+          (_) => ProfileScreen(photoService: photoService));
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,8 @@ class ProfileScreen extends StatelessWidget {
                 key: const Key('profile_avatar_remove'),
                 icon: Icons.auto_awesome_outlined,
                 label: 'Rimuovi la foto e usa il tuo segno',
-                onTap: () => context.read<ProfileController>().clearAvatarPhoto(),
+                onTap: () =>
+                    context.read<ProfileController>().clearAvatarPhoto(),
               ),
           ],
         ),
@@ -151,16 +153,14 @@ class _ConsentSheet extends StatelessWidget {
               key: const Key('profile_source_camera'),
               icon: Icons.photo_camera_outlined,
               label: 'Scatta una foto',
-              onTap: () =>
-                  Navigator.of(context).pop(UserPhotoSource.camera),
+              onTap: () => Navigator.of(context).pop(UserPhotoSource.camera),
             ),
             const SizedBox(height: SpacingTokens.sm),
             _SourceButton(
               key: const Key('profile_source_gallery'),
               icon: Icons.photo_library_outlined,
               label: 'Scegli dalla galleria',
-              onTap: () =>
-                  Navigator.of(context).pop(UserPhotoSource.gallery),
+              onTap: () => Navigator.of(context).pop(UserPhotoSource.gallery),
             ),
           ],
         ),
@@ -171,7 +171,10 @@ class _ConsentSheet extends StatelessWidget {
 
 class _SourceButton extends StatelessWidget {
   const _SourceButton(
-      {super.key, required this.icon, required this.label, required this.onTap});
+      {super.key,
+      required this.icon,
+      required this.label,
+      required this.onTap});
 
   final IconData icon;
   final String label;
@@ -208,7 +211,10 @@ class _SourceButton extends StatelessWidget {
 
 class _Action extends StatelessWidget {
   const _Action(
-      {super.key, required this.icon, required this.label, required this.onTap});
+      {super.key,
+      required this.icon,
+      required this.label,
+      required this.onTap});
 
   final IconData icon;
   final String label;

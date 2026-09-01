@@ -49,7 +49,6 @@ class LeggeDelResponso {
   /// **Una porta sola**: le istruzioni non riscrivono la legge con parole loro,
   /// la leggono da qui. Due copie della stessa legge divergono al primo
   /// ritocco, e a quel punto il corpus e il modello obbediscono a due leggi.
-  static String get perIlModello =>
-      'LA LEGGE DEL RESPONSO, NON NEGOZIABILE:\n'
+  static String get perIlModello => 'LA LEGGE DEL RESPONSO, NON NEGOZIABILE:\n'
       '${articoli.map((a) => '- $a').join('\n')}';
 }

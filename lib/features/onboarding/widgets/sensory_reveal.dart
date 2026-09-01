@@ -168,8 +168,8 @@ class _CoachPainter extends CustomPainter {
           cx + w * 0.16, cy + h * 0.10) // labbro superiore sporto (soffio)
       ..cubicTo(cx + w * 0.20, cy + h * 0.13, cx + w * 0.17, cy + h * 0.17,
           cx + w * 0.12, cy + h * 0.16) // labbro inferiore e mento
-      ..cubicTo(cx + w * (0.14 + 0.02) + cheek, cy + h * 0.24,
-          cx - w * 0.02, cy + h * 0.30, cx - w * 0.16, cy + h * 0.27); // mascella
+      ..cubicTo(cx + w * (0.14 + 0.02) + cheek, cy + h * 0.24, cx - w * 0.02,
+          cy + h * 0.30, cx - w * 0.16, cy + h * 0.27); // mascella
     canvas.drawPath(face, line);
 
     // Guancia gonfia suggerita da un breve arco interno.
@@ -217,15 +217,20 @@ class _CoachPainter extends CustomPainter {
   void _swipe(Canvas canvas, Size size) {
     final w = size.width, h = size.height;
     final travel = (t % 1.0);
-    final x = w * (0.30 + 0.40 * Curves.easeInOut.transform(travel)); // polpastrello
+    final x =
+        w * (0.30 + 0.40 * Curves.easeInOut.transform(travel)); // polpastrello
     final y = h * 0.52;
 
     // Scia puntinata sotto il polpastrello.
     for (var i = 1; i <= 6; i++) {
       final tx = x - i * w * 0.05;
       if (tx < w * 0.08) continue;
-      canvas.drawCircle(Offset(tx, y + h * 0.08), 1.7,
-          Paint()..color = color.withValues(alpha: (0.5 - i * 0.08).clamp(0.0, 0.5)));
+      canvas.drawCircle(
+          Offset(tx, y + h * 0.08),
+          1.7,
+          Paint()
+            ..color =
+                color.withValues(alpha: (0.5 - i * 0.08).clamp(0.0, 0.5)));
     }
 
     final fill = Paint()..color = color.withValues(alpha: 0.16);
@@ -266,7 +271,9 @@ class _CoachPainter extends CustomPainter {
     // Unghia sul polpastrello.
     canvas.drawArc(
         Rect.fromCircle(center: Offset(x - ff * 0.2, y), radius: ff * 0.5),
-        -math.pi / 2, math.pi, false,
+        -math.pi / 2,
+        math.pi,
+        false,
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.4
@@ -277,7 +284,9 @@ class _CoachPainter extends CustomPainter {
       final gy = fistCy - fistH * 0.22 + k * fistH * 0.24;
       canvas.drawArc(
           Rect.fromCircle(center: Offset(gx, gy), radius: h * 0.03),
-          -math.pi / 2, math.pi, false,
+          -math.pi / 2,
+          math.pi,
+          false,
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1.4
@@ -289,8 +298,10 @@ class _CoachPainter extends CustomPainter {
     final ax = w * 0.92;
     final ay = y - h * 0.28;
     canvas.drawLine(Offset(ax - w * 0.16, ay), Offset(ax, ay), line);
-    canvas.drawLine(Offset(ax - w * 0.05, ay - h * 0.035), Offset(ax, ay), line);
-    canvas.drawLine(Offset(ax - w * 0.05, ay + h * 0.035), Offset(ax, ay), line);
+    canvas.drawLine(
+        Offset(ax - w * 0.05, ay - h * 0.035), Offset(ax, ay), line);
+    canvas.drawLine(
+        Offset(ax - w * 0.05, ay + h * 0.035), Offset(ax, ay), line);
   }
 
   @override

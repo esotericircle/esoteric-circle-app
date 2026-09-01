@@ -63,7 +63,12 @@ const Map<String, List<List<Offset>>> kRuneStrokes = {
     [Offset(0.42, 0.88), Offset(0.18, 0.98)],
   ],
   'Perthro': [
-    [Offset(0.64, 0.08), Offset(0.34, 0.28), Offset(0.34, 0.72), Offset(0.64, 0.92)],
+    [
+      Offset(0.64, 0.08),
+      Offset(0.34, 0.28),
+      Offset(0.34, 0.72),
+      Offset(0.64, 0.92)
+    ],
   ],
   'Algiz': [
     [Offset(0.5, 0.28), Offset(0.5, 1)],
@@ -71,7 +76,12 @@ const Map<String, List<List<Offset>>> kRuneStrokes = {
     [Offset(0.5, 0.28), Offset(0.78, 0.02)],
   ],
   'Sowilo': [
-    [Offset(0.68, 0.08), Offset(0.36, 0.34), Offset(0.64, 0.58), Offset(0.32, 0.92)],
+    [
+      Offset(0.68, 0.08),
+      Offset(0.36, 0.34),
+      Offset(0.64, 0.58),
+      Offset(0.32, 0.92)
+    ],
   ],
   'Tiwaz': [
     [Offset(0.5, 0.28), Offset(0.5, 1)],
@@ -100,7 +110,13 @@ const Map<String, List<List<Offset>>> kRuneStrokes = {
     [Offset(0.4, 0), Offset(0.72, 0.2)],
   ],
   'Ingwaz': [
-    [Offset(0.5, 0.16), Offset(0.74, 0.5), Offset(0.5, 0.84), Offset(0.26, 0.5), Offset(0.5, 0.16)],
+    [
+      Offset(0.5, 0.16),
+      Offset(0.74, 0.5),
+      Offset(0.5, 0.84),
+      Offset(0.26, 0.5),
+      Offset(0.5, 0.16)
+    ],
   ],
   'Dagaz': [
     [Offset(0.24, 0.05), Offset(0.24, 0.95)],
@@ -109,7 +125,13 @@ const Map<String, List<List<Offset>>> kRuneStrokes = {
     [Offset(0.76, 0.05), Offset(0.24, 0.95)],
   ],
   'Othala': [
-    [Offset(0.5, 0.08), Offset(0.72, 0.4), Offset(0.5, 0.66), Offset(0.28, 0.4), Offset(0.5, 0.08)],
+    [
+      Offset(0.5, 0.08),
+      Offset(0.72, 0.4),
+      Offset(0.5, 0.66),
+      Offset(0.28, 0.4),
+      Offset(0.5, 0.08)
+    ],
     [Offset(0.5, 0.66), Offset(0.3, 0.98)],
     [Offset(0.5, 0.66), Offset(0.7, 0.98)],
   ],
@@ -153,10 +175,12 @@ class RunePainter extends CustomPainter {
       ..strokeWidth = side * 0.045
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = color.withValues(alpha: (0.5 + 0.5 * intensity).clamp(0.0, 1.0));
+      ..color =
+          color.withValues(alpha: (0.5 + 0.5 * intensity).clamp(0.0, 1.0));
 
     for (final polyline in strokes) {
-      final path = Path()..moveTo(map(polyline.first).dx, map(polyline.first).dy);
+      final path = Path()
+        ..moveTo(map(polyline.first).dx, map(polyline.first).dy);
       for (var i = 1; i < polyline.length; i++) {
         final p = map(polyline[i]);
         path.lineTo(p.dx, p.dy);

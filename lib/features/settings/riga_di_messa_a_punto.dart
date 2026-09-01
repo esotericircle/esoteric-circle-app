@@ -47,8 +47,8 @@ class RigaDiMessaAPunto extends StatelessWidget {
     }
     final corsa = parallasse.layerOffset(ProfonditaDeiPiani.fondo);
     // I punti che vengono dal dito e non dalla mano, per poterli separare.
-    final scorrimento = Offset(
-        0, parallasse.puntiDelloScorrimento(ProfonditaDeiPiani.fondo));
+    final scorrimento =
+        Offset(0, parallasse.puntiDelloScorrimento(ProfonditaDeiPiani.fondo));
     final vivo = parallasse.sensorActive;
     return Padding(
       key: const Key('riga_di_messa_a_punto'),

@@ -85,12 +85,12 @@ class DawnRiteScreen extends StatefulWidget {
   static Route<void> route(
           {DateTime? now, SkyLocation? location, ServizioAvvisi? avvisi}) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          child: DawnRiteScreen(
-            now: now,
-            location: location ?? const GeolocatorSkyLocation(),
-            avvisi: avvisi ?? avvisiDelCerchio,
-          ),
-        ));
+            child: DawnRiteScreen(
+              now: now,
+              location: location ?? const GeolocatorSkyLocation(),
+              avvisi: avvisi ?? avvisiDelCerchio,
+            ),
+          ));
 
   @override
   State<DawnRiteScreen> createState() => _DawnRiteScreenState();
@@ -98,7 +98,6 @@ class DawnRiteScreen extends StatefulWidget {
 
 class _DawnRiteScreenState extends State<DawnRiteScreen>
     with TickerProviderStateMixin {
-
   /// L'ESITO DEL PERMESSO DEGLI AVVISI, nei tre valori distinti.
   ///
   /// Ordine 2166, voce 2. La richiesta tornava un si' o un no, quindi chi
@@ -297,9 +296,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     setState(() {
       _revealed = true;
       _gift = DawnGift.forChart(date,
-          identity: _identity(),
-          posizione: _posizione(date),
-          carta: _carta());
+          identity: _identity(), posizione: _posizione(date), carta: _carta());
     });
     _recordStreak(date).then((_) => _programmaAvviso());
     _aggiornaPosizione(date);
@@ -406,9 +403,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     setState(() {
       _dovesSei = luogo;
       _gift = DawnGift.forChart(date,
-          identity: _identity(),
-          posizione: _posizione(date),
-          carta: _carta());
+          identity: _identity(), posizione: _posizione(date), carta: _carta());
     });
   }
 
@@ -420,9 +415,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     final date = widget.now ?? DateTime.now();
     setState(() {
       _gift = DawnGift.forChart(date,
-          identity: _identity(),
-          posizione: _posizione(date),
-          carta: _carta());
+          identity: _identity(), posizione: _posizione(date), carta: _carta());
     });
   }
 
@@ -451,7 +444,9 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'alba',
         oraRituale: OraRituale.diAdesso(),
         dettagli: primaDelSole
-            ? const {'prima_del_sole': ['si']}
+            ? const {
+                'prima_del_sole': ['si']
+              }
             : const <String, Object?>{}));
     setState(() => _streak = n);
   }
@@ -615,8 +610,8 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                                     dati: {'parola': _gift!.word ?? ''},
                                   ),
                                   condividi: () => _shareWord(_gift!),
-                                  aperturaDellaChat: ChatOpeners.alba(
-                                      _gift!.word ?? ''),
+                                  aperturaDellaChat:
+                                      ChatOpeners.alba(_gift!.word ?? ''),
                                 ),
                               ),
                               // DOVE SEI ADESSO, ordine P voce 23. Compare solo
@@ -657,17 +652,14 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                                       DailyRituals.dawnMaestro(
                                           widget.now ?? DateTime.now()))),
                                   onRichiedi: () async {
-                                    final esito =
-                                        await PortaDelPermesso.chiedi(
+                                    final esito = await PortaDelPermesso.chiedi(
                                       AppPermission.notifications,
                                       richiestaDiSistema:
                                           widget.avvisi.chiediPermesso,
                                     );
                                     if (!mounted) return;
-                                    setState(
-                                        () => _esitoDegliAvvisi = esito);
-                                    if (esito ==
-                                        EsitoDelPermesso.concesso) {
+                                    setState(() => _esitoDegliAvvisi = esito);
+                                    if (esito == EsitoDelPermesso.concesso) {
                                       await _programmaAvviso();
                                     }
                                   },

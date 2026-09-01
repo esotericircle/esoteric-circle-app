@@ -44,8 +44,8 @@ class AppTheme {
       // dell'app, non la superficie inversa chiara di fabbrica.
       snackBarTheme: SnackBarThemeData(
         backgroundColor: base.surfaceElevated,
-        contentTextStyle: TypographyTokens.corpo()
-            .copyWith(color: ColorTokens.textPrimary),
+        contentTextStyle:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
       ),
     );
   }

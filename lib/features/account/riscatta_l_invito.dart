@@ -92,8 +92,7 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
             width: double.infinity,
             child: FilledButton(
               key: const Key('riscatta_invito_conferma'),
-              onPressed: () =>
-                  Navigator.of(foglio).pop(scritto.text.trim()),
+              onPressed: () => Navigator.of(foglio).pop(scritto.text.trim()),
               style: FilledButton.styleFrom(
                   backgroundColor: palette.gold,
                   foregroundColor: palette.onPrimary,

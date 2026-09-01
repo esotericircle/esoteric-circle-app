@@ -33,8 +33,8 @@ class ArtIntroScreen extends StatelessWidget {
 
   static Route<void> route({required ArtEntry art, required Maestro maestro}) {
     return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        child: ArtIntroScreen(art: art, maestro: maestro),
-      ));
+          child: ArtIntroScreen(art: art, maestro: maestro),
+        ));
   }
 
   @override

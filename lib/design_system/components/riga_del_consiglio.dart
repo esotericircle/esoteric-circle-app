@@ -87,8 +87,7 @@ class RigaDelConsiglio extends StatelessWidget {
           // difetto che si vede solo guardando l'immagine.
           Padding(
             padding: const EdgeInsets.only(top: 2),
-            child: Icon(Icons.auto_awesome,
-                size: 13, color: tinta.goldSoft),
+            child: Icon(Icons.auto_awesome, size: 13, color: tinta.goldSoft),
           ),
           const SizedBox(width: 6),
           Expanded(

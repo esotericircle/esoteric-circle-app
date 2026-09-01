@@ -47,8 +47,7 @@ class TempiDelRespiro {
     if (!reggono || trascorso >= intero || trascorso.isNegative) return null;
     final dentroIlGiro = trascorso.inMilliseconds % giro.inMilliseconds;
     final entra = dentroIlGiro < fase.inMilliseconds;
-    final nellaFase =
-        entra ? dentroIlGiro : dentroIlGiro - fase.inMilliseconds;
+    final nellaFase = entra ? dentroIlGiro : dentroIlGiro - fase.inMilliseconds;
     return MomentoDelRespiro(
       giro: trascorso.inMilliseconds ~/ giro.inMilliseconds + 1,
       entra: entra,
@@ -149,8 +148,19 @@ class ParoleDelRespiro {
   /// alla cifra invece di inventare una parola.
   static String _inLettere(int n) {
     const nomi = [
-      '', 'Uno', 'Due', 'Tre', 'Quattro', 'Cinque', 'Sei', 'Sette', 'Otto',
-      'Nove', 'Dieci', 'Undici', 'Dodici',
+      '',
+      'Uno',
+      'Due',
+      'Tre',
+      'Quattro',
+      'Cinque',
+      'Sei',
+      'Sette',
+      'Otto',
+      'Nove',
+      'Dieci',
+      'Undici',
+      'Dodici',
     ];
     return n >= 1 && n < nomi.length ? nomi[n] : '$n';
   }

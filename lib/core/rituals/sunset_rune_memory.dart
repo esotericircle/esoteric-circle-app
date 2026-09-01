@@ -69,7 +69,8 @@ class SunsetRuneMemory {
     final inizio =
         giornoRituale.subtract(const Duration(days: _giorniFinestra - 1));
     final dentro = tutte
-        .where((s) => !s.data.isBefore(inizio) && !s.data.isAfter(giornoRituale))
+        .where(
+            (s) => !s.data.isBefore(inizio) && !s.data.isAfter(giornoRituale))
         .toList()
       ..sort((a, b) => a.data.compareTo(b.data));
     return dentro;
@@ -99,10 +100,10 @@ class SunsetRuneMemory {
       tutte.add(sera);
       // La finestra si ancora alla sera piu' recente fra tutte, non all'ordine
       // di scrittura, cosi' resta corretta anche se le sere arrivano fuori ordine.
-      final recente = tutte
-          .map((s) => s.data)
-          .reduce((a, b) => a.isAfter(b) ? a : b);
-      final inizio = recente.subtract(const Duration(days: _giorniFinestra - 1));
+      final recente =
+          tutte.map((s) => s.data).reduce((a, b) => a.isAfter(b) ? a : b);
+      final inizio =
+          recente.subtract(const Duration(days: _giorniFinestra - 1));
       final potate = tutte
           .where((s) => !s.data.isBefore(inizio) && !s.data.isAfter(recente))
           .toList()

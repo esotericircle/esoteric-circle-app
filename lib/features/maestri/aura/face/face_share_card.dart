@@ -52,7 +52,8 @@ class FaceShareCard extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [palette.surfaceElevated, palette.deepest],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
       ),
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -60,8 +61,8 @@ class FaceShareCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('COSTELLAZIONE DEL VISO',
-                style: TypographyTokens.label(size: 12).copyWith(
-                    color: palette.goldSoft, letterSpacing: 2.0)),
+                style: TypographyTokens.label(size: 12)
+                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
             const SizedBox(height: SpacingTokens.md),
             // Il volto sbiadito con la costellazione molto accesa sopra.
             SizedBox(
@@ -75,7 +76,8 @@ class FaceShareCard extends StatelessWidget {
                     Opacity(
                       opacity: fotoPath != null ? 0.35 : 0.6,
                       child: fotoPath != null
-                          ? Image.file(File(fotoPath!), fit: BoxFit.cover,
+                          ? Image.file(File(fotoPath!),
+                              fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) =>
                                   _Sagoma(palette: palette))
                           : _Sagoma(palette: palette),
@@ -177,6 +179,8 @@ Future<bool> shareFaceCard({
   await file.writeAsBytes(png, flush: true);
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo:
+          'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
           'Scopri la tua con Aura, su Esoteric Circle.');
 }

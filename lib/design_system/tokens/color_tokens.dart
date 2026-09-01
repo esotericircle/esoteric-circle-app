@@ -48,6 +48,7 @@ class ColorTokens {
 
   // --- Neutri di testo e superfici trasparenti ---
   static const Color textPrimary = Color(0xFFF4F1E8);
+
   /// **IL SECONDO GRIGIO SI SCHIARISCE CON L'ALTRO. Ordine AU voce 08.**
   ///
   /// Era `0xFFC7C2B4` e sulla superficie di Aura faceva 6,68: sotto il 7,0 che

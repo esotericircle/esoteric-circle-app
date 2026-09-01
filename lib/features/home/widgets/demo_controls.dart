@@ -164,15 +164,12 @@ class _Choice extends StatelessWidget {
               : ColorTokens.glassTint,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           border: Border.all(
-            color: selected
-                ? palette.gold
-                : ColorTokens.glassStroke,
+            color: selected ? palette.gold : ColorTokens.glassStroke,
           ),
         ),
         child: Text(
           label,
-          style: TypographyTokens.corpo(weight: 600)
-              .copyWith(
+          style: TypographyTokens.corpo(weight: 600).copyWith(
             color: selected ? palette.goldSoft : ColorTokens.textSecondary,
           ),
         ),

@@ -60,14 +60,12 @@ class GestiDelleArti {
         schermata: 'lib/features/tarot/stesa_tre_carte_screen.dart'),
     SorgenteDelGesto(
         gesto: 'gettata',
-        schermata:
-            'lib/features/maestri/caligo/rune/rune_draw_screen.dart'),
+        schermata: 'lib/features/maestri/caligo/rune/rune_draw_screen.dart'),
     SorgenteDelGesto(
         gesto: 'soffio',
         schermata: 'lib/features/rituals/breath_destiny_screen.dart'),
     SorgenteDelGesto(
-        gesto: 'alba',
-        schermata: 'lib/features/rituals/dawn_rite_screen.dart'),
+        gesto: 'alba', schermata: 'lib/features/rituals/dawn_rite_screen.dart'),
     SorgenteDelGesto(
         gesto: 'tramonto',
         schermata: 'lib/features/rituals/sunset_rune_screen.dart'),
@@ -173,12 +171,10 @@ class GestiDelleArti {
         schermata: 'lib/features/onboarding/natal_chart_reveal.dart'),
     SorgenteDelGesto(
         gesto: 'runa_girata',
-        schermata:
-            'lib/features/maestri/caligo/rune/rune_draw_screen.dart'),
+        schermata: 'lib/features/maestri/caligo/rune/rune_draw_screen.dart'),
     SorgenteDelGesto(
         gesto: 'bosco',
-        schermata:
-            'lib/features/maestri/caligo/animal/bosco_del_cerchio.dart'),
+        schermata: 'lib/features/maestri/caligo/animal/bosco_del_cerchio.dart'),
     SorgenteDelGesto(
         gesto: 'due_volti',
         schermata:
@@ -201,10 +197,14 @@ class GestiDelleArti {
   }
 
   /// Le arti che hanno una schermata e devono quindi mandare il loro gesto.
-  static List<SorgenteDelGesto> get conSchermata =>
-      [for (final s in tutte) if (s.costruito) s];
+  static List<SorgenteDelGesto> get conSchermata => [
+        for (final s in tutte)
+          if (s.costruito) s
+      ];
 
   /// Le arti dichiarate mancanti, che il rapporto elenca.
-  static List<SorgenteDelGesto> get senzaSchermata =>
-      [for (final s in tutte) if (!s.costruito && !s.derivato) s];
+  static List<SorgenteDelGesto> get senzaSchermata => [
+        for (final s in tutte)
+          if (!s.costruito && !s.derivato) s
+      ];
 }

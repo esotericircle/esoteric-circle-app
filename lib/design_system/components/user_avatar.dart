@@ -61,8 +61,7 @@ class UserAvatar extends StatelessWidget {
     final birth = context.watch<BirthIdentityController>();
     return UserAvatar(
       key: key,
-      photo:
-          profile.hasAvatarPhoto ? MemoryImage(profile.avatarPhoto!) : null,
+      photo: profile.hasAvatarPhoto ? MemoryImage(profile.avatarPhoto!) : null,
       // IL SEGNO, DALLA FONTE CHE NON SI PERDE.
       //
       // Qui si leggeva `birth.chart?.sunSign`, e la carta natale vive solo in

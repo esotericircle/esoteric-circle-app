@@ -252,8 +252,11 @@ class GeolocatorSkyLocation extends SkyLocation {
       // La citta' prima di tutto; se il servizio non la sa, la localita' o
       // la zona amministrativa. Se non sa niente di leggibile, NULLO: il
       // nome sparisce e restano le coordinate, che sono vere comunque.
-      for (final candidato in [p.locality, p.subAdministrativeArea,
-        p.administrativeArea]) {
+      for (final candidato in [
+        p.locality,
+        p.subAdministrativeArea,
+        p.administrativeArea
+      ]) {
         if (candidato != null && candidato.trim().isNotEmpty) {
           return candidato.trim();
         }

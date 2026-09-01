@@ -238,8 +238,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
                   backgroundColor: palette.gold,
                   foregroundColor: palette.deepest,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.xl,
-                      vertical: SpacingTokens.sm),
+                      horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
                 ),
                 onPressed: _condividendo ? null : _condividi,
                 icon: _condividendo

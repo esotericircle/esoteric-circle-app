@@ -123,7 +123,10 @@ class MaestroWelcome {
       // sette le preposizioni che si articolano in italiano.
       final delCammino =
           life == null ? null : preposizioneArticolata('di', life);
-      if (sun != null && sun.isNotEmpty && delCammino != null && life!.isNotEmpty) {
+      if (sun != null &&
+          sun.isNotEmpty &&
+          delCammino != null &&
+          life!.isNotEmpty) {
         return 'Il tuo Sole in $sun e il tuo cammino $delCammino ti accompagnano.';
       }
       if (sun != null && sun.isNotEmpty) {

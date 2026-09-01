@@ -34,8 +34,7 @@ class Astrolabio extends StatefulWidget {
   State<Astrolabio> createState() => _AstrolabioState();
 }
 
-class _AstrolabioState extends State<Astrolabio>
-    with TickerProviderStateMixin {
+class _AstrolabioState extends State<Astrolabio> with TickerProviderStateMixin {
   late final AnimationController _traccia;
   late final AnimationController _giro;
 
@@ -123,8 +122,8 @@ class AstrolabioPainter extends CustomPainter {
     if (rMax <= 0) return;
 
     for (var i = 0; i < Astrolabio.anelli; i++) {
-      final k = Curves.easeOutCubic
-          .transform(avanzamentoAnello(costruzione, i));
+      final k =
+          Curves.easeOutCubic.transform(avanzamentoAnello(costruzione, i));
       if (k <= 0) continue;
 
       final r = rMax * (1.0 - i * 0.26);

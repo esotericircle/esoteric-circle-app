@@ -354,8 +354,7 @@ class RegiaDelCammino {
         // importo dichiarato e' sempre meglio di una sottrazione fra un
         // numero vero e uno zero che non e' un saldo ma un'assenza.
         final saldoNoto = borsa.saldoEos > 0;
-        final delta =
-            saldoNoto ? saldo - borsa.saldoEos : traguardo.eos;
+        final delta = saldoNoto ? saldo - borsa.saldoEos : traguardo.eos;
         arrivati.quanti += delta;
         // IL LIBRO SA COSA E' ARRIVATO, ordine AL voce 05: senza questo segno
         // la sincronia non saprebbe quali premi riprendere e quali no.
@@ -433,8 +432,7 @@ class RegiaDelCammino {
       // NESSUNA festa, perche' gli altri due sono in coda. Contando i soli
       // accesi, la prima festa della vita finiva nella forma breve invece che
       // a schermo pieno, e il primo premio non sembrava piu' grande.
-      primoInAssoluto:
-          diario.accesi.length - coda.inAttesa.length <= 1,
+      primoInAssoluto: diario.accesi.length - coda.inAttesa.length <= 1,
       attendiLaFine: true,
     );
     if (festeggiato) {

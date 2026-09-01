@@ -18,7 +18,6 @@ import 'zodiac.dart';
 /// e quando nessuno gli dice niente non evidenzia nulla, che e' la cosa giusta
 /// da fare quando non si sa.
 class ZodiacController extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
   ///
   /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati

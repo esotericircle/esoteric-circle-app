@@ -100,16 +100,15 @@ class SunsetRune {
     final giorno = giornoRituale(ora);
     // Il segno si usa solo se dato o derivabile dalla nascita. Se non si sa,
     // resta null: nessun segno inventato, e la chiave lo dichiara assente.
-    final segnoUtente = segno ??
-        (dataNascita != null ? Zodiac.fromDate(dataNascita) : null);
+    final segnoUtente =
+        segno ?? (dataNascita != null ? Zodiac.fromDate(dataNascita) : null);
     final chiave = _chiave(giorno, identita, segnoUtente);
 
     final indice = _fnv1a(chiave) % kElderFuthark.length;
     final rune = kElderFuthark[indice];
 
     final simmetrica = kRuneSimmetriche.contains(rune.name);
-    final ombra =
-        !simmetrica && (_fnv1a("$chiave|verso") % 100) < kSogliaOmbra;
+    final ombra = !simmetrica && (_fnv1a("$chiave|verso") % 100) < kSogliaOmbra;
     final verso = ombra ? RuneVerso.merkstave : RuneVerso.dritto;
 
     // La fase lunare segue l'istante vero del tramonto quando noto, altrimenti
@@ -138,8 +137,7 @@ class SunsetRune {
   static const String chiaveCerniera = "sunset_rune_last";
 
   /// La data in ISO yyyy-MM-dd.
-  static String iso(DateTime d) =>
-      "${d.year.toString().padLeft(4, '0')}-"
+  static String iso(DateTime d) => "${d.year.toString().padLeft(4, '0')}-"
       "${d.month.toString().padLeft(2, '0')}-"
       "${d.day.toString().padLeft(2, '0')}";
 

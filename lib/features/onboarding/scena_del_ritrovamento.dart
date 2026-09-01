@@ -44,12 +44,12 @@ class ScenaDelRitrovamento extends StatelessWidget {
     required VoidCallback onProsegui,
   }) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          maestro: Maestro.medora,
-          child: ScenaDelRitrovamento(
-            ritrovamento: ritrovamento,
-            onProsegui: onProsegui,
-          ),
-        ));
+            maestro: Maestro.medora,
+            child: ScenaDelRitrovamento(
+              ritrovamento: ritrovamento,
+              onProsegui: onProsegui,
+            ),
+          ));
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +209,6 @@ class _Voce extends StatelessWidget {
   }
 }
 
-
 /// Il saluto del ritrovamento, declinato sulla forma di cortesia.
 String _saluto(BuildContext context, String? nome) {
   var forma = CourtesyForm.unknown;
@@ -225,6 +224,8 @@ String _saluto(BuildContext context, String? nome) {
       return nome == null ? 'Bentornata nel Cerchio' : 'Bentornata, $nome';
     case CourtesyForm.neutral:
     case CourtesyForm.unknown:
-      return nome == null ? 'Di nuovo nel Cerchio' : 'Di nuovo nel Cerchio, $nome';
+      return nome == null
+          ? 'Di nuovo nel Cerchio'
+          : 'Di nuovo nel Cerchio, $nome';
   }
 }

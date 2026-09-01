@@ -199,8 +199,7 @@ abstract final class MotoreDelleEclissi {
         0.0107582 * t2 +
         0.00001238 * t3 -
         0.000000058 * t4;
-    final omega =
-        124.7746 - 1.56375588 * k + 0.0020672 * t2 + 0.00000215 * t3;
+    final omega = 124.7746 - 1.56375588 * k + 0.0020672 * t2 + 0.00000215 * t3;
     final f1 = f - 0.02665 * _sin(omega);
     final a1 = 299.77 + 0.107408 * k - 0.009173 * t2;
 

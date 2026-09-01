@@ -99,7 +99,6 @@ class SpiraleDiStelle extends StatefulWidget {
 
 class SpiraleDiStelleState extends State<SpiraleDiStelle>
     with SingleTickerProviderStateMixin {
-
   /// **IL TEMPO SI ACCUMULA DAI PASSI, non si legge dall'orologio.**
   ///
   /// **Due difetti veri, tutti e due trovati guardando l'anteprima e nessuno
@@ -267,8 +266,8 @@ class SpiraleDiStelleState extends State<SpiraleDiStelle>
     for (var i = 0; i < punte * 2; i++) {
       final raggio = i.isEven ? lato / 2.4 : lato / 6;
       final angolo = -math.pi / 2 + i * math.pi / punte;
-      final punto = centro +
-          Offset(math.cos(angolo) * raggio, math.sin(angolo) * raggio);
+      final punto =
+          centro + Offset(math.cos(angolo) * raggio, math.sin(angolo) * raggio);
       if (i == 0) {
         percorso.moveTo(punto.dx, punto.dy);
       } else {
@@ -430,7 +429,6 @@ class PittoreDellaSpirale extends CustomPainter {
   /// UNA sola `drawAtlas` per fotogramma.
   @visibleForTesting
   static int chiamateAllUltimoFotogramma = 0;
-
 
   @override
   void paint(Canvas tela, Size misura) {

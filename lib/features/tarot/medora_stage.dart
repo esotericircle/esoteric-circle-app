@@ -100,8 +100,7 @@ class MedoraStage extends StatefulWidget {
   };
 
   /// Il ritratto che spetta a un'espressione.
-  static String assetFor(MedoraExpression e) =>
-      ritratti[e] ?? placeholderAsset;
+  static String assetFor(MedoraExpression e) => ritratti[e] ?? placeholderAsset;
 
   /// Quanta parte dell'avatar a figura intera resta in scena quando Medora ha
   /// tutto il suo spazio: dalla testa fino sotto le mani che reggono le carte.

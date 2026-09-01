@@ -36,7 +36,10 @@ class MeditationScreen extends StatefulWidget {
   final TonePlayer player;
 
   static Route<void> route({TonePlayer? player}) {
-    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(id: 'meditation', maestro: Maestro.aura, child: MeditationScreen(player: player)));
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
+        id: 'meditation',
+        maestro: Maestro.aura,
+        child: MeditationScreen(player: player)));
   }
 
   @override
@@ -77,7 +80,6 @@ class _MeditationScreenState extends State<MeditationScreen>
     );
   }
 
-
   /// **IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ voce 01**: il
   /// repeat di `_breath` girava anche per chi ha chiesto meno movimento. La
   /// MediaQuery non si legge in initState, quindi la guardia sta qui e vale
@@ -108,7 +110,10 @@ class _MeditationScreenState extends State<MeditationScreen>
   ({double fill, String phase}) _breathState() {
     final ms = _breath.value * _cycleMs;
     if (ms < _inhaleMs) {
-      return (fill: Curves.easeInOut.transform(ms / _inhaleMs), phase: 'Inspira');
+      return (
+        fill: Curves.easeInOut.transform(ms / _inhaleMs),
+        phase: 'Inspira'
+      );
     }
     if (ms < _inhaleMs + _holdMs) {
       return (fill: 1.0, phase: 'Trattieni');
@@ -173,8 +178,7 @@ class _MeditationScreenState extends State<MeditationScreen>
         // Col borsellino nella riga delle azioni lo spazio del titolo si e'
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
-            testo: 'Meditazione',
-            stile: TypographyTokens.titoloDiSchermata()),
+            testo: 'Meditazione', stile: TypographyTokens.titoloDiSchermata()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
@@ -224,8 +228,8 @@ class _MeditationScreenState extends State<MeditationScreen>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                  SpacingTokens.lg, SpacingTokens.md),
+              padding: const EdgeInsets.fromLTRB(
+                  SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.md),
               child: Column(
                 children: [
                   // Selettore dei preset sonori.
@@ -346,8 +350,8 @@ class _BreathGuide extends StatelessWidget {
               palette.primary.withValues(alpha: 0.35),
               palette.deepest.withValues(alpha: 0.05),
             ]),
-            border:
-                Border.all(color: palette.gold.withValues(alpha: 0.5), width: 1.2),
+            border: Border.all(
+                color: palette.gold.withValues(alpha: 0.5), width: 1.2),
           ),
           child: Text(
             phase,

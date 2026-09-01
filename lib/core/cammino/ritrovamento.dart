@@ -222,7 +222,8 @@ class Ritrovamento {
       quantiEos: saldoEos,
       cerchioAppenaNato: cerchioAppenaNato,
       nome: identita?.nome,
-      segno: identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
+      segno:
+          identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
       rifiutatoDalServer: rifiutatoDalServer,
       senzaRisposta: senzaRisposta,
       identita: identita,

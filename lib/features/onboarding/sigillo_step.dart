@@ -176,8 +176,7 @@ class _SigilloStepState extends State<SigilloStep>
                 onPointerUp: (_) => _molla(),
                 onPointerCancel: (_) => _molla(),
                 child: AnimatedBuilder(
-                  animation:
-                      Listenable.merge([_cuore, _tenuta, _trionfo]),
+                  animation: Listenable.merge([_cuore, _tenuta, _trionfo]),
                   builder: (context, _) {
                     final battito = widget.reduceMotion
                         ? 0.0
@@ -190,8 +189,10 @@ class _SigilloStepState extends State<SigilloStep>
                     final espansione = _chiuso
                         ? (widget.reduceMotion
                             ? 1.0
-                            : 1.0 + 0.30 * Curves.easeOutBack.transform(
-                                math.min(1.0, t * 2.2)))
+                            : 1.0 +
+                                0.30 *
+                                    Curves.easeOutBack
+                                        .transform(math.min(1.0, t * 2.2)))
                         : 1.0;
                     final scala =
                         (1.0 + 0.05 * battito - 0.04 * tenuta) * espansione;
@@ -355,8 +356,8 @@ class _SigilloPainter extends CustomPainter {
     // Tre tempi dentro un'animazione sola: l'onda parte subito, i raggi
     // crescono e restano, le particelle escono e svaniscono in coda.
     final onda = Curves.easeOut.transform(math.min(1.0, trionfo * 1.8));
-    final raggi = Curves.easeOutCubic.transform(
-        ((trionfo - 0.06) / 0.5).clamp(0.0, 1.0));
+    final raggi =
+        Curves.easeOutCubic.transform(((trionfo - 0.06) / 0.5).clamp(0.0, 1.0));
     final semi = ((trionfo - 0.12) / 0.85).clamp(0.0, 1.0);
 
     // L'onda circolare che si allarga e si dissolve.

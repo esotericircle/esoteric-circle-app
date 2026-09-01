@@ -163,8 +163,7 @@ class _MaestroScopeState extends State<MaestroScope>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
-        final curved =
-            Curves.easeInOutCubic.transform(_controller.value);
+        final curved = Curves.easeInOutCubic.transform(_controller.value);
         final palette = MaestroPalette.lerp(_from, _to, curved);
         return _InheritedMaestroPalette(
           palette: palette,
@@ -200,8 +199,7 @@ class _InheritedMaestroPalette extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_InheritedMaestroPalette oldWidget) =>
-      oldWidget.palette != palette ||
-      oldWidget.destinazione != destinazione;
+      oldWidget.palette != palette || oldWidget.destinazione != destinazione;
 }
 
 /// Scorciatoia leggibile per accedere alla palette del Maestro attivo.

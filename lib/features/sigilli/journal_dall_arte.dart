@@ -250,8 +250,8 @@ class PittoreDelleLuci extends CustomPainter {
     // traguardo alla volta: comporre migliaia di rettangoli a ogni passata era
     // rifare ogni volta un lavoro il cui risultato non era cambiato. Adesso si
     // compone quando cambia qualcosa e si tiene.
-    final ricordo = _lampadineDi(ancoraggi, forme, traguardi, misura, scala,
-        dx, dy);
+    final ricordo =
+        _lampadineDi(ancoraggi, forme, traguardi, misura, scala, dx, dy);
 
     // **L'EVIDENZA STA FUORI DAL RICORDO, ed e' voluto.** E' un elemento solo,
     // cambia a ogni tocco, e tenerla dentro vorrebbe dire buttare via tutto il
@@ -392,8 +392,8 @@ class PittoreDelleLuci extends CustomPainter {
   }
 
   /// Le strisce di una forma diventano rettangoli dentro un tracciato.
-  void _aggiungi(
-      Path tracciato, FormaDellElemento forma, double scala, double dx, double dy) {
+  void _aggiungi(Path tracciato, FormaDellElemento forma, double scala,
+      double dx, double dy) {
     for (var k = 0; k + 2 < forma.strisce.length; k += 3) {
       final y = forma.strisce[k].toDouble();
       final x1 = forma.strisce[k + 1].toDouble();
@@ -469,8 +469,7 @@ class PittoreDelleLuci extends CustomPainter {
         // Sul Loto le perle stanno fitte sul fiore: l'ampiezza piena da 2,4
         // raggi fondeva gli aloni vicini in una nuvola sola da 45.049 pixel,
         // misurata. Un alone piu' stretto pareggia il peso senza fondere.
-        final raggioAlone =
-            raggio * (sentiero == Sentiero.loto ? 2.0 : 2.4);
+        final raggioAlone = raggio * (sentiero == Sentiero.loto ? 2.0 : 2.4);
         tela.drawCircle(
           centro,
           raggioAlone,
@@ -586,8 +585,7 @@ class PittoreDelleLuci extends CustomPainter {
     }
   }
 
-  Offset _punto(
-          AncoraggioDelSentiero a, double scala, double dx, double dy) =>
+  Offset _punto(AncoraggioDelSentiero a, double scala, double dx, double dy) =>
       Offset(
         dx + a.x * ArteDelSentiero.larghezzaArte(sentiero) * scala,
         dy + a.y * ArteDelSentiero.altezzaArte(sentiero) * scala,

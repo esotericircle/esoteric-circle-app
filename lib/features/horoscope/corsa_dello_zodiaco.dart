@@ -123,8 +123,8 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
       vsync: this,
       duration: Duration(
         milliseconds: (widget.durata.inMilliseconds *
-                (_quotaDellIngrandimento + (1 - _quotaDellaCorsa -
-                    _quotaDellIngrandimento)))
+                (_quotaDellIngrandimento +
+                    (1 - _quotaDellaCorsa - _quotaDellIngrandimento)))
             .round(),
       ),
     );
@@ -215,8 +215,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
     // piu' a lungo di questa scena, quindi aspettare un fotogramma e' sicuro.
     final cuore = _cuore;
     if (cuore != null) {
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => cuore.value = false);
+      WidgetsBinding.instance.addPostFrameCallback((_) => cuore.value = false);
     }
     _passo?.cancel();
     _finale.dispose();
@@ -238,8 +237,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
         builder: (context, _) {
           // Il finale governa due cose in fila: prima il segno cresce, poi
           // tutta la scena si dissolve.
-          final quotaIngrandimento =
-              (_finale.value / 0.5).clamp(0.0, 1.0);
+          final quotaIngrandimento = (_finale.value / 0.5).clamp(0.0, 1.0);
           final quotaDissolvenza =
               ((_finale.value - 0.5) / 0.5).clamp(0.0, 1.0);
           final scala = 1.0 + 0.35 * quotaIngrandimento;
@@ -253,82 +251,82 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
             child: Material(
               type: MaterialType.transparency,
               child: Opacity(
-              opacity: 1 - quotaDissolvenza,
-              child: ColoredBox(
-                // **OPACO, non velato.** Il fondatore ha chiesto "una
-                // schermata nuova sopra tutto": con un velo al 94 per cento
-                // l'Oroscopo si leggeva ancora dietro, e l'anteprima lo ha
-                // mostrato subito. Una schermata copre.
-                color: palette.deepest,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Transform.scale(
-                        scale: scala,
-                        child: Container(
-                          key: Key('corsa_segno_${_mostrato.name}'),
-                          width: misura,
-                          height: misura,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              // **UN ALONE, NON UN DISCO.** A 0,55 di
-                              // opacita' e con un raggio corto l'ombra si
-                              // leggeva come un cerchio pieno dietro
-                              // l'emblema: l'anteprima mostrava un leone
-                              // seduto su una moneta. Piu' larga e piu'
-                              // tenue, e' luce.
-                              BoxShadow(
-                                color: palette.gold.withValues(
-                                    alpha: 0.05 + 0.16 * quotaIngrandimento),
-                                blurRadius: misura * 0.9,
-                                spreadRadius: -misura * 0.1,
-                              ),
-                            ],
-                          ),
-                          child: ZodiacEmblem(
-                            sign: _mostrato,
-                            size: misura,
-                            // Un posto vuoto qui sarebbe un buco nero in mezzo
-                            // alla scena: se l'arte non si decodifica resta il
-                            // nome del segno, che e' l'informazione vera.
-                            ripiego: Center(
-                              child: Text(
-                                _mostrato.symbol,
-                                style: TextStyle(
-                                  fontSize: misura * 0.6,
-                                  color: palette.goldSoft,
+                opacity: 1 - quotaDissolvenza,
+                child: ColoredBox(
+                  // **OPACO, non velato.** Il fondatore ha chiesto "una
+                  // schermata nuova sopra tutto": con un velo al 94 per cento
+                  // l'Oroscopo si leggeva ancora dietro, e l'anteprima lo ha
+                  // mostrato subito. Una schermata copre.
+                  color: palette.deepest,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Transform.scale(
+                          scale: scala,
+                          child: Container(
+                            key: Key('corsa_segno_${_mostrato.name}'),
+                            width: misura,
+                            height: misura,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                // **UN ALONE, NON UN DISCO.** A 0,55 di
+                                // opacita' e con un raggio corto l'ombra si
+                                // leggeva come un cerchio pieno dietro
+                                // l'emblema: l'anteprima mostrava un leone
+                                // seduto su una moneta. Piu' larga e piu'
+                                // tenue, e' luce.
+                                BoxShadow(
+                                  color: palette.gold.withValues(
+                                      alpha: 0.05 + 0.16 * quotaIngrandimento),
+                                  blurRadius: misura * 0.9,
+                                  spreadRadius: -misura * 0.1,
+                                ),
+                              ],
+                            ),
+                            child: ZodiacEmblem(
+                              sign: _mostrato,
+                              size: misura,
+                              // Un posto vuoto qui sarebbe un buco nero in mezzo
+                              // alla scena: se l'arte non si decodifica resta il
+                              // nome del segno, che e' l'informazione vera.
+                              ripiego: Center(
+                                child: Text(
+                                  _mostrato.symbol,
+                                  style: TextStyle(
+                                    fontSize: misura * 0.6,
+                                    color: palette.goldSoft,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: SpacingTokens.lg),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: SpacingTokens.lg),
-                        child: Text(
-                          _fermo ? widget.segno.italianName : frase,
-                          key: const Key('corsa_frase'),
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.titoloSezione()
-                              .copyWith(color: palette.goldSoft),
+                        const SizedBox(height: SpacingTokens.lg),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingTokens.lg),
+                          child: Text(
+                            _fermo ? widget.segno.italianName : frase,
+                            key: const Key('corsa_frase'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.titoloSezione()
+                                .copyWith(color: palette.goldSoft),
+                          ),
                         ),
-                      ),
-                      if (!_fermo) ...[
-                        const SizedBox(height: SpacingTokens.xs),
-                        Text(
-                          '...',
-                          style: TypographyTokens.titoloSezione()
-                              .copyWith(color: palette.goldSoft),
-                        ),
+                        if (!_fermo) ...[
+                          const SizedBox(height: SpacingTokens.xs),
+                          Text(
+                            '...',
+                            style: TypographyTokens.titoloSezione()
+                                .copyWith(color: palette.goldSoft),
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
-              ),
               ),
             ),
           );

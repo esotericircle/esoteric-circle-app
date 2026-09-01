@@ -10,7 +10,14 @@ enum TemaTransito { armonia, sfida, intensita, quiete }
 /// L'aspetto per segno fra un pianeta di transito e un punto natale. Calcolato
 /// dalla distanza fra i due segni, non da un orbo fine: onesto con cio' che il
 /// dispositivo sa davvero, senza fingere una precisione che non ha.
-enum AspettoSegno { congiunzione, sestile, quadrato, trigono, opposizione, nessuno }
+enum AspettoSegno {
+  congiunzione,
+  sestile,
+  quadrato,
+  trigono,
+  opposizione,
+  nessuno
+}
 
 /// Il Messaggio del Giorno pronto per la schermata: il testo nella voce
 /// dell'animale, piu' i due pezzi di trasparenza (il transito in parole e i dati

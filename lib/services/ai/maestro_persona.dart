@@ -62,8 +62,7 @@ class MaestroPersona {
       ..writeln('STRUTTURA DELLA RISPOSTA, ANATOMIA A QUATTRO STRATI:')
       ..writeln(
           '- Il primo strato, il segno grafico, lo dà l\'app: tu non descriverlo.')
-      ..writeln(
-          '- Poi una frase di sintesi, il colpo d\'occhio in una riga.')
+      ..writeln('- Poi una frase di sintesi, il colpo d\'occhio in una riga.')
       ..writeln('- Poi il testo narrato nel tuo tono, poche righe.')
       // LA CHIUSURA E' DEL MAESTRO, e qui non se ne dichiara una seconda.
       //
@@ -146,8 +145,7 @@ class MaestroPersona {
       ..writeln('MATERIA:')
       ..writeln(voce.materia)
       ..writeln()
-      ..writeln(
-          'IL TUO LESSICO DI FIRMA, parole tue che gli altri non usano:')
+      ..writeln('IL TUO LESSICO DI FIRMA, parole tue che gli altri non usano:')
       ..writeln('${voce.lessicoDiFirma.join(', ')}.')
       ..writeln()
       // **IL DIVIETO INCROCIATO, ordine BP voce 1.** La riga qui sopra dice a
@@ -229,8 +227,7 @@ class MaestroPersona {
 
   /// Regola anti invenzione, comune ai tre Maestri: la memoria è unica e
   /// condivisa, ciascun Maestro la legge con la propria lente.
-  static const String _antiInvention =
-      'REGOLA DELLA MEMORIA, VALE SEMPRE:\n'
+  static const String _antiInvention = 'REGOLA DELLA MEMORIA, VALE SEMPRE:\n'
       '- La memoria è una sola, condivisa fra i tre Maestri: tu la leggi con la tua lente.\n'
       '- Usa solo i dati e i ricordi presenti qui nel contesto. Non inventare nomi, segni, fatti o ricordi.\n'
       '- Se un dato manca, dichiaralo con garbo e chiedilo, non riempirlo a caso. Il tono è di custodia, mai di rimprovero.';
@@ -241,7 +238,8 @@ class MaestroPersona {
     if (memory.isEmpty) {
       return 'MEMORIA:\n- È il primo dialogo, o non c\'è ancora memoria. Accogli con calore, senza dare per scontato nulla.\n\n$_antiInvention';
     }
-    final buffer = StringBuffer('MEMORIA DELL\'UTENTE (usala con naturalezza, non elencarla):\n');
+    final buffer = StringBuffer(
+        'MEMORIA DELL\'UTENTE (usala con naturalezza, non elencarla):\n');
     if (memory.sessionSummary.trim().isNotEmpty) {
       buffer.writeln('- Dove eravate rimasti: ${memory.sessionSummary.trim()}');
     }
@@ -382,8 +380,7 @@ class MaestroPersona {
   /// scendi sotto": serviva alla seconda chiamata, che non c'e' piu'. Adesso il
   /// Maestro scrive una volta sola, e cio' che conta e' che le prime frasi
   /// reggano da sole, perche' molte persone leggeranno solo quelle.
-  static const String regolaDeiDueStrati =
-      'COME SI APRE LA RISPOSTA:\n'
+  static const String regolaDeiDueStrati = 'COME SI APRE LA RISPOSTA:\n'
       '- Le prime due o tre frasi devono reggere da sole: chi legge solo '
       'quelle deve avere una risposta intera, non un\'introduzione.\n'
       '- Quello che viene dopo scende più giù sullo stesso ancoraggio, senza '
@@ -414,8 +411,7 @@ class MaestroPersona {
         ..writeln(
             '- Di questa persona non sai ancora nulla di suo: nessun segno, '
             'nessun numero, nessun ricordo.')
-        ..writeln(
-            '- NON inventare un dato per riempire il vuoto. Nessun segno '
+        ..writeln('- NON inventare un dato per riempire il vuoto. Nessun segno '
             'immaginato, nessuna posizione supposta.')
         ..write(
             '- Parla del simbolo in generale. Quando è il momento chiedi UNA '
@@ -432,8 +428,7 @@ class MaestroPersona {
       ..writeln('- Ogni risposta ne nomina ALMENO UNO, per nome, presto. '
           'Una risposta che non ne porta nessuno potrebbe essere stata scritta '
           'per chiunque altro.')
-      ..writeln(
-          '- Apri DA LÌ, non dall\'emozione. Non "capisco che tu abbia '
+      ..writeln('- Apri DA LÌ, non dall\'emozione. Non "capisco che tu abbia '
           'paura", ma "la tua Luna in Cancro ti fa sentire due volte quello '
           'che gli altri sentono una volta".')
       ..write('- Non aggiungere dati che non sono in questo elenco. '
@@ -463,10 +458,10 @@ class MaestroPersona {
       buffer.writeln('- Ascendente: ${natal.ascendant!.trim()}.');
     }
     if (natal.lifeNumber != null) {
-      final titolo =
-          (natal.lifeNumberTitle != null && natal.lifeNumberTitle!.trim().isNotEmpty)
-              ? ', ${natal.lifeNumberTitle!.trim()}'
-              : '';
+      final titolo = (natal.lifeNumberTitle != null &&
+              natal.lifeNumberTitle!.trim().isNotEmpty)
+          ? ', ${natal.lifeNumberTitle!.trim()}'
+          : '';
       buffer.writeln('- Numero della vita: ${natal.lifeNumber}$titolo.');
     }
     if (natal.moonPhase != null && natal.moonPhase!.trim().isNotEmpty) {

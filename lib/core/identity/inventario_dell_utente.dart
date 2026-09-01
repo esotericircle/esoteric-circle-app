@@ -93,7 +93,11 @@ class InventarioDellUtente {
         );
       }
 
-      for (final documento in const ['contatori', 'borsellino', 'abbonamento']) {
+      for (final documento in const [
+        'contatori',
+        'borsellino',
+        'abbonamento'
+      ]) {
         final snap = await utente.collection('stato').doc(documento).get();
         voci['users/$uid/stato/$documento'] = _impronta(snap.data());
       }

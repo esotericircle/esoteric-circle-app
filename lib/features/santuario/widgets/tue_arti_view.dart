@@ -159,8 +159,8 @@ class _FoglioScelta extends StatelessWidget {
     final preferite = context.watch<ArtiPreferiteController>();
     return Container(
       key: const Key('tue_arti_foglio'),
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.85),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
           SpacingTokens.lg, SpacingTokens.xl),
       decoration: BoxDecoration(

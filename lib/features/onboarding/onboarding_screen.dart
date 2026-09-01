@@ -70,8 +70,10 @@ class OnboardingScreen extends StatefulWidget {
   }) {
     // Il cosmo di fondo legge la palette dal MaestroScope: la rotta lo porta con
     // se', cosi' vive anche fuori dalla home (dove sta l'altro MaestroScope).
-    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          child: OnboardingScreen(clock: clock, ritrovata: ritrovata)), fullscreenDialog: false);
+    return PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(
+            child: OnboardingScreen(clock: clock, ritrovata: ritrovata)),
+        fullscreenDialog: false);
   }
 
   @override
@@ -281,6 +283,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   BirthPlace? _nazionePerQuale;
   final TextEditingController _placeCtrl = TextEditingController();
   final FocusNode _luogoFocus = FocusNode();
+
   /// Dove sta l'elenco dei suggerimenti nell'albero, per poterlo portare sotto
   /// gli occhi quando la tastiera lo spinge fuori.
   final GlobalKey _luogoElenco = GlobalKey();
@@ -350,8 +353,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         birthPlace: _place,
       );
 
-  String get _name =>
-      _nameCtrl.text.trim().isEmpty ? 'Anima del Cerchio' : _nameCtrl.text.trim();
+  String get _name => _nameCtrl.text.trim().isEmpty
+      ? 'Anima del Cerchio'
+      : _nameCtrl.text.trim();
 
   /// Torna al passo precedente, per correggere un dato sbagliato.
   ///
@@ -564,61 +568,60 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         if (!didPop) _goBack();
       },
       child: Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
-      // Il fondo di tutto e' il cosmo profondo, neutro al Risveglio: nessun
-      // colore di Maestro, che si sceglie solo alla risonanza. Le costellazioni
-      // zodiacali restano spente qui, per non affollare i passi del rito.
-      body: CosmosBackground(
-        seed: 13,
-        showZodiac: false,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
-            child: Column(
-              key: const Key('onboarding_risveglio'),
-              children: [
-                const SizedBox(height: SpacingTokens.lg),
-                if (_step != _Step.accoglienza)
-                  Row(
-                    children: [
-                      // La freccia vive nella riga dei puntini, a sinistra:
-                      // e' dove l'occhio la cerca, e non ruba spazio al passo.
-                      IconButton(
-                        key: const Key('onboarding_indietro'),
-                        onPressed: _goBack,
-                        tooltip: 'Torna al passo precedente',
-                        visualDensity: VisualDensity.compact,
-                        icon: Icon(Icons.arrow_back_rounded,
-                            size: 20, color: _palette.goldSoft),
-                      ),
-                      Expanded(
-                        child: StepDots(
-                          total: _Step.values.length - 1,
-                          current: _step.index - 1,
-                          palette: _palette,
+        backgroundColor: ColorTokens.neutralDeepest,
+        // Il fondo di tutto e' il cosmo profondo, neutro al Risveglio: nessun
+        // colore di Maestro, che si sceglie solo alla risonanza. Le costellazioni
+        // zodiacali restano spente qui, per non affollare i passi del rito.
+        body: CosmosBackground(
+          seed: 13,
+          showZodiac: false,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
+              child: Column(
+                key: const Key('onboarding_risveglio'),
+                children: [
+                  const SizedBox(height: SpacingTokens.lg),
+                  if (_step != _Step.accoglienza)
+                    Row(
+                      children: [
+                        // La freccia vive nella riga dei puntini, a sinistra:
+                        // e' dove l'occhio la cerca, e non ruba spazio al passo.
+                        IconButton(
+                          key: const Key('onboarding_indietro'),
+                          onPressed: _goBack,
+                          tooltip: 'Torna al passo precedente',
+                          visualDensity: VisualDensity.compact,
+                          icon: Icon(Icons.arrow_back_rounded,
+                              size: 20, color: _palette.goldSoft),
                         ),
+                        Expanded(
+                          child: StepDots(
+                            total: _Step.values.length - 1,
+                            current: _step.index - 1,
+                            palette: _palette,
+                          ),
+                        ),
+                        // Simmetria: uno spazio pari alla freccia, cosi' i
+                        // puntini restano centrati sulla larghezza vera.
+                        const SizedBox(width: 48),
+                      ],
+                    ),
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: _reduceMotion ? 0 : 260),
+                      child: KeyedSubtree(
+                        key: ValueKey(_step),
+                        child: _buildStep(),
                       ),
-                      // Simmetria: uno spazio pari alla freccia, cosi' i
-                      // puntini restano centrati sulla larghezza vera.
-                      const SizedBox(width: 48),
-                    ],
-                  ),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: Duration(
-                        milliseconds: _reduceMotion ? 0 : 260),
-                    child: KeyedSubtree(
-                      key: ValueKey(_step),
-                      child: _buildStep(),
                     ),
                   ),
-                ),
-                const SizedBox(height: SpacingTokens.md),
-              ],
+                  const SizedBox(height: SpacingTokens.md),
+                ],
+              ),
             ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -782,8 +785,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ),
       ),
       title: 'Quando hai visto la luce',
-      subtitle:
-          'Dalla tua data nasce il Sole nel segno. Questo è reale, dalla '
+      subtitle: 'Dalla tua data nasce il Sole nel segno. Questo è reale, dalla '
           'tavola dei segni.',
       content: Column(
         children: [
@@ -977,16 +979,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         controller: _nameCtrl,
         textAlign: TextAlign.center,
         onChanged: (_) => setState(() {}),
-        style: TypographyTokens.titoloSezione()
-            .copyWith(color: _palette.goldSoft),
+        style:
+            TypographyTokens.titoloSezione().copyWith(color: _palette.goldSoft),
         cursorColor: _palette.goldSoft,
         decoration: InputDecoration(
           hintText: 'Il tuo nome',
           hintStyle: TypographyTokens.corpo()
               .copyWith(color: ColorTokens.textSecondary),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: _palette.gold.withValues(alpha: 0.4)),
+            borderSide: BorderSide(color: _palette.gold.withValues(alpha: 0.4)),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: _palette.goldSoft),
@@ -1247,8 +1248,7 @@ class _Cta extends StatelessWidget {
             onTap: enabled ? onTap : null,
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingTokens.md),
+              padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
@@ -1256,8 +1256,7 @@ class _Cta extends StatelessWidget {
                   palette.primary.withValues(alpha: 0.85),
                   palette.surfaceElevated.withValues(alpha: 0.85),
                 ]),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.7)),
+                border: Border.all(color: palette.gold.withValues(alpha: 0.7)),
               ),
               child: Text(label,
                   style: TypographyTokens.titoloScheda()
@@ -1283,8 +1282,18 @@ class _DatePicker extends StatelessWidget {
   final ValueChanged<DateTime> onChanged;
 
   static const _mesi = [
-    'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu',
-    'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic',
+    'Gen',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Mag',
+    'Giu',
+    'Lug',
+    'Ago',
+    'Set',
+    'Ott',
+    'Nov',
+    'Dic',
   ];
 
   int get _daysInMonth => DateTime(date.year, date.month + 1, 0).day;
@@ -1295,37 +1304,36 @@ class _DatePicker extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _wheel<int>(
-          key: const Key('risveglio_giorno'),
-          value: date.day.clamp(1, _daysInMonth),
-          items: [for (var d = 1; d <= _daysInMonth; d++) d],
-          label: (d) => d.toString().padLeft(2, '0'),
-          onChanged: (d) =>
-              onChanged(DateTime(date.year, date.month, d)),
-        ),
-        _wheel<int>(
-          key: const Key('risveglio_mese'),
-          value: date.month,
-          items: [for (var m = 1; m <= 12; m++) m],
-          label: (m) => _mesi[m - 1],
-          onChanged: (m) {
-            final maxDay = DateTime(date.year, m + 1, 0).day;
-            onChanged(DateTime(date.year, m, date.day.clamp(1, maxDay)));
-          },
-        ),
-        _wheel<int>(
-          key: const Key('risveglio_anno'),
-          value: date.year,
-          items: years,
-          label: (y) => y.toString(),
-          onChanged: (y) {
-            final maxDay = DateTime(y, date.month + 1, 0).day;
-            onChanged(DateTime(y, date.month, date.day.clamp(1, maxDay)));
-          },
-        ),
-      ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _wheel<int>(
+            key: const Key('risveglio_giorno'),
+            value: date.day.clamp(1, _daysInMonth),
+            items: [for (var d = 1; d <= _daysInMonth; d++) d],
+            label: (d) => d.toString().padLeft(2, '0'),
+            onChanged: (d) => onChanged(DateTime(date.year, date.month, d)),
+          ),
+          _wheel<int>(
+            key: const Key('risveglio_mese'),
+            value: date.month,
+            items: [for (var m = 1; m <= 12; m++) m],
+            label: (m) => _mesi[m - 1],
+            onChanged: (m) {
+              final maxDay = DateTime(date.year, m + 1, 0).day;
+              onChanged(DateTime(date.year, m, date.day.clamp(1, maxDay)));
+            },
+          ),
+          _wheel<int>(
+            key: const Key('risveglio_anno'),
+            value: date.year,
+            items: years,
+            label: (y) => y.toString(),
+            onChanged: (y) {
+              final maxDay = DateTime(y, date.month + 1, 0).day;
+              onChanged(DateTime(y, date.month, date.day.clamp(1, maxDay)));
+            },
+          ),
+        ],
       ),
     );
   }
@@ -1351,8 +1359,8 @@ class _DatePicker extends StatelessWidget {
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.titoloScheda()
-            .copyWith(color: palette.goldSoft),
+        style:
+            TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         items: [
           for (final it in items)
             DropdownMenuItem<T>(value: it, child: Text(label(it))),
@@ -1379,6 +1387,7 @@ class _TimePicker extends StatelessWidget {
   final int? minute;
   final bool enabled;
   final MaestroPalette palette;
+
   /// Nullabili: si puo' scegliere l'ora senza aver ancora scelto i minuti.
   final void Function(int? hour, int? minute) onChanged;
 
@@ -1439,8 +1448,8 @@ class _TimePicker extends StatelessWidget {
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.titoloScheda()
-            .copyWith(color: palette.goldSoft),
+        style:
+            TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         items: [
           for (final it in items)
             DropdownMenuItem<int>(
@@ -1478,8 +1487,7 @@ class _SkipTimeToggle extends StatelessWidget {
       ),
       label: Text(
         'Non la so',
-        style: TypographyTokens.didascalia()
-            .copyWith(color: palette.goldSoft),
+        style: TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
       ),
     );
   }
@@ -1521,8 +1529,8 @@ class _NotaGentile extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(text,
-                style: TypographyTokens.didascalia().copyWith(
-                    color: ColorTokens.textSecondary, height: 1.4)),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
           ),
         ],
       ),
@@ -1567,8 +1575,7 @@ class _PlaceField extends StatelessWidget {
           focusNode: fuoco,
           textAlign: TextAlign.center,
           onChanged: onChanged,
-          style: TypographyTokens.lettura()
-              .copyWith(color: palette.goldSoft),
+          style: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
           cursorColor: palette.goldSoft,
           decoration: InputDecoration(
             hintText: 'Cerca la tua città',
@@ -1619,9 +1626,8 @@ class _PlaceField extends StatelessWidget {
                             const SizedBox(width: SpacingTokens.sm),
                             Expanded(
                               child: Text(c.label,
-                                  style: TypographyTokens.didascalia()
-                                      .copyWith(
-                                          color: ColorTokens.textPrimary)),
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: ColorTokens.textPrimary)),
                             ),
                           ],
                         ),
@@ -1695,8 +1701,7 @@ class _VocativoChoice extends StatelessWidget {
         children: [
           for (final (form, label, keyId) in options)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
               child: _chip(form, label, keyId),
             ),
         ],
@@ -1791,8 +1796,8 @@ class _GlyphPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = color;
-    drawZodiacGlyph(
-        canvas, sign, size.center(Offset.zero), size.shortestSide * 0.42, paint);
+    drawZodiacGlyph(canvas, sign, size.center(Offset.zero),
+        size.shortestSide * 0.42, paint);
   }
 
   @override

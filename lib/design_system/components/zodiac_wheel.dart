@@ -222,8 +222,7 @@ void drawZodiacGlyph(
             g.dx + s * 0.75, g.dy - s * 0.05);
       case Zodiac.taurus:
         // Cerchio con corna aperte verso l'alto.
-        canvas.drawCircle(
-            Offset(g.dx, g.dy + s * 0.35), s * 0.5, paint);
+        canvas.drawCircle(Offset(g.dx, g.dy + s * 0.35), s * 0.5, paint);
         path.addArc(
             Rect.fromCircle(
                 center: Offset(g.dx, g.dy - s * 0.35), radius: s * 0.65),
@@ -247,10 +246,10 @@ void drawZodiacGlyph(
             math.pi);
       case Zodiac.cancer:
         // Due spirali contrapposte, come 69.
-        canvas.drawCircle(Offset(g.dx - s * 0.35, g.dy - s * 0.28), s * 0.2,
-            paint);
-        canvas.drawCircle(Offset(g.dx + s * 0.35, g.dy + s * 0.28), s * 0.2,
-            paint);
+        canvas.drawCircle(
+            Offset(g.dx - s * 0.35, g.dy - s * 0.28), s * 0.2, paint);
+        canvas.drawCircle(
+            Offset(g.dx + s * 0.35, g.dy + s * 0.28), s * 0.2, paint);
         path.addArc(
             Rect.fromCircle(
                 center: Offset(g.dx - s * 0.05, g.dy - s * 0.28),
@@ -265,8 +264,8 @@ void drawZodiacGlyph(
             math.pi * 1.05);
       case Zodiac.leo:
         // Cerchietto col codino che si arriccia, il Leone.
-        canvas.drawCircle(Offset(g.dx - s * 0.35, g.dy + s * 0.3), s * 0.32,
-            paint);
+        canvas.drawCircle(
+            Offset(g.dx - s * 0.35, g.dy + s * 0.3), s * 0.32, paint);
         path.moveTo(g.dx - s * 0.05, g.dy + s * 0.3);
         path.cubicTo(g.dx + s * 0.2, g.dy - s * 0.2, g.dx - s * 0.2,
             g.dy - s * 0.9, g.dx + s * 0.25, g.dy - s * 0.75);
@@ -331,8 +330,8 @@ void drawZodiacGlyph(
         path.moveTo(g.dx - s * 0.15, g.dy + s * 0.5);
         path.cubicTo(g.dx + s * 0.1, g.dy - s * 0.6, g.dx + s * 0.5,
             g.dy - s * 0.5, g.dx + s * 0.45, g.dy - s * 0.05);
-        canvas.drawCircle(Offset(g.dx + s * 0.25, g.dy + s * 0.35), s * 0.28,
-            paint);
+        canvas.drawCircle(
+            Offset(g.dx + s * 0.25, g.dy + s * 0.35), s * 0.28, paint);
       case Zodiac.aquarius:
         // Due onde parallele, l'Acquario.
         for (final dy in [-s * 0.28, s * 0.28]) {
@@ -345,13 +344,13 @@ void drawZodiacGlyph(
       case Zodiac.pisces:
         // Due archi uniti da una traversa, i Pesci.
         path.addArc(
-            Rect.fromLTRB(g.dx - s * 0.9, g.dy - s * 0.7, g.dx - s * 0.1,
-                g.dy + s * 0.7),
+            Rect.fromLTRB(
+                g.dx - s * 0.9, g.dy - s * 0.7, g.dx - s * 0.1, g.dy + s * 0.7),
             -math.pi / 2,
             math.pi);
         path.addArc(
-            Rect.fromLTRB(g.dx + s * 0.1, g.dy - s * 0.7, g.dx + s * 0.9,
-                g.dy + s * 0.7),
+            Rect.fromLTRB(
+                g.dx + s * 0.1, g.dy - s * 0.7, g.dx + s * 0.9, g.dy + s * 0.7),
             math.pi / 2,
             math.pi);
         path.moveTo(g.dx - s * 0.5, g.dy);

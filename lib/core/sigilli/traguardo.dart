@@ -497,8 +497,7 @@ class CoincidenzaNellaFinestra extends CondizioneDelTraguardo {
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
-      (stato.ripetizioniNellaFinestra['$gesto.$chiave:$giorni'] ?? 0) >=
-      quante;
+      (stato.ripetizioniNellaFinestra['$gesto.$chiave:$giorni'] ?? 0) >= quante;
 }
 
 /// LO STESSO VALORE SOTTO COMPAGNI DIVERSI.
@@ -613,9 +612,8 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
   bool raggiunto(StatoDelCammino stato) {
     if (!stato.eventiDelCieloDiOggi.contains(evento)) return false;
     if (conSentiero != null) {
-      for (final fatto in nellOra == null
-          ? stato.oggiHaFatto
-          : stato.oggiHaFattoNellOra) {
+      for (final fatto
+          in nellOra == null ? stato.oggiHaFatto : stato.oggiHaFattoNellOra) {
         final gesto = fatto.split('@').first;
         if (sentieroDelGesto[gesto] != conSentiero) continue;
         if (nellOra == null || fatto.endsWith('@$nellOra')) return true;

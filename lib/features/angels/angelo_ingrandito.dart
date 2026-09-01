@@ -79,8 +79,8 @@ class AngeloIngrandito extends StatelessWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => AngeloIngrandito(
-          angelo: angelo, ruolo: ruolo, palette: palette),
+      builder: (_) =>
+          AngeloIngrandito(angelo: angelo, ruolo: ruolo, palette: palette),
     );
   }
 
@@ -128,8 +128,7 @@ class AngeloIngrandito extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 2 / 3,
                   child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusLg),
+                    borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
                     child: Image.asset(
                       FamilyImage.full(AssetFamily.angeli, angelo.artStem),
                       fit: BoxFit.contain,
@@ -147,8 +146,8 @@ class AngeloIngrandito extends StatelessWidget {
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.visible,
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.goldSoft, letterSpacing: 2)),
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 2)),
             const SizedBox(height: SpacingTokens.xxs),
             Text('${angelo.number}. ${angelo.name}',
                 textAlign: TextAlign.center,
@@ -218,11 +217,10 @@ class _Riga extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.goldSoft, letterSpacing: 1.6)),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xxs),
-          Text(testo,
-              style: TypographyTokens.corpo().copyWith(height: 1.45)),
+          Text(testo, style: TypographyTokens.corpo().copyWith(height: 1.45)),
         ],
       ),
     );

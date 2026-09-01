@@ -163,8 +163,7 @@ class SealPainter extends CustomPainter {
       canvas.drawCircle(
         center + dir * r * 0.82,
         lit ? 4.0 * wheelP : 2.0 * wheelP,
-        Paint()
-          ..color = (lit ? _gold : color).withValues(alpha: 0.85 * wheelP),
+        Paint()..color = (lit ? _gold : color).withValues(alpha: 0.85 * wheelP),
       );
     }
   }

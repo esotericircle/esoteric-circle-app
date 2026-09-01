@@ -65,8 +65,7 @@ class TempiDellAttesa {
   ///
   /// Non e' un rallentamento della scena: e' lo stesso ritmo con una battuta
   /// piu' larga dove c'e' piu' da leggere.
-  static const Duration durataBattutaConInvito =
-      Duration(milliseconds: 3000);
+  static const Duration durataBattutaConInvito = Duration(milliseconds: 3000);
 
   /// QUANTO DURA LA SCENA COME MINIMO, anche se la risposta arriva prima.
   ///
@@ -164,8 +163,8 @@ class TempiDellAttesa {
   /// tempo, quante parole scrive il modello e quanto in fretta le mostriamo,
   /// **la seconda e' l'unica che possiamo scegliere**.
   static Duration durataDiScrittura(int caratteri, Duration tetto) {
-    final naturale = Duration(
-        milliseconds: (caratteri / caratteriAlSecondo * 1000).round());
+    final naturale =
+        Duration(milliseconds: (caratteri / caratteriAlSecondo * 1000).round());
     return naturale > tetto ? tetto : naturale;
   }
 
@@ -176,9 +175,11 @@ class TempiDellAttesa {
   /// finisce per verificare se stessa.
   static Duration allaPrimaParola(int reteMs, {bool riduciMovimento = false}) {
     final minima = riduciMovimento ? durataMinimaRidotta : durataMinima;
-    final scena = reteMs > minima.inMilliseconds ? reteMs : minima.inMilliseconds;
+    final scena =
+        reteMs > minima.inMilliseconds ? reteMs : minima.inMilliseconds;
     return Duration(
-        milliseconds: scena + (riduciMovimento ? 0 : dissolvenza.inMilliseconds));
+        milliseconds:
+            scena + (riduciMovimento ? 0 : dissolvenza.inMilliseconds));
   }
 
   /// Quanto tempo resta alla macchina da scrivere per finire dentro il tetto.

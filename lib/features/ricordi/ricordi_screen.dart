@@ -386,8 +386,18 @@ class _LAnno extends StatelessWidget {
   final MaestroPalette palette;
 
   static const List<String> _mesi = [
-    'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu',
-    'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic',
+    'Gen',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Mag',
+    'Giu',
+    'Lug',
+    'Ago',
+    'Set',
+    'Ott',
+    'Nov',
+    'Dic',
   ];
 
   @override
@@ -470,8 +480,8 @@ class _CasellaDelMese extends StatelessWidget {
             // differenza fra vuoto e pieno la fa il riquadro, che e' il
             // livello visivo, non il testo.
             Text(nome,
-                style: TypographyTokens.etichetta().copyWith(
-                    color: vuoto ? ColorTokens.textSecondary : null)),
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: vuoto ? ColorTokens.textSecondary : null)),
             const SizedBox(height: SpacingTokens.xs),
             Text('${riassunto.quanteVoci}',
                 style: TypographyTokens.titoloScheda().copyWith(
@@ -551,7 +561,12 @@ class _LaSettimana extends StatelessWidget {
   final MaestroPalette palette;
 
   static const List<String> _giorni = [
-    'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato',
+    'Lunedì',
+    'Martedì',
+    'Mercoledì',
+    'Giovedì',
+    'Venerdì',
+    'Sabato',
     'Domenica',
   ];
 
@@ -640,7 +655,8 @@ class _IlGiorno extends StatelessWidget {
         '${r.quantiTraguardi} ${r.quantiTraguardi == 1 ? "traguardo" : "traguardi"}',
     ];
     final dominante = r.maestroDominante;
-    final coda = dominante == null ? '' : ', soprattutto con ${_nome(dominante)}';
+    final coda =
+        dominante == null ? '' : ', soprattutto con ${_nome(dominante)}';
     return '${pezzi.join(", ")}$coda.';
   }
 
@@ -690,7 +706,8 @@ class _RigaDiSintesi extends StatelessWidget {
 
 /// Una riga del giorno: una voce sola, oppure un gruppo che si apre.
 class _RigaDelGruppo extends StatefulWidget {
-  const _RigaDelGruppo({super.key, required this.gruppo, required this.palette});
+  const _RigaDelGruppo(
+      {super.key, required this.gruppo, required this.palette});
 
   final GruppoDelGiorno gruppo;
   final MaestroPalette palette;
@@ -754,9 +771,8 @@ class _RigaDellaVoce extends StatelessWidget {
         style: TypographyTokens.didascalia()
             .copyWith(color: ColorTokens.textSecondary),
       ),
-      onTap: voce.riferimento == null
-          ? null
-          : () => _apriIlRicordo(context, voce),
+      onTap:
+          voce.riferimento == null ? null : () => _apriIlRicordo(context, voce),
     );
   }
 
@@ -1125,8 +1141,8 @@ class _CartaCustodita extends StatelessWidget {
                       // come se fosse un tarocco: una pietra quadrata usciva
                       // larga due terzi dello spazio che aveva, cioe' piccola
                       // in mezzo al vuoto.
-                      final proporzione = _ArtworkDiUnRicordo.proporzioneDi(
-                          immagini.first);
+                      final proporzione =
+                          _ArtworkDiUnRicordo.proporzioneDi(immagini.first);
                       final daAltezza = vincoli.maxHeight * proporzione;
                       final larghezza = daAltezza < vincoli.maxWidth
                           ? daAltezza
@@ -1214,8 +1230,7 @@ class _CartaCustodita extends StatelessWidget {
 /// spinge il testo fuori dallo schermo. Qui la misura si ricava dalla
 /// larghezza vera, una volta sola.
 class _ArteDelRicordoAperto extends StatelessWidget {
-  const _ArteDelRicordoAperto(
-      {required this.custodito, required this.palette});
+  const _ArteDelRicordoAperto({required this.custodito, required this.palette});
 
   final RicordoCustodito custodito;
   final MaestroPalette palette;
@@ -1239,8 +1254,7 @@ class _ArteDelRicordoAperto extends StatelessWidget {
           // solo, largo quanto la pagina, sarebbe alto una volta e mezza e
           // spingerebbe il testo sotto la piega: si apre un ricordo per
           // rileggerlo, non per vedere solo la copertina.
-          final proporzione =
-              _ArtworkDiUnRicordo.proporzioneDi(immagini.first);
+          final proporzione = _ArtworkDiUnRicordo.proporzioneDi(immagini.first);
           final massima = quante == 1 ? vincoli.maxWidth * 0.62 : larghezza;
           if (larghezza > massima) larghezza = massima;
           // Il nome sotto la figura vuole la sua riga: si tiene conto anche
@@ -1370,8 +1384,8 @@ class _LaLetturaDelMeseState extends State<_LaLetturaDelMese> {
       child: ParagrafiDiLettura(
         testo: scritta,
         key: const Key('ricordi_lettura_del_mese'),
-        stile: TypographyTokens.lettura()
-            .copyWith(color: ColorTokens.textPrimary),
+        stile:
+            TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary),
       ),
     );
   }

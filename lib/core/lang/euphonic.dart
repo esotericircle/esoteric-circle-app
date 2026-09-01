@@ -5,7 +5,19 @@
 /// resta "a".
 library;
 
-const Set<String> _vowels = {'a', 'e', 'i', 'o', 'u', 'à', 'è', 'é', 'ì', 'ò', 'ù'};
+const Set<String> _vowels = {
+  'a',
+  'e',
+  'i',
+  'o',
+  'u',
+  'à',
+  'è',
+  'é',
+  'ì',
+  'ò',
+  'ù'
+};
 
 /// Restituisce "ad" se [next] inizia per vocale, altrimenti "a".
 String aEuphonic(String next) {
@@ -23,7 +35,8 @@ String aEuphonic(String next) {
 String conPiano(String plan) {
   final nome = plan.trim();
   if (nome.isEmpty) return 'con il Cerchio';
-  final apostrofo = nome.length > 1 && nome[0].toLowerCase() == 'l' &&
+  final apostrofo = nome.length > 1 &&
+      nome[0].toLowerCase() == 'l' &&
       (nome[1] == '\'' || nome[1] == '’');
   if (apostrofo) return 'con l\'${nome.substring(2)}';
   // Articolo gia' staccato ("Il Cerchio", "La Soglia"): basta minuscolarlo.
@@ -47,13 +60,69 @@ String conPiano(String plan) {
 ///
 /// La tavola completa delle sette preposizioni italiane che si articolano.
 const Map<String, Map<String, String>> _articolate = {
-  'di': {'il': 'del', 'lo': 'dello', 'la': 'della', 'i': 'dei', 'gli': 'degli', 'le': 'delle', "l'": "dell'"},
-  'a': {'il': 'al', 'lo': 'allo', 'la': 'alla', 'i': 'ai', 'gli': 'agli', 'le': 'alle', "l'": "all'"},
-  'da': {'il': 'dal', 'lo': 'dallo', 'la': 'dalla', 'i': 'dai', 'gli': 'dagli', 'le': 'dalle', "l'": "dall'"},
-  'in': {'il': 'nel', 'lo': 'nello', 'la': 'nella', 'i': 'nei', 'gli': 'negli', 'le': 'nelle', "l'": "nell'"},
-  'su': {'il': 'sul', 'lo': 'sullo', 'la': 'sulla', 'i': 'sui', 'gli': 'sugli', 'le': 'sulle', "l'": "sull'"},
-  'con': {'il': 'col', 'lo': 'con lo', 'la': 'con la', 'i': 'coi', 'gli': 'con gli', 'le': 'con le', "l'": "con l'"},
-  'per': {'il': 'per il', 'lo': 'per lo', 'la': 'per la', 'i': 'per i', 'gli': 'per gli', 'le': 'per le', "l'": "per l'"},
+  'di': {
+    'il': 'del',
+    'lo': 'dello',
+    'la': 'della',
+    'i': 'dei',
+    'gli': 'degli',
+    'le': 'delle',
+    "l'": "dell'"
+  },
+  'a': {
+    'il': 'al',
+    'lo': 'allo',
+    'la': 'alla',
+    'i': 'ai',
+    'gli': 'agli',
+    'le': 'alle',
+    "l'": "all'"
+  },
+  'da': {
+    'il': 'dal',
+    'lo': 'dallo',
+    'la': 'dalla',
+    'i': 'dai',
+    'gli': 'dagli',
+    'le': 'dalle',
+    "l'": "dall'"
+  },
+  'in': {
+    'il': 'nel',
+    'lo': 'nello',
+    'la': 'nella',
+    'i': 'nei',
+    'gli': 'negli',
+    'le': 'nelle',
+    "l'": "nell'"
+  },
+  'su': {
+    'il': 'sul',
+    'lo': 'sullo',
+    'la': 'sulla',
+    'i': 'sui',
+    'gli': 'sugli',
+    'le': 'sulle',
+    "l'": "sull'"
+  },
+  'con': {
+    'il': 'col',
+    'lo': 'con lo',
+    'la': 'con la',
+    'i': 'coi',
+    'gli': 'con gli',
+    'le': 'con le',
+    "l'": "con l'"
+  },
+  'per': {
+    'il': 'per il',
+    'lo': 'per lo',
+    'la': 'per la',
+    'i': 'per i',
+    'gli': 'per gli',
+    'le': 'per le',
+    "l'": "per l'"
+  },
 };
 
 /// Gli articoli riconosciuti, dal piu' lungo al piu' corto: "gli" prima di "i",

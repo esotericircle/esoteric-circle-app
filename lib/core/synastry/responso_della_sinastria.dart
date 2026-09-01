@@ -89,8 +89,7 @@ class ResponsoDellaSinastria {
     final seme = tuoSegno.index + vip.sign.index * 3 + percento;
     final personaggio = _ilPersonaggio(vip, seme, adesso);
     return PezziDelResponso(
-      sopraIlCerchio:
-          TestiDellaSinastria.sopraIlCerchio[relazione]![fascia]!,
+      sopraIlCerchio: TestiDellaSinastria.sopraIlCerchio[relazione]![fascia]!,
       titoloDellaBolla:
           TestiDellaSinastria.titoliDellaBolla[relazione]![fascia]!,
       corpo: [
@@ -121,8 +120,7 @@ class ResponsoDellaSinastria {
     final fascia = TestiDellaSinastria.fascia(percento);
     final seme = primo.sign.index + secondo.sign.index * 3 + percento;
     return PezziDelResponso(
-      sopraIlCerchio:
-          TestiDellaSinastria.sopraIlCerchio[relazione]![fascia]!,
+      sopraIlCerchio: TestiDellaSinastria.sopraIlCerchio[relazione]![fascia]!,
       titoloDellaBolla:
           TestiDellaSinastria.titoliDellaBolla[relazione]![fascia]!,
       corpo: [
@@ -223,9 +221,8 @@ class ResponsoDellaSinastria {
   /// un altro. L'anteprima leggeva "mezzo mondo da salvare..", che sembra un
   /// puntino di sospensione mancato invece di un errore.
   static String _chiusa(String frase, bool conNome) {
-    final nuda = frase.endsWith('.')
-        ? frase.substring(0, frase.length - 1)
-        : frase;
+    final nuda =
+        frase.endsWith('.') ? frase.substring(0, frase.length - 1) : frase;
     return conNome ? '$nuda.' : nuda;
   }
 

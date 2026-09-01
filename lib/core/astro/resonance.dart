@@ -167,7 +167,8 @@ Resonance computeResonance(NatalChart chart, {String? archetype}) {
       case 'neptune':
         sign(Maestro.aura, 1.5, 'Nettuno in $s, il tuo sogno');
       case 'pluto':
-        sign(Maestro.caligo, 2.5, 'Plutone in $s, signore della trasformazione');
+        sign(
+            Maestro.caligo, 2.5, 'Plutone in $s, signore della trasformazione');
       case 'chiron':
         sign(Maestro.aura, 1, 'Chirone in $s, la ferita che guarisce');
       case 'lilith':
@@ -244,21 +245,20 @@ Resonance computeResonance(NatalChart chart, {String? archetype}) {
   };
   final total = quota.values.fold<double>(0, (a, b) => a + b);
   final scores = <Maestro, double>{
-    for (final e in quota.entries)
-      e.key: total > 0 ? e.value / total : 1 / 3,
+    for (final e in quota.entries) e.key: total > 0 ? e.value / total : 1 / 3,
   };
 
   final ranked = scores.entries.toList()
     ..sort((a, b) => b.value.compareTo(a.value));
   final winner = ranked.first.key;
-  final nearTie = ranked.length > 1 && (ranked.first.value - ranked[1].value) < 0.06;
+  final nearTie =
+      ranked.length > 1 && (ranked.first.value - ranked[1].value) < 0.06;
 
   // Il fattore decisivo: la firma piu' pesante del vincitore.
   final winnerFactors = factors.where((f) => f.maestro == winner).toList()
     ..sort((a, b) => b.weight.compareTo(a.weight));
-  final deciding = winnerFactors.isNotEmpty
-      ? winnerFactors.first.label
-      : 'il tuo cielo';
+  final deciding =
+      winnerFactors.isNotEmpty ? winnerFactors.first.label : 'il tuo cielo';
 
   final reason = _reason(winner, deciding, nearTie);
   return Resonance(
@@ -276,8 +276,7 @@ String _voice(Maestro winner) => switch (winner) {
       Maestro.caligo => 'Caligo, che conosce i riti',
     };
 
-String _cap(String s) =>
-    s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
+String _cap(String s) => s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
 String _reason(Maestro winner, String deciding, bool nearTie) {
   final voice = _voice(winner);

@@ -87,10 +87,11 @@ class FaceConstellationScreen extends StatefulWidget {
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
-    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(FaceConstellationScreen(
-          clock: clock,
-          pianetiDelGiorno: pianetiDelGiorno,
-        )));
+    return PassaggioDelCerchio.rotta<void>(
+        (_) => conLaSoglia(FaceConstellationScreen(
+              clock: clock,
+              pianetiDelGiorno: pianetiDelGiorno,
+            )));
   }
 
   @override
@@ -210,11 +211,10 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
       _fase = _Fase.risultato;
     });
     // LA COSTELLAZIONE DEL VISO ENTRA NEL CAMMINO, ordine P voce 35.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'viso',
-        dettagli: {
-          'tratto': [reading.dominante.name],
-          if (tratoCambiato) 'tratto_cambiato': const ['si'],
-        }));
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'viso', dettagli: {
+      'tratto': [reading.dominante.name],
+      if (tratoCambiato) 'tratto_cambiato': const ['si'],
+    }));
   }
 
   @override
@@ -266,8 +266,8 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                     ),
                   _Fase.ripiego => _Ripiego(
                       palette: palette,
-                      onFatto: (reading) => _concludi(
-                          reading, FaceConstellation.da(FaceSilhouette.contorni())),
+                      onFatto: (reading) => _concludi(reading,
+                          FaceConstellation.da(FaceSilhouette.contorni())),
                     ),
                   _Fase.risultato => Column(
                       children: [
@@ -328,8 +328,8 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(FaceCorpus.fontiEMetodo,
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textPrimary, height: 1.45)),
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
                 alignment: Alignment.centerRight,
@@ -396,7 +396,8 @@ class _Soglia extends StatelessWidget {
             padding: const EdgeInsets.all(SpacingTokens.md),
             child: Row(
               children: [
-                Icon(Icons.lock_outline_rounded, size: 20, color: palette.goldSoft),
+                Icon(Icons.lock_outline_rounded,
+                    size: 20, color: palette.goldSoft),
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Text(
@@ -420,7 +421,8 @@ class _Soglia extends StatelessWidget {
               acceso: conCielo,
               onCambia: onCielo,
               titolo: 'Lega al cielo di oggi',
-              sottotitolo: 'I transiti del giorno si accostano alla tua lettura, come '
+              sottotitolo:
+                  'I transiti del giorno si accostano alla tua lettura, come '
                   'sincronicità.',
             ),
           ),
@@ -511,8 +513,8 @@ class _Bloccato extends StatelessWidget {
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: 2),
                       Text(ultimo!.reading.dominante.nome,
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary)),
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: ColorTokens.textSecondary)),
                     ],
                   ),
                 ),
@@ -536,7 +538,8 @@ class _Cattura extends StatefulWidget {
   });
 
   final MaestroPalette palette;
-  final void Function(FaceReading, FaceConstellation, {String? fotoPath}) onFatto;
+  final void Function(FaceReading, FaceConstellation, {String? fotoPath})
+      onFatto;
   final VoidCallback onRipiego;
 
   @override
@@ -575,8 +578,8 @@ class _CatturaState extends State<_Cattura>
         imageFormatGroup: ImageFormatGroup.nv21,
       );
       await controller.initialize();
-      _detector = FaceDetector(
-          options: FaceDetectorOptions(enableContours: true));
+      _detector =
+          FaceDetector(options: FaceDetectorOptions(enableContours: true));
       await controller.startImageStream(_analizza);
       if (!mounted) return;
       setState(() => _camera = controller);
@@ -838,12 +841,12 @@ class _RisultatoState extends State<_Risultato>
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareFaceCard(
           boundaryKey: _cardBoundary, dominante: widget.reading.dominante);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la tua Costellazione del Viso');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la tua Costellazione del Viso');
+      }
       return andata;
     } finally {
       if (mounted) setState(() => _renderCard = false);
@@ -855,9 +858,8 @@ if (andata && mounted) {
     final palette = widget.palette;
     final reading = widget.reading;
     final dom = reading.dominante;
-    final riga = widget.conCielo
-        ? FaceTransits.riga(dom, widget.pianeti)
-        : null;
+    final riga =
+        widget.conCielo ? FaceTransits.riga(dom, widget.pianeti) : null;
 
     return Stack(
       children: [
@@ -874,8 +876,8 @@ if (andata && mounted) {
                       : 'non legato ai transiti astrologici',
                   key: const Key('face_mode_subtitle'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft, letterSpacing: 1.0),
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.0),
                 ),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -967,7 +969,8 @@ if (andata && mounted) {
                   dati: {'tratto': dom.nome, 'categoria': dom.categoria.name},
                 ),
                 condividi: _condividi,
-                aperturaDellaChat: ChatOpeners.viso(dom.categoria.name, dom.nome),
+                aperturaDellaChat:
+                    ChatOpeners.viso(dom.categoria.name, dom.nome),
               ),
               const SizedBox(height: SpacingTokens.xxxl),
             ],
@@ -1020,7 +1023,8 @@ class _VoltoCostellazione extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             if (fotoPath != null)
-              Image.file(File(fotoPath!), fit: BoxFit.cover,
+              Image.file(File(fotoPath!),
+                  fit: BoxFit.cover,
                   errorBuilder: (_, __, ___) => _FondoSagoma(palette: palette))
             else
               _FondoSagoma(palette: palette),
@@ -1124,8 +1128,8 @@ class _Transiti extends StatelessWidget {
               const SizedBox(width: SpacingTokens.sm),
               Expanded(
                 child: Text(riga!,
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textPrimary, height: 1.4)),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
               ),
             ],
           ),
@@ -1253,9 +1257,8 @@ class _Scelta extends StatelessWidget {
               ? palette.primary.withValues(alpha: 0.3)
               : palette.surface.withValues(alpha: 0.4),
           border: Border.all(
-            color: scelto
-                ? palette.goldSoft
-                : palette.gold.withValues(alpha: 0.3),
+            color:
+                scelto ? palette.goldSoft : palette.gold.withValues(alpha: 0.3),
             width: scelto ? 1.5 : 1,
           ),
         ),
@@ -1268,9 +1271,8 @@ class _Scelta extends StatelessWidget {
             const SizedBox(width: SpacingTokens.xs),
             Text(tratto.nome,
                 style: TypographyTokens.didascalia().copyWith(
-                    color: scelto
-                        ? palette.goldSoft
-                        : ColorTokens.textPrimary)),
+                    color:
+                        scelto ? palette.goldSoft : ColorTokens.textPrimary)),
           ],
         ),
       ),
@@ -1319,8 +1321,8 @@ class _DueVolti extends StatelessWidget {
   Widget build(BuildContext context) {
     final secondo = altro;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
-          SpacingTokens.lg),
+      padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
       child: secondo == null
           ? OutlinedButton.icon(
               key: const Key('face_leggi_altro'),

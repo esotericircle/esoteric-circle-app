@@ -173,7 +173,8 @@ class NatalChart {
   double get orientationLongitude => ascendantLongitude ?? 0;
 
   /// Cielo essenziale: solo il Sole nel suo segno, calcolato in locale.
-  factory NatalChart.essential({required Zodiac sunSign, required bool hasTime}) {
+  factory NatalChart.essential(
+      {required Zodiac sunSign, required bool hasTime}) {
     final longitude = Zodiac.values.indexOf(sunSign) * 30.0 + 15.0;
     return NatalChart(
       sunSign: sunSign,

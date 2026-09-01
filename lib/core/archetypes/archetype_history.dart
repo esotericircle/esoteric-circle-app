@@ -76,7 +76,6 @@ class ArchetypeEsito {
 /// un contatore a parte: una sola verita', e cancellare lo storico non regala
 /// tentativi in piu' del dovuto perche' azzera anche i test del giorno.
 class ArchetypeHistory extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi
   /// `DimenticanzaDellaMemoriaViva`: i controller vivono per tutta la
   /// sessione, e cancellare l'account senza svuotarli lascia a schermo i dati

@@ -97,14 +97,16 @@ class CorniciDelPresagio {
     ),
     CorniceDelPresagio(
       domanda: 'Nel lavoro, quale passo fare?',
-      apertura: 'Nel lavoro il passo giusto quasi mai è il più grande. È quello '
+      apertura:
+          'Nel lavoro il passo giusto quasi mai è il più grande. È quello '
           'che si può fare domani mattina e le pietre lo indicano.',
       chiusura: 'Scegli un passo solo e dagli un’ora precisa. Un passo '
           'senza un’ora non è un passo, è un proposito.',
     ),
     CorniceDelPresagio(
       domanda: 'Una scelta mi blocca: cosa la scioglie?',
-      apertura: 'Una scelta che blocca raramente è difficile davvero: di solito '
+      apertura:
+          'Una scelta che blocca raramente è difficile davvero: di solito '
           'manca un dato, oppure manca il permesso di sbagliare. Le pietre '
           'dicono quale dei due ti manca.',
       chiusura: 'Scrivi la scelta in una riga sola, con le due strade accanto. '
@@ -120,7 +122,8 @@ class CorniciDelPresagio {
     ),
     CorniceDelPresagio(
       domanda: 'Cosa conviene lasciare andare adesso?',
-      apertura: 'Lasciare andare non è perdere. Adesso qualcosa ti sta costando '
+      apertura:
+          'Lasciare andare non è perdere. Adesso qualcosa ti sta costando '
           'più di quanto ti rende e le pietre lo nominano.',
       chiusura: 'Scegline una sola e lasciala per sette giorni. Se dopo sette '
           'giorni non ti manca, era quella.',
@@ -129,7 +132,8 @@ class CorniciDelPresagio {
       domanda: 'Su cosa vale la pena insistere?',
       apertura: 'Insistere non è testardaggine quando la cosa risponde, anche '
           'piano e anche male. Le pietre dicono che cosa sta rispondendo.',
-      chiusura: 'Dai a quella cosa lo stesso tempo per tre giorni di fila, alla '
+      chiusura:
+          'Dai a quella cosa lo stesso tempo per tre giorni di fila, alla '
           'stessa ora. L’insistenza si misura in ripetizioni, non in '
           'sforzo.',
     ),
@@ -192,7 +196,8 @@ class CorniciDelPresagio {
       apertura: 'Nel tuo segno questo periodo non porta un colpo di scena: '
           'sposta un peso da una parte all’altra. Le pietre dicono da dove '
           'a dove.',
-      chiusura: 'Guarda cosa hai smesso di fare senza deciderlo. Il cambiamento '
+      chiusura:
+          'Guarda cosa hai smesso di fare senza deciderlo. Il cambiamento '
           'si vede nelle abitudini prima che nei pensieri.',
     ),
     CorniceDelPresagio(
@@ -226,10 +231,12 @@ class CorniciDelPresagio {
   /// domanda per il giorno dopo, ed e’ il ritorno che la voce cerca.
   static const CorniceDelPresagio dellaGiornata = CorniceDelPresagio(
     domanda: '',
-    apertura: 'Non hai chiesto niente e va bene cos\u00ec: certi giorni la domanda '
+    apertura:
+        'Non hai chiesto niente e va bene cos\u00ec: certi giorni la domanda '
         'non \u00e8 ancora una domanda. Allora le pietre non rispondono, guardano '
         'la tua giornata.',
-    chiusura: 'Prima di sera guarda se qualcosa di oggi assomiglia a questo. Se '
+    chiusura:
+        'Prima di sera guarda se qualcosa di oggi assomiglia a questo. Se '
         'assomiglia, domani la domanda ce l\u2019hai gi\u00e0.',
   );
 

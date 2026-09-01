@@ -37,11 +37,11 @@ class VoceDelDono {
     final maestro = DailyElements.maestroFor(dono, giorno);
     final formule = _formulePer(VoceDelMaestro.di(maestro).tipoDiChiusura);
     final quale = _seme([
-      maestro.index,
-      dono.index,
-      _giornoOrdinale(giorno),
-      giorno.year,
-    ]) %
+          maestro.index,
+          dono.index,
+          _giornoOrdinale(giorno),
+          giorno.year,
+        ]) %
         formule.length;
     return 'Oggi ${maestro.displayName} ${formule[quale]}';
   }

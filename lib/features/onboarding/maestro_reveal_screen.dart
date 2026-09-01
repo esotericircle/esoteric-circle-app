@@ -156,8 +156,10 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
 
       final sinceStart = Duration(milliseconds: _elapsedMs);
       final idleSinceInput = _elapsedMs - _lastInputMs;
-      final attemptStalled =
-          _attempted && _progress > 0.02 && _progress < 1 && idleSinceInput > 1100;
+      final attemptStalled = _attempted &&
+          _progress > 0.02 &&
+          _progress < 1 &&
+          idleSinceInput > 1100;
       _showCoach = _help.showCoach(sinceStart: sinceStart, progress: _progress);
       _showSafetyTap = !_autoFinishing &&
           _help.showSafetyTap(
@@ -173,8 +175,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
     setState(() {
       // Feedback immediato: anche un tocco minimo muove il rito e accende
       // l'oggetto.
-      _progress = (_progress + math.max(d.delta.distance / 900, 0.004))
-          .clamp(0.0, 1.0);
+      _progress =
+          (_progress + math.max(d.delta.distance / 900, 0.004)).clamp(0.0, 1.0);
       _dragPulse = 1;
       _attempted = true;
       _lastInputMs = _elapsedMs;
@@ -200,8 +202,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
     _levelSub?.cancel();
     _breath.stop();
     // La nebbia si dirada e il Maestro appare: e' LA rivelazione, quindi due
-      // colpi crescenti e non un colpo medio come una conferma qualunque.
-      PaletteSensoriale.eseguiSchema(SchemaAptico.rivelazione);
+    // colpi crescenti e non un colpo medio come una conferma qualunque.
+    PaletteSensoriale.eseguiSchema(SchemaAptico.rivelazione);
     setState(() {
       _progress = 1;
       _showCoach = false;
@@ -233,10 +235,12 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
 
     return GestureDetector(
       onPanUpdate: _onDrag,
-      onTapDown: _revealed ? null : (_) => _onDrag(DragUpdateDetails(
-            globalPosition: Offset.zero,
-            delta: const Offset(9, 0),
-          )),
+      onTapDown: _revealed
+          ? null
+          : (_) => _onDrag(DragUpdateDetails(
+                globalPosition: Offset.zero,
+                delta: const Offset(9, 0),
+              )),
       behavior: HitTestBehavior.opaque,
       child: Stack(
         fit: StackFit.expand,
@@ -307,7 +311,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                         // non si muovono di un punto.
                         if (copre) return const SizedBox.expand();
                         return AnimatedSwitcher(
-                          duration: Duration(milliseconds: reduceMotion ? 0 : 600),
+                          duration:
+                              Duration(milliseconds: reduceMotion ? 0 : 600),
                           child: _revealed
                               ? MaestroCardReveal(
                                   key: const ValueKey('card'),
@@ -351,10 +356,13 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                   // sparisce finche' la persona non ha deciso.
                   Column(
                     children: [
-                      ParagrafiDiLettura(testo: _micAvailable
-                            ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                            : 'Trascina il dito per svelare, come un gratta e vinci', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                            .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+                      ParagrafiDiLettura(
+                          testo: _micAvailable
+                              ? 'Soffia dolcemente, oppure trascina il dito per svelare'
+                              : 'Trascina il dito per svelare, come un gratta e vinci',
+                          textAlign: TextAlign.center,
+                          stile: TypographyTokens.lettura().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.4)),
                       // Il microfono si chiede solo qui, quando l'utente sceglie la
                       // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
                       if (!_micAvailable && !_micAsked) ...[
@@ -472,8 +480,8 @@ class _AtmosphereState extends State<_Atmosphere>
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(
-        vsync: this, duration: const Duration(seconds: 18));
+    _c =
+        AnimationController(vsync: this, duration: const Duration(seconds: 18));
     if (!widget.reduceMotion) _c.repeat();
   }
 
@@ -489,8 +497,7 @@ class _AtmosphereState extends State<_Atmosphere>
       animation: _c,
       builder: (context, _) => CustomPaint(
         painter: _AtmospherePainter(
-            palette: widget.palette,
-            t: widget.reduceMotion ? 0.0 : _c.value),
+            palette: widget.palette, t: widget.reduceMotion ? 0.0 : _c.value),
       ),
     );
   }
@@ -516,8 +523,8 @@ class _AtmospherePainter extends CustomPainter {
               Colors.transparent,
             ],
             stops: const [0.0, 0.5, 1.0],
-          ).createShader(Rect.fromCircle(
-              center: c, radius: size.shortestSide * 0.55)));
+          ).createShader(
+              Rect.fromCircle(center: c, radius: size.shortestSide * 0.55)));
 
     // Particelle sospese che ruotano lente.
     final rng = math.Random(7);
@@ -542,7 +549,8 @@ class _AtmospherePainter extends CustomPainter {
 
 /// L'invito di sicurezza, sempre toccabile, che completa il rito con un tocco.
 class _SafetyTapInvite extends StatelessWidget {
-  const _SafetyTapInvite({super.key, required this.palette, required this.onTap});
+  const _SafetyTapInvite(
+      {super.key, required this.palette, required this.onTap});
   final MaestroPalette palette;
   final VoidCallback onTap;
 
@@ -563,7 +571,9 @@ class _SafetyTapInvite extends StatelessWidget {
           children: [
             Icon(Icons.touch_app, color: palette.goldSoft, size: 24),
             const SizedBox(width: SpacingTokens.xs),
-            ParagrafiDiLettura(testo: 'Tocca per svelare', stile: TypographyTokens.lettura(weight: 600)
+            ParagrafiDiLettura(
+                testo: 'Tocca per svelare',
+                stile: TypographyTokens.lettura(weight: 600)
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -597,8 +607,8 @@ class _VoiceInvite extends StatelessWidget {
             Icon(Icons.mic_none_rounded, color: palette.goldSoft, size: 20),
             const SizedBox(width: 6),
             Text('Soffia con la voce',
-                style: TypographyTokens.corpo()
-                    .copyWith(color: palette.goldSoft)),
+                style:
+                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
           ],
         ),
       ),

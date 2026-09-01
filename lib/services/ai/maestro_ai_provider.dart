@@ -132,7 +132,8 @@ abstract interface class MaestroAiProvider {
 
 /// Sollevata quando si prova a generare senza un provider pronto.
 class MaestroAiUnavailable implements Exception {
-  const MaestroAiUnavailable([this.message = 'AI dei Maestri non configurata.']);
+  const MaestroAiUnavailable(
+      [this.message = 'AI dei Maestri non configurata.']);
   final String message;
 
   @override

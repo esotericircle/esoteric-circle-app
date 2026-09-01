@@ -284,8 +284,8 @@ class RuneCast {
       final verso = (!simmetrica && rng.nextBool())
           ? RuneVerso.merkstave
           : RuneVerso.dritto;
-      rune.add(RunaGettata(
-          rune: r, verso: verso, posizione: gettata.posizioni[i]));
+      rune.add(
+          RunaGettata(rune: r, verso: verso, posizione: gettata.posizioni[i]));
     }
     return EsitoGettata(gettata: gettata, rune: rune);
   }
@@ -334,8 +334,9 @@ class RuneCast {
     final lette = <RunaGettata>[
       for (var i = 0; i < ordinate.length; i++)
         ordinate[i].copyWith(
-            posizione: gettata.posizioni[
-                i < gettata.posizioni.length ? i : gettata.posizioni.length - 1]),
+            posizione: gettata.posizioni[i < gettata.posizioni.length
+                ? i
+                : gettata.posizioni.length - 1]),
     ];
     return EsitoGettata(gettata: gettata, rune: lette, sparse: sparse);
   }

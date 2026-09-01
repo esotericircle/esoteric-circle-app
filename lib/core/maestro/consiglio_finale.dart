@@ -191,9 +191,10 @@ abstract final class ConsiglioFinale {
     // lo compone l'app e non dipende da cio' che il Maestro ha scritto.
     final sintesi = sintesiDa(testo);
     if (sintesi == null || sintesi.trim().isEmpty) return invito;
-    final chiusa = const ['.', '!', '?', '…'].contains(sintesi[sintesi.length - 1])
-        ? sintesi
-        : '$sintesi.';
+    final chiusa =
+        const ['.', '!', '?', '…'].contains(sintesi[sintesi.length - 1])
+            ? sintesi
+            : '$sintesi.';
     return '$chiusa $invito';
   }
 }

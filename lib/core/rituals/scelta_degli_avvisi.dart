@@ -107,15 +107,13 @@ class SceltaDegliAvvisi extends ChangeNotifier {
   /// **VERO SE QUESTA E' L'ORA DI CASA**, cioe' quella che il Dono portava
   /// scritta. Serve al menu' per dire "l'hai cambiata" senza doverlo
   /// ricalcolare a ogni riga.
-  bool eLOraDiCasa(DailyElement dono) =>
-      minutiDi(dono) == dono.anchorMinutes;
+  bool eLOraDiCasa(DailyElement dono) => minutiDi(dono) == dono.anchorMinutes;
 
   /// I Doni che chiamano, in ordine di orario: e' l'elenco che la
   /// programmazione percorre.
-  List<DailyElement> get quelliCheChiamano => DailyElement.values
-      .where(chiama)
-      .toList()
-    ..sort((a, b) => minutiDi(a).compareTo(minutiDi(b)));
+  List<DailyElement> get quelliCheChiamano =>
+      DailyElement.values.where(chiama).toList()
+        ..sort((a, b) => minutiDi(a).compareTo(minutiDi(b)));
 
   /// Legge la scelta dal disco.
   Future<void> carica() async {
@@ -164,8 +162,8 @@ class SceltaDegliAvvisi extends ChangeNotifier {
   /// Come l'interruttore, **scrive prima di avvisare**: chi ricalcola le
   /// chiamate sentendo il cambiamento deve leggere un disco gia' aggiornato,
   /// se no riprogrammerebbe con l'ora di un istante fa.
-  Future<void> scegliLOra(DailyElement dono, {required int ora,
-      required int minuto}) async {
+  Future<void> scegliLOra(DailyElement dono,
+      {required int ora, required int minuto}) async {
     final minuti = (ora.clamp(0, 23) * 60) + minuto.clamp(0, 59);
     _ore[dono] = minuti;
     try {

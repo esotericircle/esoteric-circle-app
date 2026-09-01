@@ -55,10 +55,13 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
     'luna_nuova_nel_tuo_segno',
   };
 
-  static Route<void> route({DateTime? adesso}) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          maestro: Maestro.medora,
-          child: CalendarioDegliEventiScreen(adesso: adesso),
-        ), settings: const RouteSettings(arguments: PortaDelCerchio.calendario));
+  static Route<void> route({DateTime? adesso}) =>
+      PassaggioDelCerchio.rotta<void>(
+          (_) => MaestroScope(
+                maestro: Maestro.medora,
+                child: CalendarioDegliEventiScreen(adesso: adesso),
+              ),
+          settings: const RouteSettings(arguments: PortaDelCerchio.calendario));
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +95,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
     final nullaDiTuo =
         livello == LivelloPersonalizzazione.soloSegno && segno == null;
 
-    final tutti =
-        ProssimiEventi.da(adesso: quando, carta: carta, segno: segno);
+    final tutti = ProssimiEventi.da(adesso: quando, carta: carta, segno: segno);
     final elenco = [
       for (final evento in tutti)
         if (evento.fraQuantiGiorni <= orizzonteComune ||
@@ -126,8 +128,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.lg),
-              if (nullaDiTuo)
-                _InvitoACompletare(palette: palette),
+              if (nullaDiTuo) _InvitoACompletare(palette: palette),
               for (final evento in elenco) ...[
                 _VoceDelCalendario(evento: evento),
                 const SizedBox(height: SpacingTokens.sm),
@@ -255,8 +256,8 @@ class _InvitoACompletare extends StatelessWidget {
                   backgroundColor: palette.gold,
                   foregroundColor: palette.deepest,
                 ),
-                onPressed: () => Navigator.of(context)
-                    .push(DatiDiNascitaScreen.route()),
+                onPressed: () =>
+                    Navigator.of(context).push(DatiDiNascitaScreen.route()),
                 child: Text('Dai al Cerchio la tua nascita',
                     style: TypographyTokens.etichetta()
                         .copyWith(color: palette.deepest)),

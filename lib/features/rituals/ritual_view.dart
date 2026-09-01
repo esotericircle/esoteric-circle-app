@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../core/rituals/daily_elements.dart';
@@ -116,7 +115,7 @@ class RitualView extends StatefulWidget {
   /// rivelazione e' un pulsante scomodo, non un cielo che risponde. A zero, cioe'
   /// senza sensore, la scena resta composta e non manca niente.
   final Widget Function(
-      BuildContext context, bool revealed, double t, Offset inclinazione)
+          BuildContext context, bool revealed, double t, Offset inclinazione)
       visualBuilder;
 
   /// Il responso, mostrato dopo il gesto.
@@ -278,8 +277,8 @@ class _RitualViewState extends State<RitualView>
                             context,
                             _revealed,
                             _pulse.value,
-                            Offset(_inclinazione?.x ?? 0,
-                                _inclinazione?.y ?? 0),
+                            Offset(
+                                _inclinazione?.x ?? 0, _inclinazione?.y ?? 0),
                           ),
                         ),
                       ),
@@ -341,8 +340,8 @@ class _RitualViewState extends State<RitualView>
               // non si legge lo stesso e' un testo che non c'e'.
               if (!_revealed && widget.cosaRicevi != null)
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                      SpacingTokens.sm, SpacingTokens.lg, 0),
+                  padding: const EdgeInsets.fromLTRB(
+                      SpacingTokens.lg, SpacingTokens.sm, SpacingTokens.lg, 0),
                   child: Text(
                     widget.cosaRicevi!,
                     key: const Key('rito_cosa_ricevi'),
@@ -365,16 +364,16 @@ class _RitualViewState extends State<RitualView>
               // due righe che allontanano la risposta.
               if (widget.cosaEIlVisivo != null && !_revealed)
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.lg),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
                   child: Column(
                     children: [
                       Text(
                         widget.cosaEIlVisivo!,
                         key: const Key('rito_cosa_e_il_visivo'),
                         textAlign: TextAlign.center,
-                        style: TypographyTokens.didascalia().copyWith(
-                            color: palette.goldSoft, height: 1.35),
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: palette.goldSoft, height: 1.35),
                       ),
                       const SizedBox(height: SpacingTokens.xs),
                       _HintRow(
@@ -422,8 +421,8 @@ class _RitualViewState extends State<RitualView>
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: palette.goldSoft,
                                 side: BorderSide(
-                                    color: palette.gold
-                                        .withValues(alpha: 0.55)),
+                                    color:
+                                        palette.gold.withValues(alpha: 0.55)),
                               ),
                               label: Text('Riprova',
                                   style: TypographyTokens.didascalia()

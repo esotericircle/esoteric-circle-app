@@ -66,8 +66,7 @@ class Collassabile extends StatelessWidget {
       duration: const Duration(milliseconds: 220),
       curve: Curves.easeOutCubic,
       alignment: Alignment.topCenter,
-      child:
-          aperto ? child : const SizedBox(width: double.infinity, height: 0),
+      child: aperto ? child : const SizedBox(width: double.infinity, height: 0),
     );
   }
 }

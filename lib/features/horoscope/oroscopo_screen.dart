@@ -92,9 +92,9 @@ class OroscopoScreen extends StatefulWidget {
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
-          id: 'horoscope',
-          maestro: Maestro.medora,
-          child: OroscopoScreen(userSign: userSign, now: now)));
+        id: 'horoscope',
+        maestro: Maestro.medora,
+        child: OroscopoScreen(userSign: userSign, now: now)));
   }
 
   @override
@@ -392,205 +392,206 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     return Stack(
       children: [
         Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
-        // schermata della pratica. Un saldo che appare e scompare non si impara.
-        actions: const [AngoloDellaBarra()],
-      ),
-      body: CosmosBackground(
-        seed: 5,
-        showZodiac: false,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              EntranceCascade(
-                listKey: const Key('oroscopo_list'),
-                // Nessun vuoto sopra l'eroe: il segno parte in alto.
-                padding: const EdgeInsets.fromLTRB(
-                    SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
-                hero: Column(
-                  children: [
-                    // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
-                    // cosa che la persona cerca, e stava sotto la figura.
-                    Text(widget.userSign.italianName,
-                        key: const Key('oroscopo_sign_name'),
-                        style: TypographyTokens.cerimonialeGrande()
-                            .copyWith(color: palette.goldSoft)),
-                    const SizedBox(height: SpacingTokens.xs),
-                    _Hero(
-                      sign: widget.userSign,
-                      palette: palette,
-                      pulse: _pulse,
-                      // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
-                      // segno che qualcosa sta accadendo, e dura quanto la
-                      // pausa dichiarata.
-                      interrogazione: _riflettendo,
-                      // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
-                      // TUTTA la riflessione (ordine BZ voce 06).
-                      //
-                      // **Prima stavano nel solo primo momento**, e al
-                      // secondo la corona spariva: restavano una riga di testo
-                      // e due pallini, cioe' la scena si svuotava a meta'
-                      // proprio mentre nominava il fatto del giorno. E' la
-                      // stessa forma di difetto della voce BZ.07, dove fra
-                      // l'ultima carta e la riflessione restava Medora da
-                      // sola. I corpi si compongono nel primo momento e
-                      // restano composti nel secondo.
-                      corona: _riflettendo,
-                      adesso: _date,
-                      durataDelMomento: RiflessioneDelCielo.momento(
-                          piena: _pienaQuestoConsulto),
-                    ),
-                  ],
-                ),
-                items: [
-                  _Heading(periodo: _period, date: _date, palette: palette),
-                  const SizedBox(height: SpacingTokens.md),
-                  _PeriodTabs(
-                    current: _period,
-                    palette: palette,
-                    onSelect: _selectPeriod,
-                  ),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // Accanto al periodo, la tradizione: lo stesso cielo letto con
-                  // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
-                  _TraditionTabs(
-                    current: _tradition,
-                    palette: palette,
-                    onSelect: _selectTradition,
-                  ),
-                  _TraditionInvite(
-                    tradition: _traditionMessage,
-                    maestro: Maestro.medora,
-                    palette: palette,
-                    // Rivelazione una volta sola per tradizione.
-                    animate: _traditionMessage != null &&
-                        !_traditionRevealed.contains(_traditionMessage),
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
-                  // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
-                  // non si vede: il cielo si interroga.
-                  if (_fase == _FaseDelConsulto.attesa)
-                    _InterrogaIlCielo(
-                      palette: palette,
-                      onTap: _interrogaIlCielo,
-                    ),
-                  // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
-                  // dove staranno le schede, cosi' lo sguardo non si sposta
-                  // quando il responso arriva.
-                  if (_riflettendo)
-                    RigaDellaRiflessione(
-                      momento: _fase == _FaseDelConsulto.raccolta
-                          ? MomentoDellaRiflessione.raccolta
-                          : MomentoDellaRiflessione.nomina,
-                      cielo: cielo,
-                      palette: palette,
-                    ),
-                  // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
-                  // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
-                  // ed e' per questo che il responso si vedeva intero: una
-                  // scheda che esiste mentre la scrittura non e' cominciata
-                  // mostra tutto il suo testo. Qui, finche' non e' il suo
-                  // turno, la scheda non e' in albero affatto: i caratteri del
-                  // responso presenti durante la riflessione sono ZERO, e non
-                  // per un'opacita' che li nasconde.
-                  if (_fase == _FaseDelConsulto.responso)
-                    for (var i = 0; i < cards.length; i++)
-                      if (i <= _turnoDiScrittura) ...[
-                        _HoroscopeCardView(
-                          scrivendo: true,
-                          durataScrittura:
-                              RiflessioneDelCielo.scritturaDiUnaScheda,
-                          card: cards[i],
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            iconTheme: IconThemeData(color: palette.goldSoft),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_rounded),
+              tooltip: 'Indietro',
+              onPressed: () => Navigator.of(context).maybePop(),
+            ),
+            // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
+            // schermata della pratica. Un saldo che appare e scompare non si impara.
+            actions: const [AngoloDellaBarra()],
+          ),
+          body: CosmosBackground(
+            seed: 5,
+            showZodiac: false,
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  EntranceCascade(
+                    listKey: const Key('oroscopo_list'),
+                    // Nessun vuoto sopra l'eroe: il segno parte in alto.
+                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                        SpacingTokens.lg, SpacingTokens.lg),
+                    hero: Column(
+                      children: [
+                        // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
+                        // cosa che la persona cerca, e stava sotto la figura.
+                        Text(widget.userSign.italianName,
+                            key: const Key('oroscopo_sign_name'),
+                            style: TypographyTokens.cerimonialeGrande()
+                                .copyWith(color: palette.goldSoft)),
+                        const SizedBox(height: SpacingTokens.xs),
+                        _Hero(
+                          sign: widget.userSign,
                           palette: palette,
                           pulse: _pulse,
-                          depth: _depth[cards[i].domain]!,
-                          // Il "gia' scritto" abita la schermata: la scheda lo
-                          // legge quando nasce e lo dichiara quando finisce.
-                          // LETTURA VIVA, non un booleano catturato: i widget
-                          // della lista vengono costruiti una volta e rinascono
-                          // dopo, quindi un valore fissato alla costruzione
-                          // sarebbe sempre vecchio. Il gancio legge il registro
-                          // nel momento della rinascita.
-                          giaScritto: () => _testiScritti
-                              .contains(_chiaveDelTesto(cards[i].domain)),
-                          onScritto: () => _testiScritti
-                              .add(_chiaveDelTesto(cards[i].domain)),
-                          onDepthSelected: (depth) =>
-                              _scegliProfondita(cards[i].domain, depth),
-                          onDepthLocked: (depth) =>
-                              _showDepthLocked(cards[i].domain, depth),
-                          premiumUnlocked: PlanCatalog.haProfondita(
-                              context.watch<EntitlementService>().tier),
+                          // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
+                          // segno che qualcosa sta accadendo, e dura quanto la
+                          // pausa dichiarata.
+                          interrogazione: _riflettendo,
+                          // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
+                          // TUTTA la riflessione (ordine BZ voce 06).
+                          //
+                          // **Prima stavano nel solo primo momento**, e al
+                          // secondo la corona spariva: restavano una riga di testo
+                          // e due pallini, cioe' la scena si svuotava a meta'
+                          // proprio mentre nominava il fatto del giorno. E' la
+                          // stessa forma di difetto della voce BZ.07, dove fra
+                          // l'ultima carta e la riflessione restava Medora da
+                          // sola. I corpi si compongono nel primo momento e
+                          // restano composti nel secondo.
+                          corona: _riflettendo,
+                          adesso: _date,
+                          durataDelMomento: RiflessioneDelCielo.momento(
+                              piena: _pienaQuestoConsulto),
                         ),
+                      ],
+                    ),
+                    items: [
+                      _Heading(periodo: _period, date: _date, palette: palette),
+                      const SizedBox(height: SpacingTokens.md),
+                      _PeriodTabs(
+                        current: _period,
+                        palette: palette,
+                        onSelect: _selectPeriod,
+                      ),
+                      const SizedBox(height: SpacingTokens.sm),
+                      // Accanto al periodo, la tradizione: lo stesso cielo letto con
+                      // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
+                      _TraditionTabs(
+                        current: _tradition,
+                        palette: palette,
+                        onSelect: _selectTradition,
+                      ),
+                      _TraditionInvite(
+                        tradition: _traditionMessage,
+                        maestro: Maestro.medora,
+                        palette: palette,
+                        // Rivelazione una volta sola per tradizione.
+                        animate: _traditionMessage != null &&
+                            !_traditionRevealed.contains(_traditionMessage),
+                      ),
+                      const SizedBox(height: SpacingTokens.md),
+                      // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
+                      // non si vede: il cielo si interroga.
+                      if (_fase == _FaseDelConsulto.attesa)
+                        _InterrogaIlCielo(
+                          palette: palette,
+                          onTap: _interrogaIlCielo,
+                        ),
+                      // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
+                      // dove staranno le schede, cosi' lo sguardo non si sposta
+                      // quando il responso arriva.
+                      if (_riflettendo)
+                        RigaDellaRiflessione(
+                          momento: _fase == _FaseDelConsulto.raccolta
+                              ? MomentoDellaRiflessione.raccolta
+                              : MomentoDellaRiflessione.nomina,
+                          cielo: cielo,
+                          palette: palette,
+                        ),
+                      // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
+                      // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
+                      // ed e' per questo che il responso si vedeva intero: una
+                      // scheda che esiste mentre la scrittura non e' cominciata
+                      // mostra tutto il suo testo. Qui, finche' non e' il suo
+                      // turno, la scheda non e' in albero affatto: i caratteri del
+                      // responso presenti durante la riflessione sono ZERO, e non
+                      // per un'opacita' che li nasconde.
+                      if (_fase == _FaseDelConsulto.responso)
+                        for (var i = 0; i < cards.length; i++)
+                          if (i <= _turnoDiScrittura) ...[
+                            _HoroscopeCardView(
+                              scrivendo: true,
+                              durataScrittura:
+                                  RiflessioneDelCielo.scritturaDiUnaScheda,
+                              card: cards[i],
+                              palette: palette,
+                              pulse: _pulse,
+                              depth: _depth[cards[i].domain]!,
+                              // Il "gia' scritto" abita la schermata: la scheda lo
+                              // legge quando nasce e lo dichiara quando finisce.
+                              // LETTURA VIVA, non un booleano catturato: i widget
+                              // della lista vengono costruiti una volta e rinascono
+                              // dopo, quindi un valore fissato alla costruzione
+                              // sarebbe sempre vecchio. Il gancio legge il registro
+                              // nel momento della rinascita.
+                              giaScritto: () => _testiScritti
+                                  .contains(_chiaveDelTesto(cards[i].domain)),
+                              onScritto: () => _testiScritti
+                                  .add(_chiaveDelTesto(cards[i].domain)),
+                              onDepthSelected: (depth) =>
+                                  _scegliProfondita(cards[i].domain, depth),
+                              onDepthLocked: (depth) =>
+                                  _showDepthLocked(cards[i].domain, depth),
+                              premiumUnlocked: PlanCatalog.haProfondita(
+                                  context.watch<EntitlementService>().tier),
+                            ),
+                            const SizedBox(height: SpacingTokens.md),
+                          ],
+                      // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
+                      //
+                      // Una riga generica scritta con lo stesso carattere di una
+                      // vera si legge come vera: qui si dice a parole che senza
+                      // ora e luogo di nascita quella lettura parla al segno, non
+                      // al cielo di questa persona, e si dice come rimediare.
+                      if (notaDelCielo != null) ...[
+                        _NotaDelCielo(
+                            testo: notaDelCielo,
+                            palette: palette,
+                            completa: cielo.ceCieloVero),
                         const SizedBox(height: SpacingTokens.md),
                       ],
-                  // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
-                  //
-                  // Una riga generica scritta con lo stesso carattere di una
-                  // vera si legge come vera: qui si dice a parole che senza
-                  // ora e luogo di nascita quella lettura parla al segno, non
-                  // al cielo di questa persona, e si dice come rimediare.
-                  if (notaDelCielo != null) ...[
-                    _NotaDelCielo(
-                        testo: notaDelCielo,
-                        palette: palette,
-                        completa: cielo.ceCieloVero),
-                    const SizedBox(height: SpacingTokens.md),
-                  ],
-                  // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
-                  // consulto la schermata offriva di condividere un oroscopo
-                  // che nessuno aveva ancora chiesto, e la card che ne usciva
-                  // portava testi mai comparsi a video: e' lo stesso difetto
-                  // che il gesto Interroga il cielo esiste per togliere.
-                  if (_fase == _FaseDelConsulto.responso)
-                    _ShareBlock(
-                      palette: palette,
-                      sharing: _sharing,
-                      onShare: _onShare,
-                      segno: widget.userSign.italianName,
-                      // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
-                      // LETTO**, cioe' le schede del cielo di oggi in fila:
-                      // custodire un testo diverso da quello a video sarebbe
-                      // riaprire domani un responso che non e' mai comparso.
-                      testoDelResponso: cards
-                          .map((c) => '${c.title}\n${c.text}')
-                          .join('\n\n'),
+                      // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
+                      // consulto la schermata offriva di condividere un oroscopo
+                      // che nessuno aveva ancora chiesto, e la card che ne usciva
+                      // portava testi mai comparsi a video: e' lo stesso difetto
+                      // che il gesto Interroga il cielo esiste per togliere.
+                      if (_fase == _FaseDelConsulto.responso)
+                        _ShareBlock(
+                          palette: palette,
+                          sharing: _sharing,
+                          onShare: _onShare,
+                          segno: widget.userSign.italianName,
+                          // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
+                          // LETTO**, cioe' le schede del cielo di oggi in fila:
+                          // custodire un testo diverso da quello a video sarebbe
+                          // riaprire domani un responso che non e' mai comparso.
+                          testoDelResponso: cards
+                              .map((c) => '${c.title}\n${c.text}')
+                              .join('\n\n'),
+                        ),
+                      // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+                      //
+                      // Le linee guida dicevano da sempre "una volta sola", e per
+                      // sette volte ognuno ha pensato che il proprio fosse quella
+                      // volta. Un disclaimer ripetuto smette di essere letto e
+                      // diventa un modo di scaricare la responsabilita' invece di
+                      // dirla. Adesso sta in un posto solo, nell'area privacy.
+                    ],
+                  ),
+                  if (_renderCard)
+                    Positioned(
+                      left: -3000,
+                      top: 0,
+                      child: RepaintBoundary(
+                        key: _cardKey,
+                        child: OroscopoShareCard(
+                            sign: widget.userSign,
+                            cards: cards,
+                            palette: palette),
+                      ),
                     ),
-                  // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
-                  //
-                  // Le linee guida dicevano da sempre "una volta sola", e per
-                  // sette volte ognuno ha pensato che il proprio fosse quella
-                  // volta. Un disclaimer ripetuto smette di essere letto e
-                  // diventa un modo di scaricare la responsabilita' invece di
-                  // dirla. Adesso sta in un posto solo, nell'area privacy.
                 ],
               ),
-
-              if (_renderCard)
-                Positioned(
-                  left: -3000,
-                  top: 0,
-                  child: RepaintBoundary(
-                    key: _cardKey,
-                    child: OroscopoShareCard(
-                        sign: widget.userSign, cards: cards, palette: palette),
-                  ),
-                ),
-            ],
+            ),
           ),
-        ),
-      ),
         ),
         // **LA CORSA DELLO ZODIACO STA SOPRA TUTTO. Ordine CC voce 03.**
         //
@@ -615,9 +616,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             key: const Key('corsa_dello_zodiaco'),
             segno: _segnoDiChiGuarda,
             palette: palette,
-            durata: RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) *
-                    2 +
-                _dissolvenzaDellaCorsa,
+            durata:
+                RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) * 2 +
+                    _dissolvenzaDellaCorsa,
             riduciMovimento: MediaQuery.of(context).disableAnimations,
           ),
       ],

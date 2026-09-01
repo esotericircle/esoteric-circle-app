@@ -270,8 +270,7 @@ class QuestionAllowance extends ChangeNotifier {
   /// confine copiarlo avrebbe voluto dire due definizioni dello stesso giorno
   /// che devono restare d'accordo. Vedi `ConfineDelGiorno`, dove sta anche la
   /// ragione per cui il confine RITUALE, a mezzogiorno, e' un'altra cosa.
-  String _today() =>
-      _giornoDelServer ?? ConfineDelGiorno.chiaveDi(_clock());
+  String _today() => _giornoDelServer ?? ConfineDelGiorno.chiaveDi(_clock());
 
   // Se e' cambiato il giorno, azzera il conteggio.
   void _rollover() {

@@ -72,8 +72,10 @@ class StesaInCorso {
   /// E' una VISTA di [mazzoDisposto], non un secondo dato: due liste da tenere
   /// d'accordo sarebbero la famiglia di difetto che questa classe esiste per
   /// chiudere.
-  List<int> get mazzoResiduo =>
-      [for (final c in mazzoDisposto) if (c != null) c];
+  List<int> get mazzoResiduo => [
+        for (final c in mazzoDisposto)
+          if (c != null) c
+      ];
 
   final int seme;
 
@@ -83,9 +85,8 @@ class StesaInCorso {
   bool get eCompleta => quanteAssegnate == SpreadPosition.values.length;
 
   /// La stesa finita, quando tutte le posizioni sono piene.
-  TarotSpread? get stesaCompiuta => eCompleta
-      ? TarotSpread([for (final c in assegnate) c!])
-      : null;
+  TarotSpread? get stesaCompiuta =>
+      eCompleta ? TarotSpread([for (final c in assegnate) c!]) : null;
 
   /// ASSEGNA la prossima carta del mazzo residuo alla posizione data.
   ///

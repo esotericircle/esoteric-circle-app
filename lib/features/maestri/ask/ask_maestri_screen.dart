@@ -106,13 +106,13 @@ class AskMaestriScreen extends StatefulWidget {
     required List<MaestroLens> lenti,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: starter,
-        child: AskMaestriScreen(
-          starter: starter,
-          temaIniziale: tema,
-          lentiIniziali: lenti,
-        ),
-      ));
+          maestro: starter,
+          child: AskMaestriScreen(
+            starter: starter,
+            temaIniziale: tema,
+            lentiIniziali: lenti,
+          ),
+        ));
   }
 
   // IL COSTRUTTORE DI ROTTA SENZA TEMA E' STATO TOLTO.
@@ -148,8 +148,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
 
   void _pianificaLaMarca(Maestro m) {
     _timerDiScrittura.add(Timer(
-        TempiDellAttesa.tettoAlTestoCompleto + const Duration(seconds: 1),
-        () {
+        TempiDellAttesa.tettoAlTestoCompleto + const Duration(seconds: 1), () {
       if (mounted) setState(() => _scritte.add(m));
     }));
   }
@@ -225,8 +224,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           showUpgradeInvite(
             context,
             title: 'Hai posto le tue domande di oggi',
-            message:
-                'Puoi riscattarne una con gli Eos, oppure col Cerchio le '
+            message: 'Puoi riscattarne una con gli Eos, oppure col Cerchio le '
                 'domande ai Maestri sono senza limiti e puoi metterne a '
                 'confronto gli sguardi.',
             riscattoLabel: riscatto.label,
@@ -362,8 +360,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       // Ripiego sulla sintesi deterministica, nessun errore a video.
     } catch (errore, traccia) {
       // Il ripiego resta silenzioso per la persona, non per chi legge i log.
-      annotaGuastoInnocuo(
-          'componendo la sintesi comparativa', errore, traccia);
+      annotaGuastoInnocuo('componendo la sintesi comparativa', errore, traccia);
     }
   }
 
@@ -427,7 +424,6 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     );
   }
 
-
   /// LE VOCI SI RACCOLGONO UNA ALLA VOLTA, MAI INSIEME.
   ///
   /// Nel codice dell'app la sequenzialita' c'era gia' e una prova la
@@ -458,8 +454,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     // entrare: aprirlo di nuovo appena dentro vorrebbe dire accogliere chi
     // arriva con una finestra di vendita, e per due volte di fila.
     final piano = context.read<EntitlementService>().tier;
-    final puoConfrontare =
-        context.read<QuestionAllowance>().canCompare(piano);
+    final puoConfrontare = context.read<QuestionAllowance>().canCompare(piano);
 
     for (final m in Maestro.fixedOrder) {
       if (!mounted) return;
@@ -475,8 +470,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       }
       // Solo la voce di partenza conta contro il limite del giorno: le altre
       // due sono il confronto, che ha il suo gating e non intacca le domande.
-      await _fetchLens(m, _theme!,
-          countsAgainstAllowance: m == widget.starter);
+      await _fetchLens(m, _theme!, countsAgainstAllowance: m == widget.starter);
     }
   }
 
@@ -545,78 +539,76 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
               // fatta, e senza campo per farne una non ci sarebbe niente da
               // invitare a fare. Un invito senza uscita e' un vicolo cieco.
               child: ListView(
-                      key: const Key('ask_results'),
-                      padding: EdgeInsets.fromLTRB(
-                          SpacingTokens.lg,
-                          0,
-                          SpacingTokens.lg,
-                          SpacingTokens.xxxl +
-                              SpazioDellaBarraNelloScroll.quanto(context)),
-                      children: [
-                        // **LA ZONA SI PRESENTA, la prima volta e una
-                        // sola.** Ordine CE voce 12: dentro la lista,
-                        // sopra i pareri, e scorre via con loro.
-                        const SuggerimentoAlPrimoUso(
-                            zona: ZonaDelCerchio.consiglio),
-                        // **QUANTI CONFRONTI TI RESTANO, ordine CE voce 04.**
-                        // La Consulta spende sul budget dei confronti nel
-                        // Cerchio, e questa era una delle cinque porte che
-                        // consumavano senza dire niente.
-                        const RigaDelResiduo(
-                            budget: BudgetDelGiorno.confronti),
-                        for (final m in _ordineDelConfronto)
-                          if (_responders.contains(m)) ...[
-                            // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta
-                            // la stessa chiave: e' cio' che permette di
-                            // provare che le tre carte esistono dal primo
-                            // fotogramma, due delle quali stanno pensando.
-                            Column(
-                              key: Key('ask_card_${m.id}'),
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                if (_loading.contains(m)) ...[
-                                  // NESSUNA SCENA DI ATTESA DENTRO LA CARTA.
-                                  //
-                                  // La scena con l'emblema e le frasi vive
-                                  // nella chat, dove c'e' una superficie sola
-                                  // e tutta l'altezza libera. Qui erano tre in
-                                  // colonna dentro tre carte alte un dito: gli
-                                  // emblemi cadevano sotto la piega e
-                                  // restavano tre bolle che scattavano.
-                                  // Una lista che aspetta si dice stando
-                                  // ferma.
-                                  _LensLoadingCard(maestro: m),
-                                ] else ...[
-                                  _LensCard(
-                                      lens: _lenses[m]!,
-                                      scriviti: !_scritte.contains(m)),
-                                  // SOTTO OGNI CARTA, e non solo sotto quella
-                                  // di partenza: con tre carte, da due delle
-                                  // tre non si potrebbe proseguire.
-                                  const SizedBox(height: SpacingTokens.xs),
-                                  _ContinueInChat(
-                                    maestro: m,
-                                    onContinue: () => _continuaCon(m),
-                                  ),
-                                ],
-                              ],
+                key: const Key('ask_results'),
+                padding: EdgeInsets.fromLTRB(
+                    SpacingTokens.lg,
+                    0,
+                    SpacingTokens.lg,
+                    SpacingTokens.xxxl +
+                        SpazioDellaBarraNelloScroll.quanto(context)),
+                children: [
+                  // **LA ZONA SI PRESENTA, la prima volta e una
+                  // sola.** Ordine CE voce 12: dentro la lista,
+                  // sopra i pareri, e scorre via con loro.
+                  const SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.consiglio),
+                  // **QUANTI CONFRONTI TI RESTANO, ordine CE voce 04.**
+                  // La Consulta spende sul budget dei confronti nel
+                  // Cerchio, e questa era una delle cinque porte che
+                  // consumavano senza dire niente.
+                  const RigaDelResiduo(budget: BudgetDelGiorno.confronti),
+                  for (final m in _ordineDelConfronto)
+                    if (_responders.contains(m)) ...[
+                      // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta
+                      // la stessa chiave: e' cio' che permette di
+                      // provare che le tre carte esistono dal primo
+                      // fotogramma, due delle quali stanno pensando.
+                      Column(
+                        key: Key('ask_card_${m.id}'),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (_loading.contains(m)) ...[
+                            // NESSUNA SCENA DI ATTESA DENTRO LA CARTA.
+                            //
+                            // La scena con l'emblema e le frasi vive
+                            // nella chat, dove c'e' una superficie sola
+                            // e tutta l'altezza libera. Qui erano tre in
+                            // colonna dentro tre carte alte un dito: gli
+                            // emblemi cadevano sotto la piega e
+                            // restavano tre bolle che scattavano.
+                            // Una lista che aspetta si dice stando
+                            // ferma.
+                            _LensLoadingCard(maestro: m),
+                          ] else ...[
+                            _LensCard(
+                                lens: _lenses[m]!,
+                                scriviti: !_scritte.contains(m)),
+                            // SOTTO OGNI CARTA, e non solo sotto quella
+                            // di partenza: con tre carte, da due delle
+                            // tre non si potrebbe proseguire.
+                            const SizedBox(height: SpacingTokens.xs),
+                            _ContinueInChat(
+                              maestro: m,
+                              onContinue: () => _continuaCon(m),
                             ),
-                            const SizedBox(height: SpacingTokens.sm),
                           ],
-                        // LA SINTESI STA IN FONDO, DOPO LE TRE CARTE.
-                        //
-                        // Una sintesi e' la conclusione di un confronto, e in
-                        // cima occupava da sola tutto il primo schermo: chi
-                        // apriva il Consiglio non vedeva tre Maestri, vedeva
-                        // un muro di testo, e le carte cominciavano dove
-                        // finiva lei. Prima si legge chi si e' espresso, poi
-                        // cosa se ne ricava.
-                        if (synthesis != null) ...[
-                          const SizedBox(height: SpacingTokens.sm),
-                          _SynthesisCard(synthesis: synthesis),
                         ],
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: SpacingTokens.sm),
+                    ],
+                  // LA SINTESI STA IN FONDO, DOPO LE TRE CARTE.
+                  //
+                  // Una sintesi e' la conclusione di un confronto, e in
+                  // cima occupava da sola tutto il primo schermo: chi
+                  // apriva il Consiglio non vedeva tre Maestri, vedeva
+                  // un muro di testo, e le carte cominciavano dove
+                  // finiva lei. Prima si legge chi si e' espresso, poi
+                  // cosa se ne ricava.
+                  if (synthesis != null) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _SynthesisCard(synthesis: synthesis),
+                  ],
+                ],
+              ),
             ),
           ],
         ),
@@ -666,7 +658,8 @@ class _ContinueInChat extends StatelessWidget {
                   style: TypographyTokens.titoloDiRiga()
                       .copyWith(color: palette.goldSoft)),
             ),
-            Icon(Icons.arrow_forward_rounded, size: 16, color: palette.goldSoft),
+            Icon(Icons.arrow_forward_rounded,
+                size: 16, color: palette.goldSoft),
           ],
         ),
       ),
@@ -844,8 +837,7 @@ class _TestaDellaCarta extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(maestro.displayName,
-                  style: TypographyTokens.titoloScheda()),
+              Text(maestro.displayName, style: TypographyTokens.titoloScheda()),
               const SizedBox(height: 2),
               Text(maestro.domainArtsPhrase,
                   key: Key('ask_dominio_${maestro.id}'),

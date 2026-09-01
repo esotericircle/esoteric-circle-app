@@ -35,8 +35,18 @@ class SkyPostcard {
   const SkyPostcard._();
 
   static const List<String> _months = [
-    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
-    'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+    'gennaio',
+    'febbraio',
+    'marzo',
+    'aprile',
+    'maggio',
+    'giugno',
+    'luglio',
+    'agosto',
+    'settembre',
+    'ottobre',
+    'novembre',
+    'dicembre',
   ];
 
   static const List<String> _poeticLines = [
@@ -141,7 +151,8 @@ class SkyPostcard {
       canvas.drawCircle(
         Offset(x, y),
         0.6 + m * 2.2,
-        Paint()..color = const Color(0xFFFFFFFF).withValues(alpha: 0.25 + 0.6 * m),
+        Paint()
+          ..color = const Color(0xFFFFFFFF).withValues(alpha: 0.25 + 0.6 * m),
       );
     }
 
@@ -150,7 +161,8 @@ class SkyPostcard {
         _style(palette.goldSoft, 30 * s, 'Cinzel', spacing: 8 * s),
         align: TextAlign.center);
     _text(canvas, titleFor(birth: birth), Offset(w / 2, fy(0.095)),
-        _style(palette.textPrimary, 60 * s, 'Cinzel'), align: TextAlign.center);
+        _style(palette.textPrimary, 60 * s, 'Cinzel'),
+        align: TextAlign.center);
     _text(canvas, formatDate(now), Offset(w / 2, fy(0.155)),
         _style(palette.goldSoft, 34 * s, 'EBGaramond', spacing: 2 * s),
         align: TextAlign.center);
@@ -173,7 +185,9 @@ class SkyPostcard {
     for (var i = 0; i < high.length && i < slots.length; i++) {
       final fig = kZodiacAsterisms[high[i]]!;
       _drawAsterism(canvas, slots[i], box, fig, palette);
-      _text(canvas, high[i].italianName,
+      _text(
+          canvas,
+          high[i].italianName,
           Offset(slots[i].dx, slots[i].dy + box * 0.62),
           _style(palette.textSecondary, 26 * s, 'Cinzel', spacing: 3 * s),
           align: TextAlign.center);
@@ -251,8 +265,11 @@ class SkyPostcard {
     }
     for (var i = 0; i < pts.length; i++) {
       final m = fig.mag[i];
-      canvas.drawCircle(pts[i], 2.5 + m * 3.5,
-          Paint()..color = const Color(0xFFFFFFFF).withValues(alpha: 0.6 + 0.4 * m));
+      canvas.drawCircle(
+          pts[i],
+          2.5 + m * 3.5,
+          Paint()
+            ..color = const Color(0xFFFFFFFF).withValues(alpha: 0.6 + 0.4 * m));
     }
   }
 

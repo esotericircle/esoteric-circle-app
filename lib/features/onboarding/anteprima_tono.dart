@@ -127,8 +127,8 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
           decoration: BoxDecoration(
             color: widget.palette.surface.withValues(alpha: 0.45),
             borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-            border: Border.all(
-                color: widget.palette.gold.withValues(alpha: 0.28)),
+            border:
+                Border.all(color: widget.palette.gold.withValues(alpha: 0.28)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,8 +140,8 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
               RichText(
                 textAlign: TextAlign.start,
                 text: TextSpan(
-                  style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textPrimary, height: 1.5),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.5),
                   children: [
                     TextSpan(text: frase.substring(0, quante)),
                     // Il cursore, finche' scrive.
@@ -172,7 +172,6 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
     return (AnteprimaTono.frasePer(tono).length * _penna.value).round();
   }
 }
-
 
 /// Le onde della voce: anelli che si propagano dal centro verso fuori.
 ///
@@ -301,6 +300,5 @@ class OndePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(OndePainter old) =>
-      old.t != t || old.colori != colori;
+  bool shouldRepaint(OndePainter old) => old.t != t || old.colori != colori;
 }

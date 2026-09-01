@@ -51,7 +51,8 @@ class DreamRiteCorpus {
       immagine: 'il fuoco che parte per primo',
       giorno: 'hai acceso in fretta, forse più di una volta',
       riconoscimento: 'hai avuto coraggio quando serviva',
-      posa: "lascia che la scintilla si abbassi, la notte non chiede slancio, chiede riposo",
+      posa:
+          "lascia che la scintilla si abbassi, la notte non chiede slancio, chiede riposo",
     ),
     Zodiac.taurus: VoceDelSogno(
       parola: 'Radice',
@@ -65,7 +66,8 @@ class DreamRiteCorpus {
       immagine: 'le due voci che si rincorrono',
       giorno: 'hai parlato molto, hai ascoltato altrettanto',
       riconoscimento: 'hai tenuto vivi i fili con gli altri',
-      posa: 'lascia posare le parole, la notte non chiede risposte, chiede riposo',
+      posa:
+          'lascia posare le parole, la notte non chiede risposte, chiede riposo',
     ),
     Zodiac.cancer: VoceDelSogno(
       parola: 'Rifugio',
@@ -86,7 +88,8 @@ class DreamRiteCorpus {
       immagine: 'le mani che mettono a posto',
       giorno: 'hai curato i dettagli, uno dopo l\'altro',
       riconoscimento: 'hai reso semplice qualcosa di complicato',
-      posa: 'lascia il resto per domani, la notte non chiede precisione, chiede riposo',
+      posa:
+          'lascia il resto per domani, la notte non chiede precisione, chiede riposo',
     ),
     Zodiac.libra: VoceDelSogno(
       parola: 'Equilibrio',
@@ -100,7 +103,8 @@ class DreamRiteCorpus {
       immagine: "l'acqua che scava",
       giorno: 'hai sentito tutto fino in fondo',
       riconoscimento: 'hai guardato una verità senza voltarti',
-      posa: 'lascia scendere il fondo, la notte non chiede intensità, chiede riposo',
+      posa:
+          'lascia scendere il fondo, la notte non chiede intensità, chiede riposo',
     ),
     Zodiac.sagittarius: VoceDelSogno(
       parola: 'Sosta',
@@ -114,21 +118,24 @@ class DreamRiteCorpus {
       immagine: 'la roccia che sale piano',
       giorno: 'hai portato responsabilità che nessuno ha visto',
       riconoscimento: 'hai retto quello che dovevi reggere',
-      posa: 'lascia la salita a domani, la notte non chiede disciplina, chiede riposo',
+      posa:
+          'lascia la salita a domani, la notte non chiede disciplina, chiede riposo',
     ),
     Zodiac.aquarius: VoceDelSogno(
       parola: 'Respiro',
       immagine: "l'aria che non si lascia stringere",
       giorno: 'hai pensato in largo, per tutti',
       riconoscimento: 'hai tenuto uno sguardo libero',
-      posa: 'lascia andare il pensiero, la notte non chiede visione, chiede riposo',
+      posa:
+          'lascia andare il pensiero, la notte non chiede visione, chiede riposo',
     ),
     Zodiac.pisces: VoceDelSogno(
       parola: 'Sogno',
       immagine: "l'acqua che confonde i bordi",
       giorno: 'hai assorbito molto, anche ciò che non era tuo',
       riconoscimento: 'hai avuto compassione, anche quando costava',
-      posa: 'lascia sciogliere i confini, la notte non chiede empatia, chiede riposo',
+      posa:
+          'lascia sciogliere i confini, la notte non chiede empatia, chiede riposo',
     ),
   };
 

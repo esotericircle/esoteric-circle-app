@@ -105,8 +105,7 @@ class _MaestroScreenState extends State<MaestroScreen> {
                   // Ordine CE voce 12. Sta qui in cima e dentro la
                   // colonna, non sopra di essa: cosi' tutto quello che c'e'
                   // sotto resta toccabile mentre si legge.
-                  const SuggerimentoAlPrimoUso(
-                      zona: ZonaDelCerchio.dominio),
+                  const SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.dominio),
                   // In cima la presenza del Maestro: il nome e i tre pilastri
                   // del dominio stanno gia' nella barra, quindi qui nessuna
                   // carta identitaria ridondante. IL BUSTO DALLA PORTA UNICA,

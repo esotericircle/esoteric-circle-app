@@ -44,10 +44,10 @@ class ArchetypeQuiz {
       id: 'D1',
       testo: 'Davanti a un ostacolo inatteso, cosa fai?',
       risposte: [
-        ArchetypeRisposta('Lo affronto di petto',
-            {Archetype.eroe: 2, Archetype.ribelle: 1}),
-        ArchetypeRisposta('Mi fermo a capirlo',
-            {Archetype.saggio: 2, Archetype.realista: 1}),
+        ArchetypeRisposta(
+            'Lo affronto di petto', {Archetype.eroe: 2, Archetype.ribelle: 1}),
+        ArchetypeRisposta(
+            'Mi fermo a capirlo', {Archetype.saggio: 2, Archetype.realista: 1}),
         ArchetypeRisposta('Contesto chi l\'ha creato', {Archetype.ribelle: 2}),
         ArchetypeRisposta('Penso a chi ne è colpito',
             {Archetype.custode: 2, Archetype.amante: 1}),
@@ -61,16 +61,16 @@ class ArchetypeQuiz {
         ArchetypeRisposta('Risate e leggerezza', {Archetype.giullare: 2}),
         ArchetypeRisposta('Creo o costruisco qualcosa',
             {Archetype.creatore: 2, Archetype.mago: 1}),
-        ArchetypeRisposta('Cose semplici, con serenità',
-            {Archetype.innocente: 2}),
+        ArchetypeRisposta(
+            'Cose semplici, con serenità', {Archetype.innocente: 2}),
       ],
     ),
     ArchetypeDomanda(
       id: 'D3',
       testo: 'In un gruppo, tu sei:',
       risposte: [
-        ArchetypeRisposta('Chi dà la direzione',
-            {Archetype.sovrano: 2, Archetype.eroe: 1}),
+        ArchetypeRisposta(
+            'Chi dà la direzione', {Archetype.sovrano: 2, Archetype.eroe: 1}),
         ArchetypeRisposta('Chi tiene su il morale', {Archetype.giullare: 2}),
         ArchetypeRisposta('Chi include gli esclusi',
             {Archetype.custode: 2, Archetype.amante: 1}),
@@ -81,8 +81,8 @@ class ArchetypeQuiz {
       id: 'D4',
       testo: 'Quando decidi, di cosa ti fidi?',
       risposte: [
-        ArchetypeRisposta('Della ragione e delle informazioni',
-            {Archetype.saggio: 2}),
+        ArchetypeRisposta(
+            'Della ragione e delle informazioni', {Archetype.saggio: 2}),
         ArchetypeRisposta('Del coraggio: agisco', {Archetype.eroe: 2}),
         ArchetypeRisposta('Dell\'intuito: cambio', {Archetype.mago: 2}),
         ArchetypeRisposta('Del buon senso e dell\'esperienza',
@@ -104,8 +104,8 @@ class ArchetypeQuiz {
       id: 'D6',
       testo: 'Un cambiamento improvviso: come lo leggi?',
       risposte: [
-        ArchetypeRisposta('Un\'occasione per esplorare',
-            {Archetype.esploratore: 2}),
+        ArchetypeRisposta(
+            'Un\'occasione per esplorare', {Archetype.esploratore: 2}),
         ArchetypeRisposta('Con pragmatismo, riparto', {Archetype.realista: 2}),
         ArchetypeRisposta('Una trasformazione, una rinascita',
             {Archetype.mago: 2, Archetype.creatore: 1}),
@@ -118,8 +118,8 @@ class ArchetypeQuiz {
       risposte: [
         ArchetypeRisposta('Perdere la fiducia', {Archetype.innocente: 2}),
         ArchetypeRisposta('Perdere controllo e ordine', {Archetype.sovrano: 2}),
-        ArchetypeRisposta('Restare solo',
-            {Archetype.amante: 2, Archetype.custode: 1}),
+        ArchetypeRisposta(
+            'Restare solo', {Archetype.amante: 2, Archetype.custode: 1}),
         ArchetypeRisposta('Essere ingabbiato', {Archetype.ribelle: 2}),
       ],
     ),
@@ -138,11 +138,11 @@ class ArchetypeQuiz {
       id: 'D9',
       testo: 'Cosa ti ricarica davvero?',
       risposte: [
-        ArchetypeRisposta('La quiete e le piccole gioie',
-            {Archetype.innocente: 2}),
+        ArchetypeRisposta(
+            'La quiete e le piccole gioie', {Archetype.innocente: 2}),
         ArchetypeRisposta('Un viaggio', {Archetype.esploratore: 2}),
-        ArchetypeRisposta('Un momento profondo con una persona',
-            {Archetype.amante: 2}),
+        ArchetypeRisposta(
+            'Un momento profondo con una persona', {Archetype.amante: 2}),
         ArchetypeRisposta('Creare', {Archetype.creatore: 2}),
       ],
     ),
@@ -154,16 +154,16 @@ class ArchetypeQuiz {
         ArchetypeRisposta('Combatto per rimettere a posto',
             {Archetype.eroe: 2, Archetype.sovrano: 1}),
         ArchetypeRisposta('Proteggo chi è colpito', {Archetype.custode: 2}),
-        ArchetypeRisposta('Ristabilisco un ordine giusto',
-            {Archetype.sovrano: 2}),
+        ArchetypeRisposta(
+            'Ristabilisco un ordine giusto', {Archetype.sovrano: 2}),
       ],
     ),
     ArchetypeDomanda(
       id: 'D11',
       testo: 'I tuoi sogni e i tuoi progetti:',
       risposte: [
-        ArchetypeRisposta('Ho sempre qualcosa da creare',
-            {Archetype.creatore: 2}),
+        ArchetypeRisposta(
+            'Ho sempre qualcosa da creare', {Archetype.creatore: 2}),
         ArchetypeRisposta('Immagino possibilità nuove', {Archetype.mago: 2}),
         ArchetypeRisposta('Sogno mete lontane', {Archetype.esploratore: 2}),
         ArchetypeRisposta('Progetti realistici', {Archetype.realista: 2}),

@@ -172,8 +172,7 @@ class ArtCatalog {
       {bool demo = AppFlags.isDemo, bool esente = false}) {
     if (demo || esente) return true;
     if (art.state != ArtState.inArrivo) return true;
-    return ArtPhase.rank(art.phase) <=
-        ArtPhase.rank(ArtPhase.sogliaUtente);
+    return ArtPhase.rank(art.phase) <= ArtPhase.rank(ArtPhase.sogliaUtente);
   }
 
   /// Se una sottocategoria ha almeno un'arte viva adesso.
@@ -509,7 +508,8 @@ class ArtCatalog {
       ArtEntry(
         id: 'biorhythm',
         title: 'Bioritmo',
-        teaser: 'Le tue tre onde, fisica, emotiva e mentale, dal giorno di nascita.',
+        teaser:
+            'Le tue tre onde, fisica, emotiva e mentale, dal giorno di nascita.',
         icon: Icons.show_chart_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,

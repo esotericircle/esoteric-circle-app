@@ -72,8 +72,8 @@ class VoceSorvegliata implements MaestroAiProvider {
       } catch (errore) {
         final ultimoPossibile = tentativo >= RitentativiDellaVoce.tentativi;
         final attesa = RitentativiDellaVoce.attesaPrima(tentativo);
-        final sforerebbe = orologio.elapsed + attesa >
-            RitentativiDellaVoce.tetto;
+        final sforerebbe =
+            orologio.elapsed + attesa > RitentativiDellaVoce.tetto;
         if (!RitentativiDellaVoce.eTemporaneo(errore) ||
             ultimoPossibile ||
             sforerebbe) {

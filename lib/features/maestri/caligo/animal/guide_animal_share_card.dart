@@ -42,7 +42,8 @@ class GuideAnimalShareCard extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [palette.surfaceElevated, palette.deepest],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
       ),
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -50,8 +51,8 @@ class GuideAnimalShareCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('ANIMALE GUIDA',
-                style: TypographyTokens.label(size: 12).copyWith(
-                    color: palette.goldSoft, letterSpacing: 2.0)),
+                style: TypographyTokens.label(size: 12)
+                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
             const SizedBox(height: SpacingTokens.md),
             // Il totem sul cielo del profilo: la wow, l'animale composto col cosmo.
             SizedBox(
@@ -64,8 +65,8 @@ class GuideAnimalShareCard extends StatelessWidget {
                   CustomPaint(painter: _CieloPainter(palette: palette)),
                   Image.asset(animal.fullPath,
                       fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(Icons.pets,
-                          size: 150, color: palette.goldSoft)),
+                      errorBuilder: (_, __, ___) =>
+                          Icon(Icons.pets, size: 150, color: palette.goldSoft)),
                 ],
               ),
             ),
@@ -118,7 +119,8 @@ class _CieloPainter extends CustomPainter {
         ..shader = RadialGradient(colors: [
           palette.primary.withValues(alpha: 0.35),
           palette.deepest.withValues(alpha: 0.0),
-        ]).createShader(Rect.fromCircle(center: c, radius: size.shortestSide * 0.5)),
+        ]).createShader(
+            Rect.fromCircle(center: c, radius: size.shortestSide * 0.5)),
     );
     // Stelle in posizioni fisse, deterministiche dall'indice.
     final stella = Paint()..color = palette.goldSoft;
@@ -128,7 +130,11 @@ class _CieloPainter extends CustomPainter {
       final p = c + Offset(math.cos(a), math.sin(a)) * r;
       final raggio = 0.6 + ((i * 13) % 5) * 0.35;
       canvas.drawCircle(
-          p, raggio, stella..color = palette.goldSoft.withValues(alpha: 0.5 + 0.5 * ((i * 7) % 10) / 10));
+          p,
+          raggio,
+          stella
+            ..color = palette.goldSoft
+                .withValues(alpha: 0.5 + 0.5 * ((i * 7) % 10) / 10));
     }
   }
 
@@ -148,6 +154,7 @@ Future<bool> shareGuideAnimalCard({
   await file.writeAsBytes(png, flush: true);
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'Il mio animale guida è ${animal.name}. '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo: 'Il mio animale guida è ${animal.name}. '
           'Scopri il tuo con Caligo, su Esoteric Circle.');
 }

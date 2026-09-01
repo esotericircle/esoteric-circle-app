@@ -27,8 +27,7 @@ class ResonanceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     // Ordine: vincitore al centro, gli altri ai lati.
-    final others =
-        Maestro.values.where((m) => m != resonance.winner).toList();
+    final others = Maestro.values.where((m) => m != resonance.winner).toList();
     final etichette = PercentualiRisonanza.formatta(resonance.scores);
     final ordered = [others.first, resonance.winner, others.last];
 
@@ -73,8 +72,11 @@ class ResonanceScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ParagrafiDiLettura(testo: resonance.reason, textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
+                ParagrafiDiLettura(
+                    testo: resonance.reason,
+                    textAlign: TextAlign.center,
+                    stile: TypographyTokens.lettura().copyWith(
+                        color: ColorTokens.textPrimary, height: 1.45)),
                 // Pareggio vero: due numeri identici e un vincitore sono una
                 // contraddizione, a meno di dire con che criterio uno passa
                 // avanti. Il criterio esiste gia' nel motore, e' il fattore
@@ -101,12 +103,13 @@ class ResonanceScreen extends StatelessWidget {
                 foregroundColor: palette.deepest,
                 padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
                 ),
               ),
               onPressed: onContinue,
-              child: ParagrafiDiLettura(testo: 'Rivela il tuo Maestro', stile: TypographyTokens.lettura(weight: 600)
+              child: ParagrafiDiLettura(
+                  testo: 'Rivela il tuo Maestro',
+                  stile: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -145,10 +148,8 @@ class _MaestroAuraState extends State<_MaestroAura>
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(vsync: this, duration: const Duration(seconds: 3))
-      ;
+    _c = AnimationController(vsync: this, duration: const Duration(seconds: 3));
   }
-
 
   /// **IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ voce 01**: il
   /// repeat di `_c` girava anche per chi ha chiesto meno movimento. La
@@ -188,87 +189,87 @@ class _MaestroAuraState extends State<_MaestroAura>
     //
     // Non e' il difetto che il fondatore ha visto, ed era li' accanto.
     return AnimatedBuilder(
-        animation: _c,
-        builder: (context, _) {
-          final ph = _c.value * 2 * math.pi;
-          final pulse = 1 + pulseAmp * math.sin(ph);
-          final forward = widget.isWinner ? -8 + 4 * math.sin(ph) : 0.0;
-          return Transform.translate(
-            offset: Offset(0, forward),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 150,
-                  child: Center(
-                    child: CustomPaint(
-                      size: Size(base * 1.6, base * 1.6),
-                      painter: _OrbPainter(
-                        color: p.glow,
-                        gold: p.goldSoft,
-                        radius: base / 2 * pulse,
-                        intensity: widget.intensity,
-                        winner: widget.isWinner,
+      animation: _c,
+      builder: (context, _) {
+        final ph = _c.value * 2 * math.pi;
+        final pulse = 1 + pulseAmp * math.sin(ph);
+        final forward = widget.isWinner ? -8 + 4 * math.sin(ph) : 0.0;
+        return Transform.translate(
+          offset: Offset(0, forward),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 150,
+                child: Center(
+                  child: CustomPaint(
+                    size: Size(base * 1.6, base * 1.6),
+                    painter: _OrbPainter(
+                      color: p.glow,
+                      gold: p.goldSoft,
+                      radius: base / 2 * pulse,
+                      intensity: widget.intensity,
+                      winner: widget.isWinner,
+                    ),
+                  ),
+                ),
+              ),
+              // Altezza fissa e una riga sola: il vincitore ha il nome piu'
+              // grande, e senza questa scatola le tre percentuali cadevano
+              // su tre linee di base diverse, come tre righe storte.
+              // **IL NOME STA DENTRO LA SUA COLONNA. Ordine BC voce 04.**
+              //
+              // Fatto del fondatore: "nell'onboarding, quando viene rivelato
+              // il Maestro assegnato, vengono mostrati dei cerchi colorati
+              // sfumati, ma i nomi si sovrappongono". Nello screenshot si
+              // legge MEDORA scritto sopra CALIGO.
+              //
+              // **La causa era una riga sola**, ed era scritta a chiare
+              // lettere: `softWrap: false` con `overflow:
+              // TextOverflow.visible` vuol dire *esci dalla tua colonna
+              // invece di adattarti*. Ogni Maestro vive in un `Expanded`,
+              // cioe' in un terzo della larghezza; il vincitore porta la
+              // tipografia cerimoniale, piu' grande delle altre due, e
+              // MEDORA a quella misura e' piu' largo di un terzo dello
+              // schermo. Sbordava, e finiva addosso al vicino.
+              //
+              // **Si rimpicciolisce, non si taglia.** Coi puntini di
+              // sospensione il vincitore diventerebbe "MEDO...", e il nome
+              // del proprio Maestro e' l'ultima cosa che si puo' abbreviare
+              // in questa schermata. Il `FittedBox` lo porta dentro
+              // scalandolo, e solo quando serve: se ci sta, non tocca
+              // niente.
+              SizedBox(
+                height: 30,
+                child: Center(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      widget.maestro.displayName,
+                      maxLines: 1,
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                      style: (widget.isWinner
+                              ? TypographyTokens.cerimoniale()
+                              : TypographyTokens.titoloSezione())
+                          .copyWith(
+                        color: widget.isWinner
+                            ? p.goldSoft
+                            : ColorTokens.textSecondary,
                       ),
                     ),
                   ),
                 ),
-                // Altezza fissa e una riga sola: il vincitore ha il nome piu'
-                // grande, e senza questa scatola le tre percentuali cadevano
-                // su tre linee di base diverse, come tre righe storte.
-                // **IL NOME STA DENTRO LA SUA COLONNA. Ordine BC voce 04.**
-                //
-                // Fatto del fondatore: "nell'onboarding, quando viene rivelato
-                // il Maestro assegnato, vengono mostrati dei cerchi colorati
-                // sfumati, ma i nomi si sovrappongono". Nello screenshot si
-                // legge MEDORA scritto sopra CALIGO.
-                //
-                // **La causa era una riga sola**, ed era scritta a chiare
-                // lettere: `softWrap: false` con `overflow:
-                // TextOverflow.visible` vuol dire *esci dalla tua colonna
-                // invece di adattarti*. Ogni Maestro vive in un `Expanded`,
-                // cioe' in un terzo della larghezza; il vincitore porta la
-                // tipografia cerimoniale, piu' grande delle altre due, e
-                // MEDORA a quella misura e' piu' largo di un terzo dello
-                // schermo. Sbordava, e finiva addosso al vicino.
-                //
-                // **Si rimpicciolisce, non si taglia.** Coi puntini di
-                // sospensione il vincitore diventerebbe "MEDO...", e il nome
-                // del proprio Maestro e' l'ultima cosa che si puo' abbreviare
-                // in questa schermata. Il `FittedBox` lo porta dentro
-                // scalandolo, e solo quando serve: se ci sta, non tocca
-                // niente.
-                SizedBox(
-                  height: 30,
-                  child: Center(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        widget.maestro.displayName,
-                        maxLines: 1,
-                        softWrap: false,
-                        textAlign: TextAlign.center,
-                        style: (widget.isWinner
-                                ? TypographyTokens.cerimoniale()
-                                : TypographyTokens.titoloSezione())
-                            .copyWith(
-                          color: widget.isWinner
-                              ? p.goldSoft
-                              : ColorTokens.textSecondary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  widget.etichetta,
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textMuted, letterSpacing: 1),
-                ),
-              ],
-            ),
-          );
-        },
+              ),
+              Text(
+                widget.etichetta,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textMuted, letterSpacing: 1),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -297,7 +298,8 @@ class _OrbPainter extends CustomPainter {
         radius * 1.5,
         Paint()
           ..color = color.withValues(alpha: 0.15 + intensity * 0.3)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 14 + intensity * 14));
+          ..maskFilter =
+              MaskFilter.blur(BlurStyle.normal, 14 + intensity * 14));
     // Corpo dell'aura.
     canvas.drawCircle(
       c,
@@ -327,7 +329,6 @@ class _OrbPainter extends CustomPainter {
   bool shouldRepaint(_OrbPainter old) =>
       old.radius != radius || old.intensity != intensity;
 }
-
 
 /// Come si scrivono le tre percentuali della Risonanza.
 ///

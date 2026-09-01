@@ -129,8 +129,7 @@ class RegolaDiRiconoscimento {
   final double quadroMinimo;
 
   /// L'area minima che segue dal diametro: il cerchio inscritto nel riquadro.
-  int get areaMinima =>
-      (math.pi * diametroMinimo * diametroMinimo / 4).floor();
+  int get areaMinima => (math.pi * diametroMinimo * diametroMinimo / 4).floor();
 }
 
 /// IL LETTORE.
@@ -324,8 +323,7 @@ class LetturaDegliAncoraggi {
     }
     for (var i = 0; i < gruppi; i++) {
       if (diChi[i]!.length != piccoliPerGruppo) {
-        throw AncoraggiNonValidi(
-            '"$nome": il gruppo attorno al grande in '
+        throw AncoraggiNonValidi('"$nome": il gruppo attorno al grande in '
             '(${grandi[i].cx.toStringAsFixed(0)}, '
             '${grandi[i].cy.toStringAsFixed(0)}) ha ${diChi[i]!.length} '
             'elementi piccoli invece di $piccoliPerGruppo. Gli altri gruppi ne '

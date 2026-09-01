@@ -225,8 +225,7 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                           // "primo avviso" di BE.07 sbucherebbe nel
                           // Santuario un attimo dopo il no appena detto.
                           try {
-                            final prefs =
-                                await SharedPreferences.getInstance();
+                            final prefs = await SharedPreferences.getInstance();
                             await prefs.setString(
                                 QuandoChiedereLaCustodia.chiaveUltimoInvito,
                                 DateTime.now().toIso8601String());

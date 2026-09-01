@@ -165,12 +165,10 @@ class VieDellaCondivisione extends StatelessWidget {
                 backgroundColor: palette.surfaceElevated,
                 foregroundColor: palette.goldSoft,
                 side: BorderSide(color: palette.gold.withValues(alpha: 0.4)),
-                padding:
-                    const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+                padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
               ),
               icon: Icon(_iconaDi(modo), size: 18),
-              label: Text(modo.etichetta,
-                  style: TypographyTokens.etichetta()),
+              label: Text(modo.etichetta, style: TypographyTokens.etichetta()),
             ),
           ),
           // **QUANDO ARRIVA IL PREMIO, DETTO PRIMA DEL TOCCO**, ordine AN
@@ -221,8 +219,8 @@ class VieDellaCondivisione extends StatelessWidget {
   String _rigaDelPremio(BuildContext context, ModoDellaCondivisione modo) {
     int? quanti;
     try {
-      quanti = context.watch<QuestionAllowance>()
-          .eosPerLaCondivisione(modo.motivo);
+      quanti =
+          context.watch<QuestionAllowance>().eosPerLaCondivisione(modo.motivo);
     } catch (senzaBorsellino) {
       // Nelle anteprime e nelle prove mirate non c'e' nessun borsellino da
       // interrogare, e la riga resta quella senza numero.

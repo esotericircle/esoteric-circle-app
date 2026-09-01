@@ -168,14 +168,17 @@ class CartiglioFit {
 const double _lsBase = 1.0; // spazio tra le lettere di partenza
 const double _lsMin = -1.0; // fino a circa -1,0
 const double _xsMin = 0.80; // restringimento orizzontale minimo
-const double _fontFloor = 0.85; // il font puo' calare al massimo del 15 per cento
-const double _heightFactor = 0.86; // quanto il font riempie l'altezza del cartiglio
+const double _fontFloor =
+    0.85; // il font puo' calare al massimo del 15 per cento
+const double _heightFactor =
+    0.86; // quanto il font riempie l'altezza del cartiglio
 
 // Pavimento dello spazio tra le parole in modo normale (le date), come frazione
 // del font di partenza. Coi nomi il divario e' protetto e non si sottrae mai.
 const double _wsFloorNormal = 0.16;
 
-double _measureWidth(String t, TextStyle base, double fs, double ls, double ws) {
+double _measureWidth(
+    String t, TextStyle base, double fs, double ls, double ws) {
   final tp = TextPainter(
     text: TextSpan(
         text: t,

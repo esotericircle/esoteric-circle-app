@@ -39,18 +39,24 @@ class Chakra {
 abstract final class ChakraDelGiorno {
   /// I sette, nell'ordine dal basso verso l'alto, che e' quello tradizionale.
   static const List<Chakra> tutti = [
-    Chakra(nome: 'Muladhara', italiano: 'la radice', governa: 'ciò che ti tiene'),
-    Chakra(nome: 'Svadhisthana', italiano: 'il sacro', governa: 'ciò che ti muove'),
+    Chakra(
+        nome: 'Muladhara', italiano: 'la radice', governa: 'ciò che ti tiene'),
+    Chakra(
+        nome: 'Svadhisthana',
+        italiano: 'il sacro',
+        governa: 'ciò che ti muove'),
     Chakra(nome: 'Manipura', italiano: 'il fuoco', governa: 'ciò che decidi'),
     Chakra(nome: 'Anahata', italiano: 'il cuore', governa: 'ciò che accogli'),
     Chakra(nome: 'Vishuddha', italiano: 'la gola', governa: 'ciò che dici'),
     Chakra(nome: 'Ajna', italiano: 'il terzo occhio', governa: 'ciò che vedi'),
-    Chakra(nome: 'Sahasrara', italiano: 'la corona', governa: 'ciò che ti supera'),
+    Chakra(
+        nome: 'Sahasrara', italiano: 'la corona', governa: 'ciò che ti supera'),
   ];
 
   /// Il chakra di quel giorno.
   ///
   /// `DateTime.weekday` va da 1, lunedi', a 7, domenica: meno uno da' l'indice.
   /// Funzione pura: stesso giorno, stesso chakra, sempre.
-  static Chakra di(DateTime giorno) => tutti[(giorno.weekday - 1) % tutti.length];
+  static Chakra di(DateTime giorno) =>
+      tutti[(giorno.weekday - 1) % tutti.length];
 }

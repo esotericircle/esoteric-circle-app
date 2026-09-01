@@ -95,8 +95,7 @@ class CustodeDellePush extends ChangeNotifier {
       for (final d in DailyElement.values)
         if (scelta.chiama(d)) d.name: scelta.minutiDi(d),
     };
-    final scelte =
-        ScelteDaMandare(token: token, fuso: fuso, doni: doni);
+    final scelte = ScelteDaMandare(token: token, fuso: fuso, doni: doni);
     final impronta = jsonEncode(scelte.aMappa());
 
     // **NIENTE DA MANDARE SE NIENTE E' CAMBIATO.** Chi apre la pagina,

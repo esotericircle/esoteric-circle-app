@@ -37,7 +37,8 @@ class AngelsScreen extends StatefulWidget {
   static const Duration ingresso = Duration(milliseconds: 2200);
 
   static Route<void> route({required BirthIdentity identity}) =>
-      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(maestro: Maestro.medora, child: AngelsScreen(identity: identity)));
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+          maestro: Maestro.medora, child: AngelsScreen(identity: identity)));
 
   @override
   State<AngelsScreen> createState() => _AngelsScreenState();
@@ -50,7 +51,8 @@ class _AngelsScreenState extends State<AngelsScreen>
   @override
   void initState() {
     super.initState();
-    _entrata = AnimationController(vsync: this, duration: AngelsScreen.ingresso);
+    _entrata =
+        AnimationController(vsync: this, duration: AngelsScreen.ingresso);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       // L'ANGELO CUSTODE ENTRA NEL CAMMINO, ordine P voce 35: e' uno dei tre
@@ -85,8 +87,8 @@ class _AngelsScreenState extends State<AngelsScreen>
       context: context,
       backgroundColor: palette.surfaceElevated,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(SpacingTokens.radiusLg)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(SpacingTokens.radiusLg)),
       ),
       builder: (_) => Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -94,8 +96,7 @@ class _AngelsScreenState extends State<AngelsScreen>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Fonti e metodo',
-                style: TypographyTokens.titoloSezione()),
+            Text('Fonti e metodo', style: TypographyTokens.titoloSezione()),
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'Sono i settantadue nomi dello Shemhamphorash, dalla tradizione '
@@ -153,9 +154,9 @@ class _AngelsScreenState extends State<AngelsScreen>
             testo: 'I tuoi tre Angeli',
             stile: TypographyTokens.titoloSezione()),
         actions: [
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-        // ogni schermata della pratica. Un saldo che appare e scompare non
-        // si impara.
+          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+          // ogni schermata della pratica. Un saldo che appare e scompare non
+          // si impara.
           const AngoloDellaBarra(),
           IconButton(
             key: const Key('angeli_fonti_metodo'),
@@ -177,9 +178,13 @@ class _AngelsScreenState extends State<AngelsScreen>
               SpacingTokens.xxxl,
             ),
             children: [
-              ParagrafiDiLettura(testo: 'La tradizione ne assegna tre, uno per ogni strato: il corpo, '
-                'il cuore, la mente.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+              ParagrafiDiLettura(
+                  testo:
+                      'La tradizione ne assegna tre, uno per ogni strato: il corpo, '
+                      'il cuore, la mente.',
+                  textAlign: TextAlign.center,
+                  stile: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
               const SizedBox(height: SpacingTokens.lg),
 
               _CartaAngelo(
@@ -228,13 +233,13 @@ class _AngelsScreenState extends State<AngelsScreen>
 
               const SizedBox(height: SpacingTokens.xl),
               _ComeSonoScelti(triade: triade, palette: palette),
-            // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
-            //
-            // Le linee guida dicevano da sempre "una volta sola", e per
-            // sette volte ognuno ha pensato che il proprio fosse quella
-            // volta. Un disclaimer ripetuto smette di essere letto e
-            // diventa un modo di scaricare la responsabilita' invece di
-            // dirla. Adesso sta in un posto solo, nell'area privacy.
+              // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+              //
+              // Le linee guida dicevano da sempre "una volta sola", e per
+              // sette volte ognuno ha pensato che il proprio fosse quella
+              // volta. Un disclaimer ripetuto smette di essere letto e
+              // diventa un modo di scaricare la responsabilita' invece di
+              // dirla. Adesso sta in un posto solo, nell'area privacy.
             ],
           ),
         ),
@@ -294,7 +299,10 @@ class _CartaAngelo extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Ritratto(angelo: angelo, entrata: entrata, indice: indice,
+                _Ritratto(
+                    angelo: angelo,
+                    entrata: entrata,
+                    indice: indice,
                     palette: palette),
                 const SizedBox(width: SpacingTokens.md),
                 Expanded(
@@ -343,14 +351,14 @@ class _CartaAngelo extends StatelessWidget {
               if (lore.psalm.isNotEmpty) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Text(lore.psalm,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(height: 1.45)),
+                    style:
+                        TypographyTokens.didascalia().copyWith(height: 1.45)),
               ],
               if (lore.tradition.isNotEmpty && !lore.confidenzaBassa) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Text(lore.tradition,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(height: 1.45)),
+                    style:
+                        TypographyTokens.didascalia().copyWith(height: 1.45)),
               ],
               if (lore.reading.isNotEmpty) ...[
                 const SizedBox(height: SpacingTokens.sm),
@@ -358,8 +366,8 @@ class _CartaAngelo extends StatelessWidget {
                 // tradizione documentata: si mostra come voce del Maestro,
                 // staccata da cio' che viene dalle fonti.
                 Text('MEDORA LA LEGGE COSÌ',
-                    style: TypographyTokens.etichetta().copyWith(
-                        color: palette.goldSoft, letterSpacing: 2)),
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: 2),
                 // La lettura di Medora e' il responso della scheda: ruolo
                 // lettura e regola comune dei paragrafi.
@@ -502,8 +510,7 @@ class _ComeSonoScelti extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Come vengono scelti',
-              style: TypographyTokens.titoloScheda()),
+          Text('Come vengono scelti', style: TypographyTokens.titoloScheda()),
           const SizedBox(height: SpacingTokens.sm),
           riga(
             'Il Custode, dal cielo',

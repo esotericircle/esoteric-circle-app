@@ -106,10 +106,8 @@ class AvvisoDelPermesso extends StatelessWidget {
                     horizontal: SpacingTokens.md, vertical: 8),
                 backgroundColor: palette.gold.withValues(alpha: 0.14),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
-                  side:
-                      BorderSide(color: palette.gold.withValues(alpha: 0.5)),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.5)),
                 ),
               ),
               child: Text(azione,

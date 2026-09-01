@@ -68,7 +68,12 @@ class ImmersiveIntents {
     ImmersiveIntent(
       maestro: Maestro.medora,
       target: ImmersiveTarget.cartaNatale,
-      keywords: ['carta natale', 'tema natale', 'mappa natale', 'carta del cielo'],
+      keywords: [
+        'carta natale',
+        'tema natale',
+        'mappa natale',
+        'carta del cielo'
+      ],
       invite:
           'La tua mappa del cielo merita di essere guardata, non riassunta. Apriamola.',
       buttonLabel: 'Apri la carta natale',
@@ -96,7 +101,8 @@ class ImmersiveIntents {
         'oroscopo oggi',
         'previsione del giorno',
       ],
-      invite: 'Il cielo di oggi si mostra meglio che a parole. Guardiamolo insieme.',
+      invite:
+          'Il cielo di oggi si mostra meglio che a parole. Guardiamolo insieme.',
       buttonLabel: 'Apri l\'Arcano del Giorno',
     ),
 
@@ -104,36 +110,66 @@ class ImmersiveIntents {
     ImmersiveIntent(
       maestro: Maestro.aura,
       target: ImmersiveTarget.meditazione,
-      keywords: ['meditazione', 'meditare', 'medita', 'rilassami', 'rilassarmi'],
-      invite: 'Non ti serve che ti spieghi la calma, ti serve entrarci. Vieni a respirare.',
+      keywords: [
+        'meditazione',
+        'meditare',
+        'medita',
+        'rilassami',
+        'rilassarmi'
+      ],
+      invite:
+          'Non ti serve che ti spieghi la calma, ti serve entrarci. Vieni a respirare.',
       buttonLabel: 'Apri la Meditazione',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
       target: ImmersiveTarget.breathwork,
-      keywords: ['breathwork', 'respirazione', 'respiro guidato', 'esercizio di respiro'],
-      invite: 'Il respiro non si racconta, si fa. Seguimi, un soffio alla volta.',
+      keywords: [
+        'breathwork',
+        'respirazione',
+        'respiro guidato',
+        'esercizio di respiro'
+      ],
+      invite:
+          'Il respiro non si racconta, si fa. Seguimi, un soffio alla volta.',
       buttonLabel: 'Apri il respiro',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
       target: ImmersiveTarget.costellazioneViso,
-      keywords: ['costellazione del viso', 'lettura del viso', 'morfopsicologia'],
-      invite: 'Il tuo volto ha una geometria che va vista. Accendiamo la luce con dolcezza.',
+      keywords: [
+        'costellazione del viso',
+        'lettura del viso',
+        'morfopsicologia'
+      ],
+      invite:
+          'Il tuo volto ha una geometria che va vista. Accendiamo la luce con dolcezza.',
       buttonLabel: 'Apri la Costellazione del viso',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
       target: ImmersiveTarget.scanChakra,
-      keywords: ['chakra', 'scan dei chakra', 'scansione dei chakra', 'centri energetici'],
-      invite: 'I tuoi centri si sentono meglio guardandoli. Facciamo lo scan con calma.',
+      keywords: [
+        'chakra',
+        'scan dei chakra',
+        'scansione dei chakra',
+        'centri energetici'
+      ],
+      invite:
+          'I tuoi centri si sentono meglio guardandoli. Facciamo lo scan con calma.',
       buttonLabel: 'Apri lo scan dei chakra',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
       target: ImmersiveTarget.frequenze,
-      keywords: ['frequenze', 'frequenza sonora', 'suoni curativi', 'battito binaurale'],
-      invite: 'Le frequenze si ascoltano, non si descrivono. Mettiti le cuffie, ti guido.',
+      keywords: [
+        'frequenze',
+        'frequenza sonora',
+        'suoni curativi',
+        'battito binaurale'
+      ],
+      invite:
+          'Le frequenze si ascoltano, non si descrivono. Mettiti le cuffie, ti guido.',
       buttonLabel: 'Apri le frequenze',
     ),
 
@@ -141,8 +177,16 @@ class ImmersiveIntents {
     ImmersiveIntent(
       maestro: Maestro.caligo,
       target: ImmersiveTarget.lancioRune,
-      keywords: ['lancio delle rune', 'tira le rune', 'getta le rune', 'runa', 'rune', 'futhark'],
-      invite: 'Le rune non si spiegano a parole, si gettano. Vieni, lanciamole.',
+      keywords: [
+        'lancio delle rune',
+        'tira le rune',
+        'getta le rune',
+        'runa',
+        'rune',
+        'futhark'
+      ],
+      invite:
+          'Le rune non si spiegano a parole, si gettano. Vieni, lanciamole.',
       buttonLabel: 'Apri le rune',
     ),
     ImmersiveIntent(
@@ -156,7 +200,8 @@ class ImmersiveIntents {
       maestro: Maestro.caligo,
       target: ImmersiveTarget.iChing,
       keywords: ['i-ching', 'i ching', 'iching', 'esagramma'],
-      invite: 'L\'I-Ching risponde a chi lancia, non a chi chiede a voce. Lanciamo.',
+      invite:
+          'L\'I-Ching risponde a chi lancia, non a chi chiede a voce. Lanciamo.',
       buttonLabel: 'Apri l\'I-Ching',
     ),
     ImmersiveIntent(
@@ -169,8 +214,14 @@ class ImmersiveIntents {
     ImmersiveIntent(
       maestro: Maestro.caligo,
       target: ImmersiveTarget.ritualeCandela,
-      keywords: ['rituale con candela', 'rito della candela', 'candela', 'magia con la candela'],
-      invite: 'Un rito con la candela si accende, non si racconta. Accendiamola.',
+      keywords: [
+        'rituale con candela',
+        'rito della candela',
+        'candela',
+        'magia con la candela'
+      ],
+      invite:
+          'Un rito con la candela si accende, non si racconta. Accendiamola.',
       buttonLabel: 'Apri il rito della candela',
     ),
   ];

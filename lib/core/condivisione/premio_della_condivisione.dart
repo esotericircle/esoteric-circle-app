@@ -91,7 +91,8 @@ class PremioDellaCondivisione {
     ));
   }
 
-  static Future<void> premia(BuildContext context, {required String cosa}) async {
+  static Future<void> premia(BuildContext context,
+      {required String cosa}) async {
     // Il canale si segna PRIMA di parlare col server: e' un fatto del
     // cammino, e non deve dipendere da una rete che puo' non rispondere.
     _segnaIlCanale(context);

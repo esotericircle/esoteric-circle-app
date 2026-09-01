@@ -328,8 +328,7 @@ class AvvisiDelRito {
           'Il sole è sorto. Il rito di oggi ti aspetta quando vuoi.',
         DailyElement.breath =>
           'È l\'ora del respiro. Il Soffio del Destino ti aspetta.',
-        DailyElement.oracle =>
-          'La carta di oggi è pronta a scoprirsi.',
+        DailyElement.oracle => 'La carta di oggi è pronta a scoprirsi.',
         DailyElement.rune =>
           'Il sole scende: la tua runa della sera ti aspetta.',
         DailyElement.night =>
@@ -411,8 +410,8 @@ class AvvisiDelRito {
 
     final programmate = <int>[];
     for (final dono in doniAccesi) {
-      final quando = _prossimaVolta(dono, adesso, albaVera,
-          oreScelte?[dono] ?? dono.anchorMinutes);
+      final quando = _prossimaVolta(
+          dono, adesso, albaVera, oreScelte?[dono] ?? dono.anchorMinutes);
       await servizio.programma(
         id: idDelDono(dono),
         quando: quando,
@@ -429,8 +428,8 @@ class AvvisiDelRito {
   /// La prossima volta che questo Dono chiama.
   ///
   /// Oggi se la sua ora deve ancora arrivare, domani se e' passata.
-  static DateTime _prossimaVolta(DailyElement dono, DateTime adesso,
-      DateTime? albaVera, int minuti) {
+  static DateTime _prossimaVolta(
+      DailyElement dono, DateTime adesso, DateTime? albaVera, int minuti) {
     // **L'ALBA HA UN'ORA SUA quando il Sole la da'**, ed e' l'unica promessa
     // che questa app abbia mai fatto a voce: "quando il sole sorge da te".
     //
@@ -444,8 +443,8 @@ class AvvisiDelRito {
       if (albaVera.isAfter(adesso)) return albaVera;
       return albaVera.add(const Duration(days: 1));
     }
-    final oggi = DateTime(adesso.year, adesso.month, adesso.day,
-        minuti ~/ 60, minuti % 60);
+    final oggi = DateTime(
+        adesso.year, adesso.month, adesso.day, minuti ~/ 60, minuti % 60);
     if (oggi.isAfter(adesso)) return oggi;
     return oggi.add(const Duration(days: 1));
   }

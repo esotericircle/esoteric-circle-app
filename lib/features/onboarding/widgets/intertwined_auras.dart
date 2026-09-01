@@ -67,8 +67,7 @@ class _AuraPainter extends CustomPainter {
     for (var i = 0; i < n; i++) {
       final ph = t * 2 * math.pi + i * (2 * math.pi / n);
       final breathe = 1 + 0.12 * math.sin(ph * 1.3);
-      final pos = c +
-          Offset(math.cos(ph) * orbit, math.sin(ph) * orbit * 0.85);
+      final pos = c + Offset(math.cos(ph) * orbit, math.sin(ph) * orbit * 0.85);
       canvas.drawCircle(
         pos,
         rBlob * breathe,

@@ -249,12 +249,13 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
                 foregroundColor: palette.deepest,
                 padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
                 ),
               ),
               onPressed: widget.onContinue,
-              child: ParagrafiDiLettura(testo: widget.etichettaAzione ?? 'Scopri chi risuona con te', stile: TypographyTokens.lettura(weight: 600)
+              child: ParagrafiDiLettura(
+                  testo: widget.etichettaAzione ?? 'Scopri chi risuona con te',
+                  stile: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -263,7 +264,6 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
       ),
     );
   }
-
 }
 
 class _AscendantNote extends StatelessWidget {
@@ -283,13 +283,21 @@ class _AscendantNote extends StatelessWidget {
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
         ),
-        child: ParagrafiDiLettura(testo: 'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-              .copyWith(color: palette.goldSoft, height: 1.4)),
+        child: ParagrafiDiLettura(
+            testo:
+                'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.',
+            textAlign: TextAlign.center,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: palette.goldSoft, height: 1.4)),
       );
     }
     // Solo senza ora, il messaggio velato.
-    return ParagrafiDiLettura(testo: 'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-          .copyWith(color: ColorTokens.textPrimary, height: 1.4));
+    return ParagrafiDiLettura(
+        testo:
+            'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.',
+        textAlign: TextAlign.center,
+        stile: TypographyTokens.lettura()
+            .copyWith(color: ColorTokens.textPrimary, height: 1.4));
   }
 }
 
@@ -300,13 +308,15 @@ class _LegendHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
+        Container(
+            width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
         const SizedBox(width: SpacingTokens.xs),
         Text('LA LEGENDA VIVA',
-            style: TypographyTokens.etichetta().copyWith(
-                color: palette.goldSoft, letterSpacing: 2)),
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 2)),
         const SizedBox(width: SpacingTokens.xs),
-        Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
+        Container(
+            width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
       ],
     );
   }
@@ -338,9 +348,7 @@ class _PlanetTile extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             border: Border.all(
-              color: selected
-                  ? palette.gold
-                  : Colors.transparent,
+              color: selected ? palette.gold : Colors.transparent,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
@@ -372,8 +380,8 @@ class _PlanetTile extends StatelessWidget {
                               style: TypographyTokens.titoloScheda()),
                           _sym(planet.sign.symbol, palette.goldSoft, 14),
                           Text(planet.sign.italianName,
-                              style: TypographyTokens.didascalia().copyWith(
-                                  color: ColorTokens.textSecondary)),
+                              style: TypographyTokens.didascalia()
+                                  .copyWith(color: ColorTokens.textSecondary)),
                           if (planet.retrograde)
                             Text('R',
                                 style: TypographyTokens.didascalia().copyWith(
@@ -382,7 +390,9 @@ class _PlanetTile extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 3),
-                      ParagrafiDiLettura(testo: NatalPoetics.meaningOf(planet.id), stile: TypographyTokens.lettura()
+                      ParagrafiDiLettura(
+                          testo: NatalPoetics.meaningOf(planet.id),
+                          stile: TypographyTokens.lettura()
                               .copyWith(color: ColorTokens.textPrimary)),
                     ],
                   ),
@@ -419,8 +429,13 @@ class _SunGlyphPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final r = size.width * 0.42;
-    canvas.drawCircle(c, r,
-        Paint()..style = PaintingStyle.stroke..strokeWidth = 1.4..color = color);
+    canvas.drawCircle(
+        c,
+        r,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4
+          ..color = color);
     canvas.drawCircle(c, size.width * 0.09, Paint()..color = color);
   }
 
@@ -462,7 +477,9 @@ class _NotaDelRipiego extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ParagrafiDiLettura(testo: testo, stile: TypographyTokens.lettura()
+          ParagrafiDiLettura(
+              testo: testo,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.sm),
           Align(
@@ -513,14 +530,22 @@ class _SenzaDati extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.auto_awesome_outlined, color: palette.goldSoft, size: 38),
+            Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 38),
             const SizedBox(height: SpacingTokens.md),
-            ParagrafiDiLettura(testo: 'Il tuo cielo aspetta la tua data di nascita.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary)),
+            ParagrafiDiLettura(
+                testo: 'Il tuo cielo aspetta la tua data di nascita.',
+                textAlign: TextAlign.center,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.sm),
-            ParagrafiDiLettura(testo: 'Senza il giorno in cui sei nato non posso tracciare niente. '
-              'Preferisco dirtelo invece di farti aspettare.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textSecondary)),
+            ParagrafiDiLettura(
+                testo:
+                    'Senza il giorno in cui sei nato non posso tracciare niente. '
+                    'Preferisco dirtelo invece di farti aspettare.',
+                textAlign: TextAlign.center,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.lg),
             TextButton(
               onPressed: onContinue,
@@ -553,7 +578,9 @@ class _Loading extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          ParagrafiDiLettura(testo: 'Traccio il tuo cielo...', stile: TypographyTokens.lettura()
+          ParagrafiDiLettura(
+              testo: 'Traccio il tuo cielo...',
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
         ],
       ),

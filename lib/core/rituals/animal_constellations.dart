@@ -39,7 +39,14 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('ala destra', Offset(0.94, 0.26)),
       PuntoDaUnire('coda', Offset(0.50, 0.88)),
     ], fili: [
-      (0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 1), (4, 7),
+      (0, 1),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (5, 6),
+      (6, 1),
+      (4, 7),
     ]),
   ),
   // IL CAVALLO in corsa, di profilo: muso proteso, criniera, garrese, la
@@ -56,7 +63,14 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('ventre', Offset(0.52, 0.55)),
       PuntoDaUnire('zampa anteriore', Offset(0.76, 0.82)),
     ], fili: [
-      (0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 0),
+      (0, 1),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (5, 6),
+      (6, 7),
+      (7, 0),
     ]),
   ),
   // IL CERVO a testa alta: i palchi ramificati sopra il capo, il collo
@@ -73,7 +87,13 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('zampa posteriore', Offset(0.20, 0.90)),
       PuntoDaUnire('zampa anteriore', Offset(0.52, 0.92)),
     ], fili: [
-      (0, 2), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (4, 7),
+      (0, 2),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (5, 6),
+      (4, 7),
     ]),
   ),
   // IL CORVO posato che volge il capo: becco forte, ala raccolta, la coda
@@ -89,7 +109,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('petto', Offset(0.58, 0.52)),
       PuntoDaUnire('zampe', Offset(0.54, 0.78)),
     ], fili: [
-      (0, 1), (1, 2), (2, 3), (3, 4), (3, 5), (5, 6),
+      (0, 1),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (3, 5),
+      (5, 6),
     ]),
   ),
   // IL FALCO in picchiata: ali a freccia strette al corpo, il capo puntato
@@ -105,7 +130,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('punta destra', Offset(0.90, 0.06)),
       PuntoDaUnire('coda', Offset(0.50, 0.40)),
     ], fili: [
-      (0, 1), (1, 2), (2, 3), (1, 4), (4, 5), (1, 6),
+      (0, 1),
+      (1, 2),
+      (2, 3),
+      (1, 4),
+      (4, 5),
+      (1, 6),
     ]),
   ),
   // IL GUFO frontale: i due grandi occhi, i ciuffi come corna, il corpo a
@@ -122,7 +152,14 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('fianco destro', Offset(0.74, 0.62)),
       PuntoDaUnire('zampe', Offset(0.50, 0.90)),
     ], fili: [
-      (0, 2), (1, 3), (2, 4), (3, 4), (2, 5), (3, 6), (5, 7), (6, 7),
+      (0, 2),
+      (1, 3),
+      (2, 4),
+      (3, 4),
+      (2, 5),
+      (3, 6),
+      (5, 7),
+      (6, 7),
     ]),
   ),
   // LA LINCE accovacciata pronta al balzo: orecchie a pennello, il dorso
@@ -138,7 +175,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('anca', Offset(0.88, 0.52)),
       PuntoDaUnire('zampa avanzata', Offset(0.30, 0.84)),
     ], fili: [
-      (0, 2), (1, 2), (2, 3), (3, 4), (4, 5), (3, 6),
+      (0, 2),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (3, 6),
     ]),
   ),
   // IL LUPO che ulula alla luna: muso al cielo, la gola tesa, la schiena in
@@ -154,7 +196,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('coda bassa', Offset(0.88, 0.72)),
       PuntoDaUnire('zampe', Offset(0.44, 0.88)),
     ], fili: [
-      (0, 1), (0, 2), (1, 3), (3, 4), (4, 5), (3, 6),
+      (0, 1),
+      (0, 2),
+      (1, 3),
+      (3, 4),
+      (4, 5),
+      (3, 6),
     ]),
   ),
   // L'ORSO eretto: la mole, il capo piccolo sulla massa, le zampe larghe.
@@ -170,7 +217,14 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('piede sinistro', Offset(0.36, 0.92)),
       PuntoDaUnire('piede destro', Offset(0.62, 0.92)),
     ], fili: [
-      (0, 1), (0, 2), (2, 3), (1, 4), (2, 5), (4, 6), (5, 7), (6, 7),
+      (0, 1),
+      (0, 2),
+      (2, 3),
+      (1, 4),
+      (2, 5),
+      (4, 6),
+      (5, 7),
+      (6, 7),
     ]),
   ),
   // IL SERPENTE in onda: la testa a lancia e le spire che si susseguono.
@@ -185,7 +239,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('quarta spira', Offset(0.30, 0.80)),
       PuntoDaUnire('coda', Offset(0.10, 0.90)),
     ], fili: [
-      (0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6),
+      (0, 1),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (5, 6),
     ]),
   ),
   // LA TARTARUGA dall'alto: il carapace largo, la testa che sporge e le
@@ -201,7 +260,14 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('zampa posteriore destra', Offset(0.78, 0.74)),
       PuntoDaUnire('coda', Offset(0.50, 0.92)),
     ], fili: [
-      (0, 1), (0, 2), (1, 3), (2, 3), (3, 4), (3, 5), (4, 6), (5, 6),
+      (0, 1),
+      (0, 2),
+      (1, 3),
+      (2, 3),
+      (3, 4),
+      (3, 5),
+      (4, 6),
+      (5, 6),
     ]),
   ),
   // LA VOLPE seduta con la coda avvolta: orecchie alte, il muso sottile, la
@@ -217,7 +283,12 @@ const List<CostellazioneAnimale> kCostellazioniAnimali = [
       PuntoDaUnire('ansa della coda', Offset(0.70, 0.86)),
       PuntoDaUnire('punta della coda', Offset(0.84, 0.62)),
     ], fili: [
-      (0, 2), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6),
+      (0, 2),
+      (1, 2),
+      (2, 3),
+      (3, 4),
+      (4, 5),
+      (5, 6),
     ]),
   ),
 ];

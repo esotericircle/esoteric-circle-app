@@ -74,7 +74,8 @@ class SinastriaShareCard extends StatelessWidget {
             palette.deepest,
           ],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
         boxShadow: [
           BoxShadow(
               color: palette.gold.withValues(alpha: 0.25),
@@ -98,110 +99,110 @@ class SinastriaShareCard extends StatelessWidget {
         child: SizedBox(
           width: width - SpacingTokens.lg * 2,
           child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('SINASTRIA',
-              style: TypographyTokens.label(size: 12)
-                  .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
-          const SizedBox(height: SpacingTokens.md),
-          // I due volti nella cornice VIP col cuore.
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: _CardPole(
-                  palette: palette,
-                  sign: userSign,
-                  portrait: VipFramedPortrait(
-                    palette: palette,
-                    name: userName,
-                    date: userDate,
-                    sign: userSign.symbol,
-                    photo: userPhoto,
+              Text('SINASTRIA',
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
+              const SizedBox(height: SpacingTokens.md),
+              // I due volti nella cornice VIP col cuore.
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _CardPole(
+                      palette: palette,
+                      sign: userSign,
+                      portrait: VipFramedPortrait(
+                        palette: palette,
+                        name: userName,
+                        date: userDate,
+                        sign: userSign.symbol,
+                        photo: userPhoto,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.sm, vertical: 60),
+                    child: Icon(Icons.favorite_rounded,
+                        color: palette.gold, size: 22),
+                  ),
+                  Expanded(
+                    child: _CardPole(
+                      palette: palette,
+                      sign: vip.sign,
+                      portrait: VipFramedPortrait(
+                        palette: palette,
+                        name: vip.name,
+                        date: vip.note,
+                        sign: vip.sign.symbol,
+                        vipAsset: vip.fullPath,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // **I TRE FILI DEGLI ASPETTI PIU' FORTI, disegnati fra i due volti.**
+              // Ordine BO voce 11: sono gli stessi tre che si sono accesi nella
+              // chiamata, quindi cio' che si e' visto e cio' che si condivide sono
+              // la stessa cosa.
+              if (report.aspettiPiuForti.isNotEmpty)
+                SizedBox(
+                  height: 34,
+                  width: double.infinity,
+                  child: CustomPaint(
+                    key: const Key('sinastria_card_fili'),
+                    painter: FiliDellaCard(
+                      quanti: report.aspettiPiuForti.length,
+                      colore: palette.goldSoft,
+                    ),
+                  ),
+                ),
+              const SizedBox(height: SpacingTokens.md),
+              SizedBox(
+                width: 120,
+                height: 120,
+                child: CustomPaint(
+                  painter: SynastryGaugePainter(
+                      percent: report.overall, palette: palette, progress: 1),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('${report.overall}%',
+                            style: TypographyTokens.cerimoniale()
+                                .copyWith(color: palette.goldSoft)),
+                        Text(report.band.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: ColorTokens.textSecondary,
+                                letterSpacing: 0.6)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.sm, vertical: 60),
-                child:
-                    Icon(Icons.favorite_rounded, color: palette.gold, size: 22),
-              ),
-              Expanded(
-                child: _CardPole(
-                  palette: palette,
-                  sign: vip.sign,
-                  portrait: VipFramedPortrait(
-                    palette: palette,
-                    name: vip.name,
-                    date: vip.note,
-                    sign: vip.sign.symbol,
-                    vipAsset: vip.fullPath,
-                  ),
-                ),
-              ),
+              const SizedBox(height: SpacingTokens.md),
+              ...report.bars.map((b) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: SynastryBarRow(
+                        bar: b,
+                        palette: palette,
+                        progress: 1,
+                        meetingReport: report),
+                  )),
+              const SizedBox(height: SpacingTokens.md),
+              Text(SynastryReport.challengeLine(vip.name),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
+              const SizedBox(height: 6),
+              Text('Esoteric Circle',
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
             ],
           ),
-          // **I TRE FILI DEGLI ASPETTI PIU' FORTI, disegnati fra i due volti.**
-          // Ordine BO voce 11: sono gli stessi tre che si sono accesi nella
-          // chiamata, quindi cio' che si e' visto e cio' che si condivide sono
-          // la stessa cosa.
-          if (report.aspettiPiuForti.isNotEmpty)
-            SizedBox(
-              height: 34,
-              width: double.infinity,
-              child: CustomPaint(
-                key: const Key('sinastria_card_fili'),
-                painter: FiliDellaCard(
-                  quanti: report.aspettiPiuForti.length,
-                  colore: palette.goldSoft,
-                ),
-              ),
-            ),
-          const SizedBox(height: SpacingTokens.md),
-          SizedBox(
-            width: 120,
-            height: 120,
-            child: CustomPaint(
-              painter: SynastryGaugePainter(
-                  percent: report.overall, palette: palette, progress: 1),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('${report.overall}%',
-                        style: TypographyTokens.cerimoniale()
-                            .copyWith(color: palette.goldSoft)),
-                    Text(report.band.toUpperCase(),
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.etichetta().copyWith(
-                            color: ColorTokens.textSecondary,
-                            letterSpacing: 0.6)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          ...report.bars.map((b) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: SynastryBarRow(
-                    bar: b,
-                    palette: palette,
-                    progress: 1,
-                    meetingReport: report),
-              )),
-          const SizedBox(height: SpacingTokens.md),
-          Text(SynastryReport.challengeLine(vip.name),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
-          const SizedBox(height: 6),
-          Text('Esoteric Circle',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
-        ],
-      ),
         ),
       ),
     );
@@ -352,9 +353,8 @@ class SynastryBarRow extends StatelessWidget {
     // distingue due coppie a colpo d'occhio. **La percentuale vera non
     // sparisce**: sta nella riga sotto, insieme al perche'.
     final fraction = bar.value / 100;
-    final valueText = isMeeting
-        ? meetingReport.incontro.inParole
-        : '${bar.value}%';
+    final valueText =
+        isMeeting ? meetingReport.incontro.inParole : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

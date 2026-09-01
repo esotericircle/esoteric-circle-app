@@ -38,10 +38,10 @@ class OraRituale {
     final lat = latitudine ?? SunsetTime.latDiRipiego;
     final lon = longitudine ?? SunsetTime.longitudineDaFuso(offset);
 
-    final alba = SunsetTime.albaPerData(ora,
-        lat: lat, lon: lon, offset: offset);
-    final tramonto = SunsetTime.perData(ora,
-        lat: lat, lon: lon, offset: offset);
+    final alba =
+        SunsetTime.albaPerData(ora, lat: lat, lon: lon, offset: offset);
+    final tramonto =
+        SunsetTime.perData(ora, lat: lat, lon: lon, offset: offset);
 
     if (alba != null && _vicino(ora, alba)) return 'alba';
     if (tramonto != null && _vicino(ora, tramonto)) return 'tramonto';

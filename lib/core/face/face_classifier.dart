@@ -87,7 +87,9 @@ class FaceReading {
     final copia = [...letture];
     copia.sort((a, b) {
       final d = b.marcatezza.compareTo(a.marcatezza);
-      return d != 0 ? d : a.tratto.categoria.ordine.compareTo(b.tratto.categoria.ordine);
+      return d != 0
+          ? d
+          : a.tratto.categoria.ordine.compareTo(b.tratto.categoria.ordine);
     });
     return copia;
   }
@@ -162,17 +164,15 @@ class FaceClassifier {
       t = FaceTrait.voltoTondo;
     }
     // Marcatezza: quanto la forma si stacca dal volto neutro (wh ~ 0.82).
-    final m = _marca(wh, 0.82, 0.14) * 0.5 +
-        _marca(jf, 0.92, 0.16) * 0.5;
+    final m = _marca(wh, 0.82, 0.14) * 0.5 + _marca(jf, 0.92, 0.16) * 0.5;
     return TraitLettura(tratto: t, marcatezza: m.clamp(0.0, 1.0));
   }
 
   static TraitLettura _fronte(FaceContours c, _Box box, double h) {
     final browY = _minY([...c.sopraccioSx, ...c.sopraccioDx]);
     final ratio = ((browY - box.minY) / h).clamp(0.0, 1.0);
-    final t = ratio >= 0.33
-        ? FaceTrait.fronteVerticale
-        : FaceTrait.fronteSfuggente;
+    final t =
+        ratio >= 0.33 ? FaceTrait.fronteVerticale : FaceTrait.fronteSfuggente;
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.33, 0.10));
   }
 
@@ -203,19 +203,17 @@ class FaceClassifier {
             _Box.attorno(c.occhioDx).larghezza) /
         2;
     final ratio = eyeW <= 0 ? 2.0 : gap / eyeW;
-    final t = ratio < 2.0
-        ? FaceTrait.occhiRavvicinati
-        : FaceTrait.occhiDistanziati;
+    final t =
+        ratio < 2.0 ? FaceTrait.occhiRavvicinati : FaceTrait.occhiDistanziati;
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 2.0, 0.5));
   }
 
   static TraitLettura _grandezzaOcchi(FaceContours c, double h) {
-    final eyeH = (_Box.attorno(c.occhioSx).altezza +
-            _Box.attorno(c.occhioDx).altezza) /
-        2;
+    final eyeH =
+        (_Box.attorno(c.occhioSx).altezza + _Box.attorno(c.occhioDx).altezza) /
+            2;
     final ratio = eyeH / h;
-    final t =
-        ratio >= 0.085 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
+    final t = ratio >= 0.085 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.085, 0.04));
   }
 
@@ -231,14 +229,16 @@ class FaceClassifier {
     final top = _minY(c.labbroSopra);
     final bottom = _maxY(c.labbroSotto);
     final spessore = bottom - top;
-    final larghezza = _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
+    final larghezza =
+        _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza <= 0 ? 0.0 : spessore / larghezza;
     final t = ratio >= 0.34 ? FaceTrait.labbraPiene : FaceTrait.labbraSottili;
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.34, 0.12));
   }
 
   static TraitLettura _bocca(FaceContours c, double w) {
-    final larghezza = _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
+    final larghezza =
+        _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza / w;
     final t = ratio >= 0.42 ? FaceTrait.boccaLarga : FaceTrait.boccaPiccola;
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.42, 0.10));
@@ -257,7 +257,8 @@ class FaceClassifier {
     return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.86, 0.12));
   }
 
-  static TraitLettura _zigomi(FaceContours c, double wZigomi, double wMascella) {
+  static TraitLettura _zigomi(
+      FaceContours c, double wZigomi, double wMascella) {
     double larghezza = wZigomi;
     if (c.guanciaSx != null && c.guanciaDx != null) {
       larghezza = (c.guanciaDx!.dx - c.guanciaSx!.dx).abs();
@@ -274,10 +275,8 @@ class FaceClassifier {
   static double _marca(double valore, double soglia, double ampiezza) =>
       ((valore - soglia).abs() / ampiezza).clamp(0.0, 1.0);
 
-  static double _minY(List<Offset> p) =>
-      p.map((o) => o.dy).reduce(math.min);
-  static double _maxY(List<Offset> p) =>
-      p.map((o) => o.dy).reduce(math.max);
+  static double _minY(List<Offset> p) => p.map((o) => o.dy).reduce(math.min);
+  static double _maxY(List<Offset> p) => p.map((o) => o.dy).reduce(math.max);
 
   static Offset _centro(List<Offset> p) {
     var x = 0.0, y = 0.0;

@@ -29,7 +29,10 @@ class AppStrings {
     'tarot_spread_three': {'it': 'Stesa di Tarocchi', 'en': 'Tarot Spread'},
     'synastry_vip': {'it': 'Sinastria VIP', 'en': 'VIP Synastry'},
     'archetype_test': {'it': 'Test Archetipo', 'en': 'Archetype Test'},
-    'face_constellation': {'it': 'Costellazione del Viso', 'en': 'Face Constellation'},
+    'face_constellation': {
+      'it': 'Costellazione del Viso',
+      'en': 'Face Constellation'
+    },
     'day_oracle': {'it': 'Arcano del Giorno', 'en': 'Arcanum of the Day'},
     'sunset_rune': {'it': 'Runa del Tramonto', 'en': 'Sunset Rune'},
     'meditation': {'it': 'Meditazione', 'en': 'Meditation'},

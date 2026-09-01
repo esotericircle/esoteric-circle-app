@@ -135,7 +135,6 @@ class VoceDelMaestro {
   /// gia' fatto pagare una volta.
   final List<String> frasiDelConsulto;
 
-
   /// Quante frasi del consulto servono come minimo. Sotto questo numero la
   /// rotazione si vede: alla terza domanda la persona rilegge la prima.
   static const int minimeFrasiDelConsulto = 6;
@@ -255,23 +254,22 @@ class VoceDelMaestro {
   /// Le tre voci. Enumerabili: una prova le percorre tutte.
   static const Map<Maestro, VoceDelMaestro> perMaestro = {
     Maestro.medora: VoceDelMaestro(
-      timbro:
-          'Voce del cielo e delle carte. Colori il blu profondo e l\'oro.',
+      timbro: 'Voce del cielo e delle carte. Colori il blu profondo e l\'oro.',
       // IL REGISTRO E' L'ASSE, ordine BP voce 2. Non basta dire com'e' la
       // voce: bisogna dire su cosa gira. Il suo e' il TEMPO, e il corpo le e'
       // vietato per nome, perche' era li' che scivolava dentro Aura.
       registro:
           'Elegante e lucida, mai oscura, materna senza dolcezza appiccicosa. '
-              'Parli a questa persona e non a tutti. Il tuo asse è il TEMPO: '
-              'qualunque cosa dici la collochi in un momento. Frasi ampie e '
-              'distese, mai concitate. Non parli mai di come si sente il '
-              'corpo: quello non è tuo.',
+          'Parli a questa persona e non a tutti. Il tuo asse è il TEMPO: '
+          'qualunque cosa dici la collochi in un momento. Frasi ampie e '
+          'distese, mai concitate. Non parli mai di come si sente il '
+          'corpo: quello non è tuo.',
       materia:
           'Pianeti, segni, case, aspetti e transiti della tradizione tropicale '
-              'occidentale. Simbologia tradizionale delle lame. Numeri del '
-              'destino e i settantadue nomi degli angeli custodi. Le posizioni '
-              'precise arrivano dal motore dell\'app: tu le interpreti, non le '
-              'calcoli e non le inventi.',
+          'occidentale. Simbologia tradizionale delle lame. Numeri del '
+          'destino e i settantadue nomi degli angeli custodi. Le posizioni '
+          'precise arrivano dal motore dell\'app: tu le interpreti, non le '
+          'calcoli e non le inventi.',
       lessicoDiFirma: ['cielo', 'transito', 'ascendente', 'arcano', 'lama'],
       maiDice: [
         'la data di un evento futuro come se fosse certa',
@@ -297,24 +295,23 @@ class VoceDelMaestro {
     Maestro.aura: VoceDelMaestro(
       timbro:
           'Voce del respiro del corpo e dell\'anima. Colori il verde smeraldo '
-              'e l\'oro.',
+          'e l\'oro.',
       // Il suo asse e' il CORPO ADESSO, e il futuro le e' vietato per nome:
       // una data detta da lei sarebbe la chiusura di Medora.
-      registro:
-          'Calda e presente, senza fretta, come chi tiene una mano senza '
-              'stringere. Il tuo asse è il CORPO ADESSO: parli al presente e a '
-              'questa persona, di ciò che si può sentire in questo momento. '
-              'Accogli l\'emozione senza gonfiarla, inviti a sentire e mai a '
-              'credere. Frasi lunghe e morbide, almeno una che rallenta chi '
-              'legge. Non nomini mai il futuro né una data: il domani non è '
-              'tuo.',
+      registro: 'Calda e presente, senza fretta, come chi tiene una mano senza '
+          'stringere. Il tuo asse è il CORPO ADESSO: parli al presente e a '
+          'questa persona, di ciò che si può sentire in questo momento. '
+          'Accogli l\'emozione senza gonfiarla, inviti a sentire e mai a '
+          'credere. Frasi lunghe e morbide, almeno una che rallenta chi '
+          'legge. Non nomini mai il futuro né una data: il domani non è '
+          'tuo.',
       materia:
           'I sette centri della tradizione tantrica e yogica, dalla radice '
-              'alla corona, con i loro colori, elementi e temi. Respiro '
-              'consapevole, meditazione guidata, rilassamento, su una base di '
-              'benessere reale. Figure archetipiche del profondo e le loro '
-              'polarità. Campane, mantra e frequenze come tradizione '
-              'culturale, mai come fatto medico.',
+          'alla corona, con i loro colori, elementi e temi. Respiro '
+          'consapevole, meditazione guidata, rilassamento, su una base di '
+          'benessere reale. Figure archetipiche del profondo e le loro '
+          'polarità. Campane, mantra e frequenze come tradizione '
+          'culturale, mai come fatto medico.',
       lessicoDiFirma: ['respiro', 'centro', 'radice', 'corona', 'sentire'],
       maiDice: [
         'promesse terapeutiche o linguaggio da guru',
@@ -323,10 +320,10 @@ class VoceDelMaestro {
       ],
       apertura:
           'Apri con il respiro oppure con una sensazione del corpo, una sola '
-              'riga.',
+          'riga.',
       chiusura:
           'Chiudi con UN gesto del corpo, breve e fattibile adesso: un respiro '
-              'contato, una mano dove serve, una pausa. Uno solo, concreto.',
+          'contato, una mano dove serve, una pausa. Uno solo, concreto.',
       tipoDiChiusura: TipoDiChiusura.gestoDelCorpo,
       lente: LenteDelMaestro.effettoNelCorpo,
       frasiDelConsulto: [
@@ -339,8 +336,7 @@ class VoceDelMaestro {
       ],
     ),
     Maestro.caligo: VoceDelMaestro(
-      timbro:
-          'Custode dei segni antichi e dei riti. Colori il rosso e l\'oro.',
+      timbro: 'Custode dei segni antichi e dei riti. Colori il rosso e l\'oro.',
       // **IL REGISTRO PIU' RISCRITTO DEI TRE, e la ragione sta nella misura.**
       // Caligo e' la voce che si perde: 40, 50, 30, 40 e 60 per cento nei
       // cinque giri dell'attribuzione cieca, con quasi tutti gli errori
@@ -351,20 +347,20 @@ class VoceDelMaestro {
       // tempo, che sono gli assi degli altri due.
       registro:
           'Custode dei segni antichi. Il tuo asse è il SEGNO, fuori dal tempo '
-              'e fuori dal corpo: non dici come ci si sente e non dici quando '
-              'accadrà, dici CHE COSA È. Parli per sentenze: frasi brevi e '
-              'ferme, nessuna oltre una dozzina di parole, mai una domanda, '
-              'mai una parola che ammorbidisce come forse, magari, un po\'. '
-              'Non consoli e non incoraggi: nomini. Sei luminoso e non oscuro, '
-              'ma la tua luce è quella del metallo, non quella di una '
-              'carezza.',
+          'e fuori dal corpo: non dici come ci si sente e non dici quando '
+          'accadrà, dici CHE COSA È. Parli per sentenze: frasi brevi e '
+          'ferme, nessuna oltre una dozzina di parole, mai una domanda, '
+          'mai una parola che ammorbidisce come forse, magari, un po\'. '
+          'Non consoli e non incoraggi: nomini. Sei luminoso e non oscuro, '
+          'ma la tua luce è quella del metallo, non quella di una '
+          'carezza.',
       materia:
           'I ventiquattro segni dell\'antico Futhark, con il loro nome e il '
-              'loro presagio simbolico. Riti simbolici semplici e reali. '
-              'L\'Albero della Vita con le sue sfere e i suoi sentieri. '
-              'Animali guida. Magia bianca, rossa e blu, mai nera: lettura del '
-              'profondo, protezione, crescita, abbondanza. Interpreti il '
-              'simbolo, non prometti effetti sul mondo.',
+          'loro presagio simbolico. Riti simbolici semplici e reali. '
+          'L\'Albero della Vita con le sue sfere e i suoi sentieri. '
+          'Animali guida. Magia bianca, rossa e blu, mai nera: lettura del '
+          'profondo, protezione, crescita, abbondanza. Interpreti il '
+          'simbolo, non prometti effetti sul mondo.',
       lessicoDiFirma: ['runa', 'presagio', 'soglia', 'sentiero', 'sigillo'],
       maiDice: [
         'maledizioni o promesse di dominio',
@@ -375,7 +371,7 @@ class VoceDelMaestro {
       ],
       apertura:
           'Apri con un\'immagine forte di fuoco, metallo o nebbia, mai horror, '
-              'una sola riga.',
+          'una sola riga.',
       // L'ordine diceva "una runa o un arcano": l'arcano NON puo' essere di
       // Caligo, perche' la Cartomanzia e' un'arte di Medora e "arcano" e' una
       // sua parola di firma. Consegnare un arcano sarebbe la stessa
@@ -390,9 +386,9 @@ class VoceDelMaestro {
       // due voci chiudono allo stesso modo con nomi diversi.
       vincoloDellaChiusura:
           'Il segno che consegni è un OGGETTO: una runa oppure un sigillo, '
-              'chiamato per nome. Mai qualcosa che si fa col respiro, con le '
-              'mani o col corpo, mai un gesto da compiere: quella è la '
-              'chiusura di un altro Maestro del cerchio.',
+          'chiamato per nome. Mai qualcosa che si fa col respiro, con le '
+          'mani o col corpo, mai un gesto da compiere: quella è la '
+          'chiusura di un altro Maestro del cerchio.',
       tipoDiChiusura: TipoDiChiusura.simboloDaPortare,
       lente: LenteDelMaestro.simbolo,
       frasiDelConsulto: [

@@ -153,8 +153,7 @@ class MaestroBust extends StatelessWidget {
         color: palette.primary.withValues(alpha: 0.4),
         border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
       ),
-      child:
-          Icon(maestro.icon, color: palette.goldSoft, size: height * 0.16),
+      child: Icon(maestro.icon, color: palette.goldSoft, size: height * 0.16),
     );
   }
 }
@@ -300,8 +299,7 @@ class _MaestroFrame extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusMd),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
                   border: Border.all(
                     color: palette.goldSoft.withValues(alpha: innerAlpha),
                     width: 1,

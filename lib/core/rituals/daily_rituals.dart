@@ -14,8 +14,7 @@ class DailyRituals {
   /// locali il numero cambiava alle una di notte: per i sette mesi
   /// dell'ora legale, chi apriva l'app fra mezzanotte e l'una riceveva il
   /// dono di ieri, con la voce del Maestro di ieri.
-  static int _dayOfYear(DateTime date) =>
-      ConfineDelGiorno.giornoDellAnno(date);
+  static int _dayOfYear(DateTime date) => ConfineDelGiorno.giornoDellAnno(date);
 
   /// Il Maestro del Rito dell'Alba di oggi, a rotazione di giorno in giorno.
   static Maestro dawnMaestro(DateTime date) =>

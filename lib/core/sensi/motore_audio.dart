@@ -1,4 +1,3 @@
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -78,8 +77,8 @@ class MotoreAudio implements MotoreSonoro {
   /// campione.
   Future<void> tono(Uint8List byte, {bool inCiclo = true}) async {
     try {
-      await _toni.setReleaseMode(
-          inCiclo ? ReleaseMode.loop : ReleaseMode.release);
+      await _toni
+          .setReleaseMode(inCiclo ? ReleaseMode.loop : ReleaseMode.release);
       await _toni.play(BytesSource(byte));
     } catch (e) {
       debugPrint('Tono non riprodotto: $e');

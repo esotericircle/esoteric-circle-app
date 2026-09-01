@@ -43,7 +43,8 @@ class PortaDellAccount extends StatelessWidget {
         child: InkWell(
           key: const Key('porta_dell_account'),
           customBorder: const CircleBorder(),
-          onTap: suTocco ?? () => Navigator.of(context).push(AccountScreen.route()),
+          onTap: suTocco ??
+              () => Navigator.of(context).push(AccountScreen.route()),
           child: Container(
             width: misura,
             height: misura,

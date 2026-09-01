@@ -110,16 +110,16 @@ class SinastriaVipScreen extends StatefulWidget {
     bool giaScoperta = false,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: Maestro.medora,
-        child: SinastriaVipScreen(
-          userSign: userSign,
-          userName: userName ?? 'Tu',
-          userBirth: userBirth,
-          vip: vip,
-          primoVip: primoVip,
-          giaScoperta: giaScoperta,
-        ),
-      ));
+          maestro: Maestro.medora,
+          child: SinastriaVipScreen(
+            userSign: userSign,
+            userName: userName ?? 'Tu',
+            userBirth: userBirth,
+            vip: vip,
+            primoVip: primoVip,
+            giaScoperta: giaScoperta,
+          ),
+        ));
   }
 
   @override
@@ -140,6 +140,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   late final UserPhotoController _photo =
       widget.photoController ?? UserPhotoController();
   final GlobalKey _cardKey = GlobalKey();
+
   /// **LA SCENA HA DUE FASI, ordine BO voci 06 e 07.** Prima la chiamata, che
   /// e' il rito; poi il verdetto, che si compone. Un fatto suo e non un
   /// booleano derivato: e' la stessa lezione del responso della stesa, dove
@@ -312,9 +313,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     final luogo = await DoveSonoAdesso.letto();
     if (!mounted || luogo == null) return;
     setState(() => _doveSei = DoveSei(
-        citta: luogo.citta,
-        latitudine: luogo.lat,
-        longitudine: luogo.lon));
+        citta: luogo.citta, latitudine: luogo.lat, longitudine: luogo.lon));
   }
 
   /// La chiamata e' finita, oppure un tocco l'ha saltata: entra il verdetto,
@@ -453,8 +452,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
       context: context,
       backgroundColor: palette.surfaceElevated,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(SpacingTokens.radiusLg)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(SpacingTokens.radiusLg)),
       ),
       builder: (foglio) => SafeArea(
         child: Column(
@@ -475,8 +474,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             ),
             ListTile(
               key: const Key('sinastria_cambia_questo_vip'),
-              leading:
-                  Icon(Icons.swap_horiz_rounded, color: palette.goldSoft),
+              leading: Icon(Icons.swap_horiz_rounded, color: palette.goldSoft),
               title: Text('Cambia questo VIP',
                   style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textPrimary)),
@@ -502,8 +500,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             if (eIlPrimo)
               ListTile(
                 key: const Key('sinastria_rimetti_te'),
-                leading:
-                    Icon(Icons.person_rounded, color: palette.goldSoft),
+                leading: Icon(Icons.person_rounded, color: palette.goldSoft),
                 title: Text('Rimetti te al posto di ${quale.name}',
                     style: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textPrimary)),
@@ -656,18 +653,17 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     if (_riduciMovimento) return 1;
     final tutto = _anim.duration!.inMilliseconds;
     final fino = TempiDelVerdetto.ilConteggio.inMilliseconds / tutto;
-    return Curves.easeOutCubic
-        .transform((_anim.value / fino).clamp(0.0, 1.0));
+    return Curves.easeOutCubic.transform((_anim.value / fino).clamp(0.0, 1.0));
   }
 
   /// La frazione della barra [i], che parte sfalsata dalle altre.
   double _quantoDellaBarra(int i) {
     if (_riduciMovimento) return 1;
     final tutto = _anim.duration!.inMilliseconds;
-    final inizio = (TempiDelVerdetto.ilConteggio +
-                TempiDelVerdetto.fraUnaBarraELaltra * i)
-            .inMilliseconds /
-        tutto;
+    final inizio =
+        (TempiDelVerdetto.ilConteggio + TempiDelVerdetto.fraUnaBarraELaltra * i)
+                .inMilliseconds /
+            tutto;
     final quanto = TempiDelVerdetto.unaBarra.inMilliseconds / tutto;
     return Curves.easeOutCubic
         .transform(((_anim.value - inizio) / quanto).clamp(0.0, 1.0));
@@ -742,8 +738,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                       palette: palette,
                       sign: widget.primoVip!.sign,
                       hint: 'Apri o cambia ${widget.primoVip!.name}',
-                      onTap: () => _cosaFareCon(widget.primoVip!,
-                          eIlPrimo: true),
+                      onTap: () =>
+                          _cosaFareCon(widget.primoVip!, eIlPrimo: true),
                       portrait: VipFramedPortrait(
                         palette: palette,
                         name: widget.primoVip!.name,
@@ -1018,8 +1014,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               children: [
                 Text('QUELLO CHE RESTA',
                     key: const Key('sinastria_eredita_titolo'),
-                    style: TypographyTokens.etichetta().copyWith(
-                        color: palette.goldSoft, letterSpacing: 1.4)),
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
                 const SizedBox(height: SpacingTokens.xs),
                 // Il narrato passa dalla porta comune dei paragrafi, e la
                 // misura viene dal RUOLO: una cifra scritta a mano qui
@@ -1060,8 +1056,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
             },
           ),
           condividi: _onShare,
-          aperturaDellaChat:
-              ChatOpeners.sinastria(_vip.name, report.overall),
+          aperturaDellaChat: ChatOpeners.sinastria(_vip.name, report.overall),
         ),
         const SizedBox(height: SpacingTokens.lg),
         // Il selettore in fondo non c'e' piu': la scelta del VIP si fa nella
@@ -1190,7 +1185,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                       _photo.clear();
                     },
                     icon: const Icon(Icons.close_rounded, size: 18),
-                    label: const Text('Togli la foto, torna alla costellazione'),
+                    label:
+                        const Text('Togli la foto, torna alla costellazione'),
                   ),
                 ],
               ],

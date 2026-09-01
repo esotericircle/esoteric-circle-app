@@ -14,8 +14,10 @@ import 'daily_rituals.dart';
 enum DailyElement {
   dawn(
     cosaFai: 'Sollevi l\'alba con un gesto e ricevi la parola del giorno.',
-    perche: 'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
-    cosaTiResta: 'Una parola da portare con te, che stasera il Sigillo del Sogno ti richiamerà.',
+    perche:
+        'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
+    cosaTiResta:
+        'Una parola da portare con te, che stasera il Sigillo del Sogno ti richiamerà.',
     title: 'Rito dell\'Alba',
     shortLabel: 'Alba',
     anchorHour: 7,
@@ -27,7 +29,8 @@ enum DailyElement {
         'per orientare le tue prossime ore.',
   ),
   breath(
-    cosaFai: 'Respiri col simbolo che si apre e si chiude, per i giri che il rito conta.',
+    cosaFai:
+        'Respiri col simbolo che si apre e si chiude, per i giri che il rito conta.',
     perche: 'Il respiro contato è il modo più rapido di cambiare stato senza '
         'chiedere niente a nessuno.',
     cosaTiResta: 'Il tuo destino del momento, con la tensione sciolta che '
@@ -38,8 +41,7 @@ enum DailyElement {
     anchorMinute: 30,
     guide: Maestro.aura,
     pushByDefault: false,
-    description:
-        'Un respiro guidato che allinea il tuo destino del momento e '
+    description: 'Un respiro guidato che allinea il tuo destino del momento e '
         'scioglie la tensione.',
   ),
   oracle(
@@ -48,9 +50,12 @@ enum DailyElement {
     // finche' il dono era una frase estratta da un elenco: adesso e' una carta
     // degli Arcani Maggiori, e un testo che nomina una cosa che non c'e' piu'
     // e' un testo che mente.
-    cosaFai: 'Inclini il telefono oppure scorri col dito: la carta di oggi si scopre.',
-    perche: 'A metà giornata la domanda che porti si è già fatta più precisa: è lì che un responso serve.',
-    cosaTiResta: 'La carta del giorno con la sua risposta; il ritorno di domani nutre i traguardi della costanza.',
+    cosaFai:
+        'Inclini il telefono oppure scorri col dito: la carta di oggi si scopre.',
+    perche:
+        'A metà giornata la domanda che porti si è già fatta più precisa: è lì che un responso serve.',
+    cosaTiResta:
+        'La carta del giorno con la sua risposta; il ritorno di domani nutre i traguardi della costanza.',
     title: 'Arcano del Giorno',
     shortLabel: 'Arcano',
     anchorHour: 13,
@@ -62,8 +67,10 @@ enum DailyElement {
   ),
   rune(
     cosaFai: 'Estrai la runa della sera dal mazzo delle ventiquattro.',
-    perche: 'Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.',
-    cosaTiResta: 'Una runa che il Sigillo del Sogno nominerà fra poche ore, con '
+    perche:
+        'Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.',
+    cosaTiResta:
+        'Una runa che il Sigillo del Sogno nominerà fra poche ore, con '
         'il suo presagio.',
     title: 'La Runa del Tramonto',
     shortLabel: 'Tramonto',
@@ -76,9 +83,12 @@ enum DailyElement {
         'ti ha lasciato.',
   ),
   night(
-    cosaFai: 'Soffi sulla nebbia, unisci la costellazione della Luna di stanotte e chiudi il giorno.',
-    perche: 'Un giorno che non si chiude resta addosso: il rito della buonanotte gli mette un punto.',
-    cosaTiResta: 'La tua costellazione della notte da condividere, col giorno raccolto in una carta.',
+    cosaFai:
+        'Soffi sulla nebbia, unisci la costellazione della Luna di stanotte e chiudi il giorno.',
+    perche:
+        'Un giorno che non si chiude resta addosso: il rito della buonanotte gli mette un punto.',
+    cosaTiResta:
+        'La tua costellazione della notte da condividere, col giorno raccolto in una carta.',
     title: 'Sigillo del Sogno',
     shortLabel: 'Notte',
     anchorHour: 22,

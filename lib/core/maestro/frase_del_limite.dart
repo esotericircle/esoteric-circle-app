@@ -29,11 +29,20 @@ class FraseDelLimite {
     // il nove la cifra e' piu' leggibile della parola, e a quel punto nessuno
     // la legge come una voce.
     const inLettere = [
-      'zero', 'una', 'due', 'tre', 'quattro',
-      'cinque', 'sei', 'sette', 'otto', 'nove',
+      'zero',
+      'una',
+      'due',
+      'tre',
+      'quattro',
+      'cinque',
+      'sei',
+      'sette',
+      'otto',
+      'nove',
     ];
-    final quanto =
-        limite >= 0 && limite < inLettere.length ? inLettere[limite] : '$limite';
+    final quanto = limite >= 0 && limite < inLettere.length
+        ? inLettere[limite]
+        : '$limite';
     return limite == 1 ? '$quanto domanda' : '$quanto domande';
   }
 

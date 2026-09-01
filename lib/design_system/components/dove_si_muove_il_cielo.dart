@@ -109,8 +109,7 @@ class DoveSiMuoveIlCielo {
   ];
 
   /// I soli nomi, per chi vuole solo contare.
-  static List<String> get schermate =>
-      [for (final s in elenco) s.classe];
+  static List<String> get schermate => [for (final s in elenco) s.classe];
 
   /// Quante schermate dichiarano il fondo in movimento.
   static int get quante => elenco.length;

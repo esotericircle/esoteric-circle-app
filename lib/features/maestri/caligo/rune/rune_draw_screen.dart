@@ -99,7 +99,7 @@ class RuneDrawScreen extends StatefulWidget {
     math.Random? random,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(RuneDrawScreen(
-            userSign: userSign, userBirth: userBirth, random: random)));
+        userSign: userSign, userBirth: userBirth, random: random)));
   }
 
   @override
@@ -119,6 +119,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   /// testo che fra un istante viene sostituito da un altro: uno scambio a video
   /// direbbe alla persona che il primo era un ripiego.
   bool _presagioInArrivo = false;
+
   /// I DATI CHE LE DOMANDE PERSONALI CHIEDONO, e solo quelli che ci sono davvero.
   ///
   /// Ordine S voce 21, decisione D4: le personali nascono da CARTA E CAMMINO. Il
@@ -359,8 +360,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   /// sopra una sorte si apre una caduta, e la caduta non e' una seconda
   /// sorte.
   int _semeDellaGettata(EsitoGettata esito) {
-    final persona =
-        widget.userBirth?.toIso8601String() ?? widget.userSign.name;
+    final persona = widget.userBirth?.toIso8601String() ?? widget.userSign.name;
     return FisicaDellaGettata.semeDa(
       persona,
       DateTime.now(),
@@ -691,8 +691,8 @@ class _Preparazione extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('${gettata.nome} · ${gettata.sottotitolo}',
-                    style: TypographyTokens.corpo().copyWith(
-                        color: palette.goldSoft, letterSpacing: 0.6)),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
                 const SizedBox(height: SpacingTokens.xs),
                 // Il responso di Caligo e' testo che si LEGGE, quindi il ruolo
                 // e' lettura e la regola dei paragrafi e' quella comune: qui
@@ -704,13 +704,13 @@ class _Preparazione extends StatelessWidget {
               ],
             ),
           ),
-            // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
-            //
-            // Le linee guida dicevano da sempre "una volta sola", e per
-            // sette volte ognuno ha pensato che il proprio fosse quella
-            // volta. Un disclaimer ripetuto smette di essere letto e
-            // diventa un modo di scaricare la responsabilita' invece di
-            // dirla. Adesso sta in un posto solo, nell'area privacy.
+          // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+          //
+          // Le linee guida dicevano da sempre "una volta sola", e per
+          // sette volte ognuno ha pensato che il proprio fosse quella
+          // volta. Un disclaimer ripetuto smette di essere letto e
+          // diventa un modo di scaricare la responsabilita' invece di
+          // dirla. Adesso sta in un posto solo, nell'area privacy.
           const SizedBox(height: SpacingTokens.xs),
           // IL RIPIEGO TATTILE, DICHIARATO A SCHERMO. Quando il sensore
           // non c'e', la riga smette di promettere lo scuotimento e dice
@@ -826,9 +826,8 @@ class _Responso extends StatelessWidget {
     ];
     // IL VERSO DELLE NORNE: le tre letture legate da giunture che variano
     // su giorno E posizione, mai su un asse solo.
-    final giunture = esito.gettata.id == 'norne'
-        ? RuneVoce.giuntureNorne(giorno)
-        : null;
+    final giunture =
+        esito.gettata.id == 'norne' ? RuneVoce.giuntureNorne(giorno) : null;
     return SingleChildScrollView(
       key: const Key('rune_result'),
       padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -935,7 +934,8 @@ class _Responso extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
+                      Icon(Icons.auto_awesome,
+                          size: 16, color: palette.goldSoft),
                       const SizedBox(width: SpacingTokens.xs),
                       Text('Il presagio di Caligo',
                           style: TypographyTokens.etichetta().copyWith(
@@ -951,8 +951,8 @@ class _Responso extends StatelessWidget {
                   if (presagioInArrivo)
                     Padding(
                       key: const Key('rune_presage_attesa'),
-                      padding:
-                          const EdgeInsets.symmetric(vertical: SpacingTokens.md),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: SpacingTokens.md),
                       child: Row(
                         children: [
                           SizedBox(
@@ -969,43 +969,43 @@ class _Responso extends StatelessWidget {
                       ),
                     )
                   else ...[
-                  // **LE TRE PARTI SI VEDONO, ordine S voce 19 sull'anatomia
-                  // della voce S.16.** Erano un paragrafo unico, e in un
-                  // paragrafo unico la cosa da fare si perde in mezzo: e' la
-                  // parte che fa tornare, quindi ha la sua superficie.
-                  ParagrafiDiLettura(
-                      key: const Key('rune_presage_text'),
-                      testo: responso.risposta,
-                      oro: palette.goldSoft,
-                      stile: TypographyTokens.lettura()
-                          .copyWith(color: ColorTokens.textPrimary)),
-                  const SizedBox(height: SpacingTokens.sm),
-                  Container(
-                    key: const Key('rune_presage_azione'),
-                    padding: const EdgeInsets.all(SpacingTokens.sm),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(SpacingTokens.radiusMd),
-                      border:
-                          Border.all(color: palette.gold.withValues(alpha: 0.4)),
-                      color: palette.deepest.withValues(alpha: 0.35),
-                    ),
-                    // **ANCHE QUI SI PASSA DALLA PORTA UNICA**, e a dirlo e'
-                    // stata la prova `etichette_e_lettura`: un Text diretto nel
-                    // ruolo lettura e' la famiglia delle due porte, e da quella
-                    // porta il muro di testo rientra.
-                    child: ParagrafiDiLettura(
-                        testo: responso.cosaPuoiFare,
+                    // **LE TRE PARTI SI VEDONO, ordine S voce 19 sull'anatomia
+                    // della voce S.16.** Erano un paragrafo unico, e in un
+                    // paragrafo unico la cosa da fare si perde in mezzo: e' la
+                    // parte che fa tornare, quindi ha la sua superficie.
+                    ParagrafiDiLettura(
+                        key: const Key('rune_presage_text'),
+                        testo: responso.risposta,
                         oro: palette.goldSoft,
                         stile: TypographyTokens.lettura()
                             .copyWith(color: ColorTokens.textPrimary)),
-                  ),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // DA DOVE VIENE, e qui compaiono le rune: non prima.
-                  Text(responso.daDoveViene,
-                      key: const Key('rune_presage_fonte'),
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textSecondary)),
+                    const SizedBox(height: SpacingTokens.sm),
+                    Container(
+                      key: const Key('rune_presage_azione'),
+                      padding: const EdgeInsets.all(SpacingTokens.sm),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(SpacingTokens.radiusMd),
+                        border: Border.all(
+                            color: palette.gold.withValues(alpha: 0.4)),
+                        color: palette.deepest.withValues(alpha: 0.35),
+                      ),
+                      // **ANCHE QUI SI PASSA DALLA PORTA UNICA**, e a dirlo e'
+                      // stata la prova `etichette_e_lettura`: un Text diretto nel
+                      // ruolo lettura e' la famiglia delle due porte, e da quella
+                      // porta il muro di testo rientra.
+                      child: ParagrafiDiLettura(
+                          testo: responso.cosaPuoiFare,
+                          oro: palette.goldSoft,
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: ColorTokens.textPrimary)),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                    // DA DOVE VIENE, e qui compaiono le rune: non prima.
+                    Text(responso.daDoveViene,
+                        key: const Key('rune_presage_fonte'),
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: ColorTokens.textSecondary)),
                   ],
                 ],
               ),
@@ -1177,8 +1177,8 @@ class _LetturaRuna extends StatelessWidget {
                       // regola dell'ordine H voce 1.
                       if (kRuneSimmetriche.contains(runa.rune.name))
                         Text(SunsetRuneCorpus.noteSimmetrica,
-                            style: TypographyTokens.didascalia().copyWith(
-                                color: ColorTokens.textSecondary))
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: ColorTokens.textSecondary))
                       else
                         // **MERKSTAVE SI TRADUCE, ordine AS voce 09.** E' il
                         // nome tecnico del verso d'ombra e nessuno sa cosa
@@ -1186,7 +1186,10 @@ class _LetturaRuna extends StatelessWidget {
                         // ricevuto nessuna informazione. La parola resta,
                         // perche' e' quella giusta e sta nelle fonti, ma
                         // accanto c'e' cosa vuol dire.
-                        Text(runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta',
+                        Text(
+                            runa.inOmbra
+                                ? 'in merkstave (rovesciata)'
+                                : 'diritta',
                             style: TypographyTokens.etichetta().copyWith(
                                 color: ColorTokens.textSecondary,
                                 letterSpacing: 0.6)),
@@ -1209,8 +1212,8 @@ class _LetturaRuna extends StatelessWidget {
             // S.20 vuole; il simbolo, dal corpus, le rida' il suo corpo.
             Text(runa.rune.meaning,
                 key: Key('rune_meaning_$indice'),
-                style: TypographyTokens.didascalia().copyWith(
-                    color: ColorTokens.textSecondary, height: 1.4)),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             const SizedBox(height: SpacingTokens.xs),
             // La lettura della scheda passa dalla porta unica dei paragrafi:
             // sotto cinque righe non divide, quindi le righe brevi restano
@@ -1317,13 +1320,14 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      final andata = await shareRuneCard(boundaryKey: _cardBoundary, esito: widget.esito);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la tua gettata di rune');
-}
+      final andata =
+          await shareRuneCard(boundaryKey: _cardBoundary, esito: widget.esito);
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la tua gettata di rune');
+      }
       return andata;
     } finally {
       if (mounted) setState(() => _renderCard = false);
@@ -1352,10 +1356,14 @@ if (andata && mounted) {
                   arte: 'gettata',
                   titolo: 'La tua gettata: ${widget.esito.gettata.nome}',
                   testo: widget.presagio,
-                  dati: {'gettata': widget.esito.gettata.nome, 'rune': widget.esito.rune.map((r) => r.rune.name).join(',')},
+                  dati: {
+                    'gettata': widget.esito.gettata.nome,
+                    'rune': widget.esito.rune.map((r) => r.rune.name).join(',')
+                  },
                 ),
                 condividi: _condividi,
-                aperturaDellaChat: ChatOpeners.runa(widget.esito.gettata.nome, widget.esito.rune.map((r) => r.rune.name).toList()),
+                aperturaDellaChat: ChatOpeners.runa(widget.esito.gettata.nome,
+                    widget.esito.rune.map((r) => r.rune.name).toList()),
               ),
             ],
           ),
@@ -1366,8 +1374,8 @@ if (andata && mounted) {
             top: 0,
             child: RepaintBoundary(
               key: _cardBoundary,
-              child: RuneShareCard(
-                  esito: widget.esito, presagio: widget.presagio),
+              child:
+                  RuneShareCard(esito: widget.esito, presagio: widget.presagio),
             ),
           ),
       ],
@@ -1439,7 +1447,6 @@ class _SelettoreGettate extends StatelessWidget {
     );
   }
 }
-
 
 class _PozzoUrdhr extends StatefulWidget {
   const _PozzoUrdhr({
@@ -1726,8 +1733,8 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
               width: 44 * scalaOmbra,
               height: 12 * scalaOmbra,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.elliptical(
-                    22 * scalaOmbra, 6 * scalaOmbra)),
+                borderRadius: BorderRadius.all(
+                    Radius.elliptical(22 * scalaOmbra, 6 * scalaOmbra)),
                 color: Colors.black
                     .withValues(alpha: 0.30 * (1 - 0.55 * stato.quota)),
               ),
@@ -1743,8 +1750,7 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
           child: Transform.rotate(
             angle: stato.rotazione,
             child: Builder(builder: (ctx) {
-              final ancoraCoperta =
-                  runa.coperta && !_girateAMano.contains(i);
+              final ancoraCoperta = runa.coperta && !_girateAMano.contains(i);
               final pietra = _PietraPosata(
                   key: Key('runa_posata_$i'),
                   runa: runa,
@@ -1757,8 +1763,7 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
                 onTap: () {
                   setState(() => _girateAMano.add(i));
                   PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
-                  unawaited(
-                      RegiaDelCammino.dopoUnGesto(ctx, 'runa_girata'));
+                  unawaited(RegiaDelCammino.dopoUnGesto(ctx, 'runa_girata'));
                 },
                 child: pietra,
               );
@@ -1837,7 +1842,6 @@ class _PietraPosata extends StatelessWidget {
         ),
       );
 }
-
 
 /// I cerchi concentrici dai punti di caduta, i fili delle Norne e, nel getto
 /// libero, il panno di Tacito. Statico quando le onde sono spente.
@@ -2054,23 +2058,23 @@ class _PietreCoperte extends StatelessWidget {
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (var i = 0; i < n; i++)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Transform.rotate(
-                // Un filo di inclinazione alternata: pietre allineate in
-                // riga sembrano un menu, non un pugno di sassi.
-                angle: (i.isEven ? 1 : -1) * 0.06 * (i + 1),
-                // LA PORTA UNICA DEL RETRO: ragione su RetroDellaRuna.
-                child: RetroDellaRuna(
-                    stem: kElderFuthark[i % kElderFuthark.length].stem,
-                    width: 62,
-                    height: 76),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (var i = 0; i < n; i++)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Transform.rotate(
+                  // Un filo di inclinazione alternata: pietre allineate in
+                  // riga sembrano un menu, non un pugno di sassi.
+                  angle: (i.isEven ? 1 : -1) * 0.06 * (i + 1),
+                  // LA PORTA UNICA DEL RETRO: ragione su RetroDellaRuna.
+                  child: RetroDellaRuna(
+                      stem: kElderFuthark[i % kElderFuthark.length].stem,
+                      width: 62,
+                      height: 76),
+                ),
               ),
-            ),
-        ],
+          ],
         ),
       ),
     );

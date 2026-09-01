@@ -198,7 +198,6 @@ List<String> spezzaInParagrafi(
   return blocchi.map((b) => b.join(' ')).toList();
 }
 
-
 /// Un testo narrato reso a blocchi, con la distanza doppia fra l'uno e l'altro.
 ///
 /// E' la porta unica: una schermata che ha un responso da mostrare monta questo

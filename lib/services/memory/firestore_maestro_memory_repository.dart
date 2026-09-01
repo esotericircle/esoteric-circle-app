@@ -94,8 +94,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       campi: {
         'displayName': profile.displayName,
         'courtesyForm': profile.courtesyForm.name,
-        'disclaimerAcceptedAt':
-            profile.disclaimerAcceptedAt?.toIso8601String(),
+        'disclaimerAcceptedAt': profile.disclaimerAcceptedAt?.toIso8601String(),
       },
       dritto: () => _userDoc.set({
         'displayName': profile.displayName,
@@ -379,8 +378,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       seguito: data['seguito'] as String?,
       intentId: data['intentId'] as String?,
       autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
-      tipo: _primoDove(
-          TipoDiMessaggio.values, (t) => t.name == data['tipo']),
+      tipo: _primoDove(TipoDiMessaggio.values, (t) => t.name == data['tipo']),
     );
   }
 }

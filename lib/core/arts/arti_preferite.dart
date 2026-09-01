@@ -22,7 +22,6 @@ import 'art_catalog.dart';
 /// Il tetto e' [tetto]: oltre quel numero lo scaffale smette di essere una
 /// scelta e ridiventa un elenco.
 class ArtiPreferiteController extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi
   /// `DimenticanzaDellaMemoriaViva`: i controller vivono per tutta la
   /// sessione, e cancellare l'account senza svuotarli lascia a schermo i dati
@@ -145,7 +144,10 @@ class ArtiPreferiteController extends ChangeNotifier {
   /// vinto la fusione, quindi qui si adotta e basta.
   Future<void> adottaDalCerchio(List<String> arti) async {
     if (arti.isEmpty) return;
-    final valide = [for (final a in arti) if (selezionabili.contains(a)) a];
+    final valide = [
+      for (final a in arti)
+        if (selezionabili.contains(a)) a
+    ];
     if (valide.isEmpty) return;
     _ids = valide;
     notifyListeners();

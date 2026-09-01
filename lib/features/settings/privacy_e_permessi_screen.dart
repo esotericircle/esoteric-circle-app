@@ -40,8 +40,8 @@ import 'permessi_di_sistema.dart';
 class PrivacyEPermessiScreen extends StatelessWidget {
   const PrivacyEPermessiScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
-      (_) => const PrivacyEPermessiScreen());
+  static Route<void> route() =>
+      PassaggioDelCerchio.rotta<void>((_) => const PrivacyEPermessiScreen());
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +60,8 @@ class PrivacyEPermessiScreen extends StatelessWidget {
       body: SafeArea(
         top: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-              SpacingTokens.lg, SpacingTokens.xxl),
+          padding: const EdgeInsets.fromLTRB(
+              SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.xxl),
           children: [
             // **IL DISCLAIMER, E QUESTO RESTA L'UNICO POSTO DOVE COMPARE.**
             //

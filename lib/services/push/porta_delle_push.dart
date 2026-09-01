@@ -57,8 +57,11 @@ class ScelteDaMandare {
       _stesseScelte(other.doni, doni);
 
   @override
-  int get hashCode => Object.hash(token, fuso,
-      Object.hashAllUnordered([for (final e in doni.entries) '${e.key}:${e.value}']));
+  int get hashCode => Object.hash(
+      token,
+      fuso,
+      Object.hashAllUnordered(
+          [for (final e in doni.entries) '${e.key}:${e.value}']));
 
   static bool _stesseScelte(Map<String, int> a, Map<String, int> b) {
     if (a.length != b.length) return false;

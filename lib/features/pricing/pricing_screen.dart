@@ -27,7 +27,8 @@ class PricingScreen extends StatelessWidget {
   final bool isDemo;
 
   static Route<void> route() {
-    return PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(child: PricingScreen()));
+    return PassaggioDelCerchio.rotta<void>(
+        (_) => const MaestroScope(child: PricingScreen()));
   }
 
   @override
@@ -140,16 +141,15 @@ class _DemoCard extends StatelessWidget {
               Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
               const SizedBox(width: SpacingTokens.sm),
               Expanded(
-                child: Text('Demo',
-                    style: TypographyTokens.titoloSezione()),
+                child: Text('Demo', style: TypographyTokens.titoloSezione()),
               ),
               _Badge(text: 'Piano Attuale', palette: palette),
             ],
           ),
           const SizedBox(height: 2),
           Text('Tutte le funzioni attive, per la presentazione.',
-              style: TypographyTokens.corpo()
-                  .copyWith(color: palette.goldSoft)),
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
         ],
       ),
     );
@@ -193,8 +193,7 @@ class _PlanCardState extends State<_PlanCard> {
           Row(
             children: [
               Expanded(
-                child: Text(plan.name,
-                    style: TypographyTokens.titoloSezione()),
+                child: Text(plan.name, style: TypographyTokens.titoloSezione()),
               ),
               if (isCurrent)
                 _Badge(text: 'Piano Attuale', palette: palette)
@@ -204,8 +203,8 @@ class _PlanCardState extends State<_PlanCard> {
           ),
           const SizedBox(height: 2),
           Text(plan.identity,
-              style: TypographyTokens.corpo()
-                  .copyWith(color: palette.goldSoft)),
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.md),
           for (final benefit in plan.highlights) ...[
             Row(
@@ -320,8 +319,8 @@ class _CycleBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         onTap: onTap,
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(vertical: SpacingTokens.sm, horizontal: 6),
+          padding: const EdgeInsets.symmetric(
+              vertical: SpacingTokens.sm, horizontal: 6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
             gradient: selected
@@ -330,7 +329,9 @@ class _CycleBox extends StatelessWidget {
                     palette.surfaceElevated.withValues(alpha: 0.75),
                   ])
                 : null,
-            color: selected ? null : palette.surfaceElevated.withValues(alpha: 0.3),
+            color: selected
+                ? null
+                : palette.surfaceElevated.withValues(alpha: 0.3),
             border: Border.all(
               color: palette.gold.withValues(alpha: selected ? 0.9 : 0.22),
               width: selected ? 1.6 : 1,

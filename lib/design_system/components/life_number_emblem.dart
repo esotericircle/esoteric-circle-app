@@ -34,8 +34,8 @@ class _LifeNumberEmblemState extends State<LifeNumberEmblem>
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(
-        vsync: this, duration: const Duration(seconds: 26));
+    _c =
+        AnimationController(vsync: this, duration: const Duration(seconds: 26));
     if (widget.animate) _c.repeat();
   }
 
@@ -45,8 +45,9 @@ class _LifeNumberEmblemState extends State<LifeNumberEmblem>
     super.dispose();
   }
 
-  int get _single =>
-      widget.number <= 9 ? widget.number : (widget.number ~/ 10 + widget.number % 10);
+  int get _single => widget.number <= 9
+      ? widget.number
+      : (widget.number ~/ 10 + widget.number % 10);
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +102,9 @@ class _SigilPainter extends CustomPainter {
     return c + Offset(math.cos(a), math.sin(a)) * r;
   }
 
-  void _polygon(Canvas canvas, Offset c, double r, int n, double rot,
-      Paint stroke, {int step = 1}) {
+  void _polygon(
+      Canvas canvas, Offset c, double r, int n, double rot, Paint stroke,
+      {int step = 1}) {
     if (n < 2) {
       canvas.drawCircle(c, r, stroke);
       return;

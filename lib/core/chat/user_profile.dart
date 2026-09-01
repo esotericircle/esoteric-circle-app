@@ -5,8 +5,8 @@
 /// memoria descritti nei briefing (profilo, fatti, sintesi di sessione). Resta
 /// un modello puro, la persistenza vive nel repository di memoria.
 library;
-import '../identity/nome_proprio.dart';
 
+import '../identity/nome_proprio.dart';
 
 /// Forma di cortesia scelta all'onboarding, per rivolgersi all'utente nella
 /// lingua giusta. In attesa dell'onboarding resta sconosciuta e i Maestri usano

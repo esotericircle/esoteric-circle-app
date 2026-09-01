@@ -31,8 +31,7 @@ class Celestial {
     }
     final a = (y / 100).floor();
     final b = 2 - a + (a / 4).floor();
-    final day = u.day +
-        (u.hour + u.minute / 60.0 + u.second / 3600.0) / 24.0;
+    final day = u.day + (u.hour + u.minute / 60.0 + u.second / 3600.0) / 24.0;
     return (365.25 * (y + 4716)).floor() +
         (30.6001 * (m + 1)).floor() +
         day +
@@ -77,8 +76,8 @@ class Celestial {
     final ha = (lstDeg - raDeg) * _deg; // angolo orario
     final dec = decDeg * _deg;
     final lat = latDeg * _deg;
-    final sinAlt =
-        math.sin(dec) * math.sin(lat) + math.cos(dec) * math.cos(lat) * math.cos(ha);
+    final sinAlt = math.sin(dec) * math.sin(lat) +
+        math.cos(dec) * math.cos(lat) * math.cos(ha);
     final alt = math.asin(sinAlt.clamp(-1.0, 1.0));
     final cosAz = (math.sin(dec) - math.sin(alt) * math.sin(lat)) /
         (math.cos(alt) * math.cos(lat));

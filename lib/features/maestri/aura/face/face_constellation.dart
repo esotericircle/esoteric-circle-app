@@ -42,8 +42,10 @@ class FaceConstellation {
     final cx = (box.minX + box.maxX) / 2;
     final fronte = _estremoY(c.volto, alto: true);
     final mento = _estremoY(c.volto, alto: false);
-    final zSx = c.guanciaSx ?? _estremoFascia(c.volto, box, 0.40, 0.60, sinistra: true);
-    final zDx = c.guanciaDx ?? _estremoFascia(c.volto, box, 0.40, 0.60, sinistra: false);
+    final zSx =
+        c.guanciaSx ?? _estremoFascia(c.volto, box, 0.40, 0.60, sinistra: true);
+    final zDx = c.guanciaDx ??
+        _estremoFascia(c.volto, box, 0.40, 0.60, sinistra: false);
     final mSx = _estremoFascia(c.volto, box, 0.68, 0.88, sinistra: true);
     final mDx = _estremoFascia(c.volto, box, 0.68, 0.88, sinistra: false);
     final sopSxIn = _versoCentro(c.sopraccioSx, cx, vicino: true);
@@ -88,8 +90,14 @@ class FaceConstellation {
 
   // --- aiuti geometrici ---
 
-  static ({double minX, double minY, double maxX, double maxY, double w, double h})
-      _box(List<Offset> p) {
+  static ({
+    double minX,
+    double minY,
+    double maxX,
+    double maxY,
+    double w,
+    double h
+  }) _box(List<Offset> p) {
     var minX = double.infinity, minY = double.infinity;
     var maxX = -double.infinity, maxY = -double.infinity;
     for (final o in p) {
@@ -99,7 +107,14 @@ class FaceConstellation {
       maxY = math.max(maxY, o.dy);
     }
     if (p.isEmpty) return (minX: 0, minY: 0, maxX: 1, maxY: 1, w: 1, h: 1);
-    return (minX: minX, minY: minY, maxX: maxX, maxY: maxY, w: maxX - minX, h: maxY - minY);
+    return (
+      minX: minX,
+      minY: minY,
+      maxX: maxX,
+      maxY: maxY,
+      w: maxX - minX,
+      h: maxY - minY
+    );
   }
 
   static Offset _estremoY(List<Offset> p, {required bool alto}) {
@@ -132,7 +147,8 @@ class FaceConstellation {
     return _estremoX(dentro, sinistra: sinistra);
   }
 
-  static Offset _versoCentro(List<Offset> p, double cx, {required bool vicino}) {
+  static Offset _versoCentro(List<Offset> p, double cx,
+      {required bool vicino}) {
     if (p.isEmpty) return Offset(cx, 0);
     var best = p.first;
     for (final o in p) {

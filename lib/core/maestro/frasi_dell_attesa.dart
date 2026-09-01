@@ -67,10 +67,8 @@ class FrasiDellAttesa {
     Maestro.medora: [
       FraseDellAttesa(
           'Sto guardando il tuo Ascendente', DatoDelContesto.ascendente),
-      FraseDellAttesa(
-          'Sto leggendo il tuo Sole', DatoDelContesto.segnoSolare),
-      FraseDellAttesa(
-          'Sto seguendo la tua Luna', DatoDelContesto.segnoLunare),
+      FraseDellAttesa('Sto leggendo il tuo Sole', DatoDelContesto.segnoSolare),
+      FraseDellAttesa('Sto seguendo la tua Luna', DatoDelContesto.segnoLunare),
       FraseDellAttesa('Sto contando il tuo numero della vita',
           DatoDelContesto.numeroDellaVita),
       FraseDellAttesa('Sto tornando alla Luna della tua nascita',
@@ -81,10 +79,10 @@ class FrasiDellAttesa {
           'Sto rileggendo la tua domanda', DatoDelContesto.sempreVero),
     ],
     Maestro.aura: [
-      FraseDellAttesa('Sto sentendo dove si posa la tua Luna',
-          DatoDelContesto.segnoLunare),
-      FraseDellAttesa('Sto ascoltando il calore del tuo Sole',
-          DatoDelContesto.segnoSolare),
+      FraseDellAttesa(
+          'Sto sentendo dove si posa la tua Luna', DatoDelContesto.segnoLunare),
+      FraseDellAttesa(
+          'Sto ascoltando il calore del tuo Sole', DatoDelContesto.segnoSolare),
       FraseDellAttesa('Sto cercando il respiro del tuo Ascendente',
           DatoDelContesto.ascendente),
       FraseDellAttesa('Sto misurando il tuo numero della vita',
@@ -93,14 +91,13 @@ class FrasiDellAttesa {
           DatoDelContesto.faseLunareDiNascita),
       FraseDellAttesa(
           'Sto ricordando cosa ti muoveva', DatoDelContesto.memoria),
-      FraseDellAttesa(
-          'Sto respirando insieme alla tua domanda', DatoDelContesto.sempreVero),
+      FraseDellAttesa('Sto respirando insieme alla tua domanda',
+          DatoDelContesto.sempreVero),
     ],
     Maestro.caligo: [
       FraseDellAttesa('Sto cercando il segno del tuo Ascendente',
           DatoDelContesto.ascendente),
-      FraseDellAttesa(
-          'Sto incidendo il tuo Sole', DatoDelContesto.segnoSolare),
+      FraseDellAttesa('Sto incidendo il tuo Sole', DatoDelContesto.segnoSolare),
       FraseDellAttesa(
           'Sto interrogando la tua Luna', DatoDelContesto.segnoLunare),
       FraseDellAttesa('Sto pesando il tuo numero della vita',

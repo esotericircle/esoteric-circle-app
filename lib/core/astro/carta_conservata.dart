@@ -139,8 +139,7 @@ class CartaConservata {
             ChartAspect(
               aLongitude: (a['aLongitude'] as num).toDouble(),
               bLongitude: (a['bLongitude'] as num).toDouble(),
-              type: AspectType.values.firstWhere(
-                  (t) => t.name == a['type'],
+              type: AspectType.values.firstWhere((t) => t.name == a['type'],
                   orElse: () => AspectType.values.first),
               aId: a['aId'] as String?,
               bId: a['bId'] as String?,

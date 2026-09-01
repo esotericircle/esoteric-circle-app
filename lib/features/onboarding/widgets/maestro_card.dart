@@ -101,52 +101,54 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: SizedBox(
-                width: widget.width,
-                height: widget.height + 70, // spazio per la testa che esce
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    // Aura pulsante nel colore del Maestro.
-                    Positioned(
-                      bottom: 20,
-                      child: Container(
-                        width: widget.width * 1.15,
-                        height: widget.width * 1.15,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(
-                            colors: [
-                              p.glow.withValues(
-                                  alpha: 0.18 + 0.22 * auraPulse + 0.3 * glowBurst),
-                              p.primary.withValues(alpha: 0.12),
-                              Colors.transparent,
-                            ],
-                            stops: const [0.0, 0.5, 1.0],
+                  width: widget.width,
+                  height: widget.height + 70, // spazio per la testa che esce
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      // Aura pulsante nel colore del Maestro.
+                      Positioned(
+                        bottom: 20,
+                        child: Container(
+                          width: widget.width * 1.15,
+                          height: widget.width * 1.15,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: RadialGradient(
+                              colors: [
+                                p.glow.withValues(
+                                    alpha: 0.18 +
+                                        0.22 * auraPulse +
+                                        0.3 * glowBurst),
+                                p.primary.withValues(alpha: 0.12),
+                                Colors.transparent,
+                              ],
+                              stops: const [0.0, 0.5, 1.0],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // Cornice a carta.
-                    Positioned(
-                      bottom: 0,
-                      child: _CardFrame(
-                        palette: p,
-                        width: widget.width,
-                        height: widget.height,
+                      // Cornice a carta.
+                      Positioned(
+                        bottom: 0,
+                        child: _CardFrame(
+                          palette: p,
+                          width: widget.width,
+                          height: widget.height,
+                        ),
                       ),
-                    ),
-                    // Il Maestro che esce dalla cornice (testa sopra il bordo).
-                    Positioned(
-                      bottom: 8,
-                      child: RitrattoInteroDelMaestro(
-                        maestro: widget.maestro,
-                        altezza: widget.height + 58,
+                      // Il Maestro che esce dalla cornice (testa sopra il bordo).
+                      Positioned(
+                        bottom: 8,
+                        child: RitrattoInteroDelMaestro(
+                          maestro: widget.maestro,
+                          altezza: widget.height + 58,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
               ),
             ),
           ),
@@ -224,7 +226,8 @@ class _CardFrame extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [palette.surfaceElevated, palette.deepest],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.5),
@@ -238,8 +241,8 @@ class _CardFrame extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            border:
-                Border.all(color: palette.gold.withValues(alpha: 0.35), width: 1),
+            border: Border.all(
+                color: palette.gold.withValues(alpha: 0.35), width: 1),
           ),
           child: Stack(
             children: [

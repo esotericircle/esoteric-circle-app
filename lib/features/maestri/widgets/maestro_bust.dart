@@ -206,6 +206,7 @@ class MaestroBust extends StatefulWidget {
   /// header e lente, dando due tagli diversi dello stesso ritratto. Il taglio
   /// e' uno solo, e il parametro `popOut` non cambia piu' l'inquadratura.
   static const double kCrestOut = -0.03;
+
   /// Nella bolla la testa non puo' uscire, quindi resta un filo sotto il
   /// bordo: a zero il cerchio le rasava la sommita' del capo.
   static const double kCrestIn = -0.03;
@@ -260,7 +261,8 @@ class _MaestroBustState extends State<MaestroBust>
   @override
   void didUpdateWidget(MaestroBust oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.maestro != widget.maestro || oldWidget.image != widget.image) {
+    if (oldWidget.maestro != widget.maestro ||
+        oldWidget.image != widget.image) {
       _failed = false;
     }
   }
@@ -447,4 +449,3 @@ class _FaceView extends StatelessWidget {
     return ClipOval(child: image);
   }
 }
-

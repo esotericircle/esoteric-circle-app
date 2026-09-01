@@ -52,7 +52,8 @@ class TempiDellaChiamata {
 
   /// Quanto dura la sequenza intera, aspetti compresi.
   static Duration intera({required int quantiAspetti}) {
-    final accesi = quantiAspetti < aspettiAccesi ? quantiAspetti : aspettiAccesi;
+    final accesi =
+        quantiAspetti < aspettiAccesi ? quantiAspetti : aspettiAccesi;
     return laChiamata +
         laSuaRuota +
         laTuaRuota +
@@ -77,7 +78,8 @@ class TempiDellaChiamata {
   static const Duration passoFermo = Duration(milliseconds: 260);
 
   static Duration interaFerma({required int quantiAspetti}) {
-    final accesi = quantiAspetti < aspettiAccesi ? quantiAspetti : aspettiAccesi;
+    final accesi =
+        quantiAspetti < aspettiAccesi ? quantiAspetti : aspettiAccesi;
     return passoFermo * (4 + accesi);
   }
 }

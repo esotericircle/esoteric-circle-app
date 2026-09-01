@@ -134,8 +134,8 @@ class VistaDeiRicordi extends ChangeNotifier {
         for (final v in visibili)
           if (v.mese == chiave) v,
       ];
-      fuori.add(RiassuntiDelTempo.di(chiave, dentro,
-          gestiDeiDoni: _gestiDeiDoni));
+      fuori.add(
+          RiassuntiDelTempo.di(chiave, dentro, gestiDeiDoni: _gestiDeiDoni));
     }
     return List.unmodifiable(fuori);
   }

@@ -182,8 +182,7 @@ class ChiamataDelVipState extends State<ChiamataDelVip>
     var scorso = 0.0;
     for (var i = 0; i < MomentoDellaChiamata.values.length; i++) {
       final quanto = passi[i].inMilliseconds / (tutto == 0 ? 1 : tutto);
-      mappa[MomentoDellaChiamata.values[i]] =
-          (da: scorso, a: scorso + quanto);
+      mappa[MomentoDellaChiamata.values[i]] = (da: scorso, a: scorso + quanto);
       scorso += quanto;
     }
     return mappa;

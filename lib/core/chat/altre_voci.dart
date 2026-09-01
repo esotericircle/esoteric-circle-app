@@ -23,8 +23,10 @@ class AltreVoci {
   /// Si RICAVA da [Maestro.fixedOrder], non si scrive: se domani nascesse un
   /// quarto Maestro entrerebbe da solo, e un elenco copiato a mano no. E'
   /// la stessa regola di `VoceDelMaestro.artiDegliAltri`.
-  static List<Maestro> altriDi(Maestro maestro) =>
-      [for (final m in Maestro.fixedOrder) if (m != maestro) m];
+  static List<Maestro> altriDi(Maestro maestro) => [
+        for (final m in Maestro.fixedOrder)
+          if (m != maestro) m
+      ];
 
   /// Quali voci hanno gia' risposto in questa conversazione, nell'ordine fisso.
   ///
@@ -38,7 +40,10 @@ class AltreVoci {
       for (final m in messaggi)
         if (m.isMaestro && m.portaUnResponso) m.autoreEffettivo(predefinito),
     };
-    return [for (final m in Maestro.fixedOrder) if (trovate.contains(m)) m];
+    return [
+      for (final m in Maestro.fixedOrder)
+        if (trovate.contains(m)) m
+    ];
   }
 
   /// Da quante voci in su ha senso una sintesi.
@@ -127,6 +132,9 @@ class AltreVoci {
     if (buffer.toString().trim().isNotEmpty) {
       frasi.add(buffer.toString().trim());
     }
-    return [for (final f in frasi) if (f.isNotEmpty) f];
+    return [
+      for (final f in frasi)
+        if (f.isNotEmpty) f
+    ];
   }
 }

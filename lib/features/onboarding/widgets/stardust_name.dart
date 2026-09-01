@@ -8,7 +8,8 @@ import '../../../design_system/tokens/color_tokens.dart';
 /// stelle: mentre scrive, il nome brilla con un riflesso che scorre e una
 /// nuvola di scintille dorate lo avvolge.
 class StardustName extends StatefulWidget {
-  const StardustName({super.key, required this.name, this.placeholder = 'il tuo nome'});
+  const StardustName(
+      {super.key, required this.name, this.placeholder = 'il tuo nome'});
 
   final String name;
   final String placeholder;
@@ -80,8 +81,7 @@ class _StardustNameState extends State<StardustName>
                     fontSize: 40,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 2,
-                    color: Colors.white
-                        .withValues(alpha: hasName ? 1 : 0.35),
+                    color: Colors.white.withValues(alpha: hasName ? 1 : 0.35),
                   ),
                 ),
               ),

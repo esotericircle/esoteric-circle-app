@@ -79,8 +79,8 @@ class FoglioDellaRinascita {
                     foregroundColor: palette?.onPrimary,
                   ),
                   onPressed: () => Navigator.of(foglio).pop(),
-                  child: Text('Ricomincio',
-                      style: TypographyTokens.etichetta()),
+                  child:
+                      Text('Ricomincio', style: TypographyTokens.etichetta()),
                 ),
               ),
             ],

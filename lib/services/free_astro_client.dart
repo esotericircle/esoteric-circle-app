@@ -43,7 +43,8 @@ const String sistemaDiCaseAtteso = 'placidus';
 /// Le due forme servono a due mestieri diversi: la sigla e' cio' che si
 /// CHIEDE, il nome esteso e' cio' che il fornitore RISPONDE. Tenerle appaiate
 /// qui evita che qualcuno un giorno chieda una cosa e ne controlli un'altra.
-String sigla(String sistema) => const {
+String sigla(String sistema) =>
+    const {
       'placidus': 'P',
       'koch': 'K',
       'porphyry': 'O',
@@ -66,8 +67,8 @@ class FreeAstroClient {
   /// Chiamata reale: la callable Firebase in europe-west1. La regione e' fissa e
   /// coincide con quella della function; App Check e' imposto lato server.
   static Future<Object?> _firebaseCaller(Map<String, Object?> data) async {
-    final callable = FirebaseFunctions.instanceFor(region: 'europe-west1')
-        .httpsCallable(
+    final callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
       'natalChart',
       options: HttpsCallableOptions(timeout: const Duration(seconds: 20)),
     );
@@ -191,7 +192,8 @@ class FreeAstroClient {
     for (final raw in planetsRaw) {
       if (raw is! Map) continue;
       final map = raw.cast<String, dynamic>();
-      final id = (map['id'] ?? map['name'] ?? '').toString().toLowerCase().trim();
+      final id =
+          (map['id'] ?? map['name'] ?? '').toString().toLowerCase().trim();
       final lon = _num(map['abs_pos'] ?? map['fullDegree'] ?? map['longitude']);
       if (lon == null) continue;
       final sign = _sign(map['sign_id'] ?? map['sign']) ?? _signFromLon(lon);

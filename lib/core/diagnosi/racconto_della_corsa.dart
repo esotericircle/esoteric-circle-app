@@ -50,9 +50,8 @@ class _RaccontoDellaCorsaState extends State<RaccontoDellaCorsa> {
                 // quindi la si legge col ruolo come tutto il resto.
                 Text('BUILD DIAGNOSTICA',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: const Color(0xFFC9A961),
-                            letterSpacing: 3)),
+                    style: TypographyTokens.corpo().copyWith(
+                        color: const Color(0xFFC9A961), letterSpacing: 3)),
                 const SizedBox(height: 24),
                 const Text('Ultima tappa raggiunta:',
                     textAlign: TextAlign.center,

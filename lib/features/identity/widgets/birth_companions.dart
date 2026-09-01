@@ -70,8 +70,7 @@ class BirthCompanions extends StatelessWidget {
                     Text('Animale guida',
                         style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft, letterSpacing: 2)),
-                    Text(animale.name,
-                        style: TypographyTokens.titoloScheda()),
+                    Text(animale.name, style: TypographyTokens.titoloScheda()),
                   ],
                 ),
               ),
@@ -93,8 +92,8 @@ class BirthCompanions extends StatelessWidget {
               Row(
                 children: [
                   Text('I tuoi Angeli',
-                      style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 2)),
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: palette.goldSoft, letterSpacing: 2)),
                   const Spacer(),
                   if (identity != null)
                     Icon(Icons.chevron_right_rounded, color: palette.goldSoft),

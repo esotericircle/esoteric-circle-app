@@ -105,40 +105,40 @@ class CartaIngrandita extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: ColoredBox(
-      color: backgroundColor,
-      child: Semantics(
-        label: 'La carta ${letta.drawn.card.name} aperta, '
-            'tocca fuori per chiudere',
-        child: GestureDetector(
-          // IL TOCCO FUORI, di nuovo: il velo lo intercetta, ma chi tocca il
-          // margine della colonna deve chiudere lo stesso.
-          onTap: () => Navigator.of(context).maybePop(),
-          // IL TRASCINAMENTO VERSO IL BASSO, terza uscita: il gesto che tutti
-          // provano su una cosa che si e' alzata.
-          onVerticalDragEnd: (d) {
-            if ((d.primaryVelocity ?? 0) > 200) {
-              Navigator.of(context).maybePop();
-            }
-          },
-          behavior: HitTestBehavior.opaque,
-          child: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.lg, vertical: SpacingTokens.lg),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _laCarta(context, spec, largaCarta),
-                    const SizedBox(height: SpacingTokens.lg),
-                    _ilTesto(context),
-                  ],
+        color: backgroundColor,
+        child: Semantics(
+          label: 'La carta ${letta.drawn.card.name} aperta, '
+              'tocca fuori per chiudere',
+          child: GestureDetector(
+            // IL TOCCO FUORI, di nuovo: il velo lo intercetta, ma chi tocca il
+            // margine della colonna deve chiudere lo stesso.
+            onTap: () => Navigator.of(context).maybePop(),
+            // IL TRASCINAMENTO VERSO IL BASSO, terza uscita: il gesto che tutti
+            // provano su una cosa che si e' alzata.
+            onVerticalDragEnd: (d) {
+              if ((d.primaryVelocity ?? 0) > 200) {
+                Navigator.of(context).maybePop();
+              }
+            },
+            behavior: HitTestBehavior.opaque,
+            child: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.lg, vertical: SpacingTokens.lg),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _laCarta(context, spec, largaCarta),
+                      const SizedBox(height: SpacingTokens.lg),
+                      _ilTesto(context),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
       ),
     );
   }

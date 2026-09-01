@@ -128,8 +128,7 @@ class GuideAnimalCorpus {
           "La sua lezione è l'appartenenza: la vera libertà non spezza i legami, li sceglie.",
       quando:
           "Si presenta come guida quando devi difendere i tuoi o ritrovare la tua tribù senza perdere te stesso.",
-      invito:
-          "Oggi fidati di un'intuizione forte e proteggi ciò che ami.",
+      invito: "Oggi fidati di un'intuizione forte e proteggi ciò che ami.",
       messaggi: [
         "fidati dell'istinto, sa già la strada.",
         "torna ai tuoi, il branco ti aspetta.",
@@ -180,8 +179,7 @@ class GuideAnimalCorpus {
           "La sua lezione è il discernimento: non farsi ingannare dal buio, ma imparare a vederci dentro.",
       quando:
           "Si presenta come guida quando una verità scomoda chiede di essere guardata, senza fughe.",
-      invito:
-          "Oggi ascolta il silenzio e osserva ciò che di solito ti sfugge.",
+      invito: "Oggi ascolta il silenzio e osserva ciò che di solito ti sfugge.",
       messaggi: [
         "guarda oltre l'apparenza, la verità è sotto.",
         "il silenzio ti parla, ascoltalo.",
@@ -206,8 +204,7 @@ class GuideAnimalCorpus {
           "La sua lezione è che la dolcezza non è debolezza: si può essere gentili e fermi insieme.",
       quando:
           "Si presenta come guida quando la durezza non serve e la via si apre con la grazia.",
-      invito:
-          "Oggi tratta te stesso e gli altri con una gentilezza nuova.",
+      invito: "Oggi tratta te stesso e gli altri con una gentilezza nuova.",
       messaggi: [
         "la dolcezza apre porte che la forza chiude.",
         "muoviti con grazia, senza fretta.",
@@ -258,8 +255,7 @@ class GuideAnimalCorpus {
           "La sua lezione è che la libertà vera ha una direzione: la corsa senza meta stanca, la corsa scelta libera.",
       quando:
           "Si presenta come guida quando ti serve slancio per partire e coraggio per allargare i confini.",
-      invito:
-          "Oggi fai un passo verso un tuo orizzonte, muoviti davvero.",
+      invito: "Oggi fai un passo verso un tuo orizzonte, muoviti davvero.",
       messaggi: [
         "parti, l'orizzonte ti chiama.",
         "porta la tua energia lontano.",
@@ -284,8 +280,7 @@ class GuideAnimalCorpus {
           "La sua lezione è la costanza: il passo piccolo, ripetuto, batte lo scatto che si spegne.",
       quando:
           "Si presenta come guida quando la fretta ti danneggia e ti serve tornare al passo giusto.",
-      invito:
-          "Oggi scegli un passo piccolo e sostenibile da ripetere domani.",
+      invito: "Oggi scegli un passo piccolo e sostenibile da ripetere domani.",
       messaggi: [
         "va' piano, arriverai lo stesso.",
         "la costanza batte la fretta.",
@@ -336,8 +331,7 @@ class GuideAnimalCorpus {
           "La sua lezione è fidarsi del sesto senso: ciò che percepisci ha valore, anche se non lo sai spiegare.",
       quando:
           "Si presenta come guida quando un segreto, tuo o altrui, chiede di essere visto e onorato.",
-      invito:
-          "Oggi fidati di una percezione sottile, anche senza prove.",
+      invito: "Oggi fidati di una percezione sottile, anche senza prove.",
       messaggi: [
         "fidati del sesto senso, vede giusto.",
         "un segreto ti si sta svelando.",

@@ -175,6 +175,34 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
             // resterebbe ferma proprio dove serve di piu': a lista finita, o in
             // una conversazione corta, il contenuto non ha piu' niente da
             // scorrere, quindi nessun aggiornamento di scorrimento nasce.
+            // **A DITO ALZATO LA BARRA ARRIVA IN FONDO, DA UNA PARTE O
+            // DALL'ALTRA.** Ordine CI voce 04.
+            //
+            // Il fatto: la scritta gialla ESPLORA non spariva mai del tutto,
+            // restava un residuo visibile. La causa non era un residuo di
+            // disegno ne' una linguetta voluta: **qui non c'era nessuno stato
+            // finale**. La barra seguiva il dito e restava esattamente dove
+            // il dito la lasciava, quindi uno scorrimento breve la fermava a
+            // meta' e li' ci restava, con mezza ESPLORA a schermo, fino allo
+            // scorrimento dopo. Non era qualcosa che non spariva nella
+            // transizione: era una transizione che non finiva.
+            //
+            // Adesso, quando il gesto finisce, la barra va all'estremo piu'
+            // vicino con la stessa animazione dei tocchi. Lo spazio riservato
+            // resta costante, quindi qui non si rilaya niente e la regola del
+            // 6 agosto 2026 non e' toccata: si sposta solo il disegno.
+            if (n is ScrollEndNotification) {
+              const meta = BarraDelCerchio.corsa / 2;
+              final fine = _discesa >= meta ? BarraDelCerchio.corsa : 0.0;
+              if (fine != _discesa) {
+                setState(() {
+                  _perUnTocco = true;
+                  _discesa = fine;
+                  _diciLaCorsa();
+                });
+              }
+              return false;
+            }
             final dito = switch (n) {
               ScrollUpdateNotification u => u.dragDetails?.delta.dy,
               OverscrollNotification o => o.dragDetails?.delta.dy,

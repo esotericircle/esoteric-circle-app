@@ -184,7 +184,8 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         // un'altra: a capo FRA le parole, e la misura scende solo quanto
         // serve, entro un minimo dichiarato.
         titolo: TitoloCheNonSiRompe(
-            testo: 'Animale Guida', stile: TypographyTokens.titoloDiSchermata()),
+            testo: 'Animale Guida',
+            stile: TypographyTokens.titoloDiSchermata()),
         azioni: [
           IconButton(
             key: const Key('animal_sources'),
@@ -265,8 +266,8 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                 'prima ascolti chi sei nel profondo, il tuo totem ti somiglierà '
                 'di più. Il Test Archetipo dura tre minuti e rende questa '
                 'rivelazione tua fino in fondo.',
-                style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textPrimary, height: 1.5),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.5),
               ),
               const SizedBox(height: SpacingTokens.lg),
               // Verde di Aura, non rosso di Caligo: il Test Archetipo e' un'arte
@@ -336,8 +337,8 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(GuideAnimalCorpus.fontiEMetodo,
-                  style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textPrimary, height: 1.45)),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
                 alignment: Alignment.centerRight,
@@ -460,8 +461,8 @@ class _Messaggio extends StatelessWidget {
           TextButton.icon(
             key: const Key('animal_bosco_link'),
             onPressed: () => BoscoDelCerchio.apri(context, mio: animal.name),
-            icon: Icon(Icons.forest_outlined,
-                size: 18, color: palette.goldSoft),
+            icon:
+                Icon(Icons.forest_outlined, size: 18, color: palette.goldSoft),
             label: Text('Il bosco del Cerchio',
                 style: TypographyTokens.label(size: 13)
                     .copyWith(color: palette.goldSoft)),
@@ -505,14 +506,15 @@ class _Trasparenza extends StatelessWidget {
               Icon(Icons.public_outlined, size: 15, color: palette.goldSoft),
               const SizedBox(width: SpacingTokens.xs),
               Text('Come nasce il messaggio di oggi',
-                  style: TypographyTokens.label(size: 12).copyWith(
-                      color: palette.goldSoft, letterSpacing: 0.6)),
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text('Il transito di oggi', style: etichetta),
           const SizedBox(height: 2),
-          Text(messaggio.transito, key: const Key('animal_transit'), style: corpo),
+          Text(messaggio.transito,
+              key: const Key('animal_transit'), style: corpo),
           const SizedBox(height: SpacingTokens.sm),
           Text('Dalla tua carta natale', style: etichetta),
           const SizedBox(height: 2),
@@ -582,15 +584,35 @@ class _Identita extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          _Bolla(chiave: 'animal_natura', titolo: 'La sua natura', testo: r.natura, palette: palette),
+          _Bolla(
+              chiave: 'animal_natura',
+              titolo: 'La sua natura',
+              testo: r.natura,
+              palette: palette),
           const SizedBox(height: SpacingTokens.md),
-          _Bolla(chiave: 'animal_dono', titolo: 'Il dono', testo: r.dono, palette: palette),
+          _Bolla(
+              chiave: 'animal_dono',
+              titolo: 'Il dono',
+              testo: r.dono,
+              palette: palette),
           const SizedBox(height: SpacingTokens.md),
-          _Bolla(chiave: 'animal_lezione', titolo: 'La lezione', testo: r.lezione, palette: palette),
+          _Bolla(
+              chiave: 'animal_lezione',
+              titolo: 'La lezione',
+              testo: r.lezione,
+              palette: palette),
           const SizedBox(height: SpacingTokens.md),
-          _Bolla(chiave: 'animal_quando', titolo: 'Quando ti guida', testo: r.quando, palette: palette),
+          _Bolla(
+              chiave: 'animal_quando',
+              titolo: 'Quando ti guida',
+              testo: r.quando,
+              palette: palette),
           const SizedBox(height: SpacingTokens.md),
-          _Bolla(chiave: 'animal_invito', titolo: "L'invito", testo: r.invito, palette: palette),
+          _Bolla(
+              chiave: 'animal_invito',
+              titolo: "L'invito",
+              testo: r.invito,
+              palette: palette),
 
           // LA SEZIONE DELL'ARCHETIPO, solo se c'e' un risultato del Test.
           if (archetipo != null) ...[

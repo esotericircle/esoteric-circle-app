@@ -203,8 +203,8 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
                   onPressed: _incolla,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: palette.goldSoft,
-                    side: BorderSide(
-                        color: palette.gold.withValues(alpha: 0.55)),
+                    side:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.55)),
                     // Stretto quanto basta: la parola sta in ottantotto
                     // punti, e ogni punto in piu' lo perde il campo, che e'
                     // dove si legge il codice.
@@ -213,8 +213,7 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: SpacingTokens.sm),
                   ),
-                  child: Text('Incolla',
-                      style: TypographyTokens.etichetta()),
+                  child: Text('Incolla', style: TypographyTokens.etichetta()),
                 ),
               ],
             ),

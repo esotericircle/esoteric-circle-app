@@ -135,7 +135,8 @@ class _EmblemPainter extends CustomPainter {
     Path flame(double w, Offset t2) => Path()
       ..moveTo(base.dx - w, base.dy)
       ..quadraticBezierTo(base.dx - w, (base.dy + t2.dy) / 2, t2.dx, t2.dy)
-      ..quadraticBezierTo(base.dx + w, (base.dy + t2.dy) / 2, base.dx + w, base.dy)
+      ..quadraticBezierTo(
+          base.dx + w, (base.dy + t2.dy) / 2, base.dx + w, base.dy)
       ..close();
     canvas.drawPath(flame(r * 0.34, tip), Paint()..color = color);
     canvas.drawPath(flame(r * 0.18, Offset(tip.dx, tip.dy + r * 0.28)),
@@ -146,7 +147,8 @@ class _EmblemPainter extends CustomPainter {
     final sway = math.sin(t * 2 * math.pi) * 0.12;
     final stem = Path()
       ..moveTo(c.dx, c.dy + r * 0.7)
-      ..quadraticBezierTo(c.dx + r * sway, c.dy, c.dx + r * sway, c.dy - r * 0.7);
+      ..quadraticBezierTo(
+          c.dx + r * sway, c.dy, c.dx + r * sway, c.dy - r * 0.7);
     canvas.drawPath(
         stem,
         Paint()
@@ -178,7 +180,8 @@ class _EmblemPainter extends CustomPainter {
       for (var x = -0.7; x <= 0.7; x += 0.1) {
         path.lineTo(c.dx + r * x, yy + math.sin(ph + x * 6) * r * 0.12);
       }
-      canvas.drawPath(path, paint..color = color.withValues(alpha: 0.5 + 0.4 * (1 - k / 3)));
+      canvas.drawPath(path,
+          paint..color = color.withValues(alpha: 0.5 + 0.4 * (1 - k / 3)));
     }
   }
 

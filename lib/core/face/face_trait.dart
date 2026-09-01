@@ -48,8 +48,8 @@ enum FaceTrait {
   // Fronte.
   fronteSfuggente(FaceCategory.fronte, 'Fronte sfuggente',
       'Il pensiero che corre al risultato'),
-  fronteVerticale(
-      FaceCategory.fronte, 'Fronte verticale', 'Il metodo che precede la scelta'),
+  fronteVerticale(FaceCategory.fronte, 'Fronte verticale',
+      'Il metodo che precede la scelta'),
 
   // Sopracciglia.
   sopraccigliaDritte(
@@ -97,8 +97,7 @@ enum FaceTrait {
 
   // Zigomi.
   zigomiAlti(FaceCategory.zigomi, 'Zigomi alti', 'L\'amore della sfida'),
-  zigomiMorbidi(
-      FaceCategory.zigomi, 'Zigomi morbidi', 'La ricerca del calore');
+  zigomiMorbidi(FaceCategory.zigomi, 'Zigomi morbidi', 'La ricerca del calore');
 
   const FaceTrait(this.categoria, this.nome, this.titoloEvocativo);
 

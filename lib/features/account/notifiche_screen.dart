@@ -48,7 +48,8 @@ class NotificheScreen extends StatefulWidget {
   /// ferma. E' la stessa iniezione che usa gia' il Rito dell'Alba.
   final ServizioAvvisi? avvisi;
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const NotificheScreen());
+  static Route<void> route() =>
+      PassaggioDelCerchio.rotta<void>((_) => const NotificheScreen());
 
   @override
   State<NotificheScreen> createState() => _NotificheScreenState();
@@ -99,7 +100,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
     if (!mounted) return;
     setState(() => _esitoDellaProva =
         'Mandata adesso. Se non compare nella tenda del telefono, il '
-        'problema è nel sistema e non nel Cerchio.');
+            'problema è nel sistema e non nel Cerchio.');
   }
 
   Future<void> _guardaIlPermesso() async {
@@ -183,8 +184,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
   /// Si apre l'orologio di sistema, quello che la persona conosce gia' da
   /// tutte le altre app: un selettore fatto in casa sarebbe una cosa nuova da
   /// imparare per scegliere un'ora.
-  Future<void> _cambiaLOra(
-      DailyElement dono, SceltaDegliAvvisi scelta) async {
+  Future<void> _cambiaLOra(DailyElement dono, SceltaDegliAvvisi scelta) async {
     final adesso = scelta.oraDi(dono);
     final scelto = await showTimePicker(
       context: context,
@@ -241,77 +241,77 @@ class _NotificheScreenState extends State<NotificheScreen> {
           seed: 11,
           showZodiac: false,
           child: SafeArea(
-              child: ListView(
-                padding: const EdgeInsets.all(SpacingTokens.lg),
-                children: [
-                  Text(
-                    'I Doni del giorno hanno ciascuno la sua ora. Scegli quali '
-                    'ti chiamano. Gli altri restano lì: li apri quando vuoi.',
-                    key: const Key('notifiche_intro'),
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: ColorTokens.textSecondary),
-                  ),
-                  const SizedBox(height: SpacingTokens.lg),
-                  if (_permesso == false) ...[
-                    _IlPermessoManca(onTocco: _chiediIlPermesso),
-                    const SizedBox(height: SpacingTokens.lg),
-                  ],
-                  for (final dono in DailyElement.values) ...[
-                    _UnAppuntamento(
-                      dono: dono,
-                      acceso: scelta.chiama(dono),
-                      palette: palette,
-                      // **Spento del tutto quando il permesso manca**: un
-                      // interruttore che si muove senza che arrivi niente e'
-                      // peggio di un interruttore fermo.
-                      attivabile: _permesso != false,
-                      suScelta: (v) async {
-                        await scelta.scegli(dono, v);
-                        if (mounted) await _riprogramma();
-                      },
-                      suOra: () => _cambiaLOra(dono, scelta),
-                      oraDetta: _comeSiScrive(scelta.oraDi(dono)),
-                    ),
-                    const SizedBox(height: SpacingTokens.sm),
-                  ],
-                  const SizedBox(height: SpacingTokens.md),
-                  Text(
-                    _laRigaDelConto(accesi),
-                    key: const Key('notifiche_conto'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textMuted),
-                  ),
-                  const SizedBox(height: SpacingTokens.lg),
-                  // **LA VIA PER MISURARE, ordine CF voce 04.**
-                  //
-                  // **Fatto del fondatore, verbatim**: "da quando ho iniziato
-                  // a installare le varie build dell'APP NON HO MAI RICEVUTO
-                  // ALCUNA NOTIFICA PUSH PER I DONI, MAI!"
-                  //
-                  // **Da fuori due difetti diversi si vedono uguali**: il
-                  // Cerchio che non programma niente, e il telefono che non
-                  // esegue cio' che ha in coda. Il secondo e' una causa nota
-                  // sui telefoni di certi produttori, che addormentano le
-                  // chiamate approssimate per risparmiare batteria. Senza un
-                  // modo di guardare, la diagnosi sarebbe una supposizione.
-                  //
-                  // **Qui non si suppone: si contano le chiamate in coda e si
-                  // prova il canale subito.** Se la prova arriva e le chiamate
-                  // in coda ci sono, allora quello che manca e' l'esecuzione a
-                  // tempo, ed e' un fatto da portare al produttore del
-                  // telefono, non un difetto da cercare nel codice.
-                  _LaCodaDelTelefono(
-                    inCoda: _inCoda,
-                    sistoGuardando: _sistoGuardando,
-                    esitoDellaProva: _esitoDellaProva,
-                    palette: palette,
-                    suGuarda: _contaLaCoda,
-                    suProva: _provaAdesso,
-                  ),
+            child: ListView(
+              padding: const EdgeInsets.all(SpacingTokens.lg),
+              children: [
+                Text(
+                  'I Doni del giorno hanno ciascuno la sua ora. Scegli quali '
+                  'ti chiamano. Gli altri restano lì: li apri quando vuoi.',
+                  key: const Key('notifiche_intro'),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+                if (_permesso == false) ...[
+                  _IlPermessoManca(onTocco: _chiediIlPermesso),
                   const SizedBox(height: SpacingTokens.lg),
                 ],
-              ),
+                for (final dono in DailyElement.values) ...[
+                  _UnAppuntamento(
+                    dono: dono,
+                    acceso: scelta.chiama(dono),
+                    palette: palette,
+                    // **Spento del tutto quando il permesso manca**: un
+                    // interruttore che si muove senza che arrivi niente e'
+                    // peggio di un interruttore fermo.
+                    attivabile: _permesso != false,
+                    suScelta: (v) async {
+                      await scelta.scegli(dono, v);
+                      if (mounted) await _riprogramma();
+                    },
+                    suOra: () => _cambiaLOra(dono, scelta),
+                    oraDetta: _comeSiScrive(scelta.oraDi(dono)),
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                ],
+                const SizedBox(height: SpacingTokens.md),
+                Text(
+                  _laRigaDelConto(accesi),
+                  key: const Key('notifiche_conto'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textMuted),
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+                // **LA VIA PER MISURARE, ordine CF voce 04.**
+                //
+                // **Fatto del fondatore, verbatim**: "da quando ho iniziato
+                // a installare le varie build dell'APP NON HO MAI RICEVUTO
+                // ALCUNA NOTIFICA PUSH PER I DONI, MAI!"
+                //
+                // **Da fuori due difetti diversi si vedono uguali**: il
+                // Cerchio che non programma niente, e il telefono che non
+                // esegue cio' che ha in coda. Il secondo e' una causa nota
+                // sui telefoni di certi produttori, che addormentano le
+                // chiamate approssimate per risparmiare batteria. Senza un
+                // modo di guardare, la diagnosi sarebbe una supposizione.
+                //
+                // **Qui non si suppone: si contano le chiamate in coda e si
+                // prova il canale subito.** Se la prova arriva e le chiamate
+                // in coda ci sono, allora quello che manca e' l'esecuzione a
+                // tempo, ed e' un fatto da portare al produttore del
+                // telefono, non un difetto da cercare nel codice.
+                _LaCodaDelTelefono(
+                  inCoda: _inCoda,
+                  sistoGuardando: _sistoGuardando,
+                  esitoDellaProva: _esitoDellaProva,
+                  palette: palette,
+                  suGuarda: _contaLaCoda,
+                  suProva: _provaAdesso,
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+              ],
+            ),
           ),
         ),
       ),
@@ -481,18 +481,17 @@ class _UnAppuntamento extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Switch(
-            key: Key('notifiche_interruttore_${dono.name}'),
-            value: acceso,
-            onChanged: attivabile ? (v) => suScelta(v) : null,
-            activeThumbColor: palette.gold,
-          ),
+              key: Key('notifiche_interruttore_${dono.name}'),
+              value: acceso,
+              onChanged: attivabile ? (v) => suScelta(v) : null,
+              activeThumbColor: palette.gold,
+            ),
           ),
         ],
       ),
     );
   }
 }
-
 
 /// LA CODA DEL TELEFONO, guardata invece che supposta. Ordine CF voce 04.
 ///

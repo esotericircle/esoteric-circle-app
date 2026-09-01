@@ -394,6 +394,7 @@ class DomandeDelCerchio {
         maestro: Maestro.caligo,
         dove: {DoveServeLaDomanda.chat}),
   ];
+
   /// LE DOMANDE DELLA GETTATA, per famiglia, con i dati che la persona ha.
   ///
   /// Una personale senza il suo dato NON si mostra: una domanda che nomina la tua
@@ -412,7 +413,8 @@ class DomandeDelCerchio {
 
   /// Le domande della chat di un Maestro, per famiglia. E' la lista che
   /// `SuggestionSets` mostra: la sua casa e' qui.
-  static List<String> perLaChat(Maestro maestro, FamigliaDellaDomanda famiglia) =>
+  static List<String> perLaChat(
+          Maestro maestro, FamigliaDellaDomanda famiglia) =>
       dellaChat
           .where((d) => d.maestro == maestro && d.famiglia == famiglia)
           .map((d) => d.testo)

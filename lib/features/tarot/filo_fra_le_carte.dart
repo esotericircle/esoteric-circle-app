@@ -93,7 +93,8 @@ class _PittoreDelFilo extends CustomPainter {
     // **UN SOLO TRACCIATO, e non tre disegni.** Il costo per fotogramma e' la
     // ragione: una polilinea sola con un velo sopra sta largamente sotto il
     // budget, mentre tre `drawLine` con altrettanti Paint no.
-    final tracciato = Path()..moveTo(centri[ordine[0]].dx, centri[ordine[0]].dy);
+    final tracciato = Path()
+      ..moveTo(centri[ordine[0]].dx, centri[ordine[0]].dy);
     for (var i = 1; i < ordine.length; i++) {
       tracciato.lineTo(centri[ordine[i]].dx, centri[ordine[i]].dy);
     }

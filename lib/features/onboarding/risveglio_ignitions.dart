@@ -177,7 +177,8 @@ class HorizonRisePainter extends CustomPainter {
           const Color(0x00000000),
         ]).createShader(Rect.fromCircle(center: point, radius: w * 0.06)),
     );
-    canvas.drawCircle(point, w * 0.016, Paint()..color = const Color(0xFFFFF3D0));
+    canvas.drawCircle(
+        point, w * 0.016, Paint()..color = const Color(0xFFFFF3D0));
   }
 
   @override
@@ -220,7 +221,8 @@ class HousesAnchorPainter extends CustomPainter {
     // Dodici raggi: i confini delle case che si dispongono.
     final spokes = (12 * t).clamp(0, 12).floor();
     for (var i = 0; i < (anchored ? spokes : 12); i++) {
-      final ang = 2 * math.pi * i / 12 - math.pi; // parte dall'orizzonte a ovest
+      final ang =
+          2 * math.pi * i / 12 - math.pi; // parte dall'orizzonte a ovest
       final dir = Offset(math.cos(ang), math.sin(ang));
       canvas.drawLine(center + dir * r * 0.2, center + dir * r,
           stroke(math.max(1.0, r * 0.006), i % 3 == 0 ? 0.55 : 0.3));

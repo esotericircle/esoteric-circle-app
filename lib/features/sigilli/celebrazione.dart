@@ -246,8 +246,11 @@ class RegistroDelleFeste {
           {required String gesto,
           required String traguardo,
           DateTime? quando}) =>
-      _mostrate
-          .add((gesto: gesto, traguardo: traguardo, quando: quando ?? DateTime.now()));
+      _mostrate.add((
+        gesto: gesto,
+        traguardo: traguardo,
+        quando: quando ?? DateTime.now()
+      ));
 
   /// Quante coppie di feste CONSECUTIVE sono nate dallo stesso gesto: e' il
   /// numero che dice se la legge dell'ordine BS regge davvero.
@@ -394,13 +397,22 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
 /// corso, perche' su un traguardo preso stamattina l'anno e' rumore.
 String _quandoScritto(DateTime quando) {
   const mesi = [
-    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio',
-    'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+    'gennaio',
+    'febbraio',
+    'marzo',
+    'aprile',
+    'maggio',
+    'giugno',
+    'luglio',
+    'agosto',
+    'settembre',
+    'ottobre',
+    'novembre',
+    'dicembre',
   ];
   final ora = quando.hour.toString().padLeft(2, '0');
   final minuti = quando.minute.toString().padLeft(2, '0');
-  final anno =
-      quando.year == DateTime.now().year ? '' : ' ${quando.year}';
+  final anno = quando.year == DateTime.now().year ? '' : ' ${quando.year}';
   return '${quando.day} ${mesi[quando.month - 1]}$anno alle $ora:$minuti';
 }
 
@@ -587,251 +599,272 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
           onTap: _salta,
           child: Stack(
             children: [
-        // **LA SCHEDA E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
-        // Si nasconde con `Visibility` e non con un `Opacity`: l'opacita' a
-        // zero e' una dissolvenza che comincia, e l'ordine chiede che al frame
-        // 21 la scheda appaia DI COLPO. `maintainState` e `maintainSize`
-        // tengono l'ingombro, cosi' quando compare non salta niente.
-        Visibility(
-          visible: _traguardoVisibile,
-          maintainState: true,
-          maintainSize: true,
-          maintainAnimation: true,
-          child: SafeArea(
-          // LA SCENA SCORRE SE LO SCHERMO E' BASSO, invece di traboccare: su
-          // un telefono piccolo, o con la scrittura ingrandita, la festa non
-          // deve diventare una riga gialla di errore. La prova lo ha trovato
-          // al primo montaggio, su uno schermo da 600 punti.
-          //
-          // **E IL CONGEDO STA FUORI DALLO SCORRIMENTO, ordine AN voce 09.**
-          // Finche' stava in fondo alla colonna bastava che la festa
-          // crescesse per spingerlo oltre il bordo, ed e' successo: le tre
-          // frasi "quando arrivano i tuoi Eos" della voce 08 lo hanno portato
-          // a 877 punti su uno schermo di 797, cioe' fuori. Una festa a
-          // schermo pieno senza uscita raggiungibile e' una stanza senza
-          // porta, quindi la porta si ancora al fondo e il resto scorre
-          // sotto: qualunque cosa cresca dentro domani, l'uscita resta dov'e'.
-          child: LayoutBuilder(
-            builder: (context, vincoli) => Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    minHeight: vincoli.maxHeight - _altezzaDelCongedo),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: SpacingTokens.xxl),
-                    // IL SEGNO DI OGNI SENTIERO COINVOLTO: quasi sempre uno,
-                    // e con una festa unita di sentieri diversi uno ciascuno.
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              // **LA SCHEDA E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+              // Si nasconde con `Visibility` e non con un `Opacity`: l'opacita' a
+              // zero e' una dissolvenza che comincia, e l'ordine chiede che al frame
+              // 21 la scheda appaia DI COLPO. `maintainState` e `maintainSize`
+              // tengono l'ingombro, cosi' quando compare non salta niente.
+              Visibility(
+                visible: _traguardoVisibile,
+                maintainState: true,
+                maintainSize: true,
+                maintainAnimation: true,
+                child: SafeArea(
+                  // LA SCENA SCORRE SE LO SCHERMO E' BASSO, invece di traboccare: su
+                  // un telefono piccolo, o con la scrittura ingrandita, la festa non
+                  // deve diventare una riga gialla di errore. La prova lo ha trovato
+                  // al primo montaggio, su uno schermo da 600 punti.
+                  //
+                  // **E IL CONGEDO STA FUORI DALLO SCORRIMENTO, ordine AN voce 09.**
+                  // Finche' stava in fondo alla colonna bastava che la festa
+                  // crescesse per spingerlo oltre il bordo, ed e' successo: le tre
+                  // frasi "quando arrivano i tuoi Eos" della voce 08 lo hanno portato
+                  // a 877 punti su uno schermo di 797, cioe' fuori. Una festa a
+                  // schermo pieno senza uscita raggiungibile e' una stanza senza
+                  // porta, quindi la porta si ancora al fondo e il resto scorre
+                  // sotto: qualunque cosa cresca dentro domani, l'uscita resta dov'e'.
+                  child: LayoutBuilder(
+                    builder: (context, vincoli) => Column(
                       children: [
-                        for (final s in coinvolti) ...[
-                          SegnoDelMaestro(
-                            sentiero: s,
-                            avanzamento: _segno,
-                            grande: true,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingTokens.lg),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  minHeight:
+                                      vincoli.maxHeight - _altezzaDelCongedo),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: SpacingTokens.xxl),
+                                  // IL SEGNO DI OGNI SENTIERO COINVOLTO: quasi sempre uno,
+                                  // e con una festa unita di sentieri diversi uno ciascuno.
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      for (final s in coinvolti) ...[
+                                        SegnoDelMaestro(
+                                          sentiero: s,
+                                          avanzamento: _segno,
+                                          grande: true,
+                                        ),
+                                        if (s != coinvolti.last)
+                                          const SizedBox(
+                                              width: SpacingTokens.md),
+                                      ],
+                                    ],
+                                  ),
+                                  const SizedBox(height: SpacingTokens.lg),
+                                  // **LA PAROLA DI PREMIO, SOPRA OGNI ALTRO TESTO.** Ordine
+                                  // AT voce 07: al frame 21 compaiono insieme, nello stesso
+                                  // fotogramma, l'immagine del traguardo e questa parola.
+                                  // Durante i primi venti fotogrammi lo schermo e' solo
+                                  // stelle, e questo blocco non e' a schermo perche' tutta
+                                  // la scheda e' invisibile fino allo stacco.
+                                  //
+                                  // **Il resto del contenuto della card e' materia
+                                  // dell'ordine AU voce 04**, e questo ordine non ci mette
+                                  // le mani: qui si decide soltanto QUANDO entra in scena.
+                                  // **LA PAROLA DI PREMIO STA SEMPRE SU UNA RIGA SOLA.**
+                                  // Ordine AU voce 07. Sulla 2188 usciva "CONGRATULAZI" a
+                                  // capo "ONI", spezzata in mezzo a una parola, ed e' lo
+                                  // stesso difetto che l'ordine AS voce 05 aveva curato sul
+                                  // NOME del traguardo senza che nessuno guardasse la
+                                  // parola qui sopra. Si rimpicciolisce per entrare, non va
+                                  // a capo: una parola tagliata a meta' non e' una festa.
+                                  //
+                                  // **LA GERARCHIA SI CALCOLA, non si scrive.** Ordine AU
+                                  // voce 07: tre corpi diversi e distinguibili a colpo
+                                  // d'occhio. Scriverli fissi non basta, e la prova lo ha
+                                  // fatto vedere: su uno schermo da 360 punti la parola di
+                                  // premio scendeva da 34 a 27 per entrare su una riga,
+                                  // mentre il nome restava a 28, cioe' a video il premio
+                                  // diventava PIU' PICCOLO del nome. Qui si misura prima il
+                                  // corpo con cui la parola entra, e gli altri due livelli
+                                  // scendono con lei mantenendo il rapporto.
+                                  LayoutBuilder(builder: (context, vincoli) {
+                                    final stilePremio =
+                                        TypographyTokens.cerimonialeGrande()
+                                            .copyWith(
+                                                color: palette.gold,
+                                                letterSpacing: 1.6);
+                                    final corpoPremio =
+                                        TitoloCheNonSiSpezza.corpoCheEntra(
+                                            'CONGRATULAZIONI',
+                                            stilePremio,
+                                            vincoli.maxWidth,
+                                            minimo: 22);
+                                    return Column(children: [
+                                      Text(
+                                        'CONGRATULAZIONI',
+                                        key: const Key(
+                                            'celebrazione_congratulazioni'),
+                                        textAlign: TextAlign.center,
+                                        style: stilePremio.copyWith(
+                                            fontSize: corpoPremio),
+                                      ),
+                                      const SizedBox(height: SpacingTokens.sm),
+                                      for (final t in widget.traguardi) ...[
+                                        // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
+                                        // ordine AS voce 05, e non e' in maiuscolo
+                                        // integrale, ordine AU voce 07: quello vale solo per
+                                        // la parola qui sopra.
+                                        TitoloCheNonSiSpezza(
+                                          nomeInTondo(t.nome),
+                                          key: t == widget.traguardi.first
+                                              ? const Key('celebrazione_nome')
+                                              : null,
+                                          stile: TypographyTokens.cerimoniale()
+                                              .copyWith(
+                                                  color: palette.goldSoft,
+                                                  fontSize: corpoPremio * 0.72),
+                                          minimo: 16,
+                                        ),
+                                        // **QUANDO E' STATO RAGGIUNTO**, richiesta del
+                                        // fondatore ferma dal 17 agosto. L'istante c'era
+                                        // gia' nel dato del Sigillo, `quandoSiEAcceso`, e
+                                        // nessuno lo mostrava. Per i Sigilli accesi prima
+                                        // che il diario tenesse la data la riga non compare:
+                                        // **non si inventa una data**.
+                                        Builder(builder: (context) {
+                                          final quando = context
+                                              .read<DiarioDelCammino>()
+                                              .quandoSiEAcceso(t.id);
+                                          if (quando == null)
+                                            return const SizedBox.shrink();
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: SpacingTokens.xs),
+                                            child: Text(
+                                              'Obiettivo raggiunto il '
+                                              '${_quandoScritto(quando)}',
+                                              key: t == widget.traguardi.first
+                                                  ? const Key(
+                                                      'celebrazione_quando')
+                                                  : null,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  TypographyTokens.didascalia()
+                                                      .copyWith(
+                                                          color: ColorTokens
+                                                              .textSecondary),
+                                            ),
+                                          );
+                                        }),
+                                        if (t != widget.traguardi.last)
+                                          const SizedBox(
+                                              height: SpacingTokens.xs),
+                                      ],
+                                    ]);
+                                  }),
+                                  if (widget.serie != null) ...[
+                                    const SizedBox(height: SpacingTokens.xs),
+                                    Text(widget.serie!,
+                                        key: const Key('celebrazione_serie'),
+                                        style: TypographyTokens.etichetta()
+                                            .copyWith(color: palette.goldSoft)),
+                                  ],
+                                  const SizedBox(height: SpacingTokens.md),
+                                  // Una frase sola, quella del piu' importante: tre frasi
+                                  // cerimoniali in fila sarebbero un muro di testo, e la
+                                  // festa deve restare leggibile in un respiro.
+                                  Text(
+                                    widget.principale.frase,
+                                    key: const Key('celebrazione_frase'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.corpo().copyWith(
+                                        color: ColorTokens.textPrimary,
+                                        height: 1.5),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.md),
+                                  // LA SOMMA DEGLI EOS: nessun traguardo perde i suoi,
+                                  // l'accredito resta per traguardo nella regia.
+                                  EosCheVolano(
+                                      quanti: eosTotali, avanzamento: _segno),
+                                  const SizedBox(height: SpacingTokens.lg),
+                                  VieDellaCondivisione(
+                                    // Si condivide il piu' importante: la card porta un
+                                    // traguardo solo, e il piu' importante e' la festa.
+                                    suScelta: (modo) => condividiIlTraguardo(
+                                      context,
+                                      traguardo: widget.principale,
+                                      modo: modo,
+                                    ),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.xl),
+                                  // **VIA LA BOLLA DEL PROSSIMO TRAGUARDO.** Decisione di
+                                  // Mauro del 20 agosto 2026, ordine AS voce 05.
+                                  //
+                                  // C'era per non chiudere mai col punto: "il prossimo
+                                  // traguardo e' sempre li'". Ma la festa dura meno di due
+                                  // secondi e in quel tempo la persona deve leggere cosa ha
+                                  // vinto, non cosa non ha ancora vinto: un secondo nome in
+                                  // grande, subito sotto il proprio, si mangiava il momento.
+                                  // Vale la regola trasversale di quest'ordine: dove un
+                                  // testo si puo' togliere, si toglie invece di
+                                  // rimpicciolirlo. Il cammino resta aperto lo stesso, e la
+                                  // via per proseguire e' il pulsante qui sotto, che porta
+                                  // al sentiero.
+                                  const SizedBox(height: SpacingTokens.sm),
+                                  // IL SALTO DIRETTO AL PUNTO DEL JOURNAL, ordine P voce 20.
+                                  //
+                                  // La festa mostrava il Sigillo acceso e poi si chiudeva su
+                                  // se stessa: chi voleva vederlo al suo posto doveva
+                                  // ritrovare il sentiero da solo. Il sentiero scende gia' da
+                                  // solo sul punto raggiunto, voce 36, quindi qui basta
+                                  // aprirlo: la discesa fa il resto.
+                                  TextButton.icon(
+                                    key: const Key(
+                                        'celebrazione_vai_al_sigillo'),
+                                    onPressed: () {
+                                      final navigatore = Navigator.of(context);
+                                      navigatore.maybePop();
+                                      // AL PRIMO DEI SIGILLI NOMINATI, ordine AC voce 04.
+                                      navigatore.push(SentieroScreen.route(
+                                          widget.sentieri.first));
+                                    },
+                                    icon: Icon(Icons.route_rounded,
+                                        size: 16, color: palette.goldSoft),
+                                    label: Text('Vedi il Sigillo sul sentiero',
+                                        style: TypographyTokens.didascalia()
+                                            .copyWith(color: palette.goldSoft)),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          if (s != coinvolti.last)
-                            const SizedBox(width: SpacingTokens.md),
-                        ],
+                        ),
+                        // IL CONGEDO, ANCORATO: sta fuori dallo scorrimento, quindi
+                        // e' raggiungibile qualunque cosa ci sia sopra.
+                        //
+                        // **E porta il suo velo**, una sfumatura ferma e non una
+                        // sfocatura per fotogramma: senza, cio' che scorre gli passa
+                        // dietro e le due scritte si leggono una sull'altra.
+                        Container(
+                          height: _altezzaDelCongedo,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0x0005060A), Color(0xE605060A)],
+                            ),
+                          ),
+                          child: Center(
+                            child: TextButton(
+                              key: const Key('celebrazione_continua'),
+                              onPressed: () => Navigator.of(context).maybePop(),
+                              child: Text('Continua il cammino',
+                                  style: TypographyTokens.etichetta().copyWith(
+                                      color: ColorTokens.textSecondary)),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: SpacingTokens.lg),
-                    // **LA PAROLA DI PREMIO, SOPRA OGNI ALTRO TESTO.** Ordine
-                    // AT voce 07: al frame 21 compaiono insieme, nello stesso
-                    // fotogramma, l'immagine del traguardo e questa parola.
-                    // Durante i primi venti fotogrammi lo schermo e' solo
-                    // stelle, e questo blocco non e' a schermo perche' tutta
-                    // la scheda e' invisibile fino allo stacco.
-                    //
-                    // **Il resto del contenuto della card e' materia
-                    // dell'ordine AU voce 04**, e questo ordine non ci mette
-                    // le mani: qui si decide soltanto QUANDO entra in scena.
-                    // **LA PAROLA DI PREMIO STA SEMPRE SU UNA RIGA SOLA.**
-                    // Ordine AU voce 07. Sulla 2188 usciva "CONGRATULAZI" a
-                    // capo "ONI", spezzata in mezzo a una parola, ed e' lo
-                    // stesso difetto che l'ordine AS voce 05 aveva curato sul
-                    // NOME del traguardo senza che nessuno guardasse la
-                    // parola qui sopra. Si rimpicciolisce per entrare, non va
-                    // a capo: una parola tagliata a meta' non e' una festa.
-                    //
-                    // **LA GERARCHIA SI CALCOLA, non si scrive.** Ordine AU
-                    // voce 07: tre corpi diversi e distinguibili a colpo
-                    // d'occhio. Scriverli fissi non basta, e la prova lo ha
-                    // fatto vedere: su uno schermo da 360 punti la parola di
-                    // premio scendeva da 34 a 27 per entrare su una riga,
-                    // mentre il nome restava a 28, cioe' a video il premio
-                    // diventava PIU' PICCOLO del nome. Qui si misura prima il
-                    // corpo con cui la parola entra, e gli altri due livelli
-                    // scendono con lei mantenendo il rapporto.
-                    LayoutBuilder(builder: (context, vincoli) {
-                      final stilePremio = TypographyTokens.cerimonialeGrande()
-                          .copyWith(color: palette.gold, letterSpacing: 1.6);
-                      final corpoPremio = TitoloCheNonSiSpezza.corpoCheEntra(
-                          'CONGRATULAZIONI', stilePremio, vincoli.maxWidth,
-                          minimo: 22);
-                      return Column(children: [
-                        Text(
-                          'CONGRATULAZIONI',
-                          key: const Key('celebrazione_congratulazioni'),
-                          textAlign: TextAlign.center,
-                          style: stilePremio.copyWith(fontSize: corpoPremio),
-                        ),
-                        const SizedBox(height: SpacingTokens.sm),
-                        for (final t in widget.traguardi) ...[
-                          // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
-                          // ordine AS voce 05, e non e' in maiuscolo
-                          // integrale, ordine AU voce 07: quello vale solo per
-                          // la parola qui sopra.
-                          TitoloCheNonSiSpezza(
-                            nomeInTondo(t.nome),
-                            key: t == widget.traguardi.first
-                                ? const Key('celebrazione_nome')
-                                : null,
-                            stile: TypographyTokens.cerimoniale().copyWith(
-                                color: palette.goldSoft,
-                                fontSize: corpoPremio * 0.72),
-                            minimo: 16,
-                          ),
-                          // **QUANDO E' STATO RAGGIUNTO**, richiesta del
-                          // fondatore ferma dal 17 agosto. L'istante c'era
-                          // gia' nel dato del Sigillo, `quandoSiEAcceso`, e
-                          // nessuno lo mostrava. Per i Sigilli accesi prima
-                          // che il diario tenesse la data la riga non compare:
-                          // **non si inventa una data**.
-                          Builder(builder: (context) {
-                            final quando = context
-                                .read<DiarioDelCammino>()
-                                .quandoSiEAcceso(t.id);
-                            if (quando == null) return const SizedBox.shrink();
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: SpacingTokens.xs),
-                              child: Text(
-                                'Obiettivo raggiunto il '
-                                '${_quandoScritto(quando)}',
-                                key: t == widget.traguardi.first
-                                    ? const Key('celebrazione_quando')
-                                    : null,
-                                textAlign: TextAlign.center,
-                                style: TypographyTokens.didascalia().copyWith(
-                                    color: ColorTokens.textSecondary),
-                              ),
-                            );
-                          }),
-                          if (t != widget.traguardi.last)
-                            const SizedBox(height: SpacingTokens.xs),
-                        ],
-                      ]);
-                    }),
-                      if (widget.serie != null) ...[
-                      const SizedBox(height: SpacingTokens.xs),
-                      Text(widget.serie!,
-                          key: const Key('celebrazione_serie'),
-                          style: TypographyTokens.etichetta()
-                              .copyWith(color: palette.goldSoft)),
-                    ],
-                    const SizedBox(height: SpacingTokens.md),
-                    // Una frase sola, quella del piu' importante: tre frasi
-                    // cerimoniali in fila sarebbero un muro di testo, e la
-                    // festa deve restare leggibile in un respiro.
-                    Text(
-                      widget.principale.frase,
-                      key: const Key('celebrazione_frase'),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.corpo().copyWith(
-                          color: ColorTokens.textPrimary, height: 1.5),
-                    ),
-                    const SizedBox(height: SpacingTokens.md),
-                    // LA SOMMA DEGLI EOS: nessun traguardo perde i suoi,
-                    // l'accredito resta per traguardo nella regia.
-                    EosCheVolano(quanti: eosTotali, avanzamento: _segno),
-                    const SizedBox(height: SpacingTokens.lg),
-                    VieDellaCondivisione(
-                      // Si condivide il piu' importante: la card porta un
-                      // traguardo solo, e il piu' importante e' la festa.
-                      suScelta: (modo) => condividiIlTraguardo(
-                        context,
-                        traguardo: widget.principale,
-                        modo: modo,
-                      ),
-                    ),
-                    const SizedBox(height: SpacingTokens.xl),
-                    // **VIA LA BOLLA DEL PROSSIMO TRAGUARDO.** Decisione di
-                    // Mauro del 20 agosto 2026, ordine AS voce 05.
-                    //
-                    // C'era per non chiudere mai col punto: "il prossimo
-                    // traguardo e' sempre li'". Ma la festa dura meno di due
-                    // secondi e in quel tempo la persona deve leggere cosa ha
-                    // vinto, non cosa non ha ancora vinto: un secondo nome in
-                    // grande, subito sotto il proprio, si mangiava il momento.
-                    // Vale la regola trasversale di quest'ordine: dove un
-                    // testo si puo' togliere, si toglie invece di
-                    // rimpicciolirlo. Il cammino resta aperto lo stesso, e la
-                    // via per proseguire e' il pulsante qui sotto, che porta
-                    // al sentiero.
-                    const SizedBox(height: SpacingTokens.sm),
-                    // IL SALTO DIRETTO AL PUNTO DEL JOURNAL, ordine P voce 20.
-                    //
-                    // La festa mostrava il Sigillo acceso e poi si chiudeva su
-                    // se stessa: chi voleva vederlo al suo posto doveva
-                    // ritrovare il sentiero da solo. Il sentiero scende gia' da
-                    // solo sul punto raggiunto, voce 36, quindi qui basta
-                    // aprirlo: la discesa fa il resto.
-                    TextButton.icon(
-                      key: const Key('celebrazione_vai_al_sigillo'),
-                      onPressed: () {
-                        final navigatore = Navigator.of(context);
-                        navigatore.maybePop();
-                        // AL PRIMO DEI SIGILLI NOMINATI, ordine AC voce 04.
-                        navigatore
-                            .push(SentieroScreen.route(widget.sentieri.first));
-                      },
-                      icon: Icon(Icons.route_rounded,
-                          size: 16, color: palette.goldSoft),
-                      label: Text('Vedi il Sigillo sul sentiero',
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: palette.goldSoft)),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-                  ),
-                ),
-                // IL CONGEDO, ANCORATO: sta fuori dallo scorrimento, quindi
-                // e' raggiungibile qualunque cosa ci sia sopra.
-                //
-                // **E porta il suo velo**, una sfumatura ferma e non una
-                // sfocatura per fotogramma: senza, cio' che scorre gli passa
-                // dietro e le due scritte si leggono una sull'altra.
-                Container(
-                  height: _altezzaDelCongedo,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0x0005060A), Color(0xE605060A)],
-                    ),
-                  ),
-                  child: Center(
-                    child: TextButton(
-                      key: const Key('celebrazione_continua'),
-                      onPressed: () => Navigator.of(context).maybePop(),
-                      child: Text('Continua il cammino',
-                          style: TypographyTokens.etichetta()
-                              .copyWith(color: ColorTokens.textSecondary)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        ),
               // **LE PARTICELLE SONO MORTE QUI. Ordine AT voce 03.**
               //
               // Qui vivevano le tre feste per Maestro: stelle dal centro per
@@ -955,7 +988,6 @@ class EosCheVolano extends StatelessWidget {
 // **LA SOVRIMPRESSIONE BREVE E' STATA DEMOLITA, ordine BE voce 05.**
 // Viveva qui: la scena su velo scuro senza spirale ne' data che il fondatore
 // ha riconosciuto come la card vecchia. Una celebrazione sola, quella piena.
-
 
 /// RIAPRE LA CARD di un Sigillo gia' acceso, dal journal, anche settimane
 /// dopo: il bonus in sospeso si incassa da qui.

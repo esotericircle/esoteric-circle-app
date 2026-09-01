@@ -139,10 +139,18 @@ class _ThreadPainter extends CustomPainter {
     final allFilled = nodes.every((x) => x.filled);
     if (allFilled && n >= 2) {
       final sat = Offset((nodeAt(0).dx + nodeAt(n - 1).dx) / 2, baseY + 12);
-      canvas.drawLine(nodeAt(0), sat,
-          Paint()..strokeWidth = 1..color = goldSoft.withValues(alpha: 0.4));
-      canvas.drawLine(nodeAt(n - 1), sat,
-          Paint()..strokeWidth = 1..color = goldSoft.withValues(alpha: 0.4));
+      canvas.drawLine(
+          nodeAt(0),
+          sat,
+          Paint()
+            ..strokeWidth = 1
+            ..color = goldSoft.withValues(alpha: 0.4));
+      canvas.drawLine(
+          nodeAt(n - 1),
+          sat,
+          Paint()
+            ..strokeWidth = 1
+            ..color = goldSoft.withValues(alpha: 0.4));
       final twk = 0.5 + 0.5 * math.sin(2 * math.pi * shimmer);
       _star(canvas, sat, 3.5, goldSoft.withValues(alpha: 0.6 + 0.4 * twk));
     }
@@ -161,8 +169,7 @@ class _ThreadPainter extends CustomPainter {
               ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
         _star(canvas, p, 5.5, goldSoft.withValues(alpha: 0.95));
       } else {
-        canvas.drawCircle(p, 3,
-            Paint()..color = gold.withValues(alpha: 0.35));
+        canvas.drawCircle(p, 3, Paint()..color = gold.withValues(alpha: 0.35));
       }
       _label(canvas, node.label, Offset(p.dx, baseY + 22),
           color: node.filled

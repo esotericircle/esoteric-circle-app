@@ -71,8 +71,7 @@ enum BudgetDelGiorno {
   int? rimasti(QuestionAllowance borsa, Tier tier) => switch (this) {
         BudgetDelGiorno.domande =>
           borsa.dailyLimit(tier) == null ? null : borsa.remaining(tier),
-        BudgetDelGiorno.approfondimenti =>
-          borsa.approfondimentiRimasti(tier),
+        BudgetDelGiorno.approfondimenti => borsa.approfondimentiRimasti(tier),
         BudgetDelGiorno.confronti => borsa.confrontiRimasti(tier),
         BudgetDelGiorno.gettate => borsa.gettateRimaste(tier),
         BudgetDelGiorno.stese => borsa.steseRimaste(tier),

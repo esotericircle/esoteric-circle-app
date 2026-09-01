@@ -69,9 +69,8 @@ class StradeDelloSblocco {
   static String rigaDi(StradaDelloSblocco strada, {VoceDelListino? voce}) {
     switch (strada) {
       case StradaDelloSblocco.eos:
-        final costo = voce == null
-            ? ''
-            : ' per ${ListinoDegliEos.prezzo(voce.costo)}';
+        final costo =
+            voce == null ? '' : ' per ${ListinoDegliEos.prezzo(voce.costo)}';
         return 'Prendila adesso$costo con i tuoi Eos.';
       case StradaDelloSblocco.abbonamento:
         return 'Con un piano del Cerchio è inclusa, senza spendere Eos.';

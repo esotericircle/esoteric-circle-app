@@ -298,8 +298,7 @@ class AspettoDiSinastria {
   String get titolo => '${suo.nome} ${tipo.italianName} ${tuo.nome}';
 
   /// Lo scarto dall'angolo esatto, come si scrive in italiano.
-  String get gradi =>
-      '${orbo.toStringAsFixed(1).replaceAll('.', ',')} gradi';
+  String get gradi => '${orbo.toStringAsFixed(1).replaceAll('.', ',')} gradi';
 
   /// **COSA SIGNIFICA QUESTO ASPETTO, in una frase. Ordine BO voce 08.**
   ///
@@ -347,7 +346,8 @@ class AspettoDiSinastria {
         'si toccano il desiderio di uno e il modo di amare dell\'altro',
     _CampoDelContatto.affetto: 'si toccano l\'affetto e la cura',
     _CampoDelContatto.parola: 'si tocca il modo di pensare e di dirsi le cose',
-    _CampoDelContatto.spinta: 'si tocca la spinta a fare, con l\'urto che ne viene',
+    _CampoDelContatto.spinta:
+        'si tocca la spinta a fare, con l\'urto che ne viene',
     _CampoDelContatto.presenza:
         'si tocca il modo in cui uno appare all\'altro la prima volta',
     _CampoDelContatto.identita: 'si toccano due modi di essere se stessi',

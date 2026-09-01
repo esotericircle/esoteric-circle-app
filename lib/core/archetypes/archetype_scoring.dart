@@ -70,8 +70,7 @@ class ArchetypeScoring {
       final domanda = ArchetypeQuiz.tutte[i];
       final scelta = scelte[i];
       if (scelta < 0 || scelta >= domanda.risposte.length) {
-        throw ArgumentError(
-            'risposta ${domanda.id} fuori intervallo: $scelta');
+        throw ArgumentError('risposta ${domanda.id} fuori intervallo: $scelta');
       }
       domanda.risposte[scelta].pesi.forEach((a, p) => punti[a] = punti[a]! + p);
     }

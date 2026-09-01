@@ -112,7 +112,7 @@ class ConsultoDelCieloView extends StatefulWidget {
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center,
         )..layout(maxWidth: massimo))
-        .height;
+            .height;
 
     var somma = alta(frase, TypographyTokens.titoloScheda());
     // **ANCHE L'INVITO OCCUPA SPAZIO.** Senza questa riga la scena sforava di

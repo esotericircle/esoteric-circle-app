@@ -40,8 +40,7 @@ enum AnswerDepth {
   static const AnswerDepth free = AnswerDepth.breve;
 
   /// Le voci mostrate nel selettore, due sole: Breve e Profonda.
-  static List<AnswerDepth> get shown =>
-      values.where((d) => d.visible).toList();
+  static List<AnswerDepth> get shown => values.where((d) => d.visible).toList();
 }
 
 /// Il selettore di profondita' della risposta, in alto a destra di ogni scheda.
@@ -165,8 +164,7 @@ class AnswerDepthSelector extends StatelessWidget {
                 // Premium il lucchetto ce l'hanno dentro il menu aperto.
                 if (_locked(current))
                   Icon(Icons.lock_rounded,
-                      size: 12,
-                      color: palette.goldSoft.withValues(alpha: 0.7)),
+                      size: 12, color: palette.goldSoft.withValues(alpha: 0.7)),
                 Icon(Icons.arrow_drop_down_rounded,
                     size: 16,
                     color: ColorTokens.textSecondary.withValues(alpha: 0.9)),

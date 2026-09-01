@@ -104,9 +104,7 @@ class RuneVoce {
     final chiusa = _chiuse[(h >> 8) % _chiuse.length];
 
     final lore = kRuneLore[runa.rune.name];
-    final materia = lore == null
-        ? ''
-        : ' ${_senzaFonte(lore.materia)}.';
+    final materia = lore == null ? '' : ' ${_senzaFonte(lore.materia)}.';
 
     // IL CIELO VERO, dalle porte che esistono: il segno che il Sole
     // attraversa oggi e la Luna come sta.

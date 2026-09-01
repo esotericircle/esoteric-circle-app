@@ -36,8 +36,7 @@ class FeatureTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final flags = context.watch<FeatureFlagService>();
-    final status =
-        flags.statusOf(feature);
+    final status = flags.statusOf(feature);
     final palette = context.palette;
 
     final bool isActive = status == FeatureStatus.active;
@@ -90,8 +89,7 @@ class FeatureTile extends StatelessWidget {
               ),
             ],
           ),
-          if (!isActive)
-            Positioned.fill(child: _FrostedVeil(status: status)),
+          if (!isActive) Positioned.fill(child: _FrostedVeil(status: status)),
           if (!isActive)
             Positioned(
               top: 0,

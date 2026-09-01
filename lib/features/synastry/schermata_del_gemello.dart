@@ -130,7 +130,8 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
       (_corsa.value * SchermataDelGemello.ilResponso.inMilliseconds).round();
 
   bool get _voltoFermo => _quando >= SchermataDelGemello.sfilata.inMilliseconds;
-  bool get _nomeArrivato => _quando >= SchermataDelGemello.ilNome.inMilliseconds;
+  bool get _nomeArrivato =>
+      _quando >= SchermataDelGemello.ilNome.inMilliseconds;
   bool get _graficaArrivata =>
       _quando >= SchermataDelGemello.laGrafica.inMilliseconds;
   bool get _responsoArrivato =>
@@ -139,10 +140,8 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
   /// Da zero a uno: quanto il podio e' salito e il cerchio si e' riempito.
   double get _quantoDellaGrafica {
     if (!_graficaArrivata) return 0;
-    final passati =
-        _quando - SchermataDelGemello.laGrafica.inMilliseconds;
-    return (passati /
-            SchermataDelGemello.corsaDellaGrafica.inMilliseconds)
+    final passati = _quando - SchermataDelGemello.laGrafica.inMilliseconds;
+    return (passati / SchermataDelGemello.corsaDellaGrafica.inMilliseconds)
         .clamp(0.0, 1.0);
   }
 
@@ -174,8 +173,8 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
         // **"Il tuo gemello" e non "Il tuo gemello astrale"**: guardata
         // l'anteprima, il titolo lungo finiva troncato con tre puntini a
         // 360 punti. Il resto lo dice la schermata intera.
-        title: Text('Il tuo gemello',
-            style: TypographyTokens.titoloDiSchermata()),
+        title:
+            Text('Il tuo gemello', style: TypographyTokens.titoloDiSchermata()),
       ),
       body: SafeArea(
         child: AnimatedBuilder(
@@ -232,9 +231,7 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                           date: volto.note,
                           sign: volto.sign.symbol,
                           vipAsset: volto.hasImage
-                              ? (_voltoFermo
-                                  ? volto.fullPath
-                                  : volto.thumbPath)
+                              ? (_voltoFermo ? volto.fullPath : volto.thumbPath)
                               : null,
                         ),
                       ),
@@ -353,8 +350,8 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                         if (rapporto.nota.isNotEmpty) ...[
                           const SizedBox(height: SpacingTokens.sm),
                           Text(rapporto.nota,
-                              style: TypographyTokens.didascalia().copyWith(
-                                  color: ColorTokens.textSecondary)),
+                              style: TypographyTokens.didascalia()
+                                  .copyWith(color: ColorTokens.textSecondary)),
                         ],
                       ],
                     ),

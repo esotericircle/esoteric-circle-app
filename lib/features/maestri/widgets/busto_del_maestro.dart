@@ -129,10 +129,8 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
     // e in pixel fisici non deve superare la tela dell'asset. Dove il
     // rapporto di pixel e' alto, l'altezza scende di conseguenza.
     final dpr = MediaQuery.of(context).devicePixelRatio;
-    final tettoImmagine =
-        BustoDelMaestro.telaAvatarAltezza / dpr - 0.01;
-    final altezza =
-        math.min(widget.height, tettoImmagine * widget.fattore);
+    final tettoImmagine = BustoDelMaestro.telaAvatarAltezza / dpr - 0.01;
+    final altezza = math.min(widget.height, tettoImmagine * widget.fattore);
     return SizedBox(
       key: Key('busto_${widget.maestro.id}'),
       height: altezza,
@@ -156,7 +154,11 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
                         palette.glow.withValues(alpha: 0.10 + 0.16 * respiro),
                         palette.primary.withValues(alpha: 0.08),
                         Colors.transparent,
-                      ], stops: const [0.0, 0.55, 1.0]),
+                      ], stops: const [
+                        0.0,
+                        0.55,
+                        1.0
+                      ]),
                     ),
                   ),
                 ),
@@ -165,9 +167,8 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   height: altezza,
-                  width: widget.larghezza < 1
-                      ? altezza * widget.larghezza
-                      : null,
+                  width:
+                      widget.larghezza < 1 ? altezza * widget.larghezza : null,
                   // Il taglio del busto sfuma, non e' una linea netta.
                   child: ShaderMask(
                     blendMode: BlendMode.dstIn,
@@ -193,8 +194,7 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
                           fit: BoxFit.contain,
                           errorBuilder: (_, __, ___) => Center(
                             child: Icon(widget.maestro.icon,
-                                color: palette.goldSoft,
-                                size: altezza * 0.2),
+                                color: palette.goldSoft, size: altezza * 0.2),
                           ),
                         ),
                       ),

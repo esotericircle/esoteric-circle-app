@@ -82,8 +82,8 @@ Future<bool> showUpgradeInvite(
                         ? ColorTokens.textSecondary
                         : palette.goldSoft,
                     side: BorderSide(
-                        color: palette.gold
-                            .withValues(alpha: onRiscatta == null ? 0.25 : 0.6)),
+                        color: palette.gold.withValues(
+                            alpha: onRiscatta == null ? 0.25 : 0.6)),
                   ),
                   onPressed: onRiscatta == null
                       ? null
@@ -99,8 +99,7 @@ Future<bool> showUpgradeInvite(
                       colore: onRiscatta == null
                           ? ColorTokens.textSecondary
                           : palette.goldSoft),
-                  label: Text(riscattoLabel,
-                      style: TypographyTokens.label()),
+                  label: Text(riscattoLabel, style: TypographyTokens.label()),
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
@@ -135,7 +134,6 @@ Future<bool> showUpgradeInvite(
   }
   return false;
 }
-
 
 /// **IL CORREDO DEL RISCATTO per un budget del giorno.** Ordine BG voce 05.
 ///
@@ -187,9 +185,7 @@ Future<bool> showUpgradeInvite(
         ));
         return;
       }
-      await registro?.segna(
-          quanti: -pagato,
-          perche: 'Hai riscattato $cosaUna');
+      await registro?.segna(quanti: -pagato, perche: 'Hai riscattato $cosaUna');
       messaggero?.showSnackBar(SnackBar(
         key: const Key('riscatto_fatto'),
         content: Text('Riscatto compiuto: $cosaUna. Spesi $pagato Eos.'),

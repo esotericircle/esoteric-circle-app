@@ -261,8 +261,8 @@ class _PlanisferoPainter extends CustomPainter {
     // paesi che l'1:110m non disegna.
     if (sfondo.isNotEmpty) {
       final costa = Paint()
-        ..color = palette.goldSoft
-            .withValues(alpha: nazionePiena ? 0.34 : 0.13);
+        ..color =
+            palette.goldSoft.withValues(alpha: nazionePiena ? 0.34 : 0.13);
       final raggio = nazionePiena ? 1.25 : 0.9;
       for (final q in sfondo) {
         canvas.drawCircle(suSchermo(q), raggio, costa);
@@ -285,8 +285,8 @@ class _PlanisferoPainter extends CustomPainter {
         r,
         acceso > 0.15
             ? (Paint()
-              ..color = palette.goldSoft
-                  .withValues(alpha: 0.30 + 0.60 * acceso))
+              ..color =
+                  palette.goldSoft.withValues(alpha: 0.30 + 0.60 * acceso))
             : base,
       );
     }

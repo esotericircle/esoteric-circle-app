@@ -27,7 +27,8 @@ class _TapWaveLayerState extends State<TapWaveLayer>
       vsync: this,
       duration: const Duration(milliseconds: 720),
     );
-    final ripple = _Ripple(position: position, color: color, controller: controller);
+    final ripple =
+        _Ripple(position: position, color: color, controller: controller);
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() => _ripples.remove(ripple));

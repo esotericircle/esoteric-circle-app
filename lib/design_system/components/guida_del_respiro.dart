@@ -124,8 +124,8 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
 
   /// Dove siamo adesso. Nullo a respiro finito, oppure quando i tempi non
   /// reggono: in tutti e due i casi non c'e' un momento da mostrare.
-  MomentoDelRespiro? get _momento => widget.tempi
-      .momento(widget.tempi.intero * _motore.value);
+  MomentoDelRespiro? get _momento =>
+      widget.tempi.momento(widget.tempi.intero * _motore.value);
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,8 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
         // dissolve e non torna al minimo, perche' un rito compiuto non si
         // cancella da solo.
         final misura = m?.misura ?? 1.0;
-        final figura = widget.figura ?? _CerchioDiRipiego(colore: widget.colore);
+        final figura =
+            widget.figura ?? _CerchioDiRipiego(colore: widget.colore);
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -190,156 +191,156 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                       : double.infinity,
                 ),
                 child: Container(
-              key: const Key('respiro_velo'),
-              // Il respiro laterale scende da sedici a quattordici: dentro
-              // il tetto della pillola servono quei due punti perche' la
-              // parola piu' lunga resti su una riga sola invece di spezzarsi.
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              decoration: BoxDecoration(
-                // La superficie serve: nel Soffio il fondale e' un prato
-                // chiaro, e una parola chiara su un prato chiaro non si legge.
-                // Il contrasto contro questo velo si misura, e sta in
-                // `test/il_respiro_si_capisce_test.dart`.
-                color: veloDelConteggio,
-                // **RAGGIO FINITO, NON LO STADIO**, ordine 2171 voce 7.
-                //
-                // Con 999 il contenitore diventa una pillola: gli angoli
-                // curvano di meta' della sua altezza, e questo velo e' alto
-                // piu' di cento punti quando porta il conto. Misurato
-                // sull'anteprima a 360 punti: alla quota della prima riga di
-                // lettere il velo cominciava a 250 mentre il testo cominciava
-                // a 220, e a destra il velo finiva a 832 mentre il testo
-                // arrivava a 860. La P e la E finali stavano FUORI dalla
-                // superficie scura, sul prato chiaro, che e' esattamente il
-                // difetto di contrasto per cui questo velo esiste.
-                //
-                // Ventotto punti sono la curvatura giusta per un riquadro di
-                // questa altezza: gli angoli restano morbidi e nessuna lettera
-                // esce. La prova non guarda piu' se la parola sta su una riga,
-                // che era vero anche mentre le lettere erano fuori: guarda che
-                // ogni pixel sotto il titolo sia velo e non prato.
-                borderRadius: BorderRadius.circular(28),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (_conto != null)
-                    // IL CONTO ALLA ROVESCIA: numeri grandi che
-                    // rimpiccioliscono e svaniscono, uno al secondo. Con
-                    // Riduci Movimento appaiono e spariscono secchi, senza
-                    // rimpicciolire: il conto resta.
-                    SizedBox(
-                      height: 84,
-                      child: Center(
-                        child: _riduciMovimento
-                            ? Text('$_conto',
-                                key: ValueKey<int>(_conto!),
-                                // **SESSANTAQUATTRO PER RIEMPIRE UN
-                                // CERCHIO DI OTTANTAQUATTRO.** Ordine CE
-                                // voce 11: e' un numero che si guarda, non
-                                // un titolo che si legge, e la sua misura
-                                // viene dall'altezza del cerchio che lo
-                                // ospita.
-                                style: TypographyTokens.display(size: 64)
-                                    .copyWith(
-                                        color: inchiostroDelConteggio))
-                            : TweenAnimationBuilder<double>(
-                                key: ValueKey<int>(_conto!),
-                                tween: Tween(begin: 0.0, end: 1.0),
-                                duration:
-                                    const Duration(milliseconds: 900),
-                                builder: (context, t, _) =>
-                                    Transform.scale(
-                                  scale: 1.25 - 0.55 * t,
-                                  child: Opacity(
-                                    opacity: (1.0 - t).clamp(0.0, 1.0),
-                                    child: Text('$_conto',
-                                        style: TypographyTokens.display(
-                                                size: 64)
-                                            .copyWith(
-                                                color:
-                                                    inchiostroDelConteggio)),
-                                  ),
-                                ),
-                              ),
-                      ),
-                    )
-                  else
-                    AnimatedSwitcher(
-                      duration: _riduciMovimento
-                          ? Duration.zero
-                          : const Duration(milliseconds: 180),
-                      child: Text(
-                        _apertura
-                            ? ParoleDelRespiro.preparati
-                            : (m == null
-                                ? ParoleDelRespiro.compiuto
-                                : m.parola),
-                        key: ValueKey<String>(_apertura
-                            ? 'apertura'
-                            : (m == null ? 'fine' : m.parola)),
-                        textAlign: TextAlign.center,
-                        // DICIOTTO E NON VENTISEI, ordine 2168 voce 3, e la
-                        // misura viene dal riquadro reso e non dal
-                        // carattere: a ventisei "Preparati a respirare"
-                        // faceva una pillola larga TUTTI i 360 punti dello
-                        // schermo del fondatore, cioe' il cento per cento, e
-                        // la parola sola comandava la scena col mandala
-                        // dietro. La regola vale per tutti e tre i riti che
-                        // montano questa guida: un caso speciale per il
-                        // Soffio sarebbe un'altra regola su una porta sola.
-                        style: TypographyTokens.titoloScheda().copyWith(
-                          color: inchiostroDelConteggio,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 2),
-                  // LA RIGA DI SERVIZIO, smorzata: dice la forma del rito
-                  // prima, il giro durante. Non compete con la parola grande,
-                  // perche' non e' lei a guidare.
-                  Text(
-                    _apertura
-                        ? ParoleDelRespiro.formaDi(widget.tempi)
-                        : (m == null
-                            ? ''
-                            : ParoleDelRespiro.giro(m.giro, widget.tempi.giri)),
-                    key: const Key('respiro_conteggio'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 12).copyWith(
-                      color: inchiostroDelConteggio.withValues(alpha: 0.72),
-                      letterSpacing: 1.2,
-                    ),
+                  key: const Key('respiro_velo'),
+                  // Il respiro laterale scende da sedici a quattordici: dentro
+                  // il tetto della pillola servono quei due punti perche' la
+                  // parola piu' lunga resti su una riga sola invece di spezzarsi.
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    // La superficie serve: nel Soffio il fondale e' un prato
+                    // chiaro, e una parola chiara su un prato chiaro non si legge.
+                    // Il contrasto contro questo velo si misura, e sta in
+                    // `test/il_respiro_si_capisce_test.dart`.
+                    color: veloDelConteggio,
+                    // **RAGGIO FINITO, NON LO STADIO**, ordine 2171 voce 7.
+                    //
+                    // Con 999 il contenitore diventa una pillola: gli angoli
+                    // curvano di meta' della sua altezza, e questo velo e' alto
+                    // piu' di cento punti quando porta il conto. Misurato
+                    // sull'anteprima a 360 punti: alla quota della prima riga di
+                    // lettere il velo cominciava a 250 mentre il testo cominciava
+                    // a 220, e a destra il velo finiva a 832 mentre il testo
+                    // arrivava a 860. La P e la E finali stavano FUORI dalla
+                    // superficie scura, sul prato chiaro, che e' esattamente il
+                    // difetto di contrasto per cui questo velo esiste.
+                    //
+                    // Ventotto punti sono la curvatura giusta per un riquadro di
+                    // questa altezza: gli angoli restano morbidi e nessuna lettera
+                    // esce. La prova non guarda piu' se la parola sta su una riga,
+                    // che era vero anche mentre le lettere erano fuori: guarda che
+                    // ogni pixel sotto il titolo sia velo e non prato.
+                    borderRadius: BorderRadius.circular(28),
                   ),
-                  if (_apertura && _conto == null) ...[
-                    const SizedBox(height: 10),
-                    // UN PULSANTE VERO con area di tocco piena, non una
-                    // scritta. Il testo e' uno dei due ammessi dall'ordine.
-                    TextButton(
-                      key: const Key('respiro_tocca'),
-                      onPressed: _cominciaIlConto,
-                      style: TextButton.styleFrom(
-                        minimumSize: const Size(0, 44),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 10),
-                        backgroundColor:
-                            inchiostroDelConteggio.withValues(alpha: 0.12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(999),
-                          side: BorderSide(
-                              color: inchiostroDelConteggio
-                                  .withValues(alpha: 0.55)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_conto != null)
+                        // IL CONTO ALLA ROVESCIA: numeri grandi che
+                        // rimpiccioliscono e svaniscono, uno al secondo. Con
+                        // Riduci Movimento appaiono e spariscono secchi, senza
+                        // rimpicciolire: il conto resta.
+                        SizedBox(
+                          height: 84,
+                          child: Center(
+                            child: _riduciMovimento
+                                ? Text('$_conto',
+                                    key: ValueKey<int>(_conto!),
+                                    // **SESSANTAQUATTRO PER RIEMPIRE UN
+                                    // CERCHIO DI OTTANTAQUATTRO.** Ordine CE
+                                    // voce 11: e' un numero che si guarda, non
+                                    // un titolo che si legge, e la sua misura
+                                    // viene dall'altezza del cerchio che lo
+                                    // ospita.
+                                    style: TypographyTokens.display(size: 64)
+                                        .copyWith(
+                                            color: inchiostroDelConteggio))
+                                : TweenAnimationBuilder<double>(
+                                    key: ValueKey<int>(_conto!),
+                                    tween: Tween(begin: 0.0, end: 1.0),
+                                    duration: const Duration(milliseconds: 900),
+                                    builder: (context, t, _) => Transform.scale(
+                                      scale: 1.25 - 0.55 * t,
+                                      child: Opacity(
+                                        opacity: (1.0 - t).clamp(0.0, 1.0),
+                                        child: Text('$_conto',
+                                            style: TypographyTokens.display(
+                                                    size: 64)
+                                                .copyWith(
+                                                    color:
+                                                        inchiostroDelConteggio)),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        )
+                      else
+                        AnimatedSwitcher(
+                          duration: _riduciMovimento
+                              ? Duration.zero
+                              : const Duration(milliseconds: 180),
+                          child: Text(
+                            _apertura
+                                ? ParoleDelRespiro.preparati
+                                : (m == null
+                                    ? ParoleDelRespiro.compiuto
+                                    : m.parola),
+                            key: ValueKey<String>(_apertura
+                                ? 'apertura'
+                                : (m == null ? 'fine' : m.parola)),
+                            textAlign: TextAlign.center,
+                            // DICIOTTO E NON VENTISEI, ordine 2168 voce 3, e la
+                            // misura viene dal riquadro reso e non dal
+                            // carattere: a ventisei "Preparati a respirare"
+                            // faceva una pillola larga TUTTI i 360 punti dello
+                            // schermo del fondatore, cioe' il cento per cento, e
+                            // la parola sola comandava la scena col mandala
+                            // dietro. La regola vale per tutti e tre i riti che
+                            // montano questa guida: un caso speciale per il
+                            // Soffio sarebbe un'altra regola su una porta sola.
+                            style: TypographyTokens.titoloScheda().copyWith(
+                              color: inchiostroDelConteggio,
+                              letterSpacing: 0.4,
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 2),
+                      // LA RIGA DI SERVIZIO, smorzata: dice la forma del rito
+                      // prima, il giro durante. Non compete con la parola grande,
+                      // perche' non e' lei a guidare.
+                      Text(
+                        _apertura
+                            ? ParoleDelRespiro.formaDi(widget.tempi)
+                            : (m == null
+                                ? ''
+                                : ParoleDelRespiro.giro(
+                                    m.giro, widget.tempi.giri)),
+                        key: const Key('respiro_conteggio'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.label(size: 12).copyWith(
+                          color: inchiostroDelConteggio.withValues(alpha: 0.72),
+                          letterSpacing: 1.2,
                         ),
                       ),
-                      child: Text(ParoleDelRespiro.tocca,
-                          style: TypographyTokens.label(size: 13).copyWith(
-                              color: inchiostroDelConteggio,
-                              letterSpacing: 0.6)),
-                    ),
-                  ],
-                ],
-              ),
-            ),
+                      if (_apertura && _conto == null) ...[
+                        const SizedBox(height: 10),
+                        // UN PULSANTE VERO con area di tocco piena, non una
+                        // scritta. Il testo e' uno dei due ammessi dall'ordine.
+                        TextButton(
+                          key: const Key('respiro_tocca'),
+                          onPressed: _cominciaIlConto,
+                          style: TextButton.styleFrom(
+                            minimumSize: const Size(0, 44),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 10),
+                            backgroundColor:
+                                inchiostroDelConteggio.withValues(alpha: 0.12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(999),
+                              side: BorderSide(
+                                  color: inchiostroDelConteggio.withValues(
+                                      alpha: 0.55)),
+                            ),
+                          ),
+                          child: Text(ParoleDelRespiro.tocca,
+                              style: TypographyTokens.label(size: 13).copyWith(
+                                  color: inchiostroDelConteggio,
+                                  letterSpacing: 0.6)),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

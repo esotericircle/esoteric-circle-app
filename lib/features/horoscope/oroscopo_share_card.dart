@@ -64,9 +64,8 @@ class OroscopoShareCard extends StatelessWidget {
     // corpus riletto per conto proprio: era l'unica porta dell'Oroscopo che
     // scavalcava `Horoscope`, e sostituire la composizione avrebbe lasciato
     // indietro proprio l'immagine che la gente condivide.
-    final synthesis = cards
-        .firstWhere((c) => c.domain == HoroscopeDomain.generale)
-        .synthesis;
+    final synthesis =
+        cards.firstWhere((c) => c.domain == HoroscopeDomain.generale).synthesis;
     // LA RIGA DEL CIELO, dalla scheda Generale: la stessa che l'app mostra
     // dentro, non una seconda composizione.
     final rigaDelCielo = cards
@@ -79,8 +78,9 @@ class OroscopoShareCard extends StatelessWidget {
     // tessera e il suo padding orizzontale `xs`. Serve al rimpicciolimento
     // del titolo, che dentro `IntrinsicHeight` non puo' usare un
     // `LayoutBuilder`: le dimensioni intrinseche non lo ammettono.
-    final larghezzaDelTitolo =
-        (width - 2 * SpacingTokens.lg - 2 * 2) / 2 - 2 * 3 - 2 * SpacingTokens.xs;
+    final larghezzaDelTitolo = (width - 2 * SpacingTokens.lg - 2 * 2) / 2 -
+        2 * 3 -
+        2 * SpacingTokens.xs;
 
     return Container(
       width: width,
@@ -96,7 +96,8 @@ class OroscopoShareCard extends StatelessWidget {
             palette.deepest,
           ],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -156,13 +157,12 @@ class OroscopoShareCard extends StatelessWidget {
               key: const Key('share_transito_riga'),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.auto_awesome,
-                    size: 14, color: palette.goldSoft),
+                Icon(Icons.auto_awesome, size: 14, color: palette.goldSoft),
                 const SizedBox(width: SpacingTokens.xxs),
                 Expanded(
                   child: Text(rigaDelCielo,
-                      style: TypographyTokens.didascalia().copyWith(
-                          color: palette.goldSoft, height: 1.35)),
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft, height: 1.35)),
                 ),
               ],
             ),

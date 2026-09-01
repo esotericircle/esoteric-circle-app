@@ -388,6 +388,7 @@ class Effemeridi {
       omega: [113.665503, 0.8770880, -0.00012176, -0.000002249],
       perielio: [93.057237, 1.9637613, 0.00083753, 0.000004928],
     ),
+
     /// **I TRE LENTI VENGONO DA UN'ALTRA FONTE, e la ragione e' misurata.**
     ///
     /// La tavola 31.A di Meeus si ferma a Nettuno e non contiene Plutone. Ma il

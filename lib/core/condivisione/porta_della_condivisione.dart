@@ -50,13 +50,33 @@ class PortaDellaCondivisione {
   /// la stessa prudenza con cui questa porta tratta `unavailable`.
   static const Map<String, List<String>> canaliRiconosciuti = {
     'privato': [
-      'whatsapp', 'telegram', 'signal', 'messenger', 'mms', 'sms',
-      'messages', 'gmail', 'mail', 'outlook', 'threema', 'viber',
-      'discord', 'slack',
+      'whatsapp',
+      'telegram',
+      'signal',
+      'messenger',
+      'mms',
+      'sms',
+      'messages',
+      'gmail',
+      'mail',
+      'outlook',
+      'threema',
+      'viber',
+      'discord',
+      'slack',
     ],
     'pubblico': [
-      'instagram', 'facebook', 'twitter', 'x.', 'tiktok', 'snapchat',
-      'linkedin', 'pinterest', 'reddit', 'tumblr', 'threads',
+      'instagram',
+      'facebook',
+      'twitter',
+      'x.',
+      'tiktok',
+      'snapchat',
+      'linkedin',
+      'pinterest',
+      'reddit',
+      'tumblr',
+      'threads',
     ],
   };
 

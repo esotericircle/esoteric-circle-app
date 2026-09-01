@@ -354,8 +354,8 @@ class _BindrunePainter extends CustomPainter {
         ..shader = RadialGradient(colors: [
           ambra.withValues(alpha: 0.20),
           ambra.withValues(alpha: 0.0),
-        ]).createShader(
-            Rect.fromCircle(center: size.center(Offset.zero), radius: box * 0.6)),
+        ]).createShader(Rect.fromCircle(
+            center: size.center(Offset.zero), radius: box * 0.6)),
     );
 
     // **I TRATTI SEGUONO IL LATO, non il riquadro del glifo. Ordine S voce 25.**
@@ -420,7 +420,6 @@ class _BindrunePainter extends CustomPainter {
       canvas.drawPath(path, tratto);
     }
   }
-
 
   // **_paintSovrapposto NON ESISTE PIU', ordine BF voce 05.a.** Era la
   // sovrapposizione dei glifi interi, con un'asta per runa: demolita

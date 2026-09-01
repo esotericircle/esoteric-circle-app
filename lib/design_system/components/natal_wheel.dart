@@ -53,8 +53,7 @@ class NatalWheel extends StatefulWidget {
   State<NatalWheel> createState() => _NatalWheelState();
 }
 
-class _NatalWheelState extends State<NatalWheel>
-    with TickerProviderStateMixin {
+class _NatalWheelState extends State<NatalWheel> with TickerProviderStateMixin {
   late final AnimationController _build;
   late final AnimationController _pulse;
 
@@ -222,8 +221,12 @@ class _WheelPainter extends CustomPainter {
           rect, math.atan2(u.dy, u.dx), -30 * math.pi / 180, false, sweepPaint);
 
       final dv = _u(startLon);
-      canvas.drawLine(c + dv * rIn, c + dv * rOut,
-          Paint()..strokeWidth = 0.8..color = palette.gold.withValues(alpha: 0.35 * t));
+      canvas.drawLine(
+          c + dv * rIn,
+          c + dv * rOut,
+          Paint()
+            ..strokeWidth = 0.8
+            ..color = palette.gold.withValues(alpha: 0.35 * t));
 
       final mid = _u(startLon + 15);
       _glyph(canvas, z.symbol, c + mid * rGlyph,
@@ -261,8 +264,7 @@ class _WheelPainter extends CustomPainter {
         c + u * (rIn - 10),
         Paint()
           ..strokeWidth = angular ? 1.2 : 0.6
-          ..color =
-              palette.gold.withValues(alpha: (angular ? 0.45 : 0.22) * t),
+          ..color = palette.gold.withValues(alpha: (angular ? 0.45 : 0.22) * t),
       );
       final next = chart.houses.firstWhere(
         (x) => x.number == (h.number % 12) + 1,
@@ -354,12 +356,17 @@ class _WheelPainter extends CustomPainter {
       final u = _u(p.longitude);
       final pos = c + u * rr;
 
-      canvas.drawLine(c + u * rAsp, pos,
-          Paint()..strokeWidth = 0.6..color = palette.gold.withValues(alpha: 0.25 * tp));
+      canvas.drawLine(
+          c + u * rAsp,
+          pos,
+          Paint()
+            ..strokeWidth = 0.6
+            ..color = palette.gold.withValues(alpha: 0.25 * tp));
 
       final flash = 1 - tp;
       final isHi = p.id == highlightId;
-      final pulseGlow = isHi ? (0.4 + 0.4 * math.sin(pulse * 2 * math.pi)) : 0.0;
+      final pulseGlow =
+          isHi ? (0.4 + 0.4 * math.sin(pulse * 2 * math.pi)) : 0.0;
       canvas.drawCircle(
           pos,
           8 + flash * 16 + pulseGlow * 12,
@@ -402,15 +409,21 @@ class _WheelPainter extends CustomPainter {
 
   void _glyph(Canvas canvas, String s, Offset pos,
           {required Color color, required double size}) =>
-      _text(canvas, s, pos, color: color, size: size, family: 'NotoSansSymbols');
+      _text(canvas, s, pos,
+          color: color, size: size, family: 'NotoSansSymbols');
 
   // Il glifo del Sole non e' nel font simboli: si disegna (cerchio con punto).
   void _planetGlyph(Canvas canvas, PlanetPosition p, Offset pos,
       {required Color color, required double size}) {
     if (p.id == 'sun') {
       final r = size * 0.5;
-      canvas.drawCircle(pos, r,
-          Paint()..style = PaintingStyle.stroke..strokeWidth = 1.4..color = color);
+      canvas.drawCircle(
+          pos,
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.4
+            ..color = color);
       canvas.drawCircle(pos, size * 0.1, Paint()..color = color);
     } else {
       _glyph(canvas, p.glyph, pos, color: color, size: size);

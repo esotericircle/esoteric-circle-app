@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 /// quindi qui l'anello sta in un riquadro di 24 con raggio 10 e il tratto e' 2:
 /// affiancata a `badge_outlined` non e' ne' piu' grassa ne' piu' magra.
 class IconaDelCerchio extends StatelessWidget {
-  const IconaDelCerchio({super.key, required this.colore, this.dimensione = 21});
+  const IconaDelCerchio(
+      {super.key, required this.colore, this.dimensione = 21});
 
   final Color colore;
   final double dimensione;

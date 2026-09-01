@@ -50,13 +50,13 @@ class RiquadroDellaScelta extends StatelessWidget {
             if (i > 0) const SizedBox(height: SpacingTokens.sm),
             if (scheda.caratteristiche[i].titolo != null) ...[
               Text(scheda.caratteristiche[i].titolo!.toUpperCase(),
-                  style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft, letterSpacing: 1.4)),
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
               const SizedBox(height: 2),
             ],
             Text(scheda.caratteristiche[i].testo,
-                style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textPrimary, height: 1.4)),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           ],
           if (scheda.ragione != null) ...[
             const SizedBox(height: SpacingTokens.sm),
@@ -68,8 +68,8 @@ class RiquadroDellaScelta extends StatelessWidget {
                 Expanded(
                   child: Text(scheda.ragione!,
                       key: const Key('riquadro_ragione'),
-                      style: TypographyTokens.corpo().copyWith(
-                          color: palette.goldSoft, height: 1.35)),
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: palette.goldSoft, height: 1.35)),
                 ),
               ],
             ),
@@ -78,8 +78,8 @@ class RiquadroDellaScelta extends StatelessWidget {
           // Al minimo del token, non sotto: la gerarchia con la ragione la
           // fa il colore smorzato, non una misura che il clamp rialzerebbe.
           Text(scheda.chiave,
-              style: TypographyTokens.corpo().copyWith(
-                  color: ColorTokens.textMuted, height: 1.3)),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textMuted, height: 1.3)),
         ],
       ),
     );

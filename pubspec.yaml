@@ -99,6 +99,18 @@ dependencies:
   audioplayers: ^6.1.0
 
   record: 5.2.1
+
+  # **LA DETTATURA DEL MESSAGGIO. Ordine CI voce 05.**
+  #
+  # Il riconoscimento e' quello della PIATTAFORMA: su iOS il framework Speech,
+  # su Android il riconoscitore di sistema. Costo zero, nessun servizio a
+  # pagamento, e **nessun audio parte verso il nostro server**, che e' il
+  # vincolo dell'ordine.
+  #
+  # Il permesso del microfono c'era gia' per il Soffio del Destino, e la
+  # richiesta passa dalla porta di casa, PortaDelPermesso, che sa distinguere
+  # un no dalla piattaforma che il sensore non ce l'ha.
+  speech_to_text: ^7.0.0
   image_picker: ^1.2.3
 
   # Costellazione del Viso: anteprima della fotocamera frontale e rilevamento

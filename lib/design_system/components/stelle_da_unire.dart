@@ -190,8 +190,7 @@ class StelleDaUnireState extends State<StelleDaUnire>
           ),
         ),
         // Le zone toccabili, una per stella, sopra il disegno.
-        for (var i = 0; i < widget.figura.punti.length; i++)
-          _zona(i),
+        for (var i = 0; i < widget.figura.punti.length; i++) _zona(i),
       ],
     );
   }
@@ -260,14 +259,16 @@ class _StelleDaUnirePainter extends CustomPainter {
       // arriva all'ULTIMA stella unita: mentre si traccia, il suo capo corre
       // dal punto vecchio a quello nuovo. Tutti gli altri fili sono gia'
       // interi e non si toccano.
-      final eIlNuovo = accese.isNotEmpty && (accese.last == b || accese.last == a);
+      final eIlNuovo =
+          accese.isNotEmpty && (accese.last == b || accese.last == a);
       if (eIlNuovo && tracciato < 1.0) {
         if (accese.last == a) {
           // Il filo arriva dalla parte opposta: si allunga verso a.
           pb = mappa(figura.punti[b].punto);
           final capo = mappa(figura.punti[a].punto);
           canvas.drawPath(
-              _fuso(pb, Offset.lerp(pb, capo, tracciato)!, 1.1, 3.4), aloneFilo);
+              _fuso(pb, Offset.lerp(pb, capo, tracciato)!, 1.1, 3.4),
+              aloneFilo);
           canvas.drawPath(
               _fuso(pb, Offset.lerp(pb, capo, tracciato)!, 0.3, pienoFilo),
               cuoreFilo);
@@ -292,8 +293,7 @@ class _StelleDaUnirePainter extends CustomPainter {
             Paint()
               ..color = palette.gold.withValues(alpha: 0.45)
               ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8));
-        canvas.drawCircle(
-            p, 5.2, Paint()..color = const Color(0xFFFFF6D8));
+        canvas.drawCircle(p, 5.2, Paint()..color = const Color(0xFFFFF6D8));
         if (onda >= 0) {
           canvas.drawCircle(
               p,
@@ -301,8 +301,7 @@ class _StelleDaUnirePainter extends CustomPainter {
               Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = 2 * (1 - onda)
-                ..color =
-                    palette.goldSoft.withValues(alpha: 0.7 * (1 - onda)));
+                ..color = palette.goldSoft.withValues(alpha: 0.7 * (1 - onda)));
         }
       } else if (i == accese.length && !completa) {
         // LA STELLA CHE CHIAMA IL TOCCO: l'unica accesa fra le non unite.
@@ -314,10 +313,7 @@ class _StelleDaUnirePainter extends CustomPainter {
             Paint()
               ..color = palette.goldSoft.withValues(alpha: 0.38 * battito)
               ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12));
-        canvas.drawCircle(
-            p,
-            7.5,
-            Paint()..color = const Color(0xFFFFFBEA));
+        canvas.drawCircle(p, 7.5, Paint()..color = const Color(0xFFFFFBEA));
         canvas.drawCircle(
             p,
             11.5,
@@ -344,12 +340,16 @@ class _StelleDaUnirePainter extends CustomPainter {
     return Path()
       ..moveTo(a.dx + n.dx * vitaAiCapi, a.dy + n.dy * vitaAiCapi)
       ..quadraticBezierTo(
-          m.dx + n.dx * vitaAlCentro, m.dy + n.dy * vitaAlCentro,
-          b.dx + n.dx * vitaAiCapi, b.dy + n.dy * vitaAiCapi)
+          m.dx + n.dx * vitaAlCentro,
+          m.dy + n.dy * vitaAlCentro,
+          b.dx + n.dx * vitaAiCapi,
+          b.dy + n.dy * vitaAiCapi)
       ..lineTo(b.dx - n.dx * vitaAiCapi, b.dy - n.dy * vitaAiCapi)
       ..quadraticBezierTo(
-          m.dx - n.dx * vitaAlCentro, m.dy - n.dy * vitaAlCentro,
-          a.dx - n.dx * vitaAiCapi, a.dy - n.dy * vitaAiCapi)
+          m.dx - n.dx * vitaAlCentro,
+          m.dy - n.dy * vitaAlCentro,
+          a.dx - n.dx * vitaAiCapi,
+          a.dy - n.dy * vitaAiCapi)
       ..close();
   }
 

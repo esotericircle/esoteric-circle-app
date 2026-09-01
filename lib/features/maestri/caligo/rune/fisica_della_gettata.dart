@@ -99,8 +99,8 @@ class FisicaDellaGettata {
     required double semiAltezza,
   }) {
     final rng = _Lcg(seme);
-    final separati = separaSenzaSovrapposizioni(
-        arrivi, semiLarghezza, semiAltezza);
+    final separati =
+        separaSenzaSovrapposizioni(arrivi, semiLarghezza, semiAltezza);
     _traiettorie = List.generate(separati.length, (i) {
       final arrivo = separati[i];
       // La cascata: le pietre non partono insieme, ognuna con un piccolo
@@ -119,8 +119,8 @@ class FisicaDellaGettata {
       // L'inclinazione finale: mai sotto la minima, mai uguale a un'altra
       // per costruzione, perche' cresce con l'indice.
       final verso = rng.frazione() < 0.5 ? -1.0 : 1.0;
-      final inclinazione = verso *
-          (inclinazioneMinima + 0.03 * i + rng.frazione() * 0.02);
+      final inclinazione =
+          verso * (inclinazioneMinima + 0.03 * i + rng.frazione() * 0.02);
       return _Traiettoria(
         arrivo: arrivo,
         partenza: partenza,
@@ -137,8 +137,7 @@ class FisicaDellaGettata {
   int get quante => _traiettorie.length;
 
   /// Le posizioni finali, gia' separate e dentro il campo.
-  List<Offset> get arrivi =>
-      [for (final t in _traiettorie) t.arrivo];
+  List<Offset> get arrivi => [for (final t in _traiettorie) t.arrivo];
 
   /// Le inclinazioni da ferme, per chi vuole disegnare la scena gia' posata.
   List<double> get inclinazioniFinali =>

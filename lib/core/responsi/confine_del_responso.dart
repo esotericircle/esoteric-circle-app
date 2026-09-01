@@ -95,9 +95,9 @@ class ConfineDelResponso {
   /// La seconda persona: il pronome, il possessivo, o un verbo alla seconda. E'
   /// il segno che distingue il significato di un simbolo ("l'eredita' e la
   /// casa") da una previsione su di te ("l'eredita' ti aspetta").
-  static final RegExp rivoltaATe =
-      RegExp(r'\b(ti|te|tu|tuo|tua|tuoi|tue|avrai|sarai)\b',
-          caseSensitive: false);
+  static final RegExp rivoltaATe = RegExp(
+      r'\b(ti|te|tu|tuo|tua|tuoi|tue|avrai|sarai)\b',
+      caseSensitive: false);
 
   /// LE FORME DELLA PREVISIONE CERTA.
   ///
@@ -121,8 +121,7 @@ class ConfineDelResponso {
   /// in `ArtCatalog.disclaimerCornice` e questa costante NON lo copia: chi
   /// controlla legge quello, perche' due disclaimer diversi sono due promesse
   /// diverse sulla stessa cosa.
-  static const String doveViveIlDisclaimer =
-      'ArtCatalog.disclaimerCornice';
+  static const String doveViveIlDisclaimer = 'ArtCatalog.disclaimerCornice';
 
   /// Cerca le violazioni in un testo. Vuoto se il testo sta dentro il confine.
   ///

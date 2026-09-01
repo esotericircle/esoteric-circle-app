@@ -21,7 +21,6 @@ import 'sentieri.dart';
 /// `DiarioDelCammino`, e il Sigillo si accende li' comunque, subito, sempre.
 /// Questa coda ricorda soltanto quali feste devono ancora essere mostrate.
 class CodaDelleFeste extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
   ///
   /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati

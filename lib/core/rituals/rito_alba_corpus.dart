@@ -188,7 +188,8 @@ class RitoAlbaCorpus {
               'non hai contato fino a dieci.',
           parola: 'Adesso',
           dato: DatoDelCielo.faseLunare,
-          viaTattile: 'Chiudi gli occhi e conta fino a dieci tenendo il pollice '
+          viaTattile:
+              'Chiudi gli occhi e conta fino a dieci tenendo il pollice '
               'sul palmo.',
         ),
       ],
@@ -206,7 +207,8 @@ class RitoAlbaCorpus {
         Respiro(
             tempi: 6,
             giri: 3,
-            testo: 'Sei tempi dentro e sei fuori, tre volte, tenendo lo sguardo '
+            testo:
+                'Sei tempi dentro e sei fuori, tre volte, tenendo lo sguardo '
                 'fermo su un punto solo.'),
         Respiro(
             tempi: 4,
@@ -270,11 +272,13 @@ class RitoAlbaCorpus {
         Respiro(
             tempi: 4,
             giri: 7,
-            testo: 'Quattro dentro e quattro fuori, sette giri, uno per passo.'),
+            testo:
+                'Quattro dentro e quattro fuori, sette giri, uno per passo.'),
         Respiro(
             tempi: 3,
             giri: 5,
-            testo: 'Tre tempi dentro e tre fuori, cinque giri, corti e regolari.'),
+            testo:
+                'Tre tempi dentro e tre fuori, cinque giri, corti e regolari.'),
         Respiro(
             tempi: 5,
             giri: 4,
@@ -289,9 +293,7 @@ class RitoAlbaCorpus {
             parola: 'Ordine',
             perche: 'Indica cosa viene prima e cosa dopo, quando tutto sembra '
                 'urgente.'),
-        Parola(
-            parola: 'Uno',
-            perche: 'Indica una cosa sola alla volta.'),
+        Parola(parola: 'Uno', perche: 'Indica una cosa sola alla volta.'),
         Parola(
             parola: 'Avanti',
             perche: 'Indica il verso del movimento, non la sua velocità.'),
@@ -368,8 +370,7 @@ class RitoAlbaCorpus {
             perche: 'Indica un orientamento, che si può correggere in '
                 'qualsiasi momento.'),
         Parola(
-            parola: 'Aperto',
-            perche: 'Indica una condizione, non un dovere.'),
+            parola: 'Aperto', perche: 'Indica una condizione, non un dovere.'),
         Parola(
             parola: 'Oggi',
             perche: 'Delimita: quello che segue riguarda un giorno solo.'),
@@ -518,15 +519,11 @@ class RitoAlbaCorpus {
         Parola(
             parola: 'Conta',
             perche: 'Indica cosa fare quando la testa va altrove.'),
-        Parola(
-            parola: 'Basta',
-            perche: 'Indica un limite e va bene metterlo.'),
+        Parola(parola: 'Basta', perche: 'Indica un limite e va bene metterlo.'),
         Parola(
             parola: 'Ancora',
             perche: 'Indica che una cosa si può rifare, non che si deve.'),
-        Parola(
-            parola: 'Piano',
-            perche: 'Indica un modo, non un ritardo.'),
+        Parola(parola: 'Piano', perche: 'Indica un modo, non un ritardo.'),
       ],
     ),
     FormaDelRito(
@@ -553,7 +550,8 @@ class RitoAlbaCorpus {
               'spalla, da un lato e poi dall\'altro.',
           parola: 'Sciolto',
           dato: DatoDelCielo.segnoLunare,
-          viaTattile: 'Se il braccio non arriva, passa la mano sull\'avambraccio '
+          viaTattile:
+              'Se il braccio non arriva, passa la mano sull\'avambraccio '
               'opposto.',
         ),
         Gesto(
@@ -568,7 +566,8 @@ class RitoAlbaCorpus {
         Respiro(
             tempi: 4,
             giri: 5,
-            testo: 'Quattro dentro e quattro fuori, cinque giri, dopo l\'acqua.'),
+            testo:
+                'Quattro dentro e quattro fuori, cinque giri, dopo l\'acqua.'),
         Respiro(
             tempi: 7,
             giri: 4,
@@ -624,7 +623,8 @@ class RitoAlbaCorpus {
               'poi mettici dentro un punto.',
           parola: 'Nodo',
           dato: DatoDelCielo.faseLunare,
-          viaTattile: 'Fallo sul dorso dell\'altra mano, dove il segno si sente '
+          viaTattile:
+              'Fallo sul dorso dell\'altra mano, dove il segno si sente '
               'meglio.',
         ),
         Gesto(
@@ -746,8 +746,7 @@ class RitoAlbaCorpus {
             parola: 'Chiuso',
             perche: 'Indica ciò che per oggi non si apre e va bene così.'),
         Parola(
-            parola: 'Custodire',
-            perche: 'Indica il tenere senza stringere.'),
+            parola: 'Custodire', perche: 'Indica il tenere senza stringere.'),
         Parola(
             parola: 'Forma',
             perche: 'Indica il contorno di una cosa, che si sente prima di '
@@ -823,7 +822,8 @@ class RitoAlbaCorpus {
             perche: 'Indica un\'assenza che si può scegliere.'),
         Parola(
             parola: 'Riparo',
-            perche: 'Indica un posto dove stare, non un posto dove nascondersi.'),
+            perche:
+                'Indica un posto dove stare, non un posto dove nascondersi.'),
       ],
     ),
   ];

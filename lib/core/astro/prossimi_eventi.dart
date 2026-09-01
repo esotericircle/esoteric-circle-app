@@ -155,8 +155,7 @@ class ProssimiEventi {
           final indietro = attraversamenti.contains(evento) && i > 0 ? 1 : 0;
           trovati[evento] = EventoInArrivo(
             evento: evento,
-            quando: DateTime(
-                giorno.year, giorno.month, giorno.day - indietro),
+            quando: DateTime(giorno.year, giorno.month, giorno.day - indietro),
             fraQuantiGiorni: i - indietro,
             personale: personali.contains(evento),
           );

@@ -144,8 +144,8 @@ class _RitualPainter extends CustomPainter {
           center: Alignment((light.dx - c.dx) / r, (light.dy - c.dy) / r),
           radius: 1.15,
           colors: [
-            Color.lerp(palette.surfaceElevated, Colors.white,
-                0.30 + 0.24 * progress)!,
+            Color.lerp(
+                palette.surfaceElevated, Colors.white, 0.30 + 0.24 * progress)!,
             palette.surface,
             palette.deepest,
           ],
@@ -179,8 +179,7 @@ class _RitualPainter extends CustomPainter {
             (0.10 + 0.30 * (i / blobs) + 0.08 * layer) *
             (1 + 0.7 * progress);
         final fp = c +
-            Offset(math.cos(a) * rad,
-                math.sin(a * 0.9 + layer) * rad * 0.88);
+            Offset(math.cos(a) * rad, math.sin(a * 0.9 + layer) * rad * 0.88);
         final blobR = r *
             (0.42 - 0.14 * (i / blobs) - 0.05 * layer) *
             (1 + 0.2 * math.sin(a));
@@ -218,9 +217,7 @@ class _RitualPainter extends CustomPainter {
         Paint()
           ..color = Colors.white.withValues(alpha: 0.55)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12));
-    canvas.drawCircle(
-        light + Offset(r * 0.02, r * 0.02),
-        r * 0.07,
+    canvas.drawCircle(light + Offset(r * 0.02, r * 0.02), r * 0.07,
         Paint()..color = Colors.white.withValues(alpha: 0.95));
 
     // Riflesso di finestra.
@@ -311,13 +308,22 @@ class _RitualPainter extends CustomPainter {
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 11));
 
     // Base larga a piu' gradini.
-    final baseRect =
-        Rect.fromCenter(center: Offset(cx, baseY), width: r * 1.55, height: r * 0.42);
+    final baseRect = Rect.fromCenter(
+        center: Offset(cx, baseY), width: r * 1.55, height: r * 0.42);
     canvas.drawOval(baseRect, Paint()..shader = metal(baseRect));
-    canvas.drawArc(baseRect, math.pi, math.pi, false,
-        Paint()..color = Colors.white.withValues(alpha: 0.25)..strokeWidth = 2..style = PaintingStyle.stroke);
+    canvas.drawArc(
+        baseRect,
+        math.pi,
+        math.pi,
+        false,
+        Paint()
+          ..color = Colors.white.withValues(alpha: 0.25)
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke);
     final base2 = Rect.fromCenter(
-        center: Offset(cx, baseY - r * 0.16), width: r * 1.28, height: r * 0.30);
+        center: Offset(cx, baseY - r * 0.16),
+        width: r * 1.28,
+        height: r * 0.30);
     canvas.drawOval(base2, Paint()..shader = metal(base2));
 
     // Stelo a calice.
@@ -380,15 +386,23 @@ class _RitualPainter extends CustomPainter {
             ..color = Color.lerp(palette.goldSoft, Colors.white, 0.5)!
                 .withValues(alpha: 0.5));
     }
-    final cradleRect =
-        Rect.fromCenter(center: Offset(cx, cradleY), width: r * 1.2, height: r * 0.5);
-    canvas.drawArc(cradleRect, 0.12 * math.pi, 0.76 * math.pi, false,
+    final cradleRect = Rect.fromCenter(
+        center: Offset(cx, cradleY), width: r * 1.2, height: r * 0.5);
+    canvas.drawArc(
+        cradleRect,
+        0.12 * math.pi,
+        0.76 * math.pi,
+        false,
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 5
           ..strokeCap = StrokeCap.round
           ..color = palette.gold);
-    canvas.drawArc(cradleRect, 0.12 * math.pi, 0.76 * math.pi, false,
+    canvas.drawArc(
+        cradleRect,
+        0.12 * math.pi,
+        0.76 * math.pi,
+        false,
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.6
@@ -409,15 +423,16 @@ class _RitualPainter extends CustomPainter {
 
     final alive = (1 - progress).clamp(0.0, 1.0);
     final wickTop = bodyTop - w * 0.05;
-    final flameH = w * 0.42 * alive * (1 + 0.14 * math.sin(t * 2 * math.pi * 5));
+    final flameH =
+        w * 0.42 * alive * (1 + 0.14 * math.sin(t * 2 * math.pi * 5));
 
     // Pozza di luce calda alla base.
     canvas.drawCircle(
         Offset(cx, bodyBottom),
         bodyW * 2.1,
         Paint()
-          ..color = const Color(0xFFE0733A)
-              .withValues(alpha: 0.10 + 0.14 * alive)
+          ..color =
+              const Color(0xFFE0733A).withValues(alpha: 0.10 + 0.14 * alive)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 26));
 
     // Corpo della candela: cera translucida (gradiente verticale caldo + volume
@@ -472,14 +487,14 @@ class _RitualPainter extends CustomPainter {
         ..quadraticBezierTo(dx + w * 0.03, dy + len * 0.6, dx + w * 0.02, dy)
         ..close();
       canvas.drawPath(p, Paint()..color = wax.withValues(alpha: 0.9));
-      canvas.drawCircle(Offset(dx, dy + len), w * 0.022,
-          Paint()..color = wax);
+      canvas.drawCircle(Offset(dx, dy + len), w * 0.022, Paint()..color = wax);
     }
 
     // Bordo superiore fuso (coppa di cera) con alta luce.
     final topRim = Rect.fromCenter(
         center: Offset(cx, bodyTop), width: bodyW, height: bodyW * 0.30);
-    canvas.drawOval(topRim, Paint()..color = Color.lerp(wax, Colors.white, 0.25)!);
+    canvas.drawOval(
+        topRim, Paint()..color = Color.lerp(wax, Colors.white, 0.25)!);
     canvas.drawOval(
         Rect.fromCenter(
             center: Offset(cx, bodyTop - bodyW * 0.02),
@@ -524,7 +539,8 @@ class _RitualPainter extends CustomPainter {
       canvas.drawPath(flame(0.72, Offset(tip.dx, tip.dy + flameH * 0.22), 0.72),
           Paint()..color = const Color(0xFFFFC24D).withValues(alpha: alive));
       // Nucleo bianco caldo.
-      canvas.drawPath(flame(0.4, Offset(tip.dx, tip.dy + flameH * 0.42), 0.42),
+      canvas.drawPath(
+          flame(0.4, Offset(tip.dx, tip.dy + flameH * 0.42), 0.42),
           Paint()
             ..color = const Color(0xFFFFF6E0).withValues(alpha: 0.95 * alive)
             ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.5));
@@ -603,7 +619,8 @@ class _RitualPainter extends CustomPainter {
               Color(0xFF7CB98A),
               Color(0xFF3F7A54),
             ],
-          ).createShader(Rect.fromLTWH(c.dx, c.dy, w * 0.2, size.height * 0.55)));
+          ).createShader(
+              Rect.fromLTWH(c.dx, c.dy, w * 0.2, size.height * 0.55)));
     final leaf = Path()
       ..moveTo(c.dx + w * 0.07, size.height * 0.74)
       ..quadraticBezierTo(c.dx + w * 0.24, size.height * 0.70, c.dx + w * 0.17,
@@ -641,12 +658,9 @@ class _RitualPainter extends CustomPainter {
         final spin = a + fly * 6;
         final drift = c +
             Offset(math.cos(a), math.sin(a)) * len +
-            Offset(
-                math.cos(a) * fly * w * 0.5 + fly * w * 0.28,
-                -fly * size.height * 0.42 +
-                    math.sin(fly * 8) * w * 0.05);
-        _seed(canvas, drift, spin,
-            (1 - fly).clamp(0.0, 1.0), palette.goldSoft);
+            Offset(math.cos(a) * fly * w * 0.5 + fly * w * 0.28,
+                -fly * size.height * 0.42 + math.sin(fly * 8) * w * 0.05);
+        _seed(canvas, drift, spin, (1 - fly).clamp(0.0, 1.0), palette.goldSoft);
       }
     }
 

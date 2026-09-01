@@ -76,7 +76,7 @@ class DreamRiteScreen extends StatefulWidget {
     TonePlayer? player,
   }) =>
       PassaggioDelCerchio.rotta<void>((_) =>
-            MaestroScope(child: DreamRiteScreen(now: now, player: player)));
+          MaestroScope(child: DreamRiteScreen(now: now, player: player)));
 
   @override
   State<DreamRiteScreen> createState() => _DreamRiteScreenState();
@@ -88,7 +88,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     with TickerProviderStateMixin {
   late final DateTime _date = widget.now ?? DateTime.now();
   late final Maestro _maestro = DailyRituals.nightMaestro(_date);
-  late final MaestroPalette _palette = MaestroPalette.forKey(ThemeKey.of(_maestro));
+  late final MaestroPalette _palette =
+      MaestroPalette.forKey(ThemeKey.of(_maestro));
   late final BirthMoon _luna = DreamRiteCorpus.lunaDi(_date);
 
   /// La data di nascita, se c'e', senza pretendere il provider: un
@@ -100,6 +101,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
       return null;
     }
   }
+
   late final ZodiacConstellation _figura =
       kZodiacConstellations.firstWhere((c) => c.sign == _luna.sign);
 
@@ -108,7 +110,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     vsync: this,
     duration: const Duration(seconds: 12),
   )..repeat();
-
 
   final BreathDetector _fiato = BreathDetector();
   final TiltListener _tilt = TiltListener();
@@ -279,7 +280,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   Widget build(BuildContext context) {
     // **IL SALUTO E' TUO, non solo della notte.** Ordine CE voce 13: qui
     // entra la data di nascita, e con lei la Luna natale.
-    final saluto = DreamRiteCorpus.saluto(_date, nascita: _forseLaNascita(context));
+    final saluto =
+        DreamRiteCorpus.saluto(_date, nascita: _forseLaNascita(context));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
@@ -301,9 +303,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             testo: 'Sigillo del Sogno',
             stile: TypographyTokens.titoloDiSchermata()),
         actions: [
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-        // ogni schermata della pratica. Un saldo che appare e scompare non
-        // si impara.
+          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+          // ogni schermata della pratica. Un saldo che appare e scompare non
+          // si impara.
           const AngoloDellaBarra(),
           IconButton(
             key: const Key('dream_sources'),
@@ -451,7 +453,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
         if (_runaTramonto != null) ...[
           const SizedBox(height: SpacingTokens.sm),
-          Text('Porti dentro la notte la runa $_runaTramonto: '
+          Text(
+              'Porti dentro la notte la runa $_runaTramonto: '
               'lasciala parlare mentre chiudi il giorno.',
               key: const Key('dream_runa_tramonto'),
               textAlign: TextAlign.center,
@@ -464,8 +467,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           Text(FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
               key: const Key('dream_parola_del_mattino'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia().copyWith(
-                  color: _palette.goldSoft, height: 1.45)),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
         ],
         const SizedBox(height: SpacingTokens.md),
         _Riga(
@@ -551,8 +554,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         const SizedBox(height: SpacingTokens.xs),
         Text(DreamRiteCorpus.parola(_luna.sign).toUpperCase(),
             key: const Key('dream_word'),
-            style: TypographyTokens.cerimonialeGrande().copyWith(
-                color: _palette.goldSoft, letterSpacing: 1.6)),
+            style: TypographyTokens.cerimonialeGrande()
+                .copyWith(color: _palette.goldSoft, letterSpacing: 1.6)),
         const SizedBox(height: SpacingTokens.sm),
         // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e
         // prende la misura di lettura come il consiglio di Medora.
@@ -721,7 +724,8 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      final andata = await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
+      final andata =
+          await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
       if (andata && mounted) {
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
         // a condivisione davvero avvenuta.
@@ -777,7 +781,6 @@ class _AzioniState extends State<_Azioni> {
 // I painter della scena: Luna reale, stelle vicine, foschia, fili di luce.
 // ---------------------------------------------------------------------------
 
-
 /// Disegna una stella premium: alone a gradiente, nucleo e una piccola raggiera.
 void _stellaPremium(
   Canvas canvas,
@@ -811,8 +814,8 @@ void _stellaPremium(
     canvas.drawLine(c.translate(0, -r), c.translate(0, r), penna);
   }
   // Nucleo.
-  canvas.drawCircle(c, raggio * 1.6,
-      Paint()..color = colore.withValues(alpha: 0.55 * a));
+  canvas.drawCircle(
+      c, raggio * 1.6, Paint()..color = colore.withValues(alpha: 0.55 * a));
   canvas.drawCircle(c, raggio, Paint()..color = colore.withValues(alpha: a));
 }
 

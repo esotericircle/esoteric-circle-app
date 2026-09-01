@@ -9,7 +9,8 @@ import '../astro/zodiac.dart';
 /// reale a bassa precisione). Deterministico, senza rete ne' asset. L'ora
 /// precisa affinera' il segno quando ci sara' il dato reale di nascita.
 class BirthMoon {
-  const BirthMoon({required this.phase, required this.sign, required this.meaning});
+  const BirthMoon(
+      {required this.phase, required this.sign, required this.meaning});
 
   final MoonPhase phase;
   final Zodiac sign;
@@ -39,17 +40,25 @@ class BirthMoon {
   // Il segno lunare parla del sentire, non della volonta' del Sole: una riga
   // per ciascuno, nella voce di Medora.
   static const Map<Zodiac, String> _meanings = {
-    Zodiac.aries: 'Senti d\'impulso e con ardore: le emozioni arrivano come lampi.',
-    Zodiac.taurus: 'Senti con calma e costanza: cerchi conforto stabile e concreto.',
-    Zodiac.gemini: 'Senti con curiosità e parole: le emozioni si fanno racconto.',
+    Zodiac.aries:
+        'Senti d\'impulso e con ardore: le emozioni arrivano come lampi.',
+    Zodiac.taurus:
+        'Senti con calma e costanza: cerchi conforto stabile e concreto.',
+    Zodiac.gemini:
+        'Senti con curiosità e parole: le emozioni si fanno racconto.',
     Zodiac.cancer: 'Senti in profondità e proteggi: la Luna qui è a casa sua.',
     Zodiac.leo: 'Senti con calore e generosità: il cuore chiede di brillare.',
-    Zodiac.virgo: 'Senti prendendoti cura dei dettagli: ami servendo con precisione.',
+    Zodiac.virgo:
+        'Senti prendendoti cura dei dettagli: ami servendo con precisione.',
     Zodiac.libra: 'Senti cercando armonia: la relazione è il tuo specchio.',
-    Zodiac.scorpio: 'Senti con intensità e verità: le emozioni scavano a fondo.',
-    Zodiac.sagittarius: 'Senti con slancio e fiducia: cerchi orizzonti e significato.',
-    Zodiac.capricorn: 'Senti con misura e responsabilità: proteggi ciò che dura.',
+    Zodiac.scorpio:
+        'Senti con intensità e verità: le emozioni scavano a fondo.',
+    Zodiac.sagittarius:
+        'Senti con slancio e fiducia: cerchi orizzonti e significato.',
+    Zodiac.capricorn:
+        'Senti con misura e responsabilità: proteggi ciò che dura.',
     Zodiac.aquarius: 'Senti con libertà e ampiezza: il cuore abbraccia tutti.',
-    Zodiac.pisces: 'Senti con empatia e sogno: confini morbidi, immaginazione viva.',
+    Zodiac.pisces:
+        'Senti con empatia e sogno: confini morbidi, immaginazione viva.',
   };
 }

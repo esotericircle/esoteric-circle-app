@@ -217,8 +217,7 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
   @override
   void initState() {
     super.initState();
-    _zoom = AnimationController(
-        vsync: this, duration: MappaDellaDistanza.corsa)
+    _zoom = AnimationController(vsync: this, duration: MappaDellaDistanza.corsa)
       ..forward();
     // Con Riduci Movimento la mappa e' gia' all'arrivo: l'informazione resta
     // tutta, non si muove niente.
@@ -237,7 +236,8 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
   @override
   Widget build(BuildContext context) {
     final sua = widget.incontro;
-    final tu = (lat: widget.doveSei.latitudine, lon: widget.doveSei.longitudine);
+    final tu =
+        (lat: widget.doveSei.latitudine, lon: widget.doveSei.longitudine);
     // Senza la citta' del VIP non c'e' nessuna distanza da percorrere.
     final km = sua.chilometri;
     final lui = sua.sueCoordinate;
@@ -269,8 +269,8 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
                     // quarantamila a ogni fotogramma sarebbe uno spreco.
                     tuaNazione: NazioneDelPunto.di(tu),
                     suaNazione: NazioneDelPunto.di(lui),
-                    riferimenti: RiferimentiDellaMappa.dentro(q,
-                        tu: tu, lui: lui),
+                    riferimenti:
+                        RiferimentiDellaMappa.dentro(q, tu: tu, lui: lui),
                   ),
                   child: const SizedBox.expand(),
                 ),
@@ -321,7 +321,6 @@ class _MappaDellaDistanzaState extends State<MappaDellaDistanza>
     final scorsi = (km * t).round();
     return '$scorsi km da te';
   }
-
 }
 
 class _DisegnoDellaMappa extends CustomPainter {
@@ -430,8 +429,8 @@ class _DisegnoDellaMappa extends CustomPainter {
     // "non si capisce visivamente dove si trovano, nemmeno la nazione [...] ma
     // anche le citta' dove vivono". Due pallini su una linea non dicono dove
     // sei.
-    _scrivi(canvas, tuaCitta, a + const Offset(7, -8), size,
-        palette.goldSoft, 11);
+    _scrivi(
+        canvas, tuaCitta, a + const Offset(7, -8), size, palette.goldSoft, 11);
     if (suaCitta != null) {
       _scrivi(canvas, suaCitta!, b + const Offset(9, -8), size,
           palette.goldSoft, 11);
@@ -483,8 +482,7 @@ class _DisegnoDellaMappa extends CustomPainter {
 
   @override
   bool shouldRepaint(_DisegnoDellaMappa vecchio) =>
-      vecchio.inquadratura.larghezzaInGradi !=
-          inquadratura.larghezzaInGradi ||
+      vecchio.inquadratura.larghezzaInGradi != inquadratura.larghezzaInGradi ||
       vecchio.inquadratura.centro != inquadratura.centro ||
       vecchio.riferimenti.length != riferimenti.length;
 }

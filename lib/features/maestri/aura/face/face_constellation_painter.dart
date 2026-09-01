@@ -36,7 +36,8 @@ class FaceConstellationPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.4 * risalto
       ..strokeCap = StrokeCap.round
-      ..color = palette.goldSoft.withValues(alpha: (0.45 * risalto).clamp(0.0, 1.0));
+      ..color =
+          palette.goldSoft.withValues(alpha: (0.45 * risalto).clamp(0.0, 1.0));
     for (final l in costellazione.linee) {
       if (l[0] < stelle.length && l[1] < stelle.length) {
         canvas.drawLine(stelle[l[0]], stelle[l[1]], filo);
@@ -55,7 +56,8 @@ class FaceConstellationPainter extends CustomPainter {
         s,
         r * 2.4,
         Paint()
-          ..color = palette.gold.withValues(alpha: (0.22 * risalto).clamp(0.0, 1.0))
+          ..color =
+              palette.gold.withValues(alpha: (0.22 * risalto).clamp(0.0, 1.0))
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
       );
       canvas.drawCircle(
@@ -66,7 +68,9 @@ class FaceConstellationPainter extends CustomPainter {
       canvas.drawCircle(
         s,
         r * 0.5,
-        Paint()..color = Colors.white.withValues(alpha: (0.9 * risalto).clamp(0.0, 1.0)),
+        Paint()
+          ..color =
+              Colors.white.withValues(alpha: (0.9 * risalto).clamp(0.0, 1.0)),
       );
     }
   }

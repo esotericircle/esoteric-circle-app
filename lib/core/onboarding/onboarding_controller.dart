@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// persistenza (test, anteprime) non si blocca l'app con l'onboarding: si va
 /// dritti al Santuario.
 class OnboardingController extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
   ///
   /// Chi cancella l'account deve tornare a essere qualcuno che l'onboarding
@@ -20,6 +19,7 @@ class OnboardingController extends ChangeNotifier {
     _needsOnboarding = true;
     notifyListeners();
   }
+
   static const _kDone = 'onboarding.done';
 
   bool _resolved = false;

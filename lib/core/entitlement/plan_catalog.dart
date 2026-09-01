@@ -368,6 +368,7 @@ class PlanCatalog {
   /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
   /// toccarlo, e l'esitazione uccide l'intimita'.
   static const String rigaApprofondimenti = 'Vai più a fondo';
+
   /// Quanti confronti nel Consiglio dei Maestri al giorno.
   ///
   /// **E' una riga a se', accanto alle domande e agli approfondimenti.** Il
@@ -400,8 +401,12 @@ class PlanCatalog {
 
   static const List<FeatureRow> matrix = [
     FeatureRow('Pubblicità banner inferiore', ['Sì', 'No', 'No', 'No']),
-    FeatureRow('Carta natale occidentale',
-        ['Base lettura', 'Completa + transiti', 'Completa + transiti', 'Completa + transiti']),
+    FeatureRow('Carta natale occidentale', [
+      'Base lettura',
+      'Completa + transiti',
+      'Completa + transiti',
+      'Completa + transiti'
+    ]),
     FeatureRow('Arcano del Giorno', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Soffio del Destino', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Rito dell\'Alba', ['Sì', 'Sì', 'Sì', 'Sì']),
@@ -497,8 +502,8 @@ class PlanCatalog {
     ]),
     // LA DOTE DI BENVENUTO DEL PIANO, ordine AN voce 07: si mostra come
     // valore del piano, e la riga dice che arriva alla sottoscrizione.
-    FeatureRow('Eos in dono alla sottoscrizione',
-        ['No', '500', '1.500', '3.000']),
+    FeatureRow(
+        'Eos in dono alla sottoscrizione', ['No', '500', '1.500', '3.000']),
     FeatureRow('Domanda al Maestro reale', ['No', 'No', 'No', '1 al mese']),
     FeatureRow('Accesso anticipato nuove funzioni', ['No', 'No', 'No', 'Sì']),
     FeatureRow('Eos bonus mensili', ['No', 'Medio', 'Alto', 'Massimo']),

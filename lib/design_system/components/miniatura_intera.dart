@@ -62,13 +62,12 @@ class MiniaturaIntera extends StatelessWidget {
       width: larghezza,
       height: larghezza / proporzione,
       child: ClipRRect(
-        borderRadius:
-            BorderRadius.circular(raggio ?? SpacingTokens.radiusSm),
+        borderRadius: BorderRadius.circular(raggio ?? SpacingTokens.radiusSm),
         child: Image.asset(
           path,
           fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) => Icon(ripiego,
-              color: palette.goldSoft, size: larghezza * 0.34),
+          errorBuilder: (_, __, ___) =>
+              Icon(ripiego, color: palette.goldSoft, size: larghezza * 0.34),
         ),
       ),
     );

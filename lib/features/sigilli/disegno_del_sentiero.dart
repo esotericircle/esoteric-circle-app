@@ -90,8 +90,7 @@ class GeometriaDelSentiero {
   /// parti i dieci mini e poi il grande che la chiude. Quindi il punto del
   /// grande della parte i sta all'indice `i * 11 + 10`, e l'ossatura ci conta
   /// sopra.
-  static List<PuntoDelSentiero> punti(Sentiero sentiero) =>
-      switch (sentiero) {
+  static List<PuntoDelSentiero> punti(Sentiero sentiero) => switch (sentiero) {
         Sentiero.costellazione => _costellazione(),
         Sentiero.albero => _albero(),
         Sentiero.loto => _loto(),
@@ -271,7 +270,13 @@ class GeometriaDelSentiero {
   }
 
   /// Le cinque Sefirot Maggiori sul pilastro centrale, dal Regno alla Corona.
-  static const List<double> altezzeDelleSefirot = [0.86, 0.68, 0.50, 0.30, 0.10];
+  static const List<double> altezzeDelleSefirot = [
+    0.86,
+    0.68,
+    0.50,
+    0.30,
+    0.10
+  ];
 
   /// IL CARATTERE DEI CINQUE RAMI: quanto sono lunghi i due lati e quanto
   /// pendono.
@@ -290,7 +295,13 @@ class GeometriaDelSentiero {
   ];
 
   /// Quanto pende ogni ramo, dal basso in alto: i bassi portano piu' peso.
-  static const List<double> pendenzaDeiRami = [0.030, 0.024, 0.017, 0.011, 0.006];
+  static const List<double> pendenzaDeiRami = [
+    0.030,
+    0.024,
+    0.017,
+    0.011,
+    0.006
+  ];
 
   static List<PuntoDelSentiero> _albero() {
     final mini = Sentieri.miniDi(Sentiero.albero);
@@ -321,8 +332,8 @@ class GeometriaDelSentiero {
             (ramo.isEven ? 1.0 : -1.0) *
             0.026 *
             compressioneVerticale;
-        final caduta = scarto +
-            pendenzaDeiRami[ramo] * passo * compressioneVerticale;
+        final caduta =
+            scarto + pendenzaDeiRami[ramo] * passo * compressioneVerticale;
         punti.add(PuntoDelSentiero(
           traguardo: mini[indice],
           dove: Offset(0.5 + lato * apertura, cima + caduta),
@@ -420,8 +431,7 @@ class GeometriaDelSentiero {
     if (aperto) return angoloAperto;
     // Verso l'alto, cioe' verso meno mezzo pi greco: il bocciolo e' raccolto.
     const eretto = -math.pi / 2;
-    return angoloAperto +
-        (eretto - angoloAperto) * erezioneDelPetaloChiuso;
+    return angoloAperto + (eretto - angoloAperto) * erezioneDelPetaloChiuso;
   }
 
   static List<PuntoDelSentiero> _loto() {
@@ -453,14 +463,11 @@ class GeometriaDelSentiero {
           // suo petalo, e il tocco cadrebbe accanto invece che sopra.
           dove: Offset(
             cuoreDelLoto.dx + lungo * math.cos(angolo),
-            cuoreDelLoto.dy +
-                lungo * math.sin(angolo) * misuraQuadra,
+            cuoreDelLoto.dy + lungo * math.sin(angolo) * misuraQuadra,
           ),
           grandezza: eIlGrande
               ? GrandezzaDelPunto.principale
-              : (vicino
-                  ? GrandezzaDelPunto.media
-                  : GrandezzaDelPunto.piccola),
+              : (vicino ? GrandezzaDelPunto.media : GrandezzaDelPunto.piccola),
           angolo: angolo,
           gruppo: giro,
         ));
@@ -470,7 +477,6 @@ class GeometriaDelSentiero {
   }
 
   static List<SegmentoDelSentiero> _ossaturaLoto() => const [];
-
 }
 
 /// UN PUNTO DEL DISEGNO: una stella, un frutto, un petalo.
@@ -735,8 +741,8 @@ class DisegnoDelSentiero extends StatelessWidget {
     var quale = -1;
     var minima = double.infinity;
     for (var i = 0; i < ancoraggi.length; i++) {
-      final centro = Offset(
-          dx + ancoraggi[i].x * wArte * scala, dy + ancoraggi[i].y * hArte * scala);
+      final centro = Offset(dx + ancoraggi[i].x * wArte * scala,
+          dy + ancoraggi[i].y * hArte * scala);
       final d = (centro - tocco).distance;
       if (d < minima) {
         minima = d;
@@ -778,7 +784,8 @@ abstract class _PittoreDelSentiero extends CustomPainter {
   /// cambiava poco. Sull'Albero era gia' vero senza avere un nome, perche' Keter
   /// porta una corona di luce che le altre Sefirot non hanno: quella e' il
   /// modello, e da qui vale per tutti e tre.
-  bool get figuraCompiuta => punti.any((p) => p.eGrande && p.gruppo == 4 && acceso(p));
+  bool get figuraCompiuta =>
+      punti.any((p) => p.eGrande && p.gruppo == 4 && acceso(p));
 
   Offset assoluto(PuntoDelSentiero p, Size s) =>
       Offset(p.dove.dx * s.width, p.dove.dy * s.height);
@@ -811,7 +818,9 @@ abstract class _PittoreDelSentiero extends CustomPainter {
       if (!acceso(a) || !acceso(b)) continue;
       final dueGrandi = a.eGrande && b.eGrande;
       final penna = dueGrandi ? spina : viva;
-      tela.drawLine(assoluto(a, misura), assoluto(b, misura),
+      tela.drawLine(
+          assoluto(a, misura),
+          assoluto(b, misura),
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeCap = StrokeCap.round
@@ -826,8 +835,7 @@ abstract class _PittoreDelSentiero extends CustomPainter {
   /// distanza del punto di controllo dalla corda, in frazione della lunghezza del
   /// segmento: il verso lo da' la posizione del punto rispetto al tronco, cosi'
   /// i rami di destra e di sinistra si piegano in modo speculare.
-  void ossaturaCurva(
-      Canvas tela, Size misura, List<SegmentoDelSentiero> ossa,
+  void ossaturaCurva(Canvas tela, Size misura, List<SegmentoDelSentiero> ossa,
       {required double piega}) {
     final c = corto(misura);
     for (final osso in ossa) {
@@ -840,8 +848,8 @@ abstract class _PittoreDelSentiero extends CustomPainter {
       final meta = Offset((da.dx + ad.dx) / 2, (da.dy + ad.dy) / 2);
       final lunghezza = (ad - da).distance;
       // Il controllo sta sopra la corda, dal lato in cui il ramo cresce.
-      final controllo = Offset(
-          meta.dx, meta.dy - verso * 0 - lunghezza * piega);
+      final controllo =
+          Offset(meta.dx, meta.dy - verso * 0 - lunghezza * piega);
       tela.drawPath(
           Path()
             ..moveTo(da.dx, da.dy)
@@ -948,11 +956,12 @@ class PittoreDellaCostellazione extends _PittoreDelSentiero {
           final raggio = Paint()
             ..strokeWidth = c * 0.0020
             ..color = oro.withValues(alpha: 0.85);
-          final lungo = r * (grandezza == GrandezzaDelPunto.principale ? 2.4 : 1.9);
-          tela.drawLine(centro.translate(-lungo, 0), centro.translate(lungo, 0),
-              raggio);
-          tela.drawLine(centro.translate(0, -lungo), centro.translate(0, lungo),
-              raggio);
+          final lungo =
+              r * (grandezza == GrandezzaDelPunto.principale ? 2.4 : 1.9);
+          tela.drawLine(
+              centro.translate(-lungo, 0), centro.translate(lungo, 0), raggio);
+          tela.drawLine(
+              centro.translate(0, -lungo), centro.translate(0, lungo), raggio);
         }
       }
     }
@@ -1014,11 +1023,8 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
     for (final verso in const [-1.0, -0.45, 0.45, 1.0]) {
       final radice = Path()
         ..moveTo(base.dx, base.dy)
-        ..quadraticBezierTo(
-            base.dx + verso * c * 0.06,
-            base.dy + c * 0.035,
-            base.dx + verso * c * 0.135,
-            base.dy + c * 0.075);
+        ..quadraticBezierTo(base.dx + verso * c * 0.06, base.dy + c * 0.035,
+            base.dx + verso * c * 0.135, base.dy + c * 0.075);
       tela.drawPath(
           radice,
           Paint()
@@ -1103,14 +1109,13 @@ class PittoreDelLoto extends _PittoreDelSentiero {
     final punta = Offset(cuore.dx + lungo * math.cos(angolo),
         cuore.dy + lungo * math.sin(angolo));
     final normale = angolo + math.pi / 2;
-    final fianco =
-        Offset(largo * math.cos(normale), largo * math.sin(normale));
+    final fianco = Offset(largo * math.cos(normale), largo * math.sin(normale));
     final terzo = Offset(cuore.dx + lungo * 0.34 * math.cos(angolo),
         cuore.dy + lungo * 0.34 * math.sin(angolo));
     return Path()
       ..moveTo(cuore.dx, cuore.dy)
-      ..quadraticBezierTo(terzo.dx + fianco.dx, terzo.dy + fianco.dy, punta.dx,
-          punta.dy)
+      ..quadraticBezierTo(
+          terzo.dx + fianco.dx, terzo.dy + fianco.dy, punta.dx, punta.dy)
       ..quadraticBezierTo(
           terzo.dx - fianco.dx, terzo.dy - fianco.dy, cuore.dx, cuore.dy)
       ..close();
@@ -1171,16 +1176,17 @@ class PittoreDelLoto extends _PittoreDelSentiero {
             via,
             Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth =
-                  c * (p.eGrande ? 0.0044 : 0.0028)
+              ..strokeWidth = c * (p.eGrande ? 0.0044 : 0.0028)
               ..color = p.eGrande
                   ? Colors.white.withValues(alpha: 0.92)
                   : oro.withValues(alpha: 0.92));
       } else {
         // **CHIUSO E' CHIUSO**: forma piena e tenue, stretta ed eretta. A zero
         // traguardi tutti insieme fanno un bocciolo.
-        tela.drawPath(via,
-            Paint()..color = oroTenue.withValues(alpha: p.eGrande ? 0.38 : 0.26));
+        tela.drawPath(
+            via,
+            Paint()
+              ..color = oroTenue.withValues(alpha: p.eGrande ? 0.38 : 0.26));
       }
     }
 

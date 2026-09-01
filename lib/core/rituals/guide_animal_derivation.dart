@@ -36,7 +36,6 @@ class GuideAnimalDerivation {
   }
 
   /// Il segno da cui nasce un animale, per il rovescio della tabella.
-  static Zodiac signOf(String animalName) => _segnoAnimale.entries
-      .firstWhere((e) => e.value == animalName)
-      .key;
+  static Zodiac signOf(String animalName) =>
+      _segnoAnimale.entries.firstWhere((e) => e.value == animalName).key;
 }

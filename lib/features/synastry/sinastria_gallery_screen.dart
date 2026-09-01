@@ -91,15 +91,15 @@ class SinastriaGalleryScreen extends StatefulWidget {
     String? titolo,
   }) {
     return PassaggioDelCerchio.rotta<Vip>((_) => MaestroScope(
-        maestro: Maestro.medora,
-        child: SinastriaGalleryScreen(
-          userSign: userSign,
-          userName: userName,
-          userBirth: userBirth,
-          restituisci: true,
-          titolo: titolo,
-        ),
-      ));
+          maestro: Maestro.medora,
+          child: SinastriaGalleryScreen(
+            userSign: userSign,
+            userName: userName,
+            userBirth: userBirth,
+            restituisci: true,
+            titolo: titolo,
+          ),
+        ));
   }
 
   static Route<void> route({
@@ -109,15 +109,15 @@ class SinastriaGalleryScreen extends StatefulWidget {
     bool cercaSubitoIlGemello = false,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
-        id: 'synastry_vip',
-        maestro: Maestro.medora,
-        child: SinastriaGalleryScreen(
-          userSign: userSign,
-          userName: userName,
-          userBirth: userBirth,
-          cercaSubitoIlGemello: cercaSubitoIlGemello,
-        ),
-      ));
+          id: 'synastry_vip',
+          maestro: Maestro.medora,
+          child: SinastriaGalleryScreen(
+            userSign: userSign,
+            userName: userName,
+            userBirth: userBirth,
+            cercaSubitoIlGemello: cercaSubitoIlGemello,
+          ),
+        ));
   }
 
   @override
@@ -223,8 +223,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         .then((_) {
       _unVipEAperto = false;
       if (mounted) {
-        unawaited(
-            RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
+        unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
       }
     }));
   }
@@ -300,17 +299,17 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   /// Mette un VIP nella prima casella, al posto della persona: la galleria si
   /// riapre per scegliere il secondo.
   void _sostituisciLaPrimaCasella(Vip primo) {
-    Navigator.of(context).push(PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: Maestro.medora,
-        child: SinastriaGalleryScreen(
-          primoVip: primo,
-          userSign: widget.userSign,
-          userName: widget.userName,
-          userBirth: widget.userBirth,
-        ),
-      )));
+    Navigator.of(context)
+        .push(PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+              maestro: Maestro.medora,
+              child: SinastriaGalleryScreen(
+                primoVip: primo,
+                userSign: widget.userSign,
+                userName: widget.userName,
+                userBirth: widget.userBirth,
+              ),
+            )));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -349,8 +348,8 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                      kToolbarHeight, SpacingTokens.lg, 0),
+                  padding: const EdgeInsets.fromLTRB(
+                      SpacingTokens.lg, kToolbarHeight, SpacingTokens.lg, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -461,9 +460,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                           icon: const Icon(Icons.collections_bookmark_outlined,
                               size: 18),
                           label: Text(
-                              context
-                                  .watch<CollezioneDelleCoppie>()
-                                  .riepilogo,
+                              context.watch<CollezioneDelleCoppie>().riepilogo,
                               style: TypographyTokens.etichetta()),
                         ),
                       ),
@@ -489,8 +486,8 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                     child: Center(
                       child: Text('Nessun VIP con questo nome.',
                           key: const Key('sinastria_gallery_empty'),
-                          style: TypographyTokens.corpo().copyWith(
-                              color: ColorTokens.textSecondary)),
+                          style: TypographyTokens.corpo()
+                              .copyWith(color: ColorTokens.textSecondary)),
                     ),
                   ),
                 )
@@ -581,7 +578,8 @@ class CostellazioneDellaCategoria extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final punti = [
-      for (final p in puntiDi(nome)) Offset(p.dx * size.width, p.dy * size.height)
+      for (final p in puntiDi(nome))
+        Offset(p.dx * size.width, p.dy * size.height)
     ];
     final filo = Paint()
       ..color = colore.withValues(alpha: 0.45)
@@ -621,18 +619,17 @@ class _BarraRicerca extends StatelessWidget {
       key: const Key('sinastria_search'),
       controller: controller,
       onChanged: onCambia,
-      style: TypographyTokens.corpo()
-          .copyWith(color: ColorTokens.textPrimary),
+      style: TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
       cursorColor: palette.goldSoft,
       decoration: InputDecoration(
         hintText: 'Cerca un VIP per nome',
-        hintStyle: TypographyTokens.corpo()
-            .copyWith(color: ColorTokens.textSecondary),
+        hintStyle:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textSecondary),
         prefixIcon: Icon(Icons.search_rounded, color: palette.goldSoft),
         filled: true,
         fillColor: palette.surface.withValues(alpha: 0.4),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 0, horizontal: SpacingTokens.md),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: 0, horizontal: SpacingTokens.md),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           borderSide: BorderSide(color: palette.gold.withValues(alpha: 0.3)),
@@ -649,9 +646,6 @@ class _BarraRicerca extends StatelessWidget {
     );
   }
 }
-
-
-
 
 /// LA TENDINA DELLE CATEGORIE, una sola al posto della fila di pulsanti.
 ///
@@ -774,8 +768,7 @@ class _CartaDelVip extends StatelessWidget {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.45)),
+                border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),

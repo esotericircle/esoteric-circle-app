@@ -41,7 +41,8 @@ class RivelazioneDelGemello extends StatefulWidget {
   static Vip voltoDellaSfilata(GemelloAstrale gemello, double t) {
     if (t >= 1) return gemello.vip;
     final rallentata = Curves.easeOutCubic.transform(t.clamp(0.0, 1.0));
-    final quanti = (RivelazioneDelGemello.sfilata.inMilliseconds / 1000 *
+    final quanti = (RivelazioneDelGemello.sfilata.inMilliseconds /
+            1000 *
             RivelazioneDelGemello.voltiAlSecondo)
         .round();
     final i = (rallentata * quanti).floor() % VipCatalog.vips.length;
@@ -83,7 +84,6 @@ class _RivelazioneDelGemelloState extends State<RivelazioneDelGemello>
   /// calcolo, e la sfilata e' solo il modo di dirlo.
   Vip _volto(double t) =>
       RivelazioneDelGemello.voltoDellaSfilata(widget.gemello, t);
-
 
   bool _fermo(BuildContext context) =>
       widget.riduciMovimento ?? MediaQuery.of(context).disableAnimations;

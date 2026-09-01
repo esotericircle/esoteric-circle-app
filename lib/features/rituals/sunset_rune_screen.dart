@@ -76,14 +76,14 @@ class SunsetRuneScreen extends StatefulWidget {
     SkyLocation location = const GeolocatorSkyLocation(),
   }) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: Maestro.caligo,
-          child: SunsetRuneScreen(
-            now: now,
-            dataNascita: dataNascita,
-            segno: segno,
-            location: location,
-          ),
-        ));
+            maestro: Maestro.caligo,
+            child: SunsetRuneScreen(
+              now: now,
+              dataNascita: dataNascita,
+              segno: segno,
+              location: location,
+            ),
+          ));
 
   @override
   State<SunsetRuneScreen> createState() => _SunsetRuneScreenState();
@@ -179,13 +179,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   /// Quanto silenzio serve prima che l'invito si mostri: chi ha capito subito
   /// non lo vede mai.
-  static const Duration _silenzioPrimaDelFantasma = Duration(milliseconds: 1500);
+  static const Duration _silenzioPrimaDelFantasma =
+      Duration(milliseconds: 1500);
 
   Ticker? _incisioneTicker;
   AscoltatoreScuotimento? _scuotimento;
   StreamSubscription<GyroscopeEvent>? _giroSub;
   Duration _ultimoTick = Duration.zero;
-  bool _primoTick = true; // alla ripresa il primo tick fissa la base, non avanza
+  bool _primoTick =
+      true; // alla ripresa il primo tick fissa la base, non avanza
 
   _Fase _fase = _Fase.getto;
   double _incisione = 0; // 0..1, quanto e' scavato il segno
@@ -371,7 +373,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _cercaOssoVergine();
   }
 
-
   @override
   void dispose() {
     _attesaFantasma?.cancel();
@@ -551,7 +552,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     final porta = _vocePortare();
     await SunsetRuneMemory.scriviEstrazione(
         SunsetRuneMemory.seraDa(_e, lasciare: lasciare, porta: porta));
-    final settimana = await SunsetRuneMemory.settimanaCorrente(_e.giornoRituale);
+    final settimana =
+        await SunsetRuneMemory.settimanaCorrente(_e.giornoRituale);
     if (mounted) setState(() => _settimana = settimana);
     // La lettura e' aperta: da qui in poi l'inclinazione svela la seconda voce.
     _ascoltaInclinazione();
@@ -591,9 +593,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // Nel ripiego Riduci Movimento l'inclinazione non si propone: solo tocco.
     if (_riduciMovimento) return;
     try {
-      _giroSub = gyroscopeEventStream(
-              samplingPeriod: const Duration(milliseconds: 40))
-          .listen(_passoGiro, onError: (_) {}, cancelOnError: false);
+      _giroSub =
+          gyroscopeEventStream(samplingPeriod: const Duration(milliseconds: 40))
+              .listen(_passoGiro, onError: (_) {}, cancelOnError: false);
     } catch (_) {
       // Nessun giroscopio: resta il doppio tap.
     }
@@ -640,8 +642,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   bool get _settimaSera => _settimana.length >= 7;
 
-  List<String> get _runeSettimana =>
-      _settimana.map((s) => s.rune).toList();
+  List<String> get _runeSettimana => _settimana.map((s) => s.rune).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -684,9 +685,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             testo: 'La Runa del Tramonto',
             stile: TypographyTokens.titoloDiSchermata()),
         actions: [
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-        // ogni schermata della pratica. Un saldo che appare e scompare non
-        // si impara.
+          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+          // ogni schermata della pratica. Un saldo che appare e scompare non
+          // si impara.
           const AngoloDellaBarra(),
           IconButton(
             key: const Key('sunset_sources'),
@@ -728,8 +729,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // una manciata di frame, senza mai bloccare ne' lampeggiare contenuti.
           if (_estrazione != null)
             SafeArea(
-              child:
-                  _fase == _Fase.lettura ? _lettura() : _scenaPietra(),
+              child: _fase == _Fase.lettura ? _lettura() : _scenaPietra(),
             ),
         ],
       ),
@@ -856,8 +856,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 style: TypographyTokens.corpo().copyWith(
                   color: _palette.goldSoft,
                   decoration: TextDecoration.underline,
-                  decorationColor:
-                      _palette.goldSoft.withValues(alpha: 0.6),
+                  decorationColor: _palette.goldSoft.withValues(alpha: 0.6),
                   shadows: _ombraTesto,
                 )),
           ),
@@ -891,10 +890,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             key: Key('sunset_posizione_negata_per_sempre'),
-            content: Text(
-                "La posizione è stata negata per sempre a questa app: il "
-                "sistema non me la fa più chiedere. Puoi riattivarla dalle "
-                "impostazioni del telefono."),
+            content:
+                Text("La posizione è stata negata per sempre a questa app: il "
+                    "sistema non me la fa più chiedere. Puoi riattivarla dalle "
+                    "impostazioni del telefono."),
             duration: Duration(seconds: 6),
           ),
         );
@@ -995,8 +994,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.back_hand_outlined,
-                    size: 56,
-                    color: _palette.goldSoft.withValues(alpha: 0.75)),
+                    size: 56, color: _palette.goldSoft.withValues(alpha: 0.75)),
                 const SizedBox(height: SpacingTokens.md),
                 Text('Getta la runa',
                     key: const Key('sunset_getta'),
@@ -1117,7 +1115,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         : _glifoRaw();
   }
 
-
   /// Una riga sola di invito, che cambia con la fase e dice il gesto vero.
   ///
   /// Nessuno sfondo: la leggibilita' viene dall'ombra dietro le lettere, cosi'
@@ -1169,8 +1166,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   Widget _lettura() {
     return SingleChildScrollView(
       key: const Key('sunset_rune'),
-      padding: const EdgeInsets.fromLTRB(
-          SpacingTokens.lg, SpacingTokens.xxl, SpacingTokens.lg, SpacingTokens.xl),
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xxl,
+          SpacingTokens.lg, SpacingTokens.xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1195,7 +1192,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                   key: const Key('sunset_ritorno'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.label(size: 12.5).copyWith(
-                      color: _palette.goldSoft, letterSpacing: 0.4, height: 1.4)),
+                      color: _palette.goldSoft,
+                      letterSpacing: 0.4,
+                      height: 1.4)),
             ),
           // La pietra che gira per svelare la seconda voce. IL DOPPIO TOCCO
           // STA SULLA PIETRA, ordine 2161 voce 8: l'invito nomina la pietra,
@@ -1251,14 +1250,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           if (_e.simmetrica) ...[
             const SizedBox(height: SpacingTokens.xs),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
               child: Text(
                 SunsetRuneCorpus.perche(_e.rune.name),
                 key: const Key('sunset_perche_simmetrica'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textSecondary, height: 1.35),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.35),
               ),
             ),
           ],
@@ -1273,7 +1271,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           ),
           const SizedBox(height: SpacingTokens.lg),
           // Voce A: cosa lasci fuori.
-          _bloccoVoce('Cosa lasci fuori', _vocePrima(), const Key('sunset_voce_uno')),
+          _bloccoVoce(
+              'Cosa lasci fuori', _vocePrima(), const Key('sunset_voce_uno')),
           const SizedBox(height: SpacingTokens.sm),
           Text(
               '${SunsetRuneCorpus.trasparenza(_e)} '
@@ -1295,8 +1294,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // che si legge prima di chiudere, che e' il posto giusto per una
           // cosa da fare adesso.
           const SizedBox(height: SpacingTokens.lg),
-          _bloccoVoce('Il gesto della sera',
-              SunsetRuneCorpus.ritoDellaSera(_e), const Key('sunset_rito')),
+          _bloccoVoce('Il gesto della sera', SunsetRuneCorpus.ritoDellaSera(_e),
+              const Key('sunset_rito')),
           const SizedBox(height: SpacingTokens.lg),
           _striscia(),
           if (_settimaSera) ...[
@@ -1340,7 +1339,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       },
     );
   }
-
 
   Widget _bloccoVoce(String titolo, String testo, Key key) {
     return Container(
@@ -1395,8 +1393,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         Text(_rigaSettimana(),
             key: const Key('sunset_settimana_riga'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12.5)
-                .copyWith(color: ColorTokens.textSecondary, letterSpacing: 0.2)),
+            style: TypographyTokens.label(size: 12.5).copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 0.2)),
       ],
     );
   }
@@ -1460,7 +1458,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     if (n >= 7) {
       return 'Sette sere su sette. Le tue rune si sono legate.';
     }
-    const parole = ['zero', 'prima', 'seconda', 'terza', 'quarta', 'quinta', 'sesta'];
+    const parole = [
+      'zero',
+      'prima',
+      'seconda',
+      'terza',
+      'quarta',
+      'quinta',
+      'sesta'
+    ];
     return '${_capitale(parole[n])} sera su sette. '
         'Alla settima le tue rune si legheranno.';
   }
@@ -1560,7 +1566,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
-                ParagrafiDiLettura(testo: _fontiEMetodo(tramonto), stile: TypographyTokens.lettura().copyWith(
+                ParagrafiDiLettura(
+                    testo: _fontiEMetodo(tramonto),
+                    stile: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
@@ -1705,7 +1713,8 @@ class _TramontoPainter extends CustomPainter {
         ..shader = RadialGradient(colors: [
           const Color(0xFFFFE0A8).withValues(alpha: aloneAlpha[momento]),
           const Color(0x00000000),
-        ]).createShader(Rect.fromCircle(center: sole, radius: size.width * 0.5)),
+        ]).createShader(
+            Rect.fromCircle(center: sole, radius: size.width * 0.5)),
     );
     const dischi = [Color(0xFFFFCE7A), Color(0xFFE79A5E), Color(0xFFB86A5A)];
     const discoAlpha = [0.85, 0.7, 0.45];
@@ -1956,8 +1965,7 @@ class _IncisionePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = const Color(0xFF2A1D0E).withValues(alpha: 0.55 * profondita)
-      ..maskFilter =
-          MaskFilter.blur(BlurStyle.normal, spessore * sigmaOmbra);
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * sigmaOmbra);
     final scartoOmbra =
         Offset(-spessore * scartoPerAsse, -spessore * scartoPerAsse);
     // Il fondo del solco: materia mancante, non luce. Bruno scuro con una
@@ -1968,9 +1976,7 @@ class _IncisionePainter extends CustomPainter {
       ..strokeWidth = spessore
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = (completa
-              ? const Color(0xFF6E2410)
-              : const Color(0xFF3A2410))
+      ..color = (completa ? const Color(0xFF6E2410) : const Color(0xFF3A2410))
           .withValues(alpha: 0.82 + 0.10 * profondita);
     // Il nucleo piu' cupo al centro dello scavo: da' fondo al solco.
     final nucleo = Paint()
@@ -1978,9 +1984,7 @@ class _IncisionePainter extends CustomPainter {
       ..strokeWidth = spessore * 0.52
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = (completa
-              ? const Color(0xFF4A1408)
-              : const Color(0xFF1C1206))
+      ..color = (completa ? const Color(0xFF4A1408) : const Color(0xFF1C1206))
           .withValues(alpha: 0.55 * profondita);
     // Il lume sul bordo opposto all'ombra, in basso a destra: e' il labbro dello
     // scavo che prende luce, e chiude la lettura del rilievo.
@@ -2052,8 +2056,7 @@ class _IncisionePainter extends CustomPainter {
         Paint()
           ..strokeWidth = spessore * 0.14
           ..strokeCap = StrokeCap.round
-          ..maskFilter =
-              MaskFilter.blur(BlurStyle.normal, spessore * 0.14)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * 0.14)
           ..shader = const LinearGradient(
             colors: [
               Color(0x00FFF3D0),
@@ -2230,12 +2233,12 @@ class _AzioniState extends State<_Azioni> {
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareSunsetRuneCard(
           boundaryKey: _boundary, estrazione: widget.estrazione);
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso la runa del tramonto');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la runa del tramonto');
+      }
       return andata;
     } finally {
       // La carta fuori campo torna a non essere renderizzata: senza questo
@@ -2265,12 +2268,20 @@ if (andata && mounted) {
                 maestro: Maestro.caligo,
                 responso: ResponsoDaCustodire(
                   arte: 'tramonto',
-                  titolo: 'La tua runa del tramonto: ${widget.estrazione.rune.name}',
+                  titolo:
+                      'La tua runa del tramonto: ${widget.estrazione.rune.name}',
                   testo: widget.estrazione.riga,
-                  dati: {'runa': widget.estrazione.rune.name, 'verso': widget.estrazione.inOmbra ? 'ombra' : 'dritta'},
+                  dati: {
+                    'runa': widget.estrazione.rune.name,
+                    'verso': widget.estrazione.inOmbra ? 'ombra' : 'dritta'
+                  },
                 ),
                 condividi: _condividi,
-                aperturaDellaChat: ChatOpeners.runaTramonto(widget.estrazione.rune.name, widget.estrazione.inOmbra ? 'in merkstave (rovesciata)' : 'dritta'),
+                aperturaDellaChat: ChatOpeners.runaTramonto(
+                    widget.estrazione.rune.name,
+                    widget.estrazione.inOmbra
+                        ? 'in merkstave (rovesciata)'
+                        : 'dritta'),
               ),
             ],
           ),

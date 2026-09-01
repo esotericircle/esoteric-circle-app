@@ -71,8 +71,11 @@ class LeTreRigheDelSentiero extends StatelessWidget {
   static ({String uno, String molti, bool femminile}) nomeDeiPunti(
           Sentiero sentiero) =>
       switch (sentiero) {
-        Sentiero.costellazione =>
-          (uno: 'stella', molti: 'stelle', femminile: true),
+        Sentiero.costellazione => (
+            uno: 'stella',
+            molti: 'stelle',
+            femminile: true
+          ),
         Sentiero.albero => (uno: 'frutto', molti: 'frutti', femminile: false),
         Sentiero.loto => (uno: 'perla', molti: 'perle', femminile: true),
       };
@@ -104,12 +107,34 @@ class LeTreRigheDelSentiero extends StatelessWidget {
   /// cifra, che e' brutto ma vero.
   static String inParole(int n) {
     const unita = [
-      'zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto',
-      'nove', 'dieci', 'undici', 'dodici', 'tredici', 'quattordici', 'quindici',
-      'sedici', 'diciassette', 'diciotto', 'diciannove',
+      'zero',
+      'uno',
+      'due',
+      'tre',
+      'quattro',
+      'cinque',
+      'sei',
+      'sette',
+      'otto',
+      'nove',
+      'dieci',
+      'undici',
+      'dodici',
+      'tredici',
+      'quattordici',
+      'quindici',
+      'sedici',
+      'diciassette',
+      'diciotto',
+      'diciannove',
     ];
     const decine = [
-      '', '', 'venti', 'trenta', 'quaranta', 'cinquanta',
+      '',
+      '',
+      'venti',
+      'trenta',
+      'quaranta',
+      'cinquanta',
     ];
     if (n < 0 || n > 59) return '$n';
     if (n < 20) return unita[n];

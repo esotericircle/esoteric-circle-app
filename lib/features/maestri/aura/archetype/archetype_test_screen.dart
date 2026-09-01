@@ -60,13 +60,13 @@ class ArchetypeTestScreen extends StatefulWidget {
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
-        id: 'archetype_test',
-        maestro: Maestro.aura,
-        child: ArchetypeTestScreen(
-          clock: clock,
-          pianetiDelGiorno: pianetiDelGiorno,
-        ),
-      ));
+          id: 'archetype_test',
+          maestro: Maestro.aura,
+          child: ArchetypeTestScreen(
+            clock: clock,
+            pianetiDelGiorno: pianetiDelGiorno,
+          ),
+        ));
   }
 
   @override
@@ -194,8 +194,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
         // Lo stesso titolo di tutte le arti: va a capo fra le parole e non si
         // rompe, qualunque cosa cresca nelle azioni accanto.
         titolo: TitoloCheNonSiRompe(
-            testo: 'Test Archetipo',
-            stile: TypographyTokens.titoloScheda()),
+            testo: 'Test Archetipo', stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('archetype_sources'),
@@ -274,8 +273,8 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(ArchetypeCorpus.fontiEMetodo,
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textPrimary, height: 1.45)),
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
                 alignment: Alignment.centerRight,
@@ -360,7 +359,8 @@ class _Soglia extends StatelessWidget {
               acceso: conCielo,
               onCambia: onCielo,
               titolo: 'Lega al cielo di oggi',
-              sottotitolo: 'I transiti del giorno si accostano al tuo profilo, come '
+              sottotitolo:
+                  'I transiti del giorno si accostano al tuo profilo, come '
                   'sincronicità.',
             ),
           ),
@@ -379,13 +379,11 @@ class _Soglia extends StatelessWidget {
             // **L'ATTESA SI DICHIARA, col giorno esatto**: un pulsante spento
             // senza una data e' un vicolo cieco con la luce accesa.
             Text(
-              RipetizioneDelTest.frase(
-                  ultimo: ultimo!.quando, adesso: adesso),
+              RipetizioneDelTest.frase(ultimo: ultimo!.quando, adesso: adesso),
               key: const Key('archetype_attesa'),
               style: TypographyTokens.corpo()
                   .copyWith(color: palette.goldSoft, height: 1.5),
-            )
-          ,
+            ),
           // **IL RIQUADRO DEL LIMITE GIORNALIERO NON C'E' PIU', ordine AO
           // voce 06.** Mostrava l'ultimo responso a chi aveva finito i test
           // del giorno, ed era giusto quando i test erano uno o tre al
@@ -601,10 +599,26 @@ class _Statua extends StatelessWidget {
       height: lato,
       child: ColorFiltered(
         colorFilter: const ColorFilter.matrix(<double>[
-          0.30, 0.10, 0.10, 0, -14,
-          0.10, 0.28, 0.12, 0, -14,
-          0.12, 0.14, 0.34, 0, -6,
-          0, 0, 0, 1, 0,
+          0.30,
+          0.10,
+          0.10,
+          0,
+          -14,
+          0.10,
+          0.28,
+          0.12,
+          0,
+          -14,
+          0.12,
+          0.14,
+          0.34,
+          0,
+          -6,
+          0,
+          0,
+          0,
+          1,
+          0,
         ]),
         child: img,
       ),
@@ -744,8 +758,8 @@ class _RisultatoState extends State<_Risultato>
                       : 'non legato ai transiti astrologici',
                   key: const Key('archetype_mode_subtitle'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft, letterSpacing: 1.0),
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.0),
                 ),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -803,7 +817,8 @@ class _RisultatoState extends State<_Risultato>
               if (delTest.secondo != null) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Center(
-                  child: Text('Accanto, in tono minore, ${delTest.secondo!.conArticolo}.',
+                  child: Text(
+                      'Accanto, in tono minore, ${delTest.secondo!.conArticolo}.',
                       key: const Key('archetype_second'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.didascalia()
@@ -890,11 +905,13 @@ class _RisultatoState extends State<_Risultato>
                           children: [
                             Text('La sua ombra',
                                 style: TypographyTokens.etichetta().copyWith(
-                                    color: palette.goldSoft, letterSpacing: 0.6)),
+                                    color: palette.goldSoft,
+                                    letterSpacing: 0.6)),
                             const SizedBox(height: SpacingTokens.xs),
                             Text(ritratto.ombra,
                                 style: TypographyTokens.didascalia().copyWith(
-                                    color: ColorTokens.textPrimary, height: 1.45)),
+                                    color: ColorTokens.textPrimary,
+                                    height: 1.45)),
                           ],
                         ),
                       ),
@@ -1104,17 +1121,14 @@ class _RigaClassifica extends StatelessWidget {
           Expanded(
             child: Text(archetipo.nome,
                 style: TypographyTokens.didascalia().copyWith(
-                    color: dominante
-                        ? palette.goldSoft
-                        : ColorTokens.textPrimary,
-                    fontWeight:
-                        dominante ? FontWeight.w700 : FontWeight.w400)),
+                    color:
+                        dominante ? palette.goldSoft : ColorTokens.textPrimary,
+                    fontWeight: dominante ? FontWeight.w700 : FontWeight.w400)),
           ),
           Text('$percentuale%',
               style: TypographyTokens.etichetta().copyWith(
-                  color: dominante
-                      ? palette.goldSoft
-                      : ColorTokens.textSecondary,
+                  color:
+                      dominante ? palette.goldSoft : ColorTokens.textSecondary,
                   letterSpacing: 0.5)),
         ],
       ),
@@ -1171,8 +1185,8 @@ class _Transiti extends StatelessWidget {
               'Oggi il cielo accende in te ${mod.modulato.dominante.conArticolo}, '
               'che non prende il posto della tua figura: la affianca per un giorno.',
               key: const Key('archetype_figura_del_giorno'),
-              style: TypographyTokens.didascalia().copyWith(
-                  color: palette.goldSoft, height: 1.4),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: palette.goldSoft, height: 1.4),
             ),
             const SizedBox(height: SpacingTokens.sm),
           ],
@@ -1235,7 +1249,8 @@ class _Confronto extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: righe.length,
-              separatorBuilder: (_, __) => const SizedBox(width: SpacingTokens.sm),
+              separatorBuilder: (_, __) =>
+                  const SizedBox(width: SpacingTokens.sm),
               itemBuilder: (context, i) {
                 final e = righe[i];
                 return Column(

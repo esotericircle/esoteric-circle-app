@@ -69,8 +69,8 @@ class DomainLevel extends StatelessWidget {
                       // Le barre crescono da sinistra a destra.
                       growth: (i + 1) / Horoscope.indicatorMax,
                       // Comparsa progressiva, da sinistra.
-                      appear: ((fill * Horoscope.indicatorMax) - i)
-                          .clamp(0.0, 1.0),
+                      appear:
+                          ((fill * Horoscope.indicatorMax) - i).clamp(0.0, 1.0),
                       pulse: pulse.value,
                       palette: palette,
                     ),
@@ -117,8 +117,7 @@ class _LevelIconPainter extends CustomPainter {
   Color get _color {
     if (!filled) return palette.gold.withValues(alpha: 0.20);
     final breath = 0.92 + 0.08 * math.sin(pulse * 2 * math.pi);
-    return palette.goldSoft
-        .withValues(alpha: (0.55 + 0.45 * appear) * breath);
+    return palette.goldSoft.withValues(alpha: (0.55 + 0.45 * appear) * breath);
   }
 
   @override

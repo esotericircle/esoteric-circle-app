@@ -99,7 +99,8 @@ class _TraditionGlyphPainter extends CustomPainter {
           final larghezza = w - i * passo;
           final top = c.dy + r - (i + 1) * (r * 2 / 3);
           canvas.drawRect(
-            Rect.fromLTWH(c.dx - larghezza / 2, top, larghezza, r * 2 / 3 * 0.8),
+            Rect.fromLTWH(
+                c.dx - larghezza / 2, top, larghezza, r * 2 / 3 * 0.8),
             tratto,
           );
         }
@@ -126,8 +127,8 @@ class _TraditionGlyphPainter extends CustomPainter {
       case AstroTradition.araba:
         // Falce di Luna con la stella.
         final falce = Path()
-          ..addArc(Rect.fromCircle(center: c, radius: r),
-              math.pi * 0.42, math.pi * 1.16);
+          ..addArc(Rect.fromCircle(center: c, radius: r), math.pi * 0.42,
+              math.pi * 1.16);
         canvas.drawPath(falce, tratto);
         _stella(canvas, c + Offset(r * 0.52, -r * 0.34), s * 0.15, pieno);
     }

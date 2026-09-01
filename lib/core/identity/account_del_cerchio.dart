@@ -404,7 +404,8 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
           if (email == null || parola == null) {
             return EsitoDellaCustodia.nonRiuscita;
           }
-          tentata = EmailAuthProvider.credential(email: email, password: parola);
+          tentata =
+              EmailAuthProvider.credential(email: email, password: parola);
           await utente.linkWithCredential(tentata);
           // **LA VERIFICA PARTE DA SOLA, ordine BH voce 04.** La
           // registrazione con email e' vincolata alla verifica
@@ -807,8 +808,9 @@ class AccountDelCerchio extends ChangeNotifier {
     if (uid == null) {
       _stato = StatoDellAccount.assente;
     } else {
-      _stato =
-          _porta.anonimo ? StatoDellAccount.anonimo : StatoDellAccount.custodito;
+      _stato = _porta.anonimo
+          ? StatoDellAccount.anonimo
+          : StatoDellAccount.custodito;
     }
     notifyListeners();
   }

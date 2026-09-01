@@ -291,6 +291,5 @@ class ImprontaDellIstruzione {
       'risultato: attribuzioneValida torna vero solo se la misura passa la '
       'soglia, mai per far passare la suite.';
 
-
   static String? per(Maestro maestro) => impronte[maestro.id];
 }

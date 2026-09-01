@@ -33,8 +33,7 @@ class DreamRiteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final figura =
-        kZodiacConstellations.firstWhere((c) => c.sign == luna.sign);
+    final figura = kZodiacConstellations.firstWhere((c) => c.sign == luna.sign);
     return Container(
       key: const Key('dream_rite_card'),
       width: larghezza,
@@ -146,6 +145,7 @@ Future<bool> shareDreamRiteCard({
   await file.writeAsBytes(png, flush: true);
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
           'Il Sigillo del Sogno, su Esoteric Circle.');
 }

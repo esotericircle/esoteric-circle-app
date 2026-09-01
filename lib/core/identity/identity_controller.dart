@@ -36,7 +36,6 @@ class IdentityController extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void setForm(AddressForm value) {
     if (value == _form) return;
     _form = value;

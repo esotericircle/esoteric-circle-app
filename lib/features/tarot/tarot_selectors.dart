@@ -495,9 +495,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.etichetta().copyWith(
-                    color: inRilievo
-                        ? palette.glow
-                        : ColorTokens.textSecondary,
+                    color: inRilievo ? palette.glow : ColorTokens.textSecondary,
                     fontWeight: inRilievo ? FontWeight.w700 : null,
                     letterSpacing: 0.8)),
             const SizedBox(height: 2),
@@ -513,8 +511,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                 // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.
                 if (bloccata(corrente))
                   Icon(Icons.lock_rounded,
-                      size: 12,
-                      color: palette.goldSoft.withValues(alpha: 0.7)),
+                      size: 12, color: palette.goldSoft.withValues(alpha: 0.7)),
                 Icon(Icons.arrow_drop_down_rounded,
                     size: 18, color: palette.goldSoft),
               ],

@@ -46,7 +46,8 @@ class RisveglioJourney extends StatefulWidget {
   static Route<void> route({required BirthDetails details}) {
     // Porta il MaestroScope con se': il cosmo profondo e le schermate natali lo
     // leggono per la palette (neutra finche' non si sceglie il Maestro).
-    return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(child: RisveglioJourney(details: details)));
+    return PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(child: RisveglioJourney(details: details)));
   }
 
   @override
@@ -102,8 +103,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
       // FINO ALLA TAPPA f _computeChart NON DEVE PARTIRE: la callable con
       // App Check e' uno dei sospettati, e va isolata come gli altri.
       Briciole.lascia(_briciole[0]);
-      _passiDiagnosi =
-          Timer.periodic(const Duration(seconds: 3), (timer) {
+      _passiDiagnosi = Timer.periodic(const Duration(seconds: 3), (timer) {
         if (!mounted || _tappaDiagnosi >= 5) {
           timer.cancel();
           return;
@@ -242,8 +242,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
         contenuto = Container(color: const Color(0xFF05060A));
       } else if (_tappaDiagnosi == 1) {
         // b. entra ImmersiveScaffold col cosmo, ancora senza scena.
-        contenuto = const ImmersiveScaffold(
-            seed: 14, child: SizedBox.expand());
+        contenuto = const ImmersiveScaffold(seed: 14, child: SizedBox.expand());
       } else {
         // c/d/e/f: entra il trionfo, coi pezzi che si aggiungono.
         contenuto = ImmersiveScaffold(
@@ -271,8 +270,8 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   decoration: BoxDecoration(
                     color: const Color(0xCC05060A),
                     borderRadius: BorderRadius.circular(8),
@@ -280,10 +279,8 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
                   ),
                   child: Text(
                     etichette[_tappaDiagnosi],
-                    style: TypographyTokens.titoloSezione(weight: 700)
-                        .copyWith(
-                            color: const Color(0xFFC9A961),
-                            letterSpacing: 1.5),
+                    style: TypographyTokens.titoloSezione(weight: 700).copyWith(
+                        color: const Color(0xFFC9A961), letterSpacing: 1.5),
                   ),
                 ),
               ),

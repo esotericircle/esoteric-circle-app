@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../tokens/typography_tokens.dart';
 
-
 /// UN TITOLO CHE VA A CAPO FRA LE PAROLE, NON DENTRO UNA PAROLA.
 ///
 /// **Il difetto, visto nell'anteprima della voce S.05.** Il titolo della barra
@@ -147,7 +146,8 @@ class TitoloCheNonSiRompe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaler = MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
+    final scaler =
+        MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
     return LayoutBuilder(builder: (context, vincoli) {
       // Senza una larghezza finita non c'e' niente da adattare: si dipinge col
       // ruolo, che e' cio' che si vuole nel caso normale.

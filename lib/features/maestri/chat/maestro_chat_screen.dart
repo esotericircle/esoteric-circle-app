@@ -26,6 +26,8 @@ import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
+import '../../../core/voce/dettatura.dart';
+import '../../../services/voce/dettatura_vera.dart';
 import '../../shell/corsa_della_barra.dart';
 import '../../shell/spazio_della_barra.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -60,9 +62,17 @@ class MaestroChatScreen extends StatefulWidget {
     required this.maestro,
     this.initialTheme,
     this.initialUserMessage,
+    this.dettatura,
   });
 
   final Maestro maestro;
+
+  /// **LA DETTATURA, e si passa da fuori per una ragione sola: le
+  /// anteprime.** Ordine CI voce 05. Nell'app resta nulla e la schermata
+  /// costruisce quella vera; il banco delle catture ne passa una viva, cosi'
+  /// il microfono si puo' GUARDARE invece che dedurre dal codice. Senza
+  /// questo, l'unico modo di vederlo sarebbe un telefono.
+  final Dettatura? dettatura;
 
   /// Tema con cui si arriva dalla chiusura del cerchio del Consulta: il campo
   /// della domanda si apre gia' scritto, cosi' la conversazione riprende da li'.
@@ -81,6 +91,7 @@ class MaestroChatScreen extends StatefulWidget {
     required AppServices services,
     String? initialTheme,
     String? initialUserMessage,
+    Dettatura? dettatura,
   }) {
     return PassaggioDelCerchio.rotta<void>(
         // Il contesto della rotta, non quello del builder interno: da qui si
@@ -111,6 +122,7 @@ class MaestroChatScreen extends StatefulWidget {
                   maestro: maestro,
                   initialTheme: initialTheme,
                   initialUserMessage: initialUserMessage,
+                  dettatura: dettatura,
                 ),
               ),
             ));
@@ -180,6 +192,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// prima riga in piu'. Si misura a fotogramma disegnato e si aggiorna solo
   /// quando cambia davvero.
   final GlobalKey _chiaveComposer = GlobalKey();
+
+  /// **LA DETTATURA SI COSTRUISCE UNA VOLTA SOLA**, e non a ogni fotogramma:
+  /// il motore del riconoscimento chiede al sistema operativo di accendersi,
+  /// e rifarlo a ogni ricostruzione vorrebbe dire rifare quel giro mentre la
+  /// persona sta scrivendo.
+  late final Dettatura _dettatura = widget.dettatura ?? DettaturaVera();
   double _altezzaComposer = 88;
 
   void _misuraComposer() {
@@ -743,6 +761,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 _ConfigNotice(
                     palette: context.palette, maestro: widget.maestro),
               ChatComposer(
+                // **LA DETTATURA VERA, e questo e' l'unico punto che la
+                // costruisce.** Ordine CI voce 05: le prove e chiunque monti
+                // il compositore altrove ricevono quella spenta, quindi il
+                // microfono non compare dove non puo' funzionare.
+                dettatura: _dettatura,
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
                     '${widget.maestro.displayName}',

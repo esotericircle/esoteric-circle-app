@@ -126,8 +126,7 @@ class TestoDelResponso {
   /// da arricchire: un `Text.rich` non ha `data`, quindi ogni prova che cerca
   /// una frase a schermo smetterebbe di trovarla. Se n'e' accorta la prova del
   /// ripiego, che non c'entrava niente con l'enfasi.
-  static bool portaUnNomeNoto(String testo) =>
-      pezzi(testo).any((p) => p.inOro);
+  static bool portaUnNomeNoto(String testo) => pezzi(testo).any((p) => p.inOro);
 
   /// I pezzi in cui si spezza [testo] per l'enfasi: ogni pezzo dice se va in
   /// oro. Funzione PURA, cosi' si prova senza montare uno schermo.
@@ -140,9 +139,7 @@ class TestoDelResponso {
     final nomi = nomiNoti.toList()
       ..sort((a, b) => b.length.compareTo(a.length));
     final schema = RegExp(
-        r'(?<![\p{L}])(' +
-            nomi.map(RegExp.escape).join('|') +
-            r')(?![\p{L}])',
+        r'(?<![\p{L}])(' + nomi.map(RegExp.escape).join('|') + r')(?![\p{L}])',
         unicode: true);
 
     final pezzi = <PezzoDelResponso>[];

@@ -111,9 +111,7 @@ class _StesaFanState extends State<StesaFan> {
   void didUpdateWidget(StesaFan vecchio) {
     super.didUpdateWidget(vecchio);
     if (vecchio.taglio == 0 && widget.taglio > 0) {
-      _centro = widget.taglioIndice
-          .clamp(0, widget.carte - 1)
-          .toDouble();
+      _centro = widget.taglioIndice.clamp(0, widget.carte - 1).toDouble();
     }
   }
 

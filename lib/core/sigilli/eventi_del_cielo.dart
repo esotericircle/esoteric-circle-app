@@ -41,6 +41,7 @@ class EventiDelCielo {
   static const ritornoSolare = 'ritorno_solare';
   static const solstizio = 'solstizio';
   static const equinozio = 'equinozio';
+
   /// **L'ECLISSI, dall'ordine CE voce 16.** Prima non c'era, e tre gradini
   /// del Cammino dormivano per questo. Il giorno si intende in Tempo
   /// Universale, come lo data il canone: e' lo stesso confine con cui il
@@ -189,8 +190,8 @@ class EventiDelCielo {
     // pianeta smette di tornare indietro e' un evento raro e atteso, ed e' il
     // genere di cosa per cui si riapre l'app.
     final retrogradiOggi = AspettiDiOggi.retrogradiDelGiorno(adesso);
-    final retrogradiIeri =
-        AspettiDiOggi.retrogradiDelGiorno(adesso.subtract(const Duration(days: 1)));
+    final retrogradiIeri = AspettiDiOggi.retrogradiDelGiorno(
+        adesso.subtract(const Duration(days: 1)));
     const coppie = {
       CorpoCeleste.mercurio: [mercurioRetrogrado, mercurioDiretto],
       CorpoCeleste.venere: [venereRetrograda, venereDiretta],
@@ -235,11 +236,11 @@ class EventiDelCielo {
     return eventi;
   }
 
-  static double? _longitudineNatale(NatalChart carta, String id) => carta
-      .planets
-      .where((p) => p.id == id)
-      .map((p) => p.longitude)
-      .firstOrNull;
+  static double? _longitudineNatale(NatalChart carta, String id) =>
+      carta.planets
+          .where((p) => p.id == id)
+          .map((p) => p.longitude)
+          .firstOrNull;
 
   static Zodiac _opposto(Zodiac segno) =>
       Zodiac.values[(Zodiac.values.indexOf(segno) + 6) % 12];

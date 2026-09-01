@@ -9,7 +9,6 @@ import 'tier.dart';
 /// alimentato dallo stato reale di abbonamento (modello reader app, lettura
 /// dello stato dal web) tramite un servizio dedicato.
 class EntitlementService extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi la nota estesa su
   /// `DiarioDelCammino.dimenticaChiSeNeVa`: i controller vivono per tutta la
   /// sessione, e cancellare l'account senza svuotarli lasciava a schermo i

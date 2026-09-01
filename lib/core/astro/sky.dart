@@ -322,8 +322,7 @@ SkySnapshot buildSkyFor(
     final stars = [
       for (final s in c.stars) project(s[0], s[1], s[2]),
     ];
-    final con =
-        SkyConstellation(name: c.name, stars: stars, lines: c.lines);
+    final con = SkyConstellation(name: c.name, stars: stars, lines: c.lines);
     if (con.anyVisible) constellations.add(con);
   }
 

@@ -100,9 +100,8 @@ class RunePresagio {
     // di responso che non venga da Mauro.
     final apertura = cornice.apertura;
     final parti = <String>[apertura, ..._perPosizione(esito.rune)];
-    parti.add(esito.gettata.libera
-        ? _equilibrioLibera(esito)
-        : _equilibrio(esito));
+    parti.add(
+        esito.gettata.libera ? _equilibrioLibera(esito) : _equilibrio(esito));
     return parti.join(' ');
   }
 
@@ -111,9 +110,8 @@ class RunePresagio {
   /// scritta da me. Ordine BF voce 05.a.
   static String _rispostaSenzaCornice(EsitoGettata esito) {
     final parti = <String>[..._perPosizione(esito.rune)];
-    parti.add(esito.gettata.libera
-        ? _equilibrioLibera(esito)
-        : _equilibrio(esito));
+    parti.add(
+        esito.gettata.libera ? _equilibrioLibera(esito) : _equilibrio(esito));
     return parti.join(' ');
   }
 
@@ -234,7 +232,8 @@ class RunePresagio {
 
     final String merk;
     if (ombre == 0) {
-      merk = 'Tutte le rune escono diritte: il segno \u00e8 aperto, la via corre '
+      merk =
+          'Tutte le rune escono diritte: il segno \u00e8 aperto, la via corre '
           'libera.';
     } else if (ombre * 2 > n) {
       merk = 'Molte rune pendono in penombra: il cammino chiede prudenza, non '
@@ -304,7 +303,6 @@ class RunePresagio {
   /// da sole. Nella prima parte del responso seguono "Per cio' che fu," e senza
   /// questa minuscola si leggeva "Per cio' che fu, Una luce si accende", che e' la
   /// cucitura di due frasi diverse.
-  static String _minuscola(String frase) => frase.isEmpty
-      ? frase
-      : frase[0].toLowerCase() + frase.substring(1);
+  static String _minuscola(String frase) =>
+      frase.isEmpty ? frase : frase[0].toLowerCase() + frase.substring(1);
 }

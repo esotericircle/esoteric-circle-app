@@ -60,7 +60,8 @@ class NightSky {
   /// eclittica sta al posto dell'ascensione retta, quindi la rotazione e'
   /// giusta nell'ordine di grandezza, non al grado. Le posizioni esatte
   /// arrivano dal motore a effemeridi.
-  static List<Zodiac> constellationsHighTonight(DateTime date, {int count = 3}) {
+  static List<Zodiac> constellationsHighTonight(DateTime date,
+      {int count = 3}) {
     final opposition = _norm360(sunEclipticLongitude(date) + 180.0);
     final oreDaMezzanotte =
         date.hour + date.minute / 60.0 + date.second / 3600.0;
@@ -110,15 +111,18 @@ class NightSky {
   }
 
   static const Map<Zodiac, String> _lore = {
-    Zodiac.aries: 'Ariete, il primo balzo dello zodiaco, poche stelle e molto slancio.',
+    Zodiac.aries:
+        'Ariete, il primo balzo dello zodiaco, poche stelle e molto slancio.',
     Zodiac.taurus: "Toro, la V delle Iadi e l'occhio rosso di Aldebaran.",
     Zodiac.gemini: 'Gemelli, i fratelli Castore e Polluce, fianco a fianco.',
     Zodiac.cancer: 'Cancro, discreto, custodisce l\'alveare del Presepe.',
     Zodiac.leo: 'Leone, la falce del cuore, con Regolo a battere il tempo.',
     Zodiac.virgo: 'Vergine, distesa e ampia, con Spica che brilla bassa.',
     Zodiac.libra: 'Bilancia, l\'equilibrio del cielo, tra Vergine e Scorpione.',
-    Zodiac.scorpio: 'Scorpione, il gancio della coda e il rosso Antares nel petto.',
-    Zodiac.sagittarius: 'Sagittario, la teiera che versa verso il cuore della galassia.',
+    Zodiac.scorpio:
+        'Scorpione, il gancio della coda e il rosso Antares nel petto.',
+    Zodiac.sagittarius:
+        'Sagittario, la teiera che versa verso il cuore della galassia.',
     Zodiac.capricorn: 'Capricorno, il capro marino, un triangolo sommesso.',
     Zodiac.aquarius: 'Acquario, l\'acqua che scorre, stelle tenui e pazienti.',
     Zodiac.pisces: 'Pesci, il lungo cordone che lega i due pesci del cielo.',

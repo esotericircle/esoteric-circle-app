@@ -220,8 +220,8 @@ class AspettiDiOggi {
       fra(
         transiti: TransitiDelGiorno.posizioni(adesso),
         carta: carta,
-        transitiDomani: TransitiDelGiorno.posizioni(
-            adesso.add(const Duration(days: 1))),
+        transitiDomani:
+            TransitiDelGiorno.posizioni(adesso.add(const Duration(days: 1))),
       );
 
   /// QUALI CORPI SONO RETROGRADI oggi.

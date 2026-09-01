@@ -22,6 +22,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_empty_state.dart';
+import 'package:esoteric_circle/core/voce/dettatura.dart';
 import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
@@ -6158,6 +6159,78 @@ void main() {
     await tester.pump();
   });
 
+  // **CI.04: A DITO ALZATO NON RESTA MEZZA ESPLORA.**
+  //
+  // Il fondatore vedeva un residuo giallo che non spariva mai. Non era una
+  // linguetta voluta ne' un residuo di disegno: la barra restava dove il dito
+  // l'aveva lasciata, perche' non esisteva nessuno stato finale. Questa prova
+  // ferma il gesto a META' CORSA, alza il dito, e pretende che la barra
+  // arrivi a un estremo invece di restare a meta'.
+  testWidgets('CI.04: a dito alzato la barra non resta a meta', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: true));
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await step(tester);
+    final schermo = tester.getRect(find.byType(MaterialApp));
+    final lista = find.byType(Scrollable).first;
+    // Mezza corsa e un po', cosi' l'estremo piu' vicino e' quello di fuori.
+    // **LA SOGLIA DI TRASCINAMENTO SI SUPERA PRIMA**, come fa aFondoCorsa:
+    // senza, il primo spostamento non diventa mai uno scorrimento e la barra
+    // non si muove di un punto. La prova misurava se stessa.
+    final gesto = await tester.startGesture(tester.getCenter(lista));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(Offset(0, -(BarraDelCerchio.corsa / 2 + 6)));
+    await tester.pump();
+    final aMeta =
+        schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+    await gesto.up();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    final dopo =
+        schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+    // ignore: avoid_print
+    print('CI.04: a meta gesto se ne vedevano $aMeta punti, a dito alzato '
+        '$dopo');
+    expect(aMeta, greaterThan(8),
+        reason: 'il gesto non ha nemmeno mosso la barra: questa prova non sta '
+            'misurando quello che crede');
+    expect(dopo, lessThan(8),
+        reason: 'a dito alzato restano ancora $dopo punti di barra a schermo, '
+            'cioe\' mezza ESPLORA che non se ne va: la barra non ha uno '
+            'stato finale e resta dove il dito l\'ha lasciata');
+    await capture(tester, rootKey, 'barra-aggancio-a-dito-alzato.png');
+  });
+
+  // **IL MICROFONO SI PUO' GUARDARE.** Ordine CI voce 05.
+  //
+  // Nelle prove la dettatura e' spenta, quindi il microfono non compare, ed
+  // e' il vincolo f dell'ordine: un comando che non funziona non si mostra.
+  // Ma allora l'unico modo di VEDERE il microfono sarebbe un telefono, e su
+  // questa macchina un telefono non c'e'. Qui la schermata riceve una
+  // dettatura che dice di esserci, e l'anteprima mostra la riga com'e'
+  // davvero dove il riconoscimento c'e'.
+  testWidgets('Cattura il compositore col microfono', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+      maestro: Maestro.medora,
+      services: AppServices.offline(),
+      dettatura: _DettaturaDaAnteprima(),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    expect(find.byKey(const Key('chat_microfono')), findsOneWidget,
+        reason: 'il microfono non c\'e\': questa anteprima non mostra '
+            'quello che promette');
+    await capture(tester, rootKey, 'chat-col-microfono.png');
+  });
+
   testWidgets('Cattura la chat con la barra fuori', (tester) async {
     silenceSensors();
     await loadFonts();
@@ -6955,4 +7028,24 @@ class _VoceCheFaAspettare implements MaestroAiProvider {
     required List<ChatMessage> history,
   }) async =>
       null;
+}
+
+/// Una dettatura che dice di esserci, per la sola anteprima: non ascolta
+/// niente e non tocca nessun microfono.
+class _DettaturaDaAnteprima extends Dettatura {
+  @override
+  Future<bool> disponibile() async => true;
+
+  @override
+  Future<bool> accendi() async => true;
+
+  @override
+  Future<bool> ascolta({
+    required void Function(String parole) parole,
+    required void Function() finito,
+  }) async =>
+      true;
+
+  @override
+  Future<void> ferma() async {}
 }

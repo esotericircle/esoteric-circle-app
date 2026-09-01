@@ -107,7 +107,11 @@ class _AnimalJourneyState extends State<AnimalJourney> {
                             palette.primary.withValues(alpha: 0.16),
                             palette.deepest.withValues(alpha: 0.10),
                             Colors.transparent,
-                          ], stops: const [0.0, 0.6, 1.0]),
+                          ], stops: const [
+                            0.0,
+                            0.6,
+                            1.0
+                          ]),
                         ),
                       ),
                     ),

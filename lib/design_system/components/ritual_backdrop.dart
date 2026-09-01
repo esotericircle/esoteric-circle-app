@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/maestro_palette.dart';
@@ -50,13 +49,12 @@ class RitualBackdrop extends StatelessWidget {
             fit: BoxFit.cover,
             // Se il PNG manca o non si decodifica, non si resta con un buco:
             // si ripiega sul fondo procedurale, stesso slot, stessa tinta.
-            errorBuilder: (context, error, stack) =>
-                CosmosBackground(
-                  seed: 2,
-                  paletteOverride: palette,
-                  showZodiac: false,
-                  child: const SizedBox.expand(),
-                ),
+            errorBuilder: (context, error, stack) => CosmosBackground(
+              seed: 2,
+              paletteOverride: palette,
+              showZodiac: false,
+              child: const SizedBox.expand(),
+            ),
           ),
           child,
         ],

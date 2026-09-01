@@ -158,7 +158,6 @@ class TypographyTokens {
   static TextStyle titoloDiRiga({double weight = 600}) =>
       display(size: 16, weight: weight);
 
-
   /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
   /// tornare a capo molte volte di seguito.
@@ -194,7 +193,8 @@ class TypographyTokens {
   /// sull'arco e nessun ruolo puo' saperlo in anticipo. Tutti gli altri punti
   /// che passano di qui sono elencati uno per uno in
   /// `docs/tipografia/censimento.md`, e quel numero puo' solo scendere.
-  static TextStyle display({double size = 34, double weight = 600}) => TextStyle(
+  static TextStyle display({double size = 34, double weight = 600}) =>
+      TextStyle(
         fontFamily: _display,
         fontSize: _misura(size, minDisplay),
         fontVariations: _wght(weight),

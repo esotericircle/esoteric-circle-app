@@ -46,7 +46,8 @@ class DayOracleScreen extends StatefulWidget {
 
   final DateTime? now;
 
-  static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>((_) => MaestroScope(child: DayOracleScreen(now: now)));
+  static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>(
+      (_) => MaestroScope(child: DayOracleScreen(now: now)));
 
   @override
   State<DayOracleScreen> createState() => _DayOracleScreenState();
@@ -122,10 +123,11 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
       // stesso Arcano del Giorno esce due volte in una settimana", e il gesto
       // arrivava nudo: la regia sapeva che l'Arcano era stato ricevuto, non
       // quale fosse.
-      onReveal: () => unawaited(RegiaDelCammino.dopoUnGesto(
-          context, 'oracolo',
+      onReveal: () => unawaited(RegiaDelCammino.dopoUnGesto(context, 'oracolo',
           oraRituale: OraRituale.diAdesso(adesso: date),
-          dettagli: {'arcano': [carta.stem]})),
+          dettagli: {
+            'arcano': [carta.stem]
+          })),
       // COSA STAI PER RICEVERE, prima del gesto: nessuno compie un gesto senza
       // sapere cosa ne esce.
       cosaRicevi: 'Una carta degli Arcani Maggiori, la tua per tutta la '

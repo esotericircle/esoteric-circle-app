@@ -72,52 +72,52 @@ class RitrattoIngrandito extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: ColoredBox(
-      color: backgroundColor,
-      child: Semantics(
-        label: 'La carta di ${vip.name} aperta, tocca fuori per chiudere',
-        child: GestureDetector(
-          onTap: () => Navigator.of(context).maybePop(),
-          // IL TRASCINAMENTO VERSO IL BASSO, terza uscita.
-          onVerticalDragEnd: (d) {
-            if ((d.primaryVelocity ?? 0) > 200) {
-              Navigator.of(context).maybePop();
-            }
-          },
-          behavior: HitTestBehavior.opaque,
-          child: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(SpacingTokens.lg),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _laFigura(larga),
-                    const SizedBox(height: SpacingTokens.md),
-                    Text(vip.name.toUpperCase(),
-                        key: const Key('ritratto_nome'),
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.titoloScheda().copyWith(
-                            color: palette.goldSoft, letterSpacing: 1.2)),
-                    if (vip.hasCategory) ...[
-                      const SizedBox(height: SpacingTokens.xxs),
-                      Text(vip.category,
-                          key: const Key('ritratto_categoria'),
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: ColorTokens.textSecondary)),
+        color: backgroundColor,
+        child: Semantics(
+          label: 'La carta di ${vip.name} aperta, tocca fuori per chiudere',
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).maybePop(),
+            // IL TRASCINAMENTO VERSO IL BASSO, terza uscita.
+            onVerticalDragEnd: (d) {
+              if ((d.primaryVelocity ?? 0) > 200) {
+                Navigator.of(context).maybePop();
+              }
+            },
+            behavior: HitTestBehavior.opaque,
+            child: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(SpacingTokens.lg),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _laFigura(larga),
+                      const SizedBox(height: SpacingTokens.md),
+                      Text(vip.name.toUpperCase(),
+                          key: const Key('ritratto_nome'),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.titoloScheda().copyWith(
+                              color: palette.goldSoft, letterSpacing: 1.2)),
+                      if (vip.hasCategory) ...[
+                        const SizedBox(height: SpacingTokens.xxs),
+                        Text(vip.category,
+                            key: const Key('ritratto_categoria'),
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: ColorTokens.textSecondary)),
+                      ],
+                      const SizedBox(height: SpacingTokens.sm),
+                      Text(_laRigaDellaNascita(),
+                          key: const Key('ritratto_nascita'),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.corpo()
+                              .copyWith(color: ColorTokens.textPrimary)),
                     ],
-                    const SizedBox(height: SpacingTokens.sm),
-                    Text(_laRigaDellaNascita(),
-                        key: const Key('ritratto_nascita'),
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.corpo()
-                            .copyWith(color: ColorTokens.textPrimary)),
-                  ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -208,8 +208,8 @@ class RitrattoIngrandito extends StatelessWidget {
       animation: entrata,
       builder: (context, child) => Opacity(
         opacity: entrata.value,
-        child: Transform.scale(
-            scale: 0.92 + 0.08 * entrata.value, child: child),
+        child:
+            Transform.scale(scale: 0.92 + 0.08 * entrata.value, child: child),
       ),
       child: figura,
     );

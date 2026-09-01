@@ -208,12 +208,10 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     // non starebbero in nessuna testata.
     // La veste RESA: quella di riposo del montaggio, oppure l'oro
     // dell'atterraggio finche' la doratura non si spegne.
-    final vesteResa =
-        _accesa ? VesteDellaPillola.oro : widget.veste;
+    final vesteResa = _accesa ? VesteDellaPillola.oro : widget.veste;
     final stile = TypographyTokens.etichetta().copyWith(
-      color: vesteResa == VesteDellaPillola.oro
-          ? palette.gold
-          : palette.goldSoft,
+      color:
+          vesteResa == VesteDellaPillola.oro ? palette.gold : palette.goldSoft,
       fontFeatures: const [ui.FontFeature.tabularFigures()],
     );
     final metro = TextPainter(
@@ -225,9 +223,8 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     final veste0 = vesteResa == VesteDellaPillola.velo;
     // Sotto Riduci Movimento il passaggio fra le vesti e' un cambio secco:
     // si toglie il movimento, non la doratura.
-    final durataTransizione = MediaQuery.of(context).disableAnimations
-        ? Duration.zero
-        : transizione;
+    final durataTransizione =
+        MediaQuery.of(context).disableAnimations ? Duration.zero : transizione;
     return Semantics(
       button: true,
       label: 'Borsellino, $saldo Eos',
@@ -236,97 +233,98 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-        key: const Key('borsellino'),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        onTap: widget.suTocco ??
-            () => PortafoglioDelCerchio.apri(
-                widget.contestoDelFoglio?.call() ?? context),
-        child: AnimatedContainer(
-          duration: durataTransizione,
-          curve: Curves.easeOut,
-          decoration: widget.senzaVeste
-              ? const BoxDecoration()
-              : BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            // Il velo si e' scurito da 0,38 a 0,62 con l'ordine AK voce 03: senza
-            // la rotellina accanto, sul Passaporto la pillola e' finita
-            // sopra un fondo chiaro e il contrasto della cifra scendeva a
-            // 2,9 contro il 4,5 che l'ordine AI pretende su OGNI fondo. Il
-            // velo resta velo: cambia il fondo della pillola, non il bordo.
-            color: palette.deepest.withValues(alpha: veste0 ? 0.62 : 0.72),
-            border: Border.all(
-              color: veste0
-                  ? palette.goldSoft.withValues(alpha: 0.35)
-                  : palette.gold.withValues(alpha: 0.65),
-            ),
-            boxShadow: veste0
-                ? null
-                : [
-                    BoxShadow(
-                      color: palette.glow.withValues(alpha: 0.25),
-                      blurRadius: 10,
-                      spreadRadius: -3,
+          key: const Key('borsellino'),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          onTap: widget.suTocco ??
+              () => PortafoglioDelCerchio.apri(
+                  widget.contestoDelFoglio?.call() ?? context),
+          child: AnimatedContainer(
+            duration: durataTransizione,
+            curve: Curves.easeOut,
+            decoration: widget.senzaVeste
+                ? const BoxDecoration()
+                : BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusPill),
+                    // Il velo si e' scurito da 0,38 a 0,62 con l'ordine AK voce 03: senza
+                    // la rotellina accanto, sul Passaporto la pillola e' finita
+                    // sopra un fondo chiaro e il contrasto della cifra scendeva a
+                    // 2,9 contro il 4,5 che l'ordine AI pretende su OGNI fondo. Il
+                    // velo resta velo: cambia il fondo della pillola, non il bordo.
+                    color:
+                        palette.deepest.withValues(alpha: veste0 ? 0.62 : 0.72),
+                    border: Border.all(
+                      color: veste0
+                          ? palette.goldSoft.withValues(alpha: 0.35)
+                          : palette.gold.withValues(alpha: 0.65),
                     ),
-                  ],
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: widget.compatta ? SpacingTokens.xs : SpacingTokens.sm,
-            vertical: widget.compatta ? 3 : 5,
-          ),
-          child: Flex(
-            key: _dove,
-            // La stessa pillola in due forme: in fila nelle barre, in
-            // colonna dentro la capsula. Il contenuto e' identico.
-            direction: widget.verticale ? Axis.vertical : Axis.horizontal,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (widget.monetaDOro)
-                Image.asset(
-                  'assets/brand/moneta_eos.webp',
-                  key: const Key('moneta_eos'),
-                  width: widget.compatta ? 14 : 16,
-                  height: widget.compatta ? 14 : 16,
-                  filterQuality: FilterQuality.medium,
-                )
-              else
-                IconaDegliEos(
-                    misura: widget.compatta ? 12 : 14,
-                    colore: veste0 ? palette.goldSoft : palette.gold),
-              SizedBox.square(dimension: widget.compatta ? 3 : 5),
-              // IL NUMERO SALE CONTANDO, ordine S voce 07, e dura quanto il volo
-              // delle scintille. **Con Riduci Movimento il volo non parte e il
-              // conto resta**: si toglie la scintilla, non la notizia. La cifra
-              // sta in uno spazio fisso allineato a destra, cosi' il conto non
-              // fa respirare la pillola; in colonna sta al centro sotto la
-              // moneta.
-              SizedBox(
-                // **LA LARGHEZZA RISERVATA NON VALE DENTRO LA BARRA.**
-                // Nelle testate teneva fermo il vicino di banco mentre il
-                // numero cresceva; nella barra sottile il vicino e' uno
-                // spazio elastico, e il posto per cinque cifre apriva un
-                // vuoto fra la moneta e lo zero. Guardato sull'anteprima.
-                width: widget.senzaVeste ? null : larghezzaCifre,
-                child: TweenAnimationBuilder<double>(
-                  tween: Tween<double>(
-                      begin: partenza.toDouble(), end: saldo.toDouble()),
-                  duration: VoloDegliEos.durata,
-                  curve: Curves.easeOutCubic,
-                  builder: (context, valore, _) => Text(
-                    cifraDegliEos(valore.round()),
-                    key: const Key('saldo_eos_numero'),
-                    textAlign: widget.verticale
-                        ? TextAlign.center
-                        : TextAlign.right,
-                    maxLines: 1,
-                    overflow: TextOverflow.clip,
-                    style: stile,
+                    boxShadow: veste0
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: palette.glow.withValues(alpha: 0.25),
+                              blurRadius: 10,
+                              spreadRadius: -3,
+                            ),
+                          ],
+                  ),
+            padding: EdgeInsets.symmetric(
+              horizontal: widget.compatta ? SpacingTokens.xs : SpacingTokens.sm,
+              vertical: widget.compatta ? 3 : 5,
+            ),
+            child: Flex(
+              key: _dove,
+              // La stessa pillola in due forme: in fila nelle barre, in
+              // colonna dentro la capsula. Il contenuto e' identico.
+              direction: widget.verticale ? Axis.vertical : Axis.horizontal,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (widget.monetaDOro)
+                  Image.asset(
+                    'assets/brand/moneta_eos.webp',
+                    key: const Key('moneta_eos'),
+                    width: widget.compatta ? 14 : 16,
+                    height: widget.compatta ? 14 : 16,
+                    filterQuality: FilterQuality.medium,
+                  )
+                else
+                  IconaDegliEos(
+                      misura: widget.compatta ? 12 : 14,
+                      colore: veste0 ? palette.goldSoft : palette.gold),
+                SizedBox.square(dimension: widget.compatta ? 3 : 5),
+                // IL NUMERO SALE CONTANDO, ordine S voce 07, e dura quanto il volo
+                // delle scintille. **Con Riduci Movimento il volo non parte e il
+                // conto resta**: si toglie la scintilla, non la notizia. La cifra
+                // sta in uno spazio fisso allineato a destra, cosi' il conto non
+                // fa respirare la pillola; in colonna sta al centro sotto la
+                // moneta.
+                SizedBox(
+                  // **LA LARGHEZZA RISERVATA NON VALE DENTRO LA BARRA.**
+                  // Nelle testate teneva fermo il vicino di banco mentre il
+                  // numero cresceva; nella barra sottile il vicino e' uno
+                  // spazio elastico, e il posto per cinque cifre apriva un
+                  // vuoto fra la moneta e lo zero. Guardato sull'anteprima.
+                  width: widget.senzaVeste ? null : larghezzaCifre,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(
+                        begin: partenza.toDouble(), end: saldo.toDouble()),
+                    duration: VoloDegliEos.durata,
+                    curve: Curves.easeOutCubic,
+                    builder: (context, valore, _) => Text(
+                      cifraDegliEos(valore.round()),
+                      key: const Key('saldo_eos_numero'),
+                      textAlign:
+                          widget.verticale ? TextAlign.center : TextAlign.right,
+                      maxLines: 1,
+                      overflow: TextOverflow.clip,
+                      style: stile,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -343,7 +341,6 @@ String cifraDegliEos(int saldo) {
   }
   return testo.toString();
 }
-
 
 /// L'ANNUNCIO CHE GLI EOS STANNO ARRIVANDO. Ordine S voce 07.
 ///
@@ -602,235 +599,236 @@ class _FoglioDelPortafoglio extends StatelessWidget {
       // piu': chi ha uno schermo comodo non si accorge di niente.
       child: SingleChildScrollView(
         child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 44,
-              height: 4,
-              decoration: BoxDecoration(
-                color: palette.gold.withValues(alpha: 0.5),
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 44,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: palette.gold.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          // 1. IL SALDO, e il livello visivo prima del testo: l'alba grande, il
-          //    numero grande, la parola accanto.
-          Row(
-            children: [
-              IconaDegliEos(misura: 34, colore: palette.goldSoft),
-              const SizedBox(width: SpacingTokens.sm),
-              Text(
-                '${borsa.saldoEos} Eos',
-                key: const Key('portafoglio_saldo'),
-                // IL RUOLO E NON UNA MISURA: `cerimoniale` e' il titolo di una
-                // schermata cerimoniale, ed e' esattamente il peso che ha il
-                // saldo quando si apre il portafoglio. Scrivere un numero qui
-                // sarebbe debito tipografico, e il censimento lo conta.
-                style: TypographyTokens.cerimoniale()
-                    .copyWith(color: palette.goldSoft),
-              ),
-            ],
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(
-            'Il tuo saldo nel Cerchio.',
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          // 2. LA PROSSIMA RICARICA.
-          _Titoletto('La prossima ricarica', palette),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(
-            PortafoglioDelCerchio.quandoTornano(borsa, tier),
-            key: const Key('portafoglio_ricarica'),
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          // **2 BIS. TUTTI I LIMITI DEL PIANO, e non uno solo.** Ordine BB
-          // voce 02: il fondatore ha aperto il borsellino e ha trovato una
-          // riga sola sulle domande ai Maestri. I budget sono quattro, e chi
-          // guarda i propri Eos sta guardando proprio cosa puo' fare oggi.
-          // **I PACCHETTI DI EOS, E LA VIA QUANDO NON BASTANO.** Ordine CE
-          // voci 06 e 09.
-          //
-          // **Le parole del fondatore:** "se l'utente vuole comprare EOS, ma
-          // cmq non ne ha abbastanza, viene trasportato al borsellino e nel
-          // borsellino c'e' l'avvertenza che gli EOS disponibili non bastano
-          // con il pulsante acquista un pacchetto EOS o abbonati per
-          // continuare o altro testo elegante".
-          //
-          // **Sta qui e non in fondo**, perche' chi arriva al borsellino dopo
-          // un saldo insufficiente deve trovare la via subito sotto il proprio
-          // saldo, non dopo tre elenchi.
-          //
-          // **Nessun pulsante che finge.** Gli acquisti veri non sono ancora
-          // collegati a un negozio, e l'ordine dice che in quel caso ci si
-          // ferma e lo si dichiara a schermo: qui si mostra cosa saranno i
-          // pacchetti e si dice che arrivano con la pubblicazione. Promettere
-          // un acquisto che non avviene sarebbe la stessa bugia dei tre
-          // pulsanti che non aprivano nessun foglio.
-          _Titoletto('Se gli Eos non bastano', palette),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(
-            pacchettiNonAncoraInVendita,
-            key: const Key('portafoglio_pacchetti_avvertenza'),
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          for (final p in pacchettiDiEos) ...[
-            Padding(
-              key: Key('portafoglio_pacchetto_${p.id}'),
-              padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-              child: Row(
-                children: [
-                  IconaDegliEos(misura: 18, colore: palette.goldSoft),
-                  const SizedBox(width: SpacingTokens.xs),
-                  Expanded(
-                    child: Text(
-                      '${p.nome}, ${p.eos} Eos',
-                      style: TypographyTokens.corpo()
-                          .copyWith(color: ColorTokens.textPrimary),
-                    ),
-                  ),
-                  Text(
-                    p.prezzo,
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: palette.goldSoft),
-                  ),
-                ],
-              ),
+            const SizedBox(height: SpacingTokens.lg),
+            // 1. IL SALDO, e il livello visivo prima del testo: l'alba grande, il
+            //    numero grande, la parola accanto.
+            Row(
+              children: [
+                IconaDegliEos(misura: 34, colore: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Text(
+                  '${borsa.saldoEos} Eos',
+                  key: const Key('portafoglio_saldo'),
+                  // IL RUOLO E NON UNA MISURA: `cerimoniale` e' il titolo di una
+                  // schermata cerimoniale, ed e' esattamente il peso che ha il
+                  // saldo quando si apre il portafoglio. Scrivere un numero qui
+                  // sarebbe debito tipografico, e il censimento lo conta.
+                  style: TypographyTokens.cerimoniale()
+                      .copyWith(color: palette.goldSoft),
+                ),
+              ],
             ),
-          ],
-          const SizedBox(height: SpacingTokens.sm),
-          // **E LA SECONDA VIA, che il fondatore ha nominato accanto alla
-          // prima: "o abbonati per continuare".** Non e' un ripiego, e' la
-          // strada piu' conveniente, e l'invito ai piani esiste gia' in questo
-          // foglio poco piu' sotto.
-          Text(
-            'Oppure sali di livello nel Cerchio: ogni giorno budget nuovi, '
-            'senza comprare niente.',
-            key: const Key('portafoglio_oppure_abbonati'),
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          _Titoletto('Cosa puoi fare oggi', palette),
-          const SizedBox(height: SpacingTokens.xs),
-          for (final riga
-              in PortafoglioDelCerchio.tuttiILimiti(borsa, tier)) ...[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 2),
-              child: Text(
-                riga,
-                key: Key('portafoglio_limite_${PortafoglioDelCerchio.tuttiILimiti(borsa, tier).indexOf(riga)}'),
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
-            ),
-          ],
-          const SizedBox(height: SpacingTokens.lg),
-          // 3. DA DOVE SONO ARRIVATI GLI ULTIMI EOS.
-          _Titoletto('Gli ultimi Eos', palette),
-          const SizedBox(height: SpacingTokens.xs),
-          if (registro == null || registro.vuoto)
+            const SizedBox(height: SpacingTokens.xs),
             Text(
-              'Ancora nessun movimento. Gli Eos arrivano quando accendi un '
-              'Sigillo del cammino: non si comprano e non si ricaricano, li '
-              'guadagni tu.',
-              key: const Key('portafoglio_movimenti_vuoti'),
+              'Il tuo saldo nel Cerchio.',
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary),
-            )
-          else
-            for (final movimento in registro.ultimi)
+            ),
+            const SizedBox(height: SpacingTokens.lg),
+            // 2. LA PROSSIMA RICARICA.
+            _Titoletto('La prossima ricarica', palette),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              PortafoglioDelCerchio.quandoTornano(borsa, tier),
+              key: const Key('portafoglio_ricarica'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.lg),
+            // **2 BIS. TUTTI I LIMITI DEL PIANO, e non uno solo.** Ordine BB
+            // voce 02: il fondatore ha aperto il borsellino e ha trovato una
+            // riga sola sulle domande ai Maestri. I budget sono quattro, e chi
+            // guarda i propri Eos sta guardando proprio cosa puo' fare oggi.
+            // **I PACCHETTI DI EOS, E LA VIA QUANDO NON BASTANO.** Ordine CE
+            // voci 06 e 09.
+            //
+            // **Le parole del fondatore:** "se l'utente vuole comprare EOS, ma
+            // cmq non ne ha abbastanza, viene trasportato al borsellino e nel
+            // borsellino c'e' l'avvertenza che gli EOS disponibili non bastano
+            // con il pulsante acquista un pacchetto EOS o abbonati per
+            // continuare o altro testo elegante".
+            //
+            // **Sta qui e non in fondo**, perche' chi arriva al borsellino dopo
+            // un saldo insufficiente deve trovare la via subito sotto il proprio
+            // saldo, non dopo tre elenchi.
+            //
+            // **Nessun pulsante che finge.** Gli acquisti veri non sono ancora
+            // collegati a un negozio, e l'ordine dice che in quel caso ci si
+            // ferma e lo si dichiara a schermo: qui si mostra cosa saranno i
+            // pacchetti e si dice che arrivano con la pubblicazione. Promettere
+            // un acquisto che non avviene sarebbe la stessa bugia dei tre
+            // pulsanti che non aprivano nessun foglio.
+            _Titoletto('Se gli Eos non bastano', palette),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              pacchettiNonAncoraInVendita,
+              key: const Key('portafoglio_pacchetti_avvertenza'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            for (final p in pacchettiDiEos) ...[
               Padding(
+                key: Key('portafoglio_pacchetto_${p.id}'),
                 padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
                 child: Row(
                   children: [
-                    Text(
-                      movimento.quanti > 0
-                          ? '+${movimento.quanti}'
-                          : '${movimento.quanti}',
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.goldSoft),
-                    ),
-                    const SizedBox(width: SpacingTokens.sm),
+                    IconaDegliEos(misura: 18, colore: palette.goldSoft),
+                    const SizedBox(width: SpacingTokens.xs),
                     Expanded(
                       child: Text(
-                        // **IL NOME COME SI LEGGE, non come sta nel dato.**
-                        // Ordine BB voce 03, fatto del fondatore: nello stesso
-                        // elenco si leggevano "LA PRIMA FIORITURA" e "Il tuo
-                        // numero", "LA COSTELLAZIONE NASCENTE" e "La tua carta
-                        // e' nata".
-                        //
-                        // **La causa sta nel corpus e NON si cura li'**: il
-                        // maiuscolo integrale e' il modo in cui il corpus
-                        // marca i traguardi grandi, ed e' un'informazione
-                        // vera. Si normalizza alla lettura, con la stessa
-                        // funzione che usa la scheda della festa: cosi' i due
-                        // posti non possono divergere, e il dato resta
-                        // intatto.
-                        nomeInTondo(movimento.perche),
+                        '${p.nome}, ${p.eos} Eos',
                         style: TypographyTokens.corpo()
-                            .copyWith(color: ColorTokens.textSecondary),
+                            .copyWith(color: ColorTokens.textPrimary),
                       ),
+                    ),
+                    Text(
+                      p.prezzo,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: palette.goldSoft),
                     ),
                   ],
                 ),
               ),
-          const SizedBox(height: SpacingTokens.lg),
-          // **4. L'INVITO, in fondo e in una frase.** Ordine BB voce 02, e il
-          // fondatore ha chiesto che sia "elegante": una riga e un pulsante,
-          // non un cartellone. Compare solo a chi e' sul piano gratuito: a chi
-          // ha gia' un piano sarebbe un invito a comprare cio' che ha.
-          if (PortafoglioDelCerchio.invitoAdAbbonarsi(tier) != null) ...[
-            Text(
-              PortafoglioDelCerchio.invitoAdAbbonarsi(tier)!,
-              key: const Key('portafoglio_invito'),
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-            ),
+            ],
             const SizedBox(height: SpacingTokens.sm),
-            Center(
-              child: FilledButton(
-                key: const Key('portafoglio_vai_ai_piani'),
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.surfaceElevated,
-                  foregroundColor: palette.goldSoft,
-                  side: BorderSide(color: palette.gold.withValues(alpha: 0.45)),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(PricingScreen.route());
-                },
-                child: Text('Guarda i piani',
-                    style: TypographyTokens.etichetta()),
-              ),
+            // **E LA SECONDA VIA, che il fondatore ha nominato accanto alla
+            // prima: "o abbonati per continuare".** Non e' un ripiego, e' la
+            // strada piu' conveniente, e l'invito ai piani esiste gia' in questo
+            // foglio poco piu' sotto.
+            Text(
+              'Oppure sali di livello nel Cerchio: ogni giorno budget nuovi, '
+              'senza comprare niente.',
+              key: const Key('portafoglio_oppure_abbonati'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.lg),
-          ],
-          Center(
-            child: TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Chiudi',
+            _Titoletto('Cosa puoi fare oggi', palette),
+            const SizedBox(height: SpacingTokens.xs),
+            for (final riga
+                in PortafoglioDelCerchio.tuttiILimiti(borsa, tier)) ...[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 2),
+                child: Text(
+                  riga,
+                  key: Key(
+                      'portafoglio_limite_${PortafoglioDelCerchio.tuttiILimiti(borsa, tier).indexOf(riga)}'),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ),
+            ],
+            const SizedBox(height: SpacingTokens.lg),
+            // 3. DA DOVE SONO ARRIVATI GLI ULTIMI EOS.
+            _Titoletto('Gli ultimi Eos', palette),
+            const SizedBox(height: SpacingTokens.xs),
+            if (registro == null || registro.vuoto)
+              Text(
+                'Ancora nessun movimento. Gli Eos arrivano quando accendi un '
+                'Sigillo del cammino: non si comprano e non si ricaricano, li '
+                'guadagni tu.',
+                key: const Key('portafoglio_movimenti_vuoti'),
                 style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textMuted),
+                    .copyWith(color: ColorTokens.textSecondary),
+              )
+            else
+              for (final movimento in registro.ultimi)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                  child: Row(
+                    children: [
+                      Text(
+                        movimento.quanti > 0
+                            ? '+${movimento.quanti}'
+                            : '${movimento.quanti}',
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: palette.goldSoft),
+                      ),
+                      const SizedBox(width: SpacingTokens.sm),
+                      Expanded(
+                        child: Text(
+                          // **IL NOME COME SI LEGGE, non come sta nel dato.**
+                          // Ordine BB voce 03, fatto del fondatore: nello stesso
+                          // elenco si leggevano "LA PRIMA FIORITURA" e "Il tuo
+                          // numero", "LA COSTELLAZIONE NASCENTE" e "La tua carta
+                          // e' nata".
+                          //
+                          // **La causa sta nel corpus e NON si cura li'**: il
+                          // maiuscolo integrale e' il modo in cui il corpus
+                          // marca i traguardi grandi, ed e' un'informazione
+                          // vera. Si normalizza alla lettura, con la stessa
+                          // funzione che usa la scheda della festa: cosi' i due
+                          // posti non possono divergere, e il dato resta
+                          // intatto.
+                          nomeInTondo(movimento.perche),
+                          style: TypographyTokens.corpo()
+                              .copyWith(color: ColorTokens.textSecondary),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            const SizedBox(height: SpacingTokens.lg),
+            // **4. L'INVITO, in fondo e in una frase.** Ordine BB voce 02, e il
+            // fondatore ha chiesto che sia "elegante": una riga e un pulsante,
+            // non un cartellone. Compare solo a chi e' sul piano gratuito: a chi
+            // ha gia' un piano sarebbe un invito a comprare cio' che ha.
+            if (PortafoglioDelCerchio.invitoAdAbbonarsi(tier) != null) ...[
+              Text(
+                PortafoglioDelCerchio.invitoAdAbbonarsi(tier)!,
+                key: const Key('portafoglio_invito'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              Center(
+                child: FilledButton(
+                  key: const Key('portafoglio_vai_ai_piani'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.surfaceElevated,
+                    foregroundColor: palette.goldSoft,
+                    side:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.45)),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(PricingScreen.route());
+                  },
+                  child: Text('Guarda i piani',
+                      style: TypographyTokens.etichetta()),
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+            ],
+            Center(
+              child: TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(
+                  'Chiudi',
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textMuted),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
-
 }
 
 class _Titoletto extends StatelessWidget {

@@ -40,9 +40,8 @@ class PortaVeraDelloScrigno extends PortaDelloScrigno {
   @override
   Future<List<RicordoCustodito>> tutti() async {
     try {
-      final esito = await _funzioni
-          .httpsCallable('leggiICustoditi')
-          .call<Object?>({});
+      final esito =
+          await _funzioni.httpsCallable('leggiICustoditi').call<Object?>({});
       final dati = esito.data;
       if (dati is! Map) return const [];
       final righe = dati['custoditi'];

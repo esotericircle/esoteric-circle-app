@@ -164,16 +164,16 @@ class StatoDelCerchio {
       listinoDellaCondivisione: listino,
       listinoDelRiscatto: riscatto,
       premioDellaRegistrazione: premioRegistrazione,
-      cerchioNuovo:
-          risposta['cerchioNuovo'] is bool ? risposta['cerchioNuovo'] as bool : null,
+      cerchioNuovo: risposta['cerchioNuovo'] is bool
+          ? risposta['cerchioNuovo'] as bool
+          : null,
       accreditati: accreditati,
       invitiAccolti: risposta['invitiAccolti'] is num
           ? (risposta['invitiAccolti'] as num).toInt()
           : 0,
       invitiPerMaestro: {
         if (risposta['invitiPerMaestro'] is Map)
-          for (final voce
-              in (risposta['invitiPerMaestro'] as Map).entries)
+          for (final voce in (risposta['invitiPerMaestro'] as Map).entries)
             if (voce.value is num) '${voce.key}': (voce.value as num).toInt(),
       },
       premioDellInvitoAccolto: risposta['premioDellInvitoAccolto'] is num
@@ -196,8 +196,7 @@ class StatoDelCerchio {
                 (voce.value as Map)['verificata_il'] is String)
               '${voce.key}': {
                 'testo': (voce.value as Map)['testo'] as String,
-                'verificata_il':
-                    (voce.value as Map)['verificata_il'] as String,
+                'verificata_il': (voce.value as Map)['verificata_il'] as String,
               },
       },
     );
@@ -333,8 +332,7 @@ abstract class PortaDelCerchio {
   /// facoltativo e anonimo (il server lo scrive senza uid ne' email, prima
   /// di cancellare): qui i due passaggi con la ragione, con un difetto che
   /// delega alle porte senza perche' cosi' nessuna porta finta si rompe.
-  Future<bool> cancellaIlCerchioDicendo(String? perche) =>
-      cancellaIlCerchio();
+  Future<bool> cancellaIlCerchioDicendo(String? perche) => cancellaIlCerchio();
 
   Future<bool> azzeraIDatiDicendo(String? perche) => azzeraIDati();
 
@@ -403,8 +401,7 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
-  Future<bool> segnaLEvento(
-      {required String nome, String? contesto}) async {
+  Future<bool> segnaLEvento({required String nome, String? contesto}) async {
     // **NIENTE ASPETTA QUESTA CHIAMATA.** Chi la fa non la attende, e il nulla
     // che torna da `_chiama` e' una risposta come le altre: rete giu',
     // funzione non distribuita, tempo scaduto. Nessuno di questi casi deve
@@ -452,8 +449,10 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
     return EsitoDelConsumo(
       concesso: risposta['concesso'] == true,
       resta: resta is num ? resta.toInt() : null,
-      giorno: risposta['giorno'] is String ? risposta['giorno'] as String : null,
-      motivo: risposta['motivo'] is String ? risposta['motivo'] as String : null,
+      giorno:
+          risposta['giorno'] is String ? risposta['giorno'] as String : null,
+      motivo:
+          risposta['motivo'] is String ? risposta['motivo'] as String : null,
     );
   }
 
@@ -531,7 +530,8 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
     return EsitoDelSecondoFattore(
       mandato: risposta['mandato'] == true,
       verificato: risposta['verificato'] == true,
-      motivo: risposta['motivo'] is String ? risposta['motivo'] as String : null,
+      motivo:
+          risposta['motivo'] is String ? risposta['motivo'] as String : null,
     );
   }
 
@@ -595,10 +595,7 @@ class PortaSpentaDelCerchio extends PortaDelCerchio {
 
   @override
   Future<bool> cancellaIlCerchio() async => false;
-
-
 }
-
 
 /// La risposta della sonda dell'ingresso (BI.01): l'email ha un Cerchio?
 /// E con quali vie (google.com, apple.com, password)?
@@ -608,7 +605,6 @@ class EsitoDellaSonda {
   final bool esiste;
   final List<String> vie;
 }
-
 
 /// La risposta del secondo fattore (BI.04).
 class EsitoDelSecondoFattore {

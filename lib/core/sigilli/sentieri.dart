@@ -135,8 +135,7 @@ class Sentieri {
   /// E in tutto, sui tre sentieri.
   static const int eosAttesiInTutto = 6030;
 
-  static int get eosInTutto =>
-      tutti.fold(0, (somma, s) => somma + eosDi(s));
+  static int get eosInTutto => tutti.fold(0, (somma, s) => somma + eosDi(s));
 
   /// FINO A DOVE ARRIVA IL GRATUITO, decisione gia' presa: i primi venti
   /// traguardi di ciascun sentiero. Dal ventunesimo serve il Tier 1, e gli

@@ -56,7 +56,8 @@ class PortaSpentaDelloScrigno extends PortaDelloScrigno {
 }
 
 class ScrignoDeiCustoditi extends ChangeNotifier {
-  ScrignoDeiCustoditi({PortaDelloScrigno porta = const PortaSpentaDelloScrigno()})
+  ScrignoDeiCustoditi(
+      {PortaDelloScrigno porta = const PortaSpentaDelloScrigno()})
       : _porta = porta;
 
   final PortaDelloScrigno _porta;

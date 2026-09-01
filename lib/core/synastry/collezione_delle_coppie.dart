@@ -173,8 +173,8 @@ class CollezioneDelleCoppie extends ChangeNotifier {
   Future<void> _scrivi() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_chiave,
-          jsonEncode([for (final c in _scoperte.values) c.toJson()]));
+      await prefs.setString(
+          _chiave, jsonEncode([for (final c in _scoperte.values) c.toJson()]));
     } catch (errore) {
       // Best effort, come gli altri archivi: il disco che non scrive non
       // ferma una scoperta.

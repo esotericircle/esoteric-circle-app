@@ -17,7 +17,6 @@ import 'profile_store.dart';
 /// ritrovato al riavvio con [load]: prima di allora vale il profilo d'esempio
 /// della Demo, dichiarato, come `BirthIdentity.example`.
 class ProfileController extends ChangeNotifier {
-
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi la nota estesa su
   /// `DiarioDelCammino.dimenticaChiSeNeVa`: i controller vivono per tutta la
   /// sessione, e cancellare l'account senza svuotarli lasciava a schermo i

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/astro/birth_details.dart';
@@ -65,8 +64,8 @@ class MoonPhaseFactCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(facts.moonMeaning,
-                    style: TypographyTokens.body(size: 16)
-                        .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+                    style: TypographyTokens.body(size: 16).copyWith(
+                        color: ColorTokens.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -89,7 +88,8 @@ class LifeNumberFactCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LifeNumberEmblem(number: facts.lifeNumber, palette: palette, size: 60),
+          LifeNumberEmblem(
+              number: facts.lifeNumber, palette: palette, size: 60),
           const SizedBox(width: SpacingTokens.md),
           Expanded(
             child: Column(
@@ -103,8 +103,8 @@ class LifeNumberFactCard extends StatelessWidget {
                     style: TypographyTokens.titoloDiSchermata()),
                 const SizedBox(height: 4),
                 Text(facts.lifeMeaning,
-                    style: TypographyTokens.body(size: 16)
-                        .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+                    style: TypographyTokens.body(size: 16).copyWith(
+                        color: ColorTokens.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -189,7 +189,6 @@ class _BirthSkyPortalState extends State<BirthSkyPortal> {
   }
 }
 
-
 /// Apre il cielo reale della nascita a tutto schermo, con il ritorno alla carta.
 void openBirthSky(BuildContext context, BirthDetails details) {
   // La stessa schermata del cielo in tempo reale, ancorata alla nascita:
@@ -197,4 +196,3 @@ void openBirthSky(BuildContext context, BirthDetails details) {
   Navigator.of(context)
       .push(SkyOverviewScreen.birthRoute(birthMoment: details.dateTime));
 }
-

@@ -208,8 +208,8 @@ void _showElementInfo(
         side: BorderSide(color: accent.withValues(alpha: 0.55)),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-            SpacingTokens.lg, SpacingTokens.lg, SpacingTokens.lg, SpacingTokens.md),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
+            SpacingTokens.lg, SpacingTokens.md),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,6 +314,7 @@ class DailyStrip extends StatefulWidget {
     final utile = larghezzaSchermo - SpacingTokens.md * 2 - sbirciaturaMinima;
     return (utile / 3).clamp(84.0, 116.0);
   }
+
   const DailyStrip({
     super.key,
     this.clock,
@@ -327,7 +328,6 @@ class DailyStrip extends StatefulWidget {
   /// Callback di apertura, iniettabile per i test. Di default apre la route
   /// reale dell'elemento.
   final void Function(BuildContext context, DailyElement element)? onOpen;
-
 
   /// La sorgente della posizione per il conto alla rovescia al tramonto, la
   /// stessa astrazione della schermata: cosi' i due numeri non divergono. Di
@@ -496,8 +496,9 @@ class _DailyStripState extends State<DailyStrip>
     final now = _clock();
     final tramonto = _tramontoDelGiornoRituale(now);
     final confine = _prossimoConfineRituale(now);
-    final risveglio =
-        tramonto.isAfter(now) && tramonto.isBefore(confine) ? tramonto : confine;
+    final risveglio = tramonto.isAfter(now) && tramonto.isBefore(confine)
+        ? tramonto
+        : confine;
     _tick = Timer(risveglio.difference(now), () {
       if (!mounted) return;
       setState(() {});
@@ -550,8 +551,7 @@ class _DailyStripState extends State<DailyStrip>
   // La casella della Runa e' accesa quando il tramonto del giorno rituale e'
   // passato, oppure quando la runa di stasera e' gia' stata vissuta.
   bool _tramontoArrivato(DateTime now) =>
-      _runaGiaVissuta(now) ||
-      !now.isBefore(_tramontoDelGiornoRituale(now));
+      _runaGiaVissuta(now) || !now.isBefore(_tramontoDelGiornoRituale(now));
 
   @override
   Widget build(BuildContext context) {
@@ -637,32 +637,32 @@ class _DailyStripState extends State<DailyStrip>
               ).createShader(rect),
               blendMode: BlendMode.dstIn,
               child: ListView.builder(
-              controller: _scroll,
-              scrollDirection: Axis.horizontal,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-              itemCount: DailyElement.values.length,
-              itemBuilder: (context, indice) {
-                final i = indice;
-                final element = DailyElement.values[i];
-                // Il Maestro si risolve UNA volta, e da lui nasce il colore:
-                // la bolla non sceglie mai una tinta per conto suo.
-                final maestro = DailyElements.maestroFor(element, now);
-                final accent = _accentFor(maestro);
-                final isRuna = element == DailyElement.rune;
-                return _StripItem(
-                  element: element,
-                  active: element == current ||
-                      (isRuna && _tramontoArrivato(now)),
-                  accent: accent,
-                  pulse: _pulse,
-                  width: DailyStrip.larghezzaCasella(
-                      MediaQuery.of(context).size.width),
-                  onTap: () => _open(element),
-                  onInfo: () =>
-                      _showElementInfo(context, element, maestro, accent),
-                );
-              },
+                controller: _scroll,
+                scrollDirection: Axis.horizontal,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+                itemCount: DailyElement.values.length,
+                itemBuilder: (context, indice) {
+                  final i = indice;
+                  final element = DailyElement.values[i];
+                  // Il Maestro si risolve UNA volta, e da lui nasce il colore:
+                  // la bolla non sceglie mai una tinta per conto suo.
+                  final maestro = DailyElements.maestroFor(element, now);
+                  final accent = _accentFor(maestro);
+                  final isRuna = element == DailyElement.rune;
+                  return _StripItem(
+                    element: element,
+                    active: element == current ||
+                        (isRuna && _tramontoArrivato(now)),
+                    accent: accent,
+                    pulse: _pulse,
+                    width: DailyStrip.larghezzaCasella(
+                        MediaQuery.of(context).size.width),
+                    onTap: () => _open(element),
+                    onInfo: () =>
+                        _showElementInfo(context, element, maestro, accent),
+                  );
+                },
               ),
             ),
           ),
@@ -893,54 +893,54 @@ class _StripItem extends StatelessWidget {
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Nome per intero, mai troncato: lo spazio dell'elemento e' gia'
-                // dimensionato per "Tramonto" con il cerchio "?" a fianco.
-                Text(
-                  element.shortLabel,
-                  maxLines: 1,
-                  softWrap: false,
-                  // **SEDICI E NON DODICI, ordine CG voce 14.** I nomi dei
-                  // cinque Doni stavano al pavimento tipografico. Il ruolo e'
-                  // `titoloDiRiga`: ognuno di questi e' il nome di una
-                  // funzione dentro una fila, che e' esattamente cio' che
-                  // l'ordine CE ha dichiarato quando ha creato quel ruolo.
-                  style: TypographyTokens.titoloDiRiga().copyWith(
-                    color: active ? _gold : ColorTokens.textSecondary,
-                    letterSpacing: 0.4,
-                  ),
-                ),
-                const SizedBox(width: 5),
-                // Solo disegno: il tocco lo raccoglie il bersaglio sovrapposto,
-                // largo quarantaquattro, cosi' il dito non deve centrare 18 punti.
-                Container(
-                  key: Key('daily_help_button_${element.name}'),
-                  width: 18,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
-                    border: Border.all(
-                      color: accent.withValues(alpha: 0.6),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '?',
-                    // **SEDICI E NON DODICI, ordine CG voce 14.** Il
-                    // cerchietto e' un invito a toccare, e un invito che non
-                    // si legge non invita nessuno. Il riquadro resta di
-                    // diciotto punti e il tocco lo raccoglie il bersaglio da
-                    // quarantaquattro che gli sta sotto: qui cambia solo il
-                    // segno, non la stanza in cui vive.
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Nome per intero, mai troncato: lo spazio dell'elemento e' gia'
+                  // dimensionato per "Tramonto" con il cerchio "?" a fianco.
+                  Text(
+                    element.shortLabel,
+                    maxLines: 1,
+                    softWrap: false,
+                    // **SEDICI E NON DODICI, ordine CG voce 14.** I nomi dei
+                    // cinque Doni stavano al pavimento tipografico. Il ruolo e'
+                    // `titoloDiRiga`: ognuno di questi e' il nome di una
+                    // funzione dentro una fila, che e' esattamente cio' che
+                    // l'ordine CE ha dichiarato quando ha creato quel ruolo.
                     style: TypographyTokens.titoloDiRiga().copyWith(
-                      color: accent.withValues(alpha: 0.95),
-                      letterSpacing: 0,
+                      color: active ? _gold : ColorTokens.textSecondary,
+                      letterSpacing: 0.4,
                     ),
                   ),
-                ),
+                  const SizedBox(width: 5),
+                  // Solo disegno: il tocco lo raccoglie il bersaglio sovrapposto,
+                  // largo quarantaquattro, cosi' il dito non deve centrare 18 punti.
+                  Container(
+                    key: Key('daily_help_button_${element.name}'),
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
+                      border: Border.all(
+                        color: accent.withValues(alpha: 0.6),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '?',
+                      // **SEDICI E NON DODICI, ordine CG voce 14.** Il
+                      // cerchietto e' un invito a toccare, e un invito che non
+                      // si legge non invita nessuno. Il riquadro resta di
+                      // diciotto punti e il tocco lo raccoglie il bersaglio da
+                      // quarantaquattro che gli sta sotto: qui cambia solo il
+                      // segno, non la stanza in cui vive.
+                      style: TypographyTokens.titoloDiRiga().copyWith(
+                        color: accent.withValues(alpha: 0.95),
+                        letterSpacing: 0,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

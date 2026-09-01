@@ -243,7 +243,8 @@ class IdentitaDaCustodire {
       latitudine: lat is num ? lat.toDouble() : null,
       longitudine: lon is num ? lon.toDouble() : null,
       fuso: fuso is String && fuso.isNotEmpty ? fuso : null,
-      scarto: grezzo['scarto'] is num ? (grezzo['scarto'] as num).toInt() : null,
+      scarto:
+          grezzo['scarto'] is num ? (grezzo['scarto'] as num).toInt() : null,
     );
     final vuota = identita.nome == null &&
         identita.giorno == null &&
@@ -327,8 +328,8 @@ class IdentitaDaCustodire {
     return IdentitaDaCustodire(
       nome: nome,
       forma: forma,
-      giorno: DateTime(
-          dettagli.date.year, dettagli.date.month, dettagli.date.day),
+      giorno:
+          DateTime(dettagli.date.year, dettagli.date.month, dettagli.date.day),
       ora: ora == null ? null : '${due(ora.hour)}:${due(ora.minute)}',
       // **IL LUOGO DELL'ASTRONOMIA, e non quello dell'identita'.** Nel
       // progetto vivono due `BirthPlace`: quello di `core/astro`, che i

@@ -105,8 +105,11 @@ enum Maestro {
   /// tre arti che il Maestro dichiara. Dove non entra, si rimpicciolisce
   /// oppure va a capo.
   String get domainArtsPhrase {
-    final arti =
-        domainArts.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+    final arti = domainArts
+        .split(',')
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty)
+        .toList();
     if (arti.length <= 1) return arti.isEmpty ? '' : arti.first;
     final tutte = arti.sublist(0, arti.length - 1).join(', ');
     return '$tutte e ${arti.last}';

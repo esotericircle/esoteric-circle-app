@@ -58,7 +58,8 @@ String quando(bool birth) => birth ? 'Quella notte' : 'Stanotte';
 /// La riga della scheda deve dirlo, altrimenti quel numero non e' verificabile
 /// da nessuno, e il cielo di nascita non puo' scrivere "a mezzanotte" perche'
 /// per lui non e' vero.
-String aCheOra(bool birth) => birth ? 'alla tua ora di nascita' : 'a mezzanotte';
+String aCheOra(bool birth) =>
+    birth ? 'alla tua ora di nascita' : 'a mezzanotte';
 
 /// La direzione cardinale da un azimut in gradi.
 ///
@@ -80,7 +81,6 @@ String direzione(double azDeg) {
   return nomi[(((giro + 22.5) % 360) ~/ 45).clamp(0, 7)];
 }
 
-
 /// Nome, altezza in gradi e direzione di una costellazione.
 ///
 /// **NON TACE MAI**, e prima taceva. Se la figura non compariva
@@ -96,7 +96,7 @@ String direzione(double azDeg) {
 /// Adesso il silenzio non e' piu' un esito possibile: o ci sono i numeri, o
 /// c'e' la dichiarazione che il corpo stava sotto, con l'ora in cui sorge.
 String testoDellaScheda(Zodiac sign, SkySnapshot cielo,
-  {SkyCatalog? catalogo, bool birth = false}) {
+    {SkyCatalog? catalogo, bool birth = false}) {
   final nome = sign.italianName.toLowerCase();
   for (final c in cielo.constellations) {
     final suo = c.name.toLowerCase();
@@ -143,8 +143,6 @@ String sottoLOrizzonte(Zodiac sign, SkySnapshot cielo,
       ? '${sign.italianName}, quella notte era sotto l\'orizzonte.$quando'
       : '${sign.italianName}, a mezzanotte sta sotto l\'orizzonte.$quando';
 }
-
-
 
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
@@ -218,21 +216,21 @@ class SkyOverviewScreen extends StatefulWidget {
 
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: Maestro.medora,
-        child: SkyOverviewScreen(
-          now: now,
-          location: location ?? const GeolocatorSkyLocation(),
-        ),
-      ));
+          maestro: Maestro.medora,
+          child: SkyOverviewScreen(
+            now: now,
+            location: location ?? const GeolocatorSkyLocation(),
+          ),
+        ));
   }
 
   /// Il cielo di nascita, ancorato alla notte di nascita e fisso. Riusa il
   /// motore immersivo del cielo di adesso, con la voce di Medora sull'identita'.
   static Route<void> birthRoute({required DateTime birthMoment}) {
     return PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-        maestro: Maestro.medora,
-        child: SkyOverviewScreen(now: birthMoment, birth: true),
-      ));
+          maestro: Maestro.medora,
+          child: SkyOverviewScreen(now: birthMoment, birth: true),
+        ));
   }
 
   @override
@@ -856,13 +854,14 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       final kind = widget.birth ? 'nascita' : 'cielo';
       final file = File('${dir.path}/esoteric_${kind}_${format.name}.png');
       await file.writeAsBytes(bytes);
-      final andata = await PortaDellaCondivisione.daFile(file.path, testo: SkyPostcard.shareText(now, birth: widget.birth));
+      final andata = await PortaDellaCondivisione.daFile(file.path,
+          testo: SkyPostcard.shareText(now, birth: widget.birth));
 // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
 // a condivisione davvero avvenuta.
-if (andata && context.mounted) {
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso il tuo cielo');
-}
+      if (andata && context.mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo cielo');
+      }
     } catch (_) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1008,84 +1007,84 @@ if (andata && context.mounted) {
     return CosmosBackground(
       seed: 11,
       child: Scaffold(
-      key: const Key('sky_overview_screen'),
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        automaticallyImplyLeading: false,
-        leading: widget.showBack
-            ? IconButton(
-                icon: const Icon(Icons.arrow_back_rounded),
-                tooltip: 'Indietro',
-                onPressed: () => Navigator.of(context).maybePop(),
-              )
-            : null,
-        // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
-        // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
-        // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
-        // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
-        // entro un minimo dichiarato.
-        title: TitoloCheNonSiRompe(
-            testo: SkyPostcard.titleFor(birth: widget.birth),
-            stile: TypographyTokens.titoloDiSchermata()),
-        actions: [
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-        // ogni schermata della pratica. Un saldo che appare e scompare non
-        // si impara.
-          const AngoloDellaBarra(),
-          IconButton(
-            key: const Key('sky_fonti_apri'),
-            tooltip: 'Fonti e metodo',
-            icon: const Icon(Icons.info_outline_rounded),
-            onPressed: _mostraFontiEMetodo,
-          ),
-          IconButton(
-            key: const Key('sky_share'),
-            icon: const Icon(Icons.ios_share_rounded),
-            tooltip: 'Condividi il tuo cielo',
-            onPressed: () => _share(context, now, moon, high, palette),
-          ),
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final size = Size(constraints.maxWidth, constraints.maxHeight);
-          // La camera vista: pan del dito, deriva del giroscopio e, se il luogo
-          // e' noto, l'orientamento sul luogo reale dell'utente.
-          final camView = cam + _orientOffset(size);
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onPanUpdate: (d) => _onPan(d, size),
-            onTap: () => setState(() => _selectedKey = null),
-            child: Stack(
-              children: [
-                // Fondo immersivo: Via Lattea, tre piani di stelle dense, le
-                // costellazioni ambientali immerse nel campo.
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _SkyFieldPainter(
-                      cam: camView,
-                      depth: depth,
-                      palette: palette,
-                      ambient: ambient,
+        key: const Key('sky_overview_screen'),
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: palette.deepest.withValues(alpha: 0.35),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          automaticallyImplyLeading: false,
+          leading: widget.showBack
+              ? IconButton(
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  tooltip: 'Indietro',
+                  onPressed: () => Navigator.of(context).maybePop(),
+                )
+              : null,
+          // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
+          // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
+          // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
+          // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
+          // entro un minimo dichiarato.
+          title: TitoloCheNonSiRompe(
+              testo: SkyPostcard.titleFor(birth: widget.birth),
+              stile: TypographyTokens.titoloDiSchermata()),
+          actions: [
+            // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+            // ogni schermata della pratica. Un saldo che appare e scompare non
+            // si impara.
+            const AngoloDellaBarra(),
+            IconButton(
+              key: const Key('sky_fonti_apri'),
+              tooltip: 'Fonti e metodo',
+              icon: const Icon(Icons.info_outline_rounded),
+              onPressed: _mostraFontiEMetodo,
+            ),
+            IconButton(
+              key: const Key('sky_share'),
+              icon: const Icon(Icons.ios_share_rounded),
+              tooltip: 'Condividi il tuo cielo',
+              onPressed: () => _share(context, now, moon, high, palette),
+            ),
+          ],
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final size = Size(constraints.maxWidth, constraints.maxHeight);
+            // La camera vista: pan del dito, deriva del giroscopio e, se il luogo
+            // e' noto, l'orientamento sul luogo reale dell'utente.
+            final camView = cam + _orientOffset(size);
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanUpdate: (d) => _onPan(d, size),
+              onTap: () => setState(() => _selectedKey = null),
+              child: Stack(
+                children: [
+                  // Fondo immersivo: Via Lattea, tre piani di stelle dense, le
+                  // costellazioni ambientali immerse nel campo.
+                  Positioned.fill(
+                    child: CustomPaint(
+                      painter: _SkyFieldPainter(
+                        cam: camView,
+                        depth: depth,
+                        palette: palette,
+                        ambient: ambient,
+                      ),
                     ),
                   ),
-                ),
 
-                // I corpi alti stanotte, toccabili, sul piano delle
-                // costellazioni.
-                // I CORPI NON PASSANO PIU' DA UN Transform. La deriva della
-                // camera li traslava DOPO il calcolo, quindi li portava fuori
-                // dal campo libero: il limite applicato prima non teneva. Qui
-                // la deriva si somma e poi si taglia dentro il campo, cosi' il
-                // cielo si muove ma nessun corpo esce.
-                Stack(
-                  children: [
+                  // I corpi alti stanotte, toccabili, sul piano delle
+                  // costellazioni.
+                  // I CORPI NON PASSANO PIU' DA UN Transform. La deriva della
+                  // camera li traslava DOPO il calcolo, quindi li portava fuori
+                  // dal campo libero: il limite applicato prima non teneva. Qui
+                  // la deriva si somma e poi si taglia dentro il campo, cosi' il
+                  // cielo si muove ma nessun corpo esce.
+                  Stack(
+                    children: [
                       for (final b in bodies)
                         AnimatedPositioned(
                           // IL CIELO SI COMPONE DENTRO LO SPAZIO LIBERO, non su
@@ -1118,84 +1117,83 @@ if (andata && context.mounted) {
                             body: b,
                             selected: b.key == _selectedKey,
                             palette: palette,
-                            onTap: () =>
-                                setState(() => _selectedKey = b.key),
+                            onTap: () => setState(() => _selectedKey = b.key),
                           ),
                         ),
-                  ],
-                ),
+                    ],
+                  ),
 
-                // Scheda in basso: cosa e', nella voce di Medora. Sta sotto
-                // l'orizzonte della scena, coi corpi toccabili nella meta'
-                // alta della volta: non li copre mai.
-                Positioned(
-                  left: SpacingTokens.lg,
-                  right: SpacingTokens.lg,
-                  bottom: SpacingTokens.lg,
-                  child: SafeArea(
-                    top: false,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: altezzaMassimaScheda(schermo.height),
-                          ),
-                          child: SingleChildScrollView(
-                            child: _SkyInfoCard(
-                            selected: selected,
-                            palette: palette,
-                            oriented: _place != null,
-                            // Il luogo si passa SOLO quando il cielo e'
-                            // orientato sulla posizione del dispositivo: il
-                            // cielo di nascita ha gia' la sua riga, e dire
-                            // "da dove" li' vorrebbe dire un'altra cosa.
-                            luogo: _place,
-                            birth: widget.birth,
-                            // Il tratto che nessuno percorreva: la schermata
-                            // non aveva mai letto il profilo, quindi la nota
-                            // mentiva proprio a chi aveva registrato tutto.
-                            registrata: widget.nascitaRegistrata ??
-                                (context
-                                        .watch<ProfileController?>()
-                                        ?.identity
-                                        .isExample ==
-                                    false)),
-                          ),
-                        ),
-                        if (widget.ctaLabel != null) ...[
-                          const SizedBox(height: SpacingTokens.md),
-                          SizedBox(
-                            width: double.infinity,
-                            child: FilledButton(
-                              key: const Key('sky_cta'),
-                              style: FilledButton.styleFrom(
-                                backgroundColor: palette.gold,
-                                foregroundColor: palette.deepest,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: SpacingTokens.md),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      SpacingTokens.radiusPill),
-                                ),
-                              ),
-                              onPressed: widget.onCta,
-                              child: Text(widget.ctaLabel!,
-                                  style: TypographyTokens.body(
-                                          size: 17, weight: 600)
-                                      .copyWith(color: palette.deepest)),
+                  // Scheda in basso: cosa e', nella voce di Medora. Sta sotto
+                  // l'orizzonte della scena, coi corpi toccabili nella meta'
+                  // alta della volta: non li copre mai.
+                  Positioned(
+                    left: SpacingTokens.lg,
+                    right: SpacingTokens.lg,
+                    bottom: SpacingTokens.lg,
+                    child: SafeArea(
+                      top: false,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: altezzaMassimaScheda(schermo.height),
+                            ),
+                            child: SingleChildScrollView(
+                              child: _SkyInfoCard(
+                                  selected: selected,
+                                  palette: palette,
+                                  oriented: _place != null,
+                                  // Il luogo si passa SOLO quando il cielo e'
+                                  // orientato sulla posizione del dispositivo: il
+                                  // cielo di nascita ha gia' la sua riga, e dire
+                                  // "da dove" li' vorrebbe dire un'altra cosa.
+                                  luogo: _place,
+                                  birth: widget.birth,
+                                  // Il tratto che nessuno percorreva: la schermata
+                                  // non aveva mai letto il profilo, quindi la nota
+                                  // mentiva proprio a chi aveva registrato tutto.
+                                  registrata: widget.nascitaRegistrata ??
+                                      (context
+                                              .watch<ProfileController?>()
+                                              ?.identity
+                                              .isExample ==
+                                          false)),
                             ),
                           ),
+                          if (widget.ctaLabel != null) ...[
+                            const SizedBox(height: SpacingTokens.md),
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                key: const Key('sky_cta'),
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: palette.gold,
+                                  foregroundColor: palette.deepest,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: SpacingTokens.md),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        SpacingTokens.radiusPill),
+                                  ),
+                                ),
+                                onPressed: widget.onCta,
+                                child: Text(widget.ctaLabel!,
+                                    style: TypographyTokens.body(
+                                            size: 17, weight: 600)
+                                        .copyWith(color: palette.deepest)),
+                              ),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -1431,7 +1429,6 @@ class _SkyBody {
   /// Con gli slot fissi la posizione a video non e' piu' quella reale, quindi
   /// il vero sta qui: il dato resta esatto anche quando il pixel non lo e'.
   final String? coordinate;
-
 }
 
 /// Rende un corpo con la sua etichetta sotto, evidenziato quando selezionato.
@@ -1586,7 +1583,9 @@ class _AsterismPainter extends CustomPainter {
       canvas.drawCircle(
         pts[i],
         1.4 + m * 2.0,
-        Paint()..color = Colors.white.withValues(alpha: (0.55 + 0.45 * m) * emphasis),
+        Paint()
+          ..color =
+              Colors.white.withValues(alpha: (0.55 + 0.45 * m) * emphasis),
       );
       if (m >= 0.9) {
         canvas.drawCircle(
@@ -1626,10 +1625,13 @@ class _SkyFieldPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     _milkyWay(canvas, size, cam * depth(0.06));
-    _stars(canvas, size, cam * depth(0.12), seed: 11, count: 260, rMin: 0.3, rMax: 1.1, alpha: 0.55);
-    _stars(canvas, size, cam * depth(0.28), seed: 29, count: 120, rMin: 0.5, rMax: 1.7, alpha: 0.7);
+    _stars(canvas, size, cam * depth(0.12),
+        seed: 11, count: 260, rMin: 0.3, rMax: 1.1, alpha: 0.55);
+    _stars(canvas, size, cam * depth(0.28),
+        seed: 29, count: 120, rMin: 0.5, rMax: 1.7, alpha: 0.7);
     _ambient(canvas, size, cam * depth(0.42));
-    _stars(canvas, size, cam * depth(0.55), seed: 71, count: 44, rMin: 0.9, rMax: 2.4, alpha: 0.9);
+    _stars(canvas, size, cam * depth(0.55),
+        seed: 71, count: 44, rMin: 0.9, rMax: 2.4, alpha: 0.9);
   }
 
   void _milkyWay(Canvas canvas, Size size, Offset off) {
@@ -1652,8 +1654,8 @@ class _SkyFieldPainter extends CustomPainter {
         base + jitter,
         radius,
         Paint()
-          ..color = (i.isEven ? palette.glow : Colors.white)
-              .withValues(alpha: 0.03)
+          ..color =
+              (i.isEven ? palette.glow : Colors.white).withValues(alpha: 0.03)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, size.width * 0.09),
       );
     }
@@ -1703,7 +1705,8 @@ class _SkyFieldPainter extends CustomPainter {
       ..color = palette.gold.withValues(alpha: 0.16);
     final scale = size.width * 0.2;
     for (final (fig, anchor) in ambient) {
-      final center = Offset(anchor.dx * size.width, anchor.dy * size.height) + off;
+      final center =
+          Offset(anchor.dx * size.width, anchor.dy * size.height) + off;
       Offset map(Offset p) =>
           center + Offset((p.dx - 0.5) * scale, (p.dy - 0.5) * scale);
       final pts = fig.stars.map(map).toList();
@@ -1815,8 +1818,8 @@ class _SkyInfoCard extends StatelessWidget {
                     '${luogo!.longitude.toStringAsFixed(4)}',
               ].join('  '),
               key: const Key('sky_da_dove'),
-              style: TypographyTokens.corpo().copyWith(
-                  color: ColorTokens.textMuted, height: 1.3),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textMuted, height: 1.3),
             ),
           ],
           // 3. LE COORDINATE DEL CORPO TOCCATO, che cambiano a ogni tocco.

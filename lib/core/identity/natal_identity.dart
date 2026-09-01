@@ -60,8 +60,8 @@ class NatalFacts {
     final local = details.dateTime;
     final offsetMinutes =
         ((details.place?.longitude ?? 0) / 15.0 * 60.0).round();
-    final utc = DateTime.utc(local.year, local.month, local.day, local.hour,
-            local.minute)
+    final utc = DateTime.utc(
+            local.year, local.month, local.day, local.hour, local.minute)
         .subtract(Duration(minutes: offsetMinutes));
     final phase = Celestial.moonIllumination(Celestial.julianDay(utc));
     final n = lifePathNumber(details.date);
@@ -203,6 +203,7 @@ class BirthIdentityController extends ChangeNotifier {
     if (c == null || c.isEssential) return null;
     return c;
   }
+
   NatalFacts? get facts => _facts;
   bool get hasBirth => _details != null;
 

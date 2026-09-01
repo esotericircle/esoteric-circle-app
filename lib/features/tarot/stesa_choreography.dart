@@ -154,7 +154,8 @@ class VortexPose {
   }) {
     if (t <= 0 || t >= 1) return 0;
     final ampiezza = math.sin(t * math.pi);
-    return math.sin((index / math.max(1, count)) * 2 * math.pi + t * 4 * math.pi) *
+    return math
+            .sin((index / math.max(1, count)) * 2 * math.pi + t * 4 * math.pi) *
         0.5 *
         ampiezza;
   }
@@ -187,7 +188,6 @@ class CutPose {
 // samplingPeriod che su un telefono senza accelerometro solleva
 // un'eccezione asincrona: la porta unica e' AscoltatoreScuotimento in
 // core/sensi, senza quel parametro e con l'antirimbalzo dentro.
-
 
 /// LA COREOGRAFIA VERA DEL MESCOLAMENTO, approvata il 3 agosto 2026.
 ///
@@ -237,8 +237,8 @@ class MischiaPose {
       // ATTO DUE: il mazzo si mescola. Le carte, impilate, si sfilano a
       // coppie alternate e rientrano: e' la riffle vista di lato, con lo
       // scarto che cresce e muore dentro l'atto.
-      final locale = ((t - fineRaccolta) / (fineMescola - fineRaccolta))
-          .clamp(0.0, 1.0);
+      final locale =
+          ((t - fineRaccolta) / (fineMescola - fineRaccolta)).clamp(0.0, 1.0);
       final ampiezza = math.sin(locale * math.pi);
       final lato = index.isEven ? 1.0 : -1.0;
       final onda = math.sin(locale * math.pi * 3 + index * 0.9);
@@ -322,8 +322,8 @@ class TaglioFasi {
   ];
 
   /// Il totale, che non si scrive: si somma.
-  static Duration get totale => fasi.fold(
-      Duration.zero, (somma, fase) => somma + fase.durata);
+  static Duration get totale =>
+      fasi.fold(Duration.zero, (somma, fase) => somma + fase.durata);
 
   /// LA SOGLIA OLTRE LA QUALE UN'ANIMAZIONE DIVENTA ATTESA.
   ///
@@ -428,12 +428,12 @@ class TaglioPose {
     if (t < fineDivisione) {
       // La meta' alta esce da una parte, la bassa dall'altra: due blocchi
       // netti, non una nuvola.
-      final locale = ((t - fineRaccolta) / (fineDivisione - fineRaccolta))
-          .clamp(0.0, 1.0);
+      final locale =
+          ((t - fineRaccolta) / (fineDivisione - fineRaccolta)).clamp(0.0, 1.0);
       final e = Curves.easeOutCubic.transform(locale);
       return (
-        offset: mazzo +
-            Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
+        offset:
+            mazzo + Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
         angolo: (sopra ? 0.06 : -0.05) * e,
         scala: 1,
       );
@@ -445,8 +445,8 @@ class TaglioPose {
               .clamp(0.0, 1.0);
       final e = 1 - Curves.easeInCubic.transform(locale);
       return (
-        offset: mazzo +
-            Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
+        offset:
+            mazzo + Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
         angolo: (sopra ? 0.06 : -0.05) * e,
         scala: 1,
       );

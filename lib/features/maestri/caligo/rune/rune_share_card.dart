@@ -41,7 +41,8 @@ class RuneShareCard extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [palette.surfaceElevated, palette.deepest],
         ),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
+        border:
+            Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
       ),
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -80,9 +81,7 @@ class RuneShareCard extends StatelessWidget {
               children: [
                 for (final r in esito.rune)
                   _RunaTile(
-                      runa: r,
-                      palette: palette,
-                      libera: esito.gettata.libera),
+                      runa: r, palette: palette, libera: esito.gettata.libera),
               ],
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -90,8 +89,8 @@ class RuneShareCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             Text(presagio,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
-                    color: palette.textPrimary, height: 1.45)),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: palette.textPrimary, height: 1.45)),
             const SizedBox(height: SpacingTokens.md),
             Text('Esoteric Circle · Caligo',
                 style: TypographyTokens.etichetta().copyWith(
@@ -136,16 +135,16 @@ class _RunaTile extends StatelessWidget {
       child: Column(
         children: [
           // In merkstave la pietra si mostra capovolta, il verso d'ombra.
-          runa.inOmbra
-              ? Transform.rotate(angle: math.pi, child: img)
-              : img,
+          runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img,
           const SizedBox(height: 4),
           Text(runa.rune.name,
               textAlign: TextAlign.center,
               style: TypographyTokens.label(size: 12)
                   .copyWith(color: palette.goldSoft)),
           Text(
-              libera ? 'in luce' : (runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta'),
+              libera
+                  ? 'in luce'
+                  : (runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta'),
               textAlign: TextAlign.center,
               style: TypographyTokens.etichetta().copyWith(
                   color: palette.textPrimary.withValues(alpha: 0.7),
@@ -174,6 +173,7 @@ Future<bool> shareRuneCard({
   final nomi = esito.rune.map((r) => r.rune.name).join(', ');
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
-  return PortaDellaCondivisione.daFile(file.path, testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
+  return PortaDellaCondivisione.daFile(file.path,
+      testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
           'Scopri il tuo presagio con Caligo, su Esoteric Circle.');
 }

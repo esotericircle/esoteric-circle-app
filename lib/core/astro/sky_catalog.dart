@@ -32,7 +32,12 @@ const Map<Zodiac, Asterism> kZodiacAsterisms = {
   Zodiac.aries: Asterism(
     id: 'aries',
     label: 'Ariete',
-    stars: [Offset(0.12, 0.62), Offset(0.42, 0.5), Offset(0.68, 0.54), Offset(0.9, 0.4)],
+    stars: [
+      Offset(0.12, 0.62),
+      Offset(0.42, 0.5),
+      Offset(0.68, 0.54),
+      Offset(0.9, 0.4)
+    ],
     lines: [(0, 1), (1, 2), (2, 3)],
     mag: [0.9, 1.0, 0.6, 0.7],
   ),
@@ -69,7 +74,12 @@ const Map<Zodiac, Asterism> kZodiacAsterisms = {
     id: 'cancer',
     label: 'Cancro',
     // La Y rovesciata, tenue.
-    stars: [Offset(0.5, 0.5), Offset(0.3, 0.2), Offset(0.72, 0.24), Offset(0.55, 0.86)],
+    stars: [
+      Offset(0.5, 0.5),
+      Offset(0.3, 0.2),
+      Offset(0.72, 0.24),
+      Offset(0.55, 0.86)
+    ],
     lines: [(0, 1), (0, 2), (0, 3)],
     mag: [0.7, 0.5, 0.5, 0.5],
   ),

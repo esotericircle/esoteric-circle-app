@@ -132,8 +132,7 @@ class FeatureCatalog {
     FeatureDefinition(
       id: 'vedic_astrology',
       title: 'Astrologia Vedica',
-      teaser:
-          'Le tradizioni siderali, esclusiva dei livelli superiori.',
+      teaser: 'Le tradizioni siderali, esclusiva dei livelli superiori.',
       icon: Icons.brightness_7,
       owner: Maestro.medora,
       requiredTier: Tier.tier3,

@@ -54,7 +54,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
 
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
-      depth == ConsultDepth.profonda ? kMaestroProfondaModel : kMaestroBreveModel;
+      depth == ConsultDepth.profonda
+          ? kMaestroProfondaModel
+          : kMaestroBreveModel;
 
   /// L'UNICA PORTA alla configurazione di generazione, per tutte e quattro le
   /// chiamate di questo file.
@@ -81,8 +83,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         temperature: temperature,
         topP: topP,
         maxOutputTokens: misura.tetto,
-        thinkingConfig:
-            ThinkingConfig.withThinkingBudget(misura.ragionamento),
+        thinkingConfig: ThinkingConfig.withThinkingBudget(misura.ragionamento),
         responseMimeType: responseMimeType,
       );
 
@@ -92,8 +93,8 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// `RECITATION`: torna il testo scritto fino a li' come se fosse compiuto.
   /// Chi non guarda questo campo non ha modo di distinguere una risposta breve
   /// da un moncone, ed e' esattamente cio' che e' successo.
-  static bool eTroncata(GenerateContentResponse response) => response.candidates
-      .any((c) => c.finishReason == FinishReason.maxTokens);
+  static bool eTroncata(GenerateContentResponse response) =>
+      response.candidates.any((c) => c.finishReason == FinishReason.maxTokens);
 
   /// Quanti messaggi recenti passare come storia al modello. Oltre questa
   /// soglia il filo lo tiene la sintesi di sessione, non la cronologia piena.
@@ -282,7 +283,8 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
 
     final transcript = StringBuffer();
     if (previous.sessionSummary.trim().isNotEmpty) {
-      transcript.writeln('Sintesi precedente: ${previous.sessionSummary.trim()}');
+      transcript
+          .writeln('Sintesi precedente: ${previous.sessionSummary.trim()}');
     }
     for (final m in history) {
       final who = m.isUser ? 'Utente' : maestro.displayName;
@@ -319,9 +321,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         : clean;
     return [
       for (final m in windowed)
-        m.isUser
-            ? Content.text(m.text)
-            : Content.model([TextPart(m.text)]),
+        m.isUser ? Content.text(m.text) : Content.model([TextPart(m.text)]),
     ];
   }
 
@@ -454,13 +454,13 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       final facts = <String>[
         if (rawFacts is List)
           for (final f in rawFacts)
-            if (f != null && f.toString().trim().isNotEmpty) f.toString().trim(),
+            if (f != null && f.toString().trim().isNotEmpty)
+              f.toString().trim(),
       ];
       final digest = MemoryDigest(summary: summary, facts: facts);
       return digest.isEmpty ? null : digest;
     } catch (errore, traccia) {
-      annotaGuastoInnocuo(
-          'leggendo il distillato di memoria', errore, traccia);
+      annotaGuastoInnocuo('leggendo il distillato di memoria', errore, traccia);
       return null;
     }
   }

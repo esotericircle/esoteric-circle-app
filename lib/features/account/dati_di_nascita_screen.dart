@@ -45,10 +45,11 @@ class DatiDiNascitaScreen extends StatefulWidget {
   ///
   /// Una schermata che dipende da uno scope deve portarselo, non sperare che
   /// glielo dia chi la apre.
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(
-          maestro: Maestro.medora,
-          child: DatiDiNascitaScreen(),
-        ));
+  static Route<void> route() =>
+      PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(
+            maestro: Maestro.medora,
+            child: DatiDiNascitaScreen(),
+          ));
 
   @override
   State<DatiDiNascitaScreen> createState() => _DatiDiNascitaScreenState();
@@ -128,9 +129,8 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
   TextStyle _testoDelCampo(MaestroPalette palette) =>
       TypographyTokens.body(size: 17).copyWith(color: palette.goldSoft);
 
-  TextStyle get _invitoDelCampo =>
-      TypographyTokens.body(size: 16)
-          .copyWith(color: ColorTokens.textSecondary);
+  TextStyle get _invitoDelCampo => TypographyTokens.body(size: 16)
+      .copyWith(color: ColorTokens.textSecondary);
 
   void _cercaLuogo(String q) {
     final risposta = RicercaDelLuogo.per(q);
@@ -241,8 +241,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                   palette: palette,
                 ),
                 const SizedBox(height: SpacingTokens.md),
-                Text('Ora di nascita',
-                    style: _etichettaDelCampo(palette)),
+                Text('Ora di nascita', style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 Row(
                   children: [
@@ -279,8 +278,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
-                Text('Luogo di nascita',
-                    style: _etichettaDelCampo(palette)),
+                Text('Luogo di nascita', style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 TextField(
                   key: const Key('nascita_luogo_field'),
@@ -337,8 +335,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 // tocco, come la citta' di nascita si sceglie al tocco: non
                 // aspetta il pulsante, perche' quel pulsante rifa' la carta
                 // natale e questo dato con la carta non c'entra.
-                Text('Dove vivi adesso',
-                    style: _etichettaDelCampo(palette)),
+                Text('Dove vivi adesso', style: _etichettaDelCampo(palette)),
                 const SizedBox(height: SpacingTokens.sm),
                 TextField(
                   key: const Key('dove_vivi_field'),
@@ -501,8 +498,8 @@ class _Ruota extends StatelessWidget {
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.titoloScheda()
-            .copyWith(color: palette.goldSoft),
+        style:
+            TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         items: [
           for (final v in valori)
             DropdownMenuItem<int>(
