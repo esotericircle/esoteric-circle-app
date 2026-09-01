@@ -167,14 +167,14 @@ void main() {
   });
 
   group('I suoni del catalogo, e nessuno fuori', () {
-    test('Sono esattamente cinque', () {
+    test('Sono esattamente tredici', () {
       // SEI dal primo agosto 2026: si e' aggiunta la voce del principio,
       // sulla schermata nera dell'intro. SETTE dal 7 agosto 2026: il
       // contatto delle pietre runiche, entrato con la gettata fisica. Il
       // numero non e' sacro, il catalogo si': un suono in piu' entra qui e
       // viene contato, invece di nascere fuori dove nessuno lo vede. La
       // regola ha fatto il suo mestiere due volte.
-      expect(SuonoDelCerchio.values.length, 7,
+      expect(SuonoDelCerchio.values.length, 13,
           reason: 'il silenzio e cio che rende un suono importante: le app che '
               'stancano suonano a ogni tocco');
     });
@@ -185,9 +185,35 @@ void main() {
             reason: '${s.name} non dichiara un file mp3');
         expect(s.percorso.startsWith('audio/'), isTrue);
         expect(s.durataAttesa.inMilliseconds, greaterThan(0));
-        expect(s.durataAttesa.inSeconds, lessThanOrEqualTo(2),
-            reason: '${s.name} dura piu di due secondi: nessuno dei cinque '
-                'momenti regge un suono lungo');
+        // **LA REGOLA DEI DUE SECONDI VALE PER I MOMENTI BREVI, e da
+        // oggi non vale per tutti.** Ordine CN, 1 settembre 2026.
+        //
+        // Nasce quando i suoni erano cinque risposte a un gesto, e li'
+        // resta giusta. Tre voci nuove non ci stanno dentro, e per
+        // decisione:
+        //
+        // - **festa**, 3,6 secondi, e **eos**, 2,0: il fondatore le vuole
+        //   INTERE. Una festa tagliata a meta' non e' una festa piu'
+        //   breve, e' una festa interrotta.
+        // - **i due respiri**, 4,9 e 6,8 secondi: devono durare un
+        //   respiro, perche' accompagnano una figura che si espande. Un
+        //   respiro di due secondi non e' un respiro.
+        //
+        // **Le eccezioni si dichiarano per nome**, non si allarga il
+        // numero: cosi' il decimo suono lungo deve passare da qui
+        // invece di entrare dietro a questi tre.
+        const lunghiPerDecisione = {
+          SuonoDelCerchio.festa,
+          SuonoDelCerchio.eos,
+          SuonoDelCerchio.respiroDentro,
+          SuonoDelCerchio.respiroFuori,
+        };
+        if (!lunghiPerDecisione.contains(s)) {
+          expect(s.durataAttesa.inSeconds, lessThanOrEqualTo(2),
+              reason: '${s.name} dura piu di due secondi senza essere fra '
+                  'i lunghi dichiarati: un momento breve regge un suono '
+                  'breve, e allungarlo lo trasforma in un\'attesa');
+        }
       }
     });
 

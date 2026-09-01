@@ -101,8 +101,11 @@ class MotoreAudio implements MotoreSonoro {
   Future<void> volumeDellaMusica(double volume) async {
     try {
       await _musicaPigro?.setVolume(volume.clamp(0.0, 1.0));
-    } catch (_) {
-      // Nessun lettore: niente da regolare.
+    } catch (errore) {
+      // Il lettore non c'e' ancora, oppure la piattaforma non risponde:
+      // in tutti e due i casi non c'e' nessun volume da regolare, e
+      // il silenzio e' il ripiego dichiarato di questo motore.
+      debugPrint('Volume della musica non applicato: $errore');
     }
   }
 
@@ -110,8 +113,9 @@ class MotoreAudio implements MotoreSonoro {
   Future<void> fermaMusica() async {
     try {
       await _musicaPigro?.stop();
-    } catch (_) {
-      // Gia' ferma: nulla da fare.
+    } catch (errore) {
+      // Gia' ferma, o nessun lettore: non c'e' niente da fermare.
+      debugPrint('Musica non fermata: $errore');
     }
   }
 
@@ -119,8 +123,9 @@ class MotoreAudio implements MotoreSonoro {
   Future<void> sospendiMusica() async {
     try {
       await _musicaPigro?.pause();
-    } catch (_) {
-      // Gia' ferma: nulla da fare.
+    } catch (errore) {
+      // Gia' sospesa, o nessun lettore.
+      debugPrint('Musica non sospesa: $errore');
     }
   }
 
@@ -128,8 +133,9 @@ class MotoreAudio implements MotoreSonoro {
   Future<void> riprendiMusica() async {
     try {
       await _musicaPigro?.resume();
-    } catch (_) {
-      // Nessun lettore: niente da riprendere.
+    } catch (errore) {
+      // Nessun lettore: non c'e' niente da riprendere.
+      debugPrint('Musica non ripresa: $errore');
     }
   }
 

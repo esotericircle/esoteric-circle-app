@@ -98,13 +98,24 @@ void main() {
     await tester.pumpWidget(host(settings, AppServices.offline()));
     await step(tester);
 
-    final riga = find.byKey(const Key('settings_effetti_sonori'));
-    await tester.scrollUntilVisible(riga, 150,
+    // **LA RIGA SI E' SPOSTATA NEL SOTTO MENU', ordine CN voce 07.**
+    // Nelle Impostazioni c'e' la porta; il comando sta dietro, insieme a
+    // quello della musica e ai due cursori. Quello che questa prova
+    // misura non cambia: che il comando esista, che obbedisca, e che
+    // sotto un silenzio gia' deciso non si possa piu' toccare.
+    final porta = find.byKey(const Key('settings_suono'));
+    await tester.scrollUntilVisible(porta, 150,
         scrollable: find.byType(Scrollable).first);
-    // `scrollUntilVisible` si ferma appena il widget esiste, e puo' esistere
-    // ancora sotto il bordo: misurato, il tocco cadeva a 870 su uno schermo
-    // alto 844. `ensureVisible` lo porta davvero dentro.
-    await tester.ensureVisible(riga);
+    await tester.ensureVisible(porta);
+    await step(tester);
+    expect(porta, findsOneWidget,
+        reason: 'nelle impostazioni non c\'e\' piu\' la porta del suono');
+    await tester.tap(porta);
+    // La rotta del Cerchio ha una transizione: un pump solo non basta
+    // a portare la schermata nuova sotto le dita.
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    final riga = find.byKey(const Key('suono_effetti'));
     await step(tester);
     expect(riga, findsOneWidget,
         reason:
@@ -132,7 +143,6 @@ void main() {
     settings.setEffettiSonori(true);
     settings.setSuonoEVibrazione(false);
     await step(tester);
-    await tester.ensureVisible(riga);
     final interruttore = tester.widget<Switch>(riga);
     // ignore: avoid_print
     print('ORDINE BX VOCE 5: col livello sensoriale spento la riga e\' '

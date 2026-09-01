@@ -4159,17 +4159,20 @@ void main() {
         warnIfMissed: false);
     await step(tester);
     await step(tester);
-    // Fino in fondo: la sezione del suono e' l'ultima.
-    final riga = find.byKey(const Key('settings_effetti_sonori'));
-    if (riga.evaluate().isNotEmpty || true) {
-      await tester.dragUntilVisible(
-          riga, find.byType(Scrollable).last, const Offset(0, -200));
-      await tester.ensureVisible(riga);
-      await step(tester);
-      // `ensureVisible` la porta al bordo, dove la barra del titolo le
-      // taglia la prima riga: un dito indietro e la scheda si legge intera.
-      await tester.drag(find.byType(Scrollable).last, const Offset(0, 220));
-      await step(tester);
+    // **LA SEZIONE DEL SUONO E' DIVENTATA UNA PAGINA, ordine CN voce 07.**
+    // Si scorre fino alla porta, la si apre, e si fotografa cio' che c'e'
+    // dentro: due interruttori e due cursori. Fotografare la porta e basta
+    // mostrerebbe una riga che non dice niente di cio' che governa.
+    final porta = find.byKey(const Key('settings_suono'));
+    await tester.dragUntilVisible(
+        porta, find.byType(Scrollable).last, const Offset(0, -200));
+    await tester.ensureVisible(porta);
+    await step(tester);
+    await tester.tap(porta, warnIfMissed: false);
+    // La rotta del Cerchio ha una transizione: senza questi giri la
+    // fotografia coglierebbe la pagina a meta' strada.
+    for (var g = 0; g < 8; g++) {
+      await tester.pump(const Duration(milliseconds: 120));
     }
     await capture(tester, rootKey, 'impostazioni-suono.png');
   });

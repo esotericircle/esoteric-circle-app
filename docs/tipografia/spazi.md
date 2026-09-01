@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 145 -->
-<!-- FILE_CON_VUOTI: 61 -->
+<!-- VUOTI_CENSITI: 146 -->
+<!-- FILE_CON_VUOTI: 62 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **145** |
-| File che ne contengono | **61** |
+| Vuoti verticali dichiarati | **146** |
+| File che ne contengono | **62** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 79 |
+| 2 | 80 |
 | 3 | 8 |
 | 4 | 24 |
 | 5 | 1 |
@@ -43,8 +43,8 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/settings/interruttore_della_misura.dart:61` sizedBox 72 punti
-- `lib/features/synastry/sinastria_share_card.dart:125` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:757` padding 90 punti
+- `lib/features/synastry/sinastria_share_card.dart:132` padding 60 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:753` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -106,6 +106,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
 | `lib/features/settings/interruttore_della_misura.dart` | 1 | 1 |
+| `lib/features/settings/riga_che_apre.dart` | 1 | 0 |
 | `lib/features/settings/settings_screen.dart` | 1 | 0 |
 | `lib/features/sigilli/card_del_traguardo.dart` | 1 | 0 |
 | `lib/features/sigilli/disegno_del_sentiero.dart` | 1 | 0 |

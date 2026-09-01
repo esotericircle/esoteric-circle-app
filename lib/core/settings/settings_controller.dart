@@ -206,8 +206,11 @@ class SettingsController extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setDouble(key, value);
-    } catch (_) {
-      // Nessuna persistenza disponibile: resta in memoria.
+    } catch (errore) {
+      // Nessuna persistenza disponibile, per esempio in una prova
+      // senza finto: la preferenza resta in memoria e la sessione
+      // continua, che e' il patto dichiarato in cima a questo file.
+      debugPrint('Preferenza $key non salvata: $errore');
     }
   }
 

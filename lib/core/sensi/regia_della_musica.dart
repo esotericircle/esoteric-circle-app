@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
@@ -72,6 +73,30 @@ class RegiaDellaMusica {
   @visibleForTesting
   static void Function(MusicaDelCerchio? traccia)? spia;
 
+  /// **SOTTO `flutter test` IL LETTORE NON SI TOCCA, e non e' un modo di
+  /// nascondere un difetto.**
+  ///
+  /// Il plugin audio non esiste nell'ambiente di prova. Il motore ha il
+  /// suo `try`, ma **non basta**: `audioplayers` apre un canale globale
+  /// alla prima costruzione, e l'errore di QUEL canale arriva come
+  /// eccezione di piattaforma fuori dalla catena di chiamate, quindi non
+  /// passa da nessun `catch` e fa cadere prove che col suono non
+  /// c'entrano niente. Misurato il 1 settembre 2026: una prova sul campo
+  /// di scrittura della chat, caduta per un `MissingPluginException` di
+  /// `ambiente_home.mp3`.
+  ///
+  /// **Gli effetti non avevano questo problema per caso**: nascono spenti
+  /// dall'ordine BZ, quindi in prova non arrivano mai al lettore. La
+  /// musica nasce accesa per una decisione di disegno, e la stessa
+  /// protezione va scritta a mano.
+  ///
+  /// **Cio' che resta vivo in prova e' tutto il resto**: la traccia
+  /// scelta, la spia, il volume voluto, l'abbassamento. Una prova puo'
+  /// ancora verificare CHE COSA suonerebbe, che e' l'unica cosa che una
+  /// prova possa verificare del suono.
+  static final bool senzaLettore =
+      Platform.environment.containsKey('FLUTTER_TEST');
+
   MusicaDelCerchio? _corrente;
   double _volumeVoluto = 0.0;
   int _effettiInCorso = 0;
@@ -105,7 +130,7 @@ class RegiaDellaMusica {
 
     if (luogo == null) {
       await _sfuma(da: _volumeAttuale(), a: 0.0, quanto: incrocio);
-      await MotoreAudio.condiviso.fermaMusica();
+      if (!senzaLettore) await MotoreAudio.condiviso.fermaMusica();
       _corrente = null;
       _volumeVoluto = 0.0;
       spia?.call(null);
@@ -124,8 +149,9 @@ class RegiaDellaMusica {
     }
 
     final voluto = _volumeDa(s);
-    final partita = await MotoreAudio.condiviso
-        .musica(luogo.percorso, volume: _corrente == null ? voluto : 0.0);
+    final partita = senzaLettore ||
+        await MotoreAudio.condiviso
+            .musica(luogo.percorso, volume: _corrente == null ? voluto : 0.0);
     if (!partita) {
       // Nessun asset, nessun lettore: si resta in silenzio senza mentire su
       // cosa sta suonando.
@@ -187,6 +213,7 @@ class RegiaDellaMusica {
     required Duration quanto,
   }) async {
     _dissolvenza?.cancel();
+    if (senzaLettore) return;
     final passi = (quanto.inMilliseconds / passo.inMilliseconds).ceil();
     if (passi <= 1) {
       await MotoreAudio.condiviso.volumeDellaMusica(a);

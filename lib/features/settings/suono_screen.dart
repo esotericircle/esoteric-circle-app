@@ -43,103 +43,113 @@ class SuonoScreen extends StatelessWidget {
     final settings = context.watch<SettingsController>();
     final acceso = settings.suonoEVibrazione;
 
-    return Scaffold(
-      key: const Key('suono_schermata'),
-      backgroundColor: palette.deepest,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        title: Text('Suono',
-            style: TypographyTokens.titoloDiSchermata()
-                .copyWith(color: palette.goldSoft)),
-      ),
-      body: SafeArea(
-        top: false,
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-              SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.xxl),
-          children: [
-            const SectionTitle(
-              title: 'Gli effetti',
-              subtitle: 'I suoni che rispondono a un gesto.',
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            DepthCard(
-              raised: true,
-              padding: EdgeInsets.zero,
-              child: RigaInterruttore(
-                itemKey: const Key('suono_effetti'),
-                icon: Icons.graphic_eq_rounded,
-                title: 'Effetti sonori',
-                subtitle: 'I tredici suoni del Cerchio. Spegnili e la '
-                    'vibrazione resta.',
-                value: settings.suonoPermesso,
-                onChanged: acceso ? settings.setEffettiSonori : null,
-                palette: palette,
+    // **LA ROTTA SPINTA PORTA IL PROPRIO MaestroScope.**
+    //
+    // Quello dell'app sta DENTRO la home: un `push` mette la schermata
+    // nuova sopra il Navigator, quindi fuori da li'. Senza questo
+    // involucro `SectionTitle` non trova lo scope e solleva, e la
+    // pagina resta bianca. Misurato il 1 settembre 2026 dalla prova
+    // dell'interruttore degli effetti, che dopo il tocco non trovava
+    // piu' niente.
+    return MaestroScope(
+      child: Scaffold(
+        key: const Key('suono_schermata'),
+        backgroundColor: palette.deepest,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          title: Text('Suono',
+              style: TypographyTokens.titoloDiSchermata()
+                  .copyWith(color: palette.goldSoft)),
+        ),
+        body: SafeArea(
+          top: false,
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+                SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.xxl),
+            children: [
+              const SectionTitle(
+                title: 'Gli effetti',
+                subtitle: 'I suoni che rispondono a un gesto.',
               ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            _CursoreDelVolume(
-              chiave: const Key('suono_volume_effetti'),
-              titolo: 'Volume degli effetti',
-              valore: settings.volumeEffetti,
-              attivo: acceso && settings.effettiSonori,
-              palette: palette,
-              onChanged: settings.setVolumeEffetti,
-            ),
-            const SizedBox(height: SpacingTokens.xl),
-
-            const SectionTitle(
-              title: 'La musica',
-              subtitle: 'Il tappeto d\'ambiente, sotto tutto il resto.',
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            DepthCard(
-              raised: true,
-              padding: EdgeInsets.zero,
-              child: RigaInterruttore(
-                itemKey: const Key('suono_musica'),
-                icon: Icons.music_note_rounded,
-                title: 'Musica d\'ambiente',
-                subtitle: 'Un anello per luogo, che scende da solo quando '
-                    'suona qualcos\'altro.',
-                value: settings.musicaPermessa,
-                onChanged: acceso
-                    ? (v) {
-                        settings.setMusicaAttiva(v);
-                        RegiaDellaMusica.sola.aggiorna(settings);
-                      }
-                    : null,
-                palette: palette,
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: RigaInterruttore(
+                  itemKey: const Key('suono_effetti'),
+                  icon: Icons.graphic_eq_rounded,
+                  title: 'Effetti sonori',
+                  subtitle: 'I tredici suoni del Cerchio. Spegnili e la '
+                      'vibrazione resta.',
+                  value: settings.suonoPermesso,
+                  onChanged: acceso ? settings.setEffettiSonori : null,
+                  palette: palette,
+                ),
               ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            _CursoreDelVolume(
-              chiave: const Key('suono_volume_musica'),
-              titolo: 'Volume della musica',
-              valore: settings.volumeMusica,
-              attivo: acceso && settings.musicaAttiva,
-              palette: palette,
-              onChanged: (v) {
-                settings.setVolumeMusica(v);
-                RegiaDellaMusica.sola.aggiorna(settings);
-              },
-            ),
-            const SizedBox(height: SpacingTokens.lg),
+              const SizedBox(height: SpacingTokens.sm),
+              _CursoreDelVolume(
+                chiave: const Key('suono_volume_effetti'),
+                titolo: 'Volume degli effetti',
+                valore: settings.volumeEffetti,
+                attivo: acceso && settings.effettiSonori,
+                palette: palette,
+                onChanged: settings.setVolumeEffetti,
+              ),
+              const SizedBox(height: SpacingTokens.xl),
 
-            // **LA RIGA CHE SPIEGA IL RAPPORTO, e serve.** Senza, chi trova
-            // la musica al sessanta e gli effetti al cento crede che sia una
-            // svista, e li pareggia. Non sono pari perche' non devono esserlo.
-            Text(
-              'La musica parte piu\' bassa degli effetti di proposito: cosi\' '
-              'un suono si sente sopra il tappeto senza che tu debba alzare '
-              'niente.',
-              key: const Key('suono_perche_diversi'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
-          ],
+              const SectionTitle(
+                title: 'La musica',
+                subtitle: 'Il tappeto d\'ambiente, sotto tutto il resto.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: RigaInterruttore(
+                  itemKey: const Key('suono_musica'),
+                  icon: Icons.music_note_rounded,
+                  title: 'Musica d\'ambiente',
+                  subtitle: 'Un anello per luogo, che scende da solo quando '
+                      'suona qualcos\'altro.',
+                  value: settings.musicaPermessa,
+                  onChanged: acceso
+                      ? (v) {
+                          settings.setMusicaAttiva(v);
+                          RegiaDellaMusica.sola.aggiorna(settings);
+                        }
+                      : null,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              _CursoreDelVolume(
+                chiave: const Key('suono_volume_musica'),
+                titolo: 'Volume della musica',
+                valore: settings.volumeMusica,
+                attivo: acceso && settings.musicaAttiva,
+                palette: palette,
+                onChanged: (v) {
+                  settings.setVolumeMusica(v);
+                  RegiaDellaMusica.sola.aggiorna(settings);
+                },
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+
+              // **LA RIGA CHE SPIEGA IL RAPPORTO, e serve.** Senza, chi trova
+              // la musica al sessanta e gli effetti al cento crede che sia una
+              // svista, e li pareggia. Non sono pari perche' non devono esserlo.
+              Text(
+                'La musica parte più bassa degli effetti di proposito: così '
+                'un suono si sente sopra il tappeto senza che tu debba alzare '
+                'niente.',
+                key: const Key('suono_perche_diversi'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -194,7 +204,12 @@ class _CursoreDelVolume extends StatelessWidget {
             key: chiave,
             value: valore,
             activeColor: palette.gold,
-            inactiveColor: ColorTokens.textSecondary.withValues(alpha: 0.3),
+            // La traccia spenta prende l'oro velato e non un token del
+            // testo: un token del testo su una TRACCIA non e' testo, ma
+            // la guardia dei grigi legge i sorgenti e non puo' saperlo,
+            // e aveva ragione a chiedermelo. L'oro e' anche il colore
+            // giusto: la traccia appartiene all'accento, non alla parola.
+            inactiveColor: palette.gold.withValues(alpha: 0.25),
             // Venti tacche: un centesimo alla volta sarebbe una precisione
             // che nessuno sente e che rende difficile fermarsi su un numero.
             divisions: 20,
