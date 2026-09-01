@@ -558,6 +558,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // dello stato vuoto si e' rimpicciolito qui. Pulsa quando risponde.
         showAvatar: hasMessages,
         speaking: controller.sending,
+        mostraRicomincia: hasMessages,
+        onRicomincia: () => _ConversazioneNuova.chiedi(context, controller),
         onDiagnostics: () => showChatDiagnostics(
           context,
           aiReady: controller.aiReady,
@@ -605,18 +607,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // questo Maestro: chi sta parlando con Caligo e vuole rivedere
                   // cosa si erano detti non deve prima passare dal menu' e poi
                   // accendere una pastiglia.
-                  // **LA RIGA IN CIMA PORTA DUE COSE, ordine CI voce 06:**
-                  // dove sono finiti i giorni prima, e come cominciare da
-                  // capo. Stanno insieme perche' sono la stessa domanda vista
-                  // da due lati, cioe' cosa ne e' di quello che ci siamo
-                  // detti.
-                  Row(
-                    children: [
-                      _IGiorniPrima(maestro: widget.maestro),
-                      const Spacer(),
-                      _ConversazioneNuova(controller: controller),
-                    ],
-                  ),
+                  _IGiorniPrima(maestro: widget.maestro),
                   // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
                   // la conversazione, cioe' nello spazio che rovesciando la lista
                   // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
@@ -1074,6 +1065,8 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onDiagnostics,
     this.showAvatar = false,
     this.speaking = false,
+    this.mostraRicomincia = false,
+    this.onRicomincia,
   });
 
   final Maestro maestro;
@@ -1086,6 +1079,11 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   /// Cenno di speaking: l'aura dell'avatar pulsa mentre il Maestro risponde.
   final bool speaking;
+
+  /// **A conversazione vuota non c'e' niente da ricominciare**, e un comando
+  /// che non fa niente e' peggio di un comando assente.
+  final bool mostraRicomincia;
+  final VoidCallback? onRicomincia;
 
   /// Altezza dell'header: piu' alta quando l'avatar che sfonda il cerchio sta
   /// sopra il nome, cosi' la colonna centrata (avatar, nome, sottotitolo) ci sta
@@ -1127,7 +1125,22 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       // a punto resta nella pressione prolungata sul nome). La pillola non e'
       // un simbolo da sviluppatore: e' il borsellino, che dev'essere sempre
       // visibile per decisione di Mauro del 17 agosto.
-      actions: const [AngoloDellaBarra()],
+      // **RICOMINCIA STA FRA LE AZIONI, ordine CI voce 06.** Prima era in
+      // cima al corpo, accanto a "I giorni prima": due comandi con la loro
+      // etichetta su una riga sola facevano traboccare la riga di 39 punti a
+      // caratteri grandi, misurato su 48 prove. Le azioni dell'intestazione
+      // sono il posto dei comandi di schermata, e li' la misura non e' in
+      // discussione.
+      actions: [
+        if (mostraRicomincia)
+          IconButton(
+            key: const Key('chat_conversazione_nuova'),
+            icon: const Icon(Icons.add_comment_outlined),
+            tooltip: 'Ricomincia da capo',
+            onPressed: onRicomincia,
+          ),
+        const AngoloDellaBarra(),
+      ],
       title: GestureDetector(
         onLongPress: onDiagnostics,
         behavior: HitTestBehavior.opaque,
@@ -1226,38 +1239,34 @@ class _ConfigNotice extends StatelessWidget {
 /// **Perche' chiede conferma.** Non perche' sia pericoloso, ma perche' a
 /// schermo la chat si svuota, e una schermata che si svuota sembra sempre una
 /// cancellazione: la conferma e' il posto in cui si dice che non lo e'.
-class _ConversazioneNuova extends StatelessWidget {
-  const _ConversazioneNuova({required this.controller});
+/// LA CONFERMA DI "RICOMINCIA". Ordine CI voce 06.
+///
+/// **Questo comando non cancella e non dimentica, e va detto a chi lo tocca.**
+/// Aprire una conversazione nuova lascia dove sono tutti i messaggi di prima,
+/// che restano leggibili dai Ricordi, e **non azzera la memoria del Maestro**,
+/// che e' la cosa per cui l'abbonato paga. Il Maestro perde il filo del
+/// discorso, non la persona.
+///
+/// **Non consuma nessuna domanda del giorno**: cominciare a parlare non e'
+/// parlare.
+///
+/// **Perche' chiede conferma.** Non perche' sia pericoloso, ma perche' a
+/// schermo la chat si svuota, e una schermata che si svuota sembra sempre una
+/// cancellazione: la conferma e' il posto in cui si dice che non lo e'.
+class _ConversazioneNuova {
+  const _ConversazioneNuova._();
 
-  final MaestroChatController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    // A conversazione gia' vuota non c'e' niente da ricominciare, e un
-    // comando che non fa niente e' peggio di un comando assente.
-    if (controller.messages.isEmpty) return const SizedBox.shrink();
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-      child: TextButton.icon(
-        key: const Key('chat_conversazione_nuova'),
-        style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
-        onPressed: () => _chiedi(context),
-        icon: const Icon(Icons.add_comment_outlined, size: 16),
-        label: const Text('Ricomincia'),
-      ),
-    );
-  }
-
-  Future<void> _chiedi(BuildContext context) async {
+  static Future<void> chiedi(
+      BuildContext context, MaestroChatController controller) async {
     final si = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         key: const Key('chat_conferma_conversazione_nuova'),
+        backgroundColor: context.palette.surface,
         title:
             Text('Cominciamo da capo?', style: TypographyTokens.titoloScheda()),
         content: ParagrafiDiLettura(
-          testo: 'Quello che vi siete detti finora resta dov\'e\', e lo '
+          testo: 'Quello che vi siete detti finora resta dov\'è. Lo '
               'ritrovi nei Ricordi. Anche quello che il Maestro sa di te '
               'resta: dimentica solo il filo di questa conversazione. Non ti '
               'costa nessuna domanda.',
@@ -1265,8 +1274,10 @@ class _ConversazioneNuova extends StatelessWidget {
         ),
         actions: [
           TextButton(
+            style: TextButton.styleFrom(
+                foregroundColor: ColorTokens.textSecondary),
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Continua cosi\''),
+            child: const Text('Continua così'),
           ),
           FilledButton(
             key: const Key('chat_conferma_si'),

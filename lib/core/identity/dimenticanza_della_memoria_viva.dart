@@ -13,6 +13,7 @@ import '../onboarding/onboarding_controller.dart';
 import '../rituals/scelta_degli_avvisi.dart';
 import '../sigilli/coda_delle_feste.dart';
 import '../sigilli/diario_del_cammino.dart';
+import '../rituals/custode_delle_push.dart';
 import '../ricordi/registro_dei_ricordi.dart';
 import '../ricordi/scrigno_dei_custoditi.dart';
 import '../ricordi/lettura_del_mese.dart';
@@ -129,6 +130,12 @@ class DimenticanzaDellaMemoriaViva {
     // che ha dichiarato di voler tenere: sono la memoria piu' completa che
     // l'app abbia mai avuto di qualcuno, e se ne vanno con lei.
     prova(() => context.read<RegistroDeiRicordi>().dimentica());
+    // **IL RECAPITO DEL DISPOSITIVO SE NE VA CON LA PERSONA.** Ordine CI voce
+    // 07: il token vive sotto il prefisso `push.`, che e' gia' in
+    // `CioCheETuo`, e `dimentica()` lo toglie dal telefono E dal server.
+    // Lasciarlo vorrebbe dire continuare a spingere notifiche a un account
+    // che non esiste piu', pagandole.
+    prova(() => context.read<CustodeDellePush>().dimentica());
     prova(() => context.read<ScrignoDeiCustoditi>().dimentica());
     prova(() => context.read<LetturaDelMese>().dimentica());
     return quanti;

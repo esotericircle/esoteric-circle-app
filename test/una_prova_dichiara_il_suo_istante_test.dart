@@ -20,6 +20,12 @@ void main() {
   /// esenzioni comode: sono i due punti dove l'ora vera E' l'oggetto della
   /// prova, e accanto a ognuno sta scritto cosa sorveglia.
   const dichiarate = <String, String>{
+    'le_push_sono_montate_test.dart':
+        'il cancello delle push guarda ADESSO contro la data di '
+            'registrazione, e la prova deve dire registrata oggi per essere '
+            'dentro il mese di prova: una data fissa scadrebbe da sola col '
+            'passare del tempo, ed e\' il difetto che questa guardia esiste '
+            'per prendere',
     'istante_dichiarato.dart':
         'e\' il file che DICHIARA l\'istante: qui la data si scrive, non si legge',
     'la_striscia_delle_arti_anche_in_home_test.dart':
