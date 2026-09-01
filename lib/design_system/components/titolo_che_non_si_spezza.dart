@@ -61,11 +61,18 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
   /// Adesso si misura, e se non entra si scende di un punto e si rimisura.
   /// Sono al piu' una quindicina di misure su una stringa corta, una volta per
   /// costruzione.
+  /// **E SI MISURA ALLA SCALA CON CUI SI DIPINGE.** Ordine CM voce 09,
+  /// famiglia C, 1 settembre 2026.
+  ///
+  /// Il pittore misurava sempre alla scala uno, mentre il testo a schermo
+  /// viene dipinto alla scala scelta nel sistema. **A 1,3 il corpo
+  /// scelto qui entrava sulla carta e non entrava sullo schermo.**
   static double corpoCheEntra(
     String testo,
     TextStyle stile,
     double larghezza, {
     double minimo = 20,
+    TextScaler scala = TextScaler.noScaling,
   }) {
     final partenza = stile.fontSize ?? 34;
     if (!larghezza.isFinite || larghezza <= 0) return partenza;
@@ -78,6 +85,7 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
         final pittore = TextPainter(
           text: TextSpan(text: parola, style: stile.copyWith(fontSize: corpo)),
           textDirection: TextDirection.ltr,
+          textScaler: scala,
           maxLines: 1,
         )..layout();
         if (pittore.width > larghezza) {
@@ -102,12 +110,14 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
     int righe, {
     required double partenza,
     double minimo = 20,
+    TextScaler scala = TextScaler.noScaling,
   }) {
     if (!larghezza.isFinite || larghezza <= 0) return partenza;
     for (var corpo = partenza; corpo > minimo; corpo -= 1) {
       final pittore = TextPainter(
         text: TextSpan(text: testo, style: stile.copyWith(fontSize: corpo)),
         textDirection: TextDirection.ltr,
+        textScaler: scala,
       )..layout(maxWidth: larghezza);
       if (pittore.computeLineMetrics().length <= righe) return corpo;
     }
@@ -118,12 +128,13 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, vincoli) {
-        var corpo =
-            corpoCheEntra(testo, stile, vincoli.maxWidth, minimo: minimo);
+        final scala = MediaQuery.textScalerOf(context);
+        var corpo = corpoCheEntra(testo, stile, vincoli.maxWidth,
+            minimo: minimo, scala: scala);
         if (righeMassime != null) {
           corpo = corpoCheStaInRighe(
               testo, stile, vincoli.maxWidth, righeMassime!,
-              partenza: corpo, minimo: minimo);
+              partenza: corpo, minimo: minimo, scala: scala);
         }
         return Text(
           testo,

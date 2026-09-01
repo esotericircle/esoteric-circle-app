@@ -134,6 +134,70 @@ void main() {
           workingDirectory: Directory.current.path);
     }
 
+    /// Monta una copia dello sbarramento che finge DUE suite: quella normale
+    /// e **il corredo a scala massima**, che e' il terzo cancello nato con
+    /// l'ordine CM voce 10.
+    ///
+    /// **Perche' serve una seconda funzione e non un parametro in piu'.** La
+    /// copia deve stare in una finta cartella `tool/`, con una finta cartella
+    /// `test/` accanto, perche' il terzo cancello cerca il corredo come
+    /// `$QUI/../test/`: senza quelle due cartelle salta il giro e si dichiara
+    /// non eseguito, che e' giusto ma non e' il caso che qui si vuole
+    /// misurare.
+    ProcessResult giudicaConScala(
+      String rapporto,
+      int esito,
+      String rapportoScala,
+      int esitoScala,
+      String accettati,
+    ) {
+      Directory('${tana.path}/tool').createSync(recursive: true);
+      Directory('${tana.path}/test').createSync(recursive: true);
+      File('${tana.path}/test/screenshot_capture_test.dart')
+          .writeAsStringSync('// il corredo finto\n');
+      final finto = File('${tana.path}/rapporto.txt')
+        ..writeAsStringSync(rapporto);
+      final fintoScala = File('${tana.path}/rapporto_scala.txt')
+        ..writeAsStringSync(rapportoScala);
+
+      var testo = sbarramento.readAsStringSync();
+      const riga = r'flutter test "$@" 2>&1 | tee "$REGISTRO"';
+      expect(testo.contains(riga), isTrue,
+          reason: 'la riga che lancia la suite non e\' piu\' quella');
+      testo = testo.replaceFirst(
+          riga, 'cat "${finto.path}" | tee "\$REGISTRO"; (exit $esito)');
+
+      const rigaScala = r'SCALA_DEL_TESTO=1.3 flutter test "test/$CORREDO" '
+          r'2>&1 | tee "$REGISTRO_SCALA"';
+      expect(testo.contains(rigaScala), isTrue,
+          reason: 'la riga che lancia il corredo a scala massima non e\' '
+              'piu\' quella: questa prova starebbe misurando un cancello '
+              'che non esiste');
+      testo = testo.replaceFirst(
+          rigaScala,
+          'cat "${fintoScala.path}" | tee "\$REGISTRO_SCALA"; '
+          '(exit $esitoScala)');
+
+      final copia = File('${tana.path}/tool/sbarramento.sh')
+        ..writeAsStringSync(testo);
+      File('${tana.path}/tool/rossi_accettati.txt')
+          .writeAsStringSync(accettati);
+      return Process.runSync(bash, [copia.path],
+          workingDirectory: Directory.current.path);
+    }
+
+    /// Un corredo finto che monta [quante] schermate e ne fa cadere [nomi].
+    String corredoFinto(int quante, List<String> nomi) {
+      final righe = StringBuffer();
+      for (var i = 0; i < nomi.length; i++) {
+        righe.writeln('00:0$i +${quante - i} -${i + 1}: '
+            'C:/percorso/test/screenshot_capture_test.dart: ${nomi[i]} [E]');
+      }
+      righe.writeln('00:30 +$quante -${nomi.length}: '
+          '${nomi.isEmpty ? "All tests passed!" : "Some tests failed."}');
+      return righe.toString();
+    }
+
     // **I RAPPORTI FINTI PORTANO IL PERCORSO, ordine BZ voce 02,
     // integrazione del 28 agosto.** Quando `flutter test` gira su PIU' file
     // il rapporto mette davanti al nome della prova il PERCORSO ASSOLUTO
@@ -286,6 +350,63 @@ void main() {
       final r = giudica('00:12 +3794: All tests passed!\n', 0, '');
       expect(r.exitCode, 0);
       expect(r.stdout.toString(), contains('SUITE VERDE'));
+    });
+
+    // **LE TRE PROVE DEL TERZO CANCELLO. Ordine CM voce 10.**
+
+    test('una rottura a scala massima ferma l\'archivio se non e\' dichiarata',
+        () {
+      final fuori = giudicaConScala(
+        '00:30 +4000: All tests passed!\n',
+        0,
+        corredoFinto(180, ['Cattura una schermata qualunque']),
+        1,
+        '',
+      );
+      expect(fuori.exitCode, isNot(0),
+          reason: 'il corredo a scala massima e\' rosso su una cattura che '
+              'nessuno ha dichiarato: l\'archivio non si produce');
+      expect('${fuori.stdout}',
+          contains('SCALA 1,3: Cattura una schermata qualunque'),
+          reason: 'la caduta a scala massima deve arrivare al registro col '
+              'suo prefisso, o si confonderebbe con la stessa cattura alla '
+              'scala uno');
+    });
+
+    test('il prefisso impedisce che la deroga valga anche alla scala uno', () {
+      // La stessa cattura cade a tutte e due le scale. Il registro dichiara
+      // SOLO quella a scala massima: quella alla scala uno deve restare un
+      // rosso nuovo, e fermare l'archivio.
+      const cattura = 'Cattura una schermata qualunque';
+      final fuori = giudicaConScala(
+        '00:12 +3790 -1: C:/percorso/test/screenshot_capture_test.dart: '
+            '$cattura [E]\n',
+        1,
+        corredoFinto(180, [cattura]),
+        1,
+        'SCALA 1,3: $cattura | rotta solo col testo grande, ordine CM\n',
+      );
+      expect(fuori.exitCode, isNot(0),
+          reason: 'la deroga vale per il testo grande, NON per la scala uno: '
+              'se valesse per tutte e due, dichiarare una rottura del testo '
+              'grande spegnerebbe la guardia anche per chi il testo grande '
+              'non ce l\'ha');
+    });
+
+    test('un corredo che non monta niente non passa per verde', () {
+      final fuori = giudicaConScala(
+        '00:30 +4000: All tests passed!\n',
+        0,
+        corredoFinto(3, const []),
+        0,
+        '',
+      );
+      expect(fuori.exitCode, isNot(0),
+          reason: 'tre schermate montate non sono centocinquanta: un giro che '
+              'non monta le schermate non trova difetti, e passerebbe per '
+              'verde senza aver guardato niente');
+      expect('${fuori.stdout}', contains('HA GUARDATO'),
+          reason: 'e lo deve dire con parole sue, non con un silenzio');
     });
   });
 }

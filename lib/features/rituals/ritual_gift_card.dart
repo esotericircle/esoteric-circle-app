@@ -347,14 +347,16 @@ class _BaseToggle extends StatelessWidget {
           children: [
             Icon(Icons.info_outline_rounded, size: 15, color: accento),
             const SizedBox(width: 6),
-            Text(
+            // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+            Flexible(
+                child: Text(
               'Da dove nasce questo dono',
               key: const Key('alba_base_toggle'),
               style: TypographyTokens.didascalia().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
               ),
-            ),
+            )),
             Icon(open ? Icons.expand_less_rounded : Icons.expand_more_rounded,
                 size: 18, color: accento),
           ],

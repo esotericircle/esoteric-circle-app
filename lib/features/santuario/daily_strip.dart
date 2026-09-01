@@ -787,7 +787,10 @@ class _StripItem extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Transform.translate(
-                offset: Offset(_scartoOrizzontaleAiuto, _scartoAiuto),
+                offset: Offset(
+                  scartoOrizzontaleAiuto(MediaQuery.textScalerOf(context)),
+                  _scartoAiuto,
+                ),
                 child: GestureDetector(
                   key: Key('daily_help_target_${element.name}'),
                   behavior: HitTestBehavior.opaque,
@@ -815,7 +818,12 @@ class _StripItem extends StatelessWidget {
   /// Lo scarto orizzontale del centro del cerchio "?" dal centro della casella.
   /// La riga e' etichetta piu' cinque piu' diciotto, centrata: il cerchio cade a
   /// destra di meta' etichetta piu' due e mezzo.
-  double get _scartoOrizzontaleAiuto {
+  /// **E LA MISURA SI FA ALLA SCALA CON CUI SI DIPINGE.** Ordine CM
+  /// voce 09, famiglia C. Questo scarto e' una distanza in punti, non
+  /// un peso relativo: a testo grande l'etichetta e' piu' larga, e il
+  /// bersaglio dell'aiuto finiva **fuori dal cerchio che deve
+  /// coprire**, cioe' il tocco cadeva accanto al segno che lo invita.
+  double scartoOrizzontaleAiuto(TextScaler scala) {
     final tp = TextPainter(
       text: TextSpan(
         text: element.shortLabel,
@@ -827,6 +835,7 @@ class _StripItem extends StatelessWidget {
       ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
+      textScaler: scala,
     )..layout();
     return tp.width / 2 + 2.5;
   }

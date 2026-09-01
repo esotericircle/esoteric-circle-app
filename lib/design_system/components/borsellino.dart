@@ -214,9 +214,15 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
           vesteResa == VesteDellaPillola.oro ? palette.gold : palette.goldSoft,
       fontFeatures: const [ui.FontFeature.tabularFigures()],
     );
+    // **IL METRO MISURA ALLA SCALA CON CUI SI DIPINGE.** Ordine CM
+    // voce 09, famiglia C. Senza questa riga la pastiglia riservava
+    // lo spazio di cinque cifre alla scala uno e ne dipingeva cinque
+    // alla scala del sistema: a testo grande i numeri uscivano dal
+    // bordo, e usciva **solo a chi il testo grande ce l'ha davvero**.
     final metro = TextPainter(
       text: TextSpan(text: '88.888', style: stile),
       textDirection: TextDirection.ltr,
+      textScaler: MediaQuery.textScalerOf(context),
     )..layout();
     final larghezzaCifre = metro.width;
     metro.dispose();

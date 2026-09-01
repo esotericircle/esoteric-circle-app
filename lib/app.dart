@@ -486,6 +486,39 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
                       // Sta QUI e in nessun altro posto, sopra il Navigator, cosi'
                       // vale anche per le rotte spinte sopra il guscio, comprese le
                       // chat e le immersive, che hanno un proprio Scaffold.
+                      // **IL TETTO E' UNA SCELTA, NON UN VINCOLO DI
+                      // SISTEMA.** Ordine CM voce 08, 1 settembre 2026.
+                      //
+                      // I sistemi arrivano molto piu' in alto di 1,3:
+                      // Android porta la misura del testo fino al doppio
+                      // dalle impostazioni di accessibilita', e iOS con
+                      // le misure di accessibilita' arriva a circa il
+                      // triplo. **Questi due numeri vanno riverificati sul
+                      // dispositivo**, perche' non si leggono in questo
+                      // repository.
+                      //
+                      // **La decisione: si tiene un tetto, e si alza a
+                      // 1,6.** Accogliere l'intera scala di sistema non
+                      // e' un problema di impaginazione, e' una questione
+                      // di direzione artistica: a tre volte il testo, la
+                      // ruota dello zodiaco, le cornici delle carte e i
+                      // busti dentro il loro cerchio non si allargano, e
+                      // la regola del mezzobusto del 6 agosto 2026
+                      // cadrebbe su ogni ritratto tondo.
+                      //
+                      // **1,6 perche' e' alto davvero**: copre per intero
+                      // la scala standard di iOS e il suo primo passo di
+                      // accessibilita', e il passo piu' grande della
+                      // misura standard di Android con margine. Il
+                      // pubblico di quest'app e' mediamente piu' anziano
+                      // e il testo grande lo imposta davvero.
+                      //
+                      // **Il tetto sale a 1,6 solo quando il corredo e'
+                      // pulito a 1,6**, non prima: alzarlo su schermate
+                      // che si rompono vorrebbe dire spostare il guasto
+                      // dagli occhi di chi prova a quelli di chi usa.
+                      // Finche' resta a 1,3, il numero qui sotto e' il
+                      // debito, non la scelta.
                       textScaler: mq.textScaler.clamp(
                         minScaleFactor: 0.9,
                         maxScaleFactor: 1.3,

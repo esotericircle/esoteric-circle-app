@@ -505,9 +505,11 @@ class _Trasparenza extends StatelessWidget {
             children: [
               Icon(Icons.public_outlined, size: 15, color: palette.goldSoft),
               const SizedBox(width: SpacingTokens.xs),
-              Text('Come nasce il messaggio di oggi',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+              // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+              Flexible(
+                  child: Text('Come nasce il messaggio di oggi',
+                      style: TypographyTokens.label(size: 12).copyWith(
+                          color: palette.goldSoft, letterSpacing: 0.6))),
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),

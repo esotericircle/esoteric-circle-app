@@ -946,9 +946,11 @@ class _InterrogaIlCielo extends StatelessWidget {
               children: [
                 Icon(Icons.auto_awesome, size: 18, color: palette.goldSoft),
                 const SizedBox(width: SpacingTokens.sm),
-                Text('Interroga il cielo',
-                    style: TypographyTokens.titoloScheda()
-                        .copyWith(color: palette.goldSoft)),
+                // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+                Flexible(
+                    child: Text('Interroga il cielo',
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft))),
               ],
             ),
           ),
@@ -1347,14 +1349,16 @@ class _PeriodTab extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(period.label,
-                style: TypographyTokens.etichetta().copyWith(
-                  color: selected
-                      ? palette.goldSoft
-                      : ColorTokens.textSecondary
-                          .withValues(alpha: locked ? 0.6 : 1.0),
-                  letterSpacing: 0.6,
-                )),
+            // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+            Flexible(
+                child: Text(period.label,
+                    style: TypographyTokens.etichetta().copyWith(
+                      color: selected
+                          ? palette.goldSoft
+                          : ColorTokens.textSecondary
+                              .withValues(alpha: locked ? 0.6 : 1.0),
+                      letterSpacing: 0.6,
+                    ))),
             if (locked) ...[
               const SizedBox(width: 4),
               Icon(Icons.lock_rounded,

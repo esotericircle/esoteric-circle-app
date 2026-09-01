@@ -100,6 +100,7 @@ void main() {
       final testo = file.readAsStringSync();
       final passa = testo.contains('sorgentiDiLib(') ||
           testo.contains('sorgentiDiCartelle(') ||
+          testo.contains('fileScoperti(') ||
           testo.contains('righeDiLib(');
       final scorre = passa || testo.contains("Directory('lib')");
 

@@ -1231,8 +1231,19 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           const SizedBox(height: SpacingTokens.sm),
           // I gesti del mazzo. Lo scuotimento e' un di piu': questi tasti ci
           // sono sempre, cosi' chi non ha l'accelerometro non resta fuori.
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          // **I GESTI VANNO A CAPO, NON SI STRINGONO.** Ordine CM voce 09,
+          // famiglia D, 1 settembre 2026.
+          //
+          // Affiancati in una riga, a testo grande i tre gesti uscivano dal
+          // bordo di trentatre punti, e portavano giu' sei catture del
+          // corredo. Stringerli avrebbe voluto dire togliere le etichette,
+          // cioe' **curare il traboccamento peggiorando proprio la cosa per
+          // cui il testo grande esiste**. Con Wrap restano tutti e tre,
+          // leggibili, e quando non ci stanno scendono di una riga.
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: SpacingTokens.sm,
+            runSpacing: SpacingTokens.sm,
             children: [
               _GestoMazzo(
                 key: const Key('stesa_taglia'),
@@ -1242,7 +1253,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 attivo: _scene.accettaGesti,
                 onTap: _taglia,
               ),
-              const SizedBox(width: SpacingTokens.sm),
               _GestoMazzo(
                 key: const Key('stesa_mischia'),
                 icona: Icons.casino_rounded,
@@ -1251,7 +1261,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 attivo: _scene.accettaGesti,
                 onTap: _mischia,
               ),
-              const SizedBox(width: SpacingTokens.sm),
               // Un solo interruttore per suono e vibrazione: chi zittisce
               // l'app non si aspetta di sentirla ancora vibrare in mano.
               _GestoMazzo(
@@ -2045,9 +2054,11 @@ class _GestoMazzo extends StatelessWidget {
               children: [
                 Icon(icona, size: 15, color: palette.goldSoft),
                 const SizedBox(width: 6),
-                Text(label,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: palette.goldSoft)),
+                // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+                Flexible(
+                    child: Text(label,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: palette.goldSoft))),
               ],
             ),
           ),

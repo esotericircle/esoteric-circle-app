@@ -112,6 +112,82 @@ else
   echo "!! Questa build non ha guardato la seconda suite."
 fi
 
+# **IL TERZO CANCELLO: IL CORREDO A SCALA MASSIMA. Ordine CM voce 10.**
+#
+# **Il fatto che lo motiva.** Il 1 settembre 2026 il corredo e' stato girato
+# per la prima volta col testo alla scala massima che l'app consente, 1,3, e
+# QUARANTADUE schermate su centottantadue si sono rotte. Una su quattro. Nessun
+# cancello se n'era accorto, perche' ogni prova gira alla scala uno, che e' la
+# scala di chi sviluppa e non quella di chi usa.
+#
+# **E il pubblico di quest'app il testo grande lo imposta davvero.** Astrologia
+# e cartomanzia hanno un pubblico mediamente piu' anziano: la misura grande nel
+# sistema non e' un caso di scuola, e' la condizione normale di una parte dei
+# lettori. Un difetto che compare solo li' e' un difetto che non vede mai
+# nessuno di quelli che lo potrebbero riparare.
+#
+# **Come entra nel cancello.** Le cadute a scala massima finiscono nello stesso
+# registro delle altre, col prefisso "SCALA 1,3:" davanti al nome. Il prefisso
+# non e' un vezzo: senza, una riga scritta fra i rossi accettati metterebbe a
+# tacere quella stessa cattura ANCHE alla scala uno, e la deroga per il testo
+# grande diventerebbe una deroga per tutti.
+#
+# **Il verso e' obbligato: quell'elenco puo' solo accorciarsi.** Il controllo
+# delle righe di troppo, poche righe piu' sotto, fa cadere l'archivio se un
+# nome resta scritto fra gli accettati mentre quella cattura ha smesso di
+# rompersi. Quindi ogni schermata riparata va tolta dall'elenco, e nessuna
+# schermata nuova ci puo' entrare senza che qualcuno la scriva a mano.
+CORREDO="screenshot_capture_test.dart"
+if [ -f "$QUI/../test/$CORREDO" ]; then
+  echo ""
+  echo "== IL CORREDO A SCALA MASSIMA, con SCALA_DEL_TESTO=1.3 =="
+  REGISTRO_SCALA="$(mktemp)"
+  SCALA_DEL_TESTO=1.3 flutter test "test/$CORREDO" 2>&1 | tee "$REGISTRO_SCALA"
+  ESITO_SCALA=${PIPESTATUS[0]}
+
+  # **IL CARDINALE DEL CORREDO.** Un giro che non monta nessuna schermata non
+  # trova nessun difetto, e passerebbe per verde. Il corredo ne monta
+  # centottantadue: se ne conta meno di centocinquanta, non e' che le
+  # schermate stanno bene, e' che non sono state guardate.
+  MONTATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$REGISTRO_SCALA" \
+    | tail -1)"
+  MONTATE="${MONTATE:-0}"
+  CADUTE_SCALA="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' \
+    "$REGISTRO_SCALA" | sed -E 's#^.*[.]dart: ##' | sort -u)"
+  QUANTE_SCALA="$(echo "$CADUTE_SCALA" | grep -c . || true)"
+  GUARDATE=$((MONTATE + QUANTE_SCALA))
+  if [ "$GUARDATE" -lt 150 ]; then
+    echo ""
+    echo "======================================================================"
+    echo "  IL CORREDO A SCALA MASSIMA HA GUARDATO $GUARDATE SCHERMATE."
+    echo "======================================================================"
+    echo "  Ne pretende almeno centocinquanta. Non e' che le schermate stanno"
+    echo "  bene: e' che non sono state montate, e questo cancello stava per"
+    echo "  dire il vero su niente."
+    echo "  L'ARCHIVIO NON SI PRODUCE."
+    echo "======================================================================"
+    rm -f "$REGISTRO" "$REGISTRO_SCALA"
+    exit 1
+  fi
+  echo ""
+  echo "== IL CORREDO A SCALA MASSIMA HA MONTATO $GUARDATE SCHERMATE =="
+
+  echo "$CADUTE_SCALA" | while IFS= read -r nome; do
+    [ -z "$nome" ] && continue
+    echo "00:00 +0 -1: SCALA 1,3: $nome [E]" >> "$REGISTRO"
+  done
+
+  if [ "$ESITO_SCALA" -ne 0 ]; then
+    ESITO=1
+    echo ""
+    echo "== IL CORREDO A SCALA MASSIMA E' ROSSO =="
+  fi
+else
+  echo ""
+  echo "!! IL CORREDO NON E' STATO GIRATO A SCALA MASSIMA: manca"
+  echo "!! test/$CORREDO. Questa build non ha guardato il testo grande."
+fi
+
 # **LE CADUTE E GLI ACCETTATI SI LEGGONO PRIMA DEL BIVIO. Ordine CH voce 04.**
 #
 # Fino al 31 agosto 2026 questo confronto viveva soltanto nel ramo rosso, e

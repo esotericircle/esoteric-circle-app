@@ -208,8 +208,16 @@ const double rapportoDelCorredo = 3.0;
 ///
 /// Di partenza e' uno, cioe' com'e' sempre stato. Valorizzando
 /// `SCALA_DEL_TESTO` l'intero corredo si monta a quella scala: serve a girare
-/// tutte le schermate assemblate al massimo consentito dal sistema, che e'
-/// 1,3, ed e' li' che l'impaginazione si rompe.
+/// tutte le schermate assemblate al tetto che l'app si e' data, che e' 1,3,
+/// ed e' li' che l'impaginazione si rompe.
+///
+/// **QUI C'ERA UNA FRASE FALSA, corretta il 1 settembre 2026, ordine CM
+/// voce 08.** Diceva "al massimo consentito dal sistema, che e' 1,3".
+/// **1,3 non e' il massimo di nessun sistema**: e' il tetto scritto in
+/// `lib/app.dart`, cioe' una scelta di questa app. Android arriva molto
+/// piu' in alto, e iOS con le misure di accessibilita' arriva a circa il
+/// triplo. Chiamare "massimo del sistema" il proprio tetto e' il modo in
+/// cui una scelta si traveste da vincolo, e smette di essere discussa.
 ///
 /// **Perche' il corredo e non l'intera suite.** Raddoppiare ogni prova
 /// porterebbe il cancello da venticinque minuti a cinquanta, per far girare

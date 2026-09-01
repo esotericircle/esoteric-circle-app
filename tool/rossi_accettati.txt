@@ -25,3 +25,38 @@
 # Formato: nome esatto della prova | ragione, con la data
 l'attribuzione cieca e' valida su QUESTA istruzione | Rosso DICHIARATO E VOLUTO, acceso il 13 agosto 2026. La misura dell'attribuzione cieca vale per l'istruzione che le e' stata data, e l'istruzione e' cambiata dopo: la prova dice il vero, cioe' che il numero noto non appartiene piu' a questo testo. Il fondatore l'ha confermata rossa nell'ordine BY voce 04 del 28 agosto 2026: sui sei giri la misura sta all'86,7 per cento contro una soglia di 85, ma il giro piu' basso resta a 80,0, e finche' un giro puo' cadere sotto la soglia le tre voci non sono distinguibili in modo affidabile. Torna verde quando le frasi dei Maestri saranno riscritte (ordine BZ voce 03, che e' dell'Architetto) e la misura rifatta.
 l'ordine CG non e' finito finche' una voce resta aperta | Rosso PER LEGGE DI CONSEGNA, acceso il 31 agosto 2026 con l'ordine CG. La guardia dell'ordine resta rossa finche' tutte e sedici le voci non hanno uno stato terminale, e la voce ancora aperta e' CG.15, il ripesamento delle lapidi del benvenuto col sale vuoto: il secondo dei due gesti chiede una distribuzione delle funzioni, e la distribuzione la ordina il fondatore dal suo PC. Le due righe da lanciare stanno in docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md. La prova dice il vero, cioe' che l'ordine non e' finito, e questa riga esiste perche' un ordine non finito non debba murare la porta di ogni build. Si toglie il giorno in cui CG.15 chiude.
+
+# =====================================================================
+# IL CORREDO A SCALA MASSIMA. Ordine CM voce 10, 1 settembre 2026.
+#
+# Il 1 settembre 2026 il corredo e' stato girato per la prima volta col testo
+# alla scala massima che l'app consente, 1,3. QUARANTADUE catture su
+# centottantadue si sono rotte: UNA SU QUATTRO. Nell'ordine CM ne sono state
+# riparate ventiquattro, e queste DICIOTTO restano.
+#
+# **Il prefisso "SCALA 1,3:" non e' un vezzo.** Senza, una riga qui sotto
+# metterebbe a tacere la stessa cattura ANCHE alla scala uno, e la deroga per
+# chi ha il testo grande diventerebbe una deroga per tutti.
+#
+# **Questo elenco puo' solo accorciarsi.** Il controllo delle righe di troppo
+# fa cadere l'archivio se un nome resta scritto qui mentre quella cattura ha
+# smesso di rompersi. Nessuna riga nuova ci entra da sola.
+# =====================================================================
+SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno | Sfora 10 punti a destra da lib/features/onboarding/onboarding_screen.dart:1760, riga di comandi del Risveglio. Famiglia B, contenitore di misura fissa. Si chiude nell'ordine dopo il CM.
+SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente | Stessa causa della riga sopra, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, il luogo scelto | Stessa causa, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, il luogo offline | Stessa causa, onboarding_screen.dart:1760.
+SCALA 1,3: Cattura il Risveglio, il genere, schermo basso | Stessa causa, onboarding_screen.dart:1760, su schermo basso.
+SCALA 1,3: Cattura il Risveglio, il sigillo | Stessa causa, onboarding_screen.dart:1760, all'ultimo passo.
+SCALA 1,3: Cattura la custodia del cielo | Sfora 2 punti in basso da lib/features/onboarding/custodia_del_cielo_step.dart:123. Famiglia B. Due punti soli, ma sono due punti di testo tagliato.
+SCALA 1,3: Cattura Chiedi ai Maestri, vista comparativa | Sfora 134 punti in basso da lib/core/permissions/app_permission.dart:165, la scheda del permesso: colonna con cerchio da 64 fisso piu' testo. Famiglia B, ed e' il traboccamento piu' grosso rimasto.
+SCALA 1,3: Cattura il Sigillo, schermo basso | Stessa causa, app_permission.dart:165, su schermo basso.
+SCALA 1,3: Cattura i tre momenti della corsa dello zodiaco | Sfora 137 punti in basso da lib/features/maestri/caligo/rune/rune_share_card.dart:49. La card da condividere ha misura fissa per l'esportazione: qui la cura non e' allargare, e' decidere se la card da condividere debba seguire la scala di sistema. Decisione di prodotto, non di impaginazione.
+SCALA 1,3: Cattura il dono col colore del Maestro, giorno 0 | Stessa causa, rune_share_card.dart:49.
+SCALA 1,3: Cattura il dono col colore del Maestro, giorno 1 | Stessa causa, rune_share_card.dart:49, al giorno dopo.
+SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in basso da lib/features/synastry/sinastria_gallery_screen.dart:694, la tendina delle categorie: DropdownButton impone l'altezza della voce chiusa. Famiglia B.
+SCALA 1,3: Cattura l'Oroscopo | Sfora 5 punti in basso da lib/features/horoscope/oroscopo_screen.dart:1202, la pastiglia della tradizione. Famiglia B.
+SCALA 1,3: Cattura l'Oroscopo dai transiti veri | Stessa causa, oroscopo_screen.dart:1202.
+SCALA 1,3: Cattura la card dell'Estrazione Rune | Non e' un traboccamento: e' una pretesa della cattura stessa che a testo grande non regge piu'. Va riletta la pretesa, non allargata la card.
+SCALA 1,3: Cattura la chat con la barra fuori | Non e' un traboccamento: la cattura pretende una posizione della barra misurata in punti, e a testo grande la barra sta altrove. La pretesa va rifatta in proporzione, non in punti.
+SCALA 1,3: CI.04: a dito alzato la barra non resta a meta | Non e' un traboccamento: la prova misura in punti quanto la barra si ritira, e a testo grande la barra e' piu' alta. Stessa cura della riga sopra.

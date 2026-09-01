@@ -397,11 +397,13 @@ class _ChatBubbleState extends State<ChatBubble> {
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Text(
+                            // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+                            Flexible(
+                                child: Text(
                               'Sto scendendo più a fondo',
                               style: TypographyTokens.didascalia()
                                   .copyWith(color: palette.goldSoft),
-                            ),
+                            )),
                           ],
                         ),
                       ],
@@ -473,11 +475,13 @@ class _ChatBubbleState extends State<ChatBubble> {
                                 const SizedBox(width: 4),
                               ],
                               const SizedBox(width: 2),
-                              Text(
+                              // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+                              Flexible(
+                                  child: Text(
                                 'Chiedi anche agli altri',
                                 style: TypographyTokens.didascalia(weight: 600)
                                     .copyWith(color: palette.goldSoft),
-                              ),
+                              )),
                             ],
                           ),
                         ),

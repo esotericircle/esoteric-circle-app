@@ -104,13 +104,33 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// peggiore-caso era gia' stata scritta, valeva 130 e sforava lo stesso,
   /// perche' basta una frase nuova o una lingua nuova e smette di essere il
   /// peggiore senza che nessuno lo dica.
-  static double riservaPer(String frase, double larghezza, {String? invito}) {
+  /// **E LA MISURA SI FA ALLA SCALA CON CUI SI DIPINGE.** Ordine CM
+  /// voce 09, 1 settembre 2026.
+  ///
+  /// Il `TextPainter` qui sotto misurava il testo alla scala uno,
+  /// sempre, mentre a schermo lo stesso testo veniva dipinto alla
+  /// scala che l'utente ha scelto nel sistema. **A 1,3 la riserva
+  /// risultava un terzo piu' corta del vero**, la colonna sforava, e
+  /// il difetto compariva soltanto a chi il testo grande ce l'ha
+  /// davvero, cioe' esattamente il pubblico di quest'app.
+  ///
+  /// **Non e' un caso isolato, e' una forma.** Chiunque misuri con un
+  /// `TextPainter` per decidere uno spazio, e non gli passi lo stesso
+  /// `TextScaler` con cui quel testo verra' dipinto, **sta misurando
+  /// un testo che nessuno vedra' mai**.
+  static double riservaPer(
+    String frase,
+    double larghezza, {
+    String? invito,
+    TextScaler scala = TextScaler.noScaling,
+  }) {
     final utile = larghezza - SpacingTokens.lg * 2;
     final massimo = utile > 0 ? utile : larghezza;
     double alta(String testo, TextStyle stile) => (TextPainter(
           text: TextSpan(text: testo, style: stile),
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center,
+          textScaler: scala,
         )..layout(maxWidth: massimo))
             .height;
 
@@ -226,8 +246,12 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
       final larghezza = vincoli.maxWidth.isFinite && vincoli.maxWidth > 0
           ? vincoli.maxWidth
           : MediaQuery.of(context).size.width;
-      final riserva = ConsultoDelCieloView.riservaPer(frase, larghezza,
-          invito: simbolo.invito);
+      final riserva = ConsultoDelCieloView.riservaPer(
+        frase,
+        larghezza,
+        invito: simbolo.invito,
+        scala: MediaQuery.textScalerOf(context),
+      );
       // TRE GRADINI, E IL TERZO E' IL VUOTO.
       //
       // Con la conversazione piena lo spazio libero misurato nella chat vera
