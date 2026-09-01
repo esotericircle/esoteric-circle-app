@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -88,7 +90,24 @@ class MotoreAudio implements MotoreSonoro {
     try {
       await _musica.setReleaseMode(ReleaseMode.loop);
       await _musica.setVolume(volume.clamp(0.0, 1.0));
-      await _musica.play(AssetSource(percorsoAsset));
+      // **NON SI ASPETTA LA CONFERMA DEL LETTORE, E QUESTA RIGA E' IL DIFETTO
+      // DELLA BUILD 2218.**
+      //
+      // `play` di audioplayers NON e' una chiamata che finisce: dentro
+      // aspetta un evento `prepared` che deve arrivare dalla piattaforma, e
+      // se quell'evento non arriva **resta appesa per sempre**. Attendendola,
+      // il motore non tornava ne' vero ne' falso, la regia restava sospesa a
+      // meta', la traccia non veniva mai impostata, e **il `catch` non
+      // scattava perche' non c'era nessun errore: c'era un'attesa infinita**.
+      //
+      // L'app e' uscita muta con quattromiladuecento prove verdi, e senza una
+      // riga di log a dirlo.
+      //
+      // Si chiede al lettore di suonare e si va avanti. Se poi fallisce
+      // davvero, lo dice il `catch` qui sotto invece di sparire nel nulla.
+      unawaited(_musica.play(AssetSource(percorsoAsset)).catchError((Object e) {
+        debugPrint('Musica non partita ($percorsoAsset): $e');
+      }));
       return true;
     } catch (e) {
       // Nessuna musica: l'app resta viva e muta, come senza asset.

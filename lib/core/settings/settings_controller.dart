@@ -25,7 +25,7 @@ class SettingsController extends ChangeNotifier {
     bool simpleMode = false,
     bool subtitles = true,
     bool suonoEVibrazione = true,
-    bool effettiSonori = false,
+    bool effettiSonori = true,
     bool musicaAttiva = true,
     double volumeMusica = 0.6,
     double volumeEffetti = 1.0,
@@ -75,12 +75,23 @@ class SettingsController extends ChangeNotifier {
   /// **Chi vuole il silenzio senza perdere il tocco spegne questo**; chi
   /// vuole il silenzio totale spegne l'altro, che comanda su tutti e due.
   ///
-  /// **FALSO DI PARTENZA, ordine BZ voce 05.** Parole del fondatore del 28
-  /// agosto 2026: "gli effetti sonori vanno per ora disabilitati per
-  /// default, almeno fino a quando non ne scegliero qualcuno decente,
-  /// adesso sembrano un giochino anni 80". Chi apre l'app per la prima volta
-  /// non sente niente; l'interruttore resta dov'e' e chi lo accende lo
-  /// ritrova acceso alla riapertura, come prima.
+  /// **VERO DI PARTENZA, ordine CN, 2 settembre 2026.** Decisione del
+  /// fondatore: chi apre l'app per la prima volta sente i suoni.
+  ///
+  /// **SUPERA LA VOCE BZ.05 DEL 28 AGOSTO 2026, e la riga di prima si
+  /// tiene perche' spiega perche' oggi si puo' cambiare.** Parole del
+  /// fondatore di allora: "gli effetti sonori vanno per ora disabilitati
+  /// per default, almeno fino a quando non ne scegliero qualcuno decente,
+  /// adesso sembrano un giochino anni 80".
+  ///
+  /// **Quella ragione e' scaduta con l'ordine CN**, che ha fatto
+  /// esattamente cio' che la condizione chiedeva: i suoni sono tredici e
+  /// non sei, scelti dal fondatore uno per uno, e portati tutti alla
+  /// stessa sonorita' con una misura sola. Il sigillo del Custodisci non
+  /// sta piu' quindici decibel sotto le pietre.
+  ///
+  /// L'interruttore resta dov'e': chi vuole il silenzio senza perdere il
+  /// tocco lo spegne, e lo ritrova spento alla riapertura.
   bool get effettiSonori => _effettiSonori;
 
   /// Vero se un suono puo' uscire adesso: servono tutti e due gli

@@ -123,13 +123,16 @@ void main() {
             'cancellerebbe il disegno dell\'ordine CN**, cioe\' lo Shaman che '
             'parte con la prima schermata del Risveglio e prosegue fino alla '
             'home. Se la decisione cambia, cambiala nel manifesto insieme.');
-    expect(s.effettiSonori, isFalse,
-        reason: 'gli effetti non nascono piu\' spenti: e\' la decisione '
-            'dell\'ordine BZ voce 05 del 28 agosto 2026, e l\'ordine CN non '
-            'la tocca');
+    expect(s.effettiSonori, isTrue,
+        reason: 'gli effetti non nascono piu\' accesi. **La decisione del '
+            '2 settembre 2026 supera la voce BZ.05**, che li voleva spenti '
+            '"almeno fino a quando non ne scegliero qualcuno decente": '
+            'l\'ordine CN ha soddisfatto quella condizione, quindi la '
+            'ragione di allora e\' scaduta.');
     expect(s.musicaPermessa, isTrue);
-    expect(s.suonoPermesso, isFalse,
-        reason: 'gli effetti escono senza che nessuno li abbia accesi');
+    expect(s.suonoPermesso, isTrue,
+        reason: 'con tutti e due gli interruttori accesi un suono deve '
+            'poter uscire');
   });
 
   test('CN.07: il sottomenu\' esiste e la lista non si e\' allungata', () {

@@ -40,7 +40,7 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
     widget.pila.cambi.addListener(_guarda);
     // Il primo giro dopo il frame: alla costruzione la pila e' ancora vuota,
     // e chiedere adesso vorrebbe dire chiedere del nulla.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _guarda());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _guardaOra());
   }
 
   @override
@@ -50,6 +50,25 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
   }
 
   void _guarda() {
+    // **SI GUARDA DOPO IL FRAME, NON NELL'ISTANTE DEL PUSH.**
+    //
+    // **Questo e' il difetto che ha reso l'app muta nella build 2218**, e la
+    // sua forma merita di restare scritta. Il nome della schermata in cima si
+    // ricava CAMMINANDO L'ALBERO della rotta: `tipoDellaRotta` scende dentro
+    // `rotta.subtreeContext` e cerca un nome conosciuto. Ma quando
+    // `didPush` arriva **quella rotta non e' ancora stata costruita**, quindi
+    // il suo albero e' vuoto, il nome torna NULLO, e la regia legge "nessuna
+    // schermata dichiara niente", cioe' continua quel che suona, cioe'
+    // niente.
+    //
+    // **La barra non aveva il problema**, e non per fortuna: legge
+    // `schermataInCima()` dentro un `addPostFrameCallback`, ed e' scritto nel
+    // suo codice dall'ordine BE. Ho riusato la sua pila senza riusare il suo
+    // momento.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _guardaOra());
+  }
+
+  void _guardaOra() {
     if (!mounted) return;
     final settings = context.read<SettingsController?>();
     if (settings == null) return;

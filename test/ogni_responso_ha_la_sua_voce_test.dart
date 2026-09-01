@@ -192,15 +192,26 @@ void main() {
     });
   });
 
-  group('BZ.05, su un telefono nuovo non suona niente', () {
+  group('CN, su un telefono nuovo suonano tutti', () {
     tearDown(() => PaletteSensoriale.spiaDelResponso = null);
 
-    testWidgets('Nessuno degli otto responsi suona a installazione nuova',
+    testWidgets('Tutti e otto i responsi suonano a installazione nuova',
         (tester) async {
       // **LA GRANDEZZA MISURATA E\' IL NUMERO DI RESPONSI CHE SUONANO su un
       // telefono appena installato**, senza che nessuno apra le
       // impostazioni: le preferenze sono vuote e il controllore nasce come
       // nasce nell'app vera.
+      //
+      // **IL NUMERO ATTESO E' CAMBIATO, LA GRANDEZZA NO.** Ordine CN,
+      // 2 settembre 2026: era ZERO per la voce BZ.05 del 28 agosto,
+      // che voleva i suoni spenti "almeno fino a quando non ne
+      // scegliero qualcuno decente". **Quella condizione e' stata
+      // soddisfatta**: i suoni sono tredici, scelti dal fondatore uno
+      // per uno, e portati tutti alla stessa sonorita' con una misura
+      // sola. Adesso e' OTTO SU OTTO.
+      //
+      // Si cambia il numero atteso e non la cosa che si misura: e' la
+      // stessa prova, con una decisione diversa dietro.
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
@@ -230,13 +241,15 @@ void main() {
       // ignore: avoid_print
       print('ORDINE BZ VOCE 5: su un telefono nuovo suonano $quanti responsi '
           'su ${VoceDelResponso.deiResponsi.length}');
-      expect(quanti, 0,
-          reason: '$quanti responsi suonano su un telefono appena installato: '
-              'chi apre l\'app per la prima volta sente il giochino');
-      // E la vibrazione resta: e\' il suono che parte spento, non il tocco.
+      expect(quanti, VoceDelResponso.deiResponsi.length,
+          reason: 'su un telefono appena installato suonano $quanti responsi '
+              'su ${VoceDelResponso.deiResponsi.length}. **Chi apre l\'app la '
+              'prima volta deve sentirla**, per decisione del 2 settembre '
+              '2026: se qui il numero torna a zero, o e\' cambiato il '
+              'valore di partenza degli effetti, oppure un responso ha '
+              'smesso di avere la sua voce.');
       expect(impostazioni.suonoEVibrazione, isTrue,
-          reason: 'anche la vibrazione nasce spenta: l\'ordine chiede solo il '
-              'silenzio dei suoni');
+          reason: 'l\'interruttore unico non nasce piu\' acceso');
     });
   });
 
@@ -244,22 +257,27 @@ void main() {
     test('Il comando spento sopravvive alla riapertura dell\'app', () async {
       SharedPreferences.setMockInitialValues(const {});
       final prima = SettingsController();
-      // **DI PARTENZA L\'APP NON SUONA PIU\', ordine BZ voce 05.** Parole del
-      // fondatore: "gli effetti sonori vanno per ora disabilitati per
-      // default, almeno fino a quando non ne scegliero qualcuno decente,
-      // adesso sembrano un giochino anni 80". L\'interruttore resta dov\'e\' e
-      // funziona come prima: cambia solo da dove parte.
-      expect(prima.effettiSonori, isFalse,
-          reason: 'di partenza l\'app suona di nuovo');
+      // **DI PARTENZA L\'APP SUONA, ordine CN del 2 settembre 2026.**
+      //
+      // **Supera la voce BZ.05 del 28 agosto**, che li voleva spenti
+      // "almeno fino a quando non ne scegliero qualcuno decente": quella
+      // condizione l\'ordine CN l\'ha soddisfatta, con tredici suoni
+      // scelti uno per uno e portati tutti alla stessa sonorita'.
+      expect(prima.effettiSonori, isTrue,
+          reason: 'di partenza l\'app non suona: la decisione del 2 '
+              'settembre 2026 vuole gli effetti accesi per chi apre l\'app '
+              'la prima volta');
+      prima.setEffettiSonori(false);
+      await Future<void>.delayed(Duration.zero);
+      final rispento = SettingsController();
+      await rispento.load();
+      expect(rispento.effettiSonori, isFalse,
+          reason: 'chi spegne gli effetti sonori li ritrova accesi alla '
+              'riapertura, cioe\' la sua scelta non conta niente');
       prima.setEffettiSonori(true);
       await Future<void>.delayed(Duration.zero);
-      final riacceso = SettingsController();
-      await riacceso.load();
-      expect(riacceso.effettiSonori, isTrue,
-          reason: 'chi accende gli effetti sonori non li ritrova accesi');
       prima.setEffettiSonori(false);
       await Future<void>.delayed(Duration.zero);
-      prima.setEffettiSonori(false);
       // Il salvataggio e' best effort e asincrono: si lascia girare.
       await Future<void>.delayed(Duration.zero);
 

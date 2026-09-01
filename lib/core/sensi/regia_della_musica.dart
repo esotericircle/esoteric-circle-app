@@ -94,8 +94,20 @@ class RegiaDellaMusica {
   /// scelta, la spia, il volume voluto, l'abbassamento. Una prova puo'
   /// ancora verificare CHE COSA suonerebbe, che e' l'unica cosa che una
   /// prova possa verificare del suono.
-  static final bool senzaLettore =
+  static final bool _sottoLeProve =
       Platform.environment.containsKey('FLUTTER_TEST');
+
+  /// **UNA PROVA PUO' RIACCENDERE IL LETTORE, e una deve.**
+  ///
+  /// La scorciatoia qui sopra ha un prezzo che si e' pagato: **fra la
+  /// decisione e il suono non c'era piu' niente di sorvegliato.** La build
+  /// 2218 e' uscita muta, e tutte le prove erano verdi perche' si fermavano
+  /// alla decisione. Chi vuole guardare cosa arriva davvero al lettore mette
+  /// questo a falso e ascolta il canale della piattaforma.
+  @visibleForTesting
+  static bool? lettoreForzato;
+
+  static bool get senzaLettore => lettoreForzato ?? _sottoLeProve;
 
   MusicaDelCerchio? _corrente;
   double _volumeVoluto = 0.0;
