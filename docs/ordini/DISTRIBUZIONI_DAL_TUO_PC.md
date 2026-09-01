@@ -237,12 +237,29 @@ Riconosci il caso cosi': il comando resta fermo su una riga che parla di
 
 ## PASSO 6. LA BUILD AI FONDATORI
 
-**Questa la faccio io, e questo passo serve solo se un giorno devi rifarla tu.**
-La build 2218 dell'ordine CN e' gia' costruita e consegnata dal mio lato: la
-trovi in Firebase App Distribution, e chi e' nel gruppo dei tester la riceve
-per posta.
+**QUESTA TOCCA A TE, E TI SPIEGO PERCHE'.** La build 2218 dell'ordine CN
+l'ho costruita e il cancello e' verde, ma **la consegna non parte da qui**:
+`tool/consegna.py` prima di caricare qualunque cosa **installa l'archivio
+su un telefono vero e lo avvia**, per guardare nel log se parte davvero.
+Sulla mia macchina non c'e' nessun telefono e nessun emulatore, quindi si
+ferma dicendo *"Non si consegna al buio"*.
 
-**Se devi rifarla dal tuo PC**, in ordine:
+**Non l'ho aggirata di proposito**: quella prova e' l'unica cosa che sta
+fra una build rotta e il telefono dei fondatori.
+
+**Collega il telefono al PC col cavo**, sbloccalo, e se compare la richiesta
+di autorizzare il debug USB accettala. Poi verifica che si veda:
+
+```powershell
+adb devices
+```
+
+**Cosa devi leggere.** Una riga sotto `List of devices attached` che
+finisce con la parola `device`. Se finisce con `unauthorized`, guarda lo
+schermo del telefono e accetta. Se non compare niente, prova un altro cavo:
+certi cavi portano solo la corrente.
+
+Poi, in ordine:
 
 ```powershell
 cd C:\Users\user\Desktop\esoteric-circle-app

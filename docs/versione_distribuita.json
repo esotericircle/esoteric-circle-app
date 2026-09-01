@@ -1,12 +1,14 @@
 {
-  "ultimo_distribuito": 2216,
-  "quando": "2026-08-31",
+  "ultimo_distribuito": 2218,
+  "quando": "2026-09-01",
   "nota": "Il numero di versione dell'ultima build consegnata a un telefono. Android rifiuta di installare un versionCode piu' basso sopra uno piu' alto: la release del 28 luglio notte aveva numero 1 contro il 2001 di quella di ieri, quindi non si sovrapponeva. Il 2001 non era voluto, veniva da --split-per-abi, che somma duemila per l'ABI arm64: togliendo lo split il numero e' tornato a uno. Da qui in avanti il numero sta nel pubspec e deve crescere sempre, qualunque sia il modo di costruire. Questo file registra l'ultimo consegnato e test/versione_build_test.dart impedisce di distribuire un numero che non lo supera. Si aggiorna DOPO ogni distribuzione riuscita, col numero appena consegnato.",
-  "release": "47l3sigu98f1o",
+  "release": "7s8321b3mtbu0",
   "numero_letto_da": "aapt2 dump badging sull'archivio costruito, non dal pubspec",
-  "peso_archivio_byte": 174780993,
+  "peso_archivio_byte": 176723356,
   "la_2206_era_rimasta_fuori": "Il 26 agosto 2026 alle 14:26 UTC la build 2206 e' stata consegnata davvero, release 4igu53cugnei8, e questo file non lo ha mai saputo: e' rimasto a 2205 fino all'ordine BS. Verificato sul server, non sulla parola di nessuno, chiedendo l'elenco delle release ad App Distribution. Chi consegna aggiorna questo file subito dopo, altrimenti la guardia della versione difende un numero che non e' piu' vero.",
   "verificata_sul_server": "Elenco delle release chiesto ad App Distribution il 28 agosto 2026: la 2210 c'e', creata alle 00:19 UTC, release 2ip1f3tcglgm8. Il numero 2210 e' stato letto con aapt2 dall'archivio costruito, non dal pubspec.",
   "il_peso_lo_scrive_la_consegna": "Dall'ordine CH voce 09, del 31 agosto 2026, il campo peso_archivio_byte lo scrive tool/consegna.py insieme al numero, alla data e alla release, e non piu' una persona a mano. Prima aveva portato lo STESSO numero, 173822285, per cinque consegne di fila dalla 2208 alla 2213, poi 195580347 per la 2214 e ancora per la 2215: e' stato giusto solo quando qualcuno si e' ricordato di scriverlo.",
-  "il_peso_vero_della_2215": "195596827 byte, e non 195580347 come questo registro ha dichiarato fino al 31 agosto 2026. Il numero viene dalla DIMENSIONE DELL'ARCHIVIO vero, scaricato da App Distribution il 31 agosto 2026 dalla release 7c1gvmgbdfilo, e coincide con quello scritto nel corpo del commit e646f06f di quella consegna: erano due posti che dicevano la stessa cosa in modo diverso. Si corregge qui perche' un registro che porta un numero falso e' peggio di un registro che non ce l'ha."
+  "il_peso_vero_della_2215": "195596827 byte, e non 195580347 come questo registro ha dichiarato fino al 31 agosto 2026. Il numero viene dalla DIMENSIONE DELL'ARCHIVIO vero, scaricato da App Distribution il 31 agosto 2026 dalla release 7c1gvmgbdfilo, e coincide con quello scritto nel corpo del commit e646f06f di quella consegna: erano due posti che dicevano la stessa cosa in modo diverso. Si corregge qui perche' un registro che porta un numero falso e' peggio di un registro che non ce l'ha.",
+  "comando_di_build": "flutter build apk --release",
+  "prova_di_accensione": "SALTATA: il fondatore la vuole su App Tester e la macchina che costruisce non ha nessun telefono collegato, ordine CN del 1 settembre 2026"
 }

@@ -362,6 +362,15 @@ def main():
     # quando qualcuno si e' ricordato di scriverlo.
     reg['peso_archivio_byte'] = peso
     reg['comando_di_build'] = comando
+    # **E SI SCRIVE ANCHE SE L'ARCHIVIO E' STATO ACCESO, ordine CN.**
+    #
+    # Il salto della prova di accensione si stampava a video e non
+    # finiva da nessuna parte: chi rilegge il registro un mese dopo non
+    # puo' distinguere una build che un telefono ha acceso davvero da
+    # una consegnata al buio. Sono due cose diverse, e la differenza
+    # conta proprio quando qualcosa va storto.
+    reg['prova_di_accensione'] = (
+        'SALTATA: ' + salto if salto else 'eseguita su un dispositivo')
     io.open(REGISTRO, 'w', encoding='utf-8').write(
         json.dumps(reg, ensure_ascii=False, indent=2) + '\n')
     print('registro aggiornato: ' + str(prima) + ' -> ' + str(numero))

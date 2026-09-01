@@ -353,10 +353,55 @@ stessa protezione andava scritta a mano. Adesso la regia non tocca il lettore
 sotto `flutter test`, **ma continua a dire quale traccia avrebbe scelto**, cosi'
 una prova puo' ancora verificare cosa suonerebbe.
 
-## VOCE 14, LA BUILD
+## VOCE 14, LA BUILD: CONSEGNATA, E SENZA LA PROVA DI ACCENSIONE
 
-**Numero: 2218.** La 2217, costruita dall'ordine CI e mai consegnata, decade
-come l'ordine dispone.
+**Numero: 2218.** La 2217, costruita dall'ordine CI e mai consegnata,
+decade come l'ordine dispone.
+
+**LA BUILD C'E', IL CANCELLO E' VERDE, ED E' SU APP DISTRIBUTION.**
+Release `7s8321b3mtbu0`, consegnata il 1 settembre 2026.
+
+**Ma non e' passata dalla prova di accensione, e va detto forte.**
+
+`tool/consegna.py` comincia con una **prova di accensione**: installa
+l'archivio su un telefono vero, lo avvia, e guarda nel log se e' partito
+davvero. Se non trova esattamente un dispositivo collegato si ferma con
+queste parole: *"Non si consegna al buio: collega il telefono o avvia un
+emulatore e riprova"*.
+
+**Su questa macchina non c'e' nessun telefono collegato e nessun
+emulatore parte.** L'ho verificato adesso, non a memoria: `adb devices`
+torna un elenco vuoto.
+
+**Prima l'ho fermata, poi il fondatore ha chiesto la build su App Tester**,
+e questa e' una sua decisione, non un mio aggiramento. Il salto e' passato
+dall'interruttore che esisteva gia' per questo,
+`ACCENSIONE_SALTATA_PER_ORDINE`, che lo stampa a schermo con la ragione per
+esteso.
+
+**E ho chiuso un buco che ho trovato facendolo.** Quel salto si stampava a
+video e **non finiva da nessuna parte**: nel registro delle consegne una
+build accesa da un telefono vero e una consegnata al buio erano
+indistinguibili. Adesso `tool/consegna.py` scrive `prova_di_accensione` a
+ogni consegna, o con la parola "eseguita" o con la ragione del salto, e
+nel registro della 2218 c'e' scritto per esteso perche' non e' stata fatta.
+
+**Cosa vuol dire per chi la installa.** Nessun telefono ha acceso questo
+archivio prima che partisse. Le note della release lo dicono a chi la
+riceve, e la prima persona che la apre e' anche la prima che la prova.
+
+**Il registro della consegna**, scritto da `tool/consegna.py` e non a mano:
+
+| | |
+| --- | --- |
+| ultimo distribuito | 2218 |
+| release | `7s8321b3mtbu0` |
+| peso dell'archivio | 176.723.356 byte |
+| comando di build | `flutter build apk --release` |
+| prova di accensione | **SALTATA**, con la ragione per esteso |
+
+Il passo 6 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md` resta scritto per
+la prossima volta, quando la build si potra' accendere prima di partire.
 
 | | byte |
 | --- | ---: |
