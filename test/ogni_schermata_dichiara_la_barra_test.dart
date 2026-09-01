@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/features/shell/dove_si_vede_la_barra.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// OGNI SCHERMATA DICHIARA SE PORTA LA BARRA, E NESSUNA EREDITA PER CASO.
 ///
@@ -27,8 +27,7 @@ void main() {
     final trovate = <String>{};
     final righe =
         RegExp(r'^class\s+([A-Za-z0-9_]+)\s+extends', multiLine: true);
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final sorgente = f.readAsStringSync();
       for (final m in righe.allMatches(sorgente)) {
         final nome = m.group(1)!;

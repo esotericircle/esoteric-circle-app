@@ -21,6 +21,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LO SCUOTIMENTO HA UNA PORTA SOLA, E DOPO UNA GETTATA FUNZIONA ANCORA.
 ///
 /// Il difetto di oggi, misurato sul codice: la schermata delle rune apriva il
@@ -38,10 +40,7 @@ void main() {
         'accelerometerEventStream vive in due soli file, parallasse e '
         'porta dello scuotimento', () {
       final fuori = <String>[];
-      for (final f in Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
+      for (final f in sorgentiDiLib()) {
         if (!f.readAsStringSync().contains('accelerometerEventStream')) {
           continue;
         }

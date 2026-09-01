@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// UNA PORTA SOLA PER IL CONFRONTO.
 ///
 /// **I due difetti che il fondatore ha visto.** "Chiedi anche agli altri", in
@@ -37,7 +39,10 @@ void main() {
     // campiona, ed e' esattamente cosi' che la Sintesi era sfuggita alla prova
     // della bilancia.
     final aperture = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
+    // **DALLA PORTA COMUNE, ordine CL voce 04.** La pila parte dai
+    // file veri invece che dalla cartella: cosi' il cardinale minimo
+    // vale anche qui, e questa guardia non puo' girare a vuoto.
+    final da = <FileSystemEntity>[...sorgentiDiLib()];
     while (da.isNotEmpty) {
       final voce = da.removeLast();
       if (voce is Directory) {
@@ -66,7 +71,10 @@ void main() {
     // torni: un turno di Caligo dentro la conversazione di Medora dice che a
     // parlare e' stato Medora, e non e' vero.
     final colpe = <String>[];
-    final da = <FileSystemEntity>[Directory('lib')];
+    // **DALLA PORTA COMUNE, ordine CL voce 04.** La pila parte dai
+    // file veri invece che dalla cartella: cosi' il cardinale minimo
+    // vale anche qui, e questa guardia non puo' girare a vuoto.
+    final da = <FileSystemEntity>[...sorgentiDiLib()];
     while (da.isNotEmpty) {
       final voce = da.removeLast();
       if (voce is Directory) {

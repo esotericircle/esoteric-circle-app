@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -19,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL RETRO VERGINE HA UNA PORTA SOLA, E LA SAGOMA DEL FRONTE NON ESISTE PIU'.
 ///
 /// Il difetto visto da Mauro: sul telo, dove doveva vedersi la pietra vergine,
@@ -35,10 +36,7 @@ void main() {
     // percorso del retro, e il percorso nomina la cartella. Se la cartella
     // compare in un secondo file, quella e' una seconda porta.
     final colpevoli = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       if (!f.readAsStringSync().contains('rune_bone_vergine')) continue;
       if (!f.path.endsWith('retro_della_runa.dart')) colpevoli.add(f.path);
     }

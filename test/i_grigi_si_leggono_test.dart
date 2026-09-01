@@ -1,9 +1,10 @@
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// I GRIGI SI LEGGONO. Ordine AS voce 05.
 ///
@@ -142,10 +143,7 @@ void main() {
     var osservati = 0;
     final colpe = <String>[];
     final fondoPeggiore = fondi.values.first;
-    for (final file in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final file in sorgentiDiLib()) {
       final percorso = file.path.replaceAll('\\', '/');
       final righe = file.readAsLinesSync();
       for (var n = 0; n < righe.length; n++) {

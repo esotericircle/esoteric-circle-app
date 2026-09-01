@@ -29,6 +29,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// L'ARCHETIPO E' UN DATO SOLO, LETTO DA PIU' PORTE.
 ///
 /// **Il difetto che queste prove tengono chiuso.** Fatto il Test Archetipo, la
@@ -83,10 +85,7 @@ void main() {
     // chiamato, non sui nomi dei file: rinominare o spostare una schermata non
     // la fa uscire da questa prova.
     final creatori = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       // Il file che DEFINISCE la classe contiene il suo costruttore, e non e'
       // una copia: e' la dichiarazione.
       if (f.path.replaceAll(r'\', '/').endsWith('archetype_history.dart')) {

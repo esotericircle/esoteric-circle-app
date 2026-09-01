@@ -14,6 +14,8 @@ import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// Regola di lingua: mai la sequenza virgola piu' "e" (o "ed"), non solo a
 /// inizio di proposizione ma anche a meta' frase. Questo test setaccia i testi
 /// statici e generati dell'app, e in piu' scandaglia tutte le stringhe del
@@ -169,10 +171,7 @@ void main() {
     // elenco di eccezioni diventa un elenco che nessuno mantiene. Le undici
     // virgole sono state togliete e questo file guarda tutto `lib`, cornici
     // comprese.
-    final files = Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'));
+    final files = sorgentiDiLib();
     for (final file in files) {
       final strings = _logicalStrings(file.readAsStringSync());
       for (final s in strings) {

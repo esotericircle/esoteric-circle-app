@@ -14,6 +14,8 @@ import 'package:esoteric_circle/features/maestri/chat/widgets/chat_suggestions.d
 import 'package:esoteric_circle/features/maestri/widgets/domain_pillars.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// LE COSE CHE SI VEDONO E DICHIARANO IL FALSO.
 ///
 /// Correzioni trovate dal fondatore guardando lo schermo, non leggendo il
@@ -45,8 +47,7 @@ void main() {
         'non una sentenza sul tuo destino',
       ];
       final colpe = <String>[];
-      for (final voce in Directory('lib').listSync(recursive: true)) {
-        if (voce is! File || !voce.path.endsWith('.dart')) continue;
+      for (final voce in sorgentiDiLib()) {
         final percorso = voce.path.replaceAll(Platform.pathSeparator, '/');
         if (percorso == casa) continue;
         // Il posto dove il TESTO vive come dato non e' un posto dove si

@@ -14,6 +14,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// **CIO' CHE UNA PERSONA LEGGE DAVVERO, senza il codice in mezzo.**
 ///
 /// Le stringhe di `lib` portano le interpolazioni scritte com'e' il sorgente,
@@ -30,8 +32,7 @@ void main() {
   List<(String file, int riga, String testo)> stringheDiLib() {
     final trovate = <(String, int, String)>[];
     final esp = RegExp(r"'((?:[^'\\]|\\.)*)'");
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    for (final f in sorgentiDiLib()) {
       final p = f.path.replaceAll(Platform.pathSeparator, '/');
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {

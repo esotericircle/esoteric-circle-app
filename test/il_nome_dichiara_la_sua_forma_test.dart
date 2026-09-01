@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// IL NOME DICHIARA LA SUA FORMA, ordine P voce 38.
 ///
 /// **Il difetto.** Nel Cosmic Passport si leggeva "I tuoi Stella: cinquanta
@@ -39,10 +41,7 @@ void main() {
   /// queste due.
   const formeDichiarate = ['.singolare', '.plurale'];
 
-  List<File> sorgenti() => Directory('lib')
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
+  List<File> sorgenti() => sorgentiDiLib()
       .toList();
 
   test('un nome di traguardo espone solo le due forme, e nessun accesso nudo',

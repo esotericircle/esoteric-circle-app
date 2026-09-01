@@ -5,6 +5,8 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'sorgenti_di_lib.dart';
+
 /// OGNI BUDGET DICHIARA IL SUO RESIDUO PRIMA DEL GESTO. Ordine CE voce 04.
 ///
 /// **Le parole del fondatore, verbatim:** "in sinastria vip, non avevo chiesto
@@ -115,10 +117,7 @@ void main() {
     // non ha mai confermato, cioe' esattamente il difetto che la voce ha
     // appena chiuso.
     final colpe = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\\', '/');
       if (percorso.endsWith('question_allowance.dart')) continue;
       if (f.readAsStringSync().contains('ilServerHaParlato')) {

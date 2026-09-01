@@ -1,6 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
+
+import 'sorgenti_di_lib.dart';
 
 /// Gli accenti a schermo sono accenti, non apostrofi.
 ///
@@ -32,10 +32,7 @@ void main() {
 
   test('Nessuna stringa mostrata usa l\'apostrofo al posto dell\'accento', () {
     final colpevoli = <String>[];
-    for (final f in Directory('lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
+    for (final f in sorgentiDiLib()) {
       var n = 0;
       for (final riga in f.readAsLinesSync()) {
         n++;
