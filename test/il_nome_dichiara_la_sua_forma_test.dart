@@ -41,8 +41,7 @@ void main() {
   /// queste due.
   const formeDichiarate = ['.singolare', '.plurale'];
 
-  List<File> sorgenti() => sorgentiDiLib()
-      .toList();
+  List<File> sorgenti() => sorgentiDiLib().toList();
 
   test('un nome di traguardo espone solo le due forme, e nessun accesso nudo',
       () {

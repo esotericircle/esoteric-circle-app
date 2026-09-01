@@ -37,6 +37,31 @@ class MaestroPalette {
   final List<Color> backgroundGradient;
   final Color surface;
   final Color surfaceElevated;
+
+  /// **IL PRIMARIO E' UN COLORE DI MARCHIO, E NON PORTA MAI TESTO.**
+  /// Ordine CL voce 08, misurato dall'ordine CI.
+  ///
+  /// I quattro primari delle tavolozze, contro i sette fondi veri del
+  /// censimento dei grigi, fanno ventotto coppie: **ventisei non arrivano
+  /// nemmeno a 4,5 di contrasto**, cioe' alla soglia dei titoli grandi,
+  /// figurarsi ai 7 che questo progetto pretende dai testi piccoli. Solo
+  /// `aura.primary` regge, e solo su due fondi su sette.
+  ///
+  /// **Sta benissimo su un bordo, su un riempimento, su un anello, su un
+  /// alone.** Non deve mai essere il colore di una parola che qualcuno deve
+  /// leggere.
+  ///
+  /// **Il modo in cui il difetto entra non e' scriverlo**, ed e' la parte da
+  /// ricordare: nessuno ha mai scritto `color: palette.primary` su un testo.
+  /// La riga "I giorni prima" era viola perche' un `TextButton` senza stile
+  /// prende il primario dello SCHEMA MATERIAL, che e' quello della tavolozza
+  /// neutra. Il colore arriva **per eredita'**, e per questo la guardia che
+  /// lo sorveglia non cerca una stringa nel sorgente: enumera i comandi che
+  /// il colore non lo dichiarano.
+  ///
+  /// Sorvegliato da `test/il_censimento_dei_grigi_test.dart`, due prove: "il
+  /// primario non porta mai testo" e "nessun comando di testo prende il
+  /// colore dal tema senza dirlo".
   final Color primary;
 
   /// Colore dell'alone luminoso, usato per bagliori e ombre colorate.

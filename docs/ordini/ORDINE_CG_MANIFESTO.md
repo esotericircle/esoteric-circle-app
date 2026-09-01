@@ -20,7 +20,7 @@ Porta le tre regole degli ordini precedenti:
 ## Le sedici voci
 
 - **CG.01** Il Cosmic Journal prende due viste. **CHIUSA.**
-- **CG.02** La timeline a quattro livelli, coi riassunti deterministici. **CHIUSA.**
+- **CG.02** La timeline a quattro livelli, coi riassunti deterministici. **CHIUSA**, ma era stata dichiarata chiusa con una famiglia di filtri vuota per costruzione: vedi la correzione del 1 settembre 2026, ordine CL voce 06.
 - **CG.03** L'indice leggero per mese. **CHIUSA.**
 - **CG.04** Il ricordo aperto. **CHIUSA.**
 - **CG.05** La ricerca. **CHIUSA.**
@@ -357,6 +357,36 @@ CF voce 17 aveva gia' sollevato, e non e' cambiata.
 segreti. **Si chiude da solo**, perche' e' idempotente: quando la lapide col
 sale vuoto non c'e' piu' non trova niente. Non resta nessun interruttore acceso
 che qualcuno debba ricordarsi di spegnere.
+
+### CG.02 ERA CHIUSA CON UN FILTRO CHE NON POTEVA TROVARE NIENTE, corretto il 1 settembre 2026
+
+**Il fatto, misurato dall'ordine CL voce 06.** La pastiglia dei Ricordi
+porta la famiglia **Conversazioni**, e il tipo `TipoDelRicordo.conversazione`
+esiste dal commit `4315ef85`, cioe' da questa voce. **Nessuno ci scriveva
+niente**: l'unico punto che chiamava `registro.segna` era quello dei responsi.
+Il filtro era **vuoto per costruzione**, e chi lo toccava non trovava mai
+niente.
+
+**E' la veridicita' dell'interfaccia violata**, sezione 31.1 del Briefing
+Progetto: un filtro che esiste, si vede e non trova mai niente promette una
+cosa che non c'e'.
+
+**Perche' la voce risultava CHIUSA lo stesso.** Per la stessa ragione di
+CG.16: il manifesto registrava cio' che era stato COSTRUITO, cioe' la
+timeline, i quattro livelli, i riassunti, i filtri; e non cio' che ARRIVAVA a
+una persona che tocca quel filtro.
+
+**Quindi le voci dichiarate chiuse e non chiuse erano DUE, non una.** Il
+referto dell'ordine CI ne dichiarava una, CG.16, ed era un conto sbagliato:
+il difetto del filtro vuoto era scritto nello stesso referto, tre righe piu'
+su, e non era stato collegato alla voce da cui discendeva. **Un difetto
+descritto e non attribuito e' un difetto che nessuno andra' a cercare.**
+
+**Riparata.** Dall'ordine CI voce 06 ogni turno di chat entra nell'indice, e
+si segna la domanda e non la risposta: la famiglia Conversazioni adesso trova
+cio' che promette. La voce resta CHIUSA perche' il difetto e' curato, e
+questa riga resta perche' il modo in cui e' stata dichiarata chiusa la prima
+volta non si dimentichi.
 
 ### CG.16 ERA DICHIARATA CHIUSA E NON LO ERA, corretto il 1 settembre 2026
 

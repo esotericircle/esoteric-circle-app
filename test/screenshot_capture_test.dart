@@ -204,8 +204,27 @@ const double rapportoDelCorredo = 3.0;
 /// dimenticarne uno per avere due anteprime rese in due modi diversi senza che
 /// nessuno lo sapesse. Qui la misura si dichiara logica, e il rapporto lo mette
 /// il corredo.
+/// **LA SCALA DEL TESTO DEL CORREDO. Ordine CL voce 07.**
+///
+/// Di partenza e' uno, cioe' com'e' sempre stato. Valorizzando
+/// `SCALA_DEL_TESTO` l'intero corredo si monta a quella scala: serve a girare
+/// tutte le schermate assemblate al massimo consentito dal sistema, che e'
+/// 1,3, ed e' li' che l'impaginazione si rompe.
+///
+/// **Perche' il corredo e non l'intera suite.** Raddoppiare ogni prova
+/// porterebbe il cancello da venticinque minuti a cinquanta, per far girare
+/// due volte anche le prove che di impaginazione non sono. Il corredo delle
+/// catture E' l'insieme delle schermate assemblate: e' esattamente dove il
+/// difetto puo' nascere, e nient'altro.
+double get scalaDelTesto =>
+    double.tryParse(Platform.environment['SCALA_DEL_TESTO'] ?? '') ?? 1.0;
+
 Future<void> montaLoSchermo(WidgetTester tester, Size logico,
     {double rapporto = rapportoDelCorredo}) async {
+  if (scalaDelTesto != 1.0) {
+    tester.platformDispatcher.textScaleFactorTestValue = scalaDelTesto;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+  }
   tester.view.devicePixelRatio = rapporto;
   tester.view.physicalSize = logico * rapporto;
   addTearDown(tester.view.resetPhysicalSize);
