@@ -494,3 +494,88 @@ solo che l'effetto sta davanti.
 **E in Impostazioni c'e' una pagina nuova**, Suono, con due interruttori e due
 cursori: la musica parte al sessanta, gli effetti al cento, e sotto c'e'
 scritto perche' non sono pari.
+
+
+---
+
+# LA CODA DELL'ORDINE CN: LA 2218 ERA MUTA
+
+2 settembre 2026. Il fondatore ha installato la build da zero e non ha sentito
+niente: ne' al Risveglio, ne' dopo il login. **Un difetto solo, tre sintomi.**
+
+## Il difetto, misurato e non dedotto
+
+**`play` di `audioplayers` non e' una chiamata che finisce.** Dentro attende un
+evento `prepared` che deve arrivare dalla piattaforma, e lo attende insieme
+all'impostazione della sorgente:
+
+```dart
+final preparedFuture = _onPrepared.firstWhere(...).timeout(...);
+final setSourceFuture = setSource();
+await Future.wait([setSourceFuture, preparedFuture]);
+```
+
+Il motore la attendeva come una chiamata normale. **Cosi' `MotoreAudio.musica`
+non tornava ne' vero ne' falso: restava appesa.** La regia restava sospesa a
+meta', la traccia non veniva mai impostata, e **il `catch` non scattava perche'
+non c'era nessun errore: c'era un'attesa infinita.**
+
+L'app e' uscita muta con quattromiladuecento prove verdi e **senza una riga di
+log**, perche' un difetto che non solleva non stampa niente.
+
+## Come l'ho trovato, e cosa avevo sbagliato prima
+
+**La prima diagnosi era sbagliata, e l'ho scoperto provandola.** Avevo
+concluso che il custode leggesse il nome della schermata troppo presto,
+nell'istante del push, quando la rotta non e' ancora costruita. Ho scritto la
+correzione, poi ho rimesso il difetto per vedere la prova diventare rossa:
+**non e' diventata rossa.** La musica veniva decisa lo stesso, dal primo giro
+dopo il frame.
+
+Quella correzione resta, perche' leggere una rotta appena spinta e' comunque
+sbagliato e sul cambio di dominio conterebbe. **Ma va detto per intero: non era
+la causa, e non l'ho vista rossa.**
+
+La causa vera e' venuta fuori da una misura, non da un ragionamento: una prova
+che chiama `play` di persona e stampa cosa esplode. **Non e' esplosa: e' andata
+in timeout a trenta secondi.** Da li' in poi non c'era piu' niente da dedurre.
+
+## Le due guardie nuove, dove non ce n'era nessuna
+
+**`la_musica_parte_davvero_test.dart`** monta l'app vera e pretende che
+qualcuno chieda alla regia di suonare lo Shaman, al primo avvio e col Risveglio
+davanti.
+
+**`il_lettore_riceve_la_musica_test.dart`** riaccende il lettore sotto
+`flutter test` e ascolta il canale della piattaforma. Pretende **la rampa del
+volume**, che arriva solo se la richiesta di suonare e' tornata: col difetto
+rimesso arrivano **due** comandi di volume invece di venti. Vista rossa con
+l'innesto verificato col grep.
+
+## Cosa insegna, e non e' una cosa piccola
+
+**La guardia di ieri era verde e inutile.** `la_musica_segue_il_luogo_test.dart`
+prova `cosaSuonaSu(...)`, una funzione pura: le si passano i nomi a mano e si
+guarda se risponde bene. **Rispondeva benissimo. Nell'app nessuno le passava
+quei nomi.** E' la **specie 3** del registro, la scollegata, e l'ho scritta io
+nello stesso ordine che ha introdotto il difetto.
+
+**E c'era un secondo strato di cecita', peggiore.** Per far girare le prove
+avevo insegnato alla regia a **saltare il lettore** sotto `flutter test`. Quel
+salto ha reso verdi le prove **e ha tolto dalla sorveglianza tutto cio' che sta
+fra la decisione e il suono**, che e' esattamente dove il difetto viveva. Una
+scorciatoia presa per far passare le prove ha cancellato il pezzo di strada in
+cui il guasto si nascondeva.
+
+Adesso quel salto si puo' spegnere, e una guardia lo spegne apposta.
+
+## E gli effetti nascono accesi
+
+Decisione del fondatore del 2 settembre 2026, che **supera la voce BZ.05 del 28
+agosto**. Quella li voleva spenti *"almeno fino a quando non ne scegliero
+qualcuno decente, adesso sembrano un giochino anni 80"*: **l'ordine CN ha
+soddisfatto la condizione**, tredici suoni scelti uno per uno e portati tutti
+alla stessa sonorita' con una misura sola.
+
+La guardia del telefono nuovo **cambia il numero atteso e non la grandezza
+misurata**: da zero responsi che suonano a otto su otto.
