@@ -103,7 +103,8 @@ void main() {
     print('ORDINE CF VOCE 07: la ripresa del rito riprende $ripresi');
     final persi = ripresi.entries.where((e) => !e.value).map((e) => e.key);
     expect(persi, isEmpty,
-        reason: 'la ripresa del rito non riprende $persi: cio' ' che il '
+        reason: 'la ripresa del rito non riprende $persi: cio'
+            ' che il '
             'Cerchio ha custodito la persona deve riscriverlo');
   });
 }

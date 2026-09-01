@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 /// Il Sigillo del Cerchio: emblema personale deterministico dai dati di nascita,
 /// ora un'esperienza con la frase di Medora e il pannello "Cosa significa".
 void main() {
-  Widget host({String name = 'Sofia', BirthIdentity? identity}) => MultiProvider(
+  Widget host({String name = 'Sofia', BirthIdentity? identity}) =>
+      MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -27,7 +28,8 @@ void main() {
   test('Il sigillo nasce deterministico da segno, numero ed elemento', () {
     final seal = CircleSeal.from(
       name: 'Sofia',
-      identity: BirthIdentity(birthMoment: DateTime(1990, 6, 15), isExample: false),
+      identity:
+          BirthIdentity(birthMoment: DateTime(1990, 6, 15), isExample: false),
     );
     expect(seal.name, 'Sofia');
     expect(seal.sign, Zodiac.gemini);
@@ -37,7 +39,8 @@ void main() {
     // Stesso dato, stesso sigillo.
     final again = CircleSeal.from(
       name: 'Sofia',
-      identity: BirthIdentity(birthMoment: DateTime(1990, 6, 15), isExample: false),
+      identity:
+          BirthIdentity(birthMoment: DateTime(1990, 6, 15), isExample: false),
     );
     expect(again.sign, seal.sign);
     expect(again.lifePath, seal.lifePath);
@@ -53,7 +56,8 @@ void main() {
     }
   });
 
-  testWidgets('La schermata compone il sigillo, la frase di Medora e la condivisione',
+  testWidgets(
+      'La schermata compone il sigillo, la frase di Medora e la condivisione',
       (tester) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 1700);

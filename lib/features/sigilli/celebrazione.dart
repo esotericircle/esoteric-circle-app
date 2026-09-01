@@ -731,8 +731,9 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                                           final quando = context
                                               .read<DiarioDelCammino>()
                                               .quandoSiEAcceso(t.id);
-                                          if (quando == null)
+                                          if (quando == null) {
                                             return const SizedBox.shrink();
+                                          }
                                           return Padding(
                                             padding: const EdgeInsets.only(
                                                 top: SpacingTokens.xs),

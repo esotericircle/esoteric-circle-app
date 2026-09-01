@@ -45,7 +45,8 @@ void main() {
     ];
     for (final libreria in soloDiProva) {
       expect(dichiarate, isNot(contains(libreria)),
-          reason: 'functions/package.json dichiara "$libreria", quindi il server '
+          reason:
+              'functions/package.json dichiara "$libreria", quindi il server '
               'la installa quando costruisce le funzioni: e\' li\' che il deploy '
               'e\' morto su un conflitto di versioni. Va nel package.json della '
               'radice, che il deploy non carica');
@@ -65,7 +66,8 @@ void main() {
         const <String>[];
     for (final libreria in soloDiProva) {
       expect(dev, contains(libreria),
-          reason: 'la radice non porta piu' ' "$libreria": le prove delle regole '
+          reason: 'la radice non porta piu'
+              ' "$libreria": le prove delle regole '
               'di Firestore non hanno piu\' con cosa girare');
     }
   });
@@ -79,14 +81,14 @@ void main() {
     expect(base, contains('regole.emulatore.ts'));
     final suo = File('functions/tsconfig.regole.json');
     expect(suo.existsSync(), isTrue,
-        reason: 'la prova delle regole non ha piu\' una sua compilazione, quindi '
+        reason:
+            'la prova delle regole non ha piu\' una sua compilazione, quindi '
             'non si compila affatto');
     // L'esclusione del file base si annulla nel suo, altrimenti quella
     // compilazione non avrebbe nessun file dentro.
     expect(suo.readAsStringSync(), contains('"exclude": []'));
-    final script =
-        (manifesto('functions/package.json')['scripts'] as Map)['test:regole']
-            as String;
+    final script = (manifesto('functions/package.json')['scripts']
+        as Map)['test:regole'] as String;
     expect(script, contains('tsconfig.regole.json'),
         reason: 'lo script delle prove delle regole non usa la sua '
             'compilazione: userebbe quella che il file non contiene piu\'');

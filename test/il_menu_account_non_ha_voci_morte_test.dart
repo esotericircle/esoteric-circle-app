@@ -41,15 +41,14 @@ void main() {
         // Il pavimento di AL.04 sopra il Navigator, come nell'app vera: i
         // fogli dal basso vivono la' e senza scope morirebbero.
         builder: (ctx, child) => MaestroScope(child: child!),
-        home: const MaestroScope(
-            maestro: Maestro.medora, child: AccountScreen()),
+        home:
+            const MaestroScope(maestro: Maestro.medora, child: AccountScreen()),
       ),
     ));
     await tester.pump(const Duration(milliseconds: 200));
   }
 
-  testWidgets('Privacy risponde con l\'anticipo del Santuario',
-      (tester) async {
+  testWidgets('Privacy risponde con l\'anticipo del Santuario', (tester) async {
     // **NOTIFICHE NON E' PIU' QUI, e non e' una perdita.** Ordine BB voce 10:
     // era una voce in arrivo che al tocco raccontava cosa sarebbe arrivato, e
     // il fondatore ha misurato che il pulsante non fa nulla. **Aveva ragione:
@@ -115,8 +114,8 @@ void main() {
   });
 
   test('ogni voce del menu\' ha un\'azione oppure il suo anticipo', () {
-    final sorgente = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final sorgente =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     final morte = <String>[];
     var osservate = 0;
     for (final m in RegExp(r'_AccountEntry\(').allMatches(sorgente)) {
@@ -151,6 +150,10 @@ void main() {
 }
 
 class _PortaIdentitaFinta implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<EsitoDellaCustodia> entraDirettamente(
     ViaDellaCustodia via, {

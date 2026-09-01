@@ -89,8 +89,8 @@ void main() {
     await tester.pump();
     await tester.tap(carta);
     // La rotta che si chiude ha la sua transizione: si aspetta guardando.
-    for (var i = 0; i < 12 &&
-            find.byType(SinastriaGalleryScreen).evaluate().isNotEmpty;
+    for (var i = 0;
+        i < 12 && find.byType(SinastriaGalleryScreen).evaluate().isNotEmpty;
         i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
@@ -99,7 +99,8 @@ void main() {
         '${find.byType(SinastriaGalleryScreen).evaluate().isNotEmpty}');
   }
 
-  testWidgets('CA.01: entrando si vedono per prime le due carte e le tre '
+  testWidgets(
+      'CA.01: entrando si vedono per prime le due carte e le tre '
       'scelte, non il catalogo', (tester) async {
     await monta(tester);
     final titolo = find.byKey(const Key('sinastria_titolo_confronto'));
@@ -218,7 +219,8 @@ void main() {
         reason: 'toccando la carta di sinistra e\' cambiata quella di destra');
   });
 
-  testWidgets('CA.01: la galleria di scelta restituisce il volto e non apre '
+  testWidgets(
+      'CA.01: la galleria di scelta restituisce il volto e non apre '
       'il responso', (tester) async {
     await monta(tester);
     await tester.tap(find.byKey(const Key('sinastria_carta_da_scegliere')));

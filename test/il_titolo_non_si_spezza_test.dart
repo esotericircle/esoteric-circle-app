@@ -35,8 +35,8 @@ void main() {
     // attorno: se prima e dopo il taglio ci sono due lettere, la parola e'
     // stata tagliata.
     for (var i = 0; i < righe.length - 1; i++) {
-      final fine = pittore.getPositionForOffset(
-          Offset(larghezza, righe[i].baseline));
+      final fine =
+          pittore.getPositionForOffset(Offset(larghezza, righe[i].baseline));
       final dove = fine.offset;
       if (dove <= 0 || dove >= testo.length) continue;
       final prima = testo[dove - 1];

@@ -80,7 +80,8 @@ void main() {
           reason: 'il marcatore ${voce.key} dice un numero diverso da quello '
               'che si conta sulle righe, cioe\' ${voce.value}');
     }
-    final riassunto = conti.entries.map((e) => '${e.key} ${e.value}').join(', ');
+    final riassunto =
+        conti.entries.map((e) => '${e.key} ${e.value}').join(', ');
     // ignore: avoid_print
     print('ORDINE CH: voci $quante, $riassunto');
   });
@@ -102,7 +103,8 @@ void main() {
   test('CH.06: il progetto dichiara UNA architettura, e la scelta sta li\'',
       () {
     final gradle = File('android/app/build.gradle.kts').readAsStringSync();
-    final m = RegExp(r'abiFilters\s*\+=\s*listOf\(([^)]*)\)').firstMatch(gradle);
+    final m =
+        RegExp(r'abiFilters\s*\+=\s*listOf\(([^)]*)\)').firstMatch(gradle);
     expect(m, isNotNull,
         reason: 'in build.gradle.kts non c\'e\' nessun abiFilters: la scelta '
             'dell\'architettura e\' tornata a dipendere dal comando, ed e\' '
@@ -195,7 +197,8 @@ void main() {
     // E il controllo sta PRIMA del bivio, cioe' gira anche a suite verde: era
     // il buco vero, perche' nel ramo verde non veniva eseguito affatto.
     final righe = sbarramento.split('\n');
-    final iControllo = righe.indexWhere((r) => r.contains('if [ -n "\$DI_TROPPO" ]'));
+    final iControllo =
+        righe.indexWhere((r) => r.contains('if [ -n "\$DI_TROPPO" ]'));
     final iVerde =
         righe.indexWhere((r) => r.contains('if [ "\$ESITO" -eq 0 ]'));
     expect(iControllo, greaterThan(-1));

@@ -62,12 +62,13 @@ void main() {
     }
     expect(porte, isNotEmpty,
         reason: 'nessuno dice allo scaffale qual e\' il Maestro: il seme resta '
-            'quello del caso senza Maestro, cioe' ' tre arti in croce');
+            'quello del caso senza Maestro, cioe'
+            ' tre arti in croce');
   });
 
   test('Il foglio della matita legge il tetto da un punto solo', () {
-    final foglio =
-        File('lib/features/santuario/widgets/tue_arti_view.dart').readAsStringSync();
+    final foglio = File('lib/features/santuario/widgets/tue_arti_view.dart')
+        .readAsStringSync();
     expect(foglio, contains('ArtiPreferiteController.tetto'),
         reason: 'il foglio ripete il numero invece di leggerlo: due numeri che '
             'devono restare uguali sono due numeri che prima o poi divergono');

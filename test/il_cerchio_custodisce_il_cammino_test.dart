@@ -85,8 +85,8 @@ void main() {
     );
     final custodita = IdentitaDaCustodire.da(originale, nome: 'Sofia');
     expect(custodita, isNotNull);
-    final rifatta = IdentitaDaCustodire.daMappa(custodita!.aMappa())
-        ?.aBirthIdentity();
+    final rifatta =
+        IdentitaDaCustodire.daMappa(custodita!.aMappa())?.aBirthIdentity();
     // ignore: avoid_print
     print('ORDINE AP VOCE 01: nascita ${originale.birthMoment} tornata come '
         '${rifatta?.birthMoment}, ora nota ${rifatta?.hasBirthTime}');
@@ -130,8 +130,7 @@ void main() {
 
   test('un cammino vuoto si riconosce, e non si manda', () {
     expect(const CamminoDaCustodire().eVuoto, isTrue);
-    expect(
-        const CamminoDaCustodire(gesti: {'stesa': 1}).eVuoto, isFalse);
+    expect(const CamminoDaCustodire(gesti: {'stesa': 1}).eVuoto, isFalse);
   });
 
   test('IL CAMMINO VIAGGIA DENTRO LA CHIAMATA CHE GIA\' PARTE', () {

@@ -31,8 +31,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('il numero uno vive nel dato, con gli altri limiti giornalieri', () {
-    expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.free),
-        1,
+    expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.free), 1,
         reason: 'La matrice non promette piu\' una gettata al Viandante.');
     // **NON PIU" + E + " ILLIMITATE, ordine CE voce 08.** Erano senza tetto dal
     // Tier 1 in su e adesso hanno venti, trenta e cinquanta al giorno:
@@ -61,7 +60,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
         ChangeNotifierProvider(create: (_) => SettingsController()),
-        ChangeNotifierProvider(create: (_) => EntitlementService(initial: piano)),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: piano)),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
       child: MaterialApp(
@@ -90,7 +90,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  testWidgets('al terzo getto il gratuito e\' fermo: pulsante grigio e '
+  testWidgets(
+      'al terzo getto il gratuito e\' fermo: pulsante grigio e '
       'invito, mai muto', (tester) async {
     final borsa = await monta(tester, piano: Tier.free);
     await getta(tester);

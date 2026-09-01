@@ -186,17 +186,18 @@ void main() {
       // parzialmente trasparente. Se sparisse di colpo, qui non ci sarebbe
       // piu' niente da misurare, e sullo schermo si vedrebbe uno stacco.
       await tester.pump(SequenzaIntro.dissolvenza ~/ 2);
-      final velo = tester.widget<AnimatedOpacity>(
-          find.ancestor(
-                  of: find.byKey(const Key('intro_salta')),
-                  matching: find.byType(AnimatedOpacity))
-              .first);
+      final velo = tester.widget<AnimatedOpacity>(find
+          .ancestor(
+              of: find.byKey(const Key('intro_salta')),
+              matching: find.byType(AnimatedOpacity))
+          .first);
       expect(velo.opacity, 0.0,
           reason: 'l intro non sta sfumando: sparisce di colpo');
       final opacita = tester
           .widget<FadeTransition>(find
               .descendant(
-                  of: find.byType(AnimatedOpacity), matching: find.byType(FadeTransition))
+                  of: find.byType(AnimatedOpacity),
+                  matching: find.byType(FadeTransition))
               .first)
           .opacity
           .value;
@@ -273,8 +274,7 @@ void main() {
           reason: 'al ritorno l apertura torna a farsi sentire');
     });
 
-    testWidgets('Il video che non parte non blocca l apertura',
-        (tester) async {
+    testWidgets('Il video che non parte non blocca l apertura', (tester) async {
       // La via d'errore, che sul telefono e' il caso del file corrotto o del
       // decodificatore che manca: si va alla destinazione, non si resta sul
       // nero. E' anche il caso di ogni prova che non installa la finta.
@@ -329,8 +329,7 @@ void main() {
 
       final intro = find.byType(SequenzaIntro);
       expect(intro, findsOneWidget, reason: 'l intro non e montata affatto');
-      expect(
-          find.descendant(of: intro, matching: find.byType(Navigator)),
+      expect(find.descendant(of: intro, matching: find.byType(Navigator)),
           findsWidgets,
           reason: 'il Navigator non sta sotto l intro: qualunque route spinta '
               'sopra coprirebbe l apertura, che resterebbe viva e sepolta');

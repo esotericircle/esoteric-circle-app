@@ -59,8 +59,8 @@ void main() {
       }
       // E la decisione NON e' piu' scritta a mano da nessuna parte. Si
       // guardano le righe vive, non i commenti che raccontano com'era.
-      final righe =
-          File('lib/core/entitlement/question_allowance.dart').readAsLinesSync();
+      final righe = File('lib/core/entitlement/question_allowance.dart')
+          .readAsLinesSync();
       final scrittaAMano = [
         for (var i = 0; i < righe.length; i++)
           if (!righe[i].trimLeft().startsWith('//') &&

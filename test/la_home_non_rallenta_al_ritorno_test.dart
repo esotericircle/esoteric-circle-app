@@ -93,7 +93,8 @@ void main() {
             'sfumatura invece della destinazione');
   });
 
-  testWidgets('tre giri di oroscopo, stesa e rune lasciano i conti come li '
+  testWidgets(
+      'tre giri di oroscopo, stesa e rune lasciano i conti come li '
       'hanno trovati', (tester) async {
     await apri(tester);
     final contesto = tester.element(find.byType(Navigator).first);

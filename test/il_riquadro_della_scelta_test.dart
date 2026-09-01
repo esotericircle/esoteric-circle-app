@@ -50,7 +50,8 @@ void main() {
       );
 
   group('il contenuto viene dal generatore, col filtro', () {
-    test('nessuna scheda contiene una promessa vietata, sui dodici animali '
+    test(
+        'nessuna scheda contiene una promessa vietata, sui dodici animali '
         'veri', () {
       for (final animale in AnimalCatalog.animals) {
         final scheda = GeneratoreDellaScheda.perAnimale(animale);
@@ -65,7 +66,8 @@ void main() {
       }
     });
 
-    test('IL ROSSO DEL FILTRO vive nel dato vero: il dono dell\'Orso '
+    test(
+        'IL ROSSO DEL FILTRO vive nel dato vero: il dono dell\'Orso '
         'parla di guarire, e il generatore lo scarta', () {
       // Non e' un rosso simulato: nel corpus il dono dell'Orso contiene
       // davvero "guarisce". Se il filtro morisse, questa riga entrerebbe
@@ -98,7 +100,8 @@ void main() {
       expect(senzaOra.ragione, contains('giorno dell\'anno'));
     });
 
-    test('la ragione dell\'animale nomina il segno che lo elegge, e la '
+    test(
+        'la ragione dell\'animale nomina il segno che lo elegge, e la '
         'chiave dichiara la curatela', () {
       final scheda = GeneratoreDellaScheda.perAnimale(
           GuideAnimalDerivation.forSign(Zodiac.leo));
@@ -111,7 +114,8 @@ void main() {
   });
 
   group('la riga che sparisce, senza segnaposto', () {
-    testWidgets('con la ragione nulla la riga non esiste, e non c\'e\' '
+    testWidgets(
+        'con la ragione nulla la riga non esiste, e non c\'e\' '
         'nessun segnaposto', (tester) async {
       const scheda = SchedaDellaScelta(
         caratteristiche: [RigaDellaScheda(titolo: 'Prova', testo: 'Un testo.')],
@@ -142,8 +146,7 @@ void main() {
     });
   });
 
-  group('il riquadro sta nei due trionfi, e lo spazio vuoto ha una soglia',
-      () {
+  group('il riquadro sta nei due trionfi, e lo spazio vuoto ha una soglia', () {
     // LA SOGLIA DICHIARATA: fra il fondo del riquadro e la cima del pulsante
     // restano al piu' questi punti. ROSSO ESEGUITO DAVVERO: tolto il
     // riquadro dai due trionfi, tutte e due le prove cadono sul riquadro
@@ -228,8 +231,7 @@ void main() {
       expect(find.byKey(const Key('riquadro_ragione')), findsOneWidget);
     });
 
-    test('la scritta della ragione si legge sulla superficie del riquadro',
-        () {
+    test('la scritta della ragione si legge sulla superficie del riquadro', () {
       final superficie = Color.alphaBlend(
           palette.surfaceElevated.withValues(alpha: 0.5), palette.deepest);
       final contrasto =

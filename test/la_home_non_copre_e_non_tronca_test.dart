@@ -62,7 +62,8 @@ void main() {
     return dentro;
   }
 
-  testWidgets('a riposo, in cima e in fondo, nessun testo delle card sta '
+  testWidgets(
+      'a riposo, in cima e in fondo, nessun testo delle card sta '
       'nella zona della barra', (tester) async {
     await monta(tester);
     const h = 2391 / 3.0;
@@ -78,7 +79,8 @@ void main() {
       for (final (testo, r) in testiDelContenuto(tester)) {
         // Conta chi e' davvero a schermo E tocca la zona della barra.
         if (r.top < h && r.bottom > cimaBarra + 1) {
-          colpe.add('"${testo.substring(0, testo.length > 40 ? 40 : testo.length)}" '
+          colpe.add(
+              '"${testo.substring(0, testo.length > 40 ? 40 : testo.length)}" '
               '(${r.top.toStringAsFixed(0)}..${r.bottom.toStringAsFixed(0)}, '
               'barra da ${cimaBarra.toStringAsFixed(0)})');
         }
@@ -134,7 +136,8 @@ void main() {
           textScaler: MediaQuery.of(e).textScaler,
         )..layout(maxWidth: ro.size.width + 0.5);
         if (tp.didExceedMaxLines) {
-          colpe.add('"${dato.substring(0, dato.length > 50 ? 50 : dato.length)}" '
+          colpe.add(
+              '"${dato.substring(0, dato.length > 50 ? 50 : dato.length)}" '
               '(maxLines ${w.maxLines}, largo ${ro.size.width.toStringAsFixed(0)})');
         }
       }

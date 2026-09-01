@@ -56,7 +56,6 @@ void main() {
         child: const MaterialApp(home: MaestroScope(child: SettingsScreen())),
       );
 
-
   test('Riduci animazioni e Modalita semplice partono spenti', () {
     final s = SettingsController();
     expect(s.reduceAnimations, isFalse);
@@ -82,7 +81,8 @@ void main() {
     expect(settings.simpleMode, isTrue);
   });
 
-  testWidgets('L\'interruttore degli effetti sonori c\'e\', si tocca e obbedisce',
+  testWidgets(
+      'L\'interruttore degli effetti sonori c\'e\', si tocca e obbedisce',
       (tester) async {
     // **ORDINE BX VOCE 05.** L\'ordine chiede che nelle impostazioni esista un
     // comando che disattiva gli effetti sonori. Qui si misura a schermo: la
@@ -107,7 +107,8 @@ void main() {
     await tester.ensureVisible(riga);
     await step(tester);
     expect(riga, findsOneWidget,
-        reason: 'nelle impostazioni non c\'e\' il comando degli effetti sonori');
+        reason:
+            'nelle impostazioni non c\'e\' il comando degli effetti sonori');
     // **SI PARTE DA SPENTO, dalla voce BZ.05**, parole del fondatore: "gli
     // effetti sonori vanno per ora disabilitati per default". Questa prova
     // non misura il valore di partenza, che ha la sua guardia in
@@ -185,7 +186,8 @@ void main() {
 
   testWidgets('E raggiungibile dal Cosmic Passport', (tester) async {
     silence();
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     await tester.tap(find.text('Passport'));

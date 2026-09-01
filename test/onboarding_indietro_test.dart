@@ -117,8 +117,7 @@ void main() {
     // Il gesto Indietro di Android, quello vero che arriva dalla piattaforma.
     await binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
-      const JSONMethodCodec().encodeMethodCall(
-          const MethodCall('popRoute')),
+      const JSONMethodCodec().encodeMethodCall(const MethodCall('popRoute')),
       (_) {},
     );
     await passo(tester);

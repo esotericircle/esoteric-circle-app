@@ -61,8 +61,7 @@ void main() {
       // revisione C la dichiara su 33 voci, e le altre sono gradini che
       // valgono per se stessi. Inventarne una sarebbe scrivere al posto del
       // corpus.
-      final conPorta =
-          tutti.where((t) => t.cosaApre.trim().isNotEmpty).length;
+      final conPorta = tutti.where((t) => t.cosaApre.trim().isNotEmpty).length;
       // ignore: avoid_print
       print('ORDINE AR VOCE 02: traguardi che aprono una porta $conPorta');
       expect(conPorta, greaterThan(20),
@@ -78,8 +77,7 @@ void main() {
       }
       // E l'aritmetica resta quella decisa: 2.010 per sentiero, 6.030 in tutto.
       for (final s in Sentiero.values) {
-        final somma =
-            Sentieri.di(s).fold<int>(0, (a, t) => a + t.eos);
+        final somma = Sentieri.di(s).fold<int>(0, (a, t) => a + t.eos);
         expect(somma, 2010, reason: 'il sentiero ${s.name} somma $somma Eos');
       }
       expect(tutti.fold<int>(0, (a, t) => a + t.eos), 6030);
@@ -106,7 +104,8 @@ void main() {
     test('l\'Allegato A e\' nel repo, ed e\' la sorgente dei tre campi', () {
       final allegato = File('docs/ordini/ORDINE_P_ALLEGATO_A.md');
       expect(allegato.existsSync(), isTrue,
-          reason: 'se al momento di eseguire l\'allegato non c\'e\', la voce si '
+          reason:
+              'se al momento di eseguire l\'allegato non c\'e\', la voce si '
               'ferma dichiarando premessa mancante');
       final testo = allegato.readAsStringSync();
       // Quanti dei 165 hanno preso il testo dall'Allegato: si conta cercando
@@ -216,8 +215,8 @@ void main() {
 
     test('il gradino chiede lo stato al dato, non combina booleani a mente',
         () {
-      final sorgente = File('lib/features/sigilli/sentiero_screen.dart')
-          .readAsStringSync();
+      final sorgente =
+          File('lib/features/sigilli/sentiero_screen.dart').readAsStringSync();
       expect(sorgente, contains('StatoDeiSigilli.di('),
           reason: 'il gradino e\' tornato a decidere il suo aspetto da tre '
               'booleani sparsi');

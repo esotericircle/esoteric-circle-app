@@ -44,13 +44,13 @@ void main() {
   Widget host() => MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (_) =>
-                  MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+              create: (_) => MaestroController(
+                  initial: const ThemeKey.of(Maestro.caligo))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
-        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-        ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
         child: MaterialApp(
           builder: (ctx, child) => MediaQuery(
@@ -136,8 +136,8 @@ void main() {
     await passo(tester);
     await tester.tap(find.text('Nel lavoro, quale passo fare?').last);
     await passo(tester);
-    final campo = tester.widget<TextField>(
-        find.byKey(const Key('rune_question_field')));
+    final campo =
+        tester.widget<TextField>(find.byKey(const Key('rune_question_field')));
     expect(campo.controller!.text, 'Nel lavoro, quale passo fare?');
   });
 
@@ -186,7 +186,8 @@ void main() {
     await getta(tester);
 
     for (var i = 0; i < 5; i++) {
-      expect(find.byKey(Key('rune_card_$i')), findsOneWidget, reason: 'card $i');
+      expect(find.byKey(Key('rune_card_$i')), findsOneWidget,
+          reason: 'card $i');
     }
   });
 

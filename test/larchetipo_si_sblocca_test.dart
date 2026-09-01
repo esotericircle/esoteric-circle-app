@@ -90,7 +90,8 @@ void main() {
     // E dice QUALE archetipo, non solo che ce n'e' uno.
     expect(
         find.descendant(
-            of: tessera, matching: find.byKey(const Key('passport_archetipo_nome'))),
+            of: tessera,
+            matching: find.byKey(const Key('passport_archetipo_nome'))),
         findsOneWidget);
     expect(find.textContaining(Archetype.creatore.conArticolo), findsWidgets,
         reason: 'la tessera non nomina la figura trovata dal Test');

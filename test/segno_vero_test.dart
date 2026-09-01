@@ -32,7 +32,8 @@ void main() {
   group('Il segno discende dalla data, non da chi si ricorda di scriverlo', () {
     test('Una data del Cancro da\' il Cancro, non il segnaposto', () {
       expect(fondatore.sunSign, Zodiac.cancer,
-          reason: 'la data di nascita e\' del Cancro e il segno che ne esce e\' '
+          reason:
+              'la data di nascita e\' del Cancro e il segno che ne esce e\' '
               'un altro: quello mostrato non discende dalla data');
     });
 
@@ -54,7 +55,8 @@ void main() {
       ]) {
         expect(BirthIdentity.fromParts(birthDate: data).sunSign,
             NightSky.sunSign(data),
-            reason: 'per $data il segno del dato di nascita e quello del motore '
+            reason:
+                'per $data il segno del dato di nascita e quello del motore '
                 'non coincidono');
       }
     });

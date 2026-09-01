@@ -88,7 +88,8 @@ void main() {
       final confine =
           radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final immagine = await confine.toImage();
-      final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final dati =
+          await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
       byte = dati!.buffer.asUint8List().toList(growable: false);
       immagine.dispose();
     });
@@ -171,8 +172,7 @@ void main() {
     });
   }
 
-  testWidgets(
-      'i tre disegni restano diversi anche a palette neutralizzata',
+  testWidgets('i tre disegni restano diversi anche a palette neutralizzata',
       (tester) async {
     // TUTTI E TRE SOTTO LO STESSO MAESTRO: cosi' l'oro e' lo stesso e la
     // differenza che resta e' geometria, non colore.
@@ -253,7 +253,8 @@ void main() {
     });
   }
 
-  test('la geometria copre tutti e 55 i traguardi di ogni sentiero, una volta '
+  test(
+      'la geometria copre tutti e 55 i traguardi di ogni sentiero, una volta '
       'sola', () {
     for (final sentiero in Sentieri.tutti) {
       final punti = GeometriaDelSentiero.punti(sentiero);

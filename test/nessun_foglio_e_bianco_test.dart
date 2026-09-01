@@ -106,9 +106,8 @@ void main() {
     // l'esenzione qui sopra sarebbe un buco: basterebbe togliere
     // `backgroundColor` dalla porta e tutti i fogli dell'app tornerebbero
     // bianchi con la prova verde.
-    final porta =
-        File('lib/design_system/transizioni/velo_del_cerchio.dart')
-            .readAsStringSync();
+    final porta = File('lib/design_system/transizioni/velo_del_cerchio.dart')
+        .readAsStringSync();
     expect(porta.contains('backgroundColor: backgroundColor,'), isTrue,
         reason: 'la porta del velo non inoltra piu\' il fondo: ogni foglio '
             'dell\'app torna bianco e nessuna delle porte enumerate se ne '
@@ -151,11 +150,11 @@ void main() {
     return tester.element(find.byType(Navigator).first);
   }
 
-  testWidgets('il foglio del traguardo si apre con la card viva e zero '
+  testWidgets(
+      'il foglio del traguardo si apre con la card viva e zero '
       'eccezioni', (tester) async {
     final contesto = await appVera(tester);
-    final med27 =
-        Sentieri.tuttiITraguardi.singleWhere((t) => t.id == 'med_27');
+    final med27 = Sentieri.tuttiITraguardi.singleWhere((t) => t.id == 'med_27');
     mostraLaCardDelTraguardo(contesto,
         traguardo: med27, sentiero: RegiaDelCammino.sentieroDi(med27));
     for (var i = 0; i < 6; i++) {
@@ -166,8 +165,7 @@ void main() {
             'foglio BIANCO della 2179');
     expect(find.byKey(const Key('card_del_traguardo')), findsOneWidget,
         reason: 'il foglio si e\' aperto ma la card non c\'e\'');
-    expect(find.byKey(const Key('condividi_traguardo_compatto')),
-        findsNothing);
+    expect(find.byKey(const Key('condividi_traguardo_compatto')), findsNothing);
   });
 
   testWidgets('ogni foglio sul Navigator radice trova uno scope',

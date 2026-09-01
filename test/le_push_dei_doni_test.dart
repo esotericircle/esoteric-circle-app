@@ -45,26 +45,21 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 
   // ---------------------------------------------------------------- a)
-  test('CG.16 a: a un Viandante fuori dalla prova non parte nessuna push',
-      () {
+  test('CG.16 a: a un Viandante fuori dalla prova non parte nessuna push', () {
     final registrato = DateTime(2026, 1, 1);
-    final dopoLaProva = registrato
-        .add(const Duration(days: ProvaDellePush.giorniDiProva + 1));
+    final dopoLaProva =
+        registrato.add(const Duration(days: ProvaDellePush.giorniDiProva + 1));
 
     expect(
         ProvaDellePush.riceveLePush(
-            tier: Tier.free,
-            registratoIl: registrato,
-            adesso: dopoLaProva),
+            tier: Tier.free, registratoIl: registrato, adesso: dopoLaProva),
         isFalse,
         reason: 'chi non paga e ha finito la prova non riceve push. IL ROSSO '
             'SI DIMOSTRA togliendo il controllo del piano, e questa torna '
             'vera');
     expect(
         ProvaDellePush.diritto(
-            tier: Tier.free,
-            registratoIl: registrato,
-            adesso: dopoLaProva),
+            tier: Tier.free, registratoIl: registrato, adesso: dopoLaProva),
         DirittoAllePush.soloChiamateLocali,
         reason: 'e non resta senza niente: le chiamate locali sono accese e '
             'gratuite per tutti');
@@ -73,16 +68,15 @@ void main() {
   test('CG.16 a: chi non si e\' mai registrato non ha nemmeno cominciato', () {
     expect(
         ProvaDellePush.riceveLePush(
-            tier: Tier.free,
-            registratoIl: null,
-            adesso: DateTime(2026, 8, 31)),
+            tier: Tier.free, registratoIl: null, adesso: DateTime(2026, 8, 31)),
         isFalse,
         reason: 'la prova parte dalla PRIMA REGISTRAZIONE: senza, non e\' '
             'ancora cominciata');
   });
 
   // ---------------------------------------------------------------- b)
-  test('CG.16 b: dentro il mese di prova la push parte, e il confine e\' esatto',
+  test(
+      'CG.16 b: dentro il mese di prova la push parte, e il confine e\' esatto',
       () {
     final registrato = DateTime(2026, 1, 1);
 
@@ -134,9 +128,7 @@ void main() {
           reason: 'il piano $tier paga, quindi la prova non c\'entra');
       expect(
           ProvaDellePush.diritto(
-              tier: tier,
-              registratoIl: null,
-              adesso: DateTime(2026, 8, 31)),
+              tier: tier, registratoIl: null, adesso: DateTime(2026, 8, 31)),
           DirittoAllePush.abbonato);
     }
     expect(ProvaDellePush.pianoMinimo, Tier.tier1,
@@ -201,18 +193,18 @@ void main() {
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
 
-    expect(await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'),
-        isTrue);
-    expect(await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'),
-        isFalse,
+    expect(
+        await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'), isTrue);
+    expect(
+        await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'), isFalse,
         reason: 'chi apre la pagina e non cambia niente non deve far partire '
             'nessuna scrittura');
     expect(porta.mandate, hasLength(1));
 
     // E un cambio vero riparte.
     await scelta.scegliLOra(DailyElement.night, ora: 23, minuto: 0);
-    expect(await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'),
-        isTrue);
+    expect(
+        await custode.sincronizza(scelta: scelta, fuso: 'Europe/Rome'), isTrue);
     expect(porta.mandate, hasLength(2));
   });
 
@@ -288,8 +280,7 @@ void main() {
     // due richieste per la stessa cosa.
     final manifesto =
         File('android/app/src/main/AndroidManifest.xml').readAsStringSync();
-    final quanti =
-        RegExp('POST_NOTIFICATIONS').allMatches(manifesto).length;
+    final quanti = RegExp('POST_NOTIFICATIONS').allMatches(manifesto).length;
     // ignore: avoid_print
     print('ORDINE CG VOCE 16: POST_NOTIFICATIONS dichiarato $quanti volta nel '
         'manifesto Android');

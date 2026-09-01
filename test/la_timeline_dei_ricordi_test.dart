@@ -178,7 +178,8 @@ void main() {
     final giorno = vista.ilGiorno;
 
     expect(giorno.perMaestro.length, 2,
-        reason: 'il colore sta sulla VOCE, quindi un giorno puo\' portarne piu\' '
+        reason:
+            'il colore sta sulla VOCE, quindi un giorno puo\' portarne piu\' '
             'di uno');
     expect(giorno.maestroDominante, isNull,
         reason: 'in pareggio non c\'e\' un dominante: dire "soprattutto con '
@@ -220,8 +221,8 @@ void main() {
         '${trovate.length}');
 
     expect(trovate.length, 1, reason: 'la domanda cercata e\' una sola');
-    expect(trovate.first.titolo,
-        'Perché ogni volta mi blocco prima di firmare');
+    expect(
+        trovate.first.titolo, 'Perché ogni volta mi blocco prima di firmare');
     expect(cronometro.elapsedMilliseconds, lessThan(100),
         reason: 'la ricerca ha impiegato ${cronometro.elapsedMilliseconds} '
             'millesimi. IL ROSSO SI DIMOSTRA facendo cercare sul contenuto '
@@ -257,8 +258,7 @@ void main() {
             'di quei Maestri e\' una conversazione');
   });
 
-  test('CG.02: nessun punto che costruisce un riassunto chiama il modello',
-      () {
+  test('CG.02: nessun punto che costruisce un riassunto chiama il modello', () {
     // **La terza prova del rosso dell'ordine.** Si legge il sorgente dei due
     // file che costruiscono i riassunti e si pretende che non nominino
     // nessun provider di AI: una chiamata dentro il costruttore del riassunto

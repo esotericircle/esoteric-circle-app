@@ -108,8 +108,7 @@ void main() {
 
     // **IL GESTO PASSA DAL REGISTRO**, che e' il tratto sotto prova: la stessa
     // porta che i riti chiamano quando il gesto e' compiuto davvero.
-    await tester.runAsync(
-        () => RegiaDelCammino.dopoUnGesto(contesto, gesto));
+    await tester.runAsync(() => RegiaDelCammino.dopoUnGesto(contesto, gesto));
     await respiro(tester);
 
     final diario = contesto.read<DiarioDelCammino>();
@@ -138,12 +137,11 @@ void main() {
     await respiro(tester);
 
     // LA PERLA DI QUEL SIGILLO, SUI PIXEL. La cattura sta dentro runAsync.
-    final tela = tester.renderObject<RenderBox>(
-        find.byKey(const Key('sentiero_disegno')));
+    final tela = tester
+        .renderObject<RenderBox>(find.byKey(const Key('sentiero_disegno')));
     final origine = tela.localToGlobal(Offset.zero);
-    final confine = tester
-        .renderObject<RenderRepaintBoundary>(
-            find.byType(RepaintBoundary).first);
+    final confine = tester.renderObject<RenderRepaintBoundary>(
+        find.byType(RepaintBoundary).first);
     final immagine =
         await tester.runAsync(() => confine.toImage(pixelRatio: 1.0));
     final px = (await tester.runAsync(
@@ -158,8 +156,7 @@ void main() {
     final ancoraggi = AncoraggiDeiSentieri.di(sentiero)!;
     final wArte = ArteDelSentiero.larghezzaArte(sentiero).toDouble();
     final hArte = ArteDelSentiero.altezzaArte(sentiero).toDouble();
-    final scala =
-        math.min(tela.size.width / wArte, tela.size.height / hArte);
+    final scala = math.min(tela.size.width / wArte, tela.size.height / hArte);
     final dxA = (tela.size.width - wArte * scala) / 2;
     final dyA = (tela.size.height - hArte * scala) / 2;
 
@@ -172,13 +169,11 @@ void main() {
         for (var ox = -5; ox <= 5; ox++) {
           if (ox * ox + oy * oy > 25) continue;
           final x = (centro.dx + ox).round(), y = (centro.dy + oy).round();
-          if (x < 0 || y < 0 || x >= larghezzaResa ||
-              y >= immagine.height) {
+          if (x < 0 || y < 0 || x >= larghezzaResa || y >= immagine.height) {
             continue;
           }
           final k = (y * larghezzaResa + x) * 4;
-          valori
-              .add((px[k] * 299 + px[k + 1] * 587 + px[k + 2] * 114) ~/ 1000);
+          valori.add((px[k] * 299 + px[k + 1] * 587 + px[k + 2] * 114) ~/ 1000);
         }
       }
       valori.sort();

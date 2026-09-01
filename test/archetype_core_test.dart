@@ -68,8 +68,18 @@ void main() {
       // L'ordine canonico e' quello dichiarato, e non e' decorativo: scioglie
       // i pareggi, quindi se cambia cambiano i risultati.
       expect(Archetype.values.map((a) => a.nome), [
-        'Innocente', 'Esploratore', 'Saggio', 'Eroe', 'Ribelle', 'Mago',
-        'Realista', 'Amante', 'Giullare', 'Custode', 'Sovrano', 'Creatore',
+        'Innocente',
+        'Esploratore',
+        'Saggio',
+        'Eroe',
+        'Ribelle',
+        'Mago',
+        'Realista',
+        'Amante',
+        'Giullare',
+        'Custode',
+        'Sovrano',
+        'Creatore',
       ]);
     });
 
@@ -85,7 +95,8 @@ void main() {
   group('Punteggio', () {
     test('Casi noti: le risposte portano al dominante atteso', () {
       // Un percorso costruito sull'azione: affronto, agisco, reagisco, combatto.
-      final eroe = ArchetypeScoring.calcola([0, 0, 0, 1, 0, 3, 0, 0, 0, 1, 0, 0]);
+      final eroe =
+          ArchetypeScoring.calcola([0, 0, 0, 1, 0, 3, 0, 0, 0, 1, 0, 0]);
       expect(eroe.dominante, Archetype.eroe);
       expect(eroe.percentualeDi(Archetype.eroe), closeTo(33.3, 0.1));
 
@@ -120,9 +131,8 @@ void main() {
         [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3],
       ]) {
         final p = ArchetypeScoring.calcola(scelte);
-        final somma = Archetype.values
-            .map(p.percentualeDi)
-            .reduce((x, y) => x + y);
+        final somma =
+            Archetype.values.map(p.percentualeDi).reduce((x, y) => x + y);
         expect(somma, closeTo(100.0, 0.0001));
       }
     });
@@ -133,9 +143,11 @@ void main() {
       // quello subito dopo fra i pari.
       final p = ArchetypeScoring.calcola(List.filled(12, 0));
       final pari = Archetype.values
-          .where((a) => (p.percentualeDi(a) - p.percentualeDi(p.dominante)).abs() < 0.001)
+          .where((a) =>
+              (p.percentualeDi(a) - p.percentualeDi(p.dominante)).abs() < 0.001)
           .toList();
-      expect(pari.length, greaterThan(1), reason: 'il caso deve essere un pareggio');
+      expect(pari.length, greaterThan(1),
+          reason: 'il caso deve essere un pareggio');
       expect(p.dominante, Archetype.innocente);
       expect(p.secondo, Archetype.esploratore);
       expect(pari.first, Archetype.innocente);
@@ -151,7 +163,8 @@ void main() {
       expect(ArchetypeScoring.sogliaSecondo, 10.0);
 
       // Sopra la soglia: il dominante e' staccato di 14,8 punti e resta solo.
-      final solo = ArchetypeScoring.calcola([0, 0, 0, 1, 0, 3, 0, 0, 0, 1, 0, 0]);
+      final solo =
+          ArchetypeScoring.calcola([0, 0, 0, 1, 0, 3, 0, 0, 0, 1, 0, 0]);
       final scarto = solo.percentualeDi(solo.dominante) -
           solo.percentualeDi(solo.graduatoria[1]);
       expect(scarto, greaterThan(ArchetypeScoring.sogliaSecondo));
@@ -178,7 +191,8 @@ void main() {
       }
     });
 
-    test('Un input malformato solleva, invece di dare un profilo sbagliato', () {
+    test('Un input malformato solleva, invece di dare un profilo sbagliato',
+        () {
       expect(() => ArchetypeScoring.calcola(const []), throwsArgumentError);
       expect(() => ArchetypeScoring.calcola(List.filled(11, 0)),
           throwsArgumentError);
@@ -215,8 +229,7 @@ void main() {
         for (final a in ArchetypeTransits.tabella[p]!) {
           final riga = ArchetypeTransits.motivazione(p, a);
           expect(riga, startsWith('Oggi ${p.nome} accende il tuo ${a.nome}: '));
-          expect(riga, endsWith(
-              ArchetypeCorpus.di(a).essenza.substring(1)));
+          expect(riga, endsWith(ArchetypeCorpus.di(a).essenza.substring(1)));
         }
       }
     });
@@ -228,8 +241,9 @@ void main() {
       expect(m.modulato.dominante, base.dominante);
       expect(m.modulato.secondo, base.secondo);
       for (final a in Archetype.values) {
-        expect(m.modulato.percentualeDi(a),
-            closeTo(base.percentualeDi(a), 0.0001), reason: a.name);
+        expect(
+            m.modulato.percentualeDi(a), closeTo(base.percentualeDi(a), 0.0001),
+            reason: a.name);
       }
     });
 
@@ -239,7 +253,8 @@ void main() {
 
       // Marte spinge Eroe e Ribelle, Urano spinge Ribelle e Mago: il Ribelle
       // prende la spinta due volte ed e' lui che le due righe nominano.
-      expect(m.motivazioni.map((r) => r.pianeta), [Pianeta.marte, Pianeta.urano]);
+      expect(
+          m.motivazioni.map((r) => r.pianeta), [Pianeta.marte, Pianeta.urano]);
       expect(m.motivazioni.map((r) => r.archetipo),
           [Archetype.ribelle, Archetype.ribelle]);
       expect(m.motivazioni.first.testo,
@@ -270,17 +285,19 @@ void main() {
           base, {Pianeta.giove, Pianeta.urano, Pianeta.luna});
       expect(a.motivazioni.map((r) => r.pianeta),
           [Pianeta.luna, Pianeta.giove, Pianeta.urano]);
-      expect(b.motivazioni.map((r) => r.testo),
-          a.motivazioni.map((r) => r.testo));
+      expect(
+          b.motivazioni.map((r) => r.testo), a.motivazioni.map((r) => r.testo));
     });
 
     test('La modulazione e\' deterministica quanto il punteggio', () {
-      final base = ArchetypeScoring.calcola([1, 1, 2, 2, 3, 3, 0, 0, 1, 1, 2, 2]);
+      final base =
+          ArchetypeScoring.calcola([1, 1, 2, 2, 3, 3, 0, 0, 1, 1, 2, 2]);
       const pianeti = {Pianeta.venere, Pianeta.nettuno};
       final a = ArchetypeTransits.applica(base, pianeti);
       final b = ArchetypeTransits.applica(base, pianeti);
       expect(b.modulato.dominante, a.modulato.dominante);
-      expect(b.motivazioni.map((r) => r.testo), a.motivazioni.map((r) => r.testo));
+      expect(
+          b.motivazioni.map((r) => r.testo), a.motivazioni.map((r) => r.testo));
       for (final x in Archetype.values) {
         expect(b.modulato.percentualeDi(x), a.modulato.percentualeDi(x));
       }
@@ -302,12 +319,16 @@ void main() {
 
     test('Il primo test di troppo e\' bloccato, per ogni livello', () {
       // Viandante: uno solo.
-      expect(ArchetypeAllowance.consentito(fattiOggi: 0, tier: Tier.free), isTrue);
-      expect(ArchetypeAllowance.consentito(fattiOggi: 1, tier: Tier.free), isFalse);
+      expect(
+          ArchetypeAllowance.consentito(fattiOggi: 0, tier: Tier.free), isTrue);
+      expect(ArchetypeAllowance.consentito(fattiOggi: 1, tier: Tier.free),
+          isFalse);
 
       // Iniziato: fino a tre, il quarto no.
-      expect(ArchetypeAllowance.consentito(fattiOggi: 2, tier: Tier.tier1), isTrue);
-      expect(ArchetypeAllowance.consentito(fattiOggi: 3, tier: Tier.tier1), isFalse);
+      expect(ArchetypeAllowance.consentito(fattiOggi: 2, tier: Tier.tier1),
+          isTrue);
+      expect(ArchetypeAllowance.consentito(fattiOggi: 3, tier: Tier.tier1),
+          isFalse);
 
       // Adepto e Illuminato: sempre.
       for (final t in [Tier.tier2, Tier.tier3]) {
@@ -323,9 +344,11 @@ void main() {
       expect(ArchetypeAllowance.rimanenti(fattiOggi: 1, tier: Tier.free), 0);
       expect(ArchetypeAllowance.rimanenti(fattiOggi: 5, tier: Tier.free), 0);
       expect(ArchetypeAllowance.rimanenti(fattiOggi: 1, tier: Tier.tier1), 2);
-      expect(ArchetypeAllowance.rimanenti(fattiOggi: 0, tier: Tier.tier2), isNull);
+      expect(
+          ArchetypeAllowance.rimanenti(fattiOggi: 0, tier: Tier.tier2), isNull);
       // Un valore negativo vale zero: non deve diventare un tentativo in piu'.
-      expect(ArchetypeAllowance.consentito(fattiOggi: -3, tier: Tier.free), isTrue);
+      expect(ArchetypeAllowance.consentito(fattiOggi: -3, tier: Tier.free),
+          isTrue);
       expect(ArchetypeAllowance.rimanenti(fattiOggi: -3, tier: Tier.free), 1);
     });
   });

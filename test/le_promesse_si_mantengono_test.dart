@@ -32,7 +32,8 @@ void main() {
         reason: 'il rifiuto sullo zero e\' tornato: brucerebbe di nuovo il '
             'primo avviso di BE.07');
     final s = leggi('lib/features/santuario/santuario_screen.dart');
-    expect(s.indexOf('mostraInvitoACustodire') <
+    expect(
+        s.indexOf('mostraInvitoACustodire') <
             // La stringa cercata si spezza in due letterali adiacenti: questa
             // prova legge il SORGENTE, non l'orologio, e la guardia
             // dell'istante non deve scambiarla per una lettura vera.

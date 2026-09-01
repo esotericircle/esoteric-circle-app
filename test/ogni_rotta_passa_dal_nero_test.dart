@@ -91,7 +91,8 @@ void main() {
         File('lib/design_system/transizioni/passaggio_del_cerchio.dart')
             .readAsStringSync();
     expect(sorgente.contains('ColorTokens.medoraDeepest'), isTrue,
-        reason: 'il passaggio non usa piu\' il nero piu\' profondo del Cerchio');
+        reason:
+            'il passaggio non usa piu\' il nero piu\' profondo del Cerchio');
     expect(sorgente.contains('disableAnimations'), isTrue,
         reason: 'il passaggio non guarda piu\' Riduci Movimento');
     // La dissolvenza resta anche senza movimento: chi ha tolto le animazioni

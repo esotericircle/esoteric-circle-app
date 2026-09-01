@@ -16,7 +16,8 @@ void main() {
   });
 
   test('le affermazioni forti hanno l\'ancora nel codice', () {
-    final tutto = sezioniDellaPolicy.map((s) => '${s.titolo} ${s.corpo}').join(' ');
+    final tutto =
+        sezioniDellaPolicy.map((s) => '${s.titolo} ${s.corpo}').join(' ');
     final server = File('functions/src/cerchio.ts').readAsStringSync();
 
     // 1. L'impronta antifrode: la policy la dichiara e il server la fa.
@@ -95,8 +96,8 @@ void main() {
         .readAsStringSync();
     expect(schermo.contains('sezioniDellaPolicy'), isTrue,
         reason: 'la pagina non monta piu\' il testo di casa');
-    final menu = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final menu =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(menu.contains('PrivacyPolicyScreen.route()'), isTrue,
         reason: 'dal sottomenu non si apre piu\' la policy');
   });

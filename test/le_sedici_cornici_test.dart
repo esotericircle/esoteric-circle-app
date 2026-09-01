@@ -26,14 +26,79 @@ void main() {
   /// parole che compaiono in qualunque frase italiana. Se contassero, "il" e "di"
   /// basterebbero a dire che il presagio parla della domanda.
   const vuote = {
-    'il', 'lo', 'la', 'le', 'gli', 'un', 'una', 'uno', 'del', 'della', 'dei',
-    'delle', 'di', 'da', 'in', 'su', 'per', 'con', 'tra', 'fra', 'che', 'chi',
-    'cosa', 'come', 'dove', 'quando', 'quale', 'quali', 'mi', 'ti', 'si', 'ci',
-    'vi', 'me', 'te', 'se', 'non', 'ma', 'poi', 'anche', 'ancora', 'sono', 'e',
-    'ed', 'o', 'al', 'allo', 'alla', 'ai', 'agli', 'alle', 'nel', 'nella',
-    'sul', 'sulla', 'mio', 'mia', 'miei', 'mie', 'tuo', 'tua', 'tuoi', 'tue',
-    'questo', 'questa', 'questi', 'queste', 'sto', 'stai', 'devo', 'adesso',
-    'ora', 'oggi',
+    'il',
+    'lo',
+    'la',
+    'le',
+    'gli',
+    'un',
+    'una',
+    'uno',
+    'del',
+    'della',
+    'dei',
+    'delle',
+    'di',
+    'da',
+    'in',
+    'su',
+    'per',
+    'con',
+    'tra',
+    'fra',
+    'che',
+    'chi',
+    'cosa',
+    'come',
+    'dove',
+    'quando',
+    'quale',
+    'quali',
+    'mi',
+    'ti',
+    'si',
+    'ci',
+    'vi',
+    'me',
+    'te',
+    'se',
+    'non',
+    'ma',
+    'poi',
+    'anche',
+    'ancora',
+    'sono',
+    'e',
+    'ed',
+    'o',
+    'al',
+    'allo',
+    'alla',
+    'ai',
+    'agli',
+    'alle',
+    'nel',
+    'nella',
+    'sul',
+    'sulla',
+    'mio',
+    'mia',
+    'miei',
+    'mie',
+    'tuo',
+    'tua',
+    'tuoi',
+    'tue',
+    'questo',
+    'questa',
+    'questi',
+    'queste',
+    'sto',
+    'stai',
+    'devo',
+    'adesso',
+    'ora',
+    'oggi',
   };
 
   /// LE PAROLE PIENE di un testo: minuscole, senza punteggiatura, lunghe almeno
@@ -150,8 +215,10 @@ void main() {
     // **E LA DICIASSETTESIMA RESTA FUORI DA QUESTO ELENCO, per nome.** Se un
     // giorno entrasse fra le domande della gettata, la misura la prenderebbe e
     // risponderebbe zero: questa riga cade prima, dicendo perche'.
-    expect(minimi.containsKey(CorniciDelPresagio.dellaGiornata.domanda), isFalse,
-        reason: 'la cornice della giornata e\' entrata nella misura (b): non ha '
+    expect(
+        minimi.containsKey(CorniciDelPresagio.dellaGiornata.domanda), isFalse,
+        reason:
+            'la cornice della giornata e\' entrata nella misura (b): non ha '
             'una domanda con cui confrontare le parole');
   });
 
@@ -201,7 +268,8 @@ void main() {
   test('il presagio con cornice monta apertura, runa e chiusura', () {
     // L'ordine del montaggio, dall'allegato. Si guarda su una gettata vera, non
     // sulle stringhe della cornice: e' il montaggio che si verifica.
-    final cornice = CorniciDelPresagio.perDomanda('Nel lavoro, quale passo fare?')!;
+    final cornice =
+        CorniciDelPresagio.perDomanda('Nel lavoro, quale passo fare?')!;
     final esito = RuneCast.getta(gettataNorne, random: Random(5));
     final presagio =
         RunePresagio.componiIlResponso(esito, domanda: cornice.domanda);
@@ -258,10 +326,12 @@ void main() {
     // la voce cerca.
     const g = CorniciDelPresagio.dellaGiornata;
     expect(g.domanda, isEmpty,
-        reason: 'la cornice della giornata non ha una domanda, per definizione');
+        reason:
+            'la cornice della giornata non ha una domanda, per definizione');
     expect(g.apertura, contains('giornata'));
     expect(g.chiusura, contains('domani'),
-        reason: 'la diciassettesima deve lasciare una domanda per domani: e\' la '
+        reason:
+            'la diciassettesima deve lasciare una domanda per domani: e\' la '
             'parte che fa tornare');
     // E si trova per la domanda vuota, che e' il modo in cui il motore la chiede.
     expect(CorniciDelPresagio.perDomanda(''), same(g));

@@ -25,20 +25,35 @@ void main() {
     midheavenLongitude: 285.0,
     planets: [
       PlanetPosition(
-          id: 'sun', name: 'Sole', glyph: '☉',
-          longitude: 10.0, sign: Zodiac.aries),
+          id: 'sun',
+          name: 'Sole',
+          glyph: '☉',
+          longitude: 10.0,
+          sign: Zodiac.aries),
       PlanetPosition(
-          id: 'moon', name: 'Luna', glyph: '☽',
-          longitude: 100.0, sign: Zodiac.cancer),
+          id: 'moon',
+          name: 'Luna',
+          glyph: '☽',
+          longitude: 100.0,
+          sign: Zodiac.cancer),
       PlanetPosition(
-          id: 'mars', name: 'Marte', glyph: '♂',
-          longitude: 200.0, sign: Zodiac.libra),
+          id: 'mars',
+          name: 'Marte',
+          glyph: '♂',
+          longitude: 200.0,
+          sign: Zodiac.libra),
       PlanetPosition(
-          id: 'venus', name: 'Venere', glyph: '♀',
-          longitude: 250.0, sign: Zodiac.sagittarius),
+          id: 'venus',
+          name: 'Venere',
+          glyph: '♀',
+          longitude: 250.0,
+          sign: Zodiac.sagittarius),
       PlanetPosition(
-          id: 'saturn', name: 'Saturno', glyph: '♄',
-          longitude: 320.0, sign: Zodiac.aquarius),
+          id: 'saturn',
+          name: 'Saturno',
+          glyph: '♄',
+          longitude: 320.0,
+          sign: Zodiac.aquarius),
     ],
   );
 
@@ -47,8 +62,8 @@ void main() {
 
   test('senza carta non c e risposta, e non c e un ripiego che parla lo stesso',
       () {
-    final senza = CieloDiOggi.perIlGiorno(
-        adesso: DateTime(2026, 8, 6), carta: null);
+    final senza =
+        CieloDiOggi.perIlGiorno(adesso: DateTime(2026, 8, 6), carta: null);
     expect(RispostaDelSoffio.diOggi(senza), isNull,
         reason: 'senza carta la risposta esce lo stesso: e un oroscopo da '
             'giornale travestito da transito');
@@ -57,8 +72,8 @@ void main() {
   test('la risposta esce dai transiti veri, e li nomina', () {
     var viste = 0;
     for (var g = 1; g <= 60; g++) {
-      final r = RispostaDelSoffio.diOggi(cieloDi(DateTime(2026, 8, 1)
-          .add(Duration(days: g))));
+      final r = RispostaDelSoffio.diOggi(
+          cieloDi(DateTime(2026, 8, 1).add(Duration(days: g))));
       if (r == null) continue;
       viste++;
       for (final riga in [r.apre, r.nonForzare]) {
@@ -104,9 +119,27 @@ void main() {
     // I MODI IMPERATIVI CHE L'ALBA USA DAVVERO, presi dal suo corpus e non
     // inventati: sono i verbi con cui l'Alba apre le sue frasi.
     const comandi = [
-      'volgi', 'appoggia', 'alzati', 'guarda', 'poggia', 'apri', 'chiudi',
-      'bevi', 'sbadiglia', 'disegna', 'scegli', 'prendi', 'copri', 'spegni',
-      'allunga', 'individua', 'trova', 'resta', 'conta', 'tieni', 'fai',
+      'volgi',
+      'appoggia',
+      'alzati',
+      'guarda',
+      'poggia',
+      'apri',
+      'chiudi',
+      'bevi',
+      'sbadiglia',
+      'disegna',
+      'scegli',
+      'prendi',
+      'copri',
+      'spegni',
+      'allunga',
+      'individua',
+      'trova',
+      'resta',
+      'conta',
+      'tieni',
+      'fai',
     ];
     final rotte = <String>[];
     for (var g = 1; g <= 120; g++) {
@@ -121,8 +154,16 @@ void main() {
         }
         // Ne' una domanda, ne' una promessa di esito.
         if (riga.contains('?')) rotte.add('una domanda: $riga');
-        for (final p in const ['andrà', 'andra', 'otterrai', 'riuscirai',
-          'sarà', 'sara', 'vedrai', 'troverai']) {
+        for (final p in const [
+          'andrà',
+          'andra',
+          'otterrai',
+          'riuscirai',
+          'sarà',
+          'sara',
+          'vedrai',
+          'troverai'
+        ]) {
           if (parole.contains(p)) rotte.add('una promessa "$p": $riga');
         }
       }

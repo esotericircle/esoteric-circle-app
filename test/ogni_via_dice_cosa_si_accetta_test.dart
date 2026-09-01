@@ -51,8 +51,8 @@ void main() {
 
   test('il ramo del rientro la monta PRIMA del gesto che conclude', () {
     final sorgente = senzaCommenti(vie.values.first);
-    final ramo = sorgente.substring(
-        sorgente.indexOf('class ContinuaComeRiconosciuto'));
+    final ramo =
+        sorgente.substring(sorgente.indexOf('class ContinuaComeRiconosciuto'));
     final consenso = ramo.indexOf('ConsensiDellaRegistrazione');
     final gesto = ramo.indexOf("Key('continua_come')");
     // ignore: avoid_print
@@ -82,9 +82,8 @@ void main() {
         occorrenze += parola.allMatches(testo).length;
       }
     }
-    final file =
-        File('lib/features/account/consensi_della_registrazione.dart')
-            .readAsStringSync();
+    final file = File('lib/features/account/consensi_della_registrazione.dart')
+        .readAsStringSync();
     // ignore: avoid_print
     print('ORDINE CF VOCE 15: occorrenze dei termini di servizio in lib '
         '$occorrenze');

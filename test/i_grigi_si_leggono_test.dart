@@ -154,9 +154,8 @@ void main() {
         // Il contesto sta sulla riga o nelle DUE precedenti: una decorazione
         // con un colore condizionale si scrive su tre righe, e guardarne solo
         // una lasciava passare il bordo di rune_draw_screen.
-        final contesto = riga +
-            (n > 0 ? righe[n - 1] : '') +
-            (n > 1 ? righe[n - 2] : '');
+        final contesto =
+            riga + (n > 0 ? righe[n - 1] : '') + (n > 1 ? righe[n - 2] : '');
         if (nonSonoTesti.any(contesto.contains)) continue;
         final trovato = RegExp(
                 r'text(?:Secondary|Muted)\s*\.withValues\(alpha:\s*([0-9.]+)\s*[,)*]')

@@ -67,7 +67,8 @@ void main() {
             'fuori dall\'app');
   });
 
-  test('IPHONE E APPLE: le entitlements esistono e sono agganciate a TUTTE le '
+  test(
+      'IPHONE E APPLE: le entitlements esistono e sono agganciate a TUTTE le '
       'configurazioni', () {
     // **Senza questo file la capacita' non e' dichiarata dentro l'app**, e il
     // fornitore rifiuta anche col portale a posto.
@@ -90,16 +91,19 @@ void main() {
     // Le configurazioni del bersaglio Runner si riconoscono dal suo Info.plist:
     // gli altri bersagli (le prove) hanno il loro.
     final configurazioniDelRunner =
-        RegExp(r'INFOPLIST_FILE = Runner/Info\.plist;').allMatches(progetto).length;
-    final agganci = RegExp(
-            r'CODE_SIGN_ENTITLEMENTS = Runner/Runner\.entitlements;')
-        .allMatches(progetto)
-        .length;
+        RegExp(r'INFOPLIST_FILE = Runner/Info\.plist;')
+            .allMatches(progetto)
+            .length;
+    final agganci =
+        RegExp(r'CODE_SIGN_ENTITLEMENTS = Runner/Runner\.entitlements;')
+            .allMatches(progetto)
+            .length;
     // ignore: avoid_print
     print('ACCESSO: configurazioni del Runner = $configurazioniDelRunner, '
         'agganci delle entitlements = $agganci');
     expect(configurazioniDelRunner, greaterThan(0),
-        reason: 'nel progetto Xcode non si riconosce nessuna configurazione del '
+        reason:
+            'nel progetto Xcode non si riconosce nessuna configurazione del '
             'bersaglio Runner: questa prova non sa piu\' cosa contare');
     expect(agganci, configurazioniDelRunner,
         reason: 'le entitlements sono agganciate a $agganci configurazioni su '

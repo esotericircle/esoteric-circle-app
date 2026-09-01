@@ -19,13 +19,11 @@ void main() {
       for (var i = 0; i < 72; i++) {
         expect(AngelCatalog.all[i].number, i + 1);
         // Il coro segue la posizione: otto per coro, senza eccezioni.
-        expect(AngelCatalog.all[i].choir.name,
-            AngelCatalog.choirs[i ~/ 8].name,
+        expect(AngelCatalog.all[i].choir.name, AngelCatalog.choirs[i ~/ 8].name,
             reason: 'angelo ${i + 1} nel coro sbagliato');
       }
       // Ogni coro ha il suo arcangelo, tutti distinti.
-      final arcangeli =
-          AngelCatalog.choirs.map((c) => c.archangel).toSet();
+      final arcangeli = AngelCatalog.choirs.map((c) => c.archangel).toSet();
       expect(arcangeli.length, 9);
       for (final c in AngelCatalog.choirs) {
         expect(c.domain.trim(), isNotEmpty);
@@ -71,8 +69,8 @@ void main() {
       expect(visti.length, 72);
       for (final a in AngelCatalog.all) {
         expect(GuardianAngels.guardianFor(a.startDegree).number, a.number);
-        expect(GuardianAngels.guardianFor(a.startDegree + 4.9).number,
-            a.number);
+        expect(
+            GuardianAngels.guardianFor(a.startDegree + 4.9).number, a.number);
       }
     });
   });

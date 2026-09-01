@@ -10,8 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// rimediare.
 void main() {
   // **I PERMESSI VIVONO NEL SOTTO MENU'. Ordine CE voce 03.**
-  final s = File('lib/features/settings/permessi_di_sistema.dart')
-      .readAsStringSync();
+  final s =
+      File('lib/features/settings/permessi_di_sistema.dart').readAsStringSync();
 
   test('Esiste la voce dei permessi', () {
     expect(s.contains("Key('settings_permessi')"), isTrue,

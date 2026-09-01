@@ -39,8 +39,7 @@ void main() {
     final parole = paroleDalCorpus();
     for (final card in TarotDeck.cards) {
       final attesa = parole[card.name];
-      expect(attesa, isNotNull,
-          reason: '${card.name} non si trova nel corpus');
+      expect(attesa, isNotNull, reason: '${card.name} non si trova nel corpus');
       expect(card.reversedWord, attesa,
           reason: 'il corpus scrive "${card.name} $attesa", il catalogo dice '
               '"${card.name} ${card.reversedWord}"');
@@ -49,9 +48,19 @@ void main() {
 
   test('Le femminili e il plurale sono quelli attesi, e solo quelli', () {
     const femminili = {
-      'La Papessa', 'L\'Imperatrice', 'La Giustizia', 'La Ruota della Fortuna',
-      'La Forza', 'La Morte', 'La Temperanza', 'La Torre', 'La Stella',
-      'La Luna', 'Regina di Bastoni', 'Regina di Coppe', 'Regina di Denari',
+      'La Papessa',
+      'L\'Imperatrice',
+      'La Giustizia',
+      'La Ruota della Fortuna',
+      'La Forza',
+      'La Morte',
+      'La Temperanza',
+      'La Torre',
+      'La Stella',
+      'La Luna',
+      'Regina di Bastoni',
+      'Regina di Coppe',
+      'Regina di Denari',
       'Regina di Spade',
     };
     for (final card in TarotDeck.cards) {
@@ -76,8 +85,8 @@ void main() {
         14);
     expect(
         TarotDeck.cards
-            .where((c) =>
-                c.reversedAgreement == ReversedAgreement.maschilePlurale)
+            .where(
+                (c) => c.reversedAgreement == ReversedAgreement.maschilePlurale)
             .length,
         1);
   });
@@ -103,7 +112,8 @@ void main() {
     // sorgente, e si ignorano i commenti: la parola nel commento che spiega
     // la regola e' legittima.
     final colpevoli = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true).whereType<File>()) {
+    for (final f
+        in Directory('lib').listSync(recursive: true).whereType<File>()) {
       final path = f.path.replaceAll(r'\', '/');
       if (!path.endsWith('.dart')) continue;
       if (!path.contains('/tarot')) continue;

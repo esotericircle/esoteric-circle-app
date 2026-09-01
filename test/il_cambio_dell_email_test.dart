@@ -52,7 +52,8 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('la voce c\'e\' per chi entra con email e parola', (tester) async {
+  testWidgets('la voce c\'e\' per chi entra con email e parola',
+      (tester) async {
     await montaLAccount(tester);
     expect(find.text('Cambia la tua email'), findsOneWidget);
   });
@@ -112,7 +113,8 @@ void main() {
 
   testWidgets('i tre guai hanno tre frasi diverse', (tester) async {
     const casi = <EsitoDellaCustodia, String>{
-      EsitoDellaCustodia.nonRiconosciuto: 'Per cambiare email serve un accesso recente',
+      EsitoDellaCustodia.nonRiconosciuto:
+          'Per cambiare email serve un accesso recente',
       EsitoDellaCustodia.giaDiUnAltroCerchio: 'un altro Cerchio',
       EsitoDellaCustodia.nonRiuscita: 'Non è riuscito adesso',
     };
@@ -169,6 +171,10 @@ void main() {
 
 /// Una porta che dice sempre lo stesso esito, e ricorda cosa le hanno chiesto.
 class _PortaFinta implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   _PortaFinta({this.email, required this.vie, required this.esito});
 
   @override

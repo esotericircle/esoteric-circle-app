@@ -31,8 +31,8 @@ void main() {
   Future<AppServices> services({required bool ready}) async {
     final memory = InMemoryMaestroMemoryRepository();
     // Disclaimer gia' accettato, cosi' non copre la chat con la modale.
-    await memory.saveProfile(
-        UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
     return AppServices(
       ai: ready ? _ReadyAi() : _OfflineAi(),
       memory: memory,
@@ -80,7 +80,8 @@ void main() {
     }
   }
 
-  testWidgets('Col Maestro pronto, la domanda contestuale e\' inviata e risposta',
+  testWidgets(
+      'Col Maestro pronto, la domanda contestuale e\' inviata e risposta',
       (tester) async {
     final svc = await services(ready: true);
     await pumpChat(tester, svc,

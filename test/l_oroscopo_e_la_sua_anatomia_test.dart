@@ -30,8 +30,16 @@ void main() {
     // Nell'Oroscopo il simbolo e' il pianeta o la casa, e la riga che li nomina
     // arriva dopo la sintesi del segno.
     const pianeti = [
-      'Sole', 'Luna', 'Mercurio', 'Venere', 'Marte', 'Giove', 'Saturno',
-      'Urano', 'Nettuno', 'Plutone',
+      'Sole',
+      'Luna',
+      'Mercurio',
+      'Venere',
+      'Marte',
+      'Giove',
+      'Saturno',
+      'Urano',
+      'Nettuno',
+      'Plutone',
     ];
     final colpe = <String>[];
     for (final segno in Zodiac.values) {
@@ -62,8 +70,16 @@ void main() {
     // arriva il simbolo dentro il testo, e se un giorno risalisse in testa la prova
     // qui sopra cadrebbe prima.
     const pianeti = [
-      'Sole', 'Luna', 'Mercurio', 'Venere', 'Marte', 'Giove', 'Saturno',
-      'Urano', 'Nettuno', 'Plutone',
+      'Sole',
+      'Luna',
+      'Mercurio',
+      'Venere',
+      'Marte',
+      'Giove',
+      'Saturno',
+      'Urano',
+      'Nettuno',
+      'Plutone',
     ];
     final quote = <double>[];
     for (final segno in Zodiac.values) {
@@ -112,7 +128,8 @@ void main() {
     expect(povere, isEmpty, reason: povere.take(8).join('\n'));
   });
 
-  test('la riga del cielo, quando c\'e\', apre con una giuntura dichiarata', () {
+  test('la riga del cielo, quando c\'e\', apre con una giuntura dichiarata',
+      () {
     // **DA DOVE VIENE, ed e' la parte 3.** Le giunture vivono in due famiglie
     // dichiarate in `CorrenteDelCielo`, una coi due punti e una col punto, e la
     // ragione e' grammaticale: dopo i due punti l'italiano vuole la minuscola, e
@@ -172,12 +189,13 @@ void main() {
         giorniDiIncertezza: 0.01,
       ),
     ];
-    const cielo = CieloDiOggi(
-        voci: [], livello: LivelloPersonalizzazione.cartaCompleta);
+    const cielo =
+        CieloDiOggi(voci: [], livello: LivelloPersonalizzazione.cartaCompleta);
     final vero = CieloDiOggi(
         voci: voci, livello: LivelloPersonalizzazione.cartaCompleta);
     // Senza voci non c'e' riga del cielo: il ripiego resta il testo del segno.
-    expect(CorrenteDelCielo.componi(
+    expect(
+        CorrenteDelCielo.componi(
             cielo: cielo, dominio: HoroscopeDomain.amore, profonda: false),
         isNull,
         reason: 'senza voci del cielo la riga non deve nascere: una riga '

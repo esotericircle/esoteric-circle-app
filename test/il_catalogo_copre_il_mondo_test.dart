@@ -98,7 +98,9 @@ void main() {
   test('ogni fonte dichiara chi la pubblica e con quale licenza', () {
     final mute = <String>[];
     for (final f in fontiDeiDati) {
-      if (f.cosa.isEmpty || f.chi.isEmpty || f.licenza.isEmpty ||
+      if (f.cosa.isEmpty ||
+          f.chi.isEmpty ||
+          f.licenza.isEmpty ||
           f.dove.isEmpty) {
         mute.add(f.cosa);
       }
@@ -126,8 +128,8 @@ void main() {
     // dati", perche' il menu' utente ne aveva gia' una col nome quasi
     // identico e la stessa icona. La via c'e' ancora, e sta in un posto
     // solo: quello che la licenza pretende e' che sia raggiungibile.
-    final menu = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final menu =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(menu.contains('PrivacyEPermessiScreen.route()'), isTrue,
         reason: 'nessuna riga del menu\' utente porta al sotto menu\', quindi '
             'l\'attribuzione non e\' piu\' raggiungibile');

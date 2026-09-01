@@ -47,15 +47,13 @@ void main() {
     }
     final mediana = lunghezze[lunghezze.length ~/ 2];
     final massimo = lunghezze.last;
-    final piuLungo =
-        puliti.reduce((a, b) => b.length > a.length ? b : a);
+    final piuLungo = puliti.reduce((a, b) => b.length > a.length ? b : a);
     return (
       quanti: puliti.length,
       mediana: mediana,
       massimo: massimo,
-      piuLungo: piuLungo.length <= 90
-          ? piuLungo
-          : '${piuLungo.substring(0, 90)}...',
+      piuLungo:
+          piuLungo.length <= 90 ? piuLungo : '${piuLungo.substring(0, 90)}...',
     );
   }
 
@@ -132,8 +130,8 @@ void main() {
     // --- ORACOLO DEL GIORNO: la riga di mezza giornata ---
     final oracoli = <String>[];
     for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
-      oracoli.add(DailyRituals.dayOracle(DateTime(2026, 1, 1)
-          .add(Duration(days: giorno))));
+      oracoli.add(DailyRituals.dayOracle(
+          DateTime(2026, 1, 1).add(Duration(days: giorno))));
     }
     tutto['Oracolo del Giorno, la riga'] = oracoli;
 
@@ -219,7 +217,8 @@ void main() {
             'cambiato prima di rigenerarla');
   });
 
-  test('nessun tetto esistente taglia cio\' che i corpora producono davvero', () {
+  test('nessun tetto esistente taglia cio\' che i corpora producono davvero',
+      () {
     // **LA SECONDA META' DELLA VOCE 18.** I tetti nuovi si scrivono DALLA
     // tabella, e i tetti che esistono gia' vanno confrontati con la misura: un
     // tetto sotto il massimo vero e' un troncamento che aspetta il giorno giusto,

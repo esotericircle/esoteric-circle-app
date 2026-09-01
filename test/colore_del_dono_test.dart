@@ -46,11 +46,11 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: RitualGiftCard(
-              gift: gift,
-              dono: DailyElement.dawn,
-              giorno: DateTime(2026, 8, 6),
-              streak: 3,
-              onShare: () {}),
+            gift: gift,
+            dono: DailyElement.dawn,
+            giorno: DateTime(2026, 8, 6),
+            streak: 3,
+            onShare: () {}),
       ),
     ));
     await tester.pump();
@@ -87,7 +87,8 @@ void main() {
         visti[m] = await accentoMostrato(tester, m);
       }
       expect(visti.values.toSet(), hasLength(3),
-          reason: 'due Maestri danno lo stesso accento: la scheda non dice piu\' '
+          reason:
+              'due Maestri danno lo stesso accento: la scheda non dice piu\' '
               'di chi e\' il giorno');
     });
 
@@ -170,11 +171,11 @@ void main() {
         await tester.pumpWidget(MaterialApp(
           home: Scaffold(
             body: RitualGiftCard(
-              gift: gift,
-              dono: DailyElement.dawn,
-              giorno: DateTime(2026, 8, 6),
-              streak: 3,
-              onShare: () {}),
+                gift: gift,
+                dono: DailyElement.dawn,
+                giorno: DateTime(2026, 8, 6),
+                streak: 3,
+                onShare: () {}),
           ),
         ));
         await tester.pump();
@@ -225,8 +226,7 @@ void main() {
         // Nessun altro file deve costruire la scheda passandole un colore, ne
         // derivare una palette per lei.
         if (testo.contains('RitualGiftCard(') &&
-            RegExp(r'RitualGiftCard\([^)]*(accento|palette)')
-                .hasMatch(testo)) {
+            RegExp(r'RitualGiftCard\([^)]*(accento|palette)').hasMatch(testo)) {
           colpevoli.add('$relativo: passa un colore alla scheda');
         }
       }
@@ -308,11 +308,11 @@ void main() {
             child: RepaintBoundary(
               key: chiave,
               child: RitualGiftCard(
-              gift: gift,
-              dono: DailyElement.dawn,
-              giorno: DateTime(2026, 8, 6),
-              streak: 4,
-              onShare: () {}),
+                  gift: gift,
+                  dono: DailyElement.dawn,
+                  giorno: DateTime(2026, 8, 6),
+                  streak: 4,
+                  onShare: () {}),
             ),
           ),
         ),

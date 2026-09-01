@@ -52,8 +52,7 @@ void main() {
         // Si cerca l'ancora COL SUO NOME accanto, non l'una o l'altro: una
         // scena che monta un'ancora qualunque non dice niente su questo
         // bersaglio.
-        if (!sorgente.contains(
-            'nome: BersagliDelPrimoApprodo.${voce.key}')) {
+        if (!sorgente.contains('nome: BersagliDelPrimoApprodo.${voce.key}')) {
           senzaScena.add('${voce.key} in ${voce.value}');
         }
       }
@@ -184,9 +183,7 @@ void main() {
       // Maestri e li tagliava al collo. L'ha visto il fondatore in
       // un'anteprima, non questa prova.
       await monta(tester,
-          armato: true,
-          schermo: const Size(360, 797),
-          altoIlBersaglio: 274);
+          armato: true, schermo: const Size(360, 797), altoIlBersaglio: 274);
       // Si passa al secondo fumetto, che e' il primo con una freccia.
       await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
       await tester.pumpAndSettle();
@@ -194,7 +191,8 @@ void main() {
           AncoraDelPrimoApprodo.dove(BersagliDelPrimoApprodo.trio);
       expect(bersaglio, isNotNull,
           reason: 'l\'ancora non sa dire dove sta il suo pezzo di scena');
-      final carta = tester.getRect(find.byKey(const Key('primo_approdo_testo_1')));
+      final carta =
+          tester.getRect(find.byKey(const Key('primo_approdo_testo_1')));
       // ignore: avoid_print
       print('ORDINE CB VOCE 02: bersaglio a ${bersaglio!.top.round()}, '
           'fumetto a ${carta.top.round()}');
@@ -219,8 +217,8 @@ void main() {
       final schermo = tester.view.physicalSize;
       final fuori = <String>[];
       for (var i = 0; i < cinqueFumetti.length; i++) {
-        final carta = tester.getRect(find.byKey(Key(
-            'primo_approdo_titolo_$i')));
+        final carta =
+            tester.getRect(find.byKey(Key('primo_approdo_titolo_$i')));
         final tasto =
             tester.getRect(find.byKey(const Key('primo_approdo_avanti')));
         if (carta.top < 0 || tasto.bottom > schermo.height) {
@@ -293,7 +291,8 @@ void main() {
       final controller = File('lib/core/onboarding/onboarding_controller.dart')
           .readAsStringSync();
       expect(controller.contains('primo_approdo'), isFalse,
-          reason: 'l\'arma e\' tornata dentro il controller, e da li\' si accende '
+          reason:
+              'l\'arma e\' tornata dentro il controller, e da li\' si accende '
               'in ogni prova che dichiara l\'onboarding fatto');
     });
 

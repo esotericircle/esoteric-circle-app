@@ -70,14 +70,17 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE S VOCE 28: il dono piu\' lungo e\' $massimo caratteri ($quale)');
+    print(
+        'ORDINE S VOCE 28: il dono piu\' lungo e\' $massimo caratteri ($quale)');
     // **IL TETTO E' 120, dichiarato:** il censimento della voce S.18 misura 76 come
     // massimo dei tre doni, e 120 e' il tetto che lascia mezza riga di crescita
     // senza permettere che un dono diventi un paragrafo. Non e' il massimo misurato
     // arrotondato: e' la misura oltre la quale una riga smette di essere una riga.
     expect(massimo, lessThan(120),
-        reason: 'un dono del giorno e\' arrivato a $massimo caratteri ($quale): '
-            'non e\' piu\' un colpo d\'occhio, e' ' l\'azione la porta il rito, '
+        reason:
+            'un dono del giorno e\' arrivato a $massimo caratteri ($quale): '
+            'non e\' piu\' un colpo d\'occhio, e'
+            ' l\'azione la porta il rito, '
             'non la riga');
   });
 
@@ -91,7 +94,8 @@ void main() {
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      expect(istruzione, contains(LeggeDelResponso.perIlModello.split('\n').first),
+      expect(
+          istruzione, contains(LeggeDelResponso.perIlModello.split('\n').first),
           reason: '${maestro.id}: la legge del responso non arriva alla chat');
       expect(istruzione,
           contains(ConfineDelResponso.perIlModello.split(':').first),
@@ -131,7 +135,8 @@ void main() {
     // E la tradizione NON deve avere una casa nella chat: vive nel pannello delle
     // fonti, e `dentroIlResponso` falso e' il modo in cui l'anatomia lo dice.
     expect(DoveLaChatPortaOgniParte.per(ParteDelResponso.tradizione), isNull,
-        reason: 'la tradizione ha un posto dentro la chat: l\'anatomia dice che '
+        reason:
+            'la tradizione ha un posto dentro la chat: l\'anatomia dice che '
             'sta nel pannello delle fonti');
   });
 
@@ -157,7 +162,8 @@ void main() {
     }
     expect(morti, isEmpty, reason: morti.join(' | '));
     // ignore: avoid_print
-    print('ORDINE S VOCE 28: marcatori cercati nella stringa emessa $osservate');
+    print(
+        'ORDINE S VOCE 28: marcatori cercati nella stringa emessa $osservate');
     expect(osservate, greaterThan(0),
         reason: 'la prova non ha cercato nessun marcatore: gira a vuoto');
   });
@@ -184,7 +190,8 @@ void main() {
     print('ORDINE S VOCE 28: impronte confrontate $osservate');
     expect(osservate, greaterThan(0));
     expect(cambiate, isEmpty,
-        reason: 'l\'istruzione di sistema e\' cambiata rispetto a quella registrata '
+        reason:
+            'l\'istruzione di sistema e\' cambiata rispetto a quella registrata '
             'il ${ImprontaDellIstruzione.registrateIl}. Non e\' vietato cambiarla: '
             'e\' vietato cambiarla in silenzio. Rilancia l\'attribuzione cieca e '
             'aggiorna le impronte, oppure dichiara nel rapporto che si consegna '
@@ -227,5 +234,4 @@ void main() {
             '${ImprontaDellIstruzione.ultimaMisuraNota} Come si rimisura: '
             '${ImprontaDellIstruzione.comeSiRimisura}');
   });
-
 }

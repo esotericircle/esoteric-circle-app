@@ -85,7 +85,8 @@ void main() {
     // "Eos 0" avremmo il saldo giusto nel dato e la barra che dice zero, cioe'
     // esattamente il difetto della voce.
     expect(find.text('Eos 0'), findsNothing,
-        reason: 'il numero in barra e\' rimasto fermo dopo il traguardo: e\' il '
+        reason:
+            'il numero in barra e\' rimasto fermo dopo il traguardo: e\' il '
             'difetto della voce 04, la persona vede "+10 Eos" nella festa e zero '
             'nel borsellino');
     expect(find.text('Eos ${porta.saldo}'), findsOneWidget,
@@ -93,7 +94,8 @@ void main() {
             '(${porta.saldo}): sta mostrando un altro numero');
   });
 
-  testWidgets('se il server tace il numero resta fermo, e il guasto e\' scritto',
+  testWidgets(
+      'se il server tace il numero resta fermo, e il guasto e\' scritto',
       (tester) async {
     // **Il contrario della prova di sopra, e serve.** Senza di lei si potrebbe
     // far passare la prima inventando un numero quando il server non risponde,
@@ -136,9 +138,11 @@ void main() {
         reason: 'la barra mostra un saldo che il server non ha mai confermato: '
             'un numero inventato e\' peggio di un numero fermo');
     expect(servizi.guasti.haGuasti, isTrue,
-        reason: 'il server ha taciuto e non e\' rimasta nessuna traccia: e\' il '
+        reason:
+            'il server ha taciuto e non e\' rimasta nessuna traccia: e\' il '
             'catch muto della voce 04, che rendeva la causa illeggibile');
-    expect(servizi.guasti.ultimo!.operazione, contains('accredito del traguardo'),
+    expect(
+        servizi.guasti.ultimo!.operazione, contains('accredito del traguardo'),
         reason: 'il guasto registrato non dice di quale operazione si tratta');
   });
 }
@@ -171,7 +175,8 @@ class _PortaCheAccredita extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({
@@ -215,7 +220,8 @@ class _PortaMuta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

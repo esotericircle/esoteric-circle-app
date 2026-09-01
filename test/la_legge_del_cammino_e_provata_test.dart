@@ -24,7 +24,8 @@ void main() {
   List<StatoDelCammino> eventiPossibili() {
     final gesti = <String>{
       for (final t in Sentieri.tuttiITraguardi)
-        if (t.condizione is GestiCompiuti) (t.condizione as GestiCompiuti).gesto,
+        if (t.condizione is GestiCompiuti)
+          (t.condizione as GestiCompiuti).gesto,
       for (final t in Sentieri.tuttiITraguardi)
         if (t.condizione is GiorniDiSeguito)
           (t.condizione as GiorniDiSeguito).rito,

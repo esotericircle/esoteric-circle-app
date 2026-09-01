@@ -41,9 +41,10 @@ void main() {
     final byte = await File(file).readAsBytes();
     final codice = await ui.instantiateImageCodec(byte);
     final immagine = (await codice.getNextFrame()).image;
-    final dati = (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
-        .buffer
-        .asUint8List();
+    final dati =
+        (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
     return List<double>.generate(dati.length, (i) => dati[i].toDouble());
   }
 
@@ -52,8 +53,7 @@ void main() {
       var osservati = 0;
       final sbiaditi = <String>[];
       for (final sentiero in Sentieri.tutti) {
-        final spento =
-            'docs/preview/journal_${sentiero.name}_due.png';
+        final spento = 'docs/preview/journal_${sentiero.name}_due.png';
         final acceso =
             'docs/preview/journal_${sentiero.name}_cinquantacinque.png';
         if (!File(spento).existsSync() || !File(acceso).existsSync()) continue;

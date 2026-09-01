@@ -159,8 +159,9 @@ void main() {
   /// Il riquadro della bolla che contiene [dentro], cioe' il Container che
   /// porta la superficie dipinta. Non si cerca per tipo: si risale.
   Rect riquadroDellaBolla(WidgetTester tester, Finder dentro) {
-    for (final e
-        in find.ancestor(of: dentro, matching: find.byType(Container)).evaluate()) {
+    for (final e in find
+        .ancestor(of: dentro, matching: find.byType(Container))
+        .evaluate()) {
       final d = (e.widget as Container).decoration;
       if (d is BoxDecoration && d.gradient != null) {
         final r = e.renderObject as RenderBox;

@@ -35,13 +35,11 @@ import 'package:flutter_test/flutter_test.dart';
 /// a cercarsi il Test da un'altra parte mentre la tessera che gliene parla
 /// resta muta sotto il dito.
 void main() {
-  String soloCodice(String percorso) => File(percorso)
-      .readAsLinesSync()
-      .where((r) {
+  String soloCodice(String percorso) =>
+      File(percorso).readAsLinesSync().where((r) {
         final p = r.trimLeft();
         return !p.startsWith('//') && !p.startsWith('///');
-      })
-      .join('\n');
+      }).join('\n');
 
   final passaporto =
       soloCodice('lib/features/passport/cosmic_passport_screen.dart');

@@ -34,13 +34,11 @@ import 'package:flutter_test/flutter_test.dart';
 /// `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Prometteva
 /// "qui sceglierai" e non faceva scegliere niente.
 void main() {
-  String soloCodice(String percorso) => File(percorso)
-      .readAsLinesSync()
-      .where((r) {
+  String soloCodice(String percorso) =>
+      File(percorso).readAsLinesSync().where((r) {
         final p = r.trimLeft();
         return !p.startsWith('//') && !p.startsWith('///');
-      })
-      .join('\n');
+      }).join('\n');
 
   test('BB.08: il no per sempre della posizione si SENTE, non si legge', () {
     final tramonto = soloCodice('lib/features/rituals/sunset_rune_screen.dart');
@@ -48,8 +46,8 @@ void main() {
     print('ORDINE BB VOCE 08: il messaggio del no per sempre compare '
         '${"sunset_posizione_negata_per_sempre".allMatches(tramonto).length} '
         'volte');
-    expect(tramonto.contains("Key('sunset_posizione_negata_per_sempre')"),
-        isTrue,
+    expect(
+        tramonto.contains("Key('sunset_posizione_negata_per_sempre')"), isTrue,
         reason: 'col permesso negato per sempre il tocco cambia solo la '
             'scritta, e la scritta sta sotto il dito che la copre: e il fatto '
             'del fondatore, "al click non succede nulla"');

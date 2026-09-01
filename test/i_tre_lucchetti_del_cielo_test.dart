@@ -136,7 +136,8 @@ void main() {
             'dipinge');
   });
 
-  test('lucchetto 3, l\'enumerazione: ognuna riceve il cielo dalla sorgente '
+  test(
+      'lucchetto 3, l\'enumerazione: ognuna riceve il cielo dalla sorgente '
       'che dichiara', () {
     final sorgenti = Directory('lib')
         .listSync(recursive: true)

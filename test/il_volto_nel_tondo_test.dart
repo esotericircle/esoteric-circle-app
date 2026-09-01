@@ -149,7 +149,8 @@ void main() {
     );
   }
 
-  testWidgets('il volto riempie il tondo come quello di Medora, e sta al centro',
+  testWidgets(
+      'il volto riempie il tondo come quello di Medora, e sta al centro',
       (tester) async {
     final risultati = <Maestro, ({double riempimento, double scarto})>{};
     for (final m in Maestro.fixedOrder) {

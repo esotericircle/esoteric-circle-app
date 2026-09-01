@@ -19,19 +19,20 @@ void main() {
 
   test('le tre difese del server sono ancora tutte e tre', () {
     final server = File('functions/src/cerchio.ts').readAsStringSync();
-    final pezzo = server.substring(server.indexOf('export const riscattaLInvito'),
+    final pezzo = server.substring(
+        server.indexOf('export const riscattaLInvito'),
         server.indexOf('export const muoviGliEos'));
     final difese = <String, bool>{
       // 1. Non ci si invita da soli.
       'non ci si invita da soli': pezzo.contains('codice === uid'),
       // 2. Non si riscatta due volte: chi ha gia' un invitante non ne prende
       //    un secondo, e il controllo sta dentro una transazione.
-      'non si riscatta due volte': pezzo.contains('gia.invitatoDa') &&
-          pezzo.contains('runTransaction'),
+      'non si riscatta due volte':
+          pezzo.contains('gia.invitatoDa') && pezzo.contains('runTransaction'),
       // 3. Il premio e' idempotente: il movimento porta un identificativo
       //    fisso, e se esiste gia' non si paga.
-      'il premio e\' idempotente':
-          pezzo.contains('`invito-\${uid}`') && pezzo.contains('giaPagato.exists'),
+      'il premio e\' idempotente': pezzo.contains('`invito-\${uid}`') &&
+          pezzo.contains('giaPagato.exists'),
     };
     // ignore: avoid_print
     print('ORDINE CC VOCE 08: difese del server in piedi '
@@ -54,8 +55,8 @@ void main() {
     // 60 EOS, ma va sistemato prima della pubblicazione". **Il debito sta
     // scritto in `docs/ordini/RIPRESA.md` e nel manifesto dell'ordine CE**,
     // cosi' non lo tiene in vita soltanto una conversazione.
-    final casa = File('lib/features/santuario/santuario_screen.dart')
-        .readAsStringSync();
+    final casa =
+        File('lib/features/santuario/santuario_screen.dart').readAsStringSync();
     expect(casa.contains('DomandaDellInvito.chiedi'), isFalse,
         reason: 'il foglio dell\'invito e\' tornato a comparire da solo a chi '
             'arriva: il fondatore lo ha tolto');
@@ -66,8 +67,8 @@ void main() {
     // manifesto: il fondatore ha chiesto di togliere i popup, non ogni
     // strada. Chi ha davvero un codice puo' ancora riscuoterlo dal menu'
     // Account, dove ci va di sua volonta' invece di trovarselo addosso.
-    final conto = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final conto =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(conto.contains('apriIlRiscattoDellInvito'), isTrue,
         reason: 'tolto il popup e\' sparita anche la porta a mano: chi ha un '
             'codice non ha piu\' nessun modo di usarlo');
@@ -98,8 +99,8 @@ void main() {
       (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     var quanteLetture = 0;
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-        SystemChannels.platform, (chiamata) async {
+    tester.binding.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, (chiamata) async {
       if (chiamata.method == 'Clipboard.getData') {
         quanteLetture++;
         return <String, dynamic>{
@@ -125,16 +126,16 @@ void main() {
     await tester.tap(find.byKey(const Key('invito_incolla')));
     await tester.pumpAndSettle();
     expect(quanteLetture, 1);
-    final campo = tester.widget<TextField>(
-        find.byKey(const Key('invito_campo')));
+    final campo =
+        tester.widget<TextField>(find.byKey(const Key('invito_campo')));
     expect(campo.controller!.text, 'kJ3nX9aQ2b.medora',
         reason: 'il tocco su Incolla non porta dentro il codice');
   });
 
   testWidgets('cio\' che non e\' un codice non entra, e non si mostra',
       (tester) async {
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-        SystemChannels.platform, (chiamata) async {
+    tester.binding.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, (chiamata) async {
       if (chiamata.method == 'Clipboard.getData') {
         return <String, dynamic>{'text': 'la mia password segreta'};
       }
@@ -148,8 +149,8 @@ void main() {
     ));
     await tester.tap(find.byKey(const Key('invito_incolla')));
     await tester.pumpAndSettle();
-    final campo = tester.widget<TextField>(
-        find.byKey(const Key('invito_campo')));
+    final campo =
+        tester.widget<TextField>(find.byKey(const Key('invito_campo')));
     expect(campo.controller!.text, isEmpty);
     // E soprattutto: cio' che c'era negli appunti non finisce a video.
     expect(find.textContaining('password'), findsNothing,

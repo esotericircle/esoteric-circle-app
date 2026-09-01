@@ -93,7 +93,8 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
     expect(aperte + attesa + premessa + chiuse, quante,
-        reason: 'gli stati contati fanno ${aperte + attesa + premessa + chiuse} '
+        reason:
+            'gli stati contati fanno ${aperte + attesa + premessa + chiuse} '
             'invece di $quante: una voce e\' sparita dal conto pur restando '
             'nel file');
   });

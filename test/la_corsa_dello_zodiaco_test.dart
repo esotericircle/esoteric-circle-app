@@ -114,8 +114,8 @@ void main() {
     // a dire che la corsa e' finita: lo dice la riga sotto, che smette di
     // essere la frase di attesa e diventa il nome del segno.
     var passi = 0;
-    while (find.text(Zodiac.leo.italianName).evaluate().isEmpty &&
-        passi < 200) {
+    while (
+        find.text(Zodiac.leo.italianName).evaluate().isEmpty && passi < 200) {
       await tester.pump(const Duration(milliseconds: 40));
       passi++;
     }

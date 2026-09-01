@@ -114,8 +114,7 @@ void main() {
     await tester.tap(find.byKey(const Key('responso_custodisci')));
     await tester.pumpAndSettle();
 
-    expect(scrigno.quanti, 1,
-        reason: 'il gesto non ha custodito niente');
+    expect(scrigno.quanti, 1, reason: 'il gesto non ha custodito niente');
     expect(scrigno.tutti.first.comeENato, ComeENato.gesto);
     expect(scrigno.tutti.first.testo,
         'Uruz ti chiede di non trattenere la forza che hai.');
@@ -126,8 +125,7 @@ void main() {
             'sarebbe una carta senza il giorno in cui e\' nata');
   });
 
-  testWidgets(
-      'CG.06: un foglio aperto e poi chiuso NON custodisce niente',
+  testWidgets('CG.06: un foglio aperto e poi chiuso NON custodisce niente',
       (tester) async {
     final scrigno = ScrignoDeiCustoditi();
     await scrigno.carica();
@@ -254,8 +252,7 @@ void main() {
             'tanto');
   });
 
-  test('CG.06 e CG.08: ogni arte censita monta le tre azioni da UNA porta',
-      () {
+  test('CG.06 e CG.08: ogni arte censita monta le tre azioni da UNA porta', () {
     // **La pretesa che rende vero il censimento.** Senza di lei l'elenco
     // dichiarerebbe tredici arti e le schermate potrebbero averne zero: e'
     // esattamente la forma della prova di CE.04, che si accontentava di una

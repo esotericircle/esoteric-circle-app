@@ -107,8 +107,7 @@ void main() {
 
   testWidgets('Servizio spento: si manda alle impostazioni giuste',
       (tester) async {
-    await apri(
-        tester, const RispostaPosizione(EsitoPosizione.servizioSpento));
+    await apri(tester, const RispostaPosizione(EsitoPosizione.servizioSpento));
     // **LA FRASE E\' CAMBIATA CON L\'ORDINE BZ VOCE 04, e questa prova era
     // rimasta alla frase di prima.** Il fondatore ha toccato "Orienta il tuo
     // cielo" sul suo iPhone e non e\' comparso nessun dialogo: la

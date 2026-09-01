@@ -53,8 +53,8 @@ void main() {
       }
     }
     // I gesti elencati dentro GestiNelloStessoGiorno.
-    for (final blocco
-        in RegExp(r'GestiNelloStessoGiorno\(\[([^\]]*)\]').allMatches(sorgenti)) {
+    for (final blocco in RegExp(r'GestiNelloStessoGiorno\(\[([^\]]*)\]')
+        .allMatches(sorgenti)) {
       for (final voce in RegExp(r"'([a-z_]+)'").allMatches(blocco.group(1)!)) {
         dentro.add(voce.group(1)!);
       }
@@ -122,9 +122,9 @@ void main() {
       }
       final codice = file.readAsStringSync();
       final chiama = codice.contains('RegiaDelCammino.dopoUnGesto');
-      final colGesto = RegExp(
-              "dopoUnGesto\\([^;]*'${RegExp.escape(sorgente.gesto)}'")
-          .hasMatch(codice);
+      final colGesto =
+          RegExp("dopoUnGesto\\([^;]*'${RegExp.escape(sorgente.gesto)}'")
+              .hasMatch(codice);
       if (!chiama || !colGesto) {
         scollegate.add('${sorgente.schermata}  '
             '(compie il gesto "${sorgente.gesto}" e '

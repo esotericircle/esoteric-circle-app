@@ -100,8 +100,8 @@ void main() {
       final grandi = Sentieri.grandiDi(sentiero);
       // Le posizioni dei grandi vengono dal corpus e stanno in un punto
       // solo: qui si confronta con quello, non con cinque numeri ricopiati.
-      expect(grandi.map((t) => t.posizione).toList(),
-          Traguardo.posizioniDeiGrandi,
+      expect(
+          grandi.map((t) => t.posizione).toList(), Traguardo.posizioniDeiGrandi,
           reason: 'i grandi di ${sentiero.titolo} non stanno a 10, 20, 30, '
               '40 e 50');
     }
@@ -132,8 +132,8 @@ void main() {
       // Contare anche le dormienti direbbe che il cammino chiede una cosa che
       // non chiede.
       final cerchioVivi = Sentieri.di(sentiero)
-          .where((t) =>
-              !t.dormiente && t.famiglia == FamigliaDelTraguardo.cerchio)
+          .where(
+              (t) => !t.dormiente && t.famiglia == FamigliaDelTraguardo.cerchio)
           .length;
       expect(cerchioVivi, lessThanOrEqualTo(4),
           reason: '${sentiero.titolo} chiede $cerchioVivi volte di '
@@ -236,9 +236,8 @@ void main() {
 
   test('almeno 10 traguardi per sentiero dipendono dal cielo vero', () {
     for (final sentiero in Sentieri.tutti) {
-      final delCielo = Sentieri.di(sentiero)
-          .where((t) => t.condizione.chiedeIlCielo)
-          .length;
+      final delCielo =
+          Sentieri.di(sentiero).where((t) => t.condizione.chiedeIlCielo).length;
       expect(delCielo, greaterThanOrEqualTo(10),
           reason: '${sentiero.titolo} ha solo $delCielo traguardi legati a un '
               'evento del cielo: e\' la famiglia che nessuno puo\' copiare '

@@ -54,8 +54,7 @@ Rect fasciaDelTesto(WidgetTester tester) {
       find.descendant(
           of: find.byKey(const Key('santuario_sky_tap')),
           matching: find.byType(Text)),
-    ])
-      ...[if (scatola(f) != null) scatola(f)!],
+    ]) ...[if (scatola(f) != null) scatola(f)!],
   ];
   if (pezzi.isEmpty) return Rect.zero;
   var fascia = pezzi.first;

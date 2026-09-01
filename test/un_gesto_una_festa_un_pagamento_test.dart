@@ -169,7 +169,8 @@ void main() {
       for (final evento in EventiDelCielo.tutti) {
         coppie++;
         final quanti = Sentieri.tuttiITraguardi
-            .where((t) => t.condizione.raggiunto(_statoDi(gesto, cielo: evento)))
+            .where(
+                (t) => t.condizione.raggiunto(_statoDi(gesto, cielo: evento)))
             .length;
         if (quanti > massimo) {
           massimo = quanti;
@@ -237,6 +238,5 @@ StatoDelCammino _statoDi(String gesto, {String? cielo}) => StatoDelCammino(
       giorniConGesto: {gesto: 1},
       oggiHaFatto: {gesto},
       eventiDelCieloDiOggi: cielo == null ? const {} : {cielo},
-      pezziDellIdentita:
-          PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
+      pezziDellIdentita: PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
     );

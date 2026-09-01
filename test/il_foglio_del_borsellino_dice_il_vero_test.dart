@@ -31,8 +31,8 @@ void main() {
   test('un limite a zero non si racconta come un esaurimento', () {
     final borsa = QuestionAllowance();
     final righe = PortafoglioDelCerchio.tuttiILimiti(borsa, Tier.free);
-    final approfondimenti = righe
-        .firstWhere((r) => r.toLowerCase().contains('approfondiment'));
+    final approfondimenti =
+        righe.firstWhere((r) => r.toLowerCase().contains('approfondiment'));
     final confronti =
         righe.firstWhere((r) => r.toLowerCase().contains('confront'));
     for (final riga in [approfondimenti, confronti]) {

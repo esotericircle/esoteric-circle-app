@@ -105,8 +105,7 @@ void main() {
     // testo e `instance_type: mac_mini_m9` passava.
     if (valore is String) {
       final schemaPattern = d['pattern'] as String?;
-      if (schemaPattern != null &&
-          !RegExp(schemaPattern).hasMatch(valore)) {
+      if (schemaPattern != null && !RegExp(schemaPattern).hasMatch(valore)) {
         return ['$dove: "$valore" non ha la forma richiesta'];
       }
       final minimo = d['minLength'] as int?;
@@ -120,8 +119,7 @@ void main() {
       if (valore is! Map) {
         return ['$dove: qui ci vuole un blocco di chiavi, non "$valore"'];
       }
-      final proprieta =
-          (d['properties'] as Map<String, dynamic>?) ?? const {};
+      final proprieta = (d['properties'] as Map<String, dynamic>?) ?? const {};
       // **`additionalProperties` HA DUE FACCE, e la seconda mi era sfuggita.**
       //
       // Quando vale `false` significa che una chiave in piu' non e' tollerata:
@@ -208,9 +206,9 @@ void main() {
     // casa puo' essere verde perche' non guarda: qui si guastano apposta delle
     // copie in memoria e si pretende che ciascuna venga rifiutata. Il primo
     // caso e' il difetto vero che Codemagic ha segnalato il 6 agosto 2026.
-    Map<String, dynamic> copia() =>
-        jsonDecode(jsonEncode(semplifica(loadYaml(yamlFile.readAsStringSync()))))
-            as Map<String, dynamic>;
+    Map<String, dynamic> copia() => jsonDecode(
+            jsonEncode(semplifica(loadYaml(yamlFile.readAsStringSync()))))
+        as Map<String, dynamic>;
 
     Map<String, dynamic> ilWorkflow(Map<String, dynamic> d) =>
         (d['workflows'] as Map<String, dynamic>).values.first

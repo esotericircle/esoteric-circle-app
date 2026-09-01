@@ -35,14 +35,19 @@ void main() {
       final nome = voce.uri.pathSegments.last;
       if (!nome.endsWith('.yml') && !nome.endsWith('.yaml')) continue;
       final testo = voce.readAsStringSync();
-      for (final vietato in const ['git commit', 'git push', 'contents: write']) {
+      for (final vietato in const [
+        'git commit',
+        'git push',
+        'contents: write'
+      ]) {
         if (testo.contains(vietato)) {
           colpevoli.add('$nome porta "$vietato"');
         }
       }
     }
     expect(colpevoli, isEmpty,
-        reason: 'un\'azione automatica puo\' scrivere nella cronologia del ramo '
+        reason:
+            'un\'azione automatica puo\' scrivere nella cronologia del ramo '
             'su cui si lavora, ed e\' cosi\' che sono nati due conflitti:\n'
             '${colpevoli.join("\n")}\n'
             'Se serve davvero, si apre una pull request invece di committare.');

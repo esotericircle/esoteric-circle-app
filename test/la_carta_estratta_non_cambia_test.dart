@@ -79,8 +79,8 @@ void main() {
     final uscita = stesa.assegnate[0]!.card.name;
 
     expect(stesa.mazzoResiduo, hasLength(quante - 1));
-    expect(
-        stesa.mazzoResiduo.map((i) => TarotDeck.cards[i].name), isNot(contains(uscita)),
+    expect(stesa.mazzoResiduo.map((i) => TarotDeck.cards[i].name),
+        isNot(contains(uscita)),
         reason: 'la carta uscita e\' ancora nel mazzo, quindi puo\' uscire '
             'una seconda volta nella stessa stesa');
   });

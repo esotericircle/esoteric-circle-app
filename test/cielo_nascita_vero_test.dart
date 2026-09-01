@@ -149,7 +149,8 @@ void main() {
     // Il 3 marzo il Sole sta nei Pesci: la volta alta a quell'ora e' calcolata
     // dalla longitudine eclittica, non estratta a caso. Se qualcuno un giorno
     // sostituisse il calcolo con tre segni fissi, questo test cade.
-    final marzo = NightSky.constellationsHighTonight(DateTime(1985, 3, 3, 7, 20));
+    final marzo =
+        NightSky.constellationsHighTonight(DateTime(1985, 3, 3, 7, 20));
     final settembre =
         NightSky.constellationsHighTonight(DateTime(1985, 9, 3, 7, 20));
 

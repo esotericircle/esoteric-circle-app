@@ -65,8 +65,7 @@ void main() {
     return punti;
   }
 
-  test('LA MISURA CHE MANCAVA: quanti gradi servono perche il cielo parta',
-      () {
+  test('LA MISURA CHE MANCAVA: quanti gradi servono perche il cielo parta', () {
     // **LA SOGLIA, cercata mezzo grado alla volta.** E' il numero che il
     // fondatore sente come "ritardo" e che nessuna prova aveva mai preso.
     double? sogliaVisibile;

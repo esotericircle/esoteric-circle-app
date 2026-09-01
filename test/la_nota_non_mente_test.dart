@@ -11,7 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// sull'altra meta', perche' gli altri pianeti li' non si disegnano.
 void main() {
   String schermataDelCielo() =>
-      File('lib/features/santuario/sky_overview_screen.dart').readAsStringSync();
+      File('lib/features/santuario/sky_overview_screen.dart')
+          .readAsStringSync();
 
   test('La nota non nega piu in blocco il calcolo che l app fa', () {
     expect(schermataDelCielo(),

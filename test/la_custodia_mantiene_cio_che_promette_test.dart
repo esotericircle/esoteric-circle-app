@@ -32,8 +32,8 @@ void main() {
   /// a mano invecchia in silenzio: e' esattamente il modo in cui `scarto` e'
   /// rimasto per mesi un campo che nessuno riempiva.
   List<String> campiDichiarati() {
-    final sorgente = File('lib/core/cammino/cammino_da_custodire.dart')
-        .readAsStringSync();
+    final sorgente =
+        File('lib/core/cammino/cammino_da_custodire.dart').readAsStringSync();
     final da = sorgente.indexOf('class IdentitaDaCustodire');
     expect(da, greaterThan(0), reason: 'la classe della custodia non c\'e\'');
     final corpo = sorgente.substring(da);
@@ -45,8 +45,8 @@ void main() {
 
   test('ogni campo dichiarato viaggia e torna', () {
     final campi = campiDichiarati();
-    final sorgente = File('lib/core/cammino/cammino_da_custodire.dart')
-        .readAsStringSync();
+    final sorgente =
+        File('lib/core/cammino/cammino_da_custodire.dart').readAsStringSync();
     final daA = sorgente.indexOf('Map<String, Object?> aMappa() => {',
         sorgente.indexOf('class IdentitaDaCustodire'));
     final aMappa = sorgente.substring(daA, sorgente.indexOf('};', daA));

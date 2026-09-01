@@ -64,8 +64,8 @@ void main() {
     // accende e la chiamata alla festa non deve esserci nessun
     // siPuoFesteggiare. Se qualcuno lo rimette, il fondatore rivedra' i
     // traguardi muti della 2198.
-    final regia = File('lib/features/sigilli/regia_del_cammino.dart')
-        .readAsStringSync();
+    final regia =
+        File('lib/features/sigilli/regia_del_cammino.dart').readAsStringSync();
     final ciclo = regia.substring(regia.indexOf('guardaCosaSiAccende'),
         regia.indexOf('static Future<void> svuotaLaCoda'));
     expect(ciclo.contains('siPuoFesteggiare'), isFalse,
@@ -81,8 +81,8 @@ void main() {
         reason: 'la chiusura di una festa riapre la coda: e\' la catena che '
             'fa vedere piu\' feste di seguito (ordine BW voce 02)');
     // La distanza di novanta secondi resta scritta dove il guardiano legge.
-    final distanza = File('lib/core/sigilli/distanza_fra_le_feste.dart')
-        .readAsStringSync();
+    final distanza =
+        File('lib/core/sigilli/distanza_fra_le_feste.dart').readAsStringSync();
     expect(distanza.contains('Duration(seconds: 90)'), isTrue,
         reason: 'la distanza del guardiano non e\' piu\' novanta secondi');
     // ignore: avoid_print

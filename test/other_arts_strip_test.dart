@@ -46,7 +46,8 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
     ctx.read<MaestroController>().selectMaestro(maestro);
@@ -80,8 +81,8 @@ void main() {
         reason: 'la striscia mostra ${mostrate.length} arti: una per ciascuno '
             'degli altri due Maestri');
     for (final a in mostrate) {
-      expect(ArtCatalog.activeOf(Maestro.medora).any((x) => x.id == a.id),
-          isFalse,
+      expect(
+          ArtCatalog.activeOf(Maestro.medora).any((x) => x.id == a.id), isFalse,
           reason: 'la striscia mostra ${a.id}, che e del Maestro corrente');
     }
     // Nessuna delle arti mostrate porta alla stessa rotta di un'altra.

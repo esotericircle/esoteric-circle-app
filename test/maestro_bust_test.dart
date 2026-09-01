@@ -44,13 +44,13 @@ void main() {
     // RawImage porta un'immagine decodificata (dipinge davvero, non e' vuota).
     final immagini = tester.widgetList<Image>(find.byType(Image));
     expect(
-      immagini
-          .any((i) => i.image == AssetImage(Maestro.medora.avatarAsset)),
+      immagini.any((i) => i.image == AssetImage(Maestro.medora.avatarAsset)),
       isTrue,
     );
     final raw = tester.widgetList<RawImage>(find.byType(RawImage));
     expect(raw.any((r) => r.image != null), isTrue,
-        reason: 'L\'immagine dell\'avatar deve essere dipinta, non solo il ripiego.');
+        reason:
+            'L\'immagine dell\'avatar deve essere dipinta, non solo il ripiego.');
 
     // Nessuna icona di ripiego mentre il volto c'e'.
     expect(find.byKey(const Key('maestro_bust_icon_medora')), findsNothing);
@@ -140,10 +140,12 @@ void main() {
     }
   });
 
-  testWidgets('Disegna i tre Maestri a tre misure senza errori', (tester) async {
+  testWidgets('Disegna i tre Maestri a tre misure senza errori',
+      (tester) async {
     for (final maestro in Maestro.values) {
       for (final ring in const [34.0, 44.0, 80.0]) {
-        await tester.pumpWidget(host(MaestroBust(maestro: maestro, ring: ring)));
+        await tester
+            .pumpWidget(host(MaestroBust(maestro: maestro, ring: ring)));
         await tester.runAsync(() async {
           await precacheImage(
             AssetImage(maestro.avatarAsset),
@@ -153,7 +155,8 @@ void main() {
         await tester.pump();
         await tester.pump();
         expect(find.byType(Image), findsOneWidget);
-        expect(find.byKey(Key('maestro_bust_icon_${maestro.id}')), findsNothing);
+        expect(
+            find.byKey(Key('maestro_bust_icon_${maestro.id}')), findsNothing);
         expect(tester.takeException(), isNull);
       }
     }

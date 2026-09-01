@@ -90,7 +90,8 @@ void main() {
     await apriIlFoglio(tester, _PortaCheSegna());
     await tester.enterText(
         find.byKey(const Key('custodia_email_campo')), 'mauro@esempio.it');
-    await tester.enterText(find.byKey(const Key('custodia_parola_campo')), 'abc');
+    await tester.enterText(
+        find.byKey(const Key('custodia_parola_campo')), 'abc');
     await tester.tap(find.byKey(const Key('custodia_email_conferma')));
     await tester.pump();
     final parola = erroreDi(tester, 'custodia_parola_campo');
@@ -175,6 +176,10 @@ void main() {
 
 /// Una porta che segna cosa le viene chiesto.
 class _PortaCheSegna implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   final List<String> viePerLaParola = [];
   int elevazioni = 0;
 

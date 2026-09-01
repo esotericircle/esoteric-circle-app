@@ -61,8 +61,9 @@ void main() {
       if (righe < 0) continue;
       final visivo = sorgente.indexOf(voce.value.visivo);
       if (visivo < 0) {
-        colpevoli.add('${voce.key}: il livello visivo «${voce.value.visivo}» non '
-            'c\'e\' piu\', e questa prova non sa piu\' cosa guardare');
+        colpevoli
+            .add('${voce.key}: il livello visivo «${voce.value.visivo}» non '
+                'c\'e\' piu\', e questa prova non sa piu\' cosa guardare');
         continue;
       }
       if (righe < visivo) {

@@ -77,11 +77,11 @@ void main() {
     expect(marcatore(testo, 'VOCI_TOTALI'), righe.length);
     // Si conta per lo stato PIU' DEBOLE, quello che tiene l'ordine aperto piu'
     // a lungo, come nelle guardie sorelle.
-  // **IL QUINTO STATO, aggiunto dall'ordine BF voce 03.** Le guardie sorelle
-  // (AS, AT, AV, AX) conoscono FERMATA SU DECISIONE DEL FONDATORE; questa era
-  // nata prima di quello stato. La riconciliazione di BF.03 ha voci superate
-  // da decisioni del fondatore, e travestirle da CHIUSA sarebbe una bugia:
-  // si estende la guardia, non si piega la verita'.
+    // **IL QUINTO STATO, aggiunto dall'ordine BF voce 03.** Le guardie sorelle
+    // (AS, AT, AV, AX) conoscono FERMATA SU DECISIONE DEL FONDATORE; questa era
+    // nata prima di quello stato. La riconciliazione di BF.03 ha voci superate
+    // da decisioni del fondatore, e travestirle da CHIUSA sarebbe una bugia:
+    // si estende la guardia, non si piega la verita'.
     var aperte = 0, attesa = 0, premessa = 0, chiuse = 0, fondatore = 0;
     for (final r in righe) {
       if (r.contains('APERTA')) {
@@ -101,10 +101,11 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
     expect(aperte + attesa + premessa + chiuse + fondatore, quante,
-        reason: 'gli stati contati fanno ${aperte + attesa + premessa + chiuse} '
+        reason:
+            'gli stati contati fanno ${aperte + attesa + premessa + chiuse} '
             'invece di $quante: una voce e\' sparita dal conto pur restando '
             'nel file');
   });

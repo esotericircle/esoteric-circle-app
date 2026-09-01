@@ -267,8 +267,7 @@ void main() {
   // ------------------------------------------------------------------
   // L'IPOTESI DA MISURARE, che l'ordine chiede di non saltare.
   // ------------------------------------------------------------------
-  testWidgets(
-      'LA SCHERMATA GIA\' VIVA A CAVALLO DELLA MEZZANOTTE: cosa mostra',
+  testWidgets('LA SCHERMATA GIA\' VIVA A CAVALLO DELLA MEZZANOTTE: cosa mostra',
       (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     tester.view.physicalSize = const Size(360, 797) * 3.0;

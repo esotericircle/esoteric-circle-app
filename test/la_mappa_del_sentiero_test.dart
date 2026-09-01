@@ -22,8 +22,8 @@ import 'istante_dichiarato.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  Future<void> monta(WidgetTester tester, Sentiero sentiero,
-      DiarioDelCammino diario) async {
+  Future<void> monta(
+      WidgetTester tester, Sentiero sentiero, DiarioDelCammino diario) async {
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
@@ -37,8 +37,7 @@ void main() {
           builder: (context) => Scaffold(
             body: Center(
               child: TextButton(
-                onPressed: () =>
-                    LaMappaDelSentiero.mostra(context, sentiero),
+                onPressed: () => LaMappaDelSentiero.mostra(context, sentiero),
                 child: const Text('apri'),
               ),
             ),
@@ -111,8 +110,7 @@ void main() {
     // senso, percheConta che parla al progetto). Il prossimo traguardo lo
     // dice il pulsante.
     final testi = find
-        .descendant(
-            of: find.byType(BottomSheet), matching: find.byType(Text))
+        .descendant(of: find.byType(BottomSheet), matching: find.byType(Text))
         .evaluate()
         .map((e) => (e.widget as Text).data ?? '')
         .where((s) => s.trim().isNotEmpty)

@@ -196,7 +196,8 @@ void main() {
       // 3. E SI RIAPRE AL TOCCO.
       final freccette = find.byKey(const Key('chat_raccogli'));
       expect(freccette, findsOneWidget,
-          reason: 'la freccetta sta sulla risposta raccolta, e su nessun\'altra');
+          reason:
+              'la freccetta sta sulla risposta raccolta, e su nessun\'altra');
       // **PRIMA SI PORTA DOVE IL DITO LA RAGGIUNGE.** Ordine CE voce 04:
       // sopra il campo sono comparse due righe, il residuo delle domande e
       // quello degli approfondimenti. Il compositore galleggia SOPRA la

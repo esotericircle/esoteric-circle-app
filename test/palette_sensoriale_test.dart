@@ -58,8 +58,8 @@ void main() {
       expect(chiamate.length, 1, reason: 'il tocco non e\' un colpo solo');
 
       chiamate.clear();
-      await tester.runAsync(
-          () => PaletteSensoriale.eseguiSchema(SchemaAptico.soglia));
+      await tester
+          .runAsync(() => PaletteSensoriale.eseguiSchema(SchemaAptico.soglia));
       expect(chiamate.length, 1, reason: 'la soglia non e\' un colpo solo');
 
       chiamate.clear();
@@ -102,8 +102,8 @@ void main() {
         return const SizedBox();
       })));
 
-      await tester.runAsync(
-          () => PaletteSensoriale.vibra(ctx, SchemaAptico.conferma));
+      await tester
+          .runAsync(() => PaletteSensoriale.vibra(ctx, SchemaAptico.conferma));
       expect(chiamate, isNotEmpty, reason: 'col comando acceso non vibra');
     });
 
@@ -137,8 +137,8 @@ void main() {
         return const SizedBox();
       })));
 
-      await tester.runAsync(
-          () => PaletteSensoriale.vibra(ctx, SchemaAptico.soglia));
+      await tester
+          .runAsync(() => PaletteSensoriale.vibra(ctx, SchemaAptico.soglia));
       expect(chiamate, isEmpty);
     });
   });
@@ -161,7 +161,8 @@ void main() {
       }
     }
     expect(colpevoli, isEmpty,
-        reason: 'queste righe vibrano fuori dalla palette, quindi ignorano ${colpevoli.join(', ')}');
+        reason:
+            'queste righe vibrano fuori dalla palette, quindi ignorano ${colpevoli.join(', ')}');
   });
 
   group('I suoni del catalogo, e nessuno fuori', () {
@@ -235,7 +236,8 @@ void main() {
         }
       }
       expect(colpevoli, isEmpty,
-          reason: 'questi punti riproducono suoni fuori dal catalogo: ${colpevoli.join(', ')}');
+          reason:
+              'questi punti riproducono suoni fuori dal catalogo: ${colpevoli.join(', ')}');
     });
 
     test('La firma suona una volta sola per sessione', () {

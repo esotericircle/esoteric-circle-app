@@ -24,8 +24,7 @@ void main() {
     SharedPreferences.setMockInitialValues(const {});
     // L'istante dichiarato, come pretende la sorveglianza delle prove: il
     // giorno non conta per i pezzi, conta che sia sempre lo stesso.
-    final diario =
-        DiarioDelCammino(orologio: () => DateTime(2026, 8, 18, 10));
+    final diario = DiarioDelCammino(orologio: () => DateTime(2026, 8, 18, 10));
     await diario.carica();
     for (final gesto in gesti) {
       await diario.segna(gesto);
@@ -46,8 +45,7 @@ void main() {
         reason: 'il Passaporto pieno e\' maturato con l\'archetipo ancora da '
             'fare: e\' il med_27 regalato visto da Mauro sulla 2179');
     // E med_27 stesso, dal suo sentiero, non deve dirsi raggiunto.
-    final med27 =
-        Sentieri.tuttiITraguardi.singleWhere((t) => t.id == 'med_27');
+    final med27 = Sentieri.tuttiITraguardi.singleWhere((t) => t.id == 'med_27');
     final stato = diario.statoDelCammino(pezziDellIdentita: pezzi);
     expect(med27.condizione.raggiunto(stato), isFalse,
         reason: 'med_27 si dice raggiunto con una tessera del documento morta');
@@ -90,8 +88,8 @@ void main() {
       'luna_natale',
     ]);
     final statoConLePorte = diarioConLePorte.statoDelCammino(
-        pezziDellIdentita: RegiaDelCammino.pezziDellIdentitaMaturi(
-            diarioConLePorte, true));
+        pezziDellIdentita:
+            RegiaDelCammino.pezziDellIdentitaMaturi(diarioConLePorte, true));
     for (final t in suiPezzi) {
       expect(t.condizione.raggiunto(statoConLePorte), isTrue,
           reason: '${t.id} non matura nemmeno alla sua porta');

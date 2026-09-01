@@ -30,10 +30,17 @@ void main() {
     test('produce sempre una cifra valida con titolo e significato', () {
       const valid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33};
       for (var y = 1970; y <= 2010; y++) {
-        for (final md in const [[1, 1], [6, 15], [12, 31], [9, 29], [2, 22]]) {
+        for (final md in const [
+          [1, 1],
+          [6, 15],
+          [12, 31],
+          [9, 29],
+          [2, 22]
+        ]) {
           final lp = LifePath.forDate(DateTime(y, md[0], md[1]));
           expect(valid.contains(lp.number), isTrue,
-              reason: 'numero fuori insieme per $y-${md[0]}-${md[1]}: ${lp.number}');
+              reason:
+                  'numero fuori insieme per $y-${md[0]}-${md[1]}: ${lp.number}');
           expect(lp.title, isNotEmpty);
           expect(lp.meaning, isNotEmpty);
         }
@@ -92,8 +99,8 @@ void main() {
 
     test('la longitudine lunare resta nel giro [0, 360)', () {
       for (var d = 0; d < 60; d++) {
-        final lon =
-            NightSky.moonEclipticLongitude(DateTime(2026).add(Duration(days: d * 6)));
+        final lon = NightSky.moonEclipticLongitude(
+            DateTime(2026).add(Duration(days: d * 6)));
         expect(lon, greaterThanOrEqualTo(0.0));
         expect(lon, lessThan(360.0));
       }
@@ -102,7 +109,8 @@ void main() {
     test('la Luna attraversa piu\' segni in un mese', () {
       final signs = <String>{};
       for (var d = 0; d < 28; d++) {
-        signs.add(NightSky.moonSign(DateTime(1990, 6, 1).add(Duration(days: d))).id);
+        signs.add(
+            NightSky.moonSign(DateTime(1990, 6, 1).add(Duration(days: d))).id);
       }
       // In un mese la Luna percorre tutto lo zodiaco: molti segni distinti.
       expect(signs.length, greaterThanOrEqualTo(10));

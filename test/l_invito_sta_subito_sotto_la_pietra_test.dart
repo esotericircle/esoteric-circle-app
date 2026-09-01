@@ -128,23 +128,25 @@ void main() {
       await tester.pump(const Duration(milliseconds: 200));
     }
 
-    final pietra = tester.getRect(find.byKey(const Key('sunset_pietra_lettura')));
-    final righe =
-        tester.getRect(find.byKey(const Key('tre_righe_rune')));
+    final pietra =
+        tester.getRect(find.byKey(const Key('sunset_pietra_lettura')));
+    final righe = tester.getRect(find.byKey(const Key('tre_righe_rune')));
     // ignore: avoid_print
     print('TRAMONTO: pietra da ${pietra.top.toStringAsFixed(1)} a '
         '${pietra.bottom.toStringAsFixed(1)}, tre righe da '
         '${righe.top.toStringAsFixed(1)}');
 
     expect(righe.top, greaterThan(pietra.bottom),
-        reason: 'le tre righe cominciano a ${righe.top.toStringAsFixed(1)} e la '
+        reason:
+            'le tre righe cominciano a ${righe.top.toStringAsFixed(1)} e la '
             'pietra finisce a ${pietra.bottom.toStringAsFixed(1)}: il testo sta '
             'ancora sopra la pietra, e la pietra e\' la protagonista');
 
     // **E LA PIETRA STA NEL PRIMO SGUARDO.** Non basta che il testo sia sotto: se
     // la pietra cominciasse a meta\' schermo, la prima cosa che si vede sarebbe
     // ancora altro. La soglia e\' un terzo dell\'altezza utile, dichiarata qui.
-    final altezza = tester.view.physicalSize.height / tester.view.devicePixelRatio;
+    final altezza =
+        tester.view.physicalSize.height / tester.view.devicePixelRatio;
     expect(pietra.top, lessThan(altezza / 3),
         reason: 'la pietra comincia a ${pietra.top.toStringAsFixed(1)} su '
             '${altezza.toStringAsFixed(0)} punti di schermo: piu\' di un terzo '

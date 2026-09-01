@@ -125,8 +125,8 @@ void main() {
         for (final m in Maestro.values) m: [],
       };
       for (final z in Zodiac.values) {
-        final r = computeResonance(
-            NatalChart.essential(sunSign: z, hasTime: false));
+        final r =
+            computeResonance(NatalChart.essential(sunSign: z, hasTime: false));
         perMaestro[r.winner]!.add(z);
       }
       for (final m in Maestro.values) {

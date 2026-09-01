@@ -9,8 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// policy siano in fondo o magari in sotto menu [...] chiedere piu' volte
 /// se l'utente e' sicuro e chiedergli perche'".
 void main() {
-  final sorgente = File('lib/features/account/account_screen.dart')
-      .readAsStringSync();
+  final sorgente =
+      File('lib/features/account/account_screen.dart').readAsStringSync();
 
   test('l\'ordine delle voci e\' quello dichiarato, e Privacy sta in fondo',
       () {
@@ -66,8 +66,7 @@ void main() {
             'giorni di ripensamento che BE.07 ha tolto');
   });
 
-  test('le due cancellazioni passano dai tre passi e portano il perche\'',
-      () {
+  test('le due cancellazioni passano dai tre passi e portano il perche\'', () {
     // Passo 1: la spiegazione (i dialoghi storici restano). Passo 2: il
     // perche'. Passo 3: l'ultima conferma. Poi la porta col perche'.
     expect(sorgente.contains('_chiediIlPerche(context)'), isTrue);
@@ -84,8 +83,7 @@ void main() {
   });
 
   test('il congedo si scrive sul server prima di cancellare, anonimo', () {
-    final server =
-        File('functions/src/cerchio.ts').readAsStringSync();
+    final server = File('functions/src/cerchio.ts').readAsStringSync();
     expect(server.contains('scriviIlCongedo(request, "dati")'), isTrue);
     expect(server.contains('scriviIlCongedo(request, "account")'), isTrue);
     final congedo = server.substring(

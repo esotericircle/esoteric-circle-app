@@ -112,7 +112,10 @@ void main() {
   /// quale chiave ci si aspetta.
   const puntiCoiDettagli = <String, List<String>>{
     'lib/features/tarot/stesa_tre_carte_screen.dart': [
-      "'carte'", "'semi'", "'maggiori'", "'argomento'",
+      "'carte'",
+      "'semi'",
+      "'maggiori'",
+      "'argomento'",
     ],
     'lib/features/maestri/caligo/rune/rune_draw_screen.dart': ["'modo'"],
     'lib/features/rituals/sunset_rune_screen.dart': ["'runa'"],

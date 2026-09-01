@@ -70,12 +70,12 @@ void main() {
     for (final t in Sentieri.miniDi(sentiero).take(accesi)) {
       await diario.accendi(t.id);
     }
-      // **NEL SENTIERO SI E' GIA' ENTRATI.** Ordine AU voce 13: al primo
-      // ingresso la mappa del sentiero si apre da sola e copre il disegno,
-      // che e' proprio cio' che questa prova guarda. Dichiararlo qui e' la
-      // stessa cosa che fanno le nove catture dei sentieri: la mappa ha la
-      // sua prova, questa ha la sua scena.
-      await LaMappaDelSentiero.segnaLIngresso(sentiero);
+    // **NEL SENTIERO SI E' GIA' ENTRATI.** Ordine AU voce 13: al primo
+    // ingresso la mappa del sentiero si apre da sola e copre il disegno,
+    // che e' proprio cio' che questa prova guarda. Dichiararlo qui e' la
+    // stessa cosa che fanno le nove catture dei sentieri: la mappa ha la
+    // sua prova, questa ha la sua scena.
+    await LaMappaDelSentiero.segnaLIngresso(sentiero);
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
@@ -130,14 +130,16 @@ void main() {
       final viewport = tester.getRect(find.byType(Scrollable).first);
       final quota = disegno.height / viewport.height;
       expect(quota, greaterThanOrEqualTo(0.55),
-          reason: 'il disegno prende il ${(quota * 100).toStringAsFixed(1)} per '
+          reason:
+              'il disegno prende il ${(quota * 100).toStringAsFixed(1)} per '
               'cento dell\'altezza utile invece del 55 chiesto: e\' ancora un '
               'francobollo in cima a un elenco');
       // E non se la prende tutta: sotto deve restare abbastanza da capire che
       // c'e' altro da leggere.
       expect(quota, lessThan(0.75),
           reason: 'il disegno occupa quasi tutto: nessuno capisce che sotto '
-              'c\'e' ' un elenco');
+              'c\'e'
+              ' un elenco');
     });
 
     testWidgets('il comando porta al punto in cui sei, e prima non si muove',

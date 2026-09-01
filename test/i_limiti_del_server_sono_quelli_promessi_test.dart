@@ -44,8 +44,8 @@ void main() {
             'portata dietro, non tolta');
 
     for (final voce in righe.entries) {
-      final riga = RegExp('${voce.key}: \\[([^\\]]*)\\]')
-          .firstMatch(blocco!.group(1)!);
+      final riga =
+          RegExp('${voce.key}: \\[([^\\]]*)\\]').firstMatch(blocco!.group(1)!);
       expect(riga, isNotNull,
           reason: 'il server non dichiara nessun limite per ${voce.key}');
       final celle = riga!
@@ -59,8 +59,7 @@ void main() {
               '${celle.length} per ${voce.key}');
 
       for (var i = 0; i < 4; i++) {
-        final promesso =
-            PlanCatalog.limiteGiornaliero(voce.value, ordine[i]);
+        final promesso = PlanCatalog.limiteGiornaliero(voce.value, ordine[i]);
         final imposto = celle[i] == 'null' ? null : int.parse(celle[i]);
         expect(imposto, promesso,
             reason: 'per ${voce.key} col piano ${ordine[i].name} la matrice '

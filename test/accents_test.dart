@@ -150,8 +150,8 @@ void main() {
       tester.view.physicalSize = const Size(390, 844);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
-      await tester
-          .pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+      await tester.pumpWidget(
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()));
       await step(tester);
       tester
           .element(find.byType(MaterialApp))

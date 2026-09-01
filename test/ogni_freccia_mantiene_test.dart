@@ -178,8 +178,15 @@ void main() {
     // li' vicino. Si risale la catena degli antenati e si guarda se uno di
     // loro e' il gesto.
     const gesti = [
-      'onTap', 'onPressed', 'GestureDetector', 'InkWell', 'IconButton',
-      'onToggle', 'TextButton', 'FilledButton', 'onSelected',
+      'onTap',
+      'onPressed',
+      'GestureDetector',
+      'InkWell',
+      'IconButton',
+      'onToggle',
+      'TextButton',
+      'FilledButton',
+      'onSelected',
     ];
     // **UN SOLO PUNTO NON PORTA IL SUO TOCCO, e non e' una deroga: e' uno
     // spostamento della regola.** `FreccettaDelCollasso` e' il pezzo condiviso
@@ -259,7 +266,8 @@ bool _scusata(Map<String, String> deroghe, List<String> righe, int i) {
   // piu' righe dal formattatore.
   final da = (i - 1).clamp(0, righe.length - 1);
   final a = (i + 2).clamp(0, righe.length);
-  final intorno = righe.sublist(da, a).join(' ').replaceAll(RegExp(r'\s+'), ' ');
+  final intorno =
+      righe.sublist(da, a).join(' ').replaceAll(RegExp(r'\s+'), ' ');
   final tutto = righe.join('\n');
   for (final voce in deroghe.entries) {
     if (intorno.contains(voce.key) && tutto.contains(voce.value)) return true;

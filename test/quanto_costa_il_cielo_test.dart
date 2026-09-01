@@ -64,7 +64,8 @@ void main() {
   /// Monta il cielo dentro una rotta vera, perche' `ModalRoute.of` esista:
   /// senza rotta il cielo prende la scorciatoia e la misura direbbe di un
   /// caso che nell'app non capita mai.
-  Future<void> montaIlCielo(WidgetTester tester, {required bool conRotta}) async {
+  Future<void> montaIlCielo(WidgetTester tester,
+      {required bool conRotta}) async {
     tester.view.devicePixelRatio = 3.0;
     tester.view.physicalSize = const Size(360 * 3, 797 * 3);
     addTearDown(tester.view.reset);

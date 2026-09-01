@@ -73,9 +73,8 @@ void main() {
             // dall'apice che ha spezzato.
             if (testoBasso.endsWith(chiaveSenzaApice) &&
                 (testoBasso.length == chiaveSenzaApice.length ||
-                    ' .,;:!?('.contains(
-                        testoBasso[
-                            testoBasso.length - chiaveSenzaApice.length - 1]))) {
+                    ' .,;:!?('.contains(testoBasso[
+                        testoBasso.length - chiaveSenzaApice.length - 1]))) {
               colpevoli.add('${f.path}:$n  "$testo" va scritto ${e.value}');
             }
           }

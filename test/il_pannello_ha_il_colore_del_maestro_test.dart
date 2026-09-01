@@ -61,8 +61,8 @@ void main() {
       memory: InMemoryMaestroMemoryRepository(),
       memoryPersistent: false,
     );
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
@@ -118,7 +118,6 @@ void main() {
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 }
-
 
 /// Una voce pronta che risponde subito, quanto basta per avviare la chat.
 class _VocePronta implements MaestroAiProvider {

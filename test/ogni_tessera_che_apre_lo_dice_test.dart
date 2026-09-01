@@ -114,8 +114,8 @@ void main() {
     // conta: il secondo si ferma appena il finder trova qualcosa, e un finder
     // per chiave trova la tessera anche mentre e' fuori dallo schermo, quindi
     // non scorreva di un punto.
-    await tester.ensureVisible(
-        find.byKey(const Key('passport_archetipo_vuoto_tocco')));
+    await tester
+        .ensureVisible(find.byKey(const Key('passport_archetipo_vuoto_tocco')));
     await tester.pump();
     await tester.tap(find.byKey(const Key('passport_archetipo_vuoto_tocco')));
     for (var i = 0; i < 10; i++) {
@@ -135,10 +135,9 @@ void main() {
     final sorgente = File('lib/features/passport/cosmic_passport_screen.dart')
         .readAsLinesSync()
         .where((r) {
-          final p = r.trimLeft();
-          return !p.startsWith('//') && !p.startsWith('///');
-        })
-        .join('\n');
+      final p = r.trimLeft();
+      return !p.startsWith('//') && !p.startsWith('///');
+    }).join('\n');
     final mute = <String>[];
     for (final card in const ['_ActiveFactCard', '_PassportEntryCard']) {
       final da = sorgente.indexOf('class $card extends');

@@ -142,8 +142,8 @@ void main() {
         (tester) async {
       // Chi spegne "Suono e vibrazione" vuole silenzio: il comando degli
       // effetti sonori acceso non lo puo' contraddire.
-      final context = await monta(tester,
-          effettiSonori: true, suonoEVibrazione: false);
+      final context =
+          await monta(tester, effettiSonori: true, suonoEVibrazione: false);
       var quanti = 0;
       PaletteSensoriale.spiaDelResponso = (_) => quanti++;
       // **DENTRO runAsync, e senza non finisce mai.** Il diario scrive su

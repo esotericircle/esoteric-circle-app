@@ -107,8 +107,9 @@ void main() {
   List<(String, Rect)> testiDelPassaporto(WidgetTester tester) {
     final dentro = <(String, Rect)>[];
     final scroll = find.byType(CustomScrollView).first;
-    for (final e
-        in find.descendant(of: scroll, matching: find.byType(Text)).evaluate()) {
+    for (final e in find
+        .descendant(of: scroll, matching: find.byType(Text))
+        .evaluate()) {
       final w = e.widget as Text;
       final dato = w.data ?? '';
       if (dato.trim().isEmpty) continue;

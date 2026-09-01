@@ -94,7 +94,8 @@ void main() {
         reason: 'i sei marcatori non sommano al totale delle voci');
   });
 
-  test('la REGOLA ZERO ha la sua sezione, e ci sono anche le affermazioni false',
+  test(
+      'la REGOLA ZERO ha la sua sezione, e ci sono anche le affermazioni false',
       () {
     final testo = manifesto.readAsStringSync();
     expect(
@@ -105,9 +106,8 @@ void main() {
     // **UNA SEZIONE CHE DICE SOLO "e' tutto vero" NON SERVE A NIENTE.** Il
     // valore della REGOLA ZERO sta nelle affermazioni che cadono, e questa
     // riga pretende che siano scritte col loro nome.
-    final falseDichiarate = RegExp(r'\*\*(META\x27 )?FALSA')
-        .allMatches(testo)
-        .length;
+    final falseDichiarate =
+        RegExp(r'\*\*(META\x27 )?FALSA').allMatches(testo).length;
     // ignore: avoid_print
     print('ORDINE CB: affermazioni dell\'ordine risultate false e dichiarate: '
         '$falseDichiarate');
@@ -125,15 +125,20 @@ void main() {
     final sezione = testo.substring(testo.indexOf(ancora));
     final scelte =
         sezione.split('\n').where((r) => r.startsWith('- **')).toList();
-    expect(scelte, isNotEmpty,
-        reason: 'la sezione delle decisioni e\' vuota');
+    expect(scelte, isNotEmpty, reason: 'la sezione delle decisioni e\' vuota');
     // ignore: avoid_print
     print('ORDINE CB: decisioni prese da me e motivate: ${scelte.length}');
   });
 
   test('la voce CB.01 dichiara il conto degli Eos che cambia', () {
     final testo = manifesto.readAsStringSync();
-    for (final atteso in const ['cal_17', 'cal_31', 'cal_32', '80', 'da 51 a 54']) {
+    for (final atteso in const [
+      'cal_17',
+      'cal_31',
+      'cal_32',
+      '80',
+      'da 51 a 54'
+    ]) {
       expect(testo.contains(atteso), isTrue,
           reason: 'il manifesto non dichiara "$atteso": la voce CB.01 chiede '
               'quali gradini restano indietro e come cambia il conto');

@@ -137,7 +137,8 @@ void main() {
 
   Future<void> pesca(WidgetTester tester, int indice) async {
     final carta = find.byKey(Key('stesa_fan_$indice'));
-    expect(carta, findsOneWidget, reason: 'la carta $indice non e\' nell\'arco');
+    expect(carta, findsOneWidget,
+        reason: 'la carta $indice non e\' nell\'arco');
     final r = tester.getRect(carta);
     await tester.tapAt(Offset(r.left + 6, r.center.dy));
     await tester.pump();
@@ -215,7 +216,8 @@ void main() {
     await pesca(tester, 40);
     // IL PRIMO FOTOGRAMMA DOPO LA TERZA CARTA, che e' quello del lampo.
     expect(caratteriDi(tratti, testoInAlbero(tester)), 0,
-        reason: 'nel primo fotogramma dopo la terza carta il responso e\' gia\' '
+        reason:
+            'nel primo fotogramma dopo la terza carta il responso e\' gia\' '
             'in albero: e\' esattamente la visione lampo che il fondatore ha '
             'visto');
 

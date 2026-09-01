@@ -44,8 +44,8 @@ void main() {
         if (a.state == ArtState.attiva) a.id,
     ];
     final scaffale = FunctionShelf.functions.map((f) => f.id).toList();
-    final manifest = jsonDecode(
-        File('docs/stato_funzioni.json').readAsStringSync()) as Map;
+    final manifest =
+        jsonDecode(File('docs/stato_funzioni.json').readAsStringSync()) as Map;
     final dichiarate =
         (manifest['funzioni'] as Map).keys.map((k) => '$k').toList();
 

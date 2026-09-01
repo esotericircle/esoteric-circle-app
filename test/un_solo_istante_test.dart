@@ -129,8 +129,7 @@ void main() {
         buildSkyFor(catalogo, DateTime.utc(2026, 8, 1, 22, 0), milano);
     for (final c in cielo.constellations) {
       if (!c.name.toLowerCase().contains('bilanc')) continue;
-      final alte =
-          c.stars.where((s) => s.altDeg > kAltezzaOrizzonte).toList();
+      final alte = c.stars.where((s) => s.altDeg > kAltezzaOrizzonte).toList();
       final scelto = puntoDellaFigura(c.stars)!;
       for (final s in alte) {
         expect(s.mag, greaterThanOrEqualTo(scelto.mag),

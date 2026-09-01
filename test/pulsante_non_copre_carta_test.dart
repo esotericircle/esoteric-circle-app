@@ -97,7 +97,9 @@ void main() {
         builder: (ctx, child) => MediaQuery(
           // Fermo: una parallasse che respira farebbe differire le due rese per
           // conto proprio, e la differenza non sarebbe piu' la sovrapposizione.
-          data: MediaQuery.of(ctx).copyWith(disableAnimations: true, textScaler: const TextScaler.linear(1.6)),
+          data: MediaQuery.of(ctx).copyWith(
+              disableAnimations: true,
+              textScaler: const TextScaler.linear(1.6)),
           child: MaestroScope(child: child!),
         ),
         home: RepaintBoundary(
@@ -192,8 +194,7 @@ void main() {
       ('in cima', 0.0),
       ('a meta', 240.0),
     ]) {
-      testWidgets(
-          'Il pulsante non copre la carta di ${maestro.name}, $nome',
+      testWidgets('Il pulsante non copre la carta di ${maestro.name}, $nome',
           (tester) async {
         // TRE RESE, e servono tutte. Confrontare "con pulsante" e "senza
         // pulsante" dentro una zona non basta: dove il fondo e' vuoto il
@@ -296,7 +297,8 @@ void main() {
         expect(misura, isNotNull,
             reason: 'la diagnostica del busto non c e: senza di lei non si '
                 'puo dire se la carta ha preso tutto lo spazio o no');
-        expect(misura!.busto,
+        expect(
+            misura!.busto,
             // **IL PAVIMENTO GIUSTO E' QUELLO ASSOLUTO, non il 220.** Ordine
             // BD voce 02: questa riga usava `altezzaMinimaDelBusto` (220),
             // che e' il pavimento che l'ordine AU voce 05 ha DECLASSATO

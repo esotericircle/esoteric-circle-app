@@ -136,7 +136,8 @@ void main() {
         'da ${rVelo.top.toStringAsFixed(1)}, invasione '
         '${invasione.toStringAsFixed(1)} punti');
     expect(rVelo.top, greaterThanOrEqualTo(rFigura.bottom - 0.5),
-        reason: 'Il velo dietro il titolo entra ${invasione.toStringAsFixed(1)} '
+        reason:
+            'Il velo dietro il titolo entra ${invasione.toStringAsFixed(1)} '
             'punti sopra il mandala.');
   });
 }

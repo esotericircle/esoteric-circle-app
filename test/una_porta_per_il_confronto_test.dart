@@ -81,8 +81,7 @@ void main() {
         if (riga.trimLeft().startsWith('//')) continue;
         // Generare un turno PER un Maestro diverso da quello della schermata:
         // e' il parametro che permetteva di incollare le altre voci qui.
-        if (riga.contains('per: altro') ||
-            riga.contains('chiediAgliAltri()')) {
+        if (riga.contains('per: altro') || riga.contains('chiediAgliAltri()')) {
           colpe.add('$percorso riga ${i + 1}: ${riga.trim()}');
         }
       }
@@ -93,11 +92,10 @@ void main() {
   });
 
   test('Nel confronto non si scrive: nessun campo di domanda', () {
-    final sorgente =
-        File('lib/features/maestri/ask/ask_maestri_screen.dart')
-            .readAsLinesSync()
-            .where((r) => !r.trimLeft().startsWith('//'))
-            .join('\n');
+    final sorgente = File('lib/features/maestri/ask/ask_maestri_screen.dart')
+        .readAsLinesSync()
+        .where((r) => !r.trimLeft().startsWith('//'))
+        .join('\n');
     for (final segno in const ['TextField', 'ask_field', 'ask_submit']) {
       expect(sorgente, isNot(contains(segno)),
           reason: 'nel confronto c\'e\' ancora $segno: un campo che sembra '

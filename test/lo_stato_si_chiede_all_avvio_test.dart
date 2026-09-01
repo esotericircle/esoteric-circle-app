@@ -105,7 +105,8 @@ void main() {
         reason: 'il cammino mandato non porta i Sigilli accesi');
   });
 
-  testWidgets('senza rete non si mostra un saldo falso e non si cancella '
+  testWidgets(
+      'senza rete non si mostra un saldo falso e non si cancella '
       'niente', (tester) async {
     final porta = _PortaMuta();
     silenzia();
@@ -156,7 +157,7 @@ class _PortaCheConta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
+      {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     quanteVolte++;
     if (cammino != null && !cammino.eVuoto) {
       camminiMandati++;
@@ -201,7 +202,7 @@ class _PortaCheConta extends PortaDelCerchio {
 class _PortaMuta extends _PortaCheConta {
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
+      {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     quanteVolte++;
     return null;
   }

@@ -255,10 +255,22 @@ void main() {
       'sinistra': corsaPiuLunga(sinistra),
       'destra': corsaPiuLunga(destra),
     };
-    final xs = [for (var y = 0; y < h; y++) if (sinistra[y] >= 0) sinistra[y]];
-    final xd = [for (var y = 0; y < h; y++) if (destra[y] >= 0) destra[y]];
-    final ys = [for (var x = 0; x < w; x++) if (dallAlto[x] >= 0) dallAlto[x]];
-    final yg = [for (var x = 0; x < w; x++) if (dalBasso[x] >= 0) dalBasso[x]];
+    final xs = [
+      for (var y = 0; y < h; y++)
+        if (sinistra[y] >= 0) sinistra[y]
+    ];
+    final xd = [
+      for (var y = 0; y < h; y++)
+        if (destra[y] >= 0) destra[y]
+    ];
+    final ys = [
+      for (var x = 0; x < w; x++)
+        if (dallAlto[x] >= 0) dallAlto[x]
+    ];
+    final yg = [
+      for (var x = 0; x < w; x++)
+        if (dalBasso[x] >= 0) dalBasso[x]
+    ];
     // ignore: avoid_print
     print('PANNO: corse rettilinee per bordo = $corse; tela ${w}x$h; '
         'panno largo ${xd.reduce((a, b) => a > b ? a : b) - xs.reduce((a, b) => a < b ? a : b)} '

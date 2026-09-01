@@ -78,7 +78,8 @@ void main() {
     }
   }
 
-  testWidgets('nell\'Estrazione Rune la scelta della gettata resta dopo il '
+  testWidgets(
+      'nell\'Estrazione Rune la scelta della gettata resta dopo il '
       'responso, e getta davvero', (tester) async {
     silenceSensors(tester);
     tester.view.physicalSize = const Size(430, 3200);
@@ -171,7 +172,8 @@ void main() {
     expect(find.byKey(const Key('rune_senza_domanda')), findsNothing);
   });
 
-  testWidgets('nella Stesa di Tarocchi la configurazione non sopravvive alla '
+  testWidgets(
+      'nella Stesa di Tarocchi la configurazione non sopravvive alla '
       'lettura', (tester) async {
     // **LA VOCE S.23 DICE "la stesa", quindi si guarda anche la'**, che e' l'altra
     // arte con un getto: la Stesa di Tarocchi. La configurazione (tipo, argomento,

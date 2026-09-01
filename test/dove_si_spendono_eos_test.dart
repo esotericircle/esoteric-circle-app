@@ -49,8 +49,7 @@ void main() {
     });
 
     test('la porta si difende dal doppio tocco e paga sull\'esito', () {
-      final porta =
-          File('lib/design_system/components/porta_della_spesa.dart');
+      final porta = File('lib/design_system/components/porta_della_spesa.dart');
       final testo = senzaCommenti(porta);
       // Il pulsante si spegne al primo tocco.
       expect(testo.contains('onPressed: _inCorso ? null : _tocca'), isTrue,
@@ -92,8 +91,7 @@ void main() {
       // e' mite, perche' uno sconto forte spingerebbe a comprare scorte
       // invece di abbonarsi.
       for (var i = 1; i < pacchettiDiEos.length; i++) {
-        expect(pacchettiDiEos[i].perEos,
-            lessThan(pacchettiDiEos[i - 1].perEos),
+        expect(pacchettiDiEos[i].perEos, lessThan(pacchettiDiEos[i - 1].perEos),
             reason: 'il pacchetto ${pacchettiDiEos[i].id} non conviene piu\' '
                 'del precedente, quindi non esiste una ragione per prenderlo');
       }

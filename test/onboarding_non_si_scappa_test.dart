@@ -53,7 +53,8 @@ void main() {
     tester.view.physicalSize = const Size(430, 2392);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await passo(tester);
     await passo(tester);
   }

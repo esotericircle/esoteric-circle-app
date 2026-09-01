@@ -83,9 +83,10 @@ void main() {
     // la direzione del moto: si misura il salto massimo fra righe (o
     // colonne) a sei punti di distanza dentro la fascia esterna.
     Future<double> gradinoMassimo(String lato) async {
-      final scatola = chiave.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
-      final resa = await tester.runAsync(() => scatola.toImage(pixelRatio: 1.0));
+      final scatola =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final resa =
+          await tester.runAsync(() => scatola.toImage(pixelRatio: 1.0));
       final dati = (await tester.runAsync(
           () => resa!.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
       final w = resa!.width, h = resa.height;

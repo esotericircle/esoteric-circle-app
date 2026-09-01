@@ -78,8 +78,8 @@ void main() {
       for (var g = 0; g < 365; g++) {
         final giorno = DateTime.utc(2026, 1, 1).add(Duration(days: g));
         for (final conCarta in [true, false]) {
-          final dono = DawnGift.forChart(giorno,
-              carta: conCarta ? unaCarta : null);
+          final dono =
+              DawnGift.forChart(giorno, carta: conCarta ? unaCarta : null);
           final mostrati = <String?>[
             dono.source.natalDescription,
             dono.source.transit,
@@ -130,7 +130,8 @@ void main() {
         // il racconto della correzione come se fosse il difetto.
         final vive = f.readAsLinesSync().where((r) {
           final t = r.trimLeft();
-          return !t.startsWith('//') && !t.startsWith('///') &&
+          return !t.startsWith('//') &&
+              !t.startsWith('///') &&
               !t.startsWith('*');
         });
         for (final riga in vive) {
@@ -151,8 +152,8 @@ void main() {
       // intero non sarebbe un anno intero.
       final visti = <Maestro>{};
       for (var g = 0; g < 365; g++) {
-        visti.add(
-            DailyRituals.dawnMaestro(DateTime.utc(2026, 1, 1).add(Duration(days: g))));
+        visti.add(DailyRituals.dawnMaestro(
+            DateTime.utc(2026, 1, 1).add(Duration(days: g))));
       }
       expect(visti.length, Maestro.values.length,
           reason: 'la rotazione tocca ${visti.length} Maestri su '

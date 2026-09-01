@@ -57,15 +57,12 @@ void main() {
         final registratore = ui.PictureRecorder();
         final tela = Canvas(registratore);
         final wArte = arte.width.toDouble(), hArte = arte.height.toDouble();
-        final scala =
-            [larghezza / wArte, altezza / hArte].reduce((a, b) => a < b ? a : b);
+        final scala = [larghezza / wArte, altezza / hArte]
+            .reduce((a, b) => a < b ? a : b);
         final dx = (larghezza - wArte * scala) / 2;
         final dy = (altezza - hArte * scala) / 2;
-        tela.drawImageRect(
-            arte,
-            Rect.fromLTWH(0, 0, wArte, hArte),
-            Rect.fromLTWH(dx, dy, wArte * scala, hArte * scala),
-            Paint());
+        tela.drawImageRect(arte, Rect.fromLTWH(0, 0, wArte, hArte),
+            Rect.fromLTWH(dx, dy, wArte * scala, hArte * scala), Paint());
         PittoreDelleLuci(
           sentiero: sentiero,
           accesi: accesi,
@@ -90,8 +87,7 @@ void main() {
           // Il raggio equivalente della forma sulla tela, e si campiona nel
           // CUORE, a meta' raggio: il bordo porta l'ombra della sfera e
           // sporcherebbe la mediana da tutte e due le parti.
-          final raggio =
-              math.sqrt(forme[i].area / math.pi) * scala / 2;
+          final raggio = math.sqrt(forme[i].area / math.pi) * scala / 2;
           final rQ = math.max(2.0, raggio);
           final v = <int>[];
           final w = resa.width;
@@ -126,8 +122,9 @@ void main() {
             '${(medAcceso / medSpento).toStringAsFixed(2)}');
         if (medAcceso < lumeMinimoDellAcceso ||
             medAcceso - medSpento < scartoMinimo) {
-          fiacchi.add('${sentiero.name}: acceso ${medAcceso.toStringAsFixed(0)} '
-              'contro spento ${medSpento.toStringAsFixed(0)}');
+          fiacchi
+              .add('${sentiero.name}: acceso ${medAcceso.toStringAsFixed(0)} '
+                  'contro spento ${medSpento.toStringAsFixed(0)}');
         }
       }
       // **QUANTI SENTIERI, e cade se sono zero.**

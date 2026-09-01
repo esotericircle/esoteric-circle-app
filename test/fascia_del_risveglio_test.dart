@@ -58,8 +58,8 @@ void main() {
     test('l\'ora della fascia cambia col giorno e col luogo', () {
       final inverno = FasciaDelRisveglio.per(DateTime(2026, 12, 21),
           posizione: posizione());
-      final estate = FasciaDelRisveglio.per(DateTime(2026, 6, 21),
-          posizione: posizione());
+      final estate =
+          FasciaDelRisveglio.per(DateTime(2026, 6, 21), posizione: posizione());
       expect(inverno.oraDiInizio, isNot(estate.oraDiInizio),
           reason: 'la fascia dice la stessa ora a dicembre e a giugno: '
               'e\' un\'ora fissa travestita da calcolo');
@@ -183,7 +183,8 @@ void main() {
       expect(p.oraDichiarabile, isFalse);
       final f = FasciaDelRisveglio.per(giorno, posizione: p);
       expect(f.dichiarabile, isFalse,
-          reason: 'una longitudine dedotta dal fuso puo\' sbagliare di mezz\'ora: '
+          reason:
+              'una longitudine dedotta dal fuso puo\' sbagliare di mezz\'ora: '
               'l\'ora non si dichiara, come nel caso senza luogo');
       // E il rito non nomina l'alba.
       final r = RitoAlba.diOggi(giorno, posizione: p);
@@ -236,7 +237,12 @@ void main() {
 
     test('la riga non promette esiti', () {
       const vietate = [
-        'guarigione', 'salute', 'fortuna', 'successo', 'garantito', 'protegge',
+        'guarigione',
+        'salute',
+        'fortuna',
+        'successo',
+        'garantito',
+        'protegge',
       ];
       for (final righe in RitoAlbaCorpus.righeDelRisveglio.values) {
         for (final r in righe) {
@@ -250,7 +256,8 @@ void main() {
   });
 
   group('Il rito non si accorcia per chi arriva tardi', () {
-    test('dentro e fuori fascia il rito e\' lo stesso, cambia solo la riga', () {
+    test('dentro e fuori fascia il rito e\' lo stesso, cambia solo la riga',
+        () {
       final f = fascia();
       final ritoDentro = RitoAlba.diOggi(giorno, posizione: posizione());
       final ritoFuori = RitoAlba.diOggi(giorno, posizione: posizione());

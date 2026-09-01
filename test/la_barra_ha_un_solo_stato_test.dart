@@ -32,8 +32,8 @@ void main() {
       'dev.fluttercommunity.plus/sensors/gyroscope',
       'dev.fluttercommunity.plus/sensors/magnetometer',
     ]) {
-      m.setMockStreamHandler(EventChannel(nome),
-          MockStreamHandler.inline(onListen: (a, e) {}));
+      m.setMockStreamHandler(
+          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
     }
   }
 
@@ -61,8 +61,7 @@ void main() {
     expect(barra, findsOneWidget, reason: 'la barra non c e in home');
     final prima = tester.getRect(barra).height;
     // Si tocca il volto, che era il gesto che la apriva.
-    await tester.tap(find.byKey(const Key('barra_volto')),
-        warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('barra_volto')), warnIfMissed: false);
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
@@ -83,8 +82,11 @@ void main() {
 
   testWidgets('i tre bersagli hanno un area di tocco piena', (tester) async {
     await apri(tester);
-    for (final chiave in const ['barra_volto', 'barra_eventi_cosmici',
-        'barra_borsellino']) {
+    for (final chiave in const [
+      'barra_volto',
+      'barra_eventi_cosmici',
+      'barra_borsellino'
+    ]) {
       final bersaglio = find.byKey(Key(chiave));
       expect(bersaglio, findsOneWidget, reason: '$chiave non c e piu');
       final riquadro = tester.getRect(bersaglio);
@@ -111,8 +113,7 @@ void main() {
 
   testWidgets('il volto porta all account al PRIMO tocco', (tester) async {
     await apri(tester);
-    await tester.tap(find.byKey(const Key('barra_volto')),
-        warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('barra_volto')), warnIfMissed: false);
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }

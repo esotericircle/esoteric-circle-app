@@ -12,8 +12,7 @@ void main() {
   final server = File('functions/src/cerchio.ts').readAsStringSync();
 
   test('BE.08: il tetto delle condivisioni premiate e\' vivo, e vale 3', () {
-    final borsellino =
-        File('functions/src/borsellino.ts').readAsStringSync();
+    final borsellino = File('functions/src/borsellino.ts').readAsStringSync();
     expect(borsellino.contains('TETTO_CONDIVISIONI_PREMIATE = 3'), isTrue,
         reason: 'il tetto delle condivisioni premiate non vale piu\' 3');
     expect(server.contains('gia >= TETTO_CONDIVISIONI_PREMIATE'), isTrue,
@@ -22,8 +21,7 @@ void main() {
 
   test('BE.08: il tetto vive DENTRO la transazione del saldo', () {
     // Contarlo fuori vorrebbe dire aggirarlo con due richieste insieme.
-    final transazione = server.substring(
-        server.indexOf('db.runTransaction'),
+    final transazione = server.substring(server.indexOf('db.runTransaction'),
         server.indexOf('SCRIVE LA MEMORIA'));
     expect(transazione.contains('TETTO_CONDIVISIONI_PREMIATE'), isTrue,
         reason: 'il tetto delle condivisioni e\' uscito dalla transazione: '

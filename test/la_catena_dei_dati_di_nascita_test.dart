@@ -264,5 +264,4 @@ void main() {
             'punti diversi ($fonti): ogni punto in piu\' e\' un modo in piu\' '
             'di interpretare la stessa nascita');
   });
-
 }

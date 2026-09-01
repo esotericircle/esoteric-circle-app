@@ -20,8 +20,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// disegno dello stelo DIPENDA dal progresso, che e' l'invariante vero: se
 /// qualcuno rimette una `Paint()` piena, questa riga cade.
 void main() {
-  final sorgente =
-      File('lib/features/rituals/breath_destiny_screen.dart').readAsStringSync();
+  final sorgente = File('lib/features/rituals/breath_destiny_screen.dart')
+      .readAsStringSync();
 
   /// **IL CODICE SENZA I COMMENTI, e la prima stesura di questa prova ci e'
   /// cascata.** Il commento che spiega la cura CITA il difetto vecchio, "lo

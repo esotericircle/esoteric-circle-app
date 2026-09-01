@@ -74,13 +74,11 @@ void main() {
         // `verso == RuneVerso.merkstave`: sono identificatori, non testi
         // mostrati, e nessuno li legge sullo schermo. Di nuovo la finestra
         // sbagliata: qui si guarda la parola dentro gli apici.
-        final dentroUnaStringa = RegExp(
-                'merkstave', caseSensitive: false)
-            .allMatches(riga)
-            .any((m) {
+        final dentroUnaStringa =
+            RegExp('merkstave', caseSensitive: false).allMatches(riga).any((m) {
           final prima = riga.substring(0, m.start);
-          final apici = "'".allMatches(prima).length +
-              '"'.allMatches(prima).length;
+          final apici =
+              "'".allMatches(prima).length + '"'.allMatches(prima).length;
           return apici.isOdd;
         });
         if (!dentroUnaStringa) continue;

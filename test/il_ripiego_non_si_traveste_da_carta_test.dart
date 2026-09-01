@@ -62,8 +62,7 @@ void main() {
 
   test('col ripiego in mano, la porta dice che il cielo vero NON c\'e\'', () {
     final porta = BirthIdentityController()
-      ..setBirth(
-          dettagli,
+      ..setBirth(dettagli,
           NatalChart.essential(sunSign: Zodiac.cancer, hasTime: true));
 
     expect(porta.chart, isNotNull,
@@ -120,7 +119,8 @@ void main() {
         // oggetto con un'altra vita.
         if (!nuda.contains('BirthIdentityController>()')) continue;
         if (!nuda.contains('.chart')) continue;
-        if (nuda.contains('cartaCompleta') || nuda.contains('cartaEssenziale')) {
+        if (nuda.contains('cartaCompleta') ||
+            nuda.contains('cartaEssenziale')) {
           continue;
         }
         if (testo.contains(marcatore)) continue;
@@ -135,8 +135,7 @@ void main() {
   test('il ripiego resta etichettato anche dopo un giro dal disco', () {
     // Il travestimento tornerebbe identico se l'etichetta si perdesse nella
     // conservazione: la carta riletta all'avvio sembrerebbe vera.
-    final ripiego =
-        NatalChart.essential(sunSign: Zodiac.cancer, hasTime: true);
+    final ripiego = NatalChart.essential(sunSign: Zodiac.cancer, hasTime: true);
     expect(ripiego.isEssential, isTrue,
         reason: 'il cielo essenziale nasce senza etichetta: da qui in poi '
             'nessuno puo\' piu\' distinguerlo da una carta vera');

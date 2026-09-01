@@ -104,11 +104,11 @@ void main() {
     // **NESSUNA CATENA**: chiusa la festa non se ne apre un'altra. Era
     // questo il difetto che il fondatore ha visto come quattro feste di
     // seguito.
-    final dentroLaChiusura = RegExp(r'allaChiusura: \(\) \{(.*?)\n          \}',
-            dotAll: true)
-        .allMatches(regia)
-        .map((m) => m.group(1)!)
-        .toList();
+    final dentroLaChiusura =
+        RegExp(r'allaChiusura: \(\) \{(.*?)\n          \}', dotAll: true)
+            .allMatches(regia)
+            .map((m) => m.group(1)!)
+            .toList();
     for (final corpo in dentroLaChiusura) {
       expect(corpo.contains('svuotaLaCoda'), isFalse,
           reason: 'alla chiusura di una festa se ne apre un\'altra: e\' la '

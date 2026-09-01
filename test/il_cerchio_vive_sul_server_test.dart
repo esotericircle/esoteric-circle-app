@@ -55,7 +55,7 @@ class _ServerFinto extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
+      {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     if (!risponde) return null;
     return StatoDelCerchio(
       giorno: giorno,
@@ -187,8 +187,8 @@ void main() {
     test('spostato avanti e indietro di un giorno, i contatori non cambiano',
         () async {
       var adesso = DateTime(2026, 8, 11, 10);
-      final server =
-          _ServerFinto(giorno: '2026-08-11', spesi: {'domande': 3, 'gettate': 3});
+      final server = _ServerFinto(
+          giorno: '2026-08-11', spesi: {'domande': 3, 'gettate': 3});
       SharedPreferences.setMockInitialValues({});
       final borsa = QuestionAllowance(clock: () => adesso, porta: server);
       await borsa.load();

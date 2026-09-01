@@ -62,7 +62,8 @@ void main() {
     test('ogni grado del giro sta in una casa e in una sola', () {
       for (var g = 0; g < 3600; g++) {
         final casa = TransitiNelleCase.casaDi(g / 10.0, cuspidi);
-        expect(casa, isNotNull, reason: 'il grado ${g / 10} non sta in nessuna');
+        expect(casa, isNotNull,
+            reason: 'il grado ${g / 10} non sta in nessuna');
         expect(casa, inInclusiveRange(1, 12));
       }
     });
@@ -75,7 +76,8 @@ void main() {
         isEmpty,
       );
       expect(
-        TransitiNelleCase.perIlGiorno(adesso: DateTime(2026, 8, 4), carta: null),
+        TransitiNelleCase.perIlGiorno(
+            adesso: DateTime(2026, 8, 4), carta: null),
         isEmpty,
       );
       expect(
@@ -88,7 +90,8 @@ void main() {
     });
 
     test('cuspidi incomplete non producono case a caso', () {
-      expect(TransitiNelleCase.casaDi(100.0, cuspidi.take(11).toList()), isNull);
+      expect(
+          TransitiNelleCase.casaDi(100.0, cuspidi.take(11).toList()), isNull);
     });
 
     test('col cielo vero ogni corpo ha la sua casa', () {
@@ -180,12 +183,11 @@ void main() {
       final quando = DateTime(2026, 8, 4);
       final mia = carta();
       final oggi = AspettiDiOggi.perIlGiorno(adesso: quando, carta: mia);
-      final domani = TransitiDelGiorno.posizioni(
-          quando.add(const Duration(days: 1)));
+      final domani =
+          TransitiDelGiorno.posizioni(quando.add(const Duration(days: 1)));
 
       for (final a in oggi) {
-        final corpo =
-            CorpoCeleste.values.firstWhere((c) => c.id == a.aId);
+        final corpo = CorpoCeleste.values.firstWhere((c) => c.id == a.aId);
         final orboDomani = ChartAspect(
           aLongitude: domani[corpo]!,
           bLongitude: a.bLongitude,
@@ -230,8 +232,8 @@ void main() {
     });
 
     test('lo scarto dichiarato copre tutti i corpi consegnati', () {
-      expect(Effemeridi.scartoMisurato.keys.toSet(),
-          CorpoCeleste.values.toSet());
+      expect(
+          Effemeridi.scartoMisurato.keys.toSet(), CorpoCeleste.values.toSet());
     });
   });
 

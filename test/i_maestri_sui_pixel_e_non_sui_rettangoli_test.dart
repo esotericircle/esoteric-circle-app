@@ -133,8 +133,8 @@ void main() {
       // Adesso un pixel conta solo se e' **di una lettera**, cioe' se
       // spegnere il testo lo cambia. Non c'e' piu' spazio per
       // l'interpretazione: o i Maestri toccano l'inchiostro, o non lo toccano.
-      final larghezza = tester.view.physicalSize.width ~/
-          tester.view.devicePixelRatio;
+      final larghezza =
+          tester.view.physicalSize.width ~/ tester.view.devicePixelRatio;
       var lettere = 0;
       var diversi = 0;
       for (var y = fascia.top.floor(); y < fascia.bottom.ceil(); y++) {
@@ -157,8 +157,8 @@ void main() {
       // dedotto dalle sue costanti; qui si guarda il pixel piu' alto che
       // cambia, che e' la cima vera dei pixel dipinti.
       var cima = -1;
-      final alto = tester.view.physicalSize.height ~/
-          tester.view.devicePixelRatio;
+      final alto =
+          tester.view.physicalSize.height ~/ tester.view.devicePixelRatio;
       for (var y = 0; y < alto && cima < 0; y++) {
         for (var x = 0; x < larghezza; x++) {
           final i = (y * larghezza + x) * 4;

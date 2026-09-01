@@ -127,8 +127,8 @@ void main() {
         if (testo.isNotEmpty) guardati++;
         if (misura != null && misura < soglia && testo.isNotEmpty) {
           final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
-          final gia = piccoli.any((v) =>
-              v.$1 == dove && v.$3 == misura && v.$4 == testo);
+          final gia = piccoli
+              .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
           if (!gia) piccoli.add((dove, ruolo, misura, testo));
         }
       }
@@ -163,18 +163,24 @@ void main() {
         'Dono dell\'Alba');
     await apri(tester, const DayOracleScreen(), 'Dono dell\'Arcano');
     await apri(tester, SunsetRuneScreen(now: DateTime(2026, 7, 13, 20)),
-        'Dono del Tramonto', maestro: Maestro.caligo);
+        'Dono del Tramonto',
+        maestro: Maestro.caligo);
     await apri(tester, DreamRiteScreen(now: DateTime(2026, 7, 13, 22, 40)),
-        'Dono della Notte', maestro: Maestro.caligo);
+        'Dono della Notte',
+        maestro: Maestro.caligo);
     await apri(tester, const BreathDestinyScreen(), 'Dono del Soffio',
         maestro: Maestro.aura);
     // **E LA STRISCIA DEI DONI, che e' la prima cosa che il fondatore vede
     // quando dice che "i doni" sono piccoli.** Non e' una schermata di un
     // Dono: e' la fascia in cima al Santuario da cui i cinque si aprono, e i
     // suoi nomi sono la parte che si legge di piu' in tutta l'app.
-    await apri(tester, Scaffold(body: DailyStrip(
-      clock: () => DateTime(2026, 7, 13, 10, 30),
-    )), 'La striscia dei Doni');
+    await apri(
+        tester,
+        Scaffold(
+            body: DailyStrip(
+          clock: () => DateTime(2026, 7, 13, 10, 30),
+        )),
+        'La striscia dei Doni');
 
     final righe = <String>[
       '# I CARATTERI SOTTO I SEDICI PUNTI, MISURATI',
@@ -194,10 +200,8 @@ void main() {
       '| schermata | misura | ruolo | cosa c\'e\' scritto |',
       '| --- | --- | --- | --- |',
     ];
-    final ordinati = [...piccoli]
-      ..sort((a, b) => a.$3 == b.$3
-          ? a.$1.compareTo(b.$1)
-          : a.$3.compareTo(b.$3));
+    final ordinati = [...piccoli]..sort(
+        (a, b) => a.$3 == b.$3 ? a.$1.compareTo(b.$1) : a.$3.compareTo(b.$3));
     for (final v in ordinati) {
       righe.add('| ${v.$1} | ${v.$3} | ${v.$2} | ${v.$4} |');
     }

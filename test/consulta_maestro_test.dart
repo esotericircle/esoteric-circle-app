@@ -71,18 +71,20 @@ void main() {
     test('eTroncata riconosce il modello che ha finito lo spazio', () {
       GenerateContentResponse con(FinishReason? motivo) =>
           GenerateContentResponse([
-            Candidate(Content.model([const TextPart('Un velo')]), null, null, motivo,
-                null),
+            Candidate(Content.model([const TextPart('Un velo')]), null, null,
+                motivo, null),
           ], null);
 
       expect(FirebaseMaestroAiProvider.eTroncata(con(FinishReason.maxTokens)),
           isTrue);
       // E NON grida al lupo su cio' che e' finito per davvero: una prova che
       // dice sempre di si' si finisce per allentarla.
-      expect(FirebaseMaestroAiProvider.eTroncata(con(FinishReason.stop)),
-          isFalse);
+      expect(
+          FirebaseMaestroAiProvider.eTroncata(con(FinishReason.stop)), isFalse);
       expect(FirebaseMaestroAiProvider.eTroncata(con(null)), isFalse);
-      expect(FirebaseMaestroAiProvider.eTroncata(GenerateContentResponse([], null)),
+      expect(
+          FirebaseMaestroAiProvider.eTroncata(
+              GenerateContentResponse([], null)),
           isFalse);
     });
 
@@ -158,7 +160,8 @@ void main() {
       // tutte e tre. La chat, la sintesi, i tre strati del Consulta e il
       // presagio.
       expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 6,
-          reason: 'la chat, la sintesi, i tre strati del Consulta e il presagio '
+          reason:
+              'la chat, la sintesi, i tre strati del Consulta e il presagio '
               'delle rune: sei punti, e se ne manca uno un asterisco arriva a '
               'video');
     });
@@ -334,8 +337,8 @@ void main() {
       expect(MaestroWelcome.vocative(profileF), 'Cara Sofia');
       expect(MaestroWelcome.vocative(profileM), 'Caro Marco');
       expect(
-          MaestroWelcome.vocative(
-              UserProfile(displayName: 'X', courtesyForm: CourtesyForm.neutral)),
+          MaestroWelcome.vocative(UserProfile(
+              displayName: 'X', courtesyForm: CourtesyForm.neutral)),
           'Ciao X');
       expect(MaestroWelcome.vocative(UserProfile.empty), 'Anima del Cerchio');
     });
@@ -359,7 +362,8 @@ void main() {
 
     test('Free: il contesto usa i dati natali, con nome e domanda d\'azione',
         () {
-      const natal = NatalContext(sunSign: 'Leone', lifeNumberTitle: 'il Cercatore');
+      const natal =
+          NatalContext(sunSign: 'Leone', lifeNumberTitle: 'il Cercatore');
       final w = MaestroWelcome.compose(
         maestro: Maestro.medora,
         profile: profileF,

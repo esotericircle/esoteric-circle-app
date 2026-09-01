@@ -86,8 +86,7 @@ void main() {
     test('Parte lontana e finisce esattamente nella sua sede', () {
       const centro = Offset(0, -180);
       for (final i in [0, 4, 8]) {
-        final inizio =
-            SpiralPose.of(index: i, count: 9, t: 0, centro: centro);
+        final inizio = SpiralPose.of(index: i, count: 9, t: 0, centro: centro);
         final fine = SpiralPose.of(index: i, count: 9, t: 1, centro: centro);
         // All'inizio e' piccola, trasparente e lontana.
         expect(inizio.scale, lessThan(0.5));
@@ -179,14 +178,9 @@ void main() {
       }
       // I tre ritratti sono distinti fra loro.
       expect(
-          MedoraExpression.values
-              .map(MedoraStage.assetFor)
-              .toSet()
-              .length,
-          3);
+          MedoraExpression.values.map(MedoraStage.assetFor).toSet().length, 3);
       // E il ripiego, quello che c'e' gia', resta a disposizione.
-      expect(MedoraStage.placeholderAsset,
-          'assets/avatars_webp/Medora-1.webp');
+      expect(MedoraStage.placeholderAsset, 'assets/avatars_webp/Medora-1.webp');
     });
   });
 
@@ -194,22 +188,22 @@ void main() {
     testWidgets('Senza intro il bianco non copre la scena', (tester) async {
       await pump(tester, skipIntro: true);
       await tester.pump(const Duration(milliseconds: 50));
-      final velo = tester.widget<HandoffVeil>(
-          find.byKey(const Key('stesa_handoff')));
+      final velo =
+          tester.widget<HandoffVeil>(find.byKey(const Key('stesa_handoff')));
       expect(velo.opacity, 0,
           reason: 'saltando l\'intro il bianco non deve comparire');
     });
 
     testWidgets('Con l\'intro si parte dal bianco pieno', (tester) async {
       await pump(tester, skipIntro: false);
-      final velo = tester.widget<HandoffVeil>(
-          find.byKey(const Key('stesa_handoff')));
+      final velo =
+          tester.widget<HandoffVeil>(find.byKey(const Key('stesa_handoff')));
       expect(velo.opacity, 1, reason: 'la scena non parte dal bianco');
       // E il bianco se ne va da solo.
       await tester.pump(StesaTiming.handoff);
       await tester.pump(const Duration(milliseconds: 50));
-      final dopo = tester.widget<HandoffVeil>(
-          find.byKey(const Key('stesa_handoff')));
+      final dopo =
+          tester.widget<HandoffVeil>(find.byKey(const Key('stesa_handoff')));
       expect(dopo.opacity, lessThan(0.2));
       // Non si usa pumpAndSettle: a riposo il ventaglio respira per sempre,
       // quindi la scena non si ferma mai davvero. Si avanza a battiti.
@@ -233,8 +227,8 @@ void main() {
       await tester.pump();
       // Nessuna animazione in corso: la scena e' gia' ferma e usabile.
       expect(find.byKey(const Key('stesa_fan')), findsOneWidget);
-      final velo = tester.widget<HandoffVeil>(
-          find.byKey(const Key('stesa_handoff')));
+      final velo =
+          tester.widget<HandoffVeil>(find.byKey(const Key('stesa_handoff')));
       expect(velo.opacity, 0);
       // Il ventaglio risponde subito al tocco. Si tocca una carta al centro
       // dell'arco: l'arco parte centrato sul mazzo, quindi la prima carta non
@@ -281,8 +275,8 @@ void main() {
       // Il ventaglio deve stare dentro la prima schermata, non oltre la
       // piega: se la configurazione lo spingesse giu', per pescare si
       // dovrebbe scorrere oltre un muro di controlli.
-      final schermo = tester.view.physicalSize.height /
-          tester.view.devicePixelRatio;
+      final schermo =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
       final medora = tester.getRect(find.byKey(const Key('medora_stage')));
       final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
       expect(medora.top, lessThan(schermo));
@@ -300,8 +294,8 @@ void main() {
       // sopra: cosi' la carta non vola mai verso uno slot fuori schermo.
       expect(slots.bottom, lessThanOrEqualTo(ventaglio.top + 1),
           reason: 'gli slot non stanno sopra il ventaglio');
-      final schermo = tester.view.physicalSize.height /
-          tester.view.devicePixelRatio;
+      final schermo =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
       expect(slots.top, greaterThanOrEqualTo(0));
       expect(ventaglio.bottom - slots.top, lessThan(schermo),
           reason: 'slot e ventaglio non stanno nello stesso campo visivo');
@@ -310,8 +304,7 @@ void main() {
     testWidgets('Mentre si pesca Medora e piu raccolta', (tester) async {
       await pump(tester, reduceMotion: true);
       await tester.pump();
-      final pescando =
-          tester.widget<MedoraStage>(find.byType(MedoraStage));
+      final pescando = tester.widget<MedoraStage>(find.byType(MedoraStage));
       // Ritaglio piu' stretto e scena piu' bassa: il ventaglio che Medora
       // tiene in mano resta un dettaglio del ritratto, non un secondo invito
       // in gara col ventaglio interattivo.
@@ -328,7 +321,6 @@ void main() {
       expect(completa.bustoFactor, MedoraStage.bustoPieno);
       expect(completa.height, 300);
     });
-
 
     testWidgets('Il ventaglio resta a portata anche dopo il secondo pescaggio',
         (tester) async {

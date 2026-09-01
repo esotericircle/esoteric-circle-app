@@ -61,7 +61,8 @@ void main() {
               chiusura > 0 ? finestra.substring(0, chiusura) : finestra;
           if (!argomenti.contains('natal:')) {
             final riga =
-                '\n'.allMatches(sorgente.substring(0, trovata.start)).length + 1;
+                '\n'.allMatches(sorgente.substring(0, trovata.start)).length +
+                    1;
             colpe.add('$percorso riga $riga: chiama '
                 '${trovata.group(1)} senza passare natal. Il Maestro '
                 'risponderebbe senza sapere di chi.');
@@ -121,8 +122,8 @@ void main() {
         ascendant: 'Vergine',
         lifeNumber: 7,
         lifeNumberTitle: 'il Cercatore',
-        moonIllumination: MoonIllumination(
-            fraction: 0.25, waxing: true, elongationDeg: 60),
+        moonIllumination:
+            MoonIllumination(fraction: 0.25, waxing: true, elongationDeg: 60),
       );
       final disponibili = VerificaAncoraggio.disponibiliPer(natal: natal);
       expect(disponibili.first.nome, 'ascendente',
@@ -181,8 +182,8 @@ void main() {
       NatalContext natal = const NatalContext(sunSign: 'Cancro'),
     }) async {
       final memoria = InMemoryMaestroMemoryRepository();
-      await memoria.saveProfile(
-          UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      await memoria
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
       final controller = MaestroChatController(
         maestro: Maestro.medora,
         ai: voce,

@@ -52,8 +52,7 @@ void main() {
     await tester.runAsync(() async {
       final stream = provider.resolve(ImageConfiguration.empty);
       stream.addListener(ascoltatore);
-      await atteso.future
-          .timeout(const Duration(seconds: 5), onTimeout: () {});
+      await atteso.future.timeout(const Duration(seconds: 5), onTimeout: () {});
       stream.removeListener(ascoltatore);
     });
     return arrivata;
@@ -78,7 +77,8 @@ void main() {
             reason: 'nessuna immagine nell\'albero per ${segno.italianName}');
 
         final element = tester.element(find.byType(MaterialApp));
-        expect(await siDecodifica(tester, immagini.first.image, element), isTrue,
+        expect(
+            await siDecodifica(tester, immagini.first.image, element), isTrue,
             reason: 'il glifo di ${segno.italianName} e\' nell\'albero ma il '
                 'fotogramma non arriva: a schermo sarebbe un cerchio vuoto');
       });
@@ -140,8 +140,8 @@ void main() {
 
     test('nessun ramo d\'errore dell\'avatar torna un posto vuoto', () {
       // Il difetto era una riga sola, e una riga sola puo' tornare.
-      final glifo =
-          File('lib/design_system/components/zodiac_glyph.dart').readAsStringSync();
+      final glifo = File('lib/design_system/components/zodiac_glyph.dart')
+          .readAsStringSync();
       expect(
         RegExp(r'errorBuilder:[^,]*=>\s*SizedBox\(').hasMatch(glifo),
         isFalse,

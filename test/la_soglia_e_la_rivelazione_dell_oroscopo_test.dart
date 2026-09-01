@@ -42,7 +42,8 @@ void main() {
   // vuota, come farebbe un telefono senza motore aptico.
   setUpAll(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(SystemChannels.platform, (call) async => null);
+        .setMockMethodCallHandler(
+            SystemChannels.platform, (call) async => null);
   });
   tearDownAll(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
@@ -96,8 +97,7 @@ void main() {
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),
         home: OroscopoScreen(
-            userSign: Zodiac.leo,
-            now: adesso ?? DateTime.utc(2026, 8, 5, 12)),
+            userSign: Zodiac.leo, now: adesso ?? DateTime.utc(2026, 8, 5, 12)),
       ),
     ));
     await tester.pump();
@@ -136,8 +136,10 @@ void main() {
         reason: 'il tocco apre la soglia, e nient\'altro');
 
     // Fino alla fine della riflessione la rivelazione non parte.
-    await avanza(tester, RiflessioneDelCielo.intera(piena: true) -
-        const Duration(milliseconds: 100));
+    await avanza(
+        tester,
+        RiflessioneDelCielo.intera(piena: true) -
+            const Duration(milliseconds: 100));
     expect(emessi, [SuonoDelCerchio.soglia],
         reason: 'la rivelazione appartiene al responso, non all\'attesa');
 

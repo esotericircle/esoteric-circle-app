@@ -72,8 +72,13 @@ void main() {
 
   group('Catalogo delle arti', () {
     test('Ogni Maestro ha le sue sottocategorie, nell\'ordine', () {
-      expect(ArtCatalog.forMaestro(Maestro.medora).map((s) => s.title),
-          ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino']);
+      expect(ArtCatalog.forMaestro(Maestro.medora).map((s) => s.title), [
+        'Astrologia',
+        'Compatibilità',
+        'Cartomanzia',
+        'Lunologia',
+        'Destino'
+      ]);
       expect(ArtCatalog.forMaestro(Maestro.aura).map((s) => s.title),
           ['Chakra', 'Energia', 'Archetipi']);
       // Magia e' la terza distintiva di Caligo, nata col Sigillo
@@ -89,8 +94,7 @@ void main() {
     });
 
     test('Lo stato dichiarato e\' quello atteso, voce per voce', () {
-      ArtEntry find(String id) =>
-          ArtCatalog.all.firstWhere((a) => a.id == id);
+      ArtEntry find(String id) => ArtCatalog.all.firstWhere((a) => a.id == id);
 
       // Vive adesso.
       expect(find('horoscope').state, ArtState.attiva);
@@ -106,7 +110,8 @@ void main() {
       expect(find('astrocartography').phase, 'Fase 4');
     });
 
-    test('La Lunologia e\' la quarta sottocategoria di Medora, con quattro arti',
+    test(
+        'La Lunologia e\' la quarta sottocategoria di Medora, con quattro arti',
         () {
       final luna = ArtCatalog.forMaestro(Maestro.medora)
           .firstWhere((s) => s.title == 'Lunologia');
@@ -125,8 +130,8 @@ void main() {
         expect(artRouteFor(a.id), isNull, reason: a.id);
       }
       expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'Fase 2');
-      expect(
-          luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase, 'Fase 2');
+      expect(luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase,
+          'Fase 2');
     });
 
     test('Il Destino di Medora ha tre arti, col Destino Narrativo', () {
@@ -152,7 +157,8 @@ void main() {
               s.title: s.arts.length,
           };
       // Le vive davanti, la sottocategoria tutta in cammino in fondo.
-      expect(ArtCatalog.visibleFor(Maestro.aura, demo: true).map((s) => s.title),
+      expect(
+          ArtCatalog.visibleFor(Maestro.aura, demo: true).map((s) => s.title),
           ['Energia', 'Archetipi', 'Chakra']);
       // In Demo tutto; alla persona si accorciano solo le due miste, mentre
       // Chakra resta intera perche' e' tutta in cammino, quindi esente.
@@ -172,8 +178,8 @@ void main() {
         energia.where((a) => a.state == ArtState.attiva).map((a) => a.id),
         ['meditation'],
       );
-      expect(energia.firstWhere((a) => a.id == 'meditation').title,
-          'Meditazione');
+      expect(
+          energia.firstWhere((a) => a.id == 'meditation').title, 'Meditazione');
       expect(energia.map((a) => a.id), [
         'meditation',
         // 'frequencies' e' uscita: non e' un'arte a parte, 432, 528 e i battiti
@@ -263,21 +269,23 @@ void main() {
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
           ['Rune', 'Rituali', 'Magia', 'Numerologia']);
-      expect(conta(true),
-          {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Numerologia': 5});
+      expect(
+          conta(true), {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Numerologia': 5});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
       // perdono i Rituali Guidati. La Numerologia no: senza piu' nulla di vivo e'
       // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
       // tocco, come vuole la regola del catalogo.
-      expect(conta(false),
+      expect(
+          conta(false),
           // **CINQUE E NON PIU' QUATTRO.** Ordine CC voce 01, decisione del
           // fondatore del 30 agosto 2026: la Cabala e' entrata come arte
           // dentro la Numerologia. Il numero segue il dato.
           {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Numerologia': 5});
 
-      List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
-          .firstWhere((s) => s.title == titolo)
-          .arts;
+      List<ArtEntry> arti(String titolo) =>
+          ArtCatalog.forMaestro(Maestro.caligo)
+              .firstWhere((s) => s.title == titolo)
+              .arts;
 
       // Una sola distintiva viva per sottocategoria, dove c'e'. La Numerologia non
       // ne ha piu': l'Albero della Vita e' uscito dalla Demo.
@@ -285,7 +293,8 @@ void main() {
         expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
             reason: t);
       }
-      expect(arti('Numerologia').where((a) => a.state == ArtState.attiva), isEmpty);
+      expect(arti('Numerologia').where((a) => a.state == ArtState.attiva),
+          isEmpty);
       expect(arti('Rune').map((a) => a.id), [
         'rune_draw',
         'i_ching',
@@ -327,14 +336,18 @@ void main() {
       // L'Albero della Vita e' uscito dalla Demo, e con lui i settantadue nomi
       // che ne erano contenuto. La Compatibilita' Angelica e' passata alla
       // Sinastria Approfondita.
-      expect(arti('Numerologia').map((a) => a.id), isNot(contains('tree_of_life')));
-      expect(arti('Numerologia').map((a) => a.id), isNot(contains('angels_72')));
+      expect(arti('Numerologia').map((a) => a.id),
+          isNot(contains('tree_of_life')));
       expect(
-          arti('Numerologia').map((a) => a.id), isNot(contains('angel_compatibility')));
-      expect(arti('Numerologia').firstWhere((a) => a.id == 'angel_numbers').title,
+          arti('Numerologia').map((a) => a.id), isNot(contains('angels_72')));
+      expect(arti('Numerologia').map((a) => a.id),
+          isNot(contains('angel_compatibility')));
+      expect(
+          arti('Numerologia').firstWhere((a) => a.id == 'angel_numbers').title,
           'Numeri Ricorrenti');
       // Nessuna arte di Caligo nomina piu' gli Angeli.
-      for (final a in ArtCatalog.forMaestro(Maestro.caligo).expand((s) => s.arts)) {
+      for (final a
+          in ArtCatalog.forMaestro(Maestro.caligo).expand((s) => s.arts)) {
         expect('${a.title} ${a.teaser}'.toLowerCase(), isNot(contains('angel')),
             reason: a.id);
       }
@@ -399,9 +412,13 @@ void main() {
       ]) {
         expect(astro.arts.map((a) => a.id), isNot(contains(id)), reason: id);
       }
-      expect(astro.arts.map((a) => a.id),
-          ['horoscope', 'natal_chart', 'planetary_returns', 'pet_astrology',
-           'astrocartography']);
+      expect(astro.arts.map((a) => a.id), [
+        'horoscope',
+        'natal_chart',
+        'planetary_returns',
+        'pet_astrology',
+        'astrocartography'
+      ]);
     });
 
     test('Le astrologie non occidentali non hanno una card propria', () {
@@ -427,12 +444,14 @@ void main() {
             reason: '${a.id} usa una fase sconosciuta: ${a.phase}');
       }
       // L'ordine delle fasi e' quello che decide cosa si mostra.
-      expect(ArtPhase.rank(ArtPhase.mvp), lessThan(ArtPhase.rank(ArtPhase.fase2)));
+      expect(
+          ArtPhase.rank(ArtPhase.mvp), lessThan(ArtPhase.rank(ArtPhase.fase2)));
       expect(ArtPhase.rank(ArtPhase.fase2),
           lessThan(ArtPhase.rank(ArtPhase.faseSuccessiva)));
       expect(ArtPhase.rank(ArtPhase.faseSuccessiva),
           lessThan(ArtPhase.rank(ArtPhase.fase3)));
-      expect(ArtPhase.rank(ArtPhase.fase3), lessThan(ArtPhase.rank(ArtPhase.fase4)));
+      expect(ArtPhase.rank(ArtPhase.fase3),
+          lessThan(ArtPhase.rank(ArtPhase.fase4)));
       expect(ArtPhase.rank(ArtPhase.fase4),
           lessThan(ArtPhase.rank(ArtPhase.viralita)));
       // Una fase sconosciuta finisce in fondo, quindi resta nascosta.
@@ -448,7 +467,8 @@ void main() {
       expect(ArtCatalog.isVisible(find('synastry_depth'), demo: false), isTrue);
       // Fino alla soglia si vedono.
       expect(ArtCatalog.isVisible(find('natal_chart'), demo: false), isTrue);
-      expect(ArtCatalog.isVisible(find('planetary_returns'), demo: false), isTrue);
+      expect(
+          ArtCatalog.isVisible(find('planetary_returns'), demo: false), isTrue);
       expect(ArtCatalog.isVisible(find('pet_astrology'), demo: false), isTrue);
       // Oltre la soglia no, ma restano tutte nel catalogo.
       for (final id in const [
@@ -458,7 +478,8 @@ void main() {
         'lunar_calendar',
         'angel_cards',
       ]) {
-        expect(ArtCatalog.isVisible(find(id), demo: false), isFalse, reason: id);
+        expect(ArtCatalog.isVisible(find(id), demo: false), isFalse,
+            reason: id);
         expect(ArtCatalog.isVisible(find(id), demo: true), isTrue, reason: id);
         expect(ArtCatalog.all.map((a) => a.id), contains(id));
       }
@@ -496,8 +517,8 @@ void main() {
 
       // Astrologia e Cartomanzia hanno del vivo: li' la soglia vale ancora.
       expect(arti('Astrologia', false), isNot(contains('astrocartography')));
-      expect(arti('Astrologia', false),
-          isNot(contains('friends_compatibility')));
+      expect(
+          arti('Astrologia', false), isNot(contains('friends_compatibility')));
       expect(arti('Cartomanzia', false), isNot(contains('angel_cards')));
     });
 
@@ -546,7 +567,9 @@ void main() {
         'Stesa di Tarocchi',
       );
       expect(
-        FunctionShelf.functions.firstWhere((f) => f.id == 'tarot_spread_three').title,
+        FunctionShelf.functions
+            .firstWhere((f) => f.id == 'tarot_spread_three')
+            .title,
         'Stesa di Tarocchi',
       );
     });
@@ -555,7 +578,8 @@ void main() {
       for (final m in Maestro.values) {
         for (final a in ArtCatalog.activeOf(m)) {
           expect(
-            artRouteFor(a.id), isNotNull,
+            artRouteFor(a.id),
+            isNotNull,
             reason: 'l\'arte attiva ${a.id} non ha una rotta',
           );
         }
@@ -582,8 +606,7 @@ void main() {
     // li' quando la sezione si chiamava Cabala. Non sono due nomi per la
     // stessa cosa: uno e' il ripiano, l'altra e' una delle quattro arti che
     // ci stanno sopra.
-    test('La Numerologia del Destino e\' di Caligo, sotto Numerologia',
-        () {
+    test('La Numerologia del Destino e\' di Caligo, sotto Numerologia', () {
       final numerologia = ArtCatalog.forMaestro(Maestro.caligo)
           .firstWhere((s) => s.title == 'Numerologia');
       expect(numerologia.arts.map((a) => a.id), contains('numerology'));
@@ -599,8 +622,10 @@ void main() {
       // Ogni funzione dello scaffale che nel dominio e' attiva si apre anche
       // dallo scaffale: una sola mappa, nessuna divergenza possibile.
       for (final f in FunctionShelf.functions) {
-        final art =
-            ArtCatalog.all.where((a) => a.id == f.id).cast<ArtEntry?>().firstOrNull;
+        final art = ArtCatalog.all
+            .where((a) => a.id == f.id)
+            .cast<ArtEntry?>()
+            .firstOrNull;
         if (art != null && art.state == ArtState.attiva) {
           expect(artRouteFor(f.id), isNotNull);
         }
@@ -737,12 +762,13 @@ void main() {
       expect(find.byKey(const Key('art_synastry_vip')), findsOneWidget);
       expect(find.byKey(const Key('art_synastry_depth')), findsOneWidget);
       expect(find.byKey(const Key('art_friends_compatibility')), findsNothing);
-      expect(find.byKey(const Key('art_soon_toggle_astrologia')),
-          findsOneWidget);
+      expect(
+          find.byKey(const Key('art_soon_toggle_astrologia')), findsOneWidget);
       // Un'intestazione senza freccetta: le sezioni vive non si richiudono.
-      expect(find.byKey(const Key('art_section_header_astrologia')),
-          findsNothing);
-      expect(find.byKey(const Key('art_section_soon_astrologia')), findsNothing);
+      expect(
+          find.byKey(const Key('art_section_header_astrologia')), findsNothing);
+      expect(
+          find.byKey(const Key('art_section_soon_astrologia')), findsNothing);
 
       // Lunologia e Destino non hanno nulla di vivo: chiuse, con la dicitura.
       for (final t in const ['lunologia', 'destino']) {
@@ -856,7 +882,8 @@ void main() {
 
       // Centrati sulla larghezza della SCHERMATA, non sullo spazio che avanza
       // accanto alla freccia: il centro dei due testi cade sulla meta' esatta.
-      final meta = tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
+      final meta =
+          tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
       expect(tester.getCenter(find.text('Medora')).dx, closeTo(meta, 1.0));
       expect(tester.getCenter(pilastri).dx, closeTo(meta, 1.0));
 
@@ -879,9 +906,9 @@ void main() {
             ChangeNotifierProvider(create: (_) => ParallaxController()),
             ChangeNotifierProvider(create: (_) => ZodiacController()),
             ChangeNotifierProvider(
-              create: (ctx) =>
-                  FeatureFlagService(entitlement: ctx.read<EntitlementService>())
-                    ..initialize(),
+              create: (ctx) => FeatureFlagService(
+                  entitlement: ctx.read<EntitlementService>())
+                ..initialize(),
             ),
           ],
           child: MaterialApp(
@@ -891,7 +918,8 @@ void main() {
         await tester.pump();
         final meta =
             tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
-        expect(tester.getCenter(find.text(m.displayName)).dx, closeTo(meta, 1.0),
+        expect(
+            tester.getCenter(find.text(m.displayName)).dx, closeTo(meta, 1.0),
             reason: 'il nome di ${m.displayName} non e\' centrato');
         expect(
           tester.getCenter(find.byKey(const Key('domain_pillars'))).dx,
@@ -913,8 +941,8 @@ void main() {
       // Energia per prima, con la sola Meditazione in vista.
       expect(find.byKey(const Key('art_section_energia')), findsOneWidget);
       expect(find.byKey(const Key('art_meditation')), findsOneWidget);
-      expect(find.byKey(const Key('art_state_attiva_meditation')),
-          findsOneWidget);
+      expect(
+          find.byKey(const Key('art_state_attiva_meditation')), findsOneWidget);
       expect(find.byKey(const Key('art_sleep_stories')), findsNothing);
       expect(find.byKey(const Key('art_soon_toggle_energia')), findsOneWidget);
 
@@ -955,7 +983,8 @@ void main() {
       final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
 
       List<Color> sfondoDi(String id) {
-        final box = tester.widget<Container>(find.byKey(Key('art_surface_$id')));
+        final box =
+            tester.widget<Container>(find.byKey(Key('art_surface_$id')));
         final deco = box.decoration! as BoxDecoration;
         return (deco.gradient! as LinearGradient).colors;
       }
@@ -984,15 +1013,16 @@ void main() {
 
       final rosso = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
       List<Color> sfondoDi(String id) {
-        final box = tester.widget<Container>(find.byKey(Key('art_surface_$id')));
+        final box =
+            tester.widget<Container>(find.byKey(Key('art_surface_$id')));
         final deco = box.decoration! as BoxDecoration;
         return (deco.gradient! as LinearGradient).colors;
       }
 
       // Rune: la distintiva viva col rosso di Caligo, le altre raccolte.
       expect(find.byKey(const Key('art_rune_draw')), findsOneWidget);
-      expect(find.byKey(const Key('art_state_attiva_rune_draw')),
-          findsOneWidget);
+      expect(
+          find.byKey(const Key('art_state_attiva_rune_draw')), findsOneWidget);
       expect(sfondoDi('rune_draw').first.toARGB32(),
           rosso.surfaceElevated.withValues(alpha: 0.95).toARGB32());
       expect(find.byKey(const Key('art_i_ching')), findsNothing);
@@ -1023,8 +1053,10 @@ void main() {
         260,
         scrollable: find.byType(Scrollable).first,
       );
-      expect(find.byKey(const Key('art_section_soon_numerologia')), findsOneWidget);
-      expect(find.byKey(const Key('art_soon_toggle_numerologia')), findsNothing);
+      expect(find.byKey(const Key('art_section_soon_numerologia')),
+          findsOneWidget);
+      expect(
+          find.byKey(const Key('art_soon_toggle_numerologia')), findsNothing);
 
       // Un'arte in cammino non porta l'accento del Maestro: si apre la Numerologia
       // dalla sua intestazione, che qui e' tutta l'area di tocco.
@@ -1052,8 +1084,8 @@ void main() {
       await tester.pumpWidget(domain(Maestro.medora));
       await tester.pump();
       // Attiva: badge Attiva, nessun lucchetto.
-      expect(find.byKey(const Key('art_state_attiva_horoscope')),
-          findsOneWidget);
+      expect(
+          find.byKey(const Key('art_state_attiva_horoscope')), findsOneWidget);
       expect(find.byKey(const Key('art_lock_horoscope')), findsNothing);
       // Premium: lucchetto e riga che dice come si apre.
       await tester.scrollUntilVisible(
@@ -1126,7 +1158,9 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: ArtCard(
-              art: arte, palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora))),
+              art: arte,
+              palette:
+                  MaestroPalette.forKey(const ThemeKey.of(Maestro.medora))),
         ),
       ));
       expect(find.text('Si apre con l\'Adepto'), findsOneWidget);

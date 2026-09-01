@@ -33,7 +33,8 @@ import 'istante_dichiarato.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('al primo avvio, coi Sigilli gia\' accesi su disco, i premi '
+  testWidgets(
+      'al primo avvio, coi Sigilli gia\' accesi su disco, i premi '
       'si riprendono senza nessun gesto', (tester) async {
     // IL DISCO DI CHI RIAPRE L'APP: tre Sigilli accesi da ieri, e nessun
     // premio ancora arrivato.
@@ -49,8 +50,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
-        Provider<AppServices>.value(
-            value: AppServices.offline('prova', porta)),
+        Provider<AppServices>.value(value: AppServices.offline('prova', porta)),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
       child: MaterialApp(home: Scaffold(body: SizedBox(key: chiave))),
@@ -100,8 +100,12 @@ class _PortaCheConta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
-      giorno: '2026-08-18', piano: 'free', spesi: const {}, saldoEos: _saldo);
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      StatoDelCerchio(
+          giorno: '2026-08-18',
+          piano: 'free',
+          spesi: const {},
+          saldoEos: _saldo);
 
   @override
   Future<EsitoDelConsumo?> consuma(

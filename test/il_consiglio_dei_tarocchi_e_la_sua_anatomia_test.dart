@@ -102,7 +102,8 @@ void main() {
       expect(doveAzione, greaterThan(0),
           reason: '${t.name}: l\'azione del gruppo non c\'e\' nel consiglio');
       expect(doveRisposta, lessThan(doveAzione),
-          reason: '${t.name}: l\'azione viene prima della risposta, e l\'anatomia '
+          reason:
+              '${t.name}: l\'azione viene prima della risposta, e l\'anatomia '
               'della voce S.16 dice il contrario');
       // E la bolla APRE con la lente dell'argomento, che e' cio' che rende sedici
       // aperture diverse da tre soli testi.
@@ -141,7 +142,8 @@ void main() {
         // allargata, non allentata.
         final pezzi = lettura.consiglio.split('\n\n');
         expect(pezzi.length, inInclusiveRange(3, 4),
-            reason: '${t.name} seme $seme: il consiglio non ha lo stacco fra la '
+            reason:
+                '${t.name} seme $seme: il consiglio non ha lo stacco fra la '
                 'prosa e la domanda, oppure la prosa non e\' in due o tre '
                 'paragrafi come la voce BN.06 promette');
         for (final paragrafo in pezzi.take(pezzi.length - 1)) {
@@ -186,7 +188,8 @@ void main() {
     print('ORDINE S VOCE 26: caso peggiore del consiglio $peggiore caratteri '
         '($quale), tetto ${TettiDellaStesa.consiglio}');
     expect(peggiore, lessThan(TettiDellaStesa.consiglio),
-        reason: 'il caso peggiore del consiglio e\' $peggiore ($quale) e il tetto '
+        reason:
+            'il caso peggiore del consiglio e\' $peggiore ($quale) e il tetto '
             'e\' ${TettiDellaStesa.consiglio}: il tetto taglia, e un testo tagliato '
             'e\' un testo non scritto');
     // **IL MARGINE E' DICHIARATO: almeno il quindici per cento del tetto.** Sotto,

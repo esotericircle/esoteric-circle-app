@@ -93,7 +93,8 @@ void main() {
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),
         home: const GuardianoDelleFeste(
-          child: Scaffold(body: Center(child: Text('quello che stavo facendo'))),
+          child:
+              Scaffold(body: Center(child: Text('quello che stavo facendo'))),
         ),
       ),
     ));
@@ -125,7 +126,8 @@ void main() {
 
     expect(prima, isTrue, reason: 'la prima festa non e\' comparsa');
     expect(seconda, isFalse,
-        reason: 'la seconda festa si e\' dipinta sopra la prima: chi chiama deve '
+        reason:
+            'la seconda festa si e\' dipinta sopra la prima: chi chiama deve '
             'riceverne un no, e metterla in coda');
 
     // SI GUARDA FOTOGRAMMA PER FOTOGRAMMA per venti secondi di scena: se a un
@@ -136,7 +138,8 @@ void main() {
       final quante = quanteFesteAVideo();
       if (quante > massimo) massimo = quante;
       expect(quante, lessThanOrEqualTo(1),
-          reason: 'al fotogramma $passo ci sono $quante celebrazioni a schermo: '
+          reason:
+              'al fotogramma $passo ci sono $quante celebrazioni a schermo: '
               'due feste nello stesso istante sono illeggibili, e i premi di '
               'entrambe si perdono');
     }
@@ -303,7 +306,8 @@ void main() {
             'livelli di luce: durante la festa si vede ancora qualcosa della '
             'schermata sotto');
     expect(passa, lessThan(massimoCheSiVede),
-        reason: 'del testo di sotto passano ${passa.toStringAsFixed(1)} livelli '
+        reason:
+            'del testo di sotto passano ${passa.toStringAsFixed(1)} livelli '
             'di luce su ${scoperto.toStringAsFixed(1)}, e il massimo concesso '
             'e\' $massimoCheSiVede: si legge attraverso, ed e\' il difetto della '
             'voce. Il velo dichiara ${VeloDellaCelebrazione.opacita} di '
@@ -323,7 +327,8 @@ void main() {
         .where((r) => !r.trimLeft().startsWith('//'))
         .join(String.fromCharCode(10));
     expect(sorgente.contains('0xCC05060A'), isFalse,
-        reason: 'la barriera della forma grande e\' tornata un numero scritto a '
+        reason:
+            'la barriera della forma grande e\' tornata un numero scritto a '
             'mano, che nessuno tiene d\'accordo col velo della fascia');
     // **DUE LETTURE, una per forma.** Non basta che la costante esista: se una
     // delle due tornasse a scriversi il numero da se', le due forme
@@ -350,7 +355,8 @@ class _PortaCheAccredita extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

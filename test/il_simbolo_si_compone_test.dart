@@ -50,13 +50,11 @@ void main() {
 
   group('Quale simbolo, per ogni Maestro', () {
     test('Medora guarda il SEGNO, Caligo l\'ANIMALE, Aura l\'ARCHETIPO', () {
-      final medora =
-          SimboloDellAttesa.per(Maestro.medora, natal: natalCancro);
+      final medora = SimboloDellAttesa.per(Maestro.medora, natal: natalCancro);
       expect(medora.asset, 'assets/img_thumb/zodiac/zod_cancro.webp');
 
       // Il Cancro deriva il Lupo, dalla tabella di curatela che esiste gia'.
-      final caligo =
-          SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
+      final caligo = SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
       expect(caligo.asset, contains('animali/'));
       expect(caligo.asset, contains('lupo'));
 
@@ -176,7 +174,8 @@ void main() {
       expect(find.descendant(of: simbolo, matching: find.byType(ClipRect)),
           findsOneWidget,
           reason: 'il simbolo non e\' ritagliato: non si sta componendo');
-      expect(find.descendant(of: simbolo, matching: find.byType(FadeTransition)),
+      expect(
+          find.descendant(of: simbolo, matching: find.byType(FadeTransition)),
           findsNothing,
           reason: 'il simbolo sbiadisce dentro invece di comporsi');
       expect(find.descendant(of: simbolo, matching: find.byType(ColorFiltered)),
@@ -236,7 +235,8 @@ void main() {
       final frase = find.textContaining('', findRichText: false);
       expect(frase, findsWidgets);
       final testo = tester
-          .widgetList<Text>(find.descendant(of: scena, matching: find.byType(Text)))
+          .widgetList<Text>(
+              find.descendant(of: scena, matching: find.byType(Text)))
           .first;
       expect(testo.textAlign, TextAlign.center,
           reason: 'la frase non e\' centrata');
@@ -292,8 +292,7 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
       await tester.pumpWidget(host(
-        const ConsultoDelCieloView(
-            natal: natalCancro, maestro: Maestro.medora),
+        const ConsultoDelCieloView(natal: natalCancro, maestro: Maestro.medora),
         fermo: true,
       ));
       await tester.pump();

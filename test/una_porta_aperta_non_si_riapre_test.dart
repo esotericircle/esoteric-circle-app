@@ -106,9 +106,7 @@ void main() {
     // porta e nessuno si ricorda di farla passare di qui.
     final barra =
         File('lib/features/shell/barra_del_cerchio.dart').readAsStringSync();
-    final diretti = RegExp(r'_navigatore\(\)\.push\(')
-        .allMatches(barra)
-        .length;
+    final diretti = RegExp(r'_navigatore\(\)\.push\(').allMatches(barra).length;
     // ignore: avoid_print
     print('ORDINE AU VOCE 10: nella barra restano $diretti spinte dirette '
         'nella pila');

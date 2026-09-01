@@ -82,8 +82,7 @@ void main() {
       for (final maestro in Maestro.values) {
         final attese = <String>{
           for (final altro in Maestro.values)
-            if (altro != maestro)
-              ...VoceDelMaestro.di(altro).lessicoDiFirma,
+            if (altro != maestro) ...VoceDelMaestro.di(altro).lessicoDiFirma,
         };
         expect(VoceDelMaestro.lessicoDegliAltri(maestro).toSet(), attese,
             reason: 'l\'elenco vietato a ${maestro.id} non coincide con le '
@@ -113,8 +112,8 @@ void main() {
         expect(inizio, greaterThanOrEqualTo(0),
             reason: '${maestro.id} non dichiara su cosa gira la sua voce: '
                 'senza asse resta un tono, e un tono si imita');
-        final resto =
-            registro.substring(inizio + VoceDelMaestro.marcatoreDellAsse.length);
+        final resto = registro
+            .substring(inizio + VoceDelMaestro.marcatoreDellAsse.length);
         final fine = resto.indexOf(RegExp('[:,.]'));
         assi[maestro.id] = fine < 0 ? resto : resto.substring(0, fine);
       }

@@ -47,7 +47,8 @@ void main() {
             'La porta e\' retro_della_runa.dart, una sola.');
   });
 
-  testWidgets('sul telo nessuna pietra e\' coperta: ogni runa mostra il suo '
+  testWidgets(
+      'sul telo nessuna pietra e\' coperta: ogni runa mostra il suo '
       'simbolo', (tester) async {
     SharedPreferences.setMockInitialValues({});
     tester.view.physicalSize = const Size(1080, 2391);
@@ -103,11 +104,8 @@ void main() {
 
     for (var i = 0; i < atteso.sparse.length; i++) {
       final pietra = find.byKey(Key('runa_posata_$i'));
-      expect(pietra, findsOneWidget,
-          reason: 'La pietra $i non e\' sul telo.');
-      expect(
-          find.descendant(
-              of: pietra, matching: find.byType(RetroDellaRuna)),
+      expect(pietra, findsOneWidget, reason: 'La pietra $i non e\' sul telo.');
+      expect(find.descendant(of: pietra, matching: find.byType(RetroDellaRuna)),
           findsNothing,
           reason: 'La pietra $i mostra il dorso: dall\'ordine H sul telo '
               'ogni pietra mostra il suo simbolo.');

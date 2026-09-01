@@ -153,7 +153,8 @@ void main() {
     // anche lei, quindi il richiamo deve staccare da QUESTO, non dal nero.
     final fondo = profilo.sublist(27).reduce((a, b) => a + b) / 4;
     // ignore: avoid_print
-    print('ONDA: profilo radiale ${profilo.map((v) => v.toStringAsFixed(0)).join(" ")}');
+    print(
+        'ONDA: profilo radiale ${profilo.map((v) => v.toStringAsFixed(0)).join(" ")}');
     // ignore: avoid_print
     print('ONDA: fondo lontano ${fondo.toStringAsFixed(1)}');
 

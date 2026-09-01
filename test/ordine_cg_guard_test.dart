@@ -99,10 +99,9 @@ void main() {
         mancanti.add(p);
       }
     }
-    final conEsito =
-        RegExp(r'^\| P\d\d \| \*\*(vera|falsa)', multiLine: true)
-            .allMatches(testo)
-            .length;
+    final conEsito = RegExp(r'^\| P\d\d \| \*\*(vera|falsa)', multiLine: true)
+        .allMatches(testo)
+        .length;
     // ignore: avoid_print
     print('ORDINE CG: premesse con la loro riga '
         '${quantePremesse - mancanti.length} su $quantePremesse, di cui con un '

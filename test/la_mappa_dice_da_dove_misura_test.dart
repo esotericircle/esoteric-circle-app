@@ -28,10 +28,7 @@ void main() {
   test('il ripiego sulla nascita si dichiara, il luogo detto no', () {
     const detto = DoveSei(citta: 'Milano', latitudine: 45.4, longitudine: 9.2);
     const ripiego = DoveSei(
-        citta: 'Roma',
-        latitudine: 41.9,
-        longitudine: 12.5,
-        dichiarato: false);
+        citta: 'Roma', latitudine: 41.9, longitudine: 12.5, dichiarato: false);
     // ignore: avoid_print
     print('ORDINE CF VOCE 13: luogo detto dichiarato ${detto.dichiarato}, '
         'ripiego dichiarato ${ripiego.dichiarato}');
@@ -46,9 +43,8 @@ void main() {
   test('il campo per dire dove vivi sta coi dati della persona', () {
     // **E NON DENTRO UN RITO**, che e' il vincolo dell'ordine: il luogo dove
     // si vive e' un dato della persona e va dove stanno gli altri suoi dati.
-    final schermata =
-        File('lib/features/account/dati_di_nascita_screen.dart')
-            .readAsStringSync();
+    final schermata = File('lib/features/account/dati_di_nascita_screen.dart')
+        .readAsStringSync();
     expect(schermata.contains("Key('dove_vivi_field')"), isTrue,
         reason: 'nella schermata dei dati non c\'e\' nessun campo per dire '
             'dove si vive adesso');

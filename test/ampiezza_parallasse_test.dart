@@ -45,11 +45,9 @@ void main() {
     // volerebbe a 650 px a fondo corsa.
     final vicino = ParallaxController.tiltRangeDefault *
         ParallaxController.profonditaEfficace(1.3);
-    expect(vicino, lessThan(180.0),
-        reason: 'il vicino vola via a $vicino px');
+    expect(vicino, lessThan(180.0), reason: 'il vicino vola via a $vicino px');
     // Resta comunque piu' mobile del piano di riferimento: e' la parallasse.
-    expect(vicino,
-        greaterThan(ParallaxController.spostamentoPianoPrincipale));
+    expect(vicino, greaterThan(ParallaxController.spostamentoPianoPrincipale));
     // Il lontano si muove meno del principale.
     final lontano = ParallaxController.tiltRangeDefault *
         ParallaxController.profonditaEfficace(0.06);

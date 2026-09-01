@@ -157,6 +157,10 @@ void main() {
 
 /// Una porta che propone un nome, oppure niente.
 class _PortaCheProponeONo implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<void> esci() async {}
 

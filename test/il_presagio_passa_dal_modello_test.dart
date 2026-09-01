@@ -89,13 +89,13 @@ void main() {
       muto.presagioDelleRune(
           esito: esito, domanda: domanda, profile: UserProfile.empty),
       throwsA(isA<MaestroAiUnavailable>()),
-      reason: 'una voce che non c\'e\' deve sollevare, cosi\' chi chiama cade sul '
+      reason:
+          'una voce che non c\'e\' deve sollevare, cosi\' chi chiama cade sul '
           'ripiego invece di mostrare il vuoto',
     );
 
     // Il ripiego, che e' cio' che la schermata mostra in quel caso.
-    final presagio =
-        RunePresagio.componiIlResponso(esito, domanda: domanda);
+    final presagio = RunePresagio.componiIlResponso(esito, domanda: domanda);
     expect(presagio.eIntero, isTrue);
     final cornice = CorniciDelPresagio.perDomanda(domanda)!;
     expect(presagio.risposta.startsWith(cornice.apertura), isTrue);

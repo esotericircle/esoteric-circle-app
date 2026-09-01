@@ -54,14 +54,16 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.textContaining('microfono'), findsWidgets,
-        reason: 'la spiegazione e\' sparita per un tocco fuori: nella schermata '
+        reason:
+            'la spiegazione e\' sparita per un tocco fuori: nella schermata '
             'del soffio i tocchi arrivano continuamente');
   });
 
   testWidgets('Un trascinamento verso il basso non la fa sparire',
       (tester) async {
     await apriRichiesta(tester);
-    await tester.drag(find.textContaining('microfono').first, const Offset(0, 400));
+    await tester.drag(
+        find.textContaining('microfono').first, const Offset(0, 400));
     await tester.pumpAndSettle();
 
     expect(find.textContaining('microfono'), findsWidgets,

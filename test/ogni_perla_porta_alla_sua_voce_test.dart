@@ -57,8 +57,7 @@ void main() {
     }
   }
 
-  Future<DiarioDelCammino> monta(
-      WidgetTester tester, Sentiero sentiero) async {
+  Future<DiarioDelCammino> monta(WidgetTester tester, Sentiero sentiero) async {
     silenzia();
     SharedPreferences.setMockInitialValues(const {});
     tester.view.physicalSize = const Size(1080, 2391);
@@ -115,8 +114,7 @@ void main() {
     final origine = tela.localToGlobal(Offset.zero);
     final wArte = ArteDelSentiero.larghezzaArte(sentiero).toDouble();
     final hArte = ArteDelSentiero.altezzaArte(sentiero).toDouble();
-    final scala =
-        math.min(tela.size.width / wArte, tela.size.height / hArte);
+    final scala = math.min(tela.size.width / wArte, tela.size.height / hArte);
     return origine +
         Offset((tela.size.width - wArte * scala) / 2 + ancora.x * wArte * scala,
             (tela.size.height - hArte * scala) / 2 + ancora.y * hArte * scala);
@@ -125,11 +123,12 @@ void main() {
   /// L'ordine in cui gli ancoraggi sono elencati: quello del cammino.
   List<Traguardo> nellOrdineDegliAncoraggi(Sentiero sentiero) =>
       Sentieri.di(sentiero).toList()
-        ..sort((a, b) =>
-            Sentieri.ordineNelCammino(a).compareTo(Sentieri.ordineNelCammino(b)));
+        ..sort((a, b) => Sentieri.ordineNelCammino(a)
+            .compareTo(Sentieri.ordineNelCammino(b)));
 
   for (final sentiero in Sentiero.values) {
-    testWidgets('su ${sentiero.name} tutte e 55 le perle portano alla propria '
+    testWidgets(
+        'su ${sentiero.name} tutte e 55 le perle portano alla propria '
         'voce', (tester) async {
       await monta(tester, sentiero);
       final ordinati = nellOrdineDegliAncoraggi(sentiero);
@@ -171,8 +170,8 @@ void main() {
           final scatola = riga.evaluate().first.renderObject;
           if (scatola is RenderBox && scatola.hasSize && scatola.attached) {
             final cima = scatola.localToGlobal(Offset.zero).dy;
-            final alto = tester.view.physicalSize.height /
-                tester.view.devicePixelRatio;
+            final alto =
+                tester.view.physicalSize.height / tester.view.devicePixelRatio;
             visibile = cima > -scatola.size.height && cima < alto;
           }
         }

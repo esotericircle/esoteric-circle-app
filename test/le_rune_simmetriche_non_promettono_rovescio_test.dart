@@ -89,8 +89,7 @@ void main() {
     }
   });
 
-  test('la scheda spiega PERCHE\' non si rovescia, e come si legge invece',
-      () {
+  test('la scheda spiega PERCHE\' non si rovescia, e come si legge invece', () {
     for (final nome in kRuneSimmetriche) {
       final riga = SunsetRuneCorpus.perche(nome);
       expect(riga.contains(nome), isTrue,

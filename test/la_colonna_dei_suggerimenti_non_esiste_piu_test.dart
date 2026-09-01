@@ -53,8 +53,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     final servizi = AppServices.offline();
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
@@ -116,8 +116,7 @@ void main() {
     expect(famiglie, 0,
         reason: 'Le chiavi della colonna delle famiglie vivono ancora in '
             'lib: la seconda porta non e\' stata tolta.');
-    expect(pannelli, 1,
-        reason: 'Il pannello deve avere UNA definizione.');
+    expect(pannelli, 1, reason: 'Il pannello deve avere UNA definizione.');
     // ORDINE 2164 VOCI 3 E 4: LE PORTE PASSANO DA TRE A UNA. Erano il
     // pulsante d'invito, la riga d'assaggio e le stelline accanto al campo.
     // Adesso la porta e' una sola, e questa prova cade se qualcuno ne

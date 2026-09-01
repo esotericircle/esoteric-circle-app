@@ -110,13 +110,12 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
     expect(aperte + attesa + premessa + chiuse + fondatore, quante,
         reason: 'gli stati contati non coprono le sette voci: una voce e\' '
             'sparita dal conto pur restando nel file');
-    final lavoriAperti =
-        lavori.where((r) => r.contains('APERTA')).length;
+    final lavoriAperti = lavori.where((r) => r.contains('APERTA')).length;
     expect(marcatore(testo, 'LAVORI_BF05_APERTI'), lavoriAperti,
         reason: 'il marcatore dei lavori aperti non coincide con le righe');
   });

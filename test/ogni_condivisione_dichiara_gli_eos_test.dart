@@ -46,14 +46,10 @@ void main() {
       // e' successo ad `azioni_del_responso.dart`, che la condivisione non
       // la fa, la delega a chi gliela passa. Si tolgono i commenti prima di
       // cercare.
-      final testo = f
-          .readAsLinesSync()
-          .where((r) {
-            final t = r.trimLeft();
-            return !t.startsWith('//') && !t.startsWith('*') &&
-                !t.startsWith('/*');
-          })
-          .join('\n');
+      final testo = f.readAsLinesSync().where((r) {
+        final t = r.trimLeft();
+        return !t.startsWith('//') && !t.startsWith('*') && !t.startsWith('/*');
+      }).join('\n');
       if (!testo.contains('PortaDellaCondivisione.')) continue;
       // Gli AIUTANTI delle card non hanno un contesto: restituiscono
       // l'esito vero della porta (return PortaDellaCondivisione...) e il

@@ -69,7 +69,8 @@ void main() {
     await tester.pump();
     expect(find.byType(ConsultoDelCieloView), findsNothing,
         reason: 'la scena del consulto e\' tornata dentro una carta: vive '
-            'nella chat, dove c\'e' ' una superficie sola e tutta l\'altezza. '
+            'nella chat, dove c\'e'
+            ' una superficie sola e tutta l\'altezza. '
             'Dentro tre carte in colonna gli emblemi finiscono sotto la piega '
             'e restano tre bolle che scattano');
     // E LA CARTA CHE ASPETTA STA FERMA.
@@ -83,8 +84,7 @@ void main() {
       final attesa = find.byKey(Key('ask_loading_${m.id}'));
       if (attesa.evaluate().isEmpty) continue;
       guardate++;
-      expect(
-          find.descendant(of: attesa, matching: find.byType(FadeTransition)),
+      expect(find.descendant(of: attesa, matching: find.byType(FadeTransition)),
           findsNothing,
           reason: 'nella carta di ${m.displayName} qualcosa pulsa ancora: '
               'una lista che aspetta si dice stando ferma');
@@ -195,7 +195,8 @@ void main() {
           reason: 'la carta di ${m.displayName} non porta il consiglio');
       trovati++;
       // E la stella, non la freccia che non portava da nessuna parte.
-      expect(find.descendant(of: riga, matching: find.byIcon(Icons.arrow_forward)),
+      expect(
+          find.descendant(of: riga, matching: find.byIcon(Icons.arrow_forward)),
           findsNothing,
           reason: 'e\' tornata la freccia sulla carta di ${m.displayName}');
     }
@@ -236,8 +237,7 @@ void main() {
 
     // Si esce da una voce che NON e' quella di partenza: quella di partenza
     // torna indietro alla chat che c'e' gia' sotto nella pila.
-    final altro =
-        Maestro.fixedOrder.firstWhere((m) => m != Maestro.medora);
+    final altro = Maestro.fixedOrder.firstWhere((m) => m != Maestro.medora);
     final porta = find.byKey(Key('ask_continue_${altro.id}'));
     await tester.scrollUntilVisible(porta, 200,
         scrollable: find.byType(Scrollable).first);
@@ -292,8 +292,7 @@ Widget _host() => MultiProvider(
       ],
       child: const MaterialApp(
         home: MaestroScope(
-          child:
-              AskMaestriScreen(starter: Maestro.medora, temaIniziale: _tema),
+          child: AskMaestriScreen(starter: Maestro.medora, temaIniziale: _tema),
         ),
       ),
     );

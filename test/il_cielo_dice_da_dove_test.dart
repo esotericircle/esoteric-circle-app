@@ -93,12 +93,11 @@ void main() {
     await monta(
       tester,
       _PosizioneFinta(citta: 'Torino'),
-      iniziale: const SkyPlace(
-          latitude: 45.0703, longitude: 7.6869, citta: 'Torino'),
+      iniziale:
+          const SkyPlace(latitude: 45.0703, longitude: 7.6869, citta: 'Torino'),
     );
     final riga = rigaDaDove(tester);
-    expect(riga, isNotNull,
-        reason: 'Il cielo non dice da dove e\' calcolato.');
+    expect(riga, isNotNull, reason: 'Il cielo non dice da dove e\' calcolato.');
     expect(riga, contains('Torino'));
     expect(riga, contains('45.07'),
         reason: 'Le coordinate devono restare: sono il dato vero da cui il '
@@ -106,7 +105,8 @@ void main() {
     expect(riga, contains('7.68'));
   });
 
-  testWidgets('SENZA citta\' restano le sole coordinate, e nessun testo al '
+  testWidgets(
+      'SENZA citta\' restano le sole coordinate, e nessun testo al '
       'posto del nome', (tester) async {
     await monta(
       tester,

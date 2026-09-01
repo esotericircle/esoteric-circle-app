@@ -92,15 +92,13 @@ void main() {
             scala: _scalaDipinta(r),
             larghezza: r.constraints.maxWidth,
             righe: _righeDi(r),
-          )
-            ..catena = _catenaDi(r));
+          )..catena = _catenaDi(r));
         }
       }
       r.visitChildren(scendi);
     }
 
     scendi(tester.binding.rootElement!.renderObject!);
-
   }
 
   Widget dominio(Maestro m) => MultiProvider(
@@ -218,8 +216,10 @@ void main() {
       // larghezza di titolo: nel dominio ce n'e' uno da ventidue punti.
       if (t.testo.trim().isEmpty) continue;
       if (!t.larghezza.isFinite || t.larghezza <= 0) continue;
-      coppie['${t.dichiarata}@${t.larghezza}'] =
-          <double>[t.dichiarata, t.larghezza];
+      coppie['${t.dichiarata}@${t.larghezza}'] = <double>[
+        t.dichiarata,
+        t.larghezza
+      ];
     }
     final titoli = <String>{
       ...ArtCatalog.all.map((a) => a.title),
@@ -236,10 +236,10 @@ void main() {
     for (final c in coppie.values) {
       for (final t in titoli) {
         final stile = TypographyTokens.display(size: c[0]);
-        final corpo = TitoloCheNonSiSpezza.corpoCheEntra(
-            t, stile, c[1], minimo: pavimentoLeggibile);
-        final righe = _righeConPittore(
-            t, stile.copyWith(fontSize: corpo), c[1]);
+        final corpo = TitoloCheNonSiSpezza.corpoCheEntra(t, stile, c[1],
+            minimo: pavimentoLeggibile);
+        final righe =
+            _righeConPittore(t, stile.copyWith(fontSize: corpo), c[1]);
         for (var k = 0; k < righe.length - 1; k++) {
           if (righe[k].isNotEmpty && !righe[k].endsWith(' ')) {
             colpe.add('$t su ${c[1]} punti: nemmeno a $corpo '
@@ -330,7 +330,8 @@ List<String> _righeConPittore(String testo, TextStyle stile, double larghezza) {
     text: TextSpan(text: testo, style: stile),
     textDirection: TextDirection.ltr,
   )..layout(maxWidth: larghezza);
-  return _righeDaConfine(testo, (i) => p.getLineBoundary(TextPosition(offset: i)));
+  return _righeDaConfine(
+      testo, (i) => p.getLineBoundary(TextPosition(offset: i)));
 }
 
 /// Le righe vere di un testo gia' impaginato, prese una alla volta dal confine

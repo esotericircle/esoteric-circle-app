@@ -124,8 +124,7 @@ void main() {
               'mai se l\'istruzione regge');
     });
 
-    test('Un seguito TUTTO ripetuto non consuma e lascia la freccia',
-        () async {
+    test('Un seguito TUTTO ripetuto non consuma e lascia la freccia', () async {
       final contatore = QuestionAllowance();
       final voce = _Voce(
           seguito: 'Il tuo Sole in Cancro chiede riparo prima di chiedere '

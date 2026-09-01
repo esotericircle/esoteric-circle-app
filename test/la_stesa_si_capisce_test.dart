@@ -136,7 +136,8 @@ void main() {
   /// sinistra, larga quanto il passo fra due dorsi.
   Future<void> pesca(WidgetTester tester, int indice) async {
     final carta = find.byKey(Key('stesa_fan_$indice'));
-    expect(carta, findsOneWidget, reason: 'la carta $indice non e\' nell\'arco');
+    expect(carta, findsOneWidget,
+        reason: 'la carta $indice non e\' nell\'arco');
     final r = tester.getRect(carta);
     await tester.tapAt(Offset(r.left + 6, r.center.dy));
     await tester.pump();
@@ -335,9 +336,8 @@ void main() {
                 k.value.startsWith('stesa_fan_') &&
                 int.tryParse(k.value.substring('stesa_fan_'.length)) != null;
           }))
-          .map((w) => int.parse((w.key as ValueKey<String>)
-              .value
-              .substring('stesa_fan_'.length)))
+          .map((w) => int.parse(
+              (w.key as ValueKey<String>).value.substring('stesa_fan_'.length)))
           .toList()
         ..sort();
       expect(montate, isNotEmpty,
@@ -392,8 +392,8 @@ void main() {
         (tester) async {
       await monta(tester,
           revealAll: false, riduciMovimento: true, altezza: 1400);
-      final stato =
-          tester.state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen));
+      final stato = tester
+          .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen));
       await tester.tap(find.byKey(const Key('stesa_taglia')));
       await tester.pump();
       final viste = <int>{};
@@ -460,7 +460,8 @@ void main() {
       // Terza carta scelta: la scena dell'attesa e' in sovrimpressione e il
       // responso non c'e' ancora.
       expect(find.byKey(const Key('stesa_attesa')), findsOneWidget,
-          reason: 'il responso e\' apparso di colpo: un responso istantaneo e\' '
+          reason:
+              'il responso e\' apparso di colpo: un responso istantaneo e\' '
               'un responso letto da un archivio');
       expect(find.byKey(const Key('stesa_consiglio')), findsNothing,
           reason: 'il consiglio si vede mentre Medora sta ancora guardando');
@@ -535,8 +536,8 @@ void main() {
       // E le altre due non ce l'hanno.
       for (final posizione in SpreadPosition.values) {
         if (posizione == chiave.drawn.position) continue;
-        expect(find.byKey(Key('stesa_marcatura_${posizione.name}')),
-            findsNothing);
+        expect(
+            find.byKey(Key('stesa_marcatura_${posizione.name}')), findsNothing);
       }
     });
   });
@@ -643,8 +644,7 @@ void main() {
           // Il significato passa da ParagrafiDiLettura, il nome resta un
           // Text: si legge da chi dei due c'e'.
           final w = tester.widget(trovato);
-          final testo =
-              w is Text ? w.data! : (w as ParagrafiDiLettura).testo;
+          final testo = w is Text ? w.data! : (w as ParagrafiDiLettura).testo;
           final stile = w is Text ? w.style : (w as ParagrafiDiLettura).stile;
           final larghezza = tester.getSize(trovato).width;
           final pittore = TextPainter(
@@ -658,19 +658,23 @@ void main() {
             textDirection: TextDirection.ltr,
           )..layout(maxWidth: larghezzaReale - 32);
           final righeAlPieno = pieno.computeLineMetrics().length;
-          final parole =
-              testo.trim().split(RegExp(r'\s+')).where((p) => p.isNotEmpty).length;
+          final parole = testo
+              .trim()
+              .split(RegExp(r'\s+'))
+              .where((p) => p.isNotEmpty)
+              .length;
           if (righe > righeAlPieno && parole / righe < 4) {
-            colpevoli.add(
-                '${posizione.name}/$quale: "$testo" va su $righe righe in '
-                '${larghezza.toStringAsFixed(0)} punti, ne bastano '
-                '$righeAlPieno con la larghezza disponibile, cioe'
+            colpevoli
+                .add('${posizione.name}/$quale: "$testo" va su $righe righe in '
+                    '${larghezza.toStringAsFixed(0)} punti, ne bastano '
+                    '$righeAlPieno con la larghezza disponibile, cioe'
                     ' ${(parole / righe).toStringAsFixed(1)} parole per riga');
           }
         }
       }
       expect(colpevoli, isEmpty,
-          reason: 'questi testi vanno a capo per la larghezza della miniatura e '
+          reason:
+              'questi testi vanno a capo per la larghezza della miniatura e '
               'non per la loro lunghezza:\n${colpevoli.join("\n")}');
     });
 
@@ -682,7 +686,8 @@ void main() {
       // carta rovesciata.
       var seed = 1;
       while (seed < 300 &&
-          !List<int>.generate(3, (i) => TarotSpread.mazzoMescolato(seed: seed)[i])
+          !List<int>.generate(
+                  3, (i) => TarotSpread.mazzoMescolato(seed: seed)[i])
               .any((carta) => TarotSpread.versoDi(carta, seed))) {
         seed++;
       }

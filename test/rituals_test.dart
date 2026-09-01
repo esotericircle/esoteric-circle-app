@@ -36,7 +36,8 @@ void main() {
       expect(DailyRituals.dayOracle(date), DailyRituals.dayOracle(date));
     });
 
-    test('L\'Elder Futhark ha i ventiquattro segni con glifo e significato', () {
+    test('L\'Elder Futhark ha i ventiquattro segni con glifo e significato',
+        () {
       expect(kElderFuthark.length, 24);
       for (final rune in kElderFuthark) {
         expect(rune.glyph, isNotEmpty);
@@ -125,8 +126,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(home: DawnRiteScreen(now: date)));
       await tester.pump();
       // Prima il livello visivo e l'invito al gesto, il dono non c'e' ancora.
-      expect(find.text('Trascina in alto, oppure tocca'),
-          findsOneWidget);
+      expect(find.text('Trascina in alto, oppure tocca'), findsOneWidget);
       expect(find.byKey(const Key('ritual_content')), findsNothing);
 
       // Ripiego tattile universale: il tocco compie il rito. L'alba si solleva
@@ -209,6 +209,5 @@ void main() {
       expect(find.text(carta.name), findsOneWidget);
       expect(find.text(carta.uprightSummary), findsOneWidget);
     });
-
   });
 }

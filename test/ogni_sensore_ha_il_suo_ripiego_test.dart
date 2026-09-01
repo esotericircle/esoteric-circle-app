@@ -79,8 +79,7 @@ void main() {
         .toList();
   }
 
-  test('ci sono davvero schermate con sensori: la prova non gira a vuoto',
-      () {
+  test('ci sono davvero schermate con sensori: la prova non gira a vuoto', () {
     // IL PRESIDIO CONTRO LA PROVA INERTE: se domani i nomi dei sensori
     // cambiassero, l'enumerazione tornerebbe vuota e tutto passerebbe senza
     // aver guardato niente.

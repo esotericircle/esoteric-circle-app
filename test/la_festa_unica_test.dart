@@ -96,8 +96,7 @@ void main() {
         reason: 'la festa singola deve portare il suo nome, come oggi');
     // Si salta l'animazione: il conto degli Eos a fine corsa e' il premio
     // intero, e con un traguardo solo e' il SUO premio e non una somma.
-    await tester.tap(find.byKey(const Key('festa_salta')),
-        warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('festa_salta')), warnIfMissed: false);
     await tester.pump();
     expect(find.text('+${solo.eos} Eos'), findsOneWidget,
         reason: 'con una festa sola gli Eos sono quelli del traguardo, '
@@ -155,8 +154,7 @@ void main() {
               'traguardi deve leggerli tutti e tre, e\' la seconda meta\' '
               'della legge del fondatore');
     }
-    await tester.tap(find.byKey(const Key('festa_salta')),
-        warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('festa_salta')), warnIfMissed: false);
     await tester.pump();
     // **GLI EOS SONO LA SOMMA**, perche' la scena e' una sola e i premi sono
     // tre: si unisce la festa, non il premio.
@@ -254,7 +252,8 @@ class _PortaCheAccredita extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

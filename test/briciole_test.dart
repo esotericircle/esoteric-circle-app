@@ -49,8 +49,7 @@ void main() {
             'morte.');
   });
 
-  test('senza prepara, lascia non tocca il disco: e\' il ramo delle prove',
-      () {
+  test('senza prepara, lascia non tocca il disco: e\' il ramo delle prove', () {
     // Nessuna prepara: la chiamata non deve sollevare ne' scrivere altrove.
     Briciole.lascia('tappa_senza_casa');
     expect(Briciole.dellaCorsaPrecedente, isNull);

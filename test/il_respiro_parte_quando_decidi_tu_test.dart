@@ -73,7 +73,8 @@ void main() {
         reason: 'A conto finito il respiro non comincia.');
   });
 
-  testWidgets('con Riduci Movimento i numeri non rimpiccioliscono, il conto '
+  testWidgets(
+      'con Riduci Movimento i numeri non rimpiccioliscono, il conto '
       'resta', (tester) async {
     await tester.pumpWidget(host(riduci: true));
     await tester.pump();

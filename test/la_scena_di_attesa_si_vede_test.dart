@@ -82,12 +82,11 @@ void main() {
         memory: InMemoryMaestroMemoryRepository(),
         memoryPersistent: false,
       );
-      await tester.pumpWidget(
-          EsotericCircleApp(conIntro: false, services: servizi));
+      await tester
+          .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 900));
-      final nav =
-          tester.state<NavigatorState>(find.byType(Navigator).last);
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
       nav.push(MaestroChatScreen.route(maestro: maestro, services: servizi));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
@@ -104,8 +103,8 @@ void main() {
       // spariva. Si campiona ogni 200 ms per la durata del minimo garantito
       // e si somma il tempo in cui la scena e' VISIBILE, cioe' alta almeno
       // quanto l'emblema, non solo presente nell'albero.
-      await tester.enterText(
-          find.byType(TextField).first, 'Continua il discorso di prima, ti ascolto.');
+      await tester.enterText(find.byType(TextField).first,
+          'Continua il discorso di prima, ti ascolto.');
       await tester.testTextInput.receiveAction(TextInputAction.send);
       await tester.pump();
 
@@ -113,8 +112,7 @@ void main() {
       var visibileMs = 0;
       var vincoloConcesso = false;
       var emblemaVisto = false;
-      final finestraMs =
-          TempiDellAttesa.durataMinima.inMilliseconds + 800;
+      final finestraMs = TempiDellAttesa.durataMinima.inMilliseconds + 800;
       for (var trascorso = 0;
           trascorso < finestraMs;
           trascorso += passo.inMilliseconds) {
@@ -171,11 +169,11 @@ void main() {
               'garantito di $minimoMs: o la scena e\' tornata alta zero '
               'sopra una conversazione piena, o il minimo non governa '
               'piu\' l\'uscita. Il widget che esiste nell\'albero non '
-              'conta: conta cio' ' che la persona vede.');
+              'conta: conta cio'
+              ' che la persona vede.');
     });
   }
 }
-
 
 /// Una voce pronta che risponde con calma: quanto basta perche' l'attesa
 /// esista e la scena abbia qualcosa da accompagnare.

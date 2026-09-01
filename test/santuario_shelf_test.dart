@@ -42,8 +42,8 @@ void main() {
     });
 
     test('La classifica d\'uso porta in testa le funzioni piu\' usate', () {
-      final order =
-          FunctionShelf.ordered(['meditation', 'synastry_vip']).map((f) => f.id);
+      final order = FunctionShelf.ordered(['meditation', 'synastry_vip'])
+          .map((f) => f.id);
       expect(order.take(2), ['meditation', 'synastry_vip']);
       // Le altre restano, nessuna funzione va persa.
       expect(order.length, FunctionShelf.functions.length);
@@ -52,7 +52,10 @@ void main() {
 
     test('Almeno una funzione dello scaffale e\' viva', () {
       expect(FunctionShelf.functions.any((f) => f.live), isTrue);
-      expect(FunctionShelf.functions.firstWhere((f) => f.id == 'synastry_vip').live,
+      expect(
+          FunctionShelf.functions
+              .firstWhere((f) => f.id == 'synastry_vip')
+              .live,
           isTrue);
     });
   });
@@ -94,8 +97,8 @@ void main() {
 
   group('Nome reale della persona', () {
     test('Usa il nome del profilo, mai il nome del tier', () {
-      final withName = ProfileController(
-          profile: UserProfile(displayName: 'Sofia'));
+      final withName =
+          ProfileController(profile: UserProfile(displayName: 'Sofia'));
       expect(withName.vocative, 'Sofia');
       expect(withName.vocative, isNot('Viandante'));
     });
@@ -110,7 +113,8 @@ void main() {
   testWidgets('Il Santuario mostra lo scaffale, non la vecchia bolla Sinastria',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
@@ -123,8 +127,10 @@ void main() {
     // Lo scaffale personale e' abitato. Quali arti ci siano lo decide il seme,
     // che dipende dal Maestro assegnato: la prova non pretende un id preciso,
     // verifica che ci siano tessere apribili.
-    expect(find.byWidgetPredicate((w) => w.key is ValueKey<String> &&
-        (w.key! as ValueKey<String>).value.startsWith('tua_arte_')),
+    expect(
+        find.byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>).value.startsWith('tua_arte_')),
         findsWidgets,
         reason: 'lo scaffale personale e comparso vuoto nel Santuario');
 

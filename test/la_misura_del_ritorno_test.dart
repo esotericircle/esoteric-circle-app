@@ -70,13 +70,14 @@ void main() {
     for (final e in EventoDelRitorno.values) {
       // Si cerca la CHIAMATA, non il nome: `EventoDelRitorno.apertura` compare
       // anche nella sua stessa dichiarazione e nei commenti.
-      final chiamata = RegExp(
-          r'(segnalo|segna|segnaSenzaAspettare)\(\s*EventoDelRitorno\.'
-          '${e.name}');
+      final chiamata =
+          RegExp(r'(segnalo|segna|segnaSenzaAspettare)\(\s*EventoDelRitorno\.'
+              '${e.name}');
       if (!chiamata.hasMatch(tutto)) orfani.add(e.name);
     }
     // ignore: avoid_print
-    print('ORDINE CC VOCE 09: eventi dichiarati ${EventoDelRitorno.values.length}, '
+    print(
+        'ORDINE CC VOCE 09: eventi dichiarati ${EventoDelRitorno.values.length}, '
         'senza un punto che li manda ${orfani.length}');
     expect(orfani, isEmpty,
         reason: 'questi eventi sono dichiarati e nominati nella policy, ma '
@@ -89,8 +90,8 @@ void main() {
     // togliere quel foglio con parole non equivocabili, e adesso il consenso
     // vive dentro il gesto della registrazione, come una riga sopra le vie
     // d'accesso.
-    final casa = File('lib/features/santuario/santuario_screen.dart')
-        .readAsStringSync();
+    final casa =
+        File('lib/features/santuario/santuario_screen.dart').readAsStringSync();
     expect(casa.contains('DomandaDellaMisura'), isFalse,
         reason: 'il foglio della misura e\' tornato nel Santuario');
     final vie =
@@ -118,7 +119,8 @@ void main() {
     SharedPreferences.setMockInitialValues(const {});
     await ConsensoDellaMisura.segna(false);
     expect(await ConsensoDellaMisura.letto(), ConsensoAllaMisura.negato,
-        reason: 'il no non viene ricordato, e la domanda tornerebbe ogni volta');
+        reason:
+            'il no non viene ricordato, e la domanda tornerebbe ogni volta');
     final porta = _PortaCheConta();
     final registro = RegistroDelRitorno(porta: porta);
     expect(await registro.segna(EventoDelRitorno.apertura), isFalse);
@@ -130,7 +132,8 @@ void main() {
     await ConsensoDellaMisura.segna(true);
     final porta = _PortaCheConta();
     final registro = RegistroDelRitorno(porta: porta);
-    expect(await registro.segna(EventoDelRitorno.ritoCompiuto, contesto: 'alba'),
+    expect(
+        await registro.segna(EventoDelRitorno.ritoCompiuto, contesto: 'alba'),
         isTrue);
     // ignore: avoid_print
     print('ORDINE CC VOCE 09: mandato ${porta.segnati.first}');
@@ -146,7 +149,8 @@ void main() {
       await registro.segna(EventoDelRitorno.apertura);
     }
     // ignore: avoid_print
-    print('ORDINE CC VOCE 09: chiamate ${RegistroDelRitorno.quantiPerSessione + 20}, '
+    print(
+        'ORDINE CC VOCE 09: chiamate ${RegistroDelRitorno.quantiPerSessione + 20}, '
         'eventi partiti ${porta.segnati.length}');
     expect(porta.segnati.length, RegistroDelRitorno.quantiPerSessione,
         reason: 'senza tetto un guasto in un ciclo scriverebbe migliaia di '
@@ -156,8 +160,7 @@ void main() {
   test('la porta spenta non finge di aver registrato', () async {
     SharedPreferences.setMockInitialValues(const {});
     await ConsensoDellaMisura.segna(true);
-    final registro =
-        RegistroDelRitorno(porta: const PortaSpentaDelCerchio());
+    final registro = RegistroDelRitorno(porta: const PortaSpentaDelCerchio());
     expect(await registro.segna(EventoDelRitorno.apertura), isFalse,
         reason: 'una misura che si finge riuscita e\' peggio di una che manca');
   });
@@ -166,7 +169,6 @@ void main() {
     expect(ConsensoDellaMisura.chiave.startsWith('permesso.'), isTrue,
         reason: 'la risposta sulla misura sopravvivrebbe a chi se ne va');
   });
-
 }
 
 /// Una porta che tiene il conto di cosa le hanno chiesto di segnare.

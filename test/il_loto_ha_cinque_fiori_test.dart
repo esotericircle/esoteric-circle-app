@@ -61,11 +61,10 @@ void main() {
     print('ORDINE Y VOCE 01: fiori osservati $osservati, '
         'ancoraggi ${ancoraggi.length}');
     expect(osservati, StrutturaDelLoto.quantiFiori);
-    expect(
-        ancoraggi.length,
-        StrutturaDelLoto.quantiFiori *
-            (StrutturaDelLoto.petaliPerFiore + 1),
-        reason: 'cinque fiori per undici elementi fanno cinquantacinque, che e\' '
+    expect(ancoraggi.length,
+        StrutturaDelLoto.quantiFiori * (StrutturaDelLoto.petaliPerFiore + 1),
+        reason:
+            'cinque fiori per undici elementi fanno cinquantacinque, che e\' '
             'il numero dei traguardi: se questo conto non torna, la struttura '
             'dichiarata e quella disegnata si sono separate');
     expect(guasti, isEmpty, reason: guasti.join(' | '));

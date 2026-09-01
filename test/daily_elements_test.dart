@@ -50,8 +50,8 @@ void main() {
     });
 
     test('E deterministica: stessa ora, stesso elemento', () {
-      expect(DailyElements.current(at(12, 45)),
-          DailyElements.current(at(12, 45)));
+      expect(
+          DailyElements.current(at(12, 45)), DailyElements.current(at(12, 45)));
     });
   });
 
@@ -110,7 +110,8 @@ void main() {
     test('Gli elementi fissi seguono il loro Maestro', () {
       final now = at(12, 0);
       expect(DailyElements.maestroFor(DailyElement.breath, now), Maestro.aura);
-      expect(DailyElements.maestroFor(DailyElement.oracle, now), Maestro.medora);
+      expect(
+          DailyElements.maestroFor(DailyElement.oracle, now), Maestro.medora);
       expect(DailyElements.maestroFor(DailyElement.rune, now), Maestro.caligo);
     });
 

@@ -49,11 +49,8 @@ void main() {
     // liberarsene. Il rito ne ha ancora quattro, e chi arriva per la prima
     // volta li attraversa tutti: quello che cambia e' che l\'ora non e'
     // piu' una porta chiusa.
-    expect(
-        esito.passiDaChiedere,
-        Ritrovamento.tuttiIPassi
-            .where((p) => p != PassoDelRito.ora)
-            .toList(),
+    expect(esito.passiDaChiedere,
+        Ritrovamento.tuttiIPassi.where((p) => p != PassoDelRito.ora).toList(),
         reason: 'chi arriva per la prima volta deve dare tutto cio\' che '
             'trattiene');
   });
@@ -112,8 +109,7 @@ void main() {
       identita: identita(giorno: DateTime(1990, 4, 12)),
     ));
     // L'ora non e' piu' in elenco, ordine CF voce 06: non trattiene.
-    expect(esito.passiDaChiedere,
-        [PassoDelRito.luogo, PassoDelRito.nome]);
+    expect(esito.passiDaChiedere, [PassoDelRito.luogo, PassoDelRito.nome]);
     expect(esito.passiDaChiedere, isNot(contains(PassoDelRito.data)),
         reason: 'si richiede la data di nascita, che il Cerchio ha gia\'');
   });
@@ -202,7 +198,8 @@ void main() {
         .map((t) => t.data ?? '')
         .join(' | ');
     // ignore: avoid_print
-    print('ORDINE AP VOCE 05: a schermo si legge "${testi.substring(0, testi.length > 160 ? 160 : testi.length)}"');
+    print(
+        'ORDINE AP VOCE 05: a schermo si legge "${testi.substring(0, testi.length > 160 ? 160 : testi.length)}"');
     expect(testi.toLowerCase(), contains('ora'),
         reason: 'il rito non si e aperto sul passo che manca: "$testi"');
   });

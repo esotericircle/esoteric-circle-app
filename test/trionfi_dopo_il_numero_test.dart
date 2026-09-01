@@ -78,7 +78,8 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: RisveglioJourney(details: BirthDetails(date: DateTime(1990, 5, 12))),
+        home: RisveglioJourney(
+            details: BirthDetails(date: DateTime(1990, 5, 12))),
       ),
     ));
     await tester.pump();
@@ -112,7 +113,8 @@ void main() {
         reason: 'la freccia non ha riportato al trionfo precedente');
   });
 
-  testWidgets('Il primo trionfo non ha una freccia che non porta da nessuna '
+  testWidgets(
+      'Il primo trionfo non ha una freccia che non porta da nessuna '
       'parte', (tester) async {
     await apriRisveglio(tester);
     // L'Animale e' il primo: un indietro non esiste, quindi non si mostra una

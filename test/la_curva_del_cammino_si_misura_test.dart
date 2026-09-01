@@ -22,8 +22,7 @@ void main() {
   ///
   /// Quindi il conto e' PESSIMISTA per costruzione, e va letto cosi': se
   /// anche cosi' le feste arrivano, con la fortuna arrivano prima.
-  ({int settimana, int mese, int trimestre, int massimoInUnGiorno})
-      simula() {
+  ({int settimana, int mese, int trimestre, int massimoInUnGiorno}) simula() {
     var feste = 0;
     var nellaSettimana = 0;
     var nelMese = 0;
@@ -106,7 +105,6 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE AR VOCE 04: feste per mese $festePerMese');
-    expect(festePerMese[1], greaterThan(0),
-        reason: 'il primo mese e muto');
+    expect(festePerMese[1], greaterThan(0), reason: 'il primo mese e muto');
   });
 }

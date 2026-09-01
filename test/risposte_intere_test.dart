@@ -72,8 +72,10 @@ void main() {
   group('La chat riprova una volta sola, poi dichiara', () {
     test('Tronca la prima, riesce la seconda: e\' una risposta vera e costa',
         () async {
-      final voce = _VoceCheTronca(troncaLePrime: 1, testo: 'La tua Luna in '
-          'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi.');
+      final voce = _VoceCheTronca(
+          troncaLePrime: 1,
+          testo: 'La tua Luna in '
+              'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi.');
       final contatore = QuestionAllowance();
       final controller = await conVoce(voce, contatore: contatore);
 
@@ -116,7 +118,8 @@ void main() {
     test('Sotto una risposta tronca non compare "Vai piu\' a fondo"', () async {
       // E' la regola 2b, e vive nel DATO del messaggio: `portaUnResponso`
       // guarda il tipo, non una condizione scritta dentro una schermata.
-      final voce = _VoceCheTronca(troncaLePrime: 2, testo: 'Un velo argenteo si');
+      final voce =
+          _VoceCheTronca(troncaLePrime: 2, testo: 'Un velo argenteo si');
       final controller = await conVoce(voce);
 
       await controller.send('mi sento fermo');
@@ -134,15 +137,17 @@ void main() {
       // LA LETTURA E' LUNGA APPOSTA. Dal 4 agosto 2026 la freccia compare solo
       // se sotto c'e' davvero un secondo strato: con due righe non c'e'
       // niente da rivelare, e l'invito giustamente non nasce.
-      final voce = _VoceCheTronca(troncaLePrime: 0, testo: 'La tua Luna in '
-          'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi. '
-          'Sotto la superficie un secondo movimento lavora da mesi senza '
-          'chiedere il tuo permesso, e non e\' la scelta a spaventarti. '
-          'Aspetta la prossima luna nuova e rileggi queste stesse parole, '
-          'perche\' un ciclo che si chiude lascia sempre una porta aperta su '
-          'quello che comincia, e quella porta oggi non la vedi ancora. '
-          'Guarda dove il timore torna sempre: quella e\' la direzione, e il '
-          'cielo la indica senza obbligarti a prenderla.');
+      final voce = _VoceCheTronca(
+          troncaLePrime: 0,
+          testo: 'La tua Luna in '
+              'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi. '
+              'Sotto la superficie un secondo movimento lavora da mesi senza '
+              'chiedere il tuo permesso, e non e\' la scelta a spaventarti. '
+              'Aspetta la prossima luna nuova e rileggi queste stesse parole, '
+              'perche\' un ciclo che si chiude lascia sempre una porta aperta su '
+              'quello che comincia, e quella porta oggi non la vedi ancora. '
+              'Guarda dove il timore torna sempre: quella e\' la direzione, e il '
+              'cielo la indica senza obbligarti a prenderla.');
       final controller = await conVoce(voce);
 
       await controller.send('mi sento fermo');

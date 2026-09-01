@@ -219,7 +219,10 @@ void main() {
         final relativo = percorso.substring(percorso.indexOf('lib/'));
         if (relativo == laPorta || relativo == ilTrasporto) continue;
         final testo = f.readAsStringSync();
-        for (final spia in ['zonedSchedule', 'FlutterLocalNotificationsPlugin']) {
+        for (final spia in [
+          'zonedSchedule',
+          'FlutterLocalNotificationsPlugin'
+        ]) {
           if (testo.contains(spia)) colpevoli.add('$relativo: $spia');
         }
       }
@@ -250,7 +253,8 @@ void main() {
   });
 
   group('L\'ora e\' vera quando si puo\', media quando no', () {
-    test('senza posizione si usa l\'ora media e non si dichiara un\'ora', () async {
+    test('senza posizione si usa l\'ora media e non si dichiara un\'ora',
+        () async {
       final servizio = _AvvisiFinti();
       final esito = await AvvisiDelRito.programmaProssimo(
         servizio: servizio,
@@ -290,7 +294,12 @@ void main() {
       const tutto = '${AvvisiDelRito.titolo} ${AvvisiDelRito.testo} '
           '${AvvisiDelRito.spiegazione}';
       for (final v in [
-        'guarigione', 'salute', 'fortuna', 'successo', 'garantito', 'protegge',
+        'guarigione',
+        'salute',
+        'fortuna',
+        'successo',
+        'garantito',
+        'protegge',
         'ti sentirai',
       ]) {
         expect(tutto.toLowerCase().contains(v), isFalse,
@@ -318,7 +327,8 @@ void main() {
           File('android/app/src/main/AndroidManifest.xml').readAsStringSync();
       expect(manifest, contains('POST_NOTIFICATIONS'));
       for (final vietato in ['SCHEDULE_EXACT_ALARM', 'USE_EXACT_ALARM']) {
-        expect(RegExp('uses-permission[^>]*$vietato').hasMatch(manifest), isFalse,
+        expect(
+            RegExp('uses-permission[^>]*$vietato').hasMatch(manifest), isFalse,
             reason: 'dichiarare $vietato ci espone al rifiuto di Google Play: '
                 'non siamo ne una sveglia ne un calendario');
       }

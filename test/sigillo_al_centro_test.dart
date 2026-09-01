@@ -118,7 +118,8 @@ void main() {
     // trionfo. Il passaggio pero' non avviene subito, altrimenti il trionfo
     // non lo vedrebbe nessuno.
     await tester.pump(SigilloStep.attesa);
-    expect(compiuto, isFalse, reason: 'passato oltre senza mostrare il trionfo');
+    expect(compiuto, isFalse,
+        reason: 'passato oltre senza mostrare il trionfo');
 
     // Il trionfo scorre in piu' fotogrammi, come a schermo.
     for (var i = 0; i < 12; i++) {

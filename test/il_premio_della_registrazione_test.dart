@@ -85,8 +85,8 @@ void main() {
   test('chi torna non riceve la promessa del premio', () {
     // Il foglio per chi torna entra con un account che il benvenuto lo ha
     // gia' consumato: promettere il premio li' sarebbe promettere il falso.
-    final s = File('lib/features/account/custodia_del_cielo.dart')
-        .readAsStringSync();
+    final s =
+        File('lib/features/account/custodia_del_cielo.dart').readAsStringSync();
     expect(s.contains('if (!widget.perChiTorna) ...['), isTrue,
         reason: 'la promessa compare anche nel foglio per chi torna');
   });

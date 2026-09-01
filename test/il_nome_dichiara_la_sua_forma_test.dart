@@ -74,8 +74,7 @@ void main() {
             'nome che non dichiarano la forma');
   });
 
-  test('ogni stringa composta che pesca un nome dichiara la forma che usa',
-      () {
+  test('ogni stringa composta che pesca un nome dichiara la forma che usa', () {
     final colpe = <String>[];
     // Le interpolazioni dentro una stringa: e' li' che un nome viene
     // incollato dentro una frase.

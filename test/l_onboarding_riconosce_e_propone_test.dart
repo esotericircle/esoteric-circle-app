@@ -25,7 +25,8 @@ import 'package:provider/provider.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('il rifiuto offre Continua come [nome], con la riga onesta, e '
+  testWidgets(
+      'il rifiuto offre Continua come [nome], con la riga onesta, e '
       'il tocco entra', (tester) async {
     final porta = _PortaCheRiconosce();
     final account = AccountDelCerchio(porta: porta);
@@ -53,8 +54,8 @@ void main() {
     expect(find.byKey(const Key('continua_come')), findsOneWidget,
         reason: 'il Cerchio riconosciuto non offre la via in avanti: e\' il '
             'vicolo cieco della 2179');
-    expect(find.textContaining('Continua come mauro@esempio.it'),
-        findsOneWidget,
+    expect(
+        find.textContaining('Continua come mauro@esempio.it'), findsOneWidget,
         reason: 'il pulsante non porta il nome riconosciuto');
     expect(find.byKey(const Key('continua_come_riga_onesta')), findsOneWidget,
         reason: 'manca la riga onesta prima del tocco');
@@ -121,6 +122,10 @@ void main() {
 }
 
 class _PortaCheRiconosce implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<EsitoDellaCustodia> entraDirettamente(
     ViaDellaCustodia via, {
@@ -160,8 +165,8 @@ class _PortaCheRiconosce implements PortaDellIdentita {
     String? email,
     String? parola,
   }) async {
-    _riconosciuta = const IdentitaRiconosciuta(
-        nome: 'mauro@esempio.it', credenziale: null);
+    _riconosciuta =
+        const IdentitaRiconosciuta(nome: 'mauro@esempio.it', credenziale: null);
     return EsitoDellaCustodia.giaDiUnAltroCerchio;
   }
 

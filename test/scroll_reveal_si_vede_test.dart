@@ -35,7 +35,9 @@ void main() {
                   body: SingleChildScrollView(
                     child: ScrollReveal(
                       child: SizedBox(
-                          key: Key('cosa_che_compare'), height: 100, width: 100),
+                          key: Key('cosa_che_compare'),
+                          height: 100,
+                          width: 100),
                     ),
                   ),
                 ),
@@ -71,7 +73,8 @@ void main() {
 
     final o = opacitaDi(tester, const Key('cosa_che_compare'));
     expect(o, lessThan(0.99),
-        reason: 'appena la schermata e\' visibile la comparsa e\' gia\' finita: '
+        reason:
+            'appena la schermata e\' visibile la comparsa e\' gia\' finita: '
             'e\' questo il motivo per cui non si vedeva niente');
   });
 

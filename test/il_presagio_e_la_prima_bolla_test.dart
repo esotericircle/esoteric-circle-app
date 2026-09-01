@@ -27,11 +27,13 @@ void main() {
             .readAsStringSync();
     final presagio = sorgente.indexOf("Key('rune_presage')");
     final singole = sorgente.indexOf('for (var i = 0; i < esito.rune.length');
-    expect(presagio, greaterThan(0), reason: 'la bolla del presagio non c\'e\'');
+    expect(presagio, greaterThan(0),
+        reason: 'la bolla del presagio non c\'e\'');
     expect(singole, greaterThan(0),
         reason: 'le bolle delle rune singole non ci sono');
     expect(presagio, lessThan(singole),
-        reason: 'il presagio e\' dichiarato DOPO le rune una per una: la persona '
+        reason:
+            'il presagio e\' dichiarato DOPO le rune una per una: la persona '
             'legge i frammenti prima della lettura che li tiene insieme');
   });
 
@@ -53,7 +55,8 @@ void main() {
       }
     }
     expect(corti, isEmpty,
-        reason: 'questi presagi sono scesi sotto i $pavimento caratteri: la voce '
+        reason:
+            'questi presagi sono scesi sotto i $pavimento caratteri: la voce '
             'S.19 dichiara che la lunghezza del presagio non si tocca, ed e\' '
             'l\'unica gia\' giusta della sezione:\n${corti.take(5).join("\n")}');
   });

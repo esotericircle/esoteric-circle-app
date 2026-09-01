@@ -109,9 +109,7 @@ void main() {
           } else if (c == inStringa) {
             inStringa = null;
           }
-        } else if (c == '/' &&
-            j + 1 < s.length &&
-            s[j + 1] == '/') {
+        } else if (c == '/' && j + 1 < s.length && s[j + 1] == '/') {
           // I COMMENTI SI SALTANO: un apostrofo dentro un commento ("e'
           // sempre") apriva una stringa fittizia e il bilanciatore inghiottiva
           // il widget successivo, accusando un Text per il ParagrafiDiLettura

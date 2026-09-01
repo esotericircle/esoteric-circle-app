@@ -39,8 +39,7 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => MaestroController(initial: ThemeKey.of(assegnato)),
         ),
-        ChangeNotifierProvider<ArtiPreferiteController>.value(
-            value: preferite),
+        ChangeNotifierProvider<ArtiPreferiteController>.value(value: preferite),
         // Le bolle grandi poggiano su DepthCard, che legge il Quality Tier per
         // decidere ombre e comparsa: la prova deve fornirlo, come l'app.
         ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -146,8 +145,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider<ArtiPreferiteController>.value(
-            value: preferite),
+        ChangeNotifierProvider<ArtiPreferiteController>.value(value: preferite),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
       child: MaterialApp(
@@ -198,9 +196,9 @@ void main() {
               'cuore non saprebbe cosa salvare');
     });
     // Tutte le arti selezionabili sono coperte.
-    expect(rotte.values.toSet(),
-        ArtiPreferiteController.selezionabili.toSet(),
-        reason: 'un\'arta viva non ha una rotta con la soglia, oppure la soglia '
+    expect(rotte.values.toSet(), ArtiPreferiteController.selezionabili.toSet(),
+        reason:
+            'un\'arta viva non ha una rotta con la soglia, oppure la soglia '
             'copre un\'arte che non e\' selezionabile');
   });
 }

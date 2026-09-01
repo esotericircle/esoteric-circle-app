@@ -70,8 +70,7 @@ void main() {
             'arti del Cerchio" non compare mai: la voce 4 dell\'ordine 2161 '
             'la vuole in fondo alla home, sotto lo scaffale delle tue arti.');
     // SectionTitle porta il titolo in maiuscolo: si cerca cio' che si vede.
-    expect(find.text('Le altre arti del Cerchio'.toUpperCase()),
-        findsOneWidget,
+    expect(find.text('Le altre arti del Cerchio'.toUpperCase()), findsOneWidget,
         reason: 'La striscia c\'e\' ma senza il suo titolo.');
 
     // L'ENUMERAZIONE DAL CATALOGO: in home le arti mostrate sono quelle che
@@ -119,12 +118,10 @@ void main() {
     final montaggi = <String>[];
     for (final f in lib) {
       final testo = f.readAsStringSync();
-      definizioni +=
-          'class StrisciaAltreArti'.allMatches(testo).length;
+      definizioni += 'class StrisciaAltreArti'.allMatches(testo).length;
       // Con gli apici: si conta il letterale che finisce a video, non le
       // volte che i commenti nominano la striscia per raccontarla.
-      titoli +=
-          "'Le altre arti del Cerchio'".allMatches(testo).length;
+      titoli += "'Le altre arti del Cerchio'".allMatches(testo).length;
       final usi = 'StrisciaAltreArti('.allMatches(testo).length;
       if (usi > 0 && !f.path.contains('striscia_altre_arti.dart')) {
         for (var i = 0; i < usi; i++) {
@@ -143,10 +140,13 @@ void main() {
             'volte nel codice: se e\' piu\' di una, qualcuno ha copiato la '
             'striscia invece di usarla.');
     montaggi.sort();
-    expect(montaggi, [
-      'lib/features/maestri/maestro_screen.dart',
-      'lib/features/santuario/santuario_screen.dart',
-    ], reason: 'La striscia deve essere montata ESATTAMENTE due volte, home '
-        'e dominio, dallo stesso widget: trovata invece in $montaggi.');
+    expect(
+        montaggi,
+        [
+          'lib/features/maestri/maestro_screen.dart',
+          'lib/features/santuario/santuario_screen.dart',
+        ],
+        reason: 'La striscia deve essere montata ESATTAMENTE due volte, home '
+            'e dominio, dallo stesso widget: trovata invece in $montaggi.');
   });
 }

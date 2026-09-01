@@ -44,8 +44,7 @@ void main() {
       // Si contano le ragioni SCRITTE, cioe' quelle che vanno a capo su
       // una stringa: `perche: string;` e' la dichiarazione del campo
       // nell'interfaccia, e contarla direbbe sei ragioni su cinque voci.
-      final ragioni =
-          RegExp(r'perche:\s*\n').allMatches(server).length;
+      final ragioni = RegExp(r'perche:\s*\n').allMatches(server).length;
       // ignore: avoid_print
       print('ORDINE CB VOCE 05: categorie sul server $quante, ragioni '
           'scritte $ragioni');
@@ -62,20 +61,17 @@ void main() {
       SharedPreferences.setMockInitialValues({
         'viso.storico': <String>[
           jsonEncode(FaceEsito(
-                  quando: quando,
-                  reading: const FaceReading(letture: [
-                    TraitLettura(
-                        tratto: FaceTrait.voltoTondo, marcatezza: 0.8),
-                  ]))
-              .toJson()),
+              quando: quando,
+              reading: const FaceReading(letture: [
+                TraitLettura(tratto: FaceTrait.voltoTondo, marcatezza: 0.8),
+              ])).toJson()),
         ],
       });
     }
 
     testWidgets('una lettura dentro il tempo resta', (tester) async {
       final adesso = DateTime(2026, 8, 29);
-      await conUnaLetturaVecchiaDi(
-          ScadenzeDelTelefono.viso.giorni - 1, adesso);
+      await conUnaLetturaVecchiaDi(ScadenzeDelTelefono.viso.giorni - 1, adesso);
       final storico = FaceHistory(clock: () => adesso);
       await storico.carica();
       // ignore: avoid_print
@@ -85,11 +81,11 @@ void main() {
       expect(storico.esiti, hasLength(1));
     });
 
-    testWidgets('una lettura oltre il tempo non c\'e\' piu\', nemmeno sul disco',
+    testWidgets(
+        'una lettura oltre il tempo non c\'e\' piu\', nemmeno sul disco',
         (tester) async {
       final adesso = DateTime(2026, 8, 29);
-      await conUnaLetturaVecchiaDi(
-          ScadenzeDelTelefono.viso.giorni + 1, adesso);
+      await conUnaLetturaVecchiaDi(ScadenzeDelTelefono.viso.giorni + 1, adesso);
       final prima = (await SharedPreferences.getInstance())
               .getStringList('viso.storico')
               ?.length ??

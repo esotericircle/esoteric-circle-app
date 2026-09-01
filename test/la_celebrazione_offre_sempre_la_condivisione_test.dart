@@ -190,8 +190,7 @@ void main() {
     // E le altre due vie, che il premio lo pagano subito, non devono portare
     // nessuno stato: dirlo li' sarebbe falso.
     for (final modo in const ['social_pubblico', 'condivisione_privata']) {
-      final altra =
-          tester.widget<Text>(find.byKey(Key('quando_arriva_$modo')));
+      final altra = tester.widget<Text>(find.byKey(Key('quando_arriva_$modo')));
       // ignore: avoid_print
       print('ORDINE BW VOCE 3: la via $modo dice "${altra.data}"');
       expect('In attesa'.allMatches(altra.data!).length, 0,

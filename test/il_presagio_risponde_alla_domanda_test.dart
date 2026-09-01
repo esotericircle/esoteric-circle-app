@@ -147,7 +147,8 @@ void main() {
             '${perse.take(8).join("\n")}');
   });
 
-  test('la domanda cambia il presagio, e senza domanda parla alla giornata', () {
+  test('la domanda cambia il presagio, e senza domanda parla alla giornata',
+      () {
     // **SE LA DOMANDA SI PERDE, QUESTA PROVA CADE.** E' la ragione per cui la
     // voce S.19 aspettava la S.21: un presagio che riceve la domanda e la ignora
     // e' indistinguibile da uno che non la riceve, quindi la misura e' che i due
@@ -227,9 +228,8 @@ void main() {
           'Nel lavoro, quale passo fare?',
           'Ma il mio gatto mi vuole bene?',
         ]) {
-          final testo =
-              RunePresagio.componiIlResponso(esito, domanda: domanda)
-                  .cosaPuoiFare;
+          final testo = RunePresagio.componiIlResponso(esito, domanda: domanda)
+              .cosaPuoiFare;
           // **LA DOMANDA PERSONALE OMETTE, NON SCRIVE. Ordine BF voce
           // 05.a.** Per una domanda con parole della persona la chiusura
           // della giornata direbbe "domani la domanda ce l'hai gia'", che

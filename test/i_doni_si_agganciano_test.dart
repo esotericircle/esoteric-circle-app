@@ -64,8 +64,8 @@ void main() {
     });
 
     test('l\'Oracolo dichiara il gesto dell\'inclinazione', () {
-      final sorgente =
-          File('lib/features/rituals/day_oracle_screen.dart').readAsStringSync();
+      final sorgente = File('lib/features/rituals/day_oracle_screen.dart')
+          .readAsStringSync();
       expect(sorgente, contains('gesture: RitualGesture.tilt'),
           reason: 'l\'Oracolo e\' tornato a un gesto che non e\' quello che '
               'dichiara alla persona');
@@ -80,8 +80,8 @@ void main() {
 
     testWidgets('dice cosa stai per ricevere PRIMA del gesto', (tester) async {
       silenzia();
-      await tester.pumpWidget(attorno(
-          DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
+      await tester.pumpWidget(
+          attorno(DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
       await tester.pump();
       final riga = find.byKey(const Key('rito_cosa_ricevi'));
       expect(riga, findsOneWidget,
@@ -95,8 +95,8 @@ void main() {
 
     testWidgets('il ripiego tattile resta obbligatorio', (tester) async {
       silenzia();
-      await tester.pumpWidget(attorno(
-          DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
+      await tester.pumpWidget(
+          attorno(DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
       await tester.pump();
       // Nessun sensore in prova: il tocco deve bastare da solo.
       await tester.tap(find.byKey(const Key('ritual_gesture')));
@@ -116,7 +116,8 @@ void main() {
         palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
         gesture: RitualGesture.tilt,
         prompt: 'Inclina',
-        cosaRicevi: 'Una riga del cielo di oggi, la stessa per tutta la giornata.',
+        cosaRicevi:
+            'Una riga del cielo di oggi, la stessa per tutta la giornata.',
         sensorHint: 'Oppure tocca.',
         ripiego: (
           etichetta: 'Il cielo di oggi non si e\' lasciato leggere.',
@@ -209,14 +210,13 @@ void main() {
       // La frase "tre dentro e tre fuori, sei giri, corti come i tratti"
       // spariva come istruzione e diventava un respiro guidato: se tornasse
       // dentro il testo composto, tornerebbe il compito.
-      final dono =
-          File('lib/core/rituals/dawn_gift.dart').readAsStringSync();
+      final dono = File('lib/core/rituals/dawn_gift.dart').readAsStringSync();
       expect(dono.contains(r'${rito.respiro}'), isFalse,
           reason: 'il respiro contato e\' tornato dentro il testo del dono: '
               'una istruzione criptica scritta e\' un compito, un respiro '
               'guidato e\' un\'esperienza');
-      final scheda = File('lib/features/rituals/ritual_gift_card.dart')
-          .readAsStringSync();
+      final scheda =
+          File('lib/features/rituals/ritual_gift_card.dart').readAsStringSync();
       // **LA STORIA DI QUESTA RIGA HA TRE CAPITOLI, e l'ultimo comanda.**
       // P.17 chiedeva che la scheda guidasse il respiro; S.13 lo porto' nel
       // Soffio lasciando nella scheda un ponte di una riga; e la voce 07

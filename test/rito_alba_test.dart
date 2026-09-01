@@ -17,15 +17,14 @@ void main() {
   RitoDiOggi? rito(DateTime giorno, {bool conLuogo = true}) => RitoAlba.diOggi(
         giorno,
         posizione: PosizioneDiStamattina.da(
-          conLuogo
-              ? const SkyPlace(latitude: lat, longitude: lon)
-              : null,
+          conLuogo ? const SkyPlace(latitude: lat, longitude: lon) : null,
           fuso,
         ),
       );
 
   /// La firma di un rito, per confrontarne due.
-  String firma(RitoDiOggi r) => '${r.forma}|${r.gesto}|${r.respiro}|${r.parola}';
+  String firma(RitoDiOggi r) =>
+      '${r.forma}|${r.gesto}|${r.respiro}|${r.parola}';
 
   group('Il rito non si ripete', () {
     test('trenta giorni non danno due riti uguali allo stesso Maestro', () {
@@ -103,8 +102,8 @@ void main() {
 
     test('senza luogo il rito resta intero e non nomina l\'alba', () {
       for (var g = 0; g < 60; g++) {
-        final r = rito(DateTime(2026, 1, 1).add(Duration(days: g)),
-            conLuogo: false);
+        final r =
+            rito(DateTime(2026, 1, 1).add(Duration(days: g)), conLuogo: false);
         expect(r, isNotNull, reason: 'senza luogo il rito e\' sparito');
         expect(r!.datiNominati.contains(DatoDelCielo.oraDellAlba), isFalse,
             reason: 'nomina l\'ora dell\'alba senza sapere il luogo');
@@ -121,17 +120,53 @@ void main() {
     /// l'ordine assegna a ciascun Maestro.
     const lessico = <Maestro, List<String>>{
       Maestro.medora: [
-        'ora', 'alba', 'giorno', 'orologio', 'passi', 'direzione', 'orizzonte',
-        'avanti', 'stasera', 'settimana', 'lontano', 'prima',
+        'ora',
+        'alba',
+        'giorno',
+        'orologio',
+        'passi',
+        'direzione',
+        'orizzonte',
+        'avanti',
+        'stasera',
+        'settimana',
+        'lontano',
+        'prima',
       ],
       Maestro.aura: [
-        'mani', 'petto', 'torace', 'spalle', 'piedi', 'ventre', 'talloni',
-        'braccia', 'palmi', 'nuca', 'respiro', 'corpo', 'acqua', 'labbra',
-        'lingua', 'sbadiglia', 'ginocchia',
+        'mani',
+        'petto',
+        'torace',
+        'spalle',
+        'piedi',
+        'ventre',
+        'talloni',
+        'braccia',
+        'palmi',
+        'nuca',
+        'respiro',
+        'corpo',
+        'acqua',
+        'labbra',
+        'lingua',
+        'sbadiglia',
+        'ginocchia',
       ],
       Maestro.caligo: [
-        'traccia', 'tracciala', 'segno', 'linea', 'linee', 'cerchio', 'sigillo',
-        'ombra', 'buio', 'iniziale', 'pugno', 'tasca', 'scrivi', 'disegna',
+        'traccia',
+        'tracciala',
+        'segno',
+        'linea',
+        'linee',
+        'cerchio',
+        'sigillo',
+        'ombra',
+        'buio',
+        'iniziale',
+        'pugno',
+        'tasca',
+        'scrivi',
+        'disegna',
       ],
     };
 
@@ -218,9 +253,22 @@ void main() {
       // Solo i testi dei riti: il pannello "Fonti e metodo" nomina queste
       // parole apposta, per dire che NON le promettiamo.
       const vietate = [
-        'guarigione', 'guarire', 'guarisce', 'cura ', 'curare', 'salute',
-        'fortuna', 'ti protegge', 'protezione', 'successo', 'garantito',
-        'garantisce', 'risolvera', 'ti sentirai meglio', 'elimina', 'sconfigge',
+        'guarigione',
+        'guarire',
+        'guarisce',
+        'cura ',
+        'curare',
+        'salute',
+        'fortuna',
+        'ti protegge',
+        'protezione',
+        'successo',
+        'garantito',
+        'garantisce',
+        'risolvera',
+        'ti sentirai meglio',
+        'elimina',
+        'sconfigge',
       ];
       for (final forma in RitoAlbaCorpus.forme) {
         final testi = <String>[

@@ -114,7 +114,13 @@ void main() {
     // preciso resta dove si CHIEDE, cioe' dentro la spiegazione che si apre
     // col punto interrogativo, e la prova qui sotto lo verifica.
     await altezzaA(tester, 360);
-    for (final elemento in const ['dawn', 'breath', 'oracle', 'rune', 'night']) {
+    for (final elemento in const [
+      'dawn',
+      'breath',
+      'oracle',
+      'rune',
+      'night'
+    ]) {
       expect(find.byKey(Key('daily_conto_$elemento')), findsNothing,
           reason: 'sotto la casella $elemento c\'e\' ancora l\'avviso col '
               'conto alla rovescia');

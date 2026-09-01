@@ -49,11 +49,11 @@ void main() {
 
   /// I pixel veri, decodificati.
   Future<(int, int, Uint8List)> pittura(String percorso) async {
-    final codec = await ui.instantiateImageCodec(
-        File(percorso).readAsBytesSync());
+    final codec =
+        await ui.instantiateImageCodec(File(percorso).readAsBytesSync());
     final frame = await codec.getNextFrame();
-    final dati = await frame.image.toByteData(
-        format: ui.ImageByteFormat.rawRgba);
+    final dati =
+        await frame.image.toByteData(format: ui.ImageByteFormat.rawRgba);
     return (frame.image.width, frame.image.height, dati!.buffer.asUint8List());
   }
 
@@ -85,8 +85,7 @@ void main() {
     expect(guasti, isEmpty, reason: guasti.join('; '));
   });
 
-  test('BB.13: l adattiva e DICHIARATA, se no i due strati sono file muti',
-      () {
+  test('BB.13: l adattiva e DICHIARATA, se no i due strati sono file muti', () {
     final xml = File('$res/mipmap-anydpi-v26/ic_launcher.xml');
     expect(xml.existsSync(), isTrue,
         reason: 'senza questo XML Android ignora i due strati e continua a '
@@ -105,8 +104,8 @@ void main() {
 
     // **LA TINTA VIENE DAL CODICE.** Se il cielo del Cerchio cambia, questa
     // cade e l icona va rigenerata: e cio che deve succedere.
-    final colore = File('$res/values/ic_launcher_background.xml')
-        .readAsStringSync();
+    final colore =
+        File('$res/values/ic_launcher_background.xml').readAsStringSync();
     final atteso = ColorTokens.neutralDeep.toARGB32() & 0xFFFFFF;
     final scritto =
         '#${atteso.toRadixString(16).toUpperCase().padLeft(6, '0')}';
@@ -126,8 +125,8 @@ void main() {
 
   test('BB.13: iOS ha ogni misura che il suo catalogo promette', () {
     const cartella = 'ios/Runner/Assets.xcassets/AppIcon.appiconset';
-    final catalogo = jsonDecode(
-        File('$cartella/Contents.json').readAsStringSync()) as Map;
+    final catalogo =
+        jsonDecode(File('$cartella/Contents.json').readAsStringSync()) as Map;
     final immagini = (catalogo['images'] as List).cast<Map>();
     final guasti = <String>[];
     for (final voce in immagini) {
@@ -244,7 +243,11 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BB VOCE 13: l angolo dell icona e rgba($r, $g, $b, $a)');
     expect(a, 255, reason: 'l icona piena ha un angolo trasparente');
-    expect([r, g, b], [
+    expect([
+      r,
+      g,
+      b
+    ], [
       (atteso.r * 255).round(),
       (atteso.g * 255).round(),
       (atteso.b * 255).round(),

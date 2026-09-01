@@ -36,7 +36,8 @@ void main() {
   group('BU.03, la festa aspetta che la scena sia libera', () {
     testWidgets('Con una riflessione in corso la festa non si apre',
         (tester) async {
-      final traguardo = Sentieri.tuttiITraguardi.firstWhere((t) => !t.dormiente);
+      final traguardo =
+          Sentieri.tuttiITraguardi.firstWhere((t) => !t.dormiente);
       var riflessioneViva = true;
       RiflessioniInCorso.entra(() => riflessioneViva);
 

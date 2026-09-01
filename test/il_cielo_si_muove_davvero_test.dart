@@ -97,7 +97,8 @@ void main() {
       final confine =
           chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final immagine = await confine.toImage();
-      final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final dati =
+          await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
       byte = dati!.buffer.asUint8List();
       immagine.dispose();
     });

@@ -100,7 +100,6 @@ void main() {
     // Che compaia quando c'e' lo dice la prova qui sotto.
   });
 
-
   testWidgets('da aperta il volto porta all\'account', (tester) async {
     await apri(tester);
     await apriLaBarra(tester);
@@ -147,9 +146,7 @@ void main() {
             'doveva tornare nel Calendario');
   });
 
-
-  testWidgets('sulle soglie del Risveglio la barra non c\'e\'',
-      (tester) async {
+  testWidgets('sulle soglie del Risveglio la barra non c\'e\'', (tester) async {
     await apri(tester, prefs: const {});
     expect(barra, findsNothing,
         reason: 'la barra dell\'identita\' sta sopra il rito d\'ingresso, '
@@ -178,8 +175,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 120));
       }
     }
-    expect(barra, findsOneWidget,
-        reason: 'la barra non segue il Passaporto');
+    expect(barra, findsOneWidget, reason: 'la barra non segue il Passaporto');
     expect(find.byKey(const Key('porta_dell_account')), findsOneWidget,
         reason: 'il volto deve essere UNO: se il Passaporto ne avesse una '
             'copia questa prova ne troverebbe due');

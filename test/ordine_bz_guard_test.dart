@@ -76,12 +76,11 @@ void main() {
     expect(marcatore(testo, 'VOCI_TOTALI'), righe.length);
     expect(marcatore(testo, 'VOCI_APERTE'), aperte);
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
-    expect(
-        marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE'),
+    expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE'),
         mani);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
     expect(aperte + attesa + mani + premessa + chiuse + fondatore, quante);
   });

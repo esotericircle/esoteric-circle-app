@@ -40,7 +40,8 @@ void main() {
 
   test('con Riduci Movimento il passaggio e secco', () {
     expect(
-        soloCodice.contains('tracciato: _riduciMovimento || !_traccia.isAnimating'),
+        soloCodice
+            .contains('tracciato: _riduciMovimento || !_traccia.isAnimating'),
         isTrue,
         reason: 'con Riduci Movimento il filo non e piu intero subito: si '
             'toglie il movimento, non il contenuto');
@@ -62,7 +63,8 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AS VOCE 10: file guardati $osservati, che nominano ancora il '
         'Rito del Sogno ${vecchi.length}');
-    expect(osservati, greaterThan(100), reason: 'la ricerca gira quasi a vuoto');
+    expect(osservati, greaterThan(100),
+        reason: 'la ricerca gira quasi a vuoto');
     expect(vecchi, isEmpty,
         reason: 'questi file chiamano ancora il dono col nome vecchio: '
             '${vecchi.take(5).join("; ")}');
@@ -81,8 +83,8 @@ void main() {
       'lib/core/sigilli/sentiero_albero.dart',
       'lib/core/sigilli/sentiero_loto.dart',
     ]) {
-      expect(File(sentiero).readAsStringSync().contains('Rito del Sogno'),
-          isFalse,
+      expect(
+          File(sentiero).readAsStringSync().contains('Rito del Sogno'), isFalse,
           reason: '$sentiero nomina ancora il Rito del Sogno');
     }
   });

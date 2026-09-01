@@ -33,13 +33,14 @@ void main() {
     final build = File('codemagic.yaml').readAsStringSync();
     expect(build.contains('tool/sbarramento.sh'), isTrue,
         reason: 'il file di build non lancia piu\' lo sbarramento');
-    expect(sbarramento.readAsStringSync().contains('rossi_accettati.txt'),
-        isTrue,
+    expect(
+        sbarramento.readAsStringSync().contains('rossi_accettati.txt'), isTrue,
         reason: 'lo sbarramento non legge il registro dei rossi accettati: '
             'un rosso dichiarato tornerebbe a murare la porta');
   });
 
-  test('IL SECONDO CANCELLO: lo sbarramento guarda anche la suite del '
+  test(
+      'IL SECONDO CANCELLO: lo sbarramento guarda anche la suite del '
       'server', () {
     // **Ordine CF voce 18, e il fatto che lo motiva.** L'ordine CE e'
     // stato consegnato dichiarando "4.032 prove, un solo rosso", ed era
@@ -100,7 +101,8 @@ void main() {
         '/usr/bin/bash',
         '/bin/bash',
       ];
-      bash = candidati.firstWhere((c) => File(c).existsSync(), orElse: () => '');
+      bash =
+          candidati.firstWhere((c) => File(c).existsSync(), orElse: () => '');
     });
 
     setUp(() {
@@ -124,8 +126,8 @@ void main() {
       expect(testo.contains(riga), isTrue,
           reason: 'la riga che lancia la suite non e\' piu\' quella: questa '
               'prova starebbe misurando uno script che non esiste');
-      testo = testo.replaceFirst(riga,
-          'cat "${finto.path}" | tee "\$REGISTRO"; (exit $esito)');
+      testo = testo.replaceFirst(
+          riga, 'cat "${finto.path}" | tee "\$REGISTRO"; (exit $esito)');
       copia.writeAsStringSync(testo);
       File('${tana.path}/rossi_accettati.txt').writeAsStringSync(accettati);
       return Process.runSync(bash, [copia.path],
@@ -249,7 +251,7 @@ void main() {
           unaCaduta,
           1,
           '$ragione\nUna prova che non cade piu\' | ragione vecchia di un '
-              'rosso che qualcuno ha gia\' curato');
+          'rosso che qualcuno ha gia\' curato');
       expect(r.exitCode, 1,
           reason: 'una riga del registro che mette a tacere una prova oggi '
               'verde non ferma la build: il registro e\' diventato un elenco '

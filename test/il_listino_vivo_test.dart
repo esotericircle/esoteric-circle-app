@@ -74,7 +74,8 @@ void main() {
         reason: 'chi non ha tetto non ha un residuo da dire');
   });
 
-  testWidgets('col gratuito ancora disponibile si legge il residuo, dopo il '
+  testWidgets(
+      'col gratuito ancora disponibile si legge il residuo, dopo il '
       'costo in chiaro', (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     final borsa = QuestionAllowance();
@@ -214,8 +215,12 @@ class _PortaCheSpende extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
-      giorno: '2026-08-18', piano: 'free', spesi: const {}, saldoEos: _saldo);
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      StatoDelCerchio(
+          giorno: '2026-08-18',
+          piano: 'free',
+          spesi: const {},
+          saldoEos: _saldo);
 
   @override
   Future<EsitoDelConsumo?> consuma(

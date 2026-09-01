@@ -89,7 +89,8 @@ void main() {
   });
 
   test('Il motore mescola il seme in ogni generatore', () {
-    final motore = sorgenti['lib/design_system/components/cosmos_background.dart']!;
+    final motore =
+        sorgenti['lib/design_system/components/cosmos_background.dart']!;
     final generatori = RegExp(r'math\.Random\(([^)]*)\)').allMatches(motore);
     expect(generatori, isNotEmpty);
     for (final g in generatori) {

@@ -99,9 +99,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
   }
 
-  String detto(WidgetTester tester) => tester
-      .widget<Text>(find.byKey(const Key('notifiche_coda_detto')))
-      .data!;
+  String detto(WidgetTester tester) =>
+      tester.widget<Text>(find.byKey(const Key('notifiche_coda_detto'))).data!;
 
   testWidgets('col telefono che ha cinque chiamate in coda, lo dice',
       (tester) async {
@@ -123,7 +122,8 @@ void main() {
             'programma dal telefono che non esegue');
   });
 
-  testWidgets('col telefono che non ha niente in coda, lo dice e dice cosa fare',
+  testWidgets(
+      'col telefono che non ha niente in coda, lo dice e dice cosa fare',
       (tester) async {
     final telefono = _TelefonoCheDice();
     await apri(tester, telefono);

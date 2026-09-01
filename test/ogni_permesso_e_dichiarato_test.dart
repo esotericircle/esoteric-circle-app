@@ -26,14 +26,14 @@ void main() {
     // questa cade per prima: il registro e' la porta, e una porta che non
     // conosce una stanza non e' una porta.
     for (final p in AppPermission.values) {
-      expect(
-          RegistroDeiPermessi.voci.where((v) => v.permesso == p).length, 1,
+      expect(RegistroDeiPermessi.voci.where((v) => v.permesso == p).length, 1,
           reason: 'Il permesso "$p" non ha una voce sola nel registro: '
               'senza di lei nessuno verifica che sia dichiarato.');
     }
   });
 
-  test('ogni permesso ha la sua chiave iOS con un testo che dice a cosa '
+  test(
+      'ogni permesso ha la sua chiave iOS con un testo che dice a cosa '
       'serve', () {
     final colpe = <String>[];
     for (final v in RegistroDeiPermessi.voci) {

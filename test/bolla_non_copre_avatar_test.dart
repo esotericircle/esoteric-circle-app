@@ -113,7 +113,9 @@ void main() {
         builder: (ctx, child) => MediaQuery(
           // Fermo: una parallasse che respira farebbe differire le due rese per
           // conto proprio, e la differenza non sarebbe piu' l'occlusione.
-          data: MediaQuery.of(ctx).copyWith(disableAnimations: true, textScaler: const TextScaler.linear(1.6)),
+          data: MediaQuery.of(ctx).copyWith(
+              disableAnimations: true,
+              textScaler: const TextScaler.linear(1.6)),
           child: MaestroScope(child: child!),
         ),
         home: RepaintBoundary(
@@ -199,7 +201,9 @@ void main() {
     (1170.0, 2532.0),
     (1080.0, 2532.0),
   ]) {
-    testWidgets('A ${larghezza.round()} per ${altezza.round()} la bolla non copre la figura', (tester) async {
+    testWidgets(
+        'A ${larghezza.round()} per ${altezza.round()} la bolla non copre la figura',
+        (tester) async {
       // TRE rese. Confrontare "con bolla" e "senza bolla" dentro il rettangolo
       // della carta non basta, ed e' stato provato: la figura sborda FUORI da
       // quel rettangolo, quindi l'occlusione avviene dove il confronto non
@@ -209,11 +213,10 @@ void main() {
       // la figura? Lo si scopre confrontando la resa senza bolla con quella
       // senza bolla ne trio. Se differiscono, la figura arriva fin li', quindi
       // la bolla la sta coprendo.
-      final senzaBolla =
-          await rendi(tester,
-              altezzaFisica: altezza,
-              larghezzaFisica: larghezza,
-              disegnaIngresso: false);
+      final senzaBolla = await rendi(tester,
+          altezzaFisica: altezza,
+          larghezzaFisica: larghezza,
+          disegnaIngresso: false);
       final zona = senzaBolla.bolla;
       final nuda = await rendi(tester,
           altezzaFisica: altezza,
@@ -233,23 +236,25 @@ void main() {
       });
 
       expect(figuraNellaZona, 0,
-          reason: 'a ${larghezza.round()} per ${altezza.round()} la figura del Maestro dipinge $figuraNellaZona '
+          reason:
+              'a ${larghezza.round()} per ${altezza.round()} la figura del Maestro dipinge $figuraNellaZona '
               'pixel dentro la zona che la bolla occupa, quindi la bolla la '
               'copre. Misura differenziale a tre rese.');
     });
 
-    testWidgets('A ${larghezza.round()} per ${altezza.round()} la bolla sta sotto la carta con otto punti d\'aria',
+    testWidgets(
+        'A ${larghezza.round()} per ${altezza.round()} la bolla sta sotto la carta con otto punti d\'aria',
         (tester) async {
-      final r =
-          await rendi(tester,
-              altezzaFisica: altezza,
-              larghezzaFisica: larghezza,
-              disegnaIngresso: true);
+      final r = await rendi(tester,
+          altezzaFisica: altezza,
+          larghezzaFisica: larghezza,
+          disegnaIngresso: true);
       await tester.runAsync(() async => r.img.dispose());
 
       final distanza = r.bolla.top - r.carta.bottom;
       expect(distanza, greaterThanOrEqualTo(8),
-          reason: 'a ${larghezza.round()} per ${altezza.round()} fra il fondo della carta e la cima della bolla ci '
+          reason:
+              'a ${larghezza.round()} per ${altezza.round()} fra il fondo della carta e la cima della bolla ci '
               'sono ${distanza.toStringAsFixed(1)} punti, meno degli otto '
               'richiesti');
       // **LE ARTI STANNO SOPRA LA BOLLA, ordine AS voce 11.** Questa riga
@@ -263,17 +268,18 @@ void main() {
               'le si e sovrapposta');
     });
 
-    testWidgets('A ${larghezza.round()} per ${altezza.round()} il trio non finisce sotto la striscia dei Doni',
+    testWidgets(
+        'A ${larghezza.round()} per ${altezza.round()} il trio non finisce sotto la striscia dei Doni',
         (tester) async {
-      final r =
-          await rendi(tester,
-              altezzaFisica: altezza,
-              larghezzaFisica: larghezza,
-              disegnaIngresso: true);
+      final r = await rendi(tester,
+          altezzaFisica: altezza,
+          larghezzaFisica: larghezza,
+          disegnaIngresso: true);
       await tester.runAsync(() async => r.img.dispose());
 
       expect(r.carta.top, greaterThanOrEqualTo(r.striscia.bottom),
-          reason: 'la carta centrale risale sotto la striscia dei Doni: il trio '
+          reason:
+              'la carta centrale risale sotto la striscia dei Doni: il trio '
               'e\' salito troppo');
     });
   }

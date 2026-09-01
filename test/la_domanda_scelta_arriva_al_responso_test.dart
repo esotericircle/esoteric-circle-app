@@ -217,7 +217,8 @@ void main() {
     final pulsante = sorgente.indexOf("Key('rune_cast_button')");
     expect(tendina, greaterThan(0), reason: 'la tendina non c\'e\'');
     expect(campo, greaterThan(0), reason: 'il campo libero non c\'e\'');
-    expect(pulsante, greaterThan(0), reason: 'il pulsante del getto non c\'e\'');
+    expect(pulsante, greaterThan(0),
+        reason: 'il pulsante del getto non c\'e\'');
     expect(tendina, lessThan(pulsante),
         reason: 'la tendina delle domande e\' dichiarata DOPO il pulsante: si '
             'getta e poi si trova il posto per la domanda');
@@ -232,7 +233,8 @@ void main() {
     // tenere d'accordo a mano, e nessuna prova poteva dire quale fosse quello
     // giusto. Questa prova ENUMERA i file di `lib` e cade se un secondo elenco
     // di domande rinasce fuori dal punto unico.
-    final casa = 'lib/core/domande/domande_del_cerchio.dart'.replaceAll('/', '');
+    final casa =
+        'lib/core/domande/domande_del_cerchio.dart'.replaceAll('/', '');
     // **LA CASA DELLE CORNICI PORTA I TESTI DELLE DOMANDE, e deve.** Allegato B:
     // l'accostamento fra cornice e domanda si fa per TESTO ESATTO, non per
     // posizione nell'elenco, cosi' se l'ordine delle domande cambia le cornici
@@ -277,7 +279,8 @@ void main() {
     ]) {
       if (d.testo.trim().isEmpty) rotte.add('vuota');
       if (d.testo.length > 60) {
-        rotte.add('${d.testo} (${d.testo.length} caratteri, non entra in riga)');
+        rotte
+            .add('${d.testo} (${d.testo.length} caratteri, non entra in riga)');
       }
       if (d.dove.isEmpty) rotte.add('${d.testo} (non dice dove serve)');
     }
@@ -305,13 +308,11 @@ void main() {
     // delle personali resta vuoto invece di nominare Sole, Luna e Ascendente.
     expect(
         DomandeDelCerchio.perLaGettata(FamigliaDellaDomanda.personali,
-                datiDisponibili: const {})
-            .length,
+            datiDisponibili: const {}).length,
         0);
     expect(
         DomandeDelCerchio.perLaGettata(FamigliaDellaDomanda.generiche,
-                datiDisponibili: const {})
-            .length,
+            datiDisponibili: const {}).length,
         8,
         reason: 'le generiche non chiedono dati, quindi ci sono sempre tutte');
     // Con un dato solo compare la sua domanda e nient'altro.

@@ -24,12 +24,10 @@ void main() {
 
   String soloCodice() {
     final righe = schermata.readAsLinesSync();
-    return righe
-        .where((r) {
-          final pulita = r.trimLeft();
-          return !pulita.startsWith('//') && !pulita.startsWith('///');
-        })
-        .join('\n');
+    return righe.where((r) {
+      final pulita = r.trimLeft();
+      return !pulita.startsWith('//') && !pulita.startsWith('///');
+    }).join('\n');
   }
 
   test('la voce Account porta da qualche parte', () {

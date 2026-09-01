@@ -156,9 +156,8 @@ void main() {
                     'tocco.');
           } else {
             final maestro = Maestro.values.byName(via);
-            final aVideo = tester
-                .widget<DomainScreen>(find.byType(DomainScreen))
-                .maestro;
+            final aVideo =
+                tester.widget<DomainScreen>(find.byType(DomainScreen)).maestro;
             expect(aVideo, maestro,
                 reason: 'Da $partenza, toccando ${maestro.displayName} la '
                     'stanza a video e\' quella di ${aVideo.displayName}: '
@@ -176,7 +175,8 @@ void main() {
   });
 
   group('il difetto del telefono, tenuto fermo', () {
-    testWidgets('dal dominio di Medora, Caligo apre Caligo e la pila cresce '
+    testWidgets(
+        'dal dominio di Medora, Caligo apre Caligo e la pila cresce '
         'di uno', (tester) async {
       final nav = await monta(tester);
       nav.push(DomainScreen.route(
@@ -228,7 +228,8 @@ void main() {
           reason: 'Il colore e\' cambiato senza che la rotta cambiasse.');
     });
 
-    testWidgets('tema e stanza concordano, qualunque cosa accada', (tester) async {
+    testWidgets('tema e stanza concordano, qualunque cosa accada',
+        (tester) async {
       // LA PROVA DEL COLORE, isolata. Non pretende una stanza precisa:
       // pretende che il tema dica la stanza che si vede, che e' la promessa
       // che il colore fa alla persona. Nel codice storico, selectMaestro
@@ -262,7 +263,8 @@ void main() {
       await tester.tap(find.byKey(const Key('via_icona_aura')).first);
       await respira(tester);
       final quanti = find
-          .byWidgetPredicate((w) => w is DomainScreen && w.maestro == Maestro.aura,
+          .byWidgetPredicate(
+              (w) => w is DomainScreen && w.maestro == Maestro.aura,
               skipOffstage: false)
           .evaluate()
           .length;

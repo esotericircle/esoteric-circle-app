@@ -32,8 +32,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   /// Riapre la chat sulla stessa memoria: e' il gesto che il fondatore ha
   /// fatto, cioe' chiudere l'app e tornare.
-  MaestroChatController riapri(InMemoryMaestroMemoryRepository memoria,
-          MaestroAiProvider ai) =>
+  MaestroChatController riapri(
+          InMemoryMaestroMemoryRepository memoria, MaestroAiProvider ai) =>
       MaestroChatController(
         maestro: Maestro.medora,
         memory: memoria,
@@ -180,8 +180,7 @@ void main() {
     expect(RaccoltaDelleRisposte.indiceDellaViva(dopo.messages), 1,
         reason: 'il ripiego arrivato dopo ha preso il posto della lettura '
             'vera, che quindi si richiuderebbe sotto gli occhi di chi legge');
-    expect(
-        RaccoltaDelleRisposte.eAperta(dopo.messages, 1, riaperte: const {}),
+    expect(RaccoltaDelleRisposte.eAperta(dopo.messages, 1, riaperte: const {}),
         isTrue,
         reason: 'la lettura vera si richiude da sola');
   });
@@ -230,7 +229,8 @@ class _VoceCheNonTornaMai implements MaestroAiProvider {
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
-  }) => Completer<String>().future;
+  }) =>
+      Completer<String>().future;
 
   @override
   Future<MaestroReply> consult({
@@ -240,14 +240,16 @@ class _VoceCheNonTornaMai implements MaestroAiProvider {
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
-  }) => Completer<MaestroReply>().future;
+  }) =>
+      Completer<MaestroReply>().future;
 
   @override
   Future<String> synthesize({
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
-  }) => Completer<String>().future;
+  }) =>
+      Completer<String>().future;
 
   @override
   Future<MemoryDigest?> distill({
@@ -255,7 +257,8 @@ class _VoceCheNonTornaMai implements MaestroAiProvider {
     required UserProfile profile,
     required MaestroMemory previous,
     required List<ChatMessage> history,
-  }) async => null;
+  }) async =>
+      null;
 }
 
 /// Quattro voci, una per esito. Le firme sono lunghe apposta: implementare

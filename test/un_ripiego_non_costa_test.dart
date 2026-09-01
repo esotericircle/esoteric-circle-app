@@ -63,8 +63,8 @@ void main() {
       Tier piano = Tier.free,
     }) async {
       final memoria = InMemoryMaestroMemoryRepository();
-      await memoria.saveProfile(
-          UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      await memoria
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
       final conto = QuestionAllowance();
       final chat = MaestroChatController(
         maestro: Maestro.medora,

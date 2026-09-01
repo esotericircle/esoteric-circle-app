@@ -76,8 +76,7 @@ void main() {
             '${colpe.take(5).join("; ")}');
   });
 
-  test('chi mostra un traguardo prende il nome dal dato, non da una copia',
-      () {
+  test('chi mostra un traguardo prende il nome dal dato, non da una copia', () {
     // I punti che mostrano il nome di un traguardo devono leggerlo dal
     // Traguardo, non da una stringa loro: qui si enumera chi lo fa.
     const puntiCheNominano = [
@@ -96,6 +95,7 @@ void main() {
     final senzaNome =
         Sentieri.tuttiITraguardi.where((t) => t.nome.trim().isEmpty).toList();
     expect(senzaNome, isEmpty,
-        reason: 'questi traguardi non hanno nome: ${senzaNome.map((t) => t.id)}');
+        reason:
+            'questi traguardi non hanno nome: ${senzaNome.map((t) => t.id)}');
   });
 }

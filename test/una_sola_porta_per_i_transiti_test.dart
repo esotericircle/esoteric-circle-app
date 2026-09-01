@@ -65,8 +65,7 @@ void main() {
         final n = jd - 2451545.0;
         final l = (280.460 + 0.9856474 * n) % 360.0;
         final g = (357.528 + 0.9856003 * n) * 3.141592653589793 / 180.0;
-        var atteso =
-            (l + 1.915 * _sin(g) + 0.020 * _sin(2 * g)) % 360.0;
+        var atteso = (l + 1.915 * _sin(g) + 0.020 * _sin(2 * g)) % 360.0;
         if (atteso < 0) atteso += 360.0;
         expect(
           Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd),
@@ -172,8 +171,8 @@ void main() {
 
   group('Ogni corpo consegnato ha la sua verifica', () {
     test('nessun corpo esce senza il confronto con la fonte terza', () {
-      final prova =
-          File('test/effemeridi_contro_fonte_terza_test.dart').readAsStringSync();
+      final prova = File('test/effemeridi_contro_fonte_terza_test.dart')
+          .readAsStringSync();
       for (final corpo in CorpoCeleste.values) {
         // Si pretende la RIGA DEI VALORI, non il nome: il nome compare anche
         // nella tavola delle tolleranze, quindi cercarlo e basta lasciava
@@ -206,8 +205,10 @@ void main() {
           inInclusiveRange(0, 360));
       expect(NightSky.moonEclipticLongitude(DateTime(2026, 8, 4)),
           inInclusiveRange(0, 360));
-      expect(Celestial.sunEclipticLongitude(2451545.0), inInclusiveRange(0, 360));
-      expect(Celestial.moonEquatorial(2451545.0).raDeg, inInclusiveRange(0, 360));
+      expect(
+          Celestial.sunEclipticLongitude(2451545.0), inInclusiveRange(0, 360));
+      expect(
+          Celestial.moonEquatorial(2451545.0).raDeg, inInclusiveRange(0, 360));
       expect(Celestial.moonIllumination(2451545.0).fraction,
           inInclusiveRange(0, 1));
       expect(MoonPhase.forDate(DateTime(2026, 8, 4)).italianName, isNotEmpty);

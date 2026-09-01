@@ -231,11 +231,11 @@ class _VoceLunga implements MaestroAiProvider {
               'porta si chiude per davvero. Chi ti sta vicino in questo '
               'passaggio pesa più del passaggio stesso.'
           : 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
-      'Quello che senti come confusione è un confine che si sposta. '
-      'Sotto la superficie lavora un secondo movimento, più lento, che dura '
-      'da mesi senza chiedere il tuo permesso. Non è la scelta a spaventarti, '
-      'è quello che la scelta rende definitivo. Aspetta la prossima luna '
-      'nuova e rileggi queste stesse parole.';
+              'Quello che senti come confusione è un confine che si sposta. '
+              'Sotto la superficie lavora un secondo movimento, più lento, che dura '
+              'da mesi senza chiedere il tuo permesso. Non è la scelta a spaventarti, '
+              'è quello che la scelta rende definitivo. Aspetta la prossima luna '
+              'nuova e rileggi queste stesse parole.';
 
   @override
   Future<MaestroReply> consult({

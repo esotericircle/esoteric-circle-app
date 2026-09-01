@@ -48,8 +48,8 @@ void main() {
   test('BE.05: la sovrimpressione breve non esiste piu\' nel codice', () {
     // **RIMOSSA, NON NASCOSTA**: se qualcuno la riscrivesse, il fondatore
     // rivedrebbe la card vecchia della 2199.
-    final celebrazione = File('lib/features/sigilli/celebrazione.dart')
-        .readAsStringSync();
+    final celebrazione =
+        File('lib/features/sigilli/celebrazione.dart').readAsStringSync();
     for (final resto in const [
       'bool mostraLaSovrimpressione(',
       '_FasciaDellaCelebrazione',

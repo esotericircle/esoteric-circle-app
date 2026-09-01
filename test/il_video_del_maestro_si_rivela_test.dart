@@ -184,8 +184,7 @@ void main() {
   group('BQ.03, se il video non parte la carta c\'e\' lo stesso', () {
     testWidgets('Col file assente la scena mostra la carta', (tester) async {
       pinnaLoSchermo(tester);
-      await tester
-          .pumpWidget(scena(Maestro.medora, fabbrica: banco.creaCieco));
+      await tester.pumpWidget(scena(Maestro.medora, fabbrica: banco.creaCieco));
       await svelaIlMaestro(tester);
       await tester.pump(const Duration(milliseconds: 16));
       expect(find.byType(MaestroCardReveal), findsOneWidget,

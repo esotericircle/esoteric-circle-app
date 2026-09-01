@@ -144,7 +144,8 @@ void main() {
     expect(nuovo.saltoMassimo, lessThanOrEqualTo(1.5));
   });
 
-  test('M1 il valore dipinto cambia a ogni fotogramma, e nessuno salta piu di '
+  test(
+      'M1 il valore dipinto cambia a ogni fotogramma, e nessuno salta piu di '
       '1,5 punti', () {
     final c = ParallaxController();
     final misura = inclinaPiano(c, passoDelSensore: 16);

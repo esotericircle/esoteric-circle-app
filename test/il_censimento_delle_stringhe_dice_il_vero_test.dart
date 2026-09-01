@@ -59,8 +59,7 @@ void main() {
     final arb = Directory('.')
         .listSync(recursive: true)
         .whereType<File>()
-        .where((f) =>
-            f.path.endsWith('.arb') && !f.path.contains('.dart_tool'))
+        .where((f) => f.path.endsWith('.arb') && !f.path.contains('.dart_tool'))
         .toList();
     expect(arb, isEmpty, reason: 'sono comparsi file .arb: $arb');
     final pubspec = File('pubspec.yaml').readAsStringSync();
@@ -84,7 +83,6 @@ void main() {
         segni.add(f.path);
       }
     }
-    expect(segni, isEmpty,
-        reason: 'e\' comparso codice di traduzione: $segni');
+    expect(segni, isEmpty, reason: 'e\' comparso codice di traduzione: $segni');
   });
 }

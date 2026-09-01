@@ -119,7 +119,8 @@ void main() {
         closeTo(nascita.latitude, 0.01));
   });
 
-  testWidgets('Concessa la posizione, il calcolo usa le coordinate del '
+  testWidgets(
+      'Concessa la posizione, il calcolo usa le coordinate del '
       'dispositivo', (tester) async {
     SharedPreferences.setMockInitialValues({});
     await apri(tester, posizione: const _PosizioneFinta(dispositivo));
@@ -151,7 +152,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
 
     expect(find.byKey(const Key('sky_location_concessa')), findsOneWidget,
-        reason: 'concessa la posizione e ricalcolato il cielo, nessuno lo dice');
+        reason:
+            'concessa la posizione e ricalcolato il cielo, nessuno lo dice');
   });
 
   testWidgets('Rientrando, l\'invito non ricompare', (tester) async {

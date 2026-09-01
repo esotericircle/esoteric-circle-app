@@ -52,9 +52,18 @@ void main() {
 
   /// I metodi delle preferenze che prendono una chiave come primo argomento.
   const metodi = [
-    'setBool', 'setInt', 'setDouble', 'setString', 'setStringList',
-    'getBool', 'getInt', 'getDouble', 'getString', 'getStringList',
-    'remove', 'containsKey',
+    'setBool',
+    'setInt',
+    'setDouble',
+    'setString',
+    'setStringList',
+    'getBool',
+    'getInt',
+    'getDouble',
+    'getString',
+    'getStringList',
+    'remove',
+    'containsKey',
   ];
 
   /// I sorgenti di `lib/`, **IN ORDINE DICHIARATO E NON IN ORDINE DI DISCO.**
@@ -202,10 +211,11 @@ void main() {
       final portatori = portatoriDiPreferenze(testo);
       if (portatori.isEmpty) continue;
       for (final metodo in metodi) {
-        final regola = RegExp(
-            r'\b(' + portatori.join('|') + r')\.' +
-                RegExp.escape(metodo) +
-                r'\(\s*([^,)]+)');
+        final regola = RegExp(r'\b(' +
+            portatori.join('|') +
+            r')\.' +
+            RegExp.escape(metodo) +
+            r'\(\s*([^,)]+)');
         for (final m in regola.allMatches(testo)) {
           final arg = m.group(2)!.trim();
           String? chiave;
@@ -286,16 +296,16 @@ void main() {
     //
     // La schermata non si puo' montare qui senza mezza app: si guarda il
     // punto del sorgente, che e' la cosa che era mancata.
-    final testo = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final testo =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(testo.contains('DimenticanzaDelTelefono.dimentica()'), isTrue,
         reason: 'la via della cancellazione non passa piu\' dalla '
             'dimenticanza del telefono: torna a cancellare secondo una '
             'lista sua, e promette il cammino intero');
     final impostazioni =
         File('lib/features/settings/settings_screen.dart').readAsStringSync();
-    expect(impostazioni.contains('DimenticanzaDelTelefono.dimentica()'),
-        isFalse,
+    expect(
+        impostazioni.contains('DimenticanzaDelTelefono.dimentica()'), isFalse,
         reason: 'la cancellazione e\' tornata anche nelle Impostazioni: sono '
             'due porte sulla cosa piu\' grave che si possa fare');
   });
@@ -307,8 +317,13 @@ void main() {
     // dell'identita' di nascita.
     final sospette = <String>[];
     const pezziDiNascita = [
-      'toIso8601String', 'latitude', 'longitude', 'timezone', 'birthDate',
-      'd.date', 'details.date',
+      'toIso8601String',
+      'latitude',
+      'longitude',
+      'timezone',
+      'birthDate',
+      'd.date',
+      'details.date',
     ];
     for (final f in sorgenti()) {
       final percorso = percorsoDi(f);
@@ -317,10 +332,11 @@ void main() {
       final portatori = portatoriDiPreferenze(testo);
       if (portatori.isEmpty) continue;
       for (final metodo in metodi) {
-        final regola = RegExp(
-            r'\b(' + portatori.join('|') + r')\.' +
-                RegExp.escape(metodo) +
-                r'\(\s*([^,)]+)');
+        final regola = RegExp(r'\b(' +
+            portatori.join('|') +
+            r')\.' +
+            RegExp.escape(metodo) +
+            r'\(\s*([^,)]+)');
         for (final m in regola.allMatches(testo)) {
           final arg = m.group(2)!;
           if (pezziDiNascita.any(arg.contains)) {

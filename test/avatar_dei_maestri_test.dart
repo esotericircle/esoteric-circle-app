@@ -18,8 +18,15 @@ void main() {
   };
 
   /// Il riquadro dei pixel non trasparenti e la misura della tela.
-  Future<({int larghezza, int altezza, int figura, int alto, int basso,
-      int trasparenti})> misura(File f) async {
+  Future<
+      ({
+        int larghezza,
+        int altezza,
+        int figura,
+        int alto,
+        int basso,
+        int trasparenti
+      })> misura(File f) async {
     final codec = await ui.instantiateImageCodec(await f.readAsBytes());
     final frame = await codec.getNextFrame();
     final img = frame.image;

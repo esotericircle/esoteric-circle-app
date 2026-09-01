@@ -134,8 +134,8 @@ void main() {
   }();
 
   /// Il riquadro del glifo dentro la tela: e' il perimetro delle misure.
-  const riquadroDelGlifo = Rect.fromLTWH((lato - latoGlifo) / 2,
-      (lato - latoGlifo) / 2, latoGlifo, latoGlifo);
+  const riquadroDelGlifo = Rect.fromLTWH(
+      (lato - latoGlifo) / 2, (lato - latoGlifo) / 2, latoGlifo, latoGlifo);
 
   /// L'asse del tratto in corso, in pixel della tela: serve a M2 e a M3, che
   /// misurano rispetto alla direzione del segno e non rispetto allo schermo.
@@ -301,7 +301,10 @@ void main() {
     final ordinati = [...fondi]..sort();
     final mediana = ordinati[ordinati.length ~/ 2];
     if (mediana <= 0) {
-      return (scarto: 0, cieca: 'mediana del fondo nulla, nessuno scavo trovato');
+      return (
+        scarto: 0,
+        cieca: 'mediana del fondo nulla, nessuno scavo trovato'
+      );
     }
     var peggiore = 0.0;
     var valore = 0.0;
@@ -421,8 +424,7 @@ void main() {
     // diverse, quindi la quota del primo si ricava dal rapporto fra la sua
     // lunghezza e quella totale del segno, non dal numero dei tratti.
     final quotaPrimo = lunghezza / lunghezzaTotaleLaguz;
-    final incisa =
-        (lunghezza * (progresso / quotaPrimo)).clamp(0.0, lunghezza);
+    final incisa = (lunghezza * (progresso / quotaPrimo)).clamp(0.0, lunghezza);
     // La massa che sta nei labbri veri: le componenti piu' grandi, tante quanti
     // sono i tratti gia' incisi. Quel che resta e' dispersione, cioe' puntini.
     taglie.sort((a, b) => b.compareTo(a));
@@ -433,11 +435,7 @@ void main() {
     }
     final quotaMaggiore = nelleGrandi / chiari.length;
     if (incisa <= 0) {
-      return (
-        componenti: componenti,
-        copertura: 0,
-        maggiore: quotaMaggiore
-      );
+      return (componenti: componenti, copertura: 0, maggiore: quotaMaggiore);
     }
     return (
       componenti: componenti,
@@ -481,11 +479,10 @@ void main() {
       // finto di testWidgets, toImage non completa mai e il test si pianta.
       late _Campo campo;
       await tester.runAsync(() async {
-        final nuda = await pixelDi(
-            dyn.copiaCon(progresso: 0.0, completa: false, conTavola: true)
-                as CustomPainter);
-        campo = _Campo(await pixelDi(painter), nuda, lato.round(),
-            lato.round(), riquadroDelGlifo);
+        final nuda = await pixelDi(dyn.copiaCon(
+            progresso: 0.0, completa: false, conTavola: true) as CustomPainter);
+        campo = _Campo(await pixelDi(painter), nuda, lato.round(), lato.round(),
+            riquadroDelGlifo);
       });
       final asse = asseDelPrimoTratto();
       final spessore = spessorePer(progresso);
@@ -565,10 +562,8 @@ void main() {
 /// diventano cieche. La tavola di ripiego e' la superficie su cui queste
 /// soglie sono state calibrate, e resta quella della misura.
 CustomPainter _conStato(dynamic painter, double progresso, bool completa) =>
-    painter.copiaCon(
-        progresso: progresso,
-        completa: completa,
-        conTavola: true) as CustomPainter;
+    painter.copiaCon(progresso: progresso, completa: completa, conTavola: true)
+        as CustomPainter;
 
 /// Un campo di pixel letto dalla tela, con le classi delle definizioni gia'
 /// precalcolate: le misure sono su decine di migliaia di punti, quindi si
@@ -589,7 +584,9 @@ class _Campo {
         }
         if (!cambiato) continue;
         final a = byte[i + 3] / 255;
-        final lum = (0.2126 * byte[i] + 0.7152 * byte[i + 1] + 0.0722 * byte[i + 2]) / 255;
+        final lum =
+            (0.2126 * byte[i] + 0.7152 * byte[i + 1] + 0.0722 * byte[i + 2]) /
+                255;
         if (a > 0.50) {
           dipintiX.add(x);
           dipintiY.add(y);
@@ -599,11 +596,11 @@ class _Campo {
           }
           if (lum >= 0.55 && lum <= 0.85) chiari.add(y * w + x);
         }
-          // Pixel ombra: piu' scuro della pietra, piu' chiaro del fondo.
-          if (lum >= 0.30 && lum <= 0.55) {
-            ombraX.add(x);
-            ombraY.add(y);
-          }
+        // Pixel ombra: piu' scuro della pietra, piu' chiaro del fondo.
+        if (lum >= 0.30 && lum <= 0.55) {
+          ombraX.add(x);
+          ombraY.add(y);
+        }
       }
     }
   }

@@ -24,8 +24,7 @@ void main() {
       final pulita = riga.trimLeft();
       // Via i commenti: una riga che comincia con // non arriva a nessuno.
       if (pulita.startsWith('//')) continue;
-      for (final m
-          in RegExp(r"'((?:[^'\\]|\\.)*)'").allMatches(riga)) {
+      for (final m in RegExp(r"'((?:[^'\\]|\\.)*)'").allMatches(riga)) {
         stringhe.add((m.group(1)!, percorso));
       }
     }

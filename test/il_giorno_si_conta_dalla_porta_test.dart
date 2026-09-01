@@ -109,7 +109,8 @@ void main() {
     expect(ConfineDelGiorno.giorniDa(DateTime(2026), DateTime(2026, 8, 5)),
         ConfineDelGiorno.giornoDellAnno(DateTime(2026, 8, 5)));
     // E attraversa gli anni, che e' la ragione per cui esiste.
-    expect(ConfineDelGiorno.giorniDa(DateTime(2026), DateTime(2027, 1, 1)), 365);
+    expect(
+        ConfineDelGiorno.giorniDa(DateTime(2026), DateTime(2027, 1, 1)), 365);
   });
 
   // ------------------------------------------------------------------

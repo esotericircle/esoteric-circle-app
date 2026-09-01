@@ -83,9 +83,8 @@ void main() {
 
   test('Nessun Maestro rivendica un\'arte di un altro', () {
     for (final maestro in Maestro.values) {
-      final proprio = campiPropri(VoceDelMaestro.di(maestro))
-          .join(' ')
-          .toLowerCase();
+      final proprio =
+          campiPropri(VoceDelMaestro.di(maestro)).join(' ').toLowerCase();
       for (final arte in VoceDelMaestro.artiDegliAltri(maestro)) {
         expect(proprio.contains(arte.toLowerCase()), isFalse,
             reason: '${maestro.id} nomina "$arte", che e\' arte di un altro '
@@ -106,7 +105,8 @@ void main() {
     for (final maestro in Maestro.values) {
       final mio = VoceDelMaestro.di(maestro).lessicoDiFirma;
       // 1. Nessuna parola di firma sta fra cio' che lo stesso Maestro non dice.
-      final nonDico = VoceDelMaestro.di(maestro).maiDice.join(' ').toLowerCase();
+      final nonDico =
+          VoceDelMaestro.di(maestro).maiDice.join(' ').toLowerCase();
       for (final parola in mio) {
         expect(nonDico.contains(parola.toLowerCase()), isFalse,
             reason: '${maestro.id} usa "$parola" come firma e insieme la '
@@ -115,7 +115,8 @@ void main() {
       // 2. Nessun altro Maestro usa quella parola nei campi propri.
       for (final altro in Maestro.values) {
         if (altro == maestro) continue;
-        final suoi = campiPropri(VoceDelMaestro.di(altro)).join(' ').toLowerCase();
+        final suoi =
+            campiPropri(VoceDelMaestro.di(altro)).join(' ').toLowerCase();
         for (final parola in mio) {
           expect(suoi.contains(parola.toLowerCase()), isFalse,
               reason: '"$parola" e\' la firma di ${maestro.id} ma compare '
@@ -152,12 +153,41 @@ void main() {
     // colpirebbe le troncature legittime, "po'" e "di'", e la prima stesura di
     // questa prova cadeva proprio su quelle.
     final parolePerdute = [
-      'perche', 'poiche', 'benche', 'affinche', 'finche', 'nonche',
-      'piu', 'gia', 'cosi', 'puo', 'cio', 'li',
-      'sara', 'fara', 'dara', 'potra', 'verra', 'andra',
-      'verita', 'citta', 'liberta', 'qualita', 'quantita', 'meta',
-      'profondita', 'volonta', 'entita', 'polarita', 'realta', 'novita',
-      'identita', 'possibilita', 'responsabilita', 'eta', 'meta',
+      'perche',
+      'poiche',
+      'benche',
+      'affinche',
+      'finche',
+      'nonche',
+      'piu',
+      'gia',
+      'cosi',
+      'puo',
+      'cio',
+      'li',
+      'sara',
+      'fara',
+      'dara',
+      'potra',
+      'verra',
+      'andra',
+      'verita',
+      'citta',
+      'liberta',
+      'qualita',
+      'quantita',
+      'meta',
+      'profondita',
+      'volonta',
+      'entita',
+      'polarita',
+      'realta',
+      'novita',
+      'identita',
+      'possibilita',
+      'responsabilita',
+      'eta',
+      'meta',
     ];
     final apostrofoPerAccento = RegExp(
       '\\b(${parolePerdute.join('|')})\'',
@@ -251,7 +281,8 @@ void main() {
         expect(VoceDelMaestro.aperturaVietataDi('$vietata, ascolta il cielo.'),
             vietata);
       }
-      expect(VoceDelMaestro.aperturaVietataDi('Il cielo si è coperto.'), isNull);
+      expect(
+          VoceDelMaestro.aperturaVietataDi('Il cielo si è coperto.'), isNull);
     });
 
     test('Il divieto entra nella persona di tutti e tre', () {

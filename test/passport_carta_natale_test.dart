@@ -19,7 +19,8 @@ void main() {
 
   test('La rotta della carta natale monta uno scaffale immersivo', () {
     final da = sorgente.indexOf("Key('passport_natal_chart')");
-    expect(da, greaterThan(0), reason: 'tessera della carta natale non trovata');
+    expect(da, greaterThan(0),
+        reason: 'tessera della carta natale non trovata');
     // **FINO ALLA CLASSE SUCCESSIVA, non un numero a mano.** Il taglio a
     // 1600 caratteri e' caduto quando l'ordine BD voce 05 ha messo le porte
     // dei gesti prima della rotta: il testo cercato era sempre li', solo piu'
@@ -36,7 +37,8 @@ void main() {
     final fine = sorgente.indexOf('\nclass ', da);
     final blocco = sorgente.substring(da, fine > da ? fine : sorgente.length);
     expect(blocco.contains('Torna al Passport'), isTrue,
-        reason: 'la carta aperta dal Passport invita ancora alla Risonanza, che '
+        reason:
+            'la carta aperta dal Passport invita ancora alla Risonanza, che '
             'e\' gia\' avvenuta');
   });
 
@@ -64,10 +66,8 @@ void main() {
     // proprieta' e' passata a chiunque dipinga il cosmo, cioe' a mezza app.
     // Misurato: col commento la scena passava anche senza scaffale, senza
     // commenti no. Una guardia che legge i commenti misura le intenzioni.
-    String soloCodice(String t) => t
-        .split('\n')
-        .map((r) => r.split('//').first)
-        .join('\n');
+    String soloCodice(String t) =>
+        t.split('\n').map((r) => r.split('//').first).join('\n');
     for (final f in tuttiIFile) {
       final t = soloCodice(f.readAsStringSync().replaceAll('\r\n', '\n'));
       for (final c in RegExp(r'class (\w+)').allMatches(t)) {

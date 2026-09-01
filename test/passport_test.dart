@@ -66,8 +66,7 @@ void main() {
     // arrivo" mentre la carta si calcola davvero, quindi chi apriva il proprio
     // passaporto concludeva di non averla.
     expect(find.byKey(const Key('passport_natal_chart')), findsOneWidget);
-    expect(
-        find.textContaining('Valore d\'esempio'), findsNWidgets(5));
+    expect(find.textContaining('Valore d\'esempio'), findsNWidgets(5));
 
     // **NEL PASSAPORTO NON C'E' PIU' NESSUN VELO, e non e' una perdita.**
     // Ordine BC voce 03.
@@ -94,7 +93,8 @@ void main() {
 
   testWidgets('Con un\'identita\' reale sparisce la nota d\'esempio',
       (tester) async {
-    final real = BirthIdentity(birthMoment: DateTime(1988, 3, 21, 8), isExample: false);
+    final real =
+        BirthIdentity(birthMoment: DateTime(1988, 3, 21, 8), isExample: false);
     await tester.pumpWidget(wrap(CosmicPassport(identity: real)));
     await tester.pump();
 

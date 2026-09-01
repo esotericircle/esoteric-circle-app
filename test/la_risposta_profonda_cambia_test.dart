@@ -73,7 +73,8 @@ void main() {
       // non c'e' niente da approfondire, e la prova lo dichiara invece di
       // passare in silenzio su un caso che non ha misurato.
       markTestSkipped('Il cielo di questo giorno non porta transiti: non '
-          'c\'e' ' niente da approfondire.');
+          'c\'e'
+          ' niente da approfondire.');
       return;
     }
 
@@ -120,7 +121,8 @@ void main() {
             'il selettore sarebbe un comando che non comanda niente.');
   });
 
-  test('SENZA cielo vero la profondita\' non cambia niente, ed e\' la causa '
+  test(
+      'SENZA cielo vero la profondita\' non cambia niente, ed e\' la causa '
       'della voce 62', () {
     // **QUESTA PROVA NON CHIEDE UNA CORREZIONE: FISSA LA CAUSA.** Senza carta
     // natale il testo viene dal pool a hash, e li' la profondita' non ha

@@ -36,7 +36,8 @@ void main() {
     return (id: scelto.traguardo.id, distanza: (centro - dove).distance);
   }
 
-  test('toccando il centro di ogni punto risponde quel traguardo, e non un altro',
+  test(
+      'toccando il centro di ogni punto risponde quel traguardo, e non un altro',
       () {
     var osservati = 0;
     final muti = <String>[];
@@ -46,11 +47,12 @@ void main() {
       final punti = GeometriaDelSentiero.punti(sentiero);
       for (final punto in punti) {
         osservati++;
-        final centro = Offset(
-            punto.dove.dx * misura.width, punto.dove.dy * misura.height);
+        final centro =
+            Offset(punto.dove.dx * misura.width, punto.dove.dy * misura.height);
         final risposta = chiRisponde(punti, centro);
         if (risposta.id == null) {
-          muti.add('${punto.traguardo.id} non risponde al tocco sul suo centro');
+          muti.add(
+              '${punto.traguardo.id} non risponde al tocco sul suo centro');
         } else if (risposta.id != punto.traguardo.id) {
           // **UN'ECCEZIONE DICHIARATA, non un'eccezione di comodo.** Un punto
           // puo' stare DENTRO il cerchio disegnato di uno piu' grande: sul
@@ -112,8 +114,8 @@ void main() {
       final punti = GeometriaDelSentiero.punti(sentiero);
       for (final punto in punti.where((p) => p.eGrande)) {
         osservati++;
-        final centro = Offset(
-            punto.dove.dx * misura.width, punto.dove.dy * misura.height);
+        final centro =
+            Offset(punto.dove.dx * misura.width, punto.dove.dy * misura.height);
         final risposta = chiRisponde(punti, centro);
         if (risposta.id != punto.traguardo.id) {
           sbagliati.add('${punto.traguardo.id} su ${sentiero.name} risponde '

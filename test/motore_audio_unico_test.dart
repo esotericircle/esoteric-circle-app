@@ -15,7 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// fallisce se ne ricompare un secondo.
 void main() {
   test('Nel pubspec c\'e\' UNA sola dipendenza di riproduzione', () {
-    final pubspec = File('pubspec.yaml').readAsLinesSync()
+    final pubspec = File('pubspec.yaml')
+        .readAsLinesSync()
         .where((r) => !r.trimLeft().startsWith('#'))
         .join('\n');
     // Le librerie di riproduzione piu' diffuse: se ne comparissero due, il
@@ -38,7 +39,8 @@ void main() {
     final motori = <String>[];
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
-      final righe = f.readAsLinesSync()
+      final righe = f
+          .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
       if (righe.contains('AudioPlayer(')) {
@@ -67,11 +69,13 @@ void main() {
       'lib/features/maestri/aura/meditation/meditation_screen.dart',
       'lib/features/rituals/dream_rite_screen.dart',
     ]) {
-      final codice = File(percorso).readAsLinesSync()
+      final codice = File(percorso)
+          .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
       expect(codice.contains('const SilentTonePlayer()'), isFalse,
-          reason: '$percorso nasce ancora col lettore muto come default, quindi '
+          reason:
+              '$percorso nasce ancora col lettore muto come default, quindi '
               'promette un suono che non esce dal telefono');
       expect(codice.contains('LettoreToniReale()'), isTrue,
           reason: '$percorso non usa il lettore reale');

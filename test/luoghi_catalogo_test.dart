@@ -22,8 +22,8 @@ void main() {
       // estere sono nomi di nazione: si distinguono da li' senza altri campi.
       final italiane = tutti.where(
           (c) => c.country.length == 2 && c.country == c.country.toUpperCase());
-      final estere = tutti.where((c) => !(c.country.length == 2 &&
-          c.country == c.country.toUpperCase()));
+      final estere = tutti.where((c) =>
+          !(c.country.length == 2 && c.country == c.country.toUpperCase()));
 
       expect(italiane.length, greaterThanOrEqualTo(7900),
           reason: 'i comuni italiani sono 7896, piu\' le localita\' che comune '
@@ -109,7 +109,8 @@ void main() {
   });
 
   group('Chiavi di lista uniche per costruzione', () {
-    test('Nessun prefisso di due lettere produce due chiavi identiche', () async {
+    test('Nessun prefisso di due lettere produce due chiavi identiche',
+        () async {
       await CityCatalog.ensureLoaded(bundle: rootBundle);
       // Il crash vero: cercando "new" la lista montava due voci Newcastle e
       // Flutter cadeva con Duplicate keys found. La chiave e' ora nome piu'
@@ -126,8 +127,7 @@ void main() {
           }
         }
       }
-      expect(doppi, isEmpty,
-          reason: 'chiavi duplicate: ${doppi.join(', ')}');
+      expect(doppi, isEmpty, reason: 'chiavi duplicate: ${doppi.join(', ')}');
     });
 
     test('Il dato non contiene doppioni esatti nome piu\' area', () async {

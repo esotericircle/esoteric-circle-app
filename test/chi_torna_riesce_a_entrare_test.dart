@@ -192,7 +192,8 @@ void main() {
         reason: 'dopo un elevazione fallita il client resta con l account in '
             'mano, e il tentativo dopo riceve quello');
   });
-  test('il "Continua come" rifa la strada invece di riusare il token', () async {
+  test('il "Continua come" rifa la strada invece di riusare il token',
+      () async {
     // **LO STESSO DIFETTO DI AX.01, sopravvissuto in un altro punto.** Qui si
     // arriva dopo che un'elevazione e' stata rifiutata perche' quell'identita'
     // e' gia' di un altro Cerchio. La via d'uscita riusava

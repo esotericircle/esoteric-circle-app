@@ -69,10 +69,10 @@ void main() {
     final chiuse = RegExp(r'^- \*\*P\.\d\d\*\*.*(—|-) CHIUSA', multiLine: true)
         .allMatches(testo)
         .length;
-    final fermate =
-        RegExp(r'^- \*\*P\.\d\d\*\*.*FERMATA SU PREMESSA FALSA', multiLine: true)
-            .allMatches(testo)
-            .length;
+    final fermate = RegExp(r'^- \*\*P\.\d\d\*\*.*FERMATA SU PREMESSA FALSA',
+            multiLine: true)
+        .allMatches(testo)
+        .length;
     final inAttesa = RegExp(
             r'^- \*\*P\.\d\d\*\*.*FERMATA IN ATTESA DI DECISIONE',
             multiLine: true)

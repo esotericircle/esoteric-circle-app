@@ -55,7 +55,8 @@ void main() {
     return carta + filmato;
   }
 
-  group('BR.00, la ricognizione: cosa fa video_player quando il filmato finisce',
+  group(
+      'BR.00, la ricognizione: cosa fa video_player quando il filmato finisce',
       () {
     testWidgets(
         'Alla fine il lettore non si chiude e la sua vista resta in albero',
@@ -111,14 +112,16 @@ void main() {
           'fine viste ${piattaforma.viste}, lettori liberati '
           '${piattaforma.chiusi}, posizione ${piattaforma.posizione}');
       expect(piattaforma.viste.toSet(), hasLength(1),
-          reason: 'dopo la fine la vista porta un numero diverso: e\' un\'altra '
+          reason:
+              'dopo la fine la vista porta un numero diverso: e\' un\'altra '
               'texture, quindi l\'ultimo fotogramma non e\' quello di prima');
       lettore.chiudi();
     });
   });
 
   group('BR.01, il video e\' lo sfondo della schermata', () {
-    testWidgets('Il velo prende le misure dello schermo, non quelle della carta',
+    testWidgets(
+        'Il velo prende le misure dello schermo, non quelle della carta',
         (tester) async {
       pinnaLoSchermo(tester);
       await tester.pumpWidget(scena(Maestro.medora));
@@ -155,10 +158,9 @@ void main() {
               tester.element(find.byType(MaestroRevealScreen)),
               skipOffstage: false)
           .toList();
-      final doveIlVelo =
-          tutti.indexWhere((e) => e.widget is VeloDiRivelazione);
-      final doveIlPiede = tutti.indexWhere(
-          (e) => e.widget.key == const Key('reveal_footer'));
+      final doveIlVelo = tutti.indexWhere((e) => e.widget is VeloDiRivelazione);
+      final doveIlPiede =
+          tutti.indexWhere((e) => e.widget.key == const Key('reveal_footer'));
       // ignore: avoid_print
       print('ORDINE BR VOCE 1: il velo e\' il figlio numero $doveIlVelo, il '
           'piede il numero $doveIlPiede');
@@ -262,18 +264,16 @@ void main() {
           .descendant(
               of: find.byType(FittedBox), matching: find.byType(SizedBox))
           .first);
-      final scala = math.max(
-          schermoDiRiferimento.width / dentro.width!,
+      final scala = math.max(schermoDiRiferimento.width / dentro.width!,
           schermoDiRiferimento.height / dentro.height!);
-      final disegnato =
-          Size(dentro.width! * scala, dentro.height! * scala);
-      final conContain = math.min(
-          schermoDiRiferimento.width / dentro.width!,
+      final disegnato = Size(dentro.width! * scala, dentro.height! * scala);
+      final conContain = math.min(schermoDiRiferimento.width / dentro.width!,
           schermoDiRiferimento.height / dentro.height!);
       final bande =
           (schermoDiRiferimento.height - dentro.height! * conContain) / 2;
       // ignore: avoid_print
-      print('ORDINE BR VOCE 1: il filmato e\' ${dentro.width!.toStringAsFixed(0)}'
+      print(
+          'ORDINE BR VOCE 1: il filmato e\' ${dentro.width!.toStringAsFixed(0)}'
           ' per ${dentro.height!.toStringAsFixed(0)}, disegnato a '
           '${disegnato.width.toStringAsFixed(1)} per '
           '${disegnato.height.toStringAsFixed(1)} su uno schermo '
@@ -282,8 +282,8 @@ void main() {
           'avrebbe lasciato due bande da ${bande.toStringAsFixed(1)} punti');
       expect(disegnato.width, greaterThanOrEqualTo(schermoDiRiferimento.width),
           reason: 'il filmato non arriva ai bordi in larghezza');
-      expect(disegnato.height,
-          greaterThanOrEqualTo(schermoDiRiferimento.height),
+      expect(
+          disegnato.height, greaterThanOrEqualTo(schermoDiRiferimento.height),
           reason: 'il filmato non arriva ai bordi in altezza');
       lettore.chiudi();
     });
@@ -302,7 +302,8 @@ void main() {
   });
 
   group('BR.02, il filmato si ferma sull\'ultimo fotogramma e ci resta', () {
-    testWidgets('Trenta fotogrammi dopo la fine: il filmato c\'e\', la carta no',
+    testWidgets(
+        'Trenta fotogrammi dopo la fine: il filmato c\'e\', la carta no',
         (tester) async {
       pinnaLoSchermo(tester);
       await tester.pumpWidget(scena(Maestro.medora));

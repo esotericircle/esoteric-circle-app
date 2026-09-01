@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   // Minuti dalla mezzanotte locale del tramonto, per confronti comodi.
   int? minuti(DateTime giorno, {required double lat, required double lon}) {
-    final t = SunsetTime.perData(giorno,
-        lat: lat, lon: lon, offset: Duration.zero);
+    final t =
+        SunsetTime.perData(giorno, lat: lat, lon: lon, offset: Duration.zero);
     return t == null ? null : t.hour * 60 + t.minute;
   }
 

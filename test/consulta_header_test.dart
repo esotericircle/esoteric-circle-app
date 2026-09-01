@@ -5,7 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// tre arti del Maestro formattate con "e" prima dell'ultima.
 void main() {
   test('domainArtsPhrase mostra le tre arti con "e" prima dell\'ultima', () {
-    expect(Maestro.medora.domainArtsPhrase, 'Astrologia, Cartomanzia e Destino');
+    expect(
+        Maestro.medora.domainArtsPhrase, 'Astrologia, Cartomanzia e Destino');
     expect(Maestro.aura.domainArtsPhrase, 'Chakra, Energia e Archetipi');
     expect(Maestro.caligo.domainArtsPhrase, 'Rune, Rituali e Numerologia');
   });

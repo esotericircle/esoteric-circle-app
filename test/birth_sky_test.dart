@@ -57,7 +57,8 @@ void main() {
         child: MaterialApp(home: MaestroScope(child: child)),
       );
 
-  testWidgets('Il cielo di nascita e\' fisso, parla di identita\' e non chiede '
+  testWidgets(
+      'Il cielo di nascita e\' fisso, parla di identita\' e non chiede '
       'il luogo', (tester) async {
     silence();
     final birth = DateTime.utc(1990, 6, 15, 2, 30);
@@ -95,7 +96,8 @@ void main() {
     // expect(find.textContaining('assaggio'), findsOneWidget);
   });
 
-  testWidgets('Il Cosmic Passport ha il portale attivo verso il cielo di nascita',
+  testWidgets(
+      'Il Cosmic Passport ha il portale attivo verso il cielo di nascita',
       (tester) async {
     silence();
     await tester.pumpWidget(wrap(const Scaffold(body: CosmicPassport())));

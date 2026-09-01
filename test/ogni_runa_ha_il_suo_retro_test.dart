@@ -30,8 +30,8 @@ void main() {
     final codec = await ui.instantiateImageCodec(bytes,
         targetWidth: lato, targetHeight: lato);
     final frame = await codec.getNextFrame();
-    final dati = await frame.image
-        .toByteData(format: ui.ImageByteFormat.rawRgba);
+    final dati =
+        await frame.image.toByteData(format: ui.ImageByteFormat.rawRgba);
     final px = dati!.buffer.asUint8List();
     final out = <bool>[];
     for (var i = 3; i < px.length; i += 4) {
@@ -73,8 +73,8 @@ void main() {
       if (!File(retro).existsSync() || !File(fronte).existsSync()) continue;
       late double somiglianza;
       await tester.runAsync(() async {
-        somiglianza = quantoSiSomigliano(
-            await sagoma(retro), await sagoma(fronte));
+        somiglianza =
+            quantoSiSomigliano(await sagoma(retro), await sagoma(fronte));
       });
       if (somiglianza < 0.96) {
         colpevoli.add('${runa.name} (${(somiglianza * 100).toStringAsFixed(1)}'

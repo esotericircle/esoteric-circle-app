@@ -177,8 +177,7 @@ void main() {
       ],
       child: MaterialApp(
         builder: (ctx, child) => MediaQuery(
-          data: MediaQuery.of(ctx)
-              .copyWith(disableAnimations: riduciMovimento),
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: riduciMovimento),
           child: MaestroScope(child: child!),
         ),
         home: OroscopoScreen(userSign: Zodiac.leo, now: adesso),
@@ -413,8 +412,8 @@ void main() {
     await tester.pump();
 
     // PRIMO MOMENTO: il cielo si raccoglie, coi corpi veri attorno.
-    expect(find.byKey(const Key('oroscopo_riflessione_raccolta')),
-        findsOneWidget);
+    expect(
+        find.byKey(const Key('oroscopo_riflessione_raccolta')), findsOneWidget);
     expect(find.byKey(const Key('oroscopo_corona_dei_corpi')), findsOneWidget,
         reason: 'il primo momento mostra i corpi veri del giorno');
     expect(find.byKey(const Key('oroscopo_riflessione_nomina')), findsNothing);
@@ -422,8 +421,8 @@ void main() {
     // Poco PRIMA della fine del primo momento e' ancora il primo.
     await tester.pump(RiflessioneDelCielo.momento(piena: true) -
         const Duration(milliseconds: 50));
-    expect(find.byKey(const Key('oroscopo_riflessione_raccolta')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('oroscopo_riflessione_raccolta')), findsOneWidget,
         reason: 'il primo momento deve restare a schermo per la sua durata '
             'intera, o non sarebbe leggibile');
 
@@ -431,7 +430,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
     expect(
         find.byKey(const Key('oroscopo_riflessione_nomina')), findsOneWidget);
-    expect(find.byKey(const Key('oroscopo_riflessione_raccolta')), findsNothing);
+    expect(
+        find.byKey(const Key('oroscopo_riflessione_raccolta')), findsNothing);
 
     // E nomina il fatto VERO, quello che verra' usato: non una frase scritta
     // a mano dentro la schermata.
@@ -507,8 +507,8 @@ void main() {
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
     // Il primo momento c'e', fermo ma c'e'.
-    expect(find.byKey(const Key('oroscopo_riflessione_raccolta')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('oroscopo_riflessione_raccolta')), findsOneWidget,
         reason: 'chi ha tolto le animazioni non ha chiesto di saltare il '
             'rito: il ritorno anticipato di prima e\' il comportamento che '
             'l\'ordine BK vieta');

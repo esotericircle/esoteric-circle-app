@@ -147,8 +147,8 @@ void main() {
         '${finti.programmati.length} chiamate e ne sono state annullate '
         '${finti.annullati.length}');
     expect(ids, hasLength(1));
-    expect(finti.programmati.keys,
-        [AvvisiDelRito.idDelDono(DailyElement.dawn)]);
+    expect(
+        finti.programmati.keys, [AvvisiDelRito.idDelDono(DailyElement.dawn)]);
     // **SPEGNERE DEVE ANNULLARE, non solo smettere di riprogrammare.**
     //
     // Un Dono appena spento ha un avviso gia' in coda dentro il sistema:
@@ -212,8 +212,8 @@ void main() {
                 'altra resterebbe a suonare per sempre');
       }
     }
-    final regia = File('lib/services/regia_delle_chiamate.dart')
-        .readAsStringSync();
+    final regia =
+        File('lib/services/regia_delle_chiamate.dart').readAsStringSync();
     expect(regia.contains('idDelleChiamateDiPrima'), isTrue,
         reason: 'nessuno spegne le chiamate di prima: chi aggiorna l app le '
             'riceverebbe accanto alle nuove');
@@ -288,8 +288,8 @@ void main() {
     // notifica."
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
-    expect(scelta.minutiDi(DailyElement.oracle),
-        DailyElement.oracle.anchorMinutes,
+    expect(
+        scelta.minutiDi(DailyElement.oracle), DailyElement.oracle.anchorMinutes,
         reason: 'di partenza vale l ora concordata');
     expect(scelta.eLOraDiCasa(DailyElement.oracle), isTrue);
 
@@ -342,8 +342,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BC VOCE 05 coda: con 5000 minuti scritti sul disco, l Alba '
         'chiama a ${scelta.minutiDi(DailyElement.dawn)} minuti');
-    expect(scelta.minutiDi(DailyElement.dawn),
-        DailyElement.dawn.anchorMinutes);
+    expect(scelta.minutiDi(DailyElement.dawn), DailyElement.dawn.anchorMinutes);
   });
 
   test('BC.05: le chiavi della scelta si dimenticano con l account', () async {
@@ -363,7 +362,8 @@ void main() {
     // falso il giorno che il dato trasloca.
     expect(DimenticanzaDelTelefono.prefissiDaDimenticare, contains('rituale.'),
         reason: 'il prefisso rituale non e piu fra quelli dimenticati');
-    expect(CioCheETuo.eTua(SceltaDegliAvvisi.chiaveDi(DailyElement.values.first)),
+    expect(
+        CioCheETuo.eTua(SceltaDegliAvvisi.chiaveDi(DailyElement.values.first)),
         isTrue,
         reason: 'la chiave della scelta degli avvisi non risulta della '
             'persona, quindi nessuna delle due vie la cancella');

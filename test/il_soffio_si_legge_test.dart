@@ -23,8 +23,7 @@ void main() {
     // **PRIMA:** il conteggio era un `Text` posato sulla scena, cioe' sui raggi
     // del soffione, senza nessun fondo suo. Un testo chiaro su un disco chiaro.
     final contrasto = AccentoDelMaestro.contrastoFra(
-        SuperficiDelSoffio.inchiostro,
-        SuperficiDelSoffio.velo);
+        SuperficiDelSoffio.inchiostro, SuperficiDelSoffio.velo);
     expect(contrasto, greaterThanOrEqualTo(4.5),
         reason: 'Il contatore dei giri si legge a '
             '${contrasto.toStringAsFixed(2)} di contrasto sulla sua '
@@ -50,8 +49,7 @@ void main() {
       () {
     final accento =
         AccentoDelMaestro.su(Maestro.aura, superficie: SuperficiDelSoffio.velo);
-    expect(
-        AccentoDelMaestro.contrastoFra(accento, SuperficiDelSoffio.velo),
+    expect(AccentoDelMaestro.contrastoFra(accento, SuperficiDelSoffio.velo),
         greaterThanOrEqualTo(4.5),
         reason: 'Il titolo della Risposta non si legge sulla sua superficie.');
     // **QUI LA REGOLA NON CORREGGE NIENTE, ED E' GIUSTO COSI'.** L'ordine

@@ -28,8 +28,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('BC.06: il nome di un traguardo non e la frase della sua festa', () {
     // Il caso che il fondatore ha citato, con le sue parole esatte.
-    final archetipo = Sentieri.di(Sentiero.loto)
-        .firstWhere((t) => t.id == 'aur_3');
+    final archetipo =
+        Sentieri.di(Sentiero.loto).firstWhere((t) => t.id == 'aur_3');
     // ignore: avoid_print
     print('ORDINE BC VOCE 06: per lo stesso traguardo, la festa dice '
         '"${archetipo.frase}" e il nome dice "${archetipo.nome}"');

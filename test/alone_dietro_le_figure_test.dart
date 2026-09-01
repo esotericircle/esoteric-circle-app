@@ -74,8 +74,7 @@ void main() {
       final immagine = await boundary.toImage(pixelRatio: 1);
       final dati =
           await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
-      tela = _Tela(
-          dati!.buffer.asUint8List(), immagine.width, immagine.height);
+      tela = _Tela(dati!.buffer.asUint8List(), immagine.width, immagine.height);
     });
     return tela;
   }
@@ -86,7 +85,8 @@ void main() {
     var quanti = 0;
     for (var y = zona.top.round(); y < zona.bottom.round(); y++) {
       for (var x = zona.left.round(); x < zona.right.round(); x++) {
-        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza) continue;
+        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza)
+          continue;
         final i = (y * tela.larghezza + x) * 4;
         somma += 0.2126 * tela.pixel[i] +
             0.7152 * tela.pixel[i + 1] +
@@ -114,8 +114,8 @@ void main() {
       final cartaAlto = h - cartaH;
 
       // L'altezza del centro dell'alone, dal dato dichiarato dal widget.
-      final yCentro = cartaAlto +
-          cartaH * (1 + AloneDietroLaFigura.centro.y) / 2;
+      final yCentro =
+          cartaAlto + cartaH * (1 + AloneDietroLaFigura.centro.y) / 2;
 
       // Le due colonne a lato della figura: dal bordo interno della cornice
       // verso il centro, per un sesto della larghezza della carta.
@@ -134,15 +134,16 @@ void main() {
       expect(crescita, greaterThanOrEqualTo(25.0),
           reason: 'Attorno alla silhouette la luminanza passa da '
               '${primaDopo[0].toStringAsFixed(1)} a '
-              '${primaDopo[1].toStringAsFixed(1)}, cioe' ' '
+              '${primaDopo[1].toStringAsFixed(1)}, cioe'
+              ' '
               '${crescita.toStringAsFixed(1)} per cento: sotto il venticinque '
               'chiesto, l\'alone non stacca la figura dal fondo.');
 
       // Il fondo lontano: gli angoli bassi, dove la figura non arriva.
       final angoli = [
         Rect.fromLTWH(cartaSinistra + 8, cartaAlto + cartaH - 40, 26, 26),
-        Rect.fromLTWH(cartaSinistra + cartaW - 34, cartaAlto + cartaH - 40,
-            26, 26),
+        Rect.fromLTWH(
+            cartaSinistra + cartaW - 34, cartaAlto + cartaH - 40, 26, 26),
       ];
       for (final a in angoli) {
         final prima = luminanzaDi(senza, a);
@@ -228,8 +229,8 @@ void main() {
       final prima = _luminanzaWcag(
           senza.pixel[i], senza.pixel[i + 1], senza.pixel[i + 2]);
       if (prima > 0.10) continue;
-      final l = _luminanzaWcag(
-          con.pixel[i], con.pixel[i + 1], con.pixel[i + 2]);
+      final l =
+          _luminanzaWcag(con.pixel[i], con.pixel[i + 1], con.pixel[i + 2]);
       if (l > massima) massima = l;
     }
     // Il testo chiaro dell'app, `ColorTokens.textPrimary`.
@@ -237,13 +238,15 @@ void main() {
     final lTesto = _luminanzaWcag(0xF4, 0xF1, 0xE8);
     final contrasto = (lTesto + 0.05) / (massima + 0.05);
     expect(contrasto, greaterThanOrEqualTo(4.5),
-        reason: 'Nel punto piu' ' chiaro che l\'alone raggiunge, un testo '
+        reason: 'Nel punto piu'
+            ' chiaro che l\'alone raggiunge, un testo '
             'chiaro si legge a ${contrasto.toStringAsFixed(2)} di contrasto: '
             'sotto il 4,5, quindi la frase del cielo che passa sopra le carte '
             'laterali sparirebbe. (Il bianco del testo vale $testo.)');
   });
 
-  testWidgets('sopra la carta non c\'e\' testo, quindi non ce n\'e\' da salvare',
+  testWidgets(
+      'sopra la carta non c\'e\' testo, quindi non ce n\'e\' da salvare',
       (tester) async {
     // **IL TERZO CRITERIO DELL'ORDINE NON HA OGGETTO, e va detto invece di
     // dichiararlo passato.** Chiedeva che il contrasto di ogni testo sopra la
@@ -305,7 +308,9 @@ class _Tela {
 double _luminanzaWcag(int r, int g, int b) {
   double canale(int v) {
     final x = v / 255.0;
-    return x <= 0.03928 ? x / 12.92 : math.pow((x + 0.055) / 1.055, 2.4).toDouble();
+    return x <= 0.03928
+        ? x / 12.92
+        : math.pow((x + 0.055) / 1.055, 2.4).toDouble();
   }
 
   return 0.2126 * canale(r) + 0.7152 * canale(g) + 0.0722 * canale(b);

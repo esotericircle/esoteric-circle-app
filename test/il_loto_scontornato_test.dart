@@ -31,9 +31,10 @@ void main() {
     final byte = await File(file).readAsBytes();
     final codice = await ui.instantiateImageCodec(byte);
     final immagine = (await codice.getNextFrame()).image;
-    final dati = (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
-        .buffer
-        .asUint8List();
+    final dati =
+        (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
     return (immagine.width, immagine.height, dati);
   }
 
@@ -71,8 +72,8 @@ void main() {
             final nx = (sx + dx).clamp(0, sw - 1);
             final ny = (sy + dy).clamp(0, sh - 1);
             final i = (ny * sw + nx) * 4;
-            final minimo = [sp[i], sp[i + 1], sp[i + 2]]
-                .reduce((a, b) => a < b ? a : b);
+            final minimo =
+                [sp[i], sp[i + 1], sp[i + 2]].reduce((a, b) => a < b ? a : b);
             if (minimo < sogliaDelBianco) return false;
           }
         }
@@ -87,8 +88,8 @@ void main() {
             final nx = (sx + dx).clamp(0, sw - 1);
             final ny = (sy + dy).clamp(0, sh - 1);
             final i = (ny * sw + nx) * 4;
-            final minimo = [sp[i], sp[i + 1], sp[i + 2]]
-                .reduce((a, b) => a < b ? a : b);
+            final minimo =
+                [sp[i], sp[i + 1], sp[i + 2]].reduce((a, b) => a < b ? a : b);
             if (minimo >= sogliaDelBianco) return false;
           }
         }

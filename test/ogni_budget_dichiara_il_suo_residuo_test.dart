@@ -66,9 +66,8 @@ void main() {
       // Adesso si pretende la riga vera, `RigaDelResiduo`, montata col suo
       // budget: una forma sola, che e' anche cio' che ha permesso di togliere
       // i due contatori privati delle rune e dei tarocchi.
-      final dichiara =
-          testo.contains('RigaDelResiduo(') &&
-              testo.contains('budget: BudgetDelGiorno.${b.name}');
+      final dichiara = testo.contains('RigaDelResiduo(') &&
+          testo.contains('budget: BudgetDelGiorno.${b.name}');
       if (!dichiara) muti.add('${b.name} in $percorso');
     }
     // ignore: avoid_print
@@ -79,8 +78,8 @@ void main() {
   });
 
   test('il borsellino li dichiara tutti, e non ne sceglie quattro', () {
-    final foglio = File('lib/design_system/components/borsellino.dart')
-        .readAsStringSync();
+    final foglio =
+        File('lib/design_system/components/borsellino.dart').readAsStringSync();
     expect(foglio.contains('for (final b in BudgetDelGiorno.values)'), isTrue,
         reason: 'il foglio del borsellino torna a un elenco scritto a mano, e '
             'chi ne aggiunge uno domani se lo dimentica qui');

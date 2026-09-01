@@ -62,14 +62,14 @@ void main() {
   /// raddoppio, non una sfumatura.
   const fattoreAmmesso = 2.0;
 
-
   Future<(int, int, List<int>)> apri(String file) async {
     final byte = await File(file).readAsBytes();
     final codice = await ui.instantiateImageCodec(byte);
     final immagine = (await codice.getNextFrame()).image;
-    final dati = (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
-        .buffer
-        .asUint8List();
+    final dati =
+        (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
     return (immagine.width, immagine.height, dati);
   }
 
@@ -114,7 +114,8 @@ void main() {
               [0, -1]
             ]) {
               final nx = x + d[0], ny = y + d[1];
-              if (nx < 0 || ny < 0 || nx >= larghezza || ny >= altezza) continue;
+              if (nx < 0 || ny < 0 || nx >= larghezza || ny >= altezza)
+                continue;
               final kk = ny * larghezza + nx;
               if (!cambiati[kk] || visto[kk]) continue;
               visto[kk] = true;
@@ -147,7 +148,8 @@ void main() {
       final valori = mediane.values.toList()..sort();
       final rapporto = valori.last / valori.first;
       // ignore: avoid_print
-      print('ORDINE AB VOCE 02: rapporto fra la mediana piu\' grande e la piu\' '
+      print(
+          'ORDINE AB VOCE 02: rapporto fra la mediana piu\' grande e la piu\' '
           'piccola ${rapporto.toStringAsFixed(1)}');
       expect(rapporto, lessThanOrEqualTo(fattoreAmmesso),
           reason: 'un traguardo acceso pesa ${rapporto.toStringAsFixed(1)} '

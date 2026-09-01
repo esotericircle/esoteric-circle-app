@@ -143,7 +143,8 @@ void main() {
         reason: 'l\'eco della domanda compare piu\' di una volta');
   });
 
-  testWidgets('a schermo la glossa della posizione compare una volta per scheda',
+  testWidgets(
+      'a schermo la glossa della posizione compare una volta per scheda',
       (tester) async {
     // **LA SECONDA META' DEL DIFETTO, e anche questa l'ha trovata l'anteprima.** La
     // scheda apriva con la giuntura in corsivo, "Dal fondo del pozzo, cio' che fu:",
@@ -209,7 +210,8 @@ void main() {
       final scheda = find.byKey(Key('rune_card_$i'));
       expect(scheda, findsOneWidget);
       final testi = tester
-          .widgetList<Text>(find.descendant(of: scheda, matching: find.byType(Text)))
+          .widgetList<Text>(
+              find.descendant(of: scheda, matching: find.byType(Text)))
           .map((t) => t.data ?? '')
           .toList();
       final glossa = esito.rune[i].posizione.glossa;

@@ -16,7 +16,8 @@ void main() {
       if (f is! File || !f.path.endsWith('.dart')) continue;
       final nome = f.path.split(Platform.pathSeparator).last;
       if (nome == 'spirale_di_stelle.dart') continue;
-      final quante = RegExp(r'SpiraleDiStelle\(').allMatches(f.readAsStringSync()).length;
+      final quante =
+          RegExp(r'SpiraleDiStelle\(').allMatches(f.readAsStringSync()).length;
       if (quante > 0) {
         punti += quante;
         dove.add('$nome ($quante)');
@@ -39,14 +40,12 @@ void main() {
     // vietati per spiegare perche' non li usa, e una guardia che cerca la
     // parola nel testo intero e' rossa per il proprio commento: e' un
     // inciampo in cui questo repo e' gia' caduto due volte.
-    final spirale =
-        File('lib/features/sigilli/spirale_di_stelle.dart')
-            .readAsLinesSync()
-            .where((r) {
-              final pulita = r.trimLeft();
-              return !pulita.startsWith('//') && !pulita.startsWith('///');
-            })
-            .join(String.fromCharCode(10));
+    final spirale = File('lib/features/sigilli/spirale_di_stelle.dart')
+        .readAsLinesSync()
+        .where((r) {
+      final pulita = r.trimLeft();
+      return !pulita.startsWith('//') && !pulita.startsWith('///');
+    }).join(String.fromCharCode(10));
 
     for (final vietato in const [
       'MaskFilter',
@@ -80,7 +79,8 @@ void main() {
         reason: 'restano $richiami richiami al lettore di WebP in lib');
     // **E LA RIGA IN .gitignore RESTA**: i sorgenti del fondatore stanno sul
     // suo disco e fuori dal repository, come l'ordine chiede.
-    expect(File('.gitignore').readAsStringSync().contains('transition/'), isTrue,
+    expect(
+        File('.gitignore').readAsStringSync().contains('transition/'), isTrue,
         reason: 'la riga transition/ e sparita da .gitignore: i sorgenti del '
             'fondatore tornerebbero dentro il repository');
   });

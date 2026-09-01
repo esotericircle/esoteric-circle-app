@@ -36,8 +36,7 @@ void main() {
       expect(esito, EsitoDelPermesso.concesso);
     });
 
-    test('il PRIMO no e\' negato, il SECONDO e\' negato per sempre',
-        () async {
+    test('il PRIMO no e\' negato, il SECONDO e\' negato per sempre', () async {
       // E' la distinzione che il sistema non sa dare: il dialogo compare una
       // volta sola, quindi un no che torna senza dialogo e' un no definitivo.
       final primo = await PortaDelPermesso.chiedi(
@@ -70,8 +69,8 @@ void main() {
       // LA PROVA CHE CADE SE QUALCUNO LI RIFONDE: e' successo una volta con
       // la posizione, e la correzione dura solo finche' qualcuno la guarda.
       expect(EsitoDelPermesso.values.toSet().length, 4);
-      expect(EsitoDelPermesso.negato == EsitoDelPermesso.negatoPerSempre,
-          isFalse);
+      expect(
+          EsitoDelPermesso.negato == EsitoDelPermesso.negatoPerSempre, isFalse);
     });
   });
 
@@ -109,8 +108,8 @@ void main() {
             colpe.add('${voce.permesso} con $esito: nessun avviso a schermo');
             continue;
           }
-          final righe = find.descendant(
-              of: avviso, matching: find.byType(Text));
+          final righe =
+              find.descendant(of: avviso, matching: find.byType(Text));
           final testo = [
             for (var i = 0; i < righe.evaluate().length; i++)
               tester.widget<Text>(righe.at(i)).data ?? ''
@@ -135,7 +134,8 @@ void main() {
       expect(colpe, isEmpty, reason: colpe.join('\n'));
     });
 
-    testWidgets('negato porta a richiedere, negato per sempre porta alle '
+    testWidgets(
+        'negato porta a richiedere, negato per sempre porta alle '
         'impostazioni', (tester) async {
       var richieste = 0;
       var impostazioni = 0;
@@ -156,8 +156,7 @@ void main() {
 
       await tester.pumpWidget(conContatori(EsitoDelPermesso.negato));
       await tester.pump();
-      await tester.tap(
-          find.byKey(const Key('avviso_permesso_richiedi_prova')));
+      await tester.tap(find.byKey(const Key('avviso_permesso_richiedi_prova')));
       await tester.pump();
       expect(richieste, 1);
       expect(impostazioni, 0,
@@ -166,8 +165,8 @@ void main() {
 
       await tester.pumpWidget(conContatori(EsitoDelPermesso.negatoPerSempre));
       await tester.pump();
-      await tester.tap(
-          find.byKey(const Key('avviso_permesso_impostazioni_prova')));
+      await tester
+          .tap(find.byKey(const Key('avviso_permesso_impostazioni_prova')));
       await tester.pump();
       expect(impostazioni, 1,
           reason: 'Col no per sempre il pulsante DEVE aprire le impostazioni: '

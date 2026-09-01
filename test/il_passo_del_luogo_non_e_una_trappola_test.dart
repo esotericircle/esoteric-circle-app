@@ -135,9 +135,11 @@ void main() {
     // **LA MISURA, NON L'OCCHIO.** Lo spazio in cui la persona puo' vedere
     // qualcosa finisce dove comincia la tastiera, e piu' in su dove comincia
     // il pulsante. Se l'elenco sta sotto uno dei due, per lei non esiste.
-    final schermo = tester.view.physicalSize.height / tester.view.devicePixelRatio;
+    final schermo =
+        tester.view.physicalSize.height / tester.view.devicePixelRatio;
     final cimaTastiera = schermo - 336;
-    final pulsante = tester.getRect(find.byKey(const Key('onboarding_continue')).last);
+    final pulsante =
+        tester.getRect(find.byKey(const Key('onboarding_continue')).last);
     final limite = cimaTastiera < pulsante.top ? cimaTastiera : pulsante.top;
     final r = tester.getRect(elenco.last);
 
@@ -182,7 +184,8 @@ void main() {
             'fondo resta nella trappola di prima');
   });
 
-  testWidgets('col campo pieno e nessuna citta\' scelta, il pulsante NON dice '
+  testWidgets(
+      'col campo pieno e nessuna citta\' scelta, il pulsante NON dice '
       'di saltare', (tester) async {
     await alPassoLuogo(tester);
     // Un nome parziale: l'elenco propone piu' citta' e nessuna e' scelta.
@@ -222,7 +225,8 @@ void main() {
             'scegliere: un candidato solo non e\' una scelta, e\' gia\' la '
             'risposta');
     expect(find.byKey(const Key('risveglio_luogo_scelto')), findsOneWidget,
-        reason: 'scritto per intero il nome di una citta\' che nel catalogo e\' '
+        reason:
+            'scritto per intero il nome di una citta\' che nel catalogo e\' '
             'unica, il luogo non risulta scelto');
   });
 }

@@ -67,7 +67,8 @@ void main() {
             'ed era 2,07 prima di ogni cura');
   });
 
-  testWidgets('la sospensione scatta sotto le rotte opache e NON sotto le '
+  testWidgets(
+      'la sospensione scatta sotto le rotte opache e NON sotto le '
       'trasparenti', (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues(

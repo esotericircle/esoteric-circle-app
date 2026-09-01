@@ -57,8 +57,7 @@ void main() {
         reason: 'la riga del Coming soon nomina gli Eos');
   });
 
-  test('ogni strada porta la sua riga, e la riga degli Eos porta il costo',
-      () {
+  test('ogni strada porta la sua riga, e la riga degli Eos porta il costo', () {
     var lette = 0;
     for (final strada in StradaDelloSblocco.values) {
       final riga = StradeDelloSblocco.rigaDi(strada,

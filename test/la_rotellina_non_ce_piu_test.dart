@@ -13,9 +13,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// la_capsula_su_ogni_schermata.
 void main() {
   test("la chiave passport_settings non esiste piu' nella testata", () {
-    final sorgente =
-        File('lib/features/passport/cosmic_passport_screen.dart')
-            .readAsStringSync();
+    final sorgente = File('lib/features/passport/cosmic_passport_screen.dart')
+        .readAsStringSync();
     expect(sorgente.contains('passport_settings'), isFalse,
         reason: 'la rotellina delle Impostazioni e\' tornata nella testata '
             'del Passaporto: Mauro l\'ha eliminata il 17 agosto');
@@ -23,21 +22,20 @@ void main() {
     // andata per decisione di Mauro e la porta dell'account vive nella barra
     // sottile in alto, che sta su ogni schermata, Passaporto compreso. La
     // via resta INTERA: barra, "Il tuo account", voce Impostazioni.
-    final barra = File('lib/features/shell/barra_dell_identita.dart')
-        .readAsStringSync();
+    final barra =
+        File('lib/features/shell/barra_dell_identita.dart').readAsStringSync();
     expect(barra.contains('PortaDellAccount'), isTrue,
         reason: 'senza la porta dell\'account nella barra il Passaporto '
             'resterebbe senza via alle Impostazioni');
   });
 
   test('la via alle Impostazioni resta intera', () {
-    final porta =
-        File('lib/design_system/components/porta_dell_account.dart')
-            .readAsStringSync();
+    final porta = File('lib/design_system/components/porta_dell_account.dart')
+        .readAsStringSync();
     expect(porta.contains('AccountScreen.route()'), isTrue,
         reason: 'la porta dell\'account non apre piu\' AccountScreen');
-    final account = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final account =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(account.contains("title: 'Impostazioni'"), isTrue,
         reason: 'AccountScreen non elenca piu\' la voce Impostazioni');
     expect(account.contains('SettingsScreen.route()'), isTrue,

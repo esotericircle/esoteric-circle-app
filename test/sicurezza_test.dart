@@ -42,10 +42,8 @@ void main() {
       // Prima: le chiavi personali ci sono, la foto si rilegge dal disco.
       final prima = await SharedPreferences.getInstance();
       await prima.reload();
-      final personaliPrima = prima
-          .getKeys()
-          .where((k) => k.startsWith('profile.'))
-          .toList();
+      final personaliPrima =
+          prima.getKeys().where((k) => k.startsWith('profile.')).toList();
       expect(personaliPrima, isNotEmpty,
           reason: 'il telefono deve essere pieno prima di svuotarlo');
       expect(await store.loadAvatarPhoto(), isNotNull);
@@ -116,8 +114,7 @@ void main() {
 
   group('La release non e\' firmata con la chiave di debug', () {
     test('Il Gradle non usa la firma di debug nel blocco release', () {
-      final gradle =
-          File('android/app/build.gradle.kts').readAsStringSync();
+      final gradle = File('android/app/build.gradle.kts').readAsStringSync();
       final release = gradle.substring(gradle.indexOf('buildTypes'));
       expect(release.contains('getByName("debug")'), isFalse,
           reason: 'la release e\' ancora firmata con la chiave di debug, che '
@@ -130,8 +127,7 @@ void main() {
     });
   });
 
-  group('Il client non scrive su Firestore: il tetto vive dove si scrive',
-      () {
+  group('Il client non scrive su Firestore: il tetto vive dove si scrive', () {
     // LA MISURA E' CAMBIATA DI GRANDEZZA, ordine N voce 2b, e la ragione sta
     // qui perche' non si allenta una prova in silenzio.
     //

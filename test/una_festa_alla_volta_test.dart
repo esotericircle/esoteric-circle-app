@@ -40,16 +40,28 @@ void main() {
     hasTime: true,
     planets: [
       PlanetPosition(
-          id: 'sun', name: 'Sole', glyph: 'S', longitude: 130.0,
+          id: 'sun',
+          name: 'Sole',
+          glyph: 'S',
+          longitude: 130.0,
           sign: Zodiac.leo),
       PlanetPosition(
-          id: 'moon', name: 'Luna', glyph: 'L', longitude: 100.0,
+          id: 'moon',
+          name: 'Luna',
+          glyph: 'L',
+          longitude: 100.0,
           sign: Zodiac.cancer),
       PlanetPosition(
-          id: 'venus', name: 'Venere', glyph: 'V', longitude: 160.0,
+          id: 'venus',
+          name: 'Venere',
+          glyph: 'V',
+          longitude: 160.0,
           sign: Zodiac.virgo),
       PlanetPosition(
-          id: 'mars', name: 'Marte', glyph: 'M', longitude: 200.0,
+          id: 'mars',
+          name: 'Marte',
+          glyph: 'M',
+          longitude: 200.0,
           sign: Zodiac.libra),
     ],
   );
@@ -165,7 +177,8 @@ void main() {
         final assente = g % 11 == 7 || (g % 97 >= 90);
         if (assente) continue;
         giorniAperti++;
-        final cielo = EventiDelCielo.diOggi(adesso: giorno, carta: carta, segno: Zodiac.leo);
+        final cielo = EventiDelCielo.diOggi(
+            adesso: giorno, carta: carta, segno: Zodiac.leo);
         // **COSA FA DAVVERO UNA PERSONA.** Non gira fra ventisei arti in
         // parti uguali: ne ha due che apre quasi ogni giorno, l'Arcano e
         // l'Oroscopo, e poi una terza che cambia. Con la rotazione piatta
@@ -232,13 +245,15 @@ void main() {
       // va in coda e non si perde: resta da prendere. Qui si continua a
       // compiere gesti senza aggiungere niente di nuovo, e si pretende che il
       // debito arrivato in fondo all'anno si esaurisca invece di restare li'.
-      var cielo = EventiDelCielo.diOggi(adesso: giorno, carta: carta, segno: Zodiac.leo);
+      var cielo = EventiDelCielo.diOggi(
+          adesso: giorno, carta: carta, segno: Zodiac.leo);
       var residuo = cammino.quantiSoddisfatti(cielo);
       final debito = residuo;
       var passi = 0;
       while (residuo > 0 && passi < 500) {
         await cammino.evento(gesti[passi % gesti.length], cielo);
-        cielo = EventiDelCielo.diOggi(adesso: giorno, carta: carta, segno: Zodiac.leo);
+        cielo = EventiDelCielo.diOggi(
+            adesso: giorno, carta: carta, segno: Zodiac.leo);
         residuo = cammino.quantiSoddisfatti(cielo);
         passi++;
       }
@@ -475,13 +490,24 @@ class _Cammino {
       ripetizioni[chiave] = (ripetizioni[chiave] ?? 0) + 1;
     }
     if (const {
-      'carta_natale', 'passaporto', 'angelo_custode', 'animale_guida',
-      'archetipo', 'viso', 'numero_della_vita', 'ora_di_nascita',
-      'luogo_di_nascita', 'sigillo_del_cerchio', 'luna_natale', 'nome_proprio',
+      'carta_natale',
+      'passaporto',
+      'angelo_custode',
+      'animale_guida',
+      'archetipo',
+      'viso',
+      'numero_della_vita',
+      'ora_di_nascita',
+      'luogo_di_nascita',
+      'sigillo_del_cerchio',
+      'luna_natale',
+      'nome_proprio',
     }.contains(gesto)) {
       pezzi.add(gesto);
       if (pezzi.containsAll(const {
-        'ora_di_nascita', 'luogo_di_nascita', 'carta_natale',
+        'ora_di_nascita',
+        'luogo_di_nascita',
+        'carta_natale',
       })) {
         pezzi.add('nascita_completa');
       }

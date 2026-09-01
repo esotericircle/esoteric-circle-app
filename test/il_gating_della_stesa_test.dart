@@ -60,8 +60,7 @@ void main() {
 
   // --- IL DATO: il budget, il conto, il consumo, il riscatto ---
 
-  test('la stesa legge la riga delle stese complete, non la carta singola',
-      () {
+  test('la stesa legge la riga delle stese complete, non la carta singola', () {
     // I due numeri che l'ordine confondeva, messi uno accanto all'altro.
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final singola = [
@@ -219,7 +218,8 @@ void main() {
 
   Future<void> pesca(WidgetTester tester, int indice) async {
     final carta = find.byKey(Key('stesa_fan_$indice'));
-    expect(carta, findsOneWidget, reason: 'la carta $indice non e\' nell\'arco');
+    expect(carta, findsOneWidget,
+        reason: 'la carta $indice non e\' nell\'arco');
     final r = tester.getRect(carta);
     await tester.tapAt(Offset(r.left + 6, r.center.dy));
     await tester.pump();
@@ -244,18 +244,21 @@ void main() {
 
   testWidgets('il conto e\' quello del listino, e cambia col piano',
       (tester) async {
-    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
+    await monta(tester,
+        piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
     expect(contoAVideo(tester), 'Ti restano 7 stese su 7, oggi',
         reason: 'il numero non e\' quello che la matrice promette '
             'all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
-    await monta(tester, piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
+    await monta(tester,
+        piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
     expect(contoAVideo(tester), 'Ti restano 20 stese su 20, oggi',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
-    await monta(tester, piano: Tier.free, borsa: QuestionAllowance()..ilServerHaParlato());
+    await monta(tester,
+        piano: Tier.free, borsa: QuestionAllowance()..ilServerHaParlato());
     expect(contoAVideo(tester), 'Ti resta 1 stesa su 1, oggi',
         reason: 'il Viandante non legge piu\' la sua stesa del giorno: '
             'ordine BU voce 04');
@@ -263,7 +266,8 @@ void main() {
 
   testWidgets('il conto si dichiara PRIMA, e sparisce a stesa cominciata',
       (tester) async {
-    await monta(tester, piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
+    await monta(tester,
+        piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
     expect(contoAVideo(tester), isNotEmpty);
     await pesca(tester, 38);
     expect(find.byKey(RigaDelResiduo.chiaveDi(BudgetDelGiorno.stese)),
@@ -271,7 +275,8 @@ void main() {
         reason: 'a stesa cominciata il conto e\' rumore');
   });
 
-  testWidgets('una stesa compiuta consuma una volta sola, e una abbandonata '
+  testWidgets(
+      'una stesa compiuta consuma una volta sola, e una abbandonata '
       'non consuma niente', (tester) async {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
@@ -326,7 +331,8 @@ void main() {
         reason: 'l\'invito nomina le gettate: manderebbe la persona a '
             'cercare il residuo dalla parte sbagliata dell\'app');
   });
-  testWidgets('il Viandante ha la sua stesa del giorno, e poi la strada degli '
+  testWidgets(
+      'il Viandante ha la sua stesa del giorno, e poi la strada degli '
       'Eos', (tester) async {
     // **PRIMA LA STESA DEL GIORNO, POI IL CANCELLO.** Ordine BU voce 04,
     // decisione del fondatore: "il viandante ha una stesa al giorno". Prima di

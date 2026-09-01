@@ -105,8 +105,10 @@ void main() {
         Offset(cx - wLabbra / 2, labbroTop + spessoreLabbra),
         Offset(cx + wLabbra / 2, labbroTop + spessoreLabbra),
       ],
-      guanciaSx: gapZigomi == null ? null : Offset(cx - gapZigomi / 2, y0 + h * 0.5),
-      guanciaDx: gapZigomi == null ? null : Offset(cx + gapZigomi / 2, y0 + h * 0.5),
+      guanciaSx:
+          gapZigomi == null ? null : Offset(cx - gapZigomi / 2, y0 + h * 0.5),
+      guanciaDx:
+          gapZigomi == null ? null : Offset(cx + gapZigomi / 2, y0 + h * 0.5),
     );
   }
 
@@ -185,7 +187,8 @@ void main() {
 
   test('Bocca larga e bocca piccola', () {
     expect(letto(volto(wLabbra: 96), FaceCategory.bocca), FaceTrait.boccaLarga);
-    expect(letto(volto(wLabbra: 58), FaceCategory.bocca), FaceTrait.boccaPiccola);
+    expect(
+        letto(volto(wLabbra: 58), FaceCategory.bocca), FaceTrait.boccaPiccola);
   });
 
   test('Mento ampio e mento a punta', () {

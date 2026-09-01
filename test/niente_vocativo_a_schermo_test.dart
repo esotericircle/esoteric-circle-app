@@ -94,7 +94,8 @@ void main() {
     // separato da una virgola piu' la conginzione. Le porte erano due, di
     // nuovo.
     final sospette = <String>[];
-    final elenco = RegExp(r"[a-z]+(?:ata|ato|uta|uto|ita|ito),\s*o\s+[a-z]+(?:ata|ato|uta|uto|ita|ito)");
+    final elenco = RegExp(
+        r"[a-z]+(?:ata|ato|uta|uto|ita|ito),\s*o\s+[a-z]+(?:ata|ato|uta|uto|ita|ito)");
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
       final righe = f.readAsLinesSync();

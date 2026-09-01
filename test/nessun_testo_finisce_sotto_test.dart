@@ -62,8 +62,7 @@ void main() {
   Future<Uint8List> pixelDi(WidgetTester tester, Finder radice) async {
     late Uint8List byte;
     await tester.runAsync(() async {
-      final boundary =
-          tester.renderObject<RenderRepaintBoundary>(radice);
+      final boundary = tester.renderObject<RenderRepaintBoundary>(radice);
       final img = await boundary.toImage(pixelRatio: 1);
       final dati = await img.toByteData(format: ui.ImageByteFormat.rawRgba);
       byte = dati!.buffer.asUint8List();
@@ -79,8 +78,8 @@ void main() {
   /// vera il suo colore si scosta di piu' di quaranta livelli, cioe' quando
   /// sopra ci e' finito qualcosa di opaco. Sotto quella soglia stanno le
   /// differenze di antialiasing e le velature, che non impediscono di leggere.
-  double quotaCoperta(Uint8List soloTesto, Uint8List scena, int larghezza,
-      Rect area) {
+  double quotaCoperta(
+      Uint8List soloTesto, Uint8List scena, int larghezza, Rect area) {
     var accesi = 0;
     var coperti = 0;
     for (var y = area.top.floor(); y < area.bottom.ceil(); y++) {
@@ -89,9 +88,8 @@ void main() {
         if (i + 3 >= soloTesto.length) continue;
         // Un pixel del testo: chiaro, perche' il testo dell'app e' avorio o oro
         // su fondo scuro.
-        final luce = soloTesto[i] > soloTesto[i + 1]
-            ? soloTesto[i]
-            : soloTesto[i + 1];
+        final luce =
+            soloTesto[i] > soloTesto[i + 1] ? soloTesto[i] : soloTesto[i + 1];
         // **I NUCLEI DEI GLIFI, NON I BORDI. Ordine BF voce 05.e.** A 140 la
         // misura contava anche i pixel di antialiasing, che sul fondo
         // NEUTRO del banco isolato hanno una miscela e sopra una nebulosa
@@ -146,7 +144,8 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(RepaintBoundary(
       key: radice,
-      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
     ));
     await tester.pump();
     await tester.pump(const Duration(seconds: 2));
@@ -175,8 +174,7 @@ void main() {
     // SI RACCOGLIE PRIMA E SI MISURA DOPO. Scorrere i widget mentre si
     // rimonta l'albero disattiva gli elementi sotto i piedi: la prima stesura
     // moriva su un null check al secondo testo.
-    final bersagli =
-        <({
+    final bersagli = <({
       InlineSpan span,
       TextAlign align,
       int? maxLines,
@@ -223,8 +221,8 @@ void main() {
       // dove il testo cade E quanto e' grande. Chi non e' scalato ottiene
       // esattamente il rettangolo di prima.
       final versoLoSchermo = box.getTransformTo(null);
-      final area = MatrixUtils.transformRect(versoLoSchermo,
-          Rect.fromLTWH(0, 0, box.size.width, box.size.height));
+      final area = MatrixUtils.transformRect(
+          versoLoSchermo, Rect.fromLTWH(0, 0, box.size.width, box.size.height));
       final scala = box.size.width == 0 ? 1.0 : area.width / box.size.width;
       // LA FASCIA DELLA BARRA E' ESCLUSA, e non e' una scappatoia: dalla 2158
       // la barra del Cerchio SCIVOLA SOPRA il contenuto per scelta dichiarata,
@@ -260,8 +258,10 @@ void main() {
       final doni = find.byKey(const Key('santuario_daily_strip'));
       if (doni.evaluate().isNotEmpty) {
         final r = tester.getRect(doni);
-        final codaDestra = Rect.fromLTRB(r.right - 48, r.top, r.right, r.bottom);
-        final codaSinistra = Rect.fromLTRB(r.left, r.top, r.left + 24, r.bottom);
+        final codaDestra =
+            Rect.fromLTRB(r.right - 48, r.top, r.right, r.bottom);
+        final codaSinistra =
+            Rect.fromLTRB(r.left, r.top, r.left + 24, r.bottom);
         if (area.overlaps(codaDestra) || area.overlaps(codaSinistra)) continue;
       }
       bersagli.add((
@@ -340,7 +340,8 @@ void main() {
       final solo = await pixelDi(tester, find.byKey(soloKey));
       final quota = quotaCoperta(solo, scena, larghezza, b.area);
       if (quota > 0.35) {
-        colpe.add('$dove: "${b.testo.substring(0, b.testo.length.clamp(0, 44))}" '
+        colpe.add(
+            '$dove: "${b.testo.substring(0, b.testo.length.clamp(0, 44))}" '
             'coperto per il ${(quota * 100).round()} per cento');
       }
     }
@@ -404,5 +405,4 @@ void main() {
     // dove stava fino all'ordine D, la prova e' caduta nominando il Santuario e
     // la frase, coperta per il 62 per cento.
   });
-
 }

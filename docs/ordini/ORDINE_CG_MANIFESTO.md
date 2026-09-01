@@ -34,11 +34,11 @@ Porta le tre regole degli ordini precedenti:
 - **CG.13** I Ricordi entrano nella Demo. **CHIUSA.**
 - **CG.14** I caratteri troppo piccoli, dalla voce CF.10. **CHIUSA.**
 - **CG.15** Le lapidi del benvenuto, dalla voce CF.17. **APERTA.**
-- **CG.16** Le notifiche push, una per ogni Dono. **CHIUSA.**
+- **CG.16** Le notifiche push, una per ogni Dono. **APERTA**, corretta il 1 settembre 2026 dall'ordine CI voce 07: era dichiarata CHIUSA e non lo era.
 
 VOCI_TOTALI: 16
-VOCI_CHIUSE: 15
-VOCI_APERTE: 1
+VOCI_CHIUSE: 14
+VOCI_APERTE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
@@ -357,6 +357,38 @@ CF voce 17 aveva gia' sollevato, e non e' cambiata.
 segreti. **Si chiude da solo**, perche' e' idempotente: quando la lapide col
 sale vuoto non c'e' piu' non trova niente. Non resta nessun interruttore acceso
 che qualcuno debba ricordarsi di spegnere.
+
+### CG.16 ERA DICHIARATA CHIUSA E NON LO ERA, corretto il 1 settembre 2026
+
+**Il fatto, misurato dall'ordine CI voce 07.** `CustodeDellePush` esisteva col
+suo corpo e le sue prove, e **nessuno lo montava**: cercato in tutto `lib`,
+l'unico posto che lo nominava era il file che lo dichiara. Le notifiche push
+non potevano arrivare **nemmeno a funzioni distribuite**, perche' il
+dispositivo non registrava mai il proprio recapito. Il lato server era pronto
+e il lato telefono non c'era.
+
+**Perche' nessuna prova lo ha visto, ed e' la parte che vale.** Tutte le prove
+del custode lo COSTRUIVANO A MANO, quindi funzionava benissimo, provato, e non
+serviva a nessuno. **Una classe con le sue prove verdi che non e' agganciata a
+niente e' il caso peggiore, perche' sembra fatta.** E' la stessa famiglia
+della guardia col bersaglio finto: la prova era verde e la cosa non c'era.
+
+**Come si e' scritto CHIUSA su questo.** Il manifesto di CG registrava la voce
+per quello che era stato COSTRUITO, non per quello che ARRIVAVA a una persona:
+il cancello del mese di prova c'era, i testi c'erano, il lavoro a orario del
+server c'era. Nessuno ha chiesto se il telefono mandasse il suo recapito.
+
+**Una riga che dichiara il falso in un manifesto e' peggio del difetto che
+nasconde**, perche' impedisce a chiunque di trovarlo: chi legge questo file
+non va a guardare una voce chiusa. Da qui la correzione, e la voce resta
+APERTA finche' le funzioni non sono distribuite e la push non arriva a un
+telefono vero.
+
+**Cosa e' stato fatto dall'ordine CI**: il custode e' montato sopra il
+Navigator, il recapito si registra, si rinnova quando il sistema lo cambia e
+si toglie quando il diritto finisce. **Cosa NON si e' potuto provare**: che una
+push arrivi davvero, perche' le funzioni del server non sono distribuite e la
+distribuzione la ordina il fondatore dal suo PC.
 
 ### CG.16, la prova parte dalla PRIMA REGISTRAZIONE
 

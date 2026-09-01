@@ -65,9 +65,8 @@ void main() {
   }
 
   int numeroAVideo(WidgetTester tester) {
-    final testo = tester
-        .widget<Text>(find.byKey(const Key('saldo_eos_numero')))
-        .data!;
+    final testo =
+        tester.widget<Text>(find.byKey(const Key('saldo_eos_numero'))).data!;
     return int.parse(testo.split(' ').first);
   }
 
@@ -78,7 +77,8 @@ void main() {
     // racconterebbe un premio che non e' appena arrivato: il conto e' il racconto
     // di un cambiamento.
     expect(numeroAVideo(tester), 30,
-        reason: 'aprendo la schermata il numero conta da capo, come se i trenta '
+        reason:
+            'aprendo la schermata il numero conta da capo, come se i trenta '
             'Eos fossero appena arrivati');
 
     // ADESSO ARRIVANO DIECI EOS: il saldo del server sale, e il volo lo annuncia.
@@ -90,7 +90,8 @@ void main() {
     await tester.pump(VoloDegliEos.durata * 0.4);
     final aMeta = numeroAVideo(tester);
     expect(aMeta, greaterThan(30),
-        reason: 'a meta\' della corsa il numero e\' ancora quello di prima: non '
+        reason:
+            'a meta\' della corsa il numero e\' ancora quello di prima: non '
             'sta contando');
     expect(aMeta, lessThan(40),
         reason: 'il numero e\' scattato subito a 40: e\' cambiato senza che si '
@@ -119,7 +120,8 @@ void main() {
     final partenza = tester.getCenter(find.byKey(const Key('eos_in_volo_0')));
     expect((partenza - Offset(schermo.width / 2, schermo.height / 2)).distance,
         lessThan(60),
-        reason: 'le scintille non partono dal centro della scena, cioe\' da dove '
+        reason:
+            'le scintille non partono dal centro della scena, cioe\' da dove '
             'la celebrazione mostra il premio');
 
     // QUASI ALLA FINE devono essere arrivate: si misura la distanza dal centro
@@ -127,7 +129,11 @@ void main() {
     await tester.pump(VoloDegliEos.durata * 0.95);
     final arrivo = tester.getCenter(find.byKey(const Key('eos_in_volo_0')));
     final distanza = (arrivo - scatola!.center).distance;
-    expect(distanza, lessThan(scatola.longestSide,),
+    expect(
+        distanza,
+        lessThan(
+          scatola.longestSide,
+        ),
         reason: 'la prima scintilla finisce a ${distanza.toStringAsFixed(1)} '
             'punti dal borsellino, che e\' largo ${scatola.width.toStringAsFixed(1)}: '
             'gli Eos volano da qualche altra parte');
@@ -215,7 +221,8 @@ void main() {
       await RegiaDelCammino.dopoUnGesto(contesto, 'stesa');
       for (var passo = 0; passo < 4 && !comparsa; passo++) {
         await tester.pump(const Duration(milliseconds: 200));
-        comparsa = find.byKey(const Key('eos_che_volano')).evaluate().isNotEmpty;
+        comparsa =
+            find.byKey(const Key('eos_che_volano')).evaluate().isNotEmpty;
       }
     }
     expect(comparsa, isTrue,
@@ -251,13 +258,15 @@ void main() {
     expect(find.byKey(const Key('eos_che_volano')), findsNothing,
         reason: 'la festa non se ne e\' andata da se\'');
     expect(find.byKey(const Key('eos_in_volo_0')), findsOneWidget,
-        reason: 'la festa si e\' chiusa e non e\' volato niente: il gancio della '
+        reason:
+            'la festa si e\' chiusa e non e\' volato niente: il gancio della '
             'chiusura non lancia il volo');
 
     // E IL NUMERO ARRIVA AL SALDO DEL SERVER, contando.
     await tester.pump(VoloDegliEos.durata * 2);
     expect(numeroAVideo(tester), porta.saldo,
-        reason: 'dopo la festa il numero in barra non e\' arrivato al saldo del '
+        reason:
+            'dopo la festa il numero in barra non e\' arrivato al saldo del '
             'server: l\'annuncio della chiusura non ha fatto contare niente');
   });
 }
@@ -274,7 +283,8 @@ class _PortaCheAccredita extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

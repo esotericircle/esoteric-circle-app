@@ -10,22 +10,22 @@ void main() {
     AppStrings.languageCode = 'it';
     expect(AppStrings.navSantuario, 'Il Cerchio');
     expect(AppStrings.navPassport, 'Passport');
-    expect(
-        AppStrings.functionTitle('synastry_vip', fallback: 'X'), 'Sinastria VIP');
+    expect(AppStrings.functionTitle('synastry_vip', fallback: 'X'),
+        'Sinastria VIP');
   });
 
   test('L\'inglese si attiva cambiando la lingua, senza toccare il codice', () {
     AppStrings.languageCode = 'en';
     expect(AppStrings.navSantuario, 'The Circle');
-    expect(
-        AppStrings.functionTitle('synastry_vip', fallback: 'X'), 'VIP Synastry');
+    expect(AppStrings.functionTitle('synastry_vip', fallback: 'X'),
+        'VIP Synastry');
     // Passport resta invariato come termine di brand.
     expect(AppStrings.navPassport, 'Passport');
   });
 
   test('Una chiave senza traduzione ripiega sul fallback fornito', () {
     AppStrings.languageCode = 'it';
-    expect(AppStrings.functionTitle('non_esiste', fallback: 'Ripiego'),
-        'Ripiego');
+    expect(
+        AppStrings.functionTitle('non_esiste', fallback: 'Ripiego'), 'Ripiego');
   });
 }

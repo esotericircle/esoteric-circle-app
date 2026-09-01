@@ -130,8 +130,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
         ChangeNotifierProvider(
-            create: (_) => BirthIdentityController()
-              ..setBirth(nascita, null)),
+            create: (_) => BirthIdentityController()..setBirth(nascita, null)),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
       ],
       child: MaterialApp(
@@ -163,12 +162,12 @@ void main() {
       // sporcava l'albero di lavoro, cosa che il corredo non fa da sempre. Le
       // catture restano fuori dal corredo per il rapporto di pixel, ma questa
       // regola non c'entra col rapporto: e' buon vicinato.
-      final dir = Directory(
-          Platform.environment['AGGIORNA_ANTEPRIME'] == '1'
-              ? 'docs/preview/ordine_e'
-              : 'build/preview/ordine_e');
+      final dir = Directory(Platform.environment['AGGIORNA_ANTEPRIME'] == '1'
+          ? 'docs/preview/ordine_e'
+          : 'build/preview/ordine_e');
       if (!dir.existsSync()) dir.createSync(recursive: true);
-      File('${dir.path}/$nome.png').writeAsBytesSync(dati!.buffer.asUint8List());
+      File('${dir.path}/$nome.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });
   }
@@ -220,7 +219,6 @@ void main() {
       await scatta(tester, radice, 'meta_scrittura');
     });
   });
-
 
   // LE DUE ANTEPRIME DELL'ORDINE F, nella stessa impalcatura: la chat e' la
   // stessa, e una seconda copia dell'impalcatura sarebbe una seconda porta.

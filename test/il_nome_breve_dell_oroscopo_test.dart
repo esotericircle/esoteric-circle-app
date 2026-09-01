@@ -96,8 +96,8 @@ void main() {
     // non cade quando il difetto torna non e' una guardia.
     final titoloDelCatalogo =
         ArtCatalog.all.firstWhere((a) => a.id == 'horoscope').title;
-    final titoloInHome =
-        ArtiPreferiteController.etichettaBreve('horoscope') ?? titoloDelCatalogo;
+    final titoloInHome = ArtiPreferiteController.etichettaBreve('horoscope') ??
+        titoloDelCatalogo;
 
     final lungo = await misuraLaBolla(tester, titoloDelCatalogo);
     final fattoreLungo = fattoreDi(lungo);

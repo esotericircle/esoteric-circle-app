@@ -54,7 +54,8 @@ void main() {
       for (var da = 0; da < 12; da++) {
         for (var a = 0; a < 12; a++) {
           final p = OrologioDinamico.giroOre(da, 0);
-          final q = OrologioDinamico.piuVicino(OrologioDinamico.giroOre(a, 0), p);
+          final q =
+              OrologioDinamico.piuVicino(OrologioDinamico.giroOre(a, 0), p);
           expect((q - p).abs(), lessThanOrEqualTo(0.5 + 1e-9),
               reason: 'da $da a $a la lancetta fa il giro lungo');
         }
@@ -93,8 +94,8 @@ void main() {
     // Dopo sessanta millesimi la lancetta si e' mossa, ma non e' arrivata:
     // se arrivasse subito sarebbe uno scatto, che e' il difetto.
     expect(subito, isNot(partenza), reason: 'la lancetta non si e\' mossa');
-    final arrivo = OrologioDinamico.piuVicino(
-        OrologioDinamico.giroOre(9, 0), partenza);
+    final arrivo =
+        OrologioDinamico.piuVicino(OrologioDinamico.giroOre(9, 0), partenza);
     expect((subito - arrivo).abs(), greaterThan(0.02),
         reason: 'la lancetta e\' arrivata di colpo, senza percorso');
 

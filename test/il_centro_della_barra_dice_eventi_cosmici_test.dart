@@ -73,8 +73,8 @@ void main() {
     expect(centro, findsOneWidget,
         reason: 'il centro della barra non porta la porta degli Eventi '
             'Cosmici');
-    final scritta = tester.widget<Text>(
-        find.descendant(of: centro, matching: find.byType(Text)));
+    final scritta = tester
+        .widget<Text>(find.descendant(of: centro, matching: find.byType(Text)));
     // ignore: avoid_print
     print('ORDINE AO VOCE 01: a barra chiusa si legge "${scritta.data}"');
     expect(scritta.data, 'Eventi Cosmici',
@@ -113,7 +113,8 @@ void main() {
             'cara che esista in questo progetto');
   });
 
-  test('il conto alla rovescia e\' uscito dalla barra, e il motore e\' '
+  test(
+      'il conto alla rovescia e\' uscito dalla barra, e il motore e\' '
       'rimasto', () {
     // **L'ENUMERAZIONE, e guarda due cose opposte.** La prima: nel sorgente
     // della barra non deve piu' comparire il modo di scrivere il conto alla
@@ -127,12 +128,11 @@ void main() {
     // cancellare proprio la spiegazione che serve a non buttarlo. Le righe
     // di commento si tolgono prima di cercare, come fa gia' la guardia della
     // catena dei dati di nascita.
-    final barra =
-        File('lib/features/shell/barra_dell_identita.dart')
-            .readAsStringSync()
-            .split('\n')
-            .where((r) => !r.trimLeft().startsWith('//'))
-            .join('\n');
+    final barra = File('lib/features/shell/barra_dell_identita.dart')
+        .readAsStringSync()
+        .split('\n')
+        .where((r) => !r.trimLeft().startsWith('//'))
+        .join('\n');
     for (final segno in const [
       'ProssimiEventi',
       'rigaDellaBarra',

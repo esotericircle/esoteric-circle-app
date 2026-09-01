@@ -55,8 +55,8 @@ void main() {
     // **SI CERCA ANCHE FUORI SCENA, e questa riga e' una scoperta.** Una
     // rotta coperta da una rotta opaca finisce OFFSTAGE, e senza questo il
     // finder non trovava piu' niente proprio nel caso da misurare.
-    final stato = tester.state(
-        find.byType(CosmosBackground, skipOffstage: false));
+    final stato =
+        tester.state(find.byType(CosmosBackground, skipOffstage: false));
     // ignore: invalid_use_of_protected_member
     final ticker = (stato as dynamic).girDavvero as bool;
     return ticker;
@@ -158,7 +158,8 @@ void main() {
             'fermo: e\' l\'interruttore che ha perso il conto');
   });
 
-  testWidgets('LA SENTINELLA: se il cielo e\' fermo mentre dovrebbe girare, '
+  testWidgets(
+      'LA SENTINELLA: se il cielo e\' fermo mentre dovrebbe girare, '
       'riparte e lo registra', (tester) async {
     await tester.pumpWidget(attorno(
       const Scaffold(body: CosmosBackground(child: SizedBox.expand())),
@@ -168,8 +169,8 @@ void main() {
 
     // Si ferma il giro alle spalle dello stato, come farebbe un evento
     // perduto: lo stato dice che deve girare, il ticker e' fermo.
-    final stato = tester.state(
-        find.byType(CosmosBackground, skipOffstage: false));
+    final stato =
+        tester.state(find.byType(CosmosBackground, skipOffstage: false));
     // ignore: avoid_dynamic_calls
     (stato as dynamic).fermaIlGiroPerProva();
     // **SI ASPETTA IL BATTITO DELLA SENTINELLA**, che e' lento apposta: due
@@ -184,8 +185,8 @@ void main() {
         '${CosmosBackground.ripartenzeDellaSentinella}');
     expect(giraDavvero(tester), isTrue,
         reason: 'la sentinella non ha rimesso in moto il cielo');
-    expect(CosmosBackground.ripartenzeDellaSentinella,
-        greaterThan(primaDelGuasto),
+    expect(
+        CosmosBackground.ripartenzeDellaSentinella, greaterThan(primaDelGuasto),
         reason: 'la sentinella e\' intervenuta senza registrarlo: un guasto '
             'che non lascia traccia e\' un guasto che nessuno spieghera\'');
   });

@@ -107,8 +107,8 @@ class _FlussoFinto implements PortaDelFlussoGoogle {
   @override
   Future<void> dimentica() async {}
 
-  _FlussoFinto(
-      {required this.daConsegnare, this.dopoIlFlusso}) : nomeProposto = null;
+  _FlussoFinto({required this.daConsegnare, this.dopoIlFlusso})
+      : nomeProposto = null;
 
   final AuthCredential? daConsegnare;
 

@@ -103,9 +103,8 @@ void main() {
   });
 
   test("la colonna nuda non esiste piu', la bolla sta nel sorgente", () {
-    final sorgente =
-        File('lib/features/passport/cosmic_passport_screen.dart')
-            .readAsStringSync();
+    final sorgente = File('lib/features/passport/cosmic_passport_screen.dart')
+        .readAsStringSync();
     expect(sorgente.contains('bolla_dei_traguardi'), isTrue);
     expect(sorgente.contains("'I tuoi traguardi'"), isTrue,
         reason: 'il titolo di Mauro non sta nel sorgente della bolla');

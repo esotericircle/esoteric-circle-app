@@ -29,8 +29,8 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (_) =>
-                  MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+              create: (_) => MaestroController(
+                  initial: const ThemeKey.of(Maestro.caligo))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -104,8 +104,8 @@ void main() {
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     // Cancro da' il Lupo.
-    expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
-        'LUPO');
+    expect(
+        tester.widget<Text>(find.byKey(const Key('animal_name'))).data, 'LUPO');
     // Il Messaggio del Giorno, il blocco di trasparenza e i comandi.
     expect(find.byKey(const Key('animal_daily_message')), findsOneWidget);
     expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
@@ -145,8 +145,8 @@ void main() {
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     // L'animale non cambia col Test: Cancro resta Lupo.
-    expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
-        'LUPO');
+    expect(
+        tester.widget<Text>(find.byKey(const Key('animal_name'))).data, 'LUPO');
   });
 
   testWidgets('La trasparenza dichiara il transito e i dati natali',
@@ -223,8 +223,8 @@ void main() {
     expect(find.byKey(const Key('animal_natura')), findsOneWidget);
     // Col Test salvato, l'intreccio con l'archetipo compare.
     expect(find.byKey(const Key('animal_archetipo')), findsOneWidget);
-    expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
-        'LUPO');
+    expect(
+        tester.widget<Text>(find.byKey(const Key('animal_name'))).data, 'LUPO');
     // L'identita' non porta il Messaggio del Giorno ne la sua trasparenza.
     expect(find.byKey(const Key('animal_daily_message')), findsNothing);
     expect(find.byKey(const Key('animal_transparency')), findsNothing);

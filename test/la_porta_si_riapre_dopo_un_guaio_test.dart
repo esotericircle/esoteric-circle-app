@@ -67,8 +67,8 @@ void main() {
   /// chiave: un pulsante spento ha `onPressed` nullo, e quello e' l'unico
   /// segno che la persona sente sotto il dito.
   bool pulsanteVivo(WidgetTester tester) {
-    final pulsante = tester.widget<ButtonStyleButton>(
-        find.byKey(const Key('custodia_google')));
+    final pulsante = tester
+        .widget<ButtonStyleButton>(find.byKey(const Key('custodia_google')));
     return pulsante.onPressed != null;
   }
 
@@ -105,6 +105,10 @@ void main() {
 /// Una porta che LANCIA invece di rispondere con un esito: e' il caso che il
 /// `try` non copriva, cioe' un guaio che nasce sopra le porte dell'identita'.
 class _PortaCheEsplode implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   String? get uid => 'anonimo';
 

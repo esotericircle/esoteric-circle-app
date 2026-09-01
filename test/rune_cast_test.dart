@@ -41,8 +41,8 @@ void main() {
       // testi di prima sono le prime cinque generiche, parola per parola, e la
       // prova che nessuno le perda vive in
       // `test/la_domanda_scelta_arriva_al_responso_test.dart`.
-      final generiche = DomandeDelCerchio.perLaGettata(
-          FamigliaDellaDomanda.generiche);
+      final generiche =
+          DomandeDelCerchio.perLaGettata(FamigliaDellaDomanda.generiche);
       expect(generiche.length, greaterThanOrEqualTo(5));
       for (final q in generiche) {
         expect(q.testo.trim(), isNotEmpty);
@@ -51,7 +51,8 @@ void main() {
   });
 
   group('L\'estrazione', () {
-    test('Ogni gettata fissa estrae il numero giusto di rune tutte diverse', () {
+    test('Ogni gettata fissa estrae il numero giusto di rune tutte diverse',
+        () {
       for (final g in gettate.where((g) => !g.libera)) {
         for (var seme = 0; seme < 120; seme++) {
           final esito = RuneCast.getta(g, random: Random(seme));
@@ -91,7 +92,8 @@ void main() {
     test('L\'aett si ricava dal posto nell\'Elder Futhark', () {
       expect(RuneCast.aett(kElderFuthark.firstWhere((r) => r.name == 'Fehu')),
           'Freyr');
-      expect(RuneCast.aett(kElderFuthark.firstWhere((r) => r.name == 'Hagalaz')),
+      expect(
+          RuneCast.aett(kElderFuthark.firstWhere((r) => r.name == 'Hagalaz')),
           'Hagal');
       expect(RuneCast.aett(kElderFuthark.firstWhere((r) => r.name == 'Tiwaz')),
           'Tyr');
@@ -99,7 +101,6 @@ void main() {
   });
 
   group('Il getto sul telo', () {
-
     test('Sparge sette rune e le legge TUTTE, ordinate dal centro', () {
       // DALL'ORDINE H sul telo non esistono pietre nude ne' letture a tre:
       // ogni pietra gettata mostra il suo simbolo e ha la sua scheda. La
@@ -126,8 +127,8 @@ void main() {
         }
         // Dalla quarta in poi la posizione dichiarata e' l'ultima, i margini.
         for (var i = 3; i < esito.rune.length; i++) {
-          expect(esito.rune[i].posizione.titolo,
-              gettataTelo.posizioni.last.titolo,
+          expect(
+              esito.rune[i].posizione.titolo, gettataTelo.posizioni.last.titolo,
               reason: 'seme $seme');
         }
       }
@@ -175,8 +176,8 @@ void main() {
     test('Il gancio di rifinitura avvolge il presagio base', () {
       final esito = RuneCast.getta(gettataOdino, random: Random(1));
       final base = RunePresagio.componi(esito);
-      final rifinito = RunePresagio.componi(esito,
-          rifinitura: (b) => 'Caligo aggiunge. $b');
+      final rifinito =
+          RunePresagio.componi(esito, rifinitura: (b) => 'Caligo aggiunge. $b');
       expect(rifinito, 'Caligo aggiunge. $base');
     });
   });

@@ -22,8 +22,10 @@ void main() {
         expect(Sentieri.quantiInTutto(sentiero), 55,
             reason: 'il conto di ${sentiero.name} non e\' 55: cinquanta mini '
                 'piu\' cinque grandi');
-        expect(Sentieri.quantiInTutto(sentiero),
-            Sentieri.miniDi(sentiero).length + Sentieri.grandiDi(sentiero).length,
+        expect(
+            Sentieri.quantiInTutto(sentiero),
+            Sentieri.miniDi(sentiero).length +
+                Sentieri.grandiDi(sentiero).length,
             reason: 'il totale non e\' la somma dei suoi pezzi');
       }
     });
@@ -103,8 +105,14 @@ void main() {
       // insulterebbe.** Si vietano le parole del tutorial: se una di loro
       // compare, quella riga ha smesso di essere la voce del Maestro.
       const parolePeriTutorial = [
-        'tocca', 'scorri', 'premi', 'quando accendi', 'ogni volta che',
-        'si illumina', 'si accende una', 'vedrai',
+        'tocca',
+        'scorri',
+        'premi',
+        'quando accendi',
+        'ogni volta che',
+        'si illumina',
+        'si accende una',
+        'vedrai',
       ];
       for (final sentiero in Sentiero.values) {
         final riga = LeTreRigheDelSentiero.cosaVedi(sentiero).toLowerCase();
@@ -129,14 +137,20 @@ void main() {
       // fosse. Cio' che e' unico sono i frutti maturati e le perle accese: la
       // struttura e' di tutti, il cammino sopra e' suo.
       const rivendicazioni = [
-        'nessun altro', 'nessun\'altra', 'solo tuo', 'solo tua', 'unico',
-        'unica', 'esiste solo',
+        'nessun altro',
+        'nessun\'altra',
+        'solo tuo',
+        'solo tua',
+        'unico',
+        'unica',
+        'esiste solo',
       ];
       for (final sentiero in const [Sentiero.albero, Sentiero.loto]) {
         final riga = LeTreRigheDelSentiero.cosaVedi(sentiero).toLowerCase();
         for (final r in rivendicazioni) {
           expect(riga.contains(r), isFalse,
-              reason: 'la riga di ${sentiero.name} dichiara unica una struttura '
+              reason:
+                  'la riga di ${sentiero.name} dichiara unica una struttura '
                   'tradizionale con "$r": l\'Albero della Vita e il loto '
                   'sono di tutti, e cio\' che e\' suo e\' il cammino sopra. '
                   '«$riga»');
@@ -169,7 +183,8 @@ void main() {
         expect(righe, hasLength(3));
         for (final r in righe) {
           expect(r.length, lessThan(95),
-              reason: 'questa riga e\' lunga ${r.length} caratteri: non e\' piu\' '
+              reason:
+                  'questa riga e\' lunga ${r.length} caratteri: non e\' piu\' '
                   'una riga breve, e la voce diventa un pannello di aiuto. «$r»');
         }
       }
@@ -188,7 +203,8 @@ void main() {
       expect(LeTreRigheDelSentiero.inParole(55), 'cinquantacinque');
       // Ogni numero del cammino ha la sua parola, e nessuna e' una cifra.
       for (var n = 0; n <= 55; n++) {
-        expect(RegExp(r'\d').hasMatch(LeTreRigheDelSentiero.inParole(n)), isFalse,
+        expect(
+            RegExp(r'\d').hasMatch(LeTreRigheDelSentiero.inParole(n)), isFalse,
             reason: 'il numero $n non ha una parola');
       }
     });

@@ -120,8 +120,7 @@ void main() {
           of: find.byType(CartiglioNumero), matching: find.text('12'));
       expect(numero, findsOneWidget);
       final rettCarta = tester.getRect(find.byType(TarotCardArt));
-      expect(tester.getRect(numero).center.dy,
-          lessThan(rettCarta.center.dy));
+      expect(tester.getRect(numero).center.dy, lessThan(rettCarta.center.dy));
       // La parola CAVALIERE resta solo nel cartiglio del nome, in basso.
       expect(find.text('CAVALIERE'), findsOneWidget);
       expect(tester.getRect(find.text('CAVALIERE')).center.dy,
@@ -130,7 +129,8 @@ void main() {
   });
 
   group('Cartigli dentro il blu, mai sull\'oro', () {
-    test('Il rettangolo di layout e la placca disegnata hanno una sola '
+    test(
+        'Il rettangolo di layout e la placca disegnata hanno una sola '
         'sorgente', () {
       // Il rettangolo in cui il testo viene disposto e dimensionato non e' un
       // riquadro a parte: e' la placca blu misurata sull'artwork meno il
@@ -199,16 +199,16 @@ void main() {
         expect(interlinea / inchiostro, greaterThan(0.10),
             reason: 'le due righe di ${card.name} si toccano');
         // E il testo intero, interlinee comprese, sta nell'area.
-        expect(altezzaOccupata(righe, fit.fontSize),
-            lessThanOrEqualTo(maxH + 0.5),
+        expect(
+            altezzaOccupata(righe, fit.fontSize), lessThanOrEqualTo(maxH + 0.5),
             reason: 'il nome di ${card.name} esce in altezza');
         // Riempie su almeno uno dei due assi. Di solito su due righe comanda
         // l'altezza, perche' ogni pezzo e' corto, ma qualche nome molto lungo
         // resta largo anche spezzato e allora comanda la larghezza.
         final pienoInAltezza =
             altezzaOccupata(righe, fit.fontSize) > maxH - 0.5;
-        final pienoInLarghezza = righe.any(
-            (r) => larghezza(r, base, fit) > maxW - 0.5);
+        final pienoInLarghezza =
+            righe.any((r) => larghezza(r, base, fit) > maxW - 0.5);
         expect(pienoInAltezza || pienoInLarghezza, isTrue,
             reason: 'il nome di ${card.name} lascia vuoto su tutti e due gli '
                 'assi');
@@ -221,7 +221,8 @@ void main() {
       for (final card in TarotDeck.cards) {
         final prove = <List<Object>>[
           [splitNomeCartiglio(card.name), TarotFrame.cartiglioNome],
-          if (!card.isCorte) [
+          if (!card.isCorte)
+            [
               <String>[card.numeral],
               TarotFrame.cartiglioNumero
             ],
@@ -418,7 +419,6 @@ void main() {
       expect((centroInchiostro - area.center.dy).abs(), lessThan(1.0),
           reason: 'il numerale non e centrato in verticale');
     });
-
   });
 
   group('Inchiostro davvero dipinto', () {
@@ -530,7 +530,8 @@ void main() {
       );
     }
 
-    testWidgets('Il numerale ha lo stesso spazio sopra e sotto', (tester) async {
+    testWidgets('Il numerale ha lo stesso spazio sopra e sotto',
+        (tester) async {
       // Campione ampio: tutti i Maggiori, coi romani piu' diversi fra loro, e
       // una manciata di Minori numerati.
       final campione = [

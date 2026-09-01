@@ -56,8 +56,7 @@ void main() {
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))
-        .where((f) => !debitoStorico
-            .contains(f.path.replaceAll(r'\', '/')))) {
+        .where((f) => !debitoStorico.contains(f.path.replaceAll(r'\', '/')))) {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         for (final m in chiamata.allMatches(righe[i])) {
@@ -75,7 +74,8 @@ void main() {
     expect(
       colpevoli,
       isEmpty,
-      reason: 'Misure tipografiche sotto il minimo del token: verrebbero alzate '
+      reason:
+          'Misure tipografiche sotto il minimo del token: verrebbero alzate '
           'in silenzio dal clamp, quindi la gerarchia dichiarata non esiste a '
           'video. Alza la misura richiesta a un valore reale, e se il layout non '
           'la regge sistema il layout: i minimi esistono per leggibilita\'.\n'

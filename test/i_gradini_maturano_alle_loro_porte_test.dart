@@ -36,8 +36,7 @@ void main() {
 
   Future<DiarioDelCammino> diarioVergine() async {
     SharedPreferences.setMockInitialValues(const {'onboarding.done': true});
-    final diario =
-        DiarioDelCammino(orologio: () => DateTime(2026, 8, 23, 12));
+    final diario = DiarioDelCammino(orologio: () => DateTime(2026, 8, 23, 12));
     await diario.carica();
     return diario;
   }
@@ -120,9 +119,8 @@ void main() {
     // **LE PORTE VIVONO NELLE SCHERMATE**, e questa prova le tiene li':
     // se domani qualcuno riportasse carta, ora e luogo all'apertura del
     // documento, il blocco tornerebbe senza che nessun conto se ne accorga.
-    final passaporto =
-        File('lib/features/passport/cosmic_passport_screen.dart')
-            .readAsStringSync();
+    final passaporto = File('lib/features/passport/cosmic_passport_screen.dart')
+        .readAsStringSync();
     final apertura = passaporto.substring(
         0, passaporto.indexOf('Widget build(BuildContext context)'));
     for (final vietato in const [
@@ -138,8 +136,8 @@ void main() {
         reason: 'il portale del cielo non segna piu\' la Luna natale');
     expect(passaporto.contains("'sigillo_del_cerchio'"), isTrue,
         reason: 'la schermata del Sigillo non segna piu\' il suo gesto');
-    final saluto = File('lib/features/santuario/greeting_banner.dart')
-        .readAsStringSync();
+    final saluto =
+        File('lib/features/santuario/greeting_banner.dart').readAsStringSync();
     expect(saluto.contains("'nome_proprio'"), isTrue,
         reason: 'il saluto non segna piu\' il nome custodito');
     final risveglio = File('lib/features/onboarding/risveglio_journey.dart')

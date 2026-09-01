@@ -23,7 +23,8 @@ void main() {
     final tela = Canvas(registratore);
     // Il fondo scuro della celebrazione: serve per distinguere i pixel delle
     // stelle da quelli che stella non sono.
-    tela.drawRect(Offset.zero & misura, Paint()..color = const Color(0xFF000000));
+    tela.drawRect(
+        Offset.zero & misura, Paint()..color = const Color(0xFF000000));
     // Si costruisce il pittore con gli stessi semi che userebbe la scena.
     costruisciPittore(millesimi).paint(tela, misura);
     return registratore
@@ -32,8 +33,8 @@ void main() {
   }
 
   test('M1 al culmine le stelle vive sono almeno 400', () async {
-    final pittore = costruisciPittore(
-        SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
+    final pittore =
+        costruisciPittore(SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
     final registratore = ui.PictureRecorder();
     pittore.paint(Canvas(registratore), misura);
     registratore.endRecording().dispose();
@@ -41,16 +42,16 @@ void main() {
     print('ORDINE AV VOCE 01, M1: al culmine le stelle vive sono '
         '${PittoreDellaSpirale.viveAllUltimoFotogramma} su '
         '${SpiraleDiStelle.quante} seminate');
-    expect(PittoreDellaSpirale.viveAllUltimoFotogramma,
-        greaterThanOrEqualTo(400),
+    expect(
+        PittoreDellaSpirale.viveAllUltimoFotogramma, greaterThanOrEqualTo(400),
         reason: 'al culmine le stelle vive sono '
             '${PittoreDellaSpirale.viveAllUltimoFotogramma}: l ordine ne '
             'chiede almeno quattrocento');
   });
 
   test('M3 le chiamate di disegno per fotogramma sono UNA sola', () {
-    final pittore = costruisciPittore(
-        SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
+    final pittore =
+        costruisciPittore(SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
     final conta = _TelaCheConta();
     pittore.paint(conta, misura);
     // ignore: avoid_print
@@ -67,8 +68,8 @@ void main() {
   });
 
   test('M2 il tempo di disegno al culmine sta sotto 8 millesimi', () {
-    final pittore = costruisciPittore(
-        SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
+    final pittore =
+        costruisciPittore(SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
     // Si scalda una volta, poi si misura la mediana di venti passate: una
     // misura sola su una macchina condivisa e' rumore.
     final tempi = <int>[];
@@ -95,8 +96,8 @@ void main() {
 
   test('M4 al culmine le stelle coprono piu del 70 per cento della scena',
       () async {
-    final immagine = await fotogramma(
-        SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
+    final immagine =
+        await fotogramma(SpiraleDiStelle.istanteDelCulmine.inMilliseconds);
     final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
     immagine.dispose();
     expect(dati, isNotNull);
@@ -161,7 +162,8 @@ void main() {
     final quote = <int, double>{};
     for (final quando in const [800, 1200, 1600, 1900]) {
       final immagine = await fotogramma(quando);
-      final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final dati =
+          await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
       immagine.dispose();
       final bytes = dati!.buffer.asUint8List();
       var accesi = 0;
@@ -223,11 +225,17 @@ class _TelaCheConta implements Canvas {
   int filtri = 0;
 
   @override
-  void drawAtlas(ui.Image atlas, List<ui.RSTransform> transforms,
-      List<Rect> rects, List<Color>? colors, BlendMode? blendMode,
-      Rect? cullRect, Paint paint) {
+  void drawAtlas(
+      ui.Image atlas,
+      List<ui.RSTransform> transforms,
+      List<Rect> rects,
+      List<Color>? colors,
+      BlendMode? blendMode,
+      Rect? cullRect,
+      Paint paint) {
     atlanti++;
-    if (paint.maskFilter != null || paint.imageFilter != null ||
+    if (paint.maskFilter != null ||
+        paint.imageFilter != null ||
         paint.shader != null) {
       filtri++;
     }

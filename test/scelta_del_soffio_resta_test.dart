@@ -27,7 +27,8 @@ void main() {
     // Il difetto in una riga: `else if (_showSafetyTap)` come ramo alternativo
     // al blocco della scelta.
     expect(sorgente.contains('else if (_showSafetyTap)'), isFalse,
-        reason: 'il tocco e\' ancora un ramo ALTERNATIVO alla scelta: quando si '
+        reason:
+            'il tocco e\' ancora un ramo ALTERNATIVO alla scelta: quando si '
             'accende, la richiesta del microfono sparisce');
   });
 

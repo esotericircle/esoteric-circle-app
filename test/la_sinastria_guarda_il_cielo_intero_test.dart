@@ -63,12 +63,11 @@ void main() {
   test('due VIP dello stesso segno danno responsi diversi', () {
     // Gli otto Cancro erano il cuore del difetto: fra loro facevano ventotto
     // coppie identiche da soli.
-    final cancro = VipCatalog.vips
-        .where((v) => v.sign.id == 'cancer')
-        .toList();
+    final cancro = VipCatalog.vips.where((v) => v.sign.id == 'cancer').toList();
     expect(cancro.length, greaterThanOrEqualTo(5));
     final impronte = {
-      for (final v in cancro) impronta(SynastryReport.perCieli(tuo: cielo, vip: v))
+      for (final v in cancro)
+        impronta(SynastryReport.perCieli(tuo: cielo, vip: v))
     };
     expect(impronte.length, cancro.length,
         reason: 'i ${cancro.length} VIP del Cancro danno solo '
@@ -86,8 +85,8 @@ void main() {
           reason: '${v.name}: il responso non nomina il fatto piu\' stretto');
       // E l'aspetto nominato esiste davvero: il suo orbo sta dentro l'orbo
       // ammesso per quel tipo, che e' la definizione di "aspetto vero".
-      expect(primo.orbo,
-          lessThanOrEqualTo(AspettiDiSinastria.orbo[primo.tipo]!),
+      expect(
+          primo.orbo, lessThanOrEqualTo(AspettiDiSinastria.orbo[primo.tipo]!),
           reason: '${v.name}: aspetto oltre il suo orbo');
     }
     expect(conAspetti, greaterThan(40),
@@ -164,8 +163,7 @@ void main() {
   test('gli aspetti sono ordinati dal piu\' stretto al piu\' largo', () {
     final r = SynastryReport.perCieli(tuo: cielo, vip: VipCatalog.vips[7]);
     for (var i = 1; i < r.aspetti.length; i++) {
-      expect(r.aspetti[i].orbo,
-          greaterThanOrEqualTo(r.aspetti[i - 1].orbo));
+      expect(r.aspetti[i].orbo, greaterThanOrEqualTo(r.aspetti[i - 1].orbo));
     }
   });
 
@@ -190,7 +188,8 @@ void main() {
     final asc = c.longitudini[PuntoDelCielo.ascendente]!;
     final sole = c.longitudini[PuntoDelCielo.sole]!;
     final scarto = ChartAspect(
-        aLongitude: asc, bLongitude: sole, type: AspectType.conjunction).orbe;
+            aLongitude: asc, bLongitude: sole, type: AspectType.conjunction)
+        .orbe;
     expect(scarto, lessThan(15),
         reason: 'nato all\'alba, l\'Ascendente dista $scarto gradi dal Sole: '
             'la carta non e\' orientata come la tradizione la orienta');

@@ -61,7 +61,8 @@ void main() {
       final viandante =
           PlanCatalog.plans.firstWhere((p) => p.tier == Tier.free);
       expect(
-        viandante.highlights.any((h) => h.toLowerCase().contains('tre domande')),
+        viandante.highlights
+            .any((h) => h.toLowerCase().contains('tre domande')),
         isTrue,
         reason: 'il vantaggio scritto a mano diceva "Una domanda al giorno" '
             'mentre la matrice adesso ne promette tre',
@@ -119,8 +120,7 @@ void main() {
           conto.record(Tier.free);
         }
         await chat.send('ancora una');
-        expect(chat.messages.last.text,
-            FraseDelLimite.per(maestro, limite: 3),
+        expect(chat.messages.last.text, FraseDelLimite.per(maestro, limite: 3),
             reason: '${maestro.id} deve parlare con la sua voce');
       }
     });
@@ -167,8 +167,8 @@ void main() {
     testWidgets('Dopo il messaggio del limite non si puo\' approfondire',
         (tester) async {
       final memoria = InMemoryMaestroMemoryRepository();
-      await memoria.saveProfile(
-          UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      await memoria
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
       final conto = QuestionAllowance();
       final chat = MaestroChatController(
         maestro: Maestro.medora,

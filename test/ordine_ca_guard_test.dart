@@ -71,8 +71,8 @@ void main() {
             'scelte, e l\'ordine lo chiede per nome');
     expect(testo.contains('leTreScelteInFila'), isTrue,
         reason: 'il manifesto non dice quale riga rovescia la scelta');
-    final porta =
-        File('lib/features/synastry/porta_della_sinastria.dart').readAsStringSync();
+    final porta = File('lib/features/synastry/porta_della_sinastria.dart')
+        .readAsStringSync();
     expect(porta.contains('static const bool leTreScelteInFila'), isTrue,
         reason: 'la riga che rovescia la forma non esiste nel codice');
   });

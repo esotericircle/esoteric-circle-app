@@ -71,8 +71,7 @@ void main() {
     expect(app, contains('debugShowCheckedModeBanner: false'),
         reason: 'l\'app vera ha smesso di spegnere il nastro');
 
-    final quanti =
-        RegExp('debugShowCheckedModeBanner').allMatches(app).length;
+    final quanti = RegExp('debugShowCheckedModeBanner').allMatches(app).length;
     expect(quanti, 1,
         reason: 'l\'app dichiara il nastro in piu\' di un punto: $quanti');
   });

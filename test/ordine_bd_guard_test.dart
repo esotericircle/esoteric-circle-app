@@ -96,8 +96,8 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
     final contate = aperte + attesa + premessa + chiuse + fondatore;
     expect(contate, quante,
         reason: 'gli stati contati fanno $contate invece di $quante: una voce '

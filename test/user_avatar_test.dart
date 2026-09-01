@@ -15,7 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 
-  Widget host(Widget child) => MaterialApp(home: Scaffold(body: Center(child: child)));
+  Widget host(Widget child) =>
+      MaterialApp(home: Scaffold(body: Center(child: child)));
 
   // Un PNG 1x1 trasparente valido: non fa scattare l'errorBuilder, cosi' il
   // ramo foto resta in scena.

@@ -27,8 +27,8 @@ void main() {
     final s = leggi('lib/core/identity/account_del_cerchio.dart');
     expect(s.contains('sendEmailVerification'), isTrue);
     // E parte DENTRO l'elevazione con email, non solo dalla voce del menu.
-    final eleva = s.substring(
-        s.indexOf('Future<EsitoDellaCustodia> eleva'), s.indexOf('on FirebaseAuthException'));
+    final eleva = s.substring(s.indexOf('Future<EsitoDellaCustodia> eleva'),
+        s.indexOf('on FirebaseAuthException'));
     expect(eleva.contains('sendEmailVerification'), isTrue,
         reason: 'la registrazione con email non manda piu\' la verifica da '
             'sola: il vincolo del fondatore resta appeso a una voce di menu');

@@ -67,8 +67,6 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
   }
 
-
-
   group('Pescaggio', () {
     test('La stesa pesca tre carte distinte', () {
       for (var seed = 0; seed < 200; seed++) {
@@ -266,14 +264,14 @@ void main() {
           TarotDeck.cards.firstWhere((c) => c.arcana == TarotArcana.maggiore);
       final minore =
           TarotDeck.cards.firstWhere((c) => c.arcana == TarotArcana.minore);
-      DrawnCard d(TarotCard c, bool r) => DrawnCard(
-          card: c, position: SpreadPosition.presente, reversed: r);
+      DrawnCard d(TarotCard c, bool r) =>
+          DrawnCard(card: c, position: SpreadPosition.presente, reversed: r);
 
       expect(MedoraExpression.forCard(null), MedoraExpression.serena);
       expect(MedoraExpression.forCard(d(maggiore, false)),
           MedoraExpression.sorrisoCaldo);
-      expect(MedoraExpression.forCard(d(minore, false)),
-          MedoraExpression.serena);
+      expect(
+          MedoraExpression.forCard(d(minore, false)), MedoraExpression.serena);
       // Il rovesciato porta ombra, Maggiore o Minore che sia.
       expect(MedoraExpression.forCard(d(maggiore, true)),
           MedoraExpression.sguardoGrave);
@@ -307,7 +305,6 @@ void main() {
       // Le carte rovesciate sono incluse di default.
       expect(setup.includeReversed, isTrue);
     });
-
 
     testWidgets('Di base la configurazione sta richiusa in una riga',
         (tester) async {
@@ -423,8 +420,8 @@ void main() {
       for (final drawn in spread.cards) {
         expect(find.byKey(Key('stesa_name_${drawn.position.name}')),
             findsOneWidget);
-        final testo = tester.widget<Text>(
-            find.byKey(Key('stesa_name_${drawn.position.name}')));
+        final testo = tester
+            .widget<Text>(find.byKey(Key('stesa_name_${drawn.position.name}')));
         // Il nome grande porta la stessa spezzatura del cartiglio.
         expect(testo.data!.replaceAll('\n', ' '), drawn.card.name);
         // Grande davvero, non la misura del cartiglio.
@@ -452,8 +449,7 @@ void main() {
       // L'innesto non e stato toccato: stesso asset segnaposto, stesso respiro,
       // stessa mappa delle espressioni. Qui cambia solo la scala, perche'
       // l'animazione Rive prendera' il posto del segnaposto senza rifare nulla.
-      expect(MedoraStage.placeholderAsset,
-          'assets/avatars_webp/Medora-1.webp');
+      expect(MedoraStage.placeholderAsset, 'assets/avatars_webp/Medora-1.webp');
       expect(stage.breathe, isTrue);
       expect(stage.active, isNull);
       expect(MedoraExpression.values.length, 3);
@@ -531,8 +527,7 @@ void main() {
       // definizione della stesa, quindi cambiera' da solo quando arriveranno
       // quelle da sette e dieci carte.
       expect(find.byKey(const Key('stesa_titolo')), findsOneWidget);
-      final titolo =
-          tester.widget<Text>(find.byKey(const Key('stesa_titolo')));
+      final titolo = tester.widget<Text>(find.byKey(const Key('stesa_titolo')));
       expect(titolo.data, TarotSpreadType.predefinita.nome);
       expect(titolo.data, 'Stesa di Tarocchi');
     });
@@ -562,10 +557,7 @@ void main() {
 
       // 1. Sintesi forte, dal Presente.
       expect(find.byKey(const Key('stesa_synthesis')), findsOneWidget);
-      expect(
-          tester
-              .widget<Text>(find.byKey(const Key('stesa_synthesis')))
-              .data,
+      expect(tester.widget<Text>(find.byKey(const Key('stesa_synthesis'))).data,
           reading.sintesi);
       // 2. Le tre posizioni col testo ricco.
       for (final p in SpreadPosition.values) {
@@ -593,12 +585,9 @@ void main() {
       // tredici le arti col responso, e accanto ci sono il Custodisci e il
       // Parlane, che prima qui non esistevano. La chiave vecchia era di
       // questa schermata e basta.
-      expect(find.byKey(const Key('responso_condividi')),
-          findsOneWidget);
-      expect(find.byKey(const Key('responso_custodisci')),
-          findsOneWidget);
-      expect(find.byKey(const Key('responso_parlane')),
-          findsOneWidget);
+      expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+      expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+      expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
       expect(find.byKey(const Key('stesa_disclaimer')), findsNothing);
       expect(tester.takeException(), isNull);
     });

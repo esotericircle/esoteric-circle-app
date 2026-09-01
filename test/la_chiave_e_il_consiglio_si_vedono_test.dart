@@ -235,7 +235,8 @@ void main() {
 
   // --- ORDINE BU, LA STESA SI LEGGE -----------------------------------------
 
-  testWidgets('BU.01: il velo della carta ingrandita e\' opaco, e sotto non '
+  testWidgets(
+      'BU.01: il velo della carta ingrandita e\' opaco, e sotto non '
       'passa niente', (tester) async {
     // **LA MISURA E' SUI PIXEL, non sul numero scritto nel codice.** Il numero
     // si legge lo stesso, perche' una prova che guarda solo i pixel non dice
@@ -334,8 +335,8 @@ void main() {
     await monta(tester);
     final bolla = find.byKey(const Key('stesa_consiglio'));
     expect(bolla, findsOneWidget);
-    final paragrafi = find.descendant(
-        of: bolla, matching: find.byType(ParagrafiDiLettura));
+    final paragrafi =
+        find.descendant(of: bolla, matching: find.byType(ParagrafiDiLettura));
     expect(paragrafi, findsOneWidget,
         reason: 'il consiglio e\' tornato un blocco solo: i paragrafi si '
             'fondono e il testo diventa un muro');
@@ -387,11 +388,12 @@ void main() {
           reason: 'la cornice azzurra e\' tornata sopra la carta ${p.name}');
     }
     // E le parole ci sono, su UNA carta sola.
-    expect(find.byKey(Key('stesa_parole_chiave_${chiave.name}')),
-        findsOneWidget,
+    expect(
+        find.byKey(Key('stesa_parole_chiave_${chiave.name}')), findsOneWidget,
         reason: 'sopra la carta chiave non c\'e\' scritto niente');
     expect(find.text('Carta Chiave'), findsOneWidget,
-        reason: 'le parole "Carta Chiave" compaiono ${find.text('Carta Chiave').evaluate().length} volte invece di una');
+        reason:
+            'le parole "Carta Chiave" compaiono ${find.text('Carta Chiave').evaluate().length} volte invece di una');
   });
 
   testWidgets('BU.02: la bolla chiave ha lo stesso fondo delle altre',
@@ -403,7 +405,8 @@ void main() {
     final ombre = <int>[];
     for (final e in bolle.evaluate()) {
       final container = find
-          .descendant(of: find.byWidget(e.widget), matching: find.byType(Container))
+          .descendant(
+              of: find.byWidget(e.widget), matching: find.byType(Container))
           .evaluate()
           .first
           .widget as Container;
@@ -456,7 +459,6 @@ void main() {
     return coperti;
   }
 
-
   testWidgets('BU.02: dentro la carta chiave non passa un pixel di copertura',
       (tester) async {
     // **LA MISURA SUI PIXEL, dentro il rettangolo della carta.** La prova
@@ -483,8 +485,8 @@ void main() {
       // Otto punti di rientro, non tre: la cornice e' larga due, ma ha gli
       // angoli arrotondati e il bordo sfuma, e tre punti ne lasciavano dentro
       // ancora un pezzo. Otto e' lontano dal bordo e vicinissimo alla figura.
-      final dentro = Rect.fromLTRB(
-          r.left + 8, r.top + 8, r.right - 8, r.bottom - 8);
+      final dentro =
+          Rect.fromLTRB(r.left + 8, r.top + 8, r.right - 8, r.bottom - 8);
       conti[posizione] = await scuriDentro(tester, radice, dentro);
     }
     final coperti = conti[chiave]!;
@@ -502,7 +504,6 @@ void main() {
             'figura sono state schiarite, cioe\' qualcosa le e\' stato steso '
             'sopra, ed e\' cio\' che il fondatore non vuole');
   });
-
 
   testWidgets('BV.04: la carta chiave e\' piu\' grande, e la cornice si stacca',
       (tester) async {

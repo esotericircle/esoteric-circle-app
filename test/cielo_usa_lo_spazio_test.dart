@@ -150,7 +150,8 @@ void main() {
     ]) {
       for (final ora in const [22, 4]) {
         final quando = DateTime(2026, 7, 31, ora, 30);
-        final dove = '${larghezza.round()}x${altezza.round()}, ore $ora, $quale';
+        final dove =
+            '${larghezza.round()}x${altezza.round()}, ore $ora, $quale';
 
         // LA PROVA CHE I DISCHI NON SI COPRANO E' RIENTRATA, e il difetto
         // RESTA APERTO: non l'ho chiuso e non lo nascondo.

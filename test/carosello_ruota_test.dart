@@ -46,7 +46,8 @@ void main() {
     await tester.runAsync(() async {
       await OnboardingController().complete();
     });
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
   }
@@ -128,8 +129,7 @@ void main() {
     }
   });
 
-  testWidgets('Trascinando il dito i Maestri seguono la mano',
-      (tester) async {
+  testWidgets('Trascinando il dito i Maestri seguono la mano', (tester) async {
     await apri(tester);
     final partenza = posizioni(tester);
 

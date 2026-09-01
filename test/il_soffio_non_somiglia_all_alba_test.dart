@@ -75,8 +75,7 @@ void main() {
     final confine = tester.renderObject<RenderRepaintBoundary>(
         find.byKey(const Key('la_scheda')));
     final immagine = await confine.toImage();
-    final dati =
-        await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+    final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
     return dati!.buffer.asUint8List();
   }
 

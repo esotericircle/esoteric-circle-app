@@ -90,8 +90,7 @@ void main() {
               reason: '${card.name} non ha seme, tocca al cielo');
           expect(card.arcana, TarotArcana.maggiore);
         } else {
-          expect(e, atteso[card.seme],
-              reason: '${card.name} sbaglia elemento');
+          expect(e, atteso[card.seme], reason: '${card.name} sbaglia elemento');
         }
       }
     });
@@ -128,8 +127,7 @@ void main() {
       final spec = RevealSpec.of(TarotDeck.cards.first);
       final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
       for (final t in [0.0, 1.0]) {
-        final w =
-            ElementalReveal(spec: spec, progress: t, palette: palette);
+        final w = ElementalReveal(spec: spec, progress: t, palette: palette);
         expect(w.progress, t);
       }
     });
@@ -253,8 +251,7 @@ void main() {
   });
 
   group('Riduci Movimento ferma tutto', () {
-    testWidgets('Nessuna fluttuazione e nessun reveal in moto',
-        (tester) async {
+    testWidgets('Nessuna fluttuazione e nessun reveal in moto', (tester) async {
       await pump(tester, reduceMotion: true);
       await tester.pump();
       // La scena e' gia' composta: nessuna aura in giro.

@@ -17,7 +17,8 @@ void main() {
           child: Scaffold(
             backgroundColor: const Color(0xFFBFD5B2), // il prato del Soffio
             body: Center(
-              child: GuidaDelRespiro(tempi: tempi, colore: const Color(0xFFD8C89B)),
+              child: GuidaDelRespiro(
+                  tempi: tempi, colore: const Color(0xFFD8C89B)),
             ),
           ),
         ),
@@ -36,10 +37,11 @@ void main() {
   }
 
   group('le tre parole, nei tre momenti', () {
-    testWidgets('prima del conto dice di prepararsi, e resta finche\' non '
+    testWidgets(
+        'prima del conto dice di prepararsi, e resta finche\' non '
         'decidi tu', (tester) async {
-      await tester.pumpWidget(attorno(
-          const TempiDelRespiro(tempi: 4, giri: 3)));
+      await tester
+          .pumpWidget(attorno(const TempiDelRespiro(tempi: 4, giri: 3)));
       await tester.pump();
       expect(find.text(ParoleDelRespiro.preparati), findsOneWidget,
           reason: 'Il rito parte senza dire che sta per partire.');
@@ -174,8 +176,8 @@ void main() {
     test('anche la riga di servizio resta leggibile', () {
       // Smorzata non vuol dire illeggibile: sta al 72 per cento di opacita',
       // e il contrasto si misura su cio' che ne risulta.
-      final smorzato = Color.lerp(
-          veloDelConteggio, inchiostroDelConteggio, 0.72)!;
+      final smorzato =
+          Color.lerp(veloDelConteggio, inchiostroDelConteggio, 0.72)!;
       final contrasto =
           AccentoDelMaestro.contrastoFra(smorzato, veloDelConteggio);
       expect(contrasto, greaterThanOrEqualTo(4.5),

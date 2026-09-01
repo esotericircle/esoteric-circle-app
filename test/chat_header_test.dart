@@ -57,7 +57,8 @@ void main() {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     // Dal Santuario: porta il Maestro al centro, entra nel dominio dal busto,
     // poi apre la chat.
@@ -108,8 +109,7 @@ void main() {
       expect(find.byIcon(Icons.tune_rounded), findsNothing);
     });
 
-    testWidgets(
-        'L\'header di ${maestro.id} e\' centrato e mostra le tre arti',
+    testWidgets('L\'header di ${maestro.id} e\' centrato e mostra le tre arti',
         (tester) async {
       silenceSensors();
       await openChat(tester, maestro);
@@ -139,11 +139,11 @@ void main() {
     });
   }
 
-
   testWidgets('Nemmeno il Santuario disegna le costellazioni zodiacali',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     final homeCosmos = tester.widget<CosmosBackground>(

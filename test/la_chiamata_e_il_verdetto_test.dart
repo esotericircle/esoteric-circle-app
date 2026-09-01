@@ -156,8 +156,8 @@ void main() {
     expect(ferma.inMilliseconds, greaterThan(0));
     // Sono cinque momenti piu' i fili: nessuno vale zero, quindi nessuno
     // sparisce.
-    expect(ferma.inMilliseconds,
-        TempiDellaChiamata.passoFermo.inMilliseconds * 7);
+    expect(
+        ferma.inMilliseconds, TempiDellaChiamata.passoFermo.inMilliseconds * 7);
     expect(MomentoDellaChiamata.values, hasLength(5));
   });
 
@@ -202,8 +202,8 @@ void main() {
         final nome = find.byKey(const Key('sinastria_nome_aspetto'));
         if (nome.evaluate().isNotEmpty) {
           final testo = tester.widget<Text>(nome).data;
-          expect(report.aspetti.take(quanti).map((a) => a.titolo),
-              contains(testo),
+          expect(
+              report.aspetti.take(quanti).map((a) => a.titolo), contains(testo),
               reason: '${vip.name}: il nome mostrato "$testo" non è di '
                   'nessuno degli aspetti accesi');
         }
@@ -239,8 +239,8 @@ void main() {
       child: ChiamataDelVip(
         vip: VipCatalog.first,
         tuo: tuo,
-        aspetti: SynastryReport.perCieli(tuo: tuo, vip: VipCatalog.first)
-            .aspetti,
+        aspetti:
+            SynastryReport.perCieli(tuo: tuo, vip: VipCatalog.first).aspetti,
         palette: MaestroPalette.medora,
         onFinita: () => finita = true,
       ),
@@ -273,8 +273,8 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final vip = VipCatalog.conNome('Zendaya')!;
-    await tester.pumpWidget(attorno(SinastriaVipScreen(
-        vip: vip, saltaLaChiamata: true, userName: 'Tu')));
+    await tester.pumpWidget(attorno(
+        SinastriaVipScreen(vip: vip, saltaLaChiamata: true, userName: 'Tu')));
     await tester.pump();
 
     final atteso = SynastryReport.perCieli(
@@ -308,8 +308,7 @@ void main() {
         reason: 'il conteggio non finisce sul numero del calcolo');
   });
 
-  testWidgets('le quattro barre partono sfalsate, non insieme',
-      (tester) async {
+  testWidgets('le quattro barre partono sfalsate, non insieme', (tester) async {
     silenzia();
     tester.view.physicalSize = const Size(440, 1700);
     tester.view.devicePixelRatio = 1.0;
@@ -320,12 +319,14 @@ void main() {
         saltaLaChiamata: true,
         userName: 'Tu')));
     await tester.pump();
-    final stato = tester.state<SinastriaVipScreenState>(
-        find.byType(SinastriaVipScreen));
+    final stato =
+        tester.state<SinastriaVipScreenState>(find.byType(SinastriaVipScreen));
     // A conteggio appena finito la prima barra e' gia' partita e l'ultima no.
     await tester.pump(TempiDelVerdetto.ilConteggio +
         TempiDelVerdetto.fraUnaBarraELaltra ~/ 2);
-    final quanti = [for (var i = 0; i < 4; i++) stato.quantoDellaBarraPerLaProva(i)];
+    final quanti = [
+      for (var i = 0; i < 4; i++) stato.quantoDellaBarraPerLaProva(i)
+    ];
     // ignore: avoid_print
     print('ORDINE BO VOCE 07: le quattro barre a metà del primo sfalsamento '
         '$quanti');
@@ -349,8 +350,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     final vip = VipCatalog.conNome('Zendaya')!;
     await tester.pumpWidget(attorno(
-        SinastriaVipScreen(
-            vip: vip, saltaLaChiamata: true, userName: 'Tu'),
+        SinastriaVipScreen(vip: vip, saltaLaChiamata: true, userName: 'Tu'),
         riduciMovimento: true));
     await tester.pump();
     final atteso = SynastryReport.perCieli(
@@ -375,8 +375,8 @@ void main() {
     // cerchio e non ha nessuna dissolvenza, perche' e' la prima cosa che si
     // legge. Per chi ha tolto le animazioni non cambia niente, ed e' cio' che
     // questa prova difende: niente da aspettare.
-    final sopra = tester.widget<Text>(
-        find.byKey(const Key('sinastria_sopra_il_cerchio')));
+    final sopra = tester
+        .widget<Text>(find.byKey(const Key('sinastria_sopra_il_cerchio')));
     expect(sopra.data, isNotEmpty,
         reason: 'la frase sopra il cerchio non c\'e\'');
   });

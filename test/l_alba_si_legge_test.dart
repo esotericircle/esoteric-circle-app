@@ -134,8 +134,7 @@ void main() {
   /// La moda e non la media: se una lettera alta sbordasse nella fascia, la
   /// media si sposterebbe verso l'inchiostro e il fondo risulterebbe piu' scuro
   /// del vero, cioe' il contrasto risulterebbe migliore del vero. La moda no.
-  Color fondoSotto(
-      ByteData dati, int larghezza, int altezza, Rect rettangolo) {
+  Color fondoSotto(ByteData dati, int larghezza, int altezza, Rect rettangolo) {
     final conteggio = <int, int>{};
     final da = rettangolo.top.round() + 1;
     for (var y = da; y < da + 4; y++) {
@@ -160,7 +159,8 @@ void main() {
   String esa(Color c) =>
       '#${((c.r * 255).round() << 16 | (c.g * 255).round() << 8 | (c.b * 255).round()).toRadixString(16).padLeft(6, '0').toUpperCase()}';
 
-  testWidgets('La tabella del contrasto dell\'Alba esiste, e la scrive la misura',
+  testWidgets(
+      'La tabella del contrasto dell\'Alba esiste, e la scrive la misura',
       (tester) async {
     silenzia();
     await caricaCaratteri();
@@ -415,20 +415,15 @@ void main() {
       // Un'etichetta piccola NON prende lo sconto dei titoli, e questo e' il
       // difetto che la voce 12 chiude: la tentazione di trattare una riga
       // maiuscoletta come un titolo.
-      expect(
-          RegimeChiaro.sogliaPer(etichetta: true, misura: 12, peso: 700),
+      expect(RegimeChiaro.sogliaPer(etichetta: true, misura: 12, peso: 700),
           RegimeChiaro.sogliaEtichette);
-      expect(
-          RegimeChiaro.sogliaPer(etichetta: false, misura: 16, peso: 400),
+      expect(RegimeChiaro.sogliaPer(etichetta: false, misura: 16, peso: 400),
           RegimeChiaro.sogliaLettura);
-      expect(
-          RegimeChiaro.sogliaPer(etichetta: false, misura: 24, peso: 400),
+      expect(RegimeChiaro.sogliaPer(etichetta: false, misura: 24, peso: 400),
           RegimeChiaro.sogliaTitoli);
-      expect(
-          RegimeChiaro.sogliaPer(etichetta: false, misura: 20, peso: 600),
+      expect(RegimeChiaro.sogliaPer(etichetta: false, misura: 20, peso: 600),
           RegimeChiaro.sogliaTitoli);
-      expect(
-          RegimeChiaro.sogliaPer(etichetta: false, misura: 20, peso: 400),
+      expect(RegimeChiaro.sogliaPer(etichetta: false, misura: 20, peso: 400),
           RegimeChiaro.sogliaLettura);
     });
 
@@ -495,8 +490,8 @@ void main() {
       // Questa prova lo MISURA invece di crederci, e serve da presidio contro
       // chi domani riportasse l'oro su una didascalia del pannello.
       const oro = Color(0xFFD4AF37);
-      final contrasto = AccentoDelMaestro.contrastoFra(
-          oro, RegimeChiaro.superficieChiara);
+      final contrasto =
+          AccentoDelMaestro.contrastoFra(oro, RegimeChiaro.superficieChiara);
       expect(contrasto, lessThan(RegimeChiaro.sogliaLettura),
           reason: 'se l\'oro passasse, questa prova andrebbe cancellata e non '
               'aggirata');

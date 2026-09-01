@@ -92,7 +92,9 @@ void main() {
               'cuore non compare e l\'anteprima mostra una barra con un '
               'elemento in meno di quella vera');
       expect(
-          'ArtiPreferiteController(maestroAssegnato:'.allMatches(corredo).length,
+          'ArtiPreferiteController(maestroAssegnato:'
+              .allMatches(corredo)
+              .length,
           greaterThanOrEqualTo(2),
           reason: 'lo scaffale deve arrivare a tutti e due gli agganci, quello '
               'di Aura e quello di Caligo');
@@ -123,10 +125,9 @@ void main() {
       // in mezzo alla frase e questa prova e' caduta senza che niente di
       // vero fosse cambiato. Una guardia che cade per un a capo insegna a
       // non fidarsi delle guardie.
-      final rotta =
-          File('lib/features/onboarding/onboarding_screen.dart')
-              .readAsStringSync()
-              .replaceAll(RegExp(r'\s+'), '');
+      final rotta = File('lib/features/onboarding/onboarding_screen.dart')
+          .readAsStringSync()
+          .replaceAll(RegExp(r'\s+'), '');
       expect(rotta, contains('MaestroScope(child:OnboardingScreen('),
           reason: 'la rotta del Risveglio e\' cambiata: la cattura va '
               'riallineata a lei, non viceversa');

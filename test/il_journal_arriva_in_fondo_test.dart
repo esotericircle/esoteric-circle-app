@@ -107,9 +107,9 @@ void main() {
             '(composizione ${(composizione / 1000).toStringAsFixed(2)}), '
             'SECONDA ${(secondo.elapsedMicroseconds / 1000).toStringAsFixed(2)} ms');
         if (totale > soglia.inMicroseconds) {
-          lenti.add('${sentiero.name}: ${(totale / 1000).toStringAsFixed(2)} ms '
-              'contro un tetto di ${(soglia.inMicroseconds / 1000)
-                  .toStringAsFixed(2)}');
+          lenti.add(
+              '${sentiero.name}: ${(totale / 1000).toStringAsFixed(2)} ms '
+              'contro un tetto di ${(soglia.inMicroseconds / 1000).toStringAsFixed(2)}');
         }
       }
       // **QUANTI SENTIERI GUARDATI, e cade se sono zero.**
@@ -123,8 +123,8 @@ void main() {
       // senza che il disegno ci stia dentro, che e' l'unico modo in cui il
       // difetto potrebbe arrivare a una persona.
       // ignore: avoid_print
-      print('ORDINE AC VOCE 01: interruttore ${ArteDelSentiero.acceso ? "acceso"
-          : "spento"}, sentieri fuori tetto ${lenti.length}');
+      print(
+          'ORDINE AC VOCE 01: interruttore ${ArteDelSentiero.acceso ? "acceso" : "spento"}, sentieri fuori tetto ${lenti.length}');
       expect(!ArteDelSentiero.acceso || lenti.isEmpty, isTrue,
           reason: 'l\'interruttore del Journal dall\'arte e\' acceso ma il '
               'disegno non sta dentro mezzo fotogramma: ${lenti.join(" | ")}. '

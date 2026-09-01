@@ -66,8 +66,8 @@ void main() {
             // una frase del pool.
             expect(card.text.startsWith('$anchor '), isTrue);
             final current = card.text.substring(anchor.length + 1);
-            expect(HoroscopeData.dayPools[domain.index]!.contains(current),
-                isTrue,
+            expect(
+                HoroscopeData.dayPools[domain.index]!.contains(current), isTrue,
                 reason: 'corrente fuori pool per ${sign.id} giorno $day');
           }
         }
@@ -105,10 +105,10 @@ void main() {
 
   group('Apertura personalizzata', () {
     test('Il vocativo segue la forma di cortesia', () {
-      expect(Horoscope.vocativeFor('Sofia', CourtesyForm.feminine),
-          'Cara Sofia');
-      expect(Horoscope.vocativeFor('Marco', CourtesyForm.masculine),
-          'Caro Marco');
+      expect(
+          Horoscope.vocativeFor('Sofia', CourtesyForm.feminine), 'Cara Sofia');
+      expect(
+          Horoscope.vocativeFor('Marco', CourtesyForm.masculine), 'Caro Marco');
       expect(Horoscope.vocativeFor('Alex', CourtesyForm.neutral), 'Ciao Alex');
       expect(Horoscope.vocativeFor('Alex', CourtesyForm.unknown), 'Ciao Alex');
     });
@@ -117,13 +117,10 @@ void main() {
       for (final sign in Zodiac.values) {
         for (var day = 0; day <= 365; day += 7) {
           final opening = Horoscope.openingFor(
-              sign: sign,
-              dayOfYear: day,
-              year: 2026,
-              vocative: 'Cara Sofia');
+              sign: sign, dayOfYear: day, year: 2026, vocative: 'Cara Sofia');
           expect(opening, contains('Cara Sofia'));
-          final atteso = HoroscopeData.openings.map((o) =>
-              o.replaceAll(HoroscopeData.namePlaceholder, 'Cara Sofia'));
+          final atteso = HoroscopeData.openings.map(
+              (o) => o.replaceAll(HoroscopeData.namePlaceholder, 'Cara Sofia'));
           expect(atteso.contains(opening), isTrue,
               reason: 'apertura fuori pool: $opening');
         }
@@ -230,8 +227,8 @@ void main() {
 
     test('Nessun apostrofo-accento nelle schede composte', () {
       for (final sign in Zodiac.values) {
-        for (final card in Horoscope.forSign(
-            sign: sign, dayOfYear: 123, year: 2026)) {
+        for (final card
+            in Horoscope.forSign(sign: sign, dayOfYear: 123, year: 2026)) {
           expect(offending(card.text), isNull, reason: card.text);
           expect(offending(card.title), isNull, reason: card.title);
         }

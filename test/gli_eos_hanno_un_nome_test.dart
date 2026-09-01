@@ -123,7 +123,8 @@ void main() {
       final righe = s.split('\n');
       final mostraUnNumeroInEos = righe.any((r) {
         if (r.trimLeft().startsWith('//')) return false;
-        if (!r.contains("Eos'") && !r.contains('Eos "') &&
+        if (!r.contains("Eos'") &&
+            !r.contains('Eos "') &&
             !r.contains('Eos ')) {
           return false;
         }
@@ -189,7 +190,8 @@ void main() {
             'cento dei pixel: a sedici punti non si vede, ed e\' la misura a cui '
             'vive in barra');
     expect(quota, lessThan(0.55),
-        reason: 'l\'icona e\' una macchia piena: a sedici punti i tratti si sono '
+        reason:
+            'l\'icona e\' una macchia piena: a sedici punti i tratti si sono '
             'toccati e non si legge piu\' un\'alba');
   });
 }

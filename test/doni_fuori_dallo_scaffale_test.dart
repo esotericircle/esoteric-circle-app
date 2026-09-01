@@ -17,7 +17,8 @@ void main() {
     final presenti =
         FunctionShelf.functions.map((f) => f.id).where(doni.contains).toList();
     expect(presenti, isEmpty,
-        reason: 'questi Doni stanno anche nell\'elenco sotto, mentre sono gia\' '
+        reason:
+            'questi Doni stanno anche nell\'elenco sotto, mentre sono gia\' '
             'nella striscia del giorno: $presenti');
   });
 

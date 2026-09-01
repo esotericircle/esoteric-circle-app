@@ -164,8 +164,7 @@ void main() {
   test('L\'intreccio con l\'archetipo cita archetipo e animale, non li fonde',
       () {
     final animal = GuideAnimalDerivation.forSign(Zodiac.cancer); // Lupo
-    final testo =
-        GuideAnimalCorpus.intreccioArchetipo(animal, Archetype.eroe);
+    final testo = GuideAnimalCorpus.intreccioArchetipo(animal, Archetype.eroe);
     expect(testo, contains(Archetype.eroe.conArticolo));
     expect(testo, contains(animal.summary));
     // L'archetipo non cambia l'animale: il Lupo resta il Lupo.

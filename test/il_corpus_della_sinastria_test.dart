@@ -160,8 +160,7 @@ void main() {
         reason: 'senza il fatto la frase non regge piu\'');
   });
 
-  test('CA.05: lo stato in vita si corregge dal server, senza pubblicare',
-      () {
+  test('CA.05: lo stato in vita si corregge dal server, senza pubblicare', () {
     final vip = VipCatalog.vips.firstWhere((v) => !v.eScomparso);
     expect(vip.eScomparso, isFalse);
     CorrezioniDeiVip.applica({vip.name: 'scomparso'});
@@ -182,9 +181,7 @@ void main() {
     );
     expect(report.reading.contains('un fatto qualunque'), isFalse,
         reason: 'si racconta l\'attualita\' di chi non c\'e\' piu\'');
-    expect(
-        TestiDellaSinastria.memoria
-            .any((m) => report.reading.contains(m)),
+    expect(TestiDellaSinastria.memoria.any((m) => report.reading.contains(m)),
         isTrue,
         reason: 'la chiusura non e\' quella sobria della memoria');
   });
@@ -218,7 +215,8 @@ void main() {
         reason: 'tutte le coppie leggono la stessa parola');
   });
 
-  test('CA.06: quello che la barra mostra e\' l\'indice, non la percentuale '
+  test(
+      'CA.06: quello che la barra mostra e\' l\'indice, non la percentuale '
       'cruda', () {
     final tuo = CieloDiSinastria.perVip(VipCatalog.vips[9]);
     final r = SynastryReport.perCieli(

@@ -197,8 +197,8 @@ void main() {
     final tessera = find.byKey(const Key('carta_angeli'));
     expect(tessera, findsOneWidget);
     final arti = tester
-        .widgetList<Image>(find.descendant(
-            of: tessera, matching: find.byType(Image)))
+        .widgetList<Image>(
+            find.descendant(of: tessera, matching: find.byType(Image)))
         .map((i) => (i.image as AssetImage).assetName)
         .where((n) => n.contains('angeli'))
         .toSet();
@@ -220,8 +220,8 @@ void main() {
 
     expect(find.text('Fonti e metodo'), findsOneWidget);
     // La frase scomoda c'e', ed e' quella che conta.
-    final nota = tester.widget<Text>(
-        find.byKey(const Key('angeli_nota_edizioni')));
+    final nota =
+        tester.widget<Text>(find.byKey(const Key('angeli_nota_edizioni')));
     expect(nota.data, contains('edizione primaria'));
     expect(nota.data, contains('Lenain'));
     expect(nota.data, contains('Ambelain'));

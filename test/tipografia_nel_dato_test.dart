@@ -56,7 +56,6 @@ void main() {
     );
   });
 
-
   // --- IL CONTRASTO, ordine P voce 14 ---
   //
   // **Il censimento tipografico non vede questo difetto.** Misura le
@@ -87,7 +86,8 @@ void main() {
               'dichiara ${registrati.censite}: rigenera il censimento');
     });
 
-    test('La formula dello strumento e quella dell\'app dicono lo stesso numero',
+    test(
+        'La formula dello strumento e quella dell\'app dicono lo stesso numero',
         () {
       // **DUE COPIE DELLA STESSA ARITMETICA DIVERGONO.** Lo strumento gira
       // sulla VM senza motore grafico, quindi non puo' importare
@@ -224,11 +224,13 @@ void main() {
     // Non e' una tautologia: dice che nessuno puo' abbassare un ruolo sotto il
     // pavimento senza accorgersene, perche' il pavimento e' l'etichetta.
     expect(TypographyTokens.etichetta().fontSize, TypographyTokens.pavimento,
-        reason: 'l\'etichetta non vale piu\' il pavimento: o e\' scesa sotto la '
+        reason:
+            'l\'etichetta non vale piu\' il pavimento: o e\' scesa sotto la '
             'soglia di leggibilita\', o il pavimento si e\' alzato senza che i '
             'ruoli lo seguissero');
     for (final ruolo in <MapEntry<String, double?>>[
-      MapEntry('cerimonialeGrande', TypographyTokens.cerimonialeGrande().fontSize),
+      MapEntry(
+          'cerimonialeGrande', TypographyTokens.cerimonialeGrande().fontSize),
       MapEntry('cerimoniale', TypographyTokens.cerimoniale().fontSize),
       MapEntry('titoloSezione', TypographyTokens.titoloSezione().fontSize),
       MapEntry('titoloScheda', TypographyTokens.titoloScheda().fontSize),

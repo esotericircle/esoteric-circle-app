@@ -51,8 +51,8 @@ void main() {
     if (spaces == 0) return 0;
     final withSpaces =
         rawWidth(t, fit.fontSize, fit.letterSpacing, fit.wordSpacing);
-    final noSpaces = rawWidth(
-        t.replaceAll(' ', ''), fit.fontSize, fit.letterSpacing, fit.wordSpacing);
+    final noSpaces = rawWidth(t.replaceAll(' ', ''), fit.fontSize,
+        fit.letterSpacing, fit.wordSpacing);
     return (withSpaces - noSpaces) / spaces;
   }
 

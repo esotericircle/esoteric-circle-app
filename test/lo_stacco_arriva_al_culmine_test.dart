@@ -123,7 +123,8 @@ void main() {
     // **M5 AL MILLESIMO.** Si avanza di venti in venti e si guarda l'istante
     // esatto in cui la scheda si accende.
     await montaLaFesta(tester, Sentiero.costellazione);
-    final nome = nomeInTondo(Sentieri.grandiDi(Sentiero.costellazione).first.nome);
+    final nome =
+        nomeInTondo(Sentieri.grandiDi(Sentiero.costellazione).first.nome);
     int? quando;
     for (var t = 0; t <= 1200; t += 20) {
       final visibile = tester
@@ -142,15 +143,15 @@ void main() {
         'il culmine sta a ${SpiraleDiStelle.istanteDelCulmine.inMilliseconds}');
     expect(quando, isNotNull,
         reason: 'la scheda non si e mai accesa in 1200 millesimi');
-    expect(
-        (quando! - SpiraleDiStelle.istanteDelCulmine.inMilliseconds).abs(),
+    expect((quando! - SpiraleDiStelle.istanteDelCulmine.inMilliseconds).abs(),
         lessThanOrEqualTo(40),
         reason: 'lo stacco cade a $quando millesimi invece che a 800 piu o '
             'meno 40');
     await tester.pump(const Duration(milliseconds: 1400));
   });
 
-  testWidgets('con Riduci Movimento la spirale non c e e il traguardo si vede '
+  testWidgets(
+      'con Riduci Movimento la spirale non c e e il traguardo si vede '
       'subito', (tester) async {
     await montaLaFesta(tester, Sentiero.costellazione, riduciMovimento: true);
     await tester.pump(const Duration(milliseconds: 60));

@@ -48,7 +48,8 @@ void main() {
     expect(muti, isEmpty,
         reason: 'scrivendo per intero $muti la ricerca non mostra nessun '
             'suggerimento: a video sembra che il Cerchio non conosca quella '
-            'citta', skip: false);
+            'citta',
+        skip: false);
   });
 
   test('la regola non perde la scelta automatica', () {

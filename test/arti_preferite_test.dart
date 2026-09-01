@@ -82,7 +82,8 @@ void main() {
         .where((id) => !c.contiene(id))
         .toList();
     expect(fuori, isEmpty,
-        reason: 'ci sono ${fuori.length} arti vive fuori da uno scaffale pieno: '
+        reason:
+            'ci sono ${fuori.length} arti vive fuori da uno scaffale pieno: '
             'il catalogo e\' cresciuto, quindi adesso il rifiuto parlante si '
             'puo\' e si deve provare davvero aggiungendo $fuori');
   });
@@ -98,7 +99,8 @@ void main() {
     final secondo = ArtiPreferiteController(maestroAssegnato: Maestro.medora);
     await secondo.carica();
     expect(secondo.ids, atteso,
-        reason: 'le arti scelte non sono sopravvissute alla chiusura dell\'app');
+        reason:
+            'le arti scelte non sono sopravvissute alla chiusura dell\'app');
     expect(secondo.contiene(tolta), isFalse,
         reason: 'l\'arte togliata e\' ricomparsa al riavvio');
   });
@@ -125,9 +127,8 @@ void main() {
     // Si legge il file, ma solo il CODICE: i commenti nominano quelle parole
     // proprio per spiegare che non si usano, e cercarle anche li' farebbe
     // fallire il test per la ragione opposta a quella che deve misurare.
-    final righe = File('lib/core/arts/arti_preferite.dart')
-        .readAsLinesSync()
-        .where((r) {
+    final righe =
+        File('lib/core/arts/arti_preferite.dart').readAsLinesSync().where((r) {
       final t = r.trimLeft();
       return !t.startsWith('//') && !t.startsWith('///');
     });

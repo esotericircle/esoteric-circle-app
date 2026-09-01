@@ -39,7 +39,8 @@ void main() {
         reason: 'questi responsi superano il tetto di '
             '${TettiDeiResponsi.runaBreve} caratteri:\n${sopra.join("\n")}');
     expect(kElderFuthark.length, 24,
-        reason: 'l\'Elder Futhark ha ventiquattro segni: la prova ne ha guardati '
+        reason:
+            'l\'Elder Futhark ha ventiquattro segni: la prova ne ha guardati '
             '${kElderFuthark.length}');
   });
 
@@ -50,10 +51,12 @@ void main() {
     final senzaSimbolo = <String>[];
     for (final runa in kElderFuthark) {
       if (runa.meaning.trim().isEmpty) senzaSimbolo.add(runa.name);
-      if (runa.keyword.trim().isEmpty) senzaSimbolo.add('${runa.name} (parola)');
+      if (runa.keyword.trim().isEmpty)
+        senzaSimbolo.add('${runa.name} (parola)');
     }
     expect(senzaSimbolo, isEmpty,
-        reason: 'queste rune hanno perso la descrizione del simbolo insieme alla '
+        reason:
+            'queste rune hanno perso la descrizione del simbolo insieme alla '
             'lunghezza: $senzaSimbolo');
   });
 
@@ -73,7 +76,8 @@ void main() {
             '${fuori.join("\n")}');
   });
 
-  test('il tetto e\' dichiarato una volta sola, e la meta\' e\' quella misurata',
+  test(
+      'il tetto e\' dichiarato una volta sola, e la meta\' e\' quella misurata',
       () {
     // La misura sta nella tabella generata: se la mediana cambiasse, la tabella
     // cambierebbe e questa riga andrebbe rivista. Qui si tiene fermo il RAPPORTO

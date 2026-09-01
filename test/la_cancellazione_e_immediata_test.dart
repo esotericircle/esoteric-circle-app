@@ -79,9 +79,8 @@ void main() {
   });
 
   test('BE.07: il primo avviso senza account non aspetta i momenti', () {
-    final regola =
-        File('lib/core/identity/quando_chiedere_la_custodia.dart')
-            .readAsStringSync();
+    final regola = File('lib/core/identity/quando_chiedere_la_custodia.dart')
+        .readAsStringSync();
     expect(regola.contains('maiAvvisato'), isTrue,
         reason: 'il primo avviso e\' tornato ad aspettare i momenti: chi '
             'entra senza account non lo saprebbe (ordine BE voce 07, '

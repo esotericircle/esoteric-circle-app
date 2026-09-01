@@ -71,7 +71,8 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AS VOCE 03: Sigilli accesi senza premio ${persi.length}');
     expect(persi.map((t) => t.id), contains(traguardo.id),
-        reason: 'un Sigillo acceso il cui premio non e mai arrivato non compare '
+        reason:
+            'un Sigillo acceso il cui premio non e mai arrivato non compare '
             'fra quelli da riprendere: la sincronia non lo cerchera');
   });
 
@@ -105,9 +106,9 @@ void main() {
     // Si guarda il sorgente perche' il difetto e' un ORDINE di due istruzioni,
     // e un ordine sbagliato non si vede da fuori: si vedrebbe solo il giorno
     // in cui un saldo resta indietro, che e' esattamente com'e' andata.
-    final sorgente =
-        _sorgente('lib/features/sigilli/regia_del_cammino.dart');
-    final doveStato = sorgente.indexOf('final statoNuovo = await porta.stato()');
+    final sorgente = _sorgente('lib/features/sigilli/regia_del_cammino.dart');
+    final doveStato =
+        sorgente.indexOf('final statoNuovo = await porta.stato()');
     // **SI CERCA LA GRAFFA, non la sola condizione**: il commento che spiega
     // la cura CITA la riga vecchia `if (ripresi == 0) return;`, e cercando
     // solo la condizione si trovava il commento invece del codice. Una misura

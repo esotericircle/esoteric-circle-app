@@ -141,8 +141,8 @@ void main() {
     // azzerare i dati tenendo l'account, e chiedere l'oblio. Un conto che
     // dicesse "tre" resterebbe verde anche se una funzione la chiamasse due
     // volte e un'altra nessuna: si guarda **dentro ciascuna**.
-    final schermata = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final schermata =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     final mute = <String>[];
     for (final via in const [
       '_chiediDiUscire',
@@ -173,9 +173,8 @@ void main() {
     // quello che tiene il dato che nessuno voleva lasciare in giro. Qui i
     // provider si contano dove sono dichiarati davvero.
     final app = File('lib/app.dart').readAsStringSync();
-    final porta =
-        File('lib/core/identity/dimenticanza_della_memoria_viva.dart')
-            .readAsStringSync();
+    final porta = File('lib/core/identity/dimenticanza_della_memoria_viva.dart')
+        .readAsStringSync();
     // **LA GUARDIA ERA CIECA, e il 31 agosto 2026 si e' misurato quanto.**
     // Il RegExp di prima cercava `=> Classe()`, cioe' i soli provider
     // costruiti SENZA argomenti: ne vedeva diciannove su ventitre. I quattro

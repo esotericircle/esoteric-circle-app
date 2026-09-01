@@ -75,8 +75,7 @@ void main() {
     voltoB = _immagineDellaCornice(tester);
     // ignore: avoid_print
     print('ORDINE CF VOCE 14: a 300 millesimi "$voltoA", a 1200 "$voltoB"');
-    expect(voltoA, isNotNull,
-        reason: 'la cornice non mostra nessuna immagine');
+    expect(voltoA, isNotNull, reason: 'la cornice non mostra nessuna immagine');
     expect(voltoA == voltoB, isFalse,
         reason: 'a trecento e a milleduecento millesimi la cornice mostra lo '
             'stesso volto: la sfilata non si muove, e un\'animazione ferma '
@@ -195,8 +194,9 @@ void main() {
     // **E i tre sono DIVERSI**: un podio con due volte la stessa faccia
     // vorrebbe dire che l'ordinamento ha perso un pezzo.
     final nomi = g.podio.map((v) => v.vip.name).toSet();
-    expect(nomi, hasLength(3), reason: 'sul podio c\'e\' due volte la '
-        'stessa persona');
+    expect(nomi, hasLength(3),
+        reason: 'sul podio c\'e\' due volte la '
+            'stessa persona');
   });
 
   testWidgets('il titolo, le due risposte e le barre ci sono tutti',
@@ -308,10 +308,7 @@ void main() {
     expect(find.byKey(const Key('gemello_apri_sinastria')), findsOneWidget,
         reason: 'dalla schermata del Gemello non si arriva alla sinastria '
             'intera: il racconto finisce in un vicolo cieco');
-    final sorgente = find
-        .byType(SchermataDelGemello)
-        .evaluate()
-        .isNotEmpty;
+    final sorgente = find.byType(SchermataDelGemello).evaluate().isNotEmpty;
     expect(sorgente, isTrue);
   });
 }

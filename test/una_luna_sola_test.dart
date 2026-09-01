@@ -103,10 +103,9 @@ void main() {
             illuminazione: luce.fraction, crescente: luce.waxing),
         Paint()..color = const Color(0xFFFFFFFF),
       );
-      final img = await recorder.endRecording().toImage(
-          lato.toInt(), lato.toInt());
-      final dati =
-          (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
+      final img =
+          await recorder.endRecording().toImage(lato.toInt(), lato.toInt());
+      final dati = (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
       var accesi = 0;
       for (var i = 0; i < dati.lengthInBytes; i += 4) {
         if (dati.getUint8(i) > 128) accesi++;
@@ -138,9 +137,11 @@ void main() {
       final ammesso = switch (nome) {
         'Luna nuova' => quotaAccesa < 0.05,
         'Luna crescente' || 'Luna calante' => quotaAccesa < 0.46,
-        'Primo quarto' || 'Ultimo quarto' =>
+        'Primo quarto' ||
+        'Ultimo quarto' =>
           quotaAccesa > 0.46 && quotaAccesa < 0.54,
-        'Gibbosa crescente' || 'Gibbosa calante' =>
+        'Gibbosa crescente' ||
+        'Gibbosa calante' =>
           quotaAccesa > 0.54 && quotaAccesa < 0.99,
         'Luna piena' => quotaAccesa > 0.99,
         _ => false,

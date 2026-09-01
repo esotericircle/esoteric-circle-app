@@ -79,10 +79,10 @@ void main() {
             'sparite');
   });
 
-  testWidgets('BE.01: lo spazio sotto le carte si e\' stretto',
-      (tester) async {
+  testWidgets('BE.01: lo spazio sotto le carte si e\' stretto', (tester) async {
     await monta(tester);
-    final centro = tester.getRect(find.byKey(const Key('santuario_central_bust')));
+    final centro =
+        tester.getRect(find.byKey(const Key('santuario_central_bust')));
     final ingresso =
         tester.getRect(find.byKey(const Key('santuario_enter_domain')));
     final aria = ingresso.top - centro.bottom;

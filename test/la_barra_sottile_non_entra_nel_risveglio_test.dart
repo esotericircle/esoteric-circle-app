@@ -72,7 +72,8 @@ void main() {
         reason: 'la barra e\' sparita anche dove deve esserci: $spente');
   });
 
-  test('l\'elenco vive in UN punto solo, insieme a quello della barra '
+  test(
+      'l\'elenco vive in UN punto solo, insieme a quello della barra '
       'storica', () {
     // **L'ENUMERAZIONE sui sorgenti.** La domanda "dove si vede la barra" ha
     // una casa sola: se ricompare un elenco dentro il file della barra

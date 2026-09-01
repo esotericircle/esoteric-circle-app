@@ -43,9 +43,8 @@ void main() {
         () {
       final complete =
           kRuneLore.entries.where((e) => e.value.strofe.length == 3).toList();
-      final sole = kRuneLore.entries
-          .where((e) => e.value.strofe.length == 1)
-          .toList();
+      final sole =
+          kRuneLore.entries.where((e) => e.value.strofe.length == 1).toList();
       expect(complete.length, 15,
           reason: 'Le rune col trittico completo sono ${complete.length}, '
               'non quindici.');
@@ -64,8 +63,15 @@ void main() {
     // Le radici, cosi' prendono singolare, plurale e derivati. La frase
     // vietata composta si controlla per intero.
     const radici = [
-      'guarigion', 'salute', 'malatti', 'fertilit', 'longevit',
-      'vittori', 'ricchezz', 'tesor', 'protezione dalle armi',
+      'guarigion',
+      'salute',
+      'malatti',
+      'fertilit',
+      'longevit',
+      'vittori',
+      'ricchezz',
+      'tesor',
+      'protezione dalle armi',
     ];
 
     test('nel corpus sorgente, dentro le voci delle rune', () {

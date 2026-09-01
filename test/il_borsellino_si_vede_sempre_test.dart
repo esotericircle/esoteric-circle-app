@@ -79,7 +79,8 @@ void main() {
     // dell'ordine P lo verificano.
     'lib/features/maestri/art_intro_screen.dart': 'intro a schermo pieno',
     'lib/features/rituals/breath_destiny_screen.dart': 'rito immersivo',
-    'lib/features/rituals/ritual_view.dart': 'guscio dei riti, non una schermata',
+    'lib/features/rituals/ritual_view.dart':
+        'guscio dei riti, non una schermata',
     // Non e' la pratica: qui non si guadagna e non si spende niente, e nel
     // prezzario un saldo accanto ai piani confonderebbe l'offerta.
     'lib/features/account/account_screen.dart': 'account',
@@ -140,7 +141,7 @@ void main() {
     // schermata.
     expect(
         sorgente('lib/core/entitlement/registro_degli_eos.dart')
-            .contains('fold') ,
+            .contains('fold'),
         isFalse,
         reason: 'il registro ha cominciato a sommare i movimenti: e\' il '
             'secondo saldo, e vince sempre quello del server');
@@ -228,7 +229,8 @@ void main() {
     return registro;
   }
 
-  testWidgets('il segno si vede, e al tocco apre il portafoglio con le tre cose',
+  testWidgets(
+      'il segno si vede, e al tocco apre il portafoglio con le tre cose',
       (tester) async {
     final registro = await montaUnaSchermata(tester, saldo: 7);
     expect(find.byKey(const Key('borsellino')), findsOneWidget,
@@ -243,10 +245,12 @@ void main() {
     }
 
     expect(find.byKey(const Key('portafoglio')), findsOneWidget,
-        reason: 'toccando il borsellino non si apre niente: e\' un vicolo cieco');
+        reason:
+            'toccando il borsellino non si apre niente: e\' un vicolo cieco');
     // 1. IL SALDO, e viene dal server e non dal registro: nel registro ci sono
     //    dieci Eos, il server ne dice sette, e a schermo deve leggersi sette.
-    final saldo = tester.widget<Text>(find.byKey(const Key('portafoglio_saldo')));
+    final saldo =
+        tester.widget<Text>(find.byKey(const Key('portafoglio_saldo')));
     expect(saldo.data, '7 Eos',
         reason: 'il portafoglio mostra ${saldo.data}: se non e\' il numero del '
             'server, c\'e\' un secondo saldo e i due discorderanno');
@@ -281,8 +285,8 @@ void main() {
     expect(viandante.toLowerCase(), contains('guadagni'),
         reason: 'al Viandante non si dice da dove arrivano gli Eos, e il suo '
             'piano non ne porta nessuno ogni mese');
-    final illuminato = PortafoglioDelCerchio.quandoTornano(
-        QuestionAllowance(), Tier.tier3);
+    final illuminato =
+        PortafoglioDelCerchio.quandoTornano(QuestionAllowance(), Tier.tier3);
     expect(illuminato, isNot(contains('Medio')),
         reason: 'il portafoglio ha cominciato a mostrare il livello grezzo '
             'della matrice, che alla persona non dice niente');

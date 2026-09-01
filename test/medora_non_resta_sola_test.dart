@@ -87,8 +87,7 @@ void main() {
     await tester.pump();
   }
 
-  bool inAlbero(String chiave) =>
-      find.byKey(Key(chiave)).evaluate().isNotEmpty;
+  bool inAlbero(String chiave) => find.byKey(Key(chiave)).evaluate().isNotEmpty;
 
   testWidgets(
       "Dall ultima carta al responso non c e un solo fotogramma di Medora sola",

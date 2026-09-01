@@ -48,7 +48,8 @@ void main() {
       for (final voce in Directory('lib').listSync(recursive: true)) {
         if (voce is! File || !voce.path.endsWith('.dart')) continue;
         final percorso = voce.path.replaceAll('\\', '/');
-        if (percorso.endsWith('core/condivisione/porta_della_condivisione.dart')) {
+        if (percorso
+            .endsWith('core/condivisione/porta_della_condivisione.dart')) {
           continue;
         }
         final testo = voce.readAsStringSync();

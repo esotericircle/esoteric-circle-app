@@ -86,14 +86,13 @@ void main() {
         ),
       );
 
-
   /// **SI FANNO I GESTI FINCHE' QUALCOSA SI ACCENDE, e non si conta a mano
   /// quanti ne servono.** I traguardi hanno le loro soglie, e scrivere qui
   /// "tre stese" vorrebbe dire tenere d'accordo questa prova con l'elenco
   /// dei traguardi per sempre. Si smette appena il diario ha qualcosa da
   /// mostrare, cosi' la prova misura cio' che c'e' davvero.
-  Future<void> faiIGesti(WidgetTester tester, GlobalKey chiave,
-      DiarioDelCammino diario) async {
+  Future<void> faiIGesti(
+      WidgetTester tester, GlobalKey chiave, DiarioDelCammino diario) async {
     for (var giro = 0; giro < 6 && diario.accesi.isEmpty; giro++) {
       await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'stesa');
       for (var i = 0; i < 12; i++) {
@@ -135,7 +134,8 @@ void main() {
         reason: 'PASSO 5: il server ha risposto ma il borsellino e\' a zero');
   });
 
-  testWidgets('IL CRITERIO DI ACCETTAZIONE: nella festa unita la somma '
+  testWidgets(
+      'IL CRITERIO DI ACCETTAZIONE: nella festa unita la somma '
       'accreditata e\' la somma dei valori', (tester) async {
     final porta = _PortaCheRisponde();
     final diario = DiarioDelCammino(orologio: orologioDelleProve);
@@ -261,7 +261,8 @@ void main() {
       borsa: borsa,
     ));
     final lettura = dopo.carica();
-    final corsa = RegiaDelCammino.riprendiIPremiPersi(chiaveDue.currentContext!);
+    final corsa =
+        RegiaDelCammino.riprendiIPremiPersi(chiaveDue.currentContext!);
     await tester.runAsync(() async {
       await lettura;
       await corsa;
@@ -278,7 +279,8 @@ void main() {
         reason: 'la somma ripresa non e\' quella dei traguardi accesi');
   });
 
-  test('CANDIDATO 4: due premi chiesti insieme finiscono tutti e due nel '
+  test(
+      'CANDIDATO 4: due premi chiesti insieme finiscono tutti e due nel '
       'libro', () async {
     // **LA CORSA, e perche' e' un candidato serio.** Il libro fa
     // leggi-modifica-scrivi su disco: se due accrediti lo scrivono nello
@@ -326,11 +328,12 @@ class _PortaCheRisponde extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
-      giorno: '2026-08-18',
-      piano: 'free',
-      spesi: const {},
-      saldoEos: accreditato);
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      StatoDelCerchio(
+          giorno: '2026-08-18',
+          piano: 'free',
+          spesi: const {},
+          saldoEos: accreditato);
 
   @override
   Future<EsitoDelConsumo?> consuma(
@@ -379,7 +382,8 @@ class _PortaCheRifiuta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma(
@@ -414,7 +418,8 @@ class _PortaMuta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma(

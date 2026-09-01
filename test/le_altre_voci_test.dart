@@ -123,7 +123,6 @@ void main() {
   // nessun punto aggiunga a una chat il turno di un altro Maestro sta in
   // `una_porta_per_il_confronto_test.dart`, che scandisce tutto lib.
 
-
   group('1e. La sintesi si raggiunge solo quando c\'e\' da sintetizzare', () {
     test('Con una voce sola, no. Con due, si\'', () async {
       final voce = _VoceCheRisponde(
@@ -180,7 +179,8 @@ void main() {
     test('Uno strato vuoto e\' peggio di uno strato in meno', () {
       // A video una riga bianca e una freccia senza niente accanto: si e'
       // vista nell'anteprima del 3 agosto 2026.
-      final due = AltreVoci.treStratiDa('Le stelle ti ascoltano. Dimmi ancora.');
+      final due =
+          AltreVoci.treStratiDa('Le stelle ti ascoltano. Dimmi ancora.');
       expect(due.glance, 'Le stelle ti ascoltano.');
       expect(due.reading, 'Dimmi ancora.');
       expect(due.invite, isEmpty);
@@ -206,14 +206,14 @@ void main() {
           .readAsStringSync();
       expect(chat.contains('canCompare('), isTrue,
           reason: 'senza questa riga le altre voci sarebbero gratis per tutti, '
-              'cioe' ' il gating si sarebbe allargato in silenzio');
+              'cioe'
+              ' il gating si sarebbe allargato in silenzio');
     });
 
     // **LA PROVA SUL LIMITE E' STATA TOLTA IL 5 agosto 2026.** Verificava che
     // chiedere agli altri dentro la chat non intaccasse le domande del
     // giorno. Dentro la chat non si chiede piu' agli altri: si apre il
     // Consiglio, e li' il limite lo controlla `canCompare` come prima.
-
   });
 }
 

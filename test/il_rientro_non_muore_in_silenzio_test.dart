@@ -81,8 +81,7 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE AZ VOCE 01: col server che dice "unauthenticated", '
-        'l eccezione scappata e ${scappata.runtimeType}, esito ${esito == null
-            ? "nessuno" : "passi da chiedere ${esito.passiDaChiedere.length}"}');
+        'l eccezione scappata e ${scappata.runtimeType}, esito ${esito == null ? "nessuno" : "passi da chiedere ${esito.passiDaChiedere.length}"}');
 
     expect(scappata, isNull,
         reason: 'il no del server scappa dal giro del Custode e muore nel '
@@ -96,12 +95,13 @@ void main() {
             'sono due cose che la persona deve poter distinguere');
   });
 
-  testWidgets('STRADA DUE: la rete assente si distingue dal no', (tester) async {
+  testWidgets('STRADA DUE: la rete assente si distingue dal no',
+      (tester) async {
     final porta = _PortaMuta();
     final ctx = await montaIlGiro(tester, porta);
 
-    final esito = await CustodeDelCammino.dopoIlRiconoscimento(ctx,
-        mostraLaScena: false);
+    final esito =
+        await CustodeDelCammino.dopoIlRiconoscimento(ctx, mostraLaScena: false);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 01: col server che non risponde, esito '
         '${esito == null ? "nessuno" : "passi ${esito.passiDaChiedere.length}, "
@@ -126,8 +126,8 @@ void main() {
     final porta = _PortaCheRiconosce();
     final ctx = await montaIlGiro(tester, porta);
 
-    final esito = await CustodeDelCammino.dopoIlRiconoscimento(ctx,
-        mostraLaScena: false);
+    final esito =
+        await CustodeDelCammino.dopoIlRiconoscimento(ctx, mostraLaScena: false);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 01: col Cerchio che riconosce, passi da chiedere '
         '${esito!.passiDaChiedere.length}, si salta ${esito.siSalta}, '
@@ -164,9 +164,12 @@ void main() {
       final testo = tester.widget<Text>(find
           .descendant(of: avviso, matching: find.byType(Text))
           .evaluate()
-          .where((e) =>
-              find.ancestor(of: find.byWidget(e.widget),
-                  matching: find.byType(SnackBarAction)).evaluate().isEmpty)
+          .where((e) => find
+              .ancestor(
+                  of: find.byWidget(e.widget),
+                  matching: find.byType(SnackBarAction))
+              .evaluate()
+              .isEmpty)
           .map((e) => find.byWidget(e.widget))
           .first);
       // ignore: avoid_print

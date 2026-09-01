@@ -118,7 +118,8 @@ void main() {
     expect(find.byKey(const Key('share_feed')), findsOneWidget);
   });
 
-  testWidgets('Col luogo disponibile chiede il permesso con un pre-avviso gentile',
+  testWidgets(
+      'Col luogo disponibile chiede il permesso con un pre-avviso gentile',
       (tester) async {
     silence();
     await tester.pumpWidget(hostFull(
@@ -138,8 +139,8 @@ void main() {
     // astro arriva col motore a effemeridi", ed era meta' falsa: negava in
     // blocco un calcolo che l'app fa davvero. Adesso dice cosa e' calcolato e
     // cosa non c'e'.
-    expect(find.textContaining('altezza vera sul tuo orizzonte'),
-        findsOneWidget);
+    expect(
+        find.textContaining('altezza vera sul tuo orizzonte'), findsOneWidget);
     // E dichiara anche cosa NON c'e', invece di negare tutto in blocco: gli
     // altri pianeti non si disegnano su questa schermata.
     // La riga che dichiara cosa non c'e' e' uscita con la scheda ridotta: cio'

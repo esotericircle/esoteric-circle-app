@@ -260,8 +260,7 @@ void main() {
       );
       expect(testo, contains('nebbia'),
           reason: 'il ripiego di Caligo apre come sempre');
-      expect(testo, contains('runa'),
-          reason: 'anche senza dati la porta c\'è');
+      expect(testo, contains('runa'), reason: 'anche senza dati la porta c\'è');
       // Non deve nominare un segno che non esiste.
       expect(testo.contains('in Cancro'), isFalse);
     });

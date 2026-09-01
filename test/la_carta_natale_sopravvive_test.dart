@@ -99,8 +99,7 @@ void main() {
   group('la carta sopravvive alla chiusura dell\'app', () {
     setUp(() => SharedPreferences.setMockInitialValues({}));
 
-    test('scritta e riletta: dopo un riavvio la carta c\'e\' ancora',
-        () async {
+    test('scritta e riletta: dopo un riavvio la carta c\'e\' ancora', () async {
       // **QUESTA E' LA PROVA CHE DIMOSTRA LA CAUSA.** Si scrive il profilo,
       // si scrive la carta, si butta via TUTTO cio' che vive in memoria (che
       // e' cio' che fa il sistema quando uccide il processo) e si riprende da
@@ -128,7 +127,8 @@ void main() {
 
       expect(dopoIlRiavvio.chart, isNotNull,
           reason: 'Dopo il riavvio la carta natale non c\'e\' piu\': e\' la '
-              'causa dell\'avviso falso, perche' ' chi la legge trova nullo '
+              'causa dell\'avviso falso, perche'
+              ' chi la legge trova nullo '
               'e conclude che ora e luogo non sono stati dati.');
       expect(dopoIlRiavvio.chart!.hasTime, isTrue,
           reason: 'La carta e\' tornata, ma senza l\'ora: il livello '
@@ -213,13 +213,10 @@ void main() {
       // cioe' che non avvisano nessuno: una misura che guarda la cosa
       // sbagliata e' come una misura che non c'e'. Le righe di commento si
       // tolgono prima di cercare.
-      final soloCodice = testo
-          .split('\n')
-          .where((r) {
-            final nuda = r.trimLeft();
-            return !nuda.startsWith('//');
-          })
-          .join('\n');
+      final soloCodice = testo.split('\n').where((r) {
+        final nuda = r.trimLeft();
+        return !nuda.startsWith('//');
+      }).join('\n');
       // **"ORA E LUOGO" DA SOLO NON E' UN AVVISO, ordine AR voce 02.** Col
       // corpus nuovo esistono frasi di traguardo che dicono "giorno, ora e
       // luogo della tua nascita scritti insieme": nominano i dati, non
@@ -228,7 +225,12 @@ void main() {
       // MISURATA e mai la soglia: perche' una riga sia un avviso, deve dire
       // anche che qualcosa manca.
       bool diceCheManca(String riga) => const [
-            'manca', 'Manca', 'senza', 'Senza', 'non hai', 'incomplet',
+            'manca',
+            'Manca',
+            'senza',
+            'Senza',
+            'non hai',
+            'incomplet',
           ].any(riga.contains);
       final avvisa = soloCodice.contains('senza ora') ||
           soloCodice.contains('Senza l\'ora') ||

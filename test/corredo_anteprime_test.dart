@@ -122,8 +122,9 @@ void main() {
       // restando verde. Qui si contano: tante misure, tanti rapporti.
       final misure =
           RegExp(r'tester\.view\.physicalSize = ').allMatches(sorgente).length;
-      final dichiarazioni =
-          RegExp(r'tester\.view\.devicePixelRatio = ').allMatches(sorgente).length;
+      final dichiarazioni = RegExp(r'tester\.view\.devicePixelRatio = ')
+          .allMatches(sorgente)
+          .length;
       if (misure != dichiarazioni) {
         colpe.add('$nome imposta $misure misure di schermo ma dichiara '
             '$dichiarazioni rapporti: quelle senza si prendono il rapporto '
@@ -185,7 +186,8 @@ void main() {
       if (nome.endsWith('screenshot_capture_test.dart')) continue;
       if (nome.endsWith('preview_integrity_test.dart')) continue;
       if (nome.endsWith('corredo_anteprime_test.dart')) continue;
-      final t = f.readAsLinesSync()
+      final t = f
+          .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
       // SI CERCA LA SCRITTURA, non la menzione. Il lucchetto guardava se il
@@ -296,7 +298,8 @@ void main() {
       osservate++;
       final generatore = File(voce.value[0]);
       if (!generatore.existsSync()) {
-        morte.add('${voce.key}: il generatore ${voce.value[0]} non esiste piu\'');
+        morte.add(
+            '${voce.key}: il generatore ${voce.value[0]} non esiste piu\'');
         continue;
       }
       if (!generatore.readAsStringSync().contains(voce.value[1])) {

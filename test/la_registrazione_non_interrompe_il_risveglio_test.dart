@@ -28,8 +28,7 @@ void main() {
   });
 
   test('il passo della custodia vale come primo invito', () {
-    final passo =
-        leggi('lib/features/onboarding/custodia_del_cielo_step.dart');
+    final passo = leggi('lib/features/onboarding/custodia_del_cielo_step.dart');
     expect(
         passo.contains('QuandoChiedereLaCustodia.chiaveUltimoInvito'), isTrue,
         reason: 'il Piu\' tardi del rito non segna piu\' la data: il primo '

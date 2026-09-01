@@ -17,9 +17,10 @@ void main() {
   final tuo = CieloDiSinastria.perIdentita(
       BirthIdentity.fromParts(birthDate: DateTime(1988, 3, 14)));
 
-  const milano = DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
-  const losAngeles =
-      DoveSei(citta: 'Los Angeles', latitudine: 34.0522, longitudine: -118.2437);
+  const milano =
+      DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
+  const losAngeles = DoveSei(
+      citta: 'Los Angeles', latitudine: 34.0522, longitudine: -118.2437);
 
   /// Due VIP identici in tutto tranne la citta': e' il solo modo di misurare
   /// "a parita' di tutto il resto" senza confondere l'effetto della distanza
@@ -77,10 +78,10 @@ void main() {
     for (final v in VipCatalog.vips) {
       final i = PossibilitaDiIncontro.per(vip: v, doveSei: milano);
       expect(i.perche, isNotEmpty, reason: v.name);
-      final nominaUnFatto = (v.luogoDiOggi != null &&
-              i.perche.contains(v.luogoDiOggi!.nome)) ||
-          i.perche.contains(v.esposizione.comeSiDice) ||
-          (v.eScomparso && i.perche.contains('${v.annoDellaScomparsa}'));
+      final nominaUnFatto =
+          (v.luogoDiOggi != null && i.perche.contains(v.luogoDiOggi!.nome)) ||
+              i.perche.contains(v.esposizione.comeSiDice) ||
+              (v.eScomparso && i.perche.contains('${v.annoDellaScomparsa}'));
       expect(nominaUnFatto, isTrue,
           reason: '${v.name}: la riga "${i.perche}" non nomina nessuno dei '
               'fatti da cui il numero nasce');
@@ -97,12 +98,12 @@ void main() {
   test('la distanza calcolata e\' quella vera, entro l\'uno per cento', () {
     // Milano-Roma, 477 km in linea d'aria secondo le coordinate del catalogo
     // dei luoghi gia' nel repository.
-    final km = PossibilitaDiIncontro.chilometriFra(
-        45.4642, 9.1920, 41.9004, 12.4957);
+    final km =
+        PossibilitaDiIncontro.chilometriFra(45.4642, 9.1920, 41.9004, 12.4957);
     expect(km, closeTo(477, 5), reason: 'la formula della distanza sbaglia');
     // E il verso opposto da' lo stesso numero: la distanza e' simmetrica.
-    final inverso = PossibilitaDiIncontro.chilometriFra(
-        41.9004, 12.4957, 45.4642, 9.1920);
+    final inverso =
+        PossibilitaDiIncontro.chilometriFra(41.9004, 12.4957, 45.4642, 9.1920);
     expect(inverso, closeTo(km, 0.001));
   });
 
@@ -167,7 +168,8 @@ void main() {
           expect(i.percento, 0, reason: v.name);
           continue;
         }
-        expect(i.percento,
+        expect(
+            i.percento,
             inInclusiveRange(
                 PossibilitaDiIncontro.pavimento, PossibilitaDiIncontro.tetto),
             reason: v.name);

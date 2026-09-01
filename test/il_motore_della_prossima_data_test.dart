@@ -70,9 +70,10 @@ void main() {
       // passato da qualche ora, quindi la data VERA e' il giorno prima e il
       // motore di oggi lo conferma il giorno dopo. Misurato sul solstizio
       // d'inverno 2026, che cade il 21 dicembre alle 15:50 UTC.
-      final quandoLoVede = ProssimiEventi.attraversamenti.contains(evento.evento)
-          ? DateTime(evento.quando.year, evento.quando.month,
-              evento.quando.day + 1)
+      final quandoLoVede = ProssimiEventi.attraversamenti
+              .contains(evento.evento)
+          ? DateTime(
+              evento.quando.year, evento.quando.month, evento.quando.day + 1)
           : evento.quando;
       final diQuelGiorno = EventiDelCielo.diOggi(
         adesso: quandoLoVede,

@@ -187,8 +187,8 @@ void main() {
     final partenza = InquadraturaDellaMappa.a(0, tu: tu, lui: lui);
     final arrivo = InquadraturaDellaMappa.a(1, tu: tu, lui: lui);
     expect(partenza.larghezzaInGradi, InquadraturaDellaMappa.partenza);
-    expect(arrivo.larghezzaInGradi,
-        greaterThan(partenza.larghezzaInGradi * 100),
+    expect(
+        arrivo.larghezzaInGradi, greaterThan(partenza.larghezzaInGradi * 100),
         reason: 'lo zoom non si allarga abbastanza da tenere dentro Los '
             'Angeles');
     // **E L\'INQUADRATURA FINALE CONTIENE DAVVERO I DUE PUNTI, ordine BX
@@ -214,8 +214,7 @@ void main() {
         reason: 'a fine corsa il punto del VIP sta fuori dall\'inquadratura');
   });
 
-  test('nella stessa città lo zoom NON si allarga, e quella è la sorpresa',
-      () {
+  test('nella stessa città lo zoom NON si allarga, e quella è la sorpresa', () {
     const tu = (lat: 45.4642, lon: 9.1920);
     const lui = (lat: 45.4700, lon: 9.1990); // due passi più in là
     final arrivo = InquadraturaDellaMappa.a(1, tu: tu, lui: lui);
@@ -232,8 +231,8 @@ void main() {
   });
 
   test('la distanza mostrata è quella calcolata, entro l\'uno per cento', () {
-    const milano = DoveSei(
-        citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
+    const milano =
+        DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
     for (final v in VipCatalog.vips) {
       final i = PossibilitaDiIncontro.per(vip: v, doveSei: milano);
       if (i.chilometri == null) continue;

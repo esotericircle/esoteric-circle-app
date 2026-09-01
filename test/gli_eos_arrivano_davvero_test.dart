@@ -34,7 +34,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('i premi dei Sigilli accesi e mai pagati si riprendono e la '
+  testWidgets(
+      'i premi dei Sigilli accesi e mai pagati si riprendono e la '
       'pillola si aggiorna', (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     RegiaDelCammino.ripresaTentata = false;
@@ -51,8 +52,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
-        Provider<AppServices>.value(
-            value: AppServices.offline('prova', porta)),
+        Provider<AppServices>.value(value: AppServices.offline('prova', porta)),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
       child: MaterialApp(home: Scaffold(body: SizedBox(key: chiave))),
@@ -69,8 +69,7 @@ void main() {
             'la promessa senza meccanismo della 2179');
     expect(borsa.saldoEos, 40,
         reason: 'la pillola non porta il saldo sovrano detto dal server');
-    expect(await LibroDegliAccrediti.accreditati(),
-        {'med_1', 'med_2', 'cal_1'},
+    expect(await LibroDegliAccrediti.accreditati(), {'med_1', 'med_2', 'cal_1'},
         reason: 'il libro non segna cio\' che e\' arrivato: alla prossima '
             'apertura si bussa di nuovo per premi gia\' pagati');
 
@@ -87,8 +86,7 @@ void main() {
         reason: 'il libro non ferma la ripresa dei premi gia\' arrivati');
   });
 
-  testWidgets('a porta spenta la sincronia non inventa niente',
-      (tester) async {
+  testWidgets('a porta spenta la sincronia non inventa niente', (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     RegiaDelCammino.ripresaTentata = false;
     final diario = DiarioDelCammino(orologio: () => DateTime(2026, 8, 18, 9));
@@ -128,8 +126,12 @@ class _PortaCheConta extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
-      giorno: '2026-08-18', piano: 'free', spesi: const {}, saldoEos: _saldo);
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      StatoDelCerchio(
+          giorno: '2026-08-18',
+          piano: 'free',
+          spesi: const {},
+          saldoEos: _saldo);
 
   @override
   Future<EsitoDelConsumo?> consuma(

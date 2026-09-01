@@ -89,7 +89,8 @@ const List<PresidioIntoccabile> presidi = [
     prova: 'test/tipografia_nel_dato_test.dart',
     sorveglia: 'le misure di carattere scritte a mano, gli spazi scritti a '
         'mano e, dall\'ordine P, le coppie di colori sotto il contrasto',
-    perche: 'il posto di un testo nella pagina si dichiara con un ruolo, e ogni '
+    perche:
+        'il posto di un testo nella pagina si dichiara con un ruolo, e ogni '
         'misura scritta a mano e\' un pezzo di sistema deciso altrove',
   ),
   PresidioIntoccabile(

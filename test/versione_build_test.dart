@@ -16,7 +16,8 @@ import 'package:yaml/yaml.dart';
 /// ogni modo di costruire, e si confronta con l'ultimo davvero consegnato.
 void main() {
   int numeroDiBuild() {
-    final pubspec = loadYaml(File('pubspec.yaml').readAsStringSync()) as YamlMap;
+    final pubspec =
+        loadYaml(File('pubspec.yaml').readAsStringSync()) as YamlMap;
     final versione = pubspec['version'] as String;
     final piu = versione.indexOf('+');
     expect(piu, greaterThan(0),
@@ -26,8 +27,9 @@ void main() {
   }
 
   int ultimoDistribuito() {
-    final j = jsonDecode(File('docs/versione_distribuita.json')
-        .readAsStringSync()) as Map<String, dynamic>;
+    final j =
+        jsonDecode(File('docs/versione_distribuita.json').readAsStringSync())
+            as Map<String, dynamic>;
     return j['ultimo_distribuito'] as int;
   }
 

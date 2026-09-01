@@ -33,7 +33,8 @@ void main() {
     'device.id': '2, l\'identita\' del dispositivo che regge i Doni',
     'filo.parola_del_giorno': '3, la parola del giorno',
     'filo.domanda_di_medora': '4, la domanda di Medora',
-    'avvisi.alba.giaChiesto': '5, se l\'avviso dell\'alba e\' gia\' stato chiesto',
+    'avvisi.alba.giaChiesto':
+        '5, se l\'avviso dell\'alba e\' gia\' stato chiesto',
     'maestro.welcome.rotation.medora': '6, il benvenuto gia\' detto da Medora',
     'sunset_rune.settimana': '7, la settimana della Runa del Tramonto',
   };
@@ -67,7 +68,10 @@ void main() {
 
   Future<List<String>> superstiti() async {
     final p = await SharedPreferences.getInstance();
-    return [for (final c in setteChiavi.keys) if (p.containsKey(c)) c];
+    return [
+      for (final c in setteChiavi.keys)
+        if (p.containsKey(c)) c
+    ];
   }
 
   test('prima della cancellazione ci sono tutte e sette', () async {
@@ -151,7 +155,8 @@ void main() {
     // L'ordine chiede di verificare se la prova nata con BZ.01 le copra. Non
     // si crede alla parola: si legge il suo codice e si guarda che cerchi le
     // chiavi in tutto `lib/` invece di elencarle a mano.
-    final guardia = File('test/niente_resta_di_te_test.dart').readAsStringSync();
+    final guardia =
+        File('test/niente_resta_di_te_test.dart').readAsStringSync();
     expect(guardia.contains("Directory('lib')"), isTrue,
         reason: 'la guardia di BZ.01 non legge piu\' il codice: se elenca '
             'chiavi a mano, la prossima chiave nuova passera\' inosservata');

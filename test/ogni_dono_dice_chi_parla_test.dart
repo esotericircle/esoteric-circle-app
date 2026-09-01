@@ -146,15 +146,12 @@ void main() {
       final crudo = AccentoDelMaestro.su(Maestro.aura,
           superficie: AccentoDelMaestro.vetro);
       final partenza = MaestroPaletteDiProva.primarioDi(Maestro.aura);
-      expect(
-          AccentoDelMaestro.contrastoFra(
-              partenza, AccentoDelMaestro.vetro),
+      expect(AccentoDelMaestro.contrastoFra(partenza, AccentoDelMaestro.vetro),
           lessThan(AccentoDelMaestro.contrastoMinimo),
           reason: 'Il verde di Aura passa gia\' com\'e\': la regola che lo '
               'scurisce non sta correggendo niente, quindi non protegge '
               'nessuno.');
-      expect(
-          AccentoDelMaestro.contrastoFra(crudo, AccentoDelMaestro.vetro),
+      expect(AccentoDelMaestro.contrastoFra(crudo, AccentoDelMaestro.vetro),
           greaterThanOrEqualTo(AccentoDelMaestro.contrastoMinimo),
           reason: 'Dopo la regola il verde deve leggersi.');
     });

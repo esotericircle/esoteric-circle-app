@@ -53,7 +53,8 @@ void main() {
     final vowelApostrophe = RegExp("[aeiou]'", caseSensitive: false);
     final letter = RegExp('[a-zA-Zàèéìòù]');
     for (var doy = 0; doy < 366; doy++) {
-      final line = SkyPostcard.poeticLine(DateTime(2026).add(Duration(days: doy)));
+      final line =
+          SkyPostcard.poeticLine(DateTime(2026).add(Duration(days: doy)));
       for (final m in vowelApostrophe.allMatches(line)) {
         final ap = m.end - 1;
         final elision = ap + 1 < line.length && letter.hasMatch(line[ap + 1]);

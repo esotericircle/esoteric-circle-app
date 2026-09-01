@@ -72,8 +72,8 @@ void main() {
             'difetto del collaudo, dove non si poteva fare piu\' nulla');
     expect(find.byKey(const Key('archetype_emblema')), findsOneWidget,
         reason: 'manca l\'emblema, che e\' la cosa piu\' sua che ci sia');
-    final nome = tester
-        .widget<Text>(find.byKey(const Key('archetype_nome_dominante')));
+    final nome =
+        tester.widget<Text>(find.byKey(const Key('archetype_nome_dominante')));
     // ignore: avoid_print
     print('ORDINE AO VOCE 06: riaprendo si legge "${nome.data}"');
     expect(nome.data, contains(Archetype.mago.nome),

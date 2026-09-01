@@ -85,7 +85,10 @@ void main() {
   const gesto = 'gettata';
 
   bool laFestaSiVede(WidgetTester tester) =>
-      find.byKey(const Key('sovrimpressione_del_traguardo')).evaluate().isNotEmpty ||
+      find
+          .byKey(const Key('sovrimpressione_del_traguardo'))
+          .evaluate()
+          .isNotEmpty ||
       find.byKey(const Key('celebrazione_nome')).evaluate().isNotEmpty;
 
   testWidgets('la festa arriva anche se la porta del server SOLLEVA',
@@ -265,7 +268,8 @@ class _PortaCheSolleva extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => throw StateError('unauthenticated');
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      throw StateError('unauthenticated');
 
   @override
   Future<EsitoDelConsumo?> consuma({
@@ -292,8 +296,7 @@ class _PortaCheSolleva extends PortaDelCerchio {
       throw StateError('unauthenticated');
 
   @override
-  Future<bool> cancellaIlCerchio() async =>
-      throw StateError('unauthenticated');
+  Future<bool> cancellaIlCerchio() async => throw StateError('unauthenticated');
 }
 
 /// La porta che non risponde mai: le funzioni non distribuite si comportano
@@ -320,7 +323,8 @@ class _PortaAppesa extends PortaDelCerchio {
 
   @override
   Future<StatoDelCerchio?> stato(
-          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) => _appesa<StatoDelCerchio>();
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) =>
+      _appesa<StatoDelCerchio>();
 
   @override
   Future<EsitoDelConsumo?> consuma({

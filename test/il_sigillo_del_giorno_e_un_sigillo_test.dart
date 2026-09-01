@@ -127,7 +127,8 @@ void main() {
       raggioDelSegno = massimo;
     });
     expect(raggioDelSegno, lessThanOrEqualTo(raggioAmmesso),
-        reason: 'il segno arriva a ${raggioDelSegno.toStringAsFixed(1)} pixel dal '
+        reason:
+            'il segno arriva a ${raggioDelSegno.toStringAsFixed(1)} pixel dal '
             'centro e l\'anello con margine ne ammette '
             '${raggioAmmesso.toStringAsFixed(1)}: il sigillo tocca la sua '
             'cornice, e un segno che tocca il bordo si legge come tagliato');
@@ -190,8 +191,8 @@ void main() {
     // Le due costanti sono la fonte del riquadro: se qualcuno le cambia, il glifo
     // le segue da solo. Questa riga tiene vero il rapporto, cosi' nessuno
     // reintroduce un terzo numero scritto a mano.
-    expect(BindruneSigillo.raggioDelTondo, greaterThan(
-        BindruneSigillo.margineDelTondo),
+    expect(BindruneSigillo.raggioDelTondo,
+        greaterThan(BindruneSigillo.margineDelTondo),
         reason: 'il margine si mangia tutto il tondo: non resterebbe posto per '
             'il segno');
   });

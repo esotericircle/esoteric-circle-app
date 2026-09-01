@@ -47,8 +47,7 @@ void main() {
             'le due cifre fisse');
   });
 
-  testWidgets('BD.06: senza il quando, nessuna data inventata',
-      (tester) async {
+  testWidgets('BD.06: senza il quando, nessuna data inventata', (tester) async {
     await monta(tester, null);
     expect(find.byKey(const Key('card_quando_raggiunto')), findsNothing,
         reason: 'la card mostra una scritta di data per un Sigillo acceso '
@@ -62,8 +61,8 @@ void main() {
     // **LA SCRITTA VIVE SOLO SE IL DATO NASCE**: qui si prova che accendere
     // oggi segna il quando, cosi' ogni traguardo futuro avra' la sua data.
     SharedPreferences.setMockInitialValues(const {});
-    final diario = DiarioDelCammino(
-        orologio: () => DateTime(2026, 8, 23, 19, 30));
+    final diario =
+        DiarioDelCammino(orologio: () => DateTime(2026, 8, 23, 19, 30));
     await diario.carica();
     diario.accendi(traguardo.id);
     final quando = diario.quandoSiEAcceso(traguardo.id);

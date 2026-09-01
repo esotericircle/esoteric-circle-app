@@ -50,9 +50,7 @@ void main() {
     final v = VipCatalog.conNome('Zendaya')!;
     final distinti = <String>{
       for (var i = 0; i < 30; i++)
-        moltiplicatore(v, oggi.add(Duration(days: i)))
-            .valore
-            .toStringAsFixed(4)
+        moltiplicatore(v, oggi.add(Duration(days: i))).valore.toStringAsFixed(4)
     };
     // ignore: avoid_print
     print('ORDINE BO VOCE 12: in trenta giorni lo stesso VIP dà '
@@ -78,8 +76,8 @@ void main() {
   test('la geografia non si ribalta: diecimila km restano sotto il due', () {
     // Un VIP a diecimila chilometri, con l'esposizione massima, nel giorno
     // migliore E in quello peggiore dei sei mesi.
-    const milano = DoveSei(
-        citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
+    const milano =
+        DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
     final lontano = Vip(
       name: 'Prova lontana',
       sign: VipCatalog.first.sign,
@@ -89,11 +87,15 @@ void main() {
       statoInVita: StatoInVita.inVita,
       esposizione: EsposizionePubblica.altissima,
       luogoDiNascita: const LuogoDelVip(
-          nome: 'Sydney', nazione: 'Australia',
-          latitudine: -33.8678, longitudine: 151.2073),
+          nome: 'Sydney',
+          nazione: 'Australia',
+          latitudine: -33.8678,
+          longitudine: 151.2073),
       luogoDiOggi: const LuogoDelVip(
-          nome: 'Sydney', nazione: 'Australia',
-          latitudine: -33.8678, longitudine: 151.2073),
+          nome: 'Sydney',
+          nazione: 'Australia',
+          latitudine: -33.8678,
+          longitudine: 151.2073),
       fonti: const {},
     );
     final suo = CieloDiSinastria.perVip(lontano);
@@ -125,16 +127,15 @@ void main() {
     final v = VipCatalog.conNome('Drake')!;
     final suo = CieloDiSinastria.perVip(v);
     final aspetti = AspettiDiSinastria.fra(tuo, suo);
-    final trovato = GiornoPiuAcceso.cerca(
-        aspetti: aspetti, tuo: tuo, suo: suo, da: oggi)!;
+    final trovato =
+        GiornoPiuAcceso.cerca(aspetti: aspetti, tuo: tuo, suo: suo, da: oggi)!;
     // **La verifica indipendente**: si rifà la scansione per intero e si
     // guarda che nessun giorno batta quello dichiarato.
     for (var i = 0; i < GiornoPiuAcceso.giorniDaGuardare; i++) {
       final g = oggi.add(Duration(days: i));
       final m = MoltiplicatoreCeleste.per(
           aspetti: aspetti, tuo: tuo, suo: suo, giorno: g);
-      expect(m.valore,
-          lessThanOrEqualTo(trovato.moltiplicatore.valore + 1e-9),
+      expect(m.valore, lessThanOrEqualTo(trovato.moltiplicatore.valore + 1e-9),
           reason: 'il ${g.day}/${g.month} batte il giorno dichiarato');
     }
     expect(trovato.giorno.difference(oggi).inDays,
@@ -220,8 +221,8 @@ void main() {
     // **La voce 03 è chiusa e non si riapre**: il suo calcolo resta la base, e
     // questa voce lo moltiplica. Qui si verifica che il rapporto fra il
     // risultato e la base sia esattamente il moltiplicatore.
-    const milano = DoveSei(
-        citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
+    const milano =
+        DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
     for (final v in VipCatalog.vips) {
       if (v.eScomparso) continue;
       final suo = CieloDiSinastria.perVip(v);
@@ -235,15 +236,13 @@ void main() {
       );
       final base = p.baseGeografica!;
       final atteso = (base * p.celeste!.valore)
-          .clamp(PossibilitaDiIncontro.pavimento,
-              PossibilitaDiIncontro.tetto)
+          .clamp(PossibilitaDiIncontro.pavimento, PossibilitaDiIncontro.tetto)
           .toDouble();
       expect(p.percento, closeTo(atteso, 1e-9), reason: v.name);
     }
   });
 
-  test('nessuna riga promette un incontro, e la prova cerca il PROMETTERE',
-      () {
+  test('nessuna riga promette un incontro, e la prova cerca il PROMETTERE', () {
     // **Non una lista di parole scelte a mano**: si cercano le FORME del
     // promettere, cioe' il futuro indicativo italiano e le formule di
     // certezza, dentro qualunque frase che nomini l'incontro o il vedersi.
@@ -254,8 +253,8 @@ void main() {
         r'\b(sicuramente|di certo|certamente|senza dubbio|garantit\w+|'
         r'avverr\w+|succeder\w+|accadr\w+|vi incontrer\w+|lo incontrer\w+)\b',
         caseSensitive: false);
-    const milano = DoveSei(
-        citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
+    const milano =
+        DoveSei(citta: 'Milano', latitudine: 45.4642, longitudine: 9.1920);
     var frasi = 0;
     for (final v in VipCatalog.vips) {
       final suo = CieloDiSinastria.perVip(v);
@@ -277,8 +276,8 @@ void main() {
             reason: '${v.name}: "$riga" promette');
         // Il futuro e' ammesso solo dove non si parla di incontrarsi: qui si
         // pretende che le due cose non stiano mai nella stessa frase.
-        final parlaDiIncontro = RegExp(
-                r'incontr|veder(si|vi)|conoscer(si|vi)', caseSensitive: false)
+        final parlaDiIncontro = RegExp(r'incontr|veder(si|vi)|conoscer(si|vi)',
+                caseSensitive: false)
             .hasMatch(riga);
         if (parlaDiIncontro) {
           expect(futuro.hasMatch(riga), isFalse,

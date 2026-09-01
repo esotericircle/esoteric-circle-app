@@ -33,8 +33,8 @@ void main() {
 
   test('le stelle si contano sull\'area del telo, non a numero fisso', () {
     final margineFondo = _CosmoPerLaProva.scorta(0.16);
-    final teloFondo = Size(schermo.width + 2 * margineFondo,
-        schermo.height + 2 * margineFondo);
+    final teloFondo = Size(
+        schermo.width + 2 * margineFondo, schermo.height + 2 * margineFondo);
     final rapporto =
         (teloFondo.width * teloFondo.height) / (schermo.width * schermo.height);
     const base = 140;
@@ -76,7 +76,8 @@ void main() {
     expect(corse['vicino']! / corse['medio']!, greaterThan(1.5),
         reason: 'il vicino e il medio corrono quasi insieme');
     expect(corse['vicino']! / corse['fondo']!, closeTo(2.07, 0.05),
-        reason: 'il rapporto fra il piano piu' ' reattivo e quello di fondo '
+        reason: 'il rapporto fra il piano piu'
+            ' reattivo e quello di fondo '
             'e\' la profondita\' percepita, ed era 2,07');
   });
 }

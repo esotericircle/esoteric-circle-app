@@ -20,8 +20,8 @@ import 'gli_accenti_del_corpus.dart';
 /// traguardo si scopre solo il giorno in cui non si accende.
 void main() {
   final corpus = jsonDecode(
-      File('docs/corpus/Traguardi_165_Revisione_E.json')
-          .readAsStringSync()) as Map<String, dynamic>;
+          File('docs/corpus/Traguardi_165_Revisione_E.json').readAsStringSync())
+      as Map<String, dynamic>;
   final voci = <Map<String, dynamic>>[
     for (final s in corpus['sentieri'] as List)
       for (final v in (s as Map)['voci'] as List) v as Map<String, dynamic>,
@@ -127,8 +127,7 @@ void main() {
       'sentiero_albero',
       'sentiero_loto',
     ]) {
-      final sorgente =
-          File('lib/core/sigilli/$nome.dart').readAsStringSync();
+      final sorgente = File('lib/core/sigilli/$nome.dart').readAsStringSync();
       expect(sorgente.contains('GENERATO DA tool/genera_sentieri_dal_corpus'),
           isTrue,
           reason: '$nome non dichiara piu di essere generato: qualcuno lo ha '
@@ -149,9 +148,8 @@ void main() {
       final diverse = <String>[];
       var trasformate = 0;
       for (final v in voci) {
-        final t = Sentieri.tuttiITraguardi
-            .where((x) => x.id == v['id'])
-            .firstOrNull;
+        final t =
+            Sentieri.tuttiITraguardi.where((x) => x.id == v['id']).firstOrNull;
         if (t == null) {
           mancanti.add('${v['id']} non esiste in app');
           continue;
@@ -180,8 +178,9 @@ void main() {
           'mancanti ${mancanti.length}, trasformate dalle due regole di casa '
           '$trasformate, diverse ${diverse.length}'
           '${diverse.isEmpty ? "" : ": ${diverse.join(" | ")}"}');
-      expect(mancanti, isEmpty, reason: 'queste voci non hanno porta: '
-          '$mancanti');
+      expect(mancanti, isEmpty,
+          reason: 'queste voci non hanno porta: '
+              '$mancanti');
       expect(diverse, isEmpty,
           reason: 'la porta in app non e\' quella del corpus: $diverse');
     });
@@ -195,9 +194,8 @@ void main() {
       for (final v in voci) {
         if (v['dormiente'] != true) continue;
         dichiarati++;
-        final t = Sentieri.tuttiITraguardi
-            .where((x) => x.id == v['id'])
-            .firstOrNull;
+        final t =
+            Sentieri.tuttiITraguardi.where((x) => x.id == v['id']).firstOrNull;
         if (t != null && !t.dormiente) svegliPerErrore.add('${v['id']}');
       }
       // ignore: avoid_print
@@ -282,10 +280,9 @@ void main() {
       // pretenderle, e la riga di sopra ha gia\' preteso che siano
       // esattamente quelle tre.
       final risvegliati = dalCorpus
-          .where((id) =>
-              Sentieri.tuttiITraguardi
-                  .where((t) => t.id == id && t.dormiente)
-                  .isEmpty)
+          .where((id) => Sentieri.tuttiITraguardi
+              .where((t) => t.id == id && t.dormiente)
+              .isEmpty)
           .length;
       expect(inApp.length, dalCorpus.length + tolti.length - risvegliati,
           reason: 'in app dormono ${inApp.length} voci invece di '
@@ -316,9 +313,8 @@ void main() {
           .toList();
       final sveglie = <String>[];
       for (final v in sociali) {
-        final t = Sentieri.tuttiITraguardi
-            .where((x) => x.id == v['id'])
-            .firstOrNull;
+        final t =
+            Sentieri.tuttiITraguardi.where((x) => x.id == v['id']).firstOrNull;
         if (t != null && !t.dormiente) sveglie.add('${v['id']} ${v['nome']}');
       }
       // ignore: avoid_print

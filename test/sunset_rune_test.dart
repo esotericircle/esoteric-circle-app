@@ -43,11 +43,14 @@ void main() {
 
   group('L\'identita\'', () {
     test('Compone data, data con ora, oppure id del dispositivo', () {
-      expect(SunsetRune.identitaPer(nascita: DateTime(1988, 7, 5), deviceId: 'x'),
+      expect(
+          SunsetRune.identitaPer(nascita: DateTime(1988, 7, 5), deviceId: 'x'),
           '1988-07-05');
       expect(
           SunsetRune.identitaPer(
-              nascita: DateTime(1988, 7, 5, 9, 4), oraNota: true, deviceId: 'x'),
+              nascita: DateTime(1988, 7, 5, 9, 4),
+              oraNota: true,
+              deviceId: 'x'),
           '1988-07-05T09:04');
       // Senza ora nota, resta la sola data anche se il momento porta un'ora.
       expect(
@@ -122,7 +125,8 @@ void main() {
             nascita: DateTime(1980, 1, 1).add(Duration(days: i * 7)));
         if (kRuneSimmetriche.contains(e.rune.name)) {
           simmetricheViste++;
-          expect(e.inOmbra, isFalse, reason: '${e.rune.name} in ombra, giro $i');
+          expect(e.inOmbra, isFalse,
+              reason: '${e.rune.name} in ombra, giro $i');
         }
       }
       expect(simmetricheViste, greaterThan(0));
@@ -210,8 +214,10 @@ void main() {
               );
               final a = SunsetRuneCorpus.vocePrimaLasciare(e);
               final b = SunsetRuneCorpus.vocePortare(e);
-              expect(a.trim(), isNotEmpty, reason: '${r.name} $segno $nomeFase');
-              expect(b.trim(), isNotEmpty, reason: '${r.name} $segno $nomeFase');
+              expect(a.trim(), isNotEmpty,
+                  reason: '${r.name} $segno $nomeFase');
+              expect(b.trim(), isNotEmpty,
+                  reason: '${r.name} $segno $nomeFase');
               // Nessuno spazio doppio ne' in coda.
               expect(a.contains('  '), isFalse);
               expect(b.endsWith(' '), isFalse);
@@ -242,14 +248,18 @@ void main() {
       expect(SunsetRuneCorpus.registri.length, 8);
       expect(SunsetRuneCorpus.clausole.length, 12);
       for (final z in Zodiac.values) {
-        expect(SunsetRuneCorpus.clausole.containsKey(z.id), isTrue, reason: z.id);
+        expect(SunsetRuneCorpus.clausole.containsKey(z.id), isTrue,
+            reason: z.id);
       }
       expect(SunsetRuneCorpus.insistenze.length, 4);
     });
 
     test('Nessuna riga e\' duplicata di un\'altra', () {
       final tutte = <String>[
-        for (final v in SunsetRuneCorpus.dritto.values) ...[v.lasciare, v.porta],
+        for (final v in SunsetRuneCorpus.dritto.values) ...[
+          v.lasciare,
+          v.porta
+        ],
         for (final v in SunsetRuneCorpus.ombra.values) ...[v.lasciare, v.porta],
         ...SunsetRuneCorpus.registri.values,
         ...SunsetRuneCorpus.clausole.values,

@@ -128,8 +128,7 @@ void main() {
           reason: 'il buco del rito non si misura');
 
       final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_21');
-      expect(voce.dormiente, isFalse,
-          reason: 'aur_21 dorme ancora');
+      expect(voce.dormiente, isFalse, reason: 'aur_21 dorme ancora');
       expect(voce.condizione.raggiunto(stato), isTrue,
           reason: 'tre giorni saltati non accendono "${voce.nome}"');
     });
@@ -265,7 +264,9 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      await diario.segna('soffio', dettagli: const {'tenuto': ['intero']});
+      await diario.segna('soffio', dettagli: const {
+        'tenuto': ['intero']
+      });
       final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_7');
       expect(voce.dormiente, isFalse, reason: 'aur_7 dorme ancora');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
@@ -290,8 +291,9 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      await diario
-          .segna('alba', dettagli: const {'prima_del_sole': ['si']});
+      await diario.segna('alba', dettagli: const {
+        'prima_del_sole': ['si']
+      });
       final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_18');
       expect(voce.dormiente, isFalse, reason: 'aur_18 dorme ancora');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
@@ -364,8 +366,8 @@ void main() {
       expect(acceso, isTrue,
           reason: 'il Soffio nel giorno di Saturno retrogrado non accende '
               '"${voce.nome}"');
-      final senzaLaLuna = condizione.raggiunto(
-          const StatoDelCammino(oggiHaFatto: {'soffio'}));
+      final senzaLaLuna =
+          condizione.raggiunto(const StatoDelCammino(oggiHaFatto: {'soffio'}));
       expect(senzaLaLuna, isFalse,
           reason: 'il gradino si accende in un giorno qualunque');
     });
@@ -380,9 +382,13 @@ void main() {
       var adesso = DateTime(2026, 8, 10, 9);
       final diario = DiarioDelCammino(orologio: () => adesso);
       await diario.carica();
-      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      await diario.segna('oracolo', dettagli: const {
+        'arcano': ['laTorre']
+      });
       adesso = DateTime(2026, 8, 13, 9);
-      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      await diario.segna('oracolo', dettagli: const {
+        'arcano': ['laTorre']
+      });
       final stato = diario.statoDelCammino();
       // ignore: avoid_print
       print('ORDINE BX VOCE 1: lo stesso Arcano dentro sette giorni e\' '
@@ -393,24 +399,27 @@ void main() {
       expect(voce.condizione.raggiunto(stato), isTrue,
           reason: 'due Arcani uguali in una settimana non accendono '
               '"${voce.nome}"');
-      final scena =
-          File('lib/features/rituals/day_oracle_screen.dart').readAsStringSync();
+      final scena = File('lib/features/rituals/day_oracle_screen.dart')
+          .readAsStringSync();
       expect(scena.contains("'arcano': [carta.stem]"), isTrue,
           reason: 'la scena dell\'Arcano non manda piu\' quale carta e\' '
               'uscita: la condizione resta viva e nessuno la alimenta');
     });
 
-    test('Lo stesso Arcano a un mese di distanza non accende med_31',
-        () async {
+    test('Lo stesso Arcano a un mese di distanza non accende med_31', () async {
       // **LA FINESTRA E' LA SOSTANZA DEL GRADINO**: senza, sarebbe una
       // coincidenza promessa dove c'e' solo il tempo che passa.
       SharedPreferences.setMockInitialValues(const {});
       var adesso = DateTime(2026, 7, 1, 9);
       final diario = DiarioDelCammino(orologio: () => adesso);
       await diario.carica();
-      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      await diario.segna('oracolo', dettagli: const {
+        'arcano': ['laTorre']
+      });
       adesso = DateTime(2026, 8, 10, 9);
-      await diario.segna('oracolo', dettagli: const {'arcano': ['laTorre']});
+      await diario.segna('oracolo', dettagli: const {
+        'arcano': ['laTorre']
+      });
       final stato = diario.statoDelCammino();
       // ignore: avoid_print
       print('ORDINE BX VOCE 1: a quaranta giorni di distanza, dentro la '
@@ -426,8 +435,9 @@ void main() {
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       for (final luna in ['Luna nuova', 'Primo quarto', 'Luna piena']) {
-        await diario.segna('stesa',
-            dettagli: {'carta_e_luna': ['ilMatto@$luna']});
+        await diario.segna('stesa', dettagli: {
+          'carta_e_luna': ['ilMatto@$luna']
+        });
       }
       final stato = diario.statoDelCammino();
       // ignore: avoid_print
@@ -447,8 +457,9 @@ void main() {
       const carte = ['ilMatto', 'laTorre', 'lEremita'];
       const lune = ['Luna nuova', 'Primo quarto', 'Luna piena'];
       for (var i = 0; i < 3; i++) {
-        await diario.segna('stesa',
-            dettagli: {'carta_e_luna': ['${carte[i]}@${lune[i]}']});
+        await diario.segna('stesa', dettagli: {
+          'carta_e_luna': ['${carte[i]}@${lune[i]}']
+        });
       }
       final stato = diario.statoDelCammino();
       final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_41');
@@ -470,9 +481,9 @@ void main() {
       // ordine del fondatore, e coi suoi dettagli se ne sono andati i tre
       // gradini che li chiedevano: dormono dichiarati, e lo sorveglia
       // `il_quaderno_dei_sogni_non_torna_test.dart`. Resta il volto.
-      final viso = File(
-              'lib/features/maestri/aura/face/face_constellation_screen.dart')
-          .readAsStringSync();
+      final viso =
+          File('lib/features/maestri/aura/face/face_constellation_screen.dart')
+              .readAsStringSync();
       expect(viso.contains("'tratto_cambiato': const ['si']"), isTrue,
           reason: 'la Costellazione del Viso non dice piu\' quando il tratto '
               'cambia');
@@ -531,13 +542,17 @@ void main() {
       // che la schermata manda quando la regola dice di si\'.
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      await diario.segna('viso', dettagli: const {'tratto': ['fuoco']});
+      await diario.segna('viso', dettagli: const {
+        'tratto': ['fuoco']
+      });
       final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'aur_16');
       expect(voce.dormiente, isFalse, reason: 'aur_16 dorme ancora');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse,
           reason: 'una lettura sola accende il gradino del volto cambiato');
-      await diario.segna('viso',
-          dettagli: const {'tratto': ['acqua'], 'tratto_cambiato': ['si']});
+      await diario.segna('viso', dettagli: const {
+        'tratto': ['acqua'],
+        'tratto_cambiato': ['si']
+      });
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'il tratto cambiato non accende "${voce.nome}"');
     });
@@ -550,8 +565,8 @@ void main() {
       // dall'elenco della cancellazione lascerebbe quel dato sul telefono
       // per sempre: resta, e questa prova lo pretende.
       for (final prefisso in const ['sogni.', 'viso.']) {
-        expect(DimenticanzaDelTelefono.prefissiDaDimenticare,
-            contains(prefisso),
+        expect(
+            DimenticanzaDelTelefono.prefissiDaDimenticare, contains(prefisso),
             reason: 'il prefisso $prefisso non e\' fra quelli che la '
                 'cancellazione porta via dal disco');
       }
@@ -578,9 +593,9 @@ void main() {
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'guardare il bosco non accende "${voce.nome}"');
       // E la scena esiste, con la sua porta.
-      final schermo = File(
-              'lib/features/maestri/caligo/animal/bosco_del_cerchio.dart')
-          .readAsStringSync();
+      final schermo =
+          File('lib/features/maestri/caligo/animal/bosco_del_cerchio.dart')
+              .readAsStringSync();
       expect(schermo.contains("dopoUnGesto(context, 'bosco')"), isTrue,
           reason: 'il bosco non dice piu\' al cammino di essere stato '
               'guardato');
@@ -588,7 +603,8 @@ void main() {
       // col server o legge un altro utente.
       for (final vietato in const ['PortaDelCerchio', 'Firestore', 'http']) {
         expect(schermo.contains(vietato), isFalse,
-            reason: 'il bosco tocca $vietato');      }
+            reason: 'il bosco tocca $vietato');
+      }
       // ignore: avoid_print
       print('ORDINE BX VOCE 3: il bosco accende cal_10 e non chiede niente a '
           'nessuno');
@@ -607,9 +623,9 @@ void main() {
       await diario.segna('due_volti');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'due volti letti non accendono la voce');
-      final scena = File(
-              'lib/features/maestri/aura/face/face_constellation_screen.dart')
-          .readAsStringSync();
+      final scena =
+          File('lib/features/maestri/aura/face/face_constellation_screen.dart')
+              .readAsStringSync();
       expect(scena.contains("dopoUnGesto(context, 'due_volti')"), isTrue,
           reason: 'la lettura del secondo volto non arriva al cammino');
       expect(scena.contains('FaceReading? _secondoVolto'), isTrue,

@@ -98,7 +98,8 @@ void main() {
         ),
       );
 
-  testWidgets('col sensore attivo, il cielo a riposo respira: e\' la scena '
+  testWidgets(
+      'col sensore attivo, il cielo a riposo respira: e\' la scena '
       'del telefono posato', (tester) async {
     tester.view.physicalSize = const Size(400, 800);
     tester.view.devicePixelRatio = 1.0;
@@ -113,8 +114,8 @@ void main() {
     }));
     final radice = GlobalKey();
     final parallax = ParallaxController();
-    await tester.pumpWidget(
-        RepaintBoundary(key: radice, child: cosmo(parallax)));
+    await tester
+        .pumpWidget(RepaintBoundary(key: radice, child: cosmo(parallax)));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
     expect(parallax.sensorActive, isTrue,
@@ -138,8 +139,8 @@ void main() {
     addTearDown(tester.view.reset);
     final radice = GlobalKey();
     final parallax = ParallaxController();
-    await tester.pumpWidget(
-        RepaintBoundary(key: radice, child: cosmo(parallax)));
+    await tester
+        .pumpWidget(RepaintBoundary(key: radice, child: cosmo(parallax)));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
     final prima = await scatta(tester, radice);
@@ -158,8 +159,8 @@ void main() {
     addTearDown(tester.view.reset);
     final radice = GlobalKey();
     final parallax = ParallaxController();
-    await tester.pumpWidget(RepaintBoundary(
-        key: radice, child: cosmo(parallax, riduci: true)));
+    await tester.pumpWidget(
+        RepaintBoundary(key: radice, child: cosmo(parallax, riduci: true)));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
     final prima = await scatta(tester, radice);

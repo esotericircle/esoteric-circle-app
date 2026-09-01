@@ -90,8 +90,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 120));
       if (fascia.evaluate().isEmpty) continue;
       final r = tester.getRect(fascia);
-      letta = r.top >= 0.0 &&
-          r.bottom <= schermo - BarraDelCerchio.altezza;
+      letta = r.top >= 0.0 && r.bottom <= schermo - BarraDelCerchio.altezza;
     }
     expect(letta, isTrue,
         reason: 'Scorrendo la home a passi la fascia non arriva mai a '

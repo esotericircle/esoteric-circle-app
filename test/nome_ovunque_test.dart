@@ -44,8 +44,8 @@ void main() {
       expect(UserProfile(displayName: 'mauro').displayName, 'Mauro');
       expect(UserProfile(displayName: 'MAURO').displayName, 'Mauro');
       expect(UserProfile(displayName: '  anna  ').displayName, 'Anna');
-      expect(UserProfile(displayName: 'maria grazia').displayName,
-          'Maria Grazia');
+      expect(
+          UserProfile(displayName: 'maria grazia').displayName, 'Maria Grazia');
       expect(UserProfile(displayName: "d'angelo").displayName, "D'Angelo");
       expect(UserProfile(displayName: 'McDonald').displayName, 'McDonald');
       expect(UserProfile(displayName: '   ').displayName, isNull);
@@ -76,7 +76,8 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 20));
     });
 
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 

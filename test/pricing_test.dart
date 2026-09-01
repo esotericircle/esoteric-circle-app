@@ -31,7 +31,8 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
   }
 
-  testWidgets('In Demo mostra la card Demo col Piano Attuale e i quattro livelli',
+  testWidgets(
+      'In Demo mostra la card Demo col Piano Attuale e i quattro livelli',
       (tester) async {
     tallView(tester);
     final ent = EntitlementService();
@@ -46,8 +47,7 @@ void main() {
     expect(find.text('Piano Attuale'), findsOneWidget);
     expect(find.text('Consigliato'), findsOneWidget);
     // Testo persistente in basso.
-    expect(
-        find.textContaining('il pagamento non è integrato'), findsOneWidget);
+    expect(find.textContaining('il pagamento non è integrato'), findsOneWidget);
     // La tabella comparativa e' presente.
     expect(find.byKey(const Key('pricing_table')), findsOneWidget);
     // Gli elenchi estesi dei benefici sono a schermo, uno per Tier, con la
@@ -61,7 +61,9 @@ void main() {
     expect(find.text('Sinastria VIP fino a 3 al giorno'), findsOneWidget);
     expect(find.text('5 domande al giorno ai Maestri'), findsOneWidget);
     expect(find.text('10 domande al giorno ai Maestri'), findsOneWidget);
-    expect(find.text('Una domanda al mese al Maestro reale, risposta entro 48 ore'),
+    expect(
+        find.text(
+            'Una domanda al mese al Maestro reale, risposta entro 48 ore'),
         findsOneWidget);
 
     // "senza banner" e' diventato "senza pubblicità"; nessun residuo di "Guide".
@@ -69,7 +71,8 @@ void main() {
     expect(find.textContaining('le tre Guide'), findsNothing);
   });
 
-  testWidgets('Fuori Demo il Piano Attuale sta sul tier corrente', (tester) async {
+  testWidgets('Fuori Demo il Piano Attuale sta sul tier corrente',
+      (tester) async {
     tallView(tester);
     final ent = EntitlementService(); // Viandante
     await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: false)));
@@ -78,7 +81,8 @@ void main() {
     expect(find.text('Piano Attuale'), findsOneWidget); // sul Viandante
   });
 
-  testWidgets('Il ciclo di default è Annuale, il pulsante mostra ciclo e prezzo',
+  testWidgets(
+      'Il ciclo di default è Annuale, il pulsante mostra ciclo e prezzo',
       (tester) async {
     tallView(tester);
     final ent = EntitlementService();

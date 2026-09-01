@@ -187,13 +187,15 @@ void main() {
     double larghezzaUtile(double y) {
       final dalBordo = math.min(y - velo.top, velo.bottom - y);
       if (dalBordo >= raggio) return velo.width;
-      final dx = raggio - math.sqrt(raggio * raggio -
-          (raggio - dalBordo) * (raggio - dalBordo));
+      final dx = raggio -
+          math.sqrt(
+              raggio * raggio - (raggio - dalBordo) * (raggio - dalBordo));
       return velo.width - 2 * dx;
     }
 
     // La quota peggiore per il titolo e' la sua riga piu' vicina al bordo.
-    final utile = math.min(larghezzaUtile(testo.top), larghezzaUtile(testo.bottom));
+    final utile =
+        math.min(larghezzaUtile(testo.top), larghezzaUtile(testo.bottom));
     // ignore: avoid_print
     print('SOFFIO forma: raggio dichiarato $raggioDichiarato, curvatura vera '
         '${raggio.toStringAsFixed(1)}; alla quota del titolo restano '

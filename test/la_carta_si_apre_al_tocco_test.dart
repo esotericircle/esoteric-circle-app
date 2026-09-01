@@ -94,8 +94,7 @@ void main() {
   /// Il testo di un widget testuale, comunque sia dipinto.
   /// Gli spazi bianchi contano come uno: e' cio' che rende confrontabile un
   /// testo spezzato in blocchi con lo stesso testo scritto di seguito.
-  String normalizza(String t) =>
-      t.replaceAll(RegExp(r'\s+'), ' ').trim();
+  String normalizza(String t) => t.replaceAll(RegExp(r'\s+'), ' ').trim();
 
   /// Il testo che quel punto dell'albero mostra davvero, comunque sia montato.
   ///
@@ -128,7 +127,6 @@ void main() {
     return normalizza(pezzi.join(' '));
   }
 
-
   testWidgets('il testo della carta aperta e\' quello della bolla, uguale',
       (tester) async {
     await monta(tester);
@@ -150,8 +148,8 @@ void main() {
         for (final t in tester.widgetList<Text>(
             find.descendant(of: bolla, matching: find.byType(Text))))
           normalizza(t.data ?? ''),
-        for (final p in tester.widgetList<ParagrafiDiLettura>(
-            find.descendant(of: bolla, matching: find.byType(ParagrafiDiLettura))))
+        for (final p in tester.widgetList<ParagrafiDiLettura>(find.descendant(
+            of: bolla, matching: find.byType(ParagrafiDiLettura))))
           normalizza(p.testo),
       ].where((t) => t.length > 40).toList();
       expect(testiDellaBolla, isNotEmpty);

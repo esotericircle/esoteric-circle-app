@@ -82,6 +82,28 @@ abstract class PortaDellIdentita {
   /// L'email dell'account, se ne ha una.
   String? get email;
 
+  /// **QUANDO QUESTO ACCOUNT E' NATO, e cosa vuol dire davvero.** Ordine CI
+  /// voce 07.
+  ///
+  /// Serve al cancello delle push, che concede un mese di prova dalla PRIMA
+  /// REGISTRAZIONE, decisione della voce CG.16. Qui si legge la data di
+  /// creazione che il fornitore dell'identita' conosce.
+  ///
+  /// **E qui c'e' un limite, e si dichiara invece di nasconderlo.** Chi apre
+  /// l'app diventa subito anonimo, e custodendo l'account dopo l'uid non
+  /// cambia: la data di creazione resta quella del primo avvio, non quella
+  /// della registrazione. Per la prova delle push la differenza e' di giorni,
+  /// non di mesi, e sta dalla parte giusta: chi si registra piu' tardi ha meno
+  /// prova, non di piu'. La data esatta della registrazione la sa solo il
+  /// server, e scriverla li' e' lavoro di un ordine che distribuisce.
+  ///
+  /// **HA UN VALORE DI PARTENZA, ed e' nullo per una ragione.** Renderlo
+  /// obbligatorio ha fatto cadere in un colpo dodici sostituti delle prove,
+  /// che l'identita' la fingono e questa data non la conoscono. Nullo vuol
+  /// dire "non lo so", che e' esattamente cio' che un sostituto sa, e il
+  /// cancello delle push lo tratta gia' come "prova non cominciata".
+  DateTime? get natoIl => null;
+
   /// I fornitori attaccati all'account (google.com, apple.com, password).
   List<String> get fornitori;
 
@@ -342,6 +364,9 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
 
   @override
   String? get email => _utente?.email;
+
+  @override
+  DateTime? get natoIl => _utente?.metadata.creationTime;
 
   @override
   List<String> get fornitori =>
@@ -688,6 +713,10 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
 class IdentitaAssente implements PortaDellIdentita {
   const IdentitaAssente();
 
+  // Senza account non c'e' nessuna data di nascita da leggere.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   String? get uid => null;
 
@@ -770,6 +799,10 @@ class AccountDelCerchio extends ChangeNotifier {
 
   String? get uid => _porta.uid;
   String? get email => _porta.email;
+
+  /// Quando l'account e' nato, dal fornitore. Vedi `PortaDellIdentita.natoIl`
+  /// per cosa misura davvero e cosa no.
+  DateTime? get natoIl => _porta.natoIl;
   List<String> get fornitori => _porta.fornitori;
 
   bool get eAnonimo => _stato == StatoDellAccount.anonimo;

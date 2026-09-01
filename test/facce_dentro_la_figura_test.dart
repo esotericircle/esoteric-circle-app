@@ -26,8 +26,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// storto.
 void main() {
   /// Il riquadro dei pixel non trasparenti dell'asset, in pixel.
-  Future<({int larghezza, int altezza, int alto, int basso, int sinistra,
-      int destra})> riquadro(Maestro m) async {
+  Future<
+      ({
+        int larghezza,
+        int altezza,
+        int alto,
+        int basso,
+        int sinistra,
+        int destra
+      })> riquadro(Maestro m) async {
     final codec =
         await ui.instantiateImageCodec(await File(m.avatarAsset).readAsBytes());
     final frame = await codec.getNextFrame();
@@ -103,7 +110,8 @@ void main() {
   }
 
   for (final m in Maestro.values) {
-    test('${m.displayName} ha ancora l\'inquadratura a cui le frazioni '
+    test(
+        '${m.displayName} ha ancora l\'inquadratura a cui le frazioni '
         'appartengono', () async {
       // LA PROVA CHE PRENDE IL DIFETTO VERO.
       //
@@ -171,9 +179,8 @@ void main() {
     const scartoMassimo = 0.05;
 
     double spanDi(double Function(MaestroFacePoint p) quale) {
-      final v = Maestro.values
-          .map((m) => quale(MaestroBust.facePoints[m]!))
-          .toList();
+      final v =
+          Maestro.values.map((m) => quale(MaestroBust.facePoints[m]!)).toList();
       return v.reduce((a, b) => a > b ? a : b) -
           v.reduce((a, b) => a < b ? a : b);
     }

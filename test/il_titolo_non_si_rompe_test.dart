@@ -84,7 +84,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(
-            create: (_) => ArtiPreferiteController(maestroAssegnato: quale.maestro)),
+            create: (_) =>
+                ArtiPreferiteController(maestroAssegnato: quale.maestro)),
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
       ],
       child: MediaQuery(
@@ -104,7 +105,8 @@ void main() {
     return quale;
   }
 
-  testWidgets('nella barra VERA il titolo piu\' lungo non spezza nessuna parola',
+  testWidgets(
+      'nella barra VERA il titolo piu\' lungo non spezza nessuna parola',
       (tester) async {
     final quale = await montaIlSentieroPiuLungo(tester);
     final testo = quale.titolo;
@@ -128,7 +130,8 @@ void main() {
       maxLines: 2,
     )..layout(maxWidth: scatola.width);
     expect(scatola.height, greaterThanOrEqualTo(andandoACapo.height - 0.5),
-        reason: 'il titolo occupa ${scatola.height} punti in altezza ma andando '
+        reason:
+            'il titolo occupa ${scatola.height} punti in altezza ma andando '
             'a capo ne vorrebbe ${andandoACapo.height}: non e\' andato a capo, '
             'quindi sta dipingendo fuori dalla sua scatola e passa sopra le '
             'azioni della barra');
@@ -138,8 +141,7 @@ void main() {
         .split(RegExp(r'\s+'))
         .reduce((a, b) => b.length > a.length ? b : a);
     final pittore = TextPainter(
-      text: TextSpan(
-          text: parolaPiuLunga, style: reso.style),
+      text: TextSpan(text: parolaPiuLunga, style: reso.style),
       textDirection: TextDirection.ltr,
     )..layout();
     expect(pittore.width, lessThanOrEqualTo(larghezza + 0.5),
@@ -154,7 +156,8 @@ void main() {
     final quale = await montaIlSentieroPiuLungo(tester);
     final testo = quale.titolo;
     final reso = tester.widget<Text>(find.text(testo));
-    expect(reso.data, testo, reason: 'il testo a schermo non e\' quello del dato');
+    expect(reso.data, testo,
+        reason: 'il testo a schermo non e\' quello del dato');
     expect(reso.overflow, TextOverflow.visible,
         reason: 'il titolo e\' tornato a poter mettere i puntini: un\'ellissi '
             'nasconde il difetto invece di mostrarlo');
@@ -169,8 +172,8 @@ void main() {
         reason: '«$testo» non sta in due righe da '
             '${larghezza.toStringAsFixed(1)} punti: qualcosa verrebbe tagliato');
 
-    expect(reso.style!.fontSize,
-        greaterThanOrEqualTo(TitoloCheNonSiRompe.minimo));
+    expect(
+        reso.style!.fontSize, greaterThanOrEqualTo(TitoloCheNonSiRompe.minimo));
     expect(TitoloCheNonSiRompe.minimo, greaterThan(TypographyTokens.pavimento),
         reason: 'il minimo del titolo e\' scivolato sotto il pavimento');
   });
@@ -225,8 +228,8 @@ void main() {
     // E A QUELLA MISURA LA PAROLA ENTRA DAVVERO, col margine dichiarato: il
     // difetto era che entrava per meno di due punti e si spezzava comunque.
     final pittore = TextPainter(
-      text: TextSpan(
-          text: 'Estrazione', style: stile.copyWith(fontSize: misura)),
+      text:
+          TextSpan(text: 'Estrazione', style: stile.copyWith(fontSize: misura)),
       textDirection: TextDirection.ltr,
     )..layout();
     expect(pittore.width,
@@ -249,7 +252,8 @@ void main() {
     final stretta = TitoloCheNonSiRompe.misuraChePermetteDiLeggere(
         testo: piuLungoDeiTitoli(), stile: stile, larghezza: 120);
     expect(stretta, lessThan(larga),
-        reason: 'in centoventi punti il titolo piu\' lungo NON scende: allora la '
+        reason:
+            'in centoventi punti il titolo piu\' lungo NON scende: allora la '
             'funzione non adatta niente');
   });
 }

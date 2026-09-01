@@ -109,7 +109,8 @@ void main() {
       if (!trovate.contains('$data|L')) mancanti.add('lunare $data');
     }
     // ignore: avoid_print
-    print('ORDINE CE VOCE 16: eclissi del canone ${solari.length + lunari.length}, '
+    print(
+        'ORDINE CE VOCE 16: eclissi del canone ${solari.length + lunari.length}, '
         'trovate dal motore ${trovate.length}, mancanti ${mancanti.length}');
     // **IL BUCO E\' UNO SOLO, ed e\' dichiarato invece che nascosto.** Il
     // criterio del capitolo 54 e\' di prima approssimazione, e le penombrali
@@ -234,7 +235,8 @@ void main() {
         isTrue);
     expect(MotoreDelleEclissi.dentroEpocaVerificata(DateTime.utc(2040, 1, 1)),
         isFalse,
-        reason: 'il motore dichiara verificato un anno che nessuno ha misurato');
+        reason:
+            'il motore dichiara verificato un anno che nessuno ha misurato');
   });
 }
 

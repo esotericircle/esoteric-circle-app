@@ -40,7 +40,8 @@ void main() {
       if (!testo.contains('**$voce**')) mancanti.add(voce);
     }
     expect(mancanti, isEmpty,
-        reason: 'il manifesto non nomina queste voci: $mancanti. Le voci non si '
+        reason:
+            'il manifesto non nomina queste voci: $mancanti. Le voci non si '
             'accorpano e non si rinumerano');
   });
 
@@ -71,8 +72,7 @@ void main() {
     final chiuse = RegExp(r'^- \*\*S\.\d\d\*\*.*(—|-) CHIUSA', multiLine: true)
         .allMatches(testo)
         .length;
-    final fermate = RegExp(
-            r'^- \*\*S\.\d\d\*\*.*FERMATA SU PREMESSA FALSA',
+    final fermate = RegExp(r'^- \*\*S\.\d\d\*\*.*FERMATA SU PREMESSA FALSA',
             multiLine: true)
         .allMatches(testo)
         .length;

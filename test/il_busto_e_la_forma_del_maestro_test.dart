@@ -140,7 +140,8 @@ void main() {
 
   testWidgets('la home Il Cerchio resta l\'eccezione: i tre interi',
       (tester) async {
-    await pompa(tester, SantuarioScreen(clock: () => DateTime(2026, 8, 11, 21)));
+    await pompa(
+        tester, SantuarioScreen(clock: () => DateTime(2026, 8, 11, 21)));
     await tester.pump(const Duration(milliseconds: 800));
     // I tre Maestri interi dietro la carta: la guardia cade anche se la home
     // smette di mostrarli interi, perche' l'eccezione e' voluta quanto la

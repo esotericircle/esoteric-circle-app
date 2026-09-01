@@ -12,8 +12,9 @@ import 'package:flutter_test/flutter_test.dart';
 /// `dopo_il_responso_niente_scelte_test.dart`, rovesciata con dichiarazione;
 /// qui vivono le altre guardie.
 void main() {
-  final schermata = File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
-      .readAsStringSync();
+  final schermata =
+      File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
+          .readAsStringSync();
 
   test('a1: il pozzo segue la gettata, niente telo vuoto sotto le pietre', () {
     expect(schermata.contains("'odino' => 190.0"), isTrue,
@@ -34,9 +35,8 @@ void main() {
   });
 
   test('a5: il sigillo del giorno ha una sola asta condivisa', () {
-    final pittore =
-        File('lib/features/maestri/caligo/rune/bindrune.dart')
-            .readAsStringSync();
+    final pittore = File('lib/features/maestri/caligo/rune/bindrune.dart')
+        .readAsStringSync();
     expect(pittore.contains('_paintSovrapposto(canvas, size)'), isFalse,
         reason: 'la sovrapposizione dei glifi interi e\' tornata: il sigillo '
             'porta di nuovo due o tre aste invece dello stelo condiviso');
@@ -44,8 +44,7 @@ void main() {
         reason: 'il sigillo non passa piu\' dallo stelo condiviso');
   });
 
-  test('a6: il ripiego non dice "Non hai chiesto niente" a chi ha scritto',
-      () {
+  test('a6: il ripiego non dice "Non hai chiesto niente" a chi ha scritto', () {
     final esito = RuneCast.getta(gettataOdino);
     final conDomanda = RunePresagio.componiIlResponso(esito,
         domanda: 'Riuscirò a chiudere il progetto?');

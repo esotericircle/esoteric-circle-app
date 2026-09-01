@@ -129,8 +129,8 @@ void main() {
 
   test('BC.02: le quattro voci ci sono tutte, e la cancellazione e in fondo',
       () {
-    final schermata = File('lib/features/account/account_screen.dart')
-        .readAsStringSync();
+    final schermata =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
     final ordine = <String>[];
     for (final id in const ['esci', 'scarica', 'azzera', 'oblio']) {
       final dove = schermata.indexOf("id: '$id'");
@@ -162,8 +162,8 @@ void main() {
     // **ma un difetto silenzioso su una porta VERA sarebbe un oblio che non
     // parte e nessuno se ne accorge**: qui si guarda che quella vera lo
     // implementi.
-    final porta = File('lib/services/server/porta_del_cerchio.dart')
-        .readAsStringSync();
+    final porta =
+        File('lib/services/server/porta_del_cerchio.dart').readAsStringSync();
     // **LA LEGGE E' CAMBIATA CON L'ORDINE BE VOCE 07**: i trenta giorni
     // sono stati aboliti dal fondatore, chiediLOblio e annullaLOblio sono
     // stati RIMOSSI, e le porte vere sono la cancellazione immediata e
@@ -193,8 +193,8 @@ void main() {
     final server = File('functions/src/cerchio.ts').readAsStringSync();
     expect(server.contains('GIORNI_DI_RIPENSAMENTO ='), isFalse,
         reason: 'il server dichiara ancora i giorni di ripensamento');
-    final scarico = File('lib/core/identity/scarico_dei_tuoi_dati.dart')
-        .readAsStringSync();
+    final scarico =
+        File('lib/core/identity/scarico_dei_tuoi_dati.dart').readAsStringSync();
     expect(scarico.contains('const int giorniDiRipensamento'), isFalse,
         reason: 'l app dichiara ancora i giorni di ripensamento');
     // ignore: avoid_print

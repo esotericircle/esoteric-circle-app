@@ -217,7 +217,8 @@ void main() {
       };
       final tetto = copertiOggi[voce.key]! * 1.10;
       expect(copertiInTutto, lessThanOrEqualTo(tetto),
-          reason: 'su ${voce.key} i pixel coperti sono ${copertiInTutto.round()} '
+          reason:
+              'su ${voce.key} i pixel coperti sono ${copertiInTutto.round()} '
               'contro un tetto di ${tetto.round()}: la copertura accettata dal '
               'fondatore e LEGGERA e ferma, e questa sta crescendo');
     });

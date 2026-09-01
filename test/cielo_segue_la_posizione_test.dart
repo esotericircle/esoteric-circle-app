@@ -119,9 +119,21 @@ void main() {
     // volte. Quello che la camera NON puo' cambiare e' la distanza fra due
     // corpi: quella la decide soltanto il cielo calcolato.
     final corpi = <String, Offset>{};
-    for (final c in const ['moon', 'aries', 'taurus', 'gemini', 'cancer',
-        'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn',
-        'aquarius', 'pisces']) {
+    for (final c in const [
+      'moon',
+      'aries',
+      'taurus',
+      'gemini',
+      'cancer',
+      'leo',
+      'virgo',
+      'libra',
+      'scorpio',
+      'sagittarius',
+      'capricorn',
+      'aquarius',
+      'pisces'
+    ]) {
       final o = posto(c);
       if (o != null) corpi[c] = o;
     }
@@ -220,7 +232,6 @@ void main() {
   // conversione c'e' dell'altro che guarda l'ora locale grezza. Non l'ho
   // inseguito e non lascio una prova rossa in suite: sta in RIPRESA.md col
   // numero, che e' il punto da cui ripartire.
-
 }
 
 /// Una sorgente che restituisce il luogo che le si e' dato, senza toccare il

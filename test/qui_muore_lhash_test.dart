@@ -41,29 +41,60 @@ void main() {
         sunSign: Zodiac.leo,
         planets: [
           PlanetPosition(
-              id: 'sun', name: 'Sole', glyph: '☉', longitude: sole, sign: Zodiac.leo),
+              id: 'sun',
+              name: 'Sole',
+              glyph: '☉',
+              longitude: sole,
+              sign: Zodiac.leo),
           PlanetPosition(
-              id: 'moon', name: 'Luna', glyph: '☽', longitude: luna, sign: Zodiac.leo),
+              id: 'moon',
+              name: 'Luna',
+              glyph: '☽',
+              longitude: luna,
+              sign: Zodiac.leo),
           PlanetPosition(
-              id: 'venus', name: 'Venere', glyph: '♀', longitude: venere, sign: Zodiac.leo),
+              id: 'venus',
+              name: 'Venere',
+              glyph: '♀',
+              longitude: venere,
+              sign: Zodiac.leo),
           PlanetPosition(
-              id: 'mars', name: 'Marte', glyph: '♂', longitude: marte, sign: Zodiac.leo),
+              id: 'mars',
+              name: 'Marte',
+              glyph: '♂',
+              longitude: marte,
+              sign: Zodiac.leo),
           PlanetPosition(
-              id: 'saturn', name: 'Saturno', glyph: '♄', longitude: saturno, sign: Zodiac.leo),
+              id: 'saturn',
+              name: 'Saturno',
+              glyph: '♄',
+              longitude: saturno,
+              sign: Zodiac.leo),
         ],
         ascendantLongitude: ascendente,
         midheavenLongitude: (ascendente + 270.0) % 360.0,
         houses: [
           for (var n = 1; n <= 12; n++)
-            HouseCusp(number: n, longitude: (ascendente + (n - 1) * 30.0) % 360.0),
+            HouseCusp(
+                number: n, longitude: (ascendente + (n - 1) * 30.0) % 360.0),
         ],
         hasTime: true,
       );
 
   final cartaUna = carta(
-      sole: 128.4, luna: 12.7, venere: 150.2, marte: 61.9, saturno: 300.5, ascendente: 205.0);
+      sole: 128.4,
+      luna: 12.7,
+      venere: 150.2,
+      marte: 61.9,
+      saturno: 300.5,
+      ascendente: 205.0);
   final cartaDue = carta(
-      sole: 131.1, luna: 244.8, venere: 96.3, marte: 331.4, saturno: 44.2, ascendente: 18.0);
+      sole: 131.1,
+      luna: 244.8,
+      venere: 96.3,
+      marte: 331.4,
+      saturno: 44.2,
+      ascendente: 18.0);
 
   final giorno = DateTime.utc(2026, 8, 5, 12);
   final altroGiorno = DateTime.utc(2026, 8, 26, 12);
@@ -92,8 +123,8 @@ void main() {
               'potra\' mai dire DOVE nella vita');
       // L'ordine e' per orbo crescente: il primo e' quello che oggi pesa piu'.
       for (var i = 1; i < cielo.voci.length; i++) {
-        expect(cielo.voci[i].orbe,
-            greaterThanOrEqualTo(cielo.voci[i - 1].orbe));
+        expect(
+            cielo.voci[i].orbe, greaterThanOrEqualTo(cielo.voci[i - 1].orbe));
       }
     });
 
@@ -113,8 +144,11 @@ void main() {
     test('LO STESSO GIORNO NON CAMBIA, e un altro giorno si', () {
       // Due letture nella stessa giornata devono dare la stessa cosa: se
       // cambiasse a ogni apertura, la persona penserebbe di aver letto male.
-      expect(schede(cartaUna, giorno).map((c) => c.text).toList(),
-          schede(cartaUna, giorno.add(const Duration(hours: 3))).map((c) => c.text).toList(),
+      expect(
+          schede(cartaUna, giorno).map((c) => c.text).toList(),
+          schede(cartaUna, giorno.add(const Duration(hours: 3)))
+              .map((c) => c.text)
+              .toList(),
           reason: 'due aperture nella stessa giornata danno testi diversi');
       final oggi = schede(cartaUna, giorno);
       final poi = schede(cartaUna, altroGiorno);
@@ -127,8 +161,8 @@ void main() {
     test('Il testo NOMINA il pianeta, la casa e il punto natale toccato', () {
       final generale = schede(cartaUna, giorno)
           .firstWhere((c) => c.domain == HoroscopeDomain.generale);
-      final nominaUnPianeta = CorpoCeleste.values
-          .any((c) => generale.text.contains(c.nome));
+      final nominaUnPianeta =
+          CorpoCeleste.values.any((c) => generale.text.contains(c.nome));
       expect(nominaUnPianeta, isTrue,
           reason: 'il testo non nomina nessun pianeta: e\' ancora una frase '
               'generica');
@@ -303,8 +337,10 @@ void main() {
               'testo di chi non ha la carta viene da chissa\' dove');
       expect(CorrenteDelCielo.notaDelLivello(CieloDiOggi.nessuno),
           CorrenteDelCielo.ripiegoDichiarato);
-      expect(CorrenteDelCielo.ripiegoDichiarato, contains('non ancora al tuo cielo'));
-      expect(CorrenteDelCielo.ripiegoDichiarato, contains('Completa i dati di nascita'),
+      expect(CorrenteDelCielo.ripiegoDichiarato,
+          contains('non ancora al tuo cielo'));
+      expect(CorrenteDelCielo.ripiegoDichiarato,
+          contains('Completa i dati di nascita'),
           reason: 'il ripiego dichiara la mancanza senza dire come rimediare, '
               'cioe\' e\' un vicolo cieco');
     });
@@ -312,8 +348,7 @@ void main() {
     test('Il cielo essenziale non e\' una carta, e non finge di esserlo', () {
       final essenziale =
           NatalChart.essential(sunSign: Zodiac.leo, hasTime: false);
-      final cielo =
-          CieloDiOggi.perIlGiorno(adesso: giorno, carta: essenziale);
+      final cielo = CieloDiOggi.perIlGiorno(adesso: giorno, carta: essenziale);
       expect(cielo.ceCieloVero, isFalse);
       expect(cielo.livello, LivelloPersonalizzazione.soloSegno);
       expect(CorrenteDelCielo.notaDelLivello(cielo),
@@ -590,7 +625,8 @@ void main() {
         ));
         final conGiuntura = CorrenteDelCielo.conLaGiuntura(frase, 0);
         for (final corpo in CorpoCeleste.values) {
-          expect(conGiuntura.contains(': ${corpo.nome.toLowerCase()} '), isFalse,
+          expect(
+              conGiuntura.contains(': ${corpo.nome.toLowerCase()} '), isFalse,
               reason: 'un nome proprio scritto minuscolo dopo i due punti: '
                   '«$conGiuntura»');
         }

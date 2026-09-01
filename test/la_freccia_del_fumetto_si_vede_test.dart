@@ -28,8 +28,9 @@ void main() {
 
   /// La luminanza relativa di un colore, come la definiscono le linee guida.
   double luminanza(Color c) {
-    double canale(double v) =>
-        v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
+    double canale(double v) => v <= 0.03928
+        ? v / 12.92
+        : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
     return 0.2126 * canale(c.r) + 0.7152 * canale(c.g) + 0.0722 * canale(c.b);
   }
 
@@ -72,8 +73,8 @@ void main() {
       () {
     // **IL NUMERO PRIMA.** La freccia era dipinta con `palette.surface`. Se
     // qualcuno ci tornasse, questa riga dice quanto valeva.
-    final prima = contrasto(MaestroPalette.medora.surface,
-        MaestroPalette.medora.deepest);
+    final prima =
+        contrasto(MaestroPalette.medora.surface, MaestroPalette.medora.deepest);
     final dopo =
         contrasto(MaestroPalette.medora.gold, MaestroPalette.medora.deepest);
     // ignore: avoid_print

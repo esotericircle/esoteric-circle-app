@@ -57,7 +57,9 @@ void main() {
     // oppure forma diversa. In ogni caso non sono lo stesso segno.
     final formaFehu = fehu.map((r) => r.length).toList();
     final formaUruz = uruz.map((r) => r.length).toList();
-    expect(fehu.length != uruz.length || formaFehu.toString() != formaUruz.toString(),
+    expect(
+        fehu.length != uruz.length ||
+            formaFehu.toString() != formaUruz.toString(),
         isTrue,
         reason: 'Fehu e Uruz producono lo stesso disegno');
     // E Fehu ha davvero due barre, che sono il suo segno.
@@ -107,8 +109,8 @@ void main() {
           .reduce((a, b) => a.abs() > b.abs() ? a : b);
       final lato = estremo >= 0 ? 1 : -1;
       // La quota d'aggancio: il punto piu' vicino allo stelo.
-      final aggancio = ramo.reduce(
-          (a, b) => (a.dx - 0.5).abs() <= (b.dx - 0.5).abs() ? a : b);
+      final aggancio = ramo
+          .reduce((a, b) => (a.dx - 0.5).abs() <= (b.dx - 0.5).abs() ? a : b);
       final lista = quotePerLato.putIfAbsent(lato, () => <double>[]);
       for (final q in lista) {
         expect((q - aggancio.dy).abs(), greaterThan(0.02),

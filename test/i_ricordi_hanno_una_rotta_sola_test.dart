@@ -27,8 +27,9 @@ List<File> _fileCheNominanoIRicordi() {
   final fuori = <File>[];
   for (final voce in Directory('lib').listSync(recursive: true)) {
     if (voce is! File || !voce.path.endsWith('.dart')) continue;
-    if (voce.path.replaceAll('\\', '/').endsWith(
-        'lib/features/ricordi/ricordi_screen.dart')) {
+    if (voce.path
+        .replaceAll('\\', '/')
+        .endsWith('lib/features/ricordi/ricordi_screen.dart')) {
       continue;
     }
     if (voce.readAsStringSync().contains('RicordiScreen')) fuori.add(voce);
@@ -36,8 +37,8 @@ List<File> _fileCheNominanoIRicordi() {
   return fuori;
 }
 
-Widget _scena(Widget figlio, RegistroDeiRicordi registro,
-    ScrignoDeiCustoditi scrigno) {
+Widget _scena(
+    Widget figlio, RegistroDeiRicordi registro, ScrignoDeiCustoditi scrigno) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
@@ -139,7 +140,8 @@ void main() {
         reason: 'le due viste stanno nella STESSA schermata, e una alla volta');
   });
 
-  testWidgets('CG.02: si scende dai mesi al giorno e si risale', (tester) async {
+  testWidgets('CG.02: si scende dai mesi al giorno e si risale',
+      (tester) async {
     final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
     await registro.carica();
     await registro.segna(VoceDelRicordo(
@@ -231,7 +233,8 @@ void main() {
             'posizione nella griglia');
   });
 
-  testWidgets('CG.04: un responso custodito si riapre com\'era', (tester) async {
+  testWidgets('CG.04: un responso custodito si riapre com\'era',
+      (tester) async {
     final custodito = RicordoCustodito(
       quando: DateTime(2026, 8, 12, 9),
       arte: 'gettata',
@@ -249,8 +252,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
-    await tester.pumpWidget(_scena(
-        RicordoApertoScreen(custodito: custodito), registro, scrigno));
+    await tester.pumpWidget(
+        _scena(RicordoApertoScreen(custodito: custodito), registro, scrigno));
     await tester.pumpAndSettle();
 
     // **IL TESTO DEL RICORDO PASSA DA ParagrafiDiLettura**, non da un

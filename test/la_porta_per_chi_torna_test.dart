@@ -60,15 +60,19 @@ void main() {
         reason: 'chi torna non ha nessuna via sulla prima schermata, e per '
             'ritrovare il suo cammino dovrebbe rifare tutto il rito');
     final righe = tester
-        .widgetList<Text>(find.descendant(of: porta, matching: find.byType(Text)))
+        .widgetList<Text>(
+            find.descendant(of: porta, matching: find.byType(Text)))
         .map((t) => t.data)
         .toList();
     // ignore: avoid_print
     print('ORDINE AP VOCE 04: la porta dice $righe');
-    expect(righe, [
-      'Faccio già parte del Cerchio',
-      'Accedi e ritrova il tuo cammino',
-    ], reason: 'i testi non sono quelli decisi da Mauro: $righe');
+    expect(
+        righe,
+        [
+          'Faccio già parte del Cerchio',
+          'Accedi e ritrova il tuo cammino',
+        ],
+        reason: 'i testi non sono quelli decisi da Mauro: $righe');
   });
 
   testWidgets('NON e\' un muro: il richiamo principale resta il rito',
@@ -113,8 +117,10 @@ void main() {
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    expect(find.byKey(const Key('onboarding_porta_per_chi_torna')), findsNothing,
-        reason: 'la porta segue chi ha gia' 'cominciato il rito: e\' una '
+    expect(
+        find.byKey(const Key('onboarding_porta_per_chi_torna')), findsNothing,
+        reason: 'la porta segue chi ha gia'
+            'cominciato il rito: e\' una '
             'via per chi torna, non un ripensamento a ogni passo');
   });
 }

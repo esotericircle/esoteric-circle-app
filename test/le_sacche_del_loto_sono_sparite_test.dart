@@ -26,9 +26,10 @@ void main() {
     final byte = await File(file).readAsBytes();
     final codice = await ui.instantiateImageCodec(byte);
     final immagine = (await codice.getNextFrame()).image;
-    final dati = (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
-        .buffer
-        .asUint8List();
+    final dati =
+        (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
     return (immagine.width, immagine.height, dati);
   }
 
@@ -44,8 +45,8 @@ void main() {
       bool chiara(int q) {
         final i = q * 4;
         if (px[i + 3] <= 128) return false;
-        final minimo = [px[i], px[i + 1], px[i + 2]]
-            .reduce((a, b) => a < b ? a : b);
+        final minimo =
+            [px[i], px[i + 1], px[i + 2]].reduce((a, b) => a < b ? a : b);
         return minimo >= sogliaDelBianco;
       }
 

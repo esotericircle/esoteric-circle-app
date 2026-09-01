@@ -6183,7 +6183,7 @@ void main() {
     final gesto = await tester.startGesture(tester.getCenter(lista));
     await gesto.moveBy(const Offset(0, -kDragSlopDefault));
     await tester.pump();
-    await gesto.moveBy(Offset(0, -(BarraDelCerchio.corsa / 2 + 6)));
+    await gesto.moveBy(const Offset(0, -(BarraDelCerchio.corsa / 2 + 6)));
     await tester.pump();
     final aMeta =
         schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
@@ -6220,7 +6220,7 @@ void main() {
     nav.push(MaestroChatScreen.route(
       maestro: Maestro.medora,
       services: AppServices.offline(),
-      dettatura: _DettaturaDaAnteprima(),
+      dettatura: const _DettaturaDaAnteprima(),
     ));
     await step(tester);
     await precacheFaces(tester);
@@ -7033,6 +7033,8 @@ class _VoceCheFaAspettare implements MaestroAiProvider {
 /// Una dettatura che dice di esserci, per la sola anteprima: non ascolta
 /// niente e non tocca nessun microfono.
 class _DettaturaDaAnteprima extends Dettatura {
+  const _DettaturaDaAnteprima();
+
   @override
   Future<bool> disponibile() async => true;
 

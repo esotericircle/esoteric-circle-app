@@ -90,9 +90,7 @@ void main() {
       ParallaxController.esponenteDellaCurva,
     ];
     addTearDown(() => ParallaxController.tara(
-        zona: partenza[0],
-        fondoInGradi: partenza[1],
-        esponente: partenza[2]));
+        zona: partenza[0], fondoInGradi: partenza[1], esponente: partenza[2]));
 
     final buone = <String>[];
     String? migliore;

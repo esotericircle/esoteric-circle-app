@@ -51,7 +51,8 @@ void main() {
     String? offending(String s) {
       for (final m in vowelApostrophe.allMatches(s)) {
         final ap = m.end - 1;
-        if (ap + 1 < s.length && letter.hasMatch(s[ap + 1])) continue; // elisione
+        if (ap + 1 < s.length && letter.hasMatch(s[ap + 1]))
+          continue; // elisione
         final vowel = m.start;
         final prev = vowel > 0 ? s[vowel - 1].toLowerCase() : '';
         final pair = '$prev${s[vowel].toLowerCase()}';

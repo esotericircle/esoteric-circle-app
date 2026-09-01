@@ -113,7 +113,8 @@ void main() {
       if (gradi == null) return;
 
       final schermo = tester.view.physicalSize.height / 3;
-      final dove = tester.getRect(find.byKey(const Key('sky_body_moon'))).center;
+      final dove =
+          tester.getRect(find.byKey(const Key('sky_body_moon'))).center;
       final quota = dove.dy / schermo;
 
       // Sotto i quindici gradi un corpo e' basso: non puo' stare nella meta'

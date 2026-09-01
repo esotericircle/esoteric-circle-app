@@ -62,7 +62,9 @@ void main() {
     // 31,0, due numeri troppo vicini per una differenza che a occhio e netta.
     final per = <String, List<City>>{};
     for (final c in catalogo) {
-      per.putIfAbsent(MappaDellaNazione.nomeDelPaese(c.country), () => []).add(c);
+      per
+          .putIfAbsent(MappaDellaNazione.nomeDelPaese(c.country), () => [])
+          .add(c);
     }
     final passano = <String>[];
     final densita = <String, double>{};
@@ -123,8 +125,8 @@ void main() {
 
   test('BB.12: la nazione dell Italia esiste, e ci sta dentro tutta', () {
     final roma = catalogo.firstWhere((c) => c.name == 'Roma');
-    final n = MappaDellaNazione.perIlLuogo(
-        roma.latitude, roma.longitude, catalogo);
+    final n =
+        MappaDellaNazione.perIlLuogo(roma.latitude, roma.longitude, catalogo);
     expect(n, isNotNull, reason: 'per Roma non si disegna nessuna nazione');
     // ignore: avoid_print
     print('ORDINE BB VOCE 12: il riquadro va da ${n!.sud.toStringAsFixed(2)} a '
@@ -150,8 +152,8 @@ void main() {
     // Milano sopra Roma sopra Palermo, e Bari a destra di Torino: se la
     // proiezione si ribaltasse, i numeri di sopra tornerebbero lo stesso.
     final roma = catalogo.firstWhere((c) => c.name == 'Roma');
-    final n = MappaDellaNazione.perIlLuogo(
-        roma.latitude, roma.longitude, catalogo)!;
+    final n =
+        MappaDellaNazione.perIlLuogo(roma.latitude, roma.longitude, catalogo)!;
     ({double x, double y}) dove(String citta) {
       final c = catalogo.firstWhere((c) => c.name == citta);
       return n.proietta(c.latitude, c.longitude);
@@ -173,8 +175,8 @@ void main() {
     // sono numeri: qui si dipinge il passo del luogo nei due modi e si conta
     // quanti punti su cento cambiano.
     final roma = catalogo.firstWhere((c) => c.name == 'Roma');
-    final nazione = MappaDellaNazione.perIlLuogo(
-        roma.latitude, roma.longitude, catalogo);
+    final nazione =
+        MappaDellaNazione.perIlLuogo(roma.latitude, roma.longitude, catalogo);
 
     Future<List<int>> dipingi(MappaDellaNazione? n) async {
       await tester.pumpWidget(MaterialApp(

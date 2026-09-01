@@ -84,7 +84,8 @@ void main() {
     print('ORDINE U VOCE 00: file non dichiarati osservati $osservate');
     expect(osservate, greaterThan(0));
     expect(colpevoli, isEmpty,
-        reason: 'queste prove leggono l\'orologio vero: dichiara il tuo istante '
+        reason:
+            'queste prove leggono l\'orologio vero: dichiara il tuo istante '
             'dentro la prova, oppure aggiungi il file all\'elenco dichiarato '
             'SCRIVENDO ACCANTO cosa sorveglia. ${colpevoli.join(", ")}');
   });

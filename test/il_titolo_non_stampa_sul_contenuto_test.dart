@@ -94,7 +94,8 @@ void main() {
   // L'ombra resta perche' e' la difesa LOCALE, quella che serve quando
   // dietro il titolo passa una scheda chiara piu' su della sfumatura, e la
   // sua esistenza la sorveglia la prova sul sorgente qui sotto.
-  testWidgets('nelle quattro schermate il titolo si legge su cio\' che gli '
+  testWidgets(
+      'nelle quattro schermate il titolo si legge su cio\' che gli '
       'passa dietro', (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
@@ -145,8 +146,7 @@ void main() {
       }
       final ordinate = [...luci]..sort();
       // LE LETTERE sono i pixel piu' chiari (oro su fondale scuro).
-      final lettereChiare =
-          ordinate.sublist((ordinate.length * 0.90).floor());
+      final lettereChiare = ordinate.sublist((ordinate.length * 0.90).floor());
       final lettera = lettereChiare[lettereChiare.length ~/ 2];
 
       // **IL FONDO E' IL PEGGIORE DENTRO IL RETTANGOLO DEL TITOLO, e una

@@ -52,7 +52,8 @@ void main() {
 
   /// Legge l'avanzamento del tracciamento dal painter a schermo.
   RuotaSigilloPainter painter(WidgetTester tester) {
-    final cp = tester.widget<CustomPaint>(find.byKey(const Key('sigillo_ruota')));
+    final cp =
+        tester.widget<CustomPaint>(find.byKey(const Key('sigillo_ruota')));
     return cp.painter! as RuotaSigilloPainter;
   }
 
@@ -72,8 +73,8 @@ void main() {
 
     await tester.enterText(find.byKey(const Key('sigillo_campo')), 'aaa');
     await tester.pump();
-    final bottone = tester.widget<FilledButton>(
-        find.byKey(const Key('sigillo_traccia')));
+    final bottone =
+        tester.widget<FilledButton>(find.byKey(const Key('sigillo_traccia')));
     expect(bottone.onPressed, isNull,
         reason: 'con una lettera sola il sigillo si potrebbe tracciare');
     expect(find.textContaining('almeno due lettere'), findsOneWidget);
@@ -95,8 +96,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     final aMeta = painter(tester).avanzamento;
     expect(aMeta, greaterThan(0));
-    expect(aMeta, lessThan(1),
-        reason: 'il cammino e\' comparso tutto insieme');
+    expect(aMeta, lessThan(1), reason: 'il cammino e\' comparso tutto insieme');
     expect(painter(tester).mostraRuota, isTrue,
         reason: 'la ruota deve vedersi mentre si traccia, altrimenti non si '
             'capisce da dove nasce il segno');

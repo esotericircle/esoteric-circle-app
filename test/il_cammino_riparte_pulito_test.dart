@@ -75,7 +75,8 @@ void main() {
             'ogni apertura');
     expect(prefs.getString('cammino.gesti'), '{"stesa":1}',
         reason: 'il cammino cominciato dopo la rinascita e stato cancellato');
-    expect(await RinascitaDelCammino.serveRinascere(preferenze: prefs), isFalse);
+    expect(
+        await RinascitaDelCammino.serveRinascere(preferenze: prefs), isFalse);
   });
 
   test('un Cerchio nuovo non legge la riga', () async {

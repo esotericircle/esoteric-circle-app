@@ -38,8 +38,8 @@ void main() {
           body: SizedBox(
             width: 200,
             height: 200,
-            child: Astrolabio(
-                palette: MaestroPalette.neutral, reduceMotion: true),
+            child:
+                Astrolabio(palette: MaestroPalette.neutral, reduceMotion: true),
           ),
         ),
       ));
@@ -118,25 +118,25 @@ void main() {
       // dentro uno Scaffold non e' la stessa cosa, e un test che monta una
       // cosa diversa da quella vera non prova niente.
       await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-        ],
-        child: MaterialApp(
-        // Col MaestroScope, come nell'app: e' da li' che la palette arriva a
-        // chi apre il foglio.
-        home: MaestroScope(
-            child: Scaffold(
-          body: Builder(
-            builder: (context) => Center(
-              child: TextButton(
-                onPressed: () => AngeloIngrandito.apri(context,
-                    angelo: angelo, ruolo: RuoloAngelo.intelletto),
-                child: const Text('apri'),
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+          ],
+          child: MaterialApp(
+            // Col MaestroScope, come nell'app: e' da li' che la palette arriva a
+            // chi apre il foglio.
+            home: MaestroScope(
+                child: Scaffold(
+              body: Builder(
+                builder: (context) => Center(
+                  child: TextButton(
+                    onPressed: () => AngeloIngrandito.apri(context,
+                        angelo: angelo, ruolo: RuoloAngelo.intelletto),
+                    child: const Text('apri'),
+                  ),
+                ),
               ),
-            ),
-          ),
-        )),
-      )));
+            )),
+          )));
       await tester.tap(find.text('apri'));
       await tester.pumpAndSettle();
 
@@ -144,8 +144,8 @@ void main() {
       expect(find.textContaining(angelo.name), findsWidgets);
       expect(find.textContaining('Coro dei'), findsOneWidget);
       // Il titolo del ruolo su una riga sola, mai spezzato a meta' parola.
-      final titolo = tester.widget<Text>(
-          find.text(RuoloAngelo.intelletto.titolo.toUpperCase()));
+      final titolo = tester
+          .widget<Text>(find.text(RuoloAngelo.intelletto.titolo.toUpperCase()));
       expect(titolo.maxLines, 1);
       expect(titolo.softWrap, isFalse);
     });

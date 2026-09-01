@@ -94,15 +94,18 @@ void main() {
       final now = DateTime(2026).add(Duration(days: doy));
       expectClean(SkyPostcard.poeticLine(now), 'riga poetica $doy');
     }
-    expectClean(SkyPostcard.shareText(DateTime(2026, 7, 13)), 'testo condivisione');
+    expectClean(
+        SkyPostcard.shareText(DateTime(2026, 7, 13)), 'testo condivisione');
     expectClean(SkyPostcard.shareText(DateTime(2026, 7, 13), birth: true),
         'testo condivisione nascita');
     for (final birth in [false, true]) {
-      expectClean(SkyPostcard.titleFor(birth: birth), 'titolo cartolina $birth');
+      expectClean(
+          SkyPostcard.titleFor(birth: birth), 'titolo cartolina $birth');
     }
   });
 
-  test('I fatti identitari del passaporto rispettano la regola della virgola', () {
+  test('I fatti identitari del passaporto rispettano la regola della virgola',
+      () {
     final numbers = <int>{};
     final signs = <String>{};
     for (var i = 0; i < 400; i++) {
@@ -229,8 +232,7 @@ List<String> _logicalStrings(String src) {
     }
     final ch = src[j];
     if (ch == '\'' || ch == '"') {
-      final triple =
-          j + 2 < n && src[j + 1] == ch && src[j + 2] == ch;
+      final triple = j + 2 < n && src[j + 1] == ch && src[j + 2] == ch;
       final quoteLen = triple ? 3 : 1;
       var k = j + quoteLen;
       final content = StringBuffer();
@@ -241,7 +243,10 @@ List<String> _logicalStrings(String src) {
           continue;
         }
         if (triple) {
-          if (k + 2 < n && src[k] == ch && src[k + 1] == ch && src[k + 2] == ch) {
+          if (k + 2 < n &&
+              src[k] == ch &&
+              src[k + 1] == ch &&
+              src[k + 2] == ch) {
             k += 3;
             break;
           }
@@ -261,7 +266,10 @@ List<String> _logicalStrings(String src) {
       // Adiacenza: se la prossima cosa non-spazio e' un'altra stringa, unisci.
       var p = i;
       while (p < n &&
-          (src[p] == ' ' || src[p] == '\t' || src[p] == '\n' || src[p] == '\r')) {
+          (src[p] == ' ' ||
+              src[p] == '\t' ||
+              src[p] == '\n' ||
+              src[p] == '\r')) {
         p++;
       }
       final adjacent = p < n &&

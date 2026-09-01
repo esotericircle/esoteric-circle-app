@@ -105,7 +105,8 @@ void main() {
 
     final conAcquario = await testoConNascita(tester, DateTime(1980, 2, 2));
     expect(conAcquario, contains('Acquario'),
-        reason: 'cambiata la data di nascita il testo a schermo non cambia: e\' '
+        reason:
+            'cambiata la data di nascita il testo a schermo non cambia: e\' '
             'una misura cieca, il motore calcola e la schermata non guarda');
     expect(conAcquario, isNot(contains('Cancro')),
         reason: 'a schermo restano tutti e due i segni: qualcuno tiene il '

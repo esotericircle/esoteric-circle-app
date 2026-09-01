@@ -29,8 +29,7 @@ void main() {
   );
 
   Map<String, dynamic> loadFixture() {
-    final raw =
-        File('assets/data/sample_natal_rome.json').readAsStringSync();
+    final raw = File('assets/data/sample_natal_rome.json').readAsStringSync();
     return jsonDecode(raw) as Map<String, dynamic>;
   }
 
@@ -56,8 +55,8 @@ void main() {
     });
 
     test('errore della callable: solleva AstroApiException', () async {
-      final client = FreeAstroClient(
-          caller: (_) async => throw Exception('callable giu'));
+      final client =
+          FreeAstroClient(caller: (_) async => throw Exception('callable giu'));
       expect(
         () => client.fetchNatalChart(details),
         throwsA(isA<AstroApiException>()),

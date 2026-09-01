@@ -59,8 +59,8 @@ void main() {
                   builder: (interno) => Center(
                     child: TextButton(
                       key: const Key('prova_apri_la_festa'),
-                      onPressed: () => Navigator.of(interno).push(
-                          MaterialPageRoute<void>(builder: (_) => scena)),
+                      onPressed: () => Navigator.of(interno)
+                          .push(MaterialPageRoute<void>(builder: (_) => scena)),
                       child: const Text('apri'),
                     ),
                   ),

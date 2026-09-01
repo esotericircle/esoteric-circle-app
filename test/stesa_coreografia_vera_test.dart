@@ -11,14 +11,17 @@ void main() {
     // Agli estremi la carta sta nella sua sede: il gesto parte e finisce
     // dal ventaglio.
     for (final t in [0.0, 1.0]) {
-      final p = MischiaPose.of(
-          sede: sede, mazzo: mazzo, index: 2, count: 9, t: t);
+      final p =
+          MischiaPose.of(sede: sede, mazzo: mazzo, index: 2, count: 9, t: t);
       expect(p.offset, sede);
     }
     // A fine raccolta ogni carta sta SUL mazzo: il ventaglio si e' ricomposto.
     for (var i = 0; i < 9; i++) {
       final p = MischiaPose.of(
-          sede: sede, mazzo: mazzo, index: i, count: 9,
+          sede: sede,
+          mazzo: mazzo,
+          index: i,
+          count: 9,
           t: MischiaPose.fineRaccolta - 0.001);
       expect((p.offset - mazzo).distance, lessThan(30),
           reason: 'carta $i lontana dal mazzo a fine raccolta');
@@ -55,7 +58,11 @@ void main() {
     // A fine ricomposizione tutte tornate sul mazzo.
     for (var i = 0; i < 9; i++) {
       final p = TaglioPose.of(
-          sede: sede, mazzo: mazzo, index: i, count: 9, taglioA: 4,
+          sede: sede,
+          mazzo: mazzo,
+          index: i,
+          count: 9,
+          taglioA: 4,
           t: TaglioPose.fineRicomposizione - 0.001);
       expect((p.offset - mazzo).distance, lessThan(12),
           reason: 'carta $i non ricomposta');

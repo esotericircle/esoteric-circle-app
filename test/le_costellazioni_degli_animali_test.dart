@@ -9,8 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// Questa prova enumera i dodici animali del catalogo e pretende per ognuno
 /// il suo insieme, diverso da tutti gli altri.
 void main() {
-  test('i dodici animali del catalogo hanno ciascuno la sua costellazione',
-      () {
+  test('i dodici animali del catalogo hanno ciascuno la sua costellazione', () {
     expect(AnimalCatalog.animals.length, 12,
         reason: 'Il catalogo non porta piu\' dodici animali: la prova va '
             'riletta prima di toccare i dati.');

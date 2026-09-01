@@ -91,10 +91,9 @@ void main() {
     final ore = <String>[];
     for (final d in DailyElement.values) {
       final riga = find.byKey(Key('notifiche_dono_${d.name}'));
-      expect(riga, findsOneWidget,
-          reason: 'manca la riga del Dono ${d.name}');
-      final ora = tester
-          .widget<Text>(find.byKey(Key('notifiche_ora_${d.name}')));
+      expect(riga, findsOneWidget, reason: 'manca la riga del Dono ${d.name}');
+      final ora =
+          tester.widget<Text>(find.byKey(Key('notifiche_ora_${d.name}')));
       ore.add('${d.shortLabel} ${ora.data}');
       expect(ora.data, AvvisiDelRito.oraDetta(d),
           reason: 'la riga di ${d.name} dichiara un ora che non e la sua');
@@ -113,8 +112,8 @@ void main() {
     // cio' che e' gia' acceso non direbbe niente.
     expect(scelta.chiama(DailyElement.night), isTrue);
 
-    await tester.ensureVisible(
-        find.byKey(const Key('notifiche_interruttore_night')));
+    await tester
+        .ensureVisible(find.byKey(const Key('notifiche_interruttore_night')));
     await tester.pump();
     await tester.tap(find.byKey(const Key('notifiche_interruttore_night')));
     for (var i = 0; i < 6; i++) {
@@ -143,8 +142,8 @@ void main() {
     expect(scelta.minutiDi(DailyElement.oracle),
         DailyElement.oracle.anchorMinutes);
 
-    await tester.ensureVisible(
-        find.byKey(const Key('notifiche_tocco_ora_oracle')));
+    await tester
+        .ensureVisible(find.byKey(const Key('notifiche_tocco_ora_oracle')));
     await tester.pump();
     await tester.tap(find.byKey(const Key('notifiche_tocco_ora_oracle')));
     // **PUMP RIPETUTI E NON `pumpAndSettle`**: il cielo di questa schermata
@@ -172,8 +171,8 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    expect(scelta.minutiDi(DailyElement.oracle),
-        DailyElement.oracle.anchorMinutes,
+    expect(
+        scelta.minutiDi(DailyElement.oracle), DailyElement.oracle.anchorMinutes,
         reason: 'chiudendo l orologio senza confermare l ora e cambiata lo '
             'stesso');
   });
@@ -218,8 +217,8 @@ void main() {
     // DISATTIVARE" i singoli orari.
     final scelta = await apri(tester);
     expect(scelta.chiama(DailyElement.dawn), isTrue);
-    await tester.ensureVisible(
-        find.byKey(const Key('notifiche_interruttore_dawn')));
+    await tester
+        .ensureVisible(find.byKey(const Key('notifiche_interruttore_dawn')));
     await tester.pump();
     await tester.tap(find.byKey(const Key('notifiche_interruttore_dawn')));
     for (var i = 0; i < 6; i++) {

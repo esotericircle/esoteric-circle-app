@@ -56,7 +56,8 @@ void main() {
   Finder ilCorpo() => find.byWidgetPredicate(
       (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
 
-  testWidgets('fra la riga delle arti e "Le tue arti" non resta una fascia vuota',
+  testWidgets(
+      'fra la riga delle arti e "Le tue arti" non resta una fascia vuota',
       (tester) async {
     await monta(tester);
 
@@ -64,8 +65,8 @@ void main() {
     // Il vuoto e' la distanza fra il FONDO della riga delle arti del Maestro e la
     // CIMA del titolo dello scaffale personale. Nessuno dei due numeri sta nel
     // sorgente: nascono dalla disposizione.
-    final righeDelleArti = find.byKey(const Key('santuario_domain_arts'),
-        skipOffstage: false);
+    final righeDelleArti =
+        find.byKey(const Key('santuario_domain_arts'), skipOffstage: false);
     expect(righeDelleArti, findsWidgets,
         reason: 'la riga delle arti del Maestro non c\'e\': la prova non ha un '
             'estremo da cui misurare');
@@ -76,7 +77,8 @@ void main() {
         .map((s) => s.localToGlobal(Offset.zero) & s.size)
         .reduce((a, b) => a.width >= b.width ? a : b);
 
-    final titolo = find.byKey(const Key('tue_arti_titolo'), skipOffstage: false);
+    final titolo =
+        find.byKey(const Key('tue_arti_titolo'), skipOffstage: false);
     expect(titolo, findsOneWidget);
     final scatolaTitolo = tester.renderObject<RenderBox>(titolo);
     final rettangoloTitolo =

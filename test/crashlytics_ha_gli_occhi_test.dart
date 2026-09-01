@@ -105,9 +105,7 @@ void main() {
             'Firebase passa da Swift Package Manager e quella cartella non '
             'esiste, e\' la costante falsa che ha ucciso la 2158.');
     // La ricerca: un find sul checkout SPM di firebase-ios-sdk.
-    expect(
-        passo.contains('find') && passo.contains('firebase-ios-sdk'),
-        isTrue,
+    expect(passo.contains('find') && passo.contains('firebase-ios-sdk'), isTrue,
         reason: 'Il passo non CERCA piu\' upload-symbols nel checkout SPM di '
             'firebase-ios-sdk: senza ricerca si torna a un percorso '
             'dichiarato, cioe\' a una costante che prima o poi mente.');

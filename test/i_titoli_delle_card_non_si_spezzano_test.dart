@@ -112,34 +112,46 @@ void main() {
   testWidgets('le card dell\'account non spezzano i titoli', (tester) async {
     // **L'elenco segue il menu di BH.06**: le voci delicate sono scese nel
     // sottomenu Privacy e dati, che la prova qui sotto controlla a parte.
-    await controlla(tester, const AccountScreen(), const [
-      'Profilo',
-      'I tuoi dati di nascita',
-      'Abbonamento',
-      'Notifiche',
-      'Impostazioni',
-      'Privacy e dati',
-    ], 'AccountScreen');
+    await controlla(
+        tester,
+        const AccountScreen(),
+        const [
+          'Profilo',
+          'I tuoi dati di nascita',
+          'Abbonamento',
+          'Notifiche',
+          'Impostazioni',
+          'Privacy e dati',
+        ],
+        'AccountScreen');
   });
 
   testWidgets('le card di Privacy e dati non spezzano i titoli',
       (tester) async {
-    await controlla(tester, const PrivacyEDatiScreen(), const [
-      'Privacy policy',
-      'Scarica i tuoi dati',
-      'Cancella i tuoi dati',
-      'Cancella il tuo account',
-    ], 'PrivacyEDatiScreen');
+    await controlla(
+        tester,
+        const PrivacyEDatiScreen(),
+        const [
+          'Privacy policy',
+          'Scarica i tuoi dati',
+          'Cancella i tuoi dati',
+          'Cancella il tuo account',
+        ],
+        'PrivacyEDatiScreen');
   });
 
   testWidgets('le card delle impostazioni non spezzano i titoli',
       (tester) async {
     // I titoli di sezione delle impostazioni si rendono MAIUSCOLI dentro
     // SectionTitle: si cercano come compaiono a schermo.
-    await controlla(tester, const SettingsScreen(), const [
-      'IL TUO PIANO',
-      'ASPETTO',
-      'Riduci animazioni',
-    ], 'SettingsScreen');
+    await controlla(
+        tester,
+        const SettingsScreen(),
+        const [
+          'IL TUO PIANO',
+          'ASPETTO',
+          'Riduci animazioni',
+        ],
+        'SettingsScreen');
   });
 }

@@ -139,14 +139,16 @@ void main() {
     await tester.tap(done);
     await passo(tester);
 
-    expect(tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
+    expect(
+        tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
         'non legato ai transiti astrologici');
     final sw = find.byKey(const Key('face_transits_switch'));
     await tester.ensureVisible(sw);
     await tester.pump();
     await tester.tap(sw);
     await passo(tester);
-    expect(tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
+    expect(
+        tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
         'legato ai transiti astrologici di oggi');
   });
 

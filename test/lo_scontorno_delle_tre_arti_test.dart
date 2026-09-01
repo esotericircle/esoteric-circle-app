@@ -66,9 +66,9 @@ void main() {
           caldoDelCorpo.add(px[i] - piuAlto);
         }
         caldoDelCorpo.sort();
-        final confine =
-            caldoDelCorpo[(caldoDelCorpo.length * 0.995).floor().clamp(
-                0, caldoDelCorpo.length - 1)];
+        final confine = caldoDelCorpo[(caldoDelCorpo.length * 0.995)
+            .floor()
+            .clamp(0, caldoDelCorpo.length - 1)];
 
         var bordo = 0, estranei = 0;
         for (var i = 0; i < px.length; i += 4) {

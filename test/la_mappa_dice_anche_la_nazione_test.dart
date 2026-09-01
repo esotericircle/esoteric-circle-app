@@ -35,13 +35,15 @@ void main() {
     final sbagliate = <String>[];
     prove.forEach((atteso, punto) {
       final trovata = NazioneDelPunto.di(punto);
-      if (trovata != atteso) sbagliate.add('$punto: $trovata invece di $atteso');
+      if (trovata != atteso)
+        sbagliate.add('$punto: $trovata invece di $atteso');
     });
     // ignore: avoid_print
     print('ORDINE CD VOCE 02a: punti provati ${prove.length}, '
         'nazioni sbagliate ${sbagliate.length}');
-    expect(sbagliate, isEmpty, reason: 'la mappa direbbe il paese sbagliato: '
-        '$sbagliate');
+    expect(sbagliate, isEmpty,
+        reason: 'la mappa direbbe il paese sbagliato: '
+            '$sbagliate');
   });
 
   test('in mezzo all\'oceano non si dichiara nessun paese', () {
@@ -56,8 +58,8 @@ void main() {
   });
 
   test('la nazione finisce davvero sulla tela', () {
-    final mappa =
-        File('lib/features/synastry/mappa_della_distanza.dart').readAsStringSync();
+    final mappa = File('lib/features/synastry/mappa_della_distanza.dart')
+        .readAsStringSync();
     // **Non basta saperla, bisogna scriverla.** Questa riga cade se qualcuno
     // toglie la scrittura dal pittore lasciando in piedi il calcolo, che e'
     // esattamente il modo in cui un rilievo del fondatore torna in silenzio.

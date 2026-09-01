@@ -204,8 +204,8 @@ void main() {
   });
 
   test('CG.11: il modello e\' quello economico, e non e\' Anthropic', () {
-    final sorgente =
-        File('lib/services/ricordi/penna_vera_del_mese.dart').readAsStringSync();
+    final sorgente = File('lib/services/ricordi/penna_vera_del_mese.dart')
+        .readAsStringSync();
     expect(sorgente.contains('kMaestroBreveModel'), isTrue,
         reason: 'la lettura lavora su un pugno di numeri e non deve ragionare: '
             'e\' il compito piu\' economico del progetto');
@@ -214,14 +214,13 @@ void main() {
     // quella parola nel file intero cadrebbe proprio sulla riga che dichiara
     // la regola. La grandezza giusta e' il codice: si tolgono i commenti e si
     // cerca li'.
-    final soloCodice = sorgente
-        .split('\n')
-        .where((r) {
-          final t = r.trimLeft();
-          return !t.startsWith('//') && !t.startsWith('///') &&
-              !t.startsWith('*') && !t.startsWith('/*');
-        })
-        .join('\n');
+    final soloCodice = sorgente.split('\n').where((r) {
+      final t = r.trimLeft();
+      return !t.startsWith('//') &&
+          !t.startsWith('///') &&
+          !t.startsWith('*') &&
+          !t.startsWith('/*');
+    }).join('\n');
     for (final vietato in const ['anthropic', 'Anthropic', 'claude']) {
       expect(soloCodice.contains(vietato), isFalse,
           reason: 'il codice nomina "$vietato": il runtime resta Google, '

@@ -148,8 +148,7 @@ void main() {
       }
       expect(picchi.length, 2,
           reason: 'I rimbalzi sono ${picchi.length}, non due.');
-      expect(picchi[0],
-          closeTo(FisicaDellaGettata.smorzamento, 0.02),
+      expect(picchi[0], closeTo(FisicaDellaGettata.smorzamento, 0.02),
           reason: 'Il primo rimbalzo non rispetta lo smorzamento dichiarato.');
       expect(
           picchi[1],
@@ -160,7 +159,8 @@ void main() {
       expect(campioni.last, 0, reason: 'La pietra non si ferma a terra.');
     });
 
-    test('ruota mentre cade, e da ferma nessuna e\' dritta ne\' uguale a '
+    test(
+        'ruota mentre cade, e da ferma nessuna e\' dritta ne\' uguale a '
         'un\'altra', () {
       // In volo la rotazione cambia davvero.
       final aMezzaAria = fisica.a(0, fisica.primoContatto(0) * 0.5).rotazione;
@@ -172,7 +172,8 @@ void main() {
         for (var i = 0; i < fisica.quante; i++) fisica.a(i, 1.0).rotazione
       ];
       for (final r in finali) {
-        expect(r.abs(), greaterThanOrEqualTo(FisicaDellaGettata.inclinazioneMinima - 1e-9),
+        expect(r.abs(),
+            greaterThanOrEqualTo(FisicaDellaGettata.inclinazioneMinima - 1e-9),
             reason: 'Una pietra si e\' posata perfettamente dritta.');
       }
       expect(finali.toSet().length, finali.length,
@@ -195,8 +196,7 @@ void main() {
         for (var t = passo; t <= 1.0; t += passo) {
           final ora = fisica.a(i, t);
           if (ora.visibile && prima.visibile) {
-            final d = Offset(
-                    (ora.posizione.dx - prima.posizione.dx) * 328,
+            final d = Offset((ora.posizione.dx - prima.posizione.dx) * 328,
                     (ora.posizione.dy - prima.posizione.dy) * 300)
                 .distance;
             if (d > salto) salto = d;

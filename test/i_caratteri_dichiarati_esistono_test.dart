@@ -39,7 +39,8 @@ void main() {
   /// censimento a memoria li avrebbe trovati.
   Set<String> glifiDelClient() {
     final s = File('lib/services/free_astro_client.dart').readAsStringSync();
-    final blocco = RegExp(r'_planetIt = \{(.*?)\};', dotAll: true).firstMatch(s);
+    final blocco =
+        RegExp(r'_planetIt = \{(.*?)\};', dotAll: true).firstMatch(s);
     expect(blocco, isNotNull,
         reason: 'la tabella _planetIt non si trova piu\' nel client: se ha '
             'cambiato forma, questa prova va aggiornata invece di restare '
@@ -109,8 +110,8 @@ void main() {
         final nome = firma.group(1)!;
         for (final chiamata
             in RegExp('$nome\\(([^;]{0,400}?)\\)').allMatches(testo)) {
-          for (final lett
-              in RegExp(r"'([A-Z][A-Za-z0-9]{3,})'").allMatches(chiamata.group(1)!)) {
+          for (final lett in RegExp(r"'([A-Z][A-Za-z0-9]{3,})'")
+              .allMatches(chiamata.group(1)!)) {
             citate[lett.group(1)!] = '$percorso (per posizione a $nome)';
           }
         }
@@ -154,8 +155,7 @@ void main() {
             'chi non ce l\'ha.\n${fantasmi.join('\n')}');
   });
 
-  test('il file del carattere dei simboli esiste ed e\' quello dichiarato',
-      () {
+  test('il file del carattere dei simboli esiste ed e\' quello dichiarato', () {
     final pubspec = File('pubspec.yaml').readAsStringSync();
     final blocco = RegExp(
             '- family:\\s*$famigliaDeiSimboli\\s*\\n\\s*fonts:\\s*\\n\\s*- asset:\\s*(\\S+)')
@@ -189,8 +189,7 @@ void main() {
     double larghezzaDi(String glifo, {String? famiglia}) {
       final tp = TextPainter(
         text: TextSpan(
-            text: glifo,
-            style: TextStyle(fontFamily: famiglia, fontSize: 40)),
+            text: glifo, style: TextStyle(fontFamily: famiglia, fontSize: 40)),
         textDirection: TextDirection.ltr,
       )..layout();
       return tp.width;

@@ -68,7 +68,8 @@ void main() {
       print('ORDINE Z VOCE 01: chiusura $chiusura, ripiego ${forma.eRipiego}, '
           'area ${forma.area}');
       if (!forma.eRipiego) {
-        sopravvissute.add('con chiusura $chiusura una tela senza nessun muro ha '
+        sopravvissute.add(
+            'con chiusura $chiusura una tela senza nessun muro ha '
             'prodotto una forma di ${forma.area} pixel invece di essere '
             'respinta come colata: l\'erosione si e\' mangiata il bordo della '
             'finestra e la guardia non ha potuto accendersi');
@@ -118,8 +119,10 @@ void main() {
         );
     // Il seme sta nella meta' di sinistra: senza chiusura la crescita si ferma
     // alla venatura, con la chiusura la scavalca e prende anche l'altra meta'.
-    final senza = CrescitaDellaForma.cresci(rgba, lato, lato, 135, 150, regola(0));
-    final con = CrescitaDellaForma.cresci(rgba, lato, lato, 135, 150, regola(3));
+    final senza =
+        CrescitaDellaForma.cresci(rgba, lato, lato, 135, 150, regola(0));
+    final con =
+        CrescitaDellaForma.cresci(rgba, lato, lato, 135, 150, regola(3));
     // ignore: avoid_print
     print('ORDINE Z VOCE 01: dentro il recinto, senza chiusura ${senza.area} '
         'pixel, con chiusura 3 ${con.area} pixel');
@@ -127,7 +130,8 @@ void main() {
         reason: 'dentro un recinto chiuso la crescita non e\' una colata');
     expect(con.eRipiego, isFalse);
     expect(con.area, greaterThan(senza.area * 3 ~/ 2),
-        reason: 'con la chiusura la crescita deve scavalcare la venatura da due '
+        reason:
+            'con la chiusura la crescita deve scavalcare la venatura da due '
             'pixel e prendersi anche l\'altra meta\' del recinto: se l\'area non '
             'cresce, la chiusura non sigilla piu\' niente e la correzione del '
             'bordo l\'ha spenta del tutto');

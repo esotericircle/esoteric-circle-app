@@ -133,8 +133,8 @@ void main() {
           maestro: Maestro.medora, services: AppServices.offline()));
       await respira(tester);
 
-      final barra = tester.widget<SantuarioBottomBar>(
-          find.byType(SantuarioBottomBar));
+      final barra =
+          tester.widget<SantuarioBottomBar>(find.byType(SantuarioBottomBar));
       expect(barra.maestroCorrente, Maestro.medora,
           reason: 'Nella chat di Medora la barra accende '
               '${barra.maestroCorrente?.displayName ?? "Il Cerchio"}.');
@@ -143,8 +143,8 @@ void main() {
     testWidgets('nella home invece non e\' acceso nessun Maestro',
         (tester) async {
       await monta(tester);
-      final barra = tester.widget<SantuarioBottomBar>(
-          find.byType(SantuarioBottomBar));
+      final barra =
+          tester.widget<SantuarioBottomBar>(find.byType(SantuarioBottomBar));
       expect(barra.maestroCorrente, isNull,
           reason: 'Nel guscio "dove sei" lo dice gia\' la vista: le icone '
               'Maestro sono scorciatoie, non lo stato del centro.');
@@ -194,8 +194,8 @@ void main() {
     testWidgets('meta\' della corsa scorsa, meta\' della corsa scesa',
         (tester) async {
       await monta(tester);
-      final gesto = await tester.startGesture(
-          tester.getCenter(ilCorpo().first));
+      final gesto =
+          await tester.startGesture(tester.getCenter(ilCorpo().first));
       // Il primo tratto serve a superare la soglia del trascinamento, che il
       // riconoscitore si mangia.
       await gesto.moveBy(const Offset(0, -kDragSlopDefault));

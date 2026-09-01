@@ -49,7 +49,8 @@ void main() {
     ];
   }
 
-  testWidgets('nei tre domini: si apre sulle frequenti, e l\'altro titolo '
+  testWidgets(
+      'nei tre domini: si apre sulle frequenti, e l\'altro titolo '
       'cambia l\'elenco', (tester) async {
     silenzia();
     // LA DATA DI NASCITA C'E': senza, le personali che nominano il Sole
@@ -62,8 +63,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     final servizi = AppServices.offline();
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);

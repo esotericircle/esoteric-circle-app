@@ -113,10 +113,8 @@ void main() {
     testWidgets('su schermo ${voce.key} la parola di premio non va a capo',
         (tester) async {
       await montaLaFesta(tester, voce.value);
-      final righe =
-          righeDi(tester, const Key('celebrazione_congratulazioni'));
-      final testo =
-          testoDi(tester, const Key('celebrazione_congratulazioni'));
+      final righe = righeDi(tester, const Key('celebrazione_congratulazioni'));
+      final testo = testoDi(tester, const Key('celebrazione_congratulazioni'));
       // ignore: avoid_print
       print('ORDINE AU VOCE 07: su ${voce.key} "CONGRATULAZIONI" sta su '
           '$righe righe, corpo ${testo.style?.fontSize?.toStringAsFixed(1)}');
@@ -146,11 +144,11 @@ void main() {
 
     final premio = corpoDi(const Key('celebrazione_congratulazioni'));
     final nome = corpoDi(const Key('celebrazione_nome'));
-    final descrizione =
-        tester.widget<Text>(find.byKey(const Key('celebrazione_frase')))
-                .style
-                ?.fontSize ??
-            0;
+    final descrizione = tester
+            .widget<Text>(find.byKey(const Key('celebrazione_frase')))
+            .style
+            ?.fontSize ??
+        0;
     // ignore: avoid_print
     print('ORDINE AU VOCE 07: i tre corpi sono premio $premio, nome $nome, '
         'descrizione $descrizione');

@@ -158,8 +158,17 @@ void main() {
 
     test('Nessun testo del motore promette un esito', () {
       const vietate = [
-        'guarir', 'guarigione', 'salute', 'malatt', 'denaro', 'soldi',
-        'ricchezz', 'garanti', 'sicuramente', 'vincer', 'ti sposerai',
+        'guarir',
+        'guarigione',
+        'salute',
+        'malatt',
+        'denaro',
+        'soldi',
+        'ricchezz',
+        'garanti',
+        'sicuramente',
+        'vincer',
+        'ti sposerai',
       ];
       final testi = <String>[
         for (final v in ViaMagica.values) ...[v.nome, v.dominio],

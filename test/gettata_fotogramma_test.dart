@@ -109,7 +109,8 @@ void main() {
             'gettata che costa troppo.');
   });
 
-  testWidgets('con Riduci Movimento le pietre si posano in dissolvenza, '
+  testWidgets(
+      'con Riduci Movimento le pietre si posano in dissolvenza, '
       'ferme e senza perdere il risultato', (tester) async {
     SharedPreferences.setMockInitialValues({});
     tester.view.physicalSize = const Size(1080, 2391);
@@ -152,9 +153,8 @@ void main() {
         reason: 'Con Riduci Movimento la pietra deve esserci subito, gia\' '
             'posata: il risultato non si perde.');
     final dovePrima = tester.getTopLeft(pietra);
-    final velo = tester.widget<Opacity>(find
-        .ancestor(of: pietra, matching: find.byType(Opacity))
-        .first);
+    final velo = tester.widget<Opacity>(
+        find.ancestor(of: pietra, matching: find.byType(Opacity)).first);
     expect(velo.opacity, lessThan(1.0),
         reason: 'A meta\' dissolvenza il velo dovrebbe essere ancora '
             'parziale: senza, non c\'e\' nessuna dissolvenza.');
@@ -163,9 +163,8 @@ void main() {
     expect(tester.getTopLeft(pietra), dovePrima,
         reason: 'La pietra si e\' mossa durante la dissolvenza: con Riduci '
             'Movimento le pietre si POSANO, non cadono.');
-    final veloDopo = tester.widget<Opacity>(find
-        .ancestor(of: pietra, matching: find.byType(Opacity))
-        .first);
+    final veloDopo = tester.widget<Opacity>(
+        find.ancestor(of: pietra, matching: find.byType(Opacity)).first);
     expect(veloDopo.opacity, 1.0,
         reason: 'A fine dissolvenza la pietra deve essere piena.');
   });

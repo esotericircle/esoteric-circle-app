@@ -17,6 +17,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// di collegarsi all'account che c'e' ne crea un secondo. Deve essere
 /// riconosciuto e NON raccontato come una riuscita.
 class _PortaFinta implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<EsitoDellaCustodia> entraDirettamente(
     ViaDellaCustodia via, {

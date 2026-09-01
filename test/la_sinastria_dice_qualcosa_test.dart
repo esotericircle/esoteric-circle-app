@@ -36,10 +36,10 @@ void main() {
       final dove = switch (mese % 3) {
         0 => const DoveSei(
             citta: 'Los Angeles', latitudine: 34.05, longitudine: -118.24),
-        1 => const DoveSei(
-            citta: 'Londra', latitudine: 51.5, longitudine: -0.12),
-        _ => const DoveSei(
-            citta: 'Milano', latitudine: 45.46, longitudine: 9.19),
+        1 =>
+          const DoveSei(citta: 'Londra', latitudine: 51.5, longitudine: -0.12),
+        _ =>
+          const DoveSei(citta: 'Milano', latitudine: 45.46, longitudine: 9.19),
       };
       for (final vip in VipCatalog.vips) {
         tutte.add(SynastryReport.perCieli(tuo: tuo, vip: vip, doveSei: dove));
@@ -61,8 +61,7 @@ void main() {
       final ordinati = [for (final r in coppie) r.overall]..sort();
       int percentile(int p) =>
           ordinati[(ordinati.length * p ~/ 100).clamp(0, ordinati.length - 1)];
-      final dentro =
-          ordinati.where((v) => v >= 45 && v <= 65).length;
+      final dentro = ordinati.where((v) => v >= 45 && v <= 65).length;
       // ignore: avoid_print
       print('ORDINE BX VOCE 9: affinita\' su ${ordinati.length} coppie, da '
           '${ordinati.first} a ${ordinati.last}, percentili 10=${percentile(10)} '

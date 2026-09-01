@@ -65,8 +65,13 @@ void main() {
     expect(quante, 9,
         reason: 'non sono state dimenticate tutte e nove le chiavi che '
             'appartengono alla persona');
-    expect(rimaste, ['settings.reduceAnimations', 'settings.simpleMode',
-        'settings.subtitles'],
+    expect(
+        rimaste,
+        [
+          'settings.reduceAnimations',
+          'settings.simpleMode',
+          'settings.subtitles'
+        ],
         reason: 'sono state buttate anche le regolazioni del telefono, che '
             'non sono di nessuno');
     expect(dopo.getBool('onboarding.done'), isNull,
@@ -103,7 +108,8 @@ void main() {
             'entra dopo se lo ritrova, ed e la situazione S13');
   });
 
-  test('sulla porta VERA: prima si dimentica Google, poi si esce, poi si '
+  test(
+      'sulla porta VERA: prima si dimentica Google, poi si esce, poi si '
       'rientra anonimi', () async {
     // **SI ESERCITA LA PORTA VERA**, come gia' in AX voce 01: una porta finta
     // che registrasse la sequenza che le si e' insegnata misurerebbe se
@@ -217,6 +223,10 @@ class _CredenzialeQualunque implements UserCredential {
 
 /// Una porta che registra cosa le viene chiesto e in che ordine.
 class _PortaCheRegistra implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   bool? get emailVerificata => null;
 

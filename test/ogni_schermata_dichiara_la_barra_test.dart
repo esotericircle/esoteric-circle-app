@@ -25,14 +25,16 @@ void main() {
 
   Set<String> schermateNeiSorgenti() {
     final trovate = <String>{};
-    final righe = RegExp(r'^class\s+([A-Za-z0-9_]+)\s+extends', multiLine: true);
+    final righe =
+        RegExp(r'^class\s+([A-Za-z0-9_]+)\s+extends', multiLine: true);
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
       final sorgente = f.readAsStringSync();
       for (final m in righe.allMatches(sorgente)) {
         final nome = m.group(1)!;
         if (privata(nome)) continue;
-        if (nome.endsWith('Screen') || eccezioniCheSonoSchermate.contains(nome)) {
+        if (nome.endsWith('Screen') ||
+            eccezioniCheSonoSchermate.contains(nome)) {
           trovate.add(nome);
         }
       }
@@ -46,9 +48,10 @@ void main() {
         reason: 'Nessuna schermata trovata nei sorgenti: il riconoscimento si '
             'e\' rotto, e una prova che non trova niente e\' verde per '
             'cecita\'.');
-    final senzaDecisione =
-        schermate.where((s) => !presenzaPerSchermata.containsKey(s)).toList()
-          ..sort();
+    final senzaDecisione = schermate
+        .where((s) => !presenzaPerSchermata.containsKey(s))
+        .toList()
+      ..sort();
     expect(senzaDecisione, isEmpty,
         reason: 'Queste schermate non dicono se portano la barra: '
             '$senzaDecisione. La regola e\' chiusa: la barra si vede nella '

@@ -91,12 +91,12 @@ void main() {
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
-      // **NEL SENTIERO SI E' GIA' ENTRATI.** Ordine AU voce 13: al primo
-      // ingresso la mappa del sentiero si apre da sola e copre il disegno,
-      // che e' proprio cio' che questa prova guarda. Dichiararlo qui e' la
-      // stessa cosa che fanno le nove catture dei sentieri: la mappa ha la
-      // sua prova, questa ha la sua scena.
-      await LaMappaDelSentiero.segnaLIngresso(sentiero);
+    // **NEL SENTIERO SI E' GIA' ENTRATI.** Ordine AU voce 13: al primo
+    // ingresso la mappa del sentiero si apre da sola e copre il disegno,
+    // che e' proprio cio' che questa prova guarda. Dichiararlo qui e' la
+    // stessa cosa che fanno le nove catture dei sentieri: la mappa ha la
+    // sua prova, questa ha la sua scena.
+    await LaMappaDelSentiero.segnaLIngresso(sentiero);
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
@@ -143,15 +143,15 @@ void main() {
 
   /// Dove sta la riga a schermo, e quanto e' alta: tutto MISURATO.
   Rect rigaDi(WidgetTester tester, Traguardo traguardo) {
-    final scatola = tester.renderObject<RenderBox>(
-        find.byKey(Key('gradino_${traguardo.id}')));
+    final scatola = tester
+        .renderObject<RenderBox>(find.byKey(Key('gradino_${traguardo.id}')));
     return scatola.localToGlobal(Offset.zero) & scatola.size;
   }
 
   /// La cima di cio' che scorre: il bordo alto del viewport.
   double cimaDelloScorrimento(WidgetTester tester) {
-    final scatola = tester.renderObject<RenderBox>(
-        find.byKey(const Key('sentiero_scorrimento')));
+    final scatola = tester
+        .renderObject<RenderBox>(find.byKey(const Key('sentiero_scorrimento')));
     return scatola.localToGlobal(Offset.zero).dy;
   }
 
@@ -177,17 +177,15 @@ void main() {
               .height;
       final scarto = (riga.top - cima).abs();
       final mezzaRiga = riga.height / 2;
-      final corsa = tester
-          .state<ScrollableState>(find.byType(Scrollable).first)
-          .position;
+      final corsa =
+          tester.state<ScrollableState>(find.byType(Scrollable).first).position;
       // IL CASO DI CONFINE E' VERO E NON SI AGGIRA. La lista scende dal 50
       // all'1, quindi il punto raggiunto di chi comincia sta in FONDO: li' non
       // c'e' altro sotto, e nessuno scorrimento puo' portarlo in cima. La
       // misura giusta e' allora doppia: la riga si vede tutta, e ci si e'
       // avvicinati quanto il contenuto consente, cioe' o sta in cima entro
       // mezza riga o la corsa e' finita.
-      final inFondoAllaCorsa =
-          corsa.pixels >= corsa.maxScrollExtent - 0.5;
+      final inFondoAllaCorsa = corsa.pixels >= corsa.maxScrollExtent - 0.5;
 
       expect(riga.top >= cima - 0.5 && riga.bottom <= fondo + 0.5, isTrue,
           reason: 'con $accesi traguardi accesi il traguardo '
@@ -199,7 +197,8 @@ void main() {
               'dalla parte sbagliata');
 
       expect(scarto <= mezzaRiga || inFondoAllaCorsa, isTrue,
-          reason: 'con $accesi traguardi accesi lo scorrimento si e\' fermato a '
+          reason:
+              'con $accesi traguardi accesi lo scorrimento si e\' fermato a '
               '${scarto.toStringAsFixed(1)} punti dal traguardo '
               '"${bersaglio.nome}", oltre mezza riga '
               '(${mezzaRiga.toStringAsFixed(1)}), e la corsa non era finita: '
@@ -260,13 +259,12 @@ void main() {
     // La chiave e' quella del riquadro che ospita il disegno, non quella del
     // pittore procedurale: col Journal dall'arte acceso `disegno_loto` non
     // esiste piu', e cercarlo era il "Bad state: No element" di questa prova.
-    final tela = tester.renderObject<RenderBox>(
-        find.byKey(const Key('sentiero_disegno')));
+    final tela = tester
+        .renderObject<RenderBox>(find.byKey(const Key('sentiero_disegno')));
     final origine = tela.localToGlobal(Offset.zero);
     final wArte = ArteDelSentiero.larghezzaArte(sentiero).toDouble();
     final hArte = ArteDelSentiero.altezzaArte(sentiero).toDouble();
-    final scala = math.min(
-        tela.size.width / wArte, tela.size.height / hArte);
+    final scala = math.min(tela.size.width / wArte, tela.size.height / hArte);
     final dove = origine +
         Offset((tela.size.width - wArte * scala) / 2 + ancora.x * wArte * scala,
             (tela.size.height - hArte * scala) / 2 + ancora.y * hArte * scala);

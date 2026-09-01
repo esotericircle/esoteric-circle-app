@@ -62,14 +62,16 @@ void main() {
             'stesso cielo');
   });
 
-  test('col cielo vero il consiglio lo raccoglie, e resta in due o tre '
+  test(
+      'col cielo vero il consiglio lo raccoglie, e resta in due o tre '
       'paragrafi', () {
     final cielo = CieloDiOggi.perIlGiorno(adesso: adesso, carta: carta);
     final fatto = CorrenteDelCielo.fattoDelGiorno(cielo)!;
     for (final seed in const [2, 5, 9]) {
-      final spread = TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seed));
-      final con = TarotReading.of(spread, TarotTopic.bivio,
-          fattoDelCielo: fatto);
+      final spread =
+          TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seed));
+      final con =
+          TarotReading.of(spread, TarotTopic.bivio, fattoDelCielo: fatto);
       final senza = TarotReading.of(spread, TarotTopic.bivio);
 
       expect(con.consiglio, contains(fatto),
@@ -108,8 +110,7 @@ void main() {
 
   group('il filo fra le tre carte', () {
     test('dura fra 600 e 900 millesimi', () {
-      expect(FiloFraLeCarte.durata.inMilliseconds,
-          inInclusiveRange(600, 900),
+      expect(FiloFraLeCarte.durata.inMilliseconds, inInclusiveRange(600, 900),
           reason: 'il filo deve essere un istante leggibile, non un lampo ne\' '
               'un\'attesa');
     });

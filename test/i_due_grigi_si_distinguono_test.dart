@@ -89,14 +89,11 @@ void main() {
     // 1. I SEGNI DICHIARATI: il premium ha i lucchetti, il velo no.
     final velo = find.byKey(const Key('tessera_velo'));
     final prem = find.byKey(const Key('tessera_premium'));
-    expect(
-        find.descendant(
-            of: prem, matching: find.byIcon(Icons.lock_rounded)),
+    expect(find.descendant(of: prem, matching: find.byIcon(Icons.lock_rounded)),
         findsNWidgets(2),
         reason: 'il premium deve portare il lucchetto al centro e quello '
             'piccolo nel badge');
-    expect(
-        find.descendant(of: velo, matching: find.byIcon(Icons.lock_rounded)),
+    expect(find.descendant(of: velo, matching: find.byIcon(Icons.lock_rounded)),
         findsNothing,
         reason: 'il Coming soon non e\' bloccato: un lucchetto direbbe una '
             'cosa falsa');
@@ -108,11 +105,10 @@ void main() {
     // 2. SUI PIXEL: al centro delle due tessere la differenza deve esistere
     //    davvero (il lucchetto dorato), non solo nell'albero dei widget.
     await tester.runAsync(() async {
-      final rb = radice.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final img = await rb.toImage(pixelRatio: 1.0);
-      final dati =
-          (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
+      final dati = (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
       final px = dati.buffer.asUint8List();
       final larghezza = img.width;
 

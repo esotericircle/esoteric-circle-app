@@ -262,15 +262,17 @@ void main() {
           x: 0.9, y: 0.1 + g * 0.15, gruppo: g, eGrande: true));
     }
     // L'iniezione: il terzo punto esce dalla tela.
-    fuori[2] = const AncoraggioDelSentiero(
-        x: 1.4, y: 0.1, gruppo: 0, eGrande: false);
+    fuori[2] =
+        const AncoraggioDelSentiero(x: 1.4, y: 0.1, gruppo: 0, eGrande: false);
     expect(fuori[2].x, greaterThan(1.0),
         reason: 'INIEZIONE NON ENTRATA: il punto e\' ancora dentro la tela');
     // ignore: avoid_print
     print('ORDINE T VOCE 01: iniezione ENTRATA, un punto a x = ${fuori[2].x}');
     expect(
         () => LetturaDegliAncoraggi.convalida(fuori, 941, 1672, 'finta'),
-        throwsA(isA<AncoraggiNonValidi>().having((e) => e.messaggio, 'messaggio',
+        throwsA(isA<AncoraggiNonValidi>().having(
+            (e) => e.messaggio,
+            'messaggio',
             allOf(contains('numero 3'), contains('fuori dalla tela')))));
   });
 

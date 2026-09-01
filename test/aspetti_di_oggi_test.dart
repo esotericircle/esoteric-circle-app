@@ -59,8 +59,7 @@ void main() {
             in RegExp(r'class\s+(\w*ChartAspect)\b').allMatches(testo)) {
           aspetto.add('$percorso: ${m.group(1)}');
         }
-        for (final m
-            in RegExp(r'enum\s+(\w*AspectType)\b').allMatches(testo)) {
+        for (final m in RegExp(r'enum\s+(\w*AspectType)\b').allMatches(testo)) {
           tipo.add('$percorso: ${m.group(1)}');
         }
       }
@@ -79,7 +78,8 @@ void main() {
 
   group('Nessun orbo senza fonte', () {
     test('ogni angolo e ogni orbo ha la sua citazione accanto', () {
-      final modello = File('lib/core/astro/natal_chart.dart').readAsStringSync();
+      final modello =
+          File('lib/core/astro/natal_chart.dart').readAsStringSync();
       // Gli angoli sono tolemaici e la fonte va nominata dove stanno.
       expect(modello, contains('Tetrabiblos'),
           reason: 'gli angoli degli aspetti non citano Tolomeo');
@@ -134,10 +134,10 @@ void main() {
 
     test('cambiando il giorno cambia l\'elenco', () {
       final mia = carta(ascendente: 250.0);
-      final oggi = AspettiDiOggi.perIlGiorno(
-          adesso: DateTime(2026, 8, 4), carta: mia);
-      final fraUnMese = AspettiDiOggi.perIlGiorno(
-          adesso: DateTime(2026, 9, 4), carta: mia);
+      final oggi =
+          AspettiDiOggi.perIlGiorno(adesso: DateTime(2026, 8, 4), carta: mia);
+      final fraUnMese =
+          AspettiDiOggi.perIlGiorno(adesso: DateTime(2026, 9, 4), carta: mia);
       expect(_firma(oggi), isNot(_firma(fraUnMese)),
           reason: 'un mese dopo il cielo e\' lo stesso');
     });
@@ -184,7 +184,8 @@ void main() {
       expect(AspettiDiOggi.livello(null), LivelloPersonalizzazione.soloSegno);
     });
 
-    test('il livello raggiungibile dice la verita\' sulla carta che c\'e\'', () {
+    test('il livello raggiungibile dice la verita\' sulla carta che c\'e\'',
+        () {
       expect(AspettiDiOggi.livello(carta()),
           LivelloPersonalizzazione.cartaSenzaOra);
       expect(AspettiDiOggi.livello(carta(ascendente: 250.0)),
@@ -193,8 +194,8 @@ void main() {
 
     test('l\'Ascendente entra negli aspetti solo se c\'e\' l\'ora', () {
       final transiti = {CorpoCeleste.sole: 250.0};
-      final conOra =
-          AspettiDiOggi.fra(transiti: transiti, carta: carta(ascendente: 250.0));
+      final conOra = AspettiDiOggi.fra(
+          transiti: transiti, carta: carta(ascendente: 250.0));
       final senzaOra = AspettiDiOggi.fra(transiti: transiti, carta: carta());
       expect(conOra.any((a) => a.bId == AspettiDiOggi.idAscendente), isTrue);
       expect(senzaOra.any((a) => a.bId == AspettiDiOggi.idAscendente), isFalse);
@@ -229,14 +230,12 @@ void main() {
         // ha sostituito, e la prova lo contava come se lo leggesse. Contare
         // le occorrenze di una stringa e' un'approssimazione: qui si tolgono
         // le righe di commento, cosi' si misura cio' che si vuole misurare.
-        final righeVive = f
-            .readAsStringSync()
-            .split('\n')
-            .where((r) {
-              final t = r.trimLeft();
-              return !t.startsWith('//') && !t.startsWith('///') &&
-                  !t.startsWith('*');
-            });
+        final righeVive = f.readAsStringSync().split('\n').where((r) {
+          final t = r.trimLeft();
+          return !t.startsWith('//') &&
+              !t.startsWith('///') &&
+              !t.startsWith('*');
+        });
         if (righeVive.any((r) => r.contains('HoroscopeData.'))) {
           chiLegge.add(percorso.substring(percorso.indexOf('lib/')));
         }

@@ -32,7 +32,8 @@ void main() {
   Rect di(WidgetTester tester, String chiave) =>
       tester.getRect(find.byKey(Key(chiave)));
 
-  testWidgets('BD.01: la centrale copre un poco le laterali, da entrambi i lati',
+  testWidgets(
+      'BD.01: la centrale copre un poco le laterali, da entrambi i lati',
       (tester) async {
     await monta(tester, const Size(360, 797));
     final centro = di(tester, 'santuario_central_bust');

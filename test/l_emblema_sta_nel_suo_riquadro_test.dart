@@ -74,8 +74,7 @@ void main() {
     return byte;
   }
 
-  testWidgets('nella chat di Aura la scena resta nel riquadro',
-      (tester) async {
+  testWidgets('nella chat di Aura la scena resta nel riquadro', (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues({
       'onboarding.done': true,

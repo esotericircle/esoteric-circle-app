@@ -107,7 +107,8 @@ void main() {
     await tester.pumpWidget(_arteDiProva());
     await tester.pump();
     expect(find.byKey(const Key('cuore_prova')), findsOneWidget,
-        reason: 'il cuore compare piu\' di una volta: quello sovrapposto non si '
+        reason:
+            'il cuore compare piu\' di una volta: quello sovrapposto non si '
             'e\' tolto di mezzo');
   });
 }
@@ -118,23 +119,23 @@ Widget _arteDiProva() => ChangeNotifierProvider(
       // la prova misurerebbe l'assenza invece della posizione.
       create: (_) => ArtiPreferiteController(),
       child: MaterialApp(
-      home: SogliaArte(
-        id: 'prova',
-        maestro: Maestro.aura,
-        child: Scaffold(
-          appBar: BarraArte(
-            titolo: const Text('Arte di prova'),
-            azioni: [
-              IconButton(
-                key: const Key('prova_info'),
-                icon: const Icon(Icons.info_outline_rounded),
-                onPressed: () {},
-              ),
-            ],
+        home: SogliaArte(
+          id: 'prova',
+          maestro: Maestro.aura,
+          child: Scaffold(
+            appBar: BarraArte(
+              titolo: const Text('Arte di prova'),
+              azioni: [
+                IconButton(
+                  key: const Key('prova_info'),
+                  icon: const Icon(Icons.info_outline_rounded),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            body: const SizedBox.expand(),
           ),
-          body: const SizedBox.expand(),
         ),
-      ),
       ),
     );
 

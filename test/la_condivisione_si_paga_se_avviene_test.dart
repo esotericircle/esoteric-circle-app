@@ -29,9 +29,7 @@ void main() {
         isFalse,
         reason: 'chi apre il foglio e preme indietro NON ha condiviso: '
             'pagarlo sarebbe un premio per un gesto mai avvenuto');
-    expect(
-        PortaDellaCondivisione.avvenuta(ShareResult.unavailable),
-        isFalse,
+    expect(PortaDellaCondivisione.avvenuta(ShareResult.unavailable), isFalse,
         reason: 'non sapere se e\' avvenuta non e\' saperlo: si sceglie la '
             'via prudente e il bonus resta in attesa, incassabile dopo');
   });
@@ -49,9 +47,8 @@ void main() {
     //
     // **La prova ha fatto il suo mestiere**: e' caduta col numero, e la via
     // nuova legge l'esito come le altre tre.
-    final sorgente =
-        File('lib/core/condivisione/porta_della_condivisione.dart')
-            .readAsStringSync();
+    final sorgente = File('lib/core/condivisione/porta_della_condivisione.dart')
+        .readAsStringSync();
     final chiamate = 'SharePlus.instance.share('.allMatches(sorgente).length;
     final letture = 'return avvenuta(esito);'.allMatches(sorgente).length;
     // ignore: avoid_print
@@ -106,8 +103,7 @@ void main() {
   test('i valori del server e il tetto restano intatti', () {
     // Il client chiede il premio per NOME e mai per importo: i tre motivi
     // sono quelli che il server conosce.
-    expect(
-        ModoDellaCondivisione.values.map((m) => m.motivo).toSet(),
+    expect(ModoDellaCondivisione.values.map((m) => m.motivo).toSet(),
         {'invito_con_download', 'social_pubblico', 'condivisione_privata'},
         reason: 'i motivi non combaciano piu\' con quelli del server');
     final server = File('functions/src/borsellino.ts').readAsStringSync();
@@ -117,8 +113,9 @@ void main() {
     // davvero. Il valore vive in EOS_DELL_INVITO_ACCOLTO e vale sempre
     // sessanta. La grandezza misurata cambia col fatto: qui si pretende che
     // NON ci sia, e che ci sia dove adesso vive.
-    expect(RegExp(r'^\s*invito_con_download\s*:', multiLine: true)
-            .hasMatch(RegExp(r'BONUS_DELLA_CONDIVISIONE[^}]*}', dotAll: true)
+    expect(
+        RegExp(r'^\s*invito_con_download\s*:', multiLine: true).hasMatch(
+            RegExp(r'BONUS_DELLA_CONDIVISIONE[^}]*}', dotAll: true)
                     .firstMatch(server)
                     ?.group(0) ??
                 ''),

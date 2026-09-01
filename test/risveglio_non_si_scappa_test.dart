@@ -58,8 +58,6 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-
-
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileController()),
@@ -83,7 +81,6 @@ void main() {
         // il pop, e' lei a comparire.
         home: Builder(
           builder: (ctx) {
-
             return Scaffold(
               body: Center(
                 child: TextButton(

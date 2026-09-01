@@ -110,8 +110,8 @@ void main() {
           // Sorgere e tramonto sono simmetrici rispetto al mezzogiorno solare,
           // quindi il loro punto medio e' il transito: deve stare a meta'
           // giornata, non a un'ora qualunque.
-          final mezzo = alba!
-              .add(Duration(seconds: daPerData!.difference(alba).inSeconds ~/ 2));
+          final mezzo = alba!.add(
+              Duration(seconds: daPerData!.difference(alba).inSeconds ~/ 2));
           expect(mezzo.hour, inInclusiveRange(10, 14),
               reason: 'il mezzogiorno solare risulta alle ${mezzo.hour}');
         }
@@ -137,8 +137,9 @@ void main() {
         lon: 18.9553,
         offset: Duration.zero,
       );
-      expect(alba, isNull, reason: 'sopra il circolo polare in giugno il Sole '
-          'non sorge ne tramonta: qui deve tornare null');
+      expect(alba, isNull,
+          reason: 'sopra il circolo polare in giugno il Sole '
+              'non sorge ne tramonta: qui deve tornare null');
     });
 
     test('a Tromso in dicembre vale lo stesso, notte polare', () {

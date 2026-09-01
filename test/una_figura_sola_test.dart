@@ -59,8 +59,9 @@ void main() {
           oroTenue: const Color(0xFF8A7130)),
     };
     pittore.paint(tela, misura);
-    final ui.Image immagine = await registratore.endRecording().toImage(
-        misura.width.round(), misura.height.round());
+    final ui.Image immagine = await registratore
+        .endRecording()
+        .toImage(misura.width.round(), misura.height.round());
     final ByteData dati =
         (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!;
     final int larghezza = immagine.width;
@@ -82,7 +83,8 @@ void main() {
       for (var dx = -raggio; dx <= raggio; dx++) {
         final x = dove.dx.round() + dx;
         final y = dove.dy.round() + dy;
-        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza) continue;
+        if (x < 0 || y < 0 || x >= tela.larghezza || y >= tela.altezza)
+          continue;
         final i = (y * tela.larghezza + x) * 4;
         for (var canale = 0; canale < 3; canale++) {
           final v = tela.dati.getUint8(i + canale);
@@ -110,7 +112,8 @@ void main() {
 
   for (final sentiero in Sentiero.values) {
     group('${sentiero.name}: una figura sola', () {
-      test('la figura si compone: ogni segmento COMPARE quando i suoi capi si '
+      test(
+          'la figura si compone: ogni segmento COMPARE quando i suoi capi si '
           'accendono', () async {
         final buio = await dipingi(sentiero, const {});
         final tutti = {for (final t in Sentieri.di(sentiero)) t.id};
@@ -129,7 +132,8 @@ void main() {
           return;
         }
         expect(ossa, isNotEmpty,
-            reason: 'la figura non ha ossatura: non ci sarebbe niente da unire');
+            reason:
+                'la figura non ha ossatura: non ci sarebbe niente da unire');
         final mai = <String>[];
         for (final osso in ossa) {
           final mezzo = _mezzo(punti[osso.da], punti[osso.a]);
@@ -204,7 +208,10 @@ void main() {
         // Si accende UNA sola parte, la prima: tutto cio' che tocca una stella
         // ancora spenta deve restare come era al buio.
         final buio = await dipingi(sentiero, const {});
-        final prima = Sentieri.miniDi(sentiero).take(10).map((t) => t.id).toSet()
+        final prima = Sentieri.miniDi(sentiero)
+            .take(10)
+            .map((t) => t.id)
+            .toSet()
           ..add(Sentieri.grandiDi(sentiero).first.id);
         final parziale = await dipingi(sentiero, prima);
         final punti = GeometriaDelSentiero.punti(sentiero);
@@ -266,8 +273,7 @@ void main() {
   }
 
   /// QUANTI PIXEL CAMBIANO fra due tele, oltre una soglia di livelli.
-  int quantiCambiano(
-      ({ByteData dati, int larghezza, int altezza}) prima,
+  int quantiCambiano(({ByteData dati, int larghezza, int altezza}) prima,
       ({ByteData dati, int larghezza, int altezza}) dopo,
       {int soglia = 20}) {
     var quanti = 0;
@@ -276,9 +282,9 @@ void main() {
         final i = (y * prima.larghezza + x) * 4;
         var scarto = 0;
         for (var canale = 0; canale < 3; canale++) {
-          final d = (dopo.dati.getUint8(i + canale) -
-                  prima.dati.getUint8(i + canale))
-              .abs();
+          final d =
+              (dopo.dati.getUint8(i + canale) - prima.dati.getUint8(i + canale))
+                  .abs();
           if (d > scarto) scarto = d;
         }
         if (scarto > soglia) quanti++;
@@ -319,7 +325,6 @@ void main() {
       });
     }
   });
-
 
   group('Dentro il disegno non entra niente di serie', () {
     test('il file del disegno non usa nessuna icona del framework', () {

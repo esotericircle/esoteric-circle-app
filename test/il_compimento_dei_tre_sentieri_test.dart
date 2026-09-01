@@ -124,7 +124,8 @@ void main() {
     });
   });
 
-  testWidgets('l\'ultimo traguardo da\' alla figura qualcosa che prima non aveva',
+  testWidgets(
+      'l\'ultimo traguardo da\' alla figura qualcosa che prima non aveva',
       (tester) async {
     await tester.runAsync(() async {
       // **NON E' LA SOGLIA DELLA S.02, e non finge di esserlo.** Qui si pretende
@@ -152,8 +153,8 @@ void main() {
               .compareTo(Sentieri.ordineNelCammino(b)));
         final pieno =
             await dipingi(sentiero, ordinati.map((t) => t.id).toSet());
-        final r54 = await dipingi(
-            sentiero, ordinati.take(54).map((t) => t.id).toSet());
+        final r54 =
+            await dipingi(sentiero, ordinati.take(54).map((t) => t.id).toSet());
         var n = 0;
         for (var i = 0; i < pieno.length; i += 4) {
           if ((luminanza(pieno, i) - luminanza(r54, i)).abs() >= 12) n++;

@@ -49,8 +49,8 @@ void main() {
     test('Per ogni piano l\'invito dichiara il limite vero di quel piano', () {
       for (final t in [Tier.tier1, Tier.tier2, Tier.tier3]) {
         final testo = PlanCatalog.promessaDomande(t);
-        final limite = PlanCatalog.limiteGiornaliero(
-            PlanCatalog.rigaDomande, t);
+        final limite =
+            PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, t);
         if (limite == null) {
           expect(testo.toLowerCase(), contains('senza limiti'),
               reason: 'il piano $t e\' illimitato e l\'invito non lo dice');
@@ -68,9 +68,9 @@ void main() {
 
   group('V6, i feature flag devono governare e concordare', () {
     test('Il catalogo dei flag e il manifest dicono la stessa cosa', () {
-      final manifest = jsonDecode(
-              File('docs/stato_funzioni.json').readAsStringSync())
-          as Map<String, dynamic>;
+      final manifest =
+          jsonDecode(File('docs/stato_funzioni.json').readAsStringSync())
+              as Map<String, dynamic>;
       final funzioni = (manifest['funzioni'] as Map).cast<String, dynamic>();
 
       final scostamenti = <String>[];

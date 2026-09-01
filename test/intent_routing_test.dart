@@ -22,19 +22,34 @@ void main() {
 
   group('Classificatore d\'intento', () {
     test('Riconosce gli intenti immersivi per Maestro', () {
-      expect(classifier.classify(Maestro.medora, 'fammi una stesa di tarocchi')?.target,
+      expect(
+          classifier
+              .classify(Maestro.medora, 'fammi una stesa di tarocchi')
+              ?.target,
           ImmersiveTarget.tarocchiStesa);
-      expect(classifier.classify(Maestro.medora, 'mostrami la mia carta natale')?.target,
+      expect(
+          classifier
+              .classify(Maestro.medora, 'mostrami la mia carta natale')
+              ?.target,
           ImmersiveTarget.cartaNatale);
-      expect(classifier.classify(Maestro.medora, 'voglio l\'oroscopo di oggi')?.target,
+      expect(
+          classifier
+              .classify(Maestro.medora, 'voglio l\'oroscopo di oggi')
+              ?.target,
           ImmersiveTarget.oroscopoGiorno);
-      expect(classifier.classify(Maestro.aura, 'guidami in una meditazione')?.target,
+      expect(
+          classifier
+              .classify(Maestro.aura, 'guidami in una meditazione')
+              ?.target,
           ImmersiveTarget.meditazione);
-      expect(classifier.classify(Maestro.aura, 'parlami dei miei chakra')?.target,
+      expect(
+          classifier.classify(Maestro.aura, 'parlami dei miei chakra')?.target,
           ImmersiveTarget.scanChakra);
-      expect(classifier.classify(Maestro.caligo, 'lancia le rune per me')?.target,
+      expect(
+          classifier.classify(Maestro.caligo, 'lancia le rune per me')?.target,
           ImmersiveTarget.lancioRune);
-      expect(classifier.classify(Maestro.caligo, 'consultiamo l\'i-ching')?.target,
+      expect(
+          classifier.classify(Maestro.caligo, 'consultiamo l\'i-ching')?.target,
           ImmersiveTarget.iChing);
     });
 
@@ -44,7 +59,8 @@ void main() {
     });
 
     test('Una domanda normale del dominio non instrada', () {
-      expect(classifier.classify(Maestro.medora, 'cosa significa la mia Venere?'),
+      expect(
+          classifier.classify(Maestro.medora, 'cosa significa la mia Venere?'),
           isNull);
       expect(classifier.classify(Maestro.aura, 'perché mi sento agitato oggi?'),
           isNull);
@@ -52,7 +68,8 @@ void main() {
 
     test('La chiave scatta solo come parola intera', () {
       // "rune" dentro "prune" non deve attivare l'intento.
-      expect(classifier.classify(Maestro.caligo, 'le prune sono buone'), isNull);
+      expect(
+          classifier.classify(Maestro.caligo, 'le prune sono buone'), isNull);
     });
   });
 

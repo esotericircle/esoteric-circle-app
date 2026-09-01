@@ -71,8 +71,7 @@ void main() {
     await montaLAccount(tester, anonimo: true);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 09: da anonimo la prima riga dice "'
-        '${tester.widgetList<Text>(find.byType(Text)).map((t) => t.data).where(
-            (s) => s != null && s.isNotEmpty).first}"');
+        '${tester.widgetList<Text>(find.byType(Text)).map((t) => t.data).where((s) => s != null && s.isNotEmpty).first}"');
     expect(find.textContaining('non è ancora custodito'), findsOneWidget,
         reason: 'chi non ha custodito deve leggerlo, non dedurlo dal fatto '
             'che una certa voce ci sia o non ci sia');
@@ -184,7 +183,8 @@ void main() {
         reason: 'non c e nessun modo di cambiare la parola: e il buco S20');
   });
 
-  testWidgets('a chi entra con Google non si offre di cambiare una parola che '
+  testWidgets(
+      'a chi entra con Google non si offre di cambiare una parola che '
       'non ha', (tester) async {
     await montaLAccount(tester, anonimo: false, email: 'mauro@esempio.it');
     // ignore: avoid_print
@@ -197,6 +197,10 @@ void main() {
 
 /// Una porta ferma nello stato che la prova le chiede.
 class _PortaCosiComeE implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   _PortaCosiComeE({
     required this.anonimo,
     this.email,

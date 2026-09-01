@@ -56,9 +56,8 @@ void main() {
         : (r as PageRouteBuilder<void>).pageBuilder(
             ctx, kAlwaysCompleteAnimation, kAlwaysDismissedAnimation);
     while (dentro is MaestroScope || dentro is SogliaArte) {
-      dentro = dentro is MaestroScope
-          ? dentro.child
-          : (dentro as SogliaArte).child;
+      dentro =
+          dentro is MaestroScope ? dentro.child : (dentro as SogliaArte).child;
     }
     return dentro;
   }
@@ -81,16 +80,14 @@ void main() {
       );
       expect(
           scenaDi(
-              AperturaDelleChiamate.rottaPer(
-                  AvvisiDelRito.caricoTramonto, ctx),
+              AperturaDelleChiamate.rottaPer(AvvisiDelRito.caricoTramonto, ctx),
               ctx),
           isA<SunsetRuneScreen>(),
           reason: 'La Runa del Tramonto promette il tramonto e deve aprire '
               'il tramonto.');
       expect(
           scenaDi(
-              AperturaDelleChiamate.rottaPer(
-                  AvvisiDelRito.caricoOroscopo, ctx),
+              AperturaDelleChiamate.rottaPer(AvvisiDelRito.caricoOroscopo, ctx),
               ctx),
           isA<OroscopoScreen>(),
           reason: 'Il cielo di oggi promette l\'oroscopo e deve aprire '
@@ -107,8 +104,8 @@ void main() {
       // adesso di avvisi ce ne sono cinque invece di tre.
       final aperti = <String>[];
       for (final d in DailyElement.values) {
-        final rotta = AperturaDelleChiamate.rottaPer(
-            AvvisiDelRito.caricoDelDono(d), ctx);
+        final rotta =
+            AperturaDelleChiamate.rottaPer(AvvisiDelRito.caricoDelDono(d), ctx);
         expect(rotta, isNotNull,
             reason: 'il carico del Dono ${d.name} non apre niente');
         aperti.add('${d.name} -> ${scenaDi(rotta, ctx).runtimeType}');

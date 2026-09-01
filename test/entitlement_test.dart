@@ -25,8 +25,7 @@ void main() {
       expect(a.dailyLimit(Tier.tier3), 50);
     });
 
-    test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo',
-        () {
+    test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo', () {
       var now = DateTime(2026, 7, 13, 10);
       final allowance = QuestionAllowance(clock: () => now);
 
@@ -77,7 +76,8 @@ void main() {
   });
 
   group('Piani', () {
-    test('Ci sono i quattro livelli canonici, dal gratuito all\'Illuminato', () {
+    test('Ci sono i quattro livelli canonici, dal gratuito all\'Illuminato',
+        () {
       expect(PlanCatalog.plans.length, 4);
       expect(PlanCatalog.plans.map((p) => p.name).toList(),
           ['Viandante', 'L\'Iniziato', 'L\'Adepto', 'L\'Illuminato']);
@@ -136,12 +136,15 @@ void main() {
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {
       final viandante = PlanCatalog.forTier(Tier.free).highlights;
-      expect(viandante.any((h) => h.contains('Sinastria VIP fino a 3 al giorno')),
-          isTrue);
-      expect(viandante.any((h) => h.contains('Una carta di tarocchi al giorno')),
+      expect(
+          viandante.any((h) => h.contains('Sinastria VIP fino a 3 al giorno')),
           isTrue);
       expect(
-          viandante.any((h) => h.contains('Tre domande al giorno a un Maestro')),
+          viandante.any((h) => h.contains('Una carta di tarocchi al giorno')),
+          isTrue);
+      expect(
+          viandante
+              .any((h) => h.contains('Tre domande al giorno a un Maestro')),
           isTrue);
 
       final iniziato = PlanCatalog.forTier(Tier.tier1).highlights;
@@ -153,15 +156,16 @@ void main() {
       expect(adepto.any((h) => h.contains('10 domande al giorno ai Maestri')),
           isTrue);
       expect(
-          adepto.any((h) => h.contains('5 stese complete di tarocchi al giorno')),
+          adepto
+              .any((h) => h.contains('5 stese complete di tarocchi al giorno')),
           isTrue);
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
-      expect(illuminato.any((h) => h.contains('50 domande ai Maestri')),
-          isTrue);
       expect(
-          illuminato.any((h) =>
-              h.contains('Una domanda al mese al Maestro reale')),
+          illuminato.any((h) => h.contains('50 domande ai Maestri')), isTrue);
+      expect(
+          illuminato
+              .any((h) => h.contains('Una domanda al mese al Maestro reale')),
           isTrue);
     });
 
@@ -178,8 +182,8 @@ void main() {
       // premium dal primo piano a pagamento con un mese di prova per chi non
       // paga. Il numero segue il dato.
       expect(PlanCatalog.matrix.length, 28);
-      final gettate = PlanCatalog.matrix
-          .firstWhere((r) => r.label == 'Gettate di rune');
+      final gettate =
+          PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
       // Mauro: erano tre dall'ordine I.
       expect(gettate.values,

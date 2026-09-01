@@ -23,9 +23,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   const sistemaDichiarato = 'placidus';
 
-  Map<String, dynamic> risposta() => jsonDecode(
-          File('assets/data/sample_natal_rome.json').readAsStringSync())
-      as Map<String, dynamic>;
+  Map<String, dynamic> risposta() =>
+      jsonDecode(File('assets/data/sample_natal_rome.json').readAsStringSync())
+          as Map<String, dynamic>;
 
   test('la risposta del motore dichiara Placidus', () {
     final subject = risposta()['subject'] as Map<String, dynamic>;
@@ -74,7 +74,8 @@ void main() {
         '${ampiezze.reduce((a, b) => a + b).toStringAsFixed(1)}');
 
     expect(massima - minima, greaterThan(1.0),
-        reason: 'le dodici case sono tutte larghe uguali: allora il sistema e\' '
+        reason:
+            'le dodici case sono tutte larghe uguali: allora il sistema e\' '
             'Case Uguali o Whole Sign, non Placidus come dichiarato');
     // Le opposte a 180 gradi esatti: e' vero in tutti i sistemi a quadranti e
     // falso in nessuno di quelli che ci interessano, quindi e' il controllo

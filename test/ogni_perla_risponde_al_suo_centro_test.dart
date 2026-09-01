@@ -68,7 +68,8 @@ void main() {
       for (final punto in punti) {
         final vinto = quiHaToccato(punti, centroDi(punto), misura);
         if (vinto?.traguardo.id != punto.traguardo.id) {
-          muti.add('${punto.traguardo.id} risponde ${vinto?.traguardo.id ?? "nessuno"}');
+          muti.add(
+              '${punto.traguardo.id} risponde ${vinto?.traguardo.id ?? "nessuno"}');
         }
       }
       expect(muti, isEmpty,
@@ -76,8 +77,7 @@ void main() {
               'sul proprio centro, e sono ${muti.length}: $muti');
     });
 
-    test('su ${sentiero.name} i grandi rispondono anche a meta del raggio',
-        () {
+    test('su ${sentiero.name} i grandi rispondono anche a meta del raggio', () {
       // **NON BASTA IL CENTRO ESATTO**, ed e' proprio il difetto che il
       // fondatore descrive: una perla che risponde solo se il dito cade sul
       // punto esatto, a occhio, non risponde mai. Qui si tocca a meta' del
@@ -110,7 +110,8 @@ void main() {
           final dove = centroDi(punto) + verso * r;
           final vinto = quiHaToccato(punti, dove, misura);
           if (vinto?.traguardo.id != punto.traguardo.id) {
-            guai.add('${punto.traguardo.id} a meta raggio verso $verso risponde '
+            guai.add(
+                '${punto.traguardo.id} a meta raggio verso $verso risponde '
                 '${vinto?.traguardo.id ?? "nessuno"}');
           }
         }

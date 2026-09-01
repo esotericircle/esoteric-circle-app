@@ -306,10 +306,12 @@ void main() {
           reason: 'il seguito sta a $dySeguito e la stella a $dyStella: il '
               'seguito e\' finito SOTTO il consiglio');
       final dyCorpo = tester
-          .getTopLeft(find.descendant(
-            of: find.byType(ChatBubble),
-            matching: find.byType(TestoCheSiScrive),
-          ).last)
+          .getTopLeft(find
+              .descendant(
+                of: find.byType(ChatBubble),
+                matching: find.byType(TestoCheSiScrive),
+              )
+              .last)
           .dy;
       expect(dySeguito, greaterThan(dyCorpo),
           reason: 'il seguito sta SOPRA la prima parte: si legge al contrario');
@@ -381,8 +383,7 @@ void main() {
           '✦ Non decidere adesso: guarda dove ti fermi.';
       expect(SeguitoDellaLettura.senzaLaRigaDelConsiglio(grezzo),
           'Il moto lento continua sotto la superficie.');
-      final pulito =
-          SeguitoDellaLettura.pulisci(gia: _corpo, seguito: grezzo);
+      final pulito = SeguitoDellaLettura.pulisci(gia: _corpo, seguito: grezzo);
       expect(pulito, isNot(contains('✦')));
       expect(pulito, contains('Il moto lento'));
     });

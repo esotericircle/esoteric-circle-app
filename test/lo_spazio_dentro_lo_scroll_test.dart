@@ -161,7 +161,8 @@ void main() {
               'meno dell\'altezza della barra, l\'ultima carta resta coperta.');
     });
 
-    testWidgets('nella chat l\'eccezione e\' REVOCATA: contenuto fino in '
+    testWidgets(
+        'nella chat l\'eccezione e\' REVOCATA: contenuto fino in '
         'fondo e campo sopra la barra', (tester) async {
       // L'ECCEZIONE DELLA 2158 E' REVOCATA DA MAURO, ordine 2161: anche
       // nella chat il contenuto arriva sotto la barra, e il vetro si legge
@@ -186,7 +187,8 @@ void main() {
               'barra non si puo\' usare.');
     });
 
-    testWidgets('LE CINQUE SCHERMATE, enumerate: sotto la barra sempre '
+    testWidgets(
+        'LE CINQUE SCHERMATE, enumerate: sotto la barra sempre '
         'contenuto, la voce giusta accesa, il colore della rotta',
         (tester) async {
       // Una prova sola che le elenca, non una per schermata: se una delle
@@ -214,8 +216,8 @@ void main() {
         ]) {
           final voce = find.byKey(Key('barra_voce_$id'));
           if (voce.evaluate().isEmpty) continue;
-          final accesa = (tester.widget(voce.first) as dynamic).selected
-              as bool;
+          final accesa =
+              (tester.widget(voce.first) as dynamic).selected as bool;
           final dovrebbe = vociAccese == id;
           if (accesa != dovrebbe) {
             colpe.add('$dove: la voce $id e\' '
@@ -306,8 +308,7 @@ void main() {
   group('il titolo della barra', () {
     testWidgets('e\' d\'oro, e l\'oro viene dal punto unico', (tester) async {
       await monta(tester);
-      final testo =
-          tester.widget<Text>(find.byKey(const Key('barra_titolo')));
+      final testo = tester.widget<Text>(find.byKey(const Key('barra_titolo')));
       const palette = MaestroPalette.neutral;
       expect(testo.style?.color, SantuarioBottomBar.coloreDelTitolo(palette),
           reason: 'Il titolo non ha il colore del punto unico: o e\' tornato '

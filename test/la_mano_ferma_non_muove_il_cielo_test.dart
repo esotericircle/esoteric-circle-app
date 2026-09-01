@@ -283,7 +283,16 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE AW VOCE 01, M2: punti per grado '
-        '${[0, 5, 10, 15, 20, 25, 30, 35].map((g) => "$g:${tabella[g]!.toStringAsFixed(1)}").join("  ")}');
+        '${[
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35
+    ].map((g) => "$g:${tabella[g]!.toStringAsFixed(1)}").join("  ")}');
     // ignore: avoid_print
     print('ORDINE AW VOCE 01, M2: salto massimo ${salto.toStringAsFixed(1)} '
         'punti fra ${dove - 1} e $dove gradi');

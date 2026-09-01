@@ -123,7 +123,8 @@ void main() {
   testWidgets('Il tasto A caso pesca un VIP valido e apre il responso',
       (tester) async {
     await pump(tester, random: math.Random(5));
-    final atteso = VipCatalog.vips[math.Random(5).nextInt(VipCatalog.vips.length)];
+    final atteso =
+        VipCatalog.vips[math.Random(5).nextInt(VipCatalog.vips.length)];
     await tester.tap(find.byKey(const Key('sinastria_random')));
     await tester.pumpAndSettle();
     // Il responso e' aperto sul VIP pescato, che appartiene al catalogo.

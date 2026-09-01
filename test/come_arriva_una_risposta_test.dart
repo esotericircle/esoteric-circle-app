@@ -95,7 +95,8 @@ void main() {
           expect(
             voce.lessicoDiFirma.any(minuscola.contains),
             isTrue,
-            reason: '${maestro.displayName}, «$frase»: nessuna delle sue parole '
+            reason:
+                '${maestro.displayName}, «$frase»: nessuna delle sue parole '
                 'di firma (${voce.lessicoDiFirma.join(', ')}) compare, quindi '
                 'questa frase potrebbe essere di chiunque',
           );
@@ -157,10 +158,9 @@ void main() {
     test('Alla prima parola si arriva sotto i quattro secondi', () {
       // Il conto e' un MASSIMO e non una somma: la scena e la rete corrono
       // insieme, non una dopo l'altra.
-      final conLaReteMisurata =
-          TempiDellAttesa.allaPrimaParola(TempiDellAttesa.reteMassimaMisurataMs);
-      expect(conLaReteMisurata,
-          lessThan(TempiDellAttesa.tettoAllaPrimaParola),
+      final conLaReteMisurata = TempiDellAttesa.allaPrimaParola(
+          TempiDellAttesa.reteMassimaMisurataMs);
+      expect(conLaReteMisurata, lessThan(TempiDellAttesa.tettoAllaPrimaParola),
           reason: 'con la rete peggiore misurata si sfora gia\' da PC');
       // QUANTO PUO' RALLENTARE LA RETE PRIMA DI SFORARE, che e' la domanda
       // vera per un telefono su rete mobile.
@@ -179,8 +179,8 @@ void main() {
       // vale il tetto meno la dissolvenza in tutti e due i casi. Oggi 3740
       // millisecondi, contro i 1830 della rete peggiore misurata, cioe' la
       // rete puo' andare a piu' del doppio.
-      final reteSopportata = TempiDellAttesa.tettoAllaPrimaParola -
-          TempiDellAttesa.dissolvenza;
+      final reteSopportata =
+          TempiDellAttesa.tettoAllaPrimaParola - TempiDellAttesa.dissolvenza;
       //
       // **Il numero e' sceso, e lo dico invece di arrotondarlo.** Con la rete
       // peggiore a 1830 il rapporto era 2,04 volte. Rimisurata il 4 agosto 2026,
@@ -227,9 +227,9 @@ void main() {
         caratteriDellaPiuLunga,
         TempiDellAttesa.perScrivere(TempiDellAttesa.reteMassimaMisurataMs),
       );
-      final totale =
-          TempiDellAttesa.allaPrimaParola(TempiDellAttesa.reteMassimaMisurataMs) +
-              scrittura;
+      final totale = TempiDellAttesa.allaPrimaParola(
+              TempiDellAttesa.reteMassimaMisurataMs) +
+          scrittura;
       expect(totale, lessThan(TempiDellAttesa.tettoAlTestoCompleto),
           reason: 'la risposta piu\' lunga sfora il tetto: a sessanta '
               'caratteri al secondo ci metterebbe tredici secondi da sola, ed '
@@ -239,8 +239,8 @@ void main() {
     test('Una risposta corta NON viene rallentata per riempire il tetto', () {
       // Il tetto e' un tetto, non un bersaglio: chi ci sta sotto va alla sua
       // velocita'. Trecento caratteri a sessanta al secondo sono cinque secondi.
-      final corta = TempiDellAttesa.durataDiScrittura(
-          300, const Duration(seconds: 30));
+      final corta =
+          TempiDellAttesa.durataDiScrittura(300, const Duration(seconds: 30));
       expect(corta.inMilliseconds, 5000);
     });
   });
@@ -373,8 +373,8 @@ void main() {
       final chiave = GlobalKey<TestoCheSiScriveState>();
       // Milleduecento caratteri vorrebbero venti secondi a sessanta al
       // secondo. Col tetto a due, in due deve avere finito.
-      await tester.pumpWidget(monta('d' * 1200,
-          chiave: chiave, tetto: const Duration(seconds: 2)));
+      await tester.pumpWidget(
+          monta('d' * 1200, chiave: chiave, tetto: const Duration(seconds: 2)));
       await tester.pump(const Duration(milliseconds: 2100));
       expect(chiave.currentState!.staScrivendo, isFalse);
     });
@@ -571,7 +571,8 @@ void main() {
         await tester.pump(const Duration(milliseconds: 50));
       }
 
-      final schermo = tester.view.physicalSize.height / tester.view.devicePixelRatio;
+      final schermo =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
       final bolla = find.ancestor(
         of: find.text(risposta),
         matching: find.byType(ChatBubble),
@@ -593,10 +594,12 @@ void main() {
             'prova non sta misurando niente: serve una risposta piu\' alta '
             'della lista, che e\' il solo caso in cui la regola conta',
       );
-      final fondoDellaDomanda = tester.getBottomLeft(find.ancestor(
-        of: find.text(domanda),
-        matching: find.byType(ChatBubble),
-      )).dy;
+      final fondoDellaDomanda = tester
+          .getBottomLeft(find.ancestor(
+            of: find.text(domanda),
+            matching: find.byType(ChatBubble),
+          ))
+          .dy;
 
       // 1. LA RISPOSTA COMINCIA DOVE DICE IL DATO, non solo "da qualche parte
       //    dentro lo schermo".
@@ -609,8 +612,7 @@ void main() {
       //    schermo alla conversazione vecchia: dentro lo schermo si', ma non
       //    all'inizio. Una prova che dice solo "e' visibile" lascia passare
       //    tutto cio' che e' visibile male.
-      final cimaDellaLista =
-          tester.getTopLeft(find.byType(ListView).first).dy;
+      final cimaDellaLista = tester.getTopLeft(find.byType(ListView).first).dy;
       expect(
         cima - cimaDellaLista,
         closeTo(ScorrimentoDellaLettura.spazioPerLaDomanda, 2),
@@ -765,7 +767,6 @@ void main() {
               'in cambio');
     });
   });
-
 }
 
 /// Tutti i pezzi di uno span, in fila.

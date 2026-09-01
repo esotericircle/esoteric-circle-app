@@ -86,7 +86,8 @@ void main() {
   String riga(WidgetTester tester, String chiave) {
     final testi = find
         .descendant(
-            of: find.byKey(Key('specchio_$chiave')), matching: find.byType(Text))
+            of: find.byKey(Key('specchio_$chiave')),
+            matching: find.byType(Text))
         .evaluate()
         .map((e) => (e.widget as Text).data)
         .whereType<String>()

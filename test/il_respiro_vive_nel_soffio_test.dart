@@ -53,8 +53,8 @@ void main() {
     //
     // Cio' che questa prova sorveglia non cambia: **il respiro guidato non
     // torna dentro la scheda del dono**, che era il difetto vero della voce S.
-    final scheda = File('lib/features/rituals/ritual_gift_card.dart')
-        .readAsStringSync();
+    final scheda =
+        File('lib/features/rituals/ritual_gift_card.dart').readAsStringSync();
     expect(scheda.contains('ponte_verso_il_soffio'), isFalse,
         reason: 'dal dono del giorno si va ancora al Soffio: la voce BB 07 '
             'chiede che un dono non faccia da corridoio a un altro dono');
@@ -67,11 +67,10 @@ void main() {
     // Il dato che governa tutto sta in un punto solo, e questa prova lo tiene
     // vero: se domani un altro dono dicesse di guidare il respiro, la scheda
     // smetterebbe di offrirgli il ponte senza che nessuno se ne accorga.
-    final chiLoGuida = DailyElement.values
-        .where((d) => d.guidaIlRespiroInScena)
-        .toList();
+    final chiLoGuida =
+        DailyElement.values.where((d) => d.guidaIlRespiroInScena).toList();
     expect(chiLoGuida, [DailyElement.breath],
-        reason: 'questi doni dicono di guidare il respiro in scena: $chiLoGuida');
+        reason:
+            'questi doni dicono di guidare il respiro in scena: $chiLoGuida');
   });
-
 }

@@ -15,8 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   /// Le stringhe vive di un sorgente, ricomposte.
   List<String> stringheRicomposte(String sorgente) {
-    final letterale = RegExp(
-        "'(?:[^'\\\\\\n]|\\\\.)*'|\"(?:[^\"\\\\\\n]|\\\\.)*\"");
+    final letterale =
+        RegExp("'(?:[^'\\\\\\n]|\\\\.)*'|\"(?:[^\"\\\\\\n]|\\\\.)*\"");
     final pezzi = letterale.allMatches(sorgente).toList();
     final fuori = <String>[];
     var corrente = StringBuffer();
@@ -40,10 +40,8 @@ void main() {
     return fuori;
   }
 
-  String normalizza(String s) => s
-      .replaceAll(r'\n', ' ')
-      .replaceAll(RegExp(r'\s+'), ' ')
-      .toLowerCase();
+  String normalizza(String s) =>
+      s.replaceAll(r'\n', ' ').replaceAll(RegExp(r'\s+'), ' ').toLowerCase();
 
   test('nel contesto delle rune nessuna stringa viva parla di tracciare', () {
     // Lo scopo e' il Tramonto e l'Estrazione: nel Rito dell'Alba e nel
@@ -56,8 +54,7 @@ void main() {
       final p = f.path.replaceAll('\\', '/');
       return p.contains('sunset') || p.contains('caligo/rune');
     });
-    final vietato =
-        RegExp('tracci|segui il tratto|scorr\\w* il dito');
+    final vietato = RegExp('tracci|segui il tratto|scorr\\w* il dito');
     final colpe = <String>[];
     for (final f in inAmbito) {
       for (final s in stringheRicomposte(f.readAsStringSync())) {
@@ -75,8 +72,7 @@ void main() {
 
   test('l\'invito del gesto vive in un punto solo e dice tieni premuto', () {
     final testo =
-        File('lib/features/rituals/sunset_rune_screen.dart')
-            .readAsStringSync();
+        File('lib/features/rituals/sunset_rune_screen.dart').readAsStringSync();
     expect(testo.contains('Tieni premuto sulla pietra'), isTrue,
         reason: 'L\'invito dell\'incisione non dice piu\' il gesto vero.');
     var occorrenze = 0;

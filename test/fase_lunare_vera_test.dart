@@ -175,7 +175,8 @@ void main() {
       MoonPhase? crescente;
       MoonPhase? calante;
       for (var h = 0; h < 24 * 30; h++) {
-        final f = MoonPhase.forDate(DateTime.utc(2026, 5, 1).add(Duration(hours: h)));
+        final f =
+            MoonPhase.forDate(DateTime.utc(2026, 5, 1).add(Duration(hours: h)));
         if ((f.illumination - 0.5).abs() < 0.01) {
           if (f.waxing) {
             crescente ??= f;

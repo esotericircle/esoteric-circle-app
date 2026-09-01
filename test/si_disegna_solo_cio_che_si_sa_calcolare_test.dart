@@ -77,8 +77,8 @@ void main() {
     // dimostra il contrario, e nessuno lo dimostrera' mai.
     final grezzo =
         jsonDecode(File('assets/data/bright_stars.json').readAsStringSync());
-    final nota = ((grezzo as Map<String, dynamic>)['note'] as String)
-        .toLowerCase();
+    final nota =
+        ((grezzo as Map<String, dynamic>)['note'] as String).toLowerCase();
     expect(nota, contains('hipparcos'),
         reason: 'il catalogo non dichiara da quale catalogo pubblico vengono '
             'le coordinate');

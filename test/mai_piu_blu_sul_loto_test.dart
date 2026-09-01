@@ -68,11 +68,8 @@ void main() {
       Future<Uint8List> resa(Set<String> accesi) async {
         final registratore = ui.PictureRecorder();
         final tela = Canvas(registratore);
-        tela.drawImageRect(
-            arte,
-            Rect.fromLTWH(0, 0, wArte, hArte),
-            Rect.fromLTWH(dx, dy, wArte * scala, hArte * scala),
-            Paint());
+        tela.drawImageRect(arte, Rect.fromLTWH(0, 0, wArte, hArte),
+            Rect.fromLTWH(dx, dy, wArte * scala, hArte * scala), Paint());
         PittoreDelleLuci(
           sentiero: sentiero,
           accesi: accesi,
@@ -131,12 +128,11 @@ void main() {
         return (t + 360) % 360;
       }
 
-      Offset centroDi(int i) => Offset(
-          dx + ancoraggi[i].x * wArte * scala,
+      Offset centroDi(int i) => Offset(dx + ancoraggi[i].x * wArte * scala,
           dy + ancoraggi[i].y * hArte * scala);
-      double raggioDi(int i) =>
-          math.max(math.sqrt(forme[i].area / math.pi) * scala,
-              PittoreDelleLuci.pavimentoDelRaggio);
+      double raggioDi(int i) => math.max(
+          math.sqrt(forme[i].area / math.pi) * scala,
+          PittoreDelleLuci.pavimentoDelRaggio);
 
       // PRIMA MISURA: tutti e cinquantacinque accesi, ogni disco e' oro.
       final tutti = ordinati.map((t) => t.id).toSet();

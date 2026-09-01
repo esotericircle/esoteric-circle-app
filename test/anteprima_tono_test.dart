@@ -24,10 +24,10 @@ void main() {
   });
 
   test('Il maschile e il femminile si distinguono davvero', () {
-    expect(AnteprimaTono.frasePer(CourtesyForm.masculine),
-        contains('Bentornato'));
-    expect(AnteprimaTono.frasePer(CourtesyForm.feminine),
-        contains('Bentornata'));
+    expect(
+        AnteprimaTono.frasePer(CourtesyForm.masculine), contains('Bentornato'));
+    expect(
+        AnteprimaTono.frasePer(CourtesyForm.feminine), contains('Bentornata'));
     // Il neutro non usa nessuna delle due forme secche.
     final neutro = AnteprimaTono.frasePer(CourtesyForm.neutral);
     expect(neutro.contains('Bentornato.'), isFalse);
@@ -38,8 +38,16 @@ void main() {
     // Curatela redazionale, non tradizione: niente salute, denaro o eventi
     // garantiti. E' una regola della casa, non un gusto.
     const vietate = [
-      'guarir', 'guadagn', 'ricchezz', 'malatt', 'garanti', 'sicuramente',
-      'vincer', 'successo assicurato', 'ti sposerai', 'soldi',
+      'guarir',
+      'guadagn',
+      'ricchezz',
+      'malatt',
+      'garanti',
+      'sicuramente',
+      'vincer',
+      'successo assicurato',
+      'ti sposerai',
+      'soldi',
     ];
     for (final f in CourtesyForm.values) {
       final frase = AnteprimaTono.frasePer(f).toLowerCase();
@@ -60,9 +68,8 @@ void main() {
     await tester.pumpWidget(host(CourtesyForm.feminine));
     await tester.pump(const Duration(milliseconds: 50));
 
-    int scritte() => (tester.state(find.byType(AnteprimaTono))
-            as dynamic)
-        .scritte as int;
+    int scritte() =>
+        (tester.state(find.byType(AnteprimaTono)) as dynamic).scritte as int;
 
     final piena = AnteprimaTono.frasePer(CourtesyForm.feminine).length;
     final subito = scritte();
@@ -89,8 +96,7 @@ void main() {
     await tester.pump(AnteprimaTono.scrittura + const Duration(seconds: 1));
     int scritte() =>
         (tester.state(find.byType(AnteprimaTono)) as dynamic).scritte as int;
-    expect(scritte(),
-        AnteprimaTono.frasePer(CourtesyForm.masculine).length);
+    expect(scritte(), AnteprimaTono.frasePer(CourtesyForm.masculine).length);
 
     await tester.pumpWidget(host(CourtesyForm.neutral));
     await tester.pump(const Duration(milliseconds: 50));

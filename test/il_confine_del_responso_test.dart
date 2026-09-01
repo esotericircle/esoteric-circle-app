@@ -104,7 +104,8 @@ void main() {
         reason: 'la battuta e\' troppo piccola: con $quanti responsi questa '
             'prova non sta guardando il corpus');
     expect(fuori, isEmpty,
-        reason: 'questi responsi superano il confine:\n${fuori.take(20).join("\n")}');
+        reason:
+            'questi responsi superano il confine:\n${fuori.take(20).join("\n")}');
   });
 
   test('il confine RICONOSCE cio\' che deve riconoscere', () {
@@ -117,8 +118,8 @@ void main() {
         reason: 'il confine accusa una frase che l\'ordine dichiara AMMESSA: '
             '$ammessa');
 
-    final vietata = ConfineDelResponso.violazioni(
-        'nei prossimi giorni perderai il lavoro');
+    final vietata =
+        ConfineDelResponso.violazioni('nei prossimi giorni perderai il lavoro');
     expect(vietata, isNotEmpty,
         reason: 'il confine non riconosce "perderai", che e\' la frase che '
             'l\'ordine porta come esempio di cio\' che non si puo\' dire');
@@ -150,8 +151,7 @@ void main() {
       expect(istruzioni, contains(ConfineDelResponso.nonSiPuoMai.first),
           reason: 'le istruzioni di ${maestro.name} non portano il confine');
       // UNA VOLTA SOLA: due copie sono due regole.
-      final quanteVolte =
-          LeggeDelResponso.primo.allMatches(istruzioni).length;
+      final quanteVolte = LeggeDelResponso.primo.allMatches(istruzioni).length;
       expect(quanteVolte, 1,
           reason: 'la legge del responso compare $quanteVolte volte nelle '
               'istruzioni di ${maestro.name}: una regola scritta due volte e\' '
@@ -175,10 +175,12 @@ void main() {
             'e\' uno solo');
   });
 
-  test('l\'anatomia ha quattro parti, e la tradizione non sta nel responso', () {
+  test('l\'anatomia ha quattro parti, e la tradizione non sta nel responso',
+      () {
     expect(ParteDelResponso.values.length, 4);
     expect(ParteDelResponso.nelResponso.length, 3,
-        reason: 'il responso porta tre parti: la tradizione scende nel pannello '
+        reason:
+            'il responso porta tre parti: la tradizione scende nel pannello '
             'delle fonti, e ci sta gia\'');
     expect(ParteDelResponso.tradizione.dentroIlResponso, isFalse);
     // L'ORDINE E' LA FORMA DELL'OGGETTO: chi ha un Responso non puo' mettere il
@@ -193,7 +195,8 @@ void main() {
     expect(responso.eIntero, isTrue);
     final parole = responso.inParole;
     expect(parole.indexOf('soglia'), lessThan(parole.indexOf('Uruz')),
-        reason: 'il simbolo compare prima della risposta: e\' esattamente cio\' '
+        reason:
+            'il simbolo compare prima della risposta: e\' esattamente cio\' '
             'che la legge vieta');
     expect(responso.parte(ParteDelResponso.tradizione), isEmpty,
         reason: 'il responso ha cominciato a portarsi la tradizione dentro');

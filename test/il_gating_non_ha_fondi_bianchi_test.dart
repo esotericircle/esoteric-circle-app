@@ -56,8 +56,7 @@ void main() {
         final corpo = s.substring(aperta, chiusa).toLowerCase();
         for (final spia in spie) {
           if (corpo.contains(spia)) {
-            colpe.add(
-                '$percorso:${s.substring(0, m.start).split('\n').length} '
+            colpe.add('$percorso:${s.substring(0, m.start).split('\n').length} '
                 '(parla di "$spia")');
             break;
           }

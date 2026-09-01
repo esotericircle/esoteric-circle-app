@@ -60,7 +60,8 @@ void main() {
     }
 
     expect(registro.scrittureVersoIlServer, 0,
-        reason: 'segnare non deve toccare il server: se questo numero e\' gia\' '
+        reason:
+            'segnare non deve toccare il server: se questo numero e\' gia\' '
             'salito, la scrittura e\' tornata dentro il gesto');
 
     final fatte = await registro.sincronizza();
@@ -108,16 +109,15 @@ void main() {
             'no, e allora quel mese non arriva mai piu\'');
   });
 
-  test('CG.03: scorrere dodici mesi costa al massimo dodici letture',
-      () async {
+  test('CG.03: scorrere dodici mesi costa al massimo dodici letture', () async {
     final porta = _PortaContata();
     // Il magazzino del server ha dodici mesi, e il telefono e' vuoto.
     for (var m = 1; m <= 12; m++) {
       final mese = '2025-${m.toString().padLeft(2, '0')}';
       porta.magazzino[mese] = [_voce(DateTime(2025, m, 5))];
     }
-    final registro = RegistroDeiRicordi(
-        orologio: () => DateTime(2026, 8, 31), porta: porta);
+    final registro =
+        RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31), porta: porta);
     await registro.carica();
 
     for (var m = 1; m <= 12; m++) {
@@ -125,7 +125,8 @@ void main() {
     }
 
     expect(registro.lettureDalServer, lessThanOrEqualTo(12),
-        reason: 'un mese, una lettura: dodici mesi non possono costare di piu\'');
+        reason:
+            'un mese, una lettura: dodici mesi non possono costare di piu\'');
     expect(registro.lettureDalServer, 12);
 
     // E riscorrerli non costa niente, perche' adesso il telefono li ha.
@@ -155,12 +156,10 @@ void main() {
     expect(registro.lettureDalServer, 0,
         reason: 'l\'anno intero si legge dal telefono: ZERO letture, che e\' '
             'la misura di accettazione dell\'ordine');
-    expect(mesi.first, '2026-08',
-        reason: 'i mesi tornano dal piu\' recente');
+    expect(mesi.first, '2026-08', reason: 'i mesi tornano dal piu\' recente');
   });
 
-  test('CG.03: una riga sta sotto i duecento byte, misurati sul dato vero',
-      () {
+  test('CG.03: una riga sta sotto i duecento byte, misurati sul dato vero', () {
     // Il caso peggiore vero: l'arte col nome piu' lungo del catalogo, un
     // riferimento Firestore da venti caratteri, e una domanda LUNGA come
     // quelle che le persone scrivono davvero, piena di accenti, che in UTF-8
@@ -198,7 +197,8 @@ void main() {
             'infilando il testo pieno dentro la riga invece del riferimento');
     expect(peggiore.titolo.length,
         lessThanOrEqualTo(VoceDelRicordo.quantiCaratteriDelTitolo),
-        reason: 'il titolo si tronca, ed e\' la sola parte di lunghezza libera');
+        reason:
+            'il titolo si tronca, ed e\' la sola parte di lunghezza libera');
   });
 
   test('CG.03: due apparecchi si sommano invece di cancellarsi', () async {

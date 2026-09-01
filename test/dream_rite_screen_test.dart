@@ -158,8 +158,7 @@ void main() {
     // un `Text` ma il blocco narrato comune, e il testo si legge da li'.
     expect(
         tester
-            .widget<ParagrafiDiLettura>(
-                find.byKey(const Key('dream_message')))
+            .widget<ParagrafiDiLettura>(find.byKey(const Key('dream_message')))
             .testo,
         atteso);
     // Chiude con la buonanotte, il rito non si chiama piu' cosi'.

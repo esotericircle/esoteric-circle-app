@@ -28,7 +28,8 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE CE VOCE 08: righe della matrice ${PlanCatalog.matrix.length}, '
+    print(
+        'ORDINE CE VOCE 08: righe della matrice ${PlanCatalog.matrix.length}, '
         'celle che promettono l\'illimitato ${colpe.length}');
     expect(colpe, isEmpty,
         reason: 'queste celle promettono qualcosa senza tetto: $colpe');

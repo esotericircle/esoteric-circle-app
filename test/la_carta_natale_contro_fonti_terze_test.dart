@@ -167,15 +167,15 @@ void main() {
       final r = risposta();
       final angoli = r['angles'] as Map<String, dynamic>;
       final case_ = (r['houses'] as List).cast<Map<String, dynamic>>();
-      double cuspide(int n) => (case_
-              .firstWhere((h) => (h['house'] as num).toInt() == n)['abs_pos']
-          as num)
-          .toDouble();
+      double cuspide(int n) =>
+          (case_.firstWhere((h) => (h['house'] as num).toInt() == n)['abs_pos']
+                  as num)
+              .toDouble();
       expect(scarto(cuspide(1), (angoli['asc'] as num).toDouble()),
           lessThan(0.001),
           reason: 'la prima cuspide non e\' l\'Ascendente');
-      expect(
-          scarto(cuspide(10), (angoli['mc'] as num).toDouble()), lessThan(0.001),
+      expect(scarto(cuspide(10), (angoli['mc'] as num).toDouble()),
+          lessThan(0.001),
           reason: 'la decima cuspide non e\' il Medio Cielo');
     });
 
@@ -194,7 +194,12 @@ void main() {
           .cast<Map<String, dynamic>>()
           .map((h) => (h['abs_pos'] as num).toDouble())
           .toList();
-      const scartiMisurati = <int, double>{11: 0.2304, 12: 0.2358, 2: 0.4224, 3: 0.0916};
+      const scartiMisurati = <int, double>{
+        11: 0.2304,
+        12: 0.2358,
+        2: 0.4224,
+        3: 0.0916
+      };
       // ignore: avoid_print
       print('CUSPIDI ROMA: scarti col conto indipendente, in gradi: '
           '${scartiMisurati.entries.map((e) => "casa ${e.key} ${e.value}").join(", ")} '

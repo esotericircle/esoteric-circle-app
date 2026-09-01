@@ -101,8 +101,7 @@ void main() {
                 // dell'utente sta a 0,20 e 0,08, cioe' e' il caso che percorre
                 // davvero il ramo difettoso.
                 child: ChatBubble(
-                  message: ChatMessage(
-                      role: ChatRole.user, text: testo),
+                  message: ChatMessage(role: ChatRole.user, text: testo),
                   maestro: Maestro.medora,
                 ),
               ),
@@ -122,8 +121,8 @@ void main() {
       late final int altezza;
       late final Uint8List byte;
       await tester.runAsync(() async {
-        final rb = radice.currentContext!.findRenderObject()!
-            as RenderRepaintBoundary;
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
         final immagine = await rb.toImage(pixelRatio: 1.0);
         larghezza = immagine.width;
         altezza = immagine.height;

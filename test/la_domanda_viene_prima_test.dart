@@ -65,8 +65,8 @@ void main() {
       child: MaterialApp(
         builder: (ctx, child) => MediaQuery(
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-          child: MaestroScope(
-              child: RepaintBoundary(key: radice, child: child!)),
+          child:
+              MaestroScope(child: RepaintBoundary(key: radice, child: child!)),
         ),
         home: const StesaTreCarteScreen(seed: 2, skipIntro: true),
       ),

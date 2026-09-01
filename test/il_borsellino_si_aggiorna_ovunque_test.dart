@@ -82,12 +82,12 @@ void main() {
             'deve ascoltare la stessa sorgente del Passport');
   });
 
-  test('il saldo arriva all avvio, senza visitare nessuna schermata',
-      () async {
+  test('il saldo arriva all avvio, senza visitare nessuna schermata', () async {
     SharedPreferences.setMockInitialValues(const {});
     final porta = _PortaCheHaQuattrocentoQuarantacinque();
     final borsa = QuestionAllowance(porta: porta)..load();
-    expect(borsa.saldoEos, 0, reason: 'si parte da zero, come un telefono nuovo');
+    expect(borsa.saldoEos, 0,
+        reason: 'si parte da zero, come un telefono nuovo');
     await borsa.sincronizza();
     // ignore: avoid_print
     print('ORDINE AU VOCE 11: dopo la sola sincronia d avvio il saldo e '

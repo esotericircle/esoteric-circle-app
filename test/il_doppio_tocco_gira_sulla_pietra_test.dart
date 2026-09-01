@@ -99,7 +99,8 @@ void main() {
 
   testWidgets('il riquadro resta toccabile, come cortesia', (tester) async {
     await allaLettura(tester);
-    final punto = tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
+    final punto =
+        tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
     await tester.tapAt(punto);
     await tester.pump(const Duration(milliseconds: 80));
     await tester.tapAt(punto);

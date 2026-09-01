@@ -76,8 +76,17 @@ void main() {
   test('il linguaggio non nomina mai relazioni reali fra i due', () {
     // Punto 5 dell'ordine: l'app confronta i cieli, non le relazioni.
     const vietate = [
-      'fidanzat', 'matrimoni', 'sposat', 'separat', 'divorzi', 'coppia reale',
-      'ex ', 'flirt', 'relazione fra', 'stanno insieme', 'storia d\'amore',
+      'fidanzat',
+      'matrimoni',
+      'sposat',
+      'separat',
+      'divorzi',
+      'coppia reale',
+      'ex ',
+      'flirt',
+      'relazione fra',
+      'stanno insieme',
+      'storia d\'amore',
     ];
     const vips = VipCatalog.vips;
     for (var i = 0; i < vips.length; i += 3) {
@@ -103,8 +112,7 @@ void main() {
     final oggi = DateTime(2026, 8, 25);
     c.scopri(primo: '', secondo: 'Zendaya', punteggio: 70, quando: oggi);
     c.scopri(primo: '', secondo: 'Drake', punteggio: 61, quando: oggi);
-    c.scopri(
-        primo: 'Zendaya', secondo: 'Drake', punteggio: 55, quando: oggi);
+    c.scopri(primo: 'Zendaya', secondo: 'Drake', punteggio: 55, quando: oggi);
     expect(c.quante, 3);
     // In fila per punteggio, dalla piu' alta.
     expect(c.inFila.map((x) => x.punteggio), [70, 61, 55]);
@@ -126,8 +134,7 @@ void main() {
         CollezioneDelleCoppie.totalePossibile(VipCatalog.vips.length));
   });
 
-  test('la chiave della coppia è simmetrica, quindi non si paga due volte',
-      () {
+  test('la chiave della coppia è simmetrica, quindi non si paga due volte', () {
     final c = CollezioneDelleCoppie();
     final oggi = DateTime(2026, 8, 25);
     expect(
@@ -162,8 +169,7 @@ void main() {
 
   // --- IL CONSUMO ---
 
-  test('da Viandante le prime tre coppie NUOVE passano, la quarta chiede',
-      () {
+  test('da Viandante le prime tre coppie NUOVE passano, la quarta chiede', () {
     final borsa = QuestionAllowance();
     expect(borsa.limiteSinastrie(Tier.free), 3,
         reason: 'la leva virale è chiusa al piano gratuito');
@@ -203,8 +209,7 @@ void main() {
             '"no, non deve consumare"');
   });
 
-  test('le sinastrie e i confronti nel Cerchio sono due contatori diversi',
-      () {
+  test('le sinastrie e i confronti nel Cerchio sono due contatori diversi', () {
     final borsa = QuestionAllowance();
     // Il Viandante non ha confronti nel Cerchio, e ha tre sinastrie.
     expect(borsa.limiteConfronti(Tier.free), 0);
@@ -255,8 +260,7 @@ void main() {
   test('il riconoscimento CHIEDE e non dichiara mai', () {
     final v = VipCatalog.conNome('Rihanna')!;
     final domanda = RiconoscimentoDelVip.domandaPer(v);
-    expect(domanda.contains('?'), isTrue,
-        reason: 'la riga non è una domanda');
+    expect(domanda.contains('?'), isTrue, reason: 'la riga non è una domanda');
     expect(domanda.toLowerCase().contains('sei tu'), isTrue);
     // E non dichiara: nessuna frase afferma l'identità.
     expect(domanda.toLowerCase().contains('tu sei ${v.name.toLowerCase()}'),

@@ -147,8 +147,7 @@ void main() {
           ('frase', 'gradino_frase_${traguardo.id}'),
         ]) {
           final finder = find.byKey(Key(chiave));
-          final dichiarato =
-              (tester.widget(finder) as Text).style!.color!;
+          final dichiarato = (tester.widget(finder) as Text).style!.color!;
           final reso =
               dichiarato.withValues(alpha: alfaEffettivo(tester, finder));
           // I FONDI VERI, tutti e tre i toni del gradiente del Maestro: il
@@ -181,8 +180,8 @@ void main() {
     // com'era nato. Si guarda il codice.
     final codice = File('lib/features/sigilli/sentiero_screen.dart')
         .readAsLinesSync()
-        .where((r) => !r.trimLeft().startsWith('//') &&
-            !r.trimLeft().startsWith('///'))
+        .where((r) =>
+            !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
         .join('\n');
     expect(codice.contains('Opacity('), isFalse,
         reason: 'sentiero_screen.dart torna a usare un widget Opacity: era la '
@@ -247,7 +246,8 @@ void main() {
       }
     }
     expect(tagliati, isEmpty,
-        reason: 'queste frasi vengono rese piu' ' corte del testo del dato, '
+        reason: 'queste frasi vengono rese piu'
+            ' corte del testo del dato, '
             'cioe\' tagliate a meta\' senza nemmeno i puntini:\n'
             '${tagliati.join("\n")}');
   });

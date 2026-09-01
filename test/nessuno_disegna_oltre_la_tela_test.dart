@@ -182,8 +182,8 @@ void main() {
       // La Rivelazione si apre col gesto, non da sola: senza trascinare, la
       // carta col Maestro non compare e la misura nascerebbe cieca.
       nav.push(MaterialPageRoute<void>(
-          builder: (_) =>
-              MaestroRevealScreen(maestro: Maestro.medora, onRevealed: (_) {})));
+          builder: (_) => MaestroRevealScreen(
+              maestro: Maestro.medora, onRevealed: (_) {})));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 900));
       await tester.drag(

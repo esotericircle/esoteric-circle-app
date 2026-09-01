@@ -47,8 +47,8 @@ void main() {
     final cielo = buildSkyFor(catalogo, istante, luogo);
     final schede = <String, String?>{};
     for (final sign in NightSky.constellationsHighTonight(istante)) {
-      schede[sign.italianName] = testoDellaScheda(sign, cielo,
-          catalogo: catalogo, birth: birth);
+      schede[sign.italianName] =
+          testoDellaScheda(sign, cielo, catalogo: catalogo, birth: birth);
     }
     return schede;
   }
@@ -106,7 +106,8 @@ void main() {
     // La strada scelta e' la (b): il corpo compare e dichiara. Senza l'ora di
     // sorgere la dichiarazione sarebbe una scusa, non un dato.
     final cielo = buildSkyFor(catalogo, DateTime(1990, 6, 15, 14, 30), luogo);
-    final t = sottoLOrizzonte(Zodiac.virgo, cielo, catalogo: catalogo, birth: true);
+    final t =
+        sottoLOrizzonte(Zodiac.virgo, cielo, catalogo: catalogo, birth: true);
     expect(t, contains("sotto l'orizzonte"));
     expect(RegExp(r'\d{2}:\d{2}').hasMatch(t), isTrue,
         reason: 'la dichiarazione non porta l\'ora in cui il corpo sorge: '

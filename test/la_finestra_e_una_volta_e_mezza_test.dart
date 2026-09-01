@@ -32,7 +32,16 @@ void main() {
   /// e qui non si importa da nessuno dei due: una guardia che legge la regola
   /// dallo stesso posto che sorveglia non sorveglia niente.
   const legge = <int, int>{
-    2: 3, 3: 5, 5: 8, 7: 10, 14: 20, 21: 30, 30: 45, 40: 60, 60: 85, 90: 130,
+    2: 3,
+    3: 5,
+    5: 8,
+    7: 10,
+    14: 20,
+    21: 30,
+    30: 45,
+    40: 60,
+    60: 85,
+    90: 130,
   };
 
   List<Map<String, dynamic>> tutteLeVoci() {
@@ -50,12 +59,32 @@ void main() {
   /// tutte e centosessantacinque perche' non ne guardava nessuna. Verde per
   /// non aver guardato e' il modo piu' comodo di non accorgersi di niente.
   const parole = <String, int>{
-    'un': 1, 'una': 1, 'due': 2, 'tre': 3, 'quattro': 4, 'cinque': 5,
-    'sei': 6, 'sette': 7, 'otto': 8, 'nove': 9, 'dieci': 10, 'undici': 11,
-    'dodici': 12, 'tredici': 13, 'quattordici': 14, 'quindici': 15,
-    'venti': 20, 'ventuno': 21, 'trenta': 30, 'quaranta': 40,
-    'cinquanta': 50, 'sessanta': 60, 'settanta': 70, 'ottanta': 80,
-    'novanta': 90, 'cento': 100,
+    'un': 1,
+    'una': 1,
+    'due': 2,
+    'tre': 3,
+    'quattro': 4,
+    'cinque': 5,
+    'sei': 6,
+    'sette': 7,
+    'otto': 8,
+    'nove': 9,
+    'dieci': 10,
+    'undici': 11,
+    'dodici': 12,
+    'tredici': 13,
+    'quattordici': 14,
+    'quindici': 15,
+    'venti': 20,
+    'ventuno': 21,
+    'trenta': 30,
+    'quaranta': 40,
+    'cinquanta': 50,
+    'sessanta': 60,
+    'settanta': 70,
+    'ottanta': 80,
+    'novanta': 90,
+    'cento': 100,
   };
 
   /// I due numeri di una condizione a finestra: quanti giorni e quanto e' largo

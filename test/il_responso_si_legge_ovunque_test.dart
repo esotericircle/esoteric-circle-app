@@ -153,8 +153,8 @@ void main() {
           fuoriStandard.add('$nome: non si trova piu\' il punto dichiarato');
           return;
         }
-        final finestra = righe.sublist(i, (i + 9).clamp(0, righe.length))
-            .join('\n');
+        final finestra =
+            righe.sublist(i, (i + 9).clamp(0, righe.length)).join('\n');
         final misura = finestra.contains('TypographyTokens.lettura()');
         final colore = coloriDelResponso.any(finestra.contains);
         detti.add('$nome ${misura ? "lettura" : "SOTTO MISURA"} e '
@@ -193,8 +193,8 @@ void main() {
         }
       });
       // E l'Oroscopo, che la porta la usa dal di dentro.
-      final oroscopo =
-          File('lib/features/horoscope/oroscopo_screen.dart').readAsStringSync();
+      final oroscopo = File('lib/features/horoscope/oroscopo_screen.dart')
+          .readAsStringSync();
       // ignore: avoid_print
       print('ORDINE BV VOCE 6: responsi dalla porta unica '
           '${conLaPorta.length - senzaPorta.length} su ${conLaPorta.length}, '
@@ -252,8 +252,7 @@ void main() {
         await seCeTocca(tester, const Key('dream_fog_skip'));
         await passo(tester);
         final segno = NightSky.moonSign(quando);
-        final figura =
-            kZodiacConstellations.firstWhere((c) => c.sign == segno);
+        final figura = kZodiacConstellations.firstWhere((c) => c.sign == segno);
         for (var i = 0; i < figura.points.length; i++) {
           if (!await seCeTocca(tester, Key('dream_star_$i'))) break;
           await tester.pump(const Duration(milliseconds: 60));

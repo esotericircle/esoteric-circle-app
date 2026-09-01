@@ -64,7 +64,8 @@ void main() {
     return dati;
   }
 
-  testWidgets('I tre Maestri dipingono almeno il trenta per cento della prima '
+  testWidgets(
+      'I tre Maestri dipingono almeno il trenta per cento della prima '
       'schermata', (tester) async {
     silenzia();
     maestriSpentiPerLaProva = false;

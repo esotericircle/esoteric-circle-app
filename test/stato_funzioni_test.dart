@@ -29,8 +29,7 @@ void main() {
     };
 
     // Il manifest deve puntare al file di codice giusto.
-    expect(manifest['fonte_codice'],
-        'lib/core/santuario/function_shelf.dart');
+    expect(manifest['fonte_codice'], 'lib/core/santuario/function_shelf.dart');
 
     // Stesso insieme di funzioni, nessuna in piu' ne in meno.
     expect(dichiarato.keys.toSet(), reale.keys.toSet(),

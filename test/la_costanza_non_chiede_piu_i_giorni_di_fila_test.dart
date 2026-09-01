@@ -110,8 +110,7 @@ void main() {
     final c = traguardo.condizione as GiorniDentroUnArco;
     // Tanti giorni quanti ne chiede, sparsi dentro il suo arco e MAI di fila.
     final giorni = <String>{
-      for (var i = 0; i < c.quanti; i++)
-        chiave((i * 2) % c.arco),
+      for (var i = 0; i < c.quanti; i++) chiave((i * 2) % c.arco),
     }.toList();
     SharedPreferences.setMockInitialValues({
       'cammino.giorniPerRito': jsonEncode({c.rito: giorni}),
@@ -126,7 +125,8 @@ void main() {
     expect(quanti, greaterThanOrEqualTo(c.quanti),
         reason: 'i giorni sparsi dentro l arco non bastano a maturare '
             '${traguardo.id}: la costanza larga non serve a niente');
-    final stato = StatoDelCammino(costanzeLarghe: {'${c.rito}:${c.arco}': quanti});
+    final stato =
+        StatoDelCammino(costanzeLarghe: {'${c.rito}:${c.arco}': quanti});
     expect(c.raggiunto(stato), isTrue,
         reason: 'la condizione non si dichiara raggiunta nemmeno coi giorni '
             'contati');

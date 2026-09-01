@@ -43,7 +43,7 @@ void main() {
   // rosso non scattava. Si cerca una frase che esiste SOLO in fondo.
   String testoLungo(String seme) =>
       '${List.filled(12, '$seme parla al tuo cammino con voce ferma e ti '
-              'accompagna oltre la soglia del dubbio.').join(' ')} '
+          'accompagna oltre la soglia del dubbio.').join(' ')} '
       'La lanterna resta accesa fino in fondo al sentiero.';
 
   Route<void> ilConsiglio({required Maestro starter}) =>
@@ -75,7 +75,9 @@ void main() {
     return tester.state<NavigatorState>(find.byType(Navigator).last);
   }
 
-  testWidgets('la prima scheda e' ' quella del Maestro di partenza, nei tre '
+  testWidgets(
+      'la prima scheda e'
+      ' quella del Maestro di partenza, nei tre '
       'casi', (tester) async {
     final nav = await monta(tester);
     final colpe = <String>[];

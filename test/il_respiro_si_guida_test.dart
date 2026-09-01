@@ -29,7 +29,8 @@ void main() {
 
       final aMetaGiro = t.momento(const Duration(seconds: 6))!;
       expect(aMetaGiro.entra, isFalse, reason: 'a meta giro l aria esce');
-      expect(aMetaGiro.giro, 1, reason: 'il giro cambia a giro finito, non a meta');
+      expect(aMetaGiro.giro, 1,
+          reason: 'il giro cambia a giro finito, non a meta');
 
       final secondoGiro = t.momento(const Duration(seconds: 12))!;
       expect(secondoGiro.giro, 2);
@@ -57,7 +58,10 @@ void main() {
       }
       // E l'escursione c'e' davvero: fra il minimo e il massimo si vede.
       final minimo = t.momento(Duration.zero)!.misura;
-      final massimo = t.momento(const Duration(seconds: 6) - const Duration(milliseconds: 1))!.misura;
+      final massimo = t
+          .momento(
+              const Duration(seconds: 6) - const Duration(milliseconds: 1))!
+          .misura;
       expect(massimo - minimo, greaterThan(0.3),
           reason: 'l escursione e di ${massimo - minimo}: il respiro non si '
               'vede nemmeno con la coda dell occhio');
@@ -143,9 +147,8 @@ void main() {
       await comincia(tester);
       await tester.pump(const Duration(milliseconds: 300));
 
-      String conteggio() => tester
-          .widget<Text>(find.byKey(const Key('respiro_conteggio')))
-          .data!;
+      String conteggio() =>
+          tester.widget<Text>(find.byKey(const Key('respiro_conteggio'))).data!;
       bool ceLaParola(String p) => find.text(p).evaluate().isNotEmpty;
 
       expect(conteggio(), ParoleDelRespiro.giro(1, 2));
@@ -227,9 +230,7 @@ void main() {
           reason: 'con Riduci Movimento la parola del gesto sparisce: resta '
               'un vuoto');
       expect(
-          tester
-              .widget<Text>(find.byKey(const Key('respiro_conteggio')))
-              .data,
+          tester.widget<Text>(find.byKey(const Key('respiro_conteggio'))).data,
           ParoleDelRespiro.giro(1, 2));
       await tester.pump(const Duration(seconds: 10));
     });

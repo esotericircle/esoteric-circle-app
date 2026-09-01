@@ -148,8 +148,8 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
-      await tester.pumpWidget(host(const ConsultoDelCieloView(
-          natal: pieno, maestro: Maestro.caligo)));
+      await tester.pumpWidget(host(
+          const ConsultoDelCieloView(natal: pieno, maestro: Maestro.caligo)));
       await tester.pump();
       expect(find.byKey(const Key('consulto_corpo')), findsOneWidget);
 
@@ -169,8 +169,8 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
-      await tester.pumpWidget(host(const ConsultoDelCieloView(
-          natal: pieno, maestro: Maestro.medora)));
+      await tester.pumpWidget(host(
+          const ConsultoDelCieloView(natal: pieno, maestro: Maestro.medora)));
       await tester.pump();
 
       final frasi = FrasiDellAttesa.per(Maestro.medora,

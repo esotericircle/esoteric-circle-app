@@ -31,8 +31,7 @@ void main() {
       // server, che e' l'unico posto dove il denaro si decide: se
       // `invito_con_download` torna in quel listino, il client puo' di nuovo
       // chiederlo alla condivisione.
-      final listino =
-          File('functions/src/borsellino.ts').readAsStringSync();
+      final listino = File('functions/src/borsellino.ts').readAsStringSync();
       final dentro = RegExp(r'BONUS_DELLA_CONDIVISIONE[^}]*}', dotAll: true)
               .firstMatch(listino)
               ?.group(0) ??
@@ -109,8 +108,7 @@ void main() {
               'puo\' riconoscere nessuno');
       // E chi incolla il link intero deve essere capito lo stesso.
       expect(codiceDaCioCheEStatoIncollato(testo), 'abc123xyz.aura');
-      expect(codiceDaCioCheEStatoIncollato('abc123xyz.aura'),
-          'abc123xyz.aura');
+      expect(codiceDaCioCheEStatoIncollato('abc123xyz.aura'), 'abc123xyz.aura');
     });
 
     test('Senza uid il link resta quello nudo di prima', () {

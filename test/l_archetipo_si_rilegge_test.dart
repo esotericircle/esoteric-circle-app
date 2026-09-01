@@ -63,8 +63,7 @@ void main() {
           reason: 'la lettura cambia dentro lo stesso giorno');
     });
 
-    test('parla dell\'archetipo giusto, e solo dei pianeti che lo toccano',
-        () {
+    test('parla dell\'archetipo giusto, e solo dei pianeti che lo toccano', () {
       // Il cielo pieno: tutti e dieci i pianeti attivi.
       final tutti = ArchetypeTransits.tabella.keys.toSet();
       final lettura = LetturaDelGiorno.per(Archetype.amante, tutti);
@@ -100,8 +99,7 @@ void main() {
     });
 
     test('la cornice della sincronicita\' resta quella del test', () {
-      expect(LetturaDelGiorno.cornice,
-          ArchetypeTransits.corniceSincronicita,
+      expect(LetturaDelGiorno.cornice, ArchetypeTransits.corniceSincronicita,
           reason: 'la lettura si e\' scritta una cornice sua: sarebbe la '
               'seconda verita\' su cosa il cielo fa e non fa');
     });
@@ -122,8 +120,7 @@ void main() {
     test('il giorno dopo il test non si rifa\', e la data si dichiara', () {
       final ultimo = DateTime(2026, 8, 18, 15, 30);
       final domani = DateTime(2026, 8, 19, 9);
-      expect(
-          RipetizioneDelTest.siPuoRifare(ultimo: ultimo, adesso: domani),
+      expect(RipetizioneDelTest.siPuoRifare(ultimo: ultimo, adesso: domani),
           isFalse,
           reason: 'il test si rifaceva il giorno dopo: e\' la slot machine '
               'che la decisione del 18 agosto ha escluso');
@@ -141,8 +138,7 @@ void main() {
       final ilGiorno = RipetizioneDelTest.quandoSiPotra(ultimo);
       // ignore: avoid_print
       print('ORDINE AO VOCE 06: si potra\' dal $ilGiorno');
-      expect(
-          RipetizioneDelTest.siPuoRifare(ultimo: ultimo, adesso: ilGiorno),
+      expect(RipetizioneDelTest.siPuoRifare(ultimo: ultimo, adesso: ilGiorno),
           isTrue);
       // **LA MATTINA DEL GIORNO BUONO, e non e' un dettaglio.** Chi apre
       // l'app alle nove del giorno in cui scade l'attesa deve leggere che

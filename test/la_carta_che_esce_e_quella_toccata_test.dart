@@ -18,7 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// la posizione 77 non esisteva piu' nel residuo, e il codice ripiegava sulla
 /// PRIMA carta del mazzo.
 void main() {
-  test('cento estrazioni, con mischie e tagli in mezzo, escono sempre quelle '
+  test(
+      'cento estrazioni, con mischie e tagli in mezzo, escono sempre quelle '
       'toccate', () {
     var falliteInSilenzio = 0;
     for (var giro = 0; giro < 100; giro++) {
@@ -84,7 +85,8 @@ void main() {
     final stesa = StesaInCorso.nuova(mazzo: mazzo, seme: 5);
     for (final fuori in [-1, mazzo.length, mazzo.length + 40]) {
       expect(
-          stesa.assegna(SpreadPosition.values[0], dalVentaglio: fuori)
+          stesa
+              .assegna(SpreadPosition.values[0], dalVentaglio: fuori)
               .assegnate[0],
           isNull,
           reason: 'la posizione $fuori non esiste nell\'arco: prima qui si '
@@ -107,7 +109,8 @@ void main() {
         reason: 'l\'arco non si accorcia mentre lo si sfoglia: sono le sue '
             'posizioni, e restano');
     expect(stesa.mazzoDisposto[4], isNull,
-        reason: 'una posizione gia' ' presa non si riempie mescolando: quella '
+        reason: 'una posizione gia'
+            ' presa non si riempie mescolando: quella '
             'carta e\' sul tavolo');
     expect(stesa.mazzoResiduo.toSet(), residuoPrima,
         reason: 'mischia e taglio non aggiungono ne\' tolgono carte, le '

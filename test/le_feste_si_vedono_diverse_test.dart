@@ -70,10 +70,11 @@ void main() {
   Future<Uint8List> fotografa(WidgetTester tester, GlobalKey chiave) async {
     late Uint8List byte;
     await tester.runAsync(() async {
-      final confine = chiave.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final confine =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final immagine = await confine.toImage();
-      final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final dati =
+          await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
       byte = dati!.buffer.asUint8List();
       immagine.dispose();
     });
@@ -131,8 +132,7 @@ void main() {
   /// misura tutto cio' che le distingue, testi compresi; qui invece si conta
   /// la MATERIA che sta a schermo dove non c'e' nient'altro: nella fascia
   /// alta vivono solo il cielo scuro della festa e le cose che volano.
-  double accesiInAlto(Uint8List a,
-      {int larghezza = 360, int altezza = 797}) {
+  double accesiInAlto(Uint8List a, {int larghezza = 360, int altezza = 797}) {
     var accesi = 0;
     var guardati = 0;
     for (var i = 0; i < a.length; i += 4) {
@@ -217,8 +217,8 @@ void main() {
         ],
         child: MaterialApp(
           builder: (ctx, child) => MediaQuery(
-            data: MediaQuery.of(ctx)
-                .copyWith(disableAnimations: riduciMovimento),
+            data:
+                MediaQuery.of(ctx).copyWith(disableAnimations: riduciMovimento),
             child: MaestroScope(child: child!),
           ),
           home: RepaintBoundary(
@@ -271,8 +271,8 @@ void main() {
     // Tre rami di uno `switch` che chiamassero lo stesso disegno sarebbero
     // tre nomi per una figura sola, cioe' il difetto di prima con un altro
     // vestito.
-    final segno = File('lib/features/sigilli/segno_del_sentiero.dart')
-        .readAsStringSync();
+    final segno =
+        File('lib/features/sigilli/segno_del_sentiero.dart').readAsStringSync();
     for (final forma in const ['_stella(', '_albero(', '_loto(']) {
       expect(segno.contains(forma), isTrue,
           reason: 'manca la forma $forma: i tre sentieri non hanno tre segni');

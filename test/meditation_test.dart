@@ -23,17 +23,23 @@ void main() {
 
     test('PCM stereo della lunghezza attesa e deterministico', () {
       final a = gen.pcm16Stereo(
-          leftHz: 432, rightHz: 432, duration: const Duration(milliseconds: 100));
+          leftHz: 432,
+          rightHz: 432,
+          duration: const Duration(milliseconds: 100));
       // 100 ms a 44100 Hz, stereo: 4410 frame, 8820 campioni.
       expect(a.length, 44100 ~/ 10 * 2);
       final b = gen.pcm16Stereo(
-          leftHz: 432, rightHz: 432, duration: const Duration(milliseconds: 100));
+          leftHz: 432,
+          rightHz: 432,
+          duration: const Duration(milliseconds: 100));
       expect(a, b);
     });
 
     test('Tono puro: i due canali coincidono; binaurale: differiscono', () {
       final pure = gen.pcm16Stereo(
-          leftHz: 432, rightHz: 432, duration: const Duration(milliseconds: 50));
+          leftHz: 432,
+          rightHz: 432,
+          duration: const Duration(milliseconds: 50));
       var equal = true;
       for (var i = 0; i < pure.length; i += 2) {
         if (pure[i] != pure[i + 1]) equal = false;
@@ -41,7 +47,9 @@ void main() {
       expect(equal, isTrue);
 
       final beat = gen.pcm16Stereo(
-          leftHz: 210, rightHz: 217, duration: const Duration(milliseconds: 50));
+          leftHz: 210,
+          rightHz: 217,
+          duration: const Duration(milliseconds: 50));
       var differ = false;
       for (var i = 0; i < beat.length; i += 2) {
         if (beat[i] != beat[i + 1]) differ = true;
@@ -69,7 +77,9 @@ void main() {
 
     test('Il WAV ha un contenitore valido', () {
       final wav = gen.wav(
-          leftHz: 528, rightHz: 528, duration: const Duration(milliseconds: 100));
+          leftHz: 528,
+          rightHz: 528,
+          duration: const Duration(milliseconds: 100));
       String tag(int o) => String.fromCharCodes(wav.sublist(o, o + 4));
       expect(tag(0), 'RIFF');
       expect(tag(8), 'WAVE');
@@ -77,7 +87,9 @@ void main() {
       expect(tag(36), 'data');
       // 44 byte di intestazione piu' i dati PCM.
       final pcm = gen.pcm16Stereo(
-          leftHz: 528, rightHz: 528, duration: const Duration(milliseconds: 100));
+          leftHz: 528,
+          rightHz: 528,
+          duration: const Duration(milliseconds: 100));
       expect(wav.length, 44 + pcm.buffer.asUint8List().length);
     });
   });
@@ -142,13 +154,14 @@ void main() {
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => EntitlementService()),
             ChangeNotifierProvider(
-              create: (ctx) =>
-                  FeatureFlagService(entitlement: ctx.read<EntitlementService>())
-                    ..initialize(),
+              create: (ctx) => FeatureFlagService(
+                  entitlement: ctx.read<EntitlementService>())
+                ..initialize(),
             ),
           ],
           child: MaterialApp(
-            home: MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
+            home:
+                MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
           ),
         );
 
@@ -186,13 +199,14 @@ void main() {
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => EntitlementService()),
             ChangeNotifierProvider(
-              create: (ctx) =>
-                  FeatureFlagService(entitlement: ctx.read<EntitlementService>())
-                    ..initialize(),
+              create: (ctx) => FeatureFlagService(
+                  entitlement: ctx.read<EntitlementService>())
+                ..initialize(),
             ),
           ],
           child: MaterialApp(
-            home: MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
+            home:
+                MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
           ),
         );
 

@@ -109,7 +109,8 @@ void main() {
     expect(find.byKey(const Key('sunset_incisione_gesture')), findsOneWidget);
     // Qui Riduci Movimento e' attivo: l'unica riga di invito deve dire il gesto
     // vero di QUEL caso, il tocco unico, e non promettere un tracciamento.
-    expect(find.text('Tocca la pietra per incidere il simbolo.'), findsOneWidget);
+    expect(
+        find.text('Tocca la pietra per incidere il simbolo.'), findsOneWidget);
     expect(find.textContaining('Traccia con il dito'), findsNothing);
   });
 
@@ -130,7 +131,8 @@ void main() {
         reason: 'la bolla "Gira la pietra" e tornata: ordine AS voce 09');
     expect(find.byKey(const Key('sunset_voce_due')), findsNothing);
     // Doppio tap sull'invito: la pietra gira e svela la seconda voce.
-    final loc = tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
+    final loc =
+        tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
     await tester.tapAt(loc);
     await tester.pump(const Duration(milliseconds: 60));
     await tester.tapAt(loc);
@@ -343,13 +345,20 @@ void main() {
     expect(fantasma(), -1.0);
   });
 
-  testWidgets('Il sigillo compare alla settima sera, non prima', (tester) async {
+  testWidgets('Il sigillo compare alla settima sera, non prima',
+      (tester) async {
     // Sei sere gia' fatte nei giorni precedenti: stasera fa sette.
     final giorno = SunsetRune.giornoRituale(ora);
     final sere = <Map<String, dynamic>>[];
     for (var i = 1; i <= 6; i++) {
       final g = SunsetRune.iso(giorno.subtract(Duration(days: i)));
-      sere.add({'giorno': g, 'rune': 'Fehu', 'ombra': false, 'lasciare': 'a', 'porta': 'b'});
+      sere.add({
+        'giorno': g,
+        'rune': 'Fehu',
+        'ombra': false,
+        'lasciare': 'a',
+        'porta': 'b'
+      });
     }
     SharedPreferences.setMockInitialValues({
       'sunset_rune.settimana':
@@ -365,7 +374,8 @@ void main() {
     expect(find.byKey(const Key('sunset_sigillo')), findsOneWidget);
   });
 
-  testWidgets('La prima sera non ha sigillo, ma la striscia lo dice', (tester) async {
+  testWidgets('La prima sera non ha sigillo, ma la striscia lo dice',
+      (tester) async {
     SharedPreferences.setMockInitialValues({});
     silenceSensors(tester);
     grande(tester);
@@ -378,7 +388,8 @@ void main() {
     expect(find.textContaining('La prima delle sette'), findsOneWidget);
   });
 
-  testWidgets('La cerniera scrive la runa portata dentro la notte', (tester) async {
+  testWidgets('La cerniera scrive la runa portata dentro la notte',
+      (tester) async {
     SharedPreferences.setMockInitialValues({});
     silenceSensors(tester);
     grande(tester);
@@ -398,7 +409,8 @@ void main() {
     final giorno = SunsetRune.giornoRituale(ora);
     final stasera = SunsetRune.estrai(ora,
             dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
-        .rune.name;
+        .rune
+        .name;
     final treFa = SunsetRune.iso(giorno.subtract(const Duration(days: 3)));
     SharedPreferences.setMockInitialValues({
       'sunset_rune.settimana':
@@ -414,12 +426,14 @@ void main() {
     // A video la runa torna, con la sua clausola.
     expect(find.byKey(const Key('sunset_ritorno')), findsOneWidget);
     final bloccoUno = find.descendant(
-        of: find.byKey(const Key('sunset_voce_uno')), matching: find.byType(Text));
+        of: find.byKey(const Key('sunset_voce_uno')),
+        matching: find.byType(Text));
     final mostrato = tester.widgetList<Text>(bloccoUno).last.data!;
 
     // E il testo salvato e' lo stesso, clausola compresa.
     final settimana = await SunsetRuneMemory.settimanaCorrente(giorno);
-    final oggi = settimana.firstWhere((s) => s.giorno == SunsetRune.iso(giorno));
+    final oggi =
+        settimana.firstWhere((s) => s.giorno == SunsetRune.iso(giorno));
     expect(oggi.lasciare, mostrato);
     // La clausola c'e' davvero: il testo salvato e' piu' lungo della sola voce.
     expect(oggi.lasciare.length, greaterThan(60));
@@ -491,7 +505,8 @@ void main() {
     return '[${voci.join(',')}]';
   }
 
-  testWidgets('Il sigillo dice il legame quando una runa torna', (tester) async {
+  testWidgets('Il sigillo dice il legame quando una runa torna',
+      (tester) async {
     final giorno = SunsetRune.giornoRituale(ora);
     // Sei Fehu: qualcosa si ripete di sicuro nella settimana.
     SharedPreferences.setMockInitialValues({
@@ -510,7 +525,8 @@ void main() {
     final giorno = SunsetRune.giornoRituale(ora);
     final stasera = SunsetRune.estrai(ora,
             dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
-        .rune.name;
+        .rune
+        .name;
     // Sei nomi distinti, tutti diversi da quello di stasera: sette segni diversi.
     final pool = kElderFuthark
         .map((r) => r.name)

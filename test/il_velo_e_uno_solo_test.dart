@@ -106,8 +106,8 @@ void main() {
       final sorgente = f
           .readAsStringSync()
           .split('\n')
-          .where((r) => !r.trimLeft().startsWith('//') &&
-              !r.trimLeft().startsWith('///'))
+          .where((r) =>
+              !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
           .join('\n');
       for (final nome in dirette) {
         // Solo le chiamate: il nome seguito da parentesi o da generici.

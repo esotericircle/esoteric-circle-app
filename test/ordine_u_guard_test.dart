@@ -76,11 +76,11 @@ void main() {
     // Una riga puo' portare due stati quando una voce si chiude per una parte e
     // resta in attesa per un'altra: si conta per lo stato PIU' DEBOLE, cioe'
     // quello che tiene l'ordine aperto piu' a lungo.
-  // **IL QUINTO STATO, aggiunto dall'ordine BF voce 03.** Le guardie sorelle
-  // (AS, AT, AV, AX) conoscono FERMATA SU DECISIONE DEL FONDATORE; questa era
-  // nata prima di quello stato. La riconciliazione di BF.03 ha voci superate
-  // da decisioni del fondatore, e travestirle da CHIUSA sarebbe una bugia:
-  // si estende la guardia, non si piega la verita'.
+    // **IL QUINTO STATO, aggiunto dall'ordine BF voce 03.** Le guardie sorelle
+    // (AS, AT, AV, AX) conoscono FERMATA SU DECISIONE DEL FONDATORE; questa era
+    // nata prima di quello stato. La riconciliazione di BF.03 ha voci superate
+    // da decisioni del fondatore, e travestirle da CHIUSA sarebbe una bugia:
+    // si estende la guardia, non si piega la verita'.
     var aperte = 0, attesa = 0, premessa = 0, chiuse = 0, fondatore = 0;
     for (final r in righe) {
       if (r.contains('APERTA')) {
@@ -100,8 +100,8 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
   });
 
   test('l\'ordine U non e\' finito finche\' una voce resta aperta', () {

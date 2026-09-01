@@ -102,11 +102,11 @@ void main() {
       // ai LATI; se e' piu' stretto, entra per larghezza e il vuoto resta SOPRA
       // E SOTTO.
       final perAltezza = formaDelRiquadro > p;
-      final resaLarghezza =
-          perAltezza ? riquadro.height * p : riquadro.width;
+      final resaLarghezza = perAltezza ? riquadro.height * p : riquadro.width;
       final resaAltezza = perAltezza ? riquadro.height : riquadro.width / p;
       final vuotoVerticale = (riquadro.height - resaAltezza) / riquadro.height;
-      final vuotoOrizzontale = (riquadro.width - resaLarghezza) / riquadro.width;
+      final vuotoOrizzontale =
+          (riquadro.width - resaLarghezza) / riquadro.width;
       // ignore: avoid_print
       print('ORDINE AC VOCE 02: ${sentiero.name}, riquadro '
           '${riquadro.width.toStringAsFixed(1)} per '

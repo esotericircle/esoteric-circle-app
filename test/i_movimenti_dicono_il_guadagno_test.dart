@@ -54,8 +54,7 @@ void main() {
         reason: 'nello stesso elenco convivono forme diverse: $forme');
   });
 
-  test('BB.03: il riquadro dei movimenti usa la stessa regola della festa',
-      () {
+  test('BB.03: il riquadro dei movimenti usa la stessa regola della festa', () {
     // **UNA REGOLA SOLA, e non due.** Se il borsellino normalizzasse per conto
     // suo, un giorno la festa e il registro mostrerebbero lo stesso traguardo
     // in due modi diversi. Qui si pretende che il borsellino chiami proprio
@@ -72,8 +71,7 @@ void main() {
             'nello stesso elenco convivono maiuscolo integrale e tondo');
   });
 
-  test('BB.03: il delta non nasce da un saldo che nessuno ha ancora letto',
-      () {
+  test('BB.03: il delta non nasce da un saldo che nessuno ha ancora letto', () {
     final regia = File('lib/features/sigilli/regia_del_cammino.dart')
         .readAsLinesSync()
         .where((r) => !r.trimLeft().startsWith('//'))

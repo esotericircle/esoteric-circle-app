@@ -172,7 +172,8 @@ void main() {
         reason: 'il rito riparte dall accoglienza invece che dal passo che '
             'manca: e il fatto F2, segnalato per piu giri di seguito');
   });
-  testWidgets('a chi e gia dentro non si chiede di registrarsi', (tester) async {
+  testWidgets('a chi e gia dentro non si chiede di registrarsi',
+      (tester) async {
     // **IL COLLAUDO DEL FONDATORE SULLA 2194**, parola sua: "se vado avanti
     // alla fine, dopo aver assegnato il Maestro, con la registrazione, non
     // riconosce piu che sono gia dentro".
@@ -292,6 +293,10 @@ class _PortaCheCustodisce extends PortaDelCerchio {
 
 /// Una porta dell'identita' che fa entrare, come fa quella vera dopo AX.01.
 class _PortaCheEntra implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   bool _dentro = false;
   int elevazioni = 0;
 
@@ -304,9 +309,7 @@ class _PortaCheEntra implements PortaDellIdentita {
   bool _elevato = false;
 
   @override
-  String? get uid => _elevato
-      ? 'anonimo'
-      : (_dentro ? 'chi-torna' : 'anonimo');
+  String? get uid => _elevato ? 'anonimo' : (_dentro ? 'chi-torna' : 'anonimo');
 
   @override
   bool get anonimo => !_dentro;

@@ -56,8 +56,7 @@ void main() {
       print('ORDINE CF VOCE 12: ${voce.key.split("/").last} divide per '
           '$divisore, cioe\' ${rapporto?.toStringAsFixed(4)}, e l\'artwork '
           'vale ${VipFrame.aspect.toStringAsFixed(4)}');
-      if (rapporto == null ||
-          (rapporto - VipFrame.aspect).abs() > tolleranza) {
+      if (rapporto == null || (rapporto - VipFrame.aspect).abs() > tolleranza) {
         final scarto = rapporto == null
             ? 'illeggibile'
             : '${((1 - VipFrame.aspect / rapporto) * 100).toStringAsFixed(2)} '

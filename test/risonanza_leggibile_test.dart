@@ -43,16 +43,20 @@ void main() {
       Maestro.aura: 0.30,
     });
     expect(etichette[Maestro.medora], etichette[Maestro.caligo]);
-    expect(PercentualiRisonanza.pareggioVero(const {
-      Maestro.medora: 0.35,
-      Maestro.caligo: 0.35,
-      Maestro.aura: 0.30,
-    }), isTrue);
-    expect(PercentualiRisonanza.pareggioVero(const {
-      Maestro.medora: 0.3538,
-      Maestro.caligo: 0.3492,
-      Maestro.aura: 0.2970,
-    }), isFalse);
+    expect(
+        PercentualiRisonanza.pareggioVero(const {
+          Maestro.medora: 0.35,
+          Maestro.caligo: 0.35,
+          Maestro.aura: 0.30,
+        }),
+        isTrue);
+    expect(
+        PercentualiRisonanza.pareggioVero(const {
+          Maestro.medora: 0.3538,
+          Maestro.caligo: 0.3492,
+          Maestro.aura: 0.2970,
+        }),
+        isFalse);
   });
 
   test('La somma resta cento, o quasi: non si mostrano numeri incoerenti', () {

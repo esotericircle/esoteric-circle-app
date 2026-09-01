@@ -76,7 +76,8 @@ void main() {
   }
 
   testWidgets('Mostra i cinque appuntamenti sotto l\'header', (tester) async {
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     expect(find.byKey(const Key('santuario_daily_strip')), findsOneWidget);
     // La riga sottile che annuncia la striscia.
@@ -91,14 +92,14 @@ void main() {
   });
 
   testWidgets('Nessun orario a vista nella striscia', (tester) async {
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     // Gli orari vivono solo nel popup, non sulla striscia.
     for (final label in const ['7:00', '10:30', '13:00', '18:30', '22:30']) {
       expect(find.text(label), findsNothing);
     }
   });
-
 
   /// **COME SI VEDE CHE LA CASELLA DEL TRAMONTO E' ACCESA, ordine AO voce
   /// 03.** Il conto alla rovescia sotto la casella non esiste piu': Mauro lo
@@ -119,8 +120,8 @@ void main() {
     // Primo pomeriggio: il tramonto e' piu' tardi, quindi la casella e'
     // ancora spenta e nessun conto alla rovescia compare sotto NESSUNA
     // casella, perche' quello slot non esiste piu'.
-    await tester
-        .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     expect(tramontoAcceso(tester), isFalse,
         reason: 'la casella del Tramonto e\' accesa alle 13:00');
@@ -133,8 +134,8 @@ void main() {
   testWidgets('A tramonto passato il conto sparisce, la casella si accende',
       (tester) async {
     // Notte fonda: il tramonto e' gia' avvenuto, nessun conto alla rovescia.
-    await tester
-        .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
     await tester.pump();
     expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
   });
@@ -145,11 +146,13 @@ void main() {
     // tramonto stimato dal fuso.
     final spia = _LuogoSpia();
     final now = DateTime(2026, 7, 14, 13, 0);
-    await tester.pumpWidget(_host(DailyStrip(clock: () => now, location: spia)));
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => now, location: spia)));
     await tester.pump();
     await tester.pump();
 
-    expect(spia.chiesto, 0, reason: 'nessuna richiesta di permesso all\'apertura');
+    expect(spia.chiesto, 0,
+        reason: 'nessuna richiesta di permesso all\'apertura');
     expect(spia.guardato, greaterThan(0), reason: 'ha guardato senza chiedere');
     // **IL RIPIEGO SUL TRAMONTO STIMATO DAL FUSO SI VEDE DALL'ACCENSIONE,
     // ordine AO voce 03.** Prima si leggeva dentro il conto alla rovescia,
@@ -181,8 +184,7 @@ void main() {
     // tramonto lontano diciassette ore, e la casella non e' spenta.
     final notte = DateTime(2026, 7, 14, 3, 0);
     expect(SunsetRune.giornoRituale(notte), DateTime(2026, 7, 13));
-    await tester
-        .pumpWidget(_host(DailyStrip(clock: () => notte)));
+    await tester.pumpWidget(_host(DailyStrip(clock: () => notte)));
     await tester.pump();
     // Il tramonto del giorno rituale (ieri) e' passato: la casella e' ACCESA.
     // **Ordine AO voce 03**: prima lo si leggeva dall'assenza del conto alla
@@ -195,8 +197,7 @@ void main() {
     // Alle 13:00 il giorno rituale e' oggi e il tramonto e' ancora davanti.
     final pomeriggio = DateTime(2026, 7, 14, 13, 0);
     expect(SunsetRune.giornoRituale(pomeriggio), DateTime(2026, 7, 14));
-    await tester
-        .pumpWidget(_host(DailyStrip(clock: () => pomeriggio)));
+    await tester.pumpWidget(_host(DailyStrip(clock: () => pomeriggio)));
     await tester.pump();
     expect(tramontoAcceso(tester), isFalse,
         reason: 'alle 13:00 la casella e\' accesa: sta guardando il tramonto '
@@ -232,7 +233,8 @@ void main() {
     expect(find.byKey(const Key('daily_info_close_rune')), findsOneWidget);
   });
 
-  testWidgets('La striscia usa la posizione reale, la stessa fonte della '
+  testWidgets(
+      'La striscia usa la posizione reale, la stessa fonte della '
       'schermata', (tester) async {
     // **COSA MISURA QUESTA PROVA, e come e' cambiata di grandezza. Ordine AO
     // voce 03.** La domanda resta quella di prima: la striscia usa la
@@ -280,8 +282,8 @@ void main() {
         reason: 'la prova non distingue: a quella ora anche il tramonto vero '
             'e passato');
 
-    await tester.pumpWidget(
-        _host(DailyStrip(clock: () => quando, location: luogo)));
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => quando, location: luogo)));
     await tester.pump();
     await tester.pump();
     expect(tramontoAcceso(tester), isFalse,
@@ -292,10 +294,10 @@ void main() {
   });
 
   testWidgets('L\'header e\' centrato orizzontalmente', (tester) async {
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
-    final headerX =
-        tester.getCenter(find.text('I tuoi doni del giorno')).dx;
+    final headerX = tester.getCenter(find.text('I tuoi doni del giorno')).dx;
     final stripX =
         tester.getCenter(find.byKey(const Key('santuario_daily_strip'))).dx;
     expect((headerX - stripX).abs(), lessThan(1.0));
@@ -303,7 +305,8 @@ void main() {
 
   testWidgets('Le cinque icone sono distinte, il Tramonto non e\' una luna',
       (tester) async {
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
 
     // Ogni elemento ha la sua icona dedicata.
@@ -318,7 +321,8 @@ void main() {
 
     // Oracolo sole pieno, Notte luna con stella, Soffio vento: icone Material
     // chiaramente diverse.
-    expect(inItem('oracle', find.byIcon(Icons.wb_sunny_rounded)), findsOneWidget);
+    expect(
+        inItem('oracle', find.byIcon(Icons.wb_sunny_rounded)), findsOneWidget);
     expect(inItem('night', find.byIcon(Icons.nights_stay_rounded)),
         findsOneWidget);
     expect(inItem('breath', find.byIcon(Icons.air_rounded)), findsOneWidget);
@@ -334,7 +338,8 @@ void main() {
 
   testWidgets('Nessuna etichetta viene troncata, "Tramonto" resta intero',
       (tester) async {
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     for (final label in const [
       'Alba',
@@ -349,8 +354,8 @@ void main() {
     }
   });
 
-
-  testWidgets('Un tocco apre l\'elemento, con l\'elemento giusto', (tester) async {
+  testWidgets('Un tocco apre l\'elemento, con l\'elemento giusto',
+      (tester) async {
     DailyElement? opened;
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
@@ -370,7 +375,8 @@ void main() {
       (tester) async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
     silenceSensors(binding);
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 7, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 7, 0))));
     await tester.pump();
 
     await tester.tap(find.byKey(const Key('daily_element_dawn')));
@@ -385,7 +391,8 @@ void main() {
   testWidgets('Ogni elemento apre la sua esperienza', (tester) async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
     silenceSensors(binding);
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 19, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 19, 0))));
     await tester.pump();
 
     await tester.tap(find.byKey(const Key('daily_element_rune')));
@@ -397,7 +404,8 @@ void main() {
   testWidgets('Il Sigillo del Sogno apre la sua esperienza', (tester) async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
     silenceSensors(binding);
-    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
     await tester.pump();
 
     await tester.tap(find.byKey(const Key('daily_element_night')));

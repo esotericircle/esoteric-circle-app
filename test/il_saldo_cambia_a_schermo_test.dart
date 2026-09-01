@@ -37,10 +37,12 @@ void main() {
 
       await borsa.applicaSaldo(80);
       expect(borsa.saldoEos, 80,
-          reason: 'il saldo non si e\' mosso: la barra continuerebbe a dire zero '
+          reason:
+              'il saldo non si e\' mosso: la barra continuerebbe a dire zero '
               'dopo un traguardo da ottanta Eos');
       expect(avvisi, 1,
-          reason: 'nessuno e\' stato avvisato: il numero cambia nel dato e non a '
+          reason:
+              'nessuno e\' stato avvisato: il numero cambia nel dato e non a '
               'schermo, che e\' esattamente il difetto della voce');
     });
 
@@ -63,7 +65,8 @@ void main() {
       final dopo = QuestionAllowance();
       await dopo.load();
       expect(dopo.saldoEos, 150,
-          reason: 'il saldo applicato non e\' stato scritto: al prossimo avvio la '
+          reason:
+              'il saldo applicato non e\' stato scritto: al prossimo avvio la '
               'barra torna a zero e la persona vede sparire i suoi Eos');
     });
   });
@@ -97,7 +100,8 @@ void main() {
       expect('guasti.registra('.allMatches(s).length, greaterThanOrEqualTo(2),
           reason: 'uno dei due modi di fallire non lascia traccia');
       expect(s, contains('borsa.applicaSaldo(saldo)'),
-          reason: 'il saldo che il server ha appena detto viene buttato di nuovo, '
+          reason:
+              'il saldo che il server ha appena detto viene buttato di nuovo, '
               'e si torna ad aspettare una seconda chiamata che senza rete non '
               'arriva');
     });
@@ -115,10 +119,9 @@ void main() {
       // continuato a guardare la lista vecchia. Ora la lista viene dal
       // listino vero di `functions/src/borsellino.ts`: se il codice chiede un
       // motivo che il server non ha, si vede subito.
-      final listino =
-          File('functions/src/borsellino.ts').readAsStringSync();
-      final tabella = listino.substring(
-          listino.indexOf('VALORE_DEL_PREMIO'), listino.indexOf('causaleValida'));
+      final listino = File('functions/src/borsellino.ts').readAsStringSync();
+      final tabella = listino.substring(listino.indexOf('VALORE_DEL_PREMIO'),
+          listino.indexOf('causaleValida'));
       final noti = {
         for (final m in RegExp(r'^\s*(\w+):\s*(\d+),', multiLine: true)
             .allMatches(tabella))
@@ -159,7 +162,8 @@ void main() {
         idMovimento: 'traguardo-prova-1',
       );
       expect(saldo, isNull,
-          reason: 'la porta spenta ha risposto un numero: un saldo inventato in '
+          reason:
+              'la porta spenta ha risposto un numero: un saldo inventato in '
               'barra e\' peggio di un saldo fermo');
     });
   });

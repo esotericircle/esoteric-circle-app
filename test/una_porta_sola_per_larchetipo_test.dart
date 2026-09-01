@@ -97,32 +97,30 @@ void main() {
       // costruttore, e una ricerca sul testo intero la contava come una copia.
       // Una prova che non distingue una riga di codice da una riga che ne
       // parla fallisce ogni volta che qualcuno spiega bene.
-      final testo = f
-          .readAsLinesSync()
-          .where((r) {
-            final t = r.trimLeft();
-            return !t.startsWith('//') &&
-                !t.startsWith('*') &&
-                !t.startsWith('/*');
-          })
-          .join('\n');
+      final testo = f.readAsLinesSync().where((r) {
+        final t = r.trimLeft();
+        return !t.startsWith('//') && !t.startsWith('*') && !t.startsWith('/*');
+      }).join('\n');
       if (testo.contains('ArchetypeHistory(')) {
         creatori.add(f.path.replaceAll(r'\', '/'));
       }
     }
     expect(creatori.length, 1,
-        reason: 'lo storico dell archetipo viene costruito in ${creatori.length} '
+        reason:
+            'lo storico dell archetipo viene costruito in ${creatori.length} '
             'posti: $creatori. Ogni copia in piu e un dato che vive due volte, '
             'e due copie dello stesso dato si incontrano solo su disco');
     expect(creatori.single, endsWith('lib/app.dart'),
-        reason: 'l unico costruttore non e il fornitore dell app: ${creatori.single}');
+        reason:
+            'l unico costruttore non e il fornitore dell app: ${creatori.single}');
   });
 
   // ==========================================================================
   // LA CHAT, DAL VIVO
   // ==========================================================================
 
-  testWidgets('Fatto il Test, la chat di Aura passa dal loto all emblema senza '
+  testWidgets(
+      'Fatto il Test, la chat di Aura passa dal loto all emblema senza '
       'riaprire l app', (tester) async {
     silenceSensors();
     // IL RISVEGLIO GIA' FATTO. Senza questa riga l'app spinge l'onboarding
@@ -296,16 +294,14 @@ void main() {
         onError: (e, _) => guasto = e,
       );
     });
-    expect(guasto, isNull,
-        reason: 'l emblema non si decodifica: $guasto');
+    expect(guasto, isNull, reason: 'l emblema non si decodifica: $guasto');
     await tester.pump();
 
-    final immagine = await tester
-        .runAsync(() async => (chiave.currentContext!.findRenderObject()!
-                as RenderRepaintBoundary)
+    final immagine = await tester.runAsync(() async =>
+        (chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary)
             .toImage(pixelRatio: 1.0));
-    final dati =
-        await tester.runAsync(() => immagine!.toByteData(format: ui.ImageByteFormat.rawRgba));
+    final dati = await tester.runAsync(
+        () => immagine!.toByteData(format: ui.ImageByteFormat.rawRgba));
     final byte = dati!.buffer.asUint8List();
 
     var dipinti = 0;
@@ -346,7 +342,8 @@ void main() {
         ),
       );
 
-  testWidgets('Acceso o spento l interruttore dei transiti, la figura e la '
+  testWidgets(
+      'Acceso o spento l interruttore dei transiti, la figura e la '
       'stessa', (tester) async {
     tester.view.physicalSize = const Size(430, 2400);
     tester.view.devicePixelRatio = 1.0;

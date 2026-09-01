@@ -34,7 +34,8 @@ void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   group('la porta e\' una', () {
-    test('accelerometerEventStream vive in due soli file, parallasse e '
+    test(
+        'accelerometerEventStream vive in due soli file, parallasse e '
         'porta dello scuotimento', () {
       final fuori = <String>[];
       for (final f in Directory('lib')
@@ -62,8 +63,8 @@ void main() {
       // proprio per spiegare perche' non deve comparire nel codice.
       final codice = testo
           .split('\n')
-          .where((r) => !r.trimLeft().startsWith('//') &&
-              !r.trimLeft().startsWith('///'))
+          .where((r) =>
+              !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
           .join('\n');
       expect(codice.contains('samplingPeriod'), isFalse,
           reason: 'La porta passa samplingPeriod al sensore: su un telefono '
@@ -121,8 +122,7 @@ void main() {
         messenger.setMockStreamHandler(
           EventChannel(nome),
           MockStreamHandler.inline(onListen: (args, events) {
-            if (sensoreRotto &&
-                nome.endsWith('accelerometer')) {
+            if (sensoreRotto && nome.endsWith('accelerometer')) {
               events.error(code: 'nessun_sensore');
             }
           }),
@@ -145,9 +145,12 @@ void main() {
                   initial: const ThemeKey.of(Maestro.caligo))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService(initial: Tier.tier1, )),
-        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-        ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService(
+                    initial: Tier.tier1,
+                  )),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => SettingsController()),
         ],
         child: MaterialApp(
@@ -181,9 +184,11 @@ void main() {
       expect(find.byKey(const Key('rune_result')), findsOneWidget,
           reason: 'Il primo scuotimento non ha gettato.');
       final primaRuna = tester
-          .widget<Text>(find.descendant(
-              of: find.byKey(const Key('rune_card_0')),
-              matching: find.byType(Text)).first)
+          .widget<Text>(find
+              .descendant(
+                  of: find.byKey(const Key('rune_card_0')),
+                  matching: find.byType(Text))
+              .first)
           .data;
 
       // Il secondo, oltre la finestra dell'antirimbalzo: getta ANCORA.
@@ -192,9 +197,11 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
       final secondaRuna = tester
-          .widget<Text>(find.descendant(
-              of: find.byKey(const Key('rune_card_0')),
-              matching: find.byType(Text)).first)
+          .widget<Text>(find
+              .descendant(
+                  of: find.byKey(const Key('rune_card_0')),
+                  matching: find.byType(Text))
+              .first)
           .data;
       // Con Random(3), la seconda estrazione della Runa di Odino e' un'altra
       // runa: se il nome non cambia, il secondo scuotimento e' caduto nel
@@ -209,13 +216,14 @@ void main() {
               'sottoscrizione e\' morta e nessuno l\'ha riarmata.');
     });
 
-    testWidgets('senza sensore, il ripiego c\'e\', e\' toccabile e si '
+    testWidgets(
+        'senza sensore, il ripiego c\'e\', e\' toccabile e si '
         'dichiara a schermo', (tester) async {
       await monta(tester, sensoreRotto: true);
       await tester.pump(const Duration(milliseconds: 100));
 
-      final riga = tester
-          .widget<Text>(find.byKey(const Key('rune_ripiego_riga')));
+      final riga =
+          tester.widget<Text>(find.byKey(const Key('rune_ripiego_riga')));
       expect(riga.data, contains('non offre lo scuotimento'),
           reason: 'Il telefono senza sensore non dichiara il ripiego: la '
               'riga promette ancora lo scuotimento.');

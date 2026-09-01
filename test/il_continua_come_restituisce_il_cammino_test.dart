@@ -91,8 +91,9 @@ void main() {
     // ne scrivesse una copia, questa riga lo direbbe.
     final custode =
         File('lib/core/cammino/custode_del_cammino.dart').readAsStringSync();
-    final quanti =
-        'static Future<Ritrovamento?> dopoIlRiconoscimento'.allMatches(custode).length;
+    final quanti = 'static Future<Ritrovamento?> dopoIlRiconoscimento'
+        .allMatches(custode)
+        .length;
     expect(quanti, 1,
         reason: 'il giro dopo il riconoscimento non e\' piu\' uno solo');
     expect(custode.contains('ScenaDelRitrovamento.route'), isTrue,

@@ -65,8 +65,7 @@ void main() {
       ),
       home: RepaintBoundary(
         key: radice,
-        child:
-            SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5)),
+        child: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5)),
       ),
     ));
     await tester.pump();
@@ -97,14 +96,15 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(milliseconds: 200));
 
-    final zona = tester.getRect(find.byKey(const Key('sunset_incisione_gesture')));
+    final zona =
+        tester.getRect(find.byKey(const Key('sunset_incisione_gesture')));
     final img = await tester.runAsync(() async {
       final rb =
           radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       return rb.toImage(pixelRatio: 1.0);
     });
-    final dati = await tester.runAsync(
-        () => img!.toByteData(format: ui.ImageByteFormat.rawRgba));
+    final dati = await tester
+        .runAsync(() => img!.toByteData(format: ui.ImageByteFormat.rawRgba));
     final byte = dati!.buffer.asUint8List();
     final w = img!.width;
 

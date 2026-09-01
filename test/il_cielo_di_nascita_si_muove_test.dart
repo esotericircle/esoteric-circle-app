@@ -29,7 +29,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('con Riduci Movimento acceso, inclinare muove la volta di '
+  testWidgets(
+      'con Riduci Movimento acceso, inclinare muove la volta di '
       'nascita', (tester) async {
     final m = binding.defaultBinaryMessenger;
     m.setMockMethodCallHandler(
@@ -66,8 +67,8 @@ void main() {
         ),
         home: RepaintBoundary(
             key: chiave,
-            child:
-                SkyOverviewScreen(now: DateTime(1990, 6, 15, 14, 30), birth: true)),
+            child: SkyOverviewScreen(
+                now: DateTime(1990, 6, 15, 14, 30), birth: true)),
       ),
     ));
     for (var i = 0; i < 8; i++) {
@@ -78,8 +79,8 @@ void main() {
       final scatola =
           chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final img = await tester.runAsync(() => scatola.toImage(pixelRatio: 1.0));
-      final dati = (await tester
-          .runAsync(() => img!.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
+      final dati = (await tester.runAsync(
+          () => img!.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
       final w = img!.width;
       final y = (img.height * 0.4).toInt();
       return [
@@ -104,7 +105,8 @@ void main() {
     // che si legge, prima e dopo l'inclinazione. La striscia di pixel resta
     // nella prova come sentinella che la camera finisce davvero sulla tela.
     double cameraDellaVolta() {
-      for (final w in tester.widgetList<CustomPaint>(find.byType(CustomPaint))) {
+      for (final w
+          in tester.widgetList<CustomPaint>(find.byType(CustomPaint))) {
         final p = w.painter;
         if (p != null && p.runtimeType.toString().contains('SkyFieldPainter')) {
           return ((p as dynamic).cam as Offset).dx;

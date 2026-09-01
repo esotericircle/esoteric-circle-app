@@ -97,7 +97,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 900));
   }
 
-  testWidgets('la conversazione si ferma sotto la scena, non ci passa '
+  testWidgets(
+      'la conversazione si ferma sotto la scena, non ci passa '
       'dietro', (tester) async {
     final radice = GlobalKey();
     await chatConScena(tester, radice);
@@ -117,8 +118,7 @@ void main() {
     // toccano, nessun messaggio puo' finire dietro l'emblema.
     final lista = find.byWidgetPredicate(
         (w) => w is Scrollable && w.axisDirection == AxisDirection.up);
-    expect(lista, findsWidgets,
-        reason: 'La conversazione non e\' a video.');
+    expect(lista, findsWidgets, reason: 'La conversazione non e\' a video.');
     final rLista = tester.getRect(lista.first);
     final rScena = tester.getRect(scena);
     final sovrapposto = rScena.overlaps(rLista);
@@ -132,8 +132,8 @@ void main() {
             'Mauro, la bolla con "amore?" tagliata a meta\'.');
   });
 
-
-  testWidgets('dietro l\'emblema si vede il cosmo, cioe\' la scena non ha '
+  testWidgets(
+      'dietro l\'emblema si vede il cosmo, cioe\' la scena non ha '
       'un fondo suo', (tester) async {
     final radice = GlobalKey();
     await chatConScena(tester, radice);
@@ -153,9 +153,7 @@ void main() {
     final larghezza = tester.view.physicalSize.width.round();
     final colori = <int>{};
     for (var y = rScena.top.ceil() + 4; y < rScena.bottom.floor() - 4; y++) {
-      for (var x = rScena.left.ceil() + 2;
-          x < rScena.left.ceil() + 24;
-          x++) {
+      for (var x = rScena.left.ceil() + 2; x < rScena.left.ceil() + 24; x++) {
         final i = (y * larghezza + x) * 4;
         colori.add((byte[i] << 16) | (byte[i + 1] << 8) | byte[i + 2]);
       }
@@ -175,9 +173,8 @@ void main() {
     // ORDINE 2164 VOCE 6, la regola dove vive: la scena non deve avere
     // decoration con gradiente ne' bordo. E' la prova che vede la DECISIONE
     // e non solo il suo effetto.
-    final sorgente =
-        File('lib/features/maestri/chat/maestro_chat_screen.dart')
-            .readAsStringSync();
+    final sorgente = File('lib/features/maestri/chat/maestro_chat_screen.dart')
+        .readAsStringSync();
     final i = sorgente.indexOf("key: const Key('riquadro_attesa')");
     expect(i, greaterThan(0));
     final blocco = sorgente.substring(i, i + 700);

@@ -45,8 +45,7 @@ void main() {
     // solo nell'errorBuilder, che qui non scatta.
     final immagini = tester.widgetList<Image>(find.byType(Image));
     expect(
-      immagini
-          .any((i) => i.image == AssetImage(Maestro.medora.avatarAsset)),
+      immagini.any((i) => i.image == AssetImage(Maestro.medora.avatarAsset)),
       isTrue,
     );
     expect(find.byIcon(Maestro.medora.icon), findsNothing);

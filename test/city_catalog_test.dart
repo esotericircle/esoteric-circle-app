@@ -57,9 +57,8 @@ void main() {
     });
 
     test('una scelta esatta non e provvisoria', () {
-      final place = CityCatalog.cities
-          .firstWhere((c) => c.name == 'Napoli')
-          .toPlace();
+      final place =
+          CityCatalog.cities.firstWhere((c) => c.name == 'Napoli').toPlace();
       expect(place.isApproximate, isFalse);
     });
   });

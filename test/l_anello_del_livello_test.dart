@@ -43,8 +43,8 @@ void main() {
       'dev.fluttercommunity.plus/sensors/gyroscope',
       'dev.fluttercommunity.plus/sensors/magnetometer',
     ]) {
-      m.setMockStreamHandler(EventChannel(nome),
-          MockStreamHandler.inline(onListen: (a, e) {}));
+      m.setMockStreamHandler(
+          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
     }
   }
 

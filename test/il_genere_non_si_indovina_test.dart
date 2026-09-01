@@ -34,7 +34,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('a chi rientra senza profilo il Cerchio non attribuisce un '
+  testWidgets(
+      'a chi rientra senza profilo il Cerchio non attribuisce un '
       'genere', (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     // **IL PROFILO E' QUELLO VERO, appena costruito e mai caricato**, cioe'

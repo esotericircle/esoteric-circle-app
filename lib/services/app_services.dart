@@ -1,4 +1,6 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'push/porta_delle_push.dart';
+import 'push/porta_vera_delle_push.dart';
 import 'ricordi/porta_vera_dei_ricordi.dart';
 import 'ricordi/porta_vera_dello_scrigno.dart';
 import '../core/ricordi/registro_dei_ricordi.dart';
@@ -40,6 +42,7 @@ class AppServices {
     this.ricordi,
     this.scrigno,
     this.penna,
+    this.push,
   });
 
   /// LA PORTA DEL SERVER, ordine N: contatori, memoria e saldo passano di
@@ -66,6 +69,11 @@ class AppServices {
   /// di errore, perche' una lettura mancata non e' un guasto da gestire.
   final PennaDelMese? penna;
 
+  /// LA PORTA DELLE SCELTE DELLE PUSH, ordine CI voce 07. Nulla senza
+  /// Firebase: in quel caso il recapito del dispositivo non sale, e le
+  /// chiamate locali restano accese come sempre.
+  final PortaDelleScelte? push;
+
   /// Monta i servizi avvolgendo la voce nella sorveglianza, sempre.
   ///
   /// E' una fabbrica e non un costruttore diretto proprio per questo: il
@@ -88,6 +96,7 @@ class AppServices {
     PortaDeiRicordi? ricordi,
     PortaDelloScrigno? scrigno,
     PennaDelMese? penna,
+    PortaDelleScelte? push,
   }) {
     final VoceSorvegliata sorvegliata;
     if (ai is VoceSorvegliata) {
@@ -110,6 +119,7 @@ class AppServices {
       ricordi: ricordi,
       scrigno: scrigno,
       penna: penna,
+      push: push,
     );
   }
 
@@ -218,6 +228,7 @@ class AppServices {
     PortaDeiRicordi? ricordi;
     PortaDelloScrigno? scrigno;
     PennaDelMese? penna;
+    PortaDelleScelte? push;
     try {
       identita = PortaDellIdentitaFirebase();
       final uid = await identita.assicuraUnAccount();
@@ -227,6 +238,10 @@ class AppServices {
         ricordi = PortaVeraDeiRicordi();
         scrigno = PortaVeraDelloScrigno();
         penna = const PennaVeraDelMese();
+        // **LA PORTA DELLE PUSH, ordine CI voce 07.** Nasce qui insieme alle
+        // altre e per la stessa ragione: senza un account non c'e' nessun
+        // posto dove scrivere il recapito del dispositivo.
+        push = PortaVeraDelleScelte();
         persistent = true;
       } else {
         note = 'Auth anonima senza utente: memoria solo di sessione.';
@@ -244,6 +259,7 @@ class AppServices {
       ricordi: ricordi,
       scrigno: scrigno,
       penna: penna,
+      push: push,
       guasti: registro,
       attestazione: esitoAttestazione,
       appCheckDebugToken: debugToken,

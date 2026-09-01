@@ -109,7 +109,7 @@ void main() {
     await CustodeDelCammino.custodisciEAdotta(ctx);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 04: senza risposta la nascita resta '
-'${identita.details?.date}');
+        '${identita.details?.date}');
     expect(identita.details?.date.year, 1975,
         reason: 'una rete assente ha cancellato la nascita di chi la aveva '
             'appena scritta');

@@ -36,8 +36,8 @@ void main() {
           final viste = <String>{};
           for (final dominio in HoroscopeDomain.values) {
             final int indice = giorno + segno + dominio.index;
-            viste.add(CorrenteDelCielo
-                .giunturaCoiDuePunti[indice % CorrenteDelCielo.giunturaCoiDuePunti.length]);
+            viste.add(CorrenteDelCielo.giunturaCoiDuePunti[
+                indice % CorrenteDelCielo.giunturaCoiDuePunti.length]);
           }
           expect(viste, hasLength(HoroscopeDomain.values.length),
               reason: 'giorno $giorno segno $segno: le quattro schede '
@@ -54,8 +54,8 @@ void main() {
       // sommato, quindi il termine si verifica dove viene sommato.
       final sorgente =
           File('lib/core/horoscope/corrente_del_cielo.dart').readAsStringSync();
-      expect(sorgente,
-          contains('giornoOrdinale + indiceDelSegno + dominio.index'),
+      expect(
+          sorgente, contains('giornoOrdinale + indiceDelSegno + dominio.index'),
           reason: 'la giuntura e\' tornata a variare sul solo giorno: le '
               'quattro schede di un oroscopo riprenderebbero la stessa');
     });

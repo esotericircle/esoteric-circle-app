@@ -104,8 +104,8 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
-        fondatore);
+    expect(
+        marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'), fondatore);
     final contate = aperte + attesa + premessa + chiuse + fondatore;
     expect(contate, quante,
         reason: 'gli stati contati fanno $contate invece di $quante: una voce '
@@ -131,7 +131,8 @@ void main() {
     // **E NESSUN NUMERO SALTATO**: un buco fra S12 e S14 vorrebbe dire una
     // situazione tolta senza dirlo.
     final numeri = righe
-        .map((r) => int.parse(RegExp(r'^\| S(\d\d) \|').firstMatch(r)!.group(1)!))
+        .map((r) =>
+            int.parse(RegExp(r'^\| S(\d\d) \|').firstMatch(r)!.group(1)!))
         .toList();
     for (var i = 0; i < numeri.length; i++) {
       final prima = i == 0 ? 'l\'inizio' : 'S${numeri[i - 1]}';

@@ -46,8 +46,8 @@ void main() {
     }
   }
 
-  Future<NavigatorState> chatDi(WidgetTester tester, Maestro maestro,
-      GlobalKey radice) async {
+  Future<NavigatorState> chatDi(
+      WidgetTester tester, Maestro maestro, GlobalKey radice) async {
     silenzia();
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
     tester.view.physicalSize = const Size(360, 797);
@@ -67,7 +67,8 @@ void main() {
     return nav;
   }
 
-  testWidgets('sotto il campo non esiste una fascia piena larga quanto lo '
+  testWidgets(
+      'sotto il campo non esiste una fascia piena larga quanto lo '
       'schermo', (tester) async {
     final radice = GlobalKey();
     await chatDi(tester, Maestro.medora, radice);
@@ -122,8 +123,7 @@ void main() {
             'controlli (ordine BF voce 05.c).');
   });
 
-  testWidgets('le stelline sono allineate al centro del campo',
-      (tester) async {
+  testWidgets('le stelline sono allineate al centro del campo', (tester) async {
     final radice = GlobalKey();
     await chatDi(tester, Maestro.aura, radice);
     final campo = tester.getRect(find.byKey(const Key('chat_campo')));
@@ -153,8 +153,7 @@ void main() {
     expect(find.textContaining('Tocca per tutte le domande'), findsNothing);
   });
 
-  test('resta UNA porta sola ai suggerimenti, e si contano nel sorgente',
-      () {
+  test('resta UNA porta sola ai suggerimenti, e si contano nel sorgente', () {
     // LA PROVA ENUMERANTE, portata da tre porte a una (ordine 2164 voce 4).
     // Si contano nel SORGENTE perche' una porta puo' esistere anche dove
     // una schermata montata in prova non la costruisce.
@@ -164,9 +163,8 @@ void main() {
     final vuota = File('lib/features/maestri/chat/widgets/'
             'chat_empty_state.dart')
         .readAsStringSync();
-    final schermata =
-        File('lib/features/maestri/chat/maestro_chat_screen.dart')
-            .readAsStringSync();
+    final schermata = File('lib/features/maestri/chat/maestro_chat_screen.dart')
+        .readAsStringSync();
 
     expect('chat_stelline'.allMatches(composer).length, 1,
         reason: 'La porta a stelline non e\' piu\' una sola nel composer.');

@@ -172,7 +172,7 @@ void main() {
         latitude: 41.9,
         longitude: 12.5,
         timezone: 'Europe/Rome',
-      label: 'Roma',
+        label: 'Roma',
       ),
     );
     final secondo = NatalChartController(client: _ClienteMuto());
@@ -230,7 +230,8 @@ class _ClienteCheRisponde extends FreeAstroClient {
 
   @override
   NatalChart parseResponse(Map<String, dynamic> json, BirthDetails details) =>
-      NatalChart.essential(sunSign: Zodiac.fromDate(details.date), hasTime: true);
+      NatalChart.essential(
+          sunSign: Zodiac.fromDate(details.date), hasTime: true);
 }
 
 const _rispostaMinima = <String, dynamic>{'planets': <dynamic>[]};

@@ -71,8 +71,7 @@ void main() {
   }) =>
       MultiProvider(
         providers: [
-          Provider<AppServices>.value(
-              value: services ?? AppServices.offline()),
+          Provider<AppServices>.value(value: services ?? AppServices.offline()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
           ChangeNotifierProvider<BirthIdentityController>.value(
               value: birth ?? BirthIdentityController()),
@@ -120,8 +119,7 @@ void main() {
     // LA SINTESI STA IN FONDO, dal 4 agosto 2026, e una lista non costruisce
     // cio' che non entra a schermo: per trovarla si scorre. In cima occupava
     // da sola il primo schermo, e le carte cominciavano dove finiva lei.
-    await tester.scrollUntilVisible(
-        find.byKey(const Key('ask_synthesis')), 300,
+    await tester.scrollUntilVisible(find.byKey(const Key('ask_synthesis')), 300,
         scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('ask_synthesis')), findsOneWidget,
         reason: 'con tre voci la sintesi deve esserci');
@@ -184,8 +182,7 @@ void main() {
 
     // La Sintesi comparativa viene dal provider (testo distintivo), non dalla
     // deterministica, e chiude con la regola.
-    await tester.scrollUntilVisible(
-        find.byKey(const Key('ask_synthesis')), 300,
+    await tester.scrollUntilVisible(find.byKey(const Key('ask_synthesis')), 300,
         scrollable: find.byType(Scrollable).first);
     final sintesi = tester
         .widgetList<Text>(find.descendant(
@@ -217,7 +214,8 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
+    await tester.pumpWidget(
+        host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
     // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
     // un chip per chiederle, e quel chip non esiste piu'.
@@ -237,8 +235,7 @@ void main() {
     // se ne accorgesse. Adesso lo chiede al ruolo che la schermata usa.
     final unaRiga = (TextPainter(
       text: TextSpan(
-          text: 'Sintesi comparativa',
-          style: TypographyTokens.titoloScheda()),
+          text: 'Sintesi comparativa', style: TypographyTokens.titoloScheda()),
       textDirection: TextDirection.ltr,
     )..layout())
         .height;
@@ -260,7 +257,8 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     // Provider non pronto (offline): lenti dall'oracolo e sintesi deterministica.
-    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
+    await tester.pumpWidget(
+        host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
     // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
     // un chip per chiederle, e quel chip non esiste piu'.
@@ -281,9 +279,9 @@ void main() {
         contains('Dove gli sguardi concordano, ascolta con più fiducia'));
   });
 
-  testWidgets('Free: il confronto invita a salire, e le altre voci non '
-      'arrivano',
-      (tester) async {
+  testWidgets(
+      'Free: il confronto invita a salire, e le altre voci non '
+      'arrivano', (tester) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 2200);
     addTearDown(tester.view.resetPhysicalSize);
@@ -361,7 +359,8 @@ void main() {
     // dichiarata come ripiego: il Maestro non ha parlato, quindi non si paga.
     // E' il difetto del 2 agosto visto dalla seconda superficie.
     final allowance = QuestionAllowance();
-    await tester.pumpWidget(host(tema: 'il lavoro', tier: Tier.free, allowance: allowance));
+    await tester.pumpWidget(
+        host(tema: 'il lavoro', tier: Tier.free, allowance: allowance));
     await ask(tester, 'il lavoro');
     expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget,
         reason: 'la lente di ripiego viene consegnata lo stesso');
@@ -440,7 +439,8 @@ void main() {
     expect(mem.sessionSummary, contains('devo cambiare lavoro'));
   });
 
-  testWidgets('I testi a video non usano il trattino lungo e hanno accenti veri',
+  testWidgets(
+      'I testi a video non usano il trattino lungo e hanno accenti veri',
       (tester) async {
     await tester.pumpWidget(host(tema: 'il lavoro', starter: Maestro.medora));
     await ask(tester, 'il lavoro');
@@ -519,7 +519,8 @@ class _ReadyAi implements MaestroAiProvider {
     final verbo = maestro == Maestro.aura ? 'sente' : 'vede';
     return MaestroReply(
       glance: '${maestro.displayName} $verbo $theme con la sua lente.',
-      reading: 'Testo narrato vivo di ${maestro.displayName} su $theme, così è.',
+      reading:
+          'Testo narrato vivo di ${maestro.displayName} su $theme, così è.',
       invite: 'Un invito vivo di ${maestro.displayName}.',
     );
   }

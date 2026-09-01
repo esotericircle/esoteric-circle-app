@@ -45,7 +45,8 @@ void main() {
               create: (_) =>
                   MaestroController(initial: const ThemeKey.of(Maestro.aura))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()..setTier(tier)),
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService()..setTier(tier)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           // LO STORICO CONDIVISO, che la schermata NON si costruisce piu' da
@@ -90,7 +91,8 @@ void main() {
 
     // Avanzamento in chiaro, una domanda alla volta.
     expect(find.byKey(const Key('archetype_progress')), findsOneWidget);
-    expect(tester.widget<Text>(find.byKey(const Key('archetype_progress'))).data,
+    expect(
+        tester.widget<Text>(find.byKey(const Key('archetype_progress'))).data,
         '1 di 12');
     expect(find.byKey(const Key('archetype_question')), findsOneWidget);
     for (var i = 0; i < 4; i++) {
@@ -171,7 +173,8 @@ void main() {
     // Ordine dall'alto: Luce, le tre stanze della vita, poi l'Ombra.
     final luce = tester.getCenter(find.byKey(const Key('archetype_luce'))).dy;
     final amore = tester.getCenter(find.byKey(const Key('archetype_amore'))).dy;
-    final lavoro = tester.getCenter(find.byKey(const Key('archetype_lavoro'))).dy;
+    final lavoro =
+        tester.getCenter(find.byKey(const Key('archetype_lavoro'))).dy;
     final quot =
         tester.getCenter(find.byKey(const Key('archetype_quotidianita'))).dy;
     final ombra = tester.getCenter(find.byKey(const Key('archetype_ombra'))).dy;
@@ -203,10 +206,12 @@ void main() {
     // Il primo della classifica e' il dominante, e sta sopra gli altri.
     final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
     final ordinati = profilo.graduatoria;
-    final primo =
-        tester.getCenter(find.byKey(Key('archetype_rank_${ordinati.first.name}'))).dy;
-    final secondo =
-        tester.getCenter(find.byKey(Key('archetype_rank_${ordinati[1].name}'))).dy;
+    final primo = tester
+        .getCenter(find.byKey(Key('archetype_rank_${ordinati.first.name}')))
+        .dy;
+    final secondo = tester
+        .getCenter(find.byKey(Key('archetype_rank_${ordinati[1].name}')))
+        .dy;
     expect(ordinati.first, Archetype.realista);
     expect(primo, lessThan(secondo));
 
@@ -216,8 +221,10 @@ void main() {
     // un pulsante di questa schermata, viene da AzioniDelResponso, che e la
     // porta sola per tutte e tredici le arti col responso. Cio che questa
     // riga misura non cambia: la classifica sta sopra i comandi.
-    final ranking = tester.getCenter(find.byKey(const Key('archetype_ranking'))).dy;
-    final share = tester.getCenter(find.byKey(const Key('responso_condividi'))).dy;
+    final ranking =
+        tester.getCenter(find.byKey(const Key('archetype_ranking'))).dy;
+    final share =
+        tester.getCenter(find.byKey(const Key('responso_condividi'))).dy;
     expect(ranking, lessThan(share));
   });
 
@@ -424,14 +431,18 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host(pianeti: (_) => {Pianeta.marte, Pianeta.urano}));
+    await tester
+        .pumpWidget(host(pianeti: (_) => {Pianeta.marte, Pianeta.urano}));
     await passo(tester);
     await tester.tap(find.byKey(const Key('archetype_start')));
     await passo(tester);
     await rispondiTutte(tester, 3);
 
     // Nasce senza cielo, e lo dichiara il sottotitolo.
-    expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('archetype_mode_subtitle')))
+            .data,
         'non legato ai transiti astrologici');
     final sw = find.byKey(const Key('archetype_transits_switch'));
     await tester.ensureVisible(sw);
@@ -439,7 +450,10 @@ void main() {
     await tester.tap(sw);
     await passo(tester);
     // Ora rilegge col cielo, senza rifare il test.
-    expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('archetype_mode_subtitle')))
+            .data,
         'legato ai transiti astrologici di oggi');
     expect(find.byKey(const Key('archetype_transit_marte')), findsOneWidget);
   });
@@ -460,8 +474,8 @@ void main() {
     final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     // Stessa ragione della riga sopra: il pulsante verso Aura adesso nasce
     // dalla porta sola, e il verde di Aura ci arriva dalla palette.
-    final btn = tester.widget<FilledButton>(
-        find.byKey(const Key('responso_parlane')));
+    final btn =
+        tester.widget<FilledButton>(find.byKey(const Key('responso_parlane')));
     final bg = btn.style!.backgroundColor!.resolve({});
     expect(bg, verde.primary);
     // Il verde di Aura non e' il viola neutro.
@@ -512,8 +526,8 @@ void main() {
     expect(ruota.accendiSecondo, isTrue);
     // La bolla della Luce col testo dal corpus.
     expect(find.text('La sua luce'), findsOneWidget);
-    expect(find.text(ArchetypeCorpus.di(Archetype.realista).luce),
-        findsOneWidget);
+    expect(
+        find.text(ArchetypeCorpus.di(Archetype.realista).luce), findsOneWidget);
 
     // Provenienza in alto e invito in fondo, senza indirizzi web inventati.
     expect(find.text('TEST ARCHETIPO'), findsOneWidget);
@@ -524,8 +538,7 @@ void main() {
     // Il responso sulla card: percentuale del dominante e co-dominante.
     final pct = profilo.percentualeDi(Archetype.realista).round();
     expect(profilo.secondo, isNotNull);
-    expect(
-        find.text('$pct% · accanto ${profilo.secondo!.conArticolo}'),
+    expect(find.text('$pct% · accanto ${profilo.secondo!.conArticolo}'),
         findsOneWidget);
 
     // La classifica compatta dei primi tre: nome e percentuale per ciascuno.

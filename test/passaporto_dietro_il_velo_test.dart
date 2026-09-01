@@ -19,13 +19,12 @@ import 'package:flutter_test/flutter_test.dart';
 /// archetipo" non e' ancora calcolato e conservato nel profilo. Il Test
 /// Archetipo di Aura e' un'arte che si puo' fare, non un dato del passaporto.
 void main() {
-  final sorgente =
-      File('lib/features/passport/cosmic_passport_screen.dart').readAsStringSync();
+  final sorgente = File('lib/features/passport/cosmic_passport_screen.dart')
+      .readAsStringSync();
 
   /// Il blocco delle voci ancora velate.
   final daVelate = sorgente.indexOf('_passportEntries = [');
-  final velate =
-      sorgente.substring(daVelate, sorgente.indexOf('];', daVelate));
+  final velate = sorgente.substring(daVelate, sorgente.indexOf('];', daVelate));
 
   test('La Carta natale non e\' piu\' dietro il velo', () {
     expect(velate.contains("title: 'Carta natale'"), isFalse,
@@ -69,7 +68,8 @@ void main() {
     final da = sorgente.indexOf('class _PassportEntryCard');
     final corpo = sorgente.substring(da, sorgente.indexOf('\n}', da));
     expect(corpo.contains('FittedBox'), isTrue,
-        reason: 'il titolo della tessera velata puo\' ancora spezzarsi a meta\' '
+        reason:
+            'il titolo della tessera velata puo\' ancora spezzarsi a meta\' '
             'parola');
     expect(corpo.contains('maxLines: 1'), isTrue,
         reason: 'il titolo puo\' ancora andare a capo');

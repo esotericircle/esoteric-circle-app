@@ -33,8 +33,8 @@ void main() {
     final diario = await diarioVuoto();
     final primo = Sentieri.miniDi(Sentiero.costellazione).first;
     final senzaEscludere = diario.prossimoDi(Sentiero.costellazione);
-    final escludendo = diario.prossimoDi(Sentiero.costellazione,
-        escludendo: {primo.id});
+    final escludendo =
+        diario.prossimoDi(Sentiero.costellazione, escludendo: {primo.id});
     // ignore: avoid_print
     print('ORDINE AR VOCE 07: si celebra ${primo.id}; senza escludere il '
         'prossimo sarebbe ${senzaEscludere?.id}, escludendolo e '
@@ -71,7 +71,8 @@ void main() {
     print('ORDINE AR VOCE 07: a sentiero finito il prossimo e $prossimo');
     expect(prossimo, isNull,
         reason: 'a sentiero finito si annuncia ancora un prossimo, e sarebbe '
-            'per forza uno gia' 'raggiunto');
+            'per forza uno gia'
+            'raggiunto');
   });
 
   test('la festa chiede il prossimo del sentiero della FESTA', () {

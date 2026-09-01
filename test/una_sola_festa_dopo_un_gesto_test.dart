@@ -148,8 +148,7 @@ void main() {
 
     // **E ALLA CHIUSURA NON NE PARTE UN'ALTRA.** Era li' la catena: la festa
     // che si chiudeva chiamava la coda, e la coda apriva la successiva.
-    await tester.tap(find.byKey(const Key('festa_salta')),
-        warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('festa_salta')), warnIfMissed: false);
     await tester.pump();
     await tester.tap(find.byKey(const Key('celebrazione_continua')),
         warnIfMissed: false);

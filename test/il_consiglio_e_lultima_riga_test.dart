@@ -99,8 +99,7 @@ void main() {
   testWidgets('La stella c\'e\', e la freccia orizzontale no', (tester) async {
     await monta(tester, rivelato: false);
     final riga = find.byKey(const Key('consiglio_medora'));
-    expect(
-        find.descendant(of: riga, matching: find.byIcon(Icons.auto_awesome)),
+    expect(find.descendant(of: riga, matching: find.byIcon(Icons.auto_awesome)),
         findsOneWidget,
         reason: 'la stella non c\'e\'');
     // E IL MARCATORE NON ARRIVA MAI A SCHERMO.
@@ -111,8 +110,7 @@ void main() {
     expect(find.textContaining(ConsiglioFinale.stella), findsNothing,
         reason: 'il marcatore e\' finito a video, e a video e\' una scatola');
     expect(
-        find.descendant(
-            of: riga, matching: find.byIcon(Icons.arrow_forward)),
+        find.descendant(of: riga, matching: find.byIcon(Icons.arrow_forward)),
         findsNothing,
         reason: 'e\' tornata la freccia, che prometteva un altrove e non era '
             'nemmeno toccabile');

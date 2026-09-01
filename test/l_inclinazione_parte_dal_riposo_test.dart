@@ -136,7 +136,12 @@ void main() {
     // condizione dichiarata per poterlo toccare.
     final p = ParallaxController();
     p.inclinaPerLaProva(1, 1);
-    final attesi = {'polvere': 30.0, 'fondo': 80.0, 'medio': 105.5, 'vicino': 165.5};
+    final attesi = {
+      'polvere': 30.0,
+      'fondo': 80.0,
+      'medio': 105.5,
+      'vicino': 165.5
+    };
     final misurati = {
       'polvere': p.layerOffset(0.06).dx.abs(),
       'fondo': p.layerOffset(0.16).dx.abs(),

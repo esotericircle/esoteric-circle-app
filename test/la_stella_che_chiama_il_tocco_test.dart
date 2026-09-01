@@ -60,8 +60,8 @@ void main() {
     late ui.Image immagine;
     late ByteData dati;
     await tester.runAsync(() async {
-      final rb = radice.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       immagine = await rb.toImage();
       dati = (await immagine.toByteData(format: ui.ImageByteFormat.rawRgba))!;
     });
@@ -106,7 +106,8 @@ void main() {
             'non e\' accesa.');
   });
 
-  testWidgets('con Riduci Movimento la stella che chiama resta accesa e '
+  testWidgets(
+      'con Riduci Movimento la stella che chiama resta accesa e '
       'ferma', (tester) async {
     tester.view.physicalSize = const Size(400, 400);
     tester.view.devicePixelRatio = 1.0;
@@ -137,15 +138,15 @@ void main() {
     late ByteData bytesPrima;
     late ByteData bytesDopo;
     await tester.runAsync(() async {
-      final rb = radice.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       bytesPrima = (await (await rb.toImage())
           .toByteData(format: ui.ImageByteFormat.rawRgba))!;
     });
     await tester.pump(const Duration(milliseconds: 700));
     await tester.runAsync(() async {
-      final rb = radice.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       bytesDopo = (await (await rb.toImage())
           .toByteData(format: ui.ImageByteFormat.rawRgba))!;
     });

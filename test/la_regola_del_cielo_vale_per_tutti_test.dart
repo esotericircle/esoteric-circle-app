@@ -41,15 +41,16 @@ void main() {
     }
   }
 
-  testWidgets('il cielo coperto da una rotta si sospende, e riprende al ritorno',
+  testWidgets(
+      'il cielo coperto da una rotta si sospende, e riprende al ritorno',
       (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues(
         const {'onboarding.done': true, 'santuario.greeted': true});
     final servizi = AppServices.offline();
     CosmosBackground.quantiSospesi = 0;
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
@@ -89,9 +90,9 @@ void main() {
     ]) {
       osservati++;
       final sorgente = File(percorso).readAsStringSync();
-      final guardato = sorgente
-              .contains('IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO') ||
-          sorgente.contains("IL GIRO DELL'ALONE PARTE SOLO SENZA RIDUCI");
+      final guardato =
+          sorgente.contains('IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO') ||
+              sorgente.contains("IL GIRO DELL'ALONE PARTE SOLO SENZA RIDUCI");
       if (!guardato) scoperti.add(percorso);
     }
     // **QUANTE OSSERVAZIONI, e cade se sono zero.**

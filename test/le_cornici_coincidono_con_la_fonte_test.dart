@@ -170,8 +170,8 @@ void main() {
         return fonte.keys.firstWhere((k) => k.startsWith('LA DICIASSETTESIMA'),
             orElse: () => '');
       }
-      return fonte.keys.firstWhere((k) => k.contains('"$domanda"'),
-          orElse: () => '');
+      return fonte.keys
+          .firstWhere((k) => k.contains('"$domanda"'), orElse: () => '');
     }
 
     final divergenze = <String>[];
@@ -199,7 +199,8 @@ void main() {
       }
     }
     expect(divergenze, isEmpty,
-        reason: 'il codice non coincide con la fonte `docs/responsi/cornici.md`. '
+        reason:
+            'il codice non coincide con la fonte `docs/responsi/cornici.md`. '
             'Le cornici sono materiale dell\'Architetto e si usano verbatim: '
             'quando divergono ha ragione la fonte.\n\n'
             '${divergenze.join("\n\n")}');
@@ -240,7 +241,8 @@ void main() {
       }
     }
     expect(divergenze, isEmpty,
-        reason: 'il codice non coincide con `docs/responsi/consiglio.md`. Le tre '
+        reason:
+            'il codice non coincide con `docs/responsi/consiglio.md`. Le tre '
             'risposte sono materiale dell\'Architetto e si usano verbatim: quando '
             'divergono ha ragione la fonte.\n\n${divergenze.join("\n\n")}');
   });

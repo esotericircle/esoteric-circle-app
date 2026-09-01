@@ -100,8 +100,8 @@ void main() {
     expect(find.byKey(const Key('onboarding_bentornato')), findsNothing,
         reason: 'si saluta per nome qualcuno che il telefono non ha mai '
             'nominato');
-    expect(find.byKey(const Key('onboarding_porta_per_chi_torna')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('onboarding_porta_per_chi_torna')), findsOneWidget,
         reason: 'senza proposta sparisce anche la porta piccola: chi torna '
             'resterebbe senza via');
   });
@@ -134,11 +134,14 @@ void main() {
             matching: find.byType(Text)))
         .map((t) => t.data)
         .toList();
-    expect(righe, [
-      'Faccio già parte del Cerchio',
-      'Accedi e ritrova il tuo cammino',
-    ], reason: 'il saluto e\' entrato dentro la porta e ne ha cambiato le '
-        'righe, che sono di Mauro: $righe');
+    expect(
+        righe,
+        [
+          'Faccio già parte del Cerchio',
+          'Accedi e ritrova il tuo cammino',
+        ],
+        reason: 'il saluto e\' entrato dentro la porta e ne ha cambiato le '
+            'righe, che sono di Mauro: $righe');
   });
 
   test('la proposta silenziosa passa dall\'unica porta verso Google', () {
@@ -153,7 +156,8 @@ void main() {
       final codice = f
           .readAsStringSync()
           .split('\n')
-          .where((r) => !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
+          .where((r) =>
+              !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
           .join('\n');
       if (codice.contains('GoogleSignIn(')) {
         quanti.add(f.path.replaceAll('\\', '/'));
@@ -194,6 +198,10 @@ Future<void> _apri(WidgetTester tester, _PortaCheRiconosce porta) async {
 /// La porta finta: sa dire un nome riconosciuto e sa dire cosa il telefono
 /// propone da solo. Non tocca ne' Firebase ne' Google.
 class _PortaCheRiconosce implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<void> esci() async {}
 

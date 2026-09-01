@@ -70,16 +70,15 @@ void main() {
       memory: InMemoryMaestroMemoryRepository(),
       memoryPersistent: false,
     );
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
 
     final colpe = <String>[];
     for (final maestro in Maestro.fixedOrder) {
-      nav.push(
-          MaestroChatScreen.route(maestro: maestro, services: servizi));
+      nav.push(MaestroChatScreen.route(maestro: maestro, services: servizi));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
 
@@ -95,8 +94,7 @@ void main() {
       Future<bool> trovaScorrendo(String domanda) async {
         var c = 0;
         while (find.text(domanda).evaluate().isEmpty && c < 12) {
-          await tester.drag(
-              find.byKey(const Key('pannello_suggerimenti')),
+          await tester.drag(find.byKey(const Key('pannello_suggerimenti')),
               const Offset(0, -120),
               warnIfMissed: false);
           await tester.pump(const Duration(milliseconds: 120));
@@ -161,9 +159,8 @@ void main() {
   });
 
   test('la prima schermata non monta piu\' i soli starters', () {
-    final testo =
-        File('lib/features/maestri/chat/maestro_chat_screen.dart')
-            .readAsStringSync();
+    final testo = File('lib/features/maestri/chat/maestro_chat_screen.dart')
+        .readAsStringSync();
     expect(testo.contains('SuggestionSets.starters('), isFalse,
         reason: 'La prima schermata e\' tornata ai tre chip senza famiglie: '
             'e\' la riduzione del 12 luglio che Mauro ha revocato.');
@@ -174,8 +171,9 @@ void main() {
         SuggestionSets.personal(Maestro.medora), 'x', DateTime(2026, 8, 7));
     final b = SuggestionSets.ruotaPerGiorno(
         SuggestionSets.personal(Maestro.medora), 'x', DateTime(2026, 8, 7));
-    expect(a, b, reason: 'Stessa persona e stesso giorno, ordine diverso: '
-        'c\'e\' un caso vero nella rotazione.');
+    expect(a, b,
+        reason: 'Stessa persona e stesso giorno, ordine diverso: '
+            'c\'e\' un caso vero nella rotazione.');
     final c = SuggestionSets.ruotaPerGiorno(
         SuggestionSets.personal(Maestro.medora), 'x', DateTime(2026, 8, 9));
     expect(a, isNot(c),

@@ -31,8 +31,8 @@ void main() {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           builder: (ctx, child) => MediaQuery(
-            data: MediaQuery.of(ctx)
-                .copyWith(disableAnimations: riduciMovimento),
+            data:
+                MediaQuery.of(ctx).copyWith(disableAnimations: riduciMovimento),
             child: MaestroScope(child: child!),
           ),
           home: const Material(

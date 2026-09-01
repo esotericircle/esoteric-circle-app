@@ -20,7 +20,8 @@ void main() {
       File('lib/features/santuario/santuario_screen.dart').readAsStringSync();
 
   group('CE.02, i due fogli non escono piu\' dal Santuario', () {
-    test('il Santuario non monta ne\' la domanda dell\'invito ne\' quella '
+    test(
+        'il Santuario non monta ne\' la domanda dell\'invito ne\' quella '
         'della misura', () {
       final vivi = <String>[];
       for (final segno in const [
@@ -101,8 +102,8 @@ void main() {
       // esistere al massimo in un unico posto e cioe' nel menu' utente in un
       // sotto menu'". Il doppione era reale: il menu' utente aveva gia' una
       // voce "Privacy e dati" col nome quasi identico e la stessa icona.
-      final menu = File('lib/features/account/account_screen.dart')
-          .readAsStringSync();
+      final menu =
+          File('lib/features/account/account_screen.dart').readAsStringSync();
       expect(menu.contains("title: 'Privacy e permessi'"), isTrue,
           reason: 'il sotto menu\' esiste e non ci porta nessuno');
       expect(menu.contains('PrivacyEPermessiScreen.route()'), isTrue);
@@ -157,8 +158,8 @@ void main() {
     });
 
     test('i consensi vivono in un punto solo, sopra le vie d\'accesso', () {
-      final vie =
-          File('lib/features/account/custodia_del_cielo.dart').readAsStringSync();
+      final vie = File('lib/features/account/custodia_del_cielo.dart')
+          .readAsStringSync();
       expect(vie.contains('ConsensiDellaRegistrazione()'), isTrue,
           reason: 'i consensi non sono piu\' dentro il gesto della '
               'registrazione');

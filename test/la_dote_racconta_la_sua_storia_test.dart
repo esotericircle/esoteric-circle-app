@@ -69,8 +69,8 @@ void main() {
   });
 
   test('il Custode li traduce in parole di persona, non in codici', () {
-    final sorgente = File('lib/core/cammino/custode_del_cammino.dart')
-        .readAsStringSync();
+    final sorgente =
+        File('lib/core/cammino/custode_del_cammino.dart').readAsStringSync();
     expect(sorgente.contains('prendiGliAccreditiDaRaccontare'), isTrue,
         reason: 'nessuno porta piu\' gli accrediti al registro: il saldo '
             'torna un numero senza ragione');

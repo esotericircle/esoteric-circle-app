@@ -61,8 +61,8 @@ void main() {
     // interpretata senza un lamento, e la persona avrebbe visto dodici
     // cuspidi diverse da quelle che le abbiamo sempre mostrato.
     final risposta = rispostaDiRoma();
-    (risposta['subject'] as Map<String, dynamic>)['settings']
-        ['house_system'] = 'koch';
+    (risposta['subject'] as Map<String, dynamic>)['settings']['house_system'] =
+        'koch';
 
     expect(
       () => FreeAstroClient().parseResponse(risposta, dettagli),
@@ -97,8 +97,7 @@ void main() {
             'risposta: torna a valere il default del fornitore, in silenzio');
   });
 
-  test('l\'app SPEDISCE il sistema di case, e chiede quello che controlla',
-      () {
+  test('l\'app SPEDISCE il sistema di case, e chiede quello che controlla', () {
     // **I DUE LATI DEVONO PARLARE DELLA STESSA COSA.** Chiedere Placidus e
     // controllare Koch sarebbe peggio che non chiedere niente: la richiesta
     // direbbe una cosa e il presidio un'altra, e nessuno se ne accorgerebbe

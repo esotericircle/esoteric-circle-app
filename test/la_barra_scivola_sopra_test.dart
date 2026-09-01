@@ -161,8 +161,8 @@ void main() {
     final campo = find.byType(TextField).first;
     for (final quanto in [0.0, 0.25, 0.5, 0.75, 1.0]) {
       // Si porta la barra a quel punto della corsa col dito.
-      final gesto =
-          await tester.startGesture(tester.getCenter(find.byType(Scrollable).first));
+      final gesto = await tester
+          .startGesture(tester.getCenter(find.byType(Scrollable).first));
       await gesto.moveBy(const Offset(0, -kDragSlopDefault));
       await tester.pump();
       if (quanto > 0) {
@@ -171,8 +171,8 @@ void main() {
       }
 
       final r = tester.getRect(campo);
-      final schermo = tester.view.physicalSize.height /
-          tester.view.devicePixelRatio;
+      final schermo =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
       expect(r.bottom, lessThanOrEqualTo(schermo),
           reason: 'A ${(quanto * 100).round()} per cento della corsa il campo '
               'di scrittura finisce fuori dallo schermo.');
@@ -181,10 +181,8 @@ void main() {
       // barra.** Non si guarda il fuoco, che in prova dipende dalla tastiera
       // finta: si guarda chi c'e' sotto il dito, che e' la domanda vera.
       final sotto = tester.hitTestOnBinding(r.center);
-      final bersagli = sotto.path
-          .map((e) => e.target)
-          .whereType<RenderBox>()
-          .toList();
+      final bersagli =
+          sotto.path.map((e) => e.target).whereType<RenderBox>().toList();
       final ilCampo = tester.renderObject(campo);
       expect(bersagli.contains(ilCampo), isTrue,
           reason: 'A ${(quanto * 100).round()} per cento della corsa il tocco '

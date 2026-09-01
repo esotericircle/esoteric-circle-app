@@ -59,8 +59,8 @@ void main() {
     tester.view.physicalSize = const Size(430, 900);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(
-        EsotericCircleApp(conIntro: false, services: servizi));
+    await tester
+        .pumpWidget(EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     return tester.state<NavigatorState>(find.byType(Navigator).last);

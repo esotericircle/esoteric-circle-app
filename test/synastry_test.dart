@@ -133,8 +133,8 @@ void main() {
           }
           expect(
               r.meetingPercent,
-              inInclusiveRange(PossibilitaDiIncontro.pavimento,
-                  PossibilitaDiIncontro.tetto),
+              inInclusiveRange(
+                  PossibilitaDiIncontro.pavimento, PossibilitaDiIncontro.tetto),
               reason: vip.name);
           expect(r.incontro.perche, isNotEmpty, reason: vip.name);
         }
@@ -244,8 +244,8 @@ void main() {
       expect(con.hasImage, isTrue);
       expect(con.thumbPath,
           'assets/img_thumb/ritratti-vip/vip_angelina-jolie_v1.webp');
-      expect(con.fullPath,
-          'assets/img/ritratti-vip/vip_angelina-jolie_v1.webp');
+      expect(
+          con.fullPath, 'assets/img/ritratti-vip/vip_angelina-jolie_v1.webp');
     });
 
     test('Ogni ritratto agganciato esiste come file, piena e miniatura', () {
@@ -254,7 +254,8 @@ void main() {
           expect(File(vip.thumbPath!).existsSync(), isTrue,
               reason: 'Miniatura mancante per ${vip.name}: ${vip.thumbPath}');
           expect(File(vip.fullPath!).existsSync(), isTrue,
-              reason: 'Ritratto pieno mancante per ${vip.name}: ${vip.fullPath}');
+              reason:
+                  'Ritratto pieno mancante per ${vip.name}: ${vip.fullPath}');
         }
       }
     });
@@ -263,8 +264,8 @@ void main() {
   group('Foto utente, solo in memoria', () {
     test('Scegliere una foto la porta in memoria, toglierla la azzera',
         () async {
-      final controller =
-          UserPhotoController(service: _FakePhotoService(Uint8List.fromList([1, 2, 3])));
+      final controller = UserPhotoController(
+          service: _FakePhotoService(Uint8List.fromList([1, 2, 3])));
       expect(controller.hasPhoto, isFalse);
       final ok = await controller.pickFrom(UserPhotoSource.gallery);
       expect(ok, isTrue);
@@ -273,7 +274,8 @@ void main() {
       expect(controller.hasPhoto, isFalse);
     });
 
-    test('Un errore o un rifiuto resta al segnaposto, senza schianti', () async {
+    test('Un errore o un rifiuto resta al segnaposto, senza schianti',
+        () async {
       final controller = UserPhotoController(service: _FakePhotoService(null));
       final ok = await controller.pickFrom(UserPhotoSource.camera);
       expect(ok, isFalse);
@@ -357,14 +359,14 @@ void main() {
 
   testWidgets('Il responso viene prima delle barre', (tester) async {
     await pumpScreen(tester);
-    final readingY = tester
-        .getTopLeft(find.byKey(const Key('sinastria_reading')))
-        .dy;
+    final readingY =
+        tester.getTopLeft(find.byKey(const Key('sinastria_reading'))).dy;
     final barsY = tester.getTopLeft(find.text('Scintille')).dy;
     expect(readingY, lessThan(barsY));
   });
 
-  testWidgets('Col nome e la data reali, il cartiglio del polo utente li mostra',
+  testWidgets(
+      'Col nome e la data reali, il cartiglio del polo utente li mostra',
       (tester) async {
     await pumpScreen(tester,
         userName: 'Sofia', userBirth: DateTime(1993, 4, 12));

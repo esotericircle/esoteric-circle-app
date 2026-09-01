@@ -57,8 +57,7 @@ void main() {
           File('lib/core/maestro/simbolo_dellattesa.dart').readAsStringSync();
       final porte =
           RegExp(r'static SimboloDellAttesa \w+\(').allMatches(sorgente).length;
-      expect(porte, 1,
-          reason: 'il simbolo si decide in piu\' di un punto');
+      expect(porte, 1, reason: 'il simbolo si decide in piu\' di un punto');
 
       // E tutti e tre passano dallo stesso `per`.
       for (final m in Maestro.values) {
@@ -103,8 +102,8 @@ void main() {
       });
       await tester.runAsync(() async {
         stream.addListener(ascoltatore);
-        await atteso.future.timeout(const Duration(seconds: 5),
-            onTimeout: () {});
+        await atteso.future
+            .timeout(const Duration(seconds: 5), onTimeout: () {});
         stream.removeListener(ascoltatore);
       });
       expect(decodificata, isTrue,
@@ -148,7 +147,8 @@ void main() {
       await tester.pumpWidget(scena());
       await tester.pump(const Duration(milliseconds: 100));
 
-      final invito = tester.widget<Text>(find.byKey(const Key('consulto_invito')));
+      final invito =
+          tester.widget<Text>(find.byKey(const Key('consulto_invito')));
       expect(invito.data, SimboloDellAttesa.invitoAlTest);
       expect(invito.style?.fontSize, 16,
           reason: 'a 14 in oro all\'85 per cento l\'unica riga che chiede di '
@@ -184,8 +184,8 @@ void main() {
     });
 
     test('il loto dichiara di essere un ripiego', () {
-      final sorgente =
-          File('lib/design_system/components/loto_dorato.dart').readAsStringSync();
+      final sorgente = File('lib/design_system/components/loto_dorato.dart')
+          .readAsStringSync();
       expect(sorgente.toUpperCase(), contains('RIPIEGO'),
           reason: 'un disegno che sostituisce un\'arte che non c\'e\' deve '
               'dire di essere un ripiego');

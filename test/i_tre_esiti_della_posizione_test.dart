@@ -19,8 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// viene buttata a monte.
 void main() {
   test('denied e deniedForever non tornano mai lo stesso valore', () {
-    final testo =
-        File('lib/core/astro/sky_location.dart').readAsStringSync();
+    final testo = File('lib/core/astro/sky_location.dart').readAsStringSync();
     // La forma dell'appiattimento: i due permessi OR-ati verso un esito
     // unico. Se ricompare, la quarta prova cade qui.
     final appiattimento = RegExp(
@@ -130,8 +129,7 @@ void main() {
     await tester.pump(const Duration(seconds: 7));
     await tester.pump(const Duration(milliseconds: 400));
     await tester.pump(const Duration(milliseconds: 400));
-    expect(
-        find.byKey(const Key('sunset_posizione_negata_per_sempre')),
+    expect(find.byKey(const Key('sunset_posizione_negata_per_sempre')),
         findsNothing,
         reason: 'la snackbar dei sei secondi resta a schermo: il tempo '
             'non sta passando davvero');

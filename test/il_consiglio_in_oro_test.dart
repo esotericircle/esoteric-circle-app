@@ -23,10 +23,12 @@ void main() {
           'Non è il momento di decidere, è il momento di guardare dove ti fermi.');
       expect(ConsiglioFinale.corpoDa(testo),
           isNot(contains(ConsiglioFinale.stella)));
-      expect(ConsiglioFinale.corpoDa(testo), isNot(contains('Non è il momento')));
+      expect(
+          ConsiglioFinale.corpoDa(testo), isNot(contains('Non è il momento')));
       // E il corpo resta intero: si toglie la riga, non una parola di piu'.
       expect(ConsiglioFinale.corpoDa(testo), contains('Il tuo Sole in Cancro'));
-      expect(ConsiglioFinale.corpoDa(testo), contains('un confine che si sposta.'));
+      expect(ConsiglioFinale.corpoDa(testo),
+          contains('un confine che si sposta.'));
     });
 
     test('Senza marcatore resta il solo INVITO, e NIENTE si ripete', () {
@@ -44,7 +46,8 @@ void main() {
               'scritto');
       expect(riga, isNot(contains(ConsiglioFinale.primaFraseDi(senza))),
           reason: 'la riga in oro ripete una frase che sta gia\' nel corpo');
-      expect(riga,
+      expect(
+          riga,
           ConsiglioFinale.invitoDelRitorno(Maestro.medora,
               quando: DateTime(2026, 8, 4), identita: 'prova'));
     });

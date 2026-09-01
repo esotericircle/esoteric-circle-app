@@ -90,7 +90,8 @@ void main() {
     }
   });
 
-  test('L\'istruzione della lente entra nella persona, ed e\' diversa per i tre',
+  test(
+      'L\'istruzione della lente entra nella persona, ed e\' diversa per i tre',
       () {
     const natal = NatalContext(sunSign: 'Cancro');
     final istruzioni = <String>{};
@@ -116,8 +117,8 @@ void main() {
       profile: UserProfile.empty,
       memory: MaestroMemory.empty,
     );
-    expect(persona.contains(LenteDelCielo.istruzionePer(Maestro.medora)),
-        isFalse,
+    expect(
+        persona.contains(LenteDelCielo.istruzionePer(Maestro.medora)), isFalse,
         reason: 'istruire su come guardare un dato che non esiste porterebbe '
             'a inventarlo');
   });

@@ -52,8 +52,7 @@ void main() {
     // 4. SI RICHIUDE E SI RIAPRE: il traguardo celebrato NON deve tornare.
     final dopoLaChiusura = CodaDelleFeste();
     await dopoLaChiusura.carica();
-    copie =
-        dopoLaChiusura.inAttesa.where((id) => id == traguardo.id).length;
+    copie = dopoLaChiusura.inAttesa.where((id) => id == traguardo.id).length;
     // ignore: avoid_print
     print('ORDINE AC VOCE 05: copie dopo celebrazione e chiusura: $copie');
     expect(copie, 0,

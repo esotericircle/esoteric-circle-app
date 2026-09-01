@@ -21,9 +21,8 @@ import 'package:flutter_test/flutter_test.dart';
 class _Versione implements Comparable<_Versione> {
   _Versione(this.testo)
       : maggiore = int.parse(testo.split('.').first),
-        minore = testo.split('.').length > 1
-            ? int.parse(testo.split('.')[1])
-            : 0;
+        minore =
+            testo.split('.').length > 1 ? int.parse(testo.split('.')[1]) : 0;
 
   final String testo;
   final int maggiore;
@@ -51,8 +50,8 @@ void main() {
     expect(manifesto.existsSync(), isTrue,
         reason: 'Manca .flutter-plugins-dependencies: serve `flutter pub get` '
             'prima di questa prova.');
-    final dati = jsonDecode(manifesto.readAsStringSync())
-        as Map<String, dynamic>;
+    final dati =
+        jsonDecode(manifesto.readAsStringSync()) as Map<String, dynamic>;
     final plugins = ((dati['plugins'] as Map<String, dynamic>)['ios'] as List)
         .cast<Map<String, dynamic>>();
     expect(plugins, isNotEmpty,
@@ -122,8 +121,8 @@ void main() {
   test('l\'enumerazione copre tutti i plugin, nessuno escluso', () {
     // Enumerare invece di campionare: ogni plugin iOS o ha un minimo misurato
     // o e' dichiarato solo Dart. Non esiste una terza categoria silenziosa.
-    final dati = jsonDecode(manifesto.readAsStringSync())
-        as Map<String, dynamic>;
+    final dati =
+        jsonDecode(manifesto.readAsStringSync()) as Map<String, dynamic>;
     final quanti =
         ((dati['plugins'] as Map<String, dynamic>)['ios'] as List).length;
     expect(minimi.length + senzaNativo.length, quanti,
@@ -133,8 +132,7 @@ void main() {
   });
 
   test('il progetto Xcode dichiara almeno il massimo dei plugin', () {
-    final massimo = minimi.values.reduce(
-        (a, b) => a.compareTo(b) >= 0 ? a : b);
+    final massimo = minimi.values.reduce((a, b) => a.compareTo(b) >= 0 ? a : b);
     final colpevoli = minimi.entries
         .where((e) => e.value.compareTo(massimo) == 0)
         .map((e) => e.key)
@@ -177,8 +175,7 @@ void main() {
             'decidere da solo.');
     final delPodfile = _Versione(m!.group(1)!);
 
-    final massimo = minimi.values.reduce(
-        (a, b) => a.compareTo(b) >= 0 ? a : b);
+    final massimo = minimi.values.reduce((a, b) => a.compareTo(b) >= 0 ? a : b);
     expect(delPodfile.compareTo(massimo) >= 0, isTrue,
         reason: 'Il Podfile dichiara iOS $delPodfile ma i plugin pretendono '
             '$massimo.');
@@ -198,11 +195,13 @@ void main() {
     // devono risultare misurati, col valore che il pod install ha gridato
     // nella terza build.
     expect(minimi['google_mlkit_commons']?.testo, '15.5',
-        reason: 'google_mlkit_commons non risulta piu' ' misurato a 15.5: o '
+        reason: 'google_mlkit_commons non risulta piu'
+            ' misurato a 15.5: o '
             'e\' stato tolto dal progetto, e allora questa riga si aggiorna, '
             'o l\'estrazione e\' diventata cieca.');
     expect(minimi['google_mlkit_face_detection']?.testo, '15.5',
-        reason: 'google_mlkit_face_detection non risulta piu' ' misurato a '
+        reason: 'google_mlkit_face_detection non risulta piu'
+            ' misurato a '
             '15.5: o e\' stato tolto dal progetto o l\'estrazione e\' '
             'diventata cieca.');
   });

@@ -20,8 +20,7 @@ import 'istante_dichiarato.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final dormienti =
-      Sentieri.tuttiITraguardi.where((t) => t.dormiente).toList();
+  final dormienti = Sentieri.tuttiITraguardi.where((t) => t.dormiente).toList();
 
   test('i dormienti esistono, sono dichiarati e portano il perche', () {
     // ignore: avoid_print
@@ -51,9 +50,21 @@ void main() {
     final stato = StatoDelCammino(
       gestiCompiuti: {
         for (final g in const [
-          'alba', 'soffio', 'oracolo', 'stesa', 'gettata', 'tramonto',
-          'sogno', 'sigillo', 'sinastria', 'oroscopo', 'viso', 'archetipo',
-          'presenza', 'meditazione', 'chakra',
+          'alba',
+          'soffio',
+          'oracolo',
+          'stesa',
+          'gettata',
+          'tramonto',
+          'sogno',
+          'sigillo',
+          'sinastria',
+          'oroscopo',
+          'viso',
+          'archetipo',
+          'presenza',
+          'meditazione',
+          'chakra',
         ])
           g: 9999,
       },

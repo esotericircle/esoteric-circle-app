@@ -34,8 +34,7 @@ void main() {
           lon: 9.19,
           citta: 'Milano',
           origine: OrigineDelLuogo.scelto);
-      final conCitta = PosizioneDiStamattina.da(
-          null, const Duration(hours: 2),
+      final conCitta = PosizioneDiStamattina.da(null, const Duration(hours: 2),
           dichiarato: milano);
       expect(conCitta.origine, OrigineDellAlba.dichiarata);
       expect(conCitta.oraDichiarabile, isTrue,
@@ -150,8 +149,7 @@ void main() {
       // `location.available` governa SOLO il primo pulsante: chi non ha il
       // sensore, o l\'ha negato per sempre, deve poter dire dove vive.
       final riga = _sorgente('lib/features/rituals/dove_sei_adesso.dart');
-      final dopoIlPermesso =
-          riga.substring(riga.indexOf('dove_sei_permesso'));
+      final dopoIlPermesso = riga.substring(riga.indexOf('dove_sei_permesso'));
       expect(dopoIlPermesso, contains('dove_sei_scegli'),
           reason: 'la scelta della citta\' e\' finita dentro il ramo del '
               'sensore: chi non ce l\'ha resterebbe senza nessuna strada');

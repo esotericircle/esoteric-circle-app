@@ -81,15 +81,14 @@ void main() {
     // la causa dalla parte sbagliata.
     expect(voce.registro.ultimo!.operazione, contains('ritentativi'),
         reason: 'il registro non dice che si e\' ritentato');
-    expect(voce.ritentativiFalliti,
-        RitentativiDellaVoce.tentativi - 1);
+    expect(voce.ritentativiFalliti, RitentativiDellaVoce.tentativi - 1);
   });
 
   test('Un errore NON temporaneo non si ritenta nemmeno una volta', () async {
     // Una chiave sbagliata non cambia riprovando: ritentare vorrebbe dire far
     // aspettare la persona tre volte per lo stesso no.
-    final voce = VoceSorvegliata(
-        voce: _VoceRotta(), registro: RegistroDeiGuasti());
+    final voce =
+        VoceSorvegliata(voce: _VoceRotta(), registro: RegistroDeiGuasti());
     final chat = chatCon(voce);
     await chat.init();
     await chat.send('Devo cambiare lavoro?');

@@ -52,8 +52,10 @@ void main() {
           Provider<AppServices>.value(value: servizi ?? _servizi(_VoceViva())),
           ChangeNotifierProvider(create: (_) => ProfileController()),
           ChangeNotifierProvider(create: (_) => BirthIdentityController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService(initial: tier)),
-          ChangeNotifierProvider(create: (_) => contatore ?? QuestionAllowance()),
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService(initial: tier)),
+          ChangeNotifierProvider(
+              create: (_) => contatore ?? QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
@@ -84,8 +86,7 @@ void main() {
     // Si scorre finche' compare, invece di una trascinata a misura fissa: con
     // la sintesi passata in fondo alla lista, 1400 punti portavano oltre la
     // terza carta invece che sopra.
-    await tester.scrollUntilVisible(
-        find.byKey(const Key('ask_card_aura')), 300,
+    await tester.scrollUntilVisible(find.byKey(const Key('ask_card_aura')), 300,
         scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('ask_card_aura')), findsOneWidget,
         reason: 'la terza carta non arriva nemmeno scorrendo');
@@ -362,7 +363,8 @@ class _VoceCheCadeSu extends _VoceViva {
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
   }) async {
-    if (maestro == chiCade) throw const MaestroAiUnavailable('la rete non risponde');
+    if (maestro == chiCade)
+      throw const MaestroAiUnavailable('la rete non risponde');
     return super.consult(
         maestro: maestro, theme: theme, profile: profile, memory: memory);
   }

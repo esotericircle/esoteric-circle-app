@@ -84,7 +84,8 @@ void main() {
     print('ORDINE AS VOCE 06: riti osservati su un anno e tre Maestri '
         '$osservati, scollegati ${scollegati.length}');
     expect(osservati, greaterThan(300),
-        reason: 'i riti osservati sono $osservati: la prova gira quasi a vuoto');
+        reason:
+            'i riti osservati sono $osservati: la prova gira quasi a vuoto');
     expect(scollegati, isEmpty,
         reason: 'in questi giorni la parola non e quella del gesto: '
             '${scollegati.take(4).join("; ")}');

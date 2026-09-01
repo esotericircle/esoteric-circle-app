@@ -174,8 +174,8 @@ void main() {
       // e' passati dal mentire per eccesso al tacere.
       expect(find.text('non installata, per scelta'), findsOneWidget);
       expect(
-          find.text(Attestazione.ragioneDi(
-              EsitoAttestazione.nonInstallataPerScelta)),
+          find.text(
+              Attestazione.ragioneDi(EsitoAttestazione.nonInstallataPerScelta)),
           findsOneWidget);
     });
 

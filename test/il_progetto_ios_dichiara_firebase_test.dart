@@ -178,8 +178,13 @@ void main() {
     // Una riga di `.gitignore` protegge finche' nessuno la tocca e finche'
     // nessuno aggiunge il file con `git add -f`: questa prova protegge anche
     // da quello, perche' guarda cosa Git TRACCIA davvero.
-    final elenco = Process.runSync('git', ['ls-files', '--', 'ios/Runner/$nome',
-      'android/app/google-services.json', 'lib/firebase_options.dart']);
+    final elenco = Process.runSync('git', [
+      'ls-files',
+      '--',
+      'ios/Runner/$nome',
+      'android/app/google-services.json',
+      'lib/firebase_options.dart'
+    ]);
     final tracciati = (elenco.stdout as String)
         .split('\n')
         .map((r) => r.trim())

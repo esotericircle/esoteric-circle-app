@@ -80,8 +80,8 @@ void main() {
     expect(find.text('MB'), findsOneWidget,
         reason: 'Senza foto e senza segno le iniziali non compaiono.');
     // Senza niente: il sigillo neutro, nessun testo.
-    await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: UserAvatar())));
+    await tester
+        .pumpWidget(const MaterialApp(home: Scaffold(body: UserAvatar())));
     expect(find.byType(UserAvatar), findsOneWidget);
     expect(find.text('MB'), findsNothing);
   });

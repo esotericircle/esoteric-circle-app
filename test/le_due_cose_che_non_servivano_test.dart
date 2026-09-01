@@ -31,13 +31,10 @@ import 'package:flutter_test/flutter_test.dart';
 /// nominano per forza tutto cio' di cui si parla.
 void main() {
   String soloCodice(String percorso) {
-    return File(percorso)
-        .readAsLinesSync()
-        .where((r) {
-          final p = r.trimLeft();
-          return !p.startsWith('//') && !p.startsWith('///');
-        })
-        .join('\n');
+    return File(percorso).readAsLinesSync().where((r) {
+      final p = r.trimLeft();
+      return !p.startsWith('//') && !p.startsWith('///');
+    }).join('\n');
   }
 
   final scheda = soloCodice('lib/features/rituals/ritual_gift_card.dart');
@@ -75,7 +72,8 @@ void main() {
   });
 
   test('BB.06: nel Soffio non si condivide nessuna parola', () {
-    final soffio = soloCodice('lib/features/rituals/breath_destiny_screen.dart');
+    final soffio =
+        soloCodice('lib/features/rituals/breath_destiny_screen.dart');
     // ignore: avoid_print
     print('ORDINE BB VOCE 06: nel Soffio "parola del giorno" compare '
         '${'parola del giorno'.allMatches(soffio).length} volte nel codice');

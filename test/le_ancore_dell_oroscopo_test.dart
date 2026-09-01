@@ -31,8 +31,8 @@ void main() {
 
   test('nessuna ancora contiene la parola "oggi"', () {
     final colpe = tutte.entries
-        .where((e) => RegExp(r'\boggi\b', caseSensitive: false)
-            .hasMatch(e.value))
+        .where(
+            (e) => RegExp(r'\boggi\b', caseSensitive: false).hasMatch(e.value))
         .map((e) => e.key)
         .toList();
     // ignore: avoid_print

@@ -21,9 +21,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// qualcuno rimette una sfocatura o uno shader la' dentro, cade nominando la
 /// riga.
 void main() {
-  final sorgente =
-      File('lib/design_system/components/cosmos_background.dart')
-          .readAsStringSync();
+  final sorgente = File('lib/design_system/components/cosmos_background.dart')
+      .readAsStringSync();
   // **LE FINE RIGA SONO CRLF, e va detto.** La prima stesura tagliava il
   // corpo del metodo confrontando la riga con due spazi e una graffa, e non
   // chiudeva MAI: le righe finivano con un ritorno a capo invisibile, quindi

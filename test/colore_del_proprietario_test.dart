@@ -1,4 +1,3 @@
-
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
@@ -53,7 +52,8 @@ void main() {
 
   testWidgets('Un\'arte di Caligo si apre nel rosso anche col tema su Medora',
       (tester) async {
-    await apri(tester, temaGlobale: Maestro.medora, proprietario: Maestro.caligo);
+    await apri(tester,
+        temaGlobale: Maestro.medora, proprietario: Maestro.caligo);
 
     expect(dentro(tester, const Key('dentro')),
         MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo)).primary,

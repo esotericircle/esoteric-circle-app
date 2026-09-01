@@ -3481,6 +3481,10 @@ void main() {
 
 /// L'identita' per l'anteprima: un account anonimo che non tocca nessuna rete.
 class _IdentitaPerAnteprima implements PortaDellIdentita {
+  // Ordine CI voce 07: il sostituto la data di nascita dell'account non la conosce.
+  @override
+  DateTime? get natoIl => null;
+
   @override
   Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,
           {String? email, String? parola}) async =>

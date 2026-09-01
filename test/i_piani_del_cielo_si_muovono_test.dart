@@ -56,16 +56,14 @@ void main() {
     return p;
   }
 
-  test('ogni piano prende il suo offset, e i rapporti sono quelli di oggi',
-      () {
+  test('ogni piano prende il suo offset, e i rapporti sono quelli di oggi', () {
     silenzia();
     final p = parallasseA(300);
     final piani = OffsetDeiPiani.da(p, conDeriva: false, t: 0);
 
     // Gli offset attesi si leggono dalla stessa porta della parallasse, non
     // da numeri copiati qui dentro: copiarli vorrebbe dire provare la copia.
-    expect(piani.polvere,
-        p.layerOffset(ProfonditaDeiPiani.polvere) * 0.5,
+    expect(piani.polvere, p.layerOffset(ProfonditaDeiPiani.polvere) * 0.5,
         reason: 'La polvere non si muove della meta\' del suo offset.');
     expect(piani.fondo, p.layerOffset(ProfonditaDeiPiani.fondo),
         reason: 'Il piano di fondo non prende il suo offset.');
@@ -231,8 +229,8 @@ void main() {
     bool eParticella(int r, int g, int b) => r > 90 && r - b > 25;
 
     final radice = GlobalKey();
-    await tester.pumpWidget(
-        RepaintBoundary(key: radice, child: cosmo(parallax)));
+    await tester
+        .pumpWidget(RepaintBoundary(key: radice, child: cosmo(parallax)));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
 
@@ -249,8 +247,8 @@ void main() {
     final offsetDopo = OffsetDeiPiani.da(parallax, conDeriva: false, t: 0);
 
     final colpe = <String>[];
-    void confronta(String nome, List<double> prima, List<double> dopo,
-        double atteso) {
+    void confronta(
+        String nome, List<double> prima, List<double> dopo, double atteso) {
       if (prima.every((v) => v == 0) || dopo.every((v) => v == 0)) {
         colpe.add('$nome: non si riconosce nessun pixel di questo piano, '
             'non c\'e\' niente da misurare');

@@ -33,8 +33,7 @@ void main() {
     'Soffio': 'lib/features/rituals/breath_destiny_screen.dart',
     'Rito del sogno': 'lib/features/rituals/dream_rite_screen.dart',
     'Runa del tramonto': 'lib/features/rituals/sunset_rune_screen.dart',
-    'Gettata di rune':
-        'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
+    'Gettata di rune': 'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
     'Animale guida':
         'lib/features/maestri/caligo/animal/guide_animal_screen.dart',
     'Sigillo di intenzione':
@@ -53,14 +52,13 @@ void main() {
     'Chat coi Maestri': 'lib/features/maestri/chat/widgets/chat_bubble.dart',
     'Calendario del cielo':
         'lib/features/calendario/calendario_degli_eventi_screen.dart',
-    'Consiglio dei Maestri':
-        'lib/features/maestri/ask/ask_maestri_screen.dart',
+    'Consiglio dei Maestri': 'lib/features/maestri/ask/ask_maestri_screen.dart',
   };
 
   test('la misura di riferimento e\' quella del responso dei Tarocchi', () {
     final riferimento = TypographyTokens.lettura();
-    final stesa =
-        File('lib/features/tarot/stesa_tre_carte_screen.dart').readAsStringSync();
+    final stesa = File('lib/features/tarot/stesa_tre_carte_screen.dart')
+        .readAsStringSync();
     expect(stesa.contains('TypographyTokens.lettura()'), isTrue,
         reason: 'il responso dei Tarocchi non usa piu\' la misura che tutta '
             'l\'app prende come base');

@@ -41,8 +41,13 @@ class _RecordingArchive implements HistoryArchiveHook {
 void main() {
   void sharedContract(
     String name,
-    ({MaestroMemoryRepository repo, _RecordingSemantic sem, _RecordingArchive arc})
-        Function() make,
+    ({
+      MaestroMemoryRepository repo,
+      _RecordingSemantic sem,
+      _RecordingArchive arc
+    })
+            Function()
+        make,
   ) {
     group(name, () {
       test('Profilo, memoria calda e cronologia fanno il giro completo',
@@ -73,8 +78,8 @@ void main() {
         expect((await repo.loadMemory(Maestro.aura)).isEmpty, isTrue);
 
         // Cronologia completa, in ordine di lettura.
-        await repo.appendMessage(
-            Maestro.medora, const ChatMessage(role: ChatRole.user, text: 'ciao'));
+        await repo.appendMessage(Maestro.medora,
+            const ChatMessage(role: ChatRole.user, text: 'ciao'));
         await repo.appendMessage(Maestro.medora,
             const ChatMessage(role: ChatRole.maestro, text: 'ti accolgo'));
         final msgs = await repo.recentMessages(Maestro.medora);
@@ -160,12 +165,16 @@ void main() {
     final db = FakeFirebaseFirestore();
     final repo = FirestoreMaestroMemoryRepository(uid: 'u1', firestore: db);
     // Timestamp espliciti crescenti per un ordine deterministico.
-    await db
-        .collection('users/u1/maestri/medora/messages')
-        .add({'role': 'user', 'text': 'prima', 'createdAt': Timestamp.fromDate(DateTime(2026, 1, 1, 10))});
-    await db
-        .collection('users/u1/maestri/medora/messages')
-        .add({'role': 'maestro', 'text': 'poi', 'createdAt': Timestamp.fromDate(DateTime(2026, 1, 1, 11))});
+    await db.collection('users/u1/maestri/medora/messages').add({
+      'role': 'user',
+      'text': 'prima',
+      'createdAt': Timestamp.fromDate(DateTime(2026, 1, 1, 10))
+    });
+    await db.collection('users/u1/maestri/medora/messages').add({
+      'role': 'maestro',
+      'text': 'poi',
+      'createdAt': Timestamp.fromDate(DateTime(2026, 1, 1, 11))
+    });
     final msgs = await repo.recentMessages(Maestro.medora);
     expect(msgs.map((e) => e.text).toList(), ['prima', 'poi']);
   });

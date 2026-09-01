@@ -67,8 +67,7 @@ void main() {
   });
 
   test('Il componente condiviso esiste e dichiara la proporzione da carta', () {
-    final c =
-        File('lib/design_system/components/miniatura_intera.dart');
+    final c = File('lib/design_system/components/miniatura_intera.dart');
     expect(c.existsSync(), isTrue,
         reason: 'il componente condiviso delle miniature non esiste, quindi '
             'ogni schermata risolve il taglio per conto suo');

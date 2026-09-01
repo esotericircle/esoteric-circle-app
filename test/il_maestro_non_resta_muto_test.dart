@@ -74,8 +74,8 @@ void main() {
   Future<AppServices> serviziConVoceInGuasto() async {
     final memory = InMemoryMaestroMemoryRepository();
     // Disclaimer gia' accettato, cosi' non copre la chat con la modale.
-    await memory.saveProfile(
-        UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
     return AppServices(
       ai: _VoceInGuasto(),
       memory: memory,
@@ -108,7 +108,8 @@ void main() {
       matching: find.byType(TextField),
     );
     expect(campo, findsOneWidget,
-        reason: 'senza il campo della domanda non si arriva al ramo del guasto');
+        reason:
+            'senza il campo della domanda non si arriva al ramo del guasto');
     await tester.enterText(campo, 'Che cosa mi dice il mio cammino?');
     await step(tester);
     await tester.testTextInput.receiveAction(TextInputAction.send);

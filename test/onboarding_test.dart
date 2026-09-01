@@ -48,7 +48,8 @@ void main() {
     silenceSensors();
     // Nessun flag salvato: e' la primissima apertura.
     SharedPreferences.setMockInitialValues({});
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await settle(tester);
 
     // Il rituale e' in cima, sopra la home, e apre con l'accoglienza.
@@ -102,7 +103,8 @@ void main() {
     silenceSensors();
     // Il flag c'e' gia': l'onboarding non si ripete.
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
-    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await settle(tester);
 
     expect(find.byKey(const Key('onboarding_risveglio')), findsNothing);

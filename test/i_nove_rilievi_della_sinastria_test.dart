@@ -34,14 +34,12 @@ void main() {
       // dice "arrivano a meta' e sembrano troncarsi": il difetto era che il
       // secondo capo cadeva su un cerchio interno, e la prova giusta e' che i
       // due capi disti[no] lo stesso dal centro.
-      final sorgente =
-          File('lib/features/synastry/chiamata_del_vip.dart').readAsStringSync();
+      final sorgente = File('lib/features/synastry/chiamata_del_vip.dart')
+          .readAsStringSync();
       expect(sorgente.contains('raggio * 0.62'), isFalse,
           reason: 'il secondo capo del filo e\' tornato su un cerchio '
               'interno: la linea finisce di nuovo a meta\' strada');
-      final quante = RegExp(r'centro, raggio\)')
-          .allMatches(sorgente)
-          .length;
+      final quante = RegExp(r'centro, raggio\)').allMatches(sorgente).length;
       // ignore: avoid_print
       print('ORDINE CC VOCE 06b: capi del filo posati sul cerchio $quante');
       expect(quante, greaterThanOrEqualTo(2),
@@ -61,7 +59,8 @@ void main() {
         adesso: DateTime(2026, 8, 29),
       );
       // La parte tecnica e' quella fra parentesi: il nome dell'aspetto.
-      final tecnica = RegExp(r'\([^)]*in (sestile|trigono|quadrato|opposizione|congiunzione)[^)]*\)')
+      final tecnica = RegExp(
+              r'\([^)]*in (sestile|trigono|quadrato|opposizione|congiunzione)[^)]*\)')
           .allMatches(p.corpo)
           .fold<int>(0, (somma, m) => somma + m.group(0)!.length);
       final quota = tecnica / p.corpo.length;
@@ -103,8 +102,7 @@ void main() {
     });
 
     test('per chi non c\'e\' piu\' il paragrafo non esiste', () {
-      final scomparso =
-          VipCatalog.vips.where((v) => v.eScomparso).firstOrNull;
+      final scomparso = VipCatalog.vips.where((v) => v.eScomparso).firstOrNull;
       if (scomparso == null) return;
       final p = ResponsoDellaSinastria.perTeConUnVip(
         tuoSegno: Zodiac.leo,
@@ -198,10 +196,10 @@ void main() {
       );
       final calcolati = AspettiDiSinastria.fra(tuo, suo);
       expect(calcolati, isNotEmpty,
-          reason: 'fra questi due cieli non c\'e\' nessun aspetto: la prova gira '
+          reason:
+              'fra questi due cieli non c\'e\' nessun aspetto: la prova gira '
               'a vuoto');
-      final senzaNome =
-          calcolati.where((a) => a.nomeSuo.isEmpty).toList();
+      final senzaNome = calcolati.where((a) => a.nomeSuo.isEmpty).toList();
       // ignore: avoid_print
       print('ORDINE CC VOCE 06h: aspetti calcolati ${calcolati.length}, senza '
           'il nome del personaggio ${senzaNome.length}');

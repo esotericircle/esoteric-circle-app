@@ -68,7 +68,8 @@ void main() {
 
   test('il gemello è deterministico per la stessa persona', () {
     for (var i = 0; i < 5; i++) {
-      expect(GemelloAstrale.per(tuo)!.vip.name, GemelloAstrale.per(tuo)!.vip.name);
+      expect(
+          GemelloAstrale.per(tuo)!.vip.name, GemelloAstrale.per(tuo)!.vip.name);
     }
     // E due persone diverse non hanno per forza lo stesso gemello: se
     // l'avessero, la funzione non direbbe niente di nessuno.
@@ -103,8 +104,8 @@ void main() {
   testWidgets('la sfilata si ferma sul gemello, e mai su un altro',
       (tester) async {
     final g = GemelloAstrale.per(tuo)!;
-    await tester.pumpWidget(attorno(RivelazioneDelGemello(
-        gemello: g, palette: MaestroPalette.medora)));
+    await tester.pumpWidget(attorno(
+        RivelazioneDelGemello(gemello: g, palette: MaestroPalette.medora)));
     await tester.pump();
     // Con Riduci Movimento e' gia' li', fermo.
     expect(
@@ -137,8 +138,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(attorno(
-        Center(child: card(VipCatalog.conNome('Zendaya')!))));
+    await tester.pumpWidget(
+        attorno(Center(child: card(VipCatalog.conNome('Zendaya')!))));
     await tester.pump();
     final r = tester.getRect(find.byKey(const Key('sinastria_card')));
     expect(r.width / r.height,
@@ -165,8 +166,8 @@ void main() {
       final eccezioni = <FlutterErrorDetails>[];
       final vecchio = FlutterError.onError;
       FlutterError.onError = eccezioni.add;
-      await tester.pumpWidget(attorno(
-          Center(child: card(caso.$1, userName: caso.$2))));
+      await tester
+          .pumpWidget(attorno(Center(child: card(caso.$1, userName: caso.$2))));
       await tester.pump();
       FlutterError.onError = vecchio;
       final traboccati = eccezioni
@@ -201,8 +202,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(attorno(
-        Center(child: card(VipCatalog.conNome('Giorgio Armani')!))));
+    await tester.pumpWidget(
+        attorno(Center(child: card(VipCatalog.conNome('Giorgio Armani')!))));
     await tester.pump();
     final testi = tester
         .widgetList<Text>(find.byType(Text))
@@ -221,8 +222,8 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     // La card di sopra non passa nessuna foto: e' proprio questo il caso.
-    await tester.pumpWidget(attorno(
-        Center(child: card(VipCatalog.conNome('Zendaya')!))));
+    await tester.pumpWidget(
+        attorno(Center(child: card(VipCatalog.conNome('Zendaya')!))));
     await tester.pump();
     // **Il buco non c'e' perche' al posto della foto c'e' il segnaposto a
     // costellazione**, che la cornice VIP porta gia': il simbolo del segno su

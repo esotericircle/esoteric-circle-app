@@ -115,7 +115,8 @@ void main() {
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 
-  testWidgets('freccia, ritratto e titolo non si toccano, anche a caratteri '
+  testWidgets(
+      'freccia, ritratto e titolo non si toccano, anche a caratteri '
       'grandi', (tester) async {
     // COL RITRATTO: il visto di Mauro era a conversazione avviata, quando
     // il tondo del Maestro sta sopra il nome. A chat vuota il tondo non
@@ -155,7 +156,9 @@ void main() {
         reason: 'Il titolo esce dal bordo.');
   });
 
-  testWidgets('sotto il campo di scrittura non c\'e\' piu' ' mezzo schermo '
+  testWidgets(
+      'sotto il campo di scrittura non c\'e\' piu'
+      ' mezzo schermo '
       'vuoto', (tester) async {
     final nav = await monta(tester);
     nav.push(MaestroChatScreen.route(

@@ -68,7 +68,8 @@ void main() {
     }
   }
 
-  testWidgets('mostra gli eventi di tutti, in ordine cronologico e con le '
+  testWidgets(
+      'mostra gli eventi di tutti, in ordine cronologico e con le '
       'date vere', (tester) async {
     await apri(tester);
     expect(find.byKey(const Key('calendario_degli_eventi')), findsOneWidget);
@@ -106,17 +107,17 @@ void main() {
     expect(visti, greaterThan(3),
         reason: 'il calendario mostra $visti eventi su ${attesi.length}: le '
             'voci non vengono dal motore');
-
   });
 
-  testWidgets('senza identita\' non c\'e\' un vicolo cieco, ma un invito che '
+  testWidgets(
+      'senza identita\' non c\'e\' un vicolo cieco, ma un invito che '
       'porta da qualche parte', (tester) async {
     await apri(tester);
-    expect(find.byKey(const Key('calendario_invito_al_profilo')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('calendario_invito_al_profilo')), findsOneWidget,
         reason: 'senza identita\' il calendario non invita a completarla');
-    expect(find.byKey(const Key('calendario_completa_il_profilo')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('calendario_completa_il_profilo')), findsOneWidget,
         reason: 'l\'invito non ha un pulsante vero: sarebbe un vicolo cieco '
             'con le parole gentili');
 
@@ -145,7 +146,8 @@ void main() {
     expect(find.byKey(const Key('calendario_invito_al_profilo')), findsNothing,
         reason: 'con l\'identita\' data l\'invito a completarla resta li\' '
             'a chiedere una cosa gia\' fatta');
-    final mia = find.byKey(const Key('evento_${EventiDelCielo.lunaNelTuoSegno}'));
+    final mia =
+        find.byKey(const Key('evento_${EventiDelCielo.lunaNelTuoSegno}'));
     for (var giro = 0; giro < 12 && mia.evaluate().isEmpty; giro++) {
       await tester.dragFrom(const Offset(180, 500), const Offset(0, -280));
       await tester.pump(const Duration(milliseconds: 150));
