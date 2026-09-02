@@ -579,3 +579,42 @@ alla stessa sonorita' con una misura sola.
 
 La guardia del telefono nuovo **cambia il numero atteso e non la grandezza
 misurata**: da zero responsi che suonano a otto su otto.
+
+
+## LA CAUSA E' STATA TROVATA, E CONFERMATA SUL TELEFONO
+
+**Era il FUOCO AUDIO.** `audioplayers` chiede di partenza
+`AndroidAudioFocus.gain`, cioe' il fuoco esclusivo: dice al sistema che questa
+app e' la sola sorgente che la persona sta ascoltando. L'intro e la rivelazione
+dei Maestri sono video, e mentre suonano il fuoco ce l'hanno loro. Il nostro
+lettore lo chiedeva, **non lo otteneva, e restava muto senza sollevare nessun
+errore**: niente log, niente eccezione, niente che una prova potesse vedere.
+Non era un guasto del codice, **era una contesa che il codice perdeva in
+silenzio**.
+
+**A trovarla e' stata una frase del fondatore, non una mia misura.** *"La
+musica non parte dopo la intro, ma parte dopo il video di rivelazione del
+maestro, quando si entra nella home."* Cioe' **appena il video molla il fuoco**.
+Le due ipotesi che avevo provato prima erano cadute tutte e due, e nessuna delle
+mie prove poteva arrivarci: **guardavano dentro l'app, e il difetto stava nel
+rapporto fra l'app e il sistema.**
+
+**Verificata sul dispositivo il 2 settembre 2026**, build 2221: la musica parte
+insieme all'intro.
+
+Con `AndroidAudioFocus.none` il tappeto non chiede nessun fuoco e convive col
+video. **L'abbassamento sotto un effetto lo decide la regia**, per conto suo,
+che e' il modo giusto: il volume di questa app lo governa questa app, non una
+contesa fra lettori.
+
+### Cosa resta aperto, dichiarato dal fondatore
+
+**Il tappeto si sente poco sotto l'intro**, perche' la voce dell'intro sta piu'
+in alto. Parole del fondatore: *"non si sente molto perche' il volume e' piu'
+basso rispetto alla intro, e quindi per ora la lascio cosi' perche' ho altre
+priorita'"*. **Non e' un difetto: e' un equilibrio da decidere**, e la decisione
+non e' stata presa. Resta aperto.
+
+**E restano scollegati i due respiri**, per la ragione gia' scritta: i file
+durano 4,94 e 6,85 secondi e le fasi del rito ne durano da tre a sette, quindi
+serve la velocita' di riproduzione nel motore.
