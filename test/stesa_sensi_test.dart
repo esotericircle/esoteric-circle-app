@@ -184,19 +184,29 @@ void main() {
       final sensi = SensiDellaStesa();
       await sensi.momento(MomentoSensoriale.mescolamento);
       expect(sensi.eseguiti, [MomentoSensoriale.mescolamento]);
-      // I momenti NON hanno piu' un catalogo sonoro tutto loro: ne esisteva un
-      // secondo, cinque file dedicati alla stesa oltre ai cinque del Cerchio.
-      // Due cataloghi vogliono dire due identita' sonore, e il silenzio che
-      // rende importante un suono si perde se ogni gesto ne ha uno. Adesso solo
-      // la carta scoperta suona, perche' e' una rivelazione.
+      // I momenti NON hanno un catalogo sonoro tutto loro: ne esisteva un
+      // secondo, cinque file dedicati alla stesa oltre a quelli del
+      // Cerchio. Due cataloghi vogliono dire due identita' sonore. Questa
+      // regola resta, e non e' quella che cambia.
+      //
+      // **QUELLO CHE CAMBIA E' IL NUMERO DEI MOMENTI CHE SUONANO: DA UNO
+      // A DUE.** Ordine CN, 2 settembre 2026. Fino a ieri suonava solo la
+      // carta scoperta, perche' un suono per la carta che si gira **non
+      // esisteva**. Adesso esiste, `carta.mp3`, e viene dal catalogo del
+      // Cerchio come tutti gli altri: nessun secondo catalogo e' tornato.
+      //
+      // **Per un giorno quel file e' stato nel catalogo e non lo suonava
+      // nessuno**, ed e' il difetto che questa riga adesso sorveglia.
+      const cheSuonano = {
+        MomentoSensoriale.flip: SuonoDelCerchio.carta,
+        MomentoSensoriale.reveal: SuonoDelCerchio.rivelazione,
+      };
       for (final m in MomentoSensoriale.values) {
-        if (m == MomentoSensoriale.reveal) {
-          expect(m.suono, SuonoDelCerchio.rivelazione);
-        } else {
-          expect(m.suono, isNull,
-              reason: 'il momento ${m.name} ha un suono suo: il catalogo del '
-                  'Cerchio ne prevede cinque in tutto');
-        }
+        expect(m.suono, cheSuonano[m],
+            reason: 'il momento ${m.name} suona ${m.suono} invece di '
+                '${cheSuonano[m]}. Il vocabolario sonoro della stesa \' '
+                'quello del Cerchio, e i momenti che suonano sono due: la '
+                'carta che si gira e la carta scoperta.');
         // Il nome del file lo dichiara il catalogo, non il momento.
       }
     });
