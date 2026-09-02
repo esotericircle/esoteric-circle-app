@@ -116,6 +116,14 @@ class MotoreAudio implements MotoreSonoro {
     }
   }
 
+  /// **STA SUONANDO DAVVERO?**
+  ///
+  /// Serve perche' chiedere di suonare e suonare sono due cose diverse, e
+  /// la 2219 lo ha dimostrato: la richiesta partiva e dal telefono non
+  /// usciva niente. Chi comanda la musica non puo' fidarsi della propria
+  /// memoria di aver chiesto: deve poter guardare.
+  bool get musicaStaSuonando => _musicaPigro?.state == PlayerState.playing;
+
   /// Quanto forte suona la musica adesso, da 0 a 1.
   Future<void> volumeDellaMusica(double volume) async {
     try {

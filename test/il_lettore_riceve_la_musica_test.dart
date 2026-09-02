@@ -84,16 +84,30 @@ void main() {
     }
   });
 
-  tearDown(() => RegiaDellaMusica.lettoreForzato = null);
+  tearDown(() {
+    // La sentinella e' un temporizzatore che gira ogni due secondi:
+    // lasciarlo acceso fa cadere la prova dopo, e non per colpa sua.
+    RegiaDellaMusica.sola.dimentica();
+    RegiaDellaMusica.lettoreForzato = null;
+  });
 
   testWidgets('la catena arriva fino al lettore e non si blocca',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
+    // La sentinella gira ogni due secondi: va spenta DENTRO la prova,
+    // perche' il controllo dei temporizzatori scatta prima del congedo.
+    addTearDown(RegiaDellaMusica.sola.dimentica);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    SharedPreferences.setMockInitialValues(const {});
+    // **GLI EFFETTI SPENTI IN QUESTA PROVA**, e non e' un modo di
+    // aggirare niente: qui si misura la MUSICA. Un effetto che suona
+    // programma l'abbassamento e la risalita del tappeto, cioe' due
+    // temporizzatori che sopravvivono alla fine della prova e la fanno
+    // cadere per una ragione che con la musica non c'entra.
+    SharedPreferences.setMockInitialValues(
+        const {'settings.effettiSonori': false});
     await tester.runAsync(() async {
       await OnboardingController().complete();
     });

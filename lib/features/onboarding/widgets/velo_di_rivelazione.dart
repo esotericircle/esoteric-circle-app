@@ -4,6 +4,8 @@ import 'package:video_player/video_player.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/rivelazione_in_video.dart';
 import 'maestro_card.dart';
+import '../../../core/sensi/regia_della_musica.dart';
+import 'dart:async';
 
 /// IL VELO DI RIVELAZIONE: il video del Maestro, a schermo pieno, sotto a tutta
 /// la schermata. Ordine BQ voci 2 e 3, ordine BR voci 1 e 2.
@@ -222,11 +224,24 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
     _c = c;
     try {
       await c.initialize();
-      // Muto sempre: la rivelazione ha gia' il suo suono, e due audio insieme
-      // sono rumore. Il volume si mette PRIMA della riproduzione, come
-      // nell'intro: un decimo di secondo di audio prima del muto e' comunque
-      // un suono che nessuno aveva chiesto.
-      await c.setVolume(0);
+      // **IL VIDEO PARLA, ordine CN del 2 settembre 2026.**
+      //
+      // Qui c'era `setVolume(0)`, con questa ragione: "la rivelazione
+      // ha gia' il suo suono, e due audio insieme sono rumore".
+      // **Quella ragione era gia' falsa quando e' stata scritta**: la
+      // voce CN.09 ha verificato che sopra questi video non suona
+      // niente, la schermata della rivelazione esegue solo la
+      // vibrazione. Il muto non proteggeva da nessun secondo audio: **lo
+      // toglieva e basta.**
+      //
+      // Dal 1 settembre i tre video portano la loro traccia, portata
+      // alla stessa sonorita' degli effetti. Adesso si sente.
+      //
+      // **E la musica scende sotto**, come sotto ogni effetto: dieci
+      // secondi di voce di un Maestro sopra un tappeto d'ambiente
+      // sarebbero due cose che si contendono la stessa attenzione.
+      await c.setVolume(1);
+      unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(c.value.duration));
       await c.setLooping(false);
       c.addListener(_guarda);
       await c.play();

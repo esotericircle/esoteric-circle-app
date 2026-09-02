@@ -26,6 +26,8 @@ import 'card_del_traguardo.dart';
 import 'sentiero_screen.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// LA CELEBRAZIONE DI UN TRAGUARDO, nelle sue due forme.
 ///
@@ -139,6 +141,15 @@ class Celebrazione {
         serie: serie,
       );
       final scena = navigatore.push(rotta);
+      // **LA FESTA SUONA, ordine CN.** Tre secondi e sei decimi, e non
+      // si accorcia: e' una decisione del fondatore, perche' una festa
+      // tagliata a meta' non e' una festa piu' breve, e' una festa
+      // interrotta.
+      //
+      // Per un giorno questo suono e' stato nel catalogo senza che
+      // nessuno lo chiamasse: il file c'era e a schermo non usciva
+      // niente.
+      unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.festa));
       // **SI SEGNA QUI E NON NELLO STATO DELLA SCENA.** Un widget si costruisce
       // al fotogramma DOPO, e il ciclo della regia chiama questa funzione due
       // volte dentro lo stesso fotogramma: segnandolo in `initState` la seconda
@@ -149,6 +160,14 @@ class Celebrazione {
       // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
       // aspettarla.
       if (allaChiusura != null) scena.whenComplete(allaChiusura);
+      // **GLI EOS CHE ARRIVANO NELLA BORSA, ordine CN.** Il momento e'
+      // questo e non l'apertura della festa: gli Eos volano nel
+      // borsellino quando la scena LASCIA lo schermo, ordine S voce
+      // 07, e il suono accompagna il volo invece di anticiparlo.
+      scena.whenComplete(() {
+        if (!context.mounted) return;
+        unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.eos));
+      });
       partite++;
       if (attendiLaFine) {
         await scena;

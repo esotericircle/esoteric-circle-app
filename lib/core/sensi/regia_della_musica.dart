@@ -112,7 +112,52 @@ class RegiaDellaMusica {
   MusicaDelCerchio? _corrente;
   double _volumeVoluto = 0.0;
   int _effettiInCorso = 0;
-  Timer? _dissolvenza;
+
+  /// **QUALE SFUMATURA COMANDA ADESSO.**
+  ///
+  /// Qui c'era un `Timer? _dissolvenza` che nessuno assegnava mai:
+  /// `cancel()` veniva chiamato su un nulla, e **due sfumature potevano
+  /// correre insieme scrivendosi il volume a vicenda**. E' cosi' che la
+  /// 2219 e' partita col tappeto a volume quasi zero: la voce dell'intro
+  /// faceva scendere la musica sotto un effetto mentre la musica stava
+  /// ancora salendo da zero, e chi finiva per ultimo lasciava il volume
+  /// dove capitava. Il fondatore la sentiva comparire solo dopo il login,
+  /// quando un altro passaggio riscriveva il volume per intero.
+  ///
+  /// Adesso ogni sfumatura prende un numero: se ne parte un'altra, la
+  /// precedente se ne accorge al passo dopo e si ferma.
+  int _generazione = 0;
+
+  /// **LA SENTINELLA: ogni due secondi guarda se il tappeto suona.**
+  ///
+  /// La verifica al cambio di schermata non basta, e la 2219 lo mostra:
+  /// il Risveglio e' una schermata sola, ci si resta minuti, e in quei
+  /// minuti nessun passaggio avrebbe rimesso in moto niente.
+  ///
+  /// Costa un confronto ogni due secondi e non tocca la piattaforma
+  /// quando tutto va bene. **Non e' una toppa elegante**, ed e' scritto
+  /// apposta: non sono riuscito a riprodurre sul banco perche' la prima
+  /// richiesta a volte non produce suono, e finche' non lo so questa e'
+  /// la differenza fra un'app che si ripara e una che resta muta.
+  Timer? _sentinella;
+
+  void _accendiLaSentinella(SettingsController s) {
+    _sentinella?.cancel();
+    // **SOTTO LE PROVE NON GIRA MAI**, nemmeno quando una prova riaccende
+    // il lettore per guardare il canale: un temporizzatore che vive due
+    // secondi alla volta sopravvive alla fine di una prova e la fa
+    // cadere per una ragione che con la musica non c'entra. E' un
+    // guardiano di produzione, e li' deve stare.
+    if (_sottoLeProve) return;
+    _sentinella = Timer.periodic(const Duration(seconds: 2), (_) {
+      final atteso = _corrente;
+      if (atteso == null) return;
+      if (MotoreAudio.condiviso.musicaStaSuonando) return;
+      debugPrint('La sentinella ha trovato il tappeto fermo: riparte.');
+      _corrente = null;
+      unawaited(vaiA(atteso, s));
+    });
+  }
 
   /// La traccia che sta suonando adesso, o nulla se tace.
   MusicaDelCerchio? get corrente => _corrente;
@@ -132,19 +177,36 @@ class RegiaDellaMusica {
   /// che questa app vuole essere.
   Future<void> vaiA(MusicaDelCerchio? luogo, SettingsController s) async {
     if (luogo == _corrente) {
-      // Stessa traccia: si aggiorna solo il volume, che puo' essere cambiato
-      // sotto le dita di chi muove il cursore.
-      await _applica(_volumeDa(s));
-      return;
+      // **SI GUARDA SE STA SUONANDO DAVVERO, e non e' pignoleria.**
+      //
+      // La 2219 e' uscita col tappeto che non si sentiva fino al login.
+      // La regia ricordava di aver chiesto la traccia, quindi a ogni
+      // passaggio dopo si limitava a ritoccare il volume e non provava
+      // piu' a farla partire: **credeva alla propria memoria invece di
+      // guardare il lettore**.
+      //
+      // Non sono riuscito a riprodurre sul banco la ragione per cui la
+      // prima richiesta non produceva suono, e lo dichiaro invece di
+      // fingere di saperlo. **Ma la memoria non e' una prova**, e adesso
+      // la regia riprova ogni volta che qualcuno cambia schermata.
+      if (luogo != null &&
+          !senzaLettore &&
+          !MotoreAudio.condiviso.musicaStaSuonando) {
+        debugPrint(
+            'La musica risulta ferma pur essendo gia\' chiesta: riparte.');
+        _corrente = null;
+      } else {
+        await _applica(_volumeDa(s));
+        return;
+      }
     }
-
-    _dissolvenza?.cancel();
 
     if (luogo == null) {
       await _sfuma(da: _volumeAttuale(), a: 0.0, quanto: incrocio);
       if (!senzaLettore) await MotoreAudio.condiviso.fermaMusica();
       _corrente = null;
       _volumeVoluto = 0.0;
+      _sentinella?.cancel();
       spia?.call(null);
       return;
     }
@@ -175,8 +237,14 @@ class RegiaDellaMusica {
     _corrente = luogo;
     _volumeVoluto = voluto;
     spia?.call(luogo);
+    _accendiLaSentinella(s);
     if (voluto > 0) {
       await _sfuma(da: 0.0, a: voluto, quanto: meta);
+      // **E SI CHIUDE SUL VALORE VERO.** Una sfumatura puo' essere
+      // stata interrotta a meta' da un effetto che abbassa la musica:
+      // senza questa riga il tappeto resterebbe al volume dove
+      // l'interruzione l'ha lasciato, che e' come essere muti.
+      await MotoreAudio.condiviso.volumeDellaMusica(_volumeAttuale());
     }
   }
 
@@ -186,6 +254,11 @@ class RegiaDellaMusica {
   /// far risalire il tappeto in mezzo, che sarebbe un'onda invece di un
   /// abbassamento.
   Future<void> scendiSottoUnEffetto(Duration quantoDura) async {
+    // **NIENTE DA ABBASSARE SE NON SUONA NIENTE.** Senza questa riga
+    // un effetto che arriva mentre la musica sta ancora partendo la
+    // faceva scendere verso un bersaglio calcolato su un volume che
+    // non era ancora quello vero, e il tappeto restava giu'.
+    if (_corrente == null || _volumeVoluto <= 0) return;
     _effettiInCorso++;
     await _sfuma(
         da: _volumeAttuale(),
@@ -197,7 +270,9 @@ class RegiaDellaMusica {
   Future<void> _risali() async {
     if (_effettiInCorso > 0) _effettiInCorso--;
     if (_effettiInCorso > 0) return;
-    await _sfuma(da: _volumeAttuale(), a: _volumeVoluto, quanto: risalita);
+    await _sfuma(
+        da: _volumeVoluto * quotaAbbassata, a: _volumeVoluto, quanto: risalita);
+    await MotoreAudio.condiviso.volumeDellaMusica(_volumeAttuale());
   }
 
   /// Il volume cambia perche' qualcuno ha mosso un cursore o un interruttore.
@@ -224,14 +299,18 @@ class RegiaDellaMusica {
     required double a,
     required Duration quanto,
   }) async {
-    _dissolvenza?.cancel();
     if (senzaLettore) return;
+    final mia = ++_generazione;
     final passi = (quanto.inMilliseconds / passo.inMilliseconds).ceil();
     if (passi <= 1) {
       await MotoreAudio.condiviso.volumeDellaMusica(a);
       return;
     }
     for (var i = 1; i <= passi; i++) {
+      // Se nel frattempo ne e' partita un'altra, questa smette: due
+      // sfumature che si scrivono il volume a vicenda lo lasciano
+      // dove capita, e dove capita e' quasi sempre in basso.
+      if (mia != _generazione) return;
       final v = da + (a - da) * (i / passi);
       await MotoreAudio.condiviso.volumeDellaMusica(v);
       if (i < passi) await Future<void>.delayed(passo);
@@ -242,7 +321,7 @@ class RegiaDellaMusica {
   /// noto invece che da cio' che ha lasciato la prova prima.
   @visibleForTesting
   void dimentica() {
-    _dissolvenza?.cancel();
+    _sentinella?.cancel();
     _corrente = null;
     _volumeVoluto = 0.0;
     _effettiInCorso = 0;

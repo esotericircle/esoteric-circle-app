@@ -33,11 +33,21 @@ enum MomentoSensoriale {
   /// vogliono dire due identita' sonore, e il silenzio che rende importante un
   /// suono si perde se ogni gesto ne ha uno.
   ///
-  /// Adesso solo la carta scoperta suona, perche' e' una rivelazione. Gli altri
-  /// momenti restano affidati alla sola aptica, che e' il canale che arriva
-  /// sempre.
-  SuonoDelCerchio? get suono =>
-      this == MomentoSensoriale.reveal ? SuonoDelCerchio.rivelazione : null;
+  /// Due momenti suonano: la carta che si gira e la carta scoperta.
+  ///
+  /// **`carta` e' arrivata con l'ordine CN**, e per un giorno e' stata
+  /// nel catalogo senza che nessuno la suonasse: il file c'era, era
+  /// normalizzato, aveva la sua riga nel registro delle misure, **e non
+  /// usciva da nessuna parte**. Un suono che nessuno chiama e' un peso
+  /// nell'archivio e un silenzio a schermo.
+  ///
+  /// Gli altri momenti restano affidati alla sola aptica, che e' il
+  /// canale che arriva sempre.
+  SuonoDelCerchio? get suono => switch (this) {
+        MomentoSensoriale.flip => SuonoDelCerchio.carta,
+        MomentoSensoriale.reveal => SuonoDelCerchio.rivelazione,
+        _ => null,
+      };
 }
 
 /// Chi suona gli effetti della stesa.

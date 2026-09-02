@@ -39,6 +39,9 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../services/app_services.dart';
 import '../maestri/chat/maestro_chat_screen.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
+import 'dart:async';
 
 /// Cio' che un'arte consegna perche' il suo responso possa essere custodito.
 ///
@@ -200,6 +203,11 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     // che e' custodito, non un rifiuto.
     setState(() => _custodito = true);
     if (!entrato) return;
+    // **IL SIGILLO DI CERALACCA, ordine CN.** Suona solo quando il
+    // ricordo entra davvero: chi tocca Custodisci su un responso gia'
+    // custodito vede lo stesso stato, e un sigillo che si ripete non
+    // e' piu' un sigillo.
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.custodisci));
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       const SnackBar(content: Text('Custodito nei Ricordi del Cerchio.')),
     );
