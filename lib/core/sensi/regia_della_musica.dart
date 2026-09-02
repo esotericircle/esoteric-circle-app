@@ -107,7 +107,7 @@ class RegiaDellaMusica {
   @visibleForTesting
   static bool? lettoreForzato;
 
-  static bool get senzaLettore => lettoreForzato ?? _sottoLeProve;
+  static bool get senzaLettore => lettoreForzato ?? MotoreAudio.senzaLettori;
 
   MusicaDelCerchio? _corrente;
   double _volumeVoluto = 0.0;

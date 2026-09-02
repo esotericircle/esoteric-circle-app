@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/sensi/catalogo_musiche.dart';
+import 'package:esoteric_circle/core/sensi/motore_audio.dart';
 import 'package:esoteric_circle/core/sensi/regia_della_musica.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,7 @@ void main() {
 
   setUp(() {
     volumi = <double>[];
+    MotoreAudio.lettoriForzati = false;
     RegiaDellaMusica.lettoreForzato = false;
     RegiaDellaMusica.sola.dimentica();
 
@@ -63,6 +65,7 @@ void main() {
     // La sentinella e' un temporizzatore che gira ogni due secondi:
     // lasciarlo acceso fa cadere la prova dopo, e non per colpa sua.
     RegiaDellaMusica.sola.dimentica();
+    MotoreAudio.lettoriForzati = null;
     RegiaDellaMusica.lettoreForzato = null;
   });
 

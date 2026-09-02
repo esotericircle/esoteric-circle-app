@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
@@ -31,6 +32,30 @@ class MotoreAudio implements MotoreSonoro {
   /// peggio di un difetto, perche' chi legge smette di verificare. Adesso la
   /// dichiarazione e' vera, e il costruttore e' privato perche' resti tale.
   static final MotoreAudio condiviso = MotoreAudio._();
+
+  /// **SOTTO `flutter test` I LETTORI NON SI TOCCANO, e c'e' una porta
+  /// sola per dirlo.**
+  ///
+  /// `audioplayers` apre due canali di eventi appena nasce un lettore, e
+  /// **l'errore di un canale non passa da nessun `catch`**: arriva come
+  /// eccezione di piattaforma e fa cadere prove che col suono non
+  /// c'entrano niente. Finche' gli effetti nascevano spenti il problema
+  /// non si vedeva; **dal 2 settembre 2026 nascono accesi**, e ogni prova
+  /// che monta l'app arriva al plugin.
+  ///
+  /// **Questa non e' la scorciatoia che ha nascosto il difetto della
+  /// 2218.** Quella era muta e definitiva; questa si spegne: una guardia
+  /// mette [lettoriForzati] a falso e guarda cosa arriva davvero al
+  /// canale. Il tratto di strada fra la decisione e il suono resta
+  /// sorvegliato, ed e' la lezione che quel difetto e' costato.
+  static final bool _sottoLeProve =
+      Platform.environment.containsKey('FLUTTER_TEST');
+
+  /// Una prova puo' riaccendere i lettori per guardare il canale.
+  @visibleForTesting
+  static bool? lettoriForzati;
+
+  static bool get senzaLettori => lettoriForzati ?? _sottoLeProve;
 
   /// I lettori nascono PIGRI, alla prima riproduzione.
   ///
@@ -65,6 +90,7 @@ class MotoreAudio implements MotoreSonoro {
   /// Nulla quando il suono non parte o la durata non si legge: chi chiama ha il
   /// proprio ripiego, e il rito continua lo stesso.
   Future<Duration?> effetto(String percorsoAsset) async {
+    if (senzaLettori) return null;
     try {
       await _effetti.stop();
       await _effetti.play(AssetSource(percorsoAsset));
@@ -87,6 +113,7 @@ class MotoreAudio implements MotoreSonoro {
   /// distinguere "sta suonando" da "ho chiesto e non e' successo",
   /// altrimenti la regia crederebbe di avere un tappeto che non c'e'.
   Future<bool> musica(String percorsoAsset, {double volume = 1.0}) async {
+    if (senzaLettori) return true;
     try {
       await _musica.setReleaseMode(ReleaseMode.loop);
       await _musica.setVolume(volume.clamp(0.0, 1.0));
@@ -172,6 +199,7 @@ class MotoreAudio implements MotoreSonoro {
   /// Meditazione: il tono deve durare quanto la sessione, non quanto il
   /// campione.
   Future<void> tono(Uint8List byte, {bool inCiclo = true}) async {
+    if (senzaLettori) return;
     try {
       await _toni
           .setReleaseMode(inCiclo ? ReleaseMode.loop : ReleaseMode.release);
