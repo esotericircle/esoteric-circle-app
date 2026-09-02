@@ -193,7 +193,7 @@ class RegiaDellaMusica {
           !senzaLettore &&
           !MotoreAudio.condiviso.musicaStaSuonando) {
         debugPrint(
-            'La musica risulta ferma pur essendo gia\' chiesta: riparte.');
+            'Il tappeto risulta fermo pur essendo stato chiesto: riparte.');
         _corrente = null;
       } else {
         await _applica(_volumeDa(s));
@@ -258,6 +258,7 @@ class RegiaDellaMusica {
     // un effetto che arriva mentre la musica sta ancora partendo la
     // faceva scendere verso un bersaglio calcolato su un volume che
     // non era ancora quello vero, e il tappeto restava giu'.
+    if (senzaLettore) return;
     if (_corrente == null || _volumeVoluto <= 0) return;
     _effettiInCorso++;
     await _sfuma(
