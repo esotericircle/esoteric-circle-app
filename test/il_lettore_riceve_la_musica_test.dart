@@ -137,6 +137,27 @@ void main() {
     expect(nomi, contains('create'),
         reason: 'nessun lettore e\' stato costruito per la musica');
 
+    // **IL TAPPETO NON DEVE CHIEDERE IL FUOCO AUDIO.**
+    //
+    // E' la causa per cui la musica non partiva dopo l'intro: il valore
+    // di partenza di audioplayers e' il fuoco ESCLUSIVO, e mentre un
+    // video suona quel fuoco ce l'ha il video. Il fondatore lo ha detto
+    // cosi': la musica parte dopo il video di rivelazione, cioe' appena
+    // il video molla il fuoco.
+    final contesti = chiamate.where((c) => c.method == 'setAudioContext');
+    expect(contesti, isNotEmpty,
+        reason: 'il lettore della musica non riceve nessun contesto audio: '
+            'prende quello di partenza, che chiede il fuoco esclusivo e resta '
+            'muto finche un video sta suonando');
+    final fuochi = contesti
+        .map((c) => (c.arguments as Map?)?['audioFocus'])
+        .where((v) => v != null)
+        .toList();
+    expect(fuochi, everyElement(0),
+        reason: 'il tappeto chiede ancora un fuoco audio: $fuochi. Zero e '
+            'AUDIOFOCUS_NONE, ed e il solo valore con cui la musica convive '
+            'con un video invece di aspettare che finisca.');
+
     // **LA RAMPA DEL VOLUME E' LA PROVA CHE LA CATENA VA IN FONDO.**
     //
     // Dopo aver chiesto al lettore di suonare, la regia sfuma il volume a

@@ -115,6 +115,39 @@ class MotoreAudio implements MotoreSonoro {
   Future<bool> musica(String percorsoAsset, {double volume = 1.0}) async {
     if (senzaLettori) return true;
     try {
+      // **IL TAPPETO NON CHIEDE IL FUOCO AUDIO A NESSUNO, ed e' LA
+      // ragione per cui la musica non partiva dopo l'intro.**
+      //
+      // `audioplayers` chiede di partenza `AndroidAudioFocus.gain`, cioe'
+      // **il fuoco audio esclusivo**: dice al sistema che questa app e'
+      // l'unica sorgente che la persona sta ascoltando. L'intro e la
+      // rivelazione dei Maestri sono video, e mentre suonano il fuoco ce
+      // l'hanno loro: il nostro lettore lo chiedeva, non lo otteneva, e
+      // **restava muto senza sollevare niente**.
+      //
+      // Il fondatore lo ha detto meglio di qualunque misura: *la musica
+      // non parte dopo l'intro, ma parte dopo il video di rivelazione,
+      // quando si entra nella home*. Cioe' **appena il video molla il
+      // fuoco**. La sentinella riprovava ogni due secondi, e ci riusciva
+      // esattamente li'.
+      //
+      // Un tappeto d'ambiente non e' l'unica sorgente di niente: sta
+      // sotto, e sotto ci deve stare anche quando qualcos'altro parla.
+      // Con `none` non chiede nessun fuoco e convive. **L'abbassamento
+      // sotto un effetto lo decide la regia**, per conto suo, che e' il
+      // modo giusto: il volume di questa app lo governa questa app, non
+      // una contesa fra lettori.
+      await _musica.setAudioContext(AudioContext(
+        android: const AudioContextAndroid(
+          contentType: AndroidContentType.music,
+          usageType: AndroidUsageType.media,
+          audioFocus: AndroidAudioFocus.none,
+        ),
+        iOS: AudioContextIOS(
+          category: AVAudioSessionCategory.playback,
+          options: const {AVAudioSessionOptions.mixWithOthers},
+        ),
+      ));
       await _musica.setReleaseMode(ReleaseMode.loop);
       await _musica.setVolume(volume.clamp(0.0, 1.0));
       // **NON SI ASPETTA LA CONFERMA DEL LETTORE, E QUESTA RIGA E' IL DIFETTO
