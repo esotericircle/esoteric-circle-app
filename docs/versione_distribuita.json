@@ -1,8 +1,8 @@
 {
-  "ultimo_distribuito": 2220,
+  "ultimo_distribuito": 2221,
   "quando": "2026-09-02",
   "nota": "Il numero di versione dell'ultima build consegnata a un telefono. Android rifiuta di installare un versionCode piu' basso sopra uno piu' alto: la release del 28 luglio notte aveva numero 1 contro il 2001 di quella di ieri, quindi non si sovrapponeva. Il 2001 non era voluto, veniva da --split-per-abi, che somma duemila per l'ABI arm64: togliendo lo split il numero e' tornato a uno. Da qui in avanti il numero sta nel pubspec e deve crescere sempre, qualunque sia il modo di costruire. Questo file registra l'ultimo consegnato e test/versione_build_test.dart impedisce di distribuire un numero che non lo supera. Si aggiorna DOPO ogni distribuzione riuscita, col numero appena consegnato.",
-  "release": "70me9ecul82d0",
+  "release": "30m12sdvr6iv0",
   "numero_letto_da": "aapt2 dump badging sull'archivio costruito, non dal pubspec",
   "peso_archivio_byte": 176723356,
   "la_2206_era_rimasta_fuori": "Il 26 agosto 2026 alle 14:26 UTC la build 2206 e' stata consegnata davvero, release 4igu53cugnei8, e questo file non lo ha mai saputo: e' rimasto a 2205 fino all'ordine BS. Verificato sul server, non sulla parola di nessuno, chiedendo l'elenco delle release ad App Distribution. Chi consegna aggiorna questo file subito dopo, altrimenti la guardia della versione difende un numero che non e' piu' vero.",
