@@ -259,7 +259,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _apriLaCarta(int slot) async {
     final lette = _reading.posizioni;
     if (slot < 0 || slot >= lette.length) return;
-    _sensi.momento(MomentoSensoriale.flip);
+    _sensi.momento(context, MomentoSensoriale.flip);
     await mostraLaCartaIngrandita(
       context,
       letta: lette[slot],
@@ -527,7 +527,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// il gesto, perde solo il moto.
   Future<void> _taglia() async {
     if (!_scene.accettaGesti) return;
-    _sensi.momento(MomentoSensoriale.taglio);
+    _sensi.momento(context, MomentoSensoriale.taglio);
     _fermaLAmbiente();
     setState(() {
       _scene = StesaScene.taglio;
@@ -596,7 +596,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Il mescolamento a vortice, da scuotimento o dal tasto.
   Future<void> _mischia() async {
     if (!mounted || !_scene.accettaGesti) return;
-    _sensi.momento(MomentoSensoriale.mescolamento);
+    _sensi.momento(context, MomentoSensoriale.mescolamento);
     _fermaLAmbiente();
     setState(() => _scene = StesaScene.mescolamento);
     if (!_reduceMotion) {
@@ -648,7 +648,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // cominciata, e cominciarla non costa niente: il conto si paga quando e'
     // compiuta.
     if (_drawn == 0 && !_laStesaSiPuoAprire(fanIndex)) return;
-    _sensi.momento(MomentoSensoriale.volo);
+    _sensi.momento(context, MomentoSensoriale.volo);
     setState(() {
       _taken.add(fanIndex);
       _inVolo = fanIndex;
@@ -751,7 +751,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     }
     // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
     // seme parla un istante, prima di lasciarla pulita e leggibile.
-    _sensi.momento(MomentoSensoriale.flip);
+    _sensi.momento(context, MomentoSensoriale.flip);
     await _fiorisci(slot);
     // IL FILO, ordine BN voce 08: dice che le tre carte sono una lettura sola,
     // e lo dice PRIMA che Medora cominci a pensare.
@@ -884,7 +884,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _fiorisci(int slot) async {
     if (slot < 0 || slot >= _spread.cards.length) return;
     final spec = RevealSpec.of(_spread.cards[slot].card);
-    _sensi.momento(MomentoSensoriale.reveal, solenne: spec.solenne);
+    _sensi.momento(context, MomentoSensoriale.reveal, solenne: spec.solenne);
     if (_reduceMotion) return;
     setState(() {
       _revealSlot = slot;

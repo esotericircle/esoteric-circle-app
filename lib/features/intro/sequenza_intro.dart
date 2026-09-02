@@ -6,6 +6,7 @@ import 'package:video_player/video_player.dart';
 import '../../core/diagnosi/briciole.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../shell/quale_musica_suona.dart';
 
 /// L'INTRO DI APERTURA: **il video, e nient'altro.**
 ///
@@ -127,6 +128,12 @@ class _SequenzaIntroState extends State<SequenzaIntro>
       _visibile = false;
       return;
     }
+    // **DA QUI IN POI LA MUSICA TACE, e chi la governa lo sa da questa riga.**
+    // Ordine CO voce 01, 3 settembre 2026. Si alza PRIMA del primo frame:
+    // il custode della musica guarda dopo il frame, e trovare il velo gia'
+    // alzato e' cio' che gli impedisce di far partire lo Shaman sotto
+    // l'apertura.
+    veloCheZittisce.value = true;
     WidgetsBinding.instance.addObserver(this);
     Briciole.lascia('intro_montata');
     WidgetsBinding.instance.addPostFrameCallback((_) => _avvia());
@@ -193,6 +200,14 @@ class _SequenzaIntroState extends State<SequenzaIntro>
 
   void _finisci() {
     if (!_visibile) return;
+    // **E QUI ENTRA LO SHAMAN, sulla dissolvenza e non dopo.** Ordine CO voce
+    // 01: il fondatore lo vuole alla FINE dell'intro, non alla partenza
+    // dell'app. Cade adesso e non a smontaggio compiuto perche' fra i due
+    // momenti c'e' la dissolvenza dell'apertura, e la musica sale in mille e
+    // duecento millesimi: farla partire qui vuol dire che il Risveglio si
+    // scopre gia' accompagnato, invece di aprirsi su un buco di silenzio e
+    // sentirsi raggiungere un secondo dopo. **Una consegna, non un cambio.**
+    veloCheZittisce.value = false;
     _scorta?.cancel();
     _video?.pause();
     // E MUTO, non solo fermo. Fermare basta finche' e' questo codice a
@@ -213,6 +228,10 @@ class _SequenzaIntroState extends State<SequenzaIntro>
 
   @override
   void dispose() {
+    // Il velo non sopravvive a chi lo alza: se questa intro se ne va per una
+    // strada che non passa da `_finisci`, la musica non deve restare muta per
+    // sempre in attesa di qualcuno che non c'e' piu'.
+    veloCheZittisce.value = false;
     WidgetsBinding.instance.removeObserver(this);
     _scorta?.cancel();
     _uscita?.cancel();

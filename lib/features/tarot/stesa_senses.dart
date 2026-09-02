@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 import '../../core/sensi/catalogo_suoni.dart';
@@ -50,24 +50,26 @@ enum MomentoSensoriale {
       };
 }
 
-/// Chi suona gli effetti della stesa.
+/// **QUI C'ERA UN'INTERCAPEDINE VUOTA, ed e' il motivo per cui la carta non
+/// suonava.** Ordine CO voce 02, 3 settembre 2026.
 ///
-/// Di suo non fa nulla: e' il posto dove innestare il lettore audio quando i
-/// file esisteranno, senza toccare il resto della schermata. Finche' resta
-/// questo, la stesa e' muta e non pesa un byte in piu'.
-abstract class LettoreEffetti {
-  const LettoreEffetti();
-
-  Future<void> suona(MomentoSensoriale momento);
-}
-
-/// Il lettore che non suona niente, quello di adesso.
-class LettoreSilenzioso extends LettoreEffetti {
-  const LettoreSilenzioso();
-
-  @override
-  Future<void> suona(MomentoSensoriale momento) async {}
-}
+/// C'erano un `LettoreEffetti` astratto e un `LettoreSilenzioso` che
+/// implementava il nulla, col commento *"e' il posto dove innestare il lettore
+/// audio quando i file esisteranno"*. I file sono arrivati con l'ordine CN, e
+/// **nessuno e' passato di qui a innestare niente**: il costruttore continuava
+/// a mettere di suo il lettore muto, e nessuno gliene passava mai un altro.
+///
+/// Il risultato e' la forma piu' silenziosa di difetto che questo progetto
+/// abbia incontrato: la mappa che dice quale suono corrisponde alla carta
+/// girata **veniva calcolata a ogni giro e buttata via**, un attimo dopo,
+/// dentro un metodo che per contratto non fa niente. Tutto verde, tutto
+/// leggibile, e muto.
+///
+/// Adesso non c'e' nessun lettore da innestare: **c'e' la porta unica del
+/// Cerchio**, `PaletteSensoriale.suona`, la stessa da cui escono gli altri
+/// dodici suoni. Un'intercapedine che aspetta un innesto e' un secondo modo di
+/// suonare, e questo progetto ha gia' pagato caro ogni volta che una cosa
+/// aveva due porte.
 
 /// Suono e vibrazione della stesa, dietro un solo interruttore.
 ///
@@ -81,12 +83,9 @@ class LettoreSilenzioso extends LettoreEffetti {
 /// e' l'interruttore dell'app, che governa tutto.
 class SensiDellaStesa {
   SensiDellaStesa({
-    this.lettore = const LettoreSilenzioso(),
     this.silenzio = false,
     this.sistemaSilenzioso = false,
   });
-
-  final LettoreEffetti lettore;
 
   /// L'interruttore dell'app: governa suono e vibrazione insieme.
   bool silenzio;
@@ -102,11 +101,23 @@ class SensiDellaStesa {
   final List<MomentoSensoriale> eseguiti = [];
 
   /// Fa sentire un momento, se non siamo in silenzio.
-  Future<void> momento(MomentoSensoriale m, {bool solenne = false}) async {
+  ///
+  /// **Il contesto serve, e serve per una ragione sola**: la porta unica del
+  /// Cerchio legge da li' l'interruttore del suono, quello che vale per tutta
+  /// l'app. L'interruttore locale della stesa, [silenzio], sta sopra e non al
+  /// posto suo: chi zittisce la stesa zittisce la stesa, chi zittisce l'app
+  /// zittisce anche la stesa.
+  Future<void> momento(BuildContext context, MomentoSensoriale m,
+      {bool solenne = false}) async {
     if (muto) return;
     eseguiti.add(m);
     _vibra(m, solenne: solenne);
-    await lettore.suona(m);
+    final suono = m.suono;
+    if (suono == null) return;
+    // Il momento puo' arrivare da un'animazione conclusa dopo che la schermata
+    // se ne e' andata: il contesto non si tocca se non c'e' piu'.
+    if (!context.mounted) return;
+    await PaletteSensoriale.suona(context, suono);
   }
 
   /// La vibrazione a tema col gesto, discreta.

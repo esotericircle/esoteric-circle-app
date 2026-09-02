@@ -46,7 +46,6 @@ void main() {
   setUp(silenceSensors);
 
   /// Un lettore che tiene il conto di cosa gli e' stato chiesto di suonare.
-  final suonati = <MomentoSensoriale>[];
 
   Future<void> pump(
     WidgetTester tester, {
@@ -146,44 +145,67 @@ void main() {
   });
 
   group('Suono e vibrazione', () {
-    setUp(suonati.clear);
+    /// **QUI NON C'E' PIU' UN LETTORE FINTO, e la ragione e' un difetto.**
+    /// Ordine CO voce 02, 3 settembre 2026.
+    ///
+    /// Questo gruppo montava un `_LettoreSpia` e gli chiedeva cosa avesse
+    /// sentito. Era una prova sincera e **sorvegliava la cosa sbagliata**:
+    /// dimostrava che `SensiDellaStesa` consegna il momento al lettore che
+    /// gli si passa, mentre nell'app **nessuno gliene passava mai uno**, e
+    /// quello che si metteva di suo era un lettore il cui unico metodo era
+    /// vuoto per contratto. La spia rispondeva sempre, e a schermo non usciva
+    /// niente: la carta girata sceglieva il suo suono e lo consegnava al
+    /// nulla, a ogni giro, restando verde.
+    ///
+    /// Adesso il suono passa dalla porta unica del Cerchio, e che ci arrivi
+    /// davvero lo sorveglia `test/la_carta_girata_suona_test.dart`, con un
+    /// contesto vero e la spia armata sulla porta. **Qui resta cio' che a
+    /// questo gruppo compete davvero**: che l'interruttore fermi il momento
+    /// prima ancora che qualcuno pensi a suonarlo.
+    late BuildContext contesto;
 
-    test('L\'interruttore zittisce suono e vibrazione insieme', () async {
-      final sensi = SensiDellaStesa(lettore: _LettoreSpia(suonati));
+    Future<SensiDellaStesa> conContesto(WidgetTester tester,
+        {bool silenzio = false}) async {
+      final sensi = SensiDellaStesa(silenzio: silenzio);
+      await tester.pumpWidget(Builder(builder: (c) {
+        contesto = c;
+        return const SizedBox();
+      }));
+      return sensi;
+    }
+
+    testWidgets('L\u0027interruttore zittisce suono e vibrazione insieme',
+        (tester) async {
+      final sensi = await conContesto(tester);
       // Acceso: il momento passa.
-      await sensi.momento(MomentoSensoriale.taglio);
+      await sensi.momento(contesto, MomentoSensoriale.taglio);
       expect(sensi.eseguiti, [MomentoSensoriale.taglio]);
-      expect(suonati, [MomentoSensoriale.taglio]);
 
       // In silenzio non esce piu' nulla, ne' suono ne' vibrazione: e' lo
       // stesso interruttore per tutti e due.
       sensi.silenzio = true;
-      await sensi.momento(MomentoSensoriale.flip);
-      await sensi.momento(MomentoSensoriale.reveal);
+      await sensi.momento(contesto, MomentoSensoriale.flip);
+      await sensi.momento(contesto, MomentoSensoriale.reveal);
       expect(sensi.eseguiti, [MomentoSensoriale.taglio],
           reason: 'in silenzio e passato comunque un momento');
-      expect(suonati, [MomentoSensoriale.taglio]);
 
       // E riaccendendolo torna tutto.
       sensi.silenzio = false;
-      await sensi.momento(MomentoSensoriale.volo);
+      await sensi.momento(contesto, MomentoSensoriale.volo);
       expect(sensi.eseguiti.length, 2);
     });
 
-    test('Anche il silenzioso di sistema zittisce tutto', () async {
-      final sensi = SensiDellaStesa(lettore: _LettoreSpia(suonati));
+    testWidgets('Anche il silenzioso di sistema zittisce tutto',
+        (tester) async {
+      final sensi = await conContesto(tester);
       sensi.sistemaSilenzioso = true;
       expect(sensi.muto, isTrue);
-      await sensi.momento(MomentoSensoriale.taglio);
-      expect(suonati, isEmpty);
+      await sensi.momento(contesto, MomentoSensoriale.taglio);
+      expect(sensi.eseguiti, isEmpty);
     });
 
-    test('Senza file audio l\'aggancio resta pronto e muto', () async {
-      // Il lettore di adesso non suona nulla e non fallisce: i file
-      // arriveranno, l'aggancio e' gia' al suo posto.
-      final sensi = SensiDellaStesa();
-      await sensi.momento(MomentoSensoriale.mescolamento);
-      expect(sensi.eseguiti, [MomentoSensoriale.mescolamento]);
+    test('I momenti che suonano sono due, e vengono dal catalogo del Cerchio',
+        () {
       // I momenti NON hanno un catalogo sonoro tutto loro: ne esisteva un
       // secondo, cinque file dedicati alla stesa oltre a quelli del
       // Cerchio. Due cataloghi vogliono dire due identita' sonore. Questa
@@ -194,9 +216,6 @@ void main() {
       // carta scoperta, perche' un suono per la carta che si gira **non
       // esisteva**. Adesso esiste, `carta.mp3`, e viene dal catalogo del
       // Cerchio come tutti gli altri: nessun secondo catalogo e' tornato.
-      //
-      // **Per un giorno quel file e' stato nel catalogo e non lo suonava
-      // nessuno**, ed e' il difetto che questa riga adesso sorveglia.
       const cheSuonano = {
         MomentoSensoriale.flip: SuonoDelCerchio.carta,
         MomentoSensoriale.reveal: SuonoDelCerchio.rivelazione,
@@ -204,7 +223,7 @@ void main() {
       for (final m in MomentoSensoriale.values) {
         expect(m.suono, cheSuonano[m],
             reason: 'il momento ${m.name} suona ${m.suono} invece di '
-                '${cheSuonano[m]}. Il vocabolario sonoro della stesa \' '
+                '${cheSuonano[m]}. Il vocabolario sonoro della stesa e\u0027 '
                 'quello del Cerchio, e i momenti che suonano sono due: la '
                 'carta che si gira e la carta scoperta.');
         // Il nome del file lo dichiara il catalogo, non il momento.
@@ -279,14 +298,4 @@ void main() {
       }
     });
   });
-}
-
-/// Un lettore che segna cosa gli e' stato chiesto, per i test.
-class _LettoreSpia extends LettoreEffetti {
-  const _LettoreSpia(this.visti);
-
-  final List<MomentoSensoriale> visti;
-
-  @override
-  Future<void> suona(MomentoSensoriale momento) async => visti.add(momento);
 }

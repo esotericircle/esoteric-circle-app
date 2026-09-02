@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../core/maestro/maestro.dart';
 import '../../core/sensi/catalogo_musiche.dart';
 
@@ -62,12 +64,38 @@ const Map<String, VoceDellaMusica> musicaPerSchermata = {
   // ascoltare. **Il bambu' di Aura suona nel suo dominio, non qui.**
   'MeditationScreen': (cosa: CosaSuonaQui.silenzio, traccia: null),
 
-  // --- L'INTRO ------------------------------------------------------------
+  // --- E L'INTRO NON STA QUI, PERCHE' NON E' UNA ROTTA ---------------------
   //
-  // La voce del principio ha la schermata nera tutta per se': due suoni che si
-  // contendono la stessa apertura non fanno un'apertura piu' ricca.
-  'SequenzaIntro': (cosa: CosaSuonaQui.silenzio, traccia: null),
+  // **Qui c'era una riga per `SequenzaIntro`, e non ha mai potuto valere
+  // niente.** Ordine CN voce 03, corretto dall'ordine CO voce 01 il 3
+  // settembre 2026. Questa mappa si legge col nome della schermata IN CIMA
+  // ALLA PILA del Navigator, e l'intro non e' una schermata della pila: e'
+  // un velo che AVVOLGE il Navigator intero, montato in `app.dart` sopra di
+  // esso. Il nome `SequenzaIntro` non arriva mai a questa mappa, quindi la
+  // riga era verde, leggibile, sensata e **morta**: mentre l'intro suonava,
+  // il custode leggeva `OnboardingScreen` di sotto e faceva partire lo
+  // Shaman all'istante. E' il difetto che il fondatore ha sentito sul
+  // telefono, due voci sopra la stessa apertura.
+  //
+  // Cio' che avvolge non si dichiara per nome di rotta: si dichiara alzando
+  // il velo qui sotto.
 };
+
+/// **IL VELO CHE ZITTISCE, ed e' il modo giusto di dirlo per cio' che non e'
+/// una rotta.**
+///
+/// Ordine CO voce 01, 3 settembre 2026. L'intro sta SOPRA il Navigator, e
+/// finche' si vede nessuna schermata di sotto ha voce in capitolo sulla
+/// musica: quella nera con la voce del principio e' l'unica cosa che si sta
+/// guardando. La voce del principio ha la schermata tutta per se', perche'
+/// due suoni che si contendono la stessa apertura non fanno un'apertura piu'
+/// ricca.
+///
+/// **Perche' un notificatore e non un semplice booleano.** Quando il velo
+/// cade, nessuna rotta viene spinta: la pila non cambia, il custode non
+/// verrebbe svegliato da niente e la musica resterebbe zitta fino al primo
+/// tocco. La caduta del velo **e' essa stessa un cambiamento**, e va detta.
+final ValueNotifier<bool> veloCheZittisce = ValueNotifier<bool>(false);
 
 /// **Cosa deve suonare, date la schermata in cima e il Maestro che dichiara.**
 ///
@@ -75,6 +103,14 @@ const Map<String, VoceDellaMusica> musicaPerSchermata = {
 /// perche' la Meditazione sta nel dominio di Aura e senza questa precedenza si
 /// prenderebbe il bambu' che deve invece tacere.
 VoceDellaMusica cosaSuonaSu(String? schermata, Maestro? maestro) {
+  // **IL VELO VINCE SU TUTTO, e viene per primo.** Cio' che copre lo schermo
+  // intero conta piu' di qualunque cosa dichiari la schermata di sotto:
+  // mentre l'intro si vede, la home sotto di essa non e' la cosa che si sta
+  // guardando, e la sua traccia non e' la cosa che si deve ascoltare.
+  if (veloCheZittisce.value) {
+    return (cosa: CosaSuonaQui.silenzio, traccia: null);
+  }
+
   final dichiarata = musicaPerSchermata[schermata];
   if (dichiarata != null) return dichiarata;
 

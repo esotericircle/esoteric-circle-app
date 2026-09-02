@@ -52,6 +52,15 @@ void main() {
       'CosmicPassport'
     ]) {
       final voce = cosaSuonaSu(schermata, null);
+      // **SI GUARDA ANCHE COSA, NON SOLO QUALE.** Ordine CO voce 01, 3
+      // settembre 2026: fino a ieri questa riga leggeva la sola traccia, e
+      // una schermata dichiarata `silenzio` con la traccia giusta accanto
+      // passava verde mentre l'app taceva. Cieca al bersaglio: sorvegliava
+      // il nome del brano e non il fatto che suonasse. Difetto della voce
+      // CN.03, che questa guardia l'ha scritta.
+      expect(voce.cosa, CosaSuonaQui.unaTraccia,
+          reason: '$schermata non fa suonare niente: dichiara ${voce.cosa} '
+              'anche se la traccia accanto resta quella giusta.');
       expect(voce.traccia, MusicaDelCerchio.home,
           reason: '$schermata non porta lo Shaman: l\'ordine CN vuole che '
               'parta con la PRIMA schermata del Risveglio e prosegua senza '

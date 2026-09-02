@@ -38,6 +38,12 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
   void initState() {
     super.initState();
     widget.pila.cambi.addListener(_guarda);
+    // **E SI ASCOLTA ANCHE IL VELO, non solo la pila.** Ordine CO voce 01, 3
+    // settembre 2026. Quando l'intro finisce non viene spinta nessuna rotta:
+    // la pila non cambia, e un custode che ascoltasse solo lei resterebbe
+    // fermo a guardare un velo caduto, in silenzio, fino al primo tocco della
+    // persona. **La caduta del velo e' essa stessa un cambiamento.**
+    veloCheZittisce.addListener(_guarda);
     // Il primo giro dopo il frame: alla costruzione la pila e' ancora vuota,
     // e chiedere adesso vorrebbe dire chiedere del nulla.
     WidgetsBinding.instance.addPostFrameCallback((_) => _guardaOra());
@@ -46,6 +52,7 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
   @override
   void dispose() {
     widget.pila.cambi.removeListener(_guarda);
+    veloCheZittisce.removeListener(_guarda);
     super.dispose();
   }
 
