@@ -413,19 +413,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// stessa frase.
   int _giroDellAttesa = 0;
 
-  /// **SE LA LETTURA E' STATA AVVIATA. Ordine CO voce 07**, 3 settembre 2026.
-  ///
-  /// Il fondatore ha chiesto un pulsante esplicito per cominciare, e la
-  /// ragione si vede aprendo la schermata: c'era un ventaglio di carte coperte
-  /// e nient'altro. **Chi arrivava qui non sapeva che si cominciava toccando
-  /// una carta**, perche' niente glielo diceva: la stesa cominciava sul primo
-  /// tocco, e un rito che comincia senza che nessuno l'abbia cominciato non e'
-  /// un rito, e' un incidente.
-  ///
-  /// Falso finche' non si preme. Da quel momento il ventaglio accetta i tocchi
-  /// e il rito e' cominciato per volonta' di chi lo compie.
-  bool _letturaAvviata = false;
-
   /// Quante carte sono gia' state pescate, da 0 a 3.
   late int _drawn = widget.revealAll ? SpreadPosition.values.length : 0;
 
@@ -657,18 +644,25 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _pick(int fanIndex) async {
     if (_complete || _taken.contains(fanIndex)) return;
     if (!_scene.accettaGesti) return;
-    // **FINCHE' NESSUNO HA COMINCIATO, IL VENTAGLIO NON RISPONDE.** Ordine CO
-    // voce 07: il rito lo comincia chi lo compie, premendo, e non un tocco
-    // capitato su una carta mentre si guardava.
-    if (!_letturaAvviata) return;
+    // **IL VENTAGLIO E' VIVO DA SUBITO.** Ordine CQ voce 1.03, 3 settembre
+    // 2026, e ribalta l'ordine CO voce 07 per decisione del fondatore.
+    //
+    // CO.07 aveva messo un pulsante PRIMA delle carte, perche' la stesa
+    // partiva sul primo tocco senza che nessuno l'avesse cominciata. La cura
+    // era giusta nel movente e sbagliata nel posto: chiedeva di premere per
+    // ottenere il permesso di scegliere. **Il fondatore lo vuole al
+    // contrario**: si sceglie subito, e il pulsante sta DOPO le tre carte,
+    // dove decide se leggere. Cosi' il gesto che costa e' uno solo, e non e'
+    // il tocco su una carta.
     // **IL CANCELLO DELLA STESA, ordine BN voce 09.** Si guarda alla PRIMA
     // carta e non alla terza: chi non puo' stendere non deve scoprire di non
     // poterlo fare dopo aver posato due carte. Da qui in poi la stesa e'
     // cominciata, e cominciarla non costa niente: il conto si paga quando e'
     // compiuta.
-    // **IL CANCELLO NON STA PIU' QUI**, sta su `_avviaLaLettura`, che e' il
-    // pulsante: ordine CO voce 07. Guardarlo di nuovo a ogni carta sarebbe la
-    // seconda porta sullo stesso permesso.
+    // **IL CANCELLO NON STA PIU' QUI**, sta su `_apriIlResponso`, che e' il
+    // pulsante: ordine CQ voce 1.03. Guardarlo di nuovo a ogni carta sarebbe
+    // la seconda porta sullo stesso permesso, e per di piu' farebbe pagare
+    // una stesa a chi si limita a scegliere.
     _sensi.momento(context, MomentoSensoriale.volo);
     setState(() {
       _taken.add(fanIndex);
@@ -694,101 +688,126 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
     });
+    // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
+    // seme parla un istante, prima di lasciarla pulita e leggibile.
+    _sensi.momento(context, MomentoSensoriale.flip);
+    await _fiorisci(slot);
+  }
+
+  /// **IL RESPONSO SI APRE QUANDO LO CHIEDI, E SOLO ALLORA SI PAGA.**
+  /// Ordine CQ voce 1.03, 3 settembre 2026.
+  ///
+  /// **Il fatto, parole del fondatore:** *"la stesa deve rimanere viva sin
+  /// dall'inizio, l'utente sceglie le 3 carte e poi il pulsante diventa
+  /// premibile."*
+  ///
+  /// **La provenienza e' l'ordine CO voce 07**, che aveva messo il pulsante
+  /// prima delle carte. Qui il pulsante torna dopo, e cambia mestiere: non
+  /// da' il permesso di scegliere, apre la lettura di cio' che si e' gia'
+  /// scelto.
+  ///
+  /// **E' questo il gesto che costa.** Il cancello del piano si guarda qui e
+  /// in nessun altro punto: tre carte posate e poi ripensarci non consuma
+  /// niente, ed e' la stessa legge dell'ordine BN voce 09, spostata sul gesto
+  /// che adesso la porta.
+  Future<void> _apriIlResponso() async {
+    if (!_complete || _responsoPronto || _stoPerRiflettere) return;
+    if (!_laStesaSiPuoAprire(riprova: _apriIlResponso)) return;
+    // Lo stesso momento sensoriale che l'ordine CO voce 07 aveva messo
+    // sull'avvio: cambia il posto del pulsante, non cosa si sente premendolo.
+    unawaited(PaletteSensoriale.momento(context,
+        aptica: SchemaAptico.conferma, suono: SuonoDelCerchio.soglia));
     // LA STESA ENTRA NEL CAMMINO, ordine P voce 35. Qui, e non all'apertura
     // della scena: una scena si apre anche per sbaglio, una stesa COMPIUTA
     // no. Prima di questa voce la stesa non compariva in nessuno dei quattro
     // commit dell'ordine O, quindi non registrava niente e nessun traguardo
     // dei tarocchi poteva accendersi, ne' con tre stese ne' con trecento.
-    if (_complete) {
-      // **IL GESTO PORTA CIO' CHE LA SCENA SA, ordine AR voce 11.** Nel
-      // momento in cui la stesa e' completa questa scena ha in mano le tre
-      // carte uscite e l'argomento scelto: sono i dettagli che le condizioni
-      // di profondita' e coincidenza chiedono (tutti e quattro i semi, la
-      // stessa carta in due stese, i sedici argomenti del ventaglio). Non si
-      // va a cercare niente altrove: e' tutto qui, gia' pronto.
-      // **IL CONSUMO VERO, ordine BN voce 09: qui e non alla prima carta.**
-      // Una volta per stesa e non una per carta, nello stesso punto in cui la
-      // stesa entra nel cammino, cioe' quando e' compiuta. Una stesa
-      // cominciata e abbandonata non consuma niente.
-      // **LA RIFLESSIONE SI DICHIARA PRIMA DEL GESTO, ordine BV voce 02.**
-      // L'ordine BU aveva messo la dichiarazione dove l'animazione PARTE, e
-      // per la festa che nasce mentre gira era giusto. Ma il caso vero e' un
-      // altro, ed e' quello che il fondatore ha continuato a vedere: posando
-      // l'ultima carta il traguardo matura qui sotto, la festa si apre in
-      // quell'istante e trova la scena ancora libera, perche' Medora comincia
-      // a pensare tre righe piu' giu'. **Chi sta per riflettere lo dice prima
-      // di muovere qualunque cosa**, e da quel momento la scena e' occupata.
-      _stoPerRiflettere = true;
-      RiflessioniInCorso.entra(() =>
-          mounted && (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
-      final borsa = _forse<QuestionAllowance>(context);
-      if (borsa != null) {
-        borsa.registraStesa(
-            _forse<EntitlementService>(context)?.tier ?? Tier.free);
-      }
-      final carte = _spread.cards;
-      unawaited(RegiaDelCammino.dopoUnGesto(
-        context,
-        'stesa',
-        dettagli: {
-          'carte': [for (final c in carte) c.card.stem],
-          'semi': [
-            for (final c in carte)
-              if (c.card.seme != null) c.card.seme!.name,
-          ],
-          'maggiori': [
-            for (final c in carte)
-              if (c.card.arcana == TarotArcana.maggiore) c.card.stem,
-          ],
-          'argomento': (widget.topic ?? TarotTopic.predefinito).name,
-          // **IL VERSO DELLA CARTA, ordine BW voce 07.** Il corpus chiede "per
-          // la prima volta una carta esce rovesciata e tu la leggi", e la
-          // scena mandava carte, semi, maggiori e argomento: il verso restava
-          // dentro la stesa e il gradino dormiva. Si mandano gli stemmi delle
-          // sole carte uscite al rovescio, cosi' la domanda "e' mai successo"
-          // e quella "quante volte" hanno tutte e due una risposta.
-          'rovescio': [
-            for (final c in carte)
-              if (c.reversed) c.card.stem,
-          ],
-          // **LA CARTA E LA LUNA SOTTO CUI E' USCITA, ordine BX voce 01.** Il
-          // corpus chiede "la stessa carta esce sotto tre fasi lunari
-          // diverse": non basta sapere quali carte sono uscite, serve sapere
-          // sotto quale cielo. Il dettaglio e' composto, 'carta@fase', ed e'
-          // la forma che il diario sa interrogare.
-          'carta_e_luna': [
-            for (final c in carte)
-              '${c.card.stem}@${MoonPhase.forDate(DateTime.now()).italianName}',
-          ],
-        },
-      ));
-      // LA DOMANDA SI SALVA, ordine P voce 09 e voce 18.
-      //
-      // **Senza questo la domanda e' un finale carino che nessuno ricorda.** La
-      // domanda esiste perche' e' cio' che riporta la persona domani: ricompare
-      // nel dono del mattino successivo con la formula "Ieri Medora ti ha
-      // lasciato questa domanda".
-      // **E SE LA DOMANDA L'HA SCRITTA LA PERSONA, SI RICORDA QUELLA.**
-      // Ordine CO voce 05, 3 settembre 2026.
-      //
-      // Il filo del giorno riporta domani la domanda lasciata oggi, e fra le
-      // due quella che vale di piu' e' quella che la persona ha scritto di suo
-      // pugno: **e' la sola che lei riconosce come sua.** La domanda di
-      // chiusura di Medora resta il ripiego di chi non ne ha scritta nessuna,
-      // che e' la maggioranza delle volte.
-      unawaited(FiloDelGiorno.segnaLaDomanda(
-          _setup.domandaScritta ?? _reading.domanda, DateTime.now()));
+
+    // **IL GESTO PORTA CIO' CHE LA SCENA SA, ordine AR voce 11.** Nel
+    // momento in cui la stesa e' completa questa scena ha in mano le tre
+    // carte uscite e l'argomento scelto: sono i dettagli che le condizioni
+    // di profondita' e coincidenza chiedono (tutti e quattro i semi, la
+    // stessa carta in due stese, i sedici argomenti del ventaglio). Non si
+    // va a cercare niente altrove: e' tutto qui, gia' pronto.
+    // **IL CONSUMO VERO, ordine BN voce 09: qui e non alla prima carta.**
+    // Una volta per stesa e non una per carta, nello stesso punto in cui la
+    // stesa entra nel cammino, cioe' quando e' compiuta. Una stesa
+    // cominciata e abbandonata non consuma niente.
+    // **LA RIFLESSIONE SI DICHIARA PRIMA DEL GESTO, ordine BV voce 02.**
+    // L'ordine BU aveva messo la dichiarazione dove l'animazione PARTE, e
+    // per la festa che nasce mentre gira era giusto. Ma il caso vero e' un
+    // altro, ed e' quello che il fondatore ha continuato a vedere: posando
+    // l'ultima carta il traguardo matura qui sotto, la festa si apre in
+    // quell'istante e trova la scena ancora libera, perche' Medora comincia
+    // a pensare tre righe piu' giu'. **Chi sta per riflettere lo dice prima
+    // di muovere qualunque cosa**, e da quel momento la scena e' occupata.
+    _stoPerRiflettere = true;
+    RiflessioniInCorso.entra(() =>
+        mounted && (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
+    final borsa = _forse<QuestionAllowance>(context);
+    if (borsa != null) {
+      borsa.registraStesa(
+          _forse<EntitlementService>(context)?.tier ?? Tier.free);
     }
-    // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
-    // seme parla un istante, prima di lasciarla pulita e leggibile.
-    _sensi.momento(context, MomentoSensoriale.flip);
-    await _fiorisci(slot);
+    final carte = _spread.cards;
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'stesa',
+      dettagli: {
+        'carte': [for (final c in carte) c.card.stem],
+        'semi': [
+          for (final c in carte)
+            if (c.card.seme != null) c.card.seme!.name,
+        ],
+        'maggiori': [
+          for (final c in carte)
+            if (c.card.arcana == TarotArcana.maggiore) c.card.stem,
+        ],
+        'argomento': (widget.topic ?? TarotTopic.predefinito).name,
+        // **IL VERSO DELLA CARTA, ordine BW voce 07.** Il corpus chiede "per
+        // la prima volta una carta esce rovesciata e tu la leggi", e la
+        // scena mandava carte, semi, maggiori e argomento: il verso restava
+        // dentro la stesa e il gradino dormiva. Si mandano gli stemmi delle
+        // sole carte uscite al rovescio, cosi' la domanda "e' mai successo"
+        // e quella "quante volte" hanno tutte e due una risposta.
+        'rovescio': [
+          for (final c in carte)
+            if (c.reversed) c.card.stem,
+        ],
+        // **LA CARTA E LA LUNA SOTTO CUI E' USCITA, ordine BX voce 01.** Il
+        // corpus chiede "la stessa carta esce sotto tre fasi lunari
+        // diverse": non basta sapere quali carte sono uscite, serve sapere
+        // sotto quale cielo. Il dettaglio e' composto, 'carta@fase', ed e'
+        // la forma che il diario sa interrogare.
+        'carta_e_luna': [
+          for (final c in carte)
+            '${c.card.stem}@${MoonPhase.forDate(DateTime.now()).italianName}',
+        ],
+      },
+    ));
+    // LA DOMANDA SI SALVA, ordine P voce 09 e voce 18.
+    //
+    // **Senza questo la domanda e' un finale carino che nessuno ricorda.** La
+    // domanda esiste perche' e' cio' che riporta la persona domani: ricompare
+    // nel dono del mattino successivo con la formula "Ieri Medora ti ha
+    // lasciato questa domanda".
+    // **E SE LA DOMANDA L'HA SCRITTA LA PERSONA, SI RICORDA QUELLA.**
+    // Ordine CO voce 05, 3 settembre 2026.
+    //
+    // Il filo del giorno riporta domani la domanda lasciata oggi, e fra le
+    // due quella che vale di piu' e' quella che la persona ha scritto di suo
+    // pugno: **e' la sola che lei riconosce come sua.** La domanda di
+    // chiusura di Medora resta il ripiego di chi non ne ha scritta nessuna,
+    // che e' la maggioranza delle volte.
+    unawaited(FiloDelGiorno.segnaLaDomanda(
+        _setup.domandaScritta ?? _reading.domanda, DateTime.now()));
+  
     // IL FILO, ordine BN voce 08: dice che le tre carte sono una lettura sola,
     // e lo dice PRIMA che Medora cominci a pensare.
-    if (_complete) await _corriIlFilo();
-    // MEDORA CI PENSA, ordine P voce 06: solo alla TERZA carta, perche' e' li'
-    // che il responso comincia, e prima non c'e' niente da guardare insieme.
-    if (_complete) await _medoraCiPensa();
+    await _corriIlFilo();
+    // MEDORA CI PENSA, ordine P voce 06: dal pulsante, perche' e' li' che il
+    // responso comincia, e prima non c'e' niente da guardare insieme.
+    await _medoraCiPensa();
   }
 
   /// Un servizio del guscio, se c'e'. Torna nullo dove non c'e' nessun
@@ -814,21 +833,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Il testo nomina le STESE e mai le gettate: sono due budget diversi, e
   /// una parola sbagliata qui manderebbe la persona a cercare il residuo
   /// dalla parte sbagliata dell'app.
-  /// Avvia la lettura: e' il pulsante, ed e' l'unico punto che la comincia.
-  ///
-  /// **Il cancello del piano si guarda QUI e non alla prima carta.** Ordine CO
-  /// voce 07: prima si guardava sul primo tocco, che era il momento giusto
-  /// finche' il primo tocco era l'inizio. Adesso l'inizio e' questo, e chi non
-  /// puo' stendere lo scopre premendo "Inizia la lettura" invece che
-  /// toccando una carta che poi non si muove.
-  void _avviaLaLettura() {
-    if (_letturaAvviata) return;
-    if (!_laStesaSiPuoAprire(riprova: _avviaLaLettura)) return;
-    unawaited(PaletteSensoriale.momento(context,
-        aptica: SchemaAptico.conferma, suono: SuonoDelCerchio.soglia));
-    setState(() => _letturaAvviata = true);
-  }
-
   bool _laStesaSiPuoAprire({required VoidCallback riprova}) {
     final borsa = _forse<QuestionAllowance>(context);
     // **SENZA IL BORSELLINO NON SI SBARRA NIENTE.** Anteprime e prove
@@ -1239,46 +1243,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               budget: BudgetDelGiorno.stese,
               allineamento: MainAxisAlignment.center,
             ),
-          // **IL PULSANTE CHE COMINCIA LA LETTURA. Ordine CO voce 07**, 3
-          // settembre 2026.
-          //
-          // Prima qui c'era il ventaglio e nient'altro: chi arrivava non
-          // sapeva che si cominciava toccando una carta, e la stesa partiva
-          // sul primo tocco. **Un rito che comincia senza che nessuno l'abbia
-          // cominciato non e' un rito, e' un incidente**, e chi non poteva
-          // stenderla lo scopriva toccando una carta che poi non si muoveva.
-          //
-          // Sparisce appena la lettura e' avviata: da li' in poi il ventaglio
-          // parla da solo, e un pulsante che resta acceso dopo aver fatto il
-          // suo lavoro e' una cosa in piu' da capire.
-          if (!_letturaAvviata) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Center(
-              child: FilledButton.icon(
-                key: const Key('stesa_inizia'),
-                onPressed: _avviaLaLettura,
-                icon: const Icon(Icons.auto_awesome, size: 18),
-                label: const Text('Inizia la lettura'),
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.gold,
-                  foregroundColor: palette.deepest,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.lg,
-                      vertical: SpacingTokens.sm),
-                  textStyle: TypographyTokens.titoloDiRiga(),
-                ),
-              ),
-            ),
-            const SizedBox(height: SpacingTokens.xxs),
-            Center(
-              child: Text(
-                'Poi scegli tre carte dal ventaglio.',
-                key: const Key('stesa_inizia_come'),
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
-            ),
-          ],
           // **OTTO E NON SEDICI, ordine BU voce 01.** I testi di contenuto
           // sono saliti alla misura di lettura, e sotto le carte pescate se
           // ne accumulano due: dopo due pescaggi il ventaglio finiva a 861
@@ -1374,6 +1338,54 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 .copyWith(color: ColorTokens.textSecondary, letterSpacing: 0.8),
           ),
           const SizedBox(height: SpacingTokens.lg),
+        ],
+        // **IL PULSANTE CHE APRE IL RESPONSO. Ordine CQ voce 1.03**, 3
+        // settembre 2026, e ribalta l'ordine CO voce 07.
+        //
+        // **Sta fuori dal blocco `!_complete`, e la prima stesura di questa
+        // voce ci era caduta dentro.** Li' spariva esattamente nell'istante in
+        // cui doveva accendersi, cioe' alla terza carta, e nessuna prova che
+        // lo cercava lo trovava piu'.
+        //
+        // C'e' sempre finche' il responso non e' aperto, e si accende solo a
+        // tre carte posate: **chi arriva vede subito cosa dovra' premere**, e
+        // vede anche che adesso non si puo'. Scegliere non consuma niente,
+        // premere si'.
+        if (!_responsoPronto) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Center(
+            child: FilledButton.icon(
+              key: const Key('stesa_inizia'),
+              onPressed: _complete && !_stoPerRiflettere
+                  ? () => unawaited(_apriIlResponso())
+                  : null,
+              icon: const Icon(Icons.auto_awesome, size: 18),
+              label: const Text('Leggi il responso'),
+              style: FilledButton.styleFrom(
+                backgroundColor: palette.gold,
+                foregroundColor: palette.deepest,
+                disabledBackgroundColor: palette.gold.withValues(alpha: 0.22),
+                disabledForegroundColor:
+                    palette.deepest.withValues(alpha: 0.55),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.lg, vertical: SpacingTokens.sm),
+                textStyle: TypographyTokens.titoloDiRiga(),
+              ),
+            ),
+          ),
+          if (!_complete) ...[
+            const SizedBox(height: SpacingTokens.xxs),
+            Center(
+              child: Text(
+                'Scegli tre carte dal ventaglio, poi premi qui.',
+                key: const Key('stesa_inizia_come'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.md),
         ],
         // La sintesi memorabile, sopra le tre carte.
         if (_responsoInScena) ...[

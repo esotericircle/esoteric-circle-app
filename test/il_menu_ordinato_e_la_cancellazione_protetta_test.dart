@@ -86,9 +86,32 @@ void main() {
     final server = File('functions/src/cerchio.ts').readAsStringSync();
     expect(server.contains('scriviIlCongedo(request, "dati")'), isTrue);
     expect(server.contains('scriviIlCongedo(request, "account")'), isTrue);
-    final congedo = server.substring(
-        server.indexOf('async function scriviIlCongedo'),
-        server.indexOf('export const azzeraIDatiDelCerchio'));
+    // **LA FINESTRA FINISCE DOVE FINISCE LA FUNZIONE, non alla prossima
+    // export.** Ordine CQ voce 1.01, 3 settembre 2026, e la guardia si e'
+    // fatta trovare cosi': fra `scriviIlCongedo` e `azzeraIDatiDelCerchio` e'
+    // entrata una callable nuova, che di `uid` ne nomina due, e la prova e'
+    // diventata rossa senza che il congedo fosse stato toccato. **Misurava
+    // una finestra che chiunque poteva allargare scrivendoci dentro**, cioe'
+    // era una guardia legata alla forma del file invece che al fatto. Adesso
+    // la finestra e' il corpo della funzione, che finisce alla sua parentesi
+    // in colonna zero.
+    // Le righe, e non gli indici: il file finisce le righe col ritorno a
+    // capo di Windows, e cercare la parentesi fra due soli caratteri di riga
+    // non la trova mai.
+    final righe = server.split(String.fromCharCode(10));
+    final prima = righe.indexWhere((r) => r.contains('async function scriviIlCongedo'));
+    expect(prima, greaterThanOrEqualTo(0),
+        reason: 'la funzione del congedo non esiste piu');
+    var ultima = -1;
+    for (var i = prima + 1; i < righe.length; i++) {
+      if (righe[i].trimRight() == '}') {
+        ultima = i;
+        break;
+      }
+    }
+    expect(ultima, greaterThan(prima),
+        reason: 'non si trova la fine del corpo del congedo');
+    final congedo = righe.sublist(prima, ultima + 1).join(' ');
     expect(congedo.contains('uid'), isFalse,
         reason: 'il congedo scrive l\'uid: il feedback deve restare anonimo');
   });

@@ -79,17 +79,25 @@ void main() {
         ),
       );
 
-  Future<void> pesca(WidgetTester tester, int indice) async {
-    // **PRIMA SI PREME PER COMINCIARE. Ordine CO voce 07**, 3 settembre 2026:
-    // il fondatore ha chiesto un pulsante esplicito, e il ventaglio non
-    // risponde piu' a chi non ha cominciato. Il pulsante c'e' solo prima della
-    // prima carta, quindi da qui in poi questa riga non fa niente.
-    final inizia = find.byKey(const Key('stesa_inizia'));
-    if (tester.widgetList(inizia).isNotEmpty) {
-      await tester.tap(inizia, warnIfMissed: false);
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
+  /// **IL GESTO CHE APRE LA LETTURA. Ordine CQ voce 1.03**, 3 settembre
+  /// 2026. Si aspetta che l'ultima carta sia arrivata nel suo slot, cioe' che
+  /// il pulsante si accenda, e lo si preme senza nessun pump dopo: da quel
+  /// tocco comincia l'istante che questa guardia osserva fotogramma per
+  /// fotogramma. Prima dell'ordine CQ quell'istante era la terza carta.
+  Future<void> premi(WidgetTester tester) async {
+    final pulsante = find.byKey(const Key('stesa_inizia'));
+    for (var i = 0; i < 40; i++) {
+      if (pulsante.evaluate().isNotEmpty &&
+          tester.widget<FilledButton>(pulsante).onPressed != null) {
+        await tester.tap(pulsante, warnIfMissed: false);
+        return;
+      }
+      await tester.pump(const Duration(milliseconds: 200));
     }
+    fail('il pulsante che apre il responso non si e mai acceso');
+  }
+
+  Future<void> pesca(WidgetTester tester, int indice) async {
     final carta = find.byKey(Key("stesa_fan_$indice"));
     expect(carta, findsOneWidget, reason: "la carta $indice non e nell arco");
     final r = tester.getRect(carta);
@@ -128,6 +136,7 @@ void main() {
 
     // L ULTIMA CARTA. Da qui si guarda fotogramma per fotogramma.
     await pesca(tester, 40);
+    await premi(tester);
 
     var sola = 0;
     var conLeCarte = 0;

@@ -199,7 +199,15 @@ void main() {
     // tocca il conto di un terzo ha bisogno della sua porta, con le sue
     // difese: non ci si invita da soli, non si riscatta due volte, e il
     // premio e\' un movimento idempotente.
-    expect(callable.length, 10,
+    // **UNDICI E NON PIU' DIECI, e il numero segue il dato.** Ordine CQ voce
+    // 1.01, 3 settembre 2026: e' entrata `attivaIlPianoInDemo`, la callable
+    // che scrive sul server il piano scelto col pulsante "Attiva in Demo".
+    // Prima quel pulsante cambiava il piano SOLO dentro il telefono, il
+    // server continuava a leggere `free` per tutti, e il fondatore vedeva il
+    // limite giornaliero raggiunto con l'Illuminato attivo. La callable e'
+    // sbarrata a chiave: senza la variabile DEMO_APERTA a uno risponde
+    // failed-precondition e non scrive niente.
+    expect(callable.length, 11,
         reason: 'le callable non sono piu\' dieci: $callable. Se ne serviva '
             'una nuova andava dichiarata e motivata nel rapporto');
   });
