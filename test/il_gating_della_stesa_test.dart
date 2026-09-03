@@ -216,7 +216,33 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
   }
 
+  /// **PRIMA SI PREME PER COMINCIARE. Ordine CO voce 07**, 3 settembre 2026.
+  ///
+  /// Il fondatore ha chiesto un pulsante esplicito, e con lui il cancello del
+  /// piano si e' spostato: prima si guardava sul PRIMO TOCCO di una carta,
+  /// adesso si guarda quando si preme "Inizia la lettura". E' il momento
+  /// giusto, ed e' il motivo per cui queste quattro prove sono diventate rosse
+  /// prima di essere aggiornate: toccavano il ventaglio senza aver cominciato,
+  /// e il ventaglio non risponde piu' a chi non ha cominciato.
+  ///
+  /// Torna vero se la lettura si e' avviata. Falso vuol dire che il cancello
+  /// ha sbarrato, ed e' un esito legittimo che alcune di queste prove
+  /// pretendono.
+  Future<bool> comincia(WidgetTester tester) async {
+    final pulsante = find.byKey(const Key('stesa_inizia'));
+    if (tester.widgetList(pulsante).isEmpty) return true;
+    await tester.tap(pulsante, warnIfMissed: false);
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    return tester.widgetList(find.byKey(const Key('stesa_inizia'))).isEmpty;
+  }
+
   Future<void> pesca(WidgetTester tester, int indice) async {
+    // **SE IL CANCELLO HA SBARRATO NON SI PESCA, e non e' un fallimento.**
+    // Ordine CO voce 07: l'invito a salire di livello copre la scena, e
+    // cercare una carta sotto di lui vorrebbe dire cercarla dietro un foglio.
+    // Le prove che verificano lo sbarramento arrivano qui apposta.
+    if (!await comincia(tester)) return;
     final carta = find.byKey(Key('stesa_fan_$indice'));
     expect(carta, findsOneWidget,
         reason: 'la carta $indice non e\' nell\'arco');
@@ -372,9 +398,21 @@ void main() {
     await tester.tap(riscatta);
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));
+    // **A RISCATTO AVVENUTO LA LETTURA E' AVVIATA, e le carte si scelgono.**
+    // Ordine CO voce 07, 3 settembre 2026, e questa riga cambia di misura ma
+    // non di legge. Prima il riscatto ripartiva col TOCCO che era stato
+    // sbarrato, cioe' posava la carta: era giusto finche' il primo tocco era
+    // l'inizio della stesa. Adesso l'inizio e' il pulsante, quindi il riscatto
+    // riprende da li': il ventaglio e' vivo e la prima carta la sceglie la
+    // persona. **La legge resta intera**, cioe' che a riscatto avvenuto non si
+    // chiede un secondo gesto per rifare quello appena sbarrato.
+    expect(find.byKey(const Key('stesa_inizia')), findsNothing,
+        reason: 'a riscatto avvenuto la lettura non e\' partita: chiede di '
+            'premere di nuovo il pulsante che era appena stato sbarrato');
+    await pesca(tester, 38);
     expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget,
-        reason: 'a riscatto avvenuto la stesa non e\' ripartita da sola: '
-            'chiede un secondo tocco');
+        reason: 'col riscatto fatto e la lettura avviata il ventaglio non '
+            'posa la carta');
   });
 
   // --- LE GUARDIE STRUTTURALI ---

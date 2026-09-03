@@ -114,7 +114,7 @@ void main() {
     // vale 0,35. Sotto i quindici pixel le cinque punte non sopravvivono al
     // filtro di ingrandimento, ed è la misura per cui ventiquattro non
     // bastavano: davano otto pixel e quaranta.
-    final piuPiccola = SpiraleDiStelle.latoDellaStella * 0.35;
+    const piuPiccola = SpiraleDiStelle.latoDellaStella * 0.35;
     // ignore: avoid_print
     print('ORDINE CO VOCE 18: la stella piu piccola a schermo misura '
         '${piuPiccola.toStringAsFixed(1)} pixel');

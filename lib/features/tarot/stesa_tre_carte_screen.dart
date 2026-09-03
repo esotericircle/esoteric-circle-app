@@ -49,6 +49,8 @@ import '../pricing/upgrade_invite.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -411,6 +413,19 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// stessa frase.
   int _giroDellAttesa = 0;
 
+  /// **SE LA LETTURA E' STATA AVVIATA. Ordine CO voce 07**, 3 settembre 2026.
+  ///
+  /// Il fondatore ha chiesto un pulsante esplicito per cominciare, e la
+  /// ragione si vede aprendo la schermata: c'era un ventaglio di carte coperte
+  /// e nient'altro. **Chi arrivava qui non sapeva che si cominciava toccando
+  /// una carta**, perche' niente glielo diceva: la stesa cominciava sul primo
+  /// tocco, e un rito che comincia senza che nessuno l'abbia cominciato non e'
+  /// un rito, e' un incidente.
+  ///
+  /// Falso finche' non si preme. Da quel momento il ventaglio accetta i tocchi
+  /// e il rito e' cominciato per volonta' di chi lo compie.
+  bool _letturaAvviata = false;
+
   /// Quante carte sono gia' state pescate, da 0 a 3.
   late int _drawn = widget.revealAll ? SpreadPosition.values.length : 0;
 
@@ -642,12 +657,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _pick(int fanIndex) async {
     if (_complete || _taken.contains(fanIndex)) return;
     if (!_scene.accettaGesti) return;
+    // **FINCHE' NESSUNO HA COMINCIATO, IL VENTAGLIO NON RISPONDE.** Ordine CO
+    // voce 07: il rito lo comincia chi lo compie, premendo, e non un tocco
+    // capitato su una carta mentre si guardava.
+    if (!_letturaAvviata) return;
     // **IL CANCELLO DELLA STESA, ordine BN voce 09.** Si guarda alla PRIMA
     // carta e non alla terza: chi non puo' stendere non deve scoprire di non
     // poterlo fare dopo aver posato due carte. Da qui in poi la stesa e'
     // cominciata, e cominciarla non costa niente: il conto si paga quando e'
     // compiuta.
-    if (_drawn == 0 && !_laStesaSiPuoAprire(fanIndex)) return;
+    // **IL CANCELLO NON STA PIU' QUI**, sta su `_avviaLaLettura`, che e' il
+    // pulsante: ordine CO voce 07. Guardarlo di nuovo a ogni carta sarebbe la
+    // seconda porta sullo stesso permesso.
     _sensi.momento(context, MomentoSensoriale.volo);
     setState(() {
       _taken.add(fanIndex);
@@ -747,7 +768,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // domanda esiste perche' e' cio' che riporta la persona domani: ricompare
       // nel dono del mattino successivo con la formula "Ieri Medora ti ha
       // lasciato questa domanda".
-      unawaited(FiloDelGiorno.segnaLaDomanda(_reading.domanda, DateTime.now()));
+      // **E SE LA DOMANDA L'HA SCRITTA LA PERSONA, SI RICORDA QUELLA.**
+      // Ordine CO voce 05, 3 settembre 2026.
+      //
+      // Il filo del giorno riporta domani la domanda lasciata oggi, e fra le
+      // due quella che vale di piu' e' quella che la persona ha scritto di suo
+      // pugno: **e' la sola che lei riconosce come sua.** La domanda di
+      // chiusura di Medora resta il ripiego di chi non ne ha scritta nessuna,
+      // che e' la maggioranza delle volte.
+      unawaited(FiloDelGiorno.segnaLaDomanda(
+          _setup.domandaScritta ?? _reading.domanda, DateTime.now()));
     }
     // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
     // seme parla un istante, prima di lasciarla pulita e leggibile.
@@ -784,7 +814,22 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Il testo nomina le STESE e mai le gettate: sono due budget diversi, e
   /// una parola sbagliata qui manderebbe la persona a cercare il residuo
   /// dalla parte sbagliata dell'app.
-  bool _laStesaSiPuoAprire(int fanIndex) {
+  /// Avvia la lettura: e' il pulsante, ed e' l'unico punto che la comincia.
+  ///
+  /// **Il cancello del piano si guarda QUI e non alla prima carta.** Ordine CO
+  /// voce 07: prima si guardava sul primo tocco, che era il momento giusto
+  /// finche' il primo tocco era l'inizio. Adesso l'inizio e' questo, e chi non
+  /// puo' stendere lo scopre premendo "Inizia la lettura" invece che
+  /// toccando una carta che poi non si muove.
+  void _avviaLaLettura() {
+    if (_letturaAvviata) return;
+    if (!_laStesaSiPuoAprire(riprova: _avviaLaLettura)) return;
+    unawaited(PaletteSensoriale.momento(context,
+        aptica: SchemaAptico.conferma, suono: SuonoDelCerchio.soglia));
+    setState(() => _letturaAvviata = true);
+  }
+
+  bool _laStesaSiPuoAprire({required VoidCallback riprova}) {
     final borsa = _forse<QuestionAllowance>(context);
     // **SENZA IL BORSELLINO NON SI SBARRA NIENTE.** Anteprime e prove
     // montano questa scena da sola, senza il guscio dell'app: li' il denaro
@@ -802,7 +847,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       cosaUna: 'una stesa completa',
       onSuccesso: (_) {
         if (!mounted) return;
-        _pick(fanIndex);
+        riprova();
       },
     );
     showUpgradeInvite(
@@ -1194,6 +1239,46 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               budget: BudgetDelGiorno.stese,
               allineamento: MainAxisAlignment.center,
             ),
+          // **IL PULSANTE CHE COMINCIA LA LETTURA. Ordine CO voce 07**, 3
+          // settembre 2026.
+          //
+          // Prima qui c'era il ventaglio e nient'altro: chi arrivava non
+          // sapeva che si cominciava toccando una carta, e la stesa partiva
+          // sul primo tocco. **Un rito che comincia senza che nessuno l'abbia
+          // cominciato non e' un rito, e' un incidente**, e chi non poteva
+          // stenderla lo scopriva toccando una carta che poi non si muoveva.
+          //
+          // Sparisce appena la lettura e' avviata: da li' in poi il ventaglio
+          // parla da solo, e un pulsante che resta acceso dopo aver fatto il
+          // suo lavoro e' una cosa in piu' da capire.
+          if (!_letturaAvviata) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Center(
+              child: FilledButton.icon(
+                key: const Key('stesa_inizia'),
+                onPressed: _avviaLaLettura,
+                icon: const Icon(Icons.auto_awesome, size: 18),
+                label: const Text('Inizia la lettura'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.lg,
+                      vertical: SpacingTokens.sm),
+                  textStyle: TypographyTokens.titoloDiRiga(),
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.xxs),
+            Center(
+              child: Text(
+                'Poi scegli tre carte dal ventaglio.',
+                key: const Key('stesa_inizia_come'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ),
+          ],
           // **OTTO E NON SEDICI, ordine BU voce 01.** I testi di contenuto
           // sono saliti alla misura di lettura, e sotto le carte pescate se
           // ne accumulano due: dopo due pescaggi il ventaglio finiva a 861
@@ -1316,6 +1401,34 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             palette: palette,
           ),
           const SizedBox(height: SpacingTokens.lg),
+          // **LA DOMANDA SCRITTA A MANO, RIPETUTA SOPRA IL RESPONSO.**
+          // Ordine CO voce 05, 3 settembre 2026.
+          //
+          // Chi ha scritto la propria domanda deve vederla accanto alla
+          // risposta: fra lo scriverla e il leggere ci sono tre carte pescate
+          // e una scena di attesa, e una risposta che non nomina la domanda
+          // sembra la risposta di un altro.
+          //
+          // **Non si finge che il testo del responso l'abbia letta.** Il
+          // responso di questa app e' deterministico e nasce dalle carte, non
+          // da un modello che interpreta una frase: la tendina dell'argomento
+          // continua a orientare il corpus, ed e' scritto nel dato. Questa
+          // riga dice cosa era stato chiesto, che e' vero, invece di ripetere
+          // la domanda con parole diverse fingendo di averne tenuto conto,
+          // che sarebbe peggio del non nominarla affatto.
+          if (_setup.domandaScritta != null) ...[
+            Text('LA TUA DOMANDA',
+                style: TypographyTokens.didascalia(weight: 600).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.85),
+                    letterSpacing: 1.2)),
+            const SizedBox(height: SpacingTokens.xxs),
+            Text(_setup.domandaScritta!,
+                key: const Key('stesa_domanda_a_video'),
+                style: TypographyTokens.lettura().copyWith(
+                    color: ColorTokens.textPrimary,
+                    fontStyle: FontStyle.italic)),
+            const SizedBox(height: SpacingTokens.md),
+          ],
           // IL CONSIGLIO E' LA PRIMA COSA CHE SI LEGGE, ordine P voce 09.
           //
           // Stava in fondo, dopo il dialogo e la carta chiave, ed era la piu'
@@ -1985,29 +2098,84 @@ class BollaDellaPosizione extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // **LA CARTA STA DENTRO LA SUA BOLLA. Ordine CO voce 06**, 3
+          // settembre 2026.
+          //
+          // Le tre carte stanno in fila in cima alla schermata, e le tre bolle
+          // che le leggono stanno sotto, una dietro l'altra. **Fra la carta e
+          // il testo che la spiega si scorre**, e piu' si legge piu' la carta
+          // e' lontana: chi arriva alla terza bolla ha la sua carta fuori
+          // schermo da un pezzo e deve tornare su per sapere di quale si stia
+          // parlando. Il nome scritto non basta a chi ha appena visto tre
+          // figure e non le ha ancora imparate a memoria.
+          //
+          // Sta nell'intestazione e non sopra il testo, ed e' una scelta di
+          // larghezza: una carta a tutta bolla mangerebbe l'altezza di uno
+          // schermo, e una carta a fianco del testo lascerebbe alla lettura
+          // duecentoquaranta punti su trecentosessanta. Qui la carta accompagna
+          // il nome e la posizione, cioe' l'intestazione, **e il testo torna a
+          // occupare la riga intera sotto di lei**.
+          //
+          // Rovesciata si vede rovesciata: e' la stessa carta che si e' girata
+          // in cima, e vederla dritta qui sotto direbbe una cosa diversa da
+          // quella che la parola "rovesciata" scrive accanto.
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(letta.drawn.position.label.toUpperCase(),
-                  style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.85),
-                      letterSpacing: 1.4)),
-              if (eLaChiave) ...[
-                const SizedBox(width: SpacingTokens.xs),
-                Icon(Icons.star_rounded, size: 15, color: palette.goldSoft),
-                const SizedBox(width: 4),
-                Text('LA CHIAVE',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
-              ],
+              SizedBox(
+                width: 54,
+                height: 81,
+                child: TarotCardArt(
+                  key: Key('bolla_carta_${letta.drawn.position.name}'),
+                  card: letta.drawn.card,
+                  palette: palette,
+                  reversed: letta.drawn.reversed,
+                  // Alle misure piccole i cartigli non si leggono, e lo dice
+                  // il widget stesso: il nome per esteso sta gia' accanto.
+                  showCartigli: false,
+                ),
+              ),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                              letta.drawn.position.label.toUpperCase(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color:
+                                      palette.goldSoft.withValues(alpha: 0.85),
+                                  letterSpacing: 1.4)),
+                        ),
+                        if (eLaChiave) ...[
+                          const SizedBox(width: SpacingTokens.xs),
+                          Icon(Icons.star_rounded,
+                              size: 15, color: palette.goldSoft),
+                          const SizedBox(width: 4),
+                          Text('LA CHIAVE',
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color: palette.goldSoft, letterSpacing: 1.4)),
+                        ],
+                      ],
+                    ),
+                    // I vuoti passano dai token: la bolla e' nata in questo
+                    // ordine e non aveva nessun diritto di portarsi dietro due
+                    // misure scritte a mano.
+                    const SizedBox(height: SpacingTokens.xxs),
+                    Text(letta.drawn.displayName,
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft, height: 1.2)),
+                  ],
+                ),
+              ),
             ],
           ),
-          // I vuoti passano dai token: la bolla e' nata in questo ordine e non
-          // aveva nessun diritto di portarsi dietro due misure scritte a mano.
-          const SizedBox(height: SpacingTokens.xxs),
-          Text(letta.drawn.displayName,
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft, height: 1.2)),
-          const SizedBox(height: SpacingTokens.xxs),
+          const SizedBox(height: SpacingTokens.xs),
           // **ANCHE LE ALTRE BOLLE SALGONO, ordine BU voce 01**: "anche le
           // altre bolle hanno il font piccolo".
           ParagrafiDiLettura(
