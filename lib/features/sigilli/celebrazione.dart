@@ -164,10 +164,13 @@ class Celebrazione {
       // questo e non l'apertura della festa: gli Eos volano nel
       // borsellino quando la scena LASCIA lo schermo, ordine S voce
       // 07, e il suono accompagna il volo invece di anticiparlo.
-      scena.whenComplete(() {
-        if (!context.mounted) return;
-        unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.eos));
-      });
+      // **IL SUONO DELLE MONETE NON PARTE PIU' DA QUI. Ordine CO voce 19**,
+      // 3 settembre 2026. Stava qui, alla chiusura della scena, e il VOLO
+      // delle monete partiva da un'altra riga, in un altro file, sotto
+      // un'altra condizione: bastava che non ci fosse niente da accreditare
+      // perche' il tintinnio uscisse senza nessuna moneta da accompagnare.
+      // Adesso il suono esce dal volo, `VoloDegliEos.lancia`, e i due non si
+      // possono piu' separare perche' sono la stessa riga.
       partite++;
       if (attendiLaFine) {
         await scena;

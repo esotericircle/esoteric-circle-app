@@ -67,7 +67,22 @@ void main() {
     expect(senzaTesto, contains('SuonoDelCerchio.festa'),
         reason: 'togliendo la voce del responso si e\u0027 tolta anche la '
             'festa: il rimedio ha ucciso il paziente');
-    expect(senzaTesto, contains('SuonoDelCerchio.eos'));
+    // **E LE MONETE SUONANO DAL VOLO, non da qui. Ordine CO voce 19**, 3
+    // settembre 2026. Questa riga cercava il suono dentro la celebrazione, ed
+    // era il posto giusto finche' ci stava: adesso il suono e il volo sono la
+    // stessa riga, perche' un tintinnio poteva uscire senza che volasse
+    // nessuna moneta.
+    expect(senzaTesto, isNot(contains('SuonoDelCerchio.eos')),
+        reason: 'il suono delle monete e tornato nella celebrazione: da li '
+            'esce anche quando non c e niente da accreditare, cioe un '
+            'tintinnio senza niente da accompagnare');
+    expect(
+        codiceSenzaTesto(
+            File('lib/design_system/components/volo_degli_eos.dart')
+                .readAsStringSync()),
+        contains('SuonoDelCerchio.eos'),
+        reason: 'il volo delle monete non porta piu il suo suono: i due si '
+            'possono separare di nuovo');
     // La festa dura intera, ed e' una decisione del fondatore gia' scritta.
     expect(SuonoDelCerchio.festa.durataAttesa.inMilliseconds, 3600);
   });

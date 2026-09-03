@@ -80,7 +80,20 @@ class SpiraleDiStelle extends StatefulWidget {
   static const int quante = 6000;
 
   /// La grandezza della stella disegnata una volta sola, in pixel.
-  static const double latoDellaStella = 24;
+  ///
+  /// **DA VENTIQUATTRO A QUARANTOTTO, ordine CO voce 18**, 3 settembre 2026.
+  /// Parole del fondatore: nel vortice si vedono puntini grossolani e sfocati
+  /// invece di stelline.
+  ///
+  /// **Le stelle c'erano gia', a cinque punte, ed erano disegnate bene**: il
+  /// difetto non era la forma, era la RISOLUZIONE con cui veniva incisa.
+  /// Ventiquattro pixel di lato, e una stella al minimo della sua scala
+  /// finiva a schermo larga otto pixel: cinque punte in otto pixel non sono
+  /// cinque punte, sono un poligono che il filtro appiattisce in un cerchio.
+  /// Quarantotto costa **una immagine sola** in tutto, disegnata una volta in
+  /// costruzione, perche' ogni stella a schermo e' una copia di questa: il
+  /// prezzo e' quattro volte niente e la forma arriva.
+  static const double latoDellaStella = 48;
 
   /// Quanto cresce una stella arrivando al bordo: al centro sono scintille, al
   /// bordo sono stelle. Cercata insieme alla quantita', vedi [quante].
@@ -229,9 +242,6 @@ class SpiraleDiStelleState extends State<SpiraleDiStelle>
   @visibleForTesting
   static ui.Image stellaPerLeProve() => _disegnaLaStellaUnaVoltaSola();
 
-  /// **UNA STELLA, UNA VOLTA SOLA.** Cinque punte, oro pieno, nessun filtro.
-  /// Da qui in poi ogni stella a schermo e' una copia di questa: e' tutto il
-  /// senso di `drawAtlas`.
   static ui.Image _disegnaLaStellaUnaVoltaSola() {
     const lato = SpiraleDiStelle.latoDellaStella;
     final registratore = ui.PictureRecorder();
@@ -247,10 +257,18 @@ class SpiraleDiStelleState extends State<SpiraleDiStelle>
     // **Senza alone le stelle grandi sono poligoni netti**, e a schermo pieno
     // si vedevano come macchie con gli spigoli. Con la sfumatura al bordo si
     // fondono fra loro e tornano a essere luce.
+    //
+    // **E L'ALONE NON DEVE MANGIARSI LA STELLA. Ordine CO voce 18.** Andava
+    // da meta' tessera, cioe' era piu' largo del corpo della stella, che
+    // arriva a `lato / 2.4`: la sfumatura copriva le punte invece di
+    // accompagnarle, ed e' la seconda meta' del puntino sfocato che il
+    // fondatore ha visto. Adesso arriva a `lato * 0.34`, cioe' resta DENTRO
+    // il corpo: fonde ancora le stelle vicine fra loro, e lascia che le punte
+    // escano dal bordo dell'alone invece di annegarci.
     final alone = Paint()
       ..shader = ui.Gradient.radial(
         centro,
-        lato / 2,
+        lato * 0.34,
         <Color>[
           ColorTokens.goldBright,
           ColorTokens.goldLight,
@@ -258,13 +276,18 @@ class SpiraleDiStelleState extends State<SpiraleDiStelle>
         ],
         <double>[0, 0.45, 1],
       );
-    tela.drawCircle(centro, lato / 2, alone);
+    tela.drawCircle(centro, lato * 0.34, alone);
 
     // E il corpo della stella, cinque punte piene, dentro l'alone.
     final percorso = Path();
     const punte = 5;
     for (var i = 0; i < punte * 2; i++) {
-      final raggio = i.isEven ? lato / 2.4 : lato / 6;
+      // **LE PUNTE SI ALLUNGANO E IL CUORE SI STRINGE.** Ordine CO voce 18.
+      // Il rapporto fra il raggio esterno e quello interno era 2,5 a uno: e'
+      // il rapporto di una stella tozza, e tozza a otto pixel diventa un
+      // cerchio. Adesso e' 3,4 a uno, che e' la proporzione della stella a
+      // cinque punte che si riconosce anche piccola.
+      final raggio = i.isEven ? lato / 2.2 : lato / 7.5;
       final angolo = -math.pi / 2 + i * math.pi / punte;
       final punto =
           centro + Offset(math.cos(angolo) * raggio, math.sin(angolo) * raggio);

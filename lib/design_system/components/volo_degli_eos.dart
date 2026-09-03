@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../theme/maestro_scope.dart';
 import 'borsellino.dart';
 import 'icona_degli_eos.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// GLI EOS VOLANO DALLA CELEBRAZIONE AL BORSELLINO. Ordine S voce 07.
 ///
@@ -45,6 +48,22 @@ class VoloDegliEos {
     // arrivare. Con Riduci Movimento non vola niente e la notizia resta, che e'
     // esattamente cio' che l'ordine chiede.
     ArrivoDegliEos.annuncia(quanti);
+    // **IL SUONO DELLE MONETE ESCE DA QUI, e da nessun altro posto.**
+    // Ordine CO voce 19, 3 settembre 2026.
+    //
+    // Prima lo emetteva la celebrazione, alla chiusura della scena, e il volo
+    // partiva da un'altra riga, in un altro file, sotto un'altra condizione:
+    // **il suono usciva anche quando non volava nessuna moneta**, cioe' un
+    // tintinnio senza niente da accompagnare. Due decisioni sulla stessa cosa
+    // in due posti sono la famiglia di difetti piu' numerosa di questo
+    // progetto, e qui aveva la forma piu' facile da sentire.
+    //
+    // **Sta sopra il ripiego di Riduci Movimento, e insieme all'annuncio.**
+    // Chi ha chiesto di ridurre il movimento ha chiesto che non si muova
+    // niente, non che non si senta niente: il numero che sale e il suono
+    // restano, ed e' la stessa regola gia' scritta per l'annuncio due righe
+    // sopra. Il suono e' la notizia, il volo e' il modo di vederla arrivare.
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.eos));
     if (MediaQuery.maybeOf(context)?.disableAnimations == true) return false;
     final overlay = Overlay.maybeOf(context, rootOverlay: true);
     if (overlay == null) return false;
