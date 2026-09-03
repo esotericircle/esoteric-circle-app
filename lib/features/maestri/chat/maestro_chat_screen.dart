@@ -1506,9 +1506,22 @@ class _PresenzaARiposo extends StatelessWidget {
         final schermo = MediaQuery.sizeOf(context).height;
         final alta = schermo * quotaDelloSchermo;
         if (!alta.isFinite || alta < quandoCiSta) return const SizedBox.shrink();
-        // L'anello prende la fascia con un margine, e non piu' di
-        // centosessanta punti: oltre non e' presenza, e' un ritratto.
-        final anello = math.min(140.0, alta - 30);
+        // **CENTO PUNTI E NON PIU', E IL TETTO LO DA' LA TELA DELL'AVATAR.**
+        // Ordine CO voce 20, coda del 3 settembre 2026.
+        //
+        // Non e' una scelta di gusto: `nessuno_disegna_oltre_la_tela` misura
+        // quanti pixel FISICI ogni avatar occupa a schermo e pretende che non
+        // superino i millesettecento della sua tela. Oltre quel numero
+        // l'immagine viene ingrandita sopra la propria risoluzione, cioe' si
+        // sgrana, ed e' il difetto che quella guardia sorveglia da sempre.
+        //
+        // **Con l'anello a centoquaranta la mia presenza disegnava a
+        // millesettecentocinquanta**, e la guardia mi ha preso. Il conto:
+        // l'immagine cresce di circa quattro pixel e sedici per ogni punto di
+        // anello, moltiplicati per la densita' dello schermo, che sui
+        // telefoni fitti arriva a quattro. Cento punti danno milleseicento-
+        // sessantasei nel caso peggiore, e ci stanno.
+        final anello = math.min(100.0, alta - 30);
         // **L'ALTEZZA SI DICHIARA, e dentro una lista e' obbligatorio.** Qui
         // i vincoli verticali sono senza fondo: un volto che si misurasse dal
         // genitore verrebbe alto zero, ed e' esattamente cio' che la sonda ha

@@ -80,6 +80,16 @@ void main() {
       );
 
   Future<void> pesca(WidgetTester tester, int indice) async {
+    // **PRIMA SI PREME PER COMINCIARE. Ordine CO voce 07**, 3 settembre 2026:
+    // il fondatore ha chiesto un pulsante esplicito, e il ventaglio non
+    // risponde piu' a chi non ha cominciato. Il pulsante c'e' solo prima della
+    // prima carta, quindi da qui in poi questa riga non fa niente.
+    final inizia = find.byKey(const Key('stesa_inizia'));
+    if (tester.widgetList(inizia).isNotEmpty) {
+      await tester.tap(inizia, warnIfMissed: false);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+    }
     final carta = find.byKey(Key("stesa_fan_$indice"));
     expect(carta, findsOneWidget, reason: "la carta $indice non e nell arco");
     final r = tester.getRect(carta);
