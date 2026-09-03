@@ -1,0 +1,14 @@
+LA PROVA DEL ROSSO DELLA GUARDIA DEL PIANO ATTIVO
+Ordine CQ voce 1.01, Regola A.
+========================================================================
+ROSSA     il tetto delle gettate legge la riga sbagliata  attesa: per ogni piano e per ogni arte
+          caduta: per ogni piano e per ogni arte, il tetto applicato e quello promesso
+ROSSA     il piano del server non si traduce piu          attesa: il piano che il server dichiara
+          caduta: il piano che il server dichiara diventa il piano che l app applica
+ROSSA     il ponte del piano si stacca                    attesa: la sincronia col server porta il piano
+          caduta: la sincronia col server porta il piano, non solo i residui
+ROSSA     il no del server torna a scrivere un milione    attesa: al no del server il conto si chiude
+          caduta: al no del server il conto si chiude sul tetto vero, non su un milione
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/entitlement/question_allowance.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -12,6 +13,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../services/app_services.dart';
+import '../../services/server/porta_del_cerchio.dart';
 
 /// La schermata dei piani del Cerchio, in stile 2.5D.
 ///
@@ -652,7 +655,7 @@ class _ChoosePlanButton extends StatelessWidget {
                   const SizedBox(width: SpacingTokens.sm),
                   TextButton(
                     key: const Key('activate_demo'),
-                    onPressed: () {
+                    onPressed: () async {
                       // Il messenger si prende PRIMA di mutare lo stato: il
                       // cambio di tier ricostruisce la schermata e puo'
                       // deattivare proprio questo bottone, e cercare un
@@ -660,8 +663,53 @@ class _ChoosePlanButton extends StatelessWidget {
                       // "deactivated widget's ancestor" della famiglia dei
                       // difetti di ciclo di vita.
                       final messenger = ScaffoldMessenger.of(context);
-                      entitlement.setTier(plan.tier);
+                      // **E ANCHE LA PORTA E I CONTATORI, PRIMA DELL'ATTESA**,
+                      // per la stessa ragione: dopo un await questo albero
+                      // puo' non esserci piu'.
+                      // **NON SI PRETENDE UN PROVIDER, ordine CQ voce
+                      // 1.01.** Chiedere `AppServices` con un `read` nudo fa
+                      // cadere ogni prova e ogni anteprima che monta questa
+                      // schermata da sola, ed e' una famiglia di difetti gia'
+                      // vista in questa casa: un provider preteso rompe
+                      // lontano da dove e' scritto. Qui la porta e' un di
+                      // piu': se non c'e', il piano vale su questo telefono e
+                      // basta, che e' cio' che la Demo ha sempre fatto.
+                      PortaDelCerchio? porta;
+                      QuestionAllowance? borsa;
+                      try {
+                        porta = context.read<AppServices>().porta;
+                        borsa = context.read<QuestionAllowance>();
+                      } catch (senzaAlbero) {
+                        porta = null;
+                        borsa = null;
+                      }
                       Navigator.of(sheetContext).pop();
+                      // **IL PIANO SI SCRIVE SUL SERVER, ordine CQ voce
+                      // 1.01.** Cambiarlo solo qui dentro lasciava il server
+                      // a contare i budget sul Viandante: il telefono
+                      // mostrava il tetto dell'Illuminato e il server negava
+                      // alla prima gettata. Adesso si chiede al server di
+                      // scriverlo, e **si dice alla persona cosa e'
+                      // successo davvero**, invece di annunciare un piano
+                      // attivo che il server non conosce.
+                      final scritto = await porta?.attivaIlPianoInDemo(
+                          EntitlementService.nomeDelServer(plan.tier));
+                      if (scritto == null) {
+                        // La porta e' spenta, chiusa o muta: si tiene il
+                        // cambio locale, che e' cio' che la Demo senza rete
+                        // ha sempre fatto, e lo si DICHIARA.
+                        entitlement.setTier(plan.tier);
+                        messenger.showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  '${plan.name} attivo solo su questo telefono: il server non lo ha registrato.')),
+                        );
+                        return;
+                      }
+                      entitlement.applicaIlPianoDelServer(scritto);
+                      // I residui si rileggono col piano nuovo, altrimenti
+                      // restano quelli contati sul piano di prima.
+                      await borsa?.sincronizza();
                       messenger.showSnackBar(
                         SnackBar(
                             content: Text(

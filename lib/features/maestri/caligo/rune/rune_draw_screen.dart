@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
+import '../../../../core/entitlement/plan_catalog.dart';
 import '../../../../core/entitlement/question_allowance.dart';
+import '../../../../core/entitlement/tier.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
 import '../../../../core/rituals/sunset_rune_corpus.dart';
@@ -208,6 +210,24 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   /// conteggio sta in `QuestionAllowance`, col reset giornaliero gia' in uso
   /// per le altre arti. Esaurite le gettate il pulsante e' grigio e il tocco
   /// apre l'invito del gating: mai un blocco muto.
+  /// Quante gettate promette il piano subito piu' in su, detto in parole.
+  ///
+  /// Vuoto per chi e' gia' in cima: a lui non si offre nessun livello, e
+  /// una frase che invita a salire da dove non si sale e' un vicolo cieco.
+  String _quantePiuInSu(Tier piano) {
+    final dopo = switch (piano) {
+      Tier.free => Tier.tier1,
+      Tier.tier1 => Tier.tier2,
+      Tier.tier2 => Tier.tier3,
+      Tier.tier3 => null,
+    };
+    if (dopo == null) return '';
+    final quante =
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, dopo);
+    if (quante == null) return '';
+    return ': dal livello successivo le gettate del giorno sono $quante';
+  }
+
   bool _consumaUnaGettata() {
     final piano = context.read<EntitlementService>().tier;
     final borsa = context.read<QuestionAllowance>();
@@ -234,16 +254,28 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
           }
         },
       );
+      // **"SENZA LIMITI" NON ESISTE PIU', E QUESTO TESTO LO PROMETTEVA
+      // ANCORA.** Ordine CQ voce 1.01, e la provenienza e' l'ordine CE
+      // voce 08: quel giorno l'illimitato e' sparito dal listino per
+      // decisione del fondatore, "illimitato mi espone all'abuso", e le
+      // celle sono diventate numeri. Questo invito non lo ha saputo, e ha
+      // continuato a promettere gettate senza limiti dall'Iniziato in su:
+      // il fondatore lo ha letto sul telefono da Illuminato, che di
+      // gettate ne ha cinquanta.
+      //
+      // **Il numero del piano dopo si legge dal listino**, come il tetto
+      // di adesso: promettere "di piu'" senza dire quanto e' la stessa
+      // bugia in forma piu' educata.
+      final dopo = _quantePiuInSu(piano);
       showUpgradeInvite(
         context,
         title: 'Le gettate di oggi sono finite',
         message: limite == 1
             ? 'La gettata del giorno è stata fatta. Puoi riscattarne una '
-                'con gli Eos, oppure salire di livello nel Cerchio: '
-                'dall\'Iniziato in su le gettate sono senza limiti.'
+                'con gli Eos, oppure salire di livello nel Cerchio$dopo.'
             : 'Le $limite gettate del giorno sono state fatte. Puoi '
                 'riscattarne una con gli Eos, oppure salire di livello nel '
-                'Cerchio: dall\'Iniziato in su le gettate sono senza limiti.',
+                'Cerchio$dopo.',
         riscattoLabel: riscatto.label,
         onRiscatta: riscatto.azione,
       );

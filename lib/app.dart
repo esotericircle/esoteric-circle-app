@@ -308,7 +308,15 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
         // numeri restano locali, mentre sul telefono il giorno e i residui
         // li decide il server.
         ChangeNotifierProvider(
-          create: (_) => QuestionAllowance(porta: runtime.porta)
+          // **IL PONTE DEL PIANO, ordine CQ voce 1.01.** I residui e il piano
+          // arrivano nella stessa risposta del server: qui il piano viene
+          // consegnato a chi lo tiene, cosi' il tetto che l'app applica e
+          // quello che il server impone vengono dallo stesso piano.
+          create: (ctx) => QuestionAllowance(
+            porta: runtime.porta,
+            quandoIlServerDiceIlPiano:
+                ctx.read<EntitlementService>().applicaIlPianoDelServer,
+          )
             // Prima il conto locale, che c'e' subito. **LA CHIAMATA AL
             // SERVER NON PARTE PIU' DA QUI, ordine AP voce 02**: la fa il
             // Custode del cammino dopo il primo fotogramma, e la fa UNA

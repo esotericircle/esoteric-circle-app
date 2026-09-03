@@ -1027,6 +1027,46 @@ async function scriviIlCongedo(
   }
 }
 
+/**
+ * ATTIVA UN PIANO IN DEMO, E SOLO IN DEMO. Ordine CQ voce 1.01.
+ *
+ * **Il difetto che chiude.** Il pulsante "Attiva in Demo" cambiava il piano
+ * SOLO dentro il telefono. Il server continuava a leggere
+ * `users/<uid>/stato/abbonamento.piano`, che nessuno scriveva mai e che
+ * valeva `free` per tutti: il telefono applicava il tetto dell'Illuminato e
+ * il server quello del Viandante, e sullo schermo comparivano tutti e due,
+ * "ti restano 29 gettate su 30" e subito dopo "non ti resta nessuna gettata".
+ *
+ * **Perche' una porta invece di lasciar fare al client.** Il documento
+ * dell'abbonamento e' protetto dalle regole: il client non lo puo' scrivere,
+ * ed e' giusto cosi', altrimenti chiunque si darebbe il piano piu' alto. La
+ * porta e' qui, dove il server puo' decidere se aprirla.
+ *
+ * **La chiusura e' una configurazione, non una riga di codice.** Il parametro
+ * `DEMO_APERTA` nasce chiuso: il giorno che il pagamento vero arriva dal web,
+ * questa porta si spegne da fuori senza pubblicare niente. Se qualcuno la
+ * dimentica aperta il rischio e' dichiarato qui, non nascosto.
+ */
+export const attivaIlPianoInDemo = onCall(
+  OPZIONI_DEL_CERCHIO,
+  async (request) => {
+    const uid = uidDi(request);
+    if (process.env.DEMO_APERTA !== "1") {
+      throw new HttpsError(
+        "failed-precondition",
+        "la porta della Demo e' chiusa: il piano arriva dal pagamento"
+      );
+    }
+    const piano = pianoValido(request.data?.piano);
+    if (piano !== request.data?.piano) {
+      throw new HttpsError("invalid-argument", "piano sconosciuto");
+    }
+    await abbonamentoDoc(uid).set({piano, inDemo: true}, {merge: true});
+    logger.info("attivaIlPianoInDemo: piano scritto", {uid, piano});
+    return {piano};
+  }
+);
+
 export const azzeraIDatiDelCerchio = onCall(
   OPZIONI_DEL_CERCHIO,
   async (request) => {

@@ -26,8 +26,22 @@ class QuestionAllowance extends ChangeNotifier {
     DateTime Function()? clock,
     this.freeDailyLimit,
     PortaDelCerchio porta = const PortaSpentaDelCerchio(),
+    this.quandoIlServerDiceIlPiano,
   })  : _clock = clock ?? DateTime.now,
         _porta = porta;
+
+  /// **DOVE VA A FINIRE IL PIANO CHE IL SERVER DICHIARA.** Ordine CQ voce
+  /// 1.01.
+  ///
+  /// Questa classe conta i budget e non tiene il piano: il piano vive in
+  /// `EntitlementService`. Il campo `piano` pero' arriva nella stessa
+  /// risposta dei residui, ed e' l'unico momento in cui il telefono lo sente
+  /// dire dal server. Senza questo ponte quel campo si perdeva, e il
+  /// telefono restava convinto di un piano che il server non gli riconosceva.
+  ///
+  /// **E' facoltativo**: una prova che monta i contatori da sola non deve
+  /// dover portarsi dietro il servizio del piano.
+  final void Function(String piano)? quandoIlServerDiceIlPiano;
 
   final DateTime Function() _clock;
 
@@ -465,6 +479,12 @@ class QuestionAllowance extends ChangeNotifier {
   int? limiteGettate(Tier tier) =>
       PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, tier);
 
+  /// **QUANTE GETTATE RISULTANO SPESE OGGI.** Ordine CQ voce 1.01: serve
+  /// alla guardia che pretende che il no del server chiuda il conto sul tetto
+  /// vero e non su una bandiera da un milione. Senza questa porta la prova
+  /// avrebbe dovuto guardare un campo privato, cioe' misurare una copia.
+  int get gettateSpese => _gettate;
+
   /// Quante gettate restano oggi, oppure null se sono illimitate.
   int? gettateRimaste(Tier tier) {
     final limite = limiteGettate(tier);
@@ -650,6 +670,18 @@ class QuestionAllowance extends ChangeNotifier {
     // e' la scelta dichiarata per l'assenza di rete, e non si cancella
     // nessuna storia.
     if (stato == null) return null;
+    // **IL PIANO PRIMA DEI RESIDUI, ordine CQ voce 1.01.** I residui che
+    // seguono sono contati dal server sul piano che il server crede attivo:
+    // applicarli senza applicare anche il piano vuol dire mostrare i numeri
+    // di un piano dentro i tetti di un altro, che e' esattamente cio' che il
+    // fondatore ha visto sul telefono.
+    quandoIlServerDiceIlPiano?.call(stato.piano);
+    _tierDelServer = switch (stato.piano) {
+      'tier1' => Tier.tier1,
+      'tier2' => Tier.tier2,
+      'tier3' => Tier.tier3,
+      _ => Tier.free,
+    };
     _giornoDelServer = stato.giorno;
     if (_day != stato.giorno) _day = stato.giorno;
     _count = stato.spesi['domande'] ?? 0;
@@ -870,23 +902,65 @@ class QuestionAllowance extends ChangeNotifier {
     await _persist();
   }
 
+  /// **IL SERVER HA DETTO DI NO: il conto locale si chiude, e si chiude sul
+  /// numero vero.** Ordine CQ voce 1.01.
+  ///
+  /// **Qui c'era `1 << 20`**, cioe' un milione di gesti consumati. Non era un
+  /// allineamento, era una bandiera: serviva solo a far tornare zero il
+  /// residuo, e portava con se' una bugia. Il fondatore ha letto sul telefono
+  /// "ti restano 29 gettate su 30" e, dopo UNA gettata, "le 30 gettate del
+  /// giorno sono state fatte": il salto da uno a un milione e' questo.
+  ///
+  /// Adesso il contatore si porta esattamente al tetto del piano, quindi il
+  /// residuo e' zero e il numero speso e' un numero vero. Dove il tetto non
+  /// c'e', il contatore non si tocca: un piano senza tetto che riceve un no
+  /// dal server e' un disaccordo sul PIANO, e si cura leggendo il piano dal
+  /// server, non gonfiando un contatore.
   Future<void> _allineaAlNo(String budget) async {
+    final tetto = _tettoDelBudget(budget);
+    if (tetto == null) return;
     switch (budget) {
       case 'domande':
-        _count = 1 << 20;
+        _count = tetto;
       case 'approfondimenti':
-        _approfondimenti = 1 << 20;
+        _approfondimenti = tetto;
       case 'confronti':
-        _confronti = 1 << 20;
+        _confronti = tetto;
       case 'gettate':
-        _gettate = 1 << 20;
+        _gettate = tetto;
       case 'stese':
-        _stese = 1 << 20;
+        _stese = tetto;
       case 'sinastrie':
-        _sinastrie = 1 << 20;
+        _sinastrie = tetto;
     }
     notifyListeners();
   }
+
+  /// Il tetto che il piano corrente promette per quel budget, oppure nullo se
+  /// quel budget non ha un tetto su questo piano.
+  ///
+  /// **Il piano si chiede a chi lo tiene**, e da CQ.1.01 quello e' il server:
+  /// se il ponte del piano non e' stato collegato, questa classe non sa su
+  /// quale piano contare, e allora non tocca niente invece di indovinare.
+  int? _tettoDelBudget(String budget) {
+    final tier = _tierDelServer;
+    if (tier == null) return null;
+    return switch (budget) {
+      'domande' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, tier),
+      'approfondimenti' =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaApprofondimenti, tier),
+      'confronti' =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, tier),
+      'gettate' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, tier),
+      'stese' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier),
+      'sinastrie' =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, tier),
+      _ => null,
+    };
+  }
+
+  /// Il piano che il server ha dichiarato l'ultima volta, tradotto in tier.
+  Tier? _tierDelServer;
 
   static List<Map<String, String>> _codaDaTesto(String? testo) {
     if (testo == null || testo.isEmpty) return const [];

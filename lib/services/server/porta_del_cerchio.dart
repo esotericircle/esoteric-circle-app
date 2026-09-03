@@ -308,6 +308,20 @@ abstract class PortaDelCerchio {
   /// sono piu'.
   Future<bool> cancellaIlCerchio();
 
+  /// **ATTIVA UN PIANO IN DEMO, e la porta puo' dire di no.** Ordine CQ voce
+  /// 1.01.
+  ///
+  /// Il documento dell'abbonamento e' protetto dalle regole e il client non
+  /// lo puo' scrivere: senza questa porta il pulsante "Attiva in Demo"
+  /// cambiava il piano solo dentro il telefono, e il server continuava a
+  /// contare i budget sul Viandante.
+  ///
+  /// Torna il nome del piano che il server ha scritto davvero, oppure nullo
+  /// quando la porta e' spenta, chiusa per configurazione, o non risponde:
+  /// **un nullo non e' un piano attivo**, e chi chiama non deve fingere che
+  /// lo sia.
+  Future<String?> attivaIlPianoInDemo(String piano) async => null;
+
   /// **SEGNA UN EVENTO DELLA MISURA DEL RITORNO. Ordine CC voce 09.**
   ///
   /// Torna vero solo se il server ha davvero registrato. La porta finta non
@@ -492,6 +506,14 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   Future<bool> cancellaIlCerchio() async {
     final risposta = await _chiama('cancellaIlCerchio', const {});
     return risposta is Map && risposta['datiCancellati'] == true;
+  }
+
+  @override
+  Future<String?> attivaIlPianoInDemo(String piano) async {
+    final risposta = await _chiama('attivaIlPianoInDemo', {'piano': piano});
+    if (risposta is! Map) return null;
+    final scritto = risposta['piano'];
+    return scritto is String ? scritto : null;
   }
 
   @override
