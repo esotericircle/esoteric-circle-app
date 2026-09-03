@@ -55,6 +55,44 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 /// La scena vive DENTRO il cosmo condiviso a tutto schermo (`CosmosBackground`),
 /// non dentro un riquadro: la Luna, le stelle vicine e la costellazione stanno
 /// su piani di parallasse diversi sopra quel cielo.
+/// La fascia di cielo in cui vive la costellazione, dall'alto dello schermo.
+const double fasciaCielo = 0.46;
+
+/// **DOVE VA LA STELLA, E NON ESCE DALLA FASCIA DI CIELO.**
+/// Ordine CQ voce 1.07, 3 settembre 2026.
+///
+/// **Il fatto, parole del fondatore:** *"l'area di tocco della stella e'
+/// coperta dall'etichetta sopra di essa."*
+///
+/// Senza spostamento le stelle stanno fra il 13 e il 43 per cento
+/// dell'altezza, cioe' dentro la fascia, che finisce al 46. **Ma lo
+/// spostamento le porta via**: `_spostamento` moltiplica l'inclinazione per
+/// trecentoventi e qui ne arriva il cinquantacinque per cento, cioe' fino a
+/// centosettantasei punti su uno schermo alto ottocentoquaranta. La stella
+/// scivolava sotto il blocco del testo, che sta piu' in alto nella pila e
+/// mangia il tocco su tutta la sua area: **il dito arrivava sulla riga
+/// "Tocca la stella che pulsa" invece che sulla stella.**
+///
+/// Si limita la sola verticale, e si lascia intera l'orizzontale: e' in
+/// verticale che la fascia confina con qualcosa, e togliere la parallasse
+/// per intero vorrebbe dire spegnere il cielo per curare un bordo.
+///
+/// **E' una funzione con un nome perche' la guardia la interroga.** Dentro
+/// una prova il giroscopio non c'e' e l'inclinazione vale zero: misurando
+/// solo cio' che si vede a schermo non si vedrebbe mai il caso che il
+/// fondatore ha visto in mano.
+Offset doveVaLaStella(
+  Offset p, {
+  required double larghezza,
+  required double altezza,
+  required Offset off,
+}) =>
+    Offset(
+      (0.12 + p.dx * 0.76) * larghezza + off.dx,
+      (((0.13 + p.dy * 0.30) * altezza) + off.dy)
+          .clamp(altezza * 0.06, altezza * (fasciaCielo - 0.05)),
+    );
+
 class DreamRiteScreen extends StatefulWidget {
   DreamRiteScreen({
     super.key,
@@ -273,8 +311,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     return Offset(_tilt.x, _tilt.y) * 320 + _panDito;
   }
 
-  /// La fascia di cielo in cui vive la costellazione, dall'alto dello schermo.
-  static const double _fasciaCielo = 0.46;
 
   @override
   Widget build(BuildContext context) {
@@ -374,7 +410,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: h * _fasciaCielo,
+                  top: h * fasciaCielo,
                   bottom: 0,
                   child: SafeArea(
                     top: false,
@@ -432,10 +468,27 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           palette: _palette,
           keyPrefix: 'dream_star',
           spostamento: off,
-          mappa: (p) => Offset(
-            (0.12 + p.dx * 0.76) * w + off.dx,
-            (0.13 + p.dy * 0.30) * h + off.dy,
-          ),
+          // **LA STELLA NON ESCE DALLA FASCIA DI CIELO. Ordine CQ voce
+          // 1.07**, 3 settembre 2026.
+          //
+          // **Il fatto, parole del fondatore:** *"l'area di tocco della
+          // stella e' coperta dall'etichetta sopra di essa."*
+          //
+          // La mappa senza spostamento tiene le stelle fra il 13 e il 43 per
+          // cento dell'altezza, cioe' dentro la fascia, che finisce al 46.
+          // **Ma lo spostamento le porta via**: `_spostamento` moltiplica
+          // l'inclinazione per trecentoventi, qui si prende il cinquantacinque
+          // per cento, e su uno schermo alto ottocentoquaranta punti sono
+          // centosettantasei punti di scorrimento. La stella scivolava sotto
+          // il blocco del testo, che sta piu' in alto nella pila e mangia il
+          // tocco su tutta la sua area: **il dito arrivava sulla riga "Tocca
+          // la stella che pulsa" invece che sulla stella.**
+          //
+          // Si limita la sola verticale, e si lascia intera l'orizzontale: e'
+          // in verticale che la fascia confina con qualcosa, e togliere la
+          // parallasse per intero vorrebbe dire spegnere il cielo per curare
+          // un bordo.
+          mappa: (p) => doveVaLaStella(p, larghezza: w, altezza: h, off: off),
           onTocco: _allUnione,
           onCompleta: _allaFiguraCompleta,
         ),

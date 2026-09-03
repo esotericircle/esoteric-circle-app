@@ -125,14 +125,28 @@ void main() {
               'si cambia stesa direttamente (ordine BF voce 05.a)');
     }
 
-    // E il tocco su un'altra pillola getta DAVVERO con quella stesa.
+    // **E IL TOCCO SU UN'ALTRA PILLOLA NON GETTA PIU'.**
+    // Ordine CQ voce 1.06, 3 settembre 2026, e ribalta l'ordine BF voce
+    // 05.a su un punto solo: le pillole restano, ma **toccarle sceglie e
+    // basta**. Il fondatore ha visto partire il responso mentre stava
+    // ancora scegliendo, e una gettata consumata senza averla chiesta.
     await tester.ensureVisible(find.byKey(const Key('rune_segment_norne')));
     await tester.pump();
     await tester.tap(find.byKey(const Key('rune_segment_norne')));
     await passo(tester);
+    expect(find.text('LE TRE NORNE'), findsNothing,
+        reason: 'il tocco sulla pillola ha gettato da solo: e il difetto '
+            'che l ordine CQ voce 1.06 chiude');
+
+    // E' il pulsante a gettare, con la stesa appena scelta.
+    await tester.ensureVisible(find.byKey(const Key('rune_recast')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('rune_recast')));
+    await passo(tester);
     expect(find.text('LE TRE NORNE'), findsOneWidget,
-        reason: 'il tocco sulla pillola delle Norne non ha gettato con le '
-            'Norne: la scelta dal responso e\' muta');
+        reason: 'premuto Getta ancora dopo aver scelto le Norne, la lettura '
+            'non e quella delle Norne: la scelta non arriva al getto, e dal '
+            'responso non si cambia piu stesa in nessun modo');
 
     // "Getta ancora" resta, e rifa' la stessa gettata dichiarandolo nel nome.
     expect(find.byKey(const Key('rune_recast')), findsOneWidget,

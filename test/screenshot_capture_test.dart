@@ -3435,17 +3435,14 @@ void main() {
     // Il ventaglio ne mostra una quindicina attorno al centro, quindi chiedere
     // la carta 20 vuol dire chiedere una carta che non e' montata: la prima
     // stesura cascava li'.
-    // **PRIMA SI PREME PER COMINCIARE. Ordine CO voce 07**, 3 settembre 2026:
-    // il fondatore ha chiesto un pulsante esplicito, e il ventaglio non
-    // risponde piu' a chi non ha cominciato.
-    final inizia = find.byKey(const Key('stesa_inizia'));
-    if (tester.widgetList(inizia).isNotEmpty) {
-      await tester.ensureVisible(inizia);
-      await tester.pump();
-      await tester.tap(inizia, warnIfMissed: false);
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-    }
+    // **NON SI PREME PIU' NIENTE PRIMA DELLE CARTE. Ordine CQ voce 1.03**,
+    // 3 settembre 2026, e ribalta l'ordine CO voce 07. Il ventaglio e' vivo
+    // da subito; il pulsante sta dopo le tre carte e apre il responso.
+    //
+    // **La riga di prima faceva danno doppio.** Chiamava `ensureVisible` sul
+    // pulsante, che adesso sta SOTTO il ventaglio: la pagina scorreva, le
+    // carte del ventaglio finivano fuori campo, e i tocchi qui sotto
+    // cadevano su cio' che si era portato al loro posto.
     for (final indice in const [38, 36]) {
       await tester.tap(find.byKey(Key('stesa_fan_$indice')));
       await tester.pump();
@@ -3462,6 +3459,7 @@ void main() {
     // carte restano, e questa e' l'immagine che lo fa vedere: si scatta dentro
     // la finestra, non dopo.
     await tester.tap(find.byKey(const Key('stesa_fan_41')));
+    await tester.pump();
     await tester.pump();
     // MILLE E SEICENTO, A PASSI PICCOLI. Il volo della carta dal ventaglio
     // allo slot occupa i primi settecento millesimi, e a seicento la stesa non
@@ -3492,6 +3490,20 @@ void main() {
             'che e\' il difetto invece della cura');
     expect(find.byKey(const Key('stesa_attesa')), findsNothing,
         reason: 'lo scatto e\' arrivato dopo l\'inizio della riflessione');
+
+    // **E ADESSO IL PULSANTE, che e' cio' che apre la lettura.** Ordine CQ
+    // voce 1.03: la finestra che questa cattura fotografa comincia da qui e
+    // non piu' dalla terza carta. Si aspetta che si accenda, cioe' che
+    // l'ultima carta sia arrivata nel suo slot.
+    final apre = find.byKey(const Key('stesa_inizia'));
+    for (var i = 0; i < 30; i++) {
+      if (apre.evaluate().isNotEmpty &&
+          tester.widget<FilledButton>(apre).onPressed != null) {
+        await tester.tap(apre, warnIfMissed: false);
+        break;
+      }
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await tester.pump(const Duration(seconds: 2));
     await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 2));

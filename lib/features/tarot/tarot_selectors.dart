@@ -293,6 +293,29 @@ class TarotSetupPanel extends StatelessWidget {
                       onLocked: (_) {},
                     ),
                   ),
+                  // **E SUBITO SOTTO LE SUGGERITE, LA PROPRIA.**
+                  // Ordine CO voce 05 per l'esistenza, ordine CQ voce 1.05
+                  // del 3 settembre 2026 per il posto.
+                  //
+                  // **Il campo c'era e il fondatore non l'ha trovato**, e la
+                  // ragione si vede aprendo il pannello: stava in fondo,
+                  // dopo altre cinque tendine, mentre le domande suggerite
+                  // stanno in cima. Fra la cosa e la sua alternativa c'era
+                  // tutto il contorno della stesa, cioe' abbastanza da far
+                  // credere che l'alternativa non esistesse.
+                  //
+                  // Prende la riga intera e non mezza: e' un campo in cui si
+                  // scrive una frase, non una tendina da cui si sceglie, e a
+                  // meta' riga si scriverebbe una frase dentro una feritoia.
+                  SizedBox(
+                    width: constraints.maxWidth,
+                    child: _DomandaScritta(
+                      testo: setup.domandaLibera,
+                      palette: palette,
+                      onChanged: (t) =>
+                          onChanged(setup.copyWith(domandaLibera: t)),
+                    ),
+                  ),
                   // Il tipo di stesa: da qui viene anche il titolo in alto.
                   SizedBox(
                     width: w,
@@ -370,17 +393,6 @@ class TarotSetupPanel extends StatelessWidget {
                 ],
               );
             },
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          // **E SOTTO LE SEI SUGGERITE, LA PROPRIA.** Ordine CO voce 05.
-          //
-          // Sta SOTTO e non al posto loro: le sei sono un punto di partenza
-          // per chi non sa da dove cominciare, ed e' la maggioranza delle
-          // volte. Chi sa cosa vuole chiedere scrive qui.
-          _DomandaScritta(
-            testo: setup.domandaLibera,
-            palette: palette,
-            onChanged: (t) => onChanged(setup.copyWith(domandaLibera: t)),
           ),
         ],
       ),

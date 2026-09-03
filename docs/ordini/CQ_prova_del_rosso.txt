@@ -54,3 +54,74 @@ ROSSA     la terza carta torna a consumare la stesa
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
 
+LA PROVA DEL ROSSO DELLA GUARDIA DELL EFFETTO
+Ordine CQ voce 1.04, Regola A.
+========================================================================
+ROSSA     l effetto torna ad aspettare la piattaforma       
+          attesa: nessun play di audioplayers si attende
+          caduta: nessun play di audioplayers si attende
+ROSSA     il tono torna ad aspettare la piattaforma         
+          attesa: nessun play di audioplayers si attende
+          caduta: nessun play di audioplayers si attende
+ROSSA     gli effetti tornano a chiedere il fuoco esclusivo 
+          attesa: il lettore degli effetti dichiara il suo contesto audio
+          caduta: il lettore degli effetti dichiara il suo contesto audio
+ROSSA     il contesto non si prepara piu prima di suonare   
+          attesa: il lettore degli effetti dichiara il suo contesto audio
+          caduta: il lettore degli effetti dichiara il suo contesto audio
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA DOMANDA LIBERA
+Ordine CQ voce 1.05, Regola A.
+========================================================================
+VERDE     il campo libero torna in fondo al pannello    
+          attesa: il campo libero sta fra le suggerite e la tendina dopo
+          caduta: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/test/la_domanda_libera_si_trova_test.dart
+ROSSA     il campo libero torna a mezza riga            
+          attesa: e prende la riga intera, non mezza
+          caduta: e prende la riga intera, non mezza
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 2
+
+LA PROVA DEL ROSSO, SECONDO INNESTO
+Ordine CQ voce 1.05, Regola A.
+========================================================================
+ROSSA     il campo libero finisce dopo le altre tendine
+          attesa: il campo libero sta fra le suggerite e la tendina dopo
+          caduta: il campo libero sta fra le suggerite e la tendina dopo
+========================================================================
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA GETTATA
+Ordine CQ voce 1.06, Regola A.
+========================================================================
+ROSSA     la scelta torna a gettare da sola             
+          attesa: dal responso, toccare una pillola non consuma e non rigetta
+          caduta: dal responso, toccare una pillola non consuma e non rigetta
+ROSSA     il pulsante smette di gettare                 
+          attesa: e il pulsante, invece, getta
+          caduta: e il pulsante, invece, getta
+ROSSA     le pillole tornano sotto il pulsante          
+          attesa: le pillole stanno sopra il pulsante, non sotto
+          caduta: dal responso, toccare una pillola non consuma e non rigetta
+          caduta: le pillole stanno sopra il pulsante, non sotto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA STELLA
+Ordine CQ voce 1.07, Regola A.
+========================================================================
+ROSSA     il limite alla fascia sparisce                    
+          attesa: a qualunque inclinazione la stella resta nella fascia di cielo
+          caduta: a qualunque inclinazione la stella resta nella fascia di cielo
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+ROSSA     la stella viene inchiodata per far passare il limite
+          attesa: la stella si muove ancora: non e stata inchiodata
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+          caduta: la stella si muove ancora: non e stata inchiodata
+ROSSA     il testo comincia da un numero suo                
+          attesa: il testo comincia dove finisce la fascia, e la fascia e una sola
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
