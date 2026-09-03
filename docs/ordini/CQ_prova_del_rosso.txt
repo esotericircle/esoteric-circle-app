@@ -12,3 +12,22 @@ ROSSA     il no del server torna a scrivere un milione    attesa: al no del serv
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
 
+LA PROVA DEL ROSSO DEL RILANCIO PUNTO 1
+Ordine CQ, rilancio, Regola A.
+========================================================================
+VERDE     il tetto delle gettate scritto a mano nella schermata  attesa: il tetto delle gettate ha un lettore solo
+ROSSA     l Adepto non ha piu trenta gettate                    attesa: LE 29 SU 30 DELLO SCREENSHOT
+          caduta: LE 29 SU 30 DELLO SCREENSHOT: da dove viene quel trenta
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 2
+
+LA PROVA DEL ROSSO DEL RILANCIO PUNTO 1
+Ordine CQ, rilancio, Regola A.
+========================================================================
+ROSSA     il tetto delle gettate scritto a mano nella schermata  attesa: il tetto delle gettate ha un lettore solo
+          caduta: il tetto delle gettate ha un lettore solo, e passa dalla matrice
+ROSSA     l Adepto non ha piu trenta gettate                    attesa: LE 29 SU 30 DELLO SCREENSHOT
+          caduta: LE 29 SU 30 DELLO SCREENSHOT: da dove viene quel trenta
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+

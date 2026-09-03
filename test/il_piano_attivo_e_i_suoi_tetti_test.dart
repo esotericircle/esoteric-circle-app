@@ -2,6 +2,8 @@ import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'dart:io';
+
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -94,6 +96,87 @@ void main() {
         perche: 'Se l elenco delle arti si svuotasse, questa prova sarebbe '
             'verde senza aver confrontato niente.');
     expect(storti, isEmpty, reason: storti.join('\n'));
+  });
+
+  test('LE 29 SU 30 DELLO SCREENSHOT: da dove viene quel trenta', () async {
+    // **LA DOMANDA DELL'ORDINE CQ, RILANCIO PUNTO 1.** "Nessuna lettura da'
+    // 30": una darebbe 50 (Illuminato) e l'altra 1 (free). Il trenta pero'
+    // c'e', e non viene da una terza lettura: **e' il tetto dell'Adepto**, e
+    // discende dal piano come tutti gli altri.
+    //
+    // **Le ore degli screenshot lo dicono.** La schermata delle Rune col "29
+    // su 30" e' delle **20:09**; quella dei Piani con "L'Illuminato attivo in
+    // Demo" e' delle **20:13**, quattro minuti DOPO. Alle 20:09 il telefono
+    // era sull'Adepto, che di gettate ne ha trenta, e una era gia' stata
+    // fatta.
+    //
+    // **E non esiste nessun terzo lettore**: ogni punto che nomina il tetto
+    // delle gettate passa da `limiteGettate`, che legge la matrice. Sono tre
+    // punti, tutti in `rune_draw_screen.dart`, e li elenca la prova qui
+    // sotto.
+    SharedPreferences.setMockInitialValues(const {});
+    final borsa = QuestionAllowance();
+    await borsa.load();
+    borsa.registraGettata(Tier.tier2);
+    final frase = QuestionAllowance.residuoDiCosa(
+      borsa.gettateRimaste(Tier.tier2)!,
+      borsa.limiteGettate(Tier.tier2)!,
+      uno: 'gettata di rune',
+      molti: 'gettate di rune',
+      femminile: true,
+    );
+    // ignore: avoid_print
+    print('ORDINE CQ RILANCIO 1: con l Adepto e una gettata fatta, la '
+        'schermata dice "$frase"');
+    expect(frase, 'Ti restano 29 gettate di rune su 30, oggi',
+        reason: 'la frase dello screenshot non si riproduce dall Adepto: '
+            'allora il trenta viene da qualche altra parte, e va trovata');
+  });
+
+  test('il tetto delle gettate ha un lettore solo, e passa dalla matrice',
+      () async {
+    // **NESSUNA TERZA LETTURA.** Ordine CQ, rilancio punto 1: si legge il
+    // sorgente della schermata delle Rune e si pretende che ogni numero di
+    // gettate arrivi da `limiteGettate` o da `gettateRimaste`, mai da una
+    // costante scritta li'.
+    final sorgente =
+        File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
+            .readAsStringSync();
+    // **LA GRANDEZZA GIUSTA, e la prima era sbagliata.** La prima stesura
+    // cercava un numero accanto alla parola "gettate", e l'innesto `final
+    // limite = 30;` le passava sotto il naso: la variabile si chiama
+    // `limite`, non `gettate`. **Si cambia la grandezza misurata, mai la
+    // soglia**: ora si guardano tutte le assegnazioni a un nome che parla di
+    // tetto o di residuo, e si pretende che a destra ci sia `borsa.`.
+    final assegnazioni = RegExp(
+            r'(?:final\s+\w*|var\s+\w*|\w*)(?:[Ll]imite|[Rr]imast\w*)\s*=\s*([^;]+);')
+        .allMatches(sorgente);
+    final fuoriMatrice = <String>[];
+    var guardate = 0;
+    for (final a in assegnazioni) {
+      guardate++;
+      final destra = a.group(1)!;
+      if (!destra.contains('borsa.') &&
+          !destra.contains('widget.') &&
+          !destra.contains('limite') &&
+          !destra.contains('Limite') &&
+          !destra.contains('Rimaste') &&
+          !destra.contains('rimaste')) {
+        fuoriMatrice.add(a.group(0)!.trim());
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CQ RILANCIO 1: assegnazioni di tetto o residuo guardate '
+        '$guardate nella schermata delle Rune, fuori dalla matrice '
+        '${fuoriMatrice.length} $fuoriMatrice');
+    cardinaleMinimo(guardate, 4,
+        cosa: 'assegnazioni di tetto o residuo nella schermata delle Rune',
+        perche: 'Se la ricerca non trovasse piu niente, questa prova sarebbe '
+            'verde senza aver guardato una sola riga.');
+    expect(fuoriMatrice, isEmpty,
+        reason: 'la schermata delle Rune calcola un tetto o un residuo senza '
+            'passare dalla matrice del piano: e la terza lettura che '
+            'l ordine cercava. Righe: ${fuoriMatrice.join(" | ")}');
   });
 
   test('il piano che il server dichiara diventa il piano che l app applica',
