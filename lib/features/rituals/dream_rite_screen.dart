@@ -555,22 +555,31 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           giorno: _date,
           superficie: ColorTokens.neutralDeepest,
         ),
-        // LE TRE RIGHE DEL RITO, ordine P voce 17.
-        LeTreRigheDelRito(
-          rito: DailyElement.night,
-          inchiostro: ColorTokens.textPrimary,
-          accento: _palette.goldSoft,
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        Text('Il saluto di ${_maestro.displayName}',
+        // **LA RISPOSTA PRIMA DELL'ETICHETTA. Ordine CO voce 17**, 3 settembre
+        // 2026.
+        //
+        // Qui si apriva con "Il saluto di Caligo", che e' un'etichetta, e poi
+        // con una parola sola, che e' una parola: **la risposta arrivava
+        // terza**, e chi leggeva le prime due righe e chiudeva non aveva
+        // ricevuto niente. La gerarchia dettata dal fondatore vuole al primo
+        // posto un titolo diretto che sia gia' una risposta.
+        //
+        // La frase c'era gia': e' `posa`, l'invito al presente per posare il
+        // giorno, una per segno lunare, dodici in tutto. Non c'era niente da
+        // scrivere, c'era da mostrarla per prima. Chi parla e la parola della
+        // notte restano, in una riga sola sopra, dove stanno gli occhielli.
+        Text(
+            '${DreamRiteCorpus.parola(_luna.sign).toUpperCase()}  ·  '
+            'IL SALUTO DI ${_maestro.displayName.toUpperCase()}',
             key: const Key('dream_message_title'),
-            style: TypographyTokens.titoloDiSchermata()
-                .copyWith(color: _palette.goldSoft)),
-        const SizedBox(height: SpacingTokens.xs),
-        Text(DreamRiteCorpus.parola(_luna.sign).toUpperCase(),
+            style: TypographyTokens.didascalia(weight: 600).copyWith(
+                color: _palette.goldSoft.withValues(alpha: 0.85),
+                letterSpacing: 1.2)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(DreamRiteCorpus.rispostaDellaNotte(_luna.sign),
             key: const Key('dream_word'),
-            style: TypographyTokens.cerimonialeGrande()
-                .copyWith(color: _palette.goldSoft, letterSpacing: 1.6)),
+            style: TypographyTokens.cerimoniale()
+                .copyWith(color: _palette.goldSoft, height: 1.25)),
         const SizedBox(height: SpacingTokens.sm),
         // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e
         // prende la misura di lettura come il consiglio di Medora.
@@ -585,6 +594,18 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             style: TypographyTokens.etichetta().copyWith(
                 color: _palette.goldSoft.withValues(alpha: 0.85),
                 letterSpacing: 0.5)),
+        // **LE TRE RIGHE SCENDONO SOTTO LA RISPOSTA. Ordine CO voce 17**,
+        // 3 settembre 2026. Stavano in cima e dicevano cosa fare: erano il
+        // TERZO livello della gerarchia messo al primo posto, e la risposta
+        // arrivava dopo l'istruzione. Adesso il gesto col suo scopo sta
+        // dove la gerarchia lo vuole, cioe' dopo che il Dono ha risposto.
+        // LE TRE RIGHE DEL RITO, ordine P voce 17.
+        LeTreRigheDelRito(
+          rito: DailyElement.night,
+          inchiostro: ColorTokens.textPrimary,
+          accento: _palette.goldSoft,
+        ),
+        const SizedBox(height: SpacingTokens.sm),
         const SizedBox(height: SpacingTokens.md),
         // **IL QUADERNO DEI SOGNI NON C'E' PIU'. Ordine CB voce 01.**
         //

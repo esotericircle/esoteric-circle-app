@@ -1224,16 +1224,50 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // l'INVITO, cioe' la riga che chiedeva di farlo.
           const SizedBox(height: SpacingTokens.md),
           Center(
-            child: Text(_e.rune.name.toUpperCase(),
+            child: Text('${_e.rune.name.toUpperCase()}  ·  '
+                '${_e.rune.keyword.toUpperCase()}',
                 key: const Key('sunset_nome'),
-                style: TypographyTokens.cerimoniale()
-                    .copyWith(color: _palette.goldSoft)),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia(weight: 600).copyWith(
+                    color: _palette.goldSoft.withValues(alpha: 0.85),
+                    letterSpacing: 1.2)),
           ),
+          const SizedBox(height: SpacingTokens.xxs),
+          // **IL VERSO DELLA RUNA E' LA RISPOSTA, e sta in cima. Ordine CO
+          // voce 17**, 3 settembre 2026.
+          //
+          // La gerarchia dettata dal fondatore vuole al primo posto un titolo
+          // diretto che sia GIA' una risposta. "Fehu" e' un nome e
+          // "Abbondanza" e' una parola: dicono quale runa e' caduta, non che
+          // cosa dice stasera.
+          //
+          // **La frase che lo dice c'era gia', e non la si vedeva.** Ogni
+          // runa porta `upright` e `shadow` in `runes.dart`, una frase per
+          // verso, quarantotto in tutto: "Fai muovere cio' che hai: fermo si
+          // consuma." Sono scritte, sono fondate sul Futhark antico, e
+          // finivano solo dentro la composizione delle due voci piu' in
+          // basso. **Non c'era niente da inventare: c'era da mostrarle.**
+          //
+          // Il nome e la parola chiave salgono a fare da occhiello, insieme,
+          // che e' il posto di cio' che dice DI CHI e' la voce. La pietra
+          // incisa resta il livello visivo, e chi guarda la runa non ha
+          // bisogno del nome scritto grande per riconoscerla.
           Center(
-            child: Text(_e.rune.keyword.toUpperCase(),
-                style: TypographyTokens.label(size: 12.5).copyWith(
-                    color: ColorTokens.textSecondary, letterSpacing: 1.4)),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              child: Text(
+                _e.inOmbra && _e.rune.shadow.isNotEmpty
+                    ? _e.rune.shadow
+                    : _e.rune.upright,
+                key: const Key('sunset_risposta'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.cerimoniale()
+                    .copyWith(color: _palette.goldSoft, height: 1.25),
+              ),
+            ),
           ),
+          const SizedBox(height: SpacingTokens.xxs),
           const SizedBox(height: 2),
           Center(
             child: Text(

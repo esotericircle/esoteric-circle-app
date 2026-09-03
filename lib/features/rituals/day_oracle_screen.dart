@@ -176,15 +176,31 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           // sull'anatomia del responso: il nome della carta, poi una frase
           // sola, poi il responso. Chi ha fretta si ferma alla frase e ha
           // gia' avuto la sua risposta.
-          Text(carta.name,
+          //
+          // **E DA OGGI LA FRASE STA SOPRA IL NOME. Ordine CO voce 17**, 3
+          // settembre 2026. La gerarchia dettata dal fondatore vuole al primo
+          // posto un titolo diretto che sia GIA' UNA RISPOSTA, e "La Ruota
+          // della Fortuna" e' un nome: dice quale carta e' uscita, non che
+          // cosa dice oggi. **Il sommario invece e' esattamente una risposta
+          // in una frase**, e c'era gia': stava sotto, in corpo piu' piccolo,
+          // dove chi legge la prima riga e chiude non lo incontrava.
+          //
+          // Il nome non se ne va e non si rimpicciolisce per svalutarlo: sale
+          // a fare da occhiello, che e' il posto di cio' che dice DI CHI e' la
+          // voce. Sopra c'e' gia' la riga che dice quale Dono e' questo, e le
+          // due cose stanno bene insieme. **L'artwork della carta resta il
+          // livello visivo, e nessuno ha bisogno del nome scritto grande per
+          // riconoscerla: ce l'ha davanti.**
+          Text(carta.name.toUpperCase(),
               key: const Key('arcano_nome'),
-              style: TypographyTokens.cerimoniale()
-                  .copyWith(color: palette.goldSoft)),
-          const SizedBox(height: SpacingTokens.xs),
+              style: TypographyTokens.didascalia(weight: 600).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.85),
+                  letterSpacing: 1.2)),
+          const SizedBox(height: SpacingTokens.xxs),
           Text(carta.uprightSummary,
               key: const Key('arcano_sommario'),
-              style: TypographyTokens.lettura()
-                  .copyWith(color: palette.goldSoft, height: 1.4)),
+              style: TypographyTokens.cerimoniale()
+                  .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.sm),
           // **IL RESPONSO DELL'ARCANO ALLA MISURA DEL RESPONSO.** Ordine CE
           // voce 10: stava a `corpo()`, cioe' sedici punti, mentre il

@@ -145,6 +145,28 @@ class DreamRiteCorpus {
   /// La parola sola della notte, per la carta.
   static String parola(Zodiac sign) => _voci[sign]!.parola;
 
+  /// **LA RISPOSTA DELLA NOTTE IN UNA FRASE.** Ordine CO voce 17, 3 settembre
+  /// 2026.
+  ///
+  /// La gerarchia dettata dal fondatore vuole al primo posto un titolo diretto
+  /// che sia già una risposta. Il Sigillo del Sogno apriva con "Il saluto di
+  /// Caligo", che è un'etichetta, e poi con una parola sola, che è una parola:
+  /// la risposta arrivava terza.
+  ///
+  /// **La frase c'era già ed è [VoceDelSogno.posa]**, l'invito al presente per
+  /// posare il giorno, una per segno lunare, dodici in tutto. Non c'era niente
+  /// da scrivere: c'era da mostrarla per prima.
+  ///
+  /// Qui si limita a diventare una frase compiuta. Nel corpus è scritta in
+  /// minuscolo e senza punto perché nasceva per stare dentro un periodo più
+  /// lungo, e continua a starci: **il saluto per intero non cambia di una
+  /// virgola**, e questa è la stessa frase vista da sola.
+  static String rispostaDellaNotte(Zodiac sign) {
+    final p = _voci[sign]!.posa.trim();
+    if (p.isEmpty) return p;
+    return '${p[0].toUpperCase()}${p.substring(1)}.';
+  }
+
   /// La Luna reale di adesso: segno da `NightSky.moonSign`, fase da `MoonPhase`.
   static BirthMoon lunaDi(DateTime quando) => BirthMoon.forDate(quando);
 

@@ -193,6 +193,61 @@ void main() {
               'risposta: il Dono torna a chiedere prima di rispondere');
     });
 
+    test('in tutti e cinque i Doni la risposta viene PRIMA del gesto', () {
+      // **CINQUE DONI, TRE SCHERMATE, UNA REGOLA SOLA.** Alba e Soffio
+      // montano la stessa scheda, gli altri tre hanno una schermata loro. La
+      // gerarchia però è una: prima la risposta, poi il gesto.
+      //
+      // **In nessuno dei cinque c'era da inventare la risposta.** L'Arcano
+      // aveva già `uprightSummary`, una frase per carta; il Tramonto ha
+      // `upright` e `shadow` in runes.dart, quarantotto frasi per
+      // ventiquattro rune e due versi; il Sogno ha `posa`, dodici, una per
+      // segno lunare. **Erano tutte scritte e nessuna stava in cima**: la
+      // prima cosa che si leggeva era un nome, una parola o un'etichetta.
+      // Il Risveglio è l'unico che una risposta non ce l'aveva, e per lui è
+      // stata composta dal fatto del cielo e dalla lente del Maestro.
+      const doveGuardare = <String, (String risposta, String gesto)>{
+        'lib/features/rituals/day_oracle_screen.dart': (
+          'arcano_sommario',
+          'arcano_responso'
+        ),
+        'lib/features/rituals/sunset_rune_screen.dart': (
+          'sunset_risposta',
+          'LeTreRigheDelRito'
+        ),
+        'lib/features/rituals/dream_rite_screen.dart': (
+          'dream_message_title',
+          'LeTreRigheDelRito'
+        ),
+      };
+      var guardate = 0;
+      for (final voce in doveGuardare.entries) {
+        // **SI LEGGE IL SORGENTE VERO E NON QUELLO SENZA TESTO.** Le chiavi
+        // dei widget SONO stringhe, e la porta che toglie il testo le
+        // toglierebbe insieme ai commenti: la prima stesura di questa riga
+        // cercava una chiave dentro un sorgente da cui le stringhe erano
+        // appena state cancellate, e non trovava niente.
+        final s = File(voce.key).readAsStringSync();
+        final risposta = s.indexOf(voce.value.$1);
+        final gesto = s.indexOf(voce.value.$2);
+        guardate++;
+        expect(risposta, greaterThanOrEqualTo(0),
+            reason: '${voce.key} non mostra più ${voce.value.$1}');
+        expect(gesto, greaterThanOrEqualTo(0),
+            reason: '${voce.key} non mostra più ${voce.value.$2}');
+        expect(risposta, lessThan(gesto),
+            reason: 'in ${voce.key} il gesto (${voce.value.$2}) viene prima '
+                'della risposta (${voce.value.$1}): chi apre il Dono legge '
+                'un ordine e deve eseguirlo per sapere che cosa il giorno '
+                'gli stia dicendo');
+      }
+      cardinaleMinimo(guardate, 3,
+          cosa: 'schermate dei Doni con una gerarchia da sorvegliare',
+          perche: 'Se una schermata sparisse da questo elenco, la sua '
+              'gerarchia smetterebbe di essere sorvegliata senza che nessuno '
+              'se ne accorga.');
+    });
+
     test('a schermo il titolo viene PRIMA del gesto', () {
       final scheda = codiceSenzaTesto(
           File('lib/features/rituals/ritual_gift_card.dart')
