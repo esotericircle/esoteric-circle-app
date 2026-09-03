@@ -149,17 +149,26 @@ void main() {
       borsa: borsa,
     ));
 
-    await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'sogno');
-    for (var i = 0; i < 12; i++) {
-      await tester.pump(const Duration(milliseconds: 200));
-    }
-    porta.azzera();
+    // **UN GESTO SOLO, ordine CP voce 01, 3 settembre 2026.** Qui ce n'erano
+    // due, il primo per portare il Cammino a un punto noto e il secondo per
+    // misurare il premio, con un azzeramento in mezzo. **Adesso il secondo non
+    // accende piu' niente, ed e' voluto**: dalla decisione del fondatore del 3
+    // settembre un gradino non matura finche' il precedente non e' stato
+    // congedato, e dentro questa prova nessuno congeda niente perche' nessuno
+    // guarda una festa. Il secondo gesto trovava il posto occupato e la misura
+    // contava zero traguardi accesi.
+    //
+    // **Cio' che questa prova misura non cambia**: quello che si accende viene
+    // pagato, per intero e una volta sola. Si misura sul PRIMO gesto, che e'
+    // l'unico che accende, ed e' anche piu' onesto: prima si misurava il
+    // secondo perche' il primo aveva gia' sporcato la porta, e adesso la porta
+    // e' pulita per costruzione.
     await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'gettata');
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
 
-    // Quali si sono accesi davvero CON L'ULTIMO GESTO, e quanto valgono.
+    // Quali si sono accesi davvero CON QUEL GESTO, e quanto valgono.
     final accesi = [
       for (final t in Sentieri.tuttiITraguardi)
         if (porta.movimenti.contains('traguardo-${t.id}')) t,

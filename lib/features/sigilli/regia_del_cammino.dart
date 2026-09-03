@@ -288,6 +288,15 @@ class RegiaDelCammino {
           // vorrebbe dire attraversare una celebrazione a schermo pieno per
           // arrivare a un borsellino coperto, e non vedrebbe niente nessuno.
           allaChiusura: () {
+            // **QUI IL GRADINO E' CONGEDATO, e il Cammino riprende a
+            // maturare.** Ordine CP voce 01, decisione del fondatore del 3
+            // settembre 2026: un gradino non matura finche' il precedente non
+            // e' stato congedato. Congedare vuol dire che la festa e'
+            // comparsa a schermo e la persona l'ha lasciata andare, ed e'
+            // questo l'istante in cui succede.
+            for (final t in insieme) {
+              unawaited(diario.congeda(t.id));
+            }
             if (context.mounted && arrivati.quanti > 0) {
               VoloDegliEos.lancia(context, quanti: arrivati.quanti);
             }
@@ -315,8 +324,14 @@ class RegiaDelCammino {
       // perche' la scena era occupata, tornano in coda TUTTI quelli che
       // sarebbero stati nominati: una festa presa e non mostrata sarebbe
       // persa, e quelli che aspettavano da prima aspettano ancora.
+      // **E SI CONGEDA LO STESSO. Ordine CP voce 01.** Una festa che non ha
+      // trovato dove aprirsi torna in coda e si rivedra': ma se il posto del
+      // congedo restasse occupato, il Cammino non maturerebbe piu' NIENTE
+      // fino alla fine dei tempi, e nessuno saprebbe perche'. Il posto si
+      // libera; la festa non si perde, perche' e' in coda.
       for (final t in insieme) {
         await coda?.accoda(t.id);
+        await diario.congeda(t.id);
       }
     }
     for (final traguardo in inAttesa) {
@@ -451,6 +466,16 @@ class RegiaDelCammino {
       context,
       traguardi: inCoda,
       sentieri: [for (final t in inCoda) sentieroDi(t)],
+      // **ANCHE LA FESTA CHE ARRIVA DALLA CODA CONGEDA. Ordine CP voce 01.**
+      // Il posto si e' occupato quando il gradino si e' acceso, non quando la
+      // sua festa e' comparsa: se solo la strada del gesto congedasse, una
+      // festa rimandata alla sessione dopo lascerebbe il Cammino fermo per
+      // tutto il tempo che passa in mezzo.
+      allaChiusura: () {
+        for (final t in inCoda) {
+          unawaited(diario.congeda(t.id));
+        }
+      },
       // Nessuna catena: dopo questa non c'e' nessun'altra da aprire.
       // **IL PRIMO IN ASSOLUTO SI CONTA TOGLIENDO CHI ASPETTA ANCORA.**
       // Ordine AU voce 06: da quando si celebra un traguardo alla volta, il

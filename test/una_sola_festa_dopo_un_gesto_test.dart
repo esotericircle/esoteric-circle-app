@@ -139,9 +139,21 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BW VOCE 2: liberata la scena, feste arrivate $arrivate, '
         'accesi ${diario.accesi.length}, in coda ${coda.inAttesa.length}');
-    expect(diario.accesi.length, 4,
-        reason: 'i traguardi maturi non sono quattro: la prova non sta '
-            'misurando il caso del fondatore');
+    // **TRE E NON PIU' QUATTRO. Ordine CP voce 01**, 3 settembre 2026.
+    //
+    // Questa riga pretendeva che il gesto ne facesse maturare un QUARTO sopra
+    // i tre che gia' aspettavano, e poi che la festa fosse una sola. La
+    // seconda meta' resta ed e' la piu' importante; la prima e' caduta,
+    // **perche' adesso il quarto non matura affatto**.
+    //
+    // Decisione del fondatore del 3 settembre: un gradino non matura finche'
+    // il precedente non e' stato congedato. Con tre feste ancora da vedere
+    // non ne nasce una quarta, ed e' una garanzia PIU' FORTE di quella per
+    // cui questa prova era stata scritta: prima si trattenevano le feste,
+    // adesso si trattiene la maturazione.
+    expect(diario.accesi.length, 3,
+        reason: 'con tre feste ancora da congedare ne e maturata un altra: il '
+            'freno della voce CP.01 non tiene');
     expect(arrivate, 1,
         reason: 'sono arrivate $arrivate feste dopo un solo gesto: e\' la '
             'raffica che il fondatore ha visto sulla 2210');

@@ -515,6 +515,16 @@ class _Cammino {
     final accesi = await diario.quelliCheSiAccendono(stato(cielo));
     for (final t in accesi) {
       await diario.accendi(t.id);
+      // **E LA PERSONA SIMULATA CONGEDA LA FESTA. Ordine CP voce 01**, 3
+      // settembre 2026. Dalla decisione del fondatore un gradino non matura
+      // finche' il precedente non e' stato congedato, e congedare vuol dire
+      // che la festa e' comparsa e la persona l'ha lasciata andare.
+      //
+      // **Senza questa riga la simulazione modellerebbe qualcuno che le feste
+      // non le guarda mai**, e il Cammino risulterebbe murato: misurato, un
+      // anno intero dava UNA festa in tutto, con undici mesi muti. Non e' il
+      // corpus a essere cosi', e' il modello a essere sbagliato.
+      await diario.congeda(t.id);
     }
     return accesi.length;
   }

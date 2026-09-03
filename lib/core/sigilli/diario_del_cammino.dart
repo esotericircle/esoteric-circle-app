@@ -53,6 +53,8 @@ class DiarioDelCammino extends ChangeNotifier {
     _oggiHaFatto.clear();
     _oggiHaFattoNellOra.clear();
     _accesi.clear();
+    _daCongedare = null;
+    _gestiGiaContatiOggi.clear();
     _quandoAccesi.clear();
     _condivisi.clear();
     notifyListeners();
@@ -71,6 +73,8 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kPrimoGiorno = 'cammino.primoGiorno';
   static const _kUltimoGiorno = 'cammino.ultimoGiorno';
   static const _kAccesi = 'cammino.accesi';
+  static const _kDaCongedare = 'cammino.daCongedare';
+  static const _kGiaContatiOggi = 'cammino.giaContatiOggi';
 
   /// **QUANDO OGNI SIGILLO SI E' ACCESO, ordine AP voce 01.** Serviva al
   /// Cerchio per custodire il cammino: un Sigillo si accende una volta sola,
@@ -197,6 +201,72 @@ class DiarioDelCammino extends ChangeNotifier {
 
   /// I traguardi gia' accesi, per id. Un Sigillo acceso non si spegne mai.
   final Set<String> _accesi = {};
+
+  /// **IL GRADINO ACCESO CHE ASPETTA DI ESSERE CONGEDATO.**
+  /// Ordine CP voce 01, 3 settembre 2026.
+  ///
+  /// Decisione del fondatore, parole sue: *"il gradino non matura finche' il
+  /// precedente non e' stato congedato."*
+  ///
+  /// **Nullo vuol dire che la strada e' libera.** Quando un gradino si
+  /// accende, il suo id finisce qui e **nessun altro gradino puo' maturare**
+  /// finche' la sua festa non e' stata vista e chiusa. Congedare vuol dire
+  /// esattamente questo: la festa e' comparsa a schermo e la persona l'ha
+  /// lasciata andare.
+  ///
+  /// **Perche' uno solo e non uno per sentiero.** La prima regola del
+  /// fondatore, quella del 17 agosto 2026, dice *"non deve esserci la
+  /// possibilita' di raggiungere piu' di un traguardo alla volta"*, e non dice
+  /// "piu' di uno per sentiero". Con un posto per sentiero un gesto che tocca
+  /// tre arti ne farebbe maturare tre insieme, che e' esattamente cio' che la
+  /// regola vieta. Un posto solo, in tutto il Cammino.
+  ///
+  /// **E si libera anche quando la festa non si e' vista.** Una festa che non
+  /// trova dove aprirsi torna in coda, e se il posto restasse occupato il
+  /// Cammino si murerebbe per sempre: chi rimette in coda congeda.
+  String? _daCongedare;
+
+  /// **I GESTI GIA' CONTATI OGGI, con i loro dettagli.**
+  /// Ordine CP voce 02, 3 settembre 2026.
+  ///
+  /// Il fondatore ha visto otto feste in due funzionalita', quattro delle
+  /// quali interrogando l'Oroscopo quattro volte. **Il difetto non era il
+  /// contatore**: nel corpus quasi tutti i gradini chiedono una volta sola.
+  /// Era che ogni gesto SCARICA UN ARRETRATO DI UNO: `quelliCheSiAccendono`
+  /// ne restituisce uno per chiamata, quindi quattro gesti drenano quattro
+  /// gradini gia' soddisfatti da prima. **Il premio smetteva di essere un
+  /// evento e diventava una consuetudine**, che e' la cosa che il fondatore
+  /// ha nominato per prima.
+  ///
+  /// **La regola: lo stesso gesto con gli stessi dettagli conta una volta
+  /// sola nella giornata rituale.** La seconda interrogazione identica non
+  /// tocca il Cammino, ne' i contatori ne' la maturazione.
+  ///
+  /// **E i dettagli fanno parte della chiave, non e' un dettaglio.**
+  /// Interrogare il giorno, la settimana e il mese sono TRE gesti diversi, ed
+  /// e' giusto che contino tre: e' varieta' vera, ed e' proprio cio' che i
+  /// quindici gradini di `VarietaDelDettaglio` premiano. Chiudere sul solo
+  /// nome del gesto li avrebbe murati tutti.
+  ///
+  /// Si azzera al confine del giorno rituale, come tutto cio' che e' di oggi.
+  final Set<String> _gestiGiaContatiOggi = {};
+
+  /// La chiave di un gesto con i suoi dettagli, stabile all'ordine.
+  static String chiaveDelGesto(String gesto, Map<String, Object?> dettagli) {
+    if (dettagli.isEmpty) return gesto;
+    final pezzi = <String>[];
+    for (final k in dettagli.keys.toList()..sort()) {
+      final v = dettagli[k];
+      final valori = v is Iterable ? v.map((x) => '$x').toList() : ['$v'];
+      valori.sort();
+      pezzi.add('$k=${valori.join(",")}');
+    }
+    return '$gesto|${pezzi.join(";")}';
+  }
+
+  /// Vero se questo gesto, con questi dettagli, e' gia' stato contato oggi.
+  bool giaContatoOggi(String gesto, Map<String, Object?> dettagli) =>
+      _gestiGiaContatiOggi.contains(chiaveDelGesto(gesto, dettagli));
   final Map<String, String> _quandoAccesi = {};
 
   /// I traguardi la cui card e' gia' stata condivisa: serve a sapere se il
@@ -221,6 +291,38 @@ class DiarioDelCammino extends ChangeNotifier {
   int get giorniDiAssenzaPrimaDiOggi => _giorniDiAssenza;
 
   bool eAcceso(String id) => _accesi.contains(id);
+
+  /// L'id del gradino che aspetta di essere congedato, oppure nullo.
+  String? get inAttesaDiCongedo => _daCongedare;
+
+  /// Vero quando nessun gradino aspetta: la strada per maturare e' libera.
+  bool get laStradaELibera => _daCongedare == null;
+
+  /// **CONGEDA IL GRADINO, e con lui libera il Cammino.** Ordine CP voce 01.
+  ///
+  /// La chiama chi ha visto la festa chiudersi, e chi ha dovuto rimettere in
+  /// coda una festa che non e' riuscita ad aprirsi. Non fa niente se il posto
+  /// era gia' libero o se aspettava un altro gradino: congedare il gradino
+  /// sbagliato aprirebbe la strada a due maturazioni insieme.
+  Future<void> congeda(String id) async {
+    if (_daCongedare != id) return;
+    _daCongedare = null;
+    notifyListeners();
+    await _salva();
+  }
+
+  /// **SBLOCCA IL CAMMINO SE CHI ASPETTA NON ESISTE PIU'.** Ordine CP voce 01.
+  ///
+  /// Cintura, non bretella: se il disco tornasse con l'id di un gradino che
+  /// il corpus non ha piu', il Cammino resterebbe murato per sempre e nessuno
+  /// saprebbe perche'. Si chiama alla lettura del disco.
+  Future<void> _liberaSeIlGradinoNonEsiste() async {
+    final id = _daCongedare;
+    if (id == null) return;
+    if (Sentieri.tuttiITraguardi.any((t) => t.id == id)) return;
+    _daCongedare = null;
+    await _salva();
+  }
   bool eStatoCondiviso(String id) => _condivisi.contains(id);
 
   /// Quanti giorni sono passati dal primo giorno nel Cerchio.
@@ -301,6 +403,11 @@ class DiarioDelCammino extends ChangeNotifier {
       _primoGiorno = prefs.getString(_kPrimoGiorno) ?? _primoGiorno;
       if (!fondi) _ultimoGiorno = prefs.getString(_kUltimoGiorno);
       _accesi.addAll(prefs.getStringList(_kAccesi) ?? const []);
+      _daCongedare = prefs.getString(_kDaCongedare) ?? _daCongedare;
+      _gestiGiaContatiOggi
+          .addAll(prefs.getStringList(_kGiaContatiOggi) ?? const []);
+      // Cintura: un id che il corpus non ha piu' murerebbe il Cammino.
+      await _liberaSeIlGradinoNonEsiste();
       _leggiTesti(prefs.getString(_kQuandoAccesi), _quandoAccesi);
       _condivisi.addAll(prefs.getStringList(_kCondivisi) ?? const []);
       // La serie di giorni di seguito NON si somma: si tiene la piu' lunga,
@@ -373,6 +480,31 @@ class DiarioDelCammino extends ChangeNotifier {
     _giornoDiOggi = oggi;
     _oggiHaFatto.clear();
     _oggiHaFattoNellOra.clear();
+    // **E ANCHE I GESTI GIA' CONTATI, ordine CP voce 02**: sono di oggi come
+    // gli altri due, e senza questa riga il limite di una volta al giorno
+    // diventerebbe un limite di una volta per sempre.
+    _gestiGiaContatiOggi.clear();
+    // **E IL CONFINE DEL GIORNO CONGEDA CIO' CHE E' RIMASTO APPESO.**
+    // Ordine CP voce 01, valvola di sicurezza.
+    //
+    // **Il congedo e' un evento dell'INTERFACCIA**: succede quando una festa
+    // si chiude a schermo. Una regola che si sblocca solo cosi' puo' perdersi
+    // per sempre, e il Cammino resterebbe murato senza che nessuno sappia
+    // perche': basta chiudere l'app mentre la festa e' aperta, o restare
+    // senza un posto dove aprirla.
+    //
+    // **A dirlo e' stata la simulazione, non un ragionamento.** Con il solo
+    // congedo dell'interfaccia, un anno di uso tipico produceva UNA festa in
+    // tutto: undici mesi su dodici muti, ognuno con un gradino gia'
+    // soddisfatto che aspettava. Un Cammino che si mura non e' un Cammino
+    // difficile, e' un Cammino rotto, ed e' la stessa lezione che l'ordine AS
+    // aveva imparato sulle serie consecutive.
+    //
+    // **Un giorno e' il tempo giusto.** La regola del fondatore vieta di
+    // vedere piu' premi insieme, non di vederne uno domani: cio' che
+    // aspettava da ieri o e' stato visto, o e' andato perduto, e in tutti e
+    // due i casi tenere fermo il Cammino costa piu' di quanto protegga.
+    _daCongedare = null;
     final ultimo =
         _ultimoGiorno == null ? null : DateTime.tryParse(_ultimoGiorno!);
     _giorniDiAssenza =
@@ -390,6 +522,12 @@ class DiarioDelCammino extends ChangeNotifier {
   }) async {
     _scrittoPrimaDiLeggere = !_discoLetto;
     _apriIlGiorno();
+    // **LO STESSO GESTO CON GLI STESSI DETTAGLI CONTA UNA VOLTA AL GIORNO.**
+    // Ordine CP voce 02, 3 settembre 2026. La ragione intera sta su
+    // `_gestiGiaContatiOggi`. Si esce PRIMA di toccare qualunque contatore:
+    // un gesto che non conta non deve lasciare traccia da nessuna parte, o
+    // sarebbe contato a meta'.
+    if (!_gestiGiaContatiOggi.add(chiaveDelGesto(gesto, dettagli))) return;
     _gestiCompiuti[gesto] = (_gestiCompiuti[gesto] ?? 0) + 1;
     _registraIDettagli(gesto, dettagli);
     if (_oggiHaFatto.add(gesto)) {
@@ -686,6 +824,10 @@ class DiarioDelCammino extends ChangeNotifier {
   Future<bool> accendi(String id) async {
     _scrittoPrimaDiLeggere = !_discoLetto;
     if (!_accesi.add(id)) return false;
+    // **DA QUI IN POI IL CAMMINO E' FERMO. Ordine CP voce 01.** Questo
+    // gradino aspetta di essere congedato, e finche' aspetta nessun altro
+    // puo' maturare.
+    _daCongedare = id;
     _quandoAccesi[id] = _orologio().toIso8601String();
     notifyListeners();
     await _salva();
@@ -721,6 +863,8 @@ class DiarioDelCammino extends ChangeNotifier {
     _oggiHaFatto.clear();
     _oggiHaFattoNellOra.clear();
     _accesi.clear();
+    _daCongedare = null;
+    _gestiGiaContatiOggi.clear();
     _quandoAccesi.clear();
     _condivisi.clear();
     _seriePerRito.clear();
@@ -992,6 +1136,27 @@ class DiarioDelCammino extends ChangeNotifier {
   /// nell'istante del gesto, come deciso il 23 agosto. Gli Eos e il Sigillo
   /// restano immediati come sempre.
   Future<List<Traguardo>> quelliCheSiAccendono(StatoDelCammino stato) async {
+    // **NIENTE MATURA FINCHE' UNO ASPETTA. Ordine CP voce 01**, decisione del
+    // fondatore del 3 settembre 2026.
+    //
+    // Prima questa riga tornava sempre il primo soddisfatto, e bastava
+    // ripetere il gesto perche' ne maturasse un altro: e' cosi' che il
+    // fondatore ha visto otto feste in due funzionalita', quattro delle quali
+    // da quattro interrogazioni dell'Oroscopo. **Il premio smetteva di essere
+    // un evento e diventava una consuetudine.**
+    //
+    // Adesso il Cammino ha un posto solo, e finche' quel posto e' occupato
+    // non matura niente. Non si perde niente: le condizioni restano
+    // soddisfatte, e il gradino matura appena la festa precedente e' stata
+    // congedata.
+    // **PRIMA SI GUARDA CHE GIORNO E'. Ordine CP voce 01.** Chiedere cosa
+    // matura OGGI presuppone sapere qual e' oggi, e il confine del giorno e'
+    // anche il momento in cui si congeda cio' che era rimasto appeso. Senza
+    // questa riga la valvola non scatterebbe mai per chi interroga la
+    // maturazione senza registrare un gesto, e la simulazione dell'anno lo ha
+    // mostrato con un numero: una festa in dodici mesi.
+    _apriIlGiorno();
+    if (!laStradaELibera) return const <Traguardo>[];
     final soddisfatti = quelliSoddisfatti(stato);
     if (soddisfatti.isEmpty) return const <Traguardo>[];
     return <Traguardo>[soddisfatti.first];
@@ -1115,6 +1280,19 @@ class DiarioDelCammino extends ChangeNotifier {
           _kUltimoPerSentiero, jsonEncode(_ultimoGiornoPerSentiero));
       await prefs.setString(_kGiornoDiOggi, _giornoDiOggi);
       await prefs.setStringList(_kAccesi, _accesi.toList());
+      // **IL POSTO OCCUPATO SOPRAVVIVE ALLA CHIUSURA DELL'APP.** Ordine CP
+      // voce 01: chi chiude l'app durante una festa la ritrova in coda, e il
+      // Cammino deve restare fermo finche' non l'ha vista.
+      if (_daCongedare == null) {
+        await prefs.remove(_kDaCongedare);
+      } else {
+        await prefs.setString(_kDaCongedare, _daCongedare!);
+      }
+      // **I GESTI CONTATI OGGI SOPRAVVIVONO ALLA CHIUSURA DELL'APP.** Ordine
+      // CP voce 02: chiudere e riaprire l'app non e' un giorno nuovo, e senza
+      // questa riga sarebbe il modo piu' semplice di aggirare il limite.
+      await prefs.setStringList(
+          _kGiaContatiOggi, _gestiGiaContatiOggi.toList());
       await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
       await prefs.setString(_kDettagli, jsonEncode(_dettagli));
       await prefs.setString(_kDettagliRecenti, jsonEncode(_dettagliRecenti));

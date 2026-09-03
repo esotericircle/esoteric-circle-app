@@ -334,16 +334,27 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     final n = await const RitualStreak(id: 'breath').recordToday(date);
     if (!mounted) return;
     // IL CAMMINO SE NE ACCORGE: il rito e' compiuto, non aperto.
-    // **IL SOFFIO TENUTO FINO ALLA FINE, ordine BX voce 01.** Il corpus
-    // chiede "un Soffio del Destino tenuto fino alla fine senza
-    // interrompersi", e la scena mandava il gesto compiuto e basta. Qui ci si
-    // arriva solo dal ciclo completo del respiro: chi esce prima non passa da
-    // questa riga, e il dettaglio dice proprio quello.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'soffio',
-        oraRituale: null,
-        dettagli: const {
-          'tenuto': ['intero']
-        }));
+    // **IL DETTAGLIO CHE DICEVA IL FALSO E' STATO TOLTO.**
+    // Ordine CP voce 03, 3 settembre 2026.
+    //
+    // Qui si mandava `'tenuto': ['intero']`, cioe' la dichiarazione che il
+    // respiro era stato **tenuto fino alla fine senza interrompersi**, che e'
+    // la frase del gradino `aur_7`. Il commento che stava qui diceva "chi esce
+    // prima non passa da questa riga", ed era vero per chi esce e falso per
+    // tutti e tre i modi in cui ci si arriva davvero:
+    //
+    // - il microfono chiude al PRIMO campione sopra la soglia, cioe' su un
+    //   soffio deciso di un istante, non su un respiro tenuto;
+    // - la spazzata col dito chiude quando il progresso supera la soglia, e
+    //   una spazzata veloce la supera in mezzo secondo;
+    // - **il tocco prolungato chiude subito, e la stessa riga e' agganciata
+    //   anche a `onTap`**, quindi bastava un tocco singolo sull'etichetta.
+    //
+    // Nessuno dei tre misura la continuita'. **Un gesto che l'app non sa
+    // misurare non si dichiara**: il Soffio manda il suo gesto e basta, e il
+    // gradino che chiede il respiro tenuto trova la sua condizione nel corpus
+    // nuovo dell'ordine CP, dove la condizione dice cio' che l'app sa vedere.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'soffio'));
     setState(() => _streak = n);
   }
 
