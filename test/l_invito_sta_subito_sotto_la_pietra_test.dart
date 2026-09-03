@@ -130,17 +130,21 @@ void main() {
 
     final pietra =
         tester.getRect(find.byKey(const Key('sunset_pietra_lettura')));
-    final righe = tester.getRect(find.byKey(const Key('tre_righe_rune')));
+    // **IL TESTO SOTTO LA PIETRA ADESSO E' LA RISPOSTA, e non piu' le tre
+    // righe del rito.** Ordine CQ voce 2.03, 3 settembre 2026: le tre righe
+    // sono uscite da tutti e cinque i Doni, e il primo testo sotto la pietra
+    // e' la riga che risponde. **La legge non cambia**, cioe' che la pietra
+    // e' la protagonista e il testo viene dopo: cambia quale testo.
+    final righe = tester.getRect(find.byKey(const Key('sunset_risposta')));
     // ignore: avoid_print
     print('TRAMONTO: pietra da ${pietra.top.toStringAsFixed(1)} a '
-        '${pietra.bottom.toStringAsFixed(1)}, tre righe da '
+        '${pietra.bottom.toStringAsFixed(1)}, la risposta da '
         '${righe.top.toStringAsFixed(1)}');
 
     expect(righe.top, greaterThan(pietra.bottom),
-        reason:
-            'le tre righe cominciano a ${righe.top.toStringAsFixed(1)} e la '
-            'pietra finisce a ${pietra.bottom.toStringAsFixed(1)}: il testo sta '
-            'ancora sopra la pietra, e la pietra e\' la protagonista');
+        reason: 'la risposta comincia a ${righe.top.toStringAsFixed(1)} e la '
+            'pietra finisce a ${pietra.bottom.toStringAsFixed(1)}: il testo '
+            'sta ancora sopra la pietra, e la pietra e la protagonista');
 
     // **E LA PIETRA STA NEL PRIMO SGUARDO.** Non basta che il testo sia sotto: se
     // la pietra cominciasse a meta\' schermo, la prima cosa che si vede sarebbe

@@ -7,7 +7,6 @@ import '../../core/quality/quality_tier.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
-import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -171,15 +170,20 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
             // cosa ti resta. **Adesso sono il TERZO livello**, il gesto col
             // suo scopo, e stanno dopo la risposta invece che al posto suo.
-            LeTreRigheDelRito(
-              rito: widget.dono,
-              inchiostro: abito.inchiostro,
-              accento: accento,
-              // Il perche' scende nella base apribile, ordine AS voce 06:
-              // qui sopra restano cosa fai e cosa ti resta, che sono la
-              // risposta.
-              conIlPerche: false,
-            ),
+            // **IL RITO ANNUNCIATO NON C'ERA, E LE TRE RIGHE SONO USCITE.**
+            // Ordine CQ voce 2.03, 3 settembre 2026.
+            //
+            // **Il fatto, parole del fondatore:** l'Arcano *"annuncia un rito che non
+            // esiste"*. La riga in cima diceva IL RITO DI OGGI e sotto stavano "Cosa
+            // fai", "Perche'" e "Cosa ti resta": tre righe di istruzioni davanti a un
+            // dono che deve rispondere. **La prima cosa che si leggeva era un compito**,
+            // e la misura della voce 2.00 lo ha trovato in tutti e cinque i Doni, non
+            // solo nell'Arcano.
+            //
+            // **Le tre righe restano nel dato**, su `DailyElement`, e continuano a
+            // descrivere il Dono dove una descrizione serve davvero, cioe' nel menu'
+            // degli avvisi dove si sceglie quali ricevere. Cio' che esce e' la loro
+            // comparsa in cima al responso.
             const SizedBox(height: SpacingTokens.md),
             // **VIA L'ETICHETTA DEL TIPO DI DONO. Ordine AS voce 06.**
             //

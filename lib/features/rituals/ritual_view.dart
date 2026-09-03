@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/rituals/daily_elements.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
-import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/ritual_backdrop.dart';
 import '../tarot/stesa_senses.dart' show TiltListener;
 import '../../design_system/theme/maestro_palette.dart';
@@ -402,11 +401,20 @@ class _RitualViewState extends State<RitualView>
                     children: [
                       // LE TRE RIGHE DEL RITO, ordine P voce 17, in testa.
                       if (widget.rito != null) ...[
-                        LeTreRigheDelRito(
-                          rito: widget.rito!,
-                          inchiostro: ColorTokens.textPrimary,
-                          accento: palette.goldSoft,
-                        ),
+                        // **IL RITO ANNUNCIATO NON C'ERA, E LE TRE RIGHE SONO USCITE.**
+                        // Ordine CQ voce 2.03, 3 settembre 2026.
+                        //
+                        // **Il fatto, parole del fondatore:** l'Arcano *"annuncia un rito che non
+                        // esiste"*. La riga in cima diceva IL RITO DI OGGI e sotto stavano "Cosa
+                        // fai", "Perche'" e "Cosa ti resta": tre righe di istruzioni davanti a un
+                        // dono che deve rispondere. **La prima cosa che si leggeva era un compito**,
+                        // e la misura della voce 2.00 lo ha trovato in tutti e cinque i Doni, non
+                        // solo nell'Arcano.
+                        //
+                        // **Le tre righe restano nel dato**, su `DailyElement`, e continuano a
+                        // descrivere il Dono dove una descrizione serve davvero, cioe' nel menu'
+                        // degli avvisi dove si sceglie quali ricevere. Cio' che esce e' la loro
+                        // comparsa in cima al responso.
                         const SizedBox(height: SpacingTokens.md),
                       ],
                       // NESSUNO STATO SENZA USCITA, ordine P voce 16: se il

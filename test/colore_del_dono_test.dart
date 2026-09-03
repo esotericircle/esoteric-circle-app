@@ -63,21 +63,22 @@ void main() {
     // fai." e' il primo pezzo di testo che porta la tinta del Maestro del
     // giorno, sta in cima alla scheda, e la sua ragione d'essere e' proprio
     // dire di chi e' il giorno.
-    final colori = <Color>[];
-    for (final r in tester.widgetList<RichText>(find.byType(RichText))) {
-      final span = r.text;
-      if (span is! TextSpan) continue;
-      final figli = span.children;
-      if (figli == null || figli.isEmpty) continue;
-      final primo = figli.first;
-      if (primo is! TextSpan) continue;
-      final c = primo.style?.color;
-      if (c != null) colori.add(c);
-    }
-    expect(colori, isNotEmpty,
-        reason: 'le tre righe del rito non sono a schermo, quindi questa '
-            'prova non sta misurando il colore che crede');
-    return colori.first;
+    // **E ADESSO SI LEGGE SULLA PAROLA DEL GIORNO**, che e' dove stava
+    // prima dell'ordine BB voce 06 e dove torna adesso. Ordine CQ voce 2.03,
+    // 3 settembre 2026: le tre righe del rito sono uscite da tutti e cinque i
+    // Doni, e con loro il posto dove questa prova guardava il colore. **La
+    // parola e' il pezzo di testo piu' grande della scheda e porta la tinta
+    // del Maestro del giorno**, che e' esattamente cio' che questa prova
+    // vuole misurare.
+    final parola = find.byKey(const Key('gift_word'));
+    expect(parola, findsOneWidget,
+        reason: 'la parola del giorno non e a schermo, quindi questa prova '
+            'non sta misurando il colore che crede');
+    final colore = tester.widget<Text>(parola).style?.color;
+    expect(colore, isNotNull,
+        reason: 'la parola del giorno non porta nessun colore proprio: '
+            'l accento non arriva a schermo');
+    return colore!;
   }
 
   group('Il colore nasce dal Maestro del giorno', () {

@@ -10,7 +10,6 @@ import '../../core/sigilli/ora_rituale.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
-import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:provider/provider.dart';
@@ -1298,11 +1297,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // dalla voce S.11: prima stavano sopra e la spingevano fuori dal primo
           // sguardo.
           const SizedBox(height: SpacingTokens.md),
-          LeTreRigheDelRito(
-            rito: DailyElement.rune,
-            inchiostro: ColorTokens.textPrimary,
-            accento: _palette.goldSoft,
-          ),
+          // **IL RITO ANNUNCIATO NON C'ERA, E LE TRE RIGHE SONO USCITE.**
+          // Ordine CQ voce 2.03, 3 settembre 2026.
+          //
+          // **Il fatto, parole del fondatore:** l'Arcano *"annuncia un rito che non
+          // esiste"*. La riga in cima diceva IL RITO DI OGGI e sotto stavano "Cosa
+          // fai", "Perche'" e "Cosa ti resta": tre righe di istruzioni davanti a un
+          // dono che deve rispondere. **La prima cosa che si leggeva era un compito**,
+          // e la misura della voce 2.00 lo ha trovato in tutti e cinque i Doni, non
+          // solo nell'Arcano.
+          //
+          // **Le tre righe restano nel dato**, su `DailyElement`, e continuano a
+          // descrivere il Dono dove una descrizione serve davvero, cioe' nel menu'
+          // degli avvisi dove si sceglie quali ricevere. Cio' che esce e' la loro
+          // comparsa in cima al responso.
           const SizedBox(height: SpacingTokens.lg),
           // Voce A: cosa lasci fuori.
           _bloccoVoce(

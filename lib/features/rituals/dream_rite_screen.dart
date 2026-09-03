@@ -9,7 +9,6 @@ import '../../core/sigilli/ora_rituale.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
-import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
 
 import '../../core/astro/moon_phase.dart';
@@ -652,11 +651,20 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // arrivava dopo l'istruzione. Adesso il gesto col suo scopo sta
         // dove la gerarchia lo vuole, cioe' dopo che il Dono ha risposto.
         // LE TRE RIGHE DEL RITO, ordine P voce 17.
-        LeTreRigheDelRito(
-          rito: DailyElement.night,
-          inchiostro: ColorTokens.textPrimary,
-          accento: _palette.goldSoft,
-        ),
+        // **IL RITO ANNUNCIATO NON C'ERA, E LE TRE RIGHE SONO USCITE.**
+        // Ordine CQ voce 2.03, 3 settembre 2026.
+        //
+        // **Il fatto, parole del fondatore:** l'Arcano *"annuncia un rito che non
+        // esiste"*. La riga in cima diceva IL RITO DI OGGI e sotto stavano "Cosa
+        // fai", "Perche'" e "Cosa ti resta": tre righe di istruzioni davanti a un
+        // dono che deve rispondere. **La prima cosa che si leggeva era un compito**,
+        // e la misura della voce 2.00 lo ha trovato in tutti e cinque i Doni, non
+        // solo nell'Arcano.
+        //
+        // **Le tre righe restano nel dato**, su `DailyElement`, e continuano a
+        // descrivere il Dono dove una descrizione serve davvero, cioe' nel menu'
+        // degli avvisi dove si sceglie quali ricevere. Cio' che esce e' la loro
+        // comparsa in cima al responso.
         const SizedBox(height: SpacingTokens.sm),
         const SizedBox(height: SpacingTokens.md),
         // **IL QUADERNO DEI SOGNI NON C'E' PIU'. Ordine CB voce 01.**
