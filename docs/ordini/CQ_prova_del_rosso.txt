@@ -192,3 +192,20 @@ CURA    guscio di prova, canali del sensore muti, controller chiuso in
 DOPO    su 20 giri, 20 verdi e 0 rossi.
 ========================================================================
 
+LA PROVA DEL ROSSO DEL FRENO DEL GESTO RIPETUTO
+Ordine CQ voce 1.11, Regola A.
+========================================================================
+ROSSA     il freno sparisce del tutto                   
+          attesa: lo stesso gesto con gli stessi dettagli conta una volta al giorno
+          caduta: e i dettagli diversi contano davvero, che e varieta e non abuso
+          caduta: il freno si apre al confine del giorno rituale
+          caduta: lo stesso gesto con gli stessi dettagli conta una volta al giorno
+ROSSA     il freno chiude sul solo nome del gesto       
+          attesa: e i dettagli diversi contano davvero, che e varieta e non abuso
+          caduta: e i dettagli diversi contano davvero, che e varieta e non abuso
+ROSSA     il freno non si apre piu al confine del giorno
+          attesa: il freno si apre al confine del giorno rituale
+          caduta: il freno si apre al confine del giorno rituale
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
