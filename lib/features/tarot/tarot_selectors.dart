@@ -49,6 +49,7 @@ class TarotSetup {
     this.depth = AnswerDepth.breve,
     this.topic = TarotTopic.predefinito,
     this.includeReversed = true,
+    this.domandaLibera = '',
   });
 
   /// Quale stesa si sta facendo. Da qui viene anche il titolo in alto.
@@ -67,12 +68,38 @@ class TarotSetup {
   /// cartomanzia.
   final bool includeReversed;
 
+  /// **LA DOMANDA SCRITTA A MANO, quando le sei suggerite non bastano.**
+  /// Ordine CO voce 05, 3 settembre 2026.
+  ///
+  /// Vuota vuol dire che nessuno ne ha scritta una, e allora la lettura e'
+  /// esattamente quella di prima. **Non sostituisce l'argomento**: la tendina
+  /// continua a orientare il corpus, perche' il responso di questa app e'
+  /// deterministico e nasce dalle carte, non da un modello che legge una
+  /// frase. Questa e' la domanda di chi guarda, e serve a due cose: comparire
+  /// nel responso, cosi' chi legge sa a che cosa si sta rispondendo, ed
+  /// entrare nella memoria del Maestro, cosi' domani lui sa che cosa gli era
+  /// stato chiesto.
+  ///
+  /// **Si dichiara che non cambia il testo**, invece di fingere che lo cambi:
+  /// un responso che ripete la domanda con parole diverse e non ne tiene
+  /// conto e' peggio di un responso che non la nomina affatto.
+  final String domandaLibera;
+
+  /// La domanda scritta a mano, ripulita, o nulla se non ce n'e' una.
+  String? get domandaScritta {
+    final t = domandaLibera.trim();
+    return t.isEmpty ? null : t;
+  }
+
   /// Il riepilogo in poche parole, per la riga richiusa.
   ///
   /// Dice tutto quello che serve sapere a colpo d'occhio, senza aprire nulla:
   /// chi non tocca la configurazione non ha motivo di espanderla.
   String get riepilogo => [
-        topic.label.split(',').first,
+        // **LA DOMANDA SCRITTA VINCE SULL'ARGOMENTO nella riga richiusa.**
+        // Chi ne ha scritta una vuole rivedere quella, non la voce della
+        // tendina che gli sta sotto.
+        domandaScritta ?? topic.label.split(',').first,
         key.label.split(' ').first,
         deck.label,
         includeReversed ? 'con rovesciate' : 'solo dritte',
@@ -85,6 +112,7 @@ class TarotSetup {
     AnswerDepth? depth,
     TarotTopic? topic,
     bool? includeReversed,
+    String? domandaLibera,
   }) =>
       TarotSetup(
         tipo: tipo ?? this.tipo,
@@ -93,6 +121,7 @@ class TarotSetup {
         depth: depth ?? this.depth,
         topic: topic ?? this.topic,
         includeReversed: includeReversed ?? this.includeReversed,
+        domandaLibera: domandaLibera ?? this.domandaLibera,
       );
 }
 
@@ -342,6 +371,17 @@ class TarotSetupPanel extends StatelessWidget {
               );
             },
           ),
+          const SizedBox(height: SpacingTokens.sm),
+          // **E SOTTO LE SEI SUGGERITE, LA PROPRIA.** Ordine CO voce 05.
+          //
+          // Sta SOTTO e non al posto loro: le sei sono un punto di partenza
+          // per chi non sa da dove cominciare, ed e' la maggioranza delle
+          // volte. Chi sa cosa vuole chiedere scrive qui.
+          _DomandaScritta(
+            testo: setup.domandaLibera,
+            palette: palette,
+            onChanged: (t) => onChanged(setup.copyWith(domandaLibera: t)),
+          ),
         ],
       ),
     );
@@ -561,6 +601,88 @@ class _Interruttore extends StatelessWidget {
               value: acceso,
               activeThumbColor: palette.gold,
               onChanged: onChanged,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// **IL CAMPO DOVE SI SCRIVE LA PROPRIA DOMANDA.**
+/// Ordine CO voce 05, 3 settembre 2026.
+///
+/// Sta sotto le sei suggerite, e ha la stessa veste delle tendine sopra:
+/// stesso fondo, stesso oro al bordo, stessa etichetta in alto. Un campo di
+/// testo con la veste di sistema, in mezzo a sei tendine vestite, si legge
+/// come una cosa arrivata dopo, ed e' arrivata dopo davvero, ma non deve
+/// sembrarlo.
+///
+/// **Tiene il proprio controller**, e non ricostruisce il testo dal padre a
+/// ogni battuta: passare il valore dall'alto e riscriverlo dentro il campo
+/// sposta il cursore in fondo a ogni lettera, e chi corregge una parola in
+/// mezzo alla frase si trova a scrivere in coda.
+class _DomandaScritta extends StatefulWidget {
+  const _DomandaScritta({
+    required this.testo,
+    required this.palette,
+    required this.onChanged,
+  });
+
+  final String testo;
+  final MaestroPalette palette;
+  final ValueChanged<String> onChanged;
+
+  @override
+  State<_DomandaScritta> createState() => _DomandaScrittaState();
+}
+
+class _DomandaScrittaState extends State<_DomandaScritta> {
+  late final TextEditingController _controllore =
+      TextEditingController(text: widget.testo);
+
+  @override
+  void dispose() {
+    _controllore.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = widget.palette;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        color: palette.deepest.withValues(alpha: 0.45),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('OPPURE SCRIVI LA TUA DOMANDA',
+              style: TypographyTokens.etichetta().copyWith(
+                  color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+          TextField(
+            key: const Key('stesa_domanda_scritta'),
+            controller: _controllore,
+            onChanged: widget.onChanged,
+            maxLength: 140,
+            maxLines: 2,
+            minLines: 1,
+            textCapitalization: TextCapitalization.sentences,
+            style: TypographyTokens.corpo().copyWith(
+                color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              isDense: true,
+              border: InputBorder.none,
+              // Il contatore delle battute e' rumore su un campo di due
+              // righe: il limite si sente scrivendo, e non serve un numero
+              // che conta alla rovescia mentre si pensa a una domanda.
+              counterText: '',
+              hintText: 'Che cosa vuoi chiedere alle carte?',
+              hintStyle: TypographyTokens.corpo().copyWith(
+                  color: ColorTokens.textSecondary.withValues(alpha: 0.7)),
             ),
           ),
         ],

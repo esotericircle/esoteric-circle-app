@@ -207,6 +207,128 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
+    Future<({ByteData dati, int larghezza, int altezza})> scattoPer(
+        Finder quale) async {
+      await tester.ensureVisible(quale);
+      await tester.pump();
+      late ByteData dati;
+      var larghezza = 0;
+      var altezza = 0;
+      await tester.runAsync(() async {
+        final confine =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final immagine = await confine.toImage();
+        larghezza = immagine.width;
+        altezza = immagine.height;
+        dati = (await immagine.toByteData())!;
+        immagine.dispose();
+      });
+      return (dati: dati, larghezza: larghezza, altezza: altezza);
+    }
+
+    final righe = <String>[];
+    final sotto = <String>[];
+    final fondiVisti = <Color>[];
+    var censite = 0;
+
+    /// **SI MISURA A OGNI MOMENTO DEL RITO, non a uno solo.**
+    /// Ordine CO voce 14, 3 settembre 2026.
+    ///
+    /// La tabella catturava un fotogramma solo, quello a rito compiuto,
+    /// e li' misurava tutto cio' che trovava. **Ma un rito e' una cosa
+    /// che cambia**: l'invito a trascinare vive prima del gesto e
+    /// sparisce dopo, e il cielo dietro di lui passa dalla notte al
+    /// giorno mentre lui sta fermo. Un testo che esiste solo prima non
+    /// entrava in nessuna riga, e la tabella diceva zero sotto soglia
+    /// **dicendo il vero su cio' che aveva guardato**.
+    ///
+    /// E' la stessa cecita' dell'iscrizione volontaria, su un altro
+    /// asse: prima si escludeva per NOME, adesso non si esclude piu' per
+    /// nome e si escludeva ancora per MOMENTO.
+    Future<void> censisci(String momento) async {
+          // OGNI TESTO DEL RITO, enumerato dall'albero e non da un elenco scritto.
+
+          // **SI MISURANO TUTTI I TESTI, NON SOLO QUELLI ISCRITTI.**
+          // Ordine CO voce 14, 3 settembre 2026.
+          //
+          // Qui c'era `.where((k) => k.value.startsWith('alba_'))`, cioe' **la
+          // tabella guardava soltanto i testi a cui qualcuno aveva dato una chiave
+          // che comincia per alba_**. Non era una svista di chi l'ha scritta: era
+          // il modo di poter risalire al file e alla riga. Ma il risultato e' una
+          // guardia che misura un insieme A ISCRIZIONE VOLONTARIA, e nessuno
+          // obbliga nessuno a iscriversi.
+          //
+          // **Il fondatore ha visto un testo giallo illeggibile in questa
+          // schermata mentre questa tabella diceva zero sotto soglia, e diceva il
+          // vero**: quel testo non aveva la chiave, quindi per la tabella non
+          // esisteva. Dieci righe misurate e tutte promosse sono una prova
+          // eccellente di dieci testi, e non dicono niente sull'undicesimo.
+          //
+          // Adesso si enumerano tutti i `Text` con qualcosa scritto dentro. Chi ha
+          // la chiave porta ancora file e riga; chi non ce l'ha porta le prime
+          // parole di cio' che dice, che al fondatore basta per riconoscerlo a
+          // schermo, ed e' l'informazione che serve davvero.
+          final trovati = <(Finder, String, String)>[];
+          for (final t in tester.widgetList<Text>(find.byType(Text))) {
+            final scritto = (t.data ?? t.textSpan?.toPlainText() ?? '').trim();
+            if (scritto.isEmpty) continue;
+            if (t.style?.color == null || t.style?.fontSize == null) continue;
+            final k = t.key;
+            if (k is ValueKey<String> && k.value.startsWith('alba_')) {
+              trovati.add((find.byKey(k), '`${k.value}`', dove(k.value)));
+            } else {
+              final breve =
+                  scritto.length > 34 ? '${scritto.substring(0, 31)}...' : scritto;
+              // Il testo si ritrova per contenuto: e' l'unica ancora che ha.
+              trovati.add((
+                find.text(scritto),
+                breve.replaceAll('|', '/').replaceAll('\n', ' '),
+                'senza chiave'
+              ));
+            }
+          }
+          for (final voce in trovati) {
+            final trovato = voce.$1;
+            if (tester.widgetList(trovato).length != 1) continue;
+            final scatto = await scattoPer(trovato);
+            final dati = scatto.dati;
+            final larghezza = scatto.larghezza;
+            final altezza = scatto.altezza;
+            final testo = tester.widget<Text>(trovato);
+            final rettangolo = tester.getRect(trovato);
+            final stile = testo.style!;
+            // Un testo alto zero o largo zero non si vede, e campionarne il fondo
+            // vorrebbe dire leggere un punto a caso.
+            if (rettangolo.width < 2 || rettangolo.height < 2) continue;
+            final misura = stile.fontSize ?? 0;
+            final peso = pesoDi(stile);
+            final ruolo = ruoloDi(stile);
+            final fondo = fondoSotto(dati, larghezza, altezza, rettangolo);
+            fondiVisti.add(fondo);
+            final inchiostro = Color.alphaBlend(stile.color!, fondo);
+            final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
+            final soglia = RegimeChiaro.sogliaPer(
+                etichetta: ruolo.etichetta, misura: misura, peso: peso);
+            censite++;
+            final passa = contrasto >= soglia;
+              righe.add('| ${voce.$2} | $momento | ${voce.$3} | ${ruolo.nome} | '
+                '${misura.toStringAsFixed(0)} | ${peso.toStringAsFixed(0)} | '
+                '${esa(inchiostro)} | ${esa(fondo)} | '
+                '**${contrasto.toStringAsFixed(2)}** | '
+                '${soglia.toStringAsFixed(1)} | ${passa ? 'si\'' : '**NO**'} |');
+            if (!passa) {
+                sotto.add('${voce.$2} ($momento) a ${voce.$3}: '
+                  '${contrasto.toStringAsFixed(2)} contro ${soglia.toStringAsFixed(1)} '
+                  '(${esa(inchiostro)} su ${esa(fondo)}, ${misura.toStringAsFixed(0)} punti)');
+            }
+          }
+
+    }
+
+    // **PRIMA DEL GESTO**: qui vive l'invito, sul cielo notturno che
+    // gia' si sta schiarendo.
+    await censisci('prima del gesto');
+
     // Il gesto si compie: e' l'unico stato in cui il pannello chiaro esiste.
     await tester.tap(find.byKey(const Key('ritual_gesture')));
     await tester.pump();
@@ -230,69 +352,7 @@ void main() {
     /// sta sotto la piega, quindi il suo rettangolo cadeva fuori dal
     /// fotogramma e il fondo campionato risultava nero pieno. Un fondo che non
     /// e' nell'immagine non si misura: si porta in vista e si riscatta.
-    Future<({ByteData dati, int larghezza, int altezza})> scattoPer(
-        Finder quale) async {
-      await tester.ensureVisible(quale);
-      await tester.pump();
-      late ByteData dati;
-      var larghezza = 0;
-      var altezza = 0;
-      await tester.runAsync(() async {
-        final confine =
-            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-        final immagine = await confine.toImage();
-        larghezza = immagine.width;
-        altezza = immagine.height;
-        dati = (await immagine.toByteData())!;
-        immagine.dispose();
-      });
-      return (dati: dati, larghezza: larghezza, altezza: altezza);
-    }
-
-    // OGNI TESTO DEL RITO, enumerato dall'albero e non da un elenco scritto.
-    final righe = <String>[];
-    final sotto = <String>[];
-    final fondiVisti = <Color>[];
-    var censite = 0;
-
-    final chiavi = tester
-        .widgetList<Text>(find.byType(Text))
-        .map((t) => t.key)
-        .whereType<ValueKey<String>>()
-        .where((k) => k.value.startsWith('alba_'))
-        .toList();
-    for (final chiave in chiavi) {
-      final trovato = find.byKey(chiave);
-      if (!tester.any(trovato)) continue;
-      final scatto = await scattoPer(trovato);
-      final dati = scatto.dati;
-      final larghezza = scatto.larghezza;
-      final altezza = scatto.altezza;
-      final testo = tester.widget<Text>(trovato);
-      final rettangolo = tester.getRect(trovato);
-      final stile = testo.style!;
-      final misura = stile.fontSize ?? 0;
-      final peso = pesoDi(stile);
-      final ruolo = ruoloDi(stile);
-      final fondo = fondoSotto(dati, larghezza, altezza, rettangolo);
-      fondiVisti.add(fondo);
-      final inchiostro = Color.alphaBlend(stile.color!, fondo);
-      final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
-      final soglia = RegimeChiaro.sogliaPer(
-          etichetta: ruolo.etichetta, misura: misura, peso: peso);
-      censite++;
-      final passa = contrasto >= soglia;
-      righe.add('| `${chiave.value}` | ${dove(chiave.value)} | ${ruolo.nome} | '
-          '${misura.toStringAsFixed(0)} | ${peso.toStringAsFixed(0)} | '
-          '${esa(inchiostro)} | ${esa(fondo)} | '
-          '**${contrasto.toStringAsFixed(2)}** | '
-          '${soglia.toStringAsFixed(1)} | ${passa ? 'si\'' : '**NO**'} |');
-      if (!passa) {
-        sotto.add('${chiave.value} a ${dove(chiave.value)}: '
-            '${contrasto.toStringAsFixed(2)} contro ${soglia.toStringAsFixed(1)} '
-            '(${esa(inchiostro)} su ${esa(fondo)}, ${misura.toStringAsFixed(0)} punti)');
-      }
-    }
+    await censisci('a rito compiuto');
 
     File('docs/tipografia/alba_contrasto.md').writeAsStringSync([
       '# Il contrasto del Rito dell\'Alba, misurato',
@@ -337,9 +397,9 @@ void main() {
       '',
       '## La tabella',
       '',
-      '| Testo | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | '
+      '| Testo | Momento | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | '
           'Contrasto | Soglia | Passa |',
-      '| --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |',
+      '| --- | --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |',
       ...righe,
       '',
       if (sotto.isEmpty)

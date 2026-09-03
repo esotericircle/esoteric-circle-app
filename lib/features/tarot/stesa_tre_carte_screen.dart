@@ -1513,8 +1513,28 @@ class _Slot extends StatelessWidget {
                       key: Key('stesa_parole_chiave_${position.name}'),
                       textAlign: TextAlign.center,
                       maxLines: 1,
+                      // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
+                      // CO voce 08, 3 settembre 2026. Il fondatore:
+                      // "Carta Chiave e' azzurro su blu, non si legge".
+                      //
+                      // **Misurato, e aveva ragione**: `palette.glow` di
+                      // Medora sui fondi veri di questa schermata sta fra
+                      // 3,35 e 4,96 a uno, e la soglia per una lettera di
+                      // tredici punti e' 4,5. Nessuna guardia lo aveva
+                      // preso perche' nessuna stava guardando li': quella
+                      // dei grigi spazza i due token di TESTO grigi, e
+                      // l'accento del Maestro non e' un token di testo,
+                      // e' il colore degli aloni e dei bordi, dove la
+                      // soglia e' tre a uno. **Non c'era una guardia
+                      // cieca: c'era un insieme senza guardia**, e adesso
+                      // ce l'ha, gli_accenti_non_sono_inchiostro_test.
+                      //
+                      // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
+                      // con cui la bolla di questa stessa carta scrive
+                      // "LA CHIAVE" piu' in basso: due posti che dicono
+                      // la stessa cosa adesso la dicono nello stesso modo.
                       style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.glow, letterSpacing: 1.1)),
+                          .copyWith(color: palette.goldSoft, letterSpacing: 1.1)),
                 )
               : null,
         ),
