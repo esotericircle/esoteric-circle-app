@@ -165,20 +165,44 @@ diciotto.**
 
 ### CO.14 — Il giallo del Rito dell'Alba
 
-**Non riprodotto, e si dichiara.** Dopo aver riparato due cecità vere della
-guardia dell'Alba, la tabella misura quindici testi in due momenti e nessuno è
-sotto la sua soglia.
+**Chiusa da uno scatto del fondatore**, dopo che la misura da sola non era
+bastata.
 
-Le due cecità erano reali e valgono da sole. **La prima**: misurava solo i testi
-con una chiave che comincia per `alba_`, cioè un insieme **a iscrizione
-volontaria**, e nessuno obbliga nessuno a iscriversi; dieci righe tutte
-promosse non dicono niente sull'undicesimo testo. **La seconda**: catturava un
-fotogramma solo, quello a rito compiuto, mentre un rito è una cosa che cambia,
-e l'invito giallo vive prima del gesto e sparisce dopo.
+Il giallo sono i due pulsanti **"Condividi · +15 Eos"** e **"Custodisci"**
+sotto il responso del Dono. Scrivono in `palette.goldSoft`, che è l'oro pensato
+per i fondi scuri di questa app e lì regge benissimo, da 9,29 a 13,81 a uno.
+Dentro la scheda del Dono il fondo non è scuro: è il pannello del regime
+chiaro, e lì lo stesso oro misura **1,30 a uno**. Non poco leggibile:
+**invisibile**, e nello scatto si vedono due rettangoli vuoti accanto a un
+terzo pulsante che si legge perfettamente perché è pieno e si porta il fondo da
+sé.
 
-**Cosa serve per chiudere questa voce:** il punto preciso dove il fondatore ha
-visto il giallo. Se è nella scena a cielo chiaro, la tabella lo misurerà appena
-gli si dica in quale momento guardare.
+**Perché la tabella del contrasto non lo aveva preso, ed è la quarta specie di
+cecità di quest'ordine.** La tabella chiede il colore al `Text`; **l'etichetta
+di un pulsante il colore non ce l'ha**, lo eredita dallo stile del pulsante che
+la contiene. Per la tabella quei due testi non avevano inchiostro, e un testo
+senza inchiostro non si può misurare: venivano saltati in silenzio. Dopo
+l'iscrizione per nome, il fotogramma unico e la radice del `RichText`, è la
+quarta volta in quest'ordine che una guardia dice il vero su ciò che ha
+guardato e tace su ciò che non ha guardato.
+
+**E la misura del fondo ha dovuto essere riscritta tre volte.** La prima
+guardava la fascia alta del rientro, e dentro l'etichetta di un pulsante quella
+fascia è fatta di lettere: tornava l'inchiostro, contrasto uno a uno. La
+seconda guardava appena SOPRA il riquadro, e sopra un pulsante pieno c'è il
+pannello che sta dietro, non il suo riempimento: tornava 1,23 dove l'occhio
+legge benissimo. **La regola che le copre tutte e due è una sola: il fondo è il
+colore più frequente che non sia l'inchiostro.**
+
+**E un terzo difetto trovato per strada, che nessuno aveva chiesto.** Con la
+misura finalmente giusta, il pulsante pieno "Parlane con Aura" misurava
+**2,84**: il verde di Aura è il più luminoso dei tre primari e sotto la soglia
+ci va da solo, mentre Medora sta a 6,89 e Caligo a 5,88. Non si è scelto un
+verde più scuro a mano: il riempimento passa dalla porta che già esiste, quella
+che scurisce un tono finché non regge, e chi è già sopra soglia torna indietro
+identico. Adesso è 4,83.
+
+La tabella misura **ventidue testi in due momenti, e zero sotto soglia.**
 
 ### CO.15 — "IL RITO DI STAMATTINA"
 
@@ -278,14 +302,15 @@ di usarlo.
 | Guardie nuove, tutte **nate rosse** | 10, piu la guardia dell ordine |
 | Guardie esistenti **viste rosse** prima di lavorare (Regola B) | 12 |
 | Guardie esistenti **restate verdi col difetto dentro** | **2** |
-| Difetti trovati che il fondatore non aveva chiesto | **5** |
+| Difetti trovati che il fondatore non aveva chiesto | **6** |
 | Guardie nel registro, prima e dopo | 247 → **258** |
 | Guardie viste rosse almeno una volta | 20 → **36** |
 | Percentuale del registro vista rossa | 8,1% → **14,0%** |
 
-**I cinque difetti trovati e non chiesti**: tre accenti scritti con l'apostrofo
-in altrettanti corpora, il suono delle monete che poteva uscire senza monete, e
-la guardia della musica cieca al proprio bersaglio.
+**I sei difetti trovati e non chiesti**: tre accenti scritti con l'apostrofo in
+altrettanti corpora, il suono delle monete che poteva uscire senza monete, la
+guardia della musica cieca al proprio bersaglio, e l'etichetta del pulsante
+pieno "Parlane con" che per Aura stava a 2,84 contro i 4,5 richiesti.
 
 **Le due guardie restate verdi sono l'informazione più preziosa di questo
 ordine.** Non sono rotte: sorvegliano una cosa diversa da quella che si credeva
@@ -320,8 +345,6 @@ L'ordine dice che le decisioni le prendo io e le motivo per iscritto.
 
 ## COSA RESTA APERTO, DICHIARATO
 
-- **Il giallo del Rito dell'Alba, voce CO.14.** Non riprodotto. Servono le
-  parole esatte o il momento del rito in cui si vede.
 - **I due respiri restano scollegati**, dall'ordine CN: i file durano 4,94 e
   6,85 secondi e le fasi del rito da tre a sette, quindi serve la velocità di
   riproduzione nel motore.
@@ -370,16 +393,24 @@ dalla lista, verificato col grep che l'innesto fosse entrato, e diventa rossa.
 QUANTE DELLE VENTI VOCI IL FONDATORE PUÒ VERIFICARE CON I PROPRI OCCHI APRENDO
 L'APP, E QUANTE NO.
 
-**Diciannove sì, una no.** Le diciannove si vedono o si sentono aprendo l'app:
-lo Shaman che entra alla fine dell'intro, la carta che suona, la voce sola sulla
-festa, le monete più quiete, il campo della domanda, la carta dentro la bolla,
-il pulsante che comincia, "Carta Chiave" in oro, il conteggio sulla porta della
-sinastria, la testa intera del Maestro, "Oggi hai 50 gettate", la chat che non
-si apre sul vuoto, i testi dei Doni più grandi, il titolo del rito, l'accento
-vero, i responsi che rispondono per primi, le stelle che sono stelle, le monete
+**Tutte e venti.** Non c'è una voce di questo ordine che si veda solo nei
+documenti: ognuna cambia qualcosa che si guarda o si sente aprendo l'app. Lo
+Shaman che entra alla fine dell'intro, la carta che suona girandosi, la voce
+sola sulla festa, le monete più quiete, il campo dove scrivere la propria
+domanda, la carta dentro la sua bolla, il pulsante che comincia la lettura,
+"Carta Chiave" in oro invece che in azzurro, il conteggio delle sinastrie sulla
+porta, la testa intera del Maestro anche a lettere grandi, "Oggi hai 50 gettate"
+invece di "50 su 50", la chat che non si apre più su mezzo schermo di vuoto, i
+testi dei Doni a diciotto punti invece che al pavimento, il giallo dell'Alba che
+adesso si legge, il titolo sul rito, l'accento vero al posto dell'apostrofo, i
+responsi che rispondono prima di chiedere, le stelle che sono stelle, le monete
 che volano col loro suono, il cuore sempre nello stesso angolo.
 
-**La ventesima è la CO.14, il giallo del Rito dell'Alba, e non la può
-verificare perché non è stata corretta**: non l'ho riprodotta. Quello che di
-quella voce si vede è la tabella `docs/tipografia/alba_contrasto.md`, che adesso
-misura tutti i testi in due momenti invece di dieci in uno.
+**E l'ultima è stata chiusa da uno scatto suo.** La misura, da sola, non era
+bastata: avevo riparato due cecità vere della guardia dell'Alba e la tabella
+continuava a dire zero sotto soglia, perché ne restava una terza che nessuna
+delle due riparazioni poteva scoprire. **Il fondatore ha mandato una fotografia
+dello schermo, e in quella fotografia il difetto era ovvio.** Vale la pena
+scriverlo qui, dove si tiene conto di come si trovano le cose: in quest'ordine
+la fotografia di uno schermo ha battuto una guardia che misura pixel, per la
+seconda volta dopo la frase sul fuoco audio dell'ordine CN.

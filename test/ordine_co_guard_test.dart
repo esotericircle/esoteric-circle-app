@@ -134,7 +134,19 @@ void main() {
         reason: 'la riga finale c e ma non ha una risposta sotto: l ordine '
             'chiede quante voci si vedono a occhio, non che la domanda venga '
             'ripetuta');
-    expect(RegExp(r'\*\*[A-Za-zàèéìòù ]+ s[iì]').hasMatch(coda), isTrue,
-        reason: 'la risposta non dice un numero di voci verificabili');
+    // **LA RISPOSTA DEVE DIRE UN NUMERO, in lettere.** La prima stesura di
+    // questa riga cercava la forma "... si", che e' una sola delle risposte
+    // possibili: il giorno che la risposta e' diventata "Tutte e venti" la
+    // guardia e' caduta pur essendo il manifesto piu' completo di prima. Una
+    // guardia che pretende una FORMA invece del FATTO cade quando il fatto
+    // migliora.
+    const numeri = [
+      'tutte e venti', 'venti', 'diciannove', 'diciotto', 'diciassette',
+      'sedici', 'quindici',
+    ];
+    final dice = numeri.any((n) => coda.toLowerCase().contains(n));
+    expect(dice, isTrue,
+        reason: 'la risposta non dice quante voci il fondatore puo '
+            'verificare: la domanda chiede un numero, non un racconto');
   });
 }

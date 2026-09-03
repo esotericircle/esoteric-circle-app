@@ -191,6 +191,25 @@ enum SuperficieChiara {
     file: 'lib/design_system/theme/abito_del_responso.dart',
     perche: 'decide quale Dono veste di giorno. Per farlo deve nominare i '
         'colori del giorno: e la porta del regime chiaro, non una schermata',
+  ),
+
+  /// **LE TRE AZIONI SOTTO IL RESPONSO, che sul chiaro cambiano inchiostro.**
+  ///
+  /// Ordine CO voce 14, 3 settembre 2026, e ci arriva da uno scatto del
+  /// fondatore. I due pulsanti contornati scrivevano in oro, che sui fondi
+  /// scuri dell'app regge da 9,29 a 13,81 a uno e sul pannello del Dono
+  /// misura **1,30**: non poco leggibili, invisibili. Adesso sul chiaro
+  /// prendono l'inchiostro del chiaro, e per farlo devono nominarne i token.
+  ///
+  /// **Non e' una schermata e non dipinge nessun fondo**: sta in questo
+  /// elenco perche' la regola e' che chi tocca il chiaro si dichiara, se no
+  /// il presidio non puo' sorvegliarlo.
+  azioniDelResponso(
+    classe: 'AzioniDelResponso',
+    file: 'lib/features/ricordi/azioni_del_responso.dart',
+    perche: 'le stesse tre azioni vivono sul chiaro dentro i Doni e sullo '
+        'scuro dappertutto altrove, quindi conoscono tutti e due gli '
+        'inchiostri e scelgono quello del fondo su cui stanno',
   );
 
   const SuperficieChiara({

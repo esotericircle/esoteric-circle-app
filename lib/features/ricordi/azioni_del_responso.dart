@@ -42,6 +42,8 @@ import '../maestri/chat/maestro_chat_screen.dart';
 import '../../core/sensi/catalogo_suoni.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 import 'dart:async';
+import '../../design_system/tokens/regime_chiaro.dart';
+import '../../design_system/theme/accento_del_maestro.dart';
 
 /// Cio' che un'arte consegna perche' il suo responso possa essere custodito.
 ///
@@ -78,7 +80,32 @@ class AzioniDelResponso extends StatefulWidget {
     required this.aperturaDellaChat,
     this.orologio,
     this.dorato = false,
+    this.suChiaro = false,
   });
+
+  /// **SE QUESTE AZIONI STANNO SU UN FONDO CHIARO. Ordine CO voce 14**, 3
+  /// settembre 2026, e nasce da uno scatto del fondatore.
+  ///
+  /// I due pulsanti contornati scrivono in `palette.goldSoft`, che e' l'oro
+  /// pensato per i fondi scuri di questa app e li' regge benissimo, da 9,29 a
+  /// 13,81 a uno. **Dentro la scheda del Dono il fondo non e' scuro: e' il
+  /// pannello del regime chiaro**, e li' lo stesso oro misura **1,30 a uno**.
+  /// Non e' poco leggibile: e' invisibile, e nello scatto del fondatore si
+  /// vedono due rettangoli vuoti accanto a un terzo pulsante perfettamente
+  /// leggibile, che e' pieno e si porta il fondo da solo.
+  ///
+  /// **Perche' nessuna guardia lo aveva preso.** La tabella del contrasto del
+  /// Rito dell'Alba misura ogni testo dipinto e chiede il colore al `Text`;
+  /// **l'etichetta di un pulsante il colore non ce l'ha**, lo eredita dallo
+  /// stile del pulsante che la contiene. Per la tabella quei due testi non
+  /// avevano inchiostro, e un testo senza inchiostro non si puo' misurare:
+  /// venivano saltati. E' la quarta specie di cecita' incontrata in
+  /// quest'ordine, dopo l'iscrizione per nome, il fotogramma unico e la
+  /// radice del `RichText`.
+  ///
+  /// Vero solo dove il fondo e' chiaro, cioe' dentro la scheda dei Doni.
+  /// Altrove l'oro resta, ed e' giusto che resti.
+  final bool suChiaro;
 
   final MaestroPalette palette;
 
@@ -264,8 +291,13 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
             OutlinedButton.icon(
               key: const Key('responso_condividi'),
               style: OutlinedButton.styleFrom(
-                  foregroundColor: palette.goldSoft,
-                  side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+                  foregroundColor: widget.suChiaro
+                      ? RegimeChiaro.testoSuChiaro
+                      : palette.goldSoft,
+                  side: BorderSide(
+                      color: widget.suChiaro
+                          ? RegimeChiaro.accentoSuChiaro(widget.maestro)
+                          : palette.gold.withValues(alpha: 0.6))),
               onPressed: _condividendo ? null : _condividi,
               icon: const Icon(Icons.ios_share_rounded),
               label: Text(PremioDellaCondivisione.etichetta(context)),
@@ -275,8 +307,13 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
           OutlinedButton.icon(
             key: const Key('responso_custodisci'),
             style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+                foregroundColor: widget.suChiaro
+                    ? RegimeChiaro.testoSuChiaro
+                    : palette.goldSoft,
+                side: BorderSide(
+                    color: widget.suChiaro
+                        ? RegimeChiaro.accentoSuChiaro(widget.maestro)
+                        : palette.gold.withValues(alpha: 0.6))),
             onPressed: _custodito ? null : _custodisci,
             icon: Icon(_custodito
                 ? Icons.bookmark_rounded
@@ -286,8 +323,24 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
           const SizedBox(height: SpacingTokens.sm),
           FilledButton.icon(
             key: const Key('responso_parlane'),
+            // **IL RIEMPIMENTO SI PORTA ALLA SOGLIA, non si sceglie a
+            // mano.** Ordine CO voce 14, 3 settembre 2026.
+            //
+            // Su questo pulsante il contrasto non dipende da cosa c'e'
+            // dietro: e' fra la sua etichetta e il suo stesso riempimento.
+            // Misurato con l'inchiostro chiaro dell'app: Medora 6,89, Caligo
+            // 5,88, **Aura 2,84**. Il verde di Aura e' il piu' luminoso dei
+            // tre primari, e sotto la soglia ci va da solo.
+            //
+            // **Non si sceglie un verde piu' scuro a mano**: si passa dalla
+            // porta che gia' esiste, quella che scurisce un tono finche' non
+            // regge sopra una superficie. Chi e' gia' sopra la soglia torna
+            // indietro identico, quindi Medora e Caligo non si accorgono di
+            // niente e il giorno che un primario cambia il conto si rifa' da
+            // solo.
             style: FilledButton.styleFrom(
-                backgroundColor: palette.primary,
+                backgroundColor: AccentoDelMaestro.portatoSu(
+                    palette.primary, palette.onPrimary),
                 foregroundColor: palette.onPrimary),
             onPressed: _parlane,
             icon: const Icon(Icons.forum_outlined),

@@ -601,6 +601,10 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                                 // gli altri: si custodisce e se ne parla col
                                 // Maestro che l'ha data.
                                 azioni: AzioniDelResponso(
+                                  // **IL FONDO QUI E' CHIARO. Ordine CO voce 14.** La scheda del
+                                  // Dono e' il pannello del regime chiaro, e l'oro dei due pulsanti
+                                  // contornati li' misura 1,30 a uno: invisibile.
+                                  suChiaro: true,
                                   palette: palette,
                                   maestro: maestro,
                                   responso: ResponsoDaCustodire(

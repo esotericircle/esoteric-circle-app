@@ -586,6 +586,10 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                                     // cosa che non si vede sarebbe la stessa
                                     // bugia di condividerla.
                                     azioni: AzioniDelResponso(
+                                      // **IL FONDO QUI E' CHIARO. Ordine CO voce 14.** La scheda del
+                                      // Dono e' il pannello del regime chiaro, e l'oro dei due pulsanti
+                                      // contornati li' misura 1,30 a uno: invisibile.
+                                      suChiaro: true,
                                       palette: palette,
                                       maestro: Maestro.aura,
                                       responso: ResponsoDaCustodire(

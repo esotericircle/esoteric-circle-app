@@ -136,10 +136,29 @@ void main() {
   /// La moda e non la media: se una lettera alta sbordasse nella fascia, la
   /// media si sposterebbe verso l'inchiostro e il fondo risulterebbe piu' scuro
   /// del vero, cioe' il contrasto risulterebbe migliore del vero. La moda no.
-  Color fondoSotto(ByteData dati, int larghezza, int altezza, Rect rettangolo) {
+  Color fondoSotto(ByteData dati, int larghezza, int altezza, Rect rettangolo,
+      {bool tuttoIlRiquadro = false, Color? inchiostro}) {
     final conteggio = <int, int>{};
+    // **PER UN'ETICHETTA DI PULSANTE SI GUARDA TUTTO IL RIQUADRO.**
+    // Ordine CO voce 14, 3 settembre 2026.
+    //
+    // La fascia alta del rientro funziona per un testo che porta la propria
+    // interlinea: li' dentro, in cima, non passa nessuna lettera. **Ma
+    // l'etichetta di un pulsante e' incassata stretta nel suo riquadro**, e
+    // in quella fascia le lettere ci passano eccome: la moda torna il colore
+    // dell'INCHIOSTRO, e il contrasto risulta uno a uno.
+    //
+    // **E nemmeno la fascia appena SOPRA va bene**, che era la mia prima
+    // correzione: sopra l'etichetta di un pulsante pieno finisce il pannello
+    // che sta dietro, non il riempimento del pulsante, e il numero risultava
+    // 1,23 dove l'occhio legge benissimo. L'ho scoperto rileggendo la
+    // tabella invece di fidarmi della riga che avevo appena scritto.
+    //
+    // Su tutto il riquadro invece la moda e' il riempimento per costruzione:
+    // **le lettere sono sottili e il fondo e' la maggioranza dei pixel.**
     final da = rettangolo.top.round() + 1;
-    for (var y = da; y < da + 4; y++) {
+    final fino = tuttoIlRiquadro ? rettangolo.bottom.round() - 1 : da + 4;
+    for (var y = da; y < fino; y++) {
       for (var x = rettangolo.left.round() + 1;
           x < rettangolo.right.round() - 1;
           x++) {
@@ -151,6 +170,32 @@ void main() {
         final chiave = (r << 16) | (g << 8) | b;
         conteggio[chiave] = (conteggio[chiave] ?? 0) + 1;
       }
+    }
+    // **E SI SCARTA L'INCHIOSTRO, che dentro un riquadro stretto e' la
+    // maggioranza.** Ordine CO voce 14, terza stesura di questa misura, e le
+    // due precedenti erano tutte e due sbagliate in modo istruttivo.
+    //
+    // La prima guardava la fascia alta del rientro, e dentro l'etichetta di
+    // un pulsante quella fascia e' fatta di lettere: tornava l'inchiostro, e
+    // il contrasto risultava uno a uno. La seconda guardava appena SOPRA il
+    // riquadro, e sopra un pulsante PIENO c'e' il pannello che sta dietro,
+    // non il suo riempimento: tornava 1,23 dove l'occhio legge benissimo.
+    //
+    // **La regola che le copre tutte e due e' una sola: il fondo e' il colore
+    // piu' frequente che non sia l'inchiostro.** Un pulsante contornato la
+    // porta al pannello, uno pieno al proprio riempimento, e un testo normale
+    // resta dov'era. Si scarta per distanza e non per uguaglianza, perche' i
+    // bordi delle lettere sono sfumati e nessuno di quei grigi e' il fondo.
+    if (inchiostro != null) {
+      final ir = (inchiostro.r * 255).round();
+      final ig = (inchiostro.g * 255).round();
+      final ib = (inchiostro.b * 255).round();
+      conteggio.removeWhere((chiave, _) {
+        final r = (chiave >> 16) & 0xFF;
+        final g = (chiave >> 8) & 0xFF;
+        final b = chiave & 0xFF;
+        return (r - ir).abs() + (g - ig).abs() + (b - ib).abs() < 90;
+      });
     }
     if (conteggio.isEmpty) return const Color(0xFF000000);
     final vincente =
@@ -272,7 +317,22 @@ void main() {
           for (final t in tester.widgetList<Text>(find.byType(Text))) {
             final scritto = (t.data ?? t.textSpan?.toPlainText() ?? '').trim();
             if (scritto.isEmpty) continue;
-            if (t.style?.color == null || t.style?.fontSize == null) continue;
+            // **NON SI SALTA PIU' CHI IL COLORE LO EREDITA. Ordine CO
+            // voce 14**, 3 settembre 2026, e questa e' la riga che teneva
+            // fuori dalla tabella proprio il testo che il fondatore vedeva.
+            //
+            // L'etichetta di un pulsante non porta uno stile suo: colore e
+            // misura le arrivano dallo stile del pulsante che la contiene,
+            // attraverso il `DefaultTextStyle`. Per questa riga quei testi
+            // non avevano inchiostro, quindi non si potevano misurare,
+            // quindi venivano saltati **in silenzio**. I due pulsanti
+            // "Condividi" e "Custodisci" della scheda del Dono scrivevano in
+            // oro sul pannello chiaro, **1,30 a uno**, e la tabella diceva
+            // zero sotto soglia dicendo il vero su cio' che aveva guardato.
+            //
+            // Adesso lo stile si compone come lo compone Flutter: quello del
+            // `Text`, e per cio' che manca quello ereditato dal contesto.
+            if (t.data == null && t.textSpan == null) continue;
             final k = t.key;
             if (k is ValueKey<String> && k.value.startsWith('alba_')) {
               trovati.add((find.byKey(k), '`${k.value}`', dove(k.value)));
@@ -296,14 +356,25 @@ void main() {
             final altezza = scatto.altezza;
             final testo = tester.widget<Text>(trovato);
             final rettangolo = tester.getRect(trovato);
-            final stile = testo.style!;
+            // **LO STILE COMPOSTO, come lo compone Flutter**: quello del
+            // `Text` sopra quello ereditato. E' il solo modo di conoscere il
+            // colore di un'etichetta di pulsante, che di suo non ne ha.
+            final ereditato =
+                DefaultTextStyle.of(tester.element(trovato)).style;
+            final stile = ereditato.merge(testo.style);
+            if (stile.color == null || stile.fontSize == null) continue;
             // Un testo alto zero o largo zero non si vede, e campionarne il fondo
             // vorrebbe dire leggere un punto a caso.
             if (rettangolo.width < 2 || rettangolo.height < 2) continue;
             final misura = stile.fontSize ?? 0;
             final peso = pesoDi(stile);
             final ruolo = ruoloDi(stile);
-            final fondo = fondoSotto(dati, larghezza, altezza, rettangolo);
+            final fondo = fondoSotto(dati, larghezza, altezza, rettangolo,
+                // Chi il colore lo eredita e' un'etichetta di pulsante:
+                // per lei il fondo e' la moda di tutto il riquadro, perche'
+                // le lettere sono sottili e il riempimento e' la maggioranza.
+                tuttoIlRiquadro: testo.style?.color == null,
+                inchiostro: stile.color);
             fondiVisti.add(fondo);
             final inchiostro = Color.alphaBlend(stile.color!, fondo);
             final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
