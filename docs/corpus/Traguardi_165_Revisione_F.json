@@ -140,7 +140,7 @@
             "quantiGiorni": 4
           },
           "costoInGiorni": 4,
-          "frase": "4 giornate chiuse con l’Oroscopo e la stesa di tarocchi, tutte nello stesso giorno.",
+          "frase": "4 giornate chiuse con l’Oroscopo e la stesa di tarocchi, nello stesso giorno.",
           "cosaApre": "La lettura incrociata, dove il cielo del giorno spiega la carta uscita",
           "gestiNominati": [
             "oroscopo",
@@ -233,7 +233,7 @@
             "arco": 8
           },
           "costoInGiorni": 6,
-          "frase": "6 giorni con l’Arcano del Giorno negli ultimi 8: sei tornato anche quando potevi non farlo.",
+          "frase": "6 giorni con l’Arcano del Giorno negli ultimi 8: nessuno te l’ha chiesto.",
           "cosaApre": "Il promemoria dell’Arcano, che da qui sceglie la tua ora",
           "gestiNominati": [
             "oracolo"
@@ -278,7 +278,7 @@
             "quanteVolte": 9
           },
           "costoInGiorni": 9,
-          "frase": "9 volte l’Arcano del Giorno nell’ora vera dell’alba, quella del cielo e non quella dell’orologio.",
+          "frase": "9 volte l’Arcano del Giorno nell’ora vera dell’alba.",
           "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
           "gestiNominati": [
             "oracolo"
@@ -301,7 +301,7 @@
             "arco": 14
           },
           "costoInGiorni": 10,
-          "frase": "10 giorni con l’Arcano del Giorno negli ultimi 14: sei tornato anche quando potevi non farlo.",
+          "frase": "10 giorni con l’Arcano del Giorno negli ultimi 14: nessuno te l’ha chiesto.",
           "cosaApre": "Il diario del Cammino, con i giorni segnati uno per uno",
           "gestiNominati": [
             "oracolo"
@@ -394,7 +394,7 @@
             "quantiGiorni": 16
           },
           "costoInGiorni": 16,
-          "frase": "16 giornate chiuse con l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.",
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il responso composto, dove le tre arti si parlano",
           "gestiNominati": [
             "oroscopo",
@@ -419,7 +419,7 @@
             "arco": 25
           },
           "costoInGiorni": 18,
-          "frase": "18 giorni con l’Arcano del Giorno negli ultimi 25: sei tornato anche quando potevi non farlo.",
+          "frase": "18 giorni con l’Arcano del Giorno negli ultimi 25: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza larga, che perdona un giorno saltato",
           "gestiNominati": [
             "oracolo"
@@ -555,7 +555,7 @@
             "arco": 45
           },
           "costoInGiorni": 35,
-          "frase": "35 giorni con l’Arcano del Giorno negli ultimi 45: sei tornato anche quando potevi non farlo.",
+          "frase": "35 giorni con l’Arcano del Giorno negli ultimi 45: nessuno te l’ha chiesto.",
           "cosaApre": "Il tuo Arcano dominante, che si calcola solo con questa storia",
           "gestiNominati": [
             "oracolo"
@@ -580,7 +580,7 @@
             "quantiGiorni": 40
           },
           "costoInGiorni": 40,
-          "frase": "40 giornate chiuse con l’Arcano del Giorno e l’Oroscopo, tutte nello stesso giorno.",
+          "frase": "40 giornate chiuse con l’Arcano del Giorno e l’Oroscopo, nello stesso giorno.",
           "cosaApre": "La lettura del mattino, che unisce Arcano e cielo del giorno",
           "gestiNominati": [
             "oracolo",
@@ -696,7 +696,7 @@
             "quantiGiorni": 60
           },
           "costoInGiorni": 60,
-          "frase": "60 giornate chiuse con l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.",
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "La sintesi di stagione, che Medora scrive su sessanta giornate",
           "gestiNominati": [
             "oroscopo",
@@ -744,7 +744,7 @@
             "arco": 100
           },
           "costoInGiorni": 80,
-          "frase": "80 giorni con l’Arcano del Giorno negli ultimi 100: sei tornato anche quando potevi non farlo.",
+          "frase": "80 giorni con l’Arcano del Giorno negli ultimi 100: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza riconosciuta, che Medora nomina nelle sue risposte",
           "gestiNominati": [
             "oracolo"
@@ -834,7 +834,7 @@
             "arco": 140
           },
           "costoInGiorni": 110,
-          "frase": "110 giorni con l’Arcano del Giorno negli ultimi 140: sei tornato anche quando potevi non farlo.",
+          "frase": "110 giorni con l’Arcano del Giorno negli ultimi 140: nessuno te l’ha chiesto.",
           "cosaApre": "La memoria lunga di Medora, che ricorda quello che dicevi a marzo",
           "gestiNominati": [
             "oracolo"
@@ -928,7 +928,7 @@
             "quantiGiorni": 150
           },
           "costoInGiorni": 150,
-          "frase": "150 giornate chiuse con l’Arcano del Giorno, l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.",
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto delle quattro arti, che nessuna delle quattro dice da sola",
           "gestiNominati": [
             "oracolo",
@@ -954,7 +954,7 @@
             "arco": 200
           },
           "costoInGiorni": 160,
-          "frase": "160 giorni con l’Arcano del Giorno negli ultimi 200: sei tornato anche quando potevi non farlo.",
+          "frase": "160 giorni con l’Arcano del Giorno negli ultimi 200: nessuno te l’ha chiesto.",
           "cosaApre": "La stagione riconosciuta, con il tuo Arcano dell’anno",
           "gestiNominati": [
             "oracolo"
@@ -1067,7 +1067,7 @@
             "arco": 250
           },
           "costoInGiorni": 200,
-          "frase": "200 giorni con l’Arcano del Giorno negli ultimi 250: sei tornato anche quando potevi non farlo.",
+          "frase": "200 giorni con l’Arcano del Giorno negli ultimi 250: nessuno te l’ha chiesto.",
           "cosaApre": "Il capitolo dell’anno, che Medora scrive solo per chi c’è stato",
           "gestiNominati": [
             "oracolo"
@@ -1093,8 +1093,8 @@
             "quantiGiorni": 220
           },
           "costoInGiorni": 220,
-          "frase": "220 giornate chiuse con l’Ascendente, l’Arcano del Giorno e la Sinastria VIP, tutte nello stesso giorno.",
-          "cosaApre": "La lettura incrociata lunga, dove Arcano, volto e Ascendente si spiegano a vicenda",
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano",
           "gestiNominati": [
             "ascendente",
             "oracolo",
@@ -1207,7 +1207,7 @@
             "arco": 340
           },
           "costoInGiorni": 300,
-          "frase": "300 giorni con l’Arcano del Giorno negli ultimi 340: sei tornato anche quando potevi non farlo.",
+          "frase": "300 giorni con l’Arcano del Giorno negli ultimi 340: nessuno te l’ha chiesto.",
           "cosaApre": "Il titolo di custode dell’Arcano, che pochi vedranno",
           "gestiNominati": [
             "oracolo"
@@ -1235,7 +1235,7 @@
             "quantiGiorni": 320
           },
           "costoInGiorni": 320,
-          "frase": "320 giornate chiuse con l’Angelo Custode, l’Arcano del Giorno, l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.",
+          "frase": "320 giornate con 5 arti diverse, nello stesso giorno.",
           "cosaApre": "La Costellazione intera, con tutte e cinque le arti in una pagina",
           "gestiNominati": [
             "angelo_custode",
@@ -1430,7 +1430,7 @@
             "quantiGiorni": 4
           },
           "costoInGiorni": 4,
-          "frase": "4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, tutte nello stesso giorno.",
+          "frase": "4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, nello stesso giorno.",
           "cosaApre": "Il rito del mattino completo, alba e Soffio uno dopo l’altro",
           "gestiNominati": [
             "alba",
@@ -1477,7 +1477,7 @@
             "arco": 7
           },
           "costoInGiorni": 5,
-          "frase": "5 giorni con il Soffio del Destino negli ultimi 7: sei tornato anche quando potevi non farlo.",
+          "frase": "5 giorni con il Soffio del Destino negli ultimi 7: nessuno te l’ha chiesto.",
           "cosaApre": "Il grafico del respiro, che senza cinque giorni non dice niente",
           "gestiNominati": [
             "soffio"
@@ -1523,7 +1523,7 @@
             "arco": 8
           },
           "costoInGiorni": 6,
-          "frase": "6 giorni con il Rito dell’Alba negli ultimi 8: sei tornato anche quando potevi non farlo.",
+          "frase": "6 giorni con il Rito dell’Alba negli ultimi 8: nessuno te l’ha chiesto.",
           "cosaApre": "Il promemoria dell’Alba, che da qui sceglie la tua ora",
           "gestiNominati": [
             "alba"
@@ -1568,7 +1568,7 @@
             "quanteVolte": 9
           },
           "costoInGiorni": 9,
-          "frase": "9 volte il Rito dell’Alba nell’ora vera dell’alba, quella del cielo e non quella dell’orologio.",
+          "frase": "9 volte il Rito dell’Alba nell’ora vera dell’alba.",
           "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
           "gestiNominati": [
             "alba"
@@ -1591,7 +1591,7 @@
             "arco": 14
           },
           "costoInGiorni": 10,
-          "frase": "10 giorni con il Soffio del Destino negli ultimi 14: sei tornato anche quando potevi non farlo.",
+          "frase": "10 giorni con il Soffio del Destino negli ultimi 14: nessuno te l’ha chiesto.",
           "cosaApre": "Il diario del respiro, con i giorni segnati uno per uno",
           "gestiNominati": [
             "soffio"
@@ -1684,7 +1684,7 @@
             "quantiGiorni": 16
           },
           "costoInGiorni": 16,
-          "frase": "16 giornate chiuse con il Rito dell’Alba, la Meditazione e il Soffio del Destino, tutte nello stesso giorno.",
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "La sequenza del risveglio, dove le tre pratiche si tengono",
           "gestiNominati": [
             "alba",
@@ -1709,7 +1709,7 @@
             "arco": 25
           },
           "costoInGiorni": 18,
-          "frase": "18 giorni con il Rito dell’Alba negli ultimi 25: sei tornato anche quando potevi non farlo.",
+          "frase": "18 giorni con il Rito dell’Alba negli ultimi 25: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza larga, che perdona un giorno saltato",
           "gestiNominati": [
             "alba"
@@ -1845,7 +1845,7 @@
             "arco": 45
           },
           "costoInGiorni": 35,
-          "frase": "35 giorni con il Rito dell’Alba negli ultimi 45: sei tornato anche quando potevi non farlo.",
+          "frase": "35 giorni con il Rito dell’Alba negli ultimi 45: nessuno te l’ha chiesto.",
           "cosaApre": "Il tuo ritmo del mattino, che si calcola solo con questa storia",
           "gestiNominati": [
             "alba"
@@ -1870,7 +1870,7 @@
             "quantiGiorni": 40
           },
           "costoInGiorni": 40,
-          "frase": "40 giornate chiuse con il Rito dell’Alba e la Meditazione, tutte nello stesso giorno.",
+          "frase": "40 giornate chiuse con il Rito dell’Alba e la Meditazione, nello stesso giorno.",
           "cosaApre": "La meditazione dell’alba, che si sblocca con la costanza",
           "gestiNominati": [
             "alba",
@@ -1986,7 +1986,7 @@
             "quantiGiorni": 60
           },
           "costoInGiorni": 60,
-          "frase": "60 giornate chiuse con i Due Volti, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.",
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto energetico, che unisce respiro e volto",
           "gestiNominati": [
             "due_volti",
@@ -2034,7 +2034,7 @@
             "arco": 100
           },
           "costoInGiorni": 80,
-          "frase": "80 giorni con il Soffio del Destino negli ultimi 100: sei tornato anche quando potevi non farlo.",
+          "frase": "80 giorni con il Soffio del Destino negli ultimi 100: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza riconosciuta, che Aura nomina nelle sue risposte",
           "gestiNominati": [
             "soffio"
@@ -2124,7 +2124,7 @@
             "arco": 140
           },
           "costoInGiorni": 110,
-          "frase": "110 giorni con il Soffio del Destino negli ultimi 140: sei tornato anche quando potevi non farlo.",
+          "frase": "110 giorni con il Soffio del Destino negli ultimi 140: nessuno te l’ha chiesto.",
           "cosaApre": "La memoria lunga di Aura, che ricorda come respiravi a marzo",
           "gestiNominati": [
             "soffio"
@@ -2218,7 +2218,7 @@
             "quantiGiorni": 150
           },
           "costoInGiorni": 150,
-          "frase": "150 giornate chiuse con il Rito dell’Alba, l’Archetipo, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.",
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto delle quattro pratiche, che nessuna dice da sola",
           "gestiNominati": [
             "alba",
@@ -2244,7 +2244,7 @@
             "arco": 200
           },
           "costoInGiorni": 160,
-          "frase": "160 giorni con il Rito dell’Alba negli ultimi 200: sei tornato anche quando potevi non farlo.",
+          "frase": "160 giorni con il Rito dell’Alba negli ultimi 200: nessuno te l’ha chiesto.",
           "cosaApre": "La stagione riconosciuta, con il tuo risveglio dell’anno",
           "gestiNominati": [
             "alba"
@@ -2357,7 +2357,7 @@
             "arco": 250
           },
           "costoInGiorni": 200,
-          "frase": "200 giorni con il Soffio del Destino negli ultimi 250: sei tornato anche quando potevi non farlo.",
+          "frase": "200 giorni con il Soffio del Destino negli ultimi 250: nessuno te l’ha chiesto.",
           "cosaApre": "Il capitolo dell’anno, che Aura scrive solo per chi c’è stato",
           "gestiNominati": [
             "soffio"
@@ -2383,7 +2383,7 @@
             "quantiGiorni": 220
           },
           "costoInGiorni": 220,
-          "frase": "220 giornate chiuse con il Rito dell’Alba, l’Archetipo e i Due Volti, tutte nello stesso giorno.",
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto lungo di Aura, che tiene insieme risveglio, Archetipo e volti",
           "gestiNominati": [
             "alba",
@@ -2497,7 +2497,7 @@
             "arco": 340
           },
           "costoInGiorni": 300,
-          "frase": "300 giorni con il Rito dell’Alba negli ultimi 340: sei tornato anche quando potevi non farlo.",
+          "frase": "300 giorni con il Rito dell’Alba negli ultimi 340: nessuno te l’ha chiesto.",
           "cosaApre": "Il titolo di custode dell’Alba, che pochi vedranno",
           "gestiNominati": [
             "alba"
@@ -2526,7 +2526,7 @@
             "quantiGiorni": 320
           },
           "costoInGiorni": 320,
-          "frase": "320 giornate chiuse con il Rito dell’Alba, l’Archetipo, i Due Volti, la Meditazione, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.",
+          "frase": "320 giornate con 6 arti diverse, nello stesso giorno.",
           "cosaApre": "Il Fiore intero, con tutte e sei le pratiche in una sola pagina",
           "gestiNominati": [
             "alba",
@@ -2722,7 +2722,7 @@
             "quantiGiorni": 4
           },
           "costoInGiorni": 4,
-          "frase": "4 giornate chiuse con il Sigillo del Sogno e la Runa del Tramonto, tutte nello stesso giorno.",
+          "frase": "4 giornate chiuse con il Sigillo del Sogno e la Runa del Tramonto, nello stesso giorno.",
           "cosaApre": "Il rito della sera completo, dalla runa al sigillo del sonno",
           "gestiNominati": [
             "sogno",
@@ -2792,7 +2792,7 @@
             "arco": 7
           },
           "costoInGiorni": 5,
-          "frase": "5 giorni con la gettata di rune negli ultimi 7: sei tornato anche quando potevi non farlo.",
+          "frase": "5 giorni con la gettata di rune negli ultimi 7: nessuno te l’ha chiesto.",
           "cosaApre": "Lo storico delle gettate, che senza cinque giorni non dice niente",
           "gestiNominati": [
             "gettata"
@@ -2815,7 +2815,7 @@
             "arco": 8
           },
           "costoInGiorni": 6,
-          "frase": "6 giorni con la Runa del Tramonto negli ultimi 8: sei tornato anche quando potevi non farlo.",
+          "frase": "6 giorni con la Runa del Tramonto negli ultimi 8: nessuno te l’ha chiesto.",
           "cosaApre": "Il promemoria del Tramonto, che da qui segue l’ora vera",
           "gestiNominati": [
             "tramonto"
@@ -2860,7 +2860,7 @@
             "quanteVolte": 9
           },
           "costoInGiorni": 9,
-          "frase": "9 volte la Runa del Tramonto nell’ora vera del tramonto, quella del cielo e non quella dell’orologio.",
+          "frase": "9 volte la Runa del Tramonto nell’ora vera del tramonto.",
           "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
           "gestiNominati": [
             "tramonto"
@@ -2883,7 +2883,7 @@
             "arco": 14
           },
           "costoInGiorni": 10,
-          "frase": "10 giorni con il Sigillo del Sogno negli ultimi 14: sei tornato anche quando potevi non farlo.",
+          "frase": "10 giorni con il Sigillo del Sogno negli ultimi 14: nessuno te l’ha chiesto.",
           "cosaApre": "Il quaderno dei sogni, con i giorni segnati uno per uno",
           "gestiNominati": [
             "sogno"
@@ -2976,7 +2976,7 @@
             "quantiGiorni": 16
           },
           "costoInGiorni": 16,
-          "frase": "16 giornate chiuse con la gettata di rune, il Sigillo del Sogno e la Runa del Tramonto, tutte nello stesso giorno.",
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il responso composto, dove gettata, runa e sogno si parlano",
           "gestiNominati": [
             "gettata",
@@ -3001,7 +3001,7 @@
             "arco": 25
           },
           "costoInGiorni": 18,
-          "frase": "18 giorni con la Runa del Tramonto negli ultimi 25: sei tornato anche quando potevi non farlo.",
+          "frase": "18 giorni con la Runa del Tramonto negli ultimi 25: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza larga, che perdona un giorno saltato",
           "gestiNominati": [
             "tramonto"
@@ -3137,7 +3137,7 @@
             "arco": 45
           },
           "costoInGiorni": 35,
-          "frase": "35 giorni con la Runa del Tramonto negli ultimi 45: sei tornato anche quando potevi non farlo.",
+          "frase": "35 giorni con la Runa del Tramonto negli ultimi 45: nessuno te l’ha chiesto.",
           "cosaApre": "La tua runa dominante, che si calcola solo con questa storia",
           "gestiNominati": [
             "tramonto"
@@ -3162,7 +3162,7 @@
             "quantiGiorni": 40
           },
           "costoInGiorni": 40,
-          "frase": "40 giornate chiuse con la gettata di rune e la runa girata, tutte nello stesso giorno.",
+          "frase": "40 giornate chiuse con la gettata di rune e la runa girata, nello stesso giorno.",
           "cosaApre": "La lettura incrociata, dove la runa girata spiega la gettata",
           "gestiNominati": [
             "gettata",
@@ -3278,7 +3278,7 @@
             "quantiGiorni": 60
           },
           "costoInGiorni": 60,
-          "frase": "60 giornate chiuse con il Bosco del Cerchio, la gettata di rune e il Sigillo d’Intenzione, tutte nello stesso giorno.",
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto runico, che unisce gettata, intenzione e Bosco",
           "gestiNominati": [
             "bosco",
@@ -3326,7 +3326,7 @@
             "arco": 100
           },
           "costoInGiorni": 80,
-          "frase": "80 giorni con il Sigillo del Sogno negli ultimi 100: sei tornato anche quando potevi non farlo.",
+          "frase": "80 giorni con il Sigillo del Sogno negli ultimi 100: nessuno te l’ha chiesto.",
           "cosaApre": "La costanza riconosciuta, che Caligo nomina nelle sue risposte",
           "gestiNominati": [
             "sogno"
@@ -3416,7 +3416,7 @@
             "arco": 140
           },
           "costoInGiorni": 110,
-          "frase": "110 giorni con la Runa del Tramonto negli ultimi 140: sei tornato anche quando potevi non farlo.",
+          "frase": "110 giorni con la Runa del Tramonto negli ultimi 140: nessuno te l’ha chiesto.",
           "cosaApre": "La memoria lunga di Caligo, che ricorda le tue rune di marzo",
           "gestiNominati": [
             "tramonto"
@@ -3510,7 +3510,7 @@
             "quantiGiorni": 150
           },
           "costoInGiorni": 150,
-          "frase": "150 giornate chiuse con la gettata di rune, il Sigillo d’Intenzione, il Sigillo del Sogno e la Runa del Tramonto, tutte nello stesso giorno.",
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
           "cosaApre": "Il ritratto dei quattro riti, che nessuno dei quattro dice da solo",
           "gestiNominati": [
             "gettata",
@@ -3536,7 +3536,7 @@
             "arco": 200
           },
           "costoInGiorni": 160,
-          "frase": "160 giorni con il Sigillo del Sogno negli ultimi 200: sei tornato anche quando potevi non farlo.",
+          "frase": "160 giorni con il Sigillo del Sogno negli ultimi 200: nessuno te l’ha chiesto.",
           "cosaApre": "La stagione riconosciuta, con il tuo sogno dell’anno",
           "gestiNominati": [
             "sogno"
@@ -3649,7 +3649,7 @@
             "arco": 250
           },
           "costoInGiorni": 200,
-          "frase": "200 giorni con il Sigillo del Sogno negli ultimi 250: sei tornato anche quando potevi non farlo.",
+          "frase": "200 giorni con il Sigillo del Sogno negli ultimi 250: nessuno te l’ha chiesto.",
           "cosaApre": "Il capitolo dell’anno, che Caligo scrive solo per chi c’è stato",
           "gestiNominati": [
             "sogno"
@@ -3675,7 +3675,7 @@
             "quantiGiorni": 220
           },
           "costoInGiorni": 220,
-          "frase": "220 giornate chiuse con l’Animale Guida, la gettata di rune e il Sigillo del Sogno, tutte nello stesso giorno.",
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
           "cosaApre": "Il legame con l’Animale, che si stringe solo con gli anni",
           "gestiNominati": [
             "animale_guida",
@@ -3789,7 +3789,7 @@
             "arco": 340
           },
           "costoInGiorni": 300,
-          "frase": "300 giorni con la Runa del Tramonto negli ultimi 340: sei tornato anche quando potevi non farlo.",
+          "frase": "300 giorni con la Runa del Tramonto negli ultimi 340: nessuno te l’ha chiesto.",
           "cosaApre": "Il titolo di custode del Tramonto, che pochi vedranno",
           "gestiNominati": [
             "tramonto"
@@ -3818,7 +3818,7 @@
             "quantiGiorni": 320
           },
           "costoInGiorni": 320,
-          "frase": "320 giornate chiuse con il Bosco del Cerchio, la gettata di rune, la runa girata, il Sigillo d’Intenzione, il Sigillo del Sogno e la Runa del Tramonto, tutte nello stesso giorno.",
+          "frase": "320 giornate con 6 arti diverse, nello stesso giorno.",
           "cosaApre": "L’Albero intero, con tutti e sei i riti in una sola pagina",
           "gestiNominati": [
             "bosco",

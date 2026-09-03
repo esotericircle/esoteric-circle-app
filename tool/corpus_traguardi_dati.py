@@ -127,8 +127,7 @@ COSTELLAZIONE = [
      'Il capitolo dell’anno, che Medora scrive solo per chi c’è stato'),
     (giornate(['oracolo', 'sinastria', 'ascendente'], 220),
      'Duecentoventi giornate di lettura',
-     'La lettura incrociata lunga, dove Arcano, volto e Ascendente si '
-     'spiegano a vicenda'),
+     'La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano'),
     (cielo('giove_diretto', 'oroscopo'), 'Il cielo di Giove diretto',
      'Il capitolo dell’espansione, che apre l’anno che viene'),
     (cielo('saturno_diretto', 'stesa'), 'Le carte di Saturno diretto',

@@ -101,7 +101,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['alba', 'soffio'], 4),
     frase:
-        '4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, tutte nello stesso giorno.',
+        '4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, nello stesso giorno.',
     posizione: 6,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre: 'Il rito del mattino completo, alba e Soffio uno dopo l’altro',
@@ -134,7 +134,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('soffio', 5, 7),
     frase:
-        '5 giorni con il Soffio del Destino negli ultimi 7: sei tornato anche quando potevi non farlo.',
+        '5 giorni con il Soffio del Destino negli ultimi 7: nessuno te l’ha chiesto.',
     posizione: 8,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il grafico del respiro, che senza cinque giorni non dice niente',
@@ -167,7 +167,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 6, 8),
     frase:
-        '6 giorni con il Rito dell’Alba negli ultimi 8: sei tornato anche quando potevi non farlo.',
+        '6 giorni con il Rito dell’Alba negli ultimi 8: nessuno te l’ha chiesto.',
     posizione: 10,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il promemoria dell’Alba, che da qui sceglie la tua ora',
@@ -200,8 +200,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'L’Alba nella sua ora',
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const GestoNellOraGiusta('alba', 'alba', quanteVolte: 9),
-    frase:
-        '9 volte il Rito dell’Alba nell’ora vera dell’alba, quella del cielo e non quella dell’orologio.',
+    frase: '9 volte il Rito dell’Alba nell’ora vera dell’alba.',
     posizione: 12,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Le ore rituali, che il Cerchio calcola sul tuo luogo vero',
@@ -218,7 +217,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('soffio', 10, 14),
     frase:
-        '10 giorni con il Soffio del Destino negli ultimi 14: sei tornato anche quando potevi non farlo.',
+        '10 giorni con il Soffio del Destino negli ultimi 14: nessuno te l’ha chiesto.',
     posizione: 13,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il diario del respiro, con i giorni segnati uno per uno',
@@ -284,8 +283,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Le tre pratiche',
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(['alba', 'meditazione', 'soffio'], 16),
-    frase:
-        '16 giornate chiuse con il Rito dell’Alba, la Meditazione e il Soffio del Destino, tutte nello stesso giorno.',
+    frase: '16 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 17,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'La sequenza del risveglio, dove le tre pratiche si tengono',
@@ -302,7 +300,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 18, 25),
     frase:
-        '18 giorni con il Rito dell’Alba negli ultimi 25: sei tornato anche quando potevi non farlo.',
+        '18 giorni con il Rito dell’Alba negli ultimi 25: nessuno te l’ha chiesto.',
     posizione: 18,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La costanza larga, che perdona un giorno saltato',
@@ -403,7 +401,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 35, 45),
     frase:
-        '35 giorni con il Rito dell’Alba negli ultimi 45: sei tornato anche quando potevi non farlo.',
+        '35 giorni con il Rito dell’Alba negli ultimi 45: nessuno te l’ha chiesto.',
     posizione: 24,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il tuo ritmo del mattino, che si calcola solo con questa storia',
@@ -420,7 +418,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['alba', 'meditazione'], 40),
     frase:
-        '40 giornate chiuse con il Rito dell’Alba e la Meditazione, tutte nello stesso giorno.',
+        '40 giornate chiuse con il Rito dell’Alba e la Meditazione, nello stesso giorno.',
     posizione: 25,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre: 'La meditazione dell’alba, che si sblocca con la costanza',
@@ -506,8 +504,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Sessanta giorni pieni',
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(['due_volti', 'soffio', 'viso'], 60),
-    frase:
-        '60 giornate chiuse con i Due Volti, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.',
+    frase: '60 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 30,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'Il ritratto energetico, che unisce respiro e volto',
@@ -540,7 +537,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('soffio', 80, 100),
     frase:
-        '80 giorni con il Soffio del Destino negli ultimi 100: sei tornato anche quando potevi non farlo.',
+        '80 giorni con il Soffio del Destino negli ultimi 100: nessuno te l’ha chiesto.',
     posizione: 32,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La costanza riconosciuta, che Aura nomina nelle sue risposte',
@@ -607,7 +604,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('soffio', 110, 140),
     frase:
-        '110 giorni con il Soffio del Destino negli ultimi 140: sei tornato anche quando potevi non farlo.',
+        '110 giorni con il Soffio del Destino negli ultimi 140: nessuno te l’ha chiesto.',
     posizione: 36,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La memoria lunga di Aura, che ricorda come respiravi a marzo',
@@ -674,8 +671,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione:
         const GiornateInsieme(['alba', 'archetipo', 'soffio', 'viso'], 150),
-    frase:
-        '150 giornate chiuse con il Rito dell’Alba, l’Archetipo, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.',
+    frase: '150 giornate con 4 arti diverse, nello stesso giorno.',
     posizione: 40,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'Il ritratto delle quattro pratiche, che nessuna dice da sola',
@@ -692,7 +688,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 160, 200),
     frase:
-        '160 giorni con il Rito dell’Alba negli ultimi 200: sei tornato anche quando potevi non farlo.',
+        '160 giorni con il Rito dell’Alba negli ultimi 200: nessuno te l’ha chiesto.',
     posizione: 41,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La stagione riconosciuta, con il tuo risveglio dell’anno',
@@ -778,7 +774,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('soffio', 200, 250),
     frase:
-        '200 giorni con il Soffio del Destino negli ultimi 250: sei tornato anche quando potevi non farlo.',
+        '200 giorni con il Soffio del Destino negli ultimi 250: nessuno te l’ha chiesto.',
     posizione: 46,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il capitolo dell’anno, che Aura scrive solo per chi c’è stato',
@@ -794,8 +790,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Duecentoventi giornate di pratica',
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(['alba', 'archetipo', 'due_volti'], 220),
-    frase:
-        '220 giornate chiuse con il Rito dell’Alba, l’Archetipo e i Due Volti, tutte nello stesso giorno.',
+    frase: '220 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 47,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre:
@@ -881,7 +876,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 300, 340),
     frase:
-        '300 giorni con il Rito dell’Alba negli ultimi 340: sei tornato anche quando potevi non farlo.',
+        '300 giorni con il Rito dell’Alba negli ultimi 340: nessuno te l’ha chiesto.',
     posizione: 52,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il titolo di custode dell’Alba, che pochi vedranno',
@@ -899,8 +894,7 @@ final List<Traguardo> sentieroDelLoto = [
     condizione: const GiornateInsieme(
         ['alba', 'archetipo', 'due_volti', 'meditazione', 'soffio', 'viso'],
         320),
-    frase:
-        '320 giornate chiuse con il Rito dell’Alba, l’Archetipo, i Due Volti, la Meditazione, il Soffio del Destino e la Costellazione del Viso, tutte nello stesso giorno.',
+    frase: '320 giornate con 6 arti diverse, nello stesso giorno.',
     posizione: 53,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'Il Fiore intero, con tutte e sei le pratiche in una sola pagina',

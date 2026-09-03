@@ -102,7 +102,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['oroscopo', 'stesa'], 4),
     frase:
-        '4 giornate chiuse con l’Oroscopo e la stesa di tarocchi, tutte nello stesso giorno.',
+        '4 giornate chiuse con l’Oroscopo e la stesa di tarocchi, nello stesso giorno.',
     posizione: 6,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre:
@@ -168,7 +168,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 6, 8),
     frase:
-        '6 giorni con l’Arcano del Giorno negli ultimi 8: sei tornato anche quando potevi non farlo.',
+        '6 giorni con l’Arcano del Giorno negli ultimi 8: nessuno te l’ha chiesto.',
     posizione: 10,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il promemoria dell’Arcano, che da qui sceglie la tua ora',
@@ -201,8 +201,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     nome: 'L’Arcano all’alba',
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const GestoNellOraGiusta('oracolo', 'alba', quanteVolte: 9),
-    frase:
-        '9 volte l’Arcano del Giorno nell’ora vera dell’alba, quella del cielo e non quella dell’orologio.',
+    frase: '9 volte l’Arcano del Giorno nell’ora vera dell’alba.',
     posizione: 12,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Le ore rituali, che il Cerchio calcola sul tuo luogo vero',
@@ -219,7 +218,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 10, 14),
     frase:
-        '10 giorni con l’Arcano del Giorno negli ultimi 14: sei tornato anche quando potevi non farlo.',
+        '10 giorni con l’Arcano del Giorno negli ultimi 14: nessuno te l’ha chiesto.',
     posizione: 13,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il diario del Cammino, con i giorni segnati uno per uno',
@@ -285,8 +284,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     nome: 'Le tre letture',
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(['oroscopo', 'sinastria', 'stesa'], 16),
-    frase:
-        '16 giornate chiuse con l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.',
+    frase: '16 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 17,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'Il responso composto, dove le tre arti si parlano',
@@ -303,7 +301,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 18, 25),
     frase:
-        '18 giorni con l’Arcano del Giorno negli ultimi 25: sei tornato anche quando potevi non farlo.',
+        '18 giorni con l’Arcano del Giorno negli ultimi 25: nessuno te l’ha chiesto.',
     posizione: 18,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La costanza larga, che perdona un giorno saltato',
@@ -404,7 +402,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 35, 45),
     frase:
-        '35 giorni con l’Arcano del Giorno negli ultimi 45: sei tornato anche quando potevi non farlo.',
+        '35 giorni con l’Arcano del Giorno negli ultimi 45: nessuno te l’ha chiesto.',
     posizione: 24,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il tuo Arcano dominante, che si calcola solo con questa storia',
@@ -421,7 +419,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['oracolo', 'oroscopo'], 40),
     frase:
-        '40 giornate chiuse con l’Arcano del Giorno e l’Oroscopo, tutte nello stesso giorno.',
+        '40 giornate chiuse con l’Arcano del Giorno e l’Oroscopo, nello stesso giorno.',
     posizione: 25,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre: 'La lettura del mattino, che unisce Arcano e cielo del giorno',
@@ -507,8 +505,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     nome: 'Sessanta giorni pieni',
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(['oroscopo', 'sinastria', 'stesa'], 60),
-    frase:
-        '60 giornate chiuse con l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.',
+    frase: '60 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 30,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre: 'La sintesi di stagione, che Medora scrive su sessanta giornate',
@@ -541,7 +538,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 80, 100),
     frase:
-        '80 giorni con l’Arcano del Giorno negli ultimi 100: sei tornato anche quando potevi non farlo.',
+        '80 giorni con l’Arcano del Giorno negli ultimi 100: nessuno te l’ha chiesto.',
     posizione: 32,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La costanza riconosciuta, che Medora nomina nelle sue risposte',
@@ -608,7 +605,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 110, 140),
     frase:
-        '110 giorni con l’Arcano del Giorno negli ultimi 140: sei tornato anche quando potevi non farlo.',
+        '110 giorni con l’Arcano del Giorno negli ultimi 140: nessuno te l’ha chiesto.',
     posizione: 36,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre:
@@ -677,8 +674,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(
         ['oracolo', 'oroscopo', 'sinastria', 'stesa'], 150),
-    frase:
-        '150 giornate chiuse con l’Arcano del Giorno, l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.',
+    frase: '150 giornate con 4 arti diverse, nello stesso giorno.',
     posizione: 40,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre:
@@ -696,7 +692,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 160, 200),
     frase:
-        '160 giorni con l’Arcano del Giorno negli ultimi 200: sei tornato anche quando potevi non farlo.',
+        '160 giorni con l’Arcano del Giorno negli ultimi 200: nessuno te l’ha chiesto.',
     posizione: 41,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La stagione riconosciuta, con il tuo Arcano dell’anno',
@@ -781,7 +777,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 200, 250),
     frase:
-        '200 giorni con l’Arcano del Giorno negli ultimi 250: sei tornato anche quando potevi non farlo.',
+        '200 giorni con l’Arcano del Giorno negli ultimi 250: nessuno te l’ha chiesto.',
     posizione: 46,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il capitolo dell’anno, che Medora scrive solo per chi c’è stato',
@@ -798,12 +794,11 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione:
         const GiornateInsieme(['ascendente', 'oracolo', 'sinastria'], 220),
-    frase:
-        '220 giornate chiuse con l’Ascendente, l’Arcano del Giorno e la Sinastria VIP, tutte nello stesso giorno.',
+    frase: '220 giornate con 3 arti diverse, nello stesso giorno.',
     posizione: 47,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre:
-        'La lettura incrociata lunga, dove Arcano, volto e Ascendente si spiegano a vicenda',
+        'La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano',
     eGrande: false,
     eos: 55,
     fascia: 'L\'anno',
@@ -885,7 +880,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('oracolo', 300, 340),
     frase:
-        '300 giorni con l’Arcano del Giorno negli ultimi 340: sei tornato anche quando potevi non farlo.',
+        '300 giorni con l’Arcano del Giorno negli ultimi 340: nessuno te l’ha chiesto.',
     posizione: 52,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il titolo di custode dell’Arcano, che pochi vedranno',
@@ -902,8 +897,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.ampiezza,
     condizione: const GiornateInsieme(
         ['angelo_custode', 'oracolo', 'oroscopo', 'sinastria', 'stesa'], 320),
-    frase:
-        '320 giornate chiuse con l’Angelo Custode, l’Arcano del Giorno, l’Oroscopo, la Sinastria VIP e la stesa di tarocchi, tutte nello stesso giorno.',
+    frase: '320 giornate con 5 arti diverse, nello stesso giorno.',
     posizione: 53,
     percheConta: FamigliaDelTraguardo.ampiezza.percheContaLaFamiglia,
     cosaApre:

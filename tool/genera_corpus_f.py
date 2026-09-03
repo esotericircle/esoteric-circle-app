@@ -84,15 +84,19 @@ def frase(c):
                     % (_arte(c['gesto']), c['quanti']))
         return 'Hai compiuto %s per la prima volta.' % _arte(c['gesto'])
     if t == 'GiorniDentroUnArco':
-        return ('%d giorni con %s negli ultimi %d: sei tornato anche quando '
-                'potevi non farlo.'
+        return ('%d giorni con %s negli ultimi %d: nessuno te l’ha '
+                'chiesto.'
                 % (c['quanti'], _arte(c['rito']), c['arco']))
     if t == 'StessaOraPerGiorni':
         return ('%d giorni alla stessa ora con %s: l’abitudine ha trovato il '
                 'suo posto.' % (c['quantiGiorni'], _arte(c['gesto'])))
     if t == 'GestoNellOraGiusta':
-        return ('%d volte %s nell’ora vera %s, quella del cielo e non '
-                'quella dell’orologio.'
+        # **LA CODA SPIEGATIVA E' USCITA DALLA FRASE.** Ordine CP voce 05,
+        # coda: diceva "quella del cielo e non quella dell’orologio" e
+        # portava la frase a centouno caratteri. Una spiegazione nel momento
+        # della festa e' una spiegazione che nessuno legge: quel che l'ora
+        # rituale sia lo dice la porta che il gradino apre.
+        return ('%d volte %s nell’ora vera %s.'
                 % (c['quanteVolte'], _arte(c['gesto']),
                    ORA_INPAROLE[c['ora']]))
     if t == 'FinestraDelCielo':
@@ -100,9 +104,16 @@ def frase(c):
                 % (_maiuscola(ct.INPAROLE[c['evento']]),
                    _arte(c['conGesto'])))
     if t == 'GiornateInsieme':
-        return ('%d giornate chiuse con %s, tutte nello stesso giorno.'
-                % (c['quantiGiorni'],
-                   _elenco([_arte(g) for g in c['gesti']])))
+        # **DUE ARTI SI NOMINANO, TRE O PIU' SI CONTANO.** Ordine CP voce 05,
+        # coda: enumerarne sei dava una frase di centosettantotto caratteri,
+        # contro i sessantasei della revisione precedente. Nel momento della
+        # festa un elenco di sei nomi non si legge, si scorre.
+        if len(c['gesti']) <= 2:
+            return ('%d giornate chiuse con %s, nello stesso giorno.'
+                    % (c['quantiGiorni'],
+                       _elenco([_arte(g) for g in c['gesti']])))
+        return ('%d giornate con %d arti diverse, nello stesso giorno.'
+                % (c['quantiGiorni'], len(c['gesti'])))
     raise SystemExit('condizione senza frase: %s' % t)
 
 
@@ -128,7 +139,16 @@ def controllaLaFrase(frase, condizione, chi):
             if pezzo and pezzo[0] not in VOCALI:
                 raise SystemExit('%s: elisione davanti a consonante in "%s"'
                                  % (chi, frase))
-    for gesto in gestiDi(condizione):
+    # **CHI SI CONTA NON SI NOMINA.** Le frasi che dicono "tre arti diverse"
+    # non nominano le arti per scelta, e pretendere il nome le farebbe
+    # rifiutare: qui si pretende allora il NUMERO, che e' cio' che promettono.
+    gesti = gestiDi(condizione)
+    if condizione['tipo'] == 'GiornateInsieme' and len(gesti) > 2:
+        if '%d arti diverse' % len(gesti) not in frase:
+            raise SystemExit('%s: la frase non dice quante arti sono: "%s"'
+                             % (chi, frase))
+        return frase
+    for gesto in gesti:
         if _arte(gesto) not in frase:
             raise SystemExit('%s: la frase non nomina "%s": "%s"'
                              % (chi, _arte(gesto), frase))

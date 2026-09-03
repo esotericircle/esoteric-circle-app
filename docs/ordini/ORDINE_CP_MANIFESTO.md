@@ -227,6 +227,25 @@ giorno", da `capitalize()` che alza la prima lettera e abbassa tutto il resto.
 Nessuna prova che conta i gradini poteva vederli. Adesso il generatore si
 rifiuta di scriverli e una guardia li ferma anche sui file generati.
 
+**LA FRASE PIÙ LUNGA DEL CAMMINO ERA DI 178 CARATTERI, e non l'hanno trovata
+le anteprime.** Contro i 66 della revisione E. Era `cal_53`: *"320 giornate
+chiuse con il Bosco del Cerchio, la gettata di rune, la runa girata, il
+Sigillo d'Intenzione, il Sigillo del Sogno e la Runa del Tramonto, tutte nello
+stesso giorno."* Un elenco di sei arti dentro il testo che una persona legge
+nel momento della festa non si legge: si scorre.
+
+**Come si è visto, e vale più del rimedio.** Non dalle immagini: la cattura
+della festa prende un fotogramma in cui la spirale di stelle copre il testo,
+quindi la frase più lunga del Cammino **non compare in nessuna anteprima**.
+L'ha trovata il conto dei caratteri, confrontato con quello della revisione
+precedente. Da questo confronto sono usciti tre difetti nello stesso posto:
+l'elenco delle sei arti, la coda spiegativa dell'ora rituale (*"quella del
+cielo e non quella dell'orologio"*, che portava una frase a 101 caratteri) e la
+porta più lunga del cammino, 82 caratteri.
+
+Adesso: **frase più lunga 89 caratteri, nessuna sopra 90**, mediana 63 contro
+i 53 della revisione E. Due arti si nominano, tre o più si contano.
+
 **Un magazzino troppo corto.** `quantiGiorniPerRito` teneva **140** giorni per
 rito, e la revisione F porta archi fino a **340**: i gradini lunghi sarebbero
 stati muri silenziosi. Portato a **400**, dichiarato in circa novanta chilobyte
