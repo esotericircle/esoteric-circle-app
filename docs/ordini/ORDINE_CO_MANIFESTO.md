@@ -380,6 +380,26 @@ virgola seguita da "e".** Le ho riscritte tutte.
 il costo dichiarato di CO.07, e la Regola B lo aveva previsto: quattro le ho
 viste rosse prima di lavorare, tre le ha trovate la suite intera.
 
+## E UNA REGOLA B NON RISPETTATA, che ha trovato lo sbarramento
+
+Scurendo il verde di Aura ho toccato una zona **coperta da due guardie che non
+sapevo esistessero**, `archetype_screen_test` e `face_screen_test`, e non le ho
+viste rosse prima di metterci mano. Le ha fatte cadere lo sbarramento, che è il
+posto dove quel mancato controllo si paga.
+
+Tutte e due pretendevano il token esatto, `verde.primary`, ed era il modo di
+dire "il pulsante porta il colore di Aura e non il viola neutro": giusto come
+intenzione, sbagliato come misura. **Legavano la guardia al valore invece che al
+fatto**, e sono cadute il giorno in cui quel valore è dovuto passare da una
+porta, cioè quando il pulsante è diventato più giusto di prima. È la stessa
+forma della guardia dell'ordine, che cercava la parola "sì" nella risposta
+finale ed è caduta quando la risposta è diventata "tutte e venti".
+
+Adesso pretendono il fatto: il verde di Aura portato alla soglia, che non è il
+viola neutro, **e l'etichetta che ci si legge sopra**. Quest'ultima è la misura
+che mancava a tutte e due: nessuno chiedeva che il testo di quel pulsante si
+leggesse sul pulsante stesso, ed è per questo che 2,84 è rimasto lì per mesi.
+
 ## E UN DEBITO DELLA REGOLA A, SALDATO
 
 **La guardia di CO.12 l'avevo scritta DOPO la correzione, e non l'avevo mai

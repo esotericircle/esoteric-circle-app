@@ -24,6 +24,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
+import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 
 /// La schermata del Test Archetipo.
 ///
@@ -477,9 +478,36 @@ void main() {
     final btn =
         tester.widget<FilledButton>(find.byKey(const Key('responso_parlane')));
     final bg = btn.style!.backgroundColor!.resolve({});
-    expect(bg, verde.primary);
+    // **IL VERDE DI AURA PORTATO ALLA SOGLIA, e non piu' il token nudo.**
+    // Ordine CO voce 14, coda del 3 settembre 2026.
+    //
+    // Questa riga pretendeva `verde.primary` esatto, ed era il modo di dire
+    // "il pulsante porta il colore di Aura e non il viola neutro". Giusto
+    // come intenzione, sbagliato come misura: **legava la guardia al valore
+    // del token invece che al fatto**, e il giorno che quel valore e' dovuto
+    // passare da una porta la guardia e' caduta pur essendo il pulsante piu'
+    // giusto di prima.
+    //
+    // Il verde di Aura e' il piu' luminoso dei tre primari: con l'inchiostro
+    // chiaro sopra misurava **2,84 a uno**, contro il 6,89 di Medora e il
+    // 5,88 di Caligo. Adesso il riempimento passa da `portatoSu`, che lo
+    // scurisce finche' la sua etichetta non si legge, e chi e' gia' sopra
+    // soglia torna indietro identico.
+    expect(bg, AccentoDelMaestro.portatoSu(verde.primary, verde.onPrimary),
+        reason: 'il riempimento non e piu il verde di Aura portato alla '
+            'soglia: o e tornato il token nudo, che con la sua etichetta '
+            'sopra misura 2,84, o e diventato un colore che con Aura non '
+            'c entra');
     // Il verde di Aura non e' il viola neutro.
     expect(bg, isNot(ColorTokens.neutralPrimary));
+    // **E L'ETICHETTA CI SI DEVE LEGGERE SOPRA, che e' la cosa per cui il
+    // colore esiste.** E' la misura che mancava: nessuno chiedeva che il
+    // testo del pulsante si leggesse sul pulsante, e per Aura non si leggeva.
+    final fg = btn.style!.foregroundColor!.resolve({})!;
+    expect(AccentoDelMaestro.contrastoFra(fg, bg!), greaterThanOrEqualTo(4.5),
+        reason: 'l etichetta del pulsante non si legge sul suo stesso '
+            'riempimento: il contrasto qui non dipende da cosa c e dietro, e '
+            'fra le due parti del pulsante');
   });
 
   testWidgets('La statua si volta nell\'Ombra al tocco', (tester) async {

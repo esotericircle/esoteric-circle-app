@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 
 /// La schermata della Costellazione del Viso.
 ///
@@ -185,7 +186,21 @@ void main() {
     final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     final btn =
         tester.widget<FilledButton>(find.byKey(const Key('responso_parlane')));
-    expect(btn.style!.backgroundColor!.resolve({}), verde.primary);
+    // **IL VERDE DI AURA PORTATO ALLA SOGLIA, e non piu' il token nudo.**
+    // Ordine CO voce 14, coda del 3 settembre 2026. La ragione intera sta
+    // sulla gemella di questa riga, in archetype_screen_test: il verde di
+    // Aura e' il piu' luminoso dei tre primari e con l'inchiostro chiaro
+    // sopra misurava 2,84 a uno.
+    final bg = btn.style!.backgroundColor!.resolve({})!;
+    expect(bg, AccentoDelMaestro.portatoSu(verde.primary, verde.onPrimary),
+        reason: 'il riempimento non e piu il verde di Aura portato alla '
+            'soglia');
+    // E l'etichetta ci si legge sopra, che e' la cosa per cui il colore
+    // esiste: la misura che a questa guardia mancava.
+    final fg = btn.style!.foregroundColor!.resolve({})!;
+    expect(AccentoDelMaestro.contrastoFra(fg, bg), greaterThanOrEqualTo(4.5),
+        reason: 'l etichetta del pulsante non si legge sul suo stesso '
+            'riempimento');
   });
 
   test('La rotta del viso porta alla schermata vera, non alla soglia', () {
