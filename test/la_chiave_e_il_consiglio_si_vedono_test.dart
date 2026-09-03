@@ -106,7 +106,7 @@ void main() {
     return radice;
   }
 
-  /// Quanto azzurro c'e' SOPRA la carta [posizione], misurato sui pixel.
+  /// Quanta SCRITTA c'e' SOPRA la carta [posizione], misurata sui pixel.
   ///
   /// **Ordine BZ voce 08: e' li' che il segno vive adesso.** Fino alla voce
   /// BV.04 il segno era una cornice attorno alla carta, e si misurava la
@@ -114,7 +114,30 @@ void main() {
   /// SCHIFO") e al suo posto ci sono le parole "Carta Chiave" in cima alla
   /// colonna. La grandezza misurata cambia con lui: la striscia guardata e'
   /// quella fra il bordo alto della carta e i trentadue punti sopra di lei.
-  Future<double> azzurroSopra(
+  ///
+  /// **E DA OGGI CONTA LE LETTERE, NON L'AZZURRO. Ordine CO voce 08**, 3
+  /// settembre 2026.
+  ///
+  /// Si chiamava `azzurroSopra` e cercava un azzurro chiaro, perche' quelle
+  /// parole erano scritte in `palette.glow`. Il fondatore le ha bocciate
+  /// anche cosi', "azzurro su blu non si legge", e la misura gli ha dato
+  /// ragione: da 3,35 a 4,96 a uno sui fondi veri, sotto i 4,5 che una
+  /// lettera piccola richiede. Adesso sono oro, da 9,29 a 13,81.
+  ///
+  /// **La guardia sarebbe diventata rossa per la correzione**, ed e' la
+  /// forma di falso allarme che vale la pena capire: sorvegliava che quel
+  /// segno CI FOSSE, e per farlo si era legata al colore che quel segno
+  /// aveva quel giorno. Legare una misura al colore vuol dire che la guardia
+  /// cade ogni volta che il colore cambia, e cade anche quando cambia in
+  /// meglio. **Cio' che va sorvegliato e' che sopra la carta chiave ci sia
+  /// una scritta e sopra le altre due no**: il colore e' un dettaglio della
+  /// scritta, e il contrasto lo sorveglia adesso una guardia sua,
+  /// `gli_accenti_non_sono_inchiostro_test`.
+  ///
+  /// Percio' si contano i pixel CHIARI, di qualunque tinta: sopra le carte
+  /// che non sono la chiave non c'e' niente da disegnare, e il fondo scuro
+  /// dell'app non li produce.
+  Future<double> scrittaSopra(
       WidgetTester tester, GlobalKey radice, SpreadPosition posizione) async {
     final r = tester.getRect(find.byKey(Key('stesa_carta_${posizione.name}')));
     var quanti = 0;
@@ -134,9 +157,11 @@ void main() {
           }
           final i = (py0 * img.width + px0) * 4;
           if (i + 2 >= px.length) continue;
-          // Lo stesso predicato della cornice: un azzurro CHIARO, che il
-          // fondo blu scuro dell'app non passa.
-          if (px[i + 2] > 150 && px[i + 2] - px[i] > 60) quanti++;
+          // **UN PIXEL CHIARO, di qualunque tinta.** Il fondo di questa
+          // schermata sta fra il nero e il blu profondo, e nessuno dei suoi
+          // canali arriva a 150: cio' che passa questa soglia e' inchiostro.
+          final chiaro = px[i] > 150 || px[i + 1] > 150 || px[i + 2] > 150;
+          if (chiaro) quanti++;
         }
       }
     });
@@ -157,7 +182,7 @@ void main() {
 
       final misure = <SpreadPosition, double>{};
       for (final p in SpreadPosition.values) {
-        misure[p] = await azzurroSopra(tester, radice, p);
+        misure[p] = await scrittaSopra(tester, radice, p);
       }
       final altre = [
         for (final p in SpreadPosition.values)
@@ -165,12 +190,12 @@ void main() {
       ];
       // ignore: avoid_print
       print('ORDINE BZ VOCE 8 (misura BN.05) seme $seed, chiave '
-          '${chiave.name}: azzurro SOPRA la chiave '
+          '${chiave.name}: scritta SOPRA la chiave '
           '${misure[chiave]!.toStringAsFixed(0)}, sopra le altre '
           '${altre.map((v) => v.toStringAsFixed(0)).join(" e ")}');
       expect(misure[chiave]!, greaterThan(80),
           reason: 'seme $seed: sopra la carta chiave non c\'e\' abbastanza '
-              'azzurro perche\' ci sia scritto qualcosa');
+              'scritta perche\' ci sia scritto qualcosa');
       for (final v in altre) {
         expect(misure[chiave]!, greaterThan(v * 1.5),
             reason: 'seme $seed: la carta chiave (${chiave.name}) non si '

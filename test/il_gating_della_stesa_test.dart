@@ -246,20 +246,25 @@ void main() {
       (tester) async {
     await monta(tester,
         piano: Tier.tier2, borsa: QuestionAllowance()..ilServerHaParlato());
-    expect(contoAVideo(tester), 'Ti restano 7 stese su 7, oggi',
+    // **LA DOTAZIONE E NON IL RESIDUO, ordine CO voce 11.** A giornata
+    // appena aperta la riga dice quanto hai, non quanto ti resta: il
+    // fondatore ha letto "Ti restano 50 su 50" e restare davanti a un
+    // budget intero e' una tautologia. Il numero che il listino promette
+    // e' lo stesso, ed e' quello che questa riga sorveglia.
+    expect(contoAVideo(tester), 'Oggi hai 7 stese',
         reason: 'il numero non e\' quello che la matrice promette '
             'all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
     await monta(tester,
         piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
-    expect(contoAVideo(tester), 'Ti restano 20 stese su 20, oggi',
+    expect(contoAVideo(tester), 'Oggi hai 20 stese',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
     await monta(tester,
         piano: Tier.free, borsa: QuestionAllowance()..ilServerHaParlato());
-    expect(contoAVideo(tester), 'Ti resta 1 stesa su 1, oggi',
+    expect(contoAVideo(tester), 'Oggi hai 1 stesa',
         reason: 'il Viandante non legge piu\' la sua stesa del giorno: '
             'ordine BU voce 04');
   });

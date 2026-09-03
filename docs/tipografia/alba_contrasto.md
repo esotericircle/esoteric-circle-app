@@ -1,6 +1,6 @@
 # Il contrasto del Rito dell'Alba, misurato
 
-<!-- TESTI_MISURATI: 15 -->
+<!-- TESTI_MISURATI: 16 -->
 <!-- SOTTO_LA_SOGLIA: 0 -->
 <!-- Generato da test/l_alba_si_legge_test.dart. Non si scrive a mano: si rigenera. -->
 
@@ -23,6 +23,7 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `alba_invito_al_gesto` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:734 | lettura | 18 | 400 | #F0D77B | #081A22 | **12.45** | 4.5 | si' |
 | `alba_titolo` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:514 | titoloScheda | 20 | 600 | #F4F1E8 | #02090B | **17.77** | 3.0 | si' |
 | `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #084F3B | #DCDED2 | **6.99** | 4.5 | si' |
+| IL RITO DI STAMATTINA | a rito compiuto | senza chiave | corpo o didascalia | 16 | 600 | #084F3B | #DEDFD3 | **7.07** | 4.5 | si' |
 | `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:172 | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:201 | corpo o didascalia | 16 | 400 | #554627 | #D0D5CB | **6.10** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |

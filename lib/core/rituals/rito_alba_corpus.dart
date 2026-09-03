@@ -428,7 +428,7 @@ class RitoAlbaCorpus {
             tempi: 4,
             giri: 6,
             testo: 'Quattro dentro, quattro trattenuti, quattro fuori, quattro '
-                'fermi. Sei giri. Se trattenere da\' fastidio, togli le due '
+                'fermi. Sei giri. Se trattenere dà fastidio, togli le due '
                 'pause e resta sul respiro semplice.'),
         Respiro(
             tempi: 6,
@@ -483,7 +483,7 @@ class RitoAlbaCorpus {
               'superiori e lasciala lì per tutto il tempo del respiro.',
           parola: 'Ancora',
           dato: DatoDelCielo.faseLunare,
-          viaTattile: 'Se da\' fastidio, lascia la bocca socchiusa e non '
+          viaTattile: 'Se dà fastidio, lascia la bocca socchiusa e non '
               'pensarci.',
         ),
         Gesto(

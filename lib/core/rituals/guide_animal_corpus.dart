@@ -363,7 +363,7 @@ class GuideAnimalCorpus {
         : essenza[0].toLowerCase() + essenza.substring(1);
     return "Nel Test Archetipo è emerso ${dominante.conArticolo}, $chiusa "
         "Il tuo totem ne raccoglie la medicina: dove l'archetipo ti indica la "
-        "strada, l'animale ti da' la forza di percorrerla. ${animal.summary}";
+        "strada, l'animale ti dà la forza di percorrerla. ${animal.summary}";
   }
 
   /// Il testo del pannello "Fonti e metodo", che cita le opere e distingue

@@ -163,6 +163,28 @@ enum DailyElement {
 
   int get anchorMinutes => anchorHour * 60 + anchorMinute;
 
+  /// **IL TITOLO SOPRA LE TRE RIGHE DEL RITO.**
+  /// Ordine CO voce 15, 3 settembre 2026.
+  ///
+  /// Il fondatore ha chiesto "IL RITO DI STAMATTINA" sopra il paragrafo del
+  /// rito, perche' quelle tre righe cominciavano senza dire di cosa
+  /// parlassero: chi leggeva "Cosa fai" trovava un'istruzione senza sapere a
+  /// che cosa appartenesse.
+  ///
+  /// **Le parole seguono l'ora del rito e non il suo nome**, ed e' la ragione
+  /// per cui questo getter sta qui invece che nel testo della scheda. Le tre
+  /// righe vivono nel design system e le montano tutti e cinque i riti: un
+  /// titolo scritto dentro la scheda dell'Alba direbbe "stamattina" anche
+  /// sotto il Sigillo del Sogno, che apre alle ventidue. L'ora ce l'hanno gia'
+  /// tutti, e da lei si ricava la parola giusta senza aggiungere un dato che
+  /// qualcuno domani dimenticherebbe di riempire.
+  String get titoloDelRito => switch (anchorHour) {
+        < 12 => 'IL RITO DI STAMATTINA',
+        < 18 => 'IL RITO DI OGGI',
+        < 22 => 'IL RITO DI STASERA',
+        _ => 'IL RITO DI STANOTTE',
+      };
+
   /// L'orario di apertura della fascia, nel formato h:mm (ad esempio 7:00,
   /// 10:30). Serve al riquadro orario nella striscia del giorno.
   String get clockLabel =>

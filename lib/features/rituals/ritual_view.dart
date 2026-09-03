@@ -346,7 +346,15 @@ class _RitualViewState extends State<RitualView>
                     widget.cosaRicevi!,
                     key: const Key('rito_cosa_ricevi'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia()
+                    // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+                    // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+                    // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+                    // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+                    // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+                    // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+                    // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+                    // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+                    style: TypographyTokens.lettura()
                         .copyWith(color: palette.goldSoft, height: 1.35),
                   ),
                 ),
@@ -513,7 +521,15 @@ class _HintRow extends StatelessWidget {
           // quando il sensore non le funziona: al pavimento tipografico era
           // illeggibile esattamente nel momento in cui serviva di piu'.
           child: Text(text,
-              style: TypographyTokens.didascalia().copyWith(
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              style: TypographyTokens.lettura().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.7),
                 letterSpacing: 0.3,
                 height: 1.4,

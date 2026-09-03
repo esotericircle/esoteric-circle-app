@@ -28,6 +28,38 @@ void main() {
     "QUALITA'": 'QUALITÀ',
     "ATTIVITA'": 'ATTIVITÀ',
     "citta'": 'città',
+    // **E QUESTE SETTE SONO ARRIVATE DOPO, ordine CO voce 16.** Il
+    // fondatore ha letto "Se da' fastidio" dentro il Rito dell'Alba e ha
+    // chiesto l'accento vero. **Questa guardia non era cieca: il suo
+    // elenco non conteneva la parola.** E' la stessa specie del difetto
+    // degli accenti usati come inchiostro, trovato nello stesso ordine:
+    // non una guardia che guarda male, un insieme che non contiene il
+    // caso. Un elenco scritto a mano dimentica sempre una parola, e
+    // l'unico rimedio onesto e' allungarlo appena una manca.
+    "DA'": 'DÀ',
+    "PERO'": 'PERÒ',
+    "COSI'": 'COSÌ',
+    "NE'": 'NÉ',
+    "SE'": 'SÉ',
+    "LI'": 'LÌ',
+  };
+
+  /// **DUE PUNTI DOVE LA PAROLA FINISCE DAVVERO COSI', dichiarati per nome.**
+  /// Ordine CO voce 16, 3 settembre 2026.
+  ///
+  /// Questa prova spezza la riga sugli apici e guarda come FINISCE ogni
+  /// pezzo. E' il modo giusto e ha un limite di forma: una stringa che
+  /// termina legittimamente con la preposizione "da" e' indistinguibile da
+  /// una che finisce col verbo scritto male. Non e' una debolezza da
+  /// nascondere, e' il prezzo di una misura semplice che ha appena trovato
+  /// quattro difetti veri; le due che sbaglia si scrivono qui col perche'.
+  const conRagioneScritta = <String, String>{
+    'lib/core/lang/euphonic.dart:81':
+        'e la tavola delle preposizioni articolate, dove "da" e una CHIAVE '
+            'di mappa e non una parola mostrata: da, dal, dallo, dalla',
+    'lib/features/santuario/sky_overview_screen.dart:473':
+        'e l etichetta "Coordinate da", che finisce con la preposizione '
+            'perche il valore le viene scritto accanto',
   };
 
   test('Nessuna stringa mostrata usa l\'apostrofo al posto dell\'accento', () {
@@ -72,7 +104,11 @@ void main() {
                 (testoBasso.length == chiaveSenzaApice.length ||
                     ' .,;:!?('.contains(testoBasso[
                         testoBasso.length - chiaveSenzaApice.length - 1]))) {
-              colpevoli.add('${f.path}:$n  "$testo" va scritto ${e.value}');
+              final percorso = f.path.replaceAll(r'\', '/');
+              final dove =
+                  '${percorso.substring(percorso.indexOf('lib/'))}:$n';
+              if (conRagioneScritta.containsKey(dove)) continue;
+              colpevoli.add('$dove  "$testo" va scritto ${e.value}');
             }
           }
         }

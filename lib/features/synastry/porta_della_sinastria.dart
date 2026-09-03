@@ -16,6 +16,8 @@ import '../maestri/rotta_arte.dart';
 import 'sinastria_gallery_screen.dart';
 import 'sinastria_vip_screen.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../core/entitlement/budget_del_giorno.dart';
+import '../../design_system/components/riga_del_residuo.dart';
 
 /// LA PORTA DELLA SINASTRIA VIP. Ordine CA voce 01.
 ///
@@ -240,7 +242,31 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
                 style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft, height: 1.2),
               ),
-              const SizedBox(height: SpacingTokens.md),
+              // **IL CONTEGGIO STA ANCHE QUI, ED E' LA TERZA VOLTA CHE IL
+              // FONDATORE LO CHIEDE.** Ordine CO voce 09, 3 settembre 2026.
+              //
+              // **Perche' non c'era, dopo due ordini che dicevano di metterlo.**
+              // C'era, ed era montato: la voce BZ.09 l'aveva messo dentro la
+              // lista del VERDETTO, cioe' dopo che il consumo era gia'
+              // avvenuto, e la voce CF.11 lo ha spostato nella GALLERIA dei
+              // volti, che e' dove si sceglie e quindi dove il numero serve.
+              // Tutte e due le volte il ragionamento era giusto e tutte e due
+              // le volte il fondatore non l'ha visto, **perche' questa e' la
+              // schermata che lui chiama "la sinastria vip"**: e' la prima che
+              // si apre, ed e' quella da cui si guarda prima di decidere se
+              // entrare. La galleria e' gia' un passo dentro.
+              //
+              // **La lezione, e vale oltre questa riga:** un numero non si
+              // mette dove il ragionamento dice che serve, si mette dove
+              // l'occhio arriva. Le due cose coincidono spesso e non sempre, e
+              // quando non coincidono vince l'occhio. Adesso sta in tutti e
+              // due i posti, e non e' una duplicazione: e' la stessa riga, la
+              // stessa casa, lo stesso conto, montata due volte.
+              const SizedBox(height: SpacingTokens.sm),
+              const Center(
+                child: RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
               _leDueCarte(palette),
               const SizedBox(height: SpacingTokens.md),
               _ilBottone(palette),

@@ -438,6 +438,24 @@ class QuestionAllowance extends ChangeNotifier {
     if (quanti <= 0) {
       return 'Non ti resta ${femminile ? 'nessuna' : 'nessun'} $uno, oggi';
     }
+    // **CHI NON HA CONSUMATO NIENTE NON HA UN RESTO.** Ordine CO voce 11, 3
+    // settembre 2026. Il fondatore ha letto "Ti restano 50 gettate di rune su
+    // 50, oggi" e "30 su 30", e sono le gettate del Tier 3 e del Tier 2 a
+    // giornata appena aperta.
+    //
+    // **Il numero era giusto e la frase era una tautologia.** "Restare" dice
+    // che qualcosa e' stato tolto da qualcos'altro: davanti a un budget
+    // intatto non c'e' niente da cui restare, e il "su" diventa una frazione
+    // che vale sempre uno. Peggio, suggerisce una sottrazione che non e'
+    // avvenuta, quindi la riga sembra un avviso mentre e' una buona notizia.
+    //
+    // Cosi' la stessa riga dice due cose diverse nei due momenti: **prima del
+    // primo gesto e' una dotazione, dopo e' un residuo.** E' l'unico
+    // cambiamento: la legge dell'ordine CE voce 04 resta intera, chi guarda
+    // sa sempre quanti gliene mancano.
+    if (quanti >= limite) {
+      return limite == 1 ? 'Oggi hai 1 $uno' : 'Oggi hai $limite $molti';
+    }
     if (quanti == 1) return 'Ti resta 1 $uno su $limite, oggi';
     return 'Ti restano $quanti $molti su $limite, oggi';
   }

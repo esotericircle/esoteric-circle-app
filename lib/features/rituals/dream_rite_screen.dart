@@ -448,8 +448,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   List<Widget> _nelBuio() => [
         Text(DreamRiteCorpus.invitoNebbia(_maestro),
             key: const Key('dream_invito'),
+        // **DICIOTTO, e per la strada dei ruoli invece che a mano.**
+        // Ordine CO voce 13, 3 settembre 2026. Questa riga chiamava
+        // `body(size: 16)` direttamente, cioe' scavalcava i ruoli
+        // dichiarati e si scriveva la propria misura: fuori dalla scala
+        // non c'e' nessuno a dire che sedici e' il pavimento e non il
+        // traguardo. E' l'invito che apre il Sigillo del Sogno, la prima
+        // cosa che si legge in quel rito.
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 16)
+            style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
         if (_runaTramonto != null) ...[
           const SizedBox(height: SpacingTokens.sm),
@@ -467,7 +474,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           Text(FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
               key: const Key('dream_parola_del_mattino'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia()
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              style: TypographyTokens.lettura()
                   .copyWith(color: _palette.goldSoft, height: 1.45)),
         ],
         const SizedBox(height: SpacingTokens.md),
@@ -685,7 +700,15 @@ class _Riga extends StatelessWidget {
           // sensore e il suo ripiego: al pavimento tipografico era illeggibile
           // esattamente nel momento in cui serviva di piu'.
           child: Text(testo,
-              style: TypographyTokens.didascalia().copyWith(
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              style: TypographyTokens.lettura().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.75),
                 letterSpacing: 0.2,
                 height: 1.4,

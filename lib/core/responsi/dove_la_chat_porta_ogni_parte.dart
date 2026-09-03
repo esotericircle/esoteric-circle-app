@@ -67,7 +67,7 @@ class DoveLaChatPortaOgniParte {
       perche: 'La struttura chiede al Maestro una frase di sintesi e poi il '
           'testo narrato nel suo tono: insieme sono ciò che la lettura vede '
           'nella situazione della persona, cioè la risposta. Il primo strato, '
-          'il segno grafico, lo da\' l\'app e non il modello.',
+          'il segno grafico, lo dà l\'app e non il modello.',
     ),
     PostoDellaParte(
       parte: ParteDelResponso.cosaPuoiFare,

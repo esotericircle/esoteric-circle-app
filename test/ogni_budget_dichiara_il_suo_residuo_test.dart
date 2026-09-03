@@ -132,21 +132,43 @@ void main() {
             'parlato: $colpe');
   });
 
-  test('la riga si accorda in italiano, e in tutti e tre i modi', () {
+  test('la riga si accorda in italiano, e in tutti e quattro i modi', () {
     // Zero, uno e molti sono tre frasi diverse: una lingua che si accorda da
     // sola non esiste.
+    //
+    // **E IL QUARTO MODO E' IL BUDGET INTATTO, ordine CO voce 11**, 3
+    // settembre 2026. Il fondatore ha letto "Ti restano 50 gettate di rune su
+    // 50, oggi": il numero era giusto e la frase era una tautologia. Restare
+    // dice che qualcosa e' stato tolto, e davanti a un budget intatto non c'e'
+    // niente da cui restare. Prima del primo gesto e' una DOTAZIONE, dopo e'
+    // un residuo.
     final frasi = <String>[
       QuestionAllowance.residuoDiCosa(0, 3,
           uno: 'sinastria', molti: 'sinastrie', femminile: true),
       QuestionAllowance.residuoDiCosa(1, 3,
           uno: 'sinastria', molti: 'sinastrie', femminile: true),
+      QuestionAllowance.residuoDiCosa(2, 3,
+          uno: 'sinastria', molti: 'sinastrie', femminile: true),
       QuestionAllowance.residuoDiCosa(3, 3,
           uno: 'sinastria', molti: 'sinastrie', femminile: true),
     ];
     // ignore: avoid_print
-    print('ORDINE CE VOCE 04: ${frasi.join(" | ")}');
+    print('ORDINE CE VOCE 04 con CO VOCE 11: ${frasi.join(" | ")}');
     expect(frasi[0], 'Non ti resta nessuna sinastria, oggi');
     expect(frasi[1], 'Ti resta 1 sinastria su 3, oggi');
-    expect(frasi[2], 'Ti restano 3 sinastrie su 3, oggi');
+    expect(frasi[2], 'Ti restano 2 sinastrie su 3, oggi');
+    expect(frasi[3], 'Oggi hai 3 sinastrie',
+        reason: 'col budget intatto la riga dice ancora "ne restano tre su '
+            'tre", che e\' la frazione che vale sempre uno e suggerisce una '
+            'sottrazione che non e\' avvenuta');
+
+    // E il tetto di uno, che e' il caso in cui dotazione e ultimo pezzo
+    // coincidono: il singolare deve reggere anche li'.
+    expect(
+        QuestionAllowance.residuoDiCosa(1, 1,
+            uno: 'gettata di rune', molti: 'gettate di rune', femminile: true),
+        'Oggi hai 1 gettata di rune',
+        reason: 'col tetto a uno la frase cade sul plurale, ed e\' proprio il '
+            'piano del Viandante per le gettate');
   });
 }

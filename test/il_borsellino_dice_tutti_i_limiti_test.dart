@@ -62,7 +62,14 @@ void main() {
     // della cosa, e chi legge doveva tornare indietro.
     const uno_ = 'domanda';
     const molti_ = 'domande';
-    final tre = QuestionAllowance.residuoDiCosa(3, 3,
+    // **DUE SU TRE E NON TRE SU TRE, ordine CO voce 11.** Il plurale del
+    // RESIDUO si prova con un budget gia' intaccato: col budget intatto la
+    // riga adesso dice la dotazione, "Oggi hai 3 domande", perche' il
+    // fondatore ha letto "Ti restano 50 su 50" e "restare" davanti a un
+    // budget intero e' una tautologia. La regola dell'ordine BB voce 02, la
+    // cosa prima del conto e l'"oggi" in coda, resta intera e si prova qui
+    // sotto.
+    final tre = QuestionAllowance.residuoDiCosa(2, 3,
         uno: uno_, molti: molti_, femminile: true);
     final uno = QuestionAllowance.residuoDiCosa(1, 3,
         uno: uno_, molti: molti_, femminile: true);
@@ -72,7 +79,13 @@ void main() {
     print('ORDINE BB VOCE 02: al plurale "$tre"; al singolare "$uno"; a zero '
         '"$zero"');
 
-    expect(tre, 'Ti restano 3 domande su 3, oggi');
+    expect(tre, 'Ti restano 2 domande su 3, oggi');
+    expect(
+        QuestionAllowance.residuoDiCosa(3, 3,
+            uno: uno_, molti: molti_, femminile: true),
+        'Oggi hai 3 domande',
+        reason: 'col budget intatto la riga dice ancora "ne restano tre su '
+            'tre", che suggerisce una sottrazione che non e avvenuta');
     expect(uno, 'Ti resta 1 domanda su 3, oggi',
         reason: 'uno non e "1 domande": la regola del singolare vale anche '
             'qui, come nel resto dell app');

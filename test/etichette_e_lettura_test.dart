@@ -171,6 +171,29 @@ void main() {
       // vorrebbe dire cambiare l'ingombro della carta e accecare quello
       // strumento, per un testo che di righe ne occupa due.
       'lib/features/rituals/ritual_gift_card.dart',
+      // **E DUE FILE ARRIVANO QUI CON L'ORDINE CO VOCE 13**, 3 settembre
+      // 2026, e sono della stessa famiglia dei quattro qui sopra.
+      //
+      // Il fondatore ha detto per la terza volta che i testi dei Doni sono
+      // piccoli: erano a sedici punti, che e' il PAVIMENTO di questa app e non
+      // la sua misura di lettura, e sono saliti a diciotto. Salendo hanno
+      // preso il ruolo `lettura`, e questa guardia li ha visti.
+      //
+      // **Ha fatto il suo mestiere e la risposta e' che non sono narrato.**
+      // Sono cinque frasi singole: l'invito che apre il Sigillo del Sogno, il
+      // richiamo della parola del mattino, i due ripieghi tattili dentro la
+      // loro pastiglia, e la riga che dice cosa si sta per ricevere prima del
+      // gesto. Nessuna arriva a due righe piene, tutte stanno dentro un
+      // contenitore centrato. **La regola nasce contro il muro di testo, e
+      // una frase sola e' il suo contrario**: spezzarla in paragrafi non
+      // vorrebbe dire niente, e infilarla in `ParagrafiDiLettura` dentro una
+      // pastiglia le cambierebbe l'ingombro senza cambiare cio' che si legge.
+      //
+      // Il Sigillo del Sogno, con l'invito alla nebbia e i suoi ripieghi.
+      'lib/features/rituals/dream_rite_screen.dart',
+      // La vista comune dei riti, con "cosa stai per ricevere" e la riga del
+      // sensore: sono le stesse due frasi dell'Alba, che sta gia' qui sopra.
+      'lib/features/rituals/ritual_view.dart',
     };
     final colpe = <String>[];
     for (final f in Directory('lib')

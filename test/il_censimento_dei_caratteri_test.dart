@@ -118,19 +118,85 @@ void main() {
   /// GUARDATI, non quanti erano troppo piccoli.
   var guardati = 0;
 
+  /// **E LA PROSA HA UNA SOGLIA SUA, PIU' ALTA, ordine CO voce 13.**
+  ///
+  /// Il fondatore ha detto tre volte che i testi dei Doni sono piccoli, e
+  /// questo censimento gli rispondeva zero fuori misura. **Diceva il vero e
+  /// misurava la cosa sbagliata.** Sedici e' il PAVIMENTO sotto cui nessun
+  /// testo puo' scendere; l'ordine CG voce 14 ci ha portato SOPRA i quattordici
+  /// testi che stavano sotto, e da quel giorno il pavimento e' stato scambiato
+  /// per il traguardo. Un testo esattamente a sedici passa un controllo che
+  /// chiede "almeno sedici" e resta la misura piu' piccola ammessa dall'app.
+  ///
+  /// **La grandezza cambia, non la soglia.** Non si alza il pavimento a
+  /// diciotto: un'etichetta di due parole a sedici va benissimo, e alzarla
+  /// tutta sposterebbe le righe senza che nessuno legga meglio. Si separa
+  /// invece cio' che si LEGGE da cio' che si ETICHETTA. Un testo lungo e' una
+  /// frase, e una frase in un Dono si legge davvero, riga dopo riga: quella
+  /// vuole il ruolo `lettura`, diciotto punti, che nella scala tipografica
+  /// esiste da sempre proprio per questo.
+  ///
+  /// **Sessanta caratteri e' il confine, ed e' una misura e non un'opinione**:
+  /// a 360 punti logici, col corpo a sedici, sessanta caratteri sono circa due
+  /// righe piene. Sotto sta un'etichetta, sopra comincia un discorso.
+  const soglioDellaProsa = 18.0;
+  const quandoUnTestoDiventaProsa = 60;
+  final prosaPiccola =
+      <(String dove, String ruolo, double misura, String testo)>[];
+
   void censisci(WidgetTester tester, String dove) {
+    /// Un pezzo di testo dipinto, con la misura che ha DAVVERO.
+    void segna(double? misura, String intero) {
+      var testo = intero.trim().replaceAll('\n', ' ');
+      if (testo.isEmpty) return;
+      guardati++;
+      final lunghezza = testo.length;
+      if (testo.length > 48) testo = '${testo.substring(0, 45)}...';
+      if (misura == null) return;
+      if (misura < soglia) {
+        final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
+        final gia = piccoli
+            .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
+        if (!gia) piccoli.add((dove, ruolo, misura, testo));
+      }
+      if (misura < soglioDellaProsa &&
+          lunghezza >= quandoUnTestoDiventaProsa) {
+        final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
+        final gia = prosaPiccola
+            .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
+        if (!gia) prosaPiccola.add((dove, ruolo, misura, testo));
+      }
+    }
+
+    /// **SI SCENDE DENTRO I PEZZI, e prima non si scendeva.**
+    /// Ordine CO voce 13, 3 settembre 2026.
+    ///
+    /// Questo censimento leggeva `r.text.style?.fontSize`, cioe' la misura
+    /// della RADICE del testo. Funziona per un `Text` normale, dove la radice
+    /// porta lo stile e basta. **Non funziona per un `RichText`**, che e' come
+    /// si scrive un paragrafo con l'etichetta in grassetto e la frase accanto:
+    /// li' la radice non ha stile, ce l'hanno i figli, e la misura tornava
+    /// NULLA. Un testo con misura nulla non entrava in nessun controllo.
+    ///
+    /// **E' esattamente la forma delle tre righe del rito**, "Cosa fai",
+    /// "Perche'", "Cosa ti resta", che sono il paragrafo piu' letto dei cinque
+    /// Doni e che questo censimento non ha mai misurato. Il fondatore ha detto
+    /// tre volte che quei testi sono piccoli mentre il documento diceva zero
+    /// fuori misura, **e nessuno dei due sbagliava**: lui guardava righe che
+    /// il documento non conteneva.
+    void dentroLoSpan(InlineSpan span, double? ereditata) {
+      final mia = span.style?.fontSize ?? ereditata;
+      if (span is TextSpan) {
+        if (span.text != null) segna(mia, span.text!);
+        for (final figlio in span.children ?? const <InlineSpan>[]) {
+          dentroLoSpan(figlio, mia);
+        }
+      }
+    }
+
     void scendi(RenderObject r) {
       if (r is RenderParagraph) {
-        final misura = r.text.style?.fontSize;
-        var testo = r.text.toPlainText().trim().replaceAll('\n', ' ');
-        if (testo.length > 48) testo = '${testo.substring(0, 45)}...';
-        if (testo.isNotEmpty) guardati++;
-        if (misura != null && misura < soglia && testo.isNotEmpty) {
-          final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
-          final gia = piccoli
-              .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
-          if (!gia) piccoli.add((dove, ruolo, misura, testo));
-        }
+        dentroLoSpan(r.text, r.text.style?.fontSize);
       }
       r.visitChildren(scendi);
     }
@@ -209,8 +275,42 @@ void main() {
     righe.addAll([
       '',
       '<!-- TESTI_SOTTO_SEDICI: $quanti -->',
+      '<!-- PROSA_SOTTO_DICIOTTO: ${prosaPiccola.length} -->',
       '',
       'Testi sotto i sedici punti, contati sui pezzi resi: **$quanti**.',
+      '',
+      '## E le frasi, che sono un\'altra cosa dalle etichette',
+      '',
+      '**Ordine CO voce 13, 3 settembre 2026.** Il fondatore ha detto per la',
+      'terza volta che i testi dei Doni sono piccoli mentre la tabella qui',
+      'sopra diceva zero fuori misura. **Diceva il vero e misurava la cosa',
+      'sbagliata.** Sedici punti sono il PAVIMENTO di questa app, la misura',
+      'sotto cui niente puo\' scendere; l\'ordine CG voce 14 ci ha portato',
+      'SOPRA i quattordici testi che stavano sotto, e da quel giorno il',
+      'pavimento e\' stato scambiato per il traguardo.',
+      '',
+      'Cio\' che si LEGGE non e\' cio\' che si ETICHETTA. Una frase da sessanta',
+      'caratteri in su, che a 360 punti logici sono circa due righe piene, si',
+      'legge riga dopo riga e vuole il ruolo `lettura`, diciotto punti, che',
+      'nella scala esiste da sempre proprio per questo. Un\'etichetta di due',
+      'parole a sedici va benissimo, e alzarla tutta sposterebbe le righe',
+      'senza che nessuno legga meglio: **la grandezza cambia, non la soglia**.',
+      '',
+      '**E il censimento non le vedeva.** Leggeva la misura della RADICE di',
+      'ogni testo, che funziona per un `Text` normale e torna NULLA per un',
+      '`RichText`, dove lo stile ce l\'hanno i figli. E\' esattamente la forma',
+      'delle tre righe del rito, *Cosa fai*, *Perche\'*, *Cosa ti resta*, cioe\'',
+      'il paragrafo piu\' letto dei cinque Doni: non e\' mai stato misurato.',
+      'Adesso si scende dentro i pezzi.',
+      '',
+      'Frasi da sessanta caratteri in su sotto i diciotto punti: '
+          '**${prosaPiccola.length}**.',
+      if (prosaPiccola.isNotEmpty) '',
+      if (prosaPiccola.isNotEmpty)
+        '| schermata | misura | ruolo | cosa c\'e\' scritto |',
+      if (prosaPiccola.isNotEmpty) '| --- | --- | --- | --- |',
+      for (final v in prosaPiccola)
+        '| ${v.$1} | ${v.$3} | ${v.$2} | ${v.$4} |',
     ]);
     File('docs/tipografia/caratteri_piccoli.md')
         .writeAsStringSync('${righe.join('\n')}\n');
@@ -231,5 +331,20 @@ void main() {
         reason: 'ci sono ancora $quanti testi sotto i $soglia punti: '
             '$piccoli. La voce CG.14 li ha alzati tutti dentro un ruolo '
             'dichiarato, e ZERO e\' la misura di accettazione dell\'ordine');
+
+    // **E LA PROSA, che e' cio' che il fondatore stava guardando.**
+    // ignore: avoid_print
+    print('ORDINE CO VOCE 13: frasi da $quandoUnTestoDiventaProsa caratteri in '
+        'su sotto i $soglioDellaProsa punti: ${prosaPiccola.length}');
+    expect(prosaPiccola, isEmpty,
+        reason:
+            'QUESTE SONO FRASI, NON ETICHETTE, E STANNO SOTTO I DICIOTTO '
+            'PUNTI:\n${prosaPiccola.map((v) => '  ${v.$1}: ${v.$3} punti, '
+                '"${v.$4}"').join('\n')}\n'
+                'Un testo lungo in un Dono si legge riga dopo riga, e sedici '
+                'punti sono il PAVIMENTO dell\'app, non la misura di lettura. '
+                'Il ruolo giusto esiste gia\' nella scala e si chiama '
+                '`lettura`. Non si abbassa questa soglia: si cambia il ruolo '
+                'del testo.');
   });
 }
