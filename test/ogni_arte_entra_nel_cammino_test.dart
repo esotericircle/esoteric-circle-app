@@ -20,47 +20,21 @@ import 'package:flutter_test/flutter_test.dart';
 /// nominati dai 165 traguardi, risale alla schermata che deve mandarli, legge
 /// il sorgente e CADE COL NOME DEL FILE.
 void main() {
-  /// Tutti i gesti che i 165 traguardi nominano, presi dalle condizioni e non
-  /// da un elenco scritto a mano: un elenco a mano invecchia, le condizioni no.
-  Set<String> gestiNominati() {
-    final dentro = <String>{};
-    final sorgenti = [
-      for (final nome in const [
-        'sentiero_costellazione.dart',
-        'sentiero_albero.dart',
-        'sentiero_loto.dart',
-      ])
-        File('lib/core/sigilli/$nome').readAsStringSync(),
-    ].join('\n');
-
-    for (final schema in [
-      RegExp(r"GestiCompiuti\('([a-z_]+)'"),
-      RegExp(r"GestoNellOraGiusta\('([a-z_]+)'"),
-      RegExp(r"GestoDelCerchio\('([a-z_]+)'"),
-      RegExp(r"GiorniDiSeguito\('([a-z_]+)'"),
-      // **ANCHE LE COSTANZE A FINESTRA, ordine AU voce 03.** La revisione D2
-      // ha portato le ultime costanze da `GiorniDiSeguito` a
-      // `GiorniDentroUnArco`, e questo elenco non conosceva la seconda forma:
-      // il gesto "presenza" spariva dai nominati e la prova accusava il
-      // registro di dichiarare un gesto che nessuno usa piu'. Lo usano
-      // eccome: e' scritto in un costruttore che questa riga non guardava.
-      RegExp(r"GiorniDentroUnArco\('([a-z_]+)'"),
-      RegExp(r"PezzoDellIdentita\('([a-z_]+)'\)"),
-      RegExp(r"conGesto: '([a-z_]+)'"),
-    ]) {
-      for (final trovato in schema.allMatches(sorgenti)) {
-        dentro.add(trovato.group(1)!);
-      }
-    }
-    // I gesti elencati dentro GestiNelloStessoGiorno.
-    for (final blocco in RegExp(r'GestiNelloStessoGiorno\(\[([^\]]*)\]')
-        .allMatches(sorgenti)) {
-      for (final voce in RegExp(r"'([a-z_]+)'").allMatches(blocco.group(1)!)) {
-        dentro.add(voce.group(1)!);
-      }
-    }
-    return dentro;
-  }
+  /// Tutti i gesti che i 165 traguardi nominano, **chiesti alle condizioni**.
+  ///
+  /// **Qui c'era un elenco di espressioni regolari, uno schema per specie di
+  /// condizione, e leggeva i tre file dei sentieri come testo.** Ordine CP
+  /// voce 05: quell'elenco era cieco su ogni specie nuova. Era gia' successo
+  /// nell'ordine AU con `GiorniDentroUnArco`, ed e' successo di nuovo con
+  /// `GiornateInsieme`, che nomina fino a sei gesti per gradino: sarebbero
+  /// spariti dai nominati e la prova sarebbe stata verde senza averli
+  /// guardati.
+  ///
+  /// Adesso la domanda si fa all'oggetto, che sa rispondere per costruzione:
+  /// **una specie nuova che non risponde non compila**, invece di tacere.
+  Set<String> gestiNominati() => {
+        for (final t in Sentieri.tuttiITraguardi) ...t.condizione.gestiNominati,
+      };
 
   test('il registro dei gesti copre tutti i gesti dei 165 traguardi', () {
     final nominati = gestiNominati();
@@ -85,18 +59,41 @@ void main() {
     // la revisione E ha fatto scelte sue. Toglierli dal registro sarebbe la
     // cosa sbagliata: un gesto che l'app manda e nessuno censisce e' proprio
     // il difetto che questa prova esiste per impedire.
+    // **L'ELENCO SEGUE IL DATO, ordine CP voce 05.** La revisione F sceglie
+    // venti gesti su cui costruire i 165, tutti con una schermata che li
+    // manda. Gli altri restano censiti perche\' l'app li manda davvero: il
+    // registro censisce cio\' che l'app manda, il corpus decide su cosa
+    // costruire un gradino, e le due domande sono diverse.
     const dichiaratiSenzaTraguardo = <String, String>{
-      'presenza': 'la revisione E scrive le costanze sulle arti, non sulla '
-          'presenza nuda: nessun gradino dice piu\' "sette giorni di '
-          'presenza". Il guscio continua a mandarla e il diario a contarla, '
-          'perche\' e\' la serie su cui poggia il ritorno.',
-      'ora_di_nascita': 'nessuna condizione lo nomina DA SOLO, ma med_7 lo '
-          'chiede insieme al luogo e alla carta dentro il pezzo composto '
-          'nascita_completa: e\' nominato, per composizione.',
-      'meditazione': 'i gradini della meditazione ci sono e il corpus li '
-          'dichiara dormienti, perche\' la meditazione oggi non ha una fine '
-          'che la scena possa segnare. Il gesto resta censito perche\' l\'arte '
-          'esiste.',
+      'presenza': 'nessun gradino dice piu\' "sette giorni di presenza": le '
+          'costanze stanno sulle arti. Il guscio continua a mandarla e il '
+          'diario a contarla, perche\' e\' la serie su cui poggia il ritorno.',
+      'ora_di_nascita': 'e\' una tessera del Passaporto, non un\'arte: il '
+          'Cammino la incontra dentro la carta natale.',
+      'luogo_di_nascita': 'come l\'ora di nascita, e\' una tessera del '
+          'documento e non un rito che si ripete.',
+      'numero_della_vita': 'e\' una tessera del Passaporto, calcolata una '
+          'volta dalla data: non c\'e\' niente da ripetere.',
+      'passaporto': 'aprire il documento non e\' un\'arte: il gradino '
+          'dell\'identita\' e\' la carta natale, che il documento mostra.',
+      'nome_proprio': 'il saluto per nome e\' un fatto del Santuario, non un '
+          'rito: nessun gradino lo chiede.',
+      'sigillo_del_cerchio': 'e\' una tessera deterministica del Passaporto, '
+          'viva dalla sola data di nascita.',
+      'luna_natale': 'come il Sigillo del Cerchio, e\' deterministica: non '
+          'c\'e\' un gesto da contare.',
+      'nascita_completa': 'e\' un pezzo COMPOSTO, non un gesto: la revisione '
+          'F preferisce nominare la carta natale, che e\' la cosa che la '
+          'persona riconosce.',
+      'condivisione_stella': 'la condivisione e\' premio, mai pedaggio: la '
+          'revisione F non costruisce gradini su di lei.',
+      'condivisione_frutto': 'come la condivisione della Stella.',
+      'condivisione_petalo': 'come la condivisione della Stella.',
+      'invito_medora': 'un invito non si puo\' chiedere: dipende da un\'altra '
+          'persona, e un gradino che dipende da altri non e\' raggiungibile '
+          'da chi cammina.',
+      'invito_aura': 'come l\'invito a Medora.',
+      'invito_caligo': 'come l\'invito a Medora.',
     };
     final inutili = [
       for (final s in GestiDelleArti.tutte)

@@ -108,9 +108,25 @@ void main() {
     final traguardo = Sentieri.tuttiITraguardi
         .firstWhere((t) => t.condizione is GiorniDentroUnArco);
     final c = traguardo.condizione as GiorniDentroUnArco;
-    // Tanti giorni quanti ne chiede, sparsi dentro il suo arco e MAI di fila.
+    // **IL BUCO SI METTE DOVE L'ARCO LO CONSENTE.** Ordine CP voce 05.
+    //
+    // Qui i giorni si mettevano uno si' e uno no, `(i * 2) % arco`: con il
+    // corpus della revisione E funzionava perche' gli archi erano larghi il
+    // doppio dei giorni chiesti. Il primo gradino di costanza della revisione
+    // F chiede **sei giorni dentro otto**, e uno si' e uno no dentro otto ne
+    // da' quattro: la prova segnava quattro giorni e accusava la costanza
+    // larga di non servire a niente. **Non era la costanza: era la prova che
+    // chiedeva l'impossibile**, perche' sei giorni non consecutivi dentro
+    // otto non esistono.
+    //
+    // La pretesa vera non e' "mai due di fila", e' **"senza una serie
+    // ininterrotta"**: chi salta un giorno non ricomincia da capo. Qui il
+    // buco si mette in mezzo, largo quanto l'arco avanza, ed e' il caso che
+    // la vecchia misura consecutiva bocciava.
+    final buco = c.arco - c.quanti;
+    final meta = c.quanti ~/ 2;
     final giorni = <String>{
-      for (var i = 0; i < c.quanti; i++) chiave((i * 2) % c.arco),
+      for (var i = 0; i < c.quanti; i++) chiave(i < meta ? i : i + buco),
     }.toList();
     SharedPreferences.setMockInitialValues({
       'cammino.giorniPerRito': jsonEncode({c.rito: giorni}),

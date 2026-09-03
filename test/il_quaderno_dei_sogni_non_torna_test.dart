@@ -67,26 +67,40 @@ void main() {
         reason: 'il quaderno dei sogni e rientrato in lib: $trovati');
   });
 
-  test('i tre gradini dormono, e dicono perche', () {
-    for (final id in const ['cal_17', 'cal_31', 'cal_32']) {
-      final voce = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == id);
-      expect(voce.dormiente, isTrue,
-          reason: '$id e sveglio, ma il gesto che chiede non esiste piu: '
-              'nessuno potra accenderlo, e nessuno sapra perche');
-      expect(voce.condizione, isA<Dormiente>(),
-          reason: '$id e marcato dormiente ma porta una condizione vera');
-      final perche = (voce.condizione as Dormiente).perche;
-      expect(perche, contains('quaderno dei sogni'),
-          reason: '$id dorme senza dire che dorme per il quaderno tolto: '
-              '"$perche"');
+  test('nessun gradino del Cammino chiede piu il quaderno dei sogni', () {
+    // **TRE GRADINI DORMIENTI SONO DIVENTATI ZERO GRADINI, ordine CP voce
+    // 05.** Fino alla revisione E i gradini `cal_17`, `cal_31` e `cal_32`
+    // chiedevano il quaderno dei sogni, che la voce CB.01 aveva tolto:
+    // restavano scritti nel Cammino, dormienti dichiarati, per ottanta Eos
+    // che nessuno poteva prendere.
+    //
+    // **La revisione F non li scrive affatto**, ed e' la stessa medicina
+    // applicata alla radice: un gradino dormiente resta un gradino che
+    // qualcuno legge sul sentiero e non potra' mai raggiungere. Il corpus
+    // nuovo si costruisce solo sui gesti che una schermata manda davvero.
+    //
+    // **La pretesa e' piu' forte di prima**: prima chiedeva che quei tre
+    // dormissero, adesso chiede che **nessuno dei 165** nomini un gesto del
+    // quaderno. Prima guardava tre gradini, adesso li guarda tutti.
+    const gestiDelQuaderno = {'sogno_annotato', 'rilettura_del_sogno'};
+    var guardati = 0;
+    final colpevoli = <String>[];
+    for (final t in Sentieri.tuttiITraguardi) {
+      guardati++;
+      final chiesti = t.condizione.gestiNominati.intersection(
+          gestiDelQuaderno);
+      if (chiesti.isNotEmpty) {
+        colpevoli.add('${t.id} chiede ${chiesti.join(", ")}');
+      }
     }
-    final eos = const ['cal_17', 'cal_31', 'cal_32']
-        .map((id) => Sentieri.tuttiITraguardi.firstWhere((t) => t.id == id).eos)
-        .reduce((a, b) => a + b);
     // ignore: avoid_print
-    print('ORDINE CB VOCE 01: i tre gradini valevano $eos Eos, che oggi '
-        'nessuno raggiunge sull Albero');
-    expect(eos, 80, reason: 'il conto degli Eos non raggiungibili e cambiato');
+    print('ORDINE CP VOCE 05: gradini guardati $guardati, che chiedono un '
+        'gesto del quaderno ${colpevoli.length}; gradini dormienti nel '
+        'Cammino ${Sentieri.tuttiITraguardi.where((t) => t.dormiente).length}');
+    expect(guardati, 165);
+    expect(colpevoli, isEmpty, reason: colpevoli.join('; '));
+    expect(Sentieri.tuttiITraguardi.where((t) => t.dormiente), isEmpty,
+        reason: 'la revisione F non ammette gradini dormienti, e ce ne sono');
   });
 
   test('la chiave rimasta sui telefoni se ne va lo stesso', () {

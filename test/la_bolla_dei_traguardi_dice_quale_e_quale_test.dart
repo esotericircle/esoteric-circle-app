@@ -119,14 +119,25 @@ void main() {
     print('ORDINE BC VOCE 06: su $totali traguardi, ${avvenuti.length} hanno '
         'un nome scritto come cosa gia avvenuta: $avvenuti');
     expect(totali, 165, reason: 'i traguardi non sono piu centosessantacinque');
-    // **DICIOTTO E NON DODICI, ordine BS voce 01, e il numero segue il dato.**
-    // La revisione E ha riscritto tutti e 165 i nomi e ne porta diciotto al
-    // passato invece di dodici. **La pretesa non cambia**: il conto sta qui
-    // perche' non cresca di nascosto, e il giorno che cambia il fondatore va
-    // avvisato, perche' quella e' materia sua.
-    expect(avvenuti, hasLength(18),
-        reason: 'i nomi scritti al passato sono ${avvenuti.length} invece di '
-            'dodici: se ne sono aggiunti o tolti, e il fondatore va avvisato '
+    // **NOVE, ordine CP voce 05, ed e' la terza volta che il numero segue il
+    // dato: dodici con la revisione C, diciotto con la E, nove con la F.**
+    //
+    // **E i nove non sono piu' quello che il fondatore aveva bocciato.** Il
+    // suo caso era "Il primo Test Archetipo completato", cioe' un nome che
+    // racconta come gia' fatta una cosa da fare. Nella revisione F i nove che
+    // lo schema pesca sono **nomi di cose, non racconti**: "Due gettate",
+    // "Cento gettate", "Cinquantacinque pietre girate", "Il cielo
+    // interrogato". Lo schema non sa distinguere un participio usato come
+    // aggettivo da un passato prossimo, e non deve saperlo: **e' un
+    // censimento, non un giudizio**, e chi lo legge vede l'elenco stampato
+    // qui sopra e decide.
+    //
+    // **La pretesa non cambia**: il conto sta qui perche' non cresca di
+    // nascosto, e il giorno che cambia il fondatore va avvisato, perche'
+    // quella e' materia sua.
+    expect(avvenuti, hasLength(9),
+        reason: 'i nomi che lo schema pesca sono ${avvenuti.length} invece di '
+            'nove: se ne sono aggiunti o tolti, e il fondatore va avvisato '
             'perche quella e materia sua');
   });
 }

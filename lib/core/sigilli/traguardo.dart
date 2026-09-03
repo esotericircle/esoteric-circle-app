@@ -1,4 +1,5 @@
 import '../maestro/maestro.dart';
+import 'attesa_del_cielo.dart';
 import 'maestro_del_gesto.dart';
 
 /// LE OTTO FAMIGLIE DEI TRAGUARDI, e non sono un'etichetta.
@@ -185,6 +186,33 @@ sealed class CondizioneDelTraguardo {
   /// firma sono lo stesso traguardo detto in due modi.
   String get firma;
 
+  /// **IL COSTO IN GIORNI, la grandezza centrale delle regole.** Ordine CP
+  /// voce 04, 3 settembre 2026.
+  ///
+  /// E' il minimo numero di GIORNI RITUALI DISTINTI in cui la condizione puo'
+  /// essere soddisfatta da chi ci prova apposta. Risponde al fatto del
+  /// fondatore, *"hai scelto dei traguardi che si possono fare tutti in una
+  /// singola sessione"*: un gradino che costa sette giorni non si puo' fare in
+  /// una sessione, e nessun trucchetto lo accorcia.
+  ///
+  /// **Vive qui e non nel corpus**, perche' e' una proprieta' della
+  /// condizione e non una cifra da ricopiare: il generatore ne calcola una
+  /// sua copia in Python per ordinare i gradini, e la guardia che pretende il
+  /// costo non decrescente confronta di fatto le due. Se un giorno
+  /// divergessero, la scala salterebbe e la guardia diventerebbe rossa.
+  int get costoInGiorni;
+
+  /// **I GESTI CHE LA CONDIZIONE NOMINA.** Ordine CP voce 05.
+  ///
+  /// **Perche' e' un getter e non una raccolta di espressioni regolari.**
+  /// Le guardie che dovevano sapere quali gesti il corpus nomina leggevano i
+  /// file dei sentieri con un elenco di schemi, uno per tipo di condizione: il
+  /// giorno che un tipo nuovo entrava nel corpus, l'elenco non lo conosceva e
+  /// **la guardia restava verde su un gesto che non aveva guardato**. E'
+  /// gia' successo con `GiorniDentroUnArco` nell'ordine AU. Qui la domanda si
+  /// fa all'oggetto, e un tipo nuovo che non risponde non compila.
+  Set<String> get gestiNominati;
+
   /// Se il traguardo e' raggiunto, guardando lo stato del cammino.
   bool raggiunto(StatoDelCammino stato);
 }
@@ -232,6 +260,12 @@ class Dormiente extends CondizioneDelTraguardo {
   String get firma => 'dormiente:$di:$perche';
 
   @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => 1 << 20;
+
+  @override
   bool raggiunto(StatoDelCammino stato) => false;
 }
 
@@ -257,6 +291,12 @@ class VarietaDelDettaglio extends CondizioneDelTraguardo {
   String get firma => 'varieta:$gesto.$chiave:$quanti';
 
   @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.valoriDistinti['$gesto.$chiave'] ?? 0) >= quanti;
 }
@@ -277,6 +317,12 @@ class CoincidenzaDelDettaglio extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'coincidenza:$gesto.$chiave:$quanteVolte';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanteVolte;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -304,6 +350,12 @@ class GradiniAlleSpalle extends CondizioneDelTraguardo {
   String get firma => 'gradini:$sentiero:$quanti';
 
   @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.gradiniAlleSpalle[sentiero] ?? 0) >= quanti;
 }
@@ -320,6 +372,12 @@ class GiorniDiSeguito extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'seguito:$rito:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => quanti;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -359,6 +417,12 @@ class GiorniDentroUnArco extends CondizioneDelTraguardo {
   String get firma => 'arco:$rito:$quanti:$arco';
 
   @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.costanzeLarghe['$rito:$arco'] ?? 0) >= quanti;
 }
@@ -379,6 +443,12 @@ class GestiCompiuti extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'gesti:$gesto:$quanti:$inGiorniDiversi';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => inGiorniDiversi ? quanti : 1;
 
   @override
   bool raggiunto(StatoDelCammino stato) => inGiorniDiversi
@@ -404,8 +474,58 @@ class GestiNelloStessoGiorno extends CondizioneDelTraguardo {
   String get firma => 'insieme:${(List.of(gesti)..sort()).join("+")}:$_soglia';
 
   @override
+  Set<String> get gestiNominati => gesti.toSet();
+
+  @override
+  int get costoInGiorni => 1;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       gesti.where(stato.oggiHaFatto.contains).length >= _soglia;
+}
+
+/// **LE GIORNATE CHIUSE INSIEME. Ordine CP voce 05, 3 settembre 2026.**
+///
+/// "Chiudi la giornata con l'Oroscopo e la stesa, per cinque giorni": non e'
+/// [GestiNelloStessoGiorno], che chiede un giorno solo e quindi si compie
+/// nella prima sessione, e non e' [GiorniDentroUnArco], che guarda un rito
+/// alla volta. E' l'ampiezza fra le arti CHE COSTA GIORNI.
+///
+/// **Perche' e' nata.** Le undici regole del fondatore chiedono due cose
+/// insieme: che i traguardi portino a scoprire funzioni nuove (regola 6) e
+/// che si possano fare uno alla volta, con sforzo crescente (regole 1 e 5).
+/// L'ampiezza fra le arti sapeva rispondere solo alla prima, perche' l'unica
+/// condizione che nominava piu' arti costava un giorno: **con quella sola, un
+/// sentiero pieno di ampiezza sarebbe stato un sentiero da una sessione.**
+class GiornateInsieme extends CondizioneDelTraguardo {
+  const GiornateInsieme(this.gesti, this.quantiGiorni);
+
+  final List<String> gesti;
+
+  /// In quanti giorni DIVERSI tutti quei gesti sono caduti insieme.
+  final int quantiGiorni;
+
+  /// La chiave con cui il diario risponde: i gesti in ordine, uniti da un
+  /// piu'. **Ordinati**, perche' l'ordine in cui il corpus li scrive non e'
+  /// un dato: due gradini che nominano gli stessi gesti in ordine diverso
+  /// sono lo stesso gradino.
+  String get chiave => (List.of(gesti)..sort()).join('+');
+
+  @override
+  bool get chiedeUnAltroGiorno => quantiGiorni > 1;
+
+  @override
+  String get firma => 'giornate:$chiave:$quantiGiorni';
+
+  @override
+  Set<String> get gestiNominati => gesti.toSet();
+
+  @override
+  int get costoInGiorni => quantiGiorni;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giornateInsieme[chiave] ?? 0) >= quantiGiorni;
 }
 
 /// IL RITORNO DOPO UN'ASSENZA: chi torna dopo giorni di silenzio.
@@ -419,6 +539,12 @@ class RitornoDopoAssenza extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'ritorno:$giorniDiAssenza';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => giorniDiAssenza + 1;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -445,6 +571,12 @@ class GestoNellOraGiusta extends CondizioneDelTraguardo {
   String get firma => 'ora:$gesto:$ora:$quanteVolte';
 
   @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanteVolte;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.gestiNellOraGiusta['$gesto@$ora'] ?? 0) >= quanteVolte;
 }
@@ -468,6 +600,12 @@ class StessaOraPerGiorni extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'orafedele:$gesto:$quantiGiorni';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quantiGiorni;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -496,6 +634,12 @@ class CoincidenzaNellaFinestra extends CondizioneDelTraguardo {
   String get firma => 'finestra:$gesto:$chiave:$quante:$giorni';
 
   @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quante;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.ripetizioniNellaFinestra['$gesto.$chiave:$giorni'] ?? 0) >= quante;
 }
@@ -521,6 +665,12 @@ class VarietaPerValore extends CondizioneDelTraguardo {
   String get firma => 'perValore:$gesto:$chiave:$quanti';
 
   @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       (stato.variePerValore['$gesto.$chiave'] ?? 0) >= quanti;
 }
@@ -542,6 +692,12 @@ class RitornoAlRito extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'ritornoalrito:$rito:$giorniSaltati';
+
+  @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => giorniSaltati + 1;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -567,6 +723,12 @@ class RitornoAlMaestro extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'ritornoalmaestro:$sentiero:$giorniDiAssenza';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => giorniDiAssenza + 1;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -609,6 +771,17 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
       '${nellOra == null ? "" : ":$nellOra"}';
 
   @override
+  Set<String> get gestiNominati =>
+      conGesto == null ? const <String>{} : {conGesto!};
+
+  /// **L'ATTESA TIPICA DELL'EVENTO, in giorni.** Non e' una probabilita': e'
+  /// quanto si aspetta al peggio ragionevole, perche' un evento raro vale
+  /// come traguardo solo se l'attesa e' quella che si dichiara. La tavola sta
+  /// in `docs/regole_dei_traguardi.md` e in `attesa_del_cielo.dart`.
+  @override
+  int get costoInGiorni => attesaTipicaDelCielo[evento]!;
+
+  @override
   bool raggiunto(StatoDelCammino stato) {
     if (!stato.eventiDelCieloDiOggi.contains(evento)) return false;
     if (conSentiero != null) {
@@ -641,6 +814,12 @@ class PezzoDellIdentita extends CondizioneDelTraguardo {
   String get firma => 'identita:$pezzo';
 
   @override
+  Set<String> get gestiNominati => {pezzo};
+
+  @override
+  int get costoInGiorni => 1;
+
+  @override
   bool raggiunto(StatoDelCammino stato) =>
       stato.pezziDellIdentita.contains(pezzo);
 }
@@ -664,6 +843,13 @@ class MemoriaDelCerchio extends CondizioneDelTraguardo {
   String get firma => 'memoria:$cosa:$quanti:$dopoGiorni';
 
   @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni =>
+      dopoGiorni > quanti ? dopoGiorni : quanti;
+
+  @override
   bool raggiunto(StatoDelCammino stato) {
     final quanto = stato.memoria[cosa] ?? 0;
     if (quanto < quanti) return false;
@@ -684,6 +870,12 @@ class GestoDelCerchio extends CondizioneDelTraguardo {
 
   @override
   String get firma => 'cerchio:$gesto:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
 
   @override
   bool raggiunto(StatoDelCammino stato) =>
@@ -867,6 +1059,7 @@ class StatoDelCammino {
     this.massimeRipetizioni = const {},
     this.gradiniAlleSpalle = const {},
     this.costanzeLarghe = const {},
+    this.giornateInsieme = const {},
   });
 
   /// **QUANTI GIORNI CON UN RITO DENTRO UN ARCO. Ordine AS voce 12.**
@@ -876,6 +1069,13 @@ class StatoDelCammino {
   /// dichiara il corpus: qui ci sono solo gli archi che qualche traguardo
   /// chiede davvero.
   final Map<String, int> costanzeLarghe;
+
+  /// **IN QUANTI GIORNI UN INSIEME DI GESTI E' CADUTO TUTTO INSIEME.**
+  /// Ordine CP voce 05. La chiave e' i gesti ordinati e uniti da un piu',
+  /// per esempio `oroscopo+stesa`. Le chiavi le dichiara il corpus, come per
+  /// [costanzeLarghe]: qui ci sono solo gli insiemi che qualche traguardo
+  /// chiede davvero, perche' chiederli tutti vorrebbe dire inventarne.
+  final Map<String, int> giornateInsieme;
 
   /// Quante volte un gesto e' stato compiuto, da sempre.
   final Map<String, int> gestiCompiuti;

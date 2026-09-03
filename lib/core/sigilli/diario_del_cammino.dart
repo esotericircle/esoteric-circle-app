@@ -175,10 +175,15 @@ class DiarioDelCammino extends ChangeNotifier {
   /// corpus con margine.
   final Map<String, List<String>> _giorniPerRito = {};
 
-  /// **QUANTO PESA SUL DISCO, dichiarato.** L'arco piu' largo del corpus D e'
-  /// centotrenta giorni ("novanta nell'arco di centotrenta"): centoquaranta
-  /// tiene quello con margine, ed e' meno di mezzo chilobyte per rito.
-  static const int quantiGiorniPerRito = 140;
+  /// **QUANTO PESA SUL DISCO, dichiarato.** Ordine CP voce 05: la revisione F
+  /// del corpus porta archi fino a trecentoquaranta giorni e giornate chiuse
+  /// insieme fino a trecento, e centoquaranta li avrebbe murati in silenzio.
+  /// **Un traguardo che nessuno puo' raggiungere non e' difficile, e' un
+  /// muro**, ed e' esattamente il difetto che l'ordine AS aveva chiuso per la
+  /// serie consecutiva. Quattrocento giorni tengono l'arco piu' largo con
+  /// margine: sono undici byte per giorno, cioe' circa quattro chilobyte e
+  /// mezzo per rito e sotto i novanta per l'intero cammino.
+  static const int quantiGiorniPerRito = 400;
   final Set<String> _oggiHaFatto = {};
 
   /// **CIO' CHE OGGI E' CADUTO IN UN'ORA RITUALE, ordine BW voce 07.**
@@ -786,6 +791,43 @@ class DiarioDelCammino extends ChangeNotifier {
           '${c.rito}:${c.arco}': giorniDelRitoNellArco(c.rito, c.arco),
       };
 
+  /// **IN QUANTI GIORNI UN INSIEME DI GESTI E' CADUTO TUTTO INSIEME.**
+  /// Ordine CP voce 05.
+  ///
+  /// Non serve un magazzino nuovo: [_giorniPerRito] tiene gia' i giorni di
+  /// ogni gesto, e i giorni in cui DUE gesti sono caduti insieme sono
+  /// l'intersezione dei loro elenchi. Un magazzino in piu' sarebbe stata una
+  /// seconda porta sullo stesso dato, e prima o poi le due avrebbero detto
+  /// cose diverse.
+  int giornateConTuttiIGesti(List<String> gesti) {
+    if (gesti.isEmpty) return 0;
+    Set<String>? insieme;
+    for (final gesto in gesti) {
+      final suoi = _giorniPerRito[gesto];
+      if (suoi == null || suoi.isEmpty) return 0;
+      insieme = insieme == null
+          ? suoi.toSet()
+          : (insieme..retainAll(suoi.toSet()));
+      if (insieme.isEmpty) return 0;
+    }
+    return insieme!.length;
+  }
+
+  /// La fotografia delle giornate chiuse insieme, sugli insiemi CHIESTI dal
+  /// corpus e non su tutte le combinazioni possibili, che sarebbero
+  /// centoventisette per sentiero.
+  Map<String, int> giornateInsieme(Set<String> chiavi) => {
+        for (final chiave in chiavi)
+          chiave: giornateConTuttiIGesti(chiave.split('+')),
+      };
+
+  /// Gli insiemi che il corpus chiede davvero, letti dai traguardi.
+  Set<String> _insiemiChiestiDalCorpus() => {
+        for (final t in Sentieri.tuttiITraguardi)
+          if (t.condizione is GiornateInsieme)
+            (t.condizione as GiornateInsieme).chiave,
+      };
+
   /// Gli archi che il corpus chiede davvero, letti dai traguardi.
   ///
   /// **Si legge il dato invece di elencarli a mano**: il giorno che il corpus
@@ -935,9 +977,13 @@ class DiarioDelCammino extends ChangeNotifier {
       // **LE COSTANZE LARGHE, ordine AS voce 12.** Gli archi da guardare non
       // si inventano: li DICHIARA il corpus, cioe' i traguardi stessi, e qui
       // si risponde solo a quelli. Chiedere tutti gli archi possibili sarebbe
-      // centoquaranta conti per rito a ogni fotografia, per rispondere a
+      // quattrocento conti per rito a ogni fotografia, per rispondere a
       // domande che nessuno fa.
       costanzeLarghe: costanzeLarghe(_archiChiestiDalCorpus()),
+      // **LE GIORNATE CHIUSE INSIEME, ordine CP voce 05**, e vale la stessa
+      // ragione: gli insiemi li dichiara il corpus. Chiederli tutti sarebbe
+      // centoventisette conti per sentiero.
+      giornateInsieme: giornateInsieme(_insiemiChiestiDalCorpus()),
       gestiNellOraGiusta: Map.unmodifiable(_gestiNellOraGiusta),
       // **L'ORA FEDELE, ordine BW voce 07**: per ogni gesto, il massimo
       // fra le sue ore, cioe' in quanti giorni e' caduto sempre alla
@@ -1062,9 +1108,37 @@ class DiarioDelCammino extends ChangeNotifier {
   /// per conto suo, cioe' misurare una copia della regola invece della regola.
   @visibleForTesting
   List<Traguardo> quelliSoddisfatti(StatoDelCammino stato) {
+    // **SOLO IL PROSSIMO DI OGNI SENTIERO, ordine CP voce 01, letta alla
+    // lettera.** Parole del fondatore del 3 settembre 2026: *"il gradino non
+    // matura finche' IL PRECEDENTE non e' stato congedato"*.
+    //
+    // **La prima lettura non bastava, e il numero lo ha detto.** La regola
+    // era stata scritta come un posto unico: un gradino acceso occupa il
+    // Cammino finche' la sua festa non e' congedata. Quel freno regge contro
+    // il gesto ripetuto, e NON regge contro il cielo: misurato su
+    // trecentosessantacinque giorni, un utente nuovo che compie tutte le arti
+    // nel giorno peggiore dell'anno vedeva **tredici feste**, perche' in un
+    // giorno di piu' retrogradi insieme si aprono molte finestre del cielo
+    // contemporaneamente e ognuna arma il suo gradino. Erano piu' delle otto
+    // che il fondatore ha visto sul telefono.
+    //
+    // Con la scala il conto e' un altro: da ogni sentiero puo' maturare solo
+    // il gradino che chi cammina sta per prendere, quindi al massimo tre
+    // insieme, uno per Maestro, per quanto ricco sia il cielo.
+    //
+    // **Il rischio della scala e' noto e si dichiara**: un gradino
+    // irraggiungibile la bloccherebbe per sempre (e' il difetto che l'ordine
+    // AS chiuse per le serie consecutive). Nella revisione F non ce ne sono:
+    // ogni gesto nominato ha una schermata e ogni evento ha una data, e due
+    // guardie lo pretendono su tutti e 165.
+    final prossimi = <String>{
+      for (final s in Sentiero.values)
+        if (prossimoDi(s) case final t?) t.id,
+    };
     final soddisfatti = <Traguardo>[];
     for (final traguardo in Sentieri.tuttiITraguardi) {
       if (_accesi.contains(traguardo.id)) continue;
+      if (!prossimi.contains(traguardo.id)) continue;
       // **UN DORMIENTE NON ARMA MAI, ordine AR voce 05.** La sua condizione
       // gia' risponde falso a qualunque stato, e questa riga e' la seconda
       // serratura: se un domani qualcuno gli desse per sbaglio una condizione
@@ -1179,10 +1253,17 @@ class DiarioDelCammino extends ChangeNotifier {
     // successivo, e il Journal mostra il dormiente come in arrivo.
     bool libero(Traguardo t) =>
         !_accesi.contains(t.id) && !escludendo.contains(t.id) && !t.dormiente;
-    for (final t in Sentieri.miniDi(sentiero)) {
-      if (libero(t)) return t;
-    }
-    for (final t in Sentieri.grandiDi(sentiero)) {
+    // **IN ORDINE DI POSIZIONE, mini e grandi INSIEME.** Ordine CP voce 01,
+    // 3 settembre 2026. Qui si scorrevano prima tutti e cinquanta i mini e
+    // poi i cinque grandi: il gradino grande della prima fascia, che sta in
+    // posizione undici e CHIUDE quella fascia, non veniva proposto finche'
+    // non erano finiti tutti i mini del sentiero, cioe' quasi mai.
+    //
+    // Con la revisione F conta ancora di piu': il costo in giorni cresce
+    // lungo la posizione, quindi la posizione E' la difficolta'. Scorrere i
+    // mini prima dei grandi vorrebbe dire proporre un gradino da
+    // trecentoquaranta giorni prima di uno da otto.
+    for (final t in Sentieri.di(sentiero)) {
       if (libero(t)) return t;
     }
     return null;

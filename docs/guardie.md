@@ -39,13 +39,13 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 107 |
-| Guardie con un cardinale proprio dichiarato | 33 |
+| Guardie che passano dalla porta comune | 108 |
+| Guardie con un cardinale proprio dichiarato | 35 |
 | Guardie che non scoprono nessun insieme di file | 118 |
-| **Somma delle categorie** | **258** |
-| **Guardie secondo la definizione** | **258** |
+| **Somma delle categorie** | **261** |
+| **Guardie secondo la definizione** | **261** |
 
-Le due righe in grassetto **coincidono**, contate il 1 settembre 2026. La terza
+Le due righe in grassetto **coincidono**, contate il 3 settembre 2026. La terza
 categoria non e' un debito: sono guardie che sorvegliano un'assenza, una
 fotografia o un elenco che non vive in `lib`, e per loro un cardinale sui file
 Dart non vorrebbe dire niente. **Il debito, quello vero, e' chiuso: zero
@@ -57,12 +57,24 @@ guardie scoprono un insieme dentro `lib` senza dichiarare quanto guardano.**
 diversi, e nessuno dei due lo diceva.** E' la stessa malattia che il progetto
 combatte nel codice, due conti della stessa cosa, arrivata dentro i documenti.
 
-| | quante |
-| --- | ---: |
-| File di prova nella cartella `test` | 711 |
-| Di questi, censiti come guardie | 258 |
-| File di prova che scorrono i sorgenti | 126 |
-| **Guardie** censite che scorrono i sorgenti | 124 |
+| | quante | contata come |
+| --- | ---: | --- |
+| File di prova nella cartella `test` | 739 | `ls test/*.dart` |
+| Di questi, censiti come guardie | 261 | righe della tavola qui sotto |
+| File di prova che scorrono i sorgenti | 126 | grep di `Directory('lib')`, `sorgentiDiLib`, `sorgentiDiCartelle`, `listSync` |
+| **Guardie** censite che scorrono i sorgenti | 122 | i 126 di sopra che hanno una riga nella tavola |
+| Di questi, che passano dalla porta comune | 100 | grep di `sorgentiDiLib()` e `sorgentiDiCartelle(` |
+
+**E QUI DUE CONTI DELLA STESSA COSA NON TORNANO, e si scrive invece di
+nasconderlo.** La colonna del cardinale nella tavola dice **108** guardie
+"dalla porta comune", il grep ne trova **100**: otto righe sono classificate
+come se passassero dalla porta comune mentre il loro file non la nomina. Il
+disallineamento non nasce con l'ordine CP, che ne ha aggiunta una sola: viene
+da prima, e prima nessuno aveva contato le due cose con lo stesso comando.
+**E' esattamente la famiglia di difetti che questo progetto insegue nel
+codice, arrivata dentro il registro delle guardie.** Si chiude riclassificando
+le otto righe una per una, e finche' non e' chiuso il numero vero da usare e'
+quello del grep, perche' quello si puo' rifare.
 
 Il **17** dell'ordine CL contava le guardie censite che scorrono i sorgenti
 **e** avevano gia' un cardinale proprio. Il **79** contava, su **tutti** i file
@@ -78,19 +90,40 @@ questo registro.
 
 | | |
 | --- | ---: |
-| File di prova totali | 711 |
-| **Guardie secondo la definizione** | **258** |
-| Guardie che scorrono i sorgenti di `lib` | 124 |
-| Di queste, passate alla porta comune | 107 |
+| File di prova totali | 739 |
+| **Guardie secondo la definizione** | **261** |
+| Guardie che scorrono i sorgenti di `lib` | 122 |
+| Di queste, passate alla porta comune | 100 (la tavola ne classifica 108, vedi sopra) |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
-| **Guardie mai viste rosse** | **222** |
+| **Guardie mai viste rosse** | **215** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **36** |
+| **Guardie viste rosse almeno una volta** | **46** |
 
-Trentasei su duecentocinquantotto e' il **14,0 per cento**. Prima
-dell'ordine CL erano nove su duecentoquarantadue, il 3,7. L'ordine CM ne ha
-portate venti; l'ordine CO ne aggiunge quindici, dieci nate rosse e otto viste
-rosse prima di lavorarci sopra, meno le tre che erano gia' contate.
+Quarantasei su duecentosessantuno e' il **17,6 per cento**. Prima dell'ordine
+CL erano nove su duecentoquarantadue, il 3,7. L'ordine CM ne ha portate venti;
+l'ordine CO ne aggiunge quindici; **l'ordine CP ne aggiunge dieci**, tre
+guardie nuove nate rosse (`le_regole_dei_traguardi_sono_rispettate`,
+`l_evento_che_arma_e_la_condizione_scritta`,
+`aprire_e_chiudere_non_e_un_cammino`), due guardie esistenti viste rosse con
+un innesto prima di toccare la loro zona
+(`la_costanza_non_chiede_piu_i_giorni_di_fila`, `il_prossimo_e_il_prossimo`,
+che non sono censite qui) e cinque guardie censite che la riscrittura del
+corpus ha fatto cadere davvero, riparate una per una.
+
+**LE PROVE DEL ROSSO DELL'ORDINE CP STANNO SCRITTE**, in
+`docs/ordini/CP_prova_del_rosso.txt`: ventiquattro innesti, uno per pretesa,
+ognuno verificato col grep prima di leggere l'esito. Ventitre hanno fatto
+rossa la pretesa attesa. **Il ventiquattresimo e' rimasto verde, ed e'
+l'informazione piu' utile del giro**: tolto il conto una volta al giorno per
+gesto, la guardia dell'abuso resta verde, perche' quel freno nella revisione F
+non protegge nulla che la scala e il corpus non proteggano gia'. Resta come
+seconda serratura, e adesso e' scritto che e' una seconda e non la prima.
+
+**E UNA CECITA' VERA, colta dalla Regola B.** Sostituendo la soglia di
+`StessaOraPerGiorni` con uno zero, `le_condizioni_costruite` restava verde in
+tutte e tre le sue prove: provava che la condizione si accende, mai che
+TRATTIENE. Difetto della voce BW.07, riparato con un caso negativo nato
+rosso.
 
 **Le due che sono restate VERDI col difetto dentro sono l'informazione piu'
 utile di questa tavola.** Non sono guardie rotte: sono guardie che sorvegliano
@@ -120,6 +153,7 @@ le altre.
 | `accents_test.dart` | accents | 1 | non scopre insiemi di file | mai | 3 |
 | `alone_dietro_le_figure_test.dart` | alone dietro le figure | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `anteprime_non_velate_test.dart` | anteprime non velate | 1 | proprio, dichiarato | mai | 3 |
+| `aprire_e_chiudere_non_e_un_cammino_test.dart` | otto aperture della stessa funzionalita non fanno feste | 1 | proprio, dichiarato | 03/09/2026, CP | 2 |
 | `anteprime_ordine_e_test.dart` | anteprime ordine e | 4 | non scopre insiemi di file | mai | 3 |
 | `arti_preferite_test.dart` | arti preferite | 1 | non scopre insiemi di file | mai | 3 |
 | `aspetti_di_oggi_test.dart` | aspetti di oggi | 1, 2 | dalla porta comune | mai | 3 |
@@ -214,7 +248,7 @@ le altre.
 | `il_passaporto_porta_a_sbloccare_test.dart` | il passaporto porta a sbloccare | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_pozzo_in_attesa_non_e_un_vuoto_test.dart` | il pozzo in attesa non e un vuoto | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_pozzo_non_ha_lacqua_rossa_test.dart` | il pozzo non ha lacqua rossa | 4 | non scopre insiemi di file | mai | 3 |
-| `il_quaderno_dei_sogni_non_torna_test.dart` | il quaderno dei sogni non torna | 1, 2 | dalla porta comune | mai | 3 |
+| `il_quaderno_dei_sogni_non_torna_test.dart` | il quaderno dei sogni non torna | 1, 2 | dalla porta comune | 03/09/2026, CP | 3 |
 | `il_registro_delle_guardie_quadra_test.dart` | il registro delle guardie quadra | 1, 2 | dalla porta comune | 01/09/2026, CM | 3 |
 | `il_respiro_vive_nel_soffio_test.dart` | il respiro vive nel soffio | 1, 2 | dalla porta comune | mai | 3 |
 | `il_responso_e_lo_stesso_fino_a_mezzanotte_test.dart` | il responso e lo stesso fino a mezzanotte | 1, 2 | non scopre insiemi di file | mai | 3 |
@@ -241,8 +275,9 @@ le altre.
 | `intro_test.dart` | intro | 1, 2 | dalla porta comune | mai | 3 |
 | `l_account_dice_chi_sei_e_come_uscire_test.dart` | l account dice chi sei e come uscire | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `l_alba_si_legge_test.dart` | l alba si legge | 1, 2, 4 | dalla porta comune | CO | 3 |
-| `l_anello_del_livello_test.dart` | l anello del livello | 4 | non scopre insiemi di file | mai | 3 |
+| `l_anello_del_livello_test.dart` | l anello del livello | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `l_arcano_del_giorno_test.dart` | l arcano del giorno | 1, 2 | proprio, dichiarato | mai | 3 |
+| `l_evento_che_arma_e_la_condizione_scritta_test.dart` | ogni gradino si accende con la quantita che dichiara, e non con una di meno | 1, 2 | proprio, dichiarato | 03/09/2026, CP | 2 |
 | `l_emblema_sta_nel_suo_riquadro_test.dart` | l emblema sta nel suo riquadro | 4 | non scopre insiemi di file | mai | 3 |
 | `l_intro_zittisce_la_musica_test.dart` | l intro zittisce la musica finche dura | 2, 3 | non scopre insiemi di file | CO | 2 |
 | `l_onboarding_riconosce_e_propone_test.dart` | l onboarding riconosce e propone | 1, 2 | dalla porta comune | mai | 3 |
@@ -268,7 +303,7 @@ le altre.
 | `la_galleria_vip_si_capisce_test.dart` | la galleria vip si capisce | 1 | proprio, dichiarato | mai | 3 |
 | `la_home_non_copre_e_non_tronca_test.dart` | la home non copre e non tronca | 1 | non scopre insiemi di file | mai | 3 |
 | `la_home_non_rallenta_al_ritorno_test.dart` | la home non rallenta al ritorno | 1 | non scopre insiemi di file | mai | 3 |
-| `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | mai | 3 |
+| `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `la_lampadina_si_distingue_test.dart` | la lampadina si distingue | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
@@ -291,6 +326,7 @@ le altre.
 | `le_cose_che_dichiarano_il_falso_test.dart` | le cose che dichiarano il falso | 1, 2 | dalla porta comune | mai | 2 |
 | `le_descrizioni_hanno_una_misura_sola_test.dart` | le descrizioni hanno una misura sola | 1, 2 | dalla porta comune | mai | 3 |
 | `le_due_cose_che_non_servivano_test.dart` | le due cose che non servivano | 1, 2 | dalla porta comune | mai | 3 |
+| `le_regole_dei_traguardi_sono_rispettate_test.dart` | le undici regole del fondatore su ogni singolo gradino | 1, 2 | dalla porta comune | 03/09/2026, CP | 2 |
 | `le_feste_e_le_regole_che_le_trattengono_test.dart` | le feste e le regole che le trattengono | 1, 2 | proprio, dichiarato | CO, RESTATA VERDE col difetto dentro | 3 |
 | `le_feste_si_vedono_diverse_test.dart` | le feste si vedono diverse | 2, 4, 1 | non scopre insiemi di file | mai | 3 |
 | `le_frasi_della_custodia_dicono_il_vero_test.dart` | le frasi della custodia dicono il vero | 1, 2 | dalla porta comune | mai | 3 |
@@ -320,7 +356,7 @@ le altre.
 | `niente_vocativo_a_schermo_test.dart` | niente vocativo a schermo | 1, 2 | dalla porta comune | mai | 3 |
 | `nome_ovunque_test.dart` | nome ovunque | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nove_arti_test.dart` | nove arti | 1, 2 | dalla porta comune | mai | 3 |
-| `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO | 2 |
 | `ogni_condivisione_dichiara_gli_eos_test.dart` | ogni condivisione dichiara gli eos | 1, 2 | dalla porta comune | mai | 2 |
 | `ogni_freccia_mantiene_test.dart` | ogni freccia mantiene | 1, 2 | proprio, dichiarato | 31/08/2026, CG | 3 |
@@ -369,7 +405,7 @@ le altre.
 | `una_luna_sola_test.dart` | una luna sola | 1, 4 | dalla porta comune | mai | 3 |
 | `una_porta_per_il_confronto_test.dart` | una porta per il confronto | 1, 2 | dalla porta comune | mai | 2 |
 | `una_porta_sola_per_larchetipo_test.dart` | una porta sola per larchetipo | 1, 2, 4 | dalla porta comune | mai | 2 |
-| `una_prova_dichiara_il_suo_istante_test.dart` | una prova dichiara il suo istante | 1, 2 | non scopre insiemi di file | mai | 2 |
+| `una_prova_dichiara_il_suo_istante_test.dart` | una prova dichiara il suo istante | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 2 |
 | `una_sola_porta_per_i_transiti_test.dart` | una sola porta per i transiti | 1, 2 | dalla porta comune | mai | 3 |
 | `una_spirale_per_volta_test.dart` | una spirale per volta | 1, 2 | dalla porta comune | mai | 3 |
 | `una_voce_alla_volta_test.dart` | una voce alla volta | 1, 2 | dalla porta comune | mai | 3 |

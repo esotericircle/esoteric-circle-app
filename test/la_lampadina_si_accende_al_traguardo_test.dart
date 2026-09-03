@@ -28,8 +28,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// catena intera che nessuna prova percorreva, ed e' sulla catena che i difetti
 /// di collegamento vivono.
 ///
-/// **Due sentieri, non uno**: il Loto con `aur_1` (un soffio) e la
-/// Costellazione con `med_2` (il primo Oracolo), per non provare una porta sola.
+/// **Due sentieri, non uno**: il Loto con `aur_1` (la Costellazione del
+/// Viso) e la Costellazione con `med_1` (la carta natale), per non provare
+/// una porta sola.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -201,19 +202,25 @@ void main() {
             'registro e Journal e\' scollegato');
   }
 
-  testWidgets('il soffio accende la perla di aur_1 sul Loto', (tester) async {
+  // **IL GESTO SEGUE IL CORPUS, ordine CP voce 05.** Nella revisione F un
+  // solo gradino per sentiero si chiude con un gesto solo, ed e' il primo:
+  // sul Loto e' `aur_1`, la Costellazione del Viso letta. Il Soffio adesso ne
+  // chiede due in giorni diversi, quindi un soffio solo non accendeva niente
+  // e la prova cadeva dicendo che la lampadina non brilla. **La pretesa non
+  // cambia**: un gesto registrato deve accendere il suo gradino, e la
+  // lampadina deve vedersi sui pixel.
+  testWidgets('il viso accende la perla di aur_1 sul Loto', (tester) async {
     await provaSu(tester,
-        sentiero: Sentiero.loto, gesto: 'soffio', sigillo: 'aur_1');
+        sentiero: Sentiero.loto, gesto: 'viso', sigillo: 'aur_1');
   });
 
-  // **L'IDENTIFICATIVO SEGUE IL CORPUS, ordine BS voce 01.** Nella revisione E
-  // il primo gradino che l'Arcano del Giorno accende e' med_4: med_2 chiede la
-  // scheda dell'Ascendente letta fino in fondo, e dorme perche' quella lettura
-  // non arriva alla regia. La pretesa non cambia: un gesto registrato deve
-  // accendere il suo gradino, e la lampadina deve vedersi.
-  testWidgets('l\'oracolo accende l\'orbo di med_4 sulla Costellazione',
+  // Sulla Costellazione il gradino da un gesto solo e' `med_1`, la carta
+  // natale calcolata. Ordine CP voce 05, stessa ragione della riga sopra.
+  testWidgets('la carta natale accende l\'orbo di med_1 sulla Costellazione',
       (tester) async {
     await provaSu(tester,
-        sentiero: Sentiero.costellazione, gesto: 'oracolo', sigillo: 'med_4');
+        sentiero: Sentiero.costellazione,
+        gesto: 'carta_natale',
+        sigillo: 'med_1');
   });
 }

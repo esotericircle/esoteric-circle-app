@@ -191,16 +191,18 @@ void main() {
     const porta = _PortaCheAccredita();
     _PortaCheAccredita.movimenti.clear();
 
-    // Il sogno e' gia' segnato nel diario: cosi' la gettata del 14 agosto,
-    // che e' un giorno di Luna nuova nell'istante dichiarato delle prove,
-    // **GLI ID SONO CAMBIATI COL CORPUS DELLA REVISIONE C, ordine AR voce
-    // 02**, e la prova segue il dato: la gettata matura cal_1 (la prima
-    // gettata) e cio' che il Cammino di oggi le lega. La pretesa resta una
-    // sola: piu' traguardi insieme fanno UNA festa.
-    // Prima erano cal_1 (la prima gettata), cal_6 (la
-    // gettata sotto la Luna nuova) e cal_8 (gettata e sogno nello stesso
-    // giorno). E' l'esempio dal codice citato dall'ordine, non un caso
-    // costruito.
+    // **L'ID SEGUE IL CORPUS, ed e' la quarta volta.** Ordine CP voci 01 e
+    // 05: dopo la scala un gradino matura solo se e' il prossimo del suo
+    // sentiero, e da un Cammino appena nato quello del Loto e' `aur_1`, la
+    // Costellazione del Viso letta. Nella revisione C era `cal_1`, nella E
+    // ancora un altro.
+    //
+    // **La pretesa non cambia di una virgola**: piu' traguardi maturati
+    // insieme devono dare UNA celebrazione sola e tutti i loro premi. Dal 3
+    // settembre 2026 quella pretesa e' anche piu' difficile da violare, per
+    // la regola del posto unico del congedo (voce CP.01): il Cammino ne fa
+    // maturare uno alla volta, quindi qui si misura che la festa parta una
+    // volta e il premio arrivi intero.
     await diario.segna('sogno');
 
     late BuildContext dentro;
@@ -215,12 +217,12 @@ void main() {
     ));
     await tester.pump();
 
-    await RegiaDelCammino.dopoUnGesto(dentro, 'gettata');
+    await RegiaDelCammino.dopoUnGesto(dentro, 'viso');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    const attesi = ['cal_1'];
-    // **QUANTE OSSERVAZIONI, e cade se non sono tre.**
+    const attesi = ['aur_1'];
+    // **QUANTE OSSERVAZIONI, e il numero si legge.**
     // ignore: avoid_print
     print('ORDINE AC VOCE 04, prova 3: accesi ${diario.accesi.length}, '
         'celebrazioni partite ${Celebrazione.partite}, premi accreditati '

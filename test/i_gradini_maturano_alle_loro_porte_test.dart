@@ -54,7 +54,12 @@ void main() {
     );
     final nuovi = await diario.quelliCheSiAccendono(stato);
     for (final t in nuovi) {
-      diario.accendi(t.id);
+      await diario.accendi(t.id);
+      // **E SI CONGEDA, ordine CP voce 01.** Dal 3 settembre 2026 un gradino
+      // acceso occupa il Cammino finche' la sua festa non e' congedata: senza
+      // questa riga la prova accendeva il primo e poi guardava un Cammino
+      // fermo, accusando ogni porta successiva di essersi chiusa.
+      await diario.congeda(t.id);
     }
     return nuovi.map((t) => t.id).toList();
   }
@@ -88,22 +93,29 @@ void main() {
   });
 
   test('BD.05: ogni porta accende il suo gradino', () async {
+    // **NIENTE PRIMA MANO, ordine CP voce 05**: la carta natale era il gesto
+    // che si faceva prima per portare il Cammino a un punto noto, e adesso
+    // e' la prima porta dell'elenco. Farla due volte l'avrebbe trovata gia'
+    // accesa, e la prova avrebbe accusato la porta di essersi chiusa.
     final diario = await diarioVergine();
-    await siAccendonoDopo(diario, ['carta_natale']);
+    // **TRE PORTE E NON CINQUE, ordine CP voce 05, e la ragione e'
+    // aritmetica.** Un pezzo dell'identita' si ha una volta e per sempre,
+    // quindi costa un giorno solo; la regola 4 del fondatore vieta alla scala
+    // di scendere e la regola 1 ammette **un solo gradino da un giorno per
+    // sentiero**: da queste due discende che ogni sentiero puo' avere
+    // esattamente UN gradino di identita', in prima posizione.
+    //
+    // **La pretesa non cambia**: ogni porta viva deve accendere il SUO
+    // gradino. Cambia quante porte hanno un gradino, ed e' il corpus a
+    // dirlo. Le altre tessere del Passaporto, il saluto per nome, la Luna
+    // natale, il Sigillo del Cerchio, restano porte del documento: le
+    // schermate continuano a mandarle e il diario a contarle, e la prova qui
+    // sotto lo verifica riga per riga nel codice. Semplicemente non hanno
+    // piu' un gradino sopra.
     final porte = <String, (List<String>, String)>{
-      // **GLI IDENTIFICATIVI SEGUONO IL CORPUS, ordine BS voce 01.** La
-      // revisione E ha riscritto i 165 e i gradini dell'identita' hanno preso
-      // posizioni nuove: il saluto per nome e' aur_3 e non piu' aur_5, la Luna
-      // che vegliava e' aur_8 e non piu' aur_6. La pretesa non cambia di una
-      // virgola: ogni porta del Passaporto deve accendere il SUO gradino.
-      'aur_3': (['nome_proprio'], 'il primo saluto per nome'),
-      'aur_10': (['passaporto', 'numero_della_vita'], 'il documento aperto'),
-      'med_7': (
-        ['carta_natale', 'ora_di_nascita', 'luogo_di_nascita'],
-        'la propria carta aperta'
-      ),
-      'aur_8': (['luna_natale'], 'il portale del cielo di nascita'),
-      'cal_6': (['sigillo_del_cerchio'], 'la schermata del Sigillo'),
+      'med_1': (['carta_natale'], 'la carta natale calcolata'),
+      'aur_1': (['viso'], 'la Costellazione del Viso letta'),
+      'cal_1': (['animale_guida'], 'l\'Animale Guida incontrato'),
     };
     for (final voce in porte.entries) {
       final accesi = await siAccendonoDopo(diario, voce.value.$1);

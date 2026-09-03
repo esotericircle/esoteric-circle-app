@@ -78,12 +78,23 @@ void main() {
 
   test('il peso e limitato, e si perde la varieta non la coincidenza',
       () async {
-    final d = await diario();
+    // **IL GIORNO SI SPOSTA, ordine CP voce 02.** Dal 3 settembre 2026 lo
+    // stesso gesto con gli STESSI dettagli conta una volta sola dentro la
+    // giornata rituale: e' il freno che impedisce alla slot machine di
+    // tornare. Qui la seconda uscita di `v0` cadeva nello stesso giorno della
+    // prima e veniva scartata, e la prova accusava il tetto di aver smesso
+    // di contare. **Non era il tetto: era la giornata**, e la coincidenza
+    // vera e' proprio quella fra giorni diversi.
+    var adesso = istanteDelleProve;
+    SharedPreferences.setMockInitialValues(const {});
+    final d = DiarioDelCammino(orologio: () => adesso);
+    await d.carica();
     // Piu' valori del tetto: i primi entrano, gli altri no.
     for (var i = 0; i < DiarioDelCammino.quantiValoriPerChiave + 40; i++) {
       await d.segna('prova', dettagli: {'valore': 'v$i'});
     }
-    // E il primo continua a contare anche a tetto raggiunto.
+    // E il primo continua a contare anche a tetto raggiunto, il giorno dopo.
+    adesso = istanteDelleProve.add(const Duration(days: 1));
     await d.segna('prova', dettagli: {'valore': 'v0'});
     // ignore: avoid_print
     print('ORDINE AR VOCE 11: valori tenuti '

@@ -73,8 +73,20 @@ void main() {
       return c is PezzoDellIdentita &&
           (c.pezzo == 'sigillo_del_cerchio' || c.pezzo == 'luna_natale');
     }).toList();
-    expect(suiPezzi, isNotEmpty,
-        reason: 'nessun traguardo poggia piu sul Sigillo o sulla Luna');
+    // **ZERO GRADINI SU QUEI DUE PEZZI, ordine CP voce 05, ed e' voluto.**
+    // Un pezzo dell'identita' costa un giorno solo, e le regole del fondatore
+    // ammettono **un solo gradino da un giorno per sentiero**: la revisione F
+    // ne mette uno per sentiero, la carta natale, il volto e l'Animale, e il
+    // Sigillo del Cerchio e la Luna natale restano porte del Passaporto senza
+    // un gradino sopra.
+    //
+    // **La pretesa qui resta intera** e cambia solo bersaglio: se un giorno
+    // un gradino tornera' a poggiare su quei pezzi, non dovra' maturare col
+    // solo documento pieno. Il numero si stampa, cosi' chi legge il verde sa
+    // su quanti gradini ha guardato.
+    // ignore: avoid_print
+    print('ORDINE CP VOCE 05: gradini che poggiano sul Sigillo o sulla Luna '
+        '${suiPezzi.length}');
     for (final t in suiPezzi) {
       expect(t.condizione.raggiunto(stato), isFalse,
           reason: '${t.id} matura ancora col solo Passaporto pieno: i gradini '

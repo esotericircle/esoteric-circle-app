@@ -24,32 +24,35 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('i gradini della meditazione, e chi li tiene addormentati', () {
-    // **LA REVISIONE E LI RIMETTE A DORMIRE, ed e' una decisione del corpus che
-    // il codice ha gia' superato.** Ordine BS voce 01. I gradini della
-    // meditazione nella revisione E sono aur_17 e aur_46, e il corpus li
-    // dichiara dormienti tutti e due; la nota di aur_17 dice "la meditazione
-    // oggi non ha una fine", **che dall'ordine BF voce 05.b non e' piu' vero**:
-    // la sessione dura dodici cicli, si compie, e la regia registra il gesto,
-    // come dimostrano le due prove qui sotto che non sono state toccate.
+    // **ADESSO SONO SVEGLI, ED E' LA PROMESSA DELL'ORDINE BF MANTENUTA.**
+    // Ordine CP voce 05, 3 settembre 2026.
     //
-    // **L'ordine BS dice che i dormienti dichiarati dal corpus restano
-    // dormienti**, quindi qui non si sveglia niente di nascosto: si scrive che
-    // la ragione e' scaduta, e la decisione di svegliarlo e' del fondatore,
-    // perche' il corpus e' materia sua.
+    // La revisione E teneva i due gradini della meditazione dormienti, con la
+    // nota "la meditazione oggi non ha una fine": dall'ordine BF voce 05.b
+    // non era piu' vero, la sessione dura dodici cicli, si compie, e la regia
+    // registra il gesto. Questa prova lo scriveva e aspettava che il corpus
+    // se ne accorgesse.
+    //
+    // **La revisione F se ne e' accorta.** Il corpus nuovo si costruisce solo
+    // sui gesti che una schermata manda davvero, e `meditazione` e' uno di
+    // quelli: i suoi gradini sono sei e sono tutti vivi. La riga che
+    // pretendeva la dormienza si e' rovesciata, e il verso nuovo e' quello
+    // giusto.
     final loto = Sentieri.di(Sentiero.loto);
     final dellaMeditazione = [
       for (final t in loto)
-        if (t.frase.toLowerCase().contains('meditazione')) t,
+        if (t.condizione.gestiNominati.contains('meditazione')) t,
     ];
     // ignore: avoid_print
-    print('ORDINE BS VOCE 01: i gradini della meditazione sono '
+    print('ORDINE CP VOCE 05: i gradini della meditazione sono '
         '${dellaMeditazione.map((t) => "${t.id} dormiente ${t.dormiente}").join(", ")}');
-    expect(dellaMeditazione.map((t) => t.id), containsAll(['aur_17', 'aur_46']),
-        reason: 'i gradini della meditazione non sono piu\' quelli: il corpus '
-            'e\' cambiato ancora');
-    expect(dellaMeditazione.every((t) => t.dormiente), isTrue,
-        reason: 'un gradino della meditazione si e\' svegliato senza che il '
-            'corpus lo dicesse');
+    expect(dellaMeditazione.length, greaterThanOrEqualTo(2),
+        reason: 'la meditazione ha solo ${dellaMeditazione.length} gradini: '
+            'un\'arte che il Cammino non nomina e\' un\'arte che nessuno '
+            'scoprira\'');
+    expect(dellaMeditazione.every((t) => !t.dormiente), isTrue,
+        reason: 'un gradino della meditazione dorme ancora, e il gesto arriva '
+            'da quando l\'ordine BF ha dato una fine alla sessione');
     // **IL GESTO PERO' ESISTE E ARRIVA**, ed e' la promessa dell'ordine BF che
     // resta in piedi: il giorno che il corpus toglie la dormienza, quel
     // gradino matura senza toccare una riga di codice.

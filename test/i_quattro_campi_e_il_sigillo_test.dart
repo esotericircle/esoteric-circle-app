@@ -4,7 +4,6 @@ import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/core/sigilli/stato_del_sigillo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'gli_accenti_del_corpus.dart';
 
 /// I QUATTRO CAMPI E IL SIGILLO, ordine P voci 19, 20 e 21, con la CORREZIONE
 /// del 12 agosto 2026 che ha priorita' su P.19.
@@ -125,17 +124,14 @@ void main() {
       // applica mentre scrive. Qui si applicano anche al corpus prima di
       // confrontare, altrimenti due voci su 165 sembrerebbero inventate
       // mentre sono le uniche due che portano il nome di oggi.
-      var corpusVivo =
-          File('docs/corpus/Traguardi_165_Revisione_E.json').readAsStringSync();
-      for (final nome in const {
-        'Oracolo del Giorno': 'Arcano del Giorno',
-        'Rito del Sogno': 'Sigillo del Sogno',
-      }.entries) {
-        corpusVivo = corpusVivo.replaceAll(nome.key, nome.value);
-      }
-      // E gli accenti veri al posto degli apostrofi, come fa il generatore:
-      // vedi gli_accenti_del_corpus.dart.
-      corpusVivo = conGliAccenti(corpusVivo);
+      // **IL CORPUS VIVO E' LA REVISIONE F, ordine CP voce 05, e le due
+      // trasformazioni non servono piu'.** La revisione E scriveva "Oracolo
+      // del Giorno" e "e'", e il generatore rinominava e accentava mentre
+      // scriveva: il confronto doveva rifare le stesse due trasformazioni,
+      // cioe' due porte in piu' sullo stesso dato. La revisione F scrive nel
+      // dato quello che finisce a video, e il confronto e' byte per byte.
+      final corpusVivo =
+          File('docs/corpus/Traguardi_165_Revisione_F.json').readAsStringSync();
       final presi = tutti
           .where((t) =>
               t.cosaApre.trim().isNotEmpty &&

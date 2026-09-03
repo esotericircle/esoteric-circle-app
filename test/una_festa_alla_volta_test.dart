@@ -163,6 +163,10 @@ void main() {
       await diario.carica();
       final cammino = _Cammino(diario);
       final festePerMese = List<int>.filled(12, 0);
+      // **UNA FESTA PER GIORNO, non solo per mese.** Ordine CP voce 08: il
+      // conto mensile non dice qual e' il giorno peggiore, e il giorno
+      // peggiore e' esattamente cio' che il fondatore ha visto sul telefono.
+      final festePerGiorno = List<int>.filled(365, 0);
       // Quante volte, in ogni mese, un gradino era gia' soddisfatto e non si e'
       // acceso: e' la misura del prigioniero.
       final attesePerMese = List<int>.filled(12, 0);
@@ -196,11 +200,43 @@ void main() {
           final accesi = await cammino.evento(gesto, cielo);
           if (prima > accesi) attesePerMese[giorno.month - 1] += prima - accesi;
           festePerMese[giorno.month - 1] += accesi;
+          festePerGiorno[g] += accesi;
           if (g == 0) festeDelPrimoGiorno += accesi;
         }
       }
       final vivi = Sentieri.tuttiITraguardi.where((t) => !t.dormiente).length;
       final accesiInTutto = festePerMese.reduce((a, b) => a + b);
+
+      // **LE CINQUE MISURE DELLA VOCE CP.08**, chieste per nome dall'ordine:
+      // quante feste al primo giorno, alla prima settimana, al primo mese, al
+      // terzo mese e all'anno. Sono cumulative, cosi' si legge la curva e non
+      // solo i suoi pezzi.
+      final aGiorno = <int, int>{};
+      var somma = 0;
+      for (var g = 0; g < 365; g++) {
+        somma += festePerGiorno[g];
+        if (const [0, 6, 29, 89, 364].contains(g)) aGiorno[g + 1] = somma;
+      }
+      final peggiore = festePerGiorno
+          .asMap()
+          .entries
+          .reduce((a, b) => a.value >= b.value ? a : b);
+      // ignore: avoid_print
+      print('ORDINE CP VOCE 08: feste cumulate, primo giorno '
+          '${aGiorno[1]}, prima settimana ${aGiorno[7]}, primo mese '
+          '${aGiorno[30]}, terzo mese ${aGiorno[90]}, anno ${aGiorno[365]}');
+      // ignore: avoid_print
+      print('ORDINE CP VOCE 08: il giorno peggiore e il '
+          '${peggiore.key + 1} con ${peggiore.value} feste');
+      // **IL CRITERIO PROPOSTO, ordine CP voce 08.** Nessun giorno dell'anno
+      // deve portare piu' di tre feste: tre e' il numero dei Maestri, ed e'
+      // il massimo che la prima sessione puo' dare per costruzione. Il
+      // fondatore lo approva o lo cambia; finche' non lo cambia, questa riga
+      // lo tiene.
+      expect(peggiore.value, lessThanOrEqualTo(3),
+          reason: 'il giorno ${peggiore.key + 1} ha portato '
+              '${peggiore.value} feste: sopra le tre si torna alla slot '
+              'machine che il fondatore ha visto');
       // ignore: avoid_print
       print('ORDINE BS VOCE 3: $giorniAperti giorni aperti su 365; il primo '
           'giorno $festeDelPrimoGiorno feste; feste per mese $festePerMese; '
@@ -324,6 +360,13 @@ const Map<String, int> _quantiInTutto = {
 int? _quantoPrometteIlTutto(String frase) {
   final testo = frase.toLowerCase();
   if (!testo.contains('ogni ') && !testo.contains('tutt')) return null;
+  // **"TUTTE NELLO STESSO GIORNO" PARLA DEI GIORNI, non di una famiglia.**
+  // Ordine CP voce 05: le frasi delle giornate chiuse insieme finiscono cosi',
+  // e quando l'elenco delle arti nominava la Runa del Tramonto questo lettore
+  // leggeva "tutte" piu' "runa" e concludeva che la frase promettesse tutte e
+  // ventiquattro le rune. **La frase non promette niente del genere**, e non
+  // potrebbe: dalla revisione F si compone dalla condizione.
+  if (testo.contains('nello stesso giorno')) return null;
   if (testo.contains('arcano maggiore') || testo.contains('maggiori')) {
     return _quantiInTutto['maggiori'];
   }
@@ -369,7 +412,14 @@ List<int> _numeriNellaFrase(String frase) {
   final ripulita = frase
       .toLowerCase()
       .replaceAll(RegExp(r'quale dei \w+'), 'quale')
-      .replaceAll(RegExp(r'quale delle \w+'), 'quale');
+      .replaceAll(RegExp(r'quale delle \w+'), 'quale')
+      // **"I DUE VOLTI" E' UN NOME PROPRIO, non un conto.** Ordine CP voce
+      // 05: e' l'arte di Aura che mette a confronto il volto che mostri e
+      // quello che sei, e il "due" ci sta dentro come "tre" sta dentro "le
+      // tre carte". Senza questa riga il lettore leggeva due dove la
+      // condizione chiede quattro, e accusava di soglia storta una frase
+      // composta dalla condizione stessa.
+      .replaceAll('due volti', 'volti');
   for (final pezzo in ripulita.split(RegExp(r"[^a-z0-9àèéìòù']+"))) {
     if (pezzo.isEmpty) continue;
     final cifra = int.tryParse(pezzo);

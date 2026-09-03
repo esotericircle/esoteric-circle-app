@@ -80,9 +80,20 @@ void main() {
         ),
       );
 
-  /// Il gesto che accende il primo traguardo delle rune: e' quello che sul
-  /// telefono si era acceso in silenzio.
-  const gesto = 'gettata';
+  /// Il gesto che accende il primo gradino del Fiore di Loto.
+  ///
+  /// **ERA LA GETTATA, ordine CP voci 01 e 05.** Sul telefono del fondatore
+  /// era la gettata ad accendersi in silenzio, e per questo la prova era
+  /// scritta su di lei. Dalla revisione F la gettata ne chiede due in giorni
+  /// diversi, e dopo la scala un gradino matura solo se e' **il prossimo del
+  /// suo sentiero**: da un Cammino appena nato i prossimi sono i tre gradini
+  /// di testa, che sono pezzi dell'identita'. La Costellazione del Viso
+  /// accende `aur_1` con un gesto solo e **non dipende dal cielo**, quindi
+  /// questa prova non e' piu' legata al giorno in cui gira.
+  ///
+  /// **Cio' che misura non cambia di una virgola**: una festa che si accende
+  /// deve VEDERSI, anche se il server non risponde o solleva.
+  const gesto = 'viso';
 
   bool laFestaSiVede(WidgetTester tester) =>
       find

@@ -196,9 +196,28 @@ void main() {
     // di sempre, che l'identita' non sparisca dal cammino, e il numero segue
     // il dato invece di comandarlo, come quando la revisione C porto' il
     // minimo da quindici a sei.
-    expect(quanti, greaterThanOrEqualTo(5),
-        reason: 'i traguardi di identità sono $quanti su dodici caselle '
-            'possibili: l\'identità sta sparendo dal cammino');
+    // **TRE E NON CINQUE, ordine CP voce 05, e il numero segue il dato per
+    // la quinta volta: revisione C, ordine U, ordine BS e adesso.** La
+    // ragione qui e' nuova e va scritta per intero, perche' non e' un
+    // allentamento ma una conseguenza aritmetica delle regole del fondatore.
+    //
+    // **Un pezzo dell'identita' costa un giorno solo, sempre**: si ha una
+    // volta e per sempre, quindi la sua condizione non puo' chiedere due
+    // giorni. La regola 4 del fondatore vuole il costo in giorni non
+    // decrescente lungo un sentiero, e la regola 1 unita al conto delle feste
+    // vuole **un solo gradino da un giorno per sentiero**: da queste due
+    // discende che un sentiero puo' ospitare **esattamente un** gradino di
+    // identita', e deve ospitarlo in prima posizione.
+    //
+    // **La pretesa non e' cambiata: l'identita' non deve sparire dal
+    // cammino.** Oggi e' soddisfatta meglio di prima, non peggio, perche' i
+    // tre gradini di identita' non sono sparsi ma sono i **primi tre gradini
+    // dei tre sentieri**: la prima cosa che il Cammino festeggia e' chi sei,
+    // non quanto sei stato bravo. La riga sotto, che ne pretende almeno uno
+    // per sentiero, e' quella che oggi porta il peso.
+    expect(quanti, greaterThanOrEqualTo(3),
+        reason: 'i traguardi di identità sono $quanti: l\'identità sta '
+            'sparendo dal cammino');
   });
 
   test('ogni sentiero porta almeno un traguardo di identita', () {

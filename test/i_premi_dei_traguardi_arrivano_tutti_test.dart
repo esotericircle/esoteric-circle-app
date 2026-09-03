@@ -93,14 +93,21 @@ void main() {
   /// mostrare, cosi' la prova misura cio' che c'e' davvero.
   Future<void> faiIGesti(
       WidgetTester tester, GlobalKey chiave, DiarioDelCammino diario) async {
+    // **IL VISO, ordine CP voci 01 e 05.** Con la stesa questa prova faceva
+    // sei giri a vuoto e cadeva dicendo "niente si e' acceso", perche' nella
+    // revisione F la stesa ne chiede due in giorni diversi. E dopo la scala
+    // non basta nemmeno un gesto qualunque: un gradino matura solo se e' il
+    // **prossimo del suo sentiero**, e da un Cammino appena nato i prossimi
+    // sono i tre gradini di testa, che sono pezzi dell'identita'. La
+    // Costellazione del Viso accende `aur_1`, e non dipende dal cielo.
     for (var giro = 0; giro < 6 && diario.accesi.isEmpty; giro++) {
-      await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'stesa');
+      await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'viso');
       for (var i = 0; i < 12; i++) {
         await tester.pump(const Duration(milliseconds: 200));
       }
       // ignore: avoid_print
-      print('ORDINE AO VOCE 04 DIAG: giro $giro, ha fatto la stesa '
-          '${diario.haFatto('stesa')}, accesi ${diario.accesi}');
+      print('ORDINE AO VOCE 04 DIAG: giro $giro, ha letto il viso '
+          '${diario.haFatto('viso')}, accesi ${diario.accesi}');
     }
   }
 
@@ -163,7 +170,11 @@ void main() {
     // l'unico che accende, ed e' anche piu' onesto: prima si misurava il
     // secondo perche' il primo aveva gia' sporcato la porta, e adesso la porta
     // e' pulita per costruzione.
-    await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'gettata');
+    // **IL VISO E NON LA GETTATA**, ordine CP voci 01 e 05, stessa ragione
+    // della prova qui sopra: dopo la scala matura solo il prossimo del suo
+    // sentiero, e da un Cammino appena nato quello del Loto e' `aur_1`, la
+    // Costellazione del Viso letta.
+    await RegiaDelCammino.dopoUnGesto(chiave.currentContext!, 'viso');
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }

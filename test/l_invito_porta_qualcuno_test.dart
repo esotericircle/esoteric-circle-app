@@ -61,35 +61,57 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      final tre = [
-        for (final id in ['med_17', 'aur_15', 'cal_16'])
-          Sentieri.tuttiITraguardi.firstWhere((t) => t.id == id),
-      ];
-      for (final voce in tre) {
-        expect(voce.dormiente, isFalse,
-            reason: '${voce.id} dorme ancora: la condizione non e\' arrivata '
-                'al cammino');
-      }
-      var stato = diario.statoDelCammino();
-      for (final voce in tre) {
-        expect(voce.condizione.raggiunto(stato), isFalse,
-            reason: '"${voce.nome}" si accende senza che nessuno sia entrato');
-      }
+      // **LA PORTA RESTA, IL GRADINO NO. Ordine CP voce 05.**
+      //
+      // Fino alla revisione E tre gradini, `med_17`, `aur_15` e `cal_16`,
+      // premiavano l'invito accolto, uno per Maestro. **La revisione F non ne
+      // scrive nessuno**, ed e' una decisione motivata: un invito accolto
+      // dipende da un'altra persona, e un gradino che dipende da qualcun
+      // altro non e' raggiungibile da chi cammina. La regola 5 del fondatore
+      // chiede traguardi raggiungibili con sforzo, non con fortuna altrui.
+      //
+      // **Cio' che questa prova sorveglia non e' cambiato**: il conto degli
+      // ingressi arriva dal server, il telefono non se lo scrive da solo, e
+      // ogni porta e' contata per il suo Maestro invece che tutte insieme.
+      // Qui si misura direttamente quel conto, che e' il fatto vero; il
+      // gradino sopra era solo il premio, e il premio puo' tornare senza che
+      // niente di questo cambi.
+      expect(diario.statoDelCammino().gestiCompiuti['invito_medora'] ?? 0, 0,
+          reason: 'il telefono si e scritto un invito da solo');
 
       // Il server dice che UNA persona e' entrata, dalla porta di Medora.
       await diario.allineaGliInviti(1, perMaestro: const {'medora': 1});
-      stato = diario.statoDelCammino();
       // ignore: avoid_print
-      print('ORDINE BX VOCE 2: dopo un ingresso dalla porta di Medora, '
-          'accendono ${tre.where((t) => t.condizione.raggiunto(stato)).map((t) => t.id).toList()}');
-      expect(tre[0].condizione.raggiunto(stato), isTrue,
-          reason: 'un ingresso dalla porta di Medora non accende med_17');
-      expect(tre[1].condizione.raggiunto(stato), isFalse,
-          reason: 'un ingresso dalla porta di Medora accende anche la voce di '
-              'Aura: le tre voci misurano lo stesso fatto');
-      expect(tre[2].condizione.raggiunto(stato), isFalse,
-          reason: 'un ingresso dalla porta di Medora accende anche la voce di '
+      print('ORDINE CP VOCE 05: dopo un ingresso dalla porta di Medora, '
+          'invito ${diario.statoDelCammino().gestiCompiuti['invito']}, medora '
+          '${diario.statoDelCammino().gestiCompiuti['invito_medora']}, aura '
+          '${diario.statoDelCammino().gestiCompiuti['invito_aura'] ?? 0}, caligo '
+          '${diario.statoDelCammino().gestiCompiuti['invito_caligo'] ?? 0}');
+      expect(diario.statoDelCammino().gestiCompiuti['invito'], 1,
+          reason: 'il conto degli inviti accolti non e arrivato al diario');
+      expect(diario.statoDelCammino().gestiCompiuti['invito_medora'], 1,
+          reason: 'la porta di Medora non ha contato il suo ingresso');
+      expect(diario.statoDelCammino().gestiCompiuti['invito_aura'] ?? 0, 0,
+          reason: 'un ingresso dalla porta di Medora ha contato anche per '
+              'Aura: le tre porte misurano lo stesso fatto');
+      expect(diario.statoDelCammino().gestiCompiuti['invito_caligo'] ?? 0, 0,
+          reason: 'un ingresso dalla porta di Medora ha contato anche per '
               'Caligo');
+
+      // **E NESSUN GRADINO POGGIA SULL'INVITO**, che e' la conseguenza da
+      // dichiarare invece di lasciarla implicita: se un giorno tornera', la
+      // riga qui sotto cadra' e chi la legge sapra' che il premio e' tornato.
+      final sullInvito = Sentieri.tuttiITraguardi
+          .where((t) => t.condizione.gestiNominati
+              .any((g) => g.startsWith('invito')))
+          .map((t) => t.id)
+          .toList();
+      // ignore: avoid_print
+      print('ORDINE CP VOCE 05: gradini che poggiano su un invito '
+          '${sullInvito.length} $sullInvito');
+      expect(sullInvito, isEmpty,
+          reason: 'un gradino e tornato a poggiare sull invito: va bene, ma '
+              'va scritto, perche dipende da un altra persona');
     });
 
     test('Il link dell\'invito porta il codice, e il codice torna indietro',

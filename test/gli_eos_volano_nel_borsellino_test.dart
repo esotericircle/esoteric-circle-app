@@ -218,7 +218,13 @@ void main() {
     // prova comincia a misurare.
     var comparsa = false;
     for (var gesto = 0; gesto < 5 && !comparsa; gesto++) {
-      await RegiaDelCammino.dopoUnGesto(contesto, 'stesa');
+      // **IL VISO, ordine CP voce 01.** Dopo la scala un gradino matura
+      // solo se e' il prossimo del suo sentiero, e da un Cammino appena
+      // nato i prossimi sono i tre gradini di testa, che sono pezzi
+      // dell'identita'. `aur_1` e' la Costellazione del Viso letta: e' il
+      // gesto piu' semplice che accende davvero, e **non dipende dal
+      // cielo**, quindi questa prova non e' piu' legata al giorno.
+      await RegiaDelCammino.dopoUnGesto(contesto, 'viso');
       for (var passo = 0; passo < 4 && !comparsa; passo++) {
         await tester.pump(const Duration(milliseconds: 200));
         comparsa =

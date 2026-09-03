@@ -67,7 +67,13 @@ void main() {
     // misurerebbe soltanto che non e' successo nulla.
     final contesto = tester.element(find.byType(_BarraDiProva));
     for (var i = 0; i < 3; i++) {
-      await RegiaDelCammino.dopoUnGesto(contesto, 'stesa');
+      // **IL VISO, ordine CP voce 01.** Dopo la scala un gradino matura
+      // solo se e' il prossimo del suo sentiero, e da un Cammino appena
+      // nato i prossimi sono i tre gradini di testa, che sono pezzi
+      // dell'identita'. `aur_1` e' la Costellazione del Viso letta: e' il
+      // gesto piu' semplice che accende davvero, e **non dipende dal
+      // cielo**, quindi questa prova non e' piu' legata al giorno.
+      await RegiaDelCammino.dopoUnGesto(contesto, 'viso');
       // **NON `pumpAndSettle`**: la celebrazione porta animazioni che non si
       // assestano mai, e la prova cadrebbe per un tempo scaduto invece che per
       // il saldo. Si avanza a passi dichiarati, come per l'attesa di Medora.
@@ -125,7 +131,13 @@ void main() {
 
     final contesto = tester.element(find.byType(_BarraDiProva));
     for (var i = 0; i < 3; i++) {
-      await RegiaDelCammino.dopoUnGesto(contesto, 'stesa');
+      // **IL VISO, ordine CP voce 01.** Dopo la scala un gradino matura
+      // solo se e' il prossimo del suo sentiero, e da un Cammino appena
+      // nato i prossimi sono i tre gradini di testa, che sono pezzi
+      // dell'identita'. `aur_1` e' la Costellazione del Viso letta: e' il
+      // gesto piu' semplice che accende davvero, e **non dipende dal
+      // cielo**, quindi questa prova non e' piu' legata al giorno.
+      await RegiaDelCammino.dopoUnGesto(contesto, 'viso');
       // **NON `pumpAndSettle`**: la celebrazione porta animazioni che non si
       // assestano mai, e la prova cadrebbe per un tempo scaduto invece che per
       // il saldo. Si avanza a passi dichiarati, come per l'attesa di Medora.

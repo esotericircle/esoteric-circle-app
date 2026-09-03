@@ -28,8 +28,15 @@ void main() {
       'LA COSTELLAZIONE NASCENTE': 'La costellazione nascente',
       // **Chi NON e' tutto maiuscolo si lascia com'e'**: li' le maiuscole
       // interne sono volute, e "abbassarle" sarebbe l'errore opposto.
-      'Il tuo numero': 'Il tuo numero',
-      "La tua carta e' nata": "La tua carta e' nata",
+      //
+      // **I DUE NOMI SONO CAMBIATI, ordine CP voce 05.** Erano "Il tuo
+      // numero" e "La tua carta e' nata", presi dallo screenshot del
+      // fondatore: la revisione F non li ha piu', e la guardia dei nomi
+      // vecchi li accusava di essere copie sopravvissute. Al loro posto due
+      // nomi VIVI con le stesse due forme, maiuscole interne volute e
+      // apostrofo, cosi' la prova continua a misurare la stessa cosa.
+      'Il tuo Animale Guida': 'Il tuo Animale Guida',
+      "L'ora fedele": "L'ora fedele",
     };
     final letti = <String>[];
     casi.forEach((dato, atteso) {

@@ -164,8 +164,20 @@ void main() {
     expect(Sentieri.raggiungibili.length,
         Sentieri.tuttiITraguardi.length - dormienti,
         reason: 'il raggiungibile non e\' il totale meno i dormienti');
-    expect(dormienti, greaterThan(0),
-        reason: 'se non ci fossero dormienti questa distinzione sarebbe '
-            'inutile, e allora l\'anello potrebbe tornare a contare i 165');
+    // **ZERO DORMIENTI, ordine CP voce 06, e la riga si rovescia.**
+    // Fino alla revisione E il corpus ne aveva cinquantuno, e la
+    // distinzione fra scritti e raggiungibili serviva perche' l'anello
+    // non promettesse l'irraggiungibile. La revisione F non ne ha,
+    // quindi oggi le due cifre coincidono.
+    //
+    // **La porta unica resta, e resta sorvegliata**: la riga qui sopra
+    // pretende che `raggiungibili` sia sempre il totale meno i
+    // dormienti, qualunque sia il numero. Pretendere che i dormienti
+    // siano piu' di zero vorrebbe dire pretendere che il Cammino abbia
+    // gradini irraggiungibili, che e' l'opposto di cio' che questa casa
+    // vuole.
+    // ignore: avoid_print
+    print('ORDINE CP VOCE 06: dormienti $dormienti, e le due cifre '
+        '${dormienti == 0 ? "coincidono" : "differiscono"}');
   });
 }

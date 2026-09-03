@@ -21,11 +21,16 @@ import 'sorgenti_di_lib.dart';
 /// mattine di seguito", che e' un nome vivo, e cercare pezzi avrebbe accusato
 /// il codice giusto.
 void main() {
+  /// **DUE FORME, perche' il corpus ha cambiato forma.** Ordine CP voce 05:
+  /// la revisione F elenca i gradini sotto `gradini` invece che sotto `voci`,
+  /// e scrive gli accenti veri nel dato invece di lasciarli al generatore.
+  /// Leggere la sola forma vecchia avrebbe dato un insieme VUOTO, e la prova
+  /// sarebbe stata verde per non aver confrontato niente.
   Set<String> nomiDi(String file) {
     final d = jsonDecode(File(file).readAsStringSync()) as Map<String, dynamic>;
     return {
       for (final s in d['sentieri'] as List)
-        for (final v in (s as Map)['voci'] as List)
+        for (final v in ((s as Map)['voci'] ?? s['gradini']) as List)
           conGliAccenti((v as Map)['nome'] as String),
     };
   }
@@ -38,7 +43,15 @@ void main() {
     // "Cinque mattine", "Trenta mattine", "Sessanta mattine": non e' un nome
     // vecchio sopravvissuto, e' il nome che il fondatore ha chiesto. Leggendo
     // la revisione C questa prova accusava il corpus vivo di essere vecchio.
-    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_E.json');
+    // **IL CORPUS VIVO E' LA REVISIONE F**, ordine CP voce 05. Puntando alla
+    // E questa prova accusava "Tre meditazioni", che e' un nome della F.
+    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_F.json')
+      // **ANCHE LE SEZIONI SONO NOMI VIVI**, ordine CP voce 05. Le cinque
+      // sezioni di ogni sentiero, "MALKUTH, IL REGNO" e le altre, nella
+      // revisione B erano voci col loro nome e nella F sono il titolo della
+      // fascia: sono le stesse parole, vive nello stesso posto, e accusarle
+      // di essere nomi morti sarebbe accusare il corpus di oggi.
+      ..addAll(Sentieri.tuttiITraguardi.map((t) => t.sezioneDelCammino));
     final vecchi = nomiDi('docs/corpus/Traguardi_165_Revisione_B.json')
         .where((n) => !nuovi.contains(n))
         .toList();
@@ -59,13 +72,25 @@ void main() {
       // questa riga la prova accusava una frase di astronomia di essere il
       // nome di un gradino morto.
       if (f.path.endsWith('lingua_degli_eventi.dart')) continue;
-      final testo = f.readAsStringSync();
+      // **UN NOME CITATO IN UN COMMENTO E' UNA CITAZIONE, NON UNA COPIA.**
+      // Ordine CP voce 05. Il difetto che questa guardia caccia e' un nome
+      // ricopiato in una STRINGA che finisce a video: quello diventa una
+      // seconda verita'. Un nome dentro un commento e' il contrario: e' la
+      // memoria di com'era, ed e' la cosa che questa casa vuole conservare.
+      // Due commenti citavano le parole del fondatore sul vecchio corpus, e
+      // la guardia li accusava di essere copie.
+      final righe = f.readAsLinesSync();
       for (final nome in vecchi) {
-        // Il nome INTERO, fra apici: e' cosi' che un nome finisce in una
-        // stringa di codice, e cosi' si distingue da una sottostringa di un
-        // nome vivo.
-        if (testo.contains("'$nome'") || testo.contains('"$nome"')) {
-          colpe.add('${f.path}: "$nome"');
+        for (final riga in righe) {
+          final nuda = riga.trimLeft();
+          if (nuda.startsWith('//')) continue;
+          // Il nome INTERO, fra apici: e' cosi' che un nome finisce in una
+          // stringa di codice, e cosi' si distingue da una sottostringa di un
+          // nome vivo.
+          if (riga.contains("'$nome'") || riga.contains('"$nome"')) {
+            colpe.add('${f.path}: "$nome"');
+            break;
+          }
         }
       }
     }
