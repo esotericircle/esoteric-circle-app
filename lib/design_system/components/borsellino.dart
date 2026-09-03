@@ -239,6 +239,7 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
+          enableFeedback: false,
           key: const Key('borsellino'),
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           onTap: widget.suTocco ??

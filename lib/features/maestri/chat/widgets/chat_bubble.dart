@@ -613,6 +613,7 @@ class _IntentButton extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('intent_open_$intentId'),
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

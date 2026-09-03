@@ -222,8 +222,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       Tier.tier3 => null,
     };
     if (dopo == null) return '';
-    final quante =
-        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, dopo);
+    final quante = PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, dopo);
     if (quante == null) return '';
     return ': dal livello successivo le gettate del giorno sono $quante';
   }

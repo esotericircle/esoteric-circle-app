@@ -254,6 +254,7 @@ class _MeaningPanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
+            enableFeedback: false,
             key: const Key('seal_meaning_toggle'),
             onTap: onToggle,
             child: Row(
@@ -381,6 +382,7 @@ class _ShareButton extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: const Key('seal_share'),
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

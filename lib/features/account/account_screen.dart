@@ -1197,6 +1197,7 @@ class _AccountTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('account_${entry.id}'),
         onTap: () => _open(context),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),

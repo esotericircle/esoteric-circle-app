@@ -318,6 +318,7 @@ class _CycleBox extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('cycle_${cycle.name}'),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         onTap: onTap,
@@ -582,6 +583,7 @@ class _ChoosePlanButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          enableFeedback: false,
           key: Key('choose_${plan.tier.name}'),
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           onTap: () => _openSheet(context),

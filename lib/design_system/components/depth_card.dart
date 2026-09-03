@@ -129,6 +129,7 @@ class DepthCard extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: radius,
         child: InkWell(
+          enableFeedback: false,
           borderRadius: radius,
           splashColor: palette.glow.withValues(alpha: 0.18),
           highlightColor: ColorTokens.glassTint,

@@ -377,6 +377,7 @@ class _ArtSectionBox extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('art_section_header_$_slug'),
         onTap: onToggleSection,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -395,6 +396,7 @@ class _ArtSectionBox extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('art_soon_toggle_$_slug'),
         onTap: onToggleSoon,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -490,6 +492,7 @@ class CircleArtTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('other_art_${art.id}'),
         onTap: () => _open(context),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),

@@ -11,6 +11,7 @@ import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -144,6 +145,84 @@ void main() {
     await tester.pump();
     expect(find.byKey(const Key('eos_in_volo_0')), findsNothing,
         reason: 'le scintille sono rimaste a schermo dopo il volo');
+  });
+
+  testWidgets('senza borsellino a schermo le monete volano lo stesso',
+      (tester) async {
+    // **IL DIFETTO DEL RILANCIO DELL'ORDINE CQ**, 3 settembre 2026, parole
+    // del fondatore: *"manca l'animazione dei coins che vanno verso il
+    // borsellino."*
+    //
+    // Il volo si fermava quando nessun borsellino dichiarava un riquadro
+    // misurabile, e c'era scritto **meglio niente che un volo verso il
+    // nulla**. Per la scena immersiva era giusto, ma il caso vero e' un
+    // altro: la festa che si chiude, la barra che sta tornando, il
+    // borsellino che in quell'istante non ha ancora un riquadro. **Il suono
+    // usciva e le monete no.**
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+      ],
+      child: MediaQuery(
+        data: MediaQueryData.fromView(tester.view),
+        child: const MaterialApp(
+          home: MaestroScope(child: Scaffold(body: SizedBox.expand())),
+        ),
+      ),
+    ));
+    await tester.pump();
+    expect(DoveStaIlBorsellino.scatola(), isNull,
+        reason: 'c e un borsellino a schermo: la prova non misura il caso '
+            'che voleva misurare');
+    final contesto = tester.element(find.byType(Scaffold));
+    final partito = VoloDegliEos.lancia(contesto, quanti: 8);
+    await tester.pump();
+    final scintille = find.byKey(const Key('eos_in_volo_0'));
+    // ignore: avoid_print
+    print('ORDINE CQ RILANCIO: senza borsellino il volo e partito $partito, '
+        'scintille a schermo ${scintille.evaluate().length}');
+    expect(partito, isTrue,
+        reason: 'senza borsellino a schermo le monete non partono: il suono '
+            'esce e non si vede volare niente, ed e cio che il fondatore ha '
+            'visto');
+    expect(scintille, findsOneWidget,
+        reason: 'il volo dice di essere partito e a schermo non c e nessuna '
+            'scintilla');
+
+    // E arrivano dove il borsellino vive nella barra, in alto a destra.
+    await tester.pump(VoloDegliEos.durata * 0.95);
+    final arrivo = tester.getCenter(scintille);
+    final schermo = tester.getSize(find.byType(MaterialApp));
+    // ignore: avoid_print
+    print('ORDINE CQ RILANCIO: la moneta arriva a ${arrivo.dx.round()},'
+        '${arrivo.dy.round()} su uno schermo ${schermo.width.round()}x'
+        '${schermo.height.round()}');
+    expect(arrivo.dx, greaterThan(schermo.width * 0.6),
+        reason: 'la moneta non arriva nella meta destra: il ripiego non '
+            'punta dove il borsellino vive');
+    expect(arrivo.dy, lessThan(schermo.height * 0.25),
+        reason: 'la moneta non arriva in alto');
+    await tester.pump(VoloDegliEos.durata);
+    await tester.pump();
+  });
+
+  test('il suono delle monete esce piu basso degli altri', () {
+    // **IL VOLUME E' UNA PROPRIETA' DEL SUONO.** Rilancio dell'ordine CQ: il
+    // fondatore sente il tintinnio piu' forte del suo momento. Si misura sul
+    // catalogo, che e' dove il numero vive, e si pretende che sia l unico
+    // abbassato: un abbassamento generale sarebbe un'altra decisione, e
+    // andrebbe presa da lui.
+    final bassi = SuonoDelCerchio.values.where((s) => s.volume < 1.0).toList();
+    // ignore: avoid_print
+    print('ORDINE CQ RILANCIO: suoni che escono piu bassi del pieno '
+        '${bassi.map((s) => "${s.name} ${s.volume}").toList()}');
+    expect(bassi.map((s) => s.name).toList(), ['eos'],
+        reason: 'i suoni abbassati non sono esattamente le monete: o le '
+            'monete escono ancora piene, o e stato abbassato altro senza '
+            'che nessuno lo abbia chiesto');
+    expect(SuonoDelCerchio.eos.volume, lessThan(0.8),
+        reason: 'le monete escono ancora quasi piene');
   });
 
   testWidgets('con Riduci Movimento non vola niente e il numero sale comunque',

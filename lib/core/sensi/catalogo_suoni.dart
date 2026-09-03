@@ -85,7 +85,14 @@ enum SuonoDelCerchio {
 
   /// Gli Eos che arrivano nella borsa. Due secondi interi, e nemmeno
   /// questo si accorcia, per la stessa ragione della festa.
-  eos('eos.mp3', Duration(milliseconds: 2000)),
+  ///
+  /// **ESCE AL SESSANTACINQUE PER CENTO.** Ordine CQ, rilancio del 3
+  /// settembre 2026, decisione del fondatore: il tintinnio delle monete e'
+  /// piu' forte del suo momento. E' l'unico dei tredici che non esce pieno,
+  /// e la ragione e' che accompagna un'animazione invece di annunciare un
+  /// fatto: un accompagnamento che copre cio' che accompagna e' un
+  /// accompagnamento sbagliato.
+  eos('eos.mp3', Duration(milliseconds: 2000), volume: 0.65),
 
   /// Il sigillo di ceralacca di un ricordo custodito. Quattro decimi di
   /// secondo: e' il piu' breve dei tredici, e sui file di origine era
@@ -105,13 +112,32 @@ enum SuonoDelCerchio {
   /// gli 8,2 del file di origine.
   respiroFuori('respiro_fuori.mp3', Duration(milliseconds: 6847));
 
-  const SuonoDelCerchio(this.file, this.durataAttesa);
+  const SuonoDelCerchio(this.file, this.durataAttesa, {this.volume = 1.0});
 
   /// Il nome del file atteso dentro `assets/audio/`.
   final String file;
 
   /// Quanto dovrebbe durare, per chi sceglie l'asset.
   final Duration durataAttesa;
+
+  /// **QUANTO FORTE ESCE, E LO DICHIARA IL SUONO.**
+  /// Ordine CQ, rilancio del 3 settembre 2026.
+  ///
+  /// **Il fatto, parole del fondatore:** *"l'effetto audio bisogna ridurre un
+  /// po' il volume"*, detto delle monete.
+  ///
+  /// **Sta nel catalogo e non nel motore**, per la stessa ragione per cui ci
+  /// sta la durata: e' una proprieta' del suono, non del lettore. Un
+  /// abbassamento scritto dentro il motore varrebbe per tutti e tredici, e
+  /// per abbassarne uno solo bisognerebbe scrivere un caso speciale in un
+  /// posto dove i suoni non hanno un nome.
+  ///
+  /// **Le normalizzazioni dell'ordine CN restano intere.** Li' i tredici file
+  /// sono stati portati alla stessa forza misurata in LUFS, cioe' resi
+  /// confrontabili fra loro; questo numero e' una decisione sopra quella
+  /// misura, per un suono che il fondatore sente troppo forte nel suo
+  /// momento. Uno non sostituisce l'altra.
+  final double volume;
 
   /// Il percorso completo dell'asset.
   String get percorso => 'audio/$file';

@@ -223,6 +223,7 @@ class SettingsScreen extends StatelessWidget {
               DepthCard(
                 raised: true,
                 child: InkWell(
+                  enableFeedback: false,
                   key: const Key('impostazioni_account'),
                   onTap: () =>
                       Navigator.of(context).push(AccountScreen.route()),
@@ -304,6 +305,7 @@ class _PlanTile extends StatelessWidget {
     final tier = context.watch<EntitlementService>().tier;
     final plan = PlanCatalog.forTier(tier);
     return InkWell(
+      enableFeedback: false,
       key: const Key('settings_plans'),
       borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
       onTap: () => Navigator.of(context).push(PricingScreen.route()),

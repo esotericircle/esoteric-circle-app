@@ -328,6 +328,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _daCongedare = null;
     await _salva();
   }
+
   bool eStatoCondiviso(String id) => _condivisi.contains(id);
 
   /// Quanti giorni sono passati dal primo giorno nel Cerchio.
@@ -805,9 +806,8 @@ class DiarioDelCammino extends ChangeNotifier {
     for (final gesto in gesti) {
       final suoi = _giorniPerRito[gesto];
       if (suoi == null || suoi.isEmpty) return 0;
-      insieme = insieme == null
-          ? suoi.toSet()
-          : (insieme..retainAll(suoi.toSet()));
+      insieme =
+          insieme == null ? suoi.toSet() : (insieme..retainAll(suoi.toSet()));
       if (insieme.isEmpty) return 0;
     }
     return insieme!.length;

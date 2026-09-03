@@ -1924,6 +1924,7 @@ class _EnterDomainButton extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: const Key('santuario_enter_domain'),
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

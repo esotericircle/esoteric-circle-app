@@ -1244,6 +1244,7 @@ class _Cta extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
+            enableFeedback: false,
             key: const Key('onboarding_continue'),
             onTap: enabled ? onTap : null,
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
@@ -1610,6 +1611,7 @@ class _PlaceField extends StatelessWidget {
                 children: [
                   for (final c in results)
                     InkWell(
+                      enableFeedback: false,
                       // La chiave porta anche l'area: Newcastle esiste in Australia e in
                       // Sudafrica, e due chiavi uguali in una lista sono uno
                       // schianto (Duplicate keys found), non un dettaglio.
@@ -1714,6 +1716,7 @@ class _VocativoChoice extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('vocativo_$keyId'),
         onTap: () => onChanged(form),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

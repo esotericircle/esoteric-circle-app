@@ -683,8 +683,8 @@ class _DomandaScrittaState extends State<_DomandaScritta> {
             maxLines: 2,
             minLines: 1,
             textCapitalization: TextCapitalization.sentences,
-            style: TypographyTokens.corpo().copyWith(
-                color: ColorTokens.textPrimary),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
               isDense: true,
               border: InputBorder.none,

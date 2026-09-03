@@ -1505,7 +1505,9 @@ class _PresenzaARiposo extends StatelessWidget {
         // meno cio' che sta sopra e sotto la lista.
         final schermo = MediaQuery.sizeOf(context).height;
         final alta = schermo * quotaDelloSchermo;
-        if (!alta.isFinite || alta < quandoCiSta) return const SizedBox.shrink();
+        if (!alta.isFinite || alta < quandoCiSta) {
+          return const SizedBox.shrink();
+        }
         // **CENTO PUNTI E NON PIU', E IL TETTO LO DA' LA TELA DELL'AVATAR.**
         // Ordine CO voce 20, coda del 3 settembre 2026.
         //

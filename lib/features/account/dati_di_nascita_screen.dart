@@ -437,6 +437,7 @@ class _Riga extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      enableFeedback: false,
       key: Key(chiave),
       onTap: onTap,
       borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),

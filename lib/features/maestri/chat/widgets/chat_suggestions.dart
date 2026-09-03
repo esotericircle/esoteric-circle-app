@@ -325,6 +325,7 @@ class _QuestionRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return InkWell(
+      enableFeedback: false,
       onTap: onTap,
       borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
       child: Padding(

@@ -1224,7 +1224,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // l'INVITO, cioe' la riga che chiedeva di farlo.
           const SizedBox(height: SpacingTokens.md),
           Center(
-            child: Text('${_e.rune.name.toUpperCase()}  ·  '
+            child: Text(
+                '${_e.rune.name.toUpperCase()}  ·  '
                 '${_e.rune.keyword.toUpperCase()}',
                 key: const Key('sunset_nome'),
                 textAlign: TextAlign.center,
@@ -1254,8 +1255,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // bisogno del nome scritto grande per riconoscerla.
           Center(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
               child: Text(
                 _e.inOmbra && _e.rune.shadow.isNotEmpty
                     ? _e.rune.shadow

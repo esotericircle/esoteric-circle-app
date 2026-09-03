@@ -125,3 +125,33 @@ ROSSA     il testo comincia da un numero suo
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
 
+LA PROVA DEL ROSSO DELLA GUARDIA DEI SUONI NON SCELTI
+Ordine CQ voce 1.08, Regola A.
+========================================================================
+ROSSA     il tema riaccende il ritorno su una famiglia  
+          attesa: il tema spegne il ritorno di sistema su tutte le famiglie di comandi
+          caduta: il tema spegne il ritorno di sistema su tutte le famiglie di comandi
+ROSSA     un InkWell perde il suo interruttore          
+          attesa: ogni InkWell scritto a mano porta il suo interruttore
+          caduta: ogni InkWell scritto a mano porta il suo interruttore
+ROSSA     una schermata chiama la piattaforma per vibrare
+          attesa: nessuna schermata chiama la piattaforma per suonare o vibrare
+          caduta: nessuna schermata chiama la piattaforma per suonare o vibrare
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLE MONETE
+Ordine CQ, rilancio, Regola A.
+========================================================================
+ROSSA     il volo torna a fermarsi senza borsellino     
+          attesa: senza borsellino a schermo le monete volano lo stesso
+          caduta: senza borsellino a schermo le monete volano lo stesso
+ROSSA     le monete tornano a suonare piene             
+          attesa: il suono delle monete esce piu basso degli altri
+          caduta: il suono delle monete esce piu basso degli altri
+ROSSA     si abbassa anche un altro suono               
+          attesa: il suono delle monete esce piu basso degli altri
+          caduta: il suono delle monete esce piu basso degli altri
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+

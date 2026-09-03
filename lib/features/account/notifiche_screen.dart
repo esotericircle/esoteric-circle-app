@@ -420,6 +420,7 @@ class _UnAppuntamento extends StatelessWidget {
           // l'Arcano alle nove deve poter mettere l'ora prima di accendere,
           // invece di accendere alle tredici e correre a cambiarla.
           InkWell(
+            enableFeedback: false,
             key: Key('notifiche_tocco_ora_${dono.name}'),
             onTap: attivabile ? () => suOra() : null,
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),

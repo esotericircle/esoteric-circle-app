@@ -358,6 +358,7 @@ class _BarItem extends StatelessWidget {
       flex: peso,
       fit: FlexFit.loose,
       child: InkWell(
+        enableFeedback: false,
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         // **QUATTRO E NON PIU\' OTTO, ordine CF voce 03.** Il cerchio resta

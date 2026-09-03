@@ -185,6 +185,7 @@ class _SourceButton extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         child: Container(
@@ -225,6 +226,7 @@ class _Action extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         child: Container(

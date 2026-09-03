@@ -89,10 +89,15 @@ class MotoreAudio implements MotoreSonoro {
   ///
   /// Nulla quando il suono non parte o la durata non si legge: chi chiama ha il
   /// proprio ripiego, e il rito continua lo stesso.
-  Future<Duration?> effetto(String percorsoAsset) async {
+  Future<Duration?> effetto(String percorsoAsset,
+      {double volume = 1.0}) async {
     if (senzaLettori) return null;
     try {
       await _preparaGliEffetti();
+      // Il volume di questo suono, dichiarato nel catalogo. Si imposta prima
+      // di suonare e resta finche' un altro suono non lo cambia: il lettore
+      // degli effetti e' uno solo e li suona uno alla volta.
+      await _effetti.setVolume(volume.clamp(0.0, 1.0));
       // **NON SI ASPETTA LA CONFERMA DEL LETTORE, ed e' lo STESSO difetto
       // della build 2218.** Ordine CQ voce 1.04, 3 settembre 2026.
       //

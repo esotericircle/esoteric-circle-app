@@ -927,6 +927,7 @@ class _InterrogaIlCielo extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          enableFeedback: false,
           key: const Key('oroscopo_interroga'),
           onTap: onTap,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

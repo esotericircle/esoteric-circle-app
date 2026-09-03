@@ -62,6 +62,7 @@ class ArtCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+        enableFeedback: false,
         key: Key('art_${art.id}'),
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),

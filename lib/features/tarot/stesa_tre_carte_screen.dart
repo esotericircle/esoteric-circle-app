@@ -801,7 +801,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // che e' la maggioranza delle volte.
     unawaited(FiloDelGiorno.segnaLaDomanda(
         _setup.domandaScritta ?? _reading.domanda, DateTime.now()));
-  
+
     // IL FILO, ordine BN voce 08: dice che le tre carte sono una lettura sola,
     // e lo dice PRIMA che Medora cominci a pensare.
     await _corriIlFilo();
@@ -1664,8 +1664,8 @@ class _Slot extends StatelessWidget {
                       // con cui la bolla di questa stessa carta scrive
                       // "LA CHIAVE" piu' in basso: due posti che dicono
                       // la stessa cosa adesso la dicono nello stesso modo.
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.goldSoft, letterSpacing: 1.1)),
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.1)),
                 )
               : null,
         ),
@@ -2161,8 +2161,7 @@ class BollaDellaPosizione extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: Text(
-                              letta.drawn.position.label.toUpperCase(),
+                          child: Text(letta.drawn.position.label.toUpperCase(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TypographyTokens.etichetta().copyWith(

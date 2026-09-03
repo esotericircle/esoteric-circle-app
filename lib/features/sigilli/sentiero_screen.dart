@@ -444,6 +444,7 @@ class GradinoDelSentiero extends StatelessWidget {
                 '${Sentieri.quantiInTutto(sentiero)}';
 
     return InkWell(
+      enableFeedback: false,
       key: Key('gradino_${traguardo.id}'),
       // OGNI SIGILLO ACCESO E' TOCCABILE, voce 2e: riapre la sua card e la si
       // puo' condividere anche settimane dopo, incassando il bonus rimasto in

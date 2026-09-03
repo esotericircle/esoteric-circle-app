@@ -369,6 +369,7 @@ class _BaseToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      enableFeedback: false,
       key: const Key('gift_base_toggle'),
       onTap: onTap,
       borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),

@@ -1859,6 +1859,7 @@ class _FormatOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      enableFeedback: false,
       key: itemKey,
       borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
       onTap: onTap,

@@ -95,7 +95,7 @@ class PaletteSensoriale {
     // discesa dura 220 millisecondi, cioe' meno del piu' breve dei
     // tredici suoni, quindi non ritarda niente di percepibile.
     unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(suono.durataAttesa));
-    await _motore.effetto(suono.percorso);
+    await _motore.effetto(suono.percorso, volume: suono.volume);
   }
 
   /// Azzera la memoria dei suoni emessi una volta sola. Serve alle prove.

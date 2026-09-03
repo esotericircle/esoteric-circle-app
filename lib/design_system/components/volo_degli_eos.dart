@@ -31,6 +31,13 @@ class VoloDegliEos {
   /// in un punto solo.
   static const Duration durata = Duration(milliseconds: 900);
 
+  /// **DOVE ARRIVANO LE MONETE QUANDO NESSUN BORSELLINO E' MISURABILE**,
+  /// contato dal bordo destro e dall'alto. E' il posto in cui il segno del
+  /// borsellino vive nella barra: non e' una seconda verita' sulla sua
+  /// posizione, e' il ripiego per l'istante in cui la barra non e' ancora
+  /// montata.
+  static const Offset angoloDelBorsellino = Offset(48, 40);
+
   /// QUANTE SCINTILLE PARTONO, al massimo.
   ///
   /// Non una per Eos: un traguardo grande ne porta trenta, e trenta scintille
@@ -67,8 +74,24 @@ class VoloDegliEos {
     if (MediaQuery.maybeOf(context)?.disableAnimations == true) return false;
     final overlay = Overlay.maybeOf(context, rootOverlay: true);
     if (overlay == null) return false;
-    final arrivo = DoveStaIlBorsellino.scatola()?.center;
-    if (arrivo == null) return false;
+    // **UN VOLO SENZA BORSELLINO A SCHERMO NON SI FERMA PIU'.**
+    // Ordine CQ, rilancio del 3 settembre 2026.
+    //
+    // **Il fatto, parole del fondatore:** *"manca l'animazione dei coins che
+    // vanno verso il borsellino."*
+    //
+    // Qui c'era scritto **meglio niente che un volo verso il nulla**, e per
+    // la scena immersiva era giusto. Ma il caso vero non e' quello: e' la
+    // festa che si chiude, la barra che sta tornando, e il borsellino che in
+    // quell'istante non ha ancora un riquadro misurabile. **Il suono usciva
+    // e le monete no**, cioe' esattamente il difetto che l'ordine CO voce 19
+    // aveva chiuso nel verso opposto, tornato dall'altro lato.
+    //
+    // Il ripiego non e' "il nulla": e' **l'angolo in alto a destra**, che e'
+    // dove il borsellino vive in ogni schermata che ce l'ha. Le monete
+    // arrivano dove la persona guardera' fra un istante, invece di non
+    // partire affatto.
+    final scatola = DoveStaIlBorsellino.scatola();
     // **LA PARTENZA E' IL CENTRO DELLA SUPERFICIE SU CUI SI VOLA, e non quello
     // che dice MediaQuery.** Sono due cose diverse: l'Overlay ha le sue
     // coordinate, e la misura dello schermo puo' anche essere vuota, come in una
@@ -81,6 +104,8 @@ class VoloDegliEos {
         : MediaQuery.sizeOf(context);
     if (schermo.isEmpty) return false;
     final partenza = Offset(schermo.width / 2, schermo.height / 2);
+    final arrivo = scatola?.center ??
+        Offset(schermo.width - angoloDelBorsellino.dx, angoloDelBorsellino.dy);
 
     late OverlayEntry voce;
     voce = OverlayEntry(

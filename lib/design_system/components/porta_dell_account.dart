@@ -41,6 +41,7 @@ class PortaDellAccount extends StatelessWidget {
         color: Colors.transparent,
         shape: const CircleBorder(),
         child: InkWell(
+          enableFeedback: false,
           key: const Key('porta_dell_account'),
           customBorder: const CircleBorder(),
           onTap: suTocco ??

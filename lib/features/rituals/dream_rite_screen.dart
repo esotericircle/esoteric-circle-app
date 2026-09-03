@@ -311,7 +311,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     return Offset(_tilt.x, _tilt.y) * 320 + _panDito;
   }
 
-
   @override
   Widget build(BuildContext context) {
     // **IL SALUTO E' TUO, non solo della notte.** Ordine CE voce 13: qui
@@ -501,13 +500,13 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   List<Widget> _nelBuio() => [
         Text(DreamRiteCorpus.invitoNebbia(_maestro),
             key: const Key('dream_invito'),
-        // **DICIOTTO, e per la strada dei ruoli invece che a mano.**
-        // Ordine CO voce 13, 3 settembre 2026. Questa riga chiamava
-        // `body(size: 16)` direttamente, cioe' scavalcava i ruoli
-        // dichiarati e si scriveva la propria misura: fuori dalla scala
-        // non c'e' nessuno a dire che sedici e' il pavimento e non il
-        // traguardo. E' l'invito che apre il Sigillo del Sogno, la prima
-        // cosa che si legge in quel rito.
+            // **DICIOTTO, e per la strada dei ruoli invece che a mano.**
+            // Ordine CO voce 13, 3 settembre 2026. Questa riga chiamava
+            // `body(size: 16)` direttamente, cioe' scavalcava i ruoli
+            // dichiarati e si scriveva la propria misura: fuori dalla scala
+            // non c'e' nessuno a dire che sedici e' il pavimento e non il
+            // traguardo. E' l'invito che apre il Sigillo del Sogno, la prima
+            // cosa che si legge in quel rito.
             textAlign: TextAlign.center,
             style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),

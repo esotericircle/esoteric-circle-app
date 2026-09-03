@@ -846,8 +846,7 @@ class MemoriaDelCerchio extends CondizioneDelTraguardo {
   Set<String> get gestiNominati => const <String>{};
 
   @override
-  int get costoInGiorni =>
-      dopoGiorni > quanti ? dopoGiorni : quanti;
+  int get costoInGiorni => dopoGiorni > quanti ? dopoGiorni : quanti;
 
   @override
   bool raggiunto(StatoDelCammino stato) {

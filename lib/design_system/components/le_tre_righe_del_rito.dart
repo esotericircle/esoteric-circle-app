@@ -144,8 +144,8 @@ class _Riga extends StatelessWidget {
           // si legge esiste nella scala da sempre e si chiama `lettura`.
           TextSpan(
             text: '$etichetta. ',
-            style: TypographyTokens.lettura(weight: 600)
-                .copyWith(color: accento),
+            style:
+                TypographyTokens.lettura(weight: 600).copyWith(color: accento),
           ),
           TextSpan(
             text: testo,

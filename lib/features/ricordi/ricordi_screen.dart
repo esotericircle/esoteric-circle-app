@@ -457,6 +457,7 @@ class _CasellaDelMese extends StatelessWidget {
     // leggere lo zero.
     final vuoto = riassunto.vuoto;
     return InkWell(
+      enableFeedback: false,
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
@@ -1106,6 +1107,7 @@ class _CartaCustodita extends StatelessWidget {
     };
     final immagini = ArtworkDelRicordo.di(custodito);
     return InkWell(
+      enableFeedback: false,
       key: Key('ricordi_carta_${custodito.chiave}'),
       onTap: () =>
           Navigator.of(context).push(RicordoApertoScreen.route(custodito)),

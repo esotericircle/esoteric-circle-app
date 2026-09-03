@@ -40,6 +40,7 @@ class RigaCheApre extends StatelessWidget {
     final vivo = onTap != null;
     final colore = vivo ? palette.goldSoft : ColorTokens.textSecondary;
     return InkWell(
+      enableFeedback: false,
       key: itemKey,
       onTap: onTap,
       child: Padding(

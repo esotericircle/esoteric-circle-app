@@ -21,6 +21,7 @@ class PermessiDiSistema extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      enableFeedback: false,
       key: const Key('settings_permessi'),
       borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
       // Geolocator apre le impostazioni DELL'APP, non quelle della posizione:
