@@ -7,6 +7,7 @@ import '../astro/zodiac.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 import 'rito_alba_corpus.dart';
+import 'risposta_del_dono.dart';
 
 /// DA DOVE VENGONO LE COORDINATE dell'alba.
 ///
@@ -205,6 +206,7 @@ class RitoDiOggi {
   const RitoDiOggi({
     required this.maestro,
     required this.forma,
+    required this.risposta,
     required this.gesto,
     required this.viaTattile,
     required this.respiro,
@@ -219,6 +221,19 @@ class RitoDiOggi {
 
   /// Il nome della forma da cui nasce.
   final String forma;
+
+  /// **LE PRIME DUE COSE CHE SI LEGGONO, ordine CO voce 17.**
+  ///
+  /// Un titolo che e' gia' una risposta, e la risposta vera. Nascono dal fatto
+  /// del cielo che questo rito nomina e dalla lente del Maestro che lo porge:
+  /// nessuna delle due frasi e' generata, tutte e due vengono da un elenco
+  /// chiuso di dodici, scelto dal cielo di stamattina.
+  ///
+  /// **Stanno nel rito e non nella schermata**, perche' una risposta scritta
+  /// dentro la scheda sarebbe la sesta porta sullo stesso contenuto: il Dono
+  /// dell'Alba e il Soffio del Destino montano la stessa scheda, e i cinque
+  /// Doni la stessa gerarchia.
+  final RispostaDelDono risposta;
 
   /// Il gesto, col dato del cielo gia' dentro.
   final String gesto;
@@ -411,6 +426,18 @@ class RitoAlba {
     return RitoDiOggi(
       maestro: maestro,
       forma: forma.nome,
+      // **LA RISPOSTA NASCE DAL FATTO CHE IL GESTO NOMINA**, non da un quarto
+      // seme. Ordine CO voce 17: e' la stessa lezione della voce AS.06, dove
+      // la parola del giorno si estraeva per conto suo e usciva un rito che
+      // diceva "conta le ore che mancano a stasera" con la parola "Ombra".
+      // Il fatto del cielo e' uno solo per rito, ed e' quello: la risposta lo
+      // nomina, il gesto lo usa, la parola gli appartiene.
+      risposta: RispostaDelDono.perIlRisveglio(
+        maestro: maestro,
+        fatto: gesto.dato,
+        parola: parola.parola,
+        valoreDelFatto: cielo.valoreDi(gesto.dato),
+      ),
       gesto: _riempi(gesto.testo, cielo),
       viaTattile: gesto.viaTattile,
       // IL RESPIRO SI LEGGE IN PAROLE, e le cifre in coda se ne vanno.

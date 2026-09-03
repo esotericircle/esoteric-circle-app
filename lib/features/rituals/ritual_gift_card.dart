@@ -13,6 +13,7 @@ import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 // I COLORI NON VIVONO PIU' QUI, E ADESSO NEMMENO UNO. Ordine P voce 12, poi
 // ordine BB voce 09.
@@ -137,8 +138,39 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               giorno: widget.giorno,
               superficie: abito.superficiePeggiore,
             ),
+            // **PRIMO E SECONDO LIVELLO: IL TITOLO CHE E' GIA' UNA RISPOSTA,
+            // E LA RISPOSTA VERA.** Ordine CO voce 17, 3 settembre 2026.
+            //
+            // **Prima qui si apriva con "Cosa fai".** Cioe' con un'istruzione:
+            // chi apriva il Dono doveva compiere il gesto per scoprire che
+            // cosa il giorno gli stesse dicendo. Un dono che chiede di
+            // lavorare prima di rispondere non e' un dono, e' un compito, ed
+            // e' il difetto che questa voce chiude.
+            //
+            // La gerarchia dettata dal fondatore, per esteso: un titolo
+            // diretto che sia gia' una risposta; la risposta vera; il gesto
+            // col suo scopo; la parola del giorno, spiegata; la fonte, breve
+            // e in fondo. **I punti dal terzo al quinto c'erano gia' ed erano
+            // scritti bene: quelli che mancavano sono i primi due.**
+            if (gift.rito != null) ...[
+              Text(
+                gift.rito!.risposta.titolo,
+                key: const Key('alba_titolo_risposta'),
+                style: TypographyTokens.titoloSezione()
+                    .copyWith(color: abito.inchiostro, height: 1.25),
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              ParagrafiDiLettura(
+                testo: gift.rito!.risposta.risposta,
+                key: const Key('alba_risposta'),
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: abito.inchiostro),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+            ],
             // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
-            // cosa ti resta. In testa, prima di tutto il resto.
+            // cosa ti resta. **Adesso sono il TERZO livello**, il gesto col
+            // suo scopo, e stanno dopo la risposta invece che al posto suo.
             LeTreRigheDelRito(
               rito: widget.dono,
               inchiostro: abito.inchiostro,
