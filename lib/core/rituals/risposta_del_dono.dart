@@ -139,7 +139,7 @@ class RispostaDelDono {
         'Il sole è sorto alle {valore}: il corpo lo sa prima della testa, '
             'la luce del mattino è il segnale con cui si rimette in orario da '
             'solo. Non serve fare niente di più che riceverla. Quello che '
-            'senti nella prima mezz\'ora è il tono su cui il resto si accorda.',
+            'senti nella prima mezza ora è il tono su cui il resto si accorda.',
     (Maestro.aura, DatoDelCielo.segnoLunare):
         'La Luna è in {valore}: la Luna è la parte di cielo che si occupa '
             'di come ti senti, non di cosa fai. Oggi la tua energia ha una '

@@ -3435,6 +3435,17 @@ void main() {
     // Il ventaglio ne mostra una quindicina attorno al centro, quindi chiedere
     // la carta 20 vuol dire chiedere una carta che non e' montata: la prima
     // stesura cascava li'.
+    // **PRIMA SI PREME PER COMINCIARE. Ordine CO voce 07**, 3 settembre 2026:
+    // il fondatore ha chiesto un pulsante esplicito, e il ventaglio non
+    // risponde piu' a chi non ha cominciato.
+    final inizia = find.byKey(const Key('stesa_inizia'));
+    if (tester.widgetList(inizia).isNotEmpty) {
+      await tester.ensureVisible(inizia);
+      await tester.pump();
+      await tester.tap(inizia, warnIfMissed: false);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+    }
     for (final indice in const [38, 36]) {
       await tester.tap(find.byKey(Key('stesa_fan_$indice')));
       await tester.pump();

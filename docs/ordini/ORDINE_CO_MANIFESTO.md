@@ -331,6 +331,42 @@ L'ordine dice che le decisioni le prendo io e le motivo per iscritto.
 
 ---
 
+---
+
+## CIO' CHE HA TROVATO LA SUITE INTERA, E CHE LE PROVE MIRATE NON AVEVANO VISTO
+
+Le prove mirate su ogni voce erano tutte verdi. La suite intera ne ha trovate
+**sei**, ed e' esattamente il suo mestiere: due erano rossi gia' dichiarati e
+accettati, quattro erano difetti veri.
+
+**La presenza della chat disegnava oltre la tela.** Con l'anello a
+centoquaranta punti l'avatar di Medora finiva a **1750 pixel fisici** contro i
+1700 della sua tela, cioe' ingrandito sopra la propria risoluzione. Non era una
+scelta di gusto sbagliata: `nessuno_disegna_oltre_la_tela` misura i pixel
+fisici e mi ha preso. Cento punti danno 1666 nel caso peggiore, densita' quattro
+compresa.
+
+**Il testo della domanda scritta era un `Text` diretto nel ruolo lettura**, cioe'
+la seconda porta da cui il muro di testo rientra: una domanda a mano puo'
+arrivare a centoquaranta battute. L'ha detto la guardia dei paragrafi.
+
+**Diciannove stringhe dei responsi nuovi violavano la regola di casa sulla
+virgola seguita da "e".** Le ho riscritte tutte.
+
+**Sette guardie pescavano dal ventaglio senza premere il pulsante nuovo.** E'
+il costo dichiarato di CO.07, e la Regola B lo aveva previsto: quattro le ho
+viste rosse prima di lavorare, tre le ha trovate la suite intera.
+
+## E UN DEBITO DELLA REGOLA A, SALDATO
+
+**La guardia di CO.12 l'avevo scritta DOPO la correzione, e non l'avevo mai
+vista rossa.** Una guardia che nasce verde non e' una guardia, e' una speranza,
+e questo registro lo dice da tre ordini. Innestata togliendo la voce in piu'
+dalla lista, verificato col grep che l'innesto fosse entrato, e diventa rossa.
+
+
+---
+
 QUANTE DELLE VENTI VOCI IL FONDATORE PUÒ VERIFICARE CON I PROPRI OCCHI APRENDO
 L'APP, E QUANTE NO.
 

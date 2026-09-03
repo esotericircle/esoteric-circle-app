@@ -206,8 +206,24 @@ void main() {
       // Non e' piu' una riga presa a giro da un elenco: e' una carta degli
       // Arcani Maggiori col suo responso. La pretesa segue il dono nuovo.
       final carta = ArcanoDelGiorno.di(date);
-      expect(find.text(carta.name), findsOneWidget);
-      expect(find.text(carta.uprightSummary), findsOneWidget);
+      // **IL NOME E' SALITO A FARE DA OCCHIELLO. Ordine CO voce 17**, 3
+      // settembre 2026. La gerarchia dettata dal fondatore vuole al primo
+      // posto un titolo che sia gia' una risposta, e "La Ruota della Fortuna"
+      // e' un nome: dice quale carta e' uscita, non che cosa dice oggi. Il
+      // sommario, che una risposta lo e', ha preso il suo posto; il nome sta
+      // sopra in maiuscoletto, dove va cio' che dice DI CHI e' la voce.
+      //
+      // **SI CERCA PER CHIAVE E NON PER TESTO**, e la ragione l'ha detta la
+      // prova stessa: il nome maiuscolo compare DUE volte, una nel mio
+      // occhiello e una nel cartiglio inciso sulla carta, che i tarocchi
+      // riempiono a runtime. Cercare per testo trovava due candidati e non
+      // sapeva distinguerli.
+      final occhiello = tester.widget<Text>(find.byKey(const Key(
+          'arcano_nome')));
+      expect(occhiello.data, carta.name.toUpperCase(),
+          reason: 'il nome della carta non compare piu come occhiello');
+      expect(find.text(carta.uprightSummary), findsOneWidget,
+          reason: 'il sommario, che e la risposta in una frase, non c e piu');
     });
   });
 }

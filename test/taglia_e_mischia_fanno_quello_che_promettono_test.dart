@@ -173,6 +173,16 @@ void _aSchermo() {
     if (mischiando) {
       expect(find.byKey(const Key('stesa_mischia')), findsOneWidget,
           reason: 'il pulsante Mischia non c\'e\': la prova non misura niente');
+      // **SI PORTA IN VISTA PRIMA DI TOCCARLO. Ordine CO voce 07**, 3
+      // settembre 2026: il pulsante "Inizia la lettura" e la riga che dice
+      // come si prosegue occupano una settantina di punti sopra i gesti del
+      // mazzo, e su uno schermo da ottocento punti logici Mischia finisce
+      // sotto la piega. Il widget c'e', e infatti la riga qui sopra lo trova:
+      // e' il TOCCO che cadeva fuori dal riquadro visibile, e cadeva in
+      // silenzio, cioe' il mazzo non si mischiava e la prova leggeva le
+      // stesse tre carte di prima.
+      await tester.ensureVisible(find.byKey(const Key('stesa_mischia')));
+      await tester.pump();
       await tester.tap(find.byKey(const Key('stesa_mischia')));
       await tester.pump();
       await tester.pump(const Duration(seconds: 3));
