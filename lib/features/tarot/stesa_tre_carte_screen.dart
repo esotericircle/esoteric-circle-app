@@ -1422,9 +1422,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                     color: palette.goldSoft.withValues(alpha: 0.85),
                     letterSpacing: 1.2)),
             const SizedBox(height: SpacingTokens.xxs),
-            Text(_setup.domandaScritta!,
+            // **PASSA DA `ParagrafiDiLettura` come ogni testo nel ruolo
+            // lettura**, e non e' una formalita': una domanda scritta a mano
+            // puo' arrivare a centoquaranta battute, cioe' a piu' righe, e un
+            // `Text` diretto nel ruolo di lettura e' la seconda porta da cui
+            // il muro di testo rientra. L'ha detto la guardia dei paragrafi.
+            ParagrafiDiLettura(
+                testo: _setup.domandaScritta!,
                 key: const Key('stesa_domanda_a_video'),
-                style: TypographyTokens.lettura().copyWith(
+                stile: TypographyTokens.lettura().copyWith(
                     color: ColorTokens.textPrimary,
                     fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.md),

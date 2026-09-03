@@ -91,25 +91,25 @@ class RispostaDelDono {
   static const Map<(Maestro, DatoDelCielo), String> _titoli = {
     // --- MEDORA, il tempo e la direzione ---
     (Maestro.medora, DatoDelCielo.oraDellAlba):
-        'Oggi il tuo tempo è già cominciato, e chiede {parola}.',
+        'Il tuo tempo di oggi è già cominciato e chiede {parola}.',
     (Maestro.medora, DatoDelCielo.segnoLunare):
-        'Oggi la direzione te la indica la Luna, e si chiama {parola}.',
+        'Oggi la Luna ti indica una direzione che si chiama {parola}.',
     (Maestro.medora, DatoDelCielo.faseLunare):
-        'Oggi il giorno è a un punto preciso del suo giro, e vuole {parola}.',
+        'Oggi il giorno è a un punto preciso del suo giro e vuole {parola}.',
     // --- AURA, il corpo e l'energia ---
     (Maestro.aura, DatoDelCielo.oraDellAlba):
-        'Oggi il tuo corpo ha già la luce che gli serve, e chiede {parola}.',
+        'Oggi il tuo corpo ha già la luce che gli serve e chiede {parola}.',
     (Maestro.aura, DatoDelCielo.segnoLunare):
-        'Oggi la tua energia ha un colore solo, ed è {parola}.',
+        'Oggi la tua energia ha un colore solo: {parola}.',
     (Maestro.aura, DatoDelCielo.faseLunare):
-        'Oggi il respiro è la cosa più corta da cambiare, e porta {parola}.',
+        'Oggi il respiro è la cosa più corta da cambiare e porta {parola}.',
     // --- CALIGO, il simbolo ---
     (Maestro.caligo, DatoDelCielo.oraDellAlba):
-        'Oggi la luce è tornata a un\'ora precisa, e il segno è {parola}.',
+        'Oggi la luce è tornata a un\'ora precisa e il segno è {parola}.',
     (Maestro.caligo, DatoDelCielo.segnoLunare):
-        'Oggi la Luna porta un segno che ti riguarda, ed è {parola}.',
+        'Oggi la Luna porta un segno che ti riguarda: {parola}.',
     (Maestro.caligo, DatoDelCielo.faseLunare):
-        'Oggi il buio e la luce stanno in una proporzione sola, e dice '
+        'Oggi il buio e la luce stanno in una proporzione sola, che dice '
             '{parola}.',
   };
 
@@ -120,49 +120,49 @@ class RispostaDelDono {
   /// guardarlo nella giornata. **Mai un esito, mai una promessa.**
   static const Map<(Maestro, DatoDelCielo), String> _risposte = {
     (Maestro.medora, DatoDelCielo.oraDellAlba):
-        'Il sole è sorto alle {valore}, e da quel momento la giornata corre '
+        'Il sole è sorto alle {valore}: da quel momento la giornata corre '
             'per conto suo. Non è una fretta: è che il tempo di oggi ha già '
-            'un verso, e tu puoi metterti dalla sua parte invece che contro. '
+            'un verso: puoi metterti dalla sua parte invece che contro. '
             'La cosa che decidi entro la prima ora è quella che regge fino a '
             'sera.',
     (Maestro.medora, DatoDelCielo.segnoLunare):
-        'La Luna è in {valore}, e questo dice il modo in cui oggi le cose si '
-            'muovono, non quali. Le giornate hanno un passo, e oggi il passo '
+        'La Luna è in {valore}: questo dice il modo in cui oggi le cose si '
+            'muovono, non quali. Le giornate hanno un passo: oggi il passo '
             'è questo: seguirlo costa meno che imporne un altro. Guarda dove '
             'stai andando, prima di guardare quanto in fretta.',
     (Maestro.medora, DatoDelCielo.faseLunare):
         'La Luna è {valore}, cioè il ciclo del mese è a questo punto e non a '
             'un altro. Ogni punto del giro chiede una cosa diversa: c\'è un '
             'tempo per cominciare, uno per tenere, uno per lasciare andare. '
-            'Oggi sai a quale sei, e questo basta per non forzare.',
+            'Oggi sai a quale sei: basta questo per non forzare.',
     (Maestro.aura, DatoDelCielo.oraDellAlba):
-        'Il sole è sorto alle {valore}, e il corpo lo sa prima della testa: '
+        'Il sole è sorto alle {valore}: il corpo lo sa prima della testa, '
             'la luce del mattino è il segnale con cui si rimette in orario da '
             'solo. Non serve fare niente di più che riceverla. Quello che '
             'senti nella prima mezz\'ora è il tono su cui il resto si accorda.',
     (Maestro.aura, DatoDelCielo.segnoLunare):
-        'La Luna è in {valore}, e la Luna è la parte di cielo che si occupa '
+        'La Luna è in {valore}: la Luna è la parte di cielo che si occupa '
             'di come ti senti, non di cosa fai. Oggi la tua energia ha una '
-            'forma sua, e riconoscerla vale più che spenderla bene. '
+            'forma sua: riconoscerla vale più che spenderla bene. '
             'Ascoltala una volta, presto, prima che la giornata parli più '
             'forte.',
     (Maestro.aura, DatoDelCielo.faseLunare):
-        'La Luna è {valore}, e le fasi lunari sono la misura più antica che '
+        'La Luna è {valore}: le fasi lunari sono la misura più antica che '
             'esista del salire e dello scendere. Il corpo fa la stessa cosa, '
-            'ogni giorno, e il respiro è il punto in cui la puoi toccare. '
+            'ogni giorno: il respiro è il punto in cui la puoi toccare. '
             'Non c\'è niente da correggere: solo da sentire a che punto sei.',
     (Maestro.caligo, DatoDelCielo.oraDellAlba):
-        'Il sole è tornato alle {valore}, e nessuna tradizione ha mai '
+        'Il sole è tornato alle {valore}: nessuna tradizione ha mai '
             'considerato ovvio che tornasse. Il segno di oggi è questo: una '
             'cosa che finisce e ricomincia lo stesso. Portalo con te dove '
             'oggi hai la tentazione di chiudere qualcosa per sempre.',
     (Maestro.caligo, DatoDelCielo.segnoLunare):
-        'La Luna è in {valore}, e nella tradizione simbolica la Luna è ciò '
+        'La Luna è in {valore}: nella tradizione simbolica la Luna è ciò '
             'che si vede solo di riflesso: quello che oggi ti riguarda non ti '
             'arriva di fronte, ti arriva di lato. Non cercarlo dove guardi '
             'già. Guarda cosa si ripete.',
     (Maestro.caligo, DatoDelCielo.faseLunare):
-        'La Luna è {valore}, e questa è la proporzione esatta fra la parte '
+        'La Luna è {valore}: questa è la proporzione esatta fra la parte '
             'illuminata e quella in ombra, stanotte. Vale come immagine e '
             'basta, senza che nessuno prometta niente: oggi anche in te le '
             'due parti stanno così. Nessuna delle due va tolta.',

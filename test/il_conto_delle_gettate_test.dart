@@ -90,7 +90,7 @@ void main() {
   testWidgets('i due stati del conto: pieno e finito', (tester) async {
     await monta(tester, piano: Tier.free);
     // Sempre presente per chi ha un limite, gia' prima del primo getto.
-    expect(conto(tester), 'Ti resta 1 gettata di rune su 1, oggi',
+    expect(conto(tester), 'Oggi hai 1 gettata di rune',
         reason: 'Prima del primo getto il conto non dice uno su uno.');
     await getta(tester);
     expect(conto(tester), 'Non ti resta nessuna gettata di rune, oggi',
