@@ -27,6 +27,7 @@ import '../../core/identity/account_del_cerchio.dart';
 import '../../core/rituals/custode_delle_push.dart';
 import '../../core/rituals/prova_delle_push.dart';
 import '../../core/rituals/scelta_degli_avvisi.dart';
+import '../../services/push/fuso_del_telefono.dart';
 
 /// Chi chiede il recapito al sistema. Un'interfaccia, per una ragione sola:
 /// nelle prove non c'e' nessun sistema a cui chiederlo.
@@ -162,7 +163,11 @@ class _CustodeMontatoState extends State<CustodeMontato> {
     }
     await custode.sincronizza(
       scelta: scelta,
-      fuso: widget.fuso ?? DateTime.now().timeZoneName,
+      // **IL NOME IANA, NON L'ABBREVIAZIONE. Ordine CQ voce 1.09**, 3
+      // settembre 2026. Qui c'era il nome corto del fuso di Dart, che su
+      // Android torna `CEST`, e il server pretende `Area/Citta`: ventitre
+      // chiamate, ventitre 400, e la raccolta delle push mai nata.
+      fuso: widget.fuso ?? fusoDelTelefono(),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// IL CIELO HA I SUOI LIVELLI. Ordine AM voce 02.
@@ -29,7 +29,43 @@ import 'package:flutter_test/flutter_test.dart';
 /// a mano, restano tre e due e i loro centri mappano la finestra VISIBILE
 /// invece di tutto il telo.
 void main() {
+  // **PERCHE' QUESTA RIGA E' NECESSARIA, E NON E' UN RITO.**
+  // Ordine CQ voce 1.10, 3 settembre 2026.
+  //
+  // **Il fatto:** su quindici esecuzioni identiche questa prova cadeva tre
+  // volte, **coi numeri stampati sempre uguali e nessun errore di pretesa**.
+  // Non stava fallendo una misura: moriva l'isolato.
+  //
+  // **La causa.** `ParallaxController` nel suo costruttore fa due cose che
+  // vogliono un guscio vivo: si abbona all'accelerometro e accende un
+  // `Ticker`. Dentro un `test` nudo non c'e' nessun guscio, il canale del
+  // sensore risponde con un errore ASINCRONO, e il ticker resta acceso
+  // perche' nessuno chiude il controller. **Chi arriva prima fra l'errore
+  // asincrono e la fine della prova decide se il giro e' verde o rosso**, ed
+  // e' esattamente la forma di un rosso a intermittenza.
+  //
+  // **La soglia non si e' toccata**: i rapporti pretesi sono gli stessi di
+  // prima. E' cambiato cio' che sta attorno alla misura, che era la cosa
+  // rotta.
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
   const schermo = Size(360, 797);
+
+  /// I canali del sensore, muti: senza, il primo abbonamento solleva.
+  void silenzia() {
+    final messaggero = binding.defaultBinaryMessenger;
+    messaggero.setMockMethodCallHandler(
+        const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+        (call) async => null);
+    for (final nome in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      messaggero.setMockStreamHandler(
+          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
+  }
 
   test('le stelle si contano sull\'area del telo, non a numero fisso', () {
     final margineFondo = _CosmoPerLaProva.scorta(0.16);
@@ -55,7 +91,11 @@ void main() {
   });
 
   test('i rapporti di corsa fra i piani fanno la profondita\'', () {
+    silenzia();
     final parallasse = ParallaxController();
+    // **E SI CHIUDE.** Un controller che resta aperto lascia vivi un
+    // abbonamento e un ticker per tutta la durata del file di prova.
+    addTearDown(parallasse.dispose);
     parallasse.inclinaPerLaProva(1, 0);
     final piani = OffsetDeiPiani.da(parallasse, conDeriva: false, t: 0);
     final corse = {

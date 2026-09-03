@@ -155,3 +155,40 @@ ROSSA     si abbassa anche un altro suono
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
 
+LA PROVA DEL ROSSO DELLA GUARDIA DEL FUSO
+Ordine CQ voce 1.09, Regola A.
+========================================================================
+ROSSA     il telefono torna a mandare il nome corto     
+          attesa: nessuno manda piu il nome corto del fuso
+          caduta: nessuno manda piu il nome corto del fuso
+ROSSA     la ricerca del fuso torna un nome senza barra 
+          attesa: il fuso che il telefono manda passa il controllo del server
+          caduta: il fuso che il telefono manda passa il controllo del server
+ROSSA     il ripiego non e piu un nome IANA             
+          attesa: il ripiego passa anche lui il controllo
+          caduta: il ripiego passa anche lui il controllo
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEGLI INDICI
+Ordine CQ voce 1.12, Regola A.
+========================================================================
+ROSSA     sparisce la dichiarazione di consumi
+ROSSA     la dichiarazione resta ma senza il gruppo
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA: 2 su 2
+
+LA MISURA DELLA VOCE 1.10, IL ROSSO A INTERMITTENZA
+Ordine CQ voce 1.10, 3 settembre 2026.
+========================================================================
+PRIMA   su 15 giri identici, 3 rossi e 12 verdi, coi numeri stampati
+        sempre uguali e nessun errore di pretesa: moriva l'isolato.
+CAUSA   ParallaxController nel costruttore si abbona all'accelerometro e
+        accende un Ticker. In un test nudo il canale del sensore risponde
+        con un errore ASINCRONO e il ticker resta acceso: chi arriva
+        prima fra l'errore e la fine della prova decide l'esito.
+CURA    guscio di prova, canali del sensore muti, controller chiuso in
+        tearDown. LE SOGLIE NON SONO STATE TOCCATE.
+DOPO    su 20 giri, 20 verdi e 0 rossi.
+========================================================================
+

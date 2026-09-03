@@ -103,3 +103,54 @@ test("la cancellazione immediata resta abolita", () => {
     );
   }
 });
+
+test("ogni gruppo di collezioni interrogato ha il suo indice dichiarato", () => {
+  // **GLI INDICI CHE NESSUN FILE DICHIARA NON ESISTONO PER CHI RIFA' IL
+  // PROGETTO.** Ordine CQ voce 1.12, 3 settembre 2026.
+  //
+  // Su Firestore c'erano TRE eccezioni di indice a campo singolo create a
+  // mano dalla console, per `consumi/quando`, `messages/createdAt` e
+  // `movimenti/quando`. Senza di loro le interrogazioni per gruppo di
+  // collezioni del giro notturno falliscono, quindi il giro non cancella
+  // niente e i dati scaduti restano.
+  //
+  // **Un indice creato a mano e' un pezzo di infrastruttura che vive solo
+  // dentro un progetto Google**, e non dentro il repository: chi ricostruisse
+  // il progetto da zero, o chi ne aprisse uno di prova, si troverebbe il giro
+  // notturno rotto senza nessuna traccia del perche'. Qui si pretende che
+  // ogni gruppo interrogato dal codice abbia la sua riga in
+  // `firestore.indexes.json`.
+  const scadenze = readFileSync(join(__dirname, "..", "src", "scadenze.ts"), "utf8");
+  const chiesti = new Set<string>();
+  const cerca = /collectionGroup\("(\w+)"\)\s*\.where\("(\w+)"/g;
+  for (const trovato of scadenze.matchAll(cerca)) {
+    chiesti.add(`${trovato[1]}/${trovato[2]}`);
+  }
+  const dichiarazione = JSON.parse(
+    readFileSync(join(__dirname, "..", "..", "firestore.indexes.json"), "utf8")
+  ) as {fieldOverrides?: {collectionGroup: string; fieldPath: string;
+    indexes: {order?: string; queryScope?: string}[]}[]};
+  const dichiarati = new Set(
+    (dichiarazione.fieldOverrides ?? [])
+      .filter((v) => v.indexes.some(
+        (i) => i.queryScope === "COLLECTION_GROUP" && i.order === "ASCENDING"
+      ))
+      .map((v) => `${v.collectionGroup}/${v.fieldPath}`)
+  );
+  console.log(
+    "ORDINE CQ VOCE 1.12: gruppi interrogati", [...chiesti],
+    "dichiarati", [...dichiarati]
+  );
+  assert.ok(
+    chiesti.size >= 3,
+    `i gruppi interrogati sono ${chiesti.size}: la ricerca non trova piu' ` +
+      "le interrogazioni, e questa prova sarebbe verde senza guardare niente"
+  );
+  const mancanti = [...chiesti].filter((c) => !dichiarati.has(c));
+  assert.deepEqual(
+    mancanti, [],
+    `questi gruppi si interrogano e nessun file dichiara il loro indice: ` +
+      `${mancanti.join(", ")}. Su un progetto nuovo il giro notturno non ` +
+      "cancellerebbe niente, e nessuno saprebbe perche'"
+  );
+});
