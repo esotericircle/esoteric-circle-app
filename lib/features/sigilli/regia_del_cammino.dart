@@ -122,13 +122,34 @@ class RegiaDelCammino {
       // chiuso, che e' il vincolo di questa voce.
       RegistroDelRitorno.segnalo(EventoDelRitorno.ritoCompiuto,
           contesto: gesto);
-      // **NON SI ASPETTA.** La voce e la vibrazione non devono ritardare di
-      // un giro cio' che viene dopo: aspettarle spostava la festa del
-      // cammino e lasciava un temporizzatore acceso nella cattura
-      // dell'Oroscopo.
+    }
+    // **SULLA FESTA SUONA UNA VOCE SOLA, e non e' quella del responso.**
+    // Ordine CO voce 03, 3 settembre 2026.
+    //
+    // Il fondatore ha sentito due suoni sovrapporsi quando un rito compiuto
+    // accendeva anche un Sigillo, e ha chiamato "vecchio" quello di sotto.
+    // **Non era un file vecchio**: era la voce del responso, novecento
+    // millesimi di fondamentale e quinta che il telefono sintetizza, ordine
+    // BX voce 05. Partiva qui, un istante prima che la festa si aprisse col
+    // suo suono di tre secondi e sei decimi, e le due si accavallavano.
+    //
+    // **La voce del responso non si cancella**, perche' fuori da questo caso
+    // e' giusta e ha un ordine suo: e' cio' che si sente ogni volta che un
+    // responso arriva, e senza di lei ogni risposta dell'app tornerebbe muta.
+    // Qui si toglie di mezzo, e la ragione e' che **la festa e' la voce
+    // specifica di questo istante e il responso e' quella generica**. Due
+    // voci sopra lo stesso momento non fanno un momento piu' ricco: fanno un
+    // momento confuso, ed e' esattamente cio' che il fondatore ha sentito.
+    //
+    // **Percio' adesso si guarda prima**, e la voce arriva dopo. Costava un
+    // giro dire "non si aspetta", e quel giro comprava il diritto di sapere
+    // se una festa stava per aprirsi. Chi non festeggia non perde niente:
+    // sente la sua voce qualche millesimo dopo, cioe' mai in modo che
+    // qualcuno lo noti.
+    final festeggiato = await guardaCosaSiAccende(context, gesto: gesto);
+    if (maestroDelResponso != null && !festeggiato && context.mounted) {
       unawaited(PaletteSensoriale.responso(context, maestroDelResponso));
     }
-    await guardaCosaSiAccende(context, gesto: gesto);
   }
 
   /// Guarda l'intero elenco e accende cio' che e' maturato.
@@ -138,7 +159,8 @@ class RegiaDelCammino {
   /// `dopoUnGesto` e il guardiano della coda. Resta comunque vero che un
   /// traguardo puo' maturare quando nessuna schermata puo' ospitare la
   /// sovrimpressione, ed e' per quello che esiste la coda.
-  static Future<void> guardaCosaSiAccende(BuildContext context,
+  /// Torna vero se una festa e' davvero comparsa a schermo.
+  static Future<bool> guardaCosaSiAccende(BuildContext context,
       {String? gesto}) async {
     final DiarioDelCammino diario;
     final NatalChartController carte;
@@ -148,7 +170,7 @@ class RegiaDelCammino {
     } catch (errore) {
       // Stessa ragione di sopra: senza l'albero completo non c'e' cammino da
       // guardare, e non c'e' niente da rompere.
-      return;
+      return false;
     }
     final carta = carte.chart;
     // **DUE INGRESSI DELLA FOTOGRAFIA ERANO MURATI, ordine P voce 35.**
@@ -186,7 +208,7 @@ class RegiaDelCammino {
     await diario.allineaGliInviti(borsa.invitiAccolti,
         perMaestro: borsa.invitiPerMaestro);
     final nuovi = await diario.quelliCheSiAccendono(stato);
-    if (nuovi.isEmpty) return;
+    if (nuovi.isEmpty) return false;
 
     // **PRIMA SI ACCENDE TUTTO, POI SI CELEBRA UNA VOLTA.** Ordine AC voce
     // 04, decisione di Mauro del 16 agosto: due celebrazioni di seguito danno
@@ -201,7 +223,7 @@ class RegiaDelCammino {
     for (final traguardo in nuovi) {
       if (await diario.accendi(traguardo.id)) accesi.add(traguardo);
     }
-    if (accesi.isEmpty) return;
+    if (accesi.isEmpty) return false;
 
     // **QUANTI EOS SONO ARRIVATI, e si sapra' solo dopo.** Il volo parte alla
     // CHIUSURA della festa, e a quel punto l'accredito e' quasi sempre gia'
@@ -376,6 +398,10 @@ class RegiaDelCammino {
         );
       }
     }
+    // **CHI CHIAMA DEVE SAPERE SE UNA FESTA E' COMPARSA.** Ordine CO
+    // voce 03, 3 settembre 2026: e' l'unico modo perche' la voce del
+    // responso sappia di doversi togliere di mezzo.
+    return festeggiato;
   }
 
   /// Celebra cio' che era rimasto in attesa. La chiama il guardiano quando una

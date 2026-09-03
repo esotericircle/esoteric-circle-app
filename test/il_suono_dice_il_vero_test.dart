@@ -99,6 +99,39 @@ void main() {
         continue;
       }
       misurati++;
+      // **CHI ACCOMPAGNA STA SOTTO CHI ANNUNCIA, e si dichiara per nome.**
+      // Ordine CO voce 04, 3 settembre 2026.
+      //
+      // Il fondatore ha sentito le monete troppo forti sul telefono, e le
+      // misure gli davano torto: `eos` stava a -16,29, cioe' in famiglia con
+      // tutti gli altri. **Aveva ragione lui, e il numero non era sbagliato:
+      // era la grandezza a non dire la cosa giusta per questo suono.**
+      //
+      // La sonorita' momentanea pesa lo spettro come lo pesa l'orecchio in
+      // media, e undici degli altri dodici suoni sono tenute e code, dove
+      // quella media funziona. Le monete sono due secondi di transienti
+      // brillanti fitti, e a parita' di numero l'orecchio le sente piu' forti.
+      // Il picco lo diceva gia': -1,9 contro i -4,7 e -7,8 delle tenute.
+      //
+      // **E c'e' la ragione di specie, che e' quella vera.** Gli altri suoni
+      // ANNUNCIANO: una soglia varcata, un responso arrivato, un rito
+      // compiuto. Questo ACCOMPAGNA, e accompagna una cosa che si guarda,
+      // il volo delle monete verso il borsellino a festa chiusa. Un
+      // accompagnamento che si sente quanto un annuncio si mette davanti a
+      // cio' che accompagna.
+      //
+      // Percio' `eos` sta a -20,91, quattro decibel e sei sotto dov'era, e
+      // resta l'unico nome in questa lista. **Un secondo nome qui dentro
+      // deve portare la sua ragione scritta**, come questo: la lista esiste
+      // per costringere a scriverla, non per far passare i file scomodi.
+      const accompagnanoInveceDiAnnunciare = {SuonoDelCerchio.eos};
+      if (accompagnanoInveceDiAnnunciare.contains(s)) {
+        expect(sonorita, lessThan(bersaglio - tolleranza),
+            reason: '${s.file} e\' dichiarato fra quelli che accompagnano, e '
+                'sta dentro la famiglia di quelli che annunciano: o e\' '
+                'tornato forte, o non aveva bisogno di stare in questa lista');
+        continue;
+      }
       if ((sonorita - bersaglio).abs() > tolleranza) {
         fuori.add('${s.file}: $sonorita LUFS-M, bersaglio $bersaglio');
       }
