@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:async';
 import '../../ricordi/ricordi_screen.dart';
 
@@ -691,8 +692,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                                       ?.dominante,
                                   rotazione: controller.rotazioneDelConsulto,
                                 ))
-                            : const SizedBox.shrink(
-                                key: ValueKey('nessun consulto')),
+                            : _PresenzaARiposo(
+                                key: const ValueKey('nessun consulto'),
+                                maestro: controller.maestroInAscolto ??
+                                    widget.maestro,
+                              ),
                       ),
                       conversazione: _buildBody(controller),
                     ),
@@ -879,8 +883,31 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             _altezzaComposer +
             SpazioDellaBarraNelloScroll.quanto(context),
       ),
-      itemCount: messaggi.length,
+      // **UNA VOCE IN PIU', ED E' LA PRESENZA DEL MAESTRO. Ordine CO voce
+      // 12**, 3 settembre 2026.
+      //
+      // Fatto del fondatore: fra il benvenuto e cio' che sta sotto c'e' mezzo
+      // schermo di vuoto. **Misurato con la sonda su un telefono da 844
+      // punti: duecentosessantanove punti di nulla fra la barra e la prima
+      // bolla**, quasi un terzo dello schermo.
+      //
+      // **Dove sta il vuoto, e perche' non e' dove sembrava.** La fascia che
+      // `ScenaSopraLaConversazione` riserva alla scena misura ZERO: la lista
+      // si prende tutta l'altezza che le si offre, quindi non avanza niente.
+      // Il vuoto e' DENTRO il riquadro della lista, sopra i messaggi, che
+      // stanno in basso perche' la lista e' rovesciata. E' stata la sonda a
+      // dirlo: la prima stesura di questa voce metteva la presenza nella
+      // fascia della scena, e la presenza non compariva mai.
+      //
+      // **Rovesciata la lista, l'ultima voce si disegna in cima**, cioe'
+      // esattamente dentro il vuoto. Scorre via coi messaggi, come deve: non
+      // e' un'intestazione fissa, e' la presenza che sta li' finche' c'e'
+      // posto.
+      itemCount: messaggi.length + 1,
       itemBuilder: (context, index) {
+        if (index == messaggi.length) {
+          return _PresenzaARiposo(maestro: widget.maestro);
+        }
         // Rovesciata la lista, l'indice zero e' l'ultimo turno.
         final posizione = ultimo - index;
         final messaggio = messaggi[posizione];
@@ -1414,6 +1441,92 @@ class _IGiorniPrima extends StatelessWidget {
           label: const Text('I giorni prima'),
         ),
       ),
+    );
+  }
+}
+
+/// **CIO' CHE STA NELLA FASCIA QUANDO NON SI ASPETTA NIENTE.**
+/// Ordine CO voce 12, 3 settembre 2026.
+///
+/// Fatto del fondatore: fra il benvenuto e cio' che sta sotto c'e' mezzo
+/// schermo di vuoto. **Misurato su un telefono da 844 punti: duecentosessanta-
+/// nove punti di nulla fra la barra e la prima bolla**, cioe' quasi un terzo
+/// dello schermo.
+///
+/// **Non si toglie spostando il messaggio.** La conversazione sta ancorata in
+/// basso per una decisione presa e scritta: ancorata in alto, due messaggi
+/// restavano appesi sotto la barra con mezzo schermo fra loro e il campo di
+/// scrittura. Sono lo stesso vuoto visto dall'altro lato: **muoverlo non lo
+/// toglie, lo sposta.** Si toglie riempiendolo.
+///
+/// **E cio' che ci va e' gia' stato deciso.** La chat vuota mostrava il mezzo
+/// busto del Maestro grande, e a conversazione avviata quel busto si e'
+/// rimpicciolito nella barra. Giusto: a conversazione piena la fascia non
+/// esiste. Ma fra le due c'e' lo stato in cui il fondatore e' entrato, la
+/// conversazione APPENA cominciata, dove la fascia c'e' tutta e non la occupa
+/// piu' nessuno.
+///
+/// Quindi la presenza resta finche' la fascia e' larga abbastanza da ospitarla,
+/// e si toglie da sola quando la conversazione cresce. **Non pulsa e non
+/// parla**: e' una presenza a riposo, non una scena.
+class _PresenzaARiposo extends StatelessWidget {
+  const _PresenzaARiposo({super.key, required this.maestro});
+
+  final Maestro maestro;
+
+  /// Sotto questa altezza il volto non ci sta senza schiacciarsi, e mezzo
+  /// volto e' peggio di nessun volto: si toglie.
+  ///
+  /// **Centodieci e non centocinquanta, e il numero e' misurato.** Con la
+  /// prima soglia la presenza non compariva mai: sul telefono da 844 punti,
+  /// con una bolla sola, la fascia che avanza sopra la conversazione misura
+  /// centotrenta punti. Centocinquanta e' un numero scelto a occhio che
+  /// escludeva proprio il caso per cui questa classe esiste, e a trovarlo e'
+  /// stata la sonda che stampa i rettangoli veri.
+  static const double quandoCiSta = 110;
+
+  /// **QUANTA PARTE DELLO SCHERMO PUO' PRENDERSI.**
+  ///
+  /// Un quinto: abbastanza da riempire il vuoto che il fondatore ha visto,
+  /// poco abbastanza da non spingere il primo messaggio sotto la piega quando
+  /// la conversazione cresce. Dentro una lista non c'e' un vincolo di altezza
+  /// da cui dedurlo, quindi si dichiara in frazione dello schermo, che e'
+  /// l'unica misura vera che qui dentro si conosca.
+  static const double quotaDelloSchermo = 0.2;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, vincoli) {
+        // **QUANTO SPAZIO RESTA SOPRA I MESSAGGI, e non quanto ne ha la
+        // fascia.** Dentro una lista i vincoli sono senza fondo: la misura
+        // che conta e' quella del riquadro che la lista occupa, meno quello
+        // che i messaggi hanno gia' preso, e la porta l'altezza dello schermo
+        // meno cio' che sta sopra e sotto la lista.
+        final schermo = MediaQuery.sizeOf(context).height;
+        final alta = schermo * quotaDelloSchermo;
+        if (!alta.isFinite || alta < quandoCiSta) return const SizedBox.shrink();
+        // L'anello prende la fascia con un margine, e non piu' di
+        // centosessanta punti: oltre non e' presenza, e' un ritratto.
+        final anello = math.min(140.0, alta - 30);
+        // **L'ALTEZZA SI DICHIARA, e dentro una lista e' obbligatorio.** Qui
+        // i vincoli verticali sono senza fondo: un volto che si misurasse dal
+        // genitore verrebbe alto zero, ed e' esattamente cio' che la sonda ha
+        // visto alla prima stesura, un rettangolo da 148 a 148.
+        return SizedBox(
+          height: alta,
+          child: Center(
+            child: Opacity(
+              opacity: 0.75,
+              child: MaestroBust(
+                key: const Key('chat_presenza_a_riposo'),
+                maestro: maestro,
+                ring: anello,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

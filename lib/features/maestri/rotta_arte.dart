@@ -259,13 +259,29 @@ class ConCuore extends StatelessWidget {
     return Stack(
       children: [
         child,
+        // **LO STESSO ANGOLO DI QUANDO C'E' LA BARRA. Ordine CO voce 20**,
+        // 3 settembre 2026. Parole del fondatore: il cuore dei preferiti
+        // centrato, e verificato ovunque.
+        //
+        // **Verificato: non stava nello stesso posto.** Con una barra il
+        // cuore vive in `CuoreNellaBarra`, al capo SINISTRO accanto alla
+        // freccia Indietro, dove l'ordine AL voce 08 l'ha messo e dove la
+        // voce AM voce 03 l'ha lasciato dopo che la capsula dell'identita'
+        // se n'era andata. Senza barra viveva qui, in alto a DESTRA. Due
+        // angoli diversi per la stessa cosa: chi passa da un'arte all'altra
+        // deve cercarlo ogni volta, e cercare un comando che si e' gia'
+        // imparato e' il modo piu' sicuro di smettere di usarlo.
+        //
+        // Si e' scelto il sinistro e non il destro perche' e' quello che una
+        // decisione guardata ha gia' confermato: si sposta il cuore
+        // sovrapposto, che di decisioni non ne aveva nessuna.
         Positioned(
           top: 0,
-          right: 0,
+          left: 0,
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: SpacingTokens.sm, right: SpacingTokens.sm),
+                  top: SpacingTokens.sm, left: SpacingTokens.sm),
               child: ValueListenableBuilder<bool>(
                 valueListenable: arte?.reclamato ?? _mai,
                 builder: (context, reclamato, _) => reclamato
