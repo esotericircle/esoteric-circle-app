@@ -123,26 +123,34 @@ class _BarraArteState extends State<BarraArte> {
       centerTitle: true,
       iconTheme: IconThemeData(color: palette.goldSoft),
       automaticallyImplyLeading: false,
-      // **IL CUORE STA AL CAPO SINISTRO, ordine AL voce 08, e ci resta.**
-      // Con la capsula sparita (ordine AM voce 03) l'angolo destro non ha
-      // piu' un occupante che fluttua sopra, ma il cuore accanto alla
-      // freccia si e' guardato ed e' giusto li': il titolo tiene i suoi
-      // punti e la guardia tipografica resta intera.
-      leadingWidth: 96,
-      leading: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          widget.leading ??
-              IconButton(
-                icon: const Icon(Icons.arrow_back_rounded),
-                tooltip: 'Indietro',
-                onPressed: () => Navigator.of(context).maybePop(),
-              ),
-          const CuoreNellaBarra(),
-        ],
-      ),
+      // **IL CUORE STA IN ALTO A DESTRA, ordine CQ voce 1.02, 3 settembre
+      // 2026, e la decisione e' del fondatore.**
+      //
+      // **Da dove veniva.** L'ordine AL voce 08 lo aveva messo al capo
+      // SINISTRO, accanto alla freccia Indietro, quando l'angolo destro
+      // apparteneva alla capsula dell'identita'. La capsula se n'e' andata
+      // con l'ordine AM voce 03 e il cuore e' rimasto li'. **L'ordine CO
+      // voce 20 ha poi spostato ANCHE il cuore sovrapposto a sinistra**, per
+      // allinearlo a questo: la richiesta del fondatore era un'altra, e sono
+      // parole sue, "IO AVEVO CHIESTO SOLO DI CENTRARLA VERTICALMENTE".
+      //
+      // Il risultato sul telefono: nelle Rune il cuore stava attaccato alla
+      // freccia, e nella Stesa e nell'Oroscopo i due si vedevano FUSI in un
+      // segno solo, con la freccia che non si poteva piu' premere.
+      //
+      // **Perche' dentro `actions` e non sovrapposto.** In una Row due
+      // elementi non si possono sovrapporre per costruzione: e' il modo di
+      // rendere impossibile il difetto invece di misurarlo ogni volta. Il
+      // cuore va PRIMA delle altre azioni, cosi' il punto interrogativo
+      // resta all'estremo destro, dove chi cerca aiuto lo cerca.
+      leading: widget.leading ??
+          IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
       title: widget.titolo,
-      actions: widget.azioni,
+      actions: [const CuoreNellaBarra(), ...widget.azioni],
     );
   }
 }
@@ -259,29 +267,23 @@ class ConCuore extends StatelessWidget {
     return Stack(
       children: [
         child,
-        // **LO STESSO ANGOLO DI QUANDO C'E' LA BARRA. Ordine CO voce 20**,
-        // 3 settembre 2026. Parole del fondatore: il cuore dei preferiti
-        // centrato, e verificato ovunque.
+        // **IN ALTO A DESTRA, ordine CQ voce 1.02.** L'ordine CO voce 20 lo
+        // aveva portato a sinistra per allinearlo alla barra, e a sinistra
+        // c'e' la freccia Indietro: sul telefono del fondatore i due si sono
+        // trovati addosso, fusi in un segno solo, e la freccia non si poteva
+        // piu' premere.
         //
-        // **Verificato: non stava nello stesso posto.** Con una barra il
-        // cuore vive in `CuoreNellaBarra`, al capo SINISTRO accanto alla
-        // freccia Indietro, dove l'ordine AL voce 08 l'ha messo e dove la
-        // voce AM voce 03 l'ha lasciato dopo che la capsula dell'identita'
-        // se n'era andata. Senza barra viveva qui, in alto a DESTRA. Due
-        // angoli diversi per la stessa cosa: chi passa da un'arte all'altra
-        // deve cercarlo ogni volta, e cercare un comando che si e' gia'
-        // imparato e' il modo piu' sicuro di smettere di usarlo.
-        //
-        // Si e' scelto il sinistro e non il destro perche' e' quello che una
-        // decisione guardata ha gia' confermato: si sposta il cuore
-        // sovrapposto, che di decisioni non ne aveva nessuna.
+        // **I due angoli restano lo stesso angolo**, che era la ragione
+        // buona dell'ordine CO: adesso e' il destro da tutte e due le parti,
+        // perche' e' quello che il fondatore ha chiesto e perche' a sinistra
+        // c'e' un comando che non si puo' coprire.
         Positioned(
           top: 0,
-          left: 0,
+          right: 0,
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: SpacingTokens.sm, left: SpacingTokens.sm),
+                  top: SpacingTokens.sm, right: SpacingTokens.sm),
               child: ValueListenableBuilder<bool>(
                 valueListenable: arte?.reclamato ?? _mai,
                 builder: (context, reclamato, _) => reclamato

@@ -22,15 +22,27 @@ import 'codice_senza_testo.dart';
 /// imparato, e cercare un comando imparato è il modo più sicuro di smettere di
 /// usarlo.
 ///
-/// Si è scelto il sinistro perché è quello che una decisione guardata ha già
-/// confermato: si sposta il cuore sovrapposto, che di decisioni non ne aveva
-/// nessuna.
+/// **L'ANGOLO E' IL DESTRO, e la decisione e' del fondatore.** Ordine CQ voce
+/// 1.02, 3 settembre 2026.
+///
+/// L'ordine CO aveva scelto il sinistro, per allineare il cuore fluttuante a
+/// quello della barra. **A sinistra pero' c'e' la freccia Indietro**, e sul
+/// telefono i due si sono trovati addosso: nelle Rune attaccati, nella Stesa e
+/// nell'Oroscopo fusi in un segno solo, con la freccia che non si poteva piu'
+/// premere. Parole del fondatore: *"IO AVEVO CHIESTO SOLO DI CENTRARLA
+/// VERTICALMENTE. MA CAZZO, IL RISULTATO VA GUARDATO PRIMA DI CHIUDERE UNA
+/// VOCE."*
+///
+/// **La pretesa di questa guardia non cambia di una virgola**: le due case
+/// stanno nello stesso angolo. Cambia quale, ed e' una decisione, non una
+/// misura. Il fatto che una sovrapposizione non ci sia lo misura
+/// `il_cuore_non_copre_niente_test`, sui riquadri veri.
 void main() {
   final rotta =
       File('lib/features/maestri/rotta_arte.dart').readAsStringSync();
   final codice = codiceSenzaTesto(rotta);
 
-  test('il cuore fluttuante sta a sinistra, come quello nella barra', () {
+  test('il cuore fluttuante sta a destra, come quello nella barra', () {
     // Il blocco del cuore sovrapposto: si guarda LUI e non tutto il file,
     // perché in questo file ci sono altri Positioned che non lo riguardano.
     final i = codice.indexOf('class ConCuore');
@@ -38,34 +50,36 @@ void main() {
         reason: 'il cuore sovrapposto non esiste piu: le arti senza barra '
             'restano senza nessun modo di mettere fra i preferiti');
     final blocco = codice.substring(i);
-    expect(blocco, contains('left: 0,'),
-        reason: 'IL CUORE FLUTTUANTE E TORNATO A DESTRA, e quello nella barra '
-            'sta a sinistra: due angoli per la stessa cosa vogliono dire '
-            'cercarla ogni volta');
+    expect(blocco, contains('right: 0,'),
+        reason: 'IL CUORE FLUTTUANTE E TORNATO A SINISTRA, dove vive la '
+            'freccia Indietro: e da li che nasce la sovrapposizione che il '
+            'fondatore ha visto');
     expect(blocco.substring(0, blocco.indexOf('CuorePreferita(id: id)')),
-        isNot(contains('right: 0,')),
-        reason: 'il cuore fluttuante e ancorato anche a destra: con tutti e '
+        isNot(contains('left: 0,')),
+        reason: 'il cuore fluttuante e ancorato anche a sinistra: con tutti e '
             'due i lati fissati si stira per la larghezza dello schermo');
   });
 
-  test('il cuore nella barra sta al capo sinistro, e ci resta', () {
-    // La barra lo monta dentro `leading`, che è il capo sinistro per
-    // costruzione: se qualcuno lo spostasse in `actions` finirebbe a destra e
-    // le due case tornerebbero a divergere, questa volta dall'altro lato.
+  test('il cuore nella barra sta fra le azioni, cioe a destra', () {
+    // **DENTRO `actions`, e non e' un dettaglio.** In una Row due elementi
+    // non si possono sovrapporre per costruzione: mettere il cuore fra le
+    // azioni rende IMPOSSIBILE la sovrapposizione col punto interrogativo,
+    // invece di doverla misurare ogni volta. E il `leading` resta alla sola
+    // freccia, che e' il comando che non si puo' coprire.
     expect(codice, contains('const CuoreNellaBarra(),'),
         reason: 'la barra non monta piu il cuore');
-    final leading = codice.indexOf('leading: Row(');
-    final azioni = codice.indexOf('actions: widget.azioni');
     final cuore = codice.indexOf('const CuoreNellaBarra(),');
-    expect(leading, greaterThanOrEqualTo(0));
-    expect(cuore, greaterThan(leading),
-        reason: 'il cuore non sta piu dentro il leading della barra');
-    if (azioni >= 0) {
-      expect(cuore, lessThan(azioni),
-          reason: 'IL CUORE E FINITO FRA LE AZIONI, cioe a destra, mentre '
-              'quello fluttuante sta a sinistra: le due case divergono di '
-              'nuovo, dall altro lato');
-    }
+    final azioni = codice.indexOf('actions: [const CuoreNellaBarra()');
+    expect(azioni, greaterThanOrEqualTo(0),
+        reason: 'IL CUORE E TORNATO NEL LEADING, accanto alla freccia: e la '
+            'sovrapposizione che il fondatore ha visto sul telefono');
+    expect(cuore, greaterThanOrEqualTo(azioni),
+        reason: 'il cuore sta prima delle azioni, cioe nel leading');
+    // E il cuore e' il PRIMO fra le azioni, cosi' il punto interrogativo
+    // resta all'estremo destro dove chi cerca aiuto lo cerca.
+    expect(codice, contains('actions: [const CuoreNellaBarra(), ...widget.azioni]'),
+        reason: 'il cuore non e piu il primo fra le azioni: il punto '
+            'interrogativo si sposta da dove la persona lo ha imparato');
   });
 
   test('le case del cuore sono due, e sono queste', () {
