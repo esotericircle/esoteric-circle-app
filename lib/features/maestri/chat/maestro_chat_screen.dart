@@ -554,6 +554,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       backgroundColor: Colors.transparent,
       appBar: _ChatAppBar(
         maestro: widget.maestro,
+        // **LA SCALA ARRIVA DA QUI, ordine CO voce 10**: la barra deve sapere
+        // quanto sono grandi le lettere PRIMA di costruirsi, e da dentro se
+        // stessa non puo' chiederlo a nessuno.
+        scalaDelTesto: MediaQuery.textScalerOf(context).scale(1),
+        // Lo schermo meno i due angoli, dove stanno la freccia e il pulsante.
+        larghezzaDelTitolo: MediaQuery.sizeOf(context).width - 112,
         // Il volto appare nell'header a conversazione avviata: il mezzo busto
         // dello stato vuoto si e' rimpicciolito qui. Pulsa quando risponde.
         showAvatar: hasMessages,
@@ -1067,7 +1073,26 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.speaking = false,
     this.mostraRicomincia = false,
     this.onRicomincia,
+    this.scalaDelTesto = 1,
+    this.larghezzaDelTitolo = 248,
   });
+
+  /// **QUANTO SONO GRANDI LE LETTERE DI CHI GUARDA. Ordine CO voce 10**, 3
+  /// settembre 2026.
+  ///
+  /// Arriva da fuori e non si legge qui dentro, e la ragione e' tecnica:
+  /// `preferredSize` deve rispondere PRIMA che questo widget si costruisca,
+  /// quindi non ha nessun contesto da interrogare. Chi monta la barra il
+  /// contesto ce l'ha, e glielo passa.
+  final double scalaDelTesto;
+
+  /// **QUANTO E' LARGO IL TITOLO, cioe' dove le due righe vanno a capo.**
+  ///
+  /// Lo schermo meno i due angoli della barra, dove stanno la freccia Indietro
+  /// e il pulsante Ricomincia. Serve insieme alla scala, e per la stessa
+  /// ragione: **la riga delle tre arti di Medora va a capo prima delle altre
+  /// due**, e una barra che non lo sapesse la taglierebbe di una riga intera.
+  final double larghezzaDelTitolo;
 
   final Maestro maestro;
   final VoidCallback onDiagnostics;
@@ -1089,7 +1114,60 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// sopra il nome, cosi' la colonna centrata (avatar, nome, sottotitolo) ci sta
   /// senza tagli; piu' bassa a conversazione vuota, dove ci sono solo nome e
   /// sottotitolo.
-  double get _barHeight => showAvatar ? 116 : 68;
+  /// **CRESCE CON LE LETTERE, e prima era un numero fisso.** Ordine CO voce
+  /// 10, 3 settembre 2026.
+  ///
+  /// Fatto del fondatore: scorrendo la chat la testa del Maestro si vede
+  /// tagliata. **Non era lo scorrimento**: era la scala del testo. La barra
+  /// misurava centosedici punti sempre, e dentro ci stanno in colonna il volto
+  /// che sfonda il cerchio, il nome e la riga delle tre arti. Il volto ha una
+  /// misura sua, in punti, e non cresce; le due righe di testo crescono con la
+  /// scala di chi guarda, fino a 1,3 per il tetto dichiarato dell'app. A quel
+  /// punto la colonna sfora i centosedici, **e una AppBar ritaglia il suo
+  /// titolo: taglia dall'alto, cioe' esattamente dove sta la testa.**
+  ///
+  /// Il conto: quaranta di anello piu' due di stacco, e le due righe alla loro
+  /// misura vera, ventidue e sedici punti con l'interlinea di un terzo,
+  /// moltiplicate per la scala. Piu' sei punti di respiro sotto, che sono
+  /// quelli che il fondatore vedrebbe mancare per primi.
+  ///
+  /// **Il numero non e' piu' scritto: e' calcolato.** Un numero scritto per la
+  /// scala di chi lo scrive vale per lui solo.
+  double get _barHeight {
+    const respiro = 6.0;
+    final righe = _quantoMisuranoLeDueRighe();
+    if (!showAvatar) return righe + respiro * 2;
+    const anello = 40.0;
+    const stacco = 2.0;
+    return anello + stacco + righe + respiro;
+  }
+
+  /// **LE DUE RIGHE SI MISURANO, non si stimano.** Ordine CO voce 10.
+  ///
+  /// La prima stesura di questa voce aveva una formula: ventidue e sedici
+  /// punti, per l'interlinea, per la scala. **Era sbagliata di ventitre punti
+  /// e tre**, e l'ha detto la sua stessa guardia: la riga delle tre arti di
+  /// Medora e' piu' lunga delle altre due e alla scala massima **va a capo**,
+  /// quindi vale due righe e non una. Una formula che moltiplica non sa niente
+  /// di dove il testo andra' a capo.
+  ///
+  /// `TextPainter` e' lo stesso che dipinge a schermo, quindi questa misura e'
+  /// la misura vera, interlinea e ritorno a capo compresi. Costa due
+  /// impaginazioni di due righe per costruzione della barra.
+  double _quantoMisuranoLeDueRighe() {
+    double alta(String testo, TextStyle stile) {
+      final p = TextPainter(
+        text: TextSpan(text: testo, style: stile),
+        textDirection: TextDirection.ltr,
+        textScaler: TextScaler.linear(scalaDelTesto),
+        textAlign: TextAlign.center,
+      )..layout(maxWidth: larghezzaDelTitolo);
+      return p.height;
+    }
+
+    return alta(maestro.displayName, TypographyTokens.titoloSezione()) +
+        alta(maestro.domainArtsPhrase, TypographyTokens.didascalia());
+  }
 
   @override
   Size get preferredSize => Size.fromHeight(_barHeight);
