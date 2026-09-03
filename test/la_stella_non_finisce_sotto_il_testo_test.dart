@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
