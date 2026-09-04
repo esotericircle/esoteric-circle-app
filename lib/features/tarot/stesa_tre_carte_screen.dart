@@ -1196,9 +1196,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         MedoraStage(
           palette: palette,
           active: _active,
-          height: _complete ? 300 : 170,
-          bustoFactor: _complete ? MedoraStage.bustoPieno : 0.34,
-          bustoLarghezza: _complete ? 1.0 : 0.72,
+          // **L'INGRANDIMENTO ASPETTA IL RESPONSO, ordine CQ voce 6.09.**
+          // Legato a `_complete` scattava alla terza carta, cioe' insieme
+          // allo svuotamento: il ritratto raddoppiava mentre tutto il resto
+          // spariva, ed era meta' della ragione per cui sembrava un'altra
+          // schermata. Adesso Medora cresce quando il responso entra in
+          // scena, che e' il momento in cui parla davvero.
+          height: _responsoInScena ? 300 : 170,
+          bustoFactor:
+              _responsoInScena ? MedoraStage.bustoPieno : 0.34,
+          bustoLarghezza: _responsoInScena ? 1.0 : 0.72,
         ),
         const SizedBox(height: SpacingTokens.sm),
         // La configurazione, richiusa nella sua riga di riepilogo.
@@ -1385,7 +1392,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   ? () => unawaited(_apriIlResponso())
                   : null,
               icon: const Icon(Icons.auto_awesome, size: 18),
-              label: const Text('Leggi il responso'),
+              label: const Text('Leggi le Carte'),
               style: FilledButton.styleFrom(
                 backgroundColor: palette.gold,
                 foregroundColor: palette.deepest,
@@ -1424,9 +1431,28 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // Le carte: quelle del responso, e quelle del momento fra l'ultima
         // scelta e la riflessione, che e' lo stesso blocco (ordine BZ voce
         // 07). Sotto, la spaziatura che le stacca da Medora quando sono sole.
+        // **QUI LA SCHERMATA SEMBRAVA CAMBIARE, ordine CQ voce 6.09.**
+        //
+        // Parole del fondatore: *appena inserisco la terza carta, si apre
+        // una nuova schermata con le 3 carte e il bottone*. **Non si apriva
+        // nessuna schermata**: alla terza carta `_complete` diventa vero e
+        // sparivano in blocco il pannello, gli slot, il blocco delle carte,
+        // il ventaglio e il prompt, mentre Medora saliva da centosettanta a
+        // trecento. Di tutta la pagina restavano un ritratto grande e un
+        // pulsante, e a chi guarda quello e' un'altra schermata.
+        //
+        // Adesso le tre carte scelte restano sotto i loro slot, e il
+        // pulsante sta sotto di loro: **la pagina e' la stessa di un attimo
+        // prima, con una carta in piu' e un pulsante acceso.**
         if (_carteDopoLUltima) ...[
           _slots(palette),
-          const SizedBox(height: SpacingTokens.lg),
+          const SizedBox(height: SpacingTokens.xs),
+          _BloccoDelleCarte(
+            key: const Key('stesa_blocco_carte_scelte'),
+            carte: _spread.cards,
+            palette: palette,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
         ],
         if (_responsoInScena) _slots(palette),
         if (_responsoInScena) ...[
@@ -1446,13 +1472,19 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // e una scena di attesa, e una risposta che non nomina la domanda
           // sembra la risposta di un altro.
           //
-          // **Non si finge che il testo del responso l'abbia letta.** Il
-          // responso di questa app e' deterministico e nasce dalle carte, non
-          // da un modello che interpreta una frase: la tendina dell'argomento
-          // continua a orientare il corpus, ed e' scritto nel dato. Questa
-          // riga dice cosa era stato chiesto, che e' vero, invece di ripetere
-          // la domanda con parole diverse fingendo di averne tenuto conto,
-          // che sarebbe peggio del non nominarla affatto.
+          // **E ADESSO IL RESPONSO L'HA DAVVERO LETTA, ordine CQ voce 6.10.**
+          //
+          // Qui c'era scritto *non si finge che il testo del responso
+          // l'abbia letta*, e allora era onesto: il responso nasceva dalle
+          // sole carte e dalla tendina dell'argomento. Il fondatore ha
+          // chiamato quel comportamento **la cosa piu' grave** dell'ordine
+          // CQ, e adesso la domanda entra nel motore: si fa nominare in
+          // cima al consiglio e sceglie la lente fra le sedici.
+          //
+          // **Questa riga resta lo stesso**, e non e' un doppione: e' la tua
+          // domanda come l'hai scritta, mentre il responso la usa. Fra lo
+          // scriverla e il leggere ci sono tre carte pescate e una scena di
+          // attesa.
           if (_setup.domandaScritta != null) ...[
             Text('LA TUA DOMANDA',
                 style: TypographyTokens.didascalia(weight: 600).copyWith(

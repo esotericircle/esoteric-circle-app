@@ -291,7 +291,7 @@ le altre.
 | `il_titolo_non_si_rompe_test.dart` | il titolo non si rompe | 1, 2 | dalla porta comune | mai | 3 |
 | `il_titolo_non_stampa_sul_contenuto_test.dart` | il titolo non stampa sul contenuto | 1, 2, 4 | non scopre insiemi di file | mai | 3 |
 | `il_velo_e_uno_solo_test.dart` | il velo e uno solo | 1 | dalla porta comune | 01/09/2026, CL | 3 |
-| `il_ventaglio_vive_subito_test.dart` | il ventaglio vive subito | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
+| `il_ventaglio_vive_subito_test.dart` | il ventaglio vive subito | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_video_e_lo_sfondo_della_rivelazione_test.dart` | il video e lo sfondo della rivelazione | 1 | non scopre insiemi di file | mai | 3 |
 | `il_volto_nel_tondo_test.dart` | il volto nel tondo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_vuoto_sotto_i_maestri_test.dart` | il vuoto sotto i maestri | 1 | non scopre insiemi di file | mai | 3 |
@@ -347,7 +347,7 @@ le altre.
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |
 | `la_stella_non_finisce_sotto_il_testo_test.dart` | la stella non finisce sotto il testo | 1, 2, 4 | proprio, dichiarato | 03/09/2026, CQ | 2 |
-| `la_stesa_comincia_quando_lo_dici_test.dart` | la stesa comincia quando lo dici tu | 1, 2 | non scopre insiemi di file | CO | 2 |
+| `la_stesa_comincia_quando_lo_dici_test.dart` | la stesa comincia quando lo dici tu | 1, 2 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
 | `la_stesa_si_capisce_test.dart` | la stesa si capisce | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_striscia_delle_arti_anche_in_home_test.dart` | la striscia delle arti anche in home | 1, 2 | dalla porta comune | mai | 3 |
 | `la_testa_del_maestro_non_si_taglia_test.dart` | la testa del Maestro non si taglia a lettere grandi | 1, 2 | proprio, dichiarato | CO | 2 |
