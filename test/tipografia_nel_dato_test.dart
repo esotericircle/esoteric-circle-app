@@ -220,14 +220,19 @@ void main() {
     // altrimenti il censimento misurerebbe un pavimento che l'app non ha.
     expect(pavimentoDellApp, TypographyTokens.pavimento);
   });
-  test('Il pavimento e\' il ruolo piu\' piccolo che esista', () {
-    // Non e' una tautologia: dice che nessuno puo' abbassare un ruolo sotto il
-    // pavimento senza accorgersene, perche' il pavimento e' l'etichetta.
-    expect(TypographyTokens.etichetta().fontSize, TypographyTokens.pavimento,
-        reason:
-            'l\'etichetta non vale piu\' il pavimento: o e\' scesa sotto la '
-            'soglia di leggibilita\', o il pavimento si e\' alzato senza che i '
-            'ruoli lo seguissero');
+  test('Nessun ruolo scende al pavimento, e l\'etichetta vale quattordici', () {
+    // **L'ETICHETTA NON E' PIU' IL PAVIMENTO. Ordine CQ voce 2.11**, 3
+    // settembre 2026. Valeva dodici, cioe' esattamente il pavimento, e il
+    // fondatore ha detto per la quarta volta che i caratteri sono piccoli.
+    // Adesso vale quattordici: il pavimento resta dodici ed e' il limite
+    // sotto cui l'assert dei token non lascia scendere nessuno, ma **nessun
+    // ruolo lo tocca piu'**, che e' il modo giusto di avere un pavimento.
+    expect(TypographyTokens.etichetta().fontSize,
+        TypographyTokens.misuraEtichetta,
+        reason: 'l\'etichetta non vale piu\' quattordici punti');
+    expect(TypographyTokens.misuraEtichetta,
+        greaterThan(TypographyTokens.pavimento),
+        reason: 'l\'etichetta e\' tornata a valere il pavimento');
     for (final ruolo in <MapEntry<String, double?>>[
       MapEntry(
           'cerimonialeGrande', TypographyTokens.cerimonialeGrande().fontSize),

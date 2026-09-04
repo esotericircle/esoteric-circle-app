@@ -173,7 +173,14 @@ class SantuarioBottomBar extends StatelessWidget {
                   child: Text(
                     titolo,
                     key: const Key('barra_titolo'),
-                    style: TypographyTokens.etichetta().copyWith(
+                    // **DODICI COME LE CINQUE VOCI**, per la stessa ragione
+                    // scritta su [_BarItem.misuraDellaVoce]: l'ordine CQ voce 2.11 ha
+                    // alzato il ruolo a quattordici e questa riga da sola
+                    // faceva crescere la barra di cinque punti, cioe' un
+                    // quarto di cio' che l'ordine CF voce 03 aveva tolto per
+                    // decisione del fondatore.
+                    style: TypographyTokens.label(size: _BarItem.misuraDellaVoce)
+                        .copyWith(
                       color: coloreDelTitolo(palette),
                       letterSpacing: 3.2,
                       // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'
@@ -434,8 +441,25 @@ class _BarItem extends StatelessWidget {
   /// rimpicciolire di nascosto: la misura resta dodici, cioe' il pavimento. Il
   /// valore alto del ruolo serve al maiuscoletto cerimoniale, che qui non c'e',
   /// e in una casella stretta ruberebbe piu' spazio delle lettere stesse.
+  /// **E LA MISURA RESTA DODICI ANCHE DOPO L'ORDINE CQ VOCE 2.11**, dove il
+  /// ruolo etichetta e' salito a quattordici per tutta l'app.
+  ///
+  /// **La ragione e' una decisione del fondatore che non si scavalca.**
+  /// L'ordine CF voce 03 ha abbassato questa barra da centotrentaquattro a
+  /// centododici punti perche' lui l'ha chiesta piu' bassa, e i ventidue punti
+  /// sono stati presi uno per uno da dove c'era margine vero. Portare le
+  /// cinque voci a quattordici la rifa' crescere di otto, cioe' **restituisce
+  /// un terzo di quel lavoro** per un testo che non si legge: il nome sotto
+  /// l'icona di una barra e' un segnaposto, si riconosce a colpo d'occhio e
+  /// non si legge riga dopo riga.
+  ///
+  /// Il numero e' dichiarato qui e non ereditato, cosi' chi lo cambia sa che
+  /// sta cambiando l'altezza della barra.
+  static const double misuraDellaVoce = 12;
+
   static TextStyle _stileDellaVoce(Color color, bool selected) =>
-      TypographyTokens.etichetta(weight: selected ? 700 : 500)
+      TypographyTokens.label(
+              size: misuraDellaVoce, weight: selected ? 700 : 500)
           .copyWith(color: color, letterSpacing: 0.2);
 
   /// La larghezza vera del nome, arrotondata: e' il peso con cui la voce

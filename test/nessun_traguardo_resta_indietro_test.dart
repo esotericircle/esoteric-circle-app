@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -121,10 +120,16 @@ void main() {
             '${maiAccesi.take(6).join(", ")}');
   });
 
-  test('e la scala non salta nessun gradino di un sentiero', () async {
-    // **L'ALTRA META' DELLA STESSA LEGGE.** Non basta che tutti si accendano:
-    // devono accendersi IN ORDINE dentro il loro sentiero, o la scala non e'
-    // una scala. Un gradino saltato e' un gradino che nessuno riprendera'.
+  test('e la SCENA segue la scala, un gradino per sentiero', () async {
+    // **L'ALTRA META' DELLA STESSA LEGGE, e dall'ordine CQ voce 2.13 guarda
+    // la SCENA e non l'accensione.**
+    //
+    // Prima questa prova pretendeva che i gradini si ACCENDESSERO in ordine
+    // dentro il loro sentiero, ed era giusto finche' la scala governava
+    // l'accensione. Adesso l'accensione segue la soddisfazione, che non ha
+    // nessun ordine: chi guadagna il gradino undici prima del cinque accende
+    // l'undici, e i suoi Eos sono suoi. **Cio' che segue la scala e' la
+    // scena**, ed e' li' che questa prova guarda.
     SharedPreferences.setMockInitialValues(const {});
     var adesso = DateTime(2026, 1, 1, 9);
     final diario = DiarioDelCammino(orologio: () => adesso);
@@ -143,7 +148,9 @@ void main() {
           pezziDellIdentita:
               RegiaDelCammino.pezziDellIdentitaMaturi(diario, true));
       for (final t in await diario.quelliCheSiAccendono(stato)) {
-        ordineDiAccensione.add(t.id);
+        // La scena si decide PRIMA di accendere: dopo, il gradino non e' piu'
+        // il prossimo del suo sentiero e la domanda non avrebbe senso.
+        if (diario.meritaLaScena(t)) ordineDiAccensione.add(t.id);
         await diario.accendi(t.id);
         await diario.congeda(t.id);
       }
@@ -162,7 +169,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.12: accensioni osservate '
         '${ordineDiAccensione.length}, fuori ordine ${fuoriOrdine.length}');
-    cardinaleMinimo(ordineDiAccensione.length, 10,
+    cardinaleMinimo(ordineDiAccensione.length, 6,
         cosa: 'accensioni osservate nella simulazione',
         perche: 'Senza accensioni non ci sarebbe nessun ordine da guardare.');
     expect(fuoriOrdine, isEmpty,

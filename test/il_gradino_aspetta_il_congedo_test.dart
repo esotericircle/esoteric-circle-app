@@ -6,19 +6,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'cardinale_minimo.dart';
 import 'istante_dichiarato.dart';
 
-/// **IL GRADINO NON MATURA FINCHÉ IL PRECEDENTE NON È STATO CONGEDATO.**
-/// Ordine CP voce 01, 3 settembre 2026.
+/// **LA SCENA NON ARRIVA FINCHÉ LA PRECEDENTE NON È STATA CONGEDATA.**
+/// Ordine CP voce 01 del 3 settembre 2026, **spostata dalla maturazione alla
+/// scena dall'ordine CQ voce 2.13 dello stesso giorno.**
+///
+/// **Perché si è spostata, e il numero lo dice.** Il freno stava sulla
+/// maturazione, e la misura della voce CQ 2.12 ha detto quanto costava: su
+/// quattrocento giorni di uso onesto con dodici arti al giorno, **centododici
+/// traguardi soddisfatti e TREDICI accesi**, con novantanove gradini già
+/// guadagnati che non si accendevano mai. Non era un ritardo, era un muro.
+///
+/// Parole del fondatore: *il tetto delle feste non deve mai toccare
+/// l'accensione del Sigillo né l'accredito degli Eos, solo la scena della
+/// festa.* Quindi adesso maturano tutti, si accendono tutti e i loro Eos
+/// arrivano tutti; **ciò che resta uno alla volta è la scena**, e questa
+/// guardia la misura lì.
 ///
 /// Decisione del fondatore, parole sue: *"il gradino non matura finche' il
 /// precedente non e' stato congedato."* Nasce da otto feste viste in due
 /// funzionalità la notte fra il 2 e il 3 settembre 2026.
 ///
-/// **Un posto solo in tutto il Cammino, non uno per sentiero.** La prima
+/// **Un posto solo per la scena, e un tetto di tre al giorno.** La prima
 /// regola del fondatore, del 17 agosto 2026, dice *"non deve esserci la
-/// possibilita' di raggiungere piu' di un traguardo alla volta"*, e non dice
-/// "più di uno per sentiero": con un posto per sentiero un gesto che tocca tre
-/// arti ne farebbe maturare tre insieme, che è esattamente ciò che la regola
-/// vieta.
+/// possibilita' di raggiungere piu' di un traguardo alla volta"*: letta sulla
+/// scena, vuol dire che non se ne vede più di una per volta, e che ogni
+/// sentiero ne mostra al massimo una al giorno. Il conto del giorno peggiore
+/// dell'anno resta quello che il fondatore ha approvato con l'ordine CP,
+/// **tre**, ed è misurato in
+/// `aprire_e_chiudere_non_e_un_cammino_test.dart`.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -111,18 +126,39 @@ void main() {
             'niente.');
   });
 
-  test('a strada libera matura uno solo, e il posto si occupa', () async {
+  test('a strada libera UNA SOLA scena, e il posto si occupa', () async {
     final d = await diarioPulito();
     expect(d.laStradaELibera, isTrue,
         reason: 'un Cammino appena nato ha il posto gia occupato');
 
     final primi = await d.quelliCheSiAccendono(statoGeneroso());
-    expect(primi.length, 1,
-        reason: 'con uno stato che soddisfa molti gradini ne maturano '
-            '${primi.length} insieme: la prima regola del fondatore dice che '
-            'non se ne puo raggiungere piu di uno alla volta');
-    await d.accendi(primi.first.id);
-    expect(d.inAttesaDiCongedo, primi.first.id,
+    // **MATURANO TUTTI. Ordine CQ voce 2.13**: il tetto non tocca
+    // l'accensione. Cio' che resta uno solo e' la scena.
+    final conLaScena = primi.where(d.meritaLaScena).toList();
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 2.13: con lo stato generoso maturano '
+        '${primi.length} gradini, e di scene ne meritano ${conLaScena.length}');
+    expect(primi.length, greaterThan(1),
+        reason: 'con uno stato che soddisfa quasi tutto il corpus ne maturano '
+            '${primi.length}: il tetto e tornato sulla maturazione, ed e il '
+            'muro che la voce CQ 2.12 ha misurato');
+    // **TRE CANDIDATE, UNA SOLA A SCHERMO.** Il predicato dice quali gradini
+    // hanno diritto alla scena, ed e' uno per sentiero: la regia ne apre UNA
+    // e le altre restano senza scena, come dichiara `dopoUnGesto`. Tre e non
+    // di piu' e' il tetto del giorno peggiore che il fondatore ha approvato
+    // con l'ordine CP.
+    expect(conLaScena.length, lessThanOrEqualTo(3),
+        reason: 'a strada libera i gradini con diritto alla scena sono '
+            '${conLaScena.length}: il tetto e tre, uno per Maestro');
+    expect(
+        conLaScena.map((t) => Sentiero.values
+            .firstWhere((s) => Sentieri.di(s).any((x) => x.id == t.id))).toSet()
+            .length,
+        conLaScena.length,
+        reason: 'due gradini dello stesso sentiero hanno diritto alla scena '
+            'nello stesso istante: la scala di quel sentiero non tiene');
+    await d.accendi(conLaScena.first.id);
+    expect(d.inAttesaDiCongedo, conLaScena.first.id,
         reason: 'il gradino acceso non ha occupato il posto del congedo');
     expect(d.laStradaELibera, isFalse);
   });
@@ -134,31 +170,50 @@ void main() {
     await d.accendi(primi.first.id);
 
     // **OTTO GIRI, che sono le otto feste viste dal fondatore.** Ogni giro
-    // rappresenta un gesto in piu': prima ognuno drenava un gradino
-    // dall'arretrato dei soddisfatti, e otto gesti facevano otto feste.
-    var maturati = 0;
+    // rappresenta un gesto in piu'. **Si contano le SCENE**, ordine CQ voce
+    // 2.13: le accensioni non si frenano piu', e frenarle era il muro che la
+    // voce 2.12 ha misurato.
+    var scene = 0;
     for (var i = 0; i < 8; i++) {
-      maturati += (await d.quelliCheSiAccendono(statoGeneroso())).length;
+      scene += (await d.quelliCheSiAccendono(statoGeneroso()))
+          .where(d.meritaLaScena)
+          .length;
     }
-    expect(maturati, 0,
-        reason: 'col gradino precedente ancora da congedare ne sono maturati '
-            'altri $maturati: sono $maturati feste in piu, ed e esattamente '
-            'cio che il fondatore ha visto sul telefono');
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 2.13: col posto occupato, otto gesti portano '
+        '$scene scene');
+    expect(scene, 0,
+        reason: 'col gradino precedente ancora da congedare si sono viste '
+            'altre $scene feste, ed e esattamente cio che il fondatore ha '
+            'visto sul telefono');
   });
 
   test('congedato il precedente, il Cammino riprende', () async {
     final d = await diarioPulito();
     final primi = await d.quelliCheSiAccendono(statoGeneroso());
-    await d.accendi(primi.first.id);
-    await d.congeda(primi.first.id);
+    final primaScena = primi.firstWhere(d.meritaLaScena);
+    await d.accendi(primaScena.id);
+    // La scena e' stata mostrata: e' cosi' che il tetto del giorno la conta.
+    d.laScenaEStataMostrata(primaScena);
+    await d.congeda(primaScena.id);
     expect(d.laStradaELibera, isTrue,
         reason: 'il congedo non ha liberato il posto: il Cammino resterebbe '
             'fermo per sempre');
     final dopo = await d.quelliCheSiAccendono(statoGeneroso());
-    expect(dopo.length, 1,
+    final scenaDopo = dopo.where(d.meritaLaScena).toList();
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 2.13: congedata la prima scena, i gradini maturi '
+        'sono ${dopo.length} e le scene ${scenaDopo.length}');
+    expect(dopo, isNotEmpty,
         reason: 'congedato il precedente non matura piu niente: il freno e '
             'diventato un muro');
-    expect(dopo.first.id, isNot(primi.first.id));
+    // **E LA SCENA VA A UN ALTRO SENTIERO**, perche' quello di prima ha gia'
+    // avuto la sua per oggi: e' il tetto di tre al giorno, uno per Maestro.
+    expect(scenaDopo.length, 2,
+        reason: 'dopo il congedo i gradini con diritto alla scena sono '
+            '${scenaDopo.length} invece di due: il sentiero che ha gia avuto '
+            'la sua scena oggi deve restarne fuori');
+    expect(scenaDopo.map((t) => t.id), isNot(contains(primaScena.id)));
   });
 
   test('congedare il gradino sbagliato non apre la strada', () async {

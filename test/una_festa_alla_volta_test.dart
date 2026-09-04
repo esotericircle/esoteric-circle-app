@@ -563,7 +563,17 @@ class _Cammino {
       }
     }
     final accesi = await diario.quelliCheSiAccendono(stato(cielo));
+    // **SI CONTANO LE SCENE, NON LE ACCENSIONI. Ordine CQ voce 2.13**, 3
+    // settembre 2026: il tetto non tocca piu' l'accensione ne' gli Eos, e
+    // cio' che il fondatore non vuole vedere due volte e' la festa. Il
+    // diritto alla scena si chiede PRIMA di accendere, perche' accendere
+    // occupa la strada.
+    var scene = 0;
     for (final t in accesi) {
+      if (diario.meritaLaScena(t)) {
+        scene++;
+        diario.laScenaEStataMostrata(t);
+      }
       await diario.accendi(t.id);
       // **E LA PERSONA SIMULATA CONGEDA LA FESTA. Ordine CP voce 01**, 3
       // settembre 2026. Dalla decisione del fondatore un gradino non matura
@@ -576,6 +586,6 @@ class _Cammino {
       // corpus a essere cosi', e' il modello a essere sbagliato.
       await diario.congeda(t.id);
     }
-    return accesi.length;
+    return scene;
   }
 }

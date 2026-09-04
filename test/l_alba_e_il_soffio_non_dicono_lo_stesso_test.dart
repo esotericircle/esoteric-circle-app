@@ -32,11 +32,11 @@ void main() {
   // Una carta natale vera serve al Soffio: senza ora e luogo di nascita non
   // ci sono transiti, e il Dono non ha materia propria. E' il caso normale di
   // chi ha completato il Risveglio.
-  final carta = NatalChart(
+  const carta = NatalChart(
     sunSign: Zodiac.gemini,
     hasTime: true,
     ascendantLongitude: 212.0,
-    planets: const [
+    planets: [
       PlanetPosition(
           id: 'sun', name: 'Sole', glyph: '☉', longitude: 84.0,
           sign: Zodiac.gemini),

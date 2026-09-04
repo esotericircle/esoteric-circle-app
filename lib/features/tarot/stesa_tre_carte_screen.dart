@@ -1199,7 +1199,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // non vola mai verso uno slot fuori schermo.
         if (!_complete) ...[
           _slots(palette),
-          const SizedBox(height: SpacingTokens.sm),
+          const SizedBox(height: SpacingTokens.xs),
           // IL TESTO DELLE CARTE GIA' USCITE, A PIENA LARGHEZZA.
           //
           // **Ordine P voce 10, ed e' qui che il difetto si vedeva peggio.**
@@ -1213,7 +1213,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               carte: _spread.cards.take(_drawn).toList(),
               palette: palette,
             ),
-            const SizedBox(height: SpacingTokens.sm),
+          // **DODICI DIVENTANO OTTO, DUE VOLTE. Ordine CQ voce 2.11.** Le
+          // etichette sono salite da dodici a quattordici punti e il
+          // ventaglio e' finito sei punti e mezzo sotto la piega: la guardia
+          // della coreografia lo ha visto. Gli otto punti si riprendono da
+          // due arie fra blocchi, non dal testo: e' la stessa cura
+          // dell'ordine BU voce 01, che aveva gia' fatto questo scambio.
+          const SizedBox(height: SpacingTokens.xs),
           ],
         ],
         // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.

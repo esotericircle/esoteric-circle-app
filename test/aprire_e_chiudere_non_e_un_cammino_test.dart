@@ -80,7 +80,21 @@ void main() {
               pezziDellIdentita:
                   RegiaDelCammino.pezziDellIdentitaMaturi(o.diario, true)));
       for (final t in accesi) {
-        feste++;
+        // **SI CONTANO LE SCENE, NON LE ACCENSIONI. Ordine CQ voce 2.13**,
+        // 3 settembre 2026, decisione del fondatore: *il tetto non deve mai
+        // toccare l'accensione del Sigillo ne' l'accredito degli Eos, solo
+        // la scena della festa.*
+        //
+        // Fino all'ordine CP il tetto stava sulla maturazione, e contare le
+        // accensioni era contare le feste. La misura della voce 2.12 ha detto
+        // cosa costava: su quattrocento giorni di uso onesto, centododici
+        // traguardi soddisfatti e TREDICI accesi. **Adesso si accendono
+        // tutti**, e cio' che il fondatore ha chiesto di non vedere e' la
+        // SCENA: e' quella che questa prova conta.
+        if (o.diario.meritaLaScena(t)) {
+          feste++;
+          o.diario.laScenaEStataMostrata(t);
+        }
         await o.diario.accendi(t.id);
         // Chi guarda una festa e la chiude libera il posto: e' il caso
         // peggiore per questa prova, perche' e' quello che ne fa vedere di
@@ -234,7 +248,14 @@ void main() {
               'carta_natale', 'viso', 'animale_guida',
             });
         for (final t in await diario.quelliCheSiAccendono(stato)) {
-          feste++;
+          // **LE FESTE SONO LE SCENE. Ordine CQ voce 2.13**: si accendono
+          // tutti e i loro Eos arrivano tutti, e cio' che il fondatore ha
+          // chiesto di non vedere e' la scena. Il tetto e' tre al giorno,
+          // uno per Maestro.
+          if (diario.meritaLaScena(t)) {
+            feste++;
+            diario.laScenaEStataMostrata(t);
+          }
           await diario.accendi(t.id);
           await diario.congeda(t.id);
         }
@@ -285,7 +306,16 @@ void main() {
     }
     await o.diario.segna('gettata', dettagli: const {'modo': 'una_runa'});
     var accesi = await chiSiAccende();
-    expect(accesi, isEmpty, reason: 'la prima gettata accende gia qualcosa');
+    // **LA PRIMA GETTATA ACCENDE, E NON E' PIU' UN DIFETTO.**
+    // Ordine CQ voce 2.13, 3 settembre 2026. Fino all'ordine CP il tetto
+    // stava sulla maturazione, e qui si pretendeva il vuoto per provare che
+    // il freno teneva. **Adesso il freno sta sulla scena**: cio' che si
+    // accende si accende, e cal_2 non e' fra questi perche' chiede due
+    // gettate in due giorni diversi e oggi ce n'e' una sola. E' quello che
+    // questa prova voleva davvero dire.
+    expect(accesi.map((t) => t.id), isNot(contains('cal_2')),
+        reason: 'cal_2 si accende con una gettata sola: ne chiede due in due '
+            'giorni diversi, quindi il conto non e quello che dichiara');
     o.sposta(DateTime(2026, 6, 16, 10));
     await o.diario.segna('gettata', dettagli: const {'modo': 'una_runa'});
     accesi = await chiSiAccende();

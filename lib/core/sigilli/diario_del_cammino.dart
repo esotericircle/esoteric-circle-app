@@ -490,6 +490,8 @@ class DiarioDelCammino extends ChangeNotifier {
     // gli altri due, e senza questa riga il limite di una volta al giorno
     // diventerebbe un limite di una volta per sempre.
     _gestiGiaContatiOggi.clear();
+    // E le scene di oggi, ordine CQ voce 2.13: il tetto e' del giorno.
+    _scenePerSentieroOggi.clear();
     // **E IL CONFINE DEL GIORNO CONGEDA CIO' CHE E' RIMASTO APPESO.**
     // Ordine CP voce 01, valvola di sicurezza.
     //
@@ -1131,14 +1133,25 @@ class DiarioDelCammino extends ChangeNotifier {
     // AS chiuse per le serie consecutive). Nella revisione F non ce ne sono:
     // ogni gesto nominato ha una schermata e ogni evento ha una data, e due
     // guardie lo pretendono su tutti e 165.
-    final prossimi = <String>{
-      for (final s in Sentiero.values)
-        if (prossimoDi(s) case final t?) t.id,
-    };
+    // **E LA SCALA E' USCITA DA QUI. Ordine CQ voce 2.13**, 3 settembre
+    // 2026, decisione del fondatore: *il tetto delle feste non deve mai
+    // toccare l'accensione del Sigillo ne' l'accredito degli Eos, solo la
+    // scena della festa.*
+    //
+    // **La misura della voce 2.12 ha detto perche'.** Quattrocento giorni di
+    // uso onesto con dodici arti al giorno: **centododici traguardi
+    // soddisfatti e TREDICI accesi.** I tre sentieri restavano fermi su
+    // gradini che chiedono arti che chi fa i Doni del giorno non tocca, e
+    // dietro di loro aspettavano novantanove gradini gia' guadagnati. La
+    // scala non ritardava: murava.
+    //
+    // Adesso qui maturano tutti quelli soddisfatti, quindi si accendono tutti
+    // e i loro Eos arrivano tutti. **La scala vive nella scena**, cioe' in
+    // [meritaLaScena]: e' li' che il fondatore l'aveva voluta, ed e' li' che
+    // il conto del giorno peggiore resta quello dell'ordine CP voce 01.
     final soddisfatti = <Traguardo>[];
     for (final traguardo in Sentieri.tuttiITraguardi) {
       if (_accesi.contains(traguardo.id)) continue;
-      if (!prossimi.contains(traguardo.id)) continue;
       // **UN DORMIENTE NON ARMA MAI, ordine AR voce 05.** La sua condizione
       // gia' risponde falso a qualunque stato, e questa riga e' la seconda
       // serratura: se un domani qualcuno gli desse per sbaglio una condizione
@@ -1230,10 +1243,67 @@ class DiarioDelCammino extends ChangeNotifier {
     // maturazione senza registrare un gesto, e la simulazione dell'anno lo ha
     // mostrato con un numero: una festa in dodici mesi.
     _apriIlGiorno();
-    if (!laStradaELibera) return const <Traguardo>[];
-    final soddisfatti = quelliSoddisfatti(stato);
-    if (soddisfatti.isEmpty) return const <Traguardo>[];
-    return <Traguardo>[soddisfatti.first];
+    // **SI ACCENDONO TUTTI. Ordine CQ voce 2.13**, e sostituisce la riga
+    // dell'ordine CP voce 01 che ne tornava uno solo dietro il freno della
+    // strada libera.
+    //
+    // Quel freno serviva a non far vedere una raffica di feste, ed era il
+    // posto sbagliato: fermava il PREMIO per governare la SCENA. Chi ha
+    // guadagnato un Sigillo lo ha guadagnato, e i suoi Eos sono suoi, anche
+    // se la sua festa arrivera' domani o non arrivera' affatto.
+    //
+    // La scena la governa [meritaLaScena], che la scala ce l'ha ancora
+    // intera: al massimo tre gradini per volta, uno per Maestro, e uno solo
+    // a schermo.
+    return quelliSoddisfatti(stato);
+  }
+
+  /// **SE QUESTO GRADINO MERITA UNA SCENA, ADESSO.**
+  /// Ordine CQ voce 2.13, 3 settembre 2026.
+  ///
+  /// **Qui vive la scala dell'ordine CP voce 01**, e vive solo qui: e' il
+  /// gradino che chi cammina sta per prendere sul suo sentiero, e la strada
+  /// dev'essere libera, cioe' nessuna festa deve essere in attesa di essere
+  /// congedata.
+  ///
+  /// **Cio' che non merita la scena non perde niente**: e' gia' acceso, i suoi
+  /// Eos sono gia' arrivati, e il suo nome sta nel Journal. Non gli manca il
+  /// premio, gli manca il fuoco d'artificio, ed e' esattamente cio' che il
+  /// fondatore ha chiesto quando ha visto otto feste in due funzionalita'.
+  bool meritaLaScena(Traguardo traguardo) {
+    if (!laStradaELibera) return false;
+    for (final s in Sentiero.values) {
+      if (prossimoDi(s)?.id != traguardo.id) continue;
+      // **E UNA SCENA PER SENTIERO AL GIORNO, NON DI PIU'.**
+      // Ordine CQ voce 2.13, e conserva il numero dell'ordine CP voce 01.
+      //
+      // Senza questa riga il giorno peggiore dell'anno tornava a TREDICI
+      // feste: la scala da sola non basta, perche' chi congeda una festa
+      // libera subito il posto e il gradino dopo dello stesso sentiero
+      // diventa a sua volta il prossimo. **Il tetto e' tre al giorno, uno per
+      // Maestro**, ed e' il numero che il fondatore ha approvato.
+      //
+      // Cio' che eccede non perde niente: e' gia' acceso, i suoi Eos sono
+      // gia' arrivati, e il suo nome sta nel Journal.
+      return !_scenePerSentieroOggi.contains(s.name);
+    }
+    return false;
+  }
+
+  /// I sentieri che oggi hanno gia' avuto la loro scena. Si azzera al confine
+  /// del giorno rituale, come tutto cio' che e' di oggi.
+  final Set<String> _scenePerSentieroOggi = {};
+
+  /// Segna che questo traguardo ha avuto la sua scena. Lo chiama la regia
+  /// nell'istante in cui apre la celebrazione: **non si conta cio' che si
+  /// accende, si conta cio' che si vede.**
+  void laScenaEStataMostrata(Traguardo traguardo) {
+    for (final s in Sentiero.values) {
+      if (Sentieri.di(s).any((t) => t.id == traguardo.id)) {
+        _scenePerSentieroOggi.add(s.name);
+        return;
+      }
+    }
   }
 
   /// Il prossimo traguardo di un sentiero, cioe' il primo non ancora acceso.

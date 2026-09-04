@@ -219,6 +219,16 @@ class RegiaDelCammino {
     // 16 sera dopo l'onboarding e' la conferma sul campo. Si unisce la
     // FESTA, non il premio: l'accredito resta per traguardo, qui sotto.
     final primoInAssoluto = diario.accesi.isEmpty;
+    // **CHI HA DIRITTO ALLA SCENA SI DECIDE PRIMA DI ACCENDERE.**
+    // Ordine CQ voce 2.13, 3 settembre 2026, e la prima stesura sbagliava
+    // qui: `meritaLaScena` chiede che la strada sia libera, e **accendere
+    // occupa la strada**. Chiedendolo dopo il ciclo delle accensioni la
+    // risposta era sempre no, e la festa non compariva piu' per nessuno.
+    // Sette guardie lo hanno detto insieme.
+    final aventiDiritto = <String>{
+      for (final t in nuovi)
+        if (diario.meritaLaScena(t)) t.id,
+    };
     final accesi = <Traguardo>[];
     for (final traguardo in nuovi) {
       if (await diario.accendi(traguardo.id)) accesi.add(traguardo);
@@ -247,8 +257,25 @@ class RegiaDelCammino {
         if (a.eGrande != b.eGrande) return a.eGrande ? -1 : 1;
         return a.posizione.compareTo(b.posizione);
       });
-    final questaVolta = perImportanza.first;
-    final inAttesa = perImportanza.skip(1).toList();
+    // **E LA SCENA SE LA MERITA SOLO IL GRADINO DELLA SCALA.**
+    // Ordine CQ voce 2.13, 3 settembre 2026.
+    //
+    // Fino a qui erano tutti accesi e i loro Eos erano tutti arrivati: e' la
+    // legge del fondatore, il tetto non tocca il premio. Da qui in poi si
+    // decide chi si vede, e la scala dell'ordine CP voce 01 e' questa riga.
+    //
+    // **Chi non ha la scena non entra nemmeno in coda.** Metterlo in coda
+    // vorrebbe dire rimandargli la festa a domani, e domani ne avrebbe due:
+    // la raffica tornerebbe spostata di un giorno. Il suo nome sta nel
+    // Journal, che e' il posto dove i Sigilli si guardano quando si vuole.
+    final conLaScena =
+        perImportanza.where((t) => aventiDiritto.contains(t.id)).toList();
+    if (conLaScena.isEmpty) return true;
+    final questaVolta = conLaScena.first;
+    // **LA SCENA SI DICHIARA QUI, ordine CQ voce 2.13**: il tetto e' di tre
+    // al giorno, uno per Maestro, e si conta cio' che si vede.
+    diario.laScenaEStataMostrata(questaVolta);
+    final inAttesa = conLaScena.skip(1).toList();
     // **LA DISTANZA FRA DUE FESTE, e senza di lei la coda non serve**: si
     // svuoterebbe tutta nella stessa schermata, cioe' cinque feste in fila
     // invece di una card con cinque nomi. Cambierebbe la forma del fastidio.

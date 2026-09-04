@@ -20,6 +20,11 @@ void main() {
   /// esenzioni comode: sono i due punti dove l'ora vera E' l'oggetto della
   /// prova, e accanto a ognuno sta scritto cosa sorveglia.
   const dichiarate = <String, String>{
+    'il_fuso_che_il_server_accetta_test.dart':
+        'ordine CQ voce 1.09: misura che il fuso prodotto ADESSO dal telefono '
+            'passi il controllo del server. Un istante fisso direbbe se '
+            'passava allora, e cio\' che il fondatore ha nei log e\' '
+            'cosa succede oggi, con l\'ora legale di oggi',
     'le_push_sono_montate_test.dart':
         'il cancello delle push guarda ADESSO contro la data di '
             'registrazione, e la prova deve dire registrata oggi per essere '
