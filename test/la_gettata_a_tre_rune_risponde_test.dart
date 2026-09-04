@@ -187,9 +187,13 @@ void main() {
       }
       guardati++;
       // Lo stile sta nelle righe subito attorno alla chiave.
+      // **LA FINESTRA E' LARGA ABBASTANZA, e ci e' voluta una caduta.**
+      // Con quattrocento caratteri per lato la chiave del Sigillo restava
+      // fuori dalla vista del suo stile, che sta in fondo a un blocco
+      // lungo: la prova diceva "non usa il ruolo lettura" mentre lo usava.
       final intorno = schermata.substring(
-          dove > 400 ? dove - 400 : 0,
-          dove + 400 < schermata.length ? dove + 400 : schermata.length);
+          dove > 800 ? dove - 800 : 0,
+          dove + 800 < schermata.length ? dove + 800 : schermata.length);
       if (!intorno.contains('TypographyTokens.lettura()')) {
         storti.add('$chiave: non usa il ruolo lettura');
       }

@@ -46,10 +46,17 @@ void main() {
 
   test('la riga dell uso non promette niente', () {
     // **NON PROMETTE UN ESITO**, che e' la legge di ogni testo di questa app.
-    final inizio = schermata.indexOf("'Le rune di questa gettata");
+    //
+    // **LA RIGA HA CAMBIATO CASA, ordine CQ voce 6.17.** Stava scritta a
+    // mano nella schermata; adesso la compone `SigilloDelGiorno`, perche'
+    // deve rispondere alla domanda con quello che le rune intrecciate
+    // portano insieme. La prova la cerca dove vive: **una prova che insegue
+    // il testo invece della porta cade a ogni trasloco.**
+    final porta = File('lib/core/rituals/rune_voce.dart').readAsStringSync();
+    final inizio = porta.indexOf("'Le rune di questa gettata");
     expect(inizio, greaterThanOrEqualTo(0),
         reason: 'la riga dell uso e cambiata e questa prova non la trova piu');
-    final riga = schermata.substring(inizio, inizio + 200);
+    final riga = porta.substring(inizio, inizio + 200);
     for (final promessa in const [
       'otterrai',
       'ti portera',

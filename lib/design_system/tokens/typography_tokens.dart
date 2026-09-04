@@ -132,7 +132,7 @@ class TypographyTokens {
 
   /// Il titolo di una scheda, cioe' di un blocco di contenuto.
   static TextStyle titoloScheda({double weight = 600}) =>
-      display(size: 20, weight: weight);
+      display(size: 18, weight: weight);
 
   /// Il titolo di una SCHERMATA: la barra in alto, e l'intestazione di un
   /// blocco che apre una sezione dentro la pagina.
@@ -146,7 +146,7 @@ class TypographyTokens {
   /// nessuno le avesse dato un nome, e ogni schermata nuova ne
   /// inventava una vicina: diciannove, ventuno.
   static TextStyle titoloDiSchermata({double weight = 600}) =>
-      display(size: 22, weight: weight);
+      display(size: 20, weight: weight);
 
   /// Il titolo di una RIGA in un elenco: la voce delle Impostazioni, la
   /// riga di un permesso, il nome di una funzione dentro una lista.
@@ -156,7 +156,7 @@ class TypographyTokens {
   /// elenco e' il gradino sotto la scheda, non un titolo rimpicciolito a
   /// caso. Sotto questo non si scende: il [pavimento] resta il pavimento.
   static TextStyle titoloDiRiga({double weight = 600}) =>
-      display(size: 17, weight: weight);
+      display(size: 16, weight: weight);
 
   /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
@@ -166,7 +166,7 @@ class TypographyTokens {
 
   /// Il testo informativo ordinario, quello che accompagna e spiega.
   static TextStyle corpo({double weight = 400}) =>
-      body(size: 17, weight: weight).copyWith(height: 1.5);
+      body(size: 16, weight: weight).copyWith(height: 1.5);
 
   /// La riga di servizio sotto un contenuto: una fonte, una nota, un dettaglio
   /// che non chiede di essere letto per primo.
@@ -178,7 +178,7 @@ class TypographyTokens {
   /// servizio, il corpo e' testo di contenuto, e chi legge il codice deve
   /// sapere quale dei due sta scrivendo.
   static TextStyle didascalia({double weight = 400}) =>
-      body(size: 17, weight: weight);
+      body(size: 16, weight: weight);
 
   /// L'etichetta cerimoniale in maiuscoletto spaziato. E' il ruolo piu'
   /// piccolo dell'app.
@@ -202,7 +202,7 @@ class TypographyTokens {
   /// colonne strette, e una riga in piu' non si legge meglio, si legge peggio.
   /// Quattordici e' due punti guadagnati senza cambiare la larghezza di
   /// nessuna colonna.
-  static const double misuraEtichetta = 15;
+  static const double misuraEtichetta = 14;
 
   static TextStyle etichetta({double weight = 600}) =>
       label(size: misuraEtichetta, weight: weight);

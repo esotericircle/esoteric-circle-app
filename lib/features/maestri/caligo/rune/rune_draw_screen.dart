@@ -1133,17 +1133,22 @@ class _Responso extends StatelessWidget {
                   // **La riga di prima diceva solo cosa il segno E'**, e
                   // portava due errori che il fondatore ha letto a video: *e
                   // cio* senza verbo e senza accento.
-                  Text(
-                    SigilloDelGiorno.riga(
+                  // **PASSA DAI PARAGRAFI, come ogni testo narrato.** La
+                  // riga del Sigillo adesso e' lunga quanto una risposta, e
+                  // un `Text` diretto nel ruolo lettura e' la porta da cui il
+                  // muro di testo rientra: l'ha detto la guardia dei
+                  // paragrafi.
+                  ParagrafiDiLettura(
+                    key: const Key('rune_sigillo_a_cosa_serve'),
+                    testo: SigilloDelGiorno.riga(
                       paroleChiave: [
                         for (final r in esito.rune.take(3)) r.rune.keyword
                       ],
                       domanda: domanda,
                       giorno: giorno,
                     ),
-                    key: const Key('rune_sigillo_a_cosa_serve'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.lettura()
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
@@ -1275,9 +1280,11 @@ class _LetturaRuna extends StatelessWidget {
                               ? '${runa.posizione.titolo} · '
                                   '${runa.posizione.glossa}'
                               : runa.posizione.titolo,
-                          // **PROSA, quindi ruolo lettura. Ordine CQ voce
-                          // 6.15.**
-                          style: TypographyTokens.lettura().copyWith(
+                          // **QUESTA RESTA UN` Text`, ed e' un titolo di
+                          // posizione, non prosa: due parole con un punto
+                          // mediano in mezzo. Torna al ruolo corpo, che e'
+                          // quello delle righe di servizio.
+                          style: TypographyTokens.corpo().copyWith(
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
@@ -1360,9 +1367,15 @@ class _LetturaRuna extends StatelessWidget {
               // Adesso **tutta la prosa della scheda sta nel ruolo lettura**.
               // Restano diversi solo il nome, che e' un titolo, e le
               // etichette in maiuscoletto, che non sono prosa.
-              Text(runa.rune.meaning,
+              // **NEL RUOLO LETTURA SI PASSA DAI PARAGRAFI, ordine CQ
+              // voce 6.15.** Portando questi blocchi al ruolo della prosa
+              // sono diventati testo narrato, e il testo narrato ha una
+              // porta sola: un `Text` diretto e' il modo in cui il muro di
+              // testo rientra.
+              ParagrafiDiLettura(
                   key: Key('rune_meaning_$indice'),
-                  style: TypographyTokens.lettura()
+                  testo: runa.rune.meaning,
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.xs),
             // La lettura della scheda passa dalla porta unica dei paragrafi:
@@ -1388,15 +1401,15 @@ class _LetturaRuna extends StatelessWidget {
             // comunque l'anglosassone, che copre tutte e ventiquattro.
             if (kRuneLore[runa.rune.name] != null && !sola) ...[
               const SizedBox(height: SpacingTokens.sm),
-              Text(
-                  '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
-                  '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
+              ParagrafiDiLettura(
+                  testo: '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
+                      '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
                   key: Key('rune_strofa_$indice'),
                   // **STESSA MISURA DELLA PROSA, ordine CQ voce 6.15.** La
                   // strofa e' una citazione, non una nota a pie' di pagina:
                   // era l'unico blocco della scheda a farsi leggere piu
                   // piccolo, e si vedeva.
-                  style: TypographyTokens.lettura()
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textSecondary)),
             ],
           ],

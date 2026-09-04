@@ -60,6 +60,23 @@ void main() {
     'lib/features/santuario/sky_overview_screen.dart:473':
         'e l etichetta "Coordinate da", che finisce con la preposizione '
             'perche il valore le viene scritto accanto',
+    // **LE PAROLE VUOTE DELLA DOMANDA SONO CHIAVI, NON TESTO. Ordine CQ
+    // voce 6.10.**
+    //
+    // Quell elenco serve a togliere le parole comuni dalla domanda che la
+    // persona scrive, e **la persona scrive senza accenti**: chi digita
+    // "perche" o "piu" sulla tastiera del telefono deve essere capito lo
+    // stesso. Per questo l elenco porta tutte e due le forme, con e senza,
+    // e quelle senza non escono mai a video.
+    'lib/core/tarot/domanda_della_persona.dart:39':
+        'e la tavola delle parole vuote, dove perche e una CHIAVE di '
+            'confronto e non una parola mostrata',
+    'lib/core/tarot/domanda_della_persona.dart:45':
+        'stessa tavola: piu e una chiave di confronto',
+    'lib/core/tarot/domanda_della_persona.dart:46':
+        'stessa tavola: sara e una chiave di confronto',
+    'lib/core/tarot/domanda_della_persona.dart:100':
+        'stessa tavola: attivita e una chiave di confronto',
   };
 
   test('Nessuna stringa mostrata usa l\'apostrofo al posto dell\'accento', () {
