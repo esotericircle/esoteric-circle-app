@@ -249,7 +249,7 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
                     'giorno incrociato con la tua carta di nascita dei '
                     'tarocchi, che la tradizione del mazzo ricava dalla data.',
             key: const Key('arcano_provenienza'),
-            style: TypographyTokens.corpo().copyWith(
+            style: TypographyTokens.lettura().copyWith(
                 color: ColorTokens.textSecondary, height: 1.45),
           ),
           const SizedBox(height: SpacingTokens.lg),

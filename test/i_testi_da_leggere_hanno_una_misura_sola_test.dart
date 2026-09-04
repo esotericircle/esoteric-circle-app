@@ -87,7 +87,11 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CE VOCE 10: la misura di riferimento e\' '
         '${base.fontSize} punti, interlinea ${base.height}');
-    expect(base.fontSize, 18);
+    // **VENTI E NON PIU' DICIOTTO. Ordine CQ voce 6.23, 4 settembre 2026.**
+    // Il fondatore ha chiesto testi piu' grandi nei Doni tre volte, e la
+    // prosa che si legge e' salita per tutta l'app insieme: la regola di
+    // questa prova, una misura sola, non cambia.
+    expect(base.fontSize, 20);
     expect(base.height, closeTo(1.55, 0.001));
   });
 

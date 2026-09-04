@@ -736,7 +736,7 @@ class _Preparazione extends StatelessWidget {
                 // non se ne scrive una seconda.
                 ParagrafiDiLettura(
                     testo: gettata.testoDinamico,
-                    stile: TypographyTokens.letturaAmpia()
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary)),
               ],
             ),
@@ -1056,7 +1056,7 @@ class _Responso extends StatelessWidget {
                         key: const Key('rune_presage_text'),
                         testo: responso.risposta,
                         oro: palette.goldSoft,
-                        stile: TypographyTokens.letturaAmpia()
+                        stile: TypographyTokens.lettura()
                             .copyWith(color: ColorTokens.textPrimary)),
                     const SizedBox(height: SpacingTokens.sm),
                     Container(
@@ -1080,7 +1080,7 @@ class _Responso extends StatelessWidget {
                       child: ParagrafiDiLettura(
                           testo: responso.cosaPuoiFare,
                           oro: palette.goldSoft,
-                          stile: TypographyTokens.letturaAmpia()
+                          stile: TypographyTokens.lettura()
                               .copyWith(color: palette.goldSoft)),
                     ),
                     const SizedBox(height: SpacingTokens.sm),
@@ -1093,7 +1093,7 @@ class _Responso extends StatelessWidget {
                     ParagrafiDiLettura(
                         testo: responso.daDoveViene,
                         key: const Key('rune_presage_fonte'),
-                        stile: TypographyTokens.letturaAmpia()
+                        stile: TypographyTokens.lettura()
                             .copyWith(color: ColorTokens.textPrimary)),
                   ],
                 ],
@@ -1179,7 +1179,7 @@ class _Responso extends StatelessWidget {
                       giorno: giorno,
                     ),
                     textAlign: TextAlign.center,
-                    stile: TypographyTokens.letturaAmpia()
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
@@ -1407,7 +1407,7 @@ class _LetturaRuna extends StatelessWidget {
             ParagrafiDiLettura(
                 key: Key('rune_meaning_$indice'),
                 testo: runa.rune.meaning,
-                stile: TypographyTokens.letturaAmpia()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.sm),
             // **DUE. La risposta, in bianco**: e' cio' che la runa dice a te,
@@ -1415,7 +1415,7 @@ class _LetturaRuna extends StatelessWidget {
             ParagrafiDiLettura(
                 key: Key('rune_riga_$indice'),
                 testo: runa.riga,
-                stile: TypographyTokens.letturaAmpia()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
             // **TRE. Il cielo con la domanda, in oro.** Qui vive la frase che
             // nomina la domanda scritta, una volta sola su tutta la gettata.
@@ -1424,7 +1424,7 @@ class _LetturaRuna extends StatelessWidget {
               ParagrafiDiLettura(
                   key: Key('rune_voce_$indice'),
                   testo: voce!,
-                  stile: TypographyTokens.letturaAmpia()
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: palette.goldSoft)),
             ],
             // **E LA FONTE STA DIETRO LA PORTA, per ogni gettata.** Non
@@ -2455,14 +2455,14 @@ class _IlRestoDellaRunaState extends State<_IlRestoDellaRuna> {
                 ParagrafiDiLettura(
                     key: Key('rune_da_dove_nasce_${widget.indice}'),
                     testo: widget.simbolo!,
-                    stile: TypographyTokens.letturaAmpia()
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textSecondary)),
               if (widget.voce != null) ...[
                 const SizedBox(height: SpacingTokens.sm),
                 ParagrafiDiLettura(
                     key: Key('rune_voce_${widget.indice}'),
                     testo: widget.voce!,
-                    stile: TypographyTokens.letturaAmpia()
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: widget.palette.goldSoft)),
               ],
               if (widget.strofa != null) ...[

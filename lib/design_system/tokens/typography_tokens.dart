@@ -161,29 +161,21 @@ class TypographyTokens {
   /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
   /// tornare a capo molte volte di seguito.
+  /// **VENTI PUNTI, E UNA MISURA SOLA. Ordine CQ voce 6.23, 4 settembre
+  /// 2026.**
+  ///
+  /// Il fondatore ha chiesto testi piu' grandi nei Doni **tre volte**. Per
+  /// un giro ho provato a farlo con un ruolo NUOVO accanto a questo, per non
+  /// spostare le schermate che reggevano: **era un secondo conto della stessa
+  /// cosa**, cioe' la famiglia di difetti che questo progetto insegue da
+  /// sempre, e la guardia della misura unica lo ha detto subito.
+  ///
+  /// **Una misura sola per tutta la prosa che si legge**, e cio' che trabocca
+  /// si ripara dove trabocca: un layout stretto e' un difetto del layout, non
+  /// una ragione per rimpicciolire il testo a chi legge.
   static TextStyle lettura({double weight = 400}) =>
-      body(size: 18, weight: weight).copyWith(height: 1.55);
+      body(size: 20, weight: weight).copyWith(height: 1.55);
 
-  /// **LA PROSA AMPIA, VENTI PUNTI. Ordine CQ voce 6.22, 4 settembre 2026.**
-  ///
-  /// **Il fondatore chiede testi piu' grandi da tre ordini, e alzare l'intera
-  /// scala non si puo'.** Misurato due volte: alzando tutti i ruoli cadono
-  /// piu' di quaranta prove, con chat illeggibili e ventiquattro catture
-  /// rotte; alzando il solo ruolo `lettura` da diciotto a venti ne cadono
-  /// cinque, fra cui i tre sentieri che escono dalla tela e l'Oroscopo. I
-  /// ruoli sono condivisi da tutta l'app, e gonfiarli rompe schermate che
-  /// con quei testi non c'entrano.
-  ///
-  /// **Percio' un gradino in piu', invece di spostare quelli che ci sono.**
-  /// Venti punti, per la prosa lunga che si legge di seguito: il responso
-  /// delle rune e il presagio. Chi la usa lo dichiara, e chi non la usa resta
-  /// dov'e' senza accorgersi di niente.
-  ///
-  /// **E non e' una misura scritta a mano in una schermata**, che e' il modo
-  /// in cui questa scala si sfalda: e' un ruolo, sta qui, e il censimento
-  /// dei caratteri lo vede.
-  static TextStyle letturaAmpia({double weight = 400}) =>
-      body(size: 20, weight: weight).copyWith(height: 1.5);
 
   /// Il testo informativo ordinario, quello che accompagna e spiega.
   static TextStyle corpo({double weight = 400}) =>

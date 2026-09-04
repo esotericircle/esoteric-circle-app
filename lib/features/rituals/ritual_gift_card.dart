@@ -246,7 +246,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               Text(
                 'LA PAROLA DA PORTARTI DIETRO',
                 key: const Key('alba_etichetta_parola'),
-                style: TypographyTokens.didascalia().copyWith(
+                style: TypographyTokens.lettura().copyWith(
                   color: abito.inchiostroMuto,
                   letterSpacing: 0.6,
                 ),
@@ -267,7 +267,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 Text(
                   gift.rito!.perche,
                   key: const Key('alba_perche_della_parola'),
-                  style: TypographyTokens.corpo()
+                  style: TypographyTokens.lettura()
                       .copyWith(color: abito.inchiostro, height: 1.4),
                 ),
               ],
@@ -281,7 +281,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 'Stasera il Sigillo del Sogno te la richiama: il giorno si '
                 'chiude con lei.',
                 key: const Key('alba_dove_va_la_parola'),
-                style: TypographyTokens.corpo()
+                style: TypographyTokens.lettura()
                     .copyWith(color: abito.inchiostroMuto, height: 1.4),
               ),
             ],
@@ -313,7 +313,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 child: Text(
                   FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
                   key: const Key('alba_domanda_di_ieri'),
-                  style: TypographyTokens.didascalia()
+                  style: TypographyTokens.lettura()
                       .copyWith(color: abito.inchiostro, height: 1.4),
                 ),
               ),
@@ -413,7 +413,7 @@ class _BaseToggle extends StatelessWidget {
                 child: Text(
               'Da dove nasce questo dono',
               key: const Key('alba_base_toggle'),
-              style: TypographyTokens.didascalia().copyWith(
+              style: TypographyTokens.lettura().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
               ),
@@ -535,7 +535,7 @@ class _BaseRow extends StatelessWidget {
                 // cioe' le meno leggibili di tutte.
                 label,
                 key: Key('alba_base_etichetta_${chiaveDi(label)}'),
-                style: TypographyTokens.didascalia().copyWith(
+                style: TypographyTokens.lettura().copyWith(
                   color: abito.inchiostroMuto,
                   letterSpacing: 0.4,
                 ),
@@ -550,7 +550,7 @@ class _BaseRow extends StatelessWidget {
         Text(
           value,
           key: Key('alba_base_valore_${chiaveDi(label)}'),
-          style: TypographyTokens.corpo().copyWith(
+          style: TypographyTokens.lettura().copyWith(
             color: provisional ? abito.inchiostroMuto : abito.inchiostro,
             height: 1.4,
             fontStyle: provisional ? FontStyle.italic : FontStyle.normal,
@@ -589,7 +589,7 @@ class _ShareWordButton extends StatelessWidget {
       label: Text(
         PremioDellaCondivisione.etichetta(context, base: 'Condividi la parola'),
         key: const Key('alba_condividi_etichetta'),
-        style: TypographyTokens.didascalia()
+        style: TypographyTokens.lettura()
             .copyWith(color: accento, letterSpacing: 0.5),
       ),
     );
@@ -627,7 +627,7 @@ class _StreakChip extends StatelessWidget {
           Text(
             label,
             key: const Key('alba_giorni_di_fila'),
-            style: TypographyTokens.didascalia().copyWith(
+            style: TypographyTokens.lettura().copyWith(
               color: accento,
               letterSpacing: 0.4,
             ),

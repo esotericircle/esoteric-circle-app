@@ -283,7 +283,7 @@ void main() {
         storti.add('${voce.key}: non ha il colore ${voce.value}');
       }
       // **E LA MISURA E' QUELLA AMPIA**, che e' l'altra meta' della richiesta.
-      if (!intorno.contains('TypographyTokens.letturaAmpia()')) {
+      if (!intorno.contains('TypographyTokens.lettura()')) {
         storti.add('${voce.key}: non usa la prosa ampia');
       }
     }

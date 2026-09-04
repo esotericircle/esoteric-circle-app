@@ -85,9 +85,26 @@ void main() {
         piena: true));
     await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 3));
-    expect(find.byKey(const Key('responso_condividi')), findsOneWidget,
-        reason: 'dopo il consulto non si puo\' piu\' condividere: la '
-            'correzione ha tolto la funzione invece di rimandarla');
+    // **SI SCORRE FINO AL PULSANTE, ordine CQ voce 6.23.**
+    //
+    // Questa prova lo cercava fermandosi in cima, e funzionava finche' il
+    // consulto stava in una schermata. Con la prosa a venti punti il
+    // contenuto e' piu' lungo e il pulsante scende sotto la piega, dove
+    // uno scorrimento pigro non lo costruisce: **la prova diceva che la
+    // condivisione era sparita mentre era solo piu' in basso.**
+    //
+    // La pretesa vera e' che il pulsante CI SIA, non dove stia.
+    final condividi = find.byKey(const Key('responso_condividi'));
+    if (condividi.evaluate().isEmpty) {
+      await tester.dragUntilVisible(condividi,
+          find.byType(Scrollable).first, const Offset(0, -320),
+          maxIteration: 40);
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    expect(condividi, findsOneWidget,
+        reason: 'dopo il consulto non si puo\' piu\' condividere, nemmeno '
+            'scorrendo fino in fondo: la correzione ha tolto la funzione '
+            'invece di rimandarla');
   });
 
   testWidgets('il titolo e\' il nome del segno, e sta sopra l\'emblema',

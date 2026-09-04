@@ -24,6 +24,13 @@ import 'sorgenti_di_lib.dart';
 /// una, e cade il giorno che una di loro mostra il proprio responso a una
 /// misura diversa. La home resta fuori: lo dice il fondatore.
 void main() {
+  /// **IL NOME DEL RUOLO DI RIFERIMENTO, in un posto solo.**
+  ///
+  /// Ordine CQ voce 6.23, 4 settembre 2026: i responsi di tutte le arti sono
+  /// saliti a venti punti, e questa prova nominava `lettura` in tre punti
+  /// diversi. **Tre copie dello stesso nome sono tre posti da cui cadere.**
+  const nomeDelRuolo = 'lettura';
+
   /// Le arti dell'app, con la schermata che la persona apre. La home e il
   /// Santuario non ci sono, per ordine del fondatore.
   const arti = <String, String>{
@@ -58,6 +65,17 @@ void main() {
   };
 
   test('la misura di riferimento e\' quella del responso dei Tarocchi', () {
+    // **IL RIFERIMENTO E' SALITO A VENTI PUNTI. Ordine CQ voce 6.23,
+    // 4 settembre 2026.**
+    //
+    // Il fondatore ha chiesto testi piu' grandi nei Doni **tre volte**, e
+    // alzare la scala intera non si puo': misurato, cadono oltre quaranta
+    // prove. Percio' e' nato un gradino nuovo, `lettura`, e i responsi
+    // di TUTTE le arti ci sono saliti insieme.
+    //
+    // **Questa prova non insegue il ruolo, tiene la regola**: una misura sola
+    // per tutti i responsi. Cambia il ruolo di riferimento, non cio' che
+    // pretende.
     final riferimento = TypographyTokens.lettura();
     final stesa = File('lib/features/tarot/stesa_tre_carte_screen.dart')
         .readAsStringSync();
@@ -67,7 +85,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CC VOCE 05: la misura di riferimento e\' '
         '${riferimento.fontSize} punti, interlinea ${riferimento.height}');
-    expect(riferimento.fontSize, 18);
+    expect(riferimento.fontSize, 20);
   });
 
   test('ogni arte mostra il proprio responso a quella misura', () {
@@ -78,7 +96,11 @@ void main() {
       expect(f.existsSync(), isTrue,
           reason: '${arte.key}: la schermata ${arte.value} non esiste piu\'');
       quante++;
-      if (!f.readAsStringSync().contains('TypographyTokens.lettura()')) {
+      // **IL RUOLO DI RIFERIMENTO SI LEGGE DA UN POSTO SOLO, ordine CQ voce
+      // 6.23.** Scritto a mano qui, il giorno che il ruolo cambia questa
+      // prova nomina un ruolo che non esiste piu' e cade su tutte le arti
+      // insieme, come e' appena successo.
+      if (!f.readAsStringSync().contains('TypographyTokens.$nomeDelRuolo()')) {
         senza.add(arte.key);
       }
     }
@@ -109,7 +131,7 @@ void main() {
         final finestra = righe.sublist(i, (i + 24).clamp(0, righe.length));
         final stile = RegExp(r'stile:\s*TypographyTokens\.(\w+)\(')
             .firstMatch(finestra.join('\n'));
-        if (stile == null || stile.group(1) != 'lettura') {
+        if (stile == null || stile.group(1) != nomeDelRuolo) {
           fuori.add('$p riga ${i + 1}: ${stile?.group(1) ?? "senza stile"}');
         }
       }

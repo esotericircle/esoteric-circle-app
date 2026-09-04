@@ -807,7 +807,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // **FUORI SCALA, ordine CG voce 14.** Tredici punti scritti a mano non
     // erano dentro nessun ruolo: una misura fuori scala non la governa
     // nessuno. Adesso e' `didascalia`, che vale sedici.
-    final stile = TypographyTokens.didascalia().copyWith(
+    final stile = TypographyTokens.lettura().copyWith(
       color: Colors.white.withValues(alpha: 0.6),
       letterSpacing: 0.3,
       shadows: _ombraTesto,
@@ -854,7 +854,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     ? 'Apri le impostazioni per riattivarla'
                     : 'Attiva la posizione',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.corpo().copyWith(
+                style: TypographyTokens.lettura().copyWith(
                   color: _palette.goldSoft,
                   decoration: TextDecoration.underline,
                   decorationColor: _palette.goldSoft.withValues(alpha: 0.6),
@@ -1299,7 +1299,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 SunsetRuneCorpus.perche(_e.rune.name),
                 key: const Key('sunset_perche_simmetrica'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.corpo()
+                style: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.35),
               ),
             ),
@@ -1367,7 +1367,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     '«${kRuneLore[_e.rune.name]!.strofe.first.traduzione}»',
             key: const Key('sunset_provenienza'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.corpo().copyWith(
+            style: TypographyTokens.lettura().copyWith(
                 color: ColorTokens.textSecondary,
                 height: 1.45,
                 shadows: _ombraTesto),

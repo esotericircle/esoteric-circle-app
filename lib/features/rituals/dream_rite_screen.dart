@@ -588,7 +588,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           // di chi non riesce col soffio: illeggibile proprio a chi ne ha
           // bisogno.
           child: Text('Dirada la nebbia',
-              style: TypographyTokens.didascalia()
+              style: TypographyTokens.lettura()
                   .copyWith(color: _palette.goldSoft)),
         ),
       ];
@@ -611,7 +611,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             '${_figura.points.length}.',
             key: const Key('dream_conteggio'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.corpo()
+            style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
         const SizedBox(height: SpacingTokens.sm),
         _Riga(
@@ -774,7 +774,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                         _luna,
                         DreamRiteCorpus.relazione(
                             _date, _forseLaNascita(context))),
-                    style: TypographyTokens.corpo().copyWith(
+                    style: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
