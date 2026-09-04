@@ -941,7 +941,19 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _fiorisci(int slot) async {
     if (slot < 0 || slot >= _spread.cards.length) return;
     final spec = RevealSpec.of(_spread.cards[slot].card);
-    _sensi.momento(context, MomentoSensoriale.reveal, solenne: spec.solenne);
+    // **QUI LA RIVELAZIONE STRONCAVA LA CARTA. Ordine CQ voce 6.08.**
+    //
+    // `_fiorisci` viene chiamata solo da `_pesca`, nella riga subito dopo
+    // il flip: i due suoni arrivavano al lettore unico nello stesso
+    // fotogramma, e il secondo ferma il primo. **La carta durava zero
+    // millesimi su settecento trenta**, e nessuna guardia lo vedeva perche
+    // dalla porta del Cerchio uscivano tutti e due i suoni, come dovevano.
+    //
+    // La carta che si posa fa UN suono, ed e' la carta. **L'aptica della
+    // fioritura resta**, solenne sui Maggiori: e' quella a dire che carta e',
+    // e non si contende nessun lettore.
+    _sensi.momento(context, MomentoSensoriale.reveal,
+        solenne: spec.solenne, conSuono: false);
     if (_reduceMotion) return;
     setState(() {
       _revealSlot = slot;

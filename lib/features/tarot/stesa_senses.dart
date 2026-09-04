@@ -107,11 +107,22 @@ class SensiDellaStesa {
   /// l'app. L'interruttore locale della stesa, [silenzio], sta sopra e non al
   /// posto suo: chi zittisce la stesa zittisce la stesa, chi zittisce l'app
   /// zittisce anche la stesa.
+  /// **[conSuono] esiste per un difetto misurato, ordine CQ voce 6.08.**
+  ///
+  /// Il lettore degli effetti e' UNO SOLO e li suona uno alla volta: ogni
+  /// effetto ferma quello prima. `_pesca` chiamava il flip e subito dopo la
+  /// fioritura, che chiama il reveal, **nello stesso fotogramma**: la carta
+  /// partiva e la rivelazione la stroncava a zero millesimi su settecento
+  /// trenta. Il suono della carta non si e' mai sentito, da quando esiste.
+  ///
+  /// **La vibrazione resta comunque**: e' l'aptica a distinguere un Maggiore
+  /// da un Minore, e quella non si contende niente.
   Future<void> momento(BuildContext context, MomentoSensoriale m,
-      {bool solenne = false}) async {
+      {bool solenne = false, bool conSuono = true}) async {
     if (muto) return;
     eseguiti.add(m);
     _vibra(m, solenne: solenne);
+    if (!conSuono) return;
     final suono = m.suono;
     if (suono == null) return;
     // Il momento puo' arrivare da un'animazione conclusa dopo che la schermata

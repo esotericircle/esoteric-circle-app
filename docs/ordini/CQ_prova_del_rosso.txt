@@ -347,3 +347,14 @@ ROSSA     le carte scelte spariscono del tutto, come prima
 ROSSA     il pulsante torna a dire Leggi il responso
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DEL SUONO DELLA CARTA
+Ordine CQ voce 6.08, Regola A.
+========================================================================
+ROSSA     la rivelazione torna a stroncare la carta
+ROSSA     il tocco sulla carta smette di suonare
+ROSSA     conSuono smette di fermare il suono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: posando una carta uscivano [carta, rivelazione] sullo stesso lettore
+nello stesso fotogramma. Adesso esce [carta] sola.
