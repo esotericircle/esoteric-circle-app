@@ -217,6 +217,25 @@ class RitoDiOggi {
     required this.datiNominati,
   });
 
+  /// **LO STESSO RITO CON UN'ALTRA RISPOSTA.** Ordine CQ voce 2.02, 3
+  /// settembre 2026. Il Soffio del Destino compie lo stesso gesto dell'Alba e
+  /// riceve la stessa parola, ed e' giusto: quella parte e' comune. Cio' che
+  /// non deve essere comune e' la RISPOSTA, che nel Soffio nasce dai transiti
+  /// veri sulla carta di chi legge.
+  RitoDiOggi conRisposta(RispostaDelDono altra) => RitoDiOggi(
+        maestro: maestro,
+        forma: forma,
+        risposta: altra,
+        gesto: gesto,
+        viaTattile: viaTattile,
+        respiro: respiro,
+        tempi: tempi,
+        giri: giri,
+        parola: parola,
+        perche: perche,
+        datiNominati: datiNominati,
+      );
+
   final Maestro maestro;
 
   /// Il nome della forma da cui nasce.

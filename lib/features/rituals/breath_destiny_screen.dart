@@ -321,10 +321,15 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     final date = widget.now ?? DateTime.now();
     setState(() {
       _revealed = true;
-      _gift = DawnGift.forMaestro(date, Maestro.aura, identity: _identity());
+      // **PRIMA LA RISPOSTA DEL SOFFIO, POI IL DONO CHE LA PORTA.**
+      // Ordine CQ voce 2.02, 3 settembre 2026, e l'ordine conta: il dono
+      // dell'Alba nasceva prima e portava la risposta dell'Alba, cioe' la
+      // stessa frase che il fondatore leggeva due ore prima.
       _risposta = RispostaDelSoffio.diOggi(
         CieloDiOggi.perIlGiorno(adesso: date, carta: _carta()),
       );
+      _gift = DawnGift.forMaestro(date, Maestro.aura,
+          identity: _identity(), rispostaPropria: _risposta?.comeRisposta());
     });
     _stopMic();
     _recordStreak(date);

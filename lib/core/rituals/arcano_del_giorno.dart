@@ -62,8 +62,34 @@ class ArcanoDelGiorno {
       // come somma: una somma avrebbe solo traslato l'elenco, e due
       // persone a un giorno di distanza avrebbero visto la carta che
       // l'altra aveva ieri.
+      // **E LA NASCITA INTERA, NON SOLO LA CARTA NATALE.**
+      // Ordine CQ voce 2.05, 3 settembre 2026.
+      //
+      // **Il fatto, parole del fondatore:** l'Arcano non e' individuale.
+      // Misurato: nel seme entrava il solo NUMERO della carta natale, che
+      // vale da uno a ventidue. **Due persone con la stessa carta natale
+      // vedevano la stessa carta ogni giorno, per sempre**, anche essendo
+      // nate a vent'anni di distanza: la parte personale del seme aveva
+      // ventidue valori in tutto, e un ventiduesimo del mondo era un blocco
+      // solo che si muoveva insieme.
+      //
+      // **Le carte restano ventidue, e non e' quello il punto.** In un
+      // giorno solo non possono uscire piu' di ventidue carte diverse,
+      // qualunque seme si usi. Cio' che cambia e' che due persone nate in
+      // giorni diversi si scorrelano: prima coincidevano il 100 per cento
+      // dei giorni, adesso circa un giorno su ventidue, che e' quanto ci si
+      // aspetta da due estrazioni indipendenti.
+      //
+      // **La carta natale resta**, perche' e' la via che la tradizione del
+      // mazzo offre per legare una persona agli Arcani, ed e' il legame che
+      // il tutorial promette. Entra come uno dei fattori, non come l'unico.
       final natale = CartaDiNascitaDeiTarocchi.numeroDi(nascita);
+      final giornoDiNascita =
+          nascita.year * 10000 + nascita.month * 100 + nascita.day;
+      final oraDiNascita = nascita.hour * 60 + nascita.minute;
       mescolato = (mescolato ^ (natale * 2246822519)) * 40503;
+      mescolato = (mescolato ^ (giornoDiNascita * 2654435761)) * 2246822519;
+      mescolato = (mescolato ^ (oraDiNascita * 40503)) * 668265263;
     }
     return carte[mescolato.abs() % carte.length];
   }

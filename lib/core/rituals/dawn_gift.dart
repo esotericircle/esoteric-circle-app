@@ -6,6 +6,7 @@ import '../horoscope/corrente_del_cielo.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
+import 'risposta_del_dono.dart';
 import 'rito_alba.dart';
 
 /// Il tipo di dono del Rito dell'Alba cambia col Maestro di turno.
@@ -144,10 +145,19 @@ class DawnGift {
 
   /// Come [forChart] ma per un Maestro dato, non quello a rotazione. Serve ai
   /// riti legati a un solo Maestro, come il Soffio del Destino di Aura.
+  /// **[rispostaPropria] E' LA RISPOSTA DEL DONO CHE CHIAMA.**
+  /// Ordine CQ voce 2.02, 3 settembre 2026.
+  ///
+  /// Il Soffio del Destino passava di qui e riceveva il rito dell'Alba
+  /// identico, risposta compresa: **due Doni con la stessa risposta a due ore
+  /// di distanza sono un Dono solo mostrato due volte.** Chi ha una materia
+  /// sua la passa qui, e il gesto e la parola restano quelli del rito, che
+  /// sono la parte comune.
   static DawnGift forMaestro(DateTime date, Maestro maestro,
       {BirthIdentity? identity,
       PosizioneDiStamattina? posizione,
-      NatalChart? carta}) {
+      NatalChart? carta,
+      RispostaDelDono? rispostaPropria}) {
     final natalSun =
         identity == null ? null : NightSky.sunSign(identity.birthMoment);
 
@@ -165,8 +175,11 @@ class DawnGift {
     // "da dove nasce", e chi compiva il rito non incontrava mai la propria
     // carta dentro cio' che leggeva. Adesso il gesto, il respiro e la parola
     // del giorno nascono anche dal suo Sole.
-    final rito =
+    final ritoDelGiorno =
         RitoAlba.diOggi(date, posizione: posizione, soleNatale: natalSun);
+    final rito = rispostaPropria == null || ritoDelGiorno == null
+        ? ritoDelGiorno
+        : ritoDelGiorno.conRisposta(rispostaPropria);
 
     return DawnGift(
       maestro: maestro,

@@ -209,3 +209,27 @@ ROSSA     il freno non si apre piu al confine del giorno
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
 
+LA PROVA DEL ROSSO DELL ARCANO INDIVIDUALE
+Ordine CQ voce 2.05, Regola A.
+========================================================================
+ROSSA     la nascita torna a entrare col solo numero della carta natale
+          attesa: due persone con la stessa carta natale non vedono lo stesso Arcano
+          caduta: due persone con la stessa carta natale non vedono lo stesso Arcano
+ROSSA     il Dono si spegne per chi non ha dato la nascita        
+          attesa: e chi non ha dato la nascita non perde il Dono
+          caduta: e chi non ha dato la nascita non perde il Dono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
+LA PROVA DEL ROSSO DELL ALBA E DEL SOFFIO
+Ordine CQ voce 2.02, Regola A.
+========================================================================
+ROSSA     il dono ignora la risposta propria di chi lo chiama     
+          attesa: la risposta del Soffio nasce dai suoi transiti, non dal rito dell Alba
+          caduta: la risposta del Soffio nasce dai suoi transiti, non dal rito dell Alba
+ROSSA     la risposta propria sostituisce anche il gesto e la parola
+          attesa: e il gesto invece resta comune, che e voluto
+          caduta: e il gesto invece resta comune, che e voluto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
