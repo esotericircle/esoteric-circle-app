@@ -1,3 +1,4 @@
+import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -264,7 +265,8 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
   /// Il contesto natale reale, dai dati di nascita. Vuoto se la carta manca:
   /// personalizzazione col solo nome.
   NatalContext _natal() =>
-      SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
+      SorgenteNatale.daIdentita(context.read<BirthIdentityController>(),
+          diario: _forseIlDiario(context));
 
   /// Ottiene la lente di un Maestro sul tema: prova Gemini con profilo e dati
   /// natali, e cade sull'oracolo locale se il provider non e' pronto o solleva
@@ -970,5 +972,20 @@ class _LensCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// **IL DIARIO SE C'E'. Ordine CQ voce 2.15**, 4 settembre 2026.
+///
+/// Il prossimo passo del Cammino entra nel contesto dei Maestri, e il diario
+/// vive nel guscio: chi monta questa schermata da sola, cioe' le prove e le
+/// anteprime, non ce l'ha. Pretenderlo farebbe cadere quaranta prove altrove,
+/// ed e' un difetto che questo progetto ha gia' pagato: si chiede, e se non
+/// c'e' il contesto esce senza quella riga.
+DiarioDelCammino? _forseIlDiario(BuildContext context) {
+  try {
+    return context.read<DiarioDelCammino>();
+  } catch (_) {
+    return null;
   }
 }

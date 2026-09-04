@@ -1,6 +1,9 @@
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/maestro/cio_che_arriva.dart';
+import '../../core/astro/prossimi_eventi.dart';
+import '../../core/astro/zodiac.dart';
 import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consiglio_finale.dart';
 import '../../core/maestro/consult_depth.dart';
@@ -253,6 +256,28 @@ class MaestroPersona {
     return buffer.toString();
   }
 
+  /// **IL BLOCCO DI CIO' CHE ARRIVA, composto qui perche' qui c'e' il
+  /// contesto della persona.** Ordine CQ voce 2.15.
+  ///
+  /// Gli eventi del cielo si calcolano dal segno solare, che e' il solo dato
+  /// che questo oggetto porta sempre quando c'e' una nascita: senza segno non
+  /// si calcola niente e il blocco non compare, invece di comparire coi soli
+  /// eventi generali spacciati per personali.
+  static String _cioCheArriva(NatalContext natal) {
+    Zodiac? segno;
+    for (final z in Zodiac.values) {
+      if (z.italianName == natal.sunSign) segno = z;
+    }
+    final eventi = segno == null
+        ? const <EventoInArrivo>[]
+        : ProssimiEventi.da(adesso: DateTime.now(), segno: segno);
+    return CioCheArriva.blocco(
+      eventi: eventi,
+      prossimoTraguardo: natal.prossimoTraguardo,
+      cosaApre: natal.cosaApreIlProssimoTraguardo,
+    );
+  }
+
   /// Istruzione di sistema completa per una conversazione con [maestro].
   static String systemInstruction({
     required Maestro maestro,
@@ -279,6 +304,11 @@ class MaestroPersona {
       // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
       // era la firma.
       if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
+      // **CIO' CHE ARRIVA. Ordine CQ voce 2.15**, 4 settembre 2026, e chiude
+      // la regola 8 del fondatore: i Maestri devono sapere gli eventi in
+      // arrivo e il prossimo passo del Cammino. Il motore delle date esisteva
+      // da tre ordini e nessuno lo portava qui dentro.
+      if (_cioCheArriva(natal).isNotEmpty) ...['', _cioCheArriva(natal)],
       '',
       _memoryContext(memory),
       // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.

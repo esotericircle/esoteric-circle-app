@@ -1,3 +1,4 @@
+import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import '../../ricordi/ricordi_screen.dart';
@@ -128,7 +129,8 @@ class MaestroChatScreen extends StatefulWidget {
                 // valore: chi completa i dati di nascita mentre la chat e' aperta
                 // deve essere riconosciuto al turno dopo.
                 natal: () => SorgenteNatale.daIdentita(
-                    rotta.read<BirthIdentityController>()),
+                    rotta.read<BirthIdentityController>(),
+                    diario: _forseIlDiario(rotta)),
               )..init(),
               // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
               // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
@@ -449,7 +451,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
   /// Il cielo di questa persona, dalla sorgente unica.
   NatalContext _natalCorrente(BuildContext context) =>
-      SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
+      SorgenteNatale.daIdentita(context.read<BirthIdentityController>(),
+          diario: _forseIlDiario(context));
 
   /// LE DUE FAMIGLIE DI DOMANDE, DA UNA PORTA SOLA: le frequenti intere, le
   /// personali filtrate sul dato VERO della persona e ruotate sul giorno.
@@ -1075,7 +1078,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     final birth = context.read<BirthIdentityController>();
     // Dalla sorgente unica, non ricostruito qui: era la seconda copia della
     // stessa riga, e le due copie servivano a due cose diverse.
-    final natal = SorgenteNatale.daIdentita(birth);
+    final natal = SorgenteNatale.daIdentita(birth,
+        diario: _forseIlDiario(context));
     // In demo il benvenuto riprende la memoria come per il premium: la
     // demo mostra il prodotto vero. Ordine BG voce 03.
     final premium =
@@ -1543,5 +1547,20 @@ class _PresenzaARiposo extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+/// **IL DIARIO SE C'E'. Ordine CQ voce 2.15**, 4 settembre 2026.
+///
+/// Il prossimo passo del Cammino entra nel contesto dei Maestri, e il diario
+/// vive nel guscio: chi monta questa schermata da sola, cioe' le prove e le
+/// anteprime, non ce l'ha. Pretenderlo farebbe cadere quaranta prove altrove,
+/// ed e' un difetto che questo progetto ha gia' pagato: si chiede, e se non
+/// c'e' il contesto esce senza quella riga.
+DiarioDelCammino? _forseIlDiario(BuildContext context) {
+  try {
+    return context.read<DiarioDelCammino>();
+  } catch (_) {
+    return null;
   }
 }

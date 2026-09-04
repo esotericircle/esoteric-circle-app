@@ -233,3 +233,22 @@ ROSSA     la risposta propria sostituisce anche il gesto e la parola
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
 
+LA PROVA DEL ROSSO DEL PONTE CON LA CHAT
+Ordine CQ voce 2.15, Regola A.
+========================================================================
+ROSSA     il ponte si stacca dall istruzione di sistema 
+          attesa: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta: e nomina il prossimo passo del Cammino quando c e
+          caduta: il blocco entra nell istruzione di sistema, con un evento vero
+ROSSA     il Cammino non entra piu nel blocco           
+          attesa: e nomina il prossimo passo del Cammino quando c e
+          caduta: e nomina il prossimo passo del Cammino quando c e
+ROSSA     il blocco compare anche vuoto                 
+          attesa: e senza niente da dire il blocco NON compare
+          caduta: e senza niente da dire il blocco NON compare
+ROSSA     il tetto dei tre eventi sparisce              
+          attesa: il ponte non versa un elenco: al massimo tre eventi
+          caduta: il ponte non versa un elenco: al massimo tre eventi
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+

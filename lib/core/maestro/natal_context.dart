@@ -18,14 +18,42 @@ class NatalContext {
     this.lifeNumber,
     this.lifeNumberTitle,
     this.moonIllumination,
+    this.prossimoTraguardo,
+    this.cosaApreIlProssimoTraguardo,
   });
+
+  /// **IL PROSSIMO GRADINO DEL SUO CAMMINO.** Ordine CQ voce 2.15,
+  /// 4 settembre 2026.
+  ///
+  /// **Sta qui e non in un parametro nuovo**, e la ragione e' misurata: il
+  /// metodo `reply` dei fornitori AI e' implementato da undici doppioni nelle
+  /// prove, e in Dart aggiungere un parametro all'interfaccia li invalida
+  /// tutti. Questo oggetto invece e' gia' "cio' che sappiamo di questa
+  /// persona adesso", passa da tutte le porte, e il prossimo passo del suo
+  /// Cammino e' esattamente un fatto di quel genere.
+  ///
+  /// Nullo quando il Cammino non ha un prossimo gradino da nominare, e in
+  /// quel caso nel contesto non compare nessuna riga: **un titolo vuoto
+  /// insegna al modello che quella sezione va riempita.**
+  final String? prossimoTraguardo;
+
+  /// Cosa apre quel gradino, dalle parole del corpus. Serve a dire perche'
+  /// vale la pena, senza promettere niente.
+  final String? cosaApreIlProssimoTraguardo;
 
   /// Costruisce il contesto dai fatti gia' calcolati: il segno solare, lunare e
   /// l'ascendente dalla carta (quando c'e' l'ora), il numero della vita col suo
   /// titolo e la fase lunare di nascita dai fatti identitari. Solo dati reali:
   /// dove il motore non ha calcolato nulla, il campo resta null.
-  factory NatalContext.fromNatal({NatalChart? chart, NatalFacts? facts}) {
+  factory NatalContext.fromNatal({
+    NatalChart? chart,
+    NatalFacts? facts,
+    String? prossimoTraguardo,
+    String? cosaApreIlProssimoTraguardo,
+  }) {
     return NatalContext(
+      prossimoTraguardo: prossimoTraguardo,
+      cosaApreIlProssimoTraguardo: cosaApreIlProssimoTraguardo,
       sunSign: chart?.sunSign.italianName,
       moonSign: chart?.moonSign?.italianName ?? facts?.moonSign?.italianName,
       ascendant: chart?.ascendant?.italianName,
