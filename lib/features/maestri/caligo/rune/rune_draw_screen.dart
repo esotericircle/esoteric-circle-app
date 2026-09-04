@@ -872,9 +872,13 @@ class _Responso extends StatelessWidget {
     // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
     // agganciata al cielo vero. Il perche' sta su RuneVoce.
     final voci = [
-      for (final r in esito.rune)
+      for (var i = 0; i < esito.rune.length; i++)
         RuneVoce.voce(
-            runa: r, persona: persona, giorno: giorno, domanda: domanda),
+            runa: esito.rune[i],
+            persona: persona,
+            giorno: giorno,
+            domanda: domanda,
+            indice: i),
     ];
     // IL VERSO DELLE NORNE: le tre letture legate da giunture che variano
     // su giorno E posizione, mai su un asse solo.
@@ -1121,13 +1125,26 @@ class _Responso extends StatelessWidget {
                   // strette in un glifo solo. La nota della tradizione resta,
                   // e scende in fondo dove sta la fonte, che e' il suo posto
                   // nella legge dei testi.
+                  // **E ADESSO RISPONDE ALLA DOMANDA. Ordine CQ voce 6.17,**
+                  // 4 settembre 2026. Parole del fondatore: *anche il sigillo
+                  // del giorno dovrebbe portare una risposta alla domanda che
+                  // nasce dall'intreccio delle rune gettate*.
+                  //
+                  // **La riga di prima diceva solo cosa il segno E'**, e
+                  // portava due errori che il fondatore ha letto a video: *e
+                  // cio* senza verbo e senza accento.
                   Text(
-                    'Le rune di questa gettata, strette in un segno solo: e '
-                    'cio che ti resta quando i testi si dimenticano.',
+                    SigilloDelGiorno.riga(
+                      paroleChiave: [
+                        for (final r in esito.rune.take(3)) r.rune.keyword
+                      ],
+                      domanda: domanda,
+                      giorno: giorno,
+                    ),
                     key: const Key('rune_sigillo_a_cosa_serve'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+                    style: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
                   // AL MASSIMO TRE RUNE NEL SIGILLO, dichiarato: col getto
@@ -1258,7 +1275,9 @@ class _LetturaRuna extends StatelessWidget {
                               ? '${runa.posizione.titolo} · '
                                   '${runa.posizione.glossa}'
                               : runa.posizione.titolo,
-                          style: TypographyTokens.corpo().copyWith(
+                          // **PROSA, quindi ruolo lettura. Ordine CQ voce
+                          // 6.15.**
+                          style: TypographyTokens.lettura().copyWith(
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
@@ -1328,10 +1347,23 @@ class _LetturaRuna extends StatelessWidget {
                         '\u00ab${kRuneLore[runa.rune.name]!.strofe.first.traduzione}\u00bb',
               )
             else
+              // **UNA MISURA SOLA PER LA PROSA DELLA SCHEDA. Ordine CQ voce
+              // 6.15, 4 settembre 2026.**
+              //
+              // Parole del fondatore, e le ha chieste piu' volte: *i caratteri
+              // sono uniformati?* Dentro questo stesso riquadro convivevano
+              // **quattro misure**: il nome della runa, le frasi del corpo,
+              // il significato con la strofa, e l'etichetta del verso. Le due
+              // di mezzo sono tutte e due prosa che si legge, e stavano a
+              // due misure diverse senza nessuna ragione.
+              //
+              // Adesso **tutta la prosa della scheda sta nel ruolo lettura**.
+              // Restano diversi solo il nome, che e' un titolo, e le
+              // etichette in maiuscoletto, che non sono prosa.
               Text(runa.rune.meaning,
                   key: Key('rune_meaning_$indice'),
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+                  style: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.xs),
             // La lettura della scheda passa dalla porta unica dei paragrafi:
             // sotto cinque righe non divide, quindi le righe brevi restano
@@ -1360,8 +1392,12 @@ class _LetturaRuna extends StatelessWidget {
                   '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
                   '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
                   key: Key('rune_strofa_$indice'),
-                  style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.45)),
+                  // **STESSA MISURA DELLA PROSA, ordine CQ voce 6.15.** La
+                  // strofa e' una citazione, non una nota a pie' di pagina:
+                  // era l'unico blocco della scheda a farsi leggere piu
+                  // piccolo, e si vedeva.
+                  style: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textSecondary)),
             ],
           ],
         ),

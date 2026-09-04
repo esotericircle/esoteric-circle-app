@@ -94,6 +94,14 @@ class RuneVoce {
     required String persona,
     required DateTime giorno,
     required String domanda,
+    /// Quale delle rune della gettata e', da zero.
+    ///
+    /// **Serve perche' l'eco della domanda non si ripeta, ordine CQ voce
+    /// 6.16, 4 settembre 2026.** Il fondatore ha mandato gli screenshot di
+    /// una gettata a tre rune: la frase *Dentro la tua domanda, e' qui che
+    /// guarda* compariva **identica su tutte e tre**, e una formula ripetuta
+    /// tre volte in una schermata smette di essere una risposta.
+    int indice = 0,
   }) {
     final chiave = '$persona|${giorno.year}-${giorno.month}-${giorno.day}'
         '|$domanda|${runa.rune.name}|${runa.verso.name}';
@@ -110,12 +118,30 @@ class RuneVoce {
     // attraversa oggi e la Luna come sta.
     final segno = NightSky.sunSign(giorno);
     final luna = MoonPhase.forDate(giorno);
-    final cielo = '$ponte col Sole in ${segno.italianName} e la '
-        '${luna.italianName.toLowerCase()}.';
+    // **LA LUNA SI DICE COME SI DICE, ordine CQ voce 6.14.**
+    //
+    // Qui c'era `luna.italianName.toLowerCase()`, che per l'ultimo quarto
+    // da' *ultimo quarto*: attaccato a "e la" usciva a video **"e la ultimo
+    // quarto"**, e il fondatore lo ha letto tre volte nello stesso responso.
+    //
+    // `MoonPhase.comeSiDice` esiste esattamente per questo e dice
+    // *all'ultimo quarto*: **la porta giusta c'era e nessuno ci passava.**
+    // Cambia anche l'articolo, perche' "e la all'ultimo quarto" sarebbe
+    // sgrammaticato quanto prima.
+    final cielo = '$ponte col Sole in ${segno.italianName}, e la Luna '
+        '${MoonPhase.comeSiDice(luna.italianName)}.';
 
-    final eco = domanda.trim().isEmpty
+    // **E LA DOMANDA SI NOMINA, UNA VOLTA SOLA. Ordine CQ voce 6.16.**
+    //
+    // Qui c'era una formula che diceva *dentro la tua domanda* senza mai
+    // dire quale, e la ripeteva su ogni runa. Adesso la prima runa riporta
+    // **la domanda com'e' stata scritta**, cosi' chi legge vede che e' stata
+    // letta; le altre tacciono, perche' l'ha gia' detto la prima.
+    final pulita = domanda.trim();
+    final eco = pulita.isEmpty || indice != 0
         ? ''
-        : ' Dentro la tua domanda, è qui che guarda.';
+        : ' Tu hai chiesto: «$pulita», ed è lì che questa '
+            'runa guarda.';
 
     // **LA RIGA DELLA RUNA NON SI RIPETE QUI, ordine S voce 24.** La scheda la
     // mostra nella sua bolla, sopra questa voce: ricopiarla faceva leggere la
@@ -171,5 +197,72 @@ class RuneVoce {
                 '${giorno.day}|norne|$posizione') %
             _giunture[posizione].length],
     ];
+  }
+}
+
+/// LA RISPOSTA DEL SIGILLO, dall'intreccio delle rune gettate.
+///
+/// **Ordine CQ voce 6.17, 4 settembre 2026.** Parole del fondatore: *"anche il
+/// sigillo del giorno dovrebbe portare una risposta alla domanda che nasce
+/// dall'intreccio delle rune gettate."*
+///
+/// **Il Sigillo diceva solo cosa E'**: le rune strette in un segno, e cosa ti
+/// resta. Vero, e non era una risposta. Le tre rune che si intrecciano sono le
+/// stesse tre che hai letto una per una, e messe insieme dicono qualcosa che
+/// nessuna dice da sola: **e' questo che il Sigillo puo' rispondere.**
+///
+/// **Deterministica come tutto il resto di questo motore**: stesse rune, stessa
+/// domanda, stesso giorno danno sempre la stessa riga. Nessun modello, nessuna
+/// rete: le parole chiave vengono dal corpus delle rune, il legame da un
+/// elenco dichiarato qui sotto.
+abstract final class SigilloDelGiorno {
+  /// I modi in cui tre parole chiave si legano in una riga sola.
+  ///
+  /// **Sono quattro e non uno**, perche' una formula sola letta ogni giorno
+  /// diventa rumore: e' lo stesso motivo per cui la voce della runa ha le sue
+  /// aperture. Il numero e' basso di proposito: sotto c'e' il corpus, non
+  /// queste righe.
+  static const List<String> _legami = [
+    'tenute insieme dicono una cosa sola',
+    'intrecciate diventano una direzione',
+    'lette come un segno solo indicano',
+    'strette in un glifo portano',
+  ];
+
+  /// La riga che il Sigillo mostra sotto il disegno.
+  ///
+  /// Senza domanda torna la riga che dice a cosa serve il segno, che resta
+  /// giusta: chi non ha chiesto niente non deve leggere una risposta a una
+  /// domanda che non ha fatto.
+  static String riga({
+    required List<String> paroleChiave,
+    required String domanda,
+    required DateTime giorno,
+  }) {
+    const senzaDomanda = 'Le rune di questa gettata, strette in un segno '
+        'solo, ed è ciò che ti resta quando i testi si dimenticano.';
+    final pulita = domanda.trim();
+    final chiavi = paroleChiave
+        .map((k) => k.trim().toLowerCase())
+        .where((k) => k.isNotEmpty)
+        .toList();
+    if (pulita.isEmpty || chiavi.isEmpty) return senzaDomanda;
+
+    // Lo stesso mescolatore della voce della runa, cosi' il Sigillo e le
+    // schede non divergono mai su cosa considerano "lo stesso giorno".
+    var h = 0x811c9dc5;
+    for (final code in '$pulita|${giorno.year}-${giorno.month}-'
+            '${giorno.day}|${chiavi.join("-")}'
+        .codeUnits) {
+      h = (h ^ code) & 0xFFFFFFFF;
+      h = (h * 0x01000193) & 0xFFFFFFFF;
+    }
+    final legame = _legami[h % _legami.length];
+    final elenco = chiavi.length == 1
+        ? chiavi.first
+        : '${chiavi.take(chiavi.length - 1).join(", ")} e ${chiavi.last}';
+    return 'Alla tua domanda, «$pulita», il segno risponde con quello che '
+        'le rune portano insieme: $elenco, $legame. È questo che ti resta '
+        'quando i testi si dimenticano.';
   }
 }
