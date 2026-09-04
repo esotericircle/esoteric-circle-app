@@ -139,8 +139,16 @@ void main() {
     );
     expect(con, isNot(senza),
         reason: 'la domanda non cambia niente nella voce della runa');
-    expect('è qui che guarda'.allMatches(con).length, 1,
-        reason: 'l\'eco della domanda compare piu\' di una volta');
+    // **L'ECO ADESSO NOMINA LA DOMANDA, ordine CQ voce 6.16.** Qui si
+    // cercava la formula *e' qui che guarda*, che diceva "la tua domanda"
+    // senza mai dirla e compariva identica su tutte e tre le rune. Adesso la
+    // prima runa riporta la domanda com'e' stata scritta, e la prova cerca
+    // quella: **una prova che insegue una formula cade quando la formula
+    // migliora.**
+    final quante =
+        'Nel lavoro, quale passo fare?'.allMatches(con).length;
+    expect(quante, 1,
+        reason: 'la domanda compare $quante volte nella voce invece di una');
   });
 
   testWidgets(

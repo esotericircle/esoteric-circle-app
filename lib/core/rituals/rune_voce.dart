@@ -128,7 +128,7 @@ class RuneVoce {
     // *all'ultimo quarto*: **la porta giusta c'era e nessuno ci passava.**
     // Cambia anche l'articolo, perche' "e la all'ultimo quarto" sarebbe
     // sgrammaticato quanto prima.
-    final cielo = '$ponte col Sole in ${segno.italianName}, e la Luna '
+    final cielo = '$ponte col Sole in ${segno.italianName} e la Luna '
         '${MoonPhase.comeSiDice(luna.italianName)}.';
 
     // **E LA DOMANDA SI NOMINA, UNA VOLTA SOLA. Ordine CQ voce 6.16.**
@@ -140,7 +140,7 @@ class RuneVoce {
     final pulita = domanda.trim();
     final eco = pulita.isEmpty || indice != 0
         ? ''
-        : ' Tu hai chiesto: «$pulita», ed è lì che questa '
+        : ' Tu hai chiesto: «$pulita» ed è lì che questa '
             'runa guarda.';
 
     // **LA RIGA DELLA RUNA NON SI RIPETE QUI, ordine S voce 24.** La scheda la
@@ -239,8 +239,8 @@ abstract final class SigilloDelGiorno {
     required String domanda,
     required DateTime giorno,
   }) {
-    const senzaDomanda = 'Le rune di questa gettata, strette in un segno '
-        'solo, ed è ciò che ti resta quando i testi si dimenticano.';
+    const senzaDomanda = 'Le rune di questa gettata strette in un segno '
+        'solo: è ciò che ti resta quando i testi si dimenticano.';
     final pulita = domanda.trim();
     final chiavi = paroleChiave
         .map((k) => k.trim().toLowerCase())

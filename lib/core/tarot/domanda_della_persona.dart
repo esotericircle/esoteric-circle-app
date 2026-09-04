@@ -158,7 +158,7 @@ class DomandaDellaPersona {
   static String? apertura(String? domanda) {
     final pulitaOra = pulita(domanda);
     if (pulitaOra == null) return null;
-    return 'Hai chiesto: "$pulitaOra" Le tre carte rispondono a questa, e non '
+    return 'Hai chiesto: "$pulitaOra" Le tre carte rispondono a questa e non '
         'a una domanda in generale.';
   }
 }

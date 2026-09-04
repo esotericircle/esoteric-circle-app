@@ -162,7 +162,7 @@ class TypographyTokens {
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
   /// tornare a capo molte volte di seguito.
   static TextStyle lettura({double weight = 400}) =>
-      body(size: 20, weight: weight).copyWith(height: 1.55);
+      body(size: 18, weight: weight).copyWith(height: 1.55);
 
   /// Il testo informativo ordinario, quello che accompagna e spiega.
   static TextStyle corpo({double weight = 400}) =>

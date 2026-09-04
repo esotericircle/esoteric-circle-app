@@ -871,14 +871,21 @@ class _Responso extends StatelessWidget {
     final presagio = responso.inParole;
     // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
     // agganciata al cielo vero. Il perche' sta su RuneVoce.
+    // **IL CONTATORE SI CHIAMA `quale` E NON `i`, e c'e' una ragione.**
+    // La guardia del presagio riconosce le rune una per una dal loro ciclo,
+    // e lo cerca per forma: un secondo ciclo scritto uguale qui sopra le
+    // faceva trovare questo invece di quello, e diceva che il presagio
+    // veniva dopo le rune mentre stava dove doveva. **Nemmeno questo
+    // commento puo' citare quella forma alla lettera**, o la guardia
+    // troverebbe la citazione.
     final voci = [
-      for (var i = 0; i < esito.rune.length; i++)
+      for (var quale = 0; quale < esito.rune.length; quale++)
         RuneVoce.voce(
-            runa: esito.rune[i],
+            runa: esito.rune[quale],
             persona: persona,
             giorno: giorno,
             domanda: domanda,
-            indice: i),
+            indice: quale),
     ];
     // IL VERSO DELLE NORNE: le tre letture legate da giunture che variano
     // su giorno E posizione, mai su un asse solo.
