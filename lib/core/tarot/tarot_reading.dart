@@ -1,3 +1,4 @@
+import 'domanda_della_persona.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import '../../features/horoscope/answer_depth.dart';
@@ -106,11 +107,29 @@ class TarotReading {
     TarotTopic topic, {
     AnswerDepth depth = AnswerDepth.free,
     String? fattoDelCielo,
+    String? domandaScritta,
   }) {
-    final domanda = domandaDi(spread, topic);
+    // **LA DOMANDA DELLA PERSONA ENTRA QUI, ordine CQ voce 6.10.**
+    //
+    // Prima non entrava affatto: misurato, su una domanda di cinque parole
+    // portanti ne arrivavano ZERO nel testo del responso. Il campo esisteva,
+    // raccoglieva il testo e lo mostrava, e la lettura chiudeva con una
+    // domanda pescata dal corpus, identica che tu avessi scritto qualcosa o
+    // no.
+    //
+    // **Fa due cose, e la seconda e' quella che conta.** Si fa nominare, cosi'
+    // chi legge vede che e' stata letta; e **sceglie la lente**, cosi' tutte
+    // e tre le carte vengono lette col taglio della sua domanda. Solo la
+    // prima sarebbe la sua frase incollata sopra un testo generale, ed e'
+    // esattamente cio' che il fondatore ha chiamato "generiche".
+    final sua = DomandaDellaPersona.pulita(domandaScritta);
+    final lente = sua == null
+        ? topic
+        : DomandaDellaPersona.lenteDedotta(sua) ?? topic;
+    final domanda = sua ?? domandaDi(spread, topic);
     return TarotReading(
       spread: spread,
-      topic: topic,
+      topic: lente,
       depth: depth,
       sintesi: TettiDellaStesa.dentro(
           spread.presente.summary, TettiDellaStesa.sintesi),
@@ -118,7 +137,8 @@ class TarotReading {
         for (final drawn in spread.cards) PosizioneLetta.of(drawn, topic),
       ],
       chiave: chiaveDi(spread),
-      consiglio: consiglioDi(spread, topic, domanda, fattoDelCielo),
+      consiglio: consiglioDi(spread, lente, domanda, fattoDelCielo,
+          DomandaDellaPersona.apertura(domandaScritta)),
       domanda: domanda,
     );
   }
@@ -142,7 +162,8 @@ class TarotReading {
   /// l'LLM.
   static String consiglioDi(
       TarotSpread spread, TarotTopic topic, String domanda,
-      [String? fattoDelCielo]) {
+      [String? fattoDelCielo,
+      String? apertura]) {
     final pezzi = <String>[
       // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
       // portato le tre risposte che mancavano, una per gruppo, e il montaggio e'
@@ -172,6 +193,17 @@ class TarotReading {
     // versi. Nessuna frase viene spezzata, perche' non si taglia niente: si
     // uniscono pezzi che erano gia' interi.
     final paragrafi = <String>[
+      // **LA DOMANDA DELLA PERSONA APRE, quando c'e'. Ordine CQ voce
+      // 6.10.** Sta in cima e non in coda perche' chi ha scritto una
+      // domanda deve vedere subito che e' stata letta, non alla fine di un
+      // testo che sembra scritto per chiunque.
+      //
+      // **E sta fra i PARAGRAFI e non fra i pezzi, ed e' un difetto che ho
+      // fatto e misurato.** Messa fra i `pezzi` spostava di uno tutti gli
+      // indici, e i paragrafi qui sotto si compongono per indice: il
+      // consiglio si rimontava sbagliato **anche per chi non aveva scritto
+      // nessuna domanda**. Lo ha preso la tavola generata delle lunghezze.
+      if (apertura != null && apertura.trim().isNotEmpty) apertura else '',
       // La lente dell'argomento con la risposta, e il consiglio del gruppo.
       [pezzi[0], pezzi[1]].where((p) => p.isNotEmpty).join(' '),
       // Le tre carte, dal passato al futuro.

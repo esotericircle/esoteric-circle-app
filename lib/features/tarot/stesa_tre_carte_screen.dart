@@ -429,8 +429,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
   /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
+  /// **E LA DOMANDA SCRITTA ENTRA NEL RESPONSO, ordine CQ voce 6.10.**
+  ///
+  /// Prima si fermava qui: il campo la raccoglieva, il ricordo la salvava e
+  /// il riquadro la ripeteva a video, **e il motore non la vedeva mai**.
+  /// Misurato: su una domanda di cinque parole portanti, nel testo del
+  /// responso ne arrivavano zero.
   TarotReading get _reading => TarotReading.of(_spread, _setup.topic,
-      depth: _setup.depth, fattoDelCielo: _fattoDelCielo);
+      depth: _setup.depth,
+      fattoDelCielo: _fattoDelCielo,
+      domandaScritta: _setup.domandaScritta);
 
   /// **IL CIELO VERO DI QUESTA PERSONA, ordine BN voce 07.**
   ///
@@ -1033,10 +1041,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   top: 0,
                   child: RepaintBoundary(
                     key: _cardKey,
+                    // **LA CARD SEGUE LA LENTE, NON LA DOMANDA. Ordine CQ
+                    // voce 6.10.**
+                    //
+                    // La lente e' quella che la domanda ha scelto, cosi' la
+                    // card parla dello stesso tema del responso letto. **La
+                    // domanda scritta invece NON entra**, e non e' una
+                    // dimenticanza: questa immagine esce dal telefono e la
+                    // guardano altri, e la card mostra il primo paragrafo
+                    // del consiglio, che con la domanda dentro sarebbe la
+                    // domanda stessa. Chi condivide una lettura non sta
+                    // condividendo cosa ha chiesto.
                     child: StesaShareCard(
                       spread: _spread,
                       palette: palette,
-                      topic: _setup.topic,
+                      topic: _reading.topic,
                     ),
                   ),
                 ),

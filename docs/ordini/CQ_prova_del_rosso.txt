@@ -315,3 +315,23 @@ ROSSA     la mappa degli otto responsi si svuota
 ROSSA     un sorgente qualunque torna a generare un tono
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA DOMANDA NEL RESPONSO
+Ordine CQ voce 6.10, Regola A. Al primo giro DUE innesti su cinque sono
+restati verdi, e non si nascondono: le pretese erano accoppiate, cioe' ognuna
+poteva essere soddisfatta da un pezzo diverso della cura. La prima cercava le
+parole in tutto il consiglio, che finisce con la domanda in coda, quindi
+togliere l'apertura non le toglieva; la quarta confrontava due testi, e
+l'apertura da sola bastava a renderli diversi. Separate le grandezze, il
+primo paragrafo per l'apertura e la lente per la deduzione, tutti e cinque
+sono diventati rossi.
+========================================================================
+ROSSA     la domanda torna a non entrare nel consiglio
+ROSSA     la chiusura torna quella pescata dal corpus
+ROSSA     la lente non si deduce piu dalla domanda
+ROSSA     la schermata smette di passare la domanda
+ROSSA     una lente resta senza parole che la nominino
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 5 su 5
+MISURA DEL DIFETTO, PRIMA DELLA CURA: parole portanti della domanda 5,
+arrivate nel responso 0. Dopo la cura: 5 su 5.
