@@ -130,7 +130,7 @@ void main() {
             'CM ha dovuto correggere.');
   });
 
-  test('CM.10: il terzo cancello e le diciotto righe, col loro prefisso', () {
+  test('CM.10: il terzo cancello e le righe accettate, col loro prefisso', () {
     final sbarramento = File('tool/sbarramento.sh').readAsStringSync();
     expect(sbarramento.contains('SCALA_DEL_TESTO=1.3'), isTrue,
         reason: 'lo sbarramento non gira piu\' il corredo a scala massima: il '
@@ -158,13 +158,36 @@ void main() {
     expect(dichiarate, isNotNull,
         reason: 'il manifesto non dice piu\' quante schermate restano rotte, '
             'che e\' la domanda con cui l\'ordine CM si chiude');
-    expect(dichiarate!.group(1), 'DICIASSETTE',
-        reason: 'il manifesto dice ${dichiarate.group(1)} e il registro dei '
-            'rossi ne elenca ${aScala.length}: quando le due non coincidono, '
-            'a mentire e\' quasi sempre la parola scritta a mano');
-    expect(aScala.length, 17,
-        reason: 'il registro elenca ${aScala.length} schermate rotte al testo '
-            'massimo, il manifesto ne dichiara diciotto');
+    // **UN CONTO SOLO, ordine CQ voce 6.23 del 4 settembre 2026.**
+    //
+    // Qui stavano DUE conti delle stesse schermate: la parola scritta
+    // nel manifesto e un numero scritto a mano in questa riga. Erano gia\'
+    // divergenti prima di essere toccati, perche\' il numero diceva 17 e
+    // la frase accanto diceva ancora diciotto. **Riparare una schermata
+    // faceva cadere questa prova due volte per la stessa ragione**, ed e\'
+    // esattamente la famiglia di difetti che questo progetto insegue.
+    //
+    // Adesso il numero SEGUE la parola: la prova non sa quante siano,
+    // sa che il manifesto e il registro devono dire la stessa cosa.
+    const numeri = <String, int>{
+      'DODICI': 12,
+      'TREDICI': 13,
+      'QUATTORDICI': 14,
+      'QUINDICI': 15,
+      'SEDICI': 16,
+      'DICIASSETTE': 17,
+      'DICIOTTO': 18,
+    };
+    final parola = dichiarate!.group(1)!;
+    expect(numeri.containsKey(parola), isTrue,
+        reason: 'il manifesto dice "$parola", che non e\' un numero che questa '
+            'prova sappia leggere: scrivilo in lettere maiuscole come gli '
+            'altri, o questa guardia diventa cieca senza dirlo');
+    expect(aScala.length, numeri[parola],
+        reason: 'il manifesto dichiara "$parola" schermate rotte al testo '
+            'massimo e il registro dei rossi ne elenca ${aScala.length}: '
+            'quando le due non coincidono, a mentire e\' quasi sempre la '
+            'parola scritta a mano');
 
     // **OGNI RIGA PORTA LA SUA RAGIONE.** Una riga senza ragione e' un
     // difetto con un permesso.

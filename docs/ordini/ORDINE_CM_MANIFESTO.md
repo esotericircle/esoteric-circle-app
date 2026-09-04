@@ -317,13 +317,20 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO DICIASSETTE SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
+**RESTANO SEDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
 
-**Erano diciotto quando quest'ordine si e' chiuso, e sono diventate diciassette la
-sera stessa** e' scesa a diciassette, quando l'ordine CN voce 12 ha portato la decisione
-sulla card da condividere. **Il numero di stamattina non si cancella**: era
-vero quando e' stato scritto, e toglierlo toglierebbe la misura del cammino.
-Una su dodici, contro una su quattro di stamattina.
+**Erano diciotto quando quest'ordine si e' chiuso.** Sono scese a diciassette la
+sera stessa, quando l'ordine CN voce 12 ha portato la decisione sulla card da
+condividere; e a **sedici** il 4 settembre 2026, con l'ordine CQ voce 6.23. La
+sedicesima uscita e' il Sigillo a schermo basso, e non e' uscita per una cura
+mirata al testo grande: quella cattura si era rotta ANCHE a scala uno, perche'
+la soglia del Sigillo e' una lista che costruisce solo cio' che sta a vista e il
+pulsante era sceso sotto la piega. Facendo scorrere la cattura fino a lui la
+rottura e' sparita a tutte e due le scale.
+
+**Il numero di stamattina non si cancella**: era vero quando e' stato scritto, e
+toglierlo toglierebbe la misura del cammino. Una su undici, contro una su
+quattro di stamattina.
 
 **Si chiudono in DUE ordini, e non in uno, perche' due delle cause non sono
 questioni di impaginazione ma decisioni di prodotto.**

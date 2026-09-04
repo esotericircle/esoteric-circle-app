@@ -514,3 +514,31 @@ ROSSA     il ramo dei corti ristretto a quattro E le righe desiderate da
           costanti vere
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 3, e i due verdi sono l'informazione utile
+
+LA PROVA DEL ROSSO DI CM.10, DUE CONTI DELLE STESSE SCHERMATE
+Ordine CQ voce 6.23, Regola B.
+========================================================================
+PRIMA, ROSSA E GIA' DIVERGENTE. Uscito il Sigillo a schermo basso dal registro
+dei rossi accettati, CM.10 e' caduta: pretendeva 17 righe e ne trovava 16. E la
+stessa prova ne teneva DUE conti: la parola scritta nel manifesto dell'ordine
+CM e un numero scritto a mano nella riga sotto. Erano gia' divergenti prima di
+essere toccati, perche' il numero diceva 17 e la frase accanto diceva ancora
+diciotto: riparare una schermata faceva cadere la prova due volte per la
+stessa ragione.
+
+NON SI E' AGGIORNATO IL NUMERO: E' STATO TOLTO. Adesso la prova legge la
+parola del manifesto e pretende che il registro dica lo stesso; il numero
+proprio non esiste piu'. E il nome della prova non porta piu' la cifra, che
+era la terza copia dello stesso conto.
+
+DOPO, ROSSA SUL DIFETTO VERO.
+ROSSA     il manifesto dichiara una schermata in meno di quante ne elenchi
+          il registro
+          innesto: RESTANO SEDICI -> RESTANO QUINDICI nel manifesto CM,
+          verificato col grep prima di leggere l'esito
+          attesa: CM.10, il terzo cancello e le righe accettate
+          caduta: il manifesto dichiara "QUINDICI" schermate rotte al testo
+                  massimo e il registro dei rossi ne elenca 16
+          ripristino verificato sul byte: 20697
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
