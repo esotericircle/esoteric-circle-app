@@ -20,13 +20,13 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 
 | Testo | Momento | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | Contrasto | Soglia | Passa |
 | --- | --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |
-| `alba_invito_al_gesto` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:738 | lettura | 20 | 400 | #F0D77B | #081A22 | **12.45** | 4.5 | si' |
+| `alba_invito_al_gesto` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:738 | lettura | 18 | 400 | #F0D77B | #081A22 | **12.45** | 4.5 | si' |
 | `alba_titolo` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:514 | titoloScheda | 20 | 600 | #F4F1E8 | #02090B | **17.77** | 3.0 | si' |
 | `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #084F3B | #DCDED2 | **6.99** | 4.5 | si' |
 | `alba_titolo_risposta` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:157 | titoloSezione | 22 | 600 | #2A2213 | #DCDED2 | **11.54** | 3.0 | si' |
-| La Luna è in Cancro: la Luna è ... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| Oggi la tua energia ha una form... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:208 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
+| La Luna è in Cancro: la Luna è ... | a rito compiuto | senza chiave | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
+| Oggi la tua energia ha una form... | a rito compiuto | senza chiave | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
+| `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:208 | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:248 | corpo o didascalia | 16 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |
 | `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:269 | corpo o didascalia | 16 | 400 | #2A2213 | #DEDFD3 | **11.67** | 4.5 | si' |

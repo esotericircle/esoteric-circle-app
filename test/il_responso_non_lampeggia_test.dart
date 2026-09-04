@@ -82,8 +82,19 @@ void main() {
     // che porta le righe di Medora mentre pensa, e le CARTE, che portano il
     // proprio nome. Un nome che compare perche' la carta si e' scoperta non e'
     // il responso: il responso e' il consiglio, le tre bolle e la domanda.
+    //
+    // **E LE CARTE SCELTE, dall'ordine CQ voce 6.09.** Da quella voce le
+    // tre carte restano a video con la terza posata, e prima sparivano: il
+    // fondatore vedeva la pagina svuotarsi e leggeva una schermata nuova.
+    // Il loro nome e la loro sintesi sono la SCHEDA della carta, non la
+    // lettura che le tiene insieme, ed e' la stessa ragione per cui gli
+    // slot erano gia' fuori dal conto.
     final daTogliere = <String>{};
-    for (final chiave in const ['stesa_attesa', 'stesa_slots']) {
+    for (final chiave in const [
+      'stesa_attesa',
+      'stesa_slots',
+      'stesa_blocco_carte_scelte',
+    ]) {
       final dove = find.byKey(Key(chiave));
       if (dove.evaluate().isEmpty) continue;
       for (final t in tester.widgetList<Text>(
@@ -233,8 +244,36 @@ void main() {
             'guardando il testo giusto');
 
     await pesca(tester, 40);
+    // **CIO' CHE LA TERZA CARTA PORTA NON E' RESPONSO. Ordine CQ voce
+    // 6.09, 4 settembre 2026.**
+    //
+    // Da quella voce le tre carte scelte restano a video con la terza
+    // posata, e prima sparivano: il fondatore vedeva la pagina svuotarsi e
+    // leggeva una schermata nuova. Il loro nome e la loro sintesi sono la
+    // SCHEDA della carta, non la lettura che le tiene insieme.
+    //
+    // I tratti si calcolavano come cio' che compare fra la seconda carta e
+    // la stesa compiuta, e da quella voce quell'insieme contiene anche le
+    // carte scelte: la prova gridava al lampo davanti a un blocco che il
+    // fondatore ha chiesto di tenere. Adesso si tolgono, e **restano i
+    // tratti che solo il responso porta.**
+    // **IL CONTO SI RIFA' QUI**, perche' alla seconda carta il blocco delle
+    // carte scelte non c'era ancora: i tratti calcolati prima portavano
+    // dentro il testo delle carte, che dalla voce 6.09 compare per volonta
+    // del fondatore e non e' un lampo.
+    tratti
+      ..clear()
+      ..addAll(trattiDelResponso(aStesaCompiuta, testoInAlbero(tester)));
+    expect(tratti.length, greaterThanOrEqualTo(6),
+        reason: 'tolte le carte scelte non resta abbastanza responso da '
+            'riconoscere: la prova non sta piu guardando il testo giusto');
     await premi(tester);
-    // IL PRIMO FOTOGRAMMA DOPO LA TERZA CARTA, che e' quello del lampo.
+    // IL PRIMO FOTOGRAMMA DOPO IL TOCCO, che e' quello del lampo.
+    final subito = testoInAlbero(tester);
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.09: tratti del responso ${tratti.length}, di '
+        'questi gia a video nel primo fotogramma dopo il tocco '
+        '${tratti.where(subito.contains).length}');
     expect(caratteriDi(tratti, testoInAlbero(tester)), 0,
         reason:
             'nel primo fotogramma dopo la terza carta il responso e\' gia\' '
