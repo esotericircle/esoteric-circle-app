@@ -84,7 +84,7 @@ class FiloDelGiorno {
   /// questa app: dice cosa e' successo alla parola, cioe' che ha attraversato
   /// il giorno ed e' arrivata qui.
   static String richiamoDellaParola(String parola) =>
-      'Stamattina la tua parola era $parola, e ha attraversato il giorno con '
+      'Stamattina la tua parola era $parola. Ha attraversato il giorno con '
       'te: adesso si chiude qui.';
 
   // --- LA DOMANDA DI MEDORA ---

@@ -278,7 +278,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               // del Sogno la richiama davvero con `richiamoDellaParola`.
               const SizedBox(height: SpacingTokens.xs),
               Text(
-                'Stasera il Sigillo del Sogno te la richiama, e il giorno si '
+                'Stasera il Sigillo del Sogno te la richiama: il giorno si '
                 'chiude con lei.',
                 key: const Key('alba_dove_va_la_parola'),
                 style: TypographyTokens.corpo()
