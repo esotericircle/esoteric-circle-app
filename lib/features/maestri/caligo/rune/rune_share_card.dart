@@ -13,6 +13,7 @@ import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'bindrune.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
 import '../../../../design_system/components/card_a_misura_fissa.dart';
+import '../../../../design_system/components/card_da_mandare.dart';
 
 /// La card condivisibile dell'Estrazione Rune, cornice oro e rossa di Caligo:
 /// la gettata, le rune nelle loro posizioni col verso, e il presagio in sintesi.
@@ -33,142 +34,58 @@ class RuneShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
-    // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
-    // Ordine CN voce 12: la scala del testo di chi la crea non entra
-    // nell'immagine, perche' l'immagine la guardano altri.
-    return CardAMisuraFissa(
-      child: Container(
-        key: const Key('rune_share_card'),
-        width: larghezza,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [palette.surfaceElevated, palette.deepest],
-          ),
-          border:
-              Border.all(color: palette.gold.withValues(alpha: 0.75), width: 3),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('ESTRAZIONE RUNE',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
-              const SizedBox(height: 2),
-              Text(esito.gettata.nome.toUpperCase(),
-                  style: TypographyTokens.titoloSezione()
-                      .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: SpacingTokens.sm),
-              // IL SIGILLO, l'elemento grafico forte per la condivisione.
-              BindruneSigillo(
-                runeNames: [for (final r in esito.rune) r.rune.name],
-                oro: palette.gold,
-                alone: palette.goldSoft,
-                lato: 190,
-              ),
-              Text('Il sigillo del giorno, una bindrune',
-                  style: TypographyTokens.corpo().copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.85),
-                      letterSpacing: 0.8)),
-              Text('glifi intrecciati autentici della tradizione runica',
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.corpo().copyWith(
-                      color: palette.textPrimary.withValues(alpha: 0.6),
-                      letterSpacing: 0.3)),
-              const SizedBox(height: SpacingTokens.md),
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: SpacingTokens.md,
-                runSpacing: SpacingTokens.md,
-                children: [
-                  for (final r in esito.rune)
-                    _RunaTile(
-                        runa: r,
-                        palette: palette,
-                        libera: esito.gettata.libera),
-                ],
-              ),
-              const SizedBox(height: SpacingTokens.md),
-              Container(height: 1, color: palette.gold.withValues(alpha: 0.3)),
-              const SizedBox(height: SpacingTokens.sm),
-              Text(presagio,
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: palette.textPrimary, height: 1.45)),
-              const SizedBox(height: SpacingTokens.md),
-              Text('Esoteric Circle · Caligo',
-                  style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.7),
-                      letterSpacing: 1.0)),
-              const SizedBox(height: 2),
-              Text('Getta le rune su Esoteric Circle',
-                  style: TypographyTokens.corpo().copyWith(
-                      color: palette.textPrimary.withValues(alpha: 0.6),
-                      letterSpacing: 0.4)),
-            ],
-          ),
-        ),
+    // **LA CARD PASSA DALLA PORTA COMUNE. Ordine CQ voce 6.26, 4 settembre
+    // 2026.**
+    //
+    // La domanda del fondatore era: *perche' l'utente dovrebbe condividere il
+    // contenuto? cosa dovrebbe esserci d'impatto?* La risposta e' scritta per
+    // esteso su `CardDaMandare`, e in breve e' questa: si condivide una frase
+    // che dice qualcosa di se', dentro un'immagine che regge il confronto con
+    // le foto degli altri.
+    //
+    // **Cosa c'era qui prima.** Il nome dell'arte, il nome della gettata, il
+    // sigillo, una didascalia sulla bindrune, un'altra riga sulla tradizione
+    // e il presagio in coda: sei blocchi di testo attorno a un simbolo. Chi
+    // la riceveva non sapeva dove guardare.
+    //
+    // **Cosa resta.** Il sigillo, che e' il simbolo di quella gettata e di
+    // nessun'altra, e la prima frase del presagio, che e' cio' che la persona
+    // vuole far sapere. Il resto sta nella schermata, dietro il tocco.
+    return CardDaMandare(
+      palette: palette,
+      arte: 'Estrazione Rune',
+      frase: _laFrase(),
+      parola: esito.rune.first.rune.keyword,
+      invito: 'Le tue rune di oggi ti aspettano',
+      simbolo: BindruneSigillo(
+        runeNames: [for (final r in esito.rune.take(3)) r.rune.name],
+        oro: palette.gold,
+        alone: palette.goldSoft,
+        lato: 190,
       ),
     );
   }
-}
 
-/// Una runa nella card: la pietra incisa, dritta o capovolta in merkstave, col
-/// nome, il verso e la posizione.
-class _RunaTile extends StatelessWidget {
-  const _RunaTile(
-      {required this.runa, required this.palette, this.libera = false});
-
-  final RunaGettata runa;
-  final MaestroPalette palette;
-  final bool libera;
-
-  @override
-  Widget build(BuildContext context) {
-    final img = SizedBox(
-      width: 64,
-      height: 78,
-      child: runa.rune.hasImage
-          ? Image.asset(runa.rune.thumbPath!,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) =>
-                  Icon(Icons.diamond_outlined, color: palette.goldSoft))
-          : Icon(Icons.diamond_outlined, color: palette.goldSoft),
-    );
-    return SizedBox(
-      width: 92,
-      child: Column(
-        children: [
-          // In merkstave la pietra si mostra capovolta, il verso d'ombra.
-          runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img,
-          const SizedBox(height: 4),
-          Text(runa.rune.name,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 12)
-                  .copyWith(color: palette.goldSoft)),
-          Text(
-              libera
-                  ? 'in luce'
-                  : (runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.textPrimary.withValues(alpha: 0.7),
-                  letterSpacing: 0.4)),
-          Text(runa.posizione.titolo,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.textPrimary.withValues(alpha: 0.5),
-                  letterSpacing: 0.3)),
-        ],
-      ),
-    );
+  /// **LA PRIMA FRASE DEL PRESAGIO, e nient'altro.**
+  ///
+  /// Il presagio intero e' tre paragrafi: dentro una card diventerebbe un
+  /// muro, e un muro non si manda. La prima frase e' quella che risponde, ed
+  /// e' scritta per stare da sola.
+  ///
+  /// **Se anche quella e' lunga si taglia sulla virgola**, che e' il primo
+  /// respiro della frase: tagliare a caratteri spezzerebbe una parola a meta',
+  /// e una card con una parola tronca non la manda nessuno.
+  String _laFrase() {
+    final prima = presagio.split(RegExp(r'(?<=[.!?])\s')).first.trim();
+    if (prima.length <= 90) return prima;
+    final virgola = prima.indexOf(',');
+    if (virgola > 30 && virgola < 90) {
+      return '${prima.substring(0, virgola)}.';
+    }
+    return prima;
   }
 }
 
-/// Genera la card come PNG dal boundary e apre il foglio di condivisione.
 Future<bool> shareRuneCard({
   required GlobalKey boundaryKey,
   required EsitoGettata esito,

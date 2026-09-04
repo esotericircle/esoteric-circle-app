@@ -443,3 +443,15 @@ ROSSA     una schermata si apre una porta propria
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
 MISURA: i nove titoli passano da 62 caratteri di media a 39, e il piu' lungo
 da 74 a 53. La prosa di tutta l'app vale venti punti, con una misura sola.
+
+LA PROVA DEL ROSSO DELLA CARD CHE SI MANDA
+Ordine CQ voce 6.26, Regola A.
+========================================================================
+ROSSA     la card si riempie di righe di servizio
+ROSSA     il marchio sale sopra la frase
+ROSSA     la frase torna piccola come il testo di servizio
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: la card delle rune portava sei blocchi di testo attorno al sigillo,
+adesso ne porta cinque e la frase e' al centro fra il nome dell'arte e il
+marchio. Sono censite 14 card da condividere: una passa dalla porta comune.
