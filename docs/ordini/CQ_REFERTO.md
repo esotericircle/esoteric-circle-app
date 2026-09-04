@@ -214,20 +214,36 @@ hai preso per iscritto. Sono otto, e le elenco tutte con la tua parola accanto.
 
 ---
 
-## 9. LA PROVA DI ACCENSIONE E' STATA SALTATA, E LO DICO AD ALTA VOCE
+## 9. LA PROVA DI ACCENSIONE, SALTATA E POI FATTA
 
-**NESSUN DISPOSITIVO HA ACCESO QUESTA BUILD.**
+**Al caricamento era saltata, e adesso e' fatta.** Le due cose restano
+distinte in ogni registro, perche' lo sono.
 
-Lo salto per tuo ordine esplicito del 4 settembre 2026, voce CQ 5.04: non sei
-al PC, non hai il telefono collegato, e hai dichiarato che non installi la
-2223. Il numero e la firma dell'archivio sono letti dall'archivio, non da un
-telefono, e questa e' l'unica cosa che posso garantirti di questa build.
+Ho caricato la 2224 dichiarando che nessun dispositivo l'aveva accesa, per tuo
+ordine esplicito del 4 settembre 2026, voce CQ 5.04: non eri al PC. Poi ti sei
+collegato, e la prova l'abbiamo fatta **sull'archivio esatto gia' caricato**,
+non su una copia ricostruita.
 
-La stessa riga sta nelle note della build su App Distribution, perche' chi la
-scarica lo legga prima di installarla.
+| | |
+| --- | --- |
+| telefono | RMX5056 |
+| processo | vivo |
+| primo fotogramma | disegnato |
+| eccezioni fatali nel log | nessuna |
+| numero letto **dal dispositivo** | **2224** |
 
-**Vale solo per questa consegna.** Alla prossima, con te al PC, la prova di
-accensione torna obbligatoria e non chiedo di saltarla.
+Il numero letto dal telefono e' la prova che l'archivio acceso e' quello
+consegnato, e non un residuo di una build vecchia rimasta installata.
+
+**Le note su App Distribution dicevano il falso e sono state corrette**, con una
+PATCH sulla release e rilette dal server: dicevano che nessun dispositivo aveva
+acceso questa build, e non era piu' vero. Una nota vecchia che resta e' una
+bugia lasciata in giro, e chi scarica legge quella, non questo referto.
+
+**La distinzione che resta.** Chi avesse scaricato la build fra il caricamento e
+la prova ha avuto in mano un archivio che nessuno aveva acceso. Non e' un
+cavillo: e' esattamente il caso della 2161, che arrivava con duemila prove verdi
+e moriva all'avvio.
 
 ---
 
@@ -238,7 +254,7 @@ accensione torna obbligatoria e non chiedo di saltarla.
 | numero | **2224** |
 | gruppo | il gruppo di collaudo che il progetto usa gia' |
 | release | `6edt0od6irm2o` |
-| prova di accensione | **saltata per tuo ordine, voce CQ 5.04** |
+| prova di accensione | saltata al caricamento, **fatta dopo e verde** |
 
 Non e' la 2223. La 2223 era stata costruita e tu hai detto che non la
 installavi: consegnartela di nuovo col vecchio numero avrebbe voluto dire

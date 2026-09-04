@@ -1,10 +1,13 @@
 Build 2224, ordine CQ finito: trentadue voci, nessuna aperta.
 
-NESSUN DISPOSITIVO HA ACCESO QUESTA BUILD. La prova di accensione e' stata
-saltata per tuo ordine esplicito del 4 settembre 2026, perche' non sei al PC e
-non hai il telefono collegato. Il numero e la firma sono letti dall'archivio,
-non da un telefono. Alla prossima build, con te al PC, la prova torna
-obbligatoria.
+QUESTA BUILD SI ACCENDE, e la prova e' stata fatta DOPO il caricamento, non
+prima. Al momento di caricare la prova era stata saltata per tuo ordine
+esplicito del 4 settembre 2026, perche' non eri al PC: poi ti sei collegato e
+l'abbiamo fatta sull'archivio esatto che stai scaricando. Processo vivo,
+primo fotogramma disegnato, nessuna eccezione fatale nel log di avvio, e il
+numero letto DAL TELEFONO e' 2224. Le due cose restano distinte perche' lo
+sono: una build accesa prima di partire e una accesa dopo non danno la stessa
+garanzia a chi l'ha scaricata nel mezzo.
 
 COSA CONTIENE RISPETTO ALLA 2222
 
