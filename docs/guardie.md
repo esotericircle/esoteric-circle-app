@@ -39,13 +39,23 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 3 |
-| Guardie con un cardinale proprio dichiarato | 39 |
-| Guardie che non scoprono nessun insieme di file | 235 |
-| **Somma delle categorie** | **277** |
-| **Guardie secondo la definizione** | **277** |
+| Guardie che passano dalla porta comune | 111 |
+| Guardie con un cardinale proprio dichiarato | 50 |
+| Guardie che non scoprono nessun insieme di file | 122 |
+| **Somma delle categorie** | **283** |
+| **Guardie secondo la definizione** | **283** |
 
-Le due righe in grassetto **coincidono**, contate il 3 settembre 2026. La terza
+Le due righe in grassetto **coincidono**, contate il 4 settembre 2026.
+
+**E le tre categorie erano false, scoperto con l'ordine CQ voce 5.05.** Dicevano
+3, 39 e 235: sommavano al totale giusto e nessuna delle tre era il numero che la
+tavola qui sotto porta scritto nella sua colonna. **La guardia non se ne era
+accorta perche' controllava soltanto che le tre cifre sommassero fra loro**, cioe'
+la coerenza di tre numeri inventati insieme. Era la seconda specie di cecita', la
+guardia cieca al bersaglio, dentro il documento che quella tavola la definisce.
+Adesso i tre numeri sono contati sulla colonna, e sono 111, 50 e 122.
+
+La terza
 categoria non e' un debito: sono guardie che sorvegliano un'assenza, una
 fotografia o un elenco che non vive in `lib`, e per loro un cardinale sui file
 Dart non vorrebbe dire niente. **Il debito, quello vero, e' chiuso: zero
@@ -59,22 +69,26 @@ combatte nel codice, due conti della stessa cosa, arrivata dentro i documenti.
 
 | | quante | contata come |
 | --- | ---: | --- |
-| File di prova nella cartella `test` | 739 | `ls test/*.dart` |
-| Di questi, censiti come guardie | 277 | righe della tavola qui sotto |
-| File di prova che scorrono i sorgenti | 126 | grep di `Directory('lib')`, `sorgentiDiLib`, `sorgentiDiCartelle`, `listSync` |
-| **Guardie** censite che scorrono i sorgenti | 122 | i 126 di sopra che hanno una riga nella tavola |
-| Di questi, che passano dalla porta comune | 100 | grep di `sorgentiDiLib()` e `sorgentiDiCartelle(` |
+| File di prova nella cartella `test` | 763 | `ls test/*.dart` |
+| Di questi, censiti come guardie | 283 | righe della tavola qui sotto |
+| File di prova che scorrono i sorgenti | 130 | grep di `Directory('lib')`, `sorgentiDiLib`, `sorgentiDiCartelle`, `listSync` |
+| **Guardie** censite che scorrono i sorgenti | 125 | i 126 di sopra che hanno una riga nella tavola |
+| Di questi, che passano dalla porta comune | 116 | grep delle quattro porte, `sorgentiDiLib(`, `sorgentiDiCartelle(`, `fileScoperti(`, `righeDiLib(` |
 
-**E QUI DUE CONTI DELLA STESSA COSA NON TORNANO, e si scrive invece di
-nasconderlo.** La colonna del cardinale nella tavola dice **108** guardie
-"dalla porta comune", il grep ne trova **100**: otto righe sono classificate
-come se passassero dalla porta comune mentre il loro file non la nomina. Il
-disallineamento non nasce con l'ordine CP, che ne ha aggiunta una sola: viene
-da prima, e prima nessuno aveva contato le due cose con lo stesso comando.
-**E' esattamente la famiglia di difetti che questo progetto insegue nel
-codice, arrivata dentro il registro delle guardie.** Si chiude riclassificando
-le otto righe una per una, e finche' non e' chiuso il numero vero da usare e'
-quello del grep, perche' quello si puo' rifare.
+**E QUI DUE CONTI DELLA STESSA COSA TORNAVANO A NON TORNARE, E IL COLPEVOLE
+ERA IL COMANDO.** Fino all'ordine CQ questo paragrafo diceva che la tavola
+classificava **108** guardie "dalla porta comune" mentre il grep ne trovava
+**100**, e attribuiva le otto righe di differenza a una classificazione sbagliata
+da riparare a mano una per una.
+
+**Non c'era niente da riparare.** Il grep cercava due nomi, `sorgentiDiLib(` e
+`sorgentiDiCartelle(`, e le porte comuni sono **quattro**: mancavano
+`fileScoperti(` e `righeDiLib(`. Contate tutte e quattro, i file che passano da
+una porta sono **116**, e i **111** censiti nella tavola sono esattamente quelli
+che hanno anche una riga: i cinque di scarto sono prove che usano una porta senza
+essere guardie secondo la definizione. **Il numero della tavola era giusto da
+sempre, e per tre ordini si e' dato per sbagliato un dato vero sulla parola di un
+comando scritto male.** Provenienza: ordine CM voce 03, che ha scritto il grep.
 
 Il **17** dell'ordine CL contava le guardie censite che scorrono i sorgenti
 **e** avevano gia' un cardinale proprio. Il **79** contava, su **tutti** i file
@@ -86,20 +100,20 @@ prove che leggono i sorgenti senza essere guardie secondo la definizione.
 e' contato, nella stessa riga. Un numero senza il suo denominatore non entra in
 questo registro.
 
-## I numeri, contati il 3 settembre 2026
+## I numeri, contati il 4 settembre 2026
 
 | | |
 | --- | ---: |
-| File di prova totali | 739 |
-| **Guardie secondo la definizione** | **277** |
-| Guardie che scorrono i sorgenti di `lib` | 122 |
-| Di queste, passate alla porta comune | 100 (la tavola ne classifica 108, vedi sopra) |
+| File di prova totali | 763 |
+| **Guardie secondo la definizione** | **283** |
+| Guardie che scorrono i sorgenti di `lib` | 125 |
+| Di queste, passate alla porta comune | 111 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
 | **Guardie mai viste rosse** | **218** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **59** |
+| **Guardie viste rosse almeno una volta** | **65** |
 
-Le guardie viste rosse sono **59 su 277**, il **21.3 per cento**, contate il 4 settembre 2026 con l'ordine CQ. Prima dell'ordine
+Le guardie viste rosse sono **65 su 283**, il **23.0 per cento**, contate il 4 settembre 2026 con l'ordine CQ. Prima dell'ordine
 CL erano nove su duecentoquarantadue, il 3,7. L'ordine CM ne ha portate venti;
 l'ordine CO ne aggiunge quindici; **l'ordine CP ne aggiunge dieci**, tre
 guardie nuove nate rosse (`le_regole_dei_traguardi_sono_rispettate`,
@@ -183,17 +197,20 @@ le altre.
 | `gli_ancoraggi_vengono_dall_arte_test.dart` | gli ancoraggi vengono dall arte | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `gli_eos_hanno_un_nome_test.dart` | gli eos hanno un nome | 1, 2, 4 | dalla porta comune | mai | 3 |
 | `i_caratteri_dichiarati_esistono_test.dart` | i caratteri dichiarati esistono | 1, 2 | proprio, dichiarato | mai | 2 |
+| `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart` | i cinque Doni rispettano la legge dei testi | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
 | `i_grigi_si_leggono_test.dart` | i grigi si leggono | 1 | dalla porta comune | 01/09/2026, CN | 2 |
 | `i_maestri_non_coprono_il_cielo_test.dart` | i maestri non coprono il cielo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_non_perdono_la_testa_test.dart` | i maestri non perdono la testa | 4, 1 | non scopre insiemi di file | mai | 3 |
+| `i_maestri_sanno_cosa_arriva_test.dart` | i Maestri sanno cosa arriva | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_maestri_sui_pixel_e_non_sui_rettangoli_test.dart` | i maestri sui pixel e non sui rettangoli | 4 | non scopre insiemi di file | mai | 3 |
 | `i_manifesti_sono_sigillati_test.dart` | i manifesti sono sigillati | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_movimenti_dicono_il_guadagno_test.dart` | i movimenti dicono il guadagno | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_nomi_non_si_sovrappongono_test.dart` | i nomi non si sovrappongono | 4 | non scopre insiemi di file | mai | 3 |
 | `i_nove_ereditati_test.dart` | i nove ereditati | 1, 2 | dalla porta comune | mai | 3 |
 | `i_piani_del_cielo_si_muovono_test.dart` | i piani del cielo si muovono | 4, 1 | non scopre insiemi di file | mai | 3 |
+| `i_promemoria_a_una_settimana_misurati_test.dart` | i promemoria a una settimana, misurati | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_ricordi_hanno_una_rotta_sola_test.dart` | i ricordi hanno una rotta sola | 1, 2 | dalla porta comune | mai | 3 |
 | `i_testi_da_leggere_hanno_una_misura_sola_test.dart` | i testi da leggere hanno una misura sola | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_testi_del_dono_non_stanno_sulla_carta_test.dart` | i testi del dono non stanno sulla carta | 1, 2 | dalla porta comune | mai | 3 |
@@ -225,9 +242,9 @@ le altre.
 | `il_consiglio_non_si_riscrive_test.dart` | il consiglio non si riscrive | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_continua_come_restituisce_il_cammino_test.dart` | il continua come restituisce il cammino | 1, 2 | dalla porta comune | mai | 3 |
 | `il_conto_e_uno_solo_test.dart` | il conto e uno solo | 1, 2 | dalla porta comune | mai | 3 |
-| `il_cuore_sta_sempre_nello_stesso_angolo_test.dart` | il cuore dei preferiti sta sempre nello stesso angolo | 1, 2 | cardinale proprio | CO | 3 |
+| `il_cuore_sta_sempre_nello_stesso_angolo_test.dart` | il cuore dei preferiti sta sempre nello stesso angolo | 1, 2 | proprio, dichiarato | CO | 3 |
 | `il_disco_dell_oracolo_dice_cosa_e_test.dart` | il disco dell oracolo dice cosa e | 1 | non scopre insiemi di file | mai | 3 |
-| `il_dono_risponde_prima_di_chiedere_test.dart` | il Dono risponde prima di chiedere | 1, 2, 3 | cardinale proprio | CO | 2 |
+| `il_dono_risponde_prima_di_chiedere_test.dart` | il Dono risponde prima di chiedere | 1, 2, 3 | proprio, dichiarato | CO | 2 |
 | `il_filo_si_traccia_test.dart` | il filo si traccia | 1, 2 | dalla porta comune | mai | 3 |
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
@@ -262,6 +279,7 @@ le altre.
 | `il_secondo_strato_e_premium_test.dart` | il secondo strato e premium | 1, 2 | dalla porta comune | mai | 3 |
 | `il_seguito_scende_sotto_test.dart` | il seguito scende sotto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_sentiero_si_legge_test.dart` | il sentiero si legge | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `il_sigillo_del_giorno_dice_a_cosa_serve_test.dart` | il Sigillo del Giorno dice a cosa serve | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_sigillo_del_giorno_e_un_sigillo_test.dart` | il sigillo del giorno e un sigillo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_simbolo_si_compone_test.dart` | il simbolo si compone | 1, 2 | dalla porta comune | mai | 3 |
 | `il_soffio_non_somiglia_all_alba_test.dart` | il soffio non somiglia all alba | 2, 4 | non scopre insiemi di file | mai | 3 |
@@ -317,12 +335,14 @@ le altre.
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |
+| `la_parola_dice_a_cosa_serve_test.dart` | la parola del giorno dice a cosa serve | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
 | `la_parola_voce_resta_allaudio_test.dart` | la parola voce resta allaudio | 1 | dalla porta comune | mai | 3 |
 | `la_porta_della_sinastria_test.dart` | la porta della sinastria | 1 | non scopre insiemi di file | mai | 3 |
 | `la_registrazione_non_interrompe_il_risveglio_test.dart` | la registrazione non interrompe il risveglio | 1, 2 | dalla porta comune | mai | 3 |
 | `la_riga_del_campo_e_pulita_test.dart` | la riga del campo e pulita | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_runa_cade_e_non_e_gia_li_test.dart` | la runa cade e non e gia li | 1, 2 | proprio, dichiarato | mai | 3 |
 | `la_runa_rovesciata_ha_la_sua_lettura_test.dart` | la runa rovesciata ha la sua lettura | 1, 2 | proprio, dichiarato | mai | 2 |
+| `la_runa_singola_non_e_una_lezione_test.dart` | la runa singola non e una lezione | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |
@@ -330,7 +350,7 @@ le altre.
 | `la_stesa_comincia_quando_lo_dici_test.dart` | la stesa comincia quando lo dici tu | 1, 2 | non scopre insiemi di file | CO | 2 |
 | `la_stesa_si_capisce_test.dart` | la stesa si capisce | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_striscia_delle_arti_anche_in_home_test.dart` | la striscia delle arti anche in home | 1, 2 | dalla porta comune | mai | 3 |
-| `la_testa_del_maestro_non_si_taglia_test.dart` | la testa del Maestro non si taglia a lettere grandi | 1, 2 | cardinale proprio | CO | 2 |
+| `la_testa_del_maestro_non_si_taglia_test.dart` | la testa del Maestro non si taglia a lettere grandi | 1, 2 | proprio, dichiarato | CO | 2 |
 | `la_testata_non_copre_il_maestro_test.dart` | la testata non copre il maestro | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `la_voce_account_nelle_impostazioni_e_viva_test.dart` | la voce account nelle impostazioni e viva | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `language_rule_test.dart` | language rule | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
@@ -345,7 +365,7 @@ le altre.
 | `le_pietre_sono_scontornate_test.dart` | le pietre sono scontornate | 1 | non scopre insiemi di file | mai | 3 |
 | `le_push_dei_doni_test.dart` | le push dei doni | 1, 2 | dalla porta comune | mai | 3 |
 | `le_sette_chiavi_del_collaudo_test.dart` | le sette chiavi del collaudo | 1, 2 | dalla porta comune | mai | 3 |
-| `le_stelle_della_festa_sono_stelle_test.dart` | le stelle della festa sono stelle, sui pixel | 2 | cardinale proprio | CO | 3 |
+| `le_stelle_della_festa_sono_stelle_test.dart` | le stelle della festa sono stelle, sui pixel | 2 | proprio, dichiarato | CO | 3 |
 | `lo_sbarramento_distingue_i_rossi_test.dart` | lo sbarramento distingue i rossi | 1, 2 | proprio, dichiarato | 01/09/2026, CM, il terzo cancello | 3 |
 | `lo_scuotimento_ha_una_porta_sola_test.dart` | lo scuotimento ha una porta sola | 1, 2 | dalla porta comune | mai | 2 |
 | `lo_spazio_dentro_lo_scroll_test.dart` | lo spazio dentro lo scroll | 1, 2 | dalla porta comune | mai | 3 |
@@ -384,7 +404,7 @@ le altre.
 | `ora_si_puo_correggere_test.dart` | ora si puo correggere | 1, 2 | dalla porta comune | mai | 3 |
 | `ordine_ch_guard_test.dart` | ordine ch guard | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `ordine_cn_guard_test.dart` | ordine cn guard | 1, 2 | non scopre insiemi di file | 01/09/2026, CN, sul manifesto vero | 3 |
-| `ordine_co_guard_test.dart` | ordine co guard | 1, 2 | cardinale proprio | CO, nata rossa sul manifesto assente | 3 |
+| `ordine_co_guard_test.dart` | ordine co guard | 1, 2 | proprio, dichiarato | CO, nata rossa sul manifesto assente | 3 |
 | `ordine_cp_guard_test.dart` | ordine CP guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `ordine_cq_guard_test.dart` | ordine CQ guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |

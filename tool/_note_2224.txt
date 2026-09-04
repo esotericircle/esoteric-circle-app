@@ -1,0 +1,48 @@
+Build 2224, ordine CQ finito: trentadue voci, nessuna aperta.
+
+NESSUN DISPOSITIVO HA ACCESO QUESTA BUILD. La prova di accensione e' stata
+saltata per tuo ordine esplicito del 4 settembre 2026, perche' non sei al PC e
+non hai il telefono collegato. Il numero e la firma sono letti dall'archivio,
+non da un telefono. Alla prossima build, con te al PC, la prova torna
+obbligatoria.
+
+COSA CONTIENE RISPETTO ALLA 2222
+
+IL CAMMINO. Con la 2222 la scala faceva accendere tredici traguardi su
+centododici guadagnati in quattrocento giorni: i tuoi Sigilli restavano spenti
+dietro un gradino che chiedeva un'arte che non facevi. Adesso si accendono
+tutti e i loro Eos arrivano tutti, e il tetto ferma solo la festa: nel giorno
+peggiore dell'anno ne vedi tre, come prima.
+
+I TAROCCHI. Il ventaglio e' vivo appena apri: scegli le tre carte e poi il
+pulsante si accende. Scegliere non costa niente, premere si'. E il campo per
+scrivere la tua domanda sta subito sotto le domande suggerite, non piu' in
+fondo al pannello.
+
+LE RUNE. Toccare il tipo di gettata adesso sceglie e basta: getta il pulsante.
+A una runa sola il responso e' corto, e il resto si apre se lo vuoi. Il
+Sigillo del Giorno dice a cosa serve. La runa rovesciata ha la sua lettura, ed
+e' stato misurato su tutte e ventiquattro.
+
+I SUONI. La carta si sente girare, e il click di sistema di Android non suona
+piu': non l'avevi scelto tu, lo metteva Flutter su ogni tocco. Le monete
+volano anche quando il borsellino non e' ancora a schermo, e il loro tintinnio
+e' piu' basso di un terzo.
+
+I TESTI. Via "IL RITO DI OGGI" e le tre righe di istruzioni da tutti e cinque i
+Doni. L'Alba e il Soffio non dicono piu' la stessa cosa. L'Arcano e' tuo: prima
+due persone con la stessa carta natale vedevano la stessa carta per sempre.
+L'Arcano e il Tramonto adesso dicono da dove viene il responso, che era l'unica
+cosa che mancava alla legge dei testi.
+
+I MAESTRI SANNO COSA ARRIVA. Chiedere a Medora "cosa mi aspetta" adesso
+incrocia gli eventi veri del cielo e il prossimo passo del tuo Cammino.
+
+I CARATTERI. Le etichette erano a dodici punti in duecentotre punti dell'app:
+adesso quattordici. La barra in basso resta com'era, per non rifarla crescere.
+
+LE PUSH. Non erano mai partite: il telefono mandava al server un fuso orario
+che il server rifiutava.
+
+Da fare dal tuo PC, e senza questo il pulsante "Attiva in Demo" continua a non
+arrivare al server: il PASSO 7 in docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md.
