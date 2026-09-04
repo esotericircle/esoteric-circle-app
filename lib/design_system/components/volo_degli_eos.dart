@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../theme/maestro_scope.dart';
+import '../tokens/color_tokens.dart';
 import 'borsellino.dart';
 import 'icona_degli_eos.dart';
 import '../../core/sensi/catalogo_suoni.dart';
@@ -113,7 +114,14 @@ class VoloDegliEos {
         quanti: math.min(quanti, quanteAlMassimo),
         partenza: partenza,
         arrivo: arrivo,
-        colore: context.palette.goldSoft,
+        // **LA PALETTE SI CHIEDE DALLA PORTA TOLLERANTE.** Ordine CQ,
+        // rilancio del 3 settembre 2026. Finche' il volo si fermava dove il
+        // borsellino non era montato, qui ci si arrivava solo dentro una
+        // schermata vestita. Adesso il volo parte anche col ripiego, e ci si
+        // arriva anche da una sovrimpressione senza scope: un assert dentro
+        // il rito di qualcun altro farebbe cadere la schermata sotto per una
+        // moneta.
+        colore: MaestroScope.forse(context)?.goldSoft ?? ColorTokens.gold,
         finito: () {
           if (voce.mounted) voce.remove();
         },

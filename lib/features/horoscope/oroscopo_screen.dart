@@ -1137,7 +1137,14 @@ class _TraditionTabs extends StatelessWidget {
       key: const Key('oroscopo_tradition_tabs'),
       // Alta quanto serve al glifo, al nome e al badge "In arrivo", che sulla
       // voce bloccata sta su una terza riga.
-      height: 80,
+      //
+      // **OTTANTASEI E NON PIU' OTTANTA. Ordine CQ voce 2.11**, 3 settembre
+      // 2026: le etichette sono salite da dodici a quattordici punti e questa
+      // pastiglia traboccava di UN pixel. Sei punti invece di due perche' la
+      // stessa pastiglia era gia' fra i rossi accettati a scala 1,3, dove
+      // sforava di cinque: alzarla del minimo avrebbe curato la scala 1 e
+      // lasciato rossa la 1,3, cioe' meta' del difetto.
+      height: 86,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: AstroTradition.values.length,

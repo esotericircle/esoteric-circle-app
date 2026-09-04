@@ -87,7 +87,7 @@ void main() {
   final ruoli = <double, String>{
     TypographyTokens.lettura().fontSize!: 'lettura',
     TypographyTokens.corpo().fontSize!: 'corpo',
-    TypographyTokens.etichetta().fontSize!: 'etichetta (pavimento)',
+    TypographyTokens.etichetta().fontSize!: 'etichetta',
     TypographyTokens.titoloDiRiga().fontSize!: 'titolo di riga',
     TypographyTokens.titoloScheda().fontSize!: 'titolo di scheda',
     TypographyTokens.titoloDiSchermata().fontSize!: 'titolo di schermata',
@@ -100,6 +100,37 @@ void main() {
   /// cui l'ordine H ha portato le didascalie e sotto la quale lui dice di
   /// vedere piccolo.
   const soglia = 16.0;
+
+  /// **IL CENSIMENTO NON GUARDAVA I RUOLI, SOLO LE SCHERMATE.**
+  /// Ordine CQ voce 2.11, 3 settembre 2026.
+  ///
+  /// Il fondatore ha detto per la quarta volta che i caratteri sono piccoli
+  /// mentre questa tabella diceva zero fuori misura. **Il ruolo `etichetta`
+  /// valeva dodici punti**, cioe' quattro sotto la soglia del fondatore, e
+  /// questo censimento non lo ha mai scritto: guarda i testi resi sulle
+  /// schermate che visita, e cio' che non compare li' dentro non esiste.
+  ///
+  /// **Una scala si misura anche da sola.** I ruoli sono nove e si stampano
+  /// tutti, cosi' il numero e' leggibile senza dover montare niente: e' la
+  /// misura piu' economica che questo file potesse avere, e mancava.
+  test('la scala dichiara le sue misure, e nessun ruolo scende sotto i '
+      'quattordici', () {
+    final misure = {
+      for (final voce in ruoli.entries) voce.value: voce.key,
+    };
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 2.11: le misure dei ruoli $misure');
+    // Sette e non nove: la tavola e' indicizzata dalla MISURA, e tre coppie
+    // di ruoli condividono lo stesso numero. E' il conto vero delle misure
+    // distinte, non dei ruoli.
+    expect(misure.length, greaterThanOrEqualTo(7),
+        reason: 'la tavola dei ruoli si e svuotata: questa prova sarebbe '
+            'verde senza aver guardato niente');
+    final sotto = misure.entries.where((e) => e.value < 14).toList();
+    expect(sotto, isEmpty,
+        reason: 'questi ruoli scendono sotto i quattordici punti: '
+            '${sotto.map((e) => "${e.key} a ${e.value}").join(", ")}');
+  });
 
   /// Una voce del censimento: dove, che ruolo, quanto e' grande, e SOPRATTUTTO
   /// che cosa c'e' scritto. **Senza il testo il documento sarebbe un elenco di

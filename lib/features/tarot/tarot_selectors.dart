@@ -672,7 +672,11 @@ class _DomandaScrittaState extends State<_DomandaScritta> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('OPPURE SCRIVI LA TUA DOMANDA',
+          // **PIU' CORTA. Ordine CQ voce 2.11**: a quattordici punti
+          // "OPPURE SCRIVI LA TUA DOMANDA" andava a capo. Sta subito sotto
+          // la tendina delle domande suggerite, quindi l'"oppure" lo dice il
+          // posto e non serve scriverlo.
+          Text('SCRIVI LA TUA DOMANDA',
               style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           TextField(

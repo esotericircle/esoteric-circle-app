@@ -180,10 +180,32 @@ class TypographyTokens {
   static TextStyle didascalia({double weight = 400}) =>
       body(size: 16, weight: weight);
 
-  /// L'etichetta cerimoniale in maiuscoletto spaziato. E' il ruolo piu' piccolo
-  /// dell'app e vale esattamente il pavimento: sotto non si scende.
+  /// L'etichetta cerimoniale in maiuscoletto spaziato. E' il ruolo piu'
+  /// piccolo dell'app.
+  ///
+  /// **QUATTORDICI E NON PIU' DODICI.** Ordine CQ voce 2.11, 3 settembre 2026.
+  ///
+  /// **Il fatto:** il fondatore ha detto per la QUARTA volta che i caratteri
+  /// sono piccoli, e il censimento continuava a rispondere zero fuori misura.
+  ///
+  /// **La misura che nessuno aveva letto.** Questo ruolo valeva `pavimento`,
+  /// cioe' **dodici punti**, e la riga di commento che stava qui diceva "vale
+  /// esattamente il pavimento" senza dire quanto fosse quel pavimento. Altrove
+  /// nel progetto lo stesso ruolo era descritto come se valesse sedici: **due
+  /// documenti dicevano due cose diverse e nessuno dei due era il numero.**
+  /// Le etichette sono duecentotre in settantanove sorgenti, e stanno accanto
+  /// a una prosa da diciotto: dodici contro diciotto e' un salto che si vede.
+  ///
+  /// **Perche' quattordici e non sedici.** L'etichetta e' maiuscoletto
+  /// spaziato, che a parita' di punti occupa molto piu' orizzontale di una
+  /// minuscola: portarla a sedici manderebbe a capo le etichette lunghe dentro
+  /// colonne strette, e una riga in piu' non si legge meglio, si legge peggio.
+  /// Quattordici e' due punti guadagnati senza cambiare la larghezza di
+  /// nessuna colonna.
+  static const double misuraEtichetta = 14;
+
   static TextStyle etichetta({double weight = 600}) =>
-      label(size: pavimento, weight: weight);
+      label(size: misuraEtichetta, weight: weight);
 
   /// Serif cerimoniale per display, titoli e nomi dei Maestri.
   ///

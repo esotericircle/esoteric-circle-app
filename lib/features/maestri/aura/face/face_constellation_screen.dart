@@ -1332,7 +1332,13 @@ class _DueVolti extends StatelessWidget {
                   side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
                   minimumSize: const Size.fromHeight(48)),
               icon: const Icon(Icons.group_outlined, size: 18),
-              label: Text('Leggi un altro volto e confronta',
+              // **PIU' CORTA DI DUE PAROLE. Ordine CQ voce 2.11**: le
+              // etichette sono salite da dodici a quattordici punti, e a
+              // quattordici questa andava a capo. Un maiuscoletto su due
+              // righe e' un muro di lettere larghe, e la guardia delle
+              // etichette lo vieta: si accorcia la frase, non si riabbassa
+              // la misura. Il confronto lo dice la schermata che si apre.
+              label: Text('Leggi un altro volto',
                   style: TypographyTokens.etichetta()),
             )
           : Container(
