@@ -237,6 +237,7 @@ accensione torna obbligatoria e non chiedo di saltarla.
 | --- | --- |
 | numero | **2224** |
 | gruppo | il gruppo di collaudo che il progetto usa gia' |
+| release | `6edt0od6irm2o` |
 | prova di accensione | **saltata per tuo ordine, voce CQ 5.04** |
 
 Non e' la 2223. La 2223 era stata costruita e tu hai detto che non la
