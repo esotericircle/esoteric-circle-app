@@ -34,18 +34,27 @@ void main() {
       );
 
   test('il blocco entra nell istruzione di sistema, con un evento vero', () {
-    final natal = const NatalContext(sunSign: 'Leone');
+    const natal = NatalContext(sunSign: 'Leone');
     final testo = istruzione(natal);
-    final eventi = ProssimiEventi.da(adesso: DateTime.now(), segno: Zodiac.leo);
+    // **L'ISTANTE E' FERMO, ordine U voce 00.** Con l'orologio vero questa prova
+    // misurava un cielo diverso ogni giorno, e il giorno che ne capitasse uno
+    // con meno di tre eventi il tetto non sarebbe stato messo alla prova.
+    final eventi = ProssimiEventi.da(
+        adesso: DateTime.utc(2026, 9, 4), segno: Zodiac.leo);
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.15: eventi calcolati per il Leone '
         '${eventi.length}, il blocco compare nell istruzione '
-        '${testo.contains("CIO' CHE ARRIVA")}');
+        '${testo.contains('CHE ARRIVA. Lo sai')}');
     cardinaleMinimo(eventi.length, 1,
         cosa: 'eventi in arrivo calcolati per un segno',
         perche: 'Con nessun evento il blocco sarebbe vuoto per assenza, e la '
             'prova direbbe che il ponte non c e mentre e il cielo a tacere.');
-    expect(testo.contains("CIO' CHE ARRIVA"), isTrue,
+    // **SI CERCA UN PEZZO SENZA ACCENTI, e si dichiara.** La guardia
+    // cercava CIO seguito da un apostrofo, cioe' era legata a un errore di
+    // ortografia: quando la guardia degli accenti lo ha corretto in CIO col
+    // suo accento vero, questa e' caduta senza che il ponte fosse
+    // cambiato di un carattere.
+    expect(testo.contains('CHE ARRIVA. Lo sai'), isTrue,
         reason: 'l istruzione di sistema non porta il blocco di cio che '
             'arriva: il ponte esiste e nessuno lo attraversa');
     expect(testo.contains('Non promettere nessun esito'), isTrue,
@@ -80,8 +89,8 @@ void main() {
     final testo = istruzione(NatalContext.none);
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.15: senza dati il blocco compare '
-        '${testo.contains("CIO' CHE ARRIVA")}');
-    expect(testo.contains("CIO' CHE ARRIVA"), isFalse,
+        '${testo.contains('CHE ARRIVA. Lo sai')}');
+    expect(testo.contains('CHE ARRIVA. Lo sai'), isFalse,
         reason: 'senza niente da dire l istruzione porta comunque il titolo '
             'del blocco, e un titolo vuoto e un invito a inventare');
   });

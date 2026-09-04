@@ -279,3 +279,16 @@ ROSSA     il Tramonto torna senza fonte
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
 
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEL PONTE, RIFATTA
+Ordine CQ voce 5.05, Regola B. La pretesa era legata a un errore di
+ortografia: cercava CIO seguito da un apostrofo, e la guardia degli accenti
+lo ha corretto in CIO con l'accento vero. Cambiata la grandezza cercata, si
+riprova che la guardia veda ancora il ponte staccato.
+========================================================================
+ROSSA     il ponte si stacca, if (false) al posto di isNotEmpty
+          attesa: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta anche: e nomina il prossimo passo del Cammino quando c e
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 1

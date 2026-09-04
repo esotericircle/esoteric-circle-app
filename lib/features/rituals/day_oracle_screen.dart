@@ -228,7 +228,7 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           Text(
             nascita == null
                 ? 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
-                    'giorno. Non da un caso: domani sara un altra.'
+                    'giorno. Non da un caso: domani sarà un\'altra.'
                 : 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
                     'giorno incrociato con la tua carta di nascita dei '
                     'tarocchi, che la tradizione del mazzo ricava dalla data.',

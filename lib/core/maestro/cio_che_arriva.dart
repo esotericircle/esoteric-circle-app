@@ -57,12 +57,12 @@ class CioCheArriva {
     }
     if (righe.isEmpty) return '';
     return [
-      'CIO\' CHE ARRIVA. Lo sai perche\' e\' calcolato dal cielo vero e dal '
+      'CIÒ CHE ARRIVA. Lo sai perché è calcolato dal cielo vero e dal '
           'suo Cammino:',
       ...righe,
-      'Nominane al massimo uno. Solo se c\'entra con cio\' che ti sta '
+      'Nominane al massimo uno. Solo se c\'entra con ciò che ti sta '
           'chiedendo. Non promettere nessun esito: di\' che cosa succede e '
-          'quando, mai che cosa produrra\'.',
+          'quando, mai che cosa produrrà.',
     ].join('\n');
   }
 
