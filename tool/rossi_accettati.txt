@@ -50,7 +50,6 @@ SCALA 1,3: Cattura il Risveglio, il luogo scelto | Stessa causa, onboarding_scre
 SCALA 1,3: Cattura il Risveglio, il sigillo | Stessa causa, onboarding_screen.dart:1760, all'ultimo passo.
 SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente | Stessa causa della riga sopra, onboarding_screen.dart:1760.
 SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno | Sfora 10 punti a destra da lib/features/onboarding/onboarding_screen.dart:1760, riga di comandi del Risveglio. Famiglia B, contenitore di misura fissa. Si chiude nell'ordine dopo il CM.
-SCALA 1,3: Cattura il Sigillo, schermo basso | Stessa causa, app_permission.dart:165, su schermo basso.
 SCALA 1,3: Cattura il dono col colore del Maestro, giorno 0 | Stessa causa della riga sopra, e stessa attribuzione corretta.
 SCALA 1,3: Cattura il dono col colore del Maestro, giorno 1 | Stessa causa della card delle Rune, al giorno dopo: la cornice resta piu' corta del contenuto a testo grande.
 SCALA 1,3: Cattura l'Oroscopo | Sfora 5 punti in basso da lib/features/horoscope/oroscopo_screen.dart:1202, la pastiglia della tradizione. Famiglia B.
@@ -58,6 +57,14 @@ SCALA 1,3: Cattura l'Oroscopo dai transiti veri | Stessa causa, oroscopo_screen.
 SCALA 1,3: Cattura la chat con la barra fuori | Non e' un traboccamento: la cattura pretende una posizione della barra misurata in punti, e a testo grande la barra sta altrove. La pretesa va rifatta in proporzione, non in punti.
 SCALA 1,3: Cattura la custodia del cielo | Sfora 2 punti in basso da lib/features/onboarding/custodia_del_cielo_step.dart:123. Famiglia B. Due punti soli, ma sono due punti di testo tagliato.
 SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in basso da lib/features/synastry/sinastria_gallery_screen.dart:694, la tendina delle categorie: DropdownButton impone l'altezza della voce chiusa. Famiglia B.
+# E IL SIGILLO A SCHERMO BASSO E' USCITO, ordine CQ voce 6.23 del 4 settembre
+# 2026, e non per una cura mirata: la soglia del Sigillo e' una ListView, che
+# costruisce solo cio' che sta a vista. Salita la prosa a venti punti il
+# pulsante e' sceso sotto la piega e la cattura non lo trovava PIU' NEMMENO A
+# SCALA UNO. Facendo scorrere la cattura fino a lui, come fa una persona, la
+# rottura e' sparita anche a scala 1,3, dove non era mai stata un
+# traboccamento.
+
 # LE TRE DELLA CARD DELLE RUNE SONO USCITE, ordine CN voce 12 del 1 settembre
 # 2026: la card da condividere si disegna a misura fissa, quindi il testo non
 # cresce piu' dentro la cornice e non sfonda di 137 punti.
