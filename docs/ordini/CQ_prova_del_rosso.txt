@@ -388,3 +388,17 @@ soglia; sul fondo vero lo stesso blu misura 3,15. Dichiarando il fondo vero
 il blu sale a #5A94FF e misura 4,83. Sul fondo vero i tre accenti stanno a
 medora 4,83, aura 4,89, caligo 4,50: Caligo tocca la soglia esatta, cioe'
 non ha nessun margine, e va detto.
+
+LA PROVA DEL ROSSO DEL SOFFIO
+Ordine CQ voce 6.03, Regola A.
+========================================================================
+ROSSA     il cartello LA RISPOSTA torna sopra il responso
+ROSSA     il riquadro della risposta perde la sua chiave
+ROSSA     i due comandi si accavallano a video
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA, e UN FALSO ALLARME MIO: la prima stesura della guardia ha letto i due
+comandi a 480 e 522 punti su una finestra dichiarata di 360, e ha gridato al
+traboccamento. Era il layout steso sugli 800 del tester, perche' la finestra
+passava solo dentro il MediaQuery. Pinnata sul tester: zero accavallamenti,
+zero fuori bordo.

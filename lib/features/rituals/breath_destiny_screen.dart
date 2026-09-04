@@ -670,14 +670,24 @@ class _LaRisposta extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('LA RISPOSTA',
-              style: TypographyTokens.etichetta().copyWith(
-                  // Il Soffio e' di Aura, quindi il suo titolo e' verde, portato
-                  // dove si legge dalla stessa regola della scheda dei Doni.
-                  color: AccentoDelMaestro.su(Maestro.aura,
-                      superficie: SuperficiDelSoffio.velo),
-                  letterSpacing: 3)),
-          const SizedBox(height: SpacingTokens.sm),
+          // **QUI C'ERA L'ETICHETTA "LA RISPOSTA", ED E' STATA TOLTA.
+          // Ordine CQ voce 6.03, 4 settembre 2026.**
+          //
+          // Parole del fondatore: *alla fine del responso compare anche la
+          // bolla "La risposta" come prima, mentre ho chiesto la
+          // rielaborazione dei testi*.
+          //
+          // **Un'etichetta che annuncia una risposta non e' uno dei quattro
+          // strati della legge dei testi**: il primo strato e' un titolo che
+          // sia GIA' una risposta, non un cartello che dice che sotto ce
+          // n'e' una. Chi legge arriva qui dopo il soffio e trova scritto
+          // che sta per leggere una risposta, cioe' una riga di attesa in
+          // piu' prima della risposta vera.
+          //
+          // **Il riquadro resta**, e non e' una svista: le due righe senza
+          // superficie stavano sul prato chiaro sotto la soglia del
+          // contrasto, misurato da `test/il_soffio_si_legge_test.dart`. Si
+          // toglie il cartello, non il fondo che rende leggibile il testo.
           // **LA RISPOSTA DEL SOFFIO SI LEGGE, E STAVA A SEDICI.** Ordine
           // CE voce 10. L'ordine dava per buona la misura di questo Dono e
           // per mancante solo la porta: misurato, era il contrario, i due

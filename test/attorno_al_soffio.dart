@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -38,6 +39,13 @@ Widget attornoAlSoffio(
       ChangeNotifierProvider(create: (_) => MaestroController()),
       ChangeNotifierProvider(create: (_) => ParallaxController()),
       ChangeNotifierProvider(create: (_) => QualityTierController()),
+      // **LA CARTA NATALE, ordine CQ voce 6.03.** Senza questo provider la
+      // schermata scrive *Soffio, carta natale non raggiungibile* e **il
+      // riquadro della risposta non compare affatto**: le prove che si
+      // fermavano al respiro non se ne accorgevano, e nessuna arrivava mai
+      // a guardare la risposta. Sta qui e non nelle singole prove, che e'
+      // la ragione per cui questo file esiste.
+      ChangeNotifierProvider(create: (_) => NatalChartController()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
