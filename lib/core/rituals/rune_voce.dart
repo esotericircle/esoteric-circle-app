@@ -153,6 +153,50 @@ class RuneVoce {
         .join(' ');
   }
 
+  /// **LA VOCE IN DUE PEZZI: cio' che risponde e cio' da dove nasce.**
+  /// Ordine CQ voce 6.19, 4 settembre 2026.
+  ///
+  /// **Il fatto, misurato sugli screenshot del fondatore.** Una scheda di
+  /// runa porta **611 caratteri**: la gettata a tre ne fa 1833, la Croce
+  /// delle Cinque 3055. E' una parete, e il fondatore la legge da tre
+  /// ordini.
+  ///
+  /// **La porta c'era e valeva solo per la runa sola**, per una decisione
+  /// che avevo preso io scrivendo che a tre e a cinque quel testo *e' il
+  /// corpo della lettura*. Gli screenshot dicono di no.
+  ///
+  /// **Cosa resta fuori e cosa entra.** Fuori il cielo con la domanda, che
+  /// e' la risposta a chi ha chiesto; dentro la materia storica, che e' la
+  /// FONTE, e la legge dei testi vuole la fonte breve e in fondo.
+  static ({String risposta, String daDoveNasce}) inDuePezzi({
+    required RunaGettata runa,
+    required String persona,
+    required DateTime giorno,
+    required String domanda,
+    int indice = 0,
+  }) {
+    final intera = voce(
+        runa: runa,
+        persona: persona,
+        giorno: giorno,
+        domanda: domanda,
+        indice: indice);
+    // La materia comincia con un'apertura del corpus e finisce dove comincia
+    // il ponte al cielo: si taglia sul ponte, che e' un dato di questa
+    // classe e non una stringa indovinata.
+    for (final ponte in _pontiCielo) {
+      final dove = intera.indexOf(ponte);
+      if (dove < 0) continue;
+      return (
+        risposta: intera.substring(dove).trim(),
+        daDoveNasce: intera.substring(0, dove).trim(),
+      );
+    }
+    // Nessun ponte riconosciuto: **non si indovina un taglio**, si tiene
+    // tutto come risposta. Meglio una scheda lunga di una tagliata a caso.
+    return (risposta: intera, daDoveNasce: '');
+  }
+
   /// La materia senza la coda della fonte: la fonte sta nel pannello Fonti,
   /// non dentro la frase personale, come la voce dell'ordine chiede.
   static String _senzaFonte(String materia) {

@@ -164,6 +164,27 @@ class TypographyTokens {
   static TextStyle lettura({double weight = 400}) =>
       body(size: 18, weight: weight).copyWith(height: 1.55);
 
+  /// **LA PROSA AMPIA, VENTI PUNTI. Ordine CQ voce 6.22, 4 settembre 2026.**
+  ///
+  /// **Il fondatore chiede testi piu' grandi da tre ordini, e alzare l'intera
+  /// scala non si puo'.** Misurato due volte: alzando tutti i ruoli cadono
+  /// piu' di quaranta prove, con chat illeggibili e ventiquattro catture
+  /// rotte; alzando il solo ruolo `lettura` da diciotto a venti ne cadono
+  /// cinque, fra cui i tre sentieri che escono dalla tela e l'Oroscopo. I
+  /// ruoli sono condivisi da tutta l'app, e gonfiarli rompe schermate che
+  /// con quei testi non c'entrano.
+  ///
+  /// **Percio' un gradino in piu', invece di spostare quelli che ci sono.**
+  /// Venti punti, per la prosa lunga che si legge di seguito: il responso
+  /// delle rune e il presagio. Chi la usa lo dichiara, e chi non la usa resta
+  /// dov'e' senza accorgersi di niente.
+  ///
+  /// **E non e' una misura scritta a mano in una schermata**, che e' il modo
+  /// in cui questa scala si sfalda: e' un ruolo, sta qui, e il censimento
+  /// dei caratteri lo vede.
+  static TextStyle letturaAmpia({double weight = 400}) =>
+      body(size: 20, weight: weight).copyWith(height: 1.5);
+
   /// Il testo informativo ordinario, quello che accompagna e spiega.
   static TextStyle corpo({double weight = 400}) =>
       body(size: 16, weight: weight).copyWith(height: 1.5);

@@ -736,7 +736,7 @@ class _Preparazione extends StatelessWidget {
                 // non se ne scrive una seconda.
                 ParagrafiDiLettura(
                     testo: gettata.testoDinamico,
-                    stile: TypographyTokens.lettura()
+                    stile: TypographyTokens.letturaAmpia()
                         .copyWith(color: ColorTokens.textPrimary)),
               ],
             ),
@@ -878,9 +878,12 @@ class _Responso extends StatelessWidget {
     // veniva dopo le rune mentre stava dove doveva. **Nemmeno questo
     // commento puo' citare quella forma alla lettera**, o la guardia
     // troverebbe la citazione.
+    // **LA VOCE ARRIVA IN DUE PEZZI, ordine CQ voce 6.19.** La risposta
+    // resta a vista, la materia storica scende dietro la porta: e' la fonte,
+    // e la legge dei testi la vuole breve e in fondo.
     final voci = [
       for (var quale = 0; quale < esito.rune.length; quale++)
-        RuneVoce.voce(
+        RuneVoce.inDuePezzi(
             runa: esito.rune[quale],
             persona: persona,
             giorno: giorno,
@@ -1003,8 +1006,18 @@ class _Responso extends StatelessWidget {
                       Icon(Icons.auto_awesome,
                           size: 16, color: palette.goldSoft),
                       const SizedBox(width: SpacingTokens.xs),
+                      // **I COLORI DEL PRESAGIO, come il fondatore li ha
+                      // dettati. Ordine CQ voce 6.20, 4 settembre 2026.**
+                      //
+                      // Parole sue: *Titolo Giallo, un po' piu' grande. Sotto
+                      // paragrafo bianco. Poi riquadro con paragrafo GIALLO.
+                      // Poi ultimo paragrafo bianco.*
+                      //
+                      // Il titolo passa da `etichetta` a `titoloDiRiga`,
+                      // cioe' da quattordici punti a sedici: **un gradino
+                      // della scala, non una misura scritta a mano qui.**
                       Text('Il presagio di Caligo',
-                          style: TypographyTokens.etichetta().copyWith(
+                          style: TypographyTokens.titoloDiRiga().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
                   ),
@@ -1043,7 +1056,7 @@ class _Responso extends StatelessWidget {
                         key: const Key('rune_presage_text'),
                         testo: responso.risposta,
                         oro: palette.goldSoft,
-                        stile: TypographyTokens.lettura()
+                        stile: TypographyTokens.letturaAmpia()
                             .copyWith(color: ColorTokens.textPrimary)),
                     const SizedBox(height: SpacingTokens.sm),
                     Container(
@@ -1060,18 +1073,28 @@ class _Responso extends StatelessWidget {
                       // stata la prova `etichette_e_lettura`: un Text diretto nel
                       // ruolo lettura e' la famiglia delle due porte, e da quella
                       // porta il muro di testo rientra.
+                      // **IL RIQUADRO E' GIALLO, ordine CQ voce 6.20.** E'
+                      // l'unico blocco del presagio che chiede di fare
+                      // qualcosa, e il colore lo stacca dalle due prose
+                      // bianche che lo circondano.
                       child: ParagrafiDiLettura(
                           testo: responso.cosaPuoiFare,
                           oro: palette.goldSoft,
-                          stile: TypographyTokens.lettura()
-                              .copyWith(color: ColorTokens.textPrimary)),
+                          stile: TypographyTokens.letturaAmpia()
+                              .copyWith(color: palette.goldSoft)),
                     ),
                     const SizedBox(height: SpacingTokens.sm),
                     // DA DOVE VIENE, e qui compaiono le rune: non prima.
-                    Text(responso.daDoveViene,
+                    // **L'ULTIMO PARAGRAFO E' BIANCO E DELLA STESSA MISURA,
+                    // ordine CQ voce 6.20.** Era in `didascalia` e in grigio,
+                    // cioe' si faceva leggere piu' piccolo degli altri dentro
+                    // lo stesso riquadro: e' la disuniformita' che il
+                    // fondatore chiede di togliere da tre ordini.
+                    ParagrafiDiLettura(
+                        testo: responso.daDoveViene,
                         key: const Key('rune_presage_fonte'),
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: ColorTokens.textSecondary)),
+                        stile: TypographyTokens.letturaAmpia()
+                            .copyWith(color: ColorTokens.textPrimary)),
                   ],
                 ],
               ),
@@ -1090,7 +1113,8 @@ class _Responso extends StatelessWidget {
                 // tutto cio' che c'e' a schermo, e il responso si legge come
                 // una pagina di manuale invece che come una risposta.
                 sola: esito.rune.length == 1,
-                voce: i < voci.length ? voci[i] : null,
+                voce: i < voci.length ? voci[i].risposta : null,
+                daDoveNasce: i < voci.length ? voci[i].daDoveNasce : null,
                 giuntura: giunture != null && i < giunture.length
                     ? giunture[i]
                     : null),
@@ -1155,7 +1179,7 @@ class _Responso extends StatelessWidget {
                       giorno: giorno,
                     ),
                     textAlign: TextAlign.center,
-                    stile: TypographyTokens.lettura()
+                    stile: TypographyTokens.letturaAmpia()
                         .copyWith(color: ColorTokens.textPrimary),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
@@ -1209,11 +1233,20 @@ class _LetturaRuna extends StatelessWidget {
       this.libera = false,
       this.sola = false,
       this.voce,
+      this.daDoveNasce,
       this.giuntura});
 
   final RunaGettata runa;
   final int indice;
   final MaestroPalette palette;
+
+  /// **LA MATERIA STORICA, che sta dietro la porta. Ordine CQ voce 6.19,
+  /// 4 settembre 2026.**
+  ///
+  /// La voce della runa arriva in due pezzi: la risposta, che resta a
+  /// vista, e **da dove nasce**, che e' la fonte e per la legge dei testi
+  /// va breve e in fondo. Qui c'e' il secondo.
+  final String? daDoveNasce;
 
   /// Nel getto libero le rune lette sono in luce, non hanno il verso d'ombra.
   final bool libera;
@@ -1349,76 +1382,66 @@ class _LetturaRuna extends StatelessWidget {
             // della lettura quando le rune sono tre o cinque; con una sola
             // diventano tutto cio' che c'e' a schermo, e la risposta si perde
             // in mezzo. **Non spariscono: si aprono.**
-            if (sola)
-              _IlRestoDellaRuna(
-                indice: indice,
-                palette: palette,
-                simbolo: runa.rune.meaning,
-                voce: voce,
-                strofa: kRuneLore[runa.rune.name] == null
-                    ? null
-                    : '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
-                        '\u00ab${kRuneLore[runa.rune.name]!.strofe.first.traduzione}\u00bb',
-              )
-            else
-              // **UNA MISURA SOLA PER LA PROSA DELLA SCHEDA. Ordine CQ voce
-              // 6.15, 4 settembre 2026.**
-              //
-              // Parole del fondatore, e le ha chieste piu' volte: *i caratteri
-              // sono uniformati?* Dentro questo stesso riquadro convivevano
-              // **quattro misure**: il nome della runa, le frasi del corpo,
-              // il significato con la strofa, e l'etichetta del verso. Le due
-              // di mezzo sono tutte e due prosa che si legge, e stavano a
-              // due misure diverse senza nessuna ragione.
-              //
-              // Adesso **tutta la prosa della scheda sta nel ruolo lettura**.
-              // Restano diversi solo il nome, che e' un titolo, e le
-              // etichette in maiuscoletto, che non sono prosa.
-              // **NEL RUOLO LETTURA SI PASSA DAI PARAGRAFI, ordine CQ
-              // voce 6.15.** Portando questi blocchi al ruolo della prosa
-              // sono diventati testo narrato, e il testo narrato ha una
-              // porta sola: un `Text` diretto e' il modo in cui il muro di
-              // testo rientra.
-              ParagrafiDiLettura(
-                  key: Key('rune_meaning_$indice'),
-                  testo: runa.rune.meaning,
-                  stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textSecondary)),
-            const SizedBox(height: SpacingTokens.xs),
-            // La lettura della scheda passa dalla porta unica dei paragrafi:
-            // sotto cinque righe non divide, quindi le righe brevi restano
-            // come sono e quelle lunghe respirano.
+            // **TRE PARAGRAFI, E BASTA. Ordine CQ voci 6.19 e 6.22,
+            // 4 settembre 2026.**
+            //
+            // Parole del fondatore: *Intestazione con immagine runa OK. Poi
+            // sotto 3 paragrafi: Giallo, Bianco, Giallo.* E prima: *per
+            // quanto riguarda la quantita' di testo nelle bolle delle singole
+            // rune, non hai fatto nulla?*
+            //
+            // **Aveva ragione.** La porta valeva per la sola runa singola,
+            // per una decisione mia: *a tre e a cinque restano dove erano,
+            // perche' li' sono il corpo della lettura*. Misurato sui suoi
+            // screenshot: **1833 caratteri per la gettata a tre, 3055 per la
+            // Croce delle Cinque.** E' una parete.
+            //
+            // **La soluzione si posa da sola.** Dietro la porta vanno la
+            // materia storica e la strofa, che sono la FONTE e per la legge
+            // dei testi stanno brevi e in fondo. Restano esattamente i tre
+            // paragrafi che il fondatore chiede, e i colori seguono il senso:
+            // il significato e il cielo sono di Caligo, la risposta e' la
+            // voce che parla a te.
+            //
+            // **UNO. Il significato del segno, in oro.**
             ParagrafiDiLettura(
+                key: Key('rune_meaning_$indice'),
+                testo: runa.rune.meaning,
+                stile: TypographyTokens.letturaAmpia()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.sm),
+            // **DUE. La risposta, in bianco**: e' cio' che la runa dice a te,
+            // e sta in mezzo perche' e' la cosa che conta.
+            ParagrafiDiLettura(
+                key: Key('rune_riga_$indice'),
                 testo: runa.riga,
-                stile: TypographyTokens.lettura()
+                stile: TypographyTokens.letturaAmpia()
                     .copyWith(color: ColorTokens.textPrimary)),
-            // LA VOCE DELLA RUNA, di Caligo: la runa nel tuo giorno. E'
-            // curatela dichiarata, mai tradizione, e per questo NON sta
-            // accanto alla strofa con la fonte.
-            if (voce != null && !sola) ...[
+            // **TRE. Il cielo con la domanda, in oro.** Qui vive la frase che
+            // nomina la domanda scritta, una volta sola su tutta la gettata.
+            if (voce != null) ...[
               const SizedBox(height: SpacingTokens.sm),
               ParagrafiDiLettura(
                   key: Key('rune_voce_$indice'),
                   testo: voce!,
-                  stile: TypographyTokens.lettura()
+                  stile: TypographyTokens.letturaAmpia()
                       .copyWith(color: palette.goldSoft)),
             ],
-            // LA STROFA ATTESTATA, con la fonte nominata: la materia vera
-            // della runa. Quando la strofa norrena non esiste, qui compare
-            // comunque l'anglosassone, che copre tutte e ventiquattro.
-            if (kRuneLore[runa.rune.name] != null && !sola) ...[
-              const SizedBox(height: SpacingTokens.sm),
-              ParagrafiDiLettura(
-                  testo: '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
-                      '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
-                  key: Key('rune_strofa_$indice'),
-                  // **STESSA MISURA DELLA PROSA, ordine CQ voce 6.15.** La
-                  // strofa e' una citazione, non una nota a pie' di pagina:
-                  // era l'unico blocco della scheda a farsi leggere piu
-                  // piccolo, e si vedeva.
-                  stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textSecondary)),
-            ],
+            // **E LA FONTE STA DIETRO LA PORTA, per ogni gettata.** Non
+            // sparisce: si apre. Chi vuole sapere da dove nasce la runa tocca
+            // e legge; chi vuole la risposta l'ha gia' letta qui sopra.
+            if ((daDoveNasce != null && daDoveNasce!.trim().isNotEmpty) ||
+                kRuneLore[runa.rune.name] != null)
+              _IlRestoDellaRuna(
+                indice: indice,
+                palette: palette,
+                simbolo: daDoveNasce,
+                voce: null,
+                strofa: kRuneLore[runa.rune.name] == null
+                    ? null
+                    : '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
+                        '\u00ab${kRuneLore[runa.rune.name]!.strofe.first.traduzione}\u00bb',
+              ),
           ],
         ),
       ),
@@ -2372,7 +2395,10 @@ class _IlRestoDellaRuna extends StatefulWidget {
 
   final int indice;
   final MaestroPalette palette;
-  final String simbolo;
+  /// **PUO' MANCARE, ordine CQ voce 6.19.** Dentro la porta adesso va la
+  /// materia storica della voce, e una runa senza lore non ne ha: in quel
+  /// caso la porta si apre sulla sola strofa.
+  final String? simbolo;
   final String? voce;
   final String? strofa;
 
@@ -2418,16 +2444,25 @@ class _IlRestoDellaRunaState extends State<_IlRestoDellaRuna> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.simbolo,
-                  key: Key('rune_meaning_${widget.indice}'),
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.4)),
+              // **LA MATERIA STORICA, quando c'e'. Ordine CQ voce 6.19.**
+              //
+              // La chiave non e' piu' `rune_meaning`, che adesso vive fuori
+              // dalla porta col significato del segno: **due cose diverse
+              // non portano lo stesso nome**, o la prima guardia che le
+              // cerca ne trova una per l'altra.
+              if (widget.simbolo != null &&
+                  widget.simbolo!.trim().isNotEmpty)
+                ParagrafiDiLettura(
+                    key: Key('rune_da_dove_nasce_${widget.indice}'),
+                    testo: widget.simbolo!,
+                    stile: TypographyTokens.letturaAmpia()
+                        .copyWith(color: ColorTokens.textSecondary)),
               if (widget.voce != null) ...[
                 const SizedBox(height: SpacingTokens.sm),
                 ParagrafiDiLettura(
                     key: Key('rune_voce_${widget.indice}'),
                     testo: widget.voce!,
-                    stile: TypographyTokens.lettura()
+                    stile: TypographyTokens.letturaAmpia()
                         .copyWith(color: widget.palette.goldSoft)),
               ],
               if (widget.strofa != null) ...[

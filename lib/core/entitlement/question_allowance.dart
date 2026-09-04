@@ -485,13 +485,68 @@ class QuestionAllowance extends ChangeNotifier {
   /// avrebbe dovuto guardare un campo privato, cioe' misurare una copia.
   int get gettateSpese => _gettate;
 
-  /// Quante gettate restano oggi, oppure null se sono illimitate.
+  /// **IL TETTO DEL PIANO NUOVO NASCE INTERO. Ordine CQ voce 6.21,
+  /// 4 settembre 2026.**
+  ///
+  /// Parole del fondatore, dopo aver attivato l'Illuminato con una gettata
+  /// gia' fatta: *non dovrebbero essere 50 nel momento in cui torni alla
+  /// funzionalita' rune dopo aver attivato il piano? la prima era gratis
+  /// cioe' compresa.*
+  ///
+  /// **Ha ragione, e la ragione e' di sostanza.** Chi sale di piano sta
+  /// comprando QUEL tetto adesso: trovarlo gia' eroso da consumi fatti
+  /// sotto un tetto piu' basso e' una promessa non mantenuta, e capita nel
+  /// momento in cui uno ha appena pagato. Il conto restava perche' e'
+  /// giornaliero e non sapeva niente dei piani.
+  ///
+  /// **Come si condona, e perche' cosi'.** Si condona il consumo fatto
+  /// SOTTO il tetto vecchio, e mai piu' di quello: chi aveva un tetto di
+  /// uno e ne aveva fatta una si ritrova il piano nuovo intero, chi ne aveva
+  /// fatte trenta con un tetto di trenta pure. **Non e' un azzeramento**: se
+  /// il tetto vecchio era piu' alto del consumo, si condona solo il consumo,
+  /// e chi scende di piano non guadagna niente.
+  ///
+  /// **Il limite di questo ragionamento, dichiarato.** In Demo il piano si
+  /// cambia con un tocco, quindi salire e scendere piu' volte condona piu
+  /// volte. Nel prodotto vero il piano lo cambia il pagamento, non un
+  /// pulsante, e li' il giro non esiste. Se un giorno la Demo dovesse
+  /// difendersi da questo, il posto e' qui.
   int? gettateRimaste(Tier tier) {
     final limite = limiteGettate(tier);
     if (limite == null) return null;
     _rollover();
+    _condonaSalendo(limite);
     final resta = limite - _gettate;
     return resta < 0 ? 0 : resta;
+  }
+
+  /// Il tetto delle gettate **PIU' ALTO** visto oggi.
+  ///
+  /// **E' il piu' alto e non l'ultimo, e la differenza e' una porta
+  /// aperta.** La prima stesura ricordava l'ultimo, e la guardia di questa
+  /// voce lo ha preso al primo giro: con tre gettate fatte da Illuminato si
+  /// scendeva alla Demo e si risaliva, e il condono scattava di nuovo
+  /// regalando una gettata. Misurato: 47 prima, 48 dopo il giro.
+  ///
+  /// Ricordando il piu' alto, salire dove si e' gia' stati non condona
+  /// niente, e il giro non paga.
+  int? _tettoGettateMax;
+
+  /// Condona il consumo fatto sotto un tetto piu' basso, quando il tetto
+  /// sale sopra ogni tetto gia' visto oggi. Vedi [gettateRimaste].
+  void _condonaSalendo(int limite) {
+    final max = _tettoGettateMax;
+    if (max == null) {
+      _tettoGettateMax = limite;
+      return;
+    }
+    if (limite <= max) return;
+    _tettoGettateMax = limite;
+    // Si toglie il consumo fatto sotto il tetto vecchio, mai piu' di quello.
+    final condonate = _gettate < max ? _gettate : max;
+    if (condonate <= 0) return;
+    _gettate -= condonate;
+    notifyListeners();
   }
 
   /// Se si puo' gettare adesso. La gettata e' un calcolo locale, quindi per

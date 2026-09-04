@@ -174,6 +174,7 @@ void main() {
         File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
             .readAsStringSync();
     final storti = <String>[];
+    final ruoli = <String>{};
     var guardati = 0;
     for (final chiave in const [
       'rune_meaning_',
@@ -194,8 +195,17 @@ void main() {
       final intorno = schermata.substring(
           dove > 800 ? dove - 800 : 0,
           dove + 800 < schermata.length ? dove + 800 : schermata.length);
-      if (!intorno.contains('TypographyTokens.lettura()')) {
-        storti.add('$chiave: non usa il ruolo lettura');
+      // **SI MISURA L'UNIFORMITA', NON UN RUOLO PRECISO.** La prima
+      // stesura pretendeva `lettura`, e quando la prosa e' salita alla
+      // misura ampia e' caduta pur essendo tutto uniforme: **una prova
+      // legata al nome del ruolo cade quando il ruolo migliora.** Adesso
+      // raccoglie i ruoli trovati e pretende che siano UNO.
+      final m = RegExp(r'TypographyTokens\.(\w+)\(\)')
+          .firstMatch(intorno);
+      if (m == null) {
+        storti.add('$chiave: non passa da nessun ruolo della scala');
+      } else {
+        ruoli.add(m.group(1)!);
       }
     }
     // ignore: avoid_print
@@ -205,9 +215,16 @@ void main() {
         cosa: 'blocchi di prosa della scheda della runa',
         perche: 'Con zero blocchi la prova direbbe che le misure coincidono '
             'per non averne guardata nessuna.');
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.15: ruoli tipografici trovati $ruoli');
     expect(storti, isEmpty,
-        reason: 'questi blocchi di prosa hanno una misura diversa dagli '
-            'altri dentro lo stesso riquadro: ${storti.join(", ")}');
+        reason: 'questi blocchi di prosa non passano da un ruolo della '
+            'scala: ${storti.join(", ")}');
+    expect(ruoli.length, 1,
+        reason: 'la prosa della schermata usa ${ruoli.length} ruoli diversi, '
+            '$ruoli: dentro lo stesso riquadro il fondatore li vede come '
+            'misure diverse, ed e la disuniformita che chiede di togliere '
+            'da tre ordini');
   });
 
   test('e la schermata chiama davvero la porta del Sigillo', () {
@@ -227,5 +244,79 @@ void main() {
     expect(schermata.contains("'Le rune di questa gettata, strette in un "), 
         isFalse,
         reason: 'la riga vecchia e tornata scritta a mano nella schermata');
+  });
+
+  test('la bolla della runa porta tre paragrafi, e le fonti stanno dietro',
+      () {
+    // **Ordine CQ voci 6.19 e 6.22, 4 settembre 2026.** Parole del fondatore:
+    // *Intestazione con immagine runa OK. Poi sotto 3 paragrafi: Giallo,
+    // Bianco, Giallo.* E prima: *per quanto riguarda la quantita' di testo
+    // nelle bolle delle singole rune, non hai fatto nulla?*
+    //
+    // **Aveva ragione**: la porta valeva per la sola runa singola, per una
+    // decisione mia scritta cosi', *a tre e a cinque restano dove erano*.
+    final schermata =
+        File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
+            .readAsStringSync();
+
+    // I tre paragrafi, nell'ordine e col loro colore.
+    final ordine = <String, String>{
+      'rune_meaning_': 'palette.goldSoft',
+      'rune_riga_': 'ColorTokens.textPrimary',
+      'rune_voce_': 'palette.goldSoft',
+    };
+    final storti = <String>[];
+    var precedente = -1;
+    var guardati = 0;
+    for (final voce in ordine.entries) {
+      final dove = schermata.indexOf("Key('${voce.key}");
+      if (dove < 0) {
+        storti.add('${voce.key}: non e piu a video');
+        continue;
+      }
+      guardati++;
+      if (dove < precedente) storti.add('${voce.key}: e fuori ordine');
+      precedente = dove;
+      final intorno = schermata.substring(
+          dove, dove + 300 < schermata.length ? dove + 300 : schermata.length);
+      if (!intorno.contains(voce.value)) {
+        storti.add('${voce.key}: non ha il colore ${voce.value}');
+      }
+      // **E LA MISURA E' QUELLA AMPIA**, che e' l'altra meta' della richiesta.
+      if (!intorno.contains('TypographyTokens.letturaAmpia()')) {
+        storti.add('${voce.key}: non usa la prosa ampia');
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.22: paragrafi guardati $guardati, storti '
+        '${storti.length}');
+    cardinaleMinimo(guardati, 3,
+        cosa: 'paragrafi della bolla della runa trovati nel sorgente',
+        perche: 'Con meno di tre paragrafi la prova direbbe che l ordine e '
+            'giusto per non averne guardato nessuno.');
+    expect(storti, isEmpty,
+        reason: 'la bolla della runa non e come il fondatore l ha chiesta: '
+            '${storti.join(", ")}');
+  });
+
+  test('e la porta delle fonti non dipende piu dal numero di rune', () {
+    // **LA PORTA VALEVA SOLO PER LA RUNA SOLA**, ed e' la decisione che gli
+    // screenshot hanno smentito: 1833 caratteri per la gettata a tre, 3055
+    // per la Croce delle Cinque.
+    final schermata =
+        File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
+            .readAsStringSync();
+    final dove = schermata.indexOf('_IlRestoDellaRuna(');
+    expect(dove, greaterThanOrEqualTo(0),
+        reason: 'la porta delle fonti non esiste piu');
+    final prima = schermata.substring(
+        dove > 500 ? dove - 500 : 0, dove);
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.19: la porta si monta sotto una condizione che '
+        'nomina "sola" ${prima.contains("if (sola)")}');
+    expect(prima.contains('if (sola)'), isFalse,
+        reason: 'la porta delle fonti si monta ancora solo a una runa sola: '
+            'a tre e a cinque il testo resta la parete che il fondatore ha '
+            'fotografato');
   });
 }

@@ -413,3 +413,17 @@ INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 2 su 2
 MISURA: nella BarraArte il cuore era gia' centrato col titolo, scarto 0,0.
 Il cuore storto era l'ALTRO, quello delle schermate senza barra, appeso a
 top zero piu' un'aria. Adesso le due quote coincidono, 28,0 e 28,0.
+
+LA PROVA DEL ROSSO DELLE BOLLE DELLE RUNE
+Ordine CQ voci 6.19 e 6.22, Regola A.
+========================================================================
+ROSSA     la porta delle fonti torna alla sola runa singola
+ROSSA     un paragrafo torna a una misura sua
+ROSSA     il paragrafo di mezzo perde il bianco
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: la bolla portava 1499 caratteri tutti a vista su tre rune, adesso
+690, cioe' 230 per runa. Il 54 per cento del testo sta dietro la porta.
+E la guardia dell'uniformita' non pretende piu' un ruolo per nome: raccoglie
+i ruoli trovati e ne vuole UNO. La prima stesura chiedeva lettura ed e'
+caduta quando la prosa e' salita alla misura ampia, pur essendo uniforme.

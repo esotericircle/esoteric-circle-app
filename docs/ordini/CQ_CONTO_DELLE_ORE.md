@@ -91,5 +91,19 @@ erano tutte vere, e tutte guardavano un centimetro a lato.
 > che legge il sorgente o una funzione non chiude una voce nata da uno
 > screenshot**: puo' accompagnarla, non basta.
 
-Le dieci voci chiuse oggi hanno tutte una guardia di questa forma, e le tre che
-non l'hanno lo dicono per nome nel referto.
+Le voci chiuse oggi hanno tutte una guardia di questa forma, e quelle che non
+l'hanno lo dicono per nome nel referto.
+
+**E dal 4 settembre 2026 esiste lo strumento che mancava.** Il fondatore ha
+scritto: *"se vuoi puoi verificare da solo le funzionalita' in autonomia"*, e da
+li' nasce `tool/collaudo_a_video.py`. Apre l'app sul telefono collegato, la
+tocca dove la toccherebbe una persona e legge **l'albero delle viste**, cioe'
+cosa il sistema dichiara esserci a schermo. Non sostituisce nessuna guardia: e'
+l'occhio che manca a monte, quello che dice se vale la pena scriverne una e
+dove.
+
+**Perche' cambia le cose.** Nessuna prova Flutter gira con uno schermo vero e
+coi plugin veri: e' per questo che il suono della carta risultava consegnato
+alla porta giusta mentre a video non si sentiva, e che la stella risultava nella
+sua fascia mentre il dito non la prendeva. Adesso quella distanza si puo'
+misurare invece di scoprirla da uno screenshot il giorno dopo.
