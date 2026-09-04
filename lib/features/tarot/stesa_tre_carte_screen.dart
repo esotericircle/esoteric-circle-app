@@ -1303,7 +1303,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // sara' piu' niente da togliere qui, e i punti andranno cercati
           // dentro il ventaglio, che si dimensiona sulla LARGHEZZA e non
           // guarda mai quanta altezza gli sia rimasta.
-          const SizedBox(height: 0),
+          //
+          // **E IL VUOTO NON RESTA A ZERO, SPARISCE.** Un `SizedBox` alto
+          // zero e' comunque un vuoto verticale per il censimento degli
+          // spazi, che li conta e li registra: lasciarlo li' vorrebbe dire
+          // tenere in elenco un'aria che non c'e' piu'. La guardia dei
+          // vuoti l'ha detto allo stesso giro.
           // Il ventaglio con la sua regia: ingresso a spirale, respiro,
           // taglio e vortice. Si ridisegna col battito delle quattro fasi.
           AnimatedBuilder(
