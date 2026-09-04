@@ -267,3 +267,56 @@ arrivano tutti; la scala vive in `meritaLaScena`, che decide chi si vede.
 compito che li apriva, e l'Arcano e il Soffio hanno la loro materia; la
 riscrittura frase per frase dei cinque responsi, il ponte fra il motore delle
 date e la chat, e la misura dei promemoria non sono state fatte in questo giro.
+
+---
+
+## LE VOCI E IL LORO STATO
+
+**Sigillato con l'ordine CQ voce 4.03, 4 settembre 2026.** REGOLA F: un ordine
+non e' finito finche' il suo manifesto non e' sigillato coi marcatori
+terminali, e senza sigillo il Collaudatore degli Ordini non lo vede affatto.
+
+**Sette voci restano APERTE e il sigillo lo dice.** La guardia
+`i_manifesti_sono_sigillati_test.dart` resta rossa finche' non sono zero, ed e'
+la stessa legge di consegna che l'ordine CG ha portato per tre giorni: **un
+manifesto sigillato con stati falsi e' peggio di un manifesto non sigillato.**
+
+- **CQ.01** Pezzo primo 1.01, il piano attivo e i suoi tetti. **CHIUSA**, e la callable resta da distribuire dal PC del fondatore, PASSO 7.
+- **CQ.02** Pezzo primo 1.02, il cuore sopra la freccia. **CHIUSA.**
+- **CQ.03** Pezzo primo 1.03, il ventaglio vive subito. **CHIUSA.**
+- **CQ.04** Pezzo primo 1.04, il suono della carta. **CHIUSA.**
+- **CQ.05** Pezzo primo 1.05, la domanda libera si trova. **CHIUSA.**
+- **CQ.06** Pezzo primo 1.06, scegliere la gettata non getta. **CHIUSA.**
+- **CQ.07** Pezzo primo 1.07, la stella sotto il testo. **CHIUSA.**
+- **CQ.08** Pezzo primo 1.08, nessun suono non scelto. **CHIUSA**, e i tredici file del catalogo sono elencati nel referto perche' il fondatore dica quali non ha scelto.
+- **CQ.09** Pezzo primo 1.09, le push non partivano. **CHIUSA** per il fuso; **AppCheck resta spento** e accenderlo e' una decisione del fondatore col suo PC.
+- **CQ.10** Pezzo primo 1.10, il rosso a intermittenza. **CHIUSA.**
+- **CQ.11** Pezzo primo 1.11, il verde che valeva piu' di un rosso. **CHIUSA.**
+- **CQ.12** Pezzo primo 1.12, gli indici creati a mano. **CHIUSA.**
+- **CQ.13** Rilancio 1, da dove viene il trenta. **CHIUSA**: e' il tetto dell'Adepto, e le ore degli screenshot lo dicono.
+- **CQ.14** Rilancio, le monete che non volavano e il loro volume. **CHIUSA.**
+- **CQ.15** Pezzo secondo 2.00, cosa dicono i Doni, misurato. **CHIUSA.**
+- **CQ.16** Pezzo secondo 2.01, i cinque Doni rivisti frase per frase. **APERTA**: i cinque Doni sono stati misurati e liberati dal compito che li apriva, e la riscrittura di ogni responso non e' stata fatta.
+- **CQ.17** Pezzo secondo 2.02, l'Alba e il Soffio dicevano lo stesso. **CHIUSA.**
+- **CQ.18** Pezzo secondo 2.03, il rito annunciato che non esiste. **CHIUSA.**
+- **CQ.19** Pezzo secondo 2.04, la parola del giorno non dice a cosa serve. **APERTA.**
+- **CQ.20** Pezzo secondo 2.05, l'Arcano non era individuale. **CHIUSA.**
+- **CQ.21** Pezzo secondo 2.06, lo stesso difetto sul Tramonto. **FERMATA SU PREMESSA FALSA**: misurato, il Tramonto compone la sua chiave con la nascita intera e due nascite diverse vedono la stessa runa 34 sere su 365.
+- **CQ.22** Pezzo secondo 2.07, il Sigillo del Giorno non dice a cosa serve. **FERMATA IN ATTESA DI DECISIONE**: nell'app non esiste nessuno "Sigillo del Giorno". Ci sono il Sigillo del Sogno, il Sigillo del Cerchio e il Sigillo dell'Intenzione, e serve sapere quale dei tre.
+- **CQ.23** Pezzo secondo 2.08, la runa rovesciata senza lettura. **FERMATA SU PREMESSA FALSA**: misurato su tutte e ventiquattro le rune nei due versi, righe vuote zero e righe uguali zero. Le otto simmetriche sono l'unico caso, e in tradizione non hanno verso d'ombra.
+- **CQ.24** Pezzo secondo 2.09, la domanda della parola senza risposta. **APERTA.**
+- **CQ.25** Pezzo secondo 2.10, il responso della runa singola troppo lungo. **APERTA.**
+- **CQ.26** Pezzo secondo 2.11, i caratteri ancora piccoli. **CHIUSA**: il ruolo etichetta valeva DODICI punti in duecentotre posti.
+- **CQ.27** Pezzo secondo 2.12 e 2.13, il Cammino murava. **CHIUSA**: 112 soddisfatti e 13 accesi prima, 112 e 112 dopo.
+- **CQ.28** Pezzo secondo 2.14, la curva non monotona. **FERMATA SU DECISIONE DEL FONDATORE**: il fondatore ha chiesto di non toccarla.
+- **CQ.29** Pezzo secondo 2.15, il ponte fra il motore delle date e la chat. **APERTA.**
+- **CQ.30** Pezzo secondo 2.16, i promemoria, misurare e non costruire. **APERTA.**
+- **CQ.31** Aggiunta 4.01 e 4.02, i manifesti arretrati e la chiusura di CG. **CHIUSA.**
+- **CQ.32** Aggiunta 4.03 e 4.04, questo manifesto e la REGOLA F. **CHIUSA.**
+
+VOCI_TOTALI: 32
+VOCI_CHIUSE: 22
+VOCI_APERTE: 6
+VOCI_FERMATE_SU_PREMESSA_FALSA: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1

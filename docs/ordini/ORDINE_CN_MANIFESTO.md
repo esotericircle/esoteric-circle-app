@@ -618,3 +618,41 @@ non e' stata presa. Resta aperto.
 **E restano scollegati i due respiri**, per la ragione gia' scritta: i file
 durano 4,94 e 6,85 secondi e le fasi del rito ne durano da tre a sette, quindi
 serve la velocita' di riproduzione nel motore.
+
+---
+
+## LE VOCI E IL LORO STATO
+
+**Sigillato con l'ordine CQ voce 4.01, 4 settembre 2026.** Il Collaudatore
+degli Ordini prende solo manifesti terminali e sigillati: senza questo blocco
+saltava questo ordine e andava a ritroso, quindi **nessuno lo ha mai
+collaudato**. Le due regressioni viste dal fondatore la sera del 3 settembre
+nascono qui dentro e sarebbero state intercettate.
+
+**Lo stato scritto e' quello vero, non quello comodo.** Un manifesto sigillato
+con stati falsi e' peggio di un manifesto non sigillato, perche' fa passare il
+Collaudatore su una menzogna.
+
+- **CN.01** I sette effetti, misurati uno per uno. **CHIUSA.**
+- **CN.02** La normalizzazione, e la grandezza cambiata. **CHIUSA**, e la cura di `play` che non finisce e' stata portata alla sola musica: agli effetti e ai toni e' arrivata solo con l'ordine CQ voce 1.04, tre giorni dopo.
+- **CN.03** I quattro anelli. **CHIUSA.**
+- **CN.04** Gli anelli ora girano. **CHIUSA.**
+- **CN.05** La voce annullata dal fondatore. **FERMATA SU DECISIONE DEL FONDATORE**: il fondatore l'ha annullata prima che cominciasse.
+- **CN.06** I respiri. **CHIUSA**, con il debito dichiarato dei due file scollegati.
+- **CN.07** I volumi e il sottomenu. **CHIUSA.**
+- **CN.08** I tre video. **CHIUSA.**
+- **CN.09** L'effetto sopra i video. **CHIUSA.**
+- **CN.10** Il peso. **CHIUSA.**
+- **CN.11** Le licenze. **CHIUSA.**
+- **CN.12** La card a misura fissa. **CHIUSA.**
+- **CN.13** I due file che pesano uguale. **CHIUSA.**
+- **CN.14** La build, consegnata e senza la prova di accensione. **CHIUSA**, e la coda dell'ordine ha misurato perche' la 2218 era muta.
+- **CN.15** Il foglio per il fondatore. **CHIUSA.**
+- **CN.16** Il referto. **CHIUSA.**
+
+VOCI_TOTALI: 16
+VOCI_CHIUSE: 15
+VOCI_APERTE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1

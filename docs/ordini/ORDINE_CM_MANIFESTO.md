@@ -354,3 +354,36 @@ capo**: quello che a 1,3 sfora di 2 punti, a 1,6 ne sfora molti di piu', e
 schermate che oggi passano potrebbero non passare. Il numero delle schermate
 rotte a 1,6 **non e' noto**, e sara' il primo lavoro dell'ordine che alza il
 tetto.
+
+---
+
+## LE VOCI E IL LORO STATO
+
+**Sigillato con l'ordine CQ voce 4.01, 4 settembre 2026.** Il Collaudatore
+degli Ordini prende solo manifesti terminali e sigillati: senza questo blocco
+saltava questo ordine e andava a ritroso, quindi **nessuno lo ha mai
+collaudato**. Le due regressioni viste dal fondatore la sera del 3 settembre
+nascono qui dentro e sarebbero state intercettate.
+
+**Lo stato scritto e' quello vero, non quello comodo.** Un manifesto sigillato
+con stati falsi e' peggio di un manifesto non sigillato, perche' fa passare il
+Collaudatore su una menzogna.
+
+- **CM.01** La quadratura del registro delle guardie. **CHIUSA.**
+- **CM.02** Il cardinale minimo a chi scopre un insieme. **CHIUSA.**
+- **CM.03** Le due popolazioni, dichiarate. **CHIUSA.**
+- **CM.04** La regola A, una guardia nasce rossa. **CHIUSA.**
+- **CM.05** La regola B, chi tocca una zona la prova rossa prima. **CHIUSA.**
+- **CM.06** La regola C, ogni difetto ha un padre. **CHIUSA.**
+- **CM.07** Le tre regole scritte in CLAUDE.md. **CHIUSA.**
+- **CM.08** La scala del testo, dichiarata e decisa. **CHIUSA.**
+- **CM.09** Le quarantadue schermate per famiglia di causa. **CHIUSA.**
+- **CM.10** Il corredo a scala massima dentro lo sbarramento. **CHIUSA.**
+- **CM.11** Quante ne restano e in quanti ordini si chiudono. **CHIUSA.**
+
+VOCI_TOTALI: 11
+VOCI_CHIUSE: 11
+VOCI_APERTE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0

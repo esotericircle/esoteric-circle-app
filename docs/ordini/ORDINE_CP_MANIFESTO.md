@@ -270,3 +270,35 @@ QUANTE FESTE VEDE OGGI UN UTENTE CHE APRE E CHIUDE LA STESSA FUNZIONALITÀ OTTO
 VOLTE DI FILA, PRIMA E DOPO QUESTO ORDINE.
 
 **Prima: otto. Dopo: zero.**
+
+---
+
+## LE VOCI E IL LORO STATO
+
+**Sigillato con l'ordine CQ voce 4.01, 4 settembre 2026.** Il Collaudatore
+degli Ordini prende solo manifesti terminali e sigillati: senza questo blocco
+saltava questo ordine e andava a ritroso, quindi **nessuno lo ha mai
+collaudato**. Le due regressioni viste dal fondatore la sera del 3 settembre
+nascono qui dentro e sarebbero state intercettate.
+
+**Lo stato scritto e' quello vero, non quello comodo.** Un manifesto sigillato
+con stati falsi e' peggio di un manifesto non sigillato, perche' fa passare il
+Collaudatore su una menzogna.
+
+- **CP.01** Il gradino non matura finche' il precedente non e' congedato. **FERMATA SU DECISIONE DEL FONDATORE**: la scala ha portato le feste del giorno peggiore da tredici a tre, e **ha murato il Cammino**. Misurato dall'ordine CQ voce 2.12: su quattrocento giorni di uso onesto, centododici traguardi soddisfatti e TREDICI accesi. Il fondatore ha deciso con la voce CQ 2.13 che il tetto ferma la scena e non l'accensione.
+- **CP.02** Lo stesso gesto conta una volta al giorno. **CHIUSA.**
+- **CP.03** I dettagli che dicevano il falso. **CHIUSA.**
+- **CP.04** I centosessantacinque traguardi riscritti da zero. **CHIUSA.**
+- **CP.05** Lo stato generoso costruito dal corpus. **CHIUSA.**
+- **CP.06** I dormienti. **CHIUSA.**
+- **CP.07** L'evento che arma e la condizione scritta. **CHIUSA.**
+- **CP.08** La simulazione di un anno. **FERMATA IN ATTESA DI DECISIONE**: il criterio di accettazione e' proposto e **non approvato dal fondatore**. La simulazione c'e' ed e' verde, ma il numero che la dichiara buona non e' ancora stato deciso.
+- **CP.09** La simulazione dell'abuso. **CHIUSA.**
+- **CP.10** Il manifesto e la guardia dell'ordine. **CHIUSA.**
+
+VOCI_TOTALI: 10
+VOCI_CHIUSE: 8
+VOCI_APERTE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1

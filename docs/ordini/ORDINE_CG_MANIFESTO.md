@@ -33,12 +33,12 @@ Porta le tre regole degli ordini precedenti:
 - **CG.12** La privacy policy riallineata. **CHIUSA.**
 - **CG.13** I Ricordi entrano nella Demo. **CHIUSA.**
 - **CG.14** I caratteri troppo piccoli, dalla voce CF.10. **CHIUSA.**
-- **CG.15** Le lapidi del benvenuto, dalla voce CF.17. **APERTA.**
-- **CG.16** Le notifiche push, una per ogni Dono. **APERTA**, corretta il 1 settembre 2026 dall'ordine CI voce 07: era dichiarata CHIUSA e non lo era.
+- **CG.15** Le lapidi del benvenuto, dalla voce CF.17. **CHIUSA**, con l'ordine CQ voce 4.02 del 4 settembre 2026: il fondatore ha controllato la collezione `lapidi_del_benvenuto` su Firestore la sera del 3 settembre e **nessun documento porta piu' l'impronta del sale vuoto `b24dc795`**. La misura di accettazione dell'ordine, ZERO lapidi col sale vuoto, e' soddisfatta.
+- **CG.16** Le notifiche push, una per ogni Dono. **CHIUSA**, con l'ordine CQ voce 4.02, e c'e' voluto un terzo passaggio. Era dichiarata CHIUSA e non lo era (correzione dell'ordine CI voce 07 del 1 settembre 2026); l'ordine CI ha costruito la porta e le sue callable, e **le push continuavano a non partire** perche' il telefono mandava un fuso che il server rifiuta. L'ordine CQ voce 1.09 lo ha misurato sui log (ventitre chiamate, ventitre 400, raccolta inesistente) e curato.
 
 VOCI_TOTALI: 16
-VOCI_CHIUSE: 14
-VOCI_APERTE: 2
+VOCI_CHIUSE: 16
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0

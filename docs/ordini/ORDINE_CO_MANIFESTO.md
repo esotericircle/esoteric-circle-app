@@ -434,3 +434,45 @@ dello schermo, e in quella fotografia il difetto era ovvio.** Vale la pena
 scriverlo qui, dove si tiene conto di come si trovano le cose: in quest'ordine
 la fotografia di uno schermo ha battuto una guardia che misura pixel, per la
 seconda volta dopo la frase sul fuoco audio dell'ordine CN.
+
+---
+
+## LE VOCI E IL LORO STATO
+
+**Sigillato con l'ordine CQ voce 4.01, 4 settembre 2026.** Il Collaudatore
+degli Ordini prende solo manifesti terminali e sigillati: senza questo blocco
+saltava questo ordine e andava a ritroso, quindi **nessuno lo ha mai
+collaudato**. Le due regressioni viste dal fondatore la sera del 3 settembre
+nascono qui dentro e sarebbero state intercettate.
+
+**Lo stato scritto e' quello vero, non quello comodo.** Un manifesto sigillato
+con stati falsi e' peggio di un manifesto non sigillato, perche' fa passare il
+Collaudatore su una menzogna.
+
+- **CO.01** Lo Shaman entra alla fine dell'intro. **CHIUSA.**
+- **CO.02** Il suono della carta. **CHIUSA** per l'intercapedine vuota, e **il suono restava muto lo stesso**: il lettore degli effetti aspettava `play` e chiedeva il fuoco audio esclusivo, curati dall'ordine CQ voce 1.04.
+- **CO.03** Una voce sola sulla festa. **CHIUSA.**
+- **CO.04** Le monete piu' quiete. **CHIUSA.**
+- **CO.05** La domanda scritta a mano. **CHIUSA** per l'esistenza del campo, e la sua guardia pretendeva solo l'ORDINE e non la DISTANZA: il fondatore non lo ha trovato, e l'ordine CQ voce 1.05 lo ha portato sotto le suggerite.
+- **CO.06** La carta dentro la sua bolla. **CHIUSA.**
+- **CO.07** Il pulsante che comincia. **FERMATA SU DECISIONE DEL FONDATORE**: **non ha fatto cio' che serviva.** Il pulsante e' stato messo PRIMA delle carte e ha bloccato la scelta, cioe' faceva premere per ottenere il permesso di scegliere. Il fondatore lo ha rovesciato con l'ordine CQ voce 1.03, dove il ventaglio vive da subito e il pulsante apre il responso.
+- **CO.08** "Carta Chiave" in oro. **CHIUSA.**
+- **CO.09** Il conteggio delle sinastrie. **CHIUSA.**
+- **CO.10** La testa del Maestro. **CHIUSA.**
+- **CO.11** La dotazione e il residuo. **CHIUSA.**
+- **CO.12** Il vuoto della chat. **CHIUSA.**
+- **CO.13** I testi dei Doni, terza richiesta. **FERMATA SU DECISIONE DEL FONDATORE**: **non ha chiuso la materia.** La prosa e' salita a diciotto punti ed era giusto, ma il ruolo `etichetta` e' rimasto a DODICI in duecentotre punti dell'app, e il censimento non lo ha mai scritto perche' guarda le schermate e non i ruoli. Il fondatore lo ha detto una QUARTA volta, e l'ordine CQ voce 2.11 ha alzato le etichette.
+- **CO.14** Il giallo del Rito dell'Alba. **CHIUSA.**
+- **CO.15** "IL RITO DI STAMATTINA". **FERMATA SU DECISIONE DEL FONDATORE**: la riga e' stata scritta bene e **il fondatore ha poi fatto togliere tutto il blocco**, perche' annunciava un rito che non esiste. Ordine CQ voce 2.03.
+- **CO.16** L'accento vero. **CHIUSA.**
+- **CO.17** I responsi dei Doni, riscritti nella gerarchia. **FERMATA SU DECISIONE DEL FONDATORE**: la gerarchia e' stata scritta e **la prima cosa che si leggeva restava un compito**, in tutti e cinque i Doni e non solo nell'Arcano. Misurato dall'ordine CQ voce 2.00, e l'Alba e il Soffio davano per di piu' la stessa identica risposta.
+- **CO.18** Le stelle della festa. **CHIUSA.**
+- **CO.19** Le monete che volano. **CHIUSA** per il suono che usciva senza monete, e **restava il verso opposto**: le monete non volavano quando nessun borsellino era misurabile, cioe' proprio alla chiusura della festa. Rimediato nel rilancio dell'ordine CQ.
+- **CO.20** Il cuore dei preferiti. **FERMATA SU DECISIONE DEL FONDATORE**: **non ha fatto cio' che l'ordine chiedeva.** Il cuore e' stato SPOSTATO nell'angolo sinistro invece che centrato verticalmente a destra, e li' si e' fuso con la freccia Indietro rendendola non premibile. Parole del fondatore: *"IO AVEVO CHIESTO SOLO DI CENTRARLA VERTICALMENTE"*. Rimediato dall'ordine CQ voce 1.02.
+
+VOCI_TOTALI: 20
+VOCI_CHIUSE: 15
+VOCI_APERTE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 5
