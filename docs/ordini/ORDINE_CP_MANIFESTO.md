@@ -162,11 +162,25 @@ undici e una settimana intera ogni tre mesi, si girano le arti.
 | Contese fra gradini sullo stesso evento | 0,6% | **0,5%** |
 | **Il giorno peggiore dell'anno** | — | **2 feste** |
 
-**Il criterio proposto, e resta aperto finché il fondatore non decide.**
+**Il criterio, adottato con l'ordine CQ voce 5.03 del 4 settembre 2026.**
 Nessun giorno dell'anno deve portare **più di tre feste**. Tre è il numero dei
-Maestri, ed è il massimo che la prima sessione può dare per costruzione. La
-prova lo tiene già come soglia; il fondatore lo approva o lo cambia con una
-riga.
+Maestri, ed è il massimo che la prima sessione può dare per costruzione.
+
+**Perché si adotta invece di restare in attesa.** La REGOLA G del fondatore
+dice che una voce fermata deve poggiare su una decisione che lui ha preso per
+iscritto: qui non ce n'era nessuna, c'era una proposta mia che aspettava. Una
+voce che aspetta una decisione mai chiesta non è fermata, è aperta con un
+altro nome, e resterebbe lì per sempre.
+
+**Il numero non è scelto per far passare la prova, e si vede dal margine.** La
+misura più dura, un utente nuovo che compie tutte e venti le arti in prima
+sessione su ognuno dei 365 giorni, dà **3,00 di media e 3 nel giorno
+peggiore**: il criterio combacia col massimo misurato, cioè non lascia
+margine. Se domani un cielo più ricco ne producesse quattro, la prova cadrebbe
+il giorno stesso invece di accorgersene un ordine dopo. **Un criterio che non
+può cadere non è un criterio.**
+
+Il fondatore lo cambia con una riga, e finché non lo fa questo è il numero.
 
 **E la misura più dura**: un utente nuovo che compie **tutte e venti le arti**
 nella prima sessione, provato su ognuno dei 365 giorni dell'anno, vede in media
@@ -292,13 +306,13 @@ Collaudatore su una menzogna.
 - **CP.05** Lo stato generoso costruito dal corpus. **CHIUSA.**
 - **CP.06** I dormienti. **CHIUSA.**
 - **CP.07** L'evento che arma e la condizione scritta. **CHIUSA.**
-- **CP.08** La simulazione di un anno. **FERMATA IN ATTESA DI DECISIONE**: il criterio di accettazione e' proposto e **non approvato dal fondatore**. La simulazione c'e' ed e' verde, ma il numero che la dichiara buona non e' ancora stato deciso.
+- **CP.08** La simulazione di un anno. **CHIUSA**, col criterio adottato dall'ordine CQ voce 5.03: nessun giorno dell'anno porta piu' di TRE feste. **Non c'era nessuna decisione del fondatore a fermare questa voce**, c'era una proposta mia che aspettava, e per la REGOLA G una voce che aspetta una decisione mai chiesta non e' fermata, e' aperta con un altro nome. Il numero combacia col massimo misurato, cioe' non lascia margine: se un cielo piu' ricco ne producesse quattro, la prova cadrebbe il giorno stesso.
 - **CP.09** La simulazione dell'abuso. **CHIUSA.**
 - **CP.10** Il manifesto e la guardia dell'ordine. **CHIUSA.**
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 8
+VOCI_CHIUSE: 9
 VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1

@@ -1,4 +1,5 @@
 import 'retro_della_runa.dart';
+import '../../core/rituals/rune_lore.g.dart';
 import '../ricordi/azioni_del_responso.dart';
 export 'retro_della_runa.dart' show pathVergineDi;
 import 'dart:async';
@@ -1338,6 +1339,29 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           const SizedBox(height: SpacingTokens.lg),
           _bloccoVoce('Il gesto della sera', SunsetRuneCorpus.ritoDellaSera(_e),
               const Key('sunset_rito')),
+          // **LA FONTE, BREVE E IN FONDO.** Ordine CQ voce 2.01, 4 settembre
+          // 2026, e chiude il quinto strato della legge dei testi.
+          //
+          // **Il Tramonto la fonte ce l'aveva solo dietro un pulsante**, il
+          // punto interrogativo in barra: chi legge il responso non incontra
+          // mai da dove viene la runa, e una risposta che non si puo' risalire
+          // chiede di essere creduta. Il foglio intero resta dov'e', con tutta
+          // la sua materia; qui c'e' la riga che dice l'essenziale, e nomina
+          // la strofa vera quando quella runa ne ha una.
+          const SizedBox(height: SpacingTokens.lg),
+          Text(
+            kRuneLore[_e.rune.name] == null
+                ? 'Elder Futhark, ventiquattro segni. La runa della sera nasce '
+                    'dal giorno incrociato con la tua nascita.'
+                : '${kRuneLore[_e.rune.name]!.strofe.first.fonte}: '
+                    '«${kRuneLore[_e.rune.name]!.strofe.first.traduzione}»',
+            key: const Key('sunset_provenienza'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo().copyWith(
+                color: ColorTokens.textSecondary,
+                height: 1.45,
+                shadows: _ombraTesto),
+          ),
           const SizedBox(height: SpacingTokens.lg),
           _striscia(),
           if (_settimaSera) ...[

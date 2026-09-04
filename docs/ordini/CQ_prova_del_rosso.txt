@@ -252,3 +252,30 @@ ROSSA     il tetto dei tre eventi sparisce
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
 
+LA PROVA DEL ROSSO DEL SIGILLO E DELLA RUNA SOLA
+Ordine CQ voci 2.07 e 2.10, Regola A.
+========================================================================
+ROSSA     la riga che dice a cosa serve sparisce        
+          attesa: sotto il Sigillo c e scritto a cosa serve, prima della tradizione
+          caduta: sotto il Sigillo c e scritto a cosa serve, prima della tradizione
+ROSSA     la porta della runa sola sparisce             
+          attesa: a una runa sola il corpo della scheda sta dietro una porta
+          caduta: a una runa sola il corpo della scheda sta dietro una porta
+ROSSA     la riga dell uso promette un esito            
+          attesa: la riga dell uso non promette niente
+          caduta: la riga dell uso non promette niente
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA LEGGE DEI TESTI
+Ordine CQ voce 2.01, Regola A.
+========================================================================
+ROSSA     l Arcano torna senza fonte                    
+          attesa: ogni Dono porta i suoi strati, e nell ordine dettato
+          caduta: ogni Dono porta i suoi strati, e nell ordine dettato
+ROSSA     il Tramonto torna senza fonte                 
+          attesa: ogni Dono porta i suoi strati, e nell ordine dettato
+          caduta: ogni Dono porta i suoi strati, e nell ordine dettato
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+

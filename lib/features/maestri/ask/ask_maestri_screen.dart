@@ -985,7 +985,12 @@ class _LensCard extends StatelessWidget {
 DiarioDelCammino? _forseIlDiario(BuildContext context) {
   try {
     return context.read<DiarioDelCammino>();
-  } catch (_) {
+  } catch (errore) {
+    // **L'ERRORE SI IGNORA E SI DICE PERCHE'.** Chiedere un servizio che non
+    // c'e' solleva, ed e' l'unico modo che `provider` da' per chiederlo senza
+    // pretenderlo: qui la mancanza NON e' un guasto, e' il caso normale di
+    // chi monta questa schermata da sola. Il Cammino non entra nel contesto,
+    // e il resto della schermata funziona.
     return null;
   }
 }

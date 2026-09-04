@@ -52,15 +52,15 @@ class CioCheArriva {
     if (prossimoTraguardo != null && prossimoTraguardo.trim().isNotEmpty) {
       righe.add('- Il prossimo passo del suo Cammino si chiama '
           '"$prossimoTraguardo"'
-          '${cosaApre == null || cosaApre.trim().isEmpty ? "" : ", e apre "
+          '${cosaApre == null || cosaApre.trim().isEmpty ? "" : ": apre "
               "${_minuscola(cosaApre)}"}.');
     }
     if (righe.isEmpty) return '';
     return [
-      'CIO\' CHE ARRIVA, e lo sai perche\' e\' calcolato dal cielo vero e dal '
+      'CIO\' CHE ARRIVA. Lo sai perche\' e\' calcolato dal cielo vero e dal '
           'suo Cammino:',
       ...righe,
-      'Nominane al massimo uno, e solo se c\'entra con cio\' che ti sta '
+      'Nominane al massimo uno. Solo se c\'entra con cio\' che ti sta '
           'chiedendo. Non promettere nessun esito: di\' che cosa succede e '
           'quando, mai che cosa produrra\'.',
     ].join('\n');

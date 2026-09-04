@@ -51,25 +51,40 @@ void main() {
             'difetti senza padri non insegna niente a chi lo legge.');
   });
 
-  test('le sei voci aperte sono nominate una per una', () {
-    // **CIO CHE NON E FINITO SI DICHIARA INVECE DI SPARIRE.** Sei voci del
-    // pezzo secondo restano aperte, e il manifesto deve dirle col loro nome:
-    // un conto senza nomi non si puo riprendere.
+  test('nessuna voce resta aperta, e ogni fermata ha la sua decisione',
+      () {
+    // **REGOLA G del fondatore, 4 settembre 2026.** Un ordine e\' finito
+    // quando il suo manifesto porta VOCI_APERTE 0 e nessuna FERMATA che non
+    // poggi su una decisione che il fondatore ha preso per iscritto.
+    //
+    // **La REGOLA E era stata usata male, e sta scritto.** Diceva che una
+    // voce che non converge si mette da parte e ci si torna alla fine, e
+    // quella frase e\' servita a consegnare con sei voci aperte.
     final t = testo();
-    final righeAperte = t
+    final righe = t
         .split(String.fromCharCode(10))
-        .where((r) => r.startsWith('- **CQ.') && r.contains('**APERTA'))
+        .where((r) => r.startsWith('- **CQ.'))
         .toList();
+    final aperte = righe.where((r) => r.contains('**APERTA')).toList();
+    final fermate = righe.where((r) => r.contains('**FERMATA')).toList();
     // ignore: avoid_print
-    print('ORDINE CQ: voci aperte nominate ${righeAperte.length}');
-    expect(righeAperte, hasLength(6),
-        reason: 'le righe di voce aperta sono ${righeAperte.length} invece di '
-            'sei: o qualcuna e stata chiusa senza aggiornare il marcatore, o '
-            'ne e comparsa una nuova senza dirlo');
-    for (final r in righeAperte) {
-      expect(r.length, greaterThan(40),
-          reason: 'questa voce aperta non dice niente di se: "$r"');
-    }
+    print('ORDINE CQ: voci ${righe.length}, aperte ${aperte.length}, '
+        'fermate ${fermate.length}');
+    cardinaleMinimo(righe.length, 30,
+        cosa: 'righe di voce lette nel manifesto di CQ',
+        perche: 'Con poche righe la prova direbbe zero aperte per non '
+            'averne lette.');
+    expect(aperte, isEmpty,
+        reason: 'restano ${aperte.length} voci aperte, e per la REGOLA G '
+            'l\'ordine non e\' finito: ${aperte.take(3).join(" | ")}');
+    // **OGNI FERMATA NOMINA LA DECISIONE CHE LA FERMA.** Una fermata senza
+    // una decisione scritta non e\' una fermata: e\' lavoro con un altro nome.
+    final senzaDecisione = fermate
+        .where((r) => !r.contains('FERMATA SU DECISIONE DEL FONDATORE'))
+        .toList();
+    expect(senzaDecisione, isEmpty,
+        reason: 'queste fermate non poggiano su una decisione del '
+            'fondatore: ${senzaDecisione.join(" | ")}');
   });
 
   test('il passo che aspetta il PC del fondatore e nominato', () {

@@ -52,6 +52,13 @@ void main() {
             'una lettura GIA\' SCRITTA. Prima buttava la risposta e ne '
             'chiedeva un\'altra al Maestro, ed e\' il difetto che ha fatto '
             'nascere questa prova.',
+    'lib/features/maestri/caligo/rune/rune_draw_screen.dart':
+        '"Da dove nasce questa runa", ordine CQ voce 2.10 del 4 settembre '
+            '2026: a UNA runa sola la descrizione del simbolo, la Voce della '
+            'Runa e la strofa attestata stanno dietro questa freccia e si '
+            'aprono IN POSTO, con lo stesso Collassabile di tutte le altre. '
+            'Non e\' un rimando altrove: e\' il corpo della lettura che a '
+            'una runa sola coprirebbe la risposta.',
     'lib/features/rituals/ritual_gift_card.dart':
         'il dono del rituale: expand_less quando e\' aperto, expand_more '
             'quando e\' chiuso, e apre il testo in posto.',

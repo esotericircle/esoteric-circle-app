@@ -211,6 +211,31 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
               testo: carta.upright,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary)),
+          const SizedBox(height: SpacingTokens.md),
+          // **LA FONTE, BREVE E IN FONDO.** Ordine CQ voce 2.01, 4 settembre
+          // 2026, e chiude il quinto strato della legge dei testi.
+          //
+          // **L'Arcano era l'unico dei cinque Doni senza.** Il Tramonto ha le
+          // sue fonti runiche, il Sogno la sua provenienza, l'Alba e il
+          // Soffio il pannello "Da dove nasce questo dono": qui non c'era
+          // niente, e chi leggeva non poteva risalire da dove venisse la
+          // carta. **Una risposta che non si puo' risalire chiede di essere
+          // creduta**, ed e' esattamente cio' che questa app non fa.
+          //
+          // La riga cambia con la persona, e dice il vero in tutti e due i
+          // casi: con la nascita la carta nasce dal giorno incrociato con la
+          // carta natale dei tarocchi, senza nascita nasce dal solo giorno.
+          Text(
+            nascita == null
+                ? 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
+                    'giorno. Non da un caso: domani sara un altra.'
+                : 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
+                    'giorno incrociato con la tua carta di nascita dei '
+                    'tarocchi, che la tradizione del mazzo ricava dalla data.',
+            key: const Key('arcano_provenienza'),
+            style: TypographyTokens.corpo().copyWith(
+                color: ColorTokens.textSecondary, height: 1.45),
+          ),
           const SizedBox(height: SpacingTokens.lg),
           // **LE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Qui il
           // Condividi non c'e' e non e' una dimenticanza: l'Arcano non

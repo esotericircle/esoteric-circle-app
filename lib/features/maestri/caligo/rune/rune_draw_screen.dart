@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../../design_system/components/collasso.dart';
 import '../../../../services/app_services.dart';
 import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
@@ -1073,6 +1074,11 @@ class _Responso extends StatelessWidget {
                 indice: i,
                 palette: palette,
                 libera: esito.gettata.libera,
+                // **QUANTE NE SONO USCITE IN TUTTO. Ordine CQ voce 2.10**, 4
+                // settembre 2026: a una runa sola la scheda intera diventa
+                // tutto cio' che c'e' a schermo, e il responso si legge come
+                // una pagina di manuale invece che come una risposta.
+                sola: esito.rune.length == 1,
                 voce: i < voci.length ? voci[i] : null,
                 giuntura: giunture != null && i < giunture.length
                     ? giunture[i]
@@ -1099,6 +1105,29 @@ class _Responso extends StatelessWidget {
                           style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
+                  ),
+                  const SizedBox(height: SpacingTokens.xxs),
+                  // **E QUI SOTTO C'E' SCRITTO A COSA SERVE.**
+                  // Ordine CQ voce 2.07, 4 settembre 2026.
+                  //
+                  // **Il fatto, parole del fondatore:** il Sigillo del Giorno
+                  // non dice a cosa serve. Sotto il disegno c'era la nota
+                  // della tradizione, che dice bene CHE COSA E' una bindrune e
+                  // non dice niente su cosa te ne fai: chi legge riceve una
+                  // definizione dove si aspettava un uso.
+                  //
+                  // **La riga non promette niente.** Dice cosa il segno porta
+                  // via con se', che e' un fatto: le rune di questa gettata
+                  // strette in un glifo solo. La nota della tradizione resta,
+                  // e scende in fondo dove sta la fonte, che e' il suo posto
+                  // nella legge dei testi.
+                  Text(
+                    'Le rune di questa gettata, strette in un segno solo: e '
+                    'cio che ti resta quando i testi si dimenticano.',
+                    key: const Key('rune_sigillo_a_cosa_serve'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
                   // AL MASSIMO TRE RUNE NEL SIGILLO, dichiarato: col getto
@@ -1149,6 +1178,7 @@ class _LetturaRuna extends StatelessWidget {
       required this.indice,
       required this.palette,
       this.libera = false,
+      this.sola = false,
       this.voce,
       this.giuntura});
 
@@ -1158,6 +1188,22 @@ class _LetturaRuna extends StatelessWidget {
 
   /// Nel getto libero le rune lette sono in luce, non hanno il verso d'ombra.
   final bool libera;
+
+  /// **VERO QUANDO LA GETTATA E' DI UNA RUNA SOLA.**
+  /// Ordine CQ voce 2.10, 4 settembre 2026.
+  ///
+  /// **Il fatto, parole del fondatore:** il responso della runa singola e'
+  /// troppo lungo, tre paragrafi.
+  ///
+  /// **Misurato:** la scheda intera porta in media 264 caratteri contro i 50
+  /// della sola risposta, cioe' **cinque volte e un quarto**, e su una gettata
+  /// a tre o cinque rune quel corpo e' la lettura ed e' giusto che ci sia. Su
+  /// una sola diventa l'unica cosa a schermo.
+  ///
+  /// **Il corpus non si tocca**: le stesse frasi restano, e restano
+  /// leggibili. Cambia quante ne arrivano insieme: la risposta subito, il
+  /// resto sotto una porta che si apre.
+  final bool sola;
 
   /// La Voce della Runa: la runa dentro la domanda e dentro il giorno.
   final String? voce;
@@ -1264,10 +1310,28 @@ class _LetturaRuna extends StatelessWidget {
             // ma nella scheda non era mai entrata, e il fondatore leggeva i
             // responsi come tagliati a meta'. La risposta resta corta come
             // S.20 vuole; il simbolo, dal corpus, le rida' il suo corpo.
-            Text(runa.rune.meaning,
-                key: Key('rune_meaning_$indice'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+            // **A UNA RUNA SOLA IL CORPO STA DIETRO UNA PORTA.**
+            // Ordine CQ voce 2.10, 4 settembre 2026. La descrizione del
+            // simbolo, la Voce della Runa e la strofa attestata sono il corpo
+            // della lettura quando le rune sono tre o cinque; con una sola
+            // diventano tutto cio' che c'e' a schermo, e la risposta si perde
+            // in mezzo. **Non spariscono: si aprono.**
+            if (sola)
+              _IlRestoDellaRuna(
+                indice: indice,
+                palette: palette,
+                simbolo: runa.rune.meaning,
+                voce: voce,
+                strofa: kRuneLore[runa.rune.name] == null
+                    ? null
+                    : '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
+                        '\u00ab${kRuneLore[runa.rune.name]!.strofe.first.traduzione}\u00bb',
+              )
+            else
+              Text(runa.rune.meaning,
+                  key: Key('rune_meaning_$indice'),
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             const SizedBox(height: SpacingTokens.xs),
             // La lettura della scheda passa dalla porta unica dei paragrafi:
             // sotto cinque righe non divide, quindi le righe brevi restano
@@ -1279,7 +1343,7 @@ class _LetturaRuna extends StatelessWidget {
             // LA VOCE DELLA RUNA, di Caligo: la runa nel tuo giorno. E'
             // curatela dichiarata, mai tradizione, e per questo NON sta
             // accanto alla strofa con la fonte.
-            if (voce != null) ...[
+            if (voce != null && !sola) ...[
               const SizedBox(height: SpacingTokens.sm),
               ParagrafiDiLettura(
                   key: Key('rune_voce_$indice'),
@@ -1290,7 +1354,7 @@ class _LetturaRuna extends StatelessWidget {
             // LA STROFA ATTESTATA, con la fonte nominata: la materia vera
             // della runa. Quando la strofa norrena non esiste, qui compare
             // comunque l'anglosassone, che copre tutte e ventiquattro.
-            if (kRuneLore[runa.rune.name] != null) ...[
+            if (kRuneLore[runa.rune.name] != null && !sola) ...[
               const SizedBox(height: SpacingTokens.sm),
               Text(
                   '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
@@ -2226,6 +2290,101 @@ class _TendinaDelleDomande extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// **IL RESTO DELLA RUNA, quando la runa e' una sola.**
+/// Ordine CQ voce 2.10, 4 settembre 2026.
+///
+/// Tiene il simbolo, la Voce della Runa e la strofa attestata dietro una riga
+/// che si apre. **Chi vuole solo la risposta l'ha gia' letta sopra**, e chi
+/// vuole sapere da dove nasce apre e trova tutto, nello stesso ordine di
+/// prima.
+///
+/// **E' un pezzo con uno stato suo** e non un campo in piu' sulla scheda: la
+/// scheda e' senza stato e lo resta, cosi' la stessa classe continua a servire
+/// le gettate a tre e a cinque rune senza sapere niente di questa porta.
+class _IlRestoDellaRuna extends StatefulWidget {
+  const _IlRestoDellaRuna({
+    required this.indice,
+    required this.palette,
+    required this.simbolo,
+    this.voce,
+    this.strofa,
+  });
+
+  final int indice;
+  final MaestroPalette palette;
+  final String simbolo;
+  final String? voce;
+  final String? strofa;
+
+  @override
+  State<_IlRestoDellaRuna> createState() => _IlRestoDellaRunaState();
+}
+
+class _IlRestoDellaRunaState extends State<_IlRestoDellaRuna> {
+  bool _aperto = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          key: Key('rune_apri_il_resto_${widget.indice}'),
+          behavior: HitTestBehavior.opaque,
+          onTap: () => setState(() => _aperto = !_aperto),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  _aperto ? 'Chiudi' : 'Da dove nasce questa runa',
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: widget.palette.goldSoft),
+                ),
+                const SizedBox(width: SpacingTokens.xxs),
+                Icon(
+                    _aperto
+                        ? Icons.expand_less_rounded
+                        : Icons.expand_more_rounded,
+                    size: 18,
+                    color: widget.palette.goldSoft),
+              ],
+            ),
+          ),
+        ),
+        Collassabile(
+          aperto: _aperto,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.simbolo,
+                  key: Key('rune_meaning_${widget.indice}'),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: ColorTokens.textSecondary, height: 1.4)),
+              if (widget.voce != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                ParagrafiDiLettura(
+                    key: Key('rune_voce_${widget.indice}'),
+                    testo: widget.voce!,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: widget.palette.goldSoft)),
+              ],
+              if (widget.strofa != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(widget.strofa!,
+                    key: Key('rune_strofa_${widget.indice}'),
+                    style: TypographyTokens.corpo().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45)),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

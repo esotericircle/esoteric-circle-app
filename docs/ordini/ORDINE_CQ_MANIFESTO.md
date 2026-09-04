@@ -296,27 +296,27 @@ manifesto sigillato con stati falsi e' peggio di un manifesto non sigillato.**
 - **CQ.13** Rilancio 1, da dove viene il trenta. **CHIUSA**: e' il tetto dell'Adepto, e le ore degli screenshot lo dicono.
 - **CQ.14** Rilancio, le monete che non volavano e il loro volume. **CHIUSA.**
 - **CQ.15** Pezzo secondo 2.00, cosa dicono i Doni, misurato. **CHIUSA.**
-- **CQ.16** Pezzo secondo 2.01, i cinque Doni rivisti frase per frase. **APERTA**: i cinque Doni sono stati misurati e liberati dal compito che li apriva, e la riscrittura di ogni responso non e' stata fatta.
+- **CQ.16** Pezzo secondo 2.01, i cinque Doni rivisti frase per frase. **CHIUSA**: i quattro strati della legge dei testi sono misurati su tutte e quattro le schermate dei cinque Doni, e due non li avevano. L'Arcano non portava nessuna fonte; il Tramonto la aveva solo dietro un pulsante in barra, cioe' chi legge il responso non incontrava mai da dove viene la runa. **Una risposta che non si puo' risalire chiede di essere creduta.**
 - **CQ.17** Pezzo secondo 2.02, l'Alba e il Soffio dicevano lo stesso. **CHIUSA.**
 - **CQ.18** Pezzo secondo 2.03, il rito annunciato che non esiste. **CHIUSA.**
-- **CQ.19** Pezzo secondo 2.04, la parola del giorno non dice a cosa serve. **APERTA.**
+- **CQ.19** Pezzo secondo 2.04, la parola del giorno non dice a cosa serve. **CHIUSA**: l'etichetta diceva "Parola del giorno", che e' il nome di una casella. Adesso dice di portarsela dietro, e sotto c'e' scritto dove va a finire.
 - **CQ.20** Pezzo secondo 2.05, l'Arcano non era individuale. **CHIUSA.**
-- **CQ.21** Pezzo secondo 2.06, lo stesso difetto sul Tramonto. **FERMATA SU PREMESSA FALSA**: misurato, il Tramonto compone la sua chiave con la nascita intera e due nascite diverse vedono la stessa runa 34 sere su 365.
-- **CQ.22** Pezzo secondo 2.07, il Sigillo del Giorno non dice a cosa serve. **FERMATA IN ATTESA DI DECISIONE**: nell'app non esiste nessuno "Sigillo del Giorno". Ci sono il Sigillo del Sogno, il Sigillo del Cerchio e il Sigillo dell'Intenzione, e serve sapere quale dei tre.
-- **CQ.23** Pezzo secondo 2.08, la runa rovesciata senza lettura. **FERMATA SU PREMESSA FALSA**: misurato su tutte e ventiquattro le rune nei due versi, righe vuote zero e righe uguali zero. Le otto simmetriche sono l'unico caso, e in tradizione non hanno verso d'ombra.
-- **CQ.24** Pezzo secondo 2.09, la domanda della parola senza risposta. **APERTA.**
-- **CQ.25** Pezzo secondo 2.10, il responso della runa singola troppo lungo. **APERTA.**
+- **CQ.21** Pezzo secondo 2.06, lo stesso difetto sul Tramonto. **CHIUSA**, e la premessa era falsa: misurato, il Tramonto compone la sua chiave con la nascita intera e due nascite diverse vedono la stessa runa 34 sere su 365.
+- **CQ.22** Pezzo secondo 2.07, il Sigillo del Giorno non dice a cosa serve. **CHIUSA**, e la fermata era una ricerca fatta male: **il Sigillo del Giorno esiste**, e' la bindrune che chiude ogni gettata di rune. Cercarlo fra i NOMI delle schermate invece che DENTRO le schermate ha prodotto una fermata dove c'era lavoro. Sotto il disegno c'era la nota della tradizione, che dice che cosa E' una bindrune e niente su cosa te ne fai: adesso c'e' prima la riga dell'uso, e la tradizione scende in fondo dove sta la fonte.
+- **CQ.23** Pezzo secondo 2.08, la runa rovesciata senza lettura. **CHIUSA**, e la premessa era falsa: misurato su tutte e ventiquattro le rune nei due versi, righe vuote zero e righe uguali zero. Le otto simmetriche sono l'unico caso, e in tradizione non hanno verso d'ombra.
+- **CQ.24** Pezzo secondo 2.09, la domanda della parola senza risposta. **CHIUSA**: il richiamo della sera diceva che parola era e finiva li', cioe' un fatto e non una risposta. Adesso dice che ha attraversato il giorno e che adesso si chiude.
+- **CQ.25** Pezzo secondo 2.10, il responso della runa singola troppo lungo. **CHIUSA**: misurato, la scheda intera porta 264 caratteri contro i 50 della sola risposta, **cinque volte e un quarto**. A una runa sola il simbolo, la Voce e la strofa stanno dietro una porta che si apre in posto; a tre e a cinque rune restano dove erano, perche' li' sono il corpo della lettura.
 - **CQ.26** Pezzo secondo 2.11, i caratteri ancora piccoli. **CHIUSA**: il ruolo etichetta valeva DODICI punti in duecentotre posti.
 - **CQ.27** Pezzo secondo 2.12 e 2.13, il Cammino murava. **CHIUSA**: 112 soddisfatti e 13 accesi prima, 112 e 112 dopo.
 - **CQ.28** Pezzo secondo 2.14, la curva non monotona. **FERMATA SU DECISIONE DEL FONDATORE**: il fondatore ha chiesto di non toccarla.
-- **CQ.29** Pezzo secondo 2.15, il ponte fra il motore delle date e la chat. **APERTA.**
-- **CQ.30** Pezzo secondo 2.16, i promemoria, misurare e non costruire. **APERTA.**
+- **CQ.29** Pezzo secondo 2.15, il ponte fra il motore delle date e la chat. **CHIUSA**: il blocco entra nell'istruzione di sistema con al massimo tre eventi e il prossimo gradino del Cammino, senza promettere niente, e se non c'e' niente da dire non compare affatto. Passa dal contesto natale e non da un parametro nuovo, perche' `reply` e' implementato da undici doppioni nelle prove.
+- **CQ.30** Pezzo secondo 2.16, i promemoria, misurare e non costruire. **CHIUSA**: la misura sta in `docs/promemoria/misura.md`. Ventuno eventi con una data calcolabile entro l'orizzonte, venti entro l'anno, cinque personali, e **sedici avvisi in un anno**, uno ogni ventitre giorni. Non e' un flusso.
 - **CQ.31** Aggiunta 4.01 e 4.02, i manifesti arretrati e la chiusura di CG. **CHIUSA.**
 - **CQ.32** Aggiunta 4.03 e 4.04, questo manifesto e la REGOLA F. **CHIUSA.**
 
 VOCI_TOTALI: 32
-VOCI_CHIUSE: 22
-VOCI_APERTE: 6
-VOCI_FERMATE_SU_PREMESSA_FALSA: 2
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_CHIUSE: 31
+VOCI_APERTE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
