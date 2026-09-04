@@ -147,9 +147,15 @@ void main() {
     print('ORDINE CQ VOCE 6.09: carte a casa ${carteACasa(tester)}, il blocco '
         'delle carte scelte c e ${scelte.evaluate().isNotEmpty}, il pulsante '
         'c e ${pulsante.evaluate().isNotEmpty}');
-    expect(carteACasa(tester), 3,
-        reason: 'la prova non e arrivata alla terza carta, quindi non sta '
-            'misurando cosa succede alla terza carta');
+    // **IL CARDINALE E LE CARTE POSATE.** Questa prova misura cosa succede
+    // ALLA TERZA carta: se i tocchi non posassero niente, tutte le pretese
+    // qui sotto parlerebbero di una schermata a zero carte, e sarebbero
+    // verdi per non essere mai arrivate al momento che sorvegliano.
+    cardinaleMinimo(carteACasa(tester), 3,
+        cosa: 'carte davvero posate dai tocchi della prova',
+        perche: 'Senza le tre carte la prova non arriva al momento in cui la '
+            'pagina si svuotava, e direbbe il vero su una schermata che non '
+            'ha mai raggiunto.');
     expect(scelte, findsOneWidget,
         reason: 'dopo la terza carta le carte scelte non si vedono piu: la '
             'pagina si e svuotata, e a chi guarda quella e una schermata '

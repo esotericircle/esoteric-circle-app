@@ -335,3 +335,15 @@ ROSSA     una lente resta senza parole che la nominino
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 5 su 5
 MISURA DEL DIFETTO, PRIMA DELLA CURA: parole portanti della domanda 5,
 arrivate nel responso 0. Dopo la cura: 5 su 5.
+
+LA PROVA DEL ROSSO DELLA TERZA CARTA
+Ordine CQ voce 6.09, Regola A. Lo script ha imparato una cosa: l'uscita di
+flutter puo' arrivare vuota, e leggere None come "non contiene All tests
+passed" avrebbe scritto ROSSA su una prova mai partita. Adesso l'uscita vuota
+ferma lo script invece di diventare un rosso finto.
+========================================================================
+ROSSA     il blocco delle carte scelte sparisce alla terza
+ROSSA     le carte scelte spariscono del tutto, come prima
+ROSSA     il pulsante torna a dire Leggi il responso
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
