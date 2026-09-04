@@ -373,3 +373,18 @@ INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
 MISURA, e il difetto NON si e' riprodotto: a 390 per 844 le quattro stelle
 misurano 52 punti per lato, stanno fra 96 e 369, il testo comincia a 388,
 zero sovrapposizioni, e il tocco porta il conto da 0 a 1.
+
+LA PROVA DEL ROSSO DEL FONDO DICHIARATO
+Ordine CQ voce 6.04, Regola A.
+========================================================================
+ROSSA     l Arcano torna a dichiarare il quasi nero
+ROSSA     il fondo peggiore si schiarisce e un accento non ce la fa
+ROSSA     una schermata scrive a mano un fondo piu scuro del vero
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: il blu di Medora portato sulla superficie DICHIARATA arrivava a
+#426DEE, che sul quasi nero misura 4,58, cioe' otto centesimi sopra la
+soglia; sul fondo vero lo stesso blu misura 3,15. Dichiarando il fondo vero
+il blu sale a #5A94FF e misura 4,83. Sul fondo vero i tre accenti stanno a
+medora 4,83, aura 4,89, caligo 4,50: Caligo tocca la soglia esatta, cioe'
+non ha nessun margine, e va detto.

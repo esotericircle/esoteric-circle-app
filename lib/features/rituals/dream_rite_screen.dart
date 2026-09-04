@@ -10,6 +10,7 @@ import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/abito_del_responso.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../design_system/components/luna_reale.dart';
@@ -629,7 +630,16 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         RigaDelDono(
           dono: DailyElement.night,
           giorno: _date,
-          superficie: ColorTokens.neutralDeepest,
+          // **IL FONDO DICHIARATO E' QUELLO VERO, ordine CQ voce 6.04.**
+          //
+          // Qui c'era `ColorTokens.neutralDeepest`, cioe' quasi nero, e sotto
+          // questa riga non c'e' quasi nero: c'e' il cosmo. Il meccanismo del
+          // contrasto porta il blu di Medora a toccare 4,58 SULLA SUPERFICIE
+          // DICHIARATA, con otto centesimi di margine; sul fondo vero quello
+          // stesso blu misura **3,15**. `AbitoDelResponso` dichiara gia' il
+          // fondo peggiore, e la scheda dei Doni lo usava gia'.
+          superficie: AbitoDelResponso.di(DailyElement.night
+              ).superficiePeggiore,
         ),
         // **LA RISPOSTA PRIMA DELL'ETICHETTA. Ordine CO voce 17**, 3 settembre
         // 2026.

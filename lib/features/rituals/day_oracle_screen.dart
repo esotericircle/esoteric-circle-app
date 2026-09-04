@@ -9,6 +9,7 @@ import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/abito_del_responso.dart';
 
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/arcano_del_giorno.dart';
@@ -170,7 +171,22 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           RigaDelDono(
             dono: DailyElement.oracle,
             giorno: date,
-            superficie: ColorTokens.neutralDeepest,
+            // **IL FONDO DICHIARATO E' QUELLO VERO, ordine CQ voce 6.04.**
+            //
+            // Qui c'era `ColorTokens.neutralDeepest`, cioe' quasi nero, e
+            // **sotto questa riga non c'e' quasi nero**: c'e' il cosmo. Il
+            // meccanismo del contrasto porta il blu di Medora fino a
+            // toccare 4,58 SULLA SUPERFICIE DICHIARATA, con otto centesimi
+            // di margine sulla soglia; sul fondo vero quello stesso blu
+            // misura **3,15**, e il fondatore lo ha visto: *una riga di
+            // testo blu che non si vede sullo sfondo cosmico*.
+            //
+            // `AbitoDelResponso` dichiara gia' il fondo PEGGIORE che una
+            // lettera puo' trovarsi sotto, e la scheda dei Doni lo usava
+            // gia': qui e nelle altre due schermate no. Con la superficie
+            // vera il blu sale a #5A94FF e misura 4,83.
+            superficie: AbitoDelResponso.di(DailyElement.oracle
+                ).superficiePeggiore,
           ),
           // **IL COLPO D'OCCHIO PRIMA DEL TESTO**, che e' la regola di casa
           // sull'anatomia del responso: il nome della carta, poi una frase

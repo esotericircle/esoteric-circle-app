@@ -12,6 +12,7 @@ import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/abito_del_responso.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -1175,7 +1176,16 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           RigaDelDono(
             dono: DailyElement.rune,
             giorno: _e.giornoRituale,
-            superficie: ColorTokens.neutralDeepest,
+            // **IL FONDO DICHIARATO E' QUELLO VERO, ordine CQ voce 6.04.**
+            //
+            // Qui c'era `ColorTokens.neutralDeepest`, cioe' quasi nero, e sotto
+            // questa riga non c'e' quasi nero: c'e' il cosmo. Il meccanismo del
+            // contrasto porta il blu di Medora a toccare 4,58 SULLA SUPERFICIE
+            // DICHIARATA, con otto centesimi di margine; sul fondo vero quello
+            // stesso blu misura **3,15**. `AbitoDelResponso` dichiara gia' il
+            // fondo peggiore, e la scheda dei Doni lo usava gia'.
+            superficie: AbitoDelResponso.di(DailyElement.rune
+                ).superficiePeggiore,
           ),
           // **LE TRE RIGHE SCENDONO SOTTO LA PIETRA, ordine S voce 11.** Stavano
           // QUI, fra chi parla e la pietra: tre etichette con tre frasi spingono
