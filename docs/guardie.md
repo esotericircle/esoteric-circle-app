@@ -39,11 +39,11 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 108 |
-| Guardie con un cardinale proprio dichiarato | 35 |
-| Guardie che non scoprono nessun insieme di file | 118 |
-| **Somma delle categorie** | **261** |
-| **Guardie secondo la definizione** | **261** |
+| Guardie che passano dalla porta comune | 3 |
+| Guardie con un cardinale proprio dichiarato | 39 |
+| Guardie che non scoprono nessun insieme di file | 235 |
+| **Somma delle categorie** | **277** |
+| **Guardie secondo la definizione** | **277** |
 
 Le due righe in grassetto **coincidono**, contate il 3 settembre 2026. La terza
 categoria non e' un debito: sono guardie che sorvegliano un'assenza, una
@@ -60,7 +60,7 @@ combatte nel codice, due conti della stessa cosa, arrivata dentro i documenti.
 | | quante | contata come |
 | --- | ---: | --- |
 | File di prova nella cartella `test` | 739 | `ls test/*.dart` |
-| Di questi, censiti come guardie | 261 | righe della tavola qui sotto |
+| Di questi, censiti come guardie | 277 | righe della tavola qui sotto |
 | File di prova che scorrono i sorgenti | 126 | grep di `Directory('lib')`, `sorgentiDiLib`, `sorgentiDiCartelle`, `listSync` |
 | **Guardie** censite che scorrono i sorgenti | 122 | i 126 di sopra che hanno una riga nella tavola |
 | Di questi, che passano dalla porta comune | 100 | grep di `sorgentiDiLib()` e `sorgentiDiCartelle(` |
@@ -91,15 +91,15 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 739 |
-| **Guardie secondo la definizione** | **261** |
+| **Guardie secondo la definizione** | **277** |
 | Guardie che scorrono i sorgenti di `lib` | 122 |
 | Di queste, passate alla porta comune | 100 (la tavola ne classifica 108, vedi sopra) |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
-| **Guardie mai viste rosse** | **215** |
+| **Guardie mai viste rosse** | **218** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **46** |
+| **Guardie viste rosse almeno una volta** | **59** |
 
-Quarantasei su duecentosessantuno e' il **17,6 per cento**. Prima dell'ordine
+Le guardie viste rosse sono **59 su 277**, il **21.3 per cento**, contate il 4 settembre 2026 con l'ordine CQ. Prima dell'ordine
 CL erano nove su duecentoquarantadue, il 3,7. L'ordine CM ne ha portate venti;
 l'ordine CO ne aggiunge quindici; **l'ordine CP ne aggiunge dieci**, tre
 guardie nuove nate rosse (`le_regole_dei_traguardi_sono_rispettate`,
@@ -170,6 +170,7 @@ le altre.
 | `colore_del_dono_test.dart` | colore del dono | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `corpus_rune_attestato_test.dart` | corpus rune attestato | 1, 2 | proprio, dichiarato | mai | 3 |
 | `corredo_anteprime_test.dart` | corredo anteprime | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `cosa_dicono_i_doni_test.dart` | cosa dicono i Doni | 1 | non scopre insiemi di file | 04/09/2026, CQ | 3 |
 | `cosmo_e_interruttori_test.dart` | cosmo e interruttori | 1, 2 | dalla porta comune | mai | 3 |
 | `costellazione_ripetuta_test.dart` | costellazione ripetuta | 1, 2 | dalla porta comune | mai | 3 |
 | `dati_nascita_sbloccano_test.dart` | dati nascita sbloccano | 1, 2 | dalla porta comune | mai | 3 |
@@ -188,6 +189,7 @@ le altre.
 | `i_maestri_non_coprono_il_cielo_test.dart` | i maestri non coprono il cielo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_non_perdono_la_testa_test.dart` | i maestri non perdono la testa | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_sui_pixel_e_non_sui_rettangoli_test.dart` | i maestri sui pixel e non sui rettangoli | 4 | non scopre insiemi di file | mai | 3 |
+| `i_manifesti_sono_sigillati_test.dart` | i manifesti sono sigillati | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_movimenti_dicono_il_guadagno_test.dart` | i movimenti dicono il guadagno | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_nomi_non_si_sovrappongono_test.dart` | i nomi non si sovrappongono | 4 | non scopre insiemi di file | mai | 3 |
 | `i_nove_ereditati_test.dart` | i nove ereditati | 1, 2 | dalla porta comune | mai | 3 |
@@ -228,6 +230,8 @@ le altre.
 | `il_dono_risponde_prima_di_chiedere_test.dart` | il Dono risponde prima di chiedere | 1, 2, 3 | cardinale proprio | CO | 2 |
 | `il_filo_si_traccia_test.dart` | il filo si traccia | 1, 2 | dalla porta comune | mai | 3 |
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
+| `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `il_gating_non_ha_fondi_bianchi_test.dart` | il gating non ha fondi bianchi | 1 | dalla porta comune | mai | 3 |
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina | 1, 2 | dalla porta comune | mai | 3 |
@@ -269,14 +273,18 @@ le altre.
 | `il_titolo_non_si_rompe_test.dart` | il titolo non si rompe | 1, 2 | dalla porta comune | mai | 3 |
 | `il_titolo_non_stampa_sul_contenuto_test.dart` | il titolo non stampa sul contenuto | 1, 2, 4 | non scopre insiemi di file | mai | 3 |
 | `il_velo_e_uno_solo_test.dart` | il velo e uno solo | 1 | dalla porta comune | 01/09/2026, CL | 3 |
+| `il_ventaglio_vive_subito_test.dart` | il ventaglio vive subito | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `il_video_e_lo_sfondo_della_rivelazione_test.dart` | il video e lo sfondo della rivelazione | 1 | non scopre insiemi di file | mai | 3 |
 | `il_volto_nel_tondo_test.dart` | il volto nel tondo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_vuoto_sotto_i_maestri_test.dart` | il vuoto sotto i maestri | 1 | non scopre insiemi di file | mai | 3 |
 | `intro_test.dart` | intro | 1, 2 | dalla porta comune | mai | 3 |
 | `l_account_dice_chi_sei_e_come_uscire_test.dart` | l account dice chi sei e come uscire | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `l_alba_e_il_soffio_non_dicono_lo_stesso_test.dart` | l Alba e il Soffio non dicono lo stesso | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `l_alba_si_legge_test.dart` | l alba si legge | 1, 2, 4 | dalla porta comune | CO | 3 |
 | `l_anello_del_livello_test.dart` | l anello del livello | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `l_arcano_del_giorno_test.dart` | l arcano del giorno | 1, 2 | proprio, dichiarato | mai | 3 |
+| `l_arcano_e_del_singolo_test.dart` | l Arcano e del singolo | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
+| `l_effetto_non_aspetta_la_piattaforma_test.dart` | l effetto non aspetta la piattaforma | 1, 2, 4 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `l_evento_che_arma_e_la_condizione_scritta_test.dart` | ogni gradino si accende con la quantita che dichiara, e non con una di meno | 1, 2 | proprio, dichiarato | 03/09/2026, CP | 2 |
 | `l_emblema_sta_nel_suo_riquadro_test.dart` | l emblema sta nel suo riquadro | 4 | non scopre insiemi di file | mai | 3 |
 | `l_intro_zittisce_la_musica_test.dart` | l intro zittisce la musica finche dura | 2, 3 | non scopre insiemi di file | CO | 2 |
@@ -295,6 +303,7 @@ le altre.
 | `la_chiave_e_il_consiglio_si_vedono_test.dart` | la chiave e il consiglio si vedono | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_colonna_dei_suggerimenti_non_esiste_piu_test.dart` | la colonna dei suggerimenti non esiste piu | 1 | dalla porta comune | mai | 3 |
 | `la_corsa_dello_zodiaco_test.dart` | la corsa dello zodiaco | 1 | proprio, dichiarato | mai | 3 |
+| `la_domanda_libera_si_trova_test.dart` | la domanda libera si trova | 1 | non scopre insiemi di file | 03/09/2026, CQ | 3 |
 | `la_domanda_scelta_arriva_al_responso_test.dart` | la domanda scelta arriva al responso | 1, 2 | dalla porta comune | mai | 3 |
 | `la_domanda_viene_prima_test.dart` | la domanda viene prima | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_fascia_in_fondo_alla_home_test.dart` | la fascia in fondo alla home | 1 | non scopre insiemi di file | mai | 3 |
@@ -313,9 +322,11 @@ le altre.
 | `la_registrazione_non_interrompe_il_risveglio_test.dart` | la registrazione non interrompe il risveglio | 1, 2 | dalla porta comune | mai | 3 |
 | `la_riga_del_campo_e_pulita_test.dart` | la riga del campo e pulita | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_runa_cade_e_non_e_gia_li_test.dart` | la runa cade e non e gia li | 1, 2 | proprio, dichiarato | mai | 3 |
+| `la_runa_rovesciata_ha_la_sua_lettura_test.dart` | la runa rovesciata ha la sua lettura | 1, 2 | proprio, dichiarato | mai | 2 |
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |
+| `la_stella_non_finisce_sotto_il_testo_test.dart` | la stella non finisce sotto il testo | 1, 2, 4 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `la_stesa_comincia_quando_lo_dici_test.dart` | la stesa comincia quando lo dici tu | 1, 2 | non scopre insiemi di file | CO | 2 |
 | `la_stesa_si_capisce_test.dart` | la stesa si capisce | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_striscia_delle_arti_anche_in_home_test.dart` | la striscia delle arti anche in home | 1, 2 | dalla porta comune | mai | 3 |
@@ -346,7 +357,9 @@ le altre.
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nessun_quadrato_rosso_test.dart` | nessun quadrato rosso | 4 | non scopre insiemi di file | mai | 3 |
+| `nessun_suono_che_non_hai_scelto_test.dart` | nessun suono che non hai scelto | 1, 2, 4 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `nessun_testo_finisce_sotto_test.dart` | nessun testo finisce sotto | 4, 1 | non scopre insiemi di file | mai | 3 |
+| `nessun_traguardo_resta_indietro_test.dart` | nessun traguardo resta indietro | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `nessuna_azione_committa_da_sola_test.dart` | nessuna azione committa da sola | 1 | dalla porta comune | mai | 3 |
 | `nessuna_promessa_di_memoria_integrale_test.dart` | nessuna promessa di memoria integrale | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessuno_disegna_oltre_la_tela_test.dart` | nessuno disegna oltre la tela | 1, 2 | proprio, dichiarato | mai | 3 |
@@ -372,6 +385,8 @@ le altre.
 | `ordine_ch_guard_test.dart` | ordine ch guard | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `ordine_cn_guard_test.dart` | ordine cn guard | 1, 2 | non scopre insiemi di file | 01/09/2026, CN, sul manifesto vero | 3 |
 | `ordine_co_guard_test.dart` | ordine co guard | 1, 2 | cardinale proprio | CO, nata rossa sul manifesto assente | 3 |
+| `ordine_cp_guard_test.dart` | ordine CP guard | 1, 2 | proprio, dichiarato | mai | 2 |
+| `ordine_cq_guard_test.dart` | ordine CQ guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |
@@ -381,6 +396,7 @@ le altre.
 | `ronda_dei_motori_test.dart` | ronda dei motori | 1, 2 | proprio, dichiarato | mai | 3 |
 | `rune_draw_screen_test.dart` | rune draw screen | 1 | non scopre insiemi di file | mai | 3 |
 | `santuario_shelf_test.dart` | santuario shelf | 1 | non scopre insiemi di file | mai | 3 |
+| `scegliere_la_gettata_non_getta_test.dart` | scegliere la gettata non getta | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `scelta_del_soffio_resta_test.dart` | scelta del soffio resta | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `scena_unica_test.dart` | scena unica | 1, 2 | proprio, dichiarato | mai | 3 |
 | `screenshot_capture_test.dart` | screenshot capture | 1, 4 | non scopre insiemi di file | 01/09/2026, CI | 3 |
