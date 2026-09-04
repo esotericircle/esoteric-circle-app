@@ -542,7 +542,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               'lasciala parlare mentre chiudi il giorno.',
               key: const Key('dream_runa_tramonto'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 12).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
         ],
         // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
@@ -734,7 +734,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               size: 18, color: _palette.goldSoft),
           label: Text(
               _suono ? 'Battito theta acceso' : 'Battito theta, se lo vuoi',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: _palette.goldSoft)),
         ),
       ];
@@ -782,7 +782,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                   child: TextButton(
                     onPressed: () => Navigator.of(sheet).pop(),
                     child: Text('Va bene',
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: _palette.goldSoft)),
                   ),
                 ),

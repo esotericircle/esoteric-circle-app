@@ -11,6 +11,7 @@ import '../../core/sigilli/ora_rituale.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
@@ -1201,7 +1202,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               child: Text(SunsetRuneCorpus.intestazioneRitorno(_e.rune.name),
                   key: const Key('sunset_ritorno'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 12.5).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: _palette.goldSoft,
                       letterSpacing: 0.4,
                       height: 1.4)),
@@ -1284,7 +1285,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 _e.simmetrica
                     ? SunsetRuneCorpus.noteSimmetrica
                     : (_e.inOmbra ? 'verso d\'ombra' : 'verso dritto'),
-                style: TypographyTokens.label(size: 12.5).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                     color: _palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.6)),
           ),
@@ -1327,12 +1328,38 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           _bloccoVoce(
               'Cosa lasci fuori', _vocePrima(), const Key('sunset_voce_uno')),
           const SizedBox(height: SpacingTokens.sm),
-          Text(
-              '${SunsetRuneCorpus.trasparenza(_e)} '
-              '${SunsetRuneCorpus.rovescioEPraticaModerna}',
-              key: const Key('sunset_trasparenza'),
-              style: TypographyTokens.label(size: 12.5).copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 0.2)),
+          // **LA TRASPARENZA SCENDE DIETRO LA PORTA. Ordine CQ voce 6.24,**
+          // 4 settembre 2026.
+          //
+          // **Il fondatore l'ha letta come una negazione**, e a ragione:
+          // *sul responso delle rune al rovescio c'e' proprio scritto che non
+          // e' possibile avere il responso della runa al contrario*. La
+          // lettura del rovescio c'e', misurata su tutte e ventiquattro le
+          // rune nei due versi: cio' che non c'e' e' una fonte ANTICA, e questa
+          // riga lo dichiara. **Ma stava in mezzo alla risposta e a dodici
+          // punti e mezzo**, cioe' era il testo piu' piccolo della schermata
+          // messo nel posto piu' visibile: sembrava la risposta stessa.
+          //
+          // Adesso e' una fonte fra le fonti, dietro il tocco, e alla
+          // misura di tutto il resto.
+          DaDoveNasce(
+            palette: _palette,
+            children: [
+              RigaDellaFonte(
+                testo: '${SunsetRuneCorpus.trasparenza(_e)} '
+                    '${SunsetRuneCorpus.rovescioEPraticaModerna}',
+                key: const Key('sunset_trasparenza'),
+              ),
+              RigaDellaFonte(
+                testo: kRuneLore[_e.rune.name] == null
+                    ? 'Elder Futhark, ventiquattro segni. La runa della sera '
+                        'nasce dal giorno incrociato con la tua nascita.'
+                    : '${kRuneLore[_e.rune.name]!.strofe.first.fonte}: '
+                        '«${kRuneLore[_e.rune.name]!.strofe.first.traduzione}»',
+                key: const Key('sunset_provenienza'),
+              ),
+            ],
+          ),
           // Voce B dietro la rotazione della pietra: appare QUI, dopo la
           // Voce A e la trasparenza, cosi' le due voci si leggono nell'ordine
           // del rito anche se l'invito che la svela sta su, sotto la pietra.
@@ -1358,20 +1385,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // chiede di essere creduta. Il foglio intero resta dov'e', con tutta
           // la sua materia; qui c'e' la riga che dice l'essenziale, e nomina
           // la strofa vera quando quella runa ne ha una.
-          const SizedBox(height: SpacingTokens.lg),
-          Text(
-            kRuneLore[_e.rune.name] == null
-                ? 'Elder Futhark, ventiquattro segni. La runa della sera nasce '
-                    'dal giorno incrociato con la tua nascita.'
-                : '${kRuneLore[_e.rune.name]!.strofe.first.fonte}: '
-                    '«${kRuneLore[_e.rune.name]!.strofe.first.traduzione}»',
-            key: const Key('sunset_provenienza'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.lettura().copyWith(
-                color: ColorTokens.textSecondary,
-                height: 1.45,
-                shadows: _ombraTesto),
-          ),
           const SizedBox(height: SpacingTokens.lg),
           _striscia(),
           if (_settimaSera) ...[
@@ -1429,7 +1442,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.label(size: 12.5)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.8)),
           const SizedBox(height: SpacingTokens.xs),
           // **DICIOTTO E NON DICIASSETTE. Ordine CE voce 10.** Un punto di
@@ -1469,7 +1482,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         Text(_rigaSettimana(),
             key: const Key('sunset_settimana_riga'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12.5).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 0.2)),
       ],
     );
@@ -1522,7 +1535,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   Widget _letteraRuna(String nome) => Center(
         child: Text(nome.substring(0, 1),
-            style: TypographyTokens.label(size: 13)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: _palette.goldSoft)),
       );
 
@@ -1578,7 +1591,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       child: Column(
         children: [
           Text('IL SIGILLO DELLA SETTIMANA',
-              style: TypographyTokens.label(size: 12.5)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.8)),
           const SizedBox(height: SpacingTokens.sm),
           BindruneSigillo(
@@ -1652,7 +1665,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                   child: TextButton(
                     onPressed: () => Navigator.of(sheet).pop(),
                     child: Text('Va bene',
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: _palette.goldSoft)),
                   ),
                 ),

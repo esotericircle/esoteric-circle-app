@@ -7,7 +7,10 @@ import '../../core/quality/quality_tier.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
+import '../../core/maestro/maestro.dart';
+import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -318,26 +321,29 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 ),
               ),
             ],
-            const SizedBox(height: SpacingTokens.md),
-            // Livello tre: la base apribile, da dove nasce il dono.
-            _BaseToggle(
-              open: _baseOpen,
-              onTap: () => setState(() => _baseOpen = !_baseOpen),
-              accento: accento,
-            ),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 200),
-              alignment: Alignment.topCenter,
-              child: _baseOpen
-                  ? _BasePanel(
-                      abito: abito,
-                      source: gift.source,
-                      // **IL PERCHE' DEL RITO STA QUI DENTRO**, ordine AS
-                      // voce 06: la base e' il posto delle ragioni, ed e'
-                      // apribile da chi le cerca.
-                      percheDelRito: widget.dono.perche,
-                    )
-                  : const SizedBox(width: double.infinity),
+            // **LIVELLO TRE: DA DOVE NASCE, e adesso e' la porta comune.**
+            // Ordine CQ voce 6.24, 4 settembre 2026.
+            //
+            // La base apribile esisteva gia' qui, ed era giusta: il fondatore
+            // chiede da tre ordini che le fonti stiano dietro un tocco. **Ma
+            // era una porta di questa schermata**, con la sua parola e la sua
+            // aria, e le altre otto arti ne avrebbero avuta una ciascuna.
+            //
+            // Adesso passa da `DaDoveNasce`, che e' la stessa in tutta l'app:
+            // dietro ci sono il perche' del rito, l'ancora natale, il transito
+            // di oggi e la tradizione, cioe' tutto cio' che il fondatore ha
+            // chiesto di spostare *alla fine*.
+            DaDoveNasce(
+              // La palette nasce dal Maestro del Dono, come l'accento qui
+              // sopra: due sorgenti per lo stesso colore sono due colori.
+              palette: MaestroPalette.forKey(ThemeKey.of(gift.maestro)),
+              children: [
+                _BasePanel(
+                  abito: abito,
+                  source: gift.source,
+                  percheDelRito: widget.dono.perche,
+                ),
+              ],
             ),
             const SizedBox(height: SpacingTokens.md),
             // **Wrap e non Row, e il motivo e' che la parola adesso esiste.**

@@ -8,6 +8,7 @@ import '../../core/sigilli/ora_rituale.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 
@@ -241,16 +242,28 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           // La riga cambia con la persona, e dice il vero in tutti e due i
           // casi: con la nascita la carta nasce dal giorno incrociato con la
           // carta natale dei tarocchi, senza nascita nasce dal solo giorno.
-          Text(
-            nascita == null
-                ? 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
-                    'giorno. Non da un caso: domani sarà un\'altra.'
-                : 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
-                    'giorno incrociato con la tua carta di nascita dei '
-                    'tarocchi, che la tradizione del mazzo ricava dalla data.',
-            key: const Key('arcano_provenienza'),
-            style: TypographyTokens.lettura().copyWith(
-                color: ColorTokens.textSecondary, height: 1.45),
+          // **LA PROVENIENZA SCENDE DIETRO LA PORTA. Ordine CQ voce 6.24,**
+          // 4 settembre 2026.
+          //
+          // Parole del fondatore: *non dico di non scrivere da dove arrivano
+          // le risposte, ma non all'inizio. va bene informare, ma alla fine.*
+          // Questa riga dice da dove nasce la carta, ed e' esattamente cio'
+          // che va dietro un tocco: chi cerca la risposta l'ha gia' letta,
+          // chi cerca professionalita' la trova qui.
+          DaDoveNasce(
+            palette: palette,
+            children: [
+              RigaDellaFonte(
+                testo: nascita == null
+                    ? 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
+                        'giorno. Non da un caso: domani sarà un\'altra.'
+                    : 'Ventidue Arcani Maggiori. La carta di oggi nasce dal '
+                        'giorno incrociato con la tua carta di nascita dei '
+                        'tarocchi, che la tradizione del mazzo ricava dalla '
+                        'data.',
+                key: const Key('arcano_provenienza'),
+              ),
+            ],
           ),
           const SizedBox(height: SpacingTokens.lg),
           // **LE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Qui il

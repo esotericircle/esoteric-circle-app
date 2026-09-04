@@ -123,9 +123,27 @@ void main() {
     await passo(tester);
     await compi(tester);
 
-    // Lettura: la prima voce e la trasparenza dei tre fattori.
+    // Lettura: la prima voce, che resta a vista.
     expect(find.byKey(const Key('sunset_voce_uno')), findsOneWidget);
-    expect(find.byKey(const Key('sunset_trasparenza')), findsOneWidget);
+
+    // **LA TRASPARENZA STA DIETRO LA PORTA, ordine CQ voce 6.24.**
+    //
+    // Il fondatore l'aveva letta come una negazione del rovescio, e stava
+    // in mezzo alla risposta a dodici punti e mezzo: il testo piu' piccolo
+    // della schermata nel posto piu' visibile. Adesso e' una fonte fra le
+    // fonti, e **la prova apre la porta come fa una persona** invece di
+    // pretenderla a vista.
+    expect(find.byKey(const Key('sunset_trasparenza')), findsNothing,
+        reason: 'la trasparenza e a vista: doveva scendere dietro il tocco');
+    final porta = find.byKey(const Key('da_dove_nasce_apri'));
+    expect(porta, findsOneWidget,
+        reason: 'la porta delle fonti non c e: le fonti sono sparite invece '
+            'che essersi spostate');
+    await tester.tap(porta, warnIfMissed: false);
+    await passo(tester);
+    expect(find.byKey(const Key('sunset_trasparenza')), findsOneWidget,
+        reason: 'aperta la porta la trasparenza non compare: e stata persa, '
+            'non spostata');
     // La seconda voce e' dietro la rotazione: prima l'invito, poi la voce.
     expect(find.byKey(const Key('sunset_gira')), findsNothing,
         reason: 'la bolla "Gira la pietra" e tornata: ordine AS voce 09');
