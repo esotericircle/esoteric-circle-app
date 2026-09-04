@@ -292,3 +292,14 @@ ROSSA     il ponte si stacca, if (false) al posto di isNotEmpty
           caduta anche: e nomina il prossimo passo del Cammino quando c e
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 1
+
+LA PROVA DEL ROSSO DEL CONTROLLO DELL ALBERO
+Ordine CQ voce 6.12, Regola A. Il foglio si innesta, il difetto si verifica
+col grep dentro il file, e solo dopo si legge l'esito. Il ripristino si
+verifica confrontando i byte, non sulla parola del replace.
+========================================================================
+ROSSA     il controllo torna a nominare uno sha
+ROSSA     il ripiego FERMATI QUI sparisce
+ROSSA     il controllo della porta della Demo sparisce
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3

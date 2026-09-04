@@ -21,28 +21,43 @@ Tutti i comandi si lanciano da PowerShell, nella cartella del progetto.
 
 ## PASSO 0. PORTA LA TUA CARTELLA ALLA TESTA NUOVA
 
-**Perche' viene prima di tutto.** Nella tua cartella,
-`C:\Users\user\Desktop\esoteric-circle-app`, il lavoro dell'ordine CG oggi
-**non c'e'**. Verificato il 31 agosto 2026: `docs/ordini/ORDINE_CG_MANIFESTO.md`
-non c'e', `functions/src/lapidi.ts` non c'e', e il puntatore del ramo non viene
-toccato dal 15 agosto 2026. **Se distribuissi da li' adesso, manderesti in
-produzione la versione di due ordini fa.**
+**Perche' viene prima di tutto.** I comandi di distribuzione mandano in
+produzione **i file che hai sul disco**, non il ramo: da una cartella vecchia
+manderesti su la versione di due ordini fa, e da una cartella vecchia una
+funzione appena scritta semplicemente non esiste.
+
+**IL CONTROLLO E' CAMBIATO, E LA RAGIONE VA LETTA. Ordine CQ voce 6.12,
+4 settembre 2026.**
+
+Fino a oggi questo passo diceva: *la riga NON deve cominciare con
+`078d24b4`*, e nominava lo sha della testa di allora. Il 4 settembre la
+cartella era ferma a `24eaf172`, che non e' `078d24b4`: **il controllo
+diceva di stare a posto mentre l'albero era indietro di sessantotto
+commit**, tre giorni di lavoro. Poi il comando di distribuzione ha risposto
+*No function matches the filter*, e la funzione sembrava non essere mai stata
+scritta. Era scritta e spinta.
+
+**Uno sha scritto a mano invecchia a ogni consegna, e un controllo che
+invecchia diventa un permesso.** Adesso il numero lo chiede a git, e vale
+sempre.
 
 ```powershell
 cd C:\Users\user\Desktop\esoteric-circle-app
+git fetch origin
+git rev-list --count HEAD..origin/claude/esoteric-circle-master-order-e798aj
+```
+
+**Cosa devi leggere**: **`0`**, e nient'altro. Qualunque altro numero e'
+il numero di commit che ti mancano, e finche' non e' zero **non distribuire
+niente**: FERMATI QUI e porta la cartella avanti.
+
+```powershell
 git pull --ff-only
 ```
 
 **Cosa devi leggere.** Un elenco di file cambiati e in fondo una riga tipo
-`Fast-forward`. Poi verifica con questo:
-
-```powershell
-git log --oneline -1
-```
-
-**Cosa devi leggere**: la riga deve cominciare con lo sha della testa di
-oggi oppure con uno piu' recente, e NON con `078d24b4`. **La testa del 1
-settembre 2026, ordine CN, comincia con ``345b5ccb``.**
+`Fast-forward`. Poi **rifai il conto di sopra**: deve dire `0`. Il conto e'
+il controllo, il pull e' solo il rimedio.
 
 **Se `git pull` si rifiuta** dicendo qualcosa su modifiche locali, vuol dire
 che in quella cartella c'e' del lavoro non salvato. Non forzare niente:
@@ -327,7 +342,19 @@ comando di distribuzione carica da solo. Quel file **non finisce su Git**, e'
 gia' escluso: resta sul tuo PC, e il giorno che vuoi chiudere la porta basta
 togliere la riga e ridistribuire.
 
-**1. Porta la tua cartella alla testa nuova.**
+**1. Porta la tua cartella alla testa nuova, E VERIFICA DI ESSERCI ARRIVATO.**
+
+**Perche' la verifica esiste, ordine CQ voce 6.12 del 4 settembre 2026.**
+Il 4 settembre il comando di distribuzione ha risposto *No function matches
+the filter: default:attivaIlPianoInDemo*, e sembrava che la funzione non fosse
+mai stata scritta. **Era stata scritta e spinta**, col commit `9d980de1`: la
+cartella era ferma **sessantotto commit indietro**, al primo settembre, e quel
+comando cerca la funzione nei file che hai sul disco, non nel ramo.
+
+Il passo 1 diceva gia' di aggiornare, e non bastava: **diceva di fare una
+cosa senza dire come accorgersi che non era riuscita.** Un'istruzione che non
+porta il suo controllo lascia chi la esegue davanti a un errore che parla di
+un'altra cosa.
 
 ```powershell
 cd C:\Users\user\Desktop\esoteric-circle-app
@@ -346,6 +373,17 @@ git pull
 ```
 
 **Cosa devi leggere**: l'ultima riga deve nominare un commit dell'ordine CQ.
+
+**1-bis. E ADESSO CONTROLLA CHE LA FUNZIONE SIA DAVVERO SUL TUO DISCO.**
+
+```powershell
+Select-String -Path functions\src\index.ts -Pattern attivaIlPianoInDemo
+```
+
+**Cosa devi leggere**: una riga che nomina `attivaIlPianoInDemo`. **Se non
+esce niente, FERMATI QUI**: il passo 1 non e' riuscito, e andare avanti ti fa
+arrivare a un errore che parla della funzione invece che del tuo albero.
+Rifai il passo 1 e guarda cosa risponde `git pull`.
 
 **2. Scrivi la chiave nel file dell'ambiente.**
 
