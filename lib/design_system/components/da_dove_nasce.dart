@@ -4,6 +4,7 @@ import '../theme/maestro_palette.dart';
 import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
+import '../typography/paragrafi_di_lettura.dart';
 import 'collasso.dart';
 
 /// **DA DOVE NASCE: la porta unica dell'approfondimento.**
@@ -40,6 +41,7 @@ class DaDoveNasce extends StatefulWidget {
     required this.palette,
     required this.children,
     this.etichetta = 'Da dove nasce',
+    this.colore,
   });
 
   final MaestroPalette palette;
@@ -52,6 +54,19 @@ class DaDoveNasce extends StatefulWidget {
   /// arti che si aprono con nove parole diverse sono nove porte.
   final String etichetta;
 
+  /// **IL COLORE LO DECIDE LA SCHERMATA, QUANDO LA SCHERMATA LO HA
+  /// MISURATO.** Nullo vuol dire l\'oro chiaro del Maestro, che e\' giusto
+  /// sui fondi scuri di quasi tutta l\'app.
+  ///
+  /// **Perche\' esiste questo parametro, col numero.** La carta del Dono
+  /// dell\'Alba si dipinge su un avorio, #EDEADD, e li\' l\'oro chiaro
+  /// #F0D77B misura **1,18 contro il 4,5 richiesto**: la riga c\'e\' e non
+  /// si vede. Quella schermata un accento misurato ce l\'ha gia\',
+  /// `AbitoDelResponso.accentoDi`, che schiarisce finche\' il contrasto
+  /// sulla superficie vera non passa: qui si passa quello, invece di
+  /// aprire un secondo conto del colore dentro il componente.
+  final Color? colore;
+
   @override
   State<DaDoveNasce> createState() => _DaDoveNasceState();
 }
@@ -63,6 +78,7 @@ class _DaDoveNasceState extends State<DaDoveNasce> {
   Widget build(BuildContext context) {
     if (widget.children.isEmpty) return const SizedBox.shrink();
     final palette = widget.palette;
+    final inchiostro = widget.colore ?? palette.goldSoft;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -95,7 +111,7 @@ class _DaDoveNasceState extends State<DaDoveNasce> {
                   borderRadius:
                       BorderRadius.circular(SpacingTokens.radiusPill),
                   border: Border.all(
-                      color: palette.gold.withValues(alpha: 0.35)),
+                      color: inchiostro.withValues(alpha: 0.45)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +120,7 @@ class _DaDoveNasceState extends State<DaDoveNasce> {
                       widget.etichetta,
                       key: const Key('da_dove_nasce_etichetta'),
                       style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 1.1),
+                          color: inchiostro, letterSpacing: 1.1),
                     ),
                     const SizedBox(width: SpacingTokens.xs),
                     // La freccia dice da sola cosa succede: giu' si apre,
@@ -113,7 +129,7 @@ class _DaDoveNasceState extends State<DaDoveNasce> {
                       turns: _aperto ? 0.5 : 0,
                       duration: const Duration(milliseconds: 180),
                       child: Icon(Icons.keyboard_arrow_down_rounded,
-                          size: 18, color: palette.goldSoft),
+                          size: 18, color: inchiostro),
                     ),
                   ],
                 ),
@@ -165,8 +181,13 @@ class RigaDellaFonte extends StatelessWidget {
                         letterSpacing: 1.0)),
             const SizedBox(height: SpacingTokens.xxs),
           ],
-          Text(testo,
-              style: TypographyTokens.lettura()
+          // **ANCHE QUI SI PASSA DALLA PORTA DEI PARAGRAFI.** Una fonte puo
+          // essere lunga quanto un responso, e un `Text` diretto nel ruolo
+          // della prosa e' la seconda porta da cui il muro di testo rientra:
+          // l'ha detto la guardia delle etichette al primo giro.
+          ParagrafiDiLettura(
+              testo: testo,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
         ],
       ),

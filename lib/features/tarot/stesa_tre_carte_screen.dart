@@ -1292,9 +1292,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // ne accumulano due: dopo due pescaggi il ventaglio finiva a 861
           // punti su uno schermo di 844, cioe' fuori campo, e una guardia
           // della coreografia lo ha visto. Lo spazio che si toglie qui e'
-          // aria fra due blocchi; quello che si e" guadagnato sopra e'
+          // aria fra due blocchi; quello che si e' guadagnato sopra e'
           // testo che si legge.
-          const SizedBox(height: SpacingTokens.xxs),
+          //
+          // **E ZERO, ordine CQ voce 6.23 del 4 settembre 2026**: la prosa
+          // e' salita da diciotto a venti punti e l'etichetta da dodici a
+          // quattordici, e il ventaglio e' tornato fuori campo di **due
+          // punti e mezzo**, 846,5 su 844. E' la stessa aria di allora, ed
+          // e' finita: la prossima volta che questa guardia cade non ci
+          // sara' piu' niente da togliere qui, e i punti andranno cercati
+          // dentro il ventaglio, che si dimensiona sulla LARGHEZZA e non
+          // guarda mai quanta altezza gli sia rimasta.
+          const SizedBox(height: 0),
           // Il ventaglio con la sua regia: ingresso a spirale, respiro,
           // taglio e vortice. Si ridisegna col battito delle quattro fasi.
           AnimatedBuilder(

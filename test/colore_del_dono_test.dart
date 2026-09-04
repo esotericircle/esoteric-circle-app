@@ -330,7 +330,7 @@ void main() {
       final larghezza = img!.width;
       final origine = tester.getRect(find.byKey(chiave));
 
-      for (final k in const ['gift_base_toggle', 'gift_share_word']) {
+      for (final k in const ['da_dove_nasce_apri', 'gift_share_word']) {
         final f = find.byKey(Key(k));
         expect(f, findsOneWidget, reason: 'il pulsante $k non e a schermo');
         final r = tester.getRect(f).translate(-origine.left, -origine.top);

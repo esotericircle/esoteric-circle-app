@@ -39,7 +39,7 @@ void main() {
     'CN': 16,
     'CO': 20,
     'CP': 10,
-    'CQ': 32,
+    'CQ': 57,
   };
 
   const stati = <String, String>{

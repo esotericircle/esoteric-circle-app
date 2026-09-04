@@ -194,6 +194,21 @@ void main() {
       // La vista comune dei riti, con "cosa stai per ricevere" e la riga del
       // sensore: sono le stesse due frasi dell'Alba, che sta gia' qui sopra.
       'lib/features/rituals/ritual_view.dart',
+      // **E IL TRAMONTO ARRIVA QUI CON L'ORDINE CQ VOCE 6.23**, 4 settembre
+      // 2026, per UNA riga sola: l'invito sottolineato che accende la
+      // posizione, "Attiva la posizione", tre parole dentro un tocco. E'
+      // la stessa famiglia degli inviti dell'Alba e del Soffio, che stanno
+      // gia' qui sopra: un comando non e' testo narrato, e spezzarlo in
+      // paragrafi non vorrebbe dire niente.
+      //
+      // **LA SORVEGLIANZA CHE SI PERDE, DICHIARATA.** Questo elenco ammette
+      // il FILE e non la riga, e il Tramonto e' una schermata piena di
+      // prosa: da qui in avanti un `Text` narrato nel ruolo lettura, in
+      // quel file, non lo vede piu' nessuno. Per questo la prosa che c'era
+      // e' stata portata dalla porta PRIMA di ammettere il file: la nota
+      // sulle rune simmetriche, tre frasi, adesso monta
+      // `ParagrafiDiLettura`.
+      'lib/features/rituals/sunset_rune_screen.dart',
     };
     final colpe = <String>[];
     for (final f in Directory('lib')

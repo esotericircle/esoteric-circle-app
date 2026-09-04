@@ -407,9 +407,9 @@ void main() {
     // La base del dono si apre, cosi' anche le sue righe entrano nella misura.
     // Si porta in vista prima di toccarla: la scheda scorre, e su uno schermo
     // reale il pulsante della base sta sotto la piega.
-    await tester.ensureVisible(find.byKey(const Key('gift_base_toggle')));
+    await tester.ensureVisible(find.byKey(const Key('da_dove_nasce_apri')));
     await tester.pump();
-    await tester.tap(find.byKey(const Key('gift_base_toggle')),
+    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')),
         warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));

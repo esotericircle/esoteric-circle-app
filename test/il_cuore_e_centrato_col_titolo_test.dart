@@ -66,9 +66,9 @@ void main() {
       scena: ArteCorrente(
         id: 'gettata',
         reclamato: ValueNotifier<bool>(false),
-        child: Scaffold(
-          appBar: BarraArte(titolo: const Text('Estrazione Rune')),
-          body: const SizedBox.expand(),
+        child: const Scaffold(
+          appBar: BarraArte(titolo: Text('Estrazione Rune')),
+          body: SizedBox.expand(),
         ),
       ),
     ));
@@ -109,9 +109,9 @@ void main() {
       scena: ArteCorrente(
         id: 'gettata',
         reclamato: ValueNotifier<bool>(false),
-        child: Scaffold(
-          appBar: BarraArte(titolo: const Text('Estrazione Rune')),
-          body: const SizedBox.expand(),
+        child: const Scaffold(
+          appBar: BarraArte(titolo: Text('Estrazione Rune')),
+          body: SizedBox.expand(),
         ),
       ),
     ));

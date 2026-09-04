@@ -86,8 +86,6 @@ class RitualGiftCard extends StatefulWidget {
 }
 
 class _RitualGiftCardState extends State<RitualGiftCard> {
-  bool _baseOpen = false;
-
   @override
   Widget build(BuildContext context) {
     final gift = widget.gift;
@@ -337,6 +335,10 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               // La palette nasce dal Maestro del Dono, come l'accento qui
               // sopra: due sorgenti per lo stesso colore sono due colori.
               palette: MaestroPalette.forKey(ThemeKey.of(gift.maestro)),
+              // **E IL COLORE E\' L\'ACCENTO MISURATO, non l\'oro del
+              // Maestro**: questa carta si dipinge su un avorio, e li\'
+              // l\'oro chiaro fa 1,18 contro il 4,5 richiesto.
+              colore: accento,
               children: [
                 _BasePanel(
                   abito: abito,
@@ -385,50 +387,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               child: vetro,
             )
           : vetro,
-    );
-  }
-}
-
-/// La riga che apre e chiude la base del dono.
-class _BaseToggle extends StatelessWidget {
-  const _BaseToggle(
-      {required this.open, required this.onTap, required this.accento});
-
-  final bool open;
-  final VoidCallback onTap;
-
-  /// L'accento del Maestro del giorno, deciso una volta sola dalla scheda.
-  final Color accento;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      enableFeedback: false,
-      key: const Key('gift_base_toggle'),
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.info_outline_rounded, size: 15, color: accento),
-            const SizedBox(width: 6),
-            // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
-            Flexible(
-                child: Text(
-              'Da dove nasce questo dono',
-              key: const Key('alba_base_toggle'),
-              style: TypographyTokens.lettura().copyWith(
-                color: accento,
-                letterSpacing: 0.4,
-              ),
-            )),
-            Icon(open ? Icons.expand_less_rounded : Icons.expand_more_rounded,
-                size: 18, color: accento),
-          ],
-        ),
-      ),
     );
   }
 }

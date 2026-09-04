@@ -125,7 +125,7 @@ class RispostaDelDono {
     (Maestro.caligo, DatoDelCielo.segnoLunare):
         'Oggi la Luna ti chiede {parola}.',
     (Maestro.caligo, DatoDelCielo.faseLunare):
-        'Oggi tieni insieme luce e ombra, e si dice {parola}.',
+        'Oggi tieni insieme luce e ombra: si dice {parola}.',
   };
 
   /// LE NOVE RISPOSTE, col fatto vero dentro.

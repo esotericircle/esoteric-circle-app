@@ -537,12 +537,18 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
         if (_runaTramonto != null) ...[
           const SizedBox(height: SpacingTokens.sm),
-          Text(
-              'Porti dentro la notte la runa $_runaTramonto: '
-              'lasciala parlare mentre chiudi il giorno.',
+          // **QUESTA E' PROSA, NON UN'ETICHETTA. Ordine CQ voce 6.23.**
+          //
+          // Ricondurre le misure scritte a mano ai ruoli ha portato anche
+          // questa riga a `etichetta`, e la guardia lo ha preso subito: e'
+          // una frase intera che va a capo, e **il maiuscoletto e' un segnale,
+          // non un testo**. A capo diventa un muro di lettere larghe.
+          ParagrafiDiLettura(
+              testo: 'Porti dentro la notte la runa $_runaTramonto: '
+                  'lasciala parlare mentre chiudi il giorno.',
               key: const Key('dream_runa_tramonto'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta().copyWith(
+              stile: TypographyTokens.lettura().copyWith(
                   color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
         ],
         // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.

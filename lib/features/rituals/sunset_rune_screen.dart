@@ -1296,11 +1296,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             const SizedBox(height: SpacingTokens.xs),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-              child: Text(
-                SunsetRuneCorpus.perche(_e.rune.name),
+              // **QUESTA E' PROSA, E PASSA DALLA PORTA DEI PARAGRAFI.**
+              // Tre frasi, duecentotrenta caratteri: e' esattamente il
+              // testo narrato per cui la regola esiste, e un `Text` diretto
+              // qui e' la seconda porta da cui il muro torna.
+              child: ParagrafiDiLettura(
                 key: const Key('sunset_perche_simmetrica'),
+                testo: SunsetRuneCorpus.perche(_e.rune.name),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.lettura()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.35),
               ),
             ),

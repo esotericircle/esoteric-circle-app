@@ -40,6 +40,11 @@ void main() {
   /// cosa fa il tocco. Una freccia nuova che non compare in questa mappa fa
   /// cadere la prova, ed e' il punto: la deroga si scrive, non si presume.
   const dichiarate = <String, String>{
+    'lib/design_system/components/da_dove_nasce.dart':
+        'la freccetta di "Da dove nasce", che e\' la porta unica dell\''
+            'approfondimento per tutte le arti: gira di mezzo giro e apre in '
+            'posto le fonti, il transito e la tradizione. Rivela testo gia\''
+            ' scritto, non chiede niente a nessuno.',
     'lib/design_system/components/collasso.dart':
         'la freccetta del Collassabile: gira di mezzo giro e apre il '
             'contenuto che sta sotto, in posto. E\' la freccia in giu\' fatta '
@@ -59,9 +64,6 @@ void main() {
             'aprono IN POSTO, con lo stesso Collassabile di tutte le altre. '
             'Non e\' un rimando altrove: e\' il corpo della lettura che a '
             'una runa sola coprirebbe la risposta.',
-    'lib/features/rituals/ritual_gift_card.dart':
-        'il dono del rituale: expand_less quando e\' aperto, expand_more '
-            'quando e\' chiuso, e apre il testo in posto.',
     'lib/features/ricordi/ricordi_screen.dart':
         'il gruppo del giorno nei Ricordi, ordine CG voce 02: sopra le tre '
             'voci uguali la riga si chiude col suo conto, per esempio '

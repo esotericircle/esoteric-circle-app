@@ -167,7 +167,16 @@ void main() {
       final percorso = f.path.replaceAll(r'\', '/');
       if (!percorso.endsWith('_share_card.dart')) continue;
       guardate++;
-      if (!f.readAsStringSync().contains('CardAMisuraFissa')) {
+      // **O DIRETTAMENTE, O DALLA PORTA CHE LA CONTIENE. Ordine CQ voce
+      // 6.26, 4 settembre 2026.**
+      //
+      // `CardDaMandare` avvolge `CardAMisuraFissa` al suo interno: una card
+      // che passa da li' e' protetta quanto una che la nomina, e pretendere
+      // il nome invece del fatto costringerebbe a scrivere due volte la
+      // stessa protezione.
+      final testo = f.readAsStringSync();
+      if (!testo.contains('CardAMisuraFissa') &&
+          !testo.contains('CardDaMandare(')) {
         senza.add(percorso.substring(percorso.indexOf('lib/')));
       }
     }

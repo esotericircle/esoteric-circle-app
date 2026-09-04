@@ -7,12 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
-import '../../../../design_system/tokens/spacing_tokens.dart';
-import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'bindrune.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
-import '../../../../design_system/components/card_a_misura_fissa.dart';
 import '../../../../design_system/components/card_da_mandare.dart';
 
 /// La card condivisibile dell'Estrazione Rune, cornice oro e rossa di Caligo:
@@ -57,12 +54,43 @@ class RuneShareCard extends StatelessWidget {
       frase: _laFrase(),
       parola: esito.rune.first.rune.keyword,
       invito: 'Le tue rune di oggi ti aspettano',
-      simbolo: BindruneSigillo(
-        runeNames: [for (final r in esito.rune.take(3)) r.rune.name],
-        oro: palette.gold,
-        alone: palette.goldSoft,
-        lato: 190,
-      ),
+      simbolo: _ilSimbolo(palette),
+    );
+  }
+
+  /// **IL SIMBOLO DELLA CARD: la pietra quando la runa e' una, il sigillo
+  /// quando sono piu' di una.**
+  ///
+  /// La card si manda perche' porta il simbolo di CHI la manda, e a una
+  /// runa sola quel simbolo e' la pietra che gli e' uscita, con la sua
+  /// incisione e il suo verso: il sigillo di un glifo solo e' lo stesso
+  /// glifo ridisegnato, cioe' l'arte di Caligo tolta di mezzo per niente.
+  /// Da due rune in su l'intreccio esiste davvero, ed e' quello a essere
+  /// suo e di nessun altro.
+  ///
+  /// **IN MERKSTAVE LA PIETRA SI CAPOVOLGE**, come nella schermata: il
+  /// verso d'ombra e' parte del responso e una card che lo perde dice
+  /// un'altra cosa.
+  Widget _ilSimbolo(MaestroPalette palette) {
+    final prima = esito.rune.first;
+    if (esito.rune.length == 1 && prima.rune.hasImage) {
+      final pietra = SizedBox(
+        width: 190,
+        height: 190,
+        child: Image.asset(prima.rune.thumbPath!,
+            fit: BoxFit.contain,
+            errorBuilder: (_, __, ___) => Icon(Icons.diamond_outlined,
+                size: 96, color: palette.goldSoft)),
+      );
+      return prima.inOmbra
+          ? Transform.rotate(angle: math.pi, child: pietra)
+          : pietra;
+    }
+    return BindruneSigillo(
+      runeNames: [for (final r in esito.rune.take(3)) r.rune.name],
+      oro: palette.gold,
+      alone: palette.goldSoft,
+      lato: 190,
     );
   }
 

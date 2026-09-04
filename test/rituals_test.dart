@@ -151,16 +151,16 @@ void main() {
       expect(find.text(gift.kind.label), findsNothing);
       expect(find.byKey(const Key('alba_orientamento')), findsOneWidget);
       expect(find.text(gift.orientation), findsOneWidget);
-      expect(find.byKey(const Key('gift_base_toggle')), findsOneWidget);
+      expect(find.byKey(const Key('da_dove_nasce_apri')), findsOneWidget);
 
       // La base si apre e mostra l'ancora natale, dato reale.
       expect(find.byKey(const Key('gift_base_panel')), findsNothing);
       // Da quando il dono porta il rito intero, gesto piu' respiro piu' via col
       // dito, il pulsante puo' finire sotto il bordo della scheda: si porta in
       // vista prima di toccarlo, come farebbe un dito.
-      await tester.ensureVisible(find.byKey(const Key('gift_base_toggle')));
+      await tester.ensureVisible(find.byKey(const Key('da_dove_nasce_apri')));
       await tester.pump();
-      await tester.tap(find.byKey(const Key('gift_base_toggle')));
+      await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.byKey(const Key('gift_base_panel')), findsOneWidget);
       expect(find.text('Ancora natale'), findsOneWidget);

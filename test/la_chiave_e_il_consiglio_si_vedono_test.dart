@@ -331,20 +331,36 @@ void main() {
       final w = tester.widget<ParagrafiDiLettura>(f);
       misure[chiave] = w.stile.fontSize!;
     }
-    // E i testi delle tre bolle, che non hanno una chiave loro.
+    // E il testo delle tre bolle, che non ha una chiave sua.
+    //
+    // **SI MISURA IL PARAGRAFO, NON OGNI `Text` PIU' LUNGO DI
+    // VENTICINQUE CARATTERI.** La prima stesura separava il contenuto dal
+    // servizio con la LUNGHEZZA della stringa, che e' un ripiego: il
+    // nome "Cinque di Spade rovesciata" ne ha ventisei, e la guardia lo
+    // contava come contenuto pretendendo venti punti da un TITOLO, che sta
+    // in `titoloScheda` a diciotto ed e' giusto che ci stia. Presa
+    // rossa il 4 settembre 2026, ordine CQ, quando la misura di lettura e'
+    // salita da diciotto a venti: il rosso non diceva un difetto, diceva
+    // che la grandezza misurata era sbagliata.
+    //
+    // Il contenuto narrato della bolla passa da `ParagrafiDiLettura`, che
+    // e' la porta unica: cercare LEI e' cercare esattamente il testo di
+    // cui il fondatore ha detto "anche le altre bolle hanno il font
+    // piccolo", e nient'altro.
     final bolle = find.descendant(
-        of: find.byType(BollaDellaPosizione), matching: find.byType(Text));
+        of: find.byType(BollaDellaPosizione),
+        matching: find.byType(ParagrafiDiLettura));
+    var quale = 0;
     for (final e in bolle.evaluate()) {
-      final w = e.widget as Text;
-      final testo = w.data ?? '';
-      // Le etichette di posizione sono maiuscole e brevi: sono servizio.
-      if (testo.length < 25) continue;
-      misure['bolla: ${testo.substring(0, 18)}...'] = w.style!.fontSize!;
+      final w = e.widget as ParagrafiDiLettura;
+      misure['bolla ${quale++}: ${w.testo.substring(0, 18)}...'] =
+          w.stile.fontSize!;
     }
     final lettura = TypographyTokens.lettura().fontSize!;
     // ignore: avoid_print
     print('ORDINE BU VOCE 1: misura di lettura $lettura, testi di contenuto '
-        '${misure.length}, il piu\' piccolo '
+        '${misure.length}, dei quali paragrafi di bolla '
+        '${bolle.evaluate().length}, il piu\' piccolo '
         '${misure.values.reduce((a, b) => a < b ? a : b)}');
     expect(misure, isNotEmpty,
         reason: 'nessun testo di contenuto trovato: la prova gira a vuoto');

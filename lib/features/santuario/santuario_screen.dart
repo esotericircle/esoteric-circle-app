@@ -795,7 +795,21 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         // Misurato dalla prova differenziale: 46.673 pixel di figura dentro
         // la bolla con la stima vecchia, 2.356 con lo spazio stretto, zero
         // con la stima giusta.
-        final entryZone = _altezzaIngresso ?? 96.0;
+        // **E LA STIMA E' SALITA ANCORA, da 96 a 106. Ordine CQ voce
+        // 6.23, 4 settembre 2026.** La prosa che si legge e' passata da
+        // diciotto a venti punti e l'etichetta da dodici a quattordici: il
+        // blocco d'ingresso e' cresciuto di dieci punti, misurati sul
+        // riquadro reso, **da 96 a 106**, e il carosello e' tornato a
+        // dipingere 58 pixel di figura dentro la zona della bolla.
+        //
+        // **QUESTO NUMERO NON SI INDOVINA E NON SI DERIVA: si rimisura.**
+        // Un conto fatto sui ruoli darebbe 75, perche' non tiene l'aria
+        // che il riquadro si prende oltre le righe. La grandezza vera e'
+        // l'altezza del riquadro reso, e a coglierla e' la prova
+        // differenziale `pulsante_non_copre_carta_test`, che ha preso
+        // questa regressione il giorno stesso: chi cambia i ruoli della
+        // scala la vede rossa e legge qui quanto vale adesso.
+        final entryZone = _altezzaIngresso ?? 106.0;
         // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
         //
         // Il margine era il due per cento e NON bastava, perche' la figura

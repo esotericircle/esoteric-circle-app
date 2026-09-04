@@ -337,6 +337,15 @@ void main() {
     test('Da cinque a dieci righe, al massimo due blocchi', () {
       for (var volute = divisioneAttesa; volute <= lunghiAttesi; volute++) {
         final t = testoDa(volute);
+        // **LA BANDA SI DECIDE SULLE RIGHE RESE, NON SU QUELLE VOLUTE.**
+        // `testoDa` chiede N righe, non le garantisce: e\' la stessa
+        // ragione per cui la prova qui sopra salta i testi che rendono
+        // piu\' righe di quante ne chiedessero. Salita la misura di
+        // lettura da diciotto a venti punti, il testo voluto di dieci
+        // righe ne rende UNDICI, cioe\' sta nella banda dei lunghi dove
+        // tre blocchi sono giusti, e questa prova lo accusava di un
+        // difetto che non ha. Ordine CQ voce 6.23, 4 settembre 2026.
+        if (righe(t) > lunghiAttesi) continue;
         final blocchi = spezza(t);
         expect(blocchi.length, lessThanOrEqualTo(2),
             reason: 'un responso di ${righe(t)} righe e\' uscito in '

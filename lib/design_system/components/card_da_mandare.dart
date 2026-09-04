@@ -132,11 +132,21 @@ class CardDaMandare extends StatelessWidget {
                               height: 1.12)),
                   if (parola != null) ...[
                     const SizedBox(height: SpacingTokens.md),
+                    // **L'ORO PIENO NON REGGE UNA PAROLA IN PICCOLO, e
+                    // il numero l'ha detto il censimento del contrasto.
+                    // `gold` sotto il ruolo etichetta misura 5.42 sul vetro
+                    // sopra Aura, 5.65 sulla casa di Aura, 6.42 e 6.69 su
+                    // quelle di Caligo, contro la soglia di sette che il
+                    // testo piccolo deve rispettare. `goldSoft`, che e
+                    // `goldLight`, la passa ovunque **e per giunta si vede
+                    // meglio**: la parola chiave e' il secondo fuoco della
+                    // card dopo la frase, e doveva essere la piu' chiara
+                    // delle due, non la piu' scura.
                     Text(parola!.toUpperCase(),
                         key: const Key('card_parola'),
                         textAlign: TextAlign.center,
                         style: TypographyTokens.etichetta().copyWith(
-                            color: palette.gold, letterSpacing: 3.2)),
+                            color: palette.goldSoft, letterSpacing: 3.2)),
                   ],
                 ],
               ),

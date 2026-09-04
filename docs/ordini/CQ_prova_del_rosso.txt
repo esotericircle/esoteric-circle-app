@@ -455,3 +455,62 @@ INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
 MISURA: la card delle rune portava sei blocchi di testo attorno al sigillo,
 adesso ne porta cinque e la frase e' al centro fra il nome dell'arte e il
 marchio. Sono censite 14 card da condividere: una passa dalla porta comune.
+
+LA PROVA DEL ROSSO DELLA MISURA DI LETTURA NELLA STESA
+Ordine CQ voce 6.23, Regola B: la guardia BU.01 e' stata vista rossa PRIMA e
+DOPO, e le due volte per ragioni diverse.
+========================================================================
+PRIMA, ROSSA PER LA RAGIONE SBAGLIATA. Salita la misura di lettura da
+diciotto a venti, BU.01 e' caduta su "Cinque di Spade rovesciata", che e' il
+NOME della carta e sta in titoloScheda a diciotto. La guardia separava il
+contenuto dal servizio con la LUNGHEZZA della stringa, meno di venticinque
+caratteri, e un nome lungo ventisei le passava per contenuto. Il rosso non
+diceva un difetto: diceva che la grandezza misurata era sbagliata.
+
+NON SI E' ABBASSATA LA SOGLIA. Si e' cambiata la grandezza: adesso la guardia
+cerca i ParagrafiDiLettura dentro la bolla, che sono il testo narrato di cui
+il fondatore ha detto "anche le altre bolle hanno il font piccolo", e non
+ogni Text piu' lungo di venticinque caratteri. Il vecchio conto ne trovava
+undici perche' contava anche i Text che il paragrafo stesso dipinge dentro di
+se': quattro paragrafi contati alla fonte valgono piu' di sette Text contati
+a valle.
+
+DOPO, ROSSA SUL DIFETTO VERO.
+ROSSA     il testo della bolla torna sotto la misura di lettura
+          innesto: fontSize: 14 sul ParagrafiDiLettura della bolla,
+          verificato col grep a riga 2270 prima di leggere l'esito
+          attesa: nessun testo di contenuto sta sotto la misura di lettura
+          caduta: bolla 0: Nasce la voglia di... e' scritto a 14.0, sotto la
+                  misura di lettura di 20.0
+          conto stampato: paragrafi di bolla 4, il piu' piccolo 14.0
+          ripristino verificato sul byte: 110142, e il grep non trova piu'
+          l'innesto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+LA PROVA DEL ROSSO DELLA SPEZZATURA DELL OROSCOPO
+Ordine CQ voce 6.23, Regola B, e ci sono voluti TRE innesti.
+========================================================================
+PRIMA, ROSSA PER LA RAGIONE SBAGLIATA. Salita la lettura da diciotto a venti,
+la pretesa "da cinque a dieci righe, al massimo due blocchi" e' caduta: il
+testo costruito per DIECI righe adesso ne rende UNDICI, cioe' sta nella banda
+dei lunghi dove tre blocchi sono giusti. La prova bandiva sulle righe VOLUTE
+invece che su quelle RESE, mentre la pretesa accanto, "sotto cinque righe non
+si divide niente", gia' bandiva sulle rese. Corretta la banda, non la soglia.
+
+POI DUE INNESTI RESTATI VERDI, e dicono cosa questa pretesa NON copre.
+VERDE     sogliaBlocchiLunghi da 10 a 6
+          i testi da sette a dieci righe finiscono nel ramo dei lunghi, che
+          su dieci righe fa comunque due blocchi: la pretesa non li vede
+VERDE     il ramo dei corti ristretto a quattro righe
+          stessa ragione: il ramo dei lunghi su nove righe fa due blocchi
+
+POI IL ROSSO VERO.
+ROSSA     il ramo dei corti ristretto a quattro E le righe desiderate da
+          quattro a due, verificate col grep alle righe 122 e 151
+          attesa: da cinque a dieci righe, al massimo due blocchi
+          caduta: un responso di 9 righe e' uscito in 3 blocchi invece di due
+          ripristino verificato sul byte: 11539, e il grep ritrova le due
+          costanti vere
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 3, e i due verdi sono l'informazione utile

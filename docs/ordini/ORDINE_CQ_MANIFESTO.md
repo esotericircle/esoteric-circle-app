@@ -270,6 +270,31 @@ date e la chat, e la misura dei promemoria non sono state fatte in questo giro.
 
 ---
 
+## AGGIUNTA CQ6, LA BUILD 2223 SUL TELEFONO E IL MOOD DEL CERCHIO
+
+Il 4 settembre 2026 il fondatore ha provato la build 2223 sul telefono e ha
+riaperto tredici voci, poi ne ha mandate altre dagli screenshot di una gettata
+a tre rune, e infine ha dettato **il mood che vale per tutta l'app**:
+
+> *"in titolo accattivante come prima risposta che riassuma tutta la risposta.
+> sotto la risposta diretta che risponde alla domanda dell'utente: cosa
+> significa per me? e adesso cosa devo fare. piu' sotto il tasto approfondisci
+> per quegli utenti che cercano approfondimento e professionalita'. ogni
+> responso deve diventare virale."*
+
+**LA RISPOSTA ALLA DOMANDA SULLA VIRALITA', perche' da li' discende la card.**
+Il fondatore ha chiesto di ragionare sul perche' uno condividerebbe un
+responso. Le persone non condividono informazioni: **condividono identita'**.
+Un responso si manda quando chi lo legge pensa *questo sono io* e vuole che gli
+altri lo sappiano. Da qui tre vincoli misurabili: una frase sola al centro, il
+simbolo che e' uscito a LUI e non un marchio, il testo di servizio ai bordi.
+
+**E LA RAGIONE UNICA DELLE SETTE RIAPERTURE STA NEL CONTO DELLE ORE**: sette
+volte su sette la guardia che aveva chiuso la voce misurava un pezzo sano
+accanto al pezzo rotto. Da qui la regola nuova: **una voce nata da qualcosa che
+il fondatore ha VISTO si chiude solo con una guardia che monta la schermata e
+misura cio' che si vede.**
+
 ## LE VOCI E IL LORO STATO
 
 **Sigillato con l'ordine CQ voce 4.03, 4 settembre 2026.** REGOLA F: un ordine
@@ -313,9 +338,34 @@ manifesto sigillato con stati falsi e' peggio di un manifesto non sigillato.**
 - **CQ.30** Pezzo secondo 2.16, i promemoria, misurare e non costruire. **CHIUSA**: la misura sta in `docs/promemoria/misura.md`. Ventuno eventi con una data calcolabile entro l'orizzonte, venti entro l'anno, cinque personali, e **sedici avvisi in un anno**, uno ogni ventitre giorni. Non e' un flusso.
 - **CQ.31** Aggiunta 4.01 e 4.02, i manifesti arretrati e la chiusura di CG. **CHIUSA.**
 - **CQ.32** Aggiunta 4.03 e 4.04, questo manifesto e la REGOLA F. **CHIUSA.**
+- **CQ.33** Aggiunta 6.01, i caratteri dei Doni, la TERZA volta che il fondatore lo chiede. **CHIUSA**: la misura sta in `docs/doni/misura_per_misura.md`, Dono per Dono e riga per riga, perche' le prime due volte si erano contate le schermate e non i ruoli.
+- **CQ.34** Aggiunta 6.02 e 6.06, il fischio che usciva dai responsi. **CHIUSA**: non era un file negli asset ne' il tema ne' un `InkWell`, era un tono **sintetizzato**, cioe' esattamente la cosa che nessuna delle tre guardie di allora poteva vedere. Guardia nuova `nessun_suono_sintetizzato_esce_dai_responsi`.
+- **CQ.35** Aggiunta 6.03, la bolla "La risposta" che ricompariva in fondo al responso. **CHIUSA.**
+- **CQ.36** Aggiunta 6.04, la riga blu che non si vedeva sul cosmo. **CHIUSA**: il contrasto era giusto, il fondo dichiarato no. Sul nero dichiarato il blu misura 4,58 e passa; sul cosmo vero misura **3,15**. Guardia nuova `nessun_accento_dichiara_un_fondo_che_non_ha`, che confronta le due superfici invece del solo rapporto.
+- **CQ.37** Aggiunta 6.05, le stelle che non si toccavano. **CHIUSA**: la guardia di allora misurava la FUNZIONE che calcola la quota della stella, mai cosa le sta sopra una volta disegnata. Guardia nuova `la_stella_si_tocca_davvero`.
+- **CQ.38** Aggiunta 6.07, i cuoricini a destra ma non centrati. **CHIUSA**: la guardia della voce 1.02 pretendeva che il cuore NON si intersecasse con la freccia Indietro, che e' una cosa diversa dallo stare alla quota del titolo. Guardia nuova `il_cuore_e_centrato_col_titolo`.
+- **CQ.39** Aggiunta 6.08, il suono della carta che non si sentiva. **CHIUSA**, e la misura dice che **non si era mai sentito da quando esiste**: usciva dalla porta, e un secondo suono lo fermava nello stesso fotogramma. Guardia nuova `la_carta_suona_toccandola`.
+- **CQ.40** Aggiunta 6.09, la terza carta che sembrava aprire un'altra schermata. **CHIUSA**: l'ingrandimento di Medora era legato a `_complete` e scattava insieme allo svuotamento del ventaglio. Adesso aspetta il RESPONSO. Guardia nuova `la_terza_carta_non_apre_una_schermata`.
+- **CQ.41** Aggiunta 6.10, **la piu' grave secondo il fondatore**, la domanda libera senza risposta. **CHIUSA**: la domanda entra nel responso e ci si legge. Guardia nuova `la_domanda_entra_nel_responso`, e due pretese accoppiate che restavano verdi sono state separate, perche' il consiglio finisce con la domanda e togliere l'apertura non toglieva le parole.
+- **CQ.42** Aggiunta 6.11, l'Estrazione Rune intatta. **CHIUSA.**
+- **CQ.43** Aggiunta 6.12, la porta della Demo che non si trovava piu'. **CHIUSA**: il controllo del comando poggiava su uno **sha scritto a mano**, che invecchia a ogni consegna. Guardia nuova `un_comando_di_distribuzione_ha_il_suo_controllo`.
+- **CQ.44** Aggiunta 6.13, il conto delle ore, chiesto per nome. **CHIUSA**: sta in `docs/ordini/CQ_CONTO_DELLE_ORE.md`, e porta anche la ragione unica per cui sette voci dichiarate chiuse non lo erano sul telefono, cioe' che **sette volte su sette la guardia misurava un pezzo sano accanto al pezzo rotto**.
+- **CQ.45** Aggiunta 6.14, "e la ultimo quarto", dagli screenshot delle rune. **CHIUSA**: la fase lunare si dice come si dice, e passa da `MoonPhase.comeSiDice`.
+- **CQ.46** Aggiunta 6.15, le misure diverse dentro la stessa scheda di runa. **CHIUSA**: quattro corpi in una bolla sola, adesso uno.
+- **CQ.47** Aggiunta 6.16, la stessa formula dell'eco ripetuta su tutte e tre le rune. **CHIUSA**: la domanda si nomina UNA volta sola, sulla prima runa.
+- **CQ.48** Aggiunta 6.17, il Sigillo del Giorno che non rispondeva. **CHIUSA**: adesso risponde con cio' che le tre rune intrecciate portano INSIEME, e non ripete le tre letture.
+- **CQ.49** Aggiunta 6.18, il collaudo a video in autonomia. **CHIUSA**: `tool/collaudo_a_video.py` apre l'app sul telefono, tocca e rilegge l'albero. Nasce dalla riga del conto delle ore: una voce nata da uno screenshot non si chiude con una guardia che legge il sorgente.
+- **CQ.50** Aggiunta 6.19, la parete di testo delle gettate. **CHIUSA**: una scheda di runa portava **611 caratteri**, la gettata a tre 1833, la Croce delle Cinque 3055. A vista su tre rune si passa da 1499 caratteri a 690, e le fonti scendono dietro la porta per TUTTE le gettate, non piu' per la sola runa singola.
+- **CQ.51** Aggiunta 6.20, i tre paragrafi delle bolle, giallo bianco giallo, dettati dal fondatore. **CHIUSA.**
+- **CQ.52** Aggiunta 6.21, il tetto del piano nuovo, il 49 invece di 50. **CHIUSA**: la gettata fatta in Demo restava a intaccare il tetto dell'Illuminato. Adesso chi sale trova il tetto intero e chi scende e risale non guadagna niente. Guardia nuova `il_tetto_del_piano_nuovo_nasce_intero`.
+- **CQ.53** Aggiunta 6.22, i paragrafi della bolla della runa con misure diverse fra loro. **CHIUSA.**
+- **CQ.54** Aggiunta 6.23, **VENTI PUNTI, E UNA MISURA SOLA.** **CHIUSA**: la prosa che si legge vale venti in tutta l'app. Per un giro c'e' stato accanto un ruolo nuovo, `letturaAmpia`, per non spostare le schermate che reggevano: era **un secondo conto della stessa cosa**, e la guardia della misura unica lo ha detto subito. Dieci misure scritte a mano sotto i quindici punti, sette nel Tramonto e tre nel Sigillo del Sogno, sono tornate ai ruoli.
+- **CQ.55** Aggiunta 6.24, **DA DOVE NASCE**, la porta unica dell'approfondimento. **CHIUSA**: un componente solo per nove arti. Non si chiama "Approfondisci" perche' quella parola dice cosa fa il pulsante; "Da dove nasce" dice cosa trovi dietro, ed e' anche la promessa che il Cerchio fa da sempre, che nulla e' inventato.
+- **CQ.56** Aggiunta 6.25, **IL TITOLO E' GIA' LA RISPOSTA.** **CHIUSA**: i nove titoli dei Doni avevano il cielo per soggetto e la parola del giorno in coda, dopo una subordinata. Adesso il soggetto e' chi legge e la parola sale in testa: da 62 caratteri di media a 39. Guardia nuova `il_mood_del_cerchio`.
+- **CQ.57** Aggiunta 6.26, **LA CARD CHE UNO MANDA DAVVERO.** **CHIUSA**: una frase sola al centro, il simbolo SUO e non un logo, il testo di servizio ai bordi, nove sedicesimi. Montata sulle Rune, le altre arti la prendono nell'ordine dopo, e la guardia lo dichiara invece di fingere che siano gia' tutte passate. Guardia nuova `la_card_si_manda`.
 
-VOCI_TOTALI: 32
-VOCI_CHIUSE: 31
+VOCI_TOTALI: 57
+VOCI_CHIUSE: 56
 VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

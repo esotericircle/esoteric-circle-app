@@ -707,6 +707,19 @@ void main() {
         ),
       ));
       await tester.pump();
+      // **SU UNO SCHERMO BASSO IL PULSANTE NON E' NEMMENO COSTRUITO.**
+      // La soglia del Sigillo e' una `ListView`, che costruisce solo cio'
+      // che sta a vista: salita la prosa da diciotto a venti punti, il
+      // pulsante e' sceso sotto la piega e il `tap` non trovava zero
+      // widget per un difetto della schermata, ma perche' la lista non
+      // lo aveva ancora fatto nascere. Si scorre fino a lui, come fa una
+      // persona. Ordine CQ voce 6.23, 4 settembre 2026.
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('sigillo_inizia')), 200,
+          scrollable: find.descendant(
+              of: find.byKey(const Key('sigillo_soglia')),
+              matching: find.byType(Scrollable)));
+      await tester.pump();
       await tester.tap(find.byKey(const Key('sigillo_inizia')));
       await tester.pump();
       await tester.enterText(find.byKey(const Key('sigillo_campo')),
@@ -1283,7 +1296,7 @@ void main() {
     // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
     // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
     // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
-    await tester.tap(find.byKey(const Key('gift_base_toggle')));
+    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
     await step(tester);
     await montaLoSchermo(tester, const Size(360, 1150));
     await step(tester);
