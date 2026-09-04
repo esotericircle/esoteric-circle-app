@@ -71,8 +71,21 @@ class FiloDelGiorno {
       _leggiDelGiorno(_chiaveParola, giornoRituale(adesso));
 
   /// La formula con cui il Sigillo del Sogno richiama la parola del mattino.
+  /// **IL RICHIAMO CHIUDE IL GIRO, e prima lo apriva soltanto.**
+  /// Ordine CQ voce 2.09, 3 settembre 2026.
+  ///
+  /// Diceva *"Stamattina la tua parola era X."* e finiva li': e' un fatto,
+  /// non una risposta. Chi la legge la sera ha in mano una parola presa dodici
+  /// ore prima e nessuno gli dice che farsene adesso. **Il Sigillo del Sogno
+  /// e' il rito che chiude la giornata**, e la parola e' l'unica cosa che
+  /// l'attraversa da capo a capo: la riga lo dice, invece di lasciarlo capire.
+  ///
+  /// **Non promette niente e non chiede niente**, che e' la legge dei testi di
+  /// questa app: dice cosa e' successo alla parola, cioe' che ha attraversato
+  /// il giorno ed e' arrivata qui.
   static String richiamoDellaParola(String parola) =>
-      'Stamattina la tua parola era $parola.';
+      'Stamattina la tua parola era $parola, e ha attraversato il giorno con '
+      'te: adesso si chiude qui.';
 
   // --- LA DOMANDA DI MEDORA ---
 

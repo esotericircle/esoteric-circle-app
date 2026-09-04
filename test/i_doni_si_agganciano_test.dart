@@ -308,8 +308,15 @@ void main() {
     });
 
     test('le due formule sono quelle dell\'ordine', () {
+      // **LA FORMULA E' CRESCIUTA, e la legge no.** Ordine CQ voce 2.09, 3
+      // settembre 2026: la riga diceva che parola era e finiva li', cioe'
+      // portava un fatto e non una risposta. Adesso dice anche che cosa ne e'
+      // stato. Quello che l'ordine P voce 18 pretende, cioe' che il richiamo
+      // NOMINI la parola del mattino, resta intero, ed e' quello che si
+      // misura: la frase esatta era una copia del testo, e una copia si rompe
+      // ogni volta che il testo migliora.
       expect(FiloDelGiorno.richiamoDellaParola('Soglia'),
-          'Stamattina la tua parola era Soglia.');
+          startsWith('Stamattina la tua parola era Soglia'));
       expect(FiloDelGiorno.richiamoDellaDomanda('E adesso?'),
           startsWith('Ieri Medora ti ha lasciato questa domanda.'));
     });
