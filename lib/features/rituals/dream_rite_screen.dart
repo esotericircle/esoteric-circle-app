@@ -383,7 +383,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                   ),
                 ),
                 // La costellazione del segno della Luna, coi fili di luce.
-                if (_fase != _Fase.nebbia) ..._costellazione(w, h),
+                // **LE STELLE SI DISEGNANO PIU' IN BASSO NELLA PILA, ordine
+                // CQ voce 6.05.** Vedi il blocco in fondo a questa Stack.
+
                 // La foschia cosmica dell'apertura, che si dirada.
                 if (_fase == _Fase.nebbia)
                   Positioned.fill(
@@ -427,6 +429,29 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                     ),
                   ),
                 ),
+                // **LE STELLE STANNO SOPRA IL TESTO NELLA PILA. Ordine CQ
+                // voce 6.05, 4 settembre 2026.**
+                //
+                // Il fondatore, per la seconda volta: *i punti delle stelle
+                // da cliccare sono sotto il testo e non si possono cliccare*.
+                //
+                // **Non sono riuscito a riprodurlo in prova, e lo dichiaro.**
+                // Montata la schermata a 390 per 844, le quattro stelle
+                // misurano 52 punti per lato, stanno fra 96 e 369, il blocco
+                // del testo comincia a 388, nessuna si sovrappone e il tocco
+                // fa salire il conto. **Diciannove punti di margine**, che
+                // sul suo telefono possono sparire per uno schermo diverso,
+                // per la parallasse del giroscopio, che in prova e' ferma, o
+                // per la scala del testo di sistema.
+                //
+                // Percio' la cura non insegue una causa che non ho misurato:
+                // **rende il tocco della stella prioritario per
+                // costruzione**. Nella pila chi viene dopo sta sopra, e le
+                // stelle adesso vengono dopo il blocco del testo. Se i due
+                // si sovrappongono, per qualunque ragione, vince la stella.
+                // Visivamente non cambia niente, perche' il testo vive
+                // sotto la fascia di cielo e le stelle dentro.
+                if (_fase != _Fase.nebbia) ..._costellazione(w, h),
               ],
             );
           },

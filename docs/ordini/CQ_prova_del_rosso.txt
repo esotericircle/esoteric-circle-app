@@ -358,3 +358,18 @@ ROSSA     conSuono smette di fermare il suono
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
 MISURA: posando una carta uscivano [carta, rivelazione] sullo stesso lettore
 nello stesso fotogramma. Adesso esce [carta] sola.
+
+LA PROVA DEL ROSSO DELLA STELLA TOCCABILE
+Ordine CQ voce 6.05, Regola A. Il secondo innesto conta doppio: allarga la
+fascia di cielo fino a far entrare il testo sulle stelle, e la guardia lo
+vede. Cioe' la guardia non e' cieca al caso che il fondatore descrive, anche
+se quel caso in prova non si presenta da solo.
+========================================================================
+ROSSA     le stelle tornano sotto il testo nella pila
+ROSSA     la fascia di cielo si allarga e il testo entra sulle stelle
+ROSSA     il tocco sulla stella non conta piu
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA, e il difetto NON si e' riprodotto: a 390 per 844 le quattro stelle
+misurano 52 punti per lato, stanno fra 96 e 369, il testo comincia a 388,
+zero sovrapposizioni, e il tocco porta il conto da 0 a 1.
