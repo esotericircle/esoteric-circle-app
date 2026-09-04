@@ -36,7 +36,33 @@ void main() {
     }
   }
 
+  /// **SU UNA MACCHINA DI BUILD LA DOMANDA NON HA SENSO.**
+  /// Ordine CQ, 4 settembre 2026.
+  ///
+  /// Questa guardia chiede "il tuo lavoro e' arrivato al remoto?". Su una
+  /// macchina di costruzione **il codice E' arrivato dal remoto**: e' cosi'
+  /// che la macchina lo ha avuto. La domanda e' gia' risposta di si' per
+  /// costruzione, e la sua risposta li' dipende da come quella macchina fa il
+  /// checkout: Codemagic e le altre clonano spesso in testa staccata o senza
+  /// ramo di monitoraggio, e in quel caso la guardia **fallisce la consegna
+  /// per un fatto che non esiste**.
+  ///
+  /// **Non e' un'esenzione comoda**: sulla macchina di chi sviluppa la guardia
+  /// resta intera, ed e' li' che il lavoro puo' davvero restare non spinto. Le
+  /// due variabili sono quelle che Codemagic e GitHub Actions dichiarano da
+  /// se', e non se le inventa questo file.
+  bool suUnaMacchinaDiBuild() =>
+      Platform.environment.containsKey('CM_BUILD_ID') ||
+      Platform.environment['CI'] == 'true' ||
+      Platform.environment.containsKey('GITHUB_ACTIONS');
+
   test('il ramo locale non ha commit che il remoto non conosce', () {
+    if (suUnaMacchinaDiBuild()) {
+      // ignore: avoid_print
+      print('NIENTE LAVORO NON SPINTO: macchina di build, il codice e '
+          'arrivato dal remoto e la domanda e gia risposta');
+      return;
+    }
     final ramo = git(['rev-parse', '--abbrev-ref', 'HEAD']);
     if (ramo == null || ramo == 'HEAD') {
       // Testa staccata o niente git: la domanda non ha risposta qui, e
@@ -64,6 +90,11 @@ void main() {
   });
 
   test('l\'albero di lavoro non tiene lavoro che nessun commit contiene', () {
+    // **E NEMMENO QUESTA, per la stessa ragione**: su una macchina di
+    // build l'albero e' un checkout appena fatto, e cio' che vi compare
+    // sporco lo ha scritto la build stessa, non una persona che ha
+    // dimenticato di committare.
+    if (suUnaMacchinaDiBuild()) return;
     if (git(['rev-parse', '--is-inside-work-tree']) == null) return;
     final sporco = git(['status', '--porcelain']);
     if (sporco == null || sporco.isEmpty) return;

@@ -1,6 +1,6 @@
 # Il contrasto del Rito dell'Alba, misurato
 
-<!-- TESTI_MISURATI: 21 -->
+<!-- TESTI_MISURATI: 22 -->
 <!-- SOTTO_LA_SOGLIA: 0 -->
 <!-- Generato da test/l_alba_si_legge_test.dart. Non si scrive a mano: si rigenera. -->
 
@@ -27,9 +27,10 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | La Luna è in Cancro: la Luna è ... | a rito compiuto | senza chiave | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | Oggi la tua energia ha una form... | a rito compiuto | senza chiave | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:208 | lettura | 18 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:248 | corpo o didascalia | 16 | 400 | #554627 | #D0D5CB | **6.10** | 4.5 | si' |
+| `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:248 | corpo o didascalia | 16 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |
 | `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:269 | corpo o didascalia | 16 | 400 | #2A2213 | #DEDFD3 | **11.67** | 4.5 | si' |
+| `alba_dove_va_la_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:283 | corpo o didascalia | 16 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | `alba_base_toggle` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:415 | corpo o didascalia | 16 | 400 | #084F3B | #F8F4E3 | **8.63** | 4.5 | si' |
 | `alba_base_etichetta_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:537 | corpo o didascalia | 16 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
 | `alba_base_valore_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:552 | corpo o didascalia | 16 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
