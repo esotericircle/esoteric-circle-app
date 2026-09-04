@@ -280,15 +280,33 @@ class ConCuore extends StatelessWidget {
         Positioned(
           top: 0,
           right: 0,
+          // **E ALLA STESSA QUOTA DEL CUORE DELLA BARRA. Ordine CQ voce
+          // 6.07, 4 settembre 2026.**
+          //
+          // Parole del fondatore: *i cuoricini sono tornati a destra ma non
+          // sono centrati verticalmente*. **L'angolo era giusto, la quota
+          // no**: qui il cuore stava a `top: 0` piu' un'aria, mentre nella
+          // barra sta al centro dei suoi cinquantasei punti, col centro a
+          // ventotto esatti, misurato. Due cuori della stessa app a due
+          // altezze diverse a seconda che la schermata abbia una barra o no.
+          //
+          // Adesso questo vive dentro una fascia alta come la barra, e
+          // centrato dentro: **la quota e' la stessa numero per numero**, e
+          // lo resta il giorno che la barra cambia altezza, perche' e' la
+          // stessa costante a dirla.
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: SpacingTokens.sm, right: SpacingTokens.sm),
-              child: ValueListenableBuilder<bool>(
-                valueListenable: arte?.reclamato ?? _mai,
-                builder: (context, reclamato, _) => reclamato
-                    ? const SizedBox.shrink()
-                    : CuorePreferita(id: id),
+              padding: const EdgeInsets.only(right: SpacingTokens.sm),
+              child: SizedBox(
+                height: kToolbarHeight,
+                child: Center(
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: arte?.reclamato ?? _mai,
+                    builder: (context, reclamato, _) => reclamato
+                        ? const SizedBox.shrink()
+                        : CuorePreferita(id: id),
+                  ),
+                ),
               ),
             ),
           ),
