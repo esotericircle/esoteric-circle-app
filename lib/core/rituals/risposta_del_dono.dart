@@ -88,29 +88,44 @@ class RispostaDelDono {
   /// oggi la cosa di cui il Maestro si occupa. Nessuno comincia con una
   /// domanda e nessuno rimanda a cio' che viene dopo: **un titolo che rimanda
   /// non è una risposta, è un sommario.**
+  /// **IL TITOLO E' LA RISPOSTA, non l'annuncio della risposta.**
+  /// Ordine CQ voce 6.25, 4 settembre 2026.
+  ///
+  /// **La forma di prima, e perche' non teneva.** I nove titoli avevano tutti
+  /// il cielo come soggetto e la parola del giorno in coda, dopo una
+  /// subordinata: *Oggi il buio e la luce stanno in una proporzione sola, che
+  /// dice custodire.* Settantaquattro caratteri per arrivare all'unica cosa
+  /// che serve, e chi legge in fretta si perdeva proprio quella.
+  ///
+  /// **La forma di adesso.** Il soggetto e' chi legge, e la parola sale in
+  /// testa. Il fatto del cielo non sparisce: scende nella risposta, che e' il
+  /// suo posto, e la fonte scende ancora piu' giu' dietro la porta.
+  ///
+  /// **Restano nove e non uno**: il titolo cambia col Maestro del giorno e
+  /// col dato che il rito nomina, perche' tre Maestri che dicono la stessa
+  /// frase non sono tre Maestri.
   static const Map<(Maestro, DatoDelCielo), String> _titoli = {
     // --- MEDORA, il tempo e la direzione ---
     (Maestro.medora, DatoDelCielo.oraDellAlba):
-        'Il tuo tempo di oggi è già cominciato e chiede {parola}.',
+        'Oggi il tuo tempo chiede {parola}.',
     (Maestro.medora, DatoDelCielo.segnoLunare):
-        'Oggi la Luna ti indica una direzione che si chiama {parola}.',
+        'Oggi la tua direzione si chiama {parola}.',
     (Maestro.medora, DatoDelCielo.faseLunare):
-        'Oggi il giorno è a un punto preciso del suo giro e vuole {parola}.',
+        'Oggi il tuo giorno vuole {parola}.',
     // --- AURA, il corpo e l'energia ---
     (Maestro.aura, DatoDelCielo.oraDellAlba):
-        'Oggi il tuo corpo ha già la luce che gli serve e chiede {parola}.',
+        'Oggi il tuo corpo chiede {parola}.',
     (Maestro.aura, DatoDelCielo.segnoLunare):
         'Oggi la tua energia ha un colore solo: {parola}.',
     (Maestro.aura, DatoDelCielo.faseLunare):
-        'Oggi il respiro è la cosa più corta da cambiare e porta {parola}.',
+        'Oggi il tuo respiro porta {parola}.',
     // --- CALIGO, il simbolo ---
     (Maestro.caligo, DatoDelCielo.oraDellAlba):
-        'Oggi la luce è tornata a un\'ora precisa e il segno è {parola}.',
+        'Oggi il tuo segno è {parola}.',
     (Maestro.caligo, DatoDelCielo.segnoLunare):
-        'Oggi la Luna porta un segno che ti riguarda: {parola}.',
+        'Oggi la Luna ti chiede {parola}.',
     (Maestro.caligo, DatoDelCielo.faseLunare):
-        'Oggi il buio e la luce stanno in una proporzione sola, che dice '
-            '{parola}.',
+        'Oggi tieni insieme luce e ombra, e si dice {parola}.',
   };
 
   /// LE NOVE RISPOSTE, col fatto vero dentro.

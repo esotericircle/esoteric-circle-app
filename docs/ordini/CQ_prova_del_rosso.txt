@@ -427,3 +427,19 @@ MISURA: la bolla portava 1499 caratteri tutti a vista su tre rune, adesso
 E la guardia dell'uniformita' non pretende piu' un ruolo per nome: raccoglie
 i ruoli trovati e ne vuole UNO. La prima stesura chiedeva lettura ed e'
 caduta quando la prosa e' salita alla misura ampia, pur essendo uniforme.
+
+LA PROVA DEL ROSSO DEL MOOD DEL CERCHIO
+Ordine CQ voci 6.23, 6.24 e 6.25, Regola A. Al primo giro DUE innesti su
+quattro sono restati verdi, e la ragione vale piu' dei due rossi: la guardia
+componeva i titoli passando per quattro date, sperando che producessero i tre
+dati del cielo. Ne producevano DUE, e un terzo del corpus non veniva mai
+guardato. Adesso gira tutte e nove le combinazioni di Maestro e dato.
+========================================================================
+ROSSA     un titolo torna a descrivere il cielo, lungo
+ROSSA     un titolo promette un esito
+ROSSA     la prosa torna a diciotto punti
+ROSSA     una schermata si apre una porta propria
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
+MISURA: i nove titoli passano da 62 caratteri di media a 39, e il piu' lungo
+da 74 a 53. La prosa di tutta l'app vale venti punti, con una misura sola.
