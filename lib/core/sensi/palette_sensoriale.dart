@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../settings/settings_controller.dart';
 import 'catalogo_suoni.dart';
 import 'motore_audio.dart';
-import 'voce_del_responso.dart';
 import '../maestro/maestro.dart';
 import 'regia_della_musica.dart';
 
@@ -178,12 +177,25 @@ class PaletteSensoriale {
     // stesso.
     await vibra(context, SchemaAptico.rivelazione);
     if (!context.mounted || !parla) return;
-    // **NON SI ASPETTA IL SUONO, e non e' una scorciatoia.** Il responso e'
-    // gia' a schermo: chi legge non deve attendere che il lettore audio
-    // risponda, e in una prova senza il plugin quell'attesa non finisce mai.
-    // Misurato: la guardia di questa voce restava appesa oltre i dieci
-    // minuti finche' questa riga aspettava il motore.
-    unawaited(_motore.tono(VoceDelResponso.byteDi(maestro), inCiclo: false));
+    // **QUI NON SUONA PIU' NIENTE, E LA RIGA RESTA A DIRLO. Ordine CQ
+    // voci 6.02 e 6.06, 4 settembre 2026.**
+    //
+    // Qui partiva un tono SINTETIZZATO dal telefono, novecento millesimi
+    // di fondamentale e quinta, uno per Maestro: 528 hertz per Medora, 432
+    // per Aura, 324 per Caligo. Lo chiedeva l'ordine BX voce 05, che voleva
+    // un effetto su ogni responso.
+    //
+    // **Il fondatore lo ha sentito come un fischio.** Parole sue del 4
+    // settembre: nel rito dell'Alba *un fischio che sembra un tono del
+    // telefono dopo che sollevo il sole*, e nell'Oroscopo *i suoni che io
+    // non ti ho inviato*. Erano lo stesso suono, e la mappa lo dice: fra
+    // gli otto responsi ci sono `alba` e `oroscopo`.
+    //
+    // **Non si sostituisce con un altro file di mia iniziativa.** Il
+    // fondatore ha chiesto di togliere cio' che non ha mandato, non di
+    // scegliere io un rimpiazzo: il giorno che manda i tre suoni veri,
+    // questa riga torna con i loro nomi. **La vibrazione resta**, ed e'
+    // qui sopra: chi tiene il telefono muto riceve comunque il responso.
   }
 
   /// La spia della voce del responso, sorella di [spia]: dice CHI ha

@@ -303,3 +303,15 @@ ROSSA     il ripiego FERMATI QUI sparisce
 ROSSA     il controllo della porta della Demo sparisce
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DEI SUONI SINTETIZZATI
+Ordine CQ voci 6.02 e 6.06, Regola A. Ogni innesto porta la SUA verifica: la
+prima stesura cercava la presenza di un pezzo anche per l'innesto che quel
+pezzo lo toglie, e si e' fermata lasciando il sorgente rotto, con la mappa
+degli otto responsi svuotata a sei. Adesso il ripristino sta in un finally.
+========================================================================
+ROSSA     il generatore torna nella voce del responso
+ROSSA     la mappa degli otto responsi si svuota
+ROSSA     un sorgente qualunque torna a generare un tono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3

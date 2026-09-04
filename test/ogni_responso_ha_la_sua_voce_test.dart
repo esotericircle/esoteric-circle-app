@@ -324,11 +324,17 @@ void main() {
           reason: 'due Maestri parlano con la stessa nota');
       // E la voce dura meno di un secondo, come ogni suono del Cerchio.
       expect(VoceDelResponso.durata.inMilliseconds, lessThan(1000));
-      // I byte esistono davvero: un WAV con la sua intestazione.
-      final byte = VoceDelResponso.byteDi(Maestro.medora);
-      expect(byte.length, greaterThan(1000));
-      expect(String.fromCharCodes(byte.sublist(0, 4)), 'RIFF',
-          reason: 'la voce non e\' un WAV: il motore non la sapra\' suonare');
+      // **I BYTE NON SI CHIEDONO PIU', E LA RIGA RESTA A DIRLO. Ordine CQ
+      // voci 6.02 e 6.06, 4 settembre 2026.**
+      //
+      // Qui si pretendeva che `byteDi` producesse un WAV vero, ed era una
+      // pretesa giusta finche' quel tono usciva dall'altoparlante. Il
+      // fondatore lo ha sentito come un fischio nell'Alba e come un suono
+      // che non aveva scelto nell'Oroscopo, e il generatore e' stato tolto.
+      //
+      // **Le tre note restano un dato e restano sorvegliate qui sopra**: se
+      // un giorno arrivano i tre suoni veri, si sa su che nota erano
+      // pensate. Cio' che non si pretende piu' e' che qualcuno le suoni.
     });
   });
 }

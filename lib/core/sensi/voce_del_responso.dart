@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import '../maestro/maestro.dart';
-import '../../features/maestri/aura/meditation/tone_generator.dart';
 
 /// LA VOCE DEL RESPONSO, una per Maestro. Ordine BX voce 05.
 ///
@@ -53,19 +50,21 @@ class VoceDelResponso {
   /// l'orecchio riconosce come quiete.
   static double quintaDi(Maestro maestro) => fondamentaleDi(maestro) * 1.5;
 
-  static const ToneGenerator _generatore = ToneGenerator();
-
-  /// I byte WAV della voce di quel Maestro, pronti per il motore audio.
-  ///
-  /// **L'ampiezza e' bassa di proposito**: un responso e' una frase detta a
-  /// voce bassa, non un annuncio. Il generatore mette gia' la dissolvenza ai
-  /// due capi, quindi non ci sono clic all'attacco.
-  static Uint8List byteDi(Maestro maestro) => _generatore.wav(
-        leftHz: fondamentaleDi(maestro),
-        rightHz: quintaDi(maestro),
-        duration: durata,
-        amplitude: 0.22,
-      );
+  // **QUI C'ERA IL GENERATORE, ED E' STATO TOLTO. Ordine CQ voci 6.02 e
+  // 6.06, 4 settembre 2026.**
+  //
+  // `byteDi` produceva i byte WAV di un tono sintetizzato, e quel tono e'
+  // il fischio che il fondatore ha sentito nell'Alba e nell'Oroscopo. Non
+  // era un file: **per questo nessuna delle quattro pretese della guardia
+  // dei suoni lo ha mai visto**. Quella guardia misura che il tema spenga
+  // il ritorno di sistema, che ogni InkWell porti il suo interruttore, che
+  // nessuna schermata chiami la piattaforma, e che i file del catalogo
+  // esistano. Un tono generato non e' nessuna delle quattro cose, e
+  // passava in mezzo.
+  //
+  // **Le frequenze restano qui sotto**, e non e' un residuo: se un giorno
+  // i tre suoni veri arrivano, dicono su che nota erano pensate le tre
+  // voci. Il tono non si genera piu', il dato di com'era resta.
 
   /// A quale Maestro appartiene ognuno degli otto responsi dell'app.
   ///
