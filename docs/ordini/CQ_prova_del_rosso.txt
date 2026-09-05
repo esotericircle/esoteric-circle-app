@@ -600,3 +600,49 @@ proporzione, e' una decisione sul Soffio che spetta al fondatore.
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3, piu' due misure che hanno
 detto di no a una cura sbagliata
+
+LA PROVA DEL ROSSO DELLA TABELLA DEL CONTRASTO DELL ALBA
+Ordine CQ voce 6.30, 5 settembre 2026. Regola A e Regola C.
+========================================================================
+IL FATTO. Su Codemagic, dove la build iOS gira su macOS, lo sbarramento e'
+caduto su una prova sola: la tabella del contrasto dell'Alba. Il messaggio
+diceva per intero questo: *questi fondi resi sono piu' scuri della superficie
+chiara dichiarata, quindi gli inchiostri calcolati su di lei sono ottimisti:
+#989282*. Un colore, e nient'altro.
+
+**CON QUEL COLORE IN MANO NON SI CURA NIENTE.** Non si sa quale testo ci sta
+sopra, in quale momento, a quale riga: e' un difetto senza padre, e la Regola C
+dice che un difetto senza padre torna.
+
+LA CAUSA, TROVATA FACENDO PARLARE LA GUARDIA. Il giudizio separava i testi del
+regime chiaro da quelli del cielo con un filtro sulla LUMINANZA: se il fondo
+contrasta col bianco piu' di quattro, sta sul buio e non lo guardo. Su Windows
+i tre fondi piu' scuri sono #02090B, #0A0F17 e #031714, tutti notturni pieni,
+tutti scartati dal filtro. Su macOS un campione cade su un pixel di cielo IN
+TRANSIZIONE, #989282, che contrasta col bianco 2,7: il filtro non lo scarta, e
+confrontato con l'avorio della carta risulta piu' scuro.
+
+**LA STESSA GUARDIA DICEVA DUE COSE DIVERSE SU DUE MACCHINE**, ed e' il peggio
+che una guardia possa fare.
+
+LA CURA. Si separa per APPARTENENZA e non per luminanza: la superficie chiara
+riguarda la carta del Dono e nient'altro, e un testo appartiene a quel regime
+se vive in ritual_gift_card.dart, non se il suo fondo somiglia a un certo
+grigio. L'appartenenza si legge dal posto, che la prova gia' scrive in tabella.
+
+E OGNI FONDO PORTA ADESSO IL NOME DI CHI CI STA SOPRA, piu' i tre piu' scuri
+stampati SEMPRE, anche a prova verde: senza quei numeri la differenza fra due
+macchine non si vede affatto.
+
+IL ROSSO.
+ROSSA     la superficie chiara dichiarata piu' chiara del vero
+          innesto: superficieChiara da 0xFFB7B8AD a 0xFFF6F4EE, verificato
+                   col grep alla riga 47 prima di leggere l'esito
+          attesa: nessun fondo della carta e' piu' scuro della superficie
+          caduta, e ADESSO COI PADRI:
+            #DCDED2 sotto `alba_titolo_risposta`, ritual_gift_card.dart:158
+            #DCDED2 sotto `alba_orientamento`, ritual_gift_card.dart:209
+            #DCDED2 sotto `alba_etichetta_parola`, ritual_gift_card.dart:249
+          ripristino verificato sul byte: 11106, e il grep ritrova 0xFFB7B8AD
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1

@@ -273,7 +273,7 @@ void main() {
 
     final righe = <String>[];
     final sotto = <String>[];
-    final fondiVisti = <Color>[];
+    final fondiVisti = <({Color colore, String chi, String dove})>[];
     var censite = 0;
 
     /// **SI MISURA A OGNI MOMENTO DEL RITO, non a uno solo.**
@@ -375,7 +375,18 @@ void main() {
                 // le lettere sono sottili e il riempimento e' la maggioranza.
                 tuttoIlRiquadro: testo.style?.color == null,
                 inchiostro: stile.color);
-            fondiVisti.add(fondo);
+            // **IL FONDO SI PORTA DIETRO CHI CI STA SOPRA. Ordine CQ voce
+            // 6.30, 5 settembre 2026.**
+            //
+            // Questa guardia e\' caduta su Codemagic, dove la build iOS gira
+            // su macOS, dicendo soltanto: *questi fondi resi sono piu\' scuri
+            // della superficie chiara dichiarata: #989282*. Un colore e
+            // nient\'altro. **Con quel colore in mano non si cura niente**: non
+            // si sa quale testo ci sta sopra, in quale momento, a quale riga.
+            //
+            // E\' la Regola C applicata a una guardia invece che a un rapporto:
+            // **ogni difetto ha un padre**, e un difetto senza padre torna.
+            fondiVisti.add((colore: fondo, chi: voce.$2, dove: voce.$3));
             final inchiostro = Color.alphaBlend(stile.color!, fondo);
             final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
             final soglia = RegimeChiaro.sogliaPer(
@@ -490,15 +501,48 @@ void main() {
     // gli accenti. Se un fondo campionato risultasse piu' scuro, la
     // dichiarazione mentirebbe e i colori calcolati su di lei sarebbero
     // ottimisti: e' esattamente il difetto che la voce 12 chiude.
+    // Quanto e' scuro un fondo: piu' contrasta col bianco, piu' e' scuro.
+    double quantoEScuro(Color c) =>
+        AccentoDelMaestro.contrastoFra(c, Colors.white);
+    final sogliaDelChiaro = quantoEScuro(RegimeChiaro.superficieChiara);
+
+    // **I TRE PIU\' SCURI SI STAMPANO SEMPRE**, anche a prova verde: su
+    // Windows questa e\' verde e su macOS e\' rossa, e senza questi numeri
+    // la differenza fra due macchine non si vede affatto.
+    final ordinati = [...fondiVisti]
+      ..sort((a, b) => quantoEScuro(b.colore).compareTo(quantoEScuro(a.colore)));
+    final iPiuScuri = ordinati
+        .take(3)
+        .map((f) => '${esa(f.colore)} sotto ${f.chi}')
+        .join('; ');
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.30: superficie chiara dichiarata '
+        '${esa(RegimeChiaro.superficieChiara)}, i tre fondi resi piu '
+        'scuri: $iPiuScuri');
+
     final piuScuri = <String>[];
-    for (final fondo in fondiVisti) {
-      // Il titolo del rito sta sul cielo notturno, cioe' nel regime SCURO: non
-      // ha niente a che vedere con la superficie chiara.
-      if (AccentoDelMaestro.contrastoFra(fondo, Colors.white) > 4) continue;
-      if (AccentoDelMaestro.contrastoFra(fondo, Colors.white) >
-          AccentoDelMaestro.contrastoFra(
-              RegimeChiaro.superficieChiara, Colors.white)) {
-        piuScuri.add(esa(fondo));
+    for (final f in fondiVisti) {
+      // **SI SEPARA PER APPARTENENZA, NON PER LUMINANZA. Ordine CQ voce
+      // 6.30, 5 settembre 2026.**
+      //
+      // Qui c\'era un filtro sulla luminanza: *se il fondo contrasta col
+      // bianco piu\' di quattro sta sul buio, e non lo guardo*. Era un modo
+      // grossolano di dire una cosa vera, e su una macchina diversa si e\'
+      // rotto: su macOS un campione e\' caduto su un pixel di cielo IN
+      // TRANSIZIONE, #989282, che contrasta col bianco 2,7 e quindi il
+      // filtro non lo scartava; confrontato con l\'avorio della carta
+      // risultava piu\' scuro, e la guardia gridava a un difetto che non
+      // c\'era. Su Windows lo stesso campione cade sul notturno pieno e la
+      // prova passa: **la stessa guardia diceva due cose diverse su due
+      // macchine**, ed e\' il peggio che possa fare.
+      //
+      // La superficie chiara riguarda **la carta del Dono e nient\'altro**.
+      // Un testo appartiene al regime chiaro se vive li\', non se il suo fondo
+      // somiglia a un certo grigio. L\'appartenenza si legge dal posto, che
+      // questa stessa prova gia\' scrive in tabella.
+      if (!f.dove.contains('ritual_gift_card.dart')) continue;
+      if (quantoEScuro(f.colore) > sogliaDelChiaro) {
+        piuScuri.add('${esa(f.colore)} sotto ${f.chi}, ${f.dove}');
       }
     }
     expect(piuScuri, isEmpty,
