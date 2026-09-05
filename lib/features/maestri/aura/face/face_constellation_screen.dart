@@ -13,6 +13,7 @@ import '../../../../core/archetypes/archetype_sky.dart';
 import '../../../../core/archetypes/archetype_transits.dart' show Pianeta;
 import '../../../../core/entitlement/entitlement_service.dart';
 import '../../../../core/entitlement/tier.dart';
+import '../../../../core/face/cancello_della_scansione.dart';
 import '../../../../core/face/face_classifier.dart';
 import '../../../../core/face/face_corpus.dart';
 import '../../../../core/face/face_history.dart';
@@ -556,6 +557,10 @@ class _CatturaState extends State<_Cattura>
   CameraController? _camera;
   FaceDetector? _detector;
   FaceContours? _contorniVivi;
+
+  /// Cosa dire quando la scansione non trova nessun volto. Nullo vuol
+  /// dire che non c'e' niente da dire, non che va tutto bene.
+  String? _rifiuto;
   bool _occupato = false;
 
   @override
@@ -599,7 +604,13 @@ class _CatturaState extends State<_Cattura>
         final volti = await _detector!.processImage(input);
         if (volti.isNotEmpty) {
           final c = _contorniDaVolto(volti.first);
-          if (c != null && mounted) setState(() => _contorniVivi = c);
+          if (c != null && mounted) {
+            // Trovato un volto: il rifiuto di prima non vale piu'.
+            setState(() {
+              _contorniVivi = c;
+              _rifiuto = null;
+            });
+          }
         }
       }
     } catch (_) {
@@ -610,7 +621,24 @@ class _CatturaState extends State<_Cattura>
   }
 
   Future<void> _scatta() async {
-    final contorni = _contorniVivi ?? FaceSilhouette.contorni();
+    // **IL CANCELLO. Ordine CR voce 01, 6 settembre 2026.**
+    //
+    // Qui c'era `_contorniVivi ?? FaceSilhouette.contorni()`, e quel `??`
+    // e' tutto il difetto: davanti a un muro il rilevatore non trova mai
+    // un volto, `_contorniVivi` resta nullo, e al suo posto entrava **la
+    // sagoma disegnata a mano** nata per il ripiego tattile. Da li' la
+    // lettura proseguiva identica a quella di un volto vero.
+    //
+    // Parole del fondatore: *ho provato a fare una foto a un muro e cmq
+    // la funzionalita' mi ha dato un responso come se avessi fotografato
+    // un viso*.
+    final esito =
+        CancelloDellaScansione.giudica(contorniVivi: _contorniVivi);
+    if (esito is NessunVolto) {
+      if (mounted) setState(() => _rifiuto = esito.perche);
+      return;
+    }
+    final contorni = (esito as VoltoTrovato).contorni;
     final reading = FaceClassifier.leggi(contorni);
     final cost = FaceConstellation.da(contorni);
     String? foto;
@@ -637,14 +665,32 @@ class _CatturaState extends State<_Cattura>
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
-    final contorni = _contorniVivi ?? FaceSilhouette.contorni();
-    final cost = FaceConstellation.da(contorni);
+    // **LA SAGOMA E' UNA GUIDA, NON UN RILEVAMENTO.** Ordine CR voce 01.
+    //
+    // Anche qui c'era lo stesso `??`, e faceva una cosa diversa ma della
+    // stessa famiglia: disegnava la costellazione **sopra il muro**, coi
+    // punti della sagoma inventata, e chi guardava vedeva la macchina
+    // che sembrava misurare qualcosa.
+    //
+    // Adesso i due casi si vedono e non si somigliano: col volto
+    // rilevato la costellazione e' viva e piena; senza, resta una guida
+    // tenue che dice dove mettersi, e il comando dello scatto e' spento.
+    final volto = _contorniVivi;
+    final cost = FaceConstellation.da(volto ?? FaceSilhouette.contorni());
     return Padding(
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Column(
         children: [
           const SizedBox(height: SpacingTokens.sm),
-          Text('Centra il viso nel cerchio, sguardo dritto.',
+          // **LA RIGA DICE LA VERITA' DEL MOMENTO**: se un volto c'e' lo
+          // dice, e se non c'e' dice quello e perche'. Prima diceva sempre
+          // la stessa cosa, e sopra un muro sembrava che andasse tutto
+          // bene.
+          Text(
+              _rifiuto ??
+                  (volto == null
+                      ? 'Centra il viso nel cerchio, sguardo dritto.'
+                      : 'Volto trovato. Quando sei pronto, cattura.'),
               key: const Key('face_guide'),
               textAlign: TextAlign.center,
               style: TypographyTokens.didascalia()
@@ -693,7 +739,10 @@ class _CatturaState extends State<_Cattura>
             style: FilledButton.styleFrom(
                 backgroundColor: palette.primary,
                 foregroundColor: palette.onPrimary),
-            onPressed: _scatta,
+            // **SPENTO FINCHE' UN VOLTO NON C'E'.** Il comando resta in
+            // campo, spento: sparire sarebbe un vicolo cieco, e chi
+            // guarda deve vedere cosa potra' fare appena si inquadra.
+            onPressed: volto == null ? null : _scatta,
             icon: const Icon(Icons.auto_awesome),
             label: const Text('Cattura la costellazione'),
           ),
