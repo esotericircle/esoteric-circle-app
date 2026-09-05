@@ -26,6 +26,16 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>La fotocamera serve se scegli di mettere il tuo volto nella card della Sinastria o di leggere i tuoi tratti nella Costellazione del Viso. Tutto resta sul dispositivo: nessuna immagine viene caricata, nessuna foto viene salvata oltre l'uso del momento.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>La galleria serve solo se scegli una tua foto per la card della Sinastria. La foto resta sul dispositivo, entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>I sensori di movimento fanno respirare il cielo quando inclini il telefono, e riconoscono lo scuotimento con cui si gettano le rune. Puoi fare tutto anche col dito: il movimento e' un di piu', mai l'unica via.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -66,5 +76,28 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- LO SCHEMA DI RITORNO DELL'ACCESSO GOOGLE. Ordine S voce 14, causa 2.
+	     Senza CFBundleURLTypes il giro di accesso apre Safari e non rientra mai
+	     nell'app: la persona si autentica e resta fuori. Il valore e' il
+	     REVERSED_CLIENT_ID del GoogleService-Info.plist, che sta sul disco di
+	     Mauro ed e' escluso dal repository: una prova confronta i due e cade se
+	     divergono, perche' sono due porte sullo stesso dato. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.425821975933-vq6jtskejop8aibnlrqjs7v15ud66849</string>
+			</array>
+		</dict>
+	</array>
+	<!-- NIENTE CRITTOGRAFIA PROPRIA, dichiarato una volta per tutte: l'app usa
+	     solo l'HTTPS di sistema, che e' esente. Senza questa chiave, App Store
+	     Connect fa la domanda sulla crittografia A OGNI caricamento su
+	     TestFlight, a mano. Dal 7 agosto 2026. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

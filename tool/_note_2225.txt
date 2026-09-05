@@ -1,0 +1,80 @@
+Build 2225. Tutto quello che hai segnalato col collaudo delle 11:29 e con gli
+screenshot della gettata a tre rune.
+
+LE RUNE, quello che hai visto negli screenshot.
+
+"e la ultimo quarto" non c'e' piu'. Esisteva gia' nel codice una funzione che
+sa dire "all'ultimo quarto", e la voce della runa non la chiamava: prendeva il
+nome grezzo della fase e ci attaccava "e la". Adesso passa da li', e le otto
+fasi della Luna sono state provate tutte, non solo quella di oggi.
+
+La tua domanda adesso si legge. Prima c'era scritto "Dentro la tua domanda, e'
+qui che guarda", identica su tutte e tre le rune, e non diceva mai quale fosse
+la domanda. Adesso la prima runa riporta la tua domanda come l'hai scritta, e
+le altre due tacciono: una formula ripetuta tre volte non e' una risposta.
+
+Il Sigillo del Giorno risponde. Diceva soltanto cosa il segno E', con due
+errori che si leggevano, "e cio" senza verbo e senza accento. Adesso, quando
+hai fatto una domanda, dice cosa le tre rune intrecciate portano insieme.
+
+I caratteri della scheda della runa. Dentro lo stesso riquadro c'erano quattro
+misure diverse: il nome, le frasi, il significato con la strofa, l'etichetta.
+Adesso tutta la prosa ha una misura sola, e la strofa non si fa piu' leggere
+piu' piccola delle altre righe.
+
+I TESTI DEI DONI, e ti devo un numero scomodo.
+
+Nella scheda della runa il significato e la strofa salgono da sedici a
+diciotto punti: due punti veri, e la scheda smette di avere quattro misure
+diverse dentro lo stesso riquadro.
+
+Ti devo pero' un numero scomodo. Ho provato ad alzare TUTTA la scala dell'app,
+come chiedi da tre volte, e le prove hanno risposto con piu' di quaranta
+cadute: chat illeggibili, pulsanti che coprivano le carte, il Santuario che
+sforava, ventiquattro catture rotte. Ho provato allora ad alzare la sola prosa
+dei responsi, da diciotto a venti: cadevano lo stesso cinque schermate, i tre
+sentieri, il Passaporto, il responso dei tarocchi, l'Oroscopo e i pulsanti
+della condivisione. Riportata a diciotto, tornano verdi.
+
+I caratteri sono condivisi da tutta l'app, e gonfiarli rompe schermate che coi
+Doni non c'entrano. La strada che regge e' quella usata sulle rune: portare
+ogni blocco di prosa al ruolo piu' grande che gia' esiste, invece di gonfiare
+la scala. Se dopo questa build i testi ti sembrano ancora piccoli, dimmi in
+quale schermata e porto quella al ruolo pieno come ho fatto con le rune.
+
+LE ALTRE REGRESSIONI DEL COLLAUDO DELLE 11:29.
+
+I TAROCCHI. La tua domanda entra nel responso: prima, su una domanda di cinque
+parole, nel testo ne arrivavano zero. Adesso la domanda apre il consiglio e
+sceglie la lente fra le sedici, quindi le tre carte vengono lette col taglio
+della tua domanda. E alla terza carta la pagina non si svuota piu': le carte
+scelte restano, col pulsante sotto, che adesso dice "Leggi le Carte".
+
+IL SUONO DELLA CARTA. Non si era mai sentito da quando esiste: il suono della
+rivelazione partiva nello stesso fotogramma e lo fermava, perche' il lettore
+degli effetti e' uno solo. Adesso la carta che si posa fa un suono, ed e' la
+carta.
+
+IL FISCHIO DELL'ALBA E I SUONI DELL'OROSCOPO erano la stessa cosa: un tono che
+il telefono sintetizzava a ogni responso, e non era un file che mi avessi
+mandato. Spento. La vibrazione resta.
+
+LA RIGA BLU DELL'ARCANO. Il contrasto si calcolava contro un fondo quasi nero
+che quella schermata non dipinge: sul fondo vero la riga misurava 3,15 contro
+una soglia di 4,5. Adesso 4,83.
+
+IL CUORE. Quello nella barra era gia' centrato; storto era l'altro, quello
+delle schermate senza barra. Adesso stanno alla stessa altezza esatta.
+
+IL SIGILLO DEL SOGNO. Le stelle adesso stanno sopra il testo nella pila, quindi
+il tocco della stella vince su qualunque cosa. Ti dico onestamente che il
+difetto non sono riuscito a riprodurlo in prova.
+
+IL SOFFIO. Via la bolla "LA RISPOSTA" che annunciava il responso.
+
+DA FARE DAL TUO PC, e ti serve per la Demo: il PASSO 0 e il PASSO 7 in
+docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md. La funzione della Demo esiste dal
+commit 9d980de1: il tuo deploy non la trovava perche' la tua cartella era
+ferma sessantotto commit indietro, e il controllo del passo 0 ti diceva che
+andava bene perche' confrontava con uno sha che invecchia. Adesso chiede il
+conto a git e deve rispondere zero.

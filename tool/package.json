@@ -1,0 +1,9 @@
+{
+  "name": "esoteric-circle-strumenti",
+  "private": true,
+  "type": "module",
+  "description": "Strumenti da PC di sviluppo. NON entrano nell'app: Swiss Ephemeris e' AGPL e resta qui, nel repository entrano solo i numeri che produce.",
+  "dependencies": {
+    "swisseph-wasm": "^0.1.0"
+  }
+}

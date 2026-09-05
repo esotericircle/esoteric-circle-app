@@ -26,10 +26,13 @@ class SectionTitle extends StatelessWidget {
               color: palette.gold.withValues(alpha: 0.8),
             ),
             const SizedBox(width: SpacingTokens.xs),
-            Text(
-              title.toUpperCase(),
-              style: TypographyTokens.display(size: 15, weight: 600)
-                  .copyWith(letterSpacing: 2, color: palette.goldSoft),
+            // Flessibile: un titolo lungo va a capo invece di sforare la riga.
+            Flexible(
+              child: Text(
+                title.toUpperCase(),
+                style: TypographyTokens.titoloDiRiga(weight: 600)
+                    .copyWith(letterSpacing: 2, color: palette.goldSoft),
+              ),
             ),
           ],
         ),
@@ -37,7 +40,7 @@ class SectionTitle extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xxs),
           Text(
             subtitle!,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
         ],

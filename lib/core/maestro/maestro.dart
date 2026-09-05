@@ -13,51 +13,122 @@ enum Maestro {
   medora(
     id: 'medora',
     displayName: 'Medora',
-    domainTitle: 'Astrologia e Destino',
     tagline: 'Legge le stelle e le carte del tuo cammino',
+    domainInvite: 'Il cielo che ti disegna, le carte che ti rispondono',
+    domainArts: 'Astrologia, Cartomanzia, Destino',
     icon: Icons.auto_awesome_outlined,
-    avatarAsset: 'brand_assets/avatars/Medora-1.png',
+    avatarAsset: 'assets/avatars_webp/Medora-1.webp',
   ),
 
   /// Chakra, energia, benessere, psiche. Verde smeraldo con oro.
   aura(
     id: 'aura',
     displayName: 'Aura',
-    domainTitle: 'Energia e Benessere',
     tagline: 'Accompagna il respiro e l\'equilibrio interiore',
+    domainInvite: 'Il respiro, l\'energia, gli archetipi che ti abitano',
+    domainArts: 'Chakra, Energia, Archetipi',
     icon: Icons.spa_outlined,
-    avatarAsset: 'brand_assets/avatars/Aura-1.png',
+    avatarAsset: 'assets/avatars_webp/Aura-1.webp',
   ),
 
-  /// Rune, rituali, simbologia, magia, Cabala. Rosso con oro.
+  /// Rune, rituali, simbologia, magia, Numerologia. Rosso con oro.
+  ///
+  /// **LA MACRO CATEGORIA CABALA E' DIVENTATA NUMEROLOGIA.** Ordine CC voce
+  /// 01, decisione del fondatore del 29 agosto 2026, chiesta dai fondatori:
+  /// "la macro categoria di Caligo Cabala diventera' Numerologia e all'interno
+  /// ci sara' anche la Cabala". Il nome cambia qui e nel catalogo delle arti,
+  /// e da qui lo prendono tutti i punti a video, perche' il dominio nasce dal
+  /// Maestro e da nessun altro posto.
   caligo(
     id: 'caligo',
     displayName: 'Caligo',
-    domainTitle: 'Rune e Simboli',
     tagline: 'Custode delle rune e dei riti antichi',
+    domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
+    domainArts: 'Rune, Rituali, Numerologia',
     icon: Icons.local_fire_department_outlined,
-    avatarAsset: 'brand_assets/avatars/Caligo-1.png',
+    avatarAsset: 'assets/avatars_webp/Caligo-1.webp',
   );
 
   const Maestro({
     required this.id,
     required this.displayName,
-    required this.domainTitle,
     required this.tagline,
+    required this.domainInvite,
+    required this.domainArts,
     required this.icon,
     required this.avatarAsset,
   });
 
   final String id;
   final String displayName;
-  final String domainTitle;
   final String tagline;
+
+  /// Invito breve di due righe su cosa si trova nel dominio del Maestro,
+  /// mostrato nella bolla di ingresso della home.
+  final String domainInvite;
+
+  /// Le tre arti del Maestro, in riga sotto il pulsante di ingresso al dominio.
+  final String domainArts;
+
+  /// **LE ARTI IN DUE PAROLE, ordine BX voce 04.** Servono ai due Maestri di
+  /// lato nella home, dove lo spazio e' un terzo di riga: le tre arti per
+  /// esteso ci finirebbero troncate a meta' parola, che e' peggio di non
+  /// scriverle.
+  ///
+  /// **Le parole sono quelle del fondatore**, non una sintesi mia: i
+  /// fondatori hanno chiesto che dalla home risulti che l'app e' anzitutto
+  /// oroscopo, cartomanzia e rune, e queste sono le prime due arti di
+  /// ognuno con quei nomi.
+  /// **UNA PAROLA SOLA, e la ragione e' l'immagine.** La prima stesura ne
+  /// metteva due ("Oroscopo, Tarocchi"), e a schermo si leggevano
+  /// "Orosco..." e "Rune, R...": tre puntini al posto della meta' di ogni
+  /// parola sono peggio del silenzio. Le prove non lo hanno visto, perche'
+  /// nessuna prova guarda i puntini; l'ha visto l'anteprima.
+  String get domainArtiBrevi => switch (this) {
+        Maestro.medora => 'Astrologia',
+        Maestro.aura => 'Chakra',
+        Maestro.caligo => 'Rune',
+      };
+
+  /// Le tre arti come frase, con la "e" prima dell'ultima e senza virgola
+  /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino".
+  ///
+  /// **E' l'UNICO modo di dire il dominio di un Maestro.** Accanto viveva un
+  /// `domainTitle` che diceva la stessa cosa in forma corta, "Astrologia e
+  /// Destino": due campi che descrivono lo stesso oggetto divergono sempre, ed
+  /// e' gia' successo in questo progetto con `_curatedArts` accanto ad
+  /// `ArtCatalog`. Il corto e' sparito il 5 agosto 2026, non allineato:
+  /// allinearli avrebbe lasciato in piedi il modo di farli divergere di nuovo.
+  ///
+  /// **E non si accorcia per farlo stare.** Togliere la Cartomanzia da Medora
+  /// significa dichiarare che conta meno delle altre due, mentre e' una delle
+  /// tre arti che il Maestro dichiara. Dove non entra, si rimpicciolisce
+  /// oppure va a capo.
+  String get domainArtsPhrase {
+    final arti = domainArts
+        .split(',')
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty)
+        .toList();
+    if (arti.length <= 1) return arti.isEmpty ? '' : arti.first;
+    final tutte = arti.sublist(0, arti.length - 1).join(', ');
+    return '$tutte e ${arti.last}';
+  }
 
   /// Icona lineare del Maestro (placeholder in attesa del brand).
   final IconData icon;
 
   /// Avatar reale in brand_assets.
   final String avatarAsset;
+
+  /// Ordine fisso da sinistra a destra dove i tre Maestri stanno in fila:
+  /// Medora, Caligo, Aura. Vale per la bottom bar e per il selettore in Home.
+  /// Nel Santuario non si usa, perche' li' i busti ruotano col selezionato al
+  /// centro. Resta distinto dall'ordine di dichiarazione dell'enum, cosi' la
+  /// rotazione del Santuario e ogni altra logica possono contare su quello.
+  ///
+  /// Riferimento: Consolidamento decisioni sezione 9.
+  static const List<Maestro> fixedOrder = [medora, caligo, aura];
 
   static Maestro? fromId(String? id) {
     for (final m in Maestro.values) {

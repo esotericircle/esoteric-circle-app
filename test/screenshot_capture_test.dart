@@ -1,0 +1,7119 @@
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
+import 'package:esoteric_circle/core/ricordi/lettura_del_mese.dart';
+import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
+import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
+import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
+import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
+import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:math' show Random;
+import 'dart:ui' as ui;
+
+import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/angels/angel_catalog.dart';
+import 'package:esoteric_circle/core/assets/family_image.dart';
+import 'package:esoteric_circle/core/astro/moon_phase.dart';
+import 'package:esoteric_circle/core/astro/night_sky.dart';
+import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/immersive_intents.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_empty_state.dart';
+import 'package:esoteric_circle/core/voce/dettatura.dart';
+import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
+import 'package:esoteric_circle/core/astro/birth_details.dart';
+import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/identity_controller.dart';
+import 'package:esoteric_circle/core/astro/natal_chart.dart';
+import 'package:esoteric_circle/design_system/components/natal_wheel.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
+import 'package:esoteric_circle/features/account/profile_screen.dart';
+import 'package:esoteric_circle/core/archetypes/archetype.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
+import 'package:esoteric_circle/core/face/face_classifier.dart';
+import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.dart';
+import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/rituals/rune_presage.dart';
+import 'package:esoteric_circle/core/rituals/runes.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_share_card.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/rune_share_card.dart';
+import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
+import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
+import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/features/maestri/widgets/maestro_bust.dart';
+import 'package:esoteric_circle/features/santuario/widgets/maestro_bust.dart'
+    as santuario;
+import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/consult_depth.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
+import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
+import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
+import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_card.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/app_theme.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
+import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart';
+import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
+import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
+import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
+import 'package:esoteric_circle/core/cammino/ritrovamento.dart';
+import 'package:esoteric_circle/features/onboarding/scena_del_ritrovamento.dart';
+import 'package:esoteric_circle/features/onboarding/custodia_del_cielo_step.dart';
+import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
+import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
+import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
+import 'package:esoteric_circle/core/rituals/avvisi_del_rito.dart';
+import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
+import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
+import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
+import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
+import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
+import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/core/tarot/tarot_card.dart';
+import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
+import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
+import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
+import 'package:esoteric_circle/features/tarot/stesa_reveal.dart';
+import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
+import 'package:esoteric_circle/features/maestri/widgets/busto_del_maestro.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
+import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
+import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_gallery_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
+import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
+import 'package:esoteric_circle/services/app_services.dart';
+import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
+import 'package:esoteric_circle/core/rituals/daily_elements.dart';
+import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
+import 'package:esoteric_circle/features/santuario/daily_strip.dart';
+import 'package:esoteric_circle/core/rituals/tempi_del_respiro.dart';
+import 'package:esoteric_circle/design_system/components/guida_del_respiro.dart';
+import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/entitlement/registro_degli_eos.dart';
+import 'package:esoteric_circle/design_system/components/volo_degli_eos.dart';
+import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
+import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
+import 'package:esoteric_circle/core/arts/arti_preferite.dart';
+import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
+import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
+import 'package:esoteric_circle/features/sigilli/spirale_di_stelle.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'istante_dichiarato.dart';
+import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/bosco_del_cerchio.dart';
+import 'package:esoteric_circle/features/onboarding/domanda_dell_invito.dart';
+import 'package:esoteric_circle/features/settings/consenso_alla_misura.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
+import 'package:esoteric_circle/features/onboarding/mappa_della_nazione.dart';
+import 'package:esoteric_circle/features/onboarding/planisfero.dart';
+import 'package:esoteric_circle/core/astro/city_catalog.dart';
+import 'package:esoteric_circle/features/synastry/mappa_della_distanza.dart';
+import 'package:esoteric_circle/features/synastry/ritratto_ingrandito.dart';
+import 'package:esoteric_circle/core/synastry/possibilita_di_incontro.dart';
+import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
+import 'package:esoteric_circle/core/synastry/synastry_report.dart';
+import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
+import 'package:esoteric_circle/features/settings/privacy_e_permessi_screen.dart';
+import 'package:esoteric_circle/core/arts/art_catalog.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_catalog.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
+import 'package:esoteric_circle/features/maestri/art_intro_screen.dart';
+import 'package:esoteric_circle/design_system/components/feature_sheet.dart';
+import 'package:esoteric_circle/core/primo_uso/suggerimenti_di_zona.dart';
+import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/features/synastry/schermata_del_gemello.dart';
+import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
+
+/// Cattura headless delle schermate, con font reali (corpo e icone), provider
+/// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
+///
+/// Dove finiscono i PNG. Di default in `build/preview/`, cartella ignorata dal
+/// versionamento: cosi' `flutter test` verifica che ogni schermata renda ancora
+/// senza mai sporcare l'albero di lavoro. Le anteprime committate in
+/// `docs/preview/` si aggiornano solo su richiesta esplicita, valorizzando
+/// AGGIORNA_ANTEPRIME=1, cosa che fanno gli script in `tool/`.
+/// IL RAPPORTO DI PIXEL DEL CORREDO, dichiarato: TRE.
+///
+/// **Non e' un dettaglio di resa, e' la fedelta' dell'anteprima.** A rapporti
+/// diversi cambiano la rasterizzazione dei glifi, i tratti sottili e la
+/// diffusione delle ombre: **un'anteprima a rapporto piu' basso puo' nascondere
+/// esattamente i difetti che il corredo esiste per prendere.** E se 360 punti
+/// logici sono la prima misura, quella su cui si giudica, giudicarla a un
+/// rapporto che il telefono non ha svuota la regola.
+///
+/// **Prima era UNO**, e l'immagine veniva poi ingrandita tre volte in scrittura:
+/// il file usciva della misura giusta, ma dipinto come su un telefono che non
+/// esiste. Ingrandire dopo non restituisce cio' che il rapporto decide durante.
+const double rapportoDelCorredo = 3.0;
+
+/// Imposta lo schermo da una misura LOGICA, col rapporto dichiarato.
+///
+/// **Una sola porta.** I tre punti che impostavano lo schermo scrivevano
+/// ciascuno il proprio `devicePixelRatio`, e per tre volte era uno: bastava
+/// dimenticarne uno per avere due anteprime rese in due modi diversi senza che
+/// nessuno lo sapesse. Qui la misura si dichiara logica, e il rapporto lo mette
+/// il corredo.
+/// **LA SCALA DEL TESTO DEL CORREDO. Ordine CL voce 07.**
+///
+/// Di partenza e' uno, cioe' com'e' sempre stato. Valorizzando
+/// `SCALA_DEL_TESTO` l'intero corredo si monta a quella scala: serve a girare
+/// tutte le schermate assemblate al tetto che l'app si e' data, che e' 1,3,
+/// ed e' li' che l'impaginazione si rompe.
+///
+/// **QUI C'ERA UNA FRASE FALSA, corretta il 1 settembre 2026, ordine CM
+/// voce 08.** Diceva "al massimo consentito dal sistema, che e' 1,3".
+/// **1,3 non e' il massimo di nessun sistema**: e' il tetto scritto in
+/// `lib/app.dart`, cioe' una scelta di questa app. Android arriva molto
+/// piu' in alto, e iOS con le misure di accessibilita' arriva a circa il
+/// triplo. Chiamare "massimo del sistema" il proprio tetto e' il modo in
+/// cui una scelta si traveste da vincolo, e smette di essere discussa.
+///
+/// **Perche' il corredo e non l'intera suite.** Raddoppiare ogni prova
+/// porterebbe il cancello da venticinque minuti a cinquanta, per far girare
+/// due volte anche le prove che di impaginazione non sono. Il corredo delle
+/// catture E' l'insieme delle schermate assemblate: e' esattamente dove il
+/// difetto puo' nascere, e nient'altro.
+double get scalaDelTesto =>
+    double.tryParse(Platform.environment['SCALA_DEL_TESTO'] ?? '') ?? 1.0;
+
+Future<void> montaLoSchermo(WidgetTester tester, Size logico,
+    {double rapporto = rapportoDelCorredo}) async {
+  if (scalaDelTesto != 1.0) {
+    tester.platformDispatcher.textScaleFactorTestValue = scalaDelTesto;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+  }
+  tester.view.devicePixelRatio = rapporto;
+  tester.view.physicalSize = logico * rapporto;
+  addTearDown(tester.view.resetPhysicalSize);
+  addTearDown(tester.view.resetDevicePixelRatio);
+  // **TRE FRAMI DOPO IL CAMBIO DI MISURA, e non uno.** Ordine S, punto 6 della
+  // decisione D5.
+  //
+  // Cambiare la misura dello schermo allarga la finestra di scorrimento, e cio'
+  // che prima stava sotto la piega adesso ci sta dentro: ma i figli nuovi di una
+  // lista pigra non nascono nel frame in cui la finestra cresce, e nel frame
+  // dopo devono ancora essere dipinti. **Nella schermata dei Piani si vedevano
+  // due livelli su quattro:** l'Iniziato e l'Adepto, cioe' i piani che si pagano,
+  // non c'erano. Misurato coll'inchiostro dell'immagine, cioe' quanti pixel
+  // chiari porta: 8.266 con un frame, 27.027 con tre, che e' esattamente il
+  // valore dello scatto lento.
+  //
+  // Sta QUI e non nei cinquanta punti che cambiano misura, perche' altrimenti il
+  // difetto rientra dal primo che se ne dimentica.
+  for (var i = 0; i < 3; i++) {
+    await tester.pump(const Duration(milliseconds: 400));
+  }
+}
+
+void main() {
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Un solo comando rigenera le anteprime: tool/aggiorna_anteprime.ps1 su
+  // Windows, tool/aggiorna_anteprime.sh altrove.
+  final aggiornaAnteprime = Platform.environment['AGGIORNA_ANTEPRIME'] == '1';
+  // **LO SCATTO LENTO, e serve a scoprire le anteprime che dipingono a meta'.**
+  // Ordine S, punto 6 della decisione D5 di Mauro del 13 agosto 2026.
+  //
+  // Il difetto trovato sulle rune: `ScrollReveal` ha UNA sola occasione per far
+  // partire la comparsa, il postFrame di `didChangeDependencies`, e se in quel
+  // frame la scatola non ha ancora geometria l'occasione si perde. Su un telefono
+  // la recupera il primo scorrimento; in una cattura non arriva nessuno
+  // scorrimento, e l'anteprima esce col contenuto dipinto a opacita' ZERO. Le
+  // prove non se ne accorgono: il widget e' nell'albero e lo trovano.
+  //
+  // **Come si trovano le altre.** Con questo interruttore ogni scatto riceve
+  // molto piu' tempo e finisce in una cartella a parte: le immagini che CAMBIANO
+  // fra i due giri sono quelle che dipendevano dal tempo, cioe' quelle che
+  // qualcuno potrebbe aver giudicato mentre erano incomplete. Non e' una prova
+  // che passa o cade, e' uno strumento di misura, e resta qui perche' questa
+  // famiglia di difetti tornera'.
+  const bool anteprimeLente = bool.fromEnvironment('ANTEPRIME_LENTE');
+  final previewDir = anteprimeLente
+      ? 'build/preview_lento'
+      : (aggiornaAnteprime ? 'docs/preview' : 'build/preview');
+
+  // Ogni cattura parte da uno store locale noto e ripulito, quello di chi torna:
+  // risveglio gia' fatto, cosi' si apre il Santuario e non l'onboarding, e saluto
+  // della prima volta gia' visto, cosi' non compare a coprire la scena. Nessuna
+  // continuita' di rito e' seminata se non dove serve. Senza questo ripristino
+  // prima di ogni test, il mock di SharedPreferences di una cattura si
+  // trascinerebbe nelle successive e ne cambierebbe il rendering.
+  // **LA GENERAZIONE E' GIA' QUELLA, ordine AR voce 06.** Senza questa riga
+  // ogni cattura parte da un telefono alla sua PRIMA apertura dopo la
+  // riprogettazione del Cammino, e il Santuario apre il foglio della rinascita
+  // sopra la scena: nelle anteprime comparirebbe un foglio che non si stava
+  // fotografando, e nella cattura dell'Oroscopo il tocco su "Profonda" cadeva
+  // sul foglio invece che sul menu. Le anteprime mostrano l'app di chi la usa,
+  // non il suo primo minuto.
+  setUp(() => SharedPreferences.setMockInitialValues(
+        const {
+          'onboarding.done': true,
+          'santuario.greeted': true,
+          'cammino.generazione': 2,
+          // **IL PERMESSO DEGLI AVVISI RISULTA GIA' CHIESTO, ordine BZ voce
+          // 04.** Dalla voce BZ.04 l'app, al primo avvio di chi e' gia' nel
+          // Cerchio, mostra il foglio delle cinque chiamate: senza questa
+          // riga potrebbe comparire sopra la scena fotografata, e
+          // l'anteprima mostrerebbe un foglio invece della schermata. Le
+          // anteprime mostrano l'app di chi la usa, non il suo primo minuto:
+          // il foglio ha la sua prova a parte.
+          'avvisi.primoGiorno.chiesto': true,
+          // **LE ANTEPRIME NON SUONANO, ordine BX voce 05.** La voce del
+          // responso costruisce un lettore audio, e col plugin finto quel
+          // lettore lascia un temporizzatore acceso: la cattura
+          // dell'Oroscopo cadeva su "A Timer is still pending". Un'anteprima
+          // misura la grafica, non il suono, ed e' la stessa ragione per cui
+          // qui i canali audio sono gia' muti.
+          'settings.effettiSonori': false,
+        },
+      ));
+
+  // E la voce del responso non costruisce nessun lettore: la preferenza di
+  // sopra arriva dal disco un attimo dopo l'avvio, e un responso che parte
+  // prima lascerebbe il temporizzatore acceso lo stesso.
+  setUp(() => PaletteSensoriale.voceSpentaPerLeProve = true);
+  tearDown(() => PaletteSensoriale.voceSpentaPerLeProve = false);
+
+  Future<void> loadFont(String family, String path) async {
+    final loader = FontLoader(family);
+    final bytes = File(path).readAsBytesSync();
+    loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+    await loader.load();
+  }
+
+  Future<void> loadFonts() async {
+    await loadFont('Cinzel', 'assets/fonts/Cinzel-variable.ttf');
+    await loadFont('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf');
+    // **ANCHE IL CARATTERE DEI SIMBOLI, ordine BX.** Senza, ogni glifo dello
+    // zodiaco esce come un rettangolo vuoto e l'anteprima racconta un difetto
+    // che sul telefono non c'e': il font e' dichiarato nel pubspec e sul
+    // dispositivo si disegna. Trovato guardando il bosco del Cerchio.
+    await loadFont(
+        'NotoSansSymbols', 'assets/fonts/NotoSansSymbols-subset.ttf');
+    // Le icone Material NON si caricano piu' qui. Stavano dentro questa
+    // funzione, cioe' dentro il corredo soltanto: ogni altro file di cattura
+    // disegnava quadrati vuoti al posto delle icone senza che nessuno lo
+    // dicesse. Adesso stanno in `test/flutter_test_config.dart`, che vale per
+    // tutta la suite, e li' un percorso mancante spezza invece di ripiegare.
+  }
+
+  // Silenzia i sensori: in headless non esistono, e senza questo la parallasse
+  // solleva una MissingPluginException asincrona che sporca il test.
+  void silenceSensors() {
+    final messenger = binding.defaultBinaryMessenger;
+    // IL CANALE AUDIO, muto nelle anteprime.
+    //
+    // Da quando il lettore reale e' il default, aprire la Meditazione dalla
+    // rotta vera tenta di riprodurre, e in prova il plugin non esiste: la
+    // cattura cadeva e due anteprime smettevano di rigenerarsi senza che
+    // nessuno se ne accorgesse. L'anteprima misura la grafica, non il suono,
+    // quindi il canale si spegne qui invece di far cadere la cattura.
+    for (final canale in const [
+      'xyz.luan/audioplayers',
+      'xyz.luan/audioplayers.global',
+      'xyz.luan/audioplayers/events',
+      'xyz.luan/audioplayers.global/events',
+    ]) {
+      messenger.setMockMethodCallHandler(
+          MethodChannel(canale), (call) async => null);
+      messenger.setMockStreamHandler(
+          EventChannel(canale), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
+    messenger.setMockMethodCallHandler(
+      const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+      (call) async => null,
+    );
+    for (final name in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      messenger.setMockStreamHandler(
+        EventChannel(name),
+        MockStreamHandler.inline(onListen: (args, events) {}),
+      );
+    }
+  }
+
+  Future<void> step(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+  }
+
+  /// PORTA A SCHERMO UNA VOCE DELL'ELENCO DELL'ACCOUNT, poi si tocca.
+  ///
+  /// L'elenco e' pigro: cio' che sta sotto la piega non esiste ancora come
+  /// widget, e un `tap` su un dito che non c'e' non fallisce con calma, fa
+  /// cadere la cattura. Se la voce e' gia' visibile non si scorre di un punto.
+  Future<void> scorriFinoAllaVoce(WidgetTester tester, String chiave) async {
+    final voce = find.byKey(Key(chiave));
+    if (voce.evaluate().isNotEmpty) return;
+    final lista = find.byType(Scrollable);
+    if (lista.evaluate().isEmpty) return;
+    try {
+      await tester.scrollUntilVisible(voce, 200, scrollable: lista.last);
+    } catch (_) {
+      // Nessuna lista da scorrere: si prosegue e sara' il tocco a dire come
+      // e' andata.
+    }
+    await step(tester);
+  }
+
+  List<(ChatRole, String)> seedFor(Maestro maestro) {
+    switch (maestro) {
+      case Maestro.medora:
+        return const [
+          (ChatRole.user, 'Parlami del mio segno'),
+          (
+            ChatRole.maestro,
+            'Il tuo segno racconta una tensione fra il cuore e la volontà. '
+                'Oggi le stelle ti invitano a scegliere con calma, senza '
+                'fretta. Vuoi che guardi un ambito, l\'amore o il lavoro?'
+          ),
+          (ChatRole.user, 'L\'amore, ti ascolto'),
+          (
+            ChatRole.maestro,
+            'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
+                'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi '
+                'osserva come cambia la luce fra voi.'
+          ),
+        ];
+      case Maestro.aura:
+        return const [
+          (ChatRole.user, 'Aiutami a rilassarmi'),
+          (
+            ChatRole.maestro,
+            'Chiudi gli occhi un istante. Porta il respiro nel ventre, lento e '
+                'profondo. Lascia scendere le spalle. Senti già un piccolo '
+                'spazio in più?'
+          ),
+          (ChatRole.user, 'Sì, un poco'),
+          (
+            ChatRole.maestro,
+            'Bene. Resta lì tre respiri. Il chakra del cuore si apre quando '
+                'smetti di spingere. Vuoi una frequenza dolce per stasera?'
+          ),
+        ];
+      case Maestro.caligo:
+        return const [
+          (ChatRole.user, 'Estrai una runa per me'),
+          (
+            ChatRole.maestro,
+            'Esce Uruz, la forza del toro selvatico. Parla di energia grezza '
+                'che chiede una direzione. Dove, in questi giorni, senti una '
+                'potenza che non hai ancora incanalato?'
+          ),
+          (ChatRole.user, 'Nel lavoro'),
+          (
+            ChatRole.maestro,
+            'Allora incanala. Un gesto solo, deciso, prima di sera. La forza '
+                'onora chi la usa, non chi la trattiene.'
+          ),
+        ];
+    }
+  }
+
+  Future<AppServices> buildServices(Maestro maestro,
+      {required bool seeded}) async {
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory.saveProfile(
+      UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)),
+    );
+    if (seeded) {
+      for (final (role, text) in seedFor(maestro)) {
+        await memory.appendMessage(
+            maestro, ChatMessage(role: role, text: text));
+      }
+    }
+    return AppServices(
+      ai: _ScriptedMaestro(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+  }
+
+  /// Le due altezze su cui si guarda ogni schermata che puo' stringersi.
+  ///
+  /// LE TRE MISURE DEL CORREDO, e la prima e' quella su cui si giudica.
+  ///
+  /// [schermoReale] e' il telefono di Mauro: 1080 per 2392 pixel fisici, che con
+  /// un rapporto di pixel di 3 fanno **360 per 797 punti logici**. E' la misura
+  /// su cui l'app viene guardata davvero, quindi viene prima.
+  ///
+  /// **Qui c'era il difetto che ha prodotto nove segnalazioni.** La costante che
+  /// diceva di essere "quella di Mauro" valeva `Size(390, 797)`: l'altezza era
+  /// giusta e la LARGHEZZA no, trenta punti logici in piu', novanta pixel
+  /// fisici. Il commento dichiarava la cosa giusta mentre il codice ne faceva
+  /// un'altra. Su trenta punti in meno il testo va a capo prima, i titoli si
+  /// spezzano, le etichette si troncano e le bolle crescono in altezza perche'
+  /// occupano due righe invece di una: e' l'elenco esatto dei difetti che nelle
+  /// anteprime non si vedevano.
+  const schermoReale = Size(360, 797);
+  const schermoAlto = Size(390, 844);
+  const schermoBasso = Size(360, 797);
+
+  Future<GlobalKey> mount(WidgetTester tester, AppServices services,
+      {DateTime Function()? clock, Size? schermo}) async {
+    await montaLoSchermo(tester, schermo ?? schermoReale);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: EsotericCircleApp(
+            conIntro: false, services: services, clock: clock),
+      ),
+    );
+    await step(tester);
+    tester
+        .element(find.byType(MaterialApp))
+        .read<QualityTierController>()
+        .setTier(QualityTier.medium);
+    await step(tester);
+    return rootKey;
+  }
+
+  // La fascia oraria in cui il Maestro dato e' quello attivo della striscia,
+  // cosi' striscia ed eroe della home derivano dallo stesso istante e mostrano
+  // un momento coerente: Soffio per Aura, Oracolo per Medora, Runa per Caligo.
+  DateTime Function() clockFor(Maestro maestro) {
+    switch (maestro) {
+      case Maestro.aura:
+        return () => DateTime(2026, 7, 14, 11, 0);
+      case Maestro.medora:
+        return () => DateTime(2026, 7, 14, 13, 0);
+      case Maestro.caligo:
+        return () => DateTime(2026, 7, 14, 19, 0);
+    }
+  }
+
+  void selectCentral(WidgetTester tester, Maestro maestro) {
+    tester
+        .element(find.byType(MaterialApp))
+        .read<MaestroController>()
+        .selectMaestro(maestro);
+  }
+
+  // Precarica i volti dei tre Maestri, cosi' busti e avatar sono decodificati
+  // alla cattura, senza cerchi vuoti.
+  Future<void> precacheFaces(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), element);
+      }
+      // Anche il fondale del tempio, cosi' e' decodificato alla cattura.
+      await precacheImage(
+        const AssetImage('brand_assets/santuario/tempio.png'),
+        element,
+      );
+    });
+    await step(tester);
+  }
+
+  // Dal Santuario: mette il Maestro al centro, entra nel dominio toccando il
+  // busto, poi apre la chat.
+  Future<void> openChat(WidgetTester tester, Maestro maestro) async {
+    selectCentral(tester, maestro);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.text('Consulta ${maestro.displayName}'));
+    await step(tester);
+    await step(tester);
+  }
+
+  /// PRECARICA DA SOLO OGNI IMMAGINE CHE LA SCENA MONTA.
+  ///
+  /// **La porta che si riapriva.** In cattura headless nessuno decodifica gli
+  /// asset: chi non li precarica ottiene un'anteprima coi buchi. La regola
+  /// c'era, ma andava ricordata a mano in ogni cattura, e una regola che si
+  /// ricorda a mano cade sempre. Era gia' successo col glifo del segno, con
+  /// tanto di commento che spiegava il difetto, e nonostante quel commento e'
+  /// successo di nuovo il 6 agosto 2026 nella cattura della chat di Aura.
+  ///
+  /// **Adesso non si ricorda: si fa.** Prima di ogni scatto si percorre
+  /// l'albero, si raccolgono le immagini che ci sono davvero, e si precaricano
+  /// tutte. Nessuna cattura nuova puo' nascere senza, perche' non c'e' niente
+  /// da scrivere: sta dentro `capture`.
+  ///
+  /// Enumerare invece di elencare a mano e' la stessa scelta fatta ovunque in
+  /// questo progetto: l'elenco scritto invecchia, l'albero no.
+  Future<void> precaricaCioCheLaScenaMonta(WidgetTester tester) async {
+    final immagini = tester
+        .widgetList<Image>(find.byType(Image, skipOffstage: false))
+        .map((i) => i.image)
+        .toList(growable: false);
+    if (immagini.isEmpty) return;
+    final element = tester.element(find.byType(MaterialApp).first);
+    await tester.runAsync(() async {
+      for (final provider in immagini) {
+        // **L'ERRORE SI PASSA A `onError`, non si prova a prenderlo.**
+        // `precacheImage` NON lancia: riporta il guasto a `FlutterError.onError`,
+        // e in una prova quello fa cadere il test. Un `try` attorno non serve a
+        // niente, e infatti al primo giro cinquantotto catture sono cadute con
+        // "image failed to precache".
+        //
+        // Un asset che manca non deve fermare la cattura: si lascia proseguire
+        // e sara' l'anteprima a mostrare cosa non c'e', che e' esattamente cio'
+        // che il corredo serve a guardare.
+        await precacheImage(provider, element, onError: (errore, _) {
+          debugPrint('precache non riuscito per $provider: $errore');
+        });
+      }
+    });
+    // **UN FOTOGRAMMA CHE NON MUOVE L'OROLOGIO.** Qui c'era `step`, che avanza
+    // di quattrocento millisecondi: bastava a far proseguire le animazioni
+    // delle catture che hanno tempi voluti, e la Runa del Tramonto usciva con
+    // la velatura a meta', cioe' con i margini di cielo semitrasparenti,
+    // alfa 194 invece di 255. A occhio l'immagine sembrava giusta; il
+    // guardiano delle anteprime l'ha presa perche' legge RGBA premoltiplicato,
+    // dove i salti del gradiente si schiacciano sotto la soglia.
+    //
+    // `pump()` senza durata ridisegna e basta: le immagini appena decodificate
+    // compaiono, e nessuna animazione avanza di un millisecondo.
+    await tester.pump();
+  }
+
+  Future<void> capture(WidgetTester tester, GlobalKey rootKey, String name,
+      {bool precarica = true}) async {
+    // COL GIRO LENTO si da' tempo a tutto cio' che compare in ritardo, e si
+    // guarda quali immagini cambiano: vedi la nota sull'interruttore.
+    if (anteprimeLente) {
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 400));
+      }
+    }
+    // PRIMA DI OGNI SCATTO, sempre, senza che nessuno se lo ricordi.
+    //
+    // **TRANNE DOVE UNA SCENA E' IN CORSA.** Ordine AV voce 01: il
+    // precaricamento gira dentro `runAsync`, cioe' fa scorrere il tempo VERO,
+    // e una scena animata avanza mentre lui lavora. La festa scattava a 900
+    // millesimi e usciva senza stelle, perche' nel frattempo la spirale era
+    // arrivata a fine corsa. Chi ha una scena in corsa precarica PRIMA di
+    // avanzare, e qui dichiara di averlo gia' fatto.
+    if (precarica) await precaricaCioCheLaScenaMonta(tester);
+    await tester.runAsync(() async {
+      final boundary =
+          rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      // LO STESSO rapporto con cui si e' impaginato, non un altro numero.
+      // Quando qui c'era 3 scritto a mano e lo schermo era montato a 1,
+      // l'immagine usciva della misura giusta ingrandendo un disegno fatto per
+      // un telefono piu' povero. Legandoli, non possono piu' divergere.
+      final image = await boundary.toImage(pixelRatio: rapportoDelCorredo);
+      final data = await image.toByteData(format: ui.ImageByteFormat.png);
+      final out = File('$previewDir/$name');
+      out.createSync(recursive: true);
+      out.writeAsBytesSync(data!.buffer.asUint8List());
+    });
+    expect(File('$previewDir/$name').existsSync(), isTrue);
+  }
+
+  // --- Il Santuario, con al centro ciascun Maestro (aura e cosmo virati) ---
+  for (final maestro in Maestro.fixedOrder) {
+    testWidgets('Cattura il Santuario, ${maestro.id}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      // Istante forzato nella fascia del Maestro: striscia ed eroe coerenti.
+      final rootKey = await mount(
+          tester, await buildServices(maestro, seeded: false),
+          clock: clockFor(maestro));
+      selectCentral(tester, maestro);
+      await step(tester);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, 'santuario-${maestro.id}.png');
+    });
+  }
+
+  // --- Il Sigillo dell'Intenzione, su due altezze ---
+  //
+  // Catturato A FINE TRACCIAMENTO: il cammino si disegna in 2,4 secondi e
+  // fotografarlo prima mostrerebbe un sigillo incompleto.
+  for (final basso in const [false, true]) {
+    testWidgets('Cattura il Sigillo${basso ? ", schermo basso" : ""}',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      await montaLoSchermo(tester, basso ? schermoBasso : schermoAlto);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (_) => MaestroController(
+                    initial: const ThemeKey.of(Maestro.caligo))),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: MaestroScope(child: SigilloIntenzioneScreen()),
+          ),
+        ),
+      ));
+      await tester.pump();
+      // **SU UNO SCHERMO BASSO IL PULSANTE NON E' NEMMENO COSTRUITO.**
+      // La soglia del Sigillo e' una `ListView`, che costruisce solo cio'
+      // che sta a vista: salita la prosa da diciotto a venti punti, il
+      // pulsante e' sceso sotto la piega e il `tap` non trovava zero
+      // widget per un difetto della schermata, ma perche' la lista non
+      // lo aveva ancora fatto nascere. Si scorre fino a lui, come fa una
+      // persona. Ordine CQ voce 6.23, 4 settembre 2026.
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('sigillo_inizia')), 200,
+          scrollable: find.descendant(
+              of: find.byKey(const Key('sigillo_soglia')),
+              matching: find.byType(Scrollable)));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('sigillo_inizia')));
+      await tester.pump();
+      await tester.enterText(find.byKey(const Key('sigillo_campo')),
+          'Chiedo chiarezza sulla mia strada');
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('sigillo_traccia')));
+      // Fine tracciamento: 3,2 secondi su 2,4 di animazione.
+      for (var i = 0; i < 16; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+      await capture(
+          tester, rootKey, 'sigillo-intenzione${basso ? "-2392" : ""}.png');
+    });
+  }
+
+  // --- La stessa home a 2392, l'altezza del telefono di Mauro ---
+  //
+  // La bolla di Medora era stata corretta, verificata verde sull'anteprima a
+  // 2532, e sul telefono a 2392 copriva ancora l'avatar. Una sola altezza non
+  // e' una verifica, e' una fotografia fortunata: da qui in avanti le
+  // schermate che possono stringersi si guardano su due.
+  testWidgets('Cattura il Santuario, Medora, schermo basso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora), schermo: schermoBasso);
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'santuario-medora-2392.png');
+  });
+
+  // --- Il Santuario con l'invito al cielo visibile (mano del tap) ---
+  testWidgets('Cattura il Santuario con l\'invito al cielo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Oltre i tre secondi di inattivita', senza toccare nulla, cosi' l'invito
+    // compare; poi qualche frame perche' la dissolvenza e l'animazione si
+    // assestino a meta' gesto.
+    await tester.pump(const Duration(milliseconds: 3200));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'santuario-invito.png');
+  });
+
+  // --- La cartolina condivisibile del cielo, costruita apposta ---
+  testWidgets('Cattura la cartolina del cielo, verticale e quadrata',
+      (tester) async {
+    await loadFonts();
+    await tester.runAsync(() async {
+      final now = DateTime(2026, 7, 13, 22);
+      final moon = MoonPhase.forDate(now);
+      final high = NightSky.constellationsHighTonight(now);
+      for (final (format, name) in const [
+        (PostcardFormat.story, 'cartolina-cielo.png'),
+        (PostcardFormat.feed, 'cartolina-cielo-quadrata.png'),
+      ]) {
+        final bytes = await SkyPostcard.render(
+          now: now,
+          moon: moon,
+          high: high,
+          palette: MaestroPalette.medora,
+          format: format,
+        );
+        final out = File('$previewDir/$name');
+        out.createSync(recursive: true);
+        out.writeAsBytesSync(bytes);
+      }
+    });
+    expect(File('$previewDir/cartolina-cielo.png').existsSync(), isTrue);
+    expect(
+        File('$previewDir/cartolina-cielo-quadrata.png').existsSync(), isTrue);
+  });
+
+  // --- La schermata "Il cielo sopra di te", aperta dal cielo del Santuario ---
+  testWidgets('Cattura Il cielo sopra di te', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_sky_tap')));
+    await step(tester);
+    await step(tester);
+    // All'ingresso compare il pre-avviso della posizione: prima lo catturo,
+    // poi lo declino per la veduta pulita del cielo.
+    if (find.byKey(const Key('sky_location_prompt')).evaluate().isNotEmpty) {
+      await capture(tester, rootKey, 'cielo-avvio-posizione.png');
+      await tester.tap(find.byKey(const Key('sky_location_decline')));
+      await step(tester);
+      await step(tester);
+    }
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'cielo-sopra-di-te.png');
+  });
+
+  // --- Chiedi ai Maestri: parte dal dominio, poi il confronto degli sguardi ---
+  testWidgets('Cattura Chiedi ai Maestri, vista comparativa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Tier a pagamento, cosi' il confronto e' disponibile per l'anteprima.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<EntitlementService>()
+        .setTier(Tier.tier1);
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    // Dal dominio si entra nella Consulta, poi dall'header della chat si apre
+    // il confronto a piu' voci.
+    await tester.ensureVisible(find.byKey(const Key('domain_consulta_card')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('domain_consulta_card')));
+    await step(tester);
+    await step(tester);
+    final accept = find.text('Ho capito, entriamo');
+    if (accept.evaluate().isNotEmpty) {
+      await tester.tap(accept);
+      await step(tester);
+    }
+    // LA STRADA NUOVA, dal 3 agosto 2026.
+    //
+    // Prima si toccava l'icona a bilancia nell'intestazione e si arrivava a
+    // una schermata dove la domanda andava RISCRITTA da capo. Adesso la
+    // domanda si fa una volta sola, nella chat, le altre voci arrivano li'
+    // dentro, e la sintesi si raggiunge soltanto quando ce ne sono almeno due.
+    // Questa cattura percorre esattamente cio' che percorre la persona.
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Devo cambiare lavoro?');
+    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    // La pausa del consulto dura almeno 1,8 secondi, piu' la dissolvenza.
+    for (var i = 0; i < 12; i++) {
+      await step(tester);
+    }
+    // UNA PORTA SOLA, dal 5 agosto 2026: "Chiedi anche agli altri" apre
+    // direttamente il Consiglio dei Maestri. Prima incollava le altre due voci
+    // dentro la chat di Medora e poi serviva un secondo tocco per aprire il
+    // confronto: due porte allo stesso posto.
+    await tester.tap(find.byKey(const Key('chat_altre_voci')));
+    for (var i = 0; i < 24; i++) {
+      await step(tester);
+    }
+    // Decodifica gli avatar, cosi' i mezzi busti delle lenti si vedono nel
+    // preview invece dell'icona di ripiego che sta dietro l'anello.
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chiedi-ai-maestri.png');
+
+    // E LA SINTESI, CHE ADESSO STA IN FONDO.
+    //
+    // Due immagini e non una, perche' la novita' e' proprio l'ordine: in cima
+    // le tre carte, e la sintesi dove un confronto si conclude. Prima stava
+    // sopra e da sola occupava tutto il primo schermo, quindi aprendo il
+    // Consiglio non si vedevano tre Maestri, si vedeva un muro di testo.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ask_synthesis')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await capture(tester, rootKey, 'consiglio-sintesi-in-fondo.png');
+  });
+
+  // --- Il Test Archetipo di Aura: il responso, visivo prima del testo ---
+  testWidgets('Cattura il Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    // Dal dominio di Aura si apre il Test Archetipo, che ora ha la sua
+    // esperienza vera e non piu' la soglia dell'arte.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await step(tester);
+    // Le dodici risposte: sempre la quarta, che porta al Realista.
+    for (var i = 0; i < 12; i++) {
+      await tester.tap(find.byKey(const Key('archetype_answer_3')));
+      await step(tester);
+    }
+    // Le catture locali non decodificano gli asset da sole: si precarica la
+    // statua del dominante e le dodici miniature della classifica, altrimenti
+    // nell'anteprima resta il ripiego.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(Archetype.realista.artePiena), element);
+      for (final a in Archetype.values) {
+        await precacheImage(AssetImage(a.arteThumb), element);
+      }
+    });
+    await step(tester);
+    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi,
+    // la classifica dei dodici e i due pulsanti in fondo.
+    // La misura resta LOGICA, e il rapporto lo mette il corredo: scrivere qui
+    // una misura fisica vorrebbe dire un rapporto implicito.
+    await montaLoSchermo(tester, const Size(360, 3600));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo.png');
+
+    // La statua nell'Ombra: al tocco sulla statua in cima si volta.
+    await tester.tap(find.byKey(const Key('archetype_statue_realista')).first);
+    await step(tester);
+  });
+
+  testWidgets('Cattura la card del Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(460, 1160));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
+    await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: const Color(0xFF03140F),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: ArchetypeShareCard(profilo: profilo),
+          ),
+        ),
+      ),
+    ));
+    // La statua del dominante e le miniature della classifica compatta.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(profilo.dominante.artePiena), element);
+      for (final a in profilo.graduatoria.take(3)) {
+        await precacheImage(AssetImage(a.arteThumb), element);
+      }
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo-card.png');
+  });
+
+  // La soglia del Test, col selettore dei transiti prima delle domande.
+  testWidgets('Cattura la soglia del Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    // La soglia mostra il selettore del cielo prima di cominciare.
+    expect(find.byKey(const Key('archetype_sky_setting')), findsOneWidget);
+    await montaLoSchermo(tester, const Size(360, 640));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo-soglia.png');
+  });
+
+  // Una domanda in corso, con l'avanzamento in chiaro.
+  testWidgets('Cattura una domanda del Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await step(tester);
+    // Qualche risposta, cosi' l'avanzamento non e' alla prima domanda.
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.byKey(const Key('archetype_answer_1')));
+      await step(tester);
+    }
+    expect(find.byKey(const Key('archetype_question')), findsOneWidget);
+    await montaLoSchermo(tester, const Size(360, 700));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo-domanda.png');
+  });
+
+  // --- La Costellazione del Viso di Aura: la fotocamera dal vivo non si cattura
+  // in headless, quindi si usa la sagoma neutra come stand-in deterministico. ---
+  Widget faceApp(Widget schermata) => MultiProvider(
+        providers: [
+          // LO SCAFFALE PERSONALE, ordine P voce 27: senza di lui il cuore
+          // delle arti preferite non si disegna, e l'anteprima mostrerebbe una
+          // barra che nell'app ha un elemento in piu'.
+          ChangeNotifierProvider(
+              create: (_) =>
+                  ArtiPreferiteController(maestroAssegnato: Maestro.aura)),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  MaestroController(initial: const ThemeKey.of(Maestro.aura))),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.dark(),
+            home: MaestroScope(child: schermata)),
+      );
+
+  /// LA CATTURA MONTA CIO' CHE L'APP MONTA, ordine P voce 27.
+  ///
+  /// **Il difetto: queste catture montavano la schermata NUDA.** L'app la monta
+  /// dentro `SogliaArte`, che porta `ArteCorrente` e `ConCuore`, cioe' il cuore
+  /// delle arti preferite nella barra, e fissa la palette sul proprietario
+  /// dell'arte invece di prenderla dal controller. Le sedici anteprime dei
+  /// quattro flussi provavano una scena che nell'app non esiste, e il cuore non
+  /// si vedeva in nessuna.
+  ///
+  /// La soglia non si ricostruisce qui: si chiede alla schermata, che la
+  /// dichiara una volta sola per se' e per la sua rotta.
+  Future<GlobalKey> mountFace(WidgetTester tester, Widget schermata,
+      {required Size size}) async {
+    await montaLoSchermo(tester, size);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: faceApp(FaceConstellationScreen.conLaSoglia(schermata))));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  testWidgets('Cattura la soglia della Costellazione del Viso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(360, 820));
+    expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-soglia.png');
+  });
+
+  testWidgets('Cattura la costellazione sulla sagoma', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(360, 1400));
+    // Si entra nella cattura: senza fotocamera resta la sagoma neutra con la
+    // costellazione sopra, che e' proprio lo stand-in deterministico.
+    await tester.tap(find.byKey(const Key('face_start')));
+    await step(tester);
+    await step(tester);
+    expect(find.byKey(const Key('face_constellation_live')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-sagoma.png');
+  });
+
+  testWidgets('Cattura il responso della Costellazione del Viso',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(360, 2200));
+    // Percorso deterministico: si entra nella cattura e si scatta sulla sagoma.
+    await tester.tap(find.byKey(const Key('face_start')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('face_shutter')));
+    await step(tester);
+    await step(tester);
+    expect(find.byKey(const Key('face_result')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso.png');
+  });
+
+  testWidgets('Cattura la card della Costellazione del Viso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(460, 1100));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final contorni = FaceSilhouette.contorni();
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: const Color(0xFF03140F),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: FaceShareCard(
+              reading: FaceClassifier.leggi(contorni),
+              costellazione: FaceConstellation.da(contorni),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'costellazione-viso-card.png');
+  });
+
+  testWidgets('Cattura il ripiego della Costellazione del Viso',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(
+        tester, const FaceConstellationScreen(partiDalRipiego: true),
+        size: const Size(360, 1080));
+    expect(find.byKey(const Key('face_fallback')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-ripiego.png');
+  });
+
+  // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---
+  testWidgets('Cattura la Meditazione di Aura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    // Nel dominio di Aura, la card della Meditazione nel riquadro Energia apre
+    // la schermata.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_meditation')),
+      220,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_meditation')));
+    await step(tester);
+    await step(tester);
+    // Avvio il suono e porto il respiro verso il pieno: il mandala si apre.
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 2600));
+    await capture(tester, rootKey, 'meditazione-aura.png');
+  });
+  testWidgets('Cattura il Rito dell\'Alba, velato e col dono', (tester) async {
+    silenceSensors();
+    // Semina la continuita' in locale cosi' la cattura del dono mostra il chip
+    // dei giorni consecutivi e se ne validano posizione e stile. Ieri l'ultimo
+    // rito, sei di fila: il gesto di oggi lo porta a sette, come sul device di
+    // chi torna ogni mattina. La logica dello streak non cambia, si prepara solo
+    // lo stato di partenza che sul device arriva dai giorni precedenti.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'ritual.dawn.lastDay': '2026-07-12',
+      'ritual.dawn.streak': 6,
+      // **IL CAMMINO E' GIA' PERCORSO, ordine AS voce 06.** Compiere il rito
+      // matura un traguardo, e la celebrazione si apre SOPRA il dono: la
+      // cattura usciva con la festa al posto della scheda, e chi la guardava
+      // credeva di vedere il dono. Con tutti i Sigilli gia' accesi non matura
+      // niente e sotto c'e' quello che si sta fotografando.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Il Rito dell'Alba compone tre livelli reali: si precaricano cosi' nella
+    // cattura headless sono gia' decodificati e la scena appare, senza restare
+    // in caricamento.
+    final element = tester.element(find.byType(MaterialApp));
+    await tester.runAsync(() async {
+      for (final a in const [
+        'assets/ritual_backgrounds/dawn_sky_night.png',
+        'assets/ritual_backgrounds/dawn_sky_day.png',
+        'assets/ritual_backgrounds/dawn_sun.png',
+      ]) {
+        await precacheImage(AssetImage(a), element);
+      }
+    });
+    await step(tester);
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // GLI AVVISI SPENTI, dall'ordine M: la rotta vera parla col servizio
+    // vero, che alla prima apertura porge la spiegazione del permesso. La
+    // cattura fotografa il RITO, non la richiesta: il servizio spento tiene
+    // la scena com'era, che e' quella approvata.
+    unawaited(nav.push(DawnRiteScreen.route(
+        now: DateTime(2026, 7, 13), avvisi: const AvvisiSpenti())));
+    await step(tester);
+    await step(tester);
+    // Lascia che lo screen risolva i tre livelli dalla cache immagini.
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+    });
+    await step(tester);
+    await step(tester);
+    // Stato velato: la notte con la luna e mezzo sole sull'orizzonte, l'invito.
+    await capture(tester, rootKey, 'rito-alba.png');
+
+    // Il gesto tattile solleva l'alba e porge il dono del giorno.
+    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'rito-alba-dono.png');
+
+    // **IL PONTE VERSO IL SOFFIO, ordine S voce 13.** La scheda del dono scorre:
+    // il respiro guidato che stava qui dentro e' uscito, e al suo posto c'e' una
+    // riga che porta nel Soffio del Destino. Si scorre la scheda fino in fondo,
+    // perche' e' li' che la riga vive.
+    // Di scorrimenti verticali ce n'e' piu' d'uno in scena: quello della scheda
+    // e' l'ULTIMO montato, cioe' il piu' interno.
+    final dentroLaScheda = tester
+        .state<ScrollableState>(find
+            .byWidgetPredicate(
+                (w) => w is Scrollable && w.axisDirection == AxisDirection.down)
+            .last)
+        .position;
+    dentroLaScheda.jumpTo(dentroLaScheda.maxScrollExtent);
+    await step(tester);
+    await capture(tester, rootKey, 'alba-ponte-al-soffio.png');
+
+    // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
+    // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
+    // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
+    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
+    await step(tester);
+    await montaLoSchermo(tester, const Size(360, 1150));
+    await step(tester);
+    await capture(tester, rootKey, 'rito-alba-base.png');
+  });
+
+  /// LA SCHEDA PIENA COL COLORE DEL MAESTRO DEL GIORNO, in due giorni diversi.
+  ///
+  /// Servono due catture e non una: il punto della voce e' che il colore
+  /// CAMBIA col Maestro, e una sola immagine non lo puo' mostrare. Le due date
+  /// non sono scelte a occhio, sono cercate finche' i due Maestri non risultano
+  /// diversi, cosi' la cattura non dipende da come ruota il calendario.
+  for (final quale in [0, 1]) {
+    testWidgets('Cattura il dono col colore del Maestro, giorno $quale',
+        (tester) async {
+      silenceSensors();
+      SharedPreferences.setMockInitialValues({
+        'onboarding.done': true,
+        'santuario.greeted': true,
+        'ritual.dawn.lastDay': '2026-07-12',
+        'ritual.dawn.streak': 6,
+      });
+
+      // Due giorni consecutivi con Maestri diversi, trovati e non supposti.
+      final partenza = DateTime(2026, 7, 13);
+      var secondo = partenza.add(const Duration(days: 1));
+      while (DailyRituals.dawnMaestro(secondo) ==
+          DailyRituals.dawnMaestro(partenza)) {
+        secondo = secondo.add(const Duration(days: 1));
+      }
+      final giorno = quale == 0 ? partenza : secondo;
+      final maestro = DailyRituals.dawnMaestro(giorno);
+      expect(DailyRituals.dawnMaestro(partenza),
+          isNot(DailyRituals.dawnMaestro(secondo)),
+          reason: 'le due anteprime mostrerebbero lo stesso Maestro, quindi '
+              'non direbbero che il colore cambia');
+
+      await loadFonts();
+      final rootKey = await mount(
+          tester, await buildServices(Maestro.medora, seeded: false));
+      final element = tester.element(find.byType(MaterialApp));
+      await tester.runAsync(() async {
+        for (final a in const [
+          'assets/ritual_backgrounds/dawn_sky_night.png',
+          'assets/ritual_backgrounds/dawn_sky_day.png',
+          'assets/ritual_backgrounds/dawn_sun.png',
+        ]) {
+          await precacheImage(AssetImage(a), element);
+        }
+      });
+      await step(tester);
+
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(DawnRiteScreen.route(now: giorno)));
+      await step(tester);
+      await step(tester);
+      await tester.runAsync(() async {
+        await Future<void>.delayed(const Duration(milliseconds: 60));
+      });
+      await step(tester);
+      await step(tester);
+
+      await tester.tap(find.byKey(const Key('ritual_gesture')));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await step(tester);
+      await capture(tester, rootKey, 'rito-alba-dono-${maestro.id}.png');
+    });
+  }
+
+  /// LA CHAT DI AURA COL LOTO E L'INVITO, dalla strada vera dell'app.
+  ///
+  /// **La prima stesura montava il widget in isolamento, ed era inutile.**
+  /// Usciva col nastro di debug in alto a destra e con un fondo verde pieno
+  /// invece del cosmo condiviso: due segni che quella non era la schermata, era
+  /// il componente. Non diceva niente su come il loto appare dentro la chat di
+  /// Aura, che era l'unica cosa da giudicare.
+  ///
+  /// Adesso si entra come entra un dito: Santuario, busto, Consulta Aura,
+  /// domanda. La voce non risponde mai, e la scena del consulto vive
+  /// esattamente li'.
+  testWidgets("Cattura la chat di Aura col loto e l'invito", (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final services = AppServices(
+      ai: _VoceCheFaAspettare(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    // I dati di nascita ci sono, l'ARCHETIPO NO: e' esattamente la persona che
+    // questa immagine deve mostrare, quella che non ha ancora fatto il Test.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+        );
+    await step(tester);
+    await openChat(tester, Maestro.aura);
+    await precacheFaces(tester);
+
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Da dove comincio, oggi?');
+    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    // Il tratto del simbolo scende in tre secondi: si aspetta che il fiore sia
+    // intero, altrimenti l'anteprima mostra un loto a meta' e sembra un
+    // ritaglio sbagliato invece di un'animazione colta a meta'.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    // LA VERIFICA PRIMA DELLA CATTURA. Se il loto o l'invito non ci fossero,
+    // l'anteprima uscirebbe senza e nessuno se ne accorgerebbe guardandola.
+    expect(find.byKey(const Key('consulto_del_cielo')), findsOneWidget,
+        reason: "la scena del consulto non e' comparsa: l'immagine "
+            "mostrerebbe la chat e basta");
+    expect(find.byType(LotoDorato), findsOneWidget,
+        reason: "il loto non e' nella scena");
+    expect(find.byKey(const Key('consulto_invito')), findsOneWidget,
+        reason: "l'invito non e' nella scena");
+    // E nessun emblema di archetipo: sarebbe la bugia che la regola vieta.
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-aura-loto-e-invito.png');
+  });
+
+  /// L'ALTRA META': la stessa scena, ma col Test Archetipo gia' fatto.
+  ///
+  /// Le due immagini vanno guardate una accanto all'altra, perche' il difetto
+  /// che hanno chiuso stava proprio nel passaggio fra loro: fatto il Test,
+  /// Aura continuava a mostrare il fiore che aspetta, e l'emblema arrivava
+  /// solo riaprendo l'app. La schermata del Test scriveva in una copia sua
+  /// dello storico, la chat leggeva quella condivisa, e le due si incontravano
+  /// soltanto su disco.
+  testWidgets("Cattura la chat di Aura con l'emblema dell'archetipo",
+      (tester) async {
+    silenceSensors();
+    // L'ARCHETIPO GIA' SCOPERTO, sul disco: e' cio' che l'app trova aprendo.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'archetipo.storico': [
+        jsonEncode(ArchetypeEsito(
+          quando: DateTime(2026, 8, 3, 18, 30),
+          percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          dominante: Archetype.realista,
+        ).toJson()),
+      ],
+    });
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final services = AppServices(
+      ai: _VoceCheFaAspettare(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+        );
+    await step(tester);
+    await openChat(tester, Maestro.aura);
+    await precacheFaces(tester);
+
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Da dove comincio, oggi?');
+    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    // IL PRECARICO DELL'EMBLEMA prima dello scatto: senza, l'immagine non si
+    // decodifica in headless e la scena esce con un buco dove sta l'arte.
+    await tester.runAsync(() async {
+      await precacheImage(AssetImage(Archetype.realista.arteThumb),
+          tester.element(find.byType(MaterialApp)));
+    });
+    await step(tester);
+
+    // LE VERIFICHE PRIMA DELLA CATTURA.
+    expect(find.byKey(const Key('consulto_del_cielo')), findsOneWidget,
+        reason: "la scena del consulto non e' comparsa");
+    expect(find.byType(LotoDorato), findsNothing,
+        reason: "col Test fatto Aura guarda ancora il fiore che aspetta: e' "
+            "il difetto che questa immagine deve mostrare chiuso");
+    expect(find.byKey(const Key('consulto_invito')), findsNothing,
+        reason: "l'invito al Test resta a chi il Test l'ha gia' fatto");
+    expect(
+        find.byWidgetPredicate((w) =>
+            w is Image &&
+            w.image is AssetImage &&
+            (w.image as AssetImage).assetName == Archetype.realista.arteThumb),
+        findsWidgets,
+        reason: "l'emblema dell'archetipo non e' nella scena");
+    await capture(tester, rootKey, 'chat-aura-emblema.png');
+  });
+
+  testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
+      (tester) async {
+    silenceSensors();
+    // Continuita' seminata, cosi' la cattura del dono mostra il chip.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'ritual.breath.lastDay': '2026-07-12',
+      'ritual.breath.streak': 4,
+      // Il cammino e' gia' percorso, ordine AS voce 07: compiere il rito
+      // matura un traguardo e la festa coprirebbe il dono da fotografare.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    // I due livelli reali del Soffio: prato e soffione. Si precaricano.
+    final element = tester.element(find.byType(MaterialApp));
+    await tester.runAsync(() async {
+      for (final a in const [
+        'assets/ritual_backgrounds/breath_meadow.png',
+        'assets/ritual_backgrounds/breath_dandelion.png',
+      ]) {
+        await precacheImage(AssetImage(a), element);
+      }
+    });
+    await step(tester);
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(BreathDestinyScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+    });
+    await step(tester);
+    await step(tester);
+    // Stato di partenza: testa piena col soffione e l'invito.
+    await capture(tester, rootKey, 'soffio-destino.png');
+
+    // Ripiego tattile per la cattura, dato che in headless il microfono non c'e'.
+    await tester.longPress(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'soffio-destino-dono.png');
+  });
+
+  testWidgets('Cattura l\'Arcano del Giorno', (tester) async {
+    silenceSensors();
+    // Il cammino e' gia' percorso, ordine AS voce 08: rivelare la carta matura
+    // un traguardo, e la festa coprirebbe la scena da fotografare.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // **L'ARTE DELLA CARTA SI PRECARICA**, se no la cattura esce col ripiego
+    // dipinto a mano invece che con l'arte del mazzo: l'immagine e' un asset e
+    // in una prova headless non si decodifica da sola in tempo.
+    await tester.runAsync(() async {
+      final elemento = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          AssetImage(ArcanoDelGiorno.di(DateTime(2026, 7, 13)).fullPath),
+          elemento);
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
+    });
+    // **PRIMA DEL GESTO, ordine AU voce 12.** E' li' che vive la riga "cosa
+    // stai per ricevere", ed e' li' che il fondatore l'ha vista tagliata ai
+    // due lati sulla 2187: la cattura di sotto arriva DOPO la rivelazione,
+    // quando quella riga non c'e' piu', quindi non poteva mostrarlo.
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DayOracleScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-prima-del-gesto.png');
+    await tester.drag(
+        find.byKey(const Key('ritual_gesture')), const Offset(250, 0));
+    await tester.pump(const Duration(milliseconds: 700));
+    await capture(tester, rootKey, 'arcano-del-giorno.png');
+    // **IL RESPONSO STA SOTTO LA PIEGA.** Ordine CE voce 10: la misura del
+    // responso e' cio' che questa voce cambia, e nella cattura di sopra il
+    // testo non entra nemmeno nello schermo. Qui si scorre fino a lui.
+    await tester.drag(
+        find.byType(SingleChildScrollView).last, const Offset(0, -900));
+    // Il cosmo respira sempre: `pumpAndSettle` non tornerebbe mai.
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-il-responso.png');
+  });
+
+  // La Runa del Tramonto ha un flusso lungo: attesa, getto, incisione, due voci,
+  // striscia della settimana, sigillo alla settima sera. La sera e' fissata alle
+  // 20 e la nascita al 2 novembre 1975, cosi' esce Laguz, una runa a due tratti
+  // con un rovescio vero, buona da mostrare tratto per tratto.
+  final serataTramonto = DateTime(2026, 7, 13, 20);
+  final nascitaTramonto = DateTime(1975, 11, 2);
+
+  Route<dynamic> rottaTramonto() => SunsetRuneScreen.route(
+        now: serataTramonto,
+        dataNascita: nascitaTramonto,
+      );
+
+  // Precarica gli artwork rune_bone, cosi' il glifo inciso e' decodificato alla
+  // cattura e non resta un buco al posto dell'arte finale.
+  Future<void> precacheTramonto(WidgetTester tester) async {
+    // I tre fondali sono 1284 per 2778: decodificati pesano una quarantina di
+    // megabyte in tutto e, sommati alle ventiquattro pietre, sfondano il tetto
+    // predefinito della cache immagini, che espelle le miniature gia' caricate e
+    // lascia le caselle della settimana vuote. Qui il tetto si alza: e' solo la
+    // cattura, l'app in esercizio non ha bisogno di tenerle tutte insieme.
+    PaintingBinding.instance.imageCache.maximumSizeBytes = 512 << 20;
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SunsetRuneScreen));
+      for (final r in kElderFuthark) {
+        if (r.hasImage) {
+          await precacheImage(AssetImage(r.fullPath!), element);
+          // Anche le miniature, per le caselle della striscia settimanale.
+          await precacheImage(AssetImage(r.thumbPath!), element);
+        }
+      }
+      // E i tre fondali del tramonto: senza, la cattura sorprende il momento
+      // successivo con l'immagine non ancora decodificata e finisce sul ripiego
+      // procedurale. La lista si legge da `kFondaliTramonto`, la stessa della
+      // schermata, cosi' i percorsi non possono divergere.
+      for (final slot in kFondaliTramonto) {
+        await precacheImage(AssetImage(slot), element);
+      }
+    });
+    await step(tester);
+    // L'AnimatedSwitcher del fondale dura novecento millisecondi: si lascia
+    // arrivare a regime, altrimenti lo scatto coglie la dissolvenza a meta'.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+  }
+
+  // Semina alcune sere gia' vissute, per una striscia che non sia vuota.
+  String sereSeminate(int quante) {
+    final giorno = SunsetRune.giornoRituale(serataTramonto);
+    const rune = ['Fehu', 'Uruz', 'Ansuz', 'Raidho', 'Gebo', 'Wunjo'];
+    final voci = <String>[];
+    for (var i = quante; i >= 1; i--) {
+      final g = SunsetRune.iso(giorno.subtract(Duration(days: i)));
+      voci.add('{"giorno":"$g","rune":"${rune[(i - 1) % rune.length]}",'
+          '"ombra":false,"lasciare":"la fretta","porta":"la quiete"}');
+    }
+    return '[${voci.join(',')}]';
+  }
+
+  // Incide tenendo il dito finche' il segno e' compiuto e si apre la lettura.
+  Future<void> incidiTramonto(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await step(tester);
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    final g = await tester.startGesture(centro);
+    // Tiene il dito a lungo: nel gesto manuale ogni frame scava al piu' 50 ms,
+    // quindi servono parecchie battute per compiere il segno e aprire la lettura.
+    for (var i = 0; i < 44; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await g.up();
+    await step(tester);
+    await step(tester);
+    // Col segno compiuto il fondale passa al terzo momento: si lascia finire la
+    // dissolvenza da novecento millisecondi prima di scattare.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+  }
+
+  // Che cosa fotografa davvero ciascuno dei tre nomi. I nomi sono piu' vecchi
+  // del flusso e non corrispondono piu' alla lettera, ma NON si rinominano: il
+  // lucchetto in preview_integrity_test.dart e la relazione li citano per nome, e
+  // una rinomina costerebbe senza portare niente. Quindi si dichiara qui:
+  //   runa-tramonto-attesa.png    la pietra velata prima del getto, cioe' la
+  //                               fase di attesa vera e propria.
+  //   runa-tramonto-getto.png     il momento SUBITO DOPO il getto, con la pietra
+  //                               gia' scoperta e pronta a essere incisa: e' la
+  //                               fase di incisione appena cominciata, non il
+  //                               lancio in volo, che non ha una cattura.
+  //   runa-tramonto-incisione.png il segno a meta', col solco in corso di scavo.
+  testWidgets('Cattura la Runa del Tramonto, attesa getto e incisione',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(rottaTramonto()));
+    await step(tester);
+    await step(tester);
+    await precacheTramonto(tester);
+    // Attesa: la pietra velata sotto il tramonto.
+    await capture(tester, rootKey, 'runa-tramonto-attesa.png');
+    // Il getto col tocco, ripiego dello scuotimento: la pietra si scopre.
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 700));
+    await capture(tester, rootKey, 'runa-tramonto-getto.png');
+    // L'incisione a meta': il dito resta sulla pietra, il segno nasce a tratti.
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    final g = await tester.startGesture(centro);
+    // Oltre la soglia del tocco prolungato, poi incide a meta' della runa: piu'
+    // battute brevi fanno avanzare il ticker un passo alla volta.
+    for (var i = 0; i < 7; i++) {
+      await tester.pump(const Duration(milliseconds: 140));
+    }
+    await capture(tester, rootKey, 'runa-tramonto-incisione.png');
+    expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
+    await g.up();
+  });
+
+  testWidgets('Cattura la Runa del Tramonto, le due voci e la settimana',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Quattro sere gia' vissute: stasera fa cinque, la striscia respira.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'sunset_rune.settimana': sereSeminate(4),
+      // Il cammino e' gia' percorso, ordine AS voce 09: compiere il rito
+      // matura un traguardo e la festa coprirebbe la lettura da fotografare.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(rottaTramonto()));
+    await step(tester);
+    await step(tester);
+    await precacheTramonto(tester);
+    await incidiTramonto(tester);
+    // La prima voce e la trasparenza dei tre fattori.
+    expect(find.byKey(const Key('sunset_voce_uno')), findsOneWidget);
+    await capture(tester, rootKey, 'runa-tramonto-voce-uno.png');
+    // La seconda voce dietro la rotazione, ripiego doppio tap.
+    final loc =
+        tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
+    await tester.tapAt(loc);
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.tapAt(loc);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-voce-due.png');
+    // La striscia delle sette sere, portata a vista.
+    await tester.ensureVisible(find.byKey(const Key('sunset_settimana')));
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-settimana.png');
+  });
+
+  testWidgets('Cattura il Sigillo del Tramonto, alla settima sera',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Sei sere gia' vissute: stasera fa sette, il sigillo si compone.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'sunset_rune.settimana': sereSeminate(6),
+    });
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(rottaTramonto()));
+    await step(tester);
+    await step(tester);
+    await precacheTramonto(tester);
+    await incidiTramonto(tester);
+    await tester.ensureVisible(find.byKey(const Key('sunset_sigillo')));
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-sigillo.png');
+  });
+
+  // --- Il Sigillo del Sogno: nebbia, cielo, costellazione unita, saluto ---
+  testWidgets('Cattura il Sigillo del Sogno', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DreamRiteScreen.route(now: quando)));
+    await step(tester);
+    await step(tester);
+    // Apertura nella nebbia, buio e ovattato.
+    await capture(tester, rootKey, 'rito-sogno-nebbia.png');
+
+    // La nebbia si dirada col ripiego tattile, emergono le stelle.
+    await tester.tap(find.byKey(const Key('dream_fog_skip')));
+    await step(tester);
+    await capture(tester, rootKey, 'rito-sogno-cielo.png');
+
+    // Si uniscono le stelle della costellazione del segno della Luna.
+    final figura = kZodiacConstellations
+        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+    for (var i = 0; i < figura.points.length; i++) {
+      await tester.tap(find.byKey(Key('dream_star_$i')));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    // Come sopra: la figura unita ha una sua entrata, e va aspettata.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    await capture(tester, rootKey, 'rito-sogno-costellazione.png');
+
+    // Dalla figura unita scende il saluto della notte.
+    await montaLoSchermo(tester, const Size(360, 1250));
+    await tester.pump(const Duration(milliseconds: 1000));
+    await step(tester);
+    expect(find.byKey(const Key('dream_message')), findsOneWidget);
+    await capture(tester, rootKey, 'rito-sogno.png');
+  });
+
+  testWidgets('Cattura la carta della notte del Sigillo del Sogno',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    await montaLoSchermo(tester, const Size(460, 1100));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final maestro = DailyRituals.nightMaestro(quando);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: const Color(0xFF05060C),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: DreamRiteCard(
+              luna: DreamRiteCorpus.lunaDi(quando),
+              palette: MaestroPalette.forKey(ThemeKey.of(maestro)),
+              saluto: DreamRiteCorpus.saluto(quando),
+              maestroNome: maestro.displayName,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'rito-sogno-carta.png');
+  });
+
+  // --- Il Sigillo del Cerchio, emblema personale procedurale ---
+  testWidgets('Cattura il Sigillo del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(CircleSealScreen.route(name: 'Sofia')));
+    await step(tester);
+    // Lascia comporre il sigillo con la sua animazione, fino al Sole posato e al
+    // Numero acceso.
+    await tester.pump(const Duration(milliseconds: 2700));
+    await capture(tester, rootKey, 'sigillo-cerchio.png');
+  });
+
+  // --- La Sinastria VIP, raggiungibile dallo scaffale del Santuario ---
+  Future<void> precacheSinastria(WidgetTester tester) async {
+    // Decodifica la cornice VIP e il ritratto pieno del VIP in testa, cosi'
+    // l'anteprima del responso mostra l'arte reale e non il ripiego.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SinastriaVipScreen));
+      await precacheImage(const AssetImage('assets/vip_cornice.webp'), element);
+      final first = VipCatalog.first;
+      if (first.fullPath != null) {
+        await precacheImage(AssetImage(first.fullPath!), element);
+      }
+    });
+    await step(tester);
+    await step(tester);
+  }
+
+  testWidgets('Cattura la galleria di scelta della Sinastria VIP',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Superficie alta, cosi' la galleria mostra ricerca, filtri, In evidenza col
+    // tasto A caso e le prime righe della griglia dei volti.
+    await montaLoSchermo(tester, const Size(360, 1720));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaGalleryScreen.route(userSign: Zodiac.gemini)));
+    await step(tester);
+    await step(tester);
+    // Decodifica tutte le miniature, cosi' le tessere mostrano i volti.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SinastriaGalleryScreen));
+      for (final vip in VipCatalog.vips) {
+        if (vip.thumbPath != null) {
+          await precacheImage(AssetImage(vip.thumbPath!), element);
+        }
+      }
+    });
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'sinastria-galleria.png');
+  });
+
+  // --- LA SCHERMATA DEL GEMELLO ASTRALE, ordine CF voce 14 ---
+  //
+  // **Il fondatore l'ha chiamata non appagante**, e l'ordine chiede le
+  // anteprime guardate: questa cattura l'istante in cui il racconto e' finito,
+  // cioe' volto fermo, nome e responso della Sinastria.
+  testWidgets('Cattura la schermata del Gemello astrale', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 2200));
+    final cielo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(1972, 5, 20, 12),
+      oraNota: false,
+      latitudine: null,
+      longitudineDelLuogo: null,
+      segnoDichiarato: Zodiac.taurus,
+    );
+    final gemello = GemelloAstrale.per(cielo)!;
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SchermataDelGemello.route(
+      gemello: gemello,
+      tuoCielo: cielo,
+      tuoSegno: Zodiac.taurus,
+      adesso: DateTime(2026, 8, 31),
+    )));
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SchermataDelGemello));
+      if (gemello.vip.fullPath != null) {
+        await precacheImage(AssetImage(gemello.vip.fullPath!), element);
+      }
+    });
+    // Fino in fondo al racconto: volto fermo, nome, responso.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 600));
+    }
+    await capture(tester, rootKey, 'gemello-astrale.png');
+  });
+
+  testWidgets('Cattura la Sinastria VIP', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Superficie alta quanto basta perche' l'anteprima mostri, oltre ai due
+    // poli, anche le quattro barre, la riga di sfida, il tasto Condividi e il
+    // tasto Cambia VIP che ha preso il posto del selettore in fondo.
+    await montaLoSchermo(tester, const Size(360, 1340));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaVipScreen.route()));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
+    // **LA SCENA DEVE FINIRE DI ENTRARE, E SONO DUE SCENE.** Il responso
+    // della Sinastria si compone contando (ordine BO voce 07): con due soli
+    // fotogrammi l'anteprima mostrava lo zero per cento, il ritratto ancora
+    // sopra il testo e tutto in dissolvenza, cioe' una schermata che non
+    // esiste.
+    //
+    // **SEI SECONDI NON BASTAVANO PIU', ordine CD voce 02.** Prima viene la
+    // chiamata, che e' un rito a se', e solo quando finisce parte il
+    // conteggio del verdetto: l'ordine CA voce 03 ha portato la chiamata da
+    // 4.100 a 5.000 millesimi, e da allora al sesto secondo il conteggio era
+    // appena partito. L'anteprima mostrava un anello vuoto con dentro ZERO
+    // PER CENTO mentre i numeri delle barre dicevano sessanta e novanta, ed
+    // e' cosi' che l'ha vista il fondatore. Adesso si aspetta la somma delle
+    // due scene, con margine: il numero non e' scelto a caso, e' la chiamata
+    // piu' il verdetto piu' un secondo.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- LA MAPPA DELLA DISTANZA E LA CARTA INGRANDITA, ordine CD voce 02 ---
+  //
+  // **L'ordine chiede di GUARDARE le voci visive, e queste due non avevano
+  // nessuna immagine.** Il fatto del fondatore sulla mappa e' "quando sono
+  // vicini, non si capisce visivamente dove si trovano, nemmeno la nazione":
+  // il caso duro e' due punti a poche centinaia di chilometri, quindi si
+  // prende Roma contro Milano, cioe' chi guarda contro Chiara Ferragni, che
+  // nel catalogo vive a Milano. Sulla schermata intera la mappa non compare,
+  // perche' chiede di sapere dove sei e nell'anteprima quel dato non c'e':
+  // qui si monta il pezzo con dati veri, che e' cio' che il fondatore deve
+  // vedere.
+  testWidgets('Cattura la mappa della distanza, due citta\' vicine',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final chiara = VipCatalog.conNome('Chiara Ferragni')!;
+    final tuo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(1990, 4, 12, 7, 30),
+      oraNota: true,
+      latitudine: 41.9,
+      longitudineDelLuogo: 12.5,
+      nome: 'Mauro',
+    );
+    const roma =
+        DoveSei(citta: 'Roma', latitudine: 41.9028, longitudine: 12.4964);
+    final report = SynastryReport.perCieli(
+        tuo: tuo, vip: chiara, doveSei: roma, quando: DateTime(2026, 8, 30));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: ColorTokens.medoraDeepest,
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: MappaDellaDistanza(
+                incontro: report.incontro,
+                doveSei: roma,
+                palette: MaestroPalette.medora,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    // La mappa stringe lo zoom in 1.400 millesimi: si aspetta che arrivi.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    await capture(tester, rootKey, 'sinastria-mappa-vicini.png');
+  });
+
+  // **LA CARTA DEL VIP INGRANDITA.** Il fatto del fondatore: "quando
+  // ingrandisco la Carta del vip, i testi nei cartigli della carta
+  // spariscono". I cartigli sono il nome in alto e la data in basso, che
+  // l'arte lascia VUOTI di proposito perche' un solo set valga per tutte le
+  // lingue: li scrive il Flutter a runtime.
+  testWidgets('Cattura la carta del VIP ingrandita', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final chiara = VipCatalog.conNome('Chiara Ferragni')!;
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MaestroScope(
+          maestro: Maestro.medora,
+          child: RitrattoIngrandito(
+            vip: chiara,
+            palette: MaestroPalette.medora,
+            entrata: const AlwaysStoppedAnimation<double>(1),
+            riduciMovimento: true,
+            backgroundColor: ColorTokens.medoraDeepest,
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 600));
+    await precaricaCioCheLaScenaMonta(tester);
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'sinastria-carta-ingrandita.png',
+        precarica: false);
+  });
+
+  // --- LE TRE SCHERMATE NUOVE DELL'ORDINE BX ---
+  //
+  // **Si guardano perche' nessuna prova guarda un'immagine.** Le anteprime
+  // di quest'ordine hanno gia' trovato due difetti che le prove non
+  // vedevano: i nomi delle arti troncati coi puntini e i nomi dei VIP
+  // tagliati a meta' riga.
+
+  // --- IL PRIMO AVVIO, che e' la prima cosa che chi decide vede ---
+  testWidgets('Cattura il primo avvio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // **NESSUNA PREFERENZA: e' un telefono che non ha mai aperto l'app.** Il
+    // `setUp` di questo file dichiara l'onboarding gia' fatto, che e' giusto
+    // per tutte le altre catture e falso per questa.
+    SharedPreferences.setMockInitialValues(const {});
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 797));
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await capture(tester, rootKey, 'primo-avvio.png');
+  });
+
+  testWidgets('Cattura il bosco del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 2200));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(BoscoDelCerchio.route(mio: 'Lupo')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'bosco-del-cerchio.png');
+  });
+
+  // **I CINQUE FUMETTI DEL PRIMO APPRODO. Ordine CB voce 02.**
+  //
+  // Si guardano alla larghezza vera del telefono del fondatore, 360 punti
+  // logici, che e' la sola misura su cui si giudica: e' li' che un titolo si
+  // spezza e una riga sfonda. La riga dei tasti in fondo al fumetto ha gia'
+  // sfondato di 35 punti proprio qui, ed e' stata rifatta.
+  testWidgets('Cattura i cinque fumetti del primo approdo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Il tutorial non nasce acceso: qui si arma a mano, come fa l'onboarding
+    // quando finisce. Le altre anteprime restano quelle di chi l'app la usa
+    // gia', senza velo sopra.
+    SharedPreferences.setMockInitialValues(const {
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'avvisi.primoGiorno.chiesto': true,
+      'avvisi.primoApprodo.armato': true,
+    });
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora), schermo: const Size(360, 797));
+    // **I NOMI SI SCRIVONO PER INTERO, non composti a runtime.** La guardia
+    // del corredo cerca il nome del file DENTRO questo sorgente per sapere che
+    // qualcuno lo rigenera: un nome costruito con un contatore la faceva
+    // cadere dichiarando cinque anteprime orfane, che orfane non erano.
+    const nomi = [
+      'primo-approdo-1.png',
+      'primo-approdo-2.png',
+      'primo-approdo-3.png',
+      'primo-approdo-4.png',
+      'primo-approdo-5.png',
+    ];
+    for (var i = 0; i < nomi.length; i++) {
+      await step(tester);
+      await capture(tester, rootKey, nomi[i]);
+      final avanti = find.byKey(const Key('primo_approdo_avanti'));
+      if (avanti.evaluate().isEmpty) break;
+      await tester.tap(avanti);
+      await step(tester);
+    }
+  });
+
+  // **I TRE MOMENTI DELLA CORSA DELLO ZODIACO. Ordine CC voce 03.**
+  //
+  // Cio' che si muove si guarda nei suoi momenti, non in uno: la corsa mentre
+  // gira, il segno appena si ferma, e la scena mentre si dissolve sul responso.
+  // Tre immagini a 360 punti logici, la larghezza vera del telefono.
+  testWidgets('Cattura i tre momenti della corsa dello zodiaco',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora), schermo: const Size(360, 797));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.leo, now: DateTime(2026, 7, 14, 13))));
+    await step(tester);
+    await step(tester);
+    // Il gesto che apre il consulto: prima del tocco la corsa non esiste.
+    final interroga = find.byKey(const Key('oroscopo_interroga'));
+    if (interroga.evaluate().isNotEmpty) {
+      await tester.tap(interroga, warnIfMissed: false);
+    }
+    // 1. LA CORSA GIRA.
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'corsa-zodiaco-1-gira.png');
+    // 2. IL SEGNO SI E' FERMATO, e cresce.
+    for (var i = 0; i < 70; i++) {
+      await tester.pump(const Duration(milliseconds: 40));
+    }
+    await capture(tester, rootKey, 'corsa-zodiaco-2-si-ferma.png');
+    // 3. LA DISSOLVENZA SCOPRE IL RESPONSO.
+    //
+    // **Si scatta DENTRO la dissolvenza, non dopo.** Con quaranta passi da
+    // sessanta millesimi la scena era gia' sparita e al suo posto c'era la
+    // festa del traguardo: un'immagine vera di un momento successivo, che
+    // pero' non diceva niente su cio' che questa voce deve mostrare.
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await capture(tester, rootKey, 'corsa-zodiaco-3-dissolvenza.png');
+    // **SI LASCIA FINIRE LA SCENA prima di smontare.** Scattando dentro la
+    // dissolvenza restano in volo i tempi della cascata delle schede e della
+    // festa: chiudere qui fa cadere la cattura con "A Timer is still
+    // pending", che non e' un difetto della scena ma della fretta di questa
+    // prova.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+  });
+
+  testWidgets('Cattura la voce Chi ti ha invitato', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 844));
+    // **DALLA VIA VERA, non chiamando la funzione da fuori.** Aperto dal
+    // Navigator della radice il foglio finisce SOTTO la barra di navigazione
+    // del guscio, che si dipinge piu' in alto: l'immagine mostrava il campo
+    // e il pulsante attraverso la home. Dalla porta dell'account il foglio
+    // sale dove deve.
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_invito')).evaluate().isNotEmpty) break;
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('account_invito')), 120,
+        scrollable: find.descendant(
+            of: find.byKey(const Key('account_list')),
+            matching: find.byType(Scrollable)));
+    await tester.tap(find.byKey(const Key('account_invito')),
+        warnIfMissed: false);
+    // Il foglio sale: si aspetta che abbia finito, altrimenti l'immagine lo
+    // coglie a meta' corsa e il suo fondo copre solo meta' del contenuto.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await capture(tester, rootKey, 'riscatta-l-invito.png');
+  });
+
+  // --- La meta' bassa della Sinastria: le barre e la mappa ---
+  testWidgets('Cattura la Sinastria VIP, le barre e la mappa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1340));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaVipScreen.route()));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    // Fino in fondo, dove vivono le sette barre e la mappa della distanza.
+    for (var i = 0; i < 6; i++) {
+      await tester.drag(find.byType(Scrollable).last, const Offset(0, -600));
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await tester.pump(const Duration(seconds: 1));
+    await capture(tester, rootKey, 'sinastria-vip-basso.png');
+  });
+
+  testWidgets('Cattura la Sinastria VIP col nome utente reale', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1340));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Nome e data reali sul polo di sinistra, cosi' si vede l'effetto personale.
+    unawaited(nav.push(SinastriaVipScreen.route(
+        userName: 'Sofia', userBirth: DateTime(1993, 4, 12))));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
+    await capture(tester, rootKey, 'sinastria-vip-personale.png');
+  });
+
+  // --- L'Animale Guida di Caligo: popup, rivelazione, responso, card ---
+  Widget caligoApp(Widget schermata) => MultiProvider(
+        providers: [
+          // LO SCAFFALE PERSONALE, ordine P voce 27: senza di lui il cuore
+          // delle arti preferite non si disegna, e l'anteprima mostrerebbe una
+          // barra che nell'app ha un elemento in piu'.
+          ChangeNotifierProvider(
+              create: (_) =>
+                  ArtiPreferiteController(maestroAssegnato: Maestro.caligo)),
+          ChangeNotifierProvider(
+              create: (_) => MaestroController(
+                  initial: const ThemeKey.of(Maestro.caligo))),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // Il piano e il contatore delle gettate, dall'ordine I: la
+          // schermata delle rune li legge per il limite giornaliero.
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          // LO STORICO CONDIVISO, che le schermate non si costruiscono piu' da
+          // sole: chi le monta glielo fornisce, qui come nell'app.
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
+        ],
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.dark(),
+            home: MaestroScope(child: schermata)),
+      );
+
+  /// Come `mountFace`, ordine P voce 27: la schermata entra dentro la SUA
+  /// soglia, che la dichiara lei. Questo aggancio serve due arti di Caligo,
+  /// l'Animale Guida e l'Estrazione Rune, e ognuna porta la propria.
+  /// LA SOGLIA DELL'ARTE CHE SI STA MONTANDO, chiesta all'arte.
+  ///
+  /// L'aggancio delle catture di Caligo serve due arti: l'identificativo e il
+  /// proprietario li dichiara ciascuna per se', qui si sceglie solo a quale
+  /// chiederli. Scriverli in questo file sarebbe la seconda dichiarazione, ed e'
+  /// il difetto che la voce 27 chiude.
+  Widget conLaSuaSoglia(Widget schermata) => switch (schermata) {
+        RuneDrawScreen() => RuneDrawScreen.conLaSoglia(schermata),
+        GuideAnimalScreen() => GuideAnimalScreen.conLaSoglia(schermata),
+        _ => schermata,
+      };
+
+  Future<GlobalKey> mountAnimal(WidgetTester tester, Widget schermata,
+      {required Size size}) async {
+    await montaLoSchermo(tester, size);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+        key: rootKey, child: caligoApp(conLaSuaSoglia(schermata))));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  Future<void> precacheTotem(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(GuideAnimalScreen));
+      final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
+      await precacheImage(AssetImage(animal.fullPath), element);
+    });
+    await step(tester);
+  }
+
+  void seedArchetipoCaligo() {
+    final esito = ArchetypeEsito(
+      quando: DateTime(2026, 7, 22, 10),
+      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+      dominante: Archetype.realista,
+    );
+    SharedPreferences.setMockInitialValues({
+      'archetipo.storico': [jsonEncode(esito.toJson())],
+    });
+  }
+
+  testWidgets('Cattura il popup dell\'Animale Guida', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Senza Test Archetipo, il popup evocativo compare all'ingresso.
+    SharedPreferences.setMockInitialValues({});
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(360, 900));
+    await precacheTotem(tester);
+    expect(find.byKey(const Key('animal_test_popup')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale-popup.png');
+  });
+
+  testWidgets('Cattura il viaggio col tamburo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Con un archetipo salvato niente popup: si vede il viaggio col tamburo.
+    seedArchetipoCaligo();
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(360, 900));
+    expect(find.byKey(const Key('animal_journey')), findsOneWidget);
+    // DALL'ORDINE L il viaggio e' la costellazione: si uniscono due stelle,
+    // cosi' i pallini si accendono e la scena mostra la sagoma in cammino.
+    await tester.tap(find.byKey(const Key('animal_star_0')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('animal_star_1')));
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-viaggio.png');
+  });
+
+  testWidgets('Cattura la rivelazione nella nebbia', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    seedArchetipoCaligo();
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(360, 900));
+    await precacheTotem(tester);
+    // Compie il viaggio col tasto di ripiego, poi coglie un istante fisso della
+    // dissolvenza: la nebbia e' ancora densa, gli occhi accesi, il totem affiora.
+    await tester.tap(find.byKey(const Key('animal_journey_skip')));
+    await tester.pump(const Duration(milliseconds: 400)); // supera il ritardo
+    await tester.pump(const Duration(milliseconds: 600)); // dentro la nebbia
+    await capture(tester, rootKey, 'guide-animale-rivelazione.png');
+  });
+
+  testWidgets('Cattura il Messaggio del Giorno col blocco di trasparenza',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    seedArchetipoCaligo();
+    // Con la data di nascita la trasparenza mostra anche la Luna natale.
+    final rootKey = await mountAnimal(
+        tester,
+        GuideAnimalScreen(
+            userSign: Zodiac.cancer, userBirth: DateTime(1988, 7, 5, 9, 30)),
+        size: const Size(360, 2000));
+    await precacheTotem(tester);
+    // Compie il viaggio, poi lascia posare la rivelazione, cosi' il totem e'
+    // pieno e si vede il Messaggio del Giorno col blocco di trasparenza.
+    await tester.tap(find.byKey(const Key('animal_journey_skip')));
+    await tester.pump(const Duration(milliseconds: 400));
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 800));
+    }
+    expect(find.byKey(const Key('animal_result')), findsOneWidget);
+    expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale.png');
+  });
+
+  testWidgets('Cattura la lettura di identita\' dell\'Animale Guida',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    seedArchetipoCaligo();
+    // La lettura fissa di identita', come si apre dal Cosmic Passport.
+    final rootKey = await mountAnimal(
+        tester,
+        const GuideAnimalScreen(
+            userSign: Zodiac.cancer, modo: GuideAnimalMode.identita),
+        size: const Size(360, 1980));
+    await precacheTotem(tester);
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 800));
+    }
+    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale-identita.png');
+  });
+
+  testWidgets('Cattura la card dell\'Animale Guida', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(460, 900));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: const Color(0xFF14060A),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: GuideAnimalShareCard(
+                animal: animal, origine: 'Dal tuo cielo, Cancro'),
+          ),
+        ),
+      ),
+    ));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(animal.fullPath), element);
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-card.png');
+  });
+
+  testWidgets('Cattura la faccia dell\'Animale Guida nel Passport',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    await montaLoSchermo(tester, const Size(360, 1500));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => NatalChartController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: const MaestroScope(child: CosmicPassport()),
+        ),
+      ),
+    ));
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(CosmicPassport));
+      final animal = GuideAnimalDerivation.forSign(
+          NightSky.sunSign(BirthIdentity.example.birthMoment));
+      await precacheImage(AssetImage(animal.thumbPath), element);
+    });
+    await step(tester);
+    await tester.ensureVisible(find.byKey(const Key('passport_guide_animal')));
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-passport.png');
+  });
+
+  testWidgets('Cattura la chat aperta con la domanda gia\' scritta',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final services = await buildServices(Maestro.caligo, seeded: false);
+    await montaLoSchermo(tester, const Size(360, 1000));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          Provider<AppServices>.value(value: services),
+          ChangeNotifierProvider(
+              create: (_) => MaestroController(
+                  initial: const ThemeKey.of(Maestro.caligo))),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.caligo,
+              services: services,
+              initialUserMessage: ChatOpeners.animale(
+                  GuideAnimalDerivation.forSign(Zodiac.cancer).name),
+            ),
+          ),
+        ),
+      ),
+    ));
+    // SI ASPETTA QUANTO DURA LA PAUSA, chiesto al dato invece che contato a
+    // mano. Erano otto pompate da 250, cioe' due secondi, che coprivano la
+    // pausa vecchia da 1800 per un soffio: portata a 3200 la cattura e' caduta
+    // con un timer ancora appeso. Un numero scritto a mano che dipende da un
+    // altro numero prima o poi resta indietro.
+    final quanto =
+        TempiDellAttesa.allaPrimaParola(0) + TempiDellAttesa.durataBattuta;
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(quanto ~/ 8);
+    }
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'guide-animale-chat.png');
+  });
+
+  // --- L'Estrazione Rune di Caligo: soglia, lancio, rivelazioni, card ---
+  Future<void> precacheRune(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(RuneDrawScreen));
+      for (final r in kElderFuthark) {
+        if (r.hasImage) {
+          await precacheImage(AssetImage(r.thumbPath!), element);
+          await precacheImage(AssetImage(r.fullPath!), element);
+        }
+      }
+    });
+    await step(tester);
+  }
+
+  // Sceglie la gettata e getta le rune col pulsante di ripiego.
+  Future<void> lancia(WidgetTester tester, String segmento) async {
+    await tester.tap(find.byKey(Key('rune_segment_$segmento')));
+    await step(tester);
+    final cast = find.byKey(const Key('rune_cast_button'));
+    await tester.ensureVisible(cast);
+    await tester.pump();
+    await tester.tap(cast);
+    // **TRE PASSI, NON UNO, E IL PERCHE' VA SCRITTO.** Con un passo solo le
+    // anteprime del responso uscivano VUOTE sotto il conto delle gettate: il
+    // presagio e le bolle delle rune stanno nell'albero, e le prove qui sotto lo
+    // verificavano, ma erano dipinte a opacita' ZERO. Misurato: dopo 400
+    // millisecondi il presagio e' a 0,00, dopo 1200 e' a 1,00.
+    //
+    // La causa e' in `ScrollReveal`: la comparsa ha UNA sola occasione, il
+    // postFrame di `didChangeDependencies`, e se in quel frame la scatola non ha
+    // ancora geometria l'occasione si perde. In un telefono la recupera il primo
+    // scorrimento, che qui non arriva mai; la recupera invece il rimontaggio
+    // successivo, e per quello serve piu' di un frame. **Un'anteprima vuota non
+    // dice "va bene", dice che non si e' guardato niente**, e nasconde anche cio'
+    // che la spedisce.
+    await step(tester);
+    await step(tester);
+    await step(tester);
+  }
+
+  testWidgets('Cattura la soglia dell\'Estrazione Rune', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(7)),
+        size: const Size(360, 1960));
+    expect(find.byKey(const Key('rune_selector')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-soglia.png');
+  });
+
+  testWidgets('Cattura il lancio nel Pozzo di Urdhr', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+        size: const Size(360, 840));
+    await precacheRune(tester);
+    await lancia(tester, 'norne');
+    expect(find.byKey(const Key('rune_result')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-lancio.png');
+  });
+
+  testWidgets('Cattura la rivelazione a tre Norne col presagio',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // **3400 E NON 2900, misurato.** Il fondo del sigillo cade a 3295 punti: a
+    // 2900 il sigillo restava FUORI dalla finestra, e `ScrollReveal` non rivela
+    // cio' che non e' mai entrato in scena. L'anteprima mostrava la sua scatola
+    // vuota e sembrava un difetto del sigillo.
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+        size: const Size(360, 3400));
+    await precacheRune(tester);
+    await lancia(tester, 'norne');
+    expect(find.byKey(const Key('rune_presage')), findsOneWidget);
+    expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-norne.png');
+  });
+
+  testWidgets('Cattura la Runa di Odino, una runa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(9)),
+        size: const Size(360, 2120));
+    await precacheRune(tester);
+    await lancia(tester, 'odino');
+    await capture(tester, rootKey, 'rune-odino.png');
+  });
+
+  testWidgets('Cattura la Croce delle Cinque', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(4)),
+        size: const Size(360, 3500));
+    await precacheRune(tester);
+    await lancia(tester, 'croce');
+    await capture(tester, rootKey, 'rune-croce.png');
+  });
+
+  testWidgets('Cattura il getto sul telo, la sorte libera', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(6)),
+        size: const Size(360, 3100));
+    await precacheRune(tester);
+    await lancia(tester, 'telo');
+    expect(find.byKey(const Key('rune_result')), findsOneWidget);
+    expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-getto.png');
+  });
+
+  testWidgets('Cattura la card dell\'Estrazione Rune', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(460, 1320));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final esito = RuneCast.getta(gettataNorne, random: Random(5));
+    final presagio = RunePresagio.componi(esito);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: const Color(0xFF14060A),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: RuneShareCard(esito: esito, presagio: presagio),
+          ),
+        ),
+      ),
+    ));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final r in esito.rune) {
+        if (r.rune.hasImage) {
+          await precacheImage(AssetImage(r.rune.thumbPath!), element);
+        }
+      }
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'rune-card.png');
+  });
+
+  // --- L'Oroscopo a quattro schede, la headline di Medora ---
+  testWidgets('Cattura l\'Oroscopo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Un segno mostrato per intero, giorno fisso per un'anteprima stabile.
+    // Superficie alta quanto basta prima di aprire, cosi' le forme a tema
+    // finiscono il riempimento una volta sola: il segno per intero, quattro
+    // schede piu' il tasto Condividi e il disclaimer, senza troppo vuoto.
+    await montaLoSchermo(tester, const Size(360, 1560));
+    // Ariete al 10 luglio 2026: valori variati tra le schede (2, 4, 5, 3), cosi'
+    // si vede la differenza tra le quattro forme a tema.
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.aries, now: DateTime(2026, 7, 10))));
+    await step(tester);
+    await step(tester);
+    // Decodifica l'emblema 3D del segno e i simboli dei chip, cosi' l'anteprima
+    // mostra l'arte vera e non un posto vuoto.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.aries)), element);
+    });
+    await step(tester);
+    // **SI APRE IL CONSULTO**, altrimenti l'anteprima del corredo mostra una
+    // pagina muta con mezzo schermo vuoto: dall'ordine 2171, voce 5, i responsi
+    // arrivano solo dopo Interroga il cielo. Questa immagine deve mostrare la
+    // funzione, non la sua soglia; l'apertura ha la sua anteprima a parte,
+    // `oroscopo_apertura_dopo.png`.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await step(tester);
+    // **LA RIFLESSIONE, GUARDATA IN FACCIA. Ordine BZ voce 06.** Parole del
+    // fondatore: "parte una animazione strana che dura una frazione di
+    // secondo... mi sembra cmq scarsa". Adesso dura quattro secondi e la
+    // corona dei corpi resta per tutti e due i momenti: questa immagine e' il
+    // primo momento, coi corpi raccolti attorno all'emblema.
+    for (var i = 0; i < 15; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(find.byKey(const Key('oroscopo_riflessione_riga')), findsOneWidget,
+        reason: 'lo scatto non e\' dentro la riflessione: mostrerebbe altro');
+    await capture(tester, rootKey, 'oroscopo-riflessione.png',
+        precarica: false);
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
+    // Lascia completare la micro-animazione di riempimento delle forme.
+    await tester.pump(const Duration(seconds: 2));
+    // **SI CONGEDA LA FESTA, ordine BY.** Interrogare il cielo e leggere fino
+    // in fondo fa maturare "Il primo oroscopo letto intero", e la
+    // celebrazione copre tutto: l'anteprima dell'Oroscopo mostrava la festa
+    // invece dell'Oroscopo. La festa ha gia' le sue immagini.
+    final congedoOroscopo = find.byKey(const Key('celebrazione_continua'));
+    if (congedoOroscopo.evaluate().isNotEmpty) {
+      await tester.tap(congedoOroscopo);
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+    }
+    await capture(tester, rootKey, 'oroscopo.png');
+  });
+
+  // --- L'OROSCOPO CHE NOMINA UN TRANSITO VERO ---
+  //
+  // **E' l'immagine che dice se la voce e' stata consegnata.** L'altra
+  // cattura mostra l'Oroscopo di chi ha dato solo la data di nascita, cioe' il
+  // ripiego sulla hash, che adesso si dichiara in fondo. Qui invece c'e' una
+  // carta natale completa, quindi la corrente del giorno la scrive il cielo:
+  // il pianeta che si muove, la casa che sta attraversando, il punto della
+  // carta che tocca. E la profondita' e' la Profonda, che e' l'altra cosa che
+  // fino a ieri si pagava senza riceverla.
+  testWidgets('Cattura l\'Oroscopo dai transiti veri', (tester) async {
+    // **IL CAMMINO E' GIA' PERCORSO, ordine AR voce 09.** Col corpus della
+    // revisione C interrogare il cielo matura un traguardo, e la celebrazione
+    // si apre sopra la scena: il tocco sul selettore della profondita' cadeva
+    // sulla festa che stava entrando, e il menu non si apriva mai. Il difetto
+    // sfuggiva anche a chi stampava i testi a schermo, perche' una festa in
+    // dissolvenza intercetta i tocchi prima di avere qualcosa da leggere.
+    // Misurato per bisezione sui commit: questa cattura e' verde fino ad
+    // AR.11 e rossa dal commit che porta il corpus nuovo. Con tutti i Sigilli
+    // gia' accesi non matura niente, e sotto il dito c'e' l'Oroscopo.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    final ctx = tester.element(find.byType(MaterialApp));
+    // Un abbonato, perche' la Profonda e' del Cerchio Premium.
+    ctx.read<EntitlementService>().setTier(Tier.tier2);
+    // UNA CARTA COMPLETA, con l'ora: senza ora non ci sono case, e senza case
+    // il testo parlerebbe di geometria invece che di settori della vita.
+    ctx.read<BirthIdentityController>().setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart(
+            sunSign: Zodiac.leo,
+            planets: const [
+              PlanetPosition(
+                  id: 'sun',
+                  name: 'Sole',
+                  glyph: '\u2609',
+                  longitude: 128.4,
+                  sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'moon',
+                  name: 'Luna',
+                  glyph: '\u263d',
+                  longitude: 12.7,
+                  sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'venus',
+                  name: 'Venere',
+                  glyph: '\u2640',
+                  longitude: 150.2,
+                  sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'mars',
+                  name: 'Marte',
+                  glyph: '\u2642',
+                  longitude: 61.9,
+                  sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'saturn',
+                  name: 'Saturno',
+                  glyph: '\u2644',
+                  longitude: 300.5,
+                  sign: Zodiac.leo),
+            ],
+            ascendantLongitude: 205.0,
+            midheavenLongitude: 115.0,
+            houses: [
+              for (var n = 1; n <= 12; n++)
+                HouseCusp(
+                    number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+            ],
+            hasTime: true,
+          ),
+        );
+    await montaLoSchermo(tester, const Size(360, 1800));
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.leo, now: DateTime.utc(2026, 8, 5, 12))));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.leo)), element);
+    });
+    await step(tester);
+    // **SI CHIEDE IL CONSULTO.** Dall'ordine 2171, voce 5, l'oroscopo non e'
+    // piu' a schermo all'apertura: lo si domanda col gesto Interroga il cielo.
+    // Poi si aspettano i due tempi dichiarati dalla schermata, la pulsazione
+    // dell'emblema e la scrittura dei responsi, perche' l'anteprima deve
+    // mostrare i testi interi e non a meta' riga.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
+    await step(tester);
+    // Si sceglie la Profonda sulla scheda Generale: e' il gesto che ieri non
+    // faceva niente.
+    await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+    await step(tester);
+    await tester.tap(find.text('Profonda').last);
+    await step(tester);
+    // Cambiando profondita' il testo e' un altro e si riscrive: due secondi
+    // non bastavano piu', la scrittura ne dichiara due e sei decimi.
+    await tester.pump(const Duration(seconds: 4));
+    // IL GUARDIANO: se il testo non nominasse un transito vero, questa
+    // immagine mostrerebbe il ripiego e direbbe il falso col suo nome.
+    expect(find.textContaining('casa'), findsWidgets,
+        reason: 'nessuna scheda nomina una casa: l\'anteprima dei transiti '
+            'veri sta mostrando la hash');
+    expect(find.byKey(const Key('oroscopo_nota_del_cielo')), findsNothing,
+        reason: 'la nota del ripiego e\' a video, quindi il cielo non e\' '
+            'stato letto');
+    await capture(tester, rootKey, 'oroscopo-transito-vero.png');
+
+    // DUE SCHEDE AFFIANCATE, per vedere che non usano la stessa forma.
+    //
+    // E' il difetto 1 dell'ordine OROSCOPO 4: nella build 2148 tutte le
+    // schede dicevano il transito con la stessa sintassi, e in una schermata
+    // sola si vedeva il modello del testo invece del testo. Qui si scorre
+    // fino ad avere due schede nello stesso fotogramma.
+    //
+    // ALLA MISURA DEL TELEFONO, 360 per 797: la cattura di sopra usa uno
+    // schermo alto apposta per far entrare tutte e quattro le schede, e a
+    // quell'altezza l'immagine esce 1080 per 5400. Questa deve essere quella
+    // che si vede in mano, quindi lo schermo torna alla sua misura.
+    await montaLoSchermo(tester, const Size(360, 797));
+    await step(tester);
+    await tester.drag(find.byType(ListView).first, const Offset(0, -1180));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 1));
+    await capture(tester, rootKey, 'oroscopo-due-schede-affiancate.png');
+  });
+
+  // --- I TRE SENTIERI ALL'APERTURA. Ordine S voci 01 e 02 ---
+  //
+  // **All'apertura si resta sul disegno, fermi.** Prima della voce S.01 la
+  // schermata scendeva da se' al traguardo raggiunto, quindi il disegno esisteva
+  // e nessuno lo vedeva: queste tre immagini sono la prova a video che adesso e'
+  // la prima cosa che si vede, e sono anche le tre che la voce S.02 confronta.
+  //
+  // **TRE STATI PER SENTIERO, e servono tutti e tre**, ordine S voce 02: a ZERO
+  // si deve INTUIRE la forma senza vederla, a META' si deve capire in che
+  // direzione sta crescendo, COMPLETA si deve riconoscere una figura e non una
+  // nuvola di punti. Se a zero si vede gia' tutto, o se a meta' non si capisce
+  // dove va, il disegno non e' finito.
+  // **I NOVE NOMI PER INTERO, e non e' una ripetizione oziosa.** Il corredo
+  // riconosce un'anteprima cercando il suo nome NELLA SORGENTE di questo file:
+  // un nome composto a runtime non si trova, e le nove immagini risultavano
+  // "orfane", cioe' prodotte da nessuno. Scritti qui, e confrontati sotto con
+  // quello che la cattura usa davvero, i due non possono divergere.
+  const nomiDeiSentieri = <String>[
+    'sentiero-albero-zero.png',
+    'sentiero-albero-meta.png',
+    'sentiero-albero-completo.png',
+    'sentiero-costellazione-zero.png',
+    'sentiero-costellazione-meta.png',
+    'sentiero-costellazione-completo.png',
+    'sentiero-loto-zero.png',
+    'sentiero-loto-meta.png',
+    'sentiero-loto-completo.png',
+  ];
+  for (final sentiero in Sentiero.values) {
+    for (final stato in const [
+      ('zero', 0, 0),
+      ('meta', 25, 2),
+      ('completo', 50, 5),
+    ]) {
+      testWidgets('Cattura il sentiero ${sentiero.name} ${stato.$1}',
+          (tester) async {
+        silenceSensors();
+        await loadFonts();
+        final rootKey = await mount(
+            tester, await buildServices(Maestro.medora, seeded: false));
+        final ctx = tester.element(find.byType(MaterialApp));
+        // UN CAMMINO A META', altrimenti il disegno e' tutto spento e non si
+        // vedrebbe la figura che si compone coi gesti.
+        // I MINI E I GRANDI dello stato chiesto: i grandi non si accendono da se'
+        // quando i mini salgono, hanno le loro condizioni, e senza accenderli la
+        // figura resterebbe senza le stelle che la reggono.
+        final diario = ctx.read<DiarioDelCammino>();
+        for (final t in Sentieri.miniDi(sentiero).take(stato.$2)) {
+          await tester.runAsync(() => diario.accendi(t.id));
+        }
+        for (final t in Sentieri.grandiDi(sentiero).take(stato.$3)) {
+          await tester.runAsync(() => diario.accendi(t.id));
+        }
+        await step(tester);
+        // **QUESTE NOVE GUARDANO IL DISEGNO, ordine AU voce 13.** La mappa del
+        // sentiero compare da sola al PRIMO ingresso, e coprirebbe la figura:
+        // qui si dichiara che in questo sentiero si e' gia' entrati, cosi'
+        // l'immagine mostra cio' che deve mostrare. La mappa ha la sua cattura,
+        // piu' sotto.
+        await tester
+            .runAsync(() => LaMappaDelSentiero.segnaLIngresso(sentiero));
+        final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+        unawaited(nav.push(SentieroScreen.route(sentiero)));
+        await step(tester);
+        await step(tester);
+        await tester.pump(const Duration(seconds: 1));
+        // IL GUARDIANO: se lo scorrimento non fosse a zero, l'immagine mostrerebbe
+        // l'elenco e la voce S.01 non sarebbe quella che si vede.
+        final scorrimento = tester
+            .state<ScrollableState>(find.byType(Scrollable).last)
+            .position;
+        expect(scorrimento.pixels, 0.0,
+            reason:
+                'la schermata si e\' mossa da se\': l\'anteprima mostrerebbe '
+                'l\'elenco invece del disegno');
+        final nome = 'sentiero-${sentiero.name}-${stato.$1}.png';
+        expect(nomiDeiSentieri, contains(nome),
+            reason: 'questa cattura scrive un nome che non e\' fra i nove '
+                'dichiarati: il corredo non lo trovera\' e l\'anteprima '
+                'risultera\' orfana');
+        await capture(tester, rootKey, nome);
+      });
+    }
+  }
+
+  // --- LA MAPPA DEL SENTIERO. Ordine AU voce 13 ---
+  //
+  // **Tre cose e basta**: dove sei, cosa manca, da dove si comincia. Si guarda
+  // che siano tre e che il livello visivo venga prima del testo.
+  testWidgets('Cattura la mappa del sentiero', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    final diario = ctx.read<DiarioDelCammino>();
+    for (final t in Sentieri.miniDi(Sentiero.loto).take(7)) {
+      await tester.runAsync(() => diario.accendi(t.id));
+    }
+    await step(tester);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.loto)));
+    await step(tester);
+    await step(tester);
+    // Il primo ingresso la apre da solo: e' esattamente cio' che si vuole
+    // guardare.
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'mappa-del-sentiero.png');
+  });
+
+  // --- IL PORTAFOGLIO APERTO. Ordine S voce 06 ---
+  //
+  // **Le tre cose in una schermata sola**: il saldo, quando tornano i gesti del
+  // giorno, e da dove sono arrivati gli ultimi Eos. Il saldo e i movimenti si
+  // seminano qui perche' un portafoglio vuoto mostrerebbe soltanto la riga
+  // dell'attesa, e la voce chiede di guardare cio' che vede chi ha camminato.
+  testWidgets('Cattura il portafoglio aperto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    await tester.runAsync(() async {
+      final registro = ctx.read<RegistroDegliEos>();
+      await registro.segna(quanti: 10, perche: 'Il primo passo');
+      await registro.segna(
+          quanti: 5, perche: 'Tre giorni di seguito all\'alba');
+      await registro.segna(quanti: 30, perche: 'La Costellazione a metà');
+    });
+    await step(tester);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
+    await step(tester);
+    await step(tester);
+    // **IL SALDO SI SEMINA PER ULTIMO, e la prima stesura sbagliava qui.** Il
+    // guscio dell'app crea il contatore con `..load()`, che legge il disco in
+    // asincrono: seminato prima, il saldo veniva sovrascritto da quella lettura
+    // e l'anteprima mostrava "0 Eos" accanto a tre movimenti in entrata, cioe'
+    // esattamente il difetto del borsellino a zero della voce S.04.
+    await tester.runAsync(() => ctx.read<QuestionAllowance>().applicaSaldo(45));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('borsellino')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await capture(tester, rootKey, 'portafoglio-aperto.png');
+  });
+
+  // --- GLI EOS IN VOLO VERSO IL BORSELLINO. Ordine S voce 07 ---
+  //
+  // **Si cattura a meta' corsa**, perche' e' l'unico fotogramma in cui il volo si
+  // vede: all'inizio le scintille sono un punto al centro, alla fine sono
+  // spente sopra il numero. A meta' si legge la direzione, che e' cio' che la
+  // voce chiede di far capire.
+  testWidgets('Cattura gli Eos in volo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() => ctx.read<QuestionAllowance>().applicaSaldo(45));
+    await step(tester);
+    final dentro = tester.element(find.byKey(const Key('borsellino')));
+    VoloDegliEos.lancia(dentro, quanti: 30);
+    await tester.pump();
+    await tester.pump(VoloDegliEos.durata * 0.45);
+    await capture(tester, rootKey, 'eos-in-volo.png');
+  });
+
+  // --- LA CELEBRAZIONE BREVE SOPRA UNA SCHERMATA PIENA DI TESTO ---
+  //
+  // **LA CATTURA DELLA CELEBRAZIONE BREVE E' STATA DEMOLITA con la forma
+  // stessa, ordine BE voce 05**: ogni traguardo celebra con la scena piena.
+
+  // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---
+  //
+  // **Ordine P voce 25, chiusa il 12 agosto 2026 con la scelta di Mauro.** La
+  // card porta il transito come riga in oro sotto la sintesi, quindi questa
+  // cattura deve montare un cielo VERO: con la corrente presa dalla hash la riga
+  // non esiste, e l'anteprima mostrerebbe la card di prima facendo credere che
+  // la scelta non sia stata applicata.
+  testWidgets('Cattura la card Oroscopo', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final carta = NatalChart(
+      sunSign: Zodiac.aries,
+      planets: const [
+        PlanetPosition(
+            id: 'sun',
+            name: 'Sole',
+            glyph: '\u2609',
+            longitude: 18.4,
+            sign: Zodiac.aries),
+        PlanetPosition(
+            id: 'moon',
+            name: 'Luna',
+            glyph: '\u263d',
+            longitude: 102.7,
+            sign: Zodiac.cancer),
+        PlanetPosition(
+            id: 'venus',
+            name: 'Venere',
+            glyph: '\u2640',
+            longitude: 40.2,
+            sign: Zodiac.taurus),
+        PlanetPosition(
+            id: 'mars',
+            name: 'Marte',
+            glyph: '\u2642',
+            longitude: 251.9,
+            sign: Zodiac.sagittarius),
+        PlanetPosition(
+            id: 'saturn',
+            name: 'Saturno',
+            glyph: '\u2644',
+            longitude: 300.5,
+            sign: Zodiac.aquarius),
+      ],
+      ascendantLongitude: 205.0,
+      midheavenLongitude: 115.0,
+      houses: [
+        for (var n = 1; n <= 12; n++)
+          HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+      ],
+      hasTime: true,
+    );
+    final cielo = CieloDiOggi.perIlGiorno(
+        adesso: DateTime.utc(2026, 7, 9, 12), carta: carta);
+    expect(cielo.ceCieloVero, isTrue,
+        reason: 'il cielo del giorno scelto non porta nessun fatto, quindi la '
+            'riga del cielo non ci sarebbe e l\'anteprima mostrerebbe la card '
+            'di prima della voce 25');
+    await montaLoSchermo(tester, const Size(400, 900));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    // **TRE SEGNI, NON UNO.** Ordine BD voce 07: la sintesi della card e'
+    // l'ancora NUDA del Generale, ed e' qui che si sente se un innesto suona
+    // monco. Un segno solo lascerebbe quarantasette ancore mai guardate; tre
+    // con innesti di forma diversa sono il minimo che l'ordine chiede.
+    for (final scelto in [
+      (Zodiac.aries, 'oroscopo-card.png'),
+      (Zodiac.taurus, 'oroscopo-card-toro.png'),
+      (Zodiac.pisces, 'oroscopo-card-pesci.png'),
+    ]) {
+      final cards = Horoscope.forSign(
+          sign: scelto.$1, dayOfYear: 190, year: 2026, cielo: cielo);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0A0E24),
+            body: Center(
+              child: SingleChildScrollView(
+                child: OroscopoShareCard(
+                    sign: scelto.$1, cards: cards, palette: palette),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      // L'emblema del segno decodificato anche nella card.
+      await tester.runAsync(() async => precacheImage(
+          AssetImage(ZodiacArt.emblemPath(scelto.$1)),
+          tester.element(find.byType(OroscopoShareCard))));
+      await tester.pumpAndSettle();
+      // IL GUARDIANO: se la riga del cielo non fosse a schermo, questa
+      // immagine mostrerebbe la card senza transito e nessuno se ne
+      // accorgerebbe.
+      expect(find.byKey(const Key('share_transito_riga')), findsOneWidget,
+          reason: 'la riga del cielo non e\' nella card: la composizione '
+              'scelta per la voce 25 non e\' quella che l\'anteprima mostra');
+      await capture(tester, rootKey, scelto.$2);
+    }
+  });
+
+  // --- La Stesa a Tre Carte, con una carta rovesciata ---
+  testWidgets('Cattura la Stesa a Tre Carte', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // La schermata e' lunga: sintesi, tre posizioni lette, dialogo, carta
+    // chiave, consiglio, domanda, azioni e disclaimer.
+    await montaLoSchermo(tester, const Size(360, 2360));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Seme 1: Fante di Bastoni rovesciato, Dieci di Coppe, La Luna rovesciata.
+    // Scelto perche' contiene una carta di corte col suo numero, un nome su due
+    // righe e due rovesciate.
+    const spread = TarotSpread.reversedChance; // documenta la meccanica
+    assert(spread > 0);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(
+          seed: 1,
+          revealAll: true,
+          topic: TarotTopic.bivio,
+        ),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    // Decodifica l'arte delle tre carte, cosi' l'anteprima mostra le carte vere.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await step(tester);
+    await tester.pump(const Duration(seconds: 2));
+    await capture(tester, rootKey, 'stesa-tre-carte.png');
+  });
+
+  // --- La scena della Stesa a riposo, prima della scelta ---
+  testWidgets('Cattura la scena della Stesa a riposo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 910));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
+    // Medora sopra e i gesti del mazzo sotto.
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+    });
+    // Si lascia finire l'ingresso a spirale e ci si ferma sul respiro. Serve
+    // un secondo battito: la scena passa a riposo quando la Future
+    // dell'ingresso si risolve, non nello stesso fotogramma.
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(milliseconds: 100));
+    await capture(tester, rootKey, 'stesa-scena.png');
+  });
+
+  // --- LE QUATTRO FASI DEL TAGLIO, una per una. Ordine P voce 05 ---
+  //
+  // **La voce 05 era stata MISURATA e non GUARDATA, e la differenza e' questa.**
+  // Una prova sa dire che le fasi sono quattro, che la durata sta scritta in un
+  // punto solo e che la meta' di sotto passa sopra: non sa dire se il gesto si
+  // capisce guardandolo. Queste quattro immagini sono lo stesso taglio colto nel
+  // mezzo di ciascuna fase, cioe' dove la fase e' al suo pieno.
+  testWidgets('Cattura le quattro fasi del taglio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1020));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // IL GESTO VERO, quello che la persona fa col dito.
+    await tester.tap(find.byKey(const Key('stesa_taglia')));
+    await tester.pump();
+    // Si cammina fino alla META' di ogni fase, e la si chiede alla schermata
+    // invece di contare i millisecondi qui: se domani le durate cambiassero,
+    // queste quattro immagini resterebbero al centro delle fasi nuove.
+    final stato = tester.state(find.byType(StesaTreCarteScreen)) as dynamic;
+    // I quattro nomi per intero, nell'ordine delle fasi, per la stessa ragione
+    // detta sopra: un nome composto a pezzi non ha nessun generatore, agli
+    // occhi di chi va a cercarlo.
+    const nomi = [
+      'stesa-taglio-1-raccolta.png',
+      'stesa-taglio-2-divisione.png',
+      'stesa-taglio-3-ricomposizione.png',
+      'stesa-taglio-4-ristesa.png',
+    ];
+    expect(nomi, hasLength(TaglioFasi.fasi.length),
+        reason: 'i nomi delle anteprime sono ${nomi.length} e le fasi '
+            '${TaglioFasi.fasi.length}: una fase nuova resterebbe senza '
+            'immagine, o un nome punterebbe a una fase che non esiste');
+    var orologio = Duration.zero;
+    for (var i = 0; i < TaglioFasi.fasi.length; i++) {
+      final fase = TaglioFasi.fasi[i];
+      // **IL CENTRO SI CHIEDE ALLA COREOGRAFIA**, `TaglioFasi.centroDi`, che
+      // esiste per questo: sommare le durate qui vorrebbe dire scrivere una
+      // seconda volta un conto che sta gia' scritto, e la prima stesura
+      // sbagliava proprio quel conto, accumulando i centri invece degli inizi.
+      final centro = StesaTiming.taglio * TaglioFasi.centroDi(i);
+      await tester.pump(centro - orologio);
+      orologio = centro;
+      expect(stato.faseDelTaglioInScena, i,
+          reason: 'a meta\' della fase ${fase.nome} la scena dice di essere '
+              'nella fase ${stato.faseDelTaglioInScena}: l\'immagine '
+              'mostrerebbe un\'altra fase da quella che il nome promette');
+      await capture(tester, rootKey, nomi[i]);
+    }
+    // Il taglio finisce, altrimenti la prova chiude con un tempo ancora vivo.
+    await tester.pump(TaglioFasi.totale);
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  // --- MEDORA CI PENSA, PRIMA DI RISPONDERE. Ordine P voce 06 ---
+  //
+  // **L'anteprima che dice se l'attesa e' un'attesa e non un vuoto.** La prova
+  // della voce sa contare le cinque righe e sa che i tempi vengono da
+  // `TempiDellAttesa`: non sa dire se, guardandola, si capisce che dall'altra
+  // parte qualcuno sta pensando.
+  testWidgets('Cattura l\'attesa di Medora', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1020));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // **IL PIANO DELLA SCENA E' DICHIARATO, ordine BN voce 09.** Da quando la
+    // stesa ha il suo cancello, il Viandante la compra in Eos e il ventaglio
+    // non posa nessuna carta: questa cattura riguarda l'ATTESA e non il
+    // gating, quindi si guarda dal piano che le stese le comprende senza
+    // limite. Senza questa riga l'immagine mostrerebbe la scena di prima e
+    // nessuno saprebbe perche'.
+    tester
+        .element(find.byType(Navigator).first)
+        .read<EntitlementService>()
+        .setTier(Tier.tier3);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+      // Il ritratto dalla PORTA UNICA del busto, la stessa che l'attesa usa.
+      await precacheImage(
+          AssetImage(BustoDelMaestro.assetDi(Maestro.medora)), element);
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // LE TRE CARTE, col gesto vero: l'attesa arriva solo dopo la terza.
+    //
+    // **Gli indici sono quelli del ventaglio A SCHERMO, non quelli del mazzo.**
+    // Il ventaglio ne mostra una quindicina attorno al centro, quindi chiedere
+    // la carta 20 vuol dire chiedere una carta che non e' montata: la prima
+    // stesura cascava li'.
+    // **NON SI PREME PIU' NIENTE PRIMA DELLE CARTE. Ordine CQ voce 1.03**,
+    // 3 settembre 2026, e ribalta l'ordine CO voce 07. Il ventaglio e' vivo
+    // da subito; il pulsante sta dopo le tre carte e apre il responso.
+    //
+    // **La riga di prima faceva danno doppio.** Chiamava `ensureVisible` sul
+    // pulsante, che adesso sta SOTTO il ventaglio: la pagina scorreva, le
+    // carte del ventaglio finivano fuori campo, e i tocchi qui sotto
+    // cadevano su cio' che si era portato al loro posto.
+    for (final indice in const [38, 36]) {
+      await tester.tap(find.byKey(Key('stesa_fan_$indice')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    // L'ULTIMA CARTA, E IL MOMENTO CHE STAVA A SCHERMO VUOTO.
+    //
+    // **Ordine BZ voce 07.** Fra la terza carta e il pensiero di Medora la
+    // scena mostrava il solo ritratto per un secondo e sei decimi, mentre la
+    // fioritura dell'elemento e il filo giravano su niente. Adesso le tre
+    // carte restano, e questa e' l'immagine che lo fa vedere: si scatta dentro
+    // la finestra, non dopo.
+    await tester.tap(find.byKey(const Key('stesa_fan_41')));
+    await tester.pump();
+    await tester.pump();
+    // MILLE E SEICENTO, A PASSI PICCOLI. Il volo della carta dal ventaglio
+    // allo slot occupa i primi settecento millesimi, e a seicento la stesa non
+    // e' ancora compiuta: la prima stesura di questo scatto ha fotografato il
+    // ventaglio con scritto "Scegli ancora 1". La finestra misurata dalla
+    // prova della voce va da 700 a 2300 millesimi, e si scatta in mezzo.
+    //
+    // **I PASSI PICCOLI NON SONO UN VEZZO.** Con un salto solo il giro della
+    // terza carta comincia nell'ultimo fotogramma e non avanza di un
+    // millesimo: l'immagine usciva col dorso, che nell'app non si vede mai
+    // perche' li' i fotogrammi sono sedici millesimi l'uno.
+    await tester.pump(const Duration(milliseconds: 800));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    // Senza precaricare: il precaricamento gira nel tempo vero e questa
+    // finestra dura un secondo e mezzo (la nota dell'ordine AV voce 01 qui
+    // sopra). Le carte di questa stesa sono gia' precaricate all'inizio.
+    await capture(tester, rootKey, 'stesa-dopo-l-ultima-carta.png',
+        precarica: false);
+    // **LA STESA DEVE ESSERE COMPIUTA**, o si sta fotografando il pescaggio
+    // e l'immagine non dice niente sulla voce: il suggerimento "Scegli ancora"
+    // vive solo finche' mancano carte.
+    expect(find.byKey(const Key('stesa_prompt')), findsNothing,
+        reason: 'lo scatto e\' arrivato prima che la terza carta atterrasse');
+    expect(find.byKey(const Key('stesa_slots')), findsOneWidget,
+        reason: 'lo scatto e\' uscito dalla finestra: mostrerebbe Medora sola, '
+            'che e\' il difetto invece della cura');
+    expect(find.byKey(const Key('stesa_attesa')), findsNothing,
+        reason: 'lo scatto e\' arrivato dopo l\'inizio della riflessione');
+
+    // **E ADESSO IL PULSANTE, che e' cio' che apre la lettura.** Ordine CQ
+    // voce 1.03: la finestra che questa cattura fotografa comincia da qui e
+    // non piu' dalla terza carta. Si aspetta che si accenda, cioe' che
+    // l'ultima carta sia arrivata nel suo slot.
+    final apre = find.byKey(const Key('stesa_inizia'));
+    for (var i = 0; i < 30; i++) {
+      if (apre.evaluate().isNotEmpty &&
+          tester.widget<FilledButton>(apre).onPressed != null) {
+        await tester.tap(apre, warnIfMissed: false);
+        break;
+      }
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    // **DENTRO L'ATTESA, SENZA INDOVINARE QUANTO ASPETTARE.**
+    //
+    // Prima qui c'erano due pause scritte a mano, e bastava che la scena
+    // guadagnasse una battuta perche' la cattura cadesse fuori finestra: e'
+    // successo con la voce BN.08, che fra la terza carta e il pensiero di
+    // Medora ha infilato il filo. La misura non cambia, l'attesa deve essere
+    // IN SCENA quando si scatta; cambia il modo di arrivarci, che adesso
+    // guarda invece di contare.
+    await tester.pump(AttesaDiMedora.dissolvenza);
+    for (var passi = 0;
+        passi < 60 && find.byKey(const Key('stesa_attesa')).evaluate().isEmpty;
+        passi++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(find.byKey(const Key('stesa_attesa')), findsOneWidget,
+        reason: 'l\'attesa non e\' in scena: l\'immagine mostrerebbe la '
+            'schermata di prima e la voce 06 resterebbe non guardata');
+    await capture(tester, rootKey, 'stesa-attesa-di-medora.png');
+    // Si lascia scadere l'attesa e la scrittura del responso.
+    //
+    // **Non `pumpAndSettle`**: il cerchio di dodici stelle gira senza fine, che
+    // e' cio' che lo rende un'attesa e non un vuoto, quindi la scena non si
+    // assesta mai e la prova cadrebbe per un tempo scaduto invece che per
+    // l'immagine. Si avanza a passi dichiarati.
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+  });
+
+  // --- La Stesa con una carta gia' scelta, per vedere slot e ventaglio ---
+  testWidgets('Cattura la Stesa in corso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 1020));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // Si pesca una carta: cosi' si vede il rapporto fra slot e ventaglio, col
+    // primo slot gia' scoperto e gli altri due che aspettano.
+    await tester.tap(find.byKey(const Key('stesa_fan_38')));
+    await tester.pump();
+    // Il volo, poi il flip: servono due attese distinte, perche' il flip
+    // parte solo quando la carta e' arrivata nel suo slot.
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await capture(tester, rootKey, 'stesa-in-corso.png');
+    // La schermata lascia in piedi un tempo che scade dopo la cattura: senza
+    // farlo scadere qui, la prova finisce con un timer ancora vivo e cade per
+    // quello, non per l'immagine.
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  // --- L'aura elementale delle quattro carte, ferma a meta' fioritura ---
+  testWidgets('Cattura il reveal elementale', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    // Una carta per elemento, piu' un Maggiore per la fioritura solenne.
+    final carte = [
+      'Asso di Bastoni',
+      'Asso di Coppe',
+      'Asso di Denari',
+      'Asso di Spade',
+      'Il Mondo',
+    ].map((n) => TarotDeck.cards.firstWhere((c) => c.name == n)).toList();
+
+    await montaLoSchermo(tester, const Size(600, 250));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0A0E24),
+          body: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                for (final c in carte)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: TarotFrame.aspect,
+                            child: TarotCardArt(card: c, palette: palette),
+                          ),
+                          Positioned.fill(
+                            child: ElementalReveal(
+                              spec: RevealSpec.of(c),
+                              // Fermi a meta' fioritura: e' li' che l'aura si
+                              // vede al suo pieno.
+                              progress: 0.5,
+                              palette: palette,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.runAsync(() async {
+      final el = tester.element(find.byType(TarotCardArt).first);
+      for (final c in carte) {
+        await precacheImage(AssetImage(c.fullPath), el);
+      }
+    });
+    await tester.pump();
+    await capture(tester, rootKey, 'stesa-reveal.png');
+  });
+
+  // --- La card condivisibile della Stesa ---
+  testWidgets('Cattura la card Stesa', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final spread = TarotSpread.draw(seed: 1);
+    // La card e' cresciuta: argomento, estratto della lettura, carta chiave e
+    // consiglio oltre alla sintesi.
+    await montaLoSchermo(tester, const Size(420, 1080));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0A0E24),
+          body: Center(
+            child: SingleChildScrollView(
+              child: StesaShareCard(
+                spread: spread,
+                palette: palette,
+                topic: TarotTopic.bivio,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaShareCard));
+      for (final drawn in spread.cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'stesa-card.png');
+  });
+
+  // --- Il Santuario, alto pulito senza bolle sopra l'immagine ---
+  testWidgets('Cattura il Santuario, alto pulito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'santuario-alto.png');
+  });
+
+  // --- Il Calendario degli Eventi, dal centro della barra (ordine AN.03) ---
+  testWidgets('Cattura il Calendario degli Eventi', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    await step(tester);
+    // Si apre come si apre nell'app: dal centro della barra, con un tocco
+    // solo. **Ordine AO voce 01**: prima ne servivano due, perche' il primo
+    // apriva la fascia e il secondo colpiva i tre eventi; adesso al centro
+    // c'e' la porta "Eventi Cosmici" e un tocco basta.
+    await tester.tap(find.byKey(const Key('barra_eventi_cosmici')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'calendario-degli-eventi.png');
+  });
+
+  // --- L'area Utente, aperta dall'icona in alto a destra nel Cerchio ---
+  testWidgets('Cattura l\'area Utente', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Due tocchi: il primo apre la barra sottile, il secondo va all'account.
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'area-utente.png');
+  });
+
+  // --- IL MENU' DELLE NOTIFICHE. Ordine BC voce 05 ---
+  testWidgets('Cattura il menu delle notifiche', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Due tocchi per l'account, come nella cattura sorella, poi la voce.
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    // **LA VOCE E' SCESA SOTTO LA PIEGA**, ordine CG: sopra le Notifiche
+    // e' entrata la voce dei Ricordi, e l'elenco dell'account e' pigro.
+    // Senza questo scorrimento il tocco cade su un dito che non esiste ancora.
+    await scorriFinoAllaVoce(tester, 'account_notifiche');
+    await tester.tap(find.byKey(const Key('account_notifiche')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'menu-delle-notifiche.png');
+  });
+
+  // --- Il Santuario, scaffale delle funzioni a scorrimento ---
+  // --- LA GIUNTURA FRA I MAESTRI E LO SCAFFALE. Ordine S voce 10 ---
+  //
+  // **La fascia morta si guarda, non si racconta.** La prova la misura in punti;
+  // questa immagine la mostra alla larghezza reale, con la riga delle arti in alto
+  // e "Le tue arti" sotto, cosi' si vede quanto respiro c'e' fra le due.
+  testWidgets('Cattura la giuntura fra i Maestri e lo scaffale',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Si scorre finche' il titolo dello scaffale entra nella meta' alta: e' la
+    // sola posizione in cui la giuntura si vede tutta.
+    final titolo =
+        find.byKey(const Key('tue_arti_titolo'), skipOffstage: false);
+    // **LO SCORRIMENTO GIUSTO E' QUELLO VERTICALE, e non il primo che capita.**
+    // `find.byType(Scrollable).first` prende la striscia dei doni del giorno, che
+    // scorre in orizzontale: la prima stesura di questa cattura muoveva quella e
+    // l'immagine restava in cima alla home.
+    final position = tester
+        .state<ScrollableState>(find.byWidgetPredicate(
+            (w) => w is Scrollable && w.axisDirection == AxisDirection.down))
+        .position;
+    for (var i = 0; i < 20; i++) {
+      final scatola = tester.renderObject<RenderBox>(titolo);
+      final dove = scatola.localToGlobal(Offset.zero).dy;
+      if (dove > 200 && dove < 520) break;
+      position.jumpTo(position.pixels + 60);
+      await step(tester);
+    }
+    await capture(tester, rootKey, 'home-giuntura-scaffale.png');
+  });
+
+  testWidgets('Cattura il Santuario, scaffale funzioni', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Scorre sotto l'alto, cosi' l'anteprima mostra lo scaffale delle funzioni.
+    final position =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    position.jumpTo(position.maxScrollExtent);
+    await step(tester);
+    await capture(tester, rootKey, 'santuario-scaffale.png');
+  });
+
+  // --- La striscia del giorno, dove ora vivono i quattro riti ---
+  //
+  // La card del Rito dell'Alba non sta piu' nel dominio del Maestro: il dominio
+  // e' il luogo delle arti, i riti del giorno appartengono alla striscia del
+  // Santuario. L'anteprima segue il posto vero.
+  testWidgets('Cattura la striscia del giorno', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final dawn = DailyRituals.dawnMaestro(DateTime.now());
+    final rootKey =
+        await mount(tester, await buildServices(dawn, seeded: false));
+    selectCentral(tester, dawn);
+    await step(tester);
+    await precacheFaces(tester);
+    await tester.ensureVisible(find.byKey(const Key('santuario_daily_strip')));
+    await step(tester);
+    await capture(tester, rootKey, 'striscia-del-giorno.png');
+  });
+
+  // --- L'hub di dominio e il Cosmic Passport ---
+  testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    // Superficie alta, cosi' l'anteprima mostra la presenza, la Consulta e il
+    // primo riquadro di sottocategoria per intero.
+    await montaLoSchermo(tester, const Size(360, 2800));
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-medora.png');
+
+    // Lo stesso dominio coi gruppi APERTI: il collasso raccoglie le arti in
+    // cammino, quindi la seconda anteprima mostra cosa c'e' dietro. Si aprono
+    // gli apri e chiudi delle sottocategorie vive e le intestazioni di quelle
+    // tutte in arrivo, poi si cattura.
+    // La lista e' pigra e le sottocategorie in fondo non sono ancora costruite:
+    // si scorre fino a ciascuna prima di toccarla, nell'ordine in cui stanno.
+    for (final chiave in const [
+      'art_soon_toggle_astrologia',
+      'art_soon_toggle_cartomanzia',
+      'art_section_header_lunologia',
+      'art_section_header_destino',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
+    // Coi gruppi aperti la lista cresce oltre la finestra della cattura: si
+    // guarda il fondo, dove stanno le sottocategorie tutte in cammino.
+    final position =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    position.jumpTo(position.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-medora-aperto.png');
+  });
+
+  // Lo stesso impianto generico visto dal dominio di Aura: nessun codice suo,
+  // solo il catalogo diverso, quindi l'anteprima serve a verificarlo a video.
+  testWidgets('Cattura l\'hub di dominio, aura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await montaLoSchermo(tester, const Size(360, 2800));
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-aura.png');
+
+    for (final chiave in const [
+      'art_soon_toggle_energia',
+      'art_soon_toggle_archetipi',
+      'art_section_header_chakra',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
+    final posAura =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    posAura.jumpTo(posAura.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-aura-aperto.png');
+  });
+
+  // Caligo: tre sottocategorie tutte miste, ciascuna con la sua distintiva.
+  testWidgets('Cattura l\'hub di dominio, caligo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    selectCentral(tester, Maestro.caligo);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await montaLoSchermo(tester, const Size(360, 2800));
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-caligo.png');
+
+    // La Numerologia non ha piu' un'arte viva, uscito l'Albero della Vita dalla
+    // Demo: si apre dalla sua intestazione invece che dal toggle.
+    for (final chiave in const [
+      'art_soon_toggle_rune',
+      'art_soon_toggle_rituali',
+      'art_section_header_numerologia',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
+    final posCaligo =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    posCaligo.jumpTo(posCaligo.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-caligo-aperto.png');
+  });
+
+  testWidgets('Cattura il Cosmic Passport', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    // **LA SCENA DEVE FINIRE DI ENTRARE.** Con un solo passo l'immagine
+    // usciva sbiadita, colta mentre il Passaporto stava ancora comparendo:
+    // la guardia delle anteprime non velate misura il punto piu' chiaro, e
+    // lo trovava a 177 su 255.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    await capture(tester, rootKey, 'passport.png');
+  });
+
+  /// LA TESSERA VIVA DELL'ARCHETIPO, col Test gia' fatto.
+  ///
+  /// La cattura qui sopra mostra il Passaporto di chi il Test non l'ha fatto,
+  /// e la tessera dell'archetipo li' dentro dice cosa fare. Questa mostra
+  /// l'altra meta': l'emblema vero, il nome con l'articolo e la data.
+  testWidgets('Cattura la tessera dell archetipo nel Passaporto',
+      (tester) async {
+    silenceSensors();
+    // Il Test gia' fatto, sul disco: e' cio' che l'app trova all'apertura.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'archetipo.storico': [
+        jsonEncode(ArchetypeEsito(
+          quando: DateTime(2026, 8, 3, 18, 30),
+          percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          dominante: Archetype.realista,
+        ).toJson()),
+      ],
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+
+    // IL PRECARICO PRIMA DELLA CATTURA: senza, l'emblema non si decodifica in
+    // headless e la tessera esce con un buco al posto dell'arte.
+    await tester.runAsync(() async {
+      await precacheImage(AssetImage(Archetype.realista.arteThumb),
+          tester.element(find.byType(MaterialApp)));
+    });
+    await step(tester);
+
+    // **PRIMA SI CONGEDA LA FESTA, e questa riga nasce guardando
+    // l'anteprima.** Visitare il Passaporto matura dei traguardi, quindi
+    // sopra la tessera si apriva una celebrazione a schermo pieno: lo scatto
+    // usciva con la festa e non con l'archetipo, mentre la verifica qui
+    // sotto passava lo stesso, perche' un widget coperto e' comunque
+    // nell'albero. E' la misura che guarda la cosa sbagliata, di nuovo.
+    for (var giro = 0; giro < 4; giro++) {
+      final congedo = find.byKey(const Key('celebrazione_continua'));
+      if (congedo.evaluate().isEmpty) break;
+      await tester.tap(congedo.first, warnIfMissed: false);
+      await step(tester);
+    }
+    // **E ANCHE LA FASCIA IN SOVRIMPRESSIONE**, che non ha un congedo da
+    // toccare: se ne va da sola dopo il suo tempo, e qui si aspetta invece
+    // di fotografarla addosso alla tessera.
+    for (var giro = 0; giro < 10; giro++) {
+      if (find
+          .byKey(const Key('sovrimpressione_del_traguardo'))
+          .evaluate()
+          .isEmpty) {
+        break;
+      }
+      await tester.pump(const Duration(seconds: 1));
+    }
+    await tester.ensureVisible(find.byKey(const Key('passport_archetipo')));
+    await step(tester);
+    // LA VERIFICA PRIMA DELLO SCATTO. Un'anteprima esce lo stesso anche senza
+    // cio' che dovrebbe mostrare, e sembra una prova.
+    expect(find.byKey(const Key('celebrazione_nome')), findsNothing,
+        reason: 'la festa copre ancora la tessera che questa anteprima '
+            'dovrebbe mostrare');
+    expect(find.byKey(const Key('sovrimpressione_del_traguardo')), findsNothing,
+        reason: 'la fascia della celebrazione vela ancora la tessera');
+    expect(find.byKey(const Key('passport_archetipo_nome')), findsOneWidget);
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('passport_archetipo_quando')))
+            .data,
+        'Scoperto il 3/8/2026');
+    await capture(tester, rootKey, 'passport-archetipo.png');
+  });
+
+  // --- Il cielo di nascita, aperto dal portale del Cosmic Passport ---
+  testWidgets('Cattura Il tuo cielo di nascita', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    // Dal portale attivo del passaporto si apre la volta di nascita, immersiva
+    // e fissa. Non chiede la posizione: il luogo e' quello della nascita.
+    await tester.tap(find.byKey(const Key('passport_birth_sky')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'cielo-di-nascita.png');
+  });
+
+  testWidgets('Cattura le Impostazioni', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    // La rotellina non c'e' piu' (ordine AK voce 03): la via e' porta
+    // dell'account, "Il tuo account", voce Impostazioni.
+    // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
+    // sottile in alto, e il primo tocco la apre invece di portare via.
+    // **AL PIU\' DUE TOCCHI, E SI SMETTE QUANDO IL PANNELLO E\' APERTO.** I
+    // due tocchi fissi cadevano quando bastava il primo: se al primo avvio
+    // c'e\' una festa in scena la barra sottile si ritira (ordine BX voce 07)
+    // e il secondo tocco non trova piu' nessuna porta.
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
+    await tester.tap(find.byKey(const Key('account_impostazioni')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'impostazioni.png');
+  });
+
+  // --- IL SOTTO MENU' PRIVACY E PERMESSI, ordine CE voce 03 ---
+  //
+  // **L'ordine chiede di guardare il menu' e il sotto menu' a 360 punti prima
+  // di chiudere la voce.** Il menu' ha gia' la sua cattura, `impostazioni.png`,
+  // che adesso mostra due righe sole sotto "Privacy e dati". Questa e' la
+  // seconda meta': cosa si trova aprendo quella riga.
+  //
+  // **Si monta la schermata da sola e non la si raggiunge a tocchi.** La
+  // strada vera sarebbe Passport, account, Impostazioni, poi la riga: quattro
+  // tocchi dentro un elenco pigro, cioe' quattro modi di rompersi che non
+  // dicono niente su cio' che si deve guardare. La cattura del menu' quella
+  // strada la percorre gia'.
+  testWidgets('Cattura il sotto menu\' Privacy e permessi', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, const Size(360, 2200));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: const PrivacyEPermessiScreen(),
+        ),
+      ),
+    ));
+    // **L'INTERRUTTORE ASPETTA IL DISCO.** Finche' non ha letto il consenso
+    // non si disegna, quindi una cattura a due fotogrammi mostrerebbe un buco
+    // al posto della riga.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await capture(tester, rootKey, 'privacy-e-permessi.png');
+  });
+
+  // --- La sezione del suono, con l'interruttore dei soli effetti sonori ---
+  testWidgets('Cattura le Impostazioni, la sezione del suono', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
+    await tester.tap(find.byKey(const Key('account_impostazioni')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    // **LA SEZIONE DEL SUONO E' DIVENTATA UNA PAGINA, ordine CN voce 07.**
+    // Si scorre fino alla porta, la si apre, e si fotografa cio' che c'e'
+    // dentro: due interruttori e due cursori. Fotografare la porta e basta
+    // mostrerebbe una riga che non dice niente di cio' che governa.
+    final porta = find.byKey(const Key('settings_suono'));
+    await tester.dragUntilVisible(
+        porta, find.byType(Scrollable).last, const Offset(0, -200));
+    await tester.ensureVisible(porta);
+    await step(tester);
+    await tester.tap(porta, warnIfMissed: false);
+    // La rotta del Cerchio ha una transizione: senza questi giri la
+    // fotografia coglierebbe la pagina a meta' strada.
+    for (var g = 0; g < 8; g++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'impostazioni-suono.png');
+  });
+
+  // --- La sezione Profilo dell'Area Utente, col volto dell'utente ---
+  testWidgets('Cattura il Profilo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(360, 844));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Un segno impostato, cosi' l'avatar di default mostra l'emblema del segno.
+    final birth = BirthIdentityController()
+      ..setBirth(
+        BirthDetails(
+          date: DateTime(1990, 8, 10),
+          time: const TimeOfDay(hour: 12, minute: 0),
+          place: const astro.BirthPlace(
+              label: 'Roma',
+              latitude: 41.9,
+              longitude: 12.5,
+              timezone: 'Europe/Rome'),
+        ),
+        NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+      );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider<BirthIdentityController>.value(value: birth),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => NatalChartController()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: const ProfileScreen(),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          const AssetImage('assets/img/zodiac/zod_leone.webp'), element);
+    });
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'profilo.png');
+  });
+
+  // --- I piani del Cerchio, aperti dalle Impostazioni ---
+  testWidgets('Cattura i piani del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    // La rotellina non c'e' piu' (ordine AK voce 03): la via e' porta
+    // dell'account, "Il tuo account", voce Impostazioni.
+    // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
+    // sottile in alto, e il primo tocco la apre invece di portare via.
+    // **AL PIU\' DUE TOCCHI, E SI SMETTE QUANDO IL PANNELLO E\' APERTO.** I
+    // due tocchi fissi cadevano quando bastava il primo: se al primo avvio
+    // c'e\' una festa in scena la barra sottile si ritira (ordine BX voce 07)
+    // e il secondo tocco non trova piu' nessuna porta.
+    for (var tocco = 0; tocco < 2; tocco++) {
+      if (find.byKey(const Key('account_impostazioni')).evaluate().isNotEmpty) {
+        break;
+      }
+      final porta = find.byKey(const Key('porta_dell_account'));
+      if (porta.evaluate().isEmpty) break;
+      await tester.tap(porta.last, warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    // **SI SCORRE FINO ALLA VOCE, ordine CB voce 02.** L'elenco
+    // dell'account e' pigro: le voci sotto la piega non vengono nemmeno
+    // costruite. Con la voce nuova "Rivedi il primo approdo" le Impostazioni
+    // sono scese sotto il bordo, e il tocco cadeva nel vuoto: tre catture
+    // sono morte cosi', e nessuna parlava del tutorial.
+    await scorriFinoAllaVoce(tester, 'account_impostazioni');
+    await tester.tap(find.byKey(const Key('account_impostazioni')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('settings_plans')));
+    await step(tester);
+    await step(tester);
+    // Superficie alta, cosi' l'anteprima mostra la card Demo e i quattro livelli.
+    await montaLoSchermo(tester, const Size(360, 2600));
+    await step(tester);
+    await capture(tester, rootKey, 'piani.png');
+  });
+
+  // --- La chat che instrada verso una funzione immersiva ---
+  testWidgets('Cattura la chat che instrada a una funzione', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final intent = ImmersiveIntents.all
+        .firstWhere((i) => i.target == ImmersiveTarget.tarocchiStesa);
+    await memory.appendMessage(
+        Maestro.medora,
+        const ChatMessage(
+            role: ChatRole.user, text: 'Puoi leggermi i tarocchi?'));
+    await memory.appendMessage(
+        Maestro.medora,
+        ChatMessage(
+            role: ChatRole.maestro, text: intent.invite, intentId: intent.id));
+    final services = AppServices(
+      ai: _ScriptedMaestro(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-instradamento.png');
+  });
+
+  // --- IL CONSULTO NELLA CHAT VERA, a conversazione vuota e piena ---
+  //
+  // La stessa scena nelle due situazioni che decidono la sua misura: senza
+  // niente sopra prende tutto lo spazio che avanza, con la conversazione piena
+  // si stringe. Sono due immagini e non una perche' la regola e' proprio la
+  // differenza fra le due.
+  // I NOMI SCRITTI PER ESTESO, non composti a runtime: la prova che ogni
+  // anteprima abbia un generatore cerca il nome nel sorgente del corredo, e un
+  // nome montato con un ternario non lo trova. L'ha bocciata, ed era giusto.
+  const consultoNellaChat = <String, bool>{
+    'consulto-chat-vuota.png': false,
+    'consulto-chat-piena.png': true,
+  };
+
+  // IL SIMBOLO CHE SI COMPONE, nei tre istanti che contano.
+  //
+  // All'inizio, a META' e a composizione INTERA, tre file di peso diverso: due
+  // fotogrammi che pesano uguale sono lo stesso fotogramma, ed e' successo con
+  // la coppia del Riduci Movimento, che pesava 105.481 byte in tutti e due i
+  // file. L'istante zero c'e' perche' e' quello che decide se l'effetto
+  // funziona, e la sua assenza ha fatto diagnosticare male due volte il
+  // difetto precedente.
+  //
+  // **Qui c'era l'emblema che si colorava, e non c'e' piu'.** Si accendeva il
+  // volto del Maestro passando da grigio a colore: era una lettura sbagliata
+  // di cio' che il fondatore aveva chiesto, che era un SIMBOLO della persona.
+  const composizione = <String, Duration>{
+    'consulto-simbolo-inizio.png': Duration.zero,
+    'consulto-simbolo-meta.png': Duration(milliseconds: 1500),
+    'consulto-simbolo-intero.png': Duration(milliseconds: 3000),
+  };
+  for (final istante in composizione.entries) {
+    testWidgets('Cattura ${istante.key}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      await montaLoSchermo(tester, schermoReale);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: MaestroScope(
+              maestro: Maestro.medora,
+              child: Scaffold(
+                backgroundColor: const Color(0xFF080B1A),
+                body: Center(
+                  child: ConsultoDelCieloView(
+                    natal: NatalContext(
+                      sunSign: Zodiac.leo.italianName,
+                      moonSign: Zodiac.pisces.italianName,
+                      ascendant: Zodiac.virgo.italianName,
+                    ),
+                    maestro: Maestro.medora,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await precacheFaces(tester);
+      await tester.pump(istante.value);
+      await capture(tester, rootKey, istante.key);
+    });
+  }
+  for (final caso in consultoNellaChat.entries) {
+    final piena = caso.value;
+    testWidgets('Cattura ${caso.key}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      if (piena) {
+        for (final (role, text) in seedFor(Maestro.medora)) {
+          await memory.appendMessage(
+              Maestro.medora, ChatMessage(role: role, text: text));
+        }
+      }
+      final services = AppServices(
+        ai: _VoceCheFaAspettare(),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      // I DATI DI NASCITA, cosi' la scena guarda un corpo vero di questa
+      // persona invece del punto luminoso che spetta a chi non ne ha dati.
+      tester
+          .element(find.byType(MaterialApp))
+          .read<BirthIdentityController>()
+          .setBirth(
+            BirthDetails(
+              date: DateTime(1990, 8, 10),
+              time: const TimeOfDay(hour: 12, minute: 0),
+              place: const astro.BirthPlace(
+                  label: 'Roma',
+                  latitude: 41.9,
+                  longitude: 12.5,
+                  timezone: 'Europe/Rome'),
+            ),
+            NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+          );
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+
+      // Si fa una domanda e la si lascia in volo: la scena del consulto vive
+      // esattamente li'.
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      for (var i = 0; i < 8; i++) {
+        await step(tester);
+      }
+      await precacheFaces(tester);
+      await capture(tester, rootKey, caso.key);
+    });
+  }
+
+  // --- LA RISPOSTA BREVE, LA STELLA, E IL SEGUITO CHE ARRIVA AL TOCCO ---
+  //
+  // **Tre fotogrammi, e la differenza fra loro e' la voce intera.**
+  //
+  // 1. La risposta breve, che finisce con la STELLA e il consiglio in oro: e'
+  //    la cosa che una persona di fretta legge al posto di tutto il resto.
+  // 2. La stessa dopo il tocco, col seguito inserito FRA il corpo e il
+  //    consiglio: la stella resta l'ultima riga, che e' il vincolo che decide
+  //    dove il seguito si infila.
+  // 3. L'ATTESA DEL SEGUITO, che e' il fotogramma in mezzo: la persona ha
+  //    appena toccato, e cio' che stava leggendo e' ancora tutto li'. Prima
+  //    di oggi qui ripartiva la scena a schermo intero e la bolla si
+  //    svuotava, e questa immagine e' la prova che non succede piu'.
+  // 4. Come la vede un VIANDANTE: la freccia si vede lo stesso, perche' un
+  //    lucchetto muto e' un vicolo cieco, e al tocco porta agli abbonamenti.
+  for (final caso in const ['breve', 'seguito', 'attesa', 'viandante']) {
+    final dopoIlTocco = caso == 'seguito' || caso == 'attesa';
+    final durante = caso == 'attesa';
+    final viandante = caso == 'viandante';
+    final nome = {
+      'breve': 'chat-breve-con-la-stella.png',
+      'seguito': 'chat-seguito-col-consiglio-in-fondo.png',
+      'attesa': 'chat-attesa-del-seguito-nella-bolla.png',
+      'viandante': 'chat-freccia-per-il-viandante.png',
+    }[caso]!;
+    testWidgets('Cattura $nome', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      final services = AppServices(
+        // Nel caso dell'attesa il seguito ci mette del tempo, perche' e'
+        // esattamente il tempo che questa immagine deve mostrare.
+        ai: _VoceInDueStrati(
+            ritardoDelSeguito:
+                durante ? const Duration(seconds: 4) : Duration.zero),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      // IL LIVELLO decide cosa succede al tocco della freccia: chi ha il
+      // secondo strato nel cammino riceve il seguito, il Viandante arriva
+      // agli abbonamenti. Sono due immagini della stessa schermata.
+      tester
+          .element(find.byType(MaterialApp))
+          .read<EntitlementService>()
+          .setTier(viandante ? Tier.free : Tier.tier1);
+      tester
+          .element(find.byType(MaterialApp))
+          .read<BirthIdentityController>()
+          .setBirth(
+            BirthDetails(
+              date: DateTime(1990, 8, 10),
+              time: const TimeOfDay(hour: 12, minute: 0),
+              place: const astro.BirthPlace(
+                  label: 'Roma',
+                  latitude: 41.9,
+                  longitude: 12.5,
+                  timezone: 'Europe/Rome'),
+            ),
+            NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+          );
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+      // IL GLIFO DEL SEGNO, precaricato a mano.
+      //
+      // Accanto ai messaggi della persona c'e' il simbolo del suo segno, non
+      // la sua iniziale. Le catture locali non decodificano gli asset da sole,
+      // e senza questa riga nell'anteprima restava un tondo dorato vuoto: un
+      // difetto della cattura, non dell'app, ma un'anteprima che mostra un
+      // buco e' un'anteprima che dice il falso.
+      await tester.runAsync(() async {
+        final el = tester.element(find.byType(MaterialApp));
+        // Tutte e due le arti del segno: il tondo accanto ai messaggi usa
+        // l'emblema grande, la scena dell'attesa la miniatura.
+        await precacheImage(AssetImage(ZodiacArt.emblemPath(Zodiac.leo)), el);
+        await precacheImage(AssetImage(ZodiacArt.symbolPath(Zodiac.leo)), el);
+      });
+      await step(tester);
+
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      // La pausa minima piu' la scrittura a macchina da scrivere.
+      for (var i = 0; i < 30; i++) {
+        await step(tester);
+      }
+      if (dopoIlTocco) {
+        // LA FRECCIA VA PRIMA PORTATA IN VISTA: la chat scorre all'inizio
+        // della risposta, quindi il fondo della bolla, con la freccia, resta
+        // sotto la piega, dietro il compositore sospeso della voce 2 del
+        // 2161. Un tocco fuori vista non tocca niente, e l'attesa che questa
+        // cattura fotografa non partirebbe mai.
+        // In vista non basta: sotto il vetro della barra il contenuto si
+        // vede ma il tocco lo prende il vetro. Si porta la lista a fondo
+        // corsa, dove il fondo interno solleva l'ultima bolla sopra il
+        // compositore, come farebbe il dito di chi vuole toccare.
+        for (var i = 0; i < 3; i++) {
+          await tester.drag(find.byType(ListView).first, const Offset(0, -400),
+              warnIfMissed: false);
+          await step(tester);
+        }
+        await tester.tap(find.byKey(const Key('chat_approfondisci')));
+        // DUE PASSI SOLI PER L'ATTESA, e non dodici: con dodici il seguito
+        // sarebbe gia' sceso e l'immagine mostrerebbe l'altro fotogramma.
+        for (var i = 0; i < (durante ? 2 : 12); i++) {
+          await step(tester);
+        }
+        if (durante) {
+          expect(
+              find.byKey(const Key('chat_seguito_in_arrivo')), findsOneWidget,
+              reason: 'l\'anteprima dell\'attesa non ha nessuna attesa dentro '
+                  'da mostrare: mostrerebbe il falso');
+          expect(find.byKey(const Key('chat_seguito')), findsNothing);
+        }
+      }
+      await precacheFaces(tester);
+      await capture(tester, rootKey, nome);
+      // SI SCOLA L'ATTESA prima di chiudere: il ritardo del seguito e' un
+      // timer vero, e lasciarlo pendente fa cadere la cattura sull'albero
+      // gia' smontato.
+      if (durante) {
+        for (var i = 0; i < 20; i++) {
+          await step(tester);
+        }
+      }
+    });
+  }
+
+  // --- LA BOLLA DELLA CHAT COL CONTATORE, a tre e a uno ---
+  //
+  // **E' il difetto 4 dell'ordine OROSCOPO 4 e CHAT 12.** Nella build 2148 si
+  // leggeva "Oggi te ne resta 3 su 3", che e' sgrammaticato: al plurale ci
+  // vuole "te ne restano". Due immagini perche' l'accordo si vede solo
+  // confrontando i due casi, e a uno la forma singolare deve restare.
+  for (final quanti in const [3, 1]) {
+    // I NOMI PER ESTESO, e non composti a runtime: il corredo li cerca come
+    // stringhe dentro questo file, e un nome interpolato lo lascerebbe orfano.
+    final nome = const {
+      3: 'chat-contatore-a-3.png',
+      1: 'chat-contatore-a-1.png',
+    }[quanti]!;
+    testWidgets('Cattura la bolla col contatore a $quanti', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      final services = AppServices(
+        ai: _VoceInDueStrati(),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      final ctx = tester.element(find.byType(MaterialApp));
+      ctx.read<EntitlementService>().setTier(Tier.tier1);
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      for (var i = 0; i < 30; i++) {
+        await step(tester);
+      }
+      await precacheFaces(tester);
+      // I CONFRONTI GIA' SPESI, registrati QUI e non prima di aprire la chat.
+      //
+      // Prima stavano prima dell'apertura, e le due immagini uscivano
+      // identiche byte per byte: il contatore si legge dal provider vivo che
+      // la rotta della chat tiene, e mutarlo prima che quella rotta esista non
+      // arrivava a video. Con la conta fatta a chat aperta il numero cambia
+      // davvero, e le due anteprime sono due.
+      final conto =
+          tester.element(find.byType(ChatComposer)).read<QuestionAllowance>();
+      for (var i = 0; i < 3 - quanti; i++) {
+        conto.registraConfronto(Tier.tier1);
+      }
+      await step(tester);
+      await step(tester);
+
+      // IL GUARDIANO: senza il contatore a video l'immagine non mostra il
+      // difetto che deve mostrare.
+      expect(find.byKey(const Key('chat_residuo_confronti')), findsOneWidget,
+          reason: 'il contatore non e\' a video: questa cattura non serve');
+      await capture(tester, rootKey, nome);
+    });
+  }
+
+  // --- La chat RIAPERTA dopo un turno fallito ---
+  //
+  // **Il dato che ha fatto nascere questa cattura.** Negli screenshot del
+  // fondatore del 2 agosto 2026, riaprendo la chat si leggevano sette domande
+  // di fila e nessuna risposta. Questa immagine mostra lo stesso gesto, cioe'
+  // riaprire dopo un guasto, e cio' che si deve vedere: la domanda con il suo
+  // turno accanto, dichiarato ripiego, col suo Riprova.
+  testWidgets('Cattura la chat riaperta dopo un turno fallito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    // La cronologia com'e' rimasta sul telefono: la domanda, e il turno del
+    // Maestro che e' fallito. Prima di oggi il secondo non c'era.
+    await memory.appendMessage(Maestro.medora,
+        const ChatMessage(role: ChatRole.user, text: 'Devo cambiare lavoro?'));
+    await memory.appendMessage(
+        Maestro.medora,
+        ChatMessage(
+          role: ChatRole.maestro,
+          text: RipiegoDelMaestro.silenzioDi(Maestro.medora),
+          failed: true,
+          ripiego: true,
+        ));
+    final services = AppServices(
+      ai: _ScriptedMaestro(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-riaperta-turno-fallito.png');
+  });
+
+  // --- Le chat: conversazione, pannello suggerimenti, stato vuoto ---
+  for (final maestro in Maestro.values) {
+    final id = maestro.id;
+
+    testWidgets('Cattura la conversazione, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: true));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
+      // **SI ASPETTA CHE LA VOCE FINISCA DI SCRIVERE.** Ordine BY, giro di
+      // grazia: la bolla riserva l'altezza della frase intera mentre il testo
+      // si scrive, quindi l'immagine colta a meta' mostrava una frase
+      // troncata e un vuoto grande dentro la bolla. Chi guarda l'anteprima
+      // non vede una scrittura in corso, vede un difetto.
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 400));
+      }
+      await capture(tester, rootKey, '$id-chat.png');
+    });
+
+    testWidgets('Cattura il pannello dei suggerimenti, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: true));
+      await openChat(tester, maestro);
+      await tester.tap(find.text('Suggerimenti'));
+      await step(tester);
+      await step(tester);
+      await capture(tester, rootKey, '$id-chat-suggerimenti.png');
+    });
+
+    // **LA CHAT NUOVA SI LEGGE INTERA, ANCHE COL TESTO AL MASSIMO.**
+    // Ordine CI voce 01.
+    //
+    // Il fatto: aprendo una conversazione nuova i testi in alto risultavano
+    // sovrapposti. La misura ha detto QUALI, e non erano quelli che si
+    // pensava: non il benvenuto e l'intestazione, e nemmeno il benvenuto e i
+    // tre inviti, che qui non ci sono piu' da due ordini. Erano **il
+    // benvenuto e il COMPOSITORE**: col corpo del testo al massimo consentito
+    // dal sistema, cioe' 1,3, il saluto va a tre righe, finiva a 599 e il
+    // compositore comincia a 571. Ventotto punti di testo dietro i pulsanti.
+    //
+    // Questa prova gira alla scala massima perche' e' li' che il difetto
+    // vive: a scala uno non si vedeva niente, ed e' il motivo per cui nessuna
+    // delle prove che c'erano lo ha mai preso.
+    testWidgets('CI.01: la chat nuova si legge intera a scala massima, $id',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
+
+      final saluto = tester.getRect(find.byKey(const Key('chat_benvenuto')));
+      final composer = tester.getRect(find.byType(ChatComposer));
+      final busto = tester.getRect(find.byType(BustoDelMaestro).first);
+
+      // **NON SI SOVRAPPONGONO**, che e' la meta' facile.
+      expect(saluto.bottom, lessThanOrEqualTo(composer.top),
+          reason: 'il benvenuto finisce a ${saluto.bottom} e il compositore '
+              'comincia a ${composer.top}: '
+              '${saluto.bottom - composer.top} punti di testo stanno dietro '
+              'i pulsanti, e nessuno dei due si legge');
+
+      // **E SI LEGGE PER INTERO**, che e' la meta' che conta: togliendo il
+      // compositore dalla viewport la sovrapposizione spariva ma il saluto
+      // usciva TAGLIATO, cioe' un difetto scambiato per un altro. Il saluto
+      // sta dentro l'area libera solo se il busto ha ceduto la sua altezza,
+      // e questa riga misura proprio quello.
+      expect(busto.height,
+          lessThanOrEqualTo(BustoDelMaestro.altezzaCanonica + 0.5));
+      expect(busto.bottom, lessThan(saluto.top),
+          reason: 'il busto e il saluto si toccano');
+      final areaLibera = composer.top;
+      expect(saluto.bottom, lessThan(areaLibera),
+          reason: 'il saluto non sta nell\'area libera: e\' tagliato, e un '
+              'testo tagliato non e\' un testo che si legge');
+
+      // Senza questa riga la prova passerebbe anche con un busto sparito.
+      expect(busto.height,
+          greaterThanOrEqualTo(ChatEmptyState.altezzaMinimaDelBusto - 0.5),
+          reason: 'il busto e\' sceso sotto la sua misura minima dichiarata: '
+              'non e\' piu\' un ritratto');
+      // ignore: avoid_print
+      print('CI.01 $id: busto ${busto.height.toStringAsFixed(0)}, saluto fino '
+          'a ${saluto.bottom.toStringAsFixed(0)}, compositore da '
+          '${composer.top.toStringAsFixed(0)}');
+      if (maestro == Maestro.medora) {
+        await capture(tester, rootKey, 'chat-vuota-scala-massima.png');
+      }
+    });
+
+    testWidgets('Cattura lo stato vuoto, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, '$id-chat-vuoto.png');
+    });
+  }
+
+  // --- Il Risveglio, rituale a passi, e la rivelazione del cielo ---
+  // Riduci Movimento attivo su tutte le route: accensioni e ruota gia' compiute
+  // e ferme alla cattura, cosi' l'anteprima e' netta e deterministica.
+  Future<GlobalKey> mountRisveglio(WidgetTester tester,
+      {DateTime Function()? clock, Size? schermo}) async {
+    await montaLoSchermo(tester, schermo ?? schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider(create: (_) => OnboardingController()),
+            // Il Risveglio ora poggia sul cosmo profondo: servono i controller
+            // che lo animano (fermo sotto Riduci Movimento) e il tema neutro.
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => NatalChartController()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: OnboardingScreen(clock: clock),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), element);
+      }
+    });
+    await tester.pumpAndSettle();
+    return rootKey;
+  }
+
+  Future<void> continua(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('onboarding_continue')));
+    await tester.pumpAndSettle();
+  }
+
+  // --- LE TRE FESTE, MONTATE DALL'APP VERA (ordine AQ voce 02) ---
+  //
+  // **Perche' non bastava `tool/anteprime_delle_feste.dart`.** Quello
+  // strumento compone il pittore a mano: dimostra che il pittore sa
+  // disegnare, non che la persona vede qualcosa. Queste tre nascono dalla
+  // scena vera della celebrazione, con un traguardo vero per sentiero, ed e'
+  // l'unico modo per rispondere alla frase di Mauro "si vedono tutte
+  // uguali".
+  for (final sentiero in Sentiero.values) {
+    testWidgets('Cattura la festa di ${sentiero.name}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues(const {});
+      await montaLoSchermo(tester, schermoReale);
+      final rootKey = GlobalKey();
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
+      await diario.carica();
+      await tester.pumpWidget(
+        RepaintBoundary(
+          key: rootKey,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              // Lo scope porta il Maestro del sentiero, ordine AS voce 02.
+              builder: (ctx, child) =>
+                  MaestroScope(maestro: sentiero.maestro, child: child!),
+              home: CelebrazioneAScermoPieno(
+                traguardi: [Sentieri.di(sentiero).first],
+                sentieri: [sentiero],
+              ),
+            ),
+          ),
+        ),
+      );
+      // **SI PRECARICA, POI SI RIMONTA LA SCENA DA ZERO.** Ordine AV voce
+      // 01, e la ragione e' misurata.
+      //
+      // Il precaricamento gira dentro `runAsync`, cioe' **fa scorrere il tempo
+      // VERO**, e la spirale intanto corre: quando si arriva a scattare e' gia'
+      // a fine corsa e l'immagine esce senza stelle. Misurato con un contatore
+      // dentro la cattura: **zero stelle dipinte**, mentre la stessa scena in
+      // una prova senza precaricamento ne dipinge milleduecento.
+      //
+      // Rimontando dopo, la spirale nasce con l'orologio fermo del test e i
+      // novecento millesimi sono novecento millesimi.
+      await precaricaCioCheLaScenaMonta(tester);
+      await tester.pumpWidget(
+        RepaintBoundary(
+          key: rootKey,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              builder: (ctx, child) =>
+                  MaestroScope(maestro: sentiero.maestro, child: child!),
+              home: CelebrazioneAScermoPieno(
+                key: UniqueKey(),
+                traguardi: [Sentieri.di(sentiero).first],
+                sentieri: [sentiero],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      // **AL CULMINE DELLA SPIRALE, ordine AV voce 01.** A 800 millesimi la
+      // scena e' al suo massimo riempimento e la scheda e' appena comparsa:
+      // qualche millesimo dopo si vedono tutte e due le cose insieme, che e'
+      // il momento che conta. Una festa fotografata alla fine sarebbe una
+      // festa gia' finita.
+      await tester.pump(const Duration(milliseconds: 900));
+      // **IL NOME SI SCRIVE PER INTERO, ordine AQ voce 06.** Composto a
+      // pezzi non compare nei sorgenti, e la guardia del corredo dichiara
+      // orfana l'immagine che nessuno sembra generare: sarebbe verde solo
+      // finche' nessuno la cerca.
+      final nomeFile = switch (sentiero) {
+        Sentiero.costellazione => 'festa-costellazione.png',
+        Sentiero.albero => 'festa-albero.png',
+        Sentiero.loto => 'festa-loto.png',
+      };
+      // **LA CATTURA DICHIARA QUANTE STELLE HA VISTO.** Ordine AV voce 01:
+      // due volte questa immagine e' uscita senza spirale, e le due volte il
+      // widget c'era. Un numero stampato accanto allo scatto e' cio' che
+      // distingue "la scena non ha stelle" da "la cattura non le ha prese".
+      expect(PittoreDellaSpirale.viveAllUltimoFotogramma, greaterThan(1000),
+          reason: 'la cattura sta scattando una festa senza stelle: ne ha '
+              'viste ${PittoreDellaSpirale.viveAllUltimoFotogramma}');
+      await capture(tester, rootKey, nomeFile, precarica: false);
+    });
+  }
+
+  // **LE NOVE CATTURE DEI TRE TEMPI DELLA FESTA SONO MORTE. Ordine AT voce
+  // 03.** Fotografavano le particelle per Maestro all'inizio, a meta' e alla
+  // fine: quelle particelle non esistono piu', al loro posto c'e' la
+  // transizione di stelle, che e' un filmato e non si fotografa a fotogrammi
+  // scelti da noi. Le anteprime `festa_<maestro>_<tempo>.png` sono state
+  // tolte insieme al codice che le generava.
+
+  // --- LA CUSTODIA DEL CIELO, dall'app vera (ordine AQ voce 05) ---
+  //
+  // Mauro l'ha vista confusionaria: nove elementi in colonna. Senza
+  // un'immagine alla larghezza vera non si puo' giudicare se adesso si legge.
+  testWidgets('Cattura la custodia del cielo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider<AccountDelCerchio>(
+                create: (_) =>
+                    AccountDelCerchio(porta: const IdentitaAssente())),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MaestroScope(child: child!),
+            home: CustodiaDelCieloStep(
+              maestro: Maestro.medora,
+              suFine: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'custodia-del-cielo.png');
+  });
+
+  // --- I PAESI CHE ADESSO SI DISEGNANO DA SOLI, ordine CC voce 07 ---
+  //
+  // Il catalogo e' passato da 3.108 luoghi fuori dall'Italia a 32.408, e la
+  // regola dell'ordine BB voce 12, che era scritta come regola e non come
+  // elenco, ha fatto entrare quattro paesi nuovi. Quella guardia dice di se'
+  // stessa che "non ha occhi": questi scatti sono gli occhi. Una nuvola rada
+  // non disegna niente, e va vista prima di lasciarla a schermo.
+  // **LA CITTA' SI CERCA COL SUO PAESE, e non col solo nome.** Il primo giro
+  // ha scattato il Canada al posto del Regno Unito: nel catalogo la capitale
+  // inglese si chiama Londra, con London come nome alternativo, e London
+  // secco e' quella dell'Ontario. Un omonimo che passa inosservato fa
+  // giudicare buona o cattiva la mappa sbagliata.
+  //
+  // **IL NOME DEL FILE E' SCRITTO PER INTERO**, e non composto: il corredo
+  // delle anteprime enumera i nomi letterali, e un nome messo insieme a
+  // runtime gli risulta orfano, cioe' un'immagine che non rigenera nessuno.
+  for (final citta in const [
+    ('Berlin', 'Germania', 'germania', 'nazione-germania.png'),
+    ('Londra', 'Regno Unito', 'regno-unito', 'nazione-regno-unito.png'),
+  ]) {
+    testWidgets('Cattura la nazione di ${citta.$3}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues(const {});
+      await montaLoSchermo(tester, schermoReale);
+      final catalogo =
+          CityCatalog.parse(File('assets/data/luoghi.csv').readAsStringSync());
+      final punto = catalogo
+          .firstWhere((c) => c.name == citta.$1 && c.country == citta.$2);
+      final nazione = MappaDellaNazione.perIlLuogo(
+          punto.latitude, punto.longitude, catalogo);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Center(
+              child: SizedBox(
+                width: 340,
+                height: 340,
+                child: Planisfero(
+                  palette: MaestroPalette.medora,
+                  luogo: (lat: punto.latitude, lon: punto.longitude),
+                  nazione: nazione,
+                  reduceMotion: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 400));
+      await capture(tester, rootKey, citta.$4);
+    });
+  }
+
+  // --- LE DUE DOMANDE CHE IL CERCHIO FA A CHI ARRIVA ---
+  //
+  // Ordine CC voci 08 e 09. Sono due fogli dal basso che si vedono una volta
+  // sola nella vita di chi installa l'app, quindi non li incontra nessuno per
+  // caso: senza un'immagine alla larghezza vera non si puo' giudicare se il
+  // no si trova, se i due pulsanti sono davvero uguali e se il testo entra.
+  testWidgets('Cattura la domanda dell\'invito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: const Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Align(
+              alignment: Alignment.bottomCenter,
+              child: DomandaDellInvito(),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'domanda-dell-invito.png');
+  });
+
+  testWidgets('Cattura la domanda della misura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MaestroScope(child: child!),
+          home: Scaffold(
+            backgroundColor: ColorTokens.medoraDeepest,
+            body: Align(
+              alignment: Alignment.bottomCenter,
+              child: DomandaDellaMisura(onRisposta: (_) {}),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'domanda-della-misura.png');
+  });
+
+  // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---
+  //
+  // **E' la schermata su cui si gioca la promessa di tutto l'ordine**, e
+  // finora non esisteva nessuna sua immagine: e' cio' che vede chi torna col
+  // suo account dopo aver cambiato telefono. I numeri sono quelli di un
+  // cammino vero, non un esempio ornamentale, perche' la scena a schermo dice
+  // proprio quei numeri e un numero inventato qui la trasformerebbe in una
+  // vanteria.
+  testWidgets('Cattura la scena del ritrovamento', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    final ritrovamento = Ritrovamento.da(
+      CamminoDaCustodire(
+        identita: IdentitaDaCustodire(
+          nome: 'Sofia',
+          giorno: DateTime(1990, 4, 12),
+          ora: '07:30',
+          luogo: 'Roma',
+          latitudine: 41.9,
+          longitudine: 12.5,
+        ),
+        sigilli: {
+          'med_1': DateTime(2026, 8, 1),
+          'cal_1': DateTime(2026, 8, 3),
+          'aur_1': DateTime(2026, 8, 7),
+        },
+      ),
+      saldoEos: 340,
+    );
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: ScenaDelRitrovamento(
+              ritrovamento: ritrovamento,
+              onProsegui: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'ritrovamento.png');
+  });
+
+  testWidgets('Cattura il Risveglio, la data col Sole nel segno',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // accoglienza -> data
+    await capture(tester, rootKey, 'risveglio-data.png');
+  });
+
+  testWidgets('Cattura il Risveglio, l\'ora e l\'Ascendente', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await capture(tester, rootKey, 'risveglio-ora.png');
+  });
+
+  testWidgets('Cattura il Risveglio, il luogo offline', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await tester.enterText(
+        find.byKey(const Key('risveglio_luogo_field')), 'Roma');
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'risveglio-luogo.png');
+  });
+
+  // Il planisfero col luogo SCELTO: la stella accesa nel punto giusto e' il
+  // senso della cosa, quindi va guardata, non dedotta.
+  testWidgets('Cattura il Risveglio, il luogo scelto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await tester.enterText(
+        find.byKey(const Key('risveglio_luogo_field')), 'Roma');
+    await tester.pumpAndSettle();
+    // **NESSUN TOCCO SULL'ELENCO, e non e' una semplificazione.** Dall'ordine
+    // 2169 voce 1, scrivere per intero il nome di una citta' che nel catalogo
+    // e' unica la sceglie da sola, e Roma nel catalogo e' una sola: l'elenco
+    // non compare affatto. Questa cattura mostra percio' cio' che vede
+    // davvero chi scrive il nome della propria citta'.
+    await capture(tester, rootKey, 'risveglio-luogo-scelto.png');
+  });
+
+  // L'accoglienza, col suo astrolabio. Catturata A FINE COSTRUZIONE, non a
+  // meta': gli anelli si tracciano in 2,6 secondi e fotografarli prima
+  // direbbe che l'astrolabio e' incompleto.
+  testWidgets('Cattura il Risveglio, accoglienza', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    for (var i = 0; i < 18; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await capture(tester, rootKey, 'risveglio-accoglienza.png');
+  });
+
+  // La schermata del genere, con una scelta fatta: Mauro dice di non vedere
+  // nessuna frase d'esempio, quindi va guardata invece che dedotta. Su due
+  // altezze, perche' se la frase sta sotto la piega su uno schermo basso e'
+  // come non averla scritta.
+  for (final basso in const [false, true]) {
+    testWidgets(
+        'Cattura il Risveglio, il genere${basso ? ', schermo basso' : ''}',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey = await mountRisveglio(tester,
+          clock: () => DateTime(2026, 7, 15),
+          schermo: basso ? schermoBasso : schermoAlto);
+      await continua(tester); // -> data
+      await continua(tester); // -> ora
+      await continua(tester); // -> luogo
+      await continua(tester); // -> nome
+      await tester.enterText(
+          find.byKey(const Key('risveglio_nome_field')), 'Mauro');
+      await tester.pumpAndSettle();
+      await continua(tester); // -> vocativo
+      await tester.tap(find.byKey(const Key('vocativo_lui')));
+      // A fine scrittura, non a meta': la frase si scrive lettera per lettera
+      // e fotografarla a meta' direbbe che manca.
+      for (var i = 0; i < 14; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+      await capture(
+          tester, rootKey, 'risveglio-genere${basso ? '-2392' : ''}.png');
+    });
+  }
+
+  testWidgets('Cattura il Risveglio, il sigillo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await continua(tester); // -> nome
+    await tester.enterText(
+        find.byKey(const Key('risveglio_nome_field')), 'Sofia');
+    await tester.pumpAndSettle();
+    await continua(tester); // -> vocativo
+    await tester.tap(find.byKey(const Key('vocativo_lei')));
+    await tester.pumpAndSettle();
+    await continua(tester); // -> sigillo
+    await capture(tester, rootKey, 'risveglio-sigillo.png');
+  });
+
+  // Il ponte per le catture della coda: dai dati di nascita nascono la carta
+  // (essenziale senza chiave API) e i fatti identitari, come nel Risveglio.
+  Future<
+      ({
+        NatalChartController chart,
+        IdentityController ident,
+        BirthIdentityController birth,
+        BirthDetails details,
+      })> natalBridge(WidgetTester tester) async {
+    final details = BirthDetails(
+      date: DateTime(1990, 6, 15),
+      time: const TimeOfDay(hour: 2, minute: 30),
+      place: const astro.BirthPlace(
+        label: 'Roma',
+        latitude: 41.9,
+        longitude: 12.5,
+        timezone: 'Europe/Rome',
+      ),
+      gender: Gender.female,
+    );
+    final chart = NatalChartController();
+    await tester.runAsync(() => chart.compute(details));
+    final birth = BirthIdentityController()..setBirth(details, chart.chart);
+    final ident = IdentityController()
+      ..setName('Sofia')
+      ..setForm(AddressForm.feminine);
+    return (chart: chart, ident: ident, birth: birth, details: details);
+  }
+
+  /// Una carta natale PIENA, costruita a mano: pianeti, angoli, case e
+  /// aspetti.
+  ///
+  /// Serve perche' l'anteprima della carta natale e' sempre stata quella
+  /// essenziale, senza pianeti: la ruota ornata non si e' mai potuta guardare,
+  /// e ogni modifica alle linee d'aspetto restava una cosa scritta e mai
+  /// vista. Le longitudini qui sono verosimili e fisse, non calcolate: questa
+  /// e' una posa per il ritratto, non una carta di qualcuno.
+  NatalChart cartaPiena() {
+    PlanetPosition p(String id, String nome, String glifo, double lon) =>
+        PlanetPosition(
+          id: id,
+          name: nome,
+          glyph: glifo,
+          longitude: lon,
+          sign: Zodiac.values[(lon ~/ 30) % 12],
+          house: (lon ~/ 30) + 1,
+        );
+    final pianeti = [
+      p('sun', 'Sole', '\u2609', 84),
+      p('moon', 'Luna', '\u263D', 212),
+      p('mercury', 'Mercurio', '\u263F', 71),
+      p('venus', 'Venere', '\u2640', 116),
+      p('mars', 'Marte', '\u2642', 3),
+      p('jupiter', 'Giove', '\u2643', 158),
+      p('saturn', 'Saturno', '\u2644', 292),
+      p('uranus', 'Urano', '\u2645', 268),
+      p('neptune', 'Nettuno', '\u2646', 283),
+      p('pluto', 'Plutone', '\u2647', 227),
+    ];
+    // Gli aspetti fra le coppie che cadono vicine agli angoli canonici.
+    final aspetti = <ChartAspect>[];
+    for (var i = 0; i < pianeti.length; i++) {
+      for (var j = i + 1; j < pianeti.length; j++) {
+        var d = (pianeti[i].longitude - pianeti[j].longitude).abs();
+        if (d > 180) d = 360 - d;
+        AspectType? tipo;
+        if (d < 8) {
+          tipo = AspectType.conjunction;
+        } else if ((d - 60).abs() < 6) {
+          tipo = AspectType.sextile;
+        } else if ((d - 90).abs() < 7) {
+          tipo = AspectType.square;
+        } else if ((d - 120).abs() < 7) {
+          tipo = AspectType.trine;
+        } else if ((d - 180).abs() < 8) {
+          tipo = AspectType.opposition;
+        }
+        if (tipo != null) {
+          aspetti.add(ChartAspect(
+            aLongitude: pianeti[i].longitude,
+            bLongitude: pianeti[j].longitude,
+            type: tipo,
+          ));
+        }
+      }
+    }
+    return NatalChart(
+      sunSign: Zodiac.gemini,
+      moonSign: Zodiac.scorpio,
+      ascendant: Zodiac.aquarius,
+      ascendantLongitude: 312,
+      midheaven: Zodiac.scorpio,
+      midheavenLongitude: 222,
+      planets: pianeti,
+      houses: [
+        for (var i = 0; i < 12; i++)
+          HouseCusp(number: i + 1, longitude: (312 + i * 30) % 360),
+      ],
+      aspects: aspetti,
+      hasTime: true,
+    );
+  }
+
+  Widget natalHost({required Widget home}) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      builder: (ctx, child) => MediaQuery(
+        data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+        child: MaestroScope(child: child!),
+      ),
+      home: home,
+    );
+  }
+
+  // La ruota natale PIENA, con pianeti e aspetti: era il buco permanente del
+  // corredo delle anteprime, perche' la carta d'anteprima e' sempre stata
+  // quella essenziale e la ruota non si e' mai potuta guardare.
+  testWidgets('Cattura la ruota natale piena, con gli aspetti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(360, 420));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => NatalChartController()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ],
+          child: natalHost(
+            home: Scaffold(
+              backgroundColor: const Color(0xFF0B0A1A),
+              body: Center(
+                child: NatalWheel(
+                  chart: cartaPiena(),
+                  size: 340,
+                  showAspects: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    // La ruota entra in 3,6 secondi e gli aspetti compaiono nell'ultimo
+    // quinto: catturare prima vorrebbe dire fotografare una ruota senza le
+    // linee e concludere che non ci sono.
+    for (var i = 0; i < 26; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await capture(tester, rootKey, 'carta-ruota-piena.png');
+  });
+
+  testWidgets('Cattura il cielo reale di nascita', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(360, 844));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final b = await natalBridge(tester);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<IdentityController>.value(value: b.ident),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => NatalChartController()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ],
+          child: natalHost(
+            // Il cielo alla nascita e' ora la STESSA schermata del cielo in
+            // tempo reale, ancorata al momento di nascita, con la CTA del
+            // flusso: e' quello che l'onboarding monta davvero.
+            home: SkyOverviewScreen(
+              now: b.details.dateTime,
+              birth: true,
+              showBack: false,
+              ctaLabel: 'Leggi la tua carta',
+              onCta: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    // La volta pulsa in continuo: non si attende l'idle, si pompano pochi
+    // frame per far posare la scena, poi si cattura.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'cielo-nascita.png');
+  });
+
+  testWidgets('Cattura la carta natale, ruota ornata e legenda',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Alta abbastanza da mostrare la ruota ornata e la legenda viva a tessere
+    // (una tessera per pianeta) sotto di essa, senza scorrere.
+    await montaLoSchermo(tester, const Size(360, 1600));
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final b = await natalBridge(tester);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<NatalChartController>.value(value: b.chart),
+            ChangeNotifierProvider<BirthIdentityController>.value(
+                value: b.birth),
+            ChangeNotifierProvider<IdentityController>.value(value: b.ident),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+            ChangeNotifierProvider(create: (_) => NatalChartController()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ],
+          child: natalHost(
+            home: ImmersiveScaffold(
+              child: NatalChartReveal(onContinue: () {}),
+            ),
+          ),
+        ),
+      ),
+    );
+    // Le tre miniature degli angeli vanno decodificate prima dello scatto.
+    // Senza, la cattura ne mostra una sola e le altre due restano vuote: e'
+    // un artefatto dell'headless, non un difetto della tessera, ma
+    // un'anteprima che mostra un volto su tre non serve a nessuno.
+    await tester.runAsync(() async {
+      for (final a in AngelCatalog.all) {
+        await precacheImage(
+            AssetImage(FamilyImage.thumb(AssetFamily.angeli, a.artStem)),
+            tester.element(find.byType(NatalChartReveal)));
+      }
+    });
+    // La legenda ha micro-animazioni: pochi frame invece dell'idle.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'carta-natale.png');
+  });
+
+  // --- La mano che invita al tocco, isolata e ingrandita ---
+  //
+  // Stava in un file suo che scriveva dritto in docs/preview senza passare di
+  // qui: era la SECONDA PORTA, e per questo la sua anteprima non ha mai visto
+  // la misura reale. Una regola messa in una porta quando le porte sono due non
+  // e' una regola.
+  testWidgets('Cattura la mano del tocco', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Container(
+          color: const Color(0xFF0B0714),
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (final f in const [-1.0, 0.35, 0.7])
+                SizedBox(
+                  width: 100,
+                  height: 260,
+                  child: CustomPaint(
+                    painter: TapHandPainter(phase: f, color: Colors.white),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await capture(tester, rootKey, 'mano-terza-stesura.png');
+  });
+
+  // --- Lo scaffale personale, alla misura reale ---
+  //
+  // Era nata da una prova temporanea poi cancellata: nessuno la rigenerava e
+  // restava ferma a 390 per 844, cioe' a uno schermo che non esiste.
+  testWidgets('Cattura Le tue arti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    final pref = ArtiPreferiteController(maestroAssegnato: Maestro.medora);
+    await pref.carica();
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => NatalChartController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider<ArtiPreferiteController>.value(value: pref),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0714),
+            body: SingleChildScrollView(child: TueArtiView(onOpen: (_) {})),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'le-tue-arti.png');
+  });
+
+  // --- I RITRATTI TONDI DEI TRE MAESTRI, E IL LORO CONFRONTO --------------
+  //
+  // Due cose che nessun'altra cattura fa vedere. Il TONDO: nell'app l'anello
+  // va da 26 a 48 punti, una misura in cui un volto inquadrato male si vede
+  // appena. L'inquadratura scala linearmente col diametro, quindi un anello
+  // grande mostra esattamente lo stesso taglio, solo leggibile; accanto
+  // restano le misure vere, cosi' non si giudica una cosa diversa da quella
+  // che l'app disegna. Il CONFRONTO: i tre affiancati sulla stessa linea di
+  // terra, che e' l'unico modo di vedere se una figura e' piu' bassa delle
+  // altre invece di sembrarlo.
+  for (final maestro in Maestro.fixedOrder) {
+    testWidgets('Cattura il tondo di ${maestro.displayName}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues({});
+      await montaLoSchermo(tester, schermoReale);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: Scaffold(
+              backgroundColor: const Color(0xFF0B0B14),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(maestro.displayName,
+                        style: const TextStyle(
+                            fontFamily: 'Cinzel',
+                            color: Color(0xFFE8D9A8),
+                            fontSize: 22,
+                            height: 2.2)),
+                    // Il taglio della bolla: il volto contenuto nel tondo.
+                    MaestroBust(maestro: maestro, ring: 230, popOut: false),
+                    const SizedBox(height: 40),
+                    const Text('il taglio dell\'header, la testa sporge',
+                        style: TextStyle(
+                            fontFamily: 'EBGaramond',
+                            color: Color(0x99E8D9A8),
+                            fontSize: 13)),
+                    const SizedBox(height: 14),
+                    MaestroBust(maestro: maestro, ring: 150),
+                    const SizedBox(height: 46),
+                    const Text('le misure vere dell\'app: 26, 34, 40, 48',
+                        style: TextStyle(
+                            fontFamily: 'EBGaramond',
+                            color: Color(0x99E8D9A8),
+                            fontSize: 13)),
+                    const SizedBox(height: 14),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        MaestroBust(maestro: maestro, ring: 26, popOut: false),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 34, popOut: false),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 40),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 48),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await step(tester);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, 'avatar-tondo-${maestro.id}.png');
+    });
+  }
+
+  testWidgets('Cattura i tre Maestri alla stessa scala', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                      'stessa altezza di figura, piedi sulla stessa linea',
+                      style: TextStyle(
+                          fontFamily: 'EBGaramond',
+                          color: Color(0xFFE8D9A8),
+                          fontSize: 14)),
+                  const SizedBox(height: 18),
+                  // 165 e non di piu': tre figure affiancate devono stare nei
+                  // 360 punti logici del telefono, altrimenti la riga sfora e
+                  // la cattura si rompe.
+                  SizedBox(
+                    height: 165,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (final m in Maestro.fixedOrder)
+                          Image.asset(m.avatarAsset,
+                              height: 165,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.bottomCenter),
+                      ],
+                    ),
+                  ),
+                  // La riga di terra: si giudica a occhio, non a impressione.
+                  Container(
+                      height: 2, width: 350, color: const Color(0xFFE8D9A8)),
+                  const SizedBox(height: 40),
+                  for (final m in Maestro.fixedOrder) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: 96,
+                          child: Text(m.displayName,
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                  fontFamily: 'EBGaramond',
+                                  color: Color(0xFFE8D9A8),
+                                  fontSize: 13)),
+                        ),
+                        const SizedBox(width: 12),
+                        Image.asset(m.avatarAsset,
+                            height: 150,
+                            fit: BoxFit.contain,
+                            alignment: Alignment.bottomCenter),
+                      ],
+                    ),
+                    Container(
+                        height: 1, width: 330, color: const Color(0x66E8D9A8)),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'avatar-confronto-tre.png');
+  });
+
+  // --- I TRE TONDI AFFIANCATI, ALLE MISURE VERE DELL'APP ------------------
+  //
+  // Il giudizio su come si somigliano si da' su questa: i tre uno accanto
+  // all'altro, alle misure a cui l'app li disegna davvero, 26 e 34 nella bolla
+  // e 40 e 48 dove la testa sporge. Sopra, gli stessi tre piu' grandi, perche'
+  // a 26 punti un difetto si vede appena.
+  testWidgets('Cattura i tre tondi affiancati', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget riga(String titolo, double anello, bool sporge) => Column(
+          children: [
+            Text(titolo,
+                style: const TextStyle(
+                    fontFamily: 'EBGaramond',
+                    color: Color(0x99E8D9A8),
+                    fontSize: 12)),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (final m in Maestro.fixedOrder) ...[
+                  MaestroBust(maestro: m, ring: anello, popOut: sporge),
+                  const SizedBox(width: 18),
+                ],
+              ],
+            ),
+            const SizedBox(height: 22),
+          ],
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  riga('ingranditi, per giudicare il taglio', 92, false),
+                  riga('le misure vere dell\'app: 26, 34, 40, 48', 26, false),
+                  riga('', 34, false),
+                  riga('', 40, true),
+                  riga('', 48, true),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'avatar-tondi-affiancati.png');
+  });
+
+  testWidgets('Cattura le tre carte prima e dopo l\'alone', (tester) async {
+    // IL GIUDIZIO E' DI MAURO, SULLE DUE FILE AFFIANCATE. Una carta sola,
+    // guardata da sola, non dice se l'alone stacca la figura: dice solo che
+    // c'e' qualcosa di chiaro. La differenza si vede mettendo le due file una
+    // sopra l'altra, che e' lo stesso confronto che fa la prova a pixel.
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget fila(String titolo, bool conAlone) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(titolo,
+                style: const TextStyle(
+                    fontFamily: 'Cinzel',
+                    fontSize: 13,
+                    color: Color(0xFFD8C89B),
+                    letterSpacing: 2)),
+            const SizedBox(height: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (final m in Maestro.fixedOrder)
+                  // Il busto del SANTUARIO, non quello della chat: hanno lo
+                  // stesso nome e sono due cose diverse, uno e' la carta col
+                  // fondo e la cornice, l'altro e' il volto nel tondo.
+                  //
+                  // L'altezza e' quella che fa stare tre carte in fila sullo
+                  // schermo vero: a 300 la riga sforava di 319 pixel, e una
+                  // scena che trabocca non e' un confronto, e' un difetto. A 190 sforava
+                  // ancora di 70 e a 160 di 1,9: la misura buona e' 152.
+                  santuario.MaestroBust(
+                    maestro: m,
+                    height: 152,
+                    central: true,
+                    conAlone: conAlone,
+                  ),
+              ],
+            ),
+          ],
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  fila('PRIMA, SENZA ALONE', false),
+                  const SizedBox(height: 40),
+                  fila('DOPO, CON ALONE', true),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'alone-prima-e-dopo.png');
+  });
+
+  // --- IL RESPIRO E LE PIETRE COPERTE --------------------------------------
+
+  testWidgets('Cattura il respiro, i tre momenti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    const tempi = TempiDelRespiro(tempi: 4, giri: 3);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          // Il verde del prato del Soffio, che e' la superficie su cui la
+          // parola grande deve leggersi.
+          backgroundColor: Color(0xFFBFD5B2),
+          body: Center(
+            child: GuidaDelRespiro(tempi: tempi, colore: Color(0xFFD8C89B)),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await capture(tester, rootKey, 'respiro-apertura.png');
+
+    // ORDINE 2163 VOCE 11: il respiro parte col tocco e dopo il conto, non
+    // piu' da solo. Per la scena del gesto si tocca e si attraversa il conto.
+    await tester.tap(find.byKey(const Key('respiro_tocca')));
+    await tester.pump();
+    await tester.pump(ParoleDelRespiro.durataDelConto);
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'respiro-inspira.png');
+
+    await tester.pump(tempi.intero);
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'respiro-compiuto.png');
+  });
+
+  testWidgets('Cattura le pietre coperte e il confronto', (tester) async {
+    // **NON si monta `RuneDrawScreen` intera, e va detto.** Quella schermata
+    // ascolta l'accelerometro e dipinge il cosmo animato: in cattura il
+    // precarico resta appeso e il test finisce in timeout dopo dieci minuti,
+    // provato. Qui si montano gli ASSET veri, che sono cio' che la scena
+    // dovrebbe mostrare: i retri a vista e una pietra girata accanto alla sua
+    // incisa, per vedere che sia lo stesso sasso.
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget pietra(String percorso, double lato) => SizedBox(
+          width: lato,
+          height: lato * 1.2,
+          child: Image.asset(percorso, fit: BoxFit.contain),
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0B0710),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('LE PIETRE COPERTE, PRIMA DELLA SORTE',
+                    style: TextStyle(
+                        fontFamily: 'Cinzel',
+                        fontSize: 13,
+                        color: Color(0xFFD8C89B),
+                        letterSpacing: 2)),
+                const SizedBox(height: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (final runa in kElderFuthark.take(5))
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: pietra(pathVergineDi(runa.stem)!, 58),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 46),
+                const Text('LA STESSA PIETRA, GIRATA E INCISA',
+                    style: TextStyle(
+                        fontFamily: 'Cinzel',
+                        fontSize: 13,
+                        color: Color(0xFFD8C89B),
+                        letterSpacing: 2)),
+                const SizedBox(height: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    pietra(pathVergineDi(kElderFuthark.first.stem)!, 128),
+                    const SizedBox(width: 26),
+                    pietra(kElderFuthark.first.fullPath!, 128),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'rune-coperte.png');
+  });
+
+  // --- LA BARRA DEL CERCHIO: dove si vede e dove no ------------------------
+  //
+  // Montate come e' montato cio' che provano, cioe' l'APP INTERA: la barra vive
+  // nel builder di MaterialApp e non nel guscio, quindi una cattura che monti
+  // solo lo shell mostrerebbe un'altra cosa.
+  Future<GlobalKey> montaApp(WidgetTester tester,
+      {required bool giaRisvegliato}) async {
+    silenceSensors();
+    await loadFonts();
+    // **E IL PERMESSO DEGLI AVVISI RISULTA GIA' CHIESTO. Ordine BZ voce 04.**
+    // Dalla voce BZ.04 l'app, al primo avvio di chi e' gia' nel Cerchio,
+    // mostra il foglio che spiega le cinque chiamate e poi chiede al sistema.
+    // Nelle anteprime le preferenze nascono vuote a ogni scatto, quindi quel
+    // foglio potrebbe comparire sopra la scena fotografata: le immagini
+    // mostrerebbero un foglio invece della schermata. Qui si dichiara di aver
+    // gia' risposto, che e' lo stato di chi usa l'app da un minuto in poi. Il
+    // foglio ha la sua prova in test/le_notifiche_arrivano_davvero_test.dart.
+    SharedPreferences.setMockInitialValues(giaRisvegliato
+        ? {'onboarding.done': true, 'avvisi.primoGiorno.chiesto': true}
+        : {'avvisi.primoGiorno.chiesto': true});
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  Finder corpoScorribile() => find.byWidgetPredicate(
+      (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
+
+  /// Porta la barra a meta' corsa col dito, e ce la lascia.
+  Future<TestGesture> aMetaCorsa(WidgetTester tester, Finder dove) async {
+    final gesto = await tester.startGesture(tester.getCenter(dove));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -BarraDelCerchio.corsa / 2));
+    await tester.pump();
+    return gesto;
+  }
+
+  testWidgets('Cattura la barra nella home', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    await capture(tester, rootKey, 'barra-home.png');
+  });
+
+  /// Porta la barra a fondo corsa, cioe' fuori, e ce la lascia.
+  Future<TestGesture> aFondoCorsa(WidgetTester tester, Finder dove) async {
+    final gesto = await tester.startGesture(tester.getCenter(dove));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -BarraDelCerchio.corsa));
+    await tester.pump();
+    return gesto;
+  }
+
+  testWidgets('Cattura la home con la barra fuori', (tester) async {
+    // La terza delle tre scene che provano che il contenuto STA FERMO: i tre
+    // Maestri devono avere la stessa grandezza che hanno con la barra dentro e
+    // a meta' corsa.
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final gesto = await aFondoCorsa(tester, corpoScorribile().first);
+    await capture(tester, rootKey, 'barra-home-fuori.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  testWidgets('Cattura la home scorsa fino in fondo', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    for (var i = 0; i < 8; i++) {
+      await tester.drag(corpoScorribile().first, const Offset(0, -400));
+      await tester.pump();
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'home-in-fondo.png');
+  });
+
+  testWidgets('Cattura la chat a meta corsa', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    final gesto = await aMetaCorsa(tester, find.byType(Scrollable).first);
+    await capture(tester, rootKey, 'barra-chat-meta-corsa.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  // **CI.04: A DITO ALZATO NON RESTA MEZZA ESPLORA.**
+  //
+  // Il fondatore vedeva un residuo giallo che non spariva mai. Non era una
+  // linguetta voluta ne' un residuo di disegno: la barra restava dove il dito
+  // l'aveva lasciata, perche' non esisteva nessuno stato finale. Questa prova
+  // ferma il gesto a META' CORSA, alza il dito, e pretende che la barra
+  // arrivi a un estremo invece di restare a meta'.
+  testWidgets('CI.04: a dito alzato la barra non resta a meta', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: true));
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await step(tester);
+    final schermo = tester.getRect(find.byType(MaterialApp));
+    final lista = find.byType(Scrollable).first;
+    // Mezza corsa e un po', cosi' l'estremo piu' vicino e' quello di fuori.
+    // **LA SOGLIA DI TRASCINAMENTO SI SUPERA PRIMA**, come fa aFondoCorsa:
+    // senza, il primo spostamento non diventa mai uno scorrimento e la barra
+    // non si muove di un punto. La prova misurava se stessa.
+    final gesto = await tester.startGesture(tester.getCenter(lista));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -(BarraDelCerchio.corsa / 2 + 6)));
+    await tester.pump();
+    final aMeta =
+        schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+    await gesto.up();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    final dopo =
+        schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+    // ignore: avoid_print
+    print('CI.04: a meta gesto se ne vedevano $aMeta punti, a dito alzato '
+        '$dopo');
+    expect(aMeta, greaterThan(8),
+        reason: 'il gesto non ha nemmeno mosso la barra: questa prova non sta '
+            'misurando quello che crede');
+    expect(dopo, lessThan(8),
+        reason: 'a dito alzato restano ancora $dopo punti di barra a schermo, '
+            'cioe\' mezza ESPLORA che non se ne va: la barra non ha uno '
+            'stato finale e resta dove il dito l\'ha lasciata');
+    await capture(tester, rootKey, 'barra-aggancio-a-dito-alzato.png');
+  });
+
+  // **IL MICROFONO SI PUO' GUARDARE.** Ordine CI voce 05.
+  //
+  // Nelle prove la dettatura e' spenta, quindi il microfono non compare, ed
+  // e' il vincolo f dell'ordine: un comando che non funziona non si mostra.
+  // Ma allora l'unico modo di VEDERE il microfono sarebbe un telefono, e su
+  // questa macchina un telefono non c'e'. Qui la schermata riceve una
+  // dettatura che dice di esserci, e l'anteprima mostra la riga com'e'
+  // davvero dove il riconoscimento c'e'.
+  testWidgets('Cattura il compositore col microfono', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+      maestro: Maestro.medora,
+      services: AppServices.offline(),
+      dettatura: const _DettaturaDaAnteprima(),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    expect(find.byKey(const Key('chat_microfono')), findsOneWidget,
+        reason: 'il microfono non c\'e\': questa anteprima non mostra '
+            'quello che promette');
+    await capture(tester, rootKey, 'chat-col-microfono.png');
+  });
+
+  testWidgets('Cattura la chat con la barra fuori', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // **LA CHAT E' SEMINATA, e non e' un dettaglio della cattura.** Ordine CI
+    // voce 03: la barra si ritira SCORRENDO, e dopo la voce CI.01 la chat
+    // vuota e' abbastanza corta da non scorrere piu'. Con una chat vuota
+    // questa cattura fotografava la barra dentro sotto il nome "barra fuori",
+    // e nessuno se ne accorgeva. Una conversazione vera scorre, ed e' anche
+    // la situazione in cui la barra si ritira davvero a qualcuno.
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: true));
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await step(tester);
+    final gesto = await aFondoCorsa(tester, find.byType(Scrollable).first);
+    // **QUESTA CATTURA PRETENDE CIO' CHE IL SUO NOME PROMETTE.** Ordine CI
+    // voce 03. Fino al 1 settembre 2026 non lo pretendeva, e ha smesso di
+    // fotografare la barra fuori senza dirlo a nessuno: la voce CI.01 ha reso
+    // la chat vuota abbastanza corta da NON scorrere piu', e senza
+    // scorrimento la barra non si ritira. Il nome diceva una cosa e
+    // l'immagine ne mostrava un'altra, che e' il difetto peggiore di
+    // un'anteprima.
+    final barra = tester.getRect(find.byType(SantuarioBottomBar));
+    final schermo = tester.getRect(find.byType(MaterialApp));
+    // **QUANTA BARRA PUO' RESTARE A SCHERMO: OTTO PUNTI SU CENTODODICI.**
+    // La corsa finisce dove finisce il dito, e il gesto della prova non
+    // arriva all'ultimo pixel: pretendere lo zero assoluto vorrebbe dire
+    // misurare la precisione del gesto invece dello stato della barra.
+    final quantaSeNeVede = schermo.bottom - barra.top;
+    expect(quantaSeNeVede, lessThan(8),
+        reason: 'la barra non e\' fuori: se ne vedono ancora '
+            '$quantaSeNeVede punti su ${SantuarioBottomBar.altezzaResa}. '
+            'Questa cattura si chiama "barra fuori" e sta fotografando la '
+            'barra dentro');
+    await capture(tester, rootKey, 'barra-chat-fuori.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  // --- LA BARRA COL SALDO LUNGO (ordine AR voce 10) ---
+  //
+  // La coda di Mauro chiede di guardarla con un saldo a quattro cifre: in una
+  // fascia da trenta punti un numero lungo e' il primo candidato a troncarsi,
+  // e adesso che il nome e' uscito lo spazio c'e', ma va guardato.
+  testWidgets('Cattura la barra col saldo a quattro cifre', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final borsa = tester
+        .element(find.byType(BarraDellIdentita))
+        .read<QuestionAllowance>();
+    await borsa.applicaSaldo(9999);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-saldo-lungo.png');
+  });
+
+  testWidgets('Cattura la barra a meta corsa nella home', (tester) async {
+    // LA SCENA CHE PROVA IL MOVIMENTO CONTINUO. Con due stati non esisterebbe
+    // affatto: o la barra c'e' o non c'e'.
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final gesto = await aMetaCorsa(tester, corpoScorribile().first);
+    await capture(tester, rootKey, 'barra-meta-corsa.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  testWidgets('Cattura la barra in un dominio', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-dominio.png');
+  });
+
+  // **LA STRISCIA DELLE ALTRE ARTI, DOVE I NOMI LUNGHI SI SCHIACCIAVANO.**
+  // Ordine CE voce 11: qui "Oroscopo Personalizzato" veniva dipinto a otto
+  // punti e sei invece dei sedici dichiarati, cioe' quasi la meta', e nessuna
+  // prova poteva vederlo. La cattura arriva fin la' scorrendo, perche' la
+  // striscia sta sotto la piega.
+  testWidgets('Cattura la striscia delle altre arti, i nomi piu\' lunghi',
+      (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await tester.drag(
+        find.byType(CustomScrollView).last, const Offset(0, -2400));
+    // Il cosmo respira sempre: `pumpAndSettle` non tornerebbe mai.
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'striscia-altre-arti.png');
+  });
+
+  // **I SUGGERIMENTI AL PRIMO USO.** Ordine CE voce 12. Nelle altre catture
+  // non si vedono, ed e' giusto: nascono spenti e li arma il tutorial, quindi
+  // qui si arma a mano cio' che nell'app arma il primo approdo.
+  testWidgets('Cattura il suggerimento del dominio, al primo uso',
+      (tester) async {
+    silenceSensors();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      MemoriaDeiSuggerimenti.chiaveArmata: true,
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline())));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'suggerimento-dominio.png');
+  });
+
+  testWidgets('Cattura il suggerimento del Passaporto, al primo uso',
+      (tester) async {
+    silenceSensors();
+    // Il cammino e' gia' percorso: senza, la festa dei traguardi copre la
+    // scena con la sua pioggia d'oro e la cattura non mostra il suggerimento.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+      MemoriaDeiSuggerimenti.chiaveArmata: true,
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+        builder: (_) =>
+            const MaestroScope(child: Scaffold(body: CosmicPassport())))));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'suggerimento-passaporto.png');
+  });
+
+  // **IL SIGILLO DEL SOGNO CON UNA CARTA NATALE VERA.** Ordine CE voce 13.
+  // Nelle altre catture la nascita non c'e', e il Dono cade con grazia sul
+  // saluto della sola notte: qui si mette una nascita, cosi' si vede la riga
+  // che nasce dall'incrocio fra la Luna di stanotte e quella di nascita.
+  testWidgets('Cattura il Sigillo del Sogno, con la carta natale',
+      (tester) async {
+    silenceSensors();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // La nascita del 2 novembre 1975: Luna in Ariete, cioe' un aspetto vero
+    // con la Luna in Cancro di quella notte.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(BirthDetails(date: DateTime(1975, 11, 2)), null);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DreamRiteScreen.route(now: quando)));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('dream_fog_skip')));
+    await step(tester);
+    final figura = kZodiacConstellations
+        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+    for (var i = 0; i < figura.points.length; i++) {
+      await tester.tap(find.byKey(Key('dream_star_$i')));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    await montaLoSchermo(tester, const Size(360, 1250));
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    await capture(tester, rootKey, 'sogno-con-la-carta-natale.png');
+  });
+
+  testWidgets('Cattura la barra in una chat', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-chat.png');
+  });
+
+  testWidgets('Cattura la barra nel Consiglio dei Maestri', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(AskMaestriScreen.perLaSintesi(
+      starter: Maestro.medora,
+      tema: 'una scelta',
+      lenti: [
+        MaestroLens.strati(
+            maestro: Maestro.aura,
+            glance: 'respiro',
+            reading: 'il corpo sa dove sei',
+            invite: 'ascolta il fiato'),
+        MaestroLens.strati(
+            maestro: Maestro.caligo,
+            glance: 'runa',
+            reading: 'il segno parla di soglie',
+            invite: 'traccia il sigillo'),
+      ],
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-consiglio.png');
+  });
+
+  testWidgets('Cattura, in un Dono del giorno la barra non si vede',
+      (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(dailyElementRoute(DailyElement.oracle));
+    await step(tester);
+    await capture(tester, rootKey, 'barra-assente-in-un-dono.png');
+  });
+
+  testWidgets('Cattura, in una immersiva la barra non si vede', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    // MaestroScope attorno, come fa `home` in app.dart: lo scope avvolge la
+    // home e non il builder, quindi una rotta spinta a mano ne resta fuori e il
+    // fondale cosmico cade sul suo assert.
+    nav.push(MaterialPageRoute<void>(
+        builder: (_) => const MaestroScope(
+            child: StesaTreCarteScreen(skipIntro: true, revealAll: true))));
+    await step(tester);
+    await capture(tester, rootKey, 'barra-assente-in-immersiva.png');
+  });
+
+  // **LE DUE SCHERMATE CHE SI VEDONO PRIMA DI CHIEDERE UN RESPONSO.** Ordine CE
+  // voce 10: il fondatore ha scritto "anche prima di chiedere un responso", e
+  // queste due non erano mai state fotografate. Portano il testo PIU' LUNGO che
+  // l'app puo' davvero mostrare, misurato sul catalogo e non scelto a occhio:
+  // e' li' che un testo fuori misura si vede, non sulla frase corta.
+  testWidgets('Cattura l\'intro di un\'arte, il testo piu\' lungo',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Lunology, 179 caratteri di anticipo: il piu' lungo delle ventidue arti.
+    final arte = ArtCatalog.all.firstWhere((a) => a.id == 'lunology');
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(
+        nav.push(ArtIntroScreen.route(art: arte, maestro: Maestro.medora)));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'intro-di-un-arte.png');
+  });
+
+  testWidgets('Cattura il foglio di una funzione, il testo piu\' lungo',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // La chiromanzia, 98 caratteri: l'anticipo piu' lungo del catalogo.
+    final funzione = FeatureCatalog.all.firstWhere((f) => f.id == 'palmistry');
+    // Il foglio chiede la tavolozza del Maestro, quindi il contesto deve
+    // stare SOTTO lo scope: quello di MaterialApp gli sta sopra e cade.
+    final contesto = tester.element(find
+        .descendant(
+            of: find.byType(MaestroScope), matching: find.byType(Scaffold))
+        .first);
+    unawaited(showFeatureSheet(contesto,
+        feature: funzione, status: FeatureStatus.comingSoon));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'foglio-di-una-funzione.png');
+  });
+
+  // ================================================================
+  // I RICORDI DEL CERCHIO. Ordine CG voci 01, 02, 05 e 07.
+  //
+  // **Cinque scene, perche' la schermata ne ha cinque.** Le due viste della
+  // levetta, i tre livelli della timeline che una persona vede scendendo, e
+  // la griglia delle Carte: una schermata con piu' scene si cattura scena per
+  // scena, altrimenti l'anteprima mostra solo la prima e nessuno guarda le
+  // altre.
+  // ================================================================
+
+  /// Il registro dei Ricordi con dentro un mese vissuto davvero.
+  ///
+  /// **Non e' un mese finto pieno di niente**: le voci sono sparse su giorni
+  /// diversi, con arti e Maestri diversi, cosi' le caselle dell'anno hanno
+  /// pesi diversi e il colore dominante si vede. Un mese tutto uguale
+  /// mostrerebbe dodici caselle identiche, cioe' un'anteprima che non dice
+  /// niente di quello che la schermata fa.
+  Future<RegistroDeiRicordi> registroConUnMese() async {
+    final registro =
+        RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31, 21));
+    await registro.carica();
+    const arti = [
+      ('gettata', 'caligo', 'Una gettata di rune'),
+      ('oroscopo', 'medora', 'Il tuo oroscopo di oggi'),
+      ('alba', 'medora', 'La tua parola del giorno'),
+      ('meditazione', 'aura', 'Dieci minuti di respiro'),
+      ('tramonto', 'caligo', 'La runa del tramonto'),
+      ('sinastria', 'medora', 'La tua sinastria con Ariana Grande'),
+      ('viso', 'aura', 'La tua Costellazione del Viso'),
+    ];
+    for (var giorno = 1; giorno <= 28; giorno++) {
+      final quante = (giorno % 4) + 1;
+      for (var i = 0; i < quante; i++) {
+        final a = arti[(giorno + i) % arti.length];
+        await registro.segna(VoceDelRicordo(
+          quando: DateTime(2026, 8, giorno, 8 + i * 3, 15),
+          arte: a.$1,
+          maestro: a.$2,
+          titolo: a.$3,
+          tipo: TipoDelRicordo.gesto,
+        ));
+      }
+    }
+    // E qualche mese prima, perche' l'anno non sia una casella sola accesa.
+    for (var mese = 3; mese <= 7; mese++) {
+      for (var i = 0; i < mese * 2; i++) {
+        final a = arti[(mese + i) % arti.length];
+        await registro.segna(VoceDelRicordo(
+          quando: DateTime(2026, mese, (i % 27) + 1, 9),
+          arte: a.$1,
+          maestro: a.$2,
+          titolo: a.$3,
+          tipo: TipoDelRicordo.gesto,
+        ));
+      }
+    }
+    return registro;
+  }
+
+  /// **QUATTRO CUSTODITI, e la stesa non e' un riempitivo.** Il tarocco e'
+  /// l'unica famiglia che passa da `TarotCardArt` invece che dalla miniatura,
+  /// perche' e' l'unica i cui artwork hanno i cartigli VUOTI e il nome
+  /// sovrapposto a runtime. Senza una stesa nel seme, l'anteprima non
+  /// guarderebbe mai quel ramo, ed e' il piu' facile da rompere.
+  Future<ScrignoDeiCustoditi> scrignoConTreCarte() async {
+    final scrigno = ScrignoDeiCustoditi();
+    await scrigno.carica();
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 24, 19, 40),
+      arte: 'gettata',
+      maestro: 'caligo',
+      titolo: 'La tua gettata: le tre Norne',
+      testo: 'Uruz ti chiede di non trattenere la forza che hai già. '
+          'Quello che stai rimandando non aspetta te, aspetta un tuo gesto.',
+      // **I DATI PER RIDISEGNARE, come li scrive la schermata vera.** Senza
+      // di loro l'anteprima mostrerebbe i riquadri di testo di prima, cioe'
+      // proprio la cosa che questa griglia ha smesso di essere: un'anteprima
+      // che non puo' cadere non serve a niente.
+      dati: const {'gettata': 'le tre Norne', 'rune': 'Uruz,Fehu,Laguz'},
+      comeENato: ComeENato.gesto,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 18, 9, 5),
+      arte: 'oroscopo',
+      maestro: 'medora',
+      titolo: 'Il tuo oroscopo, Bilancia',
+      testo: 'La Luna passa sulla tua casa del lavoro e mette in luce una '
+          'cosa che sai già. Oggi non serve decidere: serve guardare.',
+      dati: const {'segno': 'Bilancia'},
+      comeENato: ComeENato.condivisione,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 11, 21, 30),
+      arte: 'tramonto',
+      maestro: 'caligo',
+      titolo: 'La tua runa del tramonto: Laguz',
+      testo: 'L\'acqua non spinge, scava. Stanotte lascia fuori la fretta '
+          'di capire tutto insieme.',
+      dati: const {'runa': 'Laguz', 'verso': 'dritta'},
+      comeENato: ComeENato.gesto,
+    ));
+    await scrigno.custodisci(RicordoCustodito(
+      quando: DateTime(2026, 8, 28, 14, 15),
+      arte: 'stesa',
+      maestro: 'medora',
+      titolo: 'La tua stesa a tre carte',
+      testo: 'Il Matto apre la strada, la Papessa chiede di aspettare '
+          'ancora un poco, e il Mago dice che gli strumenti ce li hai già.',
+      dati: const {'carte': 'Il Matto,La Papessa,Il Mago'},
+      comeENato: ComeENato.condivisione,
+    ));
+    return scrigno;
+  }
+
+  Future<GlobalKey> montaIRicordi(
+    WidgetTester tester, {
+    required VistaDelJournal vista,
+  }) async {
+    await montaLoSchermo(tester, const Size(360, 800));
+    final registro = await registroConUnMese();
+    final scrigno = await scrignoConTreCarte();
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          // **IL CONTROLLORE DEL MAESTRO, che nell app c e sempre.** Il
+          // ricordo aperto si apre dentro un MaestroScope, e quello scope
+          // il controllore lo pretende: senza, la cattura moriva sulla
+          // rotta, non sull anteprima. Un banco di prova a cui manca cio
+          // che l app ha non sta provando l app.
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
+          ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          // **LA LETTURA DEL MESE C'E' ANCHE NELLE ANTEPRIME.** Senza questo
+          // provider la riga non compare affatto, e l'anteprima del mese
+          // mostrerebbe una schermata a cui manca un pezzo. Il piano resta
+          // quello di partenza, il Viandante, quindi si vede l'INVITO: che e'
+          // esattamente cio' che vede la maggior parte delle persone.
+          ChangeNotifierProvider(create: (_) => LetturaDelMese()..carica()),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.dark(),
+          // **IL NASTRO SPENTO**: un'anteprima col nastro di debug e' una
+          // schermata che l'app non produce, e la guardia lo ha trovato.
+          debugShowCheckedModeBanner: false,
+          home: MaestroScope(
+            maestro: Maestro.medora,
+            child: RicordiScreen(
+              vistaIniziale: vista,
+              orologio: () => DateTime(2026, 8, 31, 21),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  testWidgets('Cattura i Ricordi, la vista del Cammino', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.cammino);
+    await capture(tester, rootKey, 'ricordi-il-cammino.png');
+  });
+
+  testWidgets('Cattura i Ricordi, l\'anno a dodici caselle', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await capture(tester, rootKey, 'ricordi-lanno.png');
+  });
+
+  testWidgets('Cattura i Ricordi, il mese in settimane', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.tap(find.byKey(const Key('ricordi_mese_8')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-il-mese.png');
+  });
+
+  testWidgets('Cattura i Ricordi, il giorno coi suoi momenti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.tap(find.byKey(const Key('ricordi_mese_8')));
+    await step(tester);
+    // La prima settimana che ha qualcosa dentro.
+    final settimane = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_settimana_'));
+    await tester.tap(settimane.at(1));
+    await step(tester);
+    final giorni = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_giorno_'));
+    await tester.tap(giorni.at(0));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-il-giorno.png');
+  });
+
+  testWidgets('Cattura un ricordo aperto, con la sua arte', (tester) async {
+    // **IL GESTO CHE IL FONDATORE HA CHIESTO**, 31 agosto 2026: "sarebbe
+    // l'ideale che al click si potesse rivedere l'artwork". Questa cattura e'
+    // il click, e l'anteprima e' l'unico modo di sapere se l'arte ci arriva
+    // davvero e alla misura giusta.
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ricordi_pastiglia_custoditi')),
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await tester.tap(find.byKey(const Key('ricordi_pastiglia_custoditi')));
+    await step(tester);
+    await step(tester);
+    // La prima carta della griglia, cioe' la gettata delle tre rune: e' quella
+    // con piu' di un'immagine, quindi la piu' facile da sbagliare.
+    final carte = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('ricordi_carta_'));
+    expect(carte, findsWidgets,
+        reason: 'nella griglia non c\'e\' nessuna carta da aprire');
+    await tester.tap(carte.first);
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'ricordo-aperto-con-arte.png');
+  });
+
+  testWidgets('Cattura i Ricordi, Le tue card', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await montaIRicordi(tester, vista: VistaDelJournal.ricordi);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ricordi_pastiglia_custoditi')),
+      120,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await tester.tap(find.byKey(const Key('ricordi_pastiglia_custoditi')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordi-le-tue-carte.png');
+  });
+
+  testWidgets('Cattura un ricordo riaperto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, const Size(360, 800));
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        theme: AppTheme.dark(),
+        debugShowCheckedModeBanner: false,
+        home: MaestroScope(
+          maestro: Maestro.caligo,
+          child: RicordoApertoScreen(
+            custodito: RicordoCustodito(
+              quando: DateTime(2026, 8, 24, 19, 40),
+              arte: 'gettata',
+              maestro: 'caligo',
+              titolo: 'La tua gettata: le tre Norne',
+              testo: 'Uruz ti chiede di non trattenere la forza che hai '
+                  'gia\'. Quello che stai rimandando non aspetta te, '
+                  'aspetta un tuo gesto. Ansuz porta la parola che non hai '
+                  'detto, e Laguz dice che non serve dirla tutta in una '
+                  'volta.',
+              comeENato: ComeENato.gesto,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'ricordo-riaperto.png');
+  });
+}
+
+/// Maestro offline: risponde con un testo fisso, senza rete.
+class _ScriptedMaestro implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) async {
+    return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async {
+    // Testo per Maestro, cosi' l'anteprima del confronto mostra sguardi diversi.
+    switch (maestro) {
+      case Maestro.medora:
+        return const MaestroReply(
+          glance: 'Le stelle segnano un tempo di scelta.',
+          reading:
+              'Un transito passa, non una sentenza: le posizioni invitano, '
+              'non obbligano.',
+          invite: 'Qual è la prima piccola mossa che senti giusta ora?',
+        );
+      case Maestro.aura:
+        return const MaestroReply(
+          glance: 'Il corpo sa già qualcosa su questo.',
+          reading: 'Se stringe la gola o il petto, chiede ascolto, non '
+              'battaglia. Accolgo l\'emozione senza gonfiarla.',
+          invite: 'Fai un respiro lento, una mano sul cuore: cosa si scioglie?',
+        );
+      case Maestro.caligo:
+        return const MaestroReply(
+          glance: 'La runa indica una soglia da varcare.',
+          reading: 'Un passaggio di crescita e protezione, mai potere sugli '
+              'altri: il simbolo mostra la via, non forza la mano.',
+          invite: 'Quale gesto semplice segnerebbe il tuo passo, stasera?',
+        );
+    }
+  }
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
+}
+
+/// Non risponde mai: serve a fotografare la scena del consulto, che vive solo
+/// mentre la risposta e' in volo.
+/// Una voce che consegna una lettura INTERA, cioe' con un secondo strato
+/// dentro: e' il solo caso in cui la freccia dell'approfondimento compare,
+/// perche' sotto una lettura breve non c'e' niente da rivelare.
+/// Una voce che consegna una lettura BREVE col suo consiglio marcato, e al
+/// tocco il SEGUITO, cioe' il testo che manca.
+class _VoceInDueStrati implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  _VoceInDueStrati({this.ritardoDelSeguito = Duration.zero});
+
+  /// Quanto ci mette il SEGUITO. Zero per le catture in cui il seguito deve
+  /// essere gia' arrivato, lungo per quella che mostra l'attesa.
+  final Duration ritardoDelSeguito;
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) async {
+    if (rispostaGiaData != null) {
+      await Future<void>.delayed(ritardoDelSeguito);
+      return 'Sotto la superficie lavora un secondo movimento, più lento, '
+          'che dura da mesi senza chiedere il tuo permesso. Non è la scelta '
+          'a spaventarti, è quello che la scelta rende definitivo. La tua '
+          'Luna in Pesci dice che il tempo qui non è nemico.';
+    }
+    return 'Il tuo Sole in Leone chiede di essere visto prima di chiedere una '
+        'strada. Quello che senti come stanchezza è un confine che si '
+        'sposta, non una porta che si chiude.\n'
+        '${ConsiglioFinale.stella} Non decidere adesso: guarda dove ti fermi '
+        'a respirare.';
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) =>
+      Completer<MaestroReply>().future;
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
+}
+
+class _VoceCheFaAspettare implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) =>
+      Completer<MaestroReply>().future;
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
+}
+
+/// Una dettatura che dice di esserci, per la sola anteprima: non ascolta
+/// niente e non tocca nessun microfono.
+class _DettaturaDaAnteprima extends Dettatura {
+  const _DettaturaDaAnteprima();
+
+  @override
+  Future<bool> disponibile() async => true;
+
+  @override
+  Future<bool> accendi() async => true;
+
+  @override
+  Future<bool> ascolta({
+    required void Function(String parole) parole,
+    required void Function() finito,
+  }) async =>
+      true;
+
+  @override
+  Future<void> ferma() async {}
+}

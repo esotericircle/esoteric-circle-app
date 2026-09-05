@@ -1,0 +1,105 @@
+Build 2226. Il mood del Cerchio.
+
+Questa build cambia il modo in cui l'app ti parla, e la regola vale da qui in
+avanti per ogni responso: un titolo che e' gia' la risposta, sotto un paragrafo
+che dice cosa significa e cosa fare, e piu' sotto un tocco per chi vuole sapere
+da dove nasce.
+
+I TESTI, e finalmente col numero.
+
+Tutta la prosa che si legge sale a VENTI punti, e la misura e' UNA per tutta
+l'app. Ci ho provato prima con un ruolo nuovo accanto a quello vecchio, per non
+spostare le schermate che reggevano: era un secondo conto della stessa cosa, e
+la guardia della misura unica me lo ha detto subito.
+
+E dieci misure scritte a mano sotto i quindici punti, sette nel Tramonto e tre
+nel Sigillo del Sogno, sono tornate ai ruoli della scala. Scritte accanto al
+testo scavalcavano il pavimento dichiarato dell'app: erano il testo piu' piccolo
+delle schermate dove ti lamentavi dei testi piccoli.
+
+I TITOLI.
+
+I nove titoli dei Doni avevano tutti la stessa forma: il soggetto era il cielo e
+la parola del giorno arrivava in coda, dopo una subordinata. "Oggi il buio e la
+luce stanno in una proporzione sola, che dice custodire": settantaquattro
+caratteri per arrivare all'unica cosa che serve. Adesso il soggetto sei tu e la
+parola sale in testa. Da 62 caratteri di media a 39.
+
+DA DOVE NASCE.
+
+E' il tocco che apre le fonti, ed e' lo stesso in tutta l'app. Non si chiama
+"Approfondisci" perche' quella parola dice cosa fa il pulsante: "Da dove nasce"
+dice cosa trovi dietro, ed e' anche la promessa che il Cerchio fa da sempre, che
+nulla e' inventato.
+
+Dietro il tocco sono scese: il perche' del rito, l'ancora natale, il transito di
+oggi e la tradizione nell'Alba e nel Soffio; la provenienza della carta
+nell'Arcano; la trasparenza sul rovescio e la strofa nel Tramonto.
+
+DOVE LA PORTA ANCORA NON C'E': Oroscopo e Sinastria. Il mood vale da qui in
+avanti per tutta l'app, ma quelle due schermate hanno un impianto loro e le
+tocco nell'ordine dopo, invece di infilarci la porta di corsa il giorno della
+consegna.
+
+IL TRAMONTO, e la frase che ti aveva fatto arrabbiare.
+
+"Le fonti storiche non attestano una lettura al contrario delle rune" stava IN
+MEZZO alla risposta e a dodici punti e mezzo: il testo piu' piccolo della
+schermata nel posto piu' visibile, e si leggeva come se il rovescio non avesse
+un responso. Il responso del rovescio c'e', ed e' misurato su tutte e
+ventiquattro le rune nei due versi: cio' che non c'e' e' una fonte ANTICA, e
+quella riga lo dichiara. Adesso e' una fonte fra le fonti, dietro il tocco.
+
+LE RUNE, dagli screenshot che mi hai mandato.
+
+La bolla di ogni runa porta TRE paragrafi, giallo bianco giallo: il significato,
+la risposta, il cielo con la tua domanda. Le fonti stanno dietro il tocco anche
+qui, e per tutte le gettate: prima la porta valeva solo per la runa singola, per
+una decisione mia. Da 1499 caratteri a vista su tre rune a 690.
+
+"e la ultimo quarto" non c'e' piu'. La tua domanda si legge una volta sola, per
+intero, sulla prima runa. Il Sigillo del Giorno risponde con quello che le tre
+rune intrecciate portano insieme.
+
+LA CARD DA CONDIVIDERE.
+
+Mi hai chiesto perche' uno dovrebbe condividere un responso. La risposta e' che
+le persone non condividono informazioni: condividono identita'. Si manda una
+frase che dice qualcosa di se', dentro un'immagine che regge il confronto con le
+foto degli altri.
+
+Da qui la card nuova: una frase sola al centro, grande, che e' la stessa che fa
+da titolo nella schermata; il TUO simbolo sotto, la runa o il sigillo di quella
+gettata e non un logo, perche' e' quello a far nascere nell'amico la domanda "e
+la mia qual e'"; il testo di servizio ai bordi e in piccolo. Nove sedicesimi, che
+e' la proporzione delle storie.
+
+Per ora e' montata sulle Rune: le altre arti la prendono nell'ordine dopo.
+
+A UNA RUNA SOLA LA CARD PORTA LA PIETRA, non il sigillo. Il sigillo di un
+glifo solo e' quello stesso glifo ridisegnato, cioe' l'arte di Caligo tolta di
+mezzo per niente. Da due rune in su l'intreccio esiste davvero, ed e' quello a
+essere suo e di nessun altro. In merkstave la pietra si capovolge, come nella
+schermata.
+
+IL TETTO DEL PIANO NUOVO.
+
+Avevi ragione sul 49 invece di 50: la gettata fatta in Demo restava a intaccare
+il tetto dell'Illuminato. Adesso chi sale di piano trova il tetto intero, e chi
+scende e risale non guadagna niente.
+
+QUATTRO COSE CHE SI SONO ROTTE ALZANDO I TESTI, e le hanno prese le guardie.
+
+Il pulsante del Santuario copriva la figura di Medora per 58 pixel: il blocco
+d'ingresso e' cresciuto di dieci punti, da 96 a 106, e la stima di partenza era
+restata quella vecchia. Il ventaglio dei tarocchi finiva due punti e mezzo
+fuori campo dopo due pescaggi. Il pulsante del Sigillo era sceso sotto la piega
+su schermo basso. E la riga "Da dove nasce" sulla carta del Dono era
+illeggibile: l'oro chiaro sull'avorio misura 1,18 contro il 4,5 richiesto, e
+adesso quella riga prende l'accento gia' misurato di quella schermata.
+
+Nessuna delle quattro l'ho vista io: le ha viste una guardia, ed e' esattamente
+cio' per cui esistono.
+
+DA FARE DAL TUO PC: niente. Il PASSO 7 lo hai fatto, e la porta della Demo e'
+distribuita.

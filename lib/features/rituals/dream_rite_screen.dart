@@ -1,0 +1,1206 @@
+import 'dart:async';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import '../../core/sigilli/ora_rituale.dart';
+
+import '../sigilli/regia_del_cammino.dart';
+
+import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/abito_del_responso.dart';
+
+import '../../core/astro/moon_phase.dart';
+import '../../design_system/components/luna_reale.dart';
+import '../../core/identity/birth_moon.dart';
+import '../../core/maestro/maestro.dart';
+import '../../core/rituals/daily_rituals.dart';
+import '../../core/rituals/dream_rite_corpus.dart';
+import '../../core/rituals/filo_del_giorno.dart';
+import '../../core/rituals/sunset_rune.dart';
+import '../../core/rituals/sunset_rune_memory.dart';
+import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/zodiac_figures.dart';
+import '../../design_system/components/stelle_da_unire.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../../services/breath_detector.dart';
+import '../maestri/aura/meditation/meditation_audio.dart';
+import '../tarot/stesa_senses.dart' show TiltListener;
+import 'dream_rite_card.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'package:provider/provider.dart';
+import '../../core/identity/natal_identity.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
+
+/// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
+/// giorno in giorno, come il Rito dell'Alba.
+///
+/// Guarda al passato e al presente della giornata appena conclusa, mai al
+/// futuro. Si apre nella foschia, che si dirada col fiato; emerge il cosmo
+/// notturno reale di questo momento; si uniscono le stelle della costellazione
+/// del segno in cui si trova la Luna adesso, letta da NightSky; dalla figura
+/// unita scende il saluto della notte, ancorato a segno e fase reali.
+/// Deterministico, nessuna AI a runtime.
+///
+/// La scena vive DENTRO il cosmo condiviso a tutto schermo (`CosmosBackground`),
+/// non dentro un riquadro: la Luna, le stelle vicine e la costellazione stanno
+/// su piani di parallasse diversi sopra quel cielo.
+/// La fascia di cielo in cui vive la costellazione, dall'alto dello schermo.
+const double fasciaCielo = 0.46;
+
+/// **DOVE VA LA STELLA, E NON ESCE DALLA FASCIA DI CIELO.**
+/// Ordine CQ voce 1.07, 3 settembre 2026.
+///
+/// **Il fatto, parole del fondatore:** *"l'area di tocco della stella e'
+/// coperta dall'etichetta sopra di essa."*
+///
+/// Senza spostamento le stelle stanno fra il 13 e il 43 per cento
+/// dell'altezza, cioe' dentro la fascia, che finisce al 46. **Ma lo
+/// spostamento le porta via**: `_spostamento` moltiplica l'inclinazione per
+/// trecentoventi e qui ne arriva il cinquantacinque per cento, cioe' fino a
+/// centosettantasei punti su uno schermo alto ottocentoquaranta. La stella
+/// scivolava sotto il blocco del testo, che sta piu' in alto nella pila e
+/// mangia il tocco su tutta la sua area: **il dito arrivava sulla riga
+/// "Tocca la stella che pulsa" invece che sulla stella.**
+///
+/// Si limita la sola verticale, e si lascia intera l'orizzontale: e' in
+/// verticale che la fascia confina con qualcosa, e togliere la parallasse
+/// per intero vorrebbe dire spegnere il cielo per curare un bordo.
+///
+/// **E' una funzione con un nome perche' la guardia la interroga.** Dentro
+/// una prova il giroscopio non c'e' e l'inclinazione vale zero: misurando
+/// solo cio' che si vede a schermo non si vedrebbe mai il caso che il
+/// fondatore ha visto in mano.
+Offset doveVaLaStella(
+  Offset p, {
+  required double larghezza,
+  required double altezza,
+  required Offset off,
+}) =>
+    Offset(
+      (0.12 + p.dx * 0.76) * larghezza + off.dx,
+      (((0.13 + p.dy * 0.30) * altezza) + off.dy)
+          .clamp(altezza * 0.06, altezza * (fasciaCielo - 0.05)),
+    );
+
+class DreamRiteScreen extends StatefulWidget {
+  DreamRiteScreen({
+    super.key,
+    this.now,
+    TonePlayer? player,
+  }) : player = player ?? LettoreToniReale();
+
+  final DateTime? now;
+
+  /// Il lettore dei toni.
+  ///
+  /// Di default e' quello REALE: prima era silenzioso, quindi il rito prometteva
+  /// un battito che non usciva mai dal telefono. I test continuano a iniettare
+  /// il lettore muto, ed e' proprio per questo che il difetto non si vedeva.
+  final TonePlayer player;
+
+  static Route<void> route({
+    DateTime? now,
+    TonePlayer? player,
+  }) =>
+      PassaggioDelCerchio.rotta<void>((_) =>
+          MaestroScope(child: DreamRiteScreen(now: now, player: player)));
+
+  @override
+  State<DreamRiteScreen> createState() => _DreamRiteScreenState();
+}
+
+enum _Fase { nebbia, cielo, messaggio }
+
+class _DreamRiteScreenState extends State<DreamRiteScreen>
+    with TickerProviderStateMixin {
+  late final DateTime _date = widget.now ?? DateTime.now();
+  late final Maestro _maestro = DailyRituals.nightMaestro(_date);
+  late final MaestroPalette _palette =
+      MaestroPalette.forKey(ThemeKey.of(_maestro));
+  late final BirthMoon _luna = DreamRiteCorpus.lunaDi(_date);
+
+  /// La data di nascita, se c'e', senza pretendere il provider: un
+  /// `context.read` preteso in un punto condiviso fa cadere prove lontane.
+  DateTime? _forseLaNascita(BuildContext context) {
+    try {
+      return context.read<BirthIdentityController>().details?.date;
+    } catch (errore) {
+      return null;
+    }
+  }
+
+  late final ZodiacConstellation _figura =
+      kZodiacConstellations.firstWhere((c) => c.sign == _luna.sign);
+
+  /// Il respiro lento del cielo: pulsazione delle stelle e scintillio dei fili.
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 12),
+  )..repeat();
+
+  final BreathDetector _fiato = BreathDetector();
+  final TiltListener _tilt = TiltListener();
+  StreamSubscription<double>? _livelli;
+  Timer? _battito;
+
+  _Fase _fase = _Fase.nebbia;
+
+  /// Quanto la foschia si e' diradata, da 0 (fitta) a 1 (aperta).
+  double _nebbia = 0;
+  double _micLivello = 0;
+  double _spintaDito = 0;
+
+  /// LO STATO DELLA FIGURA arriva dal componente unico StelleDaUnire,
+  /// ordine L voce 3: qui restano i due specchi che i testi leggono.
+  int _unite = 0;
+  bool _completa = false;
+
+  /// La figura del segno della Luna, nella lingua del componente unico.
+  late final FiguraDaUnire _figuraDaUnire = FiguraDaUnire(
+    punti: [
+      for (var i = 0; i < _figura.points.length; i++)
+        PuntoDaUnire('stella ${i + 1}', _figura.points[i]),
+    ],
+    fili: _figura.edges,
+  );
+
+  /// Lo spostamento della vista col dito, quando il giroscopio non c'e'.
+  Offset _panDito = Offset.zero;
+
+  bool _riduciMovimento = false;
+  bool _suono = false;
+
+  /// La runa portata dentro la notte dalla Runa del Tramonto, se stasera l'hai
+  /// fatta. Chiude l'arco fra i due Doni. Null se manca, e allora il Sogno si
+  /// comporta esattamente come prima.
+  String? _runaTramonto;
+
+  @override
+  void initState() {
+    super.initState();
+    _tilt.start();
+    _tilt.addListener(_ridisegna);
+    _avviaFiato();
+    _battito = Timer.periodic(const Duration(milliseconds: 60), _passoFiato);
+    _leggiCerniera();
+  }
+
+  Future<void> _leggiCerniera() async {
+    final ultima = await SunsetRuneMemory.ultimaPerCerniera();
+    if (ultima != null &&
+        mounted &&
+        // Solo se la runa e' della stessa sera, il giorno rituale coincide.
+        ultima.giorno == SunsetRune.iso(SunsetRune.giornoRituale(_date))) {
+      setState(() => _runaTramonto = ultima.rune);
+    }
+    // LA PAROLA DEL MATTINO TORNA QUI, ordine P voce 18.
+    //
+    // **E' cio' che rende il Sogno la chiusura del giorno invece di un rito
+    // autoconcluso.** La forma c'era gia': Buonanotte, la costellazione, il
+    // saluto di Caligo, la card da condividere. Mancava che RACCOGLIESSE la
+    // giornata. Con la parola dell'alba e la runa del tramonto dentro, il rito
+    // della buonanotte diventa quello che il nome promette.
+    final parola = await FiloDelGiorno.parolaDiStamattina(_date);
+    if (parola != null && mounted) {
+      setState(() => _parolaDiStamattina = parola);
+    }
+  }
+
+  /// La parola ricevuta all'alba di oggi, se il rito e' stato compiuto.
+  String? _parolaDiStamattina;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _riduciMovimento = MediaQuery.of(context).disableAnimations;
+    if (_riduciMovimento && _pulse.isAnimating) _pulse.stop();
+  }
+
+  @override
+  void dispose() {
+    _battito?.cancel();
+    _livelli?.cancel();
+    _fiato.dispose();
+    _tilt.removeListener(_ridisegna);
+    _tilt.dispose();
+    _pulse.dispose();
+    if (_suono) widget.player.stop();
+    super.dispose();
+  }
+
+  void _ridisegna() {
+    if (mounted) setState(() {});
+  }
+
+  // Il fiato reale, quando il microfono c'e'. Se manca, resta il dito.
+  Future<void> _avviaFiato() async {
+    final acceso = await _fiato.start();
+    if (!acceso || !mounted) return;
+    _livelli = _fiato.level.listen((v) => _micLivello = v);
+  }
+
+  double get _reazione => math.max(_micLivello, _spintaDito);
+
+  void _passoFiato(Timer _) {
+    if (_fase != _Fase.nebbia || !mounted) return;
+    final prima = _nebbia;
+    if (_reazione > 0.10) {
+      _nebbia = (_nebbia + 0.035).clamp(0.0, 1.0);
+    } else if (_nebbia > 0 && _nebbia < 1) {
+      _nebbia = (_nebbia - 0.004).clamp(0.0, 1.0);
+    }
+    _spintaDito = (_spintaDito - 0.06).clamp(0.0, 1.0);
+    if (_nebbia >= 1 && prima < 1) {
+      _apriIlCielo();
+    } else if (_nebbia != prima) {
+      setState(() {});
+    }
+  }
+
+  void _apriIlCielo() {
+    if (_fase != _Fase.nebbia) return;
+    // Il fiato ha finito il suo compito: si spegne il battito e il microfono.
+    _battito?.cancel();
+    _battito = null;
+    _livelli?.cancel();
+    _livelli = null;
+    _fiato.stop();
+    setState(() {
+      _nebbia = 1;
+      _fase = _Fase.cielo;
+    });
+  }
+
+  void _allUnione(int indice) {
+    setState(() => _unite = indice + 1);
+  }
+
+  void _allaFiguraCompleta() {
+    setState(() => _completa = true);
+    // IL SOGNO ENTRA NEL CAMMINO, ordine P voce 35: la figura si e' composta,
+    // il rito e' compiuto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'sogno',
+        oraRituale: OraRituale.diAdesso()));
+    Future<void>.delayed(const Duration(milliseconds: 900), () {
+      if (mounted) setState(() => _fase = _Fase.messaggio);
+    });
+  }
+
+  Future<void> _cambiaSuono() async {
+    setState(() => _suono = !_suono);
+    if (_suono) {
+      await widget.player.play(MeditationPreset.thetaBeat);
+    } else {
+      await widget.player.stop();
+    }
+  }
+
+  Offset get _spostamento {
+    if (_riduciMovimento) return Offset.zero;
+    return Offset(_tilt.x, _tilt.y) * 320 + _panDito;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // **IL SALUTO E' TUO, non solo della notte.** Ordine CE voce 13: qui
+    // entra la data di nascita, e con lei la Luna natale.
+    final saluto =
+        DreamRiteCorpus.saluto(_date, nascita: _forseLaNascita(context));
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        iconTheme: IconThemeData(color: _palette.goldSoft),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          tooltip: 'Indietro',
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le parole,
+        // la misura scende solo quanto serve, e non si tronca mai. Col
+        // borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            testo: 'Sigillo del Sogno',
+            stile: TypographyTokens.titoloDiSchermata()),
+        actions: [
+          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+          // ogni schermata della pratica. Un saldo che appare e scompare non
+          // si impara.
+          const AngoloDellaBarra(),
+          IconButton(
+            key: const Key('dream_sources'),
+            icon: const Icon(Icons.info_outline_rounded),
+            tooltip: 'Da dove nasce questo dono',
+            onPressed: _mostraProvenienza,
+          ),
+        ],
+      ),
+      // Il cosmo condiviso a tutto schermo: nero profondo verso l'indaco, campo
+      // stellare denso, nebulose soffuse, parallasse a piu' piani. La scena del
+      // Sogno vive dentro questo cielo, non sopra un riquadro.
+      body: CosmosBackground(
+        seed: 15,
+        showZodiac: false,
+        // I dischi dei pianeti del cosmo restano spenti qui: la scena mette in
+        // campo la Luna reale e un suo pianeta lontano, senza sovrapporre sfere.
+        showPlanets: false,
+        child: LayoutBuilder(
+          builder: (context, box) {
+            final w = box.maxWidth;
+            final h = box.maxHeight;
+            return Stack(
+              children: [
+                // Luna reale e stelle vicine, su piani di parallasse diversi.
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedBuilder(
+                      animation: _pulse,
+                      builder: (context, _) => CustomPaint(
+                        painter: _ScenaPainter(
+                          palette: _palette,
+                          fase: _luna.phase,
+                          t: _riduciMovimento ? 0.22 : _pulse.value,
+                          luce: _nebbia,
+                          quieta: _fase == _Fase.messaggio,
+                          spostamento: _spostamento,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // La costellazione del segno della Luna, coi fili di luce.
+                // **LE STELLE SI DISEGNANO PIU' IN BASSO NELLA PILA, ordine
+                // CQ voce 6.05.** Vedi il blocco in fondo a questa Stack.
+
+                // La foschia cosmica dell'apertura, che si dirada.
+                if (_fase == _Fase.nebbia)
+                  Positioned.fill(
+                    child: GestureDetector(
+                      key: const Key('dream_fog'),
+                      behavior: HitTestBehavior.opaque,
+                      onPanUpdate: (d) => _spintaDito =
+                          (_spintaDito + d.delta.distance / 90).clamp(0.0, 1.0),
+                      child: AnimatedBuilder(
+                        animation: _pulse,
+                        builder: (context, _) => CustomPaint(
+                          painter: _FoschiaPainter(
+                            palette: _palette,
+                            apertura: _nebbia,
+                            t: _riduciMovimento ? 0.22 : _pulse.value,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                // Il testo del rito, sotto la fascia di cielo.
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: h * fasciaCielo,
+                  bottom: 0,
+                  child: SafeArea(
+                    top: false,
+                    child: SingleChildScrollView(
+                      key: const Key('dream_rite'),
+                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                          SpacingTokens.lg, SpacingTokens.xl),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (_fase == _Fase.nebbia) ..._nelBuio(),
+                          if (_fase == _Fase.cielo) ..._sottoIlCielo(),
+                          if (_fase == _Fase.messaggio) ..._ilSaluto(saluto),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                // **LE STELLE STANNO SOPRA IL TESTO NELLA PILA. Ordine CQ
+                // voce 6.05, 4 settembre 2026.**
+                //
+                // Il fondatore, per la seconda volta: *i punti delle stelle
+                // da cliccare sono sotto il testo e non si possono cliccare*.
+                //
+                // **Non sono riuscito a riprodurlo in prova, e lo dichiaro.**
+                // Montata la schermata a 390 per 844, le quattro stelle
+                // misurano 52 punti per lato, stanno fra 96 e 369, il blocco
+                // del testo comincia a 388, nessuna si sovrappone e il tocco
+                // fa salire il conto. **Diciannove punti di margine**, che
+                // sul suo telefono possono sparire per uno schermo diverso,
+                // per la parallasse del giroscopio, che in prova e' ferma, o
+                // per la scala del testo di sistema.
+                //
+                // Percio' la cura non insegue una causa che non ho misurato:
+                // **rende il tocco della stella prioritario per
+                // costruzione**. Nella pila chi viene dopo sta sopra, e le
+                // stelle adesso vengono dopo il blocco del testo. Se i due
+                // si sovrappongono, per qualunque ragione, vince la stella.
+                // Visivamente non cambia niente, perche' il testo vive
+                // sotto la fascia di cielo e le stelle dentro.
+                if (_fase != _Fase.nebbia) ..._costellazione(w, h),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  // --- La costellazione: fili di luce e stelle toccabili ---
+
+  List<Widget> _costellazione(double w, double h) {
+    // Il piano della costellazione si muove meno del primo piano.
+    final off = _spostamento * 0.55;
+    return [
+      // Il ripiego a dito: si sposta la vista trascinando, quando il giroscopio
+      // non c'e'. Sta sotto le stelle, cosi' il tocco sulla stella vince.
+      if (!_riduciMovimento)
+        Positioned.fill(
+          child: GestureDetector(
+            key: const Key('dream_pan'),
+            behavior: HitTestBehavior.translucent,
+            onPanUpdate: (d) => setState(() {
+              _panDito = Offset(
+                (_panDito.dx + d.delta.dx).clamp(-46.0, 46.0),
+                (_panDito.dy + d.delta.dy).clamp(-46.0, 46.0),
+              );
+            }),
+          ),
+        ),
+      // IL COMPONENTE UNICO, ordine L voce 3: fili, stelle grandi, la stella
+      // che chiama il tocco e le zone toccabili vivono in StelleDaUnire, lo
+      // stesso della rivelazione dell'Animale Guida. Qui restano la fascia
+      // di cielo e la parallasse, che sono della scena.
+      Positioned.fill(
+        child: StelleDaUnire(
+          figura: _figuraDaUnire,
+          palette: _palette,
+          keyPrefix: 'dream_star',
+          spostamento: off,
+          // **LA STELLA NON ESCE DALLA FASCIA DI CIELO. Ordine CQ voce
+          // 1.07**, 3 settembre 2026.
+          //
+          // **Il fatto, parole del fondatore:** *"l'area di tocco della
+          // stella e' coperta dall'etichetta sopra di essa."*
+          //
+          // La mappa senza spostamento tiene le stelle fra il 13 e il 43 per
+          // cento dell'altezza, cioe' dentro la fascia, che finisce al 46.
+          // **Ma lo spostamento le porta via**: `_spostamento` moltiplica
+          // l'inclinazione per trecentoventi, qui si prende il cinquantacinque
+          // per cento, e su uno schermo alto ottocentoquaranta punti sono
+          // centosettantasei punti di scorrimento. La stella scivolava sotto
+          // il blocco del testo, che sta piu' in alto nella pila e mangia il
+          // tocco su tutta la sua area: **il dito arrivava sulla riga "Tocca
+          // la stella che pulsa" invece che sulla stella.**
+          //
+          // Si limita la sola verticale, e si lascia intera l'orizzontale: e'
+          // in verticale che la fascia confina con qualcosa, e togliere la
+          // parallasse per intero vorrebbe dire spegnere il cielo per curare
+          // un bordo.
+          mappa: (p) => doveVaLaStella(p, larghezza: w, altezza: h, off: off),
+          onTocco: _allUnione,
+          onCompleta: _allaFiguraCompleta,
+        ),
+      ),
+    ];
+  }
+
+  // --- I tre momenti sotto la fascia di cielo ---
+
+  List<Widget> _nelBuio() => [
+        Text(DreamRiteCorpus.invitoNebbia(_maestro),
+            key: const Key('dream_invito'),
+            // **DICIOTTO, e per la strada dei ruoli invece che a mano.**
+            // Ordine CO voce 13, 3 settembre 2026. Questa riga chiamava
+            // `body(size: 16)` direttamente, cioe' scavalcava i ruoli
+            // dichiarati e si scriveva la propria misura: fuori dalla scala
+            // non c'e' nessuno a dire che sedici e' il pavimento e non il
+            // traguardo. E' l'invito che apre il Sigillo del Sogno, la prima
+            // cosa che si legge in quel rito.
+            textAlign: TextAlign.center,
+            style: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
+        if (_runaTramonto != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          // **QUESTA E' PROSA, NON UN'ETICHETTA. Ordine CQ voce 6.23.**
+          //
+          // Ricondurre le misure scritte a mano ai ruoli ha portato anche
+          // questa riga a `etichetta`, e la guardia lo ha preso subito: e'
+          // una frase intera che va a capo, e **il maiuscoletto e' un segnale,
+          // non un testo**. A capo diventa un muro di lettere larghe.
+          ParagrafiDiLettura(
+              testo: 'Porti dentro la notte la runa $_runaTramonto: '
+                  'lasciala parlare mentre chiudi il giorno.',
+              key: const Key('dream_runa_tramonto'),
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura().copyWith(
+                  color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
+        ],
+        // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
+        if (_parolaDiStamattina != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text(FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
+              key: const Key('dream_parola_del_mattino'),
+              textAlign: TextAlign.center,
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              style: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
+        ],
+        const SizedBox(height: SpacingTokens.md),
+        _Riga(
+          palette: _palette,
+          icona: Icons.air,
+          testo: 'Respira piano verso il telefono, oppure passa il dito sulla '
+              'foschia: il ripiego vale sempre.',
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          child: LinearProgressIndicator(
+            key: const Key('dream_breath_bar'),
+            value: _nebbia,
+            minHeight: 6,
+            backgroundColor: _palette.deepest.withValues(alpha: 0.6),
+            valueColor: AlwaysStoppedAnimation<Color>(_palette.goldSoft),
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        TextButton(
+          key: const Key('dream_fog_skip'),
+          onPressed: _apriIlCielo,
+          // **SEDICI E NON DODICI, ordine CG voce 14.** E' il ripiego tattile
+          // di chi non riesce col soffio: illeggibile proprio a chi ne ha
+          // bisogno.
+          child: Text('Dirada la nebbia',
+              style: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft)),
+        ),
+      ];
+
+  List<Widget> _sottoIlCielo() => [
+        Text(
+            _completa
+                ? 'La figura è unita.'
+                : (_unite == 0
+                    ? 'Alza il telefono verso il cielo.'
+                    : 'Unisci le stelle.'),
+            key: const Key('dream_invito_cielo'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.titoloDiSchermata()
+                .copyWith(color: _palette.goldSoft)),
+        const SizedBox(height: SpacingTokens.xs),
+        Text(
+            'La costellazione di ${_luna.sign.italianName}, il segno in cui si '
+            'trova la Luna adesso. Stelle unite $_unite su '
+            '${_figura.points.length}.',
+            key: const Key('dream_conteggio'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
+        const SizedBox(height: SpacingTokens.sm),
+        _Riga(
+          palette: _palette,
+          icona: Icons.screen_rotation_alt_outlined,
+          testo: _riduciMovimento
+              ? 'Riduci Movimento è attivo: il cielo resta fermo, tocca le '
+                  'stelle nel loro ordine.'
+              : 'Muovi il telefono per guardarti intorno, oppure trascina col '
+                  'dito. Tocca la stella che pulsa.',
+        ),
+      ];
+
+  List<Widget> _ilSaluto(String saluto) => [
+        // Chi parla, prima del saluto della notte.
+        RigaDelDono(
+          dono: DailyElement.night,
+          giorno: _date,
+          // **IL FONDO DICHIARATO E' QUELLO VERO, ordine CQ voce 6.04.**
+          //
+          // Qui c'era `ColorTokens.neutralDeepest`, cioe' quasi nero, e sotto
+          // questa riga non c'e' quasi nero: c'e' il cosmo. Il meccanismo del
+          // contrasto porta il blu di Medora a toccare 4,58 SULLA SUPERFICIE
+          // DICHIARATA, con otto centesimi di margine; sul fondo vero quello
+          // stesso blu misura **3,15**. `AbitoDelResponso` dichiara gia' il
+          // fondo peggiore, e la scheda dei Doni lo usava gia'.
+          superficie: AbitoDelResponso.di(DailyElement.night
+              ).superficiePeggiore,
+        ),
+        // **LA RISPOSTA PRIMA DELL'ETICHETTA. Ordine CO voce 17**, 3 settembre
+        // 2026.
+        //
+        // Qui si apriva con "Il saluto di Caligo", che e' un'etichetta, e poi
+        // con una parola sola, che e' una parola: **la risposta arrivava
+        // terza**, e chi leggeva le prime due righe e chiudeva non aveva
+        // ricevuto niente. La gerarchia dettata dal fondatore vuole al primo
+        // posto un titolo diretto che sia gia' una risposta.
+        //
+        // La frase c'era gia': e' `posa`, l'invito al presente per posare il
+        // giorno, una per segno lunare, dodici in tutto. Non c'era niente da
+        // scrivere, c'era da mostrarla per prima. Chi parla e la parola della
+        // notte restano, in una riga sola sopra, dove stanno gli occhielli.
+        Text(
+            '${DreamRiteCorpus.parola(_luna.sign).toUpperCase()}  ·  '
+            'IL SALUTO DI ${_maestro.displayName.toUpperCase()}',
+            key: const Key('dream_message_title'),
+            style: TypographyTokens.didascalia(weight: 600).copyWith(
+                color: _palette.goldSoft.withValues(alpha: 0.85),
+                letterSpacing: 1.2)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(DreamRiteCorpus.rispostaDellaNotte(_luna.sign),
+            key: const Key('dream_word'),
+            style: TypographyTokens.cerimoniale()
+                .copyWith(color: _palette.goldSoft, height: 1.25)),
+        const SizedBox(height: SpacingTokens.sm),
+        // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e
+        // prende la misura di lettura come il consiglio di Medora.
+        ParagrafiDiLettura(
+            key: const Key('dream_message'),
+            testo: saluto,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary)),
+        const SizedBox(height: SpacingTokens.sm),
+        Text(DreamRiteCorpus.provenienza(_luna),
+            key: const Key('dream_provenienza'),
+            style: TypographyTokens.etichetta().copyWith(
+                color: _palette.goldSoft.withValues(alpha: 0.85),
+                letterSpacing: 0.5)),
+        // **LE TRE RIGHE SCENDONO SOTTO LA RISPOSTA. Ordine CO voce 17**,
+        // 3 settembre 2026. Stavano in cima e dicevano cosa fare: erano il
+        // TERZO livello della gerarchia messo al primo posto, e la risposta
+        // arrivava dopo l'istruzione. Adesso il gesto col suo scopo sta
+        // dove la gerarchia lo vuole, cioe' dopo che il Dono ha risposto.
+        // LE TRE RIGHE DEL RITO, ordine P voce 17.
+        // **IL RITO ANNUNCIATO NON C'ERA, E LE TRE RIGHE SONO USCITE.**
+        // Ordine CQ voce 2.03, 3 settembre 2026.
+        //
+        // **Il fatto, parole del fondatore:** l'Arcano *"annuncia un rito che non
+        // esiste"*. La riga in cima diceva IL RITO DI OGGI e sotto stavano "Cosa
+        // fai", "Perche'" e "Cosa ti resta": tre righe di istruzioni davanti a un
+        // dono che deve rispondere. **La prima cosa che si leggeva era un compito**,
+        // e la misura della voce 2.00 lo ha trovato in tutti e cinque i Doni, non
+        // solo nell'Arcano.
+        //
+        // **Le tre righe restano nel dato**, su `DailyElement`, e continuano a
+        // descrivere il Dono dove una descrizione serve davvero, cioe' nel menu'
+        // degli avvisi dove si sceglie quali ricevere. Cio' che esce e' la loro
+        // comparsa in cima al responso.
+        const SizedBox(height: SpacingTokens.sm),
+        const SizedBox(height: SpacingTokens.md),
+        // **IL QUADERNO DEI SOGNI NON C'E' PIU'. Ordine CB voce 01.**
+        //
+        // Parole del fondatore, 29 agosto 2026: "elimina tutta sta roba che
+        // non so cosa sia" e "cancella il diario dei sogni". E la ragione:
+        // "non c'e' nessun diario di sogni o simile".
+        //
+        // **Da dove nasceva**, che e' la causa e non un dettaglio: non da un
+        // briefing e non da una richiesta del fondatore, ma dal corpus dei
+        // Traguardi, dove tre gradini parlavano di sogni ANNOTATI. L'ordine
+        // BX voce 10 costrui' il quaderno per svegliare quei gradini: una
+        // funzione nuova nata per far tornare un conto, non per servire
+        // qualcuno.
+        //
+        // **Il rito resta intero**, perche' toccarlo nessuno l'ha chiesto:
+        // esce solo il quaderno che gli era stato attaccato sopra. Cio' che
+        // il fondatore vuole davvero e' l'Interpretazione dei Sogni, che nel
+        // corpus e' il gradino 19 e resta Coming soon.
+        const SizedBox(height: SpacingTokens.md),
+        _Azioni(
+          palette: _palette,
+          luna: _luna,
+          saluto: saluto,
+          maestroNome: _maestro.displayName,
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        TextButton.icon(
+          key: const Key('dream_sound'),
+          onPressed: _cambiaSuono,
+          icon: Icon(_suono ? Icons.graphic_eq : Icons.music_note_outlined,
+              size: 18, color: _palette.goldSoft),
+          label: Text(
+              _suono ? 'Battito theta acceso' : 'Battito theta, se lo vuoi',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: _palette.goldSoft)),
+        ),
+      ];
+
+  void _mostraProvenienza() {
+    foglioDelCerchio<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheet) => Container(
+        key: const Key('dream_sources_sheet'),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [_palette.surfaceElevated, _palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.radiusXl)),
+          border: Border.all(color: _palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Da dove nasce questo dono',
+                    style: TypographyTokens.titoloDiSchermata()
+                        .copyWith(color: _palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                    DreamRiteCorpus.daDoveNasceCon(
+                        _luna,
+                        DreamRiteCorpus.relazione(
+                            _date, _forseLaNascita(context))),
+                    style: TypographyTokens.lettura().copyWith(
+                        color: ColorTokens.textPrimary, height: 1.45)),
+                const SizedBox(height: SpacingTokens.lg),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => Navigator.of(sheet).pop(),
+                    child: Text('Va bene',
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: _palette.goldSoft)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Una riga di suggerimento, icona piu' testo, come negli altri riti.
+class _Riga extends StatelessWidget {
+  const _Riga(
+      {required this.palette, required this.icona, required this.testo});
+
+  final MaestroPalette palette;
+  final IconData icona;
+  final String testo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icona, size: 16, color: palette.goldSoft),
+        const SizedBox(width: 6),
+        Expanded(
+          // **SEDICI E NON DODICI, ordine CG voce 14.** La riga che spiega il
+          // sensore e il suo ripiego: al pavimento tipografico era illeggibile
+          // esattamente nel momento in cui serviva di piu'.
+          child: Text(testo,
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              style: TypographyTokens.lettura().copyWith(
+                color: palette.goldSoft.withValues(alpha: 0.75),
+                letterSpacing: 0.2,
+                height: 1.4,
+              )),
+        ),
+      ],
+    );
+  }
+}
+
+/// Condividi la carta della notte, con la carta fuori campo per lo scatto.
+class _Azioni extends StatefulWidget {
+  const _Azioni({
+    required this.palette,
+    required this.luna,
+    required this.saluto,
+    required this.maestroNome,
+  });
+
+  final MaestroPalette palette;
+  final BirthMoon luna;
+  final String saluto;
+  final String maestroNome;
+
+  @override
+  State<_Azioni> createState() => _AzioniState();
+}
+
+class _AzioniState extends State<_Azioni> {
+  final GlobalKey _boundary = GlobalKey();
+  bool _rendi = false;
+
+  /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  Future<bool> _condividi() async {
+    setState(() => _rendi = true);
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final andata =
+          await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la carta della notte');
+      }
+      return andata;
+    } finally {
+      // Chi spegne il pulsante mentre si condivide adesso e' la porta sola.
+      if (mounted) setState(() => _rendi = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.**
+        // Cio' che si custodisce e' il saluto della notte, cioe' il testo che
+        // la persona ha davanti: la carta e' il vestito di quel testo.
+        AzioniDelResponso(
+          palette: widget.palette,
+          maestro: Maestro.caligo,
+          responso: ResponsoDaCustodire(
+            arte: 'sogno',
+            titolo: 'Il tuo Rito della Notte',
+            testo: widget.saluto,
+            dati: {'maestro': widget.maestroNome},
+          ),
+          condividi: _condividi,
+          aperturaDellaChat: ChatOpeners.sogno(widget.saluto),
+        ),
+        if (_rendi)
+          Positioned(
+            left: -3000,
+            top: 0,
+            child: RepaintBoundary(
+              key: _boundary,
+              child: DreamRiteCard(
+                luna: widget.luna,
+                palette: widget.palette,
+                saluto: widget.saluto,
+                maestroNome: widget.maestroNome,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// I painter della scena: Luna reale, stelle vicine, foschia, fili di luce.
+// ---------------------------------------------------------------------------
+
+/// Disegna una stella premium: alone a gradiente, nucleo e una piccola raggiera.
+void _stellaPremium(
+  Canvas canvas,
+  Offset c,
+  double raggio,
+  double alfa, {
+  Color colore = Colors.white,
+  bool raggiera = false,
+}) {
+  final a = alfa.clamp(0.0, 1.0);
+  if (a <= 0.01) return;
+  // Alone morbido.
+  canvas.drawCircle(
+    c,
+    raggio * 7,
+    Paint()
+      ..shader = RadialGradient(colors: [
+        colore.withValues(alpha: 0.32 * a),
+        colore.withValues(alpha: 0.0),
+      ]).createShader(Rect.fromCircle(center: c, radius: raggio * 7)),
+  );
+  // Raggiera sottile, solo per le piu' luminose.
+  if (raggiera) {
+    final r = raggio * 8.5;
+    final penna = Paint()
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = raggio * 0.55
+      ..color = colore.withValues(alpha: 0.30 * a)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.8);
+    canvas.drawLine(c.translate(-r, 0), c.translate(r, 0), penna);
+    canvas.drawLine(c.translate(0, -r), c.translate(0, r), penna);
+  }
+  // Nucleo.
+  canvas.drawCircle(
+      c, raggio * 1.6, Paint()..color = colore.withValues(alpha: 0.55 * a));
+  canvas.drawCircle(c, raggio, Paint()..color = colore.withValues(alpha: a));
+}
+
+/// La Luna reale e le stelle vicine, sopra il cosmo condiviso. Piani diversi di
+/// parallasse: le stelle lontane si muovono poco, la Luna un poco di piu', le
+/// stelle vicine molto. Una nota tenue del Maestro resta solo ai margini.
+class _ScenaPainter extends CustomPainter {
+  _ScenaPainter({
+    required this.palette,
+    required this.fase,
+    required this.t,
+    required this.luce,
+    required this.quieta,
+    required this.spostamento,
+  });
+
+  final MaestroPalette palette;
+  final MoonPhase fase;
+  final double t;
+
+  /// Quanto il cielo e' emerso dalla foschia, da 0 a 1.
+  final double luce;
+
+  /// Vero a rito concluso: il cielo si acquieta, le stelle calano di luce.
+  final bool quieta;
+
+  final Offset spostamento;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final calo = quieta ? 0.7 : 1.0;
+
+    // Nota tenue del Maestro di turno, solo ai margini, mai sopra il cosmo.
+    final bordo = Paint()
+      ..shader = RadialGradient(
+        center: Alignment.center,
+        radius: 0.95,
+        colors: [
+          palette.primary.withValues(alpha: 0.0),
+          palette.primary.withValues(alpha: 0.10 * luce),
+        ],
+        stops: const [0.62, 1.0],
+      ).createShader(Offset.zero & size);
+    canvas.drawRect(Offset.zero & size, bordo);
+
+    // Stelle vicine, primo piano: poche, grandi, col battito sfasato. La
+    // raggiera a croce resta a pochissime, le sole davvero brillanti, cosi' non
+    // sa di preset: tutte le altre hanno solo nucleo e alone.
+    final vicine = spostamento * 0.9;
+    final rng = math.Random(41);
+    var conRaggiera = 0;
+    for (var i = 0; i < 16; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble() * 0.72;
+      final base = 0.9 + rng.nextDouble() * 1.1;
+      final sfasa = rng.nextDouble();
+      final battito = 0.55 + 0.45 * math.sin((t + sfasa) * math.pi * 2);
+      final raggiera = base > 1.72 && conRaggiera < 3;
+      if (raggiera) conRaggiera++;
+      _stellaPremium(
+        canvas,
+        Offset(bx * size.width + vicine.dx, by * size.height + vicine.dy),
+        base,
+        battito * luce * calo,
+        colore: const Color(0xFFEAF0FF),
+        raggiera: raggiera,
+      );
+    }
+
+    // Stelle intermedie, piano di mezzo: piu' fitte, piu' piccole.
+    final medie = spostamento * 0.45;
+    for (var i = 0; i < 46; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble() * 0.8;
+      final base = 0.4 + rng.nextDouble() * 0.6;
+      final sfasa = rng.nextDouble();
+      final battito = 0.4 + 0.5 * math.sin((t + sfasa) * math.pi * 2);
+      _stellaPremium(
+        canvas,
+        Offset(bx * size.width + medie.dx, by * size.height + medie.dy),
+        base,
+        battito * 0.8 * luce * calo,
+        colore: const Color(0xFFDCE6FF),
+      );
+    }
+
+    // Un pianeta lontano, sul piano piu' profondo: piccolo, morbido, senza bordo
+    // netto, con un alone atmosferico tenue.
+    _pianetaLontano(canvas, size, spostamento * 0.16, luce * calo);
+
+    // La Luna, sul suo piano, nella fase reale di stanotte.
+    _luna(canvas, size, spostamento * 0.28, calo);
+  }
+
+  /// Un corpo distante nel cosmo, non una sfera in primo piano: l'alfa va a zero
+  /// sul bordo, cosi' non c'e' contorno, e una sfumatura di fase lo illumina da
+  /// un lato solo. Bassa opacita', perche' resti lontano.
+  void _pianetaLontano(Canvas canvas, Size size, Offset off, double vis) {
+    if (vis <= 0.01) return;
+    final c = Offset(size.width * 0.15, size.height * 0.36) + off;
+    final r = size.shortestSide * 0.026;
+
+    // Alone atmosferico, appena percepibile.
+    canvas.drawCircle(
+      c,
+      r * 3.0,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          CosmosNebula.cool.withValues(alpha: 0.07 * vis),
+          const Color(0x00000000),
+        ]).createShader(Rect.fromCircle(center: c, radius: r * 3.0))
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 1.1),
+    );
+
+    // Il corpo: chiaro da un lato, in ombra dall'altro. La sfocatura sul corpo
+    // stesso toglie ogni bordo, cosi' resta un corpo distante e non una biglia.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.5, -0.45),
+          radius: 1.2,
+          colors: [
+            CosmosNebula.core.withValues(alpha: 0.17 * vis),
+            CosmosNebula.mid.withValues(alpha: 0.07 * vis),
+            CosmosNebula.mid.withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.55, 1.0],
+        ).createShader(Rect.fromCircle(center: c, radius: r))
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.42),
+    );
+  }
+
+  void _luna(Canvas canvas, Size size, Offset off, double calo) {
+    final c = Offset(size.width * 0.74, size.height * 0.17) + off;
+    final r = size.shortestSide * 0.078;
+    final vis = luce * calo;
+    if (vis <= 0.01) return;
+
+    // Alone a piu' strati, morbido, che fa da luce.
+    for (final s in const [4.6, 3.0, 1.9]) {
+      canvas.drawCircle(
+        c,
+        r * s,
+        Paint()
+          ..shader = RadialGradient(colors: [
+            const Color(0xFFCFDDFF).withValues(alpha: 0.15 * vis),
+            const Color(0x00000000),
+          ]).createShader(Rect.fromCircle(center: c, radius: r * s)),
+      );
+    }
+
+    // LA LUNA E' UNA SOLA, e sta in `LunaReale`. Questo disegno e' nato qui,
+    // dentro un metodo privato di una classe privata, quindi nessun'altra
+    // superficie poteva usarlo: il consulto ne aveva una seconda versione
+    // semplificata, che mostrava una meta' esatta mentre il testo diceva
+    // "crescente". Adesso il corpo e' quello, e qui resta solo il posto.
+    LunaReale.dipingi(
+      canvas,
+      c,
+      r,
+      illuminazione: fase.illumination,
+      crescente: fase.waxing,
+      visibilita: vis,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_ScenaPainter old) =>
+      old.t != t ||
+      old.luce != luce ||
+      old.quieta != quieta ||
+      old.spostamento != spostamento;
+}
+
+/// La foschia cosmica dell'apertura: volute morbide sopra il cielo profondo,
+/// che si diradano e rivelano il cosmo. Non un riquadro, un velo su tutto.
+class _FoschiaPainter extends CustomPainter {
+  _FoschiaPainter(
+      {required this.palette, required this.apertura, required this.t});
+
+  final MaestroPalette palette;
+  final double apertura;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final velo = (1 - apertura).clamp(0.0, 1.0);
+    if (velo <= 0.01) return;
+    final rect = Offset.zero & size;
+
+    // Il buio ovattato, che lascia intravedere il cosmo sotto.
+    canvas.drawRect(
+      rect,
+      Paint()..color = const Color(0xFF04060E).withValues(alpha: 0.80 * velo),
+    );
+
+    // Volute di foschia, fredde, che respirano e si aprono dal centro.
+    final rng = math.Random(17);
+    for (var i = 0; i < 11; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble();
+      final base = size.width * (0.24 + rng.nextDouble() * 0.34);
+      final sfasa = rng.nextDouble();
+      final respiro = 0.88 + 0.12 * math.sin((t + sfasa) * math.pi * 2);
+      // Le volute al centro si aprono per prime.
+      final dalCentro =
+          ((Offset(bx, by) - const Offset(0.5, 0.42)).distance / 0.7)
+              .clamp(0.0, 1.0);
+      final resta = (velo * (0.45 + 0.55 * dalCentro)).clamp(0.0, 1.0);
+      canvas.drawCircle(
+        Offset(bx * size.width, by * size.height),
+        base * respiro,
+        Paint()
+          ..color = const Color(0xFF7C8AAE).withValues(alpha: 0.13 * resta)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, base * 0.55),
+      );
+    }
+
+    // Una nota tenue del Maestro nella foschia, appena percepibile.
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = RadialGradient(
+          radius: 0.9,
+          colors: [
+            palette.primary.withValues(alpha: 0.0),
+            palette.primary.withValues(alpha: 0.10 * velo),
+          ],
+          stops: const [0.55, 1.0],
+        ).createShader(rect),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_FoschiaPainter old) =>
+      old.apertura != apertura || old.t != t;
+}
+
+/// La costellazione reale del segno della Luna: filamenti d'oro luminosi con
+/// alone esterno, uno scintillio che corre lungo la linea, e le stelle della
+/// figura che si accendono con un lampo morbido quando vengono unite.

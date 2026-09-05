@@ -1,0 +1,3880 @@
+{
+  "revisione": "F",
+  "ordine": "CP voce 05",
+  "sentieri": [
+    {
+      "sentiero": "costellazione",
+      "titolo": "Costellazione personale",
+      "maestro": "Medora",
+      "prefisso": "med",
+      "gradini": [
+        {
+          "id": "med_1",
+          "nome": "Il cielo dell’istante",
+          "posizione": 1,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "identita",
+          "ragione": "Identita",
+          "condizione": {
+            "tipo": "PezzoDellIdentita",
+            "pezzo": "carta_natale"
+          },
+          "costoInGiorni": 1,
+          "frase": "Hai dato al Cerchio la carta natale: da adesso ogni responso parte da qui.",
+          "cosaApre": "Il Cosmic Passport, che senza carta natale resta un documento vuoto",
+          "gestiNominati": [
+            "carta_natale"
+          ]
+        },
+        {
+          "id": "med_2",
+          "nome": "Il cielo di domani",
+          "posizione": 2,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oroscopo",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto l’Oroscopo in 2 giorni diversi.",
+          "cosaApre": "Gli orizzonti dell’Oroscopo: giorno, settimana, mese",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_3",
+          "nome": "Le tre carte",
+          "posizione": 3,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto la stesa di tarocchi in 2 giorni diversi.",
+          "cosaApre": "Le domande della stesa, che cambiano le carte che escono",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_4",
+          "nome": "L’Arcano che torna",
+          "posizione": 4,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oracolo",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto l’Arcano del Giorno in 3 giorni diversi.",
+          "cosaApre": "Il filo fra gli Arcani, che si vede solo dal terzo giorno",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_5",
+          "nome": "I cieli degli altri",
+          "posizione": 5,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sinastria",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto la Sinastria VIP in 3 giorni diversi.",
+          "cosaApre": "La galleria dei cinquanta volti della Sinastria",
+          "gestiNominati": [
+            "sinastria"
+          ]
+        },
+        {
+          "id": "med_6",
+          "nome": "Il cielo e le carte",
+          "posizione": 6,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "oroscopo",
+              "stesa"
+            ],
+            "quantiGiorni": 4
+          },
+          "costoInGiorni": 4,
+          "frase": "4 giornate chiuse con l’Oroscopo e la stesa di tarocchi, nello stesso giorno.",
+          "cosaApre": "La lettura incrociata, dove il cielo del giorno spiega la carta uscita",
+          "gestiNominati": [
+            "oroscopo",
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_7",
+          "nome": "I tre Angeli",
+          "posizione": 7,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "angelo_custode",
+            "quanti": 4,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 4,
+          "frase": "Hai compiuto l’Angelo Custode in 4 giorni diversi.",
+          "cosaApre": "I settantadue Angeli dello Shem HaMephorash",
+          "gestiNominati": [
+            "angelo_custode"
+          ]
+        },
+        {
+          "id": "med_8",
+          "nome": "La settimana dell’Arcano",
+          "posizione": 8,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oracolo",
+            "quanti": 5,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 5,
+          "frase": "Hai compiuto l’Arcano del Giorno in 5 giorni diversi.",
+          "cosaApre": "Lo storico degli Arcani, che comincia a dire qualcosa",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_9",
+          "nome": "Il segno che sale",
+          "posizione": 9,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "ascendente",
+            "quanti": 5,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 5,
+          "frase": "Hai compiuto l’Ascendente in 5 giorni diversi.",
+          "cosaApre": "Le dodici case, che senza Ascendente non esistono",
+          "gestiNominati": [
+            "ascendente"
+          ]
+        },
+        {
+          "id": "med_10",
+          "nome": "La costanza dell’Arcano",
+          "posizione": 10,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 6,
+            "arco": 8
+          },
+          "costoInGiorni": 6,
+          "frase": "6 giorni con l’Arcano del Giorno negli ultimi 8: nessuno te l’ha chiesto.",
+          "cosaApre": "Il promemoria dell’Arcano, che da qui sceglie la tua ora",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_11",
+          "nome": "Le carte al primo quarto",
+          "posizione": 11,
+          "fascia": "Primi giorni",
+          "sezione": "LA COSTELLAZIONE NASCENTE",
+          "eGrande": true,
+          "eos": 40,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "primo_quarto",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 8,
+          "frase": "La Luna è al primo quarto: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "Il calendario lunare del Cerchio, con le fasi che verranno",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_12",
+          "nome": "L’Arcano all’alba",
+          "posizione": 12,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "GestoNellOraGiusta",
+            "gesto": "oracolo",
+            "ora": "alba",
+            "quanteVolte": 9
+          },
+          "costoInGiorni": 9,
+          "frase": "9 volte l’Arcano del Giorno nell’ora vera dell’alba.",
+          "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_13",
+          "nome": "Dieci Arcani in quattordici giorni",
+          "posizione": 13,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 10,
+            "arco": 14
+          },
+          "costoInGiorni": 10,
+          "frase": "10 giorni con l’Arcano del Giorno negli ultimi 14: nessuno te l’ha chiesto.",
+          "cosaApre": "Il diario del Cammino, con i giorni segnati uno per uno",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_14",
+          "nome": "Le carte che tornano",
+          "posizione": 14,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 12,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 12,
+          "frase": "Hai compiuto la stesa di tarocchi in 12 giorni diversi.",
+          "cosaApre": "Le coincidenze delle carte, che il Cerchio comincia a notare",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_15",
+          "nome": "L’ora fedele",
+          "posizione": 15,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "oracolo",
+            "quantiGiorni": 14
+          },
+          "costoInGiorni": 14,
+          "frase": "14 giorni alla stessa ora con l’Arcano del Giorno: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "L’appuntamento con Medora, che da qui ti aspetta a quell’ora",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_16",
+          "nome": "L’Ascendente sotto la Luna piena",
+          "posizione": 16,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_piena",
+            "conGesto": "ascendente"
+          },
+          "costoInGiorni": 15,
+          "frase": "La Luna è piena: tu eri qui con l’Ascendente.",
+          "cosaApre": "La lettura lunare dell’Ascendente, che vale solo a Luna piena",
+          "gestiNominati": [
+            "ascendente"
+          ]
+        },
+        {
+          "id": "med_17",
+          "nome": "Le tre letture",
+          "posizione": 17,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "oroscopo",
+              "sinastria",
+              "stesa"
+            ],
+            "quantiGiorni": 16
+          },
+          "costoInGiorni": 16,
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il responso composto, dove le tre arti si parlano",
+          "gestiNominati": [
+            "oroscopo",
+            "sinastria",
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_18",
+          "nome": "Diciotto Arcani in venticinque giorni",
+          "posizione": 18,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 18,
+            "arco": 25
+          },
+          "costoInGiorni": 18,
+          "frase": "18 giorni con l’Arcano del Giorno negli ultimi 25: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza larga, che perdona un giorno saltato",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_19",
+          "nome": "Venti Arcani",
+          "posizione": 19,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oracolo",
+            "quanti": 20,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 20,
+          "frase": "Hai compiuto l’Arcano del Giorno in 20 giorni diversi.",
+          "cosaApre": "La mappa degli Arcani incontrati, con quelli che mancano",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_20",
+          "nome": "Il cielo interrogato",
+          "posizione": 20,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oroscopo",
+            "quanti": 25,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 25,
+          "frase": "Hai compiuto l’Oroscopo in 25 giorni diversi.",
+          "cosaApre": "Le previsioni lunghe dell’Oroscopo, mese e stagione",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_21",
+          "nome": "L’Angelo sotto la tua Luna",
+          "posizione": 21,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_nel_tuo_segno",
+            "conGesto": "angelo_custode"
+          },
+          "costoInGiorni": 28,
+          "frase": "La Luna passa nel tuo segno: tu eri qui con l’Angelo Custode.",
+          "cosaApre": "Il tuo Angelo del cuore, che si rivela con la Luna nel tuo segno",
+          "gestiNominati": [
+            "angelo_custode"
+          ]
+        },
+        {
+          "id": "med_22",
+          "nome": "Le carte sotto un transito",
+          "posizione": 22,
+          "fascia": "Prima settimana",
+          "sezione": "LA COSTELLAZIONE DELLA LETTURA",
+          "eGrande": true,
+          "eos": 60,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sulla_luna",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 30,
+          "frase": "Un pianeta transita sulla tua Luna: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "Il registro dei transiti, con quelli che ti aspettano",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_23",
+          "nome": "Un mese di stese",
+          "posizione": 23,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 31,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 31,
+          "frase": "Hai compiuto la stesa di tarocchi in 31 giorni diversi.",
+          "cosaApre": "Le stese lunghe, con la croce celtica a dieci carte",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_24",
+          "nome": "Trentacinque Arcani in quarantacinque giorni",
+          "posizione": 24,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 35,
+            "arco": 45
+          },
+          "costoInGiorni": 35,
+          "frase": "35 giorni con l’Arcano del Giorno negli ultimi 45: nessuno te l’ha chiesto.",
+          "cosaApre": "Il tuo Arcano dominante, che si calcola solo con questa storia",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_25",
+          "nome": "Quaranta giorni compiuti",
+          "posizione": 25,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "oracolo",
+              "oroscopo"
+            ],
+            "quantiGiorni": 40
+          },
+          "costoInGiorni": 40,
+          "frase": "40 giornate chiuse con l’Arcano del Giorno e l’Oroscopo, nello stesso giorno.",
+          "cosaApre": "La lettura del mattino, che unisce Arcano e cielo del giorno",
+          "gestiNominati": [
+            "oracolo",
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_26",
+          "nome": "Il cielo sul tuo Ascendente",
+          "posizione": 26,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sull_ascendente",
+            "conGesto": "oroscopo"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Ascendente: tu eri qui con l’Oroscopo.",
+          "cosaApre": "Le soglie della vita, che i transiti sull’Ascendente aprono",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_27",
+          "nome": "Le carte sul tuo Sole",
+          "posizione": 27,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sul_sole",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Sole: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "Il ritratto solare, che si legge solo sotto il transito",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_28",
+          "nome": "Cinquantacinque confronti",
+          "posizione": 28,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sinastria",
+            "quanti": 55,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 55,
+          "frase": "Hai compiuto la Sinastria VIP in 55 giorni diversi.",
+          "cosaApre": "La classifica delle affinità, con i volti più vicini al tuo cielo",
+          "gestiNominati": [
+            "sinastria"
+          ]
+        },
+        {
+          "id": "med_29",
+          "nome": "L’Arcano di Mercurio",
+          "posizione": 29,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_retrogrado",
+            "conGesto": "oracolo"
+          },
+          "costoInGiorni": 60,
+          "frase": "Mercurio è retrogrado: tu eri qui con l’Arcano del Giorno.",
+          "cosaApre": "Il quaderno dei ripensamenti, che si apre solo a Mercurio retrogrado",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_30",
+          "nome": "Sessanta giorni pieni",
+          "posizione": 30,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "oroscopo",
+              "sinastria",
+              "stesa"
+            ],
+            "quantiGiorni": 60
+          },
+          "costoInGiorni": 60,
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "La sintesi di stagione, che Medora scrive su sessanta giornate",
+          "gestiNominati": [
+            "oroscopo",
+            "sinastria",
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_31",
+          "nome": "Settantacinque cieli",
+          "posizione": 31,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oroscopo",
+            "quanti": 75,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 75,
+          "frase": "Hai compiuto l’Oroscopo in 75 giorni diversi.",
+          "cosaApre": "Il confronto fra il tuo anno e il cielo che l’ha attraversato",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_32",
+          "nome": "Ottanta Arcani in cento giorni",
+          "posizione": 32,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 80,
+            "arco": 100
+          },
+          "costoInGiorni": 80,
+          "frase": "80 giorni con l’Arcano del Giorno negli ultimi 100: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza riconosciuta, che Medora nomina nelle sue risposte",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_33",
+          "nome": "Le carte dell’eclissi",
+          "posizione": 33,
+          "fascia": "Primo mese",
+          "sezione": "LA COSTELLAZIONE DEL CIELO VERO",
+          "eGrande": true,
+          "eos": 80,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "eclissi",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 90,
+          "frase": "Il cielo porta un’eclissi: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "La lettura dell’eclissi, che il Cerchio conserva per sempre",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_34",
+          "nome": "Il cielo del solstizio",
+          "posizione": 34,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "solstizio",
+            "conGesto": "oroscopo"
+          },
+          "costoInGiorni": 91,
+          "frase": "Il Sole tocca il solstizio: tu eri qui con l’Oroscopo.",
+          "cosaApre": "Il rito del solstizio, che torna due volte l’anno",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_35",
+          "nome": "Cento stese",
+          "posizione": 35,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 100,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 100,
+          "frase": "Hai compiuto la stesa di tarocchi in 100 giorni diversi.",
+          "cosaApre": "Lo Specchio delle carte, che confronta cento letture",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_36",
+          "nome": "Centodieci Arcani in centoquaranta giorni",
+          "posizione": 36,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 110,
+            "arco": 140
+          },
+          "costoInGiorni": 110,
+          "frase": "110 giorni con l’Arcano del Giorno negli ultimi 140: nessuno te l’ha chiesto.",
+          "cosaApre": "La memoria lunga di Medora, che ricorda quello che dicevi a marzo",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_37",
+          "nome": "Le carte di Mercurio diretto",
+          "posizione": 37,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_diretto",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 120,
+          "frase": "Mercurio torna diretto: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "La lettura del ritorno, quando Mercurio riprende il cammino",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_38",
+          "nome": "Il cielo di Giove retrogrado",
+          "posizione": 38,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "giove_retrogrado",
+            "conGesto": "oroscopo"
+          },
+          "costoInGiorni": 120,
+          "frase": "Giove è retrogrado: tu eri qui con l’Oroscopo.",
+          "cosaApre": "Il capitolo della fortuna che si ripiega, raro e lungo",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_39",
+          "nome": "Centoquaranta Arcani",
+          "posizione": 39,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oracolo",
+            "quanti": 140,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 140,
+          "frase": "Hai compiuto l’Arcano del Giorno in 140 giorni diversi.",
+          "cosaApre": "Il tuo mazzo personale, con gli Arcani che ti cercano più spesso",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_40",
+          "nome": "Centocinquanta giornate intere",
+          "posizione": 40,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "oracolo",
+              "oroscopo",
+              "sinastria",
+              "stesa"
+            ],
+            "quantiGiorni": 150
+          },
+          "costoInGiorni": 150,
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto delle quattro arti, che nessuna delle quattro dice da sola",
+          "gestiNominati": [
+            "oracolo",
+            "oroscopo",
+            "sinastria",
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_41",
+          "nome": "Centosessanta Arcani in duecento giorni",
+          "posizione": 41,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 160,
+            "arco": 200
+          },
+          "costoInGiorni": 160,
+          "frase": "160 giorni con l’Arcano del Giorno negli ultimi 200: nessuno te l’ha chiesto.",
+          "cosaApre": "La stagione riconosciuta, con il tuo Arcano dell’anno",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_42",
+          "nome": "Centosessantacinque volti",
+          "posizione": 42,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sinastria",
+            "quanti": 165,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 165,
+          "frase": "Hai compiuto la Sinastria VIP in 165 giorni diversi.",
+          "cosaApre": "La mappa delle affinità, con i cieli che assomigliano al tuo",
+          "gestiNominati": [
+            "sinastria"
+          ]
+        },
+        {
+          "id": "med_43",
+          "nome": "L’ora che non cambia",
+          "posizione": 43,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "oracolo",
+            "quantiGiorni": 170
+          },
+          "costoInGiorni": 170,
+          "frase": "170 giorni alla stessa ora con l’Arcano del Giorno: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "Il tuo rito fisso, che Medora protegge dalle notifiche",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_44",
+          "nome": "Le carte del tuo Sole",
+          "posizione": 44,
+          "fascia": "La stagione",
+          "sezione": "LA COSTELLAZIONE DELLA STAGIONE",
+          "eGrande": true,
+          "eos": 100,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "sole_nel_tuo_segno",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 180,
+          "frase": "Il Sole attraversa il tuo segno: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "Il mese del compleanno, con la stesa che si legge una volta l’anno",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_45",
+          "nome": "Centonovantuno stese",
+          "posizione": 45,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 191,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 191,
+          "frase": "Hai compiuto la stesa di tarocchi in 191 giorni diversi.",
+          "cosaApre": "L’archivio completo delle tue stese, ricercabile per carta",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_46",
+          "nome": "Duecento Arcani in duecentocinquanta giorni",
+          "posizione": 46,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 200,
+            "arco": 250
+          },
+          "costoInGiorni": 200,
+          "frase": "200 giorni con l’Arcano del Giorno negli ultimi 250: nessuno te l’ha chiesto.",
+          "cosaApre": "Il capitolo dell’anno, che Medora scrive solo per chi c’è stato",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_47",
+          "nome": "Duecentoventi giornate di lettura",
+          "posizione": 47,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "ascendente",
+              "oracolo",
+              "sinastria"
+            ],
+            "quantiGiorni": 220
+          },
+          "costoInGiorni": 220,
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano",
+          "gestiNominati": [
+            "ascendente",
+            "oracolo",
+            "sinastria"
+          ]
+        },
+        {
+          "id": "med_48",
+          "nome": "Il cielo di Giove diretto",
+          "posizione": 48,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "giove_diretto",
+            "conGesto": "oroscopo"
+          },
+          "costoInGiorni": 240,
+          "frase": "Giove torna diretto: tu eri qui con l’Oroscopo.",
+          "cosaApre": "Il capitolo dell’espansione, che apre l’anno che viene",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_49",
+          "nome": "Le carte di Saturno diretto",
+          "posizione": 49,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "saturno_diretto",
+            "conGesto": "stesa"
+          },
+          "costoInGiorni": 240,
+          "frase": "Saturno torna diretto: tu eri qui con la stesa di tarocchi.",
+          "cosaApre": "La lettura della prova superata, che Saturno concede tornando diretto",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_50",
+          "nome": "Duecentottanta cieli",
+          "posizione": 50,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "oroscopo",
+            "quanti": 280,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 280,
+          "frase": "Hai compiuto l’Oroscopo in 280 giorni diversi.",
+          "cosaApre": "Il tuo anno confrontato col cielo, giorno per giorno",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        },
+        {
+          "id": "med_51",
+          "nome": "La Sinastria di Venere retrograda",
+          "posizione": 51,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "venere_retrograda",
+            "conGesto": "sinastria"
+          },
+          "costoInGiorni": 290,
+          "frase": "Venere è retrograda: tu eri qui con la Sinastria VIP.",
+          "cosaApre": "Il capitolo degli affetti che tornano, uno ogni diciotto mesi",
+          "gestiNominati": [
+            "sinastria"
+          ]
+        },
+        {
+          "id": "med_52",
+          "nome": "Trecento Arcani in trecentoquaranta giorni",
+          "posizione": 52,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "oracolo",
+            "quanti": 300,
+            "arco": 340
+          },
+          "costoInGiorni": 300,
+          "frase": "300 giorni con l’Arcano del Giorno negli ultimi 340: nessuno te l’ha chiesto.",
+          "cosaApre": "Il titolo di custode dell’Arcano, che pochi vedranno",
+          "gestiNominati": [
+            "oracolo"
+          ]
+        },
+        {
+          "id": "med_53",
+          "nome": "Trecentoventi giornate complete",
+          "posizione": 53,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "angelo_custode",
+              "oracolo",
+              "oroscopo",
+              "sinastria",
+              "stesa"
+            ],
+            "quantiGiorni": 320
+          },
+          "costoInGiorni": 320,
+          "frase": "320 giornate con 5 arti diverse, nello stesso giorno.",
+          "cosaApre": "La Costellazione intera, con tutte e cinque le arti in una pagina",
+          "gestiNominati": [
+            "angelo_custode",
+            "oracolo",
+            "oroscopo",
+            "sinastria",
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_54",
+          "nome": "Trecentoquaranta stese",
+          "posizione": 54,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "stesa",
+            "quanti": 340,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 340,
+          "frase": "Hai compiuto la stesa di tarocchi in 340 giorni diversi.",
+          "cosaApre": "Il mazzo che ti conosce, con la carta che ti è uscita di più",
+          "gestiNominati": [
+            "stesa"
+          ]
+        },
+        {
+          "id": "med_55",
+          "nome": "Il tuo ritorno solare",
+          "posizione": 55,
+          "fascia": "L'anno",
+          "sezione": "LA COSTELLAZIONE COMPIUTA",
+          "eGrande": true,
+          "eos": 130,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "ritorno_solare",
+            "conGesto": "oroscopo"
+          },
+          "costoInGiorni": 365,
+          "frase": "Il Sole torna dov’era quando sei nato: tu eri qui con l’Oroscopo.",
+          "cosaApre": "La carta del ritorno solare, il cielo del tuo anno nuovo",
+          "gestiNominati": [
+            "oroscopo"
+          ]
+        }
+      ]
+    },
+    {
+      "sentiero": "loto",
+      "titolo": "Fiore di Loto",
+      "maestro": "Aura",
+      "prefisso": "aur",
+      "gradini": [
+        {
+          "id": "aur_1",
+          "nome": "Il tuo volto letto",
+          "posizione": 1,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "identita",
+          "ragione": "Identita",
+          "condizione": {
+            "tipo": "PezzoDellIdentita",
+            "pezzo": "viso"
+          },
+          "costoInGiorni": 1,
+          "frase": "Hai dato al Cerchio la Costellazione del Viso: da adesso ogni responso parte da qui.",
+          "cosaApre": "La Costellazione del Viso, che da qui entra nel tuo profilo",
+          "gestiNominati": [
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_2",
+          "nome": "Due albe",
+          "posizione": 2,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "alba",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto il Rito dell’Alba in 2 giorni diversi.",
+          "cosaApre": "La parola del giorno, che cambia con l’ora in cui ti alzi",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_3",
+          "nome": "Due Soffi",
+          "posizione": 3,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "soffio",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto il Soffio del Destino in 2 giorni diversi.",
+          "cosaApre": "Il respiro contato, con il ritmo che Aura ti propone",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_4",
+          "nome": "Il tuo Archetipo",
+          "posizione": 4,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "archetipo",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto l’Archetipo in 3 giorni diversi.",
+          "cosaApre": "I dodici Archetipi, con quello che ti governa",
+          "gestiNominati": [
+            "archetipo"
+          ]
+        },
+        {
+          "id": "aur_5",
+          "nome": "Tre meditazioni",
+          "posizione": 5,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "meditazione",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto la Meditazione in 3 giorni diversi.",
+          "cosaApre": "Le meditazioni guidate lunghe, dai sette minuti in su",
+          "gestiNominati": [
+            "meditazione"
+          ]
+        },
+        {
+          "id": "aur_6",
+          "nome": "L’alba e il respiro",
+          "posizione": 6,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "soffio"
+            ],
+            "quantiGiorni": 4
+          },
+          "costoInGiorni": 4,
+          "frase": "4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, nello stesso giorno.",
+          "cosaApre": "Il rito del mattino completo, alba e Soffio uno dopo l’altro",
+          "gestiNominati": [
+            "alba",
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_7",
+          "nome": "I tuoi due volti",
+          "posizione": 7,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "due_volti",
+            "quanti": 4,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 4,
+          "frase": "Hai compiuto i Due Volti in 4 giorni diversi.",
+          "cosaApre": "Il confronto fra il volto che mostri e quello che sei",
+          "gestiNominati": [
+            "due_volti"
+          ]
+        },
+        {
+          "id": "aur_8",
+          "nome": "Cinque Soffi in sette giorni",
+          "posizione": 8,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "soffio",
+            "quanti": 5,
+            "arco": 7
+          },
+          "costoInGiorni": 5,
+          "frase": "5 giorni con il Soffio del Destino negli ultimi 7: nessuno te l’ha chiesto.",
+          "cosaApre": "Il grafico del respiro, che senza cinque giorni non dice niente",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_9",
+          "nome": "Cinque meditazioni",
+          "posizione": 9,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "meditazione",
+            "quanti": 5,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 5,
+          "frase": "Hai compiuto la Meditazione in 5 giorni diversi.",
+          "cosaApre": "Le meditazioni sui chakra, una per centro",
+          "gestiNominati": [
+            "meditazione"
+          ]
+        },
+        {
+          "id": "aur_10",
+          "nome": "La costanza dell’Alba",
+          "posizione": 10,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "alba",
+            "quanti": 6,
+            "arco": 8
+          },
+          "costoInGiorni": 6,
+          "frase": "6 giorni con il Rito dell’Alba negli ultimi 8: nessuno te l’ha chiesto.",
+          "cosaApre": "Il promemoria dell’Alba, che da qui sceglie la tua ora",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_11",
+          "nome": "L’Alba al primo quarto",
+          "posizione": 11,
+          "fascia": "Primi giorni",
+          "sezione": "IL PRIMO PETALO",
+          "eGrande": true,
+          "eos": 40,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "primo_quarto",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 8,
+          "frase": "La Luna è al primo quarto: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il calendario lunare del Cerchio, con le fasi che verranno",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_12",
+          "nome": "L’Alba nella sua ora",
+          "posizione": 12,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "GestoNellOraGiusta",
+            "gesto": "alba",
+            "ora": "alba",
+            "quanteVolte": 9
+          },
+          "costoInGiorni": 9,
+          "frase": "9 volte il Rito dell’Alba nell’ora vera dell’alba.",
+          "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_13",
+          "nome": "Dieci Soffi in quattordici giorni",
+          "posizione": 13,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "soffio",
+            "quanti": 10,
+            "arco": 14
+          },
+          "costoInGiorni": 10,
+          "frase": "10 giorni con il Soffio del Destino negli ultimi 14: nessuno te l’ha chiesto.",
+          "cosaApre": "Il diario del respiro, con i giorni segnati uno per uno",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_14",
+          "nome": "Il volto che cambia",
+          "posizione": 14,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "viso",
+            "quanti": 12,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 12,
+          "frase": "Hai compiuto la Costellazione del Viso in 12 giorni diversi.",
+          "cosaApre": "Il confronto fra la prima lettura del viso e l’ultima",
+          "gestiNominati": [
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_15",
+          "nome": "L’ora fedele dell’Alba",
+          "posizione": 15,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "alba",
+            "quantiGiorni": 14
+          },
+          "costoInGiorni": 14,
+          "frase": "14 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "L’appuntamento con Aura, che da qui ti aspetta a quell’ora",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_16",
+          "nome": "Il Soffio sotto la Luna piena",
+          "posizione": 16,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_piena",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 15,
+          "frase": "La Luna è piena: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il respiro lunare, che si pratica solo a Luna piena",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_17",
+          "nome": "Le tre pratiche",
+          "posizione": 17,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "meditazione",
+              "soffio"
+            ],
+            "quantiGiorni": 16
+          },
+          "costoInGiorni": 16,
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "La sequenza del risveglio, dove le tre pratiche si tengono",
+          "gestiNominati": [
+            "alba",
+            "meditazione",
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_18",
+          "nome": "Diciotto albe in venticinque giorni",
+          "posizione": 18,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "alba",
+            "quanti": 18,
+            "arco": 25
+          },
+          "costoInGiorni": 18,
+          "frase": "18 giorni con il Rito dell’Alba negli ultimi 25: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza larga, che perdona un giorno saltato",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_19",
+          "nome": "Venti Archetipi",
+          "posizione": 19,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "archetipo",
+            "quanti": 20,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 20,
+          "frase": "Hai compiuto l’Archetipo in 20 giorni diversi.",
+          "cosaApre": "Il tuo Archetipo in movimento, che cambia col tempo",
+          "gestiNominati": [
+            "archetipo"
+          ]
+        },
+        {
+          "id": "aur_20",
+          "nome": "Venticinque confronti",
+          "posizione": 20,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "due_volti",
+            "quanti": 25,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 25,
+          "frase": "Hai compiuto i Due Volti in 25 giorni diversi.",
+          "cosaApre": "La storia dei tuoi volti, mese per mese",
+          "gestiNominati": [
+            "due_volti"
+          ]
+        },
+        {
+          "id": "aur_21",
+          "nome": "Il Viso sotto la tua Luna",
+          "posizione": 21,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_nel_tuo_segno",
+            "conGesto": "viso"
+          },
+          "costoInGiorni": 28,
+          "frase": "La Luna passa nel tuo segno: tu eri qui con la Costellazione del Viso.",
+          "cosaApre": "La lettura lunare del volto, che vale solo nel tuo segno",
+          "gestiNominati": [
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_22",
+          "nome": "L’Alba sotto un transito",
+          "posizione": 22,
+          "fascia": "Prima settimana",
+          "sezione": "LA PRIMA FIORITURA",
+          "eGrande": true,
+          "eos": 60,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sulla_luna",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 30,
+          "frase": "Un pianeta transita sulla tua Luna: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il registro dei transiti, con quelli che ti aspettano",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_23",
+          "nome": "Un mese di Soffi",
+          "posizione": 23,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "soffio",
+            "quanti": 31,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 31,
+          "frase": "Hai compiuto il Soffio del Destino in 31 giorni diversi.",
+          "cosaApre": "Il respiro profondo, la pratica lunga da undici minuti",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_24",
+          "nome": "Trentacinque albe in quarantacinque giorni",
+          "posizione": 24,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "alba",
+            "quanti": 35,
+            "arco": 45
+          },
+          "costoInGiorni": 35,
+          "frase": "35 giorni con il Rito dell’Alba negli ultimi 45: nessuno te l’ha chiesto.",
+          "cosaApre": "Il tuo ritmo del mattino, che si calcola solo con questa storia",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_25",
+          "nome": "Quaranta mattine intere",
+          "posizione": 25,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "meditazione"
+            ],
+            "quantiGiorni": 40
+          },
+          "costoInGiorni": 40,
+          "frase": "40 giornate chiuse con il Rito dell’Alba e la Meditazione, nello stesso giorno.",
+          "cosaApre": "La meditazione dell’alba, che si sblocca con la costanza",
+          "gestiNominati": [
+            "alba",
+            "meditazione"
+          ]
+        },
+        {
+          "id": "aur_26",
+          "nome": "L’Alba sul tuo Ascendente",
+          "posizione": 26,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sull_ascendente",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Ascendente: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Le soglie della vita, che i transiti sull’Ascendente aprono",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_27",
+          "nome": "Il Soffio sul tuo Sole",
+          "posizione": 27,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sul_sole",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Sole: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il respiro solare, che si pratica solo sotto il transito",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_28",
+          "nome": "Cinquantacinque letture del volto",
+          "posizione": 28,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "viso",
+            "quanti": 55,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 55,
+          "frase": "Hai compiuto la Costellazione del Viso in 55 giorni diversi.",
+          "cosaApre": "La mappa completa dei tratti, con quelli che si sono mossi",
+          "gestiNominati": [
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_29",
+          "nome": "L’Archetipo di Mercurio retrogrado",
+          "posizione": 29,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_retrogrado",
+            "conGesto": "archetipo"
+          },
+          "costoInGiorni": 60,
+          "frase": "Mercurio è retrogrado: tu eri qui con l’Archetipo.",
+          "cosaApre": "L’Archetipo dell’ombra, che si mostra solo a Mercurio retrogrado",
+          "gestiNominati": [
+            "archetipo"
+          ]
+        },
+        {
+          "id": "aur_30",
+          "nome": "Sessanta giorni pieni",
+          "posizione": 30,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "due_volti",
+              "soffio",
+              "viso"
+            ],
+            "quantiGiorni": 60
+          },
+          "costoInGiorni": 60,
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto energetico, che unisce respiro e volto",
+          "gestiNominati": [
+            "due_volti",
+            "soffio",
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_31",
+          "nome": "Settantacinque albe",
+          "posizione": 31,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "alba",
+            "quanti": 75,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 75,
+          "frase": "Hai compiuto il Rito dell’Alba in 75 giorni diversi.",
+          "cosaApre": "Il confronto fra le tue albe e le stagioni che le hanno viste",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_32",
+          "nome": "Ottanta Soffi in cento giorni",
+          "posizione": 32,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "soffio",
+            "quanti": 80,
+            "arco": 100
+          },
+          "costoInGiorni": 80,
+          "frase": "80 giorni con il Soffio del Destino negli ultimi 100: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza riconosciuta, che Aura nomina nelle sue risposte",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_33",
+          "nome": "L’Alba dell’eclissi",
+          "posizione": 33,
+          "fascia": "Primo mese",
+          "sezione": "IL FIORE CHE RESPIRA",
+          "eGrande": true,
+          "eos": 80,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "eclissi",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 90,
+          "frase": "Il cielo porta un’eclissi: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il rito dell’eclissi, che il Cerchio conserva per sempre",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_34",
+          "nome": "Il Soffio del solstizio",
+          "posizione": 34,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "solstizio",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 91,
+          "frase": "Il Sole tocca il solstizio: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il respiro del solstizio, che torna due volte l’anno",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_35",
+          "nome": "Cento albe",
+          "posizione": 35,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "alba",
+            "quanti": 100,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 100,
+          "frase": "Hai compiuto il Rito dell’Alba in 100 giorni diversi.",
+          "cosaApre": "Lo Specchio del mattino, che confronta cento risvegli",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_36",
+          "nome": "Centodieci Soffi in centoquaranta giorni",
+          "posizione": 36,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "soffio",
+            "quanti": 110,
+            "arco": 140
+          },
+          "costoInGiorni": 110,
+          "frase": "110 giorni con il Soffio del Destino negli ultimi 140: nessuno te l’ha chiesto.",
+          "cosaApre": "La memoria lunga di Aura, che ricorda come respiravi a marzo",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_37",
+          "nome": "L’Alba di Mercurio diretto",
+          "posizione": 37,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_diretto",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 120,
+          "frase": "Mercurio torna diretto: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il rito del ritorno, quando Mercurio riprende il cammino",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_38",
+          "nome": "Il Soffio di Giove retrogrado",
+          "posizione": 38,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "giove_retrogrado",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 120,
+          "frase": "Giove è retrogrado: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il capitolo dell’abbondanza che si ripiega, raro e lungo",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_39",
+          "nome": "Centoquaranta meditazioni",
+          "posizione": 39,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "meditazione",
+            "quanti": 140,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 140,
+          "frase": "Hai compiuto la Meditazione in 140 giorni diversi.",
+          "cosaApre": "Le meditazioni che Aura scrive per te, non più dal catalogo",
+          "gestiNominati": [
+            "meditazione"
+          ]
+        },
+        {
+          "id": "aur_40",
+          "nome": "Centocinquanta giornate intere",
+          "posizione": 40,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "archetipo",
+              "soffio",
+              "viso"
+            ],
+            "quantiGiorni": 150
+          },
+          "costoInGiorni": 150,
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto delle quattro pratiche, che nessuna dice da sola",
+          "gestiNominati": [
+            "alba",
+            "archetipo",
+            "soffio",
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_41",
+          "nome": "Centosessanta albe in duecento giorni",
+          "posizione": 41,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "alba",
+            "quanti": 160,
+            "arco": 200
+          },
+          "costoInGiorni": 160,
+          "frase": "160 giorni con il Rito dell’Alba negli ultimi 200: nessuno te l’ha chiesto.",
+          "cosaApre": "La stagione riconosciuta, con il tuo risveglio dell’anno",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_42",
+          "nome": "Centosessantacinque Archetipi",
+          "posizione": 42,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "archetipo",
+            "quanti": 165,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 165,
+          "frase": "Hai compiuto l’Archetipo in 165 giorni diversi.",
+          "cosaApre": "La storia del tuo Archetipo, con tutte le sue mutazioni",
+          "gestiNominati": [
+            "archetipo"
+          ]
+        },
+        {
+          "id": "aur_43",
+          "nome": "L’ora che non cambia",
+          "posizione": 43,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "alba",
+            "quantiGiorni": 170
+          },
+          "costoInGiorni": 170,
+          "frase": "170 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "Il tuo rito fisso, che Aura protegge dalle notifiche",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_44",
+          "nome": "Il Soffio del tuo Sole",
+          "posizione": 44,
+          "fascia": "La stagione",
+          "sezione": "IL FIORE DELLA STAGIONE",
+          "eGrande": true,
+          "eos": 100,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "sole_nel_tuo_segno",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 180,
+          "frase": "Il Sole attraversa il tuo segno: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il mese del compleanno, col respiro che si pratica una volta l’anno",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_45",
+          "nome": "Centonovantuna albe",
+          "posizione": 45,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "alba",
+            "quanti": 191,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 191,
+          "frase": "Hai compiuto il Rito dell’Alba in 191 giorni diversi.",
+          "cosaApre": "L’archivio completo delle tue albe, con la parola di ogni giorno",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_46",
+          "nome": "Duecento Soffi in duecentocinquanta giorni",
+          "posizione": 46,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "soffio",
+            "quanti": 200,
+            "arco": 250
+          },
+          "costoInGiorni": 200,
+          "frase": "200 giorni con il Soffio del Destino negli ultimi 250: nessuno te l’ha chiesto.",
+          "cosaApre": "Il capitolo dell’anno, che Aura scrive solo per chi c’è stato",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_47",
+          "nome": "Duecentoventi giornate di pratica",
+          "posizione": 47,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "archetipo",
+              "due_volti"
+            ],
+            "quantiGiorni": 220
+          },
+          "costoInGiorni": 220,
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto lungo di Aura, che tiene insieme risveglio, Archetipo e volti",
+          "gestiNominati": [
+            "alba",
+            "archetipo",
+            "due_volti"
+          ]
+        },
+        {
+          "id": "aur_48",
+          "nome": "L’Alba di Giove diretto",
+          "posizione": 48,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "giove_diretto",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 240,
+          "frase": "Giove torna diretto: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il capitolo dell’espansione, che apre l’anno che viene",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_49",
+          "nome": "Il Soffio di Saturno diretto",
+          "posizione": 49,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "saturno_diretto",
+            "conGesto": "soffio"
+          },
+          "costoInGiorni": 240,
+          "frase": "Saturno torna diretto: tu eri qui con il Soffio del Destino.",
+          "cosaApre": "Il respiro della prova superata, che Saturno concede tornando diretto",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_50",
+          "nome": "Duecentottanta volti",
+          "posizione": 50,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "viso",
+            "quanti": 280,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 280,
+          "frase": "Hai compiuto la Costellazione del Viso in 280 giorni diversi.",
+          "cosaApre": "Il tuo volto nel tempo, con la lettura di come è cambiato",
+          "gestiNominati": [
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_51",
+          "nome": "I Due Volti di Venere retrograda",
+          "posizione": 51,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "venere_retrograda",
+            "conGesto": "due_volti"
+          },
+          "costoInGiorni": 290,
+          "frase": "Venere è retrograda: tu eri qui con i Due Volti.",
+          "cosaApre": "Il capitolo degli affetti che tornano, uno ogni diciotto mesi",
+          "gestiNominati": [
+            "due_volti"
+          ]
+        },
+        {
+          "id": "aur_52",
+          "nome": "Trecento albe in trecentoquaranta giorni",
+          "posizione": 52,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "alba",
+            "quanti": 300,
+            "arco": 340
+          },
+          "costoInGiorni": 300,
+          "frase": "300 giorni con il Rito dell’Alba negli ultimi 340: nessuno te l’ha chiesto.",
+          "cosaApre": "Il titolo di custode dell’Alba, che pochi vedranno",
+          "gestiNominati": [
+            "alba"
+          ]
+        },
+        {
+          "id": "aur_53",
+          "nome": "Trecentoventi giornate complete",
+          "posizione": 53,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "alba",
+              "archetipo",
+              "due_volti",
+              "meditazione",
+              "soffio",
+              "viso"
+            ],
+            "quantiGiorni": 320
+          },
+          "costoInGiorni": 320,
+          "frase": "320 giornate con 6 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il Fiore intero, con tutte e sei le pratiche in una sola pagina",
+          "gestiNominati": [
+            "alba",
+            "archetipo",
+            "due_volti",
+            "meditazione",
+            "soffio",
+            "viso"
+          ]
+        },
+        {
+          "id": "aur_54",
+          "nome": "Trecentoquaranta Soffi",
+          "posizione": 54,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "soffio",
+            "quanti": 340,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 340,
+          "frase": "Hai compiuto il Soffio del Destino in 340 giorni diversi.",
+          "cosaApre": "Il respiro che ti conosce, col ritmo che il tuo corpo ha scelto",
+          "gestiNominati": [
+            "soffio"
+          ]
+        },
+        {
+          "id": "aur_55",
+          "nome": "Il tuo ritorno solare",
+          "posizione": 55,
+          "fascia": "L'anno",
+          "sezione": "IL FIORE COMPIUTO",
+          "eGrande": true,
+          "eos": 130,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "ritorno_solare",
+            "conGesto": "alba"
+          },
+          "costoInGiorni": 365,
+          "frase": "Il Sole torna dov’era quando sei nato: tu eri qui con il Rito dell’Alba.",
+          "cosaApre": "Il rito del ritorno solare, il risveglio del tuo anno nuovo",
+          "gestiNominati": [
+            "alba"
+          ]
+        }
+      ]
+    },
+    {
+      "sentiero": "albero",
+      "titolo": "Albero della Vita",
+      "maestro": "Caligo",
+      "prefisso": "cal",
+      "gradini": [
+        {
+          "id": "cal_1",
+          "nome": "Il tuo Animale Guida",
+          "posizione": 1,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "identita",
+          "ragione": "Identita",
+          "condizione": {
+            "tipo": "PezzoDellIdentita",
+            "pezzo": "animale_guida"
+          },
+          "costoInGiorni": 1,
+          "frase": "Hai dato al Cerchio l’Animale Guida: da adesso ogni responso parte da qui.",
+          "cosaApre": "I dodici Animali Guida, con il tuo fra loro",
+          "gestiNominati": [
+            "animale_guida"
+          ]
+        },
+        {
+          "id": "cal_2",
+          "nome": "Due gettate",
+          "posizione": 2,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "gettata",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto la gettata di rune in 2 giorni diversi.",
+          "cosaApre": "I modi della gettata: una runa, tre rune, la croce",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_3",
+          "nome": "Due tramonti",
+          "posizione": 3,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "tramonto",
+            "quanti": 2,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 2,
+          "frase": "Hai compiuto la Runa del Tramonto in 2 giorni diversi.",
+          "cosaApre": "La Runa del Tramonto, che cambia con l’ora vera del tuo luogo",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_4",
+          "nome": "Tre notti",
+          "posizione": 4,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sogno",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto il Sigillo del Sogno in 3 giorni diversi.",
+          "cosaApre": "Il Sigillo del Sogno, col quaderno che lo raccoglie",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_5",
+          "nome": "Tre Sigilli",
+          "posizione": 5,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sigillo",
+            "quanti": 3,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 3,
+          "frase": "Hai compiuto il Sigillo d’Intenzione in 3 giorni diversi.",
+          "cosaApre": "Il Sigillo d’Intenzione, che si incide e si custodisce",
+          "gestiNominati": [
+            "sigillo"
+          ]
+        },
+        {
+          "id": "cal_6",
+          "nome": "Il tramonto e la notte",
+          "posizione": 6,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "sogno",
+              "tramonto"
+            ],
+            "quantiGiorni": 4
+          },
+          "costoInGiorni": 4,
+          "frase": "4 giornate chiuse con il Sigillo del Sogno e la Runa del Tramonto, nello stesso giorno.",
+          "cosaApre": "Il rito della sera completo, dalla runa al sigillo del sonno",
+          "gestiNominati": [
+            "sogno",
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_7",
+          "nome": "Quattro pietre girate",
+          "posizione": 7,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "runa_girata",
+            "quanti": 4,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 4,
+          "frase": "Hai compiuto la runa girata in 4 giorni diversi.",
+          "cosaApre": "Le ventiquattro rune dell’Elder Futhark, una per una",
+          "gestiNominati": [
+            "runa_girata"
+          ]
+        },
+        {
+          "id": "cal_8",
+          "nome": "Cinque passi nel Bosco",
+          "posizione": 8,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "bosco",
+            "quanti": 5,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 5,
+          "frase": "Hai compiuto il Bosco del Cerchio in 5 giorni diversi.",
+          "cosaApre": "Il Bosco del Cerchio, che cresce con chi lo attraversa",
+          "gestiNominati": [
+            "bosco"
+          ]
+        },
+        {
+          "id": "cal_9",
+          "nome": "Cinque gettate in sette giorni",
+          "posizione": 9,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "gettata",
+            "quanti": 5,
+            "arco": 7
+          },
+          "costoInGiorni": 5,
+          "frase": "5 giorni con la gettata di rune negli ultimi 7: nessuno te l’ha chiesto.",
+          "cosaApre": "Lo storico delle gettate, che senza cinque giorni non dice niente",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_10",
+          "nome": "La costanza del Tramonto",
+          "posizione": 10,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": false,
+          "eos": 10,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "tramonto",
+            "quanti": 6,
+            "arco": 8
+          },
+          "costoInGiorni": 6,
+          "frase": "6 giorni con la Runa del Tramonto negli ultimi 8: nessuno te l’ha chiesto.",
+          "cosaApre": "Il promemoria del Tramonto, che da qui segue l’ora vera",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_11",
+          "nome": "La gettata al primo quarto",
+          "posizione": 11,
+          "fascia": "Primi giorni",
+          "sezione": "MALKUTH, IL REGNO",
+          "eGrande": true,
+          "eos": 40,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "primo_quarto",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 8,
+          "frase": "La Luna è al primo quarto: tu eri qui con la gettata di rune.",
+          "cosaApre": "Il calendario lunare del Cerchio, con le fasi che verranno",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_12",
+          "nome": "Il Tramonto nella sua ora",
+          "posizione": 12,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "GestoNellOraGiusta",
+            "gesto": "tramonto",
+            "ora": "tramonto",
+            "quanteVolte": 9
+          },
+          "costoInGiorni": 9,
+          "frase": "9 volte la Runa del Tramonto nell’ora vera del tramonto.",
+          "cosaApre": "Le ore rituali, che il Cerchio calcola sul tuo luogo vero",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_13",
+          "nome": "Dieci notti in quattordici giorni",
+          "posizione": 13,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "sogno",
+            "quanti": 10,
+            "arco": 14
+          },
+          "costoInGiorni": 10,
+          "frase": "10 giorni con il Sigillo del Sogno negli ultimi 14: nessuno te l’ha chiesto.",
+          "cosaApre": "Il quaderno dei sogni, con i giorni segnati uno per uno",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_14",
+          "nome": "Dodici gettate",
+          "posizione": 14,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "gettata",
+            "quanti": 12,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 12,
+          "frase": "Hai compiuto la gettata di rune in 12 giorni diversi.",
+          "cosaApre": "Le rune che tornano, che il Cerchio comincia a notare",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_15",
+          "nome": "L’ora fedele del Tramonto",
+          "posizione": 15,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "tramonto",
+            "quantiGiorni": 14
+          },
+          "costoInGiorni": 14,
+          "frase": "14 giorni alla stessa ora con la Runa del Tramonto: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "L’appuntamento con Caligo, che da qui ti aspetta a quell’ora",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_16",
+          "nome": "La gettata della Luna nuova",
+          "posizione": 16,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_nuova",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 15,
+          "frase": "La Luna è nuova: tu eri qui con la gettata di rune.",
+          "cosaApre": "La gettata dei cominciamenti, che vale solo a Luna nuova",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_17",
+          "nome": "I tre riti di Caligo",
+          "posizione": 17,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "gettata",
+              "sogno",
+              "tramonto"
+            ],
+            "quantiGiorni": 16
+          },
+          "costoInGiorni": 16,
+          "frase": "16 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il responso composto, dove gettata, runa e sogno si parlano",
+          "gestiNominati": [
+            "gettata",
+            "sogno",
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_18",
+          "nome": "Diciotto tramonti in venticinque giorni",
+          "posizione": 18,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "tramonto",
+            "quanti": 18,
+            "arco": 25
+          },
+          "costoInGiorni": 18,
+          "frase": "18 giorni con la Runa del Tramonto negli ultimi 25: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza larga, che perdona un giorno saltato",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_19",
+          "nome": "Venti Sigilli",
+          "posizione": 19,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sigillo",
+            "quanti": 20,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 20,
+          "frase": "Hai compiuto il Sigillo d’Intenzione in 20 giorni diversi.",
+          "cosaApre": "La raccolta dei tuoi Sigilli, con quelli che si sono compiuti",
+          "gestiNominati": [
+            "sigillo"
+          ]
+        },
+        {
+          "id": "cal_20",
+          "nome": "Venticinque passi nel Bosco",
+          "posizione": 20,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "bosco",
+            "quanti": 25,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 25,
+          "frase": "Hai compiuto il Bosco del Cerchio in 25 giorni diversi.",
+          "cosaApre": "Le radure del Bosco, che si aprono solo a chi torna",
+          "gestiNominati": [
+            "bosco"
+          ]
+        },
+        {
+          "id": "cal_21",
+          "nome": "Il Sogno nel segno opposto",
+          "posizione": 21,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": false,
+          "eos": 20,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_nel_segno_opposto",
+            "conGesto": "sogno"
+          },
+          "costoInGiorni": 28,
+          "frase": "La Luna sta nel segno opposto al tuo: tu eri qui con il Sigillo del Sogno.",
+          "cosaApre": "Il sogno dell’ombra, che la Luna opposta porta a galla",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_22",
+          "nome": "Il Tramonto sotto un transito",
+          "posizione": 22,
+          "fascia": "Prima settimana",
+          "sezione": "YESOD, IL FONDAMENTO",
+          "eGrande": true,
+          "eos": 60,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sulla_luna",
+            "conGesto": "tramonto"
+          },
+          "costoInGiorni": 30,
+          "frase": "Un pianeta transita sulla tua Luna: tu eri qui con la Runa del Tramonto.",
+          "cosaApre": "Il registro dei transiti, con quelli che ti aspettano",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_23",
+          "nome": "Un mese di notti",
+          "posizione": 23,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sogno",
+            "quanti": 31,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 31,
+          "frase": "Hai compiuto il Sigillo del Sogno in 31 giorni diversi.",
+          "cosaApre": "La lettura dei sogni ricorrenti, che serve un mese per vedere",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_24",
+          "nome": "Trentacinque tramonti in quarantacinque giorni",
+          "posizione": 24,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "tramonto",
+            "quanti": 35,
+            "arco": 45
+          },
+          "costoInGiorni": 35,
+          "frase": "35 giorni con la Runa del Tramonto negli ultimi 45: nessuno te l’ha chiesto.",
+          "cosaApre": "La tua runa dominante, che si calcola solo con questa storia",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_25",
+          "nome": "Quaranta giorni di pietra",
+          "posizione": 25,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "giornata",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "gettata",
+              "runa_girata"
+            ],
+            "quantiGiorni": 40
+          },
+          "costoInGiorni": 40,
+          "frase": "40 giornate chiuse con la gettata di rune e la runa girata, nello stesso giorno.",
+          "cosaApre": "La lettura incrociata, dove la runa girata spiega la gettata",
+          "gestiNominati": [
+            "gettata",
+            "runa_girata"
+          ]
+        },
+        {
+          "id": "cal_26",
+          "nome": "Il Sigillo sul tuo Ascendente",
+          "posizione": 26,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sull_ascendente",
+            "conGesto": "sigillo"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Ascendente: tu eri qui con il Sigillo d’Intenzione.",
+          "cosaApre": "Le soglie della vita, che i transiti sull’Ascendente aprono",
+          "gestiNominati": [
+            "sigillo"
+          ]
+        },
+        {
+          "id": "cal_27",
+          "nome": "La gettata sul tuo Sole",
+          "posizione": 27,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "transito_sul_sole",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 45,
+          "frase": "Un pianeta transita sul tuo Sole: tu eri qui con la gettata di rune.",
+          "cosaApre": "La gettata solare, che si tira solo sotto il transito",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_28",
+          "nome": "Cinquantacinque pietre girate",
+          "posizione": 28,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "runa_girata",
+            "quanti": 55,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 55,
+          "frase": "Hai compiuto la runa girata in 55 giorni diversi.",
+          "cosaApre": "Le rune che non ti sono mai uscite, con la domanda del perché",
+          "gestiNominati": [
+            "runa_girata"
+          ]
+        },
+        {
+          "id": "cal_29",
+          "nome": "Il Tramonto di Mercurio retrogrado",
+          "posizione": 29,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_retrogrado",
+            "conGesto": "tramonto"
+          },
+          "costoInGiorni": 60,
+          "frase": "Mercurio è retrogrado: tu eri qui con la Runa del Tramonto.",
+          "cosaApre": "La runa del ripensamento, che esce solo a Mercurio retrogrado",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_30",
+          "nome": "Sessanta giorni pieni",
+          "posizione": 30,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "bosco",
+              "gettata",
+              "sigillo"
+            ],
+            "quantiGiorni": 60
+          },
+          "costoInGiorni": 60,
+          "frase": "60 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto runico, che unisce gettata, intenzione e Bosco",
+          "gestiNominati": [
+            "bosco",
+            "gettata",
+            "sigillo"
+          ]
+        },
+        {
+          "id": "cal_31",
+          "nome": "Settantacinque tramonti",
+          "posizione": 31,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "tramonto",
+            "quanti": 75,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 75,
+          "frase": "Hai compiuto la Runa del Tramonto in 75 giorni diversi.",
+          "cosaApre": "Il confronto fra le tue sere e le stagioni che le hanno viste",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_32",
+          "nome": "Ottanta notti in cento giorni",
+          "posizione": 32,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": false,
+          "eos": 30,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "sogno",
+            "quanti": 80,
+            "arco": 100
+          },
+          "costoInGiorni": 80,
+          "frase": "80 giorni con il Sigillo del Sogno negli ultimi 100: nessuno te l’ha chiesto.",
+          "cosaApre": "La costanza riconosciuta, che Caligo nomina nelle sue risposte",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_33",
+          "nome": "La gettata dell’eclissi",
+          "posizione": 33,
+          "fascia": "Primo mese",
+          "sezione": "TIPHERETH, LA BELLEZZA",
+          "eGrande": true,
+          "eos": 80,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "eclissi",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 90,
+          "frase": "Il cielo porta un’eclissi: tu eri qui con la gettata di rune.",
+          "cosaApre": "La gettata dell’eclissi, che il Cerchio conserva per sempre",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_34",
+          "nome": "Il Tramonto dell’equinozio",
+          "posizione": 34,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "equinozio",
+            "conGesto": "tramonto"
+          },
+          "costoInGiorni": 91,
+          "frase": "Il Sole tocca l’equinozio: tu eri qui con la Runa del Tramonto.",
+          "cosaApre": "Il rito dell’equinozio, che torna due volte l’anno",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_35",
+          "nome": "Cento gettate",
+          "posizione": 35,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "gettata",
+            "quanti": 100,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 100,
+          "frase": "Hai compiuto la gettata di rune in 100 giorni diversi.",
+          "cosaApre": "Lo Specchio delle rune, che confronta cento gettate",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_36",
+          "nome": "Centodieci tramonti in centoquaranta giorni",
+          "posizione": 36,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "tramonto",
+            "quanti": 110,
+            "arco": 140
+          },
+          "costoInGiorni": 110,
+          "frase": "110 giorni con la Runa del Tramonto negli ultimi 140: nessuno te l’ha chiesto.",
+          "cosaApre": "La memoria lunga di Caligo, che ricorda le tue rune di marzo",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_37",
+          "nome": "La gettata di Mercurio diretto",
+          "posizione": 37,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "mercurio_diretto",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 120,
+          "frase": "Mercurio torna diretto: tu eri qui con la gettata di rune.",
+          "cosaApre": "La gettata del ritorno, quando Mercurio riprende il cammino",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_38",
+          "nome": "Il Sogno di Saturno retrogrado",
+          "posizione": 38,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "saturno_retrogrado",
+            "conGesto": "sogno"
+          },
+          "costoInGiorni": 120,
+          "frase": "Saturno è retrogrado: tu eri qui con il Sigillo del Sogno.",
+          "cosaApre": "Il sogno della prova, che Saturno retrogrado porta con sé",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_39",
+          "nome": "Centoquaranta pietre girate",
+          "posizione": 39,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "runa_girata",
+            "quanti": 140,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 140,
+          "frase": "Hai compiuto la runa girata in 140 giorni diversi.",
+          "cosaApre": "Il tuo mazzo di rune, con quelle che ti cercano più spesso",
+          "gestiNominati": [
+            "runa_girata"
+          ]
+        },
+        {
+          "id": "cal_40",
+          "nome": "Centocinquanta giornate intere",
+          "posizione": 40,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "gettata",
+              "sigillo",
+              "sogno",
+              "tramonto"
+            ],
+            "quantiGiorni": 150
+          },
+          "costoInGiorni": 150,
+          "frase": "150 giornate con 4 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il ritratto dei quattro riti, che nessuno dei quattro dice da solo",
+          "gestiNominati": [
+            "gettata",
+            "sigillo",
+            "sogno",
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_41",
+          "nome": "Centosessanta notti in duecento giorni",
+          "posizione": 41,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "sogno",
+            "quanti": 160,
+            "arco": 200
+          },
+          "costoInGiorni": 160,
+          "frase": "160 giorni con il Sigillo del Sogno negli ultimi 200: nessuno te l’ha chiesto.",
+          "cosaApre": "La stagione riconosciuta, con il tuo sogno dell’anno",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_42",
+          "nome": "Centosessantacinque passi nel Bosco",
+          "posizione": 42,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "bosco",
+            "quanti": 165,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 165,
+          "frase": "Hai compiuto il Bosco del Cerchio in 165 giorni diversi.",
+          "cosaApre": "Il cuore del Bosco, dove si arriva solo a piedi",
+          "gestiNominati": [
+            "bosco"
+          ]
+        },
+        {
+          "id": "cal_43",
+          "nome": "L’ora che non cambia",
+          "posizione": 43,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": false,
+          "eos": 45,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "StessaOraPerGiorni",
+            "gesto": "tramonto",
+            "quantiGiorni": 170
+          },
+          "costoInGiorni": 170,
+          "frase": "170 giorni alla stessa ora con la Runa del Tramonto: l’abitudine ha trovato il suo posto.",
+          "cosaApre": "Il tuo rito fisso, che Caligo protegge dalle notifiche",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_44",
+          "nome": "La gettata dei tre transiti",
+          "posizione": 44,
+          "fascia": "La stagione",
+          "sezione": "CHESED, LA MISERICORDIA",
+          "eGrande": true,
+          "eos": 100,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "tre_transiti_insieme",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 180,
+          "frase": "Tre transiti si affacciano insieme: tu eri qui con la gettata di rune.",
+          "cosaApre": "La lettura dei nodi, quando tre transiti si affacciano insieme",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_45",
+          "nome": "Centonovantuno tramonti",
+          "posizione": 45,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "tramonto",
+            "quanti": 191,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 191,
+          "frase": "Hai compiuto la Runa del Tramonto in 191 giorni diversi.",
+          "cosaApre": "L’archivio completo delle tue sere, con la runa di ogni giorno",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_46",
+          "nome": "Duecento notti in duecentocinquanta giorni",
+          "posizione": 46,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "sogno",
+            "quanti": 200,
+            "arco": 250
+          },
+          "costoInGiorni": 200,
+          "frase": "200 giorni con il Sigillo del Sogno negli ultimi 250: nessuno te l’ha chiesto.",
+          "cosaApre": "Il capitolo dell’anno, che Caligo scrive solo per chi c’è stato",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_47",
+          "nome": "Duecentoventi giornate di bosco",
+          "posizione": 47,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "animale_guida",
+              "gettata",
+              "sogno"
+            ],
+            "quantiGiorni": 220
+          },
+          "costoInGiorni": 220,
+          "frase": "220 giornate con 3 arti diverse, nello stesso giorno.",
+          "cosaApre": "Il legame con l’Animale, che si stringe solo con gli anni",
+          "gestiNominati": [
+            "animale_guida",
+            "gettata",
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_48",
+          "nome": "Il Sigillo di Giove diretto",
+          "posizione": 48,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "giove_diretto",
+            "conGesto": "sigillo"
+          },
+          "costoInGiorni": 240,
+          "frase": "Giove torna diretto: tu eri qui con il Sigillo d’Intenzione.",
+          "cosaApre": "Il capitolo dell’espansione, che apre l’anno che viene",
+          "gestiNominati": [
+            "sigillo"
+          ]
+        },
+        {
+          "id": "cal_49",
+          "nome": "La gettata di Saturno diretto",
+          "posizione": 49,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "saturno_diretto",
+            "conGesto": "gettata"
+          },
+          "costoInGiorni": 240,
+          "frase": "Saturno torna diretto: tu eri qui con la gettata di rune.",
+          "cosaApre": "La gettata della prova superata, che Saturno concede tornando diretto",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_50",
+          "nome": "Duecentottanta notti",
+          "posizione": 50,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "sogno",
+            "quanti": 280,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 280,
+          "frase": "Hai compiuto il Sigillo del Sogno in 280 giorni diversi.",
+          "cosaApre": "Il tuo anno di sogni, con i temi che sono tornati",
+          "gestiNominati": [
+            "sogno"
+          ]
+        },
+        {
+          "id": "cal_51",
+          "nome": "L’Animale di Venere diretta",
+          "posizione": 51,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "venere_diretta",
+            "conGesto": "animale_guida"
+          },
+          "costoInGiorni": 290,
+          "frase": "Venere torna diretta: tu eri qui con l’Animale Guida.",
+          "cosaApre": "Il capitolo del legame ritrovato, uno ogni diciotto mesi",
+          "gestiNominati": [
+            "animale_guida"
+          ]
+        },
+        {
+          "id": "cal_52",
+          "nome": "Trecento tramonti in trecentoquaranta giorni",
+          "posizione": 52,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ritorno",
+          "ragione": "Costanza",
+          "condizione": {
+            "tipo": "GiorniDentroUnArco",
+            "rito": "tramonto",
+            "quanti": 300,
+            "arco": 340
+          },
+          "costoInGiorni": 300,
+          "frase": "300 giorni con la Runa del Tramonto negli ultimi 340: nessuno te l’ha chiesto.",
+          "cosaApre": "Il titolo di custode del Tramonto, che pochi vedranno",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_53",
+          "nome": "Trecentoventi giornate complete",
+          "posizione": 53,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "ampiezza",
+          "ragione": "Legame",
+          "condizione": {
+            "tipo": "GiornateInsieme",
+            "gesti": [
+              "bosco",
+              "gettata",
+              "runa_girata",
+              "sigillo",
+              "sogno",
+              "tramonto"
+            ],
+            "quantiGiorni": 320
+          },
+          "costoInGiorni": 320,
+          "frase": "320 giornate con 6 arti diverse, nello stesso giorno.",
+          "cosaApre": "L’Albero intero, con tutti e sei i riti in una sola pagina",
+          "gestiNominati": [
+            "bosco",
+            "gettata",
+            "runa_girata",
+            "sigillo",
+            "sogno",
+            "tramonto"
+          ]
+        },
+        {
+          "id": "cal_54",
+          "nome": "Trecentoquaranta gettate",
+          "posizione": 54,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": false,
+          "eos": 55,
+          "famiglia": "profondita",
+          "ragione": "Profondita",
+          "condizione": {
+            "tipo": "GestiCompiuti",
+            "gesto": "gettata",
+            "quanti": 340,
+            "inGiorniDiversi": true
+          },
+          "costoInGiorni": 340,
+          "frase": "Hai compiuto la gettata di rune in 340 giorni diversi.",
+          "cosaApre": "Le rune che ti conoscono, con quella che ti è uscita di più",
+          "gestiNominati": [
+            "gettata"
+          ]
+        },
+        {
+          "id": "cal_55",
+          "nome": "Il Tramonto della tua Luna piena",
+          "posizione": 55,
+          "fascia": "L'anno",
+          "sezione": "KETHER, LA CORONA",
+          "eGrande": true,
+          "eos": 130,
+          "famiglia": "cielo",
+          "ragione": "Cielo",
+          "condizione": {
+            "tipo": "FinestraDelCielo",
+            "evento": "luna_piena_nel_tuo_segno",
+            "conGesto": "tramonto"
+          },
+          "costoInGiorni": 365,
+          "frase": "La Luna è piena nel tuo segno: tu eri qui con la Runa del Tramonto.",
+          "cosaApre": "La runa della Luna piena nel tuo segno, una volta l’anno",
+          "gestiNominati": [
+            "tramonto"
+          ]
+        }
+      ]
+    }
+  ]
+}

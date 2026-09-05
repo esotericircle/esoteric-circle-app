@@ -1,0 +1,1170 @@
+import '../maestro/maestro.dart';
+import 'attesa_del_cielo.dart';
+import 'maestro_del_gesto.dart';
+
+/// LE OTTO FAMIGLIE DEI TRAGUARDI, e non sono un'etichetta.
+///
+/// Ogni famiglia risponde a modo suo alla domanda che governa tutto questo
+/// lavoro, "perche' torno domani". La prova che enumera i traguardi conta le
+/// famiglie e cade se una scende sotto il suo minimo: senza quel conteggio, un
+/// sentiero potrebbe riempirsi di cinquanta compiti da sbrigare in un
+/// pomeriggio e sembrare comunque completo.
+enum FamigliaDelTraguardo {
+  /// Il cielo comanda: si compiono solo dentro una finestra astronomica vera.
+  /// Sono i migliori che questa app possa avere, perche' non si affrettano.
+  cielo,
+
+  /// Il ritorno nel tempo: giorni di seguito, il rientro dopo un'assenza.
+  ritorno,
+
+  /// La giornata chiusa: tutti i doni del giorno nello stesso giorno.
+  giornata,
+
+  /// La profondita' in un'arte sola.
+  profondita,
+
+  /// L'ampiezza fra le arti e fra i Maestri.
+  ampiezza,
+
+  /// L'identita' che si completa.
+  identita,
+
+  /// La memoria: cio' che il Cerchio si ricorda di te.
+  memoria,
+
+  /// Il Cerchio: condivisione e invito. Premio, mai pedaggio.
+  cerchio;
+
+  /// PERCHE' CONTA UN TRAGUARDO DI QUESTA FAMIGLIA. Ordine P voce 19.
+  ///
+  /// **Da dove viene questo testo, dichiarato.** La correzione del 12 agosto
+  /// 2026 rende il "perche' conta" obbligatorio su tutti e 165, compresi quelli
+  /// che restano interamente dell'ordine O perche' nell'Allegato A non esiste
+  /// un accostamento sensato. Per quelli il testo NON si inventa uno per uno:
+  /// si prende da qui, cioe' dalla famiglia, che e' il dato che gia' dice
+  /// perche' quel traguardo esiste. Otto ragioni scritte una volta valgono piu'
+  /// di centotredici frasi scritte a mano che nessuno rileggera' mai.
+  String get percheContaLaFamiglia {
+    switch (this) {
+      case FamigliaDelTraguardo.cielo:
+        return 'Il cielo comanda e non si affretta: questo traguardo si compie '
+            'solo dentro una finestra astronomica vera, quindi arriva quando '
+            'arriva. È il tipo di traguardo che nessun\'altra app può dare.';
+      case FamigliaDelTraguardo.ritorno:
+        return 'Non conta la volta, conta la seconda volta: è tornare che '
+            'trasforma un\'app aperta per curiosità in un appuntamento.';
+      case FamigliaDelTraguardo.giornata:
+        return 'Una giornata chiusa vale più di cinque aperture sparse: i '
+            'doni si tengono per mano solo se stanno nello stesso giorno.';
+      case FamigliaDelTraguardo.profondita:
+        return 'La stessa arte ripetuta smette di essere una prova e comincia a '
+            'essere una pratica: è lì che i responsi cominciano a parlarsi.';
+      case FamigliaDelTraguardo.ampiezza:
+        return 'Due arti sullo stesso cielo dicono cose diverse e la terza le '
+            'lega: l\'ampiezza è il modo in cui il Cerchio smette di essere '
+            'una funzione sola.';
+      case FamigliaDelTraguardo.identita:
+        return 'È il momento in cui l\'app smette di parlare al tuo segno e '
+            'comincia a parlare a te: senza questi pezzi ogni lettura resta '
+            'generica.';
+      case FamigliaDelTraguardo.memoria:
+        return 'Il Cerchio si ricorda di te: quello che hai già detto non '
+            'devi ridirlo ed è la differenza fra un servizio e una '
+            'relazione.';
+      case FamigliaDelTraguardo.cerchio:
+        return 'Ciò che si condivide torna indietro: il Cerchio è premio, '
+            'mai pedaggio e nessun traguardo di questa famiglia si può '
+            'raggiungere per obbligo.';
+    }
+  }
+}
+
+/// IL NOME DI UN TRAGUARDO, COL SUO PLURALE COME DATO. Ordine P voce 38.
+///
+/// **Perche' il plurale e' un dato e non una lettera aggiunta a mano.** Nel
+/// Cosmic Passport si leggeva "I tuoi Stella", "I tuoi Frutto", "I tuoi
+/// Petalo": qualcuno aveva incollato il nome SINGOLARE dentro una frase al
+/// plurale, e nessuna prova poteva accorgersene perche' il nome non diceva
+/// che forma fosse. E' la stessa famiglia gia' chiusa a inizio agosto con
+/// "Ne hai uno oggi" contro "Ne hai una oggi".
+///
+/// Da qui in poi un nome porta con se' le due forme e chi lo usa dichiara
+/// quale sta chiedendo. Le due forme sono gli unici modi di leggerlo: non
+/// esiste un accesso "al nome e basta" da cui possa ripartire il difetto.
+class NomeDelTraguardo {
+  const NomeDelTraguardo(this.singolare, this.plurale);
+
+  /// Uno solo: "Stella", "Frutto", "Petalo".
+  final String singolare;
+
+  /// Piu' di uno: "Stelle", "Frutti", "Petali".
+  final String plurale;
+}
+
+/// I TRE SENTIERI, con l'identita' gia' decisa da Mauro.
+enum Sentiero {
+  /// Costellazione personale: le Stelle del Cammino e le Costellazioni.
+  costellazione(
+    Maestro.medora,
+    'Costellazione personale',
+    NomeDelTraguardo('Stella', 'Stelle'),
+    NomeDelTraguardo('Costellazione', 'Costellazioni'),
+    'Ogni gesto che compi accende una stella e le stelle accese si uniscono '
+        'in una figura che nel cielo di nessun altro esiste.',
+  ),
+
+  /// Albero della Vita: i Frutti dell'Albero e le Sefirot Maggiori.
+  albero(
+    Maestro.caligo,
+    'Albero della Vita',
+    NomeDelTraguardo('Frutto', 'Frutti'),
+    NomeDelTraguardo('Sefira', 'Sefirot'),
+    'Ogni gesto che compi matura un frutto su un ramo e di ramo in ramo '
+        'l\'Albero sale fino alla corona.',
+  ),
+
+  /// Fiore di Loto: le Perle del Risveglio e le Fioriture. Si chiamano PERLE
+  /// dall'ordine AF: l'arte nuova porta una perla su ogni petalo, e la legge
+  /// delle luci accende quella.
+  loto(
+    Maestro.aura,
+    'Fiore di Loto',
+    NomeDelTraguardo('Perla', 'Perle'),
+    NomeDelTraguardo('Fioritura', 'Fioriture'),
+    'Ogni gesto che compi accende una perla e il loto si schiude quando il '
+        'respiro ha smesso di essere una decisione.',
+  );
+
+  const Sentiero(
+    this.maestro,
+    this.titolo,
+    this.mini,
+    this.grande,
+    this.promessa,
+  );
+
+  final Maestro maestro;
+  final String titolo;
+
+  /// Come si chiama un traguardo piccolo su questo sentiero, nelle due forme.
+  final NomeDelTraguardo mini;
+
+  /// Come si chiama un traguardo grande su questo sentiero, nelle due forme.
+  final NomeDelTraguardo grande;
+
+  /// LA FRASE INTERA che dice a cosa serve il sentiero.
+  ///
+  /// Scritta per intero e non composta incollando pezzi: e' una frase che si
+  /// legge, non un segnaposto riempito a runtime. Dice a cosa serve il
+  /// cammino, non quanti pezzi ha, perche' "cinquanta piccoli con cinque
+  /// grandi" e' un inventario e nessuno torna domani per un inventario.
+  final String promessa;
+}
+
+/// LE CONDIZIONI, TIPIZZATE E NON SCRITTE A MANO OGNI VOLTA.
+///
+/// **Perche' un tipo e non una funzione qualunque.** I criteri di accettazione
+/// dell'ordine si misurano sulla CONDIZIONE, non sull'intenzione: quanti
+/// traguardi non si possono chiudere nello stesso giorno, quanti dipendono dal
+/// cielo vero, se due traguardi dicono la stessa cosa con parole diverse. Con
+/// una funzione anonima nessuna prova potrebbe rispondere; con un tipo che
+/// dichiara `chiedeUnAltroGiorno`, `chiedeIlCielo` e una `firma`, la prova
+/// legge i dati e conta.
+sealed class CondizioneDelTraguardo {
+  const CondizioneDelTraguardo();
+
+  /// Vero se il traguardo NON si puo' chiudere nello stesso giorno in cui
+  /// diventa visibile: e' cio' che distingue un traguardo di ritorno da un
+  /// compito.
+  bool get chiedeUnAltroGiorno;
+
+  /// Vero se serve un evento del cielo reale.
+  bool get chiedeIlCielo => false;
+
+  /// L'impronta della condizione, per la prova che pretende che nessun
+  /// traguardo sia la riformulazione di un altro. Due condizioni con la stessa
+  /// firma sono lo stesso traguardo detto in due modi.
+  String get firma;
+
+  /// **IL COSTO IN GIORNI, la grandezza centrale delle regole.** Ordine CP
+  /// voce 04, 3 settembre 2026.
+  ///
+  /// E' il minimo numero di GIORNI RITUALI DISTINTI in cui la condizione puo'
+  /// essere soddisfatta da chi ci prova apposta. Risponde al fatto del
+  /// fondatore, *"hai scelto dei traguardi che si possono fare tutti in una
+  /// singola sessione"*: un gradino che costa sette giorni non si puo' fare in
+  /// una sessione, e nessun trucchetto lo accorcia.
+  ///
+  /// **Vive qui e non nel corpus**, perche' e' una proprieta' della
+  /// condizione e non una cifra da ricopiare: il generatore ne calcola una
+  /// sua copia in Python per ordinare i gradini, e la guardia che pretende il
+  /// costo non decrescente confronta di fatto le due. Se un giorno
+  /// divergessero, la scala salterebbe e la guardia diventerebbe rossa.
+  int get costoInGiorni;
+
+  /// **I GESTI CHE LA CONDIZIONE NOMINA.** Ordine CP voce 05.
+  ///
+  /// **Perche' e' un getter e non una raccolta di espressioni regolari.**
+  /// Le guardie che dovevano sapere quali gesti il corpus nomina leggevano i
+  /// file dei sentieri con un elenco di schemi, uno per tipo di condizione: il
+  /// giorno che un tipo nuovo entrava nel corpus, l'elenco non lo conosceva e
+  /// **la guardia restava verde su un gesto che non aveva guardato**. E'
+  /// gia' successo con `GiorniDentroUnArco` nell'ordine AU. Qui la domanda si
+  /// fa all'oggetto, e un tipo nuovo che non risponde non compila.
+  Set<String> get gestiNominati;
+
+  /// Se il traguardo e' raggiunto, guardando lo stato del cammino.
+  bool raggiunto(StatoDelCammino stato);
+}
+
+/// **IL GRADINO CHE DORME. Ordine AR voce 05.**
+///
+/// Un dormiente non e' un traguardo tolto ne' un traguardo finto: e' una voce
+/// del dato che oggi NON si puo' raggiungere, perche' chiede un gesto che
+/// l'app non registra o un dettaglio che nessuna scena manda. Resta nel
+/// Cammino, il Journal la mostra come in arrivo, e non arma mai: `raggiunto`
+/// risponde falso a qualunque stato, per costruzione.
+///
+/// **Il perche' viaggia col dato.** Non e' un commento: e' il campo che il
+/// manifesto e il rapporto leggono, e il giorno che il motore mancante
+/// arriva basta cambiare la condizione nel corpus e rigenerare.
+class Dormiente extends CondizioneDelTraguardo {
+  const Dormiente(this.di, this.perche, {this.eraDelCielo = false});
+
+  /// **UN DORMIENTE DEL CIELO APPARTIENE ANCORA AL CIELO.** Ordine BS voce 01.
+  /// La guardia che pretende almeno dieci gradini legati al cielo vero per
+  /// sentiero misura la FORMA del cammino, non cosa sia raggiungibile oggi: un
+  /// gradino che aspetta il motore delle eclissi resta un gradino del cielo, e
+  /// contarlo fra i terrestri direbbe una cosa falsa sul disegno. Lo dichiara
+  /// il corpus con la sua ragione, non lo indovina il codice.
+  final bool eraDelCielo;
+
+  @override
+  bool get chiedeIlCielo => eraDelCielo;
+
+  /// L'id del traguardo che dorme. **Sta nella firma**, e la ragione e' che
+  /// diciotto dormienti con la stessa ragione avevano la stessa firma, e la
+  /// guardia della legge li accusava di accendersi tutti insieme sullo stesso
+  /// gesto: dormono insieme, ma ognuno e' un gradino suo.
+  final String di;
+
+  /// Cosa manca perche' questo gradino si svegli.
+  final String perche;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  /// **LA FIRMA E' UNICA PER RAGIONE**, cosi' due dormienti non sembrano lo
+  /// stesso traguardo detto due volte: dormono per motivi loro.
+  @override
+  String get firma => 'dormiente:$di:$perche';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => 1 << 20;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) => false;
+}
+
+/// **LA VARIETA' DENTRO UN'ARTE. Ordine AR voce 02, famiglia Profondita'.**
+///
+/// "Tutti e quattro i semi", "otto dei sedici argomenti", "tutte le
+/// ventiquattro rune": non e' quante volte si ripete un gesto, e' quante cose
+/// DIVERSE si sono incontrate facendolo. Poggia sui dettagli che la scena
+/// porta col gesto (ordine AR voce 11): senza quelli non matura mai, ed e' il
+/// modo giusto di non maturare.
+class VarietaDelDettaglio extends CondizioneDelTraguardo {
+  const VarietaDelDettaglio(this.gesto, this.chiave, this.quanti);
+
+  final String gesto;
+  final String chiave;
+  final int quanti;
+
+  /// La varieta' non si fa in un pomeriggio quando ne chiede piu' di due.
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 2;
+
+  @override
+  String get firma => 'varieta:$gesto.$chiave:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.valoriDistinti['$gesto.$chiave'] ?? 0) >= quanti;
+}
+
+/// **LA COINCIDENZA. Ordine AR voce 02, famiglia Coincidenza.**
+///
+/// "La stessa carta esce in due stese diverse": non si puo' cercare, si puo'
+/// solo notare, ed e' per questo che vale. Poggia anche lei sui dettagli.
+class CoincidenzaDelDettaglio extends CondizioneDelTraguardo {
+  const CoincidenzaDelDettaglio(this.gesto, this.chiave, this.quanteVolte);
+
+  final String gesto;
+  final String chiave;
+  final int quanteVolte;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'coincidenza:$gesto.$chiave:$quanteVolte';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanteVolte;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.massimeRipetizioni['$gesto.$chiave'] ?? 0) >= quanteVolte;
+}
+
+/// **I GRADINI ALLE SPALLE. Ordine AR voce 02, famiglia Dedizione.**
+///
+/// "Dieci gradini alle spalle: si accende col primo gesto di Medora dopo il
+/// decimo". E' l'unico posto dove il conteggio sopravvive, ed e' un conteggio
+/// di TRAGUARDI e non di gesti: misura quanta strada si e' fatta, non quante
+/// volte si e' toccato lo stesso pulsante.
+class GradiniAlleSpalle extends CondizioneDelTraguardo {
+  const GradiniAlleSpalle(this.sentiero, this.quanti);
+
+  /// Il sentiero i cui gradini si contano, per nome (`costellazione`,
+  /// `albero`, `loto`).
+  final String sentiero;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'gradini:$sentiero:$quanti';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.gradiniAlleSpalle[sentiero] ?? 0) >= quanti;
+}
+
+/// GIORNI DI SEGUITO in un rito. Non si affretta per definizione.
+class GiorniDiSeguito extends CondizioneDelTraguardo {
+  const GiorniDiSeguito(this.rito, this.quanti);
+
+  final String rito;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 1;
+
+  @override
+  String get firma => 'seguito:$rito:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.seriePerRito[rito] ?? 0) >= quanti;
+}
+
+/// **QUANTI GIORNI CON UN RITO DENTRO UN ARCO. Ordine AS voce 12, corpus D.**
+///
+/// **Perche' sostituisce la serie consecutiva in ventidue gradini.** La misura
+/// della voce AR.04 aveva mostrato zero feste nel secondo e nel terzo mese: chi
+/// non apre l'app tutti i giorni non completa mai una serie consecutiva, e la
+/// scala essendo sequenziale si blocca li' **per sempre**. Un traguardo che
+/// nessuno raggiunge non e' un traguardo difficile, e' un muro.
+///
+/// La costanza resta una costanza: sette giorni in dieci vuol dire tornare
+/// quasi ogni giorno, e chi salta una domenica non ricomincia da capo.
+///
+/// L'arco si conta all'indietro da OGGI, e non e' la finestra migliore
+/// possibile dentro tutta la storia: un traguardo di costanza dice "in questi
+/// giorni sei tornato", non "una volta nella vita hai avuto una buona
+/// settimana".
+class GiorniDentroUnArco extends CondizioneDelTraguardo {
+  const GiorniDentroUnArco(this.rito, this.quanti, this.arco);
+
+  final String rito;
+
+  /// Quanti giorni con quel rito servono.
+  final int quanti;
+
+  /// Dentro quanti giorni, contati all'indietro da oggi.
+  final int arco;
+
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 1;
+
+  @override
+  String get firma => 'arco:$rito:$quanti:$arco';
+
+  @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.costanzeLarghe['$rito:$arco'] ?? 0) >= quanti;
+}
+
+/// QUANTE VOLTE si e' compiuto un gesto, da sempre.
+class GestiCompiuti extends CondizioneDelTraguardo {
+  const GestiCompiuti(this.gesto, this.quanti, {this.inGiorniDiversi = false});
+
+  final String gesto;
+  final int quanti;
+
+  /// Se i gesti devono cadere in giorni DIVERSI: e' cio' che impedisce di
+  /// chiudere dieci stese in dieci minuti.
+  final bool inGiorniDiversi;
+
+  @override
+  bool get chiedeUnAltroGiorno => inGiorniDiversi && quanti > 1;
+
+  @override
+  String get firma => 'gesti:$gesto:$quanti:$inGiorniDiversi';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => inGiorniDiversi ? quanti : 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) => inGiorniDiversi
+      ? (stato.giorniConGesto[gesto] ?? 0) >= quanti
+      : (stato.gestiCompiuti[gesto] ?? 0) >= quanti;
+}
+
+/// GESTI DIVERSI nello stesso giorno: l'ampiezza e la giornata chiusa.
+class GestiNelloStessoGiorno extends CondizioneDelTraguardo {
+  const GestiNelloStessoGiorno(this.gesti, {this.quantiBastano});
+
+  final List<String> gesti;
+
+  /// Quanti dei gesti elencati bastano. Nullo vuol dire tutti.
+  final int? quantiBastano;
+
+  int get _soglia => quantiBastano ?? gesti.length;
+
+  @override
+  bool get chiedeUnAltroGiorno => false;
+
+  @override
+  String get firma => 'insieme:${(List.of(gesti)..sort()).join("+")}:$_soglia';
+
+  @override
+  Set<String> get gestiNominati => gesti.toSet();
+
+  @override
+  int get costoInGiorni => 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      gesti.where(stato.oggiHaFatto.contains).length >= _soglia;
+}
+
+/// **LE GIORNATE CHIUSE INSIEME. Ordine CP voce 05, 3 settembre 2026.**
+///
+/// "Chiudi la giornata con l'Oroscopo e la stesa, per cinque giorni": non e'
+/// [GestiNelloStessoGiorno], che chiede un giorno solo e quindi si compie
+/// nella prima sessione, e non e' [GiorniDentroUnArco], che guarda un rito
+/// alla volta. E' l'ampiezza fra le arti CHE COSTA GIORNI.
+///
+/// **Perche' e' nata.** Le undici regole del fondatore chiedono due cose
+/// insieme: che i traguardi portino a scoprire funzioni nuove (regola 6) e
+/// che si possano fare uno alla volta, con sforzo crescente (regole 1 e 5).
+/// L'ampiezza fra le arti sapeva rispondere solo alla prima, perche' l'unica
+/// condizione che nominava piu' arti costava un giorno: **con quella sola, un
+/// sentiero pieno di ampiezza sarebbe stato un sentiero da una sessione.**
+class GiornateInsieme extends CondizioneDelTraguardo {
+  const GiornateInsieme(this.gesti, this.quantiGiorni);
+
+  final List<String> gesti;
+
+  /// In quanti giorni DIVERSI tutti quei gesti sono caduti insieme.
+  final int quantiGiorni;
+
+  /// La chiave con cui il diario risponde: i gesti in ordine, uniti da un
+  /// piu'. **Ordinati**, perche' l'ordine in cui il corpus li scrive non e'
+  /// un dato: due gradini che nominano gli stessi gesti in ordine diverso
+  /// sono lo stesso gradino.
+  String get chiave => (List.of(gesti)..sort()).join('+');
+
+  @override
+  bool get chiedeUnAltroGiorno => quantiGiorni > 1;
+
+  @override
+  String get firma => 'giornate:$chiave:$quantiGiorni';
+
+  @override
+  Set<String> get gestiNominati => gesti.toSet();
+
+  @override
+  int get costoInGiorni => quantiGiorni;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giornateInsieme[chiave] ?? 0) >= quantiGiorni;
+}
+
+/// IL RITORNO DOPO UN'ASSENZA: chi torna dopo giorni di silenzio.
+class RitornoDopoAssenza extends CondizioneDelTraguardo {
+  const RitornoDopoAssenza(this.giorniDiAssenza);
+
+  final int giorniDiAssenza;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'ritorno:$giorniDiAssenza';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => giorniDiAssenza + 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      stato.giorniDiAssenzaPrimaDiOggi >= giorniDiAssenza;
+}
+
+/// UN GESTO DENTRO UN'ORA RITUALE: l'alba vera, il tramonto vero, la notte.
+class GestoNellOraGiusta extends CondizioneDelTraguardo {
+  const GestoNellOraGiusta(this.gesto, this.ora, {this.quanteVolte = 1});
+
+  final String gesto;
+
+  /// 'alba', 'tramonto' oppure 'notte', misurate sull'ora vera del luogo.
+  final String ora;
+  final int quanteVolte;
+
+  @override
+  bool get chiedeUnAltroGiorno => quanteVolte > 1;
+
+  @override
+  bool get chiedeIlCielo => true;
+
+  @override
+  String get firma => 'ora:$gesto:$ora:$quanteVolte';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanteVolte;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.gestiNellOraGiusta['$gesto@$ora'] ?? 0) >= quanteVolte;
+}
+
+/// L'ORA FEDELE: lo stesso gesto, sempre alla stessa ora, per tanti giorni.
+///
+/// **Ordine BW voce 07, e prima non si poteva misurare.** Il corpus chiede
+/// "Apri l'Oroscopo alla stessa ora per cinque giorni", e l'app sapeva solo
+/// se un gesto cadeva nell'ora rituale dell'alba, del tramonto o della notte:
+/// tre traguardi della famiglia Costanza, uno per Maestro, dormivano per
+/// questo. Adesso il diario ricorda l'ora dell'orologio di ogni gesto e conta
+/// i GIORNI, non le aperture.
+class StessaOraPerGiorni extends CondizioneDelTraguardo {
+  const StessaOraPerGiorni(this.gesto, this.quantiGiorni);
+
+  final String gesto;
+  final int quantiGiorni;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'orafedele:$gesto:$quantiGiorni';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quantiGiorni;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.oraFedelePerGesto[gesto] ?? 0) >= quantiGiorni;
+}
+
+/// LA COINCIDENZA DENTRO UNA FINESTRA DI TEMPO.
+///
+/// **Ordine BX voce 01.** "Lo stesso Arcano del Giorno esce due volte in
+/// una settimana": il diario contava le ripetizioni da sempre, quindi
+/// quel gradino si sarebbe acceso anche a due anni di distanza, cioe'
+/// avrebbe promesso una coincidenza dove c'era solo il tempo che passa.
+class CoincidenzaNellaFinestra extends CondizioneDelTraguardo {
+  const CoincidenzaNellaFinestra(
+      this.gesto, this.chiave, this.quante, this.giorni);
+
+  final String gesto;
+  final String chiave;
+  final int quante;
+  final int giorni;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'finestra:$gesto:$chiave:$quante:$giorni';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quante;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.ripetizioniNellaFinestra['$gesto.$chiave:$giorni'] ?? 0) >= quante;
+}
+
+/// LO STESSO VALORE SOTTO COMPAGNI DIVERSI.
+///
+/// **Ordine BX voce 01.** "La stessa carta esce sotto tre fasi lunari
+/// diverse" non e' varieta', che conterebbe le carte, e non e'
+/// coincidenza, che conterebbe le uscite: e' una domanda sulla COPPIA
+/// carta e fase, e chiede quante fasi diverse ha visto la carta piu'
+/// accompagnata.
+class VarietaPerValore extends CondizioneDelTraguardo {
+  const VarietaPerValore(this.gesto, this.chiave, this.quanti);
+
+  final String gesto;
+  final String chiave;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'perValore:$gesto:$chiave:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.variePerValore['$gesto.$chiave'] ?? 0) >= quanti;
+}
+
+/// IL RITORNO A UN RITO LASCIATO: lo si riprende dopo averlo saltato.
+///
+/// **Ordine BW voce 07.** Il corpus chiede "un Soffio compiuto in un giorno
+/// in cui ne avevi saltati tre", e l'app contava solo i giorni di assenza
+/// DALL'APP: chi apriva ogni giorno e saltava il Soffio aveva assenza zero, e
+/// quel gradino non poteva accendersi. Qui il buco e' quello del rito.
+class RitornoAlRito extends CondizioneDelTraguardo {
+  const RitornoAlRito(this.rito, this.giorniSaltati);
+
+  final String rito;
+  final int giorniSaltati;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'ritornoalrito:$rito:$giorniSaltati';
+
+  @override
+  Set<String> get gestiNominati => {rito};
+
+  @override
+  int get costoInGiorni => giorniSaltati + 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giorniSaltatiPerRito[rito] ?? 0) >= giorniSaltati;
+}
+
+/// IL RITORNO A UN MAESTRO: si torna da chi non si cercava da giorni.
+///
+/// **Ordine BW voce 07.** "Torni a Medora dopo sette giorni in cui non l'hai
+/// cercata": l'app registrava i gesti e non da quale Maestro si tornasse,
+/// quindi i tre gradini del ritorno, uno per Maestro, misuravano lo stesso
+/// identico fatto. Il legame fra un gesto e il suo Maestro lo dichiara il
+/// corpus, un gesto per sentiero, e il generatore lo scrive.
+class RitornoAlMaestro extends CondizioneDelTraguardo {
+  const RitornoAlMaestro(this.sentiero, this.giorniDiAssenza);
+
+  /// Il nome del sentiero: costellazione, loto, albero.
+  final String sentiero;
+  final int giorniDiAssenza;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'ritornoalmaestro:$sentiero:$giorniDiAssenza';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => giorniDiAssenza + 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.giorniDiAssenzaDalSentiero[sentiero] ?? 0) >= giorniDiAssenza;
+}
+
+/// LA FINESTRA DEL CIELO: si apre quando il cielo vuole, non quando vuoi tu.
+class FinestraDelCielo extends CondizioneDelTraguardo {
+  const FinestraDelCielo(this.evento,
+      {this.conGesto, this.conSentiero, this.nellOra});
+
+  /// Il nome dell'evento, dal catalogo di `EventiDelCielo`.
+  final String evento;
+
+  /// Il gesto da compiere dentro la finestra. Nullo vuol dire che basta
+  /// esserci: aprire l'app quel giorno.
+  final String? conGesto;
+
+  /// **UN RITO DI QUEL MAESTRO, chiunque sia. Ordine BW voce 07.** Il corpus
+  /// dice "un rito di Caligo nella notte del solstizio": non nomina un gesto,
+  /// nomina un Maestro. Il nome e' quello del sentiero, e di chi sia un gesto
+  /// lo dichiara il corpus nella mappa generata `sentieroDelGesto`.
+  final String? conSentiero;
+
+  /// **L'ORA RITUALE, quando la finestra la chiede. Ordine BW voce 07.**
+  /// 'alba', 'tramonto' o 'notte'. Il corpus dice "un rito di Caligo nella
+  /// notte del solstizio": il giorno giusto non basta, ci vuole anche l'ora,
+  /// e prima l'app sapeva che il rito era stato compiuto ma non quando.
+  final String? nellOra;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  bool get chiedeIlCielo => true;
+
+  @override
+  String get firma => 'cielo:$evento:'
+      '${conGesto ?? conSentiero ?? "presenza"}'
+      '${nellOra == null ? "" : ":$nellOra"}';
+
+  @override
+  Set<String> get gestiNominati =>
+      conGesto == null ? const <String>{} : {conGesto!};
+
+  /// **L'ATTESA TIPICA DELL'EVENTO, in giorni.** Non e' una probabilita': e'
+  /// quanto si aspetta al peggio ragionevole, perche' un evento raro vale
+  /// come traguardo solo se l'attesa e' quella che si dichiara. La tavola sta
+  /// in `docs/regole_dei_traguardi.md` e in `attesa_del_cielo.dart`.
+  @override
+  int get costoInGiorni => attesaTipicaDelCielo[evento]!;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) {
+    if (!stato.eventiDelCieloDiOggi.contains(evento)) return false;
+    if (conSentiero != null) {
+      for (final fatto
+          in nellOra == null ? stato.oggiHaFatto : stato.oggiHaFattoNellOra) {
+        final gesto = fatto.split('@').first;
+        if (sentieroDelGesto[gesto] != conSentiero) continue;
+        if (nellOra == null || fatto.endsWith('@$nellOra')) return true;
+      }
+      return false;
+    }
+    if (conGesto == null) return true;
+    if (nellOra != null) {
+      return stato.oggiHaFattoNellOra.contains('$conGesto@$nellOra');
+    }
+    return stato.oggiHaFatto.contains(conGesto);
+  }
+}
+
+/// UN PEZZO DELL'IDENTITA' che si completa.
+class PezzoDellIdentita extends CondizioneDelTraguardo {
+  const PezzoDellIdentita(this.pezzo);
+
+  final String pezzo;
+
+  @override
+  bool get chiedeUnAltroGiorno => false;
+
+  @override
+  String get firma => 'identita:$pezzo';
+
+  @override
+  Set<String> get gestiNominati => {pezzo};
+
+  @override
+  int get costoInGiorni => 1;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      stato.pezziDellIdentita.contains(pezzo);
+}
+
+/// LA MEMORIA: cio' che il Cerchio si ricorda di te, e che il tempo costruisce.
+class MemoriaDelCerchio extends CondizioneDelTraguardo {
+  const MemoriaDelCerchio(this.cosa, this.quanti, {this.dopoGiorni = 0});
+
+  /// 'momenti', 'fatti', 'ripresa' (il Maestro riprende una cosa detta),
+  /// 'rilettura' (rileggere un consulto vecchio), 'tema' (un tema che torna).
+  final String cosa;
+  final int quanti;
+
+  /// Quanti giorni devono essere passati perche' conti.
+  final int dopoGiorni;
+
+  @override
+  bool get chiedeUnAltroGiorno => dopoGiorni > 0 || quanti > 1;
+
+  @override
+  String get firma => 'memoria:$cosa:$quanti:$dopoGiorni';
+
+  @override
+  Set<String> get gestiNominati => const <String>{};
+
+  @override
+  int get costoInGiorni => dopoGiorni > quanti ? dopoGiorni : quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) {
+    final quanto = stato.memoria[cosa] ?? 0;
+    if (quanto < quanti) return false;
+    if (dopoGiorni == 0) return true;
+    return stato.giorniDalPrimoGiorno >= dopoGiorni;
+  }
+}
+
+/// IL CERCHIO: condivisione e invito. Premio, mai pedaggio.
+class GestoDelCerchio extends CondizioneDelTraguardo {
+  const GestoDelCerchio(this.gesto, this.quanti);
+
+  final String gesto;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 1;
+
+  @override
+  String get firma => 'cerchio:$gesto:$quanti';
+
+  @override
+  Set<String> get gestiNominati => {gesto};
+
+  @override
+  int get costoInGiorni => quanti;
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.gestiCompiuti[gesto] ?? 0) >= quanti;
+}
+
+/// UN TRAGUARDO DEL CAMMINO.
+///
+/// Vive nei file di dati dei tre sentieri, mai sparso nel codice: chi vuole
+/// aggiungerne uno tocca un file solo, e le prove che contano famiglie, Eos e
+/// ripetizioni lo vedono subito.
+class Traguardo {
+  const Traguardo({
+    required this.id,
+    required this.nome,
+    required this.famiglia,
+    required this.condizione,
+    required this.frase,
+    required this.posizione,
+    required this.percheConta,
+    required this.cosaApre,
+    this.eGrande = false,
+    this.eos = 0,
+    this.fascia = '',
+    this.dormiente = false,
+    this.ragione = '',
+    this.sezioneDelCammino = '',
+  });
+
+  /// PERCHE' QUESTO TRAGUARDO ESISTE, con la parola del corpus: Prima volta,
+  /// Costanza, Cielo, Coincidenza, Legame, Identita', Profondita', Ritorno,
+  /// Perla. Ordine BS voce 01.
+  ///
+  /// **Non e' la [famiglia], e le due non vanno confuse.** La ragione dice
+  /// perche' il traguardo e' stato scritto; la famiglia dice di che natura e'
+  /// la sua CONDIZIONE, ed e' dedotta dal costruttore proprio perche' le
+  /// guardie contano quella (quanti dipendono dal cielo, quanti non si
+  /// chiudono in giornata). Un traguardo di ragione Cielo la cui condizione
+  /// non guarda il cielo sarebbe una promessa mancata, e con due campi
+  /// distinti si vede.
+  final String ragione;
+
+  /// LA SEZIONE DEL CAMMINO a cui appartiene, col nome che le da' il corpus:
+  /// "LA COSTELLAZIONE NASCENTE", "IL LOTO CHE SI APRE". Ordine BS voce 01.
+  /// Serve a chi legge il sentiero, che vede i gradini raccolti per sezione
+  /// invece che in una scala lunga cinquantacinque.
+  final String sezioneDelCammino;
+
+  /// PERCHE' CONTA, il terzo dei quattro campi. Ordine P voce 19.
+  ///
+  /// Non e' la [frase] della festa: quella si legge una volta sola, al momento
+  /// in cui il Sigillo si accende. Questa si legge PRIMA, sul sentiero, e deve
+  /// far venire voglia di raggiungerlo.
+  final String percheConta;
+
+  /// COSA APRE, il quarto campo, ED E' LA REGOLA DI AMMISSIONE.
+  ///
+  /// **Un traguardo che non apre niente non entra nell'elenco.** E' il filtro
+  /// con cui i 165 sono stati scritti e va usato per ogni traguardo che verra'
+  /// aggiunto dopo. Il campo e' obbligatorio su tutti e 165, anche su quelli
+  /// che restano interamente dell'ordine O: non e' decorativo, e' il
+  /// collegamento di ritorno. Dove nomina un traguardo successivo, quel
+  /// traguardo diventa visibile in anticipo; dove nomina una funzione, il
+  /// traguardo raggiunto ci porta con un tocco; dove nomina un momento della
+  /// giornata, il richiamo arriva in quel momento.
+  final String cosaApre;
+
+  /// Identificativo stabile: entra nel salvataggio del progresso, quindi
+  /// cambiarlo vuol dire far ricominciare qualcuno da capo.
+  final String id;
+
+  /// Il nome proprio del traguardo, quello che si legge sul sentiero.
+  final String nome;
+
+  final FamigliaDelTraguardo famiglia;
+  final CondizioneDelTraguardo condizione;
+
+  /// LA FRASE WOW, nel tono del Maestro del sentiero.
+  ///
+  /// Deve NOMINARE il traguardo che festeggia: "Congratulazioni" da solo e' un
+  /// difetto, e una prova lo cerca. Una frase che vale per tutti non festeggia
+  /// nessuno.
+  final String frase;
+
+  /// La posizione sul sentiero, da 1 a 50 per i mini. I grandi stanno a 10,
+  /// 20, 30, 40 e 50 e portano la posizione del mini che chiudono.
+  final int posizione;
+
+  /// SE E' UN GRANDE, e lo dice il dato, non la posizione.
+  ///
+  /// **Perche' un campo e non un calcolo.** La prima stesura ricavava
+  /// "e' grande" dal fatto che la posizione fosse 10, 20, 30, 40 o 50: cosi'
+  /// i cinque traguardi PICCOLI che stanno su quelle posizioni venivano
+  /// scambiati per grandi, sparivano dai cinquanta e prendevano il premio
+  /// sbagliato. Lo ha trovato la prova, che contava 45 piccoli e 1.480 Eos di
+  /// troppo. La posizione resta sorvegliata da una prova: un grande fuori
+  /// dalle cinque posizioni non entra.
+  final bool eGrande;
+
+  /// **GLI EOS VENGONO DAL DATO, ordine AR voce 02.** Prima si ricavavano
+  /// dalla grandezza; adesso ogni voce porta il suo numero, e la somma per
+  /// sentiero (2.010) e' una pretesa della guardia.
+  final int eos;
+
+  /// La fascia del cammino a cui appartiene: Primi giorni, Prima settimana,
+  /// Primo mese, La stagione, L'anno.
+  final String fascia;
+
+  /// **UN DORMIENTE E' DICHIARATO, non finto. Ordine AR voce 05.** Chiede un
+  /// gesto che oggi non esiste o un dettaglio che nessuna scena manda: resta
+  /// nel dato, non arma mai, non accredita mai, e il Journal lo mostra come
+  /// in arrivo.
+  final bool dormiente;
+
+  /// **LE POSIZIONI DEI GRANDI VENGONO DAL CORPUS, ordine AR voce 02.** Nella
+  /// revisione C chiudono le decine da dentro l'unica fila che esiste: 11, 22,
+  /// 33, 44 e 55. Prima erano 10, 20, 30, 40 e 50 su una fila di soli mini, e
+  /// i due elenchi si sovrapponevano.
+  static const List<int> posizioniDeiGrandi = [11, 22, 33, 44, 55];
+
+  /// LA CURVA DEGLI EOS, decisa da Mauro e scritta in un punto solo.
+  ///
+  /// I primi tre mini valgono venti invece di dieci: il primo premio deve
+  /// arrivare presto e sembrare generoso, altrimenti il cammino non comincia.
+  /// I cinque grandi salgono 80, 150, 250, 400, 600, cosi' la distanza fra un
+  /// grande e l'altro si sente.
+
+  /// **GLI EOS NON SI CALCOLANO PIU', VENGONO DAL DATO. Ordine AR voce 02.**
+  ///
+  /// Qui c'era una formula (venti ai primi tre, dieci agli altri, la scala
+  /// dei grandi) che diceva quanto vale un traguardo. Adesso lo dice il
+  /// corpus, voce per voce, e la somma per sentiero e' una pretesa della
+  /// guardia: 2.010 per sentiero, 6.030 in tutto. Una formula e un dato che
+  /// dicono la stessa cosa sono due verita' che un giorno divergono.
+  static const List<int> eosDeiGrandiStorici = [80, 150, 250, 400, 600];
+}
+
+/// LO STATO DEL CAMMINO: la fotografia su cui si misurano i traguardi.
+///
+/// **Perche' una fotografia e non tanti controlli sparsi.** Un traguardo deve
+/// essere una funzione pura di cio' che e' successo: cosi' si prova senza
+/// montare l'app, si valuta tutto in un colpo solo quando qualcosa cambia, e
+/// non esiste il caso in cui due traguardi guardano la stessa cosa in due modi
+/// diversi. Chi costruisce questa fotografia e' `DiarioDelCammino`, che e' il
+/// solo posto che sa leggere il disco e il cielo.
+/// **IL NOME COME SI LEGGE, non come sta nel dato.** Ordine AU voce 07.
+///
+/// Il corpus scrive in maiuscolo integrale i nomi dei traguardi GRANDI, "LA
+/// COSTELLAZIONE NASCENTE", ed e' il suo modo di marcarli. A video pero' il
+/// maiuscolo integrale vale SOLO per la parola di premio: due blocchi tutti
+/// maiuscoli uno sopra l'altro non hanno gerarchia, sono un muro.
+///
+/// **Il dato non si tocca**: il corpus resta quello, cambia la resa. Un nome
+/// che NON e' tutto maiuscolo si lascia esattamente com'e', perche' li' le
+/// maiuscole interne sono volute.
+String nomeInTondo(String nome) {
+  if (nome.isEmpty || nome != nome.toUpperCase()) return nome;
+  final basso = nome.toLowerCase();
+  return basso[0].toUpperCase() + basso.substring(1);
+}
+
+class StatoDelCammino {
+  const StatoDelCammino({
+    this.gestiCompiuti = const {},
+    this.giorniConGesto = const {},
+    this.oggiHaFatto = const {},
+    this.seriePerRito = const {},
+    this.gestiNellOraGiusta = const {},
+    this.oraFedelePerGesto = const {},
+    this.oggiHaFattoNellOra = const {},
+    this.giorniSaltatiPerRito = const {},
+    this.giorniDiAssenzaDalSentiero = const {},
+    this.ripetizioniNellaFinestra = const {},
+    this.variePerValore = const {},
+    this.eventiDelCieloDiOggi = const {},
+    this.pezziDellIdentita = const {},
+    this.memoria = const {},
+    this.giorniDiAssenzaPrimaDiOggi = 0,
+    this.giorniDalPrimoGiorno = 0,
+    this.valoriDistinti = const {},
+    this.massimeRipetizioni = const {},
+    this.gradiniAlleSpalle = const {},
+    this.costanzeLarghe = const {},
+    this.giornateInsieme = const {},
+  });
+
+  /// **QUANTI GIORNI CON UN RITO DENTRO UN ARCO. Ordine AS voce 12.**
+  ///
+  /// La chiave e' `rito:arco`, per esempio `oracolo:10`, e il valore e' quanti
+  /// giorni con quel rito cadono negli ultimi `arco` giorni. Le chiavi le
+  /// dichiara il corpus: qui ci sono solo gli archi che qualche traguardo
+  /// chiede davvero.
+  final Map<String, int> costanzeLarghe;
+
+  /// **IN QUANTI GIORNI UN INSIEME DI GESTI E' CADUTO TUTTO INSIEME.**
+  /// Ordine CP voce 05. La chiave e' i gesti ordinati e uniti da un piu',
+  /// per esempio `oroscopo+stesa`. Le chiavi le dichiara il corpus, come per
+  /// [costanzeLarghe]: qui ci sono solo gli insiemi che qualche traguardo
+  /// chiede davvero, perche' chiederli tutti vorrebbe dire inventarne.
+  final Map<String, int> giornateInsieme;
+
+  /// Quante volte un gesto e' stato compiuto, da sempre.
+  final Map<String, int> gestiCompiuti;
+
+  /// In quanti giorni DIVERSI un gesto e' stato compiuto.
+  final Map<String, int> giorniConGesto;
+
+  /// I gesti compiuti oggi.
+  final Set<String> oggiHaFatto;
+
+  /// La continuita' corrente per rito.
+  final Map<String, int> seriePerRito;
+
+  /// Quante volte un gesto e' caduto nella sua ora rituale.
+  final Map<String, int> gestiNellOraGiusta;
+
+  /// **QUANTE VOLTE UN VALORE E' TORNATO DENTRO UNA FINESTRA DI GIORNI.**
+  /// Ordine BX voce 01. La chiave e' 'gesto.chiave:giorni', per esempio
+  /// 'oracolo.arcano:7', e il valore e' quante volte e' tornato il piu'
+  /// insistente dentro quella finestra. **Non e' [massimeRipetizioni]**,
+  /// che conta DA SEMPRE: "lo stesso Arcano due volte in una settimana"
+  /// e "due volte in due anni" sono due gradini diversi, e prima l'app
+  /// sapeva rispondere solo al secondo.
+  final Map<String, int> ripetizioniNellaFinestra;
+
+  /// **QUANTI COMPAGNI DIVERSI HA AVUTO IL VALORE PIU' ACCOMPAGNATO.**
+  /// Ordine BX voce 01. Per i dettagli composti, scritti 'x@y': per
+  /// ogni x, quanti y diversi si sono visti, e qui c'e' il massimo.
+  /// Serve a "la stessa carta esce sotto tre fasi lunari diverse", che
+  /// non e' ne' varieta' ne' coincidenza: e' una domanda su una coppia.
+  final Map<String, int> variePerValore;
+
+  /// **CIO' CHE OGGI E' STATO FATTO IN UN'ORA RITUALE, ordine BW voce
+  /// 07.** Le chiavi sono '$gesto@$ora', per esempio 'gettata@notte'.
+  /// Serve alle finestre del cielo che chiedono anche l'ora: il
+  /// solstizio si celebra di notte, e sapere che il rito e' stato
+  /// compiuto oggi non basta a dire che sia stato compiuto stanotte.
+  final Set<String> oggiHaFattoNellOra;
+
+  /// **QUANTI GIORNI ERANO STATI SALTATI, per rito. Ordine BW voce
+  /// 07.** Per ogni rito, quanti giorni sono passati fra la volta
+  /// precedente e oggi, meno uno: e' il buco che si e' appena chiuso.
+  /// L'assenza generale, quella dall'app, e' un'altra cosa e vive in
+  /// [giorniDiAssenzaPrimaDiOggi]: chi apre l'app tutti i giorni ma
+  /// salta il Soffio per tre giorni ha assenza zero e buco tre.
+  final Map<String, int> giorniSaltatiPerRito;
+
+  /// **DA QUANTI GIORNI NON SI CERCAVA UN MAESTRO. Ordine BW voce
+  /// 07.** La chiave e' il nome del sentiero, e il valore e' quanti
+  /// giorni erano passati dall'ultimo gesto di quel Maestro prima di
+  /// oggi. Il legame fra un gesto e il suo Maestro non e' inventato
+  /// qui: lo dichiara il corpus, un gesto per sentiero, e il
+  /// generatore lo scrive in `maestro_del_gesto.dart`.
+  final Map<String, int> giorniDiAssenzaDalSentiero;
+
+  /// **L'ORA FEDELE, ordine BW voce 07.** Per ogni gesto, in quanti
+  /// giorni diversi e' caduto sempre alla stessa ora dell'orologio. Non
+  /// e' l'ora rituale della riga qui sopra, che sa dire alba, tramonto e
+  /// notte: questa distingue chi apre l'Oroscopo sempre alle sette da chi
+  /// lo apre quando capita, ed e' cio' che il corpus chiama costanza.
+  final Map<String, int> oraFedelePerGesto;
+
+  /// Gli eventi del cielo veri di oggi, dal catalogo `EventiDelCielo`.
+  final Set<String> eventiDelCieloDiOggi;
+
+  /// I pezzi dell'identita' gia' completi.
+  final Set<String> pezziDellIdentita;
+
+  /// I numeri della memoria: momenti, fatti, riprese, riletture, temi.
+  final Map<String, int> memoria;
+
+  /// Quanti giorni di silenzio ci sono stati prima di oggi.
+  final int giorniDiAssenzaPrimaDiOggi;
+
+  /// Da quanti giorni questa persona e' nel Cerchio.
+  final int giorniDalPrimoGiorno;
+
+  /// **LA VARIETA', ordine AR voce 11.** Per `gesto.chiave`, quanti valori
+  /// DIVERSI si sono visti: quattro semi, sedici argomenti, ventiquattro
+  /// rune. Senza i dettagli del gesto questa mappa resta vuota e nessuna
+  /// condizione di profondita' puo' maturare, che e' il modo giusto di non
+  /// maturare.
+  final Map<String, int> valoriDistinti;
+
+  /// **LA COINCIDENZA, ordine AR voce 11.** Per `gesto.chiave`, quante volte
+  /// e' tornato il valore piu' insistente: la stessa carta in due stese.
+  final Map<String, int> massimeRipetizioni;
+
+  /// **LA SCALA, ordine AR voce 03.** Per sentiero, quanti gradini sono gia'
+  /// alle spalle: e' cio' su cui poggiano i traguardi di Dedizione, che si
+  /// accendono col primo gesto di quel Maestro DOPO l'ennesimo gradino.
+  final Map<String, int> gradiniAlleSpalle;
+}

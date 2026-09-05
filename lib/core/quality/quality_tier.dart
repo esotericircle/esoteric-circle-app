@@ -27,12 +27,17 @@ class QualityTierController extends ChangeNotifier {
   QualityTier _tier;
   QualityTier get tier => _tier;
 
-  /// Densita' di stelle e particelle in base al tier.
-  int get starDensity => switch (_tier) {
-        QualityTier.high => 90,
-        QualityTier.medium => 45,
-        QualityTier.low => 0,
+  /// Numero di stelle del campo di fondo per ogni tier, fonte di verita' unica
+  /// usata dal cosmo e verificabile dai test: fitto in alta, presente in media,
+  /// ridotto al minimo in bassa.
+  static int fieldStarsFor(QualityTier tier) => switch (tier) {
+        QualityTier.high => 120,
+        QualityTier.medium => 70,
+        QualityTier.low => 24,
       };
+
+  /// Densita' di stelle e particelle in base al tier.
+  int get starDensity => fieldStarsFor(_tier);
 
   /// Se true, gli effetti pesanti (blur, aloni ampi) sono attivi.
   bool get richEffects => _tier == QualityTier.high;

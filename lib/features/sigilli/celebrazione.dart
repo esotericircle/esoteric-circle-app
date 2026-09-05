@@ -1,0 +1,1156 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import 'maestro_della_festa.dart';
+import 'spirale_di_stelle.dart';
+import 'segno_del_sentiero.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/entitlement/question_allowance.dart';
+import '../../core/sigilli/bonus_della_condivisione.dart';
+import '../../core/identity/account_del_cerchio.dart';
+import '../../core/sigilli/diario_del_cammino.dart';
+import '../../core/sigilli/sentieri.dart';
+import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/components/titolo_che_non_si_spezza.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/entitlement/registro_degli_eos.dart';
+import '../../services/app_services.dart';
+import 'card_del_traguardo.dart';
+import 'sentiero_screen.dart';
+import '../../design_system/components/icona_degli_eos.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
+
+/// LA CELEBRAZIONE DI UN TRAGUARDO, nelle sue due forme.
+///
+/// **Ogni traguardo viene celebrato, senza eccezioni, e ogni celebrazione
+/// offre la condivisione.** Cambia la forma, non il fatto: a schermo pieno
+/// per il primo traguardo in assoluto e per i cinque grandi, in
+/// sovrimpressione per i mini. Cinquanta interruzioni a schermo pieno per
+/// sentiero trasformerebbero la magia in fastidio, e un mini che passa senza
+/// una parola non sarebbe un traguardo.
+class Celebrazione {
+  const Celebrazione._();
+
+  /// Celebra cio' che si e' appena acceso, nella forma giusta.
+  ///
+  /// [primoInAssoluto] e' vero quando questo e' il primissimo Sigillo della
+  /// persona: quello va a schermo pieno anche se e' un mini, perche' il primo
+  /// premio deve sembrare grande.
+  ///
+  /// **Torna VERO solo se la festa e' davvero comparsa a schermo**, ordine P
+  /// voce 34. Quando non c'e' dove ospitarla, chi ha chiamato la mette in coda
+  /// invece di perderla: prima questa funzione usciva in silenzio e nessuno
+  /// poteva accorgersene.
+  /// [attendiLaFine] serve solo a chi celebra IN FILA, cioe' allo svuotamento
+  /// della coda: due scene a schermo pieno spinte insieme si accavallerebbero.
+  /// Nel ciclo normale resta falso, e non e' un dettaglio: la forma grande e'
+  /// una rotta, e attenderla vuol dire fermare tutto finche' la persona non
+  /// chiude la festa. E' cosi' che l'accredito del premio restava ostaggio
+  /// della celebrazione, cioe' lo stesso difetto della voce 34 al contrario.
+  /// [allaChiusura] si chiama quando la festa LASCIA LO SCHERMO, ed e' il
+  /// momento in cui gli Eos volano nel borsellino, ordine S voce 07. Prima non
+  /// c'era nessun momento del genere: chi festeggia sapeva solo che la scena era
+  /// partita, e il volo lanciato subito avrebbe attraversato una celebrazione a
+  /// schermo pieno per arrivare a un borsellino che in quel momento e' coperto.
+  static Future<bool> festeggia(
+    BuildContext context, {
+    required Traguardo traguardo,
+    required Sentiero sentiero,
+    required bool primoInAssoluto,
+    String? serie,
+    bool attendiLaFine = false,
+    VoidCallback? allaChiusura,
+  }) =>
+      festeggiaInsieme(
+        context,
+        traguardi: [traguardo],
+        sentieri: [sentiero],
+        primoInAssoluto: primoInAssoluto,
+        serie: serie,
+        attendiLaFine: attendiLaFine,
+        allaChiusura: allaChiusura,
+      );
+
+  /// **QUANTE CELEBRAZIONI SONO PARTITE, e solo le prove lo leggono.** Ordine
+  /// AC voce 04: la prova del rosso deve poter DICHIARARE quante feste sono
+  /// comparse, non dedurlo da cio' che resta a schermo, perche' due feste in
+  /// fila si vedono una alla volta e a ogni istante il conto visibile e' uno.
+  @visibleForTesting
+  static int partite = 0;
+
+  /// LA FESTA UNICA. Ordine AC voce 04, decisione di Mauro del 16 agosto:
+  /// due celebrazioni di seguito danno gia' fastidio, quindi non se ne devono
+  /// mai vedere due di fila.
+  ///
+  /// **Quando nello stesso momento ci sono due o piu' feste in attesa, si
+  /// celebra UNA volta sola, e quella celebrazione le nomina tutte**: il nome
+  /// di ogni traguardo acceso, la somma degli Eos, e l'intensita' del piu'
+  /// importante (se fra loro c'e' un grande, la celebrazione e' piena). Si
+  /// unisce la FESTA, non il premio: ogni Sigillo si accende comunque nel
+  /// Journal uno per uno, e nessun traguardo perde i suoi Eos, perche'
+  /// l'accredito resta per traguardo nella regia. Il salto al Journal porta
+  /// al primo dei Sigilli nominati.
+  ///
+  /// Con un solo traguardo tutto resta identico a prima, ed e' la prova 1
+  /// della voce a pretenderlo.
+  static Future<bool> festeggiaInsieme(
+    BuildContext context, {
+    required List<Traguardo> traguardi,
+    required List<Sentiero> sentieri,
+    required bool primoInAssoluto,
+    String? serie,
+    bool attendiLaFine = false,
+    VoidCallback? allaChiusura,
+  }) async {
+    if (traguardi.isEmpty || traguardi.length != sentieri.length) return false;
+    // **UNA ALLA VOLTA, ordine S voce 09.** Se una festa e' gia' a schermo questa
+    // non si dipinge sopra: chi ha chiamato la mette in coda, e la coda la porta
+    // al primo momento utile. Due celebrazioni nello stesso istante sono
+    // illeggibili, e il premio di entrambe si perde.
+    if (FesteInCorso.unaCeGia) return false;
+    // **UNA FESTA NON SI DIPINGE SOPRA UNA RIFLESSIONE, ordine BU voce 03.**
+    // Parole del fondatore sulla 2208: "quando parte il calcolo con
+    // l'animazione di riflessione, se c'e' una festa la riflessione non si
+    // vede perche' sopra c'e' la festa". Chi ha chiamato la mette in coda, e
+    // la coda riparte appena la riflessione finisce: non e' un timer, e'
+    // una condizione sulla scena, quindi l'immediatezza dell'ordine BS resta.
+    if (RiflessioniInCorso.unaCeGia) return false;
+    // **UNA SCENA SOLA PER TUTTI, ordine BE voce 05.** Qui c'era un bivio: i
+    // grandi e il primo in assoluto prendevano la rotta piena, tutti gli
+    // altri una sovrimpressione breve su velo scuro, senza spirale, senza
+    // CONGRATULAZIONI e senza data. Il fondatore l'ha vista sulla 2199
+    // subito dopo la scena nuova e l'ha chiamata col suo nome, la card
+    // vecchia: "ELIMINA TUTTO CIO' CHE E' VECCHIO E GIA' SOSTITUITO". La
+    // forma breve e' stata RIMOSSA, non nascosta: ogni traguardo, mini o
+    // grande, celebra con la stessa scena piena.
+    {
+      final navigatore = Navigator.maybeOf(context);
+      if (navigatore == null) return false;
+      final rotta = _RottaDellaCelebrazione(
+        traguardi: traguardi,
+        sentieri: sentieri,
+        serie: serie,
+      );
+      final scena = navigatore.push(rotta);
+      // **LA FESTA SUONA, ordine CN.** Tre secondi e sei decimi, e non
+      // si accorcia: e' una decisione del fondatore, perche' una festa
+      // tagliata a meta' non e' una festa piu' breve, e' una festa
+      // interrotta.
+      //
+      // Per un giorno questo suono e' stato nel catalogo senza che
+      // nessuno lo chiamasse: il file c'era e a schermo non usciva
+      // niente.
+      unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.festa));
+      // **SI SEGNA QUI E NON NELLO STATO DELLA SCENA.** Un widget si costruisce
+      // al fotogramma DOPO, e il ciclo della regia chiama questa funzione due
+      // volte dentro lo stesso fotogramma: segnandolo in `initState` la seconda
+      // chiamata trovava il conto ancora a zero e si dipingeva sopra. Lo ha detto
+      // la prova, e ha fatto buttare due stesure prima di questa.
+      FesteInCorso.entra(() => rotta.isActive);
+      // IL GANCIO VA SULLA ROTTA, non sull'attesa di chi chiama: la forma grande
+      // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
+      // aspettarla.
+      if (allaChiusura != null) scena.whenComplete(allaChiusura);
+      // **GLI EOS CHE ARRIVANO NELLA BORSA, ordine CN.** Il momento e'
+      // questo e non l'apertura della festa: gli Eos volano nel
+      // borsellino quando la scena LASCIA lo schermo, ordine S voce
+      // 07, e il suono accompagna il volo invece di anticiparlo.
+      // **IL SUONO DELLE MONETE NON PARTE PIU' DA QUI. Ordine CO voce 19**,
+      // 3 settembre 2026. Stava qui, alla chiusura della scena, e il VOLO
+      // delle monete partiva da un'altra riga, in un altro file, sotto
+      // un'altra condizione: bastava che non ci fosse niente da accreditare
+      // perche' il tintinnio uscisse senza nessuna moneta da accompagnare.
+      // Adesso il suono esce dal volo, `VoloDegliEos.lancia`, e i due non si
+      // possono piu' separare perche' sono la stessa riga.
+      partite++;
+      if (attendiLaFine) {
+        await scena;
+      } else {
+        unawaited(scena);
+      }
+      return true;
+    }
+  }
+}
+
+/// QUANTE FESTE CI SONO A SCHERMO, ordine S voce 09.
+///
+/// **Il difetto, visto sulla 2177.** Due celebrazioni si dipingevano nello
+/// stesso istante, "IL GIORNO E LA SERA" sopra "IL GIORNO PIENO", con due
+/// "+10 Eos" uno sull'altro. La ragione sta nel ciclo della regia: piu' Sigilli
+/// possono maturare con lo stesso gesto, e per ognuno si chiedeva la festa senza
+/// attendere la precedente. La coda esisteva, ma serializzava cio' che si
+/// ACCODA, non cio' che si dipinge.
+///
+/// **Adesso il conto e' uno e sta qui.** Chi entra si segna, chi esce si toglie,
+/// e `Celebrazione.festeggia` rifiuta se ce n'e' gia' una: chi ha chiamato la
+/// mette in coda, che e' esattamente cio' che fa quando non c'e' dove ospitarla.
+/// Un conto solo, e non un flag per forma: due contatori diversi sarebbero due
+/// verita' sulla stessa domanda.
+class FesteInCorso {
+  const FesteInCorso._();
+
+  /// **UN ELENCO DI DOMANDE, non un contatore.** Ordine S voce 09, seconda
+  /// stesura. Con un contatore, chi entra deve ricordarsi di uscire: se l'uscita
+  /// non arriva, e succede quando una rotta non viene mai chiusa perche' l'albero
+  /// e' stato buttato, il conto resta a uno e da quel momento **nessuna festa si
+  /// mostra piu'**. Lo hanno detto due prove della coda, che chiedevano una festa
+  /// e non la vedevano arrivare.
+  ///
+  /// Qui ogni festa lascia una domanda a cui si sa rispondere: "sei ancora a
+  /// schermo?". La rotta risponde guardando se e' attiva, la fascia se e' ancora
+  /// inserita nell'Overlay. Chi non risponde piu' di si' esce da se', e non c'e'
+  /// niente da ricordarsi.
+  static final List<bool Function()> _vive = [];
+
+  /// **CHI VUOLE SAPERLO SI METTE IN ASCOLTO. Ordine BX voce 07.**
+  ///
+  /// La barra dell'identita' sta SOPRA il Navigator e si dipinge su ogni
+  /// rotta, festa compresa: per sparire deve sapere quando una festa entra in
+  /// scena, e l'osservatore della pila non basta perche' la festa puo'
+  /// arrivare da una rotta che quella pila non racconta. Il numero cambia a
+  /// ogni ingresso e a ogni uscita, e chi ascolta si ridisegna.
+  static final ValueNotifier<int> cambi = ValueNotifier<int>(0);
+
+  /// Vero se una festa e' gia' a schermo.
+  static bool get unaCeGia {
+    final prima = _vive.length;
+    _vive.removeWhere((ancoraViva) => !ancoraViva());
+    if (_vive.length != prima) cambi.value++;
+    return _vive.isNotEmpty;
+  }
+
+  /// Segna una festa appena messa a schermo, con la domanda che la tiene viva.
+  static void entra(bool Function() ancoraViva) {
+    _vive.add(ancoraViva);
+    cambi.value++;
+  }
+
+  /// Solo per le prove: dimentica tutto fra una scena e l'altra.
+  @visibleForTesting
+  static void azzera() {
+    _vive.clear();
+    cambi.value++;
+  }
+}
+
+/// IL REGISTRO DELLE FESTE MOSTRATE. Ordine BU voce 05.
+///
+/// **Perche' esiste.** Il fondatore dice di vedere ancora due feste attaccate,
+/// e l'ordine BS garantisce che un evento ne accenda una sola. Delle due l'una,
+/// e senza un registro si discute: qui ogni festa che va a schermo lascia
+/// scritto il gesto che l'ha generata e l'istante, cosi' la domanda "sono nate
+/// dallo stesso gesto?" ha una risposta e non un'opinione.
+///
+/// **Non si vede a video e non tocca il disco**: vive quanto vive l'app, e
+/// serve alle prove e a chi guarda un rapporto.
+class RegistroDelleFeste {
+  const RegistroDelleFeste._();
+
+  static final List<({String gesto, String traguardo, DateTime quando})>
+      _mostrate = [];
+
+  /// Le feste mostrate, in ordine di comparsa.
+  static List<({String gesto, String traguardo, DateTime quando})>
+      get mostrate => List.unmodifiable(_mostrate);
+
+  /// Segna una festa appena andata a schermo.
+  static void segna(
+          {required String gesto,
+          required String traguardo,
+          DateTime? quando}) =>
+      _mostrate.add((
+        gesto: gesto,
+        traguardo: traguardo,
+        quando: quando ?? DateTime.now()
+      ));
+
+  /// Quante coppie di feste CONSECUTIVE sono nate dallo stesso gesto: e' il
+  /// numero che dice se la legge dell'ordine BS regge davvero.
+  static int get coppieDalloStessoGesto {
+    var quante = 0;
+    for (var i = 1; i < _mostrate.length; i++) {
+      if (_mostrate[i].gesto == _mostrate[i - 1].gesto) quante++;
+    }
+    return quante;
+  }
+
+  @visibleForTesting
+  static void azzera() => _mostrate.clear();
+}
+
+/// LE RIFLESSIONI IN CORSO, e una festa non ci si dipinge sopra.
+///
+/// **Parole del fondatore sulla build 2208**: "quando parte il calcolo con
+/// l'animazione di riflessione, se c'e' una festa la riflessione non si vede
+/// perche' sopra c'e' la festa". Ordine BU voce 03.
+///
+/// **Non e' un timer e non e' una coda a freddo**, e la differenza conta perche'
+/// l'ordine BS ha appena stabilito che la festa e' immediata: qui la festa non
+/// viene rimandata di un tempo, viene rimandata di una CONDIZIONE. Finche' la
+/// scena sta raccontando qualcosa la festa aspetta, e appena quella finisce si
+/// apre. Se la riflessione dura mezzo secondo, la festa arriva mezzo secondo
+/// dopo; se non c'e' nessuna riflessione, la festa arriva nell'istante del
+/// gesto, come sempre.
+///
+/// **La forma e' quella di [FesteInCorso], ed e' voluta**: un elenco di domande
+/// a cui si sa rispondere, non un contatore. Con un contatore chi entra deve
+/// ricordarsi di uscire, e una scena buttata via senza chiudere lascerebbe il
+/// conto a uno per sempre: da quel momento nessuna festa si aprirebbe piu'.
+/// Qui ogni riflessione lascia la domanda "stai ancora andando?", e chi non
+/// risponde piu' di si' esce da se'.
+class RiflessioniInCorso {
+  const RiflessioniInCorso._();
+
+  static final List<bool Function()> _vive = [];
+
+  /// Vero se un'animazione di riflessione sta ancora andando.
+  static bool get unaCeGia {
+    _vive.removeWhere((ancoraViva) => !ancoraViva());
+    return _vive.isNotEmpty;
+  }
+
+  /// Segna una riflessione appena partita, con la domanda che la tiene viva.
+  static void entra(bool Function() ancoraViva) => _vive.add(ancoraViva);
+
+  /// Solo per le prove: dimentica tutto fra una scena e l'altra.
+  @visibleForTesting
+  static void azzera() => _vive.clear();
+}
+
+/// IL VELO DELLA CELEBRAZIONE: un numero solo, per entrambe le forme.
+///
+/// **Perche' e' dichiarato qui.** L'ordine chiede che il velo sia opaco
+/// abbastanza che nessun testo sottostante si legga attraverso, con soglia
+/// dichiarata e misurata, non a occhio. La forma grande aveva la sua barriera
+/// scritta a mano dentro la rotta, la fascia aveva un gradiente radiale che
+/// finiva TRASPARENTE ai bordi: due numeri diversi per la stessa promessa, e uno
+/// dei due la tradiva. Adesso il numero e' uno e le due forme lo leggono.
+class VeloDellaCelebrazione {
+  const VeloDellaCelebrazione._();
+
+  /// L'OPACITA' DEL VELO A PIENO REGIME: **PIENA. Ordine BX voce 07.**
+  ///
+  /// **La storia di questo numero, per intero.** Era 0,92, e l'anteprima
+  /// mostro' che le tre righe del sentiero si leggevano ancora sotto: si passo'
+  /// a 0,96, lasciando di proposito un quattro per cento perche' "la festa e'
+  /// successa DENTRO qualcosa" e coprire tutto l'avrebbe fatta sembrare
+  /// un'altra schermata.
+  ///
+  /// **Quel quattro per cento e' bastato a ingannare il fondatore.** Sulla
+  /// 2210 ha letto l'etichetta della barra dell'identita' che passava
+  /// attraverso il velo, "Eventi Cosmici", e l'ha presa per l'intestazione
+  /// della festa: ha scritto un ordine intero su una famiglia di traguardi che
+  /// non esiste. Un velo che lascia leggere una parola non e' un velo.
+  ///
+  /// La decisione del 28 agosto 2026 sostituisce quella estetica: durante una
+  /// festa si vede la festa e nient'altro.
+  static const double opacita = 1;
+
+  /// Quanto dura la dissolvenza in entrata e in uscita.
+  static const Duration dissolvenza = Duration(milliseconds: 420);
+
+  /// Il colore del velo per un sentiero.
+  static Color colore(MaestroPalette palette) =>
+      palette.deepest.withValues(alpha: opacita);
+}
+
+/// LA FORMA GRANDE: la scena prende tutto, il Maestro parla, il segno si
+/// compie. Non finisce mai col punto: in fondo c'e' il prossimo traguardo.
+class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
+  _RottaDellaCelebrazione({
+    required this.traguardi,
+    required this.sentieri,
+    this.serie,
+  }) : super(
+          opaque: false,
+          // IL VELO LEGGE IL NUMERO UNICO, ordine S voce 09: qui c'era
+          // `0xCC05060A`, cioe' un'opacita' scritta a mano che nessuno teneva
+          // d'accordo con quella della fascia.
+          barrierColor: const Color(0xFF05060A).withValues(
+            alpha: VeloDellaCelebrazione.opacita,
+          ),
+          // LA FESTA SI PORTA IL SUO SCOPE, e non e' un ripiego: e' la
+          // correzione di un difetto vero.
+          //
+          // **Una rotta non e' figlia della schermata da cui parte.** Il
+          // `MaestroScope` vive DENTRO la pagina, mentre una rotta spinta e' una
+          // sorella: la festa cercava il colore piu' in alto, non lo trovava e
+          // faceva esplodere un assert dentro il rito che stava festeggiando.
+          // Lo ha trovato la prova del Cosmic Passport, che apriva la schermata,
+          // accendeva un Sigillo e cadeva sulla festa.
+          //
+          // E il colore giusto e' quello del SENTIERO, non quello della
+          // schermata da cui si arriva: un Frutto dell'Albero si festeggia in
+          // rosso di Caligo anche se lo hai acceso dentro una stesa di Medora.
+          // Prima, quando per caso lo scope c'era, la festa prendeva il colore
+          // sbagliato senza che nessuno se ne accorgesse.
+          // **LA SCENA E' DEL PRIMO NOMINATO**: colore, segno e salto al
+          // Journal seguono il primo dei Sigilli, come l'ordine AC voce 04
+          // prescrive per il salto. L'INTENSITA' invece e' del piu'
+          // importante, e la decide la scena guardando se fra i traguardi
+          // c'e' un grande.
+          pageBuilder: (context, _, __) => MaestroScope(
+            maestro: MaestroDellaFesta.di(traguardi, sentieri),
+            child: CelebrazioneAScermoPieno(
+              traguardi: traguardi,
+              sentieri: sentieri,
+              serie: serie,
+            ),
+          ),
+        );
+
+  final List<Traguardo> traguardi;
+  final List<Sentiero> sentieri;
+  final String? serie;
+}
+
+/// **LA DATA COME LA DIREBBE UNA PERSONA.** Ordine AU voce 07: "22 agosto alle
+/// 14:30", non un timbro di macchina. L'anno compare solo se non e' quello in
+/// corso, perche' su un traguardo preso stamattina l'anno e' rumore.
+String _quandoScritto(DateTime quando) {
+  const mesi = [
+    'gennaio',
+    'febbraio',
+    'marzo',
+    'aprile',
+    'maggio',
+    'giugno',
+    'luglio',
+    'agosto',
+    'settembre',
+    'ottobre',
+    'novembre',
+    'dicembre',
+  ];
+  final ora = quando.hour.toString().padLeft(2, '0');
+  final minuti = quando.minute.toString().padLeft(2, '0');
+  final anno = quando.year == DateTime.now().year ? '' : ' ${quando.year}';
+  return '${quando.day} ${mesi[quando.month - 1]}$anno alle $ora:$minuti';
+}
+
+class CelebrazioneAScermoPieno extends StatefulWidget {
+  const CelebrazioneAScermoPieno({
+    super.key,
+    required this.traguardi,
+    required this.sentieri,
+    this.serie,
+  });
+
+  /// I traguardi nominati, nell'ordine in cui il cammino li ha accesi.
+  /// Ordine AC voce 04: quasi sempre uno, e quando sono di piu' la festa e'
+  /// UNA e li nomina tutti.
+  final List<Traguardo> traguardi;
+  final List<Sentiero> sentieri;
+
+  /// "terzo giorno di seguito", quando c'e' una serie da dire.
+  final String? serie;
+
+  /// Il piu' importante fra i nominati: un grande se c'e', il primo
+  /// altrimenti. La sua frase e' quella che si legge, la sua intensita' e'
+  /// quella della festa.
+  Traguardo get principale =>
+      traguardi.firstWhere((t) => t.eGrande, orElse: () => traguardi.first);
+
+  @override
+  State<CelebrazioneAScermoPieno> createState() =>
+      _CelebrazioneAScermoPienoState();
+}
+
+/// QUANTO SPAZIO SI TIENE PER L'USCITA, ordine AN voce 09. E' l'altezza del
+/// bersaglio del congedo, quarantotto punti, la stessa misura minima con cui
+/// si tocca qualsiasi altra cosa nel Cerchio: la scena che scorre riceve
+/// tanto in meno, cosi' il suo centro resta il centro della parte visibile e
+/// non della finestra intera.
+const double _altezzaDelCongedo = 48;
+
+class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _segno = AnimationController(
+    vsync: this,
+    // **LA DURATA VIENE DAL DATO E NON DA QUI.** Ordine U voce 02: si sceglie
+    // sul tempo di LETTURA di cio' che si scopre, non su quello
+    // dell'animazione, e il grande dura un terzo in piu' del mini.
+    // **DUE SECONDI, quanto dura la transizione di stelle.** Ordine AT voce
+    // 04: il tempo della scena non e' piu' una scelta di durata dell'anima-
+    // zione, e' la durata del filmato che la copre.
+    duration: SpiraleDiStelle.durata,
+  );
+
+  /// **UN TOCCO LA SALTA, e porta subito al traguardo e al premio.** Una festa
+  /// da cui non si puo' uscire diventa un ostacolo alla seconda volta: la prima
+  /// si guarda, la decima si vuole superare.
+  void _salta() {
+    // Il tocco porta subito al traguardo: la transizione si toglie di mezzo
+    // insieme all'attesa.
+    if (!_traguardoVisibile) {
+      setState(() {
+        _traguardoVisibile = true;
+        _transizioneInCorso = false;
+      });
+    }
+    if (_segno.isCompleted) return;
+    _segno.value = 1;
+  }
+
+  bool _partito = false;
+
+  /// **IL TRAGUARDO E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+  ///
+  /// Durante i primi venti fotogrammi lo schermo e' solo stelle: nessun testo,
+  /// nessun nome, nessuna cifra. Al frame 21, cioe' a 800 millesimi esatti, la
+  /// scheda appare DI COLPO: niente dissolvenza, niente scala, niente rimbalzo.
+  /// Il lampo della stella copre lo stacco, ed e' per questo che il fondatore
+  /// ha messo li' il taglio.
+  bool _traguardoVisibile = false;
+
+  /// Vero mentre la transizione corre. Dal frame 21 al 50 le stelle continuano
+  /// sopra l'immagine ormai visibile; finita la corsa restano la scheda e
+  /// basta, senza altre animazioni.
+  bool _transizioneInCorso = true;
+
+  /// **QUANDO IL TRAGUARDO E' COMPARSO DAVVERO, per la misura M3.** L'ordine
+  /// chiede il tempo fra l'inizio della transizione e la prima pittura
+  /// dell'immagine, letto da un log con timestamp su dispositivo reale.
+  DateTime? _quandoEPartita;
+
+  /// **LA RETE DI SICUREZZA SUL TEMPO, e l'ha trovata una prova.** Ordine AT
+  /// voce 05.
+  ///
+  /// La scheda compare quando il lettore arriva al frame 21. Ma se il filmato
+  /// NON si apre, il frame 21 non arriva mai e la scheda resta invisibile per
+  /// sempre: una festa che non mostra il traguardo, cioe' un vicolo cieco. La
+  /// prova che monta la scena lo ha fatto vedere subito, perche' li' il codec
+  /// non si apre affatto.
+  ///
+  /// Questi due orologi non guidano niente quando tutto va bene, e il lettore
+  /// arriva sempre per primo: esistono per il giorno in cui non arriva.
+  Timer? _reteDelloStacco;
+  Timer? _reteDellaFine;
+
+  void _armaLaRete() {
+    _reteDelloStacco = Timer(SpiraleDiStelle.istanteDelCulmine, () {
+      if (!mounted || _traguardoVisibile) return;
+      debugPrint('ORDINE AT: stacco dalla rete di sicurezza, il lettore non '
+          'e arrivato al frame 21');
+      setState(() => _traguardoVisibile = true);
+    });
+    _reteDellaFine = Timer(SpiraleDiStelle.durata, () {
+      if (!mounted || !_transizioneInCorso) return;
+      setState(() {
+        _transizioneInCorso = false;
+        _traguardoVisibile = true;
+      });
+    });
+  }
+
+  /// **IL TRAGUARDO COMPARE AL CULMINE.** Ordine AV voce 01: la regia resta
+  /// quella dei filmati, cambia solo cio' che copre lo schermo. A 800
+  /// millesimi la spirale e' al suo massimo riempimento, il 74,4 per cento
+  /// della scena misurato sui pixel, e in quell'istante compaiono di colpo
+  /// l'immagine del traguardo e la parola di premio.
+  void _alFrame(int millesimi) {
+    _quandoEPartita ??= DateTime.now();
+    if (_traguardoVisibile) return;
+    if (millesimi < SpiraleDiStelle.istanteDelCulmine.inMilliseconds) return;
+    final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
+    debugPrint('ORDINE AV: traguardo scoperto al millesimo $millesimi della '
+        'spirale, $quanto ms dall inizio');
+    setState(() => _traguardoVisibile = true);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_partito) return;
+    _partito = true;
+    if (MediaQuery.of(context).disableAnimations) {
+      _segno.value = 1;
+      // **CON RIDUCI MOVIMENTO NON C'E' TRANSIZIONE, e il traguardo si vede
+      // subito**: si toglie il movimento, non il contenuto.
+      _traguardoVisibile = true;
+      _transizioneInCorso = false;
+    } else {
+      _segno.forward();
+      _armaLaRete();
+    }
+  }
+
+  @override
+  void dispose() {
+    _reteDelloStacco?.cancel();
+    _reteDellaFine?.cancel();
+    _segno.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    // **QUI SI CHIEDEVA IL PROSSIMO TRAGUARDO E IL SUO SENTIERO**, per la
+    // bolla che l'ordine AS voce 05 ha tolto: la festa dura meno di due
+    // secondi e in quel tempo si legge cosa si e' vinto, non cosa non si e'
+    // ancora vinto. Il motore che calcola il prossimo resta dov'e',
+    // `diario.prossimoDi`, e lo usa il sentiero.
+    // I sentieri coinvolti, senza ripetizioni e nell'ordine dei nominati: la
+    // festa unita porta il segno di ognuno, che e' il "Sigilli di tutti"
+    // dell'ordine AC voce 04.
+    final coinvolti = <Sentiero>[];
+    for (final s in widget.sentieri) {
+      if (!coinvolti.contains(s)) coinvolti.add(s);
+    }
+    final eosTotali =
+        widget.traguardi.fold<int>(0, (somma, t) => somma + t.eos);
+
+    return CosmosBackground(
+      seed: 23,
+      child: Material(
+        type: MaterialType.transparency,
+        child: GestureDetector(
+          key: const Key('festa_salta'),
+          behavior: HitTestBehavior.opaque,
+          onTap: _salta,
+          child: Stack(
+            children: [
+              // **LA SCHEDA E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+              // Si nasconde con `Visibility` e non con un `Opacity`: l'opacita' a
+              // zero e' una dissolvenza che comincia, e l'ordine chiede che al frame
+              // 21 la scheda appaia DI COLPO. `maintainState` e `maintainSize`
+              // tengono l'ingombro, cosi' quando compare non salta niente.
+              Visibility(
+                visible: _traguardoVisibile,
+                maintainState: true,
+                maintainSize: true,
+                maintainAnimation: true,
+                child: SafeArea(
+                  // LA SCENA SCORRE SE LO SCHERMO E' BASSO, invece di traboccare: su
+                  // un telefono piccolo, o con la scrittura ingrandita, la festa non
+                  // deve diventare una riga gialla di errore. La prova lo ha trovato
+                  // al primo montaggio, su uno schermo da 600 punti.
+                  //
+                  // **E IL CONGEDO STA FUORI DALLO SCORRIMENTO, ordine AN voce 09.**
+                  // Finche' stava in fondo alla colonna bastava che la festa
+                  // crescesse per spingerlo oltre il bordo, ed e' successo: le tre
+                  // frasi "quando arrivano i tuoi Eos" della voce 08 lo hanno portato
+                  // a 877 punti su uno schermo di 797, cioe' fuori. Una festa a
+                  // schermo pieno senza uscita raggiungibile e' una stanza senza
+                  // porta, quindi la porta si ancora al fondo e il resto scorre
+                  // sotto: qualunque cosa cresca dentro domani, l'uscita resta dov'e'.
+                  child: LayoutBuilder(
+                    builder: (context, vincoli) => Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingTokens.lg),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  minHeight:
+                                      vincoli.maxHeight - _altezzaDelCongedo),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: SpacingTokens.xxl),
+                                  // IL SEGNO DI OGNI SENTIERO COINVOLTO: quasi sempre uno,
+                                  // e con una festa unita di sentieri diversi uno ciascuno.
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      for (final s in coinvolti) ...[
+                                        SegnoDelMaestro(
+                                          sentiero: s,
+                                          avanzamento: _segno,
+                                          grande: true,
+                                        ),
+                                        if (s != coinvolti.last)
+                                          const SizedBox(
+                                              width: SpacingTokens.md),
+                                      ],
+                                    ],
+                                  ),
+                                  const SizedBox(height: SpacingTokens.lg),
+                                  // **LA PAROLA DI PREMIO, SOPRA OGNI ALTRO TESTO.** Ordine
+                                  // AT voce 07: al frame 21 compaiono insieme, nello stesso
+                                  // fotogramma, l'immagine del traguardo e questa parola.
+                                  // Durante i primi venti fotogrammi lo schermo e' solo
+                                  // stelle, e questo blocco non e' a schermo perche' tutta
+                                  // la scheda e' invisibile fino allo stacco.
+                                  //
+                                  // **Il resto del contenuto della card e' materia
+                                  // dell'ordine AU voce 04**, e questo ordine non ci mette
+                                  // le mani: qui si decide soltanto QUANDO entra in scena.
+                                  // **LA PAROLA DI PREMIO STA SEMPRE SU UNA RIGA SOLA.**
+                                  // Ordine AU voce 07. Sulla 2188 usciva "CONGRATULAZI" a
+                                  // capo "ONI", spezzata in mezzo a una parola, ed e' lo
+                                  // stesso difetto che l'ordine AS voce 05 aveva curato sul
+                                  // NOME del traguardo senza che nessuno guardasse la
+                                  // parola qui sopra. Si rimpicciolisce per entrare, non va
+                                  // a capo: una parola tagliata a meta' non e' una festa.
+                                  //
+                                  // **LA GERARCHIA SI CALCOLA, non si scrive.** Ordine AU
+                                  // voce 07: tre corpi diversi e distinguibili a colpo
+                                  // d'occhio. Scriverli fissi non basta, e la prova lo ha
+                                  // fatto vedere: su uno schermo da 360 punti la parola di
+                                  // premio scendeva da 34 a 27 per entrare su una riga,
+                                  // mentre il nome restava a 28, cioe' a video il premio
+                                  // diventava PIU' PICCOLO del nome. Qui si misura prima il
+                                  // corpo con cui la parola entra, e gli altri due livelli
+                                  // scendono con lei mantenendo il rapporto.
+                                  LayoutBuilder(builder: (context, vincoli) {
+                                    final stilePremio =
+                                        TypographyTokens.cerimonialeGrande()
+                                            .copyWith(
+                                                color: palette.gold,
+                                                letterSpacing: 1.6);
+                                    final corpoPremio =
+                                        TitoloCheNonSiSpezza.corpoCheEntra(
+                                            'CONGRATULAZIONI',
+                                            stilePremio,
+                                            vincoli.maxWidth,
+                                            minimo: 22);
+                                    return Column(children: [
+                                      Text(
+                                        'CONGRATULAZIONI',
+                                        key: const Key(
+                                            'celebrazione_congratulazioni'),
+                                        textAlign: TextAlign.center,
+                                        style: stilePremio.copyWith(
+                                            fontSize: corpoPremio),
+                                      ),
+                                      const SizedBox(height: SpacingTokens.sm),
+                                      for (final t in widget.traguardi) ...[
+                                        // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
+                                        // ordine AS voce 05, e non e' in maiuscolo
+                                        // integrale, ordine AU voce 07: quello vale solo per
+                                        // la parola qui sopra.
+                                        TitoloCheNonSiSpezza(
+                                          nomeInTondo(t.nome),
+                                          key: t == widget.traguardi.first
+                                              ? const Key('celebrazione_nome')
+                                              : null,
+                                          stile: TypographyTokens.cerimoniale()
+                                              .copyWith(
+                                                  color: palette.goldSoft,
+                                                  fontSize: corpoPremio * 0.72),
+                                          minimo: 16,
+                                        ),
+                                        // **QUANDO E' STATO RAGGIUNTO**, richiesta del
+                                        // fondatore ferma dal 17 agosto. L'istante c'era
+                                        // gia' nel dato del Sigillo, `quandoSiEAcceso`, e
+                                        // nessuno lo mostrava. Per i Sigilli accesi prima
+                                        // che il diario tenesse la data la riga non compare:
+                                        // **non si inventa una data**.
+                                        Builder(builder: (context) {
+                                          final quando = context
+                                              .read<DiarioDelCammino>()
+                                              .quandoSiEAcceso(t.id);
+                                          if (quando == null) {
+                                            return const SizedBox.shrink();
+                                          }
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: SpacingTokens.xs),
+                                            child: Text(
+                                              'Obiettivo raggiunto il '
+                                              '${_quandoScritto(quando)}',
+                                              key: t == widget.traguardi.first
+                                                  ? const Key(
+                                                      'celebrazione_quando')
+                                                  : null,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  TypographyTokens.didascalia()
+                                                      .copyWith(
+                                                          color: ColorTokens
+                                                              .textSecondary),
+                                            ),
+                                          );
+                                        }),
+                                        if (t != widget.traguardi.last)
+                                          const SizedBox(
+                                              height: SpacingTokens.xs),
+                                      ],
+                                    ]);
+                                  }),
+                                  if (widget.serie != null) ...[
+                                    const SizedBox(height: SpacingTokens.xs),
+                                    Text(widget.serie!,
+                                        key: const Key('celebrazione_serie'),
+                                        style: TypographyTokens.etichetta()
+                                            .copyWith(color: palette.goldSoft)),
+                                  ],
+                                  const SizedBox(height: SpacingTokens.md),
+                                  // Una frase sola, quella del piu' importante: tre frasi
+                                  // cerimoniali in fila sarebbero un muro di testo, e la
+                                  // festa deve restare leggibile in un respiro.
+                                  Text(
+                                    widget.principale.frase,
+                                    key: const Key('celebrazione_frase'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.corpo().copyWith(
+                                        color: ColorTokens.textPrimary,
+                                        height: 1.5),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.md),
+                                  // LA SOMMA DEGLI EOS: nessun traguardo perde i suoi,
+                                  // l'accredito resta per traguardo nella regia.
+                                  EosCheVolano(
+                                      quanti: eosTotali, avanzamento: _segno),
+                                  const SizedBox(height: SpacingTokens.lg),
+                                  VieDellaCondivisione(
+                                    // Si condivide il piu' importante: la card porta un
+                                    // traguardo solo, e il piu' importante e' la festa.
+                                    suScelta: (modo) => condividiIlTraguardo(
+                                      context,
+                                      traguardo: widget.principale,
+                                      modo: modo,
+                                    ),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.xl),
+                                  // **VIA LA BOLLA DEL PROSSIMO TRAGUARDO.** Decisione di
+                                  // Mauro del 20 agosto 2026, ordine AS voce 05.
+                                  //
+                                  // C'era per non chiudere mai col punto: "il prossimo
+                                  // traguardo e' sempre li'". Ma la festa dura meno di due
+                                  // secondi e in quel tempo la persona deve leggere cosa ha
+                                  // vinto, non cosa non ha ancora vinto: un secondo nome in
+                                  // grande, subito sotto il proprio, si mangiava il momento.
+                                  // Vale la regola trasversale di quest'ordine: dove un
+                                  // testo si puo' togliere, si toglie invece di
+                                  // rimpicciolirlo. Il cammino resta aperto lo stesso, e la
+                                  // via per proseguire e' il pulsante qui sotto, che porta
+                                  // al sentiero.
+                                  const SizedBox(height: SpacingTokens.sm),
+                                  // IL SALTO DIRETTO AL PUNTO DEL JOURNAL, ordine P voce 20.
+                                  //
+                                  // La festa mostrava il Sigillo acceso e poi si chiudeva su
+                                  // se stessa: chi voleva vederlo al suo posto doveva
+                                  // ritrovare il sentiero da solo. Il sentiero scende gia' da
+                                  // solo sul punto raggiunto, voce 36, quindi qui basta
+                                  // aprirlo: la discesa fa il resto.
+                                  TextButton.icon(
+                                    key: const Key(
+                                        'celebrazione_vai_al_sigillo'),
+                                    onPressed: () {
+                                      final navigatore = Navigator.of(context);
+                                      navigatore.maybePop();
+                                      // AL PRIMO DEI SIGILLI NOMINATI, ordine AC voce 04.
+                                      navigatore.push(SentieroScreen.route(
+                                          widget.sentieri.first));
+                                    },
+                                    icon: Icon(Icons.route_rounded,
+                                        size: 16, color: palette.goldSoft),
+                                    label: Text('Vedi il Sigillo sul sentiero',
+                                        style: TypographyTokens.didascalia()
+                                            .copyWith(color: palette.goldSoft)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        // IL CONGEDO, ANCORATO: sta fuori dallo scorrimento, quindi
+                        // e' raggiungibile qualunque cosa ci sia sopra.
+                        //
+                        // **E porta il suo velo**, una sfumatura ferma e non una
+                        // sfocatura per fotogramma: senza, cio' che scorre gli passa
+                        // dietro e le due scritte si leggono una sull'altra.
+                        Container(
+                          height: _altezzaDelCongedo,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0x0005060A), Color(0xE605060A)],
+                            ),
+                          ),
+                          child: Center(
+                            child: TextButton(
+                              key: const Key('celebrazione_continua'),
+                              onPressed: () => Navigator.of(context).maybePop(),
+                              child: Text('Continua il cammino',
+                                  style: TypographyTokens.etichetta().copyWith(
+                                      color: ColorTokens.textSecondary)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // **LE PARTICELLE SONO MORTE QUI. Ordine AT voce 03.**
+              //
+              // Qui vivevano le tre feste per Maestro: stelle dal centro per
+              // Medora, rune dall'alto per Caligo, polline dal basso per Aura.
+              // Le sostituisce la TRANSIZIONE DI STELLE, un filmato con alpha
+              // per Maestro, e l'ordine dice di demolire invece che adattare.
+              //
+              // **Muore anche la pioggia di rune di Caligo dell'ordine V**,
+              // che era una decisione di Mauro del 15 agosto 2026: viene
+              // sostituita dalle transizioni, e va scritto invece che sparire
+              // in silenzio.
+
+              // **LA SPIRALE STA SOPRA TUTTO.** Ordine AV voce 01: parte
+              // nell'istante in cui la scena viene montata, copre lo schermo
+              // intero, e dal culmine continua a girare SOPRA la scheda ormai
+              // visibile, diradandosi. Finita la corsa si smonta e resta la
+              // scheda, senza altre animazioni.
+              //
+              // **E' UGUALE PER TUTTI E TRE I MAESTRI**, decisione del
+              // fondatore del 22 agosto 2026: cambia la sua decisione
+              // precedente, quella della festa diversa per Maestro coi tre
+              // filmati dell'ordine AT.
+              if (_transizioneInCorso)
+                Positioned.fill(
+                  child: SpiraleDiStelle(
+                    suFrame: _alFrame,
+                    suFine: () {
+                      if (!mounted) return;
+                      setState(() {
+                        _transizioneInCorso = false;
+                        _traguardoVisibile = true;
+                      });
+                    },
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// IL SEGNO DEL MAESTRO: il frutto che matura, la stella che si accende, il
+/// petalo che si apre. Mai uno scrigno, in nessuna delle due forme.
+class SegnoDelMaestro extends StatelessWidget {
+  const SegnoDelMaestro({
+    super.key,
+    required this.sentiero,
+    required this.avanzamento,
+    this.grande = false,
+  });
+
+  final Sentiero sentiero;
+  final Animation<double> avanzamento;
+  final bool grande;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final misura = grande ? 96.0 : 32.0;
+    return AnimatedBuilder(
+      key: const Key('segno_del_maestro'),
+      animation: avanzamento,
+      builder: (context, _) {
+        final t = Curves.easeOutBack.transform(avanzamento.value.clamp(0, 1));
+        return Opacity(
+          opacity: avanzamento.value.clamp(0.0, 1.0),
+          child: Transform.scale(
+            scale: 0.6 + 0.4 * t,
+            // **IL SEGNO E' DISEGNATO DA NOI, ordine AQ voce 02.** Qui
+            // stavano tre glifi di Material, e due erano lo stesso fiore.
+            child: SegnoDelSentiero(
+              sentiero: sentiero,
+              colore: palette.goldSoft,
+              misura: misura,
+              avanzamento: avanzamento.value,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// GLI EOS CHE VOLANO NEL BORSELLINO, e il saldo che scatta a vista.
+class EosCheVolano extends StatelessWidget {
+  const EosCheVolano({
+    super.key,
+    required this.quanti,
+    required this.avanzamento,
+  });
+
+  final int quanti;
+  final Animation<double> avanzamento;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return AnimatedBuilder(
+      key: const Key('eos_che_volano'),
+      animation: avanzamento,
+      builder: (context, _) {
+        final visti = (quanti * avanzamento.value).round();
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconaDegliEos(misura: 18, colore: palette.goldSoft),
+            const SizedBox(width: 6),
+            Text('+$visti Eos',
+                key: const Key('eos_contati'),
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: palette.goldSoft)),
+          ],
+        );
+      },
+    );
+  }
+}
+
+// **LA SOVRIMPRESSIONE BREVE E' STATA DEMOLITA, ordine BE voce 05.**
+// Viveva qui: la scena su velo scuro senza spirale ne' data che il fondatore
+// ha riconosciuto come la card vecchia. Una celebrazione sola, quella piena.
+
+/// RIAPRE LA CARD di un Sigillo gia' acceso, dal journal, anche settimane
+/// dopo: il bonus in sospeso si incassa da qui.
+Future<void> mostraLaCardDelTraguardo(
+  BuildContext context, {
+  required Traguardo traguardo,
+  required Sentiero sentiero,
+}) {
+  // QUANDO SI E' ACCESO, dal diario, per la scritta della voce BD.06. Il
+  // provider si legge col ripiego e mai con la pretesa: questa via la aprono
+  // anche schermate montate a meta' nelle prove, e un foglio che muore per
+  // un provider assente e' la famiglia di guasti gia' pagata una volta con
+  // una quarantina di prove cadute.
+  DateTime? quando;
+  try {
+    quando = context.read<DiarioDelCammino>().quandoSiEAcceso(traguardo.id);
+  } catch (diarioAssente) {
+    quando = null;
+  }
+  return foglioDelCerchio<void>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    // **IL FOGLIO VESTE IL MAESTRO DEL SENTIERO, ordine AL voce 04.** Il
+    // builder vive sul Navigator radice, fuori dallo scope della schermata
+    // che lo apre: qui la card e le vie chiedevano `context.palette` a uno
+    // scope che non c'era, e in release il foglio moriva BIANCO. Lo scope
+    // giusto non e' quello della schermata di passaggio ma quello del
+    // sentiero del traguardo, lo stesso disegno di paletteDelSentiero.
+    builder: (foglio) => MaestroScope(
+      maestro: sentiero.maestro,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
+            SpacingTokens.lg, SpacingTokens.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CardDelTraguardo(
+                traguardo: traguardo, sentiero: sentiero, quando: quando),
+            const SizedBox(height: SpacingTokens.md),
+            VieDellaCondivisione(
+              suScelta: (modo) {
+                Navigator.of(foglio).pop();
+                condividiIlTraguardo(context, traguardo: traguardo, modo: modo);
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+/// CONDIVIDE UN TRAGUARDO e incassa il bonus graduato, che e' uno solo.
+///
+/// **QUI I TRE PULSANTI NON FACEVANO NIENTE, ordine S voce 08.** Questa funzione
+/// segnava il traguardo come condiviso e chiedeva il bonus al server, e nessun
+/// foglio di sistema si apriva: toccando "Condividi pubblicamente" non partiva
+/// niente verso nessuno, e il bonus era un premio per un gesto mai avvenuto. Un
+/// controllo o e' collegato a qualcosa o e' dichiarato inattivo, e non esiste la
+/// terza possibilita'.
+///
+/// **L'ORDINE ADESSO E': si condivide, e solo dopo si incassa.** Se la
+/// condivisione non parte non si segna niente e non si chiede niente: `false`
+/// dalla porta non e' solo un guasto, e' anche la persona che ha aperto il foglio
+/// di sistema e ha cambiato idea, e in quel caso il bonus non e' dovuto.
+///
+/// Passa dalla PORTA UNICA della condivisione, quella della voce P.28: non se ne
+/// scrive una quarta strada.
+Future<void> condividiIlTraguardo(
+  BuildContext context, {
+  required Traguardo traguardo,
+  required ModoDellaCondivisione modo,
+}) async {
+  final diario = context.read<DiarioDelCammino>();
+  final servizi = context.read<AppServices>();
+  final porta = servizi.porta;
+  final borsa = context.read<QuestionAllowance>();
+  final registro = _registroDegliEos(context);
+
+  // 1. SI CONDIVIDE DAVVERO.
+  // **IL LINK PORTA IL CODICE DELL'INVITO, ordine BX voce 02**: l'uid di chi
+  // invita e la porta del Maestro da cui l'invito parte. Senza uid, per
+  // esempio prima della registrazione, il link resta quello nudo di prima e
+  // il premio semplicemente non si potra' attribuire.
+  String? uid;
+  try {
+    uid = context.read<AccountDelCerchio>().uid;
+  } catch (senzaAccount) {
+    uid = null;
+  }
+  final maestro = MaestroScope.forse(context)?.key.maestro?.name;
+  final andata = await PortaDellaCondivisione.testo(
+    TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
+        codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro)),
+  );
+  if (!andata) return;
+
+  // 2. SI SEGNA, cosi' il bonus in sospeso non resta in sospeso per sempre.
+  await diario.segnaCondiviso(traguardo.id);
+
+  // **L'INVITO NON SI PAGA ADESSO, ordine AN voce 08, e qui si dice la
+  // verita' invece di fingere.** Il suo premio arriva quando l'amico scarica
+  // il Cerchio, e sapere se l'ha fatto richiede un'attribuzione
+  // dell'installazione che nel progetto NON esiste. Accreditarlo alla
+  // condivisione, mentre il pulsante dichiara "quando il tuo amico scarica",
+  // sarebbe una bugia a schermo: resta dichiarato in attesa sulla card e si
+  // accreditera' quando l'attribuzione ci sara'. Gli altri due modi si
+  // incassano subito, perche' del loro esito il codice sa tutto.
+  if (!modo.subitoPagato) return;
+
+  // 3. SI INCASSA, e il saldo si applica col numero che il server ha appena
+  //    detto: chiederlo di nuovo con una seconda chiamata era il difetto della
+  //    voce S.04, e se quella non risponde il numero in barra resta vecchio.
+  final saldo = await PremioDelTraguardo.bonus(porta, traguardo, modo);
+  if (saldo == null) {
+    servizi.guasti.registra(
+      operazione: 'bonus di condivisione ${modo.motivo} per ${traguardo.id}',
+      // Nessun "e'" scritto con l'apostrofo: la guardia della lingua non puo'
+      // distinguere da fuori una frase mostrata da una riga di registro, e in
+      // questo repository quella forma resta vietata comunque.
+      errore: 'il server non ha risposto: la condivisione era partita e il '
+          'bonus si riprende alla prossima sincronia',
+    );
+    return;
+  }
+  final arrivati = saldo - borsa.saldoEos;
+  await registro?.segna(
+    quanti: arrivati,
+    perche: 'Hai condiviso ${traguardo.nome}',
+  );
+  await borsa.applicaSaldo(saldo);
+}
+
+/// Il registro dei movimenti, se l'albero lo porta: una card riaperta dal
+/// journal in una prova non deve cadere per un provider mancante.
+RegistroDegliEos? _registroDegliEos(BuildContext context) {
+  try {
+    return context.read<RegistroDegliEos>();
+  } catch (errore) {
+    return null;
+  }
+}

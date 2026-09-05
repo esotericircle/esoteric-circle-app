@@ -1,7 +1,46 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Posizione approssimata e precisa: serve solo a orientare "Il cielo
+         sopra di te" sul luogo reale dell'utente. Con fallback elegante se il
+         permesso manca. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- Microfono: coglie il soffio nel Soffio del Destino. Con ripiego
+         tattile elegante se il permesso manca. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Fotocamera: legge i tratti del volto on-device nella Costellazione del
+         Viso. Nessuna immagine lascia il dispositivo. Con ripiego tattile se il
+         permesso manca o la fotocamera non c'e'. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- Notifiche: un avviso al giorno, quando il sole sorge, che il Rito
+         dell'Alba e' pronto. Si chiede la prima volta che si apre il rito, non
+         all'avvio dell'app, e chi dice no continua a usare tutto.
+
+         NON dichiariamo SCHEDULE_EXACT_ALARM ne' USE_EXACT_ALARM, ed e' una
+         scelta obbligata: da Android 14 la prima e' negata di default alle app
+         che puntano API 33 o superiore, e la seconda e' una permission
+         ristretta che Google Play concede solo ad app la cui funzione centrale
+         e' la sveglia o il calendario. Esoteric Circle non e' ne' l'una ne'
+         l'altra, quindi chiederla ci farebbe rifiutare la pubblicazione.
+         L'avviso arriva in una finestra attorno all'ora, e lo diciamo. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false"/>
+    <!-- La fotografia del volto, la data e il luogo di nascita stanno nelle
+         preferenze: restano sul telefono. Il Backup Automatico li porterebbe
+         su Drive col valore predefinito, mentre due schermate promettono che
+         nessuna immagine lascia il dispositivo. Il backup resta attivo per il
+         resto, cosi' cambiando telefono non si perde tutto. -->
     <application
         android:label="Esoteric Circle"
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:name="${applicationName}"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

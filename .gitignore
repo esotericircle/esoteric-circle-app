@@ -1,6 +1,15 @@
 # Miscellaneous
 *.class
 *.lock
+# Eccezione mirata: Esoteric Circle e' una app, non una libreria, quindi il lock
+# va versionato. Senza, l'albero delle dipendenze resta flottante e una
+# pubblicazione a monte puo' rompere la build senza che nulla cambi qui.
+!pubspec.lock
+# Stessa eccezione, stessa ragione, per il lock dei pod iOS. Il file oggi non
+# esiste ancora: nasce dal primo pod install, che gira solo su macOS, e la
+# build lo consegna fra gli artefatti. Quando arrivera', git deve vederlo
+# invece di mangiarselo in silenzio con la regola *.lock qui sopra.
+!ios/Podfile.lock
 *.log
 *.pyc
 *.swp
@@ -116,15 +125,8 @@ app.*.symbols
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-!/dev/ci/**/Gemfile.lock# Segreti e credenziali - non caricare mai su GitHub
-.env
-.env.*
-.secrets/
-*.key
-*.p8
-*.jks
-*.keystore
-**/service-account*.json
+!/dev/ci/**/Gemfile.lock
+
 # Segreti e credenziali - non caricare mai su GitHub
 .env
 .env.*
@@ -134,3 +136,57 @@ app.*.symbols
 *.jks
 *.keystore
 **/service-account*.json
+
+# Configurazione Firebase per piattaforma: non versionata. Contiene gli
+# identificativi di progetto, si inietta in build da un secret (vedi
+# .github/workflows e docs/C3_CHAT_MEDORA_SETUP.md). Va rigenerata in locale
+# con `flutterfire configure` o scaricata dalla console Firebase.
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+
+# Asset sorgente e derivati generati sul PC di Mauro: master, WebP convertiti e
+# script di generazione. Non vanno mai su Git, si servono da CDN o si importano
+# selettivamente in brand_assets/.
+output/
+
+# Materiale personale di Mauro, mai su GitHub
+# I loghi sorgente pesano quasi sei megabyte l'uno: negli asset ci vanno solo
+# le densita' generate, non gli originali.
+logo/
+Logo/
+# Le preferenze locali dell'agente sono di questa macchina, non del progetto.
+.claude/settings.local.json
+# Gli script di generazione delle famiglie grafiche vivono nella radice e sono
+# strumenti di lavoro di Mauro, non codice dell'app. Quelli del progetto
+# stanno in tool/ e restano versionati.
+/*.py
+scripts_archive/
+pilot-references/
+
+# Sorgenti sonori acquistati su Envato, tenuti nella cartella di lavoro per
+# comodita' ma mai versionati: sono archivi da svariati megabyte e sono
+# materiale su licenza. Nel repository ci vanno solo i cinque MP3 finiti,
+# dentro assets/audio/. Regola aggiunta il 30 luglio 2026, dopo aver trovato
+# quindici megabyte di zip nella radice di un repository pubblico.
+sound effect/
+sound_effect/
+*.zip
+
+# Il GREZZO dell'intro, cioe' il file come esce dal montaggio: 1080x1920 a
+# dodici megabit e mezzo al secondo, ventidue megabyte per quattordici secondi.
+# Nel repository ci va solo il CONVERTITO, in brand_assets/intro/, che e' lo
+# stesso video a un terzo del peso. Il grezzo resta qui accanto per poterlo
+# riconvertire, ma non entra: e' la stessa regola dei sorgenti sonori qui sopra,
+# e la cartella si chiamava con uno spazio dentro, quindi nessuna regola
+# esistente la prendeva. Regola aggiunta il 5 agosto 2026.
+intro video/
+
+# Gli strumenti da PC di sviluppo tirano giu' le proprie dipendenze, che
+# NON entrano nell'app: Swiss Ephemeris e' AGPL e resta qui.
+tool/node_modules/
+# Le dipendenze della radice: sono strumenti di PROVA (le prove delle regole di
+# Firestore) e non si versionano, come quelle di tool/ e di functions/.
+/node_modules/
+transition/

@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+/// Traduce il nome del colore del giorno (dalle palette del corpus) in una tinta
+/// per la pastiglia. Se un nome non e' mappato ritorna null e chi disegna usa
+/// l'oro tenue.
+Color? oroscopoColor(String? name) => name == null ? null : _colorByName[name];
+
+const Map<String, Color> _colorByName = {
+  'rosso': Color(0xFFC0392B),
+  'oro': Color(0xFFD4AF37),
+  'corallo': Color(0xFFFF7F50),
+  'cremisi': Color(0xFFDC143C),
+  'verde salvia': Color(0xFF9CAF88),
+  'terracotta': Color(0xFFE2725B),
+  'ottone': Color(0xFFB5A642),
+  'rosa antico': Color(0xFFC08081),
+  'giallo': Color(0xFFF1C40F),
+  'azzurro': Color(0xFF7EC8E3),
+  'argento': Color(0xFFC0C0C0),
+  'lilla': Color(0xFFC8A2C8),
+  'bianco perla': Color(0xFFF0EAD6),
+  'blu notte': Color(0xFF191970),
+  'glicine': Color(0xFFC9A0DC),
+  'ambra': Color(0xFFFFBF00),
+  'arancio': Color(0xFFE67E22),
+  'porpora': Color(0xFF800080),
+  'verde bosco': Color(0xFF228B22),
+  'beige': Color(0xFFE8DCC4),
+  'blu polvere': Color(0xFFB0C4DE),
+  'bronzo': Color(0xFFCD7F32),
+  'rosa cipria': Color(0xFFE6BFCB),
+  'verde acqua': Color(0xFF7FFFD4),
+  'oro rosa': Color(0xFFB76E79),
+  'celeste': Color(0xFF9FD8E6),
+  'rosso scuro': Color(0xFF8B0000),
+  'nero': Color(0xFF1A1A1A),
+  'bordeaux': Color(0xFF6D071A),
+  'verde smeraldo': Color(0xFF2ECC71),
+  'viola': Color(0xFF7D3C98),
+  'indaco': Color(0xFF4B0082),
+  'turchese': Color(0xFF40E0D0),
+  'grigio pietra': Color(0xFF928E85),
+  'marrone': Color(0xFF7B4B2A),
+  'verde scuro': Color(0xFF14532D),
+  'antracite': Color(0xFF383E42),
+  'blu elettrico': Color(0xFF1F6FEB),
+  'blu ghiaccio': Color(0xFFD6ECEF),
+  'verde mare': Color(0xFF2E8B57),
+  'lavanda': Color(0xFFB497BD),
+  'blu oltremare': Color(0xFF1B3A8B),
+};

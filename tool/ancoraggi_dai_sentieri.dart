@@ -1,0 +1,449 @@
+import 'dart:io';
+import 'dart:math' as math;
+import 'dart:ui' as ui;
+
+import 'package:esoteric_circle/core/sigilli/forma_dell_elemento.dart';
+import 'package:esoteric_circle/core/sigilli/lettura_degli_ancoraggi.dart';
+import 'package:esoteric_circle/core/sigilli/regole_delle_tre_arti.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// LO STRUMENTO CHE RICAVA GLI ANCORAGGI DALL'ARTE. Ordine T voce 01.
+///
+/// **Sta fuori dalla suite di proposito**, come `tool/attribuzione_cieca.dart`:
+/// `flutter test` senza argomenti guarda solo `test/`, quindi questo non parte
+/// mai da solo. Si lancia a mano quando l'arte cambia.
+///
+/// Come si lancia, dal PC:
+///
+///     flutter test tool/ancoraggi_dai_sentieri.dart
+///
+/// Cosa fa, in quest'ordine:
+///   1. legge le tre immagini di `brand_assets/sentieri/`;
+///   2. per ogni sentiero che ha una regola, ricava i cinquantacinque ancoraggi;
+///   3. scrive il dato in `lib/core/sigilli/ancoraggi_dei_sentieri.dart`;
+///   4. disegna l'IMMAGINE DI VERIFICA in `docs/preview/`, cioe' l'arte con
+///      sopra i punti trovati numerati da 1 a 55.
+///
+/// **Il passo 4 non e' un di piu'.** E' l'unica cosa che permette a Mauro di
+/// dire in due secondi se i punti sono giusti: una prova verde dice che sono
+/// cinquantacinque, non che sono i cinquantacinque giusti.
+void main() {
+  testWidgets('ricava gli ancoraggi dall\'arte e scrive il dato',
+      (tester) async {
+    await tester.runAsync(() async {
+      // **IL FONT VA CARICATO A MANO.** In `flutter test` il font predefinito
+      // disegna un rettangolo al posto di ogni cifra: senza questa riga
+      // l'immagine di verifica mostra scatole colorate invece dei numeri, e
+      // l'unica cosa che serviva a Mauro non c'e' piu'.
+      final font = FontLoader('Cinzel')
+        ..addFont(File('assets/fonts/Cinzel-variable.ttf')
+            .readAsBytes()
+            .then((b) => ByteData.view(b.buffer)));
+      await font.load();
+      final righe = <String>[];
+      final formeDart = <String>[];
+      final saltati = <String>[];
+      for (final sentiero in Sentieri.tutti) {
+        final regola = RegoleDelleTreArti.per(sentiero);
+        final sorgente = RegoleDelleTreArti.sorgenteDi(sentiero);
+        final daLeggere = File(RegoleDelleTreArti.daDoveSiLegge(sentiero));
+        final arteFile = File(RegoleDelleTreArti.arteDi(sentiero));
+        if (!daLeggere.existsSync() || !arteFile.existsSync()) {
+          saltati.add(sentiero.name);
+          // ignore: avoid_print
+          print('${sentiero.name}: manca ${daLeggere.path} oppure '
+              '${arteFile.path}, saltato');
+          continue;
+        }
+        final arte = await _apri(await arteFile.readAsBytes());
+        final sorgenteImmagine = sorgente == SorgenteDegliAncoraggi.arte
+            ? arte
+            : await _apri(await daLeggere.readAsBytes());
+        // **LE DUE IMMAGINI DEVONO AVERE LA STESSA MISURA**, altrimenti i
+        // pallini non dicono dove stanno gli elementi dell'arte ma dove
+        // starebbero su un'altra tela.
+        if (sorgenteImmagine.width != arte.width ||
+            sorgenteImmagine.height != arte.height) {
+          throw StateError('${sentiero.name}: i pallini sono '
+              '${sorgenteImmagine.width}x${sorgenteImmagine.height} mentre '
+              'l\'arte misura ${arte.width}x${arte.height}. Misure diverse: i '
+              'pallini non valgono');
+        }
+        final crudo = (await sorgenteImmagine.toByteData(
+                format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
+        final ancoraggi = LetturaDegliAncoraggi.leggi(
+            crudo, sorgenteImmagine.width, sorgenteImmagine.height, regola,
+            raggruppaPerColore: sorgente == SorgenteDegliAncoraggi.pallini);
+        // ignore: avoid_print
+        print('${sentiero.name}: ${ancoraggi.length} ancoraggi da '
+            '${sorgenteImmagine.width}x${sorgenteImmagine.height}, '
+            'sorgente ${sorgente.name}');
+        righe.add(_dartDi(sentiero, ancoraggi));
+
+        // **LE CINQUANTACINQUE FORME, calcolate qui e non a ogni fotogramma.**
+        final crudoArte = (await arte.toByteData(
+                format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
+        final materia = RegoleDelleTreArti.formaDi(sentiero, arte.width);
+        // **L'INIEZIONE SI VERIFICA PRIMA DI LEGGERE IL CONTEGGIO.** Ordine AA
+        // voce 01 lettera d: se questi due numeri sono uguali la saldatura non e'
+        // entrata, e il conteggio delle forme che segue non dice niente.
+        final (muroPrima, muroDopo) = CrescitaDellaForma.muroPrimaEDopo(
+            crudoArte, arte.width, arte.height, materia.saldaturaDelMuro);
+        // ignore: avoid_print
+        print('  muro: $muroPrima pixel, con saldatura '
+            '${materia.saldaturaDelMuro} diventa $muroDopo '
+            '(${muroPrima == 0 ? "zero" : "piu' ${((muroDopo - muroPrima) / muroPrima * 100).toStringAsFixed(1)} per cento"})');
+        // **SUL LOTO LA FORMA E' IL DISCO DELLA PERLA, non la crescita.** Ordine
+        // AE voce 03. L'arte delle perle ha cinquantacinque bersagli TONDI, e la
+        // legge delle luci e' cambiata: si illumina la perla, non il petalo. Il
+        // raggio si legge dal pallino, che lo porta gia': si misura la corsa
+        // opaca del pallini attraverso il centro, non si indovina. La
+        // distinzione fra forma vera e ripiego per il Loto muore qui.
+        final crudoPallini = sentiero == Sentiero.loto
+            ? (await sorgenteImmagine.toByteData(
+                    format: ui.ImageByteFormat.rawRgba))!
+                .buffer
+                .asUint8List()
+            : null;
+        final forme = <FormaDellElemento>[];
+        for (final a in ancoraggi) {
+          final cx = (a.x * arte.width).round();
+          final cy = (a.y * arte.height).round();
+          if (crudoPallini != null) {
+            forme.add(_discoDellaPerla(
+                crudoArte, crudoPallini, arte.width, arte.height, cx, cy));
+          } else {
+            forme.add(CrescitaDellaForma.cresci(
+              crudoArte,
+              arte.width,
+              arte.height,
+              cx,
+              cy,
+              materia,
+            ));
+          }
+        }
+        final ripieghi = forme.where((f) => f.eRipiego).length;
+        final aree = forme.where((f) => !f.eRipiego).map((f) => f.area).toList()
+          ..sort();
+        // **QUANTE FORME TORNANO ALL'ORO, e si stampa invece di dedurlo.** Una
+        // forma senza colore fa accendere quell'elemento della luce dorata di
+        // prima: e' il ripiego dichiarato dell'ordine X voce 01 lettera b, e chi
+        // guarda deve poter sapere su quanti elementi vale.
+        final senzaColore = forme.where((f) => f.colore == null).length;
+        // ignore: avoid_print
+        print('  forme ${forme.length - ripieghi}, ripieghi $ripieghi'
+            '${aree.isEmpty ? "" : ", aree min ${aree.first} mediana "
+                "${aree[aree.length ~/ 2]} max ${aree.last}"}'
+            ', senza colore $senzaColore su ${forme.length}');
+        // **IL LOTO SI RIPORTA PER FIORE E PER PETALO.** Ordine Y voce 01
+        // lettera b. Un numero aggregato dice che c'e' un problema, questa
+        // tabella dice DOVE, e chi corregge a mano ne marca pochi invece di
+        // cinquanta al buio.
+        if (sentiero == Sentiero.loto) {
+          _tabellaDelLoto(ancoraggi, forme, arte.width, arte.height);
+        }
+
+        formeDart.add(_formeDart(sentiero, forme));
+        await _immagineDiVerifica(sentiero, arte, ancoraggi, forme);
+      }
+      _scriviIlDato(righe, saltati);
+      _scriviLeForme(formeDart);
+    });
+  });
+}
+
+/// IL DISCO DELLA PERLA: la forma di un elemento del Loto. Ordine AE voce 03.
+///
+/// **Il raggio viene dal pallino, non si indovina**: e' la mezza corsa opaca del
+/// file dei pallini attraverso il centro dell'ancoraggio, cioe' esattamente il
+/// raggio che lo strumento delle perle ha misurato e disegnato. Il colore e' il
+/// mediano della materia dentro il disco, dalla stessa porta di sempre.
+FormaDellElemento _discoDellaPerla(
+  Uint8List arte,
+  Uint8List pallini,
+  int larghezza,
+  int altezza,
+  int cx,
+  int cy,
+) {
+  bool opaco(int x, int y) =>
+      x >= 0 && x < larghezza && y >= 0 && y < altezza &&
+      pallini[(y * larghezza + x) * 4 + 3] > 128;
+  var sinistra = 0;
+  while (opaco(cx - sinistra - 1, cy)) {
+    sinistra++;
+  }
+  var destra = 0;
+  while (opaco(cx + destra + 1, cy)) {
+    destra++;
+  }
+  final raggio = ((sinistra + destra) / 2).round();
+  final strisce = <int>[];
+  var area = 0;
+  for (var dy = -raggio; dy <= raggio; dy++) {
+    final y = cy + dy;
+    if (y < 0 || y >= altezza) continue;
+    final mezzo = math.sqrt((raggio * raggio - dy * dy).toDouble()).floor();
+    final x1 = math.max(0, cx - mezzo);
+    final x2 = math.min(larghezza - 1, cx + mezzo);
+    strisce.addAll([y, x1, x2]);
+    area += x2 - x1 + 1;
+  }
+  return FormaDellElemento(
+    strisce: strisce,
+    eRipiego: false,
+    area: area,
+    colore: CrescitaDellaForma.materia(
+        arte, larghezza, altezza, cx, cy, lato: math.max(6, raggio ~/ 2)),
+  );
+}
+
+/// LA TABELLA DEL LOTO: quale fiore e quale petalo ha ripiegato.
+///
+/// I petali si contano **in senso orario dal piu' in alto**, da 1 a 10, e il
+/// verso e il punto di partenza vengono da `StrutturaDelLoto`, che e' la porta
+/// unica: se un giorno cambiassero, cambierebbero qui e nella prova insieme.
+void _tabellaDelLoto(
+  List<AncoraggioDelSentiero> ancoraggi,
+  List<FormaDellElemento> forme,
+  int larghezza,
+  int altezza,
+) {
+  final aree = <int>[];
+  var ripiegati = 0;
+  for (var fiore = 0; fiore < StrutturaDelLoto.quantiFiori; fiore++) {
+    final centro = StrutturaDelLoto.centroDi(ancoraggi, fiore);
+    final petali = StrutturaDelLoto.petaliInSensoOrario(
+      ancoraggi,
+      fiore,
+      larghezzaArte: larghezza,
+      altezzaArte: altezza,
+    );
+    final caduti = <String>[];
+    if (centro >= 0 && forme[centro].eRipiego) caduti.add('centro');
+    for (var p = 0; p < petali.length; p++) {
+      if (forme[petali[p]].eRipiego) {
+        caduti.add('${p + 1}');
+      } else {
+        aree.add(forme[petali[p]].area);
+      }
+    }
+    if (centro >= 0 && !forme[centro].eRipiego) aree.add(forme[centro].area);
+    ripiegati += caduti.length;
+    // ignore: avoid_print
+    print('  fiore $fiore: ripiego su ${caduti.isEmpty ? "nessuno" : caduti.join(", ")}'
+        ' (${caduti.length} su ${petali.length + 1})');
+  }
+  aree.sort();
+  // ignore: avoid_print
+  print('  LOTO: ripieghi $ripiegati su ${ancoraggi.length}, forme vere '
+      '${aree.length}${aree.isEmpty ? "" : ", area mediana "
+          "${aree[aree.length ~/ 2]} massima ${aree.last}"}');
+}
+
+Future<ui.Image> _apri(Uint8List byte) async {
+  final codice = await ui.instantiateImageCodec(byte);
+  return (await codice.getNextFrame()).image;
+}
+
+String _dartDi(Sentiero sentiero, List<AncoraggioDelSentiero> a) {
+  final b = StringBuffer();
+  b.writeln('    Sentiero.${sentiero.name}: [');
+  for (final p in a) {
+    b.writeln('      AncoraggioDelSentiero(x: ${p.x.toStringAsFixed(5)}, '
+        'y: ${p.y.toStringAsFixed(5)}, gruppo: ${p.gruppo}, '
+        'eGrande: ${p.eGrande}),');
+  }
+  b.writeln('    ],');
+  return b.toString();
+}
+
+void _scriviIlDato(List<String> righe, List<String> saltati) {
+  final b = StringBuffer()
+    ..writeln('library;')
+    ..writeln()
+    ..writeln("import 'lettura_degli_ancoraggi.dart';")
+    ..writeln("import 'sentieri.dart';")
+    ..writeln()
+    ..writeln('/// GLI ANCORAGGI DEI TRE SENTIERI. Ordine T voce 01.')
+    ..writeln('///')
+    ..writeln('/// **QUESTO FILE NON SI SCRIVE A MANO.** Lo produce')
+    ..writeln('/// `tool/ancoraggi_dai_sentieri.dart` leggendo le immagini di')
+    ..writeln('/// `brand_assets/sentieri/`, e')
+    ..writeln('/// `test/gli_ancoraggi_vengono_dall_arte_test.dart` rifa\' la')
+    ..writeln('/// lettura a ogni giro e confronta: se l\'arte cambia e questo')
+    ..writeln('/// file no, una riga cade.')
+    ..writeln('///')
+    ..writeln('/// **Perche\' il dato sta qui invece di ricavarsi ogni volta.**')
+    ..writeln('/// Riconoscere le macchie su un milione e mezzo di pixel costa')
+    ..writeln('/// troppo per farlo mentre qualcuno guarda la schermata.');
+  if (saltati.isNotEmpty) {
+    b
+      ..writeln('///')
+      ..writeln('/// **Sentieri senza ancoraggi, oggi: ${saltati.join(", ")}.**')
+      ..writeln('/// Non hanno una regola di riconoscimento perche\' la loro')
+      ..writeln('/// arte non consente di ricavarli da sola: la ragione,')
+      ..writeln('/// misurata, sta in `docs/ordini/ORDINE_T_MANIFESTO.md`.')
+      ..writeln('/// Chi chiede gli ancoraggi di un sentiero senza arte')
+      ..writeln('/// riceve nulla, e il disegno resta quello procedurale.');
+  }
+  b
+    ..writeln('class AncoraggiDeiSentieri {')
+    ..writeln('  const AncoraggiDeiSentieri._();')
+    ..writeln()
+    ..writeln('  static const Map<Sentiero, List<AncoraggioDelSentiero>> '
+        'tutti = {')
+    ..write(righe.join())
+    ..writeln('  };')
+    ..writeln()
+    ..writeln('  /// Gli ancoraggi di un sentiero, o nulla se la sua arte non')
+    ..writeln('  /// e\' ancora leggibile.')
+    ..writeln('  static List<AncoraggioDelSentiero>? di(Sentiero sentiero) =>')
+    ..writeln('      tutti[sentiero];')
+    ..writeln('}');
+  File('lib/core/sigilli/ancoraggi_dei_sentieri.dart')
+      .writeAsStringSync(b.toString());
+  // ignore: avoid_print
+  print('scritto lib/core/sigilli/ancoraggi_dei_sentieri.dart');
+}
+
+/// L'ARTE COI PUNTI SOPRA, numerati nel loro ordine.
+Future<void> _immagineDiVerifica(
+  Sentiero sentiero,
+  ui.Image arte,
+  List<AncoraggioDelSentiero> ancoraggi,
+  List<FormaDellElemento> forme,
+) async {
+  final registratore = ui.PictureRecorder();
+  final tela = Canvas(registratore);
+  final w = arte.width.toDouble(), h = arte.height.toDouble();
+  tela.drawRect(Rect.fromLTWH(0, 0, w, h),
+      Paint()..color = const Color(0xFF0B0D1A));
+  tela.drawImage(arte, Offset.zero, Paint());
+  // I cinque gruppi hanno cinque colori, cosi' si vede a colpo d'occhio se un
+  // punto e' finito nel gruppo sbagliato.
+  const colori = [
+    Color(0xFFFF4D4D),
+    Color(0xFF4DFF88),
+    Color(0xFF4DC3FF),
+    Color(0xFFFFD24D),
+    Color(0xFFC77DFF),
+  ];
+  for (var i = 0; i < ancoraggi.length; i++) {
+    final a = ancoraggi[i];
+    final centro = Offset(a.x * w, a.y * h);
+    final raggio = a.eGrande ? 46.0 : 30.0;
+    final colore = colori[a.gruppo % colori.length];
+    // **LA FORMA TROVATA, velata sotto il cerchio.** Serve a Mauro per vedere
+    // se la crescita ha preso il petalo giusto o se ha ripiegato sul tondo.
+    if (i < forme.length) {
+      final f = forme[i];
+      final pennello = Paint()
+        ..color = (f.eRipiego ? const Color(0xFFFFFFFF) : colore)
+            .withValues(alpha: f.eRipiego ? 0.20 : 0.42);
+      for (var k = 0; k + 2 < f.strisce.length; k += 3) {
+        tela.drawRect(
+            Rect.fromLTWH(f.strisce[k + 1].toDouble(), f.strisce[k].toDouble(),
+                (f.strisce[k + 2] - f.strisce[k + 1] + 1).toDouble(), 1),
+            pennello);
+      }
+    }
+    tela.drawCircle(
+        centro,
+        raggio,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = a.eGrande ? 7 : 5
+          ..color = colore);
+    final testo = TextPainter(
+      text: TextSpan(
+        text: '${i + 1}',
+        style: TextStyle(
+          color: colore,
+          fontFamily: 'Cinzel',
+          fontSize: a.eGrande ? 46 : 34,
+          fontWeight: FontWeight.w900,
+          shadows: const [
+            Shadow(color: Color(0xFF000000), blurRadius: 8),
+            Shadow(color: Color(0xFF000000), blurRadius: 3),
+          ],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    testo.paint(tela,
+        centro + Offset(raggio * 0.75, -raggio * 0.75 - testo.height / 2));
+  }
+  final immagine = await registratore
+      .endRecording()
+      .toImage(arte.width, arte.height);
+  final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+  final dove = File('docs/preview/ancoraggi_${sentiero.name}.png');
+  dove.parent.createSync(recursive: true);
+  dove.writeAsBytesSync(png!.buffer.asUint8List());
+  // ignore: avoid_print
+  print('  immagine di verifica: ${dove.path}');
+}
+
+String _formeDart(Sentiero sentiero, List<FormaDellElemento> forme) {
+  final b = StringBuffer();
+  b.writeln('    Sentiero.${sentiero.name}: [');
+  for (final f in forme) {
+    final colore =
+        f.colore == null ? 'null' : '[${f.colore!.join(",")}]';
+    b.writeln('      FormaDellElemento(eRipiego: ${f.eRipiego}, '
+        'area: ${f.area}, colore: $colore, '
+        'strisce: [${f.strisce.join(",")}]),');
+  }
+  b.writeln('    ],');
+  return b.toString();
+}
+
+void _scriviLeForme(List<String> righe) {
+  final b = StringBuffer()
+    ..writeln('library;')
+    ..writeln()
+    ..writeln("import 'forma_dell_elemento.dart';")
+    ..writeln("import 'sentieri.dart';")
+    ..writeln()
+    ..writeln('/// LE FORME DEI CINQUANTACINQUE ELEMENTI. Ordine T voce 02.')
+    ..writeln('///')
+    ..writeln('/// **QUESTO FILE NON SI SCRIVE A MANO.** Lo produce')
+    ..writeln('/// `tool/ancoraggi_dai_sentieri.dart` crescendo ogni forma dal')
+    ..writeln('/// suo seme sulla MATERIA dell\'elemento, e una prova rifa\' la')
+    ..writeln('/// crescita a ogni giro e confronta.')
+    ..writeln('///')
+    ..writeln('/// **Le strisce sono in pixel dell\'arte**, a terne: riga,')
+    ..writeln('/// primo x, ultimo x. Chi disegna le riscala alla tela vera.')
+    ..writeln('///')
+    ..writeln('/// `eRipiego` vero vuol dire che la crescita non si è chiusa e')
+    ..writeln('/// al suo posto c\'è il bagliore tondo attorno al seme. **Non')
+    ..writeln('/// si inventa una forma: si dichiara.**')
+    ..writeln('///')
+    ..writeln('/// `colore` è la materia dell\'elemento, mediana per canale sui')
+    ..writeln('/// pixel opachi e non dorati dentro la forma, e serve a dare')
+    ..writeln('/// alla luce il colore di ciò che accende. **Nullo vuol dire')
+    ..writeln('/// nullo**: chi disegna torna all\'oro del sentiero.')
+    ..writeln('class FormeDeiSentieri {')
+    ..writeln('  const FormeDeiSentieri._();')
+    ..writeln()
+    ..writeln('  static const Map<Sentiero, List<FormaDellElemento>> tutte = {')
+    ..write(righe.join())
+    ..writeln('  };')
+    ..writeln()
+    ..writeln('  static List<FormaDellElemento>? di(Sentiero sentiero) =>')
+    ..writeln('      tutte[sentiero];')
+    ..writeln('}');
+  File('lib/core/sigilli/forme_dei_sentieri.dart')
+      .writeAsStringSync(b.toString());
+  // ignore: avoid_print
+  print('scritto lib/core/sigilli/forme_dei_sentieri.dart');
+}

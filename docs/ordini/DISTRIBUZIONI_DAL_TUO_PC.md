@@ -1,0 +1,451 @@
+# LE DISTRIBUZIONI CHE ASPETTANO IL TUO PC
+
+Ordine CH voce 12, scritto il 31 agosto 2026; aggiornato dall'ordine CN
+voce 15 il 1 settembre 2026, che ci aggiunge la distribuzione della build
+ai fondatori. **Questo e' l'unico foglio di
+istruzioni sulle distribuzioni pendenti**: il foglio delle lapidi, che stava a
+parte, e' confluito qui dentro. Due fogli per lo stesso PC sono due verita' su
+cosa manca.
+
+**Nessuna credenziale passa da qui.** Questo file dice cosa lanciare, non cosa
+custodire. Non c'e' nessun segreto da incollare da nessuna parte.
+
+**Come si legge.** Ogni passo ha il comando esatto da copiare, e sotto **cosa
+devi leggere a video** per sapere che e' andata bene. Se quello che leggi non
+somiglia a quello scritto qui, fermati e dimmelo: non serve che capisca il
+perche'.
+
+Tutti i comandi si lanciano da PowerShell, nella cartella del progetto.
+
+---
+
+## PASSO 0. PORTA LA TUA CARTELLA ALLA TESTA NUOVA
+
+**Perche' viene prima di tutto.** I comandi di distribuzione mandano in
+produzione **i file che hai sul disco**, non il ramo: da una cartella vecchia
+manderesti su la versione di due ordini fa, e da una cartella vecchia una
+funzione appena scritta semplicemente non esiste.
+
+**IL CONTROLLO E' CAMBIATO, E LA RAGIONE VA LETTA. Ordine CQ voce 6.12,
+4 settembre 2026.**
+
+Fino a oggi questo passo diceva: *la riga NON deve cominciare con
+`078d24b4`*, e nominava lo sha della testa di allora. Il 4 settembre la
+cartella era ferma a `24eaf172`, che non e' `078d24b4`: **il controllo
+diceva di stare a posto mentre l'albero era indietro di sessantotto
+commit**, tre giorni di lavoro. Poi il comando di distribuzione ha risposto
+*No function matches the filter*, e la funzione sembrava non essere mai stata
+scritta. Era scritta e spinta.
+
+**Uno sha scritto a mano invecchia a ogni consegna, e un controllo che
+invecchia diventa un permesso.** Adesso il numero lo chiede a git, e vale
+sempre.
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app
+git fetch origin
+git rev-list --count HEAD..origin/claude/esoteric-circle-master-order-e798aj
+```
+
+**Cosa devi leggere**: **`0`**, e nient'altro. Qualunque altro numero e'
+il numero di commit che ti mancano, e finche' non e' zero **non distribuire
+niente**: FERMATI QUI e porta la cartella avanti.
+
+```powershell
+git pull --ff-only
+```
+
+**Cosa devi leggere.** Un elenco di file cambiati e in fondo una riga tipo
+`Fast-forward`. Poi **rifai il conto di sopra**: deve dire `0`. Il conto e'
+il controllo, il pull e' solo il rimedio.
+
+**Se `git pull` si rifiuta** dicendo qualcosa su modifiche locali, vuol dire
+che in quella cartella c'e' del lavoro non salvato. Non forzare niente:
+scrivimelo e lo guardiamo insieme.
+
+---
+
+## PASSO 1. INSTALLA LE DIPENDENZE DEL SERVER
+
+Si fa una volta sola, e serve perche' i comandi dopo funzionino.
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+npm install
+```
+
+**Cosa devi leggere**: qualche riga di avanzamento e in fondo `added N
+packages` oppure `up to date`. Gli avvisi che cominciano con `npm warn` sono
+normali e non fermano niente.
+
+---
+
+## PASSO 2. LE FUNZIONI DEI RICORDI
+
+**Sono sei, e sono quelle che fanno salire il Cosmic Journal sul server.**
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+npx firebase deploy --only functions:scriviIRicordi,functions:leggiIRicordi,functions:leggiIMovimenti,functions:custodisciIlResponso,functions:leggiICustoditi,functions:lasciaIlResponso --project esoteric-circle
+```
+
+**Cosa devi leggere**: sei righe che finiscono con `functions[...] Successful
+create operation` oppure `Successful update operation`, e in fondo
+`Deploy complete!`.
+
+**Cosa smette di essere finto.** Dopo questa distribuzione, sul telefono:
+
+- i tuoi Ricordi si salvano sul server e non solo sul telefono, quindi
+  reinstallando l'app li ritrovi;
+- **Custodisci** sotto ogni responso funziona davvero, e cio' che custodisci
+  resta per sempre;
+- **Le tue card** si riempiono anche su un telefono nuovo;
+- i movimenti degli Eos nei Ricordi arrivano con due anni di storia invece
+  degli otto mesi che il telefono tiene.
+
+Prima di questa distribuzione tutto questo vive solo sul telefono e sparisce
+con l'app.
+
+---
+
+## PASSO 3. LA SFOCATURA SETTIMANALE
+
+**E' il lavoro che tiene basso il conto della memoria dei Maestri.** Gira da
+solo il lunedi' alle 4:10.
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+npx firebase deploy --only functions:sfocaLeConversazioni --project esoteric-circle
+```
+
+**Cosa devi leggere**: una riga `functions[sfocaLeConversazioni(...)]
+Successful create operation` e in fondo `Deploy complete!`.
+
+**Cosa smette di essere finto.** I Maestri cominciano a ricordare le
+conversazioni vecchie in forma sintetica invece che dimenticarle. Non si vede
+subito: il primo giro e' il lunedi' successivo.
+
+---
+
+## PASSO 4. LE LAPIDI DEL BENVENUTO
+
+**Cosa e' gia' fatto.** La lapide del tuo account e' cancellata. Misurato sul
+dato vero:
+
+| quando | lapidi | quali |
+| --- | --- | --- |
+| prima | 3 | `maobatta@gmail.com`, `cloud@esotericircle.app`, una gia' col pepe |
+| dopo | 2 | `cloud@esotericircle.app`, una gia' col pepe |
+
+Da adesso, se rifai l'onboarding con `maobatta@gmail.com`, il Cerchio ti da' di
+nuovo i 250 Eos del benvenuto.
+
+**Cosa resta, e perche' non l'ho fatto io.** Una lapide sola, quella di
+`cloud@esotericircle.app`, e' ancora col sale vuoto: vuol dire che chiunque
+conosca quell'indirizzo puo' calcolare la sua impronta e sapere che ha gia'
+incassato il benvenuto. Per ripesarla serve il pepe, e **il pepe non si legge
+dall'esterno**: sta in Secret Manager e non deve uscire da li'. L'unico posto
+che puo' calcolare l'impronta nuova e' una funzione del server, che il segreto
+ce l'ha montato.
+
+Il lavoro e' gia' scritto in `functions/src/lapidi.ts`. **Non e' una via
+raggiungibile dall'esterno ed e' voluto**: una via che accettasse un indirizzo
+e riscrivesse una lapide sarebbe una superficie nuova su un dato antifrode, e
+chiunque la raggiungesse potrebbe provare indirizzi e leggere dalle risposte
+chi ha gia' incassato. E' un lavoro a orario, gli indirizzi sono scritti nel
+codice, e **si spegne da solo**: quando la lapide col sale vuoto non c'e' piu',
+non trova niente e non fa niente.
+
+**1. Distribuisci il lavoro delle lapidi.**
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+npx firebase deploy --only functions:sistemaLeLapidi --project esoteric-circle
+```
+
+**Cosa devi leggere**: `Successful create operation` e `Deploy complete!`. Se
+compare una riga che nomina `BENVENUTO_PEPPER` e dice che il segreto non
+esiste, fermati e dimmelo: vuol dire che il pepe non e' mai stato creato, e
+quello e' un passo diverso.
+
+**2. Fallo girare subito, invece di aspettare le 3:50 di stanotte.**
+
+```powershell
+npx gcloud scheduler jobs run firebase-schedule-sistemaLeLapidi-europe-west1 --location europe-west1 --project esoteric-circle
+```
+
+**Cosa devi leggere**: nessun messaggio di errore. Questo comando non stampa
+niente quando riesce.
+
+**3. Verifica che sia andata.**
+
+```powershell
+npx firebase firestore:get lapidi_del_benvenuto --project esoteric-circle
+```
+
+**Cosa devi leggere**: le lapidi restano due, ma **nessuna** deve avere come
+identificativo
+`b24dc7957aecb2ec0aa3902815fa0e46d762655d165d8646078d068101fee0b5`. Se quello
+c'e' ancora, il giro non e' passato oppure il segreto non era montato.
+
+**Cosa smette di essere finto.** Niente che tu possa vedere sul telefono: e'
+una cura su un dato antifrode. Il giorno che la verifica qui sopra e' pulita,
+l'elenco `LAPIDI_DA_SISTEMARE` si puo' svuotare e la funzione togliere, e non
+resta nessun interruttore acceso da ricordarsi di chiudere.
+
+---
+
+## PASSO 5. LE PUSH, E QUI DEVO DIRTI UNA COSA PRIMA
+
+**Il lato server delle push e' pronto e si puo' distribuire. Il lato app NON
+c'e' ancora**, e l'ho misurato invece di ricordarmelo: la classe che sul
+telefono raccoglie il gettone delle notifiche e manda le tue scelte al server,
+`CustodeDellePush`, esiste col suo corpo e le sue prove ma **nessuno la monta
+dentro l'app**, e l'unica porta collegata e' quella spenta.
+
+**Quindi**: distribuire adesso queste tre funzioni non ti fara' arrivare
+nessuna notifica push, perche' il telefono non manda mai il suo gettone. Non e'
+un errore di questo foglio, e' lo stato del lavoro: la voce CG.16 aveva
+consegnato la parte uno, cioe' il cancello del mese di prova, i testi e il lato
+server, e il resto era dichiarato e non fatto.
+
+**Puoi distribuirle lo stesso**, e non fanno danno: il lavoro a orario gira
+ogni quindici minuti, non trova nessun gettone da spingere e non fa niente.
+Oppure puoi aspettare che l'app abbia la sua porta. **La scelta e' tua**, e se
+mi dici di farla la faccio.
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+npx firebase deploy --only functions:scriviLeScelteDellePush,functions:togliLeScelteDellePush,functions:spingiIDoni --project esoteric-circle
+```
+
+**Cosa devi leggere**: tre righe `Successful create operation` e
+`Deploy complete!`.
+
+---
+
+## SE UN COMANDO MUORE MENTRE ANALIZZA
+
+E' la cosa che succede piu' spesso, e non vuol dire che qualcosa sia rotto.
+Riconosci il caso cosi': il comando resta fermo su una riga che parla di
+`analyzing` oppure di `Building` e poi esce con un errore di tempo scaduto.
+
+**Cosa fare, in ordine.**
+
+1. **Rilancia lo stesso comando, identico.** Distribuire due volte non fa
+   danno: la seconda volta si limita ad aggiornare quello che c'e' gia'.
+2. **Se muore ancora, distribuisci meno funzioni per volta.** Prendi il comando
+   del passo che stava fallendo e togli tutte le funzioni tranne una, poi
+   rilancia una funzione alla volta. Per esempio, invece delle sei dei Ricordi
+   insieme:
+
+   ```powershell
+   npx firebase deploy --only functions:scriviIRicordi --project esoteric-circle
+   ```
+
+   e poi le altre cinque, una per volta, cambiando solo il nome dopo
+   `functions:`.
+3. **Se muore anche una funzione sola**, fermati e mandami quello che leggi a
+   video. Non e' piu' un problema di tempo.
+
+---
+
+## PASSO 6. LA BUILD AI FONDATORI
+
+**QUESTA TOCCA A TE, E TI SPIEGO PERCHE'.** La build 2218 dell'ordine CN
+l'ho costruita e il cancello e' verde, ma **la consegna non parte da qui**:
+`tool/consegna.py` prima di caricare qualunque cosa **installa l'archivio
+su un telefono vero e lo avvia**, per guardare nel log se parte davvero.
+Sulla mia macchina non c'e' nessun telefono e nessun emulatore, quindi si
+ferma dicendo *"Non si consegna al buio"*.
+
+**Non l'ho aggirata di proposito**: quella prova e' l'unica cosa che sta
+fra una build rotta e il telefono dei fondatori.
+
+**Collega il telefono al PC col cavo**, sbloccalo, e se compare la richiesta
+di autorizzare il debug USB accettala. Poi verifica che si veda:
+
+```powershell
+adb devices
+```
+
+**Cosa devi leggere.** Una riga sotto `List of devices attached` che
+finisce con la parola `device`. Se finisce con `unauthorized`, guarda lo
+schermo del telefono e accetta. Se non compare niente, prova un altro cavo:
+certi cavi portano solo la corrente.
+
+Poi, in ordine:
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app
+flutter build apk --release
+```
+
+**Cosa devi leggere.** In fondo una riga che comincia con la spunta e dice
+`Built build\app\outputs\flutter-apk\app-release.apk`, con un peso fra
+parentesi. Se leggi `FAILURE` fermati e mandami quello che vedi.
+
+Poi la consegna, che vuole una sessione gcloud attiva:
+
+```powershell
+$env:COMANDO_DI_BUILD = "flutter build apk --release"
+python tool/consegna.py build/app/outputs/flutter-apk/app-release.apk "Le note della build"
+```
+
+**Cosa devi leggere.** Righe che dicono che l'archivio e' stato ispezionato,
+caricato e distribuito, e in fondo il numero della release. Lo strumento
+aggiorna da solo `docs/versione_distribuita.json`: **non scrivere quel file a
+mano**, e' esattamente il passo che saltava prima che questo strumento
+esistesse.
+
+**Se la consegna si ferma dicendo qualcosa sul token**, la tua sessione gcloud
+e' scaduta:
+
+```powershell
+gcloud auth login
+```
+
+e poi rilancia la consegna. **Nessuna chiave e nessun segreto si incolla da
+nessuna parte**: il token si prende al volo e dura un'ora.
+
+---
+
+## COME SAI CHE HAI FINITO
+
+Lancia questo, che elenca tutto quello che c'e' sul server:
+
+```powershell
+npx firebase functions:list --project esoteric-circle
+```
+
+**Cosa devi leggere**: nell'elenco devono comparire, oltre a quelle vecchie,
+`scriviIRicordi`, `leggiIRicordi`, `leggiIMovimenti`, `custodisciIlResponso`,
+`leggiICustoditi`, `lasciaIlResponso`, `sfocaLeConversazioni` e
+`sistemaLeLapidi`. Le tre delle push ci sono solo se hai fatto il passo 5.
+
+---
+
+## PASSO 7. LA PORTA DELLA DEMO, `attivaIlPianoInDemo`
+
+Ordine CQ, rilancio del 3 settembre 2026.
+
+**A cosa serve.** Il pulsante "Attiva in Demo" nella schermata dei Piani
+cambiava il piano SOLO dentro il telefono. Il server continuava a leggere
+`free` per tutti, e tu vedevi "limite giornaliero raggiunto" con l'Illuminato
+attivo. Adesso quel pulsante chiama una funzione che scrive il piano sul
+server, e la funzione **nasce chiusa**: senza la variabile qui sotto risponde
+`failed-precondition` e non scrive niente.
+
+**Perche' la chiave sta in un file e non in un comando.** In questo progetto le
+funzioni leggono l'ambiente da un file `.env` dentro `functions/`, che il
+comando di distribuzione carica da solo. Quel file **non finisce su Git**, e'
+gia' escluso: resta sul tuo PC, e il giorno che vuoi chiudere la porta basta
+togliere la riga e ridistribuire.
+
+**1. Porta la tua cartella alla testa nuova, E VERIFICA DI ESSERCI ARRIVATO.**
+
+**Perche' la verifica esiste, ordine CQ voce 6.12 del 4 settembre 2026.**
+Il 4 settembre il comando di distribuzione ha risposto *No function matches
+the filter: default:attivaIlPianoInDemo*, e sembrava che la funzione non fosse
+mai stata scritta. **Era stata scritta e spinta**, col commit `9d980de1`: la
+cartella era ferma **sessantotto commit indietro**, al primo settembre, e quel
+comando cerca la funzione nei file che hai sul disco, non nel ramo.
+
+Il passo 1 diceva gia' di aggiornare, e non bastava: **diceva di fare una
+cosa senza dire come accorgersi che non era riuscita.** Un'istruzione che non
+porta il suo controllo lascia chi la esegue davanti a un errore che parla di
+un'altra cosa.
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app
+```
+
+```powershell
+git fetch origin
+```
+
+```powershell
+git checkout claude/esoteric-circle-master-order-e798aj
+```
+
+```powershell
+git pull
+```
+
+**Cosa devi leggere**: l'ultima riga deve nominare un commit dell'ordine CQ.
+
+**1-bis. E ADESSO CONTROLLA CHE LA FUNZIONE SIA DAVVERO SUL TUO DISCO.**
+
+```powershell
+Select-String -Path functions\src\index.ts -Pattern attivaIlPianoInDemo
+```
+
+**Cosa devi leggere**: una riga che nomina `attivaIlPianoInDemo`. **Se non
+esce niente, FERMATI QUI**: il passo 1 non e' riuscito, e andare avanti ti fa
+arrivare a un errore che parla della funzione invece che del tuo albero.
+Rifai il passo 1 e guarda cosa risponde `git pull`.
+
+**2. Scrivi la chiave nel file dell'ambiente.**
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+```
+
+```powershell
+Add-Content -Path .env -Value 'DEMO_APERTA=1' -Encoding utf8
+```
+
+**Cosa devi leggere**: niente. Se non compare nessun errore, e' andata.
+
+**3. Controlla che la riga ci sia davvero, e una volta sola.**
+
+```powershell
+Get-Content .env
+```
+
+**Cosa devi leggere**: una riga che dice esattamente `DEMO_APERTA=1`. Se ne
+vedi due, cancella il file e rifai il passo 2:
+
+```powershell
+Remove-Item .env
+```
+
+**4. Distribuisci la funzione.**
+
+```powershell
+npx firebase deploy --only functions:attivaIlPianoInDemo --project esoteric-circle
+```
+
+**Cosa devi leggere**: `Successful create operation` oppure `Successful update
+operation`, e poi `Deploy complete!`. Se leggi `Function failed on loading user
+code`, fermati e dimmelo.
+
+**5. Controlla che il server la conosca.**
+
+```powershell
+npx firebase functions:list --project esoteric-circle
+```
+
+**Cosa devi leggere**: nell'elenco deve comparire `attivaIlPianoInDemo`.
+
+**6. La prova vera, sul telefono.** Apri i Piani e premi "Attiva in Demo" su un
+livello. Se leggi il nome del piano e basta, il server lo ha registrato. Se
+leggi *"attivo solo su questo telefono: il server non lo ha registrato"*, la
+porta e' ancora chiusa: rifai il passo 2.
+
+**QUANDO VORRAI CHIUDERLA.** Il giorno che il pagamento vero arriva dal web:
+
+```powershell
+cd C:\Users\user\Desktop\esoteric-circle-app\functions
+```
+
+```powershell
+Remove-Item .env
+```
+
+```powershell
+npx firebase deploy --only functions:attivaIlPianoInDemo --project esoteric-circle
+```
+
+Da quel momento il pulsante della Demo torna a non poter scrivere niente sul
+server, e non serve pubblicare nessuna versione nuova dell'app.
