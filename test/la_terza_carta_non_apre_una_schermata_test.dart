@@ -165,6 +165,51 @@ void main() {
     await calma(tester);
   });
 
+  testWidgets('e il ventaglio resta in campo, spento', (tester) async {
+    // **LA GRANDEZZA GIUSTA ERA UN\'ALTRA, e ci sono volute due volte.**
+    // Ordine CQ voce 6.09, riaperta il 5 settembre 2026 dal fondatore col
+    // telefono in mano: *in tarocchi rimane il difetto che quando viene
+    // scelta la terza carta, c\'e\' una schermata in piu\' dove poter solo
+    // premere il pulsante*.
+    //
+    // La prima stesura di questa guardia contava cosa ARRIVA alla terza
+    // carta: le carte scelte, il pulsante, le parole giuste. Erano tutte
+    // pretese vere, e sono restate verdi, perche\' il difetto non e\' in cio\'
+    // che arriva: e\' in **cio\' che sparisce**. Alla terza carta `_complete`
+    // diventa vero e con lui se ne va tutto il blocco `if (!_complete)`,
+    // ventaglio compreso: sparisce l\'oggetto piu\' grande della pagina, e una
+    // pagina che perde il suo oggetto piu\' grande e\' un\'altra pagina.
+    //
+    // **Misurare cosa arriva accanto a cio\' che sparisce e\' la famiglia di
+    // cecita\' numero due**, la guardia cieca al bersaglio, ed e\' la stessa
+    // che il conto delle ore aveva gia\' contato sette volte su sette.
+    await monta(tester);
+    final ventaglio = find.byKey(const Key('stesa_fan'));
+    await pesca(tester, 38);
+    await pesca(tester, 39);
+    final primaDellUltima = ventaglio.evaluate().length;
+    await pesca(tester, 40);
+    final dopoLUltima = ventaglio.evaluate().length;
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.09: il ventaglio in campo prima della terza '
+        'carta $primaDellUltima, dopo $dopoLUltima');
+    // **IL CARDINALE STA SUL PRIMA**: se il ventaglio non ci fosse gia\'
+    // dopo due carte, il confronto direbbe zero contro zero e sarebbe
+    // verde per non aver mai visto la scena che sorveglia.
+    cardinaleMinimo(primaDellUltima, 1,
+        cosa: 'ventagli in campo dopo due carte, prima dell ultima',
+        perche: 'Senza il ventaglio a due carte questa prova confronterebbe '
+            'il nulla col nulla, e sarebbe verde senza aver guardato.');
+    expect(dopoLUltima, primaDellUltima,
+        reason: 'alla terza carta il ventaglio sparisce dalla scena: prima ne '
+            'contavo $primaDellUltima, dopo $dopoLUltima. La pagina perde il '
+            'suo oggetto piu grande in un colpo, ed e esattamente questo che '
+            'il fondatore vede come una schermata nuova. Il ventaglio deve '
+            'restare, spento: e la stessa pagina con una carta in piu e un '
+            'pulsante acceso.');
+    await calma(tester);
+  });
+
   testWidgets('e il pulsante dice Leggi le Carte', (tester) async {
     await monta(tester);
     // **LE PAROLE SONO QUELLE DEL FONDATORE**, e la differenza non e'

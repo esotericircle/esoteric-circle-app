@@ -542,3 +542,61 @@ ROSSA     il manifesto dichiara una schermata in meno di quante ne elenchi
           ripristino verificato sul byte: 20697
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+LE PROVE DEL ROSSO DEL COLLAUDO A VIDEO
+Ordine CQ voci 6.27, 6.28 e 6.29, 5 settembre 2026. Regola A.
+========================================================================
+**TRE DI QUESTE QUATTRO SONO NATE ROSSE SENZA NESSUN INNESTO**, perche' il
+difetto era gia' dentro: il fondatore lo aveva visto sul telefono e la
+guardia nuova non ha dovuto fingerlo.
+
+ROSSA     6.09, il ventaglio sparisce alla terza carta
+          nessun innesto: il difetto era in produzione
+          attesa: il ventaglio resta in campo, spento
+          caduta: il ventaglio in campo prima della terza carta 1, dopo 0
+          verde dopo la cura: prima 1, dopo 1
+
+ROSSA     6.27, la materia storica apre la scena dell Estrazione Rune
+          nessun innesto: Tacito, l Edda e il metodo di calcolo stavano
+          aperti sopra il gesto
+          attesa: la materia storica sta dietro la porta
+          caduta: blocchi di testo a vista prima del gesto 20, dei quali
+                  materia storica 1
+          seconda pretesa, caduta: porte Da dove nasce nella scena 0
+          verde dopo la cura: 17 a vista, materia storica 0, porte 1
+
+ROSSA     6.29, la frase degli Angeli porta un numero scritto a mano
+          nessun innesto: diceva Tre nomi e ne mostrava due
+          attesa: il numero segue la lista
+          caduta: numeri in lettere scritti a mano 1: Tre nomi
+          seconda pretesa, caduta: la schermata nomina l ora di nascita
+                  come ragione del terzo Angelo: false
+          verde dopo la cura: 0 numeri a mano, la ragione c e
+
+E LA QUARTA E' L'INFORMAZIONE PIU' UTILE DEL GIRO, perche' e' un difetto
+che NON esiste e una pretesa che NON si puo' soddisfare.
+
+6.28, il responso del Soffio. Il fondatore lo vedeva tagliato, e io ho
+riportato che non scorreva. **Misurato: scorre di 400 punti su una
+trascinata di 400.** I due zeri che avevo letto prima erano miei: il primo
+leggeva `Scrollable.controller`, che e' NULLO quando la finestra non ne ha
+uno esplicito; il secondo posava il dito al centro della carta, che essendo
+alta 878 punti dentro una finestra di 263 ha il centro fuori dallo schermo.
+**Due zeri che non dicevano che la scena e' ferma, dicevano che stavo
+misurando male.**
+
+Resta vero il fatto: il responso e' alto 878 punti dentro una finestra di
+263, se ne vede il TRENTA per cento. Dargli piu' spazio si e' provato, e la
+prova ha detto di no:
+VERDE     cinque contro quattro: la scheda risale e copre 15,1 punti del
+          pulsante del respiro
+VERDE     quattro contro cinque: ne copre 90,4
+**Sono due pretese vere in conflitto su uno schermo che non cresce**, e la
+seconda e' un difetto che Mauro aveva gia' visto e fatto riparare. La
+proporzione e' tornata a sei contro tre e la pretesa misura adesso la
+RAGGIUNGIBILITA', che e' cio' che si puo' garantire: la fine del responso
+si raggiunge. Se il trenta per cento non basta, la via non e' la
+proporzione, e' una decisione sul Soffio che spetta al fondatore.
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3, piu' due misure che hanno
+detto di no a una cura sbagliata

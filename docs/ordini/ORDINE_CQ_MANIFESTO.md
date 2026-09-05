@@ -295,6 +295,27 @@ accanto al pezzo rotto. Da qui la regola nuova: **una voce nata da qualcosa che
 il fondatore ha VISTO si chiude solo con una guardia che monta la schermata e
 misura cio' che si vede.**
 
+## AGGIUNTA CQ7, IL COLLAUDO A VIDEO COL TELEFONO COLLEGATO
+
+Il 5 settembre 2026 il fondatore ha collegato l'Android e ha chiesto la prova
+di accensione e **la verifica a vista di tutti i Doni**, poi anche di Oroscopo,
+Tarocchi ed Estrazione Rune. La build 2226 e' stata accesa sull'archivio gia'
+caricato: processo vivo, primo fotogramma disegnato, nessun crash, numero letto
+DAL DISPOSITIVO 2226.
+
+**E QUI SI VEDE A COSA SERVE IL COLLAUDO A VIDEO.** Tre difetti veri sono
+usciti in un'ora, e nessuno di loro era visibile a una prova che gira senza
+schermo: due li ha visti il fondatore, uno l'ho visto io guardando le immagini
+del telefono. Tutte e tre le guardie nuove **sono nate rosse senza innesto**,
+perche' il difetto era gia' in produzione.
+
+**E DUE COSE CHE AVEVO RIPORTATO COME DIFETTI NON LO ERANO.** Il responso del
+Soffio scorre, misurato: quattrocento punti su una trascinata di quattrocento.
+I due zeri che mi avevano fatto dire il contrario erano miei, un controller
+nullo e un dito posato al centro di una carta che ha il centro fuori schermo.
+**Chi misura male trova difetti che non esistono**, ed e' la stessa specie di
+errore che trova sane le cose rotte.
+
 ## LE VOCI E IL LORO STATO
 
 **Sigillato con l'ordine CQ voce 4.03, 4 settembre 2026.** REGOLA F: un ordine
@@ -363,9 +384,13 @@ manifesto sigillato con stati falsi e' peggio di un manifesto non sigillato.**
 - **CQ.55** Aggiunta 6.24, **DA DOVE NASCE**, la porta unica dell'approfondimento. **CHIUSA**: un componente solo per nove arti. Non si chiama "Approfondisci" perche' quella parola dice cosa fa il pulsante; "Da dove nasce" dice cosa trovi dietro, ed e' anche la promessa che il Cerchio fa da sempre, che nulla e' inventato.
 - **CQ.56** Aggiunta 6.25, **IL TITOLO E' GIA' LA RISPOSTA.** **CHIUSA**: i nove titoli dei Doni avevano il cielo per soggetto e la parola del giorno in coda, dopo una subordinata. Adesso il soggetto e' chi legge e la parola sale in testa: da 62 caratteri di media a 39. Guardia nuova `il_mood_del_cerchio`.
 - **CQ.57** Aggiunta 6.26, **LA CARD CHE UNO MANDA DAVVERO.** **CHIUSA**: una frase sola al centro, il simbolo SUO e non un logo, il testo di servizio ai bordi, nove sedicesimi. Montata sulle Rune, le altre arti la prendono nell'ordine dopo, e la guardia lo dichiara invece di fingere che siano gia' tutte passate. Guardia nuova `la_card_si_manda`.
+- **CQ.58** Aggiunta 6.09 riaperta, il ventaglio dei tarocchi spariva alla terza carta. **CHIUSA**: la prima cura aveva rimesso cio' che ARRIVA, le carte e il pulsante, senza guardare cio' che SPARISCE. Alla terza carta se ne andava tutto il blocco legato a `!_complete`, **ventaglio compreso**: la pagina perdeva il suo oggetto piu' grande in un colpo. Adesso il ventaglio se ne va col RESPONSO e non con l'ultima carta, attenuato al quaranta per cento per dire che ha finito. Guardia nuova dentro `la_terza_carta_non_apre_una_schermata`, nata rossa: prima 1, dopo 0.
+- **CQ.59** Aggiunta 6.27, la materia storica apriva la scena dell'Estrazione Rune. **CHIUSA**: prima ancora di gettare si leggevano Tacito e la Germania al capitolo dieci, l'Edda poetica, la Voluspa, la Gylfaginning e il metodo di calcolo. E' l'informazione messa all'inizio, cioe' l'opposto della legge del mood. Adesso resta a vista il nome della gettata e la materia scende dietro `Da dove nasce`. Guardia nuova `la_materia_storica_non_apre_la_scena`, nata rossa: venti blocchi a vista dei quali uno di materia storica, zero porte.
+- **CQ.60** Aggiunta 6.29, la frase degli Angeli portava un numero scritto a mano. **CHIUSA**: diceva "Tre nomi dalla tradizione dei settantadue" e ne mostrava DUE, perche' il terzo nasce dall'ora di nascita e quell'ora non era stata data. Il numero adesso viene dalla lista, e quando il terzo manca **si dice perche'**. Guardia nuova `il_numero_degli_angeli_segue_il_dato`, nata rossa su tutte e due le pretese.
+- **CQ.61** Aggiunta 6.28, il responso del Soffio. **CHIUSA**, e la premessa era falsa: il responso SCORRE, quattrocento punti su una trascinata di quattrocento. Resta vero che e' alto 878 punti dentro una finestra di 263, cioe' se ne vede il trenta per cento, e **dargli piu' spazio si e' provato e misurato**: a cinque contro quattro la scheda copre 15,1 punti del pulsante del respiro, a quattro contro cinque ne copre 90,4, e quello e' un difetto che Mauro aveva gia' fatto riparare. Due pretese vere in conflitto su uno schermo che non cresce: la proporzione resta sei contro tre e la guardia misura la RAGGIUNGIBILITA', che e' cio' che si puo' garantire. Se il trenta per cento non basta, la via e' una decisione sul Soffio, non un numero.
 
-VOCI_TOTALI: 57
-VOCI_CHIUSE: 56
+VOCI_TOTALI: 61
+VOCI_CHIUSE: 60
 VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

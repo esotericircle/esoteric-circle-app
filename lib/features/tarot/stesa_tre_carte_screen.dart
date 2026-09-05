@@ -1287,6 +1287,27 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               budget: BudgetDelGiorno.stese,
               allineamento: MainAxisAlignment.center,
             ),
+        ],
+        // **IL VENTAGLIO RESTA IN CAMPO ALLA TERZA CARTA. Ordine CQ voce
+        // 6.09, riaperta il 5 settembre 2026 col telefono in mano.**
+        //
+        // Parole del fondatore: *in tarocchi rimane il difetto che quando
+        // viene scelta la terza carta, c'e' una schermata in piu' dove poter
+        // solo premere il pulsante*.
+        //
+        // **La prima cura aveva rimesso cio' che ARRIVA e non guardato cio'
+        // che SPARISCE.** Alla terza carta `_complete` diventa vero, e con
+        // lui se ne andava tutto questo blocco: il ventaglio compreso.
+        // Rimettere le carte e il pulsante non bastava, perche' la pagina
+        // perdeva comunque **il suo oggetto piu' grande** in un colpo, e una
+        // pagina che perde il suo oggetto piu' grande e' un'altra pagina.
+        //
+        // Adesso il ventaglio se ne va col RESPONSO e non con l'ultima
+        // carta: fra la terza carta e il tocco sul pulsante la scena e' la
+        // stessa di un attimo prima, con una carta in piu' e un pulsante
+        // acceso. Il ventaglio si attenua per dire che ha finito, e non
+        // serve spegnerne i tocchi: `_pick` rifiuta gia' a stesa completa.
+        if (!_responsoPronto) ...[
           // **OTTO E NON SEDICI, ordine BU voce 01.** I testi di contenuto
           // sono saliti alla misura di lettura, e sotto le carte pescate se
           // ne accumulano due: dopo due pescaggi il ventaglio finiva a 861
@@ -1319,7 +1340,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             // Vale solo con Riduci Movimento: fuori da quel caso
             // `_statoInPiena` resta vero e questa opacita' non si muove mai.
             builder: (context, _) => AnimatedOpacity(
-              opacity: _statoInPiena ? 1 : 0.15,
+              // A stesa completa il ventaglio resta ma si ritira: non e'
+              // piu' lui il posto dove guardare, ed e' il pulsante ad
+              // esserlo. Non sparisce, perche' sparendo cambierebbe la
+              // pagina.
+              opacity: _complete ? 0.4 : (_statoInPiena ? 1 : 0.15),
               duration: TaglioFasi.dissolvenzaFraStati,
               child: StesaFan(
                 palette: palette,

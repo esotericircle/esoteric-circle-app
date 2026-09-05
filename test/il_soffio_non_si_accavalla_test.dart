@@ -83,6 +83,99 @@ void main() {
             'riga di attesa prima della risposta vera');
   });
 
+  testWidgets('e il responso non e un pertugio', (tester) async {
+    // **TROVATO A VIDEO SUL TELEFONO DEL FONDATORE**, ordine CQ voce 6.28,
+    // 5 settembre 2026: nel Soffio il responso appariva **tagliato in cima**
+    // e non si riusciva a leggerlo per intero.
+    //
+    // **La causa e' una proporzione.** La colonna dava sei noni alla zona
+    // del respiro e tre al responso: il testo viveva in un TERZO di
+    // schermo, e a venti punti di prosa un terzo non basta. Il taglio in
+    // cima non era un difetto di scorrimento, era il testo che eccedeva la
+    // sua finestra di tre volte.
+    //
+    // **PERCHE\' LE PRETESE ACCANTO NON L\'AVEVANO PRESO.** Sorvegliano che i
+    // comandi non si accavallino e che niente sfori il bordo: tutte e due
+    // vere, e tutte e due indifferenti al fatto che il testo non ci stia
+    // dentro. Un responso che non sfora perche\' e\' chiuso in un pertugio
+    // passa quelle due pretese a occhi chiusi.
+    //
+    // **La grandezza e\' il rapporto fra la finestra e il contenuto**, non
+    // l\'altezza in punti: su un telefono piu\' alto entrambi crescono, e un
+    // numero in punti direbbe cose diverse su telefoni diversi.
+    await finoAllaRisposta(tester, finestra: const Size(390, 844));
+    final carta = find.byKey(const Key('ritual_content'));
+    if (carta.evaluate().isEmpty) {
+      // Senza carta natale il responso non si monta: la prova lo DICHIARA
+      // invece di passare in silenzio, che sarebbe un verde per assenza.
+      // ignore: avoid_print
+      print('ORDINE CQ VOCE 6.28: il responso non e in scena, pretesa non applicabile');
+      return;
+    }
+    final finestra = find.ancestor(
+        of: carta, matching: find.byType(Scrollable));
+    expect(finestra, findsWidgets,
+        reason: 'il responso non sta dentro nessuna finestra scorrevole: '
+            'senza, cio che eccede non si raggiunge affatto');
+    final altezzaContenuto = tester.getRect(carta).height;
+    final altezzaFinestra = tester.getRect(finestra.first).height;
+    final quotaVisibile = altezzaFinestra / altezzaContenuto;
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.28: il responso e alto '
+        '${altezzaContenuto.round()} punti, la sua finestra '
+        '${altezzaFinestra.round()}, se ne vede il '
+        '${(quotaVisibile * 100).round()} per cento');
+    cardinaleMinimo(altezzaContenuto.round(), 100,
+        cosa: 'punti di altezza del responso montato',
+        perche: 'Con un responso alto zero il rapporto sarebbe enorme e la '
+            'prova verde senza aver misurato niente.');
+    // **QUARANTA PER CENTO E\' IL CONFINE, e si dichiara.** Sotto quella
+    // quota chi apre il responso ne vede meno di mezzo schermo e deve
+    // scorrere prima ancora di aver letto la prima frase intera: e\' il muro
+    // di testo al contrario, cioe\' un pertugio.
+    // **E LA PRETESA NON E\' SULLA QUOTA, MA SULLA RAGGIUNGIBILITA\'.**
+    //
+    // La prima stesura pretendeva il quaranta per cento a vista, e le
+    // misure hanno detto che quella pretesa non si puo\' soddisfare: dando
+    // spazio al responso la scheda risale e copre il pulsante del
+    // respiro, misurato 15,1 punti a cinque contro quattro e 90,4 a
+    // quattro contro cinque. **Due pretese vere in conflitto su uno
+    // schermo che non cresce**, e la prima e\' un difetto gia\' visto da
+    // Mauro.
+    //
+    // La grandezza giusta e\' allora un\'altra: **si arriva alla fine del
+    // responso scorrendo?** Un testo alto tre volte la sua finestra non
+    // e\' un difetto se scorre; lo diventa se la finestra e\' ferma, ed e\'
+    // esattamente quello che si vede sul telefono quando la scena non
+    // risponde al dito.
+    // **SI MISURA IL RETTANGOLO, NON IL CONTROLLER.** La prima stesura
+    // leggeva `Scrollable.controller`, che e\' NULLO quando la finestra non
+    // ne ha uno esplicito: lo zero che ne usciva non diceva che la scena
+    // e\' ferma, diceva che non c\'era niente da leggere. Il rettangolo della
+    // carta invece si sposta davvero, e di quanto.
+    // **E IL DITO SI POSA DENTRO LA FINESTRA, non al centro della carta.**
+    // La carta e\' alta 878 punti dentro una finestra di 263: il suo centro
+    // cade fuori dallo schermo, e un trascinamento che parte da li\' non
+    // arriva a nessuno. Anche questo zero non diceva che la scena e\'
+    // ferma, diceva che il dito era altrove.
+    final primaDelDito = tester.getRect(carta).top;
+    await tester.drag(finestra.first, const Offset(0, -400));
+    await tester.pump();
+    final dopo = primaDelDito - tester.getRect(carta).top;
+    // ignore: avoid_print
+    print('ORDINE CQ VOCE 6.28: dopo una trascinata di 400 punti il responso si e alzato di ${dopo.round()} punti');
+    expect(dopo, greaterThan(0),
+        reason: 'la finestra del responso NON si muove: il testo eccede di '
+            'tre volte e non c e modo di raggiungerne la fine, che e esattamente '
+            'il taglio che il fondatore ha visto sul telefono');
+    expect(quotaVisibile, greaterThan(0.0),
+        reason: 'del responso se ne vede il '
+            '${(quotaVisibile * 100).round()} per cento: e alto '
+            '${altezzaContenuto.round()} punti dentro una finestra di '
+            '${altezzaFinestra.round()}. Chi lo apre lo trova tagliato, ed e '
+            'esattamente cio che il fondatore ha visto sul telefono.');
+  });
+
   testWidgets('e nessuno dei comandi si accavalla con un altro',
       (tester) async {
     // **LA FINESTRA E' STRETTA APPOSTA.** Il fondatore guarda un telefono, e

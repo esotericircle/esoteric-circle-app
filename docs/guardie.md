@@ -40,10 +40,10 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 115 |
-| Guardie con un cardinale proprio dichiarato | 58 |
+| Guardie con un cardinale proprio dichiarato | 60 |
 | Guardie che non scoprono nessun insieme di file | 123 |
-| **Somma delle categorie** | **296** |
-| **Guardie secondo la definizione** | **296** |
+| **Somma delle categorie** | **298** |
+| **Guardie secondo la definizione** | **298** |
 
 Le due righe in grassetto **coincidono**, contate il 4 settembre 2026.
 
@@ -70,7 +70,7 @@ combatte nel codice, due conti della stessa cosa, arrivata dentro i documenti.
 | | quante | contata come |
 | --- | ---: | --- |
 | File di prova nella cartella `test` | 776 | `ls test/*.dart` |
-| Di questi, censiti come guardie | 296 | righe della tavola qui sotto |
+| Di questi, censiti come guardie | 298 | righe della tavola qui sotto |
 | File di prova che scorrono i sorgenti | 137 | grep di `Directory('lib')`, `sorgentiDiLib`, `sorgentiDiCartelle`, `listSync` |
 | **Guardie** censite che scorrono i sorgenti | 132 | i 137 di sopra che hanno una riga nella tavola |
 | Di questi, che passano dalla porta comune | 115 | grep delle quattro porte, `sorgentiDiLib(`, `sorgentiDiCartelle(`, `fileScoperti(`, `righeDiLib(` |
@@ -105,15 +105,17 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 776 |
-| **Guardie secondo la definizione** | **296** |
+| **Guardie secondo la definizione** | **298** |
 | Guardie che scorrono i sorgenti di `lib` | 132 |
 | Di queste, passate alla porta comune | 115 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
 | **Guardie mai viste rosse** | **218** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **78** |
+| **Guardie viste rosse almeno una volta** | **80** |
 
-Le guardie viste rosse sono **78 su 296**, il **26.4 per cento**, contate il 4 settembre 2026 con l'ordine CQ, seconda tornata.
+Le guardie viste rosse sono **80 su 298**, il **26.8 per cento**, contate il 5 settembre 2026 con l'ordine CQ, terza tornata.
+
+**LE DUE DELLA TERZA TORNATA SONO NATE ROSSE SENZA INNESTO**, e non e' un vezzo: il fondatore aveva collegato il telefono e chiesto la verifica a vista dei Doni, e i difetti erano gia' in produzione. Sorvegliano la materia storica che apriva la scena dell'Estrazione Rune e il numero degli Angeli che era scritto a mano nella frase invece di venire dalla lista.
 
 **LE TREDICI CHE L'ORDINE CQ AGGIUNGE QUI SONO TUTTE NATE ROSSE**, e le loro
 prove stanno in `docs/ordini/CQ_prova_del_rosso.txt`, una sezione per guardia
@@ -279,6 +281,7 @@ le altre.
 | `il_nome_breve_dell_oroscopo_test.dart` | il nome breve dell oroscopo | 1 | non scopre insiemi di file | mai | 3 |
 | `il_nome_del_consiglio_test.dart` | il nome del consiglio | 1, 2 | dalla porta comune | mai | 3 |
 | `il_nome_dichiara_la_sua_forma_test.dart` | il nome dichiara la sua forma | 1, 2 | dalla porta comune | mai | 2 |
+| `il_numero_degli_angeli_segue_il_dato_test.dart` | il numero degli Angeli segue il dato, non la stringa | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `il_pannello_ha_due_titoli_test.dart` | il pannello ha due titoli | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_passaporto_porta_a_sbloccare_test.dart` | il passaporto porta a sbloccare | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_pozzo_in_attesa_non_e_un_vuoto_test.dart` | il pozzo in attesa non e un vuoto | 4, 1 | non scopre insiemi di file | mai | 3 |
@@ -352,6 +355,7 @@ le altre.
 | `la_home_non_rallenta_al_ritorno_test.dart` | la home non rallenta al ritorno | 1 | non scopre insiemi di file | mai | 3 |
 | `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `la_lampadina_si_distingue_test.dart` | la lampadina si distingue | 4, 1 | non scopre insiemi di file | mai | 3 |
+| `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |

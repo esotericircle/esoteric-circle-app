@@ -25,6 +25,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/components/da_dove_nasce.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../services/regia_delle_chiamate.dart';
 import '../../../sigilli/regia_del_cammino.dart';
@@ -720,7 +721,22 @@ class _Preparazione extends StatelessWidget {
             allineamento: MainAxisAlignment.center,
           ),
 
-          // IL TESTO DINAMICO, che cambia con la scelta.
+          // **LA MATERIA STORICA SCENDE DIETRO LA PORTA. Ordine CQ voce
+          // 6.27, 5 settembre 2026.**
+          //
+          // **Trovato a video dal fondatore col telefono in mano.** Qui
+          // stava aperto, sopra il gesto, un muro di quattrocento
+          // caratteri: Tacito e la Germania al capitolo dieci, l'Edda
+          // poetica, la Voluspa, la Gylfaginning di Snorri Sturluson e il
+          // metodo di calcolo. Chi arriva qui vuole gettare le rune.
+          //
+          // **E' la legge del mood, con le sue parole**: *non gliene frega
+          // niente di transiti, pianeti, ecc. non dico di non scrivere da
+          // dove arrivano le risposte, ma non all'inizio.*
+          //
+          // **Il nome della gettata resta a vista** e la materia scende:
+          // chi sceglie fra Odino, le Norne e la Croce deve vedere cosa ha
+          // scelto, e quello e' una riga sola, non una pagina.
           DepthCard(
             key: const Key('rune_dynamic_text'),
             padding: const EdgeInsets.all(SpacingTokens.md),
@@ -730,14 +746,16 @@ class _Preparazione extends StatelessWidget {
                 Text('${gettata.nome} · ${gettata.sottotitolo}',
                     style: TypographyTokens.corpo()
                         .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
-                const SizedBox(height: SpacingTokens.xs),
-                // Il responso di Caligo e' testo che si LEGGE, quindi il ruolo
-                // e' lettura e la regola dei paragrafi e' quella comune: qui
-                // non se ne scrive una seconda.
-                ParagrafiDiLettura(
-                    testo: gettata.testoDinamico,
-                    stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textPrimary)),
+                // La porta comune, la stessa di tutte le altre arti: il
+                // responso di Caligo e' testo che si LEGGE, e dietro il
+                // tocco vale la regola dei paragrafi, che qui non si
+                // riscrive.
+                DaDoveNasce(
+                  palette: palette,
+                  children: [
+                    RigaDellaFonte(testo: gettata.testoDinamico),
+                  ],
+                ),
               ],
             ),
           ),

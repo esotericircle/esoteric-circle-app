@@ -328,8 +328,24 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                           color: widget.palette.goldSoft, letterSpacing: 3)),
                   const SizedBox(height: SpacingTokens.md),
                   Text(
-                    'Tre nomi dalla tradizione dei settantadue. Tocca una '
-                    'carta per conoscerla.',
+                    // **IL NUMERO VIENE DALLA LISTA, ordine CQ voce 6.29
+                    // del 5 settembre 2026.**
+                    //
+                    // Qui c'era scritto "Tre nomi" a mano, e mentiva: il
+                    // terzo Angelo, quello dell'intelletto, nasce dall'ORA
+                    // di nascita, e chi l'ora non l'ha data ne riceve DUE.
+                    // Il fondatore lo ha visto a video: due carte sotto
+                    // una frase che ne prometteva tre.
+                    //
+                    // E non basta contare giusto: **quando il terzo manca
+                    // si dice perche'**, altrimenti chi legge crede di aver
+                    // perso qualcosa invece di sapere che gli manca un
+                    // dato suo, e che puo' darlo.
+                    angeli.length >= 3
+                        ? 'Tocca una carta per conoscerla.'
+                        : "Il terzo nasce dall'ora di nascita, che non ci hai "
+                            "dato: quando la aggiungi, arriva anche lui. "
+                            "Tocca una carta per conoscerla.",
                     textAlign: TextAlign.center,
                     style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textSecondary, height: 1.45),
