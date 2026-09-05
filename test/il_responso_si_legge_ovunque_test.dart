@@ -116,9 +116,21 @@ void main() {
           'lib/features/synastry/sinastria_vip_screen.dart',
           'key: const Key(\'sinastria_eredita\'),',
         ),
+        // **IL PUNTO DELLE RUNE ERA SBAGLIATO, ordine CQ voce 6.27 del 5
+        // settembre 2026.** Puntava a `gettata.testoDinamico`, che non e\'
+        // il responso: e\' la MATERIA STORICA della gettata, Tacito e
+        // l\'Edda, cioe\' il testo che il fondatore ha fatto togliere da
+        // davanti al gesto. Il responso delle Rune e\' il PRESAGIO, e
+        // arriva dopo il getto.
+        //
+        // Spostando la materia dietro la porta questa riga e\' caduta
+        // dicendo "non si trova piu\' il punto dichiarato", ed e\' stata
+        // lei a far vedere che sorvegliava la cosa sbagliata: **una
+        // guardia che punta al pezzo accanto**, la stessa famiglia che
+        // il conto delle ore ha contato sette volte su sette.
         'le Rune': (
           'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
-          'testo: gettata.testoDinamico,',
+          'key: const Key(\'rune_presage_text\'),',
         ),
         'gli Angeli': (
           'lib/features/angels/angels_screen.dart',

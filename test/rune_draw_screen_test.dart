@@ -113,6 +113,13 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
+    // **LA MATERIA STORICA STA DIETRO LA PORTA, ordine CQ voce 6.27 del 5
+    // settembre 2026**: apriva la scena e il fondatore l'ha vista sul
+    // telefono, sopra il gesto. Adesso si tocca \"Da dove nasce\" per
+    // leggerla, ed e' esattamente cio' che fa una persona. La pretesa non
+    // cambia: il testo cambia con la gettata scelta.
+    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
+    await passo(tester);
     // All'inizio, Odino cita l'Havamal; non ancora Tacito.
     expect(find.textContaining('Havamal'), findsOneWidget);
     expect(find.textContaining('Tacito'), findsNothing);
@@ -252,6 +259,13 @@ void main() {
     await passo(tester);
 
     await tester.tap(find.byKey(const Key('rune_segment_telo')));
+    await passo(tester);
+    // **LA MATERIA STORICA STA DIETRO LA PORTA, ordine CQ voce 6.27 del 5
+    // settembre 2026**: apriva la scena e il fondatore l'ha vista sul
+    // telefono, sopra il gesto. Adesso si tocca \"Da dove nasce\" per
+    // leggerla, ed e' esattamente cio' che fa una persona. La pretesa non
+    // cambia: il testo cambia con la gettata scelta.
+    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
     await passo(tester);
     // Il testo dinamico della sorte libera cita Tacito e il telo.
     expect(find.textContaining('Tacito'), findsOneWidget);
