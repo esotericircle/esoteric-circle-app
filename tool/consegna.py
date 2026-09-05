@@ -371,6 +371,18 @@ def main():
     # conta proprio quando qualcosa va storto.
     reg['prova_di_accensione'] = (
         'SALTATA: ' + salto if salto else 'eseguita su un dispositivo')
+    # **E IL TELEFONO SI AZZERA COL SALTO, ordine CQ voce 6.23.**
+    #
+    # La voce CN che ha aggiunto `prova_di_accensione` non ha toccato
+    # `telefono_della_prova`, e alla prima consegna al buio il registro ha
+    # detto due cose che non stanno insieme: accensione SALTATA e, subito
+    # sotto, il telefono della consegna PRECEDENTE con la sua ora. Chi
+    # rilegge fra un mese vede un telefono e crede che qualcosa sia stato
+    # acceso.
+    if salto:
+        reg['telefono_della_prova'] = (
+            'NESSUNO per la ' + str(numero) + ': l' + chr(39) + 'accensione e' + chr(39) + 
+            ' stata saltata e nessun dispositivo ha visto questo archivio.')
     io.open(REGISTRO, 'w', encoding='utf-8').write(
         json.dumps(reg, ensure_ascii=False, indent=2) + '\n')
     print('registro aggiornato: ' + str(prima) + ' -> ' + str(numero))
