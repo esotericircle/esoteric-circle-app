@@ -60,3 +60,22 @@ ROSSA     ogni angolo va bene per ogni posa
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4, dopo che il primo giro ha
 trovato una pretesa debole
+
+========================================================================
+CR.02, I PUNTI DEL VOLTO DENTRO I 478 DELLA MESH
+========================================================================
+Gli indici dei gruppi canonici sono 131 numeri scritti a mano, e un numero
+scritto a mano si sbaglia in silenzio: un 463 al posto di 163 non fa cadere
+niente, sposta un punto dall'occhio a un'altra parte del viso e la misura del
+tratto diventa falsa senza che nessuno se ne accorga.
+
+La guardia DICHIARA cosa non puo' dire: se un indice sia quello GIUSTO non lo
+sa, perche' per saperlo servirebbe il modello davanti. Dice le tre cose che
+prendono gli errori veri.
+
+ROSSA     un indice fuori dai 478 punti (5, 4 -> 5, 999)
+ROSSA     un gruppo ridotto a un punto (base del naso a [98])
+ROSSA     il copia incolla fra i due lati (guancia destra = sinistra)
+ROSSA     lo stesso punto nominato tre volte (6, 6, 6 nel ponte del naso)
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
