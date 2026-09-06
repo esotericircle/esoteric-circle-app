@@ -11,7 +11,6 @@ import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
-import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';

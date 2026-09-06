@@ -5,7 +5,6 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
-import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';

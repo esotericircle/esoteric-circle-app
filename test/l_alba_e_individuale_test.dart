@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
 import 'package:flutter_test/flutter_test.dart';
 
