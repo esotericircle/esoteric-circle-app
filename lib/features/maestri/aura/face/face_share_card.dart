@@ -17,6 +17,7 @@ import 'face_silhouette.dart';
 import '../../../../core/brand/brand.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
 import '../../../../core/face/mian_xiang.dart';
+import 'colore_dell_elemento.dart';
 import '../../../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile della Costellazione del Viso, nella cornice verde e oro
@@ -100,6 +101,13 @@ class FaceShareCard extends StatelessWidget {
                           palette: palette,
                           pulsazione: 1.0,
                           risalto: 1.7,
+                          // **IL COLORE VINCE ANCHE SULLA CARD.**
+                          // Ordine CR voce 09: e' l'immagine che
+                          // gira, ed e' il posto dove un colore
+                          // riconoscibile vale di piu'.
+                          elemento: elemento == null
+                              ? null
+                              : ColoreDellElemento.di(elemento),
                         ),
                       ),
                     ],

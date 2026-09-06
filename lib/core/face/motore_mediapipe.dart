@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 
 import 'face_classifier.dart';
+import 'inclinazione_del_capo.dart';
 import 'motore_del_volto.dart';
 import 'punti_del_volto.dart';
+import 'soglie_del_rilevamento.dart';
 
 /// **IL MOTORE VERO: MediaPipe Face Mesh.** Ordine CR voce 02, 6 settembre
 /// 2026.
@@ -29,7 +31,12 @@ class MotoreMediaPipe extends MotoreDelVolto {
 
   @override
   Future<void> avvia() async {
-    _rilevatore = await FaceDetectorProcessor.create();
+    _rilevatore = await FaceDetectorProcessor.create(
+      // La soglia del pacchetto decide cosa vale la pena di analizzare.
+      // La nostra, piu' severa, decide a chi si da' un responso, e si
+      // applica dopo, sul punteggio del rilevamento scelto.
+      minDetectionConfidence: SoglieDelRilevamento.confidenzaDelRilevatore,
+    );
     // **v2 e non v1**: il pacchetto lo raccomanda, e la v1 resta il default
     // solo per non rompere chi la usa gia'.
     _mesh = await FaceMeshProcessor.create(model: FaceMeshModel.v2);
@@ -42,6 +49,22 @@ class MotoreMediaPipe extends MotoreDelVolto {
       // tremolano: una posa entrerebbe e uscirebbe dalla soglia da sola, e la
       // tenuta di CR.03 non si compirebbe mai.
       landmarkSmoothing: const LandmarkSmoothingOptions(),
+      // **L'INSEGUIMENTO E' SPENTO, ED E' LA CORREZIONE PIU' IMPORTANTE
+      // DI QUESTO ORDINE.** Ordine CR voce 01, seconda stesura.
+      //
+      // Con l'inseguimento acceso, che e' il modo in cui questa catena
+      // nasce, dopo il primo aggancio **il rilevatore non gira piu'** e
+      // la mesh continua a posare punti dentro la regione che stava
+      // seguendo. Il pacchetto lo scrive: *"Null when the frame was
+      // served by landmark tracking, in which case the detector did not
+      // run"*. Chi completava la scansione col proprio viso e poi
+      // inquadrava una parete riceveva ancora punti, perche' nessuno
+      // stava piu' cercando un volto.
+      //
+      // Spento, il rilevatore gira su OGNI fotogramma. Costa di piu', e
+      // il prezzo si paga volentieri: e' la differenza fra una scansione
+      // e una messa in scena.
+      enableLandmarkTracking: false,
     );
   }
 
@@ -71,21 +94,62 @@ class MotoreMediaPipe extends MotoreDelVolto {
       rotationDegrees: rotazione,
       mirrorHorizontal: specchiata,
     );
+    // **DUE GIUDIZI, E SI PRETENDONO TUTTI E DUE.** Ordine CR voce 01,
+    // seconda stesura.
+    //
+    // Prima qui bastava che la lista dei punti non fosse vuota, e una
+    // lista non vuota non dice niente su cosa ci sia davanti
+    // all'obiettivo: la mesh posa punti ovunque le si dica di posarli.
+    // Il rilevatore dice **che li' c'e' una faccia**, la mesh dice
+    // **quanto bene i suoi punti si sono posati sopra**, e sotto una
+    // delle due soglie non nasce nessun dato.
+    final rilevato = esito.selectedDetection;
+    if (rilevato == null ||
+        rilevato.score < SoglieDelRilevamento.confidenzaDelRilevatore) {
+      return null;
+    }
     final mesh = esito.meshResult;
-    // **NESSUN VOLTO: SI RESTITUISCE NULLA.** Qui vive, alla fonte, la regola
-    // di CR.01: davanti a un muro non nasce nessun dato, e chi chiama non
-    // trova niente da sostituire con una sagoma.
-    if (mesh == null || mesh.landmarks.isEmpty) return null;
+    if (mesh == null ||
+        mesh.landmarks.isEmpty ||
+        mesh.score < SoglieDelRilevamento.confidenzaDellaMesh) {
+      return null;
+    }
 
     final geometria = mesh.estimateGeometry();
     final posa = geometria.headPose;
     return LetturaDelVolto(
-      contorni: PuntiDelVolto.contorniDa(mesh.landmarks),
-      yaw: posa.yawDegrees,
-      pitch: posa.pitchDegrees,
+      // La forma del fotogramma entra nella conversione: senza, ogni
+      // rapporto fra una larghezza e un'altezza esce schiacciato.
+      contorni: PuntiDelVolto.contorniDa(
+        mesh.landmarks,
+        proporzioneDelFotogramma: mesh.imageHeight <= 0
+            ? 1.0
+            : mesh.imageWidth / mesh.imageHeight,
+      ),
+      // **GLI ANGOLI VENGONO DAI PUNTI, NON DAL PACCHETTO.** Ordine CR
+      // voce 03, seconda stesura.
+      //
+      // `pitchDegrees` e' documentato come "Up/down head rotation in
+      // degrees" e **non dichiara da che parte cresce**. La prima
+      // stesura ha dato per buono che positivo volesse dire mento
+      // alzato: sul telefono del fondatore la posa "guarda in basso" si
+      // compiva ALZANDO il viso. Adesso i due angoli si ricavano dalla
+      // profondita' dei punti, con un segno che una guardia prova
+      // ruotando una testa sintetica di un angolo noto.
+      //
+      // Il rollio resta quello del pacchetto: non guida nessuna posa, e
+      // per l'inclinazione di lato una convenzione sbagliata non manda
+      // nessuno a inseguire un gesto impossibile.
+      yaw: InclinazioneDelCapo.gradiDiProfilo(mesh.landmarks),
+      pitch: InclinazioneDelCapo.gradi(mesh.landmarks),
       roll: posa.rollDegrees,
       espressione: espressione.process(mesh) ?? const {},
       punti: mesh.landmarks,
+      confidenzaDelRilevamento: rilevato.score,
+      confidenzaDellaMesh: mesh.score,
+      proporzioneDelFotogramma: mesh.imageHeight <= 0
+          ? 1.0
+          : mesh.imageWidth / mesh.imageHeight,
     );
   }
 

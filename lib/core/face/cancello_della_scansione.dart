@@ -1,26 +1,39 @@
 import 'face_classifier.dart';
+import 'soglie_del_rilevamento.dart';
 
 /// **IL CANCELLO DELLA SCANSIONE: senza volto non c'e' responso.**
-/// Ordine CR voce 01, 6 settembre 2026.
+/// Ordine CR voce 01, 6 settembre 2026. **Seconda stesura lo stesso giorno,
+/// dopo che il fondatore ha fotografato un muro e ha ricevuto un responso
+/// nonostante questo cancello fosse gia' in produzione.**
 ///
-/// **Parole del fondatore**: *"ho provato a fare una foto a un muro e cmq la
-/// funzionalita' mi ha dato un responso come se avessi fotografato un viso"*.
+/// **Parole del fondatore, prima stesura**: *"ho provato a fare una foto a un
+/// muro e cmq la funzionalita' mi ha dato un responso come se avessi
+/// fotografato un viso"*.
 ///
-/// **IL DIFETTO CHE QUESTA PORTA CHIUDE, con la sua riga.** Nella schermata
-/// della Costellazione il momento dello scatto cominciava cosi':
+/// **Parole del fondatore, dopo la prima cura**: *"dopodiche' ho fatto la foto
+/// al muro e mi e' uscito ugualmente il responso con la foto del muro"*.
+///
+/// **IL DIFETTO CHE LA PRIMA STESURA AVEVA CHIUSO.** Nella schermata il
+/// momento dello scatto cominciava cosi':
 ///
 ///     final contorni = _contorniVivi ?? FaceSilhouette.contorni();
 ///
-/// `_contorniVivi` resta nullo finche' il rilevatore non trova un volto.
-/// Davanti a un muro non lo trova mai, e quel `??` metteva al suo posto la
-/// **sagoma neutra disegnata a mano**, nata per il ripiego tattile e per le
-/// anteprime: proporzioni scelte da una persona, non misurate su nessuno. Da
-/// li' in poi la lettura proseguiva identica a quella di un volto vero.
+/// e quel `??` metteva la sagoma disegnata a mano al posto di un volto che non
+/// c'era. Quello era vero, ed e' stato chiuso.
 ///
-/// **Il ripiego tattile non era il difetto.** Esiste per progetto ed e' giusto
-/// che ci sia: chi non ha fotocamera sceglie i propri tratti a mano e riceve
-/// comunque la sua lettura. Il difetto e' che quel ripiego **si attivava da
-/// solo al posto di una scansione fallita, facendola sembrare riuscita**.
+/// **PERCHE' IL MURO PASSAVA LO STESSO, e sono due ragioni diverse dalla
+/// prima.**
+///
+/// UNO, alla fonte: la catena di MediaPipe nasce con l'inseguimento acceso, e
+/// dopo il primo aggancio **il rilevatore non gira piu'**. La mesh continuava a
+/// posare punti dentro la regione dove il volto era stato, quindi davanti a una
+/// parete arrivavano ancora punti. Curato nel motore, che adesso fa girare il
+/// rilevatore su ogni fotogramma e pretende due punteggi di confidenza.
+///
+/// DUE, qui: **questo cancello guardava l'ultima lettura senza chiedersi di
+/// quando fosse**. Fra l'ultimo fotogramma con un volto e il dito che tocca lo
+/// scatto possono passare secondi, e in quei secondi la fotocamera puo' essere
+/// finita su tutt'altro. Una lettura vecchia non e' una lettura, e' un ricordo.
 ///
 /// **PERCHE' UNA PORTA E NON UN `if` DENTRO LA SCHERMATA.** Un `if` dentro un
 /// widget si prova solo montando una fotocamera, che in prova non esiste: la
@@ -29,13 +42,18 @@ import 'face_classifier.dart';
 class CancelloDellaScansione {
   const CancelloDellaScansione._();
 
-  /// Giudica una scansione: o c'e' un volto rilevato, o non si passa.
+  /// Giudica una scansione: o c'e' un volto rilevato ADESSO, o non si passa.
   ///
-  /// [contorniVivi] e' cio' che il rilevatore ha restituito, e **solo quello**:
-  /// nessun valore di riserva entra da questa porta. Nullo vuol dire che
-  /// nessun volto e' stato trovato, e allora non nasce nessuna lettura.
-  static EsitoScansione giudica({required FaceContours? contorniVivi}) {
-    if (contorniVivi == null) {
+  /// [contorniVivi] e' cio' che il motore ha restituito, e **solo quello**:
+  /// nessun valore di riserva entra da questa porta.
+  ///
+  /// [eta] e' quanto tempo e' passato da quando quella lettura e' stata fatta.
+  /// Nulla vuol dire che nessuna lettura e' mai arrivata.
+  static EsitoScansione giudica({
+    required FaceContours? contorniVivi,
+    required Duration? eta,
+  }) {
+    if (contorniVivi == null || eta == null) {
       return const NessunVolto(
         // La ragione si dice, e si dice a chi legge: chi resta senza responso
         // deve sapere cosa non ha funzionato, o crede che l'app sia rotta.
@@ -43,6 +61,16 @@ class CancelloDellaScansione {
         // guasto, semplicemente davanti alla fotocamera non c'era un volto.
         'Non ho trovato un volto da leggere. Inquadra il viso con luce '
         'sufficiente e riprova.',
+      );
+    }
+    if (eta > SoglieDelRilevamento.letturaAncoraFresca) {
+      return const NessunVolto(
+        // **UNA RAGIONE DIVERSA MERITA PAROLE DIVERSE.** Qui un volto c'era,
+        // e non c'e' piu': dire "non ho trovato un volto" manderebbe la
+        // persona a cercare piu' luce quando il problema e' che ha spostato
+        // il telefono.
+        'Ti ho perso di vista. Rimetti il viso davanti alla fotocamera e '
+        'riprova.',
       );
     }
     return VoltoTrovato(contorniVivi);

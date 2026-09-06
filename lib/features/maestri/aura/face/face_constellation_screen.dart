@@ -13,6 +13,8 @@ import 'fascio_di_scansione.dart';
 import '../../../../core/face/espressione_dell_istante.dart';
 import '../../../../core/face/storico_degli_istanti.dart';
 import '../../../../core/face/tenuta_di_fronte.dart';
+import '../../../../core/face/mian_xiang.dart';
+import 'colore_dell_elemento.dart';
 import 'lo_specchio_dell_istante.dart';
 import 'maschera_che_segue.dart';
 import 'package:provider/provider.dart';
@@ -721,6 +723,11 @@ class _CatturaState extends State<_Cattura>
   /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
   LetturaDelVolto? _lettura;
 
+  /// **QUANDO L'ULTIMA LETTURA E' ARRIVATA.** Ordine CR voce 01, seconda
+  /// stesura: il cancello guardava l'ultima lettura senza chiedersi di
+  /// quando fosse, e una lettura vecchia non e' una lettura.
+  DateTime? _letturaQuando;
+
   /// Larghezza diviso altezza del fotogramma che il motore ha appena
   /// letto. Serve alla maschera per rifare lo STESSO ritaglio
   /// dell'anteprima: senza, i punti scivolano via dal viso proprio
@@ -807,6 +814,7 @@ class _CatturaState extends State<_Cattura>
       setState(() {
         _proporzioneFotogramma = alto == 0 ? null : largo / alto;
         _lettura = lettura;
+        _letturaQuando = lettura == null ? null : adesso;
         if (lettura != null) {
           _rifiuto = null;
           // **LA SCANSIONE AVANZA SOLO CON UN VOLTO IN SCENA.** Senza
@@ -868,13 +876,21 @@ class _CatturaState extends State<_Cattura>
         }
         return;
       }
-      final viva = _lettura;
-      if (viva == null) {
-        if (mounted) {
-          setState(() => _rifiuto = const NessunVolto('').perche);
-        }
+      // **ANCHE IL RITORNO PASSA DAL CANCELLO.** Ordine CR voce 01,
+      // seconda stesura: se il ritorno si accontentasse di una lettura
+      // qualunque, sarebbe la porta di servizio del muro.
+      final quandoBreve = _letturaQuando;
+      final esitoBreve = CancelloDellaScansione.giudica(
+        contorniVivi: _contorniVivi,
+        eta: quandoBreve == null
+            ? null
+            : DateTime.now().difference(quandoBreve),
+      );
+      if (esitoBreve is NessunVolto) {
+        if (mounted) setState(() => _rifiuto = esitoBreve.perche);
         return;
       }
+      final viva = _lettura!;
       widget.onIstante(viva.espressione);
       return;
     }
@@ -885,8 +901,11 @@ class _CatturaState extends State<_Cattura>
       }
       return;
     }
-    final esito =
-        CancelloDellaScansione.giudica(contorniVivi: _contorniVivi);
+    final quando = _letturaQuando;
+    final esito = CancelloDellaScansione.giudica(
+      contorniVivi: _contorniVivi,
+      eta: quando == null ? null : DateTime.now().difference(quando),
+    );
     if (esito is NessunVolto) {
       if (mounted) setState(() => _rifiuto = esito.perche);
       return;
@@ -1172,6 +1191,13 @@ class _RisultatoState extends State<_Risultato>
   final GlobalKey _cardBoundary = GlobalKey();
   bool _renderCard = false;
 
+  /// **L'ELEMENTO DOMINANTE, dalla forma misurata del volto.**
+  /// Ordine CR voci 06 e 09. Nullo quando la forma non e' fra quelle che
+  /// sappiamo tradurre: il Metallo non ha una forma sua nel nostro
+  /// impianto e non gliene inventiamo una.
+  ElementoDelVolto? get _elemento => MianXiang.elementoDa(
+      widget.reading.letturaDi(FaceCategory.formaVolto).tratto);
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -1250,6 +1276,9 @@ class _RisultatoState extends State<_Risultato>
                     fotoPath: widget.fotoPath,
                     battito: _battito,
                     lato: 300,
+                    elemento: _elemento == null
+                        ? null
+                        : ColoreDellElemento.di(_elemento!),
                   ),
                 ),
               ),
@@ -1295,6 +1324,62 @@ class _RisultatoState extends State<_Risultato>
                   ),
                 ),
               ),
+
+              // **L'ELEMENTO SI LEGGE, non si deduce dal colore.**
+              // Ordine CR voce 09: il colore vince sulla scena, e la voce
+              // 06 vuole la tradizione dichiarata. Chi non distingue i
+              // colori deve ricevere la stessa lettura di tutti gli altri,
+              // quindi il nome e la ragione stanno scritti.
+              if (_elemento case final e?) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                Container(
+                  key: const Key('face_elemento'),
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusMd),
+                    border: Border.all(
+                        color: ColoreDellElemento.di(e)
+                            .withValues(alpha: 0.65)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColoreDellElemento.di(e),
+                          ),
+                        ),
+                        const SizedBox(width: SpacingTokens.sm),
+                        Text('Elemento ${e.nome}',
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft,
+                                letterSpacing: 0.6)),
+                      ]),
+                      const SizedBox(height: SpacingTokens.xs),
+                      // Da cosa si riconosce: chi legge deve poter
+                      // verificare da se' che la forma corrisponde.
+                      Text(e.comeSiRiconosce,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary)),
+                      const SizedBox(height: SpacingTokens.xs),
+                      Text(e.lettura,
+                          style: TypographyTokens.corpo().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.5)),
+                      const SizedBox(height: SpacingTokens.xs),
+                      Text(
+                          'Mian Xiang, la fisiognomica cinese. La forma del '
+                          'volto è una misura, la lettura è simbolica.',
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary)),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: SpacingTokens.lg),
               // L'ELENCO dei tratti letti, ognuno con la sua stella e la frase.
               Text('I tratti del tuo volto',
@@ -1490,6 +1575,7 @@ class _VoltoCostellazione extends StatelessWidget {
     required this.fotoPath,
     required this.battito,
     required this.lato,
+    this.elemento,
   });
 
   final MaestroPalette palette;
@@ -1497,6 +1583,9 @@ class _VoltoCostellazione extends StatelessWidget {
   final String? fotoPath;
   final Animation<double> battito;
   final double lato;
+
+  /// Il colore dell'elemento dominante, ordine CR voce 09.
+  final Color? elemento;
 
   @override
   Widget build(BuildContext context) {
@@ -1522,6 +1611,7 @@ class _VoltoCostellazione extends StatelessWidget {
                   costellazione: costellazione,
                   palette: palette,
                   pulsazione: battito.value,
+                  elemento: elemento,
                 ),
               ),
             ),

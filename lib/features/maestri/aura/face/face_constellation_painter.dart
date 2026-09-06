@@ -17,6 +17,7 @@ class FaceConstellationPainter extends CustomPainter {
     required this.palette,
     this.pulsazione = 1.0,
     this.risalto = 1.0,
+    this.elemento,
   });
 
   final FaceConstellation costellazione;
@@ -28,6 +29,17 @@ class FaceConstellationPainter extends CustomPainter {
   /// Da uno in su: quanto la costellazione e' accesa. Sulla card sale.
   final double risalto;
 
+  /// **IL COLORE DELL'ELEMENTO DOMINANTE. Ordine CR voce 09.**
+  ///
+  /// L'ordine chiede che *il colore vinca sulla scena*. Nullo vuol dire
+  /// che nessun elemento e' stato assegnato, e allora resta l'oro di
+  /// Aura: **un colore inventato per riempire il nulla direbbe che una
+  /// misura c'e' stata**, e qui non ce n'e' stata nessuna.
+  final Color? elemento;
+
+  /// Il colore che comanda: l'elemento se c'e', altrimenti l'oro.
+  Color get _dominante => elemento ?? palette.gold;
+
   @override
   void paint(Canvas canvas, Size size) {
     final stelle = costellazione.scalate(size.shortestSide);
@@ -37,7 +49,7 @@ class FaceConstellationPainter extends CustomPainter {
       ..strokeWidth = 1.4 * risalto
       ..strokeCap = StrokeCap.round
       ..color =
-          palette.goldSoft.withValues(alpha: (0.45 * risalto).clamp(0.0, 1.0));
+          _dominante.withValues(alpha: (0.45 * risalto).clamp(0.0, 1.0));
     for (final l in costellazione.linee) {
       if (l[0] < stelle.length && l[1] < stelle.length) {
         canvas.drawLine(stelle[l[0]], stelle[l[1]], filo);
@@ -57,13 +69,15 @@ class FaceConstellationPainter extends CustomPainter {
         r * 2.4,
         Paint()
           ..color =
-              palette.gold.withValues(alpha: (0.22 * risalto).clamp(0.0, 1.0))
+              _dominante.withValues(alpha: (0.28 * risalto).clamp(0.0, 1.0))
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
       );
       canvas.drawCircle(
         s,
         r,
-        Paint()..color = palette.glow.withValues(alpha: (0.95).clamp(0.0, 1.0)),
+        Paint()
+          ..color = (elemento ?? palette.glow)
+              .withValues(alpha: (0.95).clamp(0.0, 1.0)),
       );
       canvas.drawCircle(
         s,
@@ -79,5 +93,6 @@ class FaceConstellationPainter extends CustomPainter {
   bool shouldRepaint(FaceConstellationPainter old) =>
       old.pulsazione != pulsazione ||
       old.risalto != risalto ||
+      old.elemento != elemento ||
       old.costellazione != costellazione;
 }

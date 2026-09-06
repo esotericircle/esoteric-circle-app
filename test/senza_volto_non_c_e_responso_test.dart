@@ -34,7 +34,7 @@ import 'cardinale_minimo.dart';
 /// nulla produce contorni e' un cancello aperto.
 void main() {
   test('senza volto il cancello rifiuta, e dice perche', () {
-    final esito = CancelloDellaScansione.giudica(contorniVivi: null);
+    final esito = CancelloDellaScansione.giudica(contorniVivi: null, eta: null);
     // ignore: avoid_print
     print('ORDINE CR VOCE 01: senza volto l esito e ${esito.runtimeType}');
     expect(esito, isA<NessunVolto>(),
@@ -52,7 +52,8 @@ void main() {
     // un ripiego, e' il dato che il rilevatore ha restituito. La differenza
     // fra le due prove non e' il contenuto, e' la PROVENIENZA.
     final veri = FaceSilhouette.contorni();
-    final esito = CancelloDellaScansione.giudica(contorniVivi: veri);
+    final esito = CancelloDellaScansione.giudica(
+        contorniVivi: veri, eta: const Duration(milliseconds: 50));
     // ignore: avoid_print
     print('ORDINE CR VOCE 01: con un volto rilevato l esito e '
         '${esito.runtimeType}');

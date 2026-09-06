@@ -65,6 +65,9 @@ class LetturaDelVolto {
     required this.roll,
     required this.espressione,
     required this.punti,
+    required this.confidenzaDelRilevamento,
+    required this.confidenzaDellaMesh,
+    required this.proporzioneDelFotogramma,
   });
 
   /// I contorni nella forma che il classificatore dei tratti gia' conosce, cosi'
@@ -87,4 +90,22 @@ class LetturaDelVolto {
   /// I 478 punti della mesh, in coordinate normalizzate. Servono al fascio di
   /// luce e alla maschera che segue il volto.
   final List<FaceMeshLandmark> punti;
+
+  /// **QUANTO IL RILEVATORE E' SICURO CHE LI' CI SIA UNA FACCIA.**
+  /// Da zero a uno. Esiste perche' una lista di punti non vuota non dice
+  /// niente su cosa ci sia davanti all'obiettivo.
+  final double confidenzaDelRilevamento;
+
+  /// **QUANTO BENE I PUNTI SI SONO POSATI SU QUELLA FACCIA.** Da zero a
+  /// uno. E' un giudizio diverso dal primo: si puo' essere sicuri che ci
+  /// sia un volto e non riuscire a misurarlo.
+  final double confidenzaDellaMesh;
+
+  /// **LARGHEZZA DIVISO ALTEZZA DEL FOTOGRAMMA da cui vengono i punti.**
+  ///
+  /// I punti arrivano normalizzati da zero a uno sui due lati, e i due lati
+  /// non sono lunghi uguale: senza questo numero, ogni rapporto fra una
+  /// larghezza e un'altezza esce sbagliato di quanto il fotogramma e'
+  /// schiacciato, e su un tre quarti sono trentatre' punti percentuali.
+  final double proporzioneDelFotogramma;
 }

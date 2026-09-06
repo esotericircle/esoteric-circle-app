@@ -98,15 +98,47 @@ class PuntiDelVolto {
 
   /// I contorni nella forma che il classificatore dei tratti gia' conosce.
   ///
-  /// **Si porta la mesh nel riquadro di mille per mille** che
-  /// `FaceClassifier` usa da sempre: cosi' la lettura dei tratti di CR.05, che
-  /// e' gia' geometrica e gia' giusta, continua a funzionare senza essere
-  /// riscritta, e cambia soltanto la qualita' del dato che le arriva.
-  static FaceContours contorniDa(List<FaceMeshLandmark> punti) {
+  /// **QUI STAVA IL DIFETTO CHE RENDEVA I RESPONSI A CASO.** Ordine CR,
+  /// seconda stesura, 6 settembre 2026.
+  ///
+  /// Parole del fondatore dopo la prova sul telefono: *"il responso NON
+  /// C'ENTRA UN CAZZO! SONO DESCRIZIONI BUTTATE LI' A CASO?"*. Non erano
+  /// buttate a caso: erano misure vere fatte su un viso schiacciato.
+  ///
+  /// La riga era questa:
+  ///
+  ///     Offset(punti[i].x * 1000, punti[i].y * 1000)
+  ///
+  /// I punti arrivano **normalizzati da zero a uno sui due lati**, e i due
+  /// lati non sono lunghi uguale: su un fotogramma tre quarti, un
+  /// centesimo di larghezza e un centesimo di altezza sono due distanze
+  /// diverse. Moltiplicandoli per lo stesso numero il volto veniva
+  /// **stirato in orizzontale di un terzo**, e il classificatore, che
+  /// lavora quasi solo su rapporti fra una larghezza e un'altezza, leggeva
+  /// un ovale come un volto tondo o quadrato. Da li' in poi ogni categoria
+  /// sbagliava insieme alle altre: forma, occhi, naso, bocca, mascella,
+  /// zigomi.
+  ///
+  /// **Adesso la proporzione del fotogramma entra nel conto**: il lato
+  /// lungo prende mille, il lato corto prende meno in proporzione, e le
+  /// distanze tornano confrontabili fra loro. Il classificatore non
+  /// cambia: cambia che i numeri che gli arrivano sono di un volto e non
+  /// di un volto stirato.
+  ///
+  /// [proporzioneDelFotogramma] e' larghezza diviso altezza. Uno vuol dire
+  /// quadrato, e allora questa funzione fa cio' che faceva prima.
+  static FaceContours contorniDa(
+    List<FaceMeshLandmark> punti, {
+    required double proporzioneDelFotogramma,
+  }) {
+    final p = proporzioneDelFotogramma > 0 ? proporzioneDelFotogramma : 1.0;
+    // Il lato lungo prende la scala piena, l'altro prende la sua parte.
+    final scalaX = p >= 1 ? 1000.0 : 1000.0 * p;
+    final scalaY = p >= 1 ? 1000.0 / p : 1000.0;
     List<Offset> presi(List<int> indici) => [
           for (final i in indici)
             if (i < punti.length)
-              Offset(punti[i].x * 1000, punti[i].y * 1000),
+              Offset(punti[i].x * scalaX, punti[i].y * scalaY),
         ];
     return FaceContours(
       volto: presi(ovale),
