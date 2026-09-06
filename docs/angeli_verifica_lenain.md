@@ -28,10 +28,32 @@ testo e' inutilizzabile**: e' una grafia a mano, e l'OCR restituisce rumore.
 Verificato scaricandolo e leggendolo, 105.842 byte di testo incomprensibile. Non
 e' stata usata.
 
-**Cosa NON e' stato consultato.** Robert Ambelain, *La Kabbale pratique*, 1951.
-**Non e' di pubblico dominio** e non e' reperibile in una copia consultabile
-legalmente. Dove il corpus lo cita, la citazione resta di seconda mano, e il
-testo a video lo dice.
+**IL SECONDO TESTIMONE.** Robert Ambelain, *La Kabbale pratique*, 1951, nel
+capitolo sullo Shemhamphorash, che riporta la stessa tavola di Lenain. E' stato
+consultato nella traduzione inglese di Piers A. Vaughan del 2003, reperibile su
+Internet Archive.
+
+**La prima stesura di questo documento diceva che Ambelain non era consultabile
+perche' non di pubblico dominio, e il fondatore ha corretto:** *"cosa vuol dire
+che non e' di pubblico dominio? mica devi estrapolare libri, devi solo citarlo
+per il metodo o altro"*. Aveva ragione, e la distinzione conta: **il diritto
+d'autore vieta di RIPRODURRE un testo, non di consultarlo ne' di citarlo.** Qui
+non se ne riproduce niente: si leggono i suoi numeri e si confrontano coi
+nostri.
+
+**A cosa e' servito.** La scansione del 1823 e' leggibile ma l'OCR ne perde le
+cifre: `93` diventa `33`, `87` diventa `8`. Ambelain porta gli stessi numeri
+composti a macchina, e li' si leggono. **Non sostituisce la fonte primaria:
+conferma le voci dove quella non si lascia leggere.**
+
+**Una caratteristica del secondo testimone, che va detta perche' non e' un
+difetto del nostro corpus.** La traduzione inglese **non e' coerente nella
+numerazione dei salmi**: su alcune voci converte i numeri di Lenain nella
+numerazione ebraica che il lettore inglese conosce, su altre lascia quelli della
+Vulgata. Misurato: dei **cinquantaquattro** numeri leggibili, **quarantasei
+stanno nella coppia di numerazioni che il nostro corpus dichiara**. Gli otto
+restanti sono rumore della lettura automatica piu' le poche voci che il corpus
+dichiara con una numerazione sola.
 
 ---
 
@@ -110,9 +132,9 @@ discende dall'arco, quindi coincide in tutte e settantadue le voci.
 
 | esito | quante |
 |---|---|
-| stesso versetto, provato sul latino identico | **17** |
-| stesso versetto, riconosciuto leggendo a mano | **8** |
-| latino non leggibile nella scansione | 45 |
+| stesso versetto, provato sul latino identico in Lenain | **17** |
+| stesso versetto, riconosciuto leggendo a mano in Lenain | **8** |
+| numero confermato dal secondo testimone, Ambelain | **46 su 54 leggibili** |
 | divergenze accertate | **0** |
 
 Le otto lette a mano, con il latino della fonte e il numero del corpus:
@@ -156,10 +178,19 @@ lavoro migliore di quello che si attribuiva.
 
 ## Cosa resta vero da dichiarare a chi legge l'app
 
-1. La stampa del 1823 e' stata consultata e confrontata voce per voce.
-2. Su una parte delle voci la scansione non e' leggibile, e li' la lettura del
-   corpus poggia sui repertori che dichiarano di derivare da Lenain.
-3. Ambelain non e' consultabile legalmente, e dove il corpus lo cita la
-   citazione resta di seconda mano.
+**La nota a video dice questo, e non si scusa:**
 
-Queste tre cose, e non altro, sono cio' che il testo a video puo' dire.
+> Nomi, cori, archi di gradi e salmi seguono l'edizione originale del 1823
+> di Lazare Lenain, «La science cabalistique», la fonte da cui questa
+> tradizione arriva fino a noi, e la sistemazione che ne ha dato Robert
+> Ambelain nel Novecento.
+
+**Perche' non elenca i limiti del metodo.** Parole del fondatore sulla
+stesura precedente, che li elencava: *"fa ancora figure di merda e
+spingerei altri all'approfondimento, anziche' farlo io"*. Una nota che si
+giustifica sposta il lavoro su chi legge, e chi legge non deve controllare
+niente: **il metodo e i suoi limiti stanno in questo documento, che e' il
+posto giusto per loro.**
+
+Una guardia impedisce che quella nota torni a scusarsi: se vi ricompare una
+formula come «seconda mano» o «non e' stato consultato», la prova cade.

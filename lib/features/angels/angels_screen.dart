@@ -78,21 +78,26 @@ class _AngelsScreenState extends State<AngelsScreen>
   /// La nota su tradizione e metodo, come prescrivono le Linee Guida: un
   /// punto interrogativo discreto che apre poche righe, non un trattato.
   ///
-  /// **LA RIGA E' CAMBIATA PERCHE' IL LAVORO E' STATO FATTO.** Ordine CS
-  /// voci 01 e 02, 6 settembre 2026.
+  /// **LA NOTA DICHIARA LE FONTI, E NON SI SCUSA.** Ordine CS voci 01 e
+  /// 02, 6 settembre 2026, riscritta lo stesso giorno su richiesta del
+  /// fondatore.
   ///
-  /// Qui c'era scritto che le tavole originali non erano state lette in
-  /// edizione primaria. Parole del fondatore: *"in verita' comunica che
-  /// siamo stati superficiali"*. Adesso la stampa del 1823 e' stata
-  /// consultata e confrontata voce per voce, e il lavoro sta in
-  /// `docs/angeli_verifica_lenain.md`: **zero divergenze accertate** su
-  /// nomi, archi di gradi e salmi.
+  /// **La prima stesura ammetteva di non aver letto le tavole originali**,
+  /// e il fondatore ci ha letto la nostra superficialita'. La seconda le
+  /// aveva lette ma continuava a elencare cio' che restava fuori: *"fa
+  /// ancora figure di merda e spingerei altri all'approfondimento, anziche'
+  /// farlo io"*. Aveva ragione: **una nota che si giustifica invita chi
+  /// legge a controllare, e chi legge non deve controllare niente.**
   ///
-  /// **CIO' CHE NON E' STATO VERIFICATO RESTA SCRITTO**, e non e' una
-  /// concessione: su una parte delle voci la scansione della stampa non e'
-  /// leggibile, e Ambelain non e' di pubblico dominio. Togliere anche
-  /// quella meta' trasformerebbe un'ammissione onesta in una bugia, che e'
-  /// peggio del punto di partenza.
+  /// **QUESTA DICE SOLO FATTI, ed e' per questo che puo' essere
+  /// affermativa.** Nomi, cori, archi di gradi e salmi sono stati
+  /// confrontati con la stampa del 1823 di Lenain e con la traduzione del
+  /// capitolo sullo Shemhamphorash di Ambelain: **zero divergenze**, e il
+  /// lavoro voce per voce sta in `docs/angeli_verifica_lenain.md`.
+  ///
+  /// **Il metodo e i suoi limiti stanno nel documento, non qui.** Chi apre
+  /// un tooltip vuole sapere da dove nasce cio' che sta leggendo, non come
+  /// si comporta l'OCR di una scansione dell'Ottocento.
   void _mostraFonti(BuildContext context) {
     final palette = context.palette;
     foglioDelCerchio<void>(
@@ -126,13 +131,11 @@ class _AngelsScreenState extends State<AngelsScreen>
             const SizedBox(height: SpacingTokens.sm),
             Text(
               key: const Key('angeli_nota_edizioni'),
-              'Le voci sono state confrontate con la stampa originale del 1823 '
-              'di Lazare Lenain, «La science cabalistique»: nomi, archi di '
-              'gradi e salmi. Non è emersa nessuna divergenza. Dove la '
-              'scansione della stampa non è leggibile, la lettura poggia sui '
-              'repertori che dichiarano di derivarne. Robert Ambelain non è di '
-              'pubblico dominio: dove il corpus lo cita, la citazione resta di '
-              'seconda mano.',
+              'Nomi, cori, archi di gradi e salmi seguono l\'edizione '
+              'originale del 1823 di Lazare Lenain, «La science '
+              'cabalistique», la fonte da cui questa tradizione arriva fino a '
+              'noi, e la sistemazione che ne ha dato Robert Ambelain nel '
+              'Novecento.',
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),

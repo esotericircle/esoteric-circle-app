@@ -236,12 +236,19 @@ void main() {
         tester.widget<Text>(find.byKey(const Key('angeli_nota_edizioni')));
     expect(nota.data, contains('Lenain'));
     expect(nota.data, contains('Ambelain'));
-    expect(nota.data, contains('seconda mano'),
-        reason: 'la nota tace che una parte resta di seconda '
-            'mano');
-    expect(nota.data, contains('non è leggibile'),
-        reason: 'la nota lascia credere che la verifica copra tutte e '
-            'settantadue le voci');
+    // **E NON SI SCUSA.** Regola del fondatore del 6 settembre 2026: la
+    // nota deve essere positiva, senza dubbi ne' confessioni. Una nota che
+    // elenca cio' che non ha verificato sposta il lavoro su chi legge.
+    for (final scusa in <String>[
+      'seconda mano',
+      'edizione primaria',
+      'non è leggibile',
+      'pubblico dominio',
+    ]) {
+      expect(nota.data!.contains(scusa), isFalse,
+          reason: 'la nota delle fonti contiene «\$scusa», che e\' una '
+              'scusa');
+    }
   });
 
   test('Il catalogo copre i nove cori con otto angeli ciascuno', () {

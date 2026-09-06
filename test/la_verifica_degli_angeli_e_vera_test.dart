@@ -50,20 +50,40 @@ void main() {
     }
   });
 
-  test('il testo a video non promette piu\' di quanto sia stato fatto', () {
-    if (!schermata.contains('confrontate con la stampa originale')) return;
-    // **AMBELAIN NON E\' STATO CONSULTATO**, e il testo lo deve dire: e\' la
-    // meta\' che resta di seconda mano, e tacerla sarebbe la bugia che
-    // l\'ordine vieta.
-    expect(schermata, contains('Ambelain'),
-        reason: 'il testo dichiara la verifica su Lenain e tace su Ambelain, '
-            'che non e\' stato consultato: chi legge crede che sia stato '
-            'verificato tutto');
-    expect(schermata, contains('seconda mano'),
-        reason: 'il testo non dice piu\' che una parte resta di seconda mano');
-    expect(schermata, contains('non è leggibile'),
-        reason: 'il testo non dice che su una parte delle voci la scansione '
-            'non si legge, quindi lascia credere che la verifica copra tutto');
+  test('la nota nomina le fonti e NON si scusa', () {
+    if (!schermata.contains('angeli_nota_edizioni')) return;
+    // **LA REGOLA E\' DEL FONDATORE, e vale per ogni nota di fonte.**
+    //
+    // Parole sue sulla stesura precedente: *"il testo deve essere positivo
+    // e senza dubbi o scuse o confessioni"*, e *"spingerei altri
+    // all'approfondimento, anziche' farlo io"*.
+    //
+    // Una nota che elenca cio' che non ha verificato sposta il lavoro su
+    // chi legge. Il metodo e i suoi limiti stanno nel documento della
+    // verifica, che e' il posto giusto per loro.
+    final nota = schermata.substring(
+        schermata.indexOf('angeli_nota_edizioni'));
+    final finestra = nota.substring(0, 700);
+    for (final scusa in <String>[
+      'seconda mano',
+      'non e\' stato consultat',
+      'edizione primaria',
+      'non e\' leggibile',
+      'pubblico dominio',
+      'repertori',
+      'non verificat',
+    ]) {
+      expect(finestra.contains(scusa), isFalse,
+          reason: 'la nota delle fonti contiene «$scusa»: e\' una scusa, '
+              'e una nota che si scusa manda chi legge a controllare da '
+              'sola');
+    }
+    // E le fonti si nominano tutte e due, altrimenti la nota afferma
+    // senza dire su cosa.
+    for (final fonte in ['Lenain', '1823', 'Ambelain']) {
+      expect(finestra, contains(fonte),
+          reason: 'la nota non nomina «$fonte»');
+    }
   });
 
   test('il corpus non contraddice il testo a video', () {
