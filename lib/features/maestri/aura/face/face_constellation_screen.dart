@@ -8,7 +8,9 @@ import '../../../sigilli/regia_del_cammino.dart';
 import '../../../../core/face/motore_del_volto.dart';
 import '../../../../core/face/motore_mediapipe.dart';
 import '../../../../core/face/scansione_a_pose.dart';
+import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 import 'fascio_di_scansione.dart';
+import 'lo_specchio_dell_istante.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype_allowance.dart';
@@ -110,6 +112,14 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   late final FaceHistory _storico = FaceHistory(clock: _clock);
 
   _Fase _fase = _Fase.soglia;
+
+  /// **I COEFFICIENTI DELL'ISTANTE DELLO SCATTO. Ordine CR voce 07.**
+  ///
+  /// Vivono in memoria per la durata della schermata e non toccano il
+  /// disco: sono dati derivati dal volto, e l'ordine chiede che sia
+  /// dichiarato dove stanno. Sul ripiego tattile restano vuoti, perche'
+  /// senza fotocamera non c'e' nessun istante da leggere.
+  Map<FaceBlendshape, double> _espressione = const {};
   bool _conCielo = false;
   bool _pronto = false;
 
@@ -184,7 +194,9 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   }
 
   Future<void> _concludi(FaceReading reading, FaceConstellation cost,
-      {String? fotoPath}) async {
+      {String? fotoPath,
+      Map<FaceBlendshape, double> espressione = const {}}) async {
+    _espressione = espressione;
     // Quando si sta leggendo l'altra persona il risultato non sostituisce il
     // proprio: si affianca.
     if (_leggoLAltro) {
@@ -283,6 +295,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                             fotoPath: _fotoPath,
                             conCielo: _conCielo,
                             pianeti: _pianeti,
+                            espressione: _espressione,
                             onCielo: (v) => setState(() => _conCielo = v),
                           ),
                         ),
@@ -542,8 +555,9 @@ class _Cattura extends StatefulWidget {
   });
 
   final MaestroPalette palette;
-  final void Function(FaceReading, FaceConstellation, {String? fotoPath})
-      onFatto;
+  final void Function(FaceReading, FaceConstellation,
+      {String? fotoPath,
+      Map<FaceBlendshape, double> espressione}) onFatto;
   final VoidCallback onRipiego;
 
   @override
@@ -701,7 +715,13 @@ class _CatturaState extends State<_Cattura>
     } catch (_) {
       foto = null;
     }
-    widget.onFatto(reading, cost, fotoPath: foto);
+    // **L'ESPRESSIONE DELL'ISTANTE SALE COL RESPONSO. Ordine CR voce
+    // 07.** Si prendono i coefficienti dell'ultima lettura viva, cioe'
+    // quelli del momento in cui la persona ha scattato: leggerli dopo
+    // vorrebbe dire leggere un altro istante.
+    widget.onFatto(reading, cost,
+        fotoPath: foto,
+        espressione: _lettura?.espressione ?? const {});
   }
 
   @override
@@ -902,6 +922,7 @@ class _Risultato extends StatefulWidget {
     required this.conCielo,
     required this.pianeti,
     required this.onCielo,
+    this.espressione = const {},
   });
 
   final MaestroPalette palette;
@@ -911,6 +932,9 @@ class _Risultato extends StatefulWidget {
   final bool conCielo;
   final Set<Pianeta> pianeti;
   final ValueChanged<bool> onCielo;
+
+  /// I coefficienti dell'istante dello scatto, vuoti sul ripiego.
+  final Map<FaceBlendshape, double> espressione;
 
   @override
   State<_Risultato> createState() => _RisultatoState();
@@ -1057,6 +1081,13 @@ class _RisultatoState extends State<_Risultato>
               const SizedBox(height: SpacingTokens.sm),
               for (final t in reading.marcati)
                 _RigaTratto(tratto: t, palette: palette),
+
+              // **L'ESPRESSIONE STA DOPO I TRATTI E IN UN RIQUADRO SUO.**
+              // Ordine CR voce 07: le due letture non si mescolano mai in
+              // una frase sola. Sul ripiego tattile i coefficienti sono
+              // vuoti e il riquadro non compare affatto.
+              LoSpecchioDellIstante(
+                  coefficienti: widget.espressione, palette: palette),
 
               const SizedBox(height: SpacingTokens.lg),
               // L'interruttore vivo dei transiti.
