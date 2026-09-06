@@ -1,3 +1,4 @@
+import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
@@ -405,7 +406,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             ),
             // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
             // schermata della pratica. Un saldo che appare e scompare non si impara.
-            actions: const [AngoloDellaBarra()],
+            // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+            // scansione: il selettore che si chiama «tradizione» e' la scelta fra scuole astrologiche,
+            // non una dichiarazione di fonti.
+            actions: [
+              FoglioDelleFonti.bottone(context,
+                  palette: palette,
+                  testo: TestiDelleFonti.oroscopo,
+                  chiave: 'oroscopo_fonti'),
+              const AngoloDellaBarra(),
+            ],
           ),
           body: CosmosBackground(
             seed: 5,

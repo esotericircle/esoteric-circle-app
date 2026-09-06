@@ -1,3 +1,4 @@
+import '../../../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:math' as math;
 
 import 'dart:async';
@@ -182,7 +183,15 @@ class _MeditationScreenState extends State<MeditationScreen>
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
-        actions: const [AngoloDellaBarra()],
+        // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+        // scansione: la riga sul 432 dice cosa la Meditazione NON e', e non da dove nasce.
+        actions: [
+          FoglioDelleFonti.bottone(context,
+              palette: palette,
+              testo: TestiDelleFonti.meditazione,
+              chiave: 'meditazione_fonti'),
+          const AngoloDellaBarra(),
+        ],
       ),
       body: SafeArea(
         top: false,

@@ -1,3 +1,4 @@
+import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
@@ -451,6 +452,16 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
           ),
           title: Text('Soffio del Destino',
               style: TypographyTokens.titoloDiSchermata()),
+          // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+          // scansione: il Soffio nasce dai transiti veri di oggi sul cielo
+          // di nascita, la stessa porta dell'Oroscopo, e a video non lo
+          // diceva niente.
+          actions: [
+            FoglioDelleFonti.bottone(context,
+                palette: palette,
+                testo: TestiDelleFonti.soffio,
+                chiave: 'soffio_fonti'),
+          ],
         ),
         // LA SCENA HA UN NOME, ordine P voce 26.
         //

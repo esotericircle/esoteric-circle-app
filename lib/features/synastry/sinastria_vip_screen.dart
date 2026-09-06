@@ -1,3 +1,4 @@
+import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
@@ -555,7 +556,15 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
-        actions: const [AngoloDellaBarra()],
+        // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+        // scansione: Tolomeo era citato nel codice di altre_affinita e mai a schermo.
+        actions: [
+          FoglioDelleFonti.bottone(context,
+              palette: palette,
+              testo: TestiDelleFonti.sinastria,
+              chiave: 'sinastria_fonti'),
+          const AngoloDellaBarra(),
+        ],
       ),
       // Il cosmo profondo avvolge la schermata, senza le figure di costellazione
       // a linee che finivano coperte dalle cornici: qui restano stelle,

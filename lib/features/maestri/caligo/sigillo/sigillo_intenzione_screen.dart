@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../widgets/foglio_delle_fonti.dart';
 import '../../chat/chat_openers.dart';
 import '../../../ricordi/azioni_del_responso.dart';
 import 'package:flutter/material.dart';
@@ -143,7 +144,16 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
         // si impara.
-        actions: const [AngoloDellaBarra()],
+        // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+        // scansione: il metodo di Spare e la Rosa dei Petali erano
+        // nominati nel commento in testa a questo file e mai a video.
+        actions: [
+          FoglioDelleFonti.bottone(context,
+              palette: palette,
+              testo: TestiDelleFonti.sigillo,
+              chiave: 'sigillo_fonti'),
+          const AngoloDellaBarra(),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: CosmosBackground(
