@@ -1,0 +1,62 @@
+LE PROVE DEL ROSSO DELL ORDINE CR
+Esoteric Circle. Regola A: nessuna guardia si scrive senza averla vista rossa.
+
+========================================================================
+CR.01, IL CANCELLO: SENZA VOLTO NON C E RESPONSO
+========================================================================
+NATA ROSSA SENZA NESSUN INNESTO, perche' il difetto era in produzione: il
+fondatore lo aveva visto fotografando un muro.
+
+ROSSA     la schermata costruisce la lettura da un ripiego
+          nessun innesto necessario
+          attesa: la schermata non costruisce piu' una lettura da un ripiego
+          caduta: punti che sostituiscono il volto mancante con la sagoma
+                  disegnata 2
+            riga 613: final contorni = _contorniVivi ?? FaceSilhouette.contorni();
+            riga 640: final contorni = _contorniVivi ?? FaceSilhouette.contorni();
+          verde dopo la cura: 0
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+========================================================================
+CR.13, LE SOGLIE PROVVISORIE: ROSSA APPOSTA
+========================================================================
+Non e' una prova del rosso, e' un rosso VOLUTO che l'ordine chiede per nome:
+*una guardia deve cadere finche' quei valori restano marcati come non
+misurati*. Sta nel registro dei rossi accettati con la sua ragione, e non si
+ripara scrivendo codice.
+
+Stato al 6 settembre 2026: soglie tarate su un dispositivo FALSE, profilo 20
+gradi, inclinazione 15, tolleranza del fronte 5, tenuta 800 millisecondi.
+
+========================================================================
+CR.03 e CR.04, LA SCANSIONE A QUATTRO POSE E LA VITALITA'
+========================================================================
+Quattro innesti, uno per pretesa, ognuno verificato COL GREP prima di
+leggere l'esito, e il ripristino in un `finally`.
+
+PRIMO GIRO: 3 su 4.
+ROSSA     l aggancio non serve piu (if (!_agganciato) -> if (false))
+ROSSA     la posa si compie senza tenuta (>= soglie.tenuta -> >= zero)
+ROSSA     perdere l angolo non azzera (tolto _tenuta = Duration.zero)
+VERDE     ogni angolo va bene per ogni posa (Posa.destra => true)
+
+**E IL VERDE E' L'INFORMAZIONE PIU' UTILE DEL GIRO.** La pretesa della
+vitalita' diceva `expect(fermo.compiuta, isFalse)`, cioe' guardava se la
+SEQUENZA INTERA si compie da fermi. Con la sola posa destra sempre dentro
+soglia, restando immobili se ne compiva UNA e le altre tre no: la sequenza
+restava incompiuta e la guardia non vedeva niente.
+
+**Misurava il pezzo sano accanto al pezzo rotto**, che e' la famiglia di
+cecita' che il conto delle ore dell'ordine CQ aveva gia' contato sette volte
+su sette. Una posa compiuta senza muoversi e' gia' una crepa nel cancello, e
+il numero giusto da pretendere e' ZERO pose, non zero sequenze.
+
+SECONDO GIRO, con la pretesa corretta: 4 su 4.
+ROSSA     l aggancio non serve piu
+ROSSA     la posa si compie senza tenuta
+ROSSA     perdere l angolo non azzera
+ROSSA     ogni angolo va bene per ogni posa
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4, dopo che il primo giro ha
+trovato una pretesa debole
