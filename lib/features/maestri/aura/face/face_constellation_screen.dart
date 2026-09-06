@@ -11,6 +11,7 @@ import '../../../../core/face/scansione_a_pose.dart';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 import 'fascio_di_scansione.dart';
 import 'lo_specchio_dell_istante.dart';
+import 'maschera_che_segue.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype_allowance.dart';
@@ -585,6 +586,12 @@ class _CatturaState extends State<_Cattura>
   /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
   LetturaDelVolto? _lettura;
 
+  /// Larghezza diviso altezza del fotogramma che il motore ha appena
+  /// letto. Serve alla maschera per rifare lo STESSO ritaglio
+  /// dell'anteprima: senza, i punti scivolano via dal viso proprio
+  /// mentre la testa gira, che e' il momento in cui devono convincere.
+  double? _proporzioneFotogramma;
+
   /// Quando e' arrivato il fotogramma precedente: serve a dire alla
   /// scansione quanto tempo e' passato davvero, invece di contare i
   /// fotogrammi come se durassero tutti uguale.
@@ -653,7 +660,17 @@ class _CatturaState extends State<_Cattura>
           ? Duration.zero
           : adesso.difference(_fotogrammaPrecedente!);
       _fotogrammaPrecedente = adesso;
+      // **LA PROPORZIONE VIENE DAL FOTOGRAMMA VERO.** Ordine CR voce 09:
+      // la maschera deve rifare lo stesso ritaglio dell'anteprima, e la
+      // forma del fotogramma la sa solo chi lo ha appena letto. La
+      // rotazione del sensore scambia i lati, e su un telefono in piedi
+      // sono scambiati quasi sempre.
+      final giroDispari =
+          (_camera!.description.sensorOrientation ~/ 90).isOdd;
+      final largo = giroDispari ? image.height : image.width;
+      final alto = giroDispari ? image.width : image.height;
       setState(() {
+        _proporzioneFotogramma = alto == 0 ? null : largo / alto;
         _lettura = lettura;
         if (lettura != null) {
           _rifiuto = null;
@@ -757,10 +774,16 @@ class _CatturaState extends State<_Cattura>
     // che sembrava misurare qualcosa.
     //
     // Adesso i due casi si vedono e non si somigliano: col volto
-    // rilevato la costellazione e' viva e piena; senza, resta una guida
-    // tenue che dice dove mettersi, e il comando dello scatto e' spento.
-    final volto = _contorniVivi;
-    final cost = FaceConstellation.da(volto ?? FaceSilhouette.contorni());
+    // rilevato la maschera dei punti misurati e' accesa sul viso; senza,
+    // sopra l'anteprima non c'e' NIENTE, e il comando dello scatto e'
+    // spento.
+    //
+    // **QUI SPARIVA IL RESTO DELLA BUGIA. Ordine CR voce 09.** Fino a
+    // poco fa questa riga costruiva una costellazione dai contorni, con
+    // la sagoma disegnata a mano come ripiego, e la disegnava sopra
+    // l'anteprima: davanti a un muro si vedeva una figura accesa sopra il
+    // nulla. Era il gemello grafico del `??` che il cancello ha tolto dal
+    // responso, ed e' giusto che se ne vada insieme a lui.
     return Padding(
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Column(
@@ -801,17 +824,31 @@ class _CatturaState extends State<_Cattura>
                         )
                       else
                         _FondoSagoma(palette: palette),
-                      AnimatedBuilder(
-                        animation: _battito,
-                        builder: (context, _) => CustomPaint(
-                          key: const Key('face_constellation_live'),
-                          painter: FaceConstellationPainter(
-                            costellazione: cost,
-                            palette: palette,
-                            pulsazione: _battito.value,
+                      // **LA MASCHERA CHE SEGUE, ordine CR voce 09.**
+                      //
+                      // Qui prima stava una `FaceConstellationPainter`
+                      // costruita dai CONTORNI, cioe' una figura che
+                      // esisteva anche senza volto: davanti a un muro si
+                      // vedeva una costellazione accesa sopra il nulla, e
+                      // quella era la stessa bugia del responso, disegnata.
+                      //
+                      // Adesso si disegnano i punti che il motore ha
+                      // misurato in QUESTO fotogramma: se il volto esce,
+                      // spariscono. Non c'e' modo di farla sembrare viva
+                      // davanti a una parete.
+                      if (_lettura != null)
+                        CustomPaint(
+                          key: const Key('face_maschera'),
+                          painter: MascheraCheSegue(
+                            punti: _lettura!.punti,
+                            colore: palette.gold,
+                            quota: _scansione.compiuta
+                                ? 1.0
+                                : _scansione.progresso,
+                            scorre: !ScrollReveal.motionOff(context),
+                            proporzioneFotogramma: _proporzioneFotogramma,
                           ),
                         ),
-                      ),
                       // **IL FASCIO CHE MISURA, ordine CR voce 09.** Non e'
                       // un'animazione decorativa: scorre solo mentre una
                       // posa e' in corso, e la sua altezza segue il tempo di
