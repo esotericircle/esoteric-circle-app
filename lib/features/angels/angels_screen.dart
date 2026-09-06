@@ -78,9 +78,21 @@ class _AngelsScreenState extends State<AngelsScreen>
   /// La nota su tradizione e metodo, come prescrivono le Linee Guida: un
   /// punto interrogativo discreto che apre poche righe, non un trattato.
   ///
-  /// Dice anche la cosa scomoda, cioe' che le tavole originali non sono state
-  /// lette in edizione primaria. Un responso che tace su cosa non ha verificato
-  /// chiede fiducia cieca, e questa app non la chiede.
+  /// **LA RIGA E' CAMBIATA PERCHE' IL LAVORO E' STATO FATTO.** Ordine CS
+  /// voci 01 e 02, 6 settembre 2026.
+  ///
+  /// Qui c'era scritto che le tavole originali non erano state lette in
+  /// edizione primaria. Parole del fondatore: *"in verita' comunica che
+  /// siamo stati superficiali"*. Adesso la stampa del 1823 e' stata
+  /// consultata e confrontata voce per voce, e il lavoro sta in
+  /// `docs/angeli_verifica_lenain.md`: **zero divergenze accertate** su
+  /// nomi, archi di gradi e salmi.
+  ///
+  /// **CIO' CHE NON E' STATO VERIFICATO RESTA SCRITTO**, e non e' una
+  /// concessione: su una parte delle voci la scansione della stampa non e'
+  /// leggibile, e Ambelain non e' di pubblico dominio. Togliere anche
+  /// quella meta' trasformerebbe un'ammissione onesta in una bugia, che e'
+  /// peggio del punto di partenza.
   void _mostraFonti(BuildContext context) {
     final palette = context.palette;
     foglioDelCerchio<void>(
@@ -114,9 +126,13 @@ class _AngelsScreenState extends State<AngelsScreen>
             const SizedBox(height: SpacingTokens.sm),
             Text(
               key: const Key('angeli_nota_edizioni'),
-              'Le fonti sono repertori che dichiarano di derivare da Lenain e '
-              'da Ambelain. Le tavole originali non sono state consultate in '
-              'edizione primaria.',
+              'Le voci sono state confrontate con la stampa originale del 1823 '
+              'di Lazare Lenain, «La science cabalistique»: nomi, archi di '
+              'gradi e salmi. Non è emersa nessuna divergenza. Dove la '
+              'scansione della stampa non è leggibile, la lettura poggia sui '
+              'repertori che dichiarano di derivarne. Robert Ambelain non è di '
+              'pubblico dominio: dove il corpus lo cita, la citazione resta di '
+              'seconda mano.',
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),

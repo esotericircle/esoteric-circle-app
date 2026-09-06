@@ -23,7 +23,7 @@ I verificatori hanno prodotto una cosa che non era stata chiesta e che vale piu'
 
 **Sui salmi**: la numerazione cambia fra Vulgata Clementina, Nova Vulgata, numerazione ebraica e CEI. Dove il verificatore ha corretto, la correzione e' gia' applicata qui e dichiara l'edizione. Dove l'edizione non e' dichiarata, si pubblica il solo numero del salmo senza versetto.
 
-**Cosa resta fuori da questo corpus**: la virtu' e il salmo come strato completo e verificato su fonte primaria. Le tavole originali di Lenain del 1823 e di Ambelain non sono risultate consultabili integralmente in rete, quindi le fonti usate sono repertori che dichiarano di derivarne. Chi vorra' salire di un gradino dovra' partire dalle edizioni cartacee.
+**Cosa restava fuori da questo corpus, e cosa e' stato colmato il 6 settembre 2026.** Questa riga diceva che le tavole originali di Lenain del 1823 e di Ambelain non erano risultate consultabili integralmente in rete, e che le fonti usate erano repertori che dichiarano di derivarne. **Per Lenain non e' piu' vero**: con l'ordine CS la stampa del 1823 e' stata trovata, scaricata e confrontata voce per voce su nomi, archi di gradi e salmi, e il lavoro sta in `docs/angeli_verifica_lenain.md`. **Zero divergenze accertate.** Restano due limiti veri: su una parte delle voci la scansione della stampa non e' leggibile, e li' la lettura poggia ancora sui repertori; **Ambelain non e' di pubblico dominio** e non e' stato consultato.
 
 ## Numeri di questo lavoro
 

@@ -219,12 +219,29 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     expect(find.text('Fonti e metodo'), findsOneWidget);
-    // La frase scomoda c'e', ed e' quella che conta.
+    // **LA FRASE SCOMODA E' CAMBIATA PERCHE' IL LAVORO E' STATO FATTO.**
+    // Ordine CS voci 01 e 02, 6 settembre 2026.
+    //
+    // Questa prova pretendeva le parole «edizione primaria», cioe'
+    // l'ammissione di non aver consultato le tavole originali. Adesso la
+    // stampa del 1823 e' stata confrontata voce per voce, e pretendere
+    // quell'ammissione vorrebbe dire pretendere che l'app dica una cosa
+    // che non e' piu' vera.
+    //
+    // **CIO' CHE RESTA SCOMODO SI PRETENDE ANCORA**, e sono due cose:
+    // Ambelain non e' stato consultato, e su una parte delle voci la
+    // scansione non si legge. Una nota che dicesse solo la meta' buona
+    // sarebbe la bugia che l'ordine vieta per nome.
     final nota =
         tester.widget<Text>(find.byKey(const Key('angeli_nota_edizioni')));
-    expect(nota.data, contains('edizione primaria'));
     expect(nota.data, contains('Lenain'));
     expect(nota.data, contains('Ambelain'));
+    expect(nota.data, contains('seconda mano'),
+        reason: 'la nota tace che una parte resta di seconda '
+            'mano');
+    expect(nota.data, contains('non è leggibile'),
+        reason: 'la nota lascia credere che la verifica copra tutte e '
+            'settantadue le voci');
   });
 
   test('Il catalogo copre i nove cori con otto angeli ciascuno', () {
