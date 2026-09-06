@@ -9,6 +9,8 @@ import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';
+import 'package:esoteric_circle/core/rituals/rito_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
@@ -75,10 +77,18 @@ void main() {
     final giornalieri = <String>[];
     for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
       final quando = DateTime(2026, 1, 1).add(Duration(days: giorno));
-      giornalieri
-        ..add(DailyRituals.dayOracle(quando))
-        ..add(DailyRituals.nightMessage(quando))
-        ..add(DailyRituals.dawnMessage(quando));
+      // **SI MISURA IL TESTO CHE LA PERSONA LEGGE DAVVERO.** Ordine CS,
+      // voce M1 della scansione, 6 settembre 2026. I pool statici di
+      // `DailyRituals` non li chiamava piu' nessun file di `lib`: questa
+      // guardia misurava testo che nessuno vede.
+      giornalieri.add(ArcanoDelGiorno.sommarioDi(quando));
+      final rito = RitoAlba.diOggi(quando);
+      if (rito != null) {
+        giornalieri
+          ..add(rito.parola)
+          ..add(rito.gesto)
+          ..add(rito.respiro);
+      }
     }
     tutto['Riti del giorno, le righe'] = giornalieri;
     return tutto;

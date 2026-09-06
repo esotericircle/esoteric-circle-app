@@ -354,12 +354,23 @@ class ArtCatalog {
       ),
     ]),
     ArtSection(title: 'Destino', arts: [
+      // **VIVA, E IL CATALOGO LO DICEVA IN ARRIVO.** Ordine CS, voce S3
+      // della scansione, 6 settembre 2026.
+      //
+      // La schermata dei Tre Angeli era gia' raggiungibile da due punti,
+      // il compagno di nascita e il passaporto cosmico, **e il fondatore
+      // l'ha aperta lui stesso**: e' da quella schermata che nasce
+      // l'ordine CS. Dallo scaffale delle arti invece non ci si arrivava,
+      // perche' qui c'era scritto che non era pronta.
+      //
+      // Una funzione viva marcata «in arrivo» e' un pezzo di prodotto che
+      // nessuno trova, e chi lo trova per caso non sa se puo' fidarsi.
       ArtEntry(
         id: 'guardian_angel',
         title: 'Angelo Custode personale',
         teaser: 'Il tuo fra i settantadue, dalla tua data di nascita.',
         icon: Icons.shield_moon_rounded,
-        state: ArtState.inArrivo,
+        state: ArtState.attiva,
         phase: ArtPhase.mvp,
       ),
       ArtEntry(

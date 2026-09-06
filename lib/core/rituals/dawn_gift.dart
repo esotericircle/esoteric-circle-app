@@ -176,7 +176,13 @@ class DawnGift {
     // carta dentro cio' che leggeva. Adesso il gesto, il respiro e la parola
     // del giorno nascono anche dal suo Sole.
     final ritoDelGiorno =
-        RitoAlba.diOggi(date, posizione: posizione, soleNatale: natalSun);
+        RitoAlba.diOggi(date,
+            posizione: posizione,
+            soleNatale: natalSun,
+            // **LA NASCITA INTERA ENTRA NEL RITO.** Ordine CS voce S4: col
+            // solo segno, in un giorno esistevano dodici Albe diverse in
+            // tutto il mondo. L'identita' arriva gia' qui, bastava passarla.
+            nascita: identity?.birthMoment);
     final rito = rispostaPropria == null || ritoDelGiorno == null
         ? ritoDelGiorno
         : ritoDelGiorno.conRisposta(rispostaPropria);

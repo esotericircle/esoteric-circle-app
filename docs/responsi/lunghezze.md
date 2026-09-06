@@ -25,12 +25,13 @@ percio' le lunghezze nuove.
 
 | Responso | Quanti | Mediana | Massimo |
 | --- | --- | --- | --- |
-| Oracolo del Giorno, la riga | 366 | 73 | 76 |
+| Arcano del Giorno, il sommario | 366 | 20 | 26 |
 | Oroscopo, scheda «amore» | 4392 | 210 | 245 |
 | Oroscopo, scheda «carriera» | 4392 | 220 | 248 |
 | Oroscopo, scheda «fortuna» | 4392 | 199 | 245 |
 | Oroscopo, scheda «generale» | 4392 | 211 | 259 |
-| Rito dell'Alba, messaggio del mattino | 366 | 75 | 76 |
+| Rito dell'Alba, il gesto | 366 | 106 | 157 |
+| Rito dell'Alba, la parola | 366 | 6 | 9 |
 | Rune, presagio della gettata «croce» | 200 | 1027 | 1090 |
 | Rune, presagio della gettata «norne» | 200 | 823 | 877 |
 | Rune, presagio della gettata «odino» | 200 | 645 | 669 |
@@ -38,7 +39,6 @@ percio' le lunghezze nuove.
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
-| Sigillo del Sogno, saluto della notte | 366 | 68 | 74 |
 | Tarocchi, bolla di posizione | 576 | 196 | 325 |
 | Tarocchi, consiglio | 192 | 715 | 872 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
@@ -46,12 +46,13 @@ percio' le lunghezze nuove.
 
 ## Il piu' lungo di ogni tipo, in testa
 
-- **Oracolo del Giorno, la riga** (76 caratteri): Il cielo consiglia misura: non forzare una porta che si apre da sola domani.
+- **Arcano del Giorno, il sommario** (26 caratteri): Il dono della sospensione.
 - **Oroscopo, scheda «amore»** (245 caratteri): In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché ...
 - **Oroscopo, scheda «carriera»** (248 caratteri): Sul lavoro convinci con la passione più che con la logica fredda e il tuo entusiasmo diven...
 - **Oroscopo, scheda «fortuna»** (245 caratteri): La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un d...
 - **Oroscopo, scheda «generale»** (259 caratteri): Sei l'inizio fatto persona, la scintilla che accende prima che gli altri abbiano finito di...
-- **Rito dell'Alba, messaggio del mattino** (76 caratteri): Il cielo si schiarisce: oggi una piccola scelta conta più di mille pensieri.
+- **Rito dell'Alba, il gesto** (157 caratteri): La Luna è gibbosa crescente. Volgi lo sguardo verso il punto più lontano che riesci a vede...
+- **Rito dell'Alba, la parola** (9 caratteri): Custodire
 - **Rune, presagio della gettata «croce»** (1090 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, presagio della gettata «norne»** (877 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, presagio della gettata «odino»** (669 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
@@ -59,7 +60,6 @@ percio' le lunghezze nuove.
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
-- **Sigillo del Sogno, saluto della notte** (74 caratteri): Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.
 - **Tarocchi, bolla di posizione** (325 caratteri): C'è uno slancio senza direzione, oppure un timore che ti trattiene sull'orlo proprio mentr...
 - **Tarocchi, consiglio** (872 caratteri): Sulla fiducia in gioco, le carte non vedono una porta chiusa: vedono due tempi che non coi...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?

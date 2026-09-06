@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/core/rituals/rito_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
@@ -128,23 +130,30 @@ void main() {
     }
 
     // --- ORACOLO DEL GIORNO: la riga di mezza giornata ---
+    // **SI MISURA IL TESTO VIVO.** Ordine CS, voce M1: qui si chiamava
+    // `DailyRituals.dayOracle`, un pool statico che nessun file di `lib`
+    // chiama piu'. L'Arcano del Giorno e' cio' che la persona legge.
     final oracoli = <String>[];
     for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
-      oracoli.add(DailyRituals.dayOracle(
+      oracoli.add(ArcanoDelGiorno.sommarioDi(
           DateTime(2026, 1, 1).add(Duration(days: giorno))));
     }
-    tutto['Oracolo del Giorno, la riga'] = oracoli;
+    tutto['Arcano del Giorno, il sommario'] = oracoli;
 
     // --- SOGNO e ALBA: i messaggi del giorno ---
-    final saluti = <String>[];
-    final mattini = <String>[];
+    // Stessa cura: il Rito dell'Alba ha il suo motore, e cio' che si
+    // legge sono la parola, il gesto e il respiro.
+    final parole = <String>[];
+    final gesti = <String>[];
     for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
       final quando = DateTime(2026, 1, 1).add(Duration(days: giorno));
-      saluti.add(DailyRituals.nightMessage(quando));
-      mattini.add(DailyRituals.dawnMessage(quando));
+      final rito = RitoAlba.diOggi(quando);
+      if (rito == null) continue;
+      parole.add(rito.parola);
+      gesti.add(rito.gesto);
     }
-    tutto['Sigillo del Sogno, saluto della notte'] = saluti;
-    tutto['Rito dell\'Alba, messaggio del mattino'] = mattini;
+    tutto['Rito dell\'Alba, la parola'] = parole;
+    tutto['Rito dell\'Alba, il gesto'] = gesti;
 
     return tutto;
   }

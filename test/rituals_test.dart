@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/rituals/rito_alba.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
 import 'package:esoteric_circle/core/rituals/ritual_streak.dart';
@@ -30,10 +31,17 @@ void main() {
     });
 
     test('Stesso giorno, stesso responso', () {
-      expect(DailyRituals.dawnMessage(date), DailyRituals.dawnMessage(date));
-      expect(DailyRituals.destinyFragment(date),
-          DailyRituals.destinyFragment(date));
-      expect(DailyRituals.dayOracle(date), DailyRituals.dayOracle(date));
+      // **SI PROVA CIO' CHE VIVE.** Ordine CS, voce M1: qui si
+      // interrogavano `dawnMessage`, `destinyFragment` e `dayOracle`,
+      // cioe' i pool statici per giorno ordinale, che nessun file di
+      // `lib` chiamava piu' e che sono stati tolti. Il determinismo
+      // va provato sui motori veri dei Doni.
+      expect(ArcanoDelGiorno.sommarioDi(date),
+          ArcanoDelGiorno.sommarioDi(date));
+      final a = RitoAlba.diOggi(date);
+      final b = RitoAlba.diOggi(date);
+      expect(a?.parola, b?.parola);
+      expect(a?.gesto, b?.gesto);
     });
 
     test('L\'Elder Futhark ha i ventiquattro segni con glifo e significato',

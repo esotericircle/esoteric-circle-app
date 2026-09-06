@@ -382,10 +382,11 @@ class RitoAlba {
     DateTime giorno, {
     PosizioneDiStamattina? posizione,
     Zodiac? soleNatale,
+    DateTime? nascita,
   }) {
     final cielo = CieloDiStamattina.per(giorno, posizione: posizione);
     return componi(giorno, DailyRituals.dawnMaestro(giorno), cielo,
-        soleNatale: soleNatale);
+        soleNatale: soleNatale, nascita: nascita);
   }
 
   /// Compone il rito per un Maestro e un cielo dati.
@@ -395,11 +396,11 @@ class RitoAlba {
   /// cintura, non un caso atteso.
   static RitoDiOggi? componi(
       DateTime giorno, Maestro maestro, CieloDiStamattina cielo,
-      {Zodiac? soleNatale}) {
+      {Zodiac? soleNatale, DateTime? nascita}) {
     final forme = RitoAlbaCorpus.perMaestro(maestro);
     if (forme.isEmpty) return null;
 
-    final seme = _seme(giorno, maestro, soleNatale);
+    final seme = _seme(giorno, maestro, soleNatale, nascita);
     final forma = forme[seme % forme.length];
 
     // Solo le varianti il cui dato c'e' davvero.
@@ -546,10 +547,37 @@ class RitoAlba {
   ///
   /// **Chi non ha dato la nascita non perde il Dono**: senza segno la
   /// chiave e' esattamente quella di prima.
-  static int _seme(DateTime giorno, Maestro maestro, Zodiac? soleNatale) {
+  /// **IL SEME PORTA LA NASCITA INTERA, NON SOLO IL SEGNO.**
+  /// Ordine CS, voce S4 della scansione, 6 settembre 2026.
+  ///
+  /// **Il conto che ha fatto nascere questa cura.** Il seme era costruito
+  /// su tre cose: la data, il Maestro di turno e il solo segno solare. Il
+  /// Maestro di turno e' lo stesso per tutti quel giorno, quindi in un dato
+  /// giorno esistevano al massimo **dodici** Riti dell'Alba diversi in
+  /// tutto il mondo, e due persone dello stesso segno leggevano la stessa
+  /// identica cosa.
+  ///
+  /// **L'Arcano del Giorno aveva gia' curato lo stesso difetto**, ordine CQ
+  /// voce 2.05, e la ragione sta scritta nel suo codice: *"due persone con
+  /// la stessa carta natale vedevano la stessa carta ogni giorno, per
+  /// sempre"*. L'Alba era rimasta indietro perche' la correzione era stata
+  /// fatta su un'arte sola.
+  ///
+  /// **Il segno resta nel seme**, perche' e' la parte che chi legge
+  /// riconosce come propria, e la nascita si aggiunge accanto: cosi' due
+  /// persone dello stesso segno nate in giorni diversi si scorrelano,
+  /// mentre la stessa persona ritrova ogni giorno il suo.
+  ///
+  /// **Senza data di nascita il seme resta quello di prima**, e non si
+  /// inventa niente: chi non l'ha data riceve il rito del giorno, che e'
+  /// una cosa vera e non un ripiego travestito.
+  static int _seme(DateTime giorno, Maestro maestro, Zodiac? soleNatale,
+      [DateTime? nascita]) {
     final chiave = '${giorno.year}-${giorno.month}-${giorno.day}|'
         '${maestro.name}'
-        '${soleNatale == null ? '' : '|${soleNatale.name}'}';
+        '${soleNatale == null ? '' : '|${soleNatale.name}'}'
+        '${nascita == null ? '' : '|${nascita.year}-${nascita.month}-'
+            '${nascita.day}-${nascita.hour}-${nascita.minute}'}';
     var hash = 0x811c9dc5;
     for (final unita in chiave.codeUnits) {
       hash = (hash ^ unita) & 0xFFFFFFFF;

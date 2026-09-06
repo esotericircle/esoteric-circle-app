@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import '../../core/arts/art_catalog.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/identity/birth_identity.dart';
+import '../angels/angels_screen.dart';
 import 'art_intro_screen.dart';
 import 'aura/archetype/archetype_test_screen.dart';
 import 'aura/face/face_constellation_screen.dart';
@@ -85,6 +87,19 @@ Route<void>? artRouteFor(
     // lettura a richiesta e ripetibile, col selettore delle gettate.
     // Il Sigillo dell'Intenzione, terza distintiva di Caligo: dalla frase
     // scritta al glifo, col metodo di Spare sulla ruota della Golden Dawn.
+    // **L'ANGELO CUSTODE ARRIVA ANCHE DALLO SCAFFALE.** Ordine CS, voce
+    // S3. La schermata esisteva e si apriva solo da due punti laterali:
+    // adesso l'arte e' dichiarata attiva e questa e' la sua rotta.
+    //
+    // **Senza data di nascita non si apre**, si manda a darla: i tre
+    // angeli nascono dalla posizione del Sole, dal giorno e dall'ora, e
+    // senza quei dati non c'e' niente da calcolare. E' la stessa regola
+    // dell'Animale Guida, dichiarata in testa a questa funzione.
+    case 'guardian_angel':
+      if (userBirth == null) return DatiDiNascitaScreen.route();
+      return AngelsScreen.route(
+        identity: BirthIdentity.fromParts(birthDate: userBirth),
+      );
     case 'magic_sigil':
       return SigilloIntenzioneScreen.route();
     case 'rune_draw':

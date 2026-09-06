@@ -147,8 +147,25 @@ void main() {
       expect(narrativo.phase, ArtPhase.faseSuccessiva);
       // Nessuna schermata vera dietro: la rotta cade sull'anticipo.
       expect(artRouteFor(narrativo.id), isNull);
-      // La sottocategoria resta tutta in cammino, quindi chiusa ed esente.
-      expect(ArtCatalog.hasActive(destino), isFalse);
+      // **IL DESTINO NON E' PIU' TUTTO IN CAMMINO.** Ordine CS, voce S3
+      // della scansione, 6 settembre 2026.
+      //
+      // L'Angelo Custode era dichiarato in arrivo mentre la sua schermata
+      // era **viva e raggiungibile** da due punti dell'app, e il fondatore
+      // l'ha aperta lui stesso: e' da quella schermata che nasce l'ordine
+      // CS. Adesso il catalogo dice cio' che l'app fa.
+      final custode =
+          destino.arts.firstWhere((a) => a.id == 'guardian_angel');
+      expect(custode.state, ArtState.attiva,
+          reason: 'l\'Angelo Custode e\' vivo e il catalogo lo rimette in '
+              'arrivo: una funzione viva marcata «in arrivo» e\' un pezzo '
+              'di prodotto che nessuno trova');
+      expect(ArtCatalog.hasActive(destino), isTrue);
+      // E dallo scaffale ci si arriva davvero: senza rotta, un'arte
+      // dichiarata attiva e' una promessa che si rompe al primo tocco.
+      expect(artRouteFor('guardian_angel', userBirth: DateTime(1986, 7, 21)),
+          isNotNull,
+          reason: 'l\'arte e\' attiva e non ha una rotta');
     });
 
     test('Il dominio di Aura ha le sue tre sottocategorie piene', () {
@@ -509,11 +526,19 @@ void main() {
       ];
       expect(arti('Lunologia', true), tutta);
       expect(arti('Lunologia', false), tutta);
-      // Anche il Destino, dove il Destino Narrativo e' di fase successiva e
-      // senza l'esenzione sparirebbe alla persona.
-      const destino = ['guardian_angel', 'karmic_reading', 'narrative_destiny'];
-      expect(arti('Destino', true), destino);
-      expect(arti('Destino', false), destino);
+      // **IL DESTINO NON E' PIU' UN ESEMPIO DI SOTTOCATEGORIA CHIUSA.**
+      // Ordine CS, voce S3: l'Angelo Custode e' vivo, quindi il Destino ha
+      // un'arte attiva e segue la regola delle sottocategorie aperte, dove
+      // le fasi lontane si nascondono alla persona e restano in Demo.
+      //
+      // La regola che questa prova sorveglia resta provata dalla Lunologia,
+      // che di vivo non ha ancora niente.
+      expect(arti('Destino', true),
+          ['guardian_angel', 'karmic_reading', 'narrative_destiny'],
+          reason: 'in Demo si mostra tutto, fasi lontane comprese');
+      expect(arti('Destino', false), ['guardian_angel', 'karmic_reading'],
+          reason: 'alla persona il Destino Narrativo, di fase successiva, '
+              'non si mostra: la sottocategoria adesso ha una vita');
 
       // Astrologia e Cartomanzia hanno del vivo: li' la soglia vale ancora.
       expect(arti('Astrologia', false), isNot(contains('astrocartography')));
@@ -535,12 +560,15 @@ void main() {
         'Destino': 3,
       });
       // Solo le miste si accorciano: le tutte in cammino restano intere.
+      // **E il Destino adesso e' una mista**, ordine CS voce S3: l'Angelo
+      // Custode e' vivo, quindi il Destino Narrativo di fase successiva si
+      // nasconde alla persona come nelle altre sottocategorie aperte.
       expect(conta(false), {
         'Astrologia': 4,
         'Compatibilità': 2,
         'Cartomanzia': 2,
         'Lunologia': 4,
-        'Destino': 3,
+        'Destino': 2,
       });
       // Nessuna sottocategoria vuota arriva a video.
       for (final m in Maestro.values) {
@@ -770,8 +798,11 @@ void main() {
       expect(
           find.byKey(const Key('art_section_soon_astrologia')), findsNothing);
 
-      // Lunologia e Destino non hanno nulla di vivo: chiuse, con la dicitura.
-      for (final t in const ['lunologia', 'destino']) {
+      // **SOLO LA LUNOLOGIA NON HA NULLA DI VIVO.** Ordine CS voce S3: il
+      // Destino adesso ha l'Angelo Custode, che era vivo da sempre e che
+      // il catalogo dava per non pronto. Una sottocategoria con un'arte
+      // attiva non porta la dicitura del presto.
+      for (final t in const ['lunologia']) {
         await tester.scrollUntilVisible(
           find.byKey(Key('art_section_$t')),
           260,
@@ -781,7 +812,10 @@ void main() {
         expect(find.byKey(Key('art_section_header_$t')), findsOneWidget);
       }
       expect(find.byKey(const Key('art_lunology')), findsNothing);
-      expect(find.byKey(const Key('art_guardian_angel')), findsNothing);
+      // **L'ANGELO CUSTODE ADESSO SI VEDE.** Ordine CS voce S3: e' un'arte
+      // viva, quindi la sua sottocategoria e' aperta e la sua card sta a
+      // video come quella delle altre vive.
+      expect(find.byKey(const Key('art_guardian_angel')), findsOneWidget);
 
       // Al tocco dell'intestazione la sottocategoria si apre.
       await tocca(tester, const Key('art_section_header_lunologia'));
@@ -795,7 +829,9 @@ void main() {
       // L'ordine e' del catalogo, non della schermata: si verifica li'.
       expect(
         ArtCatalog.visibleFor(Maestro.medora, demo: true).map((s) => s.title),
-        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino'],
+        // **IL DESTINO SALE.** Ordine CS voce S3: le sottocategorie con
+        // un'arte viva vengono prima di quelle tutte in cammino.
+        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Destino', 'Lunologia'],
       );
       for (final m in Maestro.values) {
         final sezioni = ArtCatalog.visibleFor(m, demo: true);

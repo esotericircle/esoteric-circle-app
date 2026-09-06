@@ -9,6 +9,8 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';
+import 'package:esoteric_circle/core/rituals/rito_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,10 +31,21 @@ void main() {
     final violazioni = <String>[];
     for (var giorno = 1; giorno <= 366; giorno++) {
       final quando = DateTime(2026, 1, 1).add(Duration(days: giorno - 1));
+      // **SI MISURA IL TESTO CHE LA PERSONA LEGGE DAVVERO.**
+      // Ordine CS, voce M1 della scansione, 6 settembre 2026.
+      //
+      // Qui si chiamavano `DailyRituals.dayOracle`, `dawnMessage` e
+      // `nightMessage`, cioe' i quattro pool statici per giorno
+      // ordinale. **Quei pool non li chiama piu' nessun file di
+      // `lib` da mesi**: i Doni hanno motori propri. Questa guardia
+      // stava quindi misurando testo che nessuno vede, mentre il
+      // testo vero non lo misurava nessuno.
+      final rito = RitoAlba.diOggi(quando);
       final testi = <String, String>{
-        'oracolo': DailyRituals.dayOracle(quando),
-        'alba': DailyRituals.dawnMessage(quando),
-        'sogno': DailyRituals.nightMessage(quando),
+        'arcano': ArcanoDelGiorno.sommarioDi(quando),
+        if (rito != null) 'alba, parola': rito.parola,
+        if (rito != null) 'alba, gesto': rito.gesto,
+        if (rito != null) 'alba, respiro': rito.respiro,
       };
       for (final voce in testi.entries) {
         final v = ConfineDelResponso.violazioni(voce.value);
@@ -58,10 +71,18 @@ void main() {
     var quale = '';
     for (var giorno = 1; giorno <= 366; giorno++) {
       final quando = DateTime(2026, 1, 1).add(Duration(days: giorno - 1));
+      // **QUI SI MISURA IL COLPO D'OCCHIO, non tutto il rito.**
+      // Ordine CS, voce M1. La riga del dono e' cio' che la persona porta
+      // via: per l'Arcano il sommario, per l'Alba la parola. **Il gesto
+      // dell'Alba non e' una riga**, e' un'istruzione da eseguire, e
+      // arriva a 157 caratteri per costruzione: misurarlo con la soglia
+      // del colpo d'occhio vorrebbe dire pretendere che smetta di dire
+      // cosa fare. La sua lunghezza la sorveglia la prova dell'anatomia,
+      // qui sopra, che lo guarda insieme al respiro e alla parola.
+      final rito = RitoAlba.diOggi(quando);
       for (final voce in {
-        'oracolo': DailyRituals.dayOracle(quando),
-        'alba': DailyRituals.dawnMessage(quando),
-        'sogno': DailyRituals.nightMessage(quando),
+        'arcano': ArcanoDelGiorno.sommarioDi(quando),
+        if (rito != null) 'alba, parola': rito.parola,
       }.entries) {
         if (voce.value.length > massimo) {
           massimo = voce.value.length;
