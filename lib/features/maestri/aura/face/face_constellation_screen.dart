@@ -5,7 +5,10 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../../sigilli/regia_del_cammino.dart';
-import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import '../../../../core/face/motore_del_volto.dart';
+import '../../../../core/face/motore_mediapipe.dart';
+import '../../../../core/face/scansione_a_pose.dart';
+import 'fascio_di_scansione.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype_allowance.dart';
@@ -555,8 +558,25 @@ class _CatturaState extends State<_Cattura>
   )..repeat();
 
   CameraController? _camera;
-  FaceDetector? _detector;
-  FaceContours? _contorniVivi;
+
+  /// **IL MOTORE PASSA DALLA PORTA UNICA.** Ordine CR voce 02: la schermata
+  /// non conosce il nome del pacchetto, conosce solo la porta. Il giorno che
+  /// il motore si sostituisce, qui non cambia una riga.
+  final MotoreDelVolto _motore = MotoreMediaPipe();
+
+  /// La scansione guidata a quattro pose, CR voce 03. Vive qui perche' e'
+  /// legata a questa sessione di cattura e muore con lei.
+  final ScansioneAPose _scansione = ScansioneAPose();
+
+  /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
+  LetturaDelVolto? _lettura;
+
+  /// Quando e' arrivato il fotogramma precedente: serve a dire alla
+  /// scansione quanto tempo e' passato davvero, invece di contare i
+  /// fotogrammi come se durassero tutti uguale.
+  DateTime? _fotogrammaPrecedente;
+
+  FaceContours? get _contorniVivi => _lettura?.contorni;
 
   /// Cosa dire quando la scansione non trova nessun volto. Nullo vuol
   /// dire che non c'e' niente da dire, non che va tutto bene.
@@ -583,8 +603,7 @@ class _CatturaState extends State<_Cattura>
         imageFormatGroup: ImageFormatGroup.nv21,
       );
       await controller.initialize();
-      _detector =
-          FaceDetector(options: FaceDetectorOptions(enableContours: true));
+      await _motore.avvia();
       await controller.startImageStream(_analizza);
       if (!mounted) return;
       setState(() => _camera = controller);
@@ -596,30 +615,50 @@ class _CatturaState extends State<_Cattura>
   }
 
   Future<void> _analizza(CameraImage image) async {
-    if (_occupato || _detector == null || _camera == null) return;
+    if (_occupato || _camera == null) return;
     _occupato = true;
     try {
-      final input = _inputDaCamera(image, _camera!.description);
-      if (input != null) {
-        final volti = await _detector!.processImage(input);
-        if (volti.isNotEmpty) {
-          final c = _contorniDaVolto(volti.first);
-          if (c != null && mounted) {
-            // Trovato un volto: il rifiuto di prima non vale piu'.
-            setState(() {
-              _contorniVivi = c;
-              _rifiuto = null;
-            });
-          }
+      final piano = image.planes.isEmpty ? null : image.planes.first;
+      if (piano == null) return;
+      final lettura = await _motore.leggi(
+        byte: piano.bytes,
+        larghezza: image.width,
+        altezza: image.height,
+        // **I BYTE DI RIGA VENGONO DALLA FOTOCAMERA**, non dalla larghezza:
+        // molti telefoni allineano le righe a un multiplo, e dedurli
+        // porterebbe a leggere un'immagine storta in cui nessun volto si
+        // trova. Ordine CR voce 02.
+        byteDiRiga: piano.bytesPerRow,
+        rotazione: _camera!.description.sensorOrientation,
+        specchiata: _camera!.description.lensDirection ==
+            CameraLensDirection.front,
+      );
+      if (!mounted) return;
+      final adesso = DateTime.now();
+      final trascorso = _fotogrammaPrecedente == null
+          ? Duration.zero
+          : adesso.difference(_fotogrammaPrecedente!);
+      _fotogrammaPrecedente = adesso;
+      setState(() {
+        _lettura = lettura;
+        if (lettura != null) {
+          _rifiuto = null;
+          // **LA SCANSIONE AVANZA SOLO CON UN VOLTO IN SCENA.** Senza
+          // volto non si passa nemmeno il tempo: una posa non puo'
+          // maturare mentre la persona e' fuori campo.
+          _scansione.passo(
+            yaw: lettura.yaw,
+            pitch: lettura.pitch,
+            trascorso: trascorso,
+          );
         }
-      }
+      });
     } catch (_) {
       // Un frame illeggibile non ferma il flusso.
     } finally {
       _occupato = false;
     }
   }
-
   Future<void> _scatta() async {
     // **IL CANCELLO. Ordine CR voce 01, 6 settembre 2026.**
     //
@@ -632,6 +671,17 @@ class _CatturaState extends State<_Cattura>
     // Parole del fondatore: *ho provato a fare una foto a un muro e cmq
     // la funzionalita' mi ha dato un responso come se avessi fotografato
     // un viso*.
+    // **E LA SCANSIONE DEVE ESSERE COMPIUTA.** Ordine CR voci 03 e 04: le
+    // quattro pose non sono una messa in scena, sono la prova che davanti
+    // alla fotocamera c'e' una persona viva. Una fotografia stampata non
+    // gira la testa.
+    if (!_scansione.compiuta) {
+      if (mounted) {
+        setState(() => _rifiuto =
+            'Completa la scansione: mancano ancora ${ScansioneAPose.ordine.length - _scansione.compiute} pose.');
+      }
+      return;
+    }
     final esito =
         CancelloDellaScansione.giudica(contorniVivi: _contorniVivi);
     if (esito is NessunVolto) {
@@ -658,8 +708,22 @@ class _CatturaState extends State<_Cattura>
   void dispose() {
     _battito.dispose();
     _camera?.dispose();
-    _detector?.close();
+    _motore.spegni();
     super.dispose();
+  }
+
+  /// Cosa chiedere adesso, in una frase sola.
+  ///
+  /// **Una posa alla volta e nell'ordine**: l'ordine CR voce 03 dice che non
+  /// si passa alla successiva prima che la corrente sia compiuta, e la riga
+  /// a video deve dire la stessa cosa che la macchina sta aspettando, o la
+  /// persona insegue una richiesta che non e' quella vera.
+  String _cosaChiedere() {
+    if (_lettura == null) return 'Centra il viso nel cerchio, sguardo dritto.';
+    if (!_scansione.agganciato) return 'Guarda dritto verso lo schermo.';
+    final posa = _scansione.posaCorrente;
+    if (posa == null) return 'Scansione completa. Quando sei pronto, cattura.';
+    return posa.richiesta;
   }
 
   @override
@@ -686,11 +750,12 @@ class _CatturaState extends State<_Cattura>
           // dice, e se non c'e' dice quello e perche'. Prima diceva sempre
           // la stessa cosa, e sopra un muro sembrava che andasse tutto
           // bene.
+          // **LA RIGA GUIDA LA SCANSIONE, ordine CR voce 03.** Non dice
+          // sempre la stessa cosa: dice cosa manca adesso, una posa alla
+          // volta, perche' chiedere quattro movimenti insieme vuol dire non
+          // farne compiere nessuno.
           Text(
-              _rifiuto ??
-                  (volto == null
-                      ? 'Centra il viso nel cerchio, sguardo dritto.'
-                      : 'Volto trovato. Quando sei pronto, cattura.'),
+              _rifiuto ?? _cosaChiedere(),
               key: const Key('face_guide'),
               textAlign: TextAlign.center,
               style: TypographyTokens.didascalia()
@@ -727,11 +792,52 @@ class _CatturaState extends State<_Cattura>
                           ),
                         ),
                       ),
+                      // **IL FASCIO CHE MISURA, ordine CR voce 09.** Non e'
+                      // un'animazione decorativa: scorre solo mentre una
+                      // posa e' in corso, e la sua altezza segue il tempo di
+                      // tenuta. Chi guarda vede che la macchina sta
+                      // misurando davvero, perche' il fascio si ferma quando
+                      // la posa si perde.
+                      if (_lettura != null && !_scansione.compiuta)
+                        AnimatedBuilder(
+                          animation: _battito,
+                          builder: (context, _) => CustomPaint(
+                            key: const Key('face_fascio'),
+                            painter: FascioDiScansione(
+                              quota: _scansione.progresso,
+                              colore: palette.gold,
+                              acceso: _scansione.agganciato,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
               ),
             ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // **LE QUATTRO POSE SI VEDONO TUTTE**, e si vede quante ne mancano.
+          // Una scansione che chiede un movimento alla volta senza dire
+          // quanti ne restano sembra non finire mai.
+          Row(
+            key: const Key('face_pose_strip'),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var i = 0; i < ScansioneAPose.ordine.length; i++) ...[
+                if (i > 0) const SizedBox(width: SpacingTokens.xs),
+                Container(
+                  width: 34,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    color: i < _scansione.compiute
+                        ? palette.gold
+                        : palette.gold.withValues(alpha: 0.22),
+                  ),
+                ),
+              ],
+            ],
           ),
           const SizedBox(height: SpacingTokens.md),
           FilledButton.icon(
@@ -742,7 +848,11 @@ class _CatturaState extends State<_Cattura>
             // **SPENTO FINCHE' UN VOLTO NON C'E'.** Il comando resta in
             // campo, spento: sparire sarebbe un vicolo cieco, e chi
             // guarda deve vedere cosa potra' fare appena si inquadra.
-            onPressed: volto == null ? null : _scatta,
+            // **SI ACCENDE A SCANSIONE COMPIUTA**, non appena si vede un
+            // volto: premere prima produrrebbe un rifiuto, e un comando che
+            // si puo' premere solo per essere respinti e' un comando che
+            // mente.
+            onPressed: _scansione.compiuta ? _scatta : null,
             icon: const Icon(Icons.auto_awesome),
             label: const Text('Cattura la costellazione'),
           ),
@@ -758,51 +868,6 @@ class _CatturaState extends State<_Cattura>
     );
   }
 
-  // --- Adattatore ML Kit ---
-
-  /// Converte i contorni del volto rilevato da ML Kit nel dato puro del cuore.
-  FaceContours? _contorniDaVolto(Face volto) {
-    List<Offset> punti(FaceContourType t) {
-      final c = volto.contours[t];
-      if (c == null) return const [];
-      return [for (final p in c.points) Offset(p.x.toDouble(), p.y.toDouble())];
-    }
-
-    final oval = punti(FaceContourType.face);
-    if (oval.length < 4) return null;
-    return FaceContours(
-      volto: oval,
-      sopraccioSx: punti(FaceContourType.leftEyebrowTop),
-      sopraccioDx: punti(FaceContourType.rightEyebrowTop),
-      occhioSx: punti(FaceContourType.leftEye),
-      occhioDx: punti(FaceContourType.rightEye),
-      nasoPonte: punti(FaceContourType.noseBridge),
-      nasoBase: punti(FaceContourType.noseBottom),
-      labbroSopra: punti(FaceContourType.upperLipTop),
-      labbroSotto: punti(FaceContourType.lowerLipBottom),
-      guanciaSx: _primo(punti(FaceContourType.leftCheek)),
-      guanciaDx: _primo(punti(FaceContourType.rightCheek)),
-    );
-  }
-
-  static Offset? _primo(List<Offset> p) => p.isEmpty ? null : p.first;
-
-  InputImage? _inputDaCamera(CameraImage image, CameraDescription cam) {
-    final rotazione =
-        InputImageRotationValue.fromRawValue(cam.sensorOrientation) ??
-            InputImageRotation.rotation0deg;
-    final formato = InputImageFormatValue.fromRawValue(image.format.raw);
-    if (formato == null || image.planes.isEmpty) return null;
-    return InputImage.fromBytes(
-      bytes: image.planes.first.bytes,
-      metadata: InputImageMetadata(
-        size: Size(image.width.toDouble(), image.height.toDouble()),
-        rotation: rotazione,
-        format: formato,
-        bytesPerRow: image.planes.first.bytesPerRow,
-      ),
-    );
-  }
 }
 
 /// Il fondo con la sagoma neutra del volto, quando non c'e' la fotocamera.
