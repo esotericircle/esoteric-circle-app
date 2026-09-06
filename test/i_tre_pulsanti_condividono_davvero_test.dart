@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/brand/brand.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/registro_degli_eos.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -112,9 +113,35 @@ void main() {
       expect(testo, contains(grande.nome),
           reason: 'il testo condiviso non nomina il traguardo acceso: '
               '«$testo»');
-      expect(testo, TestoDellaCondivisione.perIlTraguardo(grande, modo),
-          reason: 'il testo condiviso non e\' quello del modo scelto: i tre '
-              'gesti sono tre, e tre testi diversi');
+      // **NON SI RICALCOLA LA FUNZIONE CHE SI STA MISURANDO.** Ordine CR
+      // voce 10, 6 settembre 2026. Qui prima stava scritto
+      //
+      //     expect(testo, TestoDellaCondivisione.perIlTraguardo(...));
+      //
+      // cioe' il testo spedito confrontato con la stessa funzione che
+      // l'aveva prodotto: una tautologia, che cambia insieme a cio' che
+      // dovrebbe sorvegliare. **Misurato con la Regola B**: tolto DEL
+      // TUTTO il link dal testo dell'invito, difetto verificato col grep
+      // in tre punti, questa guardia e' rimasta VERDE. Il link che
+      // attribuisce i download poteva sparire senza che nessuno lo
+      // vedesse.
+      //
+      // Adesso si pretendono i FATTI, che non seguono la funzione:
+      // i tre modi dicono tre cose diverse, e l'invito porta una via per
+      // arrivare all'app.
+      final altri = <String>[
+        for (final m in ModoDellaCondivisione.values)
+          if (m != modo) TestoDellaCondivisione.perIlTraguardo(grande, m),
+      ];
+      expect(altri, isNot(contains(testo)),
+          reason: 'il testo condiviso e'' quello di un altro modo: i '
+              'tre gesti sono tre, e tre testi diversi');
+      if (modo == ModoDellaCondivisione.invitoConDownload) {
+        expect(testo, contains(Brand.url),
+            reason: 'l''invito non porta nessuna via per arrivare '
+                'all''app: chi lo riceve legge un nome e non sa dove '
+                'andare, e il download non si attribuisce a nessuno');
+      }
 
       // IL BONUS SI INCASSA, e solo dopo la condivisione.
       //

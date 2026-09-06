@@ -14,7 +14,9 @@ import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'face_constellation.dart';
 import 'face_constellation_painter.dart';
 import 'face_silhouette.dart';
+import '../../../../core/brand/brand.dart';
 import '../../../../core/condivisione/porta_della_condivisione.dart';
+import '../../../../core/face/mian_xiang.dart';
 import '../../../../design_system/components/card_a_misura_fissa.dart';
 
 /// La card condivisibile della Costellazione del Viso, nella cornice verde e oro
@@ -43,7 +45,12 @@ class FaceShareCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     final dom = reading.dominante;
-    final principali = reading.marcati.take(4).toList();
+    // **L'ELEMENTO ARRIVA A CHI GUARDA. Ordine CR voce 10.** Il Mian
+    // Xiang stava in `lib/core/face/mian_xiang.dart` con le sue guardie e
+    // **nessun file di `lib` lo chiamava**: prodotto, non agganciato. La
+    // forma del volto e' una misura vera, e da quella nasce l'elemento.
+    final elemento = MianXiang.elementoDa(
+        reading.letturaDi(FaceCategory.formaVolto).tratto);
     // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
     // Ordine CN voce 12: la scala del testo di chi la crea non entra
     // nell'immagine, perche' l'immagine la guardano altri.
@@ -116,26 +123,27 @@ class FaceShareCard extends StatelessWidget {
                   style: TypographyTokens.corpo().copyWith(
                       color: palette.textPrimary, fontStyle: FontStyle.italic)),
               const SizedBox(height: SpacingTokens.md),
-              for (final t in principali)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-                  child: Row(
-                    children: [
-                      Icon(Icons.star_rounded,
-                          size: 15, color: palette.goldSoft),
-                      const SizedBox(width: SpacingTokens.sm),
-                      Expanded(
-                        child: Text(t.nome,
-                            style: TypographyTokens.corpo().copyWith(
-                                color: t == dom
-                                    ? palette.goldSoft
-                                    : palette.textPrimary,
-                                fontWeight: t == dom
-                                    ? FontWeight.w700
-                                    : FontWeight.w400)),
-                      ),
-                    ],
+              // **L'ELEMENTO AL POSTO DELL'ELENCO.** Ordine CR voce 10: sulla
+              // card sta *"la costellazione composta, protagonista; il volto
+              // molto sbiadito sotto; il titolo che e' gia' la risposta;
+              // l'elemento dominante; una riga sola di essenza"*. Un elenco
+              // di quattro tratti non e' in quella lista, e su una card che
+              // gira ogni riga in piu' toglie forza a quella che conta.
+              if (elemento != null)
+                Container(
+                  key: const Key('face_card_elemento'),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.md,
+                      vertical: SpacingTokens.xs),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusXl),
+                    border: Border.all(
+                        color: palette.gold.withValues(alpha: 0.55)),
                   ),
+                  child: Text('Elemento ${elemento.nome}',
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.2)),
                 ),
               const SizedBox(height: SpacingTokens.sm),
               Text('Esoteric Circle · Aura',
@@ -143,10 +151,16 @@ class FaceShareCard extends StatelessWidget {
                       color: palette.goldSoft.withValues(alpha: 0.7),
                       letterSpacing: 1.0)),
               const SizedBox(height: 2),
-              Text('Scopri la tua costellazione su Esoteric Circle',
+              // **UNA CARD CHE GIRA DEVE DIRE DOVE SI VA.** Ordine CR voce
+              // 10: prima qui c'era "Scopri la tua costellazione su Esoteric
+              // Circle", che e' un NOME. Chi guarda una fotografia non puo'
+              // toccare un nome: puo' digitare un dominio, e per questo si
+              // stampa il dominio e non l'URL intero.
+              Text(Brand.domain,
+                  key: const Key('face_card_indirizzo'),
                   style: TypographyTokens.corpo().copyWith(
-                      color: palette.textPrimary.withValues(alpha: 0.6),
-                      letterSpacing: 0.4)),
+                      color: palette.goldSoft.withValues(alpha: 0.9),
+                      letterSpacing: 0.8)),
             ],
           ),
         ),
@@ -187,7 +201,15 @@ Future<bool> shareFaceCard({
   // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
   return PortaDellaCondivisione.daFile(file.path,
-      testo:
-          'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
-          'Scopri la tua con Aura, su Esoteric Circle.');
+      testo: testoDaCondividere(dominante: dominante));
+}
+
+/// **IL TESTO CHE PARTE DAVVERO, come funzione pura.**
+///
+/// Sta fuori da [shareFaceCard] perche' quella vuole una fotocamera, un
+/// file e un foglio di sistema: tre cose che in prova non esistono. Cosi'
+/// una guardia puo' leggere ESATTAMENTE cio' che uscirebbe dal telefono.
+String testoDaCondividere({required FaceTrait dominante}) {
+  return 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
+      'Scopri la tua con Aura, su Esoteric Circle. ${Brand.url}';
 }
