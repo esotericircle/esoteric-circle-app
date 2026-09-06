@@ -96,7 +96,7 @@ void main() {
     // prodotto sei cadute, e stavolta l'ho scritta io.
     final trovati = [
       for (final v in vietati)
-        if (RegExp('\\b' + v + '\\b').hasMatch(serializzato)) v,
+        if (RegExp('\\b$v\\b').hasMatch(serializzato)) v,
     ];
     // ignore: avoid_print
     print('ORDINE CR VOCE 11: campi vietati trovati in cio che va su disco '
