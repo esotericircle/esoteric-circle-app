@@ -51,9 +51,18 @@ class StoricoDegliIstanti {
             if (IstanteSegnato.fromJson(r) case final i?) i,
           ],
       ];
-    } catch (_) {
-      // Una memoria illeggibile si tratta come una memoria vuota: cadere
-      // all'avvio per un file storto sarebbe peggio del dato perso.
+    } catch (errore) {
+      // **PERCHE' QUESTO ERRORE SI IGNORA, dichiarato.** Una memoria
+      // illeggibile si tratta come una memoria vuota: e' una comodita'
+      // di questa funzione, non un dato di cui qualcuno ha bisogno, e
+      // cadere all'avvio dell'app per un file storto sarebbe molto
+      // peggio del dato perso. Chi legge riparte da una linea vuota e
+      // se ne accorge soltanto perche' il confronto tace.
+      assert(() {
+        // ignore: avoid_print
+        print('linea degli istanti illeggibile, si riparte vuota: $errore');
+        return true;
+      }());
       _istanti = const [];
     }
   }

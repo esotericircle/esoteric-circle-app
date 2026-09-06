@@ -1119,12 +1119,28 @@ void main() {
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
         size: const Size(360, 1400));
-    // Si entra nella cattura: senza fotocamera resta la sagoma neutra con la
-    // costellazione sopra, che e' proprio lo stand-in deterministico.
+    // **SOPRA L'ANTEPRIMA NON C'E' PIU' NIENTE SENZA UN VOLTO.**
+    // Ordine CR voce 09, seconda stesura.
+    //
+    // Qui si pretendeva `face_constellation_live`, cioe' una
+    // costellazione ricavata dai contorni **con la sagoma disegnata a
+    // mano come ripiego**: una figura accesa che compariva anche quando
+    // un volto non c'era, e davanti a una parete diceva a chi guardava
+    // che la macchina stava trovando qualcosa. Era il gemello grafico del
+    // responso dal muro, ed e' stata tolta.
+    //
+    // Senza fotocamera resta il fondo con la sagoma, che e' una GUIDA
+    // dichiarata, e il comando dello scatto spento.
     await tester.tap(find.byKey(const Key('face_start')));
     await step(tester);
     await step(tester);
-    expect(find.byKey(const Key('face_constellation_live')), findsOneWidget);
+    expect(find.byKey(const Key('face_maschera')), findsNothing,
+        reason: 'senza fotocamera compare la maschera dei punti: allora '
+            'sta disegnando punti che nessuno ha misurato');
+    final scatto = tester.widget<FilledButton>(
+        find.byKey(const Key('face_shutter')));
+    expect(scatto.onPressed, isNull,
+        reason: 'senza volto il comando dello scatto e\' acceso');
     await capture(tester, rootKey, 'costellazione-viso-sagoma.png');
   });
 

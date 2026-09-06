@@ -686,10 +686,17 @@ class _Cattura extends StatefulWidget {
 
 class _CatturaState extends State<_Cattura>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _battito = AnimationController(
-    vsync: this,
-    duration: const Duration(seconds: 3),
-  )..repeat();
+  /// **IL BATTITO NASCE SUBITO, NON ALLA PRIMA OCCHIATA.**
+  /// Ordine CR voce 09, seconda stesura.
+  ///
+  /// Era `late final`, cioe' costruito la prima volta che qualcuno lo
+  /// guardava. Finche' sopra l'anteprima si disegnava una costellazione
+  /// animata, qualcuno lo guardava sempre in costruzione. Tolta quella
+  /// costellazione, chi apre la cattura e se ne va **senza mai farsi
+  /// inquadrare** non lo tocca mai, e allora il primo a toccarlo e'
+  /// `dispose`: si finiva a creare un Ticker mentre l'albero delle viste
+  /// sta gia' morendo, che Flutter vieta.
+  late final AnimationController _battito;
 
   CameraController? _camera;
 
@@ -749,6 +756,10 @@ class _CatturaState extends State<_Cattura>
   @override
   void initState() {
     super.initState();
+    _battito = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat();
     _prepara();
   }
 
@@ -1511,7 +1522,7 @@ class _IlMomento extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Rispetto alle tue ultime letture',
+                  Text('Le tue ultime letture',
                       style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 0.6)),
                   const SizedBox(height: SpacingTokens.xs),
