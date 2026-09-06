@@ -177,7 +177,7 @@ Arcangelo: **Metatron**. Angeli dal 1 al 8.
 - **Nomi alternativi**: Acaiah, Akaiah, Achajah, 'Aka'ayah
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors».
+**Salmo**. Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors». **Lenain assegna questo stesso versetto anche all'angelo 50, Daniel**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS, leggendo le due voci una accanto all'altra. Non e' un doppione nostro, e' cosi' nella fonte.
 
 **Dominio secondo la tradizione**. La tradizione lo lega alla ricerca, alle scoperte, alla trasmissione del sapere, al ritrovare un senso dopo averlo perso. Riguarda il tempo lungo dell'apprendere.
 
@@ -473,7 +473,7 @@ Arcangelo: **Tzafkiel**. Angeli dal 17 al 24.
 - **Nomi alternativi**: Pahalia, Phehilyah, Pehaliah, Pahaliël
 - **Confidenza dichiarata dal ricercatore**: media
 
-**Salmo**. Salmo 120,2: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice». Ambelain concorda sul versetto 2.
+**Salmo**. Salmo 120,2 nella numerazione ebraica, corrispondente al Salmo 119,2 della Vulgata: «Signore, libera la mia vita dalle labbra di menzogna, dalla lingua ingannatrice», in latino «Domine libera animam meam a labiis iniquis, et a lingua dolosa». Verificato sulla stampa di Lenain del 1823 con l'ordine CS. Ambelain concorda sul versetto 2.
 
 **Dominio secondo la tradizione**. Etica, ricerca di senso, vocazione, uscita da abitudini che ti tengono fermo. Riguarda ciò che decidi di considerare non negoziabile.
 
@@ -513,7 +513,7 @@ Arcangelo: **Tzafkiel**. Angeli dal 17 al 24.
 - **Nomi alternativi**: Yeiayel, Yeiaiel, Yeyayel, Yeyayiel
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 121,5: «Il Signore è il tuo custode, il Signore è la tua ombra e sta alla tua destra».
+**Salmo**. Salmo 121,5 nella numerazione ebraica, corrispondente al Salmo 120,5 della Vulgata: «Il Signore è il tuo custode, il Signore è la tua ombra e sta alla tua destra», in latino «Dominus custodit te; Dominus protectio tua super manum dexteram tuam». Verificato sulla stampa di Lenain del 1823 con l'ordine CS.
 
 **Dominio secondo la tradizione**. Fama, commercio, diplomazia, viaggi e scambi, rapporti con chi ti valuta dall'esterno. Riguarda l'uso che fai della visibilità ottenuta.
 
@@ -553,7 +553,7 @@ Arcangelo: **Tzafkiel**. Angeli dal 17 al 24.
 - **Nomi alternativi**: Hahuiah, Heheuiah, Hayuiah, Chahaviah
 - **Confidenza dichiarata dal ricercatore**: media
 
-**Salmo**. Salmo 33,18: «Ecco, l'occhio del Signore è su chi lo teme, su chi spera nel suo amore».
+**Salmo**. Salmo 33,18 nella numerazione ebraica, corrispondente al Salmo 32,18 della Vulgata: «Ecco, l'occhio del Signore è su chi lo teme, su chi spera nel suo amore», in latino «Ecce oculi Domini super metuentes eum, et in eis qui sperant in misericordia eius». Verificato sulla stampa di Lenain del 1823 con l'ordine CS.
 
 **Dominio secondo la tradizione**. Esilio, distacchi, prigionia, ingiustizia subita, ritorno dopo un allontanamento. Riguarda anche il confine che decidi di porre intorno a te.
 
@@ -1155,7 +1155,7 @@ Arcangelo: **Haniel**. Angeli dal 49 al 56.
 - **Nomi alternativi**: Daniy'el, Dani'el, Danyel, Daniël
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 103,8: «Miserator et misericors Dominus, longanimis et multae misericordiae» (Nova Vulgata). Vulgata Clementina 102,8: «Miserator et misericors Dominus, longanimis, et multum misericors»
+**Salmo**. Salmo 103,8 nella numerazione ebraica, corrispondente al Salmo 102,8 della Vulgata: «Miserator et misericors Dominus, longanimis et multae misericordiae» nella Nova Vulgata, «longanimis, et multum misericors» nella Clementina. **Lenain assegna questo stesso versetto anche all'angelo 7, Achaiah**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS. Non e' un doppione nostro, e' cosi' nella fonte
 
 **Dominio secondo la tradizione**. Il campo è quello della decisione: giustizia, avvocatura, consulenza, scelte rimandate troppo a lungo. Serve a passare dal dubbio alla scelta, senza pretendere che la scelta sia indolore.
 
