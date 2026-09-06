@@ -352,11 +352,72 @@ quella sagoma entrava al suo posto e la lettura proseguiva identica. La stessa
 riga stava alla 640 e disegnava la costellazione **sopra il muro**. Adesso c'e'
 `CancelloDellaScansione`: o c'e' un volto rilevato, o non si passa.
 
+**MA NON ERA UNA RIGA SOLA, E IL MURO E' PASSATO ANCORA.** Il 6 settembre il
+fondatore ha provato la build 2228 sul telefono e ha rifatto la fotografia
+alla parete: *"dopodiche' ho fatto la foto al muro e mi e' uscito ugualmente
+il responso con la foto del muro"*. Due cause nuove, tutte e due diverse dal
+`??`.
+
+**UNO, ALLA FONTE, ED E' SCRITTO NEL PACCHETTO.** La catena di MediaPipe nasce
+con l'INSEGUIMENTO acceso: dopo il primo aggancio **il rilevatore non gira
+piu'** e la mesh continua a posare punti dentro la regione dove il volto era
+stato. La documentazione del pacchetto lo dice: *"Null when the frame was
+served by landmark tracking, in which case the detector did not run"*, e
+*"hasFace: False on landmark-tracked frames even though a face is being
+followed"*. Chi finiva la scansione col proprio viso e poi inquadrava una
+parete riceveva ancora punti, e il cancello vedeva una lista piena. Adesso
+`enableLandmarkTracking: false` fa girare il rilevatore su **ogni** fotogramma,
+e si pretendono **due punteggi di confidenza**, del rilevamento e della mesh,
+invece di accontentarsi di una lista non vuota: `SoglieDelRilevamento`, 0,75 e
+0,60. **Prima nessuno guardava un punteggio**, benche' il pacchetto ne desse
+due.
+
+**DUE, NEL CANCELLO: guardava l'ultima lettura senza chiedersi di quando
+fosse.** Fra l'ultimo fotogramma con un volto e il dito che tocca lo scatto
+passano secondi, e in quei secondi la fotocamera puo' essere finita su
+tutt'altro. Una lettura vecchia non e' una lettura, e' un ricordo. Adesso il
+cancello riceve l'ETA' della lettura e rifiuta oltre 400 millesimi, con una
+frase diversa da quella di chi non e' mai stato inquadrato: mandare chi ha
+spostato il telefono a cercare piu' luce fa sembrare rotta un'app che
+funziona.
+
 **E I TRATTI NON ERANO FALSI**, misurato: `FaceClassifier.leggi` calcolava gia'
 rapporti veri, larghezze a tre altezze, distanza e grandezza degli occhi, naso,
 labbra, bocca, mento, mascella. **Era il dato in ingresso a essere inventato**,
 non la geometria: la voce CR.12 lo riconosce e riduce CR.05 a documentare e
 provare la ripetibilita'.
+
+**E IL DATO IN INGRESSO ERA INVENTATO ANCHE DOPO IL CANCELLO, PER UN'ALTRA
+RAGIONE.** Parole del fondatore sulla build 2228: *"il responso NON C'ENTRA UN
+CAZZO! SONO DESCRIZIONI BUTTATE LI' A CASO?"*. **Non erano buttate a caso:
+erano misure vere su un viso stirato.** La conversione dai punti della mesh ai
+contorni faceva `Offset(punti[i].x * 1000, punti[i].y * 1000)`, e i punti
+arrivano **normalizzati da zero a uno sui due lati** di un fotogramma che non
+e' quadrato: su un tre quarti un centesimo di larghezza e un centesimo di
+altezza sono due distanze diverse, quindi il volto veniva **allargato di un
+terzo**. Il classificatore lavora quasi solo su rapporti fra una larghezza e
+un'altezza, quindi forma del volto, grandezza degli occhi, naso, bocca,
+mascella e zigomi sbagliavano tutti insieme, e un ovale veniva letto tondo o
+quadrato. **Nessuna guardia lo aveva preso** perche' le guardie dei tratti
+davano al classificatore contorni costruiti a mano, gia' in coordinate giuste:
+non passavano mai dalla conversione.
+
+**E I PUNTI ADESSO SONO PROVATI, non piu' dichiarati.** Il fondatore lo ha
+chiesto per nome: *"i punti rilevati dovrebbero corrispondere ai tratti
+somatici, ma non l'avevo gia' chiesto?"*. Aveva ragione: esistevano indici che
+DICHIARAVANO di essere occhi e sopracciglia, e una guardia che verificava che
+fossero sotto 478, non vuoti, senza doppioni e senza punti condivisi fra i due
+lati, **tutte e quattro verdi anche con numeri completamente sbagliati**. La
+verita' indipendente e' la TOPOLOGIA che il pacchetto porta, derivata da
+`FACEMESH_TESSELATION`: gli 852 triangoli che dicono quali punti sono cuciti a
+quali, che non li ha scritti nessuno di noi. Da li' si prova che gli occhi
+sono **anelli chiusi** con esattamente due vicini per punto, che i due occhi
+non si toccano, che le labbra chiudono una bocca sola, che **l'ovale sta sul
+bordo** della maglia perche' ha meno triangoli attorno degli altri, e che ogni
+sopracciglio dista meno passi dal suo occhio che dall'altro. **Resta non
+provato** che l'anello chiamato occhio sinistro sia il sinistro e non il
+destro: servirebbe il modello canonico coi vertici, che il pacchetto non
+espone dal lato Dart.
 
 **IL MOTORE E' CAMBIATO**, da ML Kit a `mediapipe_face_mesh` 2.9.0: 478
 landmark, 52 blendshapes, angoli della testa, su Android e iOS allo stesso modo.
@@ -370,6 +431,18 @@ sostituisce si riscrive un file.
 con la tenuta della posa e si ferma quando l'angolo si perde, la striscia che
 dice quante ne restano. **Le soglie non le ha misurate nessuno**, e una guardia
 resta ROSSA APPOSTA finche' non le misura qualcuno su un telefono.
+
+**E LA POSA IN BASSO SI COMPIVA ALZANDO IL VISO.** Parole del fondatore sulla
+build 2228: *"gira il volto a destra e sinistra ok. in basso NON FUNZIONA e ho
+dovuto alzare il viso"*. Il pacchetto documenta `pitchDegrees` come *"Up/down
+head rotation in degrees"* e **non dichiara da che parte cresce**: dare per
+buono che positivo volesse dire mento alzato era una supposizione, non un
+fatto. Adesso i due angoli si ricavano dalla PROFONDITA' dei punti in
+`InclinazioneDelCapo`, con un segno nostro che una guardia prova **ruotando
+una testa sintetica di un angolo noto**: alzare il mento lo porta verso la
+fotocamera, abbassarlo lo allontana. Nessuna guardia lo aveva preso perche'
+provavano la macchina delle pose, cioe' che dato un pitch positivo la posa
+avanzasse, e mai che un capo davvero alzato producesse un pitch positivo.
 
 **IL MIAN XIANG ENTRA A META', E LA META' MANCANTE E' DICHIARATA.** I dodici
 palazzi non ci sono perche' l'articolo di Kohn 1986 non l'ho potuto leggere e le
@@ -385,15 +458,59 @@ preoccupato"* e' una diagnosi travestita.
 nessuno conosce la rete. Su disco vanno data, tratto e marcatezza, sotto il
 prefisso `viso.` che la cancellazione porta via.
 
-**COSA NON C'E' ANCORA**: la funzione ripetibile (CR.08), la maschera che segue
-il volto, la costellazione che reagisce all'espressione, i colori degli elementi
-e la composizione finale (CR.09 oltre al fascio), la card rifatta (CR.10). E
-**il motore non l'ho mai visto girare su un telefono**.
+**COSA E' STATO CHIUSO IL 6 SETTEMBRE, dopo la prova del fondatore.**
+**CR.10**, la card: il testo condiviso era un NOME e non una via, e adesso
+porta `Brand.url` mentre la card stampa il dominio; l'elemento dominante
+compare al posto dell'elenco dei quattro tratti, che l'ordine non chiede.
+**CR.07 era prodotta e NON agganciata**, cioe' zero file di `lib` chiamavano il
+modulo dell'espressione: adesso i coefficienti dell'istante risalgono dalla
+cattura al responso e si mostrano in un riquadro separato dai tratti.
+**CR.08**, i due momenti: la prima volta resta la scansione piena e produce i
+tratti, i ritorni sono una TENUTA BREVE di fronte e producono solo l'istante,
+confrontato con la propria linea; sul disco vanno solo una data e i nomi dei
+segni, sotto il prefisso `viso.`. Il ritorno **non consuma** il tetto delle
+letture piene, ed e' una decisione dichiarata. **CR.09 in parte**: la maschera
+dei 478 punti veri incollata al volto, col fascio che accende quelli gia'
+superati e col ritaglio rifatto sulla proporzione del fotogramma, e i cinque
+elementi che colorano la scena e si leggono anche scritti.
+
+**E SOPRA L'ANTEPRIMA C'ERA IL GEMELLO GRAFICO DEL MURO**, tolto con la stessa
+voce: si disegnava una costellazione ricavata dai contorni **con la sagoma
+disegnata a mano come ripiego**, cioe' una figura accesa che compariva anche
+quando un volto non c'era.
+
+**COSA NON C'E' ANCORA**: la costellazione che reagisce all'espressione in
+tempo reale e la composizione finale (CR.09), che chiedono la fotocamera viva
+dentro il responso. E **la scansione non l'ho mai vista girare su un telefono
+dopo queste cure**: la 2228 il fondatore l'ha provata, e le tre cose che ha
+trovato sono quelle curate qui.
 
 **LA REGOLA A HA TROVATO DUE MIE PRETESE DEBOLI**, ed e' il valore del giro: la
 vitalita' guardava la sequenza intera invece delle singole pose, e il tetto dei
 due segni era provato su un volto che non poteva produrne piu' di uno. Registro
 delle guardie da 298 a 306, viste rosse da 80 a 88.
+
+**E NELLA SECONDA STESURA NE HA TROVATE ALTRE SEI**, che e' il conto piu'
+istruttivo di tutto l'ordine. Il confronto sui soli NOMI dei tratti restava
+verde ignorando la proporzione su un asse solo, e adesso si guarda la
+marcatezza, che e' il numero da cui il nome nasce. Cercare il nome di una
+soglia nel sorgente restava verde togliendo il confronto, perche' quel nome
+compare anche dove il rilevatore viene costruito. La tenuta del fronte si
+provava con sette istanti sparsi che sommavano 700 millesimi contro una soglia
+di 800, quindi passava anche senza azzeramento. Sui cinque elementi due misure
+erano sbagliate: pretendere che la scena senza elemento fosse identica a quella
+con l'oro e' falso, perche' il ripiego di Aura non e' un colore solo, e contare
+i pixel vicini all'elemento contro quelli vicini all'oro cade sulla Terra, che
+e' un ocra vicinissimo all'oro. E due pretese sulla cucitura della maglia
+chiedevano un contatto DIRETTO fra sopracciglio e occhio: misurato, nessun
+gruppo tocca gli altri tranne le due labbra, perche' in mezzo c'e' della pelle.
+
+**IL BATTITO NASCEVA DENTRO `dispose`, e sarebbe successo sul telefono.** Era
+`late final`, costruito alla prima occhiata: finche' sopra l'anteprima c'era
+una costellazione animata qualcuno lo guardava sempre, tolta quella, chi apre
+la cattura e se ne va **senza mai farsi inquadrare** non lo tocca mai, e il
+primo a toccarlo diventa `dispose`. Lo ha trovato la suite intera, non una
+guardia mirata.
 
 ## Fronti aperti, in ordine
 
