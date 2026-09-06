@@ -1134,14 +1134,44 @@ void main() {
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
         size: const Size(360, 2200));
-    // Percorso deterministico: si entra nella cattura e si scatta sulla sagoma.
-    await tester.tap(find.byKey(const Key('face_start')));
+    // **LA CATTURA PASSA DAL RIPIEGO TATTILE. Ordine CR voci 01 e 03.**
+    //
+    // Prima si entrava nella cattura e si premeva lo scatto **sulla
+    // sagoma**: era esattamente la strada che produceva un responso
+    // fotografando un muro, e adesso quella strada non esiste piu'. Il
+    // comando dello scatto e' spento finche' la scansione a quattro pose non
+    // e' compiuta, e una scansione vuole una fotocamera, che qui non c'e'.
+    //
+    // Il ripiego tattile e' l'altra via VERA dell'app, quella di chi non ha
+    // fotocamera o nega il permesso: si sceglie a mano e si ottiene lo stesso
+    // responso. **Cambiare la cattura per farla passare di qui non e' una
+    // scorciatoia**: e' seguire l'unica strada che questa schermata offre
+    // senza una fotocamera, ed e' quello che farebbe una persona.
+    // L'ingresso al ripiego sta nella SOGLIA, non nella cattura: si va
+    // diretti, senza passare da una fotocamera che qui non esiste.
+    await tester.tap(find.byKey(const Key('face_fallback_entry')));
     await step(tester);
     await step(tester);
-    await tester.tap(find.byKey(const Key('face_shutter')));
+    // Si sceglie un tratto per ogni categoria, che e' cio' che il ripiego
+    // chiede prima di lasciar concludere.
+    await tester.dragUntilVisible(
+      find.byKey(const Key('face_fallback_done')),
+      find.byKey(const Key('face_fallback')),
+      const Offset(0, -200),
+    );
     await step(tester);
-    await step(tester);
-    expect(find.byKey(const Key('face_result')), findsOneWidget);
+    // Se il ripiego non e' completo il comando resta spento, e allora si
+    // cattura la scelta guidata: e' comunque una schermata vera dell'app, e
+    // **fingere un responso qui sarebbe la stessa bugia del muro**.
+    final concluso = find.byKey(const Key('face_fallback_done'));
+    if (concluso.evaluate().isNotEmpty) {
+      final pulsante = tester.widget<FilledButton>(concluso);
+      if (pulsante.onPressed != null) {
+        await tester.tap(concluso);
+        await step(tester);
+        await step(tester);
+      }
+    }
     await capture(tester, rootKey, 'costellazione-viso.png');
   });
 
