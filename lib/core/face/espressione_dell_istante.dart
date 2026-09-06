@@ -103,8 +103,8 @@ enum SegnoDelVolto {
   /// Occhi socchiusi: `eyeSquintLeft`, `eyeSquintRight`.
   occhiSocchiusi(
     'Gli occhi sono socchiusi',
-    'Stai filtrando: il viso lascia entrare meno di quanto potrebbe, e '
-        'guarda meglio quel poco.',
+    'Stai filtrando: il viso lascia entrare meno di quanto potrebbe, per '
+        'guardare meglio quel poco.',
     [FaceBlendshape.eyeSquintLeft, FaceBlendshape.eyeSquintRight],
   ),
 

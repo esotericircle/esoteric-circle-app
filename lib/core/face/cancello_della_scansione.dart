@@ -41,8 +41,8 @@ class CancelloDellaScansione {
         // deve sapere cosa non ha funzionato, o crede che l'app sia rotta.
         // **E non si dice "errore"**: la scansione non e' fallita per un
         // guasto, semplicemente davanti alla fotocamera non c'era un volto.
-        'Non ho trovato un volto da leggere. Inquadra il viso, con luce '
-        'sufficiente, e riprova.',
+        'Non ho trovato un volto da leggere. Inquadra il viso con luce '
+        'sufficiente e riprova.',
       );
     }
     return VoltoTrovato(contorniVivi);

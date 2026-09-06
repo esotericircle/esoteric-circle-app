@@ -63,7 +63,7 @@ enum ElementoDelVolto {
     'Fuoco',
     'fronte larga e mento affilato, forma a triangolo',
     'Ti accendi in fretta e illumini chi ti sta intorno: la tua forza è '
-        'l’inizio, e il tuo esercizio è restare.',
+        'l’inizio; il tuo esercizio è restare.',
   ),
   terra(
     'Terra',
