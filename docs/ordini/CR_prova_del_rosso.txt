@@ -79,3 +79,28 @@ ROSSA     il copia incolla fra i due lati (guancia destra = sinistra)
 ROSSA     lo stesso punto nominato tre volte (6, 6, 6 nel ponte del naso)
 ========================================================================
 INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
+
+========================================================================
+CR.07, L ESPRESSIONE DELL ISTANTE
+========================================================================
+Quattro innesti, e IL SECONDO GIRO E' SERVITO.
+
+PRIMO GIRO: 3 su 4.
+ROSSA     una frase dice a qualcuno come sta (Stai filtrando -> Sei teso)
+ROSSA     un segno senza coefficienti (occhi spalancati a lista vuota)
+ROSSA     la soglia scende sotto il rumore (0.30 -> 0.01)
+VERDE     la lettura restituisce tutto invece di due segni (via il take(2))
+
+**E IL VERDE DICEVA CHE LA PRETESA MISURAVA IL CASO FACILE.** Il volto di
+prova era un sorriso: due coefficienti alti e tutti gli altri sotto soglia.
+Togliendo il tetto dei due segni ne usciva comunque UNO, cioe' il tetto non
+serviva mai in quel caso, e la guardia non poteva vedere niente.
+
+E' la SECONDA volta in questo ordine che la Regola A trova una pretesa debole
+invece di un difetto: la prima era la vitalita' della scansione, che guardava
+la sequenza intera invece delle singole pose.
+
+SECONDO GIRO, aggiunto un volto che fa quattro gesti insieme: 4 su 4.
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4, dopo un giro che ha trovato
+una pretesa debole

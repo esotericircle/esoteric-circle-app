@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:flutter_test/flutter_test.dart';
