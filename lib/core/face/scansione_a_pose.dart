@@ -28,7 +28,7 @@ import 'soglie_della_scansione.dart';
 /// posa successiva solo quando la corrente e' stata tenuta per intero, e
 /// perdere l'angolo azzera la tenuta di quella posa e di nessun'altra.
 class ScansioneAPose {
-  ScansioneAPose({this.soglie = const _SoglieVive()});
+  ScansioneAPose({this.soglie = const SoglieVive()});
 
   /// Le soglie in vigore. Si passano invece di leggerle da una costante
   /// globale perche' **la taratura di domani deve poter entrare da qui**, e
@@ -152,8 +152,8 @@ abstract class SoglieInUso {
 }
 
 /// Le soglie vere dell'app, quelle provvisorie di `SoglieDellaScansione`.
-class _SoglieVive extends SoglieInUso {
-  const _SoglieVive();
+class SoglieVive extends SoglieInUso {
+  const SoglieVive();
   @override
   double get gradiDiProfilo => SoglieDellaScansione.gradiDiProfilo;
   @override

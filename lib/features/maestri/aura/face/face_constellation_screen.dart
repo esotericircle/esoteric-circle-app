@@ -10,6 +10,9 @@ import '../../../../core/face/motore_mediapipe.dart';
 import '../../../../core/face/scansione_a_pose.dart';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 import 'fascio_di_scansione.dart';
+import '../../../../core/face/espressione_dell_istante.dart';
+import '../../../../core/face/storico_degli_istanti.dart';
+import '../../../../core/face/tenuta_di_fronte.dart';
 import 'lo_specchio_dell_istante.dart';
 import 'maschera_che_segue.dart';
 import 'package:provider/provider.dart';
@@ -106,7 +109,22 @@ class FaceConstellationScreen extends StatefulWidget {
       _FaceConstellationScreenState();
 }
 
-enum _Fase { soglia, cattura, risultato, ripiego }
+enum _Fase { soglia, cattura, risultato, ripiego, momento }
+
+/// **I DUE MOMENTI DELLA FUNZIONE. Ordine CR voce 08.**
+///
+/// La prima volta si misura la geometria, e per misurarla bisogna girare
+/// la testa. I ritorni non la misurano affatto, perche' i tratti sono
+/// gia' letti e non cambiano da un giorno all'altro: chiedere di nuovo
+/// quattro movimenti sarebbe far pagare a chi torna il prezzo di una
+/// misura che nessuno rifara'.
+enum ModoDiCattura {
+  /// La scansione piena a quattro pose: produce i tratti, e si conserva.
+  piena,
+
+  /// La tenuta breve di fronte: produce soltanto la lettura dell'istante.
+  ritorno,
+}
 
 class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   late final DateTime Function() _clock = widget.clock ?? DateTime.now;
@@ -121,6 +139,17 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   /// dichiarato dove stanno. Sul ripiego tattile restano vuoti, perche'
   /// senza fotocamera non c'e' nessun istante da leggere.
   Map<FaceBlendshape, double> _espressione = const {};
+
+  /// La propria linea degli istanti, che da' senso al confronto dei
+  /// ritorni. Sul disco ci finiscono solo una data e dei nomi di segni.
+  late final StoricoDegliIstanti _linea =
+      StoricoDegliIstanti(clock: _clock);
+
+  /// Cosa si e' venuti a fare: la prima volta o un ritorno.
+  ModoDiCattura _modo = ModoDiCattura.piena;
+
+  /// Cosa la propria linea dice dell'istante appena letto.
+  ConfrontoConLaLinea? _confronto;
   bool _conCielo = false;
   bool _pronto = false;
 
@@ -148,6 +177,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   @override
   void initState() {
     super.initState();
+    _linea.carica();
     _storico.carica().then((_) {
       if (!mounted) return;
       setState(() {
@@ -192,6 +222,29 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     });
     // Alla regia va il FATTO, non i due volti: che un confronto e' avvenuto.
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'due_volti'));
+  }
+
+  /// **IL RITORNO SI CHIUDE QUI. Ordine CR voce 08.**
+  ///
+  /// Non nasce nessuna lettura dei tratti, e non si tocca il tetto delle
+  /// letture piene: **il tetto esiste per la lettura permanente**, e un
+  /// ritorno non ne produce nessuna. La scelta e' dichiarata perche' sia
+  /// possibile ribaltarla: e' una decisione, non una conseguenza.
+  ///
+  /// **IL CONFRONTO SI FA PRIMA DI SEGNARE.** Segnare per primo
+  /// metterebbe l'istante di oggi dentro la propria linea, e il confronto
+  /// direbbe sempre che tutto e' gia' stato visto.
+  Future<void> _concludiIlMomento(
+      Map<FaceBlendshape, double> espressione) async {
+    if (!mounted) return;
+    final segni = EspressioneDellIstante.leggi(espressione);
+    final confronto = _linea.confronta(segni);
+    setState(() {
+      _espressione = espressione;
+      _confronto = confronto;
+      _fase = _Fase.momento;
+    });
+    if (segni.isNotEmpty) await _linea.segna(segni);
   }
 
   Future<void> _concludi(FaceReading reading, FaceConstellation cost,
@@ -273,13 +326,32 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                       ultimo: _storico.ultimo,
                       conCielo: _conCielo,
                       onCielo: (v) => setState(() => _conCielo = v),
-                      onInizia: () => setState(() => _fase = _Fase.cattura),
+                      onInizia: () => setState(() {
+                        _modo = ModoDiCattura.piena;
+                        _fase = _Fase.cattura;
+                      }),
+                      onRitorno: () => setState(() {
+                        _modo = ModoDiCattura.ritorno;
+                        _fase = _Fase.cattura;
+                      }),
                       onRipiego: () => setState(() => _fase = _Fase.ripiego),
                     ),
                   _Fase.cattura => _Cattura(
                       palette: palette,
+                      modo: _modo,
                       onFatto: _concludi,
+                      onIstante: _concludiIlMomento,
                       onRipiego: () => setState(() => _fase = _Fase.ripiego),
+                    ),
+                  _Fase.momento => _IlMomento(
+                      palette: palette,
+                      espressione: _espressione,
+                      confronto: _confronto,
+                      tratti: _storico.ultimo?.reading,
+                      onRileggiITratti: () => setState(() {
+                        _modo = ModoDiCattura.piena;
+                        _fase = _Fase.cattura;
+                      }),
                     ),
                   _Fase.ripiego => _Ripiego(
                       palette: palette,
@@ -377,6 +449,7 @@ class _Soglia extends StatelessWidget {
     required this.conCielo,
     required this.onCielo,
     required this.onInizia,
+    required this.onRitorno,
     required this.onRipiego,
   });
 
@@ -387,6 +460,10 @@ class _Soglia extends StatelessWidget {
   final bool conCielo;
   final ValueChanged<bool> onCielo;
   final VoidCallback onInizia;
+
+  /// Il ritorno: la tenuta breve di fronte, solo l'istante.
+  final VoidCallback onRitorno;
+
   final VoidCallback onRipiego;
 
   @override
@@ -445,15 +522,47 @@ class _Soglia extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          if (consentito) ...[
+          // **I DUE MOMENTI, E QUALE VIENE PRIMA. Ordine CR voce 08.**
+          //
+          // Chi non ha mai fatto la lettura piena vede una porta sola,
+          // perche' il ritorno senza una prima volta non ha niente a cui
+          // tornare. Chi ce l'ha vede prima il RITORNO, che e' il gesto
+          // di ogni giorno, e sotto la lettura piena, che si rifa' quando
+          // si vuole: mettere per prima quella lunga vorrebbe dire
+          // chiedere quattro pose a chi voleva solo guardarsi un momento.
+          if (ultimo != null) ...[
             FilledButton.icon(
-              key: const Key('face_start'),
+              key: const Key('face_return_start'),
               style: FilledButton.styleFrom(
                   backgroundColor: palette.primary,
                   foregroundColor: palette.onPrimary),
+              onPressed: onRitorno,
+              icon: const Icon(Icons.auto_awesome_rounded),
+              label: const Text('Leggi il tuo momento'),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+                'I tuoi tratti li ho già: guardo solo cosa sta facendo '
+                'il tuo viso adesso. Basta un momento di fronte.',
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
+            const SizedBox(height: SpacingTokens.md),
+          ],
+          if (consentito) ...[
+            FilledButton.icon(
+              key: const Key('face_start'),
+              style: ultimo != null
+                  ? FilledButton.styleFrom(
+                      backgroundColor: palette.surfaceElevated,
+                      foregroundColor: palette.goldSoft)
+                  : FilledButton.styleFrom(
+                      backgroundColor: palette.primary,
+                      foregroundColor: palette.onPrimary),
               onPressed: onInizia,
               icon: const Icon(Icons.camera_front_rounded),
-              label: const Text('Inquadra il tuo volto'),
+              label: Text(ultimo != null
+                  ? 'Rifai la lettura piena'
+                  : 'Inquadra il tuo volto'),
             ),
             const SizedBox(height: SpacingTokens.sm),
             TextButton.icon(
@@ -551,7 +660,9 @@ class _Bloccato extends StatelessWidget {
 class _Cattura extends StatefulWidget {
   const _Cattura({
     required this.palette,
+    required this.modo,
     required this.onFatto,
+    required this.onIstante,
     required this.onRipiego,
   });
 
@@ -560,6 +671,12 @@ class _Cattura extends StatefulWidget {
       {String? fotoPath,
       Map<FaceBlendshape, double> espressione}) onFatto;
   final VoidCallback onRipiego;
+
+  /// La prima volta o un ritorno. Ordine CR voce 08.
+  final ModoDiCattura modo;
+
+  /// Il ritorno non produce tratti: risale solo l'istante letto.
+  final void Function(Map<FaceBlendshape, double>) onIstante;
 
   @override
   State<_Cattura> createState() => _CatturaState();
@@ -582,6 +699,24 @@ class _CatturaState extends State<_Cattura>
   /// La scansione guidata a quattro pose, CR voce 03. Vive qui perche' e'
   /// legata a questa sessione di cattura e muore con lei.
   final ScansioneAPose _scansione = ScansioneAPose();
+
+  /// La tenuta breve del ritorno, ordine CR voce 08. Vive accanto alla
+  /// scansione piena e non al posto suo: quale delle due comanda lo dice
+  /// il modo, e cosi' nessuna delle due puo' essere scavalcata.
+  final TenutaDiFronte _tenuta = TenutaDiFronte();
+
+  bool get _ritorno => widget.modo == ModoDiCattura.ritorno;
+
+  /// Vero quando cio' che questo momento chiede e' stato fatto.
+  bool get _pronta => _ritorno ? _tenuta.compiuta : _scansione.compiuta;
+
+  /// Quanto manca, per il fascio.
+  double get _progresso =>
+      _ritorno ? _tenuta.progresso : _scansione.progresso;
+
+  /// Falso finche' non c'e' niente da misurare.
+  bool get _agganciato =>
+      _ritorno ? _lettura != null : _scansione.agganciato;
 
   /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
   LetturaDelVolto? _lettura;
@@ -677,11 +812,24 @@ class _CatturaState extends State<_Cattura>
           // **LA SCANSIONE AVANZA SOLO CON UN VOLTO IN SCENA.** Senza
           // volto non si passa nemmeno il tempo: una posa non puo'
           // maturare mentre la persona e' fuori campo.
-          _scansione.passo(
-            yaw: lettura.yaw,
-            pitch: lettura.pitch,
-            trascorso: trascorso,
-          );
+          // **UNA SOLA DELLE DUE MACCHINE RICEVE IL FOTOGRAMMA.** Ordine
+          // CR voce 08: alimentarle tutte e due vorrebbe dire che una
+          // scansione piena maturerebbe anche in un ritorno, e il
+          // comando dello scatto guarderebbe una macchina compiuta da
+          // un movimento che nessuno ha chiesto.
+          if (_ritorno) {
+            _tenuta.passo(
+              yaw: lettura.yaw,
+              pitch: lettura.pitch,
+              trascorso: trascorso,
+            );
+          } else {
+            _scansione.passo(
+              yaw: lettura.yaw,
+              pitch: lettura.pitch,
+              trascorso: trascorso,
+            );
+          }
         }
       });
     } catch (_) {
@@ -706,6 +854,30 @@ class _CatturaState extends State<_Cattura>
     // quattro pose non sono una messa in scena, sono la prova che davanti
     // alla fotocamera c'e' una persona viva. Una fotografia stampata non
     // gira la testa.
+    // **IL RITORNO ESCE DI QUI PRIMA. Ordine CR voce 08.**
+    //
+    // Chiede la sua tenuta di fronte, e non produce NESSUNA lettura dei
+    // tratti: non passa dal classificatore, non tocca la memoria delle
+    // letture piene, non salva nessuna fotografia. Legge l'istante e se
+    // ne va.
+    if (_ritorno) {
+      if (!_tenuta.compiuta) {
+        if (mounted) {
+          setState(() => _rifiuto =
+              'Resta di fronte ancora un momento, senza girare la testa.');
+        }
+        return;
+      }
+      final viva = _lettura;
+      if (viva == null) {
+        if (mounted) {
+          setState(() => _rifiuto = const NessunVolto('').perche);
+        }
+        return;
+      }
+      widget.onIstante(viva.espressione);
+      return;
+    }
     if (!_scansione.compiuta) {
       if (mounted) {
         setState(() => _rifiuto =
@@ -757,6 +929,15 @@ class _CatturaState extends State<_Cattura>
   /// persona insegue una richiesta che non e' quella vera.
   String _cosaChiedere() {
     if (_lettura == null) return 'Centra il viso nel cerchio, sguardo dritto.';
+    // **IL RITORNO CHIEDE UNA COSA SOLA.** Ordine CR voce 08: qui non si
+    // gira la testa, si resta fermi. Una riga che chiedesse una posa in un
+    // ritorno manderebbe la persona a inseguire un movimento che nessuna
+    // macchina sta misurando.
+    if (_ritorno) {
+      return _tenuta.compiuta
+          ? 'Ci siamo. Quando vuoi, leggi il tuo momento.'
+          : 'Resta di fronte, senza muoverti.';
+    }
     if (!_scansione.agganciato) return 'Guarda dritto verso lo schermo.';
     final posa = _scansione.posaCorrente;
     if (posa == null) return 'Scansione completa. Quando sei pronto, cattura.';
@@ -844,7 +1025,7 @@ class _CatturaState extends State<_Cattura>
                             colore: palette.gold,
                             quota: _scansione.compiuta
                                 ? 1.0
-                                : _scansione.progresso,
+                                : _progresso,
                             scorre: !ScrollReveal.motionOff(context),
                             proporzioneFotogramma: _proporzioneFotogramma,
                           ),
@@ -855,15 +1036,15 @@ class _CatturaState extends State<_Cattura>
                       // tenuta. Chi guarda vede che la macchina sta
                       // misurando davvero, perche' il fascio si ferma quando
                       // la posa si perde.
-                      if (_lettura != null && !_scansione.compiuta)
+                      if (_lettura != null && !_pronta)
                         AnimatedBuilder(
                           animation: _battito,
                           builder: (context, _) => CustomPaint(
                             key: const Key('face_fascio'),
                             painter: FascioDiScansione(
-                              quota: _scansione.progresso,
+                              quota: _progresso,
                               colore: palette.gold,
-                              acceso: _scansione.agganciato,
+                              acceso: _agganciato,
                             ),
                           ),
                         ),
@@ -877,8 +1058,12 @@ class _CatturaState extends State<_Cattura>
           // **LE QUATTRO POSE SI VEDONO TUTTE**, e si vede quante ne mancano.
           // Una scansione che chiede un movimento alla volta senza dire
           // quanti ne restano sembra non finire mai.
-          Row(
-            key: const Key('face_pose_strip'),
+          // **LA STRISCIA DELLE POSE NON COMPARE NEL RITORNO.** Ordine CR
+          // voce 08: mostrare quattro caselle a chi non deve fare quattro
+          // pose e' promettere un lavoro che nessuno gli chiedera'.
+          if (!_ritorno)
+            Row(
+              key: const Key('face_pose_strip'),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (var i = 0; i < ScansioneAPose.ordine.length; i++) ...[
@@ -909,7 +1094,7 @@ class _CatturaState extends State<_Cattura>
             // volto: premere prima produrrebbe un rifiuto, e un comando che
             // si puo' premere solo per essere respinti e' un comando che
             // mente.
-            onPressed: _scansione.compiuta ? _scatta : null,
+            onPressed: _pronta ? _scatta : null,
             icon: const Icon(Icons.auto_awesome),
             label: const Text('Cattura la costellazione'),
           ),
@@ -1172,6 +1357,126 @@ class _RisultatoState extends State<_Risultato>
             ),
           ),
       ],
+    );
+  }
+}
+
+
+/// **IL RESPONSO DEL RITORNO. Ordine CR voce 08.**
+///
+/// Qui non compaiono i tratti, e non e' una dimenticanza: il ritorno legge
+/// **soltanto l'istante**, e mostrarli accanto rifarebbe la confusione che
+/// la voce 07 vieta, cioe' il permanente e il passeggero nella stessa
+/// schermata come se avessero lo stesso peso. I tratti restano a un tocco
+/// di distanza, dichiarati come conservati.
+class _IlMomento extends StatelessWidget {
+  const _IlMomento({
+    required this.palette,
+    required this.espressione,
+    required this.confronto,
+    required this.tratti,
+    required this.onRileggiITratti,
+  });
+
+  final MaestroPalette palette;
+  final Map<FaceBlendshape, double> espressione;
+  final ConfrontoConLaLinea? confronto;
+  final FaceReading? tratti;
+  final VoidCallback onRileggiITratti;
+
+  @override
+  Widget build(BuildContext context) {
+    final segni = EspressioneDellIstante.leggi(espressione);
+    final c = confronto;
+    return SingleChildScrollView(
+      key: const Key('face_momento'),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: SpacingTokens.lg),
+          Text('Il tuo momento',
+              style: TypographyTokens.cerimoniale()
+                  .copyWith(color: palette.goldSoft)),
+          const SizedBox(height: SpacingTokens.sm),
+          if (segni.isEmpty)
+            // **IL NULLA E' UNA RISPOSTA ONESTA**, la stessa del cancello:
+            // un viso a riposo non ha niente da dire, e inventarglielo
+            // sarebbe la bugia del muro spostata di una schermata.
+            Text(
+                'Il tuo viso adesso è a riposo: nessun gesto abbastanza '
+                'netto da leggere. Riprova fra un momento.',
+                key: const Key('face_momento_vuoto'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.5))
+          else
+            LoSpecchioDellIstante(
+                coefficienti: espressione, palette: palette),
+          if (c != null && segni.isNotEmpty) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            Container(
+              key: const Key('face_confronto_linea'),
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(SpacingTokens.radiusMd),
+                border:
+                    Border.all(color: palette.gold.withValues(alpha: 0.45)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Rispetto alle tue ultime letture',
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 0.6)),
+                  const SizedBox(height: SpacingTokens.xs),
+                  // **SI DICE SU QUANTO SI REGGE IL CONFRONTO.** Un
+                  // paragone su una lettura sola non e' una linea, e chi
+                  // legge ha diritto di sapere quanto pesa.
+                  Text(
+                      c.quanteLetture == 1
+                          ? 'Ti ho letto una volta sola finora, quindi '
+                              'questo paragone vale poco: diventerà vero '
+                              'con qualche ritorno.'
+                          : 'Ti ho letto ${c.quanteLetture} volte finora.',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                  const SizedBox(height: SpacingTokens.sm),
+                  for (final n in c.nuovi)
+                    Text('Nuovo per te: ${n.osservazione.toLowerCase()}.',
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: palette.goldSoft)),
+                  for (final r in c.ricorrenti)
+                    Text('Torna: ${r.osservazione.toLowerCase()}.',
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.lg),
+          if (tratti != null)
+            Text(
+                'I tuoi tratti restano quelli che ho già letto: '
+                '${tratti!.dominante.titoloEvocativo}.',
+                key: const Key('face_tratti_conservati'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary)),
+          const SizedBox(height: SpacingTokens.sm),
+          OutlinedButton.icon(
+            key: const Key('face_rileggi_tratti'),
+            onPressed: onRileggiITratti,
+            style: OutlinedButton.styleFrom(
+                foregroundColor: palette.goldSoft,
+                side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                minimumSize: const Size.fromHeight(48)),
+            icon: const Icon(Icons.camera_front_rounded, size: 18),
+            label: Text('Rifai la lettura piena',
+                style: TypographyTokens.etichetta()),
+          ),
+          const SizedBox(height: SpacingTokens.xxxl),
+        ],
+      ),
     );
   }
 }
