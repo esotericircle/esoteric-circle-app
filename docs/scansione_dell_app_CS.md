@@ -30,7 +30,7 @@ fondatore leggendo.
 | Voci **OCCASIONE** | **5** |
 | Funzioni risultate NON VERIFICABILI senza un telefono | **2** |
 | Funzioni dichiarate NON VERIFICATE in questa scansione | **1** |
-| Voci **RIPARATE** al 7 settembre 2026 | **9** su 16 |
+| Voci **RIPARATE** al 7 settembre 2026 | **10** su 16 |
 
 **Le arti attive erano nove alla scansione, adesso sono dieci**, perche'
 l'Angelo Custode e' passato ad attiva con la voce S3. Il numero si conta sul
@@ -273,6 +273,48 @@ lettura del Maestro, mai attribuite alla tradizione"*.
 
 **Cosa servirebbe per chiuderla:** una regola di presentazione unica, che separi
 visibilmente il documentato dal redazionale in tutte le arti.
+
+### RIPARATA il 7 settembre 2026, e la voce era in parte gia' vera
+
+**Cio' che questa voce diceva e non era piu' esatto.** Le Rune la fonte la
+mostrano a video da tempo, in `rune_draw_screen.dart` e in
+`sunset_rune_screen.dart`, nella forma «fonte: traduzione». La scheda degli
+Angeli distingueva gia' il redazionale con la riga «MEDORA LA LEGGE COSI'».
+
+**Cio' che mancava davvero, ed era piu' serio di quanto la voce dicesse.** Quella
+riga era scritta li' e da nessun'altra parte, mentre `angelo_ingrandito.dart`
+mostra gli **stessi identici campi** e non diceva niente: due superfici sullo
+stesso dato che si comportano in due modi sono due verita'. E la fonte del
+documentato, cioe' Lenain 1823, non compariva a video da nessuna parte: si
+leggeva un salmo assegnato nel 1823 e una lettura scritta oggi, con lo stesso
+carattere, una sotto l'altra.
+
+**La regola unica.** `SegnoDellaProvenienza`, in
+`lib/design_system/components/segno_della_provenienza.dart`, con due sole
+famiglie: **dalla tradizione**, che nomina la fonte, e **dal Cerchio**, che
+nomina la voce del Maestro. Le due frasi stanno nel corpus degli Angeli,
+`fonteDelDocumentato` e `voceDelMaestro`, non nelle schermate: due superfici
+che le prendessero da due posti tornerebbero a divergere alla prima modifica.
+
+**Non e' un avvertimento e non e' una scusa.** Dire «dalla tradizione, Lenain
+1823» e dire «Medora la legge cosi'» sono tutte e due affermazioni positive: la
+prima porta il peso di una fonte, la seconda il valore di una voce. Il segno
+non toglie autorita' a niente, la attribuisce.
+
+**La guardia:** `test/ogni_testo_dice_da_dove_nasce_test.dart`. Non misura che
+una riga esista: misura che le due famiglie siano **distinte fra loro**, che la
+fonte sia **nominata con l'anno**, e che il segno stia **sopra** il testo che
+qualifica invece che in coda. Nata rossa quattro volte su quattro, con tre
+innesti distinti.
+
+**Cio' che resta fuori, dichiarato invece che sottinteso.** Il segno vive oggi
+sulle due superfici degli Angeli, che sono l'unico posto dove il corpus porta
+la distinzione come dato. Nei Tarocchi l'intero testo dei responsi e' scritto
+dal Cerchio sopra un mazzo documentato: marcare ogni paragrafo allo stesso modo
+aggiungerebbe rumore e non informazione, e quella distinzione la porta gia' la
+porta delle fonti della voce S2. Estendere il segno ad arti il cui corpus non
+distingue vorrebbe dire inventare il dato, che e' proprio cio' che questa
+scansione cerca negli altri.
 
 ## S6. Due funzioni non sono verificabili senza un telefono
 

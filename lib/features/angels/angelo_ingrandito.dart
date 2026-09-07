@@ -5,6 +5,8 @@ import '../../core/assets/family_image.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../core/angels/angel_lore.dart';
+import '../../design_system/components/segno_della_provenienza.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
@@ -174,12 +176,19 @@ class AngeloIngrandito extends StatelessWidget {
                 palette: palette,
               ),
               if (lore.psalm.isNotEmpty)
-                _Riga(titolo: 'Il salmo', testo: lore.psalm, palette: palette),
+                _Riga(
+                    titolo: 'Il salmo',
+                    testo: lore.psalm,
+                    palette: palette,
+                    provenienza: Provenienza.tradizione,
+                    fonte: AngelLore.fonteDelDocumentato),
               if (lore.reading.isNotEmpty)
                 _Riga(
                     titolo: 'La chiave di lettura',
                     testo: lore.reading,
-                    palette: palette),
+                    palette: palette,
+                    provenienza: Provenienza.cerchio,
+                    fonte: AngelLore.voceDelMaestro),
             ],
             const SizedBox(height: SpacingTokens.lg),
             Center(
@@ -203,11 +212,25 @@ class _Riga extends StatelessWidget {
     required this.titolo,
     required this.testo,
     required this.palette,
+    this.provenienza,
+    this.fonte,
   });
 
   final String titolo;
   final String testo;
   final MaestroPalette palette;
+
+  /// **DA DOVE NASCE QUESTA RIGA. Ordine CS voce S5.**
+  ///
+  /// Quando c'e', il segno prende il posto del titolo: dire "DALLA TRADIZIONE
+  /// · LENAIN, 1823" sopra un salmo dice tutto quello che diceva "IL SALMO"
+  /// e in piu' da dove viene, mentre due righe maiuscole in fila sarebbero
+  /// rumore. Nullo, la riga resta com'era: non tutte hanno una provenienza da
+  /// dichiarare, e l'arco zodiacale e' un calcolo, non una fonte.
+  final Provenienza? provenienza;
+
+  /// Il nome dell'opera, o il modo in cui il Maestro si nomina.
+  final String? fonte;
 
   @override
   Widget build(BuildContext context) {
@@ -216,9 +239,13 @@ class _Riga extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(titolo.toUpperCase(),
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
+          if (provenienza != null)
+            SegnoDellaProvenienza(
+                provenienza: provenienza!, palette: palette, dettaglio: fonte)
+          else
+            Text(titolo.toUpperCase(),
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xxs),
           Text(testo, style: TypographyTokens.corpo().copyWith(height: 1.45)),
         ],

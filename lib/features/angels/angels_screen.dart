@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/angels/angel_catalog.dart';
+import '../../core/angels/angel_lore.dart';
 import '../../core/angels/guardian_angels.dart';
 import '../../core/assets/family_image.dart';
 import '../../core/identity/birth_identity.dart';
@@ -11,6 +12,7 @@ import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/components/segno_della_provenienza.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
@@ -379,6 +381,18 @@ class _CartaAngelo extends StatelessWidget {
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4),
               ),
               if (lore.psalm.isNotEmpty) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                // **DA DOVE NASCE CIO' CHE SEGUE. Ordine CS voce S5.**
+                // Il salmo e il dominio vengono dalla fonte primaria, e fino
+                // a qui la fonte non compariva da nessuna parte a video: si
+                // leggevano con lo stesso carattere della lettura scritta
+                // oggi, una sotto l'altra, e niente diceva che sono due cose
+                // diverse. Il segno si dice una volta sopra tutti e due,
+                // perche' la fonte e' la stessa.
+                SegnoDellaProvenienza(
+                    provenienza: Provenienza.tradizione,
+                    palette: palette,
+                    dettaglio: AngelLore.fonteDelDocumentato),
                 const SizedBox(height: SpacingTokens.xs),
                 Text(lore.psalm,
                     style:
@@ -395,9 +409,16 @@ class _CartaAngelo extends StatelessWidget {
                 // La chiave di lettura e' scritta in redazione, non e'
                 // tradizione documentata: si mostra come voce del Maestro,
                 // staccata da cio' che viene dalle fonti.
-                Text('MEDORA LA LEGGE COSÌ',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                //
+                // **LA RIGA ERA SCRITTA QUI E DA NESSUN'ALTRA PARTE.** Ordine
+                // CS voce S5. L'angelo ingrandito mostra gli stessi campi e
+                // non diceva niente: due superfici sullo stesso dato che si
+                // comportano in due modi sono due verita'. Adesso il segno e'
+                // un componente solo, e le parole vengono dal corpus.
+                SegnoDellaProvenienza(
+                    provenienza: Provenienza.cerchio,
+                    palette: palette,
+                    dettaglio: AngelLore.voceDelMaestro),
                 const SizedBox(height: 2),
                 // La lettura di Medora e' il responso della scheda: ruolo
                 // lettura e regola comune dei paragrafi.

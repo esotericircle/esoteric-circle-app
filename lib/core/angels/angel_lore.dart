@@ -51,6 +51,16 @@ class AngelLore {
   /// mostra meno invece di mostrare male.
   final String confidence;
 
+
+  /// **DA DOVE NASCE CIO' CHE SI LEGGE. Ordine CS voce S5.**
+  ///
+  /// Il salmo e il dominio vengono dalla fonte primaria; la chiave di
+  /// lettura la scrive il Cerchio. Le due frasi stanno qui, accanto ai
+  /// campi che qualificano, perche' due superfici mostrano gli stessi
+  /// dati e devono nominarne la provenienza allo stesso modo.
+  static const String fonteDelDocumentato = 'Lenain, 1823';
+  static const String voceDelMaestro = 'Medora la legge così';
+
   bool get confidenzaBassa => confidence.toLowerCase().contains('bassa');
 }
 
