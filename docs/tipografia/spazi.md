@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 143 -->
-<!-- FILE_CON_VUOTI: 61 -->
+<!-- VUOTI_CENSITI: 144 -->
+<!-- FILE_CON_VUOTI: 62 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **143** |
-| File che ne contengono | **61** |
+| Vuoti verticali dichiarati | **144** |
+| File che ne contengono | **62** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 78 |
+| 2 | 79 |
 | 3 | 8 |
 | 4 | 22 |
 | 5 | 1 |
@@ -44,7 +44,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 
 - `lib/features/settings/interruttore_della_misura.dart:61` sizedBox 72 punti
 - `lib/features/synastry/sinastria_share_card.dart:132` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:753` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:762` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -91,6 +91,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/design_system/components/art_card.dart` | 1 | 0 |
 | `lib/design_system/components/borsellino.dart` | 1 | 0 |
 | `lib/design_system/components/riga_del_consiglio.dart` | 1 | 0 |
+| `lib/design_system/components/segno_della_provenienza.dart` | 1 | 0 |
 | `lib/features/account/notifiche_screen.dart` | 1 | 0 |
 | `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 |
