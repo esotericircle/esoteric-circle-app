@@ -1316,7 +1316,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Salmo**. Salmo 115, versetto 11 (numerazione ebraica), corrispondente al Salmo 113, versetto 19 della Vulgata: «Qui timent Dominum speraverunt in Domino; adiutor eorum et protector eorum est», cioè «Quelli che temono il Signore hanno confidato nel Signore; egli è loro aiuto e loro scudo». Le traduzioni italiane correnti rendono l'ebraico all'imperativo: «Voi che temete il Signore, confidate nel Signore».
 
-**Dominio secondo la tradizione**. Le imprese che chiedono strategia e responsabilita', le cause da difendere, le situazioni in cui qualcuno resta bloccato. La tradizione lo lega alla liberazione dei prigionieri, intesa in senso letterale oppure interiore.
+**Dominio secondo la tradizione**. Le imprese che chiedono strategia e responsabilità, le cause da difendere, le situazioni in cui qualcuno resta bloccato. La tradizione lo lega alla liberazione dei prigionieri, intesa in senso letterale oppure interiore.
 
 **Chiave di lettura, redazionale**. Il discernimento che separa la sostanza dall'apparenza. Ti permette di decidere in fretta senza tradire quello che hai capito.
 
@@ -1356,9 +1356,9 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Salmo**. Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioè «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».
 
-**Dominio secondo la tradizione**. Lo studio, l'amministrazione del denaro, gli archivi, la stampa, tutto cio' che conserva o diffonde sapere. La tradizione lo lega anche alla fecondita' intesa in senso ampio.
+**Dominio secondo la tradizione**. Lo studio, l'amministrazione del denaro, gli archivi, la stampa, tutto ciò che conserva o diffonde sapere. La tradizione lo lega anche alla fecondità intesa in senso ampio.
 
-**Chiave di lettura, redazionale**. L'apertura che sa apprezzare senza svalutare. Ti da' misura nel giudizio insieme al gusto di trasmettere quello che sai.
+**Chiave di lettura, redazionale**. L'apertura che sa apprezzare senza svalutare. Ti dà misura nel giudizio insieme al gusto di trasmettere quello che sai.
 
 **Eccesso e difetto, redazionale**. Accumulare nozioni senza approfondirne nessuna, collezionare al posto di capire. Nel verso opposto la sterilita' di chi trattiene tutto senza far circolare niente.
 
@@ -1376,7 +1376,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Salmo**. Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioè «Giusto è il Signore in tutte le sue vie, santo in tutte le sue opere».
 
-**Dominio secondo la tradizione**. Le situazioni di oppressione, i legami da ricucire, la salute della mente, la longevita' intesa come equilibrio fra corpo e pensiero. La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.
+**Dominio secondo la tradizione**. Le situazioni di oppressione, i legami da ricucire, la salute della mente, la longevità intesa come equilibrio fra corpo e pensiero. La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.
 
 **Chiave di lettura, redazionale**. La capacità di riparare quello che si è rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.
 
@@ -1456,7 +1456,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Salmo**. Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioè «Ecco, l'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».
 
-**Dominio secondo la tradizione**. La scrittura, l'editoria, l'insegnamento, l'oratoria, tutto cio' che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.
+**Dominio secondo la tradizione**. La scrittura, l'editoria, l'insegnamento, l'oratoria, tutto ciò che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.
 
 **Chiave di lettura, redazionale**. La capacità di dare forma viva a un'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.
 
@@ -1496,7 +1496,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Salmo**. Salmo 89, versetto 13 (numerazione Vulgata): "Convertere, Domine, usquequo? et deprecabilis esto super servos tuos". Corrisponde al Salmo 90, versetto 13 nella numerazione ebraica e nelle Bibbie moderne.
 
-**Dominio secondo la tradizione**. Tutto cio' che scorre: le acque, i viaggi per mare, i legami che si sciolgono senza rancore. La tradizione lo invoca anche contro i malefici, riferimento da riportare come dato storico e non come garanzia di protezione.
+**Dominio secondo la tradizione**. Tutto ciò che scorre: le acque, i viaggi per mare, i legami che si sciolgono senza rancore. La tradizione lo invoca anche contro i malefici, riferimento da riportare come dato storico e non come garanzia di protezione.
 
 **Chiave di lettura, redazionale**. Sai attingere a una sorgente interna che non dipende da nessuno. La tua saggezza non viene dai libri, viene dal silenzio in cui ascolti prima di parlare.
 
@@ -1516,7 +1516,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Salmo**. Salmo 37, versetto 22 (numerazione Vulgata): "Ne derelinquas me, Domine Deus meus, ne discesseris a me". Corrisponde al Salmo 38, versetto 21 nella numerazione ebraica e nelle Bibbie moderne.
 
-**Dominio secondo la tradizione**. Il sonno e i sogni, la memoria di cio' che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.
+**Dominio secondo la tradizione**. Il sonno e i sogni, la memoria di ciò che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.
 
 **Chiave di lettura, redazionale**. Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non è timidezza ma scelta di non occupare tutto lo spazio.
 
@@ -1538,7 +1538,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. Lo studio prolungato, le scienze occulte, le arti, la solitudine scelta. Anche i cambiamenti che trasformano una condizione in un'altra senza rompere nulla.
 
-**Chiave di lettura, redazionale**. Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facolta'.
+**Chiave di lettura, redazionale**. Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facoltà.
 
 **Eccesso e difetto, redazionale**. L'immaginazione senza terra diventa fuga. Rimandi il gesto concreto, poi chiami progetto cio' che resta soltanto un desiderio ben descritto.
 
@@ -1556,7 +1556,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Salmo**. Salmo 105, versetto 1 (numerazione Vulgata): "Confitemini Domino, quoniam bonus, quoniam in saeculum misericordia eius". Corrisponde al Salmo 106, versetto 1 nella numerazione ebraica.
 
-**Dominio secondo la tradizione**. La cura del corpo, la terra coltivata, i raccolti, la fecondita' di cio' che semini nel lavoro come negli affetti.
+**Dominio secondo la tradizione**. La cura del corpo, la terra coltivata, i raccolti, la fecondità di ciò che semini nel lavoro come negli affetti.
 
 **Chiave di lettura, redazionale**. Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosità resta pratica, si vede nei gesti quotidiani prima che nelle parole.
 
@@ -1576,9 +1576,9 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Salmo**. Salmo 15, versetto 5 (numerazione Vulgata): "Dominus pars hereditatis meae et calicis mei, tu es qui restitues hereditatem meam mihi". Corrisponde al Salmo 16, versetto 5 nella numerazione ebraica.
 
-**Dominio secondo la tradizione**. Cio' che e' stato perso o sottratto, le eredita', i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce. Anche la vista, fisica e interiore.
+**Dominio secondo la tradizione**. Ciò che è stato perso o sottratto, le eredità, i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce. Anche la vista, fisica e interiore.
 
-**Chiave di lettura, redazionale**. Vedi lontano perché non hai fretta di giudicare. La tua onesta' risulta scomoda, resta però l'unica cosa che ti tiene in piedi quando il resto si muove.
+**Chiave di lettura, redazionale**. Vedi lontano perché non hai fretta di giudicare. La tua onestà risulta scomoda, resta però l'unica cosa che ti tiene in piedi quando il resto si muove.
 
 **Eccesso e difetto, redazionale**. Lo sguardo acuto puo' diventare selettivo. Escludi cio' che non ti conviene vedere, poi ti stupisci del risultato come se non avessi avuto scelta.
 
@@ -1616,7 +1616,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Salmo**. Salmo 108, versetto 30 (numerazione Vulgata): "Confitebor Domino nimis in ore meo, et in medio multorum laudabo eum". Corrisponde al Salmo 109, versetto 30 nella numerazione ebraica.
 
-**Dominio secondo la tradizione**. Le controversie, la protezione di persone e beni, le scelte in cui bisogna dire no. Anche l'ascolto, inteso come capacita' di sentire cio' che non viene detto.
+**Dominio secondo la tradizione**. Le controversie, la protezione di persone e beni, le scelte in cui bisogna dire no. Anche l'ascolto, inteso come capacità di sentire ciò che non viene detto.
 
 **Chiave di lettura, redazionale**. Il tuo coraggio non nasce dall'impulso, nasce da una decisione presa a mente fredda. Difendi chi non riesce a difendersi senza chiedere applausi in cambio.
 
@@ -1638,7 +1638,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. I finali: la salute quando si rimette in ordine, i cicli che si compiono, il congedo da persone e abitudini. Anche il tatto, inteso come contatto diretto con la materia.
 
-**Chiave di lettura, redazionale**. Sai chiudere. Porti a termine cio' che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.
+**Chiave di lettura, redazionale**. Sai chiudere. Porti a termine ciò che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.
 
 **Eccesso e difetto, redazionale**. Chi teme la fine la rimanda all'infinito. Ti trascini dietro situazioni scadute, poi le chiami fedelta' per non ammettere che sono finite da tempo.
 

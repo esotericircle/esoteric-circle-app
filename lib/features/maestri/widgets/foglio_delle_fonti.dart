@@ -169,7 +169,7 @@ class TestiDelleFonti {
   /// La Meditazione.
   static const String meditazione =
       'I toni che senti sono generati dal dispositivo in tempo reale: 432 '
-      'e 528 hertz, piu un battito binaurale che nasce dalla piccola '
+      'e 528 hertz, insieme a un battito binaurale che nasce dalla piccola '
       'differenza fra l\'orecchio destro e il sinistro, per questo '
       'servono le cuffie.\n\n'
       'Il 432 e le frequenze Solfeggio appartengono a una tradizione '
