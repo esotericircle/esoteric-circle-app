@@ -73,19 +73,32 @@ void main() {
     // fondatore, non una svista. Il numero resta in un punto solo.
     expect(c.ids.length, 9);
 
-    // IL CASO "PIENO" OGGI NON SI RAGGIUNGE, e va detto invece di far finta di
-    // provarlo. Le arti vive sono nove e il tetto e' nove: chi le prende tutte
-    // non ha nient'altro da aggiungere. Il rifiuto parlante resta scritto e
-    // servira' dal giorno in cui il catalogo crescera'. Questa prova cade quel
-    // giorno, e chi la legge sa gia' cosa verificare.
+    // **IL GIORNO CHE QUESTA PROVA ASPETTAVA E' ARRIVATO.** Ordine CS,
+    // voce S3 della scansione, 7 settembre 2026.
+    //
+    // Qui c'era scritto: *"il caso «pieno» oggi non si raggiunge, e va
+    // detto invece di far finta di provarlo. Le arti vive sono nove e il
+    // tetto e' nove [...] Questa prova cade quel giorno, e chi la legge sa
+    // gia' cosa verificare"*.
+    //
+    // L'Angelo Custode era vivo e il catalogo lo dava in arrivo: adesso e'
+    // la decima arte, il tetto resta nove, e **il rifiuto parlante si
+    // prova davvero** invece di restare una riga scritta per il futuro.
     final fuori = ArtiPreferiteController.selezionabili
         .where((id) => !c.contiene(id))
         .toList();
-    expect(fuori, isEmpty,
-        reason:
-            'ci sono ${fuori.length} arti vive fuori da uno scaffale pieno: '
-            'il catalogo e\' cresciuto, quindi adesso il rifiuto parlante si '
-            'puo\' e si deve provare davvero aggiungendo $fuori');
+    expect(fuori, isNotEmpty,
+        reason: 'lo scaffale pieno contiene tutte le arti vive: il caso del '
+            'rifiuto non si raggiunge piu\', e questa prova e\' tornata a '
+            'non misurare niente');
+    final esito = c.cambia(fuori.first);
+    expect(esito, EsitoPreferita.pieno,
+        reason: 'a scaffale pieno l\'arte in piu\' entra lo stesso, e il '
+            'tetto non e\' un tetto');
+    expect(c.ids.length, ArtiPreferiteController.tetto,
+        reason: 'il rifiuto ha comunque cambiato lo scaffale');
+    expect(c.contiene(fuori.first), isFalse,
+        reason: 'l\'arte rifiutata risulta dentro lo scaffale');
   });
 
   test('Le scelte sopravvivono al riavvio', () async {

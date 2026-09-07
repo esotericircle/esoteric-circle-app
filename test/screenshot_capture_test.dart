@@ -3924,7 +3924,10 @@ void main() {
       'art_soon_toggle_astrologia',
       'art_soon_toggle_cartomanzia',
       'art_section_header_lunologia',
-      'art_section_header_destino',
+      // **IL DESTINO ADESSO E' APERTO.** Ordine CS voce S3: l'Angelo
+      // Custode e' vivo, quindi la sottocategoria non ha piu'
+      // l'intestazione delle chiuse ma l'apri e chiudi delle aperte.
+      'art_soon_toggle_destino',
     ]) {
       final f = find.byKey(Key(chiave));
       await tester.scrollUntilVisible(f, 300,

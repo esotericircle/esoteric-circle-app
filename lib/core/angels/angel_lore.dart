@@ -140,7 +140,7 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 30 a 35 gradi',
     sign: 'Toro',
     psalm:
-        'Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors». **Lenain assegna questo stesso versetto anche all\'angelo 50, Daniel**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l\'ordine CS, leggendo le due voci una accanto all\'altra. Non e\' un doppione nostro, e\' cosi\' nella fonte.',
+        'Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors». **Lenain assegna questo stesso versetto anche all\'angelo 50, Daniel**: in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l\'ordine CS, leggendo le due voci una accanto all\'altra. Non è un doppione nostro: sta così nella fonte.',
     tradition:
         'La tradizione lo lega alla ricerca, alle scoperte, alla trasmissione del sapere, al ritrovare un senso dopo averlo perso. Riguarda il tempo lungo dell\'apprendere.',
     reading:
@@ -697,7 +697,7 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 245 a 250 gradi',
     sign: 'Sagittario',
     psalm:
-        'Salmo 103,8 nella numerazione ebraica, corrispondente al Salmo 102,8 della Vulgata: «Miserator et misericors Dominus, longanimis et multae misericordiae» nella Nova Vulgata, «longanimis, et multum misericors» nella Clementina. **Lenain assegna questo stesso versetto anche all\'angelo 7, Achaiah**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l\'ordine CS. Non e\' un doppione nostro, e\' cosi\' nella fonte',
+        'Salmo 103,8 nella numerazione ebraica, corrispondente al Salmo 102,8 della Vulgata: «Miserator et misericors Dominus, longanimis et multae misericordiae» nella Nova Vulgata, «longanimis, et multum misericors» nella Clementina. **Lenain assegna questo stesso versetto anche all\'angelo 7, Achaiah**: in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l\'ordine CS. Non è un doppione nostro: sta così nella fonte',
     tradition:
         'Il campo è quello della decisione: giustizia, avvocatura, consulenza, scelte rimandate troppo a lungo. Serve a passare dal dubbio alla scelta, senza pretendere che la scelta sia indolore.',
     reading:
@@ -801,11 +801,11 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 285 a 290 gradi',
     sign: 'Capricorno',
     psalm:
-        'Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioe\' «La mia anima e\' tutta sconvolta, ma tu, Signore, fino a quando?».',
+        'Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioè «La mia anima è tutta sconvolta, ma tu, Signore, fino a quando?».',
     tradition:
         'Il lavoro paziente e metodico, le scienze esatte, la costruzione, la lavorazione dei metalli.',
     reading:
-        'La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finche\' non ne vedi la causa.',
+        'La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finché non ne vedi la causa.',
     confidence: 'alta',
   ),
   59: AngelLore(
@@ -814,7 +814,7 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 290 a 295 gradi',
     sign: 'Capricorno',
     psalm:
-        'Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioe\' «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».',
+        'Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioè «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».',
     tradition:
         'Lo studio, l\'amministrazione del denaro, gli archivi, la stampa, tutto cio\' che conserva o diffonde sapere.',
     reading:
@@ -827,11 +827,11 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 295 a 300 gradi',
     sign: 'Capricorno',
     psalm:
-        'Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioe\' «Giusto e\' il Signore in tutte le sue vie, santo in tutte le sue opere».',
+        'Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioè «Giusto è il Signore in tutte le sue vie, santo in tutte le sue opere».',
     tradition:
         'La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.',
     reading:
-        'La capacita\' di riparare quello che si e\' rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.',
+        'La capacità di riparare quello che si è rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.',
     confidence: 'alta',
   ),
   61: AngelLore(
@@ -840,11 +840,11 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 300 a 305 gradi',
     sign: 'Acquario',
     psalm:
-        'Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioe\' «Sia benedetto il nome del Signore, da ora e per sempre».',
+        'Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioè «Sia benedetto il nome del Signore, da ora e per sempre».',
     tradition:
         'Le amicizie, i legami elettivi, la musica, l\'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.',
     reading:
-        'L\'affinita\', cioe\' la capacita\' di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.',
+        'L\'affinità, cioè la capacità di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.',
     confidence: 'alta',
   ),
   62: AngelLore(
@@ -853,7 +853,7 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 305 a 310 gradi',
     sign: 'Acquario',
     psalm:
-        'Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioe\' «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.',
+        'Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioè «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.',
     tradition:
         'Lo studio filosofico, la ricerca interiore, la parola misurata, la retorica, la pace domestica. La tradizione lo lega a chi cerca una solitudine feconda invece dell\'isolamento.',
     reading:
@@ -869,7 +869,7 @@ const Map<int, AngelLore> kAngelLore = {
         'Le fonti divergono. Linea Lenain: Salmo 100, versetto 2 nella numerazione ebraica, corrispondente al Salmo 99, versetto 2 della Vulgata, «Servite Domino in laetitia», cioè «Servite il Signore nella gioia». Linea Kabaleb con i repertori italiani e spagnoli: Salmo 2, versetto 11, identico nelle due numerazioni, «Servite Domino in timore et exsultate ei cum tremore», cioè «Servite il Signore con timore, esultate per lui con tremore».',
     tradition: 'La tradizione lo indica come protezione dagli incidenti.',
     reading:
-        'La percezione dell\'unita\' fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.',
+        'La percezione dell\'unità fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.',
     confidence: 'media',
   ),
   64: AngelLore(
@@ -878,11 +878,11 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 315 a 320 gradi',
     sign: 'Acquario',
     psalm:
-        'Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioe\' «Ecco, l\'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».',
+        'Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioè «Ecco, l\'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».',
     tradition:
         'La scrittura, l\'editoria, l\'insegnamento, l\'oratoria, tutto cio\' che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.',
     reading:
-        'La capacita\' di dare forma viva a un\'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.',
+        'La capacità di dare forma viva a un\'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.',
     confidence: 'alta',
   ),
   65: AngelLore(
@@ -908,7 +908,7 @@ const Map<int, AngelLore> kAngelLore = {
     tradition:
         'Il sonno e i sogni, la memoria di cio\' che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.',
     reading:
-        'Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non e\' timidezza ma scelta di non occupare tutto lo spazio.',
+        'Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non è timidezza ma scelta di non occupare tutto lo spazio.',
     confidence: 'media',
   ),
   67: AngelLore(
@@ -921,7 +921,7 @@ const Map<int, AngelLore> kAngelLore = {
     tradition:
         'Lo studio prolungato, le scienze occulte, le arti, la solitudine scelta. Anche i cambiamenti che trasformano una condizione in un\'altra senza rompere nulla.',
     reading:
-        'Trovi bellezza dove gli altri passano oltre. Questa non e\' ingenuita\', si tratta di un modo di guardare che si allena come qualsiasi altra facolta\'.',
+        'Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facolta\'.',
     confidence: 'alta',
   ),
   68: AngelLore(
@@ -933,7 +933,7 @@ const Map<int, AngelLore> kAngelLore = {
         'Salmo 105, versetto 1 (numerazione Vulgata): "Confitemini Domino, quoniam bonus, quoniam in saeculum misericordia eius". Corrisponde al Salmo 106, versetto 1 nella numerazione ebraica.',
     tradition: '',
     reading:
-        'Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosita\' resta pratica, si vede nei gesti quotidiani prima che nelle parole.',
+        'Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosità resta pratica, si vede nei gesti quotidiani prima che nelle parole.',
     confidence: 'media',
   ),
   69: AngelLore(
@@ -946,7 +946,7 @@ const Map<int, AngelLore> kAngelLore = {
     tradition:
         'Cio\' che e\' stato perso o sottratto, le eredita\', i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce.',
     reading:
-        'Vedi lontano perche\' non hai fretta di giudicare. La tua onesta\' risulta scomoda, resta pero\' l\'unica cosa che ti tiene in piedi quando il resto si muove.',
+        'Vedi lontano perché non hai fretta di giudicare. La tua onesta\' risulta scomoda, resta però l\'unica cosa che ti tiene in piedi quando il resto si muove.',
     confidence: 'alta',
   ),
   70: AngelLore(
@@ -959,7 +959,7 @@ const Map<int, AngelLore> kAngelLore = {
     tradition:
         'I passaggi di stato: una fine che diventa inizio, un errore che diventa metodo, un dolore che diventa comprensione. Anche la rigenerazione fisica dopo un periodo lungo.',
     reading:
-        'Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perche\' sai quanto costa restare al pezzo mentre la forma cambia.',
+        'Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perché sai quanto costa restare al pezzo mentre la forma cambia.',
     confidence: 'media',
   ),
   71: AngelLore(
@@ -984,7 +984,7 @@ const Map<int, AngelLore> kAngelLore = {
         'Salmo 114, versetto 7 (numerazione Vulgata): "Convertere, anima mea, in requiem tuam, quia Dominus benefecit tibi". Corrisponde al Salmo 116, versetto 7 nella numerazione ebraica e nelle Bibbie moderne.',
     tradition: 'Anche il tatto, inteso come contatto diretto con la materia.',
     reading:
-        'Sai chiudere. Porti a termine cio\' che altri lasciano a meta\', questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.',
+        'Sai chiudere. Porti a termine cio\' che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.',
     confidence: 'alta',
   ),
 };

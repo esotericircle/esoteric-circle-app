@@ -185,6 +185,10 @@ void main() {
       'lib/features/maestri/caligo/rune/rune_draw_screen.dart': 'rune_draw',
       'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart':
           'magic_sigil',
+      // **L'ANGELO CUSTODE, dall'ordine CS voce S3.** Era vivo e il
+      // catalogo lo dava in arrivo: adesso e' un'arte attiva, quindi passa
+      // dalla soglia unica come le altre e ha il suo cuore.
+      'lib/features/angels/angels_screen.dart': 'guardian_angel',
     };
     rotte.forEach((percorso, id) {
       final s = File(percorso).readAsStringSync();

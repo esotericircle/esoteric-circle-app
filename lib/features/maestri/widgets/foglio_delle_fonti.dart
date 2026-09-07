@@ -112,11 +112,11 @@ class TestiDelleFonti {
   static const String tarocchi =
       'Le settantotto carte seguono il mazzo Rider-Waite-Smith, disegnato nel '
       '1909 da Pamela Colman Smith su indicazione di Arthur Edward Waite: è il '
-      'mazzo su cui si regge quasi tutta la cartomanzia moderna, ed è quello '
+      'mazzo su cui si regge quasi tutta la cartomanzia moderna: è quello '
       'che questa app illustra.\n\n'
       'La stesa a tre carte è la forma più antica e più semplice della '
       'lettura: tre posizioni, una domanda sola. Il dritto e il rovescio sono '
-      'due letture della stessa carta, e il rovescio non è una condanna: è un '
+      'due letture della stessa carta: il rovescio non è una condanna, è un '
       'nodo da sciogliere.\n\n'
       'Le carte escono da un mescolamento vero, che parte dalla tua domanda e '
       'dal momento in cui la fai. Le parole con cui Medora le racconta sono '
@@ -125,11 +125,11 @@ class TestiDelleFonti {
   /// La Sinastria VIP.
   static const String sinastria =
       'Le affinità nascono dalla sinastria, cioè dal confronto fra due cieli '
-      'di nascita, e ogni barra poggia su una dottrina dichiarata.\n\n'
+      'di nascita. Ogni barra poggia su una dottrina dichiarata.\n\n'
       'Terra comune viene dai quattro elementi, come Tolomeo li fissa nel '
-      'Tetrabiblos I.17-18: fuoco e aria si sostengono, terra e acqua si '
+      'Tetrabiblos I.17-18: fuoco e aria si sostengono; terra e acqua si '
       'sostengono. È la più antica misura di compatibilità che l\'astrologia '
-      'conosca, e non dice se vi amate: dice se vi capite senza spiegarvi.\n\n'
+      'conosca. Non dice se vi amate: dice se vi capite senza spiegarvi.\n\n'
       'Ritmo viene dalle qualità cardinale, fissa e mobile, dalla stessa opera, '
       'I.12. Vita quotidiana guarda gli aspetti della Luna e dell\'Ascendente, '
       'che la tradizione lega alle abitudini e al modo di presentarsi.\n\n'
@@ -140,7 +140,7 @@ class TestiDelleFonti {
   static const String sigillo =
       'Il metodo è quello di Austin Osman Spare, l\'artista inglese che nei '
       'primi del Novecento insegnò a ridurre una frase di intenzione alle sue '
-      'lettere e a intrecciarle in un unico segno.\n\n'
+      'lettere per intrecciarle in un unico segno.\n\n'
       'La ruota su cui le lettere si dispongono è la Rosa dei Petali della '
       'Golden Dawn, lo schema con cui quell\'ordine legava l\'alfabeto ebraico '
       'a una figura di petali concentrici.\n\n'
@@ -160,21 +160,23 @@ class TestiDelleFonti {
       'La lettura segue l\'astrologia occidentale, quella dei dodici '
       'segni e delle dodici case. Le parole con cui Medora la racconta '
       'sono curatela del Cerchio: il cielo dice dove sono i pianeti, non '
-      'cosa farne.\n\n'
-      'Se non hai dato ora e luogo di nascita, la lettura parla al tuo '
-      'segno e non al tuo cielo, e te lo dice sotto le schede.';
+      'cosa farne.\n\n';
+      // **IL RIPIEGO NON SI DICE QUI.** La schermata lo dichiara gia' sotto
+      // le schede leggendo il livello dalla porta unica, `CieloDiOggi`:
+      // ripeterlo in un testo fisso vorrebbe dire tenere due verita' sullo
+      // stesso fatto, e la seconda invecchia da sola.
 
   /// La Meditazione.
   static const String meditazione =
       'I toni che senti sono generati dal dispositivo in tempo reale: 432 '
-      'e 528 hertz, e un battito binaurale che nasce dalla piccola '
+      'e 528 hertz, piu un battito binaurale che nasce dalla piccola '
       'differenza fra l\'orecchio destro e il sinistro, per questo '
       'servono le cuffie.\n\n'
       'Il 432 e le frequenze Solfeggio appartengono a una tradizione '
       'culturale della musica e del suono, non alla medicina: qui stanno '
       'per quello che sono, una cornice di benessere.\n\n'
       'Il mandala che vedi non è un\'animazione preparata: è cimatica, '
-      'cioè la figura che quel suono disegna, e pulsa col respiro che la '
+      'cioè la figura che quel suono disegna. Pulsa col respiro che la '
       'guida ti propone.';
 
   /// Il Soffio del Destino.
@@ -182,7 +184,7 @@ class TestiDelleFonti {
       'Le due righe del Soffio nascono dai transiti veri di oggi sul tuo cielo '
       'di nascita: gli aspetti che i pianeti di adesso formano coi tuoi punti '
       'natali, calcolati sul dispositivo dalle effemeridi, senza rete.\n\n'
-      'È la stessa sorgente dell\'Oroscopo, e non ne esiste una seconda: due '
+      'È la stessa sorgente dell\'Oroscopo. Non ne esiste una seconda: due '
       'porte sullo stesso cielo potrebbero dire due cose diverse nella stessa '
       'mattina.\n\n'
       'Un aspetto morbido apre la prima riga, uno teso apre la seconda. Se il '

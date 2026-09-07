@@ -36,9 +36,20 @@ class AngelsScreen extends StatefulWidget {
   /// due secondi e mezzo, ritardi compresi.
   static const Duration ingresso = Duration(milliseconds: 2200);
 
+  /// **L'ARTE VIVA PASSA DALLA SOGLIA UNICA.** Ordine CS, voce S3 della
+  /// scansione, 7 settembre 2026.
+  ///
+  /// Qui c'era un `MaestroScope` nudo, e andava bene finche' il catalogo
+  /// dava questa arte per non pronta. Adesso e' dichiarata attiva, e
+  /// un'arte attiva **deve avere il cuore**: il gesto con cui si mette fra
+  /// le proprie. Il cuore non si mette a mano in ogni schermata, vive nella
+  /// soglia, e chi apre l'arte senza passare di qui lo perde in silenzio.
   static Route<void> route({required BirthIdentity identity}) =>
-      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
-          maestro: Maestro.medora, child: AngelsScreen(identity: identity)));
+      PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
+            id: 'guardian_angel',
+            maestro: Maestro.medora,
+            child: AngelsScreen(identity: identity),
+          ));
 
   @override
   State<AngelsScreen> createState() => _AngelsScreenState();
@@ -133,9 +144,9 @@ class _AngelsScreenState extends State<AngelsScreen>
               key: const Key('angeli_nota_edizioni'),
               'Nomi, cori, archi di gradi e salmi seguono l\'edizione '
               'originale del 1823 di Lazare Lenain, «La science '
-              'cabalistique», la fonte da cui questa tradizione arriva fino a '
-              'noi, e la sistemazione che ne ha dato Robert Ambelain nel '
-              'Novecento.',
+              'cabalistique»: è la fonte da cui questa tradizione arriva '
+              'fino a noi, insieme alla sistemazione che ne ha dato Robert '
+              'Ambelain nel Novecento.',
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),

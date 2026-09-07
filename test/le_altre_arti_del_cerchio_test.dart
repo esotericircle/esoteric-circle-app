@@ -26,7 +26,7 @@ void main() {
     print('ORDINE AK VOCE 02: fila col seme: $fila');
     expect(fila.toSet(), attive.difference(gia),
         reason: 'la fila non e\' il complemento delle preferite');
-    expect(fila.toSet(), {'archetype_test', 'magic_sigil'},
+    expect(fila.toSet(), {'guardian_angel', 'archetype_test', 'magic_sigil'},
         reason: 'oggi il resto del catalogo e\' Test Archetipo e Sigillo '
             'dell\'Intenzione');
   });

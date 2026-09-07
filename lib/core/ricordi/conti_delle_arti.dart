@@ -69,6 +69,11 @@ class ContiDelleArti {
     // c'e' e la schermata lo manda: nei Ricordi una meditazione aperta e' un
     // momento della giornata come gli altri, e va contata.
     ContoDellArte(arte: 'meditation', gesto: 'meditazione'),
+    // **L'ANGELO CUSTODE CONTA, dall'ordine CS voce S3.** Il gesto
+    // `angelo_custode` esisteva gia' nel registro e puntava gia' a quella
+    // schermata: mancava solo il conto, perche' il catalogo dava l'arte
+    // per non pronta mentre era viva e il fondatore la apriva.
+    ContoDellArte(arte: 'guardian_angel', gesto: 'angelo_custode'),
   ];
 
   static ContoDellArte? di(String arte) {

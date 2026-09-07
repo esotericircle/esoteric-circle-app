@@ -71,7 +71,13 @@ void main() {
     // Maestro, che e' una porta vera. **Cio' che NON si accetta e' che
     // l'elenco fuori scaffale cresca in silenzio**: qui e' dichiarato per
     // nome, e una prova cade se cambia senza che nessuno lo scriva.
-    expect(fuoriScaffale.toSet(), {'rune_draw', 'magic_sigil'},
+    // **L'ANGELO CUSTODE SI AGGIUNGE, ed e' dichiarato qui come vuole
+    // questa prova.** Ordine CS voce S3, 7 settembre 2026: era vivo e il
+    // catalogo lo dava in arrivo, quindi non compariva da nessuna parte.
+    // Adesso e' attivo, si raggiunge dal dominio di Medora e resta fuori
+    // dallo scaffale come le altre due.
+    expect(fuoriScaffale.toSet(),
+        {'guardian_angel', 'rune_draw', 'magic_sigil'},
         reason: 'le arti vive fuori dallo scaffale sono cambiate: adesso sono '
             '$fuoriScaffale. Se e\' voluto si aggiorna questa riga con la '
             'ragione, se non lo e\' si aggiunge l\'arte allo scaffale. IL '

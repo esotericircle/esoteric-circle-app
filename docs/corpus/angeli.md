@@ -177,7 +177,7 @@ Arcangelo: **Metatron**. Angeli dal 1 al 8.
 - **Nomi alternativi**: Acaiah, Akaiah, Achajah, 'Aka'ayah
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors». **Lenain assegna questo stesso versetto anche all'angelo 50, Daniel**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS, leggendo le due voci una accanto all'altra. Non e' un doppione nostro, e' cosi' nella fonte.
+**Salmo**. Salmo 103,8 nella numerazione ebraica (102,8 nella Vulgata): «Miserator et misericors Dominus; longanimis et multum misericors». **Lenain assegna questo stesso versetto anche all'angelo 50, Daniel**: in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS, leggendo le due voci una accanto all'altra. Non è un doppione nostro: sta così nella fonte.
 
 **Dominio secondo la tradizione**. La tradizione lo lega alla ricerca, alle scoperte, alla trasmissione del sapere, al ritrovare un senso dopo averlo perso. Riguarda il tempo lungo dell'apprendere.
 
@@ -1155,7 +1155,7 @@ Arcangelo: **Haniel**. Angeli dal 49 al 56.
 - **Nomi alternativi**: Daniy'el, Dani'el, Danyel, Daniël
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 103,8 nella numerazione ebraica, corrispondente al Salmo 102,8 della Vulgata: «Miserator et misericors Dominus, longanimis et multae misericordiae» nella Nova Vulgata, «longanimis, et multum misericors» nella Clementina. **Lenain assegna questo stesso versetto anche all'angelo 7, Achaiah**, e in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS. Non e' un doppione nostro, e' cosi' nella fonte
+**Salmo**. Salmo 103,8 nella numerazione ebraica, corrispondente al Salmo 102,8 della Vulgata: «Miserator et misericors Dominus, longanimis et multae misericordiae» nella Nova Vulgata, «longanimis, et multum misericors» nella Clementina. **Lenain assegna questo stesso versetto anche all'angelo 7, Achaiah**: in tutti e due i casi con la formula «le 8e. verset»: verificato sulla stampa del 1823 con l'ordine CS. Non è un doppione nostro: sta così nella fonte
 
 **Dominio secondo la tradizione**. Il campo è quello della decisione: giustizia, avvocatura, consulenza, scelte rimandate troppo a lungo. Serve a passare dal dubbio alla scelta, senza pretendere che la scelta sia indolore.
 
@@ -1334,11 +1334,11 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: Y, e, i, a, l, e, l, ,,  , Y, e, y, a, l, e, l, ,,  , J, e, i, a, l, e, l, ,,  , Y, é, i, a, l, e, l, ,,  , י, י, ל, א, ל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioe' «La mia anima e' tutta sconvolta, ma tu, Signore, fino a quando?».
+**Salmo**. Salmo 6, versetto 3 (numerazione ebraica), corrispondente al Salmo 6, versetto 4 della Vulgata: «Et anima mea turbata est valde, sed tu, Domine, usquequo?», cioè «La mia anima è tutta sconvolta, ma tu, Signore, fino a quando?».
 
 **Dominio secondo la tradizione**. Il lavoro paziente e metodico, le scienze esatte, la costruzione, la lavorazione dei metalli. La tradizione lo lega alla vista, quella degli occhi insieme a quella del giudizio.
 
-**Chiave di lettura, redazionale**. La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finche' non ne vedi la causa.
+**Chiave di lettura, redazionale**. La forza mentale che regge la fatica lunga. Ti aiuta a guardare una cosa finché non ne vedi la causa.
 
 **Eccesso e difetto, redazionale**. La durezza di chi analizza senza mai partecipare, la critica fredda che non lascia spazio. Nel verso opposto il perdersi nei dettagli fino a smarrire la domanda di partenza.
 
@@ -1354,7 +1354,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: H, a, r, a, e, l, ,,  , H, a, r, a, h, a, e, l, ,,  , H, a, r, a, c, h, e, l, ,,  , ה, ר, ח, א, ל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioe' «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».
+**Salmo**. Salmo 113, versetto 3 (numerazione ebraica), corrispondente al Salmo 112, versetto 3 della Vulgata: «A solis ortu usque ad occasum laudabile nomen Domini», cioè «Dal sorgere del sole al suo tramonto sia lodato il nome del Signore».
 
 **Dominio secondo la tradizione**. Lo studio, l'amministrazione del denaro, gli archivi, la stampa, tutto cio' che conserva o diffonde sapere. La tradizione lo lega anche alla fecondita' intesa in senso ampio.
 
@@ -1374,11 +1374,11 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: Mizrael, Mitzarel, Metsara'el, Mizra'el, מצראל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioe' «Giusto e' il Signore in tutte le sue vie, santo in tutte le sue opere».
+**Salmo**. Salmo 145, versetto 17 (numerazione ebraica), corrispondente al Salmo 144, versetto 17 della Vulgata: «Iustus Dominus in omnibus viis suis, et sanctus in omnibus operibus suis», cioè «Giusto è il Signore in tutte le sue vie, santo in tutte le sue opere».
 
 **Dominio secondo la tradizione**. Le situazioni di oppressione, i legami da ricucire, la salute della mente, la longevita' intesa come equilibrio fra corpo e pensiero. La tradizione lo indica come sostegno di chi subisce un torto senza diventare a sua volta persecutore.
 
-**Chiave di lettura, redazionale**. La capacita' di riparare quello che si e' rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.
+**Chiave di lettura, redazionale**. La capacità di riparare quello che si è rotto, dentro di te oppure fra te e un altro. Chiede pazienza al posto della rivincita.
 
 **Eccesso e difetto, redazionale**. L'impulso che parte prima del pensiero, la parola tagliente detta per liberarsi in fretta. Nel verso opposto la tentazione di restare dentro il torto subito fino a farne il proprio modo di raccontarsi.
 
@@ -1394,11 +1394,11 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: Umabael, Oumabel, Vmabel, Umbael, ומבאל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioe' «Sia benedetto il nome del Signore, da ora e per sempre».
+**Salmo**. Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioè «Sia benedetto il nome del Signore, da ora e per sempre».
 
 **Dominio secondo la tradizione**. Le amicizie, i legami elettivi, la musica, l'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.
 
-**Chiave di lettura, redazionale**. L'affinita', cioe' la capacita' di sentire l'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.
+**Chiave di lettura, redazionale**. L'affinità, cioè la capacità di sentire l'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.
 
 **Eccesso e difetto, redazionale**. La tentazione di chiamare amicizia il bisogno di avere pubblico. Nel verso opposto il legame vissuto come rifugio, che chiede all'altro di reggere quello che spetta a te.
 
@@ -1414,7 +1414,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: I, a, h, -, H, e, l, ,,  , Y, a, h, h, e, l, ,,  , J, a, h, -, H, e, l, ,,  , I, a, h, e, l, ,,  , י, ה, ה, א, ל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioe' «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.
+**Salmo**. Salmo 119, versetto 159: «Vide quoniam mandata tua dilexi, Domine, in misericordia tua vivifica me», cioè «Vedi quanto amo i tuoi precetti, Signore, secondo il tuo amore dammi vita». Nella Vulgata il salmo porta il numero 118.
 
 **Dominio secondo la tradizione**. Lo studio filosofico, la ricerca interiore, la parola misurata, la retorica, la pace domestica. La tradizione lo lega a chi cerca una solitudine feconda invece dell'isolamento.
 
@@ -1438,7 +1438,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Dominio secondo la tradizione**. Il commercio, la banca, le trattative, il lavoro d'ufficio, la cura della salute quotidiana. La tradizione lo indica come protezione dagli incidenti.
 
-**Chiave di lettura, redazionale**. La percezione dell'unita' fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.
+**Chiave di lettura, redazionale**. La percezione dell'unità fra le cose, che nel concreto diventa senso degli accordi. Ti fa vedere il punto in cui due interessi diversi possono incontrarsi.
 
 **Eccesso e difetto, redazionale**. La logica senza calore, il calcolo che riduce le persone a partite aperte. Nel verso opposto la suscettibilita' che manda all'aria un accordo per una sola parola.
 
@@ -1454,11 +1454,11 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 - **Nomi alternativi**: M, e, h, i, e, l, ,,  , M, é, h, i, e, l, ,,  , M, e, c, h, i, e, l, ,,  , M, e, k, h, i, e, l, ,,  , מ, ח, י, א, ל
 - **Confidenza dichiarata dal ricercatore**: alta
 
-**Salmo**. Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioe' «Ecco, l'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».
+**Salmo**. Salmo 33, versetto 18 (numerazione ebraica), corrispondente al Salmo 32, versetto 18 della Vulgata: «Ecce oculi Domini super metuentes eum, in eis qui sperant super misericordia eius», cioè «Ecco, l'occhio del Signore veglia su chi lo teme, su chi spera nel suo amore».
 
 **Dominio secondo la tradizione**. La scrittura, l'editoria, l'insegnamento, l'oratoria, tutto cio' che porta un contenuto ad altri. La tradizione lo pone a protezione di studiosi e divulgatori.
 
-**Chiave di lettura, redazionale**. La capacita' di dare forma viva a un'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.
+**Chiave di lettura, redazionale**. La capacità di dare forma viva a un'idea, per iscritto oppure a voce. Unisce il sentire al ragionare senza sacrificare nessuno dei due.
 
 **Eccesso e difetto, redazionale**. L'immaginazione che scavalca il vaglio, la credulita' travestita da intuizione. Nel verso opposto il ragionamento che si piega all'opinione di chi parla piu' forte.
 
@@ -1518,7 +1518,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. Il sonno e i sogni, la memoria di cio' che hai lasciato indietro, la riconciliazione con chi ti ha ferito. Anche la crescita lenta delle cose vive, che non si forza.
 
-**Chiave di lettura, redazionale**. Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non e' timidezza ma scelta di non occupare tutto lo spazio.
+**Chiave di lettura, redazionale**. Reggi il peso senza farlo pesare agli altri. La tua misura sta nella discrezione, che non è timidezza ma scelta di non occupare tutto lo spazio.
 
 **Eccesso e difetto, redazionale**. La stessa profondita' che ti nutre puo' chiuderti dentro. Ti isoli, poi chiami saggezza quella che e' soltanto malinconia rimasta senza interlocutore.
 
@@ -1538,7 +1538,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. Lo studio prolungato, le scienze occulte, le arti, la solitudine scelta. Anche i cambiamenti che trasformano una condizione in un'altra senza rompere nulla.
 
-**Chiave di lettura, redazionale**. Trovi bellezza dove gli altri passano oltre. Questa non e' ingenuita', si tratta di un modo di guardare che si allena come qualsiasi altra facolta'.
+**Chiave di lettura, redazionale**. Trovi bellezza dove gli altri passano oltre. Questa non è ingenuità, si tratta di un modo di guardare che si allena come qualsiasi altra facolta'.
 
 **Eccesso e difetto, redazionale**. L'immaginazione senza terra diventa fuga. Rimandi il gesto concreto, poi chiami progetto cio' che resta soltanto un desiderio ben descritto.
 
@@ -1558,7 +1558,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. La cura del corpo, la terra coltivata, i raccolti, la fecondita' di cio' che semini nel lavoro come negli affetti.
 
-**Chiave di lettura, redazionale**. Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosita' resta pratica, si vede nei gesti quotidiani prima che nelle parole.
+**Chiave di lettura, redazionale**. Dai senza contare, questo ti torna sotto forma di leggerezza. La tua generosità resta pratica, si vede nei gesti quotidiani prima che nelle parole.
 
 **Eccesso e difetto, redazionale**. Quando doni per essere accolto svuoti te stesso. L'attesa di riconoscimento trasforma la cura in rivendicazione, poi il legame si irrigidisce.
 
@@ -1578,7 +1578,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. Cio' che e' stato perso o sottratto, le eredita', i contratti, la ricerca di chiarezza dove qualcuno ha coperto le tracce. Anche la vista, fisica e interiore.
 
-**Chiave di lettura, redazionale**. Vedi lontano perche' non hai fretta di giudicare. La tua onesta' risulta scomoda, resta pero' l'unica cosa che ti tiene in piedi quando il resto si muove.
+**Chiave di lettura, redazionale**. Vedi lontano perché non hai fretta di giudicare. La tua onesta' risulta scomoda, resta però l'unica cosa che ti tiene in piedi quando il resto si muove.
 
 **Eccesso e difetto, redazionale**. Lo sguardo acuto puo' diventare selettivo. Escludi cio' che non ti conviene vedere, poi ti stupisci del risultato come se non avessi avuto scelta.
 
@@ -1598,7 +1598,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. I passaggi di stato: una fine che diventa inizio, un errore che diventa metodo, un dolore che diventa comprensione. Anche la rigenerazione fisica dopo un periodo lungo.
 
-**Chiave di lettura, redazionale**. Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perche' sai quanto costa restare al pezzo mentre la forma cambia.
+**Chiave di lettura, redazionale**. Trasformi le situazioni invece di subirle. Chiami questo lavoro, non miracolo, perché sai quanto costa restare al pezzo mentre la forma cambia.
 
 **Eccesso e difetto, redazionale**. Puoi restare innamorato del pensiero senza toccare mai la materia. La teoria perfetta non rigenera nulla, ti lascia lucido e fermo.
 
@@ -1638,7 +1638,7 @@ Arcangelo: **Gabriele**. Angeli dal 65 al 72.
 
 **Dominio secondo la tradizione**. I finali: la salute quando si rimette in ordine, i cicli che si compiono, il congedo da persone e abitudini. Anche il tatto, inteso come contatto diretto con la materia.
 
-**Chiave di lettura, redazionale**. Sai chiudere. Porti a termine cio' che altri lasciano a meta', questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.
+**Chiave di lettura, redazionale**. Sai chiudere. Porti a termine cio' che altri lasciano a metà, questo ti permette di ricominciare pulito invece di trascinarti dietro il vecchio.
 
 **Eccesso e difetto, redazionale**. Chi teme la fine la rimanda all'infinito. Ti trascini dietro situazioni scadute, poi le chiami fedelta' per non ammettere che sono finite da tempo.
 

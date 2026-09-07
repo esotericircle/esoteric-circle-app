@@ -775,7 +775,7 @@ class RitoAlbaCorpus {
         ),
         Gesto(
           testo: 'La Luna è in {segno}. Nomina a mente una cosa di te che '
-              'oggi tieni per te, e non aggiungere altro.',
+              'oggi tieni per te. Non aggiungere altro.',
           parola: 'Silenzio',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Se preferisci, tracciane l\'iniziale sul palmo.',
