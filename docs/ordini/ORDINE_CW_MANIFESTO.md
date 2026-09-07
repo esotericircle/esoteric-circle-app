@@ -349,6 +349,30 @@ riparato, ed e' materia del prossimo ordine.
 
 ---
 
+## LA CONSEGNA
+
+**Build 2232**, release `0r3oo2aclgarg` su App Distribution, distribuita a
+cloud@esotericircle.app, un invito accettato riletto dal server. Numero **2232
+letto con aapt2 dall'archivio**, non dal pubspec, contro il 2229 dell'ultima
+consegnata. Peso 193.478.202 byte. Comando dichiarato: `flutter build apk
+--release`.
+
+**Prova di accensione FATTA, non saltata**, sul dispositivo di collaudo
+767f596c: processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION, e
+**numero letto dal dispositivo 2232**, che e' la prova che l'archivio acceso e'
+quello consegnato.
+
+**Lo sbarramento e' passato coi soli rossi accettati**, due prove piu' quindici
+catture a scala 1,3 gia' iscritte nel registro. L'ultima riparazione, CI.04, e'
+stata provata a scala uno e resta accettata a scala 1,3, dove il testo grande
+rompe la geometria per conto suo.
+
+**Questa build NON contiene il lavoro sulla Costellazione del Viso**, che nasce
+dalla prova del fondatore della stessa notte ed e' l'ordine CX,
+`docs/ordini/ORDINE_CX_VISO.md`.
+
+---
+
 VOCI_TOTALI: 10
 VOCI_CHIUSE: 10
 VOCI_APERTE: 0
