@@ -20,9 +20,9 @@ fondatore leggendo.
 | | |
 |---|---|
 | Funzioni scansionate | **15** |
-| di cui arti dichiarate attive nel catalogo | 9 |
+| di cui arti dichiarate attive nel catalogo | 10 |
 | di cui Doni del giorno | 5 |
-| di cui vive ma NON dichiarate attive | 1 |
+| di cui vive ma NON dichiarate attive | 0 |
 | Arti nel catalogo, in tutto | 57 |
 | Voci **GRAVI** | **0** |
 | Voci **SERIE** | **7** |
@@ -30,6 +30,11 @@ fondatore leggendo.
 | Voci **OCCASIONE** | **5** |
 | Funzioni risultate NON VERIFICABILI senza un telefono | **2** |
 | Funzioni dichiarate NON VERIFICATE in questa scansione | **1** |
+| Voci **RIPARATE** al 7 settembre 2026 | **8** su 16 |
+
+**Le arti attive erano nove alla scansione, adesso sono dieci**, perche'
+l'Angelo Custode e' passato ad attiva con la voce S3. Il numero si conta sul
+catalogo, non si ricorda.
 
 **Il primo conto diceva otto arti attive, ed era sbagliato.** Il comando che
 lo produceva guardava sei righe sopra ogni stato e perdeva le voci col
@@ -162,6 +167,20 @@ fonte in schermata non compare da nessuna parte.
 **Cosa servirebbe per chiuderla:** quattro tooltip *Fonti e metodo*, sul modello
 di quello degli Angeli.
 
+### RIPARATA il 6 settembre 2026
+
+`FoglioDelleFonti` e' la porta unica delle fonti: la stessa icona discreta, lo
+stesso foglio, i testi in `TestiDelleFonti`. Sei arti la aprono, e le quattro
+che stavano a zero sono fra queste: Stesa di Tarocchi, Sinastria VIP, Sigillo
+dell'Intenzione e Soffio del Destino, piu' Oroscopo e Meditazione che avevano
+gia' qualche riga sparsa e adesso hanno un posto solo.
+
+Ogni testo nomina l'opera e l'autore, dice cosa fa il calcolo, e distingue la
+tradizione dalla curatela del Cerchio. **Non e' il posto delle scuse**: dice da
+dove nasce cio' che si sta leggendo.
+
+**La guardia:** `test/ogni_arte_dichiara_la_fonte_test.dart`.
+
 ## S3. L'Angelo Custode e' vivo e il catalogo lo dice «in arrivo»
 
 **Famiglia tre, ed e' la promessa al contrario.** `art_catalog.dart:362` dichiara
@@ -178,6 +197,24 @@ fidarsi di quello che vede.
 **Cosa servirebbe per chiuderla:** cambiare uno stato, e verificare se ce ne sono
 altri nella stessa condizione. **Non l'ho fatto**, perche' questa parte non
 ripara.
+
+### RIPARATA il 6 settembre 2026
+
+L'arte `guardian_angel` e' `ArtState.attiva` in `art_catalog.dart`.
+
+**Cambiare lo stato non e' bastato, e questa e' la lezione della voce.** Il
+catalogo era la prima di piu' porte: un'arte viva e' attesa anche dalla soglia
+che le da' il cuore, dal conto del cammino, da due elenchi dichiarati e dalla
+cattura dell'hub. Otto guardie sono cadute in una volta sola allo sbarramento
+di Codemagic, e tutte dicevano la stessa cosa da angoli diversi.
+
+**La guardia che aveva previsto il giorno.** Il tetto delle arti preferite e'
+nove, le arti vive erano nove, e la prova del rifiuto parlante era scritta ma
+non si poteva raggiungere. Il commento diceva: *"il caso «pieno» oggi non si
+raggiunge, e va detto invece di far finta di provarlo [...] Questa prova cade
+quel giorno, e chi la legge sa gia' cosa verificare"*. Con la decima arte viva
+il giorno e' arrivato, e adesso **il rifiuto si prova davvero** in
+`test/arti_preferite_test.dart`.
 
 ## S4. La personalizzazione del Rito dell'Alba vale solo per il segno solare
 
@@ -198,6 +235,17 @@ fatta su un'arte sola.
 
 **Cosa servirebbe per chiuderla:** portare nel seme dell'Alba la data di nascita
 intera, come l'Arcano gia' fa. E' una riga.
+
+### RIPARATA il 6 settembre 2026
+
+Il seme dell'Alba prende la data di nascita intera, non piu' il solo segno
+solare: `RitoAlba` riceve `nascita` come `DateTime` e la porta dentro `_seme`,
+esattamente come l'Arcano del Giorno gia' faceva dall'ordine CQ.
+
+I dodici Riti dell'Alba possibili al mondo in un dato giorno non sono piu'
+dodici.
+
+**La guardia:** `test/l_alba_e_individuale_test.dart`.
 
 ## S4bis. La Meditazione era stata saltata da questa scansione
 
@@ -267,6 +315,23 @@ che l'app non ha piu' e' una trappola per chi legge dopo. Il commento alla riga
 50 dello stesso file, che spiega perche' la Runa del Tramonto e' stata tolta da
 li', e' invece un ottimo esempio del contrario.
 
+### RIPARATA il 6 settembre 2026
+
+I quattro pool statici sono stati tolti da `daily_rituals.dart`, che adesso e'
+lungo quarantatre righe e conserva solo la rotazione del Maestro di turno,
+l'unica cosa che era rimasta viva.
+
+**La parte che conta di piu' non e' il codice tolto.** Quei quattro nomi non li
+chiamava nessun file di `lib`, ma tre guardie li interrogavano ancora:
+`i_doni_e_la_chat_davanti_all_anatomia_test.dart`,
+`le_lunghezze_dei_responsi_test.dart` e `rituals_test.dart`. Stavano misurando
+per mesi testo che nessuno vede, mentre il testo vero dei Doni non lo guardava
+nessuno. Adesso le tre chiedono ai motori veri: `RitoAlba`,
+`RispostaDelSoffio`, `ArcanoDelGiorno` e `SunsetRune`.
+
+Una guardia che misura codice morto e' peggio di nessuna guardia, perche' il
+suo verde si legge come una copertura.
+
 ## M2. Il Backlog dichiara un corpus dell'I Ching che non esiste
 
 **Famiglia quattro, pista verificata e caduta.** L'ordine indicava fra le piste
@@ -287,6 +352,16 @@ L'arte `i_ching` esiste nel catalogo come voce non attiva.
 un numero senza la sua numerazione e' ambiguo. Le altre sessantanove la
 dichiarano. Dettaglio in `docs/angeli_verifica_lenain.md`.
 
+### RIPARATA il 6 settembre 2026
+
+Le tre voci dichiarano adesso la numerazione, come le altre sessantanove: la 20
+Pahaliah col Salmo 120,2 ebraico corrispondente al 119,2 della Vulgata, la 22
+Ieiaiel col 121,5 corrispondente al 120,5, la 24 Haheuiah col 33,18
+corrispondente al 32,18.
+
+**I tre numeri della Vulgata sono stati letti sulla stampa del 1823**, uno per
+uno, riconoscendo il versetto dal latino, non dedotti sottraendo uno.
+
 ## M4. Due angeli condividono lo stesso versetto, e la cosa non e' spiegata
 
 **Famiglia uno.** Achaiah, il settimo, e Daniel, il cinquantesimo, ricevono lo
@@ -295,6 +370,15 @@ voci. Ma chi apre l'app e per caso vede tutti e due si trova davanti a un
 doppione che sembra un errore nostro, e nessuna riga glielo spiega.
 
 ---
+
+### RIPARATA il 6 settembre 2026
+
+Tutte e due le voci lo spiegano adesso a chi legge: *"Non e' un doppione
+nostro: sta cosi' nella fonte"*, col rimando alla stampa del 1823 e alla
+formula «le 8e. verset» che Lenain usa in tutti e due i casi.
+
+La spiegazione sta nel corpus, quindi arriva a video attraverso il generatore
+insieme al versetto che spiega.
 
 # OCCASIONE
 
@@ -345,6 +429,11 @@ parallelo. Un fatto calcolato una volta e usato da una funzione sola e'
 esattamente la forma che l'ordine chiede di cercare.
 
 ## O5. Il Rito dell'Alba puo' diventare individuale con una riga
+
+### GIA' FATTA il 6 settembre 2026, con la voce S4
+
+Questa occasione e' l'altra faccia di S4, e S4 e' riparata: il seme
+dell'Alba prende la data di nascita intera. Non resta niente da fare qui.
 
 **Costo stimato: molto basso.** E' l'altra faccia della voce S4. L'Arcano del
 Giorno ha gia' il codice che fa esattamente questo, e il commento che spiega

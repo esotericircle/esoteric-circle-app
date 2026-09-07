@@ -339,10 +339,23 @@ void main() {
           CorrenteDelCielo.ripiegoDichiarato);
       expect(CorrenteDelCielo.ripiegoDichiarato,
           contains('non ancora al tuo cielo'));
-      expect(CorrenteDelCielo.ripiegoDichiarato,
-          contains('Completa i dati di nascita'),
-          reason: 'il ripiego dichiara la mancanza senza dire come rimediare, '
-              'cioe\' e\' un vicolo cieco');
+      // **SI MISURA IL FATTO, NON LA FRASE. Ordine CS voce S1.**
+      //
+      // Qui si pretendeva che la costante contenesse le parole Completa
+      // i dati di nascita. Erano parole, e basta: il ripiego le diceva e
+      // la persona restava dove era, perche' da sotto il responso non
+      // si arrivava ai dati di nascita. Adesso c'e' una porta vera, e
+      // la frase nel testo e' sparita per non dire due volte la stessa
+      // cosa accanto al pulsante che la fa.
+      //
+      // Che la porta porti davvero da qualche parte lo prova
+      // il_ripiego_del_cielo_non_e_un_vicolo_cieco_test.dart, che tocca e
+      // guarda su quale schermata si e' trovata. Qui basta che
+      // l'invito esista per questo livello.
+      expect(CorrenteDelCielo.invitoDelLivello(CieloDiOggi.nessuno),
+          isNotNull,
+          reason: 'senza carta non si offre nessun invito a completarla, '
+              'cioe\' il ripiego torna a essere un vicolo cieco');
     });
 
     test('Il cielo essenziale non e\' una carta, e non finge di esserlo', () {
