@@ -18,6 +18,7 @@ import '../../core/permissions/avviso_del_permesso.dart';
 import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
+import '../../design_system/theme/abito_del_responso.dart';
 import '../../core/rituals/ritual_streak.dart';
 import '../../design_system/components/guida_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
@@ -634,10 +635,26 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                                     // cosa che non si vede sarebbe la stessa
                                     // bugia di condividerla.
                                     azioni: AzioniDelResponso(
-                                      // **IL FONDO QUI E' CHIARO. Ordine CO voce 14.** La scheda del
-                                      // Dono e' il pannello del regime chiaro, e l'oro dei due pulsanti
-                                      // contornati li' misura 1,30 a uno: invisibile.
-                                      suChiaro: true,
+                                      // **IL REGIME LO DICE IL VESTITO.
+                                      // Ordine CW voce 08**, 7 settembre 2026.
+                                      //
+                                      // Qui c'era `suChiaro: true` con la
+                                      // ragione dell'ordine CO voce 14, *"la
+                                      // scheda del Dono e' il pannello del
+                                      // regime chiaro"*: **vero per l'Alba,
+                                      // falso per il Soffio.**
+                                      // `AbitoDelResponso.di` da' il vestito
+                                      // chiaro al SOLO `dawn`; qui il vestito
+                                      // e' quello notturno.
+                                      //
+                                      // I due pulsanti dipingevano quindi
+                                      // l'inchiostro chiaro #2A2213 sul vetro
+                                      // notturno #1C1338: **1,11 a uno contro
+                                      // 4,5**, che e' il "non si leggono" del
+                                      // fondatore, misurato.
+                                      suChiaro:
+                                          AbitoDelResponso.di(DailyElement.breath)
+                                              .diGiorno,
                                       palette: palette,
                                       maestro: Maestro.aura,
                                       responso: ResponsoDaCustodire(

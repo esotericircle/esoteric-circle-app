@@ -23,6 +23,18 @@
          l'altra, quindi chiederla ci farebbe rifiutare la pubblicazione.
          L'avviso arriva in una finestra attorno all'ora, e lo diciamo. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- LE CHIAMATE SOPRAVVIVONO AL RIAVVIO E ALL'AGGIORNAMENTO.
+         Ordine CW voce 06, 7 settembre 2026.
+
+         Il fondatore riceveva due notifiche su cinque. Non era il trasporto,
+         che il pulsante di prova dimostrava vivo, e non era piu' il fuso, gia'
+         riparato dall'ordine CQ voce 1.09. Era che la coda del sistema si
+         svuota e nessuno la rimetteva: senza questo permesso e senza il
+         receiver qui sotto, flutter_local_notifications perde OGNI avviso
+         programmato al riavvio del telefono e, soprattutto, **a ogni
+         aggiornamento dell'app**. Chi installa una build nuova quasi ogni
+         giorno azzera le cinque chiamate ogni volta. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false"/>
@@ -69,6 +81,27 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- IL RECEIVER CHE RIMETTE LE CHIAMATE IN CODA.
+             Ordine CW voce 06.
+
+             Tre azioni e non una: BOOT_COMPLETED per il riavvio,
+             QUICKBOOT_POWERON per l'avvio rapido di certi telefoni, e
+             **MY_PACKAGE_REPLACED per l'aggiornamento dell'app**, che e'
+             l'occasione che si presenta piu' spesso e che nessuno guarda.
+
+             La classe e' quella del pacchetto: la si dichiara qui perche' un
+             receiver di avvio deve stare nel manifest dell'app, non in quello
+             di una libreria. -->
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

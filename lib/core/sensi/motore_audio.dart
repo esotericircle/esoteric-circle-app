@@ -247,7 +247,32 @@ class MotoreAudio implements MotoreSonoro {
   /// la 2219 lo ha dimostrato: la richiesta partiva e dal telefono non
   /// usciva niente. Chi comanda la musica non puo' fidarsi della propria
   /// memoria di aver chiesto: deve poter guardare.
-  bool get musicaStaSuonando => _musicaPigro?.state == PlayerState.playing;
+  /// **LA SONDA CHE LE PROVE POSSONO SOSTITUIRE, e cosa NON sostituisce.**
+  /// Ordine CW voce 01.
+  ///
+  /// Sotto `flutter test` i lettori non nascono, quindi qui la risposta e'
+  /// sempre falsa e i tre casi della voce non si potrebbero costruire. Questa
+  /// sonda cambia l'INGRESSO, cioe' la premessa "stava suonando", e **non
+  /// tocca la regola**: che si ricordi allo spegnimento e che si riprenda solo
+  /// cio' che si era sospeso resta codice vero, provato per intero.
+  ///
+  /// E' la differenza con la scorciatoia che questo progetto ha gia' pagato:
+  /// quella spegneva il tratto di strada dove viveva il guasto, questa lo
+  /// lascia acceso e gli mette davanti una premessa scelta.
+  @visibleForTesting
+  static bool Function()? sondaMusicaInCorso;
+
+  bool get musicaStaSuonando =>
+      sondaMusicaInCorso?.call() ??
+      (_musicaPigro?.state == PlayerState.playing);
+
+  /// Quante volte la musica e' stata davvero ripresa al ritorno.
+  ///
+  /// Serve alle prove per distinguere "non ha ripreso" da "ha ripreso e non si
+  /// vede": senza lettori nessuna delle due lascia traccia, e una prova che
+  /// non le distingue e' verde in tutti e due i casi.
+  @visibleForTesting
+  int quanteRiprese = 0;
 
   /// Quanto forte suona la musica adesso, da 0 a 1.
   Future<void> volumeDellaMusica(double volume) async {
@@ -341,11 +366,26 @@ class MotoreAudio implements MotoreSonoro {
   /// **LA MUSICA SI SOSPENDE, NON SI FERMA.** Ordine CN voce 07: sospesa
   /// tace come ferma, e riprenderla costa meno che ricomporla.
   @override
-  Future<void> fermaTutto() => fermaOgnuna([
-        () => _toniPigro?.stop(),
-        () => _musicaPigro?.pause(),
-        () => _effettiPigro?.stop(),
-      ]);
+  Future<void> fermaTutto() {
+    // **SI RICORDA SE STAVA SUONANDO, ordine CW voce 01.** E' l'unica cosa da
+    // ricordare: chi era in una schermata muta e chi aveva spento la musica
+    // dalle impostazioni hanno in comune che la musica non stava suonando,
+    // quindi nessuno dei due la sentira' tornare.
+    _musicaSospesaDaNoi = musicaStaSuonando;
+    return fermaOgnuna([
+      () => _toniPigro?.stop(),
+      () => _musicaPigro?.pause(),
+      () => _effettiPigro?.stop(),
+    ]);
+  }
+
+  /// Vero fra l'uscita e il ritorno, e solo se all'uscita la musica suonava.
+  bool _musicaSospesaDaNoi = false;
+
+  /// Lo stesso stato, per le prove e per chi deve sapere cosa succedera' al
+  /// ritorno senza provocarlo.
+  @visibleForTesting
+  bool get musicaDaRiprendere => _musicaSospesaDaNoi;
 
   /// **CHIAMA TUTTE, POI ASPETTA.** Il cuore della voce CT.07, staccato qui
   /// perche' si possa provare con una sorgente che non risponde mai: dentro
@@ -390,23 +430,24 @@ class MotoreAudio implements MotoreSonoro {
         if (_effettiPigro != null) 'effetti',
       };
 
-  /// **AL RITORNO NON RIPARTE NIENTE DA SOLO, ed e' una decisione.** Ordine
-  /// CT voce 07, che chiedeva di sceglierlo e di motivarlo.
+  /// **AL RITORNO RIPRENDE LA SOLA MUSICA, e solo se stava suonando.**
+  /// Ordine CW voce 01, 7 settembre 2026: il fondatore ha ribaltato la
+  /// decisione che avevo preso con l'ordine CT.
   ///
-  /// **La riga della decisione:** chi rientra nell'app non ha chiesto di
-  /// risentire un tappeto che suonava mezz'ora prima, e la musica torna da se'
-  /// appena si cambia luogo, perche' la regia riaccende il tappeto del luogo
-  /// in cui si entra.
+  /// **DAL PUNTO IN CUI SI ERA FERMATA, e il motore lo consente.** `pause` di
+  /// `audioplayers` lascia il lettore dov'e' e `resume` riparte da li': non
+  /// serve nessun ripiego dall'inizio della traccia, e la posizione non si
+  /// deve nemmeno ricordare, perche' la tiene il lettore. Se un giorno il
+  /// lettore perdesse la posizione, `resume` su un lettore fermo riparte da
+  /// zero, che e' il ripiego che l'ordine dichiara accettabile.
   ///
-  /// **Qui c'era scritto il contrario, e non era vero.** Il commento diceva
-  /// "al ritorno riprende la sola musica", ma **in tutto `lib` nessuno chiama
-  /// questo metodo**: la Guardia del Suono, sul `resumed`, di proposito non fa
-  /// niente. Due commenti in conflitto sullo stesso fatto, e il codice
-  /// implementava il secondo. Il metodo resta perche' l'interfaccia
-  /// `MotoreSonoro` lo pretende e perche' chi volesse riprendere ha dove
-  /// chiamarlo, non perche' qualcuno lo faccia oggi.
+  /// **Gli effetti no, e i toni nemmeno:** un effetto e' la risposta a un
+  /// gesto, e un gesto fatto mezz'ora fa non merita una risposta adesso.
   @override
   Future<void> riprendi() async {
+    if (!_musicaSospesaDaNoi) return;
+    _musicaSospesaDaNoi = false;
+    quanteRiprese++;
     await riprendiMusica();
   }
 

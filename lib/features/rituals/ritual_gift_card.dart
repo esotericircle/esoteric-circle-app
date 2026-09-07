@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../core/quality/quality_tier.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
+import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/da_dove_nasce.dart';
@@ -83,6 +84,67 @@ class RitualGiftCard extends StatefulWidget {
 
   @override
   State<RitualGiftCard> createState() => _RitualGiftCardState();
+}
+
+/// **IL RIQUADRO DEL RITUALE.** Ordine CW voce 07.
+///
+/// Bordo e fondo dell'abito del responso, non un contenitore neutro preso da
+/// un'altra parte dell'app: l'ordine lo chiede per nome, e una scheda che
+/// cambia lingua visiva a meta' si legge come due schede incollate.
+class _IlRitualeDiOggi extends StatelessWidget {
+  const _IlRitualeDiOggi(
+      {required this.rito, required this.abito, required this.accento});
+
+  final RitoDiOggi rito;
+  final AbitoDelResponso abito;
+
+  /// **IL COLORE DEL MAESTRO, MISURATO SULL'ABITO.** La carta dell'Alba si
+  /// dipinge su un avorio, e li' l'oro chiaro del Maestro misura 1,18 contro
+  /// il 4,5 richiesto: `accentoDi` lo schiarisce finche' il contrasto sulla
+  /// superficie vera passa. Prenderlo dalla tavolozza a mano rimetterebbe il
+  /// difetto che quel metodo esiste per togliere.
+  final Color accento;
+
+  /// Il titolo esatto che il fondatore ha chiesto, in maiuscolo.
+  static const String titolo = 'IL RITUALE DI OGGI';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('alba_riquadro_del_rituale'),
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        color: accento.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        border: Border.all(color: accento.withValues(alpha: 0.45)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(titolo,
+              key: const Key('alba_titolo_del_rituale'),
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: accento, letterSpacing: 1.6)),
+          const SizedBox(height: SpacingTokens.xs),
+          // **IL GESTO, che e' il rituale vero.** Porta gia' dentro il dato
+          // del cielo di stamattina: non e' un'istruzione generica.
+          Text(rito.gesto,
+              key: const Key('alba_testo_del_rituale'),
+              style: TypographyTokens.lettura()
+                  .copyWith(color: abito.inchiostro, height: 1.45)),
+          const SizedBox(height: SpacingTokens.xs),
+          // **E LA VIA COL DITO, SEMPRE.** Regola di casa: ogni esperienza
+          // che passa da un sensore ha il suo ripiego tattile, e qui il
+          // ripiego fa parte del rituale, non e' una nota a pie' di pagina.
+          Text(rito.viaTattile,
+              key: const Key('alba_via_tattile_del_rituale'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: abito.inchiostro.withValues(alpha: 0.8))),
+        ],
+      ),
+    );
+  }
 }
 
 class _RitualGiftCardState extends State<RitualGiftCard> {
@@ -210,6 +272,31 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               style:
                   TypographyTokens.lettura().copyWith(color: abito.inchiostro),
             ),
+            // **IL RITUALE DI OGGI, EVIDENZIATO. Ordine CW voce 07**, 7
+            // settembre 2026.
+            //
+            // **Non e' il ritorno di cio' che l'ordine CQ aveva tolto.** Li'
+            // uscivano le tre righe "Cosa fai, Perche', Cosa ti resta" dalla
+            // CIMA del responso, perche' la prima cosa che si leggeva era un
+            // compito invece di una risposta. Qui il rituale sta DOPO la
+            // risposta, dentro un riquadro suo, e la formulazione del titolo
+            // sostituisce quella chiesta il due settembre.
+            //
+            // **Solo nel Rito dell'Alba**, come l'ordine dice per nome: gli
+            // altri quattro Doni montano la stessa scheda e non hanno un
+            // rituale da compiere in questa forma.
+            //
+            // **Il riquadro contiene SOLO il rituale.** Il responso sta sopra,
+            // la firma del Maestro e i pulsanti di condivisione stanno sotto,
+            // fuori: un riquadro che li inghiottisse direbbe che anche quelli
+            // sono cose da fare.
+            if (widget.dono == DailyElement.dawn && gift.rito != null) ...[
+              const SizedBox(height: SpacingTokens.md),
+              _IlRitualeDiOggi(
+                  rito: gift.rito!,
+                  abito: abito,
+                  accento: accento),
+            ],
             // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
             // Ordine BB voce 06.
             //

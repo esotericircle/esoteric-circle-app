@@ -138,8 +138,8 @@ void main() {
               'secondo piano');
     });
 
-    testWidgets('In secondo piano l\'audio si ferma, e al ritorno non riparte',
-        (tester) async {
+    testWidgets('In secondo piano l\'audio si ferma, e al ritorno si chiede '
+        'la ripresa', (tester) async {
       silence();
       final spia = _MotoreSpia();
       final guardia = GuardiaDelSuono(motore: spia);
@@ -156,11 +156,22 @@ void main() {
       expect(spia.fermate, 2,
           reason: 'perdendo il primo piano l\'audio non si ferma');
 
-      // Tornando davanti NON riparte da solo: chi vuole il suono lo richiede.
+      // **TORNANDO DAVANTI SI CHIEDE LA RIPRESA, ordine CW voce 01**, 7
+      // settembre 2026. Qui si pretendeva zero riprese, ed era la decisione
+      // che avevo preso io con l'ordine CT quando la voce me lo lasciava
+      // scegliere: **il fondatore l'ha ribaltata.**
+      //
+      // La guardia chiede sempre, e **chi decide se c'e' qualcosa da
+      // riprendere e' il motore**, che riprende solo cio' che aveva sospeso
+      // lui. I tre casi della voce, "stava suonando", "era spenta" e
+      // "silenziata a mano", si provano sul motore vero in
+      // `la_musica_riprende_solo_se_stava_suonando_test.dart`: qui si prova
+      // che la richiesta parta, che e' l'unica cosa che questa guardia,
+      // costruita su un motore finto, puo' onestamente misurare.
       guardia.cambioStato(AppLifecycleState.resumed);
-      expect(spia.riprese, 0,
-          reason: 'tornando in primo piano l\'audio riparte da solo, e chi '
-              'aveva chiuso la funzione se lo ritrova addosso');
+      expect(spia.riprese, 1,
+          reason: 'tornando in primo piano la guardia non chiede nessuna '
+              'ripresa, quindi la musica sospesa resta sospesa per sempre');
     });
   });
 

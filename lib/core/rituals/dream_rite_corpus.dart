@@ -258,16 +258,37 @@ class DreamRiteCorpus {
         'transiti.';
   }
 
+  /// **IL TOOLTIP NON CONFESSA PIU' CIO' CHE NON HA. Ordine CW voce 04**, 7
+  /// settembre 2026, stessa famiglia della confessione degli Angeli che ha
+  /// aperto l'ordine CS.
+  ///
+  /// Qui finiva con *"non è allineata alla posizione esatta sopra di te:
+  /// servirebbero GPS, bussola ed effemeridi in tempo reale"*. Tre sensori
+  /// nominati, e **nessuno dei tre serve al calcolo di questo rito**:
+  ///
+  /// - il **GPS** no: segno e fase della Luna vengono dalla sola data, e sono
+  ///   grandezze geocentriche, le stesse a Milano e a Sydney nello stesso
+  ///   istante;
+  /// - la **bussola** no: servirebbe a orientare la scena verso il punto del
+  ///   cielo dove la Luna sta davvero, che e' una proprieta' della scena e non
+  ///   del rito;
+  /// - le **effemeridi in tempo reale** no, e quella riga era anche
+  ///   fuorviante: le effemeridi ci sono, in `lib/core/astro/effemeridi.dart`,
+  ///   girano sul dispositivo senza rete, ed e' da li' che vengono il segno e
+  ///   la fase. Scriverlo cosi' lasciava credere che non ci fossero.
+  ///
+  /// Quindi il tooltip smette di nominarli e dice cosa la scena E': il gesto
+  /// di puntare il cielo, non uno strumento di puntamento.
   static String daDoveNasce(BirthMoon luna) =>
       'Il cielo che vedi è il cielo notturno reale di questo momento. Stanotte '
       'la Luna è in ${luna.sign.italianName}, in fase '
       '${luna.phase.italianName.toLowerCase()}, calcolata sul dispositivo dalla '
       'data. La costellazione che unisci è il disegno reale del segno della '
       'Luna; il messaggio nasce da segno e fase, sul sentire del segno lunare '
-      '(${BirthMoon.meaningFor(luna.sign)}). La scena si muove col giroscopio '
-      'per darti il gesto di puntare il cielo, ma non è allineata alla posizione '
-      'esatta sopra di te: servirebbero GPS, bussola ed effemeridi in tempo '
-      'reale.';
+      '(${BirthMoon.meaningFor(luna.sign)}). Segno e fase si leggono dalla sola '
+      'data, e sono gli stessi in ogni punto della Terra: il rito non ha '
+      'bisogno di sapere dove sei. La scena si muove col giroscopio per darti '
+      'il gesto di puntare il cielo, ed è un\'evocazione, non un cannocchiale.';
 
   /// La riga del cielo di stanotte, dalla fase reale, per la scena.
   static String cieloDiStanotte(BirthMoon luna) =>

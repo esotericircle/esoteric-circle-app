@@ -81,17 +81,52 @@ const double fasciaCielo = 0.46;
 /// una prova il giroscopio non c'e' e l'inclinazione vale zero: misurando
 /// solo cio' che si vede a schermo non si vedrebbe mai il caso che il
 /// fondatore ha visto in mano.
+/// **E NEMMENO DENTRO IL TITOLO. Ordine CW voce 05**, 7 settembre 2026,
+/// seconda segnalazione dello stesso fastidio.
+///
+/// **La correzione di CQ.1.07 non era regredita: guardava l'altro bordo.** La
+/// sua guardia e' viva e verde, e spinge le stelle via dal blocco di testo che
+/// comincia al quarantasei per cento. **Di sopra non si e' mai occupato
+/// nessuno**: la schermata ha `extendBodyBehindAppBar`, quindi la fascia di
+/// cielo passa DIETRO la barra, e il pavimento valeva `altezza * 0.06`, cioe'
+/// **cinquanta punti** su uno schermo alto ottocentoquarantaquattro, mentre la
+/// barra col titolo ne occupa **novantaquattro**: la tacca di sistema piu' i
+/// cinquantasei della barra.
+///
+/// Adesso il pavimento arriva da fuori, ed e' il fondo vero della barra piu'
+/// un margine dichiarato. Chi chiama lo calcola dal `MediaQuery`, che e' dove
+/// quella misura vive davvero: **una percentuale non sa niente della tacca del
+/// telefono di chi guarda.**
+///
+/// [sogliaAlta] resta facoltativa e vale zero solo per chi non ha una barra
+/// sopra: passarla nulla vorrebbe dire tornare al difetto, quindi il valore di
+/// ripiego non e' la vecchia percentuale, e' il sei per cento **piu'** la
+/// barra minima di Material.
 Offset doveVaLaStella(
   Offset p, {
   required double larghezza,
   required double altezza,
   required Offset off,
-}) =>
-    Offset(
-      (0.12 + p.dx * 0.76) * larghezza + off.dx,
-      (((0.13 + p.dy * 0.30) * altezza) + off.dy)
-          .clamp(altezza * 0.06, altezza * (fasciaCielo - 0.05)),
-    );
+  double? sogliaAlta,
+}) {
+  final pavimento = sogliaAlta ?? (altezza * 0.06 + kToolbarHeight);
+  final soffitto = altezza * (fasciaCielo - 0.05);
+  // Se lo schermo e' cosi' basso che il pavimento supera il soffitto, comanda
+  // il pavimento: meglio una stella appiccicata al bordo basso della fascia
+  // che una sotto il titolo, dove il tocco non le arriva affatto.
+  final basso = pavimento > soffitto ? pavimento : soffitto;
+  return Offset(
+    (0.12 + p.dx * 0.76) * larghezza + off.dx,
+    (((0.13 + p.dy * 0.30) * altezza) + off.dy).clamp(pavimento, basso),
+  );
+}
+
+/// Quanto stacco fra il fondo della barra e la prima stella toccabile.
+///
+/// Non e' un margine di gusto: e' lo spazio in cui il dito che punta la stella
+/// piu' alta non tocca ancora il titolo. Dichiarato qui perche' la guardia lo
+/// legge invece di sceglierne uno suo.
+const double margineSottoIlTitolo = 12;
 
 class DreamRiteScreen extends StatefulWidget {
   DreamRiteScreen({
@@ -512,7 +547,16 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           // in verticale che la fascia confina con qualcosa, e togliere la
           // parallasse per intero vorrebbe dire spegnere il cielo per curare
           // un bordo.
-          mappa: (p) => doveVaLaStella(p, larghezza: w, altezza: h, off: off),
+          // **IL PAVIMENTO E' IL FONDO VERO DELLA BARRA.** Ordine CW voce
+          // 05: la tacca di sistema la sa il `MediaQuery`, non una
+          // percentuale scritta a mano.
+          mappa: (p) => doveVaLaStella(p,
+              larghezza: w,
+              altezza: h,
+              off: off,
+              sogliaAlta: MediaQuery.paddingOf(context).top +
+                  kToolbarHeight +
+                  margineSottoIlTitolo),
           onTocco: _allUnione,
           onCompleta: _allaFiguraCompleta,
         ),
@@ -730,20 +774,48 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           palette: _palette,
           luna: _luna,
           saluto: saluto,
-          maestroNome: _maestro.displayName,
+          maestro: _maestro,
         ),
         const SizedBox(height: SpacingTokens.sm),
+        // **NON E' UNA TRACCIA, E' UN TONO GENERATO. Ordine CW voce 03**, 7
+        // settembre 2026.
+        //
+        // L'icona a spento era `music_note_outlined`, una nota musicale, e
+        // l'etichetta diceva solo "Battito theta, se lo vuoi": chi leggeva
+        // aveva ogni ragione di aspettarsi un brano. **Non c'e' nessun brano.**
+        // Il codice sintetizza duecentodieci hertz a sinistra e duecento-
+        // diciassette a destra, e il battito che si sente e' la differenza,
+        // sette hertz, che e' la banda theta. In `assets/audio` non esiste
+        // nessun file theta.
+        //
+        // L'onda al posto della nota, e l'etichetta lo dice. **E nomina le
+        // cuffie**, che non e' un consiglio: un battito binaurale nasce dalla
+        // differenza fra i due orecchi, e dall'altoparlante del telefono i due
+        // canali si sommano in aria e il battito non esiste.
         TextButton.icon(
           key: const Key('dream_sound'),
           onPressed: _cambiaSuono,
-          icon: Icon(_suono ? Icons.graphic_eq : Icons.music_note_outlined,
+          icon: Icon(Icons.graphic_eq,
               size: 18, color: _palette.goldSoft),
           label: Text(
-              _suono ? 'Battito theta acceso' : 'Battito theta, se lo vuoi',
+              _suono
+                  ? 'Tono theta acceso, con le cuffie'
+                  : 'Tono theta generato, con le cuffie',
               style: TypographyTokens.etichetta()
                   .copyWith(color: _palette.goldSoft)),
         ),
       ];
+
+  /// Da dove nasce il tono theta, detto alla persona.
+  ///
+  /// I due numeri non sono decorazione: sono le frequenze vere che il
+  /// generatore sintetizza, e la loro differenza e' il battito. Chi vuole
+  /// verificare puo'.
+  static const String _provenienzaDelTono =
+      'Il tono theta non è una traccia registrata: il Cerchio lo genera sul '
+      'momento, 210 hertz a sinistra e 217 a destra. La differenza fra i due, '
+      '7 hertz, è il battito che senti, e nasce solo con le cuffie, perché '
+      'ha bisogno di un orecchio per canale.';
 
   void _mostraProvenienza() {
     foglioDelCerchio<void>(
@@ -782,6 +854,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                             _date, _forseLaNascita(context))),
                     style: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
+                const SizedBox(height: SpacingTokens.md),
+                // **ANCHE IL SUONO DICE DA DOVE NASCE. Ordine CW voce 03.**
+                // Un foglio che spiega la provenienza del testo e tace su
+                // quella del suono lascia credere che il suono venga da
+                // qualche altra parte.
+                Text(_provenienzaDelTono,
+                    key: const Key('dream_provenienza_del_tono'),
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
                   alignment: Alignment.centerRight,
@@ -847,13 +928,20 @@ class _Azioni extends StatefulWidget {
     required this.palette,
     required this.luna,
     required this.saluto,
-    required this.maestroNome,
+    required this.maestro,
   });
 
   final MaestroPalette palette;
   final BirthMoon luna;
   final String saluto;
-  final String maestroNome;
+
+  /// **IL MAESTRO DEL RITO, e non il suo nome. Ordine CW voce 02.**
+  ///
+  /// Prima qui arrivava una stringa, `maestroNome`, e il pulsante accanto
+  /// prendeva il Maestro da una costante: la stringa serviva alla carta, la
+  /// costante al pulsante, **e le due potevano dire due Maestri diversi**.
+  /// Adesso arriva l'oggetto, e il nome lo si chiede a lui.
+  final Maestro maestro;
 
   @override
   State<_Azioni> createState() => _AzioniState();
@@ -891,14 +979,24 @@ class _AzioniState extends State<_Azioni> {
         // **LE TRE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.**
         // Cio' che si custodisce e' il saluto della notte, cioe' il testo che
         // la persona ha davanti: la carta e' il vestito di quel testo.
+        // **IL MAESTRO E' QUELLO DEL RITO DI OGGI. Ordine CW voce 02**, 7
+        // settembre 2026.
+        //
+        // Qui c'era `Maestro.caligo`, scritto a mano, mentre il testo del
+        // responso e la firma vengono da `DailyRituals.nightMaestro`, che
+        // **ruota davvero** sui tre Maestri per giorno dell'anno. Due
+        // sorgenti per lo stesso fatto, e una era una costante: **due giorni
+        // su tre il saluto portava la voce di un Maestro e il pulsante ne
+        // nominava un altro**, che e' quello che il fondatore ha visto negli
+        // screenshot, una frase di Medora sopra un "parlane con Caligo".
         AzioniDelResponso(
           palette: widget.palette,
-          maestro: Maestro.caligo,
+          maestro: widget.maestro,
           responso: ResponsoDaCustodire(
             arte: 'sogno',
             titolo: 'Il tuo Rito della Notte',
             testo: widget.saluto,
-            dati: {'maestro': widget.maestroNome},
+            dati: {'maestro': widget.maestro.displayName},
           ),
           condividi: _condividi,
           aperturaDellaChat: ChatOpeners.sogno(widget.saluto),
@@ -913,7 +1011,7 @@ class _AzioniState extends State<_Azioni> {
                 luna: widget.luna,
                 palette: widget.palette,
                 saluto: widget.saluto,
-                maestroNome: widget.maestroNome,
+                maestroNome: widget.maestro.displayName,
               ),
             ),
           ),

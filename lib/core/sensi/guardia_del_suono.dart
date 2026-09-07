@@ -24,10 +24,23 @@ abstract interface class MotoreSonoro {
 /// regola messa in una schermata vale per quella schermata soltanto, ed e' la
 /// famiglia di difetto che questo progetto ha gia' incontrato sette volte.
 ///
-/// **Al ritorno il suono NON riparte da solo.** Chi rientra nell'app non ha
-/// chiesto di risentire un tono che stava suonando mezz'ora prima: se lo vuole,
-/// lo riavvia. Ripartire da soli sarebbe la stessa mancanza di rispetto del non
-/// fermarsi, al contrario.
+/// **AL RITORNO LA MUSICA RIPARTE, ordine CW voce 01, 7 settembre 2026.**
+///
+/// Qui c'era scritto il contrario, ed era una decisione che avevo preso io
+/// nell'ordine CT quando la voce me lo lasciava scegliere: *"al ritorno non
+/// riparte niente da solo"*. **Il fondatore l'ha ribaltata**, e la regola
+/// adesso e' che la musica riprende da sola dal punto in cui si era fermata.
+///
+/// **Cio' che si ricorda e' "stava suonando quando siamo usciti", non "esiste
+/// una traccia per questa schermata".** La differenza e' tutto il vincolo
+/// dell'ordine: chi era in una schermata muta non deve sentire musica al
+/// ritorno, e chi aveva spento la musica dalle impostazioni nemmeno. Una sola
+/// domanda al momento di uscire copre tutti e due i casi, perche' in nessuno
+/// dei due la musica stava suonando.
+///
+/// **Il tono e gli effetti no.** Un tono di Meditazione lasciato a meta'
+/// mezz'ora fa non e' un luogo dove si torna, e un effetto e' la risposta a un
+/// gesto che nessuno sta piu' facendo.
 class GuardiaDelSuono with WidgetsBindingObserver {
   GuardiaDelSuono({required this.motore});
 
@@ -55,8 +68,17 @@ class GuardiaDelSuono with WidgetsBindingObserver {
         // pausa, e il suono continuerebbe sopra la chiamata.
         motore.fermaTutto();
       case AppLifecycleState.resumed:
-        // Di proposito nulla: il suono non riparte da solo.
-        break;
+        // **AL RITORNO SI CHIEDE LA RIPRESA, ordine CW voce 01.** Qui c'era
+        // "di proposito nulla", che era la decisione che avevo preso io con
+        // l'ordine CT: il fondatore l'ha ribaltata.
+        //
+        // **La guardia non sa se qualcosa stava suonando, e non deve
+        // saperlo.** Chiede la ripresa sempre, e il motore riprende solo cio'
+        // che aveva sospeso lui: chi era in una schermata muta e chi aveva
+        // spento la musica dalle impostazioni non avevano musica in corso,
+        // quindi per loro questa chiamata non fa niente. Tenere quello stato
+        // qui vorrebbe dire due posti che ricordano la stessa cosa.
+        motore.riprendi();
     }
   }
 }

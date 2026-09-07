@@ -166,8 +166,23 @@ void main() {
     expect(find.textContaining('Rito della Buonanotte'), findsNothing);
   });
 
-  testWidgets('Il tooltip dichiara il cielo reale e il confine onesto',
+  testWidgets('Il tooltip dice su cosa il rito si fonda, e non cosa manca',
       (tester) async {
+    // **QUESTA PROVA TENEVA IN VITA LA CONFESSIONE.** Ordine CW voce 04, 7
+    // settembre 2026. Pretendeva la riga *"non è allineata alla posizione
+    // esatta sopra di te: servirebbero GPS, bussola ed effemeridi in tempo
+    // reale"*, cioe' esattamente la forma che l'ordine CS ha aperto per il
+    // tooltip degli Angeli.
+    //
+    // **Misurato sensore per sensore, nessuno dei tre serve al calcolo:** il
+    // segno e la fase della Luna vengono dalla sola data e sono grandezze
+    // geocentriche, uguali in ogni punto della Terra; la bussola servirebbe
+    // solo a orientare la scena; e le effemeridi **ci sono**, girano sul
+    // dispositivo senza rete, ed erano proprio quelle che producevano il
+    // responso. La riga diceva quindi anche una cosa falsa.
+    //
+    // Adesso la prova pretende il contrario: che il tooltip dica su cosa il
+    // rito si fonda, e che non nomini piu' cio' che non ha.
     silenceSensors(tester);
     grande(tester);
     await tester.pumpWidget(host());
@@ -178,6 +193,24 @@ void main() {
     expect(find.byKey(const Key('dream_sources_sheet')), findsOneWidget);
     expect(find.textContaining('cielo notturno reale di questo momento'),
         findsOneWidget);
-    expect(find.textContaining('non è allineata'), findsOneWidget);
+    expect(find.textContaining('non ha bisogno di sapere dove sei'),
+        findsOneWidget,
+        reason: 'il tooltip non dice piu\' che il rito si fonda sulla sola '
+            'data, cioe\' ha smesso di confessare senza spiegare');
+
+    // **E NON CONFESSA PIU'.** Nessuno dei tre sensori si nomina.
+    for (final parola in const ['GPS', 'bussola', 'servirebbero']) {
+      expect(find.textContaining(parola), findsNothing,
+          reason: 'il tooltip nomina ancora "$parola": un tooltip non e\' il '
+              'posto dove l\'app confessa quello che non ha fatto, e questo '
+              'sensore al calcolo del Sigillo del Sogno non serve');
+    }
+
+    // **E il suono dice da dove nasce**, voce CW.03: e' un tono generato, non
+    // una traccia, e un foglio che spiega il testo e tace sul suono lascia
+    // credere che il suono venga da qualche altra parte.
+    expect(find.byKey(const Key('dream_provenienza_del_tono')), findsOneWidget,
+        reason: 'il foglio della provenienza non dice che il tono theta e\' '
+            'generato dal Cerchio');
   });
 }
