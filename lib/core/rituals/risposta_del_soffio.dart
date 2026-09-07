@@ -83,7 +83,7 @@ class RispostaDelSoffio {
         'Il respiro di oggi ti serve a riconoscere dove passare.',
       (false, true) =>
         'Il respiro di oggi ti serve a non spingere dove oggi non cede.',
-      _ => 'Il respiro di oggi ti serve a fermarti, e basta.',
+      _ => 'Il respiro di oggi ti serve solo a fermarti.',
     };
     final righe = [
       if (apre != null) apre!,
