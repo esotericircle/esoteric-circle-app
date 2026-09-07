@@ -59,14 +59,37 @@ void main() {
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
     expect(find.text(moon.label), findsOneWidget);
 
-    // Il dato d'esempio e' dichiarato in-world su ogni tessera viva: Numero
-    // della vita, Fase lunare, Animale guida e i tre Angeli.
-    expect(find.byKey(const Key('passport_angels')), findsOneWidget);
-    // La Carta natale e' la quinta tessera viva: prima stava fra le cose "in
-    // arrivo" mentre la carta si calcola davvero, quindi chi apriva il proprio
-    // passaporto concludeva di non averla.
-    expect(find.byKey(const Key('passport_natal_chart')), findsOneWidget);
-    expect(find.textContaining('Valore d\'esempio'), findsNWidgets(5));
+    // **IL DATO D'ESEMPIO E' DICHIARATO SU OGNI TESSERA VIVA.**
+    //
+    // Qui c'era `findsNWidgets(5)`. Cinque era il conto delle tessere vive
+    // del giorno in cui la prova fu scritta, e quando la Carta di nascita
+    // ne ha fatte sei, con l'ordine CS voce O3, la prova e' caduta pur
+    // essendo tutto giusto. **Il numero segue il dato**: viene dall'elenco
+    // qui sotto, che dichiara quali sono le tessere vive.
+    //
+    // Chi ne aggiunge una e non la mette in questo elenco vede un rifiuto
+    // che dice quale chiave manca, invece di un numero che non torna.
+    const tessereVive = <String>[
+      'passport_life_path',
+      'passport_birth_moon',
+      'passport_guide_animal',
+      'passport_carta_di_nascita',
+      'passport_angels',
+      'passport_natal_chart',
+    ];
+    for (final chiave in tessereVive) {
+      expect(find.byKey(Key(chiave)), findsOneWidget,
+          reason: 'la tessera viva $chiave non e\' a video, quindi il conto '
+              'delle note d\'esempio qui sotto misurerebbe meno tessere di '
+              'quante il passaporto ne dichiara');
+    }
+    final note = find.textContaining('Valore d\'esempio');
+    expect(note, findsNWidgets(tessereVive.length),
+        reason: 'le tessere vive dichiarate sono ${tessereVive.length} e le '
+            'note d\'esempio a video sono '
+            '${tester.widgetList(note).length}: una tessera viva che usa il '
+            'dato d\'esempio senza dirlo mostra un valore inventato come se '
+            'fosse quello della persona');
 
     // **NEL PASSAPORTO NON C'E' PIU' NESSUN VELO, e non e' una perdita.**
     // Ordine BC voce 03.

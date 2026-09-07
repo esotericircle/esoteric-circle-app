@@ -30,7 +30,7 @@ fondatore leggendo.
 | Voci **OCCASIONE** | **5** |
 | Funzioni risultate NON VERIFICABILI senza un telefono | **2** |
 | Funzioni dichiarate NON VERIFICATE in questa scansione | **1** |
-| Voci **RIPARATE** al 7 settembre 2026 | **8** su 16 |
+| Voci **RIPARATE** al 7 settembre 2026 | **9** su 16 |
 
 **Le arti attive erano nove alla scansione, adesso sono dieci**, perche'
 l'Angelo Custode e' passato ad attiva con la voce S3. Il numero si conta sul
@@ -416,6 +416,36 @@ Chi apre l'app non vede mai qual e' la propria Carta di Nascita, ne' cosa dice.
 
 **Cosa esiste gia':** il calcolo, il corpus dei ventidue Arcani maggiori con le
 letture diritte, e le immagini del mazzo.
+
+### FATTA il 7 settembre 2026
+
+La Carta di nascita e' una tessera del Passaporto Cosmico, `_CartaDiNascitaCard`,
+accanto agli altri fatti che nascono dalla sola data di nascita: Numero della
+vita, Fase lunare, Animale guida. Porta il numerale, il nome, la lettura diritta
+e la miniatura della carta.
+
+**Al tocco si apre la carta ingrandita**, la stessa scena che la Stesa ha gia':
+la figura si gira verso chi guarda e il testo sale da sotto. Non e' stata
+costruita una seconda scena per la stessa cosa.
+
+Anche `cartaDi` e' tornata viva: esisteva gia' e non la chiamava nessuno.
+
+**La tradizione si legge.** Sotto la lettura c'e' la porta delle fonti, con la
+linea della Golden Dawn, Angeles Arrien e «The Tarot Handbook» del 1987, Mary K.
+Greer e «Tarot for Your Self» del 1984, piu' il metodo e cio' che e' curatela
+del Cerchio.
+
+**La guardia:** `test/la_carta_di_nascita_si_vede_test.dart`. La verita' di
+riscontro non e' il codice provato: il numero atteso e' calcolato a mano nel
+commento, cifra per cifra, su tre date scelte per coprire la riduzione e il
+caso che non si riduce. Nata rossa cinque volte su cinque, con tre innesti.
+
+**Un difetto colto dalla rete.** La prova del Passaporto pretendeva
+`findsNWidgets(5)` sulle note del dato d'esempio: cinque era il conto delle
+tessere vive del giorno in cui fu scritta, e la sesta l'ha fatta cadere pur
+essendo tutto giusto. Adesso il numero viene da un elenco dichiarato delle
+tessere vive, e chi ne aggiunge una senza metterla in elenco legge quale chiave
+manca invece di un numero che non torna.
 
 ## O4. Il cielo di oggi si calcola per l'Oroscopo e per nient'altro
 

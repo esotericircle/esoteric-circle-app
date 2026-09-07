@@ -20,7 +20,12 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/rituals/carta_di_nascita_dei_tarocchi.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
+import '../../core/tarot/tarot_reading.dart';
+import '../../core/tarot/tarot_spread.dart';
+import '../maestri/widgets/foglio_delle_fonti.dart';
+import '../tarot/carta_ingrandita.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -187,6 +192,11 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   _BirthMoonCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _GuideAnimalCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // LA CARTA DI NASCITA, ordine CS voce O3. Sta qui perche'
+                  // e' della stessa famiglia delle tre sopra: nasce dalla sola
+                  // data di nascita e non cambia mai piu'.
+                  _CartaDiNascitaCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _AngelsCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
@@ -484,6 +494,83 @@ class _GuideAnimalCard extends StatelessWidget {
   }
 }
 
+/// **LA CARTA DI NASCITA DEI TAROCCHI. Ordine CS voce O3.**
+///
+/// Il calcolo esisteva da tempo, `CartaDiNascitaDeiTarocchi`, e serviva a una
+/// cosa sola: era uno dei fattori del seme dell'Arcano del Giorno. Chi apriva
+/// l'app non vedeva mai qual e' la propria Carta di nascita ne' cosa dice, e
+/// anche `cartaDi`, che gia' sapeva darla, non la chiamava nessuno.
+///
+/// Sta fra i fatti deterministici perche' e' della loro stessa famiglia:
+/// nasce dalla sola data di nascita, come il Numero della vita e la Fase
+/// lunare, e non cambia mai piu'. Al tocco si apre la carta ingrandita, la
+/// stessa scena che la Stesa ha gia': la figura si gira verso chi guarda e il
+/// testo sale da sotto.
+///
+/// La porta delle fonti sta sotto la lettura, perche' questa tradizione ha
+/// nomi e opere precise e vanno raggiungibili da qui.
+class _CartaDiNascitaCard extends StatelessWidget {
+  const _CartaDiNascitaCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final carta = CartaDiNascitaDeiTarocchi.cartaDi(identity.birthMoment);
+    return _ActiveFactCard(
+      cardKey: const Key('passport_carta_di_nascita'),
+      overline: 'Carta di nascita',
+      value: '${carta.numeral} \u00b7 ${carta.name}',
+      meaning: carta.upright,
+      isExample: identity.isExample,
+      onTap: () => mostraLaCartaIngrandita(
+        context,
+        palette: palette,
+        letta: PosizioneLetta(
+          // La posizione non ha senso qui e non si vede: la carta ingrandita
+          // mostra il nome e il testo, mai l'etichetta della posizione. Si
+          // passa la presente perche' il tipo la vuole, non perche' voglia
+          // dire qualcosa.
+          drawn: DrawnCard(
+              card: carta,
+              position: SpreadPosition.presente,
+              reversed: false),
+          apertura: 'La tua Carta di nascita',
+          testo: carta.upright,
+        ),
+      ),
+      emblem: Container(
+        width: 52,
+        height: 52,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: palette.surface.withValues(alpha: 0.5),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Center(
+          child: MiniaturaIntera(
+            path: carta.thumbPath,
+            ripiego: Icons.style_rounded,
+            palette: palette,
+            larghezza: 34,
+          ),
+        ),
+      ),
+      sotto: Align(
+        alignment: Alignment.centerLeft,
+        child: FoglioDelleFonti.bottone(
+          context,
+          palette: palette,
+          testo: TestiDelleFonti.cartaDiNascita,
+          chiave: 'fonti_carta_di_nascita',
+        ),
+      ),
+    );
+  }
+}
+
 /// La tessera viva della carta natale.
 ///
 /// Apre la carta calcolata, quella che il Risveglio mostra: la mappa celeste
@@ -571,6 +658,7 @@ class _ActiveFactCard extends StatelessWidget {
     required this.emblem,
     required this.isExample,
     this.onTap,
+    this.sotto,
   });
 
   final Key cardKey;
@@ -579,6 +667,12 @@ class _ActiveFactCard extends StatelessWidget {
   final String meaning;
   final Widget emblem;
   final bool isExample;
+
+  /// Cio' che sta sotto la lettura, quando la tessera ha qualcosa in piu' da
+  /// offrire. Oggi lo usa la sola Carta di nascita, per la porta delle fonti:
+  /// la sua tradizione ha nomi e opere precise, e vanno raggiungibili da dove
+  /// si legge la carta.
+  final Widget? sotto;
 
   /// Se la tessera apre qualcosa al tocco, la freccia lo dice.
   final VoidCallback? onTap;
@@ -617,6 +711,10 @@ class _ActiveFactCard extends StatelessWidget {
                 if (isExample) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   _ExampleNote(palette: palette),
+                ],
+                if (sotto != null) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  sotto!,
                 ],
               ],
             ),

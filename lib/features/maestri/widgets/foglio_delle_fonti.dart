@@ -180,6 +180,23 @@ class TestiDelleFonti {
       'guida ti propone.';
 
   /// Il Soffio del Destino.
+  /// LA CARTA DI NASCITA DEI TAROCCHI. Ordine CS voce O3.
+  ///
+  /// La tradizione ha nomi e opere precise, e vanno dette: senza, il
+  /// calcolo sembra una regola inventata dall'app.
+  static const String cartaDiNascita =
+      'La Carta di nascita nasce nella linea della Golden Dawn, poi la '
+      'codificano nella pratica moderna Angeles Arrien con The Tarot '
+      'Handbook del 1987 e Mary K. Greer con Tarot for Your Self del 1984.\n\n'
+      'Il metodo somma le cifre del giorno, del mese e dell\'anno di '
+      'nascita, poi riduce la somma finché non sta sotto il ventidue: '
+      'il numero che resta indica un Arcano Maggiore, che accompagna '
+      'quella persona per tutta la vita. Nella pratica il ventidue si '
+      'riporta al Matto, che nel mazzo porta lo zero.\n\n'
+      'La lettura che leggi qui viene dal corpus dei ventidue Arcani del '
+      'Cerchio, nel verso diritto. L\'arte del mazzo è la Rider Waite '
+      'incisa per il Cerchio.';
+
   static const String soffio =
       'Le due righe del Soffio nascono dai transiti veri di oggi sul tuo cielo '
       'di nascita: gli aspetti che i pianeti di adesso formano coi tuoi punti '
