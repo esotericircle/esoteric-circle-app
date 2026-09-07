@@ -76,7 +76,7 @@ void main() {
   }
 
   Future<void> apriPannello(WidgetTester tester) async {
-    await tester.tap(find.text('Suggerimenti').first, warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('chat_stelline')), warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
   }

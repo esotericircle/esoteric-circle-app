@@ -4797,7 +4797,7 @@ void main() {
       final rootKey =
           await mount(tester, await buildServices(maestro, seeded: true));
       await openChat(tester, maestro);
-      await tester.tap(find.text('Suggerimenti'));
+      await tester.tap(find.byKey(const Key('chat_stelline')));
       await step(tester);
       await step(tester);
       await capture(tester, rootKey, '$id-chat-suggerimenti.png');

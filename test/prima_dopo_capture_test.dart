@@ -1503,7 +1503,7 @@ void main() {
     for (var i = 0; i < 16; i++) {
       await tester.pump(const Duration(milliseconds: 500));
     }
-    await tester.tap(find.text('Suggerimenti').first, warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('chat_stelline')), warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 
@@ -1877,7 +1877,7 @@ void main() {
     await tester.tap(
         stelline.evaluate().isNotEmpty
             ? stelline
-            : find.text('Suggerimenti').first,
+            : find.byKey(const Key('chat_stelline')),
         warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));

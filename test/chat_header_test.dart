@@ -109,7 +109,8 @@ void main() {
       expect(find.byIcon(Icons.tune_rounded), findsNothing);
     });
 
-    testWidgets('L\'header di ${maestro.id} e\' centrato e mostra le tre arti',
+    testWidgets(
+        'L\'header di ${maestro.id} e\' in riga e mostra le tre arti',
         (tester) async {
       silenceSensors();
       await openChat(tester, maestro);
@@ -130,12 +131,27 @@ void main() {
               matching: find.text(maestro.domainArtsPhrase)),
           findsOneWidget);
 
-      // Il titolo dell'AppBar della chat e' centrato.
+      // **IL TITOLO NON E' PIU' CENTRATO, ed e' una decisione.** Ordine CT
+      // voce 01, 7 settembre 2026. Parole del fondatore: *"nella prima barra
+      // superiore metti cerchietto con viso maestro con a fianco Nome Maestro
+      // e subito sotto le sue arti in giallo"*.
+      //
+      // Centrato voleva dire in colonna, col volto sopra il nome, e la barra
+      // alta il doppio del necessario. Adesso il cerchietto sta a sinistra e
+      // le due righe accanto, allineate al loro bordo: un titolo centrato
+      // rimetterebbe il blocco in mezzo e lascerebbe due vuoti ai lati.
+      //
+      // **Che le due righe stiano dentro il cerchietto lo misura
+      // `la_chat_lascia_spazio_alla_conversazione_test.dart`**, coi rettangoli
+      // veri. Qui basta la decisione: la barra non si centra piu'.
       final appBar = tester.widget<AppBar>(find.descendant(
         of: find.byType(MaestroChatScreen),
         matching: find.byType(AppBar),
       ));
-      expect(appBar.centerTitle, isTrue);
+      expect(appBar.centerTitle, isFalse,
+          reason: 'il titolo della chat e\' tornato centrato, cioe\' in '
+              'colonna col volto sopra il nome: e\' la forma che l\'ordine '
+              'CT voce 01 ha tolto perche\' alta il doppio');
     });
   }
 

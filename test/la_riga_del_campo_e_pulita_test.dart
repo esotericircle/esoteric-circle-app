@@ -140,30 +140,55 @@ void main() {
   // soglia. Quello che deve restare vero e' che le due bolle siano larghe
   // uguali e non si sovrappongano, che e' esattamente cio' che e' stato
   // chiesto.
-  testWidgets('le due bolle sono larghe uguali e non si toccano',
+  testWidgets('i Suggerimenti sono un cerchietto alla sinistra del campo',
       (tester) async {
+    // **UNA DECISIONE DEL FONDATORE NE HA SOSTITUITA UN'ALTRA, e va detto.**
+    //
+    // Il 1 settembre 2026 aveva chiesto due bolle impilate e larghe uguali,
+    // coi Suggerimenti sopra il campo. Il 4 settembre, guardando la chat sul
+    // telefono, ha chiesto il contrario e ne ha dato la ragione: *"bisogna
+    // guadagnare spazio al centro quindi ridurre al massimo le parti occupate
+    // sopra e sotto"*, e per la barra sotto *"un cerchietto con il simbolo dei
+    // suggerimenti a sinistra, il campo per le domande al centro e la freccia
+    // verso l'alto di invio a destra"*. Ordine CT voce 06.
+    //
+    // Questa prova misurava le due bolle impilate: teneva viva la forma
+    // vecchia, quindi e' cambiata insieme alla forma. **Non e' stata
+    // ammorbidita**: pretende la stessa precisione sulla geometria nuova.
+    //
+    // Il guadagno misurato: il compositore passa da 132 a 74 punti.
     final radice = GlobalKey();
     await chatDi(tester, Maestro.aura, radice);
     final campo = tester.getRect(find.byKey(const Key('chat_campo')));
     final stelline = tester.getRect(find.byKey(const Key('chat_stelline')));
 
-    expect(stelline.bottom, lessThanOrEqualTo(campo.top + 0.5),
-        reason: 'la bolla dei Suggerimenti non sta piu\' SOPRA il campo: '
-            'finisce a ${stelline.bottom} e il campo comincia a ${campo.top}');
+    expect(stelline.right, lessThanOrEqualTo(campo.left + 0.5),
+        reason: 'i Suggerimenti non stanno alla SINISTRA del campo: finiscono '
+            'a ${stelline.right.toStringAsFixed(1)} e il campo comincia a '
+            '${campo.left.toStringAsFixed(1)}');
 
-    // **LARGHE UGUALI**, che e' la parola che il fondatore ha usato. La
-    // chiave `chat_stelline` sta gia' sulla BOLLA e non sull'icona, quindi si
-    // misura direttamente lei.
-    final scarto = (stelline.width - campo.width).abs();
-    final bolla = stelline;
+    // In riga vuol dire che si guardano in faccia, non che sono vicini.
+    expect(stelline.center.dy, closeTo(campo.center.dy, 6),
+        reason: 'i Suggerimenti non sono in riga col campo: stanno a '
+            '${stelline.center.dy.toStringAsFixed(1)} contro '
+            '${campo.center.dy.toStringAsFixed(1)}');
+
+    // **UN CERCHIETTO**, cioe' alto quanto largo, e non una bolla stirata.
+    final scarto = (stelline.width - stelline.height).abs();
     // ignore: avoid_print
-    print('LE DUE BOLLE: suggerimenti ${bolla.width.toStringAsFixed(1)}, '
-        'campo ${campo.width.toStringAsFixed(1)}, scarto '
-        '${scarto.toStringAsFixed(1)}');
+    print('IL CERCHIETTO: ${stelline.width.toStringAsFixed(1)} per '
+        '${stelline.height.toStringAsFixed(1)}, campo largo '
+        '${campo.width.toStringAsFixed(1)}');
     expect(scarto, lessThanOrEqualTo(1.0),
-        reason: 'le due bolle non sono larghe uguali: '
-            '${bolla.width.toStringAsFixed(1)} contro '
-            '${campo.width.toStringAsFixed(1)}');
+        reason: 'i Suggerimenti non sono un cerchietto: '
+            '${stelline.width.toStringAsFixed(1)} per '
+            '${stelline.height.toStringAsFixed(1)}');
+
+    // E il bersaglio resta toccabile: quarantaquattro punti e' la misura
+    // minima, la stessa che tutti i comandi tondi di questa app rispettano.
+    expect(stelline.width, greaterThanOrEqualTo(44),
+        reason: 'il cerchietto misura ${stelline.width.toStringAsFixed(1)} '
+            'punti, sotto il minimo toccabile di quarantaquattro');
   });
 
   testWidgets('sul primo schermo c\'e\' il solo benvenuto', (tester) async {

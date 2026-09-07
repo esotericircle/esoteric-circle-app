@@ -83,7 +83,7 @@ void main() {
       }
 
       // Si apre il pannello dall'icona a stelline accanto al campo.
-      await tester.tap(find.text('Suggerimenti').first, warnIfMissed: false);
+      await tester.tap(find.byKey(const Key('chat_stelline')), warnIfMissed: false);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
 

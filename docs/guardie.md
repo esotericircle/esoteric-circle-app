@@ -39,11 +39,11 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 118 |
+| Guardie che passano dalla porta comune | 119 |
 | Guardie con un cardinale proprio dichiarato | 70 |
-| Guardie che non scoprono nessun insieme di file | 146 |
-| **Somma delle categorie** | **334** |
-| **Guardie secondo la definizione** | **334** |
+| Guardie che non scoprono nessun insieme di file | 148 |
+| **Somma delle categorie** | **337** |
+| **Guardie secondo la definizione** | **337** |
 
 Le due righe in grassetto **coincidono**, contate il 7 settembre 2026.
 
@@ -54,7 +54,7 @@ accorta perche' controllava soltanto che le tre cifre sommassero fra loro**, cio
 la coerenza di tre numeri inventati insieme. Era la seconda specie di cecita', la
 guardia cieca al bersaglio, dentro il documento che quella tavola la definisce.
 Adesso i tre numeri sono contati sulla colonna, e il 7 settembre 2026
-sono **118, 70 e 146**.
+sono **119, 70 e 148**.
 
 **E il registro aveva una seconda cecita', trovata con l'ordine CS.** Le due
 prove che lo sorvegliano camminano **dal registro verso i file**: prendono le
@@ -120,14 +120,14 @@ questo registro.
 
 | | |
 | --- | ---: |
-| File di prova totali | 794 |
-| **Guardie secondo la definizione** | **334** |
-| Guardie che scorrono i sorgenti di `lib` | 135 |
-| Di queste, passate alla porta comune | 118 |
+| File di prova totali | 797 |
+| **Guardie secondo la definizione** | **337** |
+| Guardie che scorrono i sorgenti di `lib` | 136 |
+| Di queste, passate alla porta comune | 119 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
 | **Guardie mai viste rosse** | **230** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **104** |
+| **Guardie viste rosse almeno una volta** | **107** |
 
 Le guardie viste rosse sono **88 su 306**, il **28.8 per cento**, contate il 6 settembre 2026 con l'ordine CR.
 
@@ -376,6 +376,7 @@ le altre.
 | `la_carta_suona_toccandola_test.dart` | la carta suona toccandola | 1, 4 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `la_catena_dei_dati_di_nascita_test.dart` | la catena dei dati di nascita | 1, 2 | dalla porta comune | mai | 3 |
 | `la_celebrazione_offre_sempre_la_condivisione_test.dart` | la celebrazione offre sempre la condivisione | 1, 2 | dalla porta comune | mai | 3 |
+| `la_chat_lascia_spazio_alla_conversazione_test.dart` | la chat lascia spazio alla conversazione | 4 | non scopre insiemi di file | 07/09/2026, CT | 3 |
 | `la_chat_non_si_apre_sul_vuoto_test.dart` | la chat non si apre su mezzo schermo di vuoto | 1, 2 | non scopre insiemi di file | CO | 3 |
 | `la_chat_si_legge_test.dart` | la chat si legge | 2, 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_chiave_e_il_consiglio_si_vedono_test.dart` | la chiave e il consiglio si vedono | 1, 2, 4 | proprio, dichiarato | CO | 3 |
@@ -446,6 +447,7 @@ le altre.
 | `miniature_intere_test.dart` | miniature intere | 1, 2 | dalla porta comune | mai | 3 |
 | `motore_audio_unico_test.dart` | motore audio unico | 1, 2 | dalla porta comune | mai | 3 |
 | `nessun_accento_dichiara_un_fondo_che_non_ha_test.dart` | nessun accento dichiara un fondo che non ha | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |
+| `nessun_anello_si_dipinge_fuori_dal_suo_riquadro_test.dart` | nessun anello si dipinge fuori dal suo riquadro | 4 | non scopre insiemi di file | 07/09/2026, CT | 3 |
 | `nessun_campo_dice_di_aspettare_test.dart` | nessun campo dice di aspettare | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
@@ -457,6 +459,7 @@ le altre.
 | `nessun_traguardo_resta_indietro_test.dart` | nessun traguardo resta indietro | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `nessuna_azione_committa_da_sola_test.dart` | nessuna azione committa da sola | 1 | dalla porta comune | mai | 3 |
 | `nessuna_promessa_di_memoria_integrale_test.dart` | nessuna promessa di memoria integrale | 1, 2 | proprio, dichiarato | mai | 3 |
+| `nessuna_sorgente_resta_accesa_in_sottofondo_test.dart` | nessuna sorgente resta accesa in sottofondo | 1, 2 | dalla porta comune | 07/09/2026, CT | 2 |
 | `nessuno_disegna_oltre_la_tela_test.dart` | nessuno disegna oltre la tela | 1, 2 | proprio, dichiarato | mai | 3 |
 | `niente_eco_test.dart` | niente eco | 1, 2 | dalla porta comune | 01/09/2026, CM | 3 |
 | `niente_resta_di_te_test.dart` | niente resta di te | 1, 2 | proprio, dichiarato | mai | 3 |

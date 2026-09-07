@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 144 -->
-<!-- FILE_CON_VUOTI: 62 -->
+<!-- VUOTI_CENSITI: 142 -->
+<!-- FILE_CON_VUOTI: 61 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **144** |
-| File che ne contengono | **62** |
+| Vuoti verticali dichiarati | **142** |
+| File che ne contengono | **61** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -22,9 +22,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 79 |
+| 2 | 78 |
 | 3 | 8 |
-| 4 | 22 |
+| 4 | 21 |
 | 5 | 1 |
 | 6 | 12 |
 | 7 | 2 |
@@ -80,7 +80,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
-| `lib/features/maestri/chat/widgets/chat_composer.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
@@ -98,7 +97,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/intro/sequenza_intro.dart` | 1 | 0 |
 | `lib/features/maestri/ask/ask_maestri_screen.dart` | 1 | 0 |
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 1 | 0 |
-| `lib/features/maestri/chat/maestro_chat_screen.dart` | 1 | 0 |
+| `lib/features/maestri/chat/widgets/chat_composer.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/diagnostics_dialog.dart` | 1 | 0 |
 | `lib/features/maestri/domain_screen.dart` | 1 | 0 |
 | `lib/features/onboarding/natal_chart_reveal.dart` | 1 | 0 |
