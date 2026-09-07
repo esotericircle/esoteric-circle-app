@@ -131,7 +131,7 @@ class RispostaDelSoffio {
     final verso = luna.waxing ? 'cresce' : 'cala';
     return RispostaDelDono(
       titolo: titolo,
-      risposta: 'La Luna oggi $verso in ${segno.italianName}, ed è la luce '
+      risposta: 'La Luna oggi $verso in ${segno.italianName}: è la luce '
           'che si muove più in fretta di tutte. Il respiro non cambia il '
           'cielo: ti mette nel passo in cui il cielo si trova adesso.',
     );

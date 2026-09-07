@@ -813,9 +813,10 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   /// verificare puo'.
   static const String _provenienzaDelTono =
       'Il tono theta non è una traccia registrata: il Cerchio lo genera sul '
-      'momento, 210 hertz a sinistra e 217 a destra. La differenza fra i due, '
-      '7 hertz, è il battito che senti, e nasce solo con le cuffie, perché '
-      'ha bisogno di un orecchio per canale.';
+      'momento, a 210 hertz nell\'orecchio sinistro e 217 nel destro. La '
+      'differenza fra i due è di 7 hertz: è quello il battito che senti. '
+      'Nasce solo con le cuffie, perché ha bisogno di un orecchio per '
+      'canale.';
 
   void _mostraProvenienza() {
     foglioDelCerchio<void>(
