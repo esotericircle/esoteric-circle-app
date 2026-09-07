@@ -315,39 +315,112 @@ class MotoreAudio implements MotoreSonoro {
     }
   }
 
-  /// Ferma ogni suono in corso: e' cio' che la Guardia del Suono chiama quando
-  /// l'app perde il primo piano.
+  /// **NESSUNA SORGENTE PUO' TRATTENERE LE ALTRE.** Ordine CT voce 07,
+  /// 7 settembre 2026.
+  ///
+  /// **Il difetto, misurato.** Il fondatore: *"quando l'app va in background,
+  /// la musica non si ferma"*. Il governo del ciclo di vita c'era, la Guardia
+  /// del Suono chiamava questo metodo, e questo metodo fermava la musica: sulla
+  /// carta era tutto giusto. **Il difetto era l'ordine delle attese.**
+  ///
+  /// Qui si fermavano le tre sorgenti IN CATENA, una `await` dopo l'altra, e
+  /// la musica era la seconda. La prima era il tono, e la chiamava attraverso
+  /// il getter `_toni`, che il lettore **lo crea se non c'e'**: mandando in
+  /// sottofondo un'app che non aveva mai suonato un tono, si costruiva un
+  /// lettore nuovo, senza sorgente, solo per dirgli di fermarsi. Di
+  /// `audioplayers` questo progetto sa gia' che **una chiamata puo' non
+  /// tornare mai senza sollevare niente**: e' costato l'ordine CQ, dove `play`
+  /// atteso bloccava la build muta. Un'attesa che non torna sulla prima
+  /// sorgente **impedisce di arrivare alla seconda**, cioe' alla musica, e il
+  /// `catch` non serve a niente perche' non c'e' nessun errore da prendere.
+  ///
+  /// **Adesso le tre chiamate partono tutte prima di qualunque attesa**, e chi
+  /// non risponde resta indietro da solo. Il tono si ferma dal campo e non dal
+  /// getter: non si crea mai un lettore per zittirlo.
+  ///
+  /// **LA MUSICA SI SOSPENDE, NON SI FERMA.** Ordine CN voce 07: sospesa
+  /// tace come ferma, e riprenderla costa meno che ricomporla.
   @override
-  Future<void> fermaTutto() async {
-    await fermaTono();
-    // **LA MUSICA SI SOSPENDE, NON SI FERMA.** Ordine CN voce 07:
-    // l'app che torna in primo piano deve riprendere dov'era, non
-    // ricominciare il tappeto da capo, che si sentirebbe come un
-    // salto.
-    await sospendiMusica();
-    try {
-      await _effettiPigro?.stop();
-    } catch (_) {
-      // Nessun effetto in corso: nulla da fare.
+  Future<void> fermaTutto() => fermaOgnuna([
+        () => _toniPigro?.stop(),
+        () => _musicaPigro?.pause(),
+        () => _effettiPigro?.stop(),
+      ]);
+
+  /// **CHIAMA TUTTE, POI ASPETTA.** Il cuore della voce CT.07, staccato qui
+  /// perche' si possa provare con una sorgente che non risponde mai: dentro
+  /// `fermaTutto` i tre lettori sono privati e nessuna prova puo' sostituirli.
+  ///
+  /// Le chiamate si emettono nel giro sincrono, prima di ogni `await`: da quel
+  /// momento la piattaforma le ha ricevute tutte, e cosa ne fa non riguarda
+  /// piu' le altre. L'attesa che segue serve solo a chi vuole sapere quando e'
+  /// finita, e ha un tetto perche' **questo metodo non deve poter non
+  /// tornare**: lo chiama il ciclo di vita, e un ciclo di vita che si appende
+  /// e' peggio di un suono che resta acceso.
+  @visibleForTesting
+  static Future<void> fermaOgnuna(
+    List<Future<void>? Function()> sorgenti, {
+    Duration entro = const Duration(seconds: 2),
+  }) async {
+    final avviate = <Future<void>>[];
+    for (final sorgente in sorgenti) {
+      try {
+        final f = sorgente();
+        // L'errore si assorbe sulla singola sorgente: una che solleva non
+        // deve far saltare l'attesa comune.
+        if (f != null) avviate.add(f.catchError((Object _) {}));
+      } catch (_) {
+        // La chiamata e' fallita subito: le altre partono lo stesso.
+      }
     }
+    if (avviate.isEmpty) return;
+    await Future.wait(avviate)
+        .timeout(entro, onTimeout: () => const <void>[]);
   }
 
-  /// **AL RITORNO RIPRENDE LA SOLA MUSICA.** Ordine CN voce 07.
+  /// Quali lettori esistono davvero, per nome.
   ///
-  /// Gli effetti no, e i toni nemmeno: un effetto e' la risposta a un
-  /// gesto, e un gesto fatto un minuto fa non merita una risposta
-  /// adesso. La musica invece e' un luogo, e il luogo e' ancora quello.
+  /// Serve a provare che fermare non CREA: un lettore costruito per essere
+  /// zittito e' un lettore in piu' che tocca la piattaforma, ed e' proprio
+  /// quello che teneva ferma la catena.
+  @visibleForTesting
+  Set<String> get lettoriVivi => {
+        if (_toniPigro != null) 'toni',
+        if (_musicaPigro != null) 'musica',
+        if (_effettiPigro != null) 'effetti',
+      };
+
+  /// **AL RITORNO NON RIPARTE NIENTE DA SOLO, ed e' una decisione.** Ordine
+  /// CT voce 07, che chiedeva di sceglierlo e di motivarlo.
+  ///
+  /// **La riga della decisione:** chi rientra nell'app non ha chiesto di
+  /// risentire un tappeto che suonava mezz'ora prima, e la musica torna da se'
+  /// appena si cambia luogo, perche' la regia riaccende il tappeto del luogo
+  /// in cui si entra.
+  ///
+  /// **Qui c'era scritto il contrario, e non era vero.** Il commento diceva
+  /// "al ritorno riprende la sola musica", ma **in tutto `lib` nessuno chiama
+  /// questo metodo**: la Guardia del Suono, sul `resumed`, di proposito non fa
+  /// niente. Due commenti in conflitto sullo stesso fatto, e il codice
+  /// implementava il secondo. Il metodo resta perche' l'interfaccia
+  /// `MotoreSonoro` lo pretende e perche' chi volesse riprendere ha dove
+  /// chiamarlo, non perche' qualcuno lo faccia oggi.
   @override
   Future<void> riprendi() async {
     await riprendiMusica();
   }
 
   /// Ferma i toni lunghi. Gli effetti brevi finiscono da soli.
+  ///
+  /// **Dal campo e non dal getter.** Ordine CT voce 07: `_toni` costruisce il
+  /// lettore quando non c'e', quindi fermare un tono mai suonato ne creava uno
+  /// nuovo per zittirlo. Un lettore che nasce tocca la piattaforma, e la
+  /// piattaforma puo' non rispondere.
   Future<void> fermaTono() async {
     try {
-      await _toni.stop();
+      await _toniPigro?.stop();
     } catch (_) {
-      // Gia' fermo, oppure nessun motore: nulla da fare.
+      // Gia' fermo, oppure nessun lettore: nulla da fare.
     }
   }
 
