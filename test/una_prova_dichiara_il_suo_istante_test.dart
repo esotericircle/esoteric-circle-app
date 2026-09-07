@@ -87,7 +87,23 @@ void main() {
       final nome = f.uri.pathSegments.last;
       if (nome == mioNome || dichiarate.containsKey(nome)) continue;
       osservate++;
-      if (f.readAsStringSync().contains('DateTime.now')) {
+      // **SI GUARDA IL CODICE, NON I COMMENTI.**
+      //
+      // Qui si cercava `DateTime.now` nel testo intero del file. Una prova che
+      // NOMINA l'orologio spiegando un difetto altrui veniva accusata di
+      // chiamarlo: e' successo con `le_cinque_chiamate_partono_tutte`, che
+      // cita l'abbreviazione del fuso nel commento che racconta il difetto, e
+      // che il suo istante ce l'ha scritto a mano.
+      //
+      // Un falso positivo dentro una guardia non e' una svista: **blocca lo
+      // sbarramento**, e chi lo legge impara a non fidarsi della guardia.
+      final righe = f.readAsStringSync().split('\n');
+      final chiama = righe.any((r) {
+        final spoglia = r.trimLeft();
+        if (spoglia.startsWith('//')) return false;
+        return r.contains('DateTime.now');
+      });
+      if (chiama) {
         colpevoli.add(nome);
       }
     }

@@ -102,7 +102,17 @@ class RegistroDeiPermessi {
       ragioneSenzaChiave: 'iOS non prevede una chiave di Info.plist per le '
           'notifiche: il permesso si chiede a runtime e la frase la scrive '
           'il sistema.',
-      vociAndroid: ['android.permission.POST_NOTIFICATIONS'],
+      // **DUE VOCI, E LA SECONDA NON SI CHIEDE A NESSUNO.** Ordine CW
+      // voce 06, 7 settembre 2026. RECEIVE_BOOT_COMPLETED non e' un
+      // permesso di quelli che il sistema domanda: si dichiara e basta, e
+      // senza di lui il receiver non viene mai svegliato. Serve alla stessa
+      // funzione, cioe' far arrivare gli avvisi: senza, ogni avviso
+      // programmato sparisce al riavvio del telefono e a ogni
+      // aggiornamento dell'app, e il fondatore ne riceveva due su cinque.
+      vociAndroid: [
+        'android.permission.POST_NOTIFICATIONS',
+        'android.permission.RECEIVE_BOOT_COMPLETED',
+      ],
       doveSiChiede: 'lib/services/avvisi_locali.dart',
       ripiego: 'Il Rito dell\'Alba si apre lo stesso dall\'app. La striscia '
           'del giorno dice che l\'avviso non arriverà.',

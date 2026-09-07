@@ -146,9 +146,27 @@ void main() {
       expect(t, contains('cielo notturno reale di questo momento'));
       expect(t, contains(luna.sign.italianName));
       expect(t, contains(luna.phase.italianName.toLowerCase()));
-      // Il confine: nessuna promessa di allineamento esatto.
-      expect(t, contains('non è allineata'));
-      expect(t, contains('GPS'));
+      // **IL TOOLTIP NON CONFESSA PIU'. Ordine CW voce 04**, 7 settembre
+      // 2026. Qui si pretendeva *"non è allineata"* e la parola *"GPS"*,
+      // cioe' la stessa forma della confessione degli Angeli che ha aperto
+      // l'ordine CS.
+      //
+      // **Misurato sensore per sensore: nessuno dei tre serve al calcolo.**
+      // Segno e fase della Luna vengono dalla sola data e sono geocentriche;
+      // la bussola orienterebbe la scena e non il rito; e le effemeridi ci
+      // sono gia', girano sul dispositivo, ed erano proprio quelle che
+      // producevano il responso. La riga diceva anche una cosa falsa.
+      //
+      // Questa e' la SECONDA guardia che la teneva viva: l'altra era in
+      // `dream_rite_screen_test.dart`. Due prove che pretendono la stessa
+      // frase sono due ragioni per non toglierla mai.
+      expect(t, contains('non ha bisogno di sapere dove sei'),
+          reason: 'il tooltip non dice piu\' su cosa il rito si fonda');
+      for (final parola in const ['GPS', 'bussola', 'servirebbero']) {
+        expect(t.contains(parola), isFalse,
+            reason: 'il tooltip nomina ancora "$parola", che al calcolo del '
+                'Sigillo del Sogno non serve');
+      }
       // Fondato sul corpus del segno lunare gia' nel repo.
       expect(t, contains(BirthMoon.meaningFor(luna.sign)));
     });

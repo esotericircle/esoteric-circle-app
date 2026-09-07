@@ -122,9 +122,15 @@ class _IlRitualeDiOggi extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // **IL RUOLO E' DIDASCALIA, NON ETICHETTA.** La voce P.13 vieta
+          // il ruolo etichetta nell'Alba, che vale il pavimento di dodici
+          // punti: il titolo del rituale e' una cosa che si legge, non una
+          // targhetta. Il maiuscolo lo chiede l'ordine CW voce 07 alla
+          // lettera, ed e' scritto nella stringa: nessun toUpperCase, che
+          // la stessa voce P.13 vieta.
           Text(titolo,
               key: const Key('alba_titolo_del_rituale'),
-              style: TypographyTokens.etichetta()
+              style: TypographyTokens.didascalia()
                   .copyWith(color: accento, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xs),
           // **IL GESTO, che e' il rituale vero.** Porta gia' dentro il dato

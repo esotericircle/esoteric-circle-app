@@ -286,9 +286,9 @@ class DreamRiteCorpus {
       'data. La costellazione che unisci è il disegno reale del segno della '
       'Luna; il messaggio nasce da segno e fase, sul sentire del segno lunare '
       '(${BirthMoon.meaningFor(luna.sign)}). Segno e fase si leggono dalla sola '
-      'data, e sono gli stessi in ogni punto della Terra: il rito non ha '
+      'data e sono gli stessi in ogni punto della Terra. Il rito non ha '
       'bisogno di sapere dove sei. La scena si muove col giroscopio per darti '
-      'il gesto di puntare il cielo, ed è un\'evocazione, non un cannocchiale.';
+      'il gesto di puntare il cielo: è un\'evocazione, non un cannocchiale.';
 
   /// La riga del cielo di stanotte, dalla fase reale, per la scena.
   static String cieloDiStanotte(BirthMoon luna) =>

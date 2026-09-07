@@ -207,9 +207,9 @@ class TestiDelleFonti {
       'Un aspetto morbido apre la prima riga, uno teso apre la seconda. Se il '
       'cielo di oggi non ne offre, quella riga non compare: il Soffio dice '
       'come sta il cielo e cosa farne lo decidi tu.\n\n'
-      'Finché non hai dato ora e luogo di nascita, i transiti sopra di te non '
-      'si possono calcolare. In quel caso il respiro di oggi parla della Luna: '
-      'la sua fase e il segno che attraversa, che sono fatti dello stesso '
-      'cielo e non chiedono nessun tuo dato. La lettura che ne segue è del '
-      'Cerchio.';
+      'I transiti su una carta natale si calcolano con l\'ora e il luogo di '
+      'nascita. Quando il Cerchio non li ha, il respiro di oggi parla della '
+      'Luna: la sua fase e il segno che attraversa, che sono fatti dello '
+      'stesso cielo e si leggono dalla sola data. La lettura che ne segue è '
+      'del Cerchio.';
 }
