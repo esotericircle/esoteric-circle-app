@@ -622,12 +622,33 @@ class CorrenteDelCielo {
   static const String ripiegoDichiarato =
       'Questa lettura parla al tuo segno, non ancora al tuo cielo: senza ora '
       'e luogo di nascita i transiti sulla tua carta non si possono calcolare. '
-      'Completa i dati di nascita e Medora leggerà i passaggi veri sopra di te.';
+      'Con l\'ora e il luogo di nascita Medora legge i passaggi veri sopra di te.';
 
   /// La stessa riga per chi ha la carta ma non l'ora.
   static const String ripiegoSenzaOra =
       'Senza l\'ora di nascita le case non si possono calcolare: qui leggi i '
       'passaggi sui tuoi pianeti, non ancora sui settori della tua vita.';
+
+  /// **L'INVITO CHE APRE LA PORTA, ordine CS voce S1.**
+  ///
+  /// La nota nominava il rimedio a parole, poi la persona restava li': la
+  /// schermata dei dati di nascita esiste da sempre, ma da qui non ci si
+  /// arrivava. Un ripiego che dice cosa manca senza dare il gesto per
+  /// colmarlo e' un vicolo cieco con le buone maniere.
+  ///
+  /// L'etichetta cambia col livello, perche' a chi ha gia' dato luogo e data
+  /// manca solo l'ora, e chiedergli tutto un'altra volta sarebbe una porta
+  /// sbagliata.
+  static String? invitoDelLivello(CieloDiOggi cielo) {
+    switch (cielo.livello) {
+      case LivelloPersonalizzazione.soloSegno:
+        return 'Completa i dati di nascita';
+      case LivelloPersonalizzazione.cartaSenzaOra:
+        return 'Aggiungi l\'ora di nascita';
+      case LivelloPersonalizzazione.cartaCompleta:
+        return null;
+    }
+  }
 
   /// La nota da mostrare sotto le schede, per il livello raggiunto. Nulla
   /// quando il cielo e' completo: li' non c'e' niente da dichiarare.

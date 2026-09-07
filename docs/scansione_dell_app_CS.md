@@ -88,6 +88,48 @@ si sa se il cielo vero e' la regola o l'eccezione.
 **Cosa servirebbe per chiuderla:** un conto, anche solo in sviluppo, di quante
 carte natali risultano complete, senza ora e assenti.
 
+### RIPARATA il 7 settembre 2026, ma non dove questa voce guardava
+
+Cercando quel conto e' venuto fuori un difetto piu' grave di quello cercato, e
+la voce si chiude su quello.
+
+**L'onboarding l'ora la chiede**, con un "Non la so" esplicito e i selettori
+sempre usabili: chi finisce nel ripiego ci finisce per una scelta sua, non
+perche' l'app non gliel'abbia domandato. La proporzione non e' quindi un buco
+strutturale da riparare, e per conoscerla servirebbe una misura aggregata fra
+telefoni diversi, cioe' telemetria: una decisione del fondatore, non una
+riparazione, visto che la dottrina di casa tiene tutto sul dispositivo.
+
+**Il difetto vero era un altro, ed era un vicolo cieco.** Sotto il responso, a
+chi non ha la carta completa comparivano le parole *"Completa i dati di
+nascita"* e li' finiva. `DatiDiNascitaScreen` esiste da sempre e ci si arriva
+dall'Account e dal Calendario, che offre il suo pulsante
+`calendario_completa_il_profilo`; da sotto il responso dell'Oroscopo no. Il
+commento sopra la nota diceva *"si dice come rimediare"*: era vero delle
+parole, falso del gesto.
+
+**Cosa e' cambiato.** `CorrenteDelCielo.invitoDelLivello` da' l'etichetta
+giusta per il livello, e la nota porta il pulsante
+`oroscopo_completa_la_nascita` che apre i dati di nascita. A chi ha gia' dato
+luogo e data si chiede solo l'ora, non tutto da capo. A cielo completo non
+compare nulla, perche' non c'e' nessuna mancanza da dichiarare.
+
+Dal testo della nota e' sparito il doppione: prima diceva *"Completa i dati di
+nascita e Medora leggera' i passaggi veri"*, e col pulsante accanto la stessa
+frase sarebbe comparsa due volte di fila. Adesso la nota spiega, il gesto
+agisce.
+
+**La guardia:** `test/il_ripiego_del_cielo_non_e_un_vicolo_cieco_test.dart`.
+Non misura l'etichetta, misura l'arrivo: tocca il pulsante e guarda su quale
+schermata si e' trovata. Nata rossa quattro volte su quattro, con tre innesti
+distinti, uno per ciascuna cosa che pretende.
+
+**Un difetto colto dalla rete durante la riparazione.** La prima forma del
+pulsante era oro come inchiostro, e il censimento dei grigi l'ha misurata a
+5.65 contro i 7.0 che un'etichetta deve tenere, su cinque fondi diversi. E'
+diventato oro pieno con la scritta scura, la stessa forma con cui il
+Calendario apre questa identica porta. Nessuno l'avrebbe visto a occhio.
+
 ## S2. Tarocchi, Sinastria VIP, Sigillo e Soffio non dichiarano nessuna fonte a video
 
 **Famiglia uno.** E' lo stesso difetto che ha aperto questo ordine, in quattro

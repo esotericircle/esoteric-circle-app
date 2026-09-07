@@ -1,5 +1,6 @@
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
+import '../account/dati_di_nascita_screen.dart';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
 
@@ -555,7 +556,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         _NotaDelCielo(
                             testo: notaDelCielo,
                             palette: palette,
-                            completa: cielo.ceCieloVero),
+                            completa: cielo.ceCieloVero,
+                            invito: CorrenteDelCielo.invitoDelLivello(cielo)),
                         const SizedBox(height: SpacingTokens.md),
                       ],
                       // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
@@ -1553,10 +1555,17 @@ class _HoroscopeCardView extends StatelessWidget {
 /// La riga che dichiara da dove viene il testo, quando non viene dal cielo.
 class _NotaDelCielo extends StatelessWidget {
   const _NotaDelCielo(
-      {required this.testo, required this.palette, required this.completa});
+      {required this.testo,
+      required this.palette,
+      required this.completa,
+      required this.invito});
 
   final String testo;
   final MaestroPalette palette;
+
+  /// L'etichetta della porta verso i dati di nascita, gia' scelta per il
+  /// livello. Nulla a cielo completo, dove non c'e' nulla da completare.
+  final String? invito;
 
   /// Vero quando qualche transito vero c'e' comunque: cambia solo l'icona,
   /// perche' "manca l'ora" e "manca tutto" non sono la stessa mancanza.
@@ -1572,17 +1581,56 @@ class _NotaDelCielo extends StatelessWidget {
         color: palette.deepest.withValues(alpha: 0.45),
         border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(completa ? Icons.schedule_rounded : Icons.info_outline_rounded,
-              size: 16, color: palette.goldSoft),
-          const SizedBox(width: SpacingTokens.sm),
-          Expanded(
-            child: Text(testo,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                  completa
+                      ? Icons.schedule_rounded
+                      : Icons.info_outline_rounded,
+                  size: 16,
+                  color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Text(testo,
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45)),
+              ),
+            ],
           ),
+          // **LA PORTA, non solo il nome del rimedio.** Ordine CS voce S1.
+          // Prima qui la nota diceva Completa i dati di nascita e finiva
+          // li': la schermata che li accoglie esisteva gia', raggiungibile
+          // dal Calendario e dall'Account, ma da sotto il responso no.
+          if (invito != null) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Align(
+              alignment: Alignment.centerLeft,
+              // Oro pieno con la scritta scura, la stessa forma con cui il
+              // Calendario apre questa stessa porta. L'oro come inchiostro
+              // sul fondo della nota faceva 5.65 contro i 7.0 che una
+              // etichetta deve tenere, e il censimento dei grigi l'ha colto
+              // prima che arrivasse a un telefono.
+              child: FilledButton(
+                key: const Key('oroscopo_completa_la_nascita'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  minimumSize: const Size(0, 44),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.md),
+                ),
+                onPressed: () =>
+                    Navigator.of(context).push(DatiDiNascitaScreen.route()),
+                child: Text(invito!,
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.deepest)),
+              ),
+            ),
+          ],
         ],
       ),
     );
