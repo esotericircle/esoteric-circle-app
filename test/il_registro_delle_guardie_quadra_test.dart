@@ -81,6 +81,55 @@ void main() {
             'sempre la cifra.');
   });
 
+  test('nessuna guardia della porta comune resta fuori dal registro', () {
+    // **QUESTA PROVA CAMMINA NEL VERSO CHE MANCAVA.** Ordine CS, 7 settembre
+    // 2026, difetto trovato mentre si registravano le guardie dell'ordine.
+    //
+    // Le altre due prove partono dal registro e verificano i file che nomina:
+    // sanno dire se una riga mente, non sanno dire se una riga manca. Il
+    // registro poteva quindi quadrare perfettamente su se stesso mentre
+    // ventotto guardie vive non ci comparivano affatto, e la cifra in cima
+    // diceva centoquindici perche' contava le proprie righe.
+    //
+    // Si guardano le guardie della PORTA COMUNE perche' sono le uniche
+    // riconoscibili a macchina senza giudizio: chi apre i sorgenti di lib
+    // passa da li'. Le altre specie restano affidate a chi scrive.
+    final registrate = registro
+        .readAsLinesSync()
+        .where((r) => r.startsWith('| `') && r.endsWith('|'))
+        .map((r) => r.split('|')[1].trim().replaceAll('`', ''))
+        .toSet();
+
+    final dallaPorta = <String>[];
+    final fuori = <String>[];
+    for (final f in Directory('test').listSync()) {
+      if (f is! File || !f.path.endsWith('_test.dart')) continue;
+      final testo = f.readAsStringSync();
+      final passa = testo.contains('sorgentiDiLib(') ||
+          testo.contains('sorgentiDiCartelle(') ||
+          testo.contains('fileScoperti(') ||
+          testo.contains('righeDiLib(');
+      if (!passa) continue;
+      final nome = f.uri.pathSegments.last;
+      dallaPorta.add(nome);
+      if (!registrate.contains(nome)) fuori.add(nome);
+    }
+
+    cardinaleMinimo(dallaPorta.length, 100,
+        cosa: 'prove che aprono i sorgenti dalla porta comune',
+        perche: 'Se nessuna passa piu\' dalla porta comune, questa prova non '
+            'trova assenze perche\' non ha guardato niente.');
+    fuori.sort();
+    expect(fuori, isEmpty,
+        reason: 'QUESTE GUARDIE ESISTONO E IL REGISTRO NON LE CONOSCE, e sono '
+            '${fuori.length} su ${dallaPorta.length}:\n'
+            '${fuori.join("\n")}\n'
+            'Una guardia fuori dal registro non e\' una svista di archivio: il '
+            'registro e\' la casa unica della conoscenza sulle guardie, e '
+            'cio\' che non ci sta dentro non viene mai riletto, mai visto '
+            'rosso, mai messo in dubbio.');
+  });
+
   test('nessuna riga del registro mente sul cardinale della sua guardia', () {
     final righe = registro.readAsLinesSync();
     final bugie = <String>[];
