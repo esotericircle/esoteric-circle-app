@@ -329,8 +329,29 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       _risposta = RispostaDelSoffio.diOggi(
         CieloDiOggi.perIlGiorno(adesso: date, carta: _carta()),
       );
+      // **IL SOFFIO NON PRENDE MAI LA RISPOSTA DELL'ALBA, con o senza
+      // carta natale.** 7 settembre 2026, parole del fondatore: *"i responsi
+      // di Alba e Soffio sono ancora uguali"*.
+      //
+      // Qui c'era `rispostaPropria: _risposta?.comeRisposta()`, e quel
+      // punto interrogativo era il difetto: senza transiti veri `diOggi`
+      // torna nulla, e `forMaestro` con `rispostaPropria` nulla restituisce
+      // il rito dell'Alba INTERO, risposta compresa. Misurato sullo stesso giorno:
+      // **senza carta le due risposte erano identiche parola per parola.**
+      // La riparazione dell'ordine CQ voce 2.02 valeva solo per chi aveva
+      // dato ora e luogo di nascita, e quella condizione non era scritta da
+      // nessuna parte.
+      //
+      // Adesso una risposta c'e' sempre: col cielo se il cielo si legge,
+      // altrimenti dalla Luna di oggi, che non chiede nessun dato alla
+      // persona. **Dall'Alba resta soltanto la cadenza del respiro**, tempi
+      // e giri, che e' la parte comune e che nel Soffio E' il gesto da
+      // compiere: il rito da compiere il Soffio non lo chiede in prestito,
+      // ce l'ha gia'.
       _gift = DawnGift.forMaestro(date, Maestro.aura,
-          identity: _identity(), rispostaPropria: _risposta?.comeRisposta());
+          identity: _identity(),
+          rispostaPropria: _risposta?.comeRisposta() ??
+              RispostaDelSoffio.senzaIlTuoCielo(date));
     });
     _stopMic();
     _recordStreak(date);

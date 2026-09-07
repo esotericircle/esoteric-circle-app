@@ -1,4 +1,6 @@
 import '../astro/effemeridi.dart';
+import '../astro/moon_phase.dart';
+import '../astro/night_sky.dart';
 import 'risposta_del_dono.dart';
 import '../astro/natal_chart.dart';
 import '../horoscope/cielo_di_oggi.dart';
@@ -64,14 +66,24 @@ class RispostaDelSoffio {
   /// **Il titolo e' una frase chiusa e non promette niente**, come i nove del
   /// Risveglio: dice come sta il cielo di oggi per questa persona, e chi legge
   /// solo quella riga ha gia' ricevuto qualcosa.
+  /// **IL TITOLO DICE A COSA SERVE IL RESPIRO DI OGGI.** Ordine del fondatore
+  /// del 7 settembre 2026: *"non serve un rito da compiere per il soffio, c'e'
+  /// gia' la respirazione da compiere, ma bisogna dichiarare a cosa serve,
+  /// cosa si ottiene quel giorno facendo il respiro"*.
+  ///
+  /// Prima il titolo descriveva il cielo e basta, *"oggi il tuo cielo ha una
+  /// porta aperta"*: vero e inutile, perche' non diceva cosa farne. Adesso
+  /// nomina **cio' che il respiro di oggi ti da'**, e il fatto del cielo resta
+  /// sotto, come ragione di quel che si e' appena promesso.
   RispostaDelDono comeRisposta() {
     final titolo = switch ((apre != null, nonForzare != null)) {
-      (true, true) => 'Oggi il tuo cielo ha una porta aperta e una che non '
-            'cede.',
-      (true, false) => 'Oggi il tuo cielo ha una porta aperta.',
-      (false, true) => 'Oggi il tuo cielo ha un terreno che non si lascia '
-            'forzare.',
-      _ => 'Oggi il tuo cielo non ha ne aperture ne resistenze marcate.',
+      (true, true) => 'Il respiro di oggi ti serve a riconoscere dove passare '
+            'e dove non spingere.',
+      (true, false) =>
+        'Il respiro di oggi ti serve a riconoscere dove passare.',
+      (false, true) =>
+        'Il respiro di oggi ti serve a non spingere dove oggi non cede.',
+      _ => 'Il respiro di oggi ti serve a fermarti, e basta.',
     };
     final righe = [
       if (apre != null) apre!,
@@ -80,6 +92,48 @@ class RispostaDelSoffio {
     return RispostaDelDono(
       titolo: titolo,
       risposta: righe.join(' '),
+    );
+  }
+
+  /// **COSA DA' IL RESPIRO DI OGGI QUANDO IL CIELO SOPRA DI TE NON SI LEGGE.**
+  ///
+  /// **Il difetto che questo metodo chiude, misurato il 7 settembre 2026.**
+  /// Parole del fondatore: *"i responsi di Alba e Soffio sono ancora uguali"*.
+  /// La riparazione dell'ordine CQ voce 2.02 era vera ma **condizionata**:
+  /// [diOggi] torna nulla senza transiti veri, cioe' senza carta natale
+  /// completa, e allora `DawnGift.forMaestro` restituiva il rito dell'Alba
+  /// intero, risposta compresa. Misurato sullo stesso giorno: **senza carta le
+  /// due risposte erano identiche parola per parola**, con la carta no. La
+  /// condizione non era scritta da nessuna parte.
+  ///
+  /// **La materia di questo ripiego non e' la carta natale, e' la Luna di
+  /// oggi**: la sua fase e il segno che attraversa. Sono fatti astronomici
+  /// veri, calcolati sulle stesse effemeridi del resto dell'app, e **non
+  /// dipendono da nessun dato che la persona debba dare**. Cambiano ogni
+  /// giorno, quindi due Doni non possono ricadere sulla stessa frase.
+  ///
+  /// **La lettura e' del Cerchio, e va dichiarata come tale**: la fase e il
+  /// segno vengono dal cielo, cosa farne col respiro lo scrive il Cerchio.
+  static RispostaDelDono senzaIlTuoCielo(DateTime giorno) {
+    final luna = MoonPhase.forDate(giorno);
+    final segno = NightSky.moonSign(giorno);
+    final nome = luna.italianName.toLowerCase();
+    final titolo = switch (nome) {
+      'luna nuova' =>
+        'Il respiro di oggi ti serve a nominare una cosa che vuoi cominciare.',
+      'luna piena' =>
+        'Il respiro di oggi ti serve a vedere cosa è già arrivato.',
+      _ => luna.waxing
+          ? 'Il respiro di oggi ti serve a raccogliere le forze su una cosa '
+              'sola.'
+          : 'Il respiro di oggi ti serve a lasciare andare una cosa che pesa.',
+    };
+    final verso = luna.waxing ? 'cresce' : 'cala';
+    return RispostaDelDono(
+      titolo: titolo,
+      risposta: 'La Luna oggi $verso in ${segno.italianName}, ed è la luce '
+          'che si muove più in fretta di tutte. Il respiro non cambia il '
+          'cielo: ti mette nel passo in cui il cielo si trova adesso.',
     );
   }
 
