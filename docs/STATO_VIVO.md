@@ -860,6 +860,29 @@ dentro un dialogo tutto italiano, perche' manca il delegato di localizzazione.
 QUATTRO: il foglio *Da dove nasce questo dono* passa **sotto la barra degli
 Eos** e il suo titolo non si legge.
 
+**I TRE ROSSI DELLO SBARRAMENTO, E DUE NON ERANO DIFETTI DELL'APP.** Nessuno
+stava nelle voci, e tutti e tre hanno impedito la consegna. **La prova del
+volume misurava un cronometro**: aspettava 1600 millisecondi e dava per finita
+la risalita del tappeto, da sola verde e dentro lo sbarramento a 0,4375 contro
+0,48, perche' sedici processi di prova si contendono il processore. Adesso
+aspetta il fatto, cioe' che il volume smetta di salire, con l'attesa di prima
+come minimo: senza quel minimo la stabilita' si raggiunge sul pianerottolo
+basso dell'effetto e la prova esce a 0,210. PROVENIENZA IGNOTA. **La mia
+correzione ha poi acceso la guardia dell'orologio**, che vieta `DateTime.now`
+dentro le prove: sostituito con `Stopwatch`, e l'unica occorrenza rimasta e'
+nel commento che la spiega, nono caso della famiglia "l'asserzione pesca il
+proprio commento". **E CI.04 ERA ROSSA DALL'ORDINE CT senza che nessuno se ne
+fosse accorto**: fermava il gesto a meta' corsa e della barra ne vedeva 2 punti
+su 123. Provenienza accertata riportando i due soli file della chat al commit
+`e8d443b9`, cioe' il padre di CT.01-06: con quelli 52 punti e verde, con quelli
+di oggi 2 punti e rossa, poi ripristinati e verificati byte per byte. La causa
+sta nel gesto: **due spostamenti grossi non sono un gesto, sono un salto**, e
+la barra ci reagisce come a un gesto finito. Adesso il dito si muove a passi da
+sei punti con un fotogramma in mezzo, e lo stato intermedio esiste davvero, 48
+punti a meta' e 2 a dito alzato. **La guardia non era rotta**: si e' accorta
+che la sua premessa era caduta e lo ha detto, che e' cio' per cui
+quell'asserzione era stata scritta.
+
 **COSA HA TROVATO IL TELEFONO, E CHE SENZA DI LUI SAREBBE STATO CONSEGNATO
 SBAGLIATO.** Il conto e' chiesto dal fondatore per nome, ed e' onesto in tutte
 e due le direzioni. **Una voce gia' dichiarata CHIUSA sarebbe uscita rotta**:

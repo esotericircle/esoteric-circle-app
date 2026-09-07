@@ -215,6 +215,60 @@ piu' a quella dell'Alba. Percorso intero a video.
 
 ---
 
+## I TRE ROSSI DELLO SBARRAMENTO, E DUE NON ERANO DIFETTI DELL'APP
+
+Nessuno dei tre stava nelle voci. Si scrivono qui perche' **hanno impedito la
+consegna**, e perche' due su tre sono la stessa specie: una prova che misura
+il proprio banco invece del prodotto.
+
+**UNO, la prova del volume misurava un cronometro.** `il_volume_non_resta_giu`
+aspettava 1600 millisecondi e dava per finita la risalita del tappeto. Da sola
+era verde; dentro lo sbarramento cadeva a **0,4375 contro una soglia di 0,48**,
+perche' sedici processi di prova si contendono il processore e i passi del
+temporizzatore arrivano tardi. Chi leggeva quel rosso vedeva un difetto del
+tappeto dove c'era una macchina occupata. Adesso aspetta il FATTO, cioe' che il
+volume smetta di salire, tenendo l'attesa di prima come minimo: senza quel
+minimo la stabilita' si raggiunge sul pianerottolo basso dell'effetto e la
+prova esce a 0,210, che e' esattamente il trentacinque per cento sotto cui la
+musica scende. **PROVENIENZA IGNOTA**: la prova non e' stata toccata da questo
+ordine ne' dai due precedenti, e non si sa da quando cade sotto carico.
+
+**DUE, la mia correzione ha acceso la guardia dell'orologio.** Per aspettare il
+fatto avevo usato `DateTime.now`, e `una_prova_dichiara_il_suo_istante` lo
+vieta dentro le prove, con ragione. Sostituito con `Stopwatch`: qui non serve
+sapere che ora e', serve sapere quanto tempo e' passato. **PROVENIENZA: questo
+ordine**, e l'unica occorrenza rimasta e' dentro il commento che la spiega,
+che la guardia salta perche' l'ho resa cieca ai commenti in questo stesso
+ordine. **Nono caso della famiglia "l'asserzione pesca il proprio commento".**
+
+**TRE, CI.04 era rossa dall'ordine CT, e nessuno se n'era accorto.**
+`screenshot_capture_test.dart`, *"a dito alzato la barra non resta a meta"*.
+Fermava il gesto a meta' corsa e pretendeva di vedere la barra a meta': ne
+vedeva **2 punti su 123**, cioe' era gia' all'estremo prima che la prova la
+guardasse, e la sua asserzione di premessa cadeva.
+
+**PROVENIENZA: ordine CT, voci 01-06, e non e' una supposizione.** Riportati i
+due soli file della chat allo stato del commit `e8d443b9`, cioe' il padre di
+CT.01-06, e rieseguita: **52 punti, verde**. Rimessi quelli di oggi: **2 punti,
+rossa**. Poi ripristinati byte per byte e verificato col confronto.
+
+La causa e' nel gesto, non nella barra: **due spostamenti grossi non sono un
+gesto, sono un salto**, e la barra ci reagisce come a un gesto finito. Con la
+chat di prima quel salto per caso funzionava; con la chat di oggi no. Adesso il
+dito si muove a passi da sei punti con un fotogramma fra l'uno e l'altro, come
+un dito vero, e lo stato intermedio esiste davvero: **48 punti a meta' gesto, 2
+a dito alzato**. La prova semina anche sei giri di conversazione invece di uno
+e **verifica di poter scorrere** prima di misurare, perche' quattro messaggi
+bastavano a traboccare finche' il compositore occupava 132 punti e dopo CT non
+bastano piu'.
+
+**La lezione, che vale piu' della riparazione:** la guardia non era rotta. Si
+e' accorta che la sua premessa era caduta e lo ha detto, che e' esattamente
+cio' per cui quell'asserzione era stata scritta. **Una prova che dichiara "non
+sto misurando quello che credo" vale piu' di una che passa per caso.**
+
+---
+
 ## COSA HA TROVATO IL TELEFONO, E CHE SENZA DI LUI AVREI CONSEGNATO SBAGLIATO
 
 Il fondatore ha chiesto questa sezione per nome. E' il conto onesto di cosa ha

@@ -104,10 +104,15 @@ void main() {
     // risalire. Misurato: 0,210 contro un voluto di 0,6.
     await Future<void>.delayed(const Duration(milliseconds: 1600));
 
-    final scadenza = DateTime.now().add(const Duration(seconds: 8));
+    // **SI MISURA CON UN CRONOMETRO, NON CON L'OROLOGIO.** La guardia
+    // `una_prova_dichiara_il_suo_istante` vieta `DateTime.now` dentro le
+    // prove, e ha ragione: un istante preso dall'orologio rende la prova
+    // dipendente dal giorno in cui gira. Qui non serve sapere CHE ORA E',
+    // serve sapere QUANTO TEMPO E' PASSATO, e per quello esiste `Stopwatch`.
+    final tetto = Stopwatch()..start();
     var fermo = 0;
     var precedente = volumi.isEmpty ? -1.0 : volumi.last;
-    while (DateTime.now().isBefore(scadenza)) {
+    while (tetto.elapsed < const Duration(seconds: 8)) {
       await Future<void>.delayed(const Duration(milliseconds: 100));
       final ora = volumi.isEmpty ? -1.0 : volumi.last;
       // Tre letture uguali di fila vogliono dire che nessuna sfumatura sta

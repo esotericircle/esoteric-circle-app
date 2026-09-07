@@ -465,16 +465,24 @@ void main() {
     }
   }
 
+  /// [giri] ripete il seme, per le prove che hanno bisogno di una
+  /// conversazione **piu' alta della finestra**. Ordine CW, 8 settembre 2026:
+  /// quattro messaggi bastavano a farla traboccare finche' il compositore
+  /// occupava 132 punti; **l'ordine CT ne ha restituiti cinquantotto al
+  /// centro**, e da allora quei quattro ci stanno dentro. Chi ha bisogno che
+  /// la lista SCORRA non puo' piu' fidarsi del numero di prima.
   Future<AppServices> buildServices(Maestro maestro,
-      {required bool seeded}) async {
+      {required bool seeded, int giri = 1}) async {
     final memory = InMemoryMaestroMemoryRepository();
     await memory.saveProfile(
       UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)),
     );
     if (seeded) {
-      for (final (role, text) in seedFor(maestro)) {
-        await memory.appendMessage(
-            maestro, ChatMessage(role: role, text: text));
+      for (var giro = 0; giro < giri; giro++) {
+        for (final (role, text) in seedFor(maestro)) {
+          await memory.appendMessage(
+              maestro, ChatMessage(role: role, text: text));
+        }
       }
     }
     return AppServices(
@@ -6284,24 +6292,79 @@ void main() {
   testWidgets('CI.04: a dito alzato la barra non resta a meta', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: true));
+    // **LA PREMESSA SE LA COSTRUISCE LEI.** Ordine CW, 8 settembre 2026.
+    //
+    // Questa prova ha bisogno che la conversazione SCORRA: senza scorrimento
+    // il dito produce un `OverscrollNotification`, e la barra su quello non
+    // segue il dito, **scatta a fondo corsa in un passo solo**. Il numero
+    // misurato a meta' gesto diventa 2,0 punti, cioe' la barra e' gia' fuori
+    // prima che la prova cominci a guardarla.
+    //
+    // **PROVENIENZA: ordine CT, voci 01-06**, il lavoro che ha ridotto il
+    // compositore da 132 a 74 punti per dare spazio al centro. Da allora i
+    // quattro messaggi del seme ci stanno dentro la finestra e non la fanno
+    // piu' traboccare. La guardia non era rotta: si e' accorta che la sua
+    // premessa era caduta e lo ha detto, che e' esattamente cio' per cui
+    // quell'asserzione era stata scritta.
+    //
+    // Sei giri di seme, ventiquattro messaggi: la lista trabocca con margine
+    // largo, e non torna a dipendere da quanti punti valga il compositore
+    // domani.
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: true, giri: 6));
     await openChat(tester, Maestro.medora);
     await precacheFaces(tester);
     await step(tester);
     final schermo = tester.getRect(find.byType(MaterialApp));
     final lista = find.byType(Scrollable).first;
+
+    // E la premessa si VERIFICA, invece di sperarci: una lista che non ha
+    // niente oltre il bordo non puo' produrre uno scorrimento.
+    final posizione = tester.state<ScrollableState>(lista).position;
+    // ignore: avoid_print
+    expect(posizione.maxScrollExtent, greaterThan(0),
+        reason: 'la conversazione ci sta tutta nella finestra: il dito '
+            'produce un rimbalzo e non uno scorrimento, e questa prova '
+            'misurerebbe se stessa');
     // Mezza corsa e un po', cosi' l'estremo piu' vicino e' quello di fuori.
     // **LA SOGLIA DI TRASCINAMENTO SI SUPERA PRIMA**, come fa aFondoCorsa:
     // senza, il primo spostamento non diventa mai uno scorrimento e la barra
     // non si muove di un punto. La prova misurava se stessa.
+    // **IL DITO SI MUOVE A PASSI PICCOLI, come un dito vero.** Ordine CW, 8
+    // settembre 2026.
+    //
+    // Qui c'erano due spostamenti grossi: la soglia di trascinamento, e poi
+    // meta' corsa in un colpo. Con la chat di prima dell'ordine CT funzionava,
+    // e a meta' gesto se ne vedevano 52 punti. **Con la chat di oggi se ne
+    // vedono 2**, cioe' la barra e' gia' all'estremo prima che la prova la
+    // guardi, e l'asserzione che tiene in piedi la premessa cade.
+    //
+    // **PROVENIENZA: ordine CT, voci 01-06.** Misurato riportando i due soli
+    // file della chat allo stato del commit e8d443b9: con quelli, 52 punti e
+    // verde; con quelli di oggi, 2 punti e rossa. Non e' una supposizione.
+    //
+    // Uno spostamento grosso in un solo passo non e' un gesto: e' un salto, e
+    // la barra ci reagisce come a un gesto finito. A passi da sei punti, con
+    // un fotogramma fra l'uno e l'altro, la barra segue il dito come fa in
+    // mano a una persona, e lo stato intermedio esiste davvero.
     final gesto = await tester.startGesture(tester.getCenter(lista));
     await gesto.moveBy(const Offset(0, -kDragSlopDefault));
     await tester.pump();
-    await gesto.moveBy(const Offset(0, -(BarraDelCerchio.corsa / 2 + 6)));
-    await tester.pump();
-    final aMeta =
+    var aMeta =
         schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+    const passo = 6.0;
+    const quanti = (BarraDelCerchio.corsa / 2 + 6) ~/ passo;
+    for (var i = 0; i < quanti; i++) {
+      await gesto.moveBy(const Offset(0, -passo));
+      await tester.pump();
+      aMeta =
+          schermo.bottom - tester.getRect(find.byType(SantuarioBottomBar)).top;
+      // **NON SI ESCE APPENA LO STATO INTERMEDIO COMPARE.** Uscire al primo
+      // passo lascerebbe il dito a sei punti di corsa, cioe' sotto la meta',
+      // e alzandolo la barra tornerebbe SU invece di sparire: la seconda
+      // pretesa cadrebbe a 114 punti. Misurato. Si percorre tutta la mezza
+      // corsa, e si legge alla fine col dito ancora giu'.
+    }
     await gesto.up();
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 60));
