@@ -81,8 +81,41 @@ void main() {
     await regia.scendiSottoUnEffetto(const Duration(milliseconds: 300));
     await partenza;
 
-    // Si lascia passare l'effetto e la risalita.
+    // **SI ASPETTA CHE LA RISALITA SIA FINITA, NON CHE SIANO PASSATI 1600
+    // MILLISECONDI.** Ordine CW, 7 settembre 2026.
+    //
+    // Qui c'era un'attesa a tempo fisso, e sotto il carico della suite intera
+    // non bastava: la risalita e' guidata da un temporizzatore vero, e con
+    // sedici processi di prova che si contendono il processore i suoi passi
+    // arrivano in ritardo. Da sola questa prova era verde, dentro lo
+    // sbarramento cadeva a **0,4375 contro 0,48**, e chi la leggeva vedeva un
+    // difetto del tappeto dove c'era solo una macchina occupata.
+    //
+    // **La grandezza misurata cambia, la soglia no.** Non si allunga l'attesa
+    // a caso, che sposterebbe soltanto la soglia del carico: si aspetta il
+    // FATTO, cioe' che il volume smetta di salire. Il tetto e' cinque volte
+    // l'attesa di prima, e se scade la prova cade lo stesso, con l'ultimo
+    // valore letto.
+    // **L'ATTESA DI PRIMA RESTA, ED E' IL MINIMO.** Senza di lei la stabilita'
+    // si raggiunge sul PIANEROTTOLO BASSO dell'effetto, che dura piu' dei
+    // cento millisecondi fra due letture: la prova uscirebbe a 0,210, cioe'
+    // esattamente il trentacinque per cento sotto cui la musica scende, e
+    // direbbe che il tappeto e' rimasto giu' quando sta solo aspettando di
+    // risalire. Misurato: 0,210 contro un voluto di 0,6.
     await Future<void>.delayed(const Duration(milliseconds: 1600));
+
+    final scadenza = DateTime.now().add(const Duration(seconds: 8));
+    var fermo = 0;
+    var precedente = volumi.isEmpty ? -1.0 : volumi.last;
+    while (DateTime.now().isBefore(scadenza)) {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      final ora = volumi.isEmpty ? -1.0 : volumi.last;
+      // Tre letture uguali di fila vogliono dire che nessuna sfumatura sta
+      // piu' scrivendo: una sola potrebbe capitare fra due passi.
+      fermo = ora == precedente ? fermo + 1 : 0;
+      precedente = ora;
+      if (fermo >= 3 && ora > 0) break;
+    }
 
     expect(volumi, isNotEmpty,
         reason: 'nessun volume e\' arrivato al lettore: la musica non e\' '

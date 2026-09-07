@@ -40,12 +40,15 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 119 |
-| Guardie con un cardinale proprio dichiarato | 70 |
-| Guardie che non scoprono nessun insieme di file | 148 |
-| **Somma delle categorie** | **337** |
-| **Guardie secondo la definizione** | **337** |
+| Guardie con un cardinale proprio dichiarato | 73 |
+| Guardie che non scoprono nessun insieme di file | 153 |
+| **Somma delle categorie** | **345** |
+| **Guardie secondo la definizione** | **345** |
 
-Le due righe in grassetto **coincidono**, contate il 7 settembre 2026.
+Le due righe in grassetto **coincidono**, contate il 7 settembre 2026, e
+ricontate lo stesso giorno dopo l'ordine CW, che ha portato **otto guardie
+che il registro non conosceva**: 119 piu' 73 piu' 153 fanno 345, e 230 mai
+viste rosse piu' 115 viste rosse fanno gli stessi 345.
 
 **E le tre categorie erano false, scoperto con l'ordine CQ voce 5.05.** Dicevano
 3, 39 e 235: sommavano al totale giusto e nessuna delle tre era il numero che la
@@ -121,13 +124,13 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 797 |
-| **Guardie secondo la definizione** | **337** |
+| **Guardie secondo la definizione** | **345** |
 | Guardie che scorrono i sorgenti di `lib` | 136 |
 | Di queste, passate alla porta comune | 119 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
 | **Guardie mai viste rosse** | **230** |
 | Di queste, **provate e restate VERDI col difetto dentro** | **2** |
-| **Guardie viste rosse almeno una volta** | **107** |
+| **Guardie viste rosse almeno una volta** | **115** |
 
 Le guardie viste rosse sono **88 su 306**, il **28.8 per cento**, contate il 6 settembre 2026 con l'ordine CR.
 
@@ -235,6 +238,7 @@ le altre.
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
+| `i_due_pulsanti_del_soffio_si_leggono_test.dart` | i due pulsanti del soffio si leggono | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `i_grigi_si_leggono_test.dart` | i grigi si leggono | 1 | dalla porta comune | 01/09/2026, CN | 2 |
 | `i_maestri_non_coprono_il_cielo_test.dart` | i maestri non coprono il cielo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_non_perdono_la_testa_test.dart` | i maestri non perdono la testa | 4, 1 | non scopre insiemi di file | mai | 3 |
@@ -301,6 +305,7 @@ le altre.
 | `il_luogo_di_nascita_e_la_sua_nazione_test.dart` | il luogo di nascita e la sua nazione | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_luogo_pulsa_e_si_trova_test.dart` | il luogo pulsa e si trova | 4 | non scopre insiemi di file | mai | 3 |
 | `il_maestro_non_resta_muto_test.dart` | il maestro non resta muto | 1 | non scopre insiemi di file | mai | 3 |
+| `il_mantra_di_oggi_ha_il_suo_riquadro_test.dart` | il mantra di oggi ha il suo riquadro | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `il_menu_delle_notifiche_si_tocca_test.dart` | il menu delle notifiche si tocca | 1 | non scopre insiemi di file | mai | 3 |
 | `il_mian_xiang_non_promette_test.dart` | il Mian Xiang non promette e non diagnostica | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `il_mood_del_cerchio_test.dart` | il mood del Cerchio: titolo corto, una porta sola, venti punti | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |
@@ -313,6 +318,7 @@ le altre.
 | `il_numero_degli_angeli_segue_il_dato_test.dart` | il numero degli Angeli segue il dato, non la stringa | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `il_pannello_ha_due_titoli_test.dart` | il pannello ha due titoli | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_passaporto_porta_a_sbloccare_test.dart` | il passaporto porta a sbloccare | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `il_permesso_appena_dato_accende_tutte_e_cinque_test.dart` | il permesso appena dato accende tutte e cinque | 1, 2 | proprio, dichiarato | 07/09/2026, CW | 2 |
 | `il_piano_attivo_e_i_suoi_tetti_test.dart` | il piano attivo e i suoi tetti | 1 | proprio, dichiarato | mai | 2 |
 | `il_pozzo_in_attesa_non_e_un_vuoto_test.dart` | il pozzo in attesa non e un vuoto | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_pozzo_non_ha_lacqua_rossa_test.dart` | il pozzo non ha lacqua rossa | 4 | non scopre insiemi di file | mai | 3 |
@@ -330,6 +336,7 @@ le altre.
 | `il_sentiero_si_legge_test.dart` | il sentiero si legge | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_sigillo_del_giorno_dice_a_cosa_serve_test.dart` | il Sigillo del Giorno dice a cosa serve | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_sigillo_del_giorno_e_un_sigillo_test.dart` | il sigillo del giorno e un sigillo | 4 | non scopre insiemi di file | mai | 3 |
+| `il_sigillo_del_sogno_nomina_un_maestro_solo_test.dart` | il sigillo del sogno nomina un maestro solo | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `il_simbolo_si_compone_test.dart` | il simbolo si compone | 1, 2 | dalla porta comune | mai | 3 |
 | `il_soffio_non_si_accavalla_test.dart` | il soffio non si accavalla | 1 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_soffio_non_somiglia_all_alba_test.dart` | il soffio non somiglia all alba | 2, 4 | non scopre insiemi di file | mai | 3 |
@@ -352,6 +359,7 @@ le altre.
 | `intro_test.dart` | intro | 1, 2 | dalla porta comune | mai | 3 |
 | `l_account_dice_chi_sei_e_come_uscire_test.dart` | l account dice chi sei e come uscire | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `l_alba_e_il_soffio_non_dicono_lo_stesso_test.dart` | l Alba e il Soffio non dicono lo stesso | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
+| `l_alba_e_il_soffio_non_dicono_mai_lo_stesso_test.dart` | l alba e il soffio non dicono mai lo stesso | 1, 2 | proprio, dichiarato | 07/09/2026, CW | 2 |
 | `l_alba_e_individuale_test.dart` | l alba e individuale | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
 | `l_alba_si_legge_test.dart` | l alba si legge | 1, 2, 4 | dalla porta comune | CO | 3 |
 | `l_anello_del_livello_test.dart` | l anello del livello | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
@@ -399,6 +407,7 @@ le altre.
 | `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
 | `la_musica_parte_davvero_test.dart` | la musica parte davvero | 4 | non scopre insiemi di file | mai | 3 |
+| `la_musica_riprende_solo_se_stava_suonando_test.dart` | la musica riprende solo se stava suonando | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |
 | `la_parola_dice_a_cosa_serve_test.dart` | la parola del giorno dice a cosa serve | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
@@ -426,6 +435,7 @@ le altre.
 | `la_voce_account_nelle_impostazioni_e_viva_test.dart` | la voce account nelle impostazioni e viva | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `language_rule_test.dart` | language rule | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
 | `le_chiavi_di_ios_ci_sono_tutte_test.dart` | le chiavi di ios ci sono tutte | 4 | non scopre insiemi di file | mai | 3 |
+| `le_cinque_chiamate_partono_tutte_test.dart` | le cinque chiamate partono tutte | 1, 2 | proprio, dichiarato | 07/09/2026, CW | 2 |
 | `le_cose_che_dichiarano_il_falso_test.dart` | le cose che dichiarano il falso | 1, 2 | dalla porta comune | mai | 2 |
 | `le_descrizioni_hanno_una_misura_sola_test.dart` | le descrizioni hanno una misura sola | 1, 2 | dalla porta comune | mai | 3 |
 | `le_due_cose_che_non_servivano_test.dart` | le due cose che non servivano | 1, 2 | dalla porta comune | mai | 3 |
@@ -452,6 +462,7 @@ le altre.
 | `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `nessun_punto_cade_dentro_il_titolo_test.dart` | nessun punto cade dentro il titolo | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `nessun_quadrato_rosso_test.dart` | nessun quadrato rosso | 4 | non scopre insiemi di file | mai | 3 |
 | `nessun_suono_che_non_hai_scelto_test.dart` | nessun suono che non hai scelto | 1, 2, 4 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `nessun_suono_sintetizzato_esce_dai_responsi_test.dart` | nessun suono sintetizzato esce dai responsi | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |

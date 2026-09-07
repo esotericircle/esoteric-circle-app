@@ -766,6 +766,122 @@ stato riparato: la pretesa che cammina dai file verso il registro ha trovato
 `nessuna_sorgente_resta_accesa_in_sottofondo_test.dart` fuori dall'elenco. E' la
 prima volta che quella cecita' si chiude da sola.
 
+## L'ORDINE CV, LE TRE VOCI DECISE DAL FONDATORE
+
+**7 settembre 2026.** Le tre voci che la scansione CS aveva lasciato in attesa
+della sua parola sono decise da lui e chiuse come DECISE DAL FONDATORE, non
+aperte e non riparate.
+
+- **CV.01, i settantatre Angeli restano.** Parole sue: *"lasciali, gli angeli
+  verranno richiamati gia' in MVP e cmq, attualmente anche se solo nella
+  assegnazione in onboarding, vengono richiamati"*. **La mia voce era
+  sbagliata**: dicevo che nessuno li chiamava, e li chiama l'assegnazione in
+  onboarding.
+- **CV.02, i dodici Cristalli restano.**
+- **CV.03, il cielo resta com'e'**, *"verra' usato da altre funzionalita'"*.
+  I dati sono raggiungibili da fuori dell'Oroscopo.
+
+## L'ORDINE CW, LA PROVA DEL FONDATORE E IL PRIMO COLLAUDO A VIDEO
+
+**7 settembre 2026.** Manifesto `docs/ordini/ORDINE_CW_MANIFESTO.md`,
+screenshot in `docs/verifica/CW/`. **Dieci voci, dieci chiuse, zero aperte.**
+
+**E' IL PRIMO ORDINE CHIUSO CON LA VERIFICA VISIVA SUL DISPOSITIVO DI
+COLLAUDO.** Il fondatore ha stabilito che da adesso un telefono Android resta
+sempre collegato al PC, seriale **767f596c**, Realme RMX3081, e che ogni ordine
+si chiude percorrendo a mano le schermate toccate. Gli screenshot si fanno in
+due passi, `screencap` sul telefono e `pull` sul PC: `exec-out` con la
+redirezione corrompe il file binario in PowerShell. Se un'installazione
+fallisce, la prima cosa da guardare e' **Monitoraggio autorizzazioni** nelle
+opzioni sviluppatore di Realme UI, che il sistema riattiva da solo, e la si
+dichiara invece di girarci intorno.
+
+**REGOLA ZERO: tre premesse su otto erano sbagliate.** Il Sigillo del Sogno
+RUOTA il Maestro da sempre, ed era il solo pulsante ad avere un nome scritto a
+mano. I punti dentro il titolo non erano una regressione, la correzione **non
+era mai stata fatta**. E il fuso delle notifiche era gia' riparato dall'ordine
+CQ voce 1.09.
+
+**LA MUSICA IN SOTTOFONDO: NON ERA IL GOVERNO DEL CICLO DI VITA, ERA L'ORDINE
+DELLE ATTESE.** `fermaTutto` spegneva tre sorgenti con tre `await` in fila, e
+`audioplayers` su una sorgente che non torna **impedisce di arrivare alla
+seconda**, cioe' proprio alla musica. Adesso le tre chiamate partono tutte e si
+aspettano insieme, con un tetto di due secondi. Al ritorno la musica riprende
+dov'era **solo se stava suonando quando siamo usciti**. Misurato sul telefono:
+tasto Home alle 22:43:24, `state:paused` sul lettore dell'app alle
+**22:43:25.102**.
+
+**LE CINQUE NOTIFICHE: DUE CAUSE, E LA SECONDA L'HA TROVATA IL TELEFONO.** La
+prima e' il manifest, che non aveva **nessun receiver**: senza
+`RECEIVE_BOOT_COMPLETED` e senza `ScheduledNotificationBootReceiver` la coda si
+svuota al riavvio del telefono e **a ogni aggiornamento dell'app**, e chi
+installa una build quasi ogni giorno azzerava le cinque chiamate ogni giorno.
+La seconda e' uscita da `dumpsys alarm`: dopo aver concesso il permesso dentro
+il Rito dell'Alba nella coda c'era **una sveglia sola**, perche' all'avvio la
+regia guarda il permesso, non lo trova e torna a mani vuote, e poi il rito
+programma solo se stesso. Adesso il rito passa dalla regia, che e' la porta di
+tutte e cinque. Dopo la correzione la coda del sistema porta **cinque sveglie
+alle ore giuste e nel fuso giusto**. **L'ora esatta resta NON richiesta ed e'
+una scelta**: da Android 14 `USE_EXACT_ALARM` la concede solo a sveglie e
+calendari, e chiederla farebbe rifiutare la pubblicazione.
+
+**I DUE PULSANTI DEL SOFFIO: NON IL COLORE, IL REGIME.** Il Soffio passava
+`suChiaro: true` copiato dall'Alba, col commento *"il fondo qui e' chiaro"*,
+vero per l'Alba e falso per lui: **1,11 a uno**. Adesso **15,29** sulla soglia
+dichiarata di 4,5, con premuto e disabilitato misurati per nome.
+
+**L'ALBA E IL SOFFIO NON DICONO PIU' LO STESSO, E LA COLPA ERA MIA.** La cura
+dell'ordine CQ era **condizionata e non dichiarata**: funzionava per chi ha una
+carta natale completa, e per tutti gli altri il Soffio ripiegava sulla risposta
+dell'Alba. Chi non da' l'ora di nascita, che e' il caso piu' comune, vedeva due
+volte la stessa frase. Adesso il Soffio ha una risposta sua costruita su fase
+lunare e segno della Luna, che si leggono dalla sola data, **e il titolo dice a
+cosa serve il respiro di oggi**, come il fondatore ha chiesto. Verificato a
+video su un profilo senza ora di nascita: l'Alba dice *"Oggi il tuo giorno
+vuole aperto"*, il Soffio *"Il respiro di oggi ti serve a lasciare andare una
+cosa che pesa"*.
+
+**IL MANTRA DI OGGI, E LA PAROLA E' SUA.** L'ordine chiedeva un riquadro col
+titolo *IL RITUALE DI OGGI*; visto a video il fondatore ha scelto **IL MANTRA
+DI OGGI**. Cambiati la costante, le quattro chiavi, la guardia e il nome del
+file: chi cerca `del_rituale` non trova piu' niente, perche' un nome vecchio
+lasciato in una chiave e' la seconda verita' del giorno dopo. La parola nuova e'
+passata **rossa** davanti alla guardia prima di essere adottata.
+
+**QUATTRO COSE VISTE SUL TELEFONO CHE NON SONO VOCI DI QUESTO ORDINE**, scritte
+perche' misurate e non perche' chieste, e materia del prossimo ordine. UNO: la
+barra di conferma dell'ora della notifica **non se ne va piu'**, segue la
+persona nelle altre schermate e copre il terzo basso dello schermo. DUE: il
+tappeto musicale **non suona mai su questo telefono**, il lettore viene creato
+con `USAGE_MEDIA` e non entra mai in `state:started`; riceve la pausa e la
+riceve puntuale, quindi la voce sulla musica in sottofondo e' vera, ma la
+musica non si sente. TRE: il selettore dell'ora dice **Hour** e **Minute**
+dentro un dialogo tutto italiano, perche' manca il delegato di localizzazione.
+QUATTRO: il foglio *Da dove nasce questo dono* passa **sotto la barra degli
+Eos** e il suo titolo non si legge.
+
+**COSA HA TROVATO IL TELEFONO, E CHE SENZA DI LUI SAREBBE STATO CONSEGNATO
+SBAGLIATO.** Il conto e' chiesto dal fondatore per nome, ed e' onesto in tutte
+e due le direzioni. **Una voce gia' dichiarata CHIUSA sarebbe uscita rotta**:
+la seconda causa delle notifiche vive dentro la coda delle sveglie di Android,
+dove nessuna prova di questo progetto puo' guardare, e fra due sessioni
+dell'app, dove nessun test unitario arriva. Sul banco tornava tutto. **Una
+parola sarebbe stata sbagliata**: il titolo del riquadro dell'Alba, preso alla
+lettera dall'ordine e sorvegliato alla lettera da una guardia verde, che il
+fondatore ha cambiato leggendolo su uno screenshot. **Quattro difetti non
+sarebbero stati nemmeno visti**, e tre di quei quattro non sono nel codice
+dell'app ma nell'incontro fra l'app e il sistema. **E una domanda non sarebbe
+esistita**, quella della sveglia partita senza notifica. **La meta' onesta del
+conto**: sei voci su dieci erano gia' giuste quando le ho portate a video, e le
+guardie bastavano. Su quelle il collegamento vivo ha aggiunto certezza, non
+riparazione, e dire che ha salvato dieci voci quando ne ha salvate due sarebbe
+la stessa specie di bugia che questo progetto combatte.
+
+**E UNA COSA CHE NON SONO RIUSCITO A DIMOSTRARE, dichiarata invece che data per
+vista.** La sveglia delle 22:30 e' partita e la coda lo conferma, ma nessuna
+notifica e' comparsa nella tendina. La ragione non l'ho trovata e non la
+invento: la prova vera e' la chiamata delle 07:00 sul telefono del fondatore.
+
 ## Fronti aperti, in ordine
 
 0untriginta. **L'ORDINE CQ, LE REGRESSIONI DEL TELEFONO E IL CAMMINO CHE MURAVA. 3 e 4 settembre 2026.** Manifesto `docs/ordini/ORDINE_CQ_MANIFESTO.md`, prova del rosso `docs/ordini/CQ_prova_del_rosso.txt`, guardie `test/ordine_cq_guard_test.dart` e `test/i_manifesti_sono_sigillati_test.dart`. **Trentadue voci: trentuno chiuse, UNA fermata, ZERO aperte.** **REGOLA ZERO: tre premesse verificate e cadute.** Il "trenta gettate" che nessuna lettura del piano spiegava e' il tetto dell'Adepto, e le ore degli screenshot lo dicono: le Rune col 29 su 30 sono delle 20:09, i Piani con l'Illuminato attivo sono delle 20:13, quattro minuti DOPO. La runa rovesciata una lettura ce l'ha, misurato su tutte e ventiquattro le rune nei due versi e su 93 sere di Tramonto. Il Tramonto non ha il difetto dell'Arcano: compone la sua chiave con la nascita intera. **IL DIFETTO PIU' GROSSO NON ERA NELL'ORDINE, ED E' USCITO DA UNA MISURA CHE L'ORDINE CHIEDEVA DI FARE.** La voce 2.12 chiedeva di provare il difetto prima di curarlo: su quattrocento giorni di uso onesto con dodici arti al giorno, **112 traguardi soddisfatti e TREDICI accesi**, con 99 gradini gia' guadagnati che non si accendevano mai e i tre sentieri fermi su arti che chi fa i Doni del giorno non tocca. **La scala dell'ordine CP voce 01 non ritardava, murava.** Con la voce 2.13 il tetto si e' spostato dalla maturazione alla SCENA: adesso 112 su 112, ritardo zero, i sentieri accendono 36, 39 e 37 gradini invece di 4, 6 e 3, e il giorno peggiore dell'anno resta a TRE feste. **IL PIANO VIVEVA IN DUE POSTI CHE NON SI PARLAVANO**: il telefono e `users/<uid>/stato/abbonamento.piano`, che nessuno scriveva e valeva free per tutti; adesso c'e' la callable `attivaIlPianoInDemo`, che nasce chiusa a chiave e aspetta il PASSO 7 dal PC del fondatore. **LE PUSH NON SONO MAI PARTITE**: ventitre chiamate, ventitre 400, e la raccolta `push_dei_doni` che non esiste. Dei tre controlli scattava il secondo, il fuso: il telefono mandava `CEST` e il server pretende `Area/Citta`. **IL SUONO DELLA CARTA NON USCIVA per due difetti gia' misurati nella coda dell'ordine CN e curati sulla sola musica**: `play` di audioplayers non e' una chiamata che finisce, e il lettore chiedeva il fuoco audio esclusivo che la musica non molla. **NESSUN SUONO CHE IL FONDATORE NON ABBIA SCELTO**: ogni comando Material chiamava il ritorno di sistema, e in tutta l'app non c'era un solo `enableFeedback` scritto, su trentatre InkWell e su tutti i pulsanti del tema; nessuna guardia lo aveva mai visto perche' il click di sistema non e' un file negli asset. **I CARATTERI, LA QUARTA VOLTA**: il ruolo `etichetta` valeva DODICI punti in duecentotre posti, e il commento accanto diceva "vale esattamente il pavimento" senza scrivere quanto fosse; il censimento guardava le schermate e non i ruoli. Adesso quattordici, e la barra del Santuario resta a dodici per non restituire otto dei ventidue punti che l'ordine CF le aveva tolto. **L'ALBA E IL SOFFIO davano risposte identiche perche' erano lo stesso oggetto**: il Soffio chiamava il rito dell'Alba con la sola data. **L'ARCANO non era individuale**: nel seme entrava il solo numero della carta natale, da uno a ventidue, quindi due persone con la stessa carta natale vedevano lo stesso Arcano per sempre. **VIA IL RITO ANNUNCIATO CHE NON ESISTE** da tutte e quattro le schermate, e il componente e' stato cancellato, non solo smontato. **L'AGGIUNTA CQ4, I MANIFESTI NON SIGILLATI.** Il Collaudatore degli Ordini prende solo manifesti terminali e sigillati: CM, CN, CO e CP non lo erano, quindi li saltava e collaudava ordini di settimane fa mentre i quattro piu' recenti non passavano da nessun controllo. Adesso sono sigillati con gli stati VERI: **cinque voci dell'ordine CO non sono CHIUSE**, fra cui CO.07 che ha bloccato la scelta delle carte e CO.20 che ha spostato il cuore invece di centrarlo, e CP.01 nemmeno. CG chiude tutte e sedici le voci. **REGOLA F, nuova**: un ordine non e' finito finche' il suo manifesto non e' sigillato coi marcatori terminali, e una guardia di famiglia resta rossa finche' un ordine lascia una voce aperta. **L'AGGIUNTA CQ5, SI FINISCE TUTTO, e nasce la REGOLA G.** Il fondatore ha rifiutato la consegna con sei voci aperte: **un ordine e' finito quando il suo manifesto porta VOCI_APERTE 0 e nessuna FERMATA che non poggi su una decisione presa da lui per iscritto.** Le sei si sono chiuse tutte. La legge dei testi ha trovato **due Doni su quattro senza nessuna fonte**, l'Arcano che non diceva da dove nasce e il Tramonto che la teneva dietro un pulsante in barra, cioe' chi legge il responso non incontrava mai la strofa. Il Sigillo del Giorno **esisteva**, ed era la bindrune che chiude ogni gettata: la fermata era una ricerca fatta fra i NOMI delle schermate invece che dentro le schermate. A una runa sola la scheda portava 264 caratteri contro i 50 della risposta, cinque volte e un quarto, e adesso il corpo sta dietro una porta che si apre in posto. I promemoria: ventuno eventi con una data calcolabile e **sedici avvisi in un anno**, uno ogni ventitre giorni, quindi si misurava e non si costruiva. **E TRE FERMATE SONO STATE DISFATTE PERCHE' NON ERANO FERMATE**: CQ.21 e CQ.23 dicevano premessa falsa, che e' un lavoro finito e non una decisione del fondatore; CP.08 aspettava una decisione **che non gli era mai stata chiesta**, chiusa col criterio adottato di tre feste al giorno, che combacia col massimo misurato e non lascia margine. Su sei manifesti, **centocinque voci e zero aperte**. **E IL REGISTRO DELLE GUARDIE MENTIVA SU SE STESSO**: le tre categorie in cima dicevano 3, 39 e 235, sommavano al totale giusto e nessuna delle tre era il numero che la tavola porta nella propria colonna, perche' la guardia controllava solo che le tre cifre sommassero fra loro. Ed era falso anche il disallineamento delle otto righe che tre ordini davano per vero: il grep che lo misurava cercava due nomi su **quattro** porte comuni, e contate tutte e quattro il numero della tavola era giusto da sempre. **LA PROVA DI ACCENSIONE E' STATA SALTATA AL CARICAMENTO E FATTA SUBITO DOPO, e le due cose restano distinte in ogni registro.** Saltata per ordine esplicito del fondatore del 4 settembre 2026, voce CQ 5.04, perche' non era al PC; poi si e' collegato e la prova e' stata fatta sull'archivio gia' caricato, non su una copia ricostruita: processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION, e **numero letto dal dispositivo 2224**, che e' la prova che l'archivio acceso e' quello consegnato. **Le note su App Distribution dicevano che nessun dispositivo l'aveva accesa e sono state corrette con una PATCH sulla release e rilette dal server**: una nota vecchia che resta e' una bugia lasciata in giro, e chi scarica legge quella. Chi avesse scaricato fra il caricamento e la prova ha avuto in mano un archivio che nessuno aveva acceso, ed e' il caso della 2161.** Release `6edt0od6irm2o` su App Distribution, numero letto con aapt2 dall'archivio contro il 2222 dell'ultima consegnata davvero, e il campo `prova_di_accensione` del registro porta SALTATA con la ragione per esteso, cosi' chi rilegge distingue una build accesa da una consegnata al buio. **I NUMERI: ventidue guardie nuove, cinquantatre innesti provati e cinquantuno rossi, ventotto guardie esistenti viste rosse prima o durante il lavoro.** I due innesti restati VERDI sono scritti nel registro del rosso con la loro ragione: la prima guardia del tetto delle gettate nasceva cieca e cercava un numero accanto alla parola, la prima della domanda libera cadeva al caricamento invece che sulla pretesa. Registro da 261 a 296 guardie, viste rosse da 46 a 78, dal 17,6 al 26,4 per cento. **LA 2226 E' CONSEGNATA E POI ACCESA**, release `6q4uoi1hh0pgo` su App Distribution, numero 2226 letto con aapt2 dall'archivio contro il 2224 dell'ultima consegnata, peso 176.854.428 byte. **La prova di accensione e' stata SALTATA per ordine esplicito del fondatore del 5 settembre 2026**, "Consegna solo su AppTester": nessun dispositivo era collegato, e il registro lo dichiara per esteso insieme al fatto che nessun telefono ha acceso questo archivio. **E il registro si contraddiceva**: il campo `telefono_della_prova` portava ancora RMX5056 della consegna precedente accanto a un'accensione saltata, perche' la voce CN che aveva aggiunto `prova_di_accensione` non lo azzerava; adesso lo azzera `tool/consegna.py`. **E IL 5 SETTEMBRE IL FONDATORE HA COLLEGATO IL TELEFONO E CHIESTO LA VERIFICA A VISTA.** L'accensione e' stata fatta sull'archivio GIA' CARICATO e non su una copia: processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION, **numero letto dal dispositivo 2226**. Poi il collaudo a video, un'ora sul telefono, e **tre difetti veri che nessuna prova senza schermo poteva vedere**. UNO: alla terza carta dei Tarocchi spariva il VENTAGLIO, cioe' l'oggetto piu' grande della pagina, e la guardia della voce 6.09 misurava cio' che ARRIVA invece di cio' che sparisce; adesso il ventaglio se ne va col responso, attenuato. DUE: l'Estrazione Rune apriva la scena con Tacito, l'Edda e il metodo di calcolo, cioe' **l'informazione messa all'inizio**, l'opposto della legge del mood; la materia e' scesa dietro `Da dove nasce`. TRE: la frase degli Angeli diceva "Tre nomi" e ne mostrava due, perche' il terzo nasce dall'ora di nascita: adesso il numero viene dalla lista e quando il terzo manca si dice perche'. **Le tre guardie nuove sono nate rosse senza innesto**, perche' il difetto era gia' in produzione. **E DUE COSE CHE AVEVO RIPORTATO COME DIFETTI NON LO ERANO**, e la distinzione vale quanto le riparazioni: il responso del Soffio SCORRE, misurato quattrocento punti su una trascinata di quattrocento, e i due zeri che mi avevano fatto dire il contrario erano miei, un `Scrollable.controller` nullo e un dito posato al centro di una carta che ha il centro fuori schermo. **Chi misura male trova difetti che non esistono**, ed e' la stessa specie di errore che trova sane le cose rotte. Resta vero che il responso del Soffio vive nel trenta per cento della sua schermata, 878 punti dentro una finestra di 263: dargli piu' spazio si e' provato e la misura ha detto di no, perche' a cinque contro quattro la scheda copre 15,1 punti del pulsante del respiro e a quattro contro cinque ne copre 90,4. **Due pretese vere in conflitto su uno schermo che non cresce**: la scelta e' di prodotto e spetta al fondatore. Registro delle guardie da 296 a 298, viste rosse da 78 a 80. **E LA 2227 E' CONSEGNATA**, release `5davq0cs9289g` su App Distribution, numero 2227 letto con aapt2 dall'archivio contro il 2226 dell'ultima consegnata, peso 176.854.428 byte. Porta le tre riparazioni del collaudo. **Accensione SALTATA per ordine esplicito del fondatore del 5 settembre 2026**, "niente accensione, solo AppTester": stavolta il telefono era collegato e la prova si sarebbe potuta fare, e il registro lo dichiara insieme al fatto che nessun dispositivo ha acceso l'archivio. Lo sbarramento e' passato con i soli rossi accettati, sedici catture a scala 1,3 e l'attribuzione cieca. **E i suoni dell'Oroscopo NON si toccano, per ordine suo**: le due campane sono `soglia.mp3` alla pressione di Interroga il cielo e il fischio e' `rivelazione.mp3` alla comparsa del responso, e sono **segnaposto generati**, non suoni scelti. Il LEGGIMI di `assets/audio` dice che quella cartella deve restare VUOTA finche' non li sceglie Mauro su Envato, e senza file l'app resta in silenzio; invece i tredici file sono entrati il 30 luglio 2026 col commit `045174c5`, che rimetteva verde la suite. **Che siano generati e' misurato**: tutti e tredici a 96 kbps contro i 128 che il LEGGIMI chiede, durate uguali alla tabella piu' sette centesimi, e due coppie lunghe uguali AL BYTE, `rivelazione` e `rito_compiuto` 18.852, `eos` e `firma` 24.808. Restano dove sono finche' il fondatore non decide. **E L'AGGIUNTA CQ6, la build 2223 provata sul telefono, ha portato l'ordine da trentadue a CINQUANTASETTE voci, chiuse cinquantasei e una sola fermata su decisione del fondatore.** Sette voci dichiarate chiuse non lo erano sul telefono, e **la ragione e' una sola**: sette volte su sette la guardia che le aveva chiuse misurava un pezzo sano accanto al pezzo rotto, il file e non il tono, la funzione e non il disegno, il pulsante e non la pagina intorno. Da qui la regola nuova, scritta nel conto delle ore: **una voce nata da qualcosa che il fondatore ha VISTO si chiude solo con una guardia che monta la schermata e misura cio' che si vede.** Le tredici guardie nuove dell'aggiunta sono tutte nate rosse.

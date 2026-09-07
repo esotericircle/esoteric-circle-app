@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// IL RITUALE DI OGGI HA IL SUO RIQUADRO. Ordine CW, voce 07.
+/// IL MANTRA DI OGGI HA IL SUO RIQUADRO. Ordine CW, voce 07.
 ///
 /// **Cosa chiede l'ordine, alla lettera:** il rituale da compiere evidenziato,
-/// col titolo esatto in maiuscolo **IL RITUALE DI OGGI**, e sotto il titolo
+/// col titolo esatto in maiuscolo **IL MANTRA DI OGGI**, e sotto il titolo
 /// tutto il rituale dentro un riquadro visibile. **Il riquadro contiene solo
 /// il rituale**: non ci finiscono dentro il responso, la firma del Maestro,
 /// i pulsanti di condivisione.
@@ -62,11 +62,11 @@ void main() {
 
   testWidgets('Il titolo e\' esatto, e in maiuscolo', (tester) async {
     await monta(tester, DailyElement.dawn);
-    final titolo = find.byKey(const Key('alba_titolo_del_rituale'));
+    final titolo = find.byKey(const Key('alba_titolo_del_mantra'));
     expect(titolo, findsOneWidget,
         reason: 'il riquadro del rituale non ha nessun titolo');
     final testo = tester.widget<Text>(titolo).data;
-    expect(testo, 'IL RITUALE DI OGGI',
+    expect(testo, 'IL MANTRA DI OGGI',
         reason: 'il titolo e\' "$testo": l\'ordine lo chiede alla lettera, in '
             'maiuscolo, e una formulazione diversa e\' una formulazione '
             'diversa');
@@ -74,16 +74,16 @@ void main() {
 
   testWidgets('Il testo del rituale e\' dentro il riquadro', (tester) async {
     await monta(tester, DailyElement.dawn);
-    final riquadro = find.byKey(const Key('alba_riquadro_del_rituale'));
+    final riquadro = find.byKey(const Key('alba_riquadro_del_mantra'));
     expect(riquadro, findsOneWidget,
         reason: 'il rituale non sta dentro nessun riquadro visibile');
 
     // **DISCENDENTE, non solo vicino.** Un testo posato accanto a un bordo
     // sembra dentro e non lo e': al primo cambio di spaziatura si stacca.
     for (final chiave in const [
-      'alba_titolo_del_rituale',
-      'alba_testo_del_rituale',
-      'alba_via_tattile_del_rituale',
+      'alba_titolo_del_mantra',
+      'alba_testo_del_mantra',
+      'alba_via_tattile_del_mantra',
     ]) {
       expect(
           find.descendant(of: riquadro, matching: find.byKey(Key(chiave))),
@@ -95,7 +95,7 @@ void main() {
   testWidgets('Il riquadro NON contiene il responso ne\' la condivisione',
       (tester) async {
     await monta(tester, DailyElement.dawn);
-    final riquadro = find.byKey(const Key('alba_riquadro_del_rituale'));
+    final riquadro = find.byKey(const Key('alba_riquadro_del_mantra'));
 
     // L'ordine lo dice per nome: dentro ci va solo il rituale.
     for (final estraneo in const [
@@ -122,7 +122,7 @@ void main() {
     await monta(tester, DailyElement.dawn);
     final risposta = tester.getRect(find.byKey(const Key('alba_risposta')));
     final riquadro =
-        tester.getRect(find.byKey(const Key('alba_riquadro_del_rituale')));
+        tester.getRect(find.byKey(const Key('alba_riquadro_del_mantra')));
     expect(riquadro.top, greaterThan(risposta.top),
         reason: 'il rituale sta sopra la risposta, a '
             '${riquadro.top.toStringAsFixed(1)} contro '
@@ -135,7 +135,7 @@ void main() {
     // L'ordine dice "nel Rito dell'Alba". Gli altri quattro montano la stessa
     // scheda e non hanno questo rituale da compiere.
     await monta(tester, DailyElement.breath);
-    expect(find.byKey(const Key('alba_riquadro_del_rituale')), findsNothing,
+    expect(find.byKey(const Key('alba_riquadro_del_mantra')), findsNothing,
         reason: 'il riquadro del rituale compare anche nel Soffio, dove il '
             'gesto da compiere e\' il respiro e non questo');
   });

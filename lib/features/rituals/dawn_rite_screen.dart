@@ -27,6 +27,7 @@ import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/astro/solar_time.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
+import '../../services/regia_delle_chiamate.dart';
 import 'dove_sei_adesso.dart';
 import 'ritual_gift_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -378,7 +379,29 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
         return esito == EsitoDelPermesso.concesso;
       },
     );
+    await _accendiTutteLeChiamate();
     await _programmaAvviso();
+  }
+
+  /// ACCENDE TUTTE E CINQUE LE CHIAMATE, appena il permesso arriva.
+  /// Ordine CW voce 06, coda, 7 settembre 2026.
+  ///
+  /// **Misurato sul telefono, non dedotto.** Con `dumpsys alarm` sul
+  /// dispositivo di collaudo, dopo aver concesso il permesso qui dentro, nella
+  /// coda del sistema c'era **una sveglia sola**. Al riavvio dell'app ce
+  /// n'erano cinque, alle ore giuste.
+  ///
+  /// La ragione e' un ordine di eventi: all'avvio la regia guarda il permesso,
+  /// non lo trova e torna a mani vuote; qui il permesso arriva, ma il rito
+  /// programmava solo se stesso. **Le altre quattro aspettavano l'apertura
+  /// dopo**, e chi installa e prova subito riceve una chiamata su cinque.
+  ///
+  /// Si passa dalla regia, che e' la porta di tutte e cinque, e subito dopo
+  /// resta `_programmaAvviso` a riscrivere l'Alba **sullo stesso id** con
+  /// l'ora del sorgere: due porte, un id, nessun doppione.
+  Future<void> _accendiTutteLeChiamate() async {
+    if (!mounted) return;
+    await RegiaDelleChiamate.riprogramma(context, servizio: widget.avvisi);
   }
 
   /// Programma il prossimo avviso. Passa sempre dalla porta sola.

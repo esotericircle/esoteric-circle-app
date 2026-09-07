@@ -20,16 +20,16 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 
 | Testo | Momento | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | Contrasto | Soglia | Passa |
 | --- | --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |
-| `alba_invito_al_gesto` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:738 | lettura | 20 | 400 | #F0D77B | #081A22 | **12.45** | 4.5 | si' |
-| `alba_titolo` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:514 | titoloScheda | 20 | 600 | #F4F1E8 | #02090B | **17.77** | 3.0 | si' |
+| `alba_invito_al_gesto` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:761 | lettura | 20 | 400 | #F0D77B | #081A22 | **12.45** | 4.5 | si' |
+| `alba_titolo` | prima del gesto | lib/features/rituals/dawn_rite_screen.dart:537 | titoloScheda | 20 | 600 | #F4F1E8 | #02090B | **17.77** | 3.0 | si' |
 | `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #084F3B | #DCDED2 | **6.99** | 4.5 | si' |
 | `alba_titolo_risposta` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:226 | titoloSezione | 22 | 600 | #2A2213 | #DCDED2 | **11.54** | 3.0 | si' |
 | La Luna è in Cancro: la Luna è ... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | Oggi la tua energia ha una form... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:277 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_titolo_del_rituale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:132 | corpo o didascalia | 16 | 400 | #084F3B | #E5E7D6 | **7.58** | 4.5 | si' |
-| `alba_testo_del_rituale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:139 | lettura | 20 | 400 | #2A2213 | #CBD3C6 | **10.23** | 4.5 | si' |
-| `alba_via_tattile_del_rituale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:147 | corpo o didascalia | 16 | 400 | #4A4537 | #CBD3C6 | **6.19** | 4.5 | si' |
+| `alba_titolo_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:132 | corpo o didascalia | 16 | 400 | #084F3B | #E5E7D6 | **7.58** | 4.5 | si' |
+| `alba_testo_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:139 | lettura | 20 | 400 | #2A2213 | #CBD3C6 | **10.23** | 4.5 | si' |
+| `alba_via_tattile_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:147 | corpo o didascalia | 16 | 400 | #4A4537 | #CBD3C6 | **6.19** | 4.5 | si' |
 | `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:342 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |
 | `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:363 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
@@ -44,6 +44,6 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | Parlane con Aura | a rito compiuto | senza chiave | etichetta | 14 | 400 | #F4F1E8 | #0C785A | **4.83** | 4.5 | si' |
 | Non so dove sei, quindi non ti ... | a rito compiuto | senza chiave | corpo o didascalia | 16 | 400 | #F4F1E8 | #031714 | **16.36** | 4.5 | si' |
 | Scelgo la mia città | a rito compiuto | senza chiave | corpo o didascalia | 16 | 400 | #F0D77B | #061915 | **12.71** | 4.5 | si' |
-| `alba_titolo` | a rito compiuto | lib/features/rituals/dawn_rite_screen.dart:514 | titoloScheda | 20 | 600 | #F4F1E8 | #0A0F17 | **17.00** | 3.0 | si' |
+| `alba_titolo` | a rito compiuto | lib/features/rituals/dawn_rite_screen.dart:537 | titoloScheda | 20 | 600 | #F4F1E8 | #0A0F17 | **17.00** | 3.0 | si' |
 
 Nessun testo sotto la sua soglia.

@@ -106,12 +106,12 @@ class _IlRitualeDiOggi extends StatelessWidget {
   final Color accento;
 
   /// Il titolo esatto che il fondatore ha chiesto, in maiuscolo.
-  static const String titolo = 'IL RITUALE DI OGGI';
+  static const String titolo = 'IL MANTRA DI OGGI';
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: const Key('alba_riquadro_del_rituale'),
+      key: const Key('alba_riquadro_del_mantra'),
       width: double.infinity,
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
@@ -129,14 +129,14 @@ class _IlRitualeDiOggi extends StatelessWidget {
           // lettera, ed e' scritto nella stringa: nessun toUpperCase, che
           // la stessa voce P.13 vieta.
           Text(titolo,
-              key: const Key('alba_titolo_del_rituale'),
+              key: const Key('alba_titolo_del_mantra'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: accento, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xs),
           // **IL GESTO, che e' il rituale vero.** Porta gia' dentro il dato
           // del cielo di stamattina: non e' un'istruzione generica.
           Text(rito.gesto,
-              key: const Key('alba_testo_del_rituale'),
+              key: const Key('alba_testo_del_mantra'),
               style: TypographyTokens.lettura()
                   .copyWith(color: abito.inchiostro, height: 1.45)),
           const SizedBox(height: SpacingTokens.xs),
@@ -144,7 +144,7 @@ class _IlRitualeDiOggi extends StatelessWidget {
           // che passa da un sensore ha il suo ripiego tattile, e qui il
           // ripiego fa parte del rituale, non e' una nota a pie' di pagina.
           Text(rito.viaTattile,
-              key: const Key('alba_via_tattile_del_rituale'),
+              key: const Key('alba_via_tattile_del_mantra'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: abito.inchiostro.withValues(alpha: 0.8))),
         ],
@@ -278,7 +278,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               style:
                   TypographyTokens.lettura().copyWith(color: abito.inchiostro),
             ),
-            // **IL RITUALE DI OGGI, EVIDENZIATO. Ordine CW voce 07**, 7
+            // **IL MANTRA DI OGGI, EVIDENZIATO. Ordine CW voce 07**, 7
             // settembre 2026.
             //
             // **Non e' il ritorno di cio' che l'ordine CQ aveva tolto.** Li'
