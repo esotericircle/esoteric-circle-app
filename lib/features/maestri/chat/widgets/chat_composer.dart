@@ -206,38 +206,44 @@ class _ChatComposerState extends State<ChatComposer> {
       // il campo in mezzo, la freccia a destra. Adesso le due bolle sono
       // IMPILATE e larghe uguali, cioe' tutte e due larghe quanto la colonna,
       // e la freccia sta accanto a tutte e due, centrata fra loro.
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      // **UNA RIGA SOLA. Ordine CT voce 06**, 7 settembre 2026. Parole del
+      // fondatore: *"nella barra sotto che va ridotta mettiamo un cerchietto
+      // con il simbolo dei suggerimenti a sinistra, il campo per le domande al
+      // centro e la freccia verso l'alto di invio a destra"*.
+      //
+      // Prima erano due righe impilate: i Suggerimenti larghi tutto lo schermo
+      // sopra, e sotto il campo con la freccia accanto. Quella forma veniva
+      // dall'ordine del 1 settembre, *"sopra il campo suggerimenti e sotto il
+      // campo scrivi"*, ed e' stata sostituita da questa: l'altezza guadagnata
+      // va alla conversazione, che e' il principio di tutte le voci di
+      // quest'ordine.
+      //
+      // **L'avviso del permesso resta sopra la riga**, perche' e' una frase e
+      // non un comando: infilato dentro la riga la spezzerebbe in due, che e'
+      // proprio cio' che si sta togliendo.
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              // **STESSA DIMENSIONE** vuol dire questo: le due bolle si
-              // stendono tutte e due sull'intera larghezza della colonna,
-              // invece di prendersi ognuna lo spazio che le serve.
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // **SE IL PERMESSO NON C'E', LA RIGA LO DICE E APRE LA
-                // STRADA.** Ordine CI voce 05, vincolo e: mai un vicolo
-                // cieco. Quando il no e' per sempre, quel pulsante non
-                // richiede, apre le impostazioni di sistema, perche'
-                // richiedere non mostrerebbe piu' niente e sembrerebbe un
-                // pulsante rotto.
-                if (_permessoNegato != null) ...[
-                  AvvisoDelPermesso(
-                    chiave: 'chat',
-                    permesso: AppPermission.microphone,
-                    esito: _permessoNegato!,
-                    palette: palette,
-                    onRichiedi: _tocca,
-                  ),
-                  const SizedBox(height: SpacingTokens.xs),
-                ],
-                if (widget.onSuggestions != null) ...[
-                  _SuggestionsControl(onTap: widget.onSuggestions!),
-                  const SizedBox(height: SpacingTokens.xs),
-                ],
-                Container(
+          if (_permessoNegato != null) ...[
+            AvvisoDelPermesso(
+              chiave: 'chat',
+              permesso: AppPermission.microphone,
+              esito: _permessoNegato!,
+              palette: palette,
+              onRichiedi: _tocca,
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+          ],
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (widget.onSuggestions != null) ...[
+                _SuggestionsControl(onTap: widget.onSuggestions!),
+                const SizedBox(width: SpacingTokens.xs),
+              ],
+              Expanded(
+                child: Container(
                   key: const Key('chat_campo'),
                   decoration: BoxDecoration(
                     // OPACO, ordine 2163 voce 1: il testo delle bolle si
@@ -303,11 +309,11 @@ class _ChatComposerState extends State<ChatComposer> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: SpacingTokens.xs),
+              _SendButton(enabled: canSend, onTap: _submit),
+            ],
           ),
-          const SizedBox(width: SpacingTokens.xs),
-          _SendButton(enabled: canSend, onTap: _submit),
         ],
       ),
     );
@@ -329,32 +335,37 @@ class _SuggestionsControl extends StatelessWidget {
     // contenitore, e non si leggeva come qualcosa che si tocca. La bolla ha
     // lo stesso fondo e lo stesso bordo del campo accanto, cosi' la riga
     // parla una lingua sola.
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        key: const Key('chat_stelline'),
-        // Verticale a quattro: a sei la bolla usciva di tre punti sopra il
-        // campo, misurato dalla prova della riga pulita.
-        padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.sm, vertical: 4),
-        decoration: BoxDecoration(
-          color: Color.alphaBlend(
-              palette.surface.withValues(alpha: 0.6), palette.deepest),
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.auto_awesome_outlined,
-                color: palette.goldSoft, size: 19),
-            Text(
-              'Suggerimenti',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: ColorTokens.textMuted, letterSpacing: 0.4),
+    // **UN CERCHIETTO, NON PIU' UNA BOLLA CON L'ETICHETTA.** Ordine CT voce
+    // 06: la parola "Suggerimenti" costava una riga intera alla conversazione,
+    // e il simbolo la dice gia'. Il nome resta nel `tooltip` e nella semantica,
+    // quindi chi usa il lettore di schermo sente esattamente cio' che sentiva
+    // prima.
+    //
+    // **Quarantaquattro punti, e non e' un numero di gusto**: e' la misura
+    // minima che un bersaglio da toccare deve avere, la stessa che tutti i
+    // comandi tondi di questa app rispettano.
+    return Semantics(
+      button: true,
+      label: 'Suggerimenti',
+      child: Tooltip(
+        message: 'Suggerimenti',
+        child: GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            key: const Key('chat_stelline'),
+            width: 44,
+            height: 44,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.alphaBlend(
+                  palette.surface.withValues(alpha: 0.6), palette.deepest),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
             ),
-          ],
+            child: Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 21),
+          ),
         ),
       ),
     );

@@ -612,12 +612,40 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             children: [
               Column(
                 children: [
-                  // **I GIORNI PRIMA, ordine CG voce 01.** Terza porta delle tre
-                  // che aprono i Ricordi, e l'unica che arriva gia' filtrata su
-                  // questo Maestro: chi sta parlando con Caligo e vuole rivedere
-                  // cosa si erano detti non deve prima passare dal menu' e poi
-                  // accendere una pastiglia.
-                  _IGiorniPrima(maestro: widget.maestro),
+                  // **QUI C'ERA "I GIORNI PRIMA", E ADESSO CI SONO I DUE
+                  // CONTEGGI.** Ordine CT voci 04 e 05, 7 settembre 2026.
+                  //
+                  // Parole del fondatore: *"nella barra dove adesso c'e' 'i
+                  // giorni prima' che non capisco a cosa si riferisce, elimina
+                  // questa e in quello spazio inserisci le 2 righe di conteggio
+                  // domande e conteggio approfondimenti"*.
+                  //
+                  // La porta dei giorni prima non si perde: e' passata nel
+                  // menu' della barra, voce CT.03, dove sta accanto alla
+                  // conversazione nuova.
+                  //
+                  // **E qui i conteggi non coprono piu' niente, voce CT.05.**
+                  // In basso stavano SOPRA le parole del Maestro, e si vede in
+                  // quattro delle cinque schermate del collaudo: il testo che
+                  // scorre passava sotto quelle due righe e diventavano
+                  // illeggibili tutti e due. Qui stanno sopra la conversazione,
+                  // che comincia dove loro finiscono.
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RigaDelResiduo(
+                            key: Key('chat_residuo_domande'),
+                            budget: BudgetDelGiorno.domande),
+                        RigaDelResiduo(
+                            key: Key('chat_residuo_approfondimenti'),
+                            budget: BudgetDelGiorno.approfondimenti),
+                      ],
+                    ),
+                  ),
                   // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
                   // la conversazione, cioe' nello spazio che rovesciando la lista
                   // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
@@ -770,24 +798,17 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
                 child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
               ),
-              // **QUANTO TI RESTA, DETTO PRIMA DI SCRIVERE.** Ordine CE voce 04:
-              // "l'utente deve Sapere quante ne mancano". Le due righe stanno
-              // sopra il campo e non dentro un foglio, perche' sono
-              // un'informazione e non un ostacolo, e stanno insieme perche' la
-              // chat spende su due budget: la domanda e l'approfondimento. La
-              // riprova non e' un terzo budget, spende sulle domande come la
-              // domanda che ha sostituito.
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RigaDelResiduo(budget: BudgetDelGiorno.domande),
-                    RigaDelResiduo(budget: BudgetDelGiorno.approfondimenti),
-                  ],
-                ),
-              ),
+              // **QUANTO TI RESTA STA IN CIMA, NON QUI. Ordine CT voci 04 e
+              // 05.** Le due righe erano qui sopra il campo, e da qui
+              // passavano SOPRA le parole del Maestro: la conversazione scorre
+              // dietro il compositore per una decisione presa, quindi il testo
+              // che sale finiva sotto queste due righe e nessuno dei due si
+              // leggeva piu'. Adesso vivono in cima, nello spazio che la riga
+              // dei giorni prima ha lasciato libero.
+              //
+              // La ragione dell'ordine CE voce 04 resta intera: *"l'utente
+              // deve Sapere quante ne mancano"*, e lo sa prima di scrivere.
+              // Cambia dove lo legge, non se lo legge.
               // L'avviso di configurazione e' uno strumento come il campo:
               // sta sopra di lui, non in fondo alla colonna del contenuto,
               // altrimenti torna la fascia piena sotto la barra.
@@ -1096,6 +1117,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 }
 
 /// Barra superiore cerimoniale con il nome del Maestro e il suo dominio.
+/// Le due voci del menu' della barra. Ordine CT voce 03.
+enum _VoceDelMenu { nuova, giorniPrima }
+
 class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _ChatAppBar({
     required this.maestro,
@@ -1164,13 +1188,34 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///
   /// **Il numero non e' piu' scritto: e' calcolato.** Un numero scritto per la
   /// scala di chi lo scrive vale per lui solo.
+  /// **IL CERCHIETTO E LE DUE RIGHE SONO ALTI UGUALI, per costruzione.**
+  /// Ordine CT voce 01, 7 settembre 2026.
+  ///
+  /// Parole del fondatore: *"nella prima barra superiore metti cerchietto con
+  /// viso maestro con a fianco Nome Maestro e subito sotto le sue arti in
+  /// giallo. queste due righe devono occupare esattamente lo spazio che occupa
+  /// il cerchietto con il Maestro a loro fianco, alla loro sinistra"*.
+  ///
+  /// Prima il volto stava SOPRA il nome, in colonna, e la barra misurava il
+  /// volto piu' le due righe: alta il doppio del necessario. In riga misura
+  /// **il piu' alto dei due**, e siccome il cerchietto prende la misura delle
+  /// righe, i due sono la stessa cosa.
+  ///
+  /// **Il cerchietto cresce con le lettere e non le rimpicciolisce.** Legare
+  /// le due righe a un anello fisso di quaranta punti avrebbe voluto dire
+  /// schiacciare il testo di chi legge grande, che e' il contrario di quel che
+  /// serve. Il pavimento resta quaranta perche' sotto quella misura un volto
+  /// non si riconosce piu'.
+  static const double anelloMinimo = 40;
+
+  double get anello {
+    final righe = _quantoMisuranoLeDueRighe();
+    return righe > anelloMinimo ? righe : anelloMinimo;
+  }
+
   double get _barHeight {
     const respiro = 6.0;
-    final righe = _quantoMisuranoLeDueRighe();
-    if (!showAvatar) return righe + respiro * 2;
-    const anello = 40.0;
-    const stacco = 2.0;
-    return anello + stacco + righe + respiro;
+    return anello + respiro * 2;
   }
 
   /// **LE DUE RIGHE SI MISURANO, non si stimano.** Ordine CO voce 10.
@@ -1185,19 +1230,53 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// `TextPainter` e' lo stesso che dipinge a schermo, quindi questa misura e'
   /// la misura vera, interlinea e ritorno a capo compresi. Costa due
   /// impaginazioni di due righe per costruzione della barra.
+  /// **LA LARGHEZZA VERA DEL TESTO, col cerchietto accanto.** Ordine CT voce
+  /// 01: passando in riga, il testo non ha piu' tutta la barra, ha la barra
+  /// meno il cerchietto e il suo stacco. Misurarlo sulla larghezza vecchia
+  /// direbbe che le righe ci stanno quando non ci stanno.
+  ///
+  /// Il cerchietto lo si prende al pavimento e non alla misura vera: la misura
+  /// vera dipende da questo conto, e chiederla qui sarebbe un giro chiuso.
+  double get _larghezzaDelTesto {
+    // **SI TOGLIE L'ANELLO VERO, non il pavimento.** Col pavimento il testo
+    // prendeva due punti in piu' di quelli che restano, e la riga traboccava:
+    // misurato, due pixel a destra.
+    final larga = larghezzaDelTitolo - anello - SpacingTokens.sm;
+    return larga > 80 ? larga : 80;
+  }
+
+  /// **LA LARGHEZZA CON CUI SI MISURA, che non e' quella con cui si disegna.**
+  ///
+  /// Qui si toglie il PAVIMENTO dell'anello e non l'anello vero, e il motivo
+  /// e' che l'anello vero nasce da questa misura: chiederlo qui chiude il giro
+  /// e la barra va in StackOverflow. E' successo, ed e' scritto perche' non
+  /// succeda a chi legge dopo. La differenza fra le due larghezze e' di pochi
+  /// punti e cade su un nome corto, che non va a capo in nessuno dei due casi.
+  double get _larghezzaPerMisurare {
+    final larga = larghezzaDelTitolo - anelloMinimo - SpacingTokens.sm;
+    return larga > 80 ? larga : 80;
+  }
+
   double _quantoMisuranoLeDueRighe() {
-    double alta(String testo, TextStyle stile) {
+    double alta(String testo, TextStyle stile, {required double maxWidth}) {
       final p = TextPainter(
         text: TextSpan(text: testo, style: stile),
         textDirection: TextDirection.ltr,
         textScaler: TextScaler.linear(scalaDelTesto),
-        textAlign: TextAlign.center,
-      )..layout(maxWidth: larghezzaDelTitolo);
+      )..layout(maxWidth: maxWidth);
       return p.height;
     }
 
-    return alta(maestro.displayName, TypographyTokens.titoloSezione()) +
-        alta(maestro.domainArtsPhrase, TypographyTokens.didascalia());
+    // **LE ARTI STANNO SU UNA RIGA SOLA, e non perche' si spera.** A video la
+    // riga delle arti sta dentro un `FittedBox` che la rimpicciolisce quando
+    // non ci sta in larghezza, invece di mandarla a capo: cosi' il blocco resta
+    // di due righe qualunque sia il Maestro e qualunque la scala di chi legge,
+    // che e' esattamente cio' che il fondatore ha chiesto. Qui la si misura
+    // senza vincolo di larghezza, che e' l'altezza di una riga sola.
+    return alta(maestro.displayName, TypographyTokens.titoloSezione(),
+            maxWidth: _larghezzaPerMisurare) +
+        alta(maestro.domainArtsPhrase, TypographyTokens.didascalia(),
+            maxWidth: double.infinity);
   }
 
   @override
@@ -1212,7 +1291,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       titleSpacing: 0,
       toolbarHeight: _barHeight,
-      centerTitle: true,
+      centerTitle: false,
       iconTheme: IconThemeData(color: palette.goldSoft),
       // Freccia Indietro esplicita che riavvolge la pila. Nessuna X, nessuna
       // freccia Avanti. Il tasto di sistema Android e lo scorrimento dal bordo
@@ -1240,43 +1319,110 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       // caratteri grandi, misurato su 48 prove. Le azioni dell'intestazione
       // sono il posto dei comandi di schermata, e li' la misura non e' in
       // discussione.
+      // **L'ICONA E' DIVENTATA UN MENU' A DUE VOCI. Ordine CT voce 03**, 7
+      // settembre 2026, decisione del fondatore: *"trasformala in icona con
+      // menu' a discesa 2 scelte"*, e *"l'icona di nuova conversazione deve
+      // essere un pochino piu' grande"*.
+      //
+      // Le due voci sono aprire una conversazione nuova, che e' cio' che
+      // l'icona faceva da sola, e i giorni prima, che con la voce CT.04 non
+      // vive piu' nella riga sotto la barra.
+      //
+      // **La voce Ricomincia compare solo quando c'e' qualcosa da
+      // ricominciare**, e non disabilitata: una riga grigia in un menu' di due
+      // e' rumore. I giorni prima invece c'e' sempre, quindi il menu' non e'
+      // mai vuoto.
       actions: [
-        if (mostraRicomincia)
-          IconButton(
-            key: const Key('chat_conversazione_nuova'),
-            icon: const Icon(Icons.add_comment_outlined),
-            tooltip: 'Ricomincia da capo',
-            onPressed: onRicomincia,
-          ),
+        PopupMenuButton<_VoceDelMenu>(
+          key: const Key('chat_menu_della_barra'),
+          tooltip: 'Altro',
+          icon: const Icon(Icons.add_comment_outlined, size: 27),
+          onSelected: (voce) {
+            switch (voce) {
+              case _VoceDelMenu.nuova:
+                onRicomincia?.call();
+              case _VoceDelMenu.giorniPrima:
+                Navigator.of(context)
+                    .push(RicordiScreen.route(maestro: maestro));
+            }
+          },
+          itemBuilder: (context) => [
+            if (mostraRicomincia)
+              const PopupMenuItem<_VoceDelMenu>(
+                key: Key('chat_conversazione_nuova'),
+                value: _VoceDelMenu.nuova,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.add_comment_outlined),
+                  title: Text('Nuova conversazione'),
+                ),
+              ),
+            const PopupMenuItem<_VoceDelMenu>(
+              key: Key('chat_i_giorni_prima'),
+              value: _VoceDelMenu.giorniPrima,
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.history_rounded),
+                title: Text('I giorni prima'),
+              ),
+            ),
+          ],
+        ),
         const AngoloDellaBarra(),
       ],
+      // **IL CERCHIETTO A SINISTRA E LE DUE RIGHE ACCANTO.** Ordine CT voce
+      // 01. Prima era tutto in colonna e centrato, col volto sopra il nome:
+      // bello e alto il doppio.
       title: GestureDetector(
         onLongPress: onDiagnostics,
         behavior: HitTestBehavior.opaque,
-        // Tutto centrato in colonna: il volto del Maestro che sfonda il cerchio
-        // sopra (a conversazione avviata), poi il nome, poi il sottotitolo con
-        // le tre arti. Cosi' l'header resta simmetrico in entrambe le fasi.
-        child: Column(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (showAvatar) ...[
-              MaestroBust(
-                maestro: maestro,
-                ring: 40,
-                speaking: speaking,
+            MaestroBust(
+              key: const Key('chat_cerchietto_del_maestro'),
+              maestro: maestro,
+              ring: anello,
+              speaking: speaking,
+              // **IL VOLTO RESTA DENTRO IL CERCHIO.** Con popOut il capo
+              // sborda sopra l'anello e il riquadro del busto diventa piu'
+              // alto dell'anello stesso: la barra tornava a cento punti,
+              // misurati, cioe' il difetto che questa voce toglie. Il
+              // fondatore ha chiesto un cerchietto col viso, non un busto
+              // che esce dalla cornice.
+              popOut: false,
+            ),
+            const SizedBox(width: SpacingTokens.sm),
+            SizedBox(
+              width: _larghezzaDelTesto,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(maestro.displayName,
+                      key: const Key('chat_nome_del_maestro'),
+                      style: TypographyTokens.titoloSezione()),
+                  // **LE ARTI IN GIALLO, SU UNA RIGA SOLA.** Il `FittedBox`
+                  // rimpicciolisce invece di mandare a capo, e solo quando
+                  // serve: la riga di Medora e' la piu' lunga delle tre e a
+                  // lettere grandi non ci starebbe. Andare a capo qui vorrebbe
+                  // dire un blocco di tre righe accanto a un cerchietto,
+                  // cioe' la barra alta di nuovo.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      maestro.domainArtsPhrase,
+                      key: const Key('chat_arti_del_maestro'),
+                      maxLines: 1,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 2),
-            ],
-            Text(maestro.displayName,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloSezione()),
-            Text(
-              maestro.domainArtsPhrase,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: palette.goldSoft),
             ),
           ],
         ),
@@ -1409,46 +1555,6 @@ class _ConversazioneNuova {
 /// porte, e porta alla stessa rotta delle altre due: due schermate che
 /// mostrano le stesse cose sono la famiglia di difetti piu' numerosa di questo
 /// progetto.
-class _IGiorniPrima extends StatelessWidget {
-  const _IGiorniPrima({required this.maestro});
-
-  final Maestro maestro;
-
-  @override
-  Widget build(BuildContext context) {
-    // **IL COLORE VIENE DALLA TAVOLOZZA DEL MAESTRO, e prima non veniva da
-    // nessuna parte.** Ordine CI voci 02 e 08.
-    //
-    // Il fatto: questa riga si leggeva in viola scuro sul cosmo, e a schermo
-    // era quasi invisibile. La causa NON era una tinta sbagliata scelta qui,
-    // era che qui non se ne sceglieva nessuna: un `TextButton` nudo prende il
-    // primario dello schema Material, che in `AppTheme.dark()` e' il primario
-    // della tavolozza NEUTRA. Per questo il viola era identico su Medora, su
-    // Aura e su Caligo, misurato sulle tre anteprime: non e' il colore di
-    // nessuno dei tre, e' il colore di nessuno.
-    //
-    // L'oro tenue del Maestro e' la tinta che questa app usa per i comandi
-    // secondari sopra il cosmo, la stessa dell'etichetta ESPLORA, e passa da
-    // `context.palette`, che e' la porta sola: qui non c'e' nessun valore
-    // scritto a mano, e cambiando la tavolozza cambia anche questa riga.
-    final palette = context.palette;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: TextButton.icon(
-          key: const Key('chat_i_giorni_prima'),
-          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
-          onPressed: () =>
-              Navigator.of(context).push(RicordiScreen.route(maestro: maestro)),
-          icon: const Icon(Icons.history_rounded, size: 16),
-          label: const Text('I giorni prima'),
-        ),
-      ),
-    );
-  }
-}
-
 /// **CIO' CHE STA NELLA FASCIA QUANDO NON SI ASPETTA NIENTE.**
 /// Ordine CO voce 12, 3 settembre 2026.
 ///
@@ -1507,8 +1613,34 @@ class _PresenzaARiposo extends StatelessWidget {
         // che conta e' quella del riquadro che la lista occupa, meno quello
         // che i messaggi hanno gia' preso, e la porta l'altezza dello schermo
         // meno cio' che sta sopra e sotto la lista.
+        // **IL CERCHIO FANTASMA NASCEVA QUI. Ordine CT voce 02**, 7
+        // settembre 2026. Parole del fondatore: *"poco sotto sullo sfondo
+        // c'e' un cerchio fisso che credo sia un refuso da eliminare"*, ed
+        // era in tutte e cinque le schermate del collaudo, sempre nello
+        // stesso posto.
+        //
+        // **Non apparteneva a nessun elemento perche' il suo elemento non
+        // aveva altezza.** La sonda: busto con anello cento dentro un
+        // riquadro `Rect.fromLTRB(145, 148, 245, 148)`, alto ZERO. Lo Stack
+        // del busto ha `Clip.none`, quindi l'anello si dipinge lo stesso,
+        // fuori dal proprio riquadro, fermo sul fondo.
+        //
+        // **La causa era che questa decisione guardava lo SCHERMO e non lo
+        // spazio ricevuto.** Un quinto di ottocentoquarantaquattro fa
+        // centosessantotto, ben sopra i centodieci della soglia, quindi la
+        // presenza si costruiva sempre: anche quando il genitore le stava
+        // dando zero. Dichiarare l'altezza dentro con un `SizedBox` non
+        // bastava, ed e' cio' che era gia' stato provato: un figlio puo'
+        // dichiarare l'altezza che vuole, chi lo stringe decide lo stesso.
+        //
+        // **Adesso comanda il vincolo, quando c'e' un vincolo.** Dentro la
+        // lista rovesciata i vincoli sono senza fondo, e li' vale ancora la
+        // frazione dello schermo, che e' l'unica misura vera che si conosca
+        // in quel posto.
         final schermo = MediaQuery.sizeOf(context).height;
-        final alta = schermo * quotaDelloSchermo;
+        final alta = vincoli.maxHeight.isFinite
+            ? vincoli.maxHeight
+            : schermo * quotaDelloSchermo;
         if (!alta.isFinite || alta < quandoCiSta) {
           return const SizedBox.shrink();
         }
