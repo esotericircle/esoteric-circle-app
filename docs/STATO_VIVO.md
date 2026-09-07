@@ -635,12 +635,43 @@ intera. M1, i quattro pool statici tolti, e **tre guardie che li interrogavano
 ancora** riportate sui motori veri: misuravano da mesi testo che nessuno vede.
 M3 e M4, la numerazione dei salmi dichiarata e il versetto condiviso spiegato.
 
-**RESTANO APERTE SEI VOCI.** S4bis, le tracce audio della Meditazione,
-dichiarate NON VERIFICATE. S6, la Costellazione del Viso e i sensori, NON
-VERIFICABILI senza un telefono. O1, O2 e O4 sono **funzioni nuove e non
-riparazioni**: l'Oracolo degli Angeli sui 73 artwork nel pacchetto, l'Oracolo
-dei Cristalli sui 12, e il riuso di `CieloDiOggi` oltre l'Oroscopo. Aspettano
-la parola di Mauro.
+**TRE VOCI LE HA DECISE IL FONDATORE, ordine CV del 7 settembre 2026**, e si
+chiudono come DECISE: non aperte e non riparate. **O1**, i settantatre artwork
+degli Angeli restano nel pacchetto, parole sue: *"lasciali, gli angeli verranno
+richiamati gia' in MVP"*. **O2**, i dodici dei Cristalli restano per la stessa
+ragione. **O3 del cielo**, cioe' la voce O4: *"lascia il cielo com'e', verra'
+usato da altre funzionalita'"*.
+
+**E DUE DI QUELLE TRE VOCI POGGIAVANO SU UNA PREMESSA CHE NESSUNO AVEVA
+CONTATO, ed erano mie.**
+
+**O1 era falsa a meta'.** Il titolo diceva *"nessun Oracolo che le usi"*: i
+settantatre artwork sono gia' consumati da **cinque punti vivi**, fra cui
+l'assegnazione dell'Angelo Custode nell'onboarding, `trionfi_screen.dart:480`,
+piu' la schermata dei tre Angeli, l'angelo ingrandito, i compagni di nascita e
+la tessera del Passaporto. Resta vero che l'arte `angels_oracle` e'
+`ArtState.inArrivo`: **manca l'Oracolo, non l'uso**.
+
+**O4 era falsa per intero.** Diceva *"lo consuma soltanto l'Oroscopo"*:
+`CieloDiOggi.perIlGiorno` e' chiamata da **cinque file fuori dal proprio**, in
+quattro arti diverse, e le date del `git log -S` dicono che tutte precedevano
+la scansione, **la piu' vecchia di un mese esatto**. Il cielo di oggi **e' gia'
+una porta pubblica** nel nucleo, non un dato chiuso in una schermata: chi vorra'
+usarlo non dovra' aprire niente.
+
+**O2 invece era vera, contata in due modi.** I dodici Cristalli non li richiama
+nessuno: `crystal_catalog.dart` e' l'unico file di tutto `lib` che nomini quella
+famiglia, e nessuna prova lo interroga. La decisione del fondatore li tiene per
+l'MVP che verra', non per un uso che gia' esiste.
+
+**La causa dei due errori e' la stessa, ed e' la piu' facile da ripetere:** ho
+contato i file nella cartella e non ho contato chi li chiama. Il conto costava
+un grep.
+
+**RESTANO TRE VOCI, E NESSUNA SI CHIUDE SCRIVENDO CODICE.** S4bis aspetta che
+qualcuno ascolti le tracce della Meditazione. S6, la Costellazione del Viso e i
+sensori, e' NON VERIFICABILE senza un telefono in mano. M2 era una pista
+dell'ordine, verificata e caduta: il corpus dell'I Ching non esiste.
 
 **QUATTORDICI PAROLE DEGLI ANGELI ARRIVAVANO A VIDEO COLL'APOSTROFO AL POSTO
 DELL'ACCENTO, e la causa non era il corpus.** Avevo corretto gli accenti

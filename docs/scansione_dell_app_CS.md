@@ -31,6 +31,15 @@ fondatore leggendo.
 | Funzioni risultate NON VERIFICABILI senza un telefono | **2** |
 | Funzioni dichiarate NON VERIFICATE in questa scansione | **1** |
 | Voci **RIPARATE** al 7 settembre 2026 | **10** su 16 |
+| Voci **DECISE DAL FONDATORE**, ordine CV | **3** su 16 |
+| Voci che **NON SI CHIUDONO SCRIVENDO CODICE** | **3** su 16 |
+
+Le tre che restano non sono lavoro rimandato. **S4bis** aspetta che qualcuno
+ascolti le tracce della Meditazione e dica se sono quelle scelte o i
+segnaposto generati: e' dichiarata NON VERIFICATA, non aperta. **S6**, la
+Costellazione del Viso e i sensori, e' NON VERIFICABILE senza un telefono in
+mano. **M2** era una pista dell'ordine, e' stata verificata ed e' caduta: il
+corpus dell'I Ching non esiste, quindi non c'e' niente da fare.
 
 **Le arti attive erano nove alla scansione, adesso sono dieci**, perche'
 l'Angelo Custode e' passato ad attiva con la voce S3. Il numero si conta sul
@@ -438,6 +447,34 @@ risposta alta"*, e' `ArtState.inArrivo`.
 la chiave di lettura, la politica di pubblicazione, e la meccanica di una stesa
 funzionante nei Tarocchi.
 
+### DECISA DAL FONDATORE il 5 settembre 2026, ordine CV voce 01
+
+**Gli artwork restano nel pacchetto.** Parole sue: *"lasciali, gli angeli
+verranno richiamati gia' in MVP e cmq, attualmente anche se solo nella
+assegnazione in onboarding, vengono richiamati"*.
+
+### E META' DI QUESTA VOCE ERA FALSA, contata oggi
+
+Il titolo diceva *"nessun Oracolo che le usi"*. **I settantatre artwork sono
+gia' consumati da cinque punti vivi dell'app**, e il fondatore lo sapeva mentre
+io lo scrivevo:
+
+| dove | cosa mostra |
+|---|---|
+| `onboarding/trionfi_screen.dart:480` | l'Angelo Custode assegnato **nell'onboarding** |
+| `angels/angels_screen.dart:481` | i tre Angeli, l'arte piena |
+| `angels/angelo_ingrandito.dart:135` | l'angelo aperto a schermo intero |
+| `identity/widgets/birth_companions.dart:132` | i compagni di nascita nella carta natale |
+| `passport/cosmic_passport_screen.dart:439` | la miniatura nella tessera del Passaporto |
+
+**Vera resta la prima meta':** l'arte `angels_oracle`, la stesa dei settantadue
+nomi, e' ancora `ArtState.inArrivo`. Quel che manca e' l'Oracolo, non l'uso.
+
+**PROVENIENZA DEL DIFETTO: mia, ordine CS parte seconda, 6 settembre 2026.** Ho
+contato i file nella cartella e non ho contato chi li chiama. Una voce che
+dichiara "nessuno lo usa" senza aver contato gli usi e' esattamente cio' che
+questa scansione cerca negli altri.
+
 ## O2. Dodici cristalli disegnati, e nessun Oracolo dei Cristalli
 
 **Costo stimato: medio.** In `assets/img/cristalli/` ci sono **12 file**. Il
@@ -446,6 +483,26 @@ pietra che ti parla oggi"*, e' `ArtState.inArrivo`.
 
 E' la stessa forma dell'occasione O1, con un mazzo piu' piccolo e quindi piu'
 rapido da montare.
+
+### DECISA DAL FONDATORE il 5 settembre 2026, ordine CV voce 02
+
+**Gli artwork restano nel pacchetto**, stessa decisione e stessa ragione degli
+Angeli: entrano nell'MVP.
+
+### E QUI LA VOCE ERA VERA, contato oggi
+
+A differenza degli Angeli, **i dodici cristalli non li richiama nessuno**.
+`lib/core/rituals/crystal_catalog.dart` esiste, dichiara i dodici col loro
+`thumbPath` e `fullPath` sulla famiglia `cristalli`, ed e' **l'unico file di
+tutto `lib` che nomini quella famiglia**: nessuna schermata lo importa, e
+nessuna prova lo interroga.
+
+Cercato in due modi indipendenti, per nome di classe e per percorso degli
+asset, con lo stesso esito.
+
+**Quindi la decisione del fondatore non poggia su un uso che gia' esiste**,
+poggia sull'MVP che verra': dodici immagini, dodici voci di corpus e un
+catalogo pronto, in attesa della funzione che li chiami.
 
 ## O3. La Carta di Nascita dei Tarocchi entra solo in un seme
 
@@ -499,6 +556,48 @@ Il Calendario degli Eventi legge il livello di personalizzazione ma non i fatti;
 la Sinastria ha un suo `cielo_del_giorno_sulla_coppia.dart` che lavora in
 parallelo. Un fatto calcolato una volta e usato da una funzione sola e'
 esattamente la forma che l'ordine chiede di cercare.
+
+### DECISA DAL FONDATORE il 5 settembre 2026, ordine CV voce 03
+
+**Il cielo di oggi resta com'e'.** Parole sue: *"lascia il cielo com'e', verra'
+usato da altre funzionalita'"*. Non si tocca e non si generalizza adesso.
+
+### E QUESTA VOCE ERA FALSA PER INTERO, contata oggi
+
+Il titolo diceva *"si calcola per l'Oroscopo e per nient'altro"*, e il corpo
+*"lo consuma soltanto l'Oroscopo"*. **`CieloDiOggi.perIlGiorno` e' chiamata da
+cinque file fuori dal proprio**, e sono quattro arti diverse:
+
+| chi chiama | da quando |
+|---|---|
+| `core/rituals/dawn_gift.dart`, due volte | 5 agosto 2026 |
+| `core/rituals/risposta_del_soffio.dart` | 6 agosto 2026 |
+| `features/rituals/breath_destiny_screen.dart` | 6 agosto 2026 |
+| `features/tarot/stesa_tre_carte_screen.dart` | 25 agosto 2026 |
+| `features/horoscope/oroscopo_screen.dart` | l'Oroscopo |
+
+Le date vengono da `git log -S` sul nome della porta: **tutte precedono la
+scansione**, la piu' vecchia di un mese esatto.
+
+**LA RISPOSTA ALLA DOMANDA DELL'ORDINE.** Il cielo di oggi **e' gia' una porta
+pubblica**, non un dato chiuso in una schermata:
+
+    static CieloDiOggi perIlGiorno({
+      required DateTime adesso,
+      required NatalChart? carta,
+    })
+
+Sta in `lib/core/horoscope/cielo_di_oggi.dart`, cioe' nel nucleo e non in una
+feature, e prende solo un momento e una carta natale. **Chi vorra' usarlo non
+dovra' aprire niente:** lo chiama e riceve gli aspetti, le case attraversate e
+i retrogradi. Il commento di `dawn_gift.dart` lo dice gia' per esteso: *"E' LA
+STESSA PORTA DELL'OROSCOPO"*.
+
+**PROVENIENZA DEL DIFETTO: mia, ordine CS parte seconda, 6 settembre 2026.** Ho
+guardato chi importa `CieloDiOggi` nelle schermate e ho concluso dalla prima
+riga trovata, invece di contare i chiamanti della porta. Il conto costava un
+grep, ed e' lo stesso errore della voce O1: **una premessa affermata senza
+contare**.
 
 ## O5. Il Rito dell'Alba puo' diventare individuale con una riga
 
