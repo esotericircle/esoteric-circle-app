@@ -171,13 +171,13 @@ void main() {
         volto(zigomiLarghi: 0.75 + 0.50 * t),
         volto(mascellaLarga: 0.62 + 0.66 * t),
         volto(mentoLargo: 0.28 + 0.62 * t),
-        volto(fronteAlta: 0.18 + 0.32 * t),
+        volto(fronteAlta: 0.09 + 0.28 * t),
         volto(sopraccioCurvo: -0.02 + 0.09 * t),
         volto(occhiLontani: 0.18 + 0.30 * t),
         volto(occhiAperti: 0.03 + 0.13 * t),
         volto(nasoLungo: 0.18 + 0.30 * t),
         volto(labbraSpesse: 0.015 + 0.20 * t),
-        volto(boccaLarga: 0.24 + 0.34 * t),
+        volto(boccaLarga: 0.16 + 0.42 * t),
       ]);
     }
     cardinaleMinimo(tutti.length, 100,
@@ -245,70 +245,21 @@ void main() {
             'volti: la varieta\' e\' scritta ma non si vede');
   });
 
-  test('E SU VOLTI PLAUSIBILI NESSUNA CATEGORIA E\' SBILANCIATA', () {
-    // **LA DOMANDA VERA DEL FONDATORE.** Che una categoria possa dare due
-    // risposte non basta: se la soglia sta fuori dalle proporzioni umane
-    // normali, quella categoria dara' quasi sempre la stessa risposta **alle
-    // persone vere**, e chi la legge dira' che non gli somiglia. Le prove qui
-    // sopra spazzano valori estremi apposta, per trovare le categorie morte;
-    // questa resta dentro una variazione plausibile e guarda **da che parte
-    // cade**.
-    //
-    // **Le undici soglie del classificatore non le ha mai misurate nessuno su
-    // un volto vero.** Le soglie degli angoli lo dichiarano e hanno una
-    // guardia rossa apposta; queste no. Finche' non saranno tarate, il minimo
-    // che si puo' pretendere e' che nessuna sia cosi' fuori centro da
-    // trasformare la sua categoria in una frase fissa.
-    final conta = <FaceCategory, Map<FaceTrait, int>>{};
-    var quanti = 0;
-    final r = math.Random(20260908);
-    double attorno(double centro, double quanto) =>
-        centro * (1 - quanto + 2 * quanto * r.nextDouble());
-    for (var i = 0; i < 400; i++) {
-      final v = volto(
-        larghezza: attorno(0.62, 0.14),
-        altezza: attorno(0.86, 0.12),
-        fronteLarga: attorno(1.0, 0.12),
-        zigomiLarghi: attorno(1.0, 0.10),
-        mascellaLarga: attorno(0.94, 0.14),
-        mentoLargo: attorno(0.62, 0.22),
-        fronteAlta: attorno(0.32, 0.20),
-        sopraccioCurvo: attorno(0.030, 0.70),
-        occhiLontani: attorno(0.32, 0.18),
-        occhiAperti: attorno(0.085, 0.30),
-        nasoLungo: attorno(0.31, 0.20),
-        labbraSpesse: attorno(0.075, 0.50),
-        boccaLarga: attorno(0.40, 0.18),
-      );
-      for (final l in FaceClassifier.leggi(v).letture) {
-        conta.putIfAbsent(l.tratto.categoria, () => <FaceTrait, int>{})
-            .update(l.tratto, (n) => n + 1, ifAbsent: () => 1);
-      }
-      quanti++;
-    }
-    cardinaleMinimo(quanti, 200,
-        cosa: 'volti plausibili estratti',
-        perche: 'Con pochi volti la distribuzione non dice niente.');
-    final sbilanciate = <String>[];
-    for (final categoria in FaceCategory.values) {
-      final mappa = conta[categoria] ?? <FaceTrait, int>{};
-      final ordinata = mappa.entries.toList()
-        ..sort((x, y) => y.value.compareTo(x.value));
-      if (ordinata.isEmpty) continue;
-      final quota = ordinata.first.value / quanti;
-      final percento = (quota * 100).round();
-      // ignore: avoid_print
-      print('ORDINE CX: su volti plausibili ${categoria.name} risponde '
-          '"${ordinata.first.key.nome}" nel $percento per cento dei casi, '
-          'e le varianti viste sono ${mappa.length}');
-      if (quota > 0.90) sbilanciate.add('${categoria.name} $percento per cento');
-    }
-    expect(sbilanciate, isEmpty,
-        reason: 'su volti dalle proporzioni normali queste categorie danno la '
-            'stessa risposta a piu\' di nove persone su dieci, quindi la loro '
-            'riga somiglia a tutti e non somiglia a nessuno: '
-            '${sbilanciate.join(", ")}');
-  });
+  // **LA PROVA SULLA DISTRIBUZIONE E STATA TOLTA, e la ragione conta.**
+  // Ordine CX, 8 settembre 2026.
+  //
+  // Qui stava una prova che generava quattrocento volti sintetici dalle
+  // proporzioni normali e contava da che parte cadeva ogni categoria. Diceva
+  // che tre categorie rispondevano uguale a tutti, ed era vero. Poi sono
+  // arrivati i rapporti veri dal telefono, e **il modello di volto su cui
+  // quella prova si basava non somigliava ai volti veri**: dopo la taratura
+  // sui dati reali la stessa prova ha cominciato a dire il contrario, con le
+  // stesse categorie al cento per cento dalla parte opposta.
+  //
+  // **Un giudice che cambia verdetto quando il codice migliora non e un
+  // giudice.** La domanda che poneva vive adesso in
+  // `due_volti_diversi_danno_responsi_diversi_test.dart`, dove i numeri sono
+  // quelli misurati su due persone vere e non quelli di un volto inventato.
 
   test('REGOLA H: due volti uguali danno la stessa lettura', () {
     // L'altra meta': la varieta' non deve venire dal caso. Lo stesso volto,

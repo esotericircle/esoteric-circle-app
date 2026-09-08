@@ -40,10 +40,10 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 119 |
-| Guardie con un cardinale proprio dichiarato | 80 |
+| Guardie con un cardinale proprio dichiarato | 82 |
 | Guardie che non scoprono nessun insieme di file | 161 |
-| **Somma delle categorie** | **360** |
-| **Guardie secondo la definizione** | **360** |
+| **Somma delle categorie** | **362** |
+| **Guardie secondo la definizione** | **362** |
 
 Le due righe in grassetto **coincidono**, contate il 7 settembre 2026, e
 ricontate lo stesso giorno dopo l'ordine CW, che ha portato **otto guardie
@@ -124,7 +124,7 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 797 |
-| **Guardie secondo la definizione** | **360** |
+| **Guardie secondo la definizione** | **362** |
 | Guardie che scorrono i sorgenti di `lib` | 136 |
 | Di queste, passate alla porta comune | 119 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
@@ -225,6 +225,8 @@ le altre.
 | `costellazione_ripetuta_test.dart` | costellazione ripetuta | 1, 2 | dalla porta comune | mai | 3 |
 | `dati_nascita_sbloccano_test.dart` | dati nascita sbloccano | 1, 2 | dalla porta comune | mai | 3 |
 | `dove_si_spendono_eos_test.dart` | dove si spendono eos | 1, 2 | dalla porta comune | 01/09/2026, CM, cardinale al caricamento | 3 |
+| `due_volti_diversi_danno_responsi_diversi_test.dart` | due volti diversi non ricevono lo stesso responso | 1, 2 | proprio, dichiarato | 08/09/2026, CX | 1 |
+| `ogni_categoria_misura_qualcosa_test.dart` | ogni categoria misura qualcosa, e il numero si legge | 1, 2 | proprio, dichiarato | 08/09/2026, CX | 1 |
 | `due_volti_danno_misure_diverse_test.dart` | due volti diversi danno misure diverse, lo stesso si somiglia | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `entitlement_soldi2_test.dart` | entitlement soldi2 | 1, 2 | dalla porta comune | mai | 3 |
 | `etichette_e_lettura_test.dart` | etichette e lettura | 1, 2 | proprio, dichiarato | CO | 3 |

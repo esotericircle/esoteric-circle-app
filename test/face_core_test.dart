@@ -59,15 +59,22 @@ void main() {
             Offset(centro + 20, base),
           ];
         case 'angolo':
+          // Apice piu alto, quindi piu aguzzo: sopra il rise di 0,28 la
+          // soglia dell angolo scatta.
           return [
             Offset(centro - 20, base),
-            Offset(centro, base - 10),
+            Offset(centro, base - 14),
             Offset(centro + 20, base),
           ];
         default: // curve
+          // **NELLA SCALA DEI VOLTI VERI.** L alzata era di tre punti su
+          // quaranta, cioe un rise di 0,075: con le soglie tarate sui volti
+          // veri, dove il rise sta fra 0,19 e 0,24, quell arco e piatto e
+          // risulta dritto. Dieci punti danno un rise di 0,25, dentro la
+          // fascia curve.
           return [
             Offset(centro - 20, base),
-            Offset(centro, base - 3),
+            Offset(centro, base - 10),
             Offset(centro + 20, base),
           ];
       }
@@ -125,8 +132,10 @@ void main() {
       expect(letto(c, FaceCategory.formaVolto), FaceTrait.voltoOvale);
     });
     test('Lati pieni e larghi: quadrato', () {
+      // Piu largo che alto, nella scala vera: il quadrato chiede ora un
+      // rapporto sopra 0,90, che e il piu largo dei due volti misurati.
       final c = volto(
-          h: 210, wFronte: 175, wZigomi: 180, wMascella: 172, wMento: 150);
+          h: 200, wFronte: 180, wZigomi: 186, wMascella: 180, wMento: 158);
       expect(letto(c, FaceCategory.formaVolto), FaceTrait.voltoQuadrato);
     });
     test('Largo e morbido: tondo', () {
@@ -167,9 +176,14 @@ void main() {
   });
 
   test('Occhi grandi e occhi raccolti', () {
-    expect(letto(volto(hOcchio: 32), FaceCategory.grandezzaOcchi),
+    // **NELLA SCALA DEI VOLTI VERI.** L altezza dell occhio sta fra il
+    // quattro e il cinque e mezzo per cento dell altezza del volto, non fra
+    // il cinque e l undici: su un volto alto trecento punti sono dodici e
+    // diciotto, non sedici e trentadue. Con i vecchi numeri anche l occhio
+    // raccolto superava la soglia tarata e usciva grande.
+    expect(letto(volto(hOcchio: 18), FaceCategory.grandezzaOcchi),
         FaceTrait.occhiGrandi);
-    expect(letto(volto(hOcchio: 16), FaceCategory.grandezzaOcchi),
+    expect(letto(volto(hOcchio: 12), FaceCategory.grandezzaOcchi),
         FaceTrait.occhiRaccolti);
   });
 

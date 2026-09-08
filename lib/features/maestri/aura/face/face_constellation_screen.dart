@@ -7,6 +7,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 import '../../../../core/face/motore_del_volto.dart';
+import '../../../../core/face/quante_letture_del_viso.dart';
 import '../../../../core/face/motore_mediapipe.dart';
 import '../../../../core/face/scansione_a_pose.dart';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
@@ -20,7 +21,6 @@ import 'lo_specchio_dell_istante.dart';
 import 'maschera_che_segue.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/archetypes/archetype_allowance.dart';
 import '../../../../core/archetypes/archetype_sky.dart';
 import '../../../../core/archetypes/archetype_transits.dart' show Pianeta;
 import '../../../../core/entitlement/entitlement_service.dart';
@@ -204,7 +204,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
 
   Tier get _tier => context.read<EntitlementService>().tier;
 
-  bool get _consentito => ArchetypeAllowance.consentito(
+  // **IL VISO HA LA SUA PORTA, non piu quella del Test Archetipo.**
+  // Ordine CX, 8 settembre 2026: il lucchetto che il fondatore ha trovato
+  // veniva da una funzione diversa, ereditato il giorno dopo la nascita di
+  // questa schermata perche la classe era li e si chiamava in modo generico.
+  bool get _consentito => QuanteLettureDelViso.consentito(
         fattiOggi: _storico.fattiOggi,
         tier: _tier,
       );
@@ -324,7 +328,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                   _Fase.soglia => _Soglia(
                       palette: palette,
                       consentito: _consentito,
-                      rimanenti: ArchetypeAllowance.rimanenti(
+                      rimanenti: QuanteLettureDelViso.rimanenti(
                           fattiOggi: _storico.fattiOggi, tier: _tier),
                       ultimo: _storico.ultimo,
                       conCielo: _conCielo,
@@ -1026,6 +1030,16 @@ class _CatturaState extends State<_Cattura>
       if (_camera != null) {
         await _camera!.stopImageStream();
         final x = await _camera!.takePicture();
+        // **LA CACHE DELLE IMMAGINI VA SVUOTATA PER QUESTO FILE.**
+        // Segnalato dal fondatore l'8 settembre 2026: *"ho fatto la seconda
+        // scansione col cappello, ma quando faccio la foto mi fa vedere la
+        // prima foto senza cappello"*. `Image.file` non rilegge il disco
+        // quando la chiave della cache combacia, e la chiave e' il percorso:
+        // se lo scatto finisce nello stesso file dello scatto precedente,
+        // Flutter ridipinge quello di prima senza guardare i byte nuovi.
+        // Sfrattare la voce costa niente e toglie il dubbio.
+        await FileImage(File(x.path)).evict();
+        debugPrint('FOTO DEL VISO: ${x.path}');
         foto = await _laFotoTieneUnVolto(x.path) ? x.path : null;
         fotoSenzaVolto = foto == null;
       }
