@@ -154,6 +154,34 @@ class MotoreMediaPipe extends MotoreDelVolto {
   }
 
   @override
+  Future<bool> laFotoHaUnVolto({
+    required Uint8List rgba,
+    required int larghezza,
+    required int altezza,
+  }) async {
+    final r = _rilevatore;
+    if (r == null) return false;
+    if (larghezza <= 0 || altezza <= 0) return false;
+    // I byte devono bastare per l'immagine dichiarata: un fotogramma
+    // troncato darebbe un rifiuto che sembra "non c'e' nessun volto" mentre
+    // il volto c'era e i dati no.
+    if (rgba.length < larghezza * altezza * 4) return false;
+    final esito = r.process(
+      FaceMeshImage(pixels: rgba, width: larghezza, height: altezza),
+    );
+    // `primaryDetection`, non `selectedDetection`: quest ultimo esiste
+    // sull esito della catena, non su quello del solo rilevatore, e i due
+    // tipi si somigliano abbastanza da farlo credere.
+    final scelto = esito.primaryDetection;
+    // **LA STESSA SOGLIA DEL FOTOGRAMMA VIVO.** Una soglia piu' bassa qui
+    // vorrebbe dire che l'immagine che si conserva puo' essere piu' incerta
+    // di quella che ha prodotto il responso, e la fotografia e' proprio la
+    // cosa che la persona rivedra' fra un mese.
+    return scelto != null &&
+        scelto.score >= SoglieDelRilevamento.confidenzaDelRilevatore;
+  }
+
+  @override
   Future<void> spegni() async {
     // I contesti nativi si chiudono a mano: un finalizzatore li prenderebbe
     // prima o poi, e "prima o poi" su una fotocamera vuol dire memoria

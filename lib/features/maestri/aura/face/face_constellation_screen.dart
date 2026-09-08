@@ -1,6 +1,7 @@
 import 'dart:async';
 import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -997,15 +998,51 @@ class _CatturaState extends State<_Cattura>
     final contorni = (esito as VoltoTrovato).contorni;
     final reading = FaceClassifier.leggi(contorni);
     final cost = FaceConstellation.da(contorni);
+    // **I RAPPORTI MISURATI SI STAMPANO, ed e' il ponte per tarare le
+    // soglie.** Ordine CX, 8 settembre 2026.
+    //
+    // Le undici soglie del classificatore non le ha misurate nessuno su un
+    // volto vero, e su volti sintetici dalle proporzioni normali tre
+    // categorie rispondono la stessa cosa a chiunque. **Tararle contro un
+    // modello sintetico sarebbe tarare una misura su se stessa**: servono i
+    // numeri di volti veri, e questa riga li mette dove si possono leggere.
+    //
+    // **Non esce niente dal dispositivo**: e' una riga nel registro locale,
+    // che si legge col cavo. Non contiene immagini ne' identita', solo
+    // rapporti fra lunghezze.
+    _stampaIRapporti(reading);
+    // **LA FOTOGRAFIA SI GIUDICA, NON SI CONSERVA E BASTA.** Ordine CX voci
+    // 02 e 04.
+    //
+    // Il cancello ha certificato i CONTORNI VIVI. La fotografia si scatta
+    // adesso, cioe' in un istante successivo, da una fotocamera che nel
+    // frattempo puo' essersi spostata: **il responso era suo, la foto era un
+    // muro**, e questa e' la finestra da cui e' passato. Nessuna guardia
+    // l'aveva mai vista perche' tutte guardavano i contorni, che erano il
+    // pezzo sano accanto al pezzo rotto.
     String? foto;
+    var fotoSenzaVolto = false;
     try {
       if (_camera != null) {
         await _camera!.stopImageStream();
         final x = await _camera!.takePicture();
-        foto = x.path;
+        foto = await _laFotoTieneUnVolto(x.path) ? x.path : null;
+        fotoSenzaVolto = foto == null;
       }
     } catch (_) {
       foto = null;
+    }
+    if (fotoSenzaVolto) {
+      // **NIENTE RESPONSO E NIENTE RICORDO**, parole del fondatore: *"che
+      // dovrebbe essere vietato"*. Si dice cosa e' successo e si resta dove
+      // si e', perche' rifare la posa costa pochi secondi e un ricordo col
+      // muro dentro resta per sempre.
+      if (mounted) {
+        setState(() => _rifiuto =
+            'Nello scatto non c\'era piu\' un volto: tieni il viso davanti '
+            'alla fotocamera anche nell\'istante dello scatto.');
+      }
+      return;
     }
     // **L'ESPRESSIONE DELL'ISTANTE SALE COL RESPONSO. Ordine CR voce
     // 07.** Si prendono i coefficienti dell'ultima lettura viva, cioe'
@@ -1014,6 +1051,56 @@ class _CatturaState extends State<_Cattura>
     widget.onFatto(reading, cost,
         fotoPath: foto,
         espressione: _lettura?.espressione ?? const {});
+  }
+
+  /// **I RAPPORTI MISURATI, UNO PER CATEGORIA, nel registro del telefono.**
+  /// Ordine CX, 8 settembre 2026.
+  ///
+  /// Una riga sola, riconoscibile, da leggere col cavo mentre qualcuno si
+  /// scansiona davvero. Serve a raccogliere i numeri con cui centrare le
+  /// undici soglie del classificatore, che oggi sono scelte a tavolino.
+  void _stampaIRapporti(FaceReading lettura) {
+    final pezzi = <String>[
+      for (final l in lettura.letture)
+        '${l.tratto.categoria.name}='
+            '${l.rapporto?.toStringAsFixed(4) ?? "nullo"}'
+            '(${l.tratto.nome})',
+    ];
+    debugPrint('RAPPORTI DEL VISO: ${pezzi.join(" ")}');
+  }
+
+  /// **DENTRO LA FOTOGRAFIA C'E' UN VOLTO?** Ordine CX voci 02 e 04.
+  ///
+  /// Decodifica lo scatto e lo passa al rilevatore, che e' lo stesso che
+  /// giudica i fotogrammi vivi e con la stessa soglia. **Si decodifica a
+  /// larghezza ridotta**: uno scatto pieno da dodici megapixel diventerebbe
+  /// quasi cinquanta megabyte di RGBA in memoria per una domanda che a
+  /// seicentoquaranta punti ha la stessa risposta.
+  ///
+  /// **Falso quando qualcosa non torna**, mai vero per comodita': un ripiego
+  /// ottimista qui riaprirebbe la porta del muro, che e' la sola ragione per
+  /// cui questa funzione esiste.
+  Future<bool> _laFotoTieneUnVolto(String percorso) async {
+    try {
+      final byte = await File(percorso).readAsBytes();
+      final codec = await ui.instantiateImageCodec(byte, targetWidth: 640);
+      final fotogramma = await codec.getNextFrame();
+      final immagine = fotogramma.image;
+      final dati =
+          await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final larghezza = immagine.width;
+      final altezza = immagine.height;
+      immagine.dispose();
+      codec.dispose();
+      if (dati == null) return false;
+      return _motore.laFotoHaUnVolto(
+        rgba: dati.buffer.asUint8List(),
+        larghezza: larghezza,
+        altezza: altezza,
+      );
+    } catch (_) {
+      return false;
+    }
   }
 
   @override

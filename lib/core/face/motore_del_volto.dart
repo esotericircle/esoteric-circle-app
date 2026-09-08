@@ -51,6 +51,28 @@ abstract class MotoreDelVolto {
     required int byteDiRiga,
   });
 
+  /// **GUARDA DENTRO LA FOTOGRAFIA, e non i contorni di un istante prima.**
+  /// Ordine CX voci 02 e 04, 8 settembre 2026.
+  ///
+  /// **Il difetto che questo metodo esiste per chiudere.** Il cancello della
+  /// scansione certifica i CONTORNI VIVI; la fotografia si scatta dopo, in un
+  /// istante successivo, da una fotocamera che nel frattempo puo' guardare
+  /// qualunque cosa. **Nessuno ha mai guardato dentro la fotografia.** Il
+  /// fondatore ha ricevuto il proprio responso con la foto di un muro, e la
+  /// cura dell'ordine CR non era stata aggirata: faceva il suo lavoro sul
+  /// pezzo che le era stato dato da guardare, mentre il pezzo rotto era
+  /// l'immagine.
+  ///
+  /// Restituisce vero solo se dentro quei pixel c'e' una faccia con la stessa
+  /// confidenza che si pretende dal fotogramma vivo. **Un ripiego a vero
+  /// riaprirebbe esattamente la porta che questo metodo chiude**, quindi
+  /// l'implementazione che non sa rispondere risponde falso.
+  Future<bool> laFotoHaUnVolto({
+    required Uint8List rgba,
+    required int larghezza,
+    required int altezza,
+  });
+
   /// Rilascia le risorse native. Senza questa, i contesti MediaPipe restano
   /// vivi oltre la schermata.
   Future<void> spegni();

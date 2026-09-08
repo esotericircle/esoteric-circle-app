@@ -54,9 +54,27 @@ class FaceContours {
 /// La lettura di un tratto: la variante e quanto e' marcata, da zero a uno.
 @immutable
 class TraitLettura {
-  const TraitLettura({required this.tratto, required this.marcatezza});
+  const TraitLettura({
+    required this.tratto,
+    required this.marcatezza,
+    this.rapporto,
+  });
 
   final FaceTrait tratto;
+
+  /// **IL NUMERO MISURATO PRIMA DEL CONFRONTO CON LA SOGLIA.**
+  /// Ordine CX, 8 settembre 2026.
+  ///
+  /// Serve a una cosa sola e importante: **tarare le soglie su volti veri.**
+  /// Oggi gli undici numeri di questo file non li ha misurati nessuno, e su
+  /// volti dalle proporzioni normali tre categorie rispondono la stessa cosa
+  /// a tutti. Senza il rapporto grezzo non si puo' nemmeno sapere di quanto
+  /// una soglia sia fuori centro: si vedrebbe solo la variante che ne esce,
+  /// che e' il giudizio, non la misura.
+  ///
+  /// Nullo per la lettura che nasce dal ripiego tattile, dove non si misura
+  /// niente e la variante la sceglie la persona.
+  final double? rapporto;
 
   /// Quanto il tratto e' pronunciato, da zero (neutro) a uno (marcatissimo).
   /// Il tratto DOMINANTE del responso e' quello con la marcatezza piu' alta.
@@ -197,7 +215,8 @@ class FaceClassifier {
     }
     // Marcatezza: quanto la forma si stacca dal volto neutro (wh ~ 0.82).
     final m = _marca(wh, 0.82, 0.14) * 0.5 + _marca(jf, 0.92, 0.16) * 0.5;
-    return TraitLettura(tratto: t, marcatezza: m.clamp(0.0, 1.0));
+    return TraitLettura(
+        tratto: t, marcatezza: m.clamp(0.0, 1.0), rapporto: wh);
   }
 
   static TraitLettura _fronte(FaceContours c, _Box box, double h) {
@@ -205,7 +224,10 @@ class FaceClassifier {
     final ratio = ((browY - box.minY) / h).clamp(0.0, 1.0);
     final t =
         ratio >= 0.33 ? FaceTrait.fronteVerticale : FaceTrait.fronteSfuggente;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.33, 0.10));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.33, 0.10),
+        rapporto: ratio);
   }
 
   static TraitLettura _sopracciglia(FaceContours c) {
@@ -224,7 +246,7 @@ class FaceClassifier {
       t = FaceTrait.sopraccigliaCurve;
     }
     final m = _marca(rise, 0.06, 0.10);
-    return TraitLettura(tratto: t, marcatezza: m);
+    return TraitLettura(tratto: t, marcatezza: m, rapporto: rise);
   }
 
   static TraitLettura _distanzaOcchi(FaceContours c, double w) {
@@ -237,7 +259,8 @@ class FaceClassifier {
     final ratio = eyeW <= 0 ? 2.0 : gap / eyeW;
     final t =
         ratio < 2.0 ? FaceTrait.occhiRavvicinati : FaceTrait.occhiDistanziati;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 2.0, 0.5));
+    return TraitLettura(
+        tratto: t, marcatezza: _marca(ratio, 2.0, 0.5), rapporto: ratio);
   }
 
   static TraitLettura _grandezzaOcchi(FaceContours c, double h) {
@@ -246,7 +269,10 @@ class FaceClassifier {
             2;
     final ratio = eyeH / h;
     final t = ratio >= 0.085 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.085, 0.04));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.085, 0.04),
+        rapporto: ratio);
   }
 
   static TraitLettura _naso(FaceContours c, _Box box, double h) {
@@ -254,7 +280,10 @@ class FaceClassifier {
     final bottom = _maxY(c.nasoBase);
     final ratio = ((bottom - top) / h).clamp(0.0, 1.0);
     final t = ratio >= 0.33 ? FaceTrait.nasoLungo : FaceTrait.nasoCorto;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.33, 0.09));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.33, 0.09),
+        rapporto: ratio);
   }
 
   static TraitLettura _labbra(FaceContours c) {
@@ -265,7 +294,10 @@ class FaceClassifier {
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza <= 0 ? 0.0 : spessore / larghezza;
     final t = ratio >= 0.34 ? FaceTrait.labbraPiene : FaceTrait.labbraSottili;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.34, 0.12));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.34, 0.12),
+        rapporto: ratio);
   }
 
   static TraitLettura _bocca(FaceContours c, double w) {
@@ -273,20 +305,29 @@ class FaceClassifier {
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza / w;
     final t = ratio >= 0.42 ? FaceTrait.boccaLarga : FaceTrait.boccaPiccola;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.42, 0.10));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.42, 0.10),
+        rapporto: ratio);
   }
 
   static TraitLettura _mento(double wMento, double wMascella) {
     final ratio = wMascella <= 0 ? 1.0 : wMento / wMascella;
     final t = ratio >= 0.62 ? FaceTrait.mentoAmpio : FaceTrait.mentoAPunta;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.62, 0.18));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.62, 0.18),
+        rapporto: ratio);
   }
 
   static TraitLettura _mascella(double wMascella, double w) {
     final ratio = wMascella / w;
     final t =
         ratio >= 0.86 ? FaceTrait.mascellaLarga : FaceTrait.mascellaStretta;
-    return TraitLettura(tratto: t, marcatezza: _marca(ratio, 0.86, 0.12));
+    return TraitLettura(
+        tratto: t,
+        marcatezza: _marca(ratio, 0.86, 0.12),
+        rapporto: ratio);
   }
 
   static TraitLettura _zigomi(
