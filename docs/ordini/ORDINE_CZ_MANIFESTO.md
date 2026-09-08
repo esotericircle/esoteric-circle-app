@@ -176,6 +176,16 @@ del Loto. Il secondo **collide** e lo sconsiglio; il terzo **e' impossibile
 come scritto**, perche' il centro segue il giorno della settimana ed e'
 biiettivo, quindi tre giorni consecutivi portano sempre tre centri diversi.
 
+**E UN DIFETTO MIO, PRESO DALLO SBARRAMENTO FINALE.** Avevo aggiunto il
+prefisso `loto.` alla dimenticanza e non ai gruppi dello scarico: la traccia
+dei respiri si sarebbe **cancellata senza potersi scaricare**, cioe' chi
+avesse chiesto i propri dati ne avrebbe ricevuti meno di quanti l'app ne
+tiene. Lo ha colto la guardia BC.02 *"e non si scarica meno di quello che si
+cancella"*, che confronta le due liste invece di guardarle una alla volta:
+`prefissi che si cancellano 31, gruppi dello scarico 30, scoperti 1`.
+Riparato in `lib/core/identity/scarico_dei_tuoi_dati.dart` col gruppo *I tuoi
+respiri nella Meditazione*.
+
 ---
 
 ## PARTE TERZA, LE QUATTRO RISPOSTE
