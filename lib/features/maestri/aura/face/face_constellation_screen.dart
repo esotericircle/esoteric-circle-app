@@ -27,6 +27,7 @@ import '../../../../core/archetypes/archetype_transits.dart' show Pianeta;
 import '../../../../core/entitlement/entitlement_service.dart';
 import '../../../../core/entitlement/tier.dart';
 import '../../../../core/face/cancello_della_scansione.dart';
+import '../../../../core/face/cio_che_non_ho_visto.dart';
 import '../../../../core/face/face_classifier.dart';
 import '../../../../core/face/face_corpus.dart';
 import '../../../../core/face/face_history.dart';
@@ -159,6 +160,10 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
 
   FaceReading? _reading;
 
+  /// La riga che dichiara cosa il responso non ha potuto vedere, o nulla
+  /// quando non c e niente da dichiarare. Ordine CX voce 08.
+  String? _nonHoVisto;
+
   /// **IL SECONDO VOLTO, e non esce mai da questo telefono. Ordine BX voce
   /// 03.**
   ///
@@ -255,10 +260,20 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     if (segni.isNotEmpty) await _linea.segna(segni);
   }
 
-  Future<void> _concludi(FaceReading reading, FaceConstellation cost,
+  Future<void> _concludi(FaceReading letturaGrezza, FaceConstellation cost,
       {String? fotoPath,
       Map<FaceBlendshape, double> espressione = const {}}) async {
     _espressione = espressione;
+    // **CIO' CHE NON SI E' VISTO ESCE DAL RESPONSO, E SI DICHIARA.**
+    // Ordine CX voci 01, 03 e 08, 8 settembre 2026.
+    //
+    // Il fondatore si e' scansionato col cappello e il responso gli ha
+    // descritto fronte e sopracciglia lo stesso: MediaPipe posa i punti
+    // anche dove non vede, e non dichiara quali abbia dedotto. La copertura
+    // si riconosce dall'effetto, coi numeri delle sei misure vere.
+    final coperte = CioCheNonHoVisto.quali(letturaGrezza);
+    _nonHoVisto = CioCheNonHoVisto.laRiga(coperte);
+    final reading = CioCheNonHoVisto.senzaLeCoperte(letturaGrezza, coperte);
     // Quando si sta leggendo l'altra persona il risultato non sostituisce il
     // proprio: si affianca.
     if (_leggoLAltro) {
@@ -387,6 +402,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                             pianeti: _pianeti,
                             espressione: _espressione,
                             onCielo: (v) => setState(() => _conCielo = v),
+                            nonHoVisto: _nonHoVisto,
                           ),
                         ),
                         _DueVolti(
@@ -1412,6 +1428,7 @@ class _Risultato extends StatefulWidget {
     required this.pianeti,
     required this.onCielo,
     this.espressione = const {},
+    this.nonHoVisto,
   });
 
   final MaestroPalette palette;
@@ -1424,6 +1441,10 @@ class _Risultato extends StatefulWidget {
 
   /// I coefficienti dell'istante dello scatto, vuoti sul ripiego.
   final Map<FaceBlendshape, double> espressione;
+
+  /// **CIO' CHE IL RESPONSO NON HA POTUTO VEDERE**, gia' scritto in una riga,
+  /// o nulla quando non c'e' niente da dichiarare. Ordine CX voce 08.
+  final String? nonHoVisto;
 
   @override
   State<_Risultato> createState() => _RisultatoState();
@@ -1514,6 +1535,39 @@ class _RisultatoState extends State<_Risultato>
                       .copyWith(color: palette.goldSoft, letterSpacing: 1.0),
                 ),
               ),
+              // **CIO' CHE NON HO VISTO, PRIMA DEL RESPONSO E NON DOPO.**
+              // Ordine CX voce 08. Una dichiarazione stampata in fondo
+              // arriva quando la persona ha gia' letto come vero tutto
+              // quello che sta sopra: qui si legge prima di credere.
+              if (widget.nonHoVisto != null) ...[
+                const SizedBox(height: SpacingTokens.md),
+                Container(
+                  key: const Key('face_non_ho_visto'),
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusMd),
+                    color: palette.surfaceElevated.withValues(alpha: 0.6),
+                    border:
+                        Border.all(color: palette.gold.withValues(alpha: 0.35)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.visibility_off_outlined,
+                          size: 20, color: palette.goldSoft),
+                      const SizedBox(width: SpacingTokens.sm),
+                      Expanded(
+                        child: ParagrafiDiLettura(
+                          testo: widget.nonHoVisto!,
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: ColorTokens.textPrimary),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: SpacingTokens.md),
               // IL VOLTO con la costellazione sovrapposta, protagonista.
               ScrollReveal(
