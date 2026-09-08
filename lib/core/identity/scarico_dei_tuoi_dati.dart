@@ -82,6 +82,10 @@ class ScaricoDeiTuoiDati {
     'maestro.': 'Quali benvenuti ti hanno già detto i Maestri',
     'sunset_rune': 'Le tue Rune del Tramonto',
     'device.id': 'L\'identità di questo dispositivo',
+    // **E IL LOTO, ORDINE CZ VOCE 10.** La traccia dei respiri della
+    // Meditazione si cancella con tutto il resto, quindi qui c'e' anche il
+    // suo nome: non si scarica meno di quello che si cancella.
+    'loto.': 'I tuoi respiri nella Meditazione',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ
