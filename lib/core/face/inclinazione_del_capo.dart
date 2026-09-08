@@ -81,9 +81,26 @@ class InclinazioneDelCapo {
     if (sinistra == null || destra == null) return 0;
     final larghezza = (destra.$1 - sinistra.$1).abs();
     if (larghezza <= 0) return 0;
-    // Girando verso la propria destra, la guancia destra del soggetto si
-    // allontana dalla fotocamera e la sinistra si avvicina.
-    final avanzamento = (destra.$3 - sinistra.$3) / larghezza;
+    // **IL SEGNO ERA ROVESCIATO, E L'HA DETTO IL TELEFONO.** Ordine CX, 8
+    // settembre 2026, parole del fondatore: *"destra e sinistra vanno
+    // invertiti"*.
+    //
+    // Il ragionamento scritto qui era giusto: girando verso la propria destra
+    // la guancia destra si allontana e la sinistra si avvicina. **A essere
+    // sbagliata era la parte del volto che i due nomi indicano nel piano
+    // dell'immagine.** `PuntiDelVolto` lo dichiara in cima al suo file: la
+    // guancia SINISTRA del soggetto, su una fotocamera frontale specchiata,
+    // **appare a destra**. La testa sintetica della prova la metteva a
+    // sinistra, cioe' contraddiceva la sorgente della convenzione, e teneva
+    // verde questo segno rovesciato: prova e codice sbagliavano insieme, che
+    // e' il solo modo in cui un difetto arriva fino al telefono passando da
+    // una guardia.
+    //
+    // Corretta la testa sintetica, la prova ha detto **meno venticinque gradi
+    // dove ne chiedeva piu' venticinque**, e il numero coincide con cio' che
+    // il fondatore vedeva: chiesta la destra, la macchina aspettava la
+    // sinistra.
+    final avanzamento = (sinistra.$3 - destra.$3) / larghezza;
     return math.atan(avanzamento) * 180 / math.pi;
   }
 

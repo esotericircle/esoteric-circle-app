@@ -40,10 +40,10 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 119 |
-| Guardie con un cardinale proprio dichiarato | 79 |
-| Guardie che non scoprono nessun insieme di file | 160 |
-| **Somma delle categorie** | **358** |
-| **Guardie secondo la definizione** | **358** |
+| Guardie con un cardinale proprio dichiarato | 80 |
+| Guardie che non scoprono nessun insieme di file | 161 |
+| **Somma delle categorie** | **360** |
+| **Guardie secondo la definizione** | **360** |
 
 Le due righe in grassetto **coincidono**, contate il 7 settembre 2026, e
 ricontate lo stesso giorno dopo l'ordine CW, che ha portato **otto guardie
@@ -124,7 +124,7 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 797 |
-| **Guardie secondo la definizione** | **358** |
+| **Guardie secondo la definizione** | **360** |
 | Guardie che scorrono i sorgenti di `lib` | 136 |
 | Di queste, passate alla porta comune | 119 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
@@ -332,6 +332,7 @@ le altre.
 | `il_rientro_non_muore_in_silenzio_test.dart` | il rientro non muore in silenzio | 1 | non scopre insiemi di file | mai | 3 |
 | `il_ripiego_del_cielo_non_e_un_vicolo_cieco_test.dart` | il ripiego del cielo non e un vicolo cieco | 4 | non scopre insiemi di file | 07/09/2026, CS | 3 |
 | `il_ripiego_non_si_traveste_da_carta_test.dart` | il ripiego non si traveste da carta | 1, 2 | dalla porta comune | mai | 3 |
+| `il_responso_del_viso_non_e_sempre_lo_stesso_test.dart` | il responso del viso non e sempre lo stesso | 1, 2 | proprio, dichiarato | 08/09/2026, CX | 1 |
 | `il_ritorno_non_e_una_porta_di_servizio_test.dart` | il ritorno non e una porta di servizio | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `il_secondo_strato_e_premium_test.dart` | il secondo strato e premium | 1, 2 | dalla porta comune | mai | 3 |
 | `il_seguito_scende_sotto_test.dart` | il seguito scende sotto | 1, 2 | non scopre insiemi di file | mai | 3 |
@@ -424,6 +425,7 @@ le altre.
 | `la_runa_cade_e_non_e_gia_li_test.dart` | la runa cade e non e gia li | 1, 2 | proprio, dichiarato | mai | 3 |
 | `la_runa_rovesciata_ha_la_sua_lettura_test.dart` | la runa rovesciata ha la sua lettura | 1, 2 | proprio, dichiarato | mai | 2 |
 | `la_runa_singola_non_e_una_lezione_test.dart` | la runa singola non e una lezione | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
+| `la_scansione_si_puo_sempre_rifare_test.dart` | la scansione si puo sempre rifare, e si vede | 1, 2 | non scopre insiemi di file | 08/09/2026, CX | 1 |
 | `la_scansione_non_salta_avanti_test.dart` | la scansione non salta avanti, e la vitalita e strutturale | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_sentinella_dorme_in_secondo_piano_test.dart` | la sentinella dorme in secondo piano | 1, 2 | non scopre insiemi di file | 08/09/2026, CY | 2 |

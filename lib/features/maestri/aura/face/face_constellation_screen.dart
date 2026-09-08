@@ -534,6 +534,49 @@ class _Soglia extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
+          // **SI AVVERTE PRIMA, NON DOPO. Ordine CX voce 07.**
+          //
+          // **Parole del fondatore**: *"la lettura dovrebbe avvertire
+          // inizialmente di togliere cappelli o occhiali o altri accessori
+          // che potrebbero nascondere i tratti"*. Nasce dalla sua prova: ha
+          // fatto la scansione col cappellino, fronte e sopracciglia
+          // nascoste, e il responso gliele ha descritte lo stesso.
+          //
+          // **Perche' l'avviso e' necessario e non e' un di piu'.** MediaPipe
+          // posa i suoi punti anche dove non vede: e' un modello che DEDUCE
+          // la forma del volto, non un misuratore che si rifiuta. Sotto un
+          // cappello i punti della fronte ci sono lo stesso, plausibili e
+          // falsi, e `FaceMeshLandmark` non porta nessun campo di visibilita'
+          // con cui distinguerli. **Cio' che il modello non puo' dire, lo
+          // deve sapere chi si inquadra.**
+          Container(
+            key: const Key('face_avviso_accessori'),
+            padding: const EdgeInsets.all(SpacingTokens.md),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              color: palette.surfaceElevated.withValues(alpha: 0.6),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.visibility_outlined,
+                    size: 20, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: ParagrafiDiLettura(
+                    testo: 'Prima di cominciare togli cappello e occhiali, e '
+                        'scosta i capelli dalla fronte. Quello che resta '
+                        'coperto non lo posso leggere, e preferisco dirtelo '
+                        'adesso invece di indovinarlo dopo.',
+                    stile: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textPrimary),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
           // **I DUE MOMENTI, E QUALE VIENE PRIMA. Ordine CR voce 08.**
           //
           // Chi non ha mai fatto la lettura piena vede una porta sola,
@@ -556,6 +599,7 @@ class _Soglia extends StatelessWidget {
             Text(
                 'I tuoi tratti li ho già: guardo solo cosa sta facendo '
                 'il tuo viso adesso. Basta un momento di fronte.',
+                key: const Key('face_didascalia_ritorno'),
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.md),
@@ -576,6 +620,25 @@ class _Soglia extends StatelessWidget {
                   ? 'Rifai la lettura piena'
                   : 'Inquadra il tuo volto'),
             ),
+            // **ANCHE QUESTO PULSANTE HA LA SUA RIGA, e la ragione e' un
+            // equivoco vero.** Il fondatore ha letto questa schermata e ha
+            // creduto che l'app gli negasse la scansione: *"non mi fa piu'
+            // fare la scansione e mi avverte: i tuoi tratti li ho gia'"*.
+            //
+            // La scansione c'era, e questo pulsante la apre. Ma la riga *"I
+            // tuoi tratti li ho gia'"* descrive il pulsante DI SOPRA ed era
+            // stampata subito prima di questo: chi legge dall'alto in basso
+            // la attacca a cio' che viene dopo, e riceve il messaggio
+            // opposto. **Una didascalia sola fra due pulsanti appartiene a
+            // tutti e due**, quindi ognuno ha la sua.
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+                ultimo != null
+                    ? 'Quattro pose, e i tuoi tratti si rimisurano da capo.'
+                    : 'Quattro pose guidate: destra, sinistra, alto, basso.',
+                key: const Key('face_didascalia_piena'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.sm),
             TextButton.icon(
               key: const Key('face_fallback_entry'),

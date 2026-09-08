@@ -43,11 +43,18 @@ void main() {
     // testa e' curva: fronte e mento stanno piu' indietro degli zigomi.
     metti(InclinazioneDelCapo.fronte, 0.0, -0.45, 0.10);
     metti(InclinazioneDelCapo.mento, 0.0, 0.45, 0.10);
+    // **LA CONVENZIONE E QUELLA DICHIARATA IN punti_del_volto.dart**, non
+    // quella comoda: *l occhio che MediaPipe chiama left e l occhio sinistro
+    // della persona, che sullo schermo di una fotocamera frontale specchiata
+    // appare A DESTRA*. Quindi la guancia SINISTRA del soggetto sta a x
+    // MAGGIORE. La prima stesura di questa testa faceva il contrario, cioe
+    // contraddiceva la sorgente della convenzione, e teneva verde un segno
+    // che sul telefono del fondatore risultava rovesciato.
     for (final i in PuntiDelVolto.guanciaSinistra) {
-      metti(i, -0.35, 0.0, 0.08);
+      metti(i, 0.35, 0.0, 0.08);
     }
     for (final i in PuntiDelVolto.guanciaDestra) {
-      metti(i, 0.35, 0.0, 0.08);
+      metti(i, -0.35, 0.0, 0.08);
     }
 
     // **IL SEGNO DELLA ROTAZIONE, VERIFICATO SUL MENTO E NON A OCCHIO.**
