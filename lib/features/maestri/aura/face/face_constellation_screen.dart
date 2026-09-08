@@ -574,7 +574,12 @@ class _Soglia extends StatelessWidget {
                         'Scosta i capelli dalla fronte: quello che resta '
                         'coperto non lo posso leggere. Preferisco dirtelo '
                         'adesso invece di indovinarlo dopo.',
-                    stile: TypographyTokens.didascalia()
+                    // **LA MISURA DELLA LETTURA, non della didascalia.** La
+                    // regola di casa vuole che il testo che si legge per
+                    // intero abbia una misura sola: questo avviso si legge
+                    // tutto, e il fondatore ha chiesto che i testi piccoli si
+                    // ingrandiscano invece di restare piccoli.
+                    stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary),
                   ),
                 ),
@@ -1064,7 +1069,14 @@ class _CatturaState extends State<_Cattura>
         foto = await _laFotoTieneUnVolto(x.path) ? x.path : null;
         fotoSenzaVolto = foto == null;
       }
-    } catch (_) {
+    } catch (errore) {
+      // **PERCHE' QUI L'ERRORE SI IGNORA, e si dichiara invece di tacere.**
+      // Uno scatto puo' fallire per ragioni di piattaforma, e nessuna di
+      // quelle rende falso il responso: i tratti li ha gia' misurati il
+      // cancello sui fotogrammi vivi. Senza fotografia si perde il fondo
+      // della card, non la lettura, quindi la scansione prosegue invece di
+      // buttare via il lavoro della persona.
+      debugPrint('FOTO DEL VISO, scatto fallito: $errore');
       foto = null;
     }
     if (fotoSenzaVolto) {
@@ -1074,7 +1086,7 @@ class _CatturaState extends State<_Cattura>
       // muro dentro resta per sempre.
       if (mounted) {
         setState(() => _rifiuto =
-            'Nello scatto non c\'era piu\' un volto: tieni il viso davanti '
+            'Nello scatto non c\'era più un volto: tieni il viso davanti '
             'alla fotocamera anche nell\'istante dello scatto.');
       }
       return;
