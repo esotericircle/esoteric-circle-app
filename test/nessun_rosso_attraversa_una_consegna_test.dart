@@ -85,4 +85,100 @@ void main() {
             'albero: senza un dato che lo dichiari, la consegna non ha modo '
             'di distinguere una suite verde di adesso da una di ieri');
   });
+
+  test('E IL GETTONE PORTA DAVVERO IL NUMERO, non una riga vuota', () {
+    // **IL DIFETTO CHE QUESTA PROVA NASCE PER PRENDERE.** Ordine CZ, dopo lo
+    // sbarramento finale. Il gettone si scriveva cosi':
+    //
+    //     SBARRAMENTO_PASSATO
+    //     numero=
+    //     prove=
+    //
+    // La consegna confronta il numero del gettone col numero dell'archivio:
+    // con un numero vuoto **nessuna consegna sarebbe mai passata**, e la
+    // porta che avevo appena chiuso si sarebbe richiusa su di me.
+    //
+    // **La causa e' la famiglia gia' nota**: la funzione era stata scritta
+    // con un heredoc, e il `\1` che riferisce il gruppo catturato era
+    // arrivato nel file come il byte di controllo 0x01. Le espressioni
+    // sembravano giuste a occhio e sostituivano con niente.
+    //
+    // **La grandezza misurata non e' la forma della riga, e' il numero che
+    // ne esce.** Si prende l'espressione dallo script vero, la si applica a
+    // una riga nota, e si guarda cosa produce.
+    final script = File('tool/sbarramento.sh');
+    expect(script.existsSync(), isTrue,
+        reason: 'tool/sbarramento.sh non esiste: questa prova guarderebbe il '
+            'nulla');
+    final righe = script.readAsLinesSync();
+
+    /// Da `sed -nE 's/PATTERN/SOSTITUZIONE/p'` tira fuori le due meta'.
+    (String, String)? espressioneDi(String contrassegno) {
+      for (final r in righe) {
+        if (!r.contains(contrassegno)) continue;
+        final apri = r.indexOf("'s/");
+        if (apri < 0) continue;
+        final chiudi = r.indexOf("/p'", apri);
+        if (chiudi < 0) continue;
+        final corpo = r.substring(apri + 3, chiudi);
+        final taglio = corpo.lastIndexOf('/');
+        if (taglio < 0) continue;
+        return (corpo.substring(0, taglio), corpo.substring(taglio + 1));
+      }
+      return null;
+    }
+
+    void provala(String contrassegno, String riga, String atteso, String cosa) {
+      final pezzi = espressioneDi(contrassegno);
+      expect(pezzi, isNotNull,
+          reason: 'nello script non si trova piu\' l\'espressione che ricava '
+              '$cosa: o l\'hanno tolta, o questa prova non sa piu\' dove '
+              'guardare, e in tutti e due i casi non sta misurando niente');
+      final (pattern, sostituzione) = pezzi!;
+      // La sostituzione deve **riferire un gruppo**. Un byte di controllo,
+      // uno spazio o il vuoto passerebbero qualunque controllo sulla forma
+      // della riga, e sono esattamente cio' che e' successo.
+      expect(sostituzione, matches(RegExp(r'^\\[1-9]$')),
+          reason: 'l\'espressione che ricava $cosa sostituisce con '
+              '"${sostituzione.codeUnits}" invece che col gruppo catturato: '
+              'il gettone nascerebbe con la riga vuota');
+      final numero = int.parse(sostituzione.substring(1));
+      final presa = RegExp(pattern).firstMatch(riga);
+      expect(presa, isNotNull,
+          reason: 'l\'espressione che ricava $cosa non aggancia la riga '
+              '"$riga": sul rapporto vero non prenderebbe niente');
+      expect(presa!.group(numero), atteso,
+          reason: 'da "$riga" l\'espressione ricava '
+              '"${presa.group(numero)}" invece di "$atteso"');
+    }
+
+    provala('NUMERO=', 'version: 0.1.0+2237', '2237',
+        'il numero della build dal pubspec');
+    provala('PASSATE=', '22:35 +4024 -0: All tests passed!', '4024',
+        'il conto delle prove passate dal registro');
+
+    // **E IL GETTONE VERO, se e' li'.** Viene scritto dopo la suite, quindi
+    // dentro la suite puo' non esistere: quando esiste pero' e' il fatto in
+    // persona, e non si guarda un'altra volta la forma dell'espressione.
+    final gettone = File('build/sbarramento_passato.txt');
+    if (!gettone.existsSync()) {
+      // ignore: avoid_print
+      print('ORDINE CZ VOCE 14: il gettone non c\'e\' ancora, e va bene: si '
+          'scrive alla fine della suite. Provate le due espressioni che lo '
+          'riempiono');
+      return;
+    }
+    final dentro = gettone.readAsLinesSync();
+    for (final campo in const ['numero', 'prove']) {
+      final riga = dentro.firstWhere((r) => r.startsWith('$campo='),
+          orElse: () => '');
+      final valore = riga.contains('=') ? riga.split('=')[1].trim() : '';
+      // ignore: avoid_print
+      print('ORDINE CZ VOCE 14: il gettone dice $campo="$valore"');
+      expect(int.tryParse(valore), isNotNull,
+          reason: 'il gettone porta $campo="$valore", che non e\' un numero: '
+              'la consegna lo confronta col numero dell\'archivio e non '
+              'passerebbe mai');
+    }
+  });
 }

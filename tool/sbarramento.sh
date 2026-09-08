@@ -256,8 +256,8 @@ fi
 # rifiuta di caricare se manca o se il numero non e' il suo: **un gettone di
 # ieri non vale per la build di oggi**.
 scrivi_il_gettone() {
-  NUMERO="$(sed -nE 's/^version: [0-9.]+[+]([0-9]+).*//p' "$QUI/../pubspec.yaml")"
-  PASSATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$//p' "$REGISTRO" | tail -1)"
+  NUMERO="$(sed -nE 's/^version: [0-9.]+[+]([0-9]+).*/\1/p' "$QUI/../pubspec.yaml")"
+  PASSATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$REGISTRO" | tail -1)"
   mkdir -p "$QUI/../build"
   {
     echo "SBARRAMENTO_PASSATO"

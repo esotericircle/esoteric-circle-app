@@ -252,6 +252,20 @@ perche' rinominarle azzererebbe le ore scelte su ogni telefono.
    delle prove, nei tre rami che lasciano produrre l'archivio, e **lo cancella
    quando la suite e' rossa**. La consegna lo legge e si ferma se manca o se il
    numero non e' il suo: un gettone di ieri non vale per la build di oggi.
+4. **E IL PRIMO GETTONE E' NATO VUOTO**, difetto mio della stessa voce, colto
+   allo sbarramento finale: `numero=` e `prove=` senza niente dopo l'uguale.
+   La causa e' la famiglia gia' nota, l'heredoc che mangia i backslash: il
+   `\1` che riferisce il gruppo catturato era entrato nel file come il **byte
+   di controllo 0x01**, e le due espressioni sostituivano con niente. A occhio
+   sembravano giuste. **Conseguenza se fosse passato**: la consegna confronta
+   il numero del gettone col numero dell'archivio, quindi **nessuna consegna
+   sarebbe mai piu' passata**, e la porta appena chiusa si sarebbe chiusa su
+   di me. La guardia della voce non lo vedeva perche' guardava soltanto
+   `consegna.py`, cioe' **chi pretende il gettone e non chi lo riempie**. Ora
+   la guardia prende le due espressioni dallo script vero, le applica a una
+   riga nota e pretende **2237** e **4024**, e quando il gettone e' su disco
+   pretende che i due campi siano numeri. Vista rossa in tutti e due i modi:
+   col gettone vuoto sul disco e col difetto reinnestato nello script.
 
 ### CZ.15, la bonifica sotto la Regola H. CENSITA, e la porta esiste
 
