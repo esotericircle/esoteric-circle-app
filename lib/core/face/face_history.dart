@@ -4,16 +4,33 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'face_classifier.dart';
+import 'ritratti_del_viso.dart';
 import 'face_trait.dart';
 import '../identity/scadenze_del_telefono.dart';
 
 /// Una Costellazione del Viso gia' letta, con la sua data e la lettura intera.
 @immutable
 class FaceEsito {
-  const FaceEsito({required this.quando, required this.reading});
+  const FaceEsito({
+    required this.quando,
+    required this.reading,
+    this.ritratto,
+  });
 
   final DateTime quando;
   final FaceReading reading;
+
+  /// **DOVE STA LA FOTOGRAFIA DI QUESTA LETTURA, sul telefono e in nessun
+  /// altro posto.** Ordine CX, 8 settembre 2026.
+  ///
+  /// Nullo per le letture piu' vecchie di dodici, che tengono il testo e
+  /// perdono il ritratto, e per quelle in cui lo scatto non si e' potuto
+  /// conservare. **Un percorso, non un immagine**: i byte stanno in un file
+  /// che la persona puo' cancellare, non dentro le preferenze.
+  final String? ritratto;
+
+  FaceEsito senzaRitratto() =>
+      FaceEsito(quando: quando, reading: reading);
 
   Map<String, dynamic> toJson() => {
         'quando': quando.toIso8601String(),
@@ -21,6 +38,11 @@ class FaceEsito {
           for (final l in reading.letture)
             {'tratto': l.tratto.name, 'marcatezza': l.marcatezza},
         ],
+        // **IL PERCORSO SI SALVA, L'IMMAGINE NO.** La differenza non e'
+        // formale: nelle preferenze finisce una riga di testo, i pixel
+        // stanno in un file che si cancella da solo quando la persona lo
+        // chiede o quando la lettura scade.
+        if (ritratto != null) 'ritratto': ritratto,
       };
 
   static FaceEsito? fromJson(Map<String, dynamic> j) {
@@ -42,16 +64,32 @@ class FaceEsito {
       }
     }
     if (letture.isEmpty) return null;
-    return FaceEsito(quando: quando, reading: FaceReading(letture: letture));
+    final ritratto = j['ritratto'];
+    return FaceEsito(
+      quando: quando,
+      reading: FaceReading(letture: letture),
+      ritratto: ritratto is String && ritratto.isNotEmpty ? ritratto : null,
+    );
   }
 }
 
 /// Lo storico delle letture del viso, SOLO in locale sul dispositivo.
 ///
-/// Serve al conteggio del giorno per il limite di frequenza, unica verita', e a
-/// mostrare l'ultima lettura quando il limite e' raggiunto, cosi' non c'e' mai
-/// un vicolo cieco. Nessuna immagine e nessuna foto: si salva solo la lettura
-/// dei tratti, che sono testo.
+/// Serve a mostrare le letture passate e a contare quelle del giorno.
+///
+/// **DA OGGI CONSERVA ANCHE IL RITRATTO, ed e' una decisione del fondatore.**
+/// Ordine CX, 8 settembre 2026: *"quando andro' a vedere le scorse scansioni e
+/// risultati vorro' vedere la foto del viso"*, e *"puoi tenerle memorizzate
+/// solo sul telefono e dare l'opportunita' all'utente di gestirle?"*.
+///
+/// Fino a ieri qui c'era scritto *"nessuna immagine e nessuna foto"*, ed era
+/// vero: la fotografia viveva quanto la schermata. **Il perimetro nuovo sta in
+/// `RitrattiDelViso`**, in numeri e non in parole: dodici letture, seicento
+/// quaranta punti di larghezza, stessa scadenza del testo, cancellazione una
+/// alla volta o tutta insieme.
+///
+/// **Cio' che NON cambia**: nelle preferenze finisce un percorso, mai dei
+/// pixel, e niente esce dal telefono.
 class FaceHistory extends ChangeNotifier {
   FaceHistory({DateTime Function()? clock, int massimo = 40})
       : _clock = clock ?? DateTime.now,
@@ -133,6 +171,12 @@ class FaceHistory extends ChangeNotifier {
         for (final e in letti)
           if (!ScadenzeDelTelefono.viso.scaduta(e.quando, _clock())) e
       ];
+      // **E I RITRATTI DELLE SCADUTE SE NE VANNO COL LORO TESTO.** Ordine CX:
+      // due scadenze diverse sullo stesso ricordo sarebbero due verita', e
+      // quella che resta piu' a lungo sarebbe proprio l'immagine del volto.
+      for (final e in letti) {
+        if (!vivi.contains(e)) await RitrattiDelViso.cancella(e.ritratto);
+      }
       if (vivi.length != letti.length) {
         await p.setStringList(
             _chiave, [for (final e in vivi) jsonEncode(e.toJson())]);
@@ -145,10 +189,55 @@ class FaceHistory extends ChangeNotifier {
     }
   }
 
-  Future<FaceEsito> registra(FaceReading reading) async {
-    final esito = FaceEsito(quando: _clock(), reading: reading);
-    _esiti = [esito, ..._esiti].take(_massimo).toList(growable: false);
+  Future<FaceEsito> registra(FaceReading reading,
+      {String? scatto}) async {
+    // **IL RITRATTO SI CONSERVA PRIMA DI SCRIVERE LA RIGA**, cosi' la riga
+    // non promette un file che non esiste. Se lo scatto non si puo'
+    // conservare, la lettura si registra lo stesso senza ritratto: il
+    // responso vale, la fotografia e' un di piu'.
+    final quando = _clock();
+    final ritratto = scatto == null
+        ? null
+        : await RitrattiDelViso.conserva(scatto, quando: quando);
+    final esito =
+        FaceEsito(quando: quando, reading: reading, ritratto: ritratto);
+    final tutti = [esito, ..._esiti].take(_massimo).toList();
+    // **LE FOTO OLTRE LA DODICESIMA SI CANCELLANO DAL DISCO, non solo dalla
+    // riga.** Una riga senza ritratto e un file che resta sono la stessa
+    // cosa vista da due parti, e la parte che occupa lo spazio e' quella che
+    // nessuno guarda piu'.
+    for (var i = RitrattiDelViso.quanteNeTengono; i < tutti.length; i++) {
+      if (tutti[i].ritratto != null) {
+        await RitrattiDelViso.cancella(tutti[i].ritratto);
+        tutti[i] = tutti[i].senzaRitratto();
+      }
+    }
+    _esiti = List.unmodifiable(tutti);
     notifyListeners();
+    await _scrivi();
+    return esito;
+  }
+
+  /// **CANCELLA UNA SOLA LETTURA**, il suo ritratto compreso. Ordine CX: la
+  /// persona gestisce cio' che l'app tiene di lei, e gestire vuol dire anche
+  /// togliere una cosa alla volta invece di dover buttare tutto.
+  Future<void> dimentica(FaceEsito quale) async {
+    await RitrattiDelViso.cancella(quale.ritratto);
+    _esiti = List.unmodifiable(
+        [for (final e in _esiti) if (e.quando != quale.quando) e]);
+    notifyListeners();
+    await _scrivi();
+  }
+
+  /// **CANCELLA TUTTE LE LETTURE E TUTTI I RITRATTI.**
+  Future<void> dimenticaTutto() async {
+    await RitrattiDelViso.cancellaTutti();
+    _esiti = const [];
+    notifyListeners();
+    await _scrivi();
+  }
+
+  Future<void> _scrivi() async {
     try {
       final p = await SharedPreferences.getInstance();
       await p.setStringList(
@@ -156,6 +245,5 @@ class FaceHistory extends ChangeNotifier {
     } catch (_) {
       // best effort: lo storico in memoria resta buono per la sessione.
     }
-    return esito;
   }
 }

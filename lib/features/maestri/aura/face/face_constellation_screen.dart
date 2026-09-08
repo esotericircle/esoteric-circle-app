@@ -18,6 +18,7 @@ import '../../../../core/face/tenuta_di_fronte.dart';
 import '../../../../core/face/mian_xiang.dart';
 import 'colore_dell_elemento.dart';
 import 'lo_specchio_dell_istante.dart';
+import 'le_tue_letture_del_viso.dart';
 import 'maschera_che_segue.dart';
 import 'package:provider/provider.dart';
 
@@ -279,7 +280,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     // anche togliendo il mese. Adesso risponde `FaceHistory`, che ha le date
     // e si puo' misurare da sola.
     final tratoCambiato = _storico.ilTrattoECambiatoInUnMese(reading);
-    await _storico.registra(reading);
+    // **LO SCATTO ENTRA NELLO STORICO INSIEME ALLA LETTURA.** Ordine CX, 8
+    // settembre 2026: il fondatore vuole rivedere la foto del viso nelle
+    // scorse scansioni, e la vuole sul telefono. Il ritratto lo conserva
+    // `RitrattiDelViso`, ridotto, e qui passa solo il percorso dello scatto.
+    await _storico.registra(reading, scatto: fotoPath);
     if (!mounted) return;
     setState(() {
       _reading = reading;
@@ -342,6 +347,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                         _fase = _Fase.cattura;
                       }),
                       onRipiego: () => setState(() => _fase = _Fase.ripiego),
+                      onLetture: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const LeTueLettureDelViso(),
+                        ),
+                      ),
                     ),
                   _Fase.cattura => _Cattura(
                       palette: palette,
@@ -468,6 +478,7 @@ class _Soglia extends StatelessWidget {
     required this.onInizia,
     required this.onRitorno,
     required this.onRipiego,
+    required this.onLetture,
   });
 
   final MaestroPalette palette;
@@ -482,6 +493,9 @@ class _Soglia extends StatelessWidget {
   final VoidCallback onRitorno;
 
   final VoidCallback onRipiego;
+
+  /// Apre le letture passate, dove vivono i ritratti conservati.
+  final VoidCallback onLetture;
 
   @override
   Widget build(BuildContext context) {
@@ -653,6 +667,22 @@ class _Soglia extends StatelessWidget {
                   style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft)),
             ),
+            // **LA PORTA DELLE LETTURE PASSATE.** Ordine CX voce 04: il
+            // fondatore vuole rivedere le scorse scansioni con la foto del
+            // viso, e una schermata che non si raggiunge da nessuna parte e'
+            // una schermata che non esiste. Compare solo quando qualcosa da
+            // rivedere c'e' davvero.
+            if (ultimo != null) ...[
+              const SizedBox(height: SpacingTokens.xs),
+              TextButton.icon(
+                key: const Key('face_letture_passate'),
+                onPressed: onLetture,
+                icon: Icon(Icons.history_rounded, color: palette.goldSoft),
+                label: Text('Le tue letture passate',
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ],
             if (rimanenti != null) ...[
               const SizedBox(height: SpacingTokens.xs),
               Text(

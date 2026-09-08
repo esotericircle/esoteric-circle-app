@@ -1,4 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../face/ritratti_del_viso.dart';
 import 'cio_che_e_tuo.dart';
 
 /// COSA IL TELEFONO DIMENTICA QUANDO SI ESCE O SI CANCELLA TUTTO.
@@ -61,6 +63,14 @@ class DimenticanzaDelTelefono {
         await prefs.remove(chiave);
         quante++;
       }
+      // **E I FILE, non solo le chiavi.** Ordine CX, 8 settembre 2026.
+      //
+      // Da oggi le letture del viso conservano un ritratto, e il ritratto e'
+      // un FILE: togliere la riga dalle preferenze e lasciare l'immagine sul
+      // disco sarebbe un oblio che dimentica il nome e tiene la faccia.
+      // **Questa dimenticanza cancella tutto cio' che e' della persona**, e
+      // un file lo e' quanto una chiave.
+      quante += await RitrattiDelViso.cancellaTutti();
       return quante;
     } catch (errore) {
       // Senza persistenza non c'e' niente da dimenticare, e non e' un guasto.
