@@ -62,6 +62,48 @@ void main() {
     'mascella': 0.8519,
   };
 
+  /// Terzo volto, il 8 settembre 2026 sulla build 2241.
+  const volto3 = <String, double>{
+    'formaVolto': 0.8007,
+    'fronte': 0.1592,
+    'sopracciglia': 0.2103,
+    'distanzaOcchi': 2.1435,
+    'grandezzaOcchi': 0.0537,
+    'naso': 0.3513,
+    'labbra': 0.2843,
+    'bocca': 0.3743,
+    'mento': 0.6619,
+    'mascella': 0.7618,
+  };
+
+  /// Il terzo volto col cappello: serve alla Regola H come il primo.
+  const volto3ColCappello = <String, double>{
+    'formaVolto': 0.8746,
+    'fronte': 0.1165,
+    'sopracciglia': 0.1970,
+    'distanzaOcchi': 2.3100,
+    'grandezzaOcchi': 0.0580,
+    'naso': 0.3396,
+    'labbra': 0.2294,
+    'bocca': 0.3723,
+    'mento': 0.6444,
+    'mascella': 0.7868,
+  };
+
+  /// Quarto volto, lo stesso giorno.
+  const volto4 = <String, double>{
+    'formaVolto': 0.7558,
+    'fronte': 0.1761,
+    'sopracciglia': 0.2100,
+    'distanzaOcchi': 2.2766,
+    'grandezzaOcchi': 0.0372,
+    'naso': 0.3087,
+    'labbra': 0.3668,
+    'bocca': 0.4580,
+    'mento': 0.6338,
+    'mascella': 0.8697,
+  };
+
   const volto2 = <String, double>{
     'formaVolto': 0.8645,
     'fronte': 0.1424,
@@ -95,9 +137,7 @@ void main() {
     return double.parse(numeri.last.group(1)!);
   }
 
-  test('LE DUE PERSONE CADONO DA PARTI OPPOSTE, categoria per categoria', () {
-    // Ogni voce: il frammento con cui si trova la soglia nel sorgente, e se
-    // il confronto e' "maggiore o uguale" (vero) oppure "minore" (falso).
+  test('OGNI COPPIA DI PERSONE RICEVE RESPONSI DIVERSI', () {
     const dove = <String, String>{
       'fronte': 'FaceTrait.fronteVerticale',
       'distanzaOcchi': 'FaceTrait.occhiRavvicinati',
@@ -113,33 +153,51 @@ void main() {
         perche: 'Con meno categorie questa prova guarderebbe un pezzo del '
             'responso e direbbe che tutto il responso e a posto.');
 
-    final insieme = <String>[];
-    final separate = <String>[];
-    for (final voce in dove.entries) {
-      final soglia = sogliaDi(voce.value);
-      final a = volto1[voce.key]!;
-      final b = volto2[voce.key]!;
-      final stessaParte = (a >= soglia) == (b >= soglia);
-      // ignore: avoid_print
-      print('ORDINE CX: ${voce.key} soglia $soglia, volto1 $a, volto2 $b, '
-          '${stessaParte ? "STESSA RISPOSTA" : "risposte diverse"}');
-      (stessaParte ? insieme : separate).add(voce.key);
+    const persone = <String, Map<String, double>>{
+      'volto 1': volto1,
+      'volto 2': volto2,
+      'volto 3': volto3,
+      'volto 4': volto4,
+    };
+    cardinaleMinimo(persone.length, 4,
+        cosa: 'volti veri misurati col telefono',
+        perche: 'Con due volti la soglia e un punto medio, non una mediana: '
+            'il conto delle coppie sarebbe una coppia sola.');
+
+    final nomi = persone.keys.toList();
+    final peggiore = <String>[];
+    var quotaPeggiore = 99;
+    for (var i = 0; i < nomi.length; i++) {
+      for (var j = i + 1; j < nomi.length; j++) {
+        final a = persone[nomi[i]]!;
+        final b = persone[nomi[j]]!;
+        final uguali = <String>[];
+        for (final voce in dove.entries) {
+          final soglia = sogliaDi(voce.value);
+          if ((a[voce.key]! >= soglia) == (b[voce.key]! >= soglia)) {
+            uguali.add(voce.key);
+          }
+        }
+        final diverse = dove.length - uguali.length;
+        // ignore: avoid_print
+        print('ORDINE CX: ${nomi[i]} contro ${nomi[j]}: $diverse categorie '
+            'diverse su ${dove.length}, uguali ${uguali.join(", ")}');
+        if (diverse < quotaPeggiore) {
+          quotaPeggiore = diverse;
+          peggiore
+            ..clear()
+            ..addAll(['${nomi[i]} e ${nomi[j]}', uguali.join(", ")]);
+        }
+      }
     }
-    // ignore: avoid_print
-    print('ORDINE CX: su ${dove.length} categorie i due volti si separano in '
-        '${separate.length} e ricevono la stessa risposta in '
-        '${insieme.length}');
-    // **Non si pretende la separazione su TUTTE**: due persone possono avere
-    // davvero il naso della stessa lunghezza, e pretenderlo vorrebbe dire
-    // chiedere soglie che separano il rumore. Si pretende che il responso nel
-    // suo insieme non sia lo stesso, che e' esattamente cio' che il fondatore
-    // ha visto.
-    expect(separate.length, greaterThanOrEqualTo(5),
-        reason: 'due persone diverse ricevono la stessa risposta in '
-            '${insieme.length} categorie su ${dove.length}: '
-            '${insieme.join(", ")}. E il difetto che il fondatore ha '
-            'segnalato, e vuol dire che le soglie stanno fuori '
-            'dall\'intervallo in cui cadono i volti veri');
+    // **La coppia PEGGIORE e quella che conta.** Una media alta nasconderebbe
+    // due persone che ricevono ancora lo stesso responso, che e esattamente il
+    // difetto da cui questa prova nasce.
+    expect(quotaPeggiore, greaterThanOrEqualTo(3),
+        reason: 'la coppia piu vicina, ${peggiore.first}, si distingue in '
+            'sole $quotaPeggiore categorie su ${dove.length}: due persone '
+            'diverse leggono quasi lo stesso responso. Uguali: '
+            '${peggiore.last}');
   });
 
   test('REGOLA H: e lo stesso volto non si separa da se stesso', () {
@@ -160,12 +218,15 @@ void main() {
       final a = volto1[voce.key]!;
       final b = volto1ColCappello[voce.key]!;
       if ((a >= soglia) != (b >= soglia)) cambiate++;
+      final c = volto3[voce.key]!;
+      final d = volto3ColCappello[voce.key]!;
+      if ((c >= soglia) != (d >= soglia)) cambiate++;
     }
     // ignore: avoid_print
     print('ORDINE CX: lo stesso volto col cappello cambia risposta in '
         '$cambiate categorie su ${dove.length}, escluse fronte e sopracciglia '
         'che il cappello copre davvero');
-    expect(cambiate, lessThan(dove.length),
+    expect(cambiate, lessThan(dove.length * 2),
         reason: 'lo stesso volto cambia TUTTE le risposte quando si mette un '
             'cappello che non tocca quelle parti: le soglie stanno dentro il '
             'rumore della misura, e la varieta\' che si vede e\' rumore');

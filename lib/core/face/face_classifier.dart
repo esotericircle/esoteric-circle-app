@@ -171,8 +171,23 @@ class FaceReading {
 /// dell'intervallo osservato**, cosi' la marcatezza si muove nella scala in
 /// cui i volti veri si distribuiscono invece di saturare sempre.
 ///
-/// **QUANTO VALE QUESTA TARATURA, detto senza abbellirlo: tre campioni di due
-/// persone.** E' un dato reale e non piu' un numero inventato, ma la mediana
+/// **SECONDA TARATURA, LA SERA STESSA, SU QUATTRO VOLTI.** Alle prime due
+/// persone se ne sono aggiunte altre due, una delle quali misurata anche col
+/// cappello: **sei misure di quattro volti**. Ogni soglia e adesso la MEDIANA
+/// dei quattro, non piu il punto medio fra due, e ogni ampiezza e un quarto
+/// dell intervallo osservato.
+///
+/// **L esito, misurato su tutte e sei le coppie di persone**: la coppia che si
+/// somiglia di piu si distingue in **quattro categorie su otto**, la piu
+/// lontana in sei. Prima della taratura due persone diverse si distinguevano
+/// in **zero**.
+///
+/// **E il cappello si vede nei numeri**: sul terzo volto ha portato la fronte
+/// da 0,1592 a 0,1165. E la base su cui la voce CX.08, dichiarare cio che non
+/// si e potuto vedere, si potra costruire misurando invece che indovinando.
+///
+/// **QUANTO VALE QUESTA TARATURA, detto senza abbellirlo: sei misure di
+/// quattro persone.** E' un dato reale e non piu' un numero inventato, ma la mediana
 /// di tre valori non e' la mediana di una popolazione. Con altri volti i
 /// numeri vanno rifatti, e la strada per rifarli e' quella che li ha prodotti:
 /// il rapporto grezzo viaggia dentro ogni `TraitLettura`, e la schermata lo
@@ -193,11 +208,11 @@ class FaceClassifier {
 
   /// **SU QUANTI VOLTI**, perche' un vero senza un numero accanto non dice se
   /// la taratura vale tre campioni o trecento.
-  static const int voltiDellaTaratura = 2;
+  static const int voltiDellaTaratura = 4;
 
   /// **E SU QUANTE MISURE**, che non e' lo stesso: un volto puo' essere stato
   /// misurato piu' volte, e tre misure di due persone non sono tre persone.
-  static const int misureDellaTaratura = 3;
+  static const int misureDellaTaratura = 6;
 
   /// Legge i contorni e restituisce una lettura per ogni categoria.
   static FaceReading leggi(FaceContours c) {
@@ -251,7 +266,7 @@ class FaceClassifier {
     final FaceTrait t;
     if (jf < 0.80) {
       t = FaceTrait.voltoTriangolare; // fronte larga, mento stretto
-    } else if (wh < 0.8298) {
+    } else if (wh < 0.7978) {
       t = FaceTrait.voltoOvale; // lungo e stretto
     } else if (jz > 0.90 && wh >= 0.9020) {
       t = FaceTrait.voltoQuadrato; // lati dritti, mascella piena
@@ -268,10 +283,10 @@ class FaceClassifier {
     final browY = _minY([...c.sopraccioSx, ...c.sopraccioDx]);
     final ratio = ((browY - box.minY) / h).clamp(0.0, 1.0);
     final t =
-        ratio >= 0.1614 ? FaceTrait.fronteVerticale : FaceTrait.fronteSfuggente;
+        ratio >= 0.1677 ? FaceTrait.fronteVerticale : FaceTrait.fronteSfuggente;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.1614, 0.0190),
+        marcatezza: _marca(ratio, 0.1677, 0.0095),
         rapporto: ratio);
   }
 
@@ -282,7 +297,7 @@ class FaceClassifier {
     final rise = (a.rise + b.rise) / 2;
     final angolo = math.min(a.angoloApice, b.angoloApice);
     final FaceTrait t;
-    if (rise < 0.2304) {
+    if (rise < 0.2138) {
       t = FaceTrait.sopraccigliaDritte;
     } else if (angolo < 2.11) {
       // **LE DUE SOGLIE DI QUESTA CATEGORIA SONO LEGATE, e per un pezzo non
@@ -298,7 +313,7 @@ class FaceClassifier {
     } else {
       t = FaceTrait.sopraccigliaCurve;
     }
-    final m = _marca(rise, 0.2304, 0.0131);
+    final m = _marca(rise, 0.2138, 0.0084);
     return TraitLettura(tratto: t, marcatezza: m, rapporto: rise);
   }
 
@@ -311,9 +326,9 @@ class FaceClassifier {
         2;
     final ratio = eyeW <= 0 ? 2.0 : gap / eyeW;
     final t =
-        ratio < 2.2797 ? FaceTrait.occhiRavvicinati : FaceTrait.occhiDistanziati;
+        ratio < 2.2761 ? FaceTrait.occhiRavvicinati : FaceTrait.occhiDistanziati;
     return TraitLettura(
-        tratto: t, marcatezza: _marca(ratio, 2.2797, 0.0041), rapporto: ratio);
+        tratto: t, marcatezza: _marca(ratio, 2.2761, 0.0351), rapporto: ratio);
   }
 
   static TraitLettura _grandezzaOcchi(FaceContours c, double h) {
@@ -321,10 +336,10 @@ class FaceClassifier {
         (_Box.attorno(c.occhioSx).altezza + _Box.attorno(c.occhioDx).altezza) /
             2;
     final ratio = eyeH / h;
-    final t = ratio >= 0.0484 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
+    final t = ratio >= 0.0479 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.0484, 0.0063),
+        marcatezza: _marca(ratio, 0.0479, 0.0044),
         rapporto: ratio);
   }
 
@@ -332,10 +347,10 @@ class FaceClassifier {
     final top = _minY(c.nasoPonte);
     final bottom = _maxY(c.nasoBase);
     final ratio = ((bottom - top) / h).clamp(0.0, 1.0);
-    final t = ratio >= 0.3050 ? FaceTrait.nasoLungo : FaceTrait.nasoCorto;
+    final t = ratio >= 0.3108 ? FaceTrait.nasoLungo : FaceTrait.nasoCorto;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.3050, 0.0079),
+        marcatezza: _marca(ratio, 0.3108, 0.0136),
         rapporto: ratio);
   }
 
@@ -346,10 +361,10 @@ class FaceClassifier {
     final larghezza =
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza <= 0 ? 0.0 : spessore / larghezza;
-    final t = ratio >= 0.3141 ? FaceTrait.labbraPiene : FaceTrait.labbraSottili;
+    final t = ratio >= 0.314 ? FaceTrait.labbraPiene : FaceTrait.labbraSottili;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.3141, 0.0024),
+        marcatezza: _marca(ratio, 0.314, 0.0206),
         rapporto: ratio);
   }
 
@@ -357,29 +372,29 @@ class FaceClassifier {
     final larghezza =
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza / w;
-    final t = ratio >= 0.3674 ? FaceTrait.boccaLarga : FaceTrait.boccaPiccola;
+    final t = ratio >= 0.3714 ? FaceTrait.boccaLarga : FaceTrait.boccaPiccola;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.3674, 0.0011),
+        marcatezza: _marca(ratio, 0.3714, 0.0229),
         rapporto: ratio);
   }
 
   static TraitLettura _mento(double wMento, double wMascella) {
     final ratio = wMascella <= 0 ? 1.0 : wMento / wMascella;
-    final t = ratio >= 0.6945 ? FaceTrait.mentoAmpio : FaceTrait.mentoAPunta;
+    final t = ratio >= 0.6512 ? FaceTrait.mentoAmpio : FaceTrait.mentoAPunta;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.6945, 0.0540),
+        marcatezza: _marca(ratio, 0.6512, 0.0286),
         rapporto: ratio);
   }
 
   static TraitLettura _mascella(double wMascella, double w) {
     final ratio = wMascella / w;
     final t =
-        ratio >= 0.8955 ? FaceTrait.mascellaLarga : FaceTrait.mascellaStretta;
+        ratio >= 0.878 ? FaceTrait.mascellaLarga : FaceTrait.mascellaStretta;
     return TraitLettura(
         tratto: t,
-        marcatezza: _marca(ratio, 0.8955, 0.0092),
+        marcatezza: _marca(ratio, 0.878, 0.0357),
         rapporto: ratio);
   }
 
@@ -390,9 +405,9 @@ class FaceClassifier {
       larghezza = (c.guanciaDx!.dx - c.guanciaSx!.dx).abs();
     }
     final ratio = wMascella <= 0 ? 1.0 : larghezza / wMascella;
-    final t = ratio >= 1.04 ? FaceTrait.zigomiAlti : FaceTrait.zigomiMorbidi;
+    final t = ratio >= 1.0656 ? FaceTrait.zigomiAlti : FaceTrait.zigomiMorbidi;
     return TraitLettura(
-        tratto: t, marcatezza: _marca(ratio, 1.04, 0.12), rapporto: ratio);
+        tratto: t, marcatezza: _marca(ratio, 1.0656, 0.0236), rapporto: ratio);
   }
 
   // --- Aiuti geometrici ---
