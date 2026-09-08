@@ -70,3 +70,4 @@ SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in 
 # LE TRE DELLA CARD DELLE RUNE SONO USCITE, ordine CN voce 12 del 1 settembre
 # 2026: la card da condividere si disegna a misura fissa, quindi il testo non
 # cresce piu' dentro la cornice e non sfonda di 137 punti.
+E SU VOLTI PLAUSIBILI NESSUNA CATEGORIA E' SBILANCIATA | ORDINE CX, 8 settembre 2026. Su quattrocento volti dalle proporzioni normali tre categorie rispondono la stessa cosa nel CENTO per cento dei casi (distanza degli occhi, labbra, bocca) e due sfiorano il novanta (fronte 87, sopracciglia 88). La causa non e' un errore di calcolo: le undici soglie di face_classifier.dart non le ha mai misurate nessuno su un volto vero, esattamente come le soglie degli angoli, che pero' lo dichiarano. Il rosso resta acceso finche' non si tarano su volti veri, e non si spegne cambiando i numeri contro il modello sintetico di questa stessa prova: sarebbe tarare una misura su se stessa.

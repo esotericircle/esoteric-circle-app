@@ -101,8 +101,40 @@ class FaceReading {
 /// nessuna casualita', nessuna dipendenza dall'orologio. Ogni categoria misura
 /// una proporzione, la confronta con una soglia dichiarata e ne ricava la
 /// variante e la marcatezza, cioe' quanto la proporzione si stacca dal neutro.
+///
+/// **LE UNDICI SOGLIE DI QUESTO FILE NON LE HA MAI MISURATE NESSUNO SU UN
+/// VOLTO VERO.** Ordine CX, 8 settembre 2026.
+///
+/// **Parole del fondatore dopo la sua prova**: *"Ti prego di rivedere i
+/// responsi uno per uno (fronte, naso, zigomi, sopracciglia, ecc) non
+/// corrispondono a me e ho paura che i risultati siano sempre gli stessi"*.
+///
+/// **Il sospetto e' stato misurato, e per meta' era fondato.** Le undici
+/// categorie danno tutte piu' di una risposta quando il volto cambia abbastanza,
+/// quindi non sono morte. Ma su quattrocento volti dalle proporzioni normali
+/// **tre rispondono la stessa cosa nel cento per cento dei casi**, la distanza
+/// degli occhi, le labbra e la bocca, e altre due sfiorano il novanta, la
+/// fronte e le sopracciglia. Una categoria che risponde uguale a tutti non
+/// descrive nessuno.
+///
+/// **La causa non e' un errore di calcolo, e' che questi numeri sono
+/// inventati.** `SoglieDellaScansione` dichiara i propri come provvisori e
+/// tiene una guardia rossa apposta finche' non saranno misurati; questi non lo
+/// dichiaravano, ed erano nella stessa condizione. Adesso lo dichiarano.
+///
+/// **Come smettono di essere provvisori**, ed e' l'unico modo onesto: si
+/// raccolgono i rapporti misurati su volti veri e si centrano le soglie sulla
+/// loro mediana. **Non si tarano contro un modello sintetico**, nemmeno contro
+/// quello della prova che li misura: sarebbe tarare una misura su se stessa, e
+/// il numero che ne uscirebbe direbbe soltanto che i due sono d'accordo.
 class FaceClassifier {
   const FaceClassifier._();
+
+  /// **L'INTERRUTTORE DELLA VERITA', lo stesso di `SoglieDellaScansione`.**
+  /// Falso vuol dire che le soglie di questo file non vengono da nessuna
+  /// misura su volti veri. Si porta a vero SOLO insieme a numeri tarati, mai
+  /// da solo, e chi lo fa scrive su quali volti li ha presi.
+  static const bool soglieTarateSuVoltiVeri = false;
 
   /// Legge i contorni e restituisce una lettura per ogni categoria.
   static FaceReading leggi(FaceContours c) {

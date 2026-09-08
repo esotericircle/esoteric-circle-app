@@ -39,6 +39,35 @@ le sceglie e le misura chi esegue, secondo la regola di casa del 27 agosto.
   *"perche' l'utente dovrebbe condividere"* e *"perche' un amico dovrebbe
   sentirsi spinto a scaricare l'app per avere la stessa esperienza?"*
 
+## I FATTI AGGIUNTI DAL FONDATORE MENTRE IL LAVORO ERA IN CORSO
+
+8 settembre 2026, tre messaggi arrivati durante l'esecuzione. Si scrivono qui
+con le sue parole, perche' un fatto detto a meta' lavoro e' un fatto come gli
+altri.
+
+- **CX.07** *"la lettura dovrebbe avvertire inizialmente di togliere cappelli o
+  occhiali o altri accessori che potrebbero nascondere i tratti"*. Esito
+  atteso: chi comincia la scansione sa **prima** cosa la rovina.
+- **CX.08** *"nel caso ci siano ugualmente, il responso dovrebbe indicarlo"*, e
+  *"anche magari nel caso di piercing e orecchini che cmq non nascondono i
+  tratti"*. Esito atteso: il responso dichiara cosa non ha potuto vedere,
+  invece di descriverlo lo stesso.
+- **CX.09** *"destra e sinistra vanno invertiti"* nelle pose della scansione.
+  Esito atteso: la posa chiesta e la posa che la macchina aspetta sono la
+  stessa, dal punto di vista di chi si guarda nello specchio della fotocamera
+  frontale.
+
+### E UNA COSA CHE MEDIAPIPE NON PUO' DIRE
+
+Verificato nel pacchetto `mediapipe_face_mesh` 2.9.0 prima di progettare
+qualunque cosa: `FaceMeshLandmark` porta **solo x, y e z**, nessun campo di
+visibilita' o di presenza per singolo punto. Quindi **non esiste modo di
+chiedere al modello quali punti abbia visto e quali abbia dedotto**: la
+distinzione fra visto e supposto, che la CAUSA B nomina, non si ottiene
+interrogando la mesh. O si misura sulla fotografia, o si dichiara. La via
+indicata dal fondatore, avvertire prima e dichiarare dopo, e' la sola che non
+finge una certezza che il modello non ha.
+
 ## LA PREMESSA DA VERIFICARE PRIMA DI TOCCARE QUALSIASI COSA
 
 **L'ordine CR del 6 settembre 2026 dice di aver gia' riparato il muro.** Le sue

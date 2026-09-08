@@ -382,6 +382,16 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                             _leggoLAltro = true;
                             _fase = _Fase.cattura;
                           }),
+                          // **IL CONFRONTO SI PUO' CHIUDERE.** Segnalato dal
+                          // fondatore l'8 settembre 2026: *"nel responso resta
+                          // in primo piano un riquadro due volti nello stesso
+                          // cerchio che non posso togliere"*. Il riquadro sta
+                          // fuori dall'area che scorre, quindi da quando
+                          // compare si mangia un terzo di schermo per sempre e
+                          // taglia il responso a meta'. Chiuderlo riporta il
+                          // pulsante, cioe' il confronto resta a un tocco.
+                          onChiudi: () =>
+                              setState(() => _secondoVolto = null),
                         ),
                       ],
                     ),
@@ -1335,62 +1345,62 @@ class _RisultatoState extends State<_Risultato>
                   ),
                 ),
               ),
-
-              // **L'ELEMENTO SI LEGGE, non si deduce dal colore.**
-              // Ordine CR voce 09: il colore vince sulla scena, e la voce
-              // 06 vuole la tradizione dichiarata. Chi non distingue i
-              // colori deve ricevere la stessa lettura di tutti gli altri,
-              // quindi il nome e la ragione stanno scritti.
-              if (_elemento case final e?) ...[
-                const SizedBox(height: SpacingTokens.lg),
-                Container(
-                  key: const Key('face_elemento'),
-                  padding: const EdgeInsets.all(SpacingTokens.md),
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusMd),
-                    border: Border.all(
-                        color: ColoreDellElemento.di(e)
-                            .withValues(alpha: 0.65)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColoreDellElemento.di(e),
-                          ),
-                        ),
-                        const SizedBox(width: SpacingTokens.sm),
-                        Text('Elemento ${e.nome}',
-                            style: TypographyTokens.etichetta().copyWith(
-                                color: palette.goldSoft,
-                                letterSpacing: 0.6)),
-                      ]),
-                      const SizedBox(height: SpacingTokens.xs),
-                      // Da cosa si riconosce: chi legge deve poter
-                      // verificare da se' che la forma corrisponde.
-                      Text(e.comeSiRiconosce,
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary)),
-                      const SizedBox(height: SpacingTokens.xs),
-                      Text(e.lettura,
-                          style: TypographyTokens.corpo().copyWith(
-                              color: ColorTokens.textPrimary, height: 1.5)),
-                      const SizedBox(height: SpacingTokens.xs),
-                      Text(
-                          'Mian Xiang, la fisiognomica cinese. La forma del '
-                          'volto è una misura, la lettura è simbolica.',
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary)),
-                    ],
-                  ),
-                ),
-              ],
+
+              // **L'ELEMENTO SI LEGGE, non si deduce dal colore.**
+              // Ordine CR voce 09: il colore vince sulla scena, e la voce
+              // 06 vuole la tradizione dichiarata. Chi non distingue i
+              // colori deve ricevere la stessa lettura di tutti gli altri,
+              // quindi il nome e la ragione stanno scritti.
+              if (_elemento case final e?) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                Container(
+                  key: const Key('face_elemento'),
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusMd),
+                    border: Border.all(
+                        color: ColoreDellElemento.di(e)
+                            .withValues(alpha: 0.65)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColoreDellElemento.di(e),
+                          ),
+                        ),
+                        const SizedBox(width: SpacingTokens.sm),
+                        Text('Elemento ${e.nome}',
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft,
+                                letterSpacing: 0.6)),
+                      ]),
+                      const SizedBox(height: SpacingTokens.xs),
+                      // Da cosa si riconosce: chi legge deve poter
+                      // verificare da se' che la forma corrisponde.
+                      Text(e.comeSiRiconosce,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary)),
+                      const SizedBox(height: SpacingTokens.xs),
+                      Text(e.lettura,
+                          style: TypographyTokens.corpo().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.5)),
+                      const SizedBox(height: SpacingTokens.xs),
+                      Text(
+                          'Mian Xiang, la fisiognomica cinese. La forma del '
+                          'volto è una misura, la lettura è simbolica.',
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary)),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: SpacingTokens.lg),
               // L'ELENCO dei tratti letti, ognuno con la sua stella e la frase.
               Text('I tratti del tuo volto',
@@ -1898,12 +1908,17 @@ class _DueVolti extends StatelessWidget {
     required this.mio,
     required this.altro,
     required this.onLeggiLAltro,
+    required this.onChiudi,
   });
 
   final MaestroPalette palette;
   final FaceReading mio;
   final FaceReading? altro;
   final VoidCallback onLeggiLAltro;
+
+  /// Chiude il confronto e riporta il pulsante. Senza questo il riquadro,
+  /// che vive fuori dall'area scorrevole, resta a schermo per sempre.
+  final VoidCallback onChiudi;
 
   @override
   Widget build(BuildContext context) {
@@ -1940,9 +1955,28 @@ class _DueVolti extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Due volti nello stesso Cerchio',
-                      style: TypographyTokens.titoloScheda()
-                          .copyWith(color: palette.goldSoft)),
+                  // **IL TITOLO E LA VIA D'USCITA SULLA STESSA RIGA.** La
+                  // chiusura sta accanto al titolo e non in fondo, perche' in
+                  // fondo la si trova solo dopo aver letto tutto il riquadro
+                  // che si vuole togliere.
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text('Due volti nello stesso Cerchio',
+                            style: TypographyTokens.titoloScheda()
+                                .copyWith(color: palette.goldSoft)),
+                      ),
+                      IconButton(
+                        key: const Key('face_due_volti_chiudi'),
+                        onPressed: onChiudi,
+                        visualDensity: VisualDensity.compact,
+                        tooltip: 'Chiudi il confronto',
+                        icon: Icon(Icons.close_rounded,
+                            size: 20, color: palette.goldSoft),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: SpacingTokens.xs),
                   // **DALLA PORTA UNICA, non un Text diretto.** La regola
                   // di casa vuole che il testo che si legge passi da
