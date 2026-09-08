@@ -171,3 +171,75 @@ const int quantiFileHannoLeFunzioni = 140;
 /// Serve alle poche guardie che leggono le altre guardie: se l'elenco delle
 /// prove si svuotasse, quelle direbbero il vero su nessuno.
 const int quanteProveCiSono = 600;
+
+/// **IL CODICE SENZA I COMMENTI, E QUESTA E' UNA PORTA SOLA.**
+/// Ordine CZ voce 15, 8 settembre 2026, e nasce dalla REGOLA H.
+///
+/// **Il difetto che chiude, e ha gia' colpito nove volte.** Una guardia che
+/// cerca una parola nel sorgente per **vietarla** trova, prima di tutto, il
+/// commento che spiega perche' quella parola e' vietata. La prova accusa se
+/// stessa, e chi la legge perde tempo su un difetto che non esiste; peggio,
+/// impara a non fidarsi della guardia.
+///
+/// Il censimento di questo ordine ha contato **311 file di prova su 813** che
+/// leggono il sorgente senza togliere i commenti prima di contare. Non si
+/// riscrivono tutti qui: si riscrive **la porta**, e le guardie che vietano
+/// una parola ci passano.
+///
+/// **Cosa toglie, e perche' e' piu' di una riga.** Le righe che cominciano
+/// per `//` e per `///`, le righe interne a un blocco `/* ... */`, e i
+/// commenti di coda dopo il codice. **Non tocca le stringhe**: una barra
+/// dentro `'http://...'` non apre nessun commento, e una guardia che le
+/// mangiasse cancellerebbe proprio i testi che deve guardare.
+String senzaCommenti(String sorgente) {
+  final fuori = StringBuffer();
+  var dentroBlocco = false;
+  for (final riga in sorgente.split('\n')) {
+    var r = riga;
+    if (dentroBlocco) {
+      final fine = r.indexOf('*/');
+      if (fine < 0) {
+        fuori.writeln();
+        continue;
+      }
+      r = r.substring(fine + 2);
+      dentroBlocco = false;
+    }
+    final apre = r.indexOf('/*');
+    if (apre >= 0) {
+      final chiude = r.indexOf('*/', apre + 2);
+      if (chiude < 0) {
+        r = r.substring(0, apre);
+        dentroBlocco = true;
+      } else {
+        r = r.substring(0, apre) + r.substring(chiude + 2);
+      }
+    }
+    // **LA BARRA DENTRO UNA STRINGA NON APRE NIENTE.** Si scorre carattere
+    // per carattere tenendo conto degli apici, cosi' `'https://x'` resta
+    // intero e `final a = 1; // nota` perde solo la nota.
+    var apice = '';
+    var taglio = -1;
+    for (var i = 0; i < r.length; i++) {
+      final c = r[i];
+      if (apice.isNotEmpty) {
+        if (c == r'\') {
+          i++;
+        } else if (c == apice) {
+          apice = '';
+        }
+        continue;
+      }
+      if (c == "'" || c == '"') {
+        apice = c;
+        continue;
+      }
+      if (c == '/' && i + 1 < r.length && r[i + 1] == '/') {
+        taglio = i;
+        break;
+      }
+    }
+    fuori.writeln(taglio >= 0 ? r.substring(0, taglio) : r);
+  }
+  return fuori.toString();
+}

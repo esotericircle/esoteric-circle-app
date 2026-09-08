@@ -27,6 +27,7 @@ import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/astro/solar_time.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
+import '../../core/rituals/scelta_degli_avvisi.dart';
 import '../../services/regia_delle_chiamate.dart';
 import 'dove_sei_adesso.dart';
 import 'ritual_gift_card.dart';
@@ -407,10 +408,24 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   /// Programma il prossimo avviso. Passa sempre dalla porta sola.
   Future<void> _programmaAvviso() async {
     final date = widget.now ?? DateTime.now();
+    // **E L'ORA CHE LA PERSONA HA SCELTO ARRIVA FIN QUI.** Ordine CZ voce 11,
+    // coda, 8 settembre 2026.
+    //
+    // Misurato sul telefono 767f596c: il menu' dichiarava 07:00 e nella coda
+    // delle sveglie c'erano le 06:00. Questa porta riscriveva lo stesso id
+    // **senza sapere niente dell'ora scelta**, e il numero che finiva in coda
+    // era l'ora media, che nessuno ha scelto e che il menu' non mostra.
+    //
+    // La scelta si legge dal disco e non dal contesto: questa chiamata arriva
+    // anche da un albero che il provider non ce l'ha, ed e' la lezione della
+    // regia delle chiamate.
+    final scelta = SceltaDegliAvvisi();
+    await scelta.carica();
     await AvvisiDelRito.programmaProssimo(
       servizio: widget.avvisi,
       adesso: date,
       posizione: _posizione(date),
+      minutiScelti: scelta.minutiDi(DailyElement.dawn),
     );
   }
 

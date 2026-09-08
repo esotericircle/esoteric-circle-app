@@ -176,6 +176,47 @@ def numero_da_aapt2(archivio):
     print('numero letto dall\'archivio con aapt2: ' + str(numero))
 
 
+def lo_sbarramento_e_passato(numero_atteso):
+    """IL GETTONE DELLO SBARRAMENTO, e perche' questa funzione esiste.
+
+    **Ordine CZ voce 14, 8 settembre 2026.** CI.04 era rossa dall'ordine CT e
+    ha attraversato una consegna intera senza fermarla. Cercata la ragione
+    negli strumenti: **questo file non nominava lo sbarramento in nessuna
+    riga.** Erano due strumenti separati, e niente obbligava il primo a essere
+    passato prima del secondo: chi costruiva l'archivio e lo caricava
+    consegnava su qualunque rosso, senza scavalco e senza lasciare traccia.
+
+    Lo scavalco dichiarato, SPEDISCO_SU_ROSSO, almeno si stampa e va riportato
+    nel rapporto. **Saltare lo sbarramento invece non si vedeva.**
+
+    Il gettone lo scrive `tool/sbarramento.sh` nei tre rami che lasciano
+    produrre l'archivio, e porta il numero di build del pubspec: **un gettone
+    di ieri non vale per la build di oggi**, e la suite rossa lo cancella.
+    """
+    percorso = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), 'build', 'sbarramento_passato.txt')
+    if not os.path.exists(percorso):
+        return (False, 'il gettone non esiste: lo sbarramento non e mai '
+                       'stato passato su questo albero. Lancia '
+                       'bash tool/sbarramento.sh')
+    testo = io.open(percorso, encoding='utf-8').read()
+    if 'SBARRAMENTO_PASSATO' not in testo:
+        return (False, 'il gettone esiste ma non dichiara il passaggio')
+    letto = None
+    for riga in testo.splitlines():
+        if riga.startswith('numero='):
+            letto = riga.split('=', 1)[1].strip()
+    if letto != str(numero_atteso):
+        return (False,
+                'il gettone dello sbarramento porta il numero ' + str(letto) +
+                ' e questo archivio e il ' + str(numero_atteso) + ': quel '
+                'gettone viene da un altro albero. Rilancia lo sbarramento.')
+    for riga in testo.splitlines():
+        if riga.startswith('esito=') or riga.startswith('prove='):
+            print('  ' + riga)
+    return (True, None)
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
@@ -269,6 +310,17 @@ def main():
     # dall'inventario e' un indizio, non una lettura. Quindi si dichiara. Cio'
     # che cambia rispetto a prima e' che adesso e' OBBLIGATORIO e lo scrive la
     # consegna nel registro: prima era facoltativo e non lo scriveva nessuno.
+    # **E LO SBARRAMENTO DEVE ESSERE PASSATO SU QUESTO ALBERO.**
+    # Ordine CZ voce 14: la falla per cui un rosso ha attraversato una
+    # consegna intera era che questo file non lo nominava affatto.
+    print('')
+    print('== LO SBARRAMENTO, PRIMA DI CARICARE ==')
+    passato, perche = lo_sbarramento_e_passato(
+        ispeziona_archivio.versione_dall_archivio(archivio))
+    if not passato:
+        raise SystemExit('SBARRAMENTO NON PASSATO. ' + perche)
+    print('  lo sbarramento e passato su questo albero.')
+
     comando = os.environ.get('COMANDO_DI_BUILD', '').strip()
     if not comando:
         raise SystemExit(

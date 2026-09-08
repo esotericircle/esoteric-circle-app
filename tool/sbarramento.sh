@@ -239,9 +239,40 @@ if [ -n "$DI_TROPPO" ]; then
   exit 1
 fi
 
+
+# **LA PROVA CHE LO SBARRAMENTO E' PASSATO SU QUESTO ALBERO.**
+# Ordine CZ voce 14, 8 settembre 2026.
+#
+# **La falla che chiude.** CI.04 era rossa dall'ordine CT e ha attraversato
+# una consegna intera senza fermarla. Cercata la ragione negli strumenti:
+# `tool/consegna.py` NON nominava lo sbarramento in nessuna riga. Erano due
+# strumenti separati, e niente obbligava il primo a essere passato prima del
+# secondo: chi costruiva l'archivio e lo caricava consegnava su qualunque
+# rosso, **senza scavalco e senza lasciare traccia**. Lo scavalco dichiarato,
+# SPEDISCO_SU_ROSSO, almeno si stampa; saltare lo sbarramento non si vedeva.
+#
+# **Come si chiude.** Qui si scrive un gettone col numero di build del
+# pubspec e col conto delle prove che hanno girato. La consegna lo legge e
+# rifiuta di caricare se manca o se il numero non e' il suo: **un gettone di
+# ieri non vale per la build di oggi**.
+scrivi_il_gettone() {
+  NUMERO="$(sed -nE 's/^version: [0-9.]+[+]([0-9]+).*//p' "$QUI/../pubspec.yaml")"
+  PASSATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$//p' "$REGISTRO" | tail -1)"
+  mkdir -p "$QUI/../build"
+  {
+    echo "SBARRAMENTO_PASSATO"
+    echo "numero=${NUMERO:-ignoto}"
+    echo "prove=${PASSATE:-0}"
+    echo "quando=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    echo "esito=$1"
+  } > "$QUI/../build/sbarramento_passato.txt"
+  echo "== GETTONE SCRITTO: numero ${NUMERO:-ignoto}, ${PASSATE:-0} prove =="
+}
+
 if [ "$ESITO" -eq 0 ]; then
   echo "== SUITE VERDE: la build puo' procedere =="
   echo "== E il registro dei rossi accettati e' vuoto o dice il vero =="
+  scrivi_il_gettone "verde"
   rm -f "$REGISTRO"
   exit 0
 fi
@@ -310,6 +341,7 @@ if [ -z "$NUOVE" ] && [ -n "$CADUTE" ]; then
   echo "----------------------------------------------------------------------"
   grep -v '^[[:space:]]*#' "$ACCETTATI" | grep -v '^[[:space:]]*$' | sed 's/^/  /'
   echo "----------------------------------------------------------------------"
+  scrivi_il_gettone "rossi accettati"
   rm -f "$REGISTRO"
   exit 0
 fi
@@ -329,9 +361,13 @@ if [ -n "${SPEDISCO_SU_ROSSO:-}" ]; then
   echo "  Il nome SPEDISCO_SU_ROSSO va riportato nel rapporto della consegna."
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo ""
+  scrivi_il_gettone "scavalco SPEDISCO_SU_ROSSO"
   rm -f "$REGISTRO"
   exit 0
 fi
 
+# **E SE LA SUITE E' ROSSA IL GETTONE SI CANCELLA**, cosi' un gettone vecchio
+# non copre una corsa nuova andata male.
+rm -f "$QUI/../build/sbarramento_passato.txt"
 rm -f "$REGISTRO"
 exit 1

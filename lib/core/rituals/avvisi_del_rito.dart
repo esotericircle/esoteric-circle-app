@@ -186,10 +186,29 @@ class AvvisiDelRito {
   /// Con una posizione dichiarabile è il sorgere vero. Altrimenti è l'ora media
   /// di `SunsetTime.oraMediaAlba`, la stessa che il resto dell'app usa gia' per
   /// il ripiego, **e in quel caso non si dichiara nessuna ora esatta**.
+  /// [minutiScelti] e' l'ora che la persona ha messo nel menu' delle
+  /// notifiche. **Vince su tutto**, ordine BC voce 05 coda; la sola eccezione
+  /// e' quando vale ancora l'ora d'ancora, e allora il Sole puo' parlare.
   static ({DateTime istante, bool albaVera}) istanteDellAvviso(
     DateTime quando,
-    PosizioneDiStamattina? posizione,
-  ) {
+    PosizioneDiStamattina? posizione, {
+    int? minutiScelti,
+  }) {
+    // **L'ORA SCELTA A MANO VINCE SUL SORGERE. Ordine CZ voce 11, coda, 8
+    // settembre 2026.**
+    //
+    // Misurato sul telefono 767f596c: il menu' dichiarava 07:00 e nella coda
+    // delle sveglie c'erano le 06:00. Due porte scrivevano lo stesso id con
+    // due ore diverse, perche' questa non guardava affatto l'ora scelta.
+    final ancora = DailyElement.dawn.anchorMinutes;
+    final scelti = minutiScelti ?? ancora;
+    if (scelti != ancora) {
+      return (
+        istante: DateTime(quando.year, quando.month, quando.day, scelti ~/ 60,
+            scelti % 60),
+        albaVera: false,
+      );
+    }
     if (posizione != null && posizione.oraDichiarabile) {
       final alba = SunsetTime.albaPerData(
         quando,
@@ -201,7 +220,15 @@ class AvvisiDelRito {
       // ovunque nel progetto, invece di non avvisare affatto.
       if (alba != null) return (istante: alba, albaVera: true);
     }
-    return (istante: SunsetTime.oraMediaAlba(quando), albaVera: false);
+    // **E SENZA POSIZIONE SI USA L'ORA CHE IL MENU' DICHIARA**, non l'ora
+    // media. `SunsetTime.oraMediaAlba` dava le 06:00, un numero che non
+    // compare in nessun punto dell'app e che nessuno ha scelto: chi legge
+    // 07:00 nel menu' deve essere chiamato alle 07:00.
+    return (
+      istante: DateTime(
+          quando.year, quando.month, quando.day, scelti ~/ 60, scelti % 60),
+      albaVera: false,
+    );
   }
 
   /// PROGRAMMA l'avviso del prossimo risveglio, se ha senso farlo.
@@ -220,6 +247,7 @@ class AvvisiDelRito {
     required DateTime adesso,
     PosizioneDiStamattina? posizione,
     RitualStreak streak = const RitualStreak(),
+    int? minutiScelti,
   }) async {
     if (!servizio.disponibile || !await servizio.permessoConcesso()) {
       return EsitoAvviso.senzaPermesso;
@@ -229,10 +257,12 @@ class AvvisiDelRito {
     // Se il rito di oggi è gia' stato aperto si guarda a domani; altrimenti si
     // guarda a oggi, e se l'ora e' passata si scivola comunque a domani.
     var giorno = giaFatto ? adesso.add(const Duration(days: 1)) : adesso;
-    var quando = istanteDellAvviso(giorno, posizione);
+    var quando =
+        istanteDellAvviso(giorno, posizione, minutiScelti: minutiScelti);
     if (!giaFatto && !quando.istante.isAfter(adesso)) {
       giorno = adesso.add(const Duration(days: 1));
-      quando = istanteDellAvviso(giorno, posizione);
+      quando =
+          istanteDellAvviso(giorno, posizione, minutiScelti: minutiScelti);
     }
 
     await servizio.annulla(idAvvisoAlba);
