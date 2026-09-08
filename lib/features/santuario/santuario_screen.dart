@@ -1112,8 +1112,63 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // Maestri "ancora piu' grandi". Il tetto scende da 100
                         // a 84 e il pavimento da 54 a 46: la fase resta
                         // leggibile, e ogni punto tolto qui finisce nel busto.
-                        MoonWidget(
-                            phase: moon, size: (w * 0.12).clamp(46.0, 84.0)),
+                        // **L'INVITO STA NELLA RIGA DELLA LUNA, e non in una
+                        // fascia sua.** Trovato a video sulla build 2237: la
+                        // riga "Tocca il cielo" era stampata sopra "LUNA
+                        // CALANTE", e non era la prima volta.
+                        //
+                        // Prima l'invito viveva in un `Positioned` dello
+                        // Stack esterno, con la sua frazione dell'altezza
+                        // dello schermo, mentre il nome della fase vive in
+                        // questa colonna, che **cresce col titolo, col corpo
+                        // di sistema e con la lingua**. Due catene
+                        // indipendenti si dividevano la stessa fascia e
+                        // nessuna sapeva dov'era l'altra: la correzione
+                        // precedente spostava un numero, quindi teneva finche'
+                        // la colonna non cresceva di qualche punto.
+                        //
+                        // **Adesso non e' piu' una questione di numeri.**
+                        // L'invito vive dentro questo Stack, agganciato alla
+                        // Luna, e il nome della fase e' il fratello
+                        // successivo nella colonna: **la colonna non puo'
+                        // mettere un fratello sopra l'altro**, quindi la
+                        // sovrapposizione non e' piu' improbabile, e'
+                        // impossibile. Il numero che resta, `lato * 1.6`,
+                        // dice quanto in alto, non se: qualunque valore lo
+                        // tiene comunque fuori dalla riga della fase.
+                        // **UNA RIGA, NON UNA PILA.** Il tentativo prima di
+                        // questo metteva l'invito in un `Positioned` dentro
+                        // uno Stack, con la distanza contata dal lato
+                        // dichiarato della Luna: **il MoonWidget dipinge un
+                        // alone e occupa sessantanove punti dove il lato ne
+                        // dichiara quarantasei**, quindi la mano finiva
+                        // addosso al disco. Contare da un numero che non e'
+                        // quello vero e' lo stesso difetto di prima, un
+                        // livello piu' in basso.
+                        //
+                        // In una riga il problema non si pone: la Luna e
+                        // l'invito sono due celle affiancate, e **non possono
+                        // sovrapporsi comunque la Luna decida di dipingersi**.
+                        // Il vuoto a sinistra e' largo quanto l'invito a
+                        // destra, cosi' la Luna resta al centro dello schermo.
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: _SkyTapHint.larghezza),
+                            MoonWidget(
+                                phase: moon,
+                                size: (w * 0.12).clamp(46.0, 84.0)),
+                            IgnorePointer(
+                              child: _SkyTapHint(
+                                visible: _showSkyHint,
+                                pulse: _tapPulse,
+                                reduceMotion: reduceMotion,
+                                color: palette.goldSoft,
+                              ),
+                            ),
+                          ],
+                        ),
                         // **LE DUE RIGHE SI STRINGONO, E LO SPAZIO VA AI
                         // MAESTRI.** Ordine BC voce 01, parole del fondatore:
                         // "le due righe (bianca e giallo oro) devono essere piu'
@@ -1126,6 +1181,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // le stava sotto.
                         Text(
                           moon.italianName.toUpperCase(),
+                          // **LA CHIAVE SERVE A UNA GUARDIA.** L'invito al
+                          // tocco del cielo e' finito sopra questa riga due
+                          // volte, e finche' le due scritte non si potevano
+                          // misurare l'una contro l'altra il difetto poteva
+                          // solo tornare.
+                          key: const Key('santuario_fase_lunare'),
                           style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft,
                             letterSpacing: 1.6,
@@ -1196,32 +1257,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               ),
             ),
 
-            // Invito al tocco del cielo: in alto, accanto alla Luna, cosi'
-            // invita a toccare il cielo e non i Maestri. E' sopra la scena ma
-            // trasparente ai tocchi, che passano alla zona toccabile del
-            // cielo sottostante: mano e zona coincidono in quest'area alta.
-            // Compare dopo qualche secondo, si dissolve alla prima
-            // interazione, ferma con Riduci Movimento.
-            // Piu' in alto e piu' a destra di prima: cosi' com'era, la
-            // riga 'Tocca il cielo' finiva sopra il nome della fase
-            // lunare, e due scritte sovrapposte sono illeggibili tutte e
-            // due. L'invito sta ora nella fascia libera accanto alla Luna.
-            Positioned(
-              top: h * 0.055,
-              left: 0,
-              right: 0,
-              child: IgnorePointer(
-                child: Align(
-                  alignment: const Alignment(0.72, 0),
-                  child: _SkyTapHint(
-                    visible: _showSkyHint,
-                    pulse: _tapPulse,
-                    reduceMotion: reduceMotion,
-                    color: palette.goldSoft,
-                  ),
-                ),
-              ),
-            ),
+            // **L'INVITO AL TOCCO DEL CIELO NON STA PIU' QUI**, e il posto
+            // che aveva era la causa del difetto. Stava in questo Stack, con
+            // una frazione dell'altezza dello schermo che nessuno poteva
+            // confrontare con la colonna del cielo: adesso vive dentro quella
+            // colonna, agganciato al fondo della Luna. Resta trasparente ai
+            // tocchi, che passano alla zona toccabile del cielo.
 
             // Palco e busti, alzati verso il centro della scena.
             Positioned(
@@ -2104,6 +2145,13 @@ class _SkyTapHint extends StatelessWidget {
   final bool reduceMotion;
   final Color color;
 
+  /// **QUANTO E' LARGO IL GRUPPO**, dichiarato una volta sola: la mano, l'aria
+  /// e la scritta. Serve a chi mette l'invito accanto alla Luna, perche' per
+  /// tenere la Luna al centro dello schermo bisogna lasciare a sinistra un
+  /// vuoto largo quanto l'invito che sta a destra. Un numero scritto due volte
+  /// in due file diversi e' due verita' sulla stessa cosa.
+  static const double larghezza = 46 + 6 + 70;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
@@ -2114,12 +2162,26 @@ class _SkyTapHint extends StatelessWidget {
         duration: const Duration(milliseconds: 400),
         child: !visible
             ? const SizedBox.shrink()
-            : Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+            // **IN RIGA, NON IN COLONNA, e la ragione e' una misura.**
+            // La mano sopra e la scritta sotto facevano un gruppo alto
+            // ottantasette punti, e fra il titolo del cielo e il nome della
+            // fase ce ne sono settantuno: **non c'era posto**, e per questo
+            // l'invito e' finito prima sopra la fase, poi sopra il titolo.
+            // Affiancando la mano alla scritta, con la scritta su due righe
+            // strette, il gruppo scende a cinquantaquattro punti di altezza e
+            // a poco piu' di cento di larghezza: entra nella fascia della
+            // Luna senza toccare ne' quello che ha sopra ne' quello che ha
+            // sotto.
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                     SizedBox(
+                      // La chiave sta sulla MANO e non sulla scritta: a
+                      // coprire la Luna era il disegno, e una guardia che
+                      // misurava la scritta restava verde col disegno addosso
+                      // al disco.
+                      key: const Key('santuario_mano_dell_invito'),
                       width: 46,
                       height: 54,
                       child: AnimatedBuilder(
@@ -2136,17 +2198,25 @@ class _SkyTapHint extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Tocca il cielo',
-                      style: TypographyTokens.etichetta().copyWith(
-                        color: color.withValues(alpha: 0.75),
-                        letterSpacing: 1.2,
+                    const SizedBox(width: 6),
+                    // La scritta va a capo dentro una larghezza stretta: due
+                    // righe corte accanto alla mano costano meno spazio di
+                    // una riga lunga sotto, e lo spazio qui e' tutto quello
+                    // che c'e'.
+                    SizedBox(
+                      width: 70,
+                      child: Text(
+                        'Tocca il cielo',
+                        key: const Key('santuario_invito_al_cielo'),
+                        style: TypographyTokens.etichetta().copyWith(
+                          color: color.withValues(alpha: 0.75),
+                          letterSpacing: 1.2,
+                          height: 1.15,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
       ),
     );
   }

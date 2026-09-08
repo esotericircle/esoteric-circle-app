@@ -41,9 +41,9 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 119 |
 | Guardie con un cardinale proprio dichiarato | 79 |
-| Guardie che non scoprono nessun insieme di file | 159 |
-| **Somma delle categorie** | **357** |
-| **Guardie secondo la definizione** | **357** |
+| Guardie che non scoprono nessun insieme di file | 160 |
+| **Somma delle categorie** | **358** |
+| **Guardie secondo la definizione** | **358** |
 
 Le due righe in grassetto **coincidono**, contate il 7 settembre 2026, e
 ricontate lo stesso giorno dopo l'ordine CW, che ha portato **otto guardie
@@ -124,7 +124,7 @@ questo registro.
 | | |
 | --- | ---: |
 | File di prova totali | 797 |
-| **Guardie secondo la definizione** | **357** |
+| **Guardie secondo la definizione** | **358** |
 | Guardie che scorrono i sorgenti di `lib` | 136 |
 | Di queste, passate alla porta comune | 119 |
 | Guardie che scoprono un insieme in `lib` senza cardinale | **0** |
@@ -368,6 +368,7 @@ le altre.
 | `l_anello_del_livello_test.dart` | l anello del livello | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `l_arcano_del_giorno_test.dart` | l arcano del giorno | 1, 2 | proprio, dichiarato | mai | 3 |
 | `l_arcano_e_del_singolo_test.dart` | l Arcano e del singolo | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
+| `l_invito_non_cade_sulla_fase_lunare_test.dart` | l invito al cielo non cade sul nome della fase | 4 | non scopre insiemi di file | 08/09/2026, CZ | 1 |
 | `l_asserzione_non_pesca_il_suo_commento_test.dart` | l asserzione non pesca il suo commento | 1, 2 | proprio, dichiarato | 08/09/2026, CZ | 2 |
 | `l_effetto_non_aspetta_la_piattaforma_test.dart` | l effetto non aspetta la piattaforma | 1, 2, 4 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `l_emblema_sta_nel_suo_riquadro_test.dart` | l emblema sta nel suo riquadro | 4 | non scopre insiemi di file | mai | 3 |
