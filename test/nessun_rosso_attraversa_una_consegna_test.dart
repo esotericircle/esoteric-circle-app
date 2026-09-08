@@ -157,6 +157,52 @@ void main() {
     provala('PASSATE=', '22:35 +4024 -0: All tests passed!', '4024',
         'il conto delle prove passate dal registro');
 
+    // **E IL CONTO SI PRENDE DAL POSTO GIUSTO DEL REGISTRO.** Secondo difetto
+    // dello stesso gettone: dopo il rapporto di `flutter test` lo sbarramento
+    // aggiunge righe sintetiche `00:00 +0 -1` per le cadute delle altre
+    // suite, e la pipeline chiudeva con `tail -1`. Il gettone ha dichiarato
+    // **prove=0 dopo quattromilasettecento prove passate**, che e' un numero
+    // falso stampato con la faccia di un numero vero.
+    //
+    // **Qui si misura la scelta, non la forma della riga.** Si prende la
+    // pipeline dallo script, si costruisce un registro finto fatto come
+    // quello vero (il rapporto, e dopo di lui la riga sintetica), e si guarda
+    // che numero ne esce.
+    final indice = righe.indexWhere((r) => r.contains('PASSATE='));
+    expect(indice, greaterThanOrEqualTo(0),
+        reason: 'nello script non si trova piu\' la riga che conta le prove');
+    final pipeline = StringBuffer();
+    for (var i = indice; i < righe.length; i++) {
+      pipeline.write(righe[i]);
+      if (righe[i].contains(')"')) break;
+    }
+    const registroFinto = [
+      '22:35 +4725 -3: Some tests failed.',
+      '00:00 +0 -1: SCALA 1,3: Cattura l\'Oroscopo [E]',
+    ];
+    final pattern = espressioneDi('PASSATE=')!.$1;
+    final raccolti = <int>[
+      for (final r in registroFinto)
+        if (RegExp(pattern).firstMatch(r) != null)
+          int.parse(RegExp(pattern).firstMatch(r)!.group(1)!),
+    ];
+    expect(raccolti.length, 2,
+        reason: 'l\'espressione non aggancia tutte e due le righe del '
+            'registro finto: questa prova non sta misurando la scelta');
+    // Se la pipeline ordina, vale il massimo; se chiude con `tail` e basta,
+    // vale l'ultima riga incontrata. E' esattamente quello che fa la conchiglia.
+    final ordina = pipeline.toString().contains('sort -n');
+    final uscita = ordina
+        ? raccolti.reduce((a, b) => a > b ? a : b)
+        : raccolti.last;
+    // ignore: avoid_print
+    print('ORDINE CZ VOCE 14: dal registro finto il gettone ricava $uscita '
+        'prove, e la pipeline ${ordina ? "ordina" : "prende l ultima riga"}');
+    expect(uscita, 4725,
+        reason: 'dal registro il gettone ricava $uscita prove invece di 4725: '
+            'pesca la riga sintetica che viene dopo il rapporto, e dichiara '
+            'un numero falso');
+
     // **E IL GETTONE VERO, se e' li'.** Viene scritto dopo la suite, quindi
     // dentro la suite puo' non esistere: quando esiste pero' e' il fatto in
     // persona, e non si guarda un'altra volta la forma dell'espressione.

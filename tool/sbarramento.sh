@@ -257,7 +257,14 @@ fi
 # ieri non vale per la build di oggi**.
 scrivi_il_gettone() {
   NUMERO="$(sed -nE 's/^version: [0-9.]+[+]([0-9]+).*/\1/p' "$QUI/../pubspec.yaml")"
-  PASSATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$REGISTRO" | tail -1)"
+  # **IL MASSIMO, NON L'ULTIMO.** Il registro non contiene solo il rapporto di
+  # `flutter test`: dopo di lui ci si aggiungono righe sintetiche `00:00 +0 -1`
+  # per le cadute delle altre suite, e `tail -1` pescava una di quelle. Il
+  # gettone diceva `prove=0` dopo quattromilasettecento prove passate. Il conto
+  # delle passate cresce e non torna indietro, quindi la grandezza giusta e' il
+  # suo massimo.
+  PASSATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$REGISTRO" \
+    | sort -n | tail -1)"
   mkdir -p "$QUI/../build"
   {
     echo "SBARRAMENTO_PASSATO"

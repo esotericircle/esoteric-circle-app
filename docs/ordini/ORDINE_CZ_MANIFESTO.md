@@ -266,6 +266,17 @@ perche' rinominarle azzererebbe le ore scelte su ogni telefono.
    riga nota e pretende **2237** e **4024**, e quando il gettone e' su disco
    pretende che i due campi siano numeri. Vista rossa in tutti e due i modi:
    col gettone vuoto sul disco e col difetto reinnestato nello script.
+5. **E IL SECONDO GETTONE HA DICHIARATO `prove=0`** dopo quattromilasettecento
+   prove passate. Stesso gettone, causa diversa: nel registro, dopo il
+   rapporto di `flutter test`, lo sbarramento aggiunge righe sintetiche
+   `00:00 +0 -1` per le cadute delle altre due suite, e la pipeline chiudeva
+   con `tail -1`. **Pescava una di quelle.** Il conto delle passate cresce e
+   non torna indietro, quindi la grandezza giusta e' il suo massimo, e ora la
+   pipeline ordina. La guardia costruisce un registro finto fatto come quello
+   vero, il rapporto e dopo di lui la riga sintetica, e pretende **4725**:
+   vista rossa col `tail -1` rimesso, `dal registro finto il gettone ricava 0
+   prove`. Il numero falso non fermava nessuna consegna, ed e' proprio per
+   questo che sarebbe rimasto li' a lungo.
 
 ### CZ.15, la bonifica sotto la Regola H. CENSITA, e la porta esiste
 
