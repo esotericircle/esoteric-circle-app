@@ -155,7 +155,19 @@ void main() {
     var uguali = 0;
     const quanteVolte = 12;
     for (var i = 0; i < quanteVolte; i++) {
-      final poi = FaceClassifier.leggi(conRumore(stretto, scostamento, i));
+      // **SI LEGGE COME LEGGE L'APP: la mediana di nove fotogrammi.**
+      // Ordine CX, 8 settembre 2026. Un fotogramma solo e' un attimo, e da
+      // quando le soglie sono tarate sui volti veri un volto puo' stare
+      // appoggiato a una soglia: con una lettura sola questa prova ha
+      // misurato dieci letture identiche su dodici invece di dodici.
+      //
+      // **La cura non e' stata allontanare le soglie**, che avrebbe voluto
+      // dire tornare a un responso uguale per tutti: e' stato smettere di
+      // guardare un fotogramma solo, che e' cio' che la scansione fa davvero.
+      final poi = FaceClassifier.leggiStabile([
+        for (var k = 0; k < 9; k++)
+          conRumore(stretto, scostamento, i * 100 + k),
+      ]);
       final a = prima.letture.map((l) => l.tratto.name).toList();
       final b = poi.letture.map((l) => l.tratto.name).toList();
       if (a.join('|') == b.join('|')) uguali++;

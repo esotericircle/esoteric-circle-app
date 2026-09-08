@@ -33,42 +33,27 @@ void main() {
       .readAsStringSync();
   final codice = senzaCommenti(sorgente);
 
-  test('OGNI PULSANTE HA LA SUA DIDASCALIA, e non ne condividono una', () {
-    for (final chiave in const [
-      'face_didascalia_ritorno',
-      'face_didascalia_piena',
-    ]) {
-      expect(codice.contains(chiave), isTrue,
-          reason: 'manca la didascalia "$chiave": se un pulsante resta senza '
-              'la sua riga, quella dell\'altro descrive tutti e due, ed e\' '
-              'come il fondatore ha letto una scansione negata dove c\'era un '
-              'pulsante che la apriva');
-    }
-  });
-
-  test('E LE DUE RIGHE NON DICONO LA STESSA COSA', () {
-    // **REGOLA H.** Il conteggio di sopra passerebbe anche con due righe
-    // identiche, che sarebbero ambigue esattamente come una riga sola.
-    String testoVicino(String chiave) {
-      final i = codice.indexOf(chiave);
-      if (i < 0) return '';
-      // La stringa del Text sta poco sopra la chiave, dentro lo stesso widget.
-      final da = i - 400 < 0 ? 0 : i - 400;
-      return codice.substring(da, i);
-    }
-
-    final a = testoVicino('face_didascalia_ritorno');
-    final b = testoVicino('face_didascalia_piena');
-    expect(a.isNotEmpty && b.isNotEmpty, isTrue,
-        reason: 'non si trova il testo di una delle due didascalie: questa '
-            'prova non sta guardando quello che crede');
-    expect(a.contains('li ho già'), isTrue,
-        reason: 'la didascalia del ritorno non e\' quella che il fondatore ha '
-            'letto: la prova sta misurando un\'altra riga');
-    expect(b.contains('Quattro pose'), isTrue,
-        reason: 'la didascalia della lettura piena non nomina le quattro '
-            'pose, cioe\' non dice che quel pulsante apre la scansione: e\' '
-            'proprio l\'informazione che mancava');
+  test('LA PORTA DELLA SCANSIONE E UNA SOLA, e dice cosa fa', () {
+    // **IL PULSANTE DEL RITORNO NON ESISTE PIU.** Ordine CX, parole del
+    // fondatore: *"Devi eliminare ovunque leggi il tuo momento: prima di
+    // tutto e difficilissimo e poi non serve a niente. Se l utente vuole
+    // rifare la scansione, la rifa completa."*
+    //
+    // Questa prova nasceva per un difetto di quella coppia di pulsanti: una
+    // didascalia sola stampata fra i due, che il fondatore ha letto come una
+    // scansione negata. **Tolto il ritorno il difetto non puo tornare per
+    // costruzione**, e cio che resta da sorvegliare e che la porta unica
+    // dichiari cosa fa.
+    expect(codice.contains('face_return_start'), isFalse,
+        reason: 'il pulsante del ritorno e tornato: chiedeva una posa '
+            'difficile per dare meno di quello che la scansione da, e la sua '
+            'didascalia ha fatto credere che la scansione fosse negata');
+    expect(codice.contains('face_didascalia_piena'), isTrue,
+        reason: 'la porta della scansione non ha nessuna riga che dica cosa '
+            'fa: chi la guarda non sa che apre le quattro pose');
+    expect(codice.contains('Quattro pose'), isTrue,
+        reason: 'la riga non nomina le quattro pose, cioe non dice che quel '
+            'pulsante apre la scansione');
   });
 
   test('L\'AVVISO SUGLI ACCESSORI ESISTE, e viene PRIMA dei pulsanti', () {
@@ -76,19 +61,13 @@ void main() {
     // stampato dopo il pulsante che apre la fotocamera arriva quando la
     // persona si e' gia' inquadrata col cappello.
     final avviso = codice.indexOf('face_avviso_accessori');
-    final ritorno = codice.indexOf('face_return_start');
     final piena = codice.indexOf('face_start');
     expect(avviso, greaterThanOrEqualTo(0),
         reason: 'non esiste nessun avviso sugli accessori: chi si inquadra '
             'col cappello lo scopre dal responso, che glielo descrive lo '
             'stesso perche\' la mesh posa i punti anche dove non vede');
-    expect(ritorno, greaterThanOrEqualTo(0),
-        reason: 'non si trova il pulsante del ritorno');
     expect(piena, greaterThanOrEqualTo(0),
         reason: 'non si trova il pulsante della lettura piena');
-    expect(avviso, lessThan(ritorno),
-        reason: 'l\'avviso sugli accessori e\' scritto DOPO il pulsante che '
-            'apre la fotocamera: arriva quando serviva prima');
     expect(avviso, lessThan(piena),
         reason: 'l\'avviso sugli accessori e\' scritto DOPO il pulsante della '
             'lettura piena');

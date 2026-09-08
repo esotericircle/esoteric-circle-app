@@ -570,9 +570,9 @@ class _Soglia extends StatelessWidget {
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: ParagrafiDiLettura(
-                    testo: 'Prima di cominciare togli cappello e occhiali, e '
-                        'scosta i capelli dalla fronte. Quello che resta '
-                        'coperto non lo posso leggere, e preferisco dirtelo '
+                    testo: 'Prima di cominciare togli cappello e occhiali. '
+                        'Scosta i capelli dalla fronte: quello che resta '
+                        'coperto non lo posso leggere. Preferisco dirtelo '
                         'adesso invece di indovinarlo dopo.',
                     stile: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textPrimary),
@@ -634,7 +634,7 @@ class _Soglia extends StatelessWidget {
             const SizedBox(height: SpacingTokens.xs),
             Text(
                 ultimo != null
-                    ? 'Quattro pose, e i tuoi tratti si rimisurano da capo.'
+                    ? 'Quattro pose: i tuoi tratti si rimisurano da capo.'
                     : 'Quattro pose guidate: destra, sinistra, alto, basso.',
                 key: const Key('face_didascalia_piena'),
                 style: TypographyTokens.didascalia()
@@ -803,6 +803,14 @@ class _CatturaState extends State<_Cattura>
   /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
   LetturaDelVolto? _lettura;
 
+  /// **QUANTI FOTOGRAMMI ENTRANO NELLA MEDIANA.** Nove: la scansione ne vede
+  /// decine, e nove bastano perche' un tremito resti in minoranza senza che
+  /// la lettura si porti dietro pose vecchie di secondi.
+  static const int _quantiFotogrammiSiMediano = 9;
+
+  /// Gli ultimi contorni che il motore ha accettato, dal piu' vecchio.
+  final List<FaceContours> _ultimiContorni = [];
+
   /// **QUANDO L'ULTIMA LETTURA E' ARRIVATA.** Ordine CR voce 01, seconda
   /// stesura: il cancello guardava l'ultima lettura senza chiedersi di
   /// quando fosse, e una lettura vecchia non e' una lettura.
@@ -899,6 +907,19 @@ class _CatturaState extends State<_Cattura>
         _proporzioneFotogramma = alto == 0 ? null : largo / alto;
         _lettura = lettura;
         _letturaQuando = lettura == null ? null : adesso;
+        // **GLI ULTIMI FOTOGRAMMI BUONI, per leggere la mediana e non
+        // l'attimo.** Ordine CX, 8 settembre 2026.
+        //
+        // Con le soglie tarate sui volti veri un volto puo' stare appoggiato
+        // a una soglia, e la guardia ha misurato che **lo stesso viso
+        // spostato di quattro punti su mille cambiava due letture su
+        // dodici**. Un fotogramma solo e' un attimo, e un attimo trema.
+        if (lettura != null) {
+          _ultimiContorni.add(lettura.contorni);
+          if (_ultimiContorni.length > _quantiFotogrammiSiMediano) {
+            _ultimiContorni.removeAt(0);
+          }
+        }
         if (lettura != null) {
           _rifiuto = null;
           // **LA SCANSIONE AVANZA SOLO CON UN VOLTO IN SCENA.** Senza
@@ -995,7 +1016,12 @@ class _CatturaState extends State<_Cattura>
       return;
     }
     final contorni = (esito as VoltoTrovato).contorni;
-    final reading = FaceClassifier.leggi(contorni);
+    // **LA LETTURA VIENE DALLA MEDIANA DEGLI ULTIMI FOTOGRAMMI**, non dal
+    // solo istante in cui il dito ha toccato: e' cio' che rende il responso
+    // una misura invece di un sorteggio fra due varianti vicine.
+    final reading = _ultimiContorni.isEmpty
+        ? FaceClassifier.leggi(contorni)
+        : FaceClassifier.leggiStabile(_ultimiContorni);
     final cost = FaceConstellation.da(contorni);
     // **I RAPPORTI MISURATI SI STAMPANO, ed e' il ponte per tarare le
     // soglie.** Ordine CX, 8 settembre 2026.

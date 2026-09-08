@@ -287,6 +287,82 @@ class FaceClassifier {
     return FaceReading(letture: letture);
   }
 
+  /// **LA LETTURA STABILE: la mediana di piu fotogrammi, non uno solo.**
+  /// Ordine CX, 8 settembre 2026.
+  ///
+  /// **Il fatto che la rende necessaria.** Da quando le soglie sono tarate sui
+  /// volti veri, stanno **dentro** l intervallo in cui i volti cadono, che e
+  /// il solo posto in cui una soglia serve a qualcosa. Ma li vicino un volto
+  /// ci sta anche appoggiato: la guardia ha misurato che **lo stesso volto
+  /// spostato di quattro punti su mille cambiava due letture su dodici**.
+  ///
+  /// Con le soglie vecchie la stessa guardia era verde, e non perche il
+  /// responso fosse stabile: **perche nessun volto arrivava mai a una
+  /// soglia**. Era la stabilita di una misura che non misurava.
+  ///
+  /// **La cura non e allontanare le soglie**, che vorrebbe dire tornare a un
+  /// responso uguale per tutti: e smettere di guardare un fotogramma solo. La
+  /// scansione ne vede decine, e la mediana di quelli che il cancello ha
+  /// accettato non si sposta per un tremito della mano.
+  ///
+  /// **Perche la MEDIANA e non la media.** Un fotogramma sfocato o mosso
+  /// produce un rapporto molto lontano dagli altri: la media se lo porta
+  /// dentro, la mediana lo ignora.
+  static FaceReading leggiStabile(List<FaceContours> fotogrammi) {
+    if (fotogrammi.isEmpty) {
+      throw ArgumentError('nessun fotogramma da leggere');
+    }
+    if (fotogrammi.length == 1) return leggi(fotogrammi.first);
+    // Per ogni categoria: quante volte e uscita ogni variante, e i rapporti.
+    final voti = <FaceCategory, Map<FaceTrait, int>>{};
+    final rapporti = <FaceCategory, List<double>>{};
+    for (final f in fotogrammi) {
+      for (final l in leggi(f).letture) {
+        voti
+            .putIfAbsent(l.tratto.categoria, () => <FaceTrait, int>{})
+            .update(l.tratto, (n) => n + 1, ifAbsent: () => 1);
+        final r = l.rapporto;
+        if (r != null && r.isFinite) {
+          rapporti.putIfAbsent(l.tratto.categoria, () => <double>[]).add(r);
+        }
+      }
+    }
+    final ultima = leggi(fotogrammi.last);
+    return FaceReading(letture: [
+      for (final l in ultima.letture)
+        () {
+          final urna = voti[l.tratto.categoria];
+          if (urna == null || urna.isEmpty) return l;
+          // **LA VARIANTE PIU FREQUENTE, non una fascia ricalcolata.** Una
+          // corrispondenza fra numero di fascia e posizione nell elenco delle
+          // varianti sarebbe una seconda verita accanto ai metodi, e
+          // l elenco non e nemmeno in quell ordine: la prima stesura avrebbe
+          // dato \"bocca larga\" a chi ne aveva una piccola.
+          var scelto = l.tratto;
+          var quante = -1;
+          for (final voce in urna.entries) {
+            // A parita di voti vince l ordine dell elenco, cosi la scelta
+            // resta deterministica invece di dipendere dall iterazione.
+            if (voce.value > quante ||
+                (voce.value == quante && voce.key.index < scelto.index)) {
+              scelto = voce.key;
+              quante = voce.value;
+            }
+          }
+          final valori = rapporti[l.tratto.categoria];
+          double? mediana;
+          if (valori != null && valori.isNotEmpty) {
+            final o = [...valori]..sort();
+            mediana = o.length.isOdd
+                ? o[o.length ~/ 2]
+                : (o[o.length ~/ 2 - 1] + o[o.length ~/ 2]) / 2;
+          }
+          return TraitLettura(
+              tratto: scelto, marcatezza: l.marcatezza, rapporto: mediana);
+        }(),
+    ]);
+  }
+
   /// Il ripiego tattile: costruisce la lettura dalle selezioni guidate, una per
   /// categoria scelta. La marcatezza viene da una salienza curata per variante,
   /// cosi' un dominante emerge in modo deterministico anche senza misura.

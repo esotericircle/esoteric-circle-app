@@ -87,7 +87,7 @@ void main() {
         reason: 'la porta unica non invita alla prima lettura');
   });
 
-  testWidgets('con una lettura gia\' fatta la soglia offre i due momenti',
+  testWidgets('con una lettura gia\' fatta la soglia offre la porta unica',
       (tester) async {
     conUnaLetturaGiaFatta();
     tester.view.physicalSize = const Size(430, 1600);
@@ -98,10 +98,20 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
-    expect(find.byKey(const Key('face_return_start')), findsOneWidget,
-        reason: 'chi ha gia\' la lettura dei tratti non trova il ritorno: '
-            'per rileggersi il momento dovrebbe rifare quattro pose per una '
-            'misura che nessuno rifara\'');
+    // **IL RITORNO NON ESISTE PIU', E LA GUARDIA LO PRETENDE ASSENTE.**
+    // Ordine CX, 8 settembre 2026, parole del fondatore: *"Devi eliminare
+    // ovunque leggi il tuo momento: prima di tutto e' difficilissimo e poi non
+    // serve a niente. Se l'utente vuole rifare la scansione, la rifa'
+    // completa."*
+    //
+    // Questa guardia pretendeva la SUA PRESENZA, ed era giusta finche' la
+    // funzione era voluta. **Una guardia che sorveglia una funzione tolta non
+    // si cancella: si rovescia**, altrimenti nessuno si accorgerebbe se
+    // qualcuno la rimettesse per abitudine.
+    expect(find.byKey(const Key('face_return_start')), findsNothing,
+        reason: 'il pulsante del ritorno e\' tornato: chiedeva una posa '
+            'difficile da tenere per dare meno di quello che la scansione da\' '
+            'in trenta secondi');
     expect(find.byKey(const Key('face_start')), findsOneWidget,
         reason: 'la lettura piena sparisce quando ne esiste gia\' una: '
             'l\'ordine dice che si puo\' rifare quando la persona vuole');
