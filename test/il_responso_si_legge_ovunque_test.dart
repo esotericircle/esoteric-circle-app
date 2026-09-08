@@ -297,11 +297,19 @@ void main() {
           await tester.pump(const Duration(milliseconds: 100));
         }
         final guaio = tester.takeException();
-        expect(find.byKey(const Key('alba_orientamento')), findsOneWidget,
+        expect(find.byKey(const Key('alba_risposta')), findsOneWidget,
             reason: 'a ${altezza.toStringAsFixed(0)} punti di altezza '
                 'l\'orientamento del giorno non arriva in scena');
-        final testo =
-            tester.widget<Text>(find.byKey(const Key('alba_orientamento')));
+        // **IL TESTO STA DENTRO I PARAGRAFI. Ordine CY voce 06**, 8
+        // settembre 2026: `alba_orientamento` non si stampa piu' quando il
+        // rito c'e', e il responso passa da `alba_risposta`, che e' un
+        // `ParagrafiDiLettura` e non un `Text`. La misura resta la stessa: si
+        // legge il primo paragrafo che quel blocco dipinge.
+        final testo = tester.widget<Text>(find
+            .descendant(
+                of: find.byKey(const Key('alba_risposta')),
+                matching: find.byType(Text))
+            .first);
         // ignore: avoid_print
         print('ORDINE BV VOCE 6: Alba su 360 per '
             '${altezza.toStringAsFixed(0)}, orientamento a '

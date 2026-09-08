@@ -57,6 +57,11 @@ class CioCheETuo {
     // Il filo del giorno: la domanda di Medora e la parola del giorno.
     'filo.',
     // Dove sei adesso, che e' un dato di posizione.
+    // **LA TRACCIA DEL LOTO. Ordine CZ voce 10**, 8 settembre 2026: quante
+    // volte hai respirato su ogni centro. E' un conto di sette numeri e non
+    // esce dal dispositivo, ma **e' tuo**, quindi la cancellazione lo prende
+    // e il tuo scarico lo consegna.
+    'loto.',
     'luogo.',
     // La carta natale calcolata dal server, conservata sul telefono.
     'natal.',

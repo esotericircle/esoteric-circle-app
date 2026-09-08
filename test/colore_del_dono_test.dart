@@ -186,8 +186,14 @@ void main() {
         // che dichiara chi parla, e quella il colore del Maestro ce l'ha per
         // mestiere. La prova accusava una riga sana. Cambiata la grandezza
         // misurata, non la soglia.
-        final corpo =
-            tester.widget<Text>(find.byKey(const Key('alba_orientamento')));
+        // **E ADESSO SI CHIEDE AL TITOLO DEL RESPONSO. Ordine CY voce 06**,
+        // 8 settembre 2026. `alba_orientamento` non si stampa piu' quando il
+        // rito c'e': portava la stessa risposta che la scheda mostra due
+        // centimetri sopra, e stamparlo la faceva uscire due volte. Il testo
+        // del responso adesso vive nel blocco del rito, e il colore si legge
+        // da li'.
+        final corpo = tester
+            .widget<Text>(find.byKey(const Key('alba_titolo_risposta')));
         corpi.add(corpo.style!.color!);
       }
       expect(corpi, hasLength(1),

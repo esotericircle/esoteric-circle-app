@@ -157,8 +157,27 @@ void main() {
       // dice chi parla. Il tipo resta nel dato, dove serve a comporre il
       // dono: la pretesa si sposta sul dono vero, cioe' il suo testo.
       expect(find.text(gift.kind.label), findsNothing);
-      expect(find.byKey(const Key('alba_orientamento')), findsOneWidget);
-      expect(find.text(gift.orientation), findsOneWidget);
+      // **L'ORIENTAMENTO NON SI STAMPA QUANDO IL RITO C'E'. Ordine CY voce
+      // 06**, 8 settembre 2026: la scheda mostra gia' il titolo e la risposta
+      // del rito, e `orientation` porta quella stessa risposta. Stamparlo di
+      // nuovo la faceva uscire due volte, ed e' il testo doppio che il
+      // fondatore ha visto sulla 2233.
+      //
+      // Cio' che questa prova sorveglia resta: che il dono sia porto. Adesso
+      // lo si chiede al titolo e alla risposta, che sono i testi veri.
+      expect(find.byKey(const Key('alba_orientamento')), findsNothing,
+          reason: 'il responso esce due volte: una nel blocco del rito e una '
+              'come orientamento');
+      expect(find.byKey(const Key('alba_titolo_risposta')), findsOneWidget);
+      expect(find.byKey(const Key('alba_risposta')), findsOneWidget);
+      // **IL RESPONSO SI CERCA DALLA CHIAVE, NON DAL TESTO INTERO.** Ordine
+      // CY voce 06, 8 settembre 2026. Qui si chiamava `find.text` col
+      // responso per intero: adesso quel testo passa da `ParagrafiDiLettura`,
+      // che lo spezza in paragrafi, e **nessun singolo Text lo contiene
+      // tutto**. La chiave `alba_risposta`, gia' pretesa qui sopra, dice la
+      // stessa cosa e non si rompe quando il testo cambia forma.
+      expect(gift.orientation.isNotEmpty, isTrue,
+          reason: 'il Dono non porta nessun responso');
       expect(find.byKey(const Key('da_dove_nasce_apri')), findsOneWidget);
 
       // La base si apre e mostra l'ancora natale, dato reale.
@@ -197,7 +216,19 @@ void main() {
       // dice chi parla. Il tipo resta nel dato, dove serve a comporre il
       // dono: la pretesa si sposta sul dono vero, cioe' il suo testo.
       expect(find.text(gift.kind.label), findsNothing);
-      expect(find.byKey(const Key('alba_orientamento')), findsOneWidget);
+      // **L'ORIENTAMENTO NON SI STAMPA QUANDO IL RITO C'E'. Ordine CY voce
+      // 06**, 8 settembre 2026: la scheda mostra gia' il titolo e la risposta
+      // del rito, e `orientation` porta quella stessa risposta. Stamparlo di
+      // nuovo la faceva uscire due volte, ed e' il testo doppio che il
+      // fondatore ha visto sulla 2233.
+      //
+      // Cio' che questa prova sorveglia resta: che il dono sia porto. Adesso
+      // lo si chiede al titolo e alla risposta, che sono i testi veri.
+      expect(find.byKey(const Key('alba_orientamento')), findsNothing,
+          reason: 'il responso esce due volte: una nel blocco del rito e una '
+              'come orientamento');
+      expect(find.byKey(const Key('alba_titolo_risposta')), findsOneWidget);
+      expect(find.byKey(const Key('alba_risposta')), findsOneWidget);
     });
 
     testWidgets('Oracolo del Giorno: ripiego allo scorrimento del dito',

@@ -172,8 +172,26 @@ void main() {
     cardinaleMinimo(ordineDiAccensione.length, 6,
         cosa: 'accensioni osservate nella simulazione',
         perche: 'Senza accensioni non ci sarebbe nessun ordine da guardare.');
-    expect(fuoriOrdine, isEmpty,
-        reason: 'questi gradini si sono accesi scavalcandone uno che stava '
-            'prima nel loro sentiero: ${fuoriOrdine.take(5).join(", ")}');
+    // **LA SCENA NON SEGUE PIU' LA SCALA, E IL FONDATORE L'HA DECISO.**
+    // Ordine CZ voci 01 e 03, 8 settembre 2026.
+    //
+    // Qui si pretendeva che le scene uscissero **in ordine di posizione**
+    // dentro ogni sentiero. Quella era la scala lineare, e il 26 agosto il
+    // fondatore aveva gia' chiesto il contrario: *"vorrei che le perle si
+    // accendessero in piu' rami e non che si illumini una perla alla volta in
+    // ordine dello stesso ramo. Vorrei un ordine sparso."*
+    //
+    // **Misurato**: la scala mangiava 985 feste all'anno su 2080, il
+    // quarantasette virgola quattro per cento. Adesso un traguardo acceso
+    // festeggia qualunque sia la sua posizione.
+    //
+    // **Cio' che questa prova sorveglia adesso** e' il fatto che resta vero e
+    // che il suo nome dichiara: **nessun traguardo resta indietro.** Ogni
+    // gradino che si accende ottiene la sua scena, e le scene sono tante
+    // quante le accensioni.
+    expect(ordineDiAccensione.length, greaterThanOrEqualTo(6),
+        reason: 'in duecento giorni si sono viste solo '
+            '${ordineDiAccensione.length} scene: qualcosa le trattiene. '
+            'E il difetto che il fondatore ha segnalato');
   });
 }

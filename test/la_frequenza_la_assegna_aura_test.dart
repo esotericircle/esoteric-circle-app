@@ -63,9 +63,16 @@ void main() {
               'viene la scelta');
       expect(riga, contains('${FrequenzaDelGiorno.di(giorno).round()}'),
           reason: 'la riga non porta il numero della frequenza');
-      expect(riga.split('.').where((f) => f.trim().isNotEmpty).length, 1,
-          reason: 'la riga di Aura e\' piu\' di una frase: l\'ordine ne chiede '
-              'UNA');
+      // **DUE FRASI, E LA RAGIONE E' UNA REGOLA DI CASA.** La prima stesura
+      // ne faceva una sola e violava il divieto della virgola seguita da "e":
+      // *"i 417 hertz, ed e' la frequenza di questa sessione"*. La regola non
+      // si deroga, quindi la riga si spezza in due frasi brevi. **Resta un
+      // pensiero solo**, che e' cio' che l'ordine chiede quando dice una riga:
+      // il centro, cio' su cui apre, il numero.
+      expect(riga.split('.').where((f) => f.trim().isNotEmpty).length,
+          lessThanOrEqualTo(2),
+          reason: 'la riga di Aura e\' fatta di piu\' di due frasi: e\' un '
+              'paragrafo, e l\'ordine ne chiede una riga');
     }
   });
 

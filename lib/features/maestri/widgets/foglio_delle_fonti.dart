@@ -182,22 +182,22 @@ class TestiDelleFonti {
   /// concordi. Metterle sullo stesso piano sarebbe comodo e falso.
   static const String meditazione =
       'I toni che senti li genera il dispositivo mentre suonano: non sono una '
-      'traccia registrata. La frequenza di oggi viene dal centro acceso oggi, '
-      'ed è Aura a sceglierla.\n\n'
+      'traccia registrata. La frequenza di oggi viene dal centro acceso oggi. '
+      'La sceglie Aura.\n\n'
       'LE FREQUENZE DEL SOLFEGGIO NON SONO ANTICHE. Vengono attribuite a '
       'Guido d\'Arezzo, il monaco che nell\'undicesimo secolo diede il nome '
       'alle note, ma di quella attribuzione non esiste nessuna fonte '
       'documentata prima degli anni Settanta del Novecento: la scala dei sei '
-      'toni, e la corrispondenza coi chakra, sono una costruzione della fine '
-      'del Novecento. È una tradizione recente, e la chiamiamo così.\n\n'
+      'toni e la corrispondenza coi chakra sono una costruzione della fine '
+      'del Novecento. È una tradizione recente. La chiamiamo così.\n\n'
       'I BATTITI BINAURALI HANNO UNA LETTERATURA VERA. Il fenomeno lo '
       'descrisse Heinrich Wilhelm Dove nel 1839: due toni poco diversi, uno '
-      'per orecchio, e chi ascolta sente un terzo battito che nessuno dei due '
+      'per orecchio. Chi ascolta sente un terzo battito che nessuno dei due '
       'altoparlanti sta suonando. Gli studi recenti su ansia e attenzione '
-      'esistono, e i risultati sono modesti e non concordi fra loro.\n\n'
+      'esistono. I risultati sono modesti e non concordi fra loro.\n\n'
       'Quindi: questa è la corrispondenza che la tradizione moderna assegna a '
-      'questo centro, questo è ciò che chi la pratica riferisce, e questo non '
-      'è un effetto clinico dimostrato. Il respiro lo fai tu, e il resto è una '
+      'questo centro, questo è ciò che chi la pratica riferisce. Questo non '
+      'è un effetto clinico dimostrato. Il respiro lo fai tu. Il resto è una '
       'cornice.';
 
   /// Il Soffio del Destino.

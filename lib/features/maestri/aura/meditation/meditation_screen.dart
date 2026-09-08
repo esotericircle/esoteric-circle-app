@@ -6,7 +6,6 @@ import 'dart:async';
 import '../../../sigilli/regia_del_cammino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
@@ -17,6 +16,7 @@ import '../../../../core/maestro/chakra_del_giorno.dart';
 import '../../../../core/maestro/frequenza_del_giorno.dart';
 import '../../../../core/maestro/traccia_del_loto.dart';
 import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
+import '../../../../core/sensi/palette_sensoriale.dart';
 import 'loto_che_respira.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -172,7 +172,11 @@ class _MeditationScreenState extends State<MeditationScreen>
     _dito.ditoGiu(DateTime.now());
     // La vibrazione al cambio di fase e' cio' che rende il rito possibile a
     // occhi chiusi: senza, chi chiude gli occhi non sa quando cambiare.
-    unawaited(HapticFeedback.lightImpact());
+    // **LA VIBRAZIONE PASSA DALLA PORTA UNICA.** `PaletteSensoriale` e' il
+    // solo posto dell'app che parla alla piattaforma per suonare o vibrare, e
+    // due guardie lo pretendono: chiamare `HapticFeedback` da qui vorrebbe
+    // dire una seconda verita' su cosa il telefono fa sotto le dita.
+    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
     setState(() {});
   }
 
@@ -180,7 +184,11 @@ class _MeditationScreenState extends State<MeditationScreen>
   void _espira() {
     final adesso = DateTime.now();
     _dito.ditoSu(adesso);
-    unawaited(HapticFeedback.lightImpact());
+    // **LA VIBRAZIONE PASSA DALLA PORTA UNICA.** `PaletteSensoriale` e' il
+    // solo posto dell'app che parla alla piattaforma per suonare o vibrare, e
+    // due guardie lo pretendono: chiamare `HapticFeedback` da qui vorrebbe
+    // dire una seconda verita' su cosa il telefono fa sotto le dita.
+    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
     // Il respiro si chiude quando il fiore e' tornato chiuso, cioe' dopo un
     // espiro lungo quanto l'inspiro: e' la simmetria senza il ritmo imposto.
     setState(() {});
@@ -350,12 +358,19 @@ class _MeditationScreenState extends State<MeditationScreen>
                   // perche' e' quello. La scelta libera **resta**, sotto,
                   // dietro un tocco: chi vuole scegliere puo', chi non sa
                   // cosa scegliere non deve.
-                  Text(
-                    FrequenzaDelGiorno.perche(widget.now ?? DateTime.now()),
+                  // **IL TESTO NARRATO PASSA DALLA PORTA UNICA**, e non si
+                  // tinge del colore del Maestro: due guardie lo pretendono,
+                  // e hanno ragione. Il colore del Maestro sta nella scena,
+                  // negli accenti e nei bordi; il testo che si legge resta
+                  // inchiostro, perche' un testo tinto si legge peggio e
+                  // cambia significato col Maestro del giorno.
+                  ParagrafiDiLettura(
+                    testo:
+                        FrequenzaDelGiorno.perche(widget.now ?? DateTime.now()),
                     key: const Key('meditation_perche_la_frequenza'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.lettura()
-                        .copyWith(color: palette.goldSoft, height: 1.4),
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
                   // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una

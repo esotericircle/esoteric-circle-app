@@ -262,7 +262,21 @@ void main() {
       );
       expect(esito, EsitoAvviso.programmatoSullOraMedia);
       final quando = servizio.programmati[AvvisiDelRito.idAvvisoAlba]!.quando;
-      expect(quando.hour, 6, reason: 'l\'ora media dell\'alba e\' le sei');
+      // **DALLE SEI ALLE SETTE, E IL SEI NON L'AVEVA SCELTO NESSUNO.**
+      // Ordine CZ voce 11, coda, 8 settembre 2026.
+      //
+      // Misurato sul telefono 767f596c: il menu' delle notifiche dichiarava
+      // 07:00 e nella coda delle sveglie del sistema c'erano **le 06:00**.
+      // Due porte scrivevano lo stesso identificativo con due ore diverse,
+      // perche' questa non guardava affatto l'ora scelta e ripiegava su
+      // `SunsetTime.oraMediaAlba`.
+      //
+      // **Quel numero non compare in nessun punto dell'app**: chi legge 07:00
+      // nel menu' deve essere chiamato alle 07:00, e senza posizione l'ora
+      // che vale e' quella d'ancora del Dono.
+      expect(quando.hour, 7,
+          reason: 'senza posizione si programma alle ${quando.hour}: e\' '
+              'l\'ora media, e non l\'ha scelta nessuno');
       expect(quando.minute, 0);
     });
 

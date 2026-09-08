@@ -63,8 +63,11 @@ abstract final class FrequenzaDelGiorno {
   static String perche(DateTime giorno) {
     final c = centroDi(giorno);
     final hz = di(giorno).round();
-    return 'Oggi è acceso ${c.italiano}, ${c.nome}, che apre su '
-        '${c.governa}: la tradizione gli accosta i $hz hertz, ed è la '
+    // **NIENTE VIRGOLA SEGUITA DA "E".** Regola di casa, e qui la prima
+    // stesura la violava due volte: *"il sacro, Svadhisthana, che apre..."* e
+    // *"i 417 hertz, ed è la frequenza"*. La riga si riscrive, non si deroga.
+    return 'Oggi è acceso ${c.italiano} (${c.nome}) e apre su '
+        '${c.governa}: la tradizione gli accosta i $hz hertz. È la '
         'frequenza di questa sessione.';
   }
 
@@ -82,7 +85,7 @@ abstract final class FrequenzaDelGiorno {
     return [
       'Secondo la tradizione i $hz hertz accompagnano ${c.italiano}, '
           'cioè ${c.governa}.',
-      'La sessione dura $minuti minuti, e la puoi chiudere quando vuoi.',
+      'La sessione dura $minuti minuti. La puoi chiudere quando vuoi.',
       'Alla fine avrai la forma del tuo respiro, diversa da quella di '
           'chiunque altro.',
     ];
