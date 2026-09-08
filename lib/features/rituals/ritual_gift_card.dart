@@ -277,12 +277,35 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // perche' questa e' una CARTA, un oggetto stampato che si
             // condivide: spezzarlo in paragrafi ne cambierebbe
             // l'ingombro, e l'ingombro qui e' fisso.
-            Text(
-              gift.orientation,
-              key: const Key('alba_orientamento'),
-              style:
-                  TypographyTokens.lettura().copyWith(color: abito.inchiostro),
-            ),
+            // **E NON SI STAMPA QUANDO IL RITO C'E'. Ordine CY voce 06, 8
+            // settembre 2026.**
+            //
+            // Parole del fondatore sulla 2233: *"i primi 2 paragrafi sono
+            // ripetuti subito dopo in un paragrafo"*, e sul Soffio *"la prima
+            // parte del testo viene ripetuto subito sotto"*.
+            //
+            // Col rito presente questa scheda mostra gia' il titolo e la
+            // risposta, qui sopra, ai tasti `alba_titolo_risposta` e
+            // `alba_risposta`. **`orientation` porta quella stessa risposta**,
+            // quindi stamparlo di nuovo la fa uscire due volte.
+            //
+            // **E' la seconda ripetizione in due ore, con la stessa radice.**
+            // La voce CY.01 aveva tolto il gesto da `orientation` e ci aveva
+            // messo la risposta: prima usciva due volte il gesto, poi due
+            // volte la risposta. La guardia di quella voce misurava il DATO,
+            // cioe' che `orientation` non contenesse il gesto, e non ha mai
+            // montato la scheda per contare le frasi a schermo.
+            //
+            // `orientation` resta nel Dono e serve a chi mostra il responso
+            // **da solo**: la card che si condivide e l'avviso che arriva a
+            // telefono chiuso non hanno accanto ne' titolo ne' risposta.
+            if (gift.rito == null)
+              Text(
+                gift.orientation,
+                key: const Key('alba_orientamento'),
+                style: TypographyTokens.lettura()
+                    .copyWith(color: abito.inchiostro),
+              ),
             // **IL MANTRA DI OGGI, EVIDENZIATO. Ordine CW voce 07**, 7
             // settembre 2026.
             //

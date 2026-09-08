@@ -142,21 +142,24 @@ void main() {
         reason: 'con uno stato che soddisfa quasi tutto il corpus ne maturano '
             '${primi.length}: il tetto e tornato sulla maturazione, ed e il '
             'muro che la voce CQ 2.12 ha misurato');
-    // **TRE CANDIDATE, UNA SOLA A SCHERMO.** Il predicato dice quali gradini
-    // hanno diritto alla scena, ed e' uno per sentiero: la regia ne apre UNA
-    // e le altre restano senza scena, come dichiara `dopoUnGesto`. Tre e non
-    // di piu' e' il tetto del giorno peggiore che il fondatore ha approvato
-    // con l'ordine CP.
-    expect(conLaScena.length, lessThanOrEqualTo(3),
-        reason: 'a strada libera i gradini con diritto alla scena sono '
-            '${conLaScena.length}: il tetto e tre, uno per Maestro');
-    expect(
-        conLaScena.map((t) => Sentiero.values
-            .firstWhere((s) => Sentieri.di(s).any((x) => x.id == t.id))).toSet()
-            .length,
-        conLaScena.length,
-        reason: 'due gradini dello stesso sentiero hanno diritto alla scena '
-            'nello stesso istante: la scala di quel sentiero non tiene');
+    // **A STRADA LIBERA IL DIRITTO CE L'HANNO TUTTI.** Ordine CZ voci 01 e
+    // 03, 8 settembre 2026.
+    //
+    // Qui si pretendeva **al massimo tre**, uno per sentiero, e quel numero
+    // era il tetto: il fondatore dichiara di non averlo mai approvato, e
+    // l'ordine CZ lo ha tolto. Pretendeva anche che due gradini dello stesso
+    // sentiero non potessero avere il diritto insieme, e quella era la scala
+    // lineare: **misurata, mangiava 985 feste all'anno su 2080**.
+    //
+    // **Il limite non e' sparito, si e' spostato dove va.** Il diario dice
+    // CHI ha diritto; la regia ne apre UNA e mette le altre in coda, ed e'
+    // la sola regola del fondatore, quella del 16 agosto: mai due feste di
+    // fila. Cercare il limite qui vorrebbe dire rimettere un conto nel
+    // diario, cioe' il tetto con un altro nome per la terza volta.
+    expect(conLaScena.length, primi.length,
+        reason: 'a strada libera ${conLaScena.length} gradini su '
+            '${primi.length} hanno diritto alla scena: qualcuno e stato '
+            'escluso, e a strada libera non deve esistere nessuna esclusione');
     await d.accendi(conLaScena.first.id);
     expect(d.inAttesaDiCongedo, conLaScena.first.id,
         reason: 'il gradino acceso non ha occupato il posto del congedo');
@@ -194,7 +197,6 @@ void main() {
     final primaScena = primi.firstWhere(d.meritaLaScena);
     await d.accendi(primaScena.id);
     // La scena e' stata mostrata: e' cosi' che il tetto del giorno la conta.
-    d.laScenaEStataMostrata(primaScena);
     await d.congeda(primaScena.id);
     expect(d.laStradaELibera, isTrue,
         reason: 'il congedo non ha liberato il posto: il Cammino resterebbe '
@@ -207,12 +209,14 @@ void main() {
     expect(dopo, isNotEmpty,
         reason: 'congedato il precedente non matura piu niente: il freno e '
             'diventato un muro');
-    // **E LA SCENA VA A UN ALTRO SENTIERO**, perche' quello di prima ha gia'
-    // avuto la sua per oggi: e' il tetto di tre al giorno, uno per Maestro.
-    expect(scenaDopo.length, 2,
-        reason: 'dopo il congedo i gradini con diritto alla scena sono '
-            '${scenaDopo.length} invece di due: il sentiero che ha gia avuto '
-            'la sua scena oggi deve restarne fuori');
+    // **E DOPO IL CONGEDO IL DIRITTO TORNA A TUTTI.** Ordine CZ voce 03: qui
+    // si pretendevano esattamente due, cioe' i tre sentieri meno quello che
+    // aveva gia' avuto la sua scena oggi. Quel "gia' avuto oggi" era il
+    // tetto, e non esiste piu'.
+    expect(scenaDopo.length, dopo.length,
+        reason: 'dopo il congedo ${scenaDopo.length} gradini su ${dopo.length} '
+            'hanno diritto alla scena: qualcuno resta escluso, e a strada '
+            'libera nessuno deve esserlo');
     expect(scenaDopo.map((t) => t.id), isNot(contains(primaScena.id)));
   });
 

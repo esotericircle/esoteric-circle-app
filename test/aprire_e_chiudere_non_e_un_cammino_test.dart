@@ -93,7 +93,6 @@ void main() {
         // SCENA: e' quella che questa prova conta.
         if (o.diario.meritaLaScena(t)) {
           feste++;
-          o.diario.laScenaEStataMostrata(t);
         }
         await o.diario.accendi(t.id);
         // Chi guarda una festa e la chiude libera il posto: e' il caso
@@ -125,7 +124,24 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CP VOCE 09: otto gettate di fila, stesso modo, in quattro '
         'minuti: $feste feste');
-    expect(feste, 0,
+    // **DA ZERO A UNA, E IL ZERO ERA IL TETTO.** Ordine CZ voce 03, 8
+    // settembre 2026, e vale la pena scrivere perche' il numero cambia.
+    //
+    // Questa prova nasce dal collaudo in cui il fondatore vide **otto feste
+    // in due funzionalita'**, e pretendeva zero. Ma quello zero non lo
+    // produceva la difesa vera di questo file, cioe' il conto una volta al
+    // giorno: lo produceva il tetto di tre scene al giorno, che il fondatore
+    // dichiara di **non aver mai approvato** e che l'ordine CZ ha tolto.
+    //
+    // Adesso otto gettate identiche in quattro minuti producono **una** festa:
+    // e' il traguardo che si e' acceso davvero, e il fondatore ha appena
+    // chiesto proprio di vederlo. La difesa che questa prova custodisce
+    // funziona ancora, ed e' quella che porta otto aperture a una accensione
+    // sola.
+    //
+    // **Il fatto sorvegliato non cambia**: la slot machine e' la raffica, non
+    // la festa dovuta. Otto resta il numero da non raggiungere mai.
+    expect(feste, lessThanOrEqualTo(1),
         reason: 'aprire e chiudere la stessa funzionalita otto volte produce '
             '$feste feste: e la slot machine che il fondatore ha visto');
   });
@@ -162,7 +178,12 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CP VOCE 09: due funzionalita, quattro aperture ciascuna: '
         '$feste feste');
-    expect(feste, 0);
+    // Stessa ragione della prova qui sopra: lo zero lo produceva il tetto,
+    // non il conto una volta al giorno. Due funzionalita' alternate quattro
+    // volte ciascuna accendono al massimo un traguardo per funzionalita'.
+    expect(feste, lessThanOrEqualTo(2),
+        reason: 'due funzionalita aperte quattro volte ciascuna producono '
+            '$feste feste: sopra due si torna alla raffica');
   });
 
   test('una giornata onesta di sette arti diverse non supera le tre feste',
@@ -184,7 +205,12 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CP VOCE 09: sette arti diverse in un giorno solo: $feste '
         'feste');
-    expect(feste, lessThanOrEqualTo(3),
+    // **IL TRE ERA IL TETTO, e il tetto non c'e' piu'.** Ordine CZ voce 03.
+    // Sette arti diverse in un giorno ne producono quattro, e sono quattro
+    // traguardi che si sono accesi davvero: il fondatore ha appena chiesto di
+    // vederli. Il numero che questa prova sorveglia resta l'OTTO del suo
+    // collaudo, che e' la raffica, non la festa dovuta.
+    expect(feste, lessThan(8),
         reason: 'sette arti diverse in un giorno producono $feste feste, e il '
             'massimo dichiarato e tre, una per Maestro');
   });
@@ -254,7 +280,6 @@ void main() {
           // uno per Maestro.
           if (diario.meritaLaScena(t)) {
             feste++;
-            diario.laScenaEStataMostrata(t);
           }
           await diario.accendi(t.id);
           await diario.congeda(t.id);
@@ -271,10 +296,28 @@ void main() {
         'le venti arti nella prima sessione vede in media '
         '${(somma / 365).toStringAsFixed(2)} feste; il giorno peggiore e il '
         '$quandoPeggiore con $peggiore feste');
-    expect(peggiore, lessThanOrEqualTo(5),
+    // **IL TETTO E' STATO TOLTO, E QUESTO NUMERO E' LA SUA CONSEGUENZA.**
+    // Ordine CZ voce 03, 8 settembre 2026, decisione del fondatore presa
+    // dopo aver letto questa misura: **nessun tetto, via numero uno**.
+    //
+    // Senza tetto il giorno peggiore dell'anno porta TREDICI feste a chi
+    // compie tutte e venti le arti nella prima sessione, con una media di
+    // 5,67. E' lo stesso tredici che l'ordine CP aveva misurato e che aveva
+    // fatto nascere il tetto.
+    //
+    // **Cosa e' cambiato rispetto ad allora, ed e' la ragione della
+    // decisione**: quelle tredici non arrivano piu' in raffica. `FesteInCorso`
+    // ne tiene UNA a schermo e mette le altre in coda, quindi si vedono una
+    // alla volta, ognuna dopo che la precedente e' stata congedata. E' la
+    // sola regola che il fondatore ha davvero dato, il 16 agosto 2026.
+    //
+    // **Questa prova non sorveglia piu' un tetto**: sorveglia che il conto
+    // resti finito e che il caso estremo resti estremo. Venti arti in una
+    // sessione le compie quasi nessuno.
+    expect(peggiore, lessThanOrEqualTo(20),
         reason: 'nel giorno peggiore dell anno la prima sessione porta '
-            '$peggiore feste: il fondatore ne ha viste otto, e sopra le '
-            'cinque si torna li');
+            '$peggiore feste, cioe piu di una per arte compiuta: qualcosa '
+            'accende piu volte lo stesso gradino');
   });
 
   test('il freno non e un muro: due giorni di gettata accendono davvero',

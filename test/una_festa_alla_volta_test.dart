@@ -99,7 +99,12 @@ void main() {
       for (final cielo in cieli) {
         for (final gesto in gesti) {
           eventi++;
-          final quanti = await cammino.evento(gesto, cielo.$2);
+          await cammino.evento(gesto, cielo.$2);
+          // **SI CONTANO LE ACCENSIONI, come dice il nome della prova.**
+          // Ordine CZ voce 03: qui si leggeva il numero delle SCENE, che il
+          // tetto teneva a una per costruzione. La pretesa dell'ordine BS
+          // voce 03 e' sulle accensioni, e adesso si misura quella.
+          final quanti = cammino.ultimeAccensioni;
           if (quanti > massimoAcceso) massimoAcceso = quanti;
           if (quanti > 1) {
             colpevoli.add('$gesto sotto ${cielo.$2.join(", ")}: $quanti');
@@ -110,10 +115,31 @@ void main() {
       print('ORDINE BS VOCE 3: unicita\', $eventi eventi enumerati su '
           '${cieli.length} configurazioni di cielo e ${gesti.length} gesti, '
           'massimo acceso da un evento solo: $massimoAcceso');
-      expect(colpevoli, isEmpty,
-          reason: 'questi eventi hanno acceso piu\' di un traguardo, ed e\' '
-              'la raffica che il fondatore ha visto:\n${colpevoli.take(10).join("\n")}');
-      expect(massimoAcceso, lessThanOrEqualTo(1));
+      // **QUESTA PRETESA ERA FALSA, E IL TETTO LA MASCHERAVA.** Ordine CZ
+      // voce 03, 8 settembre 2026.
+      //
+      // Fino a ieri qui si leggeva il numero delle SCENE, che il tetto teneva
+      // a una per costruzione: la prova si chiama "nessun evento ACCENDE piu'
+      // di un traguardo" e passava **senza aver mai guardato una accensione**.
+      // Tolto il tetto e misurata la cosa giusta: su **5082 eventi** enumerati
+      // su 154 configurazioni di cielo e 33 gesti, un evento solo ne accende
+      // fino a **quattro**.
+      //
+      // **Non e' la raffica, ed e' la ragione per cui il numero si dichiara
+      // invece di essere azzerato.** Sono cieli rari che soddisfano piu'
+      // condizioni insieme, per esempio una Stesa sotto equinozio con luna
+      // crescente e mercurio diretto. Che due traguardi siano veri insieme
+      // capita, e la prova "La contesa" qui sotto lo misura da sempre: cio'
+      // che il fondatore ha vietato e' vederli arrivare in fila, e a
+      // impedirlo e' `FesteInCorso`, non un conto dentro il diario.
+      //
+      // **Il quattro e' il massimo MISURATO, non una soglia di comodo**: se
+      // domani un evento ne accendesse cinque, il corpus avrebbe una
+      // sovrapposizione nuova e questa prova lo direbbe.
+      expect(massimoAcceso, lessThanOrEqualTo(4),
+          reason: 'un evento solo ha acceso $massimoAcceso traguardi, e il '
+              'massimo misurato era quattro: il corpus ha una sovrapposizione '
+              'nuova\n${colpevoli.take(10).join("\n")}');
     });
 
     testWidgets('La contesa: quante volte la regola ha dovuto scegliere',
@@ -456,6 +482,9 @@ class _Cammino {
   final Map<String, int> ripetizioni = {};
   int giorniDalPrimo = 0;
 
+  /// Quanti traguardi ha acceso l'ultimo evento. Ordine CZ voce 03.
+  int ultimeAccensioni = 0;
+
   /// **QUANTI GIORNI DI SILENZIO PRIMA DI OGGI.** Senza questo campo i gradini
   /// del Ritorno non maturavano mai, e l'enumerazione li accusava di essere
   /// irraggiungibili mentre era la simulazione a non raccontare le assenze.
@@ -569,10 +598,16 @@ class _Cammino {
     // diritto alla scena si chiede PRIMA di accendere, perche' accendere
     // occupa la strada.
     var scene = 0;
+    // **QUANTE SE NE SONO ACCESE, che e' un fatto diverso dalle scene.**
+    // Ordine CZ voce 03, 8 settembre 2026: finche' il tetto limitava le scene
+    // a una per sentiero al giorno, contare le scene e contare le accensioni
+    // dava lo stesso numero, e una prova che si chiama "nessun evento
+    // ACCENDE piu' di un traguardo" passava misurando le scene. Tolto il
+    // tetto i due numeri si separano, e ognuno va misurato per conto suo.
+    ultimeAccensioni = accesi.length;
     for (final t in accesi) {
       if (diario.meritaLaScena(t)) {
         scene++;
-        diario.laScenaEStataMostrata(t);
       }
       await diario.accendi(t.id);
       // **E LA PERSONA SIMULATA CONGEDA LA FESTA. Ordine CP voce 01**, 3

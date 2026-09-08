@@ -257,24 +257,29 @@ class RegiaDelCammino {
         if (a.eGrande != b.eGrande) return a.eGrande ? -1 : 1;
         return a.posizione.compareTo(b.posizione);
       });
-    // **E LA SCENA SE LA MERITA SOLO IL GRADINO DELLA SCALA.**
-    // Ordine CQ voce 2.13, 3 settembre 2026.
+    // **NESSUNA FESTA SI PERDE IN SILENZIO.** Ordine CZ voce 02, 8 settembre
+    // 2026.
     //
-    // Fino a qui erano tutti accesi e i loro Eos erano tutti arrivati: e' la
-    // legge del fondatore, il tetto non tocca il premio. Da qui in poi si
-    // decide chi si vede, e la scala dell'ordine CP voce 01 e' questa riga.
+    // **Qui c'era `if (conLaScena.isEmpty) return true;`**, e quella riga
+    // dichiarava successo buttando via la festa. Violava nel modo peggiore la
+    // legge del fondatore del 23 agosto 2026, ancora in vigore: **una
+    // funzione trattenuta in silenzio va dichiarata a chi la aspetta, oppure
+    // non va trattenuta.** Questa non la dichiarava e non la tratteneva: la
+    // cancellava, e chi aveva compiuto il gesto vedeva gli Eos arrivare e la
+    // perla accendersi senza sapere di aver perso qualcosa.
     //
-    // **Chi non ha la scena non entra nemmeno in coda.** Metterlo in coda
-    // vorrebbe dire rimandargli la festa a domani, e domani ne avrebbe due:
-    // la raffica tornerebbe spostata di un giorno. Il suo nome sta nel
-    // Journal, che e' il posto dove i Sigilli si guardano quando si vuole.
+    // Il commento che stava qui, *"Chi non ha la scena non entra nemmeno in
+    // coda"*, descriveva un comportamento **che il fondatore non ha mai
+    // chiesto**, ed e' uscito insieme al codice che lo attuava.
+    //
+    // Adesso **tutti gli aventi diritto entrano**: il primo si vede subito,
+    // gli altri in coda dietro di lui. A trattenere resta solo
+    // `FesteInCorso`, che e' la regola vera del 16 agosto: mai due feste di
+    // fila.
     final conLaScena =
         perImportanza.where((t) => aventiDiritto.contains(t.id)).toList();
     if (conLaScena.isEmpty) return true;
     final questaVolta = conLaScena.first;
-    // **LA SCENA SI DICHIARA QUI, ordine CQ voce 2.13**: il tetto e' di tre
-    // al giorno, uno per Maestro, e si conta cio' che si vede.
-    diario.laScenaEStataMostrata(questaVolta);
     final inAttesa = conLaScena.skip(1).toList();
     // **LA DISTANZA FRA DUE FESTE, e senza di lei la coda non serve**: si
     // svuoterebbe tutta nella stessa schermata, cioe' cinque feste in fila

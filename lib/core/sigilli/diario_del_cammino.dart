@@ -490,8 +490,6 @@ class DiarioDelCammino extends ChangeNotifier {
     // gli altri due, e senza questa riga il limite di una volta al giorno
     // diventerebbe un limite di una volta per sempre.
     _gestiGiaContatiOggi.clear();
-    // E le scene di oggi, ordine CQ voce 2.13: il tetto e' del giorno.
-    _scenePerSentieroOggi.clear();
     // **E IL CONFINE DEL GIORNO CONGEDA CIO' CHE E' RIMASTO APPESO.**
     // Ordine CP voce 01, valvola di sicurezza.
     //
@@ -1270,41 +1268,47 @@ class DiarioDelCammino extends ChangeNotifier {
   /// Eos sono gia' arrivati, e il suo nome sta nel Journal. Non gli manca il
   /// premio, gli manca il fuoco d'artificio, ed e' esattamente cio' che il
   /// fondatore ha chiesto quando ha visto otto feste in due funzionalita'.
-  bool meritaLaScena(Traguardo traguardo) {
-    if (!laStradaELibera) return false;
-    for (final s in Sentiero.values) {
-      if (prossimoDi(s)?.id != traguardo.id) continue;
-      // **E UNA SCENA PER SENTIERO AL GIORNO, NON DI PIU'.**
-      // Ordine CQ voce 2.13, e conserva il numero dell'ordine CP voce 01.
-      //
-      // Senza questa riga il giorno peggiore dell'anno tornava a TREDICI
-      // feste: la scala da sola non basta, perche' chi congeda una festa
-      // libera subito il posto e il gradino dopo dello stesso sentiero
-      // diventa a sua volta il prossimo. **Il tetto e' tre al giorno, uno per
-      // Maestro**, ed e' il numero che il fondatore ha approvato.
-      //
-      // Cio' che eccede non perde niente: e' gia' acceso, i suoi Eos sono
-      // gia' arrivati, e il suo nome sta nel Journal.
-      return !_scenePerSentieroOggi.contains(s.name);
-    }
-    return false;
-  }
-
-  /// I sentieri che oggi hanno gia' avuto la loro scena. Si azzera al confine
-  /// del giorno rituale, come tutto cio' che e' di oggi.
-  final Set<String> _scenePerSentieroOggi = {};
-
-  /// Segna che questo traguardo ha avuto la sua scena. Lo chiama la regia
-  /// nell'istante in cui apre la celebrazione: **non si conta cio' che si
-  /// accende, si conta cio' che si vede.**
-  void laScenaEStataMostrata(Traguardo traguardo) {
-    for (final s in Sentiero.values) {
-      if (Sentieri.di(s).any((t) => t.id == traguardo.id)) {
-        _scenePerSentieroOggi.add(s.name);
-        return;
-      }
-    }
-  }
+  /// **UN TRAGUARDO ACCESO HA DIRITTO ALLA SUA FESTA.** Ordine CZ voci 01 e
+  /// 03, 8 settembre 2026.
+  ///
+  /// **Il fatto del fondatore**: raggiunge traguardi e non vede nessuna festa.
+  /// Sente il suono degli Eos e vede la perla accendersi, e nient'altro. Ha
+  /// provato anche di proposito, entrando nel sentiero di un Maestro e
+  /// compiendo il gesto che mancava: Eos accreditati, perla accesa, nessuna
+  /// festa.
+  ///
+  /// **MISURATO PRIMA DI CORREGGERE**, su un anno di uso onesto: 2080
+  /// traguardi accesi, **1095 con la loro festa e 985 persi**, cioe' il
+  /// quarantasette virgola quattro per cento. Tutti e 985 persi per la scala
+  /// lineare; zero per il tetto e zero per la strada occupata. La misura vive
+  /// in `test/quante_feste_si_perdono_test.dart`.
+  ///
+  /// **DUE CONDIZIONI SONO USCITE, e ognuna col suo perche'.**
+  ///
+  /// **La scala.** Dal 3 settembre `quelliCheSiAccendono` accende i traguardi
+  /// SPARSI, come il fondatore ha chiesto il 26 agosto: *"vorrei che le perle
+  /// si accendessero in piu' rami e non che si illumini una perla alla volta
+  /// in ordine dello stesso ramo"*. La scena invece era rimasta governata da
+  /// `prossimoDi`, che e' lineare. **Un traguardo acceso fuori da
+  /// quell'ordine non e' mai il prossimo, quindi non meritava mai la scena**:
+  /// accensione sparsa e festa lineare non possono convivere, e le 985 feste
+  /// perse sono la misura di quella contraddizione.
+  ///
+  /// **Il tetto di tre al giorno.** Il commento che stava qui diceva che era
+  /// *"il numero che il fondatore ha approvato"*: **il fondatore dichiara di
+  /// non aver mai approvato nessun tetto numerico.**
+  ///
+  /// **E' IL SECONDO RITORNO DELLO STESSO DIFETTO.** Il tetto era gia' stato
+  /// tolto il 23 agosto 2026 con l'ordine BD voce 08, ed e' tornato il 3
+  /// settembre con l'ordine CQ voce 2.13, **con un altro nome e in un altro
+  /// file**. Provenienza attribuita: ordine CQ voce 2.13.
+  ///
+  /// **Cosa resta a trattenere le feste**, ed e' la sola regola che il
+  /// fondatore ha davvero dato, il 16 agosto: **non si vedono mai due feste
+  /// di fila.** La attua `FesteInCorso` con la coda: se una festa e' a
+  /// schermo la prossima aspetta e parte quando quella si chiude. Nessun
+  /// conto giornaliero, nessun conto per sentiero, nessun conto per apertura.
+  bool meritaLaScena(Traguardo traguardo) => laStradaELibera;
 
   /// Il prossimo traguardo di un sentiero, cioe' il primo non ancora acceso.
   /// Serve alla celebrazione, che non finisce mai col punto.

@@ -1,6 +1,6 @@
 # Il contrasto del Rito dell'Alba, misurato
 
-<!-- TESTI_MISURATI: 25 -->
+<!-- TESTI_MISURATI: 24 -->
 <!-- SOTTO_LA_SOGLIA: 0 -->
 <!-- Generato da test/l_alba_si_legge_test.dart. Non si scrive a mano: si rigenera. -->
 
@@ -26,19 +26,18 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `alba_titolo_risposta` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:231 | titoloSezione | 22 | 600 | #2A2213 | #DCDED2 | **11.54** | 3.0 | si' |
 | La Luna è in Cancro: la Luna è ... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | Oggi la tua energia ha una form... | a rito compiuto | senza chiave | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_orientamento` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:282 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
 | `alba_titolo_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:132 | corpo o didascalia | 16 | 400 | #084F3B | #E5E7D6 | **7.58** | 4.5 | si' |
 | `alba_testo_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:144 | lettura | 20 | 400 | #2A2213 | #CBD3C6 | **10.23** | 4.5 | si' |
 | `alba_via_tattile_del_mantra` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:152 | corpo o didascalia | 16 | 400 | #4A4537 | #CBD3C6 | **6.19** | 4.5 | si' |
-| `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:347 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
+| `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:370 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |
-| `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:368 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_dove_va_la_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:382 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
+| `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:391 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
+| `alba_dove_va_la_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:405 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Da dove nasce | a rito compiuto | senza chiave | display a misura | 14 | 600 | #084F3B | #EDEADD | **7.89** | 4.5 | si' |
-| `alba_base_etichetta_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:599 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
-| `alba_base_valore_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:614 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
-| `alba_base_etichetta_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:599 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
-| `alba_base_valore_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:614 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
+| `alba_base_etichetta_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:622 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
+| `alba_base_valore_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:637 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
+| `alba_base_etichetta_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:622 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
+| `alba_base_valore_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:637 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
 | Condividi | a rito compiuto | senza chiave | etichetta | 14 | 400 | #2A2213 | #F6F2E2 | **14.00** | 4.5 | si' |
 | Custodisci | a rito compiuto | senza chiave | etichetta | 14 | 400 | #2A2213 | #DEDFD3 | **11.67** | 4.5 | si' |
 | Parlane con Aura | a rito compiuto | senza chiave | etichetta | 14 | 400 | #F4F1E8 | #0C785A | **4.83** | 4.5 | si' |
