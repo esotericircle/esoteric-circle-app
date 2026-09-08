@@ -6,12 +6,18 @@ import 'dart:async';
 import '../../../sigilli/regia_del_cammino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../core/maestro/chakra_del_giorno.dart';
+import '../../../../core/maestro/frequenza_del_giorno.dart';
+import '../../../../core/maestro/traccia_del_loto.dart';
+import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
+import 'loto_che_respira.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
@@ -31,16 +37,22 @@ import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 /// La prova dell'audio resta al device, dietro `TonePlayer`: in headless si usa
 /// il lettore silenzioso, che genera comunque i toni senza riprodurli.
 class MeditationScreen extends StatefulWidget {
-  MeditationScreen({super.key, TonePlayer? player})
+  MeditationScreen({super.key, TonePlayer? player, this.now})
       : player = player ?? LettoreToniReale();
 
   final TonePlayer player;
 
-  static Route<void> route({TonePlayer? player}) {
+  /// **IL GIORNO, per la frequenza e per il centro.** Ordine CZ voce 06: la
+  /// meditazione di oggi ha una frequenza sola, quella del centro acceso
+  /// oggi, e una prova deve poter dire di che giorno si tratta senza
+  /// aspettare martedi'.
+  final DateTime? now;
+
+  static Route<void> route({TonePlayer? player, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
         id: 'meditation',
         maestro: Maestro.aura,
-        child: MeditationScreen(player: player)));
+        child: MeditationScreen(player: player, now: now)));
   }
 
   @override
@@ -72,6 +84,32 @@ class _MeditationScreenState extends State<MeditationScreen>
   Timer? _sessione;
   bool _compiuta = false;
 
+  /// **IL RESPIRO VERO DI CHI RESPIRA. Ordine CZ voce 08**, 8 settembre 2026.
+  ///
+  /// Il dito giu' e' l'inspiro, il dito alzato e' l'espiro, e sono i suoi
+  /// tempi a muovere il fiore. Il ritmo guidato resta come **seconda strada
+  /// dichiarata**, per chi non vuole tenere il dito: e' `_breath`, quello di
+  /// prima, e non e' nascosto.
+  final RespiroGuidatoDalDito _dito = RespiroGuidatoDalDito();
+
+  /// La traccia dei giorni, che riempie il fiore. Ordine CZ voce 10.
+  final TracciaDelLoto _traccia = TracciaDelLoto();
+
+  /// Vero quando la persona ha chiesto meno movimento: i petali non si
+  /// animano, la fase cambia con uno stato fermo, e la vibrazione resta.
+  bool _riduciMovimento = false;
+
+  /// Se la scelta libera della frequenza e' aperta. Chiusa di partenza: la
+  /// porta principale la decide Aura.
+  bool _sceltaAperta = false;
+
+  /// L'indice del centro acceso oggi, per accenderne il petalo.
+  int get _indiceDelCentro {
+    final oggi = FrequenzaDelGiorno.centroDi(widget.now ?? DateTime.now());
+    final i = ChakraDelGiorno.tutti.indexWhere((c) => c.nome == oggi.nome);
+    return i < 0 ? 0 : i;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,6 +117,11 @@ class _MeditationScreenState extends State<MeditationScreen>
       vsync: this,
       duration: const Duration(milliseconds: _cycleMs),
     );
+    // La traccia si legge dal disco: il fiore deve gia' portare i giorni
+    // quando compare, non riempirsi sotto gli occhi di chi guarda.
+    unawaited(_traccia.carica().then((_) {
+      if (mounted) setState(() {});
+    }));
   }
 
   /// **IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ voce 01**: il
@@ -88,7 +131,8 @@ class _MeditationScreenState extends State<MeditationScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (MediaQuery.of(context).disableAnimations) {
+    _riduciMovimento = MediaQuery.of(context).disableAnimations;
+    if (_riduciMovimento) {
       if (_breath.isAnimating) _breath.stop();
     } else {
       if (!_breath.isAnimating) _breath.repeat();
@@ -123,6 +167,25 @@ class _MeditationScreenState extends State<MeditationScreen>
     return (fill: 1.0 - Curves.easeInOut.transform(e), phase: 'Espira');
   }
 
+  /// **IL DITO SCENDE: inspira.** Ordine CZ voce 08.
+  void _inspira() {
+    _dito.ditoGiu(DateTime.now());
+    // La vibrazione al cambio di fase e' cio' che rende il rito possibile a
+    // occhi chiusi: senza, chi chiude gli occhi non sa quando cambiare.
+    unawaited(HapticFeedback.lightImpact());
+    setState(() {});
+  }
+
+  /// **IL DITO SI ALZA: espira, e il respiro si chiude.**
+  void _espira() {
+    final adesso = DateTime.now();
+    _dito.ditoSu(adesso);
+    unawaited(HapticFeedback.lightImpact());
+    // Il respiro si chiude quando il fiore e' tornato chiuso, cioe' dopo un
+    // espiro lungo quanto l'inspiro: e' la simmetria senza il ritmo imposto.
+    setState(() {});
+  }
+
   void _togglePlay() {
     setState(() {
       _active = !_active;
@@ -152,6 +215,16 @@ class _MeditationScreenState extends State<MeditationScreen>
     });
     // IL CAMMINO SE NE ACCORGE: la meditazione e' compiuta, non aperta.
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'meditazione'));
+    // **E LA GOCCIA RESTA NEL LOTO. Ordine CZ voce 10**, 8 settembre 2026.
+    //
+    // Il centro non si sceglie: e' quello acceso nel giorno in cui si respira,
+    // e viene dalla stessa porta che ha deciso la frequenza. Una sorgente
+    // sola per il centro, come per il numero.
+    unawaited(_traccia
+        .unaGoccia(quando: widget.now ?? DateTime.now())
+        .then((_) {
+      if (mounted) setState(() {});
+    }));
   }
 
   void _choose(MeditationPreset preset) {
@@ -200,7 +273,21 @@ class _MeditationScreenState extends State<MeditationScreen>
             // Il visualizzatore a cimatica, col respiro sovrapposto.
             Expanded(
               child: Center(
-                child: AspectRatio(
+                // **IL DITO GUIDA IL RESPIRO. Ordine CZ voce 08.**
+                //
+                // Giu' si inspira, alzato si espira, e al cambio di fase il
+                // telefono vibra piano: cosi' l'esperienza funziona **a occhi
+                // chiusi**, che e' l'unico modo in cui una meditazione ha
+                // senso. Nessun sensore richiesto: il gesto tattile e' gia' il
+                // gesto, quindi la regola di casa sul ripiego e' soddisfatta
+                // per costruzione.
+                child: GestureDetector(
+                  key: const Key('meditation_dito'),
+                  behavior: HitTestBehavior.opaque,
+                  onTapDown: (_) => _inspira(),
+                  onTapUp: (_) => _espira(),
+                  onTapCancel: _espira,
+                  child: AspectRatio(
                   aspectRatio: 1,
                   child: AnimatedBuilder(
                     animation: _breath,
@@ -209,15 +296,24 @@ class _MeditationScreenState extends State<MeditationScreen>
                       return Stack(
                         alignment: Alignment.center,
                         children: [
+                          // **IL LOTO AL POSTO DEL CERCHIO. Ordine CZ voce
+                          // 08**, 8 settembre 2026. Parole del fondatore: *"Il
+                          // cerchio che si gonfia esce. E' la forma di ogni
+                          // altra app di meditazione e non e' la nostra."*
+                          //
+                          // I petali si aprono col respiro, portano la traccia
+                          // dei giorni, e il petalo di un centro mai respirato
+                          // resta spento.
                           Positioned.fill(
-                            child: CustomPaint(
-                              key: const Key('meditation_cymatics'),
-                              painter: _CymaticsPainter(
-                                breath: b.fill,
-                                preset: _preset,
-                                active: _active,
-                                palette: palette,
-                              ),
+                            child: LotoCheRespira(
+                              key: const Key('meditation_loto'),
+                              apertura: _dito.fase == FaseDelRespiro.attesa
+                                  ? b.fill
+                                  : _dito.aperturaAdesso(DateTime.now()),
+                              palette: palette,
+                              gocce: _traccia.gocce,
+                              centroDiOggi: _indiceDelCentro,
+                              senzaMoto: _riduciMovimento,
                             ),
                           ),
                           _BreathGuide(
@@ -234,6 +330,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                     },
                   ),
                 ),
+                ),
               ),
             ),
             Padding(
@@ -241,21 +338,57 @@ class _MeditationScreenState extends State<MeditationScreen>
                   SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.md),
               child: Column(
                 children: [
-                  // Selettore dei preset sonori.
-                  Row(
-                    children: [
-                      for (final p in MeditationPreset.values) ...[
-                        _PresetChip(
-                          preset: p,
-                          selected: p == _preset,
-                          palette: palette,
-                          onTap: () => _choose(p),
-                        ),
-                        if (p != MeditationPreset.values.last)
-                          const SizedBox(width: SpacingTokens.sm),
-                      ],
-                    ],
+                  // **LA FREQUENZA LA ASSEGNA AURA, E LO DICE. Ordine CZ
+                  // voce 06**, 8 settembre 2026.
+                  //
+                  // Parole del fondatore: *"Un menu' di frequenze davanti a
+                  // chi non ha criterio per scegliere e' la forma sbagliata:
+                  // Aura non e' un lettore multimediale, e' una guida, e una
+                  // guida decide."*
+                  //
+                  // La riga di Aura nomina il centro e il numero, e dice
+                  // perche' e' quello. La scelta libera **resta**, sotto,
+                  // dietro un tocco: chi vuole scegliere puo', chi non sa
+                  // cosa scegliere non deve.
+                  Text(
+                    FrequenzaDelGiorno.perche(widget.now ?? DateTime.now()),
+                    key: const Key('meditation_perche_la_frequenza'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.lettura()
+                        .copyWith(color: palette.goldSoft, height: 1.4),
                   ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una
+                  // funzione tolta in silenzio e' la cosa che questo progetto
+                  // vieta per legge del fondatore: qui si sposta e si dichiara.
+                  TextButton(
+                    key: const Key('meditation_scegli_tu'),
+                    onPressed: () => setState(() => _sceltaAperta = !_sceltaAperta),
+                    child: Text(
+                      _sceltaAperta
+                          ? 'Lascia scegliere Aura'
+                          : 'Preferisco scegliere io',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ),
+                  if (_sceltaAperta) ...[
+                    const SizedBox(height: SpacingTokens.xs),
+                    Row(
+                      children: [
+                        for (final p in MeditationPreset.values) ...[
+                          _PresetChip(
+                            preset: p,
+                            selected: p == _preset,
+                            palette: palette,
+                            onTap: () => _choose(p),
+                          ),
+                          if (p != MeditationPreset.values.last)
+                            const SizedBox(width: SpacingTokens.sm),
+                        ],
+                      ],
+                    ),
+                  ],
                   const SizedBox(height: SpacingTokens.md),
                   // **IL COMPIMENTO SI DICE, ordine BF voce 05.b**: senza
                   // questa riga la sessione finirebbe in silenzio e la
@@ -489,131 +622,8 @@ class _PlayButton extends StatelessWidget {
   }
 }
 
-/// Il visualizzatore a cimatica: un mandala di geometria sacra che nasce dal
-/// suono (la simmetria viene dalla frequenza del preset) e pulsa col respiro.
-///
-/// Non e' una simulazione fisica di Chladni, ma un'evocazione fedele nello
-/// spirito: onde stazionarie a simmetria radiale, il cui numero di lobi cresce
-/// con la frequenza, che si aprono inspirando e si chiudono espirando.
-class _CymaticsPainter extends CustomPainter {
-  _CymaticsPainter({
-    required this.breath,
-    required this.preset,
-    required this.active,
-    required this.palette,
-  });
-
-  final double breath;
-  final MeditationPreset preset;
-  final bool active;
-  final MaestroPalette palette;
-
-  int get _symmetry => (preset.baseHz / 48).round().clamp(5, 12);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    final maxR = size.shortestSide / 2 * 0.94;
-    // Col respiro il mandala si apre; da fermo resta raccolto e tenue.
-    final intensity = active ? 1.0 : 0.4;
-    final open = 0.7 + 0.3 * breath;
-
-    // Alone di fondo, verde smeraldo di Aura verso l'oro.
-    canvas.drawCircle(
-      center,
-      maxR,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          palette.glow.withValues(alpha: 0.12 * intensity),
-          Colors.transparent,
-        ]).createShader(Rect.fromCircle(center: center, radius: maxR)),
-    );
-
-    final sym = _symmetry;
-
-    // Anelli concentrici delle onde stazionarie: nodi e ventri.
-    const rings = 5;
-    for (var k = 1; k <= rings; k++) {
-      final rr = maxR * open * k / rings;
-      canvas.drawCircle(
-        center,
-        rr,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 0.8
-          ..color = palette.gold.withValues(alpha: 0.10 * intensity),
-      );
-    }
-
-    // Due rose sovrapposte, la simmetria dal suono: r = R (0.5 + 0.5 |cos(sym t)|).
-    _drawRose(canvas, center, maxR * open, sym, palette.goldSoft,
-        0.75 * intensity, 1.4);
-    _drawRose(canvas, center, maxR * open * 0.66, sym * 2, palette.glow,
-        0.5 * intensity, 1.0);
-
-    // Nodi luminosi sulle punte dei lobi, dove il suono raccoglie la materia.
-    final nodePaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.85 * intensity);
-    for (var i = 0; i < sym; i++) {
-      final a = 2 * math.pi * i / sym - math.pi / 2;
-      final tip = center + Offset(math.cos(a), math.sin(a)) * maxR * open;
-      canvas.drawCircle(tip, 2.2 + 2.0 * breath, nodePaint);
-      canvas.drawCircle(
-        tip,
-        6 + 4 * breath,
-        Paint()
-          ..color = palette.goldSoft.withValues(alpha: 0.25 * intensity)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
-      );
-    }
-
-    // Cuore luminoso che respira.
-    canvas.drawCircle(
-      center,
-      maxR * 0.06 * (0.7 + 0.6 * breath),
-      Paint()
-        ..shader = RadialGradient(colors: [
-          Colors.white.withValues(alpha: 0.9 * intensity),
-          palette.goldSoft.withValues(alpha: 0.0),
-        ]).createShader(Rect.fromCircle(
-            center: center, radius: maxR * 0.12 * (0.7 + 0.6 * breath))),
-    );
-  }
-
-  void _drawRose(Canvas canvas, Offset center, double radius, int petals,
-      Color color, double alpha, double stroke) {
-    final path = Path();
-    const steps = 720;
-    for (var i = 0; i <= steps; i++) {
-      final t = 2 * math.pi * i / steps;
-      final r = radius * (0.5 + 0.5 * math.cos(petals * t).abs());
-      final p = center + Offset(math.cos(t), math.sin(t)) * r;
-      if (i == 0) {
-        path.moveTo(p.dx, p.dy);
-      } else {
-        path.lineTo(p.dx, p.dy);
-      }
-    }
-    canvas.drawPath(
-      path,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = stroke
-        ..strokeJoin = StrokeJoin.round
-        ..color = color.withValues(alpha: alpha),
-    );
-    canvas.drawPath(
-      path,
-      Paint()
-        ..style = PaintingStyle.fill
-        ..color = color.withValues(alpha: 0.06 * alpha),
-    );
-  }
-
-  @override
-  bool shouldRepaint(_CymaticsPainter old) =>
-      old.breath != breath ||
-      old.preset != preset ||
-      old.active != active ||
-      old.palette != palette;
-}
+/// **IL CERCHIO CHE SI GONFIA E' USCITO. Ordine CZ voce 08**, 8 settembre
+/// 2026. Parole del fondatore: *"E' la forma di ogni altra app di meditazione
+/// e non e' la nostra."* Al suo posto c'e' `LotoCheRespira`, e il pittore a
+/// cimatica e' stato tolto invece di essere lasciato spento: un componente che
+/// nessuno monta e' un componente che qualcuno rimonta.

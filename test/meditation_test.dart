@@ -111,10 +111,19 @@ void main() {
           ),
         );
 
-    testWidgets('Mostra cimatica, respiro e fondamento onesto', (tester) async {
+    testWidgets('Mostra il Loto, il respiro e il fondamento onesto',
+        (tester) async {
       await tester.pumpWidget(host(const SilentTonePlayer()));
       await tester.pump();
-      expect(find.byKey(const Key('meditation_cymatics')), findsOneWidget);
+      // **IL LOTO AL POSTO DELLA CIMATICA. Ordine CZ voce 08**, 8 settembre
+      // 2026. Qui si cercava `meditation_cymatics`, cioe' il cerchio che si
+      // gonfia: parole del fondatore, *"e' la forma di ogni altra app di
+      // meditazione e non e' la nostra"*. Il pittore e' stato tolto, non
+      // lasciato spento: un componente che nessuno monta e' un componente che
+      // qualcuno rimonta.
+      expect(find.byKey(const Key('meditation_loto')), findsOneWidget);
+      expect(find.byKey(const Key('meditation_cymatics')), findsNothing,
+          reason: 'il cerchio che si gonfia e ancora montato');
       expect(find.byKey(const Key('meditation_play')), findsOneWidget);
       // Prima del via, la guida invita a iniziare.
       expect(find.text('Tocca per iniziare'), findsOneWidget);
@@ -138,8 +147,17 @@ void main() {
     testWidgets('Il preset binaurale invita alle cuffie', (tester) async {
       await tester.pumpWidget(host(const SilentTonePlayer()));
       await tester.pump();
-      // Di default 432 Hz: invito morbido alle cuffie.
+      // **LA SCELTA LIBERA E' SCESA SOTTO, e non e' sparita. Ordine CZ voce
+      // 06**: la porta principale la decide Aura, e chi vuole scegliere apre
+      // il pannello. Qui si toccava direttamente il chip, che ora nasce
+      // chiuso: prima si apre la scelta, poi si sceglie.
       expect(find.textContaining('Metti le cuffie'), findsNothing);
+      expect(find.byKey(const Key('meditation_preset_theta')), findsNothing,
+          reason: 'il menu delle frequenze e ancora in prima fila: il '
+              'fondatore ha chiesto che Aura decida, e che la scelta stia '
+              'sotto');
+      await tester.tap(find.byKey(const Key('meditation_scegli_tu')));
+      await tester.pump();
       await tester.tap(find.byKey(const Key('meditation_preset_theta')));
       await tester.pump();
       expect(find.textContaining('Metti le cuffie'), findsOneWidget);
