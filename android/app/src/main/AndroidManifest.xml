@@ -92,6 +92,33 @@
              La classe e' quella del pacchetto: la si dichiara qui perche' un
              receiver di avvio deve stare nel manifest dell'app, non in quello
              di una libreria. -->
+        <!-- IL RECEIVER CHE RICEVE LA SVEGLIA E POSTA LA NOTIFICA.
+             Ordine CZ voce 11, 8 settembre 2026.
+
+             MISURATO SUL TELEFONO, non sul banco. Sul dispositivo 767f596c:
+             sveglia programmata per le 04:40, alle 04:41 uscita dalla coda di
+             `dumpsys alarm`, e in `dumpsys notification` nessuna notifica
+             dell'app. La sveglia partiva e la notifica non nasceva.
+
+             LA RAGIONE. `flutter_local_notifications` non posta niente da se':
+             mette in coda un AlarmManager che allo scadere manda un broadcast
+             a QUESTO receiver. Senza la sua riga qui dentro il broadcast non
+             trova nessuno, l'allarme esce dalla coda e non succede niente.
+
+             PERCHE' LA VOCE CW.06 NON L'AVEVA PRESO: quella voce ha aggiunto
+             il receiver del RIAVVIO, qui sotto, che rimette in coda gli
+             avvisi dopo un reboot o un aggiornamento. Ho aggiunto quello del
+             ritorno e non quello dell'arrivo, e la guardia che avevo scritto
+             chiedeva per nome soltanto il primo.
+
+             E PERCHE' IL PULSANTE DI PROVA FUNZIONAVA: `mostraAdesso` chiama
+             `show`, che posta subito e dentro il processo dell'app, senza
+             passare da nessun receiver. Canale, permesso e recapito erano
+             sani: e' per questo che la prova a mano diceva di si' mentre le
+             cinque chiamate del giorno tacevano. -->
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+            android:exported="false"/>
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
             android:exported="false">
