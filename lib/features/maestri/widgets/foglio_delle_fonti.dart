@@ -167,17 +167,38 @@ class TestiDelleFonti {
       // stesso fatto, e la seconda invecchia da sola.
 
   /// La Meditazione.
+  ///
+  /// **LA VERITA' SULLE FONTI, SCRITTA PER INTERO. Ordine CZ voce 07**, 8
+  /// settembre 2026.
+  ///
+  /// Il fondatore ha chiesto che qui si scriva cio' che di solito non si
+  /// scrive, perche' **questa e' la funzione dove la tentazione di promettere
+  /// e' piu' alta**, ed e' la stessa famiglia del difetto degli Angeli che ha
+  /// aperto l'ordine CS.
+  ///
+  /// Le due materie non hanno lo stesso peso, e il testo lo dice: le frequenze
+  /// del solfeggio sono una costruzione recente senza fonte documentata; i
+  /// battiti binaurali hanno letteratura vera, con risultati modesti e non
+  /// concordi. Metterle sullo stesso piano sarebbe comodo e falso.
   static const String meditazione =
-      'I toni che senti sono generati dal dispositivo in tempo reale: 432 '
-      'e 528 hertz, insieme a un battito binaurale che nasce dalla piccola '
-      'differenza fra l\'orecchio destro e il sinistro, per questo '
-      'servono le cuffie.\n\n'
-      'Il 432 e le frequenze Solfeggio appartengono a una tradizione '
-      'culturale della musica e del suono, non alla medicina: qui stanno '
-      'per quello che sono, una cornice di benessere.\n\n'
-      'Il mandala che vedi non è un\'animazione preparata: è cimatica, '
-      'cioè la figura che quel suono disegna. Pulsa col respiro che la '
-      'guida ti propone.';
+      'I toni che senti li genera il dispositivo mentre suonano: non sono una '
+      'traccia registrata. La frequenza di oggi viene dal centro acceso oggi, '
+      'ed è Aura a sceglierla.\n\n'
+      'LE FREQUENZE DEL SOLFEGGIO NON SONO ANTICHE. Vengono attribuite a '
+      'Guido d\'Arezzo, il monaco che nell\'undicesimo secolo diede il nome '
+      'alle note, ma di quella attribuzione non esiste nessuna fonte '
+      'documentata prima degli anni Settanta del Novecento: la scala dei sei '
+      'toni, e la corrispondenza coi chakra, sono una costruzione della fine '
+      'del Novecento. È una tradizione recente, e la chiamiamo così.\n\n'
+      'I BATTITI BINAURALI HANNO UNA LETTERATURA VERA. Il fenomeno lo '
+      'descrisse Heinrich Wilhelm Dove nel 1839: due toni poco diversi, uno '
+      'per orecchio, e chi ascolta sente un terzo battito che nessuno dei due '
+      'altoparlanti sta suonando. Gli studi recenti su ansia e attenzione '
+      'esistono, e i risultati sono modesti e non concordi fra loro.\n\n'
+      'Quindi: questa è la corrispondenza che la tradizione moderna assegna a '
+      'questo centro, questo è ciò che chi la pratica riferisce, e questo non '
+      'è un effetto clinico dimostrato. Il respiro lo fai tu, e il resto è una '
+      'cornice.';
 
   /// Il Soffio del Destino.
   /// LA CARTA DI NASCITA DEI TAROCCHI. Ordine CS voce O3.
