@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/core/face/face_trait.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -121,32 +119,27 @@ void main() {
   /// invecchierebbe per conto suo, e questa prova direbbe che tutto va bene
   /// mentre il classificatore usa altri numeri. Si cerca la riga, si prende
   /// il numero.
-  final sorgente =
-      File('lib/core/face/face_classifier.dart').readAsStringSync();
-
-  double sogliaDi(String frammento) {
-    final i = sorgente.indexOf(frammento);
-    expect(i, greaterThanOrEqualTo(0),
-        reason: 'nel classificatore non si trova piu\' "$frammento": questa '
-            'prova non sta leggendo la soglia che crede');
-    // Il numero sta poco prima del frammento, dopo un ">=" o un "<".
-    final prima = sorgente.substring(i < 90 ? 0 : i - 90, i);
-    final numeri = RegExp(r'([0-9]+\.[0-9]+)').allMatches(prima).toList();
-    expect(numeri, isNotEmpty,
-        reason: 'non si trova nessun numero prima di "$frammento"');
-    return double.parse(numeri.last.group(1)!);
-  }
+  /// **LA FASCIA LA DICE IL CODICE, non una regex sul sorgente.**
+  ///
+  /// La prima stesura ripescava le soglie dal file con un espressione
+  /// regolare. Finche le categorie avevano una soglia sola funzionava; da
+  /// quando ne hanno due **ne prendeva una a caso**, e diceva che due volti
+  /// erano uguali dove non lo erano: la guardia aveva la sua verita e il
+  /// codice la sua. Adesso il classificatore espone la porta `fasciaDi`, che
+  /// e la stessa che usa per decidere, e qui si interroga quella.
+  int fasciaDi(FaceCategory categoria, double rapporto) =>
+      FaceClassifier.fasciaDi(categoria, rapporto);
 
   test('OGNI COPPIA DI PERSONE RICEVE RESPONSI DIVERSI', () {
-    const dove = <String, String>{
-      'fronte': 'FaceTrait.fronteVerticale',
-      'distanzaOcchi': 'FaceTrait.occhiRavvicinati',
-      'grandezzaOcchi': 'FaceTrait.occhiGrandi',
-      'naso': 'FaceTrait.nasoLungo',
-      'labbra': 'FaceTrait.labbraPiene',
-      'bocca': 'FaceTrait.boccaLarga',
-      'mento': 'FaceTrait.mentoAmpio',
-      'mascella': 'FaceTrait.mascellaLarga',
+    const dove = <String, FaceCategory>{
+      'fronte': FaceCategory.fronte,
+      'distanzaOcchi': FaceCategory.distanzaOcchi,
+      'grandezzaOcchi': FaceCategory.grandezzaOcchi,
+      'naso': FaceCategory.naso,
+      'labbra': FaceCategory.labbra,
+      'bocca': FaceCategory.bocca,
+      'mento': FaceCategory.mento,
+      'mascella': FaceCategory.mascella,
     };
     cardinaleMinimo(dove.length, 8,
         cosa: 'categorie di cui si conosce il rapporto sui volti veri',
@@ -173,8 +166,8 @@ void main() {
         final b = persone[nomi[j]]!;
         final uguali = <String>[];
         for (final voce in dove.entries) {
-          final soglia = sogliaDi(voce.value);
-          if ((a[voce.key]! >= soglia) == (b[voce.key]! >= soglia)) {
+          final cat = voce.value;
+          if (fasciaDi(cat, a[voce.key]!) == fasciaDi(cat, b[voce.key]!)) {
             uguali.add(voce.key);
           }
         }
@@ -204,28 +197,28 @@ void main() {
     // Il cappello altera fronte e sopracciglia: e' giusto che quelle cambino.
     // Le altre no, e se cambiassero tutte vorrebbe dire che le soglie sono
     // posate dentro il rumore della misura invece che fra le persone.
-    const dove = <String, String>{
-      'distanzaOcchi': 'FaceTrait.occhiRavvicinati',
-      'naso': 'FaceTrait.nasoLungo',
-      'labbra': 'FaceTrait.labbraPiene',
-      'bocca': 'FaceTrait.boccaLarga',
-      'mento': 'FaceTrait.mentoAmpio',
-      'mascella': 'FaceTrait.mascellaLarga',
+    const dove = <String, FaceCategory>{
+      'distanzaOcchi': FaceCategory.distanzaOcchi,
+      'naso': FaceCategory.naso,
+      'labbra': FaceCategory.labbra,
+      'bocca': FaceCategory.bocca,
+      'mento': FaceCategory.mento,
+      'mascella': FaceCategory.mascella,
     };
     var cambiate = 0;
     for (final voce in dove.entries) {
-      final soglia = sogliaDi(voce.value);
+      final cat = voce.value;
       final a = volto1[voce.key]!;
       final b = volto1ColCappello[voce.key]!;
-      if ((a >= soglia) != (b >= soglia)) cambiate++;
+      if (fasciaDi(cat, a) != fasciaDi(cat, b)) cambiate++;
       final c = volto3[voce.key]!;
       final d = volto3ColCappello[voce.key]!;
-      if ((c >= soglia) != (d >= soglia)) cambiate++;
+      if (fasciaDi(cat, c) != fasciaDi(cat, d)) cambiate++;
     }
     // ignore: avoid_print
-    print('ORDINE CX: lo stesso volto col cappello cambia risposta in '
-        '$cambiate categorie su ${dove.length}, escluse fronte e sopracciglia '
-        'che il cappello copre davvero');
+    print('ORDINE CX: i due volti col cappello cambiano risposta in '
+        '$cambiate confronti su ${dove.length * 2}, escluse fronte e '
+        'sopracciglia che il cappello copre davvero');
     expect(cambiate, lessThan(dove.length * 2),
         reason: 'lo stesso volto cambia TUTTE le risposte quando si mette un '
             'cappello che non tocca quelle parti: le soglie stanno dentro il '

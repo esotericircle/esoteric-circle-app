@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/core/face/face_trait.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';

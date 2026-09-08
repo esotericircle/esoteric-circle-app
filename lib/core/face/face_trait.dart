@@ -50,6 +50,8 @@ enum FaceTrait {
       'Il pensiero che corre al risultato'),
   fronteVerticale(FaceCategory.fronte, 'Fronte verticale',
       'Il metodo che precede la scelta'),
+  fronteEquilibrata(FaceCategory.fronte, 'Fronte equilibrata',
+      'Il pensiero che si prende il suo tempo'),
 
   // Sopracciglia.
   sopraccigliaDritte(
@@ -70,30 +72,42 @@ enum FaceTrait {
       'Il cuore aperto alle emozioni'),
   occhiRaccolti(FaceCategory.grandezzaOcchi, 'Occhi raccolti',
       'La concentrazione che intuisce'),
+  occhiProporzionati(FaceCategory.grandezzaOcchi, 'Occhi proporzionati',
+      'Lo sguardo che tiene dentro e fuori'),
 
   // Naso.
   nasoLungo(FaceCategory.naso, 'Naso lungo', 'Il piano che valuta prima'),
   nasoCorto(FaceCategory.naso, 'Naso corto', 'Il presente che agisce'),
+  nasoEquilibrato(
+      FaceCategory.naso, 'Naso equilibrato', 'Il passo che sceglie quando'),
 
   // Labbra.
   labbraPiene(FaceCategory.labbra, 'Labbra piene', 'La generosità che dona'),
   labbraSottili(
       FaceCategory.labbra, 'Labbra sottili', 'La misura che pesa le parole'),
+  labbraArmoniose(
+      FaceCategory.labbra, 'Labbra armoniose', 'Il dire che sa anche tacere'),
 
   // Bocca.
   boccaLarga(FaceCategory.bocca, 'Bocca larga', 'L\'apertura che accoglie'),
   boccaPiccola(
       FaceCategory.bocca, 'Bocca piccola', 'Il raccoglimento che custodisce'),
+  boccaEquilibrata(FaceCategory.bocca, 'Bocca equilibrata',
+      'La parola che sta nella sua misura'),
 
   // Mento.
   mentoAmpio(FaceCategory.mento, 'Mento ampio', 'La costanza che tiene'),
   mentoAPunta(FaceCategory.mento, 'Mento a punta', 'L\'agilità che si adatta'),
+  mentoDefinito(
+      FaceCategory.mento, 'Mento definito', 'La fermezza che non pesa'),
 
   // Mascella.
   mascellaLarga(
       FaceCategory.mascella, 'Mascella larga', 'La volontà che non molla'),
   mascellaStretta(FaceCategory.mascella, 'Mascella stretta',
       'La flessibilità che asseconda'),
+  mascellaMisurata(FaceCategory.mascella, 'Mascella misurata',
+      'La forza che non ha bisogno di mostrarsi'),
 
   // Zigomi.
   zigomiAlti(FaceCategory.zigomi, 'Zigomi alti', 'L\'amore della sfida'),

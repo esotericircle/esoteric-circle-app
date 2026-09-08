@@ -590,25 +590,20 @@ class _Soglia extends StatelessWidget {
           // di ogni giorno, e sotto la lettura piena, che si rifa' quando
           // si vuole: mettere per prima quella lunga vorrebbe dire
           // chiedere quattro pose a chi voleva solo guardarsi un momento.
-          if (ultimo != null) ...[
-            FilledButton.icon(
-              key: const Key('face_return_start'),
-              style: FilledButton.styleFrom(
-                  backgroundColor: palette.primary,
-                  foregroundColor: palette.onPrimary),
-              onPressed: onRitorno,
-              icon: const Icon(Icons.auto_awesome_rounded),
-              label: const Text('Leggi il tuo momento'),
-            ),
-            const SizedBox(height: SpacingTokens.xs),
-            Text(
-                'I tuoi tratti li ho già: guardo solo cosa sta facendo '
-                'il tuo viso adesso. Basta un momento di fronte.',
-                key: const Key('face_didascalia_ritorno'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary)),
-            const SizedBox(height: SpacingTokens.md),
-          ],
+          // **"LEGGI IL TUO MOMENTO" NON ESISTE PIU'.** Ordine CX, 8
+          // settembre 2026, parole del fondatore: *"Devi eliminare ovunque
+          // 'leggi il tuo momento': prima di tutto e' difficilissimo e poi non
+          // serve a niente. Se l'utente vuole rifare la scansione, la rifa'
+          // completa."*
+          //
+          // Era la lettura breve dell'ordine CR voce 08: chi aveva gia' una
+          // lettura piena vedeva prima il ritorno, che chiedeva soltanto di
+          // restare fermo di fronte. **Chiedeva una posa difficile da tenere
+          // per dare in cambio meno di quello che la scansione da' in trenta
+          // secondi**, e la sua didascalia, stampata fra i due pulsanti, ha
+          // fatto credere al fondatore che l'app gli negasse la scansione.
+          //
+          // Resta una porta sola, e fa la cosa intera.
           if (consentito) ...[
             FilledButton.icon(
               key: const Key('face_start'),

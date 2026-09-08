@@ -47,6 +47,20 @@ class FaceCorpus {
         'Sei generoso nel dare e nel parlare, caldo nel condividere.',
     FaceTrait.labbraSottili:
         'Sei essenziale e misurato, scegli poche parole e le scegli bene.',
+    FaceTrait.fronteEquilibrata:
+        'Rifletti quanto serve e poi decidi: non corri, e non ti fermi a pensare troppo.',
+    FaceTrait.occhiProporzionati:
+        'Tieni insieme quello che senti e quello che osservi, senza che uno copra l altro.',
+    FaceTrait.nasoEquilibrato:
+        'Sai quando muoverti e quando aspettare, e la differenza la riconosci da solo.',
+    FaceTrait.labbraArmoniose:
+        'Dai calore a chi ti sta vicino misurando le parole, e le due cose non ti costano.',
+    FaceTrait.boccaEquilibrata:
+        'Ti apri con chi se lo merita e non sprechi fiato con gli altri.',
+    FaceTrait.mentoDefinito:
+        'Resti fermo su quello che conta e lasci andare il resto senza farne una battaglia.',
+    FaceTrait.mascellaMisurata:
+        'Hai una determinazione tranquilla, che non ha bisogno di alzare la voce.',
     FaceTrait.boccaLarga:
         'Sei generoso e aperto, comunichi con slancio e allarghi il cerchio.',
     FaceTrait.boccaPiccola:

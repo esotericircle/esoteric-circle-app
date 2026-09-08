@@ -181,9 +181,15 @@ void main() {
     // il cinque e l undici: su un volto alto trecento punti sono dodici e
     // diciotto, non sedici e trentadue. Con i vecchi numeri anche l occhio
     // raccolto superava la soglia tarata e usciva grande.
+    // **TRE VARIANTI, non piu due.** Ordine CX: con due sole risposte per
+    // categoria due persone qualsiasi cadono dalla stessa parte in meta dei
+    // casi, e il fondatore ha visto due volti diversi ricevere lo stesso
+    // responso. Le soglie sono i terzili dei quattro volti misurati.
     expect(letto(volto(hOcchio: 18), FaceCategory.grandezzaOcchi),
         FaceTrait.occhiGrandi);
-    expect(letto(volto(hOcchio: 12), FaceCategory.grandezzaOcchi),
+    expect(letto(volto(hOcchio: 15), FaceCategory.grandezzaOcchi),
+        FaceTrait.occhiProporzionati);
+    expect(letto(volto(hOcchio: 11), FaceCategory.grandezzaOcchi),
         FaceTrait.occhiRaccolti);
   });
 

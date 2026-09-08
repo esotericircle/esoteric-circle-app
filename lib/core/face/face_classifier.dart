@@ -214,6 +214,50 @@ class FaceClassifier {
   /// misurato piu' volte, e tre misure di due persone non sono tre persone.
   static const int misureDellaTaratura = 6;
 
+  /// **LE SOGLIE, IN UN POSTO SOLO E INTERROGABILI.** Ordine CX, 8 settembre
+  /// 2026.
+  ///
+  /// Prima vivevano come numeri sparsi dentro gli undici metodi, e la guardia
+  /// che voleva verificarli **doveva ripescarli dal sorgente con
+  /// un'espressione regolare**: con le categorie a due soglie ne prendeva una
+  /// a caso e diceva che due volti erano uguali dove non lo erano. Era la
+  /// famiglia delle due verita' sullo stesso fatto, spostata di un livello.
+  ///
+  /// Qui la soglia si scrive una volta, il classificatore la usa e la guardia
+  /// la legge: **se cambia, cambia per tutti nello stesso istante.**
+  ///
+  /// Ogni voce e' in ordine crescente: una sola soglia vuol dire due varianti,
+  /// due soglie vogliono dire tre.
+  static const Map<FaceCategory, List<double>> soglie = {
+    FaceCategory.formaVolto: [0.7978],
+    FaceCategory.fronte: [0.1508, 0.1783],
+    FaceCategory.sopracciglia: [0.2138],
+    FaceCategory.distanzaOcchi: [2.2761],
+    FaceCategory.grandezzaOcchi: [0.0396, 0.0542],
+    FaceCategory.naso: [0.3029, 0.3321],
+    FaceCategory.labbra: [0.298, 0.3416],
+    FaceCategory.bocca: [0.3674, 0.4162],
+    FaceCategory.mento: [0.6371, 0.7051],
+    FaceCategory.mascella: [0.8157, 0.8954],
+    FaceCategory.zigomi: [1.0656],
+  };
+
+  /// In quale fascia cade un rapporto: zero e' la piu' bassa. Con una soglia
+  /// le fasce sono due, con due sono tre.
+  ///
+  /// **E' la stessa funzione che i metodi usano per decidere**, quindi una
+  /// guardia che la interroga sta guardando il comportamento vero e non una
+  /// sua imitazione.
+  static int fasciaDi(FaceCategory categoria, double rapporto) {
+    final s = soglie[categoria];
+    if (s == null) return 0;
+    var fascia = 0;
+    for (final soglia in s) {
+      if (rapporto >= soglia) fascia++;
+    }
+    return fascia;
+  }
+
   /// Legge i contorni e restituisce una lettura per ogni categoria.
   static FaceReading leggi(FaceContours c) {
     final box = _Box.attorno(c.volto);
@@ -282,8 +326,11 @@ class FaceClassifier {
   static TraitLettura _fronte(FaceContours c, _Box box, double h) {
     final browY = _minY([...c.sopraccioSx, ...c.sopraccioDx]);
     final ratio = ((browY - box.minY) / h).clamp(0.0, 1.0);
-    final t =
-        ratio >= 0.1677 ? FaceTrait.fronteVerticale : FaceTrait.fronteSfuggente;
+    final t = switch (fasciaDi(FaceCategory.fronte, ratio)) {
+      2 => FaceTrait.fronteVerticale,
+      1 => FaceTrait.fronteEquilibrata,
+      _ => FaceTrait.fronteSfuggente,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.1677, 0.0095),
@@ -325,8 +372,9 @@ class FaceClassifier {
             _Box.attorno(c.occhioDx).larghezza) /
         2;
     final ratio = eyeW <= 0 ? 2.0 : gap / eyeW;
-    final t =
-        ratio < 2.2761 ? FaceTrait.occhiRavvicinati : FaceTrait.occhiDistanziati;
+    final t = fasciaDi(FaceCategory.distanzaOcchi, ratio) == 0
+        ? FaceTrait.occhiRavvicinati
+        : FaceTrait.occhiDistanziati;
     return TraitLettura(
         tratto: t, marcatezza: _marca(ratio, 2.2761, 0.0351), rapporto: ratio);
   }
@@ -336,7 +384,11 @@ class FaceClassifier {
         (_Box.attorno(c.occhioSx).altezza + _Box.attorno(c.occhioDx).altezza) /
             2;
     final ratio = eyeH / h;
-    final t = ratio >= 0.0479 ? FaceTrait.occhiGrandi : FaceTrait.occhiRaccolti;
+    final t = switch (fasciaDi(FaceCategory.grandezzaOcchi, ratio)) {
+      2 => FaceTrait.occhiGrandi,
+      1 => FaceTrait.occhiProporzionati,
+      _ => FaceTrait.occhiRaccolti,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.0479, 0.0044),
@@ -347,7 +399,11 @@ class FaceClassifier {
     final top = _minY(c.nasoPonte);
     final bottom = _maxY(c.nasoBase);
     final ratio = ((bottom - top) / h).clamp(0.0, 1.0);
-    final t = ratio >= 0.3108 ? FaceTrait.nasoLungo : FaceTrait.nasoCorto;
+    final t = switch (fasciaDi(FaceCategory.naso, ratio)) {
+      2 => FaceTrait.nasoLungo,
+      1 => FaceTrait.nasoEquilibrato,
+      _ => FaceTrait.nasoCorto,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.3108, 0.0136),
@@ -361,7 +417,11 @@ class FaceClassifier {
     final larghezza =
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza <= 0 ? 0.0 : spessore / larghezza;
-    final t = ratio >= 0.314 ? FaceTrait.labbraPiene : FaceTrait.labbraSottili;
+    final t = switch (fasciaDi(FaceCategory.labbra, ratio)) {
+      2 => FaceTrait.labbraPiene,
+      1 => FaceTrait.labbraArmoniose,
+      _ => FaceTrait.labbraSottili,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.314, 0.0206),
@@ -372,7 +432,11 @@ class FaceClassifier {
     final larghezza =
         _Box.attorno([...c.labbroSopra, ...c.labbroSotto]).larghezza;
     final ratio = larghezza / w;
-    final t = ratio >= 0.3714 ? FaceTrait.boccaLarga : FaceTrait.boccaPiccola;
+    final t = switch (fasciaDi(FaceCategory.bocca, ratio)) {
+      2 => FaceTrait.boccaLarga,
+      1 => FaceTrait.boccaEquilibrata,
+      _ => FaceTrait.boccaPiccola,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.3714, 0.0229),
@@ -381,7 +445,11 @@ class FaceClassifier {
 
   static TraitLettura _mento(double wMento, double wMascella) {
     final ratio = wMascella <= 0 ? 1.0 : wMento / wMascella;
-    final t = ratio >= 0.6512 ? FaceTrait.mentoAmpio : FaceTrait.mentoAPunta;
+    final t = switch (fasciaDi(FaceCategory.mento, ratio)) {
+      2 => FaceTrait.mentoAmpio,
+      1 => FaceTrait.mentoDefinito,
+      _ => FaceTrait.mentoAPunta,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.6512, 0.0286),
@@ -390,8 +458,11 @@ class FaceClassifier {
 
   static TraitLettura _mascella(double wMascella, double w) {
     final ratio = wMascella / w;
-    final t =
-        ratio >= 0.878 ? FaceTrait.mascellaLarga : FaceTrait.mascellaStretta;
+    final t = switch (fasciaDi(FaceCategory.mascella, ratio)) {
+      2 => FaceTrait.mascellaLarga,
+      1 => FaceTrait.mascellaMisurata,
+      _ => FaceTrait.mascellaStretta,
+    };
     return TraitLettura(
         tratto: t,
         marcatezza: _marca(ratio, 0.878, 0.0357),
@@ -405,7 +476,9 @@ class FaceClassifier {
       larghezza = (c.guanciaDx!.dx - c.guanciaSx!.dx).abs();
     }
     final ratio = wMascella <= 0 ? 1.0 : larghezza / wMascella;
-    final t = ratio >= 1.0656 ? FaceTrait.zigomiAlti : FaceTrait.zigomiMorbidi;
+    final t = fasciaDi(FaceCategory.zigomi, ratio) == 1
+        ? FaceTrait.zigomiAlti
+        : FaceTrait.zigomiMorbidi;
     return TraitLettura(
         tratto: t, marcatezza: _marca(ratio, 1.0656, 0.0236), rapporto: ratio);
   }
