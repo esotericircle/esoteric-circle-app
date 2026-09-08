@@ -135,7 +135,12 @@ class _IlRitualeDiOggi extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           // **IL GESTO, che e' il rituale vero.** Porta gia' dentro il dato
           // del cielo di stamattina: non e' un'istruzione generica.
-          Text(rito.gesto,
+          // **SOLO L'ISTRUZIONE, non la frase del cielo.** Ordine CY voce
+          // 01: il responso qui sopra il cielo lo ha gia' nominato, e due
+          // paragrafi di fila che aprono con "La Luna e' calante" si
+          // leggono come lo stesso testo ripetuto. Il gesto intero resta
+          // in `rito.gesto` per la card e per gli avvisi, che stanno soli.
+          Text(rito.soloIlGesto,
               key: const Key('alba_testo_del_mantra'),
               style: TypographyTokens.lettura()
                   .copyWith(color: abito.inchiostro, height: 1.45)),

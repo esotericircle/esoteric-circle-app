@@ -208,6 +208,7 @@ class RitoDiOggi {
     required this.forma,
     required this.risposta,
     required this.gesto,
+    required this.soloIlGesto,
     required this.viaTattile,
     required this.respiro,
     required this.tempi,
@@ -227,6 +228,7 @@ class RitoDiOggi {
         forma: forma,
         risposta: altra,
         gesto: gesto,
+        soloIlGesto: soloIlGesto,
         viaTattile: viaTattile,
         respiro: respiro,
         tempi: tempi,
@@ -255,7 +257,31 @@ class RitoDiOggi {
   final RispostaDelDono risposta;
 
   /// Il gesto, col dato del cielo gia' dentro.
+  ///
+  /// **Resta INTERO**, perche' chi lo mostra da solo ne ha bisogno: la
+  /// card che si condivide e l'avviso che arriva a telefono chiuso non
+  /// hanno accanto la risposta che nomina il cielo.
   final String gesto;
+
+  /// **SOLO L'ISTRUZIONE, senza la frase del cielo.** Ordine CY voce 01,
+  /// 8 settembre 2026.
+  ///
+  /// I gesti del corpus aprono col fatto del cielo, *"La Luna e' in
+  /// Leone. Scegli una cosa sola..."*, e quell'apertura c'era per una
+  /// ragione: finche' il gesto ERA il corpo del responso, doveva bastare
+  /// a se stesso.
+  ///
+  /// Adesso il responso dichiara il cielo per conto suo e il mantra gli
+  /// sta subito sotto: due paragrafi di fila che aprono con *"La Luna e'
+  /// calante"* si leggono come lo stesso testo ripetuto. Misurato su un
+  /// anno: **254 giorni su 365**.
+  ///
+  /// **Il taglio non e' a occhio.** Il rito sa quale dato il suo gesto
+  /// nomina, e il segnaposto e' ancora visibile quando questo campo si
+  /// compone: si toglie la prima frase **solo se** contiene quel
+  /// segnaposto. Un gesto che nomina il cielo a meta' testo, come quello
+  /// dell'orologio, resta intero.
+  final String soloIlGesto;
 
   /// La via col dito, sempre presente.
   final String viaTattile;
@@ -459,6 +485,7 @@ class RitoAlba {
         valoreDelFatto: cielo.valoreDi(gesto.dato),
       ),
       gesto: _riempi(gesto.testo, cielo),
+      soloIlGesto: _riempi(_senzaLApertura(gesto.testo, gesto.dato), cielo),
       viaTattile: gesto.viaTattile,
       // IL RESPIRO SI LEGGE IN PAROLE, e le cifre in coda se ne vanno.
       //
@@ -520,6 +547,24 @@ class RitoAlba {
   }
 
   /// Mette i valori veri al posto dei segnaposto.
+  /// **TOGLIE LA FRASE DEL CIELO, e solo quella.** Ordine CY voce 01.
+  ///
+  /// Si taglia la prima frase **soltanto se** contiene il segnaposto del
+  /// dato che questo gesto nomina: e' un fatto verificabile, non una
+  /// somiglianza. Se il gesto nomina il cielo piu' avanti, o non lo
+  /// nomina affatto, torna intero.
+  static String _senzaLApertura(String testo, DatoDelCielo dato) {
+    final fine = testo.indexOf('. ');
+    if (fine <= 0) return testo;
+    final prima = testo.substring(0, fine + 1);
+    if (!prima.contains(dato.segnaposto)) return testo;
+    final resto = testo.substring(fine + 2).trim();
+    // **E MAI SI TORNA A MANI VUOTE.** Un gesto fatto della sola frase
+    // del cielo lascerebbe il riquadro senza istruzione, che e' peggio
+    // della ripetizione: meglio ripetersi che non dire cosa fare.
+    return resto.isEmpty ? testo : resto;
+  }
+
   static String _riempi(String testo, CieloDiStamattina cielo) {
     var esito = testo;
     for (final dato in DatoDelCielo.values) {

@@ -196,15 +196,34 @@ class DawnGift {
         tradition: null,
         provisional: true,
       ),
+      // **IL GESTO NON STA PIU' QUI. Ordine CY voce 01, 8 settembre 2026.**
+      //
+      // Parole del fondatore sulla build 2232: *"ho fatto il rito dell'Alba e
+      // i testi vengono ripetuti 3 volte"*, e sul Soffio *"C'E' ANCORA IL RITO
+      // CHE IN QUESTA FUNZIONALITA' DOVEVI ELIMINARE"*.
+      //
+      // **Una causa sola per tutti e due.** Questo campo portava il gesto e la
+      // via tattile, e tutti e cinque i Doni montano la stessa scheda. Poi
+      // l'ordine CW voce 07 ha messo il rituale dentro il riquadro IL MANTRA
+      // DI OGGI **senza toglierlo da qui**: all'Alba le stesse due frasi
+      // escono due volte, una sotto l'altra. Nel Soffio il riquadro non c'e',
+      // e il gesto restava a comparire in una funzione che un gesto da
+      // compiere non deve averlo affatto, perche' **il rito del Soffio e' il
+      // respiro**.
+      //
+      // **La colpa e' della voce che ha aggiunto il riquadro**, e la guardia
+      // che avevo scritto pretendeva che il riquadro CONTENESSE il mantra
+      // senza mai chiedere se quel testo fosse anche altrove.
+      //
+      // Adesso il gesto vive in UN posto solo, `rito.gesto`, e chi lo vuole
+      // mostrare lo prende da li'. Il responso torna a essere la RISPOSTA del
+      // giorno: dice come sta il cielo, non cosa fare.
+      //
+      // IL RESPIRO NON STA NEL TESTO, ordine P voce 17: e' un respiro guidato
+      // a schermo. I suoi numeri restano in `rito.tempi` e `rito.giri`.
       orientation: rito == null
           ? provisionalOrientation
-          // IL RESPIRO NON STA PIU' NEL TESTO, ordine P voce 17: e' un
-          // respiro guidato a schermo, con la figura che si espande e si
-          // contrae. Una istruzione criptica scritta e' un compito, un respiro
-          // guidato e' un'esperienza. I suoi numeri restano in `rito.tempi` e
-          // `rito.giri`, che sono cio' con cui il simbolo si muove.
-          : '${rito.gesto}\n\n'
-              'Se ti è più comodo: ${rito.viaTattile}',
+          : rito.risposta.risposta,
       word: rito?.parola,
       rito: rito,
       // Il dono non e' piu' provvisorio quando il rito c'e': il contenuto

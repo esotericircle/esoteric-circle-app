@@ -152,6 +152,23 @@ class RegiaDellaMusica {
     _sentinella = Timer.periodic(const Duration(seconds: 2), (_) {
       final atteso = _corrente;
       if (atteso == null) return;
+      // **E NON GIRA MENTRE L'APP E' FUORI. Ordine CY voce 02, 8 settembre
+      // 2026.**
+      //
+      // Parole del fondatore sulla 2232: *"la musica NON SI FERMA SE METTO
+      // L'APP IN BACKGROUND"*.
+      //
+      // Questo guardiano esiste per una ragione buona, la 2219 col tappeto
+      // chiesto e mai partito, e **la sua cecita' era il secondo piano**. Il
+      // ciclo di vita metteva la musica in pausa, misurato sul telefono a un
+      // secondo dal tasto Home; due secondi dopo la sentinella vedeva il
+      // tappeto fermo, concludeva che si era perso, e lo faceva ripartire
+      // **mentre l'app era fuori**.
+      //
+      // A musica ferma cio' che si vede e' identico in secondo piano e in
+      // una schermata muta: la differenza non si deduce, si chiede a chi la
+      // sa. La sa il motore, che il ciclo di vita lo riceve.
+      if (MotoreAudio.condiviso.inSecondoPiano) return;
       if (MotoreAudio.condiviso.musicaStaSuonando) return;
       debugPrint('La sentinella ha trovato il tappeto fermo: riparte.');
       _corrente = null;

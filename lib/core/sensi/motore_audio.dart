@@ -372,6 +372,20 @@ class MotoreAudio implements MotoreSonoro {
     // dalle impostazioni hanno in comune che la musica non stava suonando,
     // quindi nessuno dei due la sentira' tornare.
     _musicaSospesaDaNoi = musicaStaSuonando;
+    // **E DICHIARA CHE SIAMO FUORI. Ordine CY voce 02, 8 settembre 2026.**
+    //
+    // Sono due fatti diversi e servono a due cose diverse. Il primo, qui
+    // sopra, dice **cosa riprendere** al ritorno, e vale solo se la musica
+    // stava suonando. Questo dice **che siamo in secondo piano**, e vale
+    // sempre, anche per chi era in una schermata muta.
+    //
+    // Senza il secondo, la sentinella della regia, che gira ogni due secondi
+    // e serve a far ripartire un tappeto perso, vedeva la musica ferma
+    // subito dopo il tasto Home e **la faceva ripartire mentre l'app era
+    // fuori**: due secondi di silenzio e poi di nuovo musica. E' il difetto
+    // che il fondatore ha sentito sulla 2232, dopo che la voce CW.01 aveva
+    // riparato l'altra meta'.
+    _fuori = true;
     return fermaOgnuna([
       () => _toniPigro?.stop(),
       () => _musicaPigro?.pause(),
@@ -382,9 +396,19 @@ class MotoreAudio implements MotoreSonoro {
   /// Vero fra l'uscita e il ritorno, e solo se all'uscita la musica suonava.
   bool _musicaSospesaDaNoi = false;
 
+  /// Vero fra l'uscita e il ritorno, **sempre**, anche a musica gia' ferma.
+  bool _fuori = false;
+
+  /// **L'APP E' IN SECONDO PIANO?** La porta unica, ordine CY voce 02.
+  ///
+  /// Esiste perche' un fatto che serve a piu' di uno non si indovina. La
+  /// sentinella della musica la interroga per sapere se deve dormire: senza,
+  /// dovrebbe dedurre il secondo piano da cio' che vede, e cio' che vede a
+  /// musica ferma e' identico in secondo piano e in una schermata muta.
+  bool get inSecondoPiano => _fuori;
+
   /// Lo stesso stato, per le prove e per chi deve sapere cosa succedera' al
   /// ritorno senza provocarlo.
-  @visibleForTesting
   bool get musicaDaRiprendere => _musicaSospesaDaNoi;
 
   /// **CHIAMA TUTTE, POI ASPETTA.** Il cuore della voce CT.07, staccato qui
@@ -445,6 +469,12 @@ class MotoreAudio implements MotoreSonoro {
   /// gesto, e un gesto fatto mezz'ora fa non merita una risposta adesso.
   @override
   Future<void> riprendi() async {
+    // **IL SECONDO PIANO SI CHIUDE PER PRIMO, e prima dell'uscita anticipata.**
+    // Ordine CY voce 02. Se questa riga stesse sotto il `return`, chi torna
+    // in un'app che era muta resterebbe marcato "fuori" per sempre, e la
+    // sentinella non ripartirebbe mai piu': il guardiano che esiste per far
+    // ripartire un tappeto perso sarebbe spento a vita dal primo Home.
+    _fuori = false;
     if (!_musicaSospesaDaNoi) return;
     _musicaSospesaDaNoi = false;
     quanteRiprese++;
