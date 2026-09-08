@@ -1436,6 +1436,111 @@ Con i minimi nuovi restavano 111 chiamate davvero sotto soglia, in 43 file: sono
 
 **UNA SUITE INTERA CHE NON GIRA MAI E' UNA SUITE CHE NON ESISTE, E QUATTRO ROSSI SONO VISSUTI QUATTRO COMMIT.** Regola imparata a spese proprie il 25 agosto 2026, chiudendo l'ordine BN. I gruppi 2, 3 e 4 sono stati commessi dopo aver visto verdi le prove della loro voce, e la suite intera in quei giri o non e' stata lanciata o e' stata lanciata mentre l'albero si muoveva, quindi i suoi rossi erano senza valore. Il primo giro valido, sull'albero fermo, ne ha trovati quattro gia' vivi da tre commit: il narrato dell'ingrandimento montato come `Text` diretto invece che dalla porta comune dei paragrafi, la porta dell'ingrandimento senza il fondo dichiarato, i paragrafi del consiglio che rompevano il conto dei pezzi della prova del troncamento, e il censimento dei vuoti verticali non rigenerato. Nessuno dei quattro riguardava la voce che si stava chiudendo, e nessuno sarebbe mai emerso da una prova sola. **Da qui in avanti: la suite intera gira PRIMA di ogni commit di gruppo, sull'albero fermo, e il suo esito si legge prima di scrivere il messaggio.** Una prova di voce verde non e' un permesso a spedire.
 
+## L'ORDINE CZ, LE FESTE CHE SI PERDEVANO E LA MEDITAZIONE COL LOTO
+
+**8 settembre 2026.** Manifesto `docs/ordini/ORDINE_CZ_MANIFESTO.md`. **Sedici
+voci, quindici chiuse, una fermata su lavoro non montato, zero aperte.** Build
+**2237**, release `2k08up634813g`, e a seguire la **2239**, release
+`6p2ivdedhfevg`, con la riparazione trovata guardando la 2237 a video.
+
+**LA SCALA MANGIAVA IL QUARANTASETTE PER CENTO DELLE FESTE.** Misurato prima di
+toccare il codice, come l'ordine chiedeva: su duemilaottanta traguardi accesi in
+un anno di uso onesto, **novecentottantacinque non ottenevano nessuna scena**.
+La causa era la scala lineare dell'ordine CP: da ogni sentiero maturava solo il
+gradino successivo, quindi chi guadagnava l'undicesimo prima del quinto
+accendeva l'undicesimo e non lo festeggiava. Il fondatore aveva gia' chiesto il
+contrario il 26 agosto: *"vorrei che le perle si accendessero in piu' rami e non
+che si illumini una perla alla volta in ordine dello stesso ramo. Vorrei un
+ordine sparso."* Adesso `meritaLaScena` guarda una cosa sola, se la strada e'
+libera, e le accensioni osservate nella simulazione sono **cinquantasei con
+dodici fuori ordine**, cioe' proprio l'ordine sparso.
+
+**LA MEDITAZIONE HA UN LOTO CHE RESPIRA COL DITO.** Le cimatiche non esistono
+piu'. Il fiore a sette petali si apre sotto il dito che preme e si chiude quando
+si lascia, senza nessun cronometro interno: i tempi li porta chi respira. La
+frequenza del giorno la sceglie Aura e non un menu', perche' *"una guida
+decide"*, e viene dal chakra del giorno per posizione, non da un secondo conto
+suo: due sorgenti sullo stesso fatto prima o poi si contraddicono. La traccia
+del Loto si riempie **coi centri, non con le sessioni**: chi respira sette volte
+sulla gola ha il fiore pieno per un settimo, e i sei petali spenti sono la
+domanda che si pone da sola.
+
+**LA NOTIFICA NON ARRIVAVA, E LA CAUSA ERA UN RECEIVER MANCANTE.** Provato dal
+telefono: sveglia programmata per le 04:40, alle 04:41 uscita dalla coda,
+`dumpsys notification` vuoto. Nel manifest c'era solo
+`ScheduledNotificationBootReceiver`, quello del riavvio: **mancava
+`ScheduledNotificationReceiver`**, quello che riceve la sveglia e posta
+l'avviso. E' un difetto della voce CW.06, mio, e la guardia che avevo scritto
+chiedeva per nome soltanto il primo, restando verde su un manifest che non
+poteva consegnare niente. Riprovato dopo: sveglia 04:55, notifica alle 04:57,
+id 1101, canale `dono_breath`, **vista nella tendina**.
+
+**COME UN ROSSO ABBIA ATTRAVERSATO UNA CONSEGNA INTERA: la consegna non
+chiamava lo sbarramento.** Erano due strumenti separati, e chi costruiva
+l'archivio e lo caricava consegnava su qualunque rosso, senza scavalco e senza
+lasciare traccia. Adesso lo sbarramento scrive un **gettone** col numero di
+build e col conto delle prove, e lo cancella quando la suite e' rossa; la
+consegna lo legge e si ferma se manca o se il numero non e' il suo.
+
+**IL GETTONE E' NATO ROTTO DUE VOLTE, e sono due difetti miei della stessa
+voce.** Il primo giro ha scritto `numero=` e `prove=` vuoti: l'heredoc con cui
+avevo scritto la funzione aveva trasformato il `\1` che riferisce il gruppo
+catturato nel **byte di controllo 0x01**, e le due espressioni sostituivano con
+niente. Sarebbe bastato a bloccare per sempre ogni consegna futura. Il secondo
+giro ha scritto `prove=0` dopo quattromilasettecento prove passate, perche' nel
+registro, dopo il rapporto di `flutter test`, si aggiungono righe sintetiche
+`00:00 +0 -1` per le altre due suite, e la pipeline chiudeva con `tail -1`.
+**La guardia della voce non li vedeva perche' guardava soltanto chi pretende il
+gettone e non chi lo riempie**: ora prende le due espressioni dallo script vero,
+le applica a una riga nota e pretende i numeri giusti.
+
+**E IL LOTO SI CANCELLAVA SENZA POTERSI SCARICARE.** Avevo aggiunto il prefisso
+`loto.` alla dimenticanza e non ai gruppi dello scarico: chi avesse chiesto i
+propri dati ne avrebbe ricevuti meno di quanti l'app ne tiene. Lo ha colto la
+guardia BC.02 confrontando le due liste invece di guardarle una alla volta,
+`prefissi che si cancellano 31, gruppi dello scarico 30, scoperti 1`.
+
+## LA RIGA TOCCA IL CIELO ERA STAMPATA SOPRA LUNA CALANTE
+
+**8 settembre 2026, trovato guardando la 2237 sul dispositivo 767f596c.** Sulla
+prima schermata dell'app, dentro il blocco del cielo, l'invito *"Tocca il
+cielo"* era stampato **sopra il nome della fase lunare**: due scritte nello
+stesso posto, illeggibili tutte e due. Due catture a otto secondi di distanza,
+identiche.
+
+**Era una regressione, e il codice lo dichiarava.** Sopra quel widget c'era gia'
+scritto che *"cosi' com'era, la riga 'Tocca il cielo' finiva sopra il nome della
+fase lunare"*, con la correzione che lo spostava. Ma la correzione era **un
+numero**, `top: h * 0.055`, mentre il nome della fase vive in una colonna che
+cresce col titolo, col corpo di sistema e con la lingua. Due catene indipendenti
+si dividevano la stessa fascia e nessuna sapeva dov'era l'altra.
+
+**Il gruppo non aveva posto, ed e' per questo che il difetto tornava.** La mano
+sopra e la scritta sotto facevano un blocco alto ottantasette punti, e fra il
+titolo del cielo e il nome della fase ce ne sono settantuno. La misura ha
+bocciato tre tentativi prima di quello buono: agganciato al fondo della Luna
+faceva salire la copertura dei Maestri da 6410 pixel a 7055 su un tetto di 6898;
+agganciato sopra la Luna finiva **sul titolo**; con la mano ancorata a meta' del
+disco la silhouette copriva la Luna, e la prima stesura della guardia non lo
+vedeva perche' misurava la scritta invece del disegno.
+
+**La forma buona e' una riga, non una pila.** Mano e scritta affiancate, la
+scritta su due righe strette, e la Luna dentro un `Row` insieme all'invito con un
+vuoto della stessa larghezza dall'altra parte, cosi' resta al centro dello
+schermo: **due celle accanto non possono sovrapporsi comunque la Luna decida di
+dipingersi**. Il `MoonWidget` rende sessantanove punti dove il lato ne dichiara
+quarantasei, ed e' li' che ogni ancoraggio contato sul lato sbagliava. Misurato
+su tre schermi: distacco 18,5 dalla fase, 20,5 dal titolo, zero sulla Luna, due
+righe, dentro il bordo, e la copertura dei Maestri **scende da 6410 a 4990**.
+Guardia `l_invito_non_cade_sulla_fase_lunare_test.dart`, registro a **358**.
+
+**LA SCRITTA LE ARTI PREFERITE DIETRO LA BARRA NON E' UN DIFETTO.** Si vede in
+fondo alla home, sbiadita sotto la barra di navigazione, ed e' la scelta
+approvata del 17 agosto 2026: a riposo il titolo dello scaffale scivola sotto la
+barra, come ogni contenuto che le passa sotto scorrendo. Fu la risposta alla
+richiesta di Mauro di far sparire lo spazio esagerato fra l'ingresso e "Le tue
+arti".
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
