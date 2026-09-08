@@ -1464,8 +1464,16 @@ class _RisultatoState extends State<_Risultato>
   /// Ordine CR voci 06 e 09. Nullo quando la forma non e' fra quelle che
   /// sappiamo tradurre: il Metallo non ha una forma sua nel nostro
   /// impianto e non gliene inventiamo una.
-  ElementoDelVolto? get _elemento => MianXiang.elementoDa(
-      widget.reading.letturaDi(FaceCategory.formaVolto).tratto);
+  /// **NULLO QUANDO LA FORMA NON C'E'.** Ordine CX voce 08: da quando una
+  /// zona coperta esce dal responso, chiedere una categoria che non c'e'
+  /// solleva, e chi si scansiona col cappello troverebbe uno schianto al
+  /// posto del suo responso. Senza forma non c'e' elemento, e il resto della
+  /// scena regge gia' l'assenza dell'elemento.
+  ElementoDelVolto? get _elemento {
+    final forma = widget.reading.forse(FaceCategory.formaVolto);
+    if (forma == null) return null;
+    return MianXiang.elementoDa(forma.tratto);
+  }
 
   @override
   void didChangeDependencies() {

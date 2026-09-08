@@ -101,6 +101,21 @@ class FaceReading {
   TraitLettura letturaDi(FaceCategory c) =>
       letture.firstWhere((l) => l.tratto.categoria == c);
 
+  /// **LA LETTURA DI UNA CATEGORIA, O NULLA SE NON C'E'.**
+  /// Ordine CX voce 08, 8 settembre 2026.
+  ///
+  /// Da quando una zona coperta esce dal responso, `letturaDi` puo' non
+  /// trovare la categoria che le si chiede, e `firstWhere` in quel caso
+  /// **solleva**: chi si scansiona col cappello si troverebbe uno schianto al
+  /// posto del responso. Chi non puo' garantire che la categoria ci sia usa
+  /// questa, e dichiara cosa fa quando manca.
+  TraitLettura? forse(FaceCategory c) {
+    for (final l in letture) {
+      if (l.tratto.categoria == c) return l;
+    }
+    return null;
+  }
+
   List<TraitLettura> get _ordinati {
     final copia = [...letture];
     copia.sort((a, b) {

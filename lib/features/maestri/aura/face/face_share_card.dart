@@ -12,6 +12,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'face_constellation.dart';
+import '../../../../core/face/quanto_e_tua.dart';
 import 'face_constellation_painter.dart';
 import 'face_silhouette.dart';
 import '../../../../core/brand/brand.dart';
@@ -50,8 +51,12 @@ class FaceShareCard extends StatelessWidget {
     // Xiang stava in `lib/core/face/mian_xiang.dart` con le sue guardie e
     // **nessun file di `lib` lo chiamava**: prodotto, non agganciato. La
     // forma del volto e' una misura vera, e da quella nasce l'elemento.
-    final elemento = MianXiang.elementoDa(
-        reading.letturaDi(FaceCategory.formaVolto).tratto);
+    // **NULLO QUANDO LA FORMA NON C'E'.** Ordine CX voce 08: la card si
+    // disegna anche su un responso a cui manca una categoria, e la pastiglia
+    // dell'elemento sa gia' sparire da sola.
+    final forma = reading.forse(FaceCategory.formaVolto);
+    final elemento =
+        forma == null ? null : MianXiang.elementoDa(forma.tratto);
     // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
     // Ordine CN voce 12: la scala del testo di chi la crea non entra
     // nell'immagine, perche' l'immagine la guardano altri.
@@ -73,9 +78,26 @@ class FaceShareCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              // **IL TITOLO CHE PARLA STA IN CIMA, la categoria sotto di
+              // lui.** Ordine CX voce 05: il fondatore chiede *"un titolo
+              // accattivante"*, e in cima c'era il nome della funzione, cioe'
+              // un'etichetta uguale su ogni card di chiunque. Il titolo
+              // evocativo esisteva gia' e stava sotto il ritratto, dove
+              // arriva quando chi guarda ha gia' deciso se andare avanti.
+              Text(dom.titoloEvocativo,
+                  key: const Key('face_card_titolo'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.titoloSezione()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: 2),
+              // **DODICI E NON UNDICI**: il pavimento tipografico dell app
+              // sta a dodici punti, e chiedere meno solleva. Un occhiello
+              // piu piccolo del pavimento non e un occhiello discreto, e
+              // testo che qualcuno non riesce a leggere.
               Text('COSTELLAZIONE DEL VISO',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
+                  style: TypographyTokens.label(size: 12).copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.7),
+                      letterSpacing: 2.0)),
               const SizedBox(height: SpacingTokens.md),
               // Il volto sbiadito con la costellazione molto accesa sopra.
               SizedBox(
@@ -87,7 +109,22 @@ class FaceShareCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       Opacity(
-                        opacity: fotoPath != null ? 0.35 : 0.6,
+                        // **IL VOLTO SI VEDE, ORA CHE E' DAVVERO UN VOLTO.**
+                        // Ordine CX voce 05. Lo zero virgola trentacinque
+                        // veniva dall'ordine CR voce 10, parole del
+                        // fondatore: *"la costellazione composta,
+                        // protagonista; il volto molto sbiadito sotto"*. Poi
+                        // ha chiesto che la card *"riporti la foto del
+                        // Viso"*, e le due richieste sembravano opposte.
+                        //
+                        // **Non lo erano.** Sotto c'era il muro: una card con
+                        // un muro sbiadito sembra una card senza volto, ed e'
+                        // quello che il fondatore stava guardando. Adesso la
+                        // fotografia viene giudicata prima di essere
+                        // conservata, e uno scatto senza volto non arriva
+                        // fin qui. **La costellazione resta protagonista**,
+                        // il volto si riconosce.
+                        opacity: fotoPath != null ? 0.55 : 0.6,
                         child: fotoPath != null
                             ? Image.file(File(fotoPath!),
                                 fit: BoxFit.cover,
@@ -115,11 +152,6 @@ class FaceShareCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),
-              Text(dom.titoloEvocativo,
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloSezione()
-                      .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: 2),
               Text(dom.nome,
                   style: TypographyTokens.label(size: 12).copyWith(
                       color: palette.textPrimary.withValues(alpha: 0.85),
@@ -153,6 +185,30 @@ class FaceShareCard extends StatelessWidget {
                       style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 1.2)),
                 ),
+              const SizedBox(height: SpacingTokens.sm),
+              // **PERCHE' MANDARLA, E PERCHE' UN AMICO DOVREBBE VOLERE LA
+              // SUA.** Ordine CX voce 06, domande del fondatore: *"perche'
+              // l'utente dovrebbe condividere e perche' un amico dovrebbe
+              // sentirsi spinto a scaricare l'app per avere la stessa
+              // esperienza?"*
+              //
+              // **La risposta e' un numero, non un aggettivo.** Le
+              // combinazioni che il catalogo distingue si CONTANO dal
+              // catalogo stesso, quindi la riga resta vera anche quando
+              // domani nasce un tratto nuovo. Un numero scritto a mano
+              // diventerebbe falso al primo tratto aggiunto.
+              //
+              // **E dice quanti tratti sono stati letti davvero**: quando una
+              // zona era coperta il responso ne perde una, e una card che
+              // vanta undici letture avendone fatte nove mente a chi la
+              // riceve, che le righe le conta.
+              Text(
+                  '${QuantoETua.laRiga()}  ${QuantoETua.quantiTratti(reading)}',
+                  key: const Key('face_card_rarita'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.85),
+                      letterSpacing: 0.6)),
               const SizedBox(height: SpacingTokens.sm),
               Text('Esoteric Circle · Aura',
                   style: TypographyTokens.etichetta().copyWith(
