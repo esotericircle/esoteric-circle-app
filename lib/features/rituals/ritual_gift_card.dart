@@ -393,6 +393,31 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                       .copyWith(color: abito.inchiostro, height: 1.4),
                 ),
               ],
+              // **E COSA FARSENE, che e' la domanda vera.** Ordine CY,
+              // approvata dal fondatore il 9 settembre 2026.
+              //
+              // Il `perche` dice **cosa indica** la parola oggi. Restava senza
+              // risposta l'altra meta', ripetuta piu' volte: *"COSA DEVE
+              // FARSENE L'UTENTE DELLA PAROLA DEL GIORNO? DEVE CERCARLA NELLE
+              // ATTIVITA' QUOTIDIANE? O IL DESTINO GLIELA METTERA' DAVANTI?"*
+              //
+              // **Nessuna delle due.** Cercarla trasforma la giornata in una
+              // caccia al tesoro e la trova ovunque, che vale quanto non
+              // trovarla mai; promettere che il destino la porti e' una
+              // promessa che questa app non puo' mantenere. **E' una lente**:
+              // serve a riconoscere una cosa che c'era gia'. Ed e' per questo
+              // che stasera il Sigillo chiede DOVE l'hai riconosciuta, che e'
+              // una domanda a cui si puo' rispondere, invece di chiedere se
+              // l'hai trovata, che sarebbe un compito da superare.
+              const SizedBox(height: SpacingTokens.xs),
+              Text(
+                FiloDelGiorno.laLente(word),
+                key: const Key('alba_lente_della_parola'),
+                style: TypographyTokens.lettura().copyWith(
+                    color: abito.inchiostroMuto,
+                    height: 1.4,
+                    fontStyle: FontStyle.italic),
+              ),
               // **E DOVE VA A FINIRE, che e' la seconda meta' della stessa
               // domanda.** Ordine CQ voce 2.04. Una parola che non torna da
               // nessuna parte e' una parola che si dimentica prima di sera:

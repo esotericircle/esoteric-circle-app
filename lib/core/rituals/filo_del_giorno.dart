@@ -52,11 +52,40 @@ class FiloDelGiorno {
 
   // --- LA PAROLA DEL MATTINO ---
 
+  /// **IL GIORNO DI CHI APRE LA GIORNATA, che non e' quello di chi la
+  /// chiude.** Ordine CY, voce rimasta aperta, curata il 9 settembre 2026.
+  ///
+  /// **Il fatto**: *"l'alba dichiara che la parola verra' ripresa la sera nel
+  /// sigillo del sogno, ma a me non sembra proprio che accada"*.
+  ///
+  /// **La causa era il confine delle cinque, applicato dalla parte
+  /// sbagliata.** Quel confine e' giusto e serve: chi compie il Sigillo
+  /// all'una di notte sta ancora chiudendo la sera di ieri, e il giorno
+  /// rituale glielo riconosce. **Ma l'Alba e' il rito che APRE la giornata**:
+  /// chi la compie alle due o alle quattro del mattino non sta chiudendo
+  /// ieri, sta cominciando oggi. La sua parola finiva sotto il giorno prima, e
+  /// la sera dello stesso giorno il Sigillo la cercava sotto oggi e **non la
+  /// trovava**.
+  ///
+  /// **Misurato prima di curare**: con l'Alba alle 2 e il Sigillo alle 22:30
+  /// dello stesso giorno la parola ritrovata era **nessuna**; con l'Alba alle
+  /// 4 e il Sigillo alle 23, **nessuna**.
+  ///
+  /// **La cura non tocca il confine, tocca chi lo applica.** L'Alba segna col
+  /// giorno CIVILE, perche' apre quel giorno li'; tutto il resto continua a
+  /// leggere col giorno rituale, e il Sigillo dopo la mezzanotte continua a
+  /// ritrovare la parola del mattino precedente perche' il giorno rituale
+  /// glielo riporta indietro.
+  static String giornoDiChiApre(DateTime adesso) =>
+      '${adesso.year.toString().padLeft(4, '0')}-'
+      '${adesso.month.toString().padLeft(2, '0')}-'
+      '${adesso.day.toString().padLeft(2, '0')}';
+
   /// Segna la parola ricevuta all'alba di [adesso].
   static Future<void> segnaLaParola(String parola, DateTime adesso) async {
     if (parola.trim().isEmpty) return;
     await _scrivi(_chiaveParola, {
-      'giorno': giornoRituale(adesso),
+      'giorno': giornoDiChiApre(adesso),
       'testo': parola,
     });
   }
@@ -84,8 +113,33 @@ class FiloDelGiorno {
   /// questa app: dice cosa e' successo alla parola, cioe' che ha attraversato
   /// il giorno ed e' arrivata qui.
   static String richiamoDellaParola(String parola) =>
-      'Stamattina la tua parola era $parola. Ha attraversato il giorno con '
-      'te: adesso si chiude qui.';
+      'Stamattina la tua parola era $parola. Dove l\'hai riconosciuta oggi?';
+
+  /// **LA LENTE: COSA FARSENE DELLA PAROLA.** Ordine CY, approvata dal
+  /// fondatore il 9 settembre 2026.
+  ///
+  /// **La domanda che l'ha fatta nascere**, ripetuta piu' volte: *"COSA DEVE
+  /// FARSENE L'UTENTE DELLA PAROLA DEL GIORNO? QUAL E' IL SUO OBIETTIVO? DEVE
+  /// CERCARLA NELLE ATTIVITA' QUOTIDIANE? O IL DESTINO E LE STELLE LE
+  /// METTERANNO DAVANTI QUESTA PAROLA DURANTE LA GIORNATA?"*
+  ///
+  /// **Nessuna delle due, ed e' la risposta approvata.** Non e' una caccia al
+  /// tesoro, perche' cercare una parola in giro trasforma la giornata in un
+  /// gioco e la trova ovunque, che vale quanto non trovarla mai. E non e'
+  /// un'attesa del destino, perche' promettere che le stelle te la mettano
+  /// davanti e' una promessa che questa app non puo' mantenere e non fa.
+  ///
+  /// **La parola e' una LENTE.** Non la cerchi: la usi per riconoscere una
+  /// cosa che c'era gia' e che senza di lei non avresti chiamato per nome. E'
+  /// per questo che la sera il Sigillo chiede **dove l'hai riconosciuta** e
+  /// non se l'hai trovata: la prima e' una domanda a cui si puo' rispondere,
+  /// la seconda e' un compito da superare.
+  ///
+  /// **Una riga sola.** Chi legge la parola vuole sapere cosa farsene, non
+  /// leggere un paragrafo sul metodo.
+  static String laLente(String parola) =>
+      'Non cercarla: tienila addosso. Serve a riconoscere una cosa che oggi '
+      'c\'è già, e che senza di lei non avresti chiamato per nome.';
 
   // --- LA DOMANDA DI MEDORA ---
 
