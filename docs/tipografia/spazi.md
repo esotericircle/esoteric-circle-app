@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 140 -->
-<!-- FILE_CON_VUOTI: 61 -->
+<!-- VUOTI_CENSITI: 142 -->
+<!-- FILE_CON_VUOTI: 62 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **140** |
-| File che ne contengono | **61** |
+| Vuoti verticali dichiarati | **142** |
+| File che ne contengono | **62** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 77 |
+| 2 | 79 |
 | 3 | 8 |
 | 4 | 21 |
 | 5 | 1 |
@@ -64,6 +64,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
+| `lib/features/maestri/aura/face/face_share_card.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
@@ -76,7 +77,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_test_screen.dart` | 2 | 0 |
 | `lib/features/maestri/aura/face/face_constellation_screen.dart` | 2 | 0 |
-| `lib/features/maestri/aura/face/face_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
@@ -96,6 +96,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 |
 | `lib/features/intro/sequenza_intro.dart` | 1 | 0 |
 | `lib/features/maestri/ask/ask_maestri_screen.dart` | 1 | 0 |
+| `lib/features/maestri/aura/meditation/card_del_respiro.dart` | 1 | 0 |
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/chat_composer.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/diagnostics_dialog.dart` | 1 | 0 |

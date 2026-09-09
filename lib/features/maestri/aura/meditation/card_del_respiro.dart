@@ -82,7 +82,10 @@ class CardDelRespiro extends StatelessWidget {
           children: [
             Text('IL TUO RESPIRO DI OGGI',
                 key: const Key('card_respiro_titolo'),
-                style: TypographyTokens.label(size: 12).copyWith(
+                // **IL RUOLO, NON LA MISURA**: una misura scritta a mano su
+                // una schermata sola e' debito tipografico, e una guardia
+                // conta che non cresca.
+                style: TypographyTokens.etichetta().copyWith(
                     color: ColoreDelCentro.bordoDi(colore),
                     letterSpacing: 2.0)),
             const SizedBox(height: SpacingTokens.md),
