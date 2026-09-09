@@ -59,8 +59,37 @@ class UnRespiro {
 /// ha due orologi che si contraddicono.
 class RespiroGuidatoDalDito {
   RespiroGuidatoDalDito({
-    Duration riferimento = const Duration(seconds: 4),
+    Duration riferimento = riferimentoDelRespiro,
   }) : _riferimento = riferimento;
+
+  /// **SEI ATTI AL MINUTO, E NON E' UN NUMERO SCELTO A OCCHIO.**
+  /// Ordine DB voce 03, 9 settembre 2026.
+  ///
+  /// **Parole dell'ordine**: *"La respirazione attorno a sei atti al minuto,
+  /// cioe' 0,1 Hz, e' la frequenza di risonanza del sistema cardiovascolare
+  /// umano ed e' oggetto di ricerca peer reviewed su biofeedback della
+  /// variabilita' cardiaca, pressione e umore. Il respiro guidato dall'app
+  /// punta quindi a sei atti al minuto, e la durata di inspiro e di espiro
+  /// discende da li'."*
+  ///
+  /// **E' l'unica cosa in questa funzione con letteratura scientifica seria
+  /// alle spalle**, ed e' per questo che il riferimento non e' piu' i quattro
+  /// secondi di prima: quelli erano un numero comodo per il disegno.
+  ///
+  /// Sei atti al minuto fanno **dieci secondi a respiro**, cioe' **cinque
+  /// secondi di inspiro e cinque di espiro**. Il riferimento qui e' la meta'
+  /// del ciclo, perche' descrive un solo verso.
+  ///
+  /// **NON E' UN RITMO DA RISPETTARE.** L'ordine e' esplicito: *"chi respira
+  /// da solo con il dito non viene corretto e non viene giudicato: il suo
+  /// ritmo e' il suo"*. Questo numero serve al disegno e alla lettura finale,
+  /// e a nessuno viene detto che sta sbagliando.
+  static const Duration riferimentoDelRespiro = Duration(seconds: 5);
+
+  /// **QUANTI ATTI AL MINUTO SONO**, per i testi e per le prove: due mezzi
+  /// respiri fanno un respiro, e sessanta secondi diviso quello da' il ritmo.
+  static double get attiAlMinuto =>
+      60 / (riferimentoDelRespiro.inMilliseconds * 2 / 1000);
 
   /// **QUANTO DURA UN INSPIRO PIENO, per il disegno e basta.**
   ///
@@ -80,6 +109,29 @@ class RespiroGuidatoDalDito {
 
   /// I respiri compiuti finora, in ordine.
   List<UnRespiro> get compiuti => List.unmodifiable(_compiuti);
+
+  /// **QUANTI RESPIRI INTERI**, per la memoria della sessione.
+  /// Ordine DB voce 07.
+  int get quantiRespiri => _compiuti.length;
+
+  /// **IL RITMO MEDIO DELL'INSPIRO**, o zero quando non si e' respirato.
+  ///
+  /// Serve alla memoria e alla lettura finale, **non a correggere nessuno**:
+  /// l'ordine e' esplicito, *"chi respira da solo con il dito non viene
+  /// corretto e non viene giudicato: il suo ritmo e' il suo"*.
+  Duration get mediaDentro => _media((r) => r.dentro);
+
+  /// Lo stesso per l'espiro.
+  Duration get mediaFuori => _media((r) => r.fuori);
+
+  Duration _media(Duration Function(UnRespiro) quale) {
+    if (_compiuti.isEmpty) return Duration.zero;
+    var somma = 0;
+    for (final r in _compiuti) {
+      somma += quale(r).inMilliseconds;
+    }
+    return Duration(milliseconds: somma ~/ _compiuti.length);
+  }
 
   /// Quanti respiri interi sono stati compiuti.
   int get quanti => _compiuti.length;

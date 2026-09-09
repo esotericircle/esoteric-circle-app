@@ -13,6 +13,10 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../core/maestro/chakra_del_giorno.dart';
+import '../../../../core/maestro/colore_del_centro.dart';
+import 'card_del_respiro.dart';
+import '../../../../core/maestro/memoria_del_respiro.dart';
+import '../../../../core/maestro/cio_che_aura_ricorda.dart';
 import '../../../../core/maestro/frequenza_del_giorno.dart';
 import '../../../../core/maestro/traccia_del_loto.dart';
 import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
@@ -95,6 +99,19 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// La traccia dei giorni, che riempie il fiore. Ordine CZ voce 10.
   final TracciaDelLoto _traccia = TracciaDelLoto();
 
+  /// **CIO' CHE LA MEDITAZIONE RICORDA.** Ordine DB voci 07 e 09.
+  final MemoriaDelRespiro _memoria = MemoriaDelRespiro();
+
+  /// La frase che Aura dice alla fine, quando la memoria ha qualcosa di vero
+  /// da dire. Nulla quando non ce l'ha: **non si inventa niente**.
+  String? _cioCheAuraRicorda;
+
+  /// Quando e' cominciata la sessione, per sapere quanto e' durata.
+  DateTime? _cominciata;
+
+  /// Il riquadro da cui nasce l'immagine della card del respiro.
+  final GlobalKey _boundaryDellaCard = GlobalKey();
+
   /// Vero quando la persona ha chiesto meno movimento: i petali non si
   /// animano, la fase cambia con uno stato fermo, e la vibrazione resta.
   bool _riduciMovimento = false;
@@ -119,6 +136,7 @@ class _MeditationScreenState extends State<MeditationScreen>
     );
     // La traccia si legge dal disco: il fiore deve gia' portare i giorni
     // quando compare, non riempirsi sotto gli occhi di chi guarda.
+    unawaited(_memoria.carica());
     unawaited(_traccia.carica().then((_) {
       if (mounted) setState(() {});
     }));
@@ -200,6 +218,7 @@ class _MeditationScreenState extends State<MeditationScreen>
       if (_active) _compiuta = false;
     });
     if (_active) {
+      _cominciata = widget.now ?? DateTime.now();
       widget.player.play(_preset);
       _sessione?.cancel();
       _sessione = Timer(
@@ -233,6 +252,48 @@ class _MeditationScreenState extends State<MeditationScreen>
         .then((_) {
       if (mounted) setState(() {});
     }));
+    // **E LA MEMORIA SE NE ACCORGE.** Ordine DB voci 07 e 09, 9 settembre
+    // 2026. La sessione si scrive PRIMA che nasca la frase, cosi' la frase
+    // guarda una memoria che contiene anche oggi: dire *"e' la prima volta
+    // che respiri su questo centro"* si puo' soltanto sapendo che oggi c'e'
+    // dentro.
+    unawaited(_segnaLaSessione());
+  }
+
+  /// Scrive la sessione appena chiusa e ne ricava la frase di Aura.
+  Future<void> _segnaLaSessione({bool compiuta = true}) async {
+    final adesso = widget.now ?? DateTime.now();
+    final inizio = _cominciata ?? adesso;
+    await _memoria.segna(SessioneDiRespiro(
+      quando: inizio,
+      centro: _indiceDelCentro,
+      durata: adesso.difference(inizio),
+      compiuta: compiuta,
+      // **GUIDATO O PROPRIO**, ordine DB voce 07: il respiro col dito e' suo,
+      // quello che segue il ritmo dell'app e' guidato, e la differenza entra
+      // nella memoria e domani nella card.
+      guidato: _dito.quantiRespiri == 0,
+      mediaDentro: _dito.mediaDentro,
+      mediaFuori: _dito.mediaFuori,
+      respiri: _dito.quantiRespiri,
+    ));
+    if (!mounted) return;
+    setState(() {
+      _cioCheAuraRicorda = compiuta
+          ? CioCheAuraRicorda.unaCosaSola(_memoria,
+              centroDiOggi: _indiceDelCentro)
+          : null;
+    });
+  }
+
+  /// **CONDIVIDE LA CARD, DAL PUNTO UNICO.** Ordine DB voce 10.
+  Future<void> _condividiIlRespiro() async {
+    final righe = CardDelRespiro.righeDiAura(
+        _dito.figura, widget.now ?? DateTime.now(), false);
+    await condividiLaCardDelRespiro(
+      boundaryKey: _boundaryDellaCard,
+      testo: righe.join(' '),
+    );
   }
 
   void _choose(MeditationPreset preset) {
@@ -318,7 +379,13 @@ class _MeditationScreenState extends State<MeditationScreen>
                               apertura: _dito.fase == FaseDelRespiro.attesa
                                   ? b.fill
                                   : _dito.aperturaAdesso(DateTime.now()),
-                              palette: palette,
+                              // **IL COLORE DEL CENTRO DI OGGI, non quello del
+                              // Maestro.** Ordine DB voce 04: siccome il
+                              // centro cambia ogni giorno, il fiore di domani
+                              // e' di un altro colore, ed e' un motivo per
+                              // tornare che non costa niente.
+                              coloreDelCentro:
+                                  ColoreDelCentro.di(widget.now ?? DateTime.now()),
                               gocce: _traccia.gocce,
                               centroDiOggi: _indiceDelCentro,
                               senzaMoto: _riduciMovimento,
@@ -425,6 +492,70 @@ class _MeditationScreenState extends State<MeditationScreen>
                         ),
                       ],
                     ),
+                    // **CIO' CHE AURA RICORDA, e nasce solo se e' vero.**
+                    // Ordine DB voce 09, 9 settembre 2026: *"e' il momento in
+                    // cui l'app dimostra di essersi accorta... una frase, mai
+                    // due. E solo quando c'e' qualcosa di vero da dire: se la
+                    // memoria non ha niente, non si inventa niente e la
+                    // sessione si chiude com'e'."*
+                    //
+                    // **Una osservazione falsa distrugge in una riga la
+                    // fiducia che dieci vere hanno costruito**, ed e' per
+                    // questo che ogni frase ha una soglia sotto la quale non
+                    // nasce: due sere di fila non sono una striscia, e sei
+                    // sessioni sono il minimo per dire che si allungano.
+                    if (_cioCheAuraRicorda != null) ...[
+                      const SizedBox(height: SpacingTokens.sm),
+                      Row(
+                        key: const Key('meditazione_aura_ricorda'),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.auto_awesome_rounded,
+                              size: 16, color: palette.gold),
+                          const SizedBox(width: SpacingTokens.xs),
+                          Expanded(
+                            child: ParagrafiDiLettura(
+                              testo: _cioCheAuraRicorda!,
+                              stile: TypographyTokens.lettura()
+                                  .copyWith(color: palette.gold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                    // **LA CARD DEL RESPIRO.** Ordine DB voce 10, e chiude
+                    // la voce CZ.09 rimasta ferma: la figura era calcolata e
+                    // provata, il disegno non esisteva.
+                    //
+                    // **Compare solo se ci sono respiri veri da disegnare**:
+                    // una figura di zero respiri e' un cerchio vuoto, e
+                    // mostrarlo sarebbe peggio che non mostrare niente.
+                    if (_dito.quantiRespiri >= 3) ...[
+                      const SizedBox(height: SpacingTokens.md),
+                      Center(
+                        child: RepaintBoundary(
+                          key: _boundaryDellaCard,
+                          child: CardDelRespiro(
+                            figura: _dito.figura,
+                            giorno: widget.now ?? DateTime.now(),
+                            guidato: false,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: SpacingTokens.sm),
+                      OutlinedButton.icon(
+                        key: const Key('meditazione_condividi_respiro'),
+                        onPressed: _condividiIlRespiro,
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: palette.goldSoft,
+                            side: BorderSide(
+                                color: palette.gold.withValues(alpha: 0.6)),
+                            minimumSize: const Size.fromHeight(48)),
+                        icon: const Icon(Icons.ios_share_rounded, size: 18),
+                        label: Text('Condividi il tuo respiro',
+                            style: TypographyTokens.etichetta()),
+                      ),
+                    ],
                     const SizedBox(height: SpacingTokens.md),
                   ],
                   // Play e invito alle cuffie.
