@@ -374,6 +374,40 @@ schermata muta: **esattamente il difetto che quella prova aveva gia' avuto una
 volta.** Pinnata la finestra a 390 per 844 e portati i bersagli sotto gli
 occhi prima di toccarli.
 
+## LO SBARRAMENTO, E I SETTE DIFETTI CHE HA TROVATO
+
+Ventitre cadute al primo giro. **Due sono rossi dichiarati dal fondatore** e
+non si toccano: le soglie delle quattro pose della scansione, che restano
+inventate finche' qualcuno non le misura su un telefono (CR.13), e
+l'attribuzione cieca dei tre Maestri, ferma all'86,7 per cento di media con un
+giro a 80 (BY.04). **Le altre ventuno erano mie**, e sono sette difetti.
+
+**UNDICI PROVE DI CHAT, ed e' il piu' grave.** La voce DB.08 innestava il
+riassunto del respiro dentro l'apertura della chat con un `await`. In
+`flutter test` senza il finto archivio, **`SharedPreferences.getInstance()` non
+completa mai**: l'apertura restava appesa e il Maestro taceva. Fra le prove
+cadute c'era proprio **quella che pretende che un Maestro non resti mai muto**.
+
+**La lezione, ed e' generale**: nessuna funzione dell'app puo' tenere in
+ostaggio l'apertura della chat per un dato che le e' soltanto utile. Adesso il
+riassunto arriva quando arriva, si aggiunge ai fatti e la scena si aggiorna.
+
+| difetto | dove | causa |
+| --- | --- | --- |
+| la chat resta muta | `maestro_chat_controller.dart` | un `await` su un archivio che in prova non risponde |
+| dialogo fuori dal velo | `le_tue_letture_del_viso.dart` | `showDialog` diretto invece di `dialogoDelCerchio` |
+| due descrizioni con la misura sbagliata | libreria e letture del viso | `didascalia()` su un testo da leggere per intero |
+| quattro testi sotto la soglia di contrasto | libreria, meditazione, letture | oro pieno su fondo di Maestro, 5,42 contro 7,0 |
+| il piede della card va a capo | `card_del_respiro.dart` | maiuscoletto su due righe |
+| il richiamo della parola diceva una cosa sola | `filo_del_giorno.dart` | due ordini che chiedono due meta' della stessa riga |
+| una virgola con "e" | `pannello_della_libreria.dart` | la legge della lingua di casa |
+
+**L'ultimo merita una riga in piu'.** La voce CQ 2.09 pretende che il richiamo
+della sera dica **che cosa ne e' stato** della parola; l'ordine CY chiede che
+chiuda con la domanda che le da' un uso. Tenerne una sola lasciava rossa la
+guardia dell'altra. Non era un conflitto: **erano due meta' della stessa
+riga**, e adesso ci stanno tutte e due.
+
 ---
 
 VOCI_TOTALI: 13
