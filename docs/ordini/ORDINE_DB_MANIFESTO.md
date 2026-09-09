@@ -323,6 +323,57 @@ scarto fra il banco e la realta'.
 corona. Il respiro resta leggibile lo stesso, perche' il raggio cresce da solo
 da 0,54 a 0,88 del lato, e i petali passano da sottili a pieni.
 
+### E IL SECONDO GIRO A VIDEO HA TROVATO UN SECONDO DIFETTO
+
+Rimesso il fiore sul telefono, occupava il **35,0 per cento dello schermo**
+pur occupando il 53,8 del suo riquadro. **Il riquadro non era lo schermo**: il
+loto stava in un `Expanded` sopra la colonna di testo e prendeva solo l'altezza
+che avanzava, 710 punti su uno schermo largo 1080.
+
+**La guardia era di nuovo verde e la scena era di nuovo quella respinta**,
+perche' la voce 04 nomina *"la larghezza dello schermo"* e la guardia misurava
+la larghezza del riquadro.
+
+Adesso la guardia **monta la scena vera** in una finestra dove testo e loto si
+contendono l'altezza, 360 per 700, e misura la quota sullo schermo. Rossa a
+**61,6 per cento** col difetto in piedi, verde a **88,0** dopo. La riparazione:
+il riquadro e' un quadrato largo quanto lo schermo e il testo scorre sotto,
+cosi' **la misura non dipende piu' da quanto testo c'e'**.
+
+**Riverificato sul telefono**: a riposo il fiore misura **54,1 per cento dello
+schermo** contro i 53,8 che la guardia dichiara. Tre decimi di scarto fra il
+banco e il vetro.
+
+### IL GESTO DEL DITO: provato in laboratorio, non provabile con adb
+
+Tenendo il dito premuto sul telefono con `adb shell input motionevent DOWN`,
+il fiore **non si apriva**: 584 pixel a riposo e 584 col dito giu'. **Non e'
+una prova che il gesto sia rotto**: `input motionevent` inietta l'evento e il
+processo che l'ha iniettato esce, quindi il dito non resta giu'.
+
+**Allora la domanda si e' spostata dove si puo' rispondere.** Una prova nuova
+monta la scena due volte, con lo stesso tempo trascorso, una col dito giu' e
+una senza: **senza dito l'apertura e' 0,908, col dito 0,004.** Il dito comanda
+il fiore e non il respiro dell'app.
+
+**La prima stesura di quella prova era cieca, e si e' visto subito.** Chiedeva
+soltanto che l'apertura fosse maggiore di zero: innestato il difetto, cioe'
+ignorando il dito, restava **verde con 0,908**, perche' il respiro dell'app da
+solo supera qualunque soglia positiva. Misurava *"qualcosa si muove"* invece di
+*"si muove per il dito"*. **La grandezza misurata e' diventata un confronto**,
+e cosi' il difetto la fa cadere.
+
+**Resta da guardare con un dito vero**, e quello puo' farlo solo il fondatore.
+
+### TRE PROVE HANNO SMESSO DI COLPIRE, e non era colpa loro
+
+Con la pagina che scorre, tre prove che toccavano un punto sotto la piega
+cadevano su una finestra da **800 per 600**, che non e' nessun telefono. Fra
+queste `il_suono_si_ferma_test.dart`, che sarebbe tornata a chiudere una
+schermata muta: **esattamente il difetto che quella prova aveva gia' avuto una
+volta.** Pinnata la finestra a 390 per 844 e portati i bersagli sotto gli
+occhi prima di toccarli.
+
 ---
 
 VOCI_TOTALI: 13
@@ -330,9 +381,12 @@ VOCI_CHIUSE: 12
 VOCI_PROPOSTE_E_NON_MONTATE: 1, la DB.06 come l'ordine chiede
 VOCI_APERTE: 0
 GUARDIE_NUOVE: 7
+PROVE_NUOVE_DENTRO_GUARDIE_ESISTENTI: 2, la scena vera e il dito
 GUARDIE_RISCRITTE_PERCHE_MISURAVANO_LA_COSA_SBAGLIATA: 1, il loto
 DIFETTI_MIEI_TROVATI_DALLE_GUARDIE: 6, cinque virgole seguite da "e", un accento perso
-DIFETTI_TROVATI_A_VIDEO_E_NON_DALLE_PROVE: 1, il loto al 18,1 per cento
+DIFETTI_TROVATI_A_VIDEO_E_NON_DALLE_PROVE: 2, il loto al 18,1 per cento e il riquadro al 35,0
+GUARDIE_NATE_CIECHE_E_RIFATTE_SUBITO: 1, il dito verde con 0,908
+RESTA_DA_GUARDARE_CON_UN_DITO_VERO: il gesto del respiro, non provabile con adb
 VOCABOLARIO_CLINICO: 4 famiglie, 48 parole
 FILE_SORVEGLIATI_DAL_CONFINE: 19
 TRAGUARDI_DEL_CATALOGO_MISURATI: 165

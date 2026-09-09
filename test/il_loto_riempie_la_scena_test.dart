@@ -188,6 +188,75 @@ void main() {
     await tester.pumpWidget(const SizedBox.shrink());
   });
 
+  testWidgets('IL DITO COMANDA IL FIORE, non il respiro dell app',
+      (tester) async {
+    // **CHE IL FIORE SIA GRANDE NON BASTA: deve respirare col dito.** Ordine
+    // CZ voce 08, e la voce DB.13 ha chiesto di guardarlo a video.
+    //
+    // **LA PRIMA STESURA DI QUESTA PROVA ERA CIECA, e si e visto subito.**
+    // Chiedeva soltanto che l apertura fosse maggiore di zero col dito giu.
+    // Innestato il difetto, cioe passata al loto la sola `b.fill` ignorando
+    // il dito, la prova e rimasta **verde con 0,908**: il respiro dell app
+    // da solo supera qualunque soglia positiva. Era una guardia che misurava
+    // "qualcosa si muove", non "si muove per il dito".
+    //
+    // **La grandezza misurata adesso e un CONFRONTO**: la stessa scena, lo
+    // stesso tempo finto trascorso, una volta col dito giu e una senza. Se le
+    // due aperture coincidono, il dito non comanda niente.
+    SharedPreferences.setMockInitialValues({});
+
+    Future<double> apertura({required bool colDito}) async {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: MaestroScope(
+            child: MeditationScreen(
+                player: SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+          ),
+        ),
+      ));
+      await tester.pump();
+      TestGesture? gesto;
+      if (colDito) {
+        gesto = await tester.startGesture(
+            tester.getCenter(find.byKey(const Key('meditation_dito'))));
+        // Oltre il kPressTimeout, cosi' il riconoscitore del tocco dichiara
+        // il down anche mentre lo scorrimento e in gara nell arena.
+        await tester.pump(const Duration(milliseconds: 150));
+      } else {
+        await tester.pump(const Duration(milliseconds: 150));
+      }
+      await tester.pump(const Duration(seconds: 3));
+      final quanto = tester
+          .widget<LotoCheRespira>(find.byKey(const Key('meditation_loto')))
+          .apertura;
+      await gesto?.up();
+      await tester.pump();
+      await tester.pumpWidget(const SizedBox.shrink());
+      return quanto;
+    }
+
+    final senza = await apertura(colDito: false);
+    final con = await apertura(colDito: true);
+    addTearDown(tester.view.reset);
+    // ignore: avoid_print
+    print('ORDINE CZ VOCE 08: dopo tre secondi, senza dito l apertura e '
+        '${senza.toStringAsFixed(3)}, col dito giu '
+        '${con.toStringAsFixed(3)}');
+    expect((con - senza).abs(), greaterThan(0.1),
+        reason: 'col dito giu e senza dito il fiore e aperto uguale '
+            '(${senza.toStringAsFixed(3)} contro ${con.toStringAsFixed(3)}): '
+            'la scena sta guardando il respiro dell app e non il dito, e la '
+            'meditazione a occhi chiusi non funziona');
+  });
+
   test('QUATTRO CORONE, coi petali che crescono', () {
     const quante = LotoCheRespira.petaliPerCorona;
     // ignore: avoid_print
