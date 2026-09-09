@@ -269,6 +269,10 @@ class _RigaDelRespiro extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      // **NESSUN SUONO CHE NON HAI SCELTO**, ordine CQ voce 1.08: il click
+      // di sistema non appartiene al Cerchio, e i suoni li accende la
+      // Palette Sensoriale quando la persona li ha voluti.
+      enableFeedback: false,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
         child: Row(

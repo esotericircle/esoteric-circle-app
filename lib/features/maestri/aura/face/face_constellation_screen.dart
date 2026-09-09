@@ -362,9 +362,12 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                         _fase = _Fase.cattura;
                       }),
                       onRipiego: () => setState(() => _fase = _Fase.ripiego),
+                      // **LA ROTTA PASSA DAL NERO**, ordine CC voce 04: una
+                      // schermata che si costruisce la rotta per conto suo
+                      // entra in un modo tutto suo, e una guardia lo vieta.
                       onLetture: () => Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => const LeTueLettureDelViso(),
+                        PassaggioDelCerchio.rotta<void>(
+                          (_) => const LeTueLettureDelViso(),
                         ),
                       ),
                     ),

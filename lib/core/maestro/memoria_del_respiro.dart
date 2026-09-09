@@ -72,8 +72,14 @@ class MemoriaDelRespiro {
       }
       lette.sort((a, b) => b.quando.compareTo(a.quando));
       _sessioni = List.unmodifiable(lette);
-    } catch (_) {
-      // Senza memoria si medita lo stesso: la pratica non dipende dal ricordo.
+    } catch (errore) {
+      // **SI IGNORA, E SI DICE PERCHE'.** Qui puo' cadere l'archivio del
+      // telefono oppure una riga scritta da una versione precedente e
+      // ormai illeggibile. In entrambi i casi la risposta giusta e' la
+      // stessa: **senza memoria si medita lo stesso**, e la pratica non
+      // dipende dal ricordo. Fermarsi qui vorrebbe dire negare il respiro
+      // a chi ha un archivio corrotto.
+      _sessioni = const [];
     }
   }
 
@@ -85,8 +91,12 @@ class MemoriaDelRespiro {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setStringList(
           _chiave, [for (final s in _sessioni) jsonEncode(s.toJson())]);
-    } catch (_) {
-      // best effort.
+    } catch (errore) {
+      // **SI IGNORA, E SI DICE PERCHE'.** La sessione e' gia' finita e
+      // gia' in memoria: se l'archivio del telefono rifiuta la scrittura,
+      // l'unica cosa persa e' il ricordo di questa volta. Sollevare qui
+      // farebbe fallire la chiusura di una meditazione compiuta, che e'
+      // un danno piu' grande del ricordo perso.
     }
   }
 

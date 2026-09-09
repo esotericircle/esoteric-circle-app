@@ -51,8 +51,13 @@ class SequenzeDiAura {
         }
       }
       _mie = List.unmodifiable(lette);
-    } catch (_) {
-      // Senza sequenze si respira lo stesso.
+    } catch (errore) {
+      // **SI IGNORA, E SI DICE PERCHE'.** Puo' cadere l'archivio del
+      // telefono o una riga scritta da una versione precedente: in
+      // entrambi i casi **senza sequenze si respira lo stesso**, e la
+      // libreria resta leggibile. Un rito perso non vale il blocco della
+      // funzione.
+      _mie = const [];
     }
   }
 
@@ -80,8 +85,11 @@ class SequenzeDiAura {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setStringList(
           _chiave, [for (final s in _mie) jsonEncode(s.toJson())]);
-    } catch (_) {
-      // best effort.
+    } catch (errore) {
+      // **SI IGNORA, E SI DICE PERCHE'.** La sequenza e' gia' in memoria
+      // e gia' a schermo: se l'archivio rifiuta la scrittura, la persona
+      // la ritrova per tutta la sessione e la ricompone la prossima
+      // volta. Sollevare qui farebbe fallire un gesto riuscito.
     }
   }
 }
