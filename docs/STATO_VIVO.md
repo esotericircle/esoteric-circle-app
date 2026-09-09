@@ -1635,6 +1635,31 @@ da caselle, questa da numeri in virgola mobile misurati al millisecondo. Due
 serie che differiscono di un centesimo su un solo respiro danno figure
 distanti 0,001667.
 
+**LA PROVA A VIDEO HA TROVATO DUE DIFETTI CHE NESSUNA PROVA VEDEVA, ed erano
+lo stesso difetto due volte.** Sul telefono 767f596c il loto a riposo occupava
+il **18,1 per cento** della larghezza dello schermo dentro una scena quasi
+vuota, cioe' proprio cio' che la voce 04 doveva chiudere, mentre la sua guardia
+dichiarava 54 ed era verde. **C'erano due verita' sulla stessa larghezza**:
+`raggioDellaCorona` prometteva la quota, il pittore disegnava il petalo lungo
+`raggio * (0,34 + 0,66 * apertura)`, e la guardia interrogava **la formula**
+invece della **forma**. Riparato facendo arrivare la punta del petalo al suo
+raggio, e la guardia adesso dipinge il loto su una tela vera e conta i pixel.
+
+**Rimesso sul telefono, il fiore occupava il 53,8 per cento del suo riquadro e
+il 35,0 dello schermo**: il riquadro non era lo schermo, perche' il loto stava
+in un `Expanded` sopra la colonna di testo e prendeva l'altezza che avanzava.
+Adesso il riquadro e' un quadrato largo quanto lo schermo e il testo scorre
+sotto. **Riverificato a video: 54,1 per cento contro i 53,8 dichiarati**, tre
+decimi di scarto fra il banco e il vetro.
+
+**E una guardia e' nata cieca, colta subito.** La prova che il dito comandi il
+fiore chiedeva soltanto un'apertura maggiore di zero: col difetto innestato
+restava **verde con 0,908**, perche' il respiro dell'app da solo supera
+qualunque soglia positiva. La grandezza misurata e' diventata un **confronto**
+fra la stessa scena col dito e senza, a parita' di tempo: **0,908 senza,
+0,004 col dito**. Il gesto con un dito vero resta da guardare, perche' `adb
+input motionevent` non tiene il dito giu'.
+
 **I TRE TRAGUARDI PROPOSTI SONO MISURATI CONTRO IL CATALOGO DEI 165**, in
 `docs/ordini/DB_traguardi_del_respiro.md`, e non montati perche' li scrive il
 fondatore. Misurarli ha trovato due cose: **il gesto della meditazione partiva
