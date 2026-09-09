@@ -202,12 +202,23 @@ class FaceShareCard extends StatelessWidget {
               // zona era coperta il responso ne perde una, e una card che
               // vanta undici letture avendone fatte nove mente a chi la
               // riceve, che le righe le conta.
+              // **LA RIGA CHE SI PUO' REGGERE**, e sta sopra a quella dei
+              // numeri perche' e' quella che risponde davvero al perche'
+              // mandarla: le stelle stanno dove le mette il volto, e due
+              // volti non hanno mai le stesse proporzioni.
+              Text(QuantoETua.laRigaDellaFigura(),
+                  key: const Key('face_card_figura'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.9),
+                      letterSpacing: 0.6)),
+              const SizedBox(height: 2),
               Text(
                   '${QuantoETua.laRiga()}  ${QuantoETua.quantiTratti(reading)}',
                   key: const Key('face_card_rarita'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.85),
+                      color: palette.goldSoft.withValues(alpha: 0.7),
                       letterSpacing: 0.6)),
               const SizedBox(height: SpacingTokens.sm),
               Text('Esoteric Circle · Aura',

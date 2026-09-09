@@ -87,6 +87,15 @@ void main() {
     final riga = QuantoETua.laRiga();
     // ignore: avoid_print
     print('ORDINE CX: la riga della card dice "$riga"');
+    // **E NON DICE PIU' "UNA SU N".** Ordine CX, decisione del fondatore del
+    // 9 settembre 2026 dopo la misura delle collisioni: quella formula fa
+    // capire **unica**, e a 382 utenti e' piu' probabile che due card siano
+    // identiche che il contrario. Il numero resta e resta vero, cambia cio'
+    // che di lui si lascia capire: **quanto e' fine la lettura**, non
+    // **quanto e' raro chi la riceve**.
+    expect(riga.toLowerCase().contains('una costellazione su'), isFalse,
+        reason: 'la riga e\' tornata a dire "una costellazione su N", che fa '
+            'capire unicita\', e a 382 utenti quella promessa e\' falsa');
     // **Nessuna promessa e nessun superlativo.** Dire "unico al mondo"
     // sarebbe falso, e su questa funzione una parola di troppo e' proprio
     // cio' che l'ordine CS ha insegnato a non fare.

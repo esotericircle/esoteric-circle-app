@@ -152,4 +152,7 @@ COLLISIONE_AL_95_PER_CENTO: 793 utenti
 CATEGORIE_CON_UNA_SOLA_VARIANTE: 0
 CATEGORIE_CHE_MISURANO_RUMORE: 1, la distanza degli occhi
 MISURE_CONTINUE_DISPONIBILI_NELLA_CARD: si
-VIE_MONTATE: nessuna
+VIE_MONTATE: b e c, su decisione del fondatore del 9 settembre 2026
+LA_B: la frase dice 104.976 combinazioni distinte di tratti, non una su 104.976
+LA_C: verificata gia in piedi, e messa sotto guardia
+MISURATO: due volti nelle stesse undici caselle danno 15 stelle a distanza media 0,00313; lo stesso volto da distanza 0,000000

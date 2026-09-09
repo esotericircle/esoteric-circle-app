@@ -53,11 +53,36 @@ class QuantoETua {
 
   /// **LA RIGA DELLA CARD**, quella che dice perche' vale la pena mandarla.
   ///
-  /// **Nessuna promessa e nessun superlativo.** Non dice che il volto e' unico
-  /// al mondo, che sarebbe falso: dice quante combinazioni il catalogo
-  /// distingue, che e' vero e verificabile contando.
+  /// **LA PRIMA STESURA DICEVA UNA COSA CHE NON REGGE, e il numero era
+  /// giusto.** Diceva *"una costellazione su 104.976 possibili"*, e chi legge
+  /// capisce **unica**. Centomila combinazioni pero' sono poche: misurato col
+  /// conto esatto, **a 382 utenti e' piu' probabile che due card siano
+  /// identiche che il contrario**, e a 793 e' quasi certo. Al lancio, con
+  /// qualche migliaio di iscritti, esisterebbero gruppi di persone con la
+  /// stessa costellazione a parole, e basterebbe che due amici confrontassero
+  /// le card perche' l'effetto diventasse il sospetto che sia finto.
+  ///
+  /// **Non era un errore di calcolo: era il significato implicito.** Il numero
+  /// resta e resta vero; cambia cio' che di lui si lascia capire. Adesso la
+  /// riga dice **quanto e' fine la lettura**, che e' un fatto sulla misura,
+  /// invece di **quanto e' raro chi la riceve**, che e' un vanto sulla persona
+  /// e a 382 utenti sarebbe falso.
+  ///
+  /// **E cio' che e' davvero irripetibile e' la FIGURA, non le parole.** La
+  /// costellazione nasce dai punti misurati del volto, non dalle undici
+  /// caselle: due persone che ricevono gli stessi undici tratti hanno stelle
+  /// in posizioni diverse, misurato. Quella promessa la card la puo' reggere,
+  /// e la riga sotto la dice.
   static String laRiga() =>
-      'Una costellazione su ${colPunto(quanteNeEsistono())} possibili.';
+      '${colPunto(quanteNeEsistono())} combinazioni distinte di tratti.';
+
+  /// **LA RIGA DELLA FIGURA**, quella che si puo' promettere davvero.
+  ///
+  /// Le stelle stanno dove le mette il volto, e due volti non hanno mai le
+  /// stesse proporzioni a quattro decimali: **questa figura non e' di nessun
+  /// altro**, e non e' un vanto, e' come e' costruita.
+  static String laRigaDellaFigura() =>
+      'Le stelle stanno dove le mette il tuo volto.';
 
   /// **QUANTI TRATTI HA LETTO DAVVERO**, che e' l'altra meta' dell'onesta'.
   ///
