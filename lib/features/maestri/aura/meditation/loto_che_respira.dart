@@ -253,7 +253,21 @@ class PittoreDelLoto extends CustomPainter {
       // mandala si scompone.
       final torsione = (i.isEven ? 1 : -1) * 0.22 * apertaQui;
 
-      final lungo = raggio * (0.34 + 0.66 * apertaQui);
+      // **LA PUNTA DEL PETALO ARRIVA AL RAGGIO DELLA SUA CORONA, e prima
+      // non ci arrivava.** Ordine DB voce 13, difetto trovato guardando la
+      // build sul telefono 767f596c il 9 settembre 2026.
+      //
+      // Qui c'era `raggio * (0.34 + 0.66 * apertaQui)`, cioe' da chiuso il
+      // petalo si fermava a un terzo del raggio che `raggioDellaCorona`
+      // dichiarava. **Erano due verita' sulla stessa larghezza**: la formula
+      // prometteva il cinquantaquattro per cento, la forma ne dipingeva
+      // diciotto, e la guardia interrogava la formula. Sul telefono il fiore
+      // a riposo era una macchia dentro una scena nera.
+      //
+      // Adesso la punta e' il raggio, e il respiro si legge lo stesso: il
+      // raggio cresce da solo col respiro, da 0,54 a 0,88 del lato, e i
+      // petali passano da sottili a pieni con `largo`.
+      final lungo = raggio;
       final largo = raggio * (0.13 + 0.10 * apertaQui) *
           (quanti <= 8 ? 1.0 : 7 / quanti + 0.35);
 

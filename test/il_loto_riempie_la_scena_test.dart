@@ -1,5 +1,7 @@
 import 'package:esoteric_circle/core/maestro/colore_del_centro.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/loto_che_respira.dart';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -28,13 +30,58 @@ import 'cardinale_minimo.dart';
 void main() {
   const finestra = Size(390, 844);
 
-  test('AL CULMINE IL FIORE OCCUPA ALMENO L\'85 PER CENTO', () {
-    final corone = LotoCheRespira.petaliPerCorona.length;
-    final raggio = PittoreDelLoto.raggioDellaCorona(
-        finestra.width, 1.0, corone - 1, corone);
-    final quota = raggio * 2 / finestra.width;
+  /// **QUANTO IL FIORE OCCUPA DAVVERO, misurato sui pixel dipinti.**
+  ///
+  /// **QUESTA E LA GRANDEZZA CHE SI MISURA ADESSO, e prima non lo era.** La
+  /// prima stesura di questa guardia chiedeva a `raggioDellaCorona` quanto
+  /// fosse largo il fiore, cioe' interrogava **la formula** invece della
+  /// **forma**. Le due non coincidevano: il pittore disegna il petalo lungo
+  /// `raggio * (0.34 + 0.66 * apertura)`, quindi da chiuso la punta si ferma
+  /// a un terzo del raggio che la formula dichiarava. La guardia era verde al
+  /// 54 per cento mentre sul telefono 767f596c il fiore chiuso ne occupava
+  /// **18,1**: e' la famiglia "misurare il pezzo sano accanto al pezzo rotto",
+  /// e l'ha trovata la prova visiva della voce DB.13, non questa prova.
+  ///
+  /// Adesso il pittore dipinge su una tela vera, si rilegge la tela, e la
+  /// quota e' la distanza fra il primo e l'ultimo pixel acceso.
+  Future<double> quotaDipinta(double apertura) async {
+    final immagine = _dipingi(apertura);
+    // **La tela si dipinge con `toImageSync` e si rilegge con `toByteData`.**
+    // La prima stesura usava `toImage`, la versione a Future, dentro un
+    // `testWidgets`: li' il tempo e finto e quella Future non si risolve mai.
+    // La guardia stampava il numero giusto e poi restava appesa, che a video
+    // e indistinguibile da una guardia lenta.
+    final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
+    final byte = dati!.buffer.asUint8List();
+    final larghezza = immagine.width;
+    var primo = larghezza;
+    var ultimo = -1;
+    var accesi = 0;
+    for (var y = 0; y < immagine.height; y++) {
+      for (var x = 0; x < larghezza; x++) {
+        final i = (y * larghezza + x) * 4;
+        // **SI GUARDA L'OPACITA', non il colore**: un pixel disegnato con
+        // alpha alto e' fiore, il fondo trasparente non lo e'. Cosi' la
+        // misura non dipende dalla tinta del centro di oggi.
+        if (byte[i + 3] > 40) {
+          accesi++;
+          if (x < primo) primo = x;
+          if (x > ultimo) ultimo = x;
+        }
+      }
+    }
+    cardinaleMinimo(accesi, 500,
+        cosa: 'pixel dipinti dal loto sulla tela',
+        perche: 'Su una tela quasi vuota la distanza fra primo e ultimo pixel '
+            'non dice niente, e la guardia sarebbe verde per non aver visto '
+            'nessun fiore.');
+    return ultimo < 0 ? 0 : (ultimo - primo + 1) / larghezza;
+  }
+
+  test('AL CULMINE IL FIORE OCCUPA ALMENO L 85 PER CENTO', () async {
+    final quota = await quotaDipinta(1.0);
     // ignore: avoid_print
-    print('ORDINE DB: al culmine la corona esterna e larga '
+    print('ORDINE DB VOCE 04: al culmine il fiore DIPINTO e largo '
         '${(quota * 100).toStringAsFixed(1)} per cento della finestra da '
         '${finestra.width.toInt()} punti');
     expect(quota, greaterThanOrEqualTo(0.85),
@@ -44,23 +91,22 @@ void main() {
             'ha respinto');
   });
 
-  test('REGOLA H: AL FONDO DELL ESPIRO NON SCENDE SOTTO IL 50 PER CENTO', () {
-    final corone = LotoCheRespira.petaliPerCorona.length;
-    final raggio = PittoreDelLoto.raggioDellaCorona(
-        finestra.width, 0.0, corone - 1, corone);
-    final quota = raggio * 2 / finestra.width;
+  test('REGOLA H: AL FONDO DELL ESPIRO NON SCENDE SOTTO IL 50 PER CENTO',
+      () async {
+    final chiuso = await quotaDipinta(0.0);
     // ignore: avoid_print
-    print('ORDINE DB: al fondo dell espiro il fiore e largo '
-        '${(quota * 100).toStringAsFixed(1)} per cento');
-    expect(quota, greaterThanOrEqualTo(0.50),
+    print('ORDINE DB VOCE 04: al fondo dell espiro il fiore DIPINTO e largo '
+        '${(chiuso * 100).toStringAsFixed(1)} per cento');
+    expect(chiuso, greaterThanOrEqualTo(0.50),
         reason: 'al fondo dell espiro il fiore scende al '
-            '${(quota * 100).toStringAsFixed(1)} per cento: sparisce invece '
-            'di chiudersi, e chi guarda perde il filo del respiro');
+            '${(chiuso * 100).toStringAsFixed(1)} per cento: sparisce invece '
+            'di chiudersi, e chi guarda perde il filo del respiro. E il '
+            'difetto visto sul telefono 767f596c il 9 settembre 2026, quando '
+            'questa misura veniva dalla formula e non dalla forma');
     // E non deve nemmeno restare grande quanto al culmine: se non si chiude,
     // il respiro non si vede.
-    final aperto = PittoreDelLoto.raggioDellaCorona(
-        finestra.width, 1.0, corone - 1, corone);
-    expect(raggio, lessThan(aperto * 0.95),
+    final aperto = await quotaDipinta(1.0);
+    expect(chiuso, lessThan(aperto * 0.95),
         reason: 'fra chiuso e aperto il fiore cambia meno del cinque per '
             'cento: a schermo il respiro non si legge');
   });
@@ -170,4 +216,22 @@ void main() {
         reason: 'il fiore disegna $forme forme al culmine: sopra le duecento '
             'una scena viva comincia a perdere fotogrammi sui telefoni bassi');
   });
+}
+
+/// Dipinge il loto su una tela vera alla [apertura] data, e torna l'immagine.
+///
+/// **Si dipinge davvero**, invece di chiedere alla formula: e' l'unico modo
+/// perche' la guardia veda cio' che vede chi guarda il telefono.
+ui.Image _dipingi(double apertura) {
+  const lato = 390.0;
+  final registratore = ui.PictureRecorder();
+  final tela = Canvas(registratore);
+  PittoreDelLoto(
+    apertura: apertura,
+    coloreDelCentro: ColoreDelCentro.di(DateTime(2026, 9, 9)),
+    gocce: const [3, 3, 3, 3, 3, 3, 3],
+    centroDiOggi: 2,
+    inclinazione: Offset.zero,
+  ).paint(tela, const Size(lato, lato));
+  return registratore.endRecording().toImageSync(lato.toInt(), lato.toInt());
 }
