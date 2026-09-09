@@ -72,7 +72,7 @@ class _LeTueLettureDelVisoState extends State<LeTueLettureDelViso> {
   Future<void> _cancellaUna(FaceEsito quale) async {
     final conferma = await _chiedi(
       titolo: 'Cancellare questa lettura?',
-      testo: 'Sparisce dal telefono con la sua fotografia, e non si torna '
+      testo: 'Sparisce dal telefono con la sua fotografia. Non si torna '
           'indietro.',
     );
     if (conferma != true) return;

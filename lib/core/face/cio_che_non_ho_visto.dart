@@ -85,7 +85,7 @@ class CioCheNonHoVisto {
     if (nomi.isEmpty) return null;
     final elenco = nomi.length == 1 ? nomi.first : '${nomi.first} e ${nomi.last}';
     return 'Non ho potuto vedere $elenco: qualcosa le copriva. Quella parte '
-        'del responso manca, e non la invento. Se togli quello che le nasconde '
+        'del responso manca. Non la invento: se togli quello che le nasconde '
         'e rifai la lettura, te la leggo anche.';
   }
 

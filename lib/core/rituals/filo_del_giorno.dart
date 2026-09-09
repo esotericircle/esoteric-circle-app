@@ -139,7 +139,7 @@ class FiloDelGiorno {
   /// leggere un paragrafo sul metodo.
   static String laLente(String parola) =>
       'Non cercarla: tienila addosso. Serve a riconoscere una cosa che oggi '
-      'c\'è già, e che senza di lei non avresti chiamato per nome.';
+      'c\'è già e che senza di lei non avresti chiamato per nome.';
 
   // --- LA DOMANDA DI MEDORA ---
 
