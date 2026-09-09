@@ -160,8 +160,8 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
         const SizedBox(height: SpacingTokens.xs),
         ParagrafiDiLettura(
           testo: 'Tocca da ${SequenzeDiAura.minimo} a '
-              '${SequenzeDiAura.massimo} pratiche qui sopra, dagli un nome, '
-              'e lo ritrovi.',
+              '${SequenzeDiAura.massimo} pratiche qui sopra e dagli un nome. '
+              'Lo ritrovi ogni volta che torni.',
           stile: TypographyTokens.didascalia()
               .copyWith(color: ColorTokens.textSecondary),
         ),

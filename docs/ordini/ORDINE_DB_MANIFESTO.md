@@ -291,17 +291,49 @@ che si incontrano li' senza che nessuno debba costruire niente.
 Caligo che propone un rito a chi non respira da tre settimane parla a una
 persona diversa da chi respira ogni sera.
 
-## DB.13, LA PROVA VISIVA
+## DB.13, LA PROVA VISIVA, E HA TROVATO UN DIFETTO CHE NESSUNA PROVA VEDEVA
 
-Da fare sul dispositivo 767f596c, col metodo obbligatorio a due passi.
+Fatta sul dispositivo 767f596c col metodo a due passi. **Ed e' servita**: il
+loto a riposo occupava il **18,1 per cento** della larghezza dello schermo
+dentro una scena quasi vuota, cioe' **esattamente cio' che la voce DB.04
+doveva chiudere**, mentre la sua guardia dichiarava 54 ed era verde.
+
+**PERCHE' LA GUARDIA ERA VERDE SU UNA SCENA ROTTA.** C'erano **due verita'
+sulla stessa larghezza**. `raggioDellaCorona` prometteva la quota, il pittore
+disegnava il petalo lungo `raggio * (0,34 + 0,66 * apertura)`, quindi da chiuso
+la punta si fermava a **un terzo** del raggio dichiarato, e la guardia
+interrogava **la formula** invece della **forma**. E' la famiglia "misurare il
+pezzo sano accanto al pezzo rotto", e stavolta l'ha trovata il telefono.
+
+**LA GRANDEZZA MISURATA E' CAMBIATA, NON LA SOGLIA.** Adesso la guardia
+dipinge il loto su una tela vera e conta i pixel accesi.
+
+| | prima | adesso |
+| --- | ---: | ---: |
+| misurato sul telefono, a riposo | **18,1%** | da riverificare a video |
+| misurato dalla guardia, a riposo | 54,0% dichiarati | **53,8% dipinti** |
+| misurato dalla guardia, al culmine | 88,0% dichiarati | **88,5% dipinti** |
+
+**La prova che la misura nuova e' quella giusta**: col difetto ancora in
+piedi, la guardia riscritta ha misurato **19,0 per cento** in laboratorio
+contro i **18,1** letti sui pixel della cattura del telefono. Un punto di
+scarto fra il banco e la realta'.
+
+**La riparazione e' una riga**: la punta del petalo arriva al raggio della sua
+corona. Il respiro resta leggibile lo stesso, perche' il raggio cresce da solo
+da 0,54 a 0,88 del lato, e i petali passano da sottili a pieni.
 
 ---
 
 VOCI_TOTALI: 13
-VOCI_CHIUSE: 11
+VOCI_CHIUSE: 12
 VOCI_PROPOSTE_E_NON_MONTATE: 1, la DB.06 come l'ordine chiede
-VOCI_APERTE: 1, la DB.13 fino alla prova a video
-GUARDIE_NUOVE: 5
+VOCI_APERTE: 0
+GUARDIE_NUOVE: 7
+GUARDIE_RISCRITTE_PERCHE_MISURAVANO_LA_COSA_SBAGLIATA: 1, il loto
 DIFETTI_MIEI_TROVATI_DALLE_GUARDIE: 6, cinque virgole seguite da "e", un accento perso
+DIFETTI_TROVATI_A_VIDEO_E_NON_DALLE_PROVE: 1, il loto al 18,1 per cento
 VOCABOLARIO_CLINICO: 4 famiglie, 48 parole
 FILE_SORVEGLIATI_DAL_CONFINE: 19
+TRAGUARDI_DEL_CATALOGO_MISURATI: 165
+VERIFICA_A_VIDEO: 767f596c
