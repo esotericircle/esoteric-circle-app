@@ -1,5 +1,13 @@
 import 'package:esoteric_circle/core/maestro/colore_del_centro.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/loto_che_respira.dart';
+import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_screen.dart';
+import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_audio.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/app_theme.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -28,6 +36,8 @@ import 'cardinale_minimo.dart';
 /// Movimento il colore resta**. Un fiore che si chiude fino a un punto
 /// passerebbe la misura del culmine a pieni voti.
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const finestra = Size(390, 844);
 
   /// **QUANTO IL FIORE OCCUPA DAVVERO, misurato sui pixel dipinti.**
@@ -109,6 +119,73 @@ void main() {
     expect(chiuso, lessThan(aperto * 0.95),
         reason: 'fra chiuso e aperto il fiore cambia meno del cinque per '
             'cento: a schermo il respiro non si legge');
+  });
+
+  testWidgets('NELLA SCENA VERA IL RIQUADRO DEL LOTO E LARGO QUANTO LO SCHERMO',
+      (tester) async {
+    // **QUESTA E LA SECONDA META DELLA STESSA MISURA, e mancava.** Ordine DB
+    // voce 04: *"al culmine dell inspiro la corona esterna arriva almeno
+    // all ottantacinque per cento della LARGHEZZA DELLO SCHERMO"*.
+    //
+    // Le due prove qui sopra misurano quanto il fiore occupa **del proprio
+    // riquadro**, e dicono il vero. Ma il riquadro non e lo schermo: nella
+    // scena il loto stava in un `Expanded` sopra una colonna di testo, e
+    // prendeva solo l altezza che avanzava. Sul telefono 767f596c, il 9
+    // settembre 2026, il fiore riparato occupava il **53,8 per cento del suo
+    // riquadro** e il **35,0 per cento dello schermo**.
+    //
+    // **Le due prove erano verdi e la scena era ancora quella respinta.**
+    //
+    // **LA FINESTRA E BASSA APPOSTA, e la ragione va detta.** Su una finestra
+    // alta il riquadro ci sta comodo e il difetto non si vede: e proprio
+    // quello che rendeva verde la prima stesura, montata a 360 per 800. Qui
+    // si misura dove il testo e il loto **si contendono** l altezza, che e la
+    // condizione del telefono vero.
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(360, 700);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.dark(),
+        home: MaestroScope(
+          child: MeditationScreen(
+              player: SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 300));
+    final riquadro = find.byKey(const Key('meditation_loto'));
+    expect(riquadro, findsOneWidget, reason: 'la scena non monta piu il loto');
+    final lato = tester.getSize(riquadro).shortestSide;
+    const larghezzaSchermo = 360.0;
+    // **La quota dipinta al culmine e gia provata dalla prima prova**, 88,5
+    // per cento del riquadro: qui non si ridipinge, perche dentro
+    // `testWidgets` il tempo e finto e la Future che rilegge la tela non si
+    // risolverebbe mai. Si moltiplica per la quota dichiarata, che quella
+    // prova tiene ancorata al dipinto.
+    final quotaSchermo =
+        lato / larghezzaSchermo * PittoreDelLoto.quotaAperto;
+    // ignore: avoid_print
+    print('ORDINE DB VOCE 04: riquadro del loto ${lato.toStringAsFixed(0)} '
+        'punti su uno schermo largo ${larghezzaSchermo.toStringAsFixed(0)}, '
+        'cioe ${(quotaSchermo * 100).toStringAsFixed(1)} per cento DELLO '
+        'SCHERMO al culmine');
+    expect(quotaSchermo, greaterThanOrEqualTo(0.85),
+        reason: 'al culmine il fiore occupa il '
+            '${(quotaSchermo * 100).toStringAsFixed(1)} per cento della '
+            'larghezza dello SCHERMO: il riquadro e largo '
+            '${lato.toStringAsFixed(0)} punti su $larghezzaSchermo perche il '
+            'testo sotto se lo mangia, e resta la figura piccola con la '
+            'cornice vuota attorno che il fondatore ha respinto');
+    // Si smonta la scena: l animazione del respiro gira per sempre, e una
+    // prova che la lascia accesa resta appesa invece di finire.
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 
   test('QUATTRO CORONE, coi petali che crescono', () {

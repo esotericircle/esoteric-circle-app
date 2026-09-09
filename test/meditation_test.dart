@@ -104,6 +104,28 @@ void main() {
   });
 
   group('Schermata di meditazione', () {
+    /// **LA FINESTRA E QUELLA DI UN TELEFONO, e da oggi conta.** Ordine DB
+    /// voce 13: il loto adesso prende un quadrato largo quanto lo schermo e
+    /// il resto scorre sotto, cosi' il fiore non dipende piu' da quanto testo
+    /// c'e'. Sul default di `flutter_test`, 800 per 600, i pulsanti finiscono
+    /// sotto la piega e i tocchi cadono a vuoto: **non e' un difetto della
+    /// scena, e' una finestra che non e' nessun telefono.**
+    void telefono(WidgetTester tester) {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+    }
+
+    /// Tocca portando prima il bersaglio sotto gli occhi: in una pagina che
+    /// scorre un tocco a vuoto passerebbe per un tocco riuscito.
+    Future<void> tocca(WidgetTester tester, Key chiave) async {
+      final quale = find.byKey(chiave);
+      await tester.ensureVisible(quale);
+      await tester.pump();
+      await tester.tap(quale);
+      await tester.pump();
+    }
+
     Widget host(TonePlayer player) => ChangeNotifierProvider(
           create: (_) => MaestroController(),
           child: MaterialApp(
@@ -113,6 +135,7 @@ void main() {
 
     testWidgets('Mostra il Loto, il respiro e il fondamento onesto',
         (tester) async {
+      telefono(tester);
       await tester.pumpWidget(host(const SilentTonePlayer()));
       await tester.pump();
       // **IL LOTO AL POSTO DELLA CIMATICA. Ordine CZ voce 08**, 8 settembre
@@ -132,11 +155,12 @@ void main() {
     });
 
     testWidgets('Play avvia il suono e il respiro', (tester) async {
+      telefono(tester);
       final player = _RecordingPlayer();
       await tester.pumpWidget(host(player));
       await tester.pump();
 
-      await tester.tap(find.byKey(const Key('meditation_play')));
+      await tocca(tester, const Key('meditation_play'));
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(player.played, isNotEmpty);
@@ -145,6 +169,7 @@ void main() {
     });
 
     testWidgets('Il preset binaurale invita alle cuffie', (tester) async {
+      telefono(tester);
       await tester.pumpWidget(host(const SilentTonePlayer()));
       await tester.pump();
       // **LA SCELTA LIBERA E' SCESA SOTTO, e non e' sparita. Ordine CZ voce
@@ -156,9 +181,9 @@ void main() {
           reason: 'il menu delle frequenze e ancora in prima fila: il '
               'fondatore ha chiesto che Aura decida, e che la scelta stia '
               'sotto');
-      await tester.tap(find.byKey(const Key('meditation_scegli_tu')));
+      await tocca(tester, const Key('meditation_scegli_tu'));
       await tester.pump();
-      await tester.tap(find.byKey(const Key('meditation_preset_theta')));
+      await tocca(tester, const Key('meditation_preset_theta'));
       await tester.pump();
       expect(find.textContaining('Metti le cuffie'), findsOneWidget);
     });

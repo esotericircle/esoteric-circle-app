@@ -65,6 +65,15 @@ void main() {
   group('Causa A: chiudendo la schermata il tono si ferma', () {
     testWidgets('Uscire dalla Meditazione ferma il lettore', (tester) async {
       silence();
+      // **LA FINESTRA E QUELLA DI UN TELEFONO.** Ordine DB voce 13: la
+      // Meditazione adesso scorre, e sul default di `flutter_test`, 800 per
+      // 600, il pulsante del suono finisce sotto la piega. Un tocco a vuoto
+      // qui sarebbe peggio di una caduta: la prova tornerebbe a chiudere una
+      // schermata muta, che e' esattamente il difetto che questa prova ha gia
+      // avuto una volta.
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
       final spia = _LettoreSpia();
       await tester.pumpWidget(conProvider(Builder(
         builder: (ctx) => Scaffold(
@@ -87,7 +96,10 @@ void main() {
       // SI ACCENDE IL SUONO. Senza questo passo la prova chiudeva una schermata
       // muta, dove lo `stop` mancante non cambiava niente: era verde col
       // difetto e senza, e non perche' misurasse male, perche' non misurava.
-      await tester.tap(find.byKey(const Key('meditation_play')));
+      final play = find.byKey(const Key('meditation_play'));
+      await tester.ensureVisible(play);
+      await tester.pump();
+      await tester.tap(play);
       await tester.pump();
       expect(spia.avviato, isTrue,
           reason: 'il tono non parte nemmeno, quindi la prova che segue non '

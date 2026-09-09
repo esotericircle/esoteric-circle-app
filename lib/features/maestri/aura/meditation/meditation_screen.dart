@@ -356,10 +356,26 @@ class _MeditationScreenState extends State<MeditationScreen>
       ),
       body: SafeArea(
         top: false,
-        child: Column(
+        // **IL LOTO PRENDE LA LARGHEZZA INTERA, E IL RESTO SCORRE SOTTO.**
+        // Ordine DB voce 13, difetto trovato sul telefono 767f596c il 9
+        // settembre 2026.
+        //
+        // Qui c'era una `Column` col loto dentro un `Expanded`: il fiore
+        // prendeva **l'altezza che avanzava** dopo la colonna di testo, e su
+        // uno schermo vero avanzava poco. Il fiore occupava il 53,8 per cento
+        // del suo riquadro, che e' cio' che la voce 04 pretende, **e il 35,0
+        // per cento dello schermo**, che e' di nuovo la figura piccola con la
+        // cornice vuota attorno.
+        //
+        // Adesso il riquadro e' un quadrato largo quanto lo schermo, e il
+        // testo scorre invece di contendergli lo spazio: **la misura non
+        // dipende piu' da quanto testo c'e' sotto.**
+        child: SingleChildScrollView(
+          child: Column(
           children: [
             // Il visualizzatore a cimatica, col respiro sovrapposto.
-            Expanded(
+            SizedBox(
+              width: double.infinity,
               child: Center(
                 // **IL DITO GUIDA IL RESPIRO. Ordine CZ voce 08.**
                 //
@@ -633,6 +649,7 @@ class _MeditationScreenState extends State<MeditationScreen>
               ),
             ),
           ],
+          ),
         ),
       ),
     );
