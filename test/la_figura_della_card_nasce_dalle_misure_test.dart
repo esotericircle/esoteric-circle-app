@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.dart';

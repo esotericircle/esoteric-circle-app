@@ -66,7 +66,7 @@ void main() {
   });
 
   test('QUATTRO CORONE, coi petali che crescono', () {
-    final quante = LotoCheRespira.petaliPerCorona;
+    const quante = LotoCheRespira.petaliPerCorona;
     // ignore: avoid_print
     print('ORDINE DB: corone ${quante.length}, petali per corona '
         '${quante.join(", ")}, totale ${quante.reduce((a, b) => a + b)}');

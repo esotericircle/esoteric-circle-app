@@ -19,6 +19,7 @@ import '../../../core/maestro/frase_del_limite.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/maestro/lettura_di_ripiego.dart';
+import '../../../core/maestro/memoria_del_respiro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
@@ -155,6 +156,11 @@ class MaestroChatController extends ChangeNotifier {
 
   MaestroMemory _memoryState = MaestroMemory.empty;
 
+  /// **CIO' CHE LA MEDITAZIONE RICORDA.** Ordine DB voce 08: il riassunto
+  /// entra fra i fatti che il modello riceve gia', e il dato grezzo resta sul
+  /// telefono.
+  final MemoriaDelRespiro _respiro = MemoriaDelRespiro();
+
   /// La memoria del Maestro caricata, per il benvenuto deterministico del
   /// Premium, che riprende dalla sintesi di sessione.
   MaestroMemory get memory => _memoryState;
@@ -265,6 +271,35 @@ class MaestroChatController extends ChangeNotifier {
       ]);
       _profile = results[0] as UserProfile;
       _memoryState = results[1] as MaestroMemory;
+      // **CIO' CHE LA MEDITAZIONE RICORDA ENTRA QUI, E IN UN PUNTO SOLO.**
+      // Ordine DB voce 08, 9 settembre 2026.
+      //
+      // **Il censimento che l'ordine chiede**: il contesto passato al modello
+      // si compone in **otto punti** di questo file, e sono otto chiamate con
+      // gli stessi quattro parametri, profilo, memoria, cronologia e cielo di
+      // nascita. Aggiungere un quinto parametro vorrebbe dire toccarli tutti
+      // e otto, e **al primo che qualcuno dimentica due Maestri saprebbero
+      // cose diverse della stessa persona**, che e' proprio il difetto che
+      // l'ordine teme.
+      //
+      // **Allora non si aggiunge un parametro: il riassunto entra fra i
+      // FATTI**, che al modello arrivano gia' da tutte e otto le strade. Il
+      // dato grezzo resta sul telefono, dove nasce; qui passa una riga sola,
+      // ed e' cio' che la voce chiede per nome: *"non il dato grezzo di ogni
+      // sessione: il riassunto, breve, in una forma che il modello possa
+      // usare senza doverla interpretare"*.
+      //
+      // **Vale per tutti e tre i Maestri e non solo per Aura**, perche' questo
+      // controllore e' lo stesso per tutti: Medora che parla di un transito
+      // difficile sapendo che la persona respira tutte le sere conosce chi ha
+      // davanti.
+      await _respiro.carica();
+      final riassunto = _respiro.riassuntoPerIMaestri;
+      if (riassunto.isNotEmpty) {
+        _memoryState = _memoryState.copyWith(
+          facts: [..._memoryState.facts, 'Pratica del respiro: $riassunto'],
+        );
+      }
       final cronologia = results[2] as List<ChatMessage>;
       // **LA CONVERSAZIONE CORRENTE E' QUELLA DEL MESSAGGIO PIU' RECENTE.**
       // Ordine CI voce 06: non si conserva da nessuna parte, si legge da cio'

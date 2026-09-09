@@ -22,7 +22,7 @@ import 'cardinale_minimo.dart';
 /// che promette guarigione sarebbe verde sulla presenza e falsa nel merito.
 void main() {
   test('OGNI PRATICA HA CENTRO, DURATA E TRADIZIONE', () {
-    final pratiche = LibreriaDeiRespiri.pronte;
+    const pratiche = LibreriaDeiRespiri.pronte;
     cardinaleMinimo(pratiche.length, 8,
         cosa: 'pratiche pronte nella libreria',
         perche: 'Con poche pratiche questa guardia direbbe che la libreria e '
@@ -81,7 +81,7 @@ void main() {
     // nascono nel 1998... e l attribuzione a Guido d Arezzo non regge a
     // verifica documentale. Restano utilizzabili, ma dichiarate come
     // convenzione contemporanea diffusa, mai come tradizione millenaria."*
-    final s = Tradizione.solfeggio;
+    const s = Tradizione.solfeggio;
     expect(s.fonte, contains('Puleo'),
         reason: 'la fonte del solfeggio non nomina chi lo ha davvero '
             'proposto');
@@ -100,7 +100,7 @@ void main() {
   });
 
   test('I SUONI SEME CITANO LA FONTE PRIMARIA VERA', () {
-    final s = Tradizione.suoniSeme;
+    const s = Tradizione.suoniSeme;
     expect(s.fonte, contains('Purnananda'));
     expect(s.fonte, contains('1577'));
     expect(s.fonte, contains('Woodroffe'));

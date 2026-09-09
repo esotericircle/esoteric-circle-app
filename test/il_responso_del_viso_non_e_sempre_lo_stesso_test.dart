@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/core/face/face_trait.dart';
@@ -50,7 +49,7 @@ void main() {
     double labbraSpesse = 0.055,
     double boccaLarga = 0.42,
   }) {
-    final cx = 0.5;
+    const cx = 0.5;
     final cima = 0.5 - altezza / 2;
     final fondo = 0.5 + altezza / 2;
 

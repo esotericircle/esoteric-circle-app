@@ -22,6 +22,8 @@ import '../../../../core/maestro/traccia_del_loto.dart';
 import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import 'loto_che_respira.dart';
+import 'pannello_della_libreria.dart';
+import '../../../../core/maestro/sequenza_di_aura.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
@@ -102,6 +104,9 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// **CIO' CHE LA MEDITAZIONE RICORDA.** Ordine DB voci 07 e 09.
   final MemoriaDelRespiro _memoria = MemoriaDelRespiro();
 
+  /// **I RITI CHE LA PERSONA SI E' COSTRUITA.** Ordine DB voce 05.
+  final SequenzeDiAura _sequenze = SequenzeDiAura();
+
   /// La frase che Aura dice alla fine, quando la memoria ha qualcosa di vero
   /// da dire. Nulla quando non ce l'ha: **non si inventa niente**.
   String? _cioCheAuraRicorda;
@@ -137,6 +142,11 @@ class _MeditationScreenState extends State<MeditationScreen>
     // La traccia si legge dal disco: il fiore deve gia' portare i giorni
     // quando compare, non riempirsi sotto gli occhi di chi guarda.
     unawaited(_memoria.carica());
+    // I riti composti si leggono dal disco: chi ne ha uno deve trovarlo gia'
+    // in fondo alla libreria, non vederlo comparire dopo.
+    unawaited(_sequenze.carica().then((_) {
+      if (mounted) setState(() {});
+    }));
     unawaited(_traccia.carica().then((_) {
       if (mounted) setState(() {});
     }));
@@ -241,7 +251,16 @@ class _MeditationScreenState extends State<MeditationScreen>
       _compiuta = true;
     });
     // IL CAMMINO SE NE ACCORGE: la meditazione e' compiuta, non aperta.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'meditazione'));
+    //
+    // **E IL CENTRO VIAGGIA COL GESTO. Ordine DB voce 06**, 9 settembre 2026.
+    // Il gesto partiva senza dettagli, e il diario non poteva sapere QUALE
+    // centro era stato respirato: le condizioni `VarietaDelDettaglio` e
+    // `CoincidenzaDelDettaglio` esistono gia' e sapevano gia' guardare i
+    // dettagli, ma qui non ne arrivava nessuno. **Nessun traguardo si monta
+    // qui**, che e' cio' che la voce 06 vieta: si apre soltanto la porta,
+    // cosi' i traguardi che il fondatore scrivera' non chiedono codice nuovo.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'meditazione',
+        dettagli: {'centro': ChakraDelGiorno.tutti[_indiceDelCentro].nome}));
     // **E LA GOCCIA RESTA NEL LOTO. Ordine CZ voce 10**, 8 settembre 2026.
     //
     // Il centro non si sceglie: e' quello acceso nel giorno in cui si respira,
@@ -577,6 +596,17 @@ class _MeditationScreenState extends State<MeditationScreen>
                         ),
                       ),
                     ],
+                  ),
+                  // **LA LIBRERIA STA SOTTO, E NON DAVANTI.** Ordine DB
+                  // voci 01, 02 e 05, 9 settembre 2026. La porta principale
+                  // resta quella dell'ordine CZ voce 06: Aura sceglie. Questo
+                  // pannello e' chiuso finche' non lo si apre, ed e' per chi
+                  // vuole cercare, comporre il proprio rito e leggere le
+                  // fonti di ogni pratica.
+                  PannelloDellaLibreria(
+                    palette: palette,
+                    centroDiOggi: _indiceDelCentro,
+                    sequenze: _sequenze,
                   ),
                   const SizedBox(height: SpacingTokens.md),
                   // Fondamento onesto, senza ripetere il disclaimer.

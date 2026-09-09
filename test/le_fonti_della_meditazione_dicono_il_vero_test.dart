@@ -18,7 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// **REGOLA H**: si prova cio' che c'e' e cio' che non deve esserci.
 void main() {
-  final testo = TestiDelleFonti.meditazione;
+  const testo = TestiDelleFonti.meditazione;
 
   test('Il testo esiste e non e\' un segnaposto', () {
     expect(testo.length, greaterThan(600),

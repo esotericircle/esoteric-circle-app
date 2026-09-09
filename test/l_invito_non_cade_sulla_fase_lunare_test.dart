@@ -199,9 +199,9 @@ void main() {
       final larghezzaSchermo = tester.view.physicalSize.width /
           tester.view.devicePixelRatio;
       // ignore: avoid_print
-      print("INVITO E BORDO, schermo " + voce.key + ": destro " +
-          a.right.toStringAsFixed(1) + " su " +
-          larghezzaSchermo.toStringAsFixed(1));
+      print('INVITO E BORDO, schermo ${voce.key}: destro '
+          '${a.right.toStringAsFixed(1)} su '
+          '${larghezzaSchermo.toStringAsFixed(1)}');
       expect(a.right, lessThanOrEqualTo(larghezzaSchermo),
           reason: "l invito esce dal bordo destro dello schermo");
       expect(a.left, greaterThanOrEqualTo(0.0),
