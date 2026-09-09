@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/maestro/chakra_del_giorno.dart';
 import 'package:esoteric_circle/core/maestro/frequenza_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+
 /// **IL CENTRO VIAGGIA COL GESTO, e i traguardi proposti sono misurati.**
 /// Ordine DB voce 06, 9 settembre 2026.
 ///
@@ -41,6 +43,11 @@ void main() {
         if (!r.trimLeft().startsWith('//')) r,
     ];
     final codice = righe.join('\n');
+    cardinaleMinimo(righe.length, 300,
+        cosa: 'righe di codice della schermata della Meditazione',
+        perche: 'Se il file si svuotasse o cambiasse nome, la ricerca non '
+            'troverebbe niente e la guardia direbbe che il centro non viaggia '
+            'per non aver letto niente, oppure il contrario.');
     expect(codice.contains("dopoUnGesto(context, 'meditazione'"), isTrue,
         reason: 'la schermata non manda piu il gesto della meditazione');
     // Il pezzo che conta: **il dettaglio del centro parte insieme al gesto**.

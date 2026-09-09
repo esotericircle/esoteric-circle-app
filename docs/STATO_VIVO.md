@@ -923,6 +923,36 @@ Manifesto `docs/ordini/ORDINE_CX_VISO.md`, che porta le sue parole alla
 lettera. **Nessuna riga di codice ancora scritta**, e la build 2232 non lo
 contiene.
 
+**CHIUSO IL 9 SETTEMBRE 2026, e la riga qui sopra sul codice non scritto
+valeva solo per il giorno dell'apertura.** Le quattro cause qui sotto sono
+state tutte curate, e curandole ne sono emerse altre che l'ordine non
+prevedeva. **La piu' grave era quella che il fondatore aveva sospettato per
+primo**: *"i responsi non corrispondono a me e ho paura che i risultati siano
+sempre gli stessi"*. Aveva ragione, ed e' stato misurato con quattro volti
+veri scansionati dal suo telefono, sei misure lette dal logcat: **otto soglie
+su undici erano irraggiungibili**, la fronte pretendeva 0,33 dove i volti veri
+stanno fra 0,13 e 0,18, e **due persone diverse ricevevano undici tratti su
+undici identici**. Le soglie sono state ritarate sui volti veri, stanno adesso
+in un posto solo, e la scansione legge la **mediana di nove fotogrammi**
+invece di un attimo. **Destra e sinistra erano invertite**, e la prova era
+sbagliata insieme al codice: la testa sintetica metteva la guancia sinistra a
+x negativa contraddicendo la convenzione dichiarata.
+
+**LA CARD PROMETTEVA UN NUMERO CHE NON REGGEVA.** Diceva *"una costellazione
+su 104.976 possibili"*, e il conto delle collisioni ha detto il vero:
+**a 382 utenti** era piu' probabile che due card fossero identiche che il
+contrario, a 793 la probabilita' arrivava al 95 per cento. Il fondatore ha
+scelto due strade su tre: si arricchisce il catalogo **e** la figura nasce
+dalle misure continue invece che dalle caselle. La seconda era gia' in piedi
+senza che nessuno lo sapesse, perche' `FaceConstellation.da` prende i punti
+veri e non i tratti.
+
+**E ADESSO SI DICHIARA CIO' CHE NON SI E' VISTO.** `cio_che_non_ho_visto.dart`
+misura fronte e sopracciglia e, sotto la soglia, il responso dice che erano
+coperte invece di descriverle. Le letture passate portano la foto,
+`ritratti_del_viso.dart` ne tiene dodici **sul telefono** con la gestione in
+mano a chi le ha fatte, e il lucchetto che nessuno aveva chiesto e' sparito.
+
 **LA PREMESSA E' STATA VERIFICATA PRIMA DI TOCCARE QUALSIASI COSA, ED E'
 CADUTA DALLA PARTE PEGGIORE.** L'ordine CR del 6 settembre dichiara di aver
 gia' riparato il muro. Verificato sul grafo dei commit e non a memoria: i
@@ -1540,6 +1570,81 @@ approvata del 17 agosto 2026: a riposo il titolo dello scaffale scivola sotto la
 barra, come ogni contenuto che le passa sotto scorrendo. Fu la risposta alla
 richiesta di Mauro di far sparire lo spazio esagerato fra l'ingresso e "Le tue
 arti".
+
+## L'ORDINE DB, LA MEDITAZIONE CHE RICORDA
+
+**9 settembre 2026.** Manifesto `docs/ordini/ORDINE_DB_MANIFESTO.md`. **Tredici
+voci: undici chiuse, una proposta e non montata come l'ordine chiede, una
+aperta fino alla prova a video.** La sigla DB era libera, verificato contando
+le sigle in `docs/ordini/`: ottantaquattro manifesti, le lettere arrivavano
+fino a CZ.
+
+**IL LOTO ERA UNA FIGURA PICCOLA IN BIANCO E NERO, e la prima stesura era
+stata respinta.** Adesso sono misure, tutte pretese da una guardia: al culmine
+dell'inspiro il fiore occupa l'**88,0 per cento** della larghezza, al fondo
+dell'espiro il **54,0**, ha **quattro corone** di **7, 11, 17 e 23** petali e
+**sette tinte distinte** in una settimana. I tre numeri dopo il sette sono
+**primi crescenti**, e la guardia pretende che nessuna corona sia multipla di
+un'altra: due corone in rapporto intero allineano i petali su raggi comuni e
+disegnano braccia, cioe' la stella a punte da cui questo fiore deve stare
+lontano. **L'onda e' cio' che rende il respiro leggibile**: a meta' inspiro il
+cuore e' aperto al 50 per cento e il bordo al 18, cosi' il fiore respira
+invece di ingrandirsi.
+
+**LA LIBRERIA PRENDE LA FORMA DELLA Z-APP E CI METTE SOTTO UN FONDAMENTO
+VERO.** Dieci pratiche pronte, trentasei previste, quattro tradizioni ognuna
+**con autore e anno**, e una guardia che pretende l'anno con un'espressione
+regolare: senza data non e' una fonte, e' un riferimento vago. **Il solfeggio
+e' dichiarato per quello che e'**, una convenzione contemporanea del 1999, e
+l'attribuzione a Guido d'Arezzo si nomina per dire che non regge. L'ampiezza
+si dichiara senza gonfiarla: le previste devono essere piu' delle pronte, e
+non piu' di otto volte, altrimenti e' il numero da vetrina che rende
+inaffidabile l'app di riferimento.
+
+**LA MEMORIA DEL RESPIRO NON E' UNA SECONDA MEMORIA, e il censimento e' stato
+fatto prima di scrivere una riga.** `MaestroMemory` e' fatta di frasi che il
+modello distilla, una per Maestro, su Firestore; il respiro produce numeri.
+Il dato grezzo resta sul telefono, **il riassunto** entra nel contesto, ed e'
+la stessa relazione che c'e' fra la carta natale e `NatalContext`. Il contesto
+si compone in **otto punti** dello stesso controllore: aggiungere un parametro
+avrebbe voluto dire toccarli tutti e otto, e al primo dimenticato due Maestri
+saprebbero cose diverse della stessa persona. **L'innesto e' in un punto
+solo**, fra i fatti, dove la memoria viene caricata.
+
+**AURA DICE UNA COSA SOLA, E SOLO QUANDO E' VERA.** Cinque osservazioni
+possibili, ordinate per rarita': la prima volta su un centro capita sette
+volte in una vita di pratica, la terza sera di fila capita spesso, e dire la
+cosa comune quando ce n'era una rara spreca l'unico momento in cui l'app
+poteva stupire. **Ogni frase ha una soglia sotto la quale non nasce**: sette
+giorni per il ritorno, tre sere per la striscia, sei sessioni e uno scarto del
+venti per cento per le durate. **Alla primissima sessione Aura non dice
+niente**, che e' il caso piu' importante.
+
+**IL CONFINE E' PROVATO SU DICIANNOVE FILE E DUECENTOTRE RIGHE, e il
+vocabolario e' dichiarato**: quarantotto parole in quattro famiglie, promesse
+di guarigione, condizioni e sintomi, parti del corpo da trattare, effetti
+fisiologici promessi. La guardia scopre i file invece di elencarli, dichiara
+quanti ne ha guardati, **e prova il vocabolario su quattro frasi finte che
+promettono**, altrimenti sarebbe verde per non sapere cosa cercare.
+
+**LA CARD DEL RESPIRO CHIUDE ANCHE LA VOCE CZ.09**, che era ferma su lavoro
+calcolato e non montato. La figura e' una corona di raggi, uno per respiro, e
+il raggio viene dalla quota del dentro. **Qui la promessa regge dove sulla
+card del viso non reggeva**, e la differenza non e' di grado: quella nasceva
+da caselle, questa da numeri in virgola mobile misurati al millisecondo. Due
+serie che differiscono di un centesimo su un solo respiro danno figure
+distanti 0,001667.
+
+**I TRE TRAGUARDI PROPOSTI SONO MISURATI CONTRO IL CATALOGO DEI 165**, in
+`docs/ordini/DB_traguardi_del_respiro.md`, e non montati perche' li scrive il
+fondatore. Misurarli ha trovato due cose: **il gesto della meditazione partiva
+senza dettagli**, quindi il diario non poteva sapere quale centro fosse stato
+respirato benche' `VarietaDelDettaglio` esistesse gia' e sapesse guardarli, e
+**il traguardo "tre giorni di seguito sullo stesso centro" non si accenderebbe
+mai per nessuno**, perche' il centro segue il giorno della settimana con una
+mappa biiettiva. Provato su un anno intero: **365 giorni guardati, zero coppie
+consecutive con lo stesso centro.** Adesso il centro viaggia col gesto, e
+nessun traguardo e' montato: e' aperta la porta, non scritto il premio.
 
 ## Regole ferree
 

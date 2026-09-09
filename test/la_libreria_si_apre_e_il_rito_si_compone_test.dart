@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'cardinale_minimo.dart';
+
 /// **LA LIBRERIA SI APRE E IL RITO SI COMPONE.** Ordine DB voci 01, 02 e 05,
 /// 9 settembre 2026.
 ///
@@ -99,6 +101,14 @@ void main() {
       for (final t in tester.widgetList<Text>(find.byType(Text)))
         t.data ?? '',
     ];
+    cardinaleMinimo(testi.length, 20,
+        cosa: 'testi a schermo nel pannello aperto',
+        perche: 'Su un pannello vuoto nessuna fonte manca, e la guardia '
+            'sarebbe verde per non aver visto niente.');
+    cardinaleMinimo(Tradizione.values.length, 3,
+        cosa: 'tradizioni da cercare a schermo',
+        perche: 'Con una tradizione sola la guardia direbbe che le fonti ci '
+            'sono tutte per non averne quasi cercata nessuna.');
     var conFonte = 0;
     for (final t in Tradizione.values) {
       if (testi.any((s) => s.contains(t.fonte))) conFonte++;
