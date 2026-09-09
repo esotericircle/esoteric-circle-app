@@ -194,7 +194,7 @@ class MemoriaDelRespiro {
     if (fila >= 2) pezzi.add('$fila giorni di seguito');
     final piu = centroPiuFrequentato;
     if (piu != null) {
-      pezzi.add('centro piu frequentato ${ChakraDelGiorno.tutti[piu].italiano}');
+      pezzi.add('centro più frequentato ${ChakraDelGiorno.tutti[piu].italiano}');
     }
     final mai = centriMaiToccati;
     if (mai.isNotEmpty && mai.length < ChakraDelGiorno.tutti.length) {
