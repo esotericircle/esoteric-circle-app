@@ -1,6 +1,6 @@
 # Il contrasto del Rito dell'Alba, misurato
 
-<!-- TESTI_MISURATI: 24 -->
+<!-- TESTI_MISURATI: 25 -->
 <!-- SOTTO_LA_SOGLIA: 0 -->
 <!-- Generato da test/l_alba_si_legge_test.dart. Non si scrive a mano: si rigenera. -->
 
@@ -32,12 +32,13 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `alba_etichetta_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:370 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Piano | a rito compiuto | senza chiave | cerimonialeGrande | 34 | 700 | #084F3B | #D0D5CB | **6.37** | 3.0 | si' |
 | `alba_perche_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:391 | lettura | 20 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_dove_va_la_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:405 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
+| `alba_lente_della_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:415 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
+| `alba_dove_va_la_parola` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:430 | lettura | 20 | 400 | #554627 | #DCDED2 | **6.69** | 4.5 | si' |
 | Da dove nasce | a rito compiuto | senza chiave | display a misura | 14 | 600 | #084F3B | #EDEADD | **7.89** | 4.5 | si' |
-| `alba_base_etichetta_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:622 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
-| `alba_base_valore_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:637 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
-| `alba_base_etichetta_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:622 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
-| `alba_base_valore_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:637 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
+| `alba_base_etichetta_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:647 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
+| `alba_base_valore_perché_questo_rito` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:662 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
+| `alba_base_etichetta_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:647 | lettura | 20 | 400 | #554627 | #E5E1D1 | **6.96** | 4.5 | si' |
+| `alba_base_valore_ancora_natale` | a rito compiuto | lib/features/rituals/ritual_gift_card.dart:662 | lettura | 20 | 400 | #2A2213 | #CBCDC2 | **9.76** | 4.5 | si' |
 | Condividi | a rito compiuto | senza chiave | etichetta | 14 | 400 | #2A2213 | #F6F2E2 | **14.00** | 4.5 | si' |
 | Custodisci | a rito compiuto | senza chiave | etichetta | 14 | 400 | #2A2213 | #DEDFD3 | **11.67** | 4.5 | si' |
 | Parlane con Aura | a rito compiuto | senza chiave | etichetta | 14 | 400 | #F4F1E8 | #0C785A | **4.83** | 4.5 | si' |

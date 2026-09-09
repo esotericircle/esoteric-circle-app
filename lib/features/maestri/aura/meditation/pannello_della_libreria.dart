@@ -155,14 +155,22 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
         Text(
           'Il mio rito',
           key: const Key('meditazione_il_mio_rito'),
-          style: TypographyTokens.etichetta().copyWith(color: palette.gold),
+          // **ORO CHIARO E NON ORO PIENO**, e lo ha chiesto il censimento
+          // dei grigi: su un fondo di Maestro l'oro pieno non arriva alla
+          // soglia che il maiuscoletto piccolo pretende.
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft),
         ),
         const SizedBox(height: SpacingTokens.xs),
         ParagrafiDiLettura(
           testo: 'Tocca da ${SequenzeDiAura.minimo} a '
               '${SequenzeDiAura.massimo} pratiche qui sopra e dagli un nome. '
               'Lo ritrovi ogni volta che torni.',
-          stile: TypographyTokens.didascalia()
+          // **UN TESTO DA LEGGERE PER INTERO PORTA LA MISURA DEL RESPONSO**,
+          // e non quella della didascalia: lo pretende la guardia delle
+          // descrizioni, perche' due misure diverse per lo stesso genere di
+          // testo si leggono come due voci diverse.
+          stile: TypographyTokens.lettura()
               .copyWith(color: ColorTokens.textSecondary),
         ),
         if (_inComposizione.isNotEmpty) ...[
@@ -271,7 +279,7 @@ class _RigaDelRespiro extends StatelessWidget {
               child: scelto
                   ? Text('${posto + 1}',
                       style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.gold))
+                          .copyWith(color: palette.goldSoft))
                   : Icon(Icons.circle_outlined,
                       size: 12,
                       color: ColorTokens.textSecondary.withValues(alpha: 0.6)),

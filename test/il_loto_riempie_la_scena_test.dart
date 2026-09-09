@@ -155,7 +155,7 @@ void main() {
         theme: AppTheme.dark(),
         home: MaestroScope(
           child: MeditationScreen(
-              player: SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+              player: const SilentTonePlayer(), now: DateTime(2026, 9, 9)),
         ),
       ),
     ));
@@ -218,7 +218,7 @@ void main() {
           theme: AppTheme.dark(),
           home: MaestroScope(
             child: MeditationScreen(
-                player: SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+                player: const SilentTonePlayer(), now: DateTime(2026, 9, 9)),
           ),
         ),
       ));

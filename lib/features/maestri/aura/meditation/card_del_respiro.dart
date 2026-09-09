@@ -105,8 +105,12 @@ class CardDelRespiro extends StatelessWidget {
                   .copyWith(color: const Color(0xFFF2E4C9), height: 1.5),
             ),
             const SizedBox(height: SpacingTokens.sm),
+            // **IL PIEDE E' A CORPO E NON IN MAIUSCOLETTO**, e lo ha chiesto
+            // una guardia: in maiuscoletto questa riga andava a capo, e *"il
+            // maiuscoletto e' un segnale, non un testo: quando va a capo
+            // diventa un muro di lettere larghe"*.
             Text('Esoteric Circle · Aura · ${centro.italiano}',
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: ColoreDelCentro.bordoDi(colore)
                         .withValues(alpha: 0.75),
                     letterSpacing: 1.0)),

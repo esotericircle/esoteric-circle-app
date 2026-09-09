@@ -293,13 +293,27 @@ class MaestroChatController extends ChangeNotifier {
       // controllore e' lo stesso per tutti: Medora che parla di un transito
       // difficile sapendo che la persona respira tutte le sere conosce chi ha
       // davanti.
-      await _respiro.carica();
-      final riassunto = _respiro.riassuntoPerIMaestri;
-      if (riassunto.isNotEmpty) {
+      // **E LA CHAT NON ASPETTA IL RESPIRO, ed e' una correzione di oggi.**
+      //
+      // La prima stesura metteva `await _respiro.carica()` qui, sul percorso
+      // che apre la chat. **Undici prove sono diventate rosse**, e non per un
+      // giro d'attesa in piu': in `flutter test` senza il finto archivio,
+      // `SharedPreferences.getInstance()` **non completa mai**, quindi l'apertura
+      // restava appesa e il Maestro taceva. Fra quelle prove c'era proprio
+      // quella che pretende che un Maestro non resti mai muto.
+      //
+      // **Nessuna funzione dell'app puo' tenere in ostaggio l'apertura della
+      // chat per un dato che le e' solo utile.** Il riassunto arriva quando
+      // arriva, si aggiunge ai fatti e la scena si aggiorna: se il telefono
+      // e' lento, il primo turno parte senza e il secondo ce l'ha.
+      unawaited(_respiro.carica().then((_) {
+        final riassunto = _respiro.riassuntoPerIMaestri;
+        if (riassunto.isEmpty) return;
         _memoryState = _memoryState.copyWith(
           facts: [..._memoryState.facts, 'Pratica del respiro: $riassunto'],
         );
-      }
+        notifyListeners();
+      }));
       final cronologia = results[2] as List<ChatMessage>;
       // **LA CONVERSAZIONE CORRENTE E' QUELLA DEL MESSAGGIO PIU' RECENTE.**
       // Ordine CI voce 06: non si conserva da nessuna parte, si legge da cio'

@@ -551,8 +551,12 @@ class _MeditationScreenState extends State<MeditationScreen>
                           Expanded(
                             child: ParagrafiDiLettura(
                               testo: _cioCheAuraRicorda!,
+                              // **ORO CHIARO E NON ORO PIENO**, e lo ha
+                              // chiesto il censimento dei grigi: su un fondo
+                              // di Maestro l'oro pieno non arriva alla soglia
+                              // che il corpo di lettura pretende.
                               stile: TypographyTokens.lettura()
-                                  .copyWith(color: palette.gold),
+                                  .copyWith(color: palette.goldSoft),
                             ),
                           ),
                         ],

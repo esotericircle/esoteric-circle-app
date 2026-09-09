@@ -27,7 +27,7 @@ void main() {
   /// `flutter_test` e 800x600, che non e nessun telefono: la libreria ci sta
   /// tutta in larghezza e i tocchi cadono dove sul telefono vero non
   /// cadrebbero mai. Qui si misura a 390x844.
-  void _telefono(WidgetTester tester) {
+  void telefono(WidgetTester tester) {
     tester.view.physicalSize = const Size(390 * 3, 844 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.resetPhysicalSize);
@@ -37,7 +37,7 @@ void main() {
   /// Tocca una riga della libreria **portandola prima sotto gli occhi**: con
   /// dieci pratiche in una lista che scorre, la seconda sta gia fuori
   /// schermo, e un tocco a vuoto passerebbe per un tocco riuscito.
-  Future<void> _toccaLaPratica(WidgetTester tester, String nome) async {
+  Future<void> toccaLaPratica(WidgetTester tester, String nome) async {
     final riga = find.textContaining(nome, findRichText: false).first;
     await tester.ensureVisible(riga);
     await tester.pump();
@@ -45,7 +45,7 @@ void main() {
     await tester.pump();
   }
 
-  Widget _scena({SequenzeDiAura? sequenze}) => MaterialApp(
+  Widget scena({SequenzeDiAura? sequenze}) => MaterialApp(
         home: Scaffold(
           body: SingleChildScrollView(
             child: PannelloDellaLibreria(
@@ -59,8 +59,8 @@ void main() {
 
   testWidgets('LA LIBRERIA E CHIUSA DI PARTENZA, e Aura sceglie',
       (tester) async {
-    _telefono(tester);
-    await tester.pumpWidget(_scena());
+    telefono(tester);
+    await tester.pumpWidget(scena());
     // Ordine CZ voce 06: *"Un menu di frequenze davanti a chi non ha criterio
     // per scegliere e la forma sbagliata"*. Il pannello si apre a richiesta.
     expect(find.byKey(const Key('meditazione_ampiezza_libreria')), findsNothing,
@@ -71,8 +71,8 @@ void main() {
 
   testWidgets('APERTA, DICHIARA QUANTE SONO PRONTE E QUANTE PREVISTE',
       (tester) async {
-    _telefono(tester);
-    await tester.pumpWidget(_scena());
+    telefono(tester);
+    await tester.pumpWidget(scena());
     await tester.tap(find.byKey(const Key('meditazione_apri_libreria')));
     await tester.pump();
     final riga = tester.widget<Text>(
@@ -90,8 +90,8 @@ void main() {
   });
 
   testWidgets('OGNI PRATICA A SCHERMO PORTA LA SUA FONTE', (tester) async {
-    _telefono(tester);
-    await tester.pumpWidget(_scena());
+    telefono(tester);
+    await tester.pumpWidget(scena());
     await tester.tap(find.byKey(const Key('meditazione_apri_libreria')));
     await tester.pump();
     // **SI GUARDA CIO CHE E DAVVERO A SCHERMO**, non la lista in memoria: la
@@ -123,12 +123,12 @@ void main() {
 
   testWidgets('UNA PRATICA SOLA NON E UNA SEQUENZA, e lo dice', (tester) async {
     final sequenze = SequenzeDiAura();
-    _telefono(tester);
-    await tester.pumpWidget(_scena(sequenze: sequenze));
+    telefono(tester);
+    await tester.pumpWidget(scena(sequenze: sequenze));
     await tester.tap(find.byKey(const Key('meditazione_apri_libreria')));
     await tester.pump();
     // Si tocca una pratica sola.
-    await _toccaLaPratica(tester, LibreriaDeiRespiri.pronte.first.nome);
+    await toccaLaPratica(tester, LibreriaDeiRespiri.pronte.first.nome);
     await tester.enterText(
         find.byKey(const Key('meditazione_nome_del_rito')), 'La mia sera');
     await tester.pump();
@@ -152,12 +152,12 @@ void main() {
   testWidgets('DUE PRATICHE E UN NOME FANNO UN RITO, e si ritrova',
       (tester) async {
     final sequenze = SequenzeDiAura();
-    _telefono(tester);
-    await tester.pumpWidget(_scena(sequenze: sequenze));
+    telefono(tester);
+    await tester.pumpWidget(scena(sequenze: sequenze));
     await tester.tap(find.byKey(const Key('meditazione_apri_libreria')));
     await tester.pump();
     for (final r in LibreriaDeiRespiri.pronte.take(2)) {
-      await _toccaLaPratica(tester, r.nome);
+      await toccaLaPratica(tester, r.nome);
     }
     await tester.enterText(
         find.byKey(const Key('meditazione_nome_del_rito')), 'La mia sera');
@@ -188,8 +188,8 @@ void main() {
     // La libreria e le fonti valgono anche dove il rito non si compone: una
     // funzione che sparisce insieme a un altra e due funzioni legate senza
     // ragione.
-    _telefono(tester);
-    await tester.pumpWidget(_scena());
+    telefono(tester);
+    await tester.pumpWidget(scena());
     await tester.tap(find.byKey(const Key('meditazione_apri_libreria')));
     await tester.pump();
     expect(find.byKey(const Key('meditazione_ampiezza_libreria')),

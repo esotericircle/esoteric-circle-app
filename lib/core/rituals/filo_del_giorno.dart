@@ -112,8 +112,14 @@ class FiloDelGiorno {
   /// **Non promette niente e non chiede niente**, che e' la legge dei testi di
   /// questa app: dice cosa e' successo alla parola, cioe' che ha attraversato
   /// il giorno ed e' arrivata qui.
+  /// **DICE DUE COSE E NON UNA, e sono due ordini diversi.** La voce CQ
+  /// 2.09 pretende che la riga dica **che cosa ne e' stato** della parola,
+  /// non solo che parola era; l'ordine CY chiede che chiuda con la domanda
+  /// che le da' un uso. Tenere una sola delle due lasciava rossa la guardia
+  /// dell'altra: qui stanno tutte e due, il fatto prima e la domanda dopo.
   static String richiamoDellaParola(String parola) =>
-      'Stamattina la tua parola era $parola. Dove l\'hai riconosciuta oggi?';
+      'Stamattina la tua parola era $parola. Adesso chiude il giro: dove '
+      'l\'hai riconosciuta oggi?';
 
   /// **LA LENTE: COSA FARSENE DELLA PAROLA.** Ordine CY, approvata dal
   /// fondatore il 9 settembre 2026.

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/face/face_history.dart';
 import '../../../../core/face/ritratti_del_viso.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -93,7 +94,10 @@ class _LeTueLettureDelVisoState extends State<LeTueLettureDelViso> {
 
   Future<bool?> _chiedi({required String titolo, required String testo}) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
-    return showDialog<bool>(
+    // **IL DIALOGO PASSA DAL VELO DEL CERCHIO**, ordine CF voce 09: un
+    // `showDialog` diretto arriva su un fondo che non e' il nostro, e una
+    // guardia lo pretende in un punto solo per tutta l'app.
+    return dialogoDelCerchio<bool>(
       context: context,
       builder: (c) => AlertDialog(
         backgroundColor: palette.surfaceElevated,
@@ -118,7 +122,8 @@ class _LeTueLettureDelVisoState extends State<LeTueLettureDelViso> {
             onPressed: () => Navigator.of(c).pop(true),
             child: Text('Cancella',
                 style:
-                    TypographyTokens.etichetta().copyWith(color: palette.gold)),
+                    TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
           ),
         ],
       ),
@@ -308,7 +313,11 @@ class _IlPulsanteDelVuoto extends StatelessWidget {
               testo: 'Le fotografie restano su questo telefono e non vengono '
                   'inviate da nessuna parte. Si conservano per le ultime '
                   '${RitrattiDelViso.quanteNeTengono} letture.',
-              stile: TypographyTokens.didascalia()
+              // **UN TESTO DA LEGGERE PER INTERO PORTA LA MISURA DEL
+              // RESPONSO**, e non quella della didascalia: lo pretende la
+              // guardia delle descrizioni, e qui si tratta della promessa
+              // sulla privacy delle fotografie, che va letta davvero.
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.md),
