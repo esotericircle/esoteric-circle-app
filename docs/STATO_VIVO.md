@@ -1688,6 +1688,88 @@ mappa biiettiva. Provato su un anno intero: **365 giorni guardati, zero coppie
 consecutive con lo stesso centro.** Adesso il centro viaggia col gesto, e
 nessun traguardo e' montato: e' aperta la porta, non scritto il premio.
 
+## L'ORDINE DA, LE QUATTRO IDEE DEL MANIFESTO DB
+
+**10 settembre 2026.** Il fondatore ha detto di procedere con le idee che
+avevo scritto nella voce DB.12, e sono diventate quattro voci. **La sigla e'
+DA e non DC**, perche' la DC e' arrivata dal fondatore mentre chiudevo questo
+lavoro e l'ordine chiede di rinominare alla prima libera.
+
+**IL DITO CHE SCIVOLA A OCCHI CHIUSI.** L'app chiede di respirare a occhi
+chiusi, e a occhi chiusi il dito scivola: uno scivolo valeva come un dito
+alzato. Adesso un distacco sotto i **duecento millisecondi** e' rumore, e
+l'inspiro riprende col suo tempo invece di ripartire da zero.
+
+**IL RESPIRO CHE NON E' UN RESPIRO.** Se l'app va in secondo piano col dito
+giu', quel mezzo respiro dura minuti e finiva nella media, nella figura della
+card e nella memoria. Sopra **sessanta secondi** si scarta, e gli scartati si
+contano.
+
+**L'ORA DEL SOFFIO SEGUE CHI RESPIRA**, e il primo confine che avevo scritto
+**non serviva il caso per cui era nato**: sei ore di distanza dall'ora di
+partenza, mentre chi respira alle 22 sta a dodici ore da meta' mattina. Adesso
+il confine e' un'ora e non una distanza: **mai fra l'una e le sei**.
+
+**LA PRATICA CHE STA NEL TUO TEMPO**, a chi lascia a meta' piu' di una
+sessione su tre. E la guardia ha trovato che **la libreria non aveva niente
+sotto i cinque minuti**: la proposta esisteva e non aveva niente da proporre.
+Aggiunte due pratiche brevi vere.
+
+**IL SIGILLO DEL SOGNO LEGGE IL RESPIRO DI OGGI**, un fatto della giornata al
+posto di una domanda generica, e solo se oggi si e' respirato.
+
+## L'ORDINE DC, IL VIAGGIO DELLO SCIAMANO
+
+**10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DC_MANIFESTO.md`.
+**Ventuno voci in due pezzi: diciannove chiuse, una parziale e dichiarata, una
+aperta fino alla prova a video.**
+
+**L'ANIMALE GUIDA DIVENTA IL VIAGGIO DELLO SCIAMANO.** Il fondatore l'aveva
+giudicata *"una funzionalita' buttata li'"*, e la causa e' una sola: **oggi
+l'Animale e' un risultato, e nella tradizione e' un rapporto.** Adesso si
+scende con una domanda e si risale con una risposta. Quattro discese in quattro
+giorni diversi, perche' Harner chiede che l'animale si mostri almeno quattro
+volte; il cielo restringe a **tre ombre** e le quattro scelte convergono su
+uno. **Il nome non si dice prima della quarta.**
+
+**LA SCENA SI COMPONE E NON SI PESCA**: dodici luoghi, diciotto cose, dieci
+gesti, quattro momenti fanno **8.640 scene da 44 figure**, e il conto si
+calcola dal catalogo. **L'ordine diceva quaranta figure: 12 piu' 18 piu' 10
+piu' 4 fa quarantaquattro**, dichiarato sotto la Regola ZERO.
+
+**LA GRAFICA E' MISURATA SUI PIXEL DIPINTI**, sotto la Regola I che nasce dal
+difetto del loto: il tunnel occupa il **100 per cento** della scena, fra la
+bocca e meta' discesa cambia il **69,9 per cento** dei pixel, l'animale in
+piena luce occupa il **67,4**, il varco della mano scopre **16.313 pixel**.
+
+**LA REGOLA GENERALE DELL'ONBOARDING**, e vale su tutto: rivela cio' che
+nessuna funzione rivelera' mai, e cio' che una funzione rivelera' **lo annuncia
+e non lo consuma**. L'Animale esce dalla rivelazione, la Carta di Nascita ci
+entra con l'animazione che **racconta il calcolo vero**: la funzione espone i
+passi e l'animazione li legge, cosi' non puo' ricalcolare niente. **576 istanti
+confrontati col calcolo su otto date.**
+
+**L'ANGELO NON APRIVA DUE SCHERMATE.** Il fatto del fondatore era vero, la
+causa era un'altra: la tessera della striscia chiamava la mappa delle rotte
+**senza passare la data di nascita**. Non erano due destinazioni: **era una
+porta che arrivava a mani vuote**, e colpiva **sei arti**.
+
+**IL CUORE E LA "I" SI SOVRAPPONEVANO SU TRE SCHERMATE** perche' quelle tre
+costruiscono una `AppBar` a mano invece di usare `BarraArte`. La cura sta in
+`AngoloDellaBarra`, che sedici schermate montavano gia' e che era **uno spazio
+vuoto**. E c'era una quarta schermata col difetto che nessuno aveva visto: il
+Soffio.
+
+**IL CENSIMENTO DELLA REGOLA I**, in `docs/ordini/DC_censimento_regola_i.md`:
+**212** prove asseriscono su qualcosa di visibile, **56** guardano i pixel,
+**156** interrogano una formula. Di queste, **42** sorvegliano schermate gia'
+rifiutate: quattro riscritte, **trentanove rimandate con la ragione
+dichiarata**.
+
+**E SU 165 TRAGUARDI, ZERO SONO IRRAGGIUNGIBILI**, provato da una guardia
+permanente che costruisce la fotografia piu' generosa di un anno. Il difetto
+che l'ordine DB aveva trovato stava nella proposta, non nel catalogo.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
