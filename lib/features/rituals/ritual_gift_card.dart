@@ -148,6 +148,18 @@ class _IlRitualeDiOggi extends StatelessWidget {
           // **E LA VIA COL DITO, SEMPRE.** Regola di casa: ogni esperienza
           // che passa da un sensore ha il suo ripiego tattile, e qui il
           // ripiego fa parte del rituale, non e' una nota a pie' di pagina.
+          // **E IL RIPIEGO SI ANNUNCIA. Ordine DD voce 02, 10 settembre
+          // 2026.** La via col dito stava attaccata al gesto, senza titolo:
+          // si leggeva come una seconda meta della stessa istruzione, e chi
+          // scorreva finiva per fare tutte e due le cose. Adesso una riga
+          // sola dice che quella sotto e un altra strada per lo stesso
+          // rituale, non un passo in piu.
+          const SizedBox(height: SpacingTokens.xs),
+          Text('IN ALTERNATIVA',
+              key: const Key('alba_titolo_della_via_tattile'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: accento, letterSpacing: 1.6)),
+          const SizedBox(height: 2),
           Text(rito.viaTattile,
               key: const Key('alba_via_tattile_del_mantra'),
               style: TypographyTokens.didascalia()

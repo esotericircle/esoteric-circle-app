@@ -57,10 +57,10 @@ void main() {
       ],
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),
-        home: Scaffold(
+        home: const Scaffold(
           // La stessa composizione della chat: le due righe una sopra
           // l'altra, dentro il margine orizzontale della schermata.
-          body: const Padding(
+          body: Padding(
             padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             child: Column(
               mainAxisSize: MainAxisSize.min,

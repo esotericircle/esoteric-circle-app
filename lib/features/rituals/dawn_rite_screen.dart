@@ -508,7 +508,10 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     final ragione = gift.rito?.perche;
     try {
       final andata = await PortaDellaCondivisione.testo(
-          'La mia parola del giorno dal Rito dell\'Alba: $word.'
+          // **FRA VIRGOLETTE ANCHE QUI**, ordine DD voce 02: chi riceve
+          // il messaggio deve vedere qual e' la parola e quale il
+          // contorno, e nel testo condiviso il grassetto non arriva.
+          'La mia parola del giorno dal Rito dell\'Alba: «$word».'
           '${ragione == null ? '' : ' $ragione'} Con Esoteric Circle.');
 // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
 // a condivisione davvero avvenuta.

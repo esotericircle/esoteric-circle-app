@@ -395,6 +395,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// **Non si e' tolto il filo**, che dice che le tre carte sono una lettura
   /// sola: si e' rimesso in scena cio' su cui il filo corre. Chi guarda vede
   /// l'ultima carta fiorire e le tre carte legarsi, e poi Medora pensa.
+  ///
+  /// **E DAL 10 SETTEMBRE 2026 NESSUNO LO CHIEDE PIU'. Ordine DD voce 08.**
+  /// Questo fatto reggeva il blocco montato SOTTO il pulsante, quello che
+  /// riordinava la pagina. Adesso il blocco di sopra resta fino al responso e
+  /// i pezzi stanno dove stavano: il momento fra l'ultima carta e la
+  /// riflessione non ha piu' bisogno di una scena sua, perche' e' la stessa
+  /// scena di prima con una carta in piu'.
+  ///
+  /// **Non si cancella**, perche' il fatto resta vero e nominato in tre
+  /// commenti di questo file: e' l'istante che il fondatore ha visto tre
+  /// volte, e la storia di come e' stato chiuso vive attaccata a lui.
+  // ignore: unused_element
   bool get _carteDopoLUltima => _complete && !_responsoPronto;
 
   /// Vero dal momento in cui Medora ha finito di pensare: da li' in poi il

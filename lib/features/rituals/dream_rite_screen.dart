@@ -9,6 +9,7 @@ import '../../core/sigilli/ora_rituale.dart';
 import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/frase_con_la_parola.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 
@@ -621,7 +622,14 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
         if (_parolaDiStamattina != null) ...[
           const SizedBox(height: SpacingTokens.sm),
-          Text(FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
+          // **LA PAROLA IN GRASSETTO DENTRO LA FRASE.** Ordine DD voce 02,
+          // 10 settembre 2026: qui la parola aveva lo stesso peso di
+          // "stamattina" e di "era", ed e' la sola cosa che chi legge deve
+          // riconoscere. Le virgolette le mette la frase, il grassetto lo
+          // mette questo widget.
+          FraseConLaParola(
+              frase: FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
+              parola: _parolaDiStamattina!,
               key: const Key('dream_parola_del_mattino'),
               textAlign: TextAlign.center,
               // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
@@ -632,7 +640,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
               // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
               // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
-              style: TypographyTokens.lettura()
+              stile: TypographyTokens.lettura()
                   .copyWith(color: _palette.goldSoft, height: 1.45)),
         ],
         // **IL RESPIRO DI OGGI.** Ordine DA voce 06: un fatto della giornata

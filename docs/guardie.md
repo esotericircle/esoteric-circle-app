@@ -437,6 +437,7 @@ le altre.
 | `la_musica_riprende_solo_se_stava_suonando_test.dart` | la musica riprende solo se stava suonando | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |
+| `la_parola_del_giorno_si_vede_nella_frase_test.dart` | la parola del giorno si vede nella frase | 1, 2 | dalla porta comune | 10/09/2026, DD (rossa tre volte con la parola nuda innestata) | 1 |
 | `la_parola_dice_a_cosa_serve_test.dart` | la parola del giorno dice a cosa serve | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
 | `la_parola_torna_la_sera_test.dart` | la parola del giorno torna la sera | 1 | proprio, dichiarato | 09/09/2026, CY | 2 |
 | `la_parola_voce_resta_allaudio_test.dart` | la parola voce resta allaudio | 1 | dalla porta comune | mai | 3 |

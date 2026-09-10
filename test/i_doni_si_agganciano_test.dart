@@ -315,8 +315,23 @@ void main() {
       // NOMINI la parola del mattino, resta intero, ed e' quello che si
       // misura: la frase esatta era una copia del testo, e una copia si rompe
       // ogni volta che il testo migliora.
-      expect(FiloDelGiorno.richiamoDellaParola('Soglia'),
-          startsWith('Stamattina la tua parola era Soglia'));
+      // **E LA COPIA SI E ROTTA DAVVERO, il 10 settembre 2026.** Ordine DD
+      // voce 02: la parola dentro la frase adesso sta fra virgolette basse,
+      // e questo `startsWith` pretendeva la formula parola per parola. Il
+      // commento qui sopra lo aveva gia detto e la riga sotto lo faceva
+      // ancora.
+      //
+      // **Cio che l ordine P voce 18 pretende e che il richiamo NOMINI la
+      // parola del mattino**, e quello e cio che si misura adesso: che la
+      // parola ci sia dentro la frase. Come si scrive lo sorveglia la
+      // guardia della voce DD.02.
+      final richiamo = FiloDelGiorno.richiamoDellaParola('Soglia');
+      // ignore: avoid_print
+      print('ORDINE P VOCE 18: il richiamo della sera dice "$richiamo"');
+      expect(richiamo.contains('Soglia'), isTrue,
+          reason: 'il richiamo della sera non nomina la parola del mattino: '
+              '"$richiamo"');
+      expect(richiamo, startsWith('Stamattina la tua parola era'));
       expect(FiloDelGiorno.richiamoDellaDomanda('E adesso?'),
           startsWith('Ieri Medora ti ha lasciato questa domanda.'));
     });

@@ -117,9 +117,14 @@ class FiloDelGiorno {
   /// non solo che parola era; l'ordine CY chiede che chiuda con la domanda
   /// che le da' un uso. Tenere una sola delle due lasciava rossa la guardia
   /// dell'altra: qui stanno tutte e due, il fatto prima e la domanda dopo.
+  /// **E LA PAROLA STA FRA VIRGOLETTE.** Ordine DD voce 02, 10 settembre
+  /// 2026: dentro una frase la Parola del giorno non si distingueva dal
+  /// resto, e la sera e' l'unica cosa che chi legge deve riconoscere. Le
+  /// virgolette la staccano anche dove il grassetto non arriva; il
+  /// grassetto lo mette [FraseConLaParola] a video.
   static String richiamoDellaParola(String parola) =>
-      'Stamattina la tua parola era $parola. Adesso chiude il giro: dove '
-      'l\'hai riconosciuta oggi?';
+      'Stamattina la tua parola era «$parola». Adesso chiude il giro: '
+      'dove l\'hai riconosciuta oggi?';
 
   /// **LA LENTE: COSA FARSENE DELLA PAROLA.** Ordine CY, approvata dal
   /// fondatore il 9 settembre 2026.
