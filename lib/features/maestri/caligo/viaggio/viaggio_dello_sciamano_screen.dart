@@ -15,6 +15,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../maestri/rotta_arte.dart';
@@ -22,6 +23,8 @@ import '../../../sigilli/regia_del_cammino.dart';
 import '../../widgets/foglio_delle_fonti.dart';
 import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
+import 'la_girandola_degli_animali.dart';
+import 'sfondo_del_mondo_di_sotto.dart';
 import 'la_nebbia_e_l_animale.dart';
 
 /// **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voci 01, 04, 05, 06 e 07,
@@ -70,6 +73,24 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
       _ViaggioDelloSciamanoScreenState();
 }
 
+/// **LE TRE VIE CON CUI SI SCENDE.** Ordine DC voce 05, forma rifatta il 10
+/// settembre 2026.
+///
+/// L'ordine ne detta tre e dice che **nessuna e' la via povera**. Fino a
+/// questa stesura erano montate tutte e tre e nessuna era dichiarata: un
+/// campo di testo, sei pulsanti e una settima riga, tutti allo stesso
+/// livello. Adesso sono un selettore, e chi guarda vede che sono tre.
+enum ViaDellaDomanda {
+  /// Una delle sei gia' scritte.
+  scelta,
+
+  /// La propria, scritta a mano.
+  scritta,
+
+  /// Nessuna: si scende soltanto per incontrarlo.
+  incontro,
+}
+
 /// I momenti del viaggio, in fila.
 enum FaseDelViaggio {
   /// Si sceglie la porta e si scrive la domanda.
@@ -105,6 +126,9 @@ class _ViaggioDelloSciamanoScreenState
   final List<VarcoNellaNebbia> _varchi = [];
 
   final TextEditingController _domanda = TextEditingController();
+
+  /// **CON CHE COSA SI SCENDE**, e le tre vie sono dichiarate come tre.
+  ViaDellaDomanda _via = ViaDellaDomanda.scelta;
   String _temaScelto = '';
 
   ScenaDelViaggio? _scena;
@@ -276,106 +300,426 @@ class _ViaggioDelloSciamanoScreenState
     );
   }
 
-  /// **LA SOGLIA: la domanda, e la porta da cui si scende.**
+  /// **LA SOGLIA: il colpo d'occhio, la promessa, la domanda.**
+  ///
+  /// **RIFATTA IL 10 SETTEMBRE 2026, e la causa e' una frase del fondatore
+  /// davanti alla fotografia della voce DC.21**: *"l'utente e' gia' scappato
+  /// prima ancora di leggere. Solo testo da leggere, nessuna vena artistica,
+  /// nessuna immagine o riquadro che metta in evidenza o guidi l'utente.
+  /// Niente di attraente a primo impatto, niente che faccia capire di cosa si
+  /// tratta a primo impatto. Le domande buttate li'."*
+  ///
+  /// **Aveva ragione su tre leggi di casa insieme.** L'anatomia del responso a
+  /// quattro strati vuole **il livello visivo PRIMA del testo**, e qui il
+  /// primo strato era un paragrafo. La regola dell'ordine AS vuole **meno
+  /// testo e piu' diretto**, e qui c'erano tre paragrafi prima di qualunque
+  /// cosa si potesse toccare. E le sei domande erano **sei pulsanti di testo
+  /// in colonna**, senza un riquadro, senza uno stato acceso, senza niente
+  /// che dicesse che erano una scelta.
+  ///
+  /// **La forma nuova, in quattro pezzi.**
+  ///
+  /// **Uno, la bocca del tunnel.** La prima cosa che si vede e' la scena, non
+  /// una frase: il pittore della discesa a quota zero, che e' esattamente
+  /// l'apertura nella terra da cui si scende, con dentro l'occhiello e la
+  /// promessa. **La stessa immagine che si vedra' scendendo**, cosi' il colpo
+  /// d'occhio non e' una decorazione: e' un'anticipazione vera.
+  ///
+  /// **Due, i quattro segni.** A che punto si e' non e' piu' una frase in
+  /// cima: sono quattro tacche sotto la bocca, accese quante sono le discese.
+  /// La frase resta, sotto, per chi legge.
+  ///
+  /// **Tre, le tre vie, dichiarate come tre.** Scegli una domanda, scrivila
+  /// tu, scendi soltanto per incontrarlo. Prima erano un campo di testo, sei
+  /// pulsanti e una settima riga, tutti allo stesso livello: chi guardava non
+  /// poteva sapere che erano tre strade diverse.
+  ///
+  /// **Quattro, il pulsante pieno.** Era un contorno in fondo a una colonna
+  /// lunga, e a colonna scorsa non si vedeva nemmeno.
   Widget _laSoglia(MaestroPalette palette) {
     final primo = _diario.quanteDiscese == 0;
     final perche = LaDomandaDelViaggio.perCheNonVa(_domanda.text,
         primoViaggio: primo);
     final siPuo = _caricato &&
         _diario.siPuoScendereOggi(giaRiconosciuto: _riconosciuto);
+    final pronto = siPuo && (perche == null || _temaScelto.isNotEmpty);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(SpacingTokens.lg),
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+          SpacingTokens.lg, SpacingTokens.xxl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: SpacingTokens.xxl),
-          ParagrafiDiLettura(
-            key: const Key('viaggio_a_che_punto'),
-            testo: IQuattroViaggi.aChePunto(_diario.quanteDiscese),
-            textAlign: TextAlign.center,
-            stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          ParagrafiDiLettura(
-            testo: 'Scendi con una domanda, risali con una risposta.',
-            textAlign: TextAlign.center,
-            stile: TypographyTokens.lettura()
-                .copyWith(color: ColorTokens.textPrimary),
-          ),
+          _ilBoscoDellaSoglia(palette),
           const SizedBox(height: SpacingTokens.lg),
-          TextField(
-            key: const Key('viaggio_domanda'),
-            controller: _domanda,
-            maxLength: LaDomandaDelViaggio.quantoPuoEssereLunga,
-            onChanged: (_) => setState(() => _temaScelto = ''),
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              hintText: primo
-                  ? 'La tua domanda, se ne hai una'
-                  : 'La tua domanda',
-              hintStyle: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
+          // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
+          _iQuattroSegni(palette),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(
+            IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+            key: const Key('viaggio_a_che_punto'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
           ),
-          for (final d in LaDomandaDelViaggio.gliaScritte)
-            TextButton(
-              key: Key('viaggio_domanda_${d.id}'),
-              onPressed: () => setState(() {
-                _domanda.text = d.testo;
-                _temaScelto = d.tema;
-              }),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(d.tema,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: palette.goldSoft)),
-              ),
-            ),
-          TextButton(
-            key: const Key('viaggio_solo_incontro'),
-            onPressed: () => setState(() {
-              _domanda.text = '';
-              _temaScelto = LaDomandaDelViaggio.idSoloPerIncontrarlo;
-            }),
-            child: Text(LaDomandaDelViaggio.soloPerIncontrarlo,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: palette.goldSoft)),
-          ),
+          const SizedBox(height: SpacingTokens.xl),
+          _leTreVie(palette, primo: primo),
           if (perche != null && _temaScelto.isEmpty) ...[
+            const SizedBox(height: SpacingTokens.sm),
             Text(perche,
                 key: const Key('viaggio_perche_non_si_scende'),
+                textAlign: TextAlign.center,
                 style: TypographyTokens.didascalia()
                     .copyWith(color: palette.goldSoft)),
           ],
           if (!siPuo && _caricato) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            ParagrafiDiLettura(
-              key: const Key('viaggio_non_oggi'),
-              testo: IQuattroViaggi.percheSiAspetta,
-              // La spiegazione dell attesa si legge per intero, quindi porta
-              // la misura del responso.
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textSecondary),
+            const SizedBox(height: SpacingTokens.md),
+            DepthCard(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: ParagrafiDiLettura(
+                key: const Key('viaggio_non_oggi'),
+                testo: IQuattroViaggi.percheSiAspetta,
+                // La spiegazione dell attesa si legge per intero, quindi
+                // porta la misura del responso.
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
             ),
           ],
-          const SizedBox(height: SpacingTokens.md),
-          OutlinedButton(
+          const SizedBox(height: SpacingTokens.lg),
+          FilledButton.icon(
             key: const Key('viaggio_scendi'),
-            onPressed: siPuo &&
-                    (perche == null || _temaScelto.isNotEmpty)
-                ? () => setState(() => _fase = FaseDelViaggio.discesa)
-                : null,
-            style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                minimumSize: const Size.fromHeight(52),
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-            child: Text('Scendi', style: TypographyTokens.etichetta()),
+            onPressed:
+                pronto ? () => setState(() => _fase = FaseDelViaggio.discesa) : null,
+            style: FilledButton.styleFrom(
+              backgroundColor: palette.primary,
+              foregroundColor: palette.onPrimary,
+              minimumSize: const Size.fromHeight(56),
+            ),
+            icon: const Icon(Icons.south_rounded),
+            label: Text('Scendi', style: TypographyTokens.etichetta()),
           ),
         ],
       ),
     );
   }
+
+  /// **IL BOSCO, I DODICI CHE PASSANO, E LA PROMESSA.**
+  ///
+  /// **E' il colpo d'occhio che mancava**, e sono tre cose in una immagine.
+  ///
+  /// **Il bosco al crepuscolo** dice dove si e', e non e' una decorazione:
+  /// porta gli stessi due colori della galleria, quindi chi guarda la soglia
+  /// sta gia' guardando il Mondo di Sotto da fuori. In mezzo c'e' l'apertura
+  /// nella terra, che e' il punto piu' chiaro della scena e il posto dove
+  /// l'occhio va per primo.
+  ///
+  /// **I dodici totem che passano in ombra** dicono chi aspetta la' sotto.
+  /// Sono gli asset gia' fatti della famiglia `animali`, che fino a oggi si
+  /// vedevano soltanto **dopo** aver conosciuto il proprio animale.
+  ///
+  /// **La promessa in due righe** dice cosa si ottiene, ed e' l'unica cosa
+  /// da leggere prima di poter toccare qualcosa.
+  Widget _ilBoscoDellaSoglia(MaestroPalette palette) => ClipRRect(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        child: SizedBox(
+          width: double.infinity,
+          child: AspectRatio(
+            aspectRatio: 1.15,
+            child: LayoutBuilder(
+              builder: (context, vincoli) => Stack(
+                fit: StackFit.expand,
+                children: [
+                  // **LO SLOT DELLO SFONDO**: l'immagine vera quando c'e',
+                  // il bosco dipinto finche' non c'e'. Vedi
+                  // `SfondoDelMondoDiSotto`.
+                  const SfondoDelMondoDiSotto(key: Key('viaggio_bosco')),
+                  // **I DODICI PASSANO ALL'ALTEZZA DELL'APERTURA**, cioe'
+                  // davanti alla luce: e' li' che una sagoma si vede.
+                  Align(
+                    // **PIU' IN ALTO DEL TESTO, e non dietro.** Difetto visto
+                    // sul telefono 767f596c: la promessa cadeva sopra il
+                    // cervo e il cavallo, e nessuna delle due cose si
+                    // leggeva. Un velo non basta quando sotto passa una
+                    // figura: le due cose devono stare in due fasce diverse.
+                    alignment: const Alignment(0, -0.34),
+                    child: GirandolaDegliAnimali(
+                        altezza: vincoli.maxHeight * 0.42),
+                  ),
+                  // Il velo dal basso: il testo chiaro sopra una scena
+                  // dipinta ha bisogno di un fondo che non cambi.
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.transparent,
+                          const Color(0xFF090610).withValues(alpha: 0.72),
+                          const Color(0xFF070510).withValues(alpha: 0.96),
+                        ],
+                        stops: const [0.0, 0.34, 0.56, 1.0],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingTokens.lg),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'IL MONDO DI SOTTO',
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft, letterSpacing: 2.4),
+                          ),
+                          const SizedBox(height: SpacingTokens.xs),
+                          Text(
+                            'Scendi con una domanda, risali con una risposta.',
+                            key: const Key('viaggio_promessa'),
+                            style: TypographyTokens.titoloScheda()
+                                .copyWith(color: ColorTokens.textPrimary),
+                          ),
+                          const SizedBox(height: SpacingTokens.xs),
+                          Text(
+                            'Dodici ti aspettano. Uno solo verrà con te.',
+                            key: const Key('viaggio_i_dodici'),
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: palette.goldSoft),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+  /// **I QUATTRO SEGNI DEL RICONOSCIMENTO.**
+  ///
+  /// Quattro tacche, accese quante sono le discese fatte. Ordine DC voce 04:
+  /// *"chi guarda vede che manca poco"*, e una tacca lo dice prima e meglio
+  /// di una frase.
+  Widget _iQuattroSegni(MaestroPalette palette) {
+    final quante =
+        IQuattroViaggi.contorniDellaSagoma(_diario.quanteDiscese);
+    return Row(
+      key: const Key('viaggio_i_quattro_segni'),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var i = 0; i < IQuattroViaggi.quanteDiscese; i++)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Container(
+              width: 34,
+              height: 4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                color: i < quante
+                    ? palette.gold
+                    : palette.gold.withValues(alpha: 0.22),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// **LE TRE VIE, dichiarate come tre.**
+  ///
+  /// Un selettore in cima dice quante sono e quale si sta usando, e sotto si
+  /// apre soltanto quella scelta. Prima erano un campo, sei pulsanti di testo
+  /// e una settima riga, tutti allo stesso livello: **chi guardava non poteva
+  /// sapere che erano tre strade diverse**, e infatti il fondatore le ha viste
+  /// come domande buttate li'.
+  Widget _leTreVie(MaestroPalette palette, {required bool primo}) {
+    final vie = [
+      (ViaDellaDomanda.scelta, 'Scegli'),
+      (ViaDellaDomanda.scritta, 'Scrivila tu'),
+      (ViaDellaDomanda.incontro, 'Solo incontro'),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'CON CHE COSA SCENDI',
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft, letterSpacing: 2.0),
+        ),
+        if (!primo) ...[
+          const SizedBox(height: 2),
+          Text(
+            'Dal secondo viaggio la domanda è la porta.',
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ],
+        const SizedBox(height: SpacingTokens.sm),
+        SegmentedButton<ViaDellaDomanda>(
+          key: const Key('viaggio_le_tre_vie'),
+          segments: [
+            for (final v in vie)
+              ButtonSegment<ViaDellaDomanda>(
+                  value: v.$1,
+                  label: Text(v.$2, style: TypographyTokens.didascalia())),
+          ],
+          selected: {_via},
+          showSelectedIcon: false,
+          // **IL SELETTORE HA IL COLORE DEL MAESTRO.** Con lo stile di
+          // fabbrica la voce scelta era grigio lavanda su un dominio rosso e
+          // oro: sul telefono si leggeva come un pezzo di un'altra app.
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.resolveWith((stati) =>
+                stati.contains(WidgetState.selected)
+                    ? palette.gold.withValues(alpha: 0.22)
+                    : Colors.transparent),
+            foregroundColor: WidgetStateProperty.resolveWith((stati) =>
+                stati.contains(WidgetState.selected)
+                    ? palette.gold
+                    : palette.goldSoft.withValues(alpha: 0.75)),
+            side: WidgetStatePropertyAll(
+                BorderSide(color: palette.gold.withValues(alpha: 0.45))),
+          ),
+          onSelectionChanged: (scelte) => setState(() {
+            _via = scelte.first;
+            _domanda.clear();
+            _temaScelto = _via == ViaDellaDomanda.incontro
+                ? LaDomandaDelViaggio.idSoloPerIncontrarlo
+                : '';
+          }),
+        ),
+        const SizedBox(height: SpacingTokens.md),
+        switch (_via) {
+          ViaDellaDomanda.scelta => _leSeiDomande(palette),
+          ViaDellaDomanda.scritta => _ilCampoLibero(palette, primo: primo),
+          ViaDellaDomanda.incontro => DepthCard(
+              key: const Key('viaggio_solo_incontro'),
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: ParagrafiDiLettura(
+                testo: 'Scendo soltanto per incontrarlo. La scena parlera\' '
+                    'del momento che stai vivendo.',
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ),
+        },
+      ],
+    );
+  }
+
+  /// **LE SEI DOMANDE, come sei riquadri toccabili.**
+  ///
+  /// Quello scelto si accende. Prima erano sei righe di testo identiche a
+  /// qualunque altra riga di testo della schermata.
+  Widget _leSeiDomande(MaestroPalette palette) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final d in LaDomandaDelViaggio.gliaScritte) ...[
+            _unaDomanda(palette, d),
+            const SizedBox(height: SpacingTokens.xs),
+          ],
+        ],
+      );
+
+  Widget _unaDomanda(MaestroPalette palette, DomandaScritta d) {
+    final scelta = _temaScelto == d.tema;
+    return Material(
+      color: scelta
+          ? palette.gold.withValues(alpha: 0.16)
+          : Colors.white.withValues(alpha: 0.04),
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      child: InkWell(
+        key: Key('viaggio_domanda_${d.id}'),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        onTap: () => setState(() {
+          _domanda.text = d.testo;
+          _temaScelto = d.tema;
+        }),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            border: Border.all(
+                color: scelta
+                    ? palette.gold
+                    : palette.gold.withValues(alpha: 0.22)),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                scelta
+                    ? Icons.radio_button_checked_rounded
+                    : Icons.radio_button_unchecked_rounded,
+                size: 18,
+                color: scelta
+                    ? palette.gold
+                    : palette.goldSoft.withValues(alpha: 0.5),
+              ),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(d.tema,
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                    if (scelta) ...[
+                      const SizedBox(height: 2),
+                      Text(d.testo,
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft)),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// **IL CAMPO LIBERO, con una cornice sua.**
+  Widget _ilCampoLibero(MaestroPalette palette, {required bool primo}) =>
+      TextField(
+        key: const Key('viaggio_domanda'),
+        controller: _domanda,
+        maxLength: LaDomandaDelViaggio.quantoPuoEssereLunga,
+        maxLines: 2,
+        minLines: 2,
+        onChanged: (_) => setState(() => _temaScelto = ''),
+        style:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+        decoration: InputDecoration(
+          hintText: primo
+              ? 'Che cosa vuoi chiedere, se hai una domanda'
+              : 'Che cosa vuoi chiedere',
+          hintStyle: TypographyTokens.corpo()
+              .copyWith(color: ColorTokens.textSecondary),
+          filled: true,
+          fillColor: Colors.white.withValues(alpha: 0.04),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            borderSide:
+                BorderSide(color: palette.gold.withValues(alpha: 0.22)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            borderSide:
+                BorderSide(color: palette.gold.withValues(alpha: 0.22)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            borderSide: BorderSide(color: palette.gold),
+          ),
+        ),
+      );
 
   /// **LA DISCESA: il tunnel, e risponde alla mano.**
   Widget _laDiscesa(MaestroPalette palette) => GestureDetector(
