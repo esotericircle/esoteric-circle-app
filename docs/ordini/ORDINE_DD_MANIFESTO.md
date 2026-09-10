@@ -573,6 +573,107 @@ giusta finche' il suono usciva da qui. **Adesso pretende il contrario**, cioe'
 che ne' il pulsante ne' la spiegazione ci siano piu', e il commento dice
 perche' e dove il tono e' andato.
 
+## DD.01, IL SOFFIO SI RICONOSCE DALLA FORMA, NON DAL VOLUME
+
+**Il fatto del fondatore**: il Soffio del Destino si apre da solo, basta un
+rumore nella stanza.
+
+**LA CAUSA ERANO DUE RIGHE, e la seconda buttava via la prima.**
+
+    _micStream = stream.listen((_) {});
+    if (!_revealed && amp.current > -18) _complete();
+
+La prima **scartava il flusso audio vero**; la seconda guardava l'ampiezza
+aggregata e apriva il dono sopra i meno diciotto decibel. **Una soglia di
+volume nuda**, che la voce di chi parla, la musica in cucina e una porta che
+sbatte superano tutte. **La cura non ha aperto nessuna porta nuova**: ha
+raccolto cio' che passava gia' di li'.
+
+**LA GRANDEZZA CHE SEPARA UN SOFFIO DA UN SUONO: la planarita' spettrale.** E'
+il rapporto fra la media geometrica e la media aritmetica dello spettro di
+potenza, una misura standard, usata dai codec audio per decidere se un blocco
+e' rumoroso o tonale. Vale **uno** per il rumore bianco, dove tutte le righe
+sono uguali, e **tende a zero** per un suono con una nota dentro, dove una riga
+domina le altre. Un soffio e' aria: energia sparsa dappertutto, nessuna nota.
+
+**TRE CONDIZIONI, e servono tutte e tre**: abbastanza forte, abbastanza piatto,
+e **abbastanza a lungo**, sei finestre da trentadue millisecondi, cioe' due
+decimi di secondo di aria continua. La terza e' quella che tiene fuori i colpi
+secchi, che sono l'unica famiglia che le prime due lascerebbero passare.
+
+**I NUMERI, misurati sui campioni della guardia:**
+
+| Suono | Planarita' | Soglia di volume | Forma |
+| --- | --- | --- | --- |
+| voce che parla | **0,001** | **APRE** | tace |
+| musica, tre note | **0,000** | **APRE** | tace |
+| tonfo, la porta che sbatte | **0,000** | **APRE** | tace |
+| soffio, il fiato sul microfono | **0,260** | APRE | **APRE** |
+
+**Aperture false: tre su tre con la soglia di volume, zero su tre con la
+forma.** Fra il soffio e il primo dei suoni con una nota dentro ci sono **due
+ordini di grandezza**, e la soglia di 0,20 sta in mezzo con margine da tutte e
+due le parti.
+
+**I CAMPIONI SONO SINTETIZZATI, e la guardia lo dichiara in testa.** La voce e'
+una fondamentale a centoventi hertz con dieci armoniche calanti, cioe' il
+modello a sorgente e filtro della voce parlata; la musica e' un accordo di tre
+note pure; il tonfo e' una botta larga di banda che si spegne in fretta; il
+soffio e' rumore rosa con l'inviluppo del fiato. **Perche' sintetizzati**: una
+registrazione porta dentro la stanza, il microfono e chi l'ha fatta, e una
+prova che dipende da un file audio nel repository e' una prova che nessuno
+rifara' mai. Questi segnali si rileggono riga per riga. **Il collaudo sul
+telefono resta e non lo sostituisce niente.**
+
+**E la misura si ancora a due valori noti in anticipo**: rumore bianco
+**0,580**, nota pura **0,000**. Senza quella prova, una trasformata scritta
+storta darebbe numeri sbagliati e le soglie si taglierebbero su quelli.
+
+**La trasformata e' scritta in casa**, quaranta righe di radice due: una
+dipendenza nuova per quaranta righe e' una dipendenza che un giorno bisogna
+aggiornare.
+
+## DD.11, IL GIALLO DELLE BOLLE DELLE RUNE
+
+**La richiesta del fondatore**: nelle bolle delle Rune il giallo resta **solo
+per cio' che parla all'utente adesso**, e quella frase sta **in un riquadro**.
+Senza aggiungere testo.
+
+**Misurato a video sul responso di una gettata**: **nove prose**, di cui
+**tre dorate**. Con la cura: **una sola**, quella dentro il riquadro
+dell'azione del presagio.
+
+Le tre erano: il primo paragrafo del presagio (dorato per la regola dell'ordine
+B, il blocco che porta il senso), la riga dell'azione dentro il suo riquadro, e
+la giuntura delle Norne sopra ogni scheda. In una gettata da tre rune, con i
+tre paragrafi della scheda a Giallo-Bianco-Giallo, gli ori a schermo erano
+**sette**.
+
+**QUI DUE DECISIONI DEL FONDATORE SI CONTRADDICONO, e va scritto.**
+
+- **Ordine CQ voce 6.22, 4 settembre 2026**, parole sue: *"Poi sotto 3
+  paragrafi: Giallo, Bianco, Giallo."*
+- **Ordine DD voce 11, 10 settembre 2026**: il giallo solo per cio' che parla
+  adesso.
+
+**Le due cose non stanno insieme.** Con Giallo-Bianco-Giallo l'unica cosa che
+parla adesso finiva per essere l'unica bianca in mezzo all'oro. **Ha vinto la
+piu' recente**, e la guardia della voce 6.22 non e' stata cancellata: continua
+a difendere i tre paragrafi, il loro ordine e la misura di lettura, e porta
+scritto in testa perche' ha smesso di difendere i due ori. **Se il fondatore
+intendeva il contrario, si rimette con una riga.**
+
+**Titoli e insegne restano d'oro, ed e' una scelta dichiarata.** Il nome della
+runa, *Il presagio di Caligo*, *Il sigillo del giorno*: dicono dove sei, non
+cosa fare, e il loro oro e' la livrea di Caligo. La guardia misura le **prose**,
+cioe' i testi nel ruolo `lettura`, e lo dice in testa.
+
+**LA GUARDIA E' NATA ROSSA SUL DIFETTO VERO**, senza innesti: *prose nel
+responso 9, dorate 3*. Con la cura: *dorate 1*. La seconda meta' pretende il
+contrario, cioe' che quella prosa dorata stia **dentro** il riquadro: togliere
+l'oro a tutto passerebbe la prima meta' e lascerebbe la lettura senza nessun
+richiamo.
+
 ---
 
 VOCI_TOTALI: 15
