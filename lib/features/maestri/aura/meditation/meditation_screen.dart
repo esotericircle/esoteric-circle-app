@@ -678,6 +678,39 @@ class _MeditationScreenState extends State<MeditationScreen>
                       // negli accenti e nei bordi; il testo che si legge resta
                       // inchiostro, perche' un testo tinto si legge peggio e
                       // cambia significato col Maestro del giorno.
+                      // **IL COMANDO STA ACCANTO ALLA COSA CHE COMANDA.**
+                      // Ordine DD voce 17, trovato sul telefono 767f596c
+                      // guardando la build appena costruita.
+                      //
+                      // **Il fiore dice PREMI PLAY e il play stava in fondo
+                      // alla colonna**, sotto il testo del centro e sotto il
+                      // pulsante grande: chi leggeva quell'invito doveva
+                      // cercare il comando che l'invito nomina. Un'istruzione
+                      // che manda a cercare non e' un'istruzione.
+                      //
+                      // Adesso: fiore, **play**, poi il resto. E' l'ordine in
+                      // cui si usa questa schermata.
+                      // Play e invito alle cuffie.
+                      Row(
+                        children: [
+                          _PlayButton(
+                            active: _active,
+                            palette: palette,
+                            onTap: _togglePlay,
+                          ),
+                          const SizedBox(width: SpacingTokens.md),
+                          Expanded(
+                            child: Text(
+                              _preset.binaural
+                                  ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
+                                  : 'Con le cuffie l\'ascolto si fa più pieno.',
+                              style: TypographyTokens.corpo()
+                                  .copyWith(color: ColorTokens.textSecondary),
+                            ),
+                          ),
+                        ],
+                      ),
+
                       // **E SE UNA PRATICA E' STATA SCELTA, QUESTA RIGA TACE.
                       // Ordine DD voce 12, trovato sul telefono 767f596c il
                       // 10 settembre 2026, dopo la cura.**
@@ -899,26 +932,6 @@ class _MeditationScreenState extends State<MeditationScreen>
                         ],
                         const SizedBox(height: SpacingTokens.md),
                       ],
-                      // Play e invito alle cuffie.
-                      Row(
-                        children: [
-                          _PlayButton(
-                            active: _active,
-                            palette: palette,
-                            onTap: _togglePlay,
-                          ),
-                          const SizedBox(width: SpacingTokens.md),
-                          Expanded(
-                            child: Text(
-                              _preset.binaural
-                                  ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
-                                  : 'Con le cuffie l\'ascolto si fa più pieno.',
-                              style: TypographyTokens.corpo()
-                                  .copyWith(color: ColorTokens.textSecondary),
-                            ),
-                          ),
-                        ],
-                      ),
                       // Fondamento onesto, senza ripetere il disclaimer.
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

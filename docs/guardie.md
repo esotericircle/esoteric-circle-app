@@ -594,7 +594,7 @@ le altre.
 | `testi_falsi_test.dart` | testi falsi | 1, 2 | proprio, dichiarato | mai | 3 |
 | `testo_a_video_test.dart` | testo a video | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
 | `tipografia_minimi_test.dart` | tipografia minimi | 1 | dalla porta comune | mai | 3 |
-| `un_comando_solo_nella_meditazione_test.dart` | un comando solo nella meditazione | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa: la pressione lunga innestata sul fiore) | 1 |
+| `un_comando_solo_nella_meditazione_test.dart` | un comando solo nella meditazione | 1 | non scopre insiemi di file | 11/09/2026, DD (rossa: la pressione lunga innestata sul fiore) | 1 |
 | `un_comando_di_distribuzione_ha_il_suo_controllo_test.dart` | un comando di distribuzione ha il suo controllo | 1, 3 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `un_ripiego_non_costa_test.dart` | un ripiego non costa | 1, 2 | dalla porta comune | mai | 3 |
 | `un_solo_istante_test.dart` | un solo istante | 1, 2 | non scopre insiemi di file | mai | 3 |

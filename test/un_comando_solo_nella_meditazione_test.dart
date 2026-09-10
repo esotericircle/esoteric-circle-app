@@ -154,4 +154,45 @@ void main() {
         reason: 'toccato il fiore non succede niente: e il difetto da cui '
             'quest ordine e nato');
   });
+
+  testWidgets('IL PLAY STA SUBITO SOTTO IL FIORE, non in fondo alla colonna',
+      (tester) async {
+    // **TROVATO SUL TELEFONO 767f596c, guardando la build appena costruita.**
+    // Ordine DD voce 17.
+    //
+    // Il fiore dice **PREMI PLAY** e il pulsante play stava **in fondo alla
+    // colonna**: sotto il testo del centro, sotto il pulsante grande, quasi
+    // fuori campo. Chi leggeva quell'invito doveva **cercare** il comando che
+    // l'invito nomina.
+    //
+    // **Un'istruzione che manda a cercare non e' un'istruzione**, ed e' la
+    // stessa famiglia del difetto da cui quest'ordine e' nato: un comando che
+    // c'e' e non si trova vale quanto un comando che non risponde.
+    //
+    // **La grandezza misurata e' la distanza in punti** fra il fondo del
+    // fiore e la cima del pulsante, non l'ordine delle righe nel sorgente: e'
+    // la distanza che l'occhio percorre.
+    await apri(tester);
+    final fiore = tester.getRect(find.byKey(const Key('meditation_dito')));
+    final play = tester.getRect(find.byKey(const Key('meditation_play')));
+    final libreria =
+        tester.getRect(find.byKey(const Key('meditazione_apri_libreria')));
+    final distanza = play.top - fiore.bottom;
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: il fiore finisce a '
+        '${fiore.bottom.toStringAsFixed(0)}, il play comincia a '
+        '${play.top.toStringAsFixed(0)}, distanza '
+        '${distanza.toStringAsFixed(0)} punti; il pulsante del sintomo sta a '
+        '${libreria.top.toStringAsFixed(0)}');
+
+    expect(play.top, lessThan(libreria.top),
+        reason: 'il play sta SOTTO il pulsante del sintomo: chi legge "premi '
+            'play" nel fiore deve scavalcare un altro pulsante per trovarlo');
+    // **Meno di duecento punti**, cioe' meno di un quarto di schermo: oltre,
+    // fra l'invito e il comando entra dell'altro e l'occhio si perde.
+    expect(distanza, lessThan(200),
+        reason: 'fra il fiore e il play ci sono '
+            '${distanza.toStringAsFixed(0)} punti: l invito e il comando che '
+            'nomina non si vedono insieme');
+  });
 }
