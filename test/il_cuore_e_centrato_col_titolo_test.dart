@@ -65,7 +65,7 @@ void main() {
     await tester.pumpWidget(attorno(
       scena: ArteCorrente(
         id: 'gettata',
-        reclamato: ValueNotifier<bool>(false),
+        reclamato: ReclamoDelCuore(),
         child: const Scaffold(
           appBar: BarraArte(titolo: Text('Estrazione Rune')),
           body: SizedBox.expand(),
@@ -108,7 +108,7 @@ void main() {
     await tester.pumpWidget(attorno(
       scena: ArteCorrente(
         id: 'gettata',
-        reclamato: ValueNotifier<bool>(false),
+        reclamato: ReclamoDelCuore(),
         child: const Scaffold(
           appBar: BarraArte(titolo: Text('Estrazione Rune')),
           body: SizedBox.expand(),
@@ -121,7 +121,7 @@ void main() {
     await tester.pumpWidget(attorno(
       scena: ArteCorrente(
         id: 'gettata',
-        reclamato: ValueNotifier<bool>(false),
+        reclamato: ReclamoDelCuore(),
         child: const Scaffold(
           body: ConCuore(id: 'gettata', child: SizedBox.expand()),
         ),

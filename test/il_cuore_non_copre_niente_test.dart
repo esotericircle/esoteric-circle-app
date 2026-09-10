@@ -58,7 +58,7 @@ void main() {
     await tester.pumpWidget(attorno(
       scena: ArteCorrente(
         id: 'gettata',
-        reclamato: ValueNotifier<bool>(false),
+        reclamato: ReclamoDelCuore(),
         child: Scaffold(
           appBar: BarraArte(
             titolo: const Text('Estrazione Rune'),

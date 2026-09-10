@@ -108,6 +108,86 @@ finche' non ho aperto l'Alba, letto la parola, aperto il Sigillo e guardato.
 **Il fatto del fondatore resta vero fino a prova contraria**: se lui non la
 vede, per lui non c'e', e la causa va trovata invece che negata.
 
+## DD.07, IL SECONDO CUORICINO, e la causa non era dove sembrava
+
+**Il fatto del fondatore**: nell'Oroscopo si vedono due cuoricini.
+
+**RIPRODOTTO SUL TELEFONO, ed e' la fotografia a dire quando.** Dispositivo
+767f596c, sotto REGOLA L:
+
+| Momento | Cuoricini | Fotografia |
+| --- | --- | --- |
+| Oroscopo appena aperto | **1** | `dd07_oroscopo_prima.png` |
+| Premuto *Interroga il cielo* | **2**, affiancati e sovrapposti | `dd07_oroscopo_dopo.png` |
+
+**Il difetto non era un cuore montato due volte**, che era l'ipotesi ovvia e
+sarebbe stata comoda. La guardia che conta le dichiarazioni nei sorgenti dice
+**zero schermate** con due dichiarazioni, e ha ragione.
+
+**LA CAUSA VERA: un interruttore con due mani sopra.** Il cuore delle arti
+preferite ha due case, quello della barra e quello sovrapposto alla scena, e
+un booleano decide quale delle due si vede: chi prende in carico il cuore lo
+alza, e il sovrapposto si toglie. **I dichiaranti pero' sono due, non uno**:
+
+- `CuoreNellaBarra`, che vive quanto la schermata;
+- **la corsa dello zodiaco**, la scena a schermo pieno che gira mentre il
+  cielo si interroga, che non vuole un cuore che le galleggi sopra.
+
+La corsa arriva e alza un reclamo gia' alzato. Quando finisce **lo abbassa**,
+e il cuore della barra e' ancora li' a volerlo alzato: **l'ultimo che esce
+spegne la luce anche a chi e' rimasto dentro**. Da quel momento i cuori
+disegnati sono due.
+
+**REGOLA C, e i padri sono tre, in fila.**
+
+1. **Ordine AL voce 08, 30 luglio 2026**, commit `b49ab6fd`: nasce il booleano
+   del reclamo. Allora era giusto: il dichiarante era uno.
+2. **Ordine CC voce 03, 29 agosto 2026**: arriva la corsa dello zodiaco, il
+   secondo dichiarante. Da qui il difetto **esiste** e non si vede, perche'
+   nell'Oroscopo il cuore sovrapposto era l'unico e riaccenderlo non
+   raddoppiava niente.
+3. **Ordine DC voce 15, 10 settembre 2026, ed e' mio, del giorno prima**:
+   `AngoloDellaBarra` diventa un cuore. Da qui i cuori nell'Oroscopo sono due,
+   e uno dei due torna a mostrarsi quando la corsa se ne va. Il commento che
+   scrissi allora diceva *"il difetto si chiude in un punto solo e non puo'
+   tornare"*: era vero per il difetto che stavo curando, e cieco su questo.
+
+**E C'ERA UN SECONDO DIFETTO NELLO STESSO PUNTO, trovato dalla guardia.**
+`SogliaArte.build` costruiva il notificatore **dentro `build`**: ogni
+ricomposizione di un antenato ne fabbricava uno nuovo, spento, e il fotogramma
+di quella ricomposizione veniva disegnato con due cuori. Curato anche quello:
+adesso il reclamo e' un campo dello Stato, nasce con l'arte e muore con lei.
+
+**LA CURA: il reclamo si conta, non si accende e si spegne.** `ReclamoDelCuore`
+tiene un contatore; ognuno **prende** il suo e lo **lascia**, e il cuore
+sovrapposto si toglie finche' resta anche un solo dichiarante. Un booleano
+condiviso da due e' sempre lo stesso difetto in agguato: **il contatore lo
+rende impossibile per costruzione** invece che corretto per attenzione.
+
+**LA GUARDIA, e nasce rossa.** `test/il_cuoricino_e_uno_solo_a_schermo_test.dart`,
+quattro prove, e **monta le schermate vere** invece di leggere i sorgenti:
+
+- **l'Oroscopo, prima e dopo il responso**, come l'ordine chiede. Innestato il
+  difetto rimettendo `value = false` dentro `lascia()`, verificato col grep:
+  **appena aperto 1, dopo il responso 2**, esattamente i due numeri della
+  fotografia. Con la cura: 1 e 1.
+- **la Stesa di Tarocchi**, perche' una prova su una schermata sola cura dove
+  si e' guardato.
+- **la ricomposizione**, che prende l'altro difetto: innestato il notificatore
+  dentro `build`, **nel fotogramma della ricomposizione i cuori erano 2**. Con
+  la cura: 1.
+- **REGOLA H**, la meta' che guarda la causa: nessun file di `lib` dichiara il
+  cuore due volte. Guardati **587 file** dalla porta comune.
+
+**PERCHE' NESSUNA GUARDIA L'AVEVA VISTO.** Esiste da settembre
+`il_cuore_sta_sempre_nello_stesso_angolo_test.dart`, ed e' rimasta **verde
+tutto il tempo**: legge il testo dei sorgenti e verifica che il cuore sia
+dichiarato nel posto giusto. **Era vero.** Il difetto non stava in dove il
+cuore e' dichiarato, stava in **quanti se ne disegnano a un certo istante**, e
+nessuna lettura di sorgenti puo' contarli. **Regola B**: quella guardia e'
+stata vista rossa prima di toccare la zona, spostando il cuore in coda alle
+azioni, ed e' viva.
+
 ## DD.12, IL SINTOMO RIPETUTO, contestato a lavoro in corso
 
 **Il fatto del fondatore**, mentre la voce era aperta: *"sto leggendo la

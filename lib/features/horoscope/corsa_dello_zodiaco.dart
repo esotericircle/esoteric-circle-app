@@ -192,18 +192,36 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
   /// L'anteprima lo ha mostrato galleggiare sopra l'Ariete. Esiste gia' la
   /// via giusta, ed e' quella che usa la barra delle arti: si dichiara di
   /// prenderlo in carico, e lui si toglie da se'.
-  ValueNotifier<bool>? _cuore;
+  ReclamoDelCuore? _cuore;
+
+  /// Se il carico e' stato davvero preso: vedi [ReclamoDelCuore]. **Questa
+  /// scena era il secondo dichiarante che nessuno aveva contato**, e quando
+  /// se ne andava spegneva il cuore anche alla barra, che era rimasta:
+  /// l'Oroscopo mostrava due cuoricini dopo il responso. Ordine DD voce 07.
+  bool _preso = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arte = ArteCorrente.of(context);
     if (arte?.reclamato != _cuore) {
+      _lasciaIlCuore();
       _cuore = arte?.reclamato;
+      final mio = _cuore;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _cuore?.value = true;
+        if (!mounted || mio == null || _cuore != mio) return;
+        _preso = true;
+        mio.prendi();
       });
     }
+  }
+
+  void _lasciaIlCuore() {
+    if (!_preso) return;
+    _preso = false;
+    final mio = _cuore;
+    if (mio == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) => mio.lascia());
   }
 
   @override
@@ -213,10 +231,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
     // tree was locked": la scena se ne sta andando, e chi ascolta non puo'
     // ricostruirsi adesso. Il notificatore appartiene alla rotta, che vive
     // piu' a lungo di questa scena, quindi aspettare un fotogramma e' sicuro.
-    final cuore = _cuore;
-    if (cuore != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => cuore.value = false);
-    }
+    _lasciaIlCuore();
     _passo?.cancel();
     _finale.dispose();
     super.dispose();

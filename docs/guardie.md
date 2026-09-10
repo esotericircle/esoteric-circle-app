@@ -298,7 +298,8 @@ le altre.
 | `il_conto_e_uno_solo_test.dart` | il conto e uno solo | 1, 2 | dalla porta comune | mai | 3 |
 | `il_cuore_e_centrato_col_titolo_test.dart` | il cuore e centrato col titolo | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
 | `il_cuore_non_copre_niente_test.dart` | il cuore non copre niente | 1 | proprio, dichiarato | mai | 2 |
-| `il_cuore_sta_sempre_nello_stesso_angolo_test.dart` | il cuore dei preferiti sta sempre nello stesso angolo | 1, 2 | proprio, dichiarato | CO | 3 |
+| `il_cuore_sta_sempre_nello_stesso_angolo_test.dart` | il cuore dei preferiti sta sempre nello stesso angolo | 1, 2 | proprio, dichiarato | 10/09/2026, DD | 3 |
+| `il_cuoricino_e_uno_solo_a_schermo_test.dart` | il cuoricino e uno solo, a schermo | 1, 2 | dalla porta comune | 10/09/2026, DD (rossa due volte: 2 cuori nell oroscopo dopo il responso, 2 nel fotogramma della ricomposizione) | 1 |
 | `il_disco_dell_oracolo_dice_cosa_e_test.dart` | il disco dell oracolo dice cosa e | 1 | non scopre insiemi di file | mai | 3 |
 | `il_dono_risponde_prima_di_chiedere_test.dart` | il Dono risponde prima di chiedere | 1, 2, 3 | proprio, dichiarato | CO | 2 |
 | `il_filo_si_traccia_test.dart` | il filo si traccia | 1, 2 | dalla porta comune | mai | 3 |

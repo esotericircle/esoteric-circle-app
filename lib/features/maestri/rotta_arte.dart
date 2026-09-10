@@ -42,6 +42,39 @@ class SogliaArte extends StatefulWidget {
 }
 
 class _SogliaArteState extends State<SogliaArte> {
+  /// **IL RECLAMO DEL CUORE VIVE QUANTO L'ARTE, non quanto un fotogramma.**
+  /// Ordine DD voce 07, 10 settembre 2026.
+  ///
+  /// **Il fatto del fondatore**: nell'Oroscopo si vedono due cuoricini.
+  /// Fotografato sul telefono 767f596c: appena aperto ce n'e' **uno**, premuto
+  /// *Interroga il cielo* ce ne sono **due**, affiancati in alto a destra.
+  ///
+  /// **Qui stava un `ValueNotifier<bool>(false)` costruito DENTRO `build`**, e
+  /// quella riga e' il difetto per intero. Ogni ricomposizione di un antenato
+  /// ne fabbricava uno nuovo, spento: il cuore sovrapposto lo guardava e
+  /// tornava a disegnarsi, il cuore della barra rialzava il reclamo **ma solo
+  /// nel giro dopo la fine del fotogramma**. Il fotogramma in mezzo veniva
+  /// disegnato con due cuori, e quando le ricomposizioni si susseguono quel
+  /// fotogramma e' quello che si guarda.
+  ///
+  /// **REGOLA C, e i padri sono due.** La riga nasce il 30 luglio 2026 col
+  /// commit `b49ab6fd`, l'ordine AL voce 08 che creo' [BarraArte]: allora era
+  /// **latente**, perche' nelle schermate senza barra nessuno reclamava niente
+  /// e il cuore sovrapposto era l'unico. **L'ordine DC voce 15, 10 settembre
+  /// 2026, l'ha resa visibile** dando un cuore anche ad [AngoloDellaBarra]:
+  /// da quel momento nell'Oroscopo i cuori sono due, e uno dei due si spegne
+  /// un fotogramma troppo tardi.
+  ///
+  /// **Adesso e' un campo dello Stato**: nasce una volta con l'arte, non lo
+  /// tocca nessuna ricomposizione, e si spegne quando l'arte si chiude.
+  final ReclamoDelCuore _reclamato = ReclamoDelCuore();
+
+  @override
+  void dispose() {
+    _reclamato.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,14 +96,85 @@ class _SogliaArteState extends State<SogliaArte> {
         maestro: widget.maestro,
         child: ArteCorrente(
           id: widget.id,
-          reclamato: ValueNotifier<bool>(false),
+          reclamato: _reclamato,
           child: ConCuore(id: widget.id, child: widget.child),
         ),
       );
 }
 
+/// **IL RECLAMO DEL CUORE SI CONTA, non si accende e si spegne.** Ordine DD
+/// voce 07, 10 settembre 2026.
+///
+/// **Il fatto del fondatore**: nell'Oroscopo si vedono due cuoricini.
+/// Fotografato sul telefono 767f596c, e la fotografia dice quando: appena
+/// aperto ce n'e' **uno**, premuto *Interroga il cielo* ce ne sono **due**,
+/// affiancati in alto a destra, e restano li'.
+///
+/// **QUI C'ERA UN BOOLEANO, E DUE MANI CHE LO TOCCAVANO.** Chi prende in
+/// carico il cuore lo alza, e il cuore sovrapposto si toglie. Ma i
+/// dichiaranti sono **due**, non uno:
+///
+/// - [CuoreNellaBarra], che vive quanto la schermata;
+/// - la corsa dello zodiaco dell'Oroscopo, che copre tutto lo schermo mentre
+///   il cielo si interroga e non vuole un cuore che le galleggi sopra.
+///
+/// La corsa arriva, alza il reclamo che era gia' alzato, e **quando se ne va
+/// lo abbassa**. Il cuore della barra e' ancora li' e lo vuole ancora alzato,
+/// ma nessuno glielo chiede piu': **l'ultimo che esce spegne la luce anche a
+/// chi e' rimasto dentro**.
+///
+/// **REGOLA C, e i padri sono due.** Il booleano nasce il 30 luglio 2026 col
+/// commit `b49ab6fd`, ordine AL voce 08, quando i dichiaranti erano uno solo e
+/// contarli non serviva. Il secondo dichiarante arriva il 29 agosto 2026 con
+/// **l'ordine CC voce 03**, la corsa dello zodiaco. Da allora il difetto
+/// c'era e non si vedeva, perche' nell'Oroscopo il cuore sovrapposto era
+/// l'unico: **l'ordine DC voce 15, 10 settembre 2026**, dando un cuore anche
+/// ad [AngoloDellaBarra], ha reso visibile in due segni cio' che prima era
+/// solo un segno che tornava.
+///
+/// **Adesso e' un contatore.** Ognuno prende e lascia il suo, e il cuore
+/// sovrapposto si toglie finche' resta anche un solo dichiarante. Un booleano
+/// condiviso da due e' sempre lo stesso difetto in agguato, e il contatore lo
+/// rende **impossibile per costruzione** invece che corretto per attenzione.
+class ReclamoDelCuore extends ValueNotifier<bool> {
+  ReclamoDelCuore() : super(false);
+
+  int _quanti = 0;
+
+  /// **CHI LASCIA IL CARICO LO FA UN FOTOGRAMMA DOPO**, e in quel fotogramma
+  /// l arte puo essere gia chiusa: senza questa memoria il rilascio in
+  /// ritardo cade su un notificatore smontato e solleva *was used after being
+  /// disposed*. Quando l arte se ne va, il carico non interessa piu' a
+  /// nessuno.
+  bool _spento = false;
+
+  /// Quanti lo tengono in carico adesso. Serve alle guardie.
+  int get quanti => _quanti;
+
+  /// Un dichiarante in piu' prende in carico il cuore.
+  void prendi() {
+    if (_spento) return;
+    _quanti++;
+    value = _quanti > 0;
+  }
+
+  /// Un dichiarante se ne va. Sotto zero non si scende: un rilascio di
+  /// troppo non deve poter spegnere il carico di un altro.
+  void lascia() {
+    if (_spento) return;
+    if (_quanti > 0) _quanti--;
+    value = _quanti > 0;
+  }
+
+  @override
+  void dispose() {
+    _spento = true;
+    super.dispose();
+  }
+}
+
 /// Nessuno la ascolta davvero: serve solo quando il cuore vive fuori da un'arte.
-final ValueNotifier<bool> _mai = ValueNotifier<bool>(false);
+final ReclamoDelCuore _mai = ReclamoDelCuore();
 
 /// LA BARRA IN ALTO DELLE SCHERMATE D'ARTE: un solo posto dove si dichiarano le
 /// azioni, e le azioni non si sovrappongono per costruzione.
@@ -206,7 +310,11 @@ class CuoreNellaBarra extends StatefulWidget {
 }
 
 class _CuoreNellaBarraState extends State<CuoreNellaBarra> {
-  ValueNotifier<bool>? _reclamato;
+  ReclamoDelCuore? _reclamato;
+
+  /// Se il carico e' stato davvero preso: si lascia una volta sola, e solo
+  /// se lo si era preso. Contare male in un verso e' come non contare.
+  bool _preso = false;
 
   @override
   void didChangeDependencies() {
@@ -214,16 +322,33 @@ class _CuoreNellaBarraState extends State<CuoreNellaBarra> {
     // Dice al cuore sovrapposto di togliersi: da qui in poi ce ne occupiamo noi.
     final arte = ArteCorrente.of(context);
     if (arte?.reclamato != _reclamato) {
+      _lascia();
       _reclamato = arte?.reclamato;
+      final mio = _reclamato;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _reclamato?.value = true;
+        if (!mounted || mio == null || _reclamato != mio) return;
+        _preso = true;
+        mio.prendi();
       });
     }
   }
 
+  /// **IL CARICO SI LASCIA DOPO IL FOTOGRAMMA, non dentro il dispose.**
+  /// Scrivere sul notificatore mentre l'albero si smonta fa cadere l'app con
+  /// *widget tree was locked*: chi ascolta non puo' ricostruirsi adesso. Il
+  /// reclamo appartiene alla soglia dell'arte, che vive piu' a lungo di
+  /// questa barra.
+  void _lascia() {
+    if (!_preso) return;
+    _preso = false;
+    final mio = _reclamato;
+    if (mio == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) => mio.lascia());
+  }
+
   @override
   void dispose() {
-    _reclamato?.value = false;
+    _lascia();
     super.dispose();
   }
 
@@ -257,9 +382,12 @@ class ArteCorrente extends InheritedWidget {
 
   final String id;
 
-  /// Alzato dalla barra dell'arte quando il cuore lo mette lei, cosi' il
-  /// sovrapposto si toglie di mezzo invece di raddoppiarlo.
-  final ValueNotifier<bool> reclamato;
+  /// Preso in carico da chi disegna il cuore lui, cosi' il sovrapposto si
+  /// toglie di mezzo invece di raddoppiarlo.
+  ///
+  /// **E' un contatore, non un interruttore**: vedi [ReclamoDelCuore] per la
+  /// ragione, che e' un difetto visto due volte a schermo.
+  final ReclamoDelCuore reclamato;
 
   static ArteCorrente? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<ArteCorrente>();
