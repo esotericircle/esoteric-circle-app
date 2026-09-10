@@ -1869,6 +1869,109 @@ dichiarata**.
 permanente che costruisce la fotografia piu' generosa di un anno. Il difetto
 che l'ordine DB aveva trovato stava nella proposta, non nel catalogo.
 
+## L'ORDINE DD, I COMANDI CHE NON RISPONDONO
+
+**10 settembre 2026, quindici voci.** Nasce da una frase del fondatore sulla
+build 2244: *"se faccio click su una voce non succede nulla"*, detta su una
+voce che era stata **dichiarata chiusa**.
+
+### LA REGOLA L, che quest'ordine ha aggiunto alle regole di casa
+
+*"Il telefono collegato non serve a provare che l'app si accende. Serve a
+provare che le voci dell'ordine funzionano."* Per ogni voce che tocca un
+comando, un tocco, una pressione o una scelta, **il collaudo si fa sul
+dispositivo**: si tocca, si guarda, e si scrive nel referto cosa si e' visto.
+
+**E la contestazione era giusta.** L'ordine DC aveva consegnato la 2244 con una
+prova di accensione: l'app si apriva, la home era piena, il log non aveva
+errori fatali. Tutto vero e tutto inutile, perche' nessuno aveva premuto i
+comandi.
+
+### Le tredici voci di codice, chiuse
+
+- **DD.01** Il microfono del Soffio. Era una **soglia di volume nuda**, sopra i
+  meno diciotto decibel, e il flusso audio vero veniva scartato. Adesso decide
+  la **planarita' spettrale**: un soffio e' aria senza una nota dentro, la voce
+  e la musica hanno una fondamentale e le sue armoniche. Sui quattro campioni
+  della guardia, aperture false **tre su tre col volume, zero su tre con la
+  forma**.
+- **DD.02** La Parola del giorno dentro una frase sta **fra virgolette basse e
+  in grassetto**, in tutti e tre i punti dove compare. E sopra il ripiego del
+  mantra c'e' il titolo **IN ALTERNATIVA**.
+- **DD.03** Il cerchio del Soffio al culmine passa da **140 punti, il 35,9 per
+  cento** della larghezza, a **273, il 70,0**. Il lato viene dallo schermo e
+  non da un numero scritto a mano.
+- **DD.04** La Parola dell'Alba **torna a video** nel Sigillo. Il meccanismo
+  c'era ed era completo; le tre righe della raccolta vivevano nel ramo della
+  nebbia, cioe' nel primo istante del rito, e la lettura dal disco arrivava
+  dopo. Adesso stanno nel saluto della notte. **E il tono theta ha lasciato il
+  Sigillo**, tornando nella Meditazione dove vive con le altre otto frequenze.
+- **DD.05** Ogni Dono **si apre all'ora della sua notifica** e resta aperto
+  fino al rinnovo. Chi ha spostato l'avviso trova l'apertura spostata. La
+  casella chiusa porta un orologio e la sua card dice **Si apre alle 07:00**.
+- **DD.06** La Luna della home non si sposta piu': **0,0 punti** contro i 61,0
+  che si spostava.
+- **DD.07** Nell'Oroscopo il cuoricino torna **uno solo**, prima e dopo il
+  responso. Non era montato due volte: **il reclamo del cuore era un booleano
+  con due mani sopra**, e l'ultima che usciva spegneva la luce a chi era
+  rimasto dentro. Adesso e' un contatore.
+- **DD.08** Alla terza carta dei Tarocchi la pagina **non si riordina piu'**:
+  gli slot passavano da sopra il ventaglio a sotto il pulsante e tutto saliva
+  di **quattrocentotrenta punti**.
+- **DD.09** Le due bolle della Fortuna sono alte uguale: **84,0 e 84,0** contro
+  61,0 e 84,0.
+- **DD.10** I conteggi della chat lasciano **sedici punti** alla
+  conversazione.
+- **DD.11** Nelle bolle delle Rune le prose dorate passano da **tre a una**, ed
+  e' quella dentro il riquadro.
+- **DD.12** La libreria della Meditazione ha **dodici pratiche e dodici
+  sintomi distinti**, e la scelta libera offre **nove frequenze**, ognuna
+  leggibile su una riga sola.
+- **DD.13** La Meditazione ha il suo cielo, col colore di Aura.
+- **DD.16** Il respiro della Meditazione ha il conto alla rovescia che scorre e
+  il fiore che cresce e si riduce.
+
+### Le due voci aperte
+
+**DD.14 e DD.15 sono i due referti**, e si scrivono col telefono in mano dopo
+la consegna: cosa e' stato premuto e cosa e' successo, e dieci fotografie con
+il testo che portano.
+
+### Cosa quest'ordine ha insegnato, e vale oltre le sue voci
+
+**UNA GUARDIA CHE LEGGE I SORGENTI NON VEDE COSA SUCCEDE A SCHERMO.** Tre
+difetti di quest'ordine erano sorvegliati da guardie **verdi che dicevano il
+vero**: il cuoricino era dichiarato nel posto giusto (e i cuori erano due), la
+terza carta non faceva sparire niente (e la pagina si riordinava), la Parola
+dell'Alba arrivava davvero (e la riga non era a video).
+
+**IL DATO CHE SOPRAVVIVE E LA FRASE CHE SI LEGGE SONO DUE FATTI DIVERSI**, e
+fra loro c'e' tutta la schermata.
+
+**CAMBIARE LA GRANDEZZA MISURATA, MAI LA SOGLIA.** La guardia delle nove
+frequenze e' nata verde: misurava se una pasticca uscisse dallo schermo, e
+dentro una `Row` gli `Expanded` non escono, **si stringono**. Le nove etichette
+andavano a capo su quattro righe, `Battito theta` su sette. La domanda era
+sbagliata, non la soglia.
+
+**RIDUCI MOVIMENTO SQUADRA LA FIGURA, NON FERMA IL TEMPO.** Il telefono di
+collaudo ha le tre scale di animazione a zero, quindi
+`MediaQuery.disableAnimations` e' vero: ogni ramo che ferma un controller fa
+apparire **fermo sul dispositivo** cio' che al banco e' vivo, e le prove
+restano verdi perche' nei test quella scala e' normale.
+
+**DUE VOLTE UN ORDINE NUOVO HA CONTRADDETTO UNO VECCHIO, e le due volte ha
+vinto il nuovo con la contraddizione scritta**: la voce DD.11 contro la voce CQ
+6.22 sui colori delle bolle delle Rune, e la voce DD.12 contro il vocabolario
+clinico dell'ordine DB voce 11 sulla parola *sintomo*. Le guardie di prima non
+sono state cancellate: portano scritto in testa cosa hanno smesso di difendere
+e perche'.
+
+**E UNA RICOGNIZIONE HA DATO TORTO AL FONDATORE AVENDO TORTO LEI.** Sulla voce
+DD.04 avevo scritto *"la voce dice il falso sul codice"*, elencando tre
+chiamate esistenti e collegate. La ritrattazione sta nel manifesto, sotto la
+ricognizione sbagliata, e non e' stata cancellata.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
