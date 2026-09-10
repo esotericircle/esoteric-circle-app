@@ -37,12 +37,12 @@ abstract final class LaDomandaDelViaggio {
     DomandaScritta(
       id: 'persona',
       tema: 'Una persona',
-      testo: 'C\'è una persona, e non so che posto ha per me.',
+      testo: 'C\'è una persona di cui non so che posto ha per me.',
     ),
     DomandaScritta(
       id: 'blocco',
       tema: 'Un blocco che non si supera',
-      testo: 'C\'è qualcosa che non riesco a superare, e ci torno sopra.',
+      testo: 'C\'è qualcosa che non riesco a superare e ci torno sopra.',
     ),
     DomandaScritta(
       id: 'attesa',
@@ -52,12 +52,12 @@ abstract final class LaDomandaDelViaggio {
     DomandaScritta(
       id: 'direzione',
       tema: 'Una direzione da prendere',
-      testo: 'Non so dove sto andando, e vorrei una direzione.',
+      testo: 'Non so dove sto andando e vorrei una direzione.',
     ),
     DomandaScritta(
       id: 'finito',
       tema: 'Qualcosa che è finito',
-      testo: 'Qualcosa è finito, e non so cosa farne.',
+      testo: 'Qualcosa è finito e non so cosa farne.',
     ),
   ];
 

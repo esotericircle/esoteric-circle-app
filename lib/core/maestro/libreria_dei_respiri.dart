@@ -130,7 +130,7 @@ abstract final class LibreriaDeiRespiri {
       nome: 'Dodici respiri',
       centro: -1,
       durata: Duration(minutes: 2),
-      cosaSiFa: 'Dodici respiri e basta. Contali col dito, e quando arrivi a '
+      cosaSiFa: 'Dodici respiri e basta. Contali col dito: quando arrivi a '
           'dodici hai finito.',
       tradizione: Tradizione.risonanza,
     ),

@@ -57,11 +57,11 @@ class ScenaDelViaggio {
       return 'L\'animale ${gesto.nome}. Il resto resta nella nebbia.';
     }
     if (pezzi.length == 2) {
-      return 'Ti porta dove c\'è ${cosa.nome}, e ${gesto.nome}. '
-          'Il luogo non si distingue.';
+      return 'Ti porta dove c\'è ${cosa.nome}. L\'animale '
+          '${gesto.nome}, ma il luogo non si distingue.';
     }
-    return 'Ti porta ${_a(luogo.nome)} ${momento.nome}. C\'è ${cosa.nome}, '
-        'e l\'animale ${gesto.nome}.';
+    return 'Ti porta ${_a(luogo.nome)} ${momento.nome}. C\'è ${cosa.nome}. '
+        'L\'animale ${gesto.nome}.';
   }
 
   /// Gli id dei pezzi, per il Diario e per la memoria.

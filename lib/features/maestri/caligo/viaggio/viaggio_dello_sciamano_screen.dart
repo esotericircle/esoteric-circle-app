@@ -502,7 +502,7 @@ class _ViaggioDelloSciamanoScreenState
   static const String _fonti =
       'Il metodo del viaggio viene dal core shamanism di Michael Harner, The '
       'Way of the Shaman, 1980: si scende da un\'apertura nella terra, si '
-      'incontra un animale, e lo si riconosce quando si è mostrato almeno '
+      'incontra un animale. Lo si riconosce quando si è mostrato almeno '
       'quattro volte.\n\n'
       'La cosmologia dei tre mondi, con il Mondo di Sotto raggiunto per un '
       'tunnel, è documentata da Mircea Eliade in Le Chamanisme et les '

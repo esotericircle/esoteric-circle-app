@@ -42,7 +42,7 @@ abstract final class IQuattroViaggi {
   static const List<String> comeSiMostra = [
     'Un\'ombra che passa. Fuori resta un segno, un\'impronta nel fango.',
     'Di profilo, che si allontana.',
-    'Ti guarda, e non fugge.',
+    'Ti guarda senza fuggire.',
     'Viene in piena luce.',
   ];
 

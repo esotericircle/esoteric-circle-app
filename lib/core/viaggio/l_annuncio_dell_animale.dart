@@ -28,7 +28,7 @@ abstract final class LAnnuncioDellAnimale {
   /// e l'altra dipende da quante volte si scende.
   static const String laRiga =
       'Un animale ti aspetta nel Mondo di Sotto. Non te lo dico io: dovrai '
-      'scendere a incontrarlo, e si mostrerà quando avrà deciso.';
+      'scendere a incontrarlo. Si mostrerà quando avrà deciso.';
 
   /// **COSA NON PUO' CONTENERE QUESTA RIGA**, e una guardia lo pretende.
   ///

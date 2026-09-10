@@ -78,7 +78,7 @@ abstract final class OraDelRespiro {
   static String? laRiga(int? suggeriti) {
     if (suggeriti == null) return null;
     final ora = suggeriti ~/ 60;
-    return 'Respiri quasi sempre verso le $ora, e questo avviso ti segue lì. '
-        'Se preferisci un\'altra ora, cambiala e resta quella.';
+    return 'Respiri quasi sempre verso le $ora. Questo avviso ti segue lì. ' 
+        'Se preferisci un\'altra ora la cambi, resta quella.';
   }
 }
