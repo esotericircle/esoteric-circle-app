@@ -91,6 +91,37 @@ class RespiroGuidatoDalDito {
   static double get attiAlMinuto =>
       60 / (riferimentoDelRespiro.inMilliseconds * 2 / 1000);
 
+  /// **IL TREMOLIO DEL CONTATTO, e nasce dal gesto che l'app chiede.**
+  /// Ordine DA voce 01, 10 settembre 2026.
+  ///
+  /// **Il difetto che chiude**: l'app chiede di respirare **a occhi chiusi**,
+  /// e a occhi chiusi il dito scivola. Uno scivolo di un attimo valeva come
+  /// un dito alzato, quindi il respiro risultava finito quando non lo era, e
+  /// dentro la sessione finivano due mezzi respiri al posto di uno intero.
+  ///
+  /// **Duecento millisecondi**: sotto questa soglia non c'e' nessun gesto
+  /// umano di respiro, c'e' il contatto che salta. E' la stessa cura che si
+  /// fa sui pulsanti per il rimbalzo del tocco.
+  ///
+  /// **Non si perde niente e non si inventa niente**: l'inspiro riprende da
+  /// dove stava, con il suo tempo che continua a correre, perche' chi respira
+  /// non ha mai smesso.
+  static const Duration sogliaDelTremolio = Duration(milliseconds: 200);
+
+  /// **UN RESPIRO PIU' LUNGO DI UN MINUTO NON E' UN RESPIRO.**
+  /// Ordine DA voce 02, 10 settembre 2026.
+  ///
+  /// **Il difetto che chiude**: arriva una telefonata, l'app va in secondo
+  /// piano col dito giu', e al ritorno il respiro risulta aperto da tre
+  /// minuti. Quel numero finisce **nella media, nella figura della card e
+  /// nella memoria**, e le sporca tutte e tre.
+  ///
+  /// **Sessanta secondi e' un confine largo e onesto**: il respiro di
+  /// riferimento e' dieci secondi, il piu' lento dei respiri umani da sveglio
+  /// non arriva al minuto, e chi trattiene il fiato per gioco non sta
+  /// meditando. Oltre, si scarta.
+  static const Duration respiroPiuLungoCheAbbiaSenso = Duration(seconds: 60);
+
   /// **QUANTO DURA UN INSPIRO PIENO, per il disegno e basta.**
   ///
   /// Non e' un ritmo da rispettare e nessuno lo chiede a chi respira: serve
@@ -103,6 +134,19 @@ class RespiroGuidatoDalDito {
   DateTime? _iniziata;
   Duration _ultimoDentro = Duration.zero;
   final List<UnRespiro> _compiuti = [];
+
+  /// Quando e' cominciato l'inspiro di adesso, che NON e' `_iniziata`: quello
+  /// riparte a ogni cambio di fase, questo tiene il principio del dentro anche
+  /// quando il dito rimbalza.
+  DateTime? _inizioDelDentro;
+
+  /// **QUANTI RESPIRI SONO STATI SCARTATI perche' non erano respiri.**
+  /// Il numero si dichiara invece di sparire: un conto che cala in silenzio e'
+  /// il modo migliore per non accorgersi mai di un difetto.
+  int _scartati = 0;
+
+  /// Quanti tremolii del contatto sono stati assorbiti.
+  int _tremolii = 0;
 
   /// La fase di adesso.
   FaseDelRespiro get fase => _fase;
@@ -136,14 +180,46 @@ class RespiroGuidatoDalDito {
   /// Quanti respiri interi sono stati compiuti.
   int get quanti => _compiuti.length;
 
-  /// **IL DITO SCENDE: comincia un inspiro.**
+  /// **QUANTI NE SONO STATI SCARTATI**, ordine DA voce 02: un respiro piu'
+  /// lungo di un minuto non entra ne' nella media ne' nella figura.
+  int get scartati => _scartati;
+
+  /// **QUANTI TREMOLII DEL CONTATTO SONO STATI ASSORBITI**, ordine DA voce
+  /// 01: sono i momenti in cui il dito e' scivolato e l'inspiro e' proseguito.
+  int get tremoliiAssorbiti => _tremolii;
+
+  /// **IL DITO SCENDE: comincia un inspiro, oppure ne riprende uno.**
+  ///
+  /// **Se il dito si era staccato da meno di [sogliaDelTremolio]**, non era un
+  /// espiro: era il contatto che saltava sotto un dito fermo a occhi chiusi.
+  /// L'inspiro riprende da dove stava, col suo tempo che non si e' mai
+  /// fermato, e nessun mezzo respiro finisce nella memoria.
   void ditoGiu(DateTime adesso) {
     if (_fase == FaseDelRespiro.dentro) return;
+    final principio = _inizioDelDentro;
+    if (_fase == FaseDelRespiro.fuori &&
+        principio != null &&
+        adesso.difference(_iniziata ?? adesso) < sogliaDelTremolio) {
+      _tremolii++;
+      _fase = FaseDelRespiro.dentro;
+      // **Il tempo dell'inspiro non riparte da zero**: chi respira non ha mai
+      // smesso, e far ripartire il fiore da chiuso sarebbe la bugia visibile
+      // di questo difetto.
+      _iniziata = principio;
+      return;
+    }
     _fase = FaseDelRespiro.dentro;
     _iniziata = adesso;
+    _inizioDelDentro = adesso;
   }
 
   /// **IL DITO SI ALZA: finisce l'inspiro e comincia l'espiro.**
+  ///
+  /// L'alzata si registra lo stesso anche quando l'inspiro e' durato un
+  /// attimo: **e' il rientro a decidere** se quello era un espiro vero o un
+  /// tremolio, e lo decide `ditoGiu` guardando quanto e' durato il distacco.
+  /// Giudicare qui, sul solo dentro, vorrebbe dire buttare via gli inspiri
+  /// brevi di chi respira corto.
   void ditoSu(DateTime adesso) {
     if (_fase != FaseDelRespiro.dentro) return;
     _ultimoDentro = adesso.difference(_iniziata ?? adesso);
@@ -157,9 +233,19 @@ class RespiroGuidatoDalDito {
     if (_fase != FaseDelRespiro.fuori) return null;
     final fuori = adesso.difference(_iniziata ?? adesso);
     final r = UnRespiro(dentro: _ultimoDentro, fuori: fuori);
-    _compiuti.add(r);
     _fase = FaseDelRespiro.attesa;
     _iniziata = null;
+    _inizioDelDentro = null;
+    // **CIO' CHE NON E' UN RESPIRO NON ENTRA.** Ordine DA voce 02: se l'app e'
+    // stata in secondo piano col dito giu', questo mezzo respiro dura minuti.
+    // Lasciarlo entrare sporcherebbe la media, la figura della card e la
+    // memoria, cioe' tutte e tre le cose che poi vengono raccontate.
+    if (r.dentro > respiroPiuLungoCheAbbiaSenso ||
+        r.fuori > respiroPiuLungoCheAbbiaSenso) {
+      _scartati++;
+      return null;
+    }
+    _compiuti.add(r);
     return r;
   }
 
