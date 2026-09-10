@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/arts/art_catalog.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/l_annuncio_dell_animale.dart';
@@ -102,5 +104,48 @@ void main() {
     expect(contorni, [0, 1, 2, 3, 4],
         reason: 'i contorni non seguono le discese: la sagoma non racconta '
             'nessun avvicinamento');
+  });
+
+  test('CHI VIVE SOLO NEL PASSAPORTO NON ARRIVA DA NESSUNA DELLE DUE PORTE',
+      () {
+    // **DIFETTO TROVATO DAL TELEFONO E NON DA UNA PROVA.** Ordine DC voce 12,
+    // 10 settembre 2026.
+    //
+    // Il filtro di `soloNelPassaporto` stava in `visibleArts`, cioe' nelle
+    // viste del dominio, e la prima guardia guardava soltanto quelle. **Ma le
+    // porte da cui un'arte arriva a schermo sono DUE**: la striscia "Scopri
+    // altre arti del Cerchio" legge da `activeOf`.
+    //
+    // Aprendo il dominio di Caligo sulla build 2244 l'Angelo Custode era
+    // ancora nella striscia, **mentre tutte le prove erano verdi**.
+    final soloNelPassaporto = [
+      for (final a in ArtCatalog.all)
+        if (a.soloNelPassaporto) a.id,
+    ];
+    cardinaleMinimo(soloNelPassaporto.length, 1,
+        cosa: 'arti che vivono solo nel Passaporto',
+        perche: 'Se nessuna lo dichiara piu, questa guardia non trova '
+            'infrazioni perche non ha guardato niente.');
+    // ignore: avoid_print
+    print('ORDINE DC VOCE 12: arti che vivono solo nel Passaporto '
+        '${soloNelPassaporto.length}: ${soloNelPassaporto.join(", ")}');
+    for (final m in Maestro.values) {
+      // **PRIMA PORTA: le viste del dominio.**
+      final nelleViste = [
+        for (final s in ArtCatalog.visibleFor(m, demo: true))
+          for (final a in s.arts) a.id,
+      ];
+      // **SECONDA PORTA: la striscia delle altre arti.**
+      final nellaStriscia = ArtCatalog.activeOf(m).map((a) => a.id).toList();
+      for (final id in soloNelPassaporto) {
+        expect(nelleViste.contains(id), isFalse,
+            reason: '$id compare nello scaffale di ${m.id}, e dichiara di '
+                'vivere solo nel Passaporto');
+        expect(nellaStriscia.contains(id), isFalse,
+            reason: '$id compare nella striscia delle altre arti di '
+                '${m.id}: e la seconda porta, quella che il telefono ha '
+                'mostrato mentre le prove erano verdi');
+      }
+    }
   });
 }

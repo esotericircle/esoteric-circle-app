@@ -166,10 +166,22 @@ class ArtCatalog {
       ];
 
   /// Le arti attive di un Maestro, quelle che si aprono davvero.
+  ///
+  /// **E CHI VIVE SOLO NEL PASSAPORTO NON C'E'.** Ordine DC voce 12,
+  /// 10 settembre 2026.
+  ///
+  /// **Il filtro stava in `visibleArts` e non bastava**, e l'ha mostrato il
+  /// telefono: la striscia *"Scopri altre arti del Cerchio"* legge di qui,
+  /// non di la', e l'Angelo Custode continuava a comparirci dentro. Una
+  /// guardia che guardava soltanto `visibleFor` era verde mentre a video il
+  /// difetto c'era ancora.
+  ///
+  /// **Adesso il filtro sta nelle due porte**, che sono le sole due da cui le
+  /// arti arrivano a schermo.
   static List<ArtEntry> activeOf(Maestro maestro) => [
         for (final s in forMaestro(maestro))
           for (final a in s.arts)
-            if (a.state == ArtState.attiva) a,
+            if (a.state == ArtState.attiva && !a.soloNelPassaporto) a,
       ];
 
   /// Se un'arte si mostra nella vista corrente.
