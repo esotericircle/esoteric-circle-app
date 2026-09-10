@@ -121,6 +121,63 @@ premio come funziona il rito.
 
 ---
 
+## LA CORREZIONE E' STATA ACCOLTA, E DUE FATTI NUOVI
+
+**10 settembre 2026, ordine DC voce 17.** Il fondatore ha accolto la
+correzione: il terzo traguardo diventa **tre volte sullo stesso centro**,
+senza vincolo di consecutivita', cioe' la strada A.
+
+**E ADESSO C'E' UNA GUARDIA PERMANENTE.** L'ordine chiede che *"nessun
+traguardo possa avere una condizione che una simulazione di un anno non
+accende mai"*, e questa e'
+`test/nessun_traguardo_e_irraggiungibile_test.dart`. Costruisce la fotografia
+piu' generosa che un anno possa produrre, chi ha fatto tutto ogni giorno in
+ogni ora con ogni varieta', e pretende che ogni condizione si accenda li'
+dentro. **Se una resta spenta anche cosi', non e' difficile: e' impossibile.**
+
+**Il risultato, misurato**: sui **165** traguardi del catalogo, **zero** sono
+irraggiungibili. Il difetto che l'ordine DB aveva trovato era nella proposta,
+non nel catalogo.
+
+**MA I TRE TRAGUARDI RESTANO NON MONTATI, e non per pigrizia.** Misurando
+dove metterli e' emerso un vincolo che questa proposta non conosceva:
+
+**I traguardi sono 55 per sentiero per legge**, e una guardia lo pretende
+(`i_traguardi_del_cammino_test.dart`, riga 77). I grandi stanno nelle
+posizioni 11, 22, 33, 44 e 55, e **la posizione segue il costo**. Quindi:
+
+- **non se ne possono aggiungere tre al solo Loto** senza rompere la
+  struttura di tutti e tre i sentieri;
+- il traguardo dei sette centri costa **circa una settimana**, quindi
+  vorrebbe una posizione bassa, dove i posti sono occupati da traguardi
+  validi;
+- l'unico modo sarebbe **togliere tre traguardi esistenti**, che peggiora il
+  catalogo invece di migliorarlo.
+
+**Un fatto emerso dal censimento, e vale la pena dirlo.** La coda alta del
+sentiero del Loto e' fatta di **conteggi puri e crescenti**:
+
+| posizione | traguardo | condizione |
+| ---: | --- | --- |
+| 54 | Trecentoquaranta Soffi | `soffio, 340` |
+| 50 | Duecentottanta volti | `viso, 280` |
+| 45 | Centonovantuna albe | `alba, 191` |
+| 42 | Centosessantacinque Archetipi | `archetipo, 165` |
+| 39 | Centoquaranta meditazioni | `meditazione, 140` |
+
+Sono tutti *"fai la stessa cosa N volte"*, con N che cresce. Sono
+raggiungibili, quindi la guardia non li accusa, ma **quasi nessuno li vedra'
+mai** e nessuno di loro insegna niente. **Se il fondatore vuole i tre
+traguardi del respiro nel catalogo, quello e' il posto da cui prenderli**: si
+sostituisce la condizione di alcuni di questi, mantenendo id, posizione e Eos,
+e il catalogo migliora invece di allargarsi.
+
+**Non lo faccio di mia iniziativa**: cambiare la condizione di un traguardo e'
+un cambio di verita' per chi lo avesse gia' acceso, e questa e' una decisione
+del fondatore.
+
+---
+
 ## Riassunto per il fondatore
 
 | | condizione | tipo gia' esistente? | collide? | cosa serve prima |
