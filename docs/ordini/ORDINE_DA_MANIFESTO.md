@@ -43,6 +43,25 @@ perche' `respiroPiuLungoCheAbbiaSenso` dice che oltre quel confine non e' piu'
 un respiro. **Gli scartati si contano**: un dato buttato in silenzio e' un
 dato che nessuno potra' mai rimettere in discussione.
 
+## DA.03, RESPIRO DA SOLO
+
+**Il fatto, e l'ho scritto io nella voce DB.12.** Il gesto del dito si rompe
+*"a mani occupate, che e' il caso di chi medita sdraiato: li' il dito non e'
+la via giusta e nessuna soglia lo salva"*. Il fondatore lo ha nominato per
+esteso quando ha detto di procedere.
+
+**Non e' un ripiego per un sensore che manca, ed e' la differenza che conta.**
+La regola di casa chiede un gesto tattile dove c'e' un sensore, e qui il
+sensore non c'e'. Questa e' l'altra meta': **un modo di respirare per chi non
+puo' toccare lo schermo.**
+
+**Il pulsante sta accanto alla scelta della frequenza e non davanti al fiore**:
+la via principale resta il dito, che e' cio' che rende questa meditazione
+diversa da tutte le altre. Chi sceglie di respirare da solo legge subito
+*"Il fiore va col suo ritmo e tu vai col tuo"*, e **sulla card resta scritto
+che il respiro era guidato**: quella figura e' del ritmo dell'app e non sua, e
+spacciarla per sua sarebbe la prima bugia di questa funzione.
+
 ## DA.04, L'ORA DEL SOFFIO SEGUE CHI RESPIRA
 
 **Il fatto, e la prima stesura era mia e sbagliata.** Avevo scritto un confine
@@ -91,8 +110,8 @@ vuota mentre nasceva.
 
 ---
 
-VOCI_TOTALI: 5
-VOCI_CHIUSE: 5
+VOCI_TOTALI: 6
+VOCI_CHIUSE: 6
 VOCI_APERTE: 0
 SIGLA_PRESA: DA, la prima libera, per non scavalcare l'ordine DC del fondatore
 GUARDIE_NUOVE: 2

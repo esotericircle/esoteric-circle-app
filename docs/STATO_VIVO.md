@@ -1692,11 +1692,19 @@ nessun traguardo e' montato: e' aperta la porta, non scritto il premio.
 
 **10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DA_MANIFESTO.md`,
 scritto il 10 settembre 2026 a lavoro finito, coi marcatori terminali
-sigillati: **cinque voci, cinque chiuse, zero aperte**. Il fondatore ha detto
+sigillati: **sei voci, sei chiuse, zero aperte**. Il fondatore ha detto
 di procedere con le idee che avevo scritto nella voce DB.12, e sono diventate
-cinque voci. **La sigla e' DA e non DC**, perche' la DC e' arrivata dal
+sei voci. **La sigla e' DA e non DC**, perche' la DC e' arrivata dal
 fondatore mentre chiudevo questo lavoro e l'ordine chiede di rinominare alla
 prima libera.
+
+**RESPIRO DA SOLO**, per chi medita sdraiato e non puo' tenere il dito. **Non
+e' un ripiego per un sensore che manca**: la regola di casa chiede un gesto
+tattile dove c'e' un sensore, e qui il sensore non c'e'. E' l'altra meta', un
+modo di respirare per chi non puo' toccare lo schermo. Il pulsante sta accanto
+alla scelta della frequenza e non davanti al fiore, perche' **la via
+principale resta il dito**, e sulla card resta scritto che il respiro era
+guidato: quella figura e' del ritmo dell'app e non della persona.
 
 **IL DITO CHE SCIVOLA A OCCHI CHIUSI.** L'app chiede di respirare a occhi
 chiusi, e a occhi chiusi il dito scivola: uno scivolo valeva come un dito
