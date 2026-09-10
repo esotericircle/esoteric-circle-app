@@ -410,6 +410,11 @@ riga**, e adesso ci stanno tutte e due.
 
 ---
 
+BUILD_CONSEGNATA: 2243, release 1764bkj4refno, distribuita e riletta dal server
+PROVE_ALLA_CONSEGNA: 4810
+SBARRAMENTO: rossi accettati, e solo quelli
+ROSSI_DICHIARATI_DAL_FONDATORE_ANCORA_ACCESI: 2, l attribuzione cieca (BY.04) e le soglie della scansione (CR.13)
+DIFETTI_TROVATI_DALLO_SBARRAMENTO: 11, tutti miei
 VOCI_TOTALI: 13
 VOCI_CHIUSE: 12
 VOCI_PROPOSTE_E_NON_MONTATE: 1, la DB.06 come l'ordine chiede

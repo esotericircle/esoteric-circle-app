@@ -1573,9 +1573,11 @@ arti".
 
 ## L'ORDINE DB, LA MEDITAZIONE CHE RICORDA
 
-**9 settembre 2026.** Manifesto `docs/ordini/ORDINE_DB_MANIFESTO.md`. **Tredici
-voci: undici chiuse, una proposta e non montata come l'ordine chiede, una
-aperta fino alla prova a video.** La sigla DB era libera, verificato contando
+**9 settembre 2026, consegnato il 10.** Manifesto
+`docs/ordini/ORDINE_DB_MANIFESTO.md`. **Tredici voci: dodici chiuse, una
+proposta e non montata come l'ordine chiede, zero aperte.** Build **2243**,
+release `1764bkj4refno`, **4810 prove**, sbarramento coi soli due rossi
+dichiarati dal fondatore. La sigla DB era libera, verificato contando
 le sigle in `docs/ordini/`: ottantaquattro manifesti, le lettere arrivavano
 fino a CZ.
 
