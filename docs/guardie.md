@@ -431,6 +431,7 @@ le altre.
 | `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `la_lampadina_si_distingue_test.dart` | la lampadina si distingue | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_libreria_si_apre_e_il_rito_si_compone_test.dart` | la libreria si apre e il rito si compone | 1, 4 | proprio, dichiarato | 09/09/2026, DB | 2 |
+| `la_meditazione_ha_il_suo_cielo_test.dart` | la meditazione ha il suo cielo | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa: zero cieli montati col difetto innestato) | 1 |
 | `la_maschera_segue_solo_un_volto_vero_test.dart` | la maschera segue solo un volto vero | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `la_meditazione_non_nomina_malattie_test.dart` | la meditazione non nomina malattie | 1, 2 | proprio, dichiarato | 09/09/2026, DB | 2 |
