@@ -601,7 +601,7 @@ class _ViaggioDelloSciamanoScreenState
               key: const Key('viaggio_solo_incontro'),
               padding: const EdgeInsets.all(SpacingTokens.md),
               child: ParagrafiDiLettura(
-                testo: 'Scendo soltanto per incontrarlo. La scena parlera\' '
+                testo: 'Scendo soltanto per incontrarlo. La scena parlerà '
                     'del momento che stai vivendo.',
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary),
@@ -635,6 +635,9 @@ class _ViaggioDelloSciamanoScreenState
       borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
       child: InkWell(
         key: Key('viaggio_domanda_${d.id}'),
+        // **NIENTE CLICK DI SISTEMA.** Ordine CQ voce 1.08: il Cerchio ha le
+        // sue voci, e il tocco di fabbrica di Android non e' una di quelle.
+        enableFeedback: false,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         onTap: () => setState(() {
           _domanda.text = d.testo;

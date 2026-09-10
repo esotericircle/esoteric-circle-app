@@ -157,7 +157,11 @@ void main() {
 
     expect(find.byKey(const Key('animal_identity')), findsNothing);
     expect(find.byKey(const Key('viaggio_scendi')), findsOneWidget);
-    expect(find.byKey(const Key('viaggio_domanda')), findsOneWidget);
+    // **IL SELETTORE DELLE TRE VIE, e non piu' il campo libero.** Dalla
+    // riscrittura della soglia il campo si apre solo scegliendo la via
+    // 'Scrivila tu': cercarlo qui vorrebbe dire pretendere che la soglia
+    // apra sempre sulla via che una volta era l'unica.
+    expect(find.byKey(const Key('viaggio_le_tre_vie')), findsOneWidget);
   });
 
   testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',

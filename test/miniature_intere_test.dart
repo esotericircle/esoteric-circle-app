@@ -103,7 +103,12 @@ void main() {
     // condiviso, `VipFramedPortrait`, che e' proprio cio' che questa riga
     // sorveglia: il numero segue il dato, e cio' che conta e' che nessun
     // punto nuovo nasca fuori dalla porta comune.
-    expect(punti.length, 13,
+    // **QUATTORDICI DALL'ORDINE DC VOCE 21**, e il quattordicesimo e' la
+    // girandola dei dodici totem sulla soglia del Viaggio: i totem esistevano
+    // gia' e si vedevano soltanto dopo aver conosciuto il proprio animale.
+    // Passa da `thumbPath` come tutti gli altri e non adatta al riempimento,
+    // che e' cio' che l'altra riga di questa guardia sorveglia.
+    expect(punti.length, 14,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');
