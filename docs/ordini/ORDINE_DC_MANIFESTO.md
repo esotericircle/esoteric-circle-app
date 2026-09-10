@@ -439,14 +439,14 @@ sui percorsi `/sdcard`.
 
 **QUESTA VOCE HA TROVATO PIU' DIFETTI DI TUTTE LE ALTRE VENTI MESSE INSIEME,
 e il conto e' diciotto.** Il Viaggio dello Sciamano arrivava a questa voce con
-**quarantasette prove verdi**, di cui dieci scritte apposta sotto la Regola I
+**quarantasette prove verdi**, di cui nove scritte apposta sotto la Regola I
 per misurare i pixel dipinti. La prima fotografia della scena piu' importante,
 l'incontro con le tre ombre, ha mostrato **uno schermo vuoto**.
 
 ### La lezione, e vale piu' della voce
 
 **Una guardia che dipinge il pittore non guarda il posto dove il pittore
-vive.** Tutte e dieci le guardie della Regola I chiamano `pittore.paint(tela,
+vive.** Tutte e nove le guardie della Regola I chiamano `pittore.paint(tela,
 misura)` con una misura che scelgono loro. Sono giuste, misurano davvero i
 pixel, e **nessuna di loro poteva vedere** che sul telefono quel pittore
 riceveva una tela larga zero, o alta il settantanove per cento invece del

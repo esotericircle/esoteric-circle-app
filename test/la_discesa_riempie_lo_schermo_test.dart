@@ -92,11 +92,6 @@ void main() {
     );
   }
 
-  /// La sola larghezza, per le figure che non devono riempire la scena.
-  Future<double> quotaDipinta(ui.Image immagine,
-          {required bool Function(int r, int g, int b, int a) e}) async =>
-      (await estensioneDipinta(immagine, e: e)).larga;
-
   group('DC.07, il tunnel', () {
     test('IL TUNNEL OCCUPA LA SCENA INTERA', () async {
       final immagine =
