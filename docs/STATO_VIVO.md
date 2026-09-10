@@ -1660,6 +1660,21 @@ fra la stessa scena col dito e senza, a parita' di tempo: **0,908 senza,
 0,004 col dito**. Il gesto con un dito vero resta da guardare, perche' `adb
 input motionevent` non tiene il dito giu'.
 
+**LO SBARRAMENTO HA TROVATO UNDICI DIFETTI, e il piu' grave teneva muti i
+Maestri.** La voce DB.08 innestava il riassunto del respiro nell'apertura della
+chat con un `await`: in `flutter test` senza il finto archivio,
+`SharedPreferences.getInstance()` **non completa mai**, quindi l'apertura
+restava appesa. **Undici prove di chat sono cadute insieme**, e fra queste
+proprio quella che pretende che un Maestro non resti mai muto. **Nessuna
+funzione puo' tenere in ostaggio l'apertura della chat per un dato che le e'
+soltanto utile**: adesso il riassunto arriva quando arriva. Gli altri dieci:
+un dialogo fuori dal velo del Cerchio, due descrizioni con la misura della
+didascalia invece che quella del responso, quattro testi in oro pieno sotto la
+soglia di contrasto, il piede della card che andava a capo in maiuscoletto, il
+richiamo della parola che diceva una meta' sola di quello che due ordini
+diversi gli chiedono, una virgola seguita da "e", quattro `catch` muti, una
+rotta costruita a mano e un `InkWell` col click di sistema acceso.
+
 **I TRE TRAGUARDI PROPOSTI SONO MISURATI CONTRO IL CATALOGO DEI 165**, in
 `docs/ordini/DB_traguardi_del_respiro.md`, e non montati perche' li scrive il
 fondatore. Misurarli ha trovato due cose: **il gesto della meditazione partiva
