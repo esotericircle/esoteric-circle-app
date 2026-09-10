@@ -84,6 +84,7 @@ class ArtEntry {
     this.requiredTier,
     this.phase,
     this.cornice = false,
+    this.soloNelPassaporto = false,
   });
 
   final String id;
@@ -91,6 +92,19 @@ class ArtEntry {
   final String teaser;
   final IconData icon;
   final ArtState state;
+
+  /// **VIVE SOLO NEL PASSAPORTO, e non nel dominio di un Maestro.**
+  /// Ordine DC voce 12, 10 settembre 2026.
+  ///
+  /// **La regola generale da cui nasce**, ed e' del fondatore: *"nel dominio
+  /// di un Maestro stanno le esperienze, nel Passaporto stanno i risultati.
+  /// Una schermata che mostra soltanto cio' che il Passaporto gia' mostra non
+  /// e' un'arte, e' un doppione."*
+  ///
+  /// **Non e' un modo di nascondere una funzione**: la schermata esiste,
+  /// funziona e si apre dal Passaporto, che e' il suo posto. Esce dallo
+  /// scaffale delle arti, dove prometteva un'esperienza che non c'e'.
+  final bool soloNelPassaporto;
 
   /// Il livello che sblocca l'arte, quando e' [ArtState.premium] oppure quando
   /// arrivera' gia' riservata a un livello.
@@ -190,7 +204,12 @@ class ArtCatalog {
     final esente = !hasActive(section);
     return [
       for (final a in section.arts)
-        if (isVisible(a, demo: demo, esente: esente)) a,
+        // **CHI VIVE SOLO NEL PASSAPORTO NON STA NELLO SCAFFALE.**
+        // Ordine DC voce 12: nel dominio di un Maestro stanno le esperienze,
+        // nel Passaporto i risultati. **Il filtro sta qui, in un punto solo**,
+        // cosi' vale per tutti e tre i domini e per la striscia delle altre
+        // arti senza che nessuno debba ricordarsene.
+        if (!a.soloNelPassaporto && isVisible(a, demo: demo, esente: esente)) a,
     ];
   }
 
@@ -365,6 +384,20 @@ class ArtCatalog {
       //
       // Una funzione viva marcata «in arrivo» e' un pezzo di prodotto che
       // nessuno trova, e chi lo trova per caso non sa se puo' fidarsi.
+      // **L'ANGELO ESCE DAL DOMINIO DI MEDORA.** Ordine DC voce 12,
+      // decisione del fondatore, 10 settembre 2026.
+      //
+      // **La schermata non fa fare niente**: mostra i tre Angeli, che il
+      // Passaporto mostra gia'. Nel dominio di un Maestro stanno le
+      // esperienze; questo e' un risultato, e il suo posto e' il Passaporto.
+      //
+      // **Non si cancella e non si spegne**: `soloNelPassaporto` la toglie
+      // dallo scaffale e la lascia viva dove serve.
+      //
+      // **Rientrera' come esperienza vera** con l'invocazione dell'Angelo,
+      // che nella tradizione ha giorni e ore precise: Lazare Lenain, La
+      // Science Cabalistique, 1823, e Robert Ambelain. Cosa servirebbe sta
+      // dichiarato nel manifesto dell'ordine DC.
       ArtEntry(
         id: 'guardian_angel',
         title: 'Angelo Custode personale',
@@ -372,6 +405,7 @@ class ArtCatalog {
         icon: Icons.shield_moon_rounded,
         state: ArtState.attiva,
         phase: ArtPhase.mvp,
+        soloNelPassaporto: true,
       ),
       ArtEntry(
         id: 'karmic_reading',
@@ -648,21 +682,24 @@ class ArtCatalog {
       ),
     ]),
     ArtSection(title: 'Rituali', arts: [
+      // **IL VIAGGIO DELLO SCIAMANO, E UNA VOCE SOLA.** Ordine DC voci
+      // 01 e 03, 10 settembre 2026.
+      //
+      // **Qui c'erano due voci**: "Animale Guida" attiva e "Messaggio
+      // dall'Animale" in arrivo. Il fondatore ha giudicato la prima
+      // *"una funzionalita' buttata li'"*: rivela un animale, da' un
+      // messaggio, e finisce. **Oggi l'Animale e' un risultato, e nella
+      // tradizione e' un rapporto.**
+      //
+      // La seconda **viene assorbita e smette di esistere come funzione
+      // separata**: il messaggio e' il risultato del viaggio, non una
+      // voce che promette un'altra schermata.
       ArtEntry(
         id: 'guide_animal',
-        title: 'Animale Guida',
-        teaser: 'Il tuo animale di potere emerge dalla nebbia.',
+        title: 'Il Viaggio dello Sciamano',
+        teaser: 'Scendi con una domanda, risali con una risposta.',
         icon: Icons.pets_rounded,
         state: ArtState.attiva,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'animal_message',
-        title: 'Messaggio dall\'Animale',
-        teaser: 'La voce del tuo animale, giorno per giorno.',
-        icon: Icons.record_voice_over_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
         cornice: true,
       ),
       ArtEntry(

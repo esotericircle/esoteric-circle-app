@@ -138,6 +138,9 @@ void main() {
       final destino = ArtCatalog.forMaestro(Maestro.medora)
           .firstWhere((s) => s.title == 'Destino');
       expect(destino.arts.length, 3);
+      // **L'Angelo e' ancora QUI, nel catalogo grezzo**, ed e' giusto cosi':
+      // l'ordine DC voce 12 lo toglie dalle VISTE del dominio, non dal
+      // catalogo. La schermata esiste, funziona, e si apre dal Passaporto.
       expect(destino.arts.map((a) => a.id),
           ['guardian_angel', 'karmic_reading', 'narrative_destiny']);
       final narrativo =
@@ -286,8 +289,13 @@ void main() {
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
           ['Rune', 'Rituali', 'Magia', 'Numerologia']);
+      // **E I RITUALI NE HANNO QUATTRO, non cinque.** Ordine DC voci 01 e 03,
+      // 10 settembre 2026: il Messaggio dall'Animale e' stato assorbito dal
+      // Viaggio dello Sciamano. **Il conteggio segue il contenuto**, che e'
+      // cio' che la voce 03 chiede per nome: *"se il numero mostrato non
+      // corrisponde a quello che c'e', e' un difetto"*.
       expect(
-          conta(true), {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Numerologia': 5});
+          conta(true), {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Numerologia': 5});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
       // perdono i Rituali Guidati. La Numerologia no: senza piu' nulla di vivo e'
       // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
@@ -297,7 +305,11 @@ void main() {
           // **CINQUE E NON PIU' QUATTRO.** Ordine CC voce 01, decisione del
           // fondatore del 30 agosto 2026: la Cabala e' entrata come arte
           // dentro la Numerologia. Il numero segue il dato.
-          {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Numerologia': 5});
+          //
+          // **E I RITUALI SCENDONO A TRE.** Ordine DC voci 01 e 03: qui
+          // cadono anche le fasi oltre la Fase 2, quindi ai quattro della
+          // riga sopra si toglie ancora i Rituali Guidati.
+          {'Rune': 5, 'Rituali': 3, 'Magia': 5, 'Numerologia': 5});
 
       List<ArtEntry> arti(String titolo) =>
           ArtCatalog.forMaestro(Maestro.caligo)
@@ -321,9 +333,12 @@ void main() {
       ]);
       // Il Sigillo non e' piu' qui: e' passato in Magia, dove e' la
       // distintiva viva. Spostato, non duplicato.
+      // **UNA VOCE SOLA DOVE CE N'ERANO DUE.** Ordine DC voci 01 e 03: il
+      // Messaggio dall'Animale e' stato ASSORBITO dal Viaggio dello Sciamano
+      // e non esiste piu' come funzione separata, perche' il messaggio e' il
+      // risultato del viaggio.
       expect(arti('Rituali').map((a) => a.id), [
         'guide_animal',
-        'animal_message',
         'micro_rituals',
         'daily_invocation',
         'guided_rituals',
@@ -533,10 +548,18 @@ void main() {
       //
       // La regola che questa prova sorveglia resta provata dalla Lunologia,
       // che di vivo non ha ancora niente.
+      // **L'ANGELO NON COMPARE PIU' NELLE VISTE DEL DOMINIO.** Ordine DC
+      // voce 12, decisione del fondatore: *"nel dominio di un Maestro stanno
+      // le esperienze, nel Passaporto stanno i risultati"*. La schermata
+      // dell'Angelo mostra soltanto cio' che il Passaporto gia' mostra.
+      //
+      // **Il catalogo lo tiene, le viste no**, e la prova qui sopra sul
+      // catalogo grezzo lo conferma: non e' stato cancellato.
       expect(arti('Destino', true),
-          ['guardian_angel', 'karmic_reading', 'narrative_destiny'],
-          reason: 'in Demo si mostra tutto, fasi lontane comprese');
-      expect(arti('Destino', false), ['guardian_angel', 'karmic_reading'],
+          ['karmic_reading', 'narrative_destiny'],
+          reason: 'in Demo si mostra tutto, fasi lontane comprese, ma non chi '
+              'vive solo nel Passaporto');
+      expect(arti('Destino', false), ['karmic_reading'],
           reason: 'alla persona il Destino Narrativo, di fase successiva, '
               'non si mostra: la sottocategoria adesso ha una vita');
 
@@ -552,12 +575,14 @@ void main() {
             for (final s in ArtCatalog.visibleFor(Maestro.medora, demo: demo))
               s.title: s.arts.length,
           };
+      // **IL DESTINO NE MOSTRA DUE E NON TRE.** Ordine DC voce 12: l'Angelo
+      // Custode vive solo nel Passaporto e non compare piu' nello scaffale.
       expect(conta(true), {
         'Astrologia': 5,
         'Compatibilità': 3,
         'Cartomanzia': 3,
         'Lunologia': 4,
-        'Destino': 3,
+        'Destino': 2,
       });
       // Solo le miste si accorciano: le tutte in cammino restano intere.
       // **E il Destino adesso e' una mista**, ordine CS voce S3: l'Angelo
@@ -568,7 +593,10 @@ void main() {
         'Compatibilità': 2,
         'Cartomanzia': 2,
         'Lunologia': 4,
-        'Destino': 2,
+        // **E ALLA PERSONA UNO SOLO.** Ordine DC voce 12: uscito l'Angelo,
+        // qui resta la Lettura Karmica, e il Destino Narrativo di fase
+        // successiva continua a nascondersi.
+        'Destino': 1,
       });
       // Nessuna sottocategoria vuota arriva a video.
       for (final m in Maestro.values) {
@@ -753,7 +781,16 @@ void main() {
         (tester) async {
       await tester.pumpWidget(domain(Maestro.medora));
       await tester.pump();
-      for (final s in ArtCatalog.forMaestro(Maestro.medora)) {
+      // **SI CONFRONTA CON LE SEZIONI VISIBILI, non col catalogo grezzo.**
+      // Ordine DC voce 03: *"il conteggio deve restare vero: se il numero
+      // mostrato non corrisponde a quello che c'e', e' un difetto"*.
+      //
+      // Questa prova leggeva `ArtCatalog.forMaestro`, cioe' il catalogo
+      // intero, mentre il contatore a video conta le arti **mostrate**.
+      // Finche' le due liste coincidevano non si vedeva; **quando l'ordine DC
+      // ha tolto l'Angelo dalle viste, la prova ha accusato il codice al
+      // posto di se stessa.**
+      for (final s in ArtCatalog.visibleFor(Maestro.medora)) {
         final chiave = Key('art_section_count_${s.title.toLowerCase()}');
         await tester.scrollUntilVisible(
           find.byKey(chiave),
@@ -812,10 +849,17 @@ void main() {
         expect(find.byKey(Key('art_section_header_$t')), findsOneWidget);
       }
       expect(find.byKey(const Key('art_lunology')), findsNothing);
-      // **L'ANGELO CUSTODE ADESSO SI VEDE.** Ordine CS voce S3: e' un'arte
-      // viva, quindi la sua sottocategoria e' aperta e la sua card sta a
-      // video come quella delle altre vive.
-      expect(find.byKey(const Key('art_guardian_angel')), findsOneWidget);
+      // **E L'ANGELO CUSTODE NON SI VEDE PIU' QUI.** Ordine DC voce 12,
+      // 10 settembre 2026, e rovescia la voce CS.S3 che lo aveva portato
+      // nello scaffale.
+      //
+      // **Non e' stato spento**: la schermata esiste, funziona, e si apre dal
+      // Passaporto. E' uscita dal dominio perche' *"nel dominio di un Maestro
+      // stanno le esperienze, nel Passaporto stanno i risultati"*, e questa
+      // schermata mostra soltanto cio' che il Passaporto gia' mostra.
+      expect(find.byKey(const Key('art_guardian_angel')), findsNothing,
+          reason: 'l Angelo e tornato nello scaffale delle arti, dove '
+              'prometteva un esperienza che non c e');
 
       // Al tocco dell'intestazione la sottocategoria si apre.
       await tocca(tester, const Key('art_section_header_lunologia'));
@@ -829,9 +873,16 @@ void main() {
       // L'ordine e' del catalogo, non della schermata: si verifica li'.
       expect(
         ArtCatalog.visibleFor(Maestro.medora, demo: true).map((s) => s.title),
-        // **IL DESTINO SALE.** Ordine CS voce S3: le sottocategorie con
-        // un'arte viva vengono prima di quelle tutte in cammino.
-        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Destino', 'Lunologia'],
+        // **E IL DESTINO E' RISCESO.** Ordine DC voce 12, ed e' una
+        // conseguenza vera che vale la pena dichiarare: **uscito l'Angelo, il
+        // Destino di Medora non ha piu' nessuna arte viva.** Restano la
+        // Lettura Karmica e il Destino Narrativo, tutte e due in cammino,
+        // quindi la sottocategoria torna dopo quelle che qualcosa da fare ce
+        // l'hanno.
+        //
+        // La regola che questa riga sorveglia non e' cambiata: le vive prima,
+        // le in cammino dopo. E' cambiato **chi e' vivo**.
+        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino'],
       );
       for (final m in Maestro.values) {
         final sezioni = ArtCatalog.visibleFor(m, demo: true);
