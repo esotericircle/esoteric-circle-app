@@ -211,6 +211,72 @@ void main() {
             'dove l ordine non l ha ammessa: ${fuoriPosto.join(" | ")}');
   });
 
+  test('REGOLA A: OGNI PRATICA PORTA UN SINTOMO SUO, e nessuno si ripete',
+      () {
+    // **IL FATTO DEL FONDATORE**, ordine DD voce 12, 10 settembre 2026:
+    // *"sto leggendo la libreria dei 12 sintomi e molti sintomi sono uguali e
+    // non va bene"*.
+    //
+    // **Il conto della prima stesura**: otto sintomi per dodici pratiche.
+    // Tensione tre volte, agitazione due, stanchezza due: **sette voci su
+    // dodici** portavano in testa, scritta grande, un etichetta gia letta
+    // poco sopra.
+    //
+    // **QUESTA GUARDIA MISURA IL RIPETUTO, non il numero.** Pretendere che i
+    // sintomi siano dodici cadrebbe il giorno che una pratica esce. Si conta
+    // invece quante etichette distinte ci sono rispetto alle pratiche: se una
+    // pratica nuova si appoggia a un etichetta gia occupata, il conto scende
+    // e la prova cade.
+    const pratiche = LibreriaDeiRespiri.pronte;
+    cardinaleMinimo(pratiche.length, 8,
+        cosa: 'pratiche di cui si guarda il sintomo',
+        perche: 'Su poche pratiche non ripetersi e facile, e la guardia '
+            'direbbe che la libreria e varia per non aver quasi guardato.');
+    final conteggio = <String, List<String>>{};
+    for (final p in pratiche) {
+      conteggio.putIfAbsent(p.sintomo.etichetta, () => []).add(p.nome);
+    }
+    final ripetuti = [
+      for (final e in conteggio.entries)
+        if (e.value.length > 1) '"${e.key}" su ${e.value.join(", ")}',
+    ];
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 12: pratiche ${pratiche.length}, sintomi distinti '
+        '${conteggio.length}, sintomi ripetuti ${ripetuti.length}');
+    expect(ripetuti, isEmpty,
+        reason: 'due o piu pratiche portano lo stesso sintomo scritto grande '
+            'in testa, e chi scorre la libreria la vede ripetersi: '
+            '${ripetuti.join(" | ")}');
+
+    // **REGOLA H: si prova anche il contrario, cioe che non avanzino
+    // etichette.** Un sintomo dichiarato nell enum e non assegnato a nessuna
+    // pratica e una voce che nessuno puo trovare cercando: la prima meta
+    // sarebbe verde e la libreria prometterebbe con l elenco dei valori
+    // qualcosa che non ha.
+    final assegnati = {for (final p in pratiche) p.sintomo};
+    final orfani = [
+      for (final s in Sintomo.values)
+        if (!assegnati.contains(s)) s.etichetta,
+    ];
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 12: sintomi dichiarati ${Sintomo.values.length}, '
+        'senza nessuna pratica ${orfani.length}');
+    expect(orfani, isEmpty,
+        reason: 'questi sintomi esistono e nessuna pratica risponde: '
+            '${orfani.join(" | ")}');
+
+    // **E le etichette non sono vuote ne doppioni fra loro nell enum**, che e
+    // il modo piu silenzioso di far tornare il difetto: due valori diversi
+    // con lo stesso testo a schermo.
+    final testi = Sintomo.values.map((s) => s.etichetta.toLowerCase()).toList();
+    expect(testi.toSet().length, testi.length,
+        reason: 'due valori dell enum Sintomo si scrivono uguale a schermo');
+    for (final s in Sintomo.values) {
+      expect(s.etichetta.trim(), isNotEmpty,
+          reason: 'un sintomo non ha etichetta');
+    }
+  });
+
   test('LA PRATICA DI OGGI VIENE DAL CENTRO DI OGGI', () {
     // La porta principale resta quella decisa: **Aura sceglie**, la libreria
     // sta sotto per chi vuole cercare.

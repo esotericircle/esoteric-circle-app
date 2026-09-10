@@ -470,7 +470,7 @@ le altre.
 | `le_due_cose_che_non_servivano_test.dart` | le due cose che non servivano | 1, 2 | dalla porta comune | mai | 3 |
 | `le_feste_e_le_regole_che_le_trattengono_test.dart` | le feste e le regole che le trattengono | 1, 2 | proprio, dichiarato | CO, RESTATA VERDE col difetto dentro | 3 |
 | `le_feste_si_vedono_diverse_test.dart` | le feste si vedono diverse | 2, 4, 1 | non scopre insiemi di file | mai | 3 |
-| `le_fonti_dei_respiri_dicono_il_vero_test.dart` | le fonti dei respiri dicono il vero | 1 | proprio, dichiarato | 09/09/2026, DB | 2 |
+| `le_fonti_dei_respiri_dicono_il_vero_test.dart` | le fonti dei respiri dicono il vero | 1 | proprio, dichiarato | 10/09/2026, DD (rossa due volte: sintomo ripetuto, sintomo orfano) | 2 |
 | `le_fonti_della_meditazione_dicono_il_vero_test.dart` | le fonti della meditazione dicono il vero | 1, 2 | non scopre insiemi di file | 08/09/2026, CZ | 2 |
 | `le_frasi_della_custodia_dicono_il_vero_test.dart` | le frasi della custodia dicono il vero | 1, 2 | dalla porta comune | mai | 3 |
 | `le_parole_dicono_tieni_premuto_test.dart` | le parole dicono tieni premuto | 1, 2 | dalla porta comune | mai | 3 |

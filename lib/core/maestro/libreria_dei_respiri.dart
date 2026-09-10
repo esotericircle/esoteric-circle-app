@@ -42,7 +42,7 @@ abstract final class LibreriaDeiRespiri {
     // --- I SETTE SUONI SEME, uno per centro ---
     Respiro(
       id: 'bija_lam',
-      sintomo: Sintomo.agitazione,
+      sintomo: Sintomo.insicurezza,
       perQuando: 'per quando ti senti senza appoggio',
       nome: 'Il suono della radice',
       centro: 0,
@@ -53,7 +53,7 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_vam',
-      sintomo: Sintomo.tensione,
+      sintomo: Sintomo.ventreStretto,
       perQuando: 'per quando il ventre resta stretto',
       nome: 'Il suono del sacro',
       centro: 1,
@@ -64,7 +64,7 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_ram',
-      sintomo: Sintomo.stanchezza,
+      sintomo: Sintomo.slancio,
       perQuando: 'per i giorni in cui non parte niente',
       nome: 'Il suono del fuoco',
       centro: 2,
@@ -86,7 +86,7 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_ham',
-      sintomo: Sintomo.tensione,
+      sintomo: Sintomo.golaChiusa,
       perQuando: 'per quando la gola si chiude prima di parlare',
       nome: 'Il suono della gola',
       centro: 4,
@@ -154,7 +154,7 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'breve_soglia',
-      sintomo: Sintomo.tensione,
+      sintomo: Sintomo.primaDiUnPasso,
       perQuando: 'per prima di entrare da qualche parte o di uscirne',
       nome: 'Il respiro della soglia',
       centro: -1,
@@ -168,7 +168,7 @@ abstract final class LibreriaDeiRespiri {
     Respiro(
       id: 'solfeggio_giorno',
       sintomo: Sintomo.stanchezza,
-      perQuando: 'per le sere in cui non hai voglia di contare niente',
+      perQuando: 'per quando non hai voglia di contare niente',
       nome: 'La frequenza del giorno',
       centro: -1,
       durata: Duration(minutes: 7),
@@ -290,14 +290,37 @@ class Respiro {
 /// terreno medico non e' pero' il sostantivo: e' il verbo, e vive in
 /// [Respiro.perQuando].
 enum Sintomo {
-  insonnia('Insonnia'),
-  ansia('Ansia'),
-  stanchezza('Stanchezza'),
-  tensione('Tensione'),
-  agitazione('Agitazione'),
+  /// **DODICI SINTOMI PER DODICI PRATICHE, E NESSUNO SI RIPETE.** Ordine DD
+  /// voce 12, 10 settembre 2026, e nasce dal fondatore che legge la libreria:
+  /// *"molti sintomi sono uguali e non va bene"*.
+  ///
+  /// **Aveva ragione, e il conto lo dice.** Gli otto sintomi della prima
+  /// stesura coprivano dodici pratiche: **tensione** compariva tre volte,
+  /// **agitazione** e **stanchezza** due ciascuna. Sette voci su dodici
+  /// portavano in testa un'etichetta già letta poco sopra, e siccome il
+  /// sintomo è la riga scritta grande, la libreria sembrava ripetersi.
+  ///
+  /// **La cura non è rinominare: è guardare cosa fa davvero ogni
+  /// pratica.** Il ventre stretto del sacro e la gola che si chiude prima di
+  /// parlare erano tutti e due *tensione*, ma chi arriva con l'uno non cerca
+  /// l'altro. **Una guardia pretende che siano distinti**, così una
+  /// pratica nuova non può rientrare appoggiandosi a un'etichetta già
+  /// occupata.
+  ///
+  /// **IL CONFINE RESTA AL VERBO.** L'etichetta nomina uno stato, mai una
+  /// promessa: vedi [Respiro.perQuando] e la guardia del vocabolario.
+  insicurezza('Senso di insicurezza'),
+  ventreStretto('Ventre stretto'),
+  slancio('Mancanza di slancio'),
+  respiroCorto('Respiro corto'),
+  golaChiusa('Gola chiusa prima di parlare'),
   concentrazione('Difficoltà di concentrazione'),
   pensieri('Pensieri che non si fermano'),
-  respiroCorto('Respiro corto');
+  ansia('Ansia'),
+  agitazione('Agitazione improvvisa'),
+  primaDiUnPasso('Tensione prima di un passo'),
+  stanchezza('Stanchezza della sera'),
+  insonnia('Insonnia');
 
   const Sintomo(this.etichetta);
 

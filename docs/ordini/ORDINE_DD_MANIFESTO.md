@@ -108,6 +108,65 @@ finche' non ho aperto l'Alba, letto la parola, aperto il Sigillo e guardato.
 **Il fatto del fondatore resta vero fino a prova contraria**: se lui non la
 vede, per lui non c'e', e la causa va trovata invece che negata.
 
+## DD.12, IL SINTOMO RIPETUTO, contestato a lavoro in corso
+
+**Il fatto del fondatore**, mentre la voce era aperta: *"sto leggendo la
+libreria dei 12 sintomi e molti sintomi sono uguali e non va bene"*.
+
+**Il conto gli da' ragione, ed e' mio il difetto.** La prima stesura di questa
+stessa voce aveva dichiarato **otto sintomi per dodici pratiche**: `tensione`
+tre volte, `agitazione` due, `stanchezza` due. **Sette voci su dodici**
+portavano in testa, scritta grande, un'etichetta gia' letta poco sopra. Non
+era un dettaglio di scrittura: il sintomo e' la prima riga di ogni voce, cioe'
+esattamente cio' che chi arriva sta cercando, e una libreria che ripete la
+stessa parola sette volte su dodici sembra avere quattro pratiche, non dodici.
+
+**REGOLA C, il padre del difetto**: ordine DD voce 12, 10 settembre 2026,
+prima stesura. Nato lo stesso giorno in cui e' stato trovato, dentro il lavoro
+che lo stava introducendo.
+
+**La cura non e' stata rinominare le etichette**: e' stato guardare cosa fa
+davvero ogni pratica. Il ventre stretto del sacro e la gola che si chiude
+prima di parlare erano tutti e due *tensione*, ma chi arriva con l'uno non sta
+cercando l'altro. **Dodici pratiche, dodici sintomi distinti**:
+
+| Pratica | Sintomo |
+| --- | --- |
+| Il suono della radice | Senso di insicurezza |
+| Il suono del sacro | Ventre stretto |
+| Il suono del fuoco | Mancanza di slancio |
+| Il suono del cuore | Respiro corto |
+| Il suono della gola | Gola chiusa prima di parlare |
+| Il suono del terzo occhio | Difficolta' di concentrazione |
+| Il silenzio della corona | Pensieri che non si fermano |
+| Sei respiri al minuto | Ansia |
+| Dodici respiri | Agitazione improvvisa |
+| Il respiro della soglia | Tensione prima di un passo |
+| La frequenza del giorno | Stanchezza della sera |
+| Due toni che si incontrano | Insonnia |
+
+**E due sere di seguito erano una ripetizione anche loro**: la riga al verbo
+della *Frequenza del giorno* si apriva con le stesse tre parole di quella dei
+*Due toni*. Adesso dice *"per quando non hai voglia di contare niente"*.
+
+**LA GUARDIA, e nasce rossa due volte.** In
+`test/le_fonti_dei_respiri_dicono_il_vero_test.dart`:
+
+- **meta' prima**, il ripetuto: si conta quante etichette distinte ci sono
+  rispetto alle pratiche. Non si pretende il numero dodici, che cadrebbe il
+  giorno che una pratica esce: si pretende che nessuna etichetta compaia due
+  volte. **Innestato il difetto** dando al suono della gola il sintomo del
+  sacro, verificato col grep alla riga 89, la prova e' caduta dicendo
+  *"Ventre stretto" su Il suono del sacro, Il suono della gola*.
+- **meta' seconda, REGOLA H**, l'orfano: un sintomo dichiarato e assegnato a
+  nessuna pratica e' una voce che nessuno puo' trovare cercando. **Innestato
+  un secondo difetto** aggiungendo all'enum `provaOrfana`, la prova e' caduta
+  dicendo *questi sintomi esistono e nessuna pratica risponde: Prova orfana*.
+  Ripristinato e riverificato col grep: zero occorrenze.
+
+Con la cura: **pratiche 12, sintomi distinti 12, sintomi ripetuti 0, senza
+nessuna pratica 0**.
+
 ---
 
 VOCI_TOTALI: 15
