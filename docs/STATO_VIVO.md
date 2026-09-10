@@ -1887,7 +1887,7 @@ prova di accensione: l'app si apriva, la home era piena, il log non aveva
 errori fatali. Tutto vero e tutto inutile, perche' nessuno aveva premuto i
 comandi.
 
-### Le tredici voci di codice, chiuse
+### Le quattordici voci di codice, chiuse
 
 - **DD.01** Il microfono del Soffio. Era una **soglia di volume nuda**, sopra i
   meno diciotto decibel, e il flusso audio vero veniva scartato. Adesso decide
@@ -1930,6 +1930,36 @@ comandi.
 - **DD.13** La Meditazione ha il suo cielo, col colore di Aura.
 - **DD.16** Il respiro della Meditazione ha il conto alla rovescia che scorre e
   il fiore che cresce e si riduce.
+
+### La voce DD.17, arrivata a lavoro in corso col telefono in mano
+
+Il fondatore ha guardato la build e ha dettato tre cose in una frase:
+**via la pressione prolungata** (solo un pulsante che accende e spegne), **via
+"Preferisco scegliere io"** (ridondante: il pulsante promette gia' sintomo e
+frequenza), **la card da condividere con sintomo e frequenza**, titolo
+accattivante e poco testo.
+
+- **La Meditazione aveva quattro modi di comandare la stessa cosa**: il dito
+  premuto, il play, l'interruttore delle frequenze e *"Respiro da solo"*, che
+  esisteva solo per riparare il primo. **Adesso il comando e' uno.** Il fiore
+  resta toccabile e fa la stessa cosa del pulsante: un cerchio grande che
+  ignora il dito sarebbe il difetto da cui l'ordine e' nato.
+- **Le nove frequenze sono entrate nel pannello** che il pulsante apre, sopra i
+  dodici sintomi: misurato, le frequenze a **102** punti e i sintomi a **438**.
+- **La card ha perso la figura unica, e la perdita e' dichiarata.** Era
+  costruita sui tempi veri del dito e prometteva *"nessuno uguale al
+  precedente"*: senza il dito quella frase sarebbe stata falsa. Al suo posto **il
+  sigillo della sessione**, da sintomo, frequenza, centro e durata vera. Cambia
+  con ognuno dei quattro dati (da **0,186** a **0,263** di distanza) e **non
+  cambia a parita' di sessione** (0,000).
+- **Il titolo parla a chi non conosce l'app**: da *"IL TUO RESPIRO DI OGGI"* a
+  **"MI SONO PRESO 5 MINUTI"**, col numero vero. Sotto, tre righe e ognuna e'
+  un dato: per cosa, cosa ha suonato, da quanti giorni di fila.
+
+**E `RespiroGuidatoDalDito` resta in `lib` senza chiamanti**, dichiarato nel
+file col grep e non dedotto: misura lo scivolo del dito, il respiro troppo
+lungo e il dito alzato due volte, tarature costate un ordine intero. Se il
+gesto torna, torna da li'.
 
 ### Le due voci aperte
 

@@ -776,10 +776,134 @@ le tre scale di animazione di Android a **zero**, quindi
 fase, un progresso sono **informazione** e devono scorrere comunque, a scatti
 se serve.
 
+## DD.17, UN COMANDO SOLO, E LA CARD CHE SI CAPISCE DA FUORI
+
+**Tre decisioni del fondatore in una frase**, arrivate col telefono in mano
+dopo aver guardato la build: *"elimina la possibilita' di tenere il dito
+premuto, solo pulsante play e stop (stesso pulsante). elimina 'preferisco
+scegliere io', e' ridondante visto che dal pulsante puo' gia' scegliere sintomo
+e frequenza. migliora la card da condividere includendo il sintomo e la
+frequenza, ma non esagerare con il testo descrittivo, inizia con titolo
+accattivante."*
+
+### La schermata aveva QUATTRO modi di comandare la stessa cosa
+
+1. il dito **tenuto premuto** sul fiore, che inspirava ed espirava;
+2. il **pulsante play**;
+3. *"Preferisco scegliere io"*, che apriva le nove frequenze;
+4. *"Respiro da solo, senza tenere il dito"*, che spegneva il primo.
+
+**Il quarto esisteva solo per riparare il primo.** Nasceva dall'ordine DA voce
+03 come ripiego per chi non puo' tenere il pollice sul vetro: tolto il dito,
+**il ripiego e' diventato la via**, e un interruttore che porta dove sei gia'
+e' rumore.
+
+**Adesso il comando e' uno**: si preme e parte, si preme e si ferma.
+
+**E IL FIORE RESTA TOCCABILE, ed e' una scelta che dichiaro.** L'ordine dice
+*"solo pulsante play e stop"*, e la lettura piu' stretta sarebbe stata un fiore
+inerte. **Un cerchio grande e bello che ignora il dito e' peggio del difetto da
+cui quest'ordine e' nato**, che era *"se faccio click su una voce non succede
+nulla"*. Il fiore fa **la stessa identica cosa** del pulsante: un'azione sola,
+due superfici, nessun gesto nascosto. Se il fondatore intendeva il fiore
+inerte, si toglie una riga.
+
+### Le nove frequenze sono entrate dove il pulsante le prometteva
+
+Il pulsante si chiama **SCEGLI SINTOMO E FREQUENZA** e apriva un pannello con i
+soli sintomi: la frequenza stava dietro un secondo interruttore, piu' in basso
+nella colonna, con parole sue. **Due porte per una promessa sola**, e chi non
+scorreva non trovava mai la seconda.
+
+Adesso il pannello si apre su **LA FREQUENZA**, nove pasticche, e sotto **IL
+SINTOMO**, dodici voci. Le frequenze stanno sopra perche' nove pasticche si
+guardano in un colpo e dodici voci si scorrono. Misurato: le frequenze a
+**102** punti, i sintomi a **438**.
+
+### La card: cosa si e' perso, e va detto
+
+**Senza il dito muore la figura unica.** La card disegnava una corona costruita
+sui **tempi veri** di ogni inspiro, e scriveva *"dodici respiri: nessuno uguale
+al precedente"*. Era la promessa dell'ordine DB voce 10, e **reggeva**: due
+persone non hanno mai la stessa serie di millisecondi. Senza il dito resta il
+ritmo dell'app, **uguale per tutti**, e quella frase sarebbe stata la prima
+bugia di questa funzione.
+
+**Al suo posto: il sigillo della sessione.** Nasce da quattro dati veri, il
+sintomo scelto, la frequenza, il centro del giorno e la **durata vera**, che e'
+l'unico numero continuo rimasto. Misurato sul sigillo di riferimento, la
+distanza quando cambia un solo dato:
+
+| Cosa cambia | Quanto cambia il sigillo |
+| --- | --- |
+| un altro sintomo | **0,186** |
+| un'altra frequenza | **0,226** |
+| un altro centro | **0,263** |
+| un minuto in piu' | **0,230** |
+
+**E la stessa sessione da' lo stesso sigillo**, distanza **0,000**: chi rifa'
+la stessa pratica per lo stesso tempo ritrova il suo segno. Un sigillo che
+cambia a ogni ridisegno non e' un sigillo, e' rumore.
+
+**La promessa e' scesa di un gradino, ed e' onesta.** Non e' piu' *"nessuna
+figura come la tua al mondo"*: e' *"questa e' la tua sessione"*.
+
+### Il titolo, e perche' e' cambiato
+
+Qui c'era **IL TUO RESPIRO DI OGGI**, che si capisce solo se sei gia' dentro.
+Una card si condivide, e chi la riceve in una chat parte da zero.
+
+Adesso: **MI SONO PRESO 5 MINUTI**, col numero vero. Sotto il minuto diventa
+*"MI SONO PRESO UN MOMENTO"*, perche' una cifra sotto il minuto suonerebbe
+misera.
+
+E sotto, **al massimo tre righe, e ognuna e' un dato**: per cosa, cosa ha
+suonato, da quanti giorni.
+
+    Per insonnia
+    Due toni che si incontrano · 210 Hz
+    4 giorni di fila
+
+**La striscia di un giorno non si scrive**, perche' una striscia di uno non e'
+una striscia e scriverla la sgonfia. Da due in su si'.
+
+**E senza un sintomo scelto la card non ne inventa uno**: quando la pratica la
+propone Aura dal centro del giorno, la card dice il centro. Mettere in bocca a
+qualcuno un sintomo che non ha scelto sarebbe peggio di non dirlo.
+
+### Le guardie
+
+**`un_comando_solo_nella_meditazione`, tre prove, nata rossa**: innestata la
+pressione lunga sul fiore, verificato col grep, la prova e' caduta dicendo *il
+fiore ha una pressione lunga: e' il gesto che il fondatore ha tolto*. La meta'
+Regola H prova che il comando nuovo **funziona**: premuto parte, ripremuto si
+ferma, toccato il fiore riparte.
+
+**`la_libreria_si_apre_e_la_pratica_parte`, due prove nuove, nata rossa**:
+innestato `take(3)` sulle frequenze del pannello, la prova e' caduta dicendo
+*frequenze nel pannello 3 su 9*.
+
+**`la_card_del_respiro_e_diversa_ogni_volta`, riscritta**, dieci prove sul
+sigillo, sul titolo e sulle righe.
+
+**`il_loto_riempie_la_scena`**: la prova del dito che comandava il fiore aveva
+un soggetto che non esiste piu', e **ha cambiato domanda invece di sparire**.
+Adesso guarda la stessa scena in otto istanti della stessa sessione e pretende
+che il fiore si muova: innestato un fiore fermo a 0,5, la prova e' caduta
+dicendo *escursione 0,000*. Con la cura: **da 0,020 a 1,000**.
+
+**E `RespiroGuidatoDalDito` non e' stato cancellato.** Misura una cosa
+difficile e la misura bene: distingue uno scivolo del dito da un espiro vero,
+butta i respiri piu' lunghi di un minuto, non conta due volte un dito alzato
+due volte. Sono tarature costate un ordine intero e le sue quattordici prove
+restano verdi. **Nessuna schermata lo monta**, e sta scritto nel file:
+dichiarato col grep, non dedotto.
+
 ---
 
-VOCI_TOTALI: 15
-VOCI_CHIUSE: 13
+VOCI_TOTALI: 16, quindici dell'ordine piu' la voce 17 arrivata a lavoro in
+corso col telefono in mano.
+VOCI_CHIUSE: 14
 VOCI_APERTE: 2
 QUALI_RESTANO: DD.14 e DD.15, i due referti, che si scrivono col telefono in
 mano dopo la consegna.
