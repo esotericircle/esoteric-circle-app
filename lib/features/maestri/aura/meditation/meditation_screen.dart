@@ -661,14 +661,37 @@ class _MeditationScreenState extends State<MeditationScreen>
                       // negli accenti e nei bordi; il testo che si legge resta
                       // inchiostro, perche' un testo tinto si legge peggio e
                       // cambia significato col Maestro del giorno.
-                      ParagrafiDiLettura(
-                        testo: FrequenzaDelGiorno.perche(
-                            widget.now ?? DateTime.now()),
-                        key: const Key('meditation_perche_la_frequenza'),
-                        textAlign: TextAlign.center,
-                        stile: TypographyTokens.lettura().copyWith(
-                            color: ColorTokens.textPrimary, height: 1.4),
-                      ),
+                      // **E SE UNA PRATICA E' STATA SCELTA, QUESTA RIGA TACE.
+                      // Ordine DD voce 12, trovato sul telefono 767f596c il
+                      // 10 settembre 2026, dopo la cura.**
+                      //
+                      // La riga dice *"Oggi e' acceso il cuore... la
+                      // tradizione gli accosta i 639 hertz. **E' la frequenza
+                      // di questa sessione**"*. E' vera finche' la sessione e'
+                      // quella che Aura ha scelto dal centro del giorno.
+                      //
+                      // **Scegliendo dalla libreria la sessione cambia**, e la
+                      // riga restava a schermo a dichiarare una frequenza che
+                      // non stava piu' suonando: sotto di lei si leggeva
+                      // *"Senso di insicurezza: Il suono della radice"*, che
+                      // e' 396. **Due frasi sulla stessa cosa che dicono due
+                      // numeri diversi**, ed e' esattamente il difetto da cui
+                      // questa voce e' nata.
+                      //
+                      // **Non si riscrive la riga con la frequenza nuova**: il
+                      // suo soggetto e' *il centro di oggi*, non la sessione,
+                      // e adattarla vorrebbe dire farle dire una cosa che non
+                      // sa. Quando la scelta e' di chi guarda, a parlare resta
+                      // la riga della pratica scelta, che dice il vero.
+                      if (_praticaScelta == null)
+                        ParagrafiDiLettura(
+                          testo: FrequenzaDelGiorno.perche(
+                              widget.now ?? DateTime.now()),
+                          key: const Key('meditation_perche_la_frequenza'),
+                          textAlign: TextAlign.center,
+                          stile: TypographyTokens.lettura().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.4),
+                        ),
                       // **LA PRATICA IN CORSO SI LEGGE**, quando ne e' stata
                       // scelta una: il sintomo e il nome, una riga sola.
                       if (_praticaScelta != null) ...[

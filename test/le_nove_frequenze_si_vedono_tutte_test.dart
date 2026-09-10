@@ -141,4 +141,81 @@ void main() {
               'centro $i');
     }
   });
+
+  testWidgets(
+      'DUE FRASI NON DICONO DUE FREQUENZE DIVERSE, scelta una pratica',
+      (tester) async {
+    // **TROVATO SUL TELEFONO 767f596c il 10 settembre 2026**, dopo la cura
+    // della voce DD.12 e con la libreria che finalmente risponde.
+    //
+    // A schermo si leggevano insieme, a due righe di distanza:
+    //
+    //     Oggi e acceso il cuore (Anahata) ... i 639 hertz.
+    //     E la frequenza di questa sessione.
+    //     Senso di insicurezza: Il suono della radice, 5 minuti.
+    //
+    // Il suono della radice sta a **396**, non a 639. **Due frasi sulla
+    // stessa cosa che dicono due numeri diversi**, ed e' la stessa famiglia
+    // di difetti da cui questa voce e nata: la schermata diceva 639 e suonava
+    // 432.
+    //
+    // **La riga del centro non e sbagliata: e fuori tempo.** Il suo soggetto
+    // e *il centro di oggi*, e resta vera finche la sessione e quella che
+    // Aura ha scelto. Quando a scegliere e chi guarda, quella riga tace e
+    // parla la riga della pratica.
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.dark(),
+        home: MaestroScope(
+          child: MeditationScreen(
+              player: const SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final riga = find.byKey(const Key('meditation_perche_la_frequenza'));
+    expect(riga, findsOneWidget,
+        reason: 'la riga del centro di oggi non c e prima di scegliere: '
+            'senza di lei questa prova non misura niente');
+
+    // Si apre la libreria e si sceglie la prima pratica.
+    final apre = find.byKey(const Key('meditazione_apri_libreria'));
+    await tester.scrollUntilVisible(apre, 200);
+    await tester.tap(apre);
+    await tester.pump(const Duration(milliseconds: 300));
+    // La prima voce della libreria, cercata per chiave: `InkWell` ne trova
+    // anche altri, e toccare quello sbagliato farebbe cadere questa prova su
+    // un gesto che non e' mai arrivato alla libreria.
+    final voci = find.byWidgetPredicate((w) =>
+        w.key is ValueKey<String> &&
+        (w.key as ValueKey<String>).value.startsWith('meditazione_respiro_'));
+    expect(voci, findsWidgets,
+        reason: 'la libreria aperta non mostra nessuna pratica da toccare');
+    await tester.scrollUntilVisible(voci.first, 200);
+    await tester.tap(voci.first);
+    await tester.pump(const Duration(milliseconds: 400));
+
+    final inCorso = find.byKey(const Key('meditazione_pratica_in_corso'));
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 12: scelta una pratica, la riga della pratica c e '
+        '${inCorso.evaluate().isNotEmpty}, la riga del centro c e '
+        '${riga.evaluate().isNotEmpty}');
+    expect(inCorso, findsOneWidget,
+        reason: 'toccata una pratica, la schermata non dice quale sta '
+            'facendo: questa prova non e arrivata al punto che misura');
+    expect(riga, findsNothing,
+        reason: 'scelta una pratica, la riga del centro di oggi resta a '
+            'schermo e dichiara una frequenza che non sta suonando: due frasi '
+            'sulla stessa cosa con due numeri diversi');
+  });
 }
