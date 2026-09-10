@@ -1721,8 +1721,9 @@ posto di una domanda generica, e solo se oggi si e' respirato.
 ## L'ORDINE DC, IL VIAGGIO DELLO SCIAMANO
 
 **10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DC_MANIFESTO.md`.
-**Ventuno voci in due pezzi: diciannove chiuse, una parziale e dichiarata, una
-aperta fino alla prova a video.**
+**Ventuno voci in due pezzi: venti chiuse, una parziale e dichiarata, zero
+aperte.** Marcatori terminali sigillati sul file. Consegnato sul ramo
+`claude/esoteric-circle-master-order-e798aj`.
 
 **L'ANIMALE GUIDA DIVENTA IL VIAGGIO DELLO SCIAMANO.** Il fondatore l'aveva
 giudicata *"una funzionalita' buttata li'"*, e la causa e' una sola: **oggi
@@ -1738,9 +1739,63 @@ calcola dal catalogo. **L'ordine diceva quaranta figure: 12 piu' 18 piu' 10
 piu' 4 fa quarantaquattro**, dichiarato sotto la Regola ZERO.
 
 **LA GRAFICA E' MISURATA SUI PIXEL DIPINTI**, sotto la Regola I che nasce dal
-difetto del loto: il tunnel occupa il **100 per cento** della scena, fra la
-bocca e meta' discesa cambia il **69,9 per cento** dei pixel, l'animale in
-piena luce occupa il **67,4**, il varco della mano scopre **16.313 pixel**.
+difetto del loto. **I numeri qui sotto sono quelli dopo la voce DC.21, e sono
+diversi da quelli con cui le voci si erano chiuse**, perche' la prova a video
+ha smentito le misure precedenti: il tunnel occupa il **100 per cento** della
+finestra vera 390x682 in tutte e due le direzioni e ne copre il **100 per
+cento** dei pixel, fra la bocca e meta' discesa cambia il **26,6 per cento**
+dei pixel, l'animale in piena luce e' **alto il 61,2 per cento** e largo il
+**61,8** della scena del ritorno, il varco della mano scopre **22.956 pixel**.
+
+**LA PROVA A VIDEO HA TROVATO DICIOTTO DIFETTI CHE QUARANTASETTE PROVE VERDI
+NON POTEVANO VEDERE**, ed e' la cosa piu' importante che quest'ordine
+insegna. **La Regola I dice due cose e sono due**: contare i pixel dipinti,
+che le dieci guardie della Regola I facevano, **e farlo nella finestra vera
+dove la cosa convive con tutto il resto**, che nessuna faceva. Tutte
+dipingevano il pittore su una tela scelta da loro, e nessuna guardava il posto
+dove il pittore vive.
+
+**IL DIFETTO PIU' SILENZIOSO DI TUTTI**, e adesso ha una guardia permanente:
+**`CustomPaint`, senza figlio e senza `size`, si misura con
+`constraints.constrain(Size.zero)`**. Dentro una `Row` o una `Column` il
+vincolo trasversale e' largo, non stretto, quindi una delle due dimensioni
+vale zero e il pittore dipinge su una tela di area nulla. L'incontro con le
+tre ombre era **uno schermo vuoto**, e la prima diagnosi, il contrasto, era
+sbagliata: **le ombre non erano scure, non c'erano**. La guardia
+`test/nessun_pittore_dipinge_sul_nulla_test.dart` riproduce il difetto,
+pretende di vederlo, e censisce l'app intera: **ottantanove `CustomPaint`
+senza figlio, sessantasette senza misura, zero nel Viaggio e nel Passaporto**.
+I sessantasette restano dichiarati e non riparati, perche' molti sono
+innocenti sotto un vincolo stretto e separarli dal testo sorgente non si puo'
+fare in modo affidabile.
+
+**IL CERCHIO REGALAVA L'ANIMALE ALLA PRIMA DISCESA**, con celebrazione a
+schermo pieno, il traguardo `cal_1` e dieci Eos: cioe' consegnava in venti
+secondi la rivelazione che quest'ordine costruisce in quattro discese, e che
+la voce DC.02 vieta perfino all'onboarding. **Nessuno aveva scritto una riga
+sbagliata**: il pezzo dell'identita' maturava con `haFatto('animale_guida')`,
+condizione giusta finche' l'Animale era un risultato. **L'ordine ha cambiato
+la natura dell'arte da risultato a rapporto e il significato di una riga
+giusta e' cambiato sotto.** Adesso il gesto parte a ogni discesa, perche' i
+conti delle arti, i Ricordi e le finestre del cielo lo aspettano, e **il pezzo
+aspetta la quarta**; con lui il Passaporto pieno, che ha la casella
+dell'Animale fra le sue sette tessere.
+
+**LA CASELLA VUOTA DEL PASSAPORTO ESISTE DAVVERO, dalla voce DC.21.** Fino a
+quel momento `LAnnuncioDellAnimale.sottoLaSagoma` non era chiamato da nessuno:
+la voce DC.02 aveva la sua riga, la sua guardia verde sul testo e **nessuna
+porta che la portasse a schermo**. Adesso il Passaporto mostra `Ancora senza
+nome`, la sagoma in ombra che si schiarisce a ogni discesa, la riga che dice a
+che punto si e', e al tocco **porta al Viaggio invece che alla lettura fissa**:
+una casella vuota che non porta da nessuna parte sarebbe un buco.
+
+**LE PROVE NON PRESE SONO DUE E SONO DICHIARATE.** L'incontro con la barra al
+suo posto non si e' potuto rifotografare, perche' **il Viaggio concede una
+discesa al giorno** e il telefono non e' rootato: `su` non esiste e
+`settings put global auto_time` chiede `WRITE_SECURE_SETTINGS`. La carta della
+rivelazione a schermo pieno della voce DC.14 vive nell'onboarding, che su un
+telefono gia' passato dall'onboarding non si ripete: resta coperta dalla sola
+guardia e va guardata al prossimo collaudo su un telefono pulito.
 
 **LA REGOLA GENERALE DELL'ONBOARDING**, e vale su tutto: rivela cio' che
 nessuna funzione rivelera' mai, e cio' che una funzione rivelera' **lo annuncia

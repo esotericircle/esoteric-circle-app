@@ -649,14 +649,23 @@ collaudo su un telefono pulito.
 che tiene il dito premuto per la durata dichiarata. Non e' una limitazione:
 e' il modo in cui la discesa e' stata guidata per quarantasei secondi.
 
-### Un difetto trovato fuori dalle voci dell'ordine
+### Un rilievo che NON era un difetto, e la regola che mi ha corretto
 
-**L'etichetta `ESPLORA` della barra in basso si sovrappone al testo delle card
-sopra di lei**, e si vede nelle fotografie 10, 12 e 19. **PROVENIENZA IGNOTA**:
-non appartiene a nessuna voce dell'ordine DC, e non e' stato toccato da questo
-lavoro. **Dichiarato e non riparato**: toccare la barra comune di tutte le
-schermate dentro l'ultima voce di un ordine e' esattamente il modo in cui
-nasce il difetto numero 4 di questo elenco.
+Guardando le fotografie 10, 12 e 19 avevo segnato che **l'etichetta `ESPLORA`
+della barra in basso si sovrappone al testo delle card sopra di lei**, e stavo
+per dichiararlo come difetto di PROVENIENZA IGNOTA.
+
+**Non e' un difetto, ed e' scritto.** `docs/STATO_VIVO.md`, nelle Regole
+ferree: *"ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO, ed e' normale che
+a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026,
+riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine
+futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto."*
+
+**Lo scrivo invece di cancellarlo in silenzio**, perche' e' la prova che il
+protocollo funziona nel verso giusto: prima di dire che una cosa e' rotta si
+legge la fonte sovrana, e la fonte sovrana qui dice che la cosa e' una
+decisione. Un elenco di difetti che contiene una decisione del fondatore non
+e' un elenco piu' lungo: e' un elenco meno credibile.
 
 ---
 
@@ -676,4 +685,4 @@ DI_QUESTI_FIGLI_DELLA_CURA_DI_UN_ALTRO: 2
 GUARDIE_CHE_HANNO_ACCUSATO_SE_STESSE: 3
 PROVE_ROVESCIATE_INVECE_CHE_CANCELLATE: 1, il riquadro della scelta
 PROVE_NON_PRESE_E_DICHIARATE: 2, l'incontro con la barra e la carta della rivelazione
-DIFETTI_FUORI_DALL_ORDINE_DICHIARATI_E_NON_RIPARATI: 1, l'etichetta ESPLORA
+RILIEVI_RITIRATI_PERCHE_ERANO_DECISIONI_DEL_FONDATORE: 1, l'etichetta ESPLORA
