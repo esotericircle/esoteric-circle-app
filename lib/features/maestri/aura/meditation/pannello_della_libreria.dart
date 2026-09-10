@@ -107,7 +107,18 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
             _RigaDelRespiro(
               respiro: r,
               palette: palette,
-              onTap: () => widget.onSceglie(r),
+              // **SCEGLIENDO, LA LIBRERIA SI CHIUDE.** Difetto misurato sul
+              // telefono 767f596c dopo la prima cura: toccata una voce mentre
+              // la sessione era gia' in corso, **cambiavano zero pixel**. La
+              // pratica partiva davvero e cambiava solo il suono, che con la
+              // stessa frequenza del centro non cambiava nemmeno quello.
+              // **Un comando che risponde e non lo dice e' un comando morto
+              // per chi lo guarda.** La libreria che si chiude e' la risposta
+              // visibile, e riporta l'occhio sul fiore.
+              onTap: () {
+                setState(() => _aperto = false);
+                widget.onSceglie(r);
+              },
             ),
         ],
       ],

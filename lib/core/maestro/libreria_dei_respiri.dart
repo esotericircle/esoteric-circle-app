@@ -122,7 +122,7 @@ abstract final class LibreriaDeiRespiri {
     Respiro(
       id: 'risonanza_sei',
       sintomo: Sintomo.ansia,
-      perQuando: 'per quando il petto va piu\' veloce di te',
+      perQuando: 'per quando il petto va più veloce di te',
       nome: 'Sei respiri al minuto',
       centro: 3,
       durata: Duration(minutes: 7),

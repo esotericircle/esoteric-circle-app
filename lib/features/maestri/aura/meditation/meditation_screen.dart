@@ -24,7 +24,6 @@ import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import 'loto_che_respira.dart';
 import 'pannello_della_libreria.dart';
-import '../../../../core/maestro/sequenza_di_aura.dart';
 import '../../../../core/maestro/libreria_dei_respiri.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -119,7 +118,6 @@ class _MeditationScreenState extends State<MeditationScreen>
   final MemoriaDelRespiro _memoria = MemoriaDelRespiro();
 
   /// **I RITI CHE LA PERSONA SI E' COSTRUITA.** Ordine DB voce 05.
-  final SequenzeDiAura _sequenze = SequenzeDiAura();
 
   /// La frase che Aura dice alla fine, quando la memoria ha qualcosa di vero
   /// da dire. Nulla quando non ce l'ha: **non si inventa niente**.
@@ -161,6 +159,10 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// Ordine DA voce 05.
   Respiro? _piuCorta;
 
+  /// La pratica scelta dalla libreria, se qualcuna lo e'.
+  /// Ordine DD voce 12.
+  Respiro? _praticaScelta;
+
   /// L'indice del centro acceso oggi, per accenderne il petalo.
   int get _indiceDelCentro {
     final oggi = FrequenzaDelGiorno.centroDi(widget.now ?? DateTime.now());
@@ -195,11 +197,6 @@ class _MeditationScreenState extends State<MeditationScreen>
       if (piuCorta == null) return;
       setState(() => _piuCorta = piuCorta);
     }));
-    // I riti composti si leggono dal disco: chi ne ha uno deve trovarlo gia'
-    // in fondo alla libreria, non vederlo comparire dopo.
-    unawaited(_sequenze.carica().then((_) {
-      if (mounted) setState(() {});
-    }));
     unawaited(_traccia.carica().then((_) {
       if (mounted) setState(() {});
     }));
@@ -232,20 +229,53 @@ class _MeditationScreenState extends State<MeditationScreen>
     super.dispose();
   }
 
-  // Da 0 a 1: quanto e' pieno il respiro adesso, piu' l'etichetta della fase.
-  ({double fill, String phase}) _breathState() {
+  /// Quanto e' pieno il respiro adesso, l'etichetta della fase, **e quanti
+  /// secondi mancano alla fine di questa fase**.
+  ///
+  /// **IL CONTO ALLA ROVESCIA, e lo ha chiesto il fondatore.** Ordine DD voce
+  /// 16, 10 settembre 2026: *"l'utente fa click e parte l'animazione inspira e
+  /// il fiore si ingrandisce, ma contemporaneamente l'utente vede un countdown
+  /// in secondi che gli da una guida, poi si ferma altri tre secondi o quanto
+  /// necessario di countdown e poi espira sempre con countdown e fiore che si
+  /// riduce"*.
+  ///
+  /// **Perche' cambia tutto pur essendo un numero.** Il fiore diceva gia' cosa
+  /// fare, e non diceva **per quanto ancora**: chi respira guidato ha bisogno
+  /// di sapere quando finisce la fase, altrimenti tiene il fiato guardando un
+  /// petalo e indovinando. Con gli occhi chiusi resta la vibrazione, che
+  /// arriva al cambio di fase; con gli occhi aperti adesso c'e' il numero.
+  ///
+  /// **Il numero si arrotonda per eccesso**, cosi' non compare mai lo zero
+  /// prima che la fase sia davvero finita: a quattro secondi di inspiro il
+  /// conto va 4, 3, 2, 1 e cambia fase.
+  ({double fill, String phase, int secondi}) _breathState() {
     final ms = _breath.value * _cycleMs;
     if (ms < _inhaleMs) {
       return (
         fill: Curves.easeInOut.transform(ms / _inhaleMs),
-        phase: 'Inspira'
+        phase: 'Inspira',
+        secondi: _quantiSecondi(_inhaleMs - ms),
       );
     }
     if (ms < _inhaleMs + _holdMs) {
-      return (fill: 1.0, phase: 'Trattieni');
+      return (
+        fill: 1.0,
+        phase: 'Trattieni',
+        secondi: _quantiSecondi(_inhaleMs + _holdMs - ms),
+      );
     }
     final e = (ms - _inhaleMs - _holdMs) / _exhaleMs;
-    return (fill: 1.0 - Curves.easeInOut.transform(e), phase: 'Espira');
+    return (
+      fill: 1.0 - Curves.easeInOut.transform(e),
+      phase: 'Espira',
+      secondi: _quantiSecondi(_cycleMs - ms),
+    );
+  }
+
+  /// I secondi che mancano, arrotondati per eccesso e mai sotto uno.
+  static int _quantiSecondi(double millisecondi) {
+    final s = (millisecondi / 1000).ceil();
+    return s < 1 ? 1 : s;
   }
 
   /// **IL DITO SCENDE: inspira.** Ordine CZ voce 08.
@@ -400,6 +430,10 @@ class _MeditationScreenState extends State<MeditationScreen>
     setState(() {
       if (suo != null) _preset = suo;
       _sceltaAperta = false;
+      // **CHI HA SCELTO DEVE VEDERE COSA HA SCELTO.** Senza questa riga, chi
+      // tocca una pratica mentre la sessione gira non vede cambiare niente:
+      // misurato sul telefono, zero pixel.
+      _praticaScelta = r;
     });
     if (!_active) {
       _togglePlay();
@@ -552,6 +586,11 @@ class _MeditationScreenState extends State<MeditationScreen>
                                 : (_compiuta
                                     ? 'Il respiro è compiuto'
                                     : 'Tocca per iniziare'),
+                            // **IL CONTO ALLA ROVESCIA SOLO A SESSIONE VIVA.**
+                            // Ordine DD voce 16: un numero che scorre su una
+                            // schermata ferma sarebbe un orologio, non una
+                            // guida.
+                            secondi: _active ? b.secondi : null,
                             palette: palette,
                           ),
                         ],
@@ -593,6 +632,20 @@ class _MeditationScreenState extends State<MeditationScreen>
                     stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary, height: 1.4),
                   ),
+                  // **LA PRATICA IN CORSO SI LEGGE**, quando ne e' stata
+                  // scelta una: il sintomo e il nome, una riga sola.
+                  if (_praticaScelta != null) ...[
+                    const SizedBox(height: SpacingTokens.xs),
+                    Text(
+                      '${_praticaScelta!.sintomo.etichetta}: '
+                      '${_praticaScelta!.nome}, '
+                      '${_praticaScelta!.quantoDura}.',
+                      key: const Key('meditazione_pratica_in_corso'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ],
                   const SizedBox(height: SpacingTokens.md),
                   // **IL PULSANTE DEL SINTOMO STA SUBITO SOTTO LA RIGA DI
                   // AURA.** Ordine DD voce 12, 10 settembre 2026, e l'ordine
@@ -852,11 +905,16 @@ class _BreathGuide extends StatelessWidget {
     required this.fill,
     required this.phase,
     required this.palette,
+    this.secondi,
   });
 
   final double fill;
   final String phase;
   final MaestroPalette palette;
+
+  /// **QUANTI SECONDI MANCANO ALLA FINE DELLA FASE**, oppure nulla quando la
+  /// sessione non e' partita. Ordine DD voce 16, 10 settembre 2026.
+  final int? secondi;
 
   @override
   Widget build(BuildContext context) {
@@ -877,13 +935,37 @@ class _BreathGuide extends StatelessWidget {
             border: Border.all(
                 color: palette.gold.withValues(alpha: 0.5), width: 1.2),
           ),
-          child: Text(
-            phase,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12).copyWith(
-              color: palette.goldSoft,
-              letterSpacing: 1.4,
-            ),
+          // **LA FASE SOPRA, IL NUMERO SOTTO.** Ordine DD voce 16.
+          //
+          // Il numero e' piu' grande della parola apposta: a occhi socchiusi
+          // la parola si e' gia' letta al cambio di fase, il numero invece si
+          // guarda per tutta la fase. **Il conto e' la guida, l'etichetta e'
+          // il titolo.**
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                phase,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 12).copyWith(
+                  color: palette.goldSoft,
+                  letterSpacing: 1.4,
+                ),
+              ),
+              if (secondi != null) ...[
+                const SizedBox(height: 2),
+                Text(
+                  '$secondi',
+                  key: const Key('meditazione_conto_alla_rovescia'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.titoloDiSchermata().copyWith(
+                    color: palette.goldSoft,
+                    height: 1.0,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ],
+            ],
           ),
         );
       },

@@ -1155,12 +1155,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(width: _SkyTapHint.larghezza),
+                            const SizedBox(width: SkyTapHint.larghezza),
                             MoonWidget(
                                 phase: moon,
                                 size: (w * 0.12).clamp(46.0, 84.0)),
                             IgnorePointer(
-                              child: _SkyTapHint(
+                              child: SkyTapHint(
                                 visible: _showSkyHint,
                                 pulse: _tapPulse,
                                 reduceMotion: reduceMotion,
@@ -2132,8 +2132,8 @@ class ShelfCard extends StatelessWidget {
 /// il gesto del tocco, pulsa dolcemente e manda un'onda dal polpastrello, con
 /// la riga "Tocca il cielo". Compare dopo qualche secondo di inattivita' e si
 /// dissolve alla prima interazione. Con Riduci Movimento resta ferma.
-class _SkyTapHint extends StatelessWidget {
-  const _SkyTapHint({
+class SkyTapHint extends StatelessWidget {
+  const SkyTapHint({
     required this.visible,
     required this.pulse,
     required this.reduceMotion,
@@ -2154,9 +2154,27 @@ class _SkyTapHint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
+    // **LA CELLA TIENE LA SUA LARGHEZZA ANCHE DA SPENTA.**
+    // Ordine DD voce 06, 10 settembre 2026.
+    //
+    // **Il fatto del fondatore**: *"nella home la Luna si sposta verso destra
+    // nell'istante in cui spariscono l'animazione del dito e il testo tocca
+    // qui"*.
+    //
+    // **E la causa e' aritmetica, non un'animazione.** La riga e' fatta di
+    // tre celle centrate: un vuoto largo [larghezza], la Luna, e questo
+    // invito. Con l'invito acceso le due celle laterali si pareggiano e la
+    // Luna cade esattamente a meta' schermo. Con `AnimatedSize` e
+    // `SizedBox.shrink()` **la cella di destra spariva**, il vuoto di
+    // sinistra restava, e la riga si ricentrava su una larghezza minore:
+    // **la Luna scivolava a destra di [larghezza] mezzi**, cioe' sessantuno
+    // punti.
+    //
+    // Non e' la Luna che si muove: **e' la riga che si stringe**. Adesso la
+    // cella resta larga uguale e si spegne soltanto il suo contenuto, quindi
+    // la Luna sta ferma prima e dopo.
+    return SizedBox(
+      width: larghezza,
       child: AnimatedOpacity(
         opacity: visible ? 1 : 0,
         duration: const Duration(milliseconds: 400),
