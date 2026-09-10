@@ -649,6 +649,63 @@ collaudo su un telefono pulito.
 che tiene il dito premuto per la durata dichiarata. Non e' una limitazione:
 e' il modo in cui la discesa e' stata guidata per quarantasei secondi.
 
+### IL DICIANNOVESIMO DIFETTO, e lo ha visto il fondatore
+
+**Le diciotto righe qui sopra le ho trovate io guardando le fotografie. La
+diciannovesima l'ha trovata il fondatore guardando la stessa fotografia**, e
+non e' un dettaglio: e' la piu' grave di tutte.
+
+*"L'utente e' gia' scappato prima ancora di leggere. Ti sembra un'esperienza
+immersiva per un utente medio? Solo testo da leggere, nessuna vena artistica,
+nessuna immagine o riquadro che metta in evidenza o guidi l'utente. Niente di
+attraente a primo impatto, niente che faccia capire di cosa si tratta a primo
+impatto. Le domande buttate li', senza un selettore o un campo chiaro."*
+
+**Aveva ragione su tre leggi di casa insieme, e nessuna guardia le sorvegliava
+su questa schermata.** L'anatomia del responso a quattro strati vuole **il
+livello visivo prima del testo**, e il primo strato della soglia era un
+paragrafo. La regola dell'ordine AS vuole **meno testo e piu' diretto**, e
+c'erano tre paragrafi prima di qualunque cosa si potesse toccare. E le sei
+domande erano **sei pulsanti di testo in colonna**, senza riquadro, senza uno
+stato acceso, senza niente che dicesse che erano una scelta.
+
+**PERCHE' NESSUNA DELLE MIE DICIOTTO POTEVA VEDERLA.** Diciotto difetti
+trovati contando pixel, e nessuno di loro era questo. Le mie misure chiedevano
+*"questa figura si vede?"*, *"copre la scena?"*, *"la sagoma sembra un
+animale?"*. **Nessuna chiedeva "questa schermata invoglia a restarci"**, e
+quella domanda non ha una misura in pixel: ha un occhio che guarda per la
+prima volta.
+
+**La forma nuova, in cinque pezzi.**
+
+**Uno, il bosco al crepuscolo**, dipinto, con l'apertura nella terra in mezzo.
+Il cielo parte dal **blu profondo del punto di fuga del tunnel** e arriva al
+**bruno delle radici**: sono gli stessi due colori della galleria, quindi la
+soglia **anticipa la scena vera** invece di decorarla. Occupa il **35,2 per
+cento della finestra**, misurato.
+
+**Due, i dodici totem che passano in ombra.** Esistevano gia', dodici file
+Total Metal in `assets/img_thumb/animali`, e **si vedevano soltanto dopo aver
+conosciuto il proprio animale**: la porta piu' bella del dominio di Caligo si
+apriva a chi era gia' arrivato. **E non rivelano niente**, che e' la parte
+difficile: dicono che sono dodici, non quale sara' il tuo, e una guardia
+pretende che nessun nome di animale compaia sulla soglia. Sessanta secondi per
+il giro intero, e con Riduci Movimento non si muovono affatto.
+
+**Tre, le tre vie dichiarate come tre**, con un selettore in cima e una sola
+aperta alla volta. **Quattro, le sei domande come sei riquadri toccabili**,
+con quello scelto acceso. **Cinque, a che punto sei in quattro tacche** prima
+che in una frase, e il pulsante che porta giu' pieno e alto cinquantasei.
+
+**E LO SLOT PER LE IMMAGINI VERE.** Il fondatore ha aggiunto: *"la mia idea e'
+sostituire le immagini vettoriali procedurali che fanno schifo con quelle piu'
+realistiche create da Nano Banana"*. Lo sfondo lo chiede adesso un componente
+che **non sa come sia fatto**: finche' il file non c'e' dipinge, il giorno che
+arriva lo mostra, e **nessuna misura, nessun riquadro e nessuna guardia
+cambiano**. I file che aspetta stanno elencati in
+`docs/ordini/DC_asset_da_generare.md`, con forma, rapporto, cosa devono
+contenere, cosa non devono contenere e in che ordine conviene farli.
+
 ### Un rilievo che NON era un difetto, e la regola che mi ha corretto
 
 Guardando le fotografie 10, 12 e 19 avevo segnato che **l'etichetta `ESPLORA`
@@ -675,10 +732,11 @@ VOCI_PARZIALI_E_DICHIARATE: 1, la DC.19 con trentanove guardie rimandate
 VOCI_APERTE: 0
 SIGLA_RINOMINATA: DC in DA, per il lavoro mio che la occupava
 DIFFORMITA_DALL_ORDINE_DICHIARATE: 2, le 44 figure e la causa dell'Angelo
-GUARDIE_NUOVE: 9
+GUARDIE_NUOVE: 10
 GUARDIE_RISCRITTE_PERCHE_MISURAVANO_LA_FORMULA: 6
 DIFETTI_TROVATI_DALLE_GUARDIE_MENTRE_NASCEVANO: 8
-DIFETTI_TROVATI_DALLA_PROVA_A_VIDEO: 18
+DIFETTI_TROVATI_DALLA_PROVA_A_VIDEO: 19
+DI_QUESTI_TROVATI_DAL_FONDATORE: 1, e nessuna delle mie misure poteva vederlo
 DI_QUESTI_TROVATI_DA_UNA_FOTOGRAFIA: 9
 DI_QUESTI_TROVATI_DALLE_ANTEPRIME_DIPINTE: 2
 DI_QUESTI_FIGLI_DELLA_CURA_DI_UN_ALTRO: 2
