@@ -484,7 +484,7 @@ class _ViaggioDelloSciamanoScreenState
                           ),
                           const SizedBox(height: SpacingTokens.xs),
                           Text(
-                            'Dodici ti aspettano. Uno solo verrà con te.',
+                            'Dodici ti aspettano. Uno verrà con te.',
                             key: const Key('viaggio_i_dodici'),
                             style: TypographyTokens.didascalia()
                                 .copyWith(color: palette.goldSoft),
@@ -576,7 +576,7 @@ class _ViaggioDelloSciamanoScreenState
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.resolveWith((stati) =>
                 stati.contains(WidgetState.selected)
-                    ? palette.gold.withValues(alpha: 0.22)
+                    ? palette.gold.withValues(alpha: 0.34)
                     : Colors.transparent),
             foregroundColor: WidgetStateProperty.resolveWith((stati) =>
                 stati.contains(WidgetState.selected)
