@@ -84,7 +84,7 @@ di li'.
 verificato col grep su `onAmplitudeChanged`: due sole occorrenze, tutte e due
 in questo file. **La correzione sta in un punto solo**, come l'ordine chiede.
 
-### DD.04, la Parola dell'Alba nel Sigillo: LA VOCE DICE IL FALSO SUL CODICE
+### DD.04, la Parola dell'Alba nel Sigillo: **QUESTA RICOGNIZIONE AVEVA TORTO**
 
 **L'ordine dice** che il ritorno della Parola *"non e' mai stato fatto"* e
 chiede di trattarlo come una regressione grave.
@@ -107,6 +107,14 @@ Le due ipotesi si distinguono solo sul telefono, e questa voce non si chiude
 finche' non ho aperto l'Alba, letto la parola, aperto il Sigillo e guardato.
 **Il fatto del fondatore resta vero fino a prova contraria**: se lui non la
 vede, per lui non c'e', e la causa va trovata invece che negata.
+
+> **RITRATTAZIONE, scritta lo stesso giorno.** Questa ricognizione ha detto
+> *"la voce dice il falso sul codice"*, e **la voce diceva il vero**. Tre
+> chiamate esistenti e collegate non fanno una riga a video: fra il dato e
+> l'occhio c'e' tutta la schermata. Ho elencato le chiamate e ho chiamato
+> quell'elenco una verifica. **Non lo era**, e la lezione e' quella di sempre
+> in questo progetto: *cio' che si vede si misura dove si vede*. La causa vera
+> sta sotto, nella voce chiusa.
 
 ## DD.07, IL SECONDO CUORICINO, e la causa non era dove sembrava
 
@@ -498,6 +506,72 @@ aperte alle 11:30.
 presto, **la striscia mostra cinque caselle chiuse**. E' esattamente cio' che
 l'ordine chiede, ed e' un cambiamento grosso da guardare sul telefono prima di
 darlo per buono.
+
+## DD.04, LA PAROLA DELL'ALBA, E IL TONO CHE SE NE VA
+
+**Il fatto del fondatore**: la Parola dell'Alba non torna nel Sigillo del
+Sogno. **Aveva ragione**, e la mia ricognizione gli aveva dato torto: la
+ritrattazione sta scritta qui sopra.
+
+**LA CAUSA, trovata da una guardia che fa il giro intero.** Il meccanismo era
+tutto in piedi, e il dato arrivava davvero: la guardia stampa *rilettura ->
+Soglia* e la schermata stampa *la parola letta dalla schermata e Soglia*. **E
+la riga non era a video.**
+
+Le tre righe della raccolta della giornata, la runa del tramonto, la Parola
+dell'Alba e il respiro di oggi, vivevano dentro `_nelBuio()`, cioe' nel ramo
+che si monta **solo durante la nebbia**, il primo momento del rito. Due cose
+insieme le rendevano invisibili:
+
+- la lettura dal disco e' **asincrona** e arriva dopo che la nebbia e' gia' a
+  schermo;
+- chi usa il rito **la nebbia la dirada subito**, perche' e' cio' che il rito
+  gli chiede di fare.
+
+**Il dato arrivava e nessuno era piu' li' a vederlo.**
+
+**E il posto giusto lo diceva il testo stesso.** La frase e' *"Adesso chiude il
+giro: dove l'hai riconosciuta oggi?"*: una frase che dice **adesso chiude il
+giro** non puo' stare nel momento in cui il giro comincia. Le tre righe sono
+passate al **saluto della notte**, dove il rito si chiude.
+
+**REGOLA C**: ordine P voce 18, che scrisse il richiamo e lo mise nella nebbia
+quando la nebbia era l'unico momento con del testo.
+
+**LA GUARDIA E' NATA ROSSA SUL DIFETTO VERO**, senza innesti: fa il giro
+intero, segna la parola come farebbe l'Alba, compie il rito della sera e
+guarda se la riga c'e'. Prima della cura: *la riga della parola del mattino
+**NON** c'e' a video*. Dopo: *c'e'*, e porta la parola.
+
+**Perche' le guardie di prima non lo avevano visto.** La guardia dell'ordine CY
+prova che **il dato sopravvive** fra i due riti, anche a chi si alza alle due
+di notte, e diceva il vero. **Il dato che sopravvive e la frase che si legge
+sono due fatti diversi**, e fra loro c'e' tutta la schermata.
+
+### E IL TONO THETA HA LASCIATO IL SIGILLO
+
+Seconda meta' della voce, e la ragione e' del fondatore.
+
+**Dove stava**: un pulsante in fondo al Sigillo accendeva un battito
+binaurale generato sul momento, 210 hertz a sinistra e 217 a destra, la cui
+differenza di sette hertz cade nella banda theta.
+
+**Non e' stato tolto: e' tornato a casa sua.** Il tono vive nella Meditazione
+di Aura, dove sta con le altre otto frequenze e dove si trova per nome, sotto
+il sintomo **Insonnia**, con la pratica *Due toni che si incontrano*. La
+decisione del fondatore dell'ordine CN, che vieta di toglierlo dalla
+Meditazione, resta intera e la sua guardia e' verde.
+
+**Perche' se ne va dal Sigillo**: e' il rito che chiude il giorno e chiede dove
+hai riconosciuto la tua parola. Un interruttore audio in fondo a quella pagina
+apre una seconda stanza dentro la prima, e chiede di mettersi le cuffie a chi
+sta per dormire.
+
+**REGOLA D, cosa e' cambiato nelle prove.** La prova dell'ordine CW voce 03
+pretendeva che il foglio delle fonti spiegasse **da dove nasce il tono**: era
+giusta finche' il suono usciva da qui. **Adesso pretende il contrario**, cioe'
+che ne' il pulsante ne' la spiegazione ci siano piu', e il commento dice
+perche' e dove il tono e' andato.
 
 ---
 
