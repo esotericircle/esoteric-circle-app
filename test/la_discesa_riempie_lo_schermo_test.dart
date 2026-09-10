@@ -25,31 +25,57 @@ void main() {
 
   const lato = 390.0;
 
-  /// Dipinge un pittore su una tela quadrata e torna l'immagine.
-  ui.Image dipingi(CustomPainter pittore, {double quanto = lato}) {
+  /// **LA FINESTRA VERA, non una tela quadrata di comodo.** Regola I.
+  ///
+  /// Trecentonovanta per ottocentoquarantaquattro e' il telefono su cui
+  /// questo progetto misura da sempre; tolte la barra di sistema, la barra
+  /// del Cosmo e la barra del titolo, al corpo restano **seicentottantadue**
+  /// punti di altezza. E' quella la scena che il tunnel deve riempire.
+  ///
+  /// **QUESTO NUMERO E' NATO DA UN DIFETTO.** La prima stesura di questa
+  /// guardia dipingeva su 390 per 390: su un quadrato gli anelli, che hanno
+  /// il raggio legato al lato corto, coprivano tutto, e la guardia era verde.
+  /// Sul telefono 767f596c, il 10 settembre 2026, la stessa scena lasciava
+  /// scoperti **sopra e sotto**. Una guardia che sceglie la propria finestra
+  /// sceglie anche il proprio esito.
+  const corpoVero = Size(390, 682);
+
+  /// Dipinge un pittore su una tela e torna l'immagine.
+  ui.Image dipingi(CustomPainter pittore, {Size quanto = corpoVero}) {
     final registratore = ui.PictureRecorder();
     final tela = Canvas(registratore);
-    pittore.paint(tela, Size(quanto, quanto));
-    return registratore.endRecording().toImageSync(quanto.toInt(), quanto.toInt());
+    pittore.paint(tela, quanto);
+    return registratore
+        .endRecording()
+        .toImageSync(quanto.width.toInt(), quanto.height.toInt());
   }
 
   /// Quanto occupa in larghezza cio' che e' stato dipinto, in frazione della
   /// tela, guardando **solo i pixel che si distinguono dal fondo**.
-  Future<double> quotaDipinta(ui.Image immagine,
+  /// **SI MISURANO TUTTE E DUE LE DIREZIONI, e anche quanta tela e'
+  /// coperta.** Una figura larga quanto la scena ma alta la meta' passava la
+  /// prima stesura di questa guardia, che guardava solo la larghezza.
+  Future<({double larga, double alta, double piena})> estensioneDipinta(
+      ui.Image immagine,
       {required bool Function(int r, int g, int b, int a) e}) async {
     final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
     final byte = dati!.buffer.asUint8List();
     final larghezza = immagine.width;
-    var primo = larghezza;
-    var ultimo = -1;
+    final altezza = immagine.height;
+    var primoX = larghezza;
+    var ultimoX = -1;
+    var primoY = altezza;
+    var ultimoY = -1;
     var accesi = 0;
-    for (var y = 0; y < immagine.height; y++) {
+    for (var y = 0; y < altezza; y++) {
       for (var x = 0; x < larghezza; x++) {
         final i = (y * larghezza + x) * 4;
         if (e(byte[i], byte[i + 1], byte[i + 2], byte[i + 3])) {
           accesi++;
-          if (x < primo) primo = x;
-          if (x > ultimo) ultimo = x;
+          if (x < primoX) primoX = x;
+          if (x > ultimoX) ultimoX = x;
+          if (y < primoY) primoY = y;
+          if (y > ultimoY) ultimoY = y;
         }
       }
     }
@@ -58,8 +84,18 @@ void main() {
         perche: 'Su una tela quasi vuota la distanza fra primo e ultimo pixel '
             'non dice niente, e la guardia sarebbe verde per non aver visto '
             'nessuna figura.');
-    return ultimo < 0 ? 0 : (ultimo - primo + 1) / larghezza;
+    if (ultimoX < 0) return (larga: 0.0, alta: 0.0, piena: 0.0);
+    return (
+      larga: (ultimoX - primoX + 1) / larghezza,
+      alta: (ultimoY - primoY + 1) / altezza,
+      piena: accesi / (larghezza * altezza),
+    );
   }
+
+  /// La sola larghezza, per le figure che non devono riempire la scena.
+  Future<double> quotaDipinta(ui.Image immagine,
+          {required bool Function(int r, int g, int b, int a) e}) async =>
+      (await estensioneDipinta(immagine, e: e)).larga;
 
   group('DC.07, il tunnel', () {
     test('IL TUNNEL OCCUPA LA SCENA INTERA', () async {
@@ -68,7 +104,7 @@ void main() {
       // Il tunnel dipinge anche il fondo, quindi qui si cerca **cio' che non e'
       // il fondo**: gli anelli e il loro filo di luce.
       const fondo = PittoreDelTunnel.bluProfondo;
-      final quota = await quotaDipinta(immagine,
+      final quota = await estensioneDipinta(immagine,
           e: (r, g, b, a) =>
               a > 40 &&
               ((r - (fondo.r * 255).round()).abs() +
@@ -76,12 +112,32 @@ void main() {
                       (b - (fondo.b * 255).round()).abs()) >
                   24);
       // ignore: avoid_print
-      print('ORDINE DC VOCE 07: il tunnel dipinto occupa '
-          '${(quota * 100).toStringAsFixed(1)} per cento della scena');
-      expect(quota, greaterThanOrEqualTo(0.95),
-          reason: 'il tunnel occupa il ${(quota * 100).toStringAsFixed(1)} '
-              'per cento della scena invece della scena intera: chi guarda '
-              'sta davanti a un disegno di tunnel, non dentro un tunnel');
+      print('ORDINE DC VOCE 07: nella finestra vera '
+          '${corpoVero.width.toInt()}x${corpoVero.height.toInt()} il tunnel '
+          'dipinto e largo ${(quota.larga * 100).toStringAsFixed(1)}, alto '
+          '${(quota.alta * 100).toStringAsFixed(1)} e copre il '
+          '${(quota.piena * 100).toStringAsFixed(1)} per cento della scena');
+      expect(quota.larga, greaterThanOrEqualTo(0.95),
+          reason: 'il tunnel e largo il '
+              '${(quota.larga * 100).toStringAsFixed(1)} per cento della '
+              'scena invece della scena intera: chi guarda sta davanti a un '
+              'disegno di tunnel, non dentro un tunnel');
+      // **E ALTO QUANTO LA SCENA.** Difetto visto sul telefono 767f596c il 10
+      // settembre 2026: gli anelli avevano il raggio legato al **lato corto**,
+      // quindi su una finestra alta lasciavano scoperta una fascia sopra e una
+      // sotto, e siccome il pavimento del tunnel ha lo stesso colore dello
+      // sfondo della pagina, l occhio leggeva una sagoma appoggiata invece di
+      // una galleria.
+      expect(quota.alta, greaterThanOrEqualTo(0.95),
+          reason: 'il tunnel e alto il '
+              '${(quota.alta * 100).toStringAsFixed(1)} per cento della '
+              'scena: sopra e sotto resta la pagina, e il tunnel si legge '
+              'come una sagoma appoggiata');
+      // **E copre davvero la tela, non solo la attraversa.**
+      expect(quota.piena, greaterThanOrEqualTo(0.90),
+          reason: 'il tunnel dipinge solo il '
+              '${(quota.piena * 100).toStringAsFixed(1)} per cento dei pixel '
+              'della scena: gli angoli restano pagina');
     });
 
     test('GLI ANELLI VICINI SONO PIU SCURI DEI LONTANI', () {
@@ -149,63 +205,94 @@ void main() {
   });
 
   group('DC.07, l animale', () {
-    test('AL QUARTO VIAGGIO OCCUPA ALMENO IL 60 PER CENTO', () async {
+    /// **LA SCENA DEL RITORNO, nelle sue misure vere.** La carta dell'animale
+    /// e' larga quanto lo schermo e sta in un rapporto di uno e trentacinque,
+    /// che e' la forma di un animale: 390 per 289 sul telefono di riferimento.
+    const scenaDelRitorno = Size(390, 289);
+
+    /// **LA SAGOMA SI RICONOSCE PERCHE' E' PIU' SCURA DEL FONDO SU CUI STA**,
+    /// e non perche' ha un alfa.
+    ///
+    /// **QUESTO E' IL CUORE DEL DIFETTO DEL 10 SETTEMBRE 2026.** La prima
+    /// stesura chiedeva `a > 40` su una tela trasparente: misurava che la
+    /// sagoma **esistesse**. Sul telefono la sagoma esisteva, era nera sopra
+    /// un blu quasi nero, e **l'incontro era uno schermo vuoto**. Una guardia
+    /// che misura l'esistenza non misura la visibilita'.
+    bool eSagoma(int r, int g, int b, int a) => a > 200 && r + g + b < 55;
+
+    test('AL QUARTO VIAGGIO OCCUPA ALMENO IL 60 PER CENTO DELL ALTEZZA',
+        () async {
       final immagine = dipingi(
-          PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 7));
-      final quota = await quotaDipinta(immagine, e: (r, g, b, a) => a > 40);
+          PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 7),
+          quanto: scenaDelRitorno);
+      final quota = await estensioneDipinta(immagine, e: eSagoma);
       // ignore: avoid_print
-      print('ORDINE DC VOCE 07: al quarto viaggio l animale dipinto occupa '
-          '${(quota * 100).toStringAsFixed(1)} per cento della scena');
-      expect(quota, greaterThanOrEqualTo(0.60),
-          reason: 'in piena luce l animale occupa solo il '
-              '${(quota * 100).toStringAsFixed(1)} per cento: e la figura '
-              'piccola circondata da spazio vuoto che il fondatore ha gia '
-              'respinto una volta');
+      print('ORDINE DC VOCE 07: al quarto viaggio l animale dipinto e alto '
+          '${(quota.alta * 100).toStringAsFixed(1)} e largo '
+          '${(quota.larga * 100).toStringAsFixed(1)} per cento della scena');
+      expect(quota.alta, greaterThanOrEqualTo(0.60),
+          reason: 'in piena luce l animale e alto solo il '
+              '${(quota.alta * 100).toStringAsFixed(1)} per cento: e la '
+              'figura piccola circondata da spazio vuoto che il fondatore ha '
+              'gia respinto una volta');
     });
 
     test('REGOLA H: NEI PRIMI TRE VIAGGI SI VEDE SEMPRE PARZIALMENTE',
         () async {
       double? prima;
       for (var d = 0; d < 3; d++) {
-        final quota = await quotaDipinta(
-            dipingi(PittoreDellAnimale(discesa: d, quantaLuce: 0.5, seme: 7)),
-            e: (r, g, b, a) => a > 40);
+        final quota = await estensioneDipinta(
+            dipingi(PittoreDellAnimale(discesa: d, quantaLuce: 0.5, seme: 7),
+                quanto: scenaDelRitorno),
+            e: eSagoma);
         // ignore: avoid_print
-        print('ORDINE DC VOCE 04: alla discesa $d l animale occupa '
-            '${(quota * 100).toStringAsFixed(1)} per cento');
-        expect(quota, lessThan(0.60),
+        print('ORDINE DC VOCE 04: alla discesa $d l animale e alto '
+            '${(quota.alta * 100).toStringAsFixed(1)} per cento');
+        expect(quota.alta, lessThan(0.60),
             reason: 'alla discesa $d l animale e gia grande quanto in piena '
                 'luce: il riconoscimento di Harner perde il suo senso');
         if (prima != null) {
-          expect(quota, greaterThan(prima),
+          expect(quota.alta, greaterThan(prima),
               reason: 'alla discesa $d non si vede piu di prima: le quattro '
                   'apparizioni non raccontano nessun avvicinamento');
         }
-        prima = quota;
+        prima = quota.alta;
       }
     });
 
     test('DUE ANIMALI DIVERSI HANNO SAGOME DIVERSE', () async {
       // In controluce **la sagoma e l unica cosa che li distingue**: se due
       // semi dessero la stessa figura, il riconoscimento sarebbe finto.
-      final una = await quotaDipinta(
-          dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 3)),
-          e: (r, g, b, a) => a > 40);
-      final altra = await quotaDipinta(
-          dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 91)),
-          e: (r, g, b, a) => a > 40);
+      final una = (await estensioneDipinta(
+              dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 3),
+                  quanto: scenaDelRitorno),
+              e: eSagoma))
+          .larga;
+      final altra = (await estensioneDipinta(
+              dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 91),
+                  quanto: scenaDelRitorno),
+              e: eSagoma))
+          .larga;
       // La larghezza puo' coincidere: si guardano i pixel, non la scatola.
-      final primaImg =
-          dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 3));
-      final secondaImg =
-          dipingi(PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 91));
+      final primaImg = dipingi(
+          PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 3),
+          quanto: scenaDelRitorno);
+      final secondaImg = dipingi(
+          PittoreDellAnimale(discesa: 3, quantaLuce: 1.0, seme: 91),
+          quanto: scenaDelRitorno);
       final a = await primaImg.toByteData(format: ui.ImageByteFormat.rawRgba);
       final b = await secondaImg.toByteData(format: ui.ImageByteFormat.rawRgba);
       var diversi = 0;
       final ba = a!.buffer.asUint8List();
       final bb = b!.buffer.asUint8List();
-      for (var i = 3; i < ba.length; i += 4) {
-        if ((ba[i] - bb[i]).abs() > 40) diversi++;
+      // **SI CONFRONTA CIO' CHE SI VEDE**: dove una sagoma copre e l'altra no,
+      // il colore cambia da nero a fondo illuminato. Il canale alfa, da quando
+      // la scena porta la sua luce dietro, vale duecentocinquantacinque in
+      // tutte e due e non distingue piu' due animali.
+      for (var i = 0; i < ba.length; i += 4) {
+        final qua = ba[i] + ba[i + 1] + ba[i + 2];
+        final la = bb[i] + bb[i + 1] + bb[i + 2];
+        if ((qua - la).abs() > 60) diversi++;
       }
       // ignore: avoid_print
       print('ORDINE DC VOCE 07: due sagome diverse differiscono su $diversi '
@@ -218,13 +305,53 @@ void main() {
   });
 
   group('DC.07, la nebbia', () {
+    test('IL VARCO SCOPRE IL MONDO DI SOTTO, e non un buco', () async {
+      // **DIFETTO VISTO SUL TELEFONO 767f596c IL 10 SETTEMBRE 2026.** I due
+      // varchi aperti dalla mano erano **due buchi neri**: la nebbia si
+      // ritagliava con `BlendMode.dstOut` senza uno strato isolato, quindi
+      // non toglieva nebbia, **toglieva la scena**, e sotto restava il nero
+      // della finestra.
+      //
+      // La guardia di prima non poteva vederlo: misurava **quanta opacita'
+      // spariva**, e sparire era esattamente il difetto. Qui si guarda cosa
+      // resta, che e' cio' che l'occhio vede.
+      const centro = Offset(195, 341);
+      final aperta = dipingi(PittoreDellaNebbia(
+        varchi: const [VarcoNellaNebbia(dove: centro, quantoEAperto: 1.0)],
+        senzaMoto: false,
+        densita: 1.0,
+      ));
+      final dati = await aperta.toByteData(format: ui.ImageByteFormat.rawRgba);
+      final byte = dati!.buffer.asUint8List();
+      var trasparenti = 0;
+      var neri = 0;
+      var guardati = 0;
+      for (var y = centro.dy.round() - 30; y < centro.dy.round() + 30; y++) {
+        for (var x = centro.dx.round() - 30; x < centro.dx.round() + 30; x++) {
+          final i = (y * aperta.width + x) * 4;
+          guardati++;
+          if (byte[i + 3] < 200) trasparenti++;
+          if (byte[i] + byte[i + 1] + byte[i + 2] < 24) neri++;
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE DC VOCE 07: nel cuore del varco, su $guardati pixel, '
+          '$trasparenti sono trasparenti e $neri sono neri');
+      expect(trasparenti, 0,
+          reason: 'nel cuore del varco $trasparenti pixel su $guardati non '
+              'hanno niente sotto: la mano non apre la nebbia, buca la scena');
+      expect(neri, lessThan(guardati ~/ 20),
+          reason: 'nel cuore del varco $neri pixel su $guardati sono neri: '
+              'chi apre la nebbia trova il nulla invece del mondo di sotto');
+    });
+
     test('LA MANO APRE UN VARCO, e senza mano la nebbia resta chiusa',
         () async {
       final chiusa = dipingi(PittoreDellaNebbia(
           varchi: const [], senzaMoto: false, densita: 1.0));
       final aperta = dipingi(PittoreDellaNebbia(
         varchi: const [
-          VarcoNellaNebbia(dove: Offset(195, 195), quantoEAperto: 1.0),
+          VarcoNellaNebbia(dove: Offset(195, 341), quantoEAperto: 1.0),
         ],
         senzaMoto: false,
         densita: 1.0,
@@ -233,13 +360,21 @@ void main() {
       final b = await aperta.toByteData(format: ui.ImageByteFormat.rawRgba);
       final ba = a!.buffer.asUint8List();
       final bb = b!.buffer.asUint8List();
-      var piuChiari = 0;
-      for (var i = 3; i < ba.length; i += 4) {
-        if (ba[i] - bb[i] > 20) piuChiari++;
+      // **SI CONTANO I PIXEL CHE SI SCURISCONO, non quelli che perdono
+      // opacita'.** La prima stesura guardava il canale alfa: era la firma
+      // della formula, non la forma. Da quando la nebbia vive in uno strato
+      // suo sopra il mondo di sotto, la scena e' opaca dappertutto e
+      // quell'alfa non cambia mai, mentre l'occhio vede benissimo il varco:
+      // sotto la nebbia chiara c'e' il bruno scuro del mondo di sotto.
+      var piuScuri = 0;
+      for (var i = 0; i < ba.length; i += 4) {
+        final prima = ba[i] + ba[i + 1] + ba[i + 2];
+        final dopo = bb[i] + bb[i + 1] + bb[i + 2];
+        if (prima - dopo > 30) piuScuri++;
       }
       // ignore: avoid_print
-      print('ORDINE DC VOCE 07: il varco della mano scopre $piuChiari pixel');
-      expect(piuChiari, greaterThan(2000),
+      print('ORDINE DC VOCE 07: il varco della mano scopre $piuScuri pixel');
+      expect(piuScuri, greaterThan(2000),
           reason: 'il varco non toglie nebbia: la mano non apre niente e la '
               'scena si guarda invece di farla');
     });
@@ -252,20 +387,27 @@ void main() {
           varchi: const [], senzaMoto: false, densita: 1.0));
       final a = await rada.toByteData(format: ui.ImageByteFormat.rawRgba);
       final b = await fitta.toByteData(format: ui.ImageByteFormat.rawRgba);
-      var sommaRada = 0;
-      var sommaFitta = 0;
       final ba = a!.buffer.asUint8List();
       final bb = b!.buffer.asUint8List();
-      for (var i = 3; i < ba.length; i += 4) {
-        sommaRada += ba[i];
-        sommaFitta += bb[i];
+      // **SI MISURA QUANTO IL MONDO DI SOTTO SPARISCE**, cioe' di quanto la
+      // scena si schiarisce verso il grigio della nebbia. Anche qui la prima
+      // stesura sommava l'alfa, che oggi vale duecentocinquantacinque in tutti
+      // e due i casi e non distingue piu' niente.
+      var sommaRada = 0;
+      var sommaFitta = 0;
+      for (var i = 0; i < ba.length; i += 4) {
+        sommaRada += ba[i] + ba[i + 1] + ba[i + 2];
+        sommaFitta += bb[i] + bb[i + 1] + bb[i + 2];
       }
+      final quanti = ba.length ~/ 4;
       // ignore: avoid_print
-      print('ORDINE DC VOCE 08: opacita totale rada $sommaRada, fitta '
-          '$sommaFitta');
-      expect(sommaFitta, greaterThan(sommaRada * 2),
-          reason: 'la nebbia fitta e densa quanto quella rada: la nitidezza '
-              'non arriva a schermo, e la voce DC.08 e solo un numero');
+      print('ORDINE DC VOCE 08: chiarore medio rada '
+          '${(sommaRada / quanti / 3).toStringAsFixed(1)}, fitta '
+          '${(sommaFitta / quanti / 3).toStringAsFixed(1)}');
+      expect(sommaFitta, greaterThan(sommaRada * 1.30),
+          reason: 'la nebbia fitta copre il mondo di sotto quanto quella '
+              'rada: la nitidezza non arriva a schermo, e la voce DC.08 e '
+              'solo un numero');
     });
   });
 }

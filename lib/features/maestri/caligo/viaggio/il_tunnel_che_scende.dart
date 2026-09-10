@@ -93,6 +93,25 @@ class PittoreDelTunnel extends CustomPainter {
   /// E quanto e' stretto il piu' lontano: un punto di luce.
   static const double quotaDelPiuLontano = 0.04;
 
+  /// **LA MISURA CHE COPRE LA FINESTRA: la diagonale, non il lato corto.**
+  ///
+  /// **NASCE DA UN DIFETTO VISTO SUL TELEFONO 767f596c** il 10 settembre
+  /// 2026. Gli anelli avevano il raggio legato a `size.shortestSide`: su una
+  /// tela quadrata coprivano tutto, e la guardia, che dipingeva su un
+  /// quadrato, era verde. Nella finestra vera, che e' alta il doppio di
+  /// quanto e' larga, lo stesso tunnel era **alto il settantanove per cento**
+  /// e copriva il **settantuno**: sopra e sotto restava la pagina. E siccome
+  /// il pavimento del tunnel ha esattamente il colore di fondo della pagina,
+  /// non si vedeva un tunnel corto, si vedeva **una sagoma appoggiata su uno
+  /// sfondo**.
+  ///
+  /// La diagonale e' l'unica misura che copre una finestra di qualunque
+  /// forma: un cerchio di raggio meta' diagonale tocca i quattro angoli, e
+  /// l'anello piu' vicino, che vale [quotaDelPiuVicino] volte questa misura
+  /// diviso due, li supera anche quando l'irregolarita' lo stringe.
+  static double misuraCheCopre(Size size) =>
+      size.bottomRight(Offset.zero).distance;
+
   /// **QUANTI ANELLI PASSANO DALLA BOCCA AL FONDO.**
   ///
   /// Ventinove: piu' di un giro e mezzo di lista, e **primo rispetto ai
@@ -145,7 +164,9 @@ class PittoreDelTunnel extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final centro = size.center(Offset.zero);
-    final lato = size.shortestSide;
+    // **GLI ANELLI SI MISURANO SULLA DIAGONALE**, cosi' riempiono la finestra
+    // vera e non solo una tela quadrata. Vedi [misuraCheCopre].
+    final lato = misuraCheCopre(size);
 
     // **IL FONDO E' IL BLU PROFONDO**, cosi' il punto di fuga non e' un buco
     // nero ma il fondo del mondo di sotto.
@@ -161,7 +182,10 @@ class PittoreDelTunnel extends CustomPainter {
     // **LA LUCE ALLE SPALLE, che si stringe fino a un punto.** Ordine DC voce
     // 07. E' l'unica cosa che dice quanto si e' scesi senza scriverlo.
     final quotaLuce = (1.0 - quantoSiEScesi).clamp(0.0, 1.0);
-    final raggioLuce = lato * 0.5 * quotaLuce * quotaLuce;
+    // **LA LUCE RESTA LEGATA AL LATO CORTO**, che e' cio' che l'occhio legge
+    // come ampiezza della bocca: e' un punto di fuga, non una copertura, e
+    // sulla diagonale diventerebbe un alone che mangia la scena.
+    final raggioLuce = size.shortestSide * 0.5 * quotaLuce * quotaLuce;
     if (raggioLuce > 0.5) {
       canvas.drawCircle(
         centro,

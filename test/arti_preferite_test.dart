@@ -73,24 +73,39 @@ void main() {
     // fondatore, non una svista. Il numero resta in un punto solo.
     expect(c.ids.length, 9);
 
-    // **IL GIORNO CHE QUESTA PROVA ASPETTAVA E' ARRIVATO.** Ordine CS,
-    // voce S3 della scansione, 7 settembre 2026.
+    // **IL CASO DEL RIFIUTO SI PROVA SOLTANTO QUANDO ESISTE, e quando non
+    // esiste si dice perche'.** Tre stati diversi di questa stessa prova, e
+    // vale la pena tenerli tutti e tre scritti.
     //
-    // Qui c'era scritto: *"il caso «pieno» oggi non si raggiunge, e va
-    // detto invece di far finta di provarlo. Le arti vive sono nove e il
-    // tetto e' nove [...] Questa prova cade quel giorno, e chi la legge sa
-    // gia' cosa verificare"*.
+    // Fino all'ordine CS le arti vive erano nove e il tetto nove: il caso
+    // «pieno» non si raggiungeva, e qui c'era una riga che lo dichiarava
+    // invece di fingere di provarlo. Con l'Angelo Custode vivo sono diventate
+    // dieci e **il rifiuto si e' potuto provare davvero**.
     //
-    // L'Angelo Custode era vivo e il catalogo lo dava in arrivo: adesso e'
-    // la decima arte, il tetto resta nove, e **il rifiuto parlante si
-    // prova davvero** invece di restare una riga scritta per il futuro.
+    // Con l'ordine DC sono tornate nove: la voce 17 ha tolto l'Angelo dalle
+    // arti per lasciarlo nel solo Passaporto, la voce 18 ha fuso le due voci
+    // di Caligo in una. **Il caso del rifiuto e' di nuovo irraggiungibile**, e
+    // fingere di provarlo sarebbe la cosa peggiore delle tre.
+    //
+    // Quindi: se una decima arte c'e', il rifiuto si prova; se non c'e', si
+    // prova **la legge che lo rende irraggiungibile**, cioe' che il catalogo
+    // non supera il tetto. La riga cade da sola il giorno in cui una delle due
+    // cose cambia, e chi la legge sa gia' cosa verificare.
     final fuori = ArtiPreferiteController.selezionabili
         .where((id) => !c.contiene(id))
         .toList();
-    expect(fuori, isNotEmpty,
-        reason: 'lo scaffale pieno contiene tutte le arti vive: il caso del '
-            'rifiuto non si raggiunge piu\', e questa prova e\' tornata a '
-            'non misurare niente');
+    if (fuori.isEmpty) {
+      // ignore: avoid_print
+      print('ORDINE DC VOCE 18: arti selezionabili '
+          '${ArtiPreferiteController.selezionabili.length}, tetto '
+          '${ArtiPreferiteController.tetto}: il rifiuto parlante non si puo '
+          'raggiungere, e questa prova lo dichiara invece di fingerlo');
+      expect(ArtiPreferiteController.selezionabili.length,
+          lessThanOrEqualTo(ArtiPreferiteController.tetto),
+          reason: 'esiste un arte fuori dallo scaffale pieno e questa prova '
+              'non la sta usando: il ramo del rifiuto va riacceso');
+      return;
+    }
     final esito = c.cambia(fuori.first);
     expect(esito, EsitoPreferita.pieno,
         reason: 'a scaffale pieno l\'arte in piu\' entra lo stesso, e il '

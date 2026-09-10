@@ -27,6 +27,11 @@ import '../../core/tarot/tarot_spread.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../tarot/carta_ingrandita.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
+import '../maestri/caligo/viaggio/la_nebbia_e_l_animale.dart';
+import '../maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
+import '../../core/viaggio/diario_dei_viaggi.dart';
+import '../../core/viaggio/i_quattro_viaggi.dart';
+import '../../core/viaggio/l_annuncio_dell_animale.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -461,16 +466,85 @@ class _AngelsCard extends StatelessWidget {
   }
 }
 
-class _GuideAnimalCard extends StatelessWidget {
+/// **LA CASELLA DELL'ANIMALE RESTA VUOTA FINCHE' NON LO SI E' INCONTRATO.**
+/// Ordine DC voce 02, 10 settembre 2026.
+///
+/// *"Una casella vuota nel proprio passaporto e' un motivo per tornare piu'
+/// forte di una piena."*
+///
+/// **DIFETTO TROVATO IL 10 SETTEMBRE 2026, cercando chi chiamasse
+/// `LAnnuncioDellAnimale.sottoLaSagoma`: nessuno.** La voce DC.02 aveva la sua
+/// riga scritta, la sua guardia verde sul testo, e **nessuna porta che la
+/// portasse a schermo**. E' la stessa famiglia di difetto gia' vista due volte
+/// in questo progetto: una funzione pura, provata, che nessuno chiama.
+///
+/// Finche' l'animale non si e' mostrato quattro volte, qui si vede **la
+/// sagoma in ombra**, non il nome, e sotto una riga che dice a che punto si e'.
+class _GuideAnimalCard extends StatefulWidget {
   const _GuideAnimalCard({required this.identity});
 
   final BirthIdentity identity;
 
   @override
+  State<_GuideAnimalCard> createState() => _GuideAnimalCardState();
+}
+
+class _GuideAnimalCardState extends State<_GuideAnimalCard> {
+  final DiarioDeiViaggi _diario = DiarioDeiViaggi();
+
+  @override
+  void initState() {
+    super.initState();
+    // **NON SI ASPETTA L'ARCHIVIO.** Voce DC.16: se il diario non risponde, la
+    // casella e' vuota, che e' la verita' di chi non e' ancora sceso.
+    unawaited(_diario.carica().then((_) {
+      if (mounted) setState(() {});
+    }));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final identity = widget.identity;
     final palette = context.palette;
     final segno = NightSky.sunSign(identity.birthMoment);
     final animal = GuideAnimalDerivation.forSign(segno);
+    final riconosciuto =
+        IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine);
+    if (riconosciuto == null) {
+      final discese = _diario.quanteDiscese;
+      return _ActiveFactCard(
+        cardKey: const Key('passport_guide_animal'),
+        overline: 'Animale guida',
+        // **NON UN NOME.** La casella e' vuota per davvero.
+        value: 'Ancora senza nome',
+        meaning: LAnnuncioDellAnimale.sottoLaSagoma(
+            discese, IQuattroViaggi.quanteDiscese),
+        isExample: identity.isExample,
+        // Al tocco si scende: la casella vuota porta dove si riempie.
+        onTap: () => Navigator.of(context)
+            .push(ViaggioDelloSciamanoScreen.route(userSign: segno)),
+        emblem: Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: palette.surface.withValues(alpha: 0.5),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: CustomPaint(
+            key: const Key('passport_animale_in_ombra'),
+            painter: PittoreDellAnimale(
+              discesa: discese.clamp(0, 3),
+              // **PIU' SI E' SCESI, PIU' LA LUCE CRESCE**, e la sagoma dice
+              // da sola quanto manca.
+              quantaLuce: 0.20 + 0.20 * discese.clamp(0, 3),
+              seme: animal.name.hashCode,
+            ),
+          ),
+        ),
+      );
+    }
     return _ActiveFactCard(
       cardKey: const Key('passport_guide_animal'),
       overline: 'Animale guida',

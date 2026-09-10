@@ -16,6 +16,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../maestri/rotta_arte.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 import '../../widgets/foglio_delle_fonti.dart';
@@ -135,6 +136,15 @@ class _ViaggioDelloSciamanoScreenState
     super.dispose();
   }
 
+  /// **LE FASI IN CUI LA SCENA OCCUPA TUTTO.** La discesa, la nebbia e
+  /// l'incontro non hanno testo da leggere in cima: sono immagini, e una
+  /// striscia di pagina sopra le smentisce. La soglia e la risalita sono
+  /// testo, e li' la barra ha il suo posto.
+  bool get _laScenaEPiena =>
+      _fase == FaseDelViaggio.discesa ||
+      _fase == FaseDelViaggio.nebbia ||
+      _fase == FaseDelViaggio.incontro;
+
   bool get _riconosciuto =>
       IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;
 
@@ -218,9 +228,15 @@ class _ViaggioDelloSciamanoScreenState
       backgroundColor: PittoreDelTunnel.bluProfondo,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text('Il Viaggio dello Sciamano',
-            style: TypographyTokens.titoloScheda()
-                .copyWith(color: palette.goldSoft)),
+        // **IL TITOLO NON SI TRONCA.** Difetto visto sul telefono 767f596c:
+        // la barra mostrava "IL VIAGGIO DELL...". Il componente di casa lo
+        // manda a capo invece di tagliarlo, e non lo rimpicciolisce sotto il
+        // pavimento tipografico.
+        title: TitoloCheNonSiRompe(
+          testo: 'Il Viaggio dello Sciamano',
+          stile: TypographyTokens.titoloScheda()
+              .copyWith(color: palette.goldSoft),
+        ),
         actions: [
           FoglioDelleFonti.bottone(context,
               palette: palette,
@@ -229,7 +245,19 @@ class _ViaggioDelloSciamanoScreenState
           const AngoloDellaBarra(),
         ],
       ),
-      extendBodyBehindAppBar: true,
+      // **LA BARRA STA SOPRA LA SCENA SOLO DOVE LA SCENA E' UNA SCENA.**
+      //
+      // Due difetti visti sul telefono 767f596c il 10 settembre 2026, e il
+      // secondo l'ha fatto la cura del primo. Prima: la barra stava sempre
+      // sopra il corpo, e la prima riga della soglia, "Non sei ancora
+      // sceso.", finiva **sopra il titolo**. Poi, tolto lo sconfinamento
+      // dappertutto, **il tunnel ha perso la sua fascia in alto**: sopra la
+      // galleria c'era una striscia di pagina alta quanto la barra.
+      //
+      // Il confine non e' lo schermo, e' **la fase**: dove si legge un testo
+      // la barra ha il suo posto, dove si sta dentro una scena il corpo
+      // passa sotto.
+      extendBodyBehindAppBar: _laScenaEPiena,
       body: SafeArea(
         top: false,
         child: switch (_fase) {
@@ -413,8 +441,17 @@ class _ViaggioDelloSciamanoScreenState
     final quale = _diario.quanteDiscese;
     return Column(
       children: [
+        // **LE TRE OMBRE STANNO UNA SOTTO L'ALTRA, e non una accanto
+        // all'altra.**
+        //
+        // Difetto visto sul telefono 767f596c il 10 settembre 2026:
+        // affiancate, ognuna aveva a disposizione **un terzo di larghezza**
+        // in una finestra alta il doppio di quanto e' larga, e un animale,
+        // che e' piu' largo che alto, in quella colonna diventa minuscolo. In
+        // riga, invece, ogni ombra ha una scena larga quanto lo schermo, che
+        // e' la forma di un animale.
         Expanded(
-          child: Row(
+          child: Column(
             children: [
               for (final a in ombre)
                 Expanded(
@@ -457,6 +494,36 @@ class _ViaggioDelloSciamanoScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // **LA SCENA CHE SI RIPORTA SU HA DENTRO L'ANIMALE.**
+          //
+          // Difetto visto sul telefono 767f596c il 10 settembre 2026: al
+          // ritorno c'era **solo testo**, e l'animale che si era appena
+          // seguito non compariva da nessuna parte. La regola di casa vuole
+          // il livello visivo prima del testo in ogni responso che conti, e
+          // questo e' il responso del viaggio.
+          //
+          // **QUI VIVE LA PIENA LUCE DELLA QUARTA DISCESA**, e qui la guardia
+          // misura il sessanta per cento dell'altezza: nella scena del
+          // ritorno l'animale e' uno, non uno di tre.
+          if (_seguito != null)
+            SizedBox(
+              width: double.infinity,
+              child: AspectRatio(
+                aspectRatio: 1.35,
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(SpacingTokens.radiusLg),
+                  child: CustomPaint(
+                    key: const Key('viaggio_animale_del_ritorno'),
+                    painter: PittoreDellAnimale(
+                      discesa: (_diario.quanteDiscese - 1).clamp(0, 3),
+                      quantaLuce: _riconosciuto ? 1.0 : 0.45,
+                      seme: _seguito.hashCode,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           const SizedBox(height: SpacingTokens.xxl),
           ParagrafiDiLettura(
             key: const Key('viaggio_scena'),
