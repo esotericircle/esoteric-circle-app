@@ -310,6 +310,7 @@ le altre.
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |
+| `il_giallo_delle_rune_parla_adesso_test.dart` | il giallo delle rune parla adesso | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 3 prose dorate su 9 invece di 1) | 1 |
 | `il_gating_non_ha_fondi_bianchi_test.dart` | il gating non ha fondi bianchi | 1 | dalla porta comune | mai | 3 |
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina | 1, 2 | dalla porta comune | mai | 3 |

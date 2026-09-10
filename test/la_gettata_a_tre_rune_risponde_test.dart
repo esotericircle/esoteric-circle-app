@@ -259,11 +259,31 @@ void main() {
         File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
             .readAsStringSync();
 
-    // I tre paragrafi, nell'ordine e col loro colore.
+    // **REGOLA D: I COLORI SONO CAMBIATI, E IL CAMBIO E' DI UN ORDINE PIU'
+    // NUOVO.** Ordine DD voce 11, 10 settembre 2026.
+    //
+    // **Cosa chiedeva la voce CQ 6.22, parole del fondatore del 4 settembre:**
+    // *Poi sotto 3 paragrafi: Giallo, Bianco, Giallo.* Questa prova lo
+    // pretendeva alla lettera, ed era giusto.
+    //
+    // **Cosa chiede la voce DD.11, parole del fondatore del 10 settembre:**
+    // il giallo resta **solo per cio' che parla all'utente adesso**, e quella
+    // frase sta in un riquadro.
+    //
+    // **Le due cose non stanno insieme, e la piu' recente vince.** Con
+    // Giallo-Bianco-Giallo una gettata da tre rune accende **sei prose
+    // dorate**, piu' quella del presagio: l'unica cosa che parla adesso
+    // finiva per essere l'unica bianca in mezzo all'oro. I tre paragrafi
+    // restano tre, nello stesso ordine e nella stessa prosa ampia: **cambia
+    // il colore, non la forma**.
+    //
+    // **Questa prova non e' stata cancellata**, perche' cio' che difendeva
+    // vale ancora: i tre paragrafi, il loro ordine, e la misura di lettura.
+    // Ha smesso di difendere i due ori, e chi legge deve sapere perche'.
     final ordine = <String, String>{
-      'rune_meaning_': 'palette.goldSoft',
+      'rune_meaning_': 'ColorTokens.textPrimary',
       'rune_riga_': 'ColorTokens.textPrimary',
-      'rune_voce_': 'palette.goldSoft',
+      'rune_voce_': 'ColorTokens.textPrimary',
     };
     final storti = <String>[];
     var precedente = -1;

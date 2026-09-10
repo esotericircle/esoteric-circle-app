@@ -1070,10 +1070,25 @@ class _Responso extends StatelessWidget {
                     // della voce S.16.** Erano un paragrafo unico, e in un
                     // paragrafo unico la cosa da fare si perde in mezzo: e' la
                     // parte che fa tornare, quindi ha la sua superficie.
+                    // **IL GIALLO SOLO PER CIO' CHE PARLA ADESSO. Ordine DD
+                    // voce 11, 10 settembre 2026, e la ragione e' del
+                    // fondatore.**
+                    //
+                    // Qui il primo paragrafo del presagio era dorato, per la
+                    // regola dell'ordine B: in una prosa a piu' blocchi il
+                    // primo porta il senso e si stacca. **In questa schermata
+                    // quella regola faceva a pugni con un'altra**: il
+                    // riquadro dell'azione, cioe' l'unica riga che chiede di
+                    // fare qualcosa **adesso**, e' dorato anche lui. Due ori
+                    // nella stessa bolla non sono una gerarchia, sono due
+                    // richiami che si annullano.
+                    //
+                    // **L'oro resta uno solo, ed e' quello nel riquadro.**
+                    // Qui la prosa e' tutta bianca: il senso lo porta gia'
+                    // l'ordine dei blocchi, che nel presagio e' fisso.
                     ParagrafiDiLettura(
                         key: const Key('rune_presage_text'),
                         testo: responso.risposta,
-                        oro: palette.goldSoft,
                         stile: TypographyTokens.lettura()
                             .copyWith(color: ColorTokens.textPrimary)),
                     const SizedBox(height: SpacingTokens.sm),
@@ -1095,9 +1110,13 @@ class _Responso extends StatelessWidget {
                       // l'unico blocco del presagio che chiede di fare
                       // qualcosa, e il colore lo stacca dalle due prose
                       // bianche che lo circondano.
+                      // **NESSUN ORO NELL'ORO.** Ordine DD voce 11: questo
+                      // riquadro e' gia' dorato per intero, e chiedere l'oro
+                      // anche al primo blocco non cambiava un pixel mentre
+                      // faceva credere a chi legge il codice che qui ci fosse
+                      // una gerarchia.
                       child: ParagrafiDiLettura(
                           testo: responso.cosaPuoiFare,
-                          oro: palette.goldSoft,
                           stile: TypographyTokens.lettura()
                               .copyWith(color: palette.goldSoft)),
                     ),
@@ -1305,10 +1324,16 @@ class _LetturaRuna extends StatelessWidget {
             // LA GIUNTURA DELLE NORNE: il filo che lega le tre letture,
             // prima della carta, cosi' i tre blocchi diventano un verso.
             if (giuntura != null) ...[
+              // **E NEMMENO QUESTA E' PIU' DORATA. Ordine DD voce 11.**
+              // La giuntura e' il filo che lega le tre letture: dice **da
+              // dove viene** il verso, non cosa farne adesso. Restava dorata
+              // e in corsivo, cioe' portava due segni di richiamo per una
+              // riga di raccordo. **Il corsivo basta**, e l'oro torna dove
+              // serve.
               Text(giuntura!,
                   key: Key('rune_giuntura_$indice'),
                   style: TypographyTokens.didascalia().copyWith(
-                      color: palette.goldSoft,
+                      color: ColorTokens.textSecondary,
                       fontStyle: FontStyle.italic,
                       height: 1.4)),
               const SizedBox(height: SpacingTokens.xs),
@@ -1421,29 +1446,51 @@ class _LetturaRuna extends StatelessWidget {
             // il significato e il cielo sono di Caligo, la risposta e' la
             // voce che parla a te.
             //
-            // **UNO. Il significato del segno, in oro.**
+            // **E QUI L'ORO SE N'E' ANDATO. Ordine DD voce 11, 10 settembre
+            // 2026, e la ragione e' del fondatore: il giallo resta solo per
+            // cio' che parla all'utente ADESSO, e quella frase sta in un
+            // riquadro.**
+            //
+            // **Cosa c'era, e perche' era stato deciso cosi'.** I tre
+            // paragrafi della scheda avevano i colori del senso: il
+            // significato e il cielo in oro, *"di Caligo"*, e la risposta in
+            // bianco, *"la voce che parla a te"*. Era una gerarchia
+            // ragionata, e **diceva il contrario di quello che serve**: in una
+            // gettata da tre rune quell'assetto accendeva **sei prose
+            // dorate**, piu' quella del presagio, e cio' che parla adesso era
+            // l'unica cosa bianca in mezzo a tutto l'oro.
+            //
+            // Adesso l'oro di questa lettura e' **uno solo**, il riquadro
+            // dell'azione nel presagio, e una guardia conta le prose dorate a
+            // video invece di fidarsi di questo commento.
+            //
+            // **UNO. Il significato del segno.**
             ParagrafiDiLettura(
                 key: Key('rune_meaning_$indice'),
                 testo: runa.rune.meaning,
                 stile: TypographyTokens.lettura()
-                    .copyWith(color: palette.goldSoft)),
+                    .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.sm),
-            // **DUE. La risposta, in bianco**: e' cio' che la runa dice a te,
-            // e sta in mezzo perche' e' la cosa che conta.
+            // **DUE. La risposta**: e' cio' che la runa dice a te, e sta in
+            // mezzo perche' e' la cosa che conta. **Dal 10 settembre 2026 non
+            // e' piu' l'unica bianca fra due ori**, sono bianche tutte e tre:
+            // a distinguerla resta il posto, che nel responso e' fisso.
             ParagrafiDiLettura(
                 key: Key('rune_riga_$indice'),
                 testo: runa.riga,
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
-            // **TRE. Il cielo con la domanda, in oro.** Qui vive la frase che
-            // nomina la domanda scritta, una volta sola su tutta la gettata.
+            // **TRE. Il cielo con la domanda.** Qui vive la frase che nomina
+            // la domanda scritta, una volta sola su tutta la gettata.
+            // **Anche questa non e' piu' dorata**, ordine DD voce 11: dice da
+            // dove viene la lettura, non cosa fare adesso.
             if (voce != null) ...[
               const SizedBox(height: SpacingTokens.sm),
               ParagrafiDiLettura(
                   key: Key('rune_voce_$indice'),
                   testo: voce!,
                   stile: TypographyTokens.lettura()
-                      .copyWith(color: palette.goldSoft)),
+                      .copyWith(color: ColorTokens.textPrimary)),
             ],
             // **E LA FONTE STA DIETRO LA PORTA, per ogni gettata.** Non
             // sparisce: si apre. Chi vuole sapere da dove nasce la runa tocca
