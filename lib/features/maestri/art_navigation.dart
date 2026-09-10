@@ -8,7 +8,7 @@ import '../angels/angels_screen.dart';
 import 'art_intro_screen.dart';
 import 'aura/archetype/archetype_test_screen.dart';
 import 'aura/face/face_constellation_screen.dart';
-import 'caligo/animal/guide_animal_screen.dart';
+import 'caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import 'caligo/rune/rune_draw_screen.dart';
 import 'caligo/sigillo/sigillo_intenzione_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
@@ -78,11 +78,17 @@ Route<void>? artRouteFor(
     // La Costellazione del Viso ha ora la sua esperienza vera, non piu' la soglia.
     case 'face_constellation':
       return FaceConstellationScreen.route();
-    // L'Animale Guida ha ora la sua esperienza vera, non piu' la soglia. Nasce
-    // dal segno; l'archetipo, se c'e', lo legge da se' dallo storico locale.
+    // **IL VIAGGIO DELLO SCIAMANO al posto dell'Animale Guida.** Ordine DC
+    // voce 01, 10 settembre 2026.
+    //
+    // **L'id resta `guide_animal`** e non si rinomina: e' la chiave con cui
+    // il cammino conta i gesti, con cui le arti preferite ricordano il cuore
+    // e con cui i Ricordi ritrovano i responsi gia' custoditi. **Cambiare un
+    // id per farlo somigliare al nome nuovo vorrebbe dire perdere tutto cio'
+    // che quella chiave tiene insieme**, e il nome lo dice gia' il catalogo.
     case 'guide_animal':
       if (userSign == null) return DatiDiNascitaScreen.route();
-      return GuideAnimalScreen.route(userSign: userSign, userBirth: userBirth);
+      return ViaggioDelloSciamanoScreen.route(userSign: userSign);
     // L'Estrazione Rune ha ora la sua esperienza vera, non piu' la soglia:
     // lettura a richiesta e ripetibile, col selettore delle gettate.
     // Il Sigillo dell'Intenzione, terza distintiva di Caligo: dalla frase

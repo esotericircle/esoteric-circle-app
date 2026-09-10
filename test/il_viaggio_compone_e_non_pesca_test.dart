@@ -39,7 +39,7 @@ void main() {
       final disegni = VocabolarioDelViaggio.quantiDisegni();
       // ignore: avoid_print
       print('ORDINE DC VOCE 06: ${VocabolarioDelViaggio.laRiga()} '
-          '($disegni figure, ${quante} scene)');
+          '($disegni figure, $quante scene)');
       // **Si rifa il prodotto a mano**, che e l unico modo di provare che il
       // numero non sia stato scritto.
       var atteso = 1;
@@ -168,7 +168,7 @@ void main() {
     });
 
     test('L ATTESA DICHIARA LA SUA FONTE, e non e una regola nostra', () {
-      final testo = IQuattroViaggi.percheSiAspetta;
+      const testo = IQuattroViaggi.percheSiAspetta;
       expect(testo, contains('Harner'));
       expect(testo, contains('1980'));
       expect(testo.toLowerCase(), contains('non è una regola nostra'),

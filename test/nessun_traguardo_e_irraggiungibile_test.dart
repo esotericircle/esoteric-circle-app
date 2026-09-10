@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
