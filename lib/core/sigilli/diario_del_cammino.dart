@@ -860,6 +860,13 @@ class DiarioDelCammino extends ChangeNotifier {
   /// Se un gesto e' stato compiuto almeno una volta, da sempre.
   bool haFatto(String gesto) => (_gestiCompiuti[gesto] ?? 0) > 0;
 
+  /// **QUANTE VOLTE un gesto e' stato compiuto, da sempre.**
+  ///
+  /// Serve ai pezzi dell'identita' che non si completano al primo colpo.
+  /// Il primo e' l'Animale Guida: dall'ordine DC voce 04 si riconosce quando
+  /// si e' mostrato **quattro volte**, e `haFatto` diceva vero alla prima.
+  int quanteVolte(String gesto) => _gestiCompiuti[gesto] ?? 0;
+
   /// Accende un Sigillo. Torna vero se si e' acceso adesso, cosi' chi chiama
   /// sa se deve celebrare: accendere due volte lo stesso Sigillo non
   /// celebrerebbe niente, festeggerebbe un ricordo.

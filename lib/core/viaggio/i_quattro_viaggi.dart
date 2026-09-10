@@ -126,6 +126,23 @@ abstract final class IQuattroViaggi {
     if (restano <= 0) return 'Lo hai riconosciuto.';
     if (discese == 0) return 'Non sei ancora sceso.';
     if (restano == 1) return 'Si è mostrato tre volte. Ne manca una.';
-    return 'Si è mostrato $discese volte su $quanteDiscese.';
+    return quanteVolteSiEMostrato(discese);
   }
+
+  /// **LA FRASE DEL CONTEGGIO, e vive in un posto solo.**
+  ///
+  /// Difetto visto sul telefono 767f596c il 10 settembre 2026, sulla scena
+  /// del ritorno dopo la prima discesa: **"Si è mostrato 1 volte su 4."**
+  ///
+  /// La stessa frase esisteva in due posti. Quella del Passaporto, in
+  /// `LAnnuncioDellAnimale.sottoLaSagoma`, il singolare ce l'aveva, e un
+  /// commento diceva perfino che la prima stesura sbagliava proprio li'.
+  /// Questa non ce l'aveva. **Riparare una copia e lasciare l'altra e' la
+  /// stessa cosa che non riparare niente**, e a schermo e' arrivata la copia
+  /// rotta.
+  ///
+  /// Adesso la frase e' una, e tutte e due le porte passano di qui.
+  static String quanteVolteSiEMostrato(int discese) => discese == 1
+      ? 'Si è mostrato una volta su $quanteDiscese.'
+      : 'Si è mostrato $discese volte su $quanteDiscese.';
 }

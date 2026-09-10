@@ -1,3 +1,5 @@
+import 'i_quattro_viaggi.dart';
+
 /// **L'ONBOARDING ANNUNCIA L'ANIMALE, E NON LO CONSUMA.**
 /// Ordine DC voce 02, 10 settembre 2026.
 ///
@@ -56,9 +58,14 @@ abstract final class LAnnuncioDellAnimale {
     final restano = quanteNeServono - discese;
     if (restano <= 0) return '';
     if (restano == 1) return 'Si è mostrato tre volte. Ne manca una.';
-    // **Il singolare esiste**, e una guardia che stampa la riga invece di
-    // limitarsi a contarla lo fa vedere: la prima stesura diceva "1 volte".
-    if (discese == 1) return 'Si è mostrato una volta su $quanteNeServono.';
-    return 'Si è mostrato $discese volte su $quanteNeServono.';
+    // **IL SINGOLARE ESISTE, e la frase vive in un posto solo.**
+    //
+    // Qui il singolare c'era da subito, e un commento diceva che la prima
+    // stesura scriveva "1 volte". Ma la stessa frase esisteva anche in
+    // `IQuattroViaggi.aChePunto`, senza singolare, e **e' quella che e'
+    // arrivata a schermo**: sul telefono 767f596c, il 10 settembre 2026, la
+    // scena del ritorno dopo la prima discesa diceva "Si è mostrato 1 volte
+    // su 4". Adesso passano tutte e due di qui.
+    return IQuattroViaggi.quanteVolteSiEMostrato(discese);
   }
 }

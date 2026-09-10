@@ -136,14 +136,19 @@ class _ViaggioDelloSciamanoScreenState
     super.dispose();
   }
 
-  /// **LE FASI IN CUI LA SCENA OCCUPA TUTTO.** La discesa, la nebbia e
-  /// l'incontro non hanno testo da leggere in cima: sono immagini, e una
-  /// striscia di pagina sopra le smentisce. La soglia e la risalita sono
-  /// testo, e li' la barra ha il suo posto.
+  /// **LE FASI IN CUI LA SCENA OCCUPA TUTTO.**
+  ///
+  /// La discesa e la nebbia sono immagini continue, senza niente da leggere
+  /// in cima, e una striscia di pagina sopra le smentisce.
+  ///
+  /// **L'INCONTRO NO, ed e' un difetto visto sul telefono 767f596c il 10
+  /// settembre 2026**: le tre ombre stanno in tre righe, e con la barra sopra
+  /// **la prima delle tre finiva mezza dietro il titolo**. L'incontro non e'
+  /// una scena da guardare, e' una scelta fra tre, e una scelta nascosta non
+  /// e' una scelta. La soglia e la risalita sono testo, e li' la barra ha il
+  /// suo posto da sempre.
   bool get _laScenaEPiena =>
-      _fase == FaseDelViaggio.discesa ||
-      _fase == FaseDelViaggio.nebbia ||
-      _fase == FaseDelViaggio.incontro;
+      _fase == FaseDelViaggio.discesa || _fase == FaseDelViaggio.nebbia;
 
   bool get _riconosciuto =>
       IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;

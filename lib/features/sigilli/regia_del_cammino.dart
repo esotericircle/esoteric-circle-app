@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/natal_chart_controller.dart';
+import '../../core/viaggio/i_quattro_viaggi.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/misura/misura_del_ritorno.dart';
 import '../../core/misura/registro_del_ritorno.dart';
@@ -691,6 +692,29 @@ class RegiaDelCammino {
       for (final pezzo in PezziDellIdentita.daSoloGesto)
         if (diario.haFatto(pezzo)) pezzo,
     };
+    // **L'ANIMALE GUIDA NON MATURA AL PRIMO COLPO, ordine DC voce 04.**
+    //
+    // Difetto visto sul telefono 767f596c il 10 settembre 2026: seguita la
+    // **prima** ombra del Viaggio dello Sciamano, il Cerchio ha aperto una
+    // celebrazione a schermo pieno che diceva *"Hai dato al Cerchio l'Animale
+    // Guida"*, ha acceso il traguardo cal_1 e ha pagato dieci Eos. Cioe' ha
+    // consegnato in venti secondi la rivelazione che l'ordine DC costruisce
+    // in quattro discese, e che la voce 02 vieta perfino all'onboarding.
+    //
+    // **Nessuno aveva scritto una riga sbagliata.** `haFatto` era la
+    // condizione giusta finche' l'Animale Guida era un risultato: si apriva
+    // la schermata, usciva un animale, il pezzo c'era. L'ordine DC ha
+    // cambiato la natura dell'arte da risultato a rapporto, e **il
+    // significato di una riga giusta e' cambiato sotto**.
+    //
+    // Il GESTO continua a partire a ogni discesa, perche' i conti delle arti,
+    // i Ricordi e le finestre del cielo lo aspettano: e' il PEZZO ad
+    // aspettare la quarta. Quattro discese e quattro scelte sono la stessa
+    // cosa, perche' `seguitoDaLeQuattroScelte` restituisce sempre un nome
+    // appena le scelte sono quattro.
+    if (diario.quanteVolte('animale_guida') < IQuattroViaggi.quanteDiscese) {
+      pezzi.remove('animale_guida');
+    }
     // **IL PASSAPORTO E' COMPOSTO, ordine AL voce 03.** Il suo gesto scatta a
     // ogni visita della schermata, quindi da solo non dice niente: matura
     // quando ogni tessera del documento e' viva, e le tessere stanno

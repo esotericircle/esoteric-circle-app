@@ -94,6 +94,37 @@ void main() {
             'manca');
   });
 
+  test('NESSUNA DELLE DUE PORTE DICE "1 VOLTE"', () {
+    // **DIFETTO VISTO SUL TELEFONO 767f596c IL 10 SETTEMBRE 2026**, sulla
+    // scena del ritorno dopo la prima discesa: *"Si è mostrato 1 volte su
+    // 4."*
+    //
+    // La guardia di prima guardava **una porta sola**, quella del Passaporto,
+    // che il singolare ce l'aveva. L'altra, `IQuattroViaggi.aChePunto`, no. E'
+    // la famiglia di difetto che in questo progetto ha gia' un nome:
+    // **misurare il pezzo sano accanto al pezzo rotto**.
+    //
+    // Adesso si guardano tutte e due, e si guarda anche oltre il quarto
+    // viaggio, perche' un conteggio che passa il suo massimo non deve
+    // inventarsi una grammatica.
+    final dette = <String>[];
+    for (var d = 0; d <= 8; d++) {
+      dette.add(IQuattroViaggi.aChePunto(d));
+      dette.add(LAnnuncioDellAnimale.sottoLaSagoma(
+          d, IQuattroViaggi.quanteDiscese));
+    }
+    final sbagliate = dette.where((r) => r.contains('1 volte')).toList();
+    // ignore: avoid_print
+    print('ORDINE DC VOCE 04: righe del conteggio guardate ${dette.length}, '
+        'con il plurale sul singolare ${sbagliate.length}');
+    expect(dette.where((r) => r.contains('una volta')).length,
+        greaterThanOrEqualTo(2),
+        reason: 'nessuna delle due porte dice mai "una volta": o il caso non '
+            'si raggiunge, e allora questa guardia non misura niente');
+    expect(sbagliate, isEmpty,
+        reason: 'una porta scrive il plurale sul singolare: $sbagliate');
+  });
+
   test('E I CONTORNI DELLA SAGOMA SEGUONO LE DISCESE', () {
     // Ordine DC voce 04: *"dopo ogni viaggio non completato, la sagoma
     // guadagna un contorno in piu"*.
