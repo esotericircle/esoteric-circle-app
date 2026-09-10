@@ -28,6 +28,21 @@ class Chakra {
   /// Il nome sanscrito traslitterato, per esempio Anahata.
   final String nome;
 
+  /// **SU PIU' L'ARTICOLO CHE QUESTO NOME PORTA GIA'**, per esempio
+  /// "sul cuore" da "il cuore".
+  ///
+  /// **Sta qui perche' qui sta il nome.** Prima viveva come funzione privata
+  /// dentro `CioCheAuraRicorda`, e quando l'ordine DA voce 06 ha avuto
+  /// bisogno della stessa cosa nel Sigillo del Sogno la prima stesura ha
+  /// scritto "su il cuore": **due posti che compongono la stessa preposizione
+  /// prima o poi ne compongono due diverse.**
+  String get conSu {
+    if (italiano.startsWith('la ')) return 'sulla ${italiano.substring(3)}';
+    if (italiano.startsWith('il ')) return 'sul ${italiano.substring(3)}';
+    if (italiano.startsWith("l'")) return "sull'${italiano.substring(2)}";
+    return 'su $italiano';
+  }
+
   /// Il nome italiano, per esempio "il cuore".
   final String italiano;
 

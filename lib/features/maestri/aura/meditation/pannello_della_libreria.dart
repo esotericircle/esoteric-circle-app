@@ -17,11 +17,14 @@ import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 /// la forma sbagliata"*. Questo pannello e' chiuso finche' non lo si apre, ed
 /// e' per chi vuole cercare.
 ///
-/// **L'AMPIEZZA SI DICHIARA, e non si gonfia.** Ordine DB voce 01: *"la
-/// libreria dichiara la propria ampiezza, come fa la Z-App con il numero in
-/// home"*. Qui il numero e' doppio e onesto: quante sono pronte e quante ne
-/// sono previste. Dichiarare millecinquecento pratiche avendone dieci e'
-/// esattamente cio' che rende inaffidabile l'app di riferimento.
+/// **IL NUMERO E' QUELLO VERO, e le pratiche future non si nominano.**
+/// Ordine DC voce 18, 10 settembre 2026.
+///
+/// Qui si dichiarava "10 pratiche pronte, 36 previste", come l'ordine DB voce
+/// 01 chiedeva sull'esempio della Z-App. **Il fondatore ha deciso il
+/// contrario**: *"una promessa non mantenuta e' peggio di un catalogo
+/// piccolo"*. Adesso si dice solo quello che c'e', e il numero si calcola
+/// dalle pratiche invece di essere scritto a mano.
 class PannelloDellaLibreria extends StatefulWidget {
   const PannelloDellaLibreria({
     super.key,
@@ -110,18 +113,17 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
             _aperto
                 ? 'Chiudi la libreria'
                 : 'La libreria dei respiri, '
-                    '${LibreriaDeiRespiri.pronte.length} pratiche',
+                    '${LibreriaDeiRespiri.quantePronte} pratiche',
             style: TypographyTokens.didascalia()
                 .copyWith(color: palette.goldSoft),
           ),
         ),
         if (_aperto) ...[
-          // **IL NUMERO ONESTO**, ordine DB voce 01: quante ci sono e quante
-          // ne arriveranno, dette separate. Un numero solo che le somma
-          // sarebbe una promessa travestita da conto.
+          // **IL NUMERO ONESTO E' UNO SOLO**, ordine DC voce 18: quante ce ne
+          // sono. Le pratiche che arriveranno non si nominano, non si contano
+          // e non si mostrano in grigio.
           Text(
-            '${LibreriaDeiRespiri.pronte.length} pratiche pronte, '
-            '${LibreriaDeiRespiri.previste} previste.',
+            '${LibreriaDeiRespiri.quantePronte} pratiche, tutte pronte.',
             key: const Key('meditazione_ampiezza_libreria'),
             textAlign: TextAlign.center,
             style: TypographyTokens.didascalia()

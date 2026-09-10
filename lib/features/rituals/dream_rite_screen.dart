@@ -19,6 +19,8 @@ import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
 import '../../core/rituals/filo_del_giorno.dart';
+import '../../core/maestro/il_respiro_di_oggi.dart';
+import '../../core/maestro/memoria_del_respiro.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -250,7 +252,28 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     if (parola != null && mounted) {
       setState(() => _parolaDiStamattina = parola);
     }
+    // **E IL RESPIRO DI OGGI, se c'e' stato.** Ordine DA voce 06,
+    // 10 settembre 2026.
+    //
+    // Il Sigillo raccoglie la giornata: la parola dell'alba, la runa del
+    // tramonto, e da oggi anche il respiro. **Una riga sola e solo se e'
+    // vera**: chi non ha respirato non trova niente, e non si inventa una
+    // giornata a chi non l'ha avuta.
+    //
+    // **La memoria non puo' zittire questo rito**, ed e' la regola della voce
+    // DC.16: se l'archivio non risponde, la riga non nasce e il Sigillo si
+    // apre com'era.
+    final memoria = MemoriaDelRespiro();
+    await memoria.carica();
+    final respiro = IlRespiroDiOggi.laRiga(memoria, _date);
+    if (respiro != null && mounted) {
+      setState(() => _respiroDiOggi = respiro);
+    }
   }
+
+  /// La riga sul respiro di oggi, o nulla se oggi non si e' respirato.
+  /// Ordine DA voce 06.
+  String? _respiroDiOggi;
 
   /// La parola ricevuta all'alba di oggi, se il rito e' stato compiuto.
   String? _parolaDiStamattina;
@@ -610,6 +633,17 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
               // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
               style: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
+        ],
+        // **IL RESPIRO DI OGGI.** Ordine DA voce 06: un fatto della giornata
+        // al posto di una domanda generica. Compare solo se c'e' stato.
+        if (_respiroDiOggi != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          ParagrafiDiLettura(
+              testo: _respiroDiOggi!,
+              key: const Key('dream_respiro_di_oggi'),
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: _palette.goldSoft, height: 1.45)),
         ],
         const SizedBox(height: SpacingTokens.md),

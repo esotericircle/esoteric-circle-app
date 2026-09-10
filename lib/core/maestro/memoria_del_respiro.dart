@@ -187,6 +187,63 @@ class MemoriaDelRespiro {
     return ordinati.first.key;
   }
 
+  /// **QUANTO DURA DAVVERO UNA SESSIONE DI QUESTA PERSONA.**
+  /// Ordine DA voce 05, 10 settembre 2026.
+  ///
+  /// **Da dove nasce.** Nel manifesto dell'ordine DB, voce 12, avevo scritto
+  /// che *"la sessione interrotta e' un dato che nessuno guarda: chi
+  /// interrompe sempre dopo due minuti non ha bisogno di una pratica da
+  /// dieci, ha bisogno che Aura gliene proponga una da tre"*. E' l'unico caso
+  /// in cui l'app puo' accorgersi che sta chiedendo troppo, **invece di
+  /// aspettare che la persona smetta**.
+  ///
+  /// **Si guarda la MEDIANA e non la media**, perche' una sola sessione
+  /// lasciata aperta per mezz'ora sposterebbe la media e non la mediana.
+  ///
+  /// Nulla sotto [quanteBastanoPerLaMisura] sessioni: con meno non c'e' una
+  /// abitudine, c'e' quello che e' successo l'altro ieri.
+  Duration? get quantoDuraDavvero {
+    if (_sessioni.length < quanteBastanoPerLaMisura) return null;
+    final durate = [
+      for (final s in _sessioni) s.durata.inSeconds,
+    ]..sort();
+    final meta = durate.length ~/ 2;
+    final mediana = durate.length.isOdd
+        ? durate[meta]
+        : (durate[meta - 1] + durate[meta]) ~/ 2;
+    if (mediana <= 0) return null;
+    return Duration(seconds: mediana);
+  }
+
+  /// **QUANTE SESSIONI SERVONO PRIMA DI DIRE QUANTO DURA UNA SESSIONE.**
+  ///
+  /// Quattro: sotto, la mediana e' quasi la stessa cosa di un singolo giorno
+  /// storto, e proporre una pratica corta a chi ha solo cominciato male
+  /// sarebbe un giudizio, non un aiuto.
+  static const int quanteBastanoPerLaMisura = 4;
+
+  /// **QUANTE SESSIONI SU DIECI SI LASCIANO A META'**, da 0 a 1, oppure nulla
+  /// quando non ce ne sono abbastanza per dirlo.
+  ///
+  /// Non serve a rimproverare nessuno e **non si mostra mai**: serve a sapere
+  /// se l'app sta chiedendo piu' di quanto quella persona voglia dare.
+  double? get quanteSiLascianoAMeta {
+    if (_sessioni.length < quanteBastanoPerLaMisura) return null;
+    final lasciate = _sessioni.where((s) => !s.compiuta).length;
+    return lasciate / _sessioni.length;
+  }
+
+  /// **SE L'APP STA CHIEDENDO TROPPO A QUESTA PERSONA.**
+  ///
+  /// Vero quando **piu' di una sessione su tre viene lasciata a meta'**. Un
+  /// terzo e' la soglia perche' sotto c'e' la vita che interrompe, la
+  /// telefonata, il bambino che chiama; sopra c'e' una pratica che non sta
+  /// nella giornata di quella persona.
+  bool get chiedeTroppo {
+    final quota = quanteSiLascianoAMeta;
+    return quota != null && quota > 1 / 3;
+  }
+
   /// **IL RIASSUNTO CHE ENTRA NEL CONTESTO DEI MAESTRI.** Ordine DB voce 08.
   ///
   /// Non il dato grezzo di ogni sessione: **una riga breve**, in una forma che

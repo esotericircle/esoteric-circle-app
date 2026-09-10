@@ -1,3 +1,6 @@
+import '../core/rituals/daily_elements.dart';
+import '../core/maestro/memoria_del_respiro.dart';
+import '../core/maestro/ora_del_respiro.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -63,6 +66,12 @@ class RegiaDelleChiamate {
     scelta ??= SceltaDegliAvvisi();
     if (!scelta.caricata) await scelta.carica();
 
+    // **LA MEMORIA DEL RESPIRO SI LEGGE QUI, dove l'archivio si legge gia'.**
+    // Ordine DA voce 04. Non aggiunge nessuna dipendenza nuova: la riga qui
+    // sopra apre gia' lo stesso archivio, e `carica` non solleva mai.
+    final respiro = MemoriaDelRespiro();
+    await respiro.carica();
+
     // **L'ORA ANCORATA PER TUTTI E CINQUE, e l'alba vera la mette il rito.**
     //
     // Qui non c'e' la posizione: quella la conosce il Rito dell'Alba, che la
@@ -77,7 +86,21 @@ class RegiaDelleChiamate {
       // **E ALL'ORA CHE LA PERSONA HA SCELTO.** Ordine BC voce 05, coda:
       // "l'utente deve poter cambiare anche l'orario di ogni notifica".
       oreScelte: {
-        for (final d in scelta.quelliCheChiamano) d: scelta.minutiDi(d),
+        for (final d in scelta.quelliCheChiamano)
+          d: d == DailyElement.breath
+              // **E IL SOFFIO SEGUE L'ORA IN CUI QUELLA PERSONA RESPIRA.**
+              // Ordine DA voce 04, 10 settembre 2026.
+              //
+              // Il suggerimento entra **solo dove l'ora e' ancora quella di
+              // partenza**: chi ne ha scelta una a mano se la tiene, che e'
+              // la legge dell'ordine BC voce 05. E non si sposta di piu' di
+              // sei ore, altrimenti non e' un'app che ti segue, e' un'app
+              // che ti insegue.
+              ? (OraDelRespiro.minutiSuggeriti(respiro,
+                      minutiDiPartenza: d.anchorMinutes,
+                      minutiScelti: scelta.minutiDi(d)) ??
+                  scelta.minutiDi(d))
+              : scelta.minutiDi(d),
       },
     );
   }

@@ -83,10 +83,14 @@ void main() {
     // **I DUE NUMERI SONO SEPARATI**, ordine DB voce 01: un numero solo che li
     // somma sarebbe una promessa travestita da conto.
     expect(testo, contains('${LibreriaDeiRespiri.pronte.length}'),
-        reason: 'la libreria non dice quante pratiche sono pronte oggi');
-    expect(testo, contains('${LibreriaDeiRespiri.previste}'),
-        reason: 'la libreria non dice quante ne sono previste: chi entra non '
-            'vede che qui dentro ce piu di quanto finira');
+        reason: 'la libreria non dice quante pratiche ci sono');
+    // **E NON NOMINA NESSUNA PRATICA FUTURA.** Ordine DC voce 18: le
+    // ventisei che non ci sono non si contano e non si mostrano in grigio.
+    for (final promessa in const ['previst', 'in arrivo', 'presto', '36']) {
+      expect(testo.toLowerCase().contains(promessa), isFalse,
+          reason: 'la riga dell ampiezza dice "$promessa": e una promessa che '
+              'chi arriva in fondo scopre vuota');
+    }
   });
 
   testWidgets('OGNI PRATICA A SCHERMO PORTA LA SUA FONTE', (tester) async {

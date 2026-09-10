@@ -44,10 +44,12 @@ abstract final class CioCheAuraRicorda {
     final primaDiOggi = sessioni.skip(1);
     final maiToccato = !primaDiOggi.any((s) => s.centro == centroDiOggi);
     if (maiToccato && primaDiOggi.isNotEmpty) {
-      final nome = ChakraDelGiorno.tutti[
-              centroDiOggi % ChakraDelGiorno.tutti.length]
-          .italiano;
-      return 'È la prima volta che respiri ${_su(nome)}.';
+      // **LA PREPOSIZIONE LA COMPONE CHI CONOSCE IL NOME.** Ordine DA voce
+      // 06: stava qui come funzione privata, e il secondo posto che ne ha
+      // avuto bisogno ha scritto "su il cuore".
+      final centro = ChakraDelGiorno
+          .tutti[centroDiOggi % ChakraDelGiorno.tutti.length];
+      return 'È la prima volta che respiri ${centro.conSu}.';
     }
 
     // 2. **IL RITORNO DOPO UNA LUNGA ASSENZA.** Rara anche questa, e la piu'
@@ -91,11 +93,4 @@ abstract final class CioCheAuraRicorda {
     return null;
   }
 
-  /// Unisce *su* all'articolo che il nome del centro porta gia'.
-  static String _su(String nome) {
-    if (nome.startsWith('la ')) return 'sulla ${nome.substring(3)}';
-    if (nome.startsWith('il ')) return 'sul ${nome.substring(3)}';
-    if (nome.startsWith("l'")) return "sull'${nome.substring(2)}";
-    return 'su $nome';
-  }
 }

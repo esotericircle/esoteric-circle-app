@@ -21,17 +21,21 @@ import 'chakra_del_giorno.dart';
 /// **LA PORTA PRINCIPALE RESTA QUELLA DECISA**: la pratica di oggi la sceglie
 /// Aura dal chakra del giorno. La libreria sta sotto, per chi vuole cercare.
 abstract final class LibreriaDeiRespiri {
-  /// **QUANTE PRATICHE ESISTONO IN TUTTO**, comprese quelle che arriveranno.
+  /// **IL NUMERO CHE SI MOSTRA E' QUELLO VERO, e le pratiche future non si
+  /// nominano.** Ordine DC voce 18, 10 settembre 2026.
   ///
-  /// Ordine DB voce 01: *"la libreria dichiara la propria ampiezza, come fa la
-  /// Z-App con il numero in home: chi entra deve vedere che qui dentro c'e'
-  /// piu' di quanto finira'"*.
+  /// **Qui c'era `previste = 36`**, e la libreria dichiarava a schermo
+  /// "10 pratiche pronte, 36 previste". Veniva dall'ordine DB voce 01, che
+  /// chiedeva di dichiarare l'ampiezza come fa la Z-App col numero in home.
   ///
-  /// **E' un numero onesto e non un vanto**: dice quante ne sono previste, e
-  /// il conto di quelle gia' pronte si legge da `pronte.length`. Dichiarare
-  /// millecinquecento pratiche che non esistono sarebbe la stessa cosa che
-  /// rende la Z-App inaffidabile.
-  static const int previste = 36;
+  /// **Il fondatore ha deciso il contrario, e ha ragione**: *"una promessa non
+  /// mantenuta e' peggio di un catalogo piccolo"*. Le ventisei che non ci sono
+  /// non si nominano, non si contano e non si mostrano in grigio.
+  ///
+  /// **Il numero vero si calcola da `pronte.length` e non si scrive a mano**,
+  /// cosi' scende da solo se una pratica esce e nessuno puo' dimenticarsi di
+  /// aggiornarlo. Una guardia lo pretende.
+  static int get quantePronte => pronte.length;
 
   /// Le pratiche pronte oggi.
   static const List<Respiro> pronte = [
@@ -111,6 +115,35 @@ abstract final class LibreriaDeiRespiri {
       tradizione: Tradizione.risonanza,
     ),
 
+    // --- LE PRATICHE BREVI, per chi ha poco tempo davvero ---
+    //
+    // **Nascono da un difetto che una guardia ha trovato.** Ordine DA voce 05,
+    // 10 settembre 2026: la libreria doveva proporre una pratica piu' corta a
+    // chi lascia a meta' piu' di una sessione su tre, e **non ne aveva
+    // nessuna sotto i cinque minuti**. La proposta esisteva e non aveva niente
+    // da proporre.
+    //
+    // Due minuti sono dodici respiri a sei al minuto, e tre ne sono diciotto:
+    // sono pratiche vere, non versioni mutilate delle altre.
+    Respiro(
+      id: 'breve_dodici',
+      nome: 'Dodici respiri',
+      centro: -1,
+      durata: Duration(minutes: 2),
+      cosaSiFa: 'Dodici respiri e basta. Contali col dito, e quando arrivi a '
+          'dodici hai finito.',
+      tradizione: Tradizione.risonanza,
+    ),
+    Respiro(
+      id: 'breve_soglia',
+      nome: 'Il respiro della soglia',
+      centro: -1,
+      durata: Duration(minutes: 3),
+      cosaSiFa: 'Tre minuti prima di entrare da qualche parte o di uscirne. '
+          'Non serve chiudere gli occhi.',
+      tradizione: Tradizione.risonanza,
+    ),
+
     // --- LE FREQUENZE, dichiarate per quello che sono ---
     Respiro(
       id: 'solfeggio_giorno',
@@ -137,6 +170,30 @@ abstract final class LibreriaDeiRespiri {
         for (final r in pronte)
           if (r.centro == centro || r.centro < 0) r,
       ];
+
+  /// **LA PRATICA PIU' CORTA DI [quanto], fra quelle di [centro].**
+  /// Ordine DA voce 05, 10 settembre 2026.
+  ///
+  /// **A che serve**: chi lascia a meta' piu' di una sessione su tre non ha
+  /// bisogno di una pratica da dieci minuti, ha bisogno che gliene venga
+  /// proposta una da tre. **E' l'unico modo che l'app ha di accorgersi che
+  /// sta chiedendo troppo, invece di aspettare che la persona smetta.**
+  ///
+  /// **Non si dice mai alla persona che ha lasciato a meta'.** Si propone una
+  /// pratica piu' breve e basta: il giudizio non serve a nessuno, e la voce
+  /// DB.08 vieta al Maestro di dichiarare che sta osservando.
+  ///
+  /// Nulla quando nessuna pratica sta dentro quel tempo: **meglio niente che
+  /// una proposta che dura quanto quella che non si e' finita**.
+  static Respiro? piuCortaDi(Duration quanto, {int? centro}) {
+    final fra = centro == null ? pronte : perCentro(centro);
+    Respiro? migliore;
+    for (final r in fra) {
+      if (r.durata > quanto) continue;
+      if (migliore == null || r.durata > migliore.durata) migliore = r;
+    }
+    return migliore;
+  }
 
   /// La pratica che Aura sceglie per [giorno]: quella del centro acceso.
   static Respiro diOggi(DateTime giorno) {

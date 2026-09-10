@@ -133,9 +133,9 @@ void main() {
       () {
     // Una guardia che non guarda i numeri lascia che qualcuno li cambi per far
     // passare una prova. Qui il rapporto fra le due e' dichiarato.
-    final tremolio = RespiroGuidatoDalDito.sogliaDelTremolio;
-    final massimo = RespiroGuidatoDalDito.respiroPiuLungoCheAbbiaSenso;
-    final riferimento = RespiroGuidatoDalDito.riferimentoDelRespiro;
+    const tremolio = RespiroGuidatoDalDito.sogliaDelTremolio;
+    const massimo = RespiroGuidatoDalDito.respiroPiuLungoCheAbbiaSenso;
+    const riferimento = RespiroGuidatoDalDito.riferimentoDelRespiro;
     // ignore: avoid_print
     print('ORDINE DA: tremolio ${tremolio.inMilliseconds} ms, riferimento '
         '${riferimento.inSeconds} s, massimo ${massimo.inSeconds} s');

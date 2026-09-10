@@ -462,7 +462,31 @@ class CircleArtTile extends StatelessWidget {
   final MaestroPalette palette;
 
   Future<void> _open(BuildContext context) async {
-    final route = artRouteFor(art.id);
+    // **LA NASCITA VIAGGIA ANCHE DA QUI, e prima non viaggiava.**
+    // Ordine DC voce 11, 10 settembre 2026.
+    //
+    // **Il fatto del fondatore**: la card "Angelo Custode personale" apriva
+    // "I tuoi dati di nascita" dalla striscia in home, e "I tuoi tre Angeli"
+    // dal dominio di Medora. Sembrava lo stesso nome con due destinazioni.
+    //
+    // **La causa era un'altra, e piu' larga del sintomo**: questa tessera
+    // chiamava `artRouteFor` **senza la data di nascita**, mentre lo scaffale
+    // del Maestro e il Santuario gliela passano. La mappa delle rotte e' una
+    // sola e faceva il suo dovere: mandava a dare la data a chi, per quanto
+    // ne sapeva, non ce l'aveva. **Non erano due destinazioni: era una porta
+    // che arrivava a mani vuote.**
+    //
+    // Le arti colpite erano **sei e non una**: `guardian_angel`,
+    // `guide_animal`, `horoscope`, `magic_sigil`, `rune_draw` e
+    // `synastry_vip`, cioe' tutte quelle che senza la nascita non hanno
+    // niente da calcolare.
+    final profile = context.read<ProfileController>();
+    final route = artRouteFor(
+      art.id,
+      userBirth:
+          profile.identity.isExample ? null : profile.identity.birthMoment,
+      userName: profile.hasName ? profile.vocative : null,
+    );
     if (route == null) return;
     // Nessun cambio di tema qui. Il colore dell'arte lo dichiara l'arte
     // stessa, tramite il proprietario del suo MaestroScope, quindi c'e' dal

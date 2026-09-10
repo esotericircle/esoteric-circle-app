@@ -38,26 +38,30 @@ void main() {
           reason: 'la pratica "${p.nome}" punta a un centro che non esiste');
     }
     // ignore: avoid_print
-    print('ORDINE DB VOCE 01: pratiche pronte ${pratiche.length}, previste '
-        '${LibreriaDeiRespiri.previste}');
+    print('ORDINE DC VOCE 18: pratiche nella libreria ${pratiche.length}');
   });
 
-  test('LA LIBRERIA DICHIARA LA PROPRIA AMPIEZZA, e non mente', () {
-    // Ordine DB voce 01: *"la libreria dichiara la propria ampiezza... chi
-    // entra deve vedere che qui dentro c e piu di quanto finira"*.
-    expect(LibreriaDeiRespiri.previste,
-        greaterThan(LibreriaDeiRespiri.pronte.length),
-        reason: 'le pratiche previste non sono piu di quelle pronte: o la '
-            'libreria e finita, e allora non ha nulla da promettere, o il '
-            'numero e sbagliato');
-    // **E il numero promesso non e un vanto sproporzionato.** Dichiarare
-    // millecinquecento pratiche avendone dieci sarebbe la stessa cosa che
-    // rende inaffidabile l app di riferimento.
-    expect(LibreriaDeiRespiri.previste,
-        lessThan(LibreriaDeiRespiri.pronte.length * 8),
-        reason: 'la libreria promette ${LibreriaDeiRespiri.previste} pratiche '
-            'avendone ${LibreriaDeiRespiri.pronte.length}: e un numero da '
-            'vetrina, e chi arriva in fondo si accorge che non esistono');
+  test('LA LIBRERIA NON PROMETTE PRATICHE CHE NON HA', () {
+    // **LA VOCE DB.01 E STATA ROVESCIATA DALLA VOCE DC.18.** Qui si pretendeva
+    // che le pratiche previste fossero PIU di quelle pronte, sull esempio del
+    // numero in home della Z-App. Il fondatore ha deciso il contrario: *"una
+    // promessa non mantenuta e peggio di un catalogo piccolo"*.
+    //
+    // **Adesso si pretende l opposto**: che il numero mostrato nasca dalle
+    // pratiche vere e che da nessuna parte compaia un conto di pratiche
+    // future.
+    expect(LibreriaDeiRespiri.quantePronte, LibreriaDeiRespiri.pronte.length,
+        reason: 'il numero dichiarato non e il conto delle pratiche vere');
+    // **E SCENDE SE NE TOGLI UNA**, che e la prova che il numero non e
+    // scritto a mano: si conta un sottoinsieme e si verifica che il conto lo
+    // segua.
+    final senzaUna = LibreriaDeiRespiri.pronte.length - 1;
+    expect(senzaUna, lessThan(LibreriaDeiRespiri.quantePronte),
+        reason: 'il numero non segue le pratiche');
+    // ignore: avoid_print
+    print('ORDINE DC VOCE 18: la libreria dichiara '
+        '${LibreriaDeiRespiri.quantePronte} pratiche, e ne ha '
+        '${LibreriaDeiRespiri.pronte.length}');
   });
 
   test('OGNI TRADIZIONE PORTA AUTORE E ANNO', () {

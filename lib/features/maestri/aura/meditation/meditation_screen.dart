@@ -24,6 +24,7 @@ import '../../../../core/sensi/palette_sensoriale.dart';
 import 'loto_che_respira.dart';
 import 'pannello_della_libreria.dart';
 import '../../../../core/maestro/sequenza_di_aura.dart';
+import '../../../../core/maestro/libreria_dei_respiri.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
@@ -125,6 +126,28 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// porta principale la decide Aura.
   bool _sceltaAperta = false;
 
+  /// **RESPIRO DA SOLO: il fiore segue il riferimento invece del dito.**
+  /// Ordine DA voce 03, 10 settembre 2026.
+  ///
+  /// **Da dove nasce.** Nel manifesto dell'ordine DB, voce 12, avevo scritto
+  /// che il gesto del dito si rompe *"a mani occupate, che e' il caso di chi
+  /// medita sdraiato: li' il dito non e' la via giusta e nessuna soglia lo
+  /// salva"*. Il fondatore ha detto di procedere.
+  ///
+  /// **Non e' un ripiego per un sensore che manca**, ed e' la differenza che
+  /// conta: la regola di casa chiede un gesto tattile dove c'e' un sensore, e
+  /// qui il sensore non c'e'. Questa e' l'altra meta': **un modo di respirare
+  /// per chi non puo' toccare lo schermo.**
+  ///
+  /// Chi lo sceglie lo ritrova dichiarato sulla card, perche' quella figura
+  /// e' del ritmo dell'app e non sua, e spacciarla per sua sarebbe la prima
+  /// bugia di questa funzione.
+  bool _daSolo = false;
+
+  /// La pratica piu' breve da proporre a chi lascia a meta', o nulla.
+  /// Ordine DA voce 05.
+  Respiro? _piuCorta;
+
   /// L'indice del centro acceso oggi, per accenderne il petalo.
   int get _indiceDelCentro {
     final oggi = FrequenzaDelGiorno.centroDi(widget.now ?? DateTime.now());
@@ -141,7 +164,19 @@ class _MeditationScreenState extends State<MeditationScreen>
     );
     // La traccia si legge dal disco: il fiore deve gia' portare i giorni
     // quando compare, non riempirsi sotto gli occhi di chi guarda.
-    unawaited(_memoria.carica());
+    unawaited(_memoria.carica().then((_) {
+      if (!mounted) return;
+      // **LA PROPOSTA NASCE SOLO SE L'APP STA CHIEDENDO TROPPO.**
+      // Ordine DA voce 05: piu' di una sessione su tre lasciata a meta', e
+      // almeno quattro sessioni alle spalle. Sotto quelle soglie non c'e'
+      // un'abitudine, c'e' quello che e' successo l'altro ieri.
+      if (!_memoria.chiedeTroppo) return;
+      final quanto = _memoria.quantoDuraDavvero;
+      if (quanto == null) return;
+      final piuCorta = LibreriaDeiRespiri.piuCortaDi(quanto);
+      if (piuCorta == null) return;
+      setState(() => _piuCorta = piuCorta);
+    }));
     // I riti composti si leggono dal disco: chi ne ha uno deve trovarlo gia'
     // in fondo alla libreria, non vederlo comparire dopo.
     unawaited(_sequenze.carica().then((_) {
@@ -291,7 +326,11 @@ class _MeditationScreenState extends State<MeditationScreen>
       // **GUIDATO O PROPRIO**, ordine DB voce 07: il respiro col dito e' suo,
       // quello che segue il ritmo dell'app e' guidato, e la differenza entra
       // nella memoria e domani nella card.
-      guidato: _dito.quantiRespiri == 0,
+      //
+      // **Dall'ordine DA voce 03 la scelta viene prima della deduzione**: chi
+      // ha detto di respirare da solo e' guidato perche' lo ha chiesto, non
+      // perche' non ha toccato lo schermo.
+      guidato: _daSolo || _dito.quantiRespiri == 0,
       mediaDentro: _dito.mediaDentro,
       mediaFuori: _dito.mediaFuori,
       respiri: _dito.quantiRespiri,
@@ -308,7 +347,7 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// **CONDIVIDE LA CARD, DAL PUNTO UNICO.** Ordine DB voce 10.
   Future<void> _condividiIlRespiro() async {
     final righe = CardDelRespiro.righeDiAura(
-        _dito.figura, widget.now ?? DateTime.now(), false);
+        _dito.figura, widget.now ?? DateTime.now(), _daSolo);
     await condividiLaCardDelRespiro(
       boundaryKey: _boundaryDellaCard,
       testo: righe.join(' '),
@@ -388,9 +427,12 @@ class _MeditationScreenState extends State<MeditationScreen>
                 child: GestureDetector(
                   key: const Key('meditation_dito'),
                   behavior: HitTestBehavior.opaque,
-                  onTapDown: (_) => _inspira(),
-                  onTapUp: (_) => _espira(),
-                  onTapCancel: _espira,
+                  // A mani occupate il dito non comanda niente: il fiore
+                  // segue il riferimento e un tocco per sbaglio non lo
+                  // scompone.
+                  onTapDown: _daSolo ? null : (_) => _inspira(),
+                  onTapUp: _daSolo ? null : (_) => _espira(),
+                  onTapCancel: _daSolo ? null : _espira,
                   child: AspectRatio(
                   aspectRatio: 1,
                   child: AnimatedBuilder(
@@ -411,9 +453,15 @@ class _MeditationScreenState extends State<MeditationScreen>
                           Positioned.fill(
                             child: LotoCheRespira(
                               key: const Key('meditation_loto'),
-                              apertura: _dito.fase == FaseDelRespiro.attesa
+                              // **CHI RESPIRA DA SOLO SEGUE IL RIFERIMENTO**,
+                              // ordine DA voce 03: il fiore va col ritmo
+                              // dell'app, perche' quella persona non puo'
+                              // tenere il dito sullo schermo.
+                              apertura: _daSolo
                                   ? b.fill
-                                  : _dito.aperturaAdesso(DateTime.now()),
+                                  : (_dito.fase == FaseDelRespiro.attesa
+                                      ? b.fill
+                                      : _dito.aperturaAdesso(DateTime.now())),
                               // **IL COLORE DEL CENTRO DI OGGI, non quello del
                               // Maestro.** Ordine DB voce 04: siccome il
                               // centro cambia ogni giorno, il fiore di domani
@@ -506,6 +554,62 @@ class _MeditationScreenState extends State<MeditationScreen>
                       ],
                     ),
                   ],
+                  // **RESPIRO DA SOLO, per chi non puo' toccare lo schermo.**
+                  // Ordine DA voce 03, 10 settembre 2026.
+                  //
+                  // Sta accanto alla scelta della frequenza e non davanti al
+                  // fiore: la via principale resta il dito, che e' cio' che
+                  // rende questa meditazione diversa dalle altre.
+                  TextButton(
+                    key: const Key('meditazione_da_solo'),
+                    onPressed: () => setState(() => _daSolo = !_daSolo),
+                    child: Text(
+                      _daSolo
+                          ? 'Torno a respirare col dito'
+                          : 'Respiro da solo, senza tenere il dito',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ),
+                  if (_daSolo) ...[
+                    ParagrafiDiLettura(
+                      testo: 'Il fiore va col suo ritmo e tu vai col tuo. '
+                          'Sulla card resterà scritto che il respiro era '
+                          'guidato, perché quella figura è del ritmo e non '
+                          'tua.',
+                      key: const Key('meditazione_da_solo_dichiarato'),
+                      textAlign: TextAlign.center,
+                      stile: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textSecondary),
+                    ),
+                  ],
+                  // **LA PRATICA PIU' BREVE, a chi lascia a meta'.**
+                  // Ordine DA voce 05, 10 settembre 2026.
+                  //
+                  // **Non si dice mai alla persona che ha lasciato a meta'.**
+                  // Si propone e basta: il giudizio non serve a nessuno, e la
+                  // voce DB.08 vieta al Maestro di dichiarare che osserva.
+                  if (_piuCorta != null) ...[
+                    const SizedBox(height: SpacingTokens.xs),
+                    Row(
+                      key: const Key('meditazione_pratica_piu_corta'),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.hourglass_bottom_rounded,
+                            size: 16, color: palette.goldSoft),
+                        const SizedBox(width: SpacingTokens.xs),
+                        Expanded(
+                          child: ParagrafiDiLettura(
+                            testo: 'Se oggi hai poco tempo: '
+                                '${_piuCorta!.nome}, '
+                                '${_piuCorta!.quantoDura}.',
+                            stile: TypographyTokens.lettura()
+                                .copyWith(color: palette.goldSoft),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   const SizedBox(height: SpacingTokens.md),
                   // **IL COMPIMENTO SI DICE, ordine BF voce 05.b**: senza
                   // questa riga la sessione finirebbe in silenzio e la
@@ -577,7 +681,11 @@ class _MeditationScreenState extends State<MeditationScreen>
                           child: CardDelRespiro(
                             figura: _dito.figura,
                             giorno: widget.now ?? DateTime.now(),
-                            guidato: false,
+                            // **E LA CARD LO DICHIARA**, ordine DB voce 10:
+                            // una figura nata dal ritmo dell'app non e' sua,
+                            // e spacciarla per sua sarebbe la prima bugia di
+                            // questa funzione.
+                            guidato: _daSolo,
                           ),
                         ),
                       ),
