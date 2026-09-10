@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
@@ -75,11 +76,15 @@ class CartaDelDonoChiuso extends StatelessWidget {
                 // **COSA TI DARA', cosi' l'attesa ha un oggetto.** Il testo
                 // viene dal Dono e non da qui: e' la stessa riga che la
                 // striscia mostra nel suo popup, e due copie divergono.
-                Text(
-                  dono.cosaTiResta,
+                // **DALLA PORTA UNICA, non con un Text diretto.** Un testo
+                // nel ruolo lettura scritto a mano e' la famiglia delle due
+                // porte, e una guardia la sorveglia: da questa porta il muro
+                // di testo rientra da solo.
+                ParagrafiDiLettura(
+                  testo: dono.cosaTiResta,
                   key: const Key('dono_chiuso_cosa_ti_resta'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.lettura()
+                  stile: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.45),
                 ),
                 const SizedBox(height: SpacingTokens.lg),

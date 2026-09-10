@@ -39,11 +39,27 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 120 |
-| Guardie con un cardinale proprio dichiarato | 94 |
-| Guardie che non scoprono nessun insieme di file | 161 |
-| **Somma delle categorie** | **375** |
-| **Guardie secondo la definizione** | **375** |
+| Guardie che passano dalla porta comune | 122 |
+| Guardie con un cardinale proprio dichiarato | 97 |
+| Guardie che non scoprono nessun insieme di file | 167 |
+| **Somma delle categorie** | **386** |
+| **Guardie secondo la definizione** | **386** |
+
+**Ricontate il 10 settembre 2026, dopo l'ordine DD**, che ha portato **undici
+guardie nuove**: il totale sale da 375 a **386** e le tre categorie a **122, 97 e
+167**. Le nuove sono `il_cuoricino_e_uno_solo_a_schermo`,
+`le_nove_frequenze_si_vedono_tutte`, `numero_e_colore_hanno_la_stessa_altezza`,
+`i_conteggi_della_chat_stanno_stretti`, `la_parola_del_giorno_si_vede_nella_frase`,
+`il_cerchio_del_soffio_riempie_la_scena`, `i_doni_si_aprono_alla_loro_ora`,
+`la_meditazione_ha_il_suo_cielo`, `il_giallo_delle_rune_parla_adesso`,
+`il_soffio_si_riconosce_dalla_forma` e `la_luna_non_si_sposta`, piu'
+`dream_rite_screen`, che esisteva e **il registro non elencava**.
+
+**E una riga elencava un file che non esiste piu'**:
+`la_libreria_si_apre_e_il_rito_si_compone_test.dart`, rinominata durante
+l'ordine DD in `la_libreria_si_apre_e_la_pratica_parte_test.dart`. Il registro
+la nominava ancora col nome vecchio, e la prova che lo sorveglia lo ha detto:
+**una guardia che il registro non trova e' una guardia che nessuno sa se gira**.
 
 **Ricontate il 10 settembre 2026, dopo l'ordine DC**, che ha portato **una guardia nuova** dalla porta comune, `nessun_pittore_dipinge_sul_nulla`: il totale sale da 374 a **375** e le tre categorie a **120, 94 e 161**. E' nata rossa due volte, sulla riproduzione del difetto e sull'innesto, e nasce dal difetto piu' silenzioso di quest'ordine: un `CustomPaint` senza figlio e senza `size` dipinge su una tela di area nulla, e nessuna guardia dei pittori poteva vederlo perche' tutte scelgono da se' la misura su cui dipingono.
 
@@ -433,7 +449,7 @@ le altre.
 | `la_home_non_rallenta_al_ritorno_test.dart` | la home non rallenta al ritorno | 1 | non scopre insiemi di file | mai | 3 |
 | `la_lampadina_si_accende_al_traguardo_test.dart` | la lampadina si accende al traguardo | 4 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `la_lampadina_si_distingue_test.dart` | la lampadina si distingue | 4, 1 | non scopre insiemi di file | mai | 3 |
-| `la_libreria_si_apre_e_il_rito_si_compone_test.dart` | la libreria si apre e il rito si compone | 1, 4 | proprio, dichiarato | 09/09/2026, DB | 2 |
+| `la_libreria_si_apre_e_la_pratica_parte_test.dart` | la libreria si apre e il rito si compone | 1, 4 | proprio, dichiarato | 09/09/2026, DB | 2 |
 | `la_meditazione_ha_il_suo_cielo_test.dart` | la meditazione ha il suo cielo | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa: zero cieli montati col difetto innestato) | 1 |
 | `la_maschera_segue_solo_un_volto_vero_test.dart` | la maschera segue solo un volto vero | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |

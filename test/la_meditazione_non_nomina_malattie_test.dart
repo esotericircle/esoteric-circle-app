@@ -28,6 +28,15 @@ import 'sorgenti_di_lib.dart';
 /// **IL VOCABOLARIO E' DICHIARATO**, come l'ordine pretende, e sta nella
 /// costante qui sotto: sono le parole con cui questa materia promette di
 /// solito, piu' le parti del corpo che una app di frequenze elenca sempre.
+/// **REGOLA D, E IL VOCABOLARIO SI E' ACCORCIATO DI TRE PAROLE.** Ordine DD
+/// voce 12, 10 settembre 2026: `sintomo`, `sintomi` e `insonnia` non sono piu'
+/// vietate, per decisione del fondatore, perche' **il confine sta nel verbo e
+/// non nel sostantivo**. La ragione per esteso sta dentro il vocabolario, dove
+/// chi legge una caduta la trova.
+///
+/// **E la prova in fondo pretende che quelle tre parole ci siano davvero dove
+/// l'ordine le vuole**: un permesso concesso e non usato sarebbe un buco
+/// aperto per niente.
 void main() {
   /// **IL VOCABOLARIO CLINICO.** Diviso per famiglie, cosi' chi legge una
   /// caduta capisce subito di che tipo di sconfinamento si tratta.
@@ -36,9 +45,30 @@ void main() {
       'guarisc', 'guarigione', 'guarire', 'curare', 'cura del', 'terapia',
       'terapeutic', 'risana', 'risanare', 'sana il', 'rimedio',
     ],
+    // **IL CONFINE SI E' SPOSTATO DAL SOSTANTIVO AL VERBO.** Ordine DD voce
+    // 12, 10 settembre 2026, decisione del fondatore scritta per esteso:
+    // *"il confine sta nel verbo, non nel sostantivo. Si scrive 'per le sere
+    // in cui il sonno non arriva', non 'cura l'insonnia'. Si scrive 'per
+    // quando la testa non si ferma', non 'elimina l'ansia'. Insonnia e ansia
+    // vanno bene"*.
+    //
+    // **Perche' il cambio non allarga il permesso, lo stringe.** Vietare i
+    // sostantivi teneva la libreria muta su cio' che la persona cerca, e la
+    // costringeva a girare fra nomi sanscriti. **Il rischio davanti ad Apple
+    // non e' nominare l'insonnia: e' promettere di curarla**, e il punto
+    // 1.4.1 colpisce i trattamenti inaccurati, non le parole comuni.
+    //
+    // **COSA E' USCITO DA QUESTO ELENCO, e va detto per nome**: `sintomo`,
+    // `sintomi` e `insonnia`. Sono le tre parole che l'ordine DD voce 12
+    // ammette: la libreria si apre con **SCEGLI SINTOMO E FREQUENZA** e la
+    // pratica dei due toni risponde al sintomo **Insonnia**.
+    //
+    // **COSA NON E' USCITO**, ed e' la parte che regge: `malattia`,
+    // `disturbo`, `diagnosi`, `patologia`, e tutte le promesse di guarigione
+    // qui sopra. Nominare uno stato e' lecito; **dire che lo si cura, no**.
     'condizioni e sintomi': [
-      'malattia', 'malattie', 'sintomo', 'sintomi', 'disturbo', 'disturbi',
-      'diagnosi', 'patologia', 'infiammazion', 'insonnia', 'depression',
+      'malattia', 'malattie', 'disturbo', 'disturbi',
+      'diagnosi', 'patologia', 'infiammazion', 'depression',
       'ansia patologica', 'emicrania', 'dolore cronico',
     ],
     'parti del corpo da trattare': [
@@ -149,5 +179,26 @@ void main() {
           reason: 'il vocabolario non riconosce "$testo": la guardia di sopra '
               'e verde perche non sa cosa cercare');
     }
+  });
+
+  test('REGOLA H: LE TRE PAROLE AMMESSE SONO USATE DOVE L ORDINE LE VUOLE', () {
+    // **Il permesso si e ristretto a tre parole, e serve a due punti precisi.**
+    // Se domani sparissero da li, il vocabolario resterebbe piu corto senza
+    // che nessuno ne abbia piu bisogno: un buco aperto per niente.
+    final pannello = File('lib/features/maestri/aura/meditation/'
+            'pannello_della_libreria.dart')
+        .readAsStringSync();
+    final libreria =
+        File('lib/core/maestro/libreria_dei_respiri.dart').readAsStringSync();
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 12: il pulsante nomina il sintomo '
+        '${pannello.contains('SCEGLI SINTOMO E FREQUENZA')}, la libreria '
+        'nomina l insonnia ${libreria.contains('Insonnia')}');
+    expect(pannello.contains('SCEGLI SINTOMO E FREQUENZA'), isTrue,
+        reason: 'il pulsante della libreria non nomina piu il sintomo: la '
+            'parola e stata ammessa nel vocabolario e non la usa nessuno');
+    expect(libreria.contains('Insonnia'), isTrue,
+        reason: 'nessun sintomo si chiama piu Insonnia: la parola e stata '
+            'ammessa e non la usa nessuno');
   });
 }

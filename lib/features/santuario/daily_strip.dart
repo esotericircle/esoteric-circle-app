@@ -975,8 +975,13 @@ class _StripItem extends StatelessWidget {
                     : Icon(
                         Icons.schedule_rounded,
                         size: 22,
-                        color:
-                            ColorTokens.textSecondary.withValues(alpha: 0.55),
+                        // **SENZA SBIADIRE, ordine DD voce 05.** La prima
+                        // stesura metteva il grigio al 55 per cento, e la
+                        // guardia dei grigi l'ha presa: su questo fondo
+                        // scendeva a **1,0 di contrasto**, cioe' invisibile.
+                        // Chiuso non vuol dire spento: la casella deve dire
+                        // che c'e' un orario, non sparire.
+                        color: ColorTokens.textSecondary,
                       ),
               ),
             ),
