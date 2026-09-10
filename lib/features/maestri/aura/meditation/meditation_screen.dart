@@ -210,11 +210,24 @@ class _MeditationScreenState extends State<MeditationScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _riduciMovimento = MediaQuery.of(context).disableAnimations;
-    if (_riduciMovimento) {
-      if (_breath.isAnimating) _breath.stop();
-    } else {
-      if (!_breath.isAnimating) _breath.repeat();
-    }
+    // **L'OROLOGIO DEL RESPIRO NON SI FERMA MAI.** Ordine DD voce 16,
+    // 10 settembre 2026.
+    //
+    // **Difetto trovato sul telefono 767f596c**, e la causa non era nel
+    // codice della Meditazione: `settings get global animator_duration_scale`
+    // risponde **0,0** su quel dispositivo, cioe' Riduci Movimento e' acceso.
+    // Qui l'orologio veniva **fermato**, e con lui si fermavano la fase, il
+    // fiore guidato e il conto alla rovescia: il numero al centro restava su
+    // quattro per sempre, misurato su due fotografie a tre secondi di
+    // distanza.
+    //
+    // **Un conto alla rovescia e' informazione, non decorazione**, e chi ha
+    // spento le animazioni ne ha piu' bisogno, non meno: senza il movimento
+    // continuo del petalo, il numero e' l'unica cosa che dice a che punto sta
+    // la fase. Quindi l'orologio gira sempre, e Riduci Movimento **squadra la
+    // figura** invece di fermare il tempo, che e' la stessa scelta gia' fatta
+    // per la discesa del Viaggio.
+    if (!_breath.isAnimating) _breath.repeat();
   }
 
   @override
@@ -250,6 +263,29 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// conto va 4, 3, 2, 1 e cambia fase.
   ({double fill, String phase, int secondi}) _breathState() {
     final ms = _breath.value * _cycleMs;
+    // **CON RIDUCI MOVIMENTO LA FIGURA VA A SCATTI, NON IL TEMPO.** Il fiore
+    // si ferma su tre aperture, una per fase, e il conto continua a scorrere.
+    if (_riduciMovimento) {
+      if (ms < _inhaleMs) {
+        return (
+          fill: 0.5,
+          phase: 'Inspira',
+          secondi: _quantiSecondi(_inhaleMs - ms),
+        );
+      }
+      if (ms < _inhaleMs + _holdMs) {
+        return (
+          fill: 1.0,
+          phase: 'Trattieni',
+          secondi: _quantiSecondi(_inhaleMs + _holdMs - ms),
+        );
+      }
+      return (
+        fill: 0.0,
+        phase: 'Espira',
+        secondi: _quantiSecondi(_cycleMs - ms),
+      );
+    }
     if (ms < _inhaleMs) {
       return (
         fill: Curves.easeInOut.transform(ms / _inhaleMs),
