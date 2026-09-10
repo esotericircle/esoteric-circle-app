@@ -972,7 +972,7 @@ class _StripItem extends StatelessWidget {
                             ? _gold
                             : ColorTokens.textSecondary.withValues(alpha: 0.9),
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.schedule_rounded,
                         size: 22,
                         // **SENZA SBIADIRE, ordine DD voce 05.** La prima
