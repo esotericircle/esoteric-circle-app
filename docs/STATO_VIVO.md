@@ -1690,10 +1690,13 @@ nessun traguardo e' montato: e' aperta la porta, non scritto il premio.
 
 ## L'ORDINE DA, LE QUATTRO IDEE DEL MANIFESTO DB
 
-**10 settembre 2026.** Il fondatore ha detto di procedere con le idee che
-avevo scritto nella voce DB.12, e sono diventate quattro voci. **La sigla e'
-DA e non DC**, perche' la DC e' arrivata dal fondatore mentre chiudevo questo
-lavoro e l'ordine chiede di rinominare alla prima libera.
+**10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DA_MANIFESTO.md`,
+scritto il 10 settembre 2026 a lavoro finito, coi marcatori terminali
+sigillati: **cinque voci, cinque chiuse, zero aperte**. Il fondatore ha detto
+di procedere con le idee che avevo scritto nella voce DB.12, e sono diventate
+cinque voci. **La sigla e' DA e non DC**, perche' la DC e' arrivata dal
+fondatore mentre chiudevo questo lavoro e l'ordine chiede di rinominare alla
+prima libera.
 
 **IL DITO CHE SCIVOLA A OCCHI CHIUSI.** L'app chiede di respirare a occhi
 chiusi, e a occhi chiusi il dito scivola: uno scivolo valeva come un dito
