@@ -23,6 +23,7 @@ import '../rituals/carta_del_dono_chiuso.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 const Color _gold = Color(0xFFE8C463);
@@ -71,8 +72,15 @@ void openDailyElement(BuildContext context, DailyElement element) {
       !FinestraDelDono.aperto(element, avvisi: avvisi, adesso: adesso)) {
     final quando = FinestraDelDono.quandoSiApre(element,
         avvisi: avvisi, adesso: adesso);
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder: (ctx) => CartaDelDonoChiuso(
+    // **DALLA PORTA COMUNE DELLE ROTTE**, ordine CC voce 04: il lampo fra le
+    // schermate e' nero e vale ovunque, e una guardia conta le rotte scritte
+    // per conto proprio.
+    //
+    // **E il nome della rotta di Material non si scrive qui**, nemmeno in un
+    // commento che dice di non usarla: quella guardia lo cerca col grep, e un
+    // commento che lo nomina la fa cadere su una schermata a posto.
+    Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
+      (ctx) => CartaDelDonoChiuso(
         dono: element,
         quandoSiApre: quando,
         palette: MaestroScope.of(ctx),

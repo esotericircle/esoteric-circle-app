@@ -174,16 +174,32 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
             // IL MOVIMENTO, che Riduci Movimento toglie. La figura resta, alla
             // sua misura piena: senza scala non c'e' respiro da guardare, ma
             // c'e' ancora qualcosa da guardare.
-            Transform.scale(
-              key: const Key('respiro_figura'),
-              scale: _riduciMovimento ? 1.0 : misura,
-              // La chiave sta sul FIGLIO e non sulla scala: un `Transform` non
-              // cambia la misura del riquadro che occupa, quindi il suo
-              // rettangolo direbbe la posizione a riposo anche mentre la figura
-              // si espande, e chi la insegue si fermerebbe un po' fuori centro.
-              child: KeyedSubtree(
-                key: widget.chiaveDellaFigura,
-                child: figura,
+            // **E SE LO SPAZIO NON BASTA, LA FIGURA CEDE PER PRIMA.** Ordine
+            // DD voce 03, seconda parte, e l'ha trovato una prova che gira su
+            // una finestra piu' stretta: a 360 punti di larghezza il settanta
+            // per cento sono duecentocinquantadue, e la colonna sbordava di
+            // **diciannove pixel**.
+            //
+            // **La quota resta una pretesa, non un obbligo cieco.** Dove c'e'
+            // spazio la figura la raggiunge e la guardia lo misura; dove non
+            // c'e', si stringe invece di far sbordare la scena. Le parole del
+            // respiro non cedono mai: sono cio' che guida, e una figura un po'
+            // piu' piccola e' meglio di un'istruzione tagliata.
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Transform.scale(
+                  key: const Key('respiro_figura'),
+                  scale: _riduciMovimento ? 1.0 : misura,
+                  // La chiave sta sul FIGLIO e non sulla scala: un `Transform` non
+                  // cambia la misura del riquadro che occupa, quindi il suo
+                  // rettangolo direbbe la posizione a riposo anche mentre la figura
+                  // si espande, e chi la insegue si fermerebbe un po' fuori centro.
+                  child: KeyedSubtree(
+                    key: widget.chiaveDellaFigura,
+                    child: figura,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),

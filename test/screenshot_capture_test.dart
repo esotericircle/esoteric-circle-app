@@ -3563,9 +3563,28 @@ void main() {
     // non piu' dalla terza carta. Si aspetta che si accenda, cioe' che
     // l'ultima carta sia arrivata nel suo slot.
     final apre = find.byKey(const Key('stesa_inizia'));
+    // **IL PULSANTE VA CERCATO SCORRENDO, non aspettato fermi.** Ordine DD
+    // voce 08, 10 settembre 2026.
+    //
+    // La lettura della stesa vive in un elenco **pigro**: cio' che sta sotto
+    // il bordo non viene costruito affatto, e `find` non lo trova. Finche' la
+    // pagina si svuotava alla terza carta il pulsante restava in alto e si
+    // trovava fermi; da quando la pagina **tiene** gli slot e le carte
+    // scelte, il pulsante e' sceso e chi non scorre non lo costruisce mai.
+    //
+    // La prova girava a vuoto per trenta giri e proseguiva in silenzio: il
+    // tocco con `warnIfMissed: false` non protesta, e la caduta arrivava
+    // trenta righe dopo su un'assenza che sembrava un altro difetto.
+    if (apre.evaluate().isEmpty) {
+      await tester.dragUntilVisible(
+          apre, find.byType(Scrollable).first, const Offset(0, -200));
+      await tester.pump();
+    }
     for (var i = 0; i < 30; i++) {
       if (apre.evaluate().isNotEmpty &&
           tester.widget<FilledButton>(apre).onPressed != null) {
+        await tester.ensureVisible(apre);
+        await tester.pump();
         await tester.tap(apre, warnIfMissed: false);
         break;
       }

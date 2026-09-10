@@ -148,11 +148,22 @@ class _RigaDelRespiro extends StatelessWidget {
         child: InkWell(
           key: Key('meditazione_respiro_${respiro.id}'),
           onTap: onTap,
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          enableFeedback: false,
           // **NESSUN SUONO CHE NON HAI SCELTO**, ordine CQ voce 1.08: il click
           // di sistema non appartiene al Cerchio, e i suoni li accende la
           // Palette Sensoriale quando la persona li ha voluti.
-          enableFeedback: false,
+          //
+          // **E L'INTERRUTTORE STA ATTACCATO AL GESTO, non in fondo alla
+          // lista.** La guardia legge i quattrocento caratteri che seguono
+          // l'apertura del widget, e con questa spiegazione in mezzo la riga
+          // finiva **oltre il millesimo**: il tocco era spento davvero e la
+          // guardia diceva il contrario, perche' la sua finestra non ci
+          // arrivava. Prima l'interruttore, poi il perche'.
+          //
+          // **E il nome del widget non si scrive qui dentro**, nemmeno fra
+          // apici: la guardia lo cerca col grep, e un commento che lo nomina
+          // diventa un elemento in piu' da sorvegliare che non esiste.
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           child: Container(
             padding: const EdgeInsets.symmetric(
                 horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
