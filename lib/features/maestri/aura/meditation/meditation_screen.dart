@@ -75,6 +75,7 @@ class _MeditationScreenState extends State<MeditationScreen>
   static const int _cycleMs = _inhaleMs + _holdMs + _exhaleMs;
 
   late final AnimationController _breath;
+
   /// **LA FREQUENZA DI PARTENZA E' QUELLA DEL CENTRO DI OGGI.**
   /// Ordine DD voce 12, 10 settembre 2026.
   ///
@@ -399,9 +400,8 @@ class _MeditationScreenState extends State<MeditationScreen>
     // Il centro non si sceglie: e' quello acceso nel giorno in cui si respira,
     // e viene dalla stessa porta che ha deciso la frequenza. Una sorgente
     // sola per il centro, come per il numero.
-    unawaited(_traccia
-        .unaGoccia(quando: widget.now ?? DateTime.now())
-        .then((_) {
+    unawaited(
+        _traccia.unaGoccia(quando: widget.now ?? DateTime.now()).then((_) {
       if (mounted) setState(() {});
     }));
     // **E LA MEMORIA SE NE ACCORGE.** Ordine DB voci 07 e 09, 9 settembre
@@ -535,399 +535,414 @@ class _MeditationScreenState extends State<MeditationScreen>
         showZodiac: false,
         paletteOverride: palette,
         child: SafeArea(
-        top: false,
-        // **IL LOTO PRENDE LA LARGHEZZA INTERA, E IL RESTO SCORRE SOTTO.**
-        // Ordine DB voce 13, difetto trovato sul telefono 767f596c il 9
-        // settembre 2026.
-        //
-        // Qui c'era una `Column` col loto dentro un `Expanded`: il fiore
-        // prendeva **l'altezza che avanzava** dopo la colonna di testo, e su
-        // uno schermo vero avanzava poco. Il fiore occupava il 53,8 per cento
-        // del suo riquadro, che e' cio' che la voce 04 pretende, **e il 35,0
-        // per cento dello schermo**, che e' di nuovo la figura piccola con la
-        // cornice vuota attorno.
-        //
-        // Adesso il riquadro e' un quadrato largo quanto lo schermo, e il
-        // testo scorre invece di contendergli lo spazio: **la misura non
-        // dipende piu' da quanto testo c'e' sotto.**
-        child: SingleChildScrollView(
-          child: Column(
-          children: [
-            // Il visualizzatore a cimatica, col respiro sovrapposto.
-            SizedBox(
-              width: double.infinity,
-              child: Center(
-                // **IL DITO GUIDA IL RESPIRO. Ordine CZ voce 08.**
-                //
-                // Giu' si inspira, alzato si espira, e al cambio di fase il
-                // telefono vibra piano: cosi' l'esperienza funziona **a occhi
-                // chiusi**, che e' l'unico modo in cui una meditazione ha
-                // senso. Nessun sensore richiesto: il gesto tattile e' gia' il
-                // gesto, quindi la regola di casa sul ripiego e' soddisfatta
-                // per costruzione.
-                child: GestureDetector(
-                  key: const Key('meditation_dito'),
-                  behavior: HitTestBehavior.opaque,
-                  // A mani occupate il dito non comanda niente: il fiore
-                  // segue il riferimento e un tocco per sbaglio non lo
-                  // scompone.
-                  onTapDown: _daSolo ? null : (_) => _inspira(),
-                  onTapUp: _daSolo ? null : (_) => _espira(),
-                  onTapCancel: _daSolo ? null : _espira,
-                  child: AspectRatio(
-                  aspectRatio: 1,
-                  child: AnimatedBuilder(
-                    animation: _breath,
-                    builder: (context, _) {
-                      final b = _breathState();
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          // **IL LOTO AL POSTO DEL CERCHIO. Ordine CZ voce
-                          // 08**, 8 settembre 2026. Parole del fondatore: *"Il
-                          // cerchio che si gonfia esce. E' la forma di ogni
-                          // altra app di meditazione e non e' la nostra."*
-                          //
-                          // I petali si aprono col respiro, portano la traccia
-                          // dei giorni, e il petalo di un centro mai respirato
-                          // resta spento.
-                          Positioned.fill(
-                            child: LotoCheRespira(
-                              key: const Key('meditation_loto'),
-                              // **CHI RESPIRA DA SOLO SEGUE IL RIFERIMENTO**,
-                              // ordine DA voce 03: il fiore va col ritmo
-                              // dell'app, perche' quella persona non puo'
-                              // tenere il dito sullo schermo.
-                              apertura: _daSolo
-                                  ? b.fill
-                                  : (_dito.fase == FaseDelRespiro.attesa
-                                      ? b.fill
-                                      : _dito.aperturaAdesso(DateTime.now())),
-                              // **IL COLORE DEL CENTRO DI OGGI, non quello del
-                              // Maestro.** Ordine DB voce 04: siccome il
-                              // centro cambia ogni giorno, il fiore di domani
-                              // e' di un altro colore, ed e' un motivo per
-                              // tornare che non costa niente.
-                              coloreDelCentro:
-                                  ColoreDelCentro.di(widget.now ?? DateTime.now()),
-                              gocce: _traccia.gocce,
-                              centroDiOggi: _indiceDelCentro,
-                              senzaMoto: _riduciMovimento,
-                            ),
-                          ),
-                          _BreathGuide(
-                            fill: b.fill,
-                            phase: _active
-                                ? b.phase
-                                : (_compiuta
-                                    ? 'Il respiro è compiuto'
-                                    : 'Tocca per iniziare'),
-                            // **IL CONTO ALLA ROVESCIA SOLO A SESSIONE VIVA.**
-                            // Ordine DD voce 16: un numero che scorre su una
-                            // schermata ferma sarebbe un orologio, non una
-                            // guida.
-                            secondi: _active ? b.secondi : null,
-                            palette: palette,
-                          ),
-                        ],
-                      );
-                    },
+          top: false,
+          // **IL LOTO PRENDE LA LARGHEZZA INTERA, E IL RESTO SCORRE SOTTO.**
+          // Ordine DB voce 13, difetto trovato sul telefono 767f596c il 9
+          // settembre 2026.
+          //
+          // Qui c'era una `Column` col loto dentro un `Expanded`: il fiore
+          // prendeva **l'altezza che avanzava** dopo la colonna di testo, e su
+          // uno schermo vero avanzava poco. Il fiore occupava il 53,8 per cento
+          // del suo riquadro, che e' cio' che la voce 04 pretende, **e il 35,0
+          // per cento dello schermo**, che e' di nuovo la figura piccola con la
+          // cornice vuota attorno.
+          //
+          // Adesso il riquadro e' un quadrato largo quanto lo schermo, e il
+          // testo scorre invece di contendergli lo spazio: **la misura non
+          // dipende piu' da quanto testo c'e' sotto.**
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Il visualizzatore a cimatica, col respiro sovrapposto.
+                SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    // **IL DITO GUIDA IL RESPIRO. Ordine CZ voce 08.**
+                    //
+                    // Giu' si inspira, alzato si espira, e al cambio di fase il
+                    // telefono vibra piano: cosi' l'esperienza funziona **a occhi
+                    // chiusi**, che e' l'unico modo in cui una meditazione ha
+                    // senso. Nessun sensore richiesto: il gesto tattile e' gia' il
+                    // gesto, quindi la regola di casa sul ripiego e' soddisfatta
+                    // per costruzione.
+                    child: GestureDetector(
+                      key: const Key('meditation_dito'),
+                      behavior: HitTestBehavior.opaque,
+                      // A mani occupate il dito non comanda niente: il fiore
+                      // segue il riferimento e un tocco per sbaglio non lo
+                      // scompone.
+                      onTapDown: _daSolo ? null : (_) => _inspira(),
+                      onTapUp: _daSolo ? null : (_) => _espira(),
+                      onTapCancel: _daSolo ? null : _espira,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: AnimatedBuilder(
+                          animation: _breath,
+                          builder: (context, _) {
+                            final b = _breathState();
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // **IL LOTO AL POSTO DEL CERCHIO. Ordine CZ voce
+                                // 08**, 8 settembre 2026. Parole del fondatore: *"Il
+                                // cerchio che si gonfia esce. E' la forma di ogni
+                                // altra app di meditazione e non e' la nostra."*
+                                //
+                                // I petali si aprono col respiro, portano la traccia
+                                // dei giorni, e il petalo di un centro mai respirato
+                                // resta spento.
+                                Positioned.fill(
+                                  child: LotoCheRespira(
+                                    key: const Key('meditation_loto'),
+                                    // **CHI RESPIRA DA SOLO SEGUE IL RIFERIMENTO**,
+                                    // ordine DA voce 03: il fiore va col ritmo
+                                    // dell'app, perche' quella persona non puo'
+                                    // tenere il dito sullo schermo.
+                                    apertura: _daSolo
+                                        ? b.fill
+                                        : (_dito.fase == FaseDelRespiro.attesa
+                                            ? b.fill
+                                            : _dito.aperturaAdesso(
+                                                DateTime.now())),
+                                    // **IL COLORE DEL CENTRO DI OGGI, non quello del
+                                    // Maestro.** Ordine DB voce 04: siccome il
+                                    // centro cambia ogni giorno, il fiore di domani
+                                    // e' di un altro colore, ed e' un motivo per
+                                    // tornare che non costa niente.
+                                    coloreDelCentro: ColoreDelCentro.di(
+                                        widget.now ?? DateTime.now()),
+                                    gocce: _traccia.gocce,
+                                    centroDiOggi: _indiceDelCentro,
+                                    senzaMoto: _riduciMovimento,
+                                  ),
+                                ),
+                                _BreathGuide(
+                                  fill: b.fill,
+                                  phase: _active
+                                      ? b.phase
+                                      : (_compiuta
+                                          ? 'Il respiro è compiuto'
+                                          : 'Tocca per iniziare'),
+                                  // **IL CONTO ALLA ROVESCIA SOLO A SESSIONE VIVA.**
+                                  // Ordine DD voce 16: un numero che scorre su una
+                                  // schermata ferma sarebbe un orologio, non una
+                                  // guida.
+                                  secondi: _active ? b.secondi : null,
+                                  palette: palette,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.md),
-              child: Column(
-                children: [
-                  // **LA FREQUENZA LA ASSEGNA AURA, E LO DICE. Ordine CZ
-                  // voce 06**, 8 settembre 2026.
-                  //
-                  // Parole del fondatore: *"Un menu' di frequenze davanti a
-                  // chi non ha criterio per scegliere e' la forma sbagliata:
-                  // Aura non e' un lettore multimediale, e' una guida, e una
-                  // guida decide."*
-                  //
-                  // La riga di Aura nomina il centro e il numero, e dice
-                  // perche' e' quello. La scelta libera **resta**, sotto,
-                  // dietro un tocco: chi vuole scegliere puo', chi non sa
-                  // cosa scegliere non deve.
-                  // **IL TESTO NARRATO PASSA DALLA PORTA UNICA**, e non si
-                  // tinge del colore del Maestro: due guardie lo pretendono,
-                  // e hanno ragione. Il colore del Maestro sta nella scena,
-                  // negli accenti e nei bordi; il testo che si legge resta
-                  // inchiostro, perche' un testo tinto si legge peggio e
-                  // cambia significato col Maestro del giorno.
-                  ParagrafiDiLettura(
-                    testo:
-                        FrequenzaDelGiorno.perche(widget.now ?? DateTime.now()),
-                    key: const Key('meditation_perche_la_frequenza'),
-                    textAlign: TextAlign.center,
-                    stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-                  ),
-                  // **LA PRATICA IN CORSO SI LEGGE**, quando ne e' stata
-                  // scelta una: il sintomo e il nome, una riga sola.
-                  if (_praticaScelta != null) ...[
-                    const SizedBox(height: SpacingTokens.xs),
-                    Text(
-                      '${_praticaScelta!.sintomo.etichetta}: '
-                      '${_praticaScelta!.nome}, '
-                      '${_praticaScelta!.quantoDura}.',
-                      key: const Key('meditazione_pratica_in_corso'),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.corpo()
-                          .copyWith(color: palette.goldSoft),
-                    ),
-                  ],
-                  const SizedBox(height: SpacingTokens.md),
-                  // **IL PULSANTE DEL SINTOMO STA SUBITO SOTTO LA RIGA DI
-                  // AURA.** Ordine DD voce 12, 10 settembre 2026, e l'ordine
-                  // lo colloca per nome: *"subito sotto la riga con cui Aura
-                  // consiglia la meditazione del giorno"*.
-                  //
-                  // **Prima stava in fondo alla colonna**, dopo il fiore,
-                  // dopo la frequenza, dopo il play e dopo la card: chi non
-                  // scorreva fino in fondo non sapeva che la libreria
-                  // esistesse. La porta principale resta quella dell'ordine
-                  // CZ voce 06, Aura sceglie: questo e' il secondo modo, per
-                  // chi arriva con un sintomo invece che con una giornata.
-                  PannelloDellaLibreria(
-                    palette: palette,
-                    centroDiOggi: _indiceDelCentro,
-                    onSceglie: _cominciaLaPratica,
-                  ),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una
-                  // funzione tolta in silenzio e' la cosa che questo progetto
-                  // vieta per legge del fondatore: qui si sposta e si dichiara.
-                  TextButton(
-                    key: const Key('meditation_scegli_tu'),
-                    onPressed: () => setState(() => _sceltaAperta = !_sceltaAperta),
-                    child: Text(
-                      _sceltaAperta
-                          ? 'Lascia scegliere Aura'
-                          : 'Preferisco scegliere io',
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft),
-                    ),
-                  ),
-                  if (_sceltaAperta) ...[
-                    const SizedBox(height: SpacingTokens.xs),
-                    Row(
-                      children: [
-                        for (final p in MeditationPreset.values) ...[
-                          _PresetChip(
-                            preset: p,
-                            selected: p == _preset,
-                            palette: palette,
-                            onTap: () => _choose(p),
-                          ),
-                          if (p != MeditationPreset.values.last)
-                            const SizedBox(width: SpacingTokens.sm),
-                        ],
-                      ],
-                    ),
-                  ],
-                  // **RESPIRO DA SOLO, per chi non puo' toccare lo schermo.**
-                  // Ordine DA voce 03, 10 settembre 2026.
-                  //
-                  // Sta accanto alla scelta della frequenza e non davanti al
-                  // fiore: la via principale resta il dito, che e' cio' che
-                  // rende questa meditazione diversa dalle altre.
-                  TextButton(
-                    key: const Key('meditazione_da_solo'),
-                    onPressed: () => setState(() => _daSolo = !_daSolo),
-                    child: Text(
-                      _daSolo
-                          ? 'Torno a respirare col dito'
-                          : 'Respiro da solo, senza tenere il dito',
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft),
-                    ),
-                  ),
-                  if (_daSolo) ...[
-                    ParagrafiDiLettura(
-                      testo: 'Il fiore va col suo ritmo e tu vai col tuo. '
-                          'Sulla card resterà scritto che il respiro era '
-                          'guidato, perché quella figura è del ritmo e non '
-                          'tua.',
-                      key: const Key('meditazione_da_solo_dichiarato'),
-                      textAlign: TextAlign.center,
-                      stile: TypographyTokens.lettura()
-                          .copyWith(color: ColorTokens.textSecondary),
-                    ),
-                  ],
-                  // **LA PRATICA PIU' BREVE, a chi lascia a meta'.**
-                  // Ordine DA voce 05, 10 settembre 2026.
-                  //
-                  // **Non si dice mai alla persona che ha lasciato a meta'.**
-                  // Si propone e basta: il giudizio non serve a nessuno, e la
-                  // voce DB.08 vieta al Maestro di dichiarare che osserva.
-                  if (_piuCorta != null) ...[
-                    const SizedBox(height: SpacingTokens.xs),
-                    Row(
-                      key: const Key('meditazione_pratica_piu_corta'),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.hourglass_bottom_rounded,
-                            size: 16, color: palette.goldSoft),
-                        const SizedBox(width: SpacingTokens.xs),
-                        Expanded(
-                          child: ParagrafiDiLettura(
-                            testo: 'Se oggi hai poco tempo: '
-                                '${_piuCorta!.nome}, '
-                                '${_piuCorta!.quantoDura}.',
-                            stile: TypographyTokens.lettura()
-                                .copyWith(color: palette.goldSoft),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                  const SizedBox(height: SpacingTokens.md),
-                  // **IL COMPIMENTO SI DICE, ordine BF voce 05.b**: senza
-                  // questa riga la sessione finirebbe in silenzio e la
-                  // persona non saprebbe di essere arrivata.
-                  if (_compiuta) ...[
-                    Row(
-                      key: const Key('meditazione_compiuta'),
-                      children: [
-                        Icon(Icons.spa_outlined,
-                            size: 16, color: palette.goldSoft),
-                        const SizedBox(width: SpacingTokens.xs),
-                        Expanded(
-                          child: ParagrafiDiLettura(
-                            testo: 'La meditazione è portata a compimento: '
-                                'porta questa calma con te.',
-                            stile: TypographyTokens.lettura()
-                                .copyWith(color: palette.goldSoft),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // **CIO' CHE AURA RICORDA, e nasce solo se e' vero.**
-                    // Ordine DB voce 09, 9 settembre 2026: *"e' il momento in
-                    // cui l'app dimostra di essersi accorta... una frase, mai
-                    // due. E solo quando c'e' qualcosa di vero da dire: se la
-                    // memoria non ha niente, non si inventa niente e la
-                    // sessione si chiude com'e'."*
-                    //
-                    // **Una osservazione falsa distrugge in una riga la
-                    // fiducia che dieci vere hanno costruito**, ed e' per
-                    // questo che ogni frase ha una soglia sotto la quale non
-                    // nasce: due sere di fila non sono una striscia, e sei
-                    // sessioni sono il minimo per dire che si allungano.
-                    if (_cioCheAuraRicorda != null) ...[
-                      const SizedBox(height: SpacingTokens.sm),
-                      Row(
-                        key: const Key('meditazione_aura_ricorda'),
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.auto_awesome_rounded,
-                              size: 16, color: palette.gold),
-                          const SizedBox(width: SpacingTokens.xs),
-                          Expanded(
-                            child: ParagrafiDiLettura(
-                              testo: _cioCheAuraRicorda!,
-                              // **ORO CHIARO E NON ORO PIENO**, e lo ha
-                              // chiesto il censimento dei grigi: su un fondo
-                              // di Maestro l'oro pieno non arriva alla soglia
-                              // che il corpo di lettura pretende.
-                              stile: TypographyTokens.lettura()
-                                  .copyWith(color: palette.goldSoft),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    // **LA CARD DEL RESPIRO.** Ordine DB voce 10, e chiude
-                    // la voce CZ.09 rimasta ferma: la figura era calcolata e
-                    // provata, il disegno non esisteva.
-                    //
-                    // **Compare solo se ci sono respiri veri da disegnare**:
-                    // una figura di zero respiri e' un cerchio vuoto, e
-                    // mostrarlo sarebbe peggio che non mostrare niente.
-                    if (_dito.quantiRespiri >= 3) ...[
-                      const SizedBox(height: SpacingTokens.md),
-                      Center(
-                        child: RepaintBoundary(
-                          key: _boundaryDellaCard,
-                          child: CardDelRespiro(
-                            figura: _dito.figura,
-                            giorno: widget.now ?? DateTime.now(),
-                            // **E LA CARD LO DICHIARA**, ordine DB voce 10:
-                            // una figura nata dal ritmo dell'app non e' sua,
-                            // e spacciarla per sua sarebbe la prima bugia di
-                            // questa funzione.
-                            guidato: _daSolo,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: SpacingTokens.sm),
-                      OutlinedButton.icon(
-                        key: const Key('meditazione_condividi_respiro'),
-                        onPressed: _condividiIlRespiro,
-                        style: OutlinedButton.styleFrom(
-                            foregroundColor: palette.goldSoft,
-                            side: BorderSide(
-                                color: palette.gold.withValues(alpha: 0.6)),
-                            minimumSize: const Size.fromHeight(48)),
-                        icon: const Icon(Icons.ios_share_rounded, size: 18),
-                        label: Text('Condividi il tuo respiro',
-                            style: TypographyTokens.etichetta()),
-                      ),
-                    ],
-                    const SizedBox(height: SpacingTokens.md),
-                  ],
-                  // Play e invito alle cuffie.
-                  Row(
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.md),
+                  child: Column(
                     children: [
-                      _PlayButton(
-                        active: _active,
-                        palette: palette,
-                        onTap: _togglePlay,
+                      // **LA FREQUENZA LA ASSEGNA AURA, E LO DICE. Ordine CZ
+                      // voce 06**, 8 settembre 2026.
+                      //
+                      // Parole del fondatore: *"Un menu' di frequenze davanti a
+                      // chi non ha criterio per scegliere e' la forma sbagliata:
+                      // Aura non e' un lettore multimediale, e' una guida, e una
+                      // guida decide."*
+                      //
+                      // La riga di Aura nomina il centro e il numero, e dice
+                      // perche' e' quello. La scelta libera **resta**, sotto,
+                      // dietro un tocco: chi vuole scegliere puo', chi non sa
+                      // cosa scegliere non deve.
+                      // **IL TESTO NARRATO PASSA DALLA PORTA UNICA**, e non si
+                      // tinge del colore del Maestro: due guardie lo pretendono,
+                      // e hanno ragione. Il colore del Maestro sta nella scena,
+                      // negli accenti e nei bordi; il testo che si legge resta
+                      // inchiostro, perche' un testo tinto si legge peggio e
+                      // cambia significato col Maestro del giorno.
+                      ParagrafiDiLettura(
+                        testo: FrequenzaDelGiorno.perche(
+                            widget.now ?? DateTime.now()),
+                        key: const Key('meditation_perche_la_frequenza'),
+                        textAlign: TextAlign.center,
+                        stile: TypographyTokens.lettura().copyWith(
+                            color: ColorTokens.textPrimary, height: 1.4),
                       ),
-                      const SizedBox(width: SpacingTokens.md),
-                      Expanded(
-                        child: Text(
-                          _preset.binaural
-                              ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
-                              : 'Con le cuffie l\'ascolto si fa più pieno.',
+                      // **LA PRATICA IN CORSO SI LEGGE**, quando ne e' stata
+                      // scelta una: il sintomo e il nome, una riga sola.
+                      if (_praticaScelta != null) ...[
+                        const SizedBox(height: SpacingTokens.xs),
+                        Text(
+                          '${_praticaScelta!.sintomo.etichetta}: '
+                          '${_praticaScelta!.nome}, '
+                          '${_praticaScelta!.quantoDura}.',
+                          key: const Key('meditazione_pratica_in_corso'),
+                          textAlign: TextAlign.center,
                           style: TypographyTokens.corpo()
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ],
+                      const SizedBox(height: SpacingTokens.md),
+                      // **IL PULSANTE DEL SINTOMO STA SUBITO SOTTO LA RIGA DI
+                      // AURA.** Ordine DD voce 12, 10 settembre 2026, e l'ordine
+                      // lo colloca per nome: *"subito sotto la riga con cui Aura
+                      // consiglia la meditazione del giorno"*.
+                      //
+                      // **Prima stava in fondo alla colonna**, dopo il fiore,
+                      // dopo la frequenza, dopo il play e dopo la card: chi non
+                      // scorreva fino in fondo non sapeva che la libreria
+                      // esistesse. La porta principale resta quella dell'ordine
+                      // CZ voce 06, Aura sceglie: questo e' il secondo modo, per
+                      // chi arriva con un sintomo invece che con una giornata.
+                      PannelloDellaLibreria(
+                        palette: palette,
+                        centroDiOggi: _indiceDelCentro,
+                        onSceglie: _cominciaLaPratica,
+                      ),
+                      const SizedBox(height: SpacingTokens.sm),
+                      // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una
+                      // funzione tolta in silenzio e' la cosa che questo progetto
+                      // vieta per legge del fondatore: qui si sposta e si dichiara.
+                      TextButton(
+                        key: const Key('meditation_scegli_tu'),
+                        onPressed: () =>
+                            setState(() => _sceltaAperta = !_sceltaAperta),
+                        child: Text(
+                          _sceltaAperta
+                              ? 'Lascia scegliere Aura'
+                              : 'Preferisco scegliere io',
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ),
+                      if (_sceltaAperta) ...[
+                        const SizedBox(height: SpacingTokens.xs),
+                        // **LE FREQUENZE VANNO A CAPO, non si stringono.** Ordine
+                        // DD voce 12, 10 settembre 2026.
+                        //
+                        // Qui c'era una `Row` di pasticche `Expanded`, e con tre
+                        // frequenze funzionava. **Diventate nove**, ognuna
+                        // prendeva un nono di schermo, cioe' venticinque punti:
+                        // misurato, `432 Hz` ne chiede sessantadue e andava a
+                        // capo su **quattro righe**, `Battito theta` su **sette**.
+                        // Nessuna usciva dallo schermo, e infatti la prima
+                        // stesura della guardia era verde: si stringevano tutte.
+                        //
+                        // **Un Wrap manda a capo la fila, non la parola**: ogni
+                        // pasticca prende la larghezza del suo nome e le nove
+                        // stanno su due file.
+                        Wrap(
+                          spacing: SpacingTokens.sm,
+                          runSpacing: SpacingTokens.xs,
+                          children: [
+                            for (final p in MeditationPreset.values)
+                              _PresetChip(
+                                preset: p,
+                                selected: p == _preset,
+                                palette: palette,
+                                onTap: () => _choose(p),
+                              ),
+                          ],
+                        ),
+                      ],
+                      // **RESPIRO DA SOLO, per chi non puo' toccare lo schermo.**
+                      // Ordine DA voce 03, 10 settembre 2026.
+                      //
+                      // Sta accanto alla scelta della frequenza e non davanti al
+                      // fiore: la via principale resta il dito, che e' cio' che
+                      // rende questa meditazione diversa dalle altre.
+                      TextButton(
+                        key: const Key('meditazione_da_solo'),
+                        onPressed: () => setState(() => _daSolo = !_daSolo),
+                        child: Text(
+                          _daSolo
+                              ? 'Torno a respirare col dito'
+                              : 'Respiro da solo, senza tenere il dito',
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ),
+                      if (_daSolo) ...[
+                        ParagrafiDiLettura(
+                          testo: 'Il fiore va col suo ritmo e tu vai col tuo. '
+                              'Sulla card resterà scritto che il respiro era '
+                              'guidato, perché quella figura è del ritmo e non '
+                              'tua.',
+                          key: const Key('meditazione_da_solo_dichiarato'),
+                          textAlign: TextAlign.center,
+                          stile: TypographyTokens.lettura()
                               .copyWith(color: ColorTokens.textSecondary),
                         ),
-                      ),
-                    ],
-                  ),
-                  // Fondamento onesto, senza ripetere il disclaimer.
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.eco_outlined,
-                          size: 14, color: palette.goldSoft),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          'Cornice di benessere, non cura. Le frequenze Solfeggio '
-                          'e il 432 sono tradizione culturale, non un fatto medico.',
-                          style: TypographyTokens.corpo().copyWith(
-                            color: palette.goldSoft.withValues(alpha: 0.7),
-                            letterSpacing: 0.3,
-                            height: 1.4,
-                          ),
+                      ],
+                      // **LA PRATICA PIU' BREVE, a chi lascia a meta'.**
+                      // Ordine DA voce 05, 10 settembre 2026.
+                      //
+                      // **Non si dice mai alla persona che ha lasciato a meta'.**
+                      // Si propone e basta: il giudizio non serve a nessuno, e la
+                      // voce DB.08 vieta al Maestro di dichiarare che osserva.
+                      if (_piuCorta != null) ...[
+                        const SizedBox(height: SpacingTokens.xs),
+                        Row(
+                          key: const Key('meditazione_pratica_piu_corta'),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.hourglass_bottom_rounded,
+                                size: 16, color: palette.goldSoft),
+                            const SizedBox(width: SpacingTokens.xs),
+                            Expanded(
+                              child: ParagrafiDiLettura(
+                                testo: 'Se oggi hai poco tempo: '
+                                    '${_piuCorta!.nome}, '
+                                    '${_piuCorta!.quantoDura}.',
+                                stile: TypographyTokens.lettura()
+                                    .copyWith(color: palette.goldSoft),
+                              ),
+                            ),
+                          ],
                         ),
+                      ],
+                      const SizedBox(height: SpacingTokens.md),
+                      // **IL COMPIMENTO SI DICE, ordine BF voce 05.b**: senza
+                      // questa riga la sessione finirebbe in silenzio e la
+                      // persona non saprebbe di essere arrivata.
+                      if (_compiuta) ...[
+                        Row(
+                          key: const Key('meditazione_compiuta'),
+                          children: [
+                            Icon(Icons.spa_outlined,
+                                size: 16, color: palette.goldSoft),
+                            const SizedBox(width: SpacingTokens.xs),
+                            Expanded(
+                              child: ParagrafiDiLettura(
+                                testo: 'La meditazione è portata a compimento: '
+                                    'porta questa calma con te.',
+                                stile: TypographyTokens.lettura()
+                                    .copyWith(color: palette.goldSoft),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // **CIO' CHE AURA RICORDA, e nasce solo se e' vero.**
+                        // Ordine DB voce 09, 9 settembre 2026: *"e' il momento in
+                        // cui l'app dimostra di essersi accorta... una frase, mai
+                        // due. E solo quando c'e' qualcosa di vero da dire: se la
+                        // memoria non ha niente, non si inventa niente e la
+                        // sessione si chiude com'e'."*
+                        //
+                        // **Una osservazione falsa distrugge in una riga la
+                        // fiducia che dieci vere hanno costruito**, ed e' per
+                        // questo che ogni frase ha una soglia sotto la quale non
+                        // nasce: due sere di fila non sono una striscia, e sei
+                        // sessioni sono il minimo per dire che si allungano.
+                        if (_cioCheAuraRicorda != null) ...[
+                          const SizedBox(height: SpacingTokens.sm),
+                          Row(
+                            key: const Key('meditazione_aura_ricorda'),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.auto_awesome_rounded,
+                                  size: 16, color: palette.gold),
+                              const SizedBox(width: SpacingTokens.xs),
+                              Expanded(
+                                child: ParagrafiDiLettura(
+                                  testo: _cioCheAuraRicorda!,
+                                  // **ORO CHIARO E NON ORO PIENO**, e lo ha
+                                  // chiesto il censimento dei grigi: su un fondo
+                                  // di Maestro l'oro pieno non arriva alla soglia
+                                  // che il corpo di lettura pretende.
+                                  stile: TypographyTokens.lettura()
+                                      .copyWith(color: palette.goldSoft),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                        // **LA CARD DEL RESPIRO.** Ordine DB voce 10, e chiude
+                        // la voce CZ.09 rimasta ferma: la figura era calcolata e
+                        // provata, il disegno non esisteva.
+                        //
+                        // **Compare solo se ci sono respiri veri da disegnare**:
+                        // una figura di zero respiri e' un cerchio vuoto, e
+                        // mostrarlo sarebbe peggio che non mostrare niente.
+                        if (_dito.quantiRespiri >= 3) ...[
+                          const SizedBox(height: SpacingTokens.md),
+                          Center(
+                            child: RepaintBoundary(
+                              key: _boundaryDellaCard,
+                              child: CardDelRespiro(
+                                figura: _dito.figura,
+                                giorno: widget.now ?? DateTime.now(),
+                                // **E LA CARD LO DICHIARA**, ordine DB voce 10:
+                                // una figura nata dal ritmo dell'app non e' sua,
+                                // e spacciarla per sua sarebbe la prima bugia di
+                                // questa funzione.
+                                guidato: _daSolo,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: SpacingTokens.sm),
+                          OutlinedButton.icon(
+                            key: const Key('meditazione_condividi_respiro'),
+                            onPressed: _condividiIlRespiro,
+                            style: OutlinedButton.styleFrom(
+                                foregroundColor: palette.goldSoft,
+                                side: BorderSide(
+                                    color: palette.gold.withValues(alpha: 0.6)),
+                                minimumSize: const Size.fromHeight(48)),
+                            icon: const Icon(Icons.ios_share_rounded, size: 18),
+                            label: Text('Condividi il tuo respiro',
+                                style: TypographyTokens.etichetta()),
+                          ),
+                        ],
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
+                      // Play e invito alle cuffie.
+                      Row(
+                        children: [
+                          _PlayButton(
+                            active: _active,
+                            palette: palette,
+                            onTap: _togglePlay,
+                          ),
+                          const SizedBox(width: SpacingTokens.md),
+                          Expanded(
+                            child: Text(
+                              _preset.binaural
+                                  ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
+                                  : 'Con le cuffie l\'ascolto si fa più pieno.',
+                              style: TypographyTokens.corpo()
+                                  .copyWith(color: ColorTokens.textSecondary),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Fondamento onesto, senza ripetere il disclaimer.
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.eco_outlined,
+                              size: 14, color: palette.goldSoft),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              'Cornice di benessere, non cura. Le frequenze Solfeggio '
+                              'e il 432 sono tradizione culturale, non un fatto medico.',
+                              style: TypographyTokens.corpo().copyWith(
+                                color: palette.goldSoft.withValues(alpha: 0.7),
+                                letterSpacing: 0.3,
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
           ),
-        ),
         ),
       ),
     );
@@ -1025,14 +1040,17 @@ class _PresetChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
+    // **NIENTE `Expanded`, ordine DD voce 12.** Dentro un Wrap la pasticca
+    // prende la larghezza del suo nome; era `Expanded` perche' viveva in una
+    // Row, ed e' proprio quello che le stringeva tutte a un nono di schermo.
+    return GestureDetector(
         key: Key('meditation_preset_${preset.id}'),
         onTap: onTap,
         behavior: HitTestBehavior.opaque,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+          padding: const EdgeInsets.symmetric(
+              vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
             gradient: selected
@@ -1071,9 +1089,7 @@ class _PresetChip extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 

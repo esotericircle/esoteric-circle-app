@@ -247,6 +247,41 @@ della *Frequenza del giorno* si apriva con le stesse tre parole di quella dei
 Con la cura: **pratiche 12, sintomi distinti 12, sintomi ripetuti 0, senza
 nessuna pratica 0**.
 
+## DD.12, LE NOVE FREQUENZE, e la guardia che ha cambiato domanda
+
+**Il fatto**: la Meditazione offriva **tre** frequenze, e le sette dei centri
+non c'erano.
+
+**Non mancavano i suoni.** I toni li sintetizza `ToneGenerator` e qualunque
+frequenza si puo' suonare: **mancavano dalla scelta**, cioe' nessuno le aveva
+scritte fra i preset. Adesso i preset sono **nove**: i tre di prima piu' le
+sette dei centri, e ognuna dichiara **quale** centro serve, cosi' la
+Meditazione non puo' piu' dire una frequenza e suonarne un'altra.
+
+**E LA CURA HA CREATO IL SUO DIFETTO, che la guardia ha preso.** Le pasticche
+stavano in una `Row` di elementi `Expanded`: con tre ci stavano, con nove
+ognuna prende un nono di schermo.
+
+**LA PRIMA STESURA DELLA GUARDIA ERA VERDE, e va scritto perche'.** Misurava
+se una pasticca finisse **oltre il bordo dello schermo**. Nessuna ci finiva:
+dentro una Row gli `Expanded` non escono, **si stringono**. La prova diceva il
+vero su una domanda che non era quella giusta.
+
+**Cambiata la grandezza misurata, mai la soglia**, come la Regola A impone.
+Adesso si calcola con un `TextPainter`, nello stesso stile, quanto e' alta
+l'etichetta scritta su una riga sola, e la si confronta con quanto e' alta a
+schermo. Il rosso e' stato questo:
+
+| Etichetta | Larga | Ne chiede | Righe |
+| --- | --- | --- | --- |
+| 432 Hz | 25 | 62 | **4** |
+| Battito theta | 25 | 135 | **7** |
+| le altre sette | 25 | 58-62 | **4** |
+
+**Nove etichette su nove andavano a capo.** Con la cura, un `Wrap` al posto
+della `Row` e nessun `Expanded`: ogni pasticca prende la larghezza del suo
+nome, **1,0 righe tutte e nove**, e le nove stanno su piu' file.
+
 ---
 
 VOCI_TOTALI: 15
