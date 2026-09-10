@@ -277,6 +277,7 @@ le altre.
 | `il_borsellino_si_aggiorna_ovunque_test.dart` | il borsellino si aggiorna ovunque | 1, 2 | dalla porta comune | mai | 3 |
 | `il_borsellino_si_vede_sempre_test.dart` | il borsellino si vede sempre | 1, 2 | dalla porta comune | mai | 3 |
 | `il_busto_e_la_forma_del_maestro_test.dart` | il busto e la forma del maestro | 1, 2 | dalla porta comune | mai | 3 |
+| `i_conteggi_della_chat_stanno_stretti_test.dart` | i conteggi della chat stanno stretti | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa due volte: 32 punti di aria su 16, e 0 di respiro con lo zero innestato) | 1 |
 | `il_cambio_dell_email_test.dart` | il cambio dell email | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_campo_di_scrittura_e_opaco_test.dart` | il campo di scrittura e opaco | 4 | non scopre insiemi di file | mai | 3 |
 | `il_capo_alzato_e_abbassato_non_si_scambiano_test.dart` | il capo alzato e abbassato non si scambiano | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |

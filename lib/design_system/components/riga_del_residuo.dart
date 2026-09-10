@@ -50,7 +50,13 @@ class RigaDelResiduo extends StatelessWidget {
     final palette = MaestroScope.forse(context);
     return Padding(
       key: chiaveDi(budget),
-      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
+      // **QUATTRO PUNTI SOPRA E QUATTRO SOTTO, ordine DD voce 10,
+      // 10 settembre 2026.** Erano otto e otto, cioe trentadue punti di aria
+      // attorno a quarantotto di testo nei due conteggi della chat: misurato.
+      // Il fondatore ha chiesto di stringere le due righe e lo spazio
+      // attorno, ed e lo stesso principio della voce CT.01: lo spazio
+      // guadagnato qui va alla conversazione.
+      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xxs),
       child: Row(
         mainAxisAlignment: allineamento,
         children: [

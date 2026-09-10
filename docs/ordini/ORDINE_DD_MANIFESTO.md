@@ -316,6 +316,43 @@ niente. Adesso la prova scorre, e monta la schermata con **Riduci Movimento
 acceso**, che e' la configurazione vera del telefono 767f596c e fa nascere le
 quattro schede tutte insieme.
 
+## DD.10, I DUE CONTEGGI DELLA CHAT
+
+**Il fatto del fondatore**: le due righe di conteggio in cima alla chat hanno
+troppa aria, fra loro e attorno, e quello spazio serve alla conversazione.
+
+**Misurato sulla finestra del telefono, 390 per 844:**
+
+| | Prima | Dopo | Guadagno |
+| --- | --- | --- | --- |
+| Blocco dei due conteggi | **80,0** punti | **64,0** punti | **16 punti** |
+| Aria attorno a 48 punti di testo | **32,0** | **16,0** | |
+| Respiro fra una riga e l'altra | 16,0 | **8,0** | |
+
+**La cura sta in `RigaDelResiduo`**, la casa unica di tutti e sei i conteggi:
+il contorno verticale passa da otto punti a quattro, sopra e sotto. **Non e'
+una modifica alla sola chat**: lo stesso principio vale dove quella riga si
+mostra, ed e' la stessa richiesta della voce CT, *"ridurre al massimo le parti
+occupate sopra e sotto"*.
+
+**LA GUARDIA HA DOVUTO CAMBIARE CASA PER NON MENTIRE.** La prima stesura
+montava la **chat intera**, come fa la guardia della voce CT, e sarebbe stata
+**verde senza misurare niente**: sotto le prove la borsa non ha sentito il
+server, quindi `RigaDelResiduo` **per legge tace** e disegna una
+`SizedBox.shrink()`. Le due chiavi c'erano, i due riquadri erano **alti zero**,
+e qualunque pretesa sull'aria sarebbe passata. Adesso la prova monta la stessa
+composizione con la borsa che ha sentito il server, **e cade se le righe sono
+alte zero**, invece di passare tacendo.
+
+**E l'ancora e' un numero dichiarato, non una misura copiata.** Il blocco non
+puo' essere piu' alto delle due righe di testo che contiene piu' **sedici
+punti**: se domani il carattere cambia misura, la pretesa lo segue da sola.
+
+**REGOLA H, la meta' opposta**: stringere fino a zero farebbe passare la prima
+meta' e renderebbe le due righe una massa unica. **Innestato
+`EdgeInsets.zero`**, verificato col grep: la seconda meta' e' caduta dicendo
+*restano 0,0 punti: sono attaccati e si leggono come una riga sola*.
+
 ---
 
 VOCI_TOTALI: 15
