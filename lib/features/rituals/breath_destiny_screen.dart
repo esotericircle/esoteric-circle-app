@@ -1,3 +1,4 @@
+import '../maestri/rotta_arte.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
@@ -483,6 +484,12 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                 palette: palette,
                 testo: TestiDelleFonti.soffio,
                 chiave: 'soffio_fonti'),
+            // **E IL CUORE IN FILA, non sovrapposto.** Ordine DC voce 15:
+            // questa barra portava il tooltip e non passava dal punto unico,
+            // quindi qui il cuore restava quello disegnato sopra la scena,
+            // nello stesso angolo delle azioni. Era la quarta schermata col
+            // difetto che il fondatore ha visto sulle prime tre.
+            const AngoloDellaBarra(),
           ],
         ),
         // LA SCENA HA UN NOME, ordine P voce 26.

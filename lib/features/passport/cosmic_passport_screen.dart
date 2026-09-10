@@ -200,14 +200,22 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   const SizedBox(height: SpacingTokens.sm),
                   _AngelsCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
-                  _NatalChartCard(identity: id),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // LO SPECCHIO DEI DATI, ordine 2169 voce 8. Sta qui e non
-                  // nelle impostazioni perche' il Passaporto e' gia' il posto
-                  // dove la persona viene a vedere chi e' per il Cerchio: cio'
-                  // che il Cerchio ricorda di lei appartiene a questa pagina.
-                  const SpecchioDeiDati(),
-                  const SizedBox(height: SpacingTokens.sm),
+                  // **L'ARCHETIPO SUBITO DOPO GLI ANGELI.** Ordine DC voce
+                  // 10, 10 settembre 2026.
+                  //
+                  // **Stava in fondo, dopo lo Specchio dei Dati**, cioe' dopo
+                  // la scheda anagrafica: il posto di una riga di archivio e
+                  // non di un tratto della persona. Il fondatore lo ha
+                  // notato, e aveva ragione: **l'Archetipo e' della stessa
+                  // famiglia degli Angeli e della Carta di Nascita**, cose
+                  // che dicono chi sei, mentre lo Specchio dice cosa il
+                  // Cerchio conserva di te.
+                  //
+                  // L'ordine adesso e': i sentieri, il cielo di nascita, il
+                  // Sigillo, il sentiero di vita, la Luna, l'Animale, la
+                  // Carta di Nascita, gli Angeli, **l'Archetipo**, la carta
+                  // natale, lo Specchio dei Dati, le voci in arrivo.
+                  //
                   // L'ARCHETIPO, VIVO SE IL TEST E' STATO FATTO.
                   //
                   // Restava dietro il velo anche a test completato, e la
@@ -218,6 +226,14 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   // nessun collegamento, perche' lo storico del Test viveva
                   // dentro la schermata del Test e da nessun'altra parte.
                   const _TesseraArchetipo(),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _NatalChartCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // LO SPECCHIO DEI DATI, ordine 2169 voce 8. Sta qui e non
+                  // nelle impostazioni perche' il Passaporto e' gia' il posto
+                  // dove la persona viene a vedere chi e' per il Cerchio: cio'
+                  // che il Cerchio ricorda di lei appartiene a questa pagina.
+                  const SpecchioDeiDati(),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),

@@ -169,8 +169,29 @@ class _BarraArteState extends State<BarraArte> {
 class AngoloDellaBarra extends StatelessWidget {
   const AngoloDellaBarra({super.key});
 
+  /// **E DA OGGI QUI STA IL CUORE, PER CHI NON HA UNA [BarraArte].**
+  /// Ordine DC voce 15, 10 settembre 2026.
+  ///
+  /// **Il fatto del fondatore**: su Meditazione, Stesa di Tarocchi e Oroscopo
+  /// la "i" del tooltip finisce sotto il bordo del cuore.
+  ///
+  /// **La causa, e spiega perche' proprio quelle tre.** `BarraArte` mette il
+  /// cuore **dentro `actions`**, in fila con le altre azioni, e in una Row due
+  /// elementi non si possono sovrapporre per costruzione. Quelle tre
+  /// schermate pero' **non usano `BarraArte`: costruiscono una `AppBar` a
+  /// mano**. Li' il cuore restava quello **sovrapposto**, disegnato in uno
+  /// Stack sopra la scena nello stesso angolo delle azioni.
+  ///
+  /// Era lo stesso difetto gia' curato una volta, tornato dalla porta di
+  /// servizio delle schermate che non passano dalla barra comune.
+  ///
+  /// **Perche' la cura sta QUI e non nelle tre schermate.** Tutte e sedici le
+  /// schermate con una barra propria montano gia' questo widget, che finora
+  /// era uno spazio vuoto. Diventando il posto del cuore, **il difetto si
+  /// chiude in un punto solo** e non puo' tornare in una quarta schermata:
+  /// chiunque monti una barra ottiene il cuore in fila.
   @override
-  Widget build(BuildContext context) => const SizedBox.shrink();
+  Widget build(BuildContext context) => const CuoreNellaBarra();
 }
 
 /// IL CUORE DELLE ARTI PREFERITE dentro una barra, col ritiro del cuore
