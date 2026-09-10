@@ -360,6 +360,7 @@ le altre.
 | `il_sigillo_del_giorno_e_un_sigillo_test.dart` | il sigillo del giorno e un sigillo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_sigillo_del_sogno_nomina_un_maestro_solo_test.dart` | il sigillo del sogno nomina un maestro solo | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `il_simbolo_si_compone_test.dart` | il simbolo si compone | 1, 2 | dalla porta comune | mai | 3 |
+| `il_soffio_si_riconosce_dalla_forma_test.dart` | il soffio si riconosce dalla forma | 1 | proprio, dichiarato | 10/09/2026, DD (rossa sul difetto vero: 3 aperture false su 3 con la soglia di volume) | 1 |
 | `il_soffio_non_si_accavalla_test.dart` | il soffio non si accavalla | 1 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_soffio_non_somiglia_all_alba_test.dart` | il soffio non somiglia all alba | 2, 4 | non scopre insiemi di file | mai | 3 |
 | `il_solco_scava_la_pietra_vera_test.dart` | il solco scava la pietra vera | 4 | non scopre insiemi di file | mai | 3 |

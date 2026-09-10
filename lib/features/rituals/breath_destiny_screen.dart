@@ -18,6 +18,7 @@ import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/avviso_del_permesso.dart';
 import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/rituals/daily_elements.dart';
+import '../../core/rituals/forma_del_soffio.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../core/rituals/ritual_streak.dart';
@@ -145,6 +146,20 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
 
   final AudioRecorder _recorder = AudioRecorder();
   StreamSubscription<Uint8List>? _micStream;
+
+  /// **CHI DECIDE SE QUELLO ERA UN SOFFIO.** Ordine DD voce 01: guarda la
+  /// forma dello spettro invece del volume, e vuole due decimi di secondo di
+  /// aria continua prima di aprire il dono.
+  final FormaDelSoffio _formaDelSoffio = FormaDelSoffio();
+  /// **NESSUNO CI SCRIVE PIU' DENTRO, DAL 10 SETTEMBRE 2026.** Ordine DD voce
+  /// 01: il flusso dell'ampiezza aggregata era la sorgente della soglia di
+  /// volume, e la soglia di volume era il difetto. Adesso decide la forma
+  /// dello spettro, che legge i campioni veri.
+  ///
+  /// **Il campo resta, e la sua chiusura anche.** Se un giorno qualcuno
+  /// riaccende l'ampiezza per mostrare una barra di livello, la trova gia'
+  /// spenta al momento giusto invece di lasciare il microfono acceso dietro
+  /// una schermata chiusa.
   StreamSubscription<Amplitude>? _micAmplitude;
 
   // Distanza di spazzata sul soffione che disperde del tutto i semi.
@@ -218,12 +233,31 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
           sampleRate: 16000,
         ),
       );
-      _micStream = stream.listen((_) {});
-      _micAmplitude = _recorder
-          .onAmplitudeChanged(const Duration(milliseconds: 160))
-          .listen((amp) {
-        // Un soffio deciso supera la soglia: i semi si liberano.
-        if (!_revealed && amp.current > -18) _complete();
+      // **IL SOFFIO SI RICONOSCE DALLA FORMA, NON DAL VOLUME. Ordine DD
+      // voce 01, 10 settembre 2026.**
+      //
+      // **Il fatto del fondatore**: il Soffio si apre da solo, basta un
+      // rumore nella stanza.
+      //
+      // **Qui c'erano due righe, e sono il difetto per intero.** La prima
+      // buttava via il flusso audio: `stream.listen((_) {})`. La seconda
+      // guardava l'ampiezza aggregata e apriva il dono sopra i meno diciotto
+      // decibel: **una soglia di volume nuda**, che la voce di chi parla, la
+      // musica in cucina e una porta che sbatte superano tutte.
+      //
+      // **Misurato sui quattro campioni della guardia**: la soglia di volume
+      // apriva il dono su **tre suoni su tre** che non erano soffi. La forma
+      // ne apre **zero**.
+      //
+      // **Non si e' aperta nessuna porta nuova**: i campioni passavano gia'
+      // di qui e venivano scartati. Adesso vanno a [FormaDelSoffio], che
+      // guarda quanto e' **piatto** lo spettro, non quanto e' forte il suono:
+      // l'aria non ha una nota dentro, la voce e la musica si'.
+      _formaDelSoffio.ricomincia();
+      _micStream = stream.listen((byte) {
+        if (_revealed) return;
+        _formaDelSoffio.aggiungiCampioni(byte);
+        if (_formaDelSoffio.eSoffio) _complete();
       });
     } catch (_) {
       // Microfono non disponibile o permesso negato: vale il ripiego.
