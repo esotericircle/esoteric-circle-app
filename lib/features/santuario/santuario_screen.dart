@@ -2134,6 +2134,7 @@ class ShelfCard extends StatelessWidget {
 /// dissolve alla prima interazione. Con Riduci Movimento resta ferma.
 class SkyTapHint extends StatelessWidget {
   const SkyTapHint({
+    super.key,
     required this.visible,
     required this.pulse,
     required this.reduceMotion,
