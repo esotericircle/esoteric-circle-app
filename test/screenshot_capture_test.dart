@@ -3932,10 +3932,17 @@ void main() {
       'art_soon_toggle_astrologia',
       'art_soon_toggle_cartomanzia',
       'art_section_header_lunologia',
-      // **IL DESTINO ADESSO E' APERTO.** Ordine CS voce S3: l'Angelo
-      // Custode e' vivo, quindi la sottocategoria non ha piu'
-      // l'intestazione delle chiuse ma l'apri e chiudi delle aperte.
-      'art_soon_toggle_destino',
+      // **E IL DESTINO E' TORNATO CHIUSO.** Ordine DC voce 12,
+      // 10 settembre 2026, e rovescia la voce CS.S3 che lo aveva aperto.
+      //
+      // L'Angelo Custode e' uscito dal dominio, perche' mostrava soltanto
+      // cio' che il Passaporto gia' mostra. **Senza di lui il Destino non ha
+      // piu' nessuna arte viva**, quindi torna ad avere l'intestazione delle
+      // sottocategorie chiuse invece dell'apri e chiudi delle aperte.
+      //
+      // **Questa riga e' la prova che quella conseguenza arriva a video**, e
+      // non resta un fatto del catalogo.
+      'art_section_header_destino',
     ]) {
       final f = find.byKey(Key(chiave));
       await tester.scrollUntilVisible(f, 300,
