@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/solar_time.dart';
@@ -10,11 +11,15 @@ import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/dawn_rite_screen.dart';
+import '../../core/rituals/finestra_del_dono.dart';
+import '../../core/rituals/scelta_degli_avvisi.dart';
+import '../rituals/carta_del_dono_chiuso.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
@@ -42,7 +47,39 @@ Route<void> dailyElementRoute(DailyElement element) {
 
 /// Apre direttamente l'esperienza dell'elemento, senza schermata intermedia di
 /// dominio. Alla chiusura si torna da dove si e' partiti (il Santuario).
+///
+/// **E SE IL DONO NON E' ANCORA APERTO, si apre la sua card chiusa.** Ordine
+/// DD voce 05, 10 settembre 2026.
+///
+/// **Perche' il controllo sta QUI e non nelle cinque schermate.** Questa e'
+/// la porta sola da cui si entra in un Dono: la usa il tocco sulla striscia e
+/// la usa il collegamento che arriva dalla notifica. Metterlo nelle cinque
+/// schermate vorrebbe dire scriverlo cinque volte e dimenticarlo alla sesta;
+/// metterlo qui vuol dire che **un Dono nuovo lo eredita senza saperlo**.
 void openDailyElement(BuildContext context, DailyElement element) {
+  final adesso = DateTime.now();
+  SceltaDegliAvvisi? avvisi;
+  try {
+    avvisi = context.read<SceltaDegliAvvisi>();
+  } catch (senzaProvider) {
+    // Senza la scelta degli avvisi non c'e' nessun orario da rispettare, e
+    // una porta che si chiude perche' manca un provider sarebbe un difetto
+    // peggiore dell'assenza dell'orario.
+    avvisi = null;
+  }
+  if (avvisi != null &&
+      !FinestraDelDono.aperto(element, avvisi: avvisi, adesso: adesso)) {
+    final quando = FinestraDelDono.quandoSiApre(element,
+        avvisi: avvisi, adesso: adesso);
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (ctx) => CartaDelDonoChiuso(
+        dono: element,
+        quandoSiApre: quando,
+        palette: MaestroScope.of(ctx),
+      ),
+    ));
+    return;
+  }
   Navigator.of(context).push(dailyElementRoute(element));
 }
 
@@ -522,6 +559,19 @@ class _DailyStripState extends State<DailyStrip>
     super.dispose();
   }
 
+  /// **LA SCELTA DEGLI AVVISI, SE C'E'.** Ordine DD voce 05.
+  ///
+  /// Nelle anteprime e nelle prove che montano la sola striscia il provider
+  /// non c'e': si torna nulla e tutto resta aperto, invece di far cadere la
+  /// scena. E' la stessa legge di `RigaDelResiduo`.
+  SceltaDegliAvvisi? _avvisi(BuildContext context) {
+    try {
+      return context.watch<SceltaDegliAvvisi>();
+    } catch (senzaProvider) {
+      return null;
+    }
+  }
+
   void _open(DailyElement element) {
     final open = widget.onOpen ?? openDailyElement;
     open(context, element);
@@ -650,10 +700,30 @@ class _DailyStripState extends State<DailyStrip>
                   final maestro = DailyElements.maestroFor(element, now);
                   final accent = _accentFor(maestro);
                   final isRuna = element == DailyElement.rune;
+                  // **APERTO O CHIUSO, ordine DD voce 05, 10 settembre
+                  // 2026.** Un Dono si apre all'ora della sua notifica e
+                  // resta aperto fino al rinnovo. La legge sta in
+                  // `FinestraDelDono`, qui si guarda soltanto.
+                  //
+                  // **Se la scelta degli avvisi non e' in albero, tutto e'
+                  // aperto.** Succede nelle anteprime e in qualche prova che
+                  // monta la sola striscia: una fascia che si chiude perche'
+                  // manca un provider sarebbe un difetto peggiore
+                  // dell'assenza dell'orario.
+                  final avvisi = _avvisi(context);
+                  final aperto = avvisi == null ||
+                      FinestraDelDono.aperto(element,
+                          avvisi: avvisi, adesso: now);
                   return _StripItem(
                     element: element,
-                    active: element == current ||
-                        (isRuna && _tramontoArrivato(now)),
+                    active: aperto &&
+                        (element == current ||
+                            (isRuna && _tramontoArrivato(now))),
+                    aperto: aperto,
+                    quandoSiApre: aperto
+                        ? null
+                        : FinestraDelDono.quandoSiApre(element,
+                            avvisi: avvisi, adesso: now),
                     accent: accent,
                     pulse: _pulse,
                     width: DailyStrip.larghezzaCasella(
@@ -750,7 +820,21 @@ class _StripItem extends StatelessWidget {
     required this.width,
     required this.onTap,
     required this.onInfo,
+    this.aperto = true,
+    this.quandoSiApre,
   });
+
+  /// **SE IL DONO E' APERTO ADESSO.** Ordine DD voce 05, 10 settembre 2026.
+  ///
+  /// Chiuso non vuol dire spento: la casella si vede, si tocca e racconta
+  /// **quando** si apre. Un Dono che sparisce dalla fascia sarebbe una
+  /// funzione che va e viene; un Dono chiuso con la sua ora e' un
+  /// appuntamento.
+  final bool aperto;
+
+  /// La frase da mostrare sotto il nome quando e' chiuso: *Si apre alle
+  /// 07:00*. Nulla quando e' aperto.
+  final String? quandoSiApre;
 
   final DailyElement element;
   final bool active;
@@ -877,13 +961,23 @@ class _StripItem extends StatelessWidget {
                       : null,
                 ),
                 alignment: Alignment.center,
-                child: _elementIcon(
-                  element,
-                  size: 22,
-                  color: active
-                      ? _gold
-                      : ColorTokens.textSecondary.withValues(alpha: 0.9),
-                ),
+                // **CHIUSO SI VEDE, ordine DD voce 05**: il lucchetto al
+                // posto del segno del Dono. Non e' un divieto, e' l'ora che
+                // non e' ancora arrivata, e la riga sotto lo dice.
+                child: aperto
+                    ? _elementIcon(
+                        element,
+                        size: 22,
+                        color: active
+                            ? _gold
+                            : ColorTokens.textSecondary.withValues(alpha: 0.9),
+                      )
+                    : Icon(
+                        Icons.schedule_rounded,
+                        size: 22,
+                        color:
+                            ColorTokens.textSecondary.withValues(alpha: 0.55),
+                      ),
               ),
             ),
             // Quattro e non sei: i due punti recuperati qui sono meta' di
