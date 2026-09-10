@@ -156,17 +156,35 @@ void main() {
     // regola della prima frase ammessa.
     const vuotoMassimo = 96.0;
 
-    testWidgets('sotto l\'animale guida', (tester) async {
+    testWidgets('sotto l\'animale guida NON C\'E\' PIU, e non deve esserci',
+        (tester) async {
+      // **IL RIQUADRO DELLA SCELTA E USCITO DA QUI.** Ordine DC voce 02,
+      // 10 settembre 2026.
+      //
+      // Il riquadro spiegava **perche' quell'animale**, e per spiegarlo lo
+      // nominava. Ma l'onboarding **annuncia e non consuma**: il nome
+      // dell'animale lo rivela il Viaggio dello Sciamano, dopo quattro
+      // discese in quattro giorni.
+      //
+      // **La prova non si cancella, si rovescia**: qui adesso si pretende
+      // che il riquadro NON ci sia e che al suo posto ci sia l'annuncio.
+      // Cancellarla avrebbe lasciato scoperto il punto in cui il nome puo'
+      // tornare per distrazione.
+      //
+      // **Sotto i tre angeli il riquadro resta**, e la prova qui sotto lo
+      // pretende ancora: gli Angeli sono una rivelazione vera dell'
+      // onboarding, perche' nessuna funzione li scoprira' mai.
       tester.view.physicalSize = const Size(1080, 2391);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.reset);
+      final animale = GuideAnimalDerivation.forSign(Zodiac.taurus);
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           backgroundColor: const Color(0xFF05060A),
           body: MediaQuery(
             data: const MediaQueryData(disableAnimations: true),
             child: TrionfoAnimale(
-              animale: GuideAnimalDerivation.forSign(Zodiac.taurus),
+              animale: animale,
               palette: palette,
               reduceMotion: true,
               onContinue: () {},
@@ -177,19 +195,18 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
 
-      final riquadro = find.byKey(const Key('riquadro_scelta'));
-      expect(riquadro, findsOneWidget,
-          reason: 'Sotto l\'animale guida il riquadro non c\'e\'.');
-      final rRiquadro = tester.getRect(riquadro);
-      final rBottone =
-          tester.getRect(find.byKey(const Key('trionfo_animale_avanti')));
-      final vuoto = rBottone.top - rRiquadro.bottom;
-      // ignore: avoid_print
-      print('TRIONFO ANIMALE: vuoto sotto il riquadro = '
-          '${vuoto.toStringAsFixed(1)} punti (massimo $vuotoMassimo)');
-      expect(vuoto, lessThanOrEqualTo(vuotoMassimo));
-      expect(vuoto, greaterThanOrEqualTo(0),
-          reason: 'Il riquadro finisce SOTTO il pulsante: si sovrappongono.');
+      expect(find.byKey(const Key('riquadro_scelta')), findsNothing,
+          reason: 'il riquadro della scelta e tornato sotto l animale, e per '
+              'spiegare perche quell animale lo nomina: l onboarding sta '
+              'consumando cio che il Viaggio deve rivelare');
+      // **E il nome non compare da nessuna parte a schermo.**
+      expect(find.textContaining(animale.name), findsNothing,
+          reason: 'l onboarding nomina ${animale.name}: il Viaggio dello '
+              'Sciamano non ha piu niente da rivelare');
+      expect(find.byKey(const Key('onboarding_annuncio_animale')),
+          findsOneWidget,
+          reason: 'tolto il nome non e rimasto niente: chi entra non sa '
+              'nemmeno che un animale esiste');
     });
 
     testWidgets('sotto i tre angeli, con la stessa forma', (tester) async {

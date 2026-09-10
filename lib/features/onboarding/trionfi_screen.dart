@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/guardian_angels.dart';
+import '../../core/viaggio/l_annuncio_dell_animale.dart';
 import '../../core/onboarding/scheda_della_scelta.dart';
 import '../../core/rituals/animal_catalog.dart';
 import '../angels/angelo_ingrandito.dart';
@@ -61,15 +62,9 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
     with SingleTickerProviderStateMixin {
   late final AnimationController _scena;
 
-  /// La scheda del riquadro, generata UNA volta: il contenuto viene dal
-  /// generatore in core/onboarding, non da questa schermata (ordine 2163,
-  /// voce 12).
-  late final SchedaDellaScelta _scheda;
-
   @override
   void initState() {
     super.initState();
-    _scheda = GeneratoreDellaScheda.perAnimale(widget.animale);
     // Un tempo solo governa tutta la scena: la nebbia che si apre, il nome che
     // si scrive, l'invito che compare. Cosi' nulla resta appeso quando la
     // schermata muore.
@@ -161,22 +156,30 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                       offset: Offset(0, 12 * (1 - nome)),
                       child: Column(
                         children: [
-                          Text(widget.animale.name,
-                              textAlign: TextAlign.center,
-                              style: TypographyTokens.cerimonialeGrande()
-                                  .copyWith(color: widget.palette.goldSoft)),
-                          const SizedBox(height: SpacingTokens.xs),
-                          Text(widget.animale.summary,
-                              textAlign: TextAlign.center,
-                              style: TypographyTokens.didascalia().copyWith(
-                                  color: ColorTokens.textPrimary,
-                                  height: 1.45)),
-                          // IL RIQUADRO DELLA SCELTA, ordine 2163 voce 12:
-                          // sotto il nome restava mezzo schermo vuoto. Entra
-                          // col nome, perche' e' parte della stessa risposta.
-                          const SizedBox(height: SpacingTokens.md),
-                          RiquadroDellaScelta(
-                              scheda: _scheda, palette: widget.palette),
+                          // **L'ANIMALE NON SI NOMINA PIU' QUI.**
+                          // Ordine DC voce 02, 10 settembre 2026.
+                          //
+                          // **La regola generale, e vale su tutto**:
+                          // l'onboarding rivela cio' che nessuna funzione
+                          // rivelera' mai; cio' che una funzione rivelera',
+                          // **lo annuncia e non lo consuma**.
+                          //
+                          // Qui si apriva l'app e il proprio animale era gia'
+                          // li', nominato, prima ancora di avere una ragione
+                          // per volerlo sapere. **Il Viaggio dello Sciamano
+                          // rivelera' quel nome**, dopo quattro discese in
+                          // quattro giorni: bruciarlo qui vorrebbe dire
+                          // togliere al Viaggio la cosa che ha da dare.
+                          //
+                          // Al suo posto la riga di Caligo, che dice che un
+                          // animale c'e' e che bisognera' scendere.
+                          Text(
+                            LAnnuncioDellAnimale.laRiga,
+                            key: const Key('onboarding_annuncio_animale'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.lettura().copyWith(
+                                color: widget.palette.goldSoft, height: 1.45),
+                          ),
                         ],
                       ),
                     ),
