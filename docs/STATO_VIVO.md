@@ -1800,6 +1800,39 @@ nome`, la sagoma in ombra che si schiarisce a ogni discesa, la riga che dice a
 che punto si e', e al tocco **porta al Viaggio invece che alla lettura fissa**:
 una casella vuota che non porta da nessuna parte sarebbe un buco.
 
+**IL DICIANNOVESIMO DIFETTO L'HA VISTO IL FONDATORE, e nessuna delle mie
+diciotto misure poteva vederlo.** Davanti alla fotografia della soglia:
+*"l'utente e' gia' scappato prima ancora di leggere. Solo testo da leggere,
+nessuna vena artistica, nessuna immagine o riquadro che metta in evidenza o
+guidi l'utente. Niente di attraente a primo impatto."* **Tre leggi di casa
+insieme**, e nessuna guardia le sorvegliava su quella schermata: il livello
+visivo prima del testo, meno testo e piu' diretto, e nessun elenco di cose
+toccabili con l'aspetto di un paragrafo. **Le mie misure chiedevano se una
+figura si vedesse: nessuna chiedeva se una schermata invogliasse a restarci**,
+e quella domanda non ha una misura in pixel.
+
+**LA SOGLIA RIFATTA**, e la guardia nuova la misura:
+**il bosco al crepuscolo** dipinto con l'apertura nella terra in mezzo, che
+porta gli stessi due colori della galleria e occupa il **35,2 per cento della
+finestra**; **i dodici totem che passano in ombra**, quelli gia' fatti in
+`assets/img_thumb/animali`, che fino a oggi si vedevano **soltanto dopo** aver
+conosciuto il proprio animale, e **che non rivelano niente** perche' dicono
+che sono dodici e non quale sara' il tuo; **le tre vie della voce DC.05
+dichiarate come tre**, una aperta alla volta; **le sei domande come sei
+riquadri toccabili**; **a che punto sei in quattro tacche** prima che in una
+frase; il pulsante che porta giu' **pieno e alto cinquantasei**.
+
+**E LO SLOT PER LE IMMAGINI VERE.** Lo sfondo del Viaggio lo chiede un
+componente che non sa come sia fatto: finche' il file non c'e' dipinge, il
+giorno che arriva lo mostra, e **nessuna misura, nessun riquadro e nessuna
+guardia cambiano**. Nasce dalla direzione del fondatore, *"sostituire le
+immagini vettoriali procedurali con quelle piu' realistiche create da Nano
+Banana"*, ed e' documentata in `docs/ordini/DC_asset_da_generare.md` con la
+forma, il rapporto e l'ordine di priorita' di ogni file. Il primo della fila
+sono **le dodici ombre degli animali**: con quelle, l'ombra che si segue
+nell'incontro diventa **davvero l'animale che tocchera'**, invece di un
+quadrupede generico dipinto da un seme.
+
 **LE PROVE NON PRESE SONO DUE E SONO DICHIARATE.** L'incontro con la barra al
 suo posto non si e' potuto rifotografare, perche' **il Viaggio concede una
 discesa al giorno** e il telefono non e' rootato: `su` non esiste e

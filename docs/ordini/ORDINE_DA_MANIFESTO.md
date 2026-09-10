@@ -108,6 +108,18 @@ non si sostituisce con uno verosimile.
 **Tutte e due nate rosse**, e la seconda ha trovato il difetto della libreria
 vuota mentre nasceva.
 
+**E UNA VOCE RESTA SENZA GUARDIA PROPRIA: la DA.03, Respiro da solo.**
+Trovato il 10 settembre 2026 cercando chi nominasse `meditazione_da_solo` fra
+le prove: **nessuno**. Il pulsante, la sua doppia etichetta, il fatto che il
+dito smetta di contare e la dichiarazione sulla card che il respiro era
+guidato **non sono sorvegliati da niente**.
+
+**Dichiarato e non riparato, con la ragione.** La guardia va scritta montando
+la schermata della Meditazione e provando il giro intero, ed e' un lavoro che
+non entra nella coda di quest'ordine senza rifare da capo lo sbarramento
+dell'ordine DC che stava girando quando l'ho trovato. **E' il primo lavoro
+della prossima volta**, e questa riga esiste perche' non si perda.
+
 ---
 
 VOCI_TOTALI: 6
@@ -115,6 +127,7 @@ VOCI_CHIUSE: 6
 VOCI_APERTE: 0
 SIGLA_PRESA: DA, la prima libera, per non scavalcare l'ordine DC del fondatore
 GUARDIE_NUOVE: 2
+VOCI_SENZA_GUARDIA_PROPRIA: 1, la DA.03, dichiarata e rimandata
 PROVE_NUOVE: 20
 DIFETTI_TROVATI_DALLE_GUARDIE_MENTRE_NASCEVANO: 2
 PREMESSE_MIE_CADUTE_ALLA_MISURA: 1, il confine a distanza della voce DA.04
