@@ -674,10 +674,120 @@ contrario, cioe' che quella prosa dorata stia **dentro** il riquadro: togliere
 l'oro a tutto passerebbe la prima meta' e lascerebbe la lettura senza nessun
 richiamo.
 
+## DD.02, LA PAROLA DEL GIORNO DENTRO UNA FRASE
+
+**Il fatto del fondatore**: la Parola del giorno, quando compare dentro una
+frase, non si distingue dal resto.
+
+Aveva ragione: la sera il Sigillo scriveva *"Stamattina la tua parola era
+Fiducia"*, e quella parola, che e' la sola cosa da portarsi via, pesava quanto
+*"stamattina"* e quanto *"era"*.
+
+**La regola, e vale ovunque**: **fra virgolette basse e in grassetto**. Le
+virgolette reggono anche dove il grassetto non arriva, cioe' in un testo
+condiviso o in un messaggio di chat; il grassetto la fa trovare all'occhio.
+Sta in un widget solo, `FraseConLaParola`, cosi' nessuno la riscrive a modo
+suo.
+
+**GLI ALTRI POSTI DOVE LA PAROLA COMPARE, contati col grep su tutto `lib`**:
+sono **tre**, e adesso sono tutti e tre a posto.
+
+| Dove | Come era | Come e' |
+| --- | --- | --- |
+| il richiamo della sera nel Sigillo | `parola era $parola.` | `parola era «$parola».` |
+| il testo che si condivide dall'Alba | `dell'Alba: $word.` | `dell'Alba: «$word».` |
+| l'apertura della chat dall'Alba | gia' `«$parola»` | invariata |
+
+**E IL RIPIEGO DEL MANTRA SI ANNUNCIA.** Sopra la via col dito c'e' adesso il
+titolo **IN ALTERNATIVA**, come l'ordine chiede: senza, la via col dito si
+leggeva come la seconda meta' della stessa istruzione e chi scorreva faceva
+tutte e due le cose.
+
+**LA GUARDIA E' NATA ROSSA TRE VOLTE.** Innestata la parola nuda nel richiamo,
+verificato col grep: cade la prova delle virgolette, cade quella del grassetto
+a video (*un pezzo solo, tutto dello stesso peso*), e cade la meta' Regola H
+che enumera i sorgenti (*righe che la lasciano nuda 1*).
+
+**REGOLA D, una prova ha cambiato pretesa.** `i_doni_si_agganciano` pretendeva
+la formula parola per parola con `startsWith('Stamattina la tua parola era
+Soglia')`, e il suo stesso commento diceva gia' che *"una copia si rompe ogni
+volta che il testo migliora"*. Adesso pretende cio' che l'ordine P voce 18
+voleva davvero: che il richiamo **nomini** la parola.
+
+## DD.06, LA LUNA CHE SI SPOSTA NELLA HOME
+
+**Il fatto del fondatore**: nella home la Luna si sposta verso destra
+nell'istante in cui spariscono l'animazione del dito e il testo *Tocca il
+cielo*.
+
+**Non era la Luna che si muoveva, era la riga che si stringeva.** La riga del
+cielo e' fatta di tre celle centrate: un vuoto largo quanto l'invito, la Luna,
+e l'invito. Con l'invito acceso le due celle laterali si pareggiano e la Luna
+cade a meta' schermo; quando l'invito spariva **del tutto**, il vuoto di
+sinistra restava e la riga si ricentrava su una larghezza minore.
+
+**La cura**: l'invito si spegne in opacita' dentro una cella di larghezza
+fissa, invece di sparire dal layout.
+
+**LA GUARDIA MISURA LO SPOSTAMENTO IN PUNTI**, montando la stessa riga nei due
+stati: **0,0 punti** con la cura, **61,0** con il difetto innestato. La meta'
+Regola H pretende che la cella tenga la larghezza anche da spenta, che e' la
+causa: se un giorno qualcuno rimettesse `AnimatedSize`, la prima meta' cadrebbe
+senza dire perche'.
+
+## DD.13, IL CIELO DELLA MEDITAZIONE
+
+**Il fatto, confermato in ricognizione sul telefono**: la Meditazione aveva lo
+sfondo **completamente nero**, senza stelle e senza parallasse. Era l'unica
+stanza buia di una casa in cui ogni altra schermata poggia sul cosmo.
+
+**La cura**: il cielo e' lo stesso componente della home, con la palette di
+Aura passata a mano e un seme suo, cosi' le stelle non ripetono la figura di
+un'altra schermata.
+
+**LA GUARDIA E' NATA ROSSA**: tolto il cosmo, *cieli montati nella Meditazione
+**0***. Con la cura: **1**. La meta' Regola H pretende che quel cielo porti
+**il colore di Aura** e non uno qualunque, e per farlo monta la schermata
+dichiarando il Maestro, come fa l'app: senza, la prova misurerebbe il proprio
+montaggio invece della schermata.
+
+## DD.16, L'ANIMAZIONE DEL RESPIRO NELLA MEDITAZIONE
+
+**La richiesta del fondatore, parole sue**: *"l'utente fa click e parte
+l'animazione inspira e il fiore si ingrandisce, ma contemporaneamente l'utente
+vede un countdown in secondi che gli da una guida, poi si ferma altri 3 secondi
+o quanto necessario di countdown e poi espira sempre con countdown e fiore che
+si riduce"*.
+
+**Fatto**: il fiore cresce mentre si inspira e si riduce mentre si espira, e
+accanto alla fase corre il conto dei secondi che restano, in cifre tabulari
+cosi' il numero non balla mentre cambia.
+
+**E QUI E' USCITO IL DIFETTO PIU' ISTRUTTIVO DELLA GIORNATA.** Sul telefono il
+conto restava fermo su **4** in due fotografie a tre secondi di distanza.
+
+**La causa non era la schermata: era il telefono.** Il dispositivo 767f596c ha
+le tre scale di animazione di Android a **zero**, quindi
+`MediaQuery.disableAnimations` e' **vero**, e la schermata aveva un ramo che
+**fermava l'orologio del respiro** quando il movimento e' ridotto.
+
+**La legge che ne esce, e vale per tutta l'app**: Riduci Movimento deve
+**squadrare la figura, non fermare il tempo**. Un conto alla rovescia, una
+fase, un progresso sono **informazione** e devono scorrere comunque, a scatti
+se serve.
+
 ---
 
 VOCI_TOTALI: 15
-VOCI_CHIUSE: 0
-VOCI_APERTE: 15
-RICOGNIZIONE_FATTA: 6 voci su 15
-DIFFORMITA_DALL_ORDINE_GIA_DICHIARATE: 3
+VOCI_CHIUSE: 13
+VOCI_APERTE: 2
+QUALI_RESTANO: DD.14 e DD.15, i due referti, che si scrivono col telefono in
+mano dopo la consegna.
+RICOGNIZIONE_FATTA: 15 voci su 15
+DIFFORMITA_DALL_ORDINE_GIA_DICHIARATE: 3, e una e' stata RITRATTATA: la
+ricognizione aveva dato torto al fondatore sulla voce DD.04 e il fondatore
+aveva ragione.
+CONTRADDIZIONI_FRA_ORDINI_DICHIARATE: 2, la voce DD.11 contro la voce CQ 6.22
+sui colori delle bolle delle Rune, e la voce DD.12 contro il vocabolario
+clinico dell'ordine DB voce 11 sulla parola "sintomo". In tutte e due ha vinto
+la voce piu' recente, e le guardie di prima portano scritto perche'.
