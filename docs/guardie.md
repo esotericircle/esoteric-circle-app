@@ -39,11 +39,13 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 119 |
+| Guardie che passano dalla porta comune | 120 |
 | Guardie con un cardinale proprio dichiarato | 94 |
 | Guardie che non scoprono nessun insieme di file | 161 |
-| **Somma delle categorie** | **374** |
-| **Guardie secondo la definizione** | **374** |
+| **Somma delle categorie** | **375** |
+| **Guardie secondo la definizione** | **375** |
+
+**Ricontate il 10 settembre 2026, dopo l'ordine DC**, che ha portato **una guardia nuova** dalla porta comune, `nessun_pittore_dipinge_sul_nulla`: il totale sale da 374 a **375** e le tre categorie a **120, 94 e 161**. E' nata rossa due volte, sulla riproduzione del difetto e sull'innesto, e nasce dal difetto piu' silenzioso di quest'ordine: un `CustomPaint` senza figlio e senza `size` dipinge su una tela di area nulla, e nessuna guardia dei pittori poteva vederlo perche' tutte scelgono da se' la misura su cui dipingono.
 
 **Ricontate il 9 settembre 2026, dopo gli ordini CX, CY e DB**, che hanno
 portato **dodici guardie nuove**: il totale sale da 362 a **374**, e le tre
@@ -491,6 +493,7 @@ le altre.
 | `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `nessun_pittore_dipinge_sul_nulla_test.dart` | nessun pittore dipinge sul nulla | 1, 2 | dalla porta comune | 10/09/2026, DC | 1 |
 | `nessun_punto_cade_dentro_il_titolo_test.dart` | nessun punto cade dentro il titolo | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `nessun_quadrato_rosso_test.dart` | nessun quadrato rosso | 4 | non scopre insiemi di file | mai | 3 |
 | `nessun_rosso_attraversa_una_consegna_test.dart` | nessun rosso attraversa una consegna | 1, 2 | proprio, dichiarato | 08/09/2026, CZ | 2 |

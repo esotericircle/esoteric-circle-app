@@ -408,8 +408,16 @@ class PittoreDellAnimale extends CustomPainter {
         // non leggersi piu' come sagoma, e la misura sui pixel ne perdeva
         // trenta su centosettantatre.
         ..color = const Color(0xFF07040D).withValues(alpha: 0.985)
+        // **LA SFOCATURA E' PROPORZIONALE ALLA SAGOMA, non in pixel fissi.**
+        //
+        // Difetto visto sul telefono 767f596c il 10 settembre 2026, nella
+        // casella dell'Animale nel Passaporto: sei pixel di sfocatura su una
+        // scena larga trecentonovanta sono un velo, **sugli stessi sei pixel
+        // dentro un tondo da cinquantadue la sagoma sparisce del tutto**, e
+        // la casella mostrava una macchia bruna. Una misura assoluta dentro
+        // un disegno che si scala e' una misura che vale in un posto solo.
         ..maskFilter = MaskFilter.blur(
-            BlurStyle.normal, (1 - quantaLuce) * 6 + 1),
+            BlurStyle.normal, alto * (1 - quantaLuce) * 0.06 + 0.5),
     );
 
     // **GLI OCCHI CHE RIFLETTONO**, che sono la cosa che lo rende vivo e che
