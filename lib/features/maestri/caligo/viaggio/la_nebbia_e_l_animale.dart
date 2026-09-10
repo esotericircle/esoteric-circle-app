@@ -75,19 +75,28 @@ class PittoreDellaNebbia extends CustomPainter {
           stops: [0.0, 0.55, 1.0],
         ).createShader(tutto),
     );
-    // **IL TERRENO**: tre masse scure, deterministiche, che danno un sotto e
-    // un sopra a chi guarda dentro il varco.
+    // **IL TERRENO**, e ha un orlo.
+    //
+    // La prima stesura metteva tre ovali sfocati di ventisei: dentro il varco
+    // si vedeva **una macchia**, non un posto. Con un orlo netto in mezzo alla
+    // scena e le masse appena sfumate, chi apre la nebbia trova un sopra e un
+    // sotto, che e' il minimo perche' un luogo sia un luogo.
+    final orlo = size.height * 0.62;
+    canvas.drawRect(
+      Rect.fromLTRB(0, orlo, size.width, size.height),
+      Paint()..color = const Color(0xFF160E08).withValues(alpha: 0.55),
+    );
     for (var i = 0; i < 3; i++) {
-      final y = size.height * (0.52 + 0.17 * i);
       canvas.drawOval(
         Rect.fromCenter(
-          center: Offset(size.width * (0.30 + 0.22 * i), y),
-          width: size.width * (1.10 + 0.25 * i),
-          height: size.height * 0.22,
+          center: Offset(size.width * (0.22 + 0.30 * i),
+              orlo - size.height * (0.02 + 0.05 * i)),
+          width: size.width * (0.48 + 0.16 * i),
+          height: size.height * (0.10 + 0.05 * i),
         ),
         Paint()
-          ..color = const Color(0xFF120C08).withValues(alpha: 0.35 + 0.12 * i)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 26),
+          ..color = const Color(0xFF0E0906).withValues(alpha: 0.55 + 0.12 * i)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7),
       );
     }
   }
@@ -135,6 +144,19 @@ class PittoreDellaNebbia extends CustomPainter {
             Colors.black.withValues(alpha: 0.95),
             Colors.transparent,
           ]).createShader(Rect.fromCircle(center: v.dove, radius: raggio)),
+      );
+      // **L ORLO DEL VARCO E PIU CHIARO**, perche la nebbia spinta da parte si
+      // addensa dove finisce. Senza, il varco si legge come una macchia scura
+      // invece che come un apertura.
+      canvas.drawCircle(
+        v.dove,
+        raggio * 0.72,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = raggio * 0.30
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.16)
+          ..color = const Color(0xFFDCE3F0)
+              .withValues(alpha: 0.30 * v.quantoEAperto),
       );
     }
     canvas.restore();
@@ -293,45 +315,78 @@ class PittoreDellAnimale extends CustomPainter {
     // del cammino** alla misura voluta, la quota torna a essere l'altezza che
     // si vede.
     final rnd = math.Random(seme);
-    // **LA TESTA E' UNA TESTA, non una punta.**
+    // **UN QUADRUPEDE DI PROFILO, non una collina con una testa sopra.**
     //
-    // Difetto misurato il 10 settembre 2026: la testa era un vertice solo, e
-    // il cammino ci arrivava con due segmenti che formavano **un ago**. I
-    // limiti del cammino la contavano per intera, ma sui pixel, dopo la
-    // sfocatura del controluce, la cima di un ago non e' abbastanza scura per
-    // leggersi: la sagoma prometteva il sessanta per cento di altezza e ne
-    // dipingeva quarantanove virgola otto. **I limiti di un cammino non sono
-    // cio' che si vede.**
-    final testaR = 0.17 + rnd.nextDouble() * 0.07;
-    final quantoEAlta = 0.76 + rnd.nextDouble() * 0.22;
-    final testaCx = 1.35 - testaR * 1.05;
-    final testaCy = 1 - quantoEAlta + testaR;
-    const finoADove = 1.35 * 0.78;
+    // Difetto visto sulle anteprime dipinte il 10 settembre 2026. La prima
+    // sagoma era un dorso a gobba chiuso in basso da una riga: sui pixel
+    // misurava benissimo, e a guardarla era **una montagna con un
+    // lecca-lecca**. Una guardia che conta i pixel scuri di una figura non
+    // puo' dire se quella figura sembra un animale: quello lo dice solo
+    // l'occhio, ed e' il motivo per cui le anteprime esistono.
+    //
+    // Un animale in controluce si riconosce da cinque cose, e ci sono tutte:
+    // **la massa orizzontale del corpo**, **le quattro zampe che toccano
+    // terra**, **il collo che sale**, **la testa col muso in avanti**, **la
+    // coda**. Le orecchie sono la sesta e sono quella che distingue una lince
+    // da un orso quando non si vede altro.
+    //
+    // **SI DISEGNA IN UNITA' E POI SI PORTA ALLA MISURA VOLUTA**, cosi' la
+    // quota resta l'altezza che si vede: la stesura di prima applicava la
+    // quota a un parametro che il disegno usava solo in parte, e prometteva
+    // sessanta per cento dipingendone trentadue.
+    const w = 1.35;
+    final zampe = 0.24 + rnd.nextDouble() * 0.12;
+    final spessore = 0.26 + rnd.nextDouble() * 0.10;
+    final testaR = 0.10 + rnd.nextDouble() * 0.035;
+    final orecchio = 0.05 + rnd.nextDouble() * 0.09;
+    final coda = 0.08 + rnd.nextDouble() * 0.14;
+    final pancia = 1 - zampe;
+    final dorso = pancia - spessore;
+    final testaCx = w - testaR * 1.25;
+    final testaCy = dorso - testaR * 0.95 - orecchio * 0.35;
 
-    final unitario = Path();
-    unitario.moveTo(0, 1);
-    const quantiDossi = 7;
-    var dorsoFinale = 1.0;
-    for (var i = 0; i <= quantiDossi; i++) {
-      final t = i / quantiDossi;
-      // Il dorso, con una gobba che il seme sposta: e' cio' che distingue un
-      // orso da una lince quando si vede solo il profilo.
-      final gobba = math.sin(t * math.pi) * (0.42 + rnd.nextDouble() * 0.2);
-      dorsoFinale = 1 - gobba;
-      unitario.lineTo(finoADove * t, dorsoFinale);
+    final unitario = Path()..fillType = PathFillType.nonZero;
+    // **IL CORPO**, una massa orizzontale con gli angoli tondi.
+    unitario.addRRect(RRect.fromLTRBR(0.17, dorso, 0.99, pancia + 0.02,
+        Radius.circular(spessore * 0.45)));
+    // **LE QUATTRO ZAMPE**, che toccano terra: sono quelle a dire che sta in
+    // piedi invece di essere una macchia.
+    for (final x in [0.235, 0.375, 0.735, 0.875]) {
+      unitario.addRect(Rect.fromLTRB(x, pancia - 0.03, x + 0.085, 1));
     }
-    // **IL COLLO**, che porta il dorso alla testa senza salti.
-    unitario.lineTo(testaCx - testaR * 0.5, testaCy + testaR * 0.7);
-    unitario.lineTo(testaCx, testaCy + testaR * 1.6);
-    unitario.lineTo(finoADove, 1);
-    unitario.close();
-    // **LA TESTA**, un ovale vero: e' la parte piu' alta della sagoma, e sui
-    // pixel deve esserci.
-    unitario.addOval(Rect.fromCenter(
-      center: Offset(testaCx, testaCy),
-      width: testaR * 2.3,
-      height: testaR * 2,
-    ));
+    // **IL COLLO**, che sale dal corpo alla testa.
+    unitario
+      ..moveTo(0.83, dorso + 0.03)
+      ..lineTo(testaCx - testaR * 0.9, testaCy + testaR * 0.5)
+      ..lineTo(testaCx + testaR * 0.2, testaCy + testaR * 1.1)
+      ..lineTo(0.97, dorso + spessore * 0.7)
+      ..close();
+    // **LA TESTA e IL MUSO IN AVANTI.**
+    unitario
+      ..addOval(Rect.fromCenter(
+          center: Offset(testaCx, testaCy),
+          width: testaR * 2.1,
+          height: testaR * 1.9))
+      ..addOval(Rect.fromCenter(
+          center: Offset(testaCx + testaR * 0.9, testaCy + testaR * 0.35),
+          width: testaR * 1.3,
+          height: testaR * 0.9));
+    // **LE ORECCHIE**, due, e sono la firma della specie.
+    for (final dx in [-testaR * 0.55, testaR * 0.25]) {
+      unitario
+        ..moveTo(testaCx + dx, testaCy - testaR * 0.6)
+        ..lineTo(testaCx + dx + testaR * 0.22, testaCy - testaR * 0.6 -
+            orecchio)
+        ..lineTo(testaCx + dx + testaR * 0.5, testaCy - testaR * 0.5)
+        ..close();
+    }
+    // **LA CODA.**
+    unitario
+      ..moveTo(0.19, dorso + spessore * 0.25)
+      ..lineTo(0.19 - coda, dorso - 0.02)
+      ..lineTo(0.19 - coda * 0.85, dorso + 0.07)
+      ..lineTo(0.22, dorso + spessore * 0.55)
+      ..close();
 
     // I limiti veri del cammino, che sono cio' che si vede.
     final limiti = unitario.getBounds();
@@ -362,16 +417,18 @@ class PittoreDellAnimale extends CustomPainter {
     // trasformazione della sagoma, altrimenti finirebbero fuori dalla testa.
     final testaX = testaCx * fattoreX + spostaX;
     final testaY = testaCy * fattoreY + spostaY;
-    final occhio = alto * 0.035;
-    for (final dx in [-occhio * 1.6, occhio * 0.4]) {
-      canvas.drawCircle(
-        Offset(testaX + dx, testaY + occhio * 1.2),
-        occhio,
-        Paint()
-          ..color = const Color(0xFFE8D9A8)
-              .withValues(alpha: 0.55 + 0.40 * quantaLuce),
-      );
-    }
+    //
+    // **UNO SOLO, perche' di profilo se ne vede uno.** Due occhi affiancati
+    // sulla stessa testa la fanno leggere di fronte, e allora la sagoma non e'
+    // piu' un animale di passaggio, e' una faccia.
+    final occhio = alto * 0.022;
+    canvas.drawCircle(
+      Offset(testaX + occhio * 0.6, testaY - occhio * 0.2),
+      occhio,
+      Paint()
+        ..color = const Color(0xFFE8D9A8)
+            .withValues(alpha: 0.55 + 0.40 * quantaLuce),
+    );
   }
 
   @override

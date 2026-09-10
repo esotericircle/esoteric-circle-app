@@ -112,6 +112,21 @@ class PittoreDelTunnel extends CustomPainter {
   static double misuraCheCopre(Size size) =>
       size.bottomRight(Offset.zero).distance;
 
+  /// **E PERCHE' NON SONO GLI ANELLI A COPRIRE GLI ANGOLI.**
+  ///
+  /// La prima cura di quel difetto legava **il raggio degli anelli** alla
+  /// diagonale. Copriva, e la guardia diventava verde su tutte e tre le
+  /// misure. Poi le anteprime dipinte hanno mostrato il prezzo: con raggi
+  /// grandi due volte e mezza, sullo schermo passavano **due bordi di anello
+  /// invece di sei**, e il tunnel si leggeva come un campo bruno piatto con
+  /// un grappolo di poligoni al centro. **Una scena tecnicamente piena e
+  /// visivamente vuota.**
+  ///
+  /// Gli anelli tornano al lato corto, che e' la misura con cui il loro passo
+  /// si legge, e a coprire gli angoli ci pensa **il fondo**: un fondo che
+  /// vira dal blu profondo del punto di fuga al bruno delle radici sul bordo
+  /// e' gia' la parete della galleria, non una pagina che si vede sotto.
+
   /// **QUANTI ANELLI PASSANO DALLA BOCCA AL FONDO.**
   ///
   /// Ventinove: piu' di un giro e mezzo di lista, e **primo rispetto ai
@@ -164,14 +179,23 @@ class PittoreDelTunnel extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final centro = size.center(Offset.zero);
-    // **GLI ANELLI SI MISURANO SULLA DIAGONALE**, cosi' riempiono la finestra
-    // vera e non solo una tela quadrata. Vedi [misuraCheCopre].
-    final lato = misuraCheCopre(size);
+    // **GLI ANELLI SI MISURANO SUL LATO CORTO**, che e' la misura con cui il
+    // loro passo si legge. A riempire la finestra ci pensa il fondo.
+    final lato = size.shortestSide;
 
-    // **IL FONDO E' IL BLU PROFONDO**, cosi' il punto di fuga non e' un buco
-    // nero ma il fondo del mondo di sotto.
+    // **IL FONDO E' GIA' LA GALLERIA**: blu profondo al punto di fuga, bruno
+    // delle radici sul bordo, e il raggio e' meta' diagonale, cosi' i quattro
+    // angoli sono parete e non pagina. Vedi [misuraCheCopre].
+    final tutto = Offset.zero & size;
     canvas.drawRect(
-        Offset.zero & size, Paint()..color = bluProfondo);
+      tutto,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [bluProfondo, _coloreLontano(), brunoDelleRadici],
+          stops: const [0.0, 0.22, 1.0],
+        ).createShader(Rect.fromCircle(
+            center: centro, radius: misuraCheCopre(size) / 2)),
+    );
 
     // **DAL LONTANO AL VICINO**, cosi' i vicini cadono sopra e coprono: e' cio'
     // che fa la profondita' senza 3D.
