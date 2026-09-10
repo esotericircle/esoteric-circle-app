@@ -282,6 +282,40 @@ schermo. Il rosso e' stato questo:
 della `Row` e nessun `Expanded`: ogni pasticca prende la larghezza del suo
 nome, **1,0 righe tutte e nove**, e le nove stanno su piu' file.
 
+## DD.09, LE DUE BOLLE DELLA FORTUNA
+
+**Il fatto del fondatore**: nella scheda della Fortuna i riquadri *Numero* e
+*Colore del giorno* non sono alti uguale, e la coppia si vede storta.
+
+**Misurato, ed e' vero.** Sulla finestra del telefono, dopo aver chiesto il
+responso:
+
+| Bolla | Alta |
+| --- | --- |
+| NUMERO | **61,0** |
+| COLORE DEL GIORNO | **84,0** |
+| scarto | **23,0 punti** |
+
+**La causa**: la `Row` che le contiene non allineava niente, e ognuna prendeva
+l'altezza del suo contenuto. Da una parte una cifra su una riga, dall'altra
+un'etichetta piu' lunga che va a capo.
+
+**La cura**: `IntrinsicHeight` misura la piu' alta delle due e
+`CrossAxisAlignment.stretch` porta l'altra alla stessa quota. **84,0 e 84,0**,
+scarto **0,0**, e si pareggiano da sole anche il giorno che un colore ha un
+nome piu' lungo.
+
+**LA GUARDIA E' NATA ROSSA SUL DIFETTO VERO**, senza bisogno di innestarne
+uno: `test/numero_e_colore_hanno_la_stessa_altezza_test.dart`.
+
+**E ha dovuto imparare due cose per non essere verde a vuoto.** Le quattro
+schede del responso nascono in un elenco **pigro**: la Fortuna e' la quarta e
+finche' nessuno scorre fin li' **non viene costruita affatto**, quindi la
+prima stesura non trovava le bolle e sarebbe stata verde per non aver guardato
+niente. Adesso la prova scorre, e monta la schermata con **Riduci Movimento
+acceso**, che e' la configurazione vera del telefono 767f596c e fa nascere le
+quattro schede tutte insieme.
+
 ---
 
 VOCI_TOTALI: 15

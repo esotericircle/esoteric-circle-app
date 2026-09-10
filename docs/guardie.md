@@ -514,6 +514,7 @@ le altre.
 | `niente_vocativo_a_schermo_test.dart` | niente vocativo a schermo | 1, 2 | dalla porta comune | mai | 3 |
 | `nome_ovunque_test.dart` | nome ovunque | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nove_arti_test.dart` | nove arti | 1, 2 | dalla porta comune | mai | 3 |
+| `numero_e_colore_hanno_la_stessa_altezza_test.dart` | numero e colore hanno la stessa altezza | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 61,0 contro 84,0) | 1 |
 | `ogni_arte_dichiara_la_fonte_test.dart` | ogni arte dichiara la fonte | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
 | `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO | 2 |

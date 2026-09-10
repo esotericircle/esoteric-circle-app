@@ -1620,8 +1620,8 @@ class _NotaDelCielo extends StatelessWidget {
                   backgroundColor: palette.gold,
                   foregroundColor: palette.deepest,
                   minimumSize: const Size(0, 44),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.md),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
                 ),
                 onPressed: () =>
                     Navigator.of(context).push(DatiDiNascitaScreen.route()),
@@ -1695,7 +1695,22 @@ class _FortunaFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    // **LE DUE BOLLE SONO ALTE UGUALE.** Ordine DD voce 09, 10 settembre
+    // 2026, e il fatto e' del fondatore: i riquadri Numero e Colore del
+    // giorno non sono alti uguale e la coppia si vede storta.
+    //
+    // **Misurato prima della cura**: la bolla NUMERO alta **61,0** punti,
+    // quella COLORE DEL GIORNO **84,0**, cioe' **ventitre punti di scarto**.
+    // La causa e' che questa Row non allineava niente e ognuna prendeva
+    // l'altezza del suo contenuto: da una parte una cifra su una riga,
+    // dall'altra un'etichetta piu' lunga che va a capo.
+    //
+    // `IntrinsicHeight` misura la piu' alta delle due e `stretch` porta
+    // l'altra alla stessa quota: **le due bolle si pareggiano da sole**
+    // anche il giorno che un colore ha un nome piu' lungo.
+    return IntrinsicHeight(
+        child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _Pill(
           label: 'Numero',
@@ -1735,7 +1750,7 @@ class _FortunaFooter extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 }
 
