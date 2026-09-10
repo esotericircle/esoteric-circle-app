@@ -396,6 +396,11 @@ class _LifePathCard extends StatelessWidget {
         width: 52,
         height: 52,
         child: CustomPaint(
+          // Il SizedBox stringe gia' il vincolo, quindi qui la misura non
+          // cambia niente. Si scrive lo stesso, perche' la regola vale per il
+          // componente e non per il posto: vedi la guardia
+          // `nessun_pittore_dipinge_sul_nulla_test.dart`.
+          size: Size.infinite,
           painter: _LifePathSigil(number: lp.number, palette: palette),
         ),
       ),
@@ -534,6 +539,7 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
           clipBehavior: Clip.antiAlias,
           child: CustomPaint(
             key: const Key('passport_animale_in_ombra'),
+            size: Size.infinite,
             painter: PittoreDellAnimale(
               discesa: discese.clamp(0, 3),
               // **PIU' SI E' SCESI, PIU' LA LUCE CRESCE**, e la sagoma dice

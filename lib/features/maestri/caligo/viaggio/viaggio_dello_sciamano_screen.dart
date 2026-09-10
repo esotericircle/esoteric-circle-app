@@ -412,6 +412,11 @@ class _ViaggioDelloSciamanoScreenState
           children: [
             Positioned.fill(
               child: CustomPaint(
+                // Qui il vincolo e' gia' stretto e la misura non servirebbe.
+                // Si scrive lo stesso: la regola vale per il componente, e
+                // una regola con un'eccezione tacita e' una regola che
+                // qualcuno copiera' nel posto sbagliato.
+                size: Size.infinite,
                 painter: PittoreDellaNebbia(
                   varchi: _varchi,
                   senzaMoto: false,
@@ -458,7 +463,25 @@ class _ViaggioDelloSciamanoScreenState
                   child: GestureDetector(
                     key: Key('viaggio_ombra_${a.name}'),
                     onTap: () => unawaited(_segui(a.name)),
+                    // **LA SCENA DELL'OMBRA HA UNA MISURA.**
+                    //
+                    // Difetto visto sul telefono 767f596c il 10 settembre
+                    // 2026, e visto **due volte**: la prima l'ho dato al
+                    // contrasto, e la seconda, con la luce dietro gia'
+                    // aggiunta, l'incontro era ancora uno schermo vuoto.
+                    //
+                    // **Un CustomPaint senza figlio e senza `size` si misura
+                    // con `constraints.constrain(Size.zero)`.** Dentro una
+                    // Column il vincolo trasversale e' largo, non stretto,
+                    // quindi la larghezza diventava zero e il pittore
+                    // dipingeva su una tela di area nulla. Prima, in Row, era
+                    // l'altezza a essere zero. **Le tre ombre non erano
+                    // scure: non c'erano.**
+                    //
+                    // `Size.infinite`, che il tunnel usava fin dal principio,
+                    // prende tutto lo spazio concesso.
                     child: CustomPaint(
+                      size: Size.infinite,
                       painter: PittoreDellAnimale(
                         discesa: quale,
                         quantaLuce: 0.35 + 0.2 * quale,
@@ -515,6 +538,7 @@ class _ViaggioDelloSciamanoScreenState
                       BorderRadius.circular(SpacingTokens.radiusLg),
                   child: CustomPaint(
                     key: const Key('viaggio_animale_del_ritorno'),
+                    size: Size.infinite,
                     painter: PittoreDellAnimale(
                       discesa: (_diario.quanteDiscese - 1).clamp(0, 3),
                       quantaLuce: _riconosciuto ? 1.0 : 0.45,
