@@ -4,6 +4,7 @@ import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
+import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,8 +44,12 @@ void main() {
 
   Future<List<String>> siAccendonoDopo(
       DiarioDelCammino diario, List<String> gesti) async {
-    for (final g in gesti) {
-      await diario.segna(g);
+    // **OGNI GESTO PORTA UN DETTAGLIO DIVERSO.** Il diario conta lo
+    // stesso gesto con gli stessi dettagli una volta al giorno, e
+    // senza questo una lista di quattro discese ne varrebbe una.
+    for (var i = 0; i < gesti.length; i++) {
+      final g = gesti[i];
+      await diario.segna(g, dettagli: {'volta': i});
     }
     final stato = diario.statoDelCammino(
       carta: carta,
@@ -115,7 +120,16 @@ void main() {
     final porte = <String, (List<String>, String)>{
       'med_1': (['carta_natale'], 'la carta natale calcolata'),
       'aur_1': (['viso'], 'la Costellazione del Viso letta'),
-      'cal_1': (['animale_guida'], 'l\'Animale Guida incontrato'),
+      // **L'ANIMALE GUIDA CHIEDE QUATTRO DISCESE, ordine DC voce 04.**
+      // Non e' piu' una porta che si apre col primo gesto: si
+      // riconosce quando si e' mostrato quattro volte, e viene da
+      // Harner. La porta e' la stessa e il gesto e' lo stesso: e'
+      // il PEZZO ad aspettare, e questa prova lo attraversa quattro
+      // volte perche' e' cosi' che una persona ci arriva.
+      'cal_1': (
+        List.filled(IQuattroViaggi.quanteDiscese, 'animale_guida'),
+        "l'Animale Guida riconosciuto in quattro discese"
+      ),
     };
     for (final voce in porte.entries) {
       final accesi = await siAccendonoDopo(diario, voce.value.$1);

@@ -432,17 +432,248 @@ di tutto il resto.**
 
 ## DC.21, LA PROVA VISIVA
 
-Da fare sul dispositivo 767f596c, col metodo obbligatorio a due passi.
+Fatta sul dispositivo **767f596c**, 10 settembre 2026, col metodo obbligatorio
+a due passi: `adb shell screencap -p /sdcard/verifica.png` e poi `adb pull`,
+mai `exec-out`, con `adb` chiamato per percorso intero e `MSYS_NO_PATHCONV=1`
+sui percorsi `/sdcard`.
+
+**QUESTA VOCE HA TROVATO PIU' DIFETTI DI TUTTE LE ALTRE VENTI MESSE INSIEME,
+e il conto e' diciotto.** Il Viaggio dello Sciamano arrivava a questa voce con
+**quarantasette prove verdi**, di cui dieci scritte apposta sotto la Regola I
+per misurare i pixel dipinti. La prima fotografia della scena piu' importante,
+l'incontro con le tre ombre, ha mostrato **uno schermo vuoto**.
+
+### La lezione, e vale piu' della voce
+
+**Una guardia che dipinge il pittore non guarda il posto dove il pittore
+vive.** Tutte e dieci le guardie della Regola I chiamano `pittore.paint(tela,
+misura)` con una misura che scelgono loro. Sono giuste, misurano davvero i
+pixel, e **nessuna di loro poteva vedere** che sul telefono quel pittore
+riceveva una tela larga zero, o alta il settantanove per cento invece del
+cento, o grande un terzo di schermo.
+
+La Regola I dice due cose e questa voce ha scoperto che sono due: **contare i
+pixel dipinti**, che le guardie facevano, e **farlo nella finestra vera dove
+la cosa convive con tutto il resto**, che nessuna faceva.
+
+### Le sedici fotografie, e cosa c'e' dentro ognuna
+
+Le fotografie stanno in `scratchpad/dc21/`. Per ognuna e' scritto il testo che
+compare a schermo, perche' una fotografia senza il suo elenco e' un'immagine
+che dice quello che vuole chi la guarda.
+
+**05 e 06, la soglia.** Barra del Cosmo con `Eventi Cosmici` e 165 Eos; barra
+del titolo con `Il Viaggio dello Sciamano` **su due righe e non troncato**;
+`Non sei ancora sceso.`; `Scendi con una domanda, risali con una risposta.`;
+il campo `La tua domanda, se ne hai una` con `0/140`; le sei domande scritte
+`Una scelta da fare`, `Una persona`, `Un blocco che non si supera`, `Un tempo
+che non arriva`, `Una direzione da prendere`, `Qualcosa che è finito`; la
+terza via `Scendo soltanto per incontrarlo.`; il pulsante `Scendi`.
+
+**12, le arti di Caligo.** `Rune · 5` con `Estrazione Rune`; `Rituali · 4` con
+**una sola voce**, `Il Viaggio dello Sciamano`, `Scendi con una domanda,
+risali con una risposta.`, e l'icona dell'impronta. **Prova la voce DC.18**:
+le due voci di Caligo sono diventate una.
+
+**14, la domanda scelta.** Il campo porta `Non so dove sto andando e vorrei
+una direzione` e il contatore `47/140`.
+
+**22, la bocca del tunnel.** Il tunnel dipinto sopra e sotto la barra, la luce
+della bocca al centro, `Tieni premuto per scendere`.
+
+**23, il tunnel a meta' discesa.** Sei bordi di anello attraversano la scena,
+la luce si e' stretta a un punto, l'etichetta dice `Scendi` perche' il dito e'
+premuto.
+
+**24 e 25, la nebbia.** Nebbia su tutta la finestra e `Apri la nebbia con la
+mano`; poi due varchi aperti dalla mano, **con l'orlo piu' chiaro e il mondo
+di sotto sotto**, la sua linea d'orizzonte visibile dentro il varco piu' basso.
+
+**27, l'incontro.** Tre scene una sotto l'altra, in ognuna un quadrupede in
+controluce con corpo, quattro zampe a terra, collo, testa col muso, orecchie,
+coda e un occhio che riflette; sotto, `Un'ombra che passa. Fuori resta un
+segno, un'impronta nel fango.`
+
+**29, la scena del ritorno.** La carta dell'animale in alto, poi `Ti porta al
+bosco fitto all'alba. C'è la ciotola rovesciata. L'animale ti precede.` e `Si
+è mostrato 1 volte su 4.` **Questa fotografia ha trovato il difetto di lingua**
+che la sedicesima ha visto riparato.
+
+**34, il Passaporto.** `ANIMALE GUIDA`, `Ancora senza nome`, la sagoma in ombra
+dentro il tondo, `Si è mostrato una volta su 4.` e la freccia che porta a
+scendere. **Prova la voce DC.02**: la casella resta vuota, e dice quanto manca.
+
+**35, la casella porta dove si riempie.** Toccata la casella si apre il
+Viaggio, e la soglia in cima dice `Si è mostrato una volta su 4.` Il campo
+della domanda non e' piu' facoltativo: l'etichetta dice `La tua domanda`.
+
+**36 e 37, il rifiuto del secondo viaggio nello stesso giorno.** Sotto le sei
+domande compare `I viaggi cadono in quattro giorni diversi perché il
+riconoscimento chiede che l'animale si mostri almeno quattro volte, in aspetti
+diversi.` e `Non è una regola nostra: è il metodo descritto da Michael Harner
+in The Way of the Shaman, 1980.` Premuto `Scendi`, **fra le due fotografie
+cambiano 5.251 pixel su 2.592.000**, e sono l'orologio nella barra di sistema:
+il pulsante non fa niente. **Prova la voce DC.04**, una discesa al giorno, e
+prova che l'attesa porta la sua fonte.
+
+### Le percentuali di SCHERMO, contate sui pixel dipinti
+
+Regola I. Il fondo della pagina di Caligo e' `(11, 20, 54)`: si contano i pixel
+che se ne distinguono di piu' di dodici sulla somma dei tre canali.
+
+| cosa | fotografia | dipinto | della sua finestra | dello schermo intero |
+| --- | --- | ---: | ---: | ---: |
+| Tunnel alla bocca | 22 | 2.207.520 su 2.207.520 | 100,0% | 85,2% |
+| Tunnel a meta' discesa | 23 | 2.207.520 su 2.207.520 | 100,0% | 85,2% |
+| Nebbia chiusa | 24 | 2.207.520 su 2.207.520 | 100,0% | 85,2% |
+
+**Il restante 14,8% dello schermo non e' pagina lasciata scoperta**: sono la
+barra del Cosmo, alta 224 pixel, e la barra di navigazione di Android, alta
+132. Nessuna delle due appartiene all'arte, e nessuna delle due si puo'
+togliere.
+
+**L'animale e la carta si misurano dove vivono**, e li' la guardia lo fa in
+continuazione, sulla finestra vera 390x289 della scena del ritorno: **alto il
+61,2 per cento e largo il 61,8**, sopra il sessanta che l'ordine chiede. Nelle
+tre discese prima della piena luce: **17,0, 23,5 e 39,8 per cento**, che
+crescono e restano sotto il sessanta.
+
+### I diciotto difetti, con il loro padre
+
+**Regola C: ogni difetto ha un padre.**
+
+1. **Il titolo si troncava**, `IL VIAGGIO DELL...`. Padre: DC.01, la schermata
+   nuova. Curato col componente di casa che manda a capo.
+2. **La prima riga della soglia finiva sopra il titolo.** Padre: DC.01.
+3. **Il tunnel non riempiva la finestra vera**: alto il 79,0 per cento,
+   coperto il 71,6. Padre: DC.07. **La guardia dipingeva su una tela quadrata
+   390x390**, dove il raggio legato al lato corto copre tutto.
+4. **La barra e' rimasta sopra la discesa.** Padre: **DC.21, cioe' la cura del
+   difetto 2**, che aveva tolto lo sconfinamento a tutte le fasi invece che
+   alla sola soglia.
+5. **Il tunnel legato alla diagonale ha perso la profondita'**: due bordi di
+   anello sullo schermo invece di sei, un campo bruno piatto. Padre: **DC.21,
+   cioe' la cura del difetto 3.** Trovato dalle anteprime dipinte, non da una
+   guardia: la guardia era verde su tutte e tre le misure.
+6. **I varchi della nebbia erano due buchi neri**: `BlendMode.dstOut` senza uno
+   strato isolato non toglieva nebbia, toglieva la scena. Padre: DC.07.
+7. **L'incontro era uno schermo vuoto**, prima diagnosi: sagoma quasi nera
+   sopra un fondo quasi nero, un controluce senza la luce dietro. Padre: DC.07.
+8. **L'incontro era ANCORA uno schermo vuoto**, e questa e' la causa vera:
+   **`CustomPaint` senza figlio e senza `size` si misura con
+   `constraints.constrain(Size.zero)`**, e dentro una Row o una Column il
+   vincolo trasversale e' largo. In Row era l'altezza a valere zero, in Column
+   la larghezza. **Le tre ombre non erano scure: non c'erano.** Padre: DC.07.
+9. **Le tre ombre stavano in tre colonne larghe un terzo di schermo**, e un
+   animale, che e' piu' largo che alto, in quella colonna e' minuscolo. Padre:
+   DC.07.
+10. **La quota dell'animale era una frazione del lato corto**, quindi la
+    decideva la forma del contenitore invece dell'occhio. Padre: DC.07.
+11. **La sagoma era alta il 32,9 per cento quando la quota prometteva il
+    sessanta**: la quota si applicava a un parametro che il disegno usava solo
+    in parte. Stessa famiglia del loto dell'ordine DB. Padre: DC.07.
+12. **La sagoma era una montagna con un lecca-lecca.** Sui pixel misurava
+    benissimo. Trovata dalle anteprime dipinte. Padre: DC.07.
+13. **La scena del ritorno non aveva l'animale dentro**, solo testo, contro la
+    regola di casa che vuole il livello visivo prima del testo. Padre: DC.06.
+14. **Il Passaporto non chiamava `sottoLaSagoma`**: la voce DC.02 aveva la sua
+    riga, la sua guardia verde sul testo e **nessuna porta che la portasse a
+    schermo**. Padre: DC.02.
+15. **Il Cerchio regalava l'Animale alla prima discesa**, con celebrazione a
+    schermo pieno, traguardo `cal_1` e dieci Eos. Padre: **DC.01 e DC.04**, che
+    hanno cambiato la natura dell'arte da risultato a rapporto senza aggiornare
+    il cammino. **Nessuno aveva scritto una riga sbagliata**: e' il significato
+    di una riga giusta che e' cambiato sotto.
+16. **La scena del ritorno diceva `Si è mostrato 1 volte su 4`.** La stessa
+    frase esisteva in due posti; quella del Passaporto il singolare ce l'aveva,
+    quella dei quattro viaggi no, ed e' quella che arriva a schermo. Padre:
+    DC.04.
+17. **La sfocatura del controluce era in pixel assoluti**, e dentro il tondo da
+    52 del Passaporto cancellava la sagoma. Padre: DC.07.
+18. **La prova del tetto delle arti preferite e' caduta**: le voci 17 e 18
+    hanno riportato le arti vive a nove contro un tetto di nove, e il caso del
+    rifiuto e' tornato irraggiungibile. Padre: **DC.17 e DC.18**. Adesso la
+    prova lo dichiara invece di fingerlo, come faceva prima dell'ordine CS.
+
+**Nove dei diciotto li ha trovati una fotografia, e nessuno una guardia.** Due
+li hanno trovati le anteprime dipinte. Due sono figli delle cure di altri due,
+e sono dichiarati come tali.
+
+### Le guardie nuove e quelle riscritte
+
+**Una guardia nuova**, `nessun_pittore_dipinge_sul_nulla_test.dart`, registrata
+in `docs/guardie.md`: riproduce il difetto 8 e pretende di vederlo, cosi' il
+giorno che Flutter cambiasse comportamento la guardia si toglie invece di
+restare verde per finta; poi censisce l'intera app e pretende sulle cartelle di
+quest'ordine. **Ottantanove `CustomPaint` senza figlio, sessantasette senza
+misura, zero nel Viaggio e nel Passaporto.**
+
+**Una guardia nuova**, `il_cerchio_non_regala_l_animale_test.dart`: il pezzo
+dell'identita' non matura prima della quarta discesa, matura alla quarta
+(Regola H), e il Passaporto pieno aspetta la casella dell'Animale.
+
+**Sei misure riscritte perche' misuravano la formula invece della forma:**
+
+- il tunnel si misura su **390x682**, la finestra vera del corpo, e su tutte e
+  due le direzioni piu' la tela coperta, invece che sulla sola larghezza di un
+  quadrato;
+- il varco della nebbia si misurava sul **canale alfa**, cioe' su quanta
+  opacita' spariva, e sparire era esattamente il difetto: adesso guarda cosa
+  resta;
+- la densita' della nebbia si misurava sull'alfa, che oggi vale 255 in tutti e
+  due i casi: adesso misura il chiarore;
+- l'animale si misurava con `a > 40` su una tela trasparente, cioe' misurava
+  che la sagoma **esistesse**: adesso misura che si distingua dal fondo su cui
+  sta davvero;
+- le due sagome diverse si confrontavano sull'alfa: adesso sul colore;
+- la prova del tetto delle arti preferite dichiara invece di fingere.
+
+### Cosa non si e' potuto provare, e perche'
+
+**L'incontro con la barra al suo posto.** Il difetto 4 e' curato e la cura e'
+analizzata, ma non si puo' rifotografare oggi: **il Viaggio concede una
+discesa al giorno**, e la fotografia 37 e' la prova che lo fa davvero. Il
+telefono non e' rootato e l'orologio non si sposta: `su` non esiste e
+`settings put global auto_time` chiede `WRITE_SECURE_SETTINGS`. La fotografia
+27 mostra le tre ombre sulla build precedente, con la prima mezza dietro il
+titolo, ed e' la fotografia che ha trovato il difetto.
+
+**La carta della rivelazione a schermo pieno della voce DC.14.** Vive
+nell'onboarding, che su un telefono gia' passato dall'onboarding non si ripete.
+Rifarlo vorrebbe dire cancellare i dati del dispositivo, e con essi il diario
+dei viaggi che serve alle altre prove. **Resta coperta dalla sola guardia**,
+`la_rivelazione_non_mente_sul_calcolo_test.dart`, e va guardata al prossimo
+collaudo su un telefono pulito.
+
+**La pressione prolungata del dito** si simula con `input swipe` a punto fisso,
+che tiene il dito premuto per la durata dichiarata. Non e' una limitazione:
+e' il modo in cui la discesa e' stata guidata per quarantasei secondi.
+
+### Un difetto trovato fuori dalle voci dell'ordine
+
+**L'etichetta `ESPLORA` della barra in basso si sovrappone al testo delle card
+sopra di lei**, e si vede nelle fotografie 10, 12 e 19. **PROVENIENZA IGNOTA**:
+non appartiene a nessuna voce dell'ordine DC, e non e' stato toccato da questo
+lavoro. **Dichiarato e non riparato**: toccare la barra comune di tutte le
+schermate dentro l'ultima voce di un ordine e' esattamente il modo in cui
+nasce il difetto numero 4 di questo elenco.
 
 ---
 
 VOCI_TOTALI: 21
-VOCI_CHIUSE: 19
+VOCI_CHIUSE: 20
 VOCI_PARZIALI_E_DICHIARATE: 1, la DC.19 con trentanove guardie rimandate
-VOCI_APERTE: 1, la DC.21 fino alla prova a video
+VOCI_APERTE: 0
 SIGLA_RINOMINATA: DC in DA, per il lavoro mio che la occupava
 DIFFORMITA_DALL_ORDINE_DICHIARATE: 2, le 44 figure e la causa dell'Angelo
-GUARDIE_NUOVE: 7
+GUARDIE_NUOVE: 9
+GUARDIE_RISCRITTE_PERCHE_MISURAVANO_LA_FORMULA: 6
 DIFETTI_TROVATI_DALLE_GUARDIE_MENTRE_NASCEVANO: 8
+DIFETTI_TROVATI_DALLA_PROVA_A_VIDEO: 18
+DI_QUESTI_TROVATI_DA_UNA_FOTOGRAFIA: 9
+DI_QUESTI_TROVATI_DALLE_ANTEPRIME_DIPINTE: 2
+DI_QUESTI_FIGLI_DELLA_CURA_DI_UN_ALTRO: 2
 GUARDIE_CHE_HANNO_ACCUSATO_SE_STESSE: 3
 PROVE_ROVESCIATE_INVECE_CHE_CANCELLATE: 1, il riquadro della scelta
+PROVE_NON_PRESE_E_DICHIARATE: 2, l'incontro con la barra e la carta della rivelazione
+DIFETTI_FUORI_DALL_ORDINE_DICHIARATI_E_NON_RIPARATI: 1, l'etichetta ESPLORA

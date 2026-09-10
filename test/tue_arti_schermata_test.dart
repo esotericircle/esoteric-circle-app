@@ -199,10 +199,31 @@ void main() {
           reason: '$percorso non dichiara il proprio identificativo, quindi il '
               'cuore non saprebbe cosa salvare');
     });
-    // Tutte le arti selezionabili sono coperte.
-    expect(rotte.values.toSet(), ArtiPreferiteController.selezionabili.toSet(),
-        reason:
-            'un\'arta viva non ha una rotta con la soglia, oppure la soglia '
-            'copre un\'arte che non e\' selezionabile');
+    // **TUTTE LE ARTI SELEZIONABILI SONO COPERTE, e non il contrario.**
+    //
+    // Fino all'ordine DC i due insiemi erano lo stesso insieme. La voce 17 ha
+    // tolto l'Angelo Custode dalle arti dei Maestri per lasciarlo nel solo
+    // Passaporto: **la sua schermata resta viva, passa ancora dalla soglia
+    // unica e ha ancora il suo cuore**, e non e' piu' un'arte che si mette
+    // nello scaffale delle preferite. Pretendere l'uguaglianza dei due
+    // insiemi vorrebbe dire pretendere che ogni schermata d'arte sia anche
+    // una preferita, che e' una legge che nessuno ha mai scritto.
+    final scoperte = ArtiPreferiteController.selezionabili
+        .where((id) => !rotte.values.contains(id))
+        .toList();
+    expect(scoperte, isEmpty,
+        reason: 'queste arti vive non hanno una rotta con la soglia unica, '
+            'quindi si aprono senza cuore: $scoperte');
+    final coperteMaNonPreferibili = rotte.values
+        .where((id) => !ArtiPreferiteController.selezionabili.contains(id))
+        .toList();
+    // ignore: avoid_print
+    print('ORDINE DC VOCE 17: arti con la soglia ${rotte.length}, '
+        'selezionabili ${ArtiPreferiteController.selezionabili.length}, '
+        'con la soglia ma fuori dallo scaffale $coperteMaNonPreferibili');
+    expect(coperteMaNonPreferibili, ['guardian_angel'],
+        reason: 'l elenco delle arti che hanno la soglia senza essere '
+            'preferibili e cambiato senza che nessuno lo dichiarasse: '
+            '$coperteMaNonPreferibili');
   });
 }

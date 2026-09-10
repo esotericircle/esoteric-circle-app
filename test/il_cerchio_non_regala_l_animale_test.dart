@@ -4,6 +4,8 @@ import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'istante_dichiarato.dart';
+
 /// **IL CERCHIO NON REGALA L'ANIMALE ALLA PRIMA DISCESA.**
 /// Ordine DC voci 01, 02 e 04, 10 settembre 2026.
 ///
@@ -38,7 +40,10 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   Future<DiarioDelCammino> conDiscese(int quante) async {
-    final d = DiarioDelCammino();
+    // **L'ISTANTE SI DICHIARA.** Ordine U voce 00: un Diario senza orologio
+    // pesca il giorno vero, e una prova che cambia colore col giorno non e'
+    // una prova.
+    final d = DiarioDelCammino(orologio: orologioDelleProve);
     await d.carica();
     for (var i = 0; i < quante; i++) {
       // **I DETTAGLI DEVONO DIFFERIRE.** Il diario conta lo stesso gesto con

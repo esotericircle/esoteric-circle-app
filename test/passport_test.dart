@@ -128,7 +128,7 @@ void main() {
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
   });
 
-  testWidgets('Toccando l\'Animale guida nel Passport si apre la sua lettura',
+  testWidgets('LA CASELLA VUOTA DELL ANIMALE PORTA DOVE SI RIEMPIE',
       (tester) async {
     SharedPreferences.setMockInitialValues({});
     tester.view.physicalSize = const Size(430, 2000);
@@ -146,11 +146,18 @@ void main() {
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    // Dal Passport si apre la lettura fissa di identita', chi e' il tuo animale,
-    // non il viaggio col tamburo, che resta nel dominio di Caligo.
-    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
-    expect(find.byKey(const Key('animal_journey')), findsNothing);
-    expect(find.byKey(const Key('animal_natura')), findsOneWidget);
+    // **LA LETTURA FISSA NON SI APRE PIU' DA QUI, ordine DC voci 01 e
+    // 02.** Fino a quest'ordine la tessera diceva il nome dell'animale
+    // e al tocco apriva la sua lettura di identita'. L'ordine DC ha
+    // cambiato la natura dell'arte: l'animale non e' un fatto che si
+    // legge, e' un rapporto che si costruisce in quattro discese, e
+    // finche' non si e' compiuto la casella resta vuota con la sagoma
+    // in ombra. Una casella vuota che non porta da nessuna parte
+    // sarebbe un buco: questa porta dove si riempie.
+
+    expect(find.byKey(const Key('animal_identity')), findsNothing);
+    expect(find.byKey(const Key('viaggio_scendi')), findsOneWidget);
+    expect(find.byKey(const Key('viaggio_domanda')), findsOneWidget);
   });
 
   testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',

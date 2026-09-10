@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/pezzi_dell_identita.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
+import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,8 +27,19 @@ void main() {
     // giorno non conta per i pezzi, conta che sia sempre lo stesso.
     final diario = DiarioDelCammino(orologio: () => DateTime(2026, 8, 18, 10));
     await diario.carica();
+    // **L'ANIMALE GUIDA CHIEDE QUATTRO DISCESE, ordine DC voce 04**, e
+    // il diario conta lo stesso gesto con gli stessi dettagli una volta
+    // al giorno: senza un dettaglio diverso, quattro discese ne
+    // varrebbero una. La tessera dell'Animale e' l'unica del documento
+    // che non matura al primo colpo.
     for (final gesto in gesti) {
-      await diario.segna(gesto);
+      final quante =
+          gesto == 'animale_guida' ? IQuattroViaggi.quanteDiscese : 1;
+      for (var v = 0; v < quante; v++) {
+        await diario.segna(gesto, dettagli: {'volta': v});
+      }
+      continue;
+
     }
     return diario;
   }
