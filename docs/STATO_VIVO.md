@@ -1956,6 +1956,15 @@ accattivante e poco testo.
   **"MI SONO PRESO 5 MINUTI"**, col numero vero. Sotto, tre righe e ognuna e'
   un dato: per cosa, cosa ha suonato, da quanti giorni di fila.
 
+**E LA BUILD SUL TELEFONO HA TROVATO ALTRI TRE DIFETTI, tutti miei.** Il fiore
+diceva *"premi play"* e il play stava in fondo alla colonna; **la card non
+arrivava mai**, perche' la sua condizione veniva letta dentro il build e la
+colonna non si ricostruisce mentre la sessione gira; e la durata veniva
+**dedotta da un orologio** invece che contata, che nelle prove dava sempre zero
+e nell'app avrebbe contato anche i minuti con lo schermo spento. **La card e'
+diventata il premio di chi arriva in fondo**, e i secondi si contano uno per
+uno.
+
 **E `RespiroGuidatoDalDito` resta in `lib` senza chiamanti**, dichiarato nel
 file col grep e non dedotto: misura lo scivolo del dito, il respiro troppo
 lungo e il dito alzato due volte, tarature costate un ordine intero. Se il

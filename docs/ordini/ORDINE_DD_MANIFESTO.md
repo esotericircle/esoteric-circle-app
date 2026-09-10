@@ -871,6 +871,52 @@ una striscia e scriverla la sgonfia. Da due in su si'.
 propone Aura dal centro del giorno, la card dice il centro. Mettere in bocca a
 qualcuno un sintomo che non ha scelto sarebbe peggio di non dirlo.
 
+### E POI HO GUARDATO LA BUILD SUL TELEFONO, e ho trovato tre difetti miei
+
+**REGOLA L, e stavolta ha pagato tre volte in mezz'ora.** Costruita la build e
+installata sul 767f596c, la Meditazione nuova ha mostrato tre cose che nessuna
+delle prove appena scritte cercava.
+
+**UNO. Il fiore diceva PREMI PLAY e il play stava in fondo alla colonna**,
+sotto il testo del centro e sotto il pulsante grande. Chi legge un invito deve
+**cercare** il comando che l'invito nomina: un'istruzione che manda a cercare
+non e' un'istruzione. Adesso l'ordine e' fiore, **play**, poi il resto, ed e'
+l'ordine in cui questa schermata si usa. Misurato: fra il fondo del fiore e la
+cima del pulsante ci sono **zero punti**, e il pulsante del sintomo sta a 604
+contro i 446 del play.
+
+**DUE. La card non arrivava mai.** Dopo **due minuti** di sessione, sotto il
+disclaimer non c'era niente. La condizione era `_quantoEDurata >= 60` letta
+**dentro il build**, e **la colonna non si ricostruisce mentre la sessione
+gira**: a ricostruirsi a ogni fotogramma e' solo il fiore, dentro il suo
+`AnimatedBuilder`. Quella condizione veniva valutata **una volta sola, al tocco
+del play**, con la durata a zero.
+
+**La cura non e' ricostruire la colonna a ogni fotogramma**, che vorrebbe dire
+ridisegnare tutta la schermata sessanta volte al secondo per far comparire un
+riquadro: e' la voce AJ.01 di questo progetto, a rovescio. **La card e' il
+premio di chi arriva in fondo**, e vive dentro il blocco del compimento
+insieme alla riga *"la meditazione e' portata a compimento"*. E' la stessa
+legge che il fondatore ha dato al gesto, *"fermarsi a meta' non e' compiere"*,
+e da' una ragione per arrivare alla fine.
+
+**TRE, e l'ha trovato la prova mentre curavo il due.** La durata veniva
+**dedotta** da `widget.now ?? DateTime.now()` meno l'ora di inizio. Nelle prove
+`widget.now` e' un'ora **iniettata e ferma** e la sessione comincia proprio a
+quell'ora: la differenza faceva **sempre zero**. E nell'app vera era sbagliato
+in un modo peggiore: **l'orologio da parete conta anche i minuti passati con
+l'app in tasca e lo schermo spento**, che non sono minuti respirati, e la
+memoria del respiro avrebbe registrato mezz'ora di pratica per una schermata
+lasciata aperta.
+
+**Adesso i secondi si contano, uno per uno**, con un battito acceso col play e
+spento con lo stop: si misura **il tempo in cui la sessione e' stata viva**,
+che e' il numero che la card promette. Senza `setState`, perche' nessuno lo
+guarda mentre cresce.
+
+Verificato a video: a sessione compiuta la card c'e', il pulsante di
+condivisione c'e', e il titolo dice **MI SONO PRESO 2 MINUTI**.
+
 ### Le guardie
 
 **`un_comando_solo_nella_meditazione`, tre prove, nata rossa**: innestata la
