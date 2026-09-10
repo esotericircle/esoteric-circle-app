@@ -452,6 +452,53 @@ il conto alla rovescia finiva fuori campo. **Non e' una concessione alla cura**:
 la finestra da telefono era gia' la regola di casa e quei due file erano
 rimasti indietro. Pinnate a 390 per 844, tutte e dodici le prove tornano verdi.
 
+## DD.05, I DONI SI APRONO ALLA LORO ORA
+
+**Il fatto del fondatore**: i cinque Doni si aprono a qualunque ora. Il Rito
+dell'Alba si puo' fare a mezzanotte e il Sigillo del Sogno alle sette del
+mattino: **se tutto e' disponibile sempre, niente ha un'ora sua**.
+
+**LA LEGGE, in una frase**: un Dono si apre all'ora della sua notifica e resta
+aperto fino al rinnovo, cioe' alla stessa ora del giorno dopo.
+
+**L'ORA E' QUELLA CHE LA PERSONA HA SCELTO.** Chi ha spostato l'avviso
+dell'Alba alle nove non trova il Dono aperto dalle sette: sarebbe una seconda
+verita' sullo stesso appuntamento. Chi non ha scelto niente, e chi ha spento
+l'avviso, prende **l'ora di casa**: Alba 7:00, Soffio 10:30, Arcano 13:00,
+Tramonto 18:30, Notte 22:30. Il meccanismo che risponde a questa domanda
+esisteva gia', `SceltaDegliAvvisi.minutiDi`, e **non se ne e' aperto un
+secondo**.
+
+**IL FUSO E' QUELLO DI CHI GUARDA, senza fare niente.** Ore locali confrontate
+con un `DateTime` locale: sul telefono e' l'ora del telefono. Non si converte
+niente, e proprio per questo non si puo' sbagliare la conversione.
+
+**DOVE STA IL CONTROLLO, e perche' in un punto solo.** In
+`openDailyElement`, la porta sola da cui si entra in un Dono: la usa il tocco
+sulla striscia **e** il collegamento che arriva dalla notifica. Nelle cinque
+schermate si sarebbe scritto cinque volte e dimenticato alla sesta.
+
+**COSA SI VEDE.** La casella chiusa porta un orologio al posto del segno del
+Dono, e non sparisce: un Dono che va e viene sarebbe una funzione che appare a
+caso. Toccandola si apre la **card del Dono chiuso**, che dice l'ora grande, che
+cosa quel Dono lascia, e un pulsante per tornare: nessun vicolo cieco.
+
+**LA GUARDIA GIRA ORA PER ORA**, come l'ordine chiede:
+`test/i_doni_si_aprono_alla_loro_ora_test.dart`, **ventiquattro ore per cinque
+Doni, centoventi risposte**. Innestato il difetto vero, cioe' la porta sempre
+aperta che l'app aveva: **73 risposte sbagliate su 120**. Con la legge: **zero**.
+
+E le altre sei prove del file coprono cio' che la prima da sola non vede: le
+ore di casa sono quelle concordate, l'ora scelta vince su quella di casa, la
+card chiusa dice l'ora in cifre, il rinnovo cade il giorno dopo alla stessa
+ora, a video le cinque caselle sono chiuse alle 6:00 e Alba e Soffio sono
+aperte alle 11:30.
+
+**COSA CAMBIA PER CHI USA L'APP, e va detto chiaro**: da adesso, di mattina
+presto, **la striscia mostra cinque caselle chiuse**. E' esattamente cio' che
+l'ordine chiede, ed e' un cambiamento grosso da guardare sul telefono prima di
+darlo per buono.
+
 ---
 
 VOCI_TOTALI: 15
