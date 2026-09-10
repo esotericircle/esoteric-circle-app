@@ -16,13 +16,16 @@ enum MeditationPreset {
     rightHz: 432,
     binaural: false,
   ),
+  // **IL 528 C'ERA GIA', ed e' il terzo centro.** Non si duplica: si dichiara
+  // a quale centro appartiene, cosi' l'elenco resta uno solo.
   green528(
     id: 'green528',
     label: '528 Hz',
-    subtitle: 'Il tono verde',
+    subtitle: 'Il fuoco',
     leftHz: 528,
     rightHz: 528,
     binaural: false,
+    centro: 2,
   ),
   thetaBeat(
     id: 'theta',
@@ -31,6 +34,72 @@ enum MeditationPreset {
     leftHz: 210,
     rightHz: 217,
     binaural: true,
+  ),
+  // **LE SETTE DEI CENTRI, ordine DD voce 12, 10 settembre 2026.**
+  //
+  // **Non mancavano per un file audio assente**, ed e' la prima cosa che
+  // l'ordine chiede di dichiarare: qui non ci sono file, i toni li **sintetizza**
+  // `ToneGenerator` campione per campione. Mancavano perche' nessuno le aveva
+  // scritte in questo elenco, mentre `FrequenzaDelGiorno.hertzPerCentro` le
+  // portava tutte e sette da sempre.
+  //
+  // **E la loro assenza faceva dire una bugia all'app.** La schermata scriveva
+  // *"la tradizione gli accosta i 639 hertz, e' la frequenza di questa
+  // sessione"* e poi suonava i 432 di `calm432`, perche' era l'unico preset di
+  // partenza possibile. **Il numero scritto e il numero suonato erano due.**
+  radice396(
+    id: 'radice396',
+    label: '396 Hz',
+    subtitle: 'La radice',
+    leftHz: 396,
+    rightHz: 396,
+    binaural: false,
+    centro: 0,
+  ),
+  sacro417(
+    id: 'sacro417',
+    label: '417 Hz',
+    subtitle: 'Il sacro',
+    leftHz: 417,
+    rightHz: 417,
+    binaural: false,
+    centro: 1,
+  ),
+  cuore639(
+    id: 'cuore639',
+    label: '639 Hz',
+    subtitle: 'Il cuore',
+    leftHz: 639,
+    rightHz: 639,
+    binaural: false,
+    centro: 3,
+  ),
+  gola741(
+    id: 'gola741',
+    label: '741 Hz',
+    subtitle: 'La gola',
+    leftHz: 741,
+    rightHz: 741,
+    binaural: false,
+    centro: 4,
+  ),
+  terzoOcchio852(
+    id: 'terzoocchio852',
+    label: '852 Hz',
+    subtitle: 'Il terzo occhio',
+    leftHz: 852,
+    rightHz: 852,
+    binaural: false,
+    centro: 5,
+  ),
+  corona963(
+    id: 'corona963',
+    label: '963 Hz',
+    subtitle: 'La corona',
+    leftHz: 963,
+    rightHz: 963,
+    binaural: false,
+    centro: 6,
   );
 
   const MeditationPreset({
@@ -40,7 +109,28 @@ enum MeditationPreset {
     required this.leftHz,
     required this.rightHz,
     required this.binaural,
+    this.centro,
   });
+
+  /// **L'INDICE DEL CENTRO A CUI QUESTA FREQUENZA APPARTIENE**, oppure nulla.
+  ///
+  /// Nulla per il 432, che e' un'accordatura e non un centro, e per il battito
+  /// theta, che e' un battito e non una nota. Serve a una cosa sola e
+  /// importante: **far suonare alla sessione la frequenza che la schermata
+  /// dichiara**.
+  final int? centro;
+
+  /// La frequenza del centro [indice], oppure nulla se nessuna la porta.
+  ///
+  /// Se un giorno un centro restasse senza la sua frequenza, questa torna
+  /// nulla e la schermata ripiega dichiarandolo, invece di suonare un numero
+  /// diverso da quello che ha scritto.
+  static MeditationPreset? perCentro(int indice) {
+    for (final p in MeditationPreset.values) {
+      if (p.centro == indice) return p;
+    }
+    return null;
+  }
 
   final String id;
   final String label;

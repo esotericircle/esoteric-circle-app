@@ -42,6 +42,8 @@ abstract final class LibreriaDeiRespiri {
     // --- I SETTE SUONI SEME, uno per centro ---
     Respiro(
       id: 'bija_lam',
+      sintomo: Sintomo.agitazione,
+      perQuando: 'per quando ti senti senza appoggio',
       nome: 'Il suono della radice',
       centro: 0,
       durata: Duration(minutes: 5),
@@ -51,6 +53,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_vam',
+      sintomo: Sintomo.tensione,
+      perQuando: 'per quando il ventre resta stretto',
       nome: 'Il suono del sacro',
       centro: 1,
       durata: Duration(minutes: 5),
@@ -60,6 +64,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_ram',
+      sintomo: Sintomo.stanchezza,
+      perQuando: 'per i giorni in cui non parte niente',
       nome: 'Il suono del fuoco',
       centro: 2,
       durata: Duration(minutes: 5),
@@ -69,6 +75,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_yam',
+      sintomo: Sintomo.respiroCorto,
+      perQuando: 'per quando il fiato resta in alto',
       nome: 'Il suono del cuore',
       centro: 3,
       durata: Duration(minutes: 5),
@@ -78,6 +86,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_ham',
+      sintomo: Sintomo.tensione,
+      perQuando: 'per quando la gola si chiude prima di parlare',
       nome: 'Il suono della gola',
       centro: 4,
       durata: Duration(minutes: 5),
@@ -87,6 +97,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'bija_om',
+      sintomo: Sintomo.concentrazione,
+      perQuando: 'per quando l\'attenzione scivola via',
       nome: 'Il suono del terzo occhio',
       centro: 5,
       durata: Duration(minutes: 5),
@@ -96,6 +108,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'silenzio_corona',
+      sintomo: Sintomo.pensieri,
+      perQuando: 'per quando la testa non si ferma',
       nome: 'Il silenzio della corona',
       centro: 6,
       durata: Duration(minutes: 5),
@@ -107,6 +121,8 @@ abstract final class LibreriaDeiRespiri {
     // --- IL RESPIRO DI RISONANZA, il fondamento vero ---
     Respiro(
       id: 'risonanza_sei',
+      sintomo: Sintomo.ansia,
+      perQuando: 'per quando il petto va piu\' veloce di te',
       nome: 'Sei respiri al minuto',
       centro: 3,
       durata: Duration(minutes: 7),
@@ -127,6 +143,8 @@ abstract final class LibreriaDeiRespiri {
     // sono pratiche vere, non versioni mutilate delle altre.
     Respiro(
       id: 'breve_dodici',
+      sintomo: Sintomo.agitazione,
+      perQuando: 'per i due minuti che hai adesso',
       nome: 'Dodici respiri',
       centro: -1,
       durata: Duration(minutes: 2),
@@ -136,6 +154,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'breve_soglia',
+      sintomo: Sintomo.tensione,
+      perQuando: 'per prima di entrare da qualche parte o di uscirne',
       nome: 'Il respiro della soglia',
       centro: -1,
       durata: Duration(minutes: 3),
@@ -147,6 +167,8 @@ abstract final class LibreriaDeiRespiri {
     // --- LE FREQUENZE, dichiarate per quello che sono ---
     Respiro(
       id: 'solfeggio_giorno',
+      sintomo: Sintomo.stanchezza,
+      perQuando: 'per le sere in cui non hai voglia di contare niente',
       nome: 'La frequenza del giorno',
       centro: -1,
       durata: Duration(minutes: 7),
@@ -156,6 +178,8 @@ abstract final class LibreriaDeiRespiri {
     ),
     Respiro(
       id: 'binaurale_calma',
+      sintomo: Sintomo.insonnia,
+      perQuando: 'per le sere in cui il sonno non arriva',
       nome: 'Due toni che si incontrano',
       centro: -1,
       durata: Duration(minutes: 10),
@@ -208,6 +232,8 @@ class Respiro {
   const Respiro({
     required this.id,
     required this.nome,
+    required this.sintomo,
+    required this.perQuando,
     required this.centro,
     required this.durata,
     required this.cosaSiFa,
@@ -216,6 +242,25 @@ class Respiro {
 
   final String id;
   final String nome;
+
+  /// **IL SINTOMO A CUI RISPONDE.** Ordine DD voce 12, 10 settembre 2026.
+  ///
+  /// **Da dove nasce**: *"all'utente non importa memorizzare quattro pratiche
+  /// se non sa cosa farne e perche'"*. Una libreria ordinata per centri
+  /// sanscriti chiede di sapere gia' cosa si cerca; una ordinata per sintomi
+  /// risponde a chi arriva con un problema e nessun vocabolario.
+  final Sintomo sintomo;
+
+  /// **PER QUANDO, e sta nel verbo.** Ordine DD voce 12.
+  ///
+  /// **Il confine di quest'app sta qui, e non nel sostantivo.** Si scrive
+  /// *"per le sere in cui il sonno non arriva"*, non *"cura l'insonnia"*. Si
+  /// scrive *"per quando la testa non si ferma"*, non *"elimina l'ansia"*.
+  ///
+  /// **La ragione e' concreta e ha gia' fatto un danno**: le linee guida di
+  /// Apple al punto 1.4.1 colpiscono le app che offrono trattamenti
+  /// inaccurati, e questa app ha gia' subito un rifiuto su iOS.
+  final String perQuando;
 
   /// L'indice del centro, oppure meno uno per le pratiche che valgono per
   /// tutti i centri.
@@ -232,6 +277,32 @@ class Respiro {
   final Tradizione tradizione;
 
   String get quantoDura => '${durata.inMinutes} minuti';
+}
+
+/// **I SINTOMI, IN PAROLE COMUNI DEL BENESSERE.** Ordine DD voce 12.
+///
+/// **Sono otto e li ha dettati il fondatore**: insonnia e ansia, e con loro
+/// stanchezza, tensione, agitazione, difficolta' di concentrazione, pensieri
+/// che non si fermano, respiro corto.
+///
+/// **NESSUNO DI QUESTI E' UNA DIAGNOSI**, e l'etichetta e' un sostantivo
+/// comune, non un termine clinico. Cio' che tiene la funzione fuori dal
+/// terreno medico non e' pero' il sostantivo: e' il verbo, e vive in
+/// [Respiro.perQuando].
+enum Sintomo {
+  insonnia('Insonnia'),
+  ansia('Ansia'),
+  stanchezza('Stanchezza'),
+  tensione('Tensione'),
+  agitazione('Agitazione'),
+  concentrazione('Difficoltà di concentrazione'),
+  pensieri('Pensieri che non si fermano'),
+  respiroCorto('Respiro corto');
+
+  const Sintomo(this.etichetta);
+
+  /// Come si scrive a schermo, grande, in testa alla voce.
+  final String etichetta;
 }
 
 /// **LE TRADIZIONI, CON LA LORO FONTE E IL LORO PESO.** Ordine DB voce 02.

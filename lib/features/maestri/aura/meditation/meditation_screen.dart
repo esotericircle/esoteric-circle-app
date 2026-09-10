@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
+import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -75,7 +76,19 @@ class _MeditationScreenState extends State<MeditationScreen>
   static const int _cycleMs = _inhaleMs + _holdMs + _exhaleMs;
 
   late final AnimationController _breath;
-  MeditationPreset _preset = MeditationPreset.calm432;
+  /// **LA FREQUENZA DI PARTENZA E' QUELLA DEL CENTRO DI OGGI.**
+  /// Ordine DD voce 12, 10 settembre 2026.
+  ///
+  /// **Difetto trovato leggendo il codice accanto al testo che l'app mostra.**
+  /// La schermata scriveva *"la tradizione gli accosta i 639 hertz. E' la
+  /// frequenza di questa sessione"* e poi suonava **432**, perche' questo
+  /// campo partiva da `calm432` e nessuno lo legava al centro del giorno.
+  /// **Il numero scritto e il numero suonato erano due**, e chi ascoltava con
+  /// le cuffie sentiva la bugia.
+  ///
+  /// Nulla finche' `initState` non lo riempie: si assegna li', dove il giorno
+  /// e' noto.
+  late MeditationPreset _preset;
   bool _active = false;
 
   /// **LA MEDITAZIONE HA UNA FINE, ordine BF voce 05.b (ordine P voce 35).**
@@ -158,6 +171,11 @@ class _MeditationScreenState extends State<MeditationScreen>
   @override
   void initState() {
     super.initState();
+    // **LA FREQUENZA SEGUE IL CENTRO DI OGGI**, e se un centro restasse senza
+    // la sua si ripiega sul 432 dichiarandolo, invece di suonare un numero
+    // diverso da quello scritto.
+    _preset = MeditationPreset.perCentro(_indiceDelCentro) ??
+        MeditationPreset.calm432;
     _breath = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: _cycleMs),
@@ -231,7 +249,21 @@ class _MeditationScreenState extends State<MeditationScreen>
   }
 
   /// **IL DITO SCENDE: inspira.** Ordine CZ voce 08.
+  ///
+  /// **E SE LA SESSIONE NON E' PARTITA, PARTE ADESSO.** Ordine DD voce 12,
+  /// 10 settembre 2026.
+  ///
+  /// **Difetto misurato sul telefono 767f596c**, build 2244: toccando il fiore
+  /// cambiavano **449.637 pixel**, cioe' i petali si aprivano davvero, e nei
+  /// tre secondi dopo ne cambiavano **4.358**, cioe' rumore. Al centro del
+  /// fiore c'era scritto `Tocca per iniziare` e **non iniziava niente**: il
+  /// gesto muoveva i petali e la sessione restava ferma, perche' l'unico
+  /// posto che la faceva partire era il tondo del play piu' in basso.
+  ///
+  /// **Un comando che dichiara cosa fa deve farlo.** La riga sotto e' tutta la
+  /// cura: il primo tocco accende la sessione, i tocchi dopo respirano.
   void _inspira() {
+    if (!_active) _togglePlay();
     _dito.ditoGiu(DateTime.now());
     // La vibrazione al cambio di fase e' cio' che rende il rito possibile a
     // occhi chiusi: senza, chi chiude gli occhi non sa quando cambiare.
@@ -354,6 +386,28 @@ class _MeditationScreenState extends State<MeditationScreen>
     );
   }
 
+  /// **SCELTO IL SINTOMO, LA PRATICA PARTE SUBITO.** Ordine DD voce 12.
+  ///
+  /// *"Scelto il sintomo, Aura fa partire la pratica adatta subito, senza
+  /// altri passaggi da confermare."* Nessuna schermata in mezzo e nessuna
+  /// conferma: si tocca e si respira.
+  ///
+  /// **E LA FREQUENZA SEGUE LA PRATICA.** Una pratica del centro del cuore
+  /// suona il tono del cuore: e' l'unico modo perche' il numero che la
+  /// schermata scrive e il numero che suona restino lo stesso numero.
+  void _cominciaLaPratica(Respiro r) {
+    final suo = MeditationPreset.perCentro(r.centro);
+    setState(() {
+      if (suo != null) _preset = suo;
+      _sceltaAperta = false;
+    });
+    if (!_active) {
+      _togglePlay();
+    } else {
+      widget.player.play(_preset);
+    }
+  }
+
   void _choose(MeditationPreset preset) {
     setState(() => _preset = preset);
     if (_active) widget.player.play(preset);
@@ -393,7 +447,24 @@ class _MeditationScreenState extends State<MeditationScreen>
           const AngoloDellaBarra(),
         ],
       ),
-      body: SafeArea(
+      // **LO SFONDO E' IL MONDO DI AURA, NON IL NERO.** Ordine DD voce 13,
+      // 10 settembre 2026.
+      //
+      // **Difetto visto sul telefono 767f596c**, build 2244: la schermata
+      // aveva `ColorTokens.neutralDeepest` e basta, cioe' **nero pieno**,
+      // senza una stella e senza parallasse. Non e' il mondo di Aura e non e'
+      // quello dell'app: ogni altra schermata di questo progetto poggia sul
+      // cosmo, e la Meditazione era l'unica stanza buia della casa.
+      //
+      // Il cielo e' lo stesso della home, con la palette di Aura passata a
+      // mano: **stesso componente, stesso movimento, colore del Maestro**.
+      // Il seme e' suo, cosi' le stelle non ripetono la figura di un'altra
+      // schermata.
+      body: CosmosBackground(
+        seed: 24,
+        showZodiac: false,
+        paletteOverride: palette,
+        child: SafeArea(
         top: false,
         // **IL LOTO PRENDE LA LARGHEZZA INTERA, E IL RESTO SCORRE SOTTO.**
         // Ordine DB voce 13, difetto trovato sul telefono 767f596c il 9
@@ -521,6 +592,23 @@ class _MeditationScreenState extends State<MeditationScreen>
                     textAlign: TextAlign.center,
                     stile: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                  // **IL PULSANTE DEL SINTOMO STA SUBITO SOTTO LA RIGA DI
+                  // AURA.** Ordine DD voce 12, 10 settembre 2026, e l'ordine
+                  // lo colloca per nome: *"subito sotto la riga con cui Aura
+                  // consiglia la meditazione del giorno"*.
+                  //
+                  // **Prima stava in fondo alla colonna**, dopo il fiore,
+                  // dopo la frequenza, dopo il play e dopo la card: chi non
+                  // scorreva fino in fondo non sapeva che la libreria
+                  // esistesse. La porta principale resta quella dell'ordine
+                  // CZ voce 06, Aura sceglie: questo e' il secondo modo, per
+                  // chi arriva con un sintomo invece che con una giornata.
+                  PannelloDellaLibreria(
+                    palette: palette,
+                    centroDiOggi: _indiceDelCentro,
+                    onSceglie: _cominciaLaPratica,
                   ),
                   const SizedBox(height: SpacingTokens.sm),
                   // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una
@@ -725,18 +813,6 @@ class _MeditationScreenState extends State<MeditationScreen>
                       ),
                     ],
                   ),
-                  // **LA LIBRERIA STA SOTTO, E NON DAVANTI.** Ordine DB
-                  // voci 01, 02 e 05, 9 settembre 2026. La porta principale
-                  // resta quella dell'ordine CZ voce 06: Aura sceglie. Questo
-                  // pannello e' chiuso finche' non lo si apre, ed e' per chi
-                  // vuole cercare, comporre il proprio rito e leggere le
-                  // fonti di ogni pratica.
-                  PannelloDellaLibreria(
-                    palette: palette,
-                    centroDiOggi: _indiceDelCentro,
-                    sequenze: _sequenze,
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
                   // Fondamento onesto, senza ripetere il disclaimer.
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -762,6 +838,7 @@ class _MeditationScreenState extends State<MeditationScreen>
             ),
           ],
           ),
+        ),
         ),
       ),
     );

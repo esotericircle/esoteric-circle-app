@@ -117,13 +117,39 @@ void main() {
     // Ordine DB voce 01: *"se una pratica ha bisogno di nominare una
     // condizione per avere senso, quella pratica non entra"*. Ed e la stessa
     // riga che tiene questa funzione fuori dal punto 1.4.1 di Apple.
+    // **IL CONFINE SI E' SPOSTATO DAL SOSTANTIVO AL VERBO.** Ordine DD voce
+    // 12, 10 settembre 2026, decisione del fondatore scritta per esteso:
+    // *"il confine sta nel verbo, non nel sostantivo. Si scrive 'per le sere
+    // in cui il sonno non arriva', non 'cura l'insonnia'. Si scrive 'per
+    // quando la testa non si ferma', non 'elimina l'ansia'. Insonnia e ansia
+    // vanno bene"*.
+    //
+    // **Perche' il cambio non allarga il permesso, lo stringe.** Vietare i
+    // sostantivi teneva la libreria muta su cio' che la persona cerca, e la
+    // costringeva a girare in tondo fra nomi sanscriti. **Il rischio davanti
+    // ad Apple non e' nominare l'insonnia: e' promettere di curarla**, e il
+    // punto 1.4.1 colpisce i trattamenti inaccurati, non le parole comuni.
+    //
+    // Quindi qui restano i **verbi e le promesse**, e i due sostantivi
+    // passano soltanto dove l'ordine li vuole: nell'etichetta del sintomo, e
+    // lo prova la riga sotto.
     const vietate = [
-      'guarisc', 'cura', 'terapia', 'malattia', 'sintomo', 'disturbo',
-      'dolore', 'ansia', 'insonnia', 'pressione', 'dna', 'immunitario',
-      'infiammazion', 'depression', 'diagnosi',
+      'guarisc', 'guarig', 'curare', 'cura l', 'cura la', 'cura il',
+      'terapia', 'terapeutic', 'elimina', 'risolve', 'allevia', 'previene',
+      'tratta l', 'malattia', 'disturbo', 'patolog', 'diagnosi',
+      'effetto clinico', 'pressione', 'dna', 'immunitario', 'infiammazion',
+      'depression',
     ];
     final testi = <String>[
-      for (final p in LibreriaDeiRespiri.pronte) ...[p.nome, p.cosaSiFa],
+      for (final p in LibreriaDeiRespiri.pronte) ...[
+        p.nome,
+        p.cosaSiFa,
+        // **I DUE CAMPI NUOVI DELL'ORDINE DD VOCE 12**, e senza di loro
+        // questa guardia era verde per non averli guardati: il sintomo e la
+        // riga al verbo sono proprio i testi che rischiano di sconfinare.
+        p.perQuando,
+        p.sintomo.etichetta,
+      ],
       for (final t in Tradizione.values) ...[t.nome, t.fonte, t.comeSiDice],
     ];
     cardinaleMinimo(testi.length, 25,
@@ -142,8 +168,47 @@ void main() {
     print('ORDINE DB VOCE 11: testi della libreria guardati ${testi.length}, '
         'sconfinamenti ${sconfinamenti.length}');
     expect(sconfinamenti, isEmpty,
-        reason: 'la libreria nomina condizioni o promette effetti: '
+        reason: 'la libreria promette una cura o un effetto: '
             '${sconfinamenti.join(" | ")}');
+
+    // **REGOLA H: I DUE SOSTANTIVI ESISTONO SOLO DOVE DEVONO.**
+    //
+    // Provare che i verbi di cura non ci sono non basta: se "insonnia"
+    // finisse dentro un `cosaSiFa` o dentro una fonte, la libreria
+    // tornerebbe a nominare una condizione fuori dal posto in cui il
+    // fondatore l'ha ammessa. Qui si prova la presenza nell'etichetta **e
+    // l'assenza in tutto il resto**.
+    final etichette = {for (final s in Sintomo.values) s.etichetta};
+    expect(etichette.map((e) => e.toLowerCase()),
+        containsAll(['insonnia', 'ansia']),
+        reason: 'i due sostantivi che il fondatore ha ammesso non sono piu '
+            'nemmeno fra i sintomi: questa meta della guardia non misura piu '
+            'niente');
+    final fuoriPosto = <String>[];
+    for (final p in LibreriaDeiRespiri.pronte) {
+      for (final testo in [p.nome, p.cosaSiFa, p.perQuando]) {
+        for (final n in const ['insonnia', 'ansia']) {
+          if (testo.toLowerCase().contains(n)) {
+            fuoriPosto.add('"$n" in "$testo"');
+          }
+        }
+      }
+    }
+    for (final t in Tradizione.values) {
+      for (final testo in [t.nome, t.fonte, t.comeSiDice]) {
+        for (final n in const ['insonnia', 'ansia']) {
+          if (testo.toLowerCase().contains(n)) {
+            fuoriPosto.add('"$n" in "$testo"');
+          }
+        }
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 12: sintomi dichiarati ${Sintomo.values.length}, '
+        'sostantivi fuori dall etichetta ${fuoriPosto.length}');
+    expect(fuoriPosto, isEmpty,
+        reason: 'una condizione e nominata fuori dall etichetta del sintomo, '
+            'dove l ordine non l ha ammessa: ${fuoriPosto.join(" | ")}');
   });
 
   test('LA PRATICA DI OGGI VIENE DAL CENTRO DI OGGI', () {
