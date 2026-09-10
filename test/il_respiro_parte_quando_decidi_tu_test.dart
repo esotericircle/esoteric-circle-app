@@ -14,6 +14,19 @@ import 'package:flutter_test/flutter_test.dart';
 /// La prova monta la guida, che e' il punto unico della partenza: la
 /// schermata del Soffio la monta identica.
 void main() {
+  /// **LA FINESTRA E UN TELEFONO, dal 10 settembre 2026.** Ordine DD voce
+  /// 03: il cerchio del respiro prende il settanta per cento della larghezza
+  /// dello SCHERMO, e sulla finestra di prova, 800 per 600, sono
+  /// cinquecentosessanta punti in un riquadro alto seicento. La colonna
+  /// sbordava e il conto alla rovescia finiva fuori campo: la prova non
+  /// trovava piu il numero 3 e cadeva su una scena che nessun telefono
+  /// mostra.
+  void telefono(WidgetTester tester) {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+  }
+
   Widget host({bool riduci = false}) => MaterialApp(
         builder: (ctx, child) => MediaQuery(
           data: MediaQuery.of(ctx).copyWith(disableAnimations: riduci),
@@ -32,6 +45,7 @@ void main() {
 
   testWidgets('senza tocco il respiro NON parte, neanche dopo molto',
       (tester) async {
+    telefono(tester);
     await tester.pumpWidget(host());
     await tester.pump();
     // Venti secondi: dieci volte il vecchio timer automatico.
@@ -50,6 +64,7 @@ void main() {
 
   testWidgets('al tocco parte il conto, e il respiro solo dopo il conto',
       (tester) async {
+    telefono(tester);
     await tester.pumpWidget(host());
     await tester.pump();
     await tester.tap(find.byKey(const Key('respiro_tocca')));
@@ -76,6 +91,7 @@ void main() {
   testWidgets(
       'con Riduci Movimento i numeri non rimpiccioliscono, il conto '
       'resta', (tester) async {
+    telefono(tester);
     await tester.pumpWidget(host(riduci: true));
     await tester.pump();
     await tester.tap(find.byKey(const Key('respiro_tocca')));

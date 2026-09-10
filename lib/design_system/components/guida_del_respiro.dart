@@ -20,6 +20,15 @@ import '../tokens/typography_tokens.dart';
 /// perche' e' esattamente il movimento che quell'impostazione chiede di
 /// togliere, e al suo posto resta il conteggio scritto, che avanza uguale. Chi
 /// ha attivato quell'impostazione non perde il rito: perde l'animazione.
+/// **QUANTO PRENDE IL CERCHIO AL CULMINE**, in frazione della larghezza dello
+/// schermo. Ordine DD voce 03, 10 settembre 2026, ed e' la quota che il
+/// fondatore ha chiesto: **almeno il settanta per cento**.
+///
+/// Sta qui e non dentro il widget del cerchio perche' e' una decisione sulla
+/// scena, non un dettaglio di disegno, e perche' la guardia la legge da qui
+/// invece di ripetere il numero.
+const double quotaAlCulmine = 0.70;
+
 class GuidaDelRespiro extends StatefulWidget {
   const GuidaDelRespiro({
     super.key,
@@ -138,8 +147,27 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
         // dissolve e non torna al minimo, perche' un rito compiuto non si
         // cancella da solo.
         final misura = m?.misura ?? 1.0;
-        final figura =
-            widget.figura ?? _CerchioDiRipiego(colore: widget.colore);
+        // **IL CERCHIO PRENDE LA MISURA DALLO SCHERMO. Ordine DD voce 03,
+        // 10 settembre 2026.**
+        //
+        // **Il fatto del fondatore**: nel Soffio del Destino il cerchio del
+        // respiro e' piccolo. Misurato sulla schermata vera in una finestra
+        // 390 per 844: **centoquaranta punti, il 35,9 per cento della
+        // larghezza**. La quota chiesta e' il **settanta per cento**.
+        //
+        // **Qui c'era un numero scritto a mano, 140**, e un numero scritto a
+        // mano non sa quanto e' largo lo schermo su cui finisce: su un
+        // telefono stretto era grande, su uno largo era un bottone.
+        //
+        // **Il culmine dell'inspirazione vale uno**, e la misura della figura
+        // scende da li' a 0,55: percio' il lato a riposo E' la quota, e il
+        // respiro la fa scendere. Nessun conto all'indietro da fare.
+        final larghezzaDelloSchermo = MediaQuery.sizeOf(context).width;
+        final figura = widget.figura ??
+            _CerchioDiRipiego(
+              colore: widget.colore,
+              lato: larghezzaDelloSchermo * quotaAlCulmine,
+            );
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -375,15 +403,19 @@ const Color inchiostroDelConteggio = Color(0xFFF3EFE6);
 /// senza questa nota diventa, dopo un mese, un cerchio vuoto che qualcuno
 /// difende.
 class _CerchioDiRipiego extends StatelessWidget {
-  const _CerchioDiRipiego({required this.colore});
+  const _CerchioDiRipiego({required this.colore, required this.lato});
 
   final Color colore;
+
+  /// Quanto e' largo a riposo, cioe' **al culmine dell'inspirazione**: la
+  /// misura del respiro parte da qui e scende. Ordine DD voce 03.
+  final double lato;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
-      height: 140,
+      width: lato,
+      height: lato,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: colore.withValues(alpha: 0.7), width: 2),

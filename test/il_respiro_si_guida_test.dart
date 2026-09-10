@@ -117,6 +117,21 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
     }
 
+    /// **LA FINESTRA E UN TELEFONO, dal 10 settembre 2026.** Ordine DD voce
+    /// 03: il cerchio del respiro prende il settanta per cento della
+    /// larghezza dello SCHERMO, e sulla finestra di prova, 800 per 600, quel
+    /// settanta per cento sono cinquecentosessanta punti in un riquadro alto
+    /// seicento: la colonna sbordava e le pretese qui sotto misuravano una
+    /// scena che nessun telefono mostra.
+    ///
+    /// **Non e una concessione alla cura**: era gia la regola di casa, e
+    /// questo file era rimasto indietro.
+    void telefono(WidgetTester tester) {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+    }
+
     Widget host({bool riduciMovimento = false}) => MaterialApp(
           home: Builder(
             builder: (ctx) => MediaQuery(
@@ -140,6 +155,7 @@ void main() {
       // cioe' metteva sulla stessa riga il gesto e il conto. Per ordine di
       // Mauro del 6 agosto 2026 il gesto sta in una parola GRANDE al centro,
       // "Inspira" ed "Espira", e il giro resta sotto come riga di servizio.
+      telefono(tester);
       await tester.pumpWidget(host());
       await tester.pump();
       // ORDINE 2163 VOCE 11: il rito parte col tocco, poi il conto di quattro
@@ -163,6 +179,7 @@ void main() {
     });
 
     testWidgets('la figura si espande e si contrae davvero', (tester) async {
+      telefono(tester);
       await tester.pumpWidget(host());
       await tester.pump();
 
@@ -199,6 +216,7 @@ void main() {
 
     testWidgets('Riduci Movimento toglie il moto e NON lascia un vuoto',
         (tester) async {
+      telefono(tester);
       await tester.pumpWidget(host(riduciMovimento: true));
       await tester.pump();
 
