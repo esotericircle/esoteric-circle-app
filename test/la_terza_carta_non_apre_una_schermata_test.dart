@@ -77,7 +77,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
-        ChangeNotifierProvider(create: (_) => EntitlementService(initial: piano)),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: piano)),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
       child: MediaQuery(
@@ -131,7 +132,6 @@ void main() {
     }
   }
 
-
   testWidgets('alla terza carta la pagina non si svuota', (tester) async {
     await monta(tester);
     // Gli indici sono quelli che la guardia della voce 1.03 usa gia: le
@@ -162,6 +162,125 @@ void main() {
             'nuova con dentro solo un ritratto e un pulsante');
     expect(pulsante, findsOneWidget,
         reason: 'il pulsante non e nella schermata principale');
+    await calma(tester);
+  });
+
+  testWidgets('ORDINE DD VOCE 08: alla terza carta la pagina non si riordina',
+      (tester) async {
+    // **LA VOCE E STATA RIAPERTA UNA TERZA VOLTA.** Ordine DD voce 08,
+    // 10 settembre 2026: *"in tarocchi la schermata in piu dopo la terza
+    // carta e tornata"*.
+    //
+    // **E le due guardie qui sopra erano verdi, e dicevano il vero.** Il
+    // ventaglio restava, le carte restavano, il pulsante c era. **Non
+    // spariva piu niente: cambiava l ORDINE.** Misurato coi rettangoli veri:
+    //
+    //     prima:  slot 348, prompt 656, ventaglio 676, gesti 838, pulsante 938
+    //     dopo:   ventaglio 246, gesti 408, pulsante 508, slot 572, carte 752
+    //
+    // Gli slot passavano da sopra il ventaglio a sotto il pulsante e tutta
+    // la pagina saliva di **quattrocentotrenta punti** in un fotogramma.
+    //
+    // **LA GRANDEZZA NUOVA E TERZA: non cosa arriva, non cosa sparisce, ma
+    // DOVE STANNO le cose che restano.** Le prime due domande erano gia
+    // state fatte e chiuse; questa e quella che nessuno aveva fatto.
+    await monta(tester);
+
+    const pezzi = [
+      'stesa_slots',
+      'stesa_fan',
+      'stesa_taglia',
+      'stesa_mischia',
+      'stesa_silenzio',
+      'stesa_suggerimento_gesto',
+      'stesa_inizia',
+    ];
+
+    Map<String, Rect> foto() {
+      final m = <String, Rect>{};
+      for (final chiave in pezzi) {
+        final f = find.byKey(Key(chiave));
+        if (f.evaluate().isNotEmpty) m[chiave] = tester.getRect(f.first);
+      }
+      return m;
+    }
+
+    await pesca(tester, 38);
+    await pesca(tester, 39);
+    final prima = foto();
+    await pesca(tester, 40);
+    final dopo = foto();
+
+    // **IL CARDINALE STA SUI SOPRAVVISSUTI.** Se alla terza carta non
+    // restasse in campo quasi niente, il confronto girerebbe su due o tre
+    // pezzi e sarebbe verde per non aver guardato la pagina.
+    final rimasti = [
+      for (final k in pezzi)
+        if (prima.containsKey(k) && dopo.containsKey(k)) k
+    ];
+    cardinaleMinimo(rimasti.length, 7,
+        cosa: 'pezzi della pagina presenti prima e dopo la terza carta',
+        perche: 'Con pochi pezzi sopravvissuti questo confronto direbbe che '
+            'la pagina non si riordina per non aver quasi niente da '
+            'ordinare, e la caduta vera sarebbe quella delle due guardie '
+            'qui sopra.');
+
+    // 1. **L ORDINE VERTICALE E LO STESSO.** E questa e la pretesa che
+    //    prende il difetto: gli slot che scavalcano il pulsante.
+    List<String> perAltezza(Map<String, Rect> m) {
+      final k = [for (final x in rimasti) x];
+      k.sort((a, b) => m[a]!.top.compareTo(m[b]!.top));
+      return k;
+    }
+
+    final ordinePrima = perAltezza(prima);
+    final ordineDopo = perAltezza(dopo);
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 08: ordine prima ${ordinePrima.join(" > ")}');
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 08: ordine dopo  ${ordineDopo.join(" > ")}');
+    expect(ordineDopo, ordinePrima,
+        reason: 'alla terza carta i pezzi della pagina cambiano posto fra '
+            'loro: prima ${ordinePrima.join(" > ")}, dopo '
+            '${ordineDopo.join(" > ")}. Chi guarda non distingue una pagina '
+            'riordinata da una pagina nuova');
+
+    // 2. **CIO CHE STA SOPRA NON SI MUOVE AFFATTO.** Gli slot sono il pezzo
+    //    piu alto fra quelli che restano, e sopra di loro non cambia niente:
+    //    se si spostano, e sparito qualcosa che stava piu su.
+    final slotPrima = prima['stesa_slots']!;
+    final slotDopo = dopo['stesa_slots']!;
+    final spostamentoDegliSlot = (slotDopo.top - slotPrima.top).abs();
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 08: gli slot stavano a ${slotPrima.top} e adesso '
+        'stanno a ${slotDopo.top}, spostamento '
+        '${spostamentoDegliSlot.toStringAsFixed(1)} punti');
+    expect(spostamentoDegliSlot, lessThan(0.5),
+        reason: 'gli slot si spostano di '
+            '${spostamentoDegliSlot.toStringAsFixed(1)} punti alla terza '
+            'carta: qualcosa che stava sopra di loro se ne e andato, e tutta '
+            'la pagina sale');
+
+    // 3. **CIO CHE STA SOTTO SI SPOSTA SOLO DI QUANTO CRESCE IL CONTENUTO.**
+    //    La terza carta si aggiunge al blocco delle carte, che diventa piu
+    //    alto di una riga: quello e movimento onesto, ed e dichiarato qui.
+    const crescitaAmmessa = 60.0;
+    final scarti = <String, double>{};
+    for (final k in rimasti) {
+      final d = (dopo[k]!.top - prima[k]!.top).abs();
+      if (d > 0.5) scarti[k] = d;
+    }
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 08: spostamenti $scarti su '
+        '${crescitaAmmessa.toStringAsFixed(0)} ammessi');
+    for (final e in scarti.entries) {
+      expect(e.value, lessThanOrEqualTo(crescitaAmmessa),
+          reason: '"${e.key}" si sposta di ${e.value.toStringAsFixed(1)} '
+              'punti alla terza carta, contro i '
+              '${crescitaAmmessa.toStringAsFixed(0)} che una carta in piu '
+              'nel blocco puo giustificare: la pagina non sta crescendo, sta '
+              'cambiando');
+    }
     await calma(tester);
   });
 

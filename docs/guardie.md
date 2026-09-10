@@ -459,7 +459,7 @@ le altre.
 | `la_stesa_si_capisce_test.dart` | la stesa si capisce | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_striscia_delle_arti_anche_in_home_test.dart` | la striscia delle arti anche in home | 1, 2 | dalla porta comune | mai | 3 |
 | `la_sveglia_trova_chi_la_riceve_test.dart` | la sveglia trova chi la riceve | 1, 2 | proprio, dichiarato | 08/09/2026, CZ | 2 |
-| `la_terza_carta_non_apre_una_schermata_test.dart` | la terza carta non apre una schermata | 1 | proprio, dichiarato | 04/09/2026, CQ | 2 |
+| `la_terza_carta_non_apre_una_schermata_test.dart` | la terza carta non apre una schermata | 1 | proprio, dichiarato | 10/09/2026, DD (rossa due volte: cardinale 6 su 7, e gli slot in coda invece che in testa) | 2 |
 | `la_testa_del_maestro_non_si_taglia_test.dart` | la testa del Maestro non si taglia a lettere grandi | 1, 2 | proprio, dichiarato | CO | 2 |
 | `la_testata_non_copre_il_maestro_test.dart` | la testata non copre il maestro | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `la_verifica_degli_angeli_e_vera_test.dart` | la verifica degli angeli e vera | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |

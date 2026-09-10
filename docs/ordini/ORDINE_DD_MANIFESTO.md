@@ -353,6 +353,67 @@ meta' e renderebbe le due righe una massa unica. **Innestato
 `EdgeInsets.zero`**, verificato col grep: la seconda meta' e' caduta dicendo
 *restano 0,0 punti: sono attaccati e si leggono come una riga sola*.
 
+## DD.08, LA SCHERMATA IN PIU' DEI TAROCCHI, riaperta la terza volta
+
+**Il fatto del fondatore**: dopo la terza carta c'e' di nuovo una schermata in
+piu'.
+
+**E LE DUE GUARDIE CHE LA SORVEGLIAVANO ERANO VERDI, E DICEVANO IL VERO.** La
+voce CQ 6.09 era stata chiusa due volte: la prima misurando **cosa arriva**
+alla terza carta (le carte scelte, il pulsante, le parole), la seconda
+misurando **cosa sparisce** (il ventaglio). Tutte e due le domande erano
+giuste e tutte e due avevano risposta buona.
+
+**LA TERZA DOMANDA NON L'AVEVA FATTA NESSUNO: dove stanno le cose che
+restano.** Misurato coi rettangoli veri su una finestra 360 per 1400, dopo la
+seconda carta e dopo la terza:
+
+| | Dopo due carte | Dopo la terza |
+| --- | --- | --- |
+| slot | **348** | **572** |
+| prompt | 656 | via |
+| ventaglio | 676 | **246** |
+| gesti | 838 | 408 |
+| pulsante | 938 | 508 |
+| carte scelte | | 752 |
+
+**Gli slot scavalcavano il pulsante** e tutta la pagina saliva di
+**quattrocentotrenta punti** in un fotogramma. Non spariva niente e non
+arrivava niente di nuovo: **gli stessi pezzi, in un ordine diverso**. Chi
+guarda non distingue una pagina riordinata da una pagina nuova.
+
+**REGOLA C, il padre**: ordine CQ voce 6.09, 4 e 5 settembre 2026. La cura di
+allora rimise a video cio' che spariva, **e lo rimise in un posto nuovo**,
+sotto il pulsante, invece di lasciarlo dove stava. Il difetto che curava era
+vero; il modo ne ha creato un altro della stessa famiglia.
+
+**LA CURA: un pezzo solo, in un posto solo.** Il blocco che sta sopra il
+ventaglio, con gli slot e le carte gia' uscite, se ne va **col responso** e non
+con l'ultima carta: la condizione passa da `!_complete` a `!_responsoPronto`.
+Il secondo montaggio sotto il pulsante e' stato tolto, e con lui la
+duplicazione. Anche il pannello della configurazione resta fino al responso:
+sparendo alla terza carta si portava via **centodue punti** e faceva salire
+tutto il resto.
+
+**Dopo la cura, misurato:**
+
+- l'ordine verticale dei sette pezzi e' **identico** prima e dopo;
+- gli slot stanno a **348,0** prima e a **348,0** dopo, spostamento **0,0**;
+- cio' che sta sotto scende di **36 punti**, che e' esattamente quanto cresce
+  il blocco delle carte con la terza dentro. **La pagina cresce, non cambia.**
+
+**LA GUARDIA E' NATA ROSSA DUE VOLTE**, nel file delle due precedenti perche'
+e' lo stesso soggetto:
+
+- **innestato** il ritorno di `!_complete` sul blocco degli slot, verificato
+  col grep: cade sul cardinale, *ha guardato 6 pezzi e ne pretende 7*;
+- **innestato** anche il secondo montaggio sotto il pulsante, verificato col
+  grep: cade sull'ordine, *prima slot > ventaglio > ... > pulsante, dopo
+  ventaglio > ... > pulsante > slot*.
+
+**REGOLA B**: le due guardie della voce 6.09 sono state viste rosse prima di
+toccare la zona, rimettendo `!_complete` sul ventaglio.
+
 ---
 
 VOCI_TOTALI: 15

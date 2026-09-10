@@ -1230,7 +1230,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         ),
         const SizedBox(height: SpacingTokens.sm),
         // La configurazione, richiusa nella sua riga di riepilogo.
-        if (!_complete) ...[
+        //
+        // **RESTA ANCHE LEI FINO AL RESPONSO. Ordine DD voce 08.** Sparendo
+        // alla terza carta si portava via **centodue punti** e faceva salire
+        // tutto cio' che le sta sotto: e' lo stesso movimento che il
+        // fondatore legge come una schermata nuova, in piccolo. Il momento in
+        // cui la pagina cambia davvero e' uno solo, ed e' il responso.
+        if (!_responsoPronto) ...[
           TarotSetupPanel(
             setup: _setup,
             palette: palette,
@@ -1244,7 +1250,31 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // Mentre si pesca, gli slot stanno appena SOPRA il ventaglio: cosi'
         // partenza e arrivo del volo sono nello stesso campo visivo e la carta
         // non vola mai verso uno slot fuori schermo.
-        if (!_complete) ...[
+        //
+        // **E CI RESTANO ANCHE DOPO LA TERZA CARTA. Ordine DD voce 08,
+        // 10 settembre 2026, e la voce CQ 6.09 era stata chiusa due volte
+        // senza chiudere questo.**
+        //
+        // **Cosa succedeva, misurato coi rettangoli veri** su una finestra
+        // 360 per 1400, dopo la seconda carta e dopo la terza:
+        //
+        //     prima:  slot 348, prompt 656, ventaglio 676, gesti 838,
+        //             pulsante 938
+        //     dopo:   ventaglio 246, gesti 408, pulsante 508, slot 572,
+        //             carte scelte 752
+        //
+        // **Non spariva piu' niente**, e le due guardie della voce 6.09
+        // dicevano il vero: il ventaglio restava, le carte restavano, il
+        // pulsante c'era. **Cambiava l'ORDINE.** Gli slot passavano da sopra
+        // il ventaglio a sotto il pulsante, e tutta la pagina saliva di
+        // **quattrocentotrenta punti** in un fotogramma. Chi guarda non
+        // distingue una pagina riordinata da una pagina nuova: e' la stessa
+        // segnalazione di sempre, con una causa diversa.
+        //
+        // **La condizione era `!_complete` e diventa `!_responsoPronto`**: il
+        // blocco se ne va col responso, che e' un cambio di scena
+        // dichiarato, e non con l'ultima carta, che non lo e'.
+        if (!_responsoPronto) ...[
           _slots(palette),
           const SizedBox(height: SpacingTokens.xs),
           // IL TESTO DELLE CARTE GIA' USCITE, A PIENA LARGHEZZA.
@@ -1256,7 +1286,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // occupava due righe senza nessun motivo.
           if (_drawn > 0) ...[
             _BloccoDelleCarte(
-              key: const Key('stesa_blocco_carte'),
+              // **LA CHIAVE DICE A CHE PUNTO SIAMO, e il posto non cambia.**
+              // Ordine DD voce 08: con le tre carte posate questo blocco e'
+              // "le carte scelte", e prima era un secondo blocco montato
+              // sotto il pulsante. Adesso e' lo stesso, dove stava.
+              key: Key(_complete
+                  ? 'stesa_blocco_carte_scelte'
+                  : 'stesa_blocco_carte'),
               carte: _spread.cards.take(_drawn).toList(),
               palette: palette,
             ),
@@ -1504,16 +1540,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // Adesso le tre carte scelte restano sotto i loro slot, e il
         // pulsante sta sotto di loro: **la pagina e' la stessa di un attimo
         // prima, con una carta in piu' e un pulsante acceso.**
-        if (_carteDopoLUltima) ...[
-          _slots(palette),
-          const SizedBox(height: SpacingTokens.xs),
-          _BloccoDelleCarte(
-            key: const Key('stesa_blocco_carte_scelte'),
-            carte: _spread.cards,
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-        ],
+        // **QUI C'ERA IL SECONDO MONTAGGIO DEGLI SLOT E DELLE CARTE, ed e'
+        // lui che riordinava la pagina.** Ordine DD voce 08, 10 settembre
+        // 2026.
+        //
+        // La voce CQ 6.09 aveva rimesso a video cio' che spariva alla terza
+        // carta, e lo aveva rimesso **qui sotto**, dopo il pulsante. Il
+        // risultato: gli stessi pezzi, in un ordine diverso, con la pagina
+        // che saliva di quattrocentotrenta punti. Adesso il blocco di sopra
+        // resta fino al responso e questo non serve piu': **un pezzo solo,
+        // in un posto solo.**
         if (_responsoInScena) _slots(palette),
         if (_responsoInScena) ...[
           const SizedBox(height: SpacingTokens.sm),
