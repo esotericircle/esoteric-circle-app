@@ -247,6 +247,7 @@ le altre.
 | `i_caratteri_dichiarati_esistono_test.dart` | i caratteri dichiarati esistono | 1, 2 | proprio, dichiarato | mai | 2 |
 | `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart` | i cinque Doni rispettano la legge dei testi | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
+| `dream_rite_screen_test.dart` | la schermata del Sigillo del Sogno | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: la Parola dell Alba non arrivava a video) | 2 |
 | `i_doni_si_aprono_alla_loro_ora_test.dart` | i doni si aprono alla loro ora | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: 73 risposte sbagliate su 120 col difetto innestato) | 1 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |

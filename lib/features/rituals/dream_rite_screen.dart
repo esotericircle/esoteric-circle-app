@@ -142,9 +142,19 @@ class DreamRiteScreen extends StatefulWidget {
 
   /// Il lettore dei toni.
   ///
-  /// Di default e' quello REALE: prima era silenzioso, quindi il rito prometteva
-  /// un battito che non usciva mai dal telefono. I test continuano a iniettare
-  /// il lettore muto, ed e' proprio per questo che il difetto non si vedeva.
+  /// **NON SUONA PIU' NIENTE, DAL 10 SETTEMBRE 2026.** Ordine DD voce 04: il
+  /// tono theta ha lasciato il Sigillo ed e' tornato nella Meditazione, dove
+  /// vive insieme alle altre otto frequenze.
+  ///
+  /// **Perche' il parametro resta.** Le rotte e le prove lo passano, e
+  /// toglierlo di colpo vorrebbe dire toccare ogni chiamante per una cosa che
+  /// non c'entra con loro. Resta come porta dichiarata e muta: **se domani
+  /// questo rito avra' un suono suo, entra da qui**, invece di aprirne una
+  /// nuova.
+  ///
+  /// La storia di prima, che resta vera: era silenzioso di default, quindi il
+  /// rito prometteva un battito che non usciva mai dal telefono; e' diventato
+  /// reale, e i test continuavano a iniettare il lettore muto.
   final TonePlayer player;
 
   static Route<void> route({
@@ -217,7 +227,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   Offset _panDito = Offset.zero;
 
   bool _riduciMovimento = false;
-  bool _suono = false;
 
   /// La runa portata dentro la notte dalla Runa del Tramonto, se stasera l'hai
   /// fatta. Chiude l'arco fra i due Doni. Null se manca, e allora il Sogno si
@@ -294,7 +303,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     _tilt.removeListener(_ridisegna);
     _tilt.dispose();
     _pulse.dispose();
-    if (_suono) widget.player.stop();
     super.dispose();
   }
 
@@ -354,15 +362,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     Future<void>.delayed(const Duration(milliseconds: 900), () {
       if (mounted) setState(() => _fase = _Fase.messaggio);
     });
-  }
-
-  Future<void> _cambiaSuono() async {
-    setState(() => _suono = !_suono);
-    if (_suono) {
-      await widget.player.play(MeditationPreset.thetaBeat);
-    } else {
-      await widget.player.stop();
-    }
   }
 
   Offset get _spostamento {
@@ -603,57 +602,13 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             textAlign: TextAlign.center,
             style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
-        if (_runaTramonto != null) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          // **QUESTA E' PROSA, NON UN'ETICHETTA. Ordine CQ voce 6.23.**
-          //
-          // Ricondurre le misure scritte a mano ai ruoli ha portato anche
-          // questa riga a `etichetta`, e la guardia lo ha preso subito: e'
-          // una frase intera che va a capo, e **il maiuscoletto e' un segnale,
-          // non un testo**. A capo diventa un muro di lettere larghe.
-          ParagrafiDiLettura(
-              testo: 'Porti dentro la notte la runa $_runaTramonto: '
-                  'lasciala parlare mentre chiudi il giorno.',
-              key: const Key('dream_runa_tramonto'),
-              textAlign: TextAlign.center,
-              stile: TypographyTokens.lettura().copyWith(
-                  color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
-        ],
-        // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
-        if (_parolaDiStamattina != null) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          // **LA PAROLA IN GRASSETTO DENTRO LA FRASE.** Ordine DD voce 02,
-          // 10 settembre 2026: qui la parola aveva lo stesso peso di
-          // "stamattina" e di "era", ed e' la sola cosa che chi legge deve
-          // riconoscere. Le virgolette le mette la frase, il grassetto lo
-          // mette questo widget.
-          FraseConLaParola(
-              frase: FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
-              parola: _parolaDiStamattina!,
-              key: const Key('dream_parola_del_mattino'),
-              textAlign: TextAlign.center,
-              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
-              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
-              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
-              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
-              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
-              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
-              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
-              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: _palette.goldSoft, height: 1.45)),
-        ],
-        // **IL RESPIRO DI OGGI.** Ordine DA voce 06: un fatto della giornata
-        // al posto di una domanda generica. Compare solo se c'e' stato.
-        if (_respiroDiOggi != null) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          ParagrafiDiLettura(
-              testo: _respiroDiOggi!,
-              key: const Key('dream_respiro_di_oggi'),
-              textAlign: TextAlign.center,
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: _palette.goldSoft, height: 1.45)),
-        ],
+        // **LA RACCOLTA DELLA GIORNATA NON STA PIU' QUI. Ordine DD voce
+        // 04, 10 settembre 2026.**
+        //
+        // Qui stavano tre righe: la runa portata dentro la notte, **la Parola
+        // dell'Alba** e il respiro di oggi. Sono passate al saluto della
+        // notte, cioe' al momento in cui il rito si chiude. La ragione sta
+        // sotto, in `_ilSaluto`.
         const SizedBox(height: SpacingTokens.md),
         _Riga(
           palette: _palette,
@@ -733,6 +688,87 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           superficie: AbitoDelResponso.di(DailyElement.night
               ).superficiePeggiore,
         ),
+        // **QUI TORNA LA GIORNATA, ordine DD voce 04, 10 settembre 2026.**
+        //
+        // **Il fatto del fondatore**: la Parola dell'Alba non torna nel
+        // Sigillo del Sogno. L'ordine chiedeva di trattarlo come una
+        // regressione grave, e la ricognizione aveva risposto che il
+        // meccanismo esisteva ed era completo: `segnaLaParola` la scrive,
+        // `parolaDiStamattina` la rilegge, la formula la mostra. **Tutto
+        // vero, e il fondatore aveva ragione lo stesso.**
+        //
+        // **LA CAUSA, trovata da una guardia che fa il giro intero.** Le tre
+        // righe della raccolta vivevano in `_nelBuio()`, cioe' nel ramo che
+        // si monta **solo durante la nebbia**, il primo momento del rito. Due
+        // cose insieme le rendevano invisibili: la lettura dal disco e'
+        // asincrona e arriva **dopo** che la nebbia e' gia' a schermo, e chi
+        // usa il rito la nebbia la dirada subito, perche' e' cio' che il rito
+        // gli chiede di fare. **Il dato arrivava e nessuno era piu' li' a
+        // vederlo.**
+        //
+        // **E il posto giusto lo diceva il testo stesso**: *"Adesso chiude il
+        // giro: dove l'hai riconosciuta oggi?"*. Una frase che dice *adesso
+        // chiude il giro* non puo' stare nel momento in cui il giro comincia.
+        //
+        // **REGOLA C**: ordine P voce 18, che scrisse il richiamo e lo mise
+        // nella nebbia quando la nebbia era l'unico momento con del testo.
+        //
+        // Le altre due righe fanno la stessa strada e per la stessa ragione:
+        // la runa del tramonto e il respiro di oggi sono la stessa raccolta,
+        // e lasciarne due nel buio e portarne una alla luce avrebbe spezzato
+        // un blocco che e' uno.
+        if (_runaTramonto != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          // **QUESTA E' PROSA, NON UN'ETICHETTA. Ordine CQ voce 6.23.**
+          //
+          // Ricondurre le misure scritte a mano ai ruoli ha portato anche
+          // questa riga a `etichetta`, e la guardia lo ha preso subito: e'
+          // una frase intera che va a capo, e **il maiuscoletto e' un segnale,
+          // non un testo**. A capo diventa un muro di lettere larghe.
+          ParagrafiDiLettura(
+              testo: 'Porti dentro la notte la runa $_runaTramonto: '
+                  'lasciala parlare mentre chiudi il giorno.',
+              key: const Key('dream_runa_tramonto'),
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura().copyWith(
+                  color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
+        ],
+        // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
+        if (_parolaDiStamattina != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          // **LA PAROLA IN GRASSETTO DENTRO LA FRASE.** Ordine DD voce 02,
+          // 10 settembre 2026: qui la parola aveva lo stesso peso di
+          // "stamattina" e di "era", ed e' la sola cosa che chi legge deve
+          // riconoscere. Le virgolette le mette la frase, il grassetto lo
+          // mette questo widget.
+          FraseConLaParola(
+              frase: FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
+              parola: _parolaDiStamattina!,
+              key: const Key('dream_parola_del_mattino'),
+              textAlign: TextAlign.center,
+              // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
+              // Il fondatore ha detto per la TERZA volta che i testi dei Doni sono
+              // piccoli, e il censimento dei caratteri gli rispondeva zero fuori
+              // misura. Diceva il vero e misurava la cosa sbagliata: sedici e' il
+              // PAVIMENTO di questa app, la misura sotto cui niente puo' scendere,
+              // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
+              // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
+              // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
+        ],
+        // **IL RESPIRO DI OGGI.** Ordine DA voce 06: un fatto della giornata
+        // al posto di una domanda generica. Compare solo se c'e' stato.
+        if (_respiroDiOggi != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          ParagrafiDiLettura(
+              testo: _respiroDiOggi!,
+              key: const Key('dream_respiro_di_oggi'),
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
+        ],
+        const SizedBox(height: SpacingTokens.sm),
         // **LA RISPOSTA PRIMA DELL'ETICHETTA. Ordine CO voce 17**, 3 settembre
         // 2026.
         //
@@ -819,46 +855,29 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           maestro: _maestro,
         ),
         const SizedBox(height: SpacingTokens.sm),
-        // **NON E' UNA TRACCIA, E' UN TONO GENERATO. Ordine CW voce 03**, 7
-        // settembre 2026.
+        // **IL TONO THETA HA LASCIATO IL SIGILLO. Ordine DD voce 04,
+        // 10 settembre 2026, per decisione del fondatore.**
         //
-        // L'icona a spento era `music_note_outlined`, una nota musicale, e
-        // l'etichetta diceva solo "Battito theta, se lo vuoi": chi leggeva
-        // aveva ogni ragione di aspettarsi un brano. **Non c'e' nessun brano.**
-        // Il codice sintetizza duecentodieci hertz a sinistra e duecento-
-        // diciassette a destra, e il battito che si sente e' la differenza,
-        // sette hertz, che e' la banda theta. In `assets/audio` non esiste
-        // nessun file theta.
+        // **Dove stava e cosa faceva.** Qui c'era un pulsante che accendeva un
+        // battito binaurale generato sul momento, duecentodieci hertz a
+        // sinistra e duecentodiciassette a destra, la cui differenza di sette
+        // hertz cade nella banda theta. L'ordine CW voce 03 gli aveva dato
+        // un'icona a onda e un'etichetta che nominava le cuffie, perche' un
+        // battito binaurale dall'altoparlante non esiste.
         //
-        // L'onda al posto della nota, e l'etichetta lo dice. **E nomina le
-        // cuffie**, che non e' un consiglio: un battito binaurale nasce dalla
-        // differenza fra i due orecchi, e dall'altoparlante del telefono i due
-        // canali si sommano in aria e il battito non esiste.
-        TextButton.icon(
-          key: const Key('dream_sound'),
-          onPressed: _cambiaSuono,
-          icon: Icon(Icons.graphic_eq,
-              size: 18, color: _palette.goldSoft),
-          label: Text(
-              _suono
-                  ? 'Tono theta acceso, con le cuffie'
-                  : 'Tono theta generato, con le cuffie',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: _palette.goldSoft)),
-        ),
+        // **Non e' stato tolto: e' stato riportato a casa sua.** Il tono vive
+        // nella Meditazione di Aura, dove sta insieme alle altre otto
+        // frequenze e dove chi lo cerca lo trova per nome, sotto il sintomo
+        // *Insonnia*, con la pratica **Due toni che si incontrano**. La
+        // decisione del fondatore dell'ordine CN, che vieta di toglierlo dalla
+        // Meditazione, resta intera e una guardia la difende.
+        //
+        // **Perche' se ne va da qui.** Il Sigillo del Sogno e' il rito che
+        // chiude il giorno e chiede dove hai riconosciuto la tua parola: un
+        // interruttore audio in fondo a quella pagina apre una seconda stanza
+        // dentro la prima, e chiede di mettersi le cuffie a chi sta per
+        // dormire.
       ];
-
-  /// Da dove nasce il tono theta, detto alla persona.
-  ///
-  /// I due numeri non sono decorazione: sono le frequenze vere che il
-  /// generatore sintetizza, e la loro differenza e' il battito. Chi vuole
-  /// verificare puo'.
-  static const String _provenienzaDelTono =
-      'Il tono theta non è una traccia registrata: il Cerchio lo genera sul '
-      'momento, a 210 hertz nell\'orecchio sinistro e 217 nel destro. La '
-      'differenza fra i due è di 7 hertz: è quello il battito che senti. '
-      'Nasce solo con le cuffie, perché ha bisogno di un orecchio per '
-      'canale.';
 
   void _mostraProvenienza() {
     foglioDelCerchio<void>(
@@ -897,15 +916,14 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                             _date, _forseLaNascita(context))),
                     style: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
-                const SizedBox(height: SpacingTokens.md),
-                // **ANCHE IL SUONO DICE DA DOVE NASCE. Ordine CW voce 03.**
-                // Un foglio che spiega la provenienza del testo e tace su
-                // quella del suono lascia credere che il suono venga da
-                // qualche altra parte.
-                Text(_provenienzaDelTono,
-                    key: const Key('dream_provenienza_del_tono'),
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.45)),
+                // **QUI STAVA LA PROVENIENZA DEL TONO THETA**, ordine CW
+                // voce 03: diceva che il battito non e' una traccia ma un
+                // suono generato sul momento. **Se n'e' andata col tono**,
+                // ordine DD voce 04: la stessa spiegazione vive nella
+                // Meditazione, accanto alla pratica che quel tono lo suona.
+                // Un foglio che spiega la provenienza di un suono che questa
+                // schermata non emette piu' e' un foglio che parla di
+                // un'altra stanza.
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
                   alignment: Alignment.centerRight,

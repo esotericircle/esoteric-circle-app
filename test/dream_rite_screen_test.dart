@@ -10,7 +10,9 @@ import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.da
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 /// La schermata del Sigillo del Sogno: nebbia, cielo, stelle unite, saluto.
@@ -206,11 +208,66 @@ void main() {
               'sensore al calcolo del Sigillo del Sogno non serve');
     }
 
-    // **E il suono dice da dove nasce**, voce CW.03: e' un tono generato, non
-    // una traccia, e un foglio che spiega il testo e tace sul suono lascia
-    // credere che il suono venga da qualche altra parte.
-    expect(find.byKey(const Key('dream_provenienza_del_tono')), findsOneWidget,
-        reason: 'il foglio della provenienza non dice che il tono theta e\' '
-            'generato dal Cerchio');
+    // **REGOLA D: QUI SI PRETENDEVA LA PROVENIENZA DEL TONO, e adesso si
+    // pretende il contrario.** Ordine DD voce 04, 10 settembre 2026, per
+    // decisione del fondatore: **il tono theta ha lasciato il Sigillo** ed e'
+    // tornato nella Meditazione di Aura, dove sta con le altre otto frequenze
+    // sotto il sintomo Insonnia.
+    //
+    // La pretesa della voce CW.03 era giusta finche' il suono usciva da
+    // questa schermata: un foglio che spiega il testo e tace sul suono lascia
+    // credere che il suono venga da un'altra parte. **Adesso il suono non
+    // c'e', e spiegarne la provenienza sarebbe parlare di un'altra stanza.**
+    //
+    // La spiegazione non e' andata perduta: vive nella Meditazione, accanto
+    // alla pratica che quel tono lo suona, e la guardia dell'ordine CN
+    // pretende che il preset resti li'.
+    expect(find.byKey(const Key('dream_provenienza_del_tono')), findsNothing,
+        reason: 'il foglio delle fonti del Sigillo spiega ancora da dove '
+            'nasce un tono che questa schermata non emette piu');
+    expect(find.byKey(const Key('dream_sound')), findsNothing,
+        reason: 'il pulsante del tono theta e ancora nel Sigillo');
+  });
+
+  testWidgets(
+      'ORDINE DD VOCE 04: la Parola dell Alba TORNA a video nel Sigillo',
+      (tester) async {
+    // **Il fatto del fondatore**: la Parola dell Alba non torna nel Sigillo
+    // del Sogno.
+    //
+    // **E il meccanismo c e da sempre.** Ordine P voce 18:
+    // `FiloDelGiorno.segnaLaParola` la scrive dall Alba,
+    // `parolaDiStamattina` la rilegge dal Sigillo, e la formula la mostra.
+    // La guardia dell ordine CY prova che **il dato sopravvive** fra i due
+    // riti, anche a chi si alza alle due di notte.
+    //
+    // **Quello che nessuno provava e che la frase ARRIVI A VIDEO.** Il dato
+    // che sopravvive e la frase che si legge sono due fatti diversi, e fra
+    // loro c e tutta la schermata: una fase che non arriva, un ramo che non
+    // si monta, un rito che non si compie. Questa prova fa il giro intero:
+    // segna la parola come farebbe l Alba, compie il rito della sera, e
+    // guarda se la riga c e.
+    silenceSensors(tester);
+    grande(tester);
+    SharedPreferences.setMockInitialValues({});
+    await FiloDelGiorno.segnaLaParola('Soglia', quando);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compiIlRito(tester);
+    // La lettura dal disco e asincrona: si lascia arrivare.
+    await passo(tester);
+    await tester.pump(const Duration(milliseconds: 400));
+
+    final riga = find.byKey(const Key('dream_parola_del_mattino'));
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 04: la riga della parola del mattino '
+        '${riga.evaluate().isEmpty ? "NON c e" : "c e"} a video');
+    expect(riga, findsOneWidget,
+        reason: 'la Parola dell Alba non torna a video nel Sigillo: il dato '
+            'sopravvive, la frase non arriva, e per chi guarda la promessa '
+            'dell Alba non e stata mantenuta');
+    expect(find.textContaining('Soglia'), findsWidgets,
+        reason: 'la riga c e ma non porta la parola di stamattina');
   });
 }
