@@ -24,15 +24,50 @@ abstract final class CartaDiNascitaDeiTarocchi {
   ///
   /// Si sommano tutte le cifre di giorno, mese e anno; se la somma supera
   /// ventidue si sommano di nuovo le sue cifre, finche' non ci sta.
-  static int numeroDi(DateTime nascita) {
-    var somma =
-        _cifre(nascita.day) + _cifre(nascita.month) + _cifre(nascita.year);
+  static int numeroDi(DateTime nascita) => passiDi(nascita).numero;
+
+  /// **I PASSI DEL CALCOLO, UNO PER UNO.** Ordine DC voce 14,
+  /// 10 settembre 2026.
+  ///
+  /// **Perche' esistono.** L'animazione di rivelazione mostra le cifre della
+  /// data che si sommano e il totale che si riduce. **Se quei numeri li
+  /// ricalcolasse l'animazione, avremmo costruito una bugia visiva sopra un
+  /// dato giusto**, che l'ordine dichiara peggio di non avere l'animazione.
+  ///
+  /// Quindi i passi si leggono **da qui**, e `numeroDi` li usa a sua volta:
+  /// **una sorgente sola per il numero e per cio' che si vede a schermo.**
+  static PassiDellaCarta passiDi(DateTime nascita) {
+    final cifre = <int>[
+      ..._leCifre(nascita.day),
+      ..._leCifre(nascita.month),
+      ..._leCifre(nascita.year),
+    ];
+    var somma = 0;
+    final parziali = <int>[];
+    for (final c in cifre) {
+      somma += c;
+      parziali.add(somma);
+    }
+    final riduzioni = <int>[];
     while (somma > 22) {
       somma = _cifre(somma);
+      riduzioni.add(somma);
     }
     // Una data non puo' dare zero, ma una difesa costa una riga e vale
     // un'eccezione in meno.
-    return somma == 0 ? 22 : somma;
+    if (somma == 0) somma = 22;
+    return PassiDellaCarta(
+      cifre: cifre,
+      sommeParziali: parziali,
+      riduzioni: riduzioni,
+      numero: somma,
+    );
+  }
+
+  /// Le cifre di un numero, in ordine di lettura.
+  static List<int> _leCifre(int n) {
+    final testo = n.abs().toString();
+    return [for (final c in testo.split('')) int.parse(c)];
   }
 
   /// L'Arcano Maggiore che corrisponde al numero di nascita.
@@ -56,4 +91,34 @@ abstract final class CartaDiNascitaDeiTarocchi {
     }
     return s;
   }
+}
+
+/// **I PASSI DEL CALCOLO DELLA CARTA DI NASCITA.** Ordine DC voce 14.
+///
+/// Sono cio' che l'animazione mostra, **letti dalla funzione e non
+/// ricalcolati**: una guardia confronta i numeri a schermo con questi, passo
+/// per passo, su un campione di date.
+class PassiDellaCarta {
+  const PassiDellaCarta({
+    required this.cifre,
+    required this.sommeParziali,
+    required this.riduzioni,
+    required this.numero,
+  });
+
+  /// Le cifre della data, in ordine: giorno, mese, anno.
+  final List<int> cifre;
+
+  /// Il totale dopo ogni cifra che arriva: e' il numero che cresce al centro
+  /// mentre le cifre volano.
+  final List<int> sommeParziali;
+
+  /// Le riduzioni successive, quando il totale supera ventidue.
+  final List<int> riduzioni;
+
+  /// Il numero finale, da 1 a 22.
+  final int numero;
+
+  /// Il totale prima delle riduzioni.
+  int get totale => sommeParziali.isEmpty ? 0 : sommeParziali.last;
 }
