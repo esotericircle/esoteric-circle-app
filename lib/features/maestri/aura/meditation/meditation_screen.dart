@@ -109,21 +109,63 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// tempi a muovere il fiore. Il ritmo guidato resta come **seconda strada
   /// dichiarata**, per chi non vuole tenere il dito: e' `_breath`, quello di
   /// prima, e non e' nascosto.
-  /// **QUANTO E' DURATA LA SESSIONE FINO A ORA.** Ordine DD voce 17: e' il
-  /// numero del titolo della card e il seme del sigillo, ed e' l'unico dato
-  /// continuo che resta senza il dito.
-  Duration get _quantoEDurata {
-    final inizio = _cominciata;
-    if (inizio == null) return Duration.zero;
-    return (widget.now ?? DateTime.now()).difference(inizio);
-  }
+  /// **QUANTO E' DURATA L'ULTIMA SESSIONE, a sessione finita.** Ordine DD voce
+  /// 17, trovato sul telefono 767f596c il 11 settembre 2026.
+  ///
+  /// **Il difetto che questo campo cura.** La card compariva sotto la
+  /// condizione `_quantoEDurata.inSeconds >= 60`, letta **dentro il build**.
+  /// Ma la colonna della schermata **non si ricostruisce mentre la sessione
+  /// gira**: a ricostruirsi a ogni fotogramma e' solo il fiore, dentro il suo
+  /// `AnimatedBuilder`. Quella condizione veniva quindi valutata **una volta
+  /// sola, al tocco del play**, quando la durata era zero, e la card non
+  /// arrivava mai. Misurato sul telefono: dopo due minuti di sessione, sotto
+  /// il disclaimer non c'era niente.
+  ///
+  /// **E la cura non e' ricostruire la colonna a ogni fotogramma.** Sarebbe
+  /// far ridisegnare tutta la schermata sessanta volte al secondo per far
+  /// comparire un riquadro, e la voce AJ.01 di questo progetto e' nata proprio
+  /// contro quel genere di spreco.
+  ///
+  /// **La card e' il premio di FINE sessione**, ed e' meglio cosi' anche per
+  /// chi la usa: si respira, si arriva in fondo, e il segno di quello che si
+  /// e' fatto arriva alla fine. Un riquadro che spunta a meta' mentre si
+  /// respira e' una cosa da guardare mentre si dovrebbe avere gli occhi
+  /// socchiusi.
+  Duration _durataFinale = Duration.zero;
 
-  /// Il sigillo di questa sessione, ricalcolato quando serve.
+  /// **I SECONDI DAVVERO RESPIRATI, contati uno per uno.** Ordine DD voce 17.
+  ///
+  /// **La prima stesura li DEDUCEVA da un orologio**, cosi':
+  ///
+  ///     (widget.now ?? DateTime.now()).difference(_cominciata)
+  ///
+  /// **Ed era sbagliato in due modi.** Il primo lo ha trovato una prova: nelle
+  /// prove `widget.now` e' un'ora **iniettata e ferma**, e la sessione
+  /// comincia proprio a quell'ora, quindi la differenza faceva **sempre
+  /// zero** e la card non arrivava mai. Il secondo e' peggiore e nell'app
+  /// vera: l'orologio da parete conta anche i minuti passati con l'app in
+  /// tasca e lo schermo spento, che non sono minuti respirati.
+  ///
+  /// **Adesso si contano.** Un battito al secondo, acceso col play e spento
+  /// con lo stop: cio' che si misura e' **il tempo in cui la sessione e'
+  /// stata viva**, che e' il numero che la card promette.
+  ///
+  /// **Senza `setState`**, perche' nessuno a schermo lo guarda mentre cresce:
+  /// ridisegnare la colonna una volta al secondo per un numero che si legge
+  /// alla fine e' lo spreco che la voce AJ.01 di questo progetto ha imparato
+  /// a non fare.
+  int _secondiRespirati = 0;
+  Timer? _contaSecondi;
+
+  /// Quanto e' durata la sessione fino a ora.
+  Duration get _quantoEDurata => Duration(seconds: _secondiRespirati);
+
+  /// Il sigillo dell'ultima sessione, dai suoi quattro dati.
   List<double> get _sigilloDiOra => SigilloDellaSessione.figura(
         sintomo: _praticaScelta?.sintomo,
         hertz: _preset.leftHz.round(),
         centro: _indiceDelCentro,
-        durata: _quantoEDurata,
+        durata: _durataFinale,
       );
 
   /// La traccia dei giorni, che riempie il fiore. Ordine CZ voce 10.
@@ -257,6 +299,7 @@ class _MeditationScreenState extends State<MeditationScreen>
     _sessione?.cancel();
     widget.player.stop();
     _breath.dispose();
+    _contaSecondi?.cancel();
     super.dispose();
   }
 
@@ -352,6 +395,11 @@ class _MeditationScreenState extends State<MeditationScreen>
     });
     if (_active) {
       _cominciata = widget.now ?? DateTime.now();
+      // **IL CONTO DEI SECONDI PARTE COL RESPIRO.** Ordine DD voce 17.
+      _secondiRespirati = 0;
+      _contaSecondi?.cancel();
+      _contaSecondi = Timer.periodic(
+          const Duration(seconds: 1), (_) => _secondiRespirati++);
       widget.player.play(_preset);
       _sessione?.cancel();
       _sessione = Timer(
@@ -359,6 +407,12 @@ class _MeditationScreenState extends State<MeditationScreen>
         _alCompimento,
       );
     } else {
+      // **QUI LA SESSIONE SI CHIUDE, E LA SUA DURATA RESTA.** Ordine DD voce
+      // 17: e' il numero del titolo della card e il seme del sigillo, e
+      // dev'essere letto **adesso**, perche' fra un istante l'orologio della
+      // sessione non vale piu' niente.
+      _durataFinale = _quantoEDurata;
+      _contaSecondi?.cancel();
       // Fermarsi a meta' non e' compiere: il gesto si registra solo alla
       // fine della sessione, e chi interrompe riparte da capo.
       _sessione?.cancel();
@@ -369,6 +423,9 @@ class _MeditationScreenState extends State<MeditationScreen>
   void _alCompimento() {
     if (!mounted) return;
     widget.player.stop();
+    // **LA DURATA SI FERMA COL RESPIRO.** Ordine DD voce 17.
+    _durataFinale = _quantoEDurata;
+    _contaSecondi?.cancel();
     setState(() {
       _active = false;
       _compiuta = true;
@@ -408,7 +465,15 @@ class _MeditationScreenState extends State<MeditationScreen>
     await _memoria.segna(SessioneDiRespiro(
       quando: inizio,
       centro: _indiceDelCentro,
-      durata: adesso.difference(inizio),
+      // **LA DURATA E' QUELLA CONTATA, non quella dedotta dall'orologio.**
+      // Ordine DD voce 17, 11 settembre 2026: l'orologio da parete conta
+      // anche i minuti passati con l'app in tasca e lo schermo spento, e la
+      // memoria del respiro finiva per dire che si e' respirato mezz'ora
+      // perche' la schermata era rimasta aperta. Qui va il tempo in cui la
+      // sessione e' stata **viva**.
+      durata: _durataFinale > Duration.zero
+          ? _durataFinale
+          : adesso.difference(inizio),
       compiuta: compiuta,
       // **DA OGGI OGNI RESPIRO E' GUIDATO, e il campo resta a dirlo.**
       // Ordine DD voce 17, 10 settembre 2026: senza il dito il ritmo e' uno
@@ -432,7 +497,7 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// **CONDIVIDE LA CARD, DAL PUNTO UNICO.** Ordine DB voce 10.
   Future<void> _condividiIlRespiro() async {
     final righe = [
-      CardDelRespiro.titoloPer(_quantoEDurata),
+      CardDelRespiro.titoloPer(_durataFinale),
       ...CardDelRespiro.righeDellaCard(
         sintomo: _praticaScelta?.sintomo,
         pratica: _praticaScelta?.nome,
@@ -900,7 +965,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                         // e' il tempo davvero passato a respirare, e sotto il
                         // minuto non si offre da condividere niente: una card
                         // di venti secondi non e' un traguardo.
-                        if (_quantoEDurata.inSeconds >= 60) ...[
+                        if (!_active && _durataFinale.inSeconds >= 60) ...[
                           const SizedBox(height: SpacingTokens.md),
                           Center(
                             child: RepaintBoundary(
@@ -908,7 +973,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                               child: CardDelRespiro(
                                 figura: _sigilloDiOra,
                                 giorno: widget.now ?? DateTime.now(),
-                                durata: _quantoEDurata,
+                                durata: _durataFinale,
                                 sintomo: _praticaScelta?.sintomo,
                                 pratica: _praticaScelta?.nome,
                                 hertz: _preset.leftHz.round(),

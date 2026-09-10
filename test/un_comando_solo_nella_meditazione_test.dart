@@ -195,4 +195,96 @@ void main() {
             '${distanza.toStringAsFixed(0)} punti: l invito e il comando che '
             'nomina non si vedono insieme');
   });
+
+  testWidgets('LA CARD ARRIVA A SESSIONE COMPIUTA, e porta il numero vero',
+      (tester) async {
+    // **TROVATO SUL TELEFONO 767f596c l 11 settembre 2026**, con la build in
+    // mano: dopo due minuti di sessione, sotto il disclaimer non c era
+    // niente. Nessuna card, nessun pulsante di condivisione.
+    //
+    // **DUE DIFETTI, uno dentro l altro.**
+    //
+    // **Il primo**: la card compariva sotto `_quantoEDurata.inSeconds >= 60`,
+    // letta **dentro il build**, e la colonna della schermata **non si
+    // ricostruisce mentre la sessione gira**. Quella condizione veniva
+    // valutata una volta sola, al tocco del play, con la durata a zero.
+    //
+    // **Il secondo, che ha trovato questa prova**: la durata veniva
+    // **dedotta** da `widget.now ?? DateTime.now()` meno l ora di inizio. Nei
+    // test `widget.now` e un ora **iniettata e ferma**, e la sessione comincia
+    // proprio a quell ora: la differenza faceva **sempre zero**. Nell app vera
+    // era sbagliato in un altro modo, peggiore: l orologio da parete conta
+    // anche i minuti passati con l app in tasca e lo schermo spento, che non
+    // sono minuti respirati. **Adesso i secondi si contano, uno per uno.**
+    //
+    // **E LA CARD E IL PREMIO DI CHI ARRIVA IN FONDO**, non di chi si ferma:
+    // vive dentro il blocco del compimento, come la riga *"la meditazione e
+    // portata a compimento"*. E la stessa legge che il fondatore ha dato al
+    // gesto, *"fermarsi a meta non e compiere"*, e da' una ragione per
+    // arrivare alla fine.
+    await apri(tester);
+    final card = find.byKey(const Key('card_del_respiro'));
+    final condividi = find.byKey(const Key('meditazione_condividi_respiro'));
+
+    expect(card, findsNothing,
+        reason: 'la card e a schermo prima che qualcuno abbia respirato');
+
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 200));
+    // A meta strada non c e ancora niente da portarsi via.
+    await tester.pump(const Duration(seconds: 40));
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: a quaranta secondi la card e '
+        '${card.evaluate().length}');
+    expect(card, findsNothing,
+        reason: 'la card arriva a meta sessione: si guarda un riquadro mentre '
+            'si dovrebbero avere gli occhi socchiusi');
+
+    // E si arriva in fondo: dodici cicli da undici secondi.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(seconds: 11));
+    }
+    await tester.pump(const Duration(milliseconds: 400));
+
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: a sessione compiuta la card e '
+        '${card.evaluate().length}, il condividi e '
+        '${condividi.evaluate().length}');
+    expect(card, findsOneWidget,
+        reason: 'compiuta la sessione la card non arriva: chi ha respirato '
+            'fino in fondo non ha niente da portarsi via');
+    expect(condividi, findsOneWidget,
+        reason: 'la card c e e non si puo condividere');
+
+    // **E PORTA IL NUMERO VERO**: due minuti e dodici, non "un momento".
+    final titolo = tester
+        .widget<Text>(find.byKey(const Key('card_respiro_titolo')))
+        .data!;
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: il titolo della card dice "$titolo"');
+    expect(titolo.contains('MOMENTO'), isFalse,
+        reason: 'dopo una sessione intera il titolo dice ancora "un momento": '
+            'i secondi respirati non arrivano alla card');
+    expect(RegExp(r'\d').hasMatch(titolo), isTrue,
+        reason: 'il titolo non porta nessun numero: "$titolo"');
+  });
+
+  testWidgets('REGOLA H: CHI SI FERMA A META NON HA NESSUNA CARD',
+      (tester) async {
+    // **La meta opposta, ed e' la legge del fondatore applicata alla card**:
+    // *"fermarsi a meta non e compiere"*. Una card che arriva comunque
+    // toglierebbe la ragione per arrivare in fondo.
+    await apri(tester);
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(seconds: 20));
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 300));
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: fermata a venti secondi, card '
+        '${find.byKey(const Key('card_del_respiro')).evaluate().length}');
+    expect(find.byKey(const Key('card_del_respiro')), findsNothing,
+        reason: 'chi si ferma dopo venti secondi ottiene la card lo stesso: '
+            'non e un traguardo, e chi la spedisce se ne accorge');
+  });
 }
