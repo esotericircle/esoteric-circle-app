@@ -414,6 +414,44 @@ e' lo stesso soggetto:
 **REGOLA B**: le due guardie della voce 6.09 sono state viste rosse prima di
 toccare la zona, rimettendo `!_complete` sul ventaglio.
 
+## DD.03, IL CERCHIO DEL SOFFIO
+
+**Il fatto del fondatore**: nel Soffio del Destino il cerchio del respiro e'
+piccolo e non e' centrato sul soffione.
+
+**Misurato sotto la REGOLA I**, montando la schermata vera in una finestra 390
+per 844 e leggendo la figura **dipinta**, non il riquadro:
+
+| | Prima | Dopo |
+| --- | --- | --- |
+| Larghezza al culmine | **140,0** punti | **273,0** punti |
+| Quota dello schermo | **35,9 per cento** | **70,0 per cento** |
+| Centro | 195,0, gia' giusto | 195,0 |
+
+**Il centro era gia' a posto**, scarto **0,0** punti dal centro dello schermo, e
+va detto invece di far finta che la cura abbia sistemato anche quello.
+
+**La causa**: il lato del cerchio era **un numero scritto a mano, 140**, e un
+numero scritto a mano non sa quanto e' largo lo schermo su cui finisce. Adesso
+viene dalla larghezza dello schermo per una quota dichiarata,
+`quotaAlCulmine = 0.70`. **Il culmine dell'inspirazione vale uno** e la misura
+del respiro scende da li' a 0,55: percio' il lato a riposo *e'* la quota, senza
+conti all'indietro.
+
+**LA MISURA GIUSTA E' IL DIPINTO, non il riquadro.** La chiave sta su un
+`Transform.scale`, e **un Transform non cambia la misura del riquadro che
+occupa**: `getRect` da solo direbbe centoquaranta punti a qualunque momento del
+respiro, anche mentre la figura si contrae a meta'. La guardia moltiplica il
+riquadro per la scala letta dalla matrice.
+
+**E LA CURA HA SCOPERTO DUE PROVE CHE GIRAVANO IN UNA FINESTRA IRREALE.**
+`il_respiro_si_guida` e `il_respiro_parte_quando_decidi_tu` montavano la guida
+nella finestra di prova, **800 per 600**: li' il settanta per cento sono
+cinquecentosessanta punti in un riquadro alto seicento, la colonna sbordava e
+il conto alla rovescia finiva fuori campo. **Non e' una concessione alla cura**:
+la finestra da telefono era gia' la regola di casa e quei due file erano
+rimasti indietro. Pinnate a 390 per 844, tutte e dodici le prove tornano verdi.
+
 ---
 
 VOCI_TOTALI: 15
