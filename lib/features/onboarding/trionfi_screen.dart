@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/guardian_angels.dart';
 import '../../core/viaggio/l_annuncio_dell_animale.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/onboarding/scheda_della_scelta.dart';
 import '../../core/rituals/animal_catalog.dart';
 import '../angels/angelo_ingrandito.dart';
@@ -173,11 +174,15 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                           //
                           // Al suo posto la riga di Caligo, che dice che un
                           // animale c'e' e che bisognera' scendere.
-                          Text(
-                            LAnnuncioDellAnimale.laRiga,
+                          // **IL TESTO NARRATO PASSA DALLA PORTA UNICA**, e
+                          // una guardia lo pretende: un `Text` con lo stile
+                          // di lettura non e' testo di lettura, e' un testo
+                          // che gli somiglia.
+                          ParagrafiDiLettura(
+                            testo: LAnnuncioDellAnimale.laRiga,
                             key: const Key('onboarding_annuncio_animale'),
                             textAlign: TextAlign.center,
-                            style: TypographyTokens.lettura().copyWith(
+                            stile: TypographyTokens.lettura().copyWith(
                                 color: widget.palette.goldSoft, height: 1.45),
                           ),
                         ],

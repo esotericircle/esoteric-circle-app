@@ -478,7 +478,11 @@ class _ViaggioDelloSciamanoScreenState
               key: const Key('viaggio_il_nome'),
               testo: 'È il $nome. Adesso lo conosci.',
               textAlign: TextAlign.center,
-              stile: TypographyTokens.lettura().copyWith(color: palette.gold),
+              // **ORO CHIARO E NON ORO PIENO**, e lo ha chiesto il censimento
+              // dei grigi: su un fondo di Maestro l'oro pieno arriva a 5,42
+              // contro i 7,0 che il corpo di lettura pretende.
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: palette.goldSoft),
             )
           else
             ParagrafiDiLettura(

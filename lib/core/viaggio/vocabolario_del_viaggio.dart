@@ -7,9 +7,11 @@
 /// perche' il senso nasce dalla combinazione"*.
 ///
 /// **PERCHE' CONTA.** Settantotto carte rispondono a qualunque domanda da
-/// seicento anni, e nessuno le ha mai trovate poche. Quaranta elementi
-/// disegnati fanno **8.640 scene distinte**, e ogni disegno lavora in
-/// ottocentosessanta scene diverse invece che in una sola.
+/// seicento anni, e nessuno le ha mai trovate poche.
+/// **Quarantaquattro** figure disegnate fanno **8.640 scene distinte**, e ogni
+/// disegno lavora in centinaia di scene invece che in una sola. **L ordine dice
+/// quaranta: 12 piu 18 piu 10 piu 4 fa quarantaquattro, ed e dichiarato nel
+/// manifesto sotto la Regola ZERO.**
 ///
 /// **IL CONTEGGIO NON SI SCRIVE A MANO.** L'ordine e' esplicito: si calcola
 /// dal catalogo, e una guardia rifa' il prodotto e verifica che scenda
@@ -26,8 +28,8 @@ library;
 /// Le quattro categorie da cui una scena si compone.
 enum CategoriaDellaScena {
   luogo('il luogo dove ti porta'),
-  cosa('cio che si trova li'),
-  gesto('cosa fa l animale'),
+  cosa('ciò che si trova lì'),
+  gesto('cosa fa l\'animale'),
   momento('il momento');
 
   const CategoriaDellaScena(this.comeSiChiama);

@@ -282,6 +282,17 @@ class PittoreDellaRivelazione extends CustomPainter {
 
   void _scrivi(Canvas canvas, Offset dove, String testo, double misura) {
     if (testo.isEmpty) return;
+    // **LA SCALA NON SI PASSA QUI, E LA RAGIONE VA DETTA.**
+    //
+    // Questo testo non e' testo dell'interfaccia: e' **il numero dipinto
+    // dentro una figura**, e la sua misura viene dal lato della tela, non dal
+    // corpo tipografico. Se seguisse la scala del sistema, a testo grande il
+    // numero uscirebbe dalla carta che lo contiene, e a testo piccolo si
+    // perderebbe dentro un disegno che non si e' rimpicciolito con lui.
+    //
+    // **La leggibilita' e' garantita in un altro modo**: la misura e' una
+    // frazione del lato, quindi cresce con lo schermo, e la guardia dei
+    // caratteri misura il risultato dipinto invece della dichiarazione.
     final tp = TextPainter(
       text: TextSpan(
         text: testo,
@@ -293,6 +304,7 @@ class PittoreDellaRivelazione extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
+      textScaler: TextScaler.noScaling,
     )..layout();
     tp.paint(canvas, dove - Offset(tp.width / 2, tp.height / 2));
   }
