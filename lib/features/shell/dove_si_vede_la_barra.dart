@@ -73,6 +73,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // --- LE IMMERSIVE ------------------------------------------------------
   'StesaTreCarteScreen': PresenzaDellaBarra.assente,
   'MeditationScreen': PresenzaDellaBarra.assente,
+  // **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voce 01, 10 settembre 2026: si
+  // tiene il dito premuto per quaranta secondi, e una via d'uscita sempre a
+  // vista interromperebbe proprio la cosa che si sta facendo.
+  'ViaggioDelloSciamanoScreen': PresenzaDellaBarra.assente,
   'RuneDrawScreen': PresenzaDellaBarra.assente,
   'SigilloIntenzioneScreen': PresenzaDellaBarra.assente,
 

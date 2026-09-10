@@ -320,7 +320,9 @@ class _ViaggioDelloSciamanoScreenState
             ParagrafiDiLettura(
               key: const Key('viaggio_non_oggi'),
               testo: IQuattroViaggi.percheSiAspetta,
-              stile: TypographyTokens.didascalia()
+              // La spiegazione dell attesa si legge per intero, quindi porta
+              // la misura del responso.
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
           ],
@@ -465,10 +467,14 @@ class _ViaggioDelloSciamanoScreenState
           ),
           if (NitidezzaDellaScena.laRiga(scena.nitidezza) != null) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text(NitidezzaDellaScena.laRiga(scena.nitidezza)!,
+            // **UN TESTO DA LEGGERE PER INTERO PORTA LA MISURA DEL
+            // RESPONSO**, e non quella della didascalia: due misure per lo
+            // stesso genere di testo si leggono come due voci diverse.
+            ParagrafiDiLettura(
+                testo: NitidezzaDellaScena.laRiga(scena.nitidezza)!,
                 key: const Key('viaggio_nitidezza'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.didascalia()
+                stile: TypographyTokens.lettura()
                     .copyWith(color: palette.goldSoft)),
           ],
           const SizedBox(height: SpacingTokens.lg),

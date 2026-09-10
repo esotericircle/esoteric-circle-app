@@ -62,6 +62,11 @@ class CioCheETuo {
     // esce dal dispositivo, ma **e' tuo**, quindi la cancellazione lo prende
     // e il tuo scarico lo consegna.
     'loto.',
+    // **IL DIARIO DEI VIAGGI.** Ordine DC voce 09, 10 settembre 2026.
+    // Le domande che una persona si fa sono la cosa piu' privata che
+    // questa app tocchi: la dimenticanza deve portarle via con tutto
+    // il resto, e lo scarico deve saperle nominare.
+    'viaggio.',
     'luogo.',
     // La carta natale calcolata dal server, conservata sul telefono.
     'natal.',

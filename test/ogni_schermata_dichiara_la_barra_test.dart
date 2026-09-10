@@ -103,6 +103,11 @@ void main() {
       'StesaTreCarteScreen',
       'MeditationScreen',
       'RuneDrawScreen',
+      // **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voce 01, 10 settembre 2026.
+      // E' un'esperienza immersiva che si compie con un gesto: si tiene il
+      // dito premuto per scendere, e **una via d'uscita sempre a vista
+      // interromperebbe proprio la cosa che si sta facendo.**
+      'ViaggioDelloSciamanoScreen',
     ];
     for (final nome in maiLaBarra) {
       expect(presenzaPerSchermata[nome], PresenzaDellaBarra.assente,

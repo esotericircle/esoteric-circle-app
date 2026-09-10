@@ -86,6 +86,7 @@ class ScaricoDeiTuoiDati {
     // Meditazione si cancella con tutto il resto, quindi qui c'e' anche il
     // suo nome: non si scarica meno di quello che si cancella.
     'loto.': 'I tuoi respiri nella Meditazione',
+    'viaggio.': 'I tuoi viaggi nel Mondo di Sotto, con le domande che hai portato giù',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ
