@@ -186,7 +186,7 @@ void main() {
 
   testWidgets('LA RIVELAZIONE DURA MENO DI OTTO SECONDI', (tester) async {
     // Ordine DC voce 14: **mai di piu' perche' e' onboarding**.
-    final durata = RivelazioneCartaDiNascita.quantoDura;
+    const durata = RivelazioneCartaDiNascita.quantoDura;
     // ignore: avoid_print
     print('ORDINE DC VOCE 14: la rivelazione dura '
         '${durata.inMilliseconds / 1000} secondi');

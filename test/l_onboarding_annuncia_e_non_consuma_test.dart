@@ -23,7 +23,7 @@ import 'cardinale_minimo.dart';
 void main() {
   test('L ANNUNCIO NON NOMINA NESSUN ANIMALE', () {
     final riga = LAnnuncioDellAnimale.laRiga.toLowerCase();
-    final animali = AnimalCatalog.animals;
+    const animali = AnimalCatalog.animals;
     cardinaleMinimo(animali.length, 10,
         cosa: 'animali del catalogo da cercare nell annuncio',
         perche: 'Con pochi animali la guardia direbbe che nessun nome compare '
@@ -42,7 +42,7 @@ void main() {
   });
 
   test('REGOLA H: MA L ANNUNCIO C E, e dice dove si scende', () {
-    final riga = LAnnuncioDellAnimale.laRiga;
+    const riga = LAnnuncioDellAnimale.laRiga;
     // ignore: avoid_print
     print('ORDINE DC VOCE 02: Caligo dice "$riga"');
     expect(riga.trim(), isNotEmpty,
