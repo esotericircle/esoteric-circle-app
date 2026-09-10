@@ -188,73 +188,75 @@ void main() {
     await tester.pumpWidget(const SizedBox.shrink());
   });
 
-  testWidgets('IL DITO COMANDA IL FIORE, non il respiro dell app',
+  testWidgets('IL FIORE RESPIRA COL RITMO, e il respiro si vede',
       (tester) async {
-    // **CHE IL FIORE SIA GRANDE NON BASTA: deve respirare col dito.** Ordine
-    // CZ voce 08, e la voce DB.13 ha chiesto di guardarlo a video.
+    // **REGOLA D: QUESTA PROVA MISURAVA IL DITO, E IL DITO NON C'E' PIU'.**
+    // Ordine DD voce 17, 10 settembre 2026, decisione del fondatore:
+    // *"elimina la possibilita' di tenere il dito premuto, solo pulsante play
+    // e stop"*.
     //
-    // **LA PRIMA STESURA DI QUESTA PROVA ERA CIECA, e si e visto subito.**
-    // Chiedeva soltanto che l apertura fosse maggiore di zero col dito giu.
-    // Innestato il difetto, cioe passata al loto la sola `b.fill` ignorando
-    // il dito, la prova e rimasta **verde con 0,908**: il respiro dell app
-    // da solo supera qualunque soglia positiva. Era una guardia che misurava
-    // "qualcosa si muove", non "si muove per il dito".
+    // **Cosa pretendeva, e perche' era una buona prova.** Confrontava
+    // l'apertura del fiore, a parita' di tempo finto trascorso, **col dito
+    // giu' e senza**: se le due coincidevano, il dito non comandava niente.
+    // Era nata dopo una prima stesura cieca che chiedeva solo *"l'apertura e'
+    // maggiore di zero"* ed era rimasta verde a 0,908 col difetto dentro,
+    // perche' il respiro dell'app da solo supera qualunque soglia positiva.
     //
-    // **La grandezza misurata adesso e un CONFRONTO**: la stessa scena, lo
-    // stesso tempo finto trascorso, una volta col dito giu e una senza. Se le
-    // due aperture coincidono, il dito non comanda niente.
+    // **La lezione resta e cambia soggetto.** Adesso il fiore ha un ritmo
+    // solo, quello dell'app, e la domanda giusta e': **si muove davvero?**
+    // Non basta che sia grande e non basta che sia aperto: si guarda la
+    // stessa scena in due istanti diversi della stessa sessione, e le due
+    // aperture devono essere diverse. Un fiore fermo con un conto alla
+    // rovescia che scorre e' il difetto della voce DD.16, in un'altra forma.
     SharedPreferences.setMockInitialValues({});
-
-    Future<double> apertura({required bool colDito}) async {
-      tester.view.physicalSize = const Size(390, 844);
-      tester.view.devicePixelRatio = 1.0;
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.dark(),
-          home: MaestroScope(
-            child: MeditationScreen(
-                player: const SilentTonePlayer(), now: DateTime(2026, 9, 9)),
-          ),
-        ),
-      ));
-      await tester.pump();
-      TestGesture? gesto;
-      if (colDito) {
-        gesto = await tester.startGesture(
-            tester.getCenter(find.byKey(const Key('meditation_dito'))));
-        // Oltre il kPressTimeout, cosi' il riconoscitore del tocco dichiara
-        // il down anche mentre lo scorrimento e in gara nell arena.
-        await tester.pump(const Duration(milliseconds: 150));
-      } else {
-        await tester.pump(const Duration(milliseconds: 150));
-      }
-      await tester.pump(const Duration(seconds: 3));
-      final quanto = tester
-          .widget<LotoCheRespira>(find.byKey(const Key('meditation_loto')))
-          .apertura;
-      await gesto?.up();
-      await tester.pump();
-      await tester.pumpWidget(const SizedBox.shrink());
-      return quanto;
-    }
-
-    final senza = await apertura(colDito: false);
-    final con = await apertura(colDito: true);
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.dark(),
+        home: MaestroScope(
+          child: MeditationScreen(
+              player: const SilentTonePlayer(), now: DateTime(2026, 9, 9)),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 200));
+
+    double apertura() => tester
+        .widget<LotoCheRespira>(find.byKey(const Key('meditation_loto')))
+        .apertura;
+
+    // Si accende dal comando unico, che e' l'unico modo che resta.
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 200));
+
+    final misure = <double>[];
+    for (var i = 0; i < 8; i++) {
+      misure.add(apertura());
+      await tester.pump(const Duration(milliseconds: 700));
+    }
+    final minima = misure.reduce((a, b) => a < b ? a : b);
+    final massima = misure.reduce((a, b) => a > b ? a : b);
     // ignore: avoid_print
-    print('ORDINE CZ VOCE 08: dopo tre secondi, senza dito l apertura e '
-        '${senza.toStringAsFixed(3)}, col dito giu '
-        '${con.toStringAsFixed(3)}');
-    expect((con - senza).abs(), greaterThan(0.1),
-        reason: 'col dito giu e senza dito il fiore e aperto uguale '
-            '(${senza.toStringAsFixed(3)} contro ${con.toStringAsFixed(3)}): '
-            'la scena sta guardando il respiro dell app e non il dito, e la '
-            'meditazione a occhi chiusi non funziona');
+    print('ORDINE DD VOCE 17: in otto istanti il fiore va da '
+        '${minima.toStringAsFixed(3)} a ${massima.toStringAsFixed(3)}, '
+        'escursione ${(massima - minima).toStringAsFixed(3)}');
+    cardinaleMinimo(misure.length, 8,
+        cosa: 'istanti guardati dentro la sessione',
+        perche: 'Con due o tre istanti si puo capitare due volte nello stesso '
+            'punto del respiro, e la prova direbbe che il fiore e fermo '
+            'quando invece non lo si e guardato abbastanza.');
+    expect(massima - minima, greaterThan(0.2),
+        reason: 'in otto istanti della stessa sessione il fiore va da '
+            '${minima.toStringAsFixed(3)} a ${massima.toStringAsFixed(3)}: '
+            'non respira, e una meditazione con un fiore fermo e un conto '
+            'alla rovescia accanto a un disegno');
   });
 
   test('QUATTRO CORONE, coi petali che crescono', () {

@@ -1,102 +1,277 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/maestro/libreria_dei_respiri.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/card_del_respiro.dart';
+import 'package:esoteric_circle/features/maestri/aura/meditation/sigillo_della_sessione.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 import 'sorgenti_di_lib.dart';
 
-/// **LA CARD DEL RESPIRO E' DIVERSA OGNI VOLTA.** Ordine DB voce 10, e chiude
-/// la voce CZ.09 rimasta ferma su lavoro non montato.
+/// **LA CARD DEL RESPIRO CAMBIA CON LA SESSIONE.** Ordine DB voce 10,
+/// riscritta dall'ordine DD voce 17 il 10 settembre 2026.
 ///
-/// **Parole dell'ordine**: *"I tempi reali di inspiro e di espiro disegnano una
-/// figura. Siccome nessuno respira come un altro, quella figura e' diversa ogni
-/// volta e diversa da quella di chiunque."*
+/// **REGOLA D: COSA DIFENDEVA QUESTA GUARDIA, E COSA DIFENDE ADESSO.**
 ///
-/// **PERCHE' QUI LA PROMESSA REGGE, e sulla card del Viso non reggeva.**
-/// L'8 settembre la card del Viso diceva *"una costellazione su 104.976
-/// possibili"*, e a 382 utenti era piu' probabile che due card fossero
-/// identiche che il contrario: quella figura nasceva da **caselle**. Questa
-/// nasce dalla quota del dentro di ogni respiro, cioe' da numeri in virgola
-/// mobile misurati al millisecondo. **La differenza non e' di grado, e' di
-/// natura.**
+/// **Prima.** La card disegnava una figura costruita sui **tempi veri** di ogni
+/// inspiro e di ogni espiro, misurati mentre il dito stava sullo schermo, e su
+/// quella figura scriveva *"dodici respiri: nessuno uguale al precedente"*.
+/// Questa guardia provava che due serie di millisecondi diverse davano figure
+/// diverse, e che la stessa serie dava la stessa figura. **Erano pretese giuste
+/// e sono restate verdi fino all'ultimo giorno.**
 ///
-/// **REGOLA H.** Non basta provare che due respiri diversi danno figure
-/// diverse: si prova anche che **la stessa serie da' la stessa figura**. Una
-/// figura che cambia a ogni ridisegno non e' unica, e' casuale, e non e' di
-/// nessuno.
+/// **Il fondatore ha tolto il dito**, ordine DD voce 17: *"elimina la
+/// possibilita' di tenere il dito premuto, solo pulsante play e stop"*. Senza
+/// il dito quei millisecondi non esistono piu' e il fiore va col ritmo
+/// dell'app, **uguale per tutti**: tenere quella frase sarebbe stata la prima
+/// bugia di questa funzione, e tenere queste prove avrebbe sorvegliato un
+/// meccanismo che nessuna schermata monta.
+///
+/// **Adesso.** La card porta **il sigillo della sessione**, che nasce da
+/// quattro dati veri: il sintomo scelto, la frequenza, il centro del giorno e
+/// la **durata vera**. Questa guardia prova che quel sigillo cambia quando
+/// cambia la sessione, che e' **deterministico** a parita' di sessione, e che
+/// le righe della card dicono cosa hai fatto senza promettere niente.
+///
+/// **La promessa della card e' scesa di un gradino, e va detto.** Non e' piu'
+/// *"nessuna figura come la tua al mondo"*: e' *"questa e' la tua sessione"*.
+/// La prima non regge senza il dito, la seconda si'.
 void main() {
-  test('DUE RESPIRI DIVERSI DANNO FIGURE DIVERSE', () {
-    // Due serie che si somigliano molto: se anche queste si distinguono, si
-    // distinguono tutte.
-    const a = [0.52, 0.48, 0.55, 0.50, 0.53, 0.49];
-    const b = [0.52, 0.49, 0.55, 0.50, 0.53, 0.49];
-    final distanza = PittoreDellaFigura.distanzaFra(a, b);
-    // ignore: avoid_print
-    print('ORDINE DB VOCE 10: due respiri quasi uguali distano '
-        '${distanza.toStringAsFixed(6)}');
-    cardinaleMinimo(a.length, 6,
-        cosa: 'respiri nella figura di prova',
-        perche: 'Con due o tre respiri due figure si somigliano per forza, e '
-            'questa prova direbbe che sono diverse senza averle guardate.');
-    expect(distanza, greaterThan(0.0),
-        reason: 'due serie di respiri diverse danno la stessa identica '
-            'figura: allora la card non e di nessuno');
+  const giorno = 9;
+  final settembre = DateTime(2026, 9, giorno);
+
+  List<double> sigillo({
+    Sintomo? sintomo = Sintomo.insonnia,
+    int hertz = 396,
+    int centro = 0,
+    Duration durata = const Duration(minutes: 5),
+  }) =>
+      SigilloDellaSessione.figura(
+          sintomo: sintomo, hertz: hertz, centro: centro, durata: durata);
+
+  test('IL SIGILLO CAMBIA CON OGNUNO DEI QUATTRO DATI', () {
+    final base = sigillo();
+    final cambi = <String, List<double>>{
+      'un altro sintomo': sigillo(sintomo: Sintomo.ansia),
+      'un altra frequenza': sigillo(hertz: 639),
+      'un altro centro': sigillo(centro: 3),
+      'un minuto in piu': sigillo(durata: const Duration(minutes: 6)),
+    };
+    cardinaleMinimo(cambi.length, 4,
+        cosa: 'dati della sessione che devono cambiare il sigillo',
+        perche: 'Con meno di quattro questa prova direbbe che il sigillo '
+            'segue la sessione per averne guardato un pezzo.');
+
+    final uguali = <String>[];
+    for (final e in cambi.entries) {
+      final d = PittoreDellaFigura.distanzaFra(base, e.value);
+      // ignore: avoid_print
+      print('ORDINE DD VOCE 17: con ${e.key} il sigillo dista '
+          '${d.toStringAsFixed(4)}');
+      if (d == 0.0) uguali.add(e.key);
+    }
+    expect(uguali, isEmpty,
+        reason: 'questi dati non cambiano il sigillo, quindi due sessioni '
+            'diverse portano lo stesso segno: ${uguali.join(" | ")}');
   });
 
-  test('REGOLA H: la STESSA serie da la stessa figura', () {
-    const a = [0.52, 0.48, 0.55, 0.50, 0.53, 0.49];
-    expect(PittoreDellaFigura.distanzaFra(a, a), 0.0,
-        reason: 'la stessa serie da due figure diverse: la figura e casuale, '
-            'non e il respiro di quella persona');
+  test('REGOLA H: LA STESSA SESSIONE DA LO STESSO SIGILLO', () {
+    // **E' voluto, e va provato.** Chi rifa la stessa pratica per lo stesso
+    // tempo ritrova il suo segno: un sigillo che cambia a ogni ridisegno non
+    // e' un sigillo, e' rumore.
+    expect(PittoreDellaFigura.distanzaFra(sigillo(), sigillo()), 0.0,
+        reason: 'la stessa sessione da due sigilli diversi: il segno e '
+            'casuale e non appartiene a niente');
   });
 
-  test('LE TRE RIGHE SONO TRE, e nessuna promette un effetto', () {
-    final righe = CardDelRespiro.righeDiAura(
-        const [0.52, 0.48, 0.55], DateTime(2026, 9, 9), false);
+  test('I RAGGI VENGONO DALLA DURATA VERA, e stanno fra sei e ventiquattro',
+      () {
+    final misure = <Duration, int>{
+      const Duration(seconds: 20): SigilloDellaSessione.quantiRaggi(
+          const Duration(seconds: 20)),
+      const Duration(minutes: 2): SigilloDellaSessione.quantiRaggi(
+          const Duration(minutes: 2)),
+      const Duration(minutes: 5): SigilloDellaSessione.quantiRaggi(
+          const Duration(minutes: 5)),
+      const Duration(minutes: 30): SigilloDellaSessione.quantiRaggi(
+          const Duration(minutes: 30)),
+    };
     // ignore: avoid_print
-    print('ORDINE DB VOCE 10: le righe sono\n- ${righe.join("\\n- ")}');
-    expect(righe.length, 3,
-        reason: 'le righe di Aura sono ${righe.length}: l ordine ne chiede '
-            'tre, e una in piu o in meno cambia il peso della card');
-    // **NESSUNA PROMESSA**, ordine DB voce 11 applicata al testo della card.
-    for (final riga in righe) {
-      for (final vietata in const [
-        'guarisc', 'cura', 'terapia', 'dolore', 'pressione', 'dna',
-        'malattia', 'sintomo', 'battito',
-      ]) {
-        expect(riga.toLowerCase().contains(vietata), isFalse,
-            reason: 'la riga "$riga" contiene "$vietata": e una promessa, e '
-                'su una card che gira fra estranei vale doppio');
-      }
+    print('ORDINE DD VOCE 17: raggi per durata '
+        '${misure.map((k, v) => MapEntry(k.inSeconds, v))}');
+    for (final e in misure.entries) {
+      expect(e.value, greaterThanOrEqualTo(6),
+          reason: 'a ${e.key.inSeconds} secondi il sigillo ha ${e.value} '
+              'raggi: sotto sei non si legge come una figura');
+      expect(e.value, lessThanOrEqualTo(24),
+          reason: 'a ${e.key.inSeconds} secondi il sigillo ha ${e.value} '
+              'raggi: oltre ventiquattro si toccano e diventa un cerchio');
+    }
+    // **E in mezzo il numero SEGUE il tempo**, o la durata non conterebbe.
+    expect(
+        SigilloDellaSessione.quantiRaggi(const Duration(minutes: 2)) <
+            SigilloDellaSessione.quantiRaggi(const Duration(minutes: 3)),
+        isTrue,
+        reason: 'due sessioni di durata diversa hanno lo stesso numero di '
+            'raggi: la durata non entra nel segno');
+  });
+
+  test('IL TITOLO PORTA IL NUMERO VERO, e sotto il minuto non lo porta', () {
+    final casi = <Duration, String>{
+      const Duration(seconds: 40): CardDelRespiro.titoloPer(
+          const Duration(seconds: 40)),
+      const Duration(minutes: 1): CardDelRespiro.titoloPer(
+          const Duration(minutes: 1)),
+      const Duration(minutes: 5): CardDelRespiro.titoloPer(
+          const Duration(minutes: 5)),
+      const Duration(minutes: 12): CardDelRespiro.titoloPer(
+          const Duration(minutes: 12)),
+    };
+    for (final e in casi.entries) {
+      // ignore: avoid_print
+      print('ORDINE DD VOCE 17: a ${e.key.inSeconds} secondi il titolo dice '
+          '"${e.value}"');
+    }
+    expect(casi[const Duration(seconds: 40)], isNot(contains('0')),
+        reason: 'sotto il minuto il titolo scrive una cifra che suona misera');
+    expect(casi[const Duration(minutes: 5)], contains('5'),
+        reason: 'il titolo non porta i minuti veri');
+    expect(casi[const Duration(minutes: 12)], contains('12'),
+        reason: 'il titolo non porta i minuti veri');
+    // **E si capisce senza sapere cos'e' questa app**, che e' la ragione per
+    // cui il titolo e' cambiato: chi riceve la card in una chat parte da zero.
+    for (final t in casi.values) {
+      expect(t.toLowerCase().contains('respiro di oggi'), isFalse,
+          reason: 'il titolo e tornato quello di prima, che parlava solo a '
+              'chi era gia dentro: "$t"');
     }
   });
 
-  test('CHI HA IL RESPIRO GUIDATO LO LEGGE SULLA CARD', () {
-    // Ordine DB voce 10: *"chi ha scelto il respiro guidato ottiene la card
-    // con la forma del ritmo guidato, dichiarata come tale"*. Sarebbe la
-    // figura dell app e non la sua, e spacciarla per sua sarebbe la prima
-    // bugia di questa funzione.
-    final guidato = CardDelRespiro.righeDiAura(
-        const [0.5, 0.5, 0.5], DateTime(2026, 9, 9), true);
-    final proprio = CardDelRespiro.righeDiAura(
-        const [0.52, 0.48, 0.55], DateTime(2026, 9, 9), false);
+  test('LE RIGHE PORTANO SINTOMO E FREQUENZA, e sono al massimo tre', () {
+    // **Ordine DD voce 17**: *"includendo il sintomo e la frequenza, ma non
+    // esagerare con il testo descrittivo"*.
+    final scelta = CardDelRespiro.righeDellaCard(
+      sintomo: Sintomo.insonnia,
+      pratica: 'Due toni che si incontrano',
+      hertz: 210,
+      giorno: settembre,
+      giorniDiFila: 4,
+    );
     // ignore: avoid_print
-    print('ORDINE DB VOCE 10: guidato dice "${guidato.first}", proprio dice '
-        '"${proprio.first}"');
-    expect(guidato.first.toLowerCase(), contains('guidato'),
-        reason: 'la card di chi ha usato il ritmo guidato non lo dichiara: '
-            'gli si spaccia per suo un disegno che e dell app');
-    expect(proprio.first.toLowerCase(), isNot(contains('guidato')),
-        reason: 'la card di chi ha respirato da solo si dichiara guidata');
+    print('ORDINE DD VOCE 17: le righe sono\n- ${scelta.join("\n- ")}');
+    expect(scelta.length, lessThanOrEqualTo(3),
+        reason: 'le righe della card sono ${scelta.length}: una card si '
+            'guarda due secondi, e in due secondi non si leggono quattro '
+            'righe');
+    expect(scelta.join(' ').toLowerCase(), contains('insonnia'),
+        reason: 'la card non nomina il sintomo scelto');
+    expect(scelta.join(' '), contains('210 Hz'),
+        reason: 'la card non nomina la frequenza che ha suonato');
+    expect(scelta.join(' '), contains('4 giorni di fila'),
+        reason: 'la card non porta la striscia, che e la riga che fa tornare');
+  });
+
+  test('SENZA SINTOMO SCELTO LA CARD NON NE INVENTA UNO', () {
+    // **Non si mette in bocca alla persona un sintomo che non ha scelto.**
+    // Quando la pratica la propone Aura dal centro del giorno, la card dice
+    // il centro.
+    final aura = CardDelRespiro.righeDellaCard(
+      sintomo: null,
+      pratica: null,
+      hertz: 639,
+      giorno: settembre,
+    );
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: senza sintomo la card dice "${aura.first}"');
+    expect(aura.first.toLowerCase().startsWith('per '), isFalse,
+        reason: 'la card apre con "Per ..." anche quando nessun sintomo e '
+            'stato scelto: e un sintomo messo in bocca a chi non lo ha detto');
+    expect(aura.join(' '), contains('639 Hz'),
+        reason: 'senza sintomo la card perde anche la frequenza');
+  });
+
+  test('UNA STRISCIA DI UNO NON SI SCRIVE', () {
+    // **Una striscia di uno non e una striscia**, e scriverla la sgonfia: chi
+    // legge "1 giorno di fila" capisce che non ha ancora niente.
+    final uno = CardDelRespiro.righeDellaCard(
+      sintomo: Sintomo.ansia,
+      pratica: 'Sei respiri al minuto',
+      hertz: 432,
+      giorno: settembre,
+      giorniDiFila: 1,
+    );
+    final due = CardDelRespiro.righeDellaCard(
+      sintomo: Sintomo.ansia,
+      pratica: 'Sei respiri al minuto',
+      hertz: 432,
+      giorno: settembre,
+      giorniDiFila: 2,
+    );
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: con 1 giorno le righe sono ${uno.length}, con 2 '
+        'sono ${due.length}');
+    expect(uno.join(' ').contains('di fila'), isFalse,
+        reason: 'la card scrive una striscia di un giorno solo');
+    expect(due.join(' '), contains('2 giorni di fila'),
+        reason: 'la card non scrive una striscia vera di due giorni');
+  });
+
+  test('NESSUNA RIGA DELLA CARD PROMETTE UN EFFETTO', () {
+    // **Ordine DB voce 11 applicato al testo della card**, e su una card che
+    // gira fra estranei vale doppio.
+    //
+    // **La parola "sintomo" non e' piu' fra le vietate**, ordine DD voce 12:
+    // il confine sta nel verbo, non nel sostantivo. Qui restano i verbi.
+    final testi = <String>[
+      CardDelRespiro.titoloPer(const Duration(minutes: 5)),
+      ...CardDelRespiro.righeDellaCard(
+        sintomo: Sintomo.insonnia,
+        pratica: 'Due toni che si incontrano',
+        hertz: 210,
+        giorno: settembre,
+        giorniDiFila: 3,
+      ),
+      ...CardDelRespiro.righeDellaCard(
+        sintomo: null,
+        pratica: null,
+        hertz: 639,
+        giorno: settembre,
+      ),
+    ];
+    cardinaleMinimo(testi.length, 5,
+        cosa: 'testi della card guardati',
+        perche: 'Con pochi testi questa prova direbbe che la card non '
+            'promette niente per non aver quasi letto.');
+    final sconfinamenti = <String>[];
+    for (final riga in testi) {
+      for (final vietata in const [
+        'guarisc', 'cura ', 'curare', 'terapia', 'dolore', 'pressione', 'dna',
+        'malattia', 'allevia', 'elimina', 'risolve', 'ti fara',
+      ]) {
+        if (riga.toLowerCase().contains(vietata)) {
+          sconfinamenti.add('"$vietata" in "$riga"');
+        }
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE DB VOCE 11: testi della card ${testi.length}, '
+        'sconfinamenti ${sconfinamenti.length}');
+    expect(sconfinamenti, isEmpty,
+        reason: 'la card promette un effetto: ${sconfinamenti.join(" | ")}');
   });
 
   test('IL COLORE VIENE DAL CENTRO DI OGGI, e cambia', () {
-    final lunedi = CardDelRespiro.righeDiAura(
-        const [0.5], DateTime(2026, 9, 7), false);
-    final martedi = CardDelRespiro.righeDiAura(
-        const [0.5], DateTime(2026, 9, 8), false);
-    expect(lunedi[1], isNot(martedi[1]),
+    // Senza sintomo scelto la prima riga nomina il centro, e il centro gira di
+    // giorno in giorno: e' il legame col giorno, ed e' un motivo per tornare
+    // che non costa niente.
+    final lunedi = CardDelRespiro.righeDellaCard(
+        sintomo: null, pratica: null, hertz: 432, giorno: DateTime(2026, 9, 7));
+    final martedi = CardDelRespiro.righeDellaCard(
+        sintomo: null, pratica: null, hertz: 432, giorno: DateTime(2026, 9, 8));
+    // ignore: avoid_print
+    print('ORDINE DB VOCE 10: lunedi "${lunedi.first}", martedi '
+        '"${martedi.first}"');
+    expect(lunedi.first, isNot(martedi.first),
         reason: 'la card dice lo stesso centro in due giorni diversi: il '
             'legame col centro di oggi non c e');
   });

@@ -9,6 +9,7 @@ import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 
 import '../../../../core/brand/brand.dart';
 import '../../../../core/maestro/chakra_del_giorno.dart';
+import '../../../../core/maestro/libreria_dei_respiri.dart';
 import '../../../../core/maestro/colore_del_centro.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -37,25 +38,81 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 /// la forma del ritmo guidato, **dichiarata come tale**: sarebbe la figura
 /// dell'app e non la sua, e spacciarla per sua sarebbe la prima bugia di questa
 /// funzione.
+///
+/// ---
+///
+/// **E IL 10 SETTEMBRE 2026 IL DITO SE N'E' ANDATO.** Ordine DD voce 17,
+/// decisione del fondatore: *"elimina la possibilita' di tenere il dito
+/// premuto, solo pulsante play e stop"*.
+///
+/// **Quella decisione porta via anche la premessa di questa card**, e la cosa
+/// va detta invece di essere aggirata: senza il dito non ci sono piu' i tempi
+/// veri di nessuno, il fiore va col ritmo dell'app, e la figura sarebbe
+/// **identica per tutti**. La frase *"dodici respiri: nessuno uguale al
+/// precedente"* diventerebbe falsa il giorno stesso in cui la si e' scritta.
+///
+/// **Cosa c'e' adesso.** La card porta **il sigillo della sessione**, che nasce
+/// da quattro dati veri: il sintomo scelto, la frequenza che ha suonato, il
+/// centro acceso quel giorno e la **durata vera**. Vedi
+/// [SigilloDellaSessione]. Cambia fra due persone e fra due sessioni, e **non
+/// promette piu' di essere unica al mondo**, perche' non lo e'.
+///
+/// **E la card comincia con un titolo che si legge da fuori.** Chi la riceve in
+/// una chat non sa cos'e' Esoteric Circle: *"IL TUO RESPIRO DI OGGI"* parlava a
+/// chi era gia' dentro. *"MI SONO PRESO CINQUE MINUTI"* si capisce senza
+/// sapere niente, e il numero e' vero.
 class CardDelRespiro extends StatelessWidget {
   const CardDelRespiro({
     super.key,
     required this.figura,
     required this.giorno,
-    required this.guidato,
+    required this.durata,
+    this.sintomo,
+    this.pratica,
+    required this.hertz,
+    this.giorniDiFila = 0,
     this.larghezza = 320,
   });
 
-  /// Le quote del dentro, un valore per respiro, da zero a uno.
+  /// Il sigillo della sessione, un valore per raggio, da zero a uno.
+  /// Lo compone [SigilloDellaSessione.figura].
   final List<double> figura;
 
   /// Il giorno, da cui vengono il centro e il colore.
   final DateTime giorno;
 
-  /// Se il respiro era guidato dall'app invece che proprio.
-  final bool guidato;
+  /// **QUANTO E' DURATA DAVVERO.** E' il numero del titolo, ed e' l'unico dato
+  /// continuo della card: fa la differenza fra due minuti e dieci.
+  final Duration durata;
+
+  /// Il sintomo scelto, se la persona ha scelto lei. Nullo quando la pratica
+  /// l'ha proposta Aura dal centro del giorno.
+  final Sintomo? sintomo;
+
+  /// Il nome della pratica, se ce n'e' una scelta.
+  final String? pratica;
+
+  /// La frequenza che ha suonato, in hertz.
+  final int hertz;
+
+  /// **DA QUANTI GIORNI DI FILA**, che e' la riga che fa tornare. Zero vuol
+  /// dire che non si scrive: una striscia di uno non e' una striscia.
+  final int giorniDiFila;
 
   final double larghezza;
+
+  /// **IL TITOLO, e si legge senza sapere cos'e' questa app.** Ordine DD voce
+  /// 17: *"inizia con titolo accattivante"*.
+  ///
+  /// Il numero e' vero e viene dalla durata. Sotto il minuto non si scrive una
+  /// cifra che suonerebbe misera: si dice **un momento**, che e' onesto e non
+  /// promette niente.
+  static String titoloPer(Duration durata) {
+    final minuti = durata.inMinutes;
+    if (minuti < 1) return 'MI SONO PRESO UN MOMENTO';
+    if (minuti == 1) return 'MI SONO PRESO UN MINUTO';
+    return 'MI SONO PRESO $minuti MINUTI';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +137,19 @@ class CardDelRespiro extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('IL TUO RESPIRO DI OGGI',
+            // **IL TITOLO PARLA A CHI NON SA COS'E' QUESTA APP.** Ordine DD
+            // voce 17: qui c'era *"IL TUO RESPIRO DI OGGI"*, che si capisce
+            // solo se sei gia' dentro. Una card si condivide, e chi la riceve
+            // in una chat parte da zero.
+            Text(titoloPer(durata),
                 key: const Key('card_respiro_titolo'),
+                textAlign: TextAlign.center,
                 // **IL RUOLO, NON LA MISURA**: una misura scritta a mano su
                 // una schermata sola e' debito tipografico, e una guardia
                 // conta che non cresca.
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.titoloScheda().copyWith(
                     color: ColoreDelCentro.bordoDi(colore),
-                    letterSpacing: 2.0)),
+                    letterSpacing: 1.4)),
             const SizedBox(height: SpacingTokens.md),
             SizedBox(
               width: larghezza * 0.82,
@@ -97,11 +159,22 @@ class CardDelRespiro extends StatelessWidget {
               ),
             ),
             const SizedBox(height: SpacingTokens.md),
-            // **LE TRE RIGHE DI AURA**, che legano il respiro di oggi al
-            // centro di oggi. Ordine DB voce 10, e nessuna promette un
-            // effetto: dicono cosa e' successo e cosa portarsi dietro.
+            // **I DATI, NON UN PARAGRAFO.** Ordine DD voce 17: *"includendo il
+            // sintomo e la frequenza, ma non esagerare con il testo
+            // descrittivo"*.
+            //
+            // Qui stavano tre frasi intere di Aura. Adesso stanno **al massimo
+            // tre righe corte**, e ognuna e' un dato: cosa hai respirato, su
+            // che frequenza, da quanti giorni. Chi guarda una card la guarda
+            // due secondi.
             Text(
-              righeDiAura(figura, giorno, guidato).join('\n'),
+              righeDellaCard(
+                sintomo: sintomo,
+                pratica: pratica,
+                hertz: hertz,
+                giorno: giorno,
+                giorniDiFila: giorniDiFila,
+              ).join('\n'),
               key: const Key('card_respiro_righe'),
               textAlign: TextAlign.center,
               style: TypographyTokens.corpo()
@@ -130,33 +203,43 @@ class CardDelRespiro extends StatelessWidget {
     );
   }
 
-  /// **LE TRE RIGHE, e sono tre e non due.** Ordine DB voce 10: *"tre righe di
-  /// Aura che legano il respiro di oggi al centro di oggi, piu' una frase da
-  /// portare nella giornata"*.
+  /// **LE RIGHE DELLA CARD, e sono dati e non prosa.** Ordine DD voce 17,
+  /// 10 settembre 2026: *"includendo il sintomo e la frequenza, ma non
+  /// esagerare con il testo descrittivo"*.
   ///
-  /// **Nessuna promessa di effetto**, e la guardia della voce DB.11 lo
-  /// pretende su ogni testo di questa funzione.
-  static List<String> righeDiAura(
-      List<double> figura, DateTime giorno, bool guidato) {
+  /// **COSA C'ERA PRIMA, e va scritto perche' non torni.** Tre frasi intere di
+  /// Aura, dell'ordine DB voce 10: quanti respiri, quale centro e cosa apre,
+  /// piu' una frase da portare nella giornata. Erano scritte bene e **erano
+  /// troppe**: una card si guarda due secondi, e in due secondi tre frasi
+  /// diventano un blocco grigio che nessuno legge.
+  ///
+  /// **Al massimo tre righe corte, e ognuna e' un dato.**
+  ///
+  /// **Nessuna promessa di effetto**, e la guardia della voce DB.11 lo pretende
+  /// su ogni testo di questa funzione: qui si dice **cosa hai fatto**, mai cosa
+  /// ti succedera'.
+  static List<String> righeDellaCard({
+    required Sintomo? sintomo,
+    required String? pratica,
+    required int hertz,
+    required DateTime giorno,
+    int giorniDiFila = 0,
+  }) {
     final centro = ChakraDelGiorno.di(giorno);
-    final quanti = figura.length;
-    // La forma media del respiro: sopra la meta' e' un respiro che tiene
-    // dentro, sotto e' uno che lascia andare.
-    final media = figura.isEmpty
-        ? 0.5
-        : figura.reduce((a, b) => a + b) / figura.length;
-    final forma = media > 0.55
-        ? 'hai tenuto dentro più a lungo di quanto hai lasciato andare'
-        : media < 0.45
-            ? 'hai lasciato andare più a lungo di quanto hai tenuto dentro'
-            : 'dentro e fuori si sono tenuti in equilibrio';
-    return [
-      guidato
-          ? 'Questa è la forma del ritmo guidato, non del tuo.'
-          : '$quanti respiri: nessuno uguale al precedente.',
-      'Oggi è acceso ${centro.italiano}, che apre su ${centro.governa}: $forma.',
-      'Portati dietro questo: la calma non si trova, si tiene.',
-    ];
+    final righe = <String>[];
+    // **UNO. Per che cosa**, che e' la riga che chi guarda cerca per prima.
+    // Senza un sintomo scelto la sessione e' quella che Aura propone dal
+    // centro del giorno, e si dice quello: nominare un sintomo che nessuno ha
+    // scelto sarebbe metterglielo in bocca.
+    righe.add(sintomo != null
+        ? 'Per ${sintomo.etichetta.toLowerCase()}'
+        : 'Il centro di oggi: ${centro.italiano}');
+    // **DUE. Cosa ha suonato**, la pratica e la frequenza sulla stessa riga.
+    righe.add(pratica != null ? '$pratica · $hertz Hz' : '$hertz Hz');
+    // **TRE. Da quanti giorni**, e solo se sono almeno due: una striscia di
+    // uno non e' una striscia, e scriverla la sgonfia.
+    if (giorniDiFila >= 2) righe.add('$giorniDiFila giorni di fila');
+    return righe;
   }
 }
 

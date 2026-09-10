@@ -20,12 +20,11 @@ import '../../../../core/maestro/memoria_del_respiro.dart';
 import '../../../../core/maestro/cio_che_aura_ricorda.dart';
 import '../../../../core/maestro/frequenza_del_giorno.dart';
 import '../../../../core/maestro/traccia_del_loto.dart';
-import '../../../../core/sensi/respiro_guidato_dal_dito.dart';
-import '../../../../core/sensi/palette_sensoriale.dart';
 import 'loto_che_respira.dart';
 import 'pannello_della_libreria.dart';
 import '../../../../core/maestro/libreria_dei_respiri.dart';
 import 'meditation_audio.dart';
+import 'sigillo_della_sessione.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -110,7 +109,22 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// tempi a muovere il fiore. Il ritmo guidato resta come **seconda strada
   /// dichiarata**, per chi non vuole tenere il dito: e' `_breath`, quello di
   /// prima, e non e' nascosto.
-  final RespiroGuidatoDalDito _dito = RespiroGuidatoDalDito();
+  /// **QUANTO E' DURATA LA SESSIONE FINO A ORA.** Ordine DD voce 17: e' il
+  /// numero del titolo della card e il seme del sigillo, ed e' l'unico dato
+  /// continuo che resta senza il dito.
+  Duration get _quantoEDurata {
+    final inizio = _cominciata;
+    if (inizio == null) return Duration.zero;
+    return (widget.now ?? DateTime.now()).difference(inizio);
+  }
+
+  /// Il sigillo di questa sessione, ricalcolato quando serve.
+  List<double> get _sigilloDiOra => SigilloDellaSessione.figura(
+        sintomo: _praticaScelta?.sintomo,
+        hertz: _preset.leftHz.round(),
+        centro: _indiceDelCentro,
+        durata: _quantoEDurata,
+      );
 
   /// La traccia dei giorni, che riempie il fiore. Ordine CZ voce 10.
   final TracciaDelLoto _traccia = TracciaDelLoto();
@@ -134,9 +148,10 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// animano, la fase cambia con uno stato fermo, e la vibrazione resta.
   bool _riduciMovimento = false;
 
-  /// Se la scelta libera della frequenza e' aperta. Chiusa di partenza: la
-  /// porta principale la decide Aura.
-  bool _sceltaAperta = false;
+  // **QUI STAVA `_sceltaAperta`**, l'interruttore della scelta libera della
+  // frequenza. Ordine DD voce 17: la frequenza si sceglie dentro il pannello
+  // del sintomo, e un interruttore per aprire una cosa che e' gia' aperta non
+  // serve a nessuno.
 
   /// **RESPIRO DA SOLO: il fiore segue il riferimento invece del dito.**
   /// Ordine DA voce 03, 10 settembre 2026.
@@ -154,7 +169,9 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// Chi lo sceglie lo ritrova dichiarato sulla card, perche' quella figura
   /// e' del ritmo dell'app e non sua, e spacciarla per sua sarebbe la prima
   /// bugia di questa funzione.
-  bool _daSolo = false;
+  // **QUI STAVA `_daSolo`**, la scelta di respirare senza tenere il dito.
+  // Ordine DD voce 17: senza il dito quella scelta non ha piu' un contrario,
+  // e il ripiego e' diventato la via.
 
   /// La pratica piu' breve da proporre a chi lascia a meta', o nulla.
   /// Ordine DA voce 05.
@@ -315,46 +332,18 @@ class _MeditationScreenState extends State<MeditationScreen>
     return s < 1 ? 1 : s;
   }
 
-  /// **IL DITO SCENDE: inspira.** Ordine CZ voce 08.
-  ///
-  /// **E SE LA SESSIONE NON E' PARTITA, PARTE ADESSO.** Ordine DD voce 12,
-  /// 10 settembre 2026.
-  ///
-  /// **Difetto misurato sul telefono 767f596c**, build 2244: toccando il fiore
-  /// cambiavano **449.637 pixel**, cioe' i petali si aprivano davvero, e nei
-  /// tre secondi dopo ne cambiavano **4.358**, cioe' rumore. Al centro del
-  /// fiore c'era scritto `Tocca per iniziare` e **non iniziava niente**: il
-  /// gesto muoveva i petali e la sessione restava ferma, perche' l'unico
-  /// posto che la faceva partire era il tondo del play piu' in basso.
-  ///
-  /// **Un comando che dichiara cosa fa deve farlo.** La riga sotto e' tutta la
-  /// cura: il primo tocco accende la sessione, i tocchi dopo respirano.
-  void _inspira() {
-    if (!_active) _togglePlay();
-    _dito.ditoGiu(DateTime.now());
-    // La vibrazione al cambio di fase e' cio' che rende il rito possibile a
-    // occhi chiusi: senza, chi chiude gli occhi non sa quando cambiare.
-    // **LA VIBRAZIONE PASSA DALLA PORTA UNICA.** `PaletteSensoriale` e' il
-    // solo posto dell'app che parla alla piattaforma per suonare o vibrare, e
-    // due guardie lo pretendono: chiamare `HapticFeedback` da qui vorrebbe
-    // dire una seconda verita' su cosa il telefono fa sotto le dita.
-    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
-    setState(() {});
-  }
-
-  /// **IL DITO SI ALZA: espira, e il respiro si chiude.**
-  void _espira() {
-    final adesso = DateTime.now();
-    _dito.ditoSu(adesso);
-    // **LA VIBRAZIONE PASSA DALLA PORTA UNICA.** `PaletteSensoriale` e' il
-    // solo posto dell'app che parla alla piattaforma per suonare o vibrare, e
-    // due guardie lo pretendono: chiamare `HapticFeedback` da qui vorrebbe
-    // dire una seconda verita' su cosa il telefono fa sotto le dita.
-    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
-    // Il respiro si chiude quando il fiore e' tornato chiuso, cioe' dopo un
-    // espiro lungo quanto l'inspiro: e' la simmetria senza il ritmo imposto.
-    setState(() {});
-  }
+  // **QUI VIVEVANO `_inspira` E `_espira`, i due gesti del dito.** Ordine DD
+  // voce 17, 10 settembre 2026, decisione del fondatore: *"elimina la
+  // possibilita' di tenere il dito premuto, solo pulsante play e stop"*.
+  //
+  // **Cosa facevano, perche' nessuno debba riscoprirlo.** Il dito giu' faceva
+  // inspirare e, dall'ordine DD voce 12, accendeva anche la sessione se era
+  // ferma; il dito su faceva espirare. Fra i due, `RespiroGuidatoDalDito`
+  // misurava i millisecondi veri, e da quelli nasceva la figura della card.
+  //
+  // **Se ne sono andati insieme al gesto**, e con loro la vibrazione al cambio
+  // di fase: senza un cambio deciso dalla persona, una vibrazione sarebbe il
+  // telefono che parla da solo.
 
   void _togglePlay() {
     setState(() {
@@ -421,17 +410,15 @@ class _MeditationScreenState extends State<MeditationScreen>
       centro: _indiceDelCentro,
       durata: adesso.difference(inizio),
       compiuta: compiuta,
-      // **GUIDATO O PROPRIO**, ordine DB voce 07: il respiro col dito e' suo,
-      // quello che segue il ritmo dell'app e' guidato, e la differenza entra
-      // nella memoria e domani nella card.
+      // **DA OGGI OGNI RESPIRO E' GUIDATO, e il campo resta a dirlo.**
+      // Ordine DD voce 17, 10 settembre 2026: senza il dito il ritmo e' uno
+      // solo, quello dell'app.
       //
-      // **Dall'ordine DA voce 03 la scelta viene prima della deduzione**: chi
-      // ha detto di respirare da solo e' guidato perche' lo ha chiesto, non
-      // perche' non ha toccato lo schermo.
-      guidato: _daSolo || _dito.quantiRespiri == 0,
-      mediaDentro: _dito.mediaDentro,
-      mediaFuori: _dito.mediaFuori,
-      respiri: _dito.quantiRespiri,
+      // **Il campo non si cancella**, perche' le sessioni gia' registrate
+      // portano il loro valore e una memoria che cambia significato sotto i
+      // piedi e' peggio di un campo sempre vero: chi legge lo storico deve
+      // poter distinguere le sessioni col dito da queste.
+      guidato: true,
     ));
     if (!mounted) return;
     setState(() {
@@ -444,8 +431,16 @@ class _MeditationScreenState extends State<MeditationScreen>
 
   /// **CONDIVIDE LA CARD, DAL PUNTO UNICO.** Ordine DB voce 10.
   Future<void> _condividiIlRespiro() async {
-    final righe = CardDelRespiro.righeDiAura(
-        _dito.figura, widget.now ?? DateTime.now(), _daSolo);
+    final righe = [
+      CardDelRespiro.titoloPer(_quantoEDurata),
+      ...CardDelRespiro.righeDellaCard(
+        sintomo: _praticaScelta?.sintomo,
+        pratica: _praticaScelta?.nome,
+        hertz: _preset.leftHz.round(),
+        giorno: widget.now ?? DateTime.now(),
+        giorniDiFila: _memoria.giorniDiFila,
+      ),
+    ];
     await condividiLaCardDelRespiro(
       boundaryKey: _boundaryDellaCard,
       testo: righe.join(' '),
@@ -465,7 +460,6 @@ class _MeditationScreenState extends State<MeditationScreen>
     final suo = MeditationPreset.perCentro(r.centro);
     setState(() {
       if (suo != null) _preset = suo;
-      _sceltaAperta = false;
       // **CHI HA SCELTO DEVE VEDERE COSA HA SCELTO.** Senza questa riga, chi
       // tocca una pratica mentre la sessione gira non vede cambiare niente:
       // misurato sul telefono, zero pixel.
@@ -478,9 +472,19 @@ class _MeditationScreenState extends State<MeditationScreen>
     }
   }
 
-  void _choose(MeditationPreset preset) {
+  /// **SCELTA UNA FREQUENZA, si accende e suona.** Ordine DD voce 17.
+  ///
+  /// **Se la sessione e' ferma, parte.** E' la stessa legge del sintomo della
+  /// voce DD.12: un comando che risponde e non lo dice e' un comando morto per
+  /// chi lo guarda, e toccare una frequenza senza sentirla cambiare non e'
+  /// una risposta.
+  void _scegliLaFrequenza(MeditationPreset preset) {
     setState(() => _preset = preset);
-    if (_active) widget.player.play(preset);
+    if (_active) {
+      widget.player.play(preset);
+    } else {
+      _togglePlay();
+    }
   }
 
   @override
@@ -565,15 +569,28 @@ class _MeditationScreenState extends State<MeditationScreen>
                     // senso. Nessun sensore richiesto: il gesto tattile e' gia' il
                     // gesto, quindi la regola di casa sul ripiego e' soddisfatta
                     // per costruzione.
+                    // **UN COMANDO SOLO, CHE ACCENDE E SPEGNE. Ordine DD
+                    // voce 17, 10 settembre 2026, decisione del fondatore:**
+                    // *"elimina la possibilita' di tenere il dito premuto,
+                    // solo pulsante play e stop (stesso pulsante)"*.
+                    //
+                    // **Cosa c'era, e perche' se n'e' andato.** Il dito giu'
+                    // inspirava, il dito su espirava, e i tempi veri
+                    // disegnavano la figura della card. Era la cosa piu'
+                    // originale di questa schermata **e chiedeva di tenere il
+                    // pollice sul vetro per cinque minuti**, che e' il
+                    // contrario di chiudere gli occhi.
+                    //
+                    // **Il fiore resta toccabile e fa la STESSA cosa del
+                    // pulsante**: parte e si ferma. Un cerchio grande e bello
+                    // che ignora il dito e' peggio del difetto da cui
+                    // quest'ordine e' nato, che era *"faccio click e non
+                    // succede nulla"*. **Un'azione sola, due superfici,
+                    // nessun gesto nascosto.**
                     child: GestureDetector(
                       key: const Key('meditation_dito'),
                       behavior: HitTestBehavior.opaque,
-                      // A mani occupate il dito non comanda niente: il fiore
-                      // segue il riferimento e un tocco per sbaglio non lo
-                      // scompone.
-                      onTapDown: _daSolo ? null : (_) => _inspira(),
-                      onTapUp: _daSolo ? null : (_) => _espira(),
-                      onTapCancel: _daSolo ? null : _espira,
+                      onTap: _togglePlay,
                       child: AspectRatio(
                         aspectRatio: 1,
                         child: AnimatedBuilder(
@@ -594,16 +611,13 @@ class _MeditationScreenState extends State<MeditationScreen>
                                 Positioned.fill(
                                   child: LotoCheRespira(
                                     key: const Key('meditation_loto'),
-                                    // **CHI RESPIRA DA SOLO SEGUE IL RIFERIMENTO**,
-                                    // ordine DA voce 03: il fiore va col ritmo
-                                    // dell'app, perche' quella persona non puo'
-                                    // tenere il dito sullo schermo.
-                                    apertura: _daSolo
-                                        ? b.fill
-                                        : (_dito.fase == FaseDelRespiro.attesa
-                                            ? b.fill
-                                            : _dito.aperturaAdesso(
-                                                DateTime.now())),
+                                    // **IL FIORE VA COL RITMO, SEMPRE.**
+                                    // Ordine DD voce 17: senza il dito non
+                                    // c'e' piu' un secondo ritmo da seguire.
+                                    // Qui viveva la scelta fra il respiro
+                                    // proprio e quello guidato, e adesso il
+                                    // riferimento e' uno solo.
+                                    apertura: b.fill,
                                     // **IL COLORE DEL CENTRO DI OGGI, non quello del
                                     // Maestro.** Ordine DB voce 04: siccome il
                                     // centro cambia ogni giorno, il fiore di domani
@@ -618,11 +632,14 @@ class _MeditationScreenState extends State<MeditationScreen>
                                 ),
                                 _BreathGuide(
                                   fill: b.fill,
+                                  // **A SESSIONE FERMA IL CENTRO DICE COSA
+                                  // FARE**, e lo dice con la parola del
+                                  // comando: *premi play*. Ordine DD voce 17.
                                   phase: _active
                                       ? b.phase
                                       : (_compiuta
                                           ? 'Il respiro è compiuto'
-                                          : 'Tocca per iniziare'),
+                                          : 'Premi play'),
                                   // **IL CONTO ALLA ROVESCIA SOLO A SESSIONE VIVA.**
                                   // Ordine DD voce 16: un numero che scorre su una
                                   // schermata ferma sarebbe un orologio, non una
@@ -722,82 +739,38 @@ class _MeditationScreenState extends State<MeditationScreen>
                         palette: palette,
                         centroDiOggi: _indiceDelCentro,
                         onSceglie: _cominciaLaPratica,
+                        // **E DA QUI SI SCEGLIE ANCHE LA FREQUENZA**, ordine
+                        // DD voce 17: il pulsante promette sintomo **e**
+                        // frequenza, e adesso le da' tutte e due.
+                        frequenzaScelta: _preset,
+                        onFrequenza: _scegliLaFrequenza,
                       ),
                       const SizedBox(height: SpacingTokens.sm),
-                      // **LA SCELTA LIBERA SCENDE SOTTO, e non sparisce.** Una
-                      // funzione tolta in silenzio e' la cosa che questo progetto
-                      // vieta per legge del fondatore: qui si sposta e si dichiara.
-                      TextButton(
-                        key: const Key('meditation_scegli_tu'),
-                        onPressed: () =>
-                            setState(() => _sceltaAperta = !_sceltaAperta),
-                        child: Text(
-                          _sceltaAperta
-                              ? 'Lascia scegliere Aura'
-                              : 'Preferisco scegliere io',
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: palette.goldSoft),
-                        ),
-                      ),
-                      if (_sceltaAperta) ...[
-                        const SizedBox(height: SpacingTokens.xs),
-                        // **LE FREQUENZE VANNO A CAPO, non si stringono.** Ordine
-                        // DD voce 12, 10 settembre 2026.
-                        //
-                        // Qui c'era una `Row` di pasticche `Expanded`, e con tre
-                        // frequenze funzionava. **Diventate nove**, ognuna
-                        // prendeva un nono di schermo, cioe' venticinque punti:
-                        // misurato, `432 Hz` ne chiede sessantadue e andava a
-                        // capo su **quattro righe**, `Battito theta` su **sette**.
-                        // Nessuna usciva dallo schermo, e infatti la prima
-                        // stesura della guardia era verde: si stringevano tutte.
-                        //
-                        // **Un Wrap manda a capo la fila, non la parola**: ogni
-                        // pasticca prende la larghezza del suo nome e le nove
-                        // stanno su due file.
-                        Wrap(
-                          spacing: SpacingTokens.sm,
-                          runSpacing: SpacingTokens.xs,
-                          children: [
-                            for (final p in MeditationPreset.values)
-                              _PresetChip(
-                                preset: p,
-                                selected: p == _preset,
-                                palette: palette,
-                                onTap: () => _choose(p),
-                              ),
-                          ],
-                        ),
-                      ],
-                      // **RESPIRO DA SOLO, per chi non puo' toccare lo schermo.**
-                      // Ordine DA voce 03, 10 settembre 2026.
+                      // **QUI C'ERA "PREFERISCO SCEGLIERE IO", E SE N'E'
+                      // ANDATO. Ordine DD voce 17, 10 settembre 2026,
+                      // decisione del fondatore:** *"elimina 'preferisco
+                      // scegliere io', e' ridondante visto che dal pulsante
+                      // puo' gia' scegliere sintomo e frequenza"*.
                       //
-                      // Sta accanto alla scelta della frequenza e non davanti al
-                      // fiore: la via principale resta il dito, che e' cio' che
-                      // rende questa meditazione diversa dalle altre.
-                      TextButton(
-                        key: const Key('meditazione_da_solo'),
-                        onPressed: () => setState(() => _daSolo = !_daSolo),
-                        child: Text(
-                          _daSolo
-                              ? 'Torno a respirare col dito'
-                              : 'Respiro da solo, senza tenere il dito',
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: palette.goldSoft),
-                        ),
-                      ),
-                      if (_daSolo) ...[
-                        ParagrafiDiLettura(
-                          testo: 'Il fiore va col suo ritmo e tu vai col tuo. '
-                              'Sulla card resterà scritto che il respiro era '
-                              'guidato, perché quella figura è del ritmo e non '
-                              'tua.',
-                          key: const Key('meditazione_da_solo_dichiarato'),
-                          textAlign: TextAlign.center,
-                          stile: TypographyTokens.lettura()
-                              .copyWith(color: ColorTokens.textSecondary),
-                        ),
-                      ],
+                      // **Aveva ragione, e il nome del pulsante lo diceva
+                      // gia'.** Il pulsante grande si chiama **SCEGLI SINTOMO
+                      // E FREQUENZA** e apriva un pannello con i soli sintomi:
+                      // la frequenza stava dietro un secondo interruttore, piu'
+                      // in basso, con parole sue. **Due porte per una promessa
+                      // sola.**
+                      //
+                      // Le nove frequenze adesso vivono **dentro quel
+                      // pannello**, sotto i sintomi, e il pulsante mantiene
+                      // cio' che il suo nome promette.
+                      // **QUI C'ERA "RESPIRO DA SOLO", E NON HA PIU' UN
+                      // CONTRARIO. Ordine DD voce 17.**
+                      //
+                      // Nasceva dall'ordine DA voce 03 per chi non puo' tenere
+                      // il dito sullo schermo: era **il ripiego di un gesto**,
+                      // e quel gesto non c'e' piu'. Adesso tutti respirano col
+                      // ritmo dell'app, che era esattamente cio' che quel
+                      // pulsante offriva: **il ripiego e' diventato la via**,
+                      // e un interruttore che porta dove sei gia' e' rumore.
                       // **LA PRATICA PIU' BREVE, a chi lascia a meta'.**
                       // Ordine DA voce 05, 10 settembre 2026.
                       //
@@ -888,19 +861,25 @@ class _MeditationScreenState extends State<MeditationScreen>
                         // **Compare solo se ci sono respiri veri da disegnare**:
                         // una figura di zero respiri e' un cerchio vuoto, e
                         // mostrarlo sarebbe peggio che non mostrare niente.
-                        if (_dito.quantiRespiri >= 3) ...[
+                        // **LA CARD NASCE A SESSIONE VISSUTA, non a respiri
+                        // contati.** Ordine DD voce 17: i respiri li contava
+                        // il dito, e il dito non c'e' piu'. La soglia adesso
+                        // e' il tempo davvero passato a respirare, e sotto il
+                        // minuto non si offre da condividere niente: una card
+                        // di venti secondi non e' un traguardo.
+                        if (_quantoEDurata.inSeconds >= 60) ...[
                           const SizedBox(height: SpacingTokens.md),
                           Center(
                             child: RepaintBoundary(
                               key: _boundaryDellaCard,
                               child: CardDelRespiro(
-                                figura: _dito.figura,
+                                figura: _sigilloDiOra,
                                 giorno: widget.now ?? DateTime.now(),
-                                // **E LA CARD LO DICHIARA**, ordine DB voce 10:
-                                // una figura nata dal ritmo dell'app non e' sua,
-                                // e spacciarla per sua sarebbe la prima bugia di
-                                // questa funzione.
-                                guidato: _daSolo,
+                                durata: _quantoEDurata,
+                                sintomo: _praticaScelta?.sintomo,
+                                pratica: _praticaScelta?.nome,
+                                hertz: _preset.leftHz.round(),
+                                giorniDiFila: _memoria.giorniDiFila,
                               ),
                             ),
                           ),
@@ -1048,75 +1027,6 @@ class _BreathGuide extends StatelessWidget {
 }
 
 /// Un preset sonoro selezionabile.
-class _PresetChip extends StatelessWidget {
-  const _PresetChip({
-    required this.preset,
-    required this.selected,
-    required this.palette,
-    required this.onTap,
-  });
-
-  final MeditationPreset preset;
-  final bool selected;
-  final MaestroPalette palette;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    // **NIENTE `Expanded`, ordine DD voce 12.** Dentro un Wrap la pasticca
-    // prende la larghezza del suo nome; era `Expanded` perche' viveva in una
-    // Row, ed e' proprio quello che le stringeva tutte a un nono di schermo.
-    return GestureDetector(
-        key: Key('meditation_preset_${preset.id}'),
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(
-              vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            gradient: selected
-                ? LinearGradient(colors: [
-                    palette.primary.withValues(alpha: 0.6),
-                    palette.surfaceElevated.withValues(alpha: 0.6),
-                  ])
-                : null,
-            border: Border.all(
-              color: selected
-                  ? palette.gold.withValues(alpha: 0.7)
-                  : palette.gold.withValues(alpha: 0.22),
-            ),
-          ),
-          child: Column(
-            children: [
-              Text(
-                preset.label,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloDiRiga().copyWith(
-                  color:
-                      selected ? palette.goldSoft : ColorTokens.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 2),
-              // Nessun troncamento: il sottotitolo va a capo per intero.
-              Text(
-                preset.subtitle,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
-                  color: selected
-                      ? palette.goldSoft.withValues(alpha: 0.8)
-                      : ColorTokens.textSecondary.withValues(alpha: 0.8),
-                  letterSpacing: 0.4,
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-}
-
-/// Il bottone che avvia o ferma il suono e il visualizzatore.
 class _PlayButton extends StatelessWidget {
   const _PlayButton({
     required this.active,

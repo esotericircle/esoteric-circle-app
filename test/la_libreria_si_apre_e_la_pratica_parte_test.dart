@@ -2,7 +2,10 @@ import 'package:esoteric_circle/core/maestro/libreria_dei_respiri.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/pannello_della_libreria.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_audio.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'cardinale_minimo.dart';
 
 /// **LA LIBRERIA SI APRE E LA PRATICA PARTE.** Ordine DD voce 12,
 /// 10 settembre 2026.
@@ -35,6 +38,11 @@ void main() {
   /// L'ultima pratica scelta, oppure nulla se nessuna lo e'.
   Respiro? scelta;
 
+  /// **E L'ULTIMA FREQUENZA SCELTA. Ordine DD voce 17, 10 settembre 2026.**
+  /// Le nove frequenze vivono dentro questo pannello: il pulsante che lo apre
+  /// promette *sintomo e frequenza*, e fino a ieri ne dava una sola.
+  MeditationPreset? frequenza;
+
   Widget scena() => MaterialApp(
         home: Scaffold(
           body: SingleChildScrollView(
@@ -42,6 +50,8 @@ void main() {
               palette: MaestroPalette.aura,
               centroDiOggi: 3,
               onSceglie: (r) => scelta = r,
+              frequenzaScelta: MeditationPreset.calm432,
+              onFrequenza: (p) => frequenza = p,
             ),
           ),
         ),
@@ -161,5 +171,76 @@ void main() {
         reason: 'il campo del nome del rito e tornato');
     expect(find.byKey(const Key('meditazione_salva_il_rito')), findsNothing,
         reason: 'il pulsante che salva il rito e tornato');
+  });
+
+  testWidgets(
+      'ORDINE DD VOCE 17: LE NOVE FREQUENZE STANNO DENTRO QUESTO PANNELLO',
+      (tester) async {
+    // **La decisione del fondatore**: *"elimina 'preferisco scegliere io', e'
+    // ridondante visto che dal pulsante puo' gia' scegliere sintomo e
+    // frequenza"*.
+    //
+    // **Aveva ragione, e il nome del pulsante lo diceva gia'.** Si chiama
+    // SCEGLI SINTOMO E FREQUENZA e apriva un pannello con i soli sintomi: la
+    // frequenza stava dietro un secondo interruttore, piu' in basso nella
+    // colonna, con parole sue. **Due porte per una promessa sola**, e chi non
+    // scorreva non trovava mai la seconda.
+    telefono(tester);
+    await tester.pumpWidget(scena());
+    await apri(tester);
+
+    final mancanti = <String>[];
+    for (final p in MeditationPreset.values) {
+      if (find.text(p.label).evaluate().isEmpty) mancanti.add(p.label);
+    }
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: frequenze nel pannello '
+        '${MeditationPreset.values.length - mancanti.length} su '
+        '${MeditationPreset.values.length}');
+    cardinaleMinimo(MeditationPreset.values.length, 9,
+        cosa: 'frequenze che il pannello deve offrire',
+        perche: 'Con meno di nove la Meditazione e tornata a offrire una '
+            'manciata di toni.');
+    expect(mancanti, isEmpty,
+        reason: 'queste frequenze non sono nel pannello che le promette: '
+            '${mancanti.join(", ")}');
+
+    // **E TOCCARNE UNA RISPONDE.** Un elenco che non risponde e' cio' da cui
+    // quest'ordine e' nato.
+    await tester.tap(find.text(MeditationPreset.corona963.label));
+    await tester.pump();
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: toccata la 963, il pannello ha risposto '
+        '${frequenza?.label}');
+    expect(frequenza, MeditationPreset.corona963,
+        reason: 'toccata una frequenza, il pannello non lo dice a nessuno');
+  });
+
+  testWidgets('REGOLA H: E I DUE TITOLI DICONO COSA SI SCEGLIE',
+      (tester) async {
+    // **La meta che prova il contrario.** Nove pasticche e dodici voci in
+    // colonna, senza un titolo che le separi, sono un elenco solo: chi apre
+    // per il sintomo crede che le pasticche siano sintomi. Due parole in
+    // maiuscoletto costano niente e dividono le due cose.
+    telefono(tester);
+    await tester.pumpWidget(scena());
+    await apri(tester);
+    expect(find.byKey(const Key('meditazione_titolo_frequenze')),
+        findsOneWidget,
+        reason: 'le nove pasticche non hanno un titolo che dica cosa sono');
+    expect(find.byKey(const Key('meditazione_titolo_sintomi')), findsOneWidget,
+        reason: 'le dodici voci non hanno un titolo che dica cosa sono');
+    // E la frequenza viene PRIMA, che e' l ordine deciso: nove pasticche si
+    // guardano in un colpo, dodici voci si scorrono.
+    final fr = tester.getRect(
+        find.byKey(const Key('meditazione_titolo_frequenze')));
+    final si =
+        tester.getRect(find.byKey(const Key('meditazione_titolo_sintomi')));
+    // ignore: avoid_print
+    print('ORDINE DD VOCE 17: le frequenze a ${fr.top}, i sintomi a '
+        '${si.top}');
+    expect(fr.top, lessThan(si.top),
+        reason: 'i sintomi stanno sopra le frequenze: chi apre per una '
+            'frequenza deve scorrere dodici voci per trovarla');
   });
 }

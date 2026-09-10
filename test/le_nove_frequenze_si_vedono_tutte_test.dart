@@ -58,9 +58,17 @@ void main() {
       ),
     ));
     await tester.pump(const Duration(milliseconds: 300));
-    // La scelta libera e' chiusa di partenza: la porta principale resta Aura
-    // che sceglie dal centro del giorno.
-    final apre = find.byKey(const Key('meditation_scegli_tu'));
+    // **LA PORTA E' CAMBIATA. Ordine DD voce 17, 10 settembre 2026.** Le nove
+    // frequenze vivevano dietro *"Preferisco scegliere io"*, un secondo
+    // interruttore in fondo alla colonna. Il fondatore lo ha tolto perche'
+    // ridondante: adesso stanno **dentro il pannello** che il pulsante
+    // SCEGLI SINTOMO E FREQUENZA apre, e quel pulsante mantiene cio' che il
+    // suo nome promette.
+    //
+    // **Questa guardia resta**, perche' misura una cosa che il pannello da
+    // solo non prova: che le etichette **non vadano a capo** dentro la
+    // schermata vera, con la sua larghezza vera.
+    final apre = find.byKey(const Key('meditazione_apri_libreria'));
     await tester.scrollUntilVisible(apre, 200);
     await tester.tap(apre);
     await tester.pump(const Duration(milliseconds: 300));

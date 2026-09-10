@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/maestro/libreria_dei_respiri.dart';
+import 'meditation_audio.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -40,7 +41,18 @@ class PannelloDellaLibreria extends StatefulWidget {
     required this.palette,
     required this.centroDiOggi,
     required this.onSceglie,
+    required this.frequenzaScelta,
+    required this.onFrequenza,
   });
+
+  /// La frequenza che sta suonando adesso, per accendere la sua pasticca.
+  final MeditationPreset frequenzaScelta;
+
+  /// **E LA FREQUENZA SI SCEGLIE DA QUI.** Ordine DD voce 17, 10 settembre
+  /// 2026, decisione del fondatore: *"elimina 'preferisco scegliere io', e'
+  /// ridondante visto che dal pulsante puo' gia' scegliere sintomo e
+  /// frequenza"*.
+  final void Function(MeditationPreset) onFrequenza;
 
   final MaestroPalette palette;
 
@@ -103,6 +115,45 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.sm),
+          // **E LE NOVE FREQUENZE STANNO QUI SOTTO. Ordine DD voce 17.**
+          //
+          // **Il pulsante che apre questo pannello si chiama SCEGLI SINTOMO E
+          // FREQUENZA**, e fino a oggi dava solo la prima meta': la frequenza
+          // viveva dietro un secondo interruttore, piu' in basso nella
+          // colonna, con parole sue. Due porte per una promessa sola, e chi
+          // non scorreva non trovava mai la seconda.
+          //
+          // **Stanno sopra i sintomi e non sotto**, perche' sono nove e i
+          // sintomi dodici: chi apre per scegliere una frequenza la trova
+          // subito, chi apre per il sintomo scorre di poco.
+          Text(
+            'LA FREQUENZA',
+            key: const Key('meditazione_titolo_frequenze'),
+            style: TypographyTokens.etichetta().copyWith(
+                color: palette.goldSoft, letterSpacing: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Wrap(
+            spacing: SpacingTokens.sm,
+            runSpacing: SpacingTokens.xs,
+            children: [
+              for (final p in MeditationPreset.values)
+                PasticcaDellaFrequenza(
+                  preset: p,
+                  selected: p == widget.frequenzaScelta,
+                  palette: palette,
+                  onTap: () => widget.onFrequenza(p),
+                ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          Text(
+            'IL SINTOMO',
+            key: const Key('meditazione_titolo_sintomi'),
+            style: TypographyTokens.etichetta().copyWith(
+                color: palette.goldSoft, letterSpacing: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
           for (final r in [...sue, ...altre])
             _RigaDelRespiro(
               respiro: r,
@@ -218,3 +269,79 @@ class _RigaDelRespiro extends StatelessWidget {
     );
   }
 }
+
+/// **UNA PASTICCA DI FREQUENZA.** Ordine DD voce 17, 10 settembre 2026.
+///
+/// **Viveva nella schermata ed e' passata qui**, insieme alle nove frequenze:
+/// adesso le pasticche stanno dentro il pannello che il pulsante apre, e
+/// quello che le mostrava in fondo alla colonna non esiste piu'.
+class PasticcaDellaFrequenza extends StatelessWidget {
+  const PasticcaDellaFrequenza({
+    super.key,
+    required this.preset,
+    required this.selected,
+    required this.palette,
+    required this.onTap,
+  });
+
+  final MeditationPreset preset;
+  final bool selected;
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    // **NIENTE `Expanded`, ordine DD voce 12.** Dentro un Wrap la pasticca
+    // prende la larghezza del suo nome; era `Expanded` perche' viveva in una
+    // Row, ed e' proprio quello che le stringeva tutte a un nono di schermo.
+    return GestureDetector(
+        key: Key('meditation_preset_${preset.id}'),
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(
+              vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            gradient: selected
+                ? LinearGradient(colors: [
+                    palette.primary.withValues(alpha: 0.6),
+                    palette.surfaceElevated.withValues(alpha: 0.6),
+                  ])
+                : null,
+            border: Border.all(
+              color: selected
+                  ? palette.gold.withValues(alpha: 0.7)
+                  : palette.gold.withValues(alpha: 0.22),
+            ),
+          ),
+          child: Column(
+            children: [
+              Text(
+                preset.label,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloDiRiga().copyWith(
+                  color:
+                      selected ? palette.goldSoft : ColorTokens.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 2),
+              // Nessun troncamento: il sottotitolo va a capo per intero.
+              Text(
+                preset.subtitle,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.etichetta().copyWith(
+                  color: selected
+                      ? palette.goldSoft.withValues(alpha: 0.8)
+                      : ColorTokens.textSecondary.withValues(alpha: 0.8),
+                  letterSpacing: 0.4,
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+/// Il bottone che avvia o ferma il suono e il visualizzatore.

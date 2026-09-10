@@ -148,8 +148,12 @@ void main() {
       expect(find.byKey(const Key('meditation_cymatics')), findsNothing,
           reason: 'il cerchio che si gonfia e ancora montato');
       expect(find.byKey(const Key('meditation_play')), findsOneWidget);
-      // Prima del via, la guida invita a iniziare.
-      expect(find.text('Tocca per iniziare'), findsOneWidget);
+      // **PRIMA DEL VIA LA GUIDA DICE COSA FARE, e da oggi lo dice col nome
+      // del comando.** Ordine DD voce 17, 10 settembre 2026: qui c'era
+      // *"Tocca per iniziare"*, che era vero finche' il fiore si toccava per
+      // respirare. Tolto il gesto, il comando e' il pulsante, e la parola al
+      // centro nomina lui: **"Premi play"**.
+      expect(find.text('Premi play'), findsOneWidget);
       // Fondamento onesto, senza ripetere il disclaimer.
       expect(find.textContaining('non un fatto medico'), findsOneWidget);
     });
@@ -165,7 +169,7 @@ void main() {
 
       expect(player.played, isNotEmpty);
       // Partito il respiro, l'etichetta non e' piu' l'invito iniziale.
-      expect(find.text('Tocca per iniziare'), findsNothing);
+      expect(find.text('Premi play'), findsNothing);
     });
 
     testWidgets('Il preset binaurale invita alle cuffie', (tester) async {
@@ -176,12 +180,19 @@ void main() {
       // 06**: la porta principale la decide Aura, e chi vuole scegliere apre
       // il pannello. Qui si toccava direttamente il chip, che ora nasce
       // chiuso: prima si apre la scelta, poi si sceglie.
+      //
+      // **E LA PORTA E' CAMBIATA DI NUOVO. Ordine DD voce 17, 10 settembre
+      // 2026**, decisione del fondatore: *"elimina 'preferisco scegliere io',
+      // e' ridondante visto che dal pulsante puo' gia' scegliere sintomo e
+      // frequenza"*. Le nove frequenze vivono **dentro il pannello** che il
+      // pulsante SCEGLI SINTOMO E FREQUENZA apre, e l'interruttore di mezzo
+      // non esiste piu'.
       expect(find.textContaining('Metti le cuffie'), findsNothing);
       expect(find.byKey(const Key('meditation_preset_theta')), findsNothing,
           reason: 'il menu delle frequenze e ancora in prima fila: il '
               'fondatore ha chiesto che Aura decida, e che la scelta stia '
               'sotto');
-      await tocca(tester, const Key('meditation_scegli_tu'));
+      await tocca(tester, const Key('meditazione_apri_libreria'));
       await tester.pump();
       await tocca(tester, const Key('meditation_preset_theta'));
       await tester.pump();

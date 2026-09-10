@@ -57,6 +57,22 @@ class UnRespiro {
 /// Non ha timer suoi: chi lo usa gli dice che ora e', e lui risponde. Cosi'
 /// una prova puo' far scorrere venti minuti in un millisecondo, e la scena non
 /// ha due orologi che si contraddicono.
+/// **NESSUNA SCHERMATA LO MONTA PIU', DAL 10 SETTEMBRE 2026.** Ordine DD voce
+/// 17, decisione del fondatore: *"elimina la possibilita' di tenere il dito
+/// premuto, solo pulsante play e stop"*.
+///
+/// **Non e' stato cancellato, ed e' una scelta.** Questo file misura una cosa
+/// difficile e la misura bene: distingue uno scivolo del dito da un espiro
+/// vero, butta i respiri piu' lunghi di un minuto, e non conta due volte un
+/// dito alzato due volte. Sono tarature che sono costate un ordine intero, e
+/// le sue quattordici prove restano verdi.
+///
+/// **Se un giorno il respiro guidato dal dito torna**, torna da qui, con le
+/// sue soglie gia' provate. Cancellarlo vorrebbe dire rifarle a memoria.
+///
+/// **Chi conta i file di `lib` sappia che questo non ha chiamanti**: e'
+/// dichiarato qui, non dedotto, e il conto e' stato fatto col grep il
+/// 10 settembre 2026.
 class RespiroGuidatoDalDito {
   RespiroGuidatoDalDito({
     Duration riferimento = riferimentoDelRespiro,
