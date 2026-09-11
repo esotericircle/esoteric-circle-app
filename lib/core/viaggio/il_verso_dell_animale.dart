@@ -115,7 +115,7 @@ abstract final class IlVersoDellAnimale {
     if (!eLaRivelazione) return false;
     if (await giaUdito(animale.name)) return false;
     if (!await ilFileCE(animale)) {
-      debugPrint('Ordine DE voce 07: il verso di ${animale.name} non e nel '
+      debugPrint('Ordine DE voce 07: il verso di ${animale.name} non è nel '
           'pacchetto, il momento resta muto. Atteso in '
           '${percorsoNelPacchetto(animale)}');
       return false;

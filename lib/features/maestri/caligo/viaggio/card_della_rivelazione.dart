@@ -52,6 +52,24 @@ class CardDellaRivelazione extends StatelessWidget {
   static String titolo(GuideAnimal animale) =>
       'MI HA TROVATO ${animale.name.toUpperCase()}';
 
+  /// **L'ARTICOLO DAVANTI AL GIORNO, e non e' sempre lo stesso.**
+  ///
+  /// La card diceva *"mi ha trovato il 11 settembre 2026"*, e lo diceva a
+  /// chiunque avrebbe condiviso quella card: e' il pezzo dell'app che esce di
+  /// casa. **In italiano l'articolo si elide davanti a *otto* e a *undici***,
+  /// che sono gli unici due numeri del mese a cominciare per vocale, e davanti
+  /// a nessun altro.
+  ///
+  /// **Perche' non una regola generale sulle vocali.** Perche' qui i casi sono
+  /// trentuno e si conoscono tutti: una regola che indovinasse la lettera
+  /// iniziale della parola *"undici"* sarebbe piu' generale e meno vera.
+  static String articoloDelGiorno(int giorno) =>
+      giorno == 8 || giorno == 11 ? "l'" : 'il ';
+
+  /// La riga della data, per esteso e in italiano, articolo compreso.
+  static String ilGiorno(DateTime giorno) =>
+      '${articoloDelGiorno(giorno.day)}${laData(giorno)}';
+
   /// La riga della data, per esteso e in italiano.
   static String laData(DateTime giorno) {
     const mesi = [
@@ -129,7 +147,7 @@ class CardDellaRivelazione extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(
-              'mi ha trovato il ${laData(quando)}',
+              'mi ha trovato ${ilGiorno(quando)}',
               key: const Key('card_rivelazione_data'),
               textAlign: TextAlign.center,
               style: TypographyTokens.didascalia()

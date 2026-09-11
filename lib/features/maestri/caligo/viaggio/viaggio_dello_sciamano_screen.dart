@@ -290,6 +290,14 @@ class _ViaggioDelloSciamanoScreenState
     });
   }
 
+  /// **L'ARTICOLO DEL NOME**, ordine DE voce 08. Nel dubbio maschile, che e'
+  /// il caso di otto animali su dodici: un nome che il catalogo non conosce
+  /// non deve far cadere la schermata della rivelazione.
+  String _articoloDi(String nome) => _animale(nome)?.articolo ?? 'il ';
+
+  /// **IL PRONOME DEL NOME**, stessa legge dell'articolo.
+  String _pronomeDi(String nome) => _animale(nome)?.pronome ?? 'lo';
+
   /// **L'ILLUSTRAZIONE VERA DI UN NOME**, o nulla se quel nome non ha arte.
   GuideAnimal? _animale(String? nome) {
     if (nome == null) return null;
@@ -1057,7 +1065,8 @@ class _ViaggioDelloSciamanoScreenState
   /// **L'INCONTRO: tre ombre, e se ne segue una.**
   Widget _lIncontro(MaestroPalette palette) {
     final dalCielo = GuideAnimalDerivation.forSign(widget.userSign);
-    final ombre = IQuattroViaggi.treOmbre(dalCielo);
+    final ombre = IQuattroViaggi.treOmbre(dalCielo,
+        discesa: _diario.quanteDiscese);
     final quale = _diario.quanteDiscese;
     return Column(
       children: [
@@ -1280,7 +1289,10 @@ class _ViaggioDelloSciamanoScreenState
           if (nome != null)
             ParagrafiDiLettura(
               key: const Key('viaggio_il_nome'),
-              testo: 'È il $nome. Adesso lo conosci.',
+              // **L'ARTICOLO E IL PRONOME VENGONO DALL'ANIMALE**, ordine DE voce
+              // 08: qui c'era scritto *"E' il $nome. Adesso lo conosci"*, e sulla
+              // Lince diventava *"E' il Lince"*. Vedi `GuideAnimal.articolo`.
+              testo: 'È ${_articoloDi(nome)}$nome. Adesso ${_pronomeDi(nome)} conosci.',
               textAlign: TextAlign.center,
               // **ORO CHIARO E NON ORO PIENO**, e lo ha chiesto il censimento
               // dei grigi: su un fondo di Maestro l'oro pieno arriva a 5,42

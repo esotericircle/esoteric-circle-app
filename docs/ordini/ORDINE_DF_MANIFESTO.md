@@ -23,11 +23,28 @@ si dicono qui in cima e non in fondo:**
    assoluto.** La ragione e' aritmetica ed e' scritta per esteso al punto 4.
    La soglia adesso guarda **le coppie che non condividono nessun simbolo**, e
    la peggiore in assoluto si riporta lo stesso, accanto.
-2. **Le quattro Stese consecutive sul telefono (voce DF.07 punto 7) non sono
-   state fatte**: il fondatore dorme, la consegna e' stata ordinata per il suo
-   risveglio, e ogni Stesa chiede di scegliere tre carte a mano. **Le quattro
-   misure sono pero' state fatte su CENTO letture, non su quattro**, ed e' un
-   collaudo piu' severo di quello che ha fatto lui.
+2. **Le quattro Stese consecutive sul telefono (voce DF.07 punto 7) SONO STATE
+   FATTE**, l'11 settembre 2026 fra le 10:31 e le 10:42 sul 767f596c con la
+   build 2246, e questa riga corregge quella di prima, che diceva che non si
+   erano potute fare. Le catture stanno in `docs/catture/de_df/`. La prova e'
+   la stessa che ha fatto il fondatore: **quattro Stese di fila con la stessa
+   domanda, Denaro e fortuna**, scelta dal menu e visibile in ogni cattura
+   sotto il titolo.
+
+   | # | carte uscite | titolo | come apre il Consiglio |
+   |---|---|---|---|
+   | 1 | Sette di Coppe rov., Nove di Bastoni rov., Dieci di Denari | La difesa irrigidita | *"Nove di Bastoni rovesciato e' la carta che regge la tua lettura."* |
+   | 2 | Fante di Denari rov., La Temperanza, Sei di Denari | La misura che guarisce | *"La domanda giusta non e' cosa manca, e' cosa farne."* |
+   | 3 | La Ruota della Fortuna, La Morte, Nove di Bastoni | La fine che libera | *"Dice che il lavoro e' stato fatto. Quello che manca non e' fatica."* |
+   | 4 | Dieci di Denari, Asso di Bastoni, La Luna | La scintilla che accende | *"La tua lettura si apre su Asso di Bastoni."* |
+
+   **Quattro titoli diversi, quattro aperture diverse, quattro strade
+   diverse**, con la stessa identica domanda. L'unica frase che ricorre e'
+   *"Sul denaro che ti riguarda"*, che e' **il taglio dell'argomento** e deve
+   ricorrere: e' cio' che lega la lettura alla domanda posta.
+
+   **E le quattro misure restano fatte su CENTO letture, non su quattro**, che
+   e' un collaudo piu' severo di quello del fondatore.
 
 ---
 
@@ -382,7 +399,20 @@ la coda. Per la stessa ragione la riga di *"come si vede se ha funzionato"* e'
 rimasta **fuori** dal Consiglio: con lei dentro il caso peggiore passava il
 tetto e la bolla veniva troncata.
 
-**LE CATTURE DAL TELEFONO**: vedi il punto 1, non sono state prese.
+**LE CATTURE DAL TELEFONO**: prese l'11 settembre 2026 sul 767f596c, build
+2246, e stanno in `docs/catture/de_df/`:
+
+- `df_lettura1_testa.png`, `df_lettura1_capo.png`, `df_lettura1.png`, la prima
+  Stesa dalla Carta Chiave fino all'ultima riga del Consiglio;
+- `df_lettura2_capo.png` con il titolo *La misura che guarisce* e la riga
+  *Denaro e fortuna* sotto, e `df_lettura2_testa.png` col suo Consiglio;
+- `df_lettura3_titolo.png` e `df_lettura3_capo.png`, la terza;
+- `df_lettura4_titolo.png` e `df_lettura4_capo.png`, la quarta.
+
+**Perche' due catture per lettura e non una.** Perche' la prova sta in due
+punti diversi dello schermo: **il titolo** dice che la sintesi e' cambiata, e
+**il primo paragrafo del Consiglio** dice che e' cambiata la strada. Una
+cattura sola avrebbe mostrato uno dei due e lasciato credere l'altro.
 
 ---
 

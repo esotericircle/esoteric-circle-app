@@ -9,11 +9,15 @@ DA, DB, DC e DD, e nessun DE. L'ordine resta DE e non si rinomina.
 
 VOCI_TOTALI: 16
 VOCI_APERTE: 2
+VOCI_CHIUSE_DALLA_PROVA_A_VIDEO: DE.16, l 11 settembre 2026
 
 ## LO STATO, AL 11 SETTEMBRE 2026 A NOTTE FONDA
 
-**Quattordici voci su sedici chiuse. Due restano aperte, e restano aperte per
-una ragione che non dipende da me.**
+**Quindici voci su sedici chiuse. Una resta aperta, e resta aperta per una
+ragione che non dipende da me.** DE.16, la prova visiva sul telefono, e' stata
+fatta l'11 settembre 2026 in mattinata e ha trovato **sei difetti**: sono tutti
+riparati, e la storia sta qui sotto. Resta aperta **DE.04**, che aspetta Imagen
+sul progetto, e **DE.05**, che aspetta tre file dal fondatore.
 
 ### LE DUE APERTE, in cima e non in fondo
 
@@ -63,14 +67,74 @@ puo' spendere per farlo. Poi:
 python tool/ingrandisci_animali.py tutti
 ```
 
-**DE.16, la prova visiva sul telefono. NON FATTA.** Il telefono 767f596c e'
-collegato, ma le otto catture che l'ordine elenca chiedono di **fare quattro
-discese** scegliendo ombre e muovendo la lente col dito, e la chiave della demo
-lo permette in una sera sola: e' un collaudo di venti minuti che va fatto da
-sveglio, perche' ogni fotografia va guardata e non solo scattata. **Le voci che
-quelle fotografie dovrebbero provare sono pero' tutte provate al banco**, con i
-numeri, e la build e' consegnata: le fotografie si prendono al tuo risveglio, o
-le prendi tu aprendo l'app.
+**DE.16, la prova visiva sul telefono. FATTA, e questa riga corregge quella di
+prima, che diceva NON FATTA.** L'11 settembre 2026 fra le 10:45 e le 11:02, sul
+767f596c con la build 2246, il viaggio e' stato percorso per intero: soglia,
+domanda, quattro discese, lente, tre ombre, rivelazione, card. Le catture
+stanno in `docs/catture/de_df/`.
+
+**E ha trovato SEI DIFETTI che nessuna delle guardie al banco vedeva.** Questa
+e' la riga piu' importante di tutto il manifesto, e va letta prima delle altre:
+**le sedici voci erano chiuse con i numeri, e l'app a video era sbagliata lo
+stesso.** Chi legge questo manifesto deve sapere che un numero verde non e' una
+schermata giusta.
+
+| # | che cosa si vedeva | dove nasceva | come e' stato chiuso |
+|---|---|---|---|
+| 1 | **alla seconda e alla terza discesa l'animale si vedeva intero, testa compresa**, mentre lo schermo prometteva *"la lente scopre solo dove puo', oggi"* | ordine DE voce 03: il buco della lente si ritagliava dal velo con uno `ShaderMask` e `BlendMode.dstIn`, e sul telefono quella maschera cancellava **il velo intero** invece del suo cerchio | il velo si dipinge senza nessuna maschera di fusione: coltre e fantasma interi, e sopra **un ritaglio circolare** dell'animale nitido con dentro il gradiente che torna alla coltre sul raggio |
+| 2 | *"Non e nuovo"*, *"Questa non e la prima volta"*, *"lo avevi gia' trovato di la"* | ordine DE voce 11, le otto forme del richiamo | tre accenti rimessi |
+| 3 | *"ti rimanda l'ombra che non e' tua, un altra volta"* | ordine DE voce 11, stessa lista | apostrofo elisivo rimesso |
+| 4 | **sulla card che si condivide**: *"mi ha trovato il 11 settembre 2026"* | ordine DE voce 08 | l'articolo si elide davanti a **otto** e a **undici**, e a nessun altro giorno del mese |
+| 5 | *"E' il Lince. Adesso lo conosci."* | ordine DE voce 08: il genere dei dodici non stava nel codice, stava solo nei testi del corpus | `GuideAnimal.femminile`, quattro su dodici: Aquila, Lince, Tartaruga, Volpe |
+| 6 | **quattro discese, la stessa terna di ombre nelle stesse tre posizioni** | ordine DE voce 03: la terna dipende dall'animale del giorno, che nel giorno non cambia | la terna resta quella (serve al meccanismo: vince l'ombra seguita piu' volte), **cambia l'ordine** a ogni discesa |
+
+**Il primo difetto e' il piu' istruttivo, e merita le sue righe.** Lo
+sorvegliavano due guardie, tutte e due verdi e tutte e due a ragione:
+`la_testa_non_si_vede_prima_della_quarta_test` misurava la **geometria**, cioe'
+che il cerchio non toccasse la testa, e non la toccava; una guardia nuova
+scritta apposta misurava **l'albero dei widget**, cioe' che il velo fosse
+costruito e opaco, e lo era, anche con le animazioni spente come sul
+dispositivo. **Il velo era costruito, era opaco, e non dipingeva niente.**
+
+Fra l'albero e i pixel c'era la maschera di fusione. **Percio' la guardia
+definitiva non guarda ne' i numeri ne' l'albero: rasterizza la scena e misura
+quanto e' NITIDO il rettangolo della testa**, confrontandolo con lo stesso
+rettangolo alla quarta discesa, quando il velo e' caduto. Centootto fotogrammi,
+dodici animali per tre discese per tre posizioni della lente sul bordo alto
+dell'area: **il rapporto peggiore fra testa velata e testa scoperta e' 0,209**,
+cioe' la testa velata e' cinque volte meno nitida. Con il velo tolto a mano lo
+stesso numero va a **1,000**, ed e' cosi' che la guardia e' stata vista rossa
+prima di essere creduta.
+
+**Perche' la nitidezza e non la luce.** Perche' la luce media mente: sotto il
+velo il fantasma sfocato si vede, ed e' voluto (*"la sagoma complessiva si
+intuisce sempre"*), quindi sulla testa del Lupo faceva 57,3 velata contro 86,0
+scoperta, due numeri troppo vicini; e sul Cervo faceva 15,4 velata contro 14,9
+scoperta, cioe' **il contrario**, perche' il suo rettangolo della testa e'
+largo e in gran parte sfondo trasparente. La nitidezza separa: 4,85 contro
+35,63 sul Lupo, 2,03 contro 9,72 sul Cervo.
+
+**LE CATTURE, una per una, con cio' che portano scritto:**
+
+| file | che cosa prova | il testo che si legge |
+|---|---|---|
+| `de16_01_soglia.png` | **DE.01**, la soglia occupa lo schermo intero | *IL MONDO DI SOTTO / Scopri il tuo animale guida / Dodici ti aspettano. Uno verra' con te.* |
+| `de16_02_titolo_due_righe.png` | **DE.02**, il titolo spezzato nella card di Caligo | *VIAGGIO / dello / SCIAMANO*, e sotto *Scopri il tuo animale guida* |
+| `de16_09_impronte.png` | **DE.09**, il cammino delle quattro impronte | *Si e' mostrato una volta su 4*, con la prima impronta piena e tre cerchi vuoti |
+| `de16_03_tunnel.png` | **DE.06**, la discesa | *Tieni premuto per scendere* |
+| `de16_04_nebbia.png` | la nebbia alla fine della discesa | *Apri la nebbia con la mano* |
+| `de16_05_lente.png` | il buco aperto dal dito dentro la nebbia | *Apri la nebbia con la mano* |
+| `de16_06_tre_ombre_vere.png` | **DE.03**, le tre ombre sono le **sagome vere** dei dodici, non piu' un quadrupede disegnato da una formula | *Di profilo, che si allontana.* |
+| `de16_07_quarta_discesa.png` | **DE.03**, alla quarta il velo cade e la testa si vede | *Il velo e' caduto.* |
+| `de16_08a_rivelazione.png` | **DE.08**, il nome si dice solo alla fine | *E' il Lince. Adesso lo conosci.* **(cattura del difetto 5, prima della riparazione)** |
+| `de16_08b_card.png` | **DE.08**, la card che si condivide | *MI HA TROVATO LINCE*, *mi ha trovato il 11 settembre 2026* **(cattura del difetto 4)**, *Di' chi sei* |
+| `de16_11_scena_che_parla.png` | **DE.11**, la scena che si ricorda di quelle prima | *Il Mondo di Sotto ti rimanda l'ombra che non e' tua, un altra volta.* **(cattura del difetto 3)** |
+| `difetto_lente_troppo_grande.png`, `difetto_lente_terza_discesa.png` | **il difetto 1**, seconda e terza discesa | *Passa il dito: la lente scopre solo dove puo', oggi* con l'animale interamente scoperto |
+| `difetto_stessa_terna_di_ombre.png` | **il difetto 6** | la stessa terna della discesa precedente, nelle stesse posizioni |
+
+**Tre catture portano il difetto e non la prova**, e si tengono apposta: un
+manifesto che mostrasse solo le schermate riuscite racconterebbe una giornata
+che non c'e' stata.
 
 ### LE QUATTORDICI CHIUSE
 

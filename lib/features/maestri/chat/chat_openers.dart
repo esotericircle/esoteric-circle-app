@@ -5,24 +5,12 @@
 /// dall'utente sulla fonte da cui arriva, cosi' il Maestro risponde subito su
 /// quel tema. Il testo si adatta alla sorgente e al suo risultato. Deterministico,
 /// nessuna AI: qui si compone solo la stringa.
+library;
+
+import '../../../core/rituals/animal_catalog.dart';
+
 class ChatOpeners {
   const ChatOpeners._();
-
-  /// Articolo dell'animale, per una frase che suona bene.
-  static const Map<String, String> _articoloAnimale = {
-    'Falco': 'il',
-    'Orso': 'l\'',
-    'Volpe': 'la',
-    'Lupo': 'il',
-    'Aquila': 'l\'',
-    'Gufo': 'il',
-    'Cervo': 'il',
-    'Serpente': 'il',
-    'Cavallo': 'il',
-    'Tartaruga': 'la',
-    'Corvo': 'il',
-    'Lince': 'la',
-  };
 
   /// Articolo del tratto del volto, dalla categoria, per l'accordo.
   static const Map<String, String> _articoloTratto = {
@@ -41,9 +29,16 @@ class ChatOpeners {
 
   /// Dall'Animale Guida verso Caligo, col nome vero dell'animale.
   static String animale(String nome) {
-    final art = _articoloAnimale[nome] ?? 'il';
-    final sep = art.endsWith('\'') ? '' : ' ';
-    return 'Il mio animale guida è $art$sep$nome, cosa vuole dirmi?';
+    // **L'ARTICOLO LO SA IL CATALOGO, e qui c'era una seconda tabella.**
+    // Ordine DE voce 08, 11 settembre 2026: il genere dei dodici stava scritto
+    // due volte, qui e nei testi del corpus, e in mezzo il Viaggio scriveva
+    // `il` fisso e diceva *"E' il Lince"*. Adesso la fonte e' una sola.
+    final animale = AnimalCatalog.animals
+        .where((a) => a.name == nome)
+        .cast<GuideAnimal?>()
+        .firstWhere((a) => true, orElse: () => null);
+    final art = animale?.articolo ?? 'il ';
+    return 'Il mio animale guida è $art$nome, cosa vuole dirmi?';
   }
 
   /// Dal Consiglio dei Maestri verso il Maestro scelto, con la domanda da cui

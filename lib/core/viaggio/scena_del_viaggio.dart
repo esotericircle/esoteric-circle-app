@@ -313,14 +313,14 @@ abstract final class IlRichiamoDelleScene {
   /// tornato: un conteggio trasformerebbe il richiamo in una statistica, e la
   /// voce DC.04 ha gia' vietato i numeri da videogioco in questo dominio.
   static const List<String> forme = [
-    '{Cosa} lo avevi già trovato di la.',
-    'Questa non e la prima volta che incontri {cosa}.',
+    '{Cosa} lo avevi già trovato di là.',
+    'Questa non è la prima volta che incontri {cosa}.',
     '{Cosa} era già comparso in una delle tue discese.',
     'Ti era già capitato di vedere {cosa}.',
-    'Non e nuovo: {cosa} lo avevi già incontrato.',
+    'Non è nuovo: {cosa} lo avevi già incontrato.',
     '{Cosa} torna.',
     'Lo hai già visto, {cosa}.',
-    'Il Mondo di Sotto ti rimanda {cosa}, un altra volta.',
+    'Il Mondo di Sotto ti rimanda {cosa}, un\'altra volta.',
   ];
 
   /// **LA RIGA DEL RICHIAMO**, oppure nulla quando non c'e' niente da

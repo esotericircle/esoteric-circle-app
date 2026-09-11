@@ -203,53 +203,79 @@ class _LenteCheScopreState extends State<LenteCheScopre>
                         key: const Key('viaggio_animale_vero'),
                         fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) => const SizedBox.shrink()),
-                    // **SOPRA, IL VELO**, che e' la stessa immagine scurita e
-                    // sfocata: cosi' la sagoma si intuisce sempre e non c'e'
-                    // nessun nero pieno a nascondere che sotto ci sia
-                    // qualcosa.
+                    // **SOPRA, IL VELO INTERO**, senza nessun buco: e' la
+                    // stessa immagine scurita e sfocata, cosi' la sagoma si
+                    // intuisce sempre e non c'e' nessun nero pieno a
+                    // nascondere che sotto ci sia qualcosa.
                     if (velato || _caduta.value > 0)
                       Opacity(
                         opacity: _caduta.value,
-                        child: ShaderMask(
-                          // **IL BUCO DELLA LENTE SI RITAGLIA DAL VELO**, con
-                          // un bordo sfumato: un cerchio netto sarebbe un
-                          // ritaglio di carta, e l'ordine chiede il contrario.
-                          shaderCallback: (rect) => RadialGradient(
-                            center: Alignment(
-                              rect.width == 0
-                                  ? 0
-                                  : (lente.dx / rect.width) * 2 - 1,
-                              rect.height == 0
-                                  ? 0
-                                  : (lente.dy / rect.height) * 2 - 1,
-                            ),
-                            radius: rect.shortestSide == 0
-                                ? 1
-                                : raggio / (rect.shortestSide / 2),
-                            colors: const [
-                              Colors.transparent,
-                              Colors.transparent,
-                              Colors.white,
+                        child: _ilVelo(scena),
+                      ),
+                    // **E SOPRA IL VELO, IL CERCHIO DELLA LENTE**, cioe' la
+                    // sola porzione di animale che oggi si puo' vedere.
+                    //
+                    // **Qui c'era un `ShaderMask` con `BlendMode.dstIn`** che
+                    // ritagliava il buco dal velo. Sul 767f596c quella
+                    // maschera cancellava il velo **intero**: alla seconda e
+                    // alla terza discesa l'animale si vedeva tutto, testa
+                    // compresa, mentre lo schermo prometteva una lente. Un
+                    // ritaglio e un gradiente fanno lo stesso disegno senza
+                    // chiedere nessuna fusione a nessuno.
+                    if (velato || _caduta.value > 0)
+                      Opacity(
+                        opacity: _caduta.value,
+                        child: ClipPath(
+                          key: const Key('viaggio_cerchio_della_lente'),
+                          clipper: _IlCerchioDellaLente(
+                              centro: lente, raggio: raggio),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.asset(widget.immagine,
+                                  key: const Key('viaggio_animale_scoperto'),
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) =>
+                                      const SizedBox.shrink()),
+                              // **IL BORDO SFUMATO**, dentro il ritaglio: dal
+                              // cuore chiaro alla coltre piena esattamente sul
+                              // raggio, che e' lo stesso numero con cui il
+                              // centro viene tenuto dentro l'area. Una
+                              // sfumatura che sbordasse scoprirebbe **a
+                              // meta'** cio' che la Regola H pretende coperto
+                              // del tutto, e scoperto a meta' e' scoperto.
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  gradient: RadialGradient(
+                                    center: Alignment(
+                                      scena.width == 0
+                                          ? 0
+                                          : (lente.dx / scena.width) * 2 - 1,
+                                      scena.height == 0
+                                          ? 0
+                                          : (lente.dy / scena.height) * 2 - 1,
+                                    ),
+                                    radius: scena.shortestSide == 0
+                                        ? 1
+                                        : raggio / (scena.shortestSide / 2),
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.transparent,
+                                      _coltre(),
+                                    ],
+                                    // **PIU' IL DITO SPINGE, PIU' IL BUCO SI
+                                    // CHIUDE**: e' il velo che si fa fitto
+                                    // invece di lasciarla uscire.
+                                    stops: [
+                                      0.0,
+                                      0.70 - 0.30 * _spinge,
+                                      1.0,
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
-                            // **PIU' IL DITO SPINGE, PIU' IL BUCO SI
-                            // CHIUDE**: e' il velo che si fa fitto invece di
-                            // lasciarla uscire.
-                            // **IL CUORE CHIARO E' SETTANTA CENTESIMI DEL
-                            // RAGGIO, e la sfumatura finisce ESATTAMENTE sul
-                            // raggio.** Non un punto oltre: il raggio e' lo
-                            // stesso numero con cui il centro viene tenuto
-                            // dentro l'area, e una sfumatura che sbordasse
-                            // scoprirebbe **a meta'** cio' che la Regola H
-                            // pretende coperto del tutto. Scoperto a meta' e'
-                            // scoperto.
-                            stops: [
-                              0.0,
-                              0.70 - 0.30 * _spinge,
-                              1.0,
-                            ],
-                          ).createShader(rect),
-                          blendMode: BlendMode.dstIn,
-                          child: _ilVelo(scena),
+                          ),
                         ),
                       ),
                   ],
@@ -274,6 +300,16 @@ class _LenteCheScopreState extends State<LenteCheScopre>
   /// **Sotto la coltre, sopra il fantasma**: la coltre dice che c'e' un velo,
   /// il fantasma dice che sotto c'e' un animale, e nessuno dei due dice
   /// quale.
+  /// **IL COLORE DELLA COLTRE, in un posto solo.**
+  ///
+  /// Lo usano in due: la coltre che copre tutta la scena e la corona del
+  /// cerchio della lente, che deve arrivare **esattamente allo stesso colore**
+  /// sul raggio. Due numeri scritti in due posti diversi si sarebbero separati
+  /// alla prima taratura, e il bordo del ritaglio sarebbe diventato visibile.
+  Color _coltre() => const Color(0xFF06040C).withValues(
+      alpha: (LenteCheScopre.quantoEScuroIlVelo + 0.12 * _spinge)
+          .clamp(0.0, 1.0));
+
   Widget _ilVelo(Size scena) {
     // **LA SFOCATURA E' PROPORZIONALE ALLA SCENA, mai in pixel fissi.** E' la
     // lezione dell'ordine DC: sei pixel di sfocatura sono un velo su una
@@ -286,9 +322,7 @@ class _LenteCheScopreState extends State<LenteCheScopre>
       children: [
         ColoredBox(
           key: const Key('viaggio_velo_dell_animale'),
-          color: const Color(0xFF06040C).withValues(
-              alpha: (LenteCheScopre.quantoEScuroIlVelo + 0.12 * _spinge)
-                  .clamp(0.0, 1.0)),
+          color: _coltre(),
         ),
         ImageFiltered(
           imageFilter: ui.ImageFilter.blur(
@@ -463,4 +497,25 @@ class OmbraDellAnimale extends StatelessWidget {
           );
         },
       );
+}
+
+
+/// **IL RITAGLIO CIRCOLARE DELLA LENTE.**
+///
+/// Un `ClipPath` e non una maschera di fusione: vedi la nota lunga dentro
+/// `LenteCheScopre`. Il bordo netto di questo cerchio non si vede perche' il
+/// gradiente che gli sta dentro arriva alla coltre piena proprio sul raggio.
+class _IlCerchioDellaLente extends CustomClipper<Path> {
+  const _IlCerchioDellaLente({required this.centro, required this.raggio});
+
+  final Offset centro;
+  final double raggio;
+
+  @override
+  Path getClip(Size size) =>
+      Path()..addOval(Rect.fromCircle(center: centro, radius: raggio));
+
+  @override
+  bool shouldReclip(_IlCerchioDellaLente vecchio) =>
+      vecchio.centro != centro || vecchio.raggio != raggio;
 }

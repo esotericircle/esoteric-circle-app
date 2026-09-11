@@ -62,18 +62,42 @@ abstract final class IQuattroViaggi {
   /// due vengono dalla stessa data per una via stabile: **la stessa data da'
   /// sempre le stesse tre ombre**, altrimenti chi riapre l'app troverebbe un
   /// cammino diverso e le quattro scelte non vorrebbero dire niente.
-  static List<GuideAnimal> treOmbre(GuideAnimal dalCielo) {
+  /// **LE SEI DISPOSIZIONI DI TRE OMBRE**, in ordine fisso.
+  ///
+  /// Servono a [treOmbre]: la terna resta quella, cambia dove si presenta.
+  static const List<List<int>> _disposizioni = [
+    [0, 1, 2],
+    [2, 0, 1],
+    [1, 2, 0],
+    [0, 2, 1],
+    [2, 1, 0],
+    [1, 0, 2],
+  ];
+
+  static List<GuideAnimal> treOmbre(GuideAnimal dalCielo, {int discesa = 0}) {
     const tutti = AnimalCatalog.animals;
     final primo = tutti.indexWhere((a) => a.name == dalCielo.name);
     if (primo < 0 || tutti.length < quanteOmbre) return [dalCielo];
     // **Passi coprimi col numero degli animali**, cosi' le tre ombre non
     // cadono mai sullo stesso animale e non sono mai tre vicini di lista.
     final quanti = tutti.length;
-    return [
+    final terna = [
       tutti[primo],
       tutti[(primo + 5) % quanti],
       tutti[(primo + 7) % quanti],
     ];
+    // **L'INSIEME NON CAMBIA, CAMBIA L'ORDINE.** Ordine DE voce 03, difetto
+    // visto a video l'11 settembre 2026: quattro discese nello stesso giorno
+    // mostravano la stessa terna nelle stesse tre posizioni, e la scena
+    // sembrava una fotocopia della precedente.
+    //
+    // **La terna deve restare quella**, perche' e' il meccanismo: si segue
+    // un'ombra quattro volte e vince la piu' seguita. Tre animali nuovi a ogni
+    // discesa farebbero dell'animale finale un sorteggio. **L'ordine invece
+    // puo' cambiare**, e chi scende di nuovo deve guardare le sagome per
+    // ritrovare la sua, non ricordare la riga.
+    final quale = _disposizioni[discesa.abs() % _disposizioni.length];
+    return [for (final i in quale) terna[i]];
   }
 
   /// **L'ANIMALE CHE LE QUATTRO SCELTE HANNO SCELTO.**

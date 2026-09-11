@@ -49,7 +49,7 @@ class SunsetRuneCorpus {
   /// `kRuneSimmetriche`.
   static String perche(String nome) =>
       "$nome e' identica se la giri: il suo segno non ha un sopra e un sotto, "
-      "quindi non ha verso d'ombra. Non e' un'informazione che manca: si legge "
+      "quindi non ha verso d'ombra. Non è un'informazione che manca: si legge "
       "dal contesto della sera e dalla posizione che occupa nella stesa.";
 
   /// LA TRASPARENZA SUL ROVESCIO, che vale per tutte e ventiquattro.
