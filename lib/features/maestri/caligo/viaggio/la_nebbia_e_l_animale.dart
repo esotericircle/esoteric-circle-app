@@ -21,14 +21,23 @@ import 'il_tunnel_che_scende.dart';
 /// riquadro: e' la distinzione che sull'ordine DB e' costata due giri interi.
 class PittoreDellaNebbia extends CustomPainter {
   PittoreDellaNebbia({
-    required this.varchi,
+    required this.apertura,
     required this.senzaMoto,
     this.densita = 1.0,
   });
 
-  /// I varchi aperti dalla mano: centro e quanto sono ancora aperti, da 1
-  /// appena fatto a 0 richiuso.
-  final List<VarcoNellaNebbia> varchi;
+  /// **QUANTO E' GIA' DIRADATA, da 0 a 1.** Ordine DG voce 05,
+  /// 11 settembre 2026.
+  ///
+  /// **Prima qui c'era un elenco di varchi**, uno per tocco, e tre tocchi
+  /// bastavano a passare oltre. Il fondatore li ha contati: *"per diradare la
+  /// nebbia devo fare 3 tap con grafica di merda e non un movimento continuo
+  /// come per il dono sigillo del sogno"*.
+  ///
+  /// Adesso la nebbia si alza **tutta insieme**, in proporzione a quanto il
+  /// dito si e' mosso, con la taratura del Sigillo del Sogno che vive in
+  /// `RespiroCheDirada`.
+  final double apertura;
 
   final bool senzaMoto;
 
@@ -113,8 +122,8 @@ class PittoreDellaNebbia extends CustomPainter {
     for (var s = 0; s < quantiStrati; s++) {
       final quota = (s + 1) / quantiStrati;
       final pittura = Paint()
-        ..color = const Color(0xFF9FA8BF)
-            .withValues(alpha: (0.13 + 0.10 * quota) * densita)
+        ..color = const Color(0xFF9FA8BF).withValues(
+            alpha: (0.13 + 0.10 * quota) * densita * (1 - apertura))
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, 18.0 + 22.0 * quota);
       // Bande morbide sfalsate, che a strati sovrapposti si leggono come
       // nebbia invece che come strisce.
@@ -129,35 +138,6 @@ class PittoreDellaNebbia extends CustomPainter {
           pittura,
         );
       }
-    }
-    // **I VARCHI SI RITAGLIANO DALLA NEBBIA**, invece di essere disegnati
-    // sopra: un alone chiaro sopra la nebbia sarebbe luce, non un buco.
-    for (final v in varchi) {
-      if (v.quantoEAperto <= 0) continue;
-      final raggio = lato * 0.22 * v.quantoEAperto;
-      canvas.drawCircle(
-        v.dove,
-        raggio,
-        Paint()
-          ..blendMode = BlendMode.dstOut
-          ..shader = RadialGradient(colors: [
-            Colors.black.withValues(alpha: 0.95),
-            Colors.transparent,
-          ]).createShader(Rect.fromCircle(center: v.dove, radius: raggio)),
-      );
-      // **L ORLO DEL VARCO E PIU CHIARO**, perche la nebbia spinta da parte si
-      // addensa dove finisce. Senza, il varco si legge come una macchia scura
-      // invece che come un apertura.
-      canvas.drawCircle(
-        v.dove,
-        raggio * 0.72,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = raggio * 0.30
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.16)
-          ..color = const Color(0xFFDCE3F0)
-              .withValues(alpha: 0.30 * v.quantoEAperto),
-      );
     }
     canvas.restore();
   }

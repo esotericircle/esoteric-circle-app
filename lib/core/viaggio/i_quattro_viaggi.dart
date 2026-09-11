@@ -1,4 +1,3 @@
-import '../rituals/animal_catalog.dart';
 
 /// **I QUATTRO VIAGGI E IL RICONOSCIMENTO.** Ordine DC voce 04,
 /// 10 settembre 2026.
@@ -14,20 +13,34 @@ import '../rituals/animal_catalog.dart';
 /// che l'ordine DC vuole riparare: *"oggi l'Animale e' un risultato, e nella
 /// tradizione e' un rapporto"*.
 ///
-/// **COME NASCE L'ANIMALE, e le due meta' contano tutte e due.**
+/// **L'ANIMALE NON SI ESTRAE QUI. QUI SI RIVELA.** Ordine DG,
+/// 11 settembre 2026.
 ///
-/// **Il cielo restringe**: la data di nascita porta a **tre candidati**, non a
-/// uno. **Le scelte decidono**: in ogni discesa si intravedono tre ombre e se
-/// ne segue una, e le quattro scelte convergono su uno.
+/// **Cosa c'era prima, e perche' era sbagliato.** L'ordine DC voce 04 aveva
+/// fatto nascere l'animale da due meta': *"il cielo restringe"* con tre
+/// candidati dalla data di nascita, *"le scelte decidono"* con l'ombra seguita
+/// a ogni discesa. L'intenzione era buona e il risultato era **una seconda
+/// porta**: il Passaporto mostrava il Lupo, il Viaggio consegnava l'Aquila, e
+/// tutte e due dicevano di essere l'animale guida della stessa persona.
 ///
-/// Cosi' l'animale **nasce dal suo cielo ed e' insieme conquistato dalle sue
-/// scelte**, che e' esattamente cio' che l'ordine chiede.
+/// **Chi sopravvive lo dice il Master Briefing e non questo file.** Linee
+/// Guida UX Trasversali, sezione 5, elenca fra i dati **identitari e fissi**,
+/// deterministici e immutabili, *"carta natale, Angelo Custode, archetipo,
+/// **Animale Guida**"*. Le arti a esito variabile stanno in un altro elenco, e
+/// sono tarocchi, rune, I-Ching, pendolo, fondi di caffe'.
 ///
-/// **COSA C'ERA PRIMA, e va dichiarato.** `GuideAnimalDerivation.forSign`
-/// mappava **un segno solare a un animale**, biiettiva su dodici e dodici,
-/// deterministica e fissa. Nessuna scelta, nessun viaggio: si apriva la
-/// schermata e l'animale era gia' li'. Quella tabella **resta e non si butta**:
-/// e' la prima delle tre ombre, cioe' il candidato del cielo.
+/// **Quindi la porta e' una sola: `GuideAnimalDerivation.forSign`.** Il
+/// Viaggio non sceglie niente: mostra **sempre lo stesso animale**, quello di
+/// quella persona, e cambia solo **quanto se ne vede**.
+///
+/// **E questo E' Harner, non un compromesso con lui.** La chiave del
+/// riconoscimento e' che l'animale **torni a mostrarsi almeno quattro volte**:
+/// e' il ritorno a riconoscerlo, non una selezione fra candidati. Quattro
+/// animali diversi in quattro discese sono quattro incontri, non un
+/// riconoscimento.
+///
+/// **Il fondatore lo aveva detto in una riga**: *"ogni viaggio e' un animale
+/// diverso e non lo stesso che si rivela sempre di piu' ad ogni viaggio"*.
 abstract final class IQuattroViaggi {
   /// **QUANTE DISCESE SERVONO PER RICONOSCERLO.** Quattro, e viene da Harner.
   static const int quanteDiscese = 4;
@@ -62,70 +75,19 @@ abstract final class IQuattroViaggi {
   /// due vengono dalla stessa data per una via stabile: **la stessa data da'
   /// sempre le stesse tre ombre**, altrimenti chi riapre l'app troverebbe un
   /// cammino diverso e le quattro scelte non vorrebbero dire niente.
-  /// **LE SEI DISPOSIZIONI DI TRE OMBRE**, in ordine fisso.
+  /// **IL NOME, QUANDO SI PUO' DIRE.**
   ///
-  /// Servono a [treOmbre]: la terna resta quella, cambia dove si presenta.
-  static const List<List<int>> _disposizioni = [
-    [0, 1, 2],
-    [2, 0, 1],
-    [1, 2, 0],
-    [0, 2, 1],
-    [2, 1, 0],
-    [1, 0, 2],
-  ];
-
-  static List<GuideAnimal> treOmbre(GuideAnimal dalCielo, {int discesa = 0}) {
-    const tutti = AnimalCatalog.animals;
-    final primo = tutti.indexWhere((a) => a.name == dalCielo.name);
-    if (primo < 0 || tutti.length < quanteOmbre) return [dalCielo];
-    // **Passi coprimi col numero degli animali**, cosi' le tre ombre non
-    // cadono mai sullo stesso animale e non sono mai tre vicini di lista.
-    final quanti = tutti.length;
-    final terna = [
-      tutti[primo],
-      tutti[(primo + 5) % quanti],
-      tutti[(primo + 7) % quanti],
-    ];
-    // **L'INSIEME NON CAMBIA, CAMBIA L'ORDINE.** Ordine DE voce 03, difetto
-    // visto a video l'11 settembre 2026: quattro discese nello stesso giorno
-    // mostravano la stessa terna nelle stesse tre posizioni, e la scena
-    // sembrava una fotocopia della precedente.
-    //
-    // **La terna deve restare quella**, perche' e' il meccanismo: si segue
-    // un'ombra quattro volte e vince la piu' seguita. Tre animali nuovi a ogni
-    // discesa farebbero dell'animale finale un sorteggio. **L'ordine invece
-    // puo' cambiare**, e chi scende di nuovo deve guardare le sagome per
-    // ritrovare la sua, non ricordare la riga.
-    final quale = _disposizioni[discesa.abs() % _disposizioni.length];
-    return [for (final i in quale) terna[i]];
-  }
-
-  /// **L'ANIMALE CHE LE QUATTRO SCELTE HANNO SCELTO.**
+  /// [discese] quante ne sono state compiute, [animale] il nome che viene
+  /// dalla nascita. **Nulla finche' le discese non sono quattro**: il nome non
+  /// si dice prima, ed e' il punto di tutta questa classe.
   ///
-  /// [scelte] sono i nomi seguiti a ogni discesa, in ordine.
-  ///
-  /// **Vince quello seguito piu' volte.** A parita', vince **l'ultimo
-  /// seguito**: chi cambia idea durante il cammino sta dicendo qualcosa, e la
-  /// scelta piu' recente e' quella che conosce le altre tre.
-  ///
-  /// Nulla finche' le discese non sono quattro: **il nome non si dice prima**,
-  /// ed e' il punto di tutta questa voce.
-  static String? seguitoDaLeQuattroScelte(List<String> scelte) {
-    if (scelte.length < quanteDiscese) return null;
-    final conto = <String, int>{};
-    for (final s in scelte) {
-      conto.update(s, (n) => n + 1, ifAbsent: () => 1);
-    }
-    var quante = 0;
-    for (final v in conto.values) {
-      if (v > quante) quante = v;
-    }
-    // Fra i piu' seguiti, l'ultimo in ordine di tempo.
-    for (final s in scelte.reversed) {
-      if (conto[s] == quante) return s;
-    }
-    return scelte.last;
-  }
+  /// **Qui prima c'era `seguitoDaLeQuattroScelte`**, che contava quale ombra
+  /// era stata seguita piu' volte e proclamava quella. Era la seconda porta
+  /// dell'animale guida, ed e' la ragione per cui il fondatore ha visto il
+  /// Lupo nel Passaporto e l'Aquila alla fine del Viaggio. Vedi la nota in
+  /// testa al file.
+  static String? nomeDopoLeQuattroDiscese(int discese, String animale) =>
+      discese >= quanteDiscese ? animale : null;
 
   /// **QUANTI CONTORNI HA LA SAGOMA NEL PASSAPORTO.** Ordine DC voce 04:
   /// *"dopo ogni viaggio non completato, la sagoma nel Passaporto guadagna un

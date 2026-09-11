@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
+import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
@@ -146,7 +147,15 @@ class _ViaggioDelloSciamanoScreenState
   String? _ilRichiamo;
 
   /// I varchi aperti nella nebbia dalla mano.
-  final List<VarcoNellaNebbia> _varchi = [];
+  /// **QUANTO LA NEBBIA E' GIA' DIRADATA**, da 0 a 1. Ordine DG voce 05.
+  double _nebbia = 0;
+
+  /// **QUANTO IL DITO STA SPINGENDO**, da 0 a 1. Cala da sola a ogni battito:
+  /// fermarsi non tiene aperto.
+  double _spintaDelDito = 0;
+
+  /// Il battito che alza la nebbia finche' il dito si muove.
+  Timer? _respiro;
 
   final TextEditingController _domanda = TextEditingController();
 
@@ -177,7 +186,15 @@ class _ViaggioDelloSciamanoScreenState
   /// perche' sotto quel tempo il punto di fuga non fa in tempo ad aprirsi e la
   /// galleria si legge come una dissolvenza.
   static const Duration primaDiscesa = Duration(seconds: 20);
-  static const Duration discesaConosciuta = Duration(seconds: 9);
+  /// **E DALLA SECONDA IN POI DURA UGUALE.** Ordine DG voce 06,
+  /// 11 settembre 2026: *"il viaggio in discesa fa veramente cagare ed e'
+  /// lunghissimo"*.
+  ///
+  /// **Qui c'erano nove secondi**, scelti dall'ordine DC come *"meno della
+  /// meta' della prima"*. Il fondatore aveva gia' fissato il valore che voleva
+  /// nell'ordine DE, **venti secondi**, e nove non e' venti: la discesa
+  /// conosciuta era diventata una scorciatoia, non una discesa.
+  static const Duration discesaConosciuta = Duration(seconds: 20);
 
   Duration get _quantoDura =>
       _diario.quanteDiscese == 0 ? primaDiscesa : discesaConosciuta;
@@ -195,6 +212,7 @@ class _ViaggioDelloSciamanoScreenState
   @override
   void dispose() {
     _discesa?.cancel();
+    _fermaIlRespiro();
     _domanda.dispose();
     super.dispose();
   }
@@ -223,8 +241,21 @@ class _ViaggioDelloSciamanoScreenState
       // bosco vorrebbe dire che l'immagine non occupa tutta l'area utile.
       _fase == FaseDelViaggio.soglia;
 
+  /// **L'ANIMALE DI QUESTA PERSONA, e viene dalla sua nascita.** Ordine DG
+  /// voce 01: la porta e' una sola, `GuideAnimalDerivation.forSign`, e il
+  /// Viaggio non ne apre una seconda.
+  GuideAnimal get _suoAnimale =>
+      GuideAnimalDerivation.forSign(widget.userSign);
+
+  /// **SE IL NOME SI PUO' DIRE**, cioe' se le quattro discese sono compiute.
+  ///
+  /// **Prima chiedeva quale ombra era stata seguita piu' volte.** Era la
+  /// seconda porta dell'animale guida: il Passaporto diceva Lupo e il Viaggio
+  /// consegnava Aquila. Ordine DG voce 01.
   bool get _riconosciuto =>
-      IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;
+      IQuattroViaggi.nomeDopoLeQuattroDiscese(
+          _diario.quanteDiscese, _suoAnimale.name) !=
+      null;
 
   /// **IL PIANO DI CHI STA GUARDANDO, e il Viaggio regge di non saperlo.**
   /// Ordine DE voce 14.
@@ -255,6 +286,11 @@ class _ViaggioDelloSciamanoScreenState
         if (_scesi >= 1.0) {
           t.cancel();
           _fase = FaseDelViaggio.nebbia;
+          _nebbia = 0;
+          _spintaDelDito = 0;
+          _respiro?.cancel();
+          _respiro = Timer.periodic(
+              RespiroCheDirada.passo, _unRespiroDiNebbia);
           unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
         }
       });
@@ -267,12 +303,39 @@ class _ViaggioDelloSciamanoScreenState
     _discesa = null;
   }
 
-  /// **LA MANO APRE UN VARCO NELLA NEBBIA**, che si richiude piano.
-  void _apriIlVarco(Offset dove) {
-    setState(() => _varchi.add(VarcoNellaNebbia(dove: dove, quantoEAperto: 1)));
-    // Tre varchi bastano ad arrivare all'incontro: la nebbia non e' un muro.
-    if (_varchi.length >= 3) {
+  void _fermaIlRespiro() {
+    _respiro?.cancel();
+    _respiro = null;
+  }
+
+  /// **LA MANO DIRADA LA NEBBIA, E NON A TOCCHI.** Ordine DG voce 05,
+  /// 11 settembre 2026.
+  ///
+  /// **Qui c'erano tre tocchi**: ognuno depositava un varco e al terzo si
+  /// passava oltre. Il fondatore li ha contati: *"per diradare la nebbia devo
+  /// fare 3 tap con grafica di merda e non un movimento continuo come per il
+  /// dono sigillo del sogno che il diradamento e' fatto bene"*.
+  ///
+  /// **La taratura viene da li' e non e' stata reinventata**: vive in
+  /// `RespiroCheDirada`, che e' la stessa casa da cui la legge il Sigillo del
+  /// Sogno.
+  void _ilDitoDirada(double distanza) {
+    _spintaDelDito = RespiroCheDirada.spintaDopo(_spintaDelDito, distanza);
+  }
+
+  void _unRespiroDiNebbia(Timer _) {
+    if (_fase != FaseDelViaggio.nebbia || !mounted) return;
+    final prima = _nebbia;
+    final (aperta, spinta) =
+        RespiroCheDirada.unPasso(_nebbia, _spintaDelDito);
+    _nebbia = aperta;
+    _spintaDelDito = spinta;
+    if (_nebbia >= 1 && prima < 1) {
+      _respiro?.cancel();
+      _respiro = null;
       setState(() => _fase = FaseDelViaggio.incontro);
+    } else if (_nebbia != prima) {
+      setState(() {});
     }
   }
 
@@ -364,9 +427,8 @@ class _ViaggioDelloSciamanoScreenState
     // le tre porte le tiene `IlVersoDellAnimale`, e se i dodici file non sono
     // nel pacchetto il momento **resta muto** invece di prendere in prestito
     // un ululato che non e' il suo.
-    final suo = _animale(
-        IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine));
-    if (suo != null) {
+    final suo = _suoAnimale;
+    if (true) {
       unawaited(IlVersoDellAnimale
           .faiSentire(suo, eLaRivelazione: _riconosciuto)
           .then((udito) {
@@ -1030,7 +1092,7 @@ class _ViaggioDelloSciamanoScreenState
   Widget _laNebbia(MaestroPalette palette) => GestureDetector(
         key: const Key('viaggio_nebbia'),
         behavior: HitTestBehavior.opaque,
-        onTapDown: (d) => _apriIlVarco(d.localPosition),
+        onPanUpdate: (d) => _ilDitoDirada(d.delta.distance),
         child: Stack(
           children: [
             Positioned.fill(
@@ -1041,7 +1103,7 @@ class _ViaggioDelloSciamanoScreenState
                 // qualcuno copiera' nel posto sbagliato.
                 size: Size.infinite,
                 painter: PittoreDellaNebbia(
-                  varchi: _varchi,
+                  apertura: _nebbia,
                   senzaMoto: false,
                   densita: NitidezzaDellaScena.dopoGiorni(
                       _diario.giorniDiDistanza ?? 0),
@@ -1052,7 +1114,7 @@ class _ViaggioDelloSciamanoScreenState
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(SpacingTokens.xl),
-                child: Text('Apri la nebbia con la mano',
+                child: Text('Passa la mano: la nebbia si apre',
                     key: const Key('viaggio_istruzione_nebbia'),
                     style: TypographyTokens.etichetta()
                         .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
@@ -1062,60 +1124,42 @@ class _ViaggioDelloSciamanoScreenState
         ),
       );
 
-  /// **L'INCONTRO: tre ombre, e se ne segue una.**
+  /// **L'INCONTRO: UNA SOLA OMBRA, ED E' SEMPRE LA SUA.** Ordine DG voce 02,
+  /// 11 settembre 2026.
+  ///
+  /// **Qui c'erano tre ombre fra cui sceglierne una**, e le quattro scelte
+  /// decidevano quale animale sarebbe stato assegnato. Era la seconda porta
+  /// dell'animale guida: il Passaporto diceva Lupo e il Viaggio consegnava
+  /// Aquila.
+  ///
+  /// **Una sola, e la ragione non e' la semplicita'.** Con l'animale deciso
+  /// dalla nascita, scegliere fra tre sarebbe stata **una scelta che non
+  /// cambia niente**: la persona crede di decidere e non decide, che e' peggio
+  /// del non farla decidere affatto. In Harner il riconoscimento sta nel
+  /// **ritorno** dell'animale, non nella selezione fra candidati.
+  ///
+  /// **Cosa cambia allora fra una discesa e l'altra:** quanta luce le arriva
+  /// addosso, e quanto se ne scopre con la lente. Il file e' sempre lo stesso.
   Widget _lIncontro(MaestroPalette palette) {
-    final dalCielo = GuideAnimalDerivation.forSign(widget.userSign);
-    final ombre = IQuattroViaggi.treOmbre(dalCielo,
-        discesa: _diario.quanteDiscese);
+    final suo = _suoAnimale;
     final quale = _diario.quanteDiscese;
     return Column(
       children: [
-        // **LE TRE OMBRE STANNO UNA SOTTO L'ALTRA, e non una accanto
-        // all'altra.**
-        //
-        // Difetto visto sul telefono 767f596c il 10 settembre 2026:
-        // affiancate, ognuna aveva a disposizione **un terzo di larghezza**
-        // in una finestra alta il doppio di quanto e' larga, e un animale,
-        // che e' piu' largo che alto, in quella colonna diventa minuscolo. In
-        // riga, invece, ogni ombra ha una scena larga quanto lo schermo, che
-        // e' la forma di un animale.
         Expanded(
-          child: Column(
-            children: [
-              for (final a in ombre)
-                Expanded(
-                  child: GestureDetector(
-                    key: Key('viaggio_ombra_${a.name}'),
-                    onTap: () => _segui(a.name),
-                    // **LA SCENA DELL'OMBRA HA UNA MISURA.**
-                    //
-                    // Difetto visto sul telefono 767f596c il 10 settembre
-                    // 2026, e visto **due volte**: la prima l'ho dato al
-                    // contrasto, e la seconda, con la luce dietro gia'
-                    // aggiunta, l'incontro era ancora uno schermo vuoto.
-                    //
-                    // **Un CustomPaint senza figlio e senza `size` si misura
-                    // con `constraints.constrain(Size.zero)`.** Dentro una
-                    // Column il vincolo trasversale e' largo, non stretto,
-                    // quindi la larghezza diventava zero e il pittore
-                    // dipingeva su una tela di area nulla. Prima, in Row, era
-                    // l'altezza a essere zero. **Le tre ombre non erano
-                    // scure: non c'erano.**
-                    //
-                    // `Size.infinite`, che il tunnel usava fin dal principio,
-                    // prende tutto lo spazio concesso.
-                    // **L'OMBRA E' LA SAGOMA VERA DI QUELL'ANIMALE.**
-                    // Ordine DE voce 03: prima la disegnava una formula, e la
-                    // formula faceva **sempre un quadrupede**. Chi seguiva
-                    // l'ombra dell'aquila stava seguendo il disegno di un
-                    // lupo.
-                    child: OmbraDellAnimale(
-                      key: Key('viaggio_sagoma_${a.name}'),
-                      immagine: a.fullPath,
-                      quantaLuce: 0.35 + 0.2 * quale,
-                    )                  ),
-                ),
-            ],
+          child: GestureDetector(
+            key: Key('viaggio_ombra_${suo.name}'),
+            behavior: HitTestBehavior.opaque,
+            onTap: () => _segui(suo.name),
+            // **L'OMBRA E' IL FILE DELL'ARCHITETTO**, ordine DG: la sagoma
+            // esatta della sua illustrazione, col filo di luce oro sul bordo.
+            // Se quel file mancasse, `OmbraDellAnimale` cadrebbe sul canale
+            // alpha dell'illustrazione a colori, che e' la stessa forma.
+            child: OmbraDellAnimale(
+              key: Key('viaggio_sagoma_${suo.name}'),
+              immagine: suo.ombraPath,
+              giaSagoma: true,
+              quantaLuce: 0.35 + 0.2 * quale,
+            ),
           ),
         ),
         Padding(
@@ -1202,8 +1246,8 @@ class _ViaggioDelloSciamanoScreenState
   Widget _laRisalita(MaestroPalette palette) {
     final scena = _scena;
     if (scena == null) return const SizedBox.shrink();
-    final nome = IQuattroViaggi.seguitoDaLeQuattroScelte(
-        _diario.scelteInOrdine);
+    final nome = IQuattroViaggi.nomeDopoLeQuattroDiscese(
+        _diario.quanteDiscese, _suoAnimale.name);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Column(

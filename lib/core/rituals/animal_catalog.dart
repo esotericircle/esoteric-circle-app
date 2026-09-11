@@ -52,6 +52,18 @@ class GuideAnimal {
 
   String get thumbPath => FamilyImage.thumb(AssetFamily.animali, stem);
   String get fullPath => FamilyImage.full(AssetFamily.animali, stem);
+
+  /// **LA SUA OMBRA, ordine DG dell'11 settembre 2026.**
+  ///
+  /// Non e' un disegno nuovo: e' **la sagoma esatta di `fullPath`**, presa dal
+  /// suo canale alpha, riempita di quasi nero con un filo di luce oro sul
+  /// bordo. Percio' l'ombra che si segue nel Mondo di Sotto **e' l'animale che
+  /// tocca a quella persona, al pixel**.
+  ///
+  /// Lo stem e' `ani_<nome>_v1` e l'ombra e' `ani_ombra_<nome>_v1`: il nome si
+  /// ricava da li' e non si scrive una seconda tabella.
+  String get ombraPath =>
+      'assets/img/mondo_di_sotto/ani_ombra_${stem.substring(4)}.webp';
 }
 
 /// Il catalogo degli animali guida con arte pronta per la Demo, dal corpus

@@ -513,8 +513,13 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
     final palette = context.palette;
     final segno = NightSky.sunSign(identity.birthMoment);
     final animal = GuideAnimalDerivation.forSign(segno);
-    final riconosciuto =
-        IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine);
+    // **IL NOME SI DICE DOPO QUATTRO DISCESE, e l'animale e' quello della
+    // nascita.** Ordine DG voce 01: qui si chiedeva quale ombra era stata
+    // seguita piu' volte nel Viaggio, e usciva un animale **diverso** da
+    // `animal`, che sta dieci righe piu' su e nasce dal segno. Due animali
+    // guida nella stessa schermata, a dieci righe di distanza.
+    final riconosciuto = IQuattroViaggi.nomeDopoLeQuattroDiscese(
+        _diario.quanteDiscese, animal.name);
     if (riconosciuto == null) {
       final discese = _diario.quanteDiscese;
       return _ActiveFactCard(

@@ -10,9 +10,9 @@ import '../angels/angelo_ingrandito.dart';
 import '../../core/assets/family_image.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../maestri/caligo/viaggio/la_lente_che_scopre.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../maestri/caligo/animal/animal_reveal.dart';
 import 'riquadro_della_scelta.dart';
 
 /// I due traguardi dell'onboarding, messi in scena come traguardi.
@@ -141,14 +141,31 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                   // La rivelazione con la nebbia, gia' scritta per Caligo.
                   // In diagnosi l'immagine e la nebbia entrano a tappe: senza
                   // immagine resta il suo ingombro, cosi' i testi non saltano.
+                  // **QUI SI VEDEVA L'ANIMALE IN PIENA LUCE**, sotto la
+                  // frase che prometteva di non dirlo. Ordine DG voce 03.1,
+                  // 11 settembre 2026, parole del fondatore: *"all'onboarding
+                  // mi dice che l'animale non puo' essere svelato, ma mi fa
+                  // vedere la figura chiaramente"*.
+                  //
+                  // L'ordine DC voce 02 aveva tolto **il nome** e lasciato
+                  // **il ritratto**: ma un animale si riconosce guardandolo, e
+                  // lasciare il ritratto era consumarlo lo stesso.
+                  //
+                  // **Adesso c'e' la sua ombra**, la stessa che si incontrera'
+                  // nel Mondo di Sotto: dice che un animale c'e' e non dice
+                  // quale.
                   if (!widget.mostraImmagine)
                     const SizedBox(width: 280, height: 280)
                   else
-                    AnimalReveal(
-                      assetTotem: widget.animale.fullPath,
-                      palette: widget.palette,
-                      lato: 280,
-                      conNebbia: widget.mostraNebbia,
+                    SizedBox(
+                      width: 280,
+                      height: 280,
+                      child: OmbraDellAnimale(
+                        key: const Key('onboarding_ombra_animale'),
+                        immagine: widget.animale.ombraPath,
+                        giaSagoma: true,
+                        quantaLuce: 0.30,
+                      ),
                     ),
                   const SizedBox(height: SpacingTokens.lg),
                   Opacity(
@@ -207,7 +224,12 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                           ),
                         ),
                         onPressed: invito > 0.5 ? widget.onContinue : null,
-                        child: Text('Chi altro veglia su di me',
+                        // **IL TESTO SEGUE L'ORDINE DELLE SCHEDE.** Ordine
+                        // DG voce 04: la scheda dell'animale adesso viene
+                        // **dopo** gli angeli e non prima, quindi *"chi altro
+                        // veglia su di me"* non e' piu' vero. Dopo di questa
+                        // si custodisce il cielo.
+                        child: Text('Custodisci il mio cielo',
                             style: TypographyTokens.corpo(weight: 600)
                                 .copyWith(color: widget.palette.deepest)),
                       ),

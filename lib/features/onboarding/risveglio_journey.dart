@@ -72,10 +72,23 @@ class RisveglioJourney extends StatefulWidget {
 /// L'ULTIMA TAPPA E' LA CUSTODIA, ordine N voce 1b: la richiesta di non
 /// perdere il proprio cielo arriva DOPO la rivelazione del Maestro, cioe'
 /// quando c'e' davvero qualcosa da perdere. Chi rimanda entra lo stesso.
-enum _Phase { animale, angeli, heaven, chart, resonance, reveal, custodia }
+/// **L'ORDINE DELLE SCHEDE DEL RISVEGLIO.** Ordine DG voce 04,
+/// 11 settembre 2026.
+///
+/// **L'animale era il primo e adesso e' l'ultimo**, per decisione del
+/// fondatore: *"la scheda dell'animale nell'onboarding deve comparire dopo gli
+/// angeli, per ultima"*. Fra le due richieste, *dopo gli angeli* e *per
+/// ultima*, vale la seconda, che e' la piu' stretta: sta in fondo a tutte le
+/// schede, subito prima della custodia del cielo, che non e' una scheda ma il
+/// congedo.
+///
+/// **E ha una ragione oltre alla decisione**: e' l'unica delle quattro che non
+/// si rivela qui. Metterla per prima voleva dire aprire il Risveglio con la
+/// sola cosa che il Risveglio non puo' dare.
+enum _Phase { angeli, heaven, chart, resonance, reveal, animale, custodia }
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
-  _Phase _phase = _Phase.animale;
+  _Phase _phase = _Phase.angeli;
   Maestro _assigned = Maestro.medora;
   Resonance? _resonance;
 
@@ -144,7 +157,9 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     }
   }
 
-  void _onAnimaleContinue() => setState(() => _phase = _Phase.angeli);
+  /// **DOPO L'ANIMALE SI CUSTODISCE IL CIELO**, che e' l'ultimo passo.
+  /// Ordine DG voce 04.
+  void _onAnimaleContinue() => setState(() => _phase = _Phase.custodia);
 
   void _onAngeliContinue() => setState(() => _phase = _Phase.heaven);
 
@@ -163,10 +178,13 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     final sun = context.read<NatalChartController>().sunSign;
     if (sun != null) context.read<ZodiacController>().setSunSign(sun);
     _assigned = maestro;
-    // NON si chiude ancora: resta la custodia del cielo, che e' l'ultimo
-    // passo. Chiudere qui vorrebbe dire chiedere l'account dopo, a freddo,
-    // ed e' esattamente cio' che l'ordine N vieta.
-    setState(() => _phase = _Phase.custodia);
+    // NON si chiude ancora: restano la scheda dell'animale e la custodia
+    // del cielo. Chiudere qui vorrebbe dire chiedere l'account dopo, a
+    // freddo, ed e' esattamente cio' che l'ordine N vieta.
+    //
+    // **L'ANIMALE STA IN MEZZO FRA I DUE**, ordine DG voce 04: e' l'ultima
+    // delle schede, e l'unica che non si rivela nel Risveglio.
+    setState(() => _phase = _Phase.animale);
   }
 
   /// La fine vera del Risveglio, custodito o rimandato che sia.

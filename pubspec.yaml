@@ -230,6 +230,15 @@ flutter:
     # nel lancio e nell'attesa, e senza di lui il gesto non esiste.
     - assets/img/rune_bone_vergine/
     - assets/img/animali/
+    # **IL MONDO DI SOTTO, ordine DG dell'11 settembre 2026.** Quindici file:
+    # la soglia del bosco, il fondo di nebbia, la parete piastrellabile del
+    # tunnel e le DODICI OMBRE, una per animale.
+    #
+    # **Le dodici ombre non sono disegni nuovi**: sono la sagoma esatta delle
+    # dodici illustrazioni di `assets/img/animali`, presa dal loro canale
+    # alpha. Percio' l'ombra che si segue nell'incontro **e' l'animale che
+    # tocca a quella persona, al pixel**, e non una figura che gli somiglia.
+    - assets/img/mondo_di_sotto/
     - assets/img/cristalli/
     - assets/img/archetipi/
     - assets/img_thumb/mazzo-tarocchi/

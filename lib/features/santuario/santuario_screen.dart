@@ -15,6 +15,7 @@ import '../shell/santuario_bottom_bar.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/night_sky.dart';
+import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
@@ -598,14 +599,18 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     try {
       final diario = DiarioDeiViaggi();
       await diario.carica();
-      final nome =
-          IQuattroViaggi.seguitoDaLeQuattroScelte(diario.scelteInOrdine);
-      if (nome == null) return;
-      GuideAnimal? suo;
-      for (final a in AnimalCatalog.animals) {
-        if (a.name == nome) suo = a;
+      // **L'ANIMALE CHE APPARE E' IL SUO, e viene dalla nascita.** Ordine
+      // DG voce 01: qui si chiedeva quale ombra fosse stata seguita piu'
+      // volte, cioe' la seconda porta dell'animale guida.
+      if (!mounted) return;
+      final profilo = context.read<ProfileController>();
+      final suo = GuideAnimalDerivation.forSign(
+          NightSky.sunSign(profilo.identity.birthDate));
+      if (IQuattroViaggi.nomeDopoLeQuattroDiscese(
+              diario.quanteDiscese, suo.name) ==
+          null) {
+        return;
       }
-      if (suo == null) return;
       final prefs = await SharedPreferences.getInstance();
       final quando = prefs.getString(LApparizione.chiaveDellUltima);
       final ultima = quando == null ? null : DateTime.tryParse(quando);

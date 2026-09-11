@@ -432,9 +432,16 @@ class OmbraDellAnimale extends StatelessWidget {
     super.key,
     required this.immagine,
     required this.quantaLuce,
+    this.giaSagoma = false,
   });
 
   final String immagine;
+
+  /// **SE [immagine] E' GIA' UNA SAGOMA, e non l'illustrazione a colori.**
+  /// Ordine DG: i dodici file `ani_ombra_*` sono gia' neri col filo di luce,
+  /// e passarli sotto il filtro che butta il colore spegnerebbe proprio quel
+  /// filo. L'illustrazione a colori resta la via di ripiego.
+  final bool giaSagoma;
 
   /// Da 0 a 1: quanta luce le arriva addosso. La muove la scena.
   final double quantaLuce;
@@ -479,19 +486,30 @@ class OmbraDellAnimale extends StatelessWidget {
                   sigmaY: lato * quantoSfoca,
                   tileMode: TileMode.decal,
                 ),
-                child: ColorFiltered(
-                  // **`srcIn` TIENE LA FORMA E BUTTA IL COLORE**: quello che
-                  // resta e' esattamente il canale alpha dell'illustrazione,
-                  // cioe' la sua sagoma vera.
-                  colorFilter: ColorFilter.mode(
-                      const Color(0xFF07040D)
-                          .withValues(alpha: 0.94 - 0.10 * quantaLuce),
-                      BlendMode.srcIn),
-                  child: Image.asset(immagine,
-                      key: const Key('viaggio_ombra_vera'),
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const SizedBox.shrink()),
-                ),
+                child: giaSagoma
+                    // **LA SAGOMA DELL'ARCHITETTO SI MOSTRA COM'E'.** Ordine
+                    // DG: ha gia' il nero e il filo di luce oro sul bordo, e
+                    // il filtro qui sotto glielo toglierebbe.
+                    ? Image.asset(immagine,
+                        key: const Key('viaggio_ombra_vera'),
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const SizedBox.shrink())
+                    : ColorFiltered(
+                        // **`srcIn` TIENE LA FORMA E BUTTA IL COLORE**: quello
+                        // che resta e' esattamente il canale alpha
+                        // dell'illustrazione, cioe' la sua sagoma vera. E'
+                        // la via di ripiego da quando i dodici file
+                        // `ani_ombra_*` esistono.
+                        colorFilter: ColorFilter.mode(
+                            const Color(0xFF07040D)
+                                .withValues(alpha: 0.94 - 0.10 * quantaLuce),
+                            BlendMode.srcIn),
+                        child: Image.asset(immagine,
+                            key: const Key('viaggio_ombra_vera'),
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) =>
+                                const SizedBox.shrink()),
+                      ),
               ),
             ],
           );
