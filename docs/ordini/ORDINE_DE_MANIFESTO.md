@@ -60,9 +60,21 @@ differenza e' dichiarata per esteso.
 **Che cosa succede a chi non scende per tre settimane, cioe' a ventuno
 giorni.** Ventuno cade fra sette e ventotto: la frazione percorsa e'
 (21 - 7) / (28 - 7) = 14 / 21 = 0,667, quindi la nitidezza vale circa
-**0,333**. E' **esattamente sul confine di `velata`**, quindi la riga che si
-legge e' quella della scena confusa: *"L'animale e' lontano e la scena resta
-confusa. Il tamburo lo richiama."*
+**0,333**.
+
+**E QUI HO SBAGLIATO IO, e lo correggo dove l'ho scritto invece di
+riscriverlo.** La prima stesura di questa risposta diceva che a ventun giorni
+si legge la riga della scena **confusa**. E' falso, e la guardia della voce
+DE.12 me l'ha stampato in faccia: 0,3333 e' **maggiore** di `velata` = 0,33,
+quindi la riga che si legge e' quella della scena **velata**, cioe' *"La scena
+e' velata: e' passato tempo. Il tamburo lo richiama."*, e gli elementi
+leggibili sono **due su tre**. Per leggere la riga della scena confusa bisogna
+arrivare a **ventidue giorni**.
+
+**Non e' un dettaglio di un decimale**: e' la differenza fra due frasi diverse
+e fra due e un elemento della risposta. **Un numero dedotto a mente non e' un
+numero misurato**, ed e' esattamente cio' che la Regola ZERO dice del testo di
+un ordine e che vale anche per il mio referto.
 
 **E' gia' cablata nella schermata**, non e' codice orfano:
 `viaggio_dello_sciamano_screen.dart` la chiama alla riga 217 (per la

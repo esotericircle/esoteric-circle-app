@@ -31,6 +31,14 @@ class DiarioDeiViaggi {
   /// `viaggio.`, e la dimenticanza dei dati lo porta via con gli altri.
   static const String _chiave = 'viaggio.diario';
 
+  /// **DOVE STANNO I NUTRIMENTI.** Ordine DE voce 12, 11 settembre 2026.
+  ///
+  /// Una chiave separata dal diario, e non un campo dentro un viaggio: **un
+  /// nutrimento non e' un viaggio**. Se vivesse nella stessa lista,
+  /// `quanteDiscese` comincerebbe a contarlo, e il riconoscimento si
+  /// otterrebbe battendo il tamburo quattro volte.
+  static const String _chiaveDeiNutrimenti = 'viaggio.nutrimenti';
+
   /// **QUANTI VIAGGI SI CONSERVANO.**
   ///
   /// Novanta, come la memoria del respiro: bastano a rileggere sei mesi di
@@ -38,6 +46,7 @@ class DiarioDeiViaggi {
   static const int quantiNeTiene = 90;
 
   List<UnViaggio> _viaggi = const [];
+  List<DateTime> _nutrimenti = const [];
 
   /// I viaggi conservati, dal piu' recente.
   List<UnViaggio> get viaggi => List.unmodifiable(_viaggi);
@@ -56,12 +65,23 @@ class DiarioDeiViaggi {
       }
       letti.sort((a, b) => b.quando.compareTo(a.quando));
       _viaggi = List.unmodifiable(letti);
+      // **I NUTRIMENTI, ordine DE voce 12.** Stessa indulgenza del diario: un
+      // elenco illeggibile vale un elenco vuoto, e chi torna trova comunque
+      // il tamburo.
+      final battiti = <DateTime>[];
+      for (final r in prefs.getStringList(_chiaveDeiNutrimenti) ?? const []) {
+        final d = DateTime.tryParse(r);
+        if (d != null) battiti.add(d);
+      }
+      battiti.sort((a, b) => b.compareTo(a));
+      _nutrimenti = List.unmodifiable(battiti);
     } catch (errore) {
       // **SI IGNORA, E SI DICE PERCHE'.** Un archivio illeggibile o assente
       // non deve impedire di scendere: **il viaggio di oggi vale piu' del
       // ricordo di quelli vecchi**, e chi ha il telefono pieno non merita di
       // trovare la funzione chiusa.
       _viaggi = const [];
+      _nutrimenti = const [];
     }
   }
 
@@ -79,6 +99,80 @@ class DiarioDeiViaggi {
       // persa e' il ricordo di questa discesa. Sollevare qui farebbe fallire
       // un rito compiuto, che e' un danno piu' grande.
     }
+  }
+
+  /// **IL TAMBURO: UN GESTO SOLO, E L'ANIMALE SI RIAVVICINA.**
+  /// Ordine DE voce 12, 11 settembre 2026.
+  ///
+  /// *"Accanto all'avviso c'e' sempre la via del ritorno: un gesto solo,
+  /// breve, che lo richiama, e la nitidezza migliora subito di un passo."*
+  ///
+  /// **Fino a oggi quel passo non esisteva.** La costante
+  /// `quantiGiorniValeUnNutrimento` era scritta dall'ordine DC voce 08 e
+  /// **nessuna schermata la spendeva**: la nitidezza poteva solo scendere. Una
+  /// misura che peggiora e non risale non e' una distanza, e' una condanna.
+  ///
+  /// **Torna vero anche se l'archivio rifiuta.** Il battito si conta subito in
+  /// memoria e la scena si riavvicina comunque: l'unica cosa che si perde e'
+  /// il ricordo del gesto, ed e' la stessa scelta che il diario fa per i
+  /// viaggi gia' compiuti.
+  Future<void> nutri() async {
+    final adesso = _orologio();
+    _nutrimenti = List.unmodifiable([adesso, ..._nutrimenti].take(60).toList());
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(_chiaveDeiNutrimenti,
+          [for (final d in _nutrimenti) d.toIso8601String()]);
+    } catch (errore) {
+      // Vedi sopra: il gesto e' gia' valso, si perde solo il suo ricordo.
+    }
+  }
+
+  /// **SE IL TAMBURO SI PUO' BATTERE OGGI.** Uno al giorno.
+  ///
+  /// **Senza questo limite il gesto non vale niente**: quattro colpi di
+  /// seguito riporterebbero la nitidezza da zero a uno in quattro secondi, e
+  /// una distanza che si annulla con quattro tocchi non e' una distanza. Uno
+  /// al giorno vuol dire che **tornare costa tornare**, e che chi e' a
+  /// ventotto giorni ci mette tre giorni a rientrare, non tre secondi.
+  bool siPuoNutrireOggi() {
+    if (_nutrimenti.isEmpty) return true;
+    return _giornoDi(_nutrimenti.first) != _giornoDi(_orologio());
+  }
+
+  /// **QUANTI NUTRIMENTI CONTANO ADESSO.**
+  ///
+  /// Solo quelli **dopo l'ultima discesa**: scendere azzera il conto, perche'
+  /// la nitidezza e' gia' tornata piena da sola e i battiti vecchi
+  /// diventerebbero credito accumulato. **Al massimo tre**, cioe' ventun
+  /// giorni, che e' esattamente l'arco fra la settimana e il mese: piu' di
+  /// cosi' non servirebbe a niente, e un tetto scritto e' meglio di un tetto
+  /// che nasce per caso da una sottrazione.
+  static const int quantiNutrimentiContano = 3;
+
+  int get nutrimentiCheContano {
+    final ultima = _viaggi.isEmpty ? null : _viaggi.first.quando;
+    var quanti = 0;
+    for (final d in _nutrimenti) {
+      if (ultima != null && !d.isAfter(ultima)) continue;
+      quanti++;
+    }
+    return quanti > quantiNutrimentiContano ? quantiNutrimentiContano : quanti;
+  }
+
+  /// **DA QUANTI GIORNI L'ANIMALE E' LONTANO**, tolti i nutrimenti.
+  ///
+  /// **E' questo il numero che la nitidezza deve leggere**, non
+  /// [giorniDallUltima]: quello dice da quanto non si scende, questo dice
+  /// **quanto e' lontano**, e le due cose smettono di coincidere nel momento
+  /// in cui esiste un gesto che lo richiama.
+  int? get giorniDiDistanza {
+    final da = giorniDallUltima;
+    if (da == null) return null;
+    final tolti =
+        nutrimentiCheContano * NitidezzaDellaScena.quantiGiorniValeUnNutrimento;
+    final resta = da - tolti;
+    return resta < 0 ? 0 : resta;
   }
 
   // --- CIO' CHE IL DIARIO SA, e che nessun singolo viaggio dice ---

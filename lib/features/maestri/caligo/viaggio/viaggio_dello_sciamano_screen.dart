@@ -297,7 +297,7 @@ class _ViaggioDelloSciamanoScreenState
     if (nome == null) return;
     final quante = _diario.quanteDiscese;
     final nitidezza = NitidezzaDellaScena.dopoGiorni(
-        _diario.giorniDallUltima ?? 0);
+        _diario.giorniDiDistanza ?? 0);
     final domanda =
         LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
     // **LA VIA DI SOTTO, e per adesso e' l'unica montata.** Ordine DC voce 06:
@@ -505,6 +505,13 @@ class _ViaggioDelloSciamanoScreenState
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
+              // **L'AVVISO DELL'ANIMALE LONTANO STA ALL'APERTURA**, sopra
+              // la scelta della domanda: chi legge deve saperlo **prima** di
+              // scegliere con che cosa scendere, non dopo essere risalito.
+              if (_laDistanza(palette) != null) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                _laDistanza(palette)!,
+              ],
               const SizedBox(height: SpacingTokens.xl),
               _leTreVie(palette, primo: primo),
               if (perche != null && _temaScelto.isEmpty) ...[
@@ -565,6 +572,85 @@ class _ViaggioDelloSciamanoScreenState
           ),
         ),
       ],
+    );
+  }
+
+  /// **QUANTO E' LONTANO L'ANIMALE ADESSO.** Ordine DE voce 12.
+  double get _quantoELontano =>
+      NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
+
+  /// **IL TAMBURO, e la nitidezza migliora subito di un passo.**
+  /// Ordine DE voce 12.
+  Future<void> _battiIlTamburo() async {
+    if (!_diario.siPuoNutrireOggi()) return;
+    await _diario.nutri();
+    if (!mounted) return;
+    // **IL GESTO SI SENTE.** Un tamburo che non si sente sotto il dito e' un
+    // pulsante qualunque, e questo non e' un pulsante qualunque: e' l'unica
+    // via del ritorno che questa funzione ha.
+    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
+    setState(() {});
+  }
+
+  /// **L'AVVISO DELL'ANIMALE LONTANO, all'apertura.** Ordine DE voce 12.
+  ///
+  /// **CHE COSA C'ERA PRIMA, sotto la Regola D.** La riga della nitidezza
+  /// esisteva gia' dall'ordine DC voce 08, e si leggeva **solo alla
+  /// risalita**, cioe' **dopo** essere sceso: chi apriva la soglia dopo tre
+  /// settimane non sapeva niente, scendeva, e solo in fondo scopriva che la
+  /// scena sarebbe stata confusa. Un avviso che arriva dopo il fatto non e'
+  /// un avviso.
+  ///
+  /// **CONSTATAZIONE, MAI RIMPROVERO**, ed e' la riga dell'ordine: non *"non
+  /// ti sei preso cura di lui"*, che e' una colpa e fa chiudere l'app, ma
+  /// *"e' lontano, e da lontano si sente poco"*.
+  ///
+  /// **E ACCANTO C'E' SEMPRE LA VIA DEL RITORNO.** Un avviso senza rimedio
+  /// e' solo una brutta notizia.
+  Widget? _laDistanza(MaestroPalette palette) {
+    final riga = NitidezzaDellaScena.laRiga(_quantoELontano);
+    if (riga == null) return null;
+    final siPuo = _diario.siPuoNutrireOggi();
+    return DepthCard(
+      key: const Key('viaggio_animale_lontano'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ParagrafiDiLettura(
+            key: const Key('viaggio_lontano_riga'),
+            testo: riga,
+            stile:
+                TypographyTokens.lettura().copyWith(color: palette.goldSoft),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          // **E SI DICHIARA APERTAMENTE CHE FUNZIONA COSI'.** Ordine DE voce
+          // 12: *"una funzione che peggiora in silenzio e' una funzione
+          // rotta"*.
+          Text(
+            'Da lontano si sente poco: la scena che riporti su ha meno '
+            'elementi leggibili.',
+            key: const Key('viaggio_lontano_dichiarato'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          OutlinedButton.icon(
+            key: const Key('viaggio_tamburo'),
+            onPressed: siPuo ? () => unawaited(_battiIlTamburo()) : null,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: palette.gold,
+              side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
+              minimumSize: const Size.fromHeight(48),
+            ),
+            icon: const Icon(Icons.graphic_eq_rounded),
+            label: Text(
+              siPuo ? 'Richiamalo col tamburo' : 'Lo hai richiamato oggi',
+              style: TypographyTokens.etichetta(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -917,7 +1003,7 @@ class _ViaggioDelloSciamanoScreenState
                   varchi: _varchi,
                   senzaMoto: false,
                   densita: NitidezzaDellaScena.dopoGiorni(
-                      _diario.giorniDallUltima ?? 0),
+                      _diario.giorniDiDistanza ?? 0),
                 ),
               ),
             ),
