@@ -143,7 +143,7 @@ abstract final class VoceDellaStesa {
     'La tua domanda era: «{domanda}»',
     'Su «{domanda}» le carte hanno qualcosa di preciso da dire.',
     'Hai portato qui questa domanda: «{domanda}»',
-    'Le tre carte rispondono a «{domanda}», e non a una domanda in generale.',
+    'Le tre carte rispondono a «{domanda}». Non a una domanda in generale.',
     'Domanda posta: «{domanda}»',
     'Sei scesa con questa domanda: «{domanda}»',
     'La lettura risponde a «{domanda}»',
@@ -157,16 +157,16 @@ abstract final class VoceDellaStesa {
   /// in poi"*. `{lente}` e' la lente dell'argomento, `{presente}` il nome della
   /// carta del Presente.
   static const List<String> apertureDellaRisposta = [
-    '{lente} la lettura si ferma su {presente}, e da lì parte tutto il resto.',
-    '{lente} non c\'è una risposta sola: c\'è {presente} al centro, e il resto '
+    '{lente} la lettura si ferma su {presente}. Da lì parte tutto il resto.',
+    '{lente} non c\'è una risposta sola: c\'è {presente} al centro. E il resto '
         'le gira intorno.',
     'Al centro della tua lettura c\'è {presente}. {lente} è lei a dare il tono '
         'a tutto il resto.',
-    '{lente} la carta che conta adesso è {presente}, e dice in che punto ti '
+    '{lente} la carta che conta adesso è {presente}. E dice in che punto ti '
         'trovi davvero.',
     '{presente} è la carta che regge la tua lettura. {lente} è questo il punto '
         'da cui guardare.',
-    '{lente} il momento che le carte vedono ha un nome, ed è {presente}.',
+    '{lente} il momento che le carte vedono ha un nome. Ed è {presente}.',
     'La tua lettura si apre su {presente}. {lente} è questo che va guardato per '
         'primo.',
     '{lente} tutto quello che segue poggia su {presente}, la carta che occupa '
@@ -184,7 +184,7 @@ abstract final class VoceDellaStesa {
       'Parla di una cosa arrivata a maturazione. Non sei all\'inizio di questa '
           'storia: sei alla fine di un tratto.',
       'È fra le carte più aperte del mazzo. Quello che hai davanti è già in '
-          'movimento, e il movimento è nel verso giusto.',
+          'movimento. E il movimento è nel verso giusto.',
       'Dice che il lavoro è stato fatto. Quello che manca non è fatica: è '
           'riconoscere che è finito.',
       'È una carta grande e sta dritta. Non descrive un desiderio, descrive una '
@@ -198,18 +198,18 @@ abstract final class VoceDellaStesa {
     ],
     NaturaDellaCarta.favore: [
       'È una carta concreta: parla di cose che si toccano, non di grandi '
-          'destini. Il vantaggio c\'è, ed è alla tua portata.',
-      'Dice che il terreno è buono. Non promette niente di clamoroso, e proprio '
+          'destini. Il vantaggio c\'è. Ed è alla tua portata.',
+      'Dice che il terreno è buono. Non promette niente di clamoroso. E proprio '
           'per questo è affidabile.',
       'Parla di un passo che riesce, di quelli che non fanno rumore e che poi '
           'si vede che hanno spostato tutto.',
       'È una carta della giornata, non del destino: quello che descrive succede '
           'in settimane, non in anni.',
-      'Racconta una misura giusta. Le cose stanno dove devono, e chiedono solo '
+      'Racconta una misura giusta. Le cose stanno dove devono. E chiedono solo '
           'di essere usate.',
       'Dice che hai più materiale di quanto pensi. Il problema non è procurarsi '
           'altro, è metterlo insieme.',
-      'È una carta di mestiere. Premia chi conosce il proprio lavoro, e tu lo '
+      'È una carta di mestiere. Premia chi conosce il proprio lavoro. E tu lo '
           'conosci meglio di come lo racconti.',
       'Parla di una porta socchiusa. Non si apre da sola, ma non è chiusa a '
           'chiave.',
@@ -217,17 +217,17 @@ abstract final class VoceDellaStesa {
     NaturaDellaCarta.prova: [
       'È una carta grande uscita al rovescio: non toglie quello che promette, '
           'lo rimanda. C\'è qualcosa che non è ancora pronto.',
-      'Parla di una forza trattenuta. Non è un no: è un non adesso, e la '
+      'Parla di una forza trattenuta. Non è un no: è un non adesso. E la '
           'differenza cambia tutto.',
       'Dice che stai spingendo contro qualcosa che non si muove a spinte. La '
           'strada c\'è, ma non è quella che stai provando.',
       'Racconta un tempo che non coincide col tuo. Non è ostilità: è un altro '
           'orologio.',
-      'È una prova, e le prove hanno una forma: chiedono una cosa sola e la '
+      'È una prova. E le prove hanno una forma: chiedono una cosa sola e la '
           'chiedono bene.',
-      'Segna un nodo. Un nodo si scioglie tirando il capo giusto, e tirando '
+      'Segna un nodo. Un nodo si scioglie tirando il capo giusto. E tirando '
           'tutti gli altri si stringe.',
-      'Dice che c\'è un prezzo, e che il prezzo è noto. Quello che non è ancora '
+      'Dice che c\'è un prezzo. E che il prezzo è noto. Quello che non è ancora '
           'chiaro è se sei disposta a pagarlo.',
       'È una carta importante messa di traverso: quello che promette resta, ma '
           'passa da una porta più stretta.',
@@ -237,7 +237,7 @@ abstract final class VoceDellaStesa {
           'rallentano tutto da dentro.',
       'Parla di un intoppo quotidiano. Non è il destino che ti sbarra la '
           'strada: è un dettaglio che nessuno ha ancora sistemato.',
-      'Dice che c\'è qualcosa fuori posto, ed è più piccolo di come lo stai '
+      'Dice che c\'è qualcosa fuori posto. Ed è più piccolo di come lo stai '
           'vivendo.',
       'Racconta un ingranaggio che gratta. Non si è rotto niente: manca '
           'qualcosa in un punto solo.',
@@ -272,11 +272,11 @@ abstract final class VoceDellaStesa {
       'Dichiara che è finita: dillo, scrivilo, mandalo a qualcuno.',
       'Usa adesso quello che hai costruito, invece di aspettare di sentirti più pronta.',
       'Dai una data precisa alla consegna, entro questa settimana.',
-      'Mostra il risultato a una persona che conta, e falla vedere davvero.',
+      'Mostra il risultato a una persona che conta. E falla vedere davvero.',
       'Togli le ultime tre cose che hai aggiunto e guarda se non era già finito.',
       'Segna il traguardo da qualche parte dove potrai ritrovarlo.',
       'Chiedi adesso quello che rimandavi a quando saresti stata più forte.',
-      'Scrivi in tre righe che cosa hai imparato in questo tratto, e tienile.',
+      'Scrivi in tre righe che cosa hai imparato in questo tratto. E tienile.',
     ],
     NaturaDellaCarta.favore: [
       'Fai il passo concreto che rimandi da tempo, anche piccolo.',
@@ -302,10 +302,10 @@ abstract final class VoceDellaStesa {
       'Togli oggi l\'intoppo più piccolo dei tre che hai in mente.',
       'Metti per iscritto che cosa esattamente si è inceppato.',
       'Parla con la persona che sta dall\'altra parte dell\'intoppo.',
-      'Dai mezz\'ora sola a questa cosa, oggi, e non un minuto di più.',
+      'Dai mezz\'ora sola a questa cosa, oggi. E non un minuto di più.',
       'Elimina un passaggio invece di renderlo più veloce.',
       'Controlla la cosa più banale prima di cercare la causa complicata.',
-      'Rinuncia a quello che ti costa più di quanto rende, e dillo a voce.',
+      'Rinuncia a quello che ti costa più di quanto rende. E dillo a voce.',
       'Rifai con calma il passaggio che la prima volta hai fatto di corsa.',
     ],
   };
@@ -323,7 +323,7 @@ abstract final class VoceDellaStesa {
   /// che viene da una carta deve dire da quale.
   static const List<String> aggancioDellAzione = [
     'Quello che {presente} chiede è una cosa sola.',
-    '{presente} indica il gesto, e il gesto è questo.',
+    '{presente} indica il gesto. E il gesto è questo.',
     'Da {presente} viene un\'indicazione precisa.',
     'Se {presente} è la carta del tuo presente, il passo è questo.',
     'La mossa che {presente} suggerisce si può fare questa settimana.',
@@ -333,7 +333,7 @@ abstract final class VoceDellaStesa {
     'Il passo che {presente} mette davanti è piccolo e si vede.',
     'Con {presente} al centro, la cosa da fare è una e si fa presto.',
     'Se traduci {presente} in un gesto, viene fuori questo.',
-    '{presente} porta con sé un compito, e il compito è breve.',
+    '{presente} porta con sé un compito. E il compito è breve.',
   ];
 
   /// **LA RAGIONE, otto e valgono per ogni gesto.**
@@ -347,7 +347,7 @@ abstract final class VoceDellaStesa {
     'Il passo piccolo fatto oggi sposta più del passo grande rimandato.',
     'Finché resta nella testa è un pensiero; appena esce diventa una cosa che si può maneggiare.',
     'È la mossa che costa meno di tutte quelle che stai considerando.',
-    'Serve a togliere l\'incertezza, e l\'incertezza è la parte che stanca.',
+    'Serve a togliere l\'incertezza. E l\'incertezza è la parte che stanca.',
     'Da lì in poi la situazione smette di dipendere solo dall\'attesa.',
     'È il genere di gesto che non fa rumore e che poi si vede che ha spostato tutto.',
   ];
@@ -394,20 +394,20 @@ abstract final class VoceDellaStesa {
   static const List<String> formeDelLegame = [
     'Alle tue spalle c\'è {passato}: è da lì che viene il punto in cui sei '
         'adesso.',
-    'Quello che hai davanti oggi ha una radice, e la radice è {passato}.',
+    'Quello che hai davanti oggi ha una radice. E la radice è {passato}.',
     '{passato} racconta come ci sei arrivata. Non è un rimprovero, è il filo.',
-    'Il passato della lettura porta {passato}, e spiega perché {presente} si '
+    'Il passato della lettura porta {passato}. E spiega perché {presente} si '
         'presenta proprio così.',
-    'Prima di {presente} c\'è stata {passato}, e le due si tengono per mano più '
+    'Prima di {presente} c\'è stata {passato}. E le due si tengono per mano più '
         'di quanto sembri.',
     'C\'è {passato} dietro di te: è la carta che ha preparato il terreno su cui '
         'stai camminando.',
-    'La lettura non parte da oggi. Parte da {passato}, ed è lì che si capisce '
+    'La lettura non parte da oggi. Parte da {passato}. Ed è lì che si capisce '
         'il resto.',
     'Dietro {presente} si vede {passato}: una cosa è nata dall\'altra.',
     'Il filo comincia da {passato}. Quello che vedi oggi è il suo seguito, non '
         'il suo contrario.',
-    'Se guardi indietro trovi {passato}, e da lì si capisce perché oggi la '
+    'Se guardi indietro trovi {passato}. E da lì si capisce perché oggi la '
         'lettura si ferma dove si ferma.',
     'La casella del passato porta {passato}: è quello che hai già attraversato '
         'per arrivare qui.',
@@ -425,25 +425,25 @@ abstract final class VoceDellaStesa {
   /// dove la carta la porta davvero.
   static const Map<NaturaDellaCarta, List<String>> formeDelFuturo = {
     NaturaDellaCarta.compimento: [
-      'Davanti a te c\'è {futuro}, ed è una delle carte che si vogliono vedere '
+      'Davanti a te c\'è {futuro}. Ed è una delle carte che si vogliono vedere '
           'in fondo a una lettura: quello che stai facendo porta lì.',
-      '{futuro} chiude la stesa, e la chiude bene. Non è una promessa: è la '
+      '{futuro} chiude la stesa. E la chiude bene. Non è una promessa: è la '
           'direzione che le carte vedono se la strada resta questa.',
       'La lettura finisce su {futuro}: il giro si compie. Quello che devi fare '
           'è non uscire dalla strada mentre si sta chiudendo.',
-      'In fondo c\'è {futuro}, e dice che questa storia ha un arrivo. Non '
+      'In fondo c\'è {futuro}. E dice che questa storia ha un arrivo. Non '
           'domani, ma ce l\'ha.',
       '{futuro} aspetta in fondo alla stesa. È la carta che dà un senso a tutta '
           'la fatica che viene prima.',
       'Il futuro della lettura porta {futuro}: qui non c\'è niente da temere, '
           'c\'è qualcosa da riconoscere.',
-      'Alla fine arriva {futuro}, e le carte grandi dritte non minacciano: '
+      'Alla fine arriva {futuro}. E le carte grandi dritte non minacciano: '
           'aprono.',
       'Chiude {futuro}. Se una lettura può dirti di continuare, questa te lo '
           'dice.',
     ],
     NaturaDellaCarta.favore: [
-      'Davanti a te c\'è {futuro}: niente di clamoroso, e proprio per questo '
+      'Davanti a te c\'è {futuro}: niente di clamoroso. E proprio per questo '
           'affidabile. Le cose piccole tengono.',
       '{futuro} chiude la lettura su una nota concreta. Il risultato c\'è e '
           'somiglia al lavoro che ci hai messo.',
@@ -453,14 +453,14 @@ abstract final class VoceDellaStesa {
           'succede se continui.',
       'Alla fine c\'è {futuro}, una carta di mestiere. Il futuro qui è una '
           'conseguenza, non una sorpresa.',
-      '{futuro} sta in fondo, e dice che il seguito è nelle tue mani più che '
+      '{futuro} sta in fondo. E dice che il seguito è nelle tue mani più che '
           'nelle circostanze.',
       'Il futuro della lettura è {futuro}: una cosa che si costruisce, non una '
           'che capita.',
-      'Chiude {futuro}. Piccola, dritta, e con i piedi per terra.',
+      'Chiude {futuro}. Piccola, dritta. E con i piedi per terra.',
     ],
     NaturaDellaCarta.prova: [
-      'Davanti a te c\'è {futuro}, e non è una condanna: è un passaggio stretto '
+      'Davanti a te c\'è {futuro}. E non è una condanna: è un passaggio stretto '
           'che si attraversa, non un muro.',
       '{futuro} chiude la stesa con una prova. Le carte non dicono che finisce '
           'male: dicono che costa.',
@@ -471,7 +471,7 @@ abstract final class VoceDellaStesa {
       'Alla fine arriva {futuro}, una carta grande messa di traverso: il tema è '
           'importante, la strada è più lunga.',
       '{futuro} aspetta in fondo. Non toglie l\'arrivo: sposta la data.',
-      'Il futuro della lettura porta {futuro}, e chiede una rinuncia precisa '
+      'Il futuro della lettura porta {futuro}. E chiede una rinuncia precisa '
           'invece di un sacrificio generico.',
       'Chiude {futuro}. È la carta che conviene guardare adesso, finché sei '
           'ancora in tempo a scegliere da dove passare.',
@@ -481,7 +481,7 @@ abstract final class VoceDellaStesa {
           'una mossa, non con una battaglia.',
       '{futuro} chiude la lettura su un intoppo piccolo. È la carta più facile '
           'da smentire di tutta la stesa.',
-      'In fondo c\'è {futuro}, e dice dove ti impunterai se lasci le cose come '
+      'In fondo c\'è {futuro}. E dice dove ti impunterai se lasci le cose come '
           'stanno.',
       'La stesa finisce su {futuro}: un granello, non una frana. Vale la pena '
           'toglierlo adesso che è ancora piccolo.',
@@ -513,16 +513,16 @@ abstract final class VoceDellaStesa {
           'muoversi.',
       'Nessun rovescio in questa stesa: quello che le carte dicono, lo dicono '
           'senza riserve.',
-      'Tre carte dritte su tre. È una lettura pulita, e le letture pulite '
+      'Tre carte dritte su tre. È una lettura pulita. E le letture pulite '
           'chiedono di essere prese sul serio.',
     ],
     1: [
       'Una delle tre è uscita al rovescio, quindi c\'è un nodo da sciogliere e '
           'non un muro.',
-      'C\'è un solo rovescio nella stesa: un punto che frena, e uno solo.',
+      'C\'è un solo rovescio nella stesa: un punto che frena. E uno solo.',
       'Una carta su tre sta di traverso. È il pezzo da guardare per primo, '
           'non il motivo per fermarsi.',
-      'Un rovescio soltanto: il resto della lettura tiene, e quello che frena '
+      'Un rovescio soltanto: il resto della lettura tiene. E quello che frena '
           'ha un nome preciso.',
     ],
     2: [
@@ -533,7 +533,7 @@ abstract final class VoceDellaStesa {
       'La stesa è in gran parte al rovescio. Vuol dire che il movimento c\'è, '
           'ma passa da dentro prima che da fuori.',
       'Più carte di traverso che dritte: il tempo di questa cosa non è ancora '
-          'il tuo, e conviene saperlo adesso.',
+          'il tuo. E conviene saperlo adesso.',
     ],
   };
 
@@ -602,7 +602,7 @@ abstract final class VoceDellaStesa {
   /// **Nessuna promette niente**, che e' la cornice di casa: il cielo inclina e
   /// non obbliga.
   static const List<String> chiusure = [
-    'Il resto lo scrivi tu, e le carte lo sanno.',
+    'Il resto lo scrivi tu. E le carte lo sanno.',
     'Questa lettura indica una direzione, non un destino: la scelta resta '
         'tua.',
     'Non c\'è niente di scritto qui che tu non possa cambiare camminando.',
@@ -611,7 +611,7 @@ abstract final class VoceDellaStesa {
         'decidere, non a obbedire.',
     'Quello che hai letto vale finché non fai la prima mossa. Poi vale quello '
         'che hai fatto.',
-    'Nessuna di queste tre carte decide per te: mostrano il terreno, e il '
+    'Nessuna di queste tre carte decide per te: mostrano il terreno. E il '
         'passo è tuo.',
     'Torna a guardarla fra qualche giorno: quello che oggi sembra il punto '
         'principale spesso non lo era.',

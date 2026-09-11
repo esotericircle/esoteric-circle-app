@@ -126,7 +126,7 @@ abstract final class TettiDelViaggio {
     }
     if (!giaRiconosciuto) {
       return 'Oggi sei già sceso. I quattro viaggi cadono in quattro giorni '
-          'diversi, e non è una regola nostra: è il metodo.';
+          'diversi. Non è una regola nostra: è il metodo.';
     }
     final tetto = domandeAlGiorno[tier] ?? 1;
     return tetto == 1

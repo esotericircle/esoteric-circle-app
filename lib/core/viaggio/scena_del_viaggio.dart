@@ -65,28 +65,28 @@ class ScenaDelViaggio {
   /// e' **la frase che le cuce**, che prima era una.
   static const List<String> formeIntere = [
     'Ti porta {aLuogo} {momento}. C\'è {cosa}. L\'animale {gesto}.',
-    '{Momento}, ti porta {aLuogo}. Lì trovi {cosa}, e l\'animale {gesto}.',
-    'La scena si apre {aLuogo}, {momento}. C\'è {cosa}, e l\'animale {gesto}.',
+    '{Momento}, ti porta {aLuogo}. Lì trovi {cosa}. E l\'animale {gesto}.',
+    'La scena si apre {aLuogo}, {momento}. C\'è {cosa}. E l\'animale {gesto}.',
     'Ti conduce {aLuogo} {momento}. Davanti a te {cosa}. L\'animale {gesto}.',
     '{Momento} l\'animale ti porta {aLuogo}. C\'è {cosa}: lui {gesto}.',
     'Siete {aLuogo}, {momento}. Fra voi e il resto c\'è {cosa}. L\'animale '
         '{gesto}.',
-    'Ti porta {aLuogo}. {Momento}, e c\'è {cosa}. L\'animale {gesto}.',
-    'Vi trovate {aLuogo} {momento}. Trovi {cosa}, e l\'animale {gesto}.',
+    'Ti porta {aLuogo}. {Momento}. E c\'è {cosa}. L\'animale {gesto}.',
+    'Vi trovate {aLuogo} {momento}. Trovi {cosa}. E l\'animale {gesto}.',
   ];
 
   /// **LE OTTO FORME DELLA SCENA VELATA**, quando si leggono due elementi.
   static const List<String> formeVelate = [
     'Ti porta dove c\'è {cosa}. L\'animale {gesto}, ma il luogo non si '
         'distingue.',
-    'Del luogo non si vede niente. C\'è {cosa}, e l\'animale {gesto}.',
-    'La nebbia tiene il luogo. Resta {cosa}, e l\'animale che {gesto}.',
-    'Non si capisce dove siete. Si vede {cosa}, e l\'animale {gesto}.',
-    'Il posto resta indistinto. Quello che arriva è {cosa}, e l\'animale '
+    'Del luogo non si vede niente. C\'è {cosa}. E l\'animale {gesto}.',
+    'La nebbia tiene il luogo. Resta {cosa}. E l\'animale che {gesto}.',
+    'Non si capisce dove siete. Si vede {cosa}. E l\'animale {gesto}.',
+    'Il posto resta indistinto. Quello che arriva è {cosa}. E l\'animale '
         '{gesto}.',
     'Ti porta in un luogo che non si lascia guardare. C\'è {cosa}. '
         'L\'animale {gesto}.',
-    'Del dove non resta niente. Resta {cosa}, e l\'animale {gesto}.',
+    'Del dove non resta niente. Resta {cosa}. E l\'animale {gesto}.',
     'Si vede {cosa} e si vede l\'animale che {gesto}. Il luogo no.',
   ];
 
@@ -96,7 +96,7 @@ class ScenaDelViaggio {
     'Si vede una cosa sola: l\'animale {gesto}.',
     'Della scena arriva soltanto questo: l\'animale {gesto}.',
     'Tutto è confuso tranne una cosa. L\'animale {gesto}.',
-    'L\'animale {gesto}, e intorno non si distingue niente.',
+    'L\'animale {gesto}. E intorno non si distingue niente.',
     'Resta il gesto e basta: l\'animale {gesto}.',
     'La nebbia si apre su un attimo solo. L\'animale {gesto}.',
     'Di là non torna quasi niente. Torna questo: l\'animale {gesto}.',
