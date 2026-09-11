@@ -2011,6 +2011,140 @@ DD.04 avevo scritto *"la voce dice il falso sul codice"*, elencando tre
 chiamate esistenti e collegate. La ritrattazione sta nel manifesto, sotto la
 ricognizione sbagliata, e non e' stata cancellata.
 
+## L'ORDINE DE, IL VIAGGIO DELLO SCIAMANO RIVESTITO
+
+11 settembre 2026. **La regola che lo governa: IL CODICE MUOVE, GLI ASSET
+VESTONO.** Nasce da un giudizio del fondatore sul risultato visivo del Viaggio,
+*"impresentabile"*, e da un difetto di verita': le sagome dell'incontro le
+disegnava **una formula da un seme**, quindi l'ombra che si seguiva non era
+l'animale che si otteneva, e la formula disegnava **sempre un quadrupede**
+mentre quattro dei dodici animali non lo sono.
+
+**Quattordici voci su sedici chiuse.** Il manifesto sta in
+`docs/ordini/ORDINE_DE_MANIFESTO.md`.
+
+**Che cosa e' cambiato, in breve.**
+
+- **La soglia e' una scena piena**: copre il **cento per cento** della finestra
+  utile, misurato sui punti dipinti nella finestra vera, 390 per 844 su 390 per
+  844. Prima era un `ClipRRect` con un `AspectRatio` in cima a una colonna.
+- **La lente**: sotto il velo c'e' **l'illustrazione vera**, e il velo la
+  scurisce e la sfoca senza annerirla. Il limite e' **spaziale**: in ogni
+  discesa la lente si muove dentro una fascia, e le tre fasce si calcolano dal
+  **rettangolo della testa** di quell'animale, ricavato guardando le dodici
+  immagini su una griglia dei decimi e verificato con due giri di
+  sovrapposizione. `lib/core/viaggio/dove_sta_la_testa.dart`.
+- **La testa non si vede prima della quarta, per costruzione**: tutte e tre le
+  aree stanno sotto il punto piu' basso della testa, e il centro della lente e'
+  tenuto dentro l'area rientrato del proprio raggio. **15.876 posizioni
+  provate**, dodici animali per tre discese: il caso piu' stretto lascia **3,3
+  punti** fra la cima della lente e il fondo della testa del cavallo.
+- **La discesa**: **venti** secondi la prima, **nove** dalla seconda. Erano
+  quarantacinque e venti.
+- **Le quattro impronte** formano un cammino che sale dove l'animale aspetta, e
+  ogni impronta e' **la sagoma vera dell'ombra seguita quella volta**, presa
+  dal canale alpha della stessa immagine. Prima erano quattro trattini in fila,
+  cioe' una barra di avanzamento.
+- **La card della rivelazione**, dal punto unico della condivisione.
+- **Il verso**: lo slot dei dodici file audio esiste **vuoto per scelta**. *"Uno
+  slot vuoto e' meglio di un ululato che non e' il suo."* Vedi
+  `assets/audio/animali/LEGGIMI.md`.
+- **L'apparizione fuori dal Viaggio**: cinque porte prima del caso, e il caso e'
+  un quarto per sessione col tetto di una al giorno. **1,69 apparizioni a
+  settimana** misurate su mille giorni.
+- **Le scene che si parlano**: il richiamo guarda **cinque** scene indietro, e
+  tace quando non c'e' niente da riprendere.
+- **L'animale lontano**: l'avviso arriva **all'apertura** e non piu' solo alla
+  risalita, e accanto c'e' il tamburo, che toglie **sette** giorni di distanza,
+  uno al giorno, al massimo tre che contano.
+- **I tetti per piano**: 1, 3, 7, 20 dopo la rivelazione, col listino degli Eos
+  oltre il tetto. **La rivelazione resta una al giorno per tutti e non si
+  compra.** In Demo ogni limite cade, con `AppFlags.isDemo`, che e' la chiave
+  gia' in uso.
+
+**LE DUE VOCI APERTE.**
+
+- **DE.04, l'ingrandimento dei dodici animali**: bloccata perche' **sul progetto
+  `esoteric-circle` nessun modello Imagen risponde**. Dei ventisette modelli
+  raggiungibili, i quattro che toccano le immagini sono tutti Gemini, che
+  **rigenerano**, e l'ordine vieta di rigenerare. Lo strumento e' scritto e
+  pronto: `tool/ingrandisci_animali.py`. Serve abilitare Imagen sul progetto.
+- **DE.16, la prova visiva sul telefono**: non fatta.
+
+**E TRE ASSET CHE ASPETTA IL FONDATORE**, con gli slot gia' montati:
+`assets/img/mondo_di_sotto/soglia_bosco_v1.webp`, `fondo_nebbia_v1.webp` e
+`tunnel_parete_v1.webp`. **La scala di ripetizione della parete e' dichiarata:
+sei giri sull'intera discesa**, cioe' tre secondi e un terzo per giro.
+
+## L'ORDINE DF, LE RISPOSTE NON POSSONO ESSERE TUTTE UGUALI
+
+11 settembre 2026, urgente e straordinario. Nasce da un fatto misurato dal
+fondatore: **quattro Stese consecutive con la stessa domanda, dodici carte
+tutte diverse, e i primi due paragrafi del Consiglio identici al carattere in
+tutte e quattro.**
+
+**Sette voci su sette chiuse.** Il manifesto sta in
+`docs/ordini/ORDINE_DF_MANIFESTO.md`, il censimento in
+`docs/DF_censimento_delle_risposte.md`.
+
+**LA CAUSA, e stava scritta in due righe.** In `tarot_reading.dart` il
+Consiglio apriva con `topic.lente` piu' `topic.group.risposta` e proseguiva con
+`topic.group.consiglio`. La lente ha sedici valori, le altre due **tre**:
+**nessuna delle tre guardava una sola carta.** A parita' di argomento quei due
+paragrafi erano una costante.
+
+**LA CURA: il testo lo sceglie l'estrazione.** Le forme stanno in
+`lib/core/tarot/voce_della_stesa.dart`, e il filo che le sceglie nasce **dalle
+tre carte e dai loro versi**, mai dall'orologio: le stesse carte danno sempre
+lo stesso testo, quindi la bolla piu' lunga dell'app resta cacheabile e non
+tocca l'LLM. **La casualita' sta nel mazzo, dove deve stare.**
+
+**IL SECONDO DIFETTO, trovato cercando il primo: il verso delle carte era una
+costante del mazzo.** La schermata ripiegava su un seme costante quando nessuno
+lo dichiarava, e in produzione nessuno lo dichiara mai: **ogni carta aveva un
+verso fisso per sempre, uguale per tutti gli utenti.** Il Mondo usciva sempre
+dritto. E il conto globale tornava: le carte che col ripiego cadevano
+rovesciate erano il **29,5 per cento** contro il 30 dichiarato. **Una prova che
+avesse contato solo la percentuale sarebbe stata verde.**
+
+**I NUMERI, misurati su cento consultazioni con lo stesso ingresso.**
+
+| funzione | testi distinti | scheletri | somiglianza massima | paragrafo piu' ripetuto |
+|---|---|---|---|---|
+| Stesa di Tarocchi, prima | 100/100 | 100/100 | **94,4 per cento** | **100 volte** |
+| Stesa di Tarocchi, dopo | 100/100 | 100/100 | **33,0** | **1** |
+| Rune, prima | 100/100 | 100/100 | **82,8** | 1 |
+| Rune, dopo | 100/100 | 100/100 | **39,6** | 1 |
+| Viaggio, prima | 100/100 | **6/100** | **90,0** | 1 |
+| Viaggio, dopo | 100/100 | **99/100** | **25,0** | 1 |
+
+**Sulle quattro letture vere del fondatore**: da **84,6** per cento di
+somiglianza a **17,3**, e dallo stesso paragrafo **quattro volte su quattro** a
+**una**.
+
+**LE FREQUENZE, su ventimila estrazioni.** Carte: 78 su 78 escono, scarto
+massimo **9,7 per cento**, zero doppioni, rovesciate **29,97** contro 30, zero
+carte con un verso solo. Rune: 24 su 24, scarto **6,9 per cento**, zero
+doppioni, merkstave **33,6** contro un atteso di 33,3 perche' le otto
+simmetriche non hanno rovescio.
+
+**LA LEZIONE CHE VALE PER TUTTE LE ARTI.** Le forme lunghe alzano la varieta'
+degli scheletri **e peggiorano la somiglianza**, perche' piu' impalcatura vuol
+dire piu' parole in comune quando due consultazioni cadono sulla stessa forma.
+**La via che soddisfa tutte e due e' tante forme corte**: una frase di quattro
+parole non produce nessuna sequenza di cinque, che e' l'unita' con cui la
+somiglianza si conta.
+
+**LE DUE GUARDIE PERMANENTI**: `test/la_guardia_della_diversita_test.dart` per
+le quattro misure su tutte le arti censite, e
+`test/l_estrazione_e_realistica_test.dart` per le frequenze.
+
+**E UNA GUARDIA CHE DIFENDEVA IL DIFETTO, rifatta.**
+`il_consiglio_dei_tarocchi_e_la_sua_anatomia_test` pretendeva che **nessuna
+carta fosse nominata** nella prima parte del Consiglio, che e' esattamente cio'
+che l'ordine DF adesso obbliga. Era verde, e la persona leggeva quattro
+responsi identici.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
