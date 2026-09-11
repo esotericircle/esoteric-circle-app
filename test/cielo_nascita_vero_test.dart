@@ -88,11 +88,13 @@ void main() {
     ));
     await passo(tester);
     await passo(tester);
-    // I due trionfi vengono PRIMA del cielo: l'Animale Guida e la triade di
-    // Angeli stanno subito dopo il numero della vita, quindi per arrivare al
-    // cielo si attraversano loro. Prima il cielo era la prima fase.
+    // **GLI ANGELI VENGONO PRIMA DEL CIELO**, e per arrivare al cielo si
+    // attraversa il loro trionfo.
+    //
+    // **Qui prima c'era anche `trionfo_animale_avanti`**: l'ordine DG voce 04
+    // ha portato la scheda dell'animale **in fondo**, dopo il Maestro, per
+    // decisione del fondatore. Chi arriva al cielo non l'ha ancora vista.
     for (final chiave in const [
-      'trionfo_animale_avanti',
       'trionfo_angeli_avanti',
     ]) {
       // I trionfi accendono il proprio pulsante solo a scena conclusa: si

@@ -91,12 +91,14 @@ void main() {
     await dito.up();
     await settle(tester);
 
-    // Il rito a passi non c'e' piu'. In scena c'e' il primo TRIONFO, quello
-    // dell'Animale Guida: i trionfi vengono subito dopo il numero della vita, e
-    // il cielo di nascita arriva dopo di loro. Prima il cielo era la prima
-    // tappa, quindi fra il numero e i suoi trionfi si infilava una schermata.
+    // Il rito a passi non c'e' piu'. In scena c'e' il primo TRIONFO, che
+    // dall'ordine DG voce 04 e' quello degli **Angeli**: la scheda
+    // dell'Animale e' passata in fondo, dopo il Maestro, per decisione del
+    // fondatore. Il cielo di nascita arriva dopo i trionfi; prima il cielo era
+    // la prima tappa, quindi fra il numero e i suoi trionfi si infilava una
+    // schermata.
     expect(find.byKey(const Key('onboarding_risveglio')), findsNothing);
-    expect(find.byKey(const Key('trionfo_animale')), findsOneWidget);
+    expect(find.byKey(const Key('trionfo_angeli')), findsOneWidget);
   });
 
   testWidgets('Aperture successive vanno dirette al Santuario', (tester) async {

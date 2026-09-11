@@ -363,7 +363,10 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAngeliContinue,
-          onBack: _indietroDiFase,
+          // **NESSUNA FRECCIA INDIETRO: adesso gli Angeli sono i primi.**
+          // Ordine DG voce 04. E' la stessa legge che questo file dichiarava
+          // gia' per l'Animale quando apriva lui: *"un indietro non esiste,
+          // quindi non si mostra un comando che non fa nulla"*.
         );
       case _Phase.resonance:
         return _resonance == null

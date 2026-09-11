@@ -1159,7 +1159,10 @@ class _ViaggioDelloSciamanoScreenState
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(SpacingTokens.xl),
-                child: Text('Passa la mano: la nebbia si apre',
+                // **CORTA, PERCHE' E' UN'ETICHETTA.** La guardia
+                // `etichette_e_lettura` pretende una riga sola: *"Passa la
+                // mano: la nebbia si apre"* ne occupava due.
+                child: Text('Passa la mano',
                     key: const Key('viaggio_istruzione_nebbia'),
                     style: TypographyTokens.etichetta()
                         .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),

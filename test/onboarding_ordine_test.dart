@@ -28,6 +28,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// la carta contiene la tessera del lupo e quella dei tre angeli, quindi chi
 /// arrivava al trionfo li aveva gia' incontrati come voci di un elenco. Un
 /// trionfo che svela il noto non e' un trionfo.
+///
+/// **RISCRITTA DALL'ORDINE DG VOCE 04, 11 settembre 2026.** La scheda
+/// dell'animale e' passata da **prima** a **ultima**, per decisione del
+/// fondatore: *"la scheda dell'animale nell'onboarding deve comparire dopo gli
+/// angeli, per ultima"*. L'ordine e' adesso **angeli, cielo, carta, risonanza,
+/// Maestro, animale, custodia**.
+///
+/// **La legge che questa prova protegge non e' cambiata**: gli Angeli
+/// continuano ad arrivare prima della carta natale, perche' e' la carta a
+/// contenere le loro tessere e non il contrario. Cio' che e' cambiato e' dove
+/// sta l'animale, che non si rivela affatto nel Risveglio: **il suo nome lo
+/// dice il Viaggio**, dopo quattro discese.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -58,7 +70,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 900));
   }
 
-  testWidgets('I due trionfi arrivano PRIMA della carta natale',
+  testWidgets('GLI ANGELI ARRIVANO PRIMA DELLA CARTA, e l Animale per ultimo',
       (tester) async {
     silence();
     SharedPreferences.setMockInitialValues({});
@@ -97,26 +109,19 @@ void main() {
     ));
     await passo(tester);
 
-    // I trionfi APRONO la coda, subito dopo il numero della vita: il cielo di
-    // nascita viene dopo di loro. Prima il cielo era la prima fase, quindi fra
-    // il numero e i suoi trionfi si infilava un'altra schermata.
-    expect(find.byType(TrionfoAnimale), findsOneWidget,
-        reason: 'la coda non apre col trionfo dell Animale');
+    // **LA CODA APRE CON GLI ANGELI**, ordine DG voce 04: l'animale non sta
+    // piu' qui, sta in fondo.
+    expect(find.byType(TrionfoAngeli), findsOneWidget,
+        reason: 'la coda non apre col trionfo degli Angeli');
+    expect(find.byType(TrionfoAnimale), findsNothing,
+        reason: 'l Animale apre ancora il Risveglio: la voce DG.04 lo vuole '
+            'per ultimo');
     expect(find.byType(NatalChartReveal), findsNothing,
-        reason: 'la carta natale arriva prima dei trionfi, quindi il trionfo '
-            'rivelerebbe una cosa gia\' vista');
+        reason: 'la carta natale arriva prima del trionfo degli Angeli, '
+            'quindi il trionfo rivelerebbe una cosa gia\' vista');
 
-    // Poi gli Angeli, sempre prima della carta.
-    for (var i = 0; i < 12; i++) {
-      await tester.pump(const Duration(milliseconds: 300));
-    }
-    await tester.tap(find.byKey(const Key('trionfo_animale_avanti')));
-    await passo(tester);
-    expect(find.byType(TrionfoAngeli), findsOneWidget);
-    expect(find.byType(NatalChartReveal), findsNothing);
-
-    // Dopo i due trionfi il cielo di nascita, e SOLO alla fine la carta, che
-    // raccoglie i compagni gia' incontrati uno per uno.
+    // Poi il cielo di nascita, e SOLO dopo la carta, che raccoglie i compagni
+    // gia' incontrati uno per uno.
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 300));
     }
@@ -128,6 +133,6 @@ void main() {
     await tester.tap(find.byKey(const Key('sky_cta')));
     await passo(tester);
     expect(find.byType(NatalChartReveal), findsOneWidget,
-        reason: 'dopo i trionfi e il cielo deve arrivare il ritratto insieme');
+        reason: 'dopo gli Angeli e il cielo deve arrivare il ritratto insieme');
   });
 }

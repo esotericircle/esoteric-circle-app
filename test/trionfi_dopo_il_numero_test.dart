@@ -86,53 +86,39 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   }
 
-  testWidgets('Il Risveglio comincia dal trionfo dell\'Animale',
+  testWidgets('Il Risveglio comincia dal trionfo degli Angeli',
       (tester) async {
+    // **RISCRITTA DALL'ORDINE DG VOCE 04.** Apriva l'Animale; adesso apre
+    // chi resta, cioe' gli Angeli, perche' la scheda dell'animale e' passata
+    // in fondo per decisione del fondatore.
     await apriRisveglio(tester);
 
-    expect(find.byType(TrionfoAnimale), findsOneWidget,
+    expect(find.byType(TrionfoAngeli), findsOneWidget,
         reason: 'fra il numero della vita e i suoi trionfi si e\' infilata '
             'un\'altra schermata');
-  });
-
-  testWidgets('Dal trionfo degli Angeli si torna a quello dell\'Animale',
-      (tester) async {
-    await apriRisveglio(tester);
-    await tester.tap(find.byKey(const Key('trionfo_animale_avanti')));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-    expect(find.byType(TrionfoAngeli), findsOneWidget);
-
-    expect(find.byKey(const Key('trionfo_angeli_indietro')), findsOneWidget,
-        reason: 'il trionfo degli Angeli non ha la freccia indietro');
-    await tester.tap(find.byKey(const Key('trionfo_angeli_indietro')));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-
-    expect(find.byType(TrionfoAnimale), findsOneWidget,
-        reason: 'la freccia non ha riportato al trionfo precedente');
+    expect(find.byType(TrionfoAnimale), findsNothing,
+        reason: 'l Animale apre ancora il Risveglio, e la voce DG.04 lo vuole '
+            'per ultimo');
   });
 
   testWidgets(
       'Il primo trionfo non ha una freccia che non porta da nessuna '
       'parte', (tester) async {
     await apriRisveglio(tester);
-    // L'Animale e' il primo: un indietro non esiste, quindi non si mostra una
-    // freccia che non fa nulla.
-    expect(find.byKey(const Key('trionfo_animale_indietro')), findsNothing,
+    // **ADESSO IL PRIMO SONO GLI ANGELI**: un indietro non esiste, quindi non
+    // si mostra una freccia che non fa nulla. Ordine DG voce 04.
+    expect(find.byKey(const Key('trionfo_angeli_indietro')), findsNothing,
         reason: 'il primo trionfo mostra una freccia che non porta indietro');
   });
 
-  testWidgets('Il cielo di nascita arriva dopo i due trionfi', (tester) async {
+  testWidgets('Il cielo di nascita arriva dopo gli Angeli', (tester) async {
     await apriRisveglio(tester);
-    await tester.tap(find.byKey(const Key('trionfo_animale_avanti')));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
     await tester.tap(find.byKey(const Key('trionfo_angeli_avanti')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
-    expect(find.byType(TrionfoAnimale), findsNothing);
     expect(find.byType(TrionfoAngeli), findsNothing);
+    expect(find.byType(TrionfoAnimale), findsNothing,
+        reason: 'l Animale non sta fra gli Angeli e il cielo: sta in fondo');
   });
 }
