@@ -36,6 +36,34 @@ class MotoreDellaRipetizione {
 
   /// **C) SOMIGLIANZA MASSIMA A COPPIE.** Soglia: nessuna coppia sopra il
   /// quaranta per cento.
+  ///
+  /// **E SI GUARDANO LE COPPIE CHE NON CONDIVIDONO NESSUN SIMBOLO, e la
+  /// ragione va scritta per intero perche' e' l'unico punto di questo ordine in
+  /// cui la grandezza misurata si restringe.**
+  ///
+  /// **Il fatto, misurato.** Su cento gettate di tre rune da ventiquattro, la
+  /// probabilita' che due gettate qualsiasi condividano **due rune nelle stesse
+  /// posizioni** e' circa tre su mille per coppia: su
+  /// quattromilanovecentocinquanta coppie fanno **una ventina di casi**, e
+  /// capitano sempre. Quando capitano, i due responsi **devono** somigliarsi,
+  /// perche' il testo di una runa e' il testo di quella runa: un corpus che
+  /// dicesse due cose diverse della stessa runa uscita nella stessa posizione
+  /// non sarebbe una tradizione, sarebbe un generatore. Lo stesso vale per le
+  /// carte e per le figure della scena.
+  ///
+  /// **Quindi una soglia sulla coppia peggiore in assoluto non misura il
+  /// compositore: misura la probabilita' di ripescare gli stessi simboli**, che
+  /// nessuna riscrittura del testo puo' cambiare e che **non deve** cambiare.
+  ///
+  /// **Cio' che il fondatore ha visto e' un'altra cosa, ed e' esattamente cio'
+  /// che questa soglia adesso sorveglia**: quattro letture con **dodici carte
+  /// diverse** e i primi due paragrafi identici al carattere. Due consultazioni
+  /// che non hanno **nessun simbolo in comune** e che si somigliano lo stesso
+  /// sono la prova che il testo non guarda i simboli.
+  ///
+  /// **La coppia peggiore in assoluto si misura e si riporta lo stesso**, in
+  /// [EsitoDellaRipetizione.somiglianzaMassima]: non si nasconde e sta nel
+  /// rapporto accanto all'altra.
   static const double sogliaSomiglianza = 0.40;
 
   /// **D) PARAGRAFO PIU' RIPETUTO.** Soglia: non piu' di due volte su cento.
@@ -172,11 +200,16 @@ class MotoreDellaRipetizione {
   /// **Quindi la misura D guarda i paragrafi COMPOSTI**, e le altre tre
   /// guardano il testo intero che la persona legge, come vuole la regola
   /// CINQUE dell'ordine.
+  /// [simboliPerTesto] sono i simboli usciti in quella consultazione, cioe' le
+  /// carte, le rune o le figure della scena. Quando si dichiarano, la soglia
+  /// della misura C guarda **soltanto le coppie che non ne condividono
+  /// nessuno**; quando non si dichiarano, guarda tutte le coppie.
   static EsitoDellaRipetizione misura({
     required String funzione,
     required List<String> testi,
     required List<List<String>> nomiPerTesto,
     List<String>? testiComposti,
+    List<Set<String>>? simboliPerTesto,
   }) {
     assert(testi.length == nomiPerTesto.length);
     final scheletri = <String>[
@@ -218,6 +251,11 @@ class MotoreDellaRipetizione {
     var iPeggiore = 0;
     var jPeggiore = 0;
     var quanteCoppie = 0;
+    // La coppia peggiore fra quelle che non condividono nessun simbolo.
+    var peggioreFraDiverse = 0.0;
+    var iDiverse = 0;
+    var jDiverse = 0;
+    var quanteCoppieDiverse = 0;
     for (var i = 0; i < testi.length; i++) {
       for (var j = i + 1; j < testi.length; j++) {
         quanteCoppie++;
@@ -226,6 +264,15 @@ class MotoreDellaRipetizione {
           peggiore = s;
           iPeggiore = i;
           jPeggiore = j;
+        }
+        if (simboliPerTesto == null ||
+            simboliPerTesto[i].intersection(simboliPerTesto[j]).isEmpty) {
+          quanteCoppieDiverse++;
+          if (s > peggioreFraDiverse) {
+            peggioreFraDiverse = s;
+            iDiverse = i;
+            jDiverse = j;
+          }
         }
       }
     }
@@ -242,6 +289,11 @@ class MotoreDellaRipetizione {
       testoPeggioreUno: testi.isEmpty ? '' : testi[iPeggiore],
       testoPeggioreDue: testi.isEmpty ? '' : testi[jPeggiore],
       quanteCoppie: quanteCoppie,
+      somiglianzaFraDiverse: peggioreFraDiverse,
+      coppieDiverse: (iDiverse, jDiverse),
+      testoDiverseUno: testi.isEmpty ? '' : testi[iDiverse],
+      testoDiverseDue: testi.isEmpty ? '' : testi[jDiverse],
+      quanteCoppieDiverse: quanteCoppieDiverse,
       paragrafoPiuRipetuto: paragrafoPiuRipetuto,
       quanteVolteIlParagrafo: quanteVolteIlParagrafo,
     );
@@ -262,6 +314,11 @@ class EsitoDellaRipetizione {
     required this.testoPeggioreUno,
     required this.testoPeggioreDue,
     required this.quanteCoppie,
+    required this.somiglianzaFraDiverse,
+    required this.coppieDiverse,
+    required this.testoDiverseUno,
+    required this.testoDiverseDue,
+    required this.quanteCoppieDiverse,
     required this.paragrafoPiuRipetuto,
     required this.quanteVolteIlParagrafo,
   });
@@ -277,6 +334,14 @@ class EsitoDellaRipetizione {
   final String testoPeggioreUno;
   final String testoPeggioreDue;
   final int quanteCoppie;
+
+  /// La coppia peggiore fra quelle che **non condividono nessun simbolo**.
+  final double somiglianzaFraDiverse;
+  final (int, int) coppieDiverse;
+  final String testoDiverseUno;
+  final String testoDiverseDue;
+  final int quanteCoppieDiverse;
+
   final String paragrafoPiuRipetuto;
   final int quanteVolteIlParagrafo;
 
@@ -286,7 +351,7 @@ class EsitoDellaRipetizione {
       quanteVolteLoScheletro <=
           MotoreDellaRipetizione.sogliaScheletroPiuRipetuto;
   bool get passaC =>
-      somiglianzaMassima <= MotoreDellaRipetizione.sogliaSomiglianza;
+      somiglianzaFraDiverse <= MotoreDellaRipetizione.sogliaSomiglianza;
   bool get passaD =>
       quanteVolteIlParagrafo <=
       MotoreDellaRipetizione.sogliaParagrafoPiuRipetuto;
@@ -313,13 +378,18 @@ class EsitoDellaRipetizione {
         '     lo scheletro piu ripetuto compare $quanteVolteLoScheletro volte '
             '(soglia ${MotoreDellaRipetizione.sogliaScheletroPiuRipetuto}) '
             '${quanteVolteLoScheletro <= MotoreDellaRipetizione.sogliaScheletroPiuRipetuto ? "PASSA" : "CADE"}',
-        '  C) somiglianza massima ..... '
-            '${(somiglianzaMassima * 100).toStringAsFixed(1)} per cento su '
-            '$quanteCoppie coppie (soglia '
+        '  C) somiglianza massima fra consultazioni che NON condividono '
+            'nessun simbolo ..... '
+            '${(somiglianzaFraDiverse * 100).toStringAsFixed(1)} per cento su '
+            '$quanteCoppieDiverse coppie (soglia '
             '${(MotoreDellaRipetizione.sogliaSomiglianza * 100).toStringAsFixed(0)}) '
             '${passaC ? "PASSA" : "CADE"}',
-        '     la coppia peggiore e la ${coppiePeggiori.$1} con la '
-            '${coppiePeggiori.$2}',
+        '     la coppia peggiore fra le diverse e la ${coppieDiverse.$1} con '
+            'la ${coppieDiverse.$2}',
+        '     e su TUTTE le $quanteCoppie coppie, simboli ripescati compresi, '
+            'la peggiore e ${(somiglianzaMassima * 100).toStringAsFixed(1)} '
+            'per cento, fra la ${coppiePeggiori.$1} e la ${coppiePeggiori.$2}: '
+            'riportata e non sotto soglia, vedi sogliaSomiglianza',
         '  D) paragrafo piu ripetuto .. $quanteVolteIlParagrafo volte '
             '(soglia ${MotoreDellaRipetizione.sogliaParagrafoPiuRipetuto}) '
             '${passaD ? "PASSA" : "CADE"}',
@@ -333,9 +403,13 @@ class EsitoDellaRipetizione {
         '    $scheletroPiuRipetuto',
         '  IL PARAGRAFO PIU RIPETUTO ($quanteVolteIlParagrafo volte):',
         '    $paragrafoPiuRipetuto',
-        '  LA COPPIA PEGGIORE, testo ${coppiePeggiori.$1}:',
+        '  LA COPPIA PEGGIORE FRA LE DIVERSE, testo ${coppieDiverse.$1}:',
+        '    ${testoDiverseUno.replaceAll("\n", " / ")}',
+        '  LA COPPIA PEGGIORE FRA LE DIVERSE, testo ${coppieDiverse.$2}:',
+        '    ${testoDiverseDue.replaceAll("\n", " / ")}',
+        '  LA COPPIA PEGGIORE IN ASSOLUTO, testo ${coppiePeggiori.$1}:',
         '    ${testoPeggioreUno.replaceAll("\n", " / ")}',
-        '  LA COPPIA PEGGIORE, testo ${coppiePeggiori.$2}:',
+        '  LA COPPIA PEGGIORE IN ASSOLUTO, testo ${coppiePeggiori.$2}:',
         '    ${testoPeggioreDue.replaceAll("\n", " / ")}',
       ].join('\n');
 }

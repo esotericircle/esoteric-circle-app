@@ -316,6 +316,10 @@ class _ViaggioDelloSciamanoScreenState
       domanda: domanda,
       giorno: _adesso,
       nitidezza: nitidezza,
+      // **IL NUMERO DELLA DISCESA ENTRA NEL SEME.** Ordine DF voce 05: senza,
+      // due discese nello stesso giorno con la stessa domanda riportavano su
+      // **la stessa identica scena**, parola per parola.
+      discesa: quante,
     );
     await _diario.segna(UnViaggio(
       quando: _adesso,

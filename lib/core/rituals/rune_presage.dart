@@ -1,5 +1,6 @@
 import '../domande/cornici_del_presagio.dart';
 import '../responsi/anatomia_del_responso.dart';
+import '../responsi/filo_della_voce.dart';
 import 'rune_cast.dart';
 
 /// Il presagio, sistema ibrido: intreccia le rune uscite in una lettura sola,
@@ -98,8 +99,9 @@ class RunePresagio {
     // domanda apriva con una riga scritta da me, dichiarata provvisoria: adesso
     // apre con la diciassettesima cornice dell'allegato, e non c'e' una sola riga
     // di responso che non venga da Mauro.
+    final filo = _filo(esito);
     final apertura = cornice.apertura;
-    final parti = <String>[apertura, ..._perPosizione(esito.rune)];
+    final parti = <String>[apertura, ..._perPosizione(esito.rune, filo)];
     parti.add(
         esito.gettata.libera ? _equilibrioLibera(esito) : _equilibrio(esito));
     return parti.join(' ');
@@ -109,7 +111,7 @@ class RunePresagio {
   /// le letture per posizione e l'equilibrio, corpus intoccato, nessuna riga
   /// scritta da me. Ordine BF voce 05.a.
   static String _rispostaSenzaCornice(EsitoGettata esito) {
-    final parti = <String>[..._perPosizione(esito.rune)];
+    final parti = <String>[..._perPosizione(esito.rune, _filo(esito))];
     parti.add(
         esito.gettata.libera ? _equilibrioLibera(esito) : _equilibrio(esito));
     return parti.join(' ');
@@ -129,7 +131,8 @@ class RunePresagio {
   /// Le rune con la stessa glossa si raccolgono: la glossa si dice UNA volta e le
   /// letture seguono come frasi loro, con la maiuscola, perche' da sole stanno in
   /// piedi. Nelle gettate fisse il comportamento non cambia di una virgola.
-  static List<String> _perPosizione(List<RunaGettata> rune) {
+  static List<String> _perPosizione(List<RunaGettata> rune,
+      FiloDellaVoce filo) {
     final fuori = <String>[];
     var i = 0;
     while (i < rune.length) {
@@ -139,13 +142,34 @@ class RunePresagio {
         j++;
       }
       if (j - i == 1) {
-        fuori.add('Per $glossa, ${_minuscola(_primaFrase(rune[i].riga))}.');
+        fuori.add(filo
+            .scegli(formeDellaPosizione)
+            .replaceAll('{suGlossa}', _maiuscola(_articolata('su', glossa)))
+            .replaceAll('{diGlossa}', _articolata('di', glossa))
+            .replaceAll('{aGlossa}', _articolata('a', glossa))
+            .replaceAll('{Glossa}', _maiuscola(glossa))
+            .replaceAll('{glossa}', glossa)
+            // **LA RIGA INTERA DELLA RUNA, e non piu la sola prima frase.**
+            // Ordine DF voce 05, 11 settembre 2026. Prendendo una frase sola
+            // il corpus portava una trentina di parole per gettata contro le
+            // cinquanta dell impalcatura e della cornice: la somiglianza
+            // massima a coppie restava al settantatre per cento anche dopo
+            // aver dato otto forme alla cucitura, perche **il testo era fatto
+            // per meta di parti che non guardano le rune**.
+            //
+            // Con la riga intera il corpus diventa la parte grande del
+            // responso, che e anche cio che la persona e venuta a leggere.
+            .replaceAll('{riga}', _minuscola(rune[i].riga)));
       } else {
         final frasi = [
           for (var k = i; k < j; k++) '${_primaFrase(rune[k].riga)}.',
         ];
-        fuori.add('Per $glossa, più segni parlano insieme. '
-            '${frasi.join(' ')}');
+        fuori.add(filo
+            .scegli(formeDelCoro)
+            .replaceAll('{suGlossa}', _maiuscola(_articolata('su', glossa)))
+            .replaceAll('{Glossa}', _maiuscola(glossa))
+            .replaceAll('{glossa}', glossa)
+            .replaceAll('{frasi}', frasi.join(' ')));
       }
       i = j;
     }
@@ -160,6 +184,241 @@ class RunePresagio {
   // porte, con la differenza che una delle due porte non e' materiale
   // dell'Architetto.
 
+  /// **LE OTTO FORME CON CUI SI INTRODUCE UNA POSIZIONE.**
+  /// Ordine DF voce 05, 11 settembre 2026.
+  ///
+  /// **Il numero che le ha fatte nascere.** Il presagio apriva ogni posizione
+  /// con *"Per {glossa},"*, sempre, tre volte per gettata: su cento gettate
+  /// con la stessa domanda la somiglianza massima a coppie era del **82,8 per
+  /// cento**, contro una soglia del quaranta. Le righe del corpus delle rune
+  /// cambiavano, l'impalcatura che le teneva no, e l'impalcatura era la meta'
+  /// delle parole.
+  ///
+  /// **Il corpus non si tocca**: le righe delle rune sono materiale
+  /// dell'Architetto e restano parola per parola. Quello che cambia e' **la
+  /// cucitura**, che e' mia.
+  static const List<String> formeDellaPosizione = [
+    'Per {glossa}, {riga}',
+    '{Glossa}: {riga}',
+    '{suGlossa} il segno dice che {riga}',
+    'Guardando {glossa}, {riga}',
+    '{Glossa}. {riga}',
+    'La runa {diGlossa} racconta che {riga}',
+    'Dalla parte {diGlossa}, {riga}',
+    'Per quello che riguarda {glossa}, {riga}',
+    '{suGlossa}: {riga}',
+    'Quanto {aGlossa}, {riga}',
+    'Il segno {diGlossa}: {riga}',
+    '{suGlossa} cade una runa che dice: {riga}',
+    'Qui parla {glossa}: {riga}',
+    'Verso {glossa}, {riga}',
+    '{Glossa}. Il segno dice: {riga}',
+    'Guardando {glossa}: {riga}',
+  ];
+
+  /// **LE OTTO FORME CON CUI PIU' SEGNI PARLANO INSIEME**, per il getto sul
+  /// telo, dove piu' rune condividono la stessa glossa.
+  static const List<String> formeDelCoro = [
+    'Per {glossa}, piu segni parlano insieme. {frasi}',
+    '{Glossa}: qui non parla una runa sola. {frasi}',
+    '{suGlossa} cadono piu segni. {frasi}',
+    'Piu rune si affacciano su {glossa}. {frasi}',
+    'Quanto a {glossa}, i segni sono piu di uno. {frasi}',
+    'Per {glossa} il telo risponde con piu voci. {frasi}',
+    'Attorno a {glossa} si raccolgono piu segni. {frasi}',
+    '{suGlossa} le rune non dicono una cosa sola. {frasi}',
+  ];
+
+  /// **LE OTTO FORME DELLA TERZA PARTE**, quella che nomina le rune.
+  static const List<String> formeDelDaDoveViene = [
+    'Da dove viene: {gettata}. {pezzi}. {famiglia}',
+    'Questo presagio nasce cosi: {gettata}. {pezzi}. {famiglia}',
+    'Le rune che hanno parlato: {gettata}. {pezzi}. {famiglia}',
+    'Il segno viene da {gettata}. {pezzi}. {famiglia}',
+    'Come si e formato: {gettata}. {pezzi}. {famiglia}',
+    'Dietro queste righe c e {gettata}. {pezzi}. {famiglia}',
+    'La fonte: {gettata}. {pezzi}. {famiglia}',
+    'Questo lo dicono {gettata}. {pezzi}. {famiglia}',
+    'Viene da {gettata}. {pezzi}. {famiglia}',
+    'Le pietre: {gettata}. {pezzi}. {famiglia}',
+    'Cosa e caduto: {gettata}. {pezzi}. {famiglia}',
+    'Il getto era {gettata}. {pezzi}. {famiglia}',
+    'Hanno parlato {gettata}. {pezzi}. {famiglia}',
+    'Sul telo: {gettata}. {pezzi}. {famiglia}',
+    'In chiaro: {gettata}. {pezzi}. {famiglia}',
+    'Le rune uscite, da {gettata}. {pezzi}. {famiglia}',
+  ];
+
+  /// **LE FORME DELL'EQUILIBRIO, corte e dodici per caso.**
+  /// Ordine DF voce 05, 11 settembre 2026.
+  ///
+  /// **Perche' corte.** La misura C dell'ordine conta le **sequenze di cinque
+  /// parole** in comune: una frase di quattro parole non ne produce nessuna,
+  /// quindi due gettate che cadono sulla stessa forma corta **non si
+  /// somigliano per questo**. Le forme lunghe fanno il contrario: danno
+  /// varieta' alla misura B e regalano parole in comune alla C. E' la stessa
+  /// lezione imparata sulla scena del Viaggio, dove le aperture lunghe avevano
+  /// portato la C dal ventotto al quarantanove per cento.
+  static const Map<String, List<String>> formeDeiVersiGettati = {
+    'dritte': [
+      'Tutte diritte.',
+      'Nessuna in penombra.',
+      'Il segno è aperto.',
+      'Niente ombre, qui.',
+      'La via corre libera.',
+      'Tre rune, tre diritte.',
+      'Nessun freno nel getto.',
+      'Segno pulito.',
+      'Non c\'è nulla di trattenuto.',
+      'Le pietre stanno dritte tutte.',
+      'Via libera.',
+      'Nessuna riserva.',
+    ],
+    'molte': [
+      'Molte in penombra.',
+      'L\'ombra è la maggioranza.',
+      'Più ombra che luce.',
+      'Il getto pende in penombra.',
+      'Le pietre sono quasi tutte girate.',
+      'Prudenza, non un no.',
+      'Il cammino chiede cautela.',
+      'Più rune trattenute che aperte.',
+      'Qui si va piano.',
+      'Il segno è per lo più coperto.',
+      'Prevale il rovescio.',
+      'Poca luce nel getto.',
+    ],
+    'qualcuna': [
+      'Qualcuna in penombra.',
+      'Luce e ombra si parlano.',
+      'Una sola è girata.',
+      'Il resto tiene.',
+      'Un\'ombra fra le diritte.',
+      'Un freno, non un muro.',
+      'Il getto è misto.',
+      'C\'è un\'ombra e c\'è la luce.',
+      'Una pietra sola trattiene.',
+      'Nel getto c\'è una riserva.',
+      'Quasi tutte aperte.',
+      'Un rovescio soltanto.',
+    ],
+  };
+
+  /// **LE FORME DELL'ESITO**, corte anche loro.
+  static const Map<String, List<String>> formeDellEsito = {
+    'ombra': [
+      'L\'esito è in penombra: non un rifiuto, un tempo.',
+      'L\'ultima pietra è girata: chiede cura.',
+      'In fondo c\'è un\'ombra: rallenta.',
+      'L\'esito trattiene.',
+      'L\'ultima runa non dice di no: dice non ora.',
+      'La fine è coperta: aspetta.',
+      'L\'esito chiede tempo.',
+      'L\'ultima è in ombra.',
+    ],
+    'luce': [
+      'L\'esito esce diritto: muoviti con misura.',
+      'L\'ultima pietra sta dritta: la sorte è dalla tua.',
+      'In fondo c\'è luce.',
+      'L\'esito è aperto.',
+      'L\'ultima runa dice di sì, senza fretta.',
+      'La fine è scoperta: vai.',
+      'L\'esito non trattiene niente.',
+      'L\'ultima sta dritta.',
+    ],
+  };
+
+  /// **LE FORME DELLA FAMIGLIA DOMINANTE**, corte e otto per aett.
+  static const Map<String, List<String>> formeDellaFamiglia = {
+    'Freyr': [
+      'Domina Freyr: sostanza e crescita.',
+      'La gettata è di Freyr.',
+      'Pesa la famiglia di Freyr.',
+      'Freyr guida: cose che crescono.',
+      'Il getto è del primo aett.',
+      'Freyr è la famiglia in gioco.',
+      'Tocca a Freyr.',
+      'Comanda Freyr, cioè la sostanza.',
+    ],
+    'Hagal': [
+      'Domina Hagal: prova e trasformazione.',
+      'La gettata è di Hagal.',
+      'Pesa la famiglia di Hagal.',
+      'Hagal guida: qualcosa si trasforma.',
+      'Il getto è del secondo aett.',
+      'Hagal è la famiglia in gioco.',
+      'Tocca a Hagal.',
+      'Comanda Hagal, cioè la prova.',
+    ],
+    'Tyr': [
+      'Domina Tyr: volontà e legami.',
+      'La gettata è di Tyr.',
+      'Pesa la famiglia di Tyr.',
+      'Tyr guida: si decide e ci si lega.',
+      'Il getto è del terzo aett.',
+      'Tyr è la famiglia in gioco.',
+      'Tocca a Tyr.',
+      'Comanda Tyr, cioè la volontà.',
+    ],
+  };
+
+  /// **IL FILO DI UNA GETTATA**, dalle rune cadute e dai loro versi.
+  static FiloDellaVoce _filo(EsitoGettata esito) => FiloDellaVoce.da([
+        for (final r in esito.rune) ...[r.rune.name, r.verso.name],
+      ]);
+
+  /// **LE PREPOSIZIONI ARTICOLATE, e servono davvero.**
+  ///
+  /// Le glosse delle posizioni sono gruppi nominali col loro articolo: *il
+  /// consiglio essenziale*, *cio' che fu*, *la radice*. Una forma che scrive
+  /// *"Su {glossa}"* produce **"Su il consiglio essenziale"**, che e' un
+  /// errore di italiano, e la guardia della lingua di questo progetto lo
+  /// prende. Qui la preposizione si fonde con l'articolo, come si fa in
+  /// italiano.
+  static String _articolata(String prep, String nome) {
+    const tavola = <String, Map<String, String>>{
+      'su': {
+        'il ': 'sul ',
+        'lo ': 'sullo ',
+        'la ': 'sulla ',
+        'i ': 'sui ',
+        'gli ': 'sugli ',
+        'le ': 'sulle ',
+        'l\'': 'sull\'',
+      },
+      'di': {
+        'il ': 'del ',
+        'lo ': 'dello ',
+        'la ': 'della ',
+        'i ': 'dei ',
+        'gli ': 'degli ',
+        'le ': 'delle ',
+        'l\'': 'dell\'',
+      },
+      'a': {
+        'il ': 'al ',
+        'lo ': 'allo ',
+        'la ': 'alla ',
+        'i ': 'ai ',
+        'gli ': 'agli ',
+        'le ': 'alle ',
+        'l\'': 'all\'',
+      },
+    };
+    final mappa = tavola[prep];
+    if (mappa != null) {
+      for (final e in mappa.entries) {
+        if (nome.startsWith(e.key)) {
+          return '${e.value}${nome.substring(e.key.length)}';
+        }
+      }
+    }
+    return '$prep $nome';
+  }
+
+  static String _maiuscola(String s) =>
+      s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
+
   /// LA TERZA PARTE: qui, e solo qui, compaiono le rune coi loro versi.
   static String _daDoveViene(EsitoGettata esito) {
     final pezzi = <String>[];
@@ -169,11 +428,24 @@ class RunePresagio {
           // e accanto c'e' cosa vuol dire.
           ? (esito.gettata.libera ? 'rovesciata' : 'in merkstave (rovesciata)')
           : (esito.gettata.libera ? 'dritta' : 'diritta');
-      pezzi.add('${r.rune.name} $verso per ${r.posizione.glossa}');
+      // **E IL SIGNIFICATO DELLA RUNA, che e corpus e sta al suo posto.**
+      // Ordine DF voce 05: la terza parte nominava le rune e basta, quindi il
+      // responso era fatto per meta di impalcatura e di cornice, cioe di
+      // parti che non guardano le rune uscite. Due gettate senza nessuna runa
+      // in comune si somigliavano al 56 per cento. Il significato e gia
+      // scritto nel corpus, e questa e la parte dell anatomia in cui il
+      // simbolo deve comparire.
+      pezzi.add('${r.rune.name} $verso per ${r.posizione.glossa}, '
+          '${_senzaPuntoFinale(_minuscola(r.rune.meaning))}');
     }
-    return 'Da dove viene: ${_daQualeGettata(esito.gettata)}. '
-        '${pezzi.join('; ')}. '
-        '${_famiglia(_aettDominante(esito.rune))}';
+    return _filo(esito)
+        .piu(31)
+        .scegli(formeDelDaDoveViene)
+        .replaceAll(
+            '{gettata}', _daQualeGettata(esito.gettata, _filo(esito).piu(71)))
+        .replaceAll('{pezzi}', pezzi.join('; '))
+        .replaceAll('{famiglia}',
+            _famiglia(_aettDominante(esito.rune), _filo(esito).piu(53)));
   }
 
   /// DA QUALE GETTATA, in una forma che possa seguire i due punti.
@@ -184,18 +456,52 @@ class RunePresagio {
   /// frasi diverse. Minuscolizzarla non si poteva: "Odino" e' un nome, e "odino
   /// ha parlato" e' peggio della maiuscola. Quindi qui la frase e' scritta per il
   /// posto che occupa, e l'apertura non serve piu' a nessuno.
-  static String _daQualeGettata(GettataRune gettata) {
-    switch (gettata.id) {
-      case 'odino':
-        return 'la gettata di Odino, un segno solo';
-      case 'norne':
-        return 'le tre Norne, il filo del tempo';
-      case 'croce':
-        return 'la croce aperta in cinque punti';
-      default:
-        return 'le rune cadute sparse sul telo di Tacito';
-    }
-  }
+  static const Map<String, List<String>> formeDellaGettata = {
+    'odino': [
+      'la gettata di Odino',
+      'un segno solo, alla maniera di Odino',
+      'il getto singolo',
+      'una runa sola',
+      'Odino, con una pietra sola',
+      'il tiro breve',
+      'la pietra unica',
+      'un solo segno',
+    ],
+    'norne': [
+      'le tre Norne',
+      'il filo del tempo, in tre pietre',
+      'tre rune e tre tempi',
+      'la gettata delle Norne',
+      'il filo teso in tre',
+      'tre segni, uno per tempo',
+      'la trina delle Norne',
+      'tre pietre in fila',
+    ],
+    'croce': [
+      'la croce aperta',
+      'cinque punti in croce',
+      'la croce di cinque rune',
+      'il getto a croce',
+      'cinque pietre disposte',
+      'la croce delle cinque',
+      'il segno a cinque punte',
+      'cinque rune in croce',
+    ],
+    'telo': [
+      'le rune sparse sul telo',
+      'il telo di Tacito',
+      'il getto libero',
+      'le pietre cadute a caso',
+      'la gettata sul telo',
+      'il tiro sparso',
+      'le rune libere sul panno',
+      'il telo aperto',
+    ],
+  };
+
+  static String _daQualeGettata(GettataRune gettata, FiloDellaVoce filo) =>
+      filo.scegli(
+          formeDellaGettata[gettata.id] ?? formeDellaGettata['telo']!);
 
   /// L'EQUILIBRIO DEL TELO, per il getto libero: si legge per prossimita' al
   /// centro invece che per posizione fissa.
@@ -230,40 +536,18 @@ class RunePresagio {
     final n = rune.length;
     final ombre = rune.where((r) => r.inOmbra).length;
 
-    final String merk;
-    if (ombre == 0) {
-      merk =
-          'Tutte le rune escono diritte: il segno \u00e8 aperto, la via corre '
-          'libera.';
-    } else if (ombre * 2 > n) {
-      merk = 'Molte rune pendono in penombra: il cammino chiede prudenza, non '
-          'un no.';
-    } else {
-      merk = 'Qualche runa in penombra tempera il resto: luce e ombra si '
-          'parlano.';
-    }
-
-    final esitoRiga = rune.last.inOmbra
-        ? 'L\u2019esito pende in penombra: non \u00e8 un rifiuto ma un tempo che '
-            'chiede cura.'
-        : 'L\u2019esito esce diritto: la sorte pende dalla tua parte, muoviti con '
-            'misura.';
+    final filo = _filo(esito).piu(17);
+    final quale =
+        ombre == 0 ? 'dritte' : (ombre * 2 > n ? 'molte' : 'qualcuna');
+    final merk = filo.scegli(formeDeiVersiGettati[quale]!);
+    final esitoRiga =
+        filo.scegli(formeDellEsito[rune.last.inOmbra ? 'ombra' : 'luce']!);
     return '$merk $esitoRiga';
   }
 
   /// La riga della famiglia dominante, riusata da entrambe le sintesi.
-  static String _famiglia(String aett) {
-    switch (aett) {
-      case 'Freyr':
-        return 'La famiglia di Freyr guida la gettata: forze di sostanza e di '
-            'crescita.';
-      case 'Hagal':
-        return 'La famiglia di Hagal guida la gettata: prova e trasformazione '
-            'al lavoro.';
-      default:
-        return "La famiglia di Tyr guida la gettata: volontà e legami in gioco.";
-    }
-  }
+  static String _famiglia(String aett, FiloDellaVoce filo) =>
+      filo.scegli(formeDellaFamiglia[aett] ?? formeDellaFamiglia['Tyr']!);
 
   /// L'aett piu' presente. A parita', vince l'ordine tradizionale: Freyr, poi
   /// Hagal, poi Tyr.
@@ -303,6 +587,16 @@ class RunePresagio {
   /// da sole. Nella prima parte del responso seguono "Per cio' che fu," e senza
   /// questa minuscola si leggeva "Per cio' che fu, Una luce si accende", che e' la
   /// cucitura di due frasi diverse.
+  /// Toglie il punto finale, cosi' non si formano due punti di fila quando la
+  /// frase si innesta dentro un'altra.
+  static String _senzaPuntoFinale(String frase) {
+    var t = frase.trimRight();
+    while (t.endsWith('.')) {
+      t = t.substring(0, t.length - 1);
+    }
+    return t;
+  }
+
   static String _minuscola(String frase) =>
       frase.isEmpty ? frase : frase[0].toLowerCase() + frase.substring(1);
 }

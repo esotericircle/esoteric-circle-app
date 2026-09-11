@@ -1,3 +1,4 @@
+import '../responsi/filo_della_voce.dart';
 import 'vocabolario_del_viaggio.dart';
 
 /// **LA SCENA CHE SI RIPORTA SU.** Ordine DC voce 06, 10 settembre 2026.
@@ -50,19 +51,135 @@ class ScenaDelViaggio {
   List<PezzoDellaScena> get leggibili =>
       [gesto, cosa, luogo].take(quantiSiVedono).toList();
 
+  /// **LE OTTO FORME DELLA SCENA INTERA**, con i tre elementi leggibili.
+  ///
+  /// **Perche' sono otto e prima era una.** Ordine DF voce 05, 11 settembre
+  /// 2026. La scena si componeva con **una frase sola per ogni grado di
+  /// nitidezza**, cioe' tre stampi in tutto: su cento consultazioni con lo
+  /// stesso ingresso gli scheletri distinti erano **sei**, e il piu' ripetuto
+  /// tornava **cinquantasette volte**. Il fondatore: *"NON POSSONO ESSERE
+  /// TUTTE UGUALI"*.
+  ///
+  /// **Il vocabolario non si tocca**: le quarantaquattro figure e le
+  /// ottomilaseicentoquaranta combinazioni restano quelle. Quello che cambia
+  /// e' **la frase che le cuce**, che prima era una.
+  static const List<String> formeIntere = [
+    'Ti porta {aLuogo} {momento}. C\'è {cosa}. L\'animale {gesto}.',
+    '{Momento}, ti porta {aLuogo}. Lì trovi {cosa}, e l\'animale {gesto}.',
+    'La scena si apre {aLuogo}, {momento}. C\'è {cosa}, e l\'animale {gesto}.',
+    'Ti conduce {aLuogo} {momento}. Davanti a te {cosa}. L\'animale {gesto}.',
+    '{Momento} l\'animale ti porta {aLuogo}. C\'è {cosa}: lui {gesto}.',
+    'Siete {aLuogo}, {momento}. Fra voi e il resto c\'è {cosa}. L\'animale '
+        '{gesto}.',
+    'Ti porta {aLuogo}. {Momento}, e c\'è {cosa}. L\'animale {gesto}.',
+    'Vi trovate {aLuogo} {momento}. Trovi {cosa}, e l\'animale {gesto}.',
+  ];
+
+  /// **LE OTTO FORME DELLA SCENA VELATA**, quando si leggono due elementi.
+  static const List<String> formeVelate = [
+    'Ti porta dove c\'è {cosa}. L\'animale {gesto}, ma il luogo non si '
+        'distingue.',
+    'Del luogo non si vede niente. C\'è {cosa}, e l\'animale {gesto}.',
+    'La nebbia tiene il luogo. Resta {cosa}, e l\'animale che {gesto}.',
+    'Non si capisce dove siete. Si vede {cosa}, e l\'animale {gesto}.',
+    'Il posto resta indistinto. Quello che arriva è {cosa}, e l\'animale '
+        '{gesto}.',
+    'Ti porta in un luogo che non si lascia guardare. C\'è {cosa}. '
+        'L\'animale {gesto}.',
+    'Del dove non resta niente. Resta {cosa}, e l\'animale {gesto}.',
+    'Si vede {cosa} e si vede l\'animale che {gesto}. Il luogo no.',
+  ];
+
+  /// **LE OTTO FORME DELLA SCENA CONFUSA**, quando si legge solo il gesto.
+  static const List<String> formeConfuse = [
+    'L\'animale {gesto}. Il resto resta nella nebbia.',
+    'Si vede una cosa sola: l\'animale {gesto}.',
+    'Della scena arriva soltanto questo: l\'animale {gesto}.',
+    'Tutto è confuso tranne una cosa. L\'animale {gesto}.',
+    'L\'animale {gesto}, e intorno non si distingue niente.',
+    'Resta il gesto e basta: l\'animale {gesto}.',
+    'La nebbia si apre su un attimo solo. L\'animale {gesto}.',
+    'Di là non torna quasi niente. Torna questo: l\'animale {gesto}.',
+  ];
+
+  /// **LE OTTO APERTURE DELLA SCENA, e sono la seconda fessura.**
+  ///
+  /// **Il numero che le ha fatte nascere.** Con una fessura sola, cioe' la
+  /// forma della scena, gli scheletri distinti su cento consultazioni erano
+  /// **quarantasei**, contro una soglia di novanta: con otto forme non si
+  /// possono avere piu' di otto scheletri.
+  ///
+  /// **E SONO CORTE APPOSTA, che e' la parte interessante.** La prima stesura
+  /// le aveva scritte lunghe, una frase intera l'una, e la misura B era
+  /// salita a novantotto mentre la misura C era peggiorata dal ventotto al
+  /// quarantanove per cento: **piu' impalcatura vuol dire piu' forme e piu'
+  /// parole in comune**, e le due misure tirano in versi opposti.
+  ///
+  /// **La via che le soddisfa tutte e due e' tante forme corte.** Una frase di
+  /// quattro parole non produce **nessuna sequenza di cinque**, che e' l'unita'
+  /// con cui la misura C conta: due scene che aprono con la stessa apertura
+  /// corta non si somigliano per questo. **Dodici per otto per dodici fanno
+  /// millecentocinquantadue forme**, e il vocabolario chiuso delle
+  /// quarantaquattro figure resta intoccato, com'e' materiale dell'ordine DC
+  /// voce 06.
+  static const List<String> aperture = [
+    'Sei sceso.',
+    'Di là c\'era questo.',
+    'Ecco cosa hai visto.',
+    'Quello che hai riportato su:',
+    'La nebbia si è scostata.',
+    'Il tamburo ti ha lasciato qui.',
+    'La galleria si è aperta.',
+    'Sotto ti aspettava questo.',
+    'Dal Mondo di Sotto:',
+    'Il viaggio ti ha portato qui.',
+    'Quello che è successo di là:',
+    'Sei arrivato in fondo.',
+  ];
+
+  /// **LE DODICI CHIUSURE, corte anche loro, e sono la terza fessura.**
+  ///
+  /// Nessuna spiega la scena, ed e' voluto: la voce DC.06 vuole che il senso
+  /// nasca dalla combinazione, non da una glossa.
+  static const List<String> chiusure = [
+    'Portala su così com\'è.',
+    'Il senso arriva dopo.',
+    'Non tradurla: ricordala.',
+    'Lasciala posare.',
+    'Niente da decifrare.',
+    'Vale per come l\'hai vista.',
+    'Rileggila fra un mese.',
+    'Tienila a mente.',
+    'Il resto viene da sé.',
+    'Non chiederle di più.',
+    'Ci tornerai.',
+    'Basta averla vista.',
+  ];
+
+  /// **IL FILO DI QUESTA SCENA**, dai suoi quattro pezzi.
+  FiloDellaVoce get _filo => FiloDellaVoce.da(idDeiPezzi);
+
   /// Il testo della scena, con gli elementi che si vedono.
   String get testo {
     final pezzi = leggibili;
-    if (pezzi.length == 1) {
-      return 'L\'animale ${gesto.nome}. Il resto resta nella nebbia.';
-    }
-    if (pezzi.length == 2) {
-      return 'Ti porta dove c\'è ${cosa.nome}. L\'animale '
-          '${gesto.nome}, ma il luogo non si distingue.';
-    }
-    return 'Ti porta ${_a(luogo.nome)} ${momento.nome}. C\'è ${cosa.nome}. '
-        'L\'animale ${gesto.nome}.';
+    final filo = _filo;
+    String riempi(String forma) => forma
+        .replaceAll('{aLuogo}', _a(luogo.nome))
+        .replaceAll('{luogo}', luogo.nome)
+        .replaceAll('{cosa}', cosa.nome)
+        .replaceAll('{gesto}', gesto.nome)
+        .replaceAll('{Momento}', _maiuscola(momento.nome))
+        .replaceAll('{momento}', momento.nome);
+    final corpo = pezzi.length == 1
+        ? riempi(filo.scegli(formeConfuse))
+        : pezzi.length == 2
+            ? riempi(filo.scegli(formeVelate))
+            : riempi(filo.scegli(formeIntere));
+    return '${filo.scegli(aperture)} $corpo ${filo.scegli(chiusure)}';
   }
+
+  static String _maiuscola(String s) =>
+      s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
   /// Gli id dei pezzi, per il Diario e per la memoria.
   List<String> get idDeiPezzi => [luogo.id, cosa.id, gesto.id, momento.id];
@@ -155,12 +272,35 @@ abstract final class NitidezzaDellaScena {
 /// differenza fra un oracolo e una slot machine, ed e' la stessa scelta gia'
 /// fatta per l'Arcano del giorno.
 abstract final class ScenaSenzaModello {
+  /// **PERCHE' LA DISCESA ENTRA NEL SEME.** Ordine DF voce 05, 11 settembre
+  /// 2026.
+  ///
+  /// **Il difetto, misurato con la prova della voce DF.02.** Il seme nasceva
+  /// da **la domanda e il giorno**, e da nient'altro. Chi scendeva due volte
+  /// nello stesso giorno con la stessa domanda **si riportava su la stessa
+  /// identica scena**: stesso luogo, stessa cosa, stesso gesto, stesso
+  /// momento, parola per parola. Su cento consultazioni con lo stesso ingresso
+  /// le scene distinte erano **una**.
+  ///
+  /// **E non si poteva difendere con la giornata stabile**, che e' il primo
+  /// chiarimento dell'ordine DF: *"la regola della giornata stabile riguarda e
+  /// riguardava solo l'oroscopo perche' non c'e' domanda da parte
+  /// dell'utente"*. Qui la domanda c'e', quindi ogni discesa e' un evento
+  /// nuovo.
+  ///
+  /// **Il determinismo resta dove serve.** Con [discesa] dichiarata, la stessa
+  /// discesa da' sempre la stessa scena: il Diario la rimette insieme dai suoi
+  /// id e chi rilegge sei mesi dopo ritrova cio' che aveva letto. Quello che
+  /// cambia e' che **due discese diverse sono due eventi diversi**, e il
+  /// numero della discesa lo dice.
   static ScenaDelViaggio componi({
     required String domanda,
     required DateTime giorno,
     required double nitidezza,
+    int discesa = 0,
   }) {
-    final seme = _seme('$domanda|${giorno.year}-${giorno.month}-${giorno.day}');
+    final seme = _seme('$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
+        '|discesa$discesa');
     const luoghi = VocabolarioDelViaggio.luoghi;
     const cose = VocabolarioDelViaggio.cose;
     const gesti = VocabolarioDelViaggio.gesti;
