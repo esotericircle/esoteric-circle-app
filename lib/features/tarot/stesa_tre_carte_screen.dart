@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
@@ -114,9 +116,43 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// il risultato non e' un rito, e' una decorazione.
   late List<int> _mazzo = TarotSpread.mazzoMescolato(seed: widget.seed);
 
-  /// Il seme che decide i versi: resta quello della stesa, cosi' lo stesso
-  /// ordine da' sempre la stessa lettura.
-  late final int _seme = widget.seed ?? 0;
+  /// **IL SEME CHE DECIDE I VERSI, E IN PRODUZIONE E' NUOVO A OGNI STESA.**
+  /// Ordine DF voce 03, 11 settembre 2026.
+  ///
+  /// **IL DIFETTO CHE C'ERA, e vale la pena scriverlo per esteso perche' non
+  /// si vedeva da nessuna parte.** Qui il ripiego del seme era **la costante
+  /// zero**, e in produzione `widget.seed` e' **sempre nullo**: la rotta della
+  /// schermata lo lascia nullo e nessuno lo passa. Quindi il seme dei versi
+  /// valeva **zero, sempre, per chiunque, in ogni lettura della vita
+  /// dell'app**.
+  ///
+  /// **La riga del difetto non si cita testualmente**, ed e' una lezione di
+  /// casa: la guardia che sorveglia questo punto legge il sorgente, e un
+  /// commento che riporta il ripiego per esteso la farebbe cadere pescando se
+  /// stesso.
+  ///
+  /// **Conseguenza misurata**: `TarotSpread.versoDi` calcola il verso come
+  /// `Random(indiceCarta * 7919 + seme).nextDouble() < 0.30`. Con `seme`
+  /// fisso a zero, **il verso di ogni carta era una costante del mazzo**: Il
+  /// Mondo usciva sempre dritto, e le ventitre carte che il conto dava per
+  /// rovesciate uscivano **sempre** rovesciate, per tutti, per sempre. Le
+  /// rovesciate erano il ventinove virgola cinque per cento del mazzo, quindi
+  /// il conto globale tornava e nessuna prova se ne accorgeva: **il numero era
+  /// giusto e il fatto era falso**. E' esattamente cio' che il fondatore
+  /// chiama *"estrazione pilotata"*.
+  ///
+  /// **Attribuzione, regola TRE dell'ordine DF.** Il campo nasce con l'ordine
+  /// P voce 04, che ha portato il verso in un punto solo perche' la stessa
+  /// carta non cambiasse verso a ogni ricostruzione della schermata. Quel
+  /// requisito era giusto e resta: **dentro una stesa** il verso non deve
+  /// cambiare. Lo sbaglio e' stato usare lo zero come ripiego invece di un
+  /// numero nuovo.
+  ///
+  /// **ADESSO**: col seme dichiarato, cioe' nelle prove e nelle anteprime, non
+  /// cambia niente ed e' riproducibile come prima. Senza, il seme nasce dal
+  /// caso **una volta per schermata**, quindi dentro la stessa lettura il
+  /// verso di una carta resta fermo e **fra due letture cambia**.
+  late final int _seme = widget.seed ?? Random().nextInt(1 << 31);
 
   /// LA STESA IN CORSO, ordine P voce 04: le carte assegnate sono un DATO e
   /// non una funzione del mazzo. Prima qui c'era
