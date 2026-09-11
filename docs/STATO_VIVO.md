@@ -2159,6 +2159,84 @@ rapporto di nitidezza 0,209 contro 1,000 col velo tolto a mano.
 `tunnel_parete_v1.webp`. **La scala di ripetizione della parete e' dichiarata:
 sei giri sull'intera discesa**, cioe' tre secondi e un terzo per giro.
 
+## L'ORDINE DG, IL VIAGGIO DELLO SCIAMANO DA CAPO
+
+11 settembre 2026. Nasce dal Viaggio percorso dal fondatore sulla 2247 e
+giudicato da rifare: *"praticamente deve riprenderlo da capo"*. Il manifesto
+sta in `docs/ordini/ORDINE_DG_MANIFESTO.md`.
+
+**Otto voci su nove chiuse nel codice.** Resta aperta **DG.09**, il rapporto
+con le catture dal telefono: per guardare a video serve una build nuova, e
+**la build la ordina il fondatore**, come dice l'ordine stesso.
+
+**LA DIAGNOSI CHE TIENE INSIEME META' DELLA LISTA: c'erano DUE animali guida
+per la stessa persona.** Uno da `GuideAnimalDerivation.forSign`, deterministico
+dal segno solare, che il Passaporto e l'onboarding mostravano; uno da
+`IQuattroViaggi.seguitoDaLeQuattroScelte`, che il Viaggio estraeva contando
+quale ombra fosse stata seguita piu' volte. **Il Passaporto li leggeva tutti e
+due, a dieci righe di distanza**, e il fondatore ha visto il Lupo nel Passaporto
+e l'Aquila alla fine del Viaggio. E' la famiglia di difetti delle **due porte**.
+
+**Chi sopravvive lo dice il Master Briefing e non l'ordine**: Linee Guida UX
+Trasversali, sezione 5, elenca l'Animale Guida fra i dati **identitari e fissi**,
+deterministici e immutabili, insieme a carta natale, Angelo Custode e archetipo.
+Le arti a esito variabile sono un altro elenco. **E coincide con Harner**: la
+chiave del riconoscimento e' che l'animale **torni a mostrarsi quattro volte**,
+non che se ne incontrino quattro.
+
+**CHE COSA E' CAMBIATO, voce per voce.**
+
+- **DG.01**: `seguitoDaLeQuattroScelte` non esiste piu'. Al suo posto
+  `nomeDopoLeQuattroDiscese(discese, animale)`, che dice **se** il nome si puo'
+  dire e non **quale**. Guardia
+  `test/l_animale_guida_ha_una_porta_sola_test.dart`: **12.000 esecuzioni** su
+  dodici nascite danno sempre lo stesso animale, **604 file di lib** guardati e
+  nessuna seconda porta, e **il caso del fondatore e' nominato** (chi nasce
+  sotto il Cancro ha il Lupo). Nata rossa rimettendo la seconda porta nel
+  Passaporto. **PROVENIENZA: ordine DC voce 04.**
+- **DG.02**: l'incontro mostra **una sola ombra**, sempre la sua. Scegliere fra
+  tre sarebbe stata una scelta che non cambia niente, e una scelta finta e'
+  peggio di nessuna. L'ombra e' uno dei **dodici file nuovi**, cioe' la sagoma
+  esatta della sua illustrazione: guardia `test/l_ombra_e_il_suo_animale_test.dart`,
+  **coincidenza dal 97,4 per cento in su**, e due ombre diverse si somigliano
+  **al massimo per il 70,6**. Nata rossa copiando l'ombra del Lupo su quella
+  dell'Aquila.
+- **DG.03**: l'onboarding mostrava **l'illustrazione a colori** sotto la frase
+  che prometteva di non dirlo, e il Passaporto una sagoma disegnata da una
+  formula che **faceva sempre un quadrupede**. Adesso tutti e due mostrano la
+  sua ombra velata. **Il pittore procedurale e' uscito di scena.**
+  **PROVENIENZA: ordine DC voce 02**, che aveva tolto il nome e lasciato il
+  ritratto.
+- **DG.04**: la scheda dell'animale passa da **prima** a **ultima**, e il
+  pulsante non promette piu' gli angeli.
+- **DG.05**: la nebbia si dirada **col movimento del dito** e non a tre tocchi.
+  La taratura viene dal Sigillo del Sogno e vive adesso in un posto solo,
+  `lib/core/sensi/respiro_che_dirada.dart`: due copie dello stesso numero sono
+  le due porte in forma di numero. Misurato: chiarore medio **100,9** a nebbia
+  chiusa, **68,4** a meta', **25,6** aperta; con la mano che si muove si apre in
+  **1,7 secondi**. **PROVENIENZA: ordine DC voce 05.**
+- **DG.06**: la discesa conosciuta era a **nove** secondi, messi dall'ordine DC
+  come *"meno della meta' della prima"*. Il fondatore ne aveva fissati **venti**
+  nell'ordine DE. Adesso sono venti.
+- **DG.07**: la risposta era **una frase sola** e non nominava ne' la domanda,
+  ne' un gesto, ne' la fonte. Adesso sono quattro pezzi, titolo compreso, e
+  stanno dentro le quattro soglie di casa su cento discese per tutte e sei le
+  domande: **A 100 su 100, B 100 su 100, C fra 28,2 e 34,3 per cento, D 2**.
+  Cinque giri, e ognuno deciso da un numero: il titolo con quattro forme per
+  tema, il paradosso del compleanno, due scene identiche in due giorni, le
+  scelte consecutive dello stesso filo, e il tema lungo sei parole ripetuto in
+  ogni ripresa.
+- **DG.08**: la premessa P4 era **falsa** e si dichiara falsa: nessun comando
+  per rigiocare esisteva. Adesso `DiarioDeiViaggi.ricomincia()` toglie le due
+  chiavi del Viaggio e nient'altro, solo in Demo.
+
+**I QUINDICI ASSET DEL MONDO DI SOTTO SONO NEL RAMO**, dichiarati in
+`pubspec.yaml` e in `docs/stato_asset.json`. **Gli slot li aspettavano
+dall'ordine DC** e i file non c'erano: ogni `Image.asset` cadeva nel suo
+ripiego, ed e' la ragione della frase *"non ci sono tutte le immagini che ho
+creato con nano banana"*. Le dodici ombre sono 900 per 700 con **alpha vero**, e
+ogni sagoma occupa **l'ottanta per cento di un lato** della sua tela.
+
 ## L'ORDINE DF, LE RISPOSTE NON POSSONO ESSERE TUTTE UGUALI
 
 11 settembre 2026, urgente e straordinario. Nasce da un fatto misurato dal
