@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/rituals/animal_catalog.dart';
@@ -25,7 +26,10 @@ import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
+import '../../../../core/entitlement/entitlement_service.dart';
+import '../../../../core/entitlement/tier.dart';
 import '../../../../core/viaggio/la_promessa_del_viaggio.dart';
+import '../../../../core/viaggio/tetti_del_viaggio.dart';
 import 'la_lente_che_scopre.dart';
 import 'la_nebbia_e_l_animale.dart';
 
@@ -208,6 +212,22 @@ class _ViaggioDelloSciamanoScreenState
 
   bool get _riconosciuto =>
       IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;
+
+  /// **IL PIANO DI CHI STA GUARDANDO, e il Viaggio regge di non saperlo.**
+  /// Ordine DE voce 14.
+  ///
+  /// **Si chiede col `try`, e non si pretende.** E' la lezione del provider
+  /// preteso: un `context.read` obbligatorio dentro una schermata condivisa ha
+  /// gia' fatto cadere quaranta prove altrove. Quando il servizio non c'e' si
+  /// vale il gratuito, che e' il piano piu' severo: **sbagliare per eccesso di
+  /// limite non regala niente a nessuno**, sbagliare per difetto sì.
+  Tier get _piano {
+    try {
+      return context.read<EntitlementService>().tier;
+    } catch (errore) {
+      return Tier.free;
+    }
+  }
 
   /// **IL DITO PREME: si scende.** Ordine DC voce 07.
   void _premi() {
@@ -402,8 +422,21 @@ class _ViaggioDelloSciamanoScreenState
     final primo = _diario.quanteDiscese == 0;
     final perche = LaDomandaDelViaggio.perCheNonVa(_domanda.text,
         primoViaggio: primo);
+    // **IL TETTO LO DECIDONO I TETTI, ordine DE voce 14.** Prima era una
+    // discesa al giorno e basta, e dopo la rivelazione nessun limite di
+    // nessun genere: chi aveva il nome poteva fare mille domande al giorno
+    // senza pagare niente.
     final siPuo = _caricato &&
-        _diario.siPuoScendereOggi(giaRiconosciuto: _riconosciuto);
+        TettiDelViaggio.siPuoScendere(
+          giaRiconosciuto: _riconosciuto,
+          quanteOggi: _diario.quanteOggi,
+          tier: _piano,
+        );
+    final percheNoOggi = TettiDelViaggio.percheNonOggi(
+      giaRiconosciuto: _riconosciuto,
+      quanteOggi: _diario.quanteOggi,
+      tier: _piano,
+    );
     final pronto = siPuo && (perche == null || _temaScelto.isNotEmpty);
     final schermo = MediaQuery.of(context).size;
     // **QUANTO SPAZIO SI LASCIA IN CIMA**, cioe' la barra piu' la tacca del
@@ -486,11 +519,31 @@ class _ViaggioDelloSciamanoScreenState
                 const SizedBox(height: SpacingTokens.md),
                 DepthCard(
                   padding: const EdgeInsets.all(SpacingTokens.md),
-                  child: ParagrafiDiLettura(
-                    key: const Key('viaggio_non_oggi'),
-                    testo: IQuattroViaggi.percheSiAspetta,
-                    stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textSecondary),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // **LA RIGA DEL TETTO DI OGGI**, che dice quale dei due
+                      // limiti ha parlato: il metodo oppure il piano.
+                      if (percheNoOggi != null)
+                        ParagrafiDiLettura(
+                          key: const Key('viaggio_tetto_di_oggi'),
+                          testo: percheNoOggi,
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      if (percheNoOggi != null)
+                        const SizedBox(height: SpacingTokens.sm),
+                      // **E LA FONTE DELL'ATTESA**, che resta e vale solo per
+                      // chi non ha ancora riconosciuto: a chi ha finito le
+                      // domande del piano, citare Harner sarebbe una scusa.
+                      if (!_riconosciuto)
+                        ParagrafiDiLettura(
+                          key: const Key('viaggio_non_oggi'),
+                          testo: IQuattroViaggi.percheSiAspetta,
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: ColorTokens.textSecondary),
+                        ),
+                    ],
                   ),
                 ),
               ],

@@ -104,6 +104,26 @@ class DiarioDeiViaggi {
     return _giornoDi(_viaggi.first.quando) != _giornoDi(_orologio());
   }
 
+  /// **QUANTE DISCESE OGGI.** Ordine DE voce 14.
+  ///
+  /// **Non e' la stessa cosa di [siPuoScendereOggi], ed e' il motivo per cui
+  /// nasce.** Quel metodo risponde si o no a una regola sola, cioe' una
+  /// discesa al giorno. Dopo la rivelazione il tetto **non e' piu' uno**: e'
+  /// quello del piano, e per confrontarlo con un tetto serve un numero, non
+  /// un booleano.
+  ///
+  /// **Il giorno e' quello dell'orologio iniettato**, lo stesso con cui i
+  /// viaggi sono stati segnati: confrontare date scritte da un orologio e
+  /// lette da un altro e' il modo piu' rapido di contare male.
+  int get quanteOggi {
+    final oggi = _giornoDi(_orologio());
+    var quante = 0;
+    for (final v in _viaggi) {
+      if (_giornoDi(v.quando) == oggi) quante++;
+    }
+    return quante;
+  }
+
   /// Le scelte fatte a ogni discesa, in ordine di tempo.
   List<String> get scelteInOrdine =>
       [for (final v in _viaggi.reversed) v.animaleSeguito];
