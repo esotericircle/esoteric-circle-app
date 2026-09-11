@@ -2114,7 +2114,7 @@ avesse contato solo la percentuale sarebbe stata verde.**
 | Stesa di Tarocchi, prima | 100/100 | 100/100 | **94,4 per cento** | **100 volte** |
 | Stesa di Tarocchi, dopo | 100/100 | 100/100 | **33,0** | **1** |
 | Rune, prima | 100/100 | 100/100 | **82,8** | 1 |
-| Rune, dopo | 100/100 | 100/100 | **39,6** | 1 |
+| Rune, dopo | 100/100 | 100/100 | **27,0** | 1 |
 | Viaggio, prima | 100/100 | **6/100** | **90,0** | 1 |
 | Viaggio, dopo | 100/100 | **99/100** | **25,0** | 1 |
 

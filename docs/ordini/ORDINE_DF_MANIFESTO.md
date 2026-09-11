@@ -209,13 +209,29 @@ per coglierlo era l'altra**.
 |---|---|---|---|
 | A, testi distinti | 100 / 100 | **100 / 100** | 100 |
 | B, scheletri distinti | 100 / 100 | **100 / 100** | 90 |
-| C, coppia peggiore fra le diverse | **82,8 per cento** | **39,6 per cento** | 40 |
-| C, coppia peggiore in assoluto | 82,8 | 45,8 | riportata |
+| C, coppia peggiore fra le diverse | **82,8 per cento** | **27,0 per cento** | 40 |
+| C, coppia peggiore in assoluto | 82,8 | 41,9 | riportata |
 | D, paragrafo piu' ripetuto | 1 | **1** | 2 |
 
 **LA COPPIA PEGGIORE PRIMA**, al 82,8 per cento: due gettate che condividevano
 **due rune su tre nelle stesse posizioni**. Il testo era fatto per meta' di
 impalcatura, e l'impalcatura non guardava le rune.
+
+**E UN PASSAGGIO CHE VALE LA PENA RACCONTARE, perche' e' andato al contrario di
+come me lo aspettavo.** A meta' lavoro avevo messo **il significato di ogni
+runa** dentro la terza parte del presagio, quella che nomina le rune: mi
+sembrava contenuto vero che dava varieta'. Due cose sono successe.
+
+**Uno, la guardia del confine del responso lo ha respinto.** Il significato di
+**Othala** porta la parola *eredita*, che e' un tema delicato e che un responso
+rivolto alla persona non puo' nominare: tre casi su seimilasettecentottantuno.
+Una runa su ventiquattro, e bastava quella.
+
+**Due, togliendolo la somiglianza e' SCESA, da 39,6 a 27,0 per cento.** I
+ventiquattro significati sono ventiquattro testi fissi: su cento gettate
+tornavano di continuo, ed **erano essi stessi testo condiviso**. Avevo aggiunto
+varieta' credendo di aggiungerla e ne stavo togliendo. **Il numero lo ha detto,
+io no.**
 
 ### Il Viaggio dello Sciamano, la scena del ritorno
 

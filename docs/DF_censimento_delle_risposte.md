@@ -132,13 +132,12 @@ dall'orologio: `FiloDellaVoce` in `lib/core/responsi/filo_della_voce.dart`.
 | la famiglia dominante | aett per forma | 3 per 8 |
 | il nome della gettata | gettata per forma | 4 per 8 |
 | la terza parte | filo dalle rune | 16 forme |
-| il significato di ogni runa | runa uscita | 24 |
 
 **(e) MISURATO**, su cento gettate delle tre Norne con la stessa domanda:
 
 - testi distinti **100 su 100**
 - scheletri distinti **100 su 100**, il piu' ripetuto **1 volta**
-- somiglianza massima fra gettate senza nessuna runa in comune **39,6 per
+- somiglianza massima fra gettate senza nessuna runa in comune **27,0 per
   cento** su 4374 coppie
 - paragrafo piu' ripetuto **1 volta**
 
