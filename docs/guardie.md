@@ -39,11 +39,33 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 123 |
-| Guardie con un cardinale proprio dichiarato | 98 |
+| Guardie che passano dalla porta comune | 124 |
+| Guardie con un cardinale proprio dichiarato | 99 |
 | Guardie che non scoprono nessun insieme di file | 168 |
-| **Somma delle categorie** | **389** |
-| **Guardie secondo la definizione** | **389** |
+| **Somma delle categorie** | **391** |
+| **Guardie secondo la definizione** | **391** |
+
+**Ricontate l'11 settembre 2026, dopo l'ordine DG**, che ha portato **due
+guardie nuove**: il totale sale da 389 a **391** e le tre categorie a **124, 99
+e 168**.
+
+**`l_animale_guida_ha_una_porta_sola`** nasce dalla famiglia di difetti delle
+**due porte**: l'app calcolava l'animale guida in due modi, dal segno solare e
+dalle ombre seguite nel Viaggio, e il Passaporto li leggeva **tutti e due a
+dieci righe di distanza**. Il fondatore ha visto il Lupo nel Passaporto e
+l'Aquila alla fine del Viaggio. La guardia misura tre cose: che dodicimila
+esecuzioni su dodici nascite diano sempre lo stesso animale, che **nessuno dei
+604 file di lib** nomini la seconda porta, e **il caso nominato del fondatore**,
+cioe' che il Cancro porti al Lupo.
+
+**`l_ombra_e_il_suo_animale`** misura la cosa che rende vero il Viaggio: che la
+sagoma che si segue sia **quella esatta** dell'illustrazione che si ricevera'.
+Coincidenza **dal 97,4 per cento in su**, e due ombre di animali diversi si
+somigliano **al massimo per il 70,6**, che e' la seconda meta' senza cui la
+prima non direbbe niente. **La prima stesura della misura era sbagliata** e sta
+scritto nel file: confrontava le maschere nella stessa posizione e dava 27 per
+cento sul Cervo, perche' le ombre sono ricentrate con margine del dieci per
+cento. Si e' cambiata la grandezza misurata, non la soglia.
 
 **Ricontate l'11 settembre 2026, dopo la prova a video dell'ordine DE (voce
 DE.16)**, che ha portato **due guardie nuove**: il totale sale da 387 a **389**
@@ -429,6 +451,8 @@ le altre.
 | `il_volume_non_resta_giu_test.dart` | il volume non resta giu | 4 | non scopre insiemi di file | mai | 3 |
 | `il_vuoto_sotto_i_maestri_test.dart` | il vuoto sotto i maestri | 1 | non scopre insiemi di file | mai | 3 |
 | `intro_test.dart` | intro | 1, 2 | dalla porta comune | mai | 3 |
+| `l_animale_guida_ha_una_porta_sola_test.dart` | l animale guida ha una porta sola | 1, 2 | dalla porta comune | 11/09/2026, DG (rossa: rimessa seguitoDaLeQuattroScelte nel Passaporto) | 1 |
+| `l_ombra_e_il_suo_animale_test.dart` | l ombra e il suo animale | 1, 2 | proprio, dichiarato | 11/09/2026, DG (rossa: l ombra del Lupo copiata su quella dell Aquila, somiglianza 100 per cento) | 1 |
 | `l_account_dice_chi_sei_e_come_uscire_test.dart` | l account dice chi sei e come uscire | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `l_alba_e_il_soffio_non_dicono_lo_stesso_test.dart` | l Alba e il Soffio non dicono lo stesso | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `l_alba_e_il_soffio_non_dicono_mai_lo_stesso_test.dart` | l alba e il soffio non dicono mai lo stesso | 1, 2 | proprio, dichiarato | 07/09/2026, CW | 2 |
