@@ -2088,6 +2088,24 @@ l'accordo dei dodici animali.
 prova, e si tengono apposta: un manifesto che mostri solo le schermate riuscite
 racconta una giornata che non c'e' stata.
 
+**LA CONSEGNA.** Build **2247**, 11 settembre 2026, release `3daqc3vhag9b8` su
+Firebase App Distribution a `cloud@esotericircle.app`, 193.741.385 byte,
+registro `docs/versione_distribuita.json` da 2246 a 2247. Gettone dello
+sbarramento su **4999 prove**, soli rossi accettati; prova di accensione
+passata sul 767f596c. Due rapporti in `docs/ordini/RAPPORTO_ORDINE_DE.md` e
+`docs/ordini/RAPPORTO_ORDINE_DF.md`.
+
+**E UN LIMITE DELLA VERIFICA, dichiarato e non nascosto.** Sulla 2247 ho
+rivisto a video il cammino delle quattro impronte compiuto, la descrizione
+della card che cambia dopo il riconoscimento (DE.02) e **le tre ombre nello
+stesso insieme in ordine diverso** (la riparazione del sesto difetto). **Non ho
+potuto rivedere il velo della lente**: su quel telefono il viaggio e' compiuto,
+e dalla quinta discesa in poi l'app mostra l'animale intero **per legge**. Per
+rivederlo sarebbe stato necessario cancellare i dati dell'app sul telefono del
+fondatore, cioe' il suo account e il suo cammino, e non si e' fatto. **La
+riparazione resta provata sui pixel al banco**, 108 fotogrammi rasterizzati,
+rapporto di nitidezza 0,209 contro 1,000 col velo tolto a mano.
+
 **Che cosa e' cambiato, in breve.**
 
 - **La soglia e' una scena piena**: copre il **cento per cento** della finestra

@@ -69,7 +69,7 @@ aveva ancora sbagliato**: un elenco chiuso dice sempre la verita' su ieri.
 Adesso c'e' una guardia nuova, `il_verbo_essere_ha_l_accento_test`, che non
 cerca parole ma **sette sequenze in cui la lettera `e` non puo' essere una
 congiunzione**: *non e*, *che e*, *e la prima volta*, *un altra*, *di la*,
-*il 8*, *il 11*. Gira su **20.866 stringhe** di `lib`. L'ho vista rossa
+*il 8*, *il 11*. Gira su **20.847 stringhe** di `lib`. L'ho vista rossa
 rimettendo *"Non e nuovo"* al suo posto, e verde dopo averlo tolto.
 
 Nel farla ha trovato **due errori miei di un'altra famiglia**, che ho riparato
@@ -104,3 +104,42 @@ schermate riuscite racconta una giornata che non c'e' stata.
 Il viaggio che ho fatto io stamattina e' finito con la Lince. La card diceva
 *"MI HA TROVATO LINCE"*, e sotto *"mi ha trovato il 11 settembre 2026"*.
 Adesso direbbe *"l'11 settembre"*.
+
+---
+
+## 5. LA CONSEGNA, E UNA COSA CHE NON HO POTUTO RIVEDERE A VIDEO
+
+**Build 2247**, consegnata l'11 settembre 2026 su Firebase App Distribution a
+`cloud@esotericircle.app`: release `3daqc3vhag9b8`, 193.741.385 byte, registro
+`docs/versione_distribuita.json` portato da 2246 a 2247 dentro la procedura.
+Lo sbarramento ha scritto il gettone su **4999 prove** con i soli rossi gia'
+accettati, e la prova di accensione e' passata sul 767f596c: **processo vivo,
+primo fotogramma disegnato, nessuna eccezione fatale**.
+
+**E adesso la cosa che devo dirti, perche' e' un limite della verifica e non un
+risultato.**
+
+Dopo aver installato la 2247 sono tornato nel Viaggio per **rivedere il velo
+riparato a video**, che sarebbe la prova piu' bella di tutte. Non ho potuto:
+**su questo telefono il tuo viaggio e' compiuto**, la Lince ti ha gia' trovato,
+e dalla quinta discesa in poi l'app scrive *"Il velo e' caduto"* e mostra
+l'animale intero **per legge**. Per rivedere la lente velata avrei dovuto
+**cancellare i dati dell'app sul tuo telefono**, cioe' il tuo account, il tuo
+cammino e il tuo animale. Non l'ho fatto.
+
+**Quello che ho potuto rivedere, e che ho rivisto:**
+
+- **il cammino delle quattro impronte compiuto**, con le quattro sagome vere e
+  la riga *"Lo hai riconosciuto."* (`de16_09b_cammino_compiuto.png`);
+- **la descrizione della card che cambia dopo il riconoscimento**, voce DE.02:
+  adesso dice *"Scendi con una domanda, risali con una risposta"* invece di
+  *"Scopri il tuo animale guida"*;
+- **le tre ombre nello stesso insieme ma in ordine diverso**, che e' la
+  riparazione del sesto difetto (`de16_10_ombre_in_altro_ordine.png`): lince,
+  gufo, volpe, dove stamattina erano volpe, gufo, lince.
+
+**La riparazione della lente resta provata sui pixel al banco**, con 108
+fotogrammi rasterizzati e il rapporto di nitidezza 0,209 contro 1,000 col velo
+tolto a mano. **La vedrai tu al primo viaggio di un'installazione nuova**, ed
+e' l'unico modo onesto che ho di chiudere questa riga.
+

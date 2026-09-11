@@ -87,3 +87,18 @@ quattro volte su quattro.
 giornata stabile **riguarda solo l'Oroscopo**, perche' li' non c'e' nessuna
 domanda da parte tua. Dove una domanda c'e', due letture della stessa giornata
 devono essere diverse.
+
+---
+
+## 5. LA CONSEGNA
+
+**Build 2247**, consegnata l'11 settembre 2026 su Firebase App Distribution a
+`cloud@esotericircle.app`: release `3daqc3vhag9b8`, 193.741.385 byte, registro
+portato da 2246 a 2247. Lo sbarramento ha scritto il gettone su **4999 prove**
+con i soli rossi gia' accettati, e la prova di accensione e' passata sul
+767f596c.
+
+**Le quattro Stese che hai letto qui sopra sono state fatte sulla 2246**, cioe'
+sulla build che avevi gia' in mano: quella parte era gia' riparata e questa
+consegna non la cambia. Nella 2247 entrano le riparazioni dell'ordine DE, che
+riguardano il Viaggio.
