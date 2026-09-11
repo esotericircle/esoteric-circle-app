@@ -13,6 +13,7 @@ import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/features/tarot/medora_stage.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -555,10 +556,17 @@ void main() {
       final spread = TarotSpread.draw(seed: 2);
       final reading = TarotReading.of(spread, TarotTopic.predefinito);
 
-      // 1. Sintesi forte, dal Presente.
+      // 1. **IL TITOLO, dal Presente e SENZA IL PUNTO.** Ordine DF voce
+      // 04.5, 11 settembre 2026: il fondatore ha misurato che il titolo
+      // grande finiva col punto fermo, e un titolo con un punto dentro si
+      // legge come due titoli. La grandezza misurata resta la stessa, cioe
+      // che il titolo venga dalla carta del Presente: cambia che adesso
+      // passa da VoceDellaStesa.titolo, che il punto lo toglie.
       expect(find.byKey(const Key('stesa_synthesis')), findsOneWidget);
       expect(tester.widget<Text>(find.byKey(const Key('stesa_synthesis'))).data,
-          reading.sintesi);
+          VoceDellaStesa.titolo(spread));
+      expect(reading.sintesi.startsWith(VoceDellaStesa.titolo(spread)), isTrue,
+          reason: 'il titolo non viene piu dalla sintesi del Presente');
       // 2. Le tre posizioni col testo ricco.
       for (final p in SpreadPosition.values) {
         expect(find.byKey(Key('stesa_letta_${p.name}')), findsOneWidget);

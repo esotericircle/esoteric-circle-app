@@ -22,6 +22,7 @@ import '../../core/tarot/stesa_in_corso.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
+import '../../core/tarot/voce_della_stesa.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -1563,13 +1564,42 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           ],
           const SizedBox(height: SpacingTokens.md),
         ],
-        // La sintesi memorabile, sopra le tre carte.
+        // **IL TITOLO E LA DOMANDA, sopra le tre carte.**
+        // Ordine DF voci 04.5 e 04.6, 11 settembre 2026.
         if (_responsoInScena) ...[
-          Text(_reading.sintesi,
+          // **IL TITOLO C'E' SEMPRE E NON HA UN PUNTO DENTRO.** Il fondatore
+          // ha misurato che il titolo grande col significato della carta del
+          // Presente **compariva in una lettura su quattro**, e che quando
+          // c'era finiva con un punto fermo, perche' la sintesi del corpus e'
+          // una frase e le frasi finiscono col punto. Un titolo con un punto
+          // dentro si legge come due titoli.
+          //
+          // `VoceDellaStesa.titolo` toglie il punto e non torna mai vuoto.
+          Text(VoceDellaStesa.titolo(_spread),
               key: const Key('stesa_synthesis'),
               textAlign: TextAlign.center,
               style: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft, height: 1.25)),
+          const SizedBox(height: SpacingTokens.xs),
+          // **A CHE COSA STA RISPONDENDO QUESTA LETTURA.**
+          // Ordine DF voce 04.6: *"la domanda posta non compare mai a schermo.
+          // Chi legge non vede a che cosa sta rispondendo la lettura"*.
+          //
+          // **Verificato, e il fondatore aveva ragione a meta', che e' la
+          // meta' peggiore**: un riquadro con la domanda c'era, ma **solo per
+          // chi l'aveva scritta a mano**. Chi sceglieva un argomento
+          // dall'elenco, che e' la via piu' breve e quindi la piu' usata, non
+          // vedeva niente. Adesso questa riga c'e' sempre: la domanda quando
+          // c'e', altrimenti il nome dell'argomento scelto.
+          Text(
+            _setup.domandaScritta?.trim().isNotEmpty == true
+                ? '«${_setup.domandaScritta!.trim()}»'
+                : _setup.topic.label,
+            key: const Key('stesa_domanda_a_video'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
           const SizedBox(height: SpacingTokens.md),
         ],
         // Le carte: quelle del responso, e quelle del momento fra l'ultima
@@ -1629,25 +1659,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // domanda come l'hai scritta, mentre il responso la usa. Fra lo
           // scriverla e il leggere ci sono tre carte pescate e una scena di
           // attesa.
-          if (_setup.domandaScritta != null) ...[
-            Text('LA TUA DOMANDA',
-                style: TypographyTokens.didascalia(weight: 600).copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.85),
-                    letterSpacing: 1.2)),
-            const SizedBox(height: SpacingTokens.xxs),
-            // **PASSA DA `ParagrafiDiLettura` come ogni testo nel ruolo
-            // lettura**, e non e' una formalita': una domanda scritta a mano
-            // puo' arrivare a centoquaranta battute, cioe' a piu' righe, e un
-            // `Text` diretto nel ruolo di lettura e' la seconda porta da cui
-            // il muro di testo rientra. L'ha detto la guardia dei paragrafi.
-            ParagrafiDiLettura(
-                testo: _setup.domandaScritta!,
-                key: const Key('stesa_domanda_a_video'),
-                stile: TypographyTokens.lettura().copyWith(
-                    color: ColorTokens.textPrimary,
-                    fontStyle: FontStyle.italic)),
-            const SizedBox(height: SpacingTokens.md),
-          ],
+          // **IL RIQUADRO CON LA TUA DOMANDA NON STA PIU' QUI.**
+          // Ordine DF voce 04.6, 11 settembre 2026.
+          //
+          // C'era, e portava la domanda scritta a mano sopra il Consiglio.
+          // **Adesso la domanda sta sotto il titolo**, in cima al responso e
+          // non a meta', e ci sta **anche per chi non l'ha scritta**, col nome
+          // dell'argomento scelto. Tenerne due sarebbe scrivere la stessa cosa
+          // due volte nella stessa schermata, che e' il difetto della voce
+          // DF.04.3 applicato a un'altra riga.
           // IL CONSIGLIO E' LA PRIMA COSA CHE SI LEGGE, ordine P voce 09.
           //
           // Stava in fondo, dopo il dialogo e la carta chiave, ed era la piu'
@@ -1841,10 +1861,28 @@ class _Slot extends StatelessWidget {
           child: eLaChiave
               ? Align(
                   alignment: Alignment.topCenter,
-                  child: Text('Carta Chiave',
+                  // **LE DUE PAROLE STANNO SU UNA RIGA O NON STANNO.**
+                  // Ordine DF voce 04.4, 11 settembre 2026. Il fondatore:
+                  // *"la parola Carta sta isolata sopra la carta centrale e
+                  // non dice niente"*.
+                  //
+                  // **La causa**: `maxLines: 1` con il ritorno a capo acceso.
+                  // Nella colonna stretta della carta centrale la riga si
+                  // spezzava dopo la prima parola, e la seconda riga, quella
+                  // che porta la parola che conta, **veniva buttata via**.
+                  // Restava un'etichetta che dice quello che si vede gia'.
+                  //
+                  // **La cura non e' accorciare la scritta**, che sono le
+                  // parole del fondatore stesso: e' spegnere il ritorno a capo
+                  // e lasciare che la scritta si rimpicciolisca quel tanto che
+                  // serve a starci intera.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('Carta Chiave',
                       key: Key('stesa_parole_chiave_${position.name}'),
                       textAlign: TextAlign.center,
                       maxLines: 1,
+                      softWrap: false,
                       // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
                       // CO voce 08, 3 settembre 2026. Il fondatore:
                       // "Carta Chiave e' azzurro su blu, non si legge".
@@ -1867,6 +1905,7 @@ class _Slot extends StatelessWidget {
                       // la stessa cosa adesso la dicono nello stesso modo.
                       style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 1.1)),
+                  ),
                 )
               : null,
         ),
