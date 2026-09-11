@@ -124,11 +124,28 @@ motivo tutte e due.
 
 Con le coppie di parole, due testi italiani qualsiasi condividono *"di cui"*,
 *"che si"*, *"e non"*: c'e' un pavimento di somiglianza che non dipende da chi
-ha scritto i testi ma **dalla lingua**. Misurato: fra due testi presi da due
-arti diverse di questa app la somiglianza a due parole stava fra il quindici e
-il venticinque per cento; **a cinque parole e' zero**. Cinque parole di fila
-sono una frase riconoscibile, cioe' la cosa che una persona ricorda di aver
-gia' letto.
+ha scritto i testi ma **dalla lingua**.
+
+**MISURATO**, con `test/il_pavimento_della_somiglianza_test.dart`, su cento
+coppie fatte di una Stesa e una gettata di rune, cioe' due arti che non hanno
+niente da spartire:
+
+| | media | massimo |
+|---|---|---|
+| a **cinque** parole | **0,00 per cento** | **0,00** |
+| a **due** parole | **2,65 per cento** | **7,91** |
+
+Cinque parole di fila sono una frase riconoscibile, cioe' la cosa che una
+persona ricorda di aver gia' letto.
+
+**E QUI CORREGGO UN NUMERO CHE AVEVO SCRITTO SENZA MISURARLO.** La prima
+stesura di questo referto diceva che a due parole il pavimento stava *"fra il
+quindici e il venticinque per cento"*. **Era una stima travestita da misura**, e
+la misura vera dice due virgola sessantacinque. La ragione della scelta regge
+lo stesso, perche' fra zero e sette virgola nove c'e' tutta la differenza che
+serve; il numero pero' era inventato, e in un referto un numero inventato e'
+peggio di nessun numero. **La prova adesso lo stampa a ogni giro**, cosi' la
+riga ha un comando dietro invece di una memoria.
 
 **SECONDA DECISIONE, e questa e' quella che conta: la soglia guarda le coppie
 di consultazioni che NON condividono nessun simbolo.**

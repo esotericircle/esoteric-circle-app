@@ -112,10 +112,9 @@ class MotoreDellaRipetizione {
   ///
   /// **Non due parole.** Con le coppie, due testi italiani qualsiasi
   /// condividono *"di cui"*, *"che si"*, *"e non"*: c'e' un pavimento di
-  /// somiglianza che non dipende da chi ha scritto i testi ma dalla lingua. Su
-  /// duecentocinquanta parole quel pavimento vale gia' venti punti, e una
-  /// soglia al quaranta finirebbe per misurare **quanto l'italiano somiglia a
-  /// se' stesso**.
+  /// somiglianza che non dipende da chi ha scritto i testi ma dalla lingua, e
+  /// una soglia bassa finirebbe per misurare **quanto l'italiano somiglia a se'
+  /// stesso**.
   ///
   /// **Cinque parole di fila e' una frase riconoscibile.** *"Fai il passo
   /// concreto che rimandi"* e' una sequenza che una persona ricorda di aver
@@ -123,10 +122,21 @@ class MotoreDellaRipetizione {
   /// persona quando afferma che due responsi sono **simili**, e cio' che
   /// riconosce sono i pezzi di frase, non le congiunzioni.
   ///
-  /// **Il pavimento misurato**: fra due testi presi da due arti diverse di
-  /// questa app la somiglianza a cinque parole e' **zero**, mentre a due parole
-  /// stava fra il quindici e il venticinque per cento. E' la prova che la
-  /// grandezza nuova misura il testo e non la lingua.
+  /// **IL PAVIMENTO, MISURATO E NON STIMATO.** La prova
+  /// `test/il_pavimento_della_somiglianza_test.dart` confronta cento coppie
+  /// fatte di una Stesa e una gettata di rune, cioe' **due arti diverse che non
+  /// hanno niente da spartire**:
+  ///
+  /// - a **cinque** parole: media **0,00 per cento**, massimo **0,00**;
+  /// - a **due** parole: media **2,65 per cento**, massimo **7,91**.
+  ///
+  /// **E QUI CORREGGO UN NUMERO CHE AVEVO SCRITTO SENZA MISURARLO.** La prima
+  /// stesura di questo commento diceva che a due parole il pavimento stava
+  /// *"fra il quindici e il venticinque per cento"*. **E' falso**, ed era una
+  /// stima travestita da misura: il pavimento vero e' molto piu' basso. **La
+  /// ragione della scelta regge lo stesso**, perche' fra zero e sette virgola
+  /// nove c'e' tutta la differenza che serve, ma il numero era inventato e nel
+  /// referto di un ordine un numero inventato e' peggio di nessun numero.
   static const int quantoELungaUnaSequenza = 5;
 
   /// **QUANTO SI SOMIGLIANO DUE TESTI, da 0 a 1.**
