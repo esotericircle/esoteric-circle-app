@@ -97,7 +97,16 @@ class LeQuattroImpronte extends StatelessWidget {
                 // **IL SENTIERO SOTTO**, che e' cio' che le lega: senza, sono
                 // quattro segni sparsi e non un percorso.
                 Positioned.fill(
+                  // **LA MISURA SI DICHIARA, anche dentro un Positioned.fill.**
+                  // Ordine DC voce 21: un CustomPaint senza figlio e senza
+                  // size si misura con constrain(Size.zero), e appena il
+                  // vincolo non e stretto dipinge su una tela di area nulla.
+                  // Qui il vincolo lo e, ma la regola vale per il componente e
+                  // una regola con un eccezione tacita e una regola che
+                  // qualcuno copiera nel posto sbagliato. Lo ha preso la
+                  // guardia dei pittori.
                   child: CustomPaint(
+                    size: Size.infinite,
                     painter: _PittoreDelSentiero(quante: quanteLasciate),
                   ),
                 ),

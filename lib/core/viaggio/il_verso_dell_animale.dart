@@ -3,6 +3,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../rituals/animal_catalog.dart';
+import '../sensi/catalogo_suoni.dart';
 import '../sensi/motore_audio.dart';
 
 /// **IL VERSO, UNA VOLTA SOLA NELLA VITA.** Ordine DE voce 07,
@@ -31,20 +32,20 @@ import '../sensi/motore_audio.dart';
 /// muta, e [percorsi] dice a chi li produrra' come vanno chiamati. Il giorno
 /// in cui arrivano, questa classe li suona senza che nessuno tocchi una riga.
 abstract final class IlVersoDellAnimale {
-  /// La cartella dove i dodici file vanno consegnati.
-  static const String cartella = 'audio/animali';
+  /// La cartella dove i dodici file vanno consegnati. **Vive in
+  /// `lib/core/sensi/catalogo_suoni.dart`**, che e' la casa del catalogo dei
+  /// suoni: la guardia `palette_sensoriale_test` pretende che nessun suono
+  /// nasca fuori di li', e aveva ragione a prendermi.
+  static String get cartella => VersiDegliAnimali.cartella;
 
   /// **IL PERCORSO DEL VERSO di [animale]**, com'e' scritto negli asset.
-  ///
-  /// Senza il prefisso `assets/`, che e' la convenzione di `AssetSource` e
-  /// quindi del motore audio di casa.
   static String percorsoPer(GuideAnimal animale) =>
-      '$cartella/verso_${animale.stem}.mp3';
+      VersiDegliAnimali.percorsoPer(animale.stem);
 
   /// **IL PERCORSO COMPLETO**, per chi deve chiedere al pacchetto se il file
   /// c'e': `rootBundle` vuole il percorso intero, il lettore audio no.
   static String percorsoNelPacchetto(GuideAnimal animale) =>
-      'assets/${percorsoPer(animale)}';
+      VersiDegliAnimali.nelPacchetto(animale.stem);
 
   /// **I DODICI FILE ATTESI**, con il nome esatto con cui vanno consegnati.
   ///

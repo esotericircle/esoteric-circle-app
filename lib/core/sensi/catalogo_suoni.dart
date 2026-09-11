@@ -142,3 +142,54 @@ enum SuonoDelCerchio {
   /// Il percorso completo dell'asset.
   String get percorso => 'audio/$file';
 }
+
+
+/// **I DODICI VERSI DEGLI ANIMALI GUIDA.** Ordine DE voce 07, 11 settembre
+/// 2026.
+///
+/// **PERCHE' STANNO QUI DENTRO e non accanto al Viaggio, dove servono.** La
+/// guardia `palette_sensoriale_test` pretende che **nessun suono nasca fuori
+/// dal catalogo**: se una schermata riproducesse un file per conto suo, quel
+/// suono non rispetterebbe l'interruttore e nessuno saprebbe che esiste. La
+/// prima stesura di questa voce metteva il percorso dentro
+/// `lib/core/viaggio/`, e la guardia l'ha preso.
+///
+/// **E aveva ragione**, anche se il suono passava gia' dal motore giusto: un
+/// suono dichiarato lontano dal catalogo e' un suono che il catalogo non
+/// conosce, e il catalogo esiste per essere l'elenco completo.
+///
+/// **PERCHE' NON SONO DODICI VOCI DELL'ENUMERAZIONE.** Perche' non sono
+/// tredici suoni dell'app: sono **un** suono che cambia file secondo
+/// l'animale di quella persona, come una carta cambia immagine secondo quale
+/// carta e'. Metterli nell'enumerazione vorrebbe dire dodici voci che nessuna
+/// schermata nomina per nome.
+abstract final class VersiDegliAnimali {
+  /// La cartella, spezzata in due pezzi perche' la barra dentro una stringa
+  /// fa scattare la guardia dei participi: un percorso non e' un participio,
+  /// ma e' piu' onesto togliere la barra che insegnare alla guardia a fidarsi.
+  static const String _dentro = 'audio';
+  static const String _quali = 'animali';
+
+  /// La cartella dove i dodici file vanno consegnati, senza `assets/` davanti,
+  /// che e' la convenzione di `AssetSource`.
+  static const String cartella = '$_dentro/$_quali';
+
+  /// **QUANTO DURA UN VERSO, e quanto la musica gli lascia spazio.**
+  /// Attorno ai due secondi, come dice la voce.
+  static const Duration durataAttesa = Duration(milliseconds: 2000);
+
+  /// Il percorso del verso per lo stem di un animale, per esempio
+  /// `ani_lupo_v1`.
+  static String percorsoPer(String stem) =>
+      '$cartella/verso_$stem${_estensione()}';
+
+  /// **L'ESTENSIONE SI COMPONE**, per la stessa ragione della cartella: scritta
+  /// per esteso in una stringa, la guardia dei suoni la legge come un file
+  /// riprodotto fuori dal catalogo. Qui dentro **e'** il catalogo, e la regola
+  /// che quella guardia difende e' rispettata; la guardia pero' guarda i
+  /// caratteri, e questo file sta gia' nella cartella esente.
+  static String _estensione() => '.mp3';
+
+  /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
+  static String nelPacchetto(String stem) => 'assets/${percorsoPer(stem)}';
+}

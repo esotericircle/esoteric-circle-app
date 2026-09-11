@@ -128,9 +128,17 @@ void main() {
         expect(p.testo, p.drawn.meaning);
       }
       expect(r.chiave.perche, isNotEmpty);
-      // IL CONSIGLIO NON E' PIU' IL SOLO MODELLO DEL GRUPPO, voce 09: lo
-      // contiene, ma poggia sulle tre carte e le nomina.
-      expect(r.consiglio, contains(TarotTopicGroup.lavoro.consiglio));
+      // **IL CONSIGLIO NON CONTIENE PIU' IL MODELLO DEL GRUPPO, e non e' una
+      // svista: e' l'ordine DF voce 04.1.** Qui si pretendeva
+      // `TarotTopicGroup.lavoro.consiglio`, cioe' **uno dei tre testi che
+      // valevano per qualunque stesa dello stesso gruppo**. Il fondatore ha
+      // fatto quattro letture con dodici carte diverse e ha letto lo stesso
+      // paragrafo quattro volte: era quello.
+      //
+      // **La grandezza misurata cambia e la legge no**: il Consiglio deve
+      // poggiare sulle tre carte e nominarle, ed e' questo che si pretende
+      // adesso. Che le nomini nel **primo** paragrafo lo presidia
+      // `il_consiglio_dei_tarocchi_e_la_sua_anatomia_test`.
       expect(r.consiglio, contains(s.presente.card.name));
       expect(TarotReading.domande, contains(r.domanda));
     });
@@ -148,11 +156,20 @@ void main() {
       // risposta del gruppo, e l'azione viene dopo: la riga non e' stata tolta ma
       // cambiata di grandezza, e l'ordine delle due parti lo presidia
       // `il_consiglio_dei_tarocchi_e_la_sua_anatomia_test`.
+      // **E QUESTA RIGA E' STATA RISCRITTA UNA SECONDA VOLTA, dall'ordine DF
+      // voce 02.** Pretendeva che il Consiglio **cominciasse** con la lente
+      // piu' la risposta del gruppo: con la lente sempre in testa, le prime
+      // parole di ogni lettura dello stesso argomento erano identiche, e su
+      // cento letture la somiglianza massima a coppie stava al 94,4 per cento.
+      //
+      // **Adesso la lente sta DENTRO la prima frase**, in una delle otto
+      // aperture, e a volte apre e a volte no. Cio' che si pretende e' che ci
+      // sia e che sia la sua.
       final s = TarotSpread.draw(seed: 3);
       for (final t in TarotTopic.values) {
         final r = TarotReading.of(s, t);
-        expect(r.consiglio, startsWith('${t.lente}, ${t.group.risposta}'));
-        expect(r.consiglio, contains(t.group.consiglio));
+        expect(r.consiglio, contains(t.lente),
+            reason: '${t.name}: il consiglio non porta la sua lente');
         expect(r.consiglio.split('\n\n').last.trim(), r.domanda);
       }
     });
@@ -170,12 +187,30 @@ void main() {
       }
     });
 
-    test('La lente dell\'argomento entra in ogni posizione', () {
+    test('Ogni posizione ha la sua apertura, e non sono tutte uguali', () {
+      // **ERA: la lente dell'argomento apre ogni posizione.** Ordine DF voce
+      // 02: la lente era **la stessa stringa tre volte per lettura e uguale in
+      // tutte le cento**, cioe' quindici parole identiche regalate a ogni
+      // confronto, e nessuna di quelle parole diceva niente.
+      //
+      // **La grandezza misurata adesso e' che l'apertura ci sia e che le tre
+      // posizioni non aprano tutte allo stesso modo.** Il taglio
+      // dell'argomento resta: e' quello con cui la carta si legge, e vive nel
+      // Consiglio.
       final s = TarotSpread.draw(seed: 11);
       final r = TarotReading.of(s, TarotTopic.famiglia);
+      final aperture = <String>{};
       for (final p in r.posizioni) {
-        expect(p.apertura, startsWith(TarotTopic.famiglia.lente));
+        expect(p.apertura, isNotEmpty,
+            reason: 'una posizione non ha nessuna apertura');
+        aperture.add(p.apertura);
       }
+      // ignore: avoid_print
+      print('ORDINE DF VOCE 02: le tre posizioni aprono con '
+          '${aperture.length} forme distinte: $aperture');
+      expect(aperture.length, greaterThan(1),
+          reason: 'tutte e tre le posizioni aprono con la stessa identica '
+              'frase, che e esattamente il difetto che l ordine DF ha tolto');
     });
   });
 }

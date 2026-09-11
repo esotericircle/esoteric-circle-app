@@ -138,12 +138,18 @@ class CardDellaRivelazione extends StatelessWidget {
             const SizedBox(height: SpacingTokens.md),
             // La firma, piccola: chi riceve la card deve sapere da dove viene,
             // e non deve leggerlo prima del nome.
+            // **LA FIRMA, e NON si scrive sotto il pavimento dell app.**
+            // La prima stesura le dava nove punti a mano: sotto i dodici del
+            // pavimento tipografico, e la guardia del dato lo ha preso.
+            // **Il modo di farla piccola e la spaziatura e il colore**, non il
+            // corpo: tre punti di spaziatura e un oro al quaranta per cento la
+            // fanno leggere come una firma senza scendere sotto una misura che
+            // questo progetto difende da otto ordini.
             Text(
               'ESOTERIC CIRCLE',
               style: TypographyTokens.didascalia().copyWith(
                 color: const Color(0x66D6A868),
                 letterSpacing: 3.0,
-                fontSize: 9,
               ),
             ),
           ],
