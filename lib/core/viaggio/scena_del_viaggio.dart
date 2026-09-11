@@ -271,6 +271,86 @@ abstract final class NitidezzaDellaScena {
 /// stesso giorno con la stessa domanda devono trovare la stessa scena: e' la
 /// differenza fra un oracolo e una slot machine, ed e' la stessa scelta gia'
 /// fatta per l'Arcano del giorno.
+/// **IL RICHIAMO: UNA SCENA CHE RIPRENDE UN ELEMENTO DI UNA SCENA PRIMA.**
+/// Ordine DE voce 11, 11 settembre 2026.
+///
+/// *"Quando una scena viene composta, il modello riceve anche gli elementi
+/// delle scene precedenti di quella persona, e quando ha senso ne riprende
+/// uno: la porta chiusa trovata al ponte un mese fa che oggi e' socchiusa, la
+/// ciotola rovesciata che oggi e' piena."*
+///
+/// **QUANTE SCENE INDIETRO GUARDO, e perche', che l'ordine chiede di
+/// dichiarare: CINQUE.**
+///
+/// **Non novanta**, che e' quanto il Diario ne conserva: un elemento ripreso
+/// da tre mesi fa non e' un richiamo, e' una coincidenza che nessuno
+/// riconosce. Il richiamo funziona **solo se la persona si ricorda** di aver
+/// visto quella cosa, e cio' che una persona ricorda di un'immagine simbolica
+/// dura poche settimane.
+///
+/// **Non una o due**, che sarebbe l'ultima discesa: riprendere sempre
+/// l'elemento di ieri farebbe del richiamo **una regola**, e una regola non e'
+/// piu' un richiamo. L'ordine e' esplicito: *"il richiamo non e' obbligatorio
+/// e non si forza. Una continuita' inventata vale meno di nessuna
+/// continuita'."*
+///
+/// **Cinque discese sono, per chi scende due o tre volte a settimana, due
+/// settimane**: dentro quell'arco la persona si ricorda, e l'elemento ripreso
+/// si riconosce invece di sembrare pescato.
+///
+/// **E IL RICHIAMO NON E' OBBLIGATORIO.** Si prende un elemento di prima
+/// **solo quando la composizione di oggi lo sceglierebbe comunque**: il seme
+/// decide la scena, e il richiamo si limita a **dire** che quell'elemento
+/// c'era gia'. Cosi' non si forza niente, e una continuita' inventata non
+/// esiste per costruzione.
+abstract final class IlRichiamoDelleScene {
+  /// **QUANTE SCENE INDIETRO SI GUARDA.** Cinque.
+  static const int quanteSceneIndietro = 5;
+
+  /// **LE OTTO FORME DEL RICHIAMO.** `{cosa}` e' l'elemento che torna.
+  ///
+  /// **Nessuna promette un significato**, e nessuna dice **quante** volte e'
+  /// tornato: un conteggio trasformerebbe il richiamo in una statistica, e la
+  /// voce DC.04 ha gia' vietato i numeri da videogioco in questo dominio.
+  static const List<String> forme = [
+    '{Cosa} lo avevi gia trovato di la.',
+    'Questa non e la prima volta che incontri {cosa}.',
+    '{Cosa} era gia comparso in una delle tue discese.',
+    'Ti era gia capitato di vedere {cosa}.',
+    'Non e nuovo: {cosa} lo avevi gia incontrato.',
+    '{Cosa} torna.',
+    'Lo hai gia visto, {cosa}.',
+    'Il Mondo di Sotto ti rimanda {cosa}, un altra volta.',
+  ];
+
+  /// **LA RIGA DEL RICHIAMO**, oppure nulla quando non c'e' niente da
+  /// riprendere.
+  ///
+  /// [precedenti] sono gli id dei pezzi delle scene di prima, dalla piu'
+  /// recente. [oggi] sono gli id di quella appena composta.
+  static String? laRiga({
+    required List<List<String>> precedenti,
+    required List<String> oggi,
+    required String nomeDellElemento,
+    required int quale,
+  }) {
+    final visti = <String>{};
+    for (final scena in precedenti.take(quanteSceneIndietro)) {
+      visti.addAll(scena);
+    }
+    if (quale < 0 || quale >= oggi.length) return null;
+    if (!visti.contains(oggi[quale])) return null;
+    final filo = FiloDellaVoce.da([...oggi, 'richiamo']);
+    final forma = filo.scegli(forme);
+    return forma
+        .replaceAll('{Cosa}', _conMaiuscola(nomeDellElemento))
+        .replaceAll('{cosa}', nomeDellElemento);
+  }
+
+  static String _conMaiuscola(String s) =>
+      s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
+}
+
 abstract final class ScenaSenzaModello {
   /// **PERCHE' LA DISCESA ENTRA NEL SEME.** Ordine DF voce 05, 11 settembre
   /// 2026.

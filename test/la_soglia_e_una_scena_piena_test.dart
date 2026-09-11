@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/la_promessa_del_viaggio.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';

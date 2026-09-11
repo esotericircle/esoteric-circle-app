@@ -56,7 +56,7 @@ void main() {
         if (!nomi.add(c.card.name)) doppioni++;
       }
     }
-    final estratte = quante * 3;
+    const estratte = quante * 3;
     final attesa = estratte / TarotDeck.cards.length;
     var scartoMassimo = 0.0;
     var quale = '';

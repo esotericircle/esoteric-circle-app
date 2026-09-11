@@ -139,6 +139,12 @@ class _ViaggioDelloSciamanoScreenState
   /// 08: la card si fotografa da qui e va alla porta unica.
   final GlobalKey _cornice = GlobalKey();
 
+  /// **LA RIGA DEL RICHIAMO**, quando questa scena riprende un elemento di
+  /// una di prima. Ordine DE voce 11. Nulla quando non c'e' niente da
+  /// riprendere: *"una continuita' inventata vale meno di nessuna
+  /// continuita'"*.
+  String? _ilRichiamo;
+
   /// I varchi aperti nella nebbia dalla mano.
   final List<VarcoNellaNebbia> _varchi = [];
 
@@ -329,6 +335,17 @@ class _ViaggioDelloSciamanoScreenState
       animaleSeguito: nome,
       nitidezza: nitidezza,
     ));
+    // **IL RICHIAMO: questa scena riprende un elemento di una di prima?**
+    // Ordine DE voce 11. Si guarda **cinque scene indietro** e non di piu':
+    // il richiamo funziona solo se la persona si ricorda di aver visto quella
+    // cosa, e cio' che si ricorda di un'immagine simbolica dura poche
+    // settimane.
+    _ilRichiamo = IlRichiamoDelleScene.laRiga(
+      precedenti: [for (final v in _diario.viaggi) v.pezzi],
+      oggi: scena.idDeiPezzi,
+      nomeDellElemento: scena.cosa.nome,
+      quale: 1,
+    );
     if (!mounted) return;
     setState(() {
       _scena = scena;
@@ -1228,6 +1245,18 @@ class _ViaggioDelloSciamanoScreenState
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
+          // **IL RICHIAMO SI LEGGE SUBITO SOTTO LA SCENA**, ordine DE voce
+          // 11: *"quando il richiamo c'e', le due righe di Caligo lo
+          // nominano, cosi' la persona capisce che non e' un caso"*.
+          if (_ilRichiamo != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            ParagrafiDiLettura(
+              key: const Key('viaggio_richiamo'),
+              testo: _ilRichiamo!,
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura().copyWith(color: palette.gold),
+            ),
+          ],
           if (NitidezzaDellaScena.laRiga(scena.nitidezza) != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             // **UN TESTO DA LEGGERE PER INTERO PORTA LA MISURA DEL

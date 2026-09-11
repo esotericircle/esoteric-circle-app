@@ -3,6 +3,11 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../core/rituals/animal_catalog.dart';
+import '../../core/viaggio/diario_dei_viaggi.dart';
+import '../../core/viaggio/i_quattro_viaggi.dart';
+import '../../core/viaggio/l_apparizione.dart';
+import '../maestri/caligo/viaggio/apparizione_dell_animale.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
 import '../shell/santuario_bottom_bar.dart';
@@ -536,8 +541,98 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
   DateTime Function() get _clock => widget.clock ?? DateTime.now;
 
+  /// **IL SANTUARIO CON L'APPARIZIONE SOPRA.** Ordine DE voce 10,
+  /// 11 settembre 2026.
+  ///
+  /// *"Dopo la rivelazione, ogni tanto e senza preavviso, la sagoma
+  /// dell'animale attraversa il cielo della home."*
+  ///
+  /// **STA SOPRA TUTTO E NON TOCCA NIENTE**: la sagoma e' dentro un
+  /// `IgnorePointer`, non porta testo e non annuncia niente. Le cinque porte
+  /// che decidono se puo' mostrarsi vivono in `LApparizione`, e questa
+  /// schermata le interroga **una volta sola per sessione**, al primo build,
+  /// che e' il modo piu' semplice di non poterlo fare due volte.
   @override
   Widget build(BuildContext context) {
+    // **IL TIRO SI FA DOPO IL PRIMO FOTOGRAMMA**, non dentro il build: una
+    // chiamata asincrona dentro il build partirebbe a ogni ricostruzione.
+    if (!_giaTirata) {
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => unawaited(_forseUnaSagomaPassa()));
+    }
+    return Stack(
+        children: [
+          _ilSantuario(context),
+          if (_animaleCheAppare != null)
+            Positioned.fill(
+              child: ApparizioneDellAnimale(
+                animale: _animaleCheAppare!,
+                quandoEPassata: () {
+                  if (mounted) setState(() => _animaleCheAppare = null);
+                },
+              ),
+            ),
+        ],
+      );
+  }
+
+  /// **L'ANIMALE CHE STA ATTRAVERSANDO IL CIELO ADESSO**, oppure nulla.
+  GuideAnimal? _animaleCheAppare;
+
+  /// **IL TIRO SI FA UNA VOLTA SOLA, e questo booleano e' la ragione per cui
+  /// non si puo' fare due volte nella stessa sessione.** Ordine DE voce 10:
+  /// un contatore che si ricorda di aver gia' tirato e' una cosa che si puo'
+  /// dimenticare di azzerare; un interruttore che si accende e non si spegne
+  /// piu' finche' la schermata vive, no.
+  bool _giaTirata = false;
+
+  /// **CHIEDE ALLE CINQUE PORTE SE LA SAGOMA PUO' PASSARE.**
+  ///
+  /// **Non aspetta nessuno e non blocca niente**: se il Diario o le preferenze
+  /// non rispondono, la home si apre lo stesso e l'apparizione semplicemente
+  /// non avviene. E' la legge della voce DC.16, e qui vale a maggior ragione:
+  /// **e' un regalo, non una funzione**.
+  Future<void> _forseUnaSagomaPassa() async {
+    if (_giaTirata) return;
+    _giaTirata = true;
+    try {
+      final diario = DiarioDeiViaggi();
+      await diario.carica();
+      final nome =
+          IQuattroViaggi.seguitoDaLeQuattroScelte(diario.scelteInOrdine);
+      if (nome == null) return;
+      GuideAnimal? suo;
+      for (final a in AnimalCatalog.animals) {
+        if (a.name == nome) suo = a;
+      }
+      if (suo == null) return;
+      final prefs = await SharedPreferences.getInstance();
+      final quando = prefs.getString(LApparizione.chiaveDellUltima);
+      final ultima = quando == null ? null : DateTime.tryParse(quando);
+      if (!mounted) return;
+      final adesso = _clock();
+      if (!LApparizione.siPuoMostrare(
+        riconosciuto: true,
+        senzaMoto: MediaQuery.of(context).disableAnimations,
+        // **LA HOME NON E' UN MOMENTO CHE CHIEDE ATTENZIONE**, e lo e' invece
+        // quando ci sta sopra il suggerimento del cielo: li' c'e' qualcosa da
+        // leggere, e una sagoma che passa la' davanti e' un disturbo.
+        ilMomentoChiedeAttenzione: _showSkyHint,
+        ultimaVolta: ultima,
+        adesso: adesso,
+        giaTirataInQuestaSessione: false,
+      )) {
+        return;
+      }
+      await prefs.setString(
+          LApparizione.chiaveDellUltima, adesso.toIso8601String());
+      if (mounted) setState(() => _animaleCheAppare = suo);
+    } catch (errore) {
+      // **UN REGALO CHE NON ARRIVA NON E' UN GUASTO.** Nessuna riga a video.
+    }
+  }
+
+  Widget _ilSantuario(BuildContext context) {
     final now = _clock();
     // L'eroe centrale segue il Maestro dell'elemento in evidenza nella
     // striscia: Soffio ad Aura, Oracolo a Medora, Runa a Caligo, e il Rito
