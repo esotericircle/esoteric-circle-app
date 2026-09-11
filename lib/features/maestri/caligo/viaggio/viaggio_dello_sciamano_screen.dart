@@ -28,9 +28,12 @@ import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
 import '../../../../core/entitlement/tier.dart';
+import '../../../../core/viaggio/il_verso_dell_animale.dart';
 import '../../../../core/viaggio/la_promessa_del_viaggio.dart';
 import '../../../../core/viaggio/tetti_del_viaggio.dart';
+import 'card_della_rivelazione.dart';
 import 'la_lente_che_scopre.dart';
+import 'le_quattro_impronte.dart';
 import 'la_nebbia_e_l_animale.dart';
 
 /// **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voci 01, 04, 05, 06 e 07,
@@ -131,6 +134,10 @@ class _ViaggioDelloSciamanoScreenState
   /// **QUANTO SI E' SCESI**, da 0 a 1, e **la muove il dito**.
   double _scesi = 0;
   Timer? _discesa;
+
+  /// **DA DOVE NASCE IL PNG DELLA CARD DELLA RIVELAZIONE.** Ordine DE voce
+  /// 08: la card si fotografa da qui e va alla porta unica.
+  final GlobalKey _cornice = GlobalKey();
 
   /// I varchi aperti nella nebbia dalla mano.
   final List<VarcoNellaNebbia> _varchi = [];
@@ -323,6 +330,24 @@ class _ViaggioDelloSciamanoScreenState
       _scena = scena;
       _fase = FaseDelViaggio.risalita;
     });
+    // **IL VERSO, NELL'ISTANTE IN CUI LA TESTA E' USCITA DAL VELO.**
+    // Ordine DE voce 07. Una volta sola nella vita, e solo alla rivelazione:
+    // le tre porte le tiene `IlVersoDellAnimale`, e se i dodici file non sono
+    // nel pacchetto il momento **resta muto** invece di prendere in prestito
+    // un ululato che non e' il suo.
+    final suo = _animale(
+        IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine));
+    if (suo != null) {
+      unawaited(IlVersoDellAnimale
+          .faiSentire(suo, eLaRivelazione: _riconosciuto)
+          .then((udito) {
+        // **OGGI QUESTO E SEMPRE FALSO, ed e giusto cosi.** I dodici file non
+        // sono nel pacchetto: il momento resta muto invece di prendere in
+        // prestito un ululato che non e il suo. Vedi
+        // assets/audio/animali/LEGGIMI.md.
+        debugPrint('Ordine DE voce 07: verso udito = $udito');
+      }));
+    }
     // **IL CAMMINO SE NE ACCORGE**, e il gesto porta il suo dettaglio: e' la
     // stessa porta che la Meditazione usa dall'ordine DC voce 06.
     if (mounted) {
@@ -730,35 +755,22 @@ class _ViaggioDelloSciamanoScreenState
   // **Non si e' perso niente**: i tre pezzi sono gli stessi tre, e lo slot
   // dell'immagine e' sempre 'SfondoDelMondoDiSotto'.
 
-  /// **I QUATTRO SEGNI DEL RICONOSCIMENTO.**
+  /// **IL CAMMINO DELLE QUATTRO IMPRONTE.** Ordine DE voce 09.
   ///
-  /// Quattro tacche, accese quante sono le discese fatte. Ordine DC voce 04:
-  /// *"chi guarda vede che manca poco"*, e una tacca lo dice prima e meglio
-  /// di una frase.
-  Widget _iQuattroSegni(MaestroPalette palette) {
-    final quante =
-        IQuattroViaggi.contorniDellaSagoma(_diario.quanteDiscese);
-    return Row(
-      key: const Key('viaggio_i_quattro_segni'),
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (var i = 0; i < IQuattroViaggi.quanteDiscese; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Container(
-              width: 34,
-              height: 4,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
-                color: i < quante
-                    ? palette.gold
-                    : palette.gold.withValues(alpha: 0.22),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
+  /// **CHE COSA C'ERA PRIMA, sotto la Regola D.** Quattro trattini d'oro in
+  /// fila, accesi quanti erano i viaggi: dicevano a che punto si e' ed erano
+  /// **una barra di avanzamento**, cioe' proprio la cosa che l'ordine DC voce
+  /// 04 aveva vietato al Passaporto.
+  ///
+  /// **Adesso sono un percorso che sale verso dove l'animale aspetta**, e
+  /// ogni impronta e' la sagoma vera dell'ombra seguita quella volta. La
+  /// frase che dice a che punto si e' resta sotto, per chi legge: la voce
+  /// DC.04 la vuole, e un disegno non e' un testo.
+  Widget _iQuattroSegni(MaestroPalette palette) => LeQuattroImpronte(
+        key: const Key('viaggio_i_quattro_segni'),
+        seguiti: _diario.scelteInOrdine,
+        riconosciuto: _riconosciuto,
+      );
 
   /// **LE TRE VIE, dichiarate come tre.**
   ///
@@ -1245,10 +1257,55 @@ class _ViaggioDelloSciamanoScreenState
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
+          // **LA CARD DELLA RIVELAZIONE, e solo alla quarta.**
+          // Ordine DE voce 08. Non e' una card di risultato come le altre:
+          // e' l'unica che una persona pubblica **per dire chi e'**, e per
+          // questo arriva una volta sola, nel momento in cui il nome si e'
+          // appena saputo.
+          if (nome != null && _animale(nome) != null) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            Center(
+              child: RepaintBoundary(
+                key: _cornice,
+                child: CardDellaRivelazione(
+                  animale: _animale(nome)!,
+                  quando: _adesso,
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            OutlinedButton.icon(
+              key: const Key('viaggio_condividi_rivelazione'),
+              onPressed: () => unawaited(_condividiLaRivelazione(nome)),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: palette.goldSoft,
+                side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                minimumSize: const Size.fromHeight(48),
+              ),
+              icon: const Icon(Icons.ios_share_rounded, size: 18),
+              label: Text('Di\' chi sei', style: TypographyTokens.etichetta()),
+            ),
+          ],
           if (_seguito != null) const SizedBox(height: SpacingTokens.md),
         ],
       ),
     );
+  }
+
+  /// **SPEDISCE LA CARD DELLA RIVELAZIONE, dal punto unico.**
+  /// Ordine DE voce 08, ordine P voce 28.
+  Future<void> _condividiLaRivelazione(String nome) async {
+    final andata = await condividiLaRivelazione(
+      boundaryKey: _cornice,
+      // **Il testo che accompagna dice la stessa cosa della card**, cosi' chi
+      // la riceve in una chat che non mostra le immagini capisce lo stesso.
+      testo: 'Mi ha trovato $nome.',
+    );
+    if (!mounted || !andata) return;
+    // **IL PREMIO SI PAGA SOLO A CONDIVISIONE AVVENUTA**, ed e' il motivo per
+    // cui la porta torna un booleano invece di non tornare niente.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'condivisione',
+        dettagli: {'cosa': 'rivelazione', 'animale': nome}));
   }
 
   /// **LE FONTI, tutte e due nominate.** Ordine DC voce 01.

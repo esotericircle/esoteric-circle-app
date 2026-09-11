@@ -182,6 +182,11 @@ flutter:
     # I cinque suoni del Cerchio. La cartella e' dichiarata anche se vuota:
     # cosi' appena i file arrivano suonano senza toccare una riga di codice.
     - assets/audio/
+    # **I DODICI VERSI, ordine DE voce 07.** Le cartelle degli asset NON sono
+    # ricorsive: senza questa riga i file dentro assets/audio/animali non
+    # entrerebbero nel pacchetto, e la rivelazione resterebbe muta anche il
+    # giorno in cui i file ci sono. Dichiarata anche da vuota, come sopra.
+    - assets/audio/animali/
     # I QUATTRO ANELLI D'AMBIENTE, ordine CN del 1 settembre 2026. Stanno in
     # una cartella loro e non con gli effetti, perche' pesano due ordini di
     # grandezza di piu': un budget solo li nasconderebbe tutti e due.

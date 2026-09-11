@@ -8,7 +8,37 @@ DA, DB, DC e DD, e nessun DE. L'ordine resta DE e non si rinomina.
 **Regola che governa tutto:** **IL CODICE MUOVE, GLI ASSET VESTONO.**
 
 VOCI_TOTALI: 16
-VOCI_APERTE: 16
+VOCI_APERTE: 9
+
+## ORDINE SOSPESO DAL FONDATORE L 11 SETTEMBRE 2026
+
+**Il fondatore ha interrotto questo ordine a meta** con l ORDINE DF, urgente e
+straordinario, dopo aver fatto quattro letture di tarocchi con la stessa
+domanda e aver trovato i primi due paragrafi **identici al carattere** in tutte
+e quattro. Le sue parole: *"IO ESIGO CHE OGNI RISPOSTA SIA DIVERSA ANCHE SE
+DOVESSI FARE 100 LETTURE CONSECUTIVE CON LA STESSA DOMANDA"*.
+
+**Che cosa e chiuso**, con la guardia vista rossa e le prove verdi:
+
+- **DE.01** la soglia a schermo pieno, cento per cento della finestra misurato
+- **DE.02** il titolo su due righe e la promessa che cambia alla quarta discesa
+- **DE.03** la lente, il rettangolo della testa dei dodici, le tre aree
+- **DE.06** la discesa a venti secondi e poi nove
+- **DE.09** le quattro impronte che formano un cammino
+- **DE.12** l avviso all apertura e il tamburo che riavvicina
+- **DE.14** i tetti per piano e la Demo senza limiti
+
+**Che cosa e montato ma senza guardia propria**: DE.07 (lo slot dei dodici
+versi, oggi vuoto per scelta) e DE.08 (la card della rivelazione).
+
+**Che cosa resta aperto**: DE.04 (l ingrandimento dei dodici con Imagen),
+DE.05 (i tre asset che fornisce il fondatore), DE.10 (l apparizione fuori dal
+Viaggio), DE.11 (le scene che si parlano), DE.13 (la proposta del secondo
+animale), DE.16 (la prova visiva sul telefono), piu le guardie di DE.07 e
+DE.08 e il referto finale.
+
+**Nessuna consegna e stata fatta su questo ordine.** Si riprende dopo DF.
+
 
 ---
 
