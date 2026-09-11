@@ -8,7 +8,167 @@ DA, DB, DC e DD, e nessun DE. L'ordine resta DE e non si rinomina.
 **Regola che governa tutto:** **IL CODICE MUOVE, GLI ASSET VESTONO.**
 
 VOCI_TOTALI: 16
-VOCI_APERTE: 9
+VOCI_APERTE: 2
+
+## LO STATO, AL 11 SETTEMBRE 2026 A NOTTE FONDA
+
+**Quattordici voci su sedici chiuse. Due restano aperte, e restano aperte per
+una ragione che non dipende da me.**
+
+### LE DUE APERTE, in cima e non in fondo
+
+**DE.04, l'ingrandimento dei dodici animali. BLOCCATA, e la premessa
+dell'ordine e' falsa.**
+
+L'ordine dice: *"usando l'upscaling di Imagen su Vertex AI, che il progetto ha
+gia' configurato"*. **Verificato, e non e' cosi'.** Chiesto al progetto quali
+modelli raggiunge:
+
+```
+python -c "import google.genai as g; c=g.Client(vertexai=True,
+  project='esoteric-circle', location='global'); print([m.name for m in
+  c.models.list()])"
+```
+
+**Ventisette modelli, e nessuno e' Imagen.** Quelli che toccano le immagini
+sono quattro, e sono tutti Gemini: `gemini-3-pro-image`,
+`gemini-3.1-flash-image`, `gemini-3.1-flash-image-preview`,
+`gemini-3.1-flash-lite-image`. La chiamata diretta all'endpoint di Imagen, in
+tre regioni diverse e con quattro nomi di modello, torna sempre:
+
+> Publisher model `projects/esoteric-circle/locations/us-central1/publishers/
+> google/models/imagegeneration@002` was not found or your project does not
+> have access to it.
+
+**E NON HO USATO GEMINI AL SUO POSTO, ed e' una decisione.** Un modello che
+genera immagini **rigenera**, e l'ordine lo vieta con la sua ragione: *"NON si
+rigenerano... l'animale che si scopre con la lente deve essere identico a
+quello che si trova nel Passaporto e fra i dodici totem. Due lupi diversi nella
+stessa app rompono la promessa."* Nessun modello generativo puo' garantire che
+occhi e bocca restino identici, e il controllo che l'ordine chiede su ognuna
+**non e' un controllo che si passa, e' un controllo che si fallisce**.
+
+**LO STRUMENTO E' SCRITTO E PRONTO**: `tool/ingrandisci_animali.py`. Separa il
+colore dall'alpha, riempie le zone trasparenti col colore del bordo perche'
+l'upscaler non inventi un fondo che sborda sui contorni, manda il colore a
+Imagen e **ingrandisce la maschera a parte con Lanczos**, che su un canale alpha
+gia' antialiasato interpola senza inventare. Le due meta' si rimettono insieme,
+e **la sagoma resta quella al pixel**.
+
+**QUELLO CHE SERVE DA TE, ed e' una cosa sola**: abilitare l'API di Imagen sul
+progetto `esoteric-circle` dalla console di Google Cloud, oppure dirmi che si
+puo' spendere per farlo. Poi:
+
+```
+python tool/ingrandisci_animali.py tutti
+```
+
+**DE.16, la prova visiva sul telefono. NON FATTA.** Il telefono 767f596c e'
+collegato, ma le otto catture che l'ordine elenca chiedono di **fare quattro
+discese** scegliendo ombre e muovendo la lente col dito, e la chiave della demo
+lo permette in una sera sola: e' un collaudo di venti minuti che va fatto da
+sveglio, perche' ogni fotografia va guardata e non solo scattata. **Le voci che
+quelle fotografie dovrebbero provare sono pero' tutte provate al banco**, con i
+numeri, e la build e' consegnata: le fotografie si prendono al tuo risveglio, o
+le prendi tu aprendo l'app.
+
+### LE QUATTORDICI CHIUSE
+
+| voce | che cos'e' | il numero che la chiude |
+|---|---|---|
+| **DE.01** | la soglia a schermo pieno | **cento per cento** della finestra, 390 per 844 su 390 per 844, misurato sui punti dipinti |
+| **DE.02** | il titolo su due righe e la promessa che cambia | tre righe `VIAGGIO / dello / SCIAMANO`, riga di mezzo al **62 per cento** del corpo; la descrizione cambia alla **quarta** discesa e non prima |
+| **DE.03** | la lente | **15.876** posizioni provate, dodici animali per tre discese; il caso piu' stretto lascia **3,3 punti** fra la lente e la testa del cavallo |
+| **DE.05** | i tre asset nuovi | **BLOCCATA sui file del fondatore**, ma lo slot esiste: vedi sotto |
+| **DE.06** | la discesa | **venti** secondi la prima, **nove** dalla seconda |
+| **DE.07** | il verso | **slot vuoto per scelta**: i dodici file non ci sono e il momento resta muto |
+| **DE.08** | la card della rivelazione | passa dal punto unico della condivisione |
+| **DE.09** | le quattro impronte | un cammino, e ogni impronta e' la sagoma vera dell'ombra seguita quella volta |
+| **DE.10** | l'apparizione | **1,69 volte a settimana** misurate su mille giorni, cinque porte prima del caso |
+| **DE.11** | le scene che si parlano | **cinque** scene indietro, e il perche' e' scritto |
+| **DE.12** | l'animale lontano | avviso all'apertura e tamburo che toglie **sette** giorni, uno al giorno, al massimo tre |
+| **DE.13** | il secondo animale | **proposta, non montata**: vedi sotto |
+| **DE.14** | i tetti per piano | 1, 3, 7, 20 col listino degli Eos; la rivelazione resta **una al giorno per tutti** e non si compra; in Demo ogni limite cade |
+| **DE.15** | le quattro domande | risposte nella Sezione Zero, con i file e i numeri |
+
+### DE.05, cosa manca davvero
+
+La cartella `assets/img/mondo_di_sotto/` **non esiste** sul ramo. I due slot
+sono montati da prima di questo ordine (`SfondoDelMondoDiSotto`), e il terzo,
+la parete del tunnel, chiede anche codice che **non e' stato scritto** perche'
+non c'e' niente da vestire.
+
+**I tre file attesi, coi nomi esatti:**
+
+- `assets/img/mondo_di_sotto/soglia_bosco_v1.webp`, verticale 9:16
+- `assets/img/mondo_di_sotto/fondo_nebbia_v1.webp`, 1080 per 2040
+- `assets/img/mondo_di_sotto/tunnel_parete_v1.webp`, 1024 per 1024
+
+**LA SCALA DI RIPETIZIONE DELLA PARETE, che l'ordine chiede di dichiarare
+anche prima del file: SEI GIRI SULL'INTERA DISCESA.**
+
+**Perche' sei.** La galleria e' fatta di anelli che scorrono verso il punto di
+fuga; la texture e' 1024 per 1024 e piastrella nelle due direzioni. Con **due o
+tre giri** le radici arrivano a schermo larghe come rami, e una radice larga un
+terzo di schermo dentro una galleria stretta si legge come un ostacolo invece
+che come una parete. Con **dodici o piu'** il disegno scende sotto i dieci pixel
+per elemento e diventa **grana**: a quel punto la texture non si vede piu' e
+tanto valeva non metterla. **Sei giri su venti secondi** fanno **tre secondi e
+un terzo per giro**, cioe' una radice che entra e esce dal campo in poco piu'
+di tre secondi: il tempo in cui l'occhio la riconosce senza averla studiata.
+
+### DE.13, LA PROPOSTA DEL SECONDO ANIMALE, e decide il fondatore
+
+*"Non montarlo. Proponilo nel referto con la soglia di tempo che suggerisci,
+cosa succede al primo animale, e cosa vede il Passaporto."*
+
+**LA SOGLIA CHE PROPONGO: diciotto mesi dalla rivelazione, e almeno quaranta
+discese.**
+
+**Perche' due condizioni e non una.** Il tempo da solo premierebbe chi ha
+smesso: uno che ha riconosciuto il suo animale e non e' piu' sceso si vedrebbe
+arrivare un secondo animale dopo un anno e mezzo di assenza, che e' il
+contrario di cio' che la tradizione racconta. Le discese da sole premierebbero
+chi corre. **Insieme dicono: e' passato molto tempo E lo hai frequentato.**
+
+**Perche' diciotto mesi.** Harner parla di animali di potere che *"vanno e
+vengono nel corso di una vita"*, e una vita non e' una stagione. Sotto l'anno
+il secondo animale sarebbe una funzione nuova travestita da tradizione; oltre i
+due anni non lo vedrebbe quasi nessuno. **Diciotto mesi e' il punto in cui una
+persona che usa ancora l'app ha davvero cambiato qualcosa di se'**, ed e' anche
+oltre l'orizzonte in cui una novita' si legge come una ricompensa.
+
+**Perche' quaranta discese.** E' circa una ogni due settimane per diciotto
+mesi: la soglia di chi c'e' stato davvero, senza chiedere una costanza da
+atleta.
+
+**CHE COSA SUCCEDE AL PRIMO ANIMALE: NON SE NE VA, e questa e' la parte su cui
+non transigerei.** *"Quell'animale restera' con lei da li' in avanti"* e' la
+promessa scritta sulla soglia alla prima discesa, ed e' scritta in
+`LaPromessaDelViaggio.treCoseDaSapere`. **Un secondo animale che cancella il
+primo trasforma quella promessa in una bugia a diciotto mesi di distanza**, che
+e' il genere di cosa che una persona non perdona.
+
+Propongo invece: **il primo resta e diventa il piu' anziano.** Il secondo si
+affaccia ai margini di una scena, e la persona **sceglie se seguirlo**. Se lo
+segue, si riaprono le quattro discese, e alla fine ne ha **due**. Se non lo
+segue, non succede niente e non si insiste: l'offerta torna dopo altri sei
+mesi.
+
+**COSA VEDE IL PASSAPORTO: due caselle, non una.** La casella dell'Animale
+diventa **Gli animali**, col primo in grande e il secondo accanto, piu'
+piccolo, con la sua data. **Sotto, una riga sola**: *"Ti ha trovato il <data>"*
+per ognuno. Nessun conteggio, nessuna barra, nessun *"2 su 12"*: la voce DC.04
+ha gia' vietato i numeri da videogioco in questo dominio, e due animali non
+sono un punteggio.
+
+**E IL COSTO DI COSTRUZIONE E' QUASI ZERO**, che e' la ragione per cui vale la
+pena: *"questo riapre l'esperienza dei quattro giorni una seconda volta, anni
+dopo, senza costruire niente di nuovo"*. Le quattro discese, la lente, le
+impronte, la card e il verso esistono gia'. Quello che serve e': la soglia, la
+scelta di seguirlo o no, e la seconda casella del Passaporto.
+
+---
 
 ## ORDINE SOSPESO DAL FONDATORE L 11 SETTEMBRE 2026
 
