@@ -44,33 +44,30 @@ void main() {
     'onboarding_controller.dart',
   };
 
-  /// **GLI ORFANI CHE C'ERANO GIA', censiti il 12 settembre 2026.**
+  /// **IL CENSIMENTO DEGLI ORFANI E' VUOTO, e ci e' voluto un lavoro per
+  /// vuotarlo.** Ordine DG, 12 settembre 2026.
   ///
-  /// Questa guardia nasce dentro l'ordine DG e ne ha trovati **quattro**, non
-  /// uno. Tre di questi **precedono l'ordine** e non c'entrano col lavoro di
-  /// oggi: sono widget del vecchio onboarding, rimasti in `widgets/` quando la
-  /// schermata che li montava e' stata rifatta.
+  /// **Alla nascita questa guardia ne ha trovati quattro**, oltre a quello che
+  /// l'ha fatta nascere. Tre erano veri: `IntertwinedAuras`, `SkyThread` e
+  /// `StardustName`, tre animazioni decorative del **vecchio** onboarding. La
+  /// storia lo dice per nome: erano montate nei commit `202dc99c`, `70f3f9a9`
+  /// e `7d15c077`, poi la rilavorazione dell'arco di onboarding ha cancellato
+  /// le schermate che le montavano **lasciando i file**. Non erano lavoro
+  /// perso da riagganciare: erano tre disegni la cui parete non esiste piu'.
+  /// **Tolti il 12 settembre 2026**, e la storia di Git se li tiene.
   ///
-  /// **E ce n'e' un quarto che questa guardia NON vede**, e va detto perche'
-  /// dice dove finisce la sua vista: `DomandaDellInvito` **si costruisce da
-  /// sola**, dentro la propria `route`, e nessuno spinge quella rotta. Una
-  /// schermata che si monta da se' in un metodo che nessuno chiama e' viva per
-  /// il compilatore e morta per chi usa l'app: prenderla vorrebbe dire seguire
-  /// le rotte, non i nomi, ed e' un lavoro suo.
+  /// **Il quarto non era un orfano**, e crederlo tale e' stato un mio errore
+  /// di lettura durato mezza giornata. `DomandaDellInvito` non e' montata da
+  /// nessuno **perche' il fondatore l'ha fatta togliere**: *"e' una demo per
+  /// ora, si toglie e accettiamo che per ora nessuno riscuote i 60 EOS"*. C'e'
+  /// gia' una guardia, `l_invito_porta_il_suo_premio`, che **pretende** che il
+  /// Santuario non la chiami, e la strada a mano resta nel menu' Account. Una
+  /// decisione presa non e' una dimenticanza: qui non si tocca.
   ///
-  /// **Stanno qui e non cancellati, e la ragione e' la stessa dell'ordine
-  /// ZERO**: cancellare codice che non si e' capito, dentro un ordine che
-  /// parla d'altro, e' il modo piu' rapido di perdere un lavoro buono. Sono
-  /// **dichiarati per nome**, cosi' la guardia e' verde su cio' che sapeva e
-  /// **rossa il giorno che ne nasce uno nuovo**, che e' esattamente il difetto
-  /// che l'ordine DG ha pagato con `RivelazioneCartaDiNascita`.
-  ///
-  /// **Vanno al fondatore come voce a parte**: o si agganciano o si tolgono.
-  const orfaniGiaCensiti = <String>{
-    'IntertwinedAuras',
-    'SkyThread',
-    'StardustName',
-  };
+  /// **Un censimento vuoto non e' una formalita'.** Finche' resta vuoto, ogni
+  /// nome che compare in questa prova e' un difetto nuovo, e nessuno deve
+  /// chiedersi se sia invece uno vecchio che qualcuno aveva accettato.
+  const orfaniGiaCensiti = <String>{};
 
   test('nessun widget dell\'onboarding e\' senza chiamanti', () {
     final cartella = Directory('lib/features/onboarding');

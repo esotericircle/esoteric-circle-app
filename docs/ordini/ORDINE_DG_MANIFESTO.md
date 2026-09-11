@@ -444,12 +444,40 @@ arrivato senza aver fatto il Viaggio avrebbe letto il proprio animale in un
 elenco di dodici. L'avevo cercato in tre posti e il quarto me l'ha trovato la
 guardia.
 
-**E la seconda ne ha censiti quattro che c'erano gia'**, e non c'entrano con
-questo ordine: `IntertwinedAuras`, `SkyThread` e `StardustName`, widget del
-vecchio onboarding rimasti in `widgets/` quando la schermata che li montava e'
-stata rifatta; e `DomandaDellInvito`, che **si costruisce da sola dentro la
-propria rotta** e nessuno spinge quella rotta, quindi la guardia non la vede.
-**Vanno al fondatore come voce a parte: o si agganciano o si tolgono.**
+**E la seconda ne ha trovati altri quattro che c'erano gia'.** Il fondatore ha
+risposto *"finisci tutto cio' che e' indietro"*, e sono stati chiusi tutti e
+quattro, in due modi diversi perche' erano due cose diverse.
+
+**Tre erano orfani veri, e sono stati tolti.** `IntertwinedAuras`, `SkyThread` e
+`StardustName` sono tre animazioni decorative del **vecchio** onboarding, e la
+storia di Git lo dice per nome: erano montate nei commit `202dc99c`, `70f3f9a9`
+e `7d15c077`, poi la rilavorazione dell'arco di onboarding ha cancellato le
+schermate che le montavano **lasciando i file**. Non erano lavoro perso da
+riagganciare: erano tre disegni la cui parete non esiste piu'. Riagganciarli
+avrebbe voluto dire rimettere mano al disegno dell'onboarding, che nessuno ha
+chiesto; tenerli avrebbe voluto dire far scorrere ogni guardia futura su
+quattrocento righe che nessuno vede. Tolti, e la storia se li tiene.
+
+**Il quarto non era un orfano, e crederlo tale e' stato un mio errore di
+lettura.** `DomandaDellInvito` non la monta nessuno **perche' il fondatore l'ha
+fatta togliere**: *"e' una demo per ora, si toglie e accettiamo che per ora
+nessuno riscuote i 60 EOS, ma va sistemato prima della pubblicazione"*. C'e'
+gia' una guardia che lo presidia, `l_invito_porta_il_suo_premio`, e **pretende**
+che il Santuario non la chiami; la strada a mano resta nel menu' Account. Una
+decisione presa non e' una dimenticanza, e il debito e' gia' scritto in
+`docs/ordini/RIPRESA.md`.
+
+**Il censimento della guardia adesso e' vuoto**, e non e' una formalita': finche'
+resta vuoto, ogni nome che quella prova mostrera' e' un difetto **nuovo**, e
+nessuno dovra' chiedersi se sia invece uno vecchio che qualcuno aveva accettato.
+
+**Togliere i tre file ha fatto cadere due guardie, ed era giusto cosi'.**
+`chi_misura_il_testo_usa_la_scala` teneva una deroga dichiarata per
+`sky_thread.dart` e ha detto *"il file non esiste piu'"*: una scusa scaduta e'
+il modo in cui una regola smette di significare qualcosa. E
+`tipografia_nel_dato` ha detto che il debito era sceso da 82 misure a 81 e da 34
+file a 33, **e che il censimento non lo sapeva ancora**: rigenerato e
+committato insieme al codice.
 
 ---
 

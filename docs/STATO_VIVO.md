@@ -2292,12 +2292,32 @@ codice**, e restano da vedere a video, con la stessa dipendenza di DG.09.
 difetto che non avevo visto), `nessuna_schermata_del_risveglio_e_orfana`,
 `la_discesa_dura_venti_secondi`.
 
-**E QUATTRO ORFANI CHE C'ERANO GIA', da portare al fondatore.**
-`IntertwinedAuras`, `SkyThread` e `StardustName` sono widget del vecchio
-onboarding rimasti in `lib/features/onboarding/widgets/` quando la schermata
-che li montava e' stata rifatta; `DomandaDellInvito` si costruisce da sola
-dentro la propria rotta e **nessuno spinge quella rotta**. O si agganciano o si
-tolgono: non si cancellano dentro un ordine che parla d'altro.
+**E QUATTRO ORFANI CHE C'ERANO GIA', tutti chiusi**, su ordine del fondatore
+*"finisci tutto cio' che e' indietro"*, e in due modi diversi perche' erano due
+cose diverse.
+
+**Tre erano orfani veri e sono stati tolti**: `IntertwinedAuras`, `SkyThread` e
+`StardustName`, tre animazioni decorative del **vecchio** onboarding, montate
+nei commit `202dc99c`, `70f3f9a9` e `7d15c077` e rimaste in
+`lib/features/onboarding/widgets/` quando la rilavorazione dell'arco ha
+cancellato le schermate che le montavano. Non erano lavoro perso da
+riagganciare: erano tre disegni la cui parete non esiste piu'. La storia di Git
+se li tiene.
+
+**Il quarto non era un orfano.** `DomandaDellInvito` non la monta nessuno
+**perche' il fondatore l'ha fatta togliere**: *"e' una demo per ora, si toglie e
+accettiamo che per ora nessuno riscuote i 60 EOS, ma va sistemato prima della
+pubblicazione"*. La guardia `l_invito_porta_il_suo_premio` **pretende** che il
+Santuario non la chiami, la strada a mano resta nel menu' Account, e il debito
+e' gia' scritto in `docs/ordini/RIPRESA.md`. Averla creduta una dimenticanza e'
+stato un errore di lettura mio.
+
+**Il censimento degli orfani adesso e' vuoto**, e da oggi ogni nome che quella
+guardia mostrera' e' un difetto **nuovo**. Togliere i tre file ha fatto cadere
+due guardie ed era giusto: `chi_misura_il_testo_usa_la_scala` teneva una deroga
+dichiarata per `sky_thread.dart`, e `tipografia_nel_dato` ha visto il debito
+scendere da 82 misure a 81 e da 34 file a 33, col censimento
+`docs/tipografia/censimento.md` rigenerato e committato insieme al codice.
 
 ## L'ORDINE DF, LE RISPOSTE NON POSSONO ESSERE TUTTE UGUALI
 

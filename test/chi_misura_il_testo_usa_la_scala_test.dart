@@ -45,8 +45,6 @@ void main() {
         'CustomPainter: le lettere corrono lungo la ruota del sigillo',
     'lib/features/onboarding/primo_approdo.dart':
         'CustomPainter: il velo forato ritaglia una figura disegnata',
-    'lib/features/onboarding/widgets/sky_thread.dart':
-        'CustomPainter: il filo del cielo e\' un disegno',
     'lib/features/passport/cosmic_passport_screen.dart':
         'CustomPainter: il sigillo del sentiero di vita e\' un disegno',
     'lib/features/santuario/santuario_screen.dart':
