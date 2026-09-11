@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../config/app_flags.dart';
 import 'scena_del_viaggio.dart';
 import 'vocabolario_del_viaggio.dart';
 
@@ -50,6 +51,27 @@ class DiarioDeiViaggi {
 
   /// I viaggi conservati, dal piu' recente.
   List<UnViaggio> get viaggi => List.unmodifiable(_viaggi);
+
+  /// **SI RICOMINCIA DA CAPO, e solo in Demo.** Ordine DG voce 08,
+  /// 11 settembre 2026.
+  ///
+  /// **Porta via le due chiavi del Viaggio e nient'altro**: `viaggio.diario` e
+  /// `viaggio.nutrimenti`, nominate una per una. Non l'account, non il
+  /// cammino, non i sigilli. Un azzeramento che prendesse tutto sarebbe la
+  /// cancellazione dei dati travestita da comando di prova.
+  ///
+  /// **Perche' solo in Demo.** Perche' il riconoscimento costa quattro giorni:
+  /// un comando che lo annulla, a portata di dito di chiunque, toglierebbe
+  /// alle quattro discese la cosa che le rende quattro.
+  Future<bool> ricomincia({bool demo = AppFlags.isDemo}) async {
+    if (!demo) return false;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_chiave);
+    await prefs.remove(_chiaveDeiNutrimenti);
+    _viaggi = const [];
+    _nutrimenti = const [];
+    return true;
+  }
 
   Future<void> carica() async {
     try {

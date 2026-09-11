@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/astro/zodiac.dart';
+import '../../../../core/config/app_flags.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../core/sensi/respiro_che_dirada.dart';
@@ -11,6 +12,7 @@ import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
+import '../../../../core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import '../../../../core/viaggio/scena_del_viaggio.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -164,6 +166,11 @@ class _ViaggioDelloSciamanoScreenState
   String _temaScelto = '';
 
   ScenaDelViaggio? _scena;
+
+  /// **IL GIORNO IN CUI QUESTA SCENA E' NATA.** Ordine DG voce 07: il filo
+  /// della risposta lo conosce, e se lo chiedesse all'orologio a ogni
+  /// ridisegno il testo cambierebbe sotto gli occhi di chi legge.
+  DateTime? _giornoDellaScena;
   String? _seguito;
   bool _caricato = false;
 
@@ -303,6 +310,26 @@ class _ViaggioDelloSciamanoScreenState
     _discesa = null;
   }
 
+  /// **IL COMANDO DI DEMO, ordine DG voce 08.** Riporta il Viaggio a zero
+  /// discese senza toccare account ne' cammino: vedi
+  /// `DiarioDeiViaggi.ricomincia`.
+  Future<void> _ricominciaInDemo() async {
+    final fatto = await _diario.ricomincia();
+    if (!fatto || !mounted) return;
+    setState(() {
+      _fase = FaseDelViaggio.soglia;
+      _seguito = null;
+      _scena = null;
+      _nebbia = 0;
+      _spintaDelDito = 0;
+    });
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Il viaggio riparte da zero discese.'),
+      duration: Duration(seconds: 2),
+    ));
+  }
+
   void _fermaIlRespiro() {
     _respiro?.cancel();
     _respiro = null;
@@ -398,6 +425,7 @@ class _ViaggioDelloSciamanoScreenState
       // **la stessa identica scena**, parola per parola.
       discesa: quante,
     );
+    _giornoDellaScena = _adesso;
     await _diario.segna(UnViaggio(
       quando: _adesso,
       domanda: domanda,
@@ -621,6 +649,23 @@ class _ViaggioDelloSciamanoScreenState
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
+              // **SI RICOMINCIA DA CAPO, E SOLO IN DEMO.** Ordine DG voce 08.
+              //
+              // **Sta qui e non nelle impostazioni** perche' e' qui che si
+              // guarda quante discese mancano: il comando che le riporta a
+              // zero deve stare accanto al numero che azzera, non tre
+              // schermate piu' in la'.
+              if (AppFlags.isDemo && _diario.quanteDiscese > 0) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                TextButton.icon(
+                  key: const Key('viaggio_ricomincia_demo'),
+                  onPressed: _ricominciaInDemo,
+                  icon: const Icon(Icons.restart_alt_rounded, size: 18),
+                  label: const Text('Ricomincia il viaggio (Demo)'),
+                  style: TextButton.styleFrom(
+                      foregroundColor: ColorTokens.textSecondary),
+                ),
+              ],
               // **L'AVVISO DELL'ANIMALE LONTANO STA ALL'APERTURA**, sopra
               // la scelta della domanda: chi legge deve saperlo **prima** di
               // scegliere con che cosa scendere, non dopo essere risalito.
@@ -1291,13 +1336,43 @@ class _ViaggioDelloSciamanoScreenState
               ),
             ),
           const SizedBox(height: SpacingTokens.xxl),
-          ParagrafiDiLettura(
-            key: const Key('viaggio_scena'),
-            testo: scena.testo,
-            textAlign: TextAlign.center,
-            stile: TypographyTokens.lettura()
-                .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+          // **IL TITOLO, che a colpo d'occhio e' gia' una risposta.**
+          // Ordine DG voce 07, e la gerarchia e' quella dettata dal fondatore
+          // il 3 settembre: *"titolo accattivante che riassume la risposta e
+          // poi risposta descrittiva diretta"*.
+          TitoloCheNonSiRompe(
+            key: const Key('viaggio_titolo_della_risposta'),
+            testo: LaVoceDelMondoDiSotto.titolo(
+              scena,
+              LaVoceDelMondoDiSotto.temaDi(_temaScelto),
+              giornoDellaDiscesa: _giornoDellaScena,
+            ),
+            stile: TypographyTokens.titoloScheda()
+                .copyWith(color: ColorTokens.textPrimary),
           ),
+          const SizedBox(height: SpacingTokens.md),
+          // **LA RISPOSTA, IL GESTO, LA FONTE**, ordine S voci 15 e 16.
+          //
+          // **Qui c'era `scena.testo` e basta**, cioe' una riga sola: la
+          // scena senza la domanda, senza un gesto da fare e senza dire da
+          // dove veniva. Parole del fondatore: *"le risposte fanno cagare,
+          // scarne e non seguono le regole delle risposte"*.
+          for (final paragrafo in LaVoceDelMondoDiSotto.paragrafi(
+            scena: scena,
+            temaDomanda: LaVoceDelMondoDiSotto.temaDi(_temaScelto),
+            temaInLettere:
+                LaVoceDelMondoDiSotto.temaInLettereDi(_temaScelto),
+            giornoDellaDiscesa: _giornoDellaScena,
+          )) ...[
+            ParagrafiDiLettura(
+              key: Key('viaggio_scena_${paragrafo.hashCode}'),
+              testo: paragrafo,
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+          ],
           // **IL RICHIAMO SI LEGGE SUBITO SOTTO LA SCENA**, ordine DE voce
           // 11: *"quando il richiamo c'e', le due righe di Caligo lo
           // nominano, cosi' la persona capisce che non e' un caso"*.

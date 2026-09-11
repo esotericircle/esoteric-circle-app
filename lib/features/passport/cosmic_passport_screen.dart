@@ -27,7 +27,7 @@ import '../../core/tarot/tarot_spread.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../tarot/carta_ingrandita.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
-import '../maestri/caligo/viaggio/la_nebbia_e_l_animale.dart';
+import '../maestri/caligo/viaggio/la_lente_che_scopre.dart';
 import '../maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import '../../core/viaggio/diario_dei_viaggi.dart';
 import '../../core/viaggio/i_quattro_viaggi.dart';
@@ -542,16 +542,23 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
             border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
           ),
           clipBehavior: Clip.antiAlias,
-          child: CustomPaint(
+          // **LA SUA OMBRA, non una sagoma generica.** Ordine DG voce 03.2,
+          // 11 settembre 2026.
+          //
+          // **Qui c'era `PittoreDellAnimale`**, che disegnava un quadrupede da
+          // un seme: e' lo stesso difetto di verita' che l'ordine DE aveva
+          // tolto dall'incontro, perche' **quattro dei dodici non sono
+          // quadrupedi**. Nel Passaporto era rimasto.
+          //
+          // Adesso e' la sagoma esatta del suo animale, velata: dice che c'e'
+          // e non dice quale, ed e' la stessa che si incontrera' scendendo.
+          child: OmbraDellAnimale(
             key: const Key('passport_animale_in_ombra'),
-            size: Size.infinite,
-            painter: PittoreDellAnimale(
-              discesa: discese.clamp(0, 3),
-              // **PIU' SI E' SCESI, PIU' LA LUCE CRESCE**, e la sagoma dice
-              // da sola quanto manca.
-              quantaLuce: 0.20 + 0.20 * discese.clamp(0, 3),
-              seme: animal.name.hashCode,
-            ),
+            immagine: animal.ombraPath,
+            giaSagoma: true,
+            // **PIU' SI E' SCESI, PIU' LA LUCE CRESCE**, e la sagoma dice da
+            // sola quanto manca.
+            quantaLuce: 0.20 + 0.20 * discese.clamp(0, 3),
           ),
         ),
       );
