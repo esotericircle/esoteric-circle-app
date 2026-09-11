@@ -110,8 +110,10 @@ dall'orologio: `FiloDellaVoce` in `lib/core/responsi/filo_della_voce.dart`.
 **(c) FISSO:**
 
 - l'apertura e la chiusura della **cornice della domanda**, da
-  `lib/core/domande/cornici_del_presagio.dart`: **17 cornici**, una per
-  domanda scelta piu' quella della giornata. **A parita' di domanda sono due
+  `lib/core/domande/cornici_del_presagio.dart`: **otto generiche piu' otto
+  personali, cioe' sedici**, piu' quella della giornata per chi non ha chiesto
+  niente. Contate eseguendo, non leggendo: `CorniciDelPresagio.generiche` e
+  `.personali` danno otto e otto. **A parita' di domanda sono due
   frasi costanti**, e restano tali anche dopo l'ordine DF: sono corpus
   dell'Architetto e sono la cornice della domanda posta, non una risposta
   generata.
