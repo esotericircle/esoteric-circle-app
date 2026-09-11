@@ -25,6 +25,7 @@ import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
+import 'la_lente_che_scopre.dart';
 import 'la_nebbia_e_l_animale.dart';
 
 /// **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voci 01, 04, 05, 06 e 07,
@@ -105,6 +106,10 @@ enum FaseDelViaggio {
   /// L'incontro, e la scelta fra le tre ombre.
   incontro,
 
+  /// **LA LENTE: si e' seguita un'ombra, e adesso la si scopre.**
+  /// Ordine DE voce 03.
+  lente,
+
   /// La scena che si riporta su.
   risalita,
 }
@@ -135,13 +140,29 @@ class _ViaggioDelloSciamanoScreenState
   String? _seguito;
   bool _caricato = false;
 
-  /// **QUANTO DURA LA DISCESA.** Ordine DC voce 07: fra i quaranta e i novanta
-  /// secondi, e **non si puo' saltare al primo viaggio**. Dal secondo in poi
-  /// e' piu' rapida, perche' la strada e' conosciuta.
+  /// **QUANTO DURA LA DISCESA. VENTI SECONDI, POI NOVE.** Ordine DE voce 06.
+  ///
+  /// **CHE COSA C'ERA PRIMA, sotto la Regola D.** Quarantacinque secondi la
+  /// prima volta e venti dal secondo viaggio in poi, scritti dalla voce
+  /// DC.07. Il fondatore: *"la discesa da quaranta a novanta secondi e' troppo
+  /// lunga e la colpa e' dell'ordine precedente"*.
+  ///
+  /// **PERCHE' VENTI E NON QUARANTACINQUE.** Venti secondi col dito premuto
+  /// **senza mai staccarlo** sono gia' un impegno: nessuno tiene un dito fermo
+  /// per venti secondi per sbaglio. Quarantacinque erano il doppio del tempo
+  /// in cui la galleria ha finito di dire cio' che ha da dire, e la seconda
+  /// meta' era attesa pura.
+  ///
+  /// **PERCHE' NOVE E NON OTTO NE' DIECI.** L'ordine concede otto o dieci, e
+  /// nove sta in mezzo: e' **meno della meta'** della prima discesa, che e' il
+  /// segnale che la strada e' conosciuta, e resta sopra gli otto secondi
+  /// perche' sotto quel tempo il punto di fuga non fa in tempo ad aprirsi e la
+  /// galleria si legge come una dissolvenza.
+  static const Duration primaDiscesa = Duration(seconds: 20);
+  static const Duration discesaConosciuta = Duration(seconds: 9);
+
   Duration get _quantoDura =>
-      _diario.quanteDiscese == 0
-          ? const Duration(seconds: 45)
-          : const Duration(seconds: 20);
+      _diario.quanteDiscese == 0 ? primaDiscesa : discesaConosciuta;
 
   @override
   void initState() {
@@ -172,7 +193,12 @@ class _ViaggioDelloSciamanoScreenState
   /// e' una scelta. La soglia e la risalita sono testo, e li' la barra ha il
   /// suo posto da sempre.
   bool get _laScenaEPiena =>
-      _fase == FaseDelViaggio.discesa || _fase == FaseDelViaggio.nebbia;
+      _fase == FaseDelViaggio.discesa ||
+      _fase == FaseDelViaggio.nebbia ||
+      // **LA LENTE E' UNA SCENA PIENA, ordine DE voce 03**: l'immagine
+      // dell'animale occupa tutto, e una striscia di pagina sopra la
+      // smentirebbe.
+      _fase == FaseDelViaggio.lente;
 
   bool get _riconosciuto =>
       IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;
@@ -211,8 +237,38 @@ class _ViaggioDelloSciamanoScreenState
     }
   }
 
-  /// **SI SEGUE UN'OMBRA**, e la scelta si deposita.
-  Future<void> _segui(String nome) async {
+  /// **SI SEGUE UN'OMBRA, E SI VA A GUARDARLA DA VICINO.**
+  /// Ordine DE voce 03.
+  ///
+  /// **Prima la scelta si depositava subito e si risaliva**: seguivi un'ombra
+  /// e ti ritrovavi il testo del ritorno. Adesso fra le due cose c'e' la
+  /// lente, che e' il momento in cui quell'ombra smette di essere una massa
+  /// scura e diventa **zampe, manto, collo**, un pezzo per discesa.
+  void _segui(String nome) {
+    setState(() {
+      _seguito = nome;
+      _fase = FaseDelViaggio.lente;
+    });
+  }
+
+  /// **L'ILLUSTRAZIONE VERA DI UN NOME**, o nulla se quel nome non ha arte.
+  GuideAnimal? _animale(String? nome) {
+    if (nome == null) return null;
+    for (final a in AnimalCatalog.animals) {
+      if (a.name == nome) return a;
+    }
+    return null;
+  }
+
+  /// **SI RISALE, E SOLO ADESSO LA SCELTA SI DEPOSITA.**
+  ///
+  /// **La discesa vale quando e' finita**, ed e' la stessa legge che la
+  /// Meditazione ha imparato nell'ordine DD: fermarsi a meta' non e'
+  /// compiere. Chi chiude l'app davanti alla lente non ha bruciato la sua
+  /// discesa del giorno.
+  Future<void> _risaliDallaLente() async {
+    final nome = _seguito;
+    if (nome == null) return;
     final quante = _diario.quanteDiscese;
     final nitidezza = NitidezzaDellaScena.dopoGiorni(
         _diario.giorniDallUltima ?? 0);
@@ -239,7 +295,6 @@ class _ViaggioDelloSciamanoScreenState
     if (!mounted) return;
     setState(() {
       _scena = scena;
-      _seguito = nome;
       _fase = FaseDelViaggio.risalita;
     });
     // **IL CAMMINO SE NE ACCORGE**, e il gesto porta il suo dettaglio: e' la
@@ -294,6 +349,7 @@ class _ViaggioDelloSciamanoScreenState
           FaseDelViaggio.discesa => _laDiscesa(palette),
           FaseDelViaggio.nebbia => _laNebbia(palette),
           FaseDelViaggio.incontro => _lIncontro(palette),
+          FaseDelViaggio.lente => _laLente(palette),
           FaseDelViaggio.risalita => _laRisalita(palette),
         },
       ),
@@ -814,7 +870,7 @@ class _ViaggioDelloSciamanoScreenState
                 Expanded(
                   child: GestureDetector(
                     key: Key('viaggio_ombra_${a.name}'),
-                    onTap: () => unawaited(_segui(a.name)),
+                    onTap: () => _segui(a.name),
                     // **LA SCENA DELL'OMBRA HA UNA MISURA.**
                     //
                     // Difetto visto sul telefono 767f596c il 10 settembre
@@ -832,15 +888,16 @@ class _ViaggioDelloSciamanoScreenState
                     //
                     // `Size.infinite`, che il tunnel usava fin dal principio,
                     // prende tutto lo spazio concesso.
-                    child: CustomPaint(
-                      size: Size.infinite,
-                      painter: PittoreDellAnimale(
-                        discesa: quale,
-                        quantaLuce: 0.35 + 0.2 * quale,
-                        seme: a.name.hashCode,
-                      ),
-                    ),
-                  ),
+                    // **L'OMBRA E' LA SAGOMA VERA DI QUELL'ANIMALE.**
+                    // Ordine DE voce 03: prima la disegnava una formula, e la
+                    // formula faceva **sempre un quadrupede**. Chi seguiva
+                    // l'ombra dell'aquila stava seguendo il disegno di un
+                    // lupo.
+                    child: OmbraDellAnimale(
+                      key: Key('viaggio_sagoma_${a.name}'),
+                      immagine: a.fullPath,
+                      quantaLuce: 0.35 + 0.2 * quale,
+                    )                  ),
                 ),
             ],
           ),
@@ -852,6 +909,73 @@ class _ViaggioDelloSciamanoScreenState
             testo: IQuattroViaggi.comeSiMostraAlla(quale),
             textAlign: TextAlign.center,
             stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// **LA LENTE: SPOSTA E SCOPRI.** Ordine DE voce 03.
+  ///
+  /// L'animale occupa la scena piena sotto un velo scuro e sfocato, e il dito
+  /// muove una lente che rivela in chiaro **solo cio' che copre** e **solo
+  /// dentro l'area concessa a questa discesa**.
+  ///
+  /// **La testa non si vede prima della quarta**, e non per una regola scritta
+  /// qui: per costruzione. Tutte e tre le aree stanno sotto il punto piu'
+  /// basso della testa di quell'animale, e il centro della lente e' tenuto
+  /// dentro l'area rientrato del proprio raggio. Vedi `DoveStaLaTesta`.
+  Widget _laLente(MaestroPalette palette) {
+    final quale = _diario.quanteDiscese;
+    final animale = _animale(_seguito);
+    if (animale == null) {
+      // **UN NOME SENZA ARTE NON BLOCCA LA DISCESA**, ordine DC voce 16: si
+      // risale e basta, e la scena del ritorno arriva lo stesso.
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => unawaited(_risaliDallaLente()));
+      return const SizedBox.shrink();
+    }
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: LenteCheScopre(
+            key: Key('viaggio_lente_${animale.name}'),
+            nome: animale.name,
+            immagine: animale.fullPath,
+            discesa: quale,
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(SpacingTokens.lg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  quale >= IQuattroViaggi.quanteDiscese - 1
+                      ? 'Il velo è caduto.'
+                      : 'Passa il dito: la lente scopre solo dove può, oggi.',
+                  key: const Key('viaggio_istruzione_lente'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: SpacingTokens.md),
+                FilledButton.icon(
+                  key: const Key('viaggio_risali'),
+                  onPressed: () => unawaited(_risaliDallaLente()),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.primary,
+                    foregroundColor: palette.onPrimary,
+                    minimumSize: const Size.fromHeight(52),
+                  ),
+                  icon: const Icon(Icons.north_rounded),
+                  label:
+                      Text('Risali', style: TypographyTokens.etichetta()),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -880,7 +1004,11 @@ class _ViaggioDelloSciamanoScreenState
           // **QUI VIVE LA PIENA LUCE DELLA QUARTA DISCESA**, e qui la guardia
           // misura il sessanta per cento dell'altezza: nella scena del
           // ritorno l'animale e' uno, non uno di tre.
-          if (_seguito != null)
+          // **LA SCENA CHE SI RIPORTA SU HA DENTRO L'ANIMALE VERO.**
+          // Ordine DE voce 03: prima era la sagoma della formula, e non era
+          // il ritratto di nessuno. Adesso e' l'illustrazione, velata finche'
+          // non lo si e' riconosciuto e **in piena luce alla quarta**.
+          if (_animale(_seguito) != null)
             SizedBox(
               width: double.infinity,
               child: AspectRatio(
@@ -888,15 +1016,17 @@ class _ViaggioDelloSciamanoScreenState
                 child: ClipRRect(
                   borderRadius:
                       BorderRadius.circular(SpacingTokens.radiusLg),
-                  child: CustomPaint(
-                    key: const Key('viaggio_animale_del_ritorno'),
-                    size: Size.infinite,
-                    painter: PittoreDellAnimale(
-                      discesa: (_diario.quanteDiscese - 1).clamp(0, 3),
-                      quantaLuce: _riconosciuto ? 1.0 : 0.45,
-                      seme: _seguito.hashCode,
-                    ),
-                  ),
+                  child: _riconosciuto
+                      ? Image.asset(_animale(_seguito)!.fullPath,
+                          key: const Key('viaggio_animale_del_ritorno'),
+                          fit: BoxFit.contain)
+                      : OmbraDellAnimale(
+                          key: const Key('viaggio_animale_del_ritorno'),
+                          immagine: _animale(_seguito)!.fullPath,
+                          quantaLuce:
+                              0.35 + 0.2 * (_diario.quanteDiscese - 1)
+                                  .clamp(0, 3),
+                        ),
                 ),
               ),
             ),
