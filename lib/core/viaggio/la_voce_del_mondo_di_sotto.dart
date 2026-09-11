@@ -70,7 +70,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Ti manca un pezzo piccolo',
       'Non serve la forza',
       'Lascialo lì e vai avanti',
-      'È già successo, e sei passato',
+      'È già successo altre volte',
       'Non è un muro, è una porta stretta',
       'Ci torni perché non è finito',
       'Il blocco tiene qualcosa al sicuro',
@@ -101,7 +101,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Resta quello che hai imparato',
       'Il lutto è lavoro anche lui',
       'Fai spazio a quello che viene',
-      'È finito, e va bene così',
+      'È finito: va bene così',
       'Lascia che resti indietro',
       'Quello che hai imparato resta',
       'Chiudi la porta piano',
@@ -130,7 +130,7 @@ abstract final class LaVoceDelMondoDiSotto {
     'blocco': 'il blocco',
     'attesa': 'l\'attesa',
     'direzione': 'la direzione',
-    'finito': 'quello che e\' finito',
+    'finito': 'quello che è finito',
   };
 
   /// **DODICI MODI DI RIPRENDERE LA DOMANDA**, e nessuno la ripete.
@@ -158,13 +158,13 @@ abstract final class LaVoceDelMondoDiSotto {
   static const Map<String, List<String>> rispostePerTema = {
     'scelta': [
       'Nessuna delle due ti chiude le altre porte.',
-      'Hai già scelto una volta, e non è andata male.',
+      'Hai già scelto una volta senza pentirtene.',
       'Il tempo che ci stai mettendo è già una risposta.',
       'Chiedi a te stesso quale racconterai meglio fra dieci anni.',
       'Non stai scegliendo fra due cose: stai scegliendo chi diventi dopo.',
       'Una delle due la stai già facendo, in piccolo, da settimane.',
       'Il costo di sbagliare è più basso di quanto lo stai contando.',
-      'Aspetti un segno che dica quale: non arriverà, e va bene.',
+      'Aspetti un segno che dica quale. Non arriverà, ma va bene.',
       'La paura è di perdere l\'altra, non di prendere questa.',
       'Se fossero davvero uguali, avresti già scelto.',
       'Chiediti quale delle due puoi ancora cambiare fra un mese.',
@@ -195,7 +195,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'L\'hai già superato altre volte, in altre forme.',
       'Il pezzo che manca è piccolo e non è la forza.',
       'Stai spingendo su una porta che si apre tirando.',
-      'Non è un muro: è una porta stretta, e ci passi se lasci qualcosa.',
+      'Non è un muro: è una porta stretta. Ci passi se lasci qualcosa.',
       'Chiediti che cosa succederebbe se lo lasciassi lì.',
     ],
     'attesa': [
@@ -203,7 +203,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Nel frattempo puoi preparare quello che serve dopo.',
       'La tua vita non si è messa in pausa con lei.',
       'Se arrivasse domani, saresti pronto?',
-      'Non è fermo: è lento, e non è la stessa cosa.',
+      'Non è fermo: è lento. Non è la stessa cosa.',
       'L\'attesa sta facendo un lavoro che non vedi.',
       'Stai guardando la porta: intanto la finestra è aperta.',
       'Datti una data. Se passa, hai la tua risposta.',
@@ -227,7 +227,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Prova una direzione per un mese, come si prova una scarpa.',
     ],
     'finito': [
-      'Finire è un lavoro, e lo stai facendo.',
+      'Finire è un lavoro. Lo stai facendo.',
       'Non devi rimpiazzarla subito con qualcosa.',
       'Quello che ti manca non è la cosa: è chi eri lì.',
       'Ringraziala, anche se è finita male.',
@@ -237,7 +237,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'La fine non cancella: mette da parte.',
       'Non ti serve capirla tutta per lasciarla andare.',
       'Il lutto è la parte del lavoro che nessuno ti conta.',
-      'Chiudila piano, e non tornarci a controllare.',
+      'Chiudila piano. Poi non tornarci a controllare.',
       'Qualcosa comincia solo se questa finisce davvero.',
     ],
   };
@@ -259,7 +259,7 @@ abstract final class LaVoceDelMondoDiSotto {
     'Basta questo.',
     'E non serve altro.',
     'Ci puoi contare.',
-    'Nient\'altro, per oggi.',
+    'Non serve altro, per oggi.',
     'Prendilo così.',
   ];
 
@@ -277,13 +277,13 @@ abstract final class LaVoceDelMondoDiSotto {
 
   /// Le otto risposte per chi è sceso senza domanda.
   static const List<String> risposteSenzaDomanda = [
-    'Sei sceso per incontrarlo, e l\'incontro è avvenuto.',
-    'Non hai chiesto niente, e hai visto lo stesso.',
+    'Sei sceso per incontrarlo. L\'incontro è avvenuto.',
+    'Non hai chiesto niente. Hai visto lo stesso.',
     'Oggi il Mondo di Sotto ti ha mostrato e basta.',
     'Non tutte le discese hanno una domanda.',
-    'Sei andato a guardare, e guardare è già qualcosa.',
-    'Nessuna domanda: solo la scena, e ti resta.',
-    'Sei sceso senza niente in mano, ed è un modo.',
+    'Sei andato a guardare. Guardare è già qualcosa.',
+    'Nessuna domanda: solo la scena. Quella ti resta.',
+    'Sei sceso senza niente in mano. È un modo anche questo.',
     'Questa volta il viaggio era il viaggio.',
   ];
 
@@ -293,12 +293,12 @@ abstract final class LaVoceDelMondoDiSotto {
   /// che si fa oggi**.
   static const List<String> cosaPuoiFare = [
     'Scrivi la domanda su un foglio e mettila dove la rivedi.',
-    'Dilla a una persona sola, e guarda come suona fuori.',
-    'Datti tre giorni, e alla fine scegli comunque.',
+    'Dilla a una persona sola. Guarda come suona fuori.',
+    'Datti tre giorni. Alla fine scegli comunque.',
     'Fai la cosa più piccola che va in quella direzione.',
     'Togli una cosa dalla lista, invece di aggiungerne una.',
     'Chiedi a qualcuno che ci è già passato.',
-    'Segnati oggi sul calendario, e torna a guardarlo fra un mese.',
+    'Segnati oggi sul calendario. Torna a guardarlo fra un mese.',
     'Smetti di cercare informazioni: ne hai già abbastanza.',
     'Metti un limite di tempo, poi rispettalo.',
     'Rimanda solo quello che puoi rimandare davvero.',

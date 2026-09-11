@@ -41,16 +41,24 @@ void main() {
             Expanded(
               child: CustomPaint(
                 key: const Key('senza_misura'),
-                painter: PittoreDellAnimale(
-                    discesa: 3, quantaLuce: 1.0, seme: 7),
+                // **IL PITTORE QUI E' UN PRETESTO**, e conta solo che sia
+                // un CustomPainter: la grandezza misurata e' la **tela**, non
+                // cio' che ci si dipinge. Prima era `PittoreDellAnimale`, che
+                // l'ordine DG ha mandato via.
+                painter: PittoreDellaNebbia(
+                    apertura: 0.5, senzaMoto: false),
               ),
             ),
             Expanded(
               child: CustomPaint(
                 key: const Key('con_misura'),
                 size: Size.infinite,
-                painter: PittoreDellAnimale(
-                    discesa: 3, quantaLuce: 1.0, seme: 7),
+                // **IL PITTORE QUI E' UN PRETESTO**, e conta solo che sia
+                // un CustomPainter: la grandezza misurata e' la **tela**, non
+                // cio' che ci si dipinge. Prima era `PittoreDellAnimale`, che
+                // l'ordine DG ha mandato via.
+                painter: PittoreDellaNebbia(
+                    apertura: 0.5, senzaMoto: false),
               ),
             ),
           ],

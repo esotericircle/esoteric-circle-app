@@ -117,46 +117,57 @@ void main() {
 
   group('DC.04, i quattro viaggi e il riconoscimento', () {
     test('IL NOME NON SI DICE PRIMA DELLA QUARTA DISCESA', () {
+      // **RISCRITTA DALL'ORDINE DG VOCE 01**, e la grandezza misurata cambia
+      // mentre la legge resta. Prima si chiedeva a
+      // `seguitoDaLeQuattroScelte`, che contava quale ombra fosse stata
+      // seguita piu' volte: **era la seconda porta dell'animale guida**, e il
+      // fondatore ha visto il Lupo nel Passaporto e l'Aquila alla fine del
+      // Viaggio.
+      //
+      // Adesso si chiede se il nome **si puo' dire**, e quale sia lo sa la
+      // nascita.
       for (var quante = 0; quante < IQuattroViaggi.quanteDiscese; quante++) {
         expect(IQuattroViaggi.siPuoNominare(quante),
             quante + 1 >= IQuattroViaggi.quanteDiscese,
             reason: 'alla discesa $quante il Cerchio dice gia il nome: il '
                 'riconoscimento di Harner chiede quattro apparizioni');
-        expect(
-            IQuattroViaggi.seguitoDaLeQuattroScelte(
-                List.filled(quante, 'Lupo')),
-            isNull,
-            reason: 'con $quante scelte l animale risulta gia scelto');
+        expect(IQuattroViaggi.nomeDopoLeQuattroDiscese(quante, 'Lupo'), isNull,
+            reason: 'con $quante discese il nome risulta gia dicibile');
       }
       expect(
-          IQuattroViaggi.seguitoDaLeQuattroScelte(
-              ['Lupo', 'Lupo', 'Volpe', 'Lupo']),
+          IQuattroViaggi.nomeDopoLeQuattroDiscese(
+              IQuattroViaggi.quanteDiscese, 'Lupo'),
           'Lupo');
     });
 
-    test('LE TRE OMBRE SONO TRE, DIVERSE, E SEMPRE LE STESSE', () {
+    test('L OMBRA E UNA SOLA, ED E SEMPRE QUELLA DELLA NASCITA', () {
+      // **RISCRITTA DALL'ORDINE DG VOCE 02.** Questa prova pretendeva che le
+      // ombre fossero **tre e diverse**, cioe' difendeva il difetto: *"ogni
+      // viaggio e' un animale diverso e non lo stesso che si rivela sempre di
+      // piu' ad ogni viaggio"*.
+      //
+      // Adesso si misura che ogni segno porti a **un** animale e sempre lo
+      // stesso, e che la sua ombra esista come file.
       final visti = <String, String>{};
       for (final segno in Zodiac.values) {
-        final dalCielo = GuideAnimalDerivation.forSign(segno);
-        final ombre = IQuattroViaggi.treOmbre(dalCielo);
-        expect(ombre.length, IQuattroViaggi.quanteOmbre,
-            reason: 'per $segno le ombre non sono tre');
-        expect(ombre.map((a) => a.name).toSet().length, ombre.length,
-            reason: 'per $segno due ombre sono lo stesso animale: chi sceglie '
-                'crederebbe di aver scelto e non avrebbe scelto niente');
-        expect(ombre.first.name, dalCielo.name,
-            reason: 'la prima ombra non e quella del cielo: la tabella che '
-                'esisteva prima e stata buttata invece che riusata');
-        // **E sono stabili**: la stessa data da sempre le stesse tre.
-        final ancora = IQuattroViaggi.treOmbre(dalCielo);
-        expect(ancora.map((a) => a.name).toList(),
-            ombre.map((a) => a.name).toList());
-        visti[segno.name] = ombre.map((a) => a.name).join(', ');
+        final suo = GuideAnimalDerivation.forSign(segno);
+        // Lo stesso segno, quattro discese, sempre lo stesso animale.
+        for (var discesa = 0; discesa < IQuattroViaggi.quanteDiscese;
+            discesa++) {
+          expect(GuideAnimalDerivation.forSign(segno).name, suo.name,
+              reason: 'per $segno alla discesa $discesa esce un altro animale');
+        }
+        expect(suo.ombraPath, contains('ani_ombra_'),
+            reason: 'per $segno l ombra non punta al file della sagoma');
+        visti[segno.name] = suo.name;
       }
       // ignore: avoid_print
-      print('ORDINE DC VOCE 04: dodici segni, tre ombre ciascuno, su '
-          '${AnimalCatalog.animals.length} animali');
+      print('ORDINE DG VOCE 02: dodici segni, un animale ciascuno, '
+          '${visti.values.toSet().length} animali distinti su '
+          '${AnimalCatalog.animals.length}');
       expect(visti.length, Zodiac.values.length);
+      // **La tabella e' biiettiva**: dodici segni, dodici animali diversi.
+      expect(visti.values.toSet().length, AnimalCatalog.animals.length);
     });
 
     test('LA SAGOMA GUADAGNA UN CONTORNO A OGNI DISCESA', () {

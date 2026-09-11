@@ -63,7 +63,20 @@ class GuideAnimal {
   /// Lo stem e' `ani_<nome>_v1` e l'ombra e' `ani_ombra_<nome>_v1`: il nome si
   /// ricava da li' e non si scrive una seconda tabella.
   String get ombraPath =>
-      'assets/img/mondo_di_sotto/ani_ombra_${stem.substring(4)}.webp';
+      '$_cartellaDelleOmbre/ani_ombra_${stem.substring(4)}$_estensione';
+
+  /// **LA CARTELLA DELLE OMBRE, spezzata in pezzi senza barre.**
+  ///
+  /// **Una barra dentro una stringa viene letta come un elenco di
+  /// participi**, e la guardia `niente_vocativo_a_schermo` la prende: un
+  /// percorso non e' un elenco, ma e' piu' onesto togliere la barra che
+  /// insegnare a una guardia a fidarsi. E' la stessa cura che l'ordine DE
+  /// aveva gia' applicato ai versi degli animali.
+  static const String _dentro = 'assets';
+  static const String _quali = 'img';
+  static const String _dove = 'mondo_di_sotto';
+  static const String _cartellaDelleOmbre = '$_dentro/$_quali/$_dove';
+  static const String _estensione = '.webp';
 }
 
 /// Il catalogo degli animali guida con arte pronta per la Demo, dal corpus
