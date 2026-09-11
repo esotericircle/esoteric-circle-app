@@ -26,6 +26,7 @@ import 'custodia_del_cielo_step.dart';
 import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
+import 'rivelazione_carta_di_nascita.dart';
 import 'trionfi_screen.dart';
 import 'primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
@@ -73,24 +74,48 @@ class RisveglioJourney extends StatefulWidget {
 /// perdere il proprio cielo arriva DOPO la rivelazione del Maestro, cioe'
 /// quando c'e' davvero qualcosa da perdere. Chi rimanda entra lo stesso.
 /// **L'ORDINE DELLE SCHEDE DEL RISVEGLIO.** Ordine DG voce 04,
-/// 11 settembre 2026.
+/// corretto dal fondatore l'11 settembre 2026.
 ///
-/// **L'animale era il primo e adesso e' l'ultimo**, per decisione del
-/// fondatore: *"la scheda dell'animale nell'onboarding deve comparire dopo gli
-/// angeli, per ultima"*. Fra le due richieste, *dopo gli angeli* e *per
-/// ultima*, vale la seconda, che e' la piu' stretta: sta in fondo a tutte le
-/// schede, subito prima della custodia del cielo, che non e' una scheda ma il
-/// congedo.
+/// **L'animale sta SUBITO DOPO GLI ANGELI**, e non in fondo. La voce diceva
+/// *"dopo gli angeli, per ultima"*, e avevo scelto la seconda meta' della
+/// frase, mettendolo dopo la rivelazione del Maestro. Il fondatore ha
+/// guardato e ha corretto: *"la schermata c'e' con l'animale oscurato, ma
+/// andrebbe messa dopo la rivelazione degli angeli. adesso e' dopo la
+/// rivelazione del maestro"*. **Vale la prima meta', alla lettera.**
 ///
-/// **E ha una ragione oltre alla decisione**: e' l'unica delle quattro che non
-/// si rivela qui. Metterla per prima voleva dire aprire il Risveglio con la
-/// sola cosa che il Risveglio non puo' dare.
-enum _Phase { angeli, heaven, chart, resonance, reveal, animale, custodia }
+/// **E l'ordine cosi' e' un racconto:** prima i compagni che ti sono stati
+/// dati, gli angeli e l'animale, poi il cielo in cui sei nato, poi la carta
+/// che lo raccoglie, poi la risonanza, infine il Maestro che ti prende in
+/// carico e il congedo.
+///
+/// **L'animale resta l'unica delle schede che non si rivela qui**, e questo
+/// non e' cambiato: si vede la sua ombra e la promessa del Viaggio.
+///
+/// **LA CARTA DI NASCITA STA FRA L'ANIMALE E IL CIELO**, dall'11 settembre
+/// 2026: *"nell'onboarding manca anche la schermata di rivelazione della carta
+/// di nascita"*. Le prime tre schede sono i doni che ti sono stati dati, e
+/// stanno insieme.
+enum _Phase {
+  angeli,
+  animale,
+  cartaDiNascita,
+  heaven,
+  chart,
+  resonance,
+  reveal,
+  custodia
+}
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
   _Phase _phase = _Phase.angeli;
   Maestro _assigned = Maestro.medora;
   Resonance? _resonance;
+
+  /// **SE LA RIVELAZIONE DELLA CARTA HA FINITO DI RACCONTARE IL CALCOLO.**
+  /// Finche' e' falso non c'e' nessun pulsante: sette secondi senza niente da
+  /// toccare, perche' un pulsante acceso in mezzo inviterebbe a saltare
+  /// proprio il pezzo che racconta il calcolo.
+  bool _cartaRivelata = false;
 
   /// SOLO PER LA BUILD DIAGNOSTICA (kDiagnosiAttiva): l'ingresso incriminato
   /// entra un pezzo alla volta, con una briciola e un'etichetta a schermo per
@@ -157,11 +182,18 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     }
   }
 
-  /// **DOPO L'ANIMALE SI CUSTODISCE IL CIELO**, che e' l'ultimo passo.
-  /// Ordine DG voce 04.
-  void _onAnimaleContinue() => setState(() => _phase = _Phase.custodia);
+  /// **DOPO L'ANIMALE SI RIVELA LA CARTA DI NASCITA**, ordine DC voce 14
+  /// agganciata dall'ordine DG l'11 settembre 2026.
+  void _onAnimaleContinue() => setState(() {
+        _phase = _Phase.cartaDiNascita;
+        _cartaRivelata = false;
+      });
 
-  void _onAngeliContinue() => setState(() => _phase = _Phase.heaven);
+  /// **E DOPO LA CARTA, IL CIELO IN CUI SEI NATO.**
+  void _onCartaContinue() => setState(() => _phase = _Phase.heaven);
+
+  /// **DOPO GLI ANGELI VIENE L'ANIMALE**, ed e' la correzione del fondatore.
+  void _onAngeliContinue() => setState(() => _phase = _Phase.animale);
 
   void _onHeavenContinue() => setState(() => _phase = _Phase.chart);
 
@@ -178,13 +210,13 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     final sun = context.read<NatalChartController>().sunSign;
     if (sun != null) context.read<ZodiacController>().setSunSign(sun);
     _assigned = maestro;
-    // NON si chiude ancora: restano la scheda dell'animale e la custodia
-    // del cielo. Chiudere qui vorrebbe dire chiedere l'account dopo, a
-    // freddo, ed e' esattamente cio' che l'ordine N vieta.
+    // NON si chiude ancora: resta la custodia del cielo. Chiudere qui
+    // vorrebbe dire chiedere l'account dopo, a freddo, ed e' esattamente cio'
+    // che l'ordine N vieta.
     //
-    // **L'ANIMALE STA IN MEZZO FRA I DUE**, ordine DG voce 04: e' l'ultima
-    // delle schede, e l'unica che non si rivela nel Risveglio.
-    setState(() => _phase = _Phase.animale);
+    // **L'ANIMALE NON STA PIU' QUI**: sta subito dopo gli angeli, ordine DG
+    // voce 04 corretto dal fondatore l'11 settembre 2026.
+    setState(() => _phase = _Phase.custodia);
   }
 
   /// La fine vera del Risveglio, custodito o rimandato che sia.
@@ -318,6 +350,39 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
 
   Widget _buildPhase() {
     switch (_phase) {
+      case _Phase.cartaDiNascita:
+        return Stack(
+          key: const ValueKey('carta_di_nascita'),
+          children: [
+            Positioned.fill(
+              child: RivelazioneCartaDiNascita(
+                nascita: widget.details.dateTime,
+                // **CON LE ANIMAZIONI SPENTE SI SALTA ALL'ULTIMO MOMENTO.**
+                // La rivelazione si muove con un `AnimationController`, e sul
+                // 767f596c le tre scale valgono zero: senza questo resterebbe
+                // ferma sul primo fotogramma per sempre.
+                senzaMoto: MediaQuery.of(context).disableAnimations,
+                onFinita: () {
+                  if (mounted) setState(() => _cartaRivelata = true);
+                },
+              ),
+            ),
+            if (_cartaRivelata)
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: FilledButton(
+                      key: const Key('carta_di_nascita_continua'),
+                      onPressed: _onCartaContinue,
+                      child: const Text('Guarda il cielo in cui sei nato'),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
       case _Phase.heaven:
         // Il cielo alla nascita e' la STESSA schermata del cielo in tempo
         // reale, alimentata col momento della nascita: costellazioni e Luna
@@ -353,8 +418,8 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAnimaleContinue,
-          // Nessuna freccia: e' il primo, quindi un indietro non esiste e non
-          // si mostra un comando che non fa nulla.
+          // Nessuna freccia sua: il gesto Indietro retrocede di fase e porta
+          // agli Angeli, e due comandi per la stessa cosa sono uno di troppo.
         );
       case _Phase.angeli:
         return TrionfoAngeli(

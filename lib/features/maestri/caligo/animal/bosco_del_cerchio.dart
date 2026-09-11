@@ -5,6 +5,7 @@ import '../../../../core/astro/zodiac.dart';
 import '../../../../core/astro/zodiac_controller.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
+import '../../../../core/viaggio/il_nome_si_puo_dire.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -52,8 +53,21 @@ class BoscoDelCerchio extends StatelessWidget {
         return null;
       }
     }();
+    // **IL BOSCO NON ADDITA IL TUO PRIMA CHE TU L'ABBIA INCONTRATO.**
+    // Ordine DG voce 02, 12 settembre 2026.
+    //
+    // Chi arriva qui dalla lettura dell'animale porta il nome con se', e la
+    // lettura si apre solo a riconoscimento fatto. Chi ci arrivasse per
+    // un'altra strada avrebbe il segno e basta: **derivare il nome dal segno
+    // e accendere una tessera vorrebbe dire dire a chi guarda qual e' il suo
+    // animale**, che e' esattamente cio' che le quattro discese devono
+    // consegnare. Restano dodici abitanti, e nessuno acceso.
+    final dalSegno =
+        segno == null ? null : GuideAnimalDerivation.forSign(segno).name;
     final mioAnimale = mio ??
-        (segno == null ? null : GuideAnimalDerivation.forSign(segno).name);
+        (dalSegno != null && IlNomeSiPuoDire.dalCioCheSiSaGia(dalSegno)
+            ? dalSegno
+            : null);
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(

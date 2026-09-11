@@ -111,14 +111,22 @@ void main() {
         reason: 'il primo trionfo mostra una freccia che non porta indietro');
   });
 
-  testWidgets('Il cielo di nascita arriva dopo gli Angeli', (tester) async {
+  /// **L'ANIMALE ARRIVA SUBITO DOPO GLI ANGELI**, e non piu' in fondo.
+  ///
+  /// **Questa prova diceva il contrario**, e diceva il vero sull'ordine che
+  /// avevo scelto io. Il fondatore ha rifatto l'onboarding l'11 settembre 2026
+  /// e ha corretto: *"la schermata c'e' con l'animale oscurato, ma andrebbe
+  /// messa dopo la rivelazione degli angeli. adesso e' dopo la rivelazione del
+  /// maestro"*.
+  testWidgets('L Animale arriva subito dopo gli Angeli', (tester) async {
     await apriRisveglio(tester);
     await tester.tap(find.byKey(const Key('trionfo_angeli_avanti')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
     expect(find.byType(TrionfoAngeli), findsNothing);
-    expect(find.byType(TrionfoAnimale), findsNothing,
-        reason: 'l Animale non sta fra gli Angeli e il cielo: sta in fondo');
+    expect(find.byType(TrionfoAnimale), findsOneWidget,
+        reason: 'l Animale non arriva subito dopo gli Angeli: e la correzione '
+            'che il fondatore ha chiesto per nome');
   });
 }

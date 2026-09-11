@@ -2165,9 +2165,10 @@ sei giri sull'intera discesa**, cioe' tre secondi e un terzo per giro.
 giudicato da rifare: *"praticamente deve riprenderlo da capo"*. Il manifesto
 sta in `docs/ordini/ORDINE_DG_MANIFESTO.md`.
 
-**Otto voci su nove chiuse nel codice.** Resta aperta **DG.09**, il rapporto
-con le catture dal telefono: per guardare a video serve una build nuova, e
-**la build la ordina il fondatore**, come dice l'ordine stesso.
+**Otto voci su nove chiuse nel codice, piu' nove correzioni dal vivo tutte
+chiuse.** Resta aperta **DG.09**, il rapporto con le catture dal telefono: per
+guardare a video serve una build nuova, e **la build la ordina il fondatore**,
+come dice l'ordine stesso.
 
 **LA DIAGNOSI CHE TIENE INSIEME META' DELLA LISTA: c'erano DUE animali guida
 per la stessa persona.** Uno da `GuideAnimalDerivation.forSign`, deterministico
@@ -2236,6 +2237,67 @@ dall'ordine DC** e i file non c'erano: ogni `Image.asset` cadeva nel suo
 ripiego, ed e' la ragione della frase *"non ci sono tutte le immagini che ho
 creato con nano banana"*. Le dodici ombre sono 900 per 700 con **alpha vero**, e
 ogni sagoma occupa **l'ottanta per cento di un lato** della sua tela.
+
+**LA SECONDA TORNATA, 12 settembre 2026: nove correzioni dal vivo.** Il
+fondatore ha camminato la 2248 e ha parlato mentre camminava. Non e' un ordine
+nuovo, e' la stessa voce DG guardata a video: **tutte e nove chiuse nel
+codice**, e restano da vedere a video, con la stessa dipendenza di DG.09.
+
+- **La scheda dell'animale va SUBITO DOPO GLI ANGELI**, e non per ultima:
+  *"andrebbe messa dopo la rivelazione degli angeli. adesso e' dopo la
+  rivelazione del maestro"*. La voce DG.04 diceva *"dopo gli angeli, per
+  ultima"* e io avevo scelto la seconda meta' della frase. L'ordine e' adesso
+  **angeli, animale, carta di nascita, cielo, carta natale, risonanza, Maestro,
+  custodia**.
+- **L'animale resta velato in tutti i posti**, non solo nel Passaporto. Il
+  difetto non era una schermata, era **una regola senza casa**: il Passaporto la
+  sapeva da solo, dentro il suo `build`, e gli altri posti non la sapevano
+  affatto. Adesso vive in `lib/core/viaggio/il_nome_si_puo_dire.dart`. Riparati:
+  la **carta natale**, che scriveva *Lupo* a lettere intere due schermate dopo
+  la promessa di non dirlo; la **lettura dell'animale**; il **simbolo di attesa
+  di Caligo**; il **bosco del Cerchio**.
+- **La rivelazione della Carta di Nascita entra nell'onboarding.** Esisteva dal
+  10 settembre, era la voce DC.14, aveva una guardia che confronta 576 istanti
+  dell'animazione coi numeri del calcolo, **e non la chiamava nessuno**: il
+  rapporto dell'ordine DC scriveva *"vive nell'onboarding"* e non era vero.
+- **La parete di roccia entra nel tunnel.** `tunnel_parete_v1.webp` era nel ramo
+  e dichiarato in `pubspec.yaml` con **zero occorrenze in lib**: per il tunnel
+  lo slot non esisteva affatto. Si ripete a piastrella, sei giri su tutta la
+  discesa, e gli anelli del pittore restano sopra col fondo portato a velo.
+- **La discesa dura venti secondi misurati col cronometro**, non letti dalla
+  costante: quella diceva venti anche quando la discesa ne durava quarantasei.
+  Misurato: **20,04 secondi** col dito premuto, prima discesa e conosciuta.
+- **Il velo non dipende piu' da un `AnimationController`.** Il difetto e' stato
+  visto a video due volte, sulla 2247 e sulla 2248, e la prima attribuzione
+  allo `ShaderMask` era **mia e sbagliata**: tolto quello, il difetto e'
+  tornato identico. Sul 767f596c le tre scale di animazione valgono zero, e un
+  velo che vale zero e' un velo che non c'e'.
+- **La rivelazione e' cumulativa, e la testa e' dell'ultimo giorno.** Le tre
+  fasce sotto la testa si aprono dal basso, una per discesa, e **restano
+  aperte**; alla quarta resta velata la sola testa e l'area della lente **e' la
+  testa**. Prima alla quarta il velo non c'era affatto: la lente non scopriva la
+  testa, la testa era gia' li'. Misurato sui pixel: la fascia di mezzo alla
+  prima discesa sta al **10,9 per cento** della nitidezza che ha alla terza, nel
+  caso peggiore dei dodici.
+- **Il velo stringe alla prima discesa e allenta verso la terza.** Sfocatura e
+  buio erano costanti. Misurato: la testa velata alla prima sta al **72,8 per
+  cento** della nitidezza che ha alla terza, caso peggiore.
+- **La nebbia entra in dissolvenza**, un secondo e due decimi, con l'istruzione
+  che arriva a dissolvenza finita. **E la dissolvenza e' un battito, non un
+  `AnimationController`**: e' la lezione del velo, pagata due volte. Misurato:
+  la galleria parte da 1,00, a meta' vale 0,50, alla fine non c'e' piu'.
+
+**TRE GUARDIE NUOVE**, registrate in `docs/guardie.md`, che sale a **394**:
+`l_animale_resta_velato_ovunque` (nata rossa **su due file veri**, e uno era un
+difetto che non avevo visto), `nessuna_schermata_del_risveglio_e_orfana`,
+`la_discesa_dura_venti_secondi`.
+
+**E QUATTRO ORFANI CHE C'ERANO GIA', da portare al fondatore.**
+`IntertwinedAuras`, `SkyThread` e `StardustName` sono widget del vecchio
+onboarding rimasti in `lib/features/onboarding/widgets/` quando la schermata
+che li montava e' stata rifatta; `DomandaDellInvito` si costruisce da sola
+dentro la propria rotta e **nessuno spinge quella rotta**. O si agganciano o si
+tolgono: non si cancellano dentro un ordine che parla d'altro.
 
 ## L'ORDINE DF, LE RISPOSTE NON POSSONO ESSERE TUTTE UGUALI
 

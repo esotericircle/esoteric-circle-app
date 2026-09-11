@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/maestro/simbolo_dellattesa.dart';
+import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
+import 'package:esoteric_circle/core/viaggio/il_nome_si_puo_dire.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
@@ -56,6 +58,25 @@ void main() {
       expect(medora.asset, 'assets/img_thumb/zodiac/zod_cancro.webp');
 
       // Il Cancro deriva il Lupo, dalla tabella di curatela che esiste gia'.
+      //
+      // **MA IL TOTEM SOLO A NOME DETTO.** Ordine DG voce 02, 12 settembre
+      // 2026: finche' l'animale non e' stato incontrato nel Mondo di Sotto il
+      // suo simbolo e' **la sua ombra**. Caligo che aspetta mostrando il lupo
+      // a chi il lupo non l'ha ancora visto e' la stessa rivelazione che il
+      // fondatore ha bocciato nel Passaporto, fatta di sguincio.
+      IlNomeSiPuoDire.quanteDisceseNote = 0;
+      final senzaViaggio =
+          SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
+      expect(senzaViaggio.asset, contains('mondo_di_sotto/'),
+          reason: 'senza le quattro discese Caligo mostra il totem a colori, '
+              'cioe rivela l animale guida mentre aspetta');
+      expect(senzaViaggio.asset, contains('lupo'),
+          reason: 'l ombra non e la sua: deve essere la sagoma del suo '
+              'animale, non una sagoma generica');
+
+      // **E il totem quando il nome si puo' dire.**
+      IlNomeSiPuoDire.quanteDisceseNote = IQuattroViaggi.quanteDiscese;
+      addTearDown(() => IlNomeSiPuoDire.quanteDisceseNote = 0);
       final caligo = SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
       expect(caligo.asset, contains('animali/'));
       expect(caligo.asset, contains('lupo'));

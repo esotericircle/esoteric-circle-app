@@ -16,6 +16,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/onboarding/risveglio_journey.dart';
 import 'package:esoteric_circle/features/onboarding/trionfi_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
+import 'package:esoteric_circle/features/onboarding/rivelazione_carta_di_nascita.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,11 +30,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// arrivava al trionfo li aveva gia' incontrati come voci di un elenco. Un
 /// trionfo che svela il noto non e' un trionfo.
 ///
-/// **RISCRITTA DALL'ORDINE DG VOCE 04, 11 settembre 2026.** La scheda
-/// dell'animale e' passata da **prima** a **ultima**, per decisione del
-/// fondatore: *"la scheda dell'animale nell'onboarding deve comparire dopo gli
-/// angeli, per ultima"*. L'ordine e' adesso **angeli, cielo, carta, risonanza,
-/// Maestro, animale, custodia**.
+/// **RISCRITTA DALL'ORDINE DG VOCE 04, e corretta il giorno dopo dal
+/// fondatore.** La voce diceva *"dopo gli angeli, per ultima"*, e io avevo
+/// scelto la seconda meta' della frase, mettendo l'animale dopo la rivelazione
+/// del Maestro. Il fondatore ha rifatto l'onboarding e ha corretto: *"la
+/// schermata c'e' con l'animale oscurato, ma andrebbe messa dopo la
+/// rivelazione degli angeli. adesso e' dopo la rivelazione del maestro"*.
+///
+/// **L'ordine e' adesso**: angeli, **animale**, **carta di nascita**, cielo,
+/// carta natale, risonanza, Maestro, custodia. Le prime tre sono i doni che ti
+/// sono stati dati, e stanno insieme.
 ///
 /// **La legge che questa prova protegge non e' cambiata**: gli Angeli
 /// continuano ad arrivare prima della carta natale, perche' e' la carta a
@@ -70,7 +76,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 900));
   }
 
-  testWidgets('GLI ANGELI ARRIVANO PRIMA DELLA CARTA, e l Animale per ultimo',
+  testWidgets('GLI ANGELI ARRIVANO PRIMA DELLA CARTA, e l Animale subito '
+      'dopo di loro',
       (tester) async {
     silence();
     SharedPreferences.setMockInitialValues({});
@@ -109,23 +116,53 @@ void main() {
     ));
     await passo(tester);
 
-    // **LA CODA APRE CON GLI ANGELI**, ordine DG voce 04: l'animale non sta
-    // piu' qui, sta in fondo.
+    // **LA CODA APRE CON GLI ANGELI**, ordine DG voce 04.
     expect(find.byType(TrionfoAngeli), findsOneWidget,
         reason: 'la coda non apre col trionfo degli Angeli');
     expect(find.byType(TrionfoAnimale), findsNothing,
-        reason: 'l Animale apre ancora il Risveglio: la voce DG.04 lo vuole '
-            'per ultimo');
+        reason: 'l Animale apre ancora il Risveglio: viene DOPO gli Angeli');
     expect(find.byType(NatalChartReveal), findsNothing,
         reason: 'la carta natale arriva prima del trionfo degli Angeli, '
             'quindi il trionfo rivelerebbe una cosa gia\' vista');
 
-    // Poi il cielo di nascita, e SOLO dopo la carta, che raccoglie i compagni
-    // gia' incontrati uno per uno.
+    // **POI L'ANIMALE, SUBITO DOPO DI LORO**, ed e' la correzione del
+    // fondatore dell'11 settembre 2026.
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 300));
     }
     await tester.tap(find.byKey(const Key('trionfo_angeli_avanti')));
+    await passo(tester);
+    expect(find.byType(TrionfoAnimale), findsOneWidget,
+        reason: 'dopo gli Angeli deve arrivare l Animale: e la correzione del '
+            'fondatore, "andrebbe messa dopo la rivelazione degli angeli"');
+    expect(find.byType(NatalChartReveal), findsNothing,
+        reason: 'la carta arriva prima dell Animale');
+
+    // **POI LA CARTA DI NASCITA**, ordine DC voce 14 agganciata dall ordine
+    // DG: la schermata esisteva, provata, e non la apriva nessuno.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await tester.tap(find.byKey(const Key('trionfo_animale_avanti')));
+    await passo(tester);
+    expect(find.byKey(const Key('rivelazione_carta_di_nascita')),
+        findsOneWidget,
+        reason: 'dopo l Animale deve arrivare la rivelazione della Carta di '
+            'Nascita: il fondatore l ha trovata mancante rifacendo l '
+            'onboarding');
+
+    // **IL PULSANTE ARRIVA A RIVELAZIONE FINITA**, non prima: sette secondi
+    // in cui non c'e' niente da toccare, perche' un pulsante acceso in mezzo
+    // inviterebbe a saltare proprio il pezzo che racconta il calcolo.
+    expect(find.byKey(const Key('carta_di_nascita_continua')), findsNothing,
+        reason: 'il pulsante della Carta di Nascita e acceso mentre la '
+            'rivelazione sta ancora raccontando il calcolo');
+    await tester.pump(RivelazioneCartaDiNascita.quantoDura);
+    await passo(tester);
+
+    // Poi il cielo di nascita, e SOLO dopo la carta natale, che raccoglie i
+    // compagni gia' incontrati uno per uno.
+    await tester.tap(find.byKey(const Key('carta_di_nascita_continua')));
     await passo(tester);
     expect(find.byType(NatalChartReveal), findsNothing,
         reason: 'la carta arriva prima del cielo di nascita');

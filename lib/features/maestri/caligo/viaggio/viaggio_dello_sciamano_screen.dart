@@ -10,6 +10,7 @@ import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
+import '../../../../core/viaggio/dove_sta_la_testa.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../core/viaggio/la_voce_del_mondo_di_sotto.dart';
@@ -79,6 +80,20 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
           child: ViaggioDelloSciamanoScreen(userSign: userSign, now: now),
         ));
   }
+
+  /// **QUANTO DURA LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce
+  /// 09: un secondo e due decimi.
+  ///
+  /// **Sta nella classe pubblica e non nello stato** perche' una guardia
+  /// deve poterlo leggere: la prova che misura la dissolvenza aspetta questo
+  /// tempo e non un numero scritto due volte.
+  ///
+  /// **Perche' non mezzo secondo e perche' non tre.** Sotto il mezzo secondo
+  /// l'occhio legge ancora un taglio, e la dissolvenza tanto varrebbe non
+  /// farla. Sopra i due secondi diventa un'attesa in piu' dentro una discesa
+  /// che il fondatore ha gia' chiesto di accorciare, e si pagherebbe con il
+  /// tempo cio' che si e' guadagnato con la grazia.
+  static const Duration quantoDuraLaDissolvenza = Duration(milliseconds: 1200);
 
   @override
   State<ViaggioDelloSciamanoScreen> createState() =>
@@ -152,6 +167,20 @@ class _ViaggioDelloSciamanoScreenState
   /// **QUANTO LA NEBBIA E' GIA' DIRADATA**, da 0 a 1. Ordine DG voce 05.
   double _nebbia = 0;
 
+  /// **QUANTO IL TUNNEL SI E' GIA' DISSOLTO**, da 0 a 1. Ordine DG voce 09,
+  /// 12 settembre 2026: *"quando si scende, dovrebbe esserci una dissolvenza
+  /// che introduce la nebbia"*.
+  ///
+  /// Sotto c'e' gia' la nebbia, e la galleria svanisce sopra di lei. A uno la
+  /// dissolvenza e' finita.
+  double _entraLaNebbia = 0;
+
+  /// Il battito della dissolvenza. **Non un `AnimationController`**: sul
+  /// 767f596c le scale di animazione valgono zero, e una dissolvenza fatta col
+  /// controller sarebbe il taglio secco di prima con la convinzione di averlo
+  /// tolto.
+  Timer? _dissolvenza;
+
   /// **QUANTO IL DITO STA SPINGENDO**, da 0 a 1. Cala da sola a ogni battito:
   /// fermarsi non tiene aperto.
   double _spintaDelDito = 0;
@@ -219,6 +248,7 @@ class _ViaggioDelloSciamanoScreenState
   @override
   void dispose() {
     _discesa?.cancel();
+    _dissolvenza?.cancel();
     _fermaIlRespiro();
     _domanda.dispose();
     super.dispose();
@@ -295,11 +325,34 @@ class _ViaggioDelloSciamanoScreenState
           _fase = FaseDelViaggio.nebbia;
           _nebbia = 0;
           _spintaDelDito = 0;
+          // **LA GALLERIA NON SPARISCE, SI DISSOLVE.** Ordine DG voce 09.
+          _entraLaNebbia = 0;
+          _accendiLaDissolvenza();
           _respiro?.cancel();
           _respiro = Timer.periodic(
               RespiroCheDirada.passo, _unRespiroDiNebbia);
           unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
         }
+      });
+    });
+  }
+
+  /// **ACCENDE LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce 09.
+  ///
+  /// Il passo e' lo stesso battito da sessanta millisecondi della discesa: un
+  /// solo ritmo in tutta la scena, e nessun orologio nuovo da tenere a mente.
+  void _accendiLaDissolvenza() {
+    _dissolvenza?.cancel();
+    const passo = Duration(milliseconds: 60);
+    _dissolvenza = Timer.periodic(passo, (t) {
+      if (!mounted) return t.cancel();
+      setState(() {
+        _entraLaNebbia = (_entraLaNebbia +
+                passo.inMilliseconds /
+                    ViaggioDelloSciamanoScreen
+                        .quantoDuraLaDissolvenza.inMilliseconds)
+            .clamp(0.0, 1.0);
+        if (_entraLaNebbia >= 1.0) t.cancel();
       });
     });
   }
@@ -1155,19 +1208,39 @@ class _ViaggioDelloSciamanoScreenState
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(SpacingTokens.xl),
-                // **CORTA, PERCHE' E' UN'ETICHETTA.** La guardia
-                // `etichette_e_lettura` pretende una riga sola: *"Passa la
-                // mano: la nebbia si apre"* ne occupava due.
-                child: Text('Passa la mano',
-                    key: const Key('viaggio_istruzione_nebbia'),
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
+            // **LA GALLERIA CHE SVANISCE SOPRA LA NEBBIA.** Ordine DG voce
+            // 09, 12 settembre 2026: *"quando si scende, dovrebbe esserci una
+            // dissolvenza che introduce la nebbia"*. Il tunnel resta fermo al
+            // fondo della discesa e perde corpo, e sotto di lui c'e' gia' la
+            // nebbia intera.
+            if (_entraLaNebbia < 1)
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: Opacity(
+                    key: const Key('viaggio_dissolvenza_della_nebbia'),
+                    opacity: (1 - _entraLaNebbia).clamp(0.0, 1.0),
+                    child: const TunnelCheScende(
+                        quantoSiEScesi: 1, senzaMoto: true),
+                  ),
+                ),
               ),
-            ),
+            // **L'ISTRUZIONE ARRIVA A DISSOLVENZA FINITA**, non prima: dire
+            // *"passa la mano"* mentre si vede ancora la galleria sarebbe dire
+            // una cosa falsa.
+            if (_entraLaNebbia >= 1)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingTokens.xl),
+                  // **CORTA, PERCHE' E' UN'ETICHETTA.** La guardia
+                  // `etichette_e_lettura` pretende una riga sola: *"Passa la
+                  // mano: la nebbia si apre"* ne occupava due.
+                  child: Text('Passa la mano',
+                      key: const Key('viaggio_istruzione_nebbia'),
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.4)),
+                ),
+              ),
           ],
         ),
       );
@@ -1261,9 +1334,11 @@ class _ViaggioDelloSciamanoScreenState
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  quale >= IQuattroViaggi.quanteDiscese - 1
+                  quale > DoveStaLaTesta.quanteFasce
                       ? 'Il velo è caduto.'
-                      : 'Passa il dito: la lente scopre solo dove può, oggi.',
+                      : quale == DoveStaLaTesta.quanteFasce
+                          ? 'Oggi la lente scopre il suo volto.'
+                          : 'Passa il dito: la lente scopre solo dove può, oggi.',
                   key: const Key('viaggio_istruzione_lente'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.etichetta()

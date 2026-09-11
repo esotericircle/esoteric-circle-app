@@ -9,6 +9,10 @@ import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_corpus.dart';
+import '../../../../core/viaggio/i_quattro_viaggi.dart';
+import '../../../../core/viaggio/il_nome_si_puo_dire.dart';
+import '../../../../core/viaggio/l_annuncio_dell_animale.dart';
+import '../viaggio/la_lente_che_scopre.dart';
 import '../../../../core/rituals/guide_animal_day.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../design_system/components/cosmos_background.dart';
@@ -116,6 +120,10 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
 
   bool _pronto = false;
   bool _popupFatto = false;
+
+  /// **SE IL NOME SI PUO' DIRE.** Ordine DG voce 02, 12 settembre 2026.
+  /// Nasce chiuso: finche' l'archivio non ha risposto non si rivela niente.
+  bool _nomeSiPuoDire = false;
   Archetype? _archetipo;
 
   /// La fase vale solo nel modo viaggio. In identita' si va dritti alla lettura.
@@ -139,6 +147,12 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   @override
   void initState() {
     super.initState();
+    // **PRIMA DI TUTTO, SI PUO' DIRE?** La lettura dell'animale e' la
+    // rivelazione intera, nome e totem e corpus: prima delle quattro discese
+    // non si apre.
+    IlNomeSiPuoDire.chiedendoloAllArchivio(_animal.name).then((si) {
+      if (mounted && si) setState(() => _nomeSiPuoDire = true);
+    });
     _storico.carica().then((_) {
       if (!mounted) return;
       setState(() {
@@ -201,7 +215,12 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         child: SafeArea(
           child: !_pronto
               ? const SizedBox.shrink()
-              : widget.modo == GuideAnimalMode.identita
+              : !_nomeSiPuoDire
+                  // **ANCORA NON SI PUO' DIRE**, e non si mostra una
+                  // schermata vuota: si dice perche', e si indica dove si
+                  // riempie.
+                  ? _AncoraNo(palette: palette, animal: _animal)
+                  : widget.modo == GuideAnimalMode.identita
                   ? _Identita(
                       palette: palette,
                       animal: _animal,
@@ -768,4 +787,51 @@ class _AzioniState extends State<_Azioni> {
       ],
     );
   }
+}
+
+
+/// **QUELLO CHE SI VEDE PRIMA DELLE QUATTRO DISCESE.** Ordine DG voce 02.
+///
+/// Non una schermata vuota e non un lucchetto: la sua ombra, la ragione, e il
+/// posto dove si va a riempire la casella.
+class _AncoraNo extends StatelessWidget {
+  const _AncoraNo({required this.palette, required this.animal});
+
+  final MaestroPalette palette;
+  final GuideAnimal animal;
+
+  @override
+  Widget build(BuildContext context) => Center(
+        key: const Key('animale_ancora_senza_nome'),
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.xl),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 180,
+                height: 180,
+                child: OmbraDellAnimale(
+                  immagine: animal.ombraPath,
+                  giaSagoma: true,
+                  quantaLuce: 0.20 +
+                      0.20 * IlNomeSiPuoDire.quanteDisceseNote.clamp(0, 3),
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+              Text(IlNomeSiPuoDire.alPostoDelNome,
+                  style: TypographyTokens.titoloSezione()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.sm),
+              ParagrafiDiLettura(
+                testo: LAnnuncioDellAnimale.sottoLaSagoma(
+                    IlNomeSiPuoDire.quanteDisceseNote,
+                    IQuattroViaggi.quanteDiscese),
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary),
+              ),
+            ],
+          ),
+        ),
+      );
 }

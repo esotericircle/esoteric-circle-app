@@ -39,15 +39,42 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 124 |
+| Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 99 |
-| Guardie che non scoprono nessun insieme di file | 168 |
-| **Somma delle categorie** | **391** |
-| **Guardie secondo la definizione** | **391** |
+| Guardie che non scoprono nessun insieme di file | 169 |
+| **Somma delle categorie** | **394** |
+| **Guardie secondo la definizione** | **394** |
 
-**Ricontate l'11 settembre 2026, dopo l'ordine DG**, che ha portato **due
-guardie nuove**: il totale sale da 389 a **391** e le tre categorie a **124, 99
-e 168**.
+**Ricontate il 12 settembre 2026, dopo la seconda tornata dell'ordine DG**, che
+ha portato **tre guardie nuove**: il totale sale da 391 a **394** e le tre
+categorie a **126, 99 e 169**.
+
+**`l_animale_resta_velato_ovunque`** nasce dalla frase del fondatore *"nel
+Passport mi fa gia' vedere il lupo. il mio animale"*. Il difetto non era una
+schermata: era **una regola senza casa**. Il Passaporto sapeva che il nome si
+dice dopo quattro discese e lo sapeva da solo, dentro il suo `build`; la carta
+natale scriveva *Lupo* a lettere intere; il simbolo di attesa di Caligo
+mostrava il totem. La guardia cerca **ogni file che deriva l'animale dal segno**
+e pretende che sappia della soglia. **Nata rossa su due file veri**, il bosco
+del Cerchio e il Risveglio, e il primo dei due era un difetto che non avevo
+visto.
+
+**`nessuna_schermata_del_risveglio_e_orfana`** nasce da *"nell'onboarding manca
+anche la schermata di rivelazione della carta di nascita"*.
+`RivelazioneCartaDiNascita` esisteva dal 10 settembre, era la voce DC.14, aveva
+una guardia che confrontava **576 istanti dell'animazione coi numeri del
+calcolo**, e non la chiamava nessuno. Nessuna guardia se n'era accorta perche'
+tutte guardavano **il contenuto** e nessuna **la strada**. Misura due cose: che
+ogni widget dell'onboarding sia costruito da qualcuno, e che ogni tappa del
+Risveglio sia **assegnata**, non solo montabile. Nata rossa due volte, una per
+meta'.
+
+**`la_discesa_dura_venti_secondi`** nasce da *"il viaggio in discesa fa
+veramente cagare ed e' lunghissimo"*. La costante diceva venti secondi **anche
+quando la discesa ne durava quarantasei**: leggerla proverebbe che un numero
+vale venti, non che il dito resta premuto venti secondi. Questa **tiene il dito
+premuto e conta il tempo**. Nata rossa riportando la discesa conosciuta a nove
+secondi, e misura anche la dissolvenza che introduce la nebbia.
 
 **`l_animale_guida_ha_una_porta_sola`** nasce dalla famiglia di difetti delle
 **due porte**: l'app calcolava l'animale guida in due modi, dal segno solare e
@@ -451,6 +478,7 @@ le altre.
 | `il_volume_non_resta_giu_test.dart` | il volume non resta giu | 4 | non scopre insiemi di file | mai | 3 |
 | `il_vuoto_sotto_i_maestri_test.dart` | il vuoto sotto i maestri | 1 | non scopre insiemi di file | mai | 3 |
 | `intro_test.dart` | intro | 1, 2 | dalla porta comune | mai | 3 |
+| `l_animale_resta_velato_ovunque_test.dart` | chi deriva l animale dal segno sa che puo doverlo tacere | 1, 2 | dalla porta comune | 12/09/2026, DG (rossa su due file veri: il bosco del Cerchio e il Risveglio) | 1 |
 | `l_animale_guida_ha_una_porta_sola_test.dart` | l animale guida ha una porta sola | 1, 2 | dalla porta comune | 11/09/2026, DG (rossa: rimessa seguitoDaLeQuattroScelte nel Passaporto) | 1 |
 | `l_ombra_e_il_suo_animale_test.dart` | l ombra e il suo animale | 1, 2 | proprio, dichiarato | 11/09/2026, DG (rossa: l ombra del Lupo copiata su quella dell Aquila, somiglianza 100 per cento) | 1 |
 | `l_account_dice_chi_sei_e_come_uscire_test.dart` | l account dice chi sei e come uscire | 1, 2 | non scopre insiemi di file | mai | 3 |
@@ -491,6 +519,7 @@ le altre.
 | `la_chiave_e_il_consiglio_si_vedono_test.dart` | la chiave e il consiglio si vedono | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_colonna_dei_suggerimenti_non_esiste_piu_test.dart` | la colonna dei suggerimenti non esiste piu | 1 | dalla porta comune | mai | 3 |
 | `la_corsa_dello_zodiaco_test.dart` | la corsa dello zodiaco | 1 | proprio, dichiarato | mai | 3 |
+| `la_discesa_dura_venti_secondi_test.dart` | la discesa dura venti secondi, e la nebbia entra in dissolvenza | 1, 2 | non scopre insiemi di file | 12/09/2026, DG (rossa due volte: la discesa conosciuta a nove secondi, e la dissolvenza saltata a uno) | 1 |
 | `la_domanda_entra_nel_responso_test.dart` | la domanda entra nel responso | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `la_domanda_libera_si_trova_test.dart` | la domanda libera si trova | 1 | non scopre insiemi di file | 03/09/2026, CQ | 3 |
 | `la_domanda_scelta_arriva_al_responso_test.dart` | la domanda scelta arriva al responso | 1, 2 | dalla porta comune | mai | 3 |
@@ -587,6 +616,7 @@ le altre.
 | `nessuna_azione_committa_da_sola_test.dart` | nessuna azione committa da sola | 1 | dalla porta comune | mai | 3 |
 | `nessuna_frase_esce_due_volte_test.dart` | nessuna frase esce due volte | 1, 2 | proprio, dichiarato | 08/09/2026, CY | 2 |
 | `nessuna_promessa_di_memoria_integrale_test.dart` | nessuna promessa di memoria integrale | 1, 2 | proprio, dichiarato | mai | 3 |
+| `nessuna_schermata_del_risveglio_e_orfana_test.dart` | nessuna schermata dell onboarding resta orfana, e ogni tappa e raggiunta | 1, 2 | dalla porta comune | 12/09/2026, DG (rossa due volte: l orfano e la tappa mai assegnata) | 1 |
 | `nessuna_sorgente_resta_accesa_in_sottofondo_test.dart` | nessuna sorgente resta accesa in sottofondo | 1, 2 | dalla porta comune | 07/09/2026, CT | 2 |
 | `nessuno_disegna_oltre_la_tela_test.dart` | nessuno disegna oltre la tela | 1, 2 | proprio, dichiarato | mai | 3 |
 | `niente_eco_test.dart` | niente eco | 1, 2 | dalla porta comune | 01/09/2026, CM | 3 |

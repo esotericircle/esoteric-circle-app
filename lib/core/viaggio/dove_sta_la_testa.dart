@@ -110,8 +110,50 @@ abstract final class DoveStaLaTesta {
   /// e il centro della lente e' tenuto dentro l'area **rientrato del proprio
   /// raggio**, allora il cerchio non arriva mai sopra quella riga. Il
   /// rettangolo della testa **non puo'** essere scoperto, per costruzione.
+  /// **FIN DOVE ARRIVA IL VELO, alla discesa [discesa].** Ordine DG del
+  /// 12 settembre 2026.
+  ///
+  /// Il velo copre **dall'alto della scena fino a questa quota**, e quello che
+  /// sta sotto e' gia' stato scoperto nelle discese precedenti. Le fasce si
+  /// scoprono dal basso verso l'alto, una per discesa, **e restano scoperte**.
+  ///
+  /// - alla **prima** vale 1, cioe' il velo copre tutto: non si e' scoperto
+  ///   ancora niente;
+  /// - alla **seconda** si ferma sopra la fascia bassa, che resta in chiaro;
+  /// - alla **quarta** vale [sottoLaTesta], cioe' **resta velata la sola
+  ///   testa**, ed e' la lente di quel giorno a scoprirla.
+  ///
+  /// **Perche' non serve una memoria nuova.** Perche' le fasce si scoprono in
+  /// ordine: sapere **quante** discese sono state fatte basta a sapere
+  /// **quali** fasce sono gia' aperte.
+  static double finDoveArrivaIlVelo(String nome, int discesa) {
+    final cima = sottoLaTesta(nome);
+    if (discesa <= 0) return 1.0;
+    // **DOPO LA QUARTA IL VELO NON C'E' PIU'.**
+    if (discesa > quanteFasce) return 0.0;
+    if (discesa >= quanteFasce) return cima;
+    final altezza = (1.0 - cima) / quanteFasce;
+    return cima + altezza * (quanteFasce - discesa);
+  }
+
+  /// **QUANTE FASCE SOTTO LA TESTA.** Tre, una per ognuna delle prime tre
+  /// discese: la quarta e' della testa.
+  static const int quanteFasce = 3;
+
   static Rect areaDellaDiscesa(String nome, int discesa) {
-    if (discesa >= 3) return const Rect.fromLTRB(0, 0, 1, 1);
+    // **DOPO LA QUARTA NON C'E' PIU' NIENTE DA SCOPRIRE**, e l'area e'
+    // l'immagine intera: e' lo stato della card della rivelazione.
+    if (discesa > quanteFasce) return const Rect.fromLTRB(0, 0, 1, 1);
+    // **LA QUARTA DISCESA E' LA DISCESA DELLA TESTA.** Ordine DG,
+    // 12 settembre 2026: *"solo l'ultimo giorno la lente scoprira' la testa
+    // dell'animale"*.
+    //
+    // **Qui tornava l'immagine intera**, e con `velato` falso: il quarto
+    // giorno l'animale si vedeva tutto **senza passare la lente**. La lente
+    // non scopriva la testa, la testa era gia' li'.
+    if (discesa == quanteFasce) {
+      return Rect.fromLTRB(0, 0, 1, sottoLaTesta(nome));
+    }
     final cima = sottoLaTesta(nome);
     final altezza = (1.0 - cima) / 3.0;
     // La discesa 0 e' la fascia piu' bassa, la 2 la piu' alta delle tre.

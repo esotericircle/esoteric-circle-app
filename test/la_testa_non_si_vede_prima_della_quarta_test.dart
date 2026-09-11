@@ -107,20 +107,37 @@ void main() {
         reason: 'in qualche caso la lente arriva a toccare la testa');
   });
 
-  test("REGOLA H, SECONDA META: alla QUARTA discesa la testa E' "
-      "raggiungibile, per tutti e dodici", () {
+  test("REGOLA H, SECONDA META: alla QUARTA discesa la lente ARRIVA sulla "
+      "testa, per tutti e dodici", () {
     // **Senza questa meta' la prima sarebbe verde anche con la lente
     // spenta.** Una lente che non si apre mai copre la testa benissimo.
+    //
+    // **LA QUARTA E' LA DISCESA DELLA TESTA**, e non piu' la discesa in cui
+    // non c'e' niente da scoprire. Ordine DG, 12 settembre 2026: *"solo
+    // l'ultimo giorno la lente scoprira' la testa dell'animale"*. Prima qui
+    // si pretendeva l'immagine intera, cioe' **il velo caduto**: il quarto
+    // giorno l'animale si vedeva tutto senza passare la lente, e la lente non
+    // scopriva niente perche' non c'era piu' niente da scoprire.
     for (final animale in AnimalCatalog.animals) {
       final testa = DoveStaLaTesta.di(animale.name)!;
       final area = DoveStaLaTesta.areaDellaDiscesa(animale.name, 3);
-      expect(area, const Rect.fromLTRB(0, 0, 1, 1),
-          reason: 'alla quarta discesa ${animale.name} ha ancora un limite: il '
-              'velo non cade');
+      expect(area.top, 0,
+          reason: 'alla quarta discesa la lente di ${animale.name} non '
+              'arriva in cima: la testa resterebbe fuori');
+      expect(area.bottom, DoveStaLaTesta.sottoLaTesta(animale.name),
+          reason: "alla quarta discesa l'area di ${animale.name} non e la sua "
+              'testa: o e tutta l immagine, e allora non c e niente da '
+              'scoprire, o e una fascia sbagliata');
       // E il centro della testa e' dentro l'area concessa.
       expect(area.contains(testa.center), isTrue,
           reason: 'alla quarta discesa il centro della testa di '
               "${animale.name} sta fuori dall'area concessa");
+      // **E DOPO LA QUARTA non c'e' piu' nessun limite**: e' lo stato della
+      // card della rivelazione, dove l'animale si vede intero.
+      expect(DoveStaLaTesta.areaDellaDiscesa(animale.name, 4),
+          const Rect.fromLTRB(0, 0, 1, 1),
+          reason: 'dopo la quarta discesa ${animale.name} ha ancora un '
+              'limite: il velo non cade mai');
     }
   });
 
@@ -166,7 +183,9 @@ void main() {
     }
 
     final velo = find.byKey(const Key('viaggio_velo_dell_animale'));
-    for (var d = 0; d < 3; d++) {
+    // **IL VELO C'E' IN TUTTE E QUATTRO LE DISCESE**, e alla quarta copre la
+    // sola testa: ordine DG, 12 settembre 2026.
+    for (var d = 0; d <= DoveStaLaTesta.quanteFasce; d++) {
       await apri(d);
       // ignore: avoid_print
       print('ORDINE DE VOCE 03: alla discesa ${d + 1} i veli a schermo sono '
@@ -176,14 +195,16 @@ void main() {
               "l'animale si vede tutto, testa compresa");
     }
 
-    await apri(3);
+    // **E CADE DOPO LA QUARTA**, che e' lo stato della card della
+    // rivelazione: li' l'animale si vede intero, e la funzione finisce.
+    await apri(DoveStaLaTesta.quanteFasce + 1);
     await tester.pump(LenteCheScopre.quantoDuraLaCaduta);
     await tester.pump(const Duration(milliseconds: 100));
     // ignore: avoid_print
-    print('ORDINE DE VOCE 03: alla quarta discesa i veli a schermo sono '
+    print('ORDINE DG: compiute le quattro discese i veli a schermo sono '
         '${velo.evaluate().length}');
     expect(velo, findsNothing,
-        reason: "alla quarta discesa il velo e' ancora li': la testa "
+        reason: "compiute le quattro discese il velo e' ancora li': la testa "
             "non si vede mai, e la funzione non finisce");
   });
 }

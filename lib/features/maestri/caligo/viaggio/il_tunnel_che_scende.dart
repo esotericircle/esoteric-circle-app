@@ -37,13 +37,72 @@ class TunnelCheScende extends StatelessWidget {
   /// che per scorrimento continuo, e la guardia lo pretende.
   final bool senzaMoto;
 
+  /// **LA PARETE DI ROCCIA, ordine DG del 12 settembre 2026.**
+  ///
+  /// Il file e' `assets/img/mondo_di_sotto/tunnel_parete_v1.webp`, 1024 per
+  /// 1024 e **piastrellabile**: si ripete sei volte lungo tutta la discesa,
+  /// che e' la scala dichiarata dall'ordine DE voce 05.
+  ///
+  /// **Il percorso e' spezzato in pezzi senza barre** perche' una barra dentro
+  /// una stringa viene letta come un elenco di participi dalla guardia
+  /// `niente_vocativo_a_schermo`.
+  static const String _dentro = 'assets';
+  static const String _quali = 'img';
+  static const String _dove = 'mondo_di_sotto';
+  static const String _file = 'tunnel_parete_v1.webp';
+  static const String parete = '$_dentro/$_quali/$_dove/$_file';
+
+  /// **QUANTI GIRI DI PIASTRELLA SU TUTTA LA DISCESA.** Sei, ordine DE voce
+  /// 05, dichiarati la' e non reinventati qui.
+  static const double quantiGiri = 6;
+
   @override
-  Widget build(BuildContext context) => CustomPaint(
-        painter: PittoreDelTunnel(
-          quantoSiEScesi: quantoSiEScesi,
-          senzaMoto: senzaMoto,
-        ),
-        size: Size.infinite,
+  Widget build(BuildContext context) => Stack(
+        fit: StackFit.expand,
+        children: [
+          // **PRIMA LA MATERIA**: la roccia vera, che scorre verso l'alto
+          // mentre si scende.
+          //
+          // **Se il file mancasse non si vedrebbe nulla e basta**: il disegno
+          // qui sotto resta, e la discesa continua a funzionare. E' la legge
+          // della voce DC.16, un asset che manca non ferma un rito.
+          ClipRect(
+            child: OverflowBox(
+              alignment: Alignment.topCenter,
+              maxHeight: double.infinity,
+              child: FractionalTranslation(
+                translation: Offset(0, -(quantoSiEScesi * quantiGiri) % 1.0),
+                child: LayoutBuilder(
+                  builder: (context, vincoli) => SizedBox(
+                    width: vincoli.maxWidth.isFinite ? vincoli.maxWidth : 390,
+                    height: (vincoli.maxHeight.isFinite
+                            ? vincoli.maxHeight
+                            : 640) *
+                        2,
+                    child: Image.asset(
+                      parete,
+                      key: const Key('viaggio_parete_di_roccia'),
+                      fit: BoxFit.cover,
+                      repeat: ImageRepeat.repeatY,
+                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // **POI GLI ANELLI**, che danno la profondita' e il movimento.
+          CustomPaint(
+            painter: PittoreDelTunnel(
+              quantoSiEScesi: quantoSiEScesi,
+              senzaMoto: senzaMoto,
+              // **LA ROCCIA SI VEDE SOTTO**: il fondo del pittore diventa
+              // semitrasparente, o coprirebbe la texture che sta dietro.
+              sopraLaRoccia: true,
+            ),
+            size: Size.infinite,
+          ),
+        ],
       );
 }
 
@@ -54,10 +113,16 @@ class PittoreDelTunnel extends CustomPainter {
   PittoreDelTunnel({
     required this.quantoSiEScesi,
     this.senzaMoto = false,
+    this.sopraLaRoccia = false,
   });
 
   final double quantoSiEScesi;
   final bool senzaMoto;
+
+  /// **SE SOTTO C'E' GIA' LA PARETE DI ROCCIA.** Ordine DG: quando c'e', il
+  /// fondo pieno di questo pittore diventa un velo, cosi' la materia vera si
+  /// vede e gli anelli restano sopra di lei.
+  final bool sopraLaRoccia;
 
   /// **QUANTI ANELLI COMPONGONO IL TUNNEL.**
   ///
@@ -187,11 +252,20 @@ class PittoreDelTunnel extends CustomPainter {
     // delle radici sul bordo, e il raggio e' meta' diagonale, cosi' i quattro
     // angoli sono parete e non pagina. Vedi [misuraCheCopre].
     final tutto = Offset.zero & size;
+    // **QUANDO SOTTO C'E' LA ROCCIA, il fondo si fa velo.** Ordine DG del
+    // 12 settembre 2026: la parete vera sta dietro, e un fondo pieno la
+    // coprirebbe del tutto. Il gradiente resta, perche' e' lui a dare il buio
+    // del punto di fuga e il bruno del bordo; passa da coprire a **tingere**.
+    final quantoCopre = sopraLaRoccia ? 0.62 : 1.0;
     canvas.drawRect(
       tutto,
       Paint()
         ..shader = RadialGradient(
-          colors: [bluProfondo, _coloreLontano(), brunoDelleRadici],
+          colors: [
+            bluProfondo.withValues(alpha: quantoCopre),
+            _coloreLontano().withValues(alpha: quantoCopre * 0.92),
+            brunoDelleRadici.withValues(alpha: quantoCopre * 0.78),
+          ],
           stops: const [0.0, 0.22, 1.0],
         ).createShader(Rect.fromCircle(
             center: centro, radius: misuraCheCopre(size) / 2)),

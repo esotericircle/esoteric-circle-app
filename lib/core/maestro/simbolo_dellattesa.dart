@@ -2,6 +2,7 @@ import '../archetypes/archetype.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../astro/zodiac.dart';
 import '../rituals/guide_animal_derivation.dart';
+import '../viaggio/il_nome_si_puo_dire.dart';
 import 'maestro.dart';
 import 'natal_context.dart';
 
@@ -85,8 +86,16 @@ class SimboloDellAttesa {
       case Maestro.caligo:
         if (segno == null) return const SimboloDellAttesa();
         final animale = GuideAnimalDerivation.forSign(segno);
+        // **IL TOTEM SOLO A NOME DETTO.** Ordine DG voce 02, 12 settembre
+        // 2026: finche' l'animale non e' stato incontrato nel Mondo di Sotto
+        // il suo simbolo e' **la sua ombra**, che dice che c'e' e non dice
+        // quale. Caligo che aspetta mostrando il lupo a chi il lupo non l'ha
+        // ancora visto e' la stessa rivelazione del Passaporto, fatta di
+        // sguincio.
         return SimboloDellAttesa(
-          asset: 'assets/img_thumb/animali/${animale.stem}.webp',
+          asset: IlNomeSiPuoDire.dalCioCheSiSaGia(animale.name)
+              ? 'assets/img_thumb/animali/${animale.stem}.webp'
+              : animale.ombraPath,
         );
       case Maestro.aura:
         if (archetipo != null) {

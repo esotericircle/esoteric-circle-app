@@ -229,7 +229,12 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                         // **dopo** gli angeli e non prima, quindi *"chi altro
                         // veglia su di me"* non e' piu' vero. Dopo di questa
                         // si custodisce il cielo.
-                        child: Text('Custodisci il mio cielo',
+                        // **DICE DOVE PORTA**, e adesso porta al cielo di
+                        // nascita: la scheda dell'animale non e' piu'
+                        // l'ultima, ordine DG voce 04 corretto l'11 settembre
+                        // 2026. *"Custodisci il mio cielo"* era il congedo, e
+                        // il congedo adesso e' della custodia.
+                        child: Text('La tua Carta di Nascita',
                             style: TypographyTokens.corpo(weight: 600)
                                 .copyWith(color: widget.palette.deepest)),
                       ),
@@ -424,7 +429,10 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                           ),
                         ),
                         onPressed: invito > 0.5 ? widget.onContinue : null,
-                        child: Text('Continua',
+                        // **DICE DOVE PORTA**, e porta all'animale guida.
+                        // *"Continua"* non diceva niente, ed era l'unica delle
+                        // schede a non annunciare la prossima.
+                        child: Text('Chi altro ti accompagna',
                             style: TypographyTokens.corpo(weight: 600)
                                 .copyWith(color: widget.palette.deepest)),
                       ),

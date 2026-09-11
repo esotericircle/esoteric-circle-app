@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app_flags.dart';
+import 'il_nome_si_puo_dire.dart';
 import 'scena_del_viaggio.dart';
 import 'vocabolario_del_viaggio.dart';
 
@@ -70,6 +71,9 @@ class DiarioDeiViaggi {
     await prefs.remove(_chiaveDeiNutrimenti);
     _viaggi = const [];
     _nutrimenti = const [];
+    // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
+    // Viaggio a zero discese lasciando il nome detto in mezza app.
+    IlNomeSiPuoDire.quanteDisceseNote = 0;
     return true;
   }
 
@@ -87,6 +91,11 @@ class DiarioDeiViaggi {
       }
       letti.sort((a, b) => b.quando.compareTo(a.quando));
       _viaggi = List.unmodifiable(letti);
+      // **QUI NASCE IL CONTO DELLE DISCESE, e da qui lo sa chi non puo'
+      // aspettare.** Ordine DG voce 02: il simbolo dell'attesa di una chat si
+      // disegna dentro un `build` sincrono, e senza questa riga mostrerebbe
+      // il totem a chi non lo ha ancora incontrato.
+      IlNomeSiPuoDire.quanteDisceseNote = _viaggi.length;
       // **I NUTRIMENTI, ordine DE voce 12.** Stessa indulgenza del diario: un
       // elenco illeggibile vale un elenco vuoto, e chi torna trova comunque
       // il tamburo.

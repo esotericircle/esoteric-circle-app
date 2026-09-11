@@ -47,7 +47,12 @@ class LenteCheScopre extends StatefulWidget {
   /// Il percorso dell'illustrazione vera.
   final String immagine;
 
-  /// La discesa, contata da zero. Alla quarta, cioe' a 3, il velo cade.
+  /// La discesa, contata da zero.
+  ///
+  /// **Alla quarta, cioe' a 3, il velo copre la sola testa** ed e' la lente di
+  /// quel giorno a scoprirla. Ordine DG, 12 settembre 2026. Il velo cade
+  /// **dopo**, a discesa maggiore di tre, che e' lo stato della card della
+  /// rivelazione.
   final int discesa;
 
   /// Iniettabile per le prove. Nullo vuol dire chiederlo a `MediaQuery`.
@@ -72,6 +77,44 @@ class LenteCheScopre extends StatefulWidget {
   /// da cinquantadue.
   static const double quantoSfocaIlVelo = 0.035;
 
+  /// **QUANTO SFOCA ALLA PRIMA DISCESA**, che e' il doppio abbondante.
+  ///
+  /// **Parole del fondatore:** *"l'animale sfocato con la lente si capisce
+  /// benissimo cos'e', e' ancora troppo evidente"*. La sfocatura era
+  /// **costante**, e la prima discesa non ha lo stesso compito della terza:
+  /// alla prima non si deve riconoscere niente, alla terza si e' gia' visto
+  /// due terzi del corpo e nasconderlo sarebbe una finzione.
+  static const double quantoSfocaAllaPrima = 0.060;
+
+  /// **QUANTO E' SCURA LA COLTRE ALLA PRIMA DISCESA.**
+  static const double quantoEScuroAllaPrima = 0.88;
+
+  /// **QUANTO SI VEDE IL FANTASMA ALLA PRIMA DISCESA.** Trentotto centesimi
+  /// invece di cinquantacinque: e' lui a far intuire la sagoma, e alla prima
+  /// apparizione deve intuirsi appena.
+  static const double quantoSiVedeIlFantasmaAllaPrima = 0.38;
+
+  /// Quanto vale [quantoSfocaIlVelo] alla discesa [quale], da 0 a 3.
+  static double sfocaturaAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoSfocaAllaPrima +
+        (quantoSfocaIlVelo - quantoSfocaAllaPrima) * passo;
+  }
+
+  /// Quanto vale [quantoEScuroIlVelo] alla discesa [quale].
+  static double buioAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoEScuroAllaPrima +
+        (quantoEScuroIlVelo - quantoEScuroAllaPrima) * passo;
+  }
+
+  /// Quanto si vede il fantasma alla discesa [quale].
+  static double fantasmaAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoSiVedeIlFantasmaAllaPrima +
+        (0.55 - quantoSiVedeIlFantasmaAllaPrima) * passo;
+  }
+
   /// **QUANTO DURA LA CADUTA DEL VELO ALLA QUARTA.**
   static const Duration quantoDuraLaCaduta = Duration(milliseconds: 900);
 
@@ -95,13 +138,13 @@ class _LenteCheScopreState extends State<LenteCheScopre>
   late final AnimationController _caduta = AnimationController(
     vsync: this,
     duration: LenteCheScopre.quantoDuraLaCaduta,
-    value: widget.discesa >= 3 ? 0 : 1,
+    value: widget.discesa > DoveStaLaTesta.quanteFasce ? 0 : 1,
   );
 
   @override
   void initState() {
     super.initState();
-    if (widget.discesa >= 3) _caduta.value = 0;
+    if (widget.discesa > DoveStaLaTesta.quanteFasce) _caduta.value = 0;
   }
 
   @override
@@ -109,7 +152,7 @@ class _LenteCheScopreState extends State<LenteCheScopre>
     super.didUpdateWidget(vecchio);
     if (widget.discesa != vecchio.discesa) {
       _lente = null;
-      if (widget.discesa >= 3) {
+      if (widget.discesa > DoveStaLaTesta.quanteFasce) {
         _caduta.reverse(from: 1);
       } else {
         _caduta.value = 1;
@@ -156,7 +199,11 @@ class _LenteCheScopreState extends State<LenteCheScopre>
 
   @override
   Widget build(BuildContext context) {
-    final velato = widget.discesa < 3;
+    // **VELATO ANCHE ALLA QUARTA, che e' la discesa della testa.** Ordine
+    // DG, 12 settembre 2026. Il velo cade **dopo**, quando la quarta discesa
+    // e' compiuta e messa a diario: quello che si vede allora e' la card
+    // della rivelazione, non la lente.
+    final velato = widget.discesa <= DoveStaLaTesta.quanteFasce;
     return LayoutBuilder(
       builder: (context, vincoli) {
         final scena = Size(
@@ -203,11 +250,38 @@ class _LenteCheScopreState extends State<LenteCheScopre>
                         key: const Key('viaggio_animale_vero'),
                         fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) => const SizedBox.shrink()),
-                    // **SOPRA, IL VELO INTERO**, senza nessun buco: e' la
-                    // stessa immagine scurita e sfocata, cosi' la sagoma si
-                    // intuisce sempre e non c'e' nessun nero pieno a
-                    // nascondere che sotto ci sia qualcosa.
-                    if (velato || _caduta.value > 0)
+                    // **SOPRA, IL VELO**, che e' la stessa immagine scurita
+                    // e sfocata: cosi' la sagoma si intuisce sempre e non c'e'
+                    // nessun nero pieno a nascondere che sotto ci sia
+                    // qualcosa.
+                    //
+                    // **SENZA `Opacity`, e non e' un dettaglio.** Qui c'era
+                    // `Opacity(opacity: _caduta.value)`, e `_caduta` e' un
+                    // `AnimationController`: sul 767f596c, che ha le tre scale
+                    // di animazione a zero, quel valore non e' affidabile, e
+                    // **un velo che vale zero e' un velo che non c'e'**. Il
+                    // difetto si e' visto a video due volte, sulla 2247 e
+                    // sulla 2248, e la prima volta era stato attribuito alla
+                    // maschera di fusione che stava accanto.
+                    //
+                    // **E COPRE SOLO CIO' CHE NON E' ANCORA STATO
+                    // SCOPERTO.** Ordine DG del 12 settembre 2026: quello che
+                    // la lente ha aperto ieri **resta aperto**, e il velo si
+                    // ferma sopra di lui. Alla quarta discesa resta velata la
+                    // sola testa.
+                    if (velato)
+                      ClipRect(
+                        key: const Key('viaggio_velo_di_cio_che_resta'),
+                        clipper: _CioCheRestaDaScoprire(
+                          immagine: immagine,
+                          quota: DoveStaLaTesta.finDoveArrivaIlVelo(
+                              widget.nome, widget.discesa),
+                        ),
+                        child: _ilVelo(scena),
+                      ),
+                    // **LA DISSOLVENZA RESTA DOV'E' NATA**, cioe' alla quarta
+                    // discesa, quando il velo cade.
+                    if (!velato && _caduta.value > 0)
                       Opacity(
                         opacity: _caduta.value,
                         child: _ilVelo(scena),
@@ -216,68 +290,12 @@ class _LenteCheScopreState extends State<LenteCheScopre>
                     // sola porzione di animale che oggi si puo' vedere.
                     //
                     // **Qui c'era un `ShaderMask` con `BlendMode.dstIn`** che
-                    // ritagliava il buco dal velo. Sul 767f596c quella
-                    // maschera cancellava il velo **intero**: alla seconda e
-                    // alla terza discesa l'animale si vedeva tutto, testa
-                    // compresa, mentre lo schermo prometteva una lente. Un
-                    // ritaglio e un gradiente fanno lo stesso disegno senza
-                    // chiedere nessuna fusione a nessuno.
+                    // ritagliava il buco dal velo, e sul telefono cancellava
+                    // il velo intero invece del suo cerchio. Un ritaglio e un
+                    // gradiente fanno lo stesso disegno senza chiedere nessuna
+                    // fusione a nessuno.
                     if (velato || _caduta.value > 0)
-                      Opacity(
-                        opacity: _caduta.value,
-                        child: ClipPath(
-                          key: const Key('viaggio_cerchio_della_lente'),
-                          clipper: _IlCerchioDellaLente(
-                              centro: lente, raggio: raggio),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image.asset(widget.immagine,
-                                  key: const Key('viaggio_animale_scoperto'),
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink()),
-                              // **IL BORDO SFUMATO**, dentro il ritaglio: dal
-                              // cuore chiaro alla coltre piena esattamente sul
-                              // raggio, che e' lo stesso numero con cui il
-                              // centro viene tenuto dentro l'area. Una
-                              // sfumatura che sbordasse scoprirebbe **a
-                              // meta'** cio' che la Regola H pretende coperto
-                              // del tutto, e scoperto a meta' e' scoperto.
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                  gradient: RadialGradient(
-                                    center: Alignment(
-                                      scena.width == 0
-                                          ? 0
-                                          : (lente.dx / scena.width) * 2 - 1,
-                                      scena.height == 0
-                                          ? 0
-                                          : (lente.dy / scena.height) * 2 - 1,
-                                    ),
-                                    radius: scena.shortestSide == 0
-                                        ? 1
-                                        : raggio / (scena.shortestSide / 2),
-                                    colors: [
-                                      Colors.transparent,
-                                      Colors.transparent,
-                                      _coltre(),
-                                    ],
-                                    // **PIU' IL DITO SPINGE, PIU' IL BUCO SI
-                                    // CHIUDE**: e' il velo che si fa fitto
-                                    // invece di lasciarla uscire.
-                                    stops: [
-                                      0.0,
-                                      0.70 - 0.30 * _spinge,
-                                      1.0,
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      _ilCerchioDellaLente(scena, lente, raggio),
                   ],
                 ),
               ),
@@ -300,6 +318,49 @@ class _LenteCheScopreState extends State<LenteCheScopre>
   /// **Sotto la coltre, sopra il fantasma**: la coltre dice che c'e' un velo,
   /// il fantasma dice che sotto c'e' un animale, e nessuno dei due dice
   /// quale.
+  /// **IL CERCHIO DELLA LENTE: la sola porzione che oggi si puo' vedere.**
+  ///
+  /// Un `ClipPath` con dentro l'animale nitido e, sopra di lui, il gradiente
+  /// che torna alla coltre **esattamente sul raggio**: al bordo del ritaglio i
+  /// due lati arrivano tutti e due alla coltre piena, quindi il taglio non si
+  /// vede e resta vero cio' che l'ordine chiede, *"un cerchio netto sarebbe un
+  /// ritaglio di carta"*.
+  Widget _ilCerchioDellaLente(Size scena, Offset lente, double raggio) =>
+      ClipPath(
+        key: const Key('viaggio_cerchio_della_lente'),
+        clipper: _IlCerchioDellaLente(centro: lente, raggio: raggio),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(widget.immagine,
+                key: const Key('viaggio_animale_scoperto'),
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment(
+                    scena.width == 0 ? 0 : (lente.dx / scena.width) * 2 - 1,
+                    scena.height == 0 ? 0 : (lente.dy / scena.height) * 2 - 1,
+                  ),
+                  radius: scena.shortestSide == 0
+                      ? 1
+                      : raggio / (scena.shortestSide / 2),
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    _coltre(),
+                  ],
+                  // **PIU' IL DITO SPINGE, PIU' IL BUCO SI CHIUDE**: e' il
+                  // velo che si fa fitto invece di lasciarla uscire.
+                  stops: [0.0, 0.70 - 0.30 * _spinge, 1.0],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
   /// **IL COLORE DELLA COLTRE, in un posto solo.**
   ///
   /// Lo usano in due: la coltre che copre tutta la scena e la corona del
@@ -307,7 +368,7 @@ class _LenteCheScopreState extends State<LenteCheScopre>
   /// sul raggio. Due numeri scritti in due posti diversi si sarebbero separati
   /// alla prima taratura, e il bordo del ritaglio sarebbe diventato visibile.
   Color _coltre() => const Color(0xFF06040C).withValues(
-      alpha: (LenteCheScopre.quantoEScuroIlVelo + 0.12 * _spinge)
+      alpha: (LenteCheScopre.buioAlla(widget.discesa) + 0.12 * _spinge)
           .clamp(0.0, 1.0));
 
   Widget _ilVelo(Size scena) {
@@ -315,7 +376,10 @@ class _LenteCheScopreState extends State<LenteCheScopre>
     // lezione dell'ordine DC: sei pixel di sfocatura sono un velo su una
     // scena larga trecentonovanta e cancellano tutto dentro un tondo da
     // cinquantadue.
-    final sigma = scena.shortestSide * LenteCheScopre.quantoSfocaIlVelo *
+    // **LA SFOCATURA CAMBIA CON LA DISCESA**, ordine DG del 12 settembre
+    // 2026: fitta alla prima, allentata alla terza. Vedi `sfocaturaAlla`.
+    final sigma = scena.shortestSide *
+        LenteCheScopre.sfocaturaAlla(widget.discesa) *
         (1 + 0.6 * _spinge);
     return Stack(
       fit: StackFit.expand,
@@ -328,9 +392,11 @@ class _LenteCheScopreState extends State<LenteCheScopre>
           imageFilter: ui.ImageFilter.blur(
               sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal),
           child: Opacity(
-            // **IL FANTASMA E' AL CINQUANTACINQUE PER CENTO.** Piu' su si
-            // legge il manto, piu' giu' sparisce la sagoma.
-            opacity: 0.55,
+            // **IL FANTASMA SI ALZA CON LE DISCESE.** Trentotto centesimi alla
+            // prima, cinquantacinque alla terza: piu' su si legge il manto,
+            // piu' giu' sparisce la sagoma, e alla prima apparizione deve
+            // intuirsi appena.
+            opacity: LenteCheScopre.fantasmaAlla(widget.discesa),
             child: Image.asset(widget.immagine,
                 fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => const SizedBox.shrink()),
@@ -536,4 +602,29 @@ class _IlCerchioDellaLente extends CustomClipper<Path> {
   @override
   bool shouldReclip(_IlCerchioDellaLente vecchio) =>
       vecchio.centro != centro || vecchio.raggio != raggio;
+}
+
+
+/// **IL RITAGLIO DI CIO' CHE RESTA DA SCOPRIRE.** Ordine DG,
+/// 12 settembre 2026.
+///
+/// Taglia il velo **dall'alto della scena fino alla quota** oltre la quale
+/// l'animale e' gia' stato scoperto nelle discese precedenti. La quota la dice
+/// `DoveStaLaTesta.finDoveArrivaIlVelo`, ed e' espressa in frazioni
+/// **dell'immagine**, non della scena: e' la stessa distinzione che i
+/// rettangoli delle teste hanno gia' pagato due volte, perche' con
+/// `BoxFit.contain` l'immagine non riempie la finestra.
+class _CioCheRestaDaScoprire extends CustomClipper<Rect> {
+  const _CioCheRestaDaScoprire({required this.immagine, required this.quota});
+
+  final Rect immagine;
+  final double quota;
+
+  @override
+  Rect getClip(Size size) =>
+      Rect.fromLTRB(0, 0, size.width, immagine.top + immagine.height * quota);
+
+  @override
+  bool shouldReclip(_CioCheRestaDaScoprire vecchio) =>
+      vecchio.quota != quota || vecchio.immagine != immagine;
 }

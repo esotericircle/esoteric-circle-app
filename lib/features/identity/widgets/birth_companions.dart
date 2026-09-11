@@ -6,9 +6,13 @@ import '../../../core/astro/birth_details.dart';
 import '../../../core/astro/night_sky.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/rituals/guide_animal_derivation.dart';
+import '../../../core/rituals/animal_catalog.dart';
+import '../../../core/viaggio/il_nome_si_puo_dire.dart';
+import '../../maestri/caligo/viaggio/la_lente_che_scopre.dart';
 import '../../../design_system/components/depth_card.dart';
 import '../../angels/angelo_ingrandito.dart';
 import '../../../design_system/theme/maestro_scope.dart';
+import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
@@ -48,35 +52,7 @@ class BirthCompanions extends StatelessWidget {
             style: TypographyTokens.label(size: 13)
                 .copyWith(color: palette.goldSoft, letterSpacing: 3)),
         const SizedBox(height: SpacingTokens.sm),
-        DepthCard(
-          key: const Key('carta_animale_guida'),
-          raised: true,
-          padding: const EdgeInsets.all(SpacingTokens.md),
-          child: Row(
-            children: [
-              _Miniatura(
-                path: animale.thumbPath,
-                ripiego: Icons.pets,
-                palette: palette,
-                // Piu' grande di prima: contenuto invece che ritagliato, in 44
-                // px il totem diventava un francobollo illeggibile.
-                larghezza: 64,
-              ),
-              const SizedBox(width: SpacingTokens.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Animale guida',
-                        style: TypographyTokens.etichetta().copyWith(
-                            color: palette.goldSoft, letterSpacing: 2)),
-                    Text(animale.name, style: TypographyTokens.titoloScheda()),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+        _TesseraDellAnimale(animale: animale, palette: palette),
         const SizedBox(height: SpacingTokens.sm),
         DepthCard(
           key: const Key('carta_angeli'),
@@ -174,3 +150,99 @@ class BirthCompanions extends StatelessWidget {
 /// tagliavano. Un componente che risolve il difetto in un file solo non e' un
 /// componente, e' una correzione locale.
 typedef _Miniatura = MiniaturaIntera;
+
+
+/// **LA TESSERA DELL'ANIMALE, e sa tacere.** Ordine DG voce 02,
+/// 12 settembre 2026.
+///
+/// **Qui c'era il nome scritto a lettere intere**, accanto al totem a colori,
+/// dentro la carta natale che si apre subito dopo la scheda che promette di
+/// non svelarlo. La regola non era sbagliata da nessuna parte: **era scritta
+/// in una schermata sola**, il Passaporto. Adesso sta in
+/// `IlNomeSiPuoDire`, e questa tessera gliela chiede.
+///
+/// **Chiede all'archivio e non si accontenta di cio' che sa gia'**: e' una
+/// scheda che si costruisce una volta e resta, quindi puo' aspettare, e una
+/// risposta vera vale piu' di una risposta immediata.
+class _TesseraDellAnimale extends StatefulWidget {
+  const _TesseraDellAnimale({required this.animale, required this.palette});
+
+  final GuideAnimal animale;
+  final MaestroPalette palette;
+
+  @override
+  State<_TesseraDellAnimale> createState() => _TesseraDellAnimaleState();
+}
+
+class _TesseraDellAnimaleState extends State<_TesseraDellAnimale> {
+  /// **NASCE CHIUSA.** Finche' l'archivio non ha risposto il nome non si dice:
+  /// un lampo del nome giusto seguito dall'ombra sarebbe la rivelazione fatta
+  /// male, non la rivelazione evitata.
+  bool _siPuoDire = false;
+
+  @override
+  void initState() {
+    super.initState();
+    IlNomeSiPuoDire.chiedendoloAllArchivio(widget.animale.name).then((si) {
+      if (mounted && si) setState(() => _siPuoDire = true);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = widget.palette;
+    return DepthCard(
+      key: const Key('carta_animale_guida'),
+      raised: true,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 64,
+            height: 64,
+            child: _siPuoDire
+                ? _Miniatura(
+                    path: widget.animale.thumbPath,
+                    ripiego: Icons.pets,
+                    palette: palette,
+                    // Piu' grande di prima: contenuto invece che ritagliato,
+                    // in 44 px il totem diventava un francobollo illeggibile.
+                    larghezza: 64,
+                  )
+                // **LA SUA OMBRA, non una sagoma generica**: la stessa che si
+                // incontrera' scendendo, e la stessa che mostra il Passaporto.
+                : OmbraDellAnimale(
+                    key: const Key('carta_animale_in_ombra'),
+                    immagine: widget.animale.ombraPath,
+                    giaSagoma: true,
+                    quantaLuce: 0.20 +
+                        0.20 * IlNomeSiPuoDire.quanteDisceseNote.clamp(0, 3),
+                  ),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Animale guida',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                Text(
+                  _siPuoDire
+                      ? widget.animale.name
+                      : IlNomeSiPuoDire.alPostoDelNome,
+                  key: const Key('carta_animale_nome'),
+                  style: TypographyTokens.titoloScheda(),
+                ),
+                if (!_siPuoDire)
+                  Text(IlNomeSiPuoDire.percheNonSiDice,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

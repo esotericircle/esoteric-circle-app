@@ -53,6 +53,27 @@ void main() {
     }
   }
 
+  /// **LE QUATTRO DISCESE GIA' FATTE.** Ordine DG voce 02, 12 settembre 2026.
+  ///
+  /// Dal 12 settembre 2026 la lettura dell'animale **non si apre prima delle
+  /// quattro discese**: e' la rivelazione intera, nome, totem a colori e
+  /// corpus, e il fondatore ha chiesto che arrivi dal Viaggio.
+  ///
+  /// Queste prove parlano di cio' che succede **dentro** la lettura, non di
+  /// chi puo' aprirla: percio' partono da un diario che le quattro discese le
+  /// ha gia'. Chi custodisce la soglia e' `l_animale_resta_velato_ovunque`.
+  List<String> ilDiarioCompiuto() => [
+        for (var i = 0; i < 4; i++)
+          jsonEncode({
+            'quando': DateTime(2026, 9, 1 + i, 10).toIso8601String(),
+            'domanda': '',
+            'tema': '',
+            'pezzi': <String>[],
+            'animale': 'Lupo',
+            'nitidezza': 1.0,
+          }),
+      ];
+
   void seedArchetipo() {
     final esito = ArchetypeEsito(
       quando: DateTime(2026, 7, 22, 10),
@@ -61,6 +82,7 @@ void main() {
     );
     SharedPreferences.setMockInitialValues({
       'archetipo.storico': [jsonEncode(esito.toJson())],
+      'viaggio.diario': ilDiarioCompiuto(),
     });
   }
 
@@ -79,7 +101,9 @@ void main() {
 
   testWidgets('Senza Test Archetipo, il popup invita ma lascia proseguire',
       (tester) async {
-    SharedPreferences.setMockInitialValues({});
+    SharedPreferences.setMockInitialValues({
+      'viaggio.diario': ilDiarioCompiuto(),
+    });
     tester.view.physicalSize = const Size(430, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);

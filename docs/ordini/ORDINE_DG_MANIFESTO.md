@@ -8,6 +8,8 @@ esistono i manifesti da DA a DF, e nessun DG. Resta DG.
 VOCI_TOTALI: 9
 VOCI_CHIUSE_NEL_CODICE: 8
 VOCI_APERTE: 1
+CORREZIONI_DAL_VIVO: 9
+CORREZIONI_CHIUSE_NEL_CODICE: 9
 
 ---
 
@@ -288,3 +290,180 @@ Sul testo nuovo, come sempre e in un colpo solo:
   cento su un animale e 21 su un altro.
 - **le tre prove della nebbia** misuravano i varchi, cioe' erano la prova che i
   tre tocchi funzionassero.
+
+---
+
+## 7. LA SECONDA TORNATA, nove correzioni dal vivo
+
+**Il fondatore ha camminato la 2248 e ha parlato mentre camminava.** Non e' un
+ordine nuovo: e' la stessa voce DG, guardata a video. Nove correzioni, tutte
+accolte, tutte chiuse nel codice il 12 settembre 2026.
+
+### 7.1 La scheda dell'animale va SUBITO DOPO GLI ANGELI
+
+*"la schermata c'e' con l'animale oscurato, ma andrebbe messa dopo la
+rivelazione degli angeli. adesso e' dopo la rivelazione del maestro."*
+
+**ATTRIBUZIONE: mia, DG voce 04.** La voce diceva *"dopo gli angeli, per
+ultima"* e io avevo scelto **la seconda meta' della frase**, motivandola come la
+piu' stretta. Era una lettura, non un fatto, e il fondatore ha corretto.
+
+L'ordine adesso e': **angeli, animale, carta di nascita, cielo, carta natale,
+risonanza, Maestro, custodia**. I due pulsanti hanno cambiato parole, perche'
+dicevano dove si andava: *"Continua"* e' diventato *"Chi altro ti accompagna"*,
+*"Custodisci il mio cielo"* e' diventato *"La tua Carta di Nascita"*.
+
+### 7.2 L'animale resta velato IN TUTTI I POSTI
+
+*"nel Passport mi fa gia' vedere il lupo. il mio animale."*
+
+**ATTRIBUZIONE: ordine DC, e prima ancora la nascita della funzione.** Il
+difetto non era una schermata: era **una regola senza casa**. Il Passaporto
+sapeva che il nome si dice dopo quattro discese **e lo sapeva da solo**, dentro
+il suo `build`. Gli altri posti che mostrano l'animale non lo sapevano affatto.
+
+**La cura e' un file:** `lib/core/viaggio/il_nome_si_puo_dire.dart`. Due modi di
+chiedere, e la differenza conta: chi puo' aspettare legge l'archivio, chi
+disegna dentro un `build` sincrono legge l'ultimo conto noto, **e quando non sa
+niente risponde di no**.
+
+I posti riparati sono quattro: la **carta natale**, che scriveva *Lupo* a
+lettere intere accanto al totem a colori, ed e' la piu' grave perche' si apre
+**due schermate dopo** la scheda che promette di non svelarlo; la **lettura
+dell'animale**, che e' la rivelazione intera; il **simbolo dell'attesa di
+Caligo**, che mostrava il totem mentre il Maestro componeva; il **bosco del
+Cerchio**, che accendeva la tessera del tuo.
+
+### 7.3 La rivelazione della Carta di Nascita entra nell'onboarding
+
+*"nell'onboarding manca anche la schermata di rivelazione della carta di
+nascita. ti avevo dato ordine con istruzioni dettagliate se non sbaglio."*
+
+**ATTRIBUZIONE: ordine DC voce 14, 10 settembre 2026, e la colpa e' mia due
+volte.** Il file esisteva, era provato da una guardia che confronta **576
+istanti dell'animazione coi numeri del calcolo**, e **non lo chiamava nessuno**.
+Il rapporto di quell'ordine scriveva *"vive nell'onboarding"*: non era vero, ed
+e' un rapporto che ha dichiarato il falso.
+
+**Nessuna guardia poteva vederlo**, perche' tutte guardavano il contenuto e
+nessuna la strada. Adesso ce n'e' una.
+
+### 7.4 La parete di roccia nella discesa
+
+*"la discesa del viaggio e' ancora una merda con grafica procedurale e ti ho
+fornito la grafica con texture roccia."*
+
+**ATTRIBUZIONE: mia, e il manifesto diceva il falso.** `tunnel_parete_v1.webp`
+era nel ramo e dichiarato in `pubspec.yaml`, **e non lo usava nessuno**: zero
+occorrenze in tutto `lib`. Gli slot che aspettavano gli asset erano due, la
+soglia e il fondo di nebbia; **per il tunnel lo slot non esisteva affatto**.
+
+La parete si ripete a piastrella, sei giri su tutta la discesa, e gli anelli del
+pittore restano **sopra** di lei col fondo portato a velo: la materia e' vera,
+la profondita' resta disegnata.
+
+### 7.5 La discesa dura venti secondi, misurati
+
+*"dura ancora troppo, devi ridurre la discesa a 20 secondi."*
+
+La discesa conosciuta stava a **nove** secondi, scelti dall'ordine DC come
+*"meno della meta' della prima"*: il fondatore aveva gia' fissato venti
+nell'ordine DE, e nove non e' venti. Adesso sono venti tutte e due, **e li
+misura una guardia col cronometro**, non leggendo la costante: quella diceva
+venti anche quando la discesa ne durava quarantasei.
+
+### 7.6 Il velo non dipende piu' da un'animazione
+
+**ATTRIBUZIONE: PROVENIENZA IGNOTA, e va detto per esteso.** Il difetto e' stato
+visto a video **due volte**, sulla 2247 e sulla 2248: l'animale intero, testa
+compresa, mentre lo schermo diceva *"la lente scopre solo dove puo', oggi"*. La
+prima volta l'avevo attribuito allo `ShaderMask` con `BlendMode.dstIn`; tolto
+quello, il difetto e' tornato identico. **Quindi la mia attribuzione era
+sbagliata.**
+
+Cio' che e' rimasto uguale fra le due build e' `Opacity(opacity: _caduta.value)`
+con un `AnimationController` dietro, e **il 767f596c ha le tre scale di
+animazione a zero**. Un velo che vale zero e' un velo che non c'e'. Adesso,
+finche' c'e' da coprire, **il velo si disegna pieno e senza `Opacity`**.
+
+### 7.7 La rivelazione e' cumulativa, e la testa e' dell'ultimo giorno
+
+*"il secondo giorno dovrei vedere in chiaro quello che ho scoperto con la lente
+il giorno prima e cosi' via. solo l'ultimo giorno la lente scoprira' la testa
+dell'animale."*
+
+**Erano due cose, e ne mancavano due.** Ogni discesa ripartiva da zero: il velo
+tornava su tutto e quello che si era scoperto spariva. E **alla quarta discesa
+il velo non c'era affatto**: l'area era l'immagine intera, quindi la lente non
+scopriva la testa, **la testa era gia' li'**.
+
+Adesso le tre fasce sotto la testa si aprono dal basso, una per discesa, e
+restano aperte; alla quarta resta velata **la sola testa**, e l'area della lente
+**e' la testa**. Il velo cade dopo, ed e' la card della rivelazione.
+
+### 7.8 Il velo stringe alla prima discesa
+
+*"l'animale sfocato con la lente si capisce benissimo cos'e', e' ancora troppo
+evidente."*
+
+Sfocatura e buio erano **costanti**. La prima discesa e la terza non hanno lo
+stesso compito: alla prima non si deve riconoscere niente, alla terza si e' gia'
+visto due terzi del corpo e nasconderlo sarebbe una finzione. Adesso la
+sfocatura va da 0,060 a 0,035, la coltre da 0,88 a 0,80, e il fantasma sfocato
+dal trentotto al cinquantacinque per cento.
+
+**La guardia non legge quei numeri**, misura la nitidezza dei pixel: alla prima
+discesa la testa velata sta al **72,8 per cento** della nitidezza che ha alla
+terza, nel caso peggiore dei dodici.
+
+### 7.9 La dissolvenza che introduce la nebbia
+
+*"quando si scende, dovrebbe esserci una dissolvenza che introduce la nebbia."*
+
+Al colpo di gong dei venti secondi la fase passava **in un fotogramma**: il
+tunnel spariva e al suo posto compariva la nebbia gia' fatta. Adesso la nebbia
+c'e' gia' sotto e **la galleria si dissolve sopra di lei** in un secondo e due
+decimi, con l'istruzione che arriva a dissolvenza finita.
+
+**E la dissolvenza e' un battito, non un `AnimationController`**: e' la lezione
+del velo, pagata due volte.
+
+---
+
+## 8. LE TRE GUARDIE NUOVE, e che cosa hanno preso mentre nascevano
+
+| guardia | cosa misura | com'e' nata rossa |
+|---|---|---|
+| `l_animale_resta_velato_ovunque` | ogni file che deriva l'animale dal segno sa della soglia | **su due file veri**: il bosco del Cerchio e il Risveglio |
+| `nessuna_schermata_del_risveglio_e_orfana` | nessun widget dell'onboarding senza chiamanti, nessuna tappa senza assegnazione | due volte, una per meta' |
+| `la_discesa_dura_venti_secondi` | il tempo col dito premuto, e l'opacita' vera della dissolvenza | la discesa conosciuta a nove secondi; la dissolvenza saltata a uno |
+
+**La prima e' nata rossa su un difetto che non avevo visto.** Il bosco del
+Cerchio derivava l'animale dal segno e accendeva la sua tessera: chi ci fosse
+arrivato senza aver fatto il Viaggio avrebbe letto il proprio animale in un
+elenco di dodici. L'avevo cercato in tre posti e il quarto me l'ha trovato la
+guardia.
+
+**E la seconda ne ha censiti quattro che c'erano gia'**, e non c'entrano con
+questo ordine: `IntertwinedAuras`, `SkyThread` e `StardustName`, widget del
+vecchio onboarding rimasti in `widgets/` quando la schermata che li montava e'
+stata rifatta; e `DomandaDellInvito`, che **si costruisce da sola dentro la
+propria rotta** e nessuno spinge quella rotta, quindi la guardia non la vede.
+**Vanno al fondatore come voce a parte: o si agganciano o si tolgono.**
+
+---
+
+## 9. LE PROVE CHE DIFENDEVANO L'ORDINE VECCHIO
+
+**Sei prove sono state riscritte, e nessuna cancellata.** Tutte dicevano il
+vero su una regola che il fondatore ha cambiato, e una diceva il vero su una
+lettura mia che era sbagliata.
+
+| prova | cosa pretendeva | cosa pretende adesso |
+|---|---|---|
+| `onboarding_ordine` | l'animale per ultimo | l'animale subito dopo gli angeli, poi la carta di nascita |
+| `trionfi_dopo_il_numero` | fra angeli e cielo non c'e' l'animale | fra angeli e cielo **c'e'** l'animale |
+| `la_testa_non_si_vede_prima_della_quarta` | alla quarta l'area e' l'immagine intera | alla quarta l'area **e' la testa**, e il velo cade dopo |
+| `il_velo_c_e_davvero_sul_telefono` | il metro della testa scoperta era la discesa 3 | il metro e' la discesa 4, piu' due misure nuove |
+| `il_simbolo_si_compone` | Caligo guarda sempre il totem | l'ombra senza Viaggio, il totem dopo |
+| `guide_animal_screen` e `il_responso_si_legge_ovunque` | aprivano la lettura da un diario vuoto | partono da un diario con le quattro discese |

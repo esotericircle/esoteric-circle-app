@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
@@ -221,9 +222,27 @@ void main() {
   });
 
   group('BV.06, niente esce dallo schermo dove il testo e\' cresciuto', () {
+    /// **IL DIARIO COMPIUTO.** Ordine DG voce 02, 12 settembre 2026: la
+    /// lettura dell'animale non si apre prima delle quattro discese, perche'
+    /// e' la rivelazione intera, nome e totem a colori e corpus. Questa prova
+    /// misura il testo **dentro** la lettura, non chi puo' aprirla, quindi
+    /// parte da un diario che le quattro discese le ha gia'.
+    List<String> ilDiarioCompiuto() => [
+          for (var i = 0; i < 4; i++)
+            jsonEncode({
+              'quando': DateTime(2026, 9, 1 + i, 10).toIso8601String(),
+              'domanda': '',
+              'tema': '',
+              'pezzi': <String>[],
+              'animale': 'Lupo',
+              'nitidezza': 1.0,
+            }),
+        ];
+
     testWidgets('Il Messaggio dell\'Animale Guida sta dentro', (tester) async {
       for (final altezza in schermi) {
-        SharedPreferences.setMockInitialValues(const {});
+        SharedPreferences.setMockInitialValues(
+            {'viaggio.diario': ilDiarioCompiuto()});
         silenzia();
         schermo(tester, altezza);
         await tester.pumpWidget(attorno(

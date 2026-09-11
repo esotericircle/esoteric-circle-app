@@ -151,11 +151,16 @@ void main() {
           immagine.top + immagine.height * testa.bottom,
         );
 
-        // **IL METRO DI QUESTO ANIMALE: la sua testa alla quarta discesa**,
-        // cioe' col velo caduto. Ogni animale porta il proprio, e cosi' la
-        // prova non ha dentro nessun numero assoluto.
+        // **IL METRO DI QUESTO ANIMALE: la sua testa a velo caduto**, che e'
+        // lo stato della card della rivelazione. Ogni animale porta il
+        // proprio, e cosi' la prova non ha dentro nessun numero assoluto.
+        //
+        // **Si misura alla discesa 4 e non piu' alla 3.** Dal 12 settembre
+        // 2026 **la discesa 3 e' la discesa della testa**, cioe' quella in cui
+        // la lente la scopre: misurare li' vorrebbe dire prendere per metro
+        // una testa mezza velata.
         final scoperta = quantoENitido(
-            await fotogramma(tester, animale, 3, const Offset(0.5, 0.5)),
+            await fotogramma(tester, animale, 4, const Offset(0.5, 0.5)),
             scena.width.toInt(),
             testaInPunti);
         expect(scoperta, greaterThan(5),
@@ -193,5 +198,156 @@ void main() {
         'il rapporto peggiore fra velata e scoperta e '
         '${peggiore.value.toStringAsFixed(3)} (${peggiore.key}); '
         'zero vorrebbe dire coperta del tutto, uno vorrebbe dire scoperta');
+  });
+
+  /// **LA RIVELAZIONE E' CUMULATIVA: cio' che hai scoperto ieri resta in
+  /// chiaro.** Ordine DG, 12 settembre 2026.
+  ///
+  /// **Parole del fondatore:** *"il secondo giorno dovrei vedere in chiaro
+  /// quello che ho scoperto con la lente il giorno prima e cosi' via"*.
+  ///
+  /// **La grandezza misurata e' la stessa nitidezza di sopra**, sulla **fascia
+  /// di mezzo** dei tre sotto la testa, e in due fotogrammi in cui **la lente
+  /// non ci passa sopra**: alla prima discesa la lente sta nella fascia bassa
+  /// e quella di mezzo e' ancora velata; alla terza sta nella fascia alta e
+  /// quella di mezzo e' gia' stata scoperta il giorno prima.
+  ///
+  /// **Percio' la differenza non puo' venire dalla lente**: viene dal velo che
+  /// si e' ritirato, che e' cio' che si vuole provare.
+  ///
+  /// **VISTA ROSSA** riportando `finDoveArrivaIlVelo` a tornare sempre 1, cioe'
+  /// il velo su tutto a ogni discesa: la prova ha nominato gli animali e i due
+  /// numeri.
+  testWidgets(
+      'la fascia di mezzo e velata alla prima discesa e in chiaro alla terza, '
+      'per tutti e dodici',
+      (tester) async {
+    debugSemanticsDisableAnimations = true;
+    addTearDown(() => debugSemanticsDisableAnimations = null);
+    await tester.binding.setSurfaceSize(scena);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    expect(AnimalCatalog.animals.length, 12);
+
+    var quanti = 0;
+    final peggiore = <String, double>{};
+    await tester.runAsync(() async {
+      for (final animale in AnimalCatalog.animals) {
+        final sorgente = await misuraDi(animale.fullPath);
+        final immagine = dentroLaScena(sorgente);
+        // La fascia di mezzo, in punti veri dentro la scena.
+        final mezzo = DoveStaLaTesta.areaDellaDiscesa(animale.name, 1);
+        final mezzoInPunti = Rect.fromLTRB(
+          immagine.left + immagine.width * mezzo.left,
+          immagine.top + immagine.height * mezzo.top,
+          immagine.left + immagine.width * mezzo.right,
+          immagine.top + immagine.height * mezzo.bottom,
+        );
+
+        // Alla prima discesa la lente sta in fondo alla fascia bassa, cioe'
+        // il piu' lontano possibile da quella di mezzo.
+        final velata = quantoENitido(
+            await fotogramma(tester, animale, 0, const Offset(0.5, 1)),
+            scena.width.toInt(),
+            mezzoInPunti);
+        // Alla terza sta in cima alla fascia alta, cioe' di nuovo lontana.
+        final inChiaro = quantoENitido(
+            await fotogramma(tester, animale, 2, const Offset(0.5, 0)),
+            scena.width.toInt(),
+            mezzoInPunti);
+        quanti += 2;
+
+        expect(inChiaro, greaterThan(1),
+            reason: '${animale.name}: alla terza discesa la fascia di mezzo '
+                'non e nitida nemmeno dovendo essere gia scoperta, e allora '
+                'questa prova non sta misurando niente');
+        final rapporto = velata / inChiaro;
+        peggiore[animale.name] = rapporto;
+        expect(rapporto, lessThan(0.6),
+            reason: '${animale.name}: la fascia di mezzo e nitida alla prima '
+                'discesa quanto alla terza '
+                '(${velata.toStringAsFixed(2)} contro '
+                '${inChiaro.toStringAsFixed(2)}). O il velo non copre alla '
+                'prima, o non si ritira alla terza: in tutti e due i casi '
+                'cio che hai scoperto ieri non resta scoperto oggi.');
+      }
+    });
+
+    final p = peggiore.entries.reduce((a, b) => a.value > b.value ? a : b);
+    // ignore: avoid_print
+    print('ORDINE DG, LA RIVELAZIONE CUMULATIVA: $quanti fotogrammi, il '
+        'rapporto peggiore fra fascia velata e fascia in chiaro e '
+        '${p.value.toStringAsFixed(3)} (${p.key})');
+  });
+
+  /// **IL VELO STRINGE ALLA PRIMA DISCESA E ALLENTA VERSO LA TERZA.**
+  /// Ordine DG, 12 settembre 2026.
+  ///
+  /// **Parole del fondatore:** *"l'animale sfocato con la lente si capisce
+  /// benissimo cos'e', e' ancora troppo evidente"*.
+  ///
+  /// **La grandezza misurata e' sempre la nitidezza**, sulla **testa**, che e'
+  /// il pezzo velato in tutte e tre le discese e quindi l'unico confrontabile.
+  /// Alla prima deve essere piu' bassa che alla terza: la sfocatura, il buio e
+  /// il fantasma cambiano tutti e tre con la discesa.
+  ///
+  /// **PERCHE' NON SI GUARDANO I NUMERI DELLA TARATURA.** Perche' leggere
+  /// `sfocaturaAlla(0) > sfocaturaAlla(2)` proverebbe che due costanti sono
+  /// ordinate, non che il velo copre di piu': la guardia che legge il token
+  /// invece del fatto e' gia' costata tre cadute nell'ordine CO.
+  ///
+  /// **VISTA ROSSA** riportando la sfocatura e il buio a costanti: il rapporto
+  /// fra prima e terza e passato da 0,71 a 1,00 e la prova ha nominato tutti
+  /// e dodici gli animali.
+  testWidgets(
+      'la testa velata e meno nitida alla prima discesa che alla terza, '
+      'per tutti e dodici',
+      (tester) async {
+    debugSemanticsDisableAnimations = true;
+    addTearDown(() => debugSemanticsDisableAnimations = null);
+    await tester.binding.setSurfaceSize(scena);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    expect(AnimalCatalog.animals.length, 12);
+
+    final rapporti = <String, double>{};
+    await tester.runAsync(() async {
+      for (final animale in AnimalCatalog.animals) {
+        final sorgente = await misuraDi(animale.fullPath);
+        final immagine = dentroLaScena(sorgente);
+        final testa = DoveStaLaTesta.di(animale.name)!;
+        final testaInPunti = Rect.fromLTRB(
+          immagine.left + immagine.width * testa.left,
+          immagine.top + immagine.height * testa.top,
+          immagine.left + immagine.width * testa.right,
+          immagine.top + immagine.height * testa.bottom,
+        );
+        // La lente parte dal centro della sua fascia in tutti e due i casi:
+        // quello che cambia e solo il velo.
+        final alla1 = quantoENitido(
+            await fotogramma(tester, animale, 0, const Offset(0.5, 0.5)),
+            scena.width.toInt(),
+            testaInPunti);
+        final alla3 = quantoENitido(
+            await fotogramma(tester, animale, 2, const Offset(0.5, 0.5)),
+            scena.width.toInt(),
+            testaInPunti);
+        final rapporto = alla3 == 0 ? 1.0 : alla1 / alla3;
+        rapporti[animale.name] = rapporto;
+        expect(rapporto, lessThan(0.95),
+            reason: '${animale.name}: la testa e nitida uguale alla prima '
+                'discesa e alla terza '
+                '(${alla1.toStringAsFixed(2)} contro '
+                '${alla3.toStringAsFixed(2)}). Il velo deve stringere quando '
+                'non si deve riconoscere niente e allentare quando si e gia '
+                'visto due terzi del corpo.');
+      }
+    });
+
+    final p = rapporti.entries.reduce((a, b) => a.value > b.value ? a : b);
+    // ignore: avoid_print
+    print('ORDINE DG, IL VELO PIU FITTO ALLA PRIMA: rapporto peggiore fra '
+        'prima e terza ${p.value.toStringAsFixed(3)} (${p.key}); sotto uno '
+        'vuol dire che alla prima si riconosce meno');
   });
 }
