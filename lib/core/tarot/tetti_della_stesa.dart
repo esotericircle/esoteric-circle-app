@@ -43,7 +43,32 @@ class TettiDellaStesa {
   /// e' il caso peggiore arrotondato: e' il caso peggiore piu' lo spazio perche' una
   /// frase in piu' del corpus non faccia troncare la bolla il giorno che viene
   /// scritta.
-  static const int consiglio = 1100;
+  /// **RIMISURATO DOPO L ORDINE DF, 11 settembre 2026, e il numero vecchio
+  /// era di nuovo diventato falso.** Il compositore nuovo sceglie fra otto
+  /// forme per ognuna delle sette fessure del Consiglio, e piu forme vuol dire
+  /// anche frasi di lunghezza diversa: su 6400 composizioni, sedici argomenti
+  /// per duecento estrazioni nei due casi della domanda, la **mediana e 845
+  /// caratteri** e il **caso peggiore 1056** (argomento famiglia, La Papessa
+  /// rovesciata piu Gli Amanti rovesciati piu La Ruota della Fortuna
+  /// rovesciata). Col tetto a millecento restavano **quattro punti percentuali
+  /// di margine**, cioe il tetto stava al filo.
+  ///
+  /// **LA MEDIANA NON E CAMBIATA, ed e la misura che il fondatore ha
+  /// approvato.** Nell ordine DF ha scritto: *"la lunghezza dei testi e la
+  /// divisione dei paragrafi va bene attualmente"*. Quello che e cresciuto e
+  /// la **coda**: qualche combinazione di frasi lunghe arriva piu in alto di
+  /// prima. Per questo si alza il tetto invece di accorciare i testi: **il
+  /// tetto governa il caso peggiore, non il caso normale**, e accorciare il
+  /// caso normale vorrebbe dire cambiare una cosa che il fondatore ha
+  /// dichiarato buona.
+  ///
+  /// **E per la stessa ragione la riga di "come si vede se ha funzionato" e
+  /// rimasta fuori dal Consiglio**: con lei dentro il caso peggiore passava il
+  /// tetto e la bolla veniva troncata.
+  ///
+  /// **IL TETTO NUOVO E 1250**, che tiene 1056 piu un margine del diciotto per
+  /// cento.
+  static const int consiglio = 1250;
 
   /// La domanda di chiusura, che non e' piu' una bolla ma resta un dato: si
   /// salva e ricompare nel dono del mattino dopo.

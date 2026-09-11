@@ -3,6 +3,7 @@ import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import '../../features/horoscope/answer_depth.dart';
 import 'tarot_topic.dart';
+import 'voce_della_stesa.dart';
 import 'tetti_della_stesa.dart';
 
 // LE CARTE CHE DIALOGANO NON VIVONO PIU' QUI, ordine P voce 08.
@@ -134,144 +135,115 @@ class TarotReading {
       sintesi: TettiDellaStesa.dentro(
           spread.presente.summary, TettiDellaStesa.sintesi),
       posizioni: [
-        for (final drawn in spread.cards) PosizioneLetta.of(drawn, topic),
+        for (final drawn in spread.cards)
+          PosizioneLetta.of(drawn, topic, spread),
       ],
       chiave: chiaveDi(spread),
-      consiglio: consiglioDi(spread, lente, domanda, fattoDelCielo,
-          DomandaDellaPersona.apertura(domandaScritta)),
+      // **LA DOMANDA PULITA E NON LA FRASE GIA' CONFEZIONATA.** Ordine DF
+      // voce 02: il riconoscimento della domanda ha adesso otto forme, e la
+      // forma la sceglie `VoceDellaStesa`. Passando qui
+      // `DomandaDellaPersona.apertura`, che e' gia' una frase intera, la
+      // domanda finiva dentro le virgolette della forma e si leggeva
+      // «Su "Hai chiesto: denaro e fortuna? Le tre carte rispondono..."», che
+      // e' una frase dentro una frase.
+      consiglio: consiglioDi(spread, lente, domanda, fattoDelCielo, sua),
       domanda: domanda,
     );
   }
 
-  /// IL CONSIGLIO DI MEDORA, che poggia sulle tre carte insieme e le nomina.
+  /// **IL CONSIGLIO DI MEDORA, E OGNI PAROLA DIPENDE DALLE CARTE USCITE.**
+  /// Rifatto dall'ordine DF voci 02, 04.1, 04.2, 04.3, 04.7, 04.8 e 04.9,
+  /// 11 settembre 2026.
   ///
-  /// **Ordine P voce 09.** Prima era il solo modello del gruppo, cioe' un testo
-  /// che valeva identico per qualunque stesa dello stesso argomento: la persona
-  /// se ne accorge alla seconda lettura, ed e' esattamente il motivo per cui la
-  /// bolla piu' importante era anche la meno credibile.
+  /// **IL FATTO CHE HA APERTO L'ORDINE, con le parole del fondatore.** *"ho
+  /// fatto 4 letture di tarocchi con la stessa domanda denaro e fortuna"*, e i
+  /// primi due paragrafi erano **identici al carattere** in tutte e quattro,
+  /// pur con dodici carte diverse fra loro. *"IO ESIGO CHE OGNI RISPOSTA SIA
+  /// DIVERSA ANCHE SE DOVESSI FARE 100 LETTURE CONSECUTIVE CON LA STESSA
+  /// DOMANDA."*
   ///
-  /// Adesso il consiglio ha quattro pezzi, in quest'ordine: il consiglio del
-  /// gruppo, che resta materiale del corpus e non si tocca; una frase che lega
-  /// il Passato al Presente NOMINANDOLI; una frase sul Futuro che dice dove
-  /// questo va, senza mai prometterlo; e la lettura dei versi e dei Maggiori,
-  /// che e' il pezzo di verita' rimasto della bolla eliminata dalla voce 08.
-  /// Poi una riga di stacco, e la domanda.
+  /// **LA CAUSA, e stava scritta qui dentro in due righe.** I primi due pezzi
+  /// erano:
   ///
-  /// Resta deterministico: stesse carte e stesso argomento danno sempre lo
-  /// stesso testo, quindi la bolla piu' lunga dell'app continua a non toccare
-  /// l'LLM.
+  ///     '${topic.lente}, ${topic.group.risposta}',
+  ///     topic.group.consiglio,
+  ///
+  /// `topic.lente` ha sedici valori, `group.risposta` e `group.consiglio` ne
+  /// hanno **tre**, uno per gruppo. **Nessuno dei tre guardava le carte.** A
+  /// parita' di argomento quei due paragrafi erano una costante, e nessuna
+  /// estrazione poteva cambiarli. **Attribuzione: ordine S voce 26 per la
+  /// risposta e corpus `stesa_interpretazione.md` per l'azione**, montati qui
+  /// dall'ordine P voce 09.
+  ///
+  /// **E LA MISURA LO DICEVA GIA', se qualcuno l'avesse presa.** Su cento
+  /// letture con lo stesso argomento la somiglianza massima a coppie era del
+  /// **94,4 per cento** e lo **stesso paragrafo compariva cento volte su
+  /// cento**. Adesso i numeri veri li stampa
+  /// `test/cento_letture_uguali_test.dart`.
+  ///
+  /// **LA CURA, in una riga: il testo lo sceglie l'estrazione.** Le forme
+  /// stanno in `VoceDellaStesa`, il filo che le sceglie nasce dalle tre carte e
+  /// dai loro versi, e **non da un orologio**: le stesse tre carte danno sempre
+  /// lo stesso testo, quindi la bolla piu' lunga dell'app continua a non
+  /// toccare l'LLM e resta cacheabile. **La casualita' sta nel mazzo, dove deve
+  /// stare.**
+  ///
+  /// **E L'ORDINE DI LETTURA E' CAMBIATO**, voce DF.04.9: le carte sono nel
+  /// **primo** paragrafo, non dal terzo in poi. Il fondatore: *"con un verdetto
+  /// sempre uguale, la persona legge le prime otto righe, le riconosce, e non
+  /// arriva mai alla parte che cambia"*.
   static String consiglioDi(
       TarotSpread spread, TarotTopic topic, String domanda,
       [String? fattoDelCielo,
       String? apertura]) {
-    final pezzi = <String>[
-      // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
-      // portato le tre risposte che mancavano, una per gruppo, e il montaggio e'
-      // quello che dichiara: la lente dell'argomento, la virgola, la risposta,
-      // poi l'azione che c'era gia' e non si tocca. Prima la bolla apriva
-      // sull'azione, e chi legge riceveva un consiglio prima di sapere cosa la
-      // lettura vede nella sua situazione.
-      //
-      // **Le sedici lenti fanno sedici aperture da tre soli testi**, ed e' la
-      // ragione per cui le risposte cominciano in minuscola: si innestano, non
-      // stanno da sole.
-      '${topic.lente}, ${topic.group.risposta}',
-      topic.group.consiglio,
-      'Le tre carte lo dicono insieme. ${spread.passato.displayName} tiene il '
-          'filo di ciò che è stato, ${_minuscola(spread.passato.summary)} e '
-          '${spread.presente.displayName} è ciò che hai fra le mani adesso.',
-      '${spread.futuro.displayName} non è una sentenza: è dove questo va se non '
-          'cambi passo, ${_minuscola(spread.futuro.summary)}.',
-      _letturaDeiVersi(spread),
-    ];
-    // **I PARAGRAFI ESISTONO GIA' QUI, ordine BN voce 06.** Parole del
-    // fondatore: "vorrei che il titolo fosse piu' grande e il testo diviso in
-    // 2/3 paragrafi". I paragrafi NON si ricavano tagliando il blocco a
-    // occhio: erano gia' cinque pezzi dichiarati, appiattiti da un `join(' ')`
-    // in un muro solo. Si raggruppano per SENSO, tre paragrafi e non cinque:
-    // cosa dice la lettura, cosa dicono le tre carte insieme, e cosa dicono i
-    // versi. Nessuna frase viene spezzata, perche' non si taglia niente: si
-    // uniscono pezzi che erano gia' interi.
-    final paragrafi = <String>[
-      // **LA DOMANDA DELLA PERSONA APRE, quando c'e'. Ordine CQ voce
-      // 6.10.** Sta in cima e non in coda perche' chi ha scritto una
-      // domanda deve vedere subito che e' stata letta, non alla fine di un
-      // testo che sembra scritto per chiunque.
-      //
-      // **E sta fra i PARAGRAFI e non fra i pezzi, ed e' un difetto che ho
-      // fatto e misurato.** Messa fra i `pezzi` spostava di uno tutti gli
-      // indici, e i paragrafi qui sotto si compongono per indice: il
-      // consiglio si rimontava sbagliato **anche per chi non aveva scritto
-      // nessuna domanda**. Lo ha preso la tavola generata delle lunghezze.
-      if (apertura != null && apertura.trim().isNotEmpty) apertura else '',
-      // La lente dell'argomento con la risposta, e il consiglio del gruppo.
-      [pezzi[0], pezzi[1]].where((p) => p.isNotEmpty).join(' '),
-      // Le tre carte, dal passato al futuro.
-      [pezzi[2], pezzi[3]].where((p) => p.isNotEmpty).join(' '),
-      // I versi e i Maggiori, che possono non esserci: in quel caso i
-      // paragrafi restano due, e due l'ordine li ammette.
-      // **IL CONSIGLIO RACCOGLIE IL CIELO, ordine BN voce 07.** Solo quando
-      // c'e' un fatto VERO: senza carta natale questa coda non esiste e il
-      // consiglio resta quello di oggi. Una frase generica travestita da
-      // transito sarebbe una promessa non mantenuta detta nella bolla che la
-      // persona porta via.
-      //
-      // Sta in CODA all'ultimo paragrafo e non ne apre uno suo: la voce 06
-      // vuole due o tre paragrafi, e il cielo non deve farne nascere un
-      // quarto. Le due voci dello stesso ordine devono stare in piedi
-      // insieme.
-      [
-        pezzi[4],
-        if (fattoDelCielo != null && fattoDelCielo.trim().isNotEmpty)
-          'E il cielo di oggi lo accompagna. $fattoDelCielo',
-      ].where((p) => p.trim().isNotEmpty).join(' '),
-    ].where((p) => p.trim().isNotEmpty).toList();
-    final prosa = paragrafi.join('\n\n');
+    final paragrafi = VoceDellaStesa.paragrafi(
+      spread,
+      topic,
+      domandaScritta: apertura,
+      fattoDelCielo: fattoDelCielo,
+    );
+    // **LA LETTURA DEI VERSI E DEI MAGGIORI RESTA**, e sta gia' dentro
+    // l'ultimo paragrafo composto da `VoceDellaStesa`: e' il pezzo di verita'
+    // rimasto della bolla eliminata dalla voce P.08, e sono fatti della
+    // tradizione, non ornamenti. **Da qui se n'e' andata** perche' anche lei
+    // aveva bisogno del filo: una frase sola per ogni conto di rovesciate
+    // tornava una trentina di volte su cento letture.
+    final tutti = [...paragrafi];
+    // **LA DOMANDA DI CHIUSURA NON SI RIPETE.** Ordine DF voce 02, misura D.
+    //
+    // Prima la domanda finiva **sempre** in coda come paragrafo suo, e quando
+    // era quella scritta dalla persona compariva **due volte nella stessa
+    // bolla**: una in cima, riconosciuta, e una in fondo, identica. Su cento
+    // letture con la stessa domanda faceva **cento paragrafi uguali**, che e'
+    // la misura D dell'ordine, e la soglia e' due.
+    //
+    // Adesso: se la persona ha scritto la sua domanda, quella e' gia'
+    // riconosciuta nella prima riga e in coda non si ripete. Se non l'ha
+    // scritta, in coda va la domanda del corpus, che nasce **dalle carte** e
+    // quindi cambia a ogni estrazione.
+    final laRipete =
+        apertura != null && apertura.trim().isNotEmpty;
+    final coda = laRipete ? '' : '\n\n$domanda';
+    final prosa = tutti.join('\n\n');
     return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'
-        '\n\n$domanda';
+        '$coda';
   }
 
-  /// La sintesi breve senza la maiuscola iniziale e senza il punto finale, per
-  /// entrare dentro una frase piu' grande invece di interromperla.
-  static String _minuscola(String sintesi) {
-    var testo = sintesi.trim();
-    while (testo.endsWith('.')) {
-      testo = testo.substring(0, testo.length - 1);
-    }
-    if (testo.isEmpty) return testo;
-    return testo[0].toLowerCase() + testo.substring(1);
-  }
+  // **LA SINTESI IN MINUSCOLA NON SERVE PIU.** Ordine DF voce 04.3, 11
+  // settembre 2026. Qui viveva un aiutante che toglieva la maiuscola e il
+  // punto a una sintesi del corpus per infilarla dentro una frase piu grande.
+  // Serviva allo stampo vecchio, che citava i significati delle carte dentro
+  // il Consiglio **mentre l elenco Passato Presente Futuro li scriveva gia a
+  // pochi centimetri**. Adesso il Consiglio le carte le NOMINA e non le cita,
+  // quindi non c e piu niente da mettere in minuscola.
 
-  /// COSA DICONO I VERSI E I MAGGIORI, tutti e tre insieme.
-  ///
-  /// E' il contenuto vero che la bolla "Le carte che dialogano" portava, entrato
-  /// nel consiglio invece di sparire con lei: quante carte sono uscite
-  /// rovesciate e quanti Arcani Maggiori attraversano la stesa sono fatti della
-  /// tradizione, non ornamenti.
-  static String _letturaDeiVersi(TarotSpread spread) {
-    final rovesciate = spread.cards.where((c) => c.reversed).length;
-    final maggiori =
-        spread.cards.where((c) => c.card.arcana == TarotArcana.maggiore).length;
-    final versi = switch (rovesciate) {
-      // LA PAROLA DEL ROVESCIO NON SI SCRIVE A MANO, nemmeno qui. La parola
-      // accordata alla carta vive in `DrawnCard.versoLabel`, e una parola fissa
-      // riporterebbe il maschile su "La Papessa". Qui il soggetto non e' una
-      // carta ma il CONTO delle carte, quindi si dice il fatto senza la parola:
-      // "uscita al rovescio" vale per qualunque arcano, e la prova che
-      // sorveglia l'accordo resta verde perche' non ha piu' niente da accordare.
-      0 => 'Nessuna delle tre è uscita al rovescio: la strada è libera e il '
-          'passo tocca a te.',
-      1 => 'Una delle tre è uscita al rovescio, quindi c\'è un nodo da '
-          'sciogliere e non un muro.',
-      _ => 'Più di una è uscita al rovescio: prima di andare avanti c\'è '
-          'qualcosa da sciogliere e il margine per farlo ce l\'hai.',
-    };
-    if (maggiori >= 2) {
-      return '$versi E con $maggiori Arcani Maggiori nella stesa il tema è più '
-          'grande della giornata: il cielo insiste su questo.';
-    }
-    return versi;
-  }
+  // **LA LETTURA DEI VERSI E DEI MAGGIORI VIVE IN VoceDellaStesa.**
+  // Ordine DF voce 02, 11 settembre 2026. Qui c era una frase sola per ogni
+  // conto di rovesciate, e i conti sono tre: su cento letture la stessa riga
+  // tornava una trentina di volte, e su quella riga si reggeva buona parte
+  // della somiglianza a coppie. Adesso sono quattro forme per caso e le
+  // sceglie il filo, cioe le carte uscite. Il numero dei Maggiori e scritto
+  // in lettere, come chiede la voce DF.04.7.
 
   /// La carta chiave: di default il Presente.
   ///
@@ -352,13 +324,16 @@ class PosizioneLetta {
   /// Il testo ricco della carta, nel verso in cui e' uscita.
   final String testo;
 
-  static PosizioneLetta of(DrawnCard drawn, TarotTopic topic) {
+  static PosizioneLetta of(
+      DrawnCard drawn, TarotTopic topic, TarotSpread spread) {
     return PosizioneLetta(
       drawn: drawn,
-      // Solo la lente dell'argomento: il quando lo dice gia' l'etichetta della
-      // posizione sopra, e ripeterlo dava frasi che si contraddicevano, come
-      // "sul bivio davanti a te, alle tue spalle".
-      apertura: topic.lente,
+      // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,
+      // identica in tutte e tre le posizioni di tutte le letture: quindici
+      // parole regalate a ogni confronto. La lente resta il taglio con cui la
+      // carta si legge, ma non e' piu' lei a fare da attacco.
+      apertura: VoceDellaStesa.aperturaDellaPosizione(
+          spread, SpreadPosition.values.indexOf(drawn.position)),
       testo: drawn.meaning,
     );
   }
