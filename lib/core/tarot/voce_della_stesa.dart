@@ -302,7 +302,7 @@ abstract final class VoceDellaStesa {
       'Togli oggi l\'intoppo più piccolo dei tre che hai in mente.',
       'Metti per iscritto che cosa esattamente si è inceppato.',
       'Parla con la persona che sta dall\'altra parte dell\'intoppo.',
-      'Dai mezz\'ora sola a questa cosa, oggi. E non un minuto di più.',
+      'Dai trenta minuti a questa cosa, oggi. E non un minuto di più.',
       'Elimina un passaggio invece di renderlo più veloce.',
       'Controlla la cosa più banale prima di cercare la causa complicata.',
       'Rinuncia a quello che ti costa più di quanto rende. E dillo a voce.',

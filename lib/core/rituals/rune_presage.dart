@@ -219,20 +219,20 @@ class RunePresagio {
   /// **LE OTTO FORME CON CUI PIU' SEGNI PARLANO INSIEME**, per il getto sul
   /// telo, dove piu' rune condividono la stessa glossa.
   static const List<String> formeDelCoro = [
-    'Per {glossa}, piu segni parlano insieme. {frasi}',
+    'Per {glossa}, più segni parlano insieme. {frasi}',
     '{Glossa}: qui non parla una runa sola. {frasi}',
-    '{suGlossa} cadono piu segni. {frasi}',
-    'Piu rune si affacciano su {glossa}. {frasi}',
-    'Quanto a {glossa}, i segni sono piu di uno. {frasi}',
-    'Per {glossa} il telo risponde con piu voci. {frasi}',
-    'Attorno a {glossa} si raccolgono piu segni. {frasi}',
+    '{suGlossa} cadono più segni. {frasi}',
+    'Più rune si affacciano su {glossa}. {frasi}',
+    'Quanto a {glossa}, i segni sono più di uno. {frasi}',
+    'Per {glossa} il telo risponde con più voci. {frasi}',
+    'Attorno a {glossa} si raccolgono più segni. {frasi}',
     '{suGlossa} le rune non dicono una cosa sola. {frasi}',
   ];
 
   /// **LE OTTO FORME DELLA TERZA PARTE**, quella che nomina le rune.
   static const List<String> formeDelDaDoveViene = [
     'Da dove viene: {gettata}. {pezzi}. {famiglia}',
-    'Questo presagio nasce cosi: {gettata}. {pezzi}. {famiglia}',
+    'Questo presagio nasce così: {gettata}. {pezzi}. {famiglia}',
     'Le rune che hanno parlato: {gettata}. {pezzi}. {famiglia}',
     'Il segno viene da {gettata}. {pezzi}. {famiglia}',
     'Come si e formato: {gettata}. {pezzi}. {famiglia}',
