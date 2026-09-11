@@ -355,12 +355,17 @@ tetto e la bolla veniva troncata.
 
 ## 7. IL CONTO DI FLUTTER ANALYZE
 
-- **prima**, sul ramo alla consegna della 2245: **0 problemi**
-- **dopo**: **0 problemi**
-- **differenza**: **0**
-
-Tre avvisi nati durante il lavoro (due import inutilizzati e un `final` che
-poteva essere `const`) sono stati chiusi prima della consegna.
+- **dopo**: **0 problemi**, misurato eseguendo `flutter analyze` sul ramo con
+  tutto il lavoro dentro.
+- **prima**: **non rimisurato al commit 86316005**, quello della consegna della
+  2245, e lo dico invece di scrivere uno zero che non ho contato. Rimisurarlo
+  chiederebbe un albero di lavoro nuovo su quel commit, con il suo `pub get`,
+  e non l ho fatto.
+- **quello che so per certo**: durante questo lavoro sono comparsi **tre**
+  avvisi, due import inutilizzati e un `final` che poteva essere `const`, ed
+  erano **tutti e tre miei**. Sono stati chiusi prima della consegna. Non ne
+  sono comparsi altri, quindi **la differenza fra prima e dopo e zero oppure a
+  favore del dopo**, e non puo' essere a sfavore.
 
 ---
 

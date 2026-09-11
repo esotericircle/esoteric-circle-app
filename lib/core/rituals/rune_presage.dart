@@ -428,15 +428,18 @@ class RunePresagio {
           // e accanto c'e' cosa vuol dire.
           ? (esito.gettata.libera ? 'rovesciata' : 'in merkstave (rovesciata)')
           : (esito.gettata.libera ? 'dritta' : 'diritta');
-      // **E IL SIGNIFICATO DELLA RUNA, che e corpus e sta al suo posto.**
-      // Ordine DF voce 05: la terza parte nominava le rune e basta, quindi il
-      // responso era fatto per meta di impalcatura e di cornice, cioe di
-      // parti che non guardano le rune uscite. Due gettate senza nessuna runa
-      // in comune si somigliavano al 56 per cento. Il significato e gia
-      // scritto nel corpus, e questa e la parte dell anatomia in cui il
-      // simbolo deve comparire.
-      pezzi.add('${r.rune.name} $verso per ${r.posizione.glossa}, '
-          '${_senzaPuntoFinale(_minuscola(r.rune.meaning))}');
+      // **IL SIGNIFICATO DELLA RUNA NON ENTRA QUI, e la ragione e il
+      // confine del responso.** Ordine DF voce 05, 11 settembre 2026.
+      //
+      // Ci era entrato per dare varieta al testo, e la guardia del confine lo
+      // ha respinto in tre casi su seimilasettecentottantuno: il significato
+      // di Othala porta la parola **eredita**, che e un tema delicato, e un
+      // responso rivolto alla persona non la puo nominare. Le altre
+      // ventitre rune non c entravano niente: bastava una.
+      //
+      // **La varieta si e recuperata altrove**, con sedici forme corte per la
+      // posizione e sedici per questa terza parte, senza toccare il corpus.
+      pezzi.add('${r.rune.name} $verso per ${r.posizione.glossa}');
     }
     return _filo(esito)
         .piu(31)
@@ -587,16 +590,6 @@ class RunePresagio {
   /// da sole. Nella prima parte del responso seguono "Per cio' che fu," e senza
   /// questa minuscola si leggeva "Per cio' che fu, Una luce si accende", che e' la
   /// cucitura di due frasi diverse.
-  /// Toglie il punto finale, cosi' non si formano due punti di fila quando la
-  /// frase si innesta dentro un'altra.
-  static String _senzaPuntoFinale(String frase) {
-    var t = frase.trimRight();
-    while (t.endsWith('.')) {
-      t = t.substring(0, t.length - 1);
-    }
-    return t;
-  }
-
   static String _minuscola(String frase) =>
       frase.isEmpty ? frase : frase[0].toLowerCase() + frase.substring(1);
 }

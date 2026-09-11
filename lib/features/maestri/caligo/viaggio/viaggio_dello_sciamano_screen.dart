@@ -1254,7 +1254,13 @@ class _ViaggioDelloSciamanoScreenState
               key: const Key('viaggio_richiamo'),
               testo: _ilRichiamo!,
               textAlign: TextAlign.center,
-              stile: TypographyTokens.lettura().copyWith(color: palette.gold),
+              // **ORO CHIARO E NON ORO PIENO**, ed e la stessa lezione che il
+              // censimento dei grigi aveva gia dato alla riga del nome: su un
+              // fondo di Maestro l oro pieno arriva a 5,42 contro i 7,0 che il
+              // corpo di lettura pretende. Misurato di nuovo qui, e lo ha
+              // preso il censimento con cinque righe rosse.
+              stile:
+                  TypographyTokens.lettura().copyWith(color: palette.goldSoft),
             ),
           ],
           if (NitidezzaDellaScena.laRiga(scena.nitidezza) != null) ...[
