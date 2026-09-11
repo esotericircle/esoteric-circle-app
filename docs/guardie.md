@@ -39,11 +39,40 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 122 |
-| Guardie con un cardinale proprio dichiarato | 97 |
+| Guardie che passano dalla porta comune | 123 |
+| Guardie con un cardinale proprio dichiarato | 98 |
 | Guardie che non scoprono nessun insieme di file | 168 |
-| **Somma delle categorie** | **387** |
-| **Guardie secondo la definizione** | **387** |
+| **Somma delle categorie** | **389** |
+| **Guardie secondo la definizione** | **389** |
+
+**Ricontate l'11 settembre 2026, dopo la prova a video dell'ordine DE (voce
+DE.16)**, che ha portato **due guardie nuove**: il totale sale da 387 a **389**
+e le tre categorie a **123, 98 e 168**.
+
+**`il_velo_c_e_davvero_sul_telefono`** e' nata da un difetto che **due guardie
+verdi non potevano vedere**: sul 767f596c l'animale del Viaggio si vedeva
+intero, testa compresa, mentre lo schermo prometteva una lente. Una guardia
+misurava la **geometria** (il cerchio della lente non tocca il rettangolo della
+testa, e non lo toccava); la prima stesura di questa misurava **l'albero dei
+widget** (il velo c'e' ed e' opaco, e c'era ed era opaco anche con le
+animazioni spente come sul dispositivo). **Il velo era costruito, era opaco, e
+non dipingeva niente**: fra l'albero e i pixel c'era uno `ShaderMask` con
+`BlendMode.dstIn` che sul telefono cancellava il velo intero invece del suo
+cerchio. Adesso la guardia **rasterizza la scena** e misura **quanto e' nitido**
+il rettangolo della testa, confrontandolo con lo stesso rettangolo alla quarta
+discesa: 108 fotogrammi, rapporto peggiore **0,209**, e **1,000** col velo
+tolto a mano. **La luce media non serviva**: sotto il velo il fantasma sfocato
+si vede ed e' voluto, quindi sul Lupo faceva 57,3 velata contro 86,0 scoperta e
+sul Cervo 15,4 contro 14,9, cioe' il contrario.
+
+**`il_verbo_essere_ha_l_accento`** nasce da cinque errori di italiano andati a
+video con tutte le guardie verdi, fra cui *"mi ha trovato il 11 settembre"*
+**sulla card che si condivide**. `testo_a_video` cerca sei parole, *piu*,
+*gia*, *cosi*, *perche*, *cioe*, *meta*: sono le sei che qualcuno aveva gia'
+sbagliato, e **il verbo essere non ci era mai finito perche' nessuno lo aveva
+ancora sbagliato**. Un elenco chiuso dice sempre la verita' su ieri. La guardia
+nuova cerca invece **sette sequenze in cui la lettera `e` non puo' essere una
+congiunzione**, su 20.847 stringhe di `lib`.
 
 **Ricontate il 10 settembre 2026, dopo la voce DD.17**, che ha portato **una guardia nuova**, `un_comando_solo_nella_meditazione`: il totale sale da 386 a **387** e le tre categorie a **122, 97 e 168**. E' nata rossa con la pressione lunga innestata sul fiore.
 
@@ -389,6 +418,8 @@ le altre.
 | `il_titolo_del_respiro_sta_sul_velo_test.dart` | il titolo del respiro sta sul velo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_titolo_non_si_rompe_test.dart` | il titolo non si rompe | 1, 2 | dalla porta comune | mai | 3 |
 | `il_titolo_non_stampa_sul_contenuto_test.dart` | il titolo non stampa sul contenuto | 1, 2, 4 | non scopre insiemi di file | mai | 3 |
+| `il_velo_c_e_davvero_sul_telefono_test.dart` | il velo c e davvero sul telefono | 1, 2 | proprio, dichiarato | 11/09/2026, DE (rossa: il velo reso trasparente, rapporto nitidezza 1,000) | 1 |
+| `il_verbo_essere_ha_l_accento_test.dart` | il verbo essere ha l accento | 1, 2 | dalla porta comune | 11/09/2026, DE (rossa: rimesso *Non e nuovo* nelle forme del richiamo) | 1 |
 | `il_velo_e_uno_solo_test.dart` | il velo e uno solo | 1 | dalla porta comune | 01/09/2026, CL | 3 |
 | `il_ventaglio_vive_subito_test.dart` | il ventaglio vive subito | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_video_e_lo_sfondo_della_rivelazione_test.dart` | il video e lo sfondo della rivelazione | 1 | non scopre insiemi di file | mai | 3 |

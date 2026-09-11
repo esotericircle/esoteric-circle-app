@@ -2020,8 +2020,73 @@ disegnava **una formula da un seme**, quindi l'ombra che si seguiva non era
 l'animale che si otteneva, e la formula disegnava **sempre un quadrupede**
 mentre quattro dei dodici animali non lo sono.
 
-**Quattordici voci su sedici chiuse.** Il manifesto sta in
-`docs/ordini/ORDINE_DE_MANIFESTO.md`.
+**Quindici voci su sedici chiuse**, e la sedicesima, DE.16, e' **la prova
+visiva sul telefono, fatta l'11 settembre 2026 in mattinata sul 767f596c con la
+build 2246.** Il manifesto sta in `docs/ordini/ORDINE_DE_MANIFESTO.md`, il
+rapporto in `docs/ordini/RAPPORTO_ORDINE_DE.md`, le catture in
+`docs/catture/de_df/`. Restano aperte **DE.04** (aspetta Imagen sul progetto) e
+**DE.05** (aspetta tre file del fondatore).
+
+**LA PROVA A VIDEO HA TROVATO SEI DIFETTI CHE NESSUNA GUARDIA VEDEVA**, e
+questa e' la riga che conta piu' di tutte le altre di questa sezione: **le
+sedici voci erano chiuse con i numeri e l'app a video era sbagliata lo
+stesso.**
+
+1. **Alla seconda e alla terza discesa l'animale si vedeva intero, testa
+   compresa**, mentre lo schermo prometteva *"la lente scopre solo dove puo',
+   oggi"*. **PROVENIENZA: ordine DE voce 03.** Il buco della lente si
+   ritagliava dal velo con uno `ShaderMask` e `BlendMode.dstIn`, e sul telefono
+   quella maschera cancellava **il velo intero** invece del suo cerchio. Al
+   banco funzionava. Lo sorvegliavano due guardie, verdi tutte e due e a
+   ragione: una misurava la geometria (il cerchio non tocca la testa, e non la
+   toccava), una misurava l'albero dei widget (il velo c'e' ed e' opaco, e
+   c'era ed era opaco anche con le animazioni spente). **Il velo era
+   costruito, era opaco, e non dipingeva niente.** Adesso il velo si dipinge
+   **senza nessuna maschera di fusione**: coltre e fantasma interi, e sopra un
+   `ClipPath` circolare con dentro l'animale nitido e il gradiente che torna
+   alla coltre esattamente sul raggio. La guardia nuova
+   `test/il_velo_c_e_davvero_sul_telefono_test.dart` **rasterizza la scena e
+   misura quanto e' NITIDO il rettangolo della testa**: 108 fotogrammi, dodici
+   animali per tre discese per tre posizioni della lente, **rapporto peggiore
+   fra testa velata e testa scoperta 0,209**, e **1,000** col velo tolto a
+   mano, che e' come e' stata vista rossa. La luce media non serviva: sotto il
+   velo il fantasma sfocato si vede ed e' voluto, quindi sul Lupo faceva 57,3
+   velata contro 86,0 scoperta e sul Cervo 15,4 contro 14,9, cioe' il
+   contrario.
+2. **Tre accenti e un apostrofo nelle otto forme del richiamo**: *"Non e
+   nuovo"*, *"Questa non e la prima volta"*, *"di la"*, *"un altra volta"*.
+   **PROVENIENZA: ordine DE voce 11.**
+3. **Sulla card che si condivide**: *"mi ha trovato il 11 settembre 2026"*.
+   **PROVENIENZA: ordine DE voce 08.** L'articolo si elide davanti a **otto** e
+   a **undici**, gli unici due giorni del mese che cominciano per vocale.
+4. ***"E' il Lince. Adesso lo conosci."*** **PROVENIENZA: ordine DE voce 08.**
+   Il genere dei dodici animali stava **solo nei testi del corpus** (*"la Lince
+   vede l'invisibile"*) e in una **seconda tabella** dentro
+   `ChatOpeners._articoloAnimale`, che sapeva anche l'elisione (`l'Orso`,
+   `l'Aquila`). Il Viaggio non usava ne' l'una ne' l'altra e scriveva `il`
+   fisso. Adesso il genere e' un campo di `GuideAnimal`, l'articolo si compone
+   da li' con l'elisione, e **la tabella della chat e' sparita**: due tabelle
+   sullo stesso fatto sono due verita'.
+5. **Quattro discese, la stessa terna di ombre nelle stesse tre posizioni.**
+   **PROVENIENZA: ordine DE voce 03.** La terna deve restare quella, perche' e'
+   il meccanismo (vince l'ombra seguita piu' volte); **cambia l'ordine**, con
+   sei disposizioni fisse scelte dalla discesa.
+6. **Due errori di un'altra famiglia trovati dalla guardia nuova della
+   lingua**: un apostrofo al posto dell'accento nel corpus delle rune del
+   tramonto e uno in un messaggio di diagnostica del verso dell'animale.
+
+**LA GUARDIA DELLA LINGUA CHE MANCAVA.** `testo_a_video_test` cerca sei parole,
+*piu*, *gia*, *cosi*, *perche*, *cioe*, *meta*: sono le sei che qualcuno aveva
+gia' sbagliato, e **il verbo essere non ci era mai finito perche' nessuno lo
+aveva ancora sbagliato**. Un elenco chiuso dice sempre la verita' su ieri. La
+guardia nuova `test/il_verbo_essere_ha_l_accento_test.dart` cerca invece
+**sette sequenze in cui la lettera `e` non puo' essere una congiunzione**, su
+**20.847 stringhe** di `lib`, e verifica anche l'articolo del giorno e
+l'accordo dei dodici animali.
+
+**LE CATTURE.** Dodici del Viaggio piu' tre che portano il difetto invece della
+prova, e si tengono apposta: un manifesto che mostri solo le schermate riuscite
+racconta una giornata che non c'e' stata.
 
 **Che cosa e' cambiato, in breve.**
 
@@ -2085,7 +2150,18 @@ tutte e quattro.**
 
 **Sette voci su sette chiuse.** Il manifesto sta in
 `docs/ordini/ORDINE_DF_MANIFESTO.md`, il censimento in
-`docs/DF_censimento_delle_risposte.md`.
+`docs/DF_censimento_delle_risposte.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DF.md`.
+
+**E LA PROVA DEL FONDATORE E' STATA RIFATTA SUL TELEFONO**, l'11 settembre 2026
+fra le 10:31 e le 10:42 sul 767f596c con la build 2246: **quattro Stese
+consecutive con la stessa domanda scelta dal menu, Denaro e fortuna.** Quattro
+titoli diversi (*La difesa irrigidita*, *La misura che guarisce*, *La fine che
+libera*, *La scintilla che accende*), quattro aperture diverse del Consiglio,
+quattro strade diverse. L'unica frase che ricorre e' *"Sul denaro che ti
+riguarda"*, che e' il taglio dell'argomento e deve ricorrere. Le catture stanno
+in `docs/catture/de_df/`, due per lettura: il titolo, che prova che la sintesi
+e' cambiata, e il primo paragrafo, che prova che e' cambiata la strada.
 
 **LA CAUSA, e stava scritta in due righe.** In `tarot_reading.dart` il
 Consiglio apriva con `topic.lente` piu' `topic.group.risposta` e proseguiva con
