@@ -2438,6 +2438,28 @@ void main() {
     await step(tester);
   }
 
+  /// **LE QUATTRO DISCESE GIA' FATTE.** Ordine DG voce 02, 12 settembre 2026.
+  ///
+  /// Dal 12 settembre la lettura dell'animale **non si apre prima delle quattro
+  /// discese**: e' la rivelazione intera, nome e totem a colori e corpus, e il
+  /// fondatore ha chiesto che arrivi dal Viaggio.
+  ///
+  /// **Le anteprime mostrano l'app di chi la usa**, non il suo primo minuto: e'
+  /// la stessa legge per cui qui sopra il Cammino parte gia' alla generazione
+  /// due. Chi guarda l'anteprima della lettura dell'animale vuole vedere la
+  /// lettura, non la soglia che la protegge.
+  List<String> ilDiarioCompiuto() => [
+        for (var i = 0; i < 4; i++)
+          jsonEncode({
+            'quando': DateTime(2026, 9, 1 + i, 10).toIso8601String(),
+            'domanda': '',
+            'tema': '',
+            'pezzi': <String>[],
+            'animale': 'Lupo',
+            'nitidezza': 1.0,
+          }),
+      ];
+
   void seedArchetipoCaligo() {
     final esito = ArchetypeEsito(
       quando: DateTime(2026, 7, 22, 10),
@@ -2446,6 +2468,7 @@ void main() {
     );
     SharedPreferences.setMockInitialValues({
       'archetipo.storico': [jsonEncode(esito.toJson())],
+      'viaggio.diario': ilDiarioCompiuto(),
     });
   }
 
@@ -2453,7 +2476,11 @@ void main() {
     silenceSensors();
     await loadFonts();
     // Senza Test Archetipo, il popup evocativo compare all'ingresso.
-    SharedPreferences.setMockInitialValues({});
+    // **Ma col Viaggio gia' compiuto**, ordine DG voce 02: sotto il popup c'e'
+    // la lettura, non la soglia che la protegge.
+    SharedPreferences.setMockInitialValues({
+      'viaggio.diario': ilDiarioCompiuto(),
+    });
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
         size: const Size(360, 900));
