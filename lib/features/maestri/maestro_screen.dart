@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
@@ -16,6 +17,8 @@ import '../../core/entitlement/plan_catalog.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/viaggio/diario_dei_viaggi.dart';
+import '../../core/viaggio/la_promessa_del_viaggio.dart';
 import '../../design_system/components/art_card.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/collasso.dart';
@@ -229,12 +232,19 @@ class _ArtSectionBox extends StatelessWidget {
 
   Widget _card(BuildContext context, ArtEntry art) => ScrollReveal(
         depth: 1,
-        child: ArtCard(
-          art: art,
-          palette: context.palette,
-          showPhase: demo,
-          onTap: () => _openArt(context, art),
-        ),
+        child: art.id == 'guide_animal'
+            ? _CardDelViaggio(
+                art: art,
+                palette: context.palette,
+                showPhase: demo,
+                onTap: () => _openArt(context, art),
+              )
+            : ArtCard(
+                art: art,
+                palette: context.palette,
+                showPhase: demo,
+                onTap: () => _openArt(context, art),
+              ),
       );
 
   @override
@@ -764,4 +774,60 @@ Future<void> showArtPreview(
       ),
     ),
   );
+}
+
+
+/// **LA CARD DEL VIAGGIO, l'unica che cambia descrizione col tempo.**
+/// Ordine DE voce 02, 11 settembre 2026.
+///
+/// **PERCHE' HA BISOGNO DI UNA CLASSE SUA.** Il catalogo delle arti e'
+/// `const`: la sua riga vale per tutti e per sempre. La promessa del Viaggio
+/// invece **cambia alla quarta discesa**, e quel numero vive nel Diario, sul
+/// telefono di quella persona. Leggerlo vuol dire aspettare l'archivio, e
+/// nessuna delle altre quaranta card deve pagare quell'attesa.
+///
+/// **E NON ASPETTA NESSUNO.** Ordine DC voce 16: finche' il Diario non
+/// risponde si mostra la promessa di chi non e' ancora sceso, che e' la
+/// risposta giusta per chiunque apra l'app la prima volta ed e' comunque
+/// meglio di una card vuota.
+class _CardDelViaggio extends StatefulWidget {
+  const _CardDelViaggio({
+    required this.art,
+    required this.palette,
+    required this.showPhase,
+    required this.onTap,
+  });
+
+  final ArtEntry art;
+  final MaestroPalette palette;
+  final bool showPhase;
+  final VoidCallback onTap;
+
+  @override
+  State<_CardDelViaggio> createState() => _CardDelViaggioState();
+}
+
+class _CardDelViaggioState extends State<_CardDelViaggio> {
+  int _discese = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    final diario = DiarioDeiViaggi();
+    unawaited(diario.carica().then((_) {
+      if (mounted) setState(() => _discese = diario.quanteDiscese);
+    }).catchError((_) {
+      // **UN ARCHIVIO MUTO NON SPEGNE UNA CARD.** Resta la promessa di chi
+      // non e' ancora sceso.
+    }));
+  }
+
+  @override
+  Widget build(BuildContext context) => ArtCard(
+        art: widget.art,
+        palette: widget.palette,
+        showPhase: widget.showPhase,
+        descrizione: LaPromessaDelViaggio.descrizionePer(_discese),
+        onTap: widget.onTap,
+      );
 }

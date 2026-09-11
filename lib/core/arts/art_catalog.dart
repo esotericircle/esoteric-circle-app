@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../config/app_flags.dart';
 import '../entitlement/tier.dart';
+import '../viaggio/la_promessa_del_viaggio.dart';
 import '../maestro/maestro.dart';
 
 /// Le fasi di lavorazione di un'arte, in ordine di lontananza.
@@ -85,7 +86,25 @@ class ArtEntry {
     this.phase,
     this.cornice = false,
     this.soloNelPassaporto = false,
+    this.righeDelTitolo,
   });
+
+  /// **IL TITOLO SPEZZATO IN PIU' RIGHE, quando una sola non gli basta.**
+  /// Ordine DE voce 02, 11 settembre 2026.
+  ///
+  /// **Nullo per quasi tutte le arti**, e allora vale [title] su una riga. Lo
+  /// porta chi ha un titolo lungo che, stando su una riga, deve rimpicciolirsi
+  /// per entrare: e **un titolo che si rimpicciolisce smette di essere un
+  /// titolo**.
+  ///
+  /// Le righe dispari stanno in corpo pieno, quelle pari in corpo piccolo:
+  /// cosi' *VIAGGIO / dello / SCIAMANO* mette in grande le due parole che
+  /// contano e riduce la preposizione, che e' esattamente cio' che il
+  /// fondatore ha chiesto.
+  ///
+  /// **[title] resta e non si butta**: e' cio' che leggono la barra, le prove
+  /// e chiunque abbia bisogno del nome in una riga sola.
+  final List<String>? righeDelTitolo;
 
   final String id;
   final String title;
@@ -709,6 +728,15 @@ class ArtCatalog {
       ArtEntry(
         id: 'guide_animal',
         title: 'Il Viaggio dello Sciamano',
+        // **IL TITOLO SU DUE RIGHE**, ordine DE voce 02. Le tre righe vivono
+        // in `LaPromessaDelViaggio` insieme alla descrizione che cambia:
+        // titolo e promessa della stessa arte in due file diversi sarebbero
+        // due posti dove tenerli allineati.
+        righeDelTitolo: LaPromessaDelViaggio.righeDelTitolo,
+        // **LA DESCRIZIONE QUI E' QUELLA DI CHI HA GIA' RICONOSCIUTO.** Chi
+        // non e' ancora arrivato alla quarta discesa ne legge un'altra, e la
+        // sostituzione la fa chi costruisce la card, che e' l'unico a sapere
+        // quante discese ha fatto quella persona.
         teaser: 'Scendi con una domanda, risali con una risposta.',
         icon: Icons.pets_rounded,
         state: ArtState.attiva,

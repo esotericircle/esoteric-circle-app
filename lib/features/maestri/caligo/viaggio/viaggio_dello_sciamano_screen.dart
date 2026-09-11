@@ -25,6 +25,7 @@ import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
+import '../../../../core/viaggio/la_promessa_del_viaggio.dart';
 import 'la_lente_che_scopre.dart';
 import 'la_nebbia_e_l_animale.dart';
 
@@ -198,7 +199,12 @@ class _ViaggioDelloSciamanoScreenState
       // **LA LENTE E' UNA SCENA PIENA, ordine DE voce 03**: l'immagine
       // dell'animale occupa tutto, e una striscia di pagina sopra la
       // smentirebbe.
-      _fase == FaseDelViaggio.lente;
+      _fase == FaseDelViaggio.lente ||
+      // **E LA SOGLIA, dall'ordine DE voce 01**: *"la soglia esce dal
+      // riquadro e diventa una scena piena: l'immagine occupa tutta l'area
+      // utile, e il testo ci sta sopra"*. Una striscia di pagina sopra il
+      // bosco vorrebbe dire che l'immagine non occupa tutta l'area utile.
+      _fase == FaseDelViaggio.soglia;
 
   bool get _riconosciuto =>
       IQuattroViaggi.seguitoDaLeQuattroScelte(_diario.scelteInOrdine) != null;
@@ -399,162 +405,191 @@ class _ViaggioDelloSciamanoScreenState
     final siPuo = _caricato &&
         _diario.siPuoScendereOggi(giaRiconosciuto: _riconosciuto);
     final pronto = siPuo && (perche == null || _temaScelto.isNotEmpty);
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-          SpacingTokens.lg, SpacingTokens.xxl),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _ilBoscoDellaSoglia(palette),
-          const SizedBox(height: SpacingTokens.lg),
-          // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
-          _iQuattroSegni(palette),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            IQuattroViaggi.aChePunto(_diario.quanteDiscese),
-            key: const Key('viaggio_a_che_punto'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.xl),
-          _leTreVie(palette, primo: primo),
-          if (perche != null && _temaScelto.isEmpty) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Text(perche,
-                key: const Key('viaggio_perche_non_si_scende'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: palette.goldSoft)),
-          ],
-          if (!siPuo && _caricato) ...[
-            const SizedBox(height: SpacingTokens.md),
-            DepthCard(
-              padding: const EdgeInsets.all(SpacingTokens.md),
-              child: ParagrafiDiLettura(
-                key: const Key('viaggio_non_oggi'),
-                testo: IQuattroViaggi.percheSiAspetta,
-                // La spiegazione dell attesa si legge per intero, quindi
-                // porta la misura del responso.
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textSecondary),
+    final schermo = MediaQuery.of(context).size;
+    // **QUANTO SPAZIO SI LASCIA IN CIMA**, cioe' la barra piu' la tacca del
+    // telefono: il corpo passa **sotto** la barra perche' la scena deve
+    // arrivare fino in alto, e il testo non deve finirci dentro. E' lo stesso
+    // difetto che il tunnel ha avuto nell'ordine DC, a rovescio.
+    final quantoInCima = MediaQuery.of(context).padding.top + kToolbarHeight;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // **LA SCENA A SCHERMO PIENO**, ordine DE voce 01. L'immagine vera
+        // quando c'e', il bosco dipinto finche' non c'e': lo slot e' lo
+        // stesso di prima, e' il riquadro che non c'e' piu'.
+        const Positioned.fill(
+          child: SfondoDelMondoDiSotto(key: Key('viaggio_bosco')),
+        ),
+        // **I DODICI PASSANO NELLA FASCIA ALTA, dove il bosco e' leggibile.**
+        Positioned(
+          top: quantoInCima + SpacingTokens.lg,
+          left: 0,
+          right: 0,
+          child: GirandolaDegliAnimali(altezza: schermo.height * 0.16),
+        ),
+        // **IL VELO DAL BASSO.** La meta' bassa della scena e' quasi pura
+        // oscurita', e il testo ci si legge sopra senza nessun fondo scuro
+        // aggiuntivo: e' la riga dell'ordine, ed e' anche il motivo per cui
+        // le sei domande non hanno piu' bisogno di un riquadro ognuna.
+        const Positioned.fill(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x00060410),
+                  Color(0x00060410),
+                  Color(0xCC060410),
+                  Color(0xF5060410),
+                ],
+                stops: [0.0, 0.30, 0.52, 0.78],
               ),
             ),
-          ],
-          const SizedBox(height: SpacingTokens.lg),
-          FilledButton.icon(
-            key: const Key('viaggio_scendi'),
-            onPressed:
-                pronto ? () => setState(() => _fase = FaseDelViaggio.discesa) : null,
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.primary,
-              foregroundColor: palette.onPrimary,
-              minimumSize: const Size.fromHeight(56),
-            ),
-            icon: const Icon(Icons.south_rounded),
-            label: Text('Scendi', style: TypographyTokens.etichetta()),
           ),
-        ],
-      ),
+        ),
+        SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+              SpacingTokens.lg,
+              quantoInCima + SpacingTokens.lg,
+              SpacingTokens.lg,
+              SpacingTokens.xxl),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Lo spazio della fascia alta, dove passano i dodici: il testo
+              // comincia sotto di loro.
+              SizedBox(height: schermo.height * 0.22),
+              _laPromessaDellaSoglia(palette, primo: primo),
+              const SizedBox(height: SpacingTokens.lg),
+              // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
+              _iQuattroSegni(palette),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+                key: const Key('viaggio_a_che_punto'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+              const SizedBox(height: SpacingTokens.xl),
+              _leTreVie(palette, primo: primo),
+              if (perche != null && _temaScelto.isEmpty) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(perche,
+                    key: const Key('viaggio_perche_non_si_scende'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: palette.goldSoft)),
+              ],
+              if (!siPuo && _caricato) ...[
+                const SizedBox(height: SpacingTokens.md),
+                DepthCard(
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  child: ParagrafiDiLettura(
+                    key: const Key('viaggio_non_oggi'),
+                    testo: IQuattroViaggi.percheSiAspetta,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ),
+              ],
+              const SizedBox(height: SpacingTokens.lg),
+              FilledButton.icon(
+                key: const Key('viaggio_scendi'),
+                onPressed: pronto
+                    ? () => setState(() => _fase = FaseDelViaggio.discesa)
+                    : null,
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.primary,
+                  foregroundColor: palette.onPrimary,
+                  minimumSize: const Size.fromHeight(56),
+                ),
+                icon: const Icon(Icons.south_rounded),
+                label: Text('Scendi', style: TypographyTokens.etichetta()),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  /// **IL BOSCO, I DODICI CHE PASSANO, E LA PROMESSA.**
+  /// **LA PROMESSA SULLA SOGLIA, e prima della prima discesa sono tre righe.**
+  /// Ordine DE voce 02.
   ///
-  /// **E' il colpo d'occhio che mancava**, e sono tre cose in una immagine.
+  /// *"Sulla soglia, prima della prima discesa, la persona deve sapere tre
+  /// cose, dette come promessa e mai come compito: che in quattro discese
+  /// conoscera' il nome del suo animale, che quell'animale restera' con lei da
+  /// li' in avanti, e che potra' consultarlo e prendersene cura."*
   ///
-  /// **Il bosco al crepuscolo** dice dove si e', e non e' una decorazione:
-  /// porta gli stessi due colori della galleria, quindi chi guarda la soglia
-  /// sta gia' guardando il Mondo di Sotto da fuori. In mezzo c'e' l'apertura
-  /// nella terra, che e' il punto piu' chiaro della scena e il posto dove
-  /// l'occhio va per primo.
-  ///
-  /// **I dodici totem che passano in ombra** dicono chi aspetta la' sotto.
-  /// Sono gli asset gia' fatti della famiglia `animali`, che fino a oggi si
-  /// vedevano soltanto **dopo** aver conosciuto il proprio animale.
-  ///
-  /// **La promessa in due righe** dice cosa si ottiene, ed e' l'unica cosa
-  /// da leggere prima di poter toccare qualcosa.
-  Widget _ilBoscoDellaSoglia(MaestroPalette palette) => ClipRRect(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-        child: SizedBox(
-          width: double.infinity,
-          child: AspectRatio(
-            aspectRatio: 1.15,
-            child: LayoutBuilder(
-              builder: (context, vincoli) => Stack(
-                fit: StackFit.expand,
+  /// **Dalla seconda discesa in poi le tre righe spariscono**: chi e' gia'
+  /// sceso le ha gia' lette, e ripetere una promessa a chi l'ha gia' accettata
+  /// e' il modo piu' rapido di farla sembrare una reclame.
+  Widget _laPromessaDellaSoglia(MaestroPalette palette,
+      {required bool primo}) {
+    const tre = LaPromessaDelViaggio.treCoseDaSapere;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'IL MONDO DI SOTTO',
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft, letterSpacing: 2.4),
+        ),
+        const SizedBox(height: SpacingTokens.xs),
+        Text(
+          LaPromessaDelViaggio.descrizionePer(_diario.quanteDiscese),
+          key: const Key('viaggio_promessa'),
+          style: TypographyTokens.titoloScheda()
+              .copyWith(color: ColorTokens.textPrimary),
+        ),
+        const SizedBox(height: SpacingTokens.xs),
+        Text(
+          'Dodici ti aspettano. Uno verrà con te.',
+          key: const Key('viaggio_i_dodici'),
+          style:
+              TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
+        ),
+        if (primo) ...[
+          const SizedBox(height: SpacingTokens.md),
+          for (var i = 0; i < tre.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // **LO SLOT DELLO SFONDO**: l'immagine vera quando c'e',
-                  // il bosco dipinto finche' non c'e'. Vedi
-                  // `SfondoDelMondoDiSotto`.
-                  const SfondoDelMondoDiSotto(key: Key('viaggio_bosco')),
-                  // **I DODICI PASSANO ALL'ALTEZZA DELL'APERTURA**, cioe'
-                  // davanti alla luce: e' li' che una sagoma si vede.
-                  Align(
-                    // **PIU' IN ALTO DEL TESTO, e non dietro.** Difetto visto
-                    // sul telefono 767f596c: la promessa cadeva sopra il
-                    // cervo e il cavallo, e nessuna delle due cose si
-                    // leggeva. Un velo non basta quando sotto passa una
-                    // figura: le due cose devono stare in due fasce diverse.
-                    alignment: const Alignment(0, -0.34),
-                    child: GirandolaDegliAnimali(
-                        altezza: vincoli.maxHeight * 0.42),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: Icon(Icons.circle,
+                        size: 5, color: palette.gold.withValues(alpha: 0.8)),
                   ),
-                  // Il velo dal basso: il testo chiaro sopra una scena
-                  // dipinta ha bisogno di un fondo che non cambi.
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.transparent,
-                          const Color(0xFF090610).withValues(alpha: 0.72),
-                          const Color(0xFF070510).withValues(alpha: 0.96),
-                        ],
-                        stops: const [0.0, 0.34, 0.56, 1.0],
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(SpacingTokens.lg),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'IL MONDO DI SOTTO',
-                            style: TypographyTokens.etichetta().copyWith(
-                                color: palette.goldSoft, letterSpacing: 2.4),
-                          ),
-                          const SizedBox(height: SpacingTokens.xs),
-                          Text(
-                            'Scendi con una domanda, risali con una risposta.',
-                            key: const Key('viaggio_promessa'),
-                            style: TypographyTokens.titoloScheda()
-                                .copyWith(color: ColorTokens.textPrimary),
-                          ),
-                          const SizedBox(height: SpacingTokens.xs),
-                          Text(
-                            'Dodici ti aspettano. Uno verrà con te.',
-                            key: const Key('viaggio_i_dodici'),
-                            style: TypographyTokens.didascalia()
-                                .copyWith(color: palette.goldSoft),
-                          ),
-                        ],
-                      ),
+                  const SizedBox(width: SpacingTokens.sm),
+                  Expanded(
+                    child: Text(
+                      tre[i],
+                      key: Key('viaggio_promessa_$i'),
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textSecondary),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ),
-      );
+        ],
+      ],
+    );
+  }
+
+  // **IL BOSCO NEL RIQUADRO NON C'E' PIU'.** Ordine DE voce 01, 11 settembre
+  // 2026. Qui viveva '_ilBoscoDellaSoglia', un ClipRRect con un AspectRatio
+  // 1.15 che teneva la scena dentro una card in cima a una colonna che
+  // scorreva. Il fondatore: *"la soglia esce dal riquadro e diventa una scena
+  // piena"*. Adesso lo sfondo, i dodici e il velo stanno in '_laSoglia', e
+  // sono uno Stack che riempie la finestra invece di una riga della colonna.
+  //
+  // **Non si e' perso niente**: i tre pezzi sono gli stessi tre, e lo slot
+  // dell'immagine e' sempre 'SfondoDelMondoDiSotto'.
 
   /// **I QUATTRO SEGNI DEL RICONOSCIMENTO.**
   ///

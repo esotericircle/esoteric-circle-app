@@ -23,7 +23,17 @@ class ArtCard extends StatelessWidget {
     required this.palette,
     this.onTap,
     this.showPhase = AppFlags.isDemo,
+    this.descrizione,
   });
+
+  /// **LA DESCRIZIONE, quando quella del catalogo non e' piu' vera.**
+  /// Ordine DE voce 02.
+  ///
+  /// Il catalogo e' `const`: la sua riga vale per tutti e per sempre. Il
+  /// Viaggio ha una promessa che **cambia dopo la quarta discesa**, e quel
+  /// numero lo conosce soltanto chi costruisce la card. Nullo vuol dire
+  /// tenere quella del catalogo, che e' il caso di tutte le altre arti.
+  final String? descrizione;
 
   final ArtEntry art;
   final MaestroPalette palette;
@@ -97,13 +107,18 @@ class ArtCard extends StatelessWidget {
                             .withValues(alpha: attiva ? 1.0 : 0.85)),
                     const SizedBox(width: SpacingTokens.sm),
                     Expanded(
-                      child: Text(
-                        art.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TypographyTokens.titoloDiRiga()
-                            .copyWith(color: ColorTokens.textPrimary),
-                      ),
+                      child: art.righeDelTitolo == null
+                          ? Text(
+                              art.title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TypographyTokens.titoloDiRiga()
+                                  .copyWith(color: ColorTokens.textPrimary),
+                            )
+                          : _TitoloADueCorpi(
+                              righe: art.righeDelTitolo!,
+                              chiave: art.id,
+                            ),
                     ),
                     if (art.state == ArtState.premium)
                       Icon(Icons.lock_rounded,
@@ -114,7 +129,8 @@ class ArtCard extends StatelessWidget {
                 ),
                 const SizedBox(height: SpacingTokens.xs),
                 Text(
-                  art.teaser,
+                  descrizione ?? art.teaser,
+                  key: Key('art_descrizione_${art.id}'),
                   style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary,
                     height: 1.35,
@@ -223,6 +239,58 @@ class _Badge extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// **UN TITOLO SU PIU' RIGHE, con l'articolo in corpo piccolo.**
+/// Ordine DE voce 02, 11 settembre 2026.
+///
+/// **PERCHE' ESISTE.** *Il Viaggio dello Sciamano* su una riga sola, dentro
+/// la larghezza che la card lascia accanto all'icona, non ci sta: la riga si
+/// spezza dove capita oppure il corpo si rimpicciolisce. Il fondatore lo ha
+/// nominato cosi': *"nel dominio e in home il titolo e' troppo piccolo perche'
+/// sta su una riga"*.
+///
+/// **LA REGOLA E' POSIZIONALE, non semantica**: righe dispari in corpo pieno,
+/// righe pari in corpo piccolo. Non riconosce le preposizioni e non prova a
+/// indovinare: **decide chi scrive le righe**, che e' l'unico a sapere quale
+/// parola conta.
+class _TitoloADueCorpi extends StatelessWidget {
+  const _TitoloADueCorpi({required this.righe, required this.chiave});
+
+  final List<String> righe;
+  final String chiave;
+
+  /// **QUANTO E' PICCOLA LA RIGA PICCOLA**, in frazione del corpo pieno.
+  ///
+  /// Zero virgola sessantadue: sotto, l'articolo diventa un apice e la frase
+  /// si spezza in due titoli diversi; sopra, non si distingue dal resto e la
+  /// riga di mezzo torna a rubare spazio alle due che contano.
+  static const double quantoSiRiduce = 0.62;
+
+  @override
+  Widget build(BuildContext context) {
+    final pieno = TypographyTokens.titoloDiRiga()
+        .copyWith(color: ColorTokens.textPrimary, height: 1.02);
+    return Column(
+      key: Key('art_titolo_a_righe_$chiave'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var i = 0; i < righe.length; i++)
+          Text(
+            righe[i],
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: i.isOdd
+                ? pieno.copyWith(
+                    fontSize: (pieno.fontSize ?? 18) * quantoSiRiduce,
+                    color: ColorTokens.textSecondary,
+                    letterSpacing: 0.6)
+                : pieno.copyWith(letterSpacing: 1.6),
+          ),
+      ],
     );
   }
 }
