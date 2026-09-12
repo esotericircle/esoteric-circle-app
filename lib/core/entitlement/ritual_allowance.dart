@@ -16,7 +16,7 @@ enum RitualQuota {
 
   /// La riga della matrice che promette il limite di questa quota. Il numero
   /// NON sta qui: sta nella matrice, e da li' si legge.
-  final String riga;
+  final RigaDelPiano riga;
 }
 
 /// Contatore giornaliero delle quote a consumo, una per tipo.

@@ -192,7 +192,16 @@ class _ViaggioDelloSciamanoScreenState
 
   /// **CON CHE COSA SI SCENDE**, e le tre vie sono dichiarate come tre.
   ViaDellaDomanda _via = ViaDellaDomanda.scelta;
-  String _temaScelto = '';
+  /// **IL TEMA DELLA DOMANDA, e solo quello.** Ordine DI voce 01,
+  /// 12 settembre 2026.
+  ///
+  /// **Qui c'era una `String` che faceva tre mestieri**: portava l'etichetta
+  /// della domanda toccata, portava `'incontro'` per la terza via, e faceva da
+  /// semaforo per saltare il controllo del testo. L'etichetta non era mai
+  /// l'id che le risposte cercavano, e il tema arrivava nullo per tutte e tre
+  /// le vie. Adesso e' un tipo: uno dei sei temi, oppure nullo. La terza via
+  /// si legge da `_via`.
+  TemaDellaDomanda? _temaScelto;
 
   ScenaDelViaggio? _scena;
 
@@ -478,7 +487,12 @@ class _ViaggioDelloSciamanoScreenState
     await _diario.segna(UnViaggio(
       quando: _adesso,
       domanda: domanda,
-      temaDellaDomanda: _temaScelto,
+      // **NEL DIARIO VA L'ID**, che e' stabile, e non l'etichetta. La
+      // terza via si scrive col suo id, come prima.
+      temaDellaDomanda: _temaScelto?.name ??
+          (_via == ViaDellaDomanda.incontro
+              ? LaDomandaDelViaggio.idSoloPerIncontrarlo
+              : ''),
       pezzi: scena.idDeiPezzi,
       animaleSeguito: nome,
       nitidezza: nitidezza,
@@ -628,7 +642,10 @@ class _ViaggioDelloSciamanoScreenState
       quanteOggi: _diario.quanteOggi,
       tier: _piano,
     );
-    final pronto = siPuo && (perche == null || _temaScelto.isNotEmpty);
+    final pronto = siPuo &&
+        (perche == null ||
+            _temaScelto != null ||
+            _via == ViaDellaDomanda.incontro);
     final schermo = MediaQuery.of(context).size;
     // **QUANTO SPAZIO SI LASCIA IN CIMA**, cioe' la barra piu' la tacca del
     // telefono: il corpo passa **sotto** la barra perche' la scena deve
@@ -735,7 +752,9 @@ class _ViaggioDelloSciamanoScreenState
                 ],
                 const SizedBox(height: SpacingTokens.xl),
                 _leTreVie(palette, primo: primo),
-                if (perche != null && _temaScelto.isEmpty) ...[
+                if (perche != null &&
+                    _temaScelto == null &&
+                    _via != ViaDellaDomanda.incontro) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   Text(perche,
                       key: const Key('viaggio_perche_non_si_scende'),
@@ -1025,9 +1044,8 @@ class _ViaggioDelloSciamanoScreenState
           onSelectionChanged: (scelte) => setState(() {
             _via = scelte.first;
             _domanda.clear();
-            _temaScelto = _via == ViaDellaDomanda.incontro
-                ? LaDomandaDelViaggio.idSoloPerIncontrarlo
-                : '';
+            // La terza via non e' un tema: si legge da `_via`.
+            _temaScelto = null;
           }),
         ),
         const SizedBox(height: SpacingTokens.md),
@@ -1064,7 +1082,7 @@ class _ViaggioDelloSciamanoScreenState
       );
 
   Widget _unaDomanda(MaestroPalette palette, DomandaScritta d) {
-    final scelta = _temaScelto == d.tema;
+    final scelta = _temaScelto == d.chiave;
     return Material(
       color: scelta
           ? palette.gold.withValues(alpha: 0.16)
@@ -1078,7 +1096,9 @@ class _ViaggioDelloSciamanoScreenState
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         onTap: () => setState(() {
           _domanda.text = d.testo;
-          _temaScelto = d.tema;
+          // **L'ID, NON L'ETICHETTA.** Ordine DI voce 01: qui c'era
+          // `d.tema`, e il tema non arrivava mai alla risposta.
+          _temaScelto = d.chiave;
         }),
         child: Container(
           padding: const EdgeInsets.symmetric(
@@ -1133,7 +1153,7 @@ class _ViaggioDelloSciamanoScreenState
         maxLength: LaDomandaDelViaggio.quantoPuoEssereLunga,
         maxLines: 2,
         minLines: 2,
-        onChanged: (_) => setState(() => _temaScelto = ''),
+        onChanged: (_) => setState(() => _temaScelto = null),
         style:
             TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
         decoration: InputDecoration(

@@ -444,20 +444,11 @@ abstract final class LaVoceDelMondoDiSotto {
       s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 
   /// Il tema della domanda con cui si è scesi, o nulla.
-  static String? temaDi(String? idDomanda) {
-    if (idDomanda == null) return null;
-    for (final d in LaDomandaDelViaggio.gliaScritte) {
-      if (d.id == idDomanda) return d.id;
-    }
-    return null;
-  }
+  /// **L'ID DEL TEMA, dal tipo.** Ordine DI voce 01: qui arrivava una
+  /// stringa, e lo schermo ci metteva l'etichetta invece dell'id. Adesso
+  /// arriva il tipo, e un'etichetta non compila.
+  static String? temaDi(TemaDellaDomanda? tema) => tema?.name;
 
-  /// Il tema in lettere, per la ripresa.
-  static String? temaInLettereDi(String? idDomanda) {
-    if (idDomanda == null) return null;
-    for (final d in LaDomandaDelViaggio.gliaScritte) {
-      if (d.id == idDomanda) return d.tema;
-    }
-    return null;
-  }
+  /// L'etichetta per esteso del tema, per la ripresa della domanda.
+  static String? temaInLettereDi(TemaDellaDomanda? tema) => tema?.inLettere;
 }

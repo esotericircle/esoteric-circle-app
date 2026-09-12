@@ -41,9 +41,28 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 99 |
-| Guardie che non scoprono nessun insieme di file | 170 |
-| **Somma delle categorie** | **395** |
-| **Guardie secondo la definizione** | **395** |
+| Guardie che non scoprono nessun insieme di file | 172 |
+| **Somma delle categorie** | **397** |
+| **Guardie secondo la definizione** | **397** |
+
+**Ricontate il 12 settembre 2026 notte, dopo la voce DI.01**, che ha portato
+**due guardie nuove**: il totale sale da 395 a **397** e le tre categorie a
+**126, 99 e 172**.
+
+**`il_tema_della_domanda_arriva_alla_risposta`** percorre il Viaggio intero
+per ognuna delle sei domande scritte: le tocca sullo schermo, scende col dito,
+apre la nebbia, segue l'ombra, risale, e legge la risposta **come arriva a
+schermo**. Nasce dal difetto capitale del Viaggio, il tema scritto con
+l'etichetta e cercato con l'identificatore, che la guardia dell'ordine DG voce
+07 non poteva vedere perche' chiamava il compositore direttamente, con l'id
+giusto in mano: **misurava il contenuto, non la strada**. Vista rossa: col tema
+nullo nella chiamata, sei cadute su sei.
+
+**`le_etichette_non_fanno_da_chiave`** tiene ferme le tre cure del censimento
+della stessa famiglia: le sei domande che coprono i sei temi, le dieci righe
+della matrice dei piani che si trovano una volta sola per chiave, e le chiavi
+del registro lunare del tramonto uguali ai nomi che la fase sa produrre. Vista
+rossa due volte, sulla matrice e sul registro.
 
 **Ricontate il 12 settembre 2026 la sera, dopo il collaudo a video della
 2249**, che ha portato **una guardia nuova**: il totale sale da 394 a **395** e
@@ -473,6 +492,7 @@ le altre.
 | `il_sigillo_del_giorno_dice_a_cosa_serve_test.dart` | il Sigillo del Giorno dice a cosa serve | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_sigillo_del_giorno_e_un_sigillo_test.dart` | il sigillo del giorno e un sigillo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_sigillo_del_sogno_nomina_un_maestro_solo_test.dart` | il sigillo del sogno nomina un maestro solo | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
+| `il_tema_della_domanda_arriva_alla_risposta_test.dart` | il tema della domanda arriva alla risposta, per le sei domande e dalla strada vera | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa: tema nullo nella chiamata, sei cadute su sei) | 1 |
 | `il_simbolo_si_compone_test.dart` | il simbolo si compone | 1, 2 | dalla porta comune | mai | 3 |
 | `il_soffio_si_riconosce_dalla_forma_test.dart` | il soffio si riconosce dalla forma | 1 | proprio, dichiarato | 10/09/2026, DD (rossa sul difetto vero: 3 aperture false su 3 con la soglia di volume) | 1 |
 | `il_soffio_non_si_accavalla_test.dart` | il soffio non si accavalla | 1 | proprio, dichiarato | 04/09/2026, CQ | 2 |
@@ -600,6 +620,7 @@ le altre.
 | `le_due_cose_che_non_servivano_test.dart` | le due cose che non servivano | 1, 2 | dalla porta comune | mai | 3 |
 | `le_feste_e_le_regole_che_le_trattengono_test.dart` | le feste e le regole che le trattengono | 1, 2 | proprio, dichiarato | CO, RESTATA VERDE col difetto dentro | 3 |
 | `le_feste_si_vedono_diverse_test.dart` | le feste si vedono diverse | 2, 4, 1 | non scopre insiemi di file | mai | 3 |
+| `le_etichette_non_fanno_da_chiave_test.dart` | un etichetta per persone non fa da chiave: temi del Viaggio, righe dei piani, registro lunare | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa due volte: la riga della memoria senza chiave, e una chiave lunare cambiata) | 1 |
 | `le_nove_frequenze_si_vedono_tutte_test.dart` | le nove frequenze si vedono tutte | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: nove etichette su nove andavano a capo, fino a sette righe) | 1 |
 | `le_fonti_dei_respiri_dicono_il_vero_test.dart` | le fonti dei respiri dicono il vero | 1 | proprio, dichiarato | 10/09/2026, DD (rossa due volte: sintomo ripetuto, sintomo orfano) | 2 |
 | `le_fonti_della_meditazione_dicono_il_vero_test.dart` | le fonti della meditazione dicono il vero | 1, 2 | non scopre insiemi di file | 08/09/2026, CZ | 2 |

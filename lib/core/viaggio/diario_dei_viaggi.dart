@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app_flags.dart';
 import 'il_nome_si_puo_dire.dart';
+import 'la_domanda_del_viaggio.dart';
 import 'scena_del_viaggio.dart';
 import 'vocabolario_del_viaggio.dart';
 
@@ -285,8 +286,18 @@ class DiarioDeiViaggi {
     if (da != null && da >= 7) pezzi.add('ultima volta $da giorni fa');
     final temi = <String, int>{};
     for (final v in _viaggi) {
-      if (v.temaDellaDomanda.isEmpty) continue;
-      temi.update(v.temaDellaDomanda, (n) => n + 1, ifAbsent: () => 1);
+      // **NEL DIARIO C'E' L'ID, AL MAESTRO SERVONO LE PAROLE.** Ordine DI
+      // voce 01: dal 12 settembre 2026 si salva l'id, `scelta`, e prima si
+      // salvava l'etichetta per errore. Si capiscono tutte e due, cosi' i
+      // diari scritti prima non perdono niente; la terza via non e' un tema
+      // e non si conta.
+      final tema = TemaDellaDomanda.daId(v.temaDellaDomanda)?.inLettere ??
+          v.temaDellaDomanda;
+      if (tema.isEmpty ||
+          tema == LaDomandaDelViaggio.idSoloPerIncontrarlo) {
+        continue;
+      }
+      temi.update(tema, (n) => n + 1, ifAbsent: () => 1);
     }
     if (temi.isNotEmpty) {
       final ordinati = temi.entries.toList()

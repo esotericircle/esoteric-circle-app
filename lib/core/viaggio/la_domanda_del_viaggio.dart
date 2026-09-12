@@ -30,32 +30,32 @@ abstract final class LaDomandaDelViaggio {
   /// scende porta giu' la sua domanda, non ne riceve una gia' risolta.
   static const List<DomandaScritta> gliaScritte = [
     DomandaScritta(
-      id: 'scelta',
+      chiave: TemaDellaDomanda.scelta,
       tema: 'Una scelta da fare',
       testo: 'Ho una scelta davanti e non so da che parte guardare.',
     ),
     DomandaScritta(
-      id: 'persona',
+      chiave: TemaDellaDomanda.persona,
       tema: 'Una persona',
       testo: 'C\'è una persona di cui non so che posto ha per me.',
     ),
     DomandaScritta(
-      id: 'blocco',
+      chiave: TemaDellaDomanda.blocco,
       tema: 'Un blocco che non si supera',
       testo: 'C\'è qualcosa che non riesco a superare e ci torno sopra.',
     ),
     DomandaScritta(
-      id: 'attesa',
+      chiave: TemaDellaDomanda.attesa,
       tema: 'Un tempo che non arriva',
       testo: 'Sto aspettando qualcosa che non arriva.',
     ),
     DomandaScritta(
-      id: 'direzione',
+      chiave: TemaDellaDomanda.direzione,
       tema: 'Una direzione da prendere',
       testo: 'Non so dove sto andando e vorrei una direzione.',
     ),
     DomandaScritta(
-      id: 'finito',
+      chiave: TemaDellaDomanda.finito,
       tema: 'Qualcosa che è finito',
       testo: 'Qualcosa è finito e non so cosa farne.',
     ),
@@ -103,17 +103,70 @@ abstract final class LaDomandaDelViaggio {
 /// Una delle sei domande gia' scritte.
 class DomandaScritta {
   const DomandaScritta({
-    required this.id,
+    required this.chiave,
     required this.tema,
     required this.testo,
   });
 
+  /// **IL TEMA, COME TIPO.** Ordine DI voce 01, 12 settembre 2026.
+  final TemaDellaDomanda chiave;
+
   /// L'id stabile, che finisce nel Diario e nella memoria.
-  final String id;
+  ///
+  /// **Non si scrive piu' a mano: si legge dall'enum**, cosi' l'id di una
+  /// domanda e il tema che le risposte cercano sono la stessa cosa per
+  /// costruzione e non per disciplina.
+  String get id => chiave.name;
 
   /// Il tema, cioe' l'etichetta breve che si legge nell'elenco.
   final String tema;
 
   /// La domanda per esteso, che e' quella che scende.
   final String testo;
+}
+
+/// **I SEI TEMI DELLA DOMANDA, COME TIPO E NON COME STRINGA.** Ordine DI voce
+/// 01, 12 settembre 2026.
+///
+/// **Il difetto che chiude, ed e' il difetto capitale del Viaggio.** Lo
+/// schermo teneva il tema scelto in una `String`, e toccando una domanda ci
+/// scriveva l'**etichetta** per esteso, *"Una scelta da fare"*. La voce del
+/// Mondo di Sotto il tema lo cercava per **identificatore**, `scelta`. Le due
+/// non combaciavano mai, e il tema arrivava nullo per tutte e tre le vie: le
+/// quarantotto forme del titolo, le settantadue risposte e le dodici riprese
+/// della domanda **non sono mai state lette da nessun utente**. Chi aveva
+/// chiesto *"mia sorella diventera' presto mamma?"* si e' sentito rispondere
+/// con la frase scritta per chi non ha chiesto niente.
+///
+/// **Un tipo non ammette etichette.** Con `TemaDellaDomanda?` al posto di
+/// `String`, scrivere l'etichetta dove va il tema **non compila**: il difetto
+/// esce dalla categoria di quelli che non danno errori, ed era quella la sua
+/// forza.
+///
+/// I nomi dei sei valori **sono** gli id del Diario e delle risposte:
+/// cambiarne uno vuol dire cambiare un dato salvato, e una guardia li tiene
+/// fermi.
+enum TemaDellaDomanda {
+  scelta,
+  persona,
+  blocco,
+  attesa,
+  direzione,
+  finito;
+
+  /// Il tema che porta questo id, o nullo se l'id non e' uno dei sei.
+  ///
+  /// **L'unica porta da una stringa al tipo.** Accetta solo un id: passarle
+  /// un'etichetta restituisce nullo, e non un tema a caso.
+  static TemaDellaDomanda? daId(String? id) {
+    for (final t in values) {
+      if (t.name == id) return t;
+    }
+    return null;
+  }
+
+  /// L'etichetta per esteso, quella che si legge nell'elenco.
+  String get inLettere => LaDomandaDelViaggio.gliaScritte
+      .firstWhere((d) => d.chiave == this)
+      .tema;
 }

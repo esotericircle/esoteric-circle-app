@@ -39,8 +39,26 @@ void main() {
     // **La logica, non solo le parole.** Una cella che porta un numero deve
     // sempre produrre quel numero: se `limiteGiornaliero` tornasse nullo per
     // una di queste, il tetto non esisterebbe comunque.
+    // **LE DUE RIGHE CHE PORTANO UN NUMERO E NON SONO UN TETTO D'USO**,
+    // dichiarate per nome e per ragione. Ordine DI voce 01, 12 settembre 2026.
+    //
+    // Fino a quel giorno questa prova cercava le righe per etichetta e si
+    // accontentava che la cella avesse un numero leggibile: queste due
+    // passavano perche' "500" e "1 al mese" si leggono come numeri, non
+    // perche' fossero tetti. Da quando le righe si cercano per chiave, la
+    // prova pretende una chiave da ogni riga col numero, e le due sono venute
+    // fuori.
+    const nonSonoTetti = <String, String>{
+      'Eos in dono alla sottoscrizione':
+          'e\' una quantita\' regalata una volta alla sottoscrizione, non un '
+              'limite d\'uso',
+      'Domanda al Maestro reale':
+          'e\' una quota MENSILE di un servizio umano, e nel codice non la '
+              'impone nessuno: portata al fondatore col rapporto dell\'ordine DI',
+    };
     final senzaTetto = <String>[];
     for (final riga in PlanCatalog.matrix) {
+      if (nonSonoTetti.containsKey(riga.label)) continue;
       for (var i = 0; i < piani.length; i++) {
         final cella = riga.values[i];
         if (!RegExp(r'\d').hasMatch(cella)) continue;
@@ -48,9 +66,18 @@ void main() {
         // valgono zero usi gratis: e' l'ordine BN voce 09 e non e' un tetto
         // mancante.
         if (cella.toLowerCase().contains('eos')) continue;
-        final limite = PlanCatalog.limiteGiornaliero(riga.label, piani[i]);
+        // **UNA RIGA CHE PROMETTE UN NUMERO DEVE AVERE UNA CHIAVE.** Ordine
+        // DI voce 01: le righe si cercavano per etichetta, e ritoccare una
+        // parola della tabella le rendeva illimitate in silenzio. Adesso si
+        // cercano per chiave, e una riga col numero ma senza chiave e' una
+        // promessa che il codice non sa leggere, quindi non impone.
+        final chiave = riga.chiave;
+        final limite = chiave == null
+            ? null
+            : PlanCatalog.limiteGiornaliero(chiave, piani[i]);
         if (limite == null) {
-          senzaTetto.add('${riga.label} / ${piani[i].name}: "$cella"');
+          senzaTetto.add('${riga.label} / ${piani[i].name}: "$cella"'
+              '${chiave == null ? " (la riga non ha una chiave)" : ""}');
         }
       }
     }
@@ -65,7 +92,7 @@ void main() {
     // vale ZERO e non "senza tetto".** Nel dubbio si sbaglia dalla parte del
     // tetto, non dell'abuso: e' l'unico verso in cui l'errore non espone al
     // bot che il fondatore teme.
-    expect(PlanCatalog.limiteGiornaliero('Confronti nel Cerchio', Tier.tier3),
+    expect(PlanCatalog.limiteGiornaliero(RigaDelPiano.confronti, Tier.tier3),
         isNotNull,
         reason: 'la riga dei confronti e\' tornata senza tetto');
   });
@@ -74,13 +101,13 @@ void main() {
     // I numeri li ha scelti Code e stanno scritti nel manifesto con la loro
     // ragione: ogni tetto e' almeno tre volte quello del piano sotto, e
     // nessuno e' raggiungibile con un uso umano intensivo.
-    const attesi = <String, int>{
-      'Domande a un Maestro': 50,
-      'Vai più a fondo': 30,
-      'Confronti nel Cerchio': 20,
-      'Tarocchi carta singola': 50,
-      'Gettate di rune': 50,
-      'Sinastria VIP': 25,
+    const attesi = <RigaDelPiano, int>{
+      RigaDelPiano.domande: 50,
+      RigaDelPiano.approfondimenti: 30,
+      RigaDelPiano.confronti: 20,
+      RigaDelPiano.cartaSingola: 50,
+      RigaDelPiano.gettate: 50,
+      RigaDelPiano.sinastria: 25,
     };
     final sbagliati = <String>[];
     attesi.forEach((riga, atteso) {

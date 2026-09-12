@@ -40,7 +40,7 @@ void main() {
   /// Le arti che hanno un tetto, con la riga del listino che lo promette e il
   /// modo in cui il motore lo applica. **Una riga per arte**: la voce chiede
   /// la verifica per OGNI arte, non a campione.
-  final arti = <String, ({String riga, int? Function(QuestionAllowance, Tier) applicato})>{
+  final arti = <String, ({RigaDelPiano riga, int? Function(QuestionAllowance, Tier) applicato})>{
     'domande': (
       riga: PlanCatalog.rigaDomande,
       applicato: (b, t) => b.dailyLimit(t),

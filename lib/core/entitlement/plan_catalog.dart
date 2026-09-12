@@ -83,9 +83,40 @@ class Plan {
 /// Una riga della tabella comparativa: l'etichetta e i quattro valori, uno per
 /// livello, nell'ordine Viandante, Iniziato, Adepto, Illuminato.
 class FeatureRow {
-  const FeatureRow(this.label, this.values);
+  const FeatureRow(this.label, this.values, {this.chiave});
   final String label;
   final List<String> values;
+
+  /// **LA CHIAVE STABILE, per le righe che il codice legge.** Ordine DI voce
+  /// 01, 12 settembre 2026. Nulla per le righe che si leggono solo nella
+  /// tabella dei piani.
+  ///
+  /// **Prima le righe si cercavano per [label]**, cioe' col testo che la
+  /// persona legge: ritoccare una parola della tabella bastava a far
+  /// ripiegare in silenzio ogni ricerca, e i ripieghi erano la memoria gratis
+  /// a tutti, i limiti giornalieri illimitati, la Profonda tolta a chi l'aveva
+  /// pagata. L'etichetta si puo' riscrivere quando si vuole; la chiave no.
+  final RigaDelPiano? chiave;
+}
+
+/// **LE RIGHE DELLA MATRICE CHE IL CODICE LEGGE**, come tipo e non come testo.
+/// Ordine DI voce 01, 12 settembre 2026.
+///
+/// E' la stessa cura del tema della domanda del Viaggio, trovata censendo la
+/// stessa famiglia: un'etichetta per persone usata come identificatore. Una
+/// guardia pretende che ognuna compaia **una volta sola** nella matrice, cosi'
+/// una riga non puo' sparire senza che la prova lo dica.
+enum RigaDelPiano {
+  domande,
+  approfondimenti,
+  confronti,
+  sinastria,
+  cartaSingola,
+  stese,
+  gettate,
+  memoria,
+  oroscopoSettimanale,
+  eosMensili,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -226,8 +257,8 @@ class PlanCatalog {
   ///
   /// Restituisce null quando la promessa e' "illimitate", che e' cosa diversa
   /// da zero.
-  static int? limiteGiornaliero(String etichettaRiga, Tier tier) {
-    final riga = matrix.where((r) => r.label == etichettaRiga);
+  static int? limiteGiornaliero(RigaDelPiano chiave, Tier tier) {
+    final riga = matrix.where((r) => r.chiave == chiave);
     if (riga.isEmpty) return null;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final cella = riga.first.values[ordine.indexOf(tier)];
@@ -276,7 +307,7 @@ class PlanCatalog {
   /// Letto dalla matrice, non deciso qui: la riga dice No per il Viandante ed
   /// Esclusiva dall'Iniziato in su, quindi la matrice sa gia' la risposta.
   static bool haMemoria(Tier tier) {
-    final riga = matrix.where((r) => r.label == 'Memoria AI dei Maestri');
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.memoria);
     if (riga.isEmpty) return true;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'no';
@@ -288,7 +319,8 @@ class PlanCatalog {
   /// Viandante e Dettagliato dall'Iniziato in su. Prima nessuno lo leggeva, e
   /// la Profonda restava col lucchetto anche per chi l'aveva comprata.
   static bool haProfondita(Tier tier) {
-    final riga = matrix.where((r) => r.label == 'Oroscopo settimanale');
+    final riga =
+        matrix.where((r) => r.chiave == RigaDelPiano.oroscopoSettimanale);
     if (riga.isEmpty) return false;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'base';
@@ -335,7 +367,7 @@ class PlanCatalog {
   }
 
   static String? eosOgniMese(Tier tier) {
-    final riga = matrix.where((r) => r.label == 'Eos bonus mensili');
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.eosMensili);
     if (riga.isEmpty) return null;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final valore = riga.first.values[ordine.indexOf(tier)];
@@ -359,15 +391,21 @@ class PlanCatalog {
         'sguardi che si possono mettere a confronto.';
   }
 
-  /// Le etichette delle righe che portano un limite giornaliero, cosi' chi le
-  /// usa non le scrive a mano e un refuso non passa inosservato.
-  static const String rigaDomande = 'Domande a un Maestro';
+  /// Le righe che portano un limite giornaliero, cosi' chi le usa non le
+  /// scrive a mano.
+  ///
+  /// **Erano l'etichetta della tabella, scritta una seconda volta.** Ordine DI
+  /// voce 01: adesso sono la chiave della riga, e l'etichetta vive solo nella
+  /// matrice. I nomi di queste costanti non sono cambiati, e' cambiato il loro
+  /// tipo.
+  static const RigaDelPiano rigaDomande = RigaDelPiano.domande;
 
   /// Quante volte al giorno si puo' chiedere a un Maestro di andare piu' a
   /// fondo sulla stessa risposta. E' una riga a se' perche' l'approfondimento
   /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
   /// toccarlo, e l'esitazione uccide l'intimita'.
-  static const String rigaApprofondimenti = 'Vai più a fondo';
+  static const RigaDelPiano rigaApprofondimenti =
+      RigaDelPiano.approfondimenti;
 
   /// Quanti confronti nel Consiglio dei Maestri al giorno.
   ///
@@ -376,9 +414,9 @@ class PlanCatalog {
   /// ed e' misurato: le altre due letture arrivano senza contare. Senza un
   /// tetto suo, pero', il gesto sarebbe gratuito e ripetibile all'infinito, e
   /// ogni tocco sono due chiamate al modello.
-  static const String rigaConfronti = 'Confronti nel Cerchio';
-  static const String rigaSinastria = 'Sinastria VIP';
-  static const String rigaCartaSingola = 'Tarocchi carta singola';
+  static const RigaDelPiano rigaConfronti = RigaDelPiano.confronti;
+  static const RigaDelPiano rigaSinastria = RigaDelPiano.sinastria;
+  static const RigaDelPiano rigaCartaSingola = RigaDelPiano.cartaSingola;
 
   /// Quante STESE COMPLETE di tarocchi al giorno, che e' una riga diversa da
   /// [rigaCartaSingola] e non un suo sinonimo.
@@ -390,14 +428,14 @@ class PlanCatalog {
   /// Percio' la schermata della stesa legge questa riga, dove il Viandante
   /// paga in Eos pieni e l'Iniziato in Eos scontati, e non quella della carta
   /// singola, dove il Viandante ha il suo gesto gratis del giorno.
-  static const String rigaStese = 'Stese complete tarocchi';
+  static const RigaDelPiano rigaStese = RigaDelPiano.stese;
 
   /// Quante gettate di rune al giorno. IL NUMERO VIVE QUI, ordine I voce 3:
   /// UNA per il Viandante (cosi' dice la matrice qui sotto, che e' sovrana),
   /// illimitate dall'Iniziato in su. Il commento diceva "tre" mentre la
   /// matrice diceva una: trovato dall'ordine BF guardando la cattura, e vale
   /// la matrice. La schermata delle rune legge da qui e non riscrive.
-  static const String rigaGettate = 'Gettate di rune';
+  static const RigaDelPiano rigaGettate = RigaDelPiano.gettate;
 
   static const List<FeatureRow> matrix = [
     FeatureRow('Pubblicità banner inferiore', ['Sì', 'No', 'No', 'No']),
@@ -412,26 +450,32 @@ class PlanCatalog {
     FeatureRow('Rito dell\'Alba', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('La Runa del Tramonto', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Oroscopo settimanale',
-        ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato']),
+        ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato'],
+        chiave: RigaDelPiano.oroscopoSettimanale),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
-    FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì']),
+    FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.memoria),
     // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il
     // Viandante non ce l'ha, l'Iniziato tre, l'Adepto cinque, l'Illuminato
     // senza limite col tetto di correttezza.
-    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', '20 al giorno']),
+    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', '20 al giorno'],
+        chiave: RigaDelPiano.confronti),
     // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.
     // Diceva UNO, e l'app non mentiva: leggeva questo dato e lo ripeteva
     // fedelmente. A mentire era il dato. Era finito qui il 31 luglio, quando
     // una divergenza fra matrice e codice e' stata risolta facendo vincere la
     // matrice: la correzione era giusta nel metodo, sbagliata nel valore.
     FeatureRow('Domande a un Maestro',
-        ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno']),
+        ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno'],
+        chiave: RigaDelPiano.domande),
     FeatureRow('Vai più a fondo',
-        ['No', '3 al giorno', '10 al giorno', '30 al giorno']),
+        ['No', '3 al giorno', '10 al giorno', '30 al giorno'],
+        chiave: RigaDelPiano.approfondimenti),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),
     FeatureRow('Tarocchi carta singola',
-        ['1 al giorno', '3 al giorno', '30 al giorno', '50 al giorno']),
+        ['1 al giorno', '3 al giorno', '30 al giorno', '50 al giorno'],
+        chiave: RigaDelPiano.cartaSingola),
     // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04, e la decisione
     // e' del fondatore: "il viandante ha una stesa al giorno".** La cella
     // diceva "Eos pieno", che questa classe legge come zero usi gratis: era
@@ -447,7 +491,8 @@ class PlanCatalog {
     // hai insegnato di non fare nulla di illimitato". **L'illimitato sparisce
     // anche dall'ultimo livello**, ed e' un principio, non un numero.
     FeatureRow('Stese complete tarocchi',
-        ['1 al giorno', '4 al giorno', '7 al giorno', '20 al giorno']),
+        ['1 al giorno', '4 al giorno', '7 al giorno', '20 al giorno'],
+        chiave: RigaDelPiano.stese),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
     // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O
@@ -455,9 +500,11 @@ class PlanCatalog {
     // la gettata e' il gesto che porta indietro domani, e tre al giorno lo
     // consumavano in un pomeriggio. Dal Tier 1 in su restano illimitate.
     FeatureRow('Gettate di rune',
-        ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno']),
+        ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno'],
+        chiave: RigaDelPiano.gettate),
     FeatureRow('Sinastria VIP',
-        ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno']),
+        ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno'],
+        chiave: RigaDelPiano.sinastria),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //
@@ -506,7 +553,8 @@ class PlanCatalog {
         'Eos in dono alla sottoscrizione', ['No', '500', '1.500', '3.000']),
     FeatureRow('Domanda al Maestro reale', ['No', 'No', 'No', '1 al mese']),
     FeatureRow('Accesso anticipato nuove funzioni', ['No', 'No', 'No', 'Sì']),
-    FeatureRow('Eos bonus mensili', ['No', 'Medio', 'Alto', 'Massimo']),
+    FeatureRow('Eos bonus mensili', ['No', 'Medio', 'Alto', 'Massimo'],
+        chiave: RigaDelPiano.eosMensili),
   ];
 
   static Plan forTier(Tier tier) =>
