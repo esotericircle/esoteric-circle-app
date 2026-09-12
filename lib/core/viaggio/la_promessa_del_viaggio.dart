@@ -37,23 +37,42 @@ abstract final class LaPromessaDelViaggio {
       ? 'Scopri il tuo animale guida'
       : 'Scendi con una domanda, risali con una risposta.';
 
-  /// **LE TRE COSE CHE SI DEVONO SAPERE PRIMA DELLA PRIMA DISCESA.**
+  /// **LE TRE INFORMAZIONI DEL PERCORSO.** Ordine DI voce 07, 12 settembre
+  /// 2026.
   ///
-  /// *"Detto come promessa e mai come compito. Non si scrive dovrai tornare
-  /// per quattro giorni. Si scrive che in quattro discese lo conoscera'."*
+  /// **Il principio dell'ordine:** *"l'utente non e' qui per imparare lo
+  /// sciamanesimo, ma non puo' agire al buio. Le informazioni non vanno messe
+  /// in un tutorial: vanno servite dentro l'azione, nel momento in cui
+  /// servono. Tre righe in tutto."* I testi sono dell'ordine, parola per
+  /// parola.
   ///
-  /// **La differenza fra le due frasi e' tutta nel verbo.** *Dovrai tornare*
-  /// mette la fatica in testa e il premio in fondo, ed e' il modo piu' rapido
-  /// di far chiudere l'app a chi non ha ancora cominciato. *In quattro discese
-  /// lo conoscerai* mette il premio in testa e il numero dopo, e il numero
-  /// diventa la misura di quanto e' vicino invece che di quanto costa.
+  /// **QUI C'ERANO LE TRE COSE DA SAPERE DELL'ORDINE DE voce 02**, *"in
+  /// quattro discese conoscerai il nome del tuo animale guida"*, *"da quel
+  /// momento resta con te"*, *"potrai consultarlo e prendertene cura"*, e si
+  /// leggevano solo prima della prima discesa. La misura dell'ordine DI ha
+  /// trovato il difetto: **per tre viaggi su quattro l'app non diceva che si
+  /// scende con una domanda e si risale con una risposta**. Le tre righe nuove
+  /// dicono dove si e', cosa si fa e cosa si ottiene, e restano **fino al
+  /// riconoscimento**: dopo, la voce DI.11 le sostituisce.
   ///
-  /// **E sono tre e non una**, perche' l'ordine ne nomina tre: che lo
-  /// conoscera', che resta, e che si puo' consultare e curare. Insieme dicono
-  /// che non e' un test con un risultato: e' qualcuno che arriva e rimane.
-  static const List<String> treCoseDaSapere = [
-    'In quattro discese conoscerai il nome del tuo animale guida.',
-    'Da quel momento resta con te.',
-    'Potrai consultarlo e prendertene cura.',
+  /// **Dove ti trovi**, sotto il titolo.
+  static const String doveTiTrovi =
+      "Il Mondo di Sotto è il luogo dove gli sciamani scendono per incontrare "
+      "l'animale che li accompagna. Ci si arriva per un'apertura nella terra.";
+
+  /// **Cosa stai facendo**, sopra il pulsante.
+  static const String cosaStaiFacendo =
+      "Scendi con una domanda. L'animale ti mostra una scena. La scena è la "
+      "risposta.";
+
+  /// **Cosa otterrai**, subito sotto.
+  static const String cosaOtterrai =
+      'Si mostra quattro volte prima di farsi riconoscere. Poi resta con te.';
+
+  /// Le tre, in ordine, per chi le deve contare.
+  static const List<String> leTreInformazioni = [
+    doveTiTrovi,
+    cosaStaiFacendo,
+    cosaOtterrai,
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/la_promessa_del_viaggio.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
@@ -107,39 +108,135 @@ void main() {
             'sopra, ci sta dopo');
   });
 
-  testWidgets('DE.02, REGOLA H: LE TRE COSE DA SAPERE CI SONO ALLA PRIMA '
-      'DISCESA E NON ALLA SECONDA', (tester) async {
+  testWidgets('DI.07, REGOLA H: LE TRE INFORMAZIONI DEL PERCORSO CI SONO '
+      'FINO AL RICONOSCIMENTO, AL LORO POSTO, E DOPO NO', (tester) async {
+    // **I TESTI SONO QUELLI DELL'ORDINE, scritti qui per esteso** e non letti
+    // dalle costanti: una costante sbagliata non deve poter far passare se
+    // stessa.
+    const dellOrdine = {
+      'viaggio_dove_ti_trovi': "Il Mondo di Sotto è il luogo dove gli "
+          "sciamani scendono per incontrare l'animale che li accompagna. Ci "
+          "si arriva per un'apertura nella terra.",
+      'viaggio_cosa_stai_facendo': "Scendi con una domanda. L'animale ti "
+          "mostra una scena. La scena è la risposta.",
+      'viaggio_cosa_otterrai':
+          'Si mostra quattro volte prima di farsi riconoscere. Poi resta '
+              'con te.',
+    };
     telefono(tester);
-    await apri(tester);
-    var quante = 0;
-    for (var i = 0; i < LaPromessaDelViaggio.treCoseDaSapere.length; i++) {
-      if (find.byKey(Key('viaggio_promessa_$i')).evaluate().isNotEmpty) {
-        quante++;
+    for (var d = 0; d <= 4; d++) {
+      await apri(tester, discese: d);
+      final aSchermo = <String>[
+        for (final k in dellOrdine.keys)
+          if (find.byKey(Key(k)).evaluate().isNotEmpty) k,
+      ];
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 07: a $d discese le righe del percorso a schermo '
+          'sono ${aSchermo.length} su 3');
+      if (d < 4) {
+        expect(aSchermo.length, 3,
+            reason: 'a $d discese mancano righe del percorso: per tre viaggi '
+                'su quattro l app non diceva che si scende con una domanda');
+        for (final e in dellOrdine.entries) {
+          expect(tester.widget<Text>(find.byKey(Key(e.key))).data, e.value,
+              reason: 'la riga ${e.key} non e quella dell ordine');
+        }
+        // **AL LORO POSTO**: sotto il titolo, sopra il pulsante, subito
+        // sotto.
+        final titolo = tester.getRect(find.byKey(const Key('viaggio_promessa')));
+        final dove = tester.getRect(find.byKey(const Key('viaggio_dove_ti_trovi')));
+        final scendi = tester.getRect(find.byKey(const Key('viaggio_scendi')));
+        final facendo =
+            tester.getRect(find.byKey(const Key('viaggio_cosa_stai_facendo')));
+        final otterrai =
+            tester.getRect(find.byKey(const Key('viaggio_cosa_otterrai')));
+        expect(dove.top, greaterThanOrEqualTo(titolo.bottom),
+            reason: 'dove ti trovi non sta sotto il titolo');
+        expect(facendo.bottom, lessThanOrEqualTo(scendi.top),
+            reason: 'cosa stai facendo non sta sopra il pulsante');
+        expect(otterrai.top, greaterThanOrEqualTo(scendi.bottom),
+            reason: 'cosa otterrai non sta subito sotto il pulsante');
+        expect(otterrai.top - scendi.bottom, lessThan(40),
+            reason: 'cosa otterrai sta ${otterrai.top - scendi.bottom} punti '
+                'sotto il pulsante: non e subito sotto');
+      } else {
+        expect(aSchermo, isEmpty,
+            reason: 'riconosciuto l animale, le righe del percorso restano '
+                'accese a vuoto: e cio che fa sembrare la funzione un gioco '
+                'senza fine');
       }
     }
-    // ignore: avoid_print
-    print('ORDINE DE VOCE 02: prima della prima discesa le righe della '
-        'promessa a schermo sono $quante su '
-        '${LaPromessaDelViaggio.treCoseDaSapere.length}');
-    expect(quante, LaPromessaDelViaggio.treCoseDaSapere.length,
-        reason: 'chi apre la soglia la prima volta non legge le tre cose che '
-            'deve sapere: non sa che in quattro discese conoscera il nome, '
-            'ne che quell animale resta, ne che si potra consultare');
+  });
 
-    // **E ALLA SECONDA NON CI SONO PIU.**
-    await apri(tester, discese: 1);
-    var ancora = 0;
-    for (var i = 0; i < LaPromessaDelViaggio.treCoseDaSapere.length; i++) {
-      if (find.byKey(Key('viaggio_promessa_$i')).evaluate().isNotEmpty) {
-        ancora++;
-      }
-    }
+  testWidgets('DI.08: LE QUATTRO IMPRONTE STANNO IN ALTO E NON SCORRONO VIA, '
+      'E LA RIGA E IN PAROLE', (tester) async {
+    telefono(tester);
+    await apri(tester, discese: 2);
+    final impronte = find.byKey(const Key('viaggio_i_quattro_segni'));
+    final riga = find.byKey(const Key('viaggio_a_che_punto'));
+    expect(impronte, findsOneWidget);
+    final barra = tester.getRect(find.byType(AppBar));
+    final prima = tester.getRect(impronte);
     // ignore: avoid_print
-    print('ORDINE DE VOCE 02: alla seconda discesa le righe della promessa '
-        'sono $ancora');
-    expect(ancora, 0,
-        reason: 'la promessa si ripete a chi l ha gia accettata: da li in poi '
-            'si legge come una reclame');
+    print('ORDINE DI VOCE 08: la barra finisce a '
+        '${barra.bottom.toStringAsFixed(0)}, le impronte cominciano a '
+        '${prima.top.toStringAsFixed(0)}; la riga dice '
+        '"${tester.widget<Text>(riga).data}"');
+    expect(prima.top, greaterThanOrEqualTo(barra.bottom),
+        reason: 'le impronte finiscono sotto la barra');
+    expect(prima.top - barra.bottom, lessThan(24),
+        reason: 'le impronte stanno ${prima.top - barra.bottom} punti sotto '
+            'la barra: non sono in alto');
+    // **SEMPRE VISIBILI**: si scorre la soglia fino in fondo, e le impronte
+    // restano dove sono.
+    await tester.drag(
+        find.byKey(const Key('viaggio_soglia_scorre')), const Offset(0, -600));
+    await tester.pump();
+    expect(tester.getRect(impronte), prima,
+        reason: 'scorrendo la soglia le impronte se ne vanno: non sono '
+            'sempre visibili');
+    expect(tester.widget<Text>(riga).data,
+        'Si è mostrato due volte, ne mancano due.',
+        reason: 'la riga del cammino non e quella dell ordine');
+    // **OGNI IMPRONTA STA DENTRO LA SUA SCATOLA.** Difetto visto nella
+    // fotografia della soglia, 12 settembre 2026: la prima usciva di sotto e
+    // l ultima di sopra, e lo Stack le tagliava a meta.
+    final scatola =
+        tester.getRect(find.byKey(const Key('viaggio_le_quattro_impronte')));
+    for (var i = 0; i < 4; i++) {
+      final r = tester.getRect(find.byKey(Key('viaggio_impronta_vuota_$i')));
+      expect(
+          r.top >= scatola.top - 0.5 &&
+              r.bottom <= scatola.bottom + 0.5 &&
+              r.left >= scatola.left - 0.5 &&
+              r.right <= scatola.right + 0.5,
+          isTrue,
+          reason: 'l impronta $i esce dalla sua scatola ($r fuori da '
+              '$scatola): lo Stack la taglia');
+    }
+    // **E DOPO IL RICONOSCIMENTO NON CI SONO PIU.**
+    await apri(tester, discese: 4);
+    expect(impronte, findsNothing,
+        reason: 'riconosciuto l animale, le impronte restano accese a vuoto');
+  });
+
+  test('DI.08: NESSUNA RIGA DEL CAMMINO USA UNA CIFRA', () {
+    final dette = <String>[
+      for (var d = 0; d <= 10; d++) ...[
+        IQuattroViaggi.aChePunto(d),
+        IQuattroViaggi.quanteVolteSiEMostrato(d == 0 ? 1 : d),
+      ],
+    ];
+    final conCifre = dette.where((r) => r.contains(RegExp(r'\d'))).toList();
+    // ignore: avoid_print
+    print('ORDINE DI VOCE 08: righe del cammino guardate ${dette.length}, '
+        'con una cifra ${conCifre.length}');
+    expect(conCifre, isEmpty,
+        reason: 'l ordine vuole la riga "in parole e mai in numeri": '
+            '$conCifre');
+    expect(IQuattroViaggi.aChePunto(1),
+        'Si è mostrato una volta, ne mancano tre.');
+    expect(IQuattroViaggi.aChePunto(3), 'Si è mostrato tre volte, ne manca una.');
   });
 
   testWidgets('DE.02, REGOLA H: LA PROMESSA PRIMA DELLA QUARTA DISCESA NON E '

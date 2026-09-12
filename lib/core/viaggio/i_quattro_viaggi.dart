@@ -110,10 +110,34 @@ abstract final class IQuattroViaggi {
   static String aChePunto(int discese) {
     final restano = quanteDiscese - discese;
     if (restano <= 0) return 'Lo hai riconosciuto.';
-    if (discese == 0) return 'Non sei ancora sceso.';
-    if (restano == 1) return 'Si è mostrato tre volte. Ne manca una.';
-    return quanteVolteSiEMostrato(discese);
+    // **IN PAROLE E MAI IN NUMERI**, ordine DI voce 08: *"si e' mostrato due
+    // volte, ne mancano due"*. Qui c'era *"Si e' mostrato 2 volte su 4"*, che
+    // e' un punteggio scritto in lettere a meta'.
+    final mancano =
+        restano == 1 ? 'ne manca una' : 'ne mancano ${inLettere(restano)}';
+    if (discese == 0) return 'Non si è ancora mostrato, $mancano.';
+    return 'Si è mostrato ${_volte(discese)}, $mancano.';
   }
+
+  /// **I NUMERI DEL CAMMINO IN LETTERE.** Il cammino ha quattro passi; le
+  /// parole arrivano a dieci perche' il Passaporto conta anche le discese
+  /// dopo il riconoscimento, e un conteggio che passa il suo massimo non deve
+  /// tornare alle cifre. Al femminile, perche' si contano le volte.
+  static String inLettere(int n) => const {
+        1: 'una',
+        2: 'due',
+        3: 'tre',
+        4: 'quattro',
+        5: 'cinque',
+        6: 'sei',
+        7: 'sette',
+        8: 'otto',
+        9: 'nove',
+        10: 'dieci',
+      }[n] ??
+      'molte';
+
+  static String _volte(int n) => n == 1 ? 'una volta' : '${inLettere(n)} volte';
 
   /// **LA FRASE DEL CONTEGGIO, e vive in un posto solo.**
   ///
@@ -128,7 +152,9 @@ abstract final class IQuattroViaggi {
   /// rotta.
   ///
   /// Adesso la frase e' una, e tutte e due le porte passano di qui.
-  static String quanteVolteSiEMostrato(int discese) => discese == 1
-      ? 'Si è mostrato una volta su $quanteDiscese.'
-      : 'Si è mostrato $discese volte su $quanteDiscese.';
+  ///
+  /// **E DALL'ORDINE DI VOCE 08 E' IN PAROLE**, come la riga della soglia:
+  /// *"Si e' mostrato 2 volte su 4"* era un punteggio.
+  static String quanteVolteSiEMostrato(int discese) =>
+      'Si è mostrato ${_volte(discese)} su ${inLettere(quanteDiscese)}.';
 }

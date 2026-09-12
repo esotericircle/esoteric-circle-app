@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 3
+VOCI_CHIUSE: 5
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,47 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.07 e DI.08, LE TRE INFORMAZIONI E LE QUATTRO IMPRONTE. CHIUSE NEL CODICE
+
+**DI.07.** Tre righe nella soglia, i testi dell'ordine parola per parola, e
+restano **fino al riconoscimento**:
+
+- *dove ti trovi*, sotto il titolo: *"Il Mondo di Sotto e' il luogo dove gli
+  sciamani scendono per incontrare l'animale che li accompagna. Ci si arriva per
+  un'apertura nella terra."*
+- *cosa stai facendo*, sopra il pulsante: *"Scendi con una domanda. L'animale ti
+  mostra una scena. La scena e' la risposta."*
+- *cosa otterrai*, subito sotto il pulsante: *"Si mostra quattro volte prima di
+  farsi riconoscere. Poi resta con te."*
+
+**Cosa se n'e' andato, per nome.** Le tre cose da sapere dell'ordine DE voce 02
+(*"In quattro discese conoscerai il nome..."*, *"Da quel momento resta con
+te"*, *"Potrai consultarlo..."*), che si leggevano solo prima della prima
+discesa, e la riga *"Dodici ti aspettano. Uno verra' con te."*. L'ordine vuole
+**tre righe in tutto**, e le tre nuove dicono le stesse cose con in piu' la
+domanda e la risposta, che mancavano per tre viaggi su quattro. Non e' una
+funzione cancellata: e' lo stesso posto con il testo che l'ordine detta.
+
+**DI.08.** Le quattro impronte stanno **ferme in alto**, sotto la barra, fuori
+dalla lista che scorre: a soglia scorsa restano dove sono. Sotto, la riga in
+parole: *"Si e' mostrato due volte, ne mancano due."*, *"Non si e' ancora
+mostrato, ne mancano quattro."*, *"Si e' mostrato tre volte, ne manca una."*.
+Prima era *"Si e' mostrato 2 volte su 4"*, cioe' un punteggio: adesso nessuna
+riga del cammino usa una cifra, nemmeno quella del Passaporto. Dopo il
+riconoscimento il cammino sparisce, come dice la voce DI.11.
+
+**UN DIFETTO VISTO GUARDANDO, e nessuna prova lo cercava.** Nella fotografia
+della soglia la prima impronta era tagliata di sotto e l'ultima di sopra: i
+centri cadevano sul bordo della scatola, e lo Stack le ritagliava. Adesso i
+centri stanno nel rettangolo rientrato di mezza impronta, e la guardia
+pretende ogni impronta dentro la sua scatola. **Padre: ordine DE voce 09**, che
+ha disegnato il cammino.
+
+**La guardia**, `la_soglia_e_una_scena_piena`, che non era nel registro: sei
+rossi innestati a mano, uno per pretesa.
 
 ---
 

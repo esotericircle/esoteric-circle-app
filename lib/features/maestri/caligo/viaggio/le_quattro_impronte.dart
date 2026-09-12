@@ -107,13 +107,20 @@ class LeQuattroImpronte extends StatelessWidget {
                   // guardia dei pittori.
                   child: CustomPaint(
                     size: Size.infinite,
-                    painter: _PittoreDelSentiero(quante: quanteLasciate),
+                    painter: _PittoreDelSentiero(
+                        quante: quanteLasciate, margine: segno / 2),
                   ),
                 ),
                 for (var i = 0; i < IQuattroViaggi.quanteDiscese; i++)
+                  // **L'IMPRONTA STA DENTRO LA SUA SCATOLA.** Collaudo
+                  // dell'ordine DI voce 08, 12 settembre 2026: il centro
+                  // cadeva sul bordo, e la prima impronta usciva di sotto e
+                  // l'ultima di sopra, **tagliate a meta' dallo Stack**. Adesso
+                  // i centri stanno nel rettangolo rientrato di mezza
+                  // impronta, e il sentiero li segue.
                   Positioned(
-                    left: larga * dove[i].dx - segno / 2,
-                    top: altezza * dove[i].dy - segno / 2,
+                    left: (larga - segno) * dove[i].dx,
+                    top: (altezza - segno) * dove[i].dy,
                     width: segno,
                     height: segno,
                     child: _unImpronta(i, segno),
@@ -176,14 +183,18 @@ class LeQuattroImpronte extends StatelessWidget {
 
 /// Il sentiero che lega le quattro impronte.
 class _PittoreDelSentiero extends CustomPainter {
-  _PittoreDelSentiero({required this.quante});
+  _PittoreDelSentiero({required this.quante, required this.margine});
 
   final int quante;
 
+  /// Mezza impronta: i centri stanno rientrati di tanto dai bordi.
+  final double margine;
+
   @override
   void paint(Canvas canvas, Size size) {
-    Offset punto(int i) => Offset(size.width * LeQuattroImpronte.dove[i].dx,
-        size.height * LeQuattroImpronte.dove[i].dy);
+    Offset punto(int i) => Offset(
+        margine + (size.width - 2 * margine) * LeQuattroImpronte.dove[i].dx,
+        margine + (size.height - 2 * margine) * LeQuattroImpronte.dove[i].dy);
     final cammino = Path()..moveTo(punto(0).dx, punto(0).dy);
     for (var i = 1; i < LeQuattroImpronte.dove.length; i++) {
       final a = punto(i - 1);
@@ -205,5 +216,6 @@ class _PittoreDelSentiero extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PittoreDelSentiero vecchio) => vecchio.quante != quante;
+  bool shouldRepaint(_PittoreDelSentiero vecchio) =>
+      vecchio.quante != quante || vecchio.margine != margine;
 }

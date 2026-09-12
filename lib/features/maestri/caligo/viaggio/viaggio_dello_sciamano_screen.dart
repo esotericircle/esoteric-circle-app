@@ -732,8 +732,9 @@ class _ViaggioDelloSciamanoScreenState
           child: SfondoDelMondoDiSotto(key: Key('viaggio_bosco')),
         ),
         // **I DODICI PASSANO NELLA FASCIA ALTA, dove il bosco e' leggibile.**
+        // Sotto le quattro impronte, finche' ci sono: vedi `fasciaDelCammino`.
         Positioned(
-          top: quantoInCima + SpacingTokens.lg,
+          top: quantoInCima + fasciaDelCammino + SpacingTokens.lg,
           left: 0,
           right: 0,
           child: GirandolaDegliAnimali(altezza: schermo.height * 0.16),
@@ -770,7 +771,7 @@ class _ViaggioDelloSciamanoScreenState
         // e' la lista che scorre a fermarsi al bordo della barra, e una lista
         // che scorre taglia da se' cio' che esce dalla sua finestra.
         Positioned(
-          top: quantoInCima,
+          top: quantoInCima + fasciaDelCammino,
           left: 0,
           right: 0,
           bottom: 0,
@@ -784,18 +785,7 @@ class _ViaggioDelloSciamanoScreenState
                 // Lo spazio della fascia alta, dove passano i dodici: il testo
                 // comincia sotto di loro.
                 SizedBox(height: schermo.height * 0.22),
-                _laPromessaDellaSoglia(palette, primo: primo),
-                const SizedBox(height: SpacingTokens.lg),
-                // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
-                _iQuattroSegni(palette),
-                const SizedBox(height: SpacingTokens.sm),
-                Text(
-                  IQuattroViaggi.aChePunto(_diario.quanteDiscese),
-                  key: const Key('viaggio_a_che_punto'),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
+                _laPromessaDellaSoglia(palette),
                 // **SI RICOMINCIA DA CAPO, E SOLO IN DEMO.** Ordine DG voce 08.
                 //
                 // **Sta qui e non nelle impostazioni** perche' e' qui che si
@@ -865,6 +855,18 @@ class _ViaggioDelloSciamanoScreenState
                   ),
                 ],
                 const SizedBox(height: SpacingTokens.lg),
+                // **COSA STAI FACENDO, sopra il pulsante.** Ordine DI voce 07,
+                // fino al riconoscimento.
+                if (!_riconosciuto) ...[
+                  Text(
+                    LaPromessaDelViaggio.cosaStaiFacendo,
+                    key: const Key('viaggio_cosa_stai_facendo'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary),
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                ],
                 FilledButton.icon(
                   key: const Key('viaggio_scendi'),
                   onPressed: pronto
@@ -878,12 +880,76 @@ class _ViaggioDelloSciamanoScreenState
                   icon: const Icon(Icons.south_rounded),
                   label: Text('Scendi', style: TypographyTokens.etichetta()),
                 ),
+                // **COSA OTTERRAI, subito sotto il pulsante.** Ordine DI voce
+                // 07, fino al riconoscimento.
+                if (!_riconosciuto) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    LaPromessaDelViaggio.cosaOtterrai,
+                    key: const Key('viaggio_cosa_otterrai'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ],
               ],
             ),
           ),
         ),
+        // **IL CAMMINO IN ALTO, SEMPRE VISIBILE FINO AL RICONOSCIMENTO.**
+        // Ordine DI voce 08: *"il componente delle quattro impronte va portato
+        // in alto nella schermata della soglia, sempre visibile fino al
+        // riconoscimento"*. Stava a meta' della colonna che scorre, e a colonna
+        // scorsa non si vedeva: adesso sta fermo sotto la barra, e la lista
+        // comincia sotto di lui.
+        if (!_riconosciuto)
+          Positioned(
+            key: const Key('viaggio_il_cammino_in_alto'),
+            top: quantoInCima + SpacingTokens.xs,
+            left: SpacingTokens.lg,
+            right: SpacingTokens.lg,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _iQuattroSegni(palette),
+                const SizedBox(height: SpacingTokens.xs),
+                // **IN PAROLE, MAI IN NUMERI.** *"Si e' mostrato due volte, ne
+                // mancano due."*
+                Text(
+                  IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+                  key: const Key('viaggio_a_che_punto'),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TypographyTokens.didascalia().copyWith(
+                    color: ColorTokens.textPrimary,
+                    shadows: const [
+                      Shadow(color: Color(0xCC060410), blurRadius: 8),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
       ],
     );
+  }
+
+  /// **QUANTO E' ALTA LA FASCIA DEL CAMMINO**, le quattro impronte e la riga
+  /// sotto. Zero dopo il riconoscimento: la voce DI.11 toglie il cammino, e
+  /// la soglia torna a cominciare sotto la barra.
+  double get fasciaDelCammino => _riconosciuto
+      ? 0
+      : SpacingTokens.xs +
+          LeQuattroImpronte.altezza +
+          SpacingTokens.xs +
+          _altezzaDellaRiga +
+          SpacingTokens.sm;
+
+  /// L'altezza di una riga di didascalia alla scala del testo di chi legge.
+  double get _altezzaDellaRiga {
+    final stile = TypographyTokens.didascalia();
+    final corpo = MediaQuery.textScalerOf(context).scale(stile.fontSize ?? 12);
+    return corpo * (stile.height ?? 1.4);
   }
 
   /// **QUANTO E' LONTANO L'ANIMALE ADESSO.** Ordine DE voce 12.
@@ -964,70 +1030,40 @@ class _ViaggioDelloSciamanoScreenState
     );
   }
 
-  /// **LA PROMESSA SULLA SOGLIA, e prima della prima discesa sono tre righe.**
-  /// Ordine DE voce 02.
+  /// **LA PROMESSA SULLA SOGLIA, e sotto il titolo dove ti trovi.**
+  /// Ordini DE voce 02 e DI voce 07.
   ///
-  /// *"Sulla soglia, prima della prima discesa, la persona deve sapere tre
-  /// cose, dette come promessa e mai come compito: che in quattro discese
-  /// conoscera' il nome del suo animale, che quell'animale restera' con lei da
-  /// li' in avanti, e che potra' consultarlo e prendersene cura."*
-  ///
-  /// **Dalla seconda discesa in poi le tre righe spariscono**: chi e' gia'
-  /// sceso le ha gia' lette, e ripetere una promessa a chi l'ha gia' accettata
-  /// e' il modo piu' rapido di farla sembrare una reclame.
-  Widget _laPromessaDellaSoglia(MaestroPalette palette, {required bool primo}) {
-    const tre = LaPromessaDelViaggio.treCoseDaSapere;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'IL MONDO DI SOTTO',
-          style: TypographyTokens.etichetta()
-              .copyWith(color: palette.goldSoft, letterSpacing: 2.4),
-        ),
-        const SizedBox(height: SpacingTokens.xs),
-        Text(
-          LaPromessaDelViaggio.descrizionePer(_diario.quanteDiscese),
-          key: const Key('viaggio_promessa'),
-          style: TypographyTokens.titoloScheda()
-              .copyWith(color: ColorTokens.textPrimary),
-        ),
-        const SizedBox(height: SpacingTokens.xs),
-        Text(
-          'Dodici ti aspettano. Uno verrà con te.',
-          key: const Key('viaggio_i_dodici'),
-          style:
-              TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
-        ),
-        if (primo) ...[
-          const SizedBox(height: SpacingTokens.md),
-          for (var i = 0; i < tre.length; i++)
-            Padding(
-              padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 7),
-                    child: Icon(Icons.circle,
-                        size: 5, color: palette.gold.withValues(alpha: 0.8)),
-                  ),
-                  const SizedBox(width: SpacingTokens.sm),
-                  Expanded(
-                    child: Text(
-                      tre[i],
-                      key: Key('viaggio_promessa_$i'),
-                      style: TypographyTokens.corpo()
-                          .copyWith(color: ColorTokens.textSecondary),
-                    ),
-                  ),
-                ],
-              ),
+  /// **Qui c'erano altre quattro righe**: *"Dodici ti aspettano. Uno verra'
+  /// con te."* e le tre cose da sapere dell'ordine DE, che si leggevano solo
+  /// prima della prima discesa. L'ordine DI vuole **tre righe in tutto**, dove
+  /// ti trovi, cosa stai facendo e cosa otterrai, e le vuole **fino al
+  /// riconoscimento**. La prima sta qui, le altre due attorno al pulsante.
+  Widget _laPromessaDellaSoglia(MaestroPalette palette) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'IL MONDO DI SOTTO',
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 2.4),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            LaPromessaDelViaggio.descrizionePer(_diario.quanteDiscese),
+            key: const Key('viaggio_promessa'),
+            style: TypographyTokens.titoloScheda()
+                .copyWith(color: ColorTokens.textPrimary),
+          ),
+          if (!_riconosciuto) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              LaPromessaDelViaggio.doveTiTrovi,
+              key: const Key('viaggio_dove_ti_trovi'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
             ),
+          ],
         ],
-      ],
-    );
-  }
+      );
 
   // **IL BOSCO NEL RIQUADRO NON C'E' PIU'.** Ordine DE voce 01, 11 settembre
   // 2026. Qui viveva '_ilBoscoDellaSoglia', un ClipRRect con un AspectRatio

@@ -41,9 +41,11 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 101 |
-| Guardie che non scoprono nessun insieme di file | 173 |
-| **Somma delle categorie** | **400** |
-| **Guardie secondo la definizione** | **400** |
+| Guardie che non scoprono nessun insieme di file | 174 |
+| **Somma delle categorie** | **401** |
+| **Guardie secondo la definizione** | **401** |
+
+**Ricontate a voci DI.07 e DI.08 chiuse, e anche questa guardia non e' nuova: mancava.** `la_soglia_e_una_scena_piena` esiste dall'ordine DE e pretende assenze, cioe' la promessa che cambia e le righe che spariscono: **il registro non la elencava**. Il totale sale da 400 a **401** e le tre categorie a **126, 101 e 174**. Adesso pretende anche le tre righe del percorso fino al riconoscimento, ognuna al suo posto, e il cammino delle quattro impronte fermo in alto, in parole e con ogni impronta dentro la sua scatola. **Sei rossi, uno per pretesa.**
 
 **Ricontate a voce DI.09 chiusa**, che ha portato **una guardia nuova**,
 `la_discesa_e_il_filmato_del_dito`: il totale sale da 399 a **400** e le tre
@@ -627,6 +629,7 @@ le altre.
 | `la_scansione_si_puo_sempre_rifare_test.dart` | la scansione si puo sempre rifare, e si vede | 1, 2 | non scopre insiemi di file | 08/09/2026, CX | 1 |
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_sentinella_dorme_in_secondo_piano_test.dart` | la sentinella dorme in secondo piano | 1, 2 | non scopre insiemi di file | 08/09/2026, CY | 2 |
+| `la_soglia_e_una_scena_piena_test.dart` | la soglia e' una scena piena; le tre righe del percorso ci sono fino al riconoscimento e al loro posto; le quattro impronte stanno in alto, non scorrono via, non escono dalla scatola, e la riga del cammino e' in parole | 1, 4 | non scopre insiemi di file | 12/09/2026, DI (sei rossi: le righe dopo il riconoscimento, cosa otterrai sopra il pulsante, una riga diversa da quella dell'ordine, le impronte spostate in basso, la riga in cifre, le impronte fuori dalla scatola) | 1 |
 | `la_soglia_del_viso_ha_due_momenti_test.dart` | la soglia del viso ha due momenti | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |

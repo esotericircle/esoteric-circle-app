@@ -2435,7 +2435,7 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
 `docs/ordini/ORDINE_DI_MANIFESTO.md`, e lo stato voce per voce sta li'.
 **Nessuna build senza ordine del fondatore**: l'ultima consegnata resta la 2249.
 
-**TRE VOCI CHIUSE NEL CODICE, quattordici aperte.**
+**CINQUE VOCI CHIUSE NEL CODICE, dodici aperte.**
 
 - **DI.01, il tema della domanda arriva davvero.** Lo schermo assegnava
   l'etichetta *"Una scelta da fare"* e la voce del Mondo di Sotto cercava
@@ -2464,6 +2464,8 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
   `assets/audio/tamburo_della_discesa.mp3`, misure in `assets/audio/LEGGIMI.md`,
   da scegliere dal fondatore. **Verificato al banco, non a video**: serve una
   build.
+
+- **DI.07 e DI.08, le tre informazioni e il cammino.** Nella soglia, fino al riconoscimento, tre righe coi testi dell'ordine: dove ti trovi sotto il titolo, cosa stai facendo sopra il pulsante, cosa otterrai subito sotto. Hanno preso il posto delle tre cose da sapere dell'ordine DE e di *"Dodici ti aspettano"*. Le quattro impronte stanno ferme in alto sotto la barra, e la riga del cammino e' in parole: *"Si e' mostrato due volte, ne mancano due."*
 
 **GUARDIE NUOVE**: `la_discesa_e_il_filmato_del_dito` (quattordici prove,
 dodici rossi innestati a mano), `la_domanda_libera_viene_capita`,
