@@ -66,29 +66,47 @@ class TunnelCheScende extends StatelessWidget {
           // **Se il file mancasse non si vedrebbe nulla e basta**: il disegno
           // qui sotto resta, e la discesa continua a funzionare. E' la legge
           // della voce DC.16, un asset che manca non ferma un rito.
+          //
+          // **LA SCATOLA E' ALTA UNO SCHERMO PIU' UNA PIASTRELLA, e sale di
+          // meno di una piastrella.** Collaudo a video della 2249: qui c'era
+          // un `FractionalTranslation`, che sposta di una frazione della
+          // PROPRIA altezza, e la scatola era alta due schermi. A quota 0,9
+          // la roccia saliva di quasi due schermi e sotto restava il blu: a
+          // 18 secondi di discesa se ne vedeva una striscia in fondo. Adesso
+          // lo spostamento e' in punti e non supera mai una piastrella, e la
+          // scatola ne ha una di scorta sotto: lo schermo resta coperto a
+          // ogni quota.
           ClipRect(
-            child: OverflowBox(
-              alignment: Alignment.topCenter,
-              maxHeight: double.infinity,
-              child: FractionalTranslation(
-                translation: Offset(0, -(quantoSiEScesi * quantiGiri) % 1.0),
-                child: LayoutBuilder(
-                  builder: (context, vincoli) => SizedBox(
-                    width: vincoli.maxWidth.isFinite ? vincoli.maxWidth : 390,
-                    height: (vincoli.maxHeight.isFinite
-                            ? vincoli.maxHeight
-                            : 640) *
-                        2,
+            child: LayoutBuilder(
+              builder: (context, vincoli) {
+                final larga =
+                    vincoli.maxWidth.isFinite ? vincoli.maxWidth : 390.0;
+                final alta =
+                    vincoli.maxHeight.isFinite ? vincoli.maxHeight : 640.0;
+                // La texture e' quadrata e si adatta alla larghezza: una
+                // piastrella e' alta quanto lo schermo e' largo.
+                final piastrella = larga;
+                final salita =
+                    ((quantoSiEScesi * quantiGiri) % 1.0) * piastrella;
+                return OverflowBox(
+                  alignment: Alignment.topCenter,
+                  minHeight: alta + piastrella,
+                  maxHeight: alta + piastrella,
+                  child: Transform.translate(
+                    offset: Offset(0, -salita),
                     child: Image.asset(
                       parete,
                       key: const Key('viaggio_parete_di_roccia'),
-                      fit: BoxFit.cover,
+                      width: larga,
+                      height: alta + piastrella,
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
                       repeat: ImageRepeat.repeatY,
                       errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
           // **POI GLI ANELLI**, che danno la profondita' e il movimento.
@@ -256,16 +274,24 @@ class PittoreDelTunnel extends CustomPainter {
     // 12 settembre 2026: la parete vera sta dietro, e un fondo pieno la
     // coprirebbe del tutto. Il gradiente resta, perche' e' lui a dare il buio
     // del punto di fuga e il bruno del bordo; passa da coprire a **tingere**.
-    final quantoCopre = sopraLaRoccia ? 0.62 : 1.0;
+    //
+    // **SOPRA LA ROCCIA IL FONDO E' SOLO IL BUIO DEL PUNTO DI FUGA.**
+    // Collaudo a video della 2249: coprire tutto al 62 per cento lasciava la
+    // roccia ai soli bordi. Adesso al centro c'e' il blu profondo quasi
+    // pieno, che e' la profondita' della galleria, e verso il bordo il fondo
+    // si ritira fino al dieci per cento: **la parete la fa la roccia**.
+    final colori = sopraLaRoccia
+        ? [
+            bluProfondo.withValues(alpha: 0.88),
+            _coloreLontano().withValues(alpha: 0.55),
+            brunoDelleRadici.withValues(alpha: 0.10),
+          ]
+        : [bluProfondo, _coloreLontano(), brunoDelleRadici];
     canvas.drawRect(
       tutto,
       Paint()
         ..shader = RadialGradient(
-          colors: [
-            bluProfondo.withValues(alpha: quantoCopre),
-            _coloreLontano().withValues(alpha: quantoCopre * 0.92),
-            brunoDelleRadici.withValues(alpha: quantoCopre * 0.78),
-          ],
+          colors: colori,
           stops: const [0.0, 0.22, 1.0],
         ).createShader(Rect.fromCircle(
             center: centro, radius: misuraCheCopre(size) / 2)),
@@ -273,8 +299,16 @@ class PittoreDelTunnel extends CustomPainter {
 
     // **DAL LONTANO AL VICINO**, cosi' i vicini cadono sopra e coprono: e' cio'
     // che fa la profondita' senza 3D.
-    for (var i = 0; i < quantiAnelli; i++) {
-      _anello(canvas, centro, lato, i);
+    // **SOPRA LA ROCCIA GLI ANELLI NON SI DISEGNANO.** Parole del
+    // fondatore: *"la discesa del viaggio e' ancora una merda con grafica
+    // procedurale e ti ho fornito la grafica con texture roccia"*. Erano
+    // poligoni pieni fra il 30 e l'85 per cento di opacita', e a video
+    // seppellivano la texture. Restano per la bocca del tunnel della
+    // soglia, che la roccia sotto non ce l'ha.
+    if (!sopraLaRoccia) {
+      for (var i = 0; i < quantiAnelli; i++) {
+        _anello(canvas, centro, lato, i);
+      }
     }
 
     // **LA LUCE ALLE SPALLE, che si stringe fino a un punto.** Ordine DC voce

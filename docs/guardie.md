@@ -41,9 +41,27 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 99 |
-| Guardie che non scoprono nessun insieme di file | 169 |
-| **Somma delle categorie** | **394** |
-| **Guardie secondo la definizione** | **394** |
+| Guardie che non scoprono nessun insieme di file | 170 |
+| **Somma delle categorie** | **395** |
+| **Guardie secondo la definizione** | **395** |
+
+**Ricontate il 12 settembre 2026 la sera, dopo il collaudo a video della
+2249**, che ha portato **una guardia nuova**: il totale sale da 394 a **395** e
+le tre categorie a **126, 99 e 170**.
+
+**`la_roccia_copre_tutta_la_discesa`** nasce da cio' che si e' visto sul
+767f596c e che nessuna prova guardava: a tre secondi di discesa la roccia stava
+ai soli bordi, a diciotto era sparita e restava il blu. Fotografa il tunnel a
+**venti quote** e pretende la grana della roccia nelle fasce alta e bassa a
+ognuna. **Nata rossa due volte, una per causa**: rimettendo lo spostamento
+vecchio la grana e' scesa a 1,00, rimettendo il fondo pieno del pittore pure.
+
+**E due guardie esistenti hanno imparato una cosa nuova ciascuna**, senza
+diventare file nuovi: `il_velo_c_e_davvero_sul_telefono` pretende che fra la
+sfocatura del velo e la sua immagine non ci sia nessun `Opacity`, che e' la
+forma che il telefono ha dimostrato di non reggere mentre il banco la regge;
+`la_soglia_e_una_scena_piena` pretende che la lista della soglia cominci sotto
+la barra. Tutte e due viste rosse.
 
 **Ricontate il 12 settembre 2026, dopo la seconda tornata dell'ordine DG**, che
 ha portato **tre guardie nuove**: il totale sale da 391 a **394** e le tre
@@ -555,6 +573,7 @@ le altre.
 | `la_runa_cade_e_non_e_gia_li_test.dart` | la runa cade e non e gia li | 1, 2 | proprio, dichiarato | mai | 3 |
 | `la_runa_rovesciata_ha_la_sua_lettura_test.dart` | la runa rovesciata ha la sua lettura | 1, 2 | proprio, dichiarato | mai | 2 |
 | `la_runa_singola_non_e_una_lezione_test.dart` | la runa singola non e una lezione | 1 | non scopre insiemi di file | 04/09/2026, CQ | 2 |
+| `la_roccia_copre_tutta_la_discesa_test.dart` | la roccia copre tutta la discesa, a venti quote | 1, 2, 4 | non scopre insiemi di file | 12/09/2026, DG (rossa due volte: lo spostamento vecchio e il fondo pieno del pittore) | 1 |
 | `la_scansione_non_salta_avanti_test.dart` | la scansione non salta avanti, e la vitalita e strutturale | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `la_scansione_si_puo_sempre_rifare_test.dart` | la scansione si puo sempre rifare, e si vede | 1, 2 | non scopre insiemi di file | 08/09/2026, CX | 1 |
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |

@@ -213,4 +213,45 @@ void main() {
           reason: 'dopo la quarta la descrizione continua a cambiare');
     }
   });
+
+  /// **IL TESTO DELLA SOGLIA NON SCORRE SOTTO LA BARRA.** Ordine DG, collaudo
+  /// a video della 2249, 12 settembre 2026.
+  ///
+  /// **Il difetto visto sul 767f596c.** La lista che scorre occupava tutto lo
+  /// schermo, barra compresa, e partiva piu' in basso solo per un margine:
+  /// appena si scorreva, il testo saliva sotto la barra trasparente e ci si
+  /// sovrapponeva. Si leggeva *"Dodici ti aspettano"* sopra *"Il Viaggio dello
+  /// Sciamano"*. La cattura sta in
+  /// `docs/catture/dg/2249_04_soglia_testo_sotto_la_barra.png`.
+  ///
+  /// **LA GRANDEZZA MISURATA E' LA GEOMETRIA VERA**, dopo aver scorso: il
+  /// bordo alto della finestra della lista contro il bordo basso della barra.
+  /// Una lista che scorre taglia da se' cio' che esce dalla sua finestra,
+  /// quindi basta che la finestra cominci sotto la barra.
+  ///
+  /// **VISTA ROSSA** riportando la lista a cominciare dal bordo dello schermo:
+  /// la finestra cominciava a zero punti e la barra finiva a 56.
+  testWidgets('DG: la lista della soglia comincia sotto la barra, e scorrendo '
+      'non ci passa sotto', (tester) async {
+    telefono(tester);
+    await apri(tester);
+    final lista = find.byKey(const Key('viaggio_soglia_scorre'));
+    expect(lista, findsOneWidget,
+        reason: 'la lista della soglia non ha piu la sua chiave, e questa '
+            'prova non sa piu cosa misurare');
+    await tester.drag(lista, const Offset(0, -500));
+    await tester.pump(const Duration(milliseconds: 300));
+    final finestra = tester.getRect(lista);
+    final barra = tester.getRect(find.byType(AppBar));
+    // ignore: avoid_print
+    print('ORDINE DG: la finestra della lista comincia a '
+        '${finestra.top.toStringAsFixed(0)} punti, la barra finisce a '
+        '${barra.bottom.toStringAsFixed(0)}');
+    expect(finestra.top, greaterThanOrEqualTo(barra.bottom - 0.5),
+        reason: 'LA LISTA DELLA SOGLIA COMINCIA DIETRO LA BARRA: la sua '
+            'finestra parte a ${finestra.top.toStringAsFixed(0)} punti e la '
+            'barra finisce a ${barra.bottom.toStringAsFixed(0)}. Scorrendo, '
+            'il testo sale sotto la barra trasparente e ci si sovrappone, '
+            'come si e visto sul 767f596c con la 2249.');
+  });
 }

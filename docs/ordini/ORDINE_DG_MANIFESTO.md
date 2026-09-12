@@ -15,6 +15,13 @@ CORREZIONI_CHIUSE_NEL_CODICE: 9
 
 ## 1. LA VOCE RIMASTA APERTA, in cima e non in fondo
 
+**AGGIORNAMENTO DEL 12 SETTEMBRE 2026 SERA: la 2249 e' stata consegnata e
+guardata a video, e il collaudo ha trovato tre difetti che nessuna prova
+vedeva.** Il velo della lente non sfoca sul telefono, per la terza volta; la
+roccia della discesa scappa e i poligoni la seppelliscono; il testo della
+soglia scorre sotto la barra. Cause, cure e guardie nella sezione 10. **La voce
+DG.09 resta aperta finche' la 2250 non e' guardata a video sul velo.**
+
 **DG.09, il rapporto con le catture dal telefono.** Il codice e' scritto,
 misurato e verde al banco; **le catture non sono state prese**, e la ragione
 sta nell'ordine stesso: *"La build la ordina il fondatore. Se serve costruire,
@@ -495,3 +502,95 @@ lettura mia che era sbagliata.
 | `il_velo_c_e_davvero_sul_telefono` | il metro della testa scoperta era la discesa 3 | il metro e' la discesa 4, piu' due misure nuove |
 | `il_simbolo_si_compone` | Caligo guarda sempre il totem | l'ombra senza Viaggio, il totem dopo |
 | `guide_animal_screen` e `il_responso_si_legge_ovunque` | aprivano la lettura da un diario vuoto | partono da un diario con le quattro discese |
+
+---
+
+## 10. IL COLLAUDO A VIDEO DELLA 2249, e cosa ha trovato
+
+12 settembre 2026, fra le 18:55 e le 19:01, sul 767f596c. Il profilo sul
+telefono e' nato il 15 giugno 1990, Gemelli, quindi l'animale e' la **Volpe**, e
+il Viaggio era a zero discese: non e' servito azzerare niente. Le catture stanno
+in `docs/catture/dg/`, col prefisso `2249_`.
+
+### Cio' che a video e' giusto
+
+| voce | cosa si vede | cattura |
+|---|---|---|
+| l'animale velato nel Passaporto | *"Animale guida · Ancora senza nome · Non l'hai ancora incontrato"*, con la sagoma velata | `2249_02` |
+| l'animale velato nella carta natale | *"Ancora senza nome · Si rivela scendendo nel Mondo di Sotto"*, dove prima c'era scritto *Volpe* accanto al totem a colori | `2249_03` |
+| la discesa di venti secondi | la nebbia arriva fra i 18,7 e i 21,8 secondi di dito premuto | `2249_06b` |
+| la nebbia che si apre col movimento | dodici passate di mano, circa sei secondi, e si apre | `2249_07` |
+| una sola ombra, sempre la sua | un'ombra sola, sfocata, con la frase dell'impronta | `2249_07` |
+
+**La dissolvenza che introduce la nebbia non si e' potuta fotografare**: dura un
+secondo e due decimi, e fra una cattura e l'altra ne passa uno abbondante. La
+prova e' al banco, dove l'opacita' vera della galleria vale 1,00, poi 0,50 a
+meta', poi niente.
+
+### I tre difetti che il collaudo ha trovato
+
+**UNO, IL VELO DELLA LENTE NON SFOCA SUL TELEFONO.** Cattura `2249_08`. La volpe
+si vede intera, testa compresa, **identica alla 2248**. E' la terza volta che
+il difetto si vede a video, e **le prime due attribuzioni erano sbagliate tutte
+e due**: sulla 2247 lo avevo dato allo `ShaderMask`, sulla 2248 all'`Opacity`
+legata all'`AnimationController`. Tolte tutte e due le cose, il difetto era
+identico.
+
+**La causa vera viene da un confronto sullo stesso telefono con la stessa
+build, non da una deduzione.** L'ombra dell'incontro e' `ImageFiltered` sopra
+`Image`, ed e' **sfocata** a video. Il velo era `ImageFiltered` sopra `Opacity`
+sopra `Image`, ed era **nitido**. E i pixel lo confermano: la testa della volpe
+a video ha il 52 per cento della luce dell'originale, e i conti tornano **solo**
+con un fantasma non sfocato, il 12 per cento che passa dalla coltre piu' il 38
+del fantasma nitido. Al banco, col motore di prova, sfocano tutte e due le
+forme: e' per questo che la guardia dei pixel era verde.
+
+**La cura**: fra la sfocatura e l'immagine non c'e' piu' niente, e l'opacita' la
+porta l'immagine col suo parametro `opacity`. Il velo ha adesso **la stessa
+forma dell'ombra che a video funziona**.
+
+**ATTRIBUZIONE: ordine DE voce 03**, dove il velo e' nato con quella forma.
+**Da vedere a video sulla 2250**, perche' il banco non puo' provarlo: la
+guardia nuova misura la forma, ed e' dichiarato nella guardia stessa.
+
+**DUE, LA ROCCIA SCAPPA E I POLIGONI LA SEPPELLISCONO.** Catture `2249_05` e
+`2249_06`. A tre secondi la roccia si vedeva ai soli bordi, e al centro c'erano
+grandi poligoni marroni; **a diciotto secondi era sparita**, restava una
+striscia in fondo e sopra il blu.
+
+Due cause, tutte e due mie. `FractionalTranslation` sposta di una frazione della
+**propria** altezza, e la scatola era alta due schermi: a quota 0,9 la roccia
+saliva di quasi due schermi. E gli anelli del pittore erano **poligoni pieni**
+fra il 30 e l'85 per cento di opacita': cioe' esattamente la *"grafica
+procedurale"* che il fondatore aveva bocciato, rimasta sopra la roccia che lui
+aveva fornito.
+
+**La cura**: la scatola e' alta uno schermo piu' una piastrella e sale di meno di
+una piastrella; sopra la roccia gli anelli non si disegnano, e il fondo del
+pittore resta solo come buio del punto di fuga, pieno al centro e al dieci per
+cento sul bordo.
+
+**ATTRIBUZIONE: ordine DG, seconda tornata, voce 7.4, cioe' mia.** La guardia
+nuova `la_roccia_copre_tutta_la_discesa` fotografa venti quote ed e' nata rossa
+su tutte e due le cause.
+
+**TRE, IL TESTO DELLA SOGLIA SCORRE SOTTO LA BARRA.** Cattura `2249_04`. La
+lista occupava tutto lo schermo, barra compresa, e partiva piu' in basso solo
+per un margine: scorrendo, *"Dodici ti aspettano"* finiva sopra *"Il Viaggio
+dello Sciamano"*. Adesso la lista comincia sotto la barra, e la scena resta a
+tutto schermo.
+
+**ATTRIBUZIONE: ordine DE voce 01**, che ha fatto della soglia una scena piena
+con la barra sopra, senza che nessuno la guardasse scorrere.
+
+### Cosa resta da vedere a video, e perche'
+
+**La testa scoperta alla quarta discesa e la rivelazione cumulativa** chiedono
+quattro discese in quattro giorni diversi, ed e' la regola del Viaggio: il
+telefono non e' rootato e l'orologio non si sposta. Al banco sono misurate sui
+pixel, per tutti e dodici gli animali.
+
+**L'ordine delle schede del Risveglio e la rivelazione della Carta di Nascita**
+vivono nell'onboarding, che su questo telefono e' gia' fatto: rifarlo vorrebbe
+dire cancellare i dati dell'app, ed e' la sola cosa che la regola SEI vieta per
+nome. Al banco la prova naviga il Risveglio vero dagli angeli alla carta natale.

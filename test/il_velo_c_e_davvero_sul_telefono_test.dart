@@ -350,4 +350,77 @@ void main() {
         'prima e terza ${p.value.toStringAsFixed(3)} (${p.key}); sotto uno '
         'vuol dire che alla prima si riconosce meno');
   });
+
+  /// **FRA LA SFOCATURA DEL VELO E L'IMMAGINE NON C'E' NESSUNO STRATO.**
+  /// Ordine DG, collaudo a video della 2249, 12 settembre 2026.
+  ///
+  /// **QUESTA GUARDIA DICHIARA CIO' CHE NON PUO' MISURARE.** Le tre qui sopra
+  /// guardano i pixel, e sono verdi anche col difetto dentro: al banco si
+  /// dipinge col motore di prova, e li' la sfocatura funziona **in tutte e due
+  /// le forme**. Sul 767f596c no. Il difetto e' stato visto a video tre
+  /// volte, sulla 2247, sulla 2248 e sulla 2249, e le prime due volte e'
+  /// stato attribuito a cause sbagliate.
+  ///
+  /// **LA CAUSA VIENE DA UN CONFRONTO SULLO STESSO TELEFONO E CON LA STESSA
+  /// BUILD, non da una deduzione.** L'ombra dell'incontro e' `ImageFiltered`
+  /// sopra `Image`, ed e' sfocata a video. Il velo della lente era
+  /// `ImageFiltered` sopra `Opacity` sopra `Image`, ed era nitido: la testa
+  /// della volpe a video aveva il 52 per cento della luce dell'originale, che
+  /// e' esattamente il conto di un fantasma NON sfocato.
+  ///
+  /// **Quindi qui si misura la forma**, perche' e' l'unica cosa del difetto
+  /// che il banco sa vedere: nessun `Opacity` fra una sfocatura del velo e la
+  /// sua immagine, in nessuna delle quattro discese. La prova vera e' la
+  /// cattura sul telefono, e sta in `docs/catture/dg/`.
+  ///
+  /// **VISTA ROSSA** rimettendo l'`Opacity` attorno al fantasma: la prova ha
+  /// nominato le quattro discese.
+  testWidgets(
+      'nessun Opacity fra la sfocatura del velo e la sua immagine, a nessuna '
+      'discesa', (tester) async {
+    await tester.binding.setSurfaceSize(scena);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
+    final colpevoli = <String>[];
+    var sfocature = 0;
+    for (var discesa = 0; discesa <= DoveStaLaTesta.quanteFasce; discesa++) {
+      await tester.pumpWidget(MaterialApp(
+        home: SizedBox(
+          width: scena.width,
+          height: scena.height,
+          child: LenteCheScopre(
+            nome: lupo.name,
+            immagine: lupo.fullPath,
+            discesa: discesa,
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 100));
+      final sfocate = find.byKey(const Key('viaggio_velo_sfocato'));
+      sfocature += sfocate.evaluate().length;
+      for (final e in sfocate.evaluate()) {
+        final dentro = find.descendant(
+            of: find.byWidget(e.widget), matching: find.byType(Opacity));
+        if (dentro.evaluate().isNotEmpty) {
+          colpevoli.add('discesa ${discesa + 1}: '
+              '${dentro.evaluate().length} Opacity sotto la sfocatura');
+        }
+      }
+    }
+    // **IL CARDINALE**: una sfocatura per discesa, o la prova ha guardato un
+    // albero senza velo e sarebbe verde su niente.
+    expect(sfocature, greaterThanOrEqualTo(DoveStaLaTesta.quanteFasce + 1),
+        reason: 'NON SI TROVANO LE SFOCATURE DEL VELO: la chiave '
+            'viaggio_velo_sfocato non c\'e\' piu\', e questa guardia sta '
+            'guardando un albero che non e\' quello del velo.');
+    expect(colpevoli, isEmpty,
+        reason: 'FRA LA SFOCATURA DEL VELO E LA SUA IMMAGINE C\'E\' UN '
+            'Opacity:\n${colpevoli.join('\n')}\n\n'
+            'Al banco si vede sfocato lo stesso, sul 767f596c no: il '
+            'fantasma arriva a schermo nitido e la volpe si riconosce intera, '
+            'testa compresa. Visto a video sulla 2247, sulla 2248 e sulla '
+            '2249. L\'opacita\' del fantasma la porta l\'immagine, col suo '
+            'parametro opacity.');
+  });
 }

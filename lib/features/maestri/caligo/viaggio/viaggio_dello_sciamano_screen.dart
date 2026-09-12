@@ -222,6 +222,7 @@ class _ViaggioDelloSciamanoScreenState
   /// perche' sotto quel tempo il punto di fuga non fa in tempo ad aprirsi e la
   /// galleria si legge come una dissolvenza.
   static const Duration primaDiscesa = Duration(seconds: 20);
+
   /// **E DALLA SECONDA IN POI DURA UGUALE.** Ordine DG voce 06,
   /// 11 settembre 2026: *"il viaggio in discesa fa veramente cagare ed e'
   /// lunghissimo"*.
@@ -281,8 +282,7 @@ class _ViaggioDelloSciamanoScreenState
   /// **L'ANIMALE DI QUESTA PERSONA, e viene dalla sua nascita.** Ordine DG
   /// voce 01: la porta e' una sola, `GuideAnimalDerivation.forSign`, e il
   /// Viaggio non ne apre una seconda.
-  GuideAnimal get _suoAnimale =>
-      GuideAnimalDerivation.forSign(widget.userSign);
+  GuideAnimal get _suoAnimale => GuideAnimalDerivation.forSign(widget.userSign);
 
   /// **SE IL NOME SI PUO' DIRE**, cioe' se le quattro discese sono compiute.
   ///
@@ -317,8 +317,7 @@ class _ViaggioDelloSciamanoScreenState
     _discesa = Timer.periodic(passo, (t) {
       if (!mounted) return t.cancel();
       setState(() {
-        _scesi = (_scesi +
-                passo.inMilliseconds / _quantoDura.inMilliseconds)
+        _scesi = (_scesi + passo.inMilliseconds / _quantoDura.inMilliseconds)
             .clamp(0.0, 1.0);
         if (_scesi >= 1.0) {
           t.cancel();
@@ -329,8 +328,7 @@ class _ViaggioDelloSciamanoScreenState
           _entraLaNebbia = 0;
           _accendiLaDissolvenza();
           _respiro?.cancel();
-          _respiro = Timer.periodic(
-              RespiroCheDirada.passo, _unRespiroDiNebbia);
+          _respiro = Timer.periodic(RespiroCheDirada.passo, _unRespiroDiNebbia);
           unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
         }
       });
@@ -406,8 +404,7 @@ class _ViaggioDelloSciamanoScreenState
   void _unRespiroDiNebbia(Timer _) {
     if (_fase != FaseDelViaggio.nebbia || !mounted) return;
     final prima = _nebbia;
-    final (aperta, spinta) =
-        RespiroCheDirada.unPasso(_nebbia, _spintaDelDito);
+    final (aperta, spinta) = RespiroCheDirada.unPasso(_nebbia, _spintaDelDito);
     _nebbia = aperta;
     _spintaDelDito = spinta;
     if (_nebbia >= 1 && prima < 1) {
@@ -460,10 +457,9 @@ class _ViaggioDelloSciamanoScreenState
     final nome = _seguito;
     if (nome == null) return;
     final quante = _diario.quanteDiscese;
-    final nitidezza = NitidezzaDellaScena.dopoGiorni(
-        _diario.giorniDiDistanza ?? 0);
-    final domanda =
-        LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
+    final nitidezza =
+        NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
+    final domanda = LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
     // **LA VIA DI SOTTO, e per adesso e' l'unica montata.** Ordine DC voce 06:
     // la scelta dei tre elementi la fa Gemini, e quando non arriva si cade su
     // questa composizione deterministica. **La porta al modello non e' ancora
@@ -510,9 +506,9 @@ class _ViaggioDelloSciamanoScreenState
     // un ululato che non e' il suo.
     final suo = _suoAnimale;
     if (true) {
-      unawaited(IlVersoDellAnimale
-          .faiSentire(suo, eLaRivelazione: _riconosciuto)
-          .then((udito) {
+      unawaited(
+          IlVersoDellAnimale.faiSentire(suo, eLaRivelazione: _riconosciuto)
+              .then((udito) {
         // **OGGI QUESTO E SEMPRE FALSO, ed e giusto cosi.** I dodici file non
         // sono nel pacchetto: il momento resta muto invece di prendere in
         // prestito un ululato che non e il suo. Vedi
@@ -541,14 +537,12 @@ class _ViaggioDelloSciamanoScreenState
         // pavimento tipografico.
         title: TitoloCheNonSiRompe(
           testo: 'Il Viaggio dello Sciamano',
-          stile: TypographyTokens.titoloScheda()
-              .copyWith(color: palette.goldSoft),
+          stile:
+              TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         ),
         actions: [
           FoglioDelleFonti.bottone(context,
-              palette: palette,
-              testo: _fonti,
-              chiave: 'viaggio_fonti'),
+              palette: palette, testo: _fonti, chiave: 'viaggio_fonti'),
           const AngoloDellaBarra(),
         ],
       ),
@@ -617,8 +611,8 @@ class _ViaggioDelloSciamanoScreenState
   /// lunga, e a colonna scorsa non si vedeva nemmeno.
   Widget _laSoglia(MaestroPalette palette) {
     final primo = _diario.quanteDiscese == 0;
-    final perche = LaDomandaDelViaggio.perCheNonVa(_domanda.text,
-        primoViaggio: primo);
+    final perche =
+        LaDomandaDelViaggio.perCheNonVa(_domanda.text, primoViaggio: primo);
     // **IL TETTO LO DECIDONO I TETTI, ordine DE voce 14.** Prima era una
     // discesa al giorno e basta, e dopo la rivelazione nessun limite di
     // nessun genere: chi aveva il nome poteva fare mille domande al giorno
@@ -678,111 +672,125 @@ class _ViaggioDelloSciamanoScreenState
             ),
           ),
         ),
-        SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(
-              SpacingTokens.lg,
-              quantoInCima + SpacingTokens.lg,
-              SpacingTokens.lg,
-              SpacingTokens.xxl),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Lo spazio della fascia alta, dove passano i dodici: il testo
-              // comincia sotto di loro.
-              SizedBox(height: schermo.height * 0.22),
-              _laPromessaDellaSoglia(palette, primo: primo),
-              const SizedBox(height: SpacingTokens.lg),
-              // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
-              _iQuattroSegni(palette),
-              const SizedBox(height: SpacingTokens.sm),
-              Text(
-                IQuattroViaggi.aChePunto(_diario.quanteDiscese),
-                key: const Key('viaggio_a_che_punto'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
-              // **SI RICOMINCIA DA CAPO, E SOLO IN DEMO.** Ordine DG voce 08.
-              //
-              // **Sta qui e non nelle impostazioni** perche' e' qui che si
-              // guarda quante discese mancano: il comando che le riporta a
-              // zero deve stare accanto al numero che azzera, non tre
-              // schermate piu' in la'.
-              if (AppFlags.isDemo && _diario.quanteDiscese > 0) ...[
-                const SizedBox(height: SpacingTokens.sm),
-                TextButton.icon(
-                  key: const Key('viaggio_ricomincia_demo'),
-                  onPressed: _ricominciaInDemo,
-                  icon: const Icon(Icons.restart_alt_rounded, size: 18),
-                  label: const Text('Ricomincia il viaggio (Demo)'),
-                  style: TextButton.styleFrom(
-                      foregroundColor: ColorTokens.textSecondary),
-                ),
-              ],
-              // **L'AVVISO DELL'ANIMALE LONTANO STA ALL'APERTURA**, sopra
-              // la scelta della domanda: chi legge deve saperlo **prima** di
-              // scegliere con che cosa scendere, non dopo essere risalito.
-              if (_laDistanza(palette) != null) ...[
+        // **LA LISTA COMINCIA SOTTO LA BARRA, e non dietro.** Collaudo a video
+        // della 2249, 12 settembre 2026: la lista occupava tutto lo schermo,
+        // barra compresa, e partiva piu' in basso solo per un margine. Appena
+        // si scorreva, il testo saliva sotto la barra trasparente e ci si
+        // sovrapponeva: si leggeva *"Dodici ti aspettano"* sopra *"Il Viaggio
+        // dello Sciamano"*.
+        //
+        // **La scena resta a tutto schermo**, com'e' dall'ordine DE voce 01:
+        // e' la lista che scorre a fermarsi al bordo della barra, e una lista
+        // che scorre taglia da se' cio' che esce dalla sua finestra.
+        Positioned(
+          top: quantoInCima,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: SingleChildScrollView(
+            key: const Key('viaggio_soglia_scorre'),
+            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                SpacingTokens.lg, SpacingTokens.lg, SpacingTokens.xxl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Lo spazio della fascia alta, dove passano i dodici: il testo
+                // comincia sotto di loro.
+                SizedBox(height: schermo.height * 0.22),
+                _laPromessaDellaSoglia(palette, primo: primo),
                 const SizedBox(height: SpacingTokens.lg),
-                _laDistanza(palette)!,
-              ],
-              const SizedBox(height: SpacingTokens.xl),
-              _leTreVie(palette, primo: primo),
-              if (perche != null && _temaScelto.isEmpty) ...[
+                // **A CHE PUNTO SEI, in quattro segni prima che in una frase.**
+                _iQuattroSegni(palette),
                 const SizedBox(height: SpacingTokens.sm),
-                Text(perche,
-                    key: const Key('viaggio_perche_non_si_scende'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: palette.goldSoft)),
-              ],
-              if (!siPuo && _caricato) ...[
-                const SizedBox(height: SpacingTokens.md),
-                DepthCard(
-                  padding: const EdgeInsets.all(SpacingTokens.md),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // **LA RIGA DEL TETTO DI OGGI**, che dice quale dei due
-                      // limiti ha parlato: il metodo oppure il piano.
-                      if (percheNoOggi != null)
-                        ParagrafiDiLettura(
-                          key: const Key('viaggio_tetto_di_oggi'),
-                          testo: percheNoOggi,
-                          stile: TypographyTokens.lettura()
-                              .copyWith(color: palette.goldSoft),
-                        ),
-                      if (percheNoOggi != null)
-                        const SizedBox(height: SpacingTokens.sm),
-                      // **E LA FONTE DELL'ATTESA**, che resta e vale solo per
-                      // chi non ha ancora riconosciuto: a chi ha finito le
-                      // domande del piano, citare Harner sarebbe una scusa.
-                      if (!_riconosciuto)
-                        ParagrafiDiLettura(
-                          key: const Key('viaggio_non_oggi'),
-                          testo: IQuattroViaggi.percheSiAspetta,
-                          stile: TypographyTokens.lettura()
-                              .copyWith(color: ColorTokens.textSecondary),
-                        ),
-                    ],
+                Text(
+                  IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+                  key: const Key('viaggio_a_che_punto'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                // **SI RICOMINCIA DA CAPO, E SOLO IN DEMO.** Ordine DG voce 08.
+                //
+                // **Sta qui e non nelle impostazioni** perche' e' qui che si
+                // guarda quante discese mancano: il comando che le riporta a
+                // zero deve stare accanto al numero che azzera, non tre
+                // schermate piu' in la'.
+                if (AppFlags.isDemo && _diario.quanteDiscese > 0) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  TextButton.icon(
+                    key: const Key('viaggio_ricomincia_demo'),
+                    onPressed: _ricominciaInDemo,
+                    icon: const Icon(Icons.restart_alt_rounded, size: 18),
+                    label: const Text('Ricomincia il viaggio (Demo)'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: ColorTokens.textSecondary),
                   ),
+                ],
+                // **L'AVVISO DELL'ANIMALE LONTANO STA ALL'APERTURA**, sopra
+                // la scelta della domanda: chi legge deve saperlo **prima** di
+                // scegliere con che cosa scendere, non dopo essere risalito.
+                if (_laDistanza(palette) != null) ...[
+                  const SizedBox(height: SpacingTokens.lg),
+                  _laDistanza(palette)!,
+                ],
+                const SizedBox(height: SpacingTokens.xl),
+                _leTreVie(palette, primo: primo),
+                if (perche != null && _temaScelto.isEmpty) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(perche,
+                      key: const Key('viaggio_perche_non_si_scende'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft)),
+                ],
+                if (!siPuo && _caricato) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  DepthCard(
+                    padding: const EdgeInsets.all(SpacingTokens.md),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // **LA RIGA DEL TETTO DI OGGI**, che dice quale dei due
+                        // limiti ha parlato: il metodo oppure il piano.
+                        if (percheNoOggi != null)
+                          ParagrafiDiLettura(
+                            key: const Key('viaggio_tetto_di_oggi'),
+                            testo: percheNoOggi,
+                            stile: TypographyTokens.lettura()
+                                .copyWith(color: palette.goldSoft),
+                          ),
+                        if (percheNoOggi != null)
+                          const SizedBox(height: SpacingTokens.sm),
+                        // **E LA FONTE DELL'ATTESA**, che resta e vale solo per
+                        // chi non ha ancora riconosciuto: a chi ha finito le
+                        // domande del piano, citare Harner sarebbe una scusa.
+                        if (!_riconosciuto)
+                          ParagrafiDiLettura(
+                            key: const Key('viaggio_non_oggi'),
+                            testo: IQuattroViaggi.percheSiAspetta,
+                            stile: TypographyTokens.lettura()
+                                .copyWith(color: ColorTokens.textSecondary),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+                const SizedBox(height: SpacingTokens.lg),
+                FilledButton.icon(
+                  key: const Key('viaggio_scendi'),
+                  onPressed: pronto
+                      ? () => setState(() => _fase = FaseDelViaggio.discesa)
+                      : null,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.primary,
+                    foregroundColor: palette.onPrimary,
+                    minimumSize: const Size.fromHeight(56),
+                  ),
+                  icon: const Icon(Icons.south_rounded),
+                  label: Text('Scendi', style: TypographyTokens.etichetta()),
                 ),
               ],
-              const SizedBox(height: SpacingTokens.lg),
-              FilledButton.icon(
-                key: const Key('viaggio_scendi'),
-                onPressed: pronto
-                    ? () => setState(() => _fase = FaseDelViaggio.discesa)
-                    : null,
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.primary,
-                  foregroundColor: palette.onPrimary,
-                  minimumSize: const Size.fromHeight(56),
-                ),
-                icon: const Icon(Icons.south_rounded),
-                label: Text('Scendi', style: TypographyTokens.etichetta()),
-              ),
-            ],
+            ),
           ),
         ),
       ],
@@ -834,8 +842,7 @@ class _ViaggioDelloSciamanoScreenState
           ParagrafiDiLettura(
             key: const Key('viaggio_lontano_riga'),
             testo: riga,
-            stile:
-                TypographyTokens.lettura().copyWith(color: palette.goldSoft),
+            stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
           ),
           const SizedBox(height: SpacingTokens.xs),
           // **E SI DICHIARA APERTAMENTE CHE FUNZIONA COSI'.** Ordine DE voce
@@ -879,8 +886,7 @@ class _ViaggioDelloSciamanoScreenState
   /// **Dalla seconda discesa in poi le tre righe spariscono**: chi e' gia'
   /// sceso le ha gia' lette, e ripetere una promessa a chi l'ha gia' accettata
   /// e' il modo piu' rapido di farla sembrare una reclame.
-  Widget _laPromessaDellaSoglia(MaestroPalette palette,
-      {required bool primo}) {
+  Widget _laPromessaDellaSoglia(MaestroPalette palette, {required bool primo}) {
     const tre = LaPromessaDelViaggio.treCoseDaSapere;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1140,13 +1146,11 @@ class _ViaggioDelloSciamanoScreenState
           fillColor: Colors.white.withValues(alpha: 0.04),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            borderSide:
-                BorderSide(color: palette.gold.withValues(alpha: 0.22)),
+            borderSide: BorderSide(color: palette.gold.withValues(alpha: 0.22)),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            borderSide:
-                BorderSide(color: palette.gold.withValues(alpha: 0.22)),
+            borderSide: BorderSide(color: palette.gold.withValues(alpha: 0.22)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -1165,17 +1169,14 @@ class _ViaggioDelloSciamanoScreenState
         child: Stack(
           children: [
             Positioned.fill(
-              child: TunnelCheScende(
-                  quantoSiEScesi: _scesi, senzaMoto: false),
+              child: TunnelCheScende(quantoSiEScesi: _scesi, senzaMoto: false),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(SpacingTokens.xl),
                 child: Text(
-                  _discesa == null
-                      ? 'Tieni premuto per scendere'
-                      : 'Scendi',
+                  _discesa == null ? 'Tieni premuto per scendere' : 'Scendi',
                   key: const Key('viaggio_istruzione_discesa'),
                   style: TypographyTokens.etichetta()
                       .copyWith(color: palette.goldSoft, letterSpacing: 1.4),
@@ -1312,8 +1313,8 @@ class _ViaggioDelloSciamanoScreenState
     if (animale == null) {
       // **UN NOME SENZA ARTE NON BLOCCA LA DISCESA**, ordine DC voce 16: si
       // risale e basta, e la scena del ritorno arriva lo stesso.
-      WidgetsBinding.instance.addPostFrameCallback(
-          (_) => unawaited(_risaliDallaLente()));
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => unawaited(_risaliDallaLente()));
       return const SizedBox.shrink();
     }
     return Stack(
@@ -1354,8 +1355,7 @@ class _ViaggioDelloSciamanoScreenState
                     minimumSize: const Size.fromHeight(52),
                   ),
                   icon: const Icon(Icons.north_rounded),
-                  label:
-                      Text('Risali', style: TypographyTokens.etichetta()),
+                  label: Text('Risali', style: TypographyTokens.etichetta()),
                 ),
               ],
             ),
@@ -1397,8 +1397,7 @@ class _ViaggioDelloSciamanoScreenState
               child: AspectRatio(
                 aspectRatio: 1.35,
                 child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusLg),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
                   child: _riconosciuto
                       ? Image.asset(_animale(_seguito)!.fullPath,
                           key: const Key('viaggio_animale_del_ritorno'),
@@ -1406,9 +1405,8 @@ class _ViaggioDelloSciamanoScreenState
                       : OmbraDellAnimale(
                           key: const Key('viaggio_animale_del_ritorno'),
                           immagine: _animale(_seguito)!.fullPath,
-                          quantaLuce:
-                              0.35 + 0.2 * (_diario.quanteDiscese - 1)
-                                  .clamp(0, 3),
+                          quantaLuce: 0.35 +
+                              0.2 * (_diario.quanteDiscese - 1).clamp(0, 3),
                         ),
                 ),
               ),
@@ -1438,8 +1436,7 @@ class _ViaggioDelloSciamanoScreenState
           for (final paragrafo in LaVoceDelMondoDiSotto.paragrafi(
             scena: scena,
             temaDomanda: LaVoceDelMondoDiSotto.temaDi(_temaScelto),
-            temaInLettere:
-                LaVoceDelMondoDiSotto.temaInLettereDi(_temaScelto),
+            temaInLettere: LaVoceDelMondoDiSotto.temaInLettereDi(_temaScelto),
             giornoDellaDiscesa: _giornoDellaScena,
           )) ...[
             ParagrafiDiLettura(
@@ -1489,13 +1486,14 @@ class _ViaggioDelloSciamanoScreenState
               // **L'ARTICOLO E IL PRONOME VENGONO DALL'ANIMALE**, ordine DE voce
               // 08: qui c'era scritto *"E' il $nome. Adesso lo conosci"*, e sulla
               // Lince diventava *"E' il Lince"*. Vedi `GuideAnimal.articolo`.
-              testo: 'È ${_articoloDi(nome)}$nome. Adesso ${_pronomeDi(nome)} conosci.',
+              testo:
+                  'È ${_articoloDi(nome)}$nome. Adesso ${_pronomeDi(nome)} conosci.',
               textAlign: TextAlign.center,
               // **ORO CHIARO E NON ORO PIENO**, e lo ha chiesto il censimento
               // dei grigi: su un fondo di Maestro l'oro pieno arriva a 5,42
               // contro i 7,0 che il corpo di lettura pretende.
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: palette.goldSoft),
+              stile:
+                  TypographyTokens.lettura().copyWith(color: palette.goldSoft),
             )
           else
             ParagrafiDiLettura(

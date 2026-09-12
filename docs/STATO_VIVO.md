@@ -2319,6 +2319,33 @@ dichiarata per `sky_thread.dart`, e `tipografia_nel_dato` ha visto il debito
 scendere da 82 misure a 81 e da 34 file a 33, col censimento
 `docs/tipografia/censimento.md` rigenerato e committato insieme al codice.
 
+**IL COLLAUDO A VIDEO DELLA 2249, 12 settembre 2026 sera.** Consegnata come
+release `7i4c6n9qs4q98`, numero letto dal telefono 2249, e guardata sul
+767f596c. **A video sono giusti**: l'animale senza nome nel Passaporto e nella
+carta natale, la discesa di venti secondi, la nebbia che si apre col movimento,
+l'ombra unica.
+
+**Il collaudo ha trovato tre difetti che nessuna prova vedeva**, e sono curati
+per la 2250:
+
+- **il velo della lente non sfoca sul telefono**, per la terza volta dopo la
+  2247 e la 2248, e **le prime due attribuzioni erano sbagliate**. La causa
+  viene da un confronto sullo stesso telefono con la stessa build: l'ombra
+  dell'incontro, `ImageFiltered` sopra `Image`, e' sfocata; il velo,
+  `ImageFiltered` sopra `Opacity` sopra `Image`, era nitido. Al banco sfocano
+  tutte e due, per questo la guardia dei pixel era verde. **Attribuzione:
+  ordine DE voce 03**, commit `a8749f88`;
+- **la roccia della discesa scappava** (a diciotto secondi restava il blu) e
+  **i poligoni del pittore la seppellivano**. Attribuzione: mia, seconda
+  tornata dell'ordine DG. Guardia nuova `la_roccia_copre_tutta_la_discesa`, a
+  venti quote;
+- **il testo della soglia scorreva sotto la barra**. Attribuzione: ordine DE
+  voce 01.
+
+**Il velo va guardato a video sulla 2250**: il banco non puo' provarlo, e la
+guardia che lo presidia misura la forma e lo dichiara. Il registro delle
+guardie sale a **395**.
+
 ## L'ORDINE DF, LE RISPOSTE NON POSSONO ESSERE TUTTE UGUALI
 
 11 settembre 2026, urgente e straordinario. Nasce da un fatto misurato dal

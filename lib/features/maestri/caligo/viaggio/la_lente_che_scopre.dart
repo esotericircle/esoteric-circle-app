@@ -388,18 +388,35 @@ class _LenteCheScopreState extends State<LenteCheScopre>
           key: const Key('viaggio_velo_dell_animale'),
           color: _coltre(),
         ),
+        // **FRA LA SFOCATURA E L'IMMAGINE NON C'E' NIENTE.** Collaudo a video
+        // della 2249, 12 settembre 2026, e il difetto era stato visto anche
+        // sulla 2247 e sulla 2248: la volpe intera e nitida, testa compresa.
+        //
+        // **Qui c'era `ImageFiltered` > `Opacity` > `Image`**, e sul 767f596c
+        // quella forma non sfoca: il fantasma arrivava a schermo nitido. Lo
+        // prova un confronto sullo stesso telefono e con la stessa build,
+        // perche' l'ombra dell'incontro e' `ImageFiltered` > `Image` e a video
+        // e' sfocata. Al banco invece sfocano tutte e due, ed e' per questo
+        // che la guardia dei pixel restava verde.
+        //
+        // **L'opacita' adesso la porta l'immagine**, col suo parametro
+        // `opacity`: e' l'alfa del pennello che la disegna, non un livello da
+        // comporre, e il velo ha cosi' la stessa forma dell'ombra che a video
+        // funziona.
         ImageFiltered(
+          key: const Key('viaggio_velo_sfocato'),
           imageFilter: ui.ImageFilter.blur(
               sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal),
-          child: Opacity(
+          child: Image.asset(
+            widget.immagine,
+            fit: BoxFit.contain,
             // **IL FANTASMA SI ALZA CON LE DISCESE.** Trentotto centesimi alla
             // prima, cinquantacinque alla terza: piu' su si legge il manto,
             // piu' giu' sparisce la sagoma, e alla prima apparizione deve
             // intuirsi appena.
-            opacity: LenteCheScopre.fantasmaAlla(widget.discesa),
-            child: Image.asset(widget.immagine,
-                fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+            opacity: AlwaysStoppedAnimation<double>(
+                LenteCheScopre.fantasmaAlla(widget.discesa)),
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
           ),
         ),
       ],
