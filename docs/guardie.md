@@ -40,10 +40,14 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
-| Guardie con un cardinale proprio dichiarato | 99 |
+| Guardie con un cardinale proprio dichiarato | 100 |
 | Guardie che non scoprono nessun insieme di file | 173 |
-| **Somma delle categorie** | **398** |
-| **Guardie secondo la definizione** | **398** |
+| **Somma delle categorie** | **399** |
+| **Guardie secondo la definizione** | **399** |
+
+**Ricontate durante la voce DI.09, e la guardia non e' nuova: mancava.** `la_discesa_riempie_lo_schermo` esiste dall'ordine DC voce 07 e fotografa il tunnel e l'ombra dell'animale sui pixel, ma **il registro non la elencava**: non passa dalla porta comune, e la prova che cerca le guardie assenti vede solo quelle. Il totale sale da 398 a **399** e le tre categorie a **126, 100 e 173**.
+
+Con la voce DI.09 il tunnel disegnato e' diventato la riserva del filmato, e ha perso i diciotto anelli che non si erano mai visti. **Due delle sue quattro prove misuravano quegli anelli e se ne sono andate con loro**; le altre due adesso fotografano il widget vero, roccia compresa. Quella del moto al primo giro era verde per la ragione sbagliata e poi rossa sul tunnel sano: confrontava due quote in cui la roccia, che si ripete sei volte, era tornata al suo posto, e contava la sola luce. **Si e' cambiata la grandezza, non la soglia**: adesso guarda la parete fuori dal cerchio della luce, dove con la roccia ferma cambia lo zero virgola zero per cento.
 
 **Ricontate dopo la voce DI.02**, che ha portato **una guardia nuova**,
 `la_domanda_libera_viene_capita`: il totale sale da 397 a **398** e le tre
@@ -563,6 +567,7 @@ le altre.
 | `la_chiave_e_il_consiglio_si_vedono_test.dart` | la chiave e il consiglio si vedono | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_colonna_dei_suggerimenti_non_esiste_piu_test.dart` | la colonna dei suggerimenti non esiste piu | 1 | dalla porta comune | mai | 3 |
 | `la_corsa_dello_zodiaco_test.dart` | la corsa dello zodiaco | 1 | proprio, dichiarato | mai | 3 |
+| `la_discesa_riempie_lo_schermo_test.dart` | il tunnel della riserva occupa la scena intera e la sua parete si sposta col dito; l ombra dell animale riempie la scena | 1, 4 | proprio, dichiarato | 12/09/2026, DI (rossa due volte: la roccia ferma, 0,0 per cento della parete cambiata; la roccia spinta fuori dalla finestra, 8,3 per cento dipinto) | 1 |
 | `la_discesa_dura_venti_secondi_test.dart` | la discesa dura venti secondi, e la nebbia entra in dissolvenza | 1, 2 | non scopre insiemi di file | 12/09/2026, DG (rossa due volte: la discesa conosciuta a nove secondi, e la dissolvenza saltata a uno) | 1 |
 | `la_domanda_libera_viene_capita_test.dart` | la domanda libera viene capita, dal modello o dalla tabella, e la tabella non sbaglia mai | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa: col minimo per decidere a uno, due temi sbagliati) | 1 |
 | `la_domanda_entra_nel_responso_test.dart` | la domanda entra nel responso | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |

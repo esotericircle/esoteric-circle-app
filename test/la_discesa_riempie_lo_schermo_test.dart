@@ -29,8 +29,6 @@ import 'cardinale_minimo.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const lato = 390.0;
-
   /// **LA FINESTRA VERA, non una tela quadrata di comodo.** Regola I.
   ///
   /// Trecentonovanta per ottocentoquarantaquattro e' il telefono su cui
@@ -56,152 +54,118 @@ void main() {
         .toImageSync(quanto.width.toInt(), quanto.height.toInt());
   }
 
-  /// Quanto occupa in larghezza cio' che e' stato dipinto, in frazione della
-  /// tela, guardando **solo i pixel che si distinguono dal fondo**.
-  /// **SI MISURANO TUTTE E DUE LE DIREZIONI, e anche quanta tela e'
-  /// coperta.** Una figura larga quanto la scena ma alta la meta' passava la
-  /// prima stesura di questa guardia, che guardava solo la larghezza.
-  Future<({double larga, double alta, double piena})> estensioneDipinta(
-      ui.Image immagine,
-      {required bool Function(int r, int g, int b, int a) e}) async {
-    final dati = await immagine.toByteData(format: ui.ImageByteFormat.rawRgba);
-    final byte = dati!.buffer.asUint8List();
-    final larghezza = immagine.width;
-    final altezza = immagine.height;
-    var primoX = larghezza;
-    var ultimoX = -1;
-    var primoY = altezza;
-    var ultimoY = -1;
-    var accesi = 0;
-    for (var y = 0; y < altezza; y++) {
-      for (var x = 0; x < larghezza; x++) {
-        final i = (y * larghezza + x) * 4;
-        if (e(byte[i], byte[i + 1], byte[i + 2], byte[i + 3])) {
-          accesi++;
-          if (x < primoX) primoX = x;
-          if (x > ultimoX) ultimoX = x;
-          if (y < primoY) primoY = y;
-          if (y > ultimoY) ultimoY = y;
-        }
-      }
+  group('DC.07, il tunnel della riserva', () {
+    // **DAL 12 SETTEMBRE 2026 IL TUNNEL DISEGNATO E' LA RISERVA**, ordine DI
+    // voce 09: la discesa e' il filmato del fondatore, e questo tunnel si vede
+    // solo se il filmato non si carica.
+    //
+    // **QUI C'ERANO QUATTRO PROVE, e due se ne sono andate con cio' che
+    // misuravano.** *"Gli anelli vicini sono piu' scuri dei lontani"* e *"le
+    // forme vive sono dichiarate e sotto il tetto"* misuravano i diciotto
+    // anelli del pittore, che si disegnavano **solo quando sotto non c'era la
+    // roccia**: e la roccia c'era sempre. Dipingevano il pittore in un ramo che
+    // la produzione non percorre, ed erano la difesa di un codice che nessuna
+    // persona ha mai visto. L'ordine l'ha chiamato *"peso morto che mente a
+    // chi legge"*, e il codice e le sue due prove sono stati tolti insieme.
+    //
+    // **Le altre due misuravano una cosa vera**, e adesso la misurano sul
+    // widget vero, roccia compresa, invece che sul pittore da solo.
+    Future<Uint8List> fotografa(WidgetTester tester, double quota) async {
+      late Uint8List byte;
+      await tester.runAsync(() async {
+        await tester.pumpWidget(MaterialApp(
+          home: RepaintBoundary(
+            key: const Key('foglio'),
+            child: SizedBox(
+              width: corpoVero.width,
+              height: corpoVero.height,
+              child: TunnelCheScende(quantoSiEScesi: quota, senzaMoto: false),
+            ),
+          ),
+        ));
+        await precacheImage(const AssetImage(TunnelCheScende.parete),
+            tester.element(find.byType(SizedBox).first));
+        await tester.pump(const Duration(milliseconds: 50));
+        final foglio = tester.renderObject<RenderRepaintBoundary>(
+            find.byKey(const Key('foglio')));
+        final img = await foglio.toImage();
+        final dati = await img.toByteData(format: ui.ImageByteFormat.rawRgba);
+        byte = dati!.buffer.asUint8List();
+      });
+      return byte;
     }
-    cardinaleMinimo(accesi, 400,
-        cosa: 'pixel dipinti sulla tela',
-        perche: 'Su una tela quasi vuota la distanza fra primo e ultimo pixel '
-            'non dice niente, e la guardia sarebbe verde per non aver visto '
-            'nessuna figura.');
-    if (ultimoX < 0) return (larga: 0.0, alta: 0.0, piena: 0.0);
-    return (
-      larga: (ultimoX - primoX + 1) / larghezza,
-      alta: (ultimoY - primoY + 1) / altezza,
-      piena: accesi / (larghezza * altezza),
-    );
-  }
 
-  group('DC.07, il tunnel', () {
-    test('IL TUNNEL OCCUPA LA SCENA INTERA', () async {
-      final immagine =
-          dipingi(PittoreDelTunnel(quantoSiEScesi: 0.5, senzaMoto: false));
-      // Il tunnel dipinge anche il fondo, quindi qui si cerca **cio' che non e'
-      // il fondo**: gli anelli e il loro filo di luce.
-      const fondo = PittoreDelTunnel.bluProfondo;
-      final quota = await estensioneDipinta(immagine,
-          e: (r, g, b, a) =>
-              a > 40 &&
-              ((r - (fondo.r * 255).round()).abs() +
-                      (g - (fondo.g * 255).round()).abs() +
-                      (b - (fondo.b * 255).round()).abs()) >
-                  24);
+    testWidgets('IL TUNNEL OCCUPA LA SCENA INTERA', (tester) async {
+      await tester.binding.setSurfaceSize(corpoVero);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      final b = await fotografa(tester, 0.5);
+      // **LA MISURA E' IL PIXEL DIPINTO**, cioe' non trasparente: nella
+      // finestra vera, alta il doppio di quanto e' larga, sopra e sotto non
+      // deve restare la pagina.
+      var dipinti = 0;
+      for (var i = 3; i < b.length; i += 4) {
+        if (b[i] > 200) dipinti++;
+      }
+      final quota = dipinti / (b.length / 4);
       // ignore: avoid_print
       print('ORDINE DC VOCE 07: nella finestra vera '
           '${corpoVero.width.toInt()}x${corpoVero.height.toInt()} il tunnel '
-          'dipinto e largo ${(quota.larga * 100).toStringAsFixed(1)}, alto '
-          '${(quota.alta * 100).toStringAsFixed(1)} e copre il '
-          '${(quota.piena * 100).toStringAsFixed(1)} per cento della scena');
-      expect(quota.larga, greaterThanOrEqualTo(0.95),
-          reason: 'il tunnel e largo il '
-              '${(quota.larga * 100).toStringAsFixed(1)} per cento della '
-              'scena invece della scena intera: chi guarda sta davanti a un '
-              'disegno di tunnel, non dentro un tunnel');
-      // **E ALTO QUANTO LA SCENA.** Difetto visto sul telefono 767f596c il 10
-      // settembre 2026: gli anelli avevano il raggio legato al **lato corto**,
-      // quindi su una finestra alta lasciavano scoperta una fascia sopra e una
-      // sotto, e siccome il pavimento del tunnel ha lo stesso colore dello
-      // sfondo della pagina, l occhio leggeva una sagoma appoggiata invece di
-      // una galleria.
-      expect(quota.alta, greaterThanOrEqualTo(0.95),
-          reason: 'il tunnel e alto il '
-              '${(quota.alta * 100).toStringAsFixed(1)} per cento della '
-              'scena: sopra e sotto resta la pagina, e il tunnel si legge '
-              'come una sagoma appoggiata');
-      // **E copre davvero la tela, non solo la attraversa.**
-      expect(quota.piena, greaterThanOrEqualTo(0.90),
-          reason: 'il tunnel dipinge solo il '
-              '${(quota.piena * 100).toStringAsFixed(1)} per cento dei pixel '
-              'della scena: gli angoli restano pagina');
+          'della riserva dipinge il ${(quota * 100).toStringAsFixed(1)} per '
+          'cento dei pixel');
+      expect(quota, greaterThanOrEqualTo(0.95),
+          reason: 'il tunnel della riserva dipinge solo il '
+              '${(quota * 100).toStringAsFixed(1)} per cento della scena: '
+              'resta la pagina, e chi guarda sta davanti a un disegno di '
+              'tunnel, non dentro un tunnel');
     });
 
-    test('GLI ANELLI VICINI SONO PIU SCURI DEI LONTANI', () {
-      // **La profondita senza 3D nasce da qui**, e l ordine lo chiede per
-      // nome. Si confrontano i raggi, che dicono chi e vicino.
-      final vicino = PittoreDelTunnel.raggioDellAnello(lato, 17, 0.0);
-      final lontano = PittoreDelTunnel.raggioDellAnello(lato, 0, 0.0);
-      // ignore: avoid_print
-      print('ORDINE DC VOCE 07: raggio del piu vicino '
-          '${vicino.toStringAsFixed(0)}, del piu lontano '
-          '${lontano.toStringAsFixed(0)}');
-      expect(vicino, greaterThan(lontano * 4),
-          reason: 'il vicino e il lontano hanno quasi lo stesso raggio: la '
-              'galleria si legge piatta');
-      // **E il piu vicino esce dallo schermo**, che e cio che fa sentire
-      // dentro invece che davanti.
-      expect(vicino * 2, greaterThan(lato),
-          reason: 'l anello piu vicino sta tutto dentro la scena: si vede il '
-              'tunnel da fuori');
-    });
-
-    test('IL TUNNEL SI MUOVE COL DITO, e non da solo', () async {
-      // **NON SI CHIEDE CHE QUALCOSA SI MUOVA, e non si guarda un anello
-      // solo.** La prima stesura misurava lo spostamento del terzo anello e
-      // ha trovato **zero**: gli anelli passavano in numero multiplo di
-      // quanti sono, quindi a meta' discesa la scena era tornata identica
-      // alla partenza. **Misurava la cosa giusta nel punto sbagliato.**
+    testWidgets('IL TUNNEL SI MUOVE COL DITO, e non da solo', (tester) async {
+      await tester.binding.setSurfaceSize(corpoVero);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      // **SI MISURA LA PARETE, FUORI DAL CERCHIO DELLA LUCE.** Al primo giro
+      // questa prova contava i pixel cambiati su tutta la finestra fra la bocca
+      // e meta' discesa, e trovava il 14 per cento: la roccia si ripete sei
+      // volte, e a meta' discesa ha fatto tre giri esatti, cioe' e' tornata
+      // dov'era. **Il confronto misurava la sola luce che si stringe.** Anche
+      // un quarto di piastrella non bastava a separare le due cose: la luce da
+      // sola, con la roccia ferma, cambiava il 15 per cento della finestra.
       //
-      // Adesso si dipingono due stati della scena e si contano i pixel che
-      // cambiano: e' la scena intera a dover raccontare la distanza.
-      final aInizio = dipingi(
-          PittoreDelTunnel(quantoSiEScesi: 0.0, senzaMoto: false));
-      final aMeta = dipingi(
-          PittoreDelTunnel(quantoSiEScesi: 0.5, senzaMoto: false));
-      final a = await aInizio.toByteData(format: ui.ImageByteFormat.rawRgba);
-      final b = await aMeta.toByteData(format: ui.ImageByteFormat.rawRgba);
-      final ba = a!.buffer.asUint8List();
-      final bb = b!.buffer.asUint8List();
+      // **Si cambia la grandezza, non la soglia.** Fuori dal cerchio piu'
+      // largo che la luce possa avere, meta' del lato corto, cambia solo cio'
+      // che fa la roccia. Sonda del 12 settembre 2026: con un quarto di
+      // piastrella cambia circa un terzo di quella zona; con la roccia tornata
+      // al suo posto, un giro intero, **cambia lo zero virgola zero**. Una
+      // soglia al dieci per cento sta lontana da tutte e due.
+      final ba = await fotografa(tester, 0.0);
+      final bb = await fotografa(tester, 0.25 / TunnelCheScende.quantiGiri);
+      final larghezza = corpoVero.width.toInt();
+      final centro = Offset(corpoVero.width / 2, corpoVero.height / 2);
+      final raggioDellaLuce = corpoVero.shortestSide / 2;
+      var guardati = 0;
       var diversi = 0;
       for (var i = 0; i < ba.length; i += 4) {
+        final p = i ~/ 4;
+        final punto = Offset((p % larghezza) + 0.5, (p ~/ larghezza) + 0.5);
+        if ((punto - centro).distance < raggioDellaLuce) continue;
+        guardati++;
         final scarto = (ba[i] - bb[i]).abs() +
             (ba[i + 1] - bb[i + 1]).abs() +
             (ba[i + 2] - bb[i + 2]).abs();
         if (scarto > 30) diversi++;
       }
-      final quota = diversi / (ba.length / 4);
+      cardinaleMinimo(guardati, 100000,
+          cosa: 'pixel della parete fuori dal cerchio della luce',
+          perche: 'Nella finestra vera la parete fuori dalla luce e oltre la '
+              'meta dei pixel: se ne restano pochi, la finestra non e quella '
+              'del telefono.');
+      final quota = diversi / guardati;
       // ignore: avoid_print
-      print('ORDINE DC VOCE 07: fra la bocca e meta discesa cambia il '
-          '${(quota * 100).toStringAsFixed(1)} per cento dei pixel');
-      expect(quota, greaterThan(0.25),
-          reason: 'fra la superficie e meta discesa cambia solo il '
-              '${(quota * 100).toStringAsFixed(1)} per cento della scena: '
+      print('ORDINE DC VOCE 07: in un quarto di piastrella cambia il '
+          '${(quota * 100).toStringAsFixed(1)} per cento della parete');
+      expect(quota, greaterThan(0.10),
+          reason: 'in un quarto di piastrella cambia solo il '
+              '${(quota * 100).toStringAsFixed(1)} per cento della parete: '
               'chi tiene il dito premuto non vede nessuna distanza percorsa');
-    });
-
-    test('LE FORME VIVE SONO DICHIARATE E SOTTO IL TETTO', () {
-      final forme = PittoreDelTunnel.formeAlCulmine();
-      // ignore: avoid_print
-      print('ORDINE DC VOCE 07: forme vive nel tunnel al momento piu carico '
-          '$forme');
-      expect(forme, lessThan(200),
-          reason: 'il tunnel dipinge $forme forme: e sopra il tetto che il '
-              'progetto usa per una scena viva');
     });
   });
 
