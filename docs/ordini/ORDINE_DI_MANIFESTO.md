@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 8
+VOCI_CHIUSE: 9
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,54 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.15, I LIMITI PER PIANO. CHIUSA NEL CODICE
+
+**La matrice resta la fonte unica**, e ha tre righe nuove coi valori
+dell'ordine parola per parola:
+
+| riga | Viandante | Iniziato | Adepto | Illuminato |
+|---|---|---|---|---|
+| Discese nel Mondo di Sotto | 1 al giorno | 1 al giorno | 1 al giorno | 2 al giorno |
+| Segni chiesti all'animale guida | 1 a settimana | 3 a settimana | 1 al giorno | 5 al giorno |
+| Nutrire l'animale guida | Sempre | Sempre | Sempre | Sempre |
+
+**Nutrimento: *Sempre*, e non *illimitato*.** L'ordine dice illimitato, e la
+ragione e' che il nutrimento non chiama nessun modello; ma la parola e' uscita
+dal listino con l'ordine CE voce 08 per decisione del fondatore, e una guardia
+enumera le celle. *Sempre* promette la stessa cosa.
+
+**I tetti la leggono.** `TettiDelViaggio` non ha piu' la sua mappa (uno, tre,
+sette e venti, dall'ordine DE voce 14): legge le discese dalla matrice. **Prima
+del riconoscimento resta una discesa al giorno per tutti**, anche per
+l'Illuminato che dopo ne ha due: e' il metodo, quattro viaggi in quattro
+giorni. I segni si leggono con `PlanCatalog.limiteDelPeriodo`, che distingue il
+giorno dalla settimana: la lettura di prima avrebbe dato al Viandante sette
+segni a settimana invece di uno. La settimana e' quella che scorre.
+
+**Al tetto nessun muro.** La riga del rifiuto diceva *"Con gli Eos puoi farne
+un'altra"*, e **nessuna strada del codice ha mai venduto una discesa**: era una
+promessa falsa. Adesso dice quando si torna e offre il nutrimento, col nome
+dell'animale e non con un pronome, che al maschile sbaglierebbe su quattro
+animali su dodici: *"La tua discesa di oggi e' fatta. Puoi scendere di nuovo
+domani. Intanto puoi nutrire la Volpe: il tamburo e' sempre aperto."*. Per i
+segni, il giorno in parole: *"Un altro segno potrai chiederlo giovedi'."*. E
+*"Oggi sei gia' sceso"*, per chi aspetta il metodo, e' diventato *"La discesa di
+oggi e' gia' fatta"*.
+
+**Il tetto tecnico**, `IlTettoDelleChiamate`: dieci chiamate al modello al
+giorno per persona, contate una per una, perche' una discesa con la domanda
+scritta a mano ne fa due. Oltre, decidono le vie di riserva e la persona non se
+ne accorge. In Demo non conta, come ogni tetto del Viaggio. **Oggi lo usa la
+domanda capita**; la scena del modello e i segni lo useranno con le loro voci.
+
+**Cosa resta da dire.** `TettiDelViaggio.siPuoComprareAncora` rispondeva *si'*
+dopo la rivelazione, cioe' dichiarava in codice una vendita che non esiste.
+Adesso risponde di no. La funzione resta, perche' l'ordine non la nomina.
+
+**La guardia**, `i_limiti_del_viaggio_stanno_nella_matrice`: sei rossi.
 
 ---
 

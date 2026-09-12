@@ -41,9 +41,11 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 102 |
-| Guardie che non scoprono nessun insieme di file | 174 |
-| **Somma delle categorie** | **402** |
-| **Guardie secondo la definizione** | **402** |
+| Guardie che non scoprono nessun insieme di file | 175 |
+| **Somma delle categorie** | **403** |
+| **Guardie secondo la definizione** | **403** |
+
+**Ricontate a voce DI.15 chiusa**, che ha portato **una guardia nuova**, `i_limiti_del_viaggio_stanno_nella_matrice`: il totale sale da 402 a **403** e le tre categorie a **126, 102 e 175**. E la guardia dei tetti dell'ordine DE ha cambiato due pretese, per nome: i tetti dopo la rivelazione sono **1, 1, 1 e 2** e non piu' 1, 3, 7 e 20, e al tetto **non si promettono gli Eos**, perche' nessuna strada del codice ha mai venduto una discesa: la prova difendeva una promessa falsa.
 
 **Ricontate a voci DI.04, DI.05 e DI.06 chiuse**, che hanno portato **una guardia nuova**, `la_scena_parla_bene`: il totale sale da 401 a **402** e le tre categorie a **126, 102 e 174**. **Compone** le scene e i responsi dalla strada vera e li legge come la persona, invece di leggere le costanti: i difetti di quest'ordine nascevano tutti dalla cucitura. **La prima stesura era cieca su un difetto**, e l'ha detto il suo rosso: con sessanta semi non incontrava mai *l'acqua ferma* insieme a *si ferma*. Si e' cambiata la grandezza, quattromila semi, non la soglia.
 
@@ -416,6 +418,7 @@ le altre.
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
 | `i_due_pulsanti_del_soffio_si_leggono_test.dart` | i due pulsanti del soffio si leggono | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `i_grigi_si_leggono_test.dart` | i grigi si leggono | 1 | dalla porta comune | 01/09/2026, CN | 2 |
+| `i_limiti_del_viaggio_stanno_nella_matrice_test.dart` | le discese, i segni e il nutrimento del Viaggio stanno nella matrice dei piani coi valori dell'ordine, i tetti la leggono, i segni si contano nel loro periodo, al tetto nessun muro e nessuna promessa di Eos, e il tetto tecnico delle dieci chiamate | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (sei rossi: una cella diversa dall'ordine, i tetti che non leggono la matrice, la settimana letta come giorno, la promessa degli Eos, il tetto tecnico a undici, la domanda capita che ignora il tetto) | 1 |
 | `i_maestri_non_coprono_il_cielo_test.dart` | i maestri non coprono il cielo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_non_perdono_la_testa_test.dart` | i maestri non perdono la testa | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `i_maestri_sanno_cosa_arriva_test.dart` | i Maestri sanno cosa arriva | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |

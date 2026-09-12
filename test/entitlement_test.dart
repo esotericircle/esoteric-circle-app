@@ -181,7 +181,9 @@ void main() {
       // VENTOTTO dall'ordine CG voce 16: la riga delle notifiche del Cerchio,
       // premium dal primo piano a pagamento con un mese di prova per chi non
       // paga. Il numero segue il dato.
-      expect(PlanCatalog.matrix.length, 28);
+      // TRENTUNO dall'ordine DI voce 15: le tre righe del Viaggio dello
+      // Sciamano, discese, segni chiesti all'animale e nutrimento.
+      expect(PlanCatalog.matrix.length, 31);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

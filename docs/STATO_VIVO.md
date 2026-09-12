@@ -2435,7 +2435,7 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
 `docs/ordini/ORDINE_DI_MANIFESTO.md`, e lo stato voce per voce sta li'.
 **Nessuna build senza ordine del fondatore**: l'ultima consegnata resta la 2249.
 
-**OTTO VOCI CHIUSE NEL CODICE, nove aperte.**
+**NOVE VOCI CHIUSE NEL CODICE, otto aperte.**
 
 - **DI.01, il tema della domanda arriva davvero.** Lo schermo assegnava
   l'etichetta *"Una scelta da fare"* e la voce del Mondo di Sotto cercava
@@ -2468,6 +2468,8 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
 - **DI.07 e DI.08, le tre informazioni e il cammino.** Nella soglia, fino al riconoscimento, tre righe coi testi dell'ordine: dove ti trovi sotto il titolo, cosa stai facendo sopra il pulsante, cosa otterrai subito sotto. Hanno preso il posto delle tre cose da sapere dell'ordine DE e di *"Dodici ti aspettano"*. Le quattro impronte stanno ferme in alto sotto la barra, e la riga del cammino e' in parole: *"Si e' mostrato due volte, ne mancano due."*
 
 - **DI.04, DI.05 e DI.06, la scena parla bene.** Dopo il riconoscimento la scena chiama l'animale per nome con l'articolo giusto, prima lo chiama *la sagoma*; nessun gesto che il suo corpo non sa fare; tutto in seconda persona singolare, senza participi al maschile; nessun due punti annidato, per costruzione; dodici chiusure nuove, due sole sul non decifrare. Guardia `la_scena_parla_bene`.
+
+- **DI.15, i limiti per piano.** Tre righe nuove nella matrice dei piani: discese 1, 1, 1 e 2 al giorno dopo il riconoscimento (prima una per tutti), segni 1 e 3 a settimana, 1 e 5 al giorno, nutrimento sempre. Al tetto non piu' la promessa degli Eos, che nessuna strada manteneva, ma quando si torna e il nutrimento. Tetto tecnico di dieci chiamate al modello al giorno, `IlTettoDelleChiamate`.
 
 **GUARDIE NUOVE**: `la_discesa_e_il_filmato_del_dito` (quattordici prove,
 dodici rossi innestati a mano), `la_domanda_libera_viene_capita`,

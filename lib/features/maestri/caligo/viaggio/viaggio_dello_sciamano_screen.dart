@@ -718,6 +718,9 @@ class _ViaggioDelloSciamanoScreenState
       giaRiconosciuto: _riconosciuto,
       quanteOggi: _diario.quanteOggi,
       tier: _piano,
+      // **IL NOME, NON UN PRONOME**: al tetto si offre di nutrirlo, e *lo*
+      // sbaglierebbe sulla Volpe. Ordine DI voce 15.
+      conArticolo: '${_suoAnimale.articolo}${_suoAnimale.name}',
     );
     final pronto = siPuo &&
         (perche == null ||

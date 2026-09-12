@@ -117,6 +117,11 @@ enum RigaDelPiano {
   memoria,
   oroscopoSettimanale,
   eosMensili,
+
+  /// **LE TRE RIGHE DEL VIAGGIO DELLO SCIAMANO**, ordine DI voce 15.
+  discese,
+  segni,
+  nutrimento,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -300,6 +305,28 @@ class PlanCatalog {
     final pulita = cella.trim().toLowerCase();
     if (pulita == 'no' || pulita.isEmpty) return 0;
     return null;
+  }
+
+  /// **UN LIMITE CHE PUO' ESSERE AL GIORNO O ALLA SETTIMANA.** Ordine DI voce
+  /// 15: i segni chiesti all'animale sono *"Viandante 1 a settimana, Iniziato
+  /// 3 a settimana, Adepto 1 al giorno, Illuminato 5 al giorno"*.
+  ///
+  /// **Perche' non basta [limiteGiornaliero].** Legge il primo numero della
+  /// cella, e *"1 a settimana"* per lui e' uno al giorno: il Viandante avrebbe
+  /// avuto sette segni dove il listino ne promette uno. Qui il periodo si
+  /// legge dalla cella, e la stessa legge dello zero vale: una cella senza
+  /// numero non apre niente.
+  static ({int quanti, bool allaSettimana}) limiteDelPeriodo(
+      RigaDelPiano chiave, Tier tier) {
+    final riga = matrix.where((r) => r.chiave == chiave);
+    if (riga.isEmpty) return (quanti: 0, allaSettimana: false);
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final cella = riga.first.values[ordine.indexOf(tier)].toLowerCase();
+    final numero = RegExp(r'(\d+)').firstMatch(cella);
+    return (
+      quanti: numero == null ? 0 : int.parse(numero.group(1)!),
+      allaSettimana: cella.contains('settiman'),
+    );
   }
 
   /// Se quel piano ha diritto alla memoria dei Maestri.
@@ -502,6 +529,26 @@ class PlanCatalog {
     FeatureRow('Gettate di rune',
         ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno'],
         chiave: RigaDelPiano.gettate),
+    // **IL VIAGGIO DELLO SCIAMANO, ordine DI voce 15, 12 settembre 2026.** I
+    // valori sono dell'ordine, parola per parola. **Prima del riconoscimento
+    // la discesa resta una al giorno per tutti**, anche per l'Illuminato: e'
+    // il metodo, quattro discese in quattro giorni, e lo tiene
+    // `TettiDelViaggio`. Queste celle valgono dopo.
+    FeatureRow('Discese nel Mondo di Sotto',
+        ['1 al giorno', '1 al giorno', '1 al giorno', '2 al giorno'],
+        chiave: RigaDelPiano.discese),
+    FeatureRow('Segni chiesti all\'animale guida',
+        ['1 a settimana', '3 a settimana', '1 al giorno', '5 al giorno'],
+        chiave: RigaDelPiano.segni),
+    // **SEMPRE, E NON "ILLIMITATO".** L'ordine dice *"nutrimento: illimitato
+    // in tutti i piani"*, e la ragione e' che il nutrimento non chiama nessun
+    // modello e non costa niente. La parola non si scrive: il fondatore l'ha
+    // tolta dal listino con l'ordine CE voce 08, e una guardia enumera ogni
+    // cella. *Sempre* dice la stessa cosa senza promettere l'illimitato dove
+    // ci sarebbe un costo.
+    FeatureRow('Nutrire l\'animale guida',
+        ['Sempre', 'Sempre', 'Sempre', 'Sempre'],
+        chiave: RigaDelPiano.nutrimento),
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno'],
         chiave: RigaDelPiano.sinastria),

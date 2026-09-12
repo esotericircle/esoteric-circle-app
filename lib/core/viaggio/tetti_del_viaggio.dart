@@ -1,5 +1,7 @@
 import '../config/app_flags.dart';
+import '../entitlement/plan_catalog.dart';
 import '../entitlement/tier.dart';
+import 'i_quattro_viaggi.dart';
 
 /// **I TETTI DEL VIAGGIO, E LA DEMO SENZA LIMITI.**
 /// Ordine DE voce 14, 11 settembre 2026.
@@ -32,14 +34,119 @@ import '../entitlement/tier.dart';
 /// in futuro puo' arrivare da Remote Config, dove il parametro `demo_mode` e'
 /// gia' pubblicato, **dietro la stessa lettura**. Nelle prove si passa [demo]
 /// a mano, senza toccare niente di globale.
+///
+/// **DALL'ORDINE DI VOCE 15, 12 settembre 2026, i numeri della prima regola
+/// sono cambiati, e vivono nella matrice dei piani.** Qui c'era una mappa,
+/// `domandeAlGiorno`, con uno, tre, sette e venti: l'ordine DI vuole *"la
+/// matrice in plan_catalog.dart resta la fonte unica"*, e i valori nuovi sono
+/// **una discesa al giorno per Viandante, Iniziato e Adepto, due per
+/// l'Illuminato**. E *"oltre il tetto si comprano con gli Eos"* non era vero:
+/// nessuna strada del codice vendeva una discesa, e la riga del rifiuto
+/// prometteva una cosa che non esisteva. Adesso il rifiuto dice quando si
+/// torna a scendere e offre il nutrimento, che e' sempre aperto.
+///
+/// **LA SECONDA REGOLA RESTA INTERA**: prima del riconoscimento una discesa al
+/// giorno per tutti, anche per l'Illuminato che dopo ne ha due.
 abstract final class TettiDelViaggio {
-  /// **QUANTE DOMANDE AL GIORNO, PIANO PER PIANO**, dopo la rivelazione.
-  static const Map<Tier, int> domandeAlGiorno = {
-    Tier.free: 1,
-    Tier.tier1: 3,
-    Tier.tier2: 7,
-    Tier.tier3: 20,
-  };
+  /// **QUANTE DISCESE AL GIORNO PER QUESTO PIANO**, dopo la rivelazione.
+  /// Letto dalla matrice dei piani, ordine DI voce 15.
+  static int discesePerIlPiano(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(RigaDelPiano.discese, tier) ?? 0;
+
+  /// **QUANTI SEGNI SI POSSONO CHIEDERE, E IN QUALE PERIODO.** Ordine DI voce
+  /// 15: al giorno o alla settimana secondo il piano, letto dalla matrice.
+  static ({int quanti, bool allaSettimana}) segniPerIlPiano(Tier tier) =>
+      PlanCatalog.limiteDelPeriodo(RigaDelPiano.segni, tier);
+
+  /// **SE SI PUO' CHIEDERE UN SEGNO ADESSO**, dati gli istanti dei segni gia'
+  /// chiesti. La settimana e' quella che scorre, gli ultimi sette giorni, e
+  /// non quella del calendario: chi chiede il suo segno di domenica non deve
+  /// poterne chiedere un altro lunedi'.
+  static bool siPuoChiedereUnSegno({
+    required Iterable<DateTime> segniChiesti,
+    required DateTime adesso,
+    required Tier tier,
+    bool demo = AppFlags.isDemo,
+  }) {
+    if (demo) return true;
+    return quantiSegniRestano(
+            segniChiesti: segniChiesti, adesso: adesso, tier: tier) >
+        0;
+  }
+
+  /// Quanti segni restano nel periodo del piano.
+  static int quantiSegniRestano({
+    required Iterable<DateTime> segniChiesti,
+    required DateTime adesso,
+    required Tier tier,
+  }) {
+    final limite = segniPerIlPiano(tier);
+    final dentro = segniChiesti.where((s) => limite.allaSettimana
+        ? adesso.difference(s) < const Duration(days: 7)
+        : _stessoGiorno(s, adesso));
+    final resta = limite.quanti - dentro.length;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// **QUANDO TORNA UN SEGNO**, detto in parole: *domani*, oppure il giorno
+  /// della settimana in cui il piu' vecchio dei segni del periodo esce dai
+  /// sette giorni. L'ordine: *"quando un limite e' raggiunto non si mostra un
+  /// muro: si dice quando torna disponibile e si offre il nutrimento"*.
+  ///
+  /// [conArticolo] e' l'animale col suo articolo, *il Lupo* o *la Volpe*:
+  /// la frase lo nomina invece di usare un pronome, che al maschile
+  /// sbaglierebbe su quattro animali su dodici.
+  static String quandoTornaUnSegno({
+    required Iterable<DateTime> segniChiesti,
+    required DateTime adesso,
+    required Tier tier,
+    String? conArticolo,
+  }) {
+    final limite = segniPerIlPiano(tier);
+    if (!limite.allaSettimana) {
+      return 'Un altro segno potrai chiederlo domani. ${_intanto(conArticolo)}';
+    }
+    final nellaSettimana = segniChiesti
+        .where((s) => adesso.difference(s) < const Duration(days: 7))
+        .toList()
+      ..sort();
+    final torna = nellaSettimana.isEmpty
+        ? adesso
+        : nellaSettimana.first.add(const Duration(days: 7));
+    final fra = DateTime(torna.year, torna.month, torna.day)
+        .difference(DateTime(adesso.year, adesso.month, adesso.day))
+        .inDays;
+    final quando = fra <= 1
+        ? 'domani'
+        : fra == 2
+            ? 'dopodomani'
+            : _giorni[torna.weekday - 1];
+    return 'Un altro segno potrai chiederlo $quando. ${_intanto(conArticolo)}';
+  }
+
+  /// **L'OFFERTA DEL NUTRIMENTO**, che accompagna ogni tetto raggiunto.
+  static String _intanto(String? conArticolo) => conArticolo == null
+      ? 'Intanto il tamburo è sempre aperto.'
+      : 'Intanto puoi nutrire $conArticolo: il tamburo è sempre aperto.';
+
+  static const List<String> _giorni = [
+    'lunedì',
+    'martedì',
+    'mercoledì',
+    'giovedì',
+    'venerdì',
+    'sabato',
+    'domenica',
+  ];
+
+  static bool _stessoGiorno(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
+  /// **IL TETTO TECNICO, oltre il piano, per la sola difesa dai costi.**
+  /// Ordine DI voce 15: *"dieci chiamate al modello al giorno per utente,
+  /// contando discese e segni insieme"*. Oltre, le vie di riserva: il Viaggio
+  /// continua a rispondere, senza modello. Lo conta `IlTettoDelleChiamate`.
+  static const int chiamateAlModelloAlGiorno = 10;
 
   /// **QUANTE DISCESE AL GIORNO PRIMA DELLA RIVELAZIONE.** Una, per tutti.
   ///
@@ -66,7 +173,7 @@ abstract final class TettiDelViaggio {
     // valutare la funzione dovrebbe aspettare quattro giorni.
     if (demo) return null;
     if (!giaRiconosciuto) return discesePrimaDellaRivelazione;
-    return domandeAlGiorno[tier];
+    return discesePerIlPiano(tier);
   }
 
   /// **SE SI PUO' SCENDERE OGGI**, dato quante volte si e' gia' sceso oggi.
@@ -100,10 +207,16 @@ abstract final class TettiDelViaggio {
   /// diversa da quante ne restano.
   ///
   /// **Prima della rivelazione mai**, e non perche' manchi una porta di
-  /// pagamento: perche' quel limite non e' in vendita. **Dopo, si**, con gli
-  /// Eos, come per tutti gli altri budget del giorno.
+  /// pagamento: perche' quel limite non e' in vendita.
+  ///
+  /// **E DOPO NEMMENO, dall'ordine DI voce 15.** Qui la risposta era *si', con
+  /// gli Eos*: ma nessuna strada del codice ha mai venduto una discesa, e la
+  /// riga del rifiuto lo prometteva lo stesso. L'ordine DI dice cosa fare al
+  /// tetto, cioe' dire quando si torna e offrire il nutrimento, e non parla di
+  /// comprare. Una funzione che risponde di si' a una porta che non esiste e'
+  /// una promessa falsa scritta in codice.
   static bool siPuoComprareAncora({required bool giaRiconosciuto}) =>
-      giaRiconosciuto ? true : laRivelazioneSiCompra;
+      laRivelazioneSiCompra;
 
   /// **LA RIGA CHE DICE PERCHE' NON SI SCENDE**, e nulla quando si scende.
   ///
@@ -116,6 +229,7 @@ abstract final class TettiDelViaggio {
     required int quanteOggi,
     required Tier tier,
     bool demo = AppFlags.isDemo,
+    String? conArticolo,
   }) {
     if (siPuoScendere(
         giaRiconosciuto: giaRiconosciuto,
@@ -124,14 +238,22 @@ abstract final class TettiDelViaggio {
         demo: demo)) {
       return null;
     }
+    // **SENZA PARTICIPIO**: qui c'era *"Oggi sei gia' sceso"*, che a chi
+    // legge da donna diceva di essere un uomo. Ordine DI voce 05.
     if (!giaRiconosciuto) {
-      return 'Oggi sei già sceso. I quattro viaggi cadono in quattro giorni '
-          'diversi. Non è una regola nostra: è il metodo.';
+      return 'La discesa di oggi è già fatta. I quattro viaggi cadono in '
+          'quattro giorni diversi. Non è una regola nostra: è il metodo.';
     }
-    final tetto = domandeAlGiorno[tier] ?? 1;
+    // **QUANDO SI TORNA, E COSA SI PUO' FARE INTANTO.** Ordine DI voce 15:
+    // *"quando un limite e' raggiunto non si mostra un muro: si dice quando
+    // torna disponibile e si offre il nutrimento, che e' sempre aperto"*.
+    // Qui c'era *"Con gli Eos puoi farne un'altra"*, e nessuna strada del
+    // codice vendeva una discesa.
+    final tetto = discesePerIlPiano(tier);
     return tetto == 1
-        ? 'Oggi hai già fatto la tua domanda. Con gli Eos puoi farne un\'altra.'
-        : 'Oggi hai fatto le tue $tetto domande. Con gli Eos puoi farne '
-            'un\'altra.';
+        ? 'La tua discesa di oggi è fatta. Puoi scendere di nuovo domani. '
+            '${_intanto(conArticolo)}'
+        : 'Le tue ${IQuattroViaggi.inLettere(tetto)} discese di oggi sono '
+            'fatte. Puoi scendere di nuovo domani. ${_intanto(conArticolo)}';
   }
 }

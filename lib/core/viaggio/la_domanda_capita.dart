@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_ai/firebase_ai.dart';
 
 import 'il_tema_della_domanda_libera.dart';
+import 'il_tetto_delle_chiamate.dart';
 import 'la_domanda_del_viaggio.dart';
 
 /// **DA DOVE VIENE IL TEMA DI UNA DOMANDA LIBERA**, per il rapporto e per il
@@ -86,9 +87,21 @@ abstract final class LaDomandaCapita {
     String domanda, {
     ChiamataDelModello? chiamata,
     void Function(Object errore)? seGuasto,
+    Future<bool> Function() prendiUnaChiamata =
+        IlTettoDelleChiamate.prendiUnaChiamata,
   }) async {
     final testo = domanda.trim();
     if (testo.isEmpty) return (null, FonteDelTema.nessuna);
+    // **IL TETTO TECNICO, ordine DI voce 15.** Oltre la decima chiamata del
+    // giorno il modello non si chiama: decide la tabella, e la persona non se
+    // ne accorge.
+    if (!await prendiUnaChiamata()) {
+      final dalleParole = IlTemaDellaDomandaLibera.perParole(testo);
+      return (
+        dalleParole,
+        dalleParole == null ? FonteDelTema.nessuna : FonteDelTema.parole,
+      );
+    }
     try {
       final risposta =
           await (chiamata ?? _chiamataVera)(istruzione, testo).timeout(pazienza);

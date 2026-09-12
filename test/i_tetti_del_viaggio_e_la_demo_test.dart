@@ -21,7 +21,9 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   group('CHIAVE SPENTA, i tetti sono quelli dichiarati', () {
-    test('I QUATTRO TETTI DOPO LA RIVELAZIONE SONO 1, 3, 7 e 20', () {
+    // **DALL'ORDINE DI VOCE 15 I TETTI SONO 1, 1, 1 e 2**, e stanno nella
+    // matrice dei piani: erano 1, 3, 7 e 20, in una mappa di questo file.
+    test('I QUATTRO TETTI DOPO LA RIVELAZIONE SONO 1, 1, 1 e 2', () {
       final letti = <String, int?>{
         for (final t in Tier.values)
           t.label: TettiDelViaggio.quanteAlGiorno(
@@ -32,15 +34,16 @@ void main() {
           '$letti');
       expect(letti, {
         'Free': 1,
-        'Tier 1': 3,
-        'Tier 2': 7,
-        'Tier 3': 20,
+        'Tier 1': 1,
+        'Tier 2': 1,
+        'Tier 3': 2,
       });
-      // **IL CARDINALE**: quattro piani, quattro tetti. Se un quinto piano
-      // nascesse senza il suo numero, questo confronto cade.
-      expect(TettiDelViaggio.domandeAlGiorno.length, Tier.values.length,
-          reason: 'ci sono piani senza tetto dichiarato: '
-              '${Tier.values.where((t) => !TettiDelViaggio.domandeAlGiorno.containsKey(t)).toList()}');
+      // **IL CARDINALE**: quattro piani, quattro tetti, e nessuno a zero. Se
+      // un quinto piano nascesse senza la sua cella, varrebbe zero.
+      expect(
+          Tier.values.where((t) => TettiDelViaggio.discesePerIlPiano(t) < 1),
+          isEmpty,
+          reason: 'ci sono piani senza discese nella matrice');
     });
 
     test('LA RIVELAZIONE E UNA AL GIORNO PER TUTTI, anche per il piu alto',
@@ -59,13 +62,18 @@ void main() {
           '${TettiDelViaggio.discesePrimaDellaRivelazione}');
     });
 
-    test('LA RIVELAZIONE NON SI COMPRA CON GLI EOS, le domande si', () {
+    // **E DALL'ORDINE DI VOCE 15 NON SI COMPRA NEMMENO DOPO.** La seconda
+    // meta' di questa prova pretendeva il contrario, e difendeva una porta
+    // che nessuna strada del codice apriva: al tetto l'ordine DI vuole il
+    // quando e il nutrimento, non un listino.
+    test('LA RIVELAZIONE NON SI COMPRA CON GLI EOS, e nemmeno le discese dopo',
+        () {
       expect(TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: false),
           isFalse,
           reason: 'le quattro discese del riconoscimento si possono comprare');
-      expect(TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: true), isTrue,
-          reason: 'dopo la rivelazione non si possono comprare altre domande, '
-              'e allora il tetto del piano e un muro invece di un listino');
+      expect(TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: true),
+          isFalse,
+          reason: 'si dichiara comprabile una discesa che nessuna strada vende');
       // ignore: avoid_print
       print('ORDINE DE VOCE 14: prima della rivelazione si compra '
           '${TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: false)}, '
@@ -74,7 +82,7 @@ void main() {
 
     test('IL TETTO SI RAGGIUNGE DAVVERO, piano per piano', () {
       for (final t in Tier.values) {
-        final tetto = TettiDelViaggio.domandeAlGiorno[t]!;
+        final tetto = TettiDelViaggio.discesePerIlPiano(t);
         // Alla penultima si scende ancora, all ultima no.
         expect(
             TettiDelViaggio.siPuoScendere(
@@ -124,9 +132,13 @@ void main() {
       expect(primaDellaRivelazione.toLowerCase().contains('eos'), isFalse,
           reason: 'a chi aspetta per il metodo si offrono gli Eos: si sta '
               'vendendo la fonte');
-      expect(dopo!.toLowerCase(), contains('eos'),
-          reason: 'chi ha finito le domande del piano non sa che puo '
-              'comprarne altre');
+      // **DALL'ORDINE DI VOCE 15**: chi ha finito le discese del piano
+      // legge quando torna, e il nutrimento. Qui si pretendeva la parola Eos.
+      expect(dopo!.toLowerCase().contains('eos'), isFalse,
+          reason: 'al tetto si promette di comprare con gli Eos: nessuna '
+              'strada vende una discesa');
+      expect(dopo, contains('domani'),
+          reason: 'al tetto non si dice quando si torna a scendere');
     });
 
     test('E SI SCENDE, quando il tetto non e stato raggiunto', () {
