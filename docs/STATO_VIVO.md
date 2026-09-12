@@ -2426,6 +2426,52 @@ carta fosse nominata** nella prima parte del Consiglio, che e' esattamente cio'
 che l'ordine DF adesso obbliga. Era verde, e la persona leggeva quattro
 responsi identici.
 
+## L'ORDINE DI, IL VIAGGIO DELLO SCIAMANO DIVENTA UN PERCORSO
+
+12 settembre 2026, diciassette voci. Nasce dal giudizio del fondatore sulla
+build 2249: la discesa *"fa veramente schifo"*, la lente *"divide l'immagine in
+strisce orizzontali"*, e la domanda *"sei sicuro che le risposte siano
+realmente risposte alla domanda posta?"*. Il manifesto sta in
+`docs/ordini/ORDINE_DI_MANIFESTO.md`, e lo stato voce per voce sta li'.
+**Nessuna build senza ordine del fondatore**: l'ultima consegnata resta la 2249.
+
+**TRE VOCI CHIUSE NEL CODICE, quattordici aperte.**
+
+- **DI.01, il tema della domanda arriva davvero.** Lo schermo assegnava
+  l'etichetta *"Una scelta da fare"* e la voce del Mondo di Sotto cercava
+  l'identificatore `scelta`: il tema arrivava nullo per tutte e tre le vie. Adesso
+  e' un tipo, `TemaDellaDomanda`, e la guardia
+  `il_tema_della_domanda_arriva_alla_risposta` percorre il Viaggio intero per le
+  sei domande scritte e per una scritta a mano. Lo stesso censimento ha dato le
+  chiavi alle dieci righe del catalogo dei piani, `RigaDelPiano`.
+- **DI.02, la domanda libera viene capita.** Il modello la classifica in uno dei
+  sei temi, a temperatura zero, con due secondi di pazienza; se non risponde
+  decide una tabella di parole, `IlTemaDellaDomandaLibera`, che su domande mai
+  viste **non sbaglia mai un tema**. **Montata sulla scelta B**, cioe'
+  `gemini-2.5-flash-lite` su `europe-west1`: il modello dell'ordine,
+  `gemini-3.5-flash-lite`, esiste solo su `global`. **La scelta fra A e B e' del
+  fondatore e aspetta la sua risposta.**
+- **DI.09, la discesa e' il filmato del fondatore, governata dal dito.**
+  `brand_assets/mondo_di_sotto/discesa_v1.mp4`, verificato byte per byte, e
+  `lib/features/maestri/caligo/viaggio/la_discesa_in_video.dart`. Col dito
+  premuto il filmato va, alzato rallenta in mezzo secondo e si ferma; prima del
+  tocco il primo fotogramma fermo, mai il nero; un alone d'oro pulsa sotto il
+  polpastrello a 4,5 battiti al secondo; dalla seconda discesa *"Salta la
+  discesa"* dopo un secondo e mezzo; alla fine mezzo secondo di dissolvenza
+  verso la nebbia. **Dura quanto il filmato, otto secondi**, e non piu' venti.
+  Il tunnel disegnato resta come riserva, senza i diciotto anelli che non si
+  erano mai visti. **Il tamburo ha lo slot e non il file**:
+  `assets/audio/tamburo_della_discesa.mp3`, misure in `assets/audio/LEGGIMI.md`,
+  da scegliere dal fondatore. **Verificato al banco, non a video**: serve una
+  build.
+
+**GUARDIE NUOVE**: `la_discesa_e_il_filmato_del_dito` (quattordici prove,
+dodici rossi innestati a mano), `la_domanda_libera_viene_capita`,
+`il_tema_della_domanda_arriva_alla_risposta`, `le_etichette_non_fanno_da_chiave`,
+e **una che mancava dal registro**, `la_discesa_riempie_lo_schermo`, riscritta
+sul widget vero. `la_discesa_dura_venti_secondi` si chiama adesso
+`la_discesa_dura_quanto_il_filmato`.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

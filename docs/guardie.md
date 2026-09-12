@@ -40,10 +40,23 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
-| Guardie con un cardinale proprio dichiarato | 100 |
+| Guardie con un cardinale proprio dichiarato | 101 |
 | Guardie che non scoprono nessun insieme di file | 173 |
-| **Somma delle categorie** | **399** |
-| **Guardie secondo la definizione** | **399** |
+| **Somma delle categorie** | **400** |
+| **Guardie secondo la definizione** | **400** |
+
+**Ricontate a voce DI.09 chiusa**, che ha portato **una guardia nuova**,
+`la_discesa_e_il_filmato_del_dito`: il totale sale da 399 a **400** e le tre
+categorie a **126, 101 e 173**. Pretende ogni riga dell'ordine sulla discesa
+**dentro la schermata vera del Viaggio**, con un lettore finto che registra i
+comandi: la rampa del dito gradino per gradino, il primo fotogramma fermo
+fotografato sui pixel, l'alone sotto il polpastrello, il salto, la
+dissolvenza, la riserva, il tamburo e l'app che se ne va a meta' discesa. **Dodici rossi, uno per pretesa.** Il dodicesimo l'ha chiesto la suite intera: la guardia `nessuna_sorgente_resta_accesa_in_sottofondo` ha preso il lettore del filmato, che non ascoltava il ciclo di vita. Il filmato e' muto, ma `video_player` al ritorno riprende da solo cio' che stava andando, e la discesa sarebbe ripartita senza dito. Due al
+primo giro non erano rossi, e l'errore era mio: la grana del primo fotogramma
+si misurava sulla finestra intera, dove la barra e la scritta facevano varianza
+da sole, e l'innesto del pulsante Salta aveva le virgolette nel filtro della
+prova, che non girava. Misurata la grana dentro la scena e innestato il
+pulsante dentro la zona del dito, rossi tutti e due.
 
 **Ricontate durante la voce DI.09, e la guardia non e' nuova: mancava.** `la_discesa_riempie_lo_schermo` esiste dall'ordine DC voce 07 e fotografa il tunnel e l'ombra dell'animale sui pixel, ma **il registro non la elencava**: non passa dalla porta comune, e la prova che cerca le guardie assenti vede solo quelle. Il totale sale da 398 a **399** e le tre categorie a **126, 100 e 173**.
 
@@ -121,7 +134,10 @@ veramente cagare ed e' lunghissimo"*. La costante diceva venti secondi **anche
 quando la discesa ne durava quarantasei**: leggerla proverebbe che un numero
 vale venti, non che il dito resta premuto venti secondi. Questa **tiene il dito
 premuto e conta il tempo**. Nata rossa riportando la discesa conosciuta a nove
-secondi, e misura anche la dissolvenza che introduce la nebbia.
+secondi, e misura anche la dissolvenza che introduce la nebbia. **Dall'ordine DI voce 09
+si chiama `la_discesa_dura_quanto_il_filmato`**: la discesa e' il filmato del
+fondatore, otto secondi, e il nome vecchio avrebbe mentito. Pretende gli otto
+secondi del file, non la costante, con la rampa del dito dichiarata.
 
 **`l_animale_guida_ha_una_porta_sola`** nasce dalla famiglia di difetti delle
 **due porte**: l'app calcolava l'animale guida in due modi, dal segno solare e
@@ -567,8 +583,9 @@ le altre.
 | `la_chiave_e_il_consiglio_si_vedono_test.dart` | la chiave e il consiglio si vedono | 1, 2, 4 | proprio, dichiarato | CO | 3 |
 | `la_colonna_dei_suggerimenti_non_esiste_piu_test.dart` | la colonna dei suggerimenti non esiste piu | 1 | dalla porta comune | mai | 3 |
 | `la_corsa_dello_zodiaco_test.dart` | la corsa dello zodiaco | 1 | proprio, dichiarato | mai | 3 |
+| `la_discesa_dura_quanto_il_filmato_test.dart` | la discesa dura quanto il filmato col dito premuto, anche nel tunnel di riserva, e la nebbia entra in dissolvenza | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa: con la durata riportata a venti secondi la discesa finiva dopo 20,22); prima, col nome vecchio, DG (la discesa conosciuta a nove secondi, e la dissolvenza saltata a uno) | 1 |
+| `la_discesa_e_il_filmato_del_dito_test.dart` | la discesa e il filmato del fondatore governato dal dito: rampa di mezzo secondo, primo fotogramma fermo e mai nero, alone a 4,5 battiti, Salta dalla seconda, dissolvenza di mezzo secondo, riserva, tamburo, ciclo di vita, nessun seekTo | 1, 3, 4 | proprio, dichiarato | 12/09/2026, DI (dodici rossi innestati a mano, uno per ogni pretesa: filmato mostrato prima del primo fotogramma, primo fotogramma tolto, rampa ferma al primo gradino, alone spento, Salta alla prima discesa, Salta dentro la zona del dito, tunnel al posto dell'ultimo fotogramma, tamburo fermato dal dito, tamburo chiesto senza file, riserva che non arriva, seekTo nel lettore vero, filmato che ignora l'app che se ne va) | 1 |
 | `la_discesa_riempie_lo_schermo_test.dart` | il tunnel della riserva occupa la scena intera e la sua parete si sposta col dito; l ombra dell animale riempie la scena | 1, 4 | proprio, dichiarato | 12/09/2026, DI (rossa due volte: la roccia ferma, 0,0 per cento della parete cambiata; la roccia spinta fuori dalla finestra, 8,3 per cento dipinto) | 1 |
-| `la_discesa_dura_venti_secondi_test.dart` | la discesa dura venti secondi, e la nebbia entra in dissolvenza | 1, 2 | non scopre insiemi di file | 12/09/2026, DG (rossa due volte: la discesa conosciuta a nove secondi, e la dissolvenza saltata a uno) | 1 |
 | `la_domanda_libera_viene_capita_test.dart` | la domanda libera viene capita, dal modello o dalla tabella, e la tabella non sbaglia mai | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa: col minimo per decidere a uno, due temi sbagliati) | 1 |
 | `la_domanda_entra_nel_responso_test.dart` | la domanda entra nel responso | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `la_domanda_libera_si_trova_test.dart` | la domanda libera si trova | 1 | non scopre insiemi di file | 03/09/2026, CQ | 3 |

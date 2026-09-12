@@ -97,6 +97,82 @@ class PaletteSensoriale {
     await _motore.effetto(suono.percorso, volume: suono.volume);
   }
 
+  /// **IL TAMBURO DELLA DISCESA COMINCIA A BATTERE.** Ordine DI voce 09.
+  ///
+  /// Passa di qui come ogni suono dell'app, e per le stesse due ragioni: gli
+  /// interruttori li guarda la palette, e **la musica scende da qui**, cosi'
+  /// nessuna schermata deve ricordarsi di abbassarla.
+  ///
+  /// **Tre porte in fila, come il verso dell'animale**: gli interruttori, il
+  /// file che c'e' davvero, il motore. Torna vero soltanto se il tamburo e'
+  /// stato chiesto al motore: a un battito che non c'e' la musica non deve
+  /// fare spazio.
+  static Future<bool> tamburo(BuildContext context) async {
+    if (!suonoPermesso(context)) return false;
+    if (!await ilTamburoCE()) {
+      debugPrint('Ordine DI voce 09: il tamburo della discesa non è nel '
+          'pacchetto, la discesa resta muta. Atteso in '
+          '${IlTamburoDellaDiscesa.nelPacchetto}');
+      return false;
+    }
+    spiaDelTamburo?.call(true);
+    // **UN TAMBURO SOLO.** Se ne batteva gia' uno, la sua fine si compie qui:
+    // altrimenti la regia conterebbe un abbassamento che nessuno chiudera' mai,
+    // e la musica resterebbe giu' per sempre.
+    final prima = _fineDelTamburo;
+    if (prima != null && !prima.isCompleted) prima.complete();
+    _fineDelTamburo = Completer<void>();
+    unawaited(RegiaDellaMusica.sola.scendiFinoA(_fineDelTamburo!.future));
+    await _motore.tamburo(IlTamburoDellaDiscesa.percorso,
+        volume: IlTamburoDellaDiscesa.volume);
+    return true;
+  }
+
+  /// **IL TAMBURO SI ALLONTANA**, in mezzo secondo, e la musica risale.
+  ///
+  /// Senza contesto: si chiama anche da un `dispose`, quando il contesto non
+  /// si puo' piu' toccare. Spegnere un tamburo che non batte non fa niente.
+  static void fermaIlTamburo() {
+    final fine = _fineDelTamburo;
+    if (fine == null) return;
+    _fineDelTamburo = null;
+    spiaDelTamburo?.call(false);
+    _motore.spegniIlTamburo(
+      quanto: IlTamburoDellaDiscesa.sfumaturaFinale,
+      daVolume: IlTamburoDellaDiscesa.volume,
+    );
+    if (!fine.isCompleted) fine.complete();
+  }
+
+  /// Si compie quando il tamburo si ferma: la regia ci aggancia la risalita.
+  static Completer<void>? _fineDelTamburo;
+
+  /// **SE IL FILE DEL TAMBURO C'E' DAVVERO.** Si chiede, non si suppone:
+  /// dare per scontato che ci sia vorrebbe dire abbassare la musica sotto un
+  /// silenzio. La risposta si ricorda, perche' il pacchetto non cambia mentre
+  /// l'app gira.
+  static Future<bool> ilTamburoCE() async {
+    final saputo = _tamburoCE;
+    if (saputo != null) return saputo;
+    try {
+      final dati = await rootBundle.load(IlTamburoDellaDiscesa.nelPacchetto);
+      return _tamburoCE = dati.lengthInBytes > 0;
+    } catch (errore) {
+      return _tamburoCE = false;
+    }
+  }
+
+  static bool? _tamburoCE;
+
+  /// La spia del tamburo: vero quando comincia, falso quando si ferma. Serve
+  /// alle prove, dove il plugin audio non c'e'.
+  @visibleForTesting
+  static void Function(bool batte)? spiaDelTamburo;
+
+  /// Le prove possono dichiarare che il file c'e', o che manca.
+  @visibleForTesting
+  static set tamburoPresenteNelleProve(bool? c) => _tamburoCE = c;
+
   /// Azzera la memoria dei suoni emessi una volta sola. Serve alle prove.
   @visibleForTesting
   static void dimenticaSessione() => _giaEmessi.clear();

@@ -193,3 +193,58 @@ abstract final class VersiDegliAnimali {
   /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
   static String nelPacchetto(String stem) => 'assets/${percorsoPer(stem)}';
 }
+
+/// **IL TAMBURO DELLA DISCESA.** Ordine DI voce 09, 12 settembre 2026.
+///
+/// **Parole dell'ordine:** *"Il tamburo e' un livello audio separato con
+/// audioplayers, in riproduzione continua, non dentro il video, che infatti e'
+/// muto: continua a battere anche quando il dito si alza. Il contrasto fra il
+/// tamburo che continua e l'immagine ferma dice da solo che si e' fermata la
+/// persona, non il Mondo di Sotto."*
+///
+/// **NON E' UN EFFETTO E NON E' UN TAPPETO**, e per questo non sta in nessuna
+/// delle due enumerazioni. Un effetto risponde a un gesto e finisce; un tappeto
+/// suona sotto tutto e non chiede attenzione. Il tamburo e' il battito del
+/// viaggio: comincia quando comincia la discesa, **e la musica gli scende
+/// sotto finche' batte**.
+///
+/// **IL FILE NON C'E' ANCORA, e il Viaggio lo sa.** Come i cinque suoni del
+/// Cerchio e i dodici versi, lo sceglie il fondatore: le misure che deve avere
+/// stanno in `assets/audio/LEGGIMI.md`. Non l'ho sintetizzato io al telefono,
+/// per la stessa ragione per cui il responso ha smesso di fischiare: il
+/// fondatore ha gia' detto che un suono che non ha scelto lui non lo vuole.
+/// Finche' il file manca la discesa resta muta, e nessun lettore nasce per
+/// niente.
+abstract final class IlTamburoDellaDiscesa {
+  /// La cartella, senza barre per la stessa ragione di [VersiDegliAnimali].
+  static const String _dentro = 'audio';
+
+  /// Il nome del file, composto per non scrivere l'estensione per esteso.
+  static String get _file => 'tamburo_della_discesa${_estensione()}';
+
+  static String _estensione() => '.mp3';
+
+  /// Il percorso secondo la convenzione di `AssetSource`, senza `assets/`.
+  static String get percorso => '$_dentro/$_file';
+
+  /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
+  static String get nelPacchetto => 'assets/$percorso';
+
+  /// **LA CADENZA: QUATTRO BATTITI E MEZZO AL SECONDO.** Ordine DI voce 09.
+  ///
+  /// L'ordine la fissa a quattro e mezzo, ed e' un battito fitto e regolare,
+  /// quello di chi accompagna un viaggio e non quello di chi suona. **Sta qui
+  /// e non nell'alone** che pulsa sotto il dito, perche' l'alone la segue: il
+  /// giorno che il file vero battesse a un'altra cadenza, si cambia un numero
+  /// solo.
+  static const double battitiAlSecondo = 4.5;
+
+  /// **QUANTO FORTE BATTE.** Sotto gli effetti, sopra la musica abbassata:
+  /// e' il battito della scena, non un colpo che chiede attenzione.
+  static const double volume = 0.8;
+
+  /// **QUANTO CI METTE A SPEGNERSI**, alla fine della discesa. Lo stesso
+  /// mezzo secondo della dissolvenza verso la nebbia: il tamburo si allontana
+  /// mentre la galleria svanisce, e nessuno dei due si interrompe di colpo.
+  static const Duration sfumaturaFinale = Duration(milliseconds: 500);
+}

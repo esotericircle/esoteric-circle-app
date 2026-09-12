@@ -75,6 +75,18 @@ class MotoreAudio implements MotoreSonoro {
   AudioPlayer get _musica =>
       _musicaPigro ??= AudioPlayer(playerId: 'cerchio_musica');
 
+  /// **IL LETTORE DEL TAMBURO**, ordine DI voce 09. Un quarto lettore e non
+  /// un secondo motore: il tamburo deve battere **mentre** la musica gli sta
+  /// sotto abbassata e mentre un effetto suona, e un lettore che fa due
+  /// mestieri non puo' fare le due cose insieme.
+  AudioPlayer? _tamburoPigro;
+
+  AudioPlayer get _tamburo =>
+      _tamburoPigro ??= AudioPlayer(playerId: 'cerchio_tamburo');
+
+  /// La sfumatura che sta spegnendo il tamburo, se ce n'e' una.
+  Timer? _spegnimentoDelTamburo;
+
   /// Riproduce un effetto breve da un file negli asset.
   ///
   /// Se il file non c'e' non succede niente e non si solleva: e' il ripiego
@@ -316,6 +328,76 @@ class MotoreAudio implements MotoreSonoro {
     }
   }
 
+  /// **IL TAMBURO, in ciclo continuo finche' qualcuno non lo spegne.**
+  /// Ordine DI voce 09.
+  ///
+  /// Stesso contesto della musica, e per la stessa ragione: il fuoco audio
+  /// esclusivo non lo otterrebbe, perche' la musica e i video lo tengono, e
+  /// **resterebbe muto senza sollevare niente**. Stessa chiamata non attesa:
+  /// `play` di audioplayers puo' non tornare mai.
+  Future<void> tamburo(String percorsoAsset, {double volume = 1.0}) async {
+    if (senzaLettori) return;
+    _spegnimentoDelTamburo?.cancel();
+    try {
+      await _tamburo.setAudioContext(AudioContext(
+        android: const AudioContextAndroid(
+          contentType: AndroidContentType.music,
+          usageType: AndroidUsageType.media,
+          audioFocus: AndroidAudioFocus.none,
+        ),
+        iOS: AudioContextIOS(
+          category: AVAudioSessionCategory.playback,
+          options: const {AVAudioSessionOptions.mixWithOthers},
+        ),
+      ));
+      await _tamburo.setReleaseMode(ReleaseMode.loop);
+      await _tamburo.setVolume(volume.clamp(0.0, 1.0));
+      unawaited(_tamburo.play(AssetSource(percorsoAsset)).catchError((Object e) {
+        debugPrint('Tamburo non partito ($percorsoAsset): $e');
+      }));
+    } catch (e) {
+      // Nessun tamburo: la discesa resta muta, e scende lo stesso.
+      debugPrint('Tamburo non riprodotto ($percorsoAsset): $e');
+    }
+  }
+
+  /// **SPEGNE IL TAMBURO SFUMANDO**, in [quanto], poi lo ferma.
+  ///
+  /// Col `Timer` e non con un'attesa in fila: chi chiama sta lasciando la
+  /// discesa e non deve restare appeso a un lettore che potrebbe non
+  /// rispondere. Dal campo e non dal getter: spegnere un tamburo mai suonato
+  /// non deve costruire un lettore per zittirlo, che e' la lezione dell'ordine
+  /// CT voce 07.
+  void spegniIlTamburo({
+    Duration quanto = const Duration(milliseconds: 500),
+    double daVolume = 1.0,
+  }) {
+    final lettore = _tamburoPigro;
+    if (lettore == null) return;
+    _spegnimentoDelTamburo?.cancel();
+    const passo = Duration(milliseconds: 50);
+    final passi = (quanto.inMilliseconds / passo.inMilliseconds).ceil();
+    var fatti = 0;
+    _spegnimentoDelTamburo = Timer.periodic(passo, (t) {
+      fatti++;
+      final v = daVolume * (1 - fatti / passi);
+      if (fatti >= passi) {
+        t.cancel();
+        lettore.stop().catchError((Object e) {
+          debugPrint('Tamburo non fermato: $e');
+        });
+        return;
+      }
+      lettore.setVolume(v.clamp(0.0, 1.0)).catchError((Object e) {
+        debugPrint('Volume del tamburo non applicato: $e');
+      });
+    });
+  }
+
+  /// **STA BATTENDO DAVVERO?** Come per la musica: chiedere e suonare sono
+  /// due cose diverse.
+  bool get tamburoStaSuonando => _tamburoPigro?.state == PlayerState.playing;
+
   /// Riproduce byte sintetizzati, per esempio un tono binaurale in WAV.
   ///
   /// In ciclo continuo quando [inCiclo] e' vero, che e' il caso della
@@ -386,15 +468,23 @@ class MotoreAudio implements MotoreSonoro {
     // che il fondatore ha sentito sulla 2232, dopo che la voce CW.01 aveva
     // riparato l'altra meta'.
     _fuori = true;
+    // **IL TAMBURO SI SOSPENDE COME LA MUSICA**, ordine DI voce 09: chi esce a
+    // meta' discesa e torna ritrova il battito, perche' la discesa e' ancora
+    // li' dove l'ha lasciata.
+    _tamburoSospesoDaNoi = tamburoStaSuonando;
     return fermaOgnuna([
       () => _toniPigro?.stop(),
       () => _musicaPigro?.pause(),
       () => _effettiPigro?.stop(),
+      () => _tamburoPigro?.pause(),
     ]);
   }
 
   /// Vero fra l'uscita e il ritorno, e solo se all'uscita la musica suonava.
   bool _musicaSospesaDaNoi = false;
+
+  /// Lo stesso, per il tamburo della discesa.
+  bool _tamburoSospesoDaNoi = false;
 
   /// Vero fra l'uscita e il ritorno, **sempre**, anche a musica gia' ferma.
   bool _fuori = false;
@@ -452,6 +542,7 @@ class MotoreAudio implements MotoreSonoro {
         if (_toniPigro != null) 'toni',
         if (_musicaPigro != null) 'musica',
         if (_effettiPigro != null) 'effetti',
+        if (_tamburoPigro != null) 'tamburo',
       };
 
   /// **AL RITORNO RIPRENDE LA SOLA MUSICA, e solo se stava suonando.**
@@ -475,6 +566,14 @@ class MotoreAudio implements MotoreSonoro {
     // sentinella non ripartirebbe mai piu': il guardiano che esiste per far
     // ripartire un tappeto perso sarebbe spento a vita dal primo Home.
     _fuori = false;
+    if (_tamburoSospesoDaNoi) {
+      _tamburoSospesoDaNoi = false;
+      try {
+        await _tamburoPigro?.resume();
+      } catch (errore) {
+        debugPrint('Tamburo non ripreso: $errore');
+      }
+    }
     if (!_musicaSospesaDaNoi) return;
     _musicaSospesaDaNoi = false;
     quanteRiprese++;
@@ -499,5 +598,7 @@ class MotoreAudio implements MotoreSonoro {
     await _effettiPigro?.dispose();
     await _toniPigro?.dispose();
     await _musicaPigro?.dispose();
+    _spegnimentoDelTamburo?.cancel();
+    await _tamburoPigro?.dispose();
   }
 }

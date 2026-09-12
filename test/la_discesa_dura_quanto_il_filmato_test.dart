@@ -11,48 +11,64 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'la_soglia_si_guarda_prima_di_leggerla_test.dart'
     show DiarioDelloSciamanoDiProva;
 
-/// **LA DISCESA DURA VENTI SECONDI, MISURATI COL CRONOMETRO.**
-/// Ordine DG voce 06, 12 settembre 2026.
+/// **LA DISCESA DURA QUANTO IL FILMATO, MISURATA COL CRONOMETRO.**
+/// Ordine DI voce 09, 12 settembre 2026. Nata come ordine DG voce 06.
 ///
-/// **Parole del fondatore, 11 settembre 2026:** *"il viaggio in discesa fa
-/// veramente cagare ed e' lunghissimo"*, e prima ancora *"dura ancora troppo,
-/// devi ridurre la discesa a 20 secondi"*.
+/// **COM'ERA.** Si chiamava *la discesa dura venti secondi*, e pretendeva i
+/// venti secondi che il fondatore aveva fissato con l'ordine DE voce 06 per il
+/// tunnel disegnato: *"dura ancora troppo, devi ridurre la discesa a 20
+/// secondi"*. Con l'ordine DI la discesa e' il filmato del fondatore, otto
+/// secondi esatti, e il tunnel diventa la riserva che lo segue. **Il nome
+/// vecchio avrebbe mentito a chi legge l'elenco delle guardie**, e il file e'
+/// stato rinominato.
 ///
-/// **PERCHE' NON SI LEGGE LA COSTANTE.** Perche' `primaDiscesa` diceva venti
-/// secondi **anche quando la discesa ne durava quarantasei**: il numero
-/// governava il passo di un `Timer`, e il tempo vero e' il passo moltiplicato
-/// per quanti battiti servono ad arrivare in fondo. Leggere
-/// `primaDiscesa.inSeconds == 20` proverebbe che una costante vale venti, che
-/// e' la stessa cosa che il fondatore aveva letto nel codice mentre teneva il
-/// dito premuto per tre quarti di minuto.
+/// **PERCHE' NON SI LEGGE LA COSTANTE, e la ragione resta quella di allora.**
+/// `primaDiscesa` diceva venti secondi **anche quando la discesa ne durava
+/// quarantasei**: il numero governava il passo di un `Timer`, e il tempo vero
+/// era il passo moltiplicato per quanti battiti servivano ad arrivare in
+/// fondo. Qui il numero atteso e' **gli otto secondi del file**, misurati sul
+/// filmato consegnato, e non `DiscesaInVideo.durata`: una costante sbagliata
+/// non deve poter far passare se stessa.
 ///
-/// **COSA MISURA QUESTA GUARDIA.** Tiene il dito premuto e **conta il tempo
-/// che fa avanzare all'orologio della prova** finche' la fase non cambia. Il
-/// numero che esce e' il tempo che una persona passa a tenere premuto.
+/// **COSA MISURA.** Sotto `flutter test` nessuna piattaforma decodifica un
+/// filmato, quindi la discesa scende nel **tunnel di riserva**: e' proprio la
+/// strada che deve durare quanto il filmato, perche' chi scende non deve
+/// accorgersi di quale dei due sta guardando. Si tiene il dito premuto e **si
+/// conta il tempo che fa avanzare all'orologio della prova** finche' la fase
+/// non cambia.
 ///
-/// **E LE MISURA TUTTE E DUE**, la prima discesa e quella conosciuta: l'ordine
-/// DG voce 06 le ha portate tutte e due a venti, perche' *"nove non e' venti,
-/// e la discesa conosciuta era diventata una scorciatoia"*.
+/// **LA RAMPA SI PAGA, e si dichiara.** Al tocco si parte a un decimo e si
+/// arriva a uno in quattrocentocinquanta millisecondi, come il filmato: la
+/// salita costa circa due decimi di secondo rispetto a una partenza piena.
+/// Per questo il tetto e' la durata del filmato piu' la rampa, e il pavimento
+/// e' la durata del filmato: **piu' corta di otto secondi vorrebbe dire che il
+/// tunnel corre davanti al filmato**, piu' lunga della rampa vorrebbe dire che
+/// si e' tornati a un'attesa.
 ///
-/// **VISTA ROSSA** riportando `discesaConosciuta` a nove secondi: la prova ha
-/// detto che la seconda discesa finiva dopo 9,06 secondi invece di 20.
+/// **VISTA ROSSA** riportando la durata a venti secondi: la prova ha detto che
+/// la prima discesa finiva dopo 20,22 secondi invece di otto, e la
+/// conosciuta lo stesso.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   /// **QUANTO SI CONCEDE DI SCARTO, in secondi.** Un battito e mezzo del
-  /// `Timer` che muove la discesa, cioe' un decimo di secondo: la discesa
-  /// avanza a scatti da sessanta millisecondi, e l'ultimo scatto puo' sforare.
-  const scarto = 0.2;
+  /// `Timer` che muove la discesa: avanza a gradini da cinquanta millisecondi,
+  /// e la prova la guarda a passi da sessanta.
+  const scarto = 0.1;
 
-  /// **IL TEMPO CHE L'ORDINE CHIEDE.**
-  const quantoDeveDurare = 20.0;
+  /// **QUANTO DURA IL FILMATO**, misurato sul file consegnato: 192 fotogrammi
+  /// a 24 al secondo, 8,000 secondi.
+  const quantoDuraIlFilmato = 8.0;
 
-  /// **OLTRE QUANTO SI SMETTE DI ASPETTARE.** Il doppio abbondante: se la
-  /// discesa non e' finita dopo quarantacinque secondi di dito premuto, questa
-  /// prova deve **dirlo**, non girare per sempre.
-  const oltreNonSiAspetta = 45.0;
+  /// **QUANTO COSTA LA RAMPA AL TOCCO**, al massimo: il mezzo secondo intero.
+  const laRampa = 0.5;
+
+  /// **OLTRE QUANTO SI SMETTE DI ASPETTARE.** Il triplo abbondante: se la
+  /// discesa non e' finita dopo trenta secondi di dito premuto, questa prova
+  /// deve **dirlo**, non girare per sempre.
+  const oltreNonSiAspetta = 30.0;
 
   Future<double> quantoDuraLaDiscesa(WidgetTester tester, int discese) async {
     tester.view.physicalSize = const Size(390, 844);
@@ -114,37 +130,35 @@ void main() {
     return passati;
   }
 
-  testWidgets('la prima discesa dura venti secondi col dito premuto',
+  testWidgets('la prima discesa dura quanto il filmato col dito premuto',
       (tester) async {
     final durata = await quantoDuraLaDiscesa(tester, 0);
     // ignore: avoid_print
-    print('ORDINE DG VOCE 06: la PRIMA discesa e finita dopo '
+    print('ORDINE DI VOCE 09: la PRIMA discesa e finita dopo '
         '${durata.toStringAsFixed(2)} secondi di dito premuto');
-    expect(durata, lessThan(quantoDeveDurare + scarto),
+    expect(durata, lessThan(quantoDuraIlFilmato + laRampa + scarto),
         reason: 'LA PRIMA DISCESA DURA ${durata.toStringAsFixed(2)} SECONDI, '
-            'e l ordine ne concede $quantoDeveDurare. Il fondatore l ha '
-            'misurata col dito: "il viaggio in discesa fa veramente cagare ed '
-            'e lunghissimo".');
-    expect(durata, greaterThan(quantoDeveDurare - 1),
+            'e il filmato ne dura $quantoDuraIlFilmato: il tunnel di riserva '
+            'e tornato a essere un attesa.');
+    expect(durata, greaterThanOrEqualTo(quantoDuraIlFilmato),
         reason: 'LA PRIMA DISCESA DURA SOLO ${durata.toStringAsFixed(2)} '
-            'SECONDI. Sotto i venti la galleria non fa in tempo a dire cio '
-            'che ha da dire, e la discesa si legge come una dissolvenza.');
+            'SECONDI, meno del filmato: il tunnel corre davanti a cio che '
+            'dovrebbe sostituire.');
   });
 
-  testWidgets('anche la discesa conosciuta dura venti secondi', (tester) async {
+  testWidgets('anche la discesa conosciuta dura quanto il filmato',
+      (tester) async {
     final durata = await quantoDuraLaDiscesa(tester, 1);
     // ignore: avoid_print
-    print('ORDINE DG VOCE 06: la discesa CONOSCIUTA e finita dopo '
+    print('ORDINE DI VOCE 09: la discesa CONOSCIUTA e finita dopo '
         '${durata.toStringAsFixed(2)} secondi di dito premuto');
-    expect(durata, lessThan(quantoDeveDurare + scarto),
+    expect(durata, lessThan(quantoDuraIlFilmato + laRampa + scarto),
         reason: 'LA DISCESA CONOSCIUTA DURA ${durata.toStringAsFixed(2)} '
-            'SECONDI invece di $quantoDeveDurare.');
-    expect(durata, greaterThan(quantoDeveDurare - 1),
+            'SECONDI invece di $quantoDuraIlFilmato.');
+    expect(durata, greaterThanOrEqualTo(quantoDuraIlFilmato),
         reason: 'LA DISCESA CONOSCIUTA DURA SOLO '
-            '${durata.toStringAsFixed(2)} SECONDI. L ordine DE voce 06 aveva '
-            'gia fissato venti, e nove era diventata una scorciatoia: '
-            '"meno della meta della prima" non e cio che il fondatore ha '
-            'chiesto.');
+            '${durata.toStringAsFixed(2)} SECONDI: la discesa conosciuta e '
+            'diventata una scorciatoia, come quando durava nove secondi.');
   });
 
   /// **LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce 09,

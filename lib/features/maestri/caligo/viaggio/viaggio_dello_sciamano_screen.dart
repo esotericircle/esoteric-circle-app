@@ -30,6 +30,7 @@ import '../../../sigilli/regia_del_cammino.dart';
 import '../../widgets/foglio_delle_fonti.dart';
 import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
+import 'la_discesa_in_video.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
@@ -64,6 +65,7 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
     required this.userSign,
     this.now,
     this.diario,
+    this.fabbricaDellaDiscesa,
   });
 
   final Zodiac userSign;
@@ -75,6 +77,11 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
   /// e' la regola della voce DC.16.
   final DiarioDeiViaggi? diario;
 
+  /// **CHI COSTRUISCE IL LETTORE DEL FILMATO DELLA DISCESA**, ordine DI voce
+  /// 09. Nullo vuol dire il lettore vero; le prove ci mettono una finta,
+  /// perche' in una prova headless nessuna piattaforma decodifica un filmato.
+  final FabbricaDellaDiscesa? fabbricaDellaDiscesa;
+
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
           id: 'guide_animal',
@@ -83,19 +90,21 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
         ));
   }
 
-  /// **QUANTO DURA LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce
-  /// 09: un secondo e due decimi.
+  /// **QUANTO DURA LA DISSOLVENZA CHE INTRODUCE LA NEBBIA: MEZZO SECONDO.**
+  /// Ordine DI voce 09, 12 settembre 2026.
   ///
   /// **Sta nella classe pubblica e non nello stato** perche' una guardia
   /// deve poterlo leggere: la prova che misura la dissolvenza aspetta questo
   /// tempo e non un numero scritto due volte.
   ///
-  /// **Perche' non mezzo secondo e perche' non tre.** Sotto il mezzo secondo
-  /// l'occhio legge ancora un taglio, e la dissolvenza tanto varrebbe non
-  /// farla. Sopra i due secondi diventa un'attesa in piu' dentro una discesa
-  /// che il fondatore ha gia' chiesto di accorciare, e si pagherebbe con il
-  /// tempo cio' che si e' guadagnato con la grazia.
-  static const Duration quantoDuraLaDissolvenza = Duration(milliseconds: 1200);
+  /// **Qui c'era un secondo e due decimi**, ordine DG voce 09, scelto per il
+  /// tunnel disegnato con questa ragione: *"sotto il mezzo secondo l'occhio
+  /// legge ancora un taglio"*. L'ordine DI lo porta a mezzo secondo per il
+  /// filmato, il cui ultimo fotogramma e' luce dorata: la luce si scioglie
+  /// nella nebbia, e un secondo e due decimi di luce che non si muove
+  /// sarebbero un fermo immagine. Il tunnel di riserva segue lo stesso tempo.
+  static const Duration quantoDuraLaDissolvenza =
+      DiscesaInVideo.dissolvenzaVersoLaNebbia;
 
   @override
   State<ViaggioDelloSciamanoScreen> createState() =>
@@ -151,9 +160,16 @@ class _ViaggioDelloSciamanoScreenState
 
   FaseDelViaggio _fase = FaseDelViaggio.soglia;
 
-  /// **QUANTO SI E' SCESI**, da 0 a 1, e **la muove il dito**.
-  double _scesi = 0;
-  Timer? _discesa;
+  /// **A CHE QUOTA SI E' FINITO DI SCENDERE NEL TUNNEL DI RISERVA**, da 0 a
+  /// 1. La nebbia entra in dissolvenza sopra il tunnel a questa quota, che e'
+  /// cio' che la persona stava guardando. Col filmato non serve: sopra la
+  /// nebbia svanisce il suo ultimo fotogramma.
+  double _scesi = 1;
+
+  /// **IL LETTORE DEL FILMATO DELLA DISCESA**, ordine DI voce 09. Nasce con la
+  /// soglia, cosi' il filmato si prepara mentre la persona sceglie la
+  /// domanda, e muore a dissolvenza finita.
+  LettoreDellaDiscesa? _lettore;
 
   /// **DA DOVE NASCE IL PNG DELLA CARD DELLA RIVELAZIONE.** Ordine DE voce
   /// 08: la card si fotografa da qui e va alla porta unica.
@@ -224,42 +240,18 @@ class _ViaggioDelloSciamanoScreenState
   String? _seguito;
   bool _caricato = false;
 
-  /// **QUANTO DURA LA DISCESA. VENTI SECONDI, POI NOVE.** Ordine DE voce 06.
+  /// **QUANTO DURA LA DISCESA: QUANTO IL FILMATO.** Ordine DI voce 09.
   ///
-  /// **CHE COSA C'ERA PRIMA, sotto la Regola D.** Quarantacinque secondi la
-  /// prima volta e venti dal secondo viaggio in poi, scritti dalla voce
-  /// DC.07. Il fondatore: *"la discesa da quaranta a novanta secondi e' troppo
-  /// lunga e la colpa e' dell'ordine precedente"*.
-  ///
-  /// **PERCHE' VENTI E NON QUARANTACINQUE.** Venti secondi col dito premuto
-  /// **senza mai staccarlo** sono gia' un impegno: nessuno tiene un dito fermo
-  /// per venti secondi per sbaglio. Quarantacinque erano il doppio del tempo
-  /// in cui la galleria ha finito di dire cio' che ha da dire, e la seconda
-  /// meta' era attesa pura.
-  ///
-  /// **PERCHE' NOVE E NON OTTO NE' DIECI.** L'ordine concede otto o dieci, e
-  /// nove sta in mezzo: e' **meno della meta'** della prima discesa, che e' il
-  /// segnale che la strada e' conosciuta, e resta sopra gli otto secondi
-  /// perche' sotto quel tempo il punto di fuga non fa in tempo ad aprirsi e la
-  /// galleria si legge come una dissolvenza.
-  static const Duration primaDiscesa = Duration(seconds: 20);
-
-  /// **E DALLA SECONDA IN POI DURA UGUALE.** Ordine DG voce 06,
-  /// 11 settembre 2026: *"il viaggio in discesa fa veramente cagare ed e'
-  /// lunghissimo"*.
-  ///
-  /// **Qui c'erano nove secondi**, scelti dall'ordine DC come *"meno della
-  /// meta' della prima"*. Il fondatore aveva gia' fissato il valore che voleva
-  /// nell'ordine DE, **venti secondi**, e nove non e' venti: la discesa
-  /// conosciuta era diventata una scorciatoia, non una discesa.
-  static const Duration discesaConosciuta = Duration(seconds: 20);
-
-  Duration get _quantoDura =>
-      _diario.quanteDiscese == 0 ? primaDiscesa : discesaConosciuta;
+  /// **Qui c'erano due costanti, `primaDiscesa` e `discesaConosciuta`**, venti
+  /// secondi tutte e due dopo gli ordini DE voce 06 e DG voce 06, con un
+  /// `Timer` che faceva avanzare il tunnel. Adesso la durata e' quella del
+  /// filmato del fondatore, otto secondi col dito sempre premuto, e sta in
+  /// `DiscesaInVideo.durata`: il tunnel di riserva la segue.
 
   @override
   void initState() {
     super.initState();
+    _preparaLaDiscesa();
     // **NON SI ASPETTA L'ARCHIVIO.** Ordine DC voce 16: se il diario non
     // risponde, si scende lo stesso e questa e' la prima discesa.
     unawaited(_diario.carica().then((_) {
@@ -267,9 +259,37 @@ class _ViaggioDelloSciamanoScreenState
     }));
   }
 
+  /// **IL FILMATO SI PREPARA MENTRE SI SCEGLIE LA DOMANDA.** Ordine DI voce
+  /// 09: *"il video si inizializza mentre la persona sceglie o scrive la
+  /// domanda, cosi' la riproduzione parte senza attesa"*.
+  void _preparaLaDiscesa() {
+    if (_lettore != null) return;
+    final lettore =
+        (widget.fabbricaDellaDiscesa ?? LettoreDellaDiscesa.vero)();
+    _lettore = lettore;
+    unawaited(lettore.apri());
+  }
+
+  /// A dissolvenza finita il decodificatore non serve piu'.
+  void _chiudiLaDiscesa() {
+    _lettore?.chiudi();
+    _lettore = null;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // **IL PRIMO FOTOGRAMMA SI DECODIFICA PRIMA DI SERVIRE**, alla soglia: al
+    // passaggio nella discesa e' gia' pronto, e fra la soglia e il filmato non
+    // c'e' nessun istante vuoto.
+    unawaited(precacheImage(
+        const AssetImage(DiscesaInVideo.primoFotogramma), context,
+        onError: (_, __) {}));
+  }
+
   @override
   void dispose() {
-    _discesa?.cancel();
+    _chiudiLaDiscesa();
     _dissolvenza?.cancel();
     _fermaIlRespiro();
     _domanda.dispose();
@@ -342,6 +362,9 @@ class _ViaggioDelloSciamanoScreenState
     } else {
       _temaInArrivo = null;
     }
+    // Se il lettore non c'e' piu', per esempio dopo un giro di prova, si
+    // prepara adesso: finche' non e' pronto si vede il primo fotogramma.
+    _preparaLaDiscesa();
     setState(() => _fase = FaseDelViaggio.discesa);
   }
 
@@ -360,29 +383,25 @@ class _ViaggioDelloSciamanoScreenState
     }
   }
 
-  /// **IL DITO PREME: si scende.** Ordine DC voce 07.
-  void _premi() {
-    _discesa?.cancel();
-    const passo = Duration(milliseconds: 60);
-    _discesa = Timer.periodic(passo, (t) {
-      if (!mounted) return t.cancel();
-      setState(() {
-        _scesi = (_scesi + passo.inMilliseconds / _quantoDura.inMilliseconds)
-            .clamp(0.0, 1.0);
-        if (_scesi >= 1.0) {
-          t.cancel();
-          _fase = FaseDelViaggio.nebbia;
-          _nebbia = 0;
-          _spintaDelDito = 0;
-          // **LA GALLERIA NON SPARISCE, SI DISSOLVE.** Ordine DG voce 09.
-          _entraLaNebbia = 0;
-          _accendiLaDissolvenza();
-          _respiro?.cancel();
-          _respiro = Timer.periodic(RespiroCheDirada.passo, _unRespiroDiNebbia);
-          unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
-        }
-      });
+  /// **SI E' ARRIVATI IN FONDO, o si e' saltato.** Ordine DI voce 09.
+  ///
+  /// Qui c'era il `Timer` che faceva scendere il tunnel col dito, ordine DC
+  /// voce 07: adesso la discesa la governa `LaDiscesa`, col filmato o col
+  /// tunnel di riserva, e questa schermata sa soltanto quando e' finita.
+  void _arrivatiInFondo(double quota) {
+    if (!mounted || _fase != FaseDelViaggio.discesa) return;
+    setState(() {
+      _scesi = quota;
+      _fase = FaseDelViaggio.nebbia;
+      _nebbia = 0;
+      _spintaDelDito = 0;
+      // **LA GALLERIA NON SPARISCE, SI DISSOLVE.** Ordine DG voce 09.
+      _entraLaNebbia = 0;
     });
+    _accendiLaDissolvenza();
+    _respiro?.cancel();
+    _respiro = Timer.periodic(RespiroCheDirada.passo, _unRespiroDiNebbia);
+    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
   }
 
   /// **ACCENDE LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce 09.
@@ -400,15 +419,14 @@ class _ViaggioDelloSciamanoScreenState
                     ViaggioDelloSciamanoScreen
                         .quantoDuraLaDissolvenza.inMilliseconds)
             .clamp(0.0, 1.0);
-        if (_entraLaNebbia >= 1.0) t.cancel();
+        if (_entraLaNebbia >= 1.0) {
+          t.cancel();
+          // **IL FILMATO HA FINITO IL SUO MESTIERE**: il suo ultimo
+          // fotogramma e' svanito, e il decodificatore si libera.
+          _chiudiLaDiscesa();
+        }
       });
     });
-  }
-
-  /// **IL DITO SI ALZA: ci si ferma.** Non si torna su: si resta dove si e'.
-  void _lascia() {
-    _discesa?.cancel();
-    _discesa = null;
   }
 
   /// **IL COMANDO DI DEMO, ordine DG voce 08.** Riporta il Viaggio a zero
@@ -424,6 +442,7 @@ class _ViaggioDelloSciamanoScreenState
       _nebbia = 0;
       _spintaDelDito = 0;
     });
+    _preparaLaDiscesa();
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Il viaggio riparte da zero discese.'),
@@ -1230,33 +1249,27 @@ class _ViaggioDelloSciamanoScreenState
         ),
       );
 
-  /// **LA DISCESA: il tunnel, e risponde alla mano.**
-  Widget _laDiscesa(MaestroPalette palette) => GestureDetector(
-        key: const Key('viaggio_dito'),
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) => _premi(),
-        onTapUp: (_) => _lascia(),
-        onTapCancel: _lascia,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: TunnelCheScende(quantoSiEScesi: _scesi, senzaMoto: false),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(SpacingTokens.xl),
-                child: Text(
-                  _discesa == null ? 'Tieni premuto per scendere' : 'Scendi',
-                  key: const Key('viaggio_istruzione_discesa'),
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft, letterSpacing: 1.4),
-                ),
-              ),
-            ),
-          ],
-        ),
+  /// **LA DISCESA: il filmato del fondatore, e risponde alla mano.**
+  /// Ordine DI voce 09. Col tunnel disegnato come riserva, se il filmato non
+  /// si prepara.
+  Widget _laDiscesa(MaestroPalette palette) => LaDiscesa(
+        lettore: _lettore,
+        conosciuta: _diario.quanteDiscese > 0,
+        palette: palette,
+        quandoFinisce: _arrivatiInFondo,
       );
+
+  /// **L'ULTIMA COSA VISTA SCENDENDO**, che svanisce sopra la nebbia.
+  Widget _cioCheSiStavaGuardando() {
+    final lettore = _lettore;
+    if (lettore != null && lettore.pronto && lettore.cominciato) {
+      return Stack(fit: StackFit.expand, children: [
+        const ColoredBox(color: DiscesaInVideo.fondo),
+        lettore.disegna(),
+      ]);
+    }
+    return TunnelCheScende(quantoSiEScesi: _scesi, senzaMoto: true);
+  }
 
   /// **LA NEBBIA, che la mano apre.**
   Widget _laNebbia(MaestroPalette palette) => GestureDetector(
@@ -1282,17 +1295,19 @@ class _ViaggioDelloSciamanoScreenState
             ),
             // **LA GALLERIA CHE SVANISCE SOPRA LA NEBBIA.** Ordine DG voce
             // 09, 12 settembre 2026: *"quando si scende, dovrebbe esserci una
-            // dissolvenza che introduce la nebbia"*. Il tunnel resta fermo al
-            // fondo della discesa e perde corpo, e sotto di lui c'e' gia' la
+            // dissolvenza che introduce la nebbia"*. Sotto c'e' gia' la
             // nebbia intera.
+            //
+            // **CIO' CHE SVANISCE E' CIO' CHE SI STAVA GUARDANDO**, ordine DI
+            // voce 09: l'ultimo fotogramma del filmato, cioe' la luce dorata,
+            // oppure il tunnel di riserva alla quota a cui ci si e' fermati.
             if (_entraLaNebbia < 1)
               Positioned.fill(
                 child: IgnorePointer(
                   child: Opacity(
                     key: const Key('viaggio_dissolvenza_della_nebbia'),
                     opacity: (1 - _entraLaNebbia).clamp(0.0, 1.0),
-                    child: const TunnelCheScende(
-                        quantoSiEScesi: 1, senzaMoto: true),
+                    child: _cioCheSiStavaGuardando(),
                   ),
                 ),
               ),

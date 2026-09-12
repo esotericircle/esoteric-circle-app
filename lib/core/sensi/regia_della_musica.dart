@@ -285,6 +285,24 @@ class RegiaDellaMusica {
     Future<void>.delayed(quantoDura + discesa, _risali);
   }
 
+  /// **LA MUSICA SCENDE FINCHE' [fine] NON SI COMPIE.** Ordine DI voce 09.
+  ///
+  /// Serve al tamburo della discesa, che non ha una durata: batte finche' la
+  /// persona scende, e la persona puo' fermarsi quanto vuole. Stesso conto
+  /// degli effetti in corso, quindi un effetto che arriva mentre il tamburo
+  /// batte non fa risalire il tappeto a meta'.
+  Future<void> scendiFinoA(Future<void> fine) async {
+    if (senzaLettore) return;
+    if (_corrente == null || _volumeVoluto <= 0) return;
+    // **IL PUNTO DI PARTENZA SI LEGGE PRIMA DI CONTARSI**: dopo, il volume
+    // attuale sarebbe gia' quello abbassato, e la sfumatura partirebbe dal
+    // punto d'arrivo, cioe' sarebbe un salto.
+    final da = _volumeAttuale();
+    _effettiInCorso++;
+    unawaited(fine.whenComplete(_risali));
+    await _sfuma(da: da, a: _volumeVoluto * quotaAbbassata, quanto: discesa);
+  }
+
   Future<void> _risali() async {
     if (_effettiInCorso > 0) _effettiInCorso--;
     if (_effettiInCorso > 0) return;

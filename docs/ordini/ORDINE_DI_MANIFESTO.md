@@ -7,8 +7,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 2
-VOCI_SBLOCCATE_E_APERTE: 1
+VOCI_CHIUSE: 3
+VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
 
@@ -38,6 +38,98 @@ Copiato senza ricodifica ne' rinomina in
 `brand_assets/mondo_di_sotto/discesa_v1.mp4`, commit `2928464c`, e **il blob sul
 remoto ha la stessa impronta**. La cartella e' dichiarata nel pubspec accanto a
 `brand_assets/sentieri/` e `docs/stato_asset.json` la conosce.
+
+---
+
+## DI.09, LA DISCESA DIVENTA UN VIDEO GOVERNATO DAL DITO. CHIUSA NEL CODICE
+
+**Cosa vede la persona adesso.** Dopo la soglia, lo schermo pieno mostra il
+primo fotogramma del filmato del fondatore: il bosco dall'alto e le radici che
+convergono nel buco. Il tamburo comincia a battere prima del dito. Col dito
+premuto il filmato va, e sotto il polpastrello pulsa un alone d'oro alla
+cadenza del tamburo; col dito alzato il filmato rallenta in mezzo secondo e si
+ferma, e il tamburo continua. Dalla seconda discesa, dopo un secondo e mezzo,
+in basso compare *"Salta la discesa"*. In fondo, la luce dorata dell'ultimo
+fotogramma si scioglie nella nebbia in mezzo secondo.
+
+**Dove sta.** `lib/features/maestri/caligo/viaggio/la_discesa_in_video.dart`,
+nuovo, e la schermata del Viaggio lo monta al posto del tunnel a `Timer`.
+
+| voce dell'ordine | come e' fatta | chi la pretende |
+|---|---|---|
+| dito premuto: play | al tocco `velocita(0.1)` e `avvia`, nello stesso istante | *il dito governa il filmato* |
+| dito alzato: da 1.0 a 0 in 500 ms, poi pause | dieci gradini da 50 ms, 0,9 ... 0,1 e al decimo `sospendi` | *la rampa del dito* e *il dito governa il filmato* |
+| dito ripremuto: da 0 a 1.0 in 500 ms | al tocco un decimo, poi nove gradini: uno pieno a 450 ms | *la rampa del dito* |
+| nessun `seekTo` | la parola non c'e' nel sorgente, e `avvia` a filmato finito non chiama `play`, che tornerebbe all'inizio con un salto | *il lettore vero non salta mai* |
+| si inizializza mentre si sceglie la domanda | il lettore nasce con la soglia, `initState` della schermata | la strada di ogni prova del Viaggio |
+| primo fotogramma fermo, mai nero | `discesa_v1_primo_fotogramma.webp` sotto, e il filmato sopra **solo dopo il primo fotogramma vero**: una texture appena nata puo' essere nera | *mai uno schermo nero*, fotografata: 2,4 per cento di nero, varianza 549 |
+| tamburo separato, continuo, anche a dito alzato | quarto lettore del motore unico, in ciclo, dalla palette; la musica gli scende sotto finche' batte | *il tamburo comincia con la discesa* |
+| alone sotto il polpastrello, circa 4,5 al secondo | `AloneDelPolpastrello`, col `Timer` e non col controller; il primo battito cade sul tocco | *l alone sta sotto il polpastrello* e *pulsa a quattro battiti e mezzo*: 45 in dieci secondi |
+| nessuna barra di avanzamento | nessun indicatore nel sorgente | *il lettore vero non salta mai e non mostra barre* |
+| dissolvenza di 500 ms verso la nebbia | sopra la nebbia svanisce l'ultimo fotogramma vero, poi il decodificatore si libera | *alla fine del filmato*: 1,00, 0,52 a meta', poi niente |
+| "Salta la discesa" dalla seconda, dopo 1,5 s | fuori dalla zona del dito, cosi' toccarlo non fa partire il filmato | *alla prima non si salta* e *dalla seconda compare* |
+| il tunnel resta come riserva | se il lettore fallisce si scende nel tunnel, con la stessa rampa e la stessa durata | *se il filmato non si prepara* e *la discesa dura quanto il filmato*: 8,22 s |
+| il codice mai raggiunto del pittore | tolto: diciotto anelli, spirale e filo di luce, che si disegnavano solo senza roccia | `la_discesa_riempie_lo_schermo`, riscritta sul widget vero |
+| riprendere da `RivelazioneInVideo` | stessa porta, `LettoreDellaDiscesa`, stessa promessa di non lanciare, stessa copertura `BoxFit.cover` | |
+| nessuna dipendenza nuova | `video_player` e `audioplayers` c'erano gia' | |
+
+**LA DURATA E' CAMBIATA, e lo dico per nome.** La discesa durava venti secondi
+col dito premuto, ordini DE voce 06 e DG voce 06. Adesso dura quanto il
+filmato, otto secondi, e con la rampa del tocco 8,22. Le due costanti
+`primaDiscesa` e `discesaConosciuta` non ci sono piu', e la guardia che le
+misurava si chiama adesso `la_discesa_dura_quanto_il_filmato`. Anche la
+dissolvenza verso la nebbia passa da un secondo e due decimi a mezzo secondo,
+come chiede l'ordine.
+
+**IL TAMBURO NON SUONA ANCORA, perche' il file non c'e'.** Nel progetto non
+esiste nessun suono di tamburo: il *tamburo* del richiamo e' una vibrazione. Lo
+slot e' pronto, `assets/audio/tamburo_della_discesa.mp3`, e le misure per
+sceglierlo stanno in `assets/audio/LEGGIMI.md`: tamburo a cornice, 4,5 battiti
+al secondo, anello senza cucitura. Non l'ho sintetizzato: il fondatore ha gia'
+detto del responso che un suono che non ha scelto lui non lo vuole. Finche'
+manca la discesa resta muta e la musica non si abbassa sotto un silenzio.
+
+**UN SECONDO DIFETTO, trovato dalla suite intera, e chiuso.** La guardia `nessuna_sorgente_resta_accesa_in_sottofondo` ha preso il lettore del filmato, che non ascoltava il ciclo di vita dell'app. Il filmato e' muto, ma `video_player` al ritorno riprende da solo cio' che stava andando: chi riceveva una telefonata col dito premuto, tornando, avrebbe visto la discesa ripartire senza dito. Adesso ci si ferma allo stato `inactive`, prima che `video_player` guardi. **Padre: DI.09**, prima stesura.
+
+**UN DIFETTO TROVATO STRADA FACENDO, e chiuso.** La prova della durata ha
+visto un battito da cinquanta millisecondi restare acceso dopo ogni discesa: il
+dito che si alza dopo la fine arriva lo stesso al widget smontato, perche' il
+sistema consegna l'alzata a chi ha ricevuto il tocco. Adesso a discesa finita
+non si riaccende niente. **Padre: questa stessa voce, DI.09**, nella prima
+stesura del widget.
+
+**COSA NON HO POTUTO VEDERE.** Tutto cio' che sta qui sopra e' misurato al
+banco, con un lettore finto per il filmato. Il filmato vero sul telefono, cioe'
+la fluidita' della rampa di `setPlaybackSpeed` su Android e il passaggio dal
+fotogramma fermo alla texture, si vede solo con una build, e **nessuna build
+parte senza l'ordine del fondatore**.
+
+**LE GUARDIE, tutte viste rosse.**
+
+| rosso innestato | esito |
+|---|---|
+| il filmato a schermo prima del primo fotogramma | rossa |
+| il primo fotogramma tolto, resta il fondo | rossa: varianza della scena 0 contro 549 |
+| la rampa che si ferma al primo gradino | rossa |
+| l'alone che non si disegna | rossa |
+| *Salta* anche alla prima discesa | rossa |
+| *Salta* dentro la zona del dito | rossa: il tocco fa partire il filmato |
+| sopra la nebbia svanisce il tunnel invece del filmato | rossa |
+| il tamburo che si ferma col dito | rossa |
+| il tamburo chiesto senza file | rossa |
+| il tunnel di riserva che non arriva mai | rossa |
+| un `seekTo` nel lettore vero | rossa |
+| il filmato che ignora l'app che se ne va | rossa: al ritorno ripartiva senza dito |
+| la durata riportata a venti secondi | rossa: 20,22 s |
+| la roccia ferma, nel tunnel di riserva | rossa: 0,0 per cento della parete cambiata |
+| la roccia spinta fuori dalla finestra | rossa: 8,3 per cento dipinto |
+
+**Due non erano rossi al primo giro, e l'errore era mio.** La grana del primo
+fotogramma si misurava sulla finestra intera, dove la barra e la scritta
+facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
+filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
+e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
+ripristino dopo ogni innesto e' stato verificato al byte.
 
 ---
 
