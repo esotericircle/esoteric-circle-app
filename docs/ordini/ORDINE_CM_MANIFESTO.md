@@ -317,7 +317,7 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO SEDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
+**RESTANO QUINDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
 
 **Erano diciotto quando quest'ordine si e' chiuso.** Sono scese a diciassette la
 sera stessa, quando l'ordine CN voce 12 ha portato la decisione sulla card da
@@ -327,6 +327,20 @@ mirata al testo grande: quella cattura si era rotta ANCHE a scala uno, perche'
 la soglia del Sigillo e' una lista che costruisce solo cio' che sta a vista e il
 pulsante era sceso sotto la piega. Facendo scorrere la cattura fino a lui la
 rottura e' sparita a tutte e due le scale.
+
+**E a QUINDICI il 12 settembre 2026, dentro l'ordine DG, e questa non e' una
+cura: e' una scoperta dello sbarramento.** *Chiedi ai Maestri, vista
+comparativa* sforava 134 punti per la scheda del permesso, colonna con un
+cerchio da 64 fisso piu' testo, ed era il traboccamento piu' grosso rimasto.
+Adesso quella cattura passa, e la ragione e' che **la scheda del permesso non
+compare piu' in quel punto**: quella cattura la tocca solo se la trova, e non la
+trova piu'. Il difetto della scheda non e' riparato, e' fuori da quella strada;
+**se un giorno quella scheda tornera' davanti a qualcuno, tornera' anche il
+traboccamento**, e va scritto qui perche' nessuno lo scambi per una cura.
+
+**A trovarlo e' stato il terzo cancello di questa stessa voce**, quello che
+rifiuta le righe accettate che zittiscono una prova ormai verde. E' la prima
+volta che quel cancello scatta.
 
 **Il numero di stamattina non si cancella**: era vero quando e' stato scritto, e
 toglierlo toglierebbe la misura del cammino. Una su undici, contro una su
