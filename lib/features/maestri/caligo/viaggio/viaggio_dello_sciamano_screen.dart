@@ -552,6 +552,13 @@ class _ViaggioDelloSciamanoScreenState
       // due discese nello stesso giorno con la stessa domanda riportavano su
       // **la stessa identica scena**, parola per parola.
       discesa: quante,
+      // **L'ANIMALE ENTRA NELLA SCENA**, ordine DI voce 04: sceglie i gesti
+      // che il suo corpo sa fare, e dopo la quarta discesa le da' il suo nome.
+      animale: _suoAnimale,
+      // Il nome si dice alla quarta, e questa discesa e' ancora da contare.
+      siPuoDire: quante + 1 >= IQuattroViaggi.quanteDiscese,
+      // Senza domanda, nessuna chiusura parla della domanda.
+      conDomanda: _temaScelto != null,
     );
     _giornoDellaScena = _adesso;
     await _diario.segna(UnViaggio(

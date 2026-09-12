@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 5
+VOCI_CHIUSE: 8
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,68 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.04, DI.05 e DI.06, LA SCENA PARLA BENE. CHIUSE NEL CODICE
+
+**DI.04, l'animale ha un nome.** Nella scena l'animale era *"l'animale"* in
+tutte le forme, e il Lupo e il Corvo davano scene identiche. Adesso e' `{Chi}`:
+**dopo il riconoscimento** il suo nome con l'articolo giusto (*il Lupo*,
+*l'Aquila*, *la Lince*), alternato col pronome *lui* o *lei*, mai con la parola
+generica. **Prima del riconoscimento il nome non si dice**, perche' la regola
+dell'ordine DG vuole il nome alla quarta discesa e non prima: la scena lo
+chiama *la sagoma*, che e' cio' che la persona ha visto e seguito
+nell'incontro. Alla quarta discesa, quella della rivelazione, la scena dice gia'
+il nome. **E il nome ha portato un difetto nuovo, chiuso subito**: *"l'Aquila
+mostra i denti"*. La composizione adesso non pesca i gesti che il corpo di un
+animale non sa fare (gli uccelli non mostrano i denti, non scavano, non si
+accucciano; la Tartaruga e il Cervo non mostrano i denti; il Serpente non
+scava e non si accuccia). Il vocabolario non e' stato toccato.
+
+**DI.05, niente due punti annidati, niente persona che balla.**
+
+- le otto forme di *da dove viene* finiscono con una frase intera e non piu'
+  coi due punti, e la scena le segue **senza la sua apertura**
+  (`testoSenzaApertura`); le tre aperture coi due punti sono state riscritte;
+- **il controllo in composizione**: `LaVoceDelMondoDiSotto.cuci` unisce i pezzi
+  del responso, e se un pezzo che finisce coi due punti precede una frase che
+  li ha anche lei, i suoi diventano un punto. Dopo i due punti si continua in
+  minuscolo;
+- tutte le forme in seconda persona singolare; l'unico plurale, *"Tu e il Lupo
+  siete..."*, nomina il compagno nella stessa frase;
+- nessun participio al maschile riferito a chi legge: *"Sei sceso"*, *"Sei
+  arrivato"*, *"Sei andato"* sono spariti da aperture, riprese e risposte;
+- nessuna parola piena ripetuta nella stessa scena: *ti porta* e' diventato
+  *ti guida* (accanto a *la porta chiusa*), e la composizione scarta il gesto
+  che ripete una parola delle altre figure (*l'acqua ferma* e *si ferma*) e la
+  cosa che ripete il luogo (*il cerchio di pietre* e *il cerchio tracciato a
+  terra*);
+- **riletti per intero** con questo metro: le ventiquattro forme della scena,
+  le dodici aperture, le dodici chiusure, le otto forme del richiamo e tutti i
+  frammenti della voce del Mondo di Sotto. Sono stati riscritti anche: le
+  riprese della domanda che accordavano col tema (*"Con te e' scesa un tempo che
+  non arriva"*, *"Hai chiesto di la scelta"*), le forme del richiamo che
+  accordavano un pronome maschile con qualunque figura (*"La chiave lo avevi
+  gia' trovato"*), *"Fai questo: Fai la telefonata"*, e il quando che ripeteva
+  l'apertura (*"Il passo di oggi: ... Oggi."*).
+
+**DI.06, le chiusure chiudono.** Dodici chiusure riscritte: riportano alla
+domanda, consegnano la scena come cosa da tenere, o dicono quando rileggerla.
+**Due sole** restano sul non decifrare subito, *"Non tradurla subito:
+ricordala."* e *"Il senso arriva dopo."*. E a chi scende senza domanda nessuna
+chiusura parla della domanda: l'ho trovato leggendo i responsi per intero.
+
+**UNA REGRESSIONE MIA, presa dalla guardia dell'ordine DF.** Nella prima
+stesura il filo che sceglie forma, apertura e chiusura veniva ricreato per ogni
+scelta, e apertura e chiusura, dodici l'una, uscivano sempre appaiate: gli
+scheletri distinti su cento discese erano scesi da 99 a 66. Rimesso un filo
+solo, e la scena porta adesso anche **l'impronta della sua discesa**, come gia'
+i paragrafi della voce: due discese che pescano gli stessi quattro pezzi non
+dicono piu' la stessa frase. **Misure DF sul Viaggio adesso: A 100 su 100, B
+100 su 100, C 30,2 per cento, D 1.**
+
+**La guardia**, `la_scena_parla_bene`, tredici rossi innestati a mano.
 
 ---
 

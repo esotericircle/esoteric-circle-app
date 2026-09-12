@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
-| Guardie con un cardinale proprio dichiarato | 101 |
+| Guardie con un cardinale proprio dichiarato | 102 |
 | Guardie che non scoprono nessun insieme di file | 174 |
-| **Somma delle categorie** | **401** |
-| **Guardie secondo la definizione** | **401** |
+| **Somma delle categorie** | **402** |
+| **Guardie secondo la definizione** | **402** |
+
+**Ricontate a voci DI.04, DI.05 e DI.06 chiuse**, che hanno portato **una guardia nuova**, `la_scena_parla_bene`: il totale sale da 401 a **402** e le tre categorie a **126, 102 e 174**. **Compone** le scene e i responsi dalla strada vera e li legge come la persona, invece di leggere le costanti: i difetti di quest'ordine nascevano tutti dalla cucitura. **La prima stesura era cieca su un difetto**, e l'ha detto il suo rosso: con sessanta semi non incontrava mai *l'acqua ferma* insieme a *si ferma*. Si e' cambiata la grandezza, quattromila semi, non la soglia.
 
 **Ricontate a voci DI.07 e DI.08 chiuse, e anche questa guardia non e' nuova: mancava.** `la_soglia_e_una_scena_piena` esiste dall'ordine DE e pretende assenze, cioe' la promessa che cambia e le righe che spariscono: **il registro non la elencava**. Il totale sale da 400 a **401** e le tre categorie a **126, 101 e 174**. Adesso pretende anche le tre righe del percorso fino al riconoscimento, ognuna al suo posto, e il cammino delle quattro impronte fermo in alto, in parole e con ogni impronta dentro la sua scatola. **Sei rossi, uno per pretesa.**
 
@@ -630,6 +632,7 @@ le altre.
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_sentinella_dorme_in_secondo_piano_test.dart` | la sentinella dorme in secondo piano | 1, 2 | non scopre insiemi di file | 08/09/2026, CY | 2 |
 | `la_soglia_e_una_scena_piena_test.dart` | la soglia e' una scena piena; le tre righe del percorso ci sono fino al riconoscimento e al loro posto; le quattro impronte stanno in alto, non scorrono via, non escono dalla scatola, e la riga del cammino e' in parole | 1, 4 | non scopre insiemi di file | 12/09/2026, DI (sei rossi: le righe dopo il riconoscimento, cosa otterrai sopra il pulsante, una riga diversa da quella dell'ordine, le impronte spostate in basso, la riga in cifre, le impronte fuori dalla scatola) | 1 |
+| `la_scena_parla_bene_test.dart` | la scena chiama l'animale per nome dopo il riconoscimento e mai prima, coi gesti che sa fare; seconda persona singolare; nessun participio al maschile; nessuna parola piena ripetuta; nessun due punti annidato e minuscola dopo i due punti; il quando non ripete l'apertura; due chiusure al massimo sul non decifrare e nessuna sulla domanda a chi non ne ha; il richiamo non accorda con la figura | 1, 2 | proprio, dichiarato | 12/09/2026, DI (tredici rossi: la parola generica, il nome prima del riconoscimento, i gesti non filtrati, il plurale senza compagno, un participio al maschile, le figure che si ripetono, la cucitura spenta, un'apertura coi due punti, tre chiusure sul non decifrare, un richiamo che accorda, la maiuscola dopo i due punti, il quando che ripete l'apertura, le chiusure sulla domanda senza domanda) | 1 |
 | `la_soglia_del_viso_ha_due_momenti_test.dart` | la soglia del viso ha due momenti | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |

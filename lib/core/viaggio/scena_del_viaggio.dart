@@ -1,4 +1,5 @@
 import '../responsi/filo_della_voce.dart';
+import '../rituals/animal_catalog.dart';
 import 'vocabolario_del_viaggio.dart';
 
 /// **LA SCENA CHE SI RIPORTA SU.** Ordine DC voce 06, 10 settembre 2026.
@@ -13,6 +14,9 @@ class ScenaDelViaggio {
     required this.momento,
     required this.nitidezza,
     this.dalModello = false,
+    this.chi = ChiAccompagna.laSagoma,
+    this.impronta,
+    this.conDomanda = true,
   });
 
   final PezzoDellaScena luogo;
@@ -27,6 +31,28 @@ class ScenaDelViaggio {
   /// Se i tre elementi li ha scelti il modello o la via deterministica.
   /// **Non si dice mai all'utente**: e' per il registro dei guasti.
   final bool dalModello;
+
+  /// **CHI TI ACCOMPAGNA**, col suo nome dopo il riconoscimento e come
+  /// sagoma prima. Ordine DI voce 04.
+  final ChiAccompagna chi;
+
+  /// **L'IMPRONTA DELLA DISCESA**: la domanda, il giorno e il numero della
+  /// discesa da cui la scena e' nata. Entra nel filo delle parole.
+  ///
+  /// **Perche' serve, misurato.** La guardia della diversita' dell'ordine DF
+  /// ha trovato due discese su cento, con la stessa domanda e lo stesso
+  /// giorno, che pescavano gli stessi quattro pezzi: con il filo fatto dei
+  /// soli pezzi, **dicevano la stessa frase parola per parola**. La voce del
+  /// Mondo di Sotto fa gia' cosi' coi paragrafi, col giorno della discesa;
+  /// qui la scena fa lo stesso. La stessa discesa, ricomposta, dice sempre la
+  /// stessa cosa.
+  final String? impronta;
+
+  /// **SE LA PERSONA E' SCESA CON UNA DOMANDA.** Senza, le chiusure che la
+  /// nominano non si usano: *"Tienila accanto alla tua domanda"* a chi e'
+  /// sceso soltanto per incontrarlo parla di una domanda che non esiste.
+  /// Trovato leggendo i responsi per intero, ordine DI voce 06.
+  final bool conDomanda;
 
   /// **QUANTI ELEMENTI SI VEDONO DAVVERO.** Ordine DC voce 08: *"chi scende
   /// spesso riceve scene precise, con i tre elementi ben leggibili; chi torna
@@ -54,128 +80,203 @@ class ScenaDelViaggio {
   /// **LE OTTO FORME DELLA SCENA INTERA**, con i tre elementi leggibili.
   ///
   /// **Perche' sono otto e prima era una.** Ordine DF voce 05, 11 settembre
-  /// 2026. La scena si componeva con **una frase sola per ogni grado di
-  /// nitidezza**, cioe' tre stampi in tutto: su cento consultazioni con lo
-  /// stesso ingresso gli scheletri distinti erano **sei**, e il piu' ripetuto
-  /// tornava **cinquantasette volte**. Il fondatore: *"NON POSSONO ESSERE
-  /// TUTTE UGUALI"*.
+  /// 2026: con una frase sola per grado di nitidezza, su cento consultazioni
+  /// gli scheletri distinti erano **sei**.
   ///
-  /// **Il vocabolario non si tocca**: le quarantaquattro figure e le
-  /// ottomilaseicentoquaranta combinazioni restano quelle. Quello che cambia
-  /// e' **la frase che le cuce**, che prima era una.
+  /// **RISCRITTE CON L'ORDINE DI, voci 04 e 05, 12 settembre 2026.** Tre
+  /// difetti misurati, e tutti e tre stavano qui:
+  ///
+  /// - **l'animale non aveva nome**: era *"l'animale"* in tutte e otto, e il
+  ///   Lupo e il Corvo producevano scene identiche parola per parola. Adesso
+  ///   e' `{Chi}`, cioe' il suo nome con l'articolo giusto, e dove tornerebbe
+  ///   due volte si alterna col pronome, `{Lui}`, mai con la parola generica;
+  /// - **la persona ballava fra singolare e plurale**: *"Vi trovate al ponte.
+  ///   Trovi la chiave."* Il plurale non aveva antecedente, perche' nessuno
+  ///   aveva detto che l'animale ti accompagna. Adesso tutto e' in seconda
+  ///   persona singolare, e l'unico plurale, *"Tu e {chi} siete"*, nomina il
+  ///   compagno nella stessa frase;
+  /// - **lo stesso verbo due volte**: *"Vi trovate ... Trovi"*. Nessuna forma
+  ///   ripete un verbo, e nessuna usa un verbo che sta gia' in un gesto del
+  ///   vocabolario (guardare, aspettare, fermarsi, mostrare), perche' il
+  ///   gesto entra nella stessa forma. **E nessuna dice *ti porta***: accanto
+  ///   alla figura *la porta chiusa* diventava *"ti porta... C'e' la porta
+  ///   chiusa"*, e l'ha trovato la guardia della lingua. Adesso *ti guida*.
+  ///
+  /// **Il vocabolario non si tocca**: le quarantaquattro figure restano
+  /// quelle. Cambia la frase che le cuce.
   static const List<String> formeIntere = [
-    'Ti porta {aLuogo} {momento}. C\'è {cosa}. L\'animale {gesto}.',
-    '{Momento}, ti porta {aLuogo}. Lì trovi {cosa}. E l\'animale {gesto}.',
-    'La scena si apre {aLuogo}, {momento}. C\'è {cosa}. E l\'animale {gesto}.',
-    'Ti conduce {aLuogo} {momento}. Davanti a te {cosa}. L\'animale {gesto}.',
-    '{Momento} l\'animale ti porta {aLuogo}. C\'è {cosa}: lui {gesto}.',
-    'Siete {aLuogo}, {momento}. Fra voi e il resto c\'è {cosa}. L\'animale '
+    '{Chi} ti guida {aLuogo} {momento}. C\'è {cosa}. Lì {lui} {gesto}.',
+    '{Momento} arrivi {aLuogo} insieme {aChi}. Davanti a te c\'è {cosa}. '
+        '{Lui} {gesto}.',
+    'La scena si apre {aLuogo}, {momento}. Trovi {cosa}. {Chi} {gesto}.',
+    'Segui {chi} fino {aLuogo} {momento}. Ai tuoi piedi c\'è {cosa}. {Lui} '
         '{gesto}.',
-    'Ti porta {aLuogo}. {Momento}. E c\'è {cosa}. L\'animale {gesto}.',
-    'Vi trovate {aLuogo} {momento}. Trovi {cosa}. E l\'animale {gesto}.',
+    '{Momento} {chi} ti conduce {aLuogo}. C\'è {cosa}. Poi {lui} {gesto}.',
+    'Tu e {chi} siete {aLuogo} {momento}, con {cosa} fra voi e il resto. '
+        '{Lui} {gesto}.',
+    'Ti ritrovi {aLuogo}. {Momento}. Accanto a te c\'è {cosa}. {Chi} {gesto}.',
+    'Scendi fino {aLuogo} {momento}, dove incontri {cosa}. {Chi} {gesto}.',
   ];
 
   /// **LE OTTO FORME DELLA SCENA VELATA**, quando si leggono due elementi.
+  ///
+  /// **Qui c'era *"Non si capisce dove siete"***, un plurale senza compagno,
+  /// e *"Del dove non resta niente. Resta"*, lo stesso verbo due volte.
   static const List<String> formeVelate = [
-    'Ti porta dove c\'è {cosa}. L\'animale {gesto}, ma il luogo non si '
-        'distingue.',
-    'Del luogo non si vede niente. C\'è {cosa}. E l\'animale {gesto}.',
-    'La nebbia tiene il luogo. Resta {cosa}. E l\'animale che {gesto}.',
-    'Non si capisce dove siete. Si vede {cosa}. E l\'animale {gesto}.',
-    'Il posto resta indistinto. Quello che arriva è {cosa}. E l\'animale '
+    '{Chi} ti guida dove c\'è {cosa}, ma il luogo non si distingue. {Lui} '
         '{gesto}.',
-    'Ti porta in un luogo che non si lascia guardare. C\'è {cosa}. '
-        'L\'animale {gesto}.',
-    'Del dove non resta niente. Resta {cosa}. E l\'animale {gesto}.',
-    'Si vede {cosa} e si vede l\'animale che {gesto}. Il luogo no.',
+    'Del luogo non si vede niente. C\'è {cosa}. {Chi} {gesto}.',
+    'La nebbia tiene il luogo per sé. Resta {cosa}. {Chi} {gesto}.',
+    'Non capisci dove ti trovi. Distingui {cosa}. {Chi} {gesto}.',
+    'Il posto resta indistinto. Quello che arriva è {cosa}. {Chi} {gesto}.',
+    '{Chi} ti guida in un luogo che non si lascia vedere. C\'è {cosa}. {Lui} '
+        '{gesto}.',
+    'Del dove non rimane niente. Resta {cosa}. {Chi} {gesto}.',
+    'Davanti a te c\'è {cosa}. Poco oltre {chi} {gesto}. Il luogo no.',
   ];
 
   /// **LE OTTO FORME DELLA SCENA CONFUSA**, quando si legge solo il gesto.
+  ///
+  /// **Qui c'era *"Di la' non torna quasi niente. Torna questo"***, lo stesso
+  /// verbo a tre parole di distanza.
   static const List<String> formeConfuse = [
-    'L\'animale {gesto}. Il resto resta nella nebbia.',
-    'Si vede una cosa sola: l\'animale {gesto}.',
-    'Della scena arriva soltanto questo: l\'animale {gesto}.',
-    'Tutto è confuso tranne una cosa. L\'animale {gesto}.',
-    'L\'animale {gesto}. E intorno non si distingue niente.',
-    'Resta il gesto e basta: l\'animale {gesto}.',
-    'La nebbia si apre su un attimo solo. L\'animale {gesto}.',
-    'Di là non torna quasi niente. Torna questo: l\'animale {gesto}.',
+    '{Chi} {gesto}. Il resto rimane nella nebbia.',
+    'Si vede una cosa sola: {chi} {gesto}.',
+    'Della scena arriva soltanto questo: {chi} {gesto}.',
+    'Tutto è confuso tranne una cosa. {Chi} {gesto}.',
+    '{Chi} {gesto}. Intorno non si distingue niente.',
+    'Resta il gesto e basta: {chi} {gesto}.',
+    'La nebbia si apre su un attimo solo. {Chi} {gesto}.',
+    'Di là non arriva quasi niente. Torna questo: {chi} {gesto}.',
   ];
 
-  /// **LE OTTO APERTURE DELLA SCENA, e sono la seconda fessura.**
+  /// **LE DODICI APERTURE DELLA SCENA, e sono la seconda fessura.**
   ///
-  /// **Il numero che le ha fatte nascere.** Con una fessura sola, cioe' la
-  /// forma della scena, gli scheletri distinti su cento consultazioni erano
-  /// **quarantasei**, contro una soglia di novanta: con otto forme non si
-  /// possono avere piu' di otto scheletri.
+  /// **E SONO CORTE APPOSTA**, ordine DF: una frase di quattro parole non
+  /// produce nessuna sequenza di cinque, che e' l'unita' con cui la misura C
+  /// conta.
   ///
-  /// **E SONO CORTE APPOSTA, che e' la parte interessante.** La prima stesura
-  /// le aveva scritte lunghe, una frase intera l'una, e la misura B era
-  /// salita a novantotto mentre la misura C era peggiorata dal ventotto al
-  /// quarantanove per cento: **piu' impalcatura vuol dire piu' forme e piu'
-  /// parole in comune**, e le due misure tirano in versi opposti.
-  ///
-  /// **La via che le soddisfa tutte e due e' tante forme corte.** Una frase di
-  /// quattro parole non produce **nessuna sequenza di cinque**, che e' l'unita'
-  /// con cui la misura C conta: due scene che aprono con la stessa apertura
-  /// corta non si somigliano per questo. **Dodici per otto per dodici fanno
-  /// millecentocinquantadue forme**, e il vocabolario chiuso delle
-  /// quarantaquattro figure resta intoccato, com'e' materiale dell'ordine DC
-  /// voce 06.
+  /// **NESSUNA FINISCE COI DUE PUNTI, ordine DI voce 05.** Tre lo facevano,
+  /// *"Quello che hai riportato su:"*, *"Dal Mondo di Sotto:"* e *"Quello che
+  /// e' successo di la':"*, e dentro il blocco *da dove viene*, che finisce
+  /// anche lui coi due punti, davano a schermo *"Da dove nasce: Quello che e'
+  /// successo di la': Vi trovate al ponte"*. **E nessuna dice *"sei sceso"* o
+  /// *"sei arrivato"***: chi legge puo' essere una donna, e il participio al
+  /// maschile la cancellava.
   static const List<String> aperture = [
-    'Sei sceso.',
+    'La discesa è compiuta.',
     'Di là c\'era questo.',
     'Ecco cosa hai visto.',
-    'Quello che hai riportato su:',
+    'Questo hai riportato su.',
     'La nebbia si è scostata.',
     'Il tamburo ti ha lasciato qui.',
     'La galleria si è aperta.',
     'Sotto ti aspettava questo.',
-    'Dal Mondo di Sotto:',
+    'Viene dal Mondo di Sotto.',
     'Il viaggio ti ha portato qui.',
-    'Quello che è successo di là:',
-    'Sei arrivato in fondo.',
+    'Di là è successo questo.',
+    'Sei in fondo alla galleria.',
   ];
 
-  /// **LE DODICI CHIUSURE, corte anche loro, e sono la terza fessura.**
+  /// **LE DODICI CHIUSURE, e chiudono.** Ordine DI voce 06, 12 settembre 2026.
   ///
-  /// Nessuna spiega la scena, ed e' voluto: la voce DC.06 vuole che il senso
-  /// nasca dalla combinazione, non da una glossa.
+  /// **Com'erano.** La maggioranza diceva alla persona di non cercare di
+  /// capire: *"Il senso arriva dopo"*, *"Niente da decifrare"*, *"Non
+  /// tradurla"*, *"Non chiederle di piu'"*, *"Basta averla vista"*. **Una
+  /// risposta che si chiude dicendo di non capirla si autoassolve**, e sono
+  /// parole dell'ordine.
+  ///
+  /// **Adesso una chiusura fa una di tre cose**: riporta la persona alla sua
+  /// domanda, consegna la scena come cosa da tenere, oppure dice quando
+  /// rileggerla. **Due sole restano sul non decifrare subito**, le ultime,
+  /// perche' nella tradizione il non tradurre subito ha un senso: ma sono
+  /// l'eccezione, non la regola.
   static const List<String> chiusure = [
-    'Portala su così com\'è.',
-    'Il senso arriva dopo.',
-    'Non tradurla: ricordala.',
-    'Lasciala posare.',
-    'Niente da decifrare.',
-    'Vale per come l\'hai vista.',
+    'Tienila accanto alla tua domanda.',
+    'Rileggila fra una settimana.',
+    'Portala con te fino a stasera.',
+    'Ripensaci quando la domanda torna.',
+    'Conservala: è tua.',
+    'Ci tornerai quando servirà.',
     'Rileggila fra un mese.',
-    'Tienila a mente.',
-    'Il resto viene da sé.',
-    'Non chiederle di più.',
-    'Ci tornerai.',
-    'Basta averla vista.',
+    'Riguardala domattina, a mente fresca.',
+    'Mettila vicino a quello che hai chiesto.',
+    'Tienila a mente fino alla prossima discesa.',
+    'Non tradurla subito: ricordala.',
+    'Il senso arriva dopo.',
   ];
+
+  /// **LE CHIUSURE PER CHI E' SCESO SENZA DOMANDA**: tutte tranne quelle che
+  /// la nominano.
+  static final List<String> chiusureSenzaDomanda = [
+    for (final c in chiusure)
+      if (!c.contains('domanda') && !c.contains('chiesto')) c,
+  ];
+
+  /// **QUANTE CHIUSURE POSSONO DIRE DI NON DECIFRARE**, al massimo. Ordine DI
+  /// voce 06: due.
+  static const int chiusureSulNonDecifrare = 2;
 
   /// **IL FILO DI QUESTA SCENA**, dai suoi quattro pezzi.
-  FiloDellaVoce get _filo => FiloDellaVoce.da(idDeiPezzi);
+  FiloDellaVoce get _filo =>
+      FiloDellaVoce.da([...idDeiPezzi, if (impronta != null) impronta!]);
 
-  /// Il testo della scena, con gli elementi che si vedono.
-  String get testo {
-    final pezzi = leggibili;
+  /// **LE TRE SCELTE, DALLO STESSO FILO E NELLO STESSO ORDINE DI SEMPRE**:
+  /// la forma, poi l'apertura, poi la chiusura.
+  ///
+  /// **Il filo avanza a ogni scelta, ed e' il punto.** La prima stesura
+  /// dell'ordine DI ricreava il filo per ogni pezzo: ogni scelta partiva dallo
+  /// stesso seme, e l'apertura e la chiusura, dodici l'una, uscivano sempre
+  /// appaiate. La guardia della diversita' dell'ordine DF l'ha presa subito:
+  /// gli scheletri distinti su cento discese erano scesi da novantanove a
+  /// sessantasei.
+  (String, String, String) get _leTreScelte {
     final filo = _filo;
+    final pezzi = leggibili.length;
+    final forma = filo.scegli(pezzi == 1
+        ? formeConfuse
+        : pezzi == 2
+            ? formeVelate
+            : formeIntere);
+    return (
+      forma,
+      filo.scegli(aperture),
+      filo.scegli(conDomanda ? chiusure : chiusureSenzaDomanda),
+    );
+  }
+
+  /// Il corpo della scena, senza apertura e senza chiusura.
+  String _corpo(String forma) {
     String riempi(String forma) => forma
         .replaceAll('{aLuogo}', _a(luogo.nome))
         .replaceAll('{luogo}', luogo.nome)
         .replaceAll('{cosa}', cosa.nome)
         .replaceAll('{gesto}', gesto.nome)
         .replaceAll('{Momento}', _maiuscola(momento.nome))
-        .replaceAll('{momento}', momento.nome);
-    final corpo = pezzi.length == 1
-        ? riempi(filo.scegli(formeConfuse))
-        : pezzi.length == 2
-            ? riempi(filo.scegli(formeVelate))
-            : riempi(filo.scegli(formeIntere));
-    return '${filo.scegli(aperture)} $corpo ${filo.scegli(chiusure)}';
+        .replaceAll('{momento}', momento.nome)
+        .replaceAll('{aChi}', _a(chi.conArticolo))
+        .replaceAll('{Chi}', _maiuscola(chi.conArticolo))
+        .replaceAll('{chi}', chi.conArticolo)
+        .replaceAll('{Lui}', _maiuscola(chi.pronome))
+        .replaceAll('{lui}', chi.pronome);
+    return riempi(forma);
+  }
+
+  /// **LA SCENA CHE SI LEGGE DA SOLA**, con apertura e chiusura.
+  String get testo {
+    final (forma, apertura, chiusura) = _leTreScelte;
+    return '$apertura ${_corpo(forma)} $chiusura';
+  }
+
+  /// **LA SCENA DENTRO UN'ALTRA FRASE, senza apertura.** Ordine DI voce 05:
+  /// *"il testo della scena viene generato senza apertura quando e' destinato
+  /// al blocco da dove viene, e le aperture restano solo dove la scena si
+  /// legge da sola"*. Il blocco ha gia' la sua frase che introduce: una
+  /// seconda introduzione dentro la prima e' il difetto dei due punti
+  /// annidati.
+  String get testoSenzaApertura {
+    final (forma, _, chiusura) = _leTreScelte;
+    return '${_corpo(forma)} $chiusura';
   }
 
   static String _maiuscola(String s) =>
@@ -190,6 +291,74 @@ class ScenaDelViaggio {
     if (nome.startsWith('lo ')) return 'allo ${nome.substring(3)}';
     if (nome.startsWith("l'")) return "all'${nome.substring(2)}";
     return 'a $nome';
+  }
+}
+
+/// **CHI TI ACCOMPAGNA NELLA SCENA, e ha un nome.** Ordine DI voce 04,
+/// 12 settembre 2026.
+///
+/// **Il difetto, misurato dall'ordine:** la composizione non riceveva
+/// l'animale in nessuna forma, e nel testo era la parola generica *"l'animale"*.
+/// Il Lupo e il Corvo producevano scene identiche parola per parola.
+///
+/// **PRIMA DEL RICONOSCIMENTO IL NOME NON SI DICE**, e questa non e' una
+/// scelta di adesso: e' la regola dell'ordine DG, sorvegliata dalla guardia
+/// `l_animale_resta_velato_ovunque`. Il nome arriva alla quarta discesa, e una
+/// scena che lo scrivesse alla prima brucerebbe la rivelazione. Fino ad allora
+/// l'animale e' **la sagoma**, che e' esattamente cio' che la persona ha visto
+/// e seguito nell'incontro: una designazione vera, non la parola generica.
+class ChiAccompagna {
+  const ChiAccompagna({required this.conArticolo, required this.femminile});
+
+  /// Il nome con il suo articolo: *il Lupo*, *l'Aquila*, *la sagoma*.
+  final String conArticolo;
+
+  /// Il genere, per il pronome.
+  final bool femminile;
+
+  /// **PRIMA DELLA QUARTA DISCESA**: la sagoma seguita nell'incontro.
+  static const ChiAccompagna laSagoma =
+      ChiAccompagna(conArticolo: 'la sagoma', femminile: true);
+
+  /// **DOPO LA QUARTA**: l'animale, col suo nome e il suo articolo.
+  factory ChiAccompagna.animale(GuideAnimal animale) => ChiAccompagna(
+        conArticolo: '${animale.articolo}${animale.name}',
+        femminile: animale.femminile,
+      );
+
+  /// Il pronome soggetto, per alternarsi col nome.
+  String get pronome => femminile ? 'lei' : 'lui';
+}
+
+/// **I GESTI CHE NON APPARTENGONO A UN ANIMALE.** Ordine DI voce 04.
+///
+/// **Nasce dal nome.** Finche' nella scena c'era *"l'animale"*, nessuno
+/// leggeva *"l'Aquila mostra i denti"*: con il nome scritto, la stessa figura
+/// diventa un errore che si vede. **Il vocabolario non si tocca**, e qui non
+/// si toglie niente al vocabolario: la composizione, sapendo chi scende con
+/// la persona, non pesca i gesti che il suo corpo non sa fare.
+///
+/// Gli uccelli non hanno denti, non scavano e non si accucciano; la
+/// Tartaruga e il Cervo non mostrano i denti; il Serpente non scava e non si
+/// accuccia. Il Cavallo i denti li mostra davvero, e resta.
+abstract final class GestiDellAnimale {
+  static const Map<String, Set<String>> nonGliAppartengono = {
+    'Aquila': {'mostra_i_denti', 'scava', 'si_accuccia'},
+    'Corvo': {'mostra_i_denti', 'scava', 'si_accuccia'},
+    'Falco': {'mostra_i_denti', 'scava', 'si_accuccia'},
+    'Gufo': {'mostra_i_denti', 'scava', 'si_accuccia'},
+    'Tartaruga': {'mostra_i_denti'},
+    'Cervo': {'mostra_i_denti'},
+    'Serpente': {'scava', 'si_accuccia'},
+  };
+
+  /// I gesti che [nome] puo' fare, in ordine di vocabolario.
+  static List<PezzoDellaScena> di(String? nome) {
+    final no = nonGliAppartengono[nome] ?? const <String>{};
+    return [
+      for (final g in VocabolarioDelViaggio.gesti)
+        if (!no.contains(g.id)) g,
+    ];
   }
 }
 
@@ -313,13 +482,19 @@ abstract final class IlRichiamoDelleScene {
   /// tornato: un conteggio trasformerebbe il richiamo in una statistica, e la
   /// voce DC.04 ha gia' vietato i numeri da videogioco in questo dominio.
   static const List<String> forme = [
-    '{Cosa} lo avevi già trovato di là.',
-    'Questa non è la prima volta che incontri {cosa}.',
-    '{Cosa} era già comparso in una delle tue discese.',
+    // **RISCRITTE CON L'ORDINE DI VOCE 05.** Qui c'erano *"{Cosa} lo avevi
+    // gia' trovato"* e *"Lo hai gia' visto, {cosa}"*: un pronome maschile
+    // davanti a qualunque figura, e con *la chiave* diventava *"La chiave lo
+    // avevi gia' trovato"*. E *"{Cosa} era gia' comparso"* aveva lo stesso
+    // difetto nel participio. Adesso nessuna forma accorda qualcosa con la
+    // figura che torna.
+    'Di là avevi già trovato {cosa}.',
+    'Non è la prima volta che incontri {cosa}.',
+    'In una delle tue discese c\'era già {cosa}.',
     'Ti era già capitato di vedere {cosa}.',
-    'Non è nuovo: {cosa} lo avevi già incontrato.',
+    'Torna qualcosa di già noto: {cosa}.',
     '{Cosa} torna.',
-    'Lo hai già visto, {cosa}.',
+    'Riconosci {cosa} da una discesa di prima.',
     'Il Mondo di Sotto ti rimanda {cosa}, un\'altra volta.',
   ];
 
@@ -373,28 +548,78 @@ abstract final class ScenaSenzaModello {
   /// id e chi rilegge sei mesi dopo ritrova cio' che aveva letto. Quello che
   /// cambia e' che **due discese diverse sono due eventi diversi**, e il
   /// numero della discesa lo dice.
+  ///
+  /// **[animale] E [siPuoDire], ordine DI voce 04.** L'animale entra nella
+  /// composizione come ingrediente: sceglie i gesti che il suo corpo sa fare,
+  /// e dopo il riconoscimento da' il suo nome alla scena. Prima del
+  /// riconoscimento la scena lo chiama *la sagoma*, perche' il nome si dice
+  /// alla quarta discesa e non prima.
   static ScenaDelViaggio componi({
     required String domanda,
     required DateTime giorno,
     required double nitidezza,
     int discesa = 0,
+    GuideAnimal? animale,
+    bool siPuoDire = false,
+    bool conDomanda = true,
   }) {
-    final seme = _seme('$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
-        '|discesa$discesa');
+    final impronta = '$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
+        '|discesa$discesa';
+    final seme = _seme(impronta);
     const luoghi = VocabolarioDelViaggio.luoghi;
     const cose = VocabolarioDelViaggio.cose;
-    const gesti = VocabolarioDelViaggio.gesti;
+    final gesti = GestiDellAnimale.di(animale?.name);
     const momenti = VocabolarioDelViaggio.momenti;
     // **Quattro divisori diversi**, cosi' le quattro scelte non si muovono
     // insieme: con un seme solo e lo stesso modulo, cambiando la domanda si
     // sposterebbero tutte e quattro nello stesso verso.
+    final luogo = luoghi[seme % luoghi.length];
+    // **E LA COSA NON RIPETE IL LUOGO**: *"ti conduce al cerchio di pietre.
+    // C'e' il cerchio tracciato a terra"*, trovato dalla stessa guardia.
+    var qualeCosa = (seme ~/ 13) % cose.length;
+    for (var giri = 0;
+        giri < cose.length && siRipetono(cose[qualeCosa], [luogo]);
+        giri++) {
+      qualeCosa = (qualeCosa + 1) % cose.length;
+    }
+    final cosa = cose[qualeCosa];
+    final momento = momenti[(seme ~/ 2411) % momenti.length];
+    // **IL GESTO NON RIPETE UNA PAROLA DELLE ALTRE FIGURE.** Ordine DI voce
+    // 05: *"c'e' l'acqua ferma. Lei si ferma"* lo ha trovato la guardia della
+    // lingua componendo le scene vere. Il vocabolario non si tocca, e le due
+    // figure sono giuste da sole: e' la loro vicinanza a essere sbagliata, e
+    // la vicinanza la decide la composizione. Si passa al gesto dopo.
+    var quale = (seme ~/ 197) % gesti.length;
+    for (var giri = 0;
+        giri < gesti.length &&
+            siRipetono(gesti[quale], [luogo, cosa, momento]);
+        giri++) {
+      quale = (quale + 1) % gesti.length;
+    }
     return ScenaDelViaggio(
-      luogo: luoghi[seme % luoghi.length],
-      cosa: cose[(seme ~/ 13) % cose.length],
-      gesto: gesti[(seme ~/ 197) % gesti.length],
-      momento: momenti[(seme ~/ 2411) % momenti.length],
+      luogo: luogo,
+      cosa: cosa,
+      gesto: gesti[quale],
+      momento: momento,
       nitidezza: nitidezza,
+      chi: animale != null && siPuoDire
+          ? ChiAccompagna.animale(animale)
+          : ChiAccompagna.laSagoma,
+      impronta: impronta,
+      conDomanda: conDomanda,
     );
+  }
+
+  /// **SE UNA FIGURA RIPETE UNA PAROLA PIENA DI UN'ALTRA**, da cinque lettere
+  /// in su, cioe' quelle che portano il senso. Pubblica perche' la stessa
+  /// regola deve valere per la scelta del modello, ordine DI voce 03.
+  static bool siRipetono(PezzoDellaScena uno, List<PezzoDellaScena> altri) {
+    Set<String> parole(String s) => RegExp(r'[a-zàèéìòù]{5,}')
+        .allMatches(s.toLowerCase())
+        .map((m) => m.group(0)!)
+        .toSet();
+    final sue = parole(uno.nome);
+    return altri.any((a) => parole(a.nome).intersection(sue).isNotEmpty);
   }
 
   /// FNV-1a a 32 bit, la stessa famiglia gia' in uso nell'Oroscopo: stabile

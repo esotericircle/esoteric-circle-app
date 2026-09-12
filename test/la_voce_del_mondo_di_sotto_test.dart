@@ -129,16 +129,23 @@ void main() {
       // 2. il gesto e' uno di quelli scritti.
       // **IL GESTO E' COMPOSTO**: cosa fare piu' quando, ordine DG voce 07.
       final gesto = LaVoceDelMondoDiSotto.cosaPuoiFare
-          .where((g) => righe[1].contains(g));
+          // Dopo i due punti il gesto continua in minuscolo, ordine DI voce 05.
+          .where((g) => righe[1].toLowerCase().contains(g.toLowerCase()));
       expect(gesto, isNotEmpty,
           reason: '${d.tema}: manca il gesto da fare in "${righe[1]}"');
       final tempo = LaVoceDelMondoDiSotto.quando
           .where((q) => righe[1].endsWith(q));
       expect(tempo, isNotEmpty,
           reason: '${d.tema}: il gesto non dice quando');
-      // 3. la fonte porta dentro la scena.
-      expect(righe[2], contains(scena.testo),
+      // 3. la fonte porta dentro la scena, **senza la sua apertura**: ordine
+      // DI voce 05, il blocco ha gia' la sua frase che introduce, e una
+      // seconda introduzione dentro la prima era il difetto dei due punti
+      // annidati.
+      expect(righe[2], contains(scena.testoSenzaApertura),
           reason: '${d.tema}: la fonte non dichiara la scena');
+      expect(righe[2].contains(scena.testo), isFalse,
+          reason: '${d.tema}: la fonte porta la scena con la sua apertura, '
+              'cioe due introduzioni una dentro l altra');
     }
   });
 

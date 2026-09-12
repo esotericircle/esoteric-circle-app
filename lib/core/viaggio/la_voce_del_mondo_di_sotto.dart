@@ -110,7 +110,7 @@ abstract final class LaVoceDelMondoDiSotto {
 
   /// Se il tema non è dei sei, il titolo viene da qui.
   static const List<String> titoliSenzaDomanda = [
-    'Sei sceso e hai visto',
+    'Quello che hai visto di là',
     'Quello che hai riportato su',
     'Il Mondo di Sotto ti ha risposto',
     'Te lo sei portato dietro',
@@ -137,21 +137,29 @@ abstract final class LaVoceDelMondoDiSotto {
   ///
   /// `{tema}` e' il tema, in minuscolo: *una scelta da fare*, *un blocco che
   /// non si supera*.
+  ///
+  /// **RISCRITTE CON L'ORDINE DI VOCE 05**, e ognuna per un difetto visto.
+  /// *"Con te e' scesa {tema}"* diventava *"Con te e' scesa un tempo che non
+  /// arriva"*; *"Hai chiesto di {breve}"* diventava *"Hai chiesto di la
+  /// scelta"*; *"Te la porti dietro da un po', {breve}"* diventava *"Te la
+  /// porti dietro, il blocco"*; e *"Sei sceso"* diceva a ogni donna che
+  /// leggeva di essere un uomo. **Nessuna forma accorda piu' niente col tema**,
+  /// e nessuna ha un participio riferito a chi legge.
   static const List<String> riprendeLaDomanda = [
-    'Sei sceso con {tema}.',
-    'Portavi giù {tema}.',
+    'Hai portato giù {tema}.',
+    'Nella discesa avevi con te {tema}.',
     'La tua domanda era {tema}.',
-    'Con te è scesa {tema}.',
-    // **QUESTE QUATTRO USANO IL TEMA IN DUE PAROLE**, e non e' una svista:
-    // vedi la nota su [temaInDueParole].
-    'Hai chiesto di {breve}.',
+    'Hai affidato alla discesa {tema}.',
+    // **QUESTE USANO IL TEMA IN DUE PAROLE**, e non e' una svista: vedi la
+    // nota su [temaInDueParole].
+    'La domanda riguardava {breve}.',
     'Quello che ti pesa è {breve}.',
-    'Eri lì per {breve}.',
-    'Sei sceso a guardare {breve}.',
+    'Il tuo pensiero era {breve}.',
+    'Sotto hai guardato {breve}.',
     'Giù ti aspettava {breve}.',
-    'Te la porti dietro da un po\', {breve}.',
-    'Il motivo per cui sei sceso: {breve}.',
-    'Sotto sei andato per {tema}.',
+    'Da un po\' ti porti dietro {breve}.',
+    'Il motivo della discesa era {breve}.',
+    'Sotto hai portato {tema}.',
   ];
 
   /// **OTTO RISPOSTE PER TEMA, corte e in seconda persona.**
@@ -214,7 +222,7 @@ abstract final class LaVoceDelMondoDiSotto {
     ],
     'direzione': [
       'Una direzione si trova camminando, non da fermi.',
-      'Guarda dove sei arrivato senza accorgertene.',
+      'Guarda quanta strada hai già fatto senza accorgertene.',
       'Le direzioni buone all\'inizio sembrano tutte piccole.',
       'Non ti manca la meta: ti manca il permesso.',
       'Non ti serve la mappa: ti serve il primo passo.',
@@ -271,19 +279,24 @@ abstract final class LaVoceDelMondoDiSotto {
     'Quello che puoi fare:',
     'Comincia da qui:',
     'La cosa concreta:',
-    'Fai questo:',
+    // **Qui c'era *"Fai questo:"***, che davanti a *"Fai la telefonata"*
+    // diceva lo stesso verbo due volte. Ordine DI voce 05.
+    'Il gesto da compiere:',
     'Per muoverti:',
   ];
 
   /// Le otto risposte per chi è sceso senza domanda.
   static const List<String> risposteSenzaDomanda = [
-    'Sei sceso per incontrarlo. L\'incontro è avvenuto.',
+    // **Qui c'erano *"Sei sceso per incontrarlo"*, *"Sei andato a
+    // guardare"* e *"Sei sceso senza niente in mano"***: tre participi al
+    // maschile per chiunque legga. Ordine DI voce 05.
+    'La discesa era l\'incontro. L\'incontro è avvenuto.',
     'Non hai chiesto niente. Hai visto lo stesso.',
     'Oggi il Mondo di Sotto ti ha mostrato e basta.',
     'Non tutte le discese hanno una domanda.',
-    'Sei andato a guardare. Guardare è già qualcosa.',
+    'Hai voluto soltanto vedere. È già qualcosa.',
     'Nessuna domanda: solo la scena. Quella ti resta.',
-    'Sei sceso senza niente in mano. È un modo anche questo.',
+    'Hai fatto la discesa a mani vuote. È un modo anche questo.',
     'Questa volta il viaggio era il viaggio.',
   ];
 
@@ -335,15 +348,22 @@ abstract final class LaVoceDelMondoDiSotto {
   ///
   /// Ordine S voce 16, *da dove viene*: la scena non è la risposta, è la
   /// **fonte** della risposta, e sta verso la fine come dice la gerarchia.
+  ///
+  /// **NESSUNA FINISCE PIU' COI DUE PUNTI, ordine DI voce 05.** Le otto forme
+  /// finivano tutte e otto coi due punti, e la scena che seguiva cominciava
+  /// spesso con un'apertura che li aveva anche lei: a schermo *"Da dove nasce:
+  /// Quello che e' successo di la': Vi trovate al ponte nella notte."* Adesso
+  /// il blocco dice da dove viene con una frase intera, e la scena lo segue
+  /// **senza la sua apertura**, che e' `ScenaDelViaggio.testoSenzaApertura`.
   static const List<String> daDoveViene = [
-    'Viene da questo: {scena}',
-    'Te lo dice la scena che hai visto: {scena}',
-    'Da dove nasce: {scena}',
-    'L\'hai vista così: {scena}',
-    'Il Mondo di Sotto te l\'ha detto così: {scena}',
-    'Sotto era così: {scena}',
-    'La scena era questa: {scena}',
-    'E l\'hai riportata su così: {scena}',
+    'Viene da ciò che hai visto. {scena}',
+    'Te lo dice la scena che hai visto. {scena}',
+    'Nasce da qui. {scena}',
+    'L\'hai vista così. {scena}',
+    'Il Mondo di Sotto te l\'ha detto così. {scena}',
+    'Sotto era così. {scena}',
+    'La scena era questa. {scena}',
+    'E l\'hai riportata su così. {scena}',
   ];
 
   /// **IL TITOLO, che a colpo d'occhio è già una risposta.**
@@ -412,7 +432,7 @@ abstract final class LaVoceDelMondoDiSotto {
           .piu(3)
           .scegli(rispostePerTema[temaDomanda] ?? risposteSenzaDomanda);
       final coda = filo.piu(11).scegli(codaDellaRisposta);
-      righe.add('$ripresa $risposta $coda');
+      righe.add(cuci([ripresa, risposta, coda]));
     } else {
       righe.add(filo.scegli(risposteSenzaDomanda));
     }
@@ -426,18 +446,76 @@ abstract final class LaVoceDelMondoDiSotto {
     // combinazioni disponibili, che e' impossibile se le scelte sono
     // indipendenti.
     final filoDelGesto = filo.piu(7);
-    righe.add('${filoDelGesto.scegli(apreIlGesto)} '
-        '${filoDelGesto.scegli(cosaPuoiFare)} '
-        '${filoDelGesto.scegli(quando)}');
+    final apre = filoDelGesto.scegli(apreIlGesto);
+    final gesto = filoDelGesto.scegli(cosaPuoiFare);
+    // **IL QUANDO NON RIPETE L'APERTURA**: *"Il passo di oggi: ... Oggi."*
+    // Ordine DI voce 05, trovato leggendo i responsi per intero. Si passa al
+    // quando dopo, finche' non ripete niente.
+    var qualeQuando = quando.indexOf(filoDelGesto.scegli(quando));
+    for (var giri = 0;
+        giri < quando.length && _ripete(quando[qualeQuando], '$apre $gesto');
+        giri++) {
+      qualeQuando = (qualeQuando + 1) % quando.length;
+    }
+    righe.add(cuci([apre, gesto, quando[qualeQuando]]));
 
     // 3. da dove viene, cioe' la scena. **Con un filo suo**, per la stessa
     // ragione del gesto.
-    righe.add(filo
-        .piu(19)
-        .scegli(daDoveViene)
-        .replaceAll('{scena}', scena.testo));
+    final daDove = filo.piu(19).scegli(daDoveViene).split('{scena}');
+    righe.add(cuci([daDove.first.trimRight(), scena.testoSenzaApertura]));
 
     return righe;
+  }
+
+  /// **LA CUCITURA DEI PEZZI, e impedisce i due punti annidati per
+  /// costruzione.** Ordine DI voce 05: *"in nessun punto dell'app due
+  /// segmenti che terminano con i due punti possono concatenarsi: va aggiunto
+  /// un controllo in fase di composizione che lo impedisca per costruzione,
+  /// non un rattoppo sulle stringhe"*.
+  ///
+  /// **La regola.** Un pezzo che finisce coi due punti apre una spiegazione,
+  /// e la spiegazione e' la **prima frase** del pezzo dopo. Se quella frase
+  /// contiene a sua volta dei due punti, la spiegazione si aprirebbe dentro
+  /// un'altra spiegazione. In quel caso **i due punti del primo pezzo
+  /// diventano un punto**: la frase resta italiana, e la cosa non puo' uscire
+  /// a schermo in nessuna combinazione.
+  ///
+  /// **Pubblica perche' una guardia la possa provare da sola**, oltre a
+  /// percorrere tutte le combinazioni del materiale vero.
+  static String cuci(List<String> pezzi) {
+    final fatti = <String>[];
+    for (var i = 0; i < pezzi.length; i++) {
+      var pezzo = pezzi[i].trim();
+      if (pezzo.isEmpty) continue;
+      final dopo = i + 1 < pezzi.length ? pezzi[i + 1].trim() : '';
+      if (pezzo.endsWith(':') && _primaFrase(dopo).contains(':')) {
+        pezzo = '${pezzo.substring(0, pezzo.length - 1)}.';
+      }
+      // **DOPO I DUE PUNTI SI CONTINUA IN MINUSCOLO**, come si scrive in
+      // italiano: *"Il passo di oggi: Prendi carta e penna"* aveva la
+      // maiuscola di una frase nuova dentro una frase che non era finita.
+      if (fatti.isNotEmpty && fatti.last.endsWith(':')) {
+        pezzo = _minuscola(pezzo);
+      }
+      fatti.add(pezzo);
+    }
+    return fatti.join(' ');
+  }
+
+  /// La prima frase di [s], fino al primo punto, punto esclamativo o
+  /// interrogativo.
+  static String _primaFrase(String s) {
+    final fine = RegExp(r'[.!?]').firstMatch(s);
+    return fine == null ? s : s.substring(0, fine.start);
+  }
+
+  /// Se [uno] ripete una parola piena di [altro], da quattro lettere in su.
+  static bool _ripete(String uno, String altro) {
+    Set<String> parole(String s) => RegExp(r'[a-zàèéìòù]{4,}')
+        .allMatches(s.toLowerCase())
+        .map((m) => m.group(0)!)
+        .toSet();
+    return parole(uno).intersection(parole(altro)).isNotEmpty;
   }
 
   static String _minuscola(String s) =>
