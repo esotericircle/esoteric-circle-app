@@ -9,6 +9,9 @@ import '../tokens/spacing_tokens.dart';
 import '../theme/maestro_scope.dart';
 import 'package:provider/provider.dart';
 
+import 'scroll_reveal.dart';
+import '../theme/maestro_palette.dart';
+
 /// Superficie in vetro con profondita' 2.5D.
 ///
 /// Combina i primitivi (colori della palette, ombre stratificate, raggi) in un
@@ -26,6 +29,8 @@ class DepthCard extends StatelessWidget {
     this.raised = false,
     this.borderRadius,
     this.opacity = 1.0,
+    this.reveal = true,
+    this.palette,
   });
 
   final Widget child;
@@ -37,9 +42,25 @@ class DepthCard extends StatelessWidget {
   /// Opacita' complessiva, usata per lo stato Coming soon.
   final double opacity;
 
+  /// La tavolozza da usare, quando la card non deve seguire il tema attivo.
+  ///
+  /// Serve alle tessere che appartengono a un Maestro diverso da quello in
+  /// scena: senza questo la card leggeva sempre `context.palette`, quindi tutte
+  /// le tessere uscivano nel colore del tema, cioe' tutte blu quando il tema era
+  /// di Medora, mentre l'emblema al loro interno portava il colore giusto. Un
+  /// dettaglio nel colore del proprietario dentro una card nel colore di un
+  /// altro non fa riconoscere niente.
+  final MaestroPalette? palette;
+
+  /// La comparsa in scorrimento vive QUI, nel componente che ogni elenco
+  /// dell'app gia' usa: cosi' vale ovunque senza che ogni schermata debba
+  /// ricordarsene, e chi ha una regia propria la spegne con [reveal] falso.
+  /// Fuori da uno scorrimento la card si rivela al montaggio, senza attese.
+  final bool reveal;
+
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
+    final palette = this.palette ?? context.palette;
     final quality = context.watch<QualityTierController>();
     final radius =
         borderRadius ?? BorderRadius.circular(SpacingTokens.radiusLg);
@@ -108,6 +129,7 @@ class DepthCard extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: radius,
         child: InkWell(
+          enableFeedback: false,
           borderRadius: radius,
           splashColor: palette.glow.withValues(alpha: 0.18),
           highlightColor: ColorTokens.glassTint,
@@ -117,6 +139,7 @@ class DepthCard extends StatelessWidget {
       );
     }
 
-    return card;
+    if (!reveal) return card;
+    return ScrollReveal(child: card);
   }
 }

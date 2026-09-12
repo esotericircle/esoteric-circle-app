@@ -1,0 +1,67 @@
+name: La Ronda dei motori
+
+# PERCHE' ESISTE.
+#
+# In questo progetto buildSkySnapshot sapeva calcolare la volta celeste e non
+# era chiamato da nessun punto dell'app: il permesso di posizione si concedeva,
+# il banner diceva "cielo orientato", e il cielo non cambiava di un grado. A
+# scoprirlo non e' stato un test, e' stato Mauro guardando la Luna.
+#
+# La Ronda gira DA SOLA ogni giorno perche' un motore nuovo puo' nascere
+# scollegato in qualunque momento, e nessuno se ne accorgerebbe finche' non
+# guarda proprio quella schermata.
+#
+# COME SI VEDE UN FALLIMENTO: GitHub manda una notifica al proprietario del
+# repository ogni volta che un workflow schedulato fallisce, e il segno rosso
+# resta nella scheda Actions. Questo workflow non ingoia nessun errore: niente
+# continue-on-error, niente "|| true", quindi se qualcosa e' rotto il workflow
+# risulta rosso davvero.
+
+on:
+  schedule:
+    # Ogni giorno alle 05:30 UTC, cioe' le 07:30 in Italia d'estate e le 06:30
+    # d'inverno. Presto abbastanza da trovare l'esito gia' pronto al mattino.
+    - cron: '30 5 * * *'
+  # A mano, quando serve una verifica subito.
+  workflow_dispatch:
+  # A ogni push sui rami di lavoro: un motore scollegato si scopre subito,
+  # invece che il giorno dopo.
+  push:
+    branches:
+      - main
+      - 'claude/**'
+
+jobs:
+  ronda:
+    name: Ronda dei motori e suite intera
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Prendi il codice
+        uses: actions/checkout@v4
+
+      - name: Prepara Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          # LA VERSIONE E' FISSATA, ordine BF voce 05.i: "channel: stable"
+          # nudo scarica la stable del giorno, e un aggiornamento a monte
+          # cambierebbe la CI sotto i piedi senza nessun commit. Il numero
+          # coincide con codemagic.yaml e docs/versione_flutter.json.
+          flutter-version: 3.44.5
+          cache: true
+
+      - name: Scarica le dipendenze
+        run: flutter pub get
+
+      - name: Analisi statica
+        run: flutter analyze lib test
+
+      # La Ronda gira PER PRIMA e da sola: se un motore e' scollegato lo si
+      # legge in cima al registro, senza cercarlo dentro mille altri esiti.
+      - name: LA RONDA, i motori sono collegati e rispondono agli input
+        run: flutter test test/ronda_dei_motori_test.dart --reporter expanded
+
+      - name: La suite intera
+        run: flutter test

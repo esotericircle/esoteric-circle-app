@@ -1,41 +1,81 @@
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/feature_flags/feature_catalog.dart';
-import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_catalog.dart';
+import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
 import 'package:esoteric_circle/core/feature_flags/feature_flag_service.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
+import 'package:esoteric_circle/services/app_services.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  testWidgets('La Home Il Santuario si avvia e mostra i Maestri',
-      (tester) async {
-    await tester.pumpWidget(const EsotericCircleApp());
-    await tester.pump(const Duration(seconds: 1));
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
-    expect(find.text('Il Santuario'), findsOneWidget);
-    // La bottom bar e il selettore contengono i tre Maestri.
-    expect(find.text('Medora'), findsWidgets);
-    expect(find.text('Aura'), findsWidgets);
-    expect(find.text('Caligo'), findsWidgets);
+  void silenceSensors() {
+    final messenger = binding.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(
+      const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+      (call) async => null,
+    );
+    for (final name in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      messenger.setMockStreamHandler(
+        EventChannel(name),
+        MockStreamHandler.inline(onListen: (args, events) {}),
+      );
+    }
+  }
+
+  Future<void> step(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+  }
+
+  testWidgets('L\'app parte sul Santuario con la bottom bar a cinque voci',
+      (tester) async {
+    silenceSensors();
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await step(tester);
+
+    for (final label in const [
+      'Il Cerchio',
+      'Medora',
+      'Caligo',
+      'Aura',
+      'Passport',
+    ]) {
+      expect(find.text(label), findsWidgets, reason: 'manca la voce $label');
+    }
   });
 
-  testWidgets('Il tap su un Maestro naviga alla sua sezione',
-      (tester) async {
-    await tester.pumpWidget(const EsotericCircleApp());
-    await tester.pump(const Duration(seconds: 1));
+  testWidgets('La bottom bar apre il dominio del Maestro', (tester) async {
+    silenceSensors();
+    await tester.pumpWidget(
+        EsotericCircleApp(conIntro: false, services: AppServices.offline()));
+    await step(tester);
 
-    // Tocca la voce Caligo nella bottom bar (l'ultima occorrenza).
-    await tester.tap(find.text('Caligo').last);
-    // Le animazioni di fondo sono in loop: non si usa pumpAndSettle, ma pump
-    // con durate fisse per far avanzare la transizione.
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
+    final ctx = tester.element(find.byType(MaterialApp));
+    expect(ctx.read<MaestroController>().activeMaestro, isNull);
 
-    // L'intestazione della sezione mostra la tagline univoca del Maestro.
-    expect(find.text('Custode delle rune e dei riti antichi'),
-        findsOneWidget);
+    // L'icona Maestro nella barra e' una porta al dominio, non centra soltanto.
+    // Per chiave e non per testo: dalla voce 4 del 2161 il nome del
+    // Maestro compare anche nella striscia delle arti in fondo alla home.
+    await tester.tap(find.byKey(const Key('barra_voce_caligo')));
+    await step(tester);
+    await step(tester);
+    expect(find.text('Consulta Caligo'), findsOneWidget);
+    expect(ctx.read<MaestroController>().activeMaestro, Maestro.caligo);
   });
 
   test('La risoluzione dei feature flag rispetta gli stati', () {
@@ -43,7 +83,12 @@ void main() {
     final flags = FeatureFlagService(entitlement: entitlement);
 
     final active = FeatureCatalog.byId('natal_chart')!;
-    final soon = FeatureCatalog.byId('face_constellation')!;
+    // La Costellazione del Viso NON e' piu' in arrivo: lo scaffale e il
+    // manifest la dicevano viva da tempo, ed era il catalogo dei flag a
+    // essere rimasto indietro. Per provare lo stato "in arrivo" serve una
+    // funzione che lo sia davvero.
+    final soon = FeatureCatalog.all.firstWhere(
+        (f) => f.defaultAvailability == RemoteAvailability.comingSoon);
     final premium = FeatureCatalog.byId('masters_memory')!;
 
     expect(flags.statusOf(active), FeatureStatus.active);

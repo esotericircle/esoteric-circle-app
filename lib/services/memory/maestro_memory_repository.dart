@@ -1,0 +1,70 @@
+import '../../core/chat/chat_message.dart';
+import '../../core/chat/maestro_memory.dart';
+import '../../core/chat/user_profile.dart';
+import '../../core/maestro/maestro.dart';
+
+/// Confine astratto verso la persistenza della memoria dei Maestri.
+///
+/// Per la Demo l'implementazione e' su Firestore (profilo piu' fatti piu'
+/// sintesi di sessione). L'evoluzione verso Cloud SQL con pgvector, il memory
+/// layer a tre strati pieno, vivra' dietro questa stessa interfaccia, senza
+/// toccare controller ne' UI.
+abstract interface class MaestroMemoryRepository {
+  /// Profilo condiviso dell'utente (nome, forma di cortesia, disclaimer visto).
+  Future<UserProfile> loadProfile();
+
+  /// Salva il profilo, per esempio dopo l'accettazione del disclaimer.
+  Future<void> saveProfile(UserProfile profile);
+
+  /// Memoria specifica di un Maestro (fatti stabili piu' sintesi di sessione).
+  Future<MaestroMemory> loadMemory(Maestro maestro);
+
+  /// Aggiorna la memoria di un Maestro dopo il distillato della conversazione.
+  Future<void> saveMemory(Maestro maestro, MaestroMemory memory);
+
+  /// Ultimi messaggi scambiati con un Maestro, dal piu' vecchio al piu' nuovo.
+  Future<List<ChatMessage>> recentMessages(Maestro maestro, {int limit = 40});
+
+  /// LE SINTESI SETTIMANALI SFOCATE DAL SERVER. Ordine CG voce 09.
+  ///
+  /// **Sono il secondo dei quattro strati della memoria.** Dentro la finestra
+  /// dei quattordici giorni il contesto porta i turni veri; oltre, porta
+  /// queste sintesi. Le scrive il lavoro settimanale `sfocaLeConversazioni`,
+  /// una chiamata per Maestro per settimana, e il telefono le RILEGGE invece
+  /// di rifarle: distillare di nuovo cio' che il server ha gia' distillato
+  /// vorrebbe dire pagare due volte lo stesso riassunto.
+  ///
+  /// **Vuoto per default**, cosi' le implementazioni finte delle prove non si
+  /// rompono e un server piu' vecchio dell'app non spegne la chat.
+  Future<MemoryDigest> sintesiSfocate(Maestro maestro) async =>
+      const MemoryDigest(summary: '', facts: []);
+
+  /// Aggiunge un messaggio alla cronologia persistente del Maestro.
+  Future<void> appendMessage(Maestro maestro, ChatMessage message);
+
+  /// SOSTITUISCE l'ultimo messaggio salvato, che e' il turno del Maestro
+  /// ancora in attesa, con quello definitivo.
+  ///
+  /// Serve perche' la domanda e il suo turno di risposta nascono INSIEME e si
+  /// salvano insieme: il turno esiste gia', in attesa, dal momento in cui la
+  /// domanda parte. Quando la risposta arriva non se ne aggiunge un altro, si
+  /// completa quello. Senza questo, l'unico modo di avere il turno persistito
+  /// sarebbe salvarlo alla fine, cioe' non averlo se la fine non arriva.
+  Future<void> sostituisciUltimoMessaggio(
+      Maestro maestro, ChatMessage messaggio);
+
+  /// QUANTI MOMENTI il Cerchio custodisce di questa persona.
+  ///
+  /// Serve all'invito a custodire il proprio cielo, che dice un numero VERO:
+  /// "il Cerchio custodisce N tuoi momenti". Un numero inventato, o gonfiato
+  /// con cio' che la persona non riconoscerebbe come suo, farebbe di quella
+  /// frase una vanteria. Si contano i turni di conversazione e i fatti che i
+  /// Maestri ricordano, cioe' le due cose che si perderebbero davvero.
+  Future<int> quantiMomenti();
+
+  /// Cancella tutta la memoria dell'utente, per il diritto all'oblio (GDPR):
+  /// profilo, memoria di ogni Maestro e cronologia completa, più gli eventuali
+  /// livelli profondi predisposti (indice semantico, archivio freddo). Isolata
+  /// al solo utente corrente. Dopo, il cerchio riparte come al primo giorno.
+  Future<void> deleteAllData();
+}

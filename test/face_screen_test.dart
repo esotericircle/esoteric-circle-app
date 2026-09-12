@@ -1,0 +1,218 @@
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/face/face_corpus.dart';
+import 'package:esoteric_circle/core/face/face_trait.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/maestri/art_navigation.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
+
+/// La schermata della Costellazione del Viso.
+///
+/// La fotocamera dal vivo non si prova in headless: qui si prova il percorso
+/// deterministico, la soglia e il ripiego tattile che alimenta lo stesso motore
+/// e porta al responso, cosi' l'esperienza e' verificata senza plugin.
+void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  Widget host() => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (_) =>
+                  MaestroController(initial: const ThemeKey.of(Maestro.aura))),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: const MaterialApp(
+          home: MaestroScope(child: FaceConstellationScreen()),
+        ),
+      );
+
+  Future<void> passo(WidgetTester tester) async {
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+  }
+
+  testWidgets('La soglia mostra privacy, cielo e ingresso al ripiego',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+
+    expect(find.byKey(const Key('face_privacy')), findsOneWidget);
+    expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
+    expect(find.byKey(const Key('face_start')), findsOneWidget);
+    expect(find.byKey(const Key('face_fallback_entry')), findsOneWidget);
+  });
+
+  testWidgets('Il ripiego alimenta il motore e porta al responso',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('face_fallback_entry')));
+    await passo(tester);
+
+    // Sceglie una variante per ognuna delle cinque categorie del ripiego.
+    for (final t in const [
+      FaceTrait.voltoTondo,
+      FaceTrait.occhiGrandi,
+      FaceTrait.sopraccigliaDritte,
+      FaceTrait.labbraPiene,
+      FaceTrait.mentoAmpio,
+    ]) {
+      final f = find.byKey(Key('face_pick_${t.name}'));
+      await tester.ensureVisible(f);
+      await tester.pump();
+      await tester.tap(f);
+      await tester.pump();
+    }
+
+    final done = find.byKey(const Key('face_fallback_done'));
+    await tester.ensureVisible(done);
+    await tester.pump();
+    await tester.tap(done);
+    await passo(tester);
+
+    // Il responso c'e', col titolo evocativo del dominante e la sintesi.
+    expect(find.byKey(const Key('face_result')), findsOneWidget);
+    // Fra le scelte, occhi grandi ha la salienza piu' alta: e' il dominante.
+    expect(find.text(FaceTrait.occhiGrandi.titoloEvocativo), findsOneWidget);
+    expect(find.byKey(const Key('face_synthesis')), findsOneWidget);
+    expect(find.byKey(const Key('face_trait_occhiGrandi')), findsWidgets);
+    // **LE CHIAVI SONO CAMBIATE, ordine CG voci 06 e 08.** Condividi e
+    // Parlane adesso vengono da AzioniDelResponso, che e la porta sola
+    // per tutte e tredici le arti col responso, e in mezzo c e anche il
+    // Custodisci, che prima non esisteva. Le chiavi vecchie erano di
+    // questa schermata e basta.
+    expect(find.byKey(const Key('responso_condividi')), findsOneWidget);
+    expect(find.byKey(const Key('responso_custodisci')), findsOneWidget);
+    expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
+  });
+
+  testWidgets('Il sottotitolo segue l\'interruttore dei transiti',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('face_fallback_entry')));
+    await passo(tester);
+    for (final t in const [
+      FaceTrait.voltoQuadrato,
+      FaceTrait.occhiRaccolti,
+      FaceTrait.sopraccigliaAngolo,
+      FaceTrait.labbraSottili,
+      FaceTrait.mentoAPunta,
+    ]) {
+      final f = find.byKey(Key('face_pick_${t.name}'));
+      await tester.ensureVisible(f);
+      await tester.pump();
+      await tester.tap(f);
+      await tester.pump();
+    }
+    final done = find.byKey(const Key('face_fallback_done'));
+    await tester.ensureVisible(done);
+    await tester.pump();
+    await tester.tap(done);
+    await passo(tester);
+
+    expect(
+        tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
+        'non legato ai transiti astrologici');
+    final sw = find.byKey(const Key('face_transits_switch'));
+    await tester.ensureVisible(sw);
+    await tester.pump();
+    await tester.tap(sw);
+    await passo(tester);
+    expect(
+        tester.widget<Text>(find.byKey(const Key('face_mode_subtitle'))).data,
+        'legato ai transiti astrologici di oggi');
+  });
+
+  testWidgets('Il pulsante Parlane con Aura e\' nel verde di Aura',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('face_fallback_entry')));
+    await passo(tester);
+    for (final t in const [
+      FaceTrait.voltoTondo,
+      FaceTrait.occhiGrandi,
+      FaceTrait.sopraccigliaCurve,
+      FaceTrait.labbraPiene,
+      FaceTrait.mentoAmpio,
+    ]) {
+      final f = find.byKey(Key('face_pick_${t.name}'));
+      await tester.ensureVisible(f);
+      await tester.pump();
+      await tester.tap(f);
+      await tester.pump();
+    }
+    final done = find.byKey(const Key('face_fallback_done'));
+    await tester.ensureVisible(done);
+    await tester.pump();
+    await tester.tap(done);
+    await passo(tester);
+
+    final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+    final btn =
+        tester.widget<FilledButton>(find.byKey(const Key('responso_parlane')));
+    // **IL VERDE DI AURA PORTATO ALLA SOGLIA, e non piu' il token nudo.**
+    // Ordine CO voce 14, coda del 3 settembre 2026. La ragione intera sta
+    // sulla gemella di questa riga, in archetype_screen_test: il verde di
+    // Aura e' il piu' luminoso dei tre primari e con l'inchiostro chiaro
+    // sopra misurava 2,84 a uno.
+    final bg = btn.style!.backgroundColor!.resolve({})!;
+    expect(bg, AccentoDelMaestro.portatoSu(verde.primary, verde.onPrimary),
+        reason: 'il riempimento non e piu il verde di Aura portato alla '
+            'soglia');
+    // E l'etichetta ci si legge sopra, che e' la cosa per cui il colore
+    // esiste: la misura che a questa guardia mancava.
+    final fg = btn.style!.foregroundColor!.resolve({})!;
+    expect(AccentoDelMaestro.contrastoFra(fg, bg), greaterThanOrEqualTo(4.5),
+        reason: 'l etichetta del pulsante non si legge sul suo stesso '
+            'riempimento');
+  });
+
+  test('La rotta del viso porta alla schermata vera, non alla soglia', () {
+    final r = artRouteFor('face_constellation');
+    expect(r, isNotNull);
+    expect(artiSullaSoglia.containsKey('face_constellation'), isFalse);
+  });
+
+  test('Ogni tratto ha titolo evocativo e frase', () {
+    for (final t in FaceTrait.values) {
+      expect(t.titoloEvocativo.trim(), isNotEmpty, reason: t.name);
+      expect(FaceCorpus.frase(t).trim(), isNotEmpty, reason: t.name);
+    }
+  });
+}

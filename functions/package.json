@@ -1,0 +1,26 @@
+{
+  "name": "functions",
+  "description": "Cloud Functions per Esoteric Circle (ponte FreeAstroAPI)",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions",
+    "test": "tsc && node --test lib/cerchio.test.js lib/validate.test.js lib/cammino.test.js lib/scadenze.test.js lib/ricordi.test.js lib/sfocatura.test.js lib/lapidi.test.js lib/push.test.js",
+    "test:regole": "tsc -p tsconfig.regole.json && firebase emulators:exec --only firestore --project demo-esoteric-circle \"node --test lib/regole.emulatore.js\""
+  },
+  "dependencies": {
+    "firebase-admin": "^14.3.0",
+    "firebase-functions": "^7.3.2",
+    "nodemailer": "^9.0.5"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.1",
+    "typescript": "^5.5.4"
+  }
+}

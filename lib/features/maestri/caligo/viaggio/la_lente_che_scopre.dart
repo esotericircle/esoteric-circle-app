@@ -1,0 +1,647 @@
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+
+import '../../../../core/viaggio/dove_sta_la_testa.dart';
+
+/// **LA LENTE: SPOSTA E SCOPRI.** Ordine DE voce 03, 11 settembre 2026.
+///
+/// **CHE COSA SOSTITUISCE, e perche'.** Fino a ieri l'incontro mostrava
+/// `PittoreDellAnimale`, una sagoma **disegnata da una formula a partire da un
+/// seme**: un corpo, quattro zampe, un collo, una testa con due orecchie e una
+/// coda. Il fondatore ha nominato due difetti, e tutti e due erano veri.
+///
+/// **Il primo e' di verita'.** La sagoma non era il ritratto di nessuno: due
+/// semi diversi davano due quadrupedi appena diversi, e **nessuno dei dodici
+/// era quel quadrupede**. Chi seguiva un'ombra non stava guardando l'animale
+/// che avrebbe avuto.
+///
+/// **Il secondo e' di specie.** La formula disegna sempre un quadrupede, e
+/// **quattro dei dodici non lo sono**: aquila, corvo, falco e gufo hanno due
+/// zampe e le ali, e il serpente non ha nemmeno quelle. Una formula che
+/// promette un animale e ne disegna un altro non e' un velo, e' un errore.
+///
+/// **Adesso sotto il velo c'e' l'animale VERO**, la stessa illustrazione che
+/// si ritrovera' nel Passaporto e fra i dodici totem. Il velo la scurisce e la
+/// **sfoca**, mai la annerisce: la sagoma complessiva si intuisce sempre, e
+/// quella sagoma e' finalmente la sua.
+///
+/// **IL LIMITE E' SPAZIALE, NON TEMPORALE**, ed e' la parte che l'ordine
+/// ripete due volte. Non si scopre per un tot di secondi: si scopre **dove si
+/// puo'**, e il dove cambia a ogni discesa. Le tre aree si calcolano dal
+/// rettangolo della testa di quell'animale, e vivono in
+/// [DoveStaLaTesta.areaDellaDiscesa].
+class LenteCheScopre extends StatefulWidget {
+  const LenteCheScopre({
+    super.key,
+    required this.nome,
+    required this.immagine,
+    required this.discesa,
+    this.senzaMoto,
+    this.doveParte,
+  });
+
+  /// Il nome del catalogo, che e' anche la chiave del rettangolo della testa.
+  final String nome;
+
+  /// Il percorso dell'illustrazione vera.
+  final String immagine;
+
+  /// La discesa, contata da zero.
+  ///
+  /// **Alla quarta, cioe' a 3, il velo copre la sola testa** ed e' la lente di
+  /// quel giorno a scoprirla. Ordine DG, 12 settembre 2026. Il velo cade
+  /// **dopo**, a discesa maggiore di tre, che e' lo stato della card della
+  /// rivelazione.
+  final int discesa;
+
+  /// Iniettabile per le prove. Nullo vuol dire chiederlo a `MediaQuery`.
+  final bool? senzaMoto;
+
+  /// Dove sta la lente prima che il dito la tocchi, in frazioni dell'area
+  /// concessa. Nullo vuol dire il centro.
+  final Offset? doveParte;
+
+  /// **QUANTO E' SCURO IL VELO**, e non e' nero.
+  ///
+  /// Zero virgola settantotto: sotto, l'animale si legge gia' troppo e la
+  /// lente non serve; sopra, la sagoma sparisce e la voce dell'ordine
+  /// *"cosi' la sagoma complessiva si intuisce sempre"* non e' piu' vera.
+  static const double quantoEScuroIlVelo = 0.78;
+
+  /// **QUANTO SFOCA IL VELO**, in punti di sigma sul lato corto della scena.
+  ///
+  /// Una misura **proporzionale e non in pixel fissi**: e' la lezione
+  /// dell'ordine DC, dove sei pixel di sfocatura erano un velo su una scena
+  /// larga trecentonovanta e cancellavano del tutto la sagoma dentro un tondo
+  /// da cinquantadue.
+  static const double quantoSfocaIlVelo = 0.035;
+
+  /// **QUANTO SFOCA ALLA PRIMA DISCESA**, che e' il doppio abbondante.
+  ///
+  /// **Parole del fondatore:** *"l'animale sfocato con la lente si capisce
+  /// benissimo cos'e', e' ancora troppo evidente"*. La sfocatura era
+  /// **costante**, e la prima discesa non ha lo stesso compito della terza:
+  /// alla prima non si deve riconoscere niente, alla terza si e' gia' visto
+  /// due terzi del corpo e nasconderlo sarebbe una finzione.
+  static const double quantoSfocaAllaPrima = 0.060;
+
+  /// **QUANTO E' SCURA LA COLTRE ALLA PRIMA DISCESA.**
+  static const double quantoEScuroAllaPrima = 0.88;
+
+  /// **QUANTO SI VEDE IL FANTASMA ALLA PRIMA DISCESA.** Trentotto centesimi
+  /// invece di cinquantacinque: e' lui a far intuire la sagoma, e alla prima
+  /// apparizione deve intuirsi appena.
+  static const double quantoSiVedeIlFantasmaAllaPrima = 0.38;
+
+  /// Quanto vale [quantoSfocaIlVelo] alla discesa [quale], da 0 a 3.
+  static double sfocaturaAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoSfocaAllaPrima +
+        (quantoSfocaIlVelo - quantoSfocaAllaPrima) * passo;
+  }
+
+  /// Quanto vale [quantoEScuroIlVelo] alla discesa [quale].
+  static double buioAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoEScuroAllaPrima +
+        (quantoEScuroIlVelo - quantoEScuroAllaPrima) * passo;
+  }
+
+  /// Quanto si vede il fantasma alla discesa [quale].
+  static double fantasmaAlla(int quale) {
+    final passo = (quale.clamp(0, 2)) / 2;
+    return quantoSiVedeIlFantasmaAllaPrima +
+        (0.55 - quantoSiVedeIlFantasmaAllaPrima) * passo;
+  }
+
+  /// **QUANTO DURA LA CADUTA DEL VELO ALLA QUARTA.**
+  static const Duration quantoDuraLaCaduta = Duration(milliseconds: 900);
+
+  @override
+  State<LenteCheScopre> createState() => _LenteCheScopreState();
+}
+
+class _LenteCheScopreState extends State<LenteCheScopre>
+    with SingleTickerProviderStateMixin {
+  /// Dove sta il centro della lente, in punti della scena. Nullo finche' non
+  /// si conosce la misura della scena.
+  Offset? _lente;
+
+  /// **QUANTO IL DITO STA SPINGENDO OLTRE IL BORDO**, da 0 a 1.
+  ///
+  /// Ordine DE voce 03: *"arrivata al bordo si ferma, e il velo attorno si fa
+  /// piu' fitto invece di lasciarla uscire: cosi' il confine si capisce senza
+  /// leggere niente"*. E' questo numero a farlo.
+  double _spinge = 0;
+
+  late final AnimationController _caduta = AnimationController(
+    vsync: this,
+    duration: LenteCheScopre.quantoDuraLaCaduta,
+    value: widget.discesa > DoveStaLaTesta.quanteFasce ? 0 : 1,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.discesa > DoveStaLaTesta.quanteFasce) _caduta.value = 0;
+  }
+
+  @override
+  void didUpdateWidget(LenteCheScopre vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (widget.discesa != vecchio.discesa) {
+      _lente = null;
+      if (widget.discesa > DoveStaLaTesta.quanteFasce) {
+        _caduta.reverse(from: 1);
+      } else {
+        _caduta.value = 1;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _caduta.dispose();
+    super.dispose();
+  }
+
+  /// **IL RETTANGOLO VERO DELL'IMMAGINE DENTRO LA SCENA.**
+  ///
+  /// L'illustrazione entra con `BoxFit.contain`, quindi **non riempie la
+  /// scena**: le frazioni del rettangolo della testa parlano dell'immagine, e
+  /// applicarle alla scena le sposterebbe di tutta la fascia vuota. E' la
+  /// stessa famiglia di difetto della misura legata al lato corto, costata
+  /// due giri nell'ordine DC.
+  Rect _dentroLaScena(Size scena, Size sorgente) {
+    if (sorgente.width <= 0 || sorgente.height <= 0) {
+      return Offset.zero & scena;
+    }
+    final k = (scena.width / sorgente.width) < (scena.height / sorgente.height)
+        ? scena.width / sorgente.width
+        : scena.height / sorgente.height;
+    final larga = sorgente.width * k;
+    final alta = sorgente.height * k;
+    return Rect.fromLTWH(
+        (scena.width - larga) / 2, (scena.height - alta) / 2, larga, alta);
+  }
+
+  void _muovi(Offset dito, Rect immagine, double raggio) {
+    final area = DoveStaLaTesta.areaDellaDiscesa(widget.nome, widget.discesa);
+    final tenuto = DoveStaLaTesta.tieniDentro(
+        dito: dito, immagine: immagine, area: area, raggio: raggio);
+    final fuori = (dito - tenuto).distance;
+    setState(() {
+      _lente = tenuto;
+      _spinge = raggio <= 0 ? 0 : (fuori / raggio).clamp(0.0, 1.0);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // **VELATO ANCHE ALLA QUARTA, che e' la discesa della testa.** Ordine
+    // DG, 12 settembre 2026. Il velo cade **dopo**, quando la quarta discesa
+    // e' compiuta e messa a diario: quello che si vede allora e' la card
+    // della rivelazione, non la lente.
+    final velato = widget.discesa <= DoveStaLaTesta.quanteFasce;
+    return LayoutBuilder(
+      builder: (context, vincoli) {
+        final scena = Size(
+          vincoli.maxWidth.isFinite ? vincoli.maxWidth : 360,
+          vincoli.maxHeight.isFinite ? vincoli.maxHeight : 640,
+        );
+        return _ConLaMisuraVera(
+          percorso: widget.immagine,
+          costruisci: (sorgente) {
+            final immagine = _dentroLaScena(scena, sorgente);
+            final raggio = immagine.width * DoveStaLaTesta.raggioDellaLente;
+            final area =
+                DoveStaLaTesta.areaDellaDiscesa(widget.nome, widget.discesa);
+            final partenza = widget.doveParte ?? const Offset(0.5, 0.5);
+            final lente = _lente ??
+                DoveStaLaTesta.tieniDentro(
+                  dito: Offset(
+                    immagine.left +
+                        immagine.width *
+                            (area.left +
+                                (area.right - area.left) * partenza.dx),
+                    immagine.top +
+                        immagine.height *
+                            (area.top + (area.bottom - area.top) * partenza.dy),
+                  ),
+                  immagine: immagine,
+                  area: area,
+                  raggio: raggio,
+                );
+            return GestureDetector(
+              key: const Key('viaggio_lente'),
+              behavior: HitTestBehavior.opaque,
+              onPanStart: (d) => _muovi(d.localPosition, immagine, raggio),
+              onPanUpdate: (d) => _muovi(d.localPosition, immagine, raggio),
+              onPanEnd: (_) => setState(() => _spinge = 0),
+              onTapDown: (d) => _muovi(d.localPosition, immagine, raggio),
+              child: AnimatedBuilder(
+                animation: _caduta,
+                builder: (context, _) => Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    // **SOTTO C'E' L'ANIMALE VERO, in chiaro e per intero.**
+                    Image.asset(widget.immagine,
+                        key: const Key('viaggio_animale_vero'),
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+                    // **SOPRA, IL VELO**, che e' la stessa immagine scurita
+                    // e sfocata: cosi' la sagoma si intuisce sempre e non c'e'
+                    // nessun nero pieno a nascondere che sotto ci sia
+                    // qualcosa.
+                    //
+                    // **SENZA `Opacity`, e non e' un dettaglio.** Qui c'era
+                    // `Opacity(opacity: _caduta.value)`, e `_caduta` e' un
+                    // `AnimationController`: sul 767f596c, che ha le tre scale
+                    // di animazione a zero, quel valore non e' affidabile, e
+                    // **un velo che vale zero e' un velo che non c'e'**. Il
+                    // difetto si e' visto a video due volte, sulla 2247 e
+                    // sulla 2248, e la prima volta era stato attribuito alla
+                    // maschera di fusione che stava accanto.
+                    //
+                    // **E COPRE SOLO CIO' CHE NON E' ANCORA STATO
+                    // SCOPERTO.** Ordine DG del 12 settembre 2026: quello che
+                    // la lente ha aperto ieri **resta aperto**, e il velo si
+                    // ferma sopra di lui. Alla quarta discesa resta velata la
+                    // sola testa.
+                    if (velato)
+                      ClipRect(
+                        key: const Key('viaggio_velo_di_cio_che_resta'),
+                        clipper: _CioCheRestaDaScoprire(
+                          immagine: immagine,
+                          quota: DoveStaLaTesta.finDoveArrivaIlVelo(
+                              widget.nome, widget.discesa),
+                        ),
+                        child: _ilVelo(scena),
+                      ),
+                    // **LA DISSOLVENZA RESTA DOV'E' NATA**, cioe' alla quarta
+                    // discesa, quando il velo cade.
+                    if (!velato && _caduta.value > 0)
+                      Opacity(
+                        opacity: _caduta.value,
+                        child: _ilVelo(scena),
+                      ),
+                    // **E SOPRA IL VELO, IL CERCHIO DELLA LENTE**, cioe' la
+                    // sola porzione di animale che oggi si puo' vedere.
+                    //
+                    // **Qui c'era un `ShaderMask` con `BlendMode.dstIn`** che
+                    // ritagliava il buco dal velo, e sul telefono cancellava
+                    // il velo intero invece del suo cerchio. Un ritaglio e un
+                    // gradiente fanno lo stesso disegno senza chiedere nessuna
+                    // fusione a nessuno.
+                    if (velato || _caduta.value > 0)
+                      _ilCerchioDellaLente(scena, lente, raggio),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  /// **IL VELO: UNA COLTRE SCURA, E DENTRO LA SAGOMA SFOCATA.**
+  ///
+  /// Due strati e non uno, e la ragione sta nella riga dell'ordine *"scuro e
+  /// SFOCATO, mai nero pieno, cosi' la sagoma complessiva si intuisce
+  /// sempre"*. Una sola tinta nera darebbe un rettangolo e basta: chi guarda
+  /// non saprebbe nemmeno che sotto c'e' qualcosa. Una sola sfocatura
+  /// lascerebbe leggere il colore e il manto, e il nome arriverebbe alla
+  /// prima discesa.
+  ///
+  /// **Sotto la coltre, sopra il fantasma**: la coltre dice che c'e' un velo,
+  /// il fantasma dice che sotto c'e' un animale, e nessuno dei due dice
+  /// quale.
+  /// **IL CERCHIO DELLA LENTE: la sola porzione che oggi si puo' vedere.**
+  ///
+  /// Un `ClipPath` con dentro l'animale nitido e, sopra di lui, il gradiente
+  /// che torna alla coltre **esattamente sul raggio**: al bordo del ritaglio i
+  /// due lati arrivano tutti e due alla coltre piena, quindi il taglio non si
+  /// vede e resta vero cio' che l'ordine chiede, *"un cerchio netto sarebbe un
+  /// ritaglio di carta"*.
+  Widget _ilCerchioDellaLente(Size scena, Offset lente, double raggio) =>
+      ClipPath(
+        key: const Key('viaggio_cerchio_della_lente'),
+        clipper: _IlCerchioDellaLente(centro: lente, raggio: raggio),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(widget.immagine,
+                key: const Key('viaggio_animale_scoperto'),
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment(
+                    scena.width == 0 ? 0 : (lente.dx / scena.width) * 2 - 1,
+                    scena.height == 0 ? 0 : (lente.dy / scena.height) * 2 - 1,
+                  ),
+                  radius: scena.shortestSide == 0
+                      ? 1
+                      : raggio / (scena.shortestSide / 2),
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    _coltre(),
+                  ],
+                  // **PIU' IL DITO SPINGE, PIU' IL BUCO SI CHIUDE**: e' il
+                  // velo che si fa fitto invece di lasciarla uscire.
+                  stops: [0.0, 0.70 - 0.30 * _spinge, 1.0],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  /// **IL COLORE DELLA COLTRE, in un posto solo.**
+  ///
+  /// Lo usano in due: la coltre che copre tutta la scena e la corona del
+  /// cerchio della lente, che deve arrivare **esattamente allo stesso colore**
+  /// sul raggio. Due numeri scritti in due posti diversi si sarebbero separati
+  /// alla prima taratura, e il bordo del ritaglio sarebbe diventato visibile.
+  Color _coltre() => const Color(0xFF06040C).withValues(
+      alpha: (LenteCheScopre.buioAlla(widget.discesa) + 0.12 * _spinge)
+          .clamp(0.0, 1.0));
+
+  Widget _ilVelo(Size scena) {
+    // **LA SFOCATURA E' PROPORZIONALE ALLA SCENA, mai in pixel fissi.** E' la
+    // lezione dell'ordine DC: sei pixel di sfocatura sono un velo su una
+    // scena larga trecentonovanta e cancellano tutto dentro un tondo da
+    // cinquantadue.
+    // **LA SFOCATURA CAMBIA CON LA DISCESA**, ordine DG del 12 settembre
+    // 2026: fitta alla prima, allentata alla terza. Vedi `sfocaturaAlla`.
+    final sigma = scena.shortestSide *
+        LenteCheScopre.sfocaturaAlla(widget.discesa) *
+        (1 + 0.6 * _spinge);
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ColoredBox(
+          key: const Key('viaggio_velo_dell_animale'),
+          color: _coltre(),
+        ),
+        // **FRA LA SFOCATURA E L'IMMAGINE NON C'E' NIENTE.** Collaudo a video
+        // della 2249, 12 settembre 2026, e il difetto era stato visto anche
+        // sulla 2247 e sulla 2248: la volpe intera e nitida, testa compresa.
+        //
+        // **Qui c'era `ImageFiltered` > `Opacity` > `Image`**, e sul 767f596c
+        // quella forma non sfoca: il fantasma arrivava a schermo nitido. Lo
+        // prova un confronto sullo stesso telefono e con la stessa build,
+        // perche' l'ombra dell'incontro e' `ImageFiltered` > `Image` e a video
+        // e' sfocata. Al banco invece sfocano tutte e due, ed e' per questo
+        // che la guardia dei pixel restava verde.
+        //
+        // **L'opacita' adesso la porta l'immagine**, col suo parametro
+        // `opacity`: e' l'alfa del pennello che la disegna, non un livello da
+        // comporre, e il velo ha cosi' la stessa forma dell'ombra che a video
+        // funziona.
+        ImageFiltered(
+          key: const Key('viaggio_velo_sfocato'),
+          imageFilter: ui.ImageFilter.blur(
+              sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal),
+          child: Image.asset(
+            widget.immagine,
+            fit: BoxFit.contain,
+            // **IL FANTASMA SI ALZA CON LE DISCESE.** Trentotto centesimi alla
+            // prima, cinquantacinque alla terza: piu' su si legge il manto,
+            // piu' giu' sparisce la sagoma, e alla prima apparizione deve
+            // intuirsi appena.
+            opacity: AlwaysStoppedAnimation<double>(
+                LenteCheScopre.fantasmaAlla(widget.discesa)),
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// **LA MISURA VERA DELL'IMMAGINE, chiesta al suo file.**
+///
+/// Serve perche' i dodici **non hanno la stessa forma**: il gufo e' 537x865,
+/// la volpe 894x575. Senza la misura vera non si sa dove `BoxFit.contain`
+/// mette l'immagine dentro la scena, e le frazioni del rettangolo della testa
+/// cadrebbero nel posto sbagliato.
+///
+/// **Finche' la misura non arriva si costruisce lo stesso**, con la forma
+/// della scena: un attimo di lente in un punto approssimato e' meglio di una
+/// schermata vuota, ed e' la legge della voce DC.16.
+class _ConLaMisuraVera extends StatefulWidget {
+  const _ConLaMisuraVera({required this.percorso, required this.costruisci});
+
+  final String percorso;
+  final Widget Function(Size) costruisci;
+
+  @override
+  State<_ConLaMisuraVera> createState() => _ConLaMisuraVeraState();
+}
+
+class _ConLaMisuraVeraState extends State<_ConLaMisuraVera> {
+  Size? _misura;
+  ImageStream? _flusso;
+  ImageStreamListener? _ascolto;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _chiedi();
+  }
+
+  @override
+  void didUpdateWidget(_ConLaMisuraVera vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (vecchio.percorso != widget.percorso) {
+      _misura = null;
+      _chiedi();
+    }
+  }
+
+  void _chiedi() {
+    _stacca();
+    final flusso =
+        AssetImage(widget.percorso).resolve(createLocalImageConfiguration(context));
+    final ascolto = ImageStreamListener((info, _) {
+      final m = Size(info.image.width.toDouble(), info.image.height.toDouble());
+      if (mounted && _misura != m) setState(() => _misura = m);
+    }, onError: (_, __) {
+      // **UN ASSET CHE NON ARRIVA NON FERMA LA DISCESA.** Ordine DC voce 16.
+    });
+    flusso.addListener(ascolto);
+    _flusso = flusso;
+    _ascolto = ascolto;
+  }
+
+  void _stacca() {
+    final f = _flusso;
+    final a = _ascolto;
+    if (f != null && a != null) f.removeListener(a);
+    _flusso = null;
+    _ascolto = null;
+  }
+
+  @override
+  void dispose() {
+    _stacca();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      widget.costruisci(_misura ?? const Size(900, 760));
+}
+
+/// **L'OMBRA VERA DI UN ANIMALE VERO.** Ordine DE voce 03.
+///
+/// **Serve all'incontro, dove le ombre sono tre e se ne segue una.** Fino a
+/// ieri quelle tre ombre le disegnava una formula, e la formula disegnava
+/// **sempre un quadrupede**: chi seguiva l'ombra di un'aquila stava seguendo
+/// il disegno di un lupo. Adesso l'ombra e' **la sagoma vera di quella
+/// illustrazione**, presa dal suo canale alpha.
+///
+/// **E NON DICE IL NOME, che e' il vincolo della voce DC.02.** La sagoma e'
+/// quasi nera e molto sfocata: si legge la massa, la postura e poco altro.
+/// Che una delle tre abbia le ali e' un'informazione vera e non e' un nome,
+/// ed e' esattamente il genere di cosa che un'ombra deve poter dire.
+class OmbraDellAnimale extends StatelessWidget {
+  const OmbraDellAnimale({
+    super.key,
+    required this.immagine,
+    required this.quantaLuce,
+    this.giaSagoma = false,
+  });
+
+  final String immagine;
+
+  /// **SE [immagine] E' GIA' UNA SAGOMA, e non l'illustrazione a colori.**
+  /// Ordine DG: i dodici file `ani_ombra_*` sono gia' neri col filo di luce,
+  /// e passarli sotto il filtro che butta il colore spegnerebbe proprio quel
+  /// filo. L'illustrazione a colori resta la via di ripiego.
+  final bool giaSagoma;
+
+  /// Da 0 a 1: quanta luce le arriva addosso. La muove la scena.
+  final double quantaLuce;
+
+  /// **QUANTO SFOCA L'OMBRA**, in frazione del lato corto della scena.
+  ///
+  /// Il doppio della sfocatura del velo della lente: qui non c'e' nessuna
+  /// lente che apra un buco, e l'unica difesa contro il nome e' la sfocatura.
+  static const double quantoSfoca = 0.030;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (context, vincoli) {
+          final lato = vincoli.biggest.shortestSide.isFinite
+              ? vincoli.biggest.shortestSide
+              : 320.0;
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              // **LA LUCE DIETRO, che e' cio' che rende un controluce un
+              // controluce.** Senza, la sagoma scura finisce su un fondo
+              // scuro e l'incontro e' uno schermo vuoto: difetto visto sul
+              // telefono 767f596c il 10 settembre 2026, e costato due giri.
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: const Alignment(0, -0.08),
+                    radius: 0.45 + 0.35 * quantaLuce,
+                    colors: [
+                      const Color(0xFFF0DDB0)
+                          .withValues(alpha: 0.34 + 0.34 * quantaLuce),
+                      const Color(0xFFB08A4E).withValues(alpha: 0.10),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.55, 1.0],
+                  ),
+                ),
+              ),
+              ImageFiltered(
+                imageFilter: ui.ImageFilter.blur(
+                  sigmaX: lato * quantoSfoca,
+                  sigmaY: lato * quantoSfoca,
+                  tileMode: TileMode.decal,
+                ),
+                child: giaSagoma
+                    // **LA SAGOMA DELL'ARCHITETTO SI MOSTRA COM'E'.** Ordine
+                    // DG: ha gia' il nero e il filo di luce oro sul bordo, e
+                    // il filtro qui sotto glielo toglierebbe.
+                    ? Image.asset(immagine,
+                        key: const Key('viaggio_ombra_vera'),
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const SizedBox.shrink())
+                    : ColorFiltered(
+                        // **`srcIn` TIENE LA FORMA E BUTTA IL COLORE**: quello
+                        // che resta e' esattamente il canale alpha
+                        // dell'illustrazione, cioe' la sua sagoma vera. E'
+                        // la via di ripiego da quando i dodici file
+                        // `ani_ombra_*` esistono.
+                        colorFilter: ColorFilter.mode(
+                            const Color(0xFF07040D)
+                                .withValues(alpha: 0.94 - 0.10 * quantaLuce),
+                            BlendMode.srcIn),
+                        child: Image.asset(immagine,
+                            key: const Key('viaggio_ombra_vera'),
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) =>
+                                const SizedBox.shrink()),
+                      ),
+              ),
+            ],
+          );
+        },
+      );
+}
+
+
+/// **IL RITAGLIO CIRCOLARE DELLA LENTE.**
+///
+/// Un `ClipPath` e non una maschera di fusione: vedi la nota lunga dentro
+/// `LenteCheScopre`. Il bordo netto di questo cerchio non si vede perche' il
+/// gradiente che gli sta dentro arriva alla coltre piena proprio sul raggio.
+class _IlCerchioDellaLente extends CustomClipper<Path> {
+  const _IlCerchioDellaLente({required this.centro, required this.raggio});
+
+  final Offset centro;
+  final double raggio;
+
+  @override
+  Path getClip(Size size) =>
+      Path()..addOval(Rect.fromCircle(center: centro, radius: raggio));
+
+  @override
+  bool shouldReclip(_IlCerchioDellaLente vecchio) =>
+      vecchio.centro != centro || vecchio.raggio != raggio;
+}
+
+
+/// **IL RITAGLIO DI CIO' CHE RESTA DA SCOPRIRE.** Ordine DG,
+/// 12 settembre 2026.
+///
+/// Taglia il velo **dall'alto della scena fino alla quota** oltre la quale
+/// l'animale e' gia' stato scoperto nelle discese precedenti. La quota la dice
+/// `DoveStaLaTesta.finDoveArrivaIlVelo`, ed e' espressa in frazioni
+/// **dell'immagine**, non della scena: e' la stessa distinzione che i
+/// rettangoli delle teste hanno gia' pagato due volte, perche' con
+/// `BoxFit.contain` l'immagine non riempie la finestra.
+class _CioCheRestaDaScoprire extends CustomClipper<Rect> {
+  const _CioCheRestaDaScoprire({required this.immagine, required this.quota});
+
+  final Rect immagine;
+  final double quota;
+
+  @override
+  Rect getClip(Size size) =>
+      Rect.fromLTRB(0, 0, size.width, immagine.top + immagine.height * quota);
+
+  @override
+  bool shouldReclip(_CioCheRestaDaScoprire vecchio) =>
+      vecchio.quota != quota || vecchio.immagine != immagine;
+}

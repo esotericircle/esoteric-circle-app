@@ -1,0 +1,397 @@
+# LA PRIMA BUILD IOS DI ESOTERIC CIRCLE, su Mac in cloud.
+#
+# **Perche' questo file esiste.** Il progetto si sviluppa su Windows, dove iOS
+# non si puo' compilare: manca Xcode, e nessuna prova locale puo' dire se un
+# progetto iOS sta in piedi. Qui si dichiara alla macchina Mac cosa fare, e la
+# prima compilazione vera avviene li'.
+#
+# **Nessuna credenziale dentro questo file.** La chiave di App Store Connect, il
+# suo identificativo e quello dell'emittente stanno nell'integrazione del
+# Developer Portal gia' configurata su Codemagic: qui si nomina soltanto. Lo
+# stesso vale per la configurazione Firebase, che arriva da una variabile
+# cifrata e non dal repository, perche' il repository e' PUBBLICO.
+#
+# I passi per lanciarla stanno in docs/ios/PRIMA_BUILD_IOS.md.
+
+workflows:
+  ios-testflight:
+    # UN SOLO WORKFLOW, ed e' una scelta di risparmio. Il piano gratuito da'
+    # cinquecento minuti al mese sul Mac mini M2, e una build iOS di un
+    # progetto con questi asset ne consuma parecchi: due workflow paralleli
+    # finirebbero i minuti prima di avere una app installabile.
+    name: iOS, archivio e caricamento su TestFlight
+    instance_type: mac_mini_m2
+    # Sessanta minuti: se una build si pianta, meglio che muoia da sola invece
+    # di bruciare tutto il credito del mese in una volta.
+    max_build_duration: 60
+
+    # L'INTEGRAZIONE STA QUI, e non dentro `environment`.
+    #
+    # **E' l'errore che il validatore di Codemagic ha preso.** L'avevo messa
+    # sotto `environment`, dove non e' ammessa: lo schema dichiara
+    # `additionalProperties: false` su quella sezione, e la risposta era "extra
+    # fields not permitted". `integrations` e' una chiave del WORKFLOW, sorella
+    # di `environment` e di `publishing`.
+    #
+    # `esoteric_asc` e' il nome che la chiave di App Store Connect ha su
+    # Codemagic: da li' arrivano la chiave .p8, il suo identificativo e quello
+    # dell'emittente. Il file .p8 non entra nel repository in nessun caso.
+    #
+    # E' anche cio' che rende leggibile `auth: integration` piu' sotto: quella
+    # riga pretende che il workflow dichiari `integrations -> app_store_connect`,
+    # ed era il secondo errore, che diceva la stessa cosa dall'altro lato.
+    #
+    # E' infine cio' che fa funzionare `app-store-connect fetch-signing-files`
+    # negli script: Codemagic esporta da qui le tre variabili che quel comando
+    # cerca, cioe' l'identificativo della chiave, quello dell'emittente e la
+    # chiave stessa. Per questo non compaiono da nessuna parte in questo file.
+    integrations:
+      app_store_connect: esoteric_asc
+
+    environment:
+      # IL GRUPPO DELLE VARIABILI, e questa riga e' quella da togliere se il
+      # campo del gruppo non compare su Codemagic.
+      #
+      # Su Codemagic una variabile puo' stare in un gruppo oppure non stare in
+      # nessuno, e la differenza cambia questo file:
+      #
+      # - variabile MESSA nel gruppo `firebase`: serve questa riga, altrimenti
+      #   il gruppo non viene importato e `$GOOGLE_SERVICE_INFO_PLIST` arriva
+      #   vuota, cioe' la build si ferma al primo passo;
+      # - variabile SENZA gruppo: questa riga va TOLTA, perche' Codemagic
+      #   cercherebbe un gruppo che non esiste. Senza di lei la variabile
+      #   arriva lo stesso.
+      #
+      # Il campo per assegnare un gruppo compare solo dopo il passaggio alla
+      # configurazione YAML: se dopo il passaggio ancora non si vede, si lascia
+      # la variabile senza gruppo e si cancellano le due righe qui sotto.
+      groups:
+        - firebase
+        # LA CHIAVE PRIVATA DEL CERTIFICATO, e sta in un gruppo suo perche' non
+        # ha niente a che vedere con Firebase. Dentro ci va una variabile sola,
+        # CERTIFICATE_PRIVATE_KEY, cifrata: e' cio' che tiene fermo il
+        # certificato di distribuzione fra una build e l'altra.
+        # Vedi docs/ios/PRIMA_BUILD_IOS.md, passo 3bis.
+        - code-signing
+
+      vars:
+        # **IL FUSO DELLA MACCHINA CHE COSTRUISCE. Ordine BZ voce 02.**
+        #
+        # Il Mac di Codemagic gira a UTC, il PC del fondatore sta a Roma. In
+        # agosto sono due ore, e due ore sono due ore di CIELO: la prova del
+        # cielo di Milano chiedeva 29,4 gradi e ne trovava 35,14, cioe' la
+        # stessa suite dava verde su una macchina e rosso sull'altra. Le prove
+        # di quel gruppo adesso scrivono istanti assoluti e non dipendono piu'
+        # dall'orologio della macchina; questa riga e' la seconda meta' della
+        # cura, e vale per tutto cio' che verra' scritto domani: le due
+        # macchine girano nella stessa ora.
+        TZ: "Europe/Rome"
+        # L'identificativo del pacchetto, lo stesso che sta su App Store
+        # Connect e nel progetto Xcode. Se questi due divergono, la firma
+        # riesce e il caricamento viene rifiutato.
+        BUNDLE_ID: "com.esotericircle.esotericCircle"
+        # L'app su App Store Connect. **Oggi nessuno script la legge**, e va
+        # detto invece di lasciarla sembrare necessaria: nell'esempio ufficiale
+        # serve a chiedere ad Apple l'ultimo numero di build caricato, cosa che
+        # qui non si fa perche' il contatore e' condiviso con Android e si alza
+        # in `pubspec.yaml`. Resta dichiarata perche' e' il dato che identifica
+        # l'app, verificato su App Store Connect, e senza di lei chi riprende
+        # dovrebbe ritrovarselo.
+        APP_STORE_APPLE_ID: 6798775360
+
+      # LA VERSIONE E' FISSA, ordine AH: il numero sovrano vive in
+      # docs/versione_flutter.json e una prova pretende che coincidano. La
+      # sintassi col numero esatto e' quella documentata di Codemagic per il
+      # campo flutter.
+      flutter: 3.44.5
+      # Xcode e CocoaPods restano quelli di serie della macchina: fissarne una
+      # versione qui vorrebbe dire tenerla allineata a mano per sempre, e alla
+      # prima build non si sa ancora quale serva.
+
+      # QUI NON C'E' PIU' `ios_signing`, ED E' LA CORREZIONE DELLA PRIMA BUILD.
+      #
+      # La prima build e' morta prima di compilare, alla firma:
+      #   No matching profiles found for bundle identifier
+      #   "com.esotericircle.esotericCircle" and distribution type "app_store"
+      #
+      # Il file era formalmente giusto e sbagliato nel merito. La
+      # documentazione di Codemagic, pagina "Signing iOS apps", dice cosa fa
+      # davvero quella sezione: "To fetch all uploaded signing files matching a
+      # specific distribution type and bundle identifier". SCARICA i file gia'
+      # caricati, non li crea. Nel Developer Portal di Apple non c'era niente,
+      # ne' certificato ne' profilo, quindi non c'era niente da scaricare.
+      #
+      # La creazione va chiesta, e si chiede con gli script piu' sotto.
+
+    # **LA CACHE, E PERCHE' ESISTE. Ordine BZ voce 02, rettifica del 28
+    # agosto 2026.**
+    #
+    # Fatto del fondatore su tre costruzioni osservate: 49 secondi, 51
+    # secondi, poi un blocco di un'ora e venti, poi un altro passaggio a otto
+    # minuti e ancora in corso. Il registro dice cosa fa quel passo: scarica
+    # OGNI VOLTA da zero l'archivio di Flutter 3.44.5, cioe' 2.211.439.713
+    # byte, e lo scompatta in 18.256 file, con un tetto interno di 300
+    # secondi sul comando che scarica. Una costruzione che dipende dal
+    # riuscire a scaricare due giga a ogni giro non e' una costruzione, e' una
+    # scommessa.
+    #
+    # **La cura non tocca la versione**, che resta quella sovrana di
+    # `docs/versione_flutter.json`: si tiene l'SDK gia' scaricato fra una
+    # costruzione e l'altra. `$FLUTTER_ROOT` e' la cartella dove Codemagic
+    # installa la versione chiesta; le altre due righe sono i pacchetti Dart e
+    # i pod di CocoaPods, che si riscaricano per le stesse ragioni.
+    #
+    # **Cosa deve guardare il fondatore per accertarlo**, perche' senza la
+    # macchina che costruisce io non posso misurarlo: nel registro della
+    # PROSSIMA costruzione, il passo che installa gli strumenti deve dire che
+    # la cache e' stata ripristinata e non deve piu' nominare i due giga
+    # dell'archivio. Dalla seconda costruzione in poi quel passo dura secondi.
+    # Alla PRIMA costruzione dopo questa riga la cache e' ancora vuota, quindi
+    # scarichera' come prima: e' la volta che la riempie.
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT
+        - $HOME/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
+
+    scripts:
+      - name: Che strumenti ha questa macchina, prima di ogni altra cosa
+        script: |
+          # **QUESTO PASSO NON COSTRUISCE NIENTE: MISURA. Ordine BZ voce 02,
+          # aggiornamento delle 23:12 del 28 agosto 2026.**
+          #
+          # Fatto del fondatore su CINQUE costruzioni: 51 secondi, 49 secondi,
+          # un'ora e venti, otto minuti, e infine un fallimento dopo tredici
+          # minuti e trentacinque secondi. Quattro su cinque fuori dai tempi
+          # normali, e il passo che si pianta e' sempre quello che installa gli
+          # strumenti: scarica l'archivio di Flutter 3.44.5, 2.211.439.713
+          # byte, e lo scompatta in 18.256 file.
+          #
+          # **Il sospetto dell'Architetto e' che 3.44.5 non sia fra le versioni
+          # gia' presenti su queste macchine.** Io da qui non posso ne'
+          # confermarlo ne' abbatterlo: la macchina non ce l'ho. Queste righe
+          # lo mettono nero su bianco nel registro della prossima costruzione,
+          # ed e' il dato che serve a decidere.
+          #
+          # **Non tocco il numero fisso.** Vive in quattro file per l'ordine BF
+          # voce 05.i, con la sua guardia: cambiarlo vuol dire cambiarlo
+          # ovunque e farlo installare anche al portatile del fondatore, ed e'
+          # una sua decisione, non mia.
+          echo "== VERSIONE CHIESTA: $(grep -E '^      flutter:' codemagic.yaml || true)"
+          echo "== VERSIONE ATTIVA:"
+          flutter --version || true
+          echo "== VERSIONI GIA' SULLA MACCHINA:"
+          ls -1 "$HOME/programs" 2>/dev/null || true
+          ls -1 "$HOME/programs/flutter" 2>/dev/null | head -20 || true
+          echo "== CACHE RIPRISTINATA?"
+          du -sh "$FLUTTER_ROOT" 2>/dev/null || echo "FLUTTER_ROOT non misurabile"
+
+      - name: La configurazione di Firebase, scritta dalla variabile cifrata
+        script: |
+          # **IL PLIST NON STA NEL REPOSITORY, ED E' UNA DECISIONE.** Porta le
+          # chiavi e gli identificativi del progetto Firebase, e il repository
+          # e' pubblico: si inietta in build, esattamente come
+          # .github/workflows/android-build.yml fa col google-services.json.
+          #
+          # La variabile si chiama GOOGLE_SERVICE_INFO_PLIST e si configura a
+          # mano su Codemagic, cifrata. Se manca, si esce SUBITO con un errore
+          # chiaro: senza plist l'app si costruisce, parte e crolla appena
+          # tocca Firebase, e quel guasto si vedrebbe solo sul telefono di un
+          # tester.
+          if [ -z "$GOOGLE_SERVICE_INFO_PLIST" ]; then
+            echo "Manca la variabile GOOGLE_SERVICE_INFO_PLIST." >&2
+            echo "Vedi docs/ios/PRIMA_BUILD_IOS.md, passo 3." >&2
+            exit 1
+          fi
+          # Tollerante come il gemello di Android: accetta sia il base64 sia il
+          # contenuto incollato cosi' com'e'. Chi incolla non deve indovinare.
+          if echo "$GOOGLE_SERVICE_INFO_PLIST" | base64 --decode > ios/Runner/GoogleService-Info.plist 2>/dev/null \
+             && head -c5 ios/Runner/GoogleService-Info.plist | grep -q '<'; then
+            echo "GoogleService-Info.plist scritto da base64."
+          else
+            printf '%s' "$GOOGLE_SERVICE_INFO_PLIST" > ios/Runner/GoogleService-Info.plist
+            echo "GoogleService-Info.plist scritto da XML grezzo."
+          fi
+          # Si controlla che sia un plist vero prima di andare avanti: un file
+          # scritto male passerebbe inosservato fino al crollo sul telefono.
+          if ! grep -q "GOOGLE_APP_ID" ios/Runner/GoogleService-Info.plist; then
+            echo "Il plist scritto non contiene GOOGLE_APP_ID: la variabile e' incompleta." >&2
+            exit 1
+          fi
+
+      - name: Dipendenze Flutter
+        script: flutter pub get
+
+      - name: I pod
+        script: |
+          # **IL PODFILE E' VERSIONATO IN ios/, dalla terza build in poi.**
+          # Prima non c'era e lo generava Flutter in macchina: cosi' CocoaPods
+          # assegnava la piattaforma da solo e la terza build e' caduta,
+          # perche' ML Kit pretende iOS 15.5 e il numero non viveva in nessun
+          # posto leggibile. Adesso `platform :ios` sta scritto nel Podfile.
+          # Il ramo qui sotto resta come rete: se il Podfile sparisse, lo
+          # rigenera Flutter invece di far morire la build.
+          if [ ! -f ios/Podfile ]; then
+            echo "Podfile assente: lo rigenera Flutter. Non dovrebbe accadere, e' versionato."
+            flutter build ios --config-only --no-codesign
+          fi
+          find . -name "Podfile" -execdir pod install \;
+
+      # I QUATTRO PASSI DELLA FIRMA, e vanno in quest'ordine.
+      #
+      # Sono presi dalla documentazione di Codemagic, pagina "Alternative code
+      # signing methods", sezione della firma automatica, che li mostra proprio
+      # cosi': `keychain initialize`, `fetch-signing-files`,
+      # `keychain add-certificates`, `xcode-project use-profiles`.
+      #
+      # Stanno DOPO i pod, e non prima, perche' lo script dei pod puo' lanciare
+      # `flutter build ios --config-only` per generare il Podfile mancante, e
+      # quella riscrittura del progetto Xcode cancellerebbe le impostazioni di
+      # firma appena scritte.
+      #
+      # Le tre credenziali di App Store Connect non compaiono qui: le esporta
+      # Codemagic dall'integrazione `esoteric_asc` dichiarata sopra.
+
+      - name: Il portachiavi della macchina
+        script: keychain initialize
+
+      - name: Certificato e profilo, creati se non esistono
+        script: |
+          # **`--create` E' LA RIGA CHE MANCAVA.** Nel manuale del comando:
+          # "Whether to create the resource if it does not exist yet". Senza,
+          # il comando cerca soltanto, e in un portale vuoto non trova niente.
+          #
+          # NON CREA UN CERTIFICATO NUOVO A OGNI BUILD, e conta, perche' Apple
+          # ne concede tre soli di distribuzione. Il legame e' la chiave
+          # privata: il comando elenca i certificati di Apple e tiene solo
+          # quelli firmati con la chiave che gli diamo, e ne crea uno nuovo
+          # solo se quella lista resta vuota. Finche' CERTIFICATE_PRIVATE_KEY
+          # non cambia, la prima build ne crea uno e tutte le altre riusano
+          # quello.
+          #
+          # Se la chiave manca, il comando si ferma subito con
+          # "Cannot save Signing Certificates without certificate private key":
+          # non se la inventa, quindi non puo' consumare certificati per
+          # sbaglio.
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+
+      - name: Il certificato, messo nel portachiavi
+        script: keychain add-certificates
+
+      - name: I profili, applicati al progetto Xcode
+        script: |
+          # I profili scaricati stanno su disco: e' questo comando a scriverli
+          # dentro il progetto Xcode. Senza, la firma non arriva dove serve.
+          xcode-project use-profiles
+
+      - name: Le prove, prima di costruire, E SONO UNO SBARRAMENTO
+        script: |
+          # ORDINE P VOCE 03. Qui c'era `ignore_failure: true`, cioe' il
+          # permesso scritto di spedire su rosso: e' cosi' che la 2171 e'
+          # uscita con due test rossi. Adesso il comando ESCE CON ERRORE e
+          # l'archivio non si produce. L'unico scavalco cieco e' la variabile
+          # SPEDISCO_SU_ROSSO, che stampa il proprio nome nel registro: una
+          # spedizione su rosso resta possibile, in silenzio no.
+          #
+          # **E ORDINE BZ VOCE 02, che distingue due rossi.** La build 2167 e'
+          # arrivata sugli iPhone dei fondatori l'8 agosto 2026, quando questo
+          # passo era ancora `ignore_failure: true`; lo sbarramento e' entrato
+          # il 12 agosto, e da quando in suite vive un rosso DICHIARATO e
+          # accettato nessuna build puo' piu' uscire. Adesso lo sbarramento
+          # legge tool/rossi_accettati.txt: se la suite cade solo su prove
+          # elencate li', con nome e ragione, l'archivio si produce e il
+          # registro della build le stampa tutte; se cade su una prova NUOVA,
+          # anche una sola, l'archivio non si produce.
+          bash tool/sbarramento.sh
+
+      - name: L'archivio
+        script: |
+          # Il numero di build lo prende dal pubspec: e' lo stesso contatore di
+          # Android, e su TestFlight deve crescere a ogni caricamento.
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+
+      - name: I simboli dSYM su Crashlytics
+        script: |
+          # **SENZA SIMBOLI I RAPPORTI IOS ARRIVANO ILLEGGIBILI**: indirizzi
+          # esadecimali al posto dei nomi delle funzioni. Crashlytics e' entrato
+          # il 7 agosto 2026 proprio perche' la 2157 moriva muta: un rapporto
+          # senza simboli sarebbe un secondo modo di restare muti.
+          #
+          # **IL CARICATORE SI CERCA, NON SI DICHIARA.** La 2158 e' morta qui
+          # con status 127: il passo cercava upload-symbols dentro
+          # ios/Pods/FirebaseCrashlytics, ma in questo progetto Firebase NON
+          # passa da CocoaPods, viaggia con Swift Package Manager, e da
+          # CocoaPods passano solo i tre plugin che SPM non supporta. Quella
+          # cartella non esiste e non esistera' mai: era una costante che
+          # dichiarava il falso. Adesso il binario si TROVA nel checkout SPM
+          # di firebase-ios-sdk, dovunque la macchina lo abbia messo:
+          # zero trovati o piu' d'uno fermano il passo dicendo cosa hanno
+          # visto, perche' scegliere a caso sarebbe un'altra dichiarazione
+          # non misurata. NIENTE RIPIEGHI MUTI, ne' qui ne' sul caricamento.
+          dsym=$(find build/ios/archive/Runner.xcarchive/dSYMs -name "*.dSYM" -print -quit)
+          if [ -z "$dsym" ]; then
+            echo "Nessun dSYM nell'archivio: senza simboli i rapporti sono ciechi." >&2
+            exit 1
+          fi
+          radici="$HOME/Library/Developer/Xcode/DerivedData $CM_BUILD_DIR"
+          caricatori=$(find $radici -type f -name "upload-symbols" -path "*firebase-ios-sdk*" 2>/dev/null)
+          quanti=$(printf '%s' "$caricatori" | grep -c . || true)
+          if [ "$quanti" -eq 0 ]; then
+            echo "upload-symbols NON TROVATO nel checkout SPM di firebase-ios-sdk." >&2
+            echo "Radici cercate: $radici" >&2
+            for r in $radici; do
+              echo "--- contenuto di $r:" >&2
+              ls "$r" >&2 || echo "(radice assente)" >&2
+            done
+            exit 1
+          fi
+          if [ "$quanti" -gt 1 ]; then
+            echo "upload-symbols trovato $quanti volte: sceglierne uno a caso" >&2
+            echo "sarebbe una dichiarazione non misurata. Trovati:" >&2
+            printf '%s\n' "$caricatori" >&2
+            exit 1
+          fi
+          echo "Caricatore trovato: $caricatori"
+          chmod +x "$caricatori"
+          echo "Carico i simboli da build/ios/archive/Runner.xcarchive/dSYMs"
+          "$caricatori" \
+            -gsp ios/Runner/GoogleService-Info.plist \
+            -p ios build/ios/archive/Runner.xcarchive/dSYMs
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      # Il lock dei pod, per versionarlo: nasce dal pod install, che gira solo
+      # su macOS. Si scarica da qui e si committa, con la stessa ragione di
+      # pubspec.lock, che nel .gitignore ha gia' la sua eccezione scritta.
+      - ios/Podfile.lock
+      # I registri di Xcode: alla prima build di un progetto mai compilato sono
+      # la cosa che serve di piu', perche' l'errore vero sta li' dentro e non
+      # nel riassunto a video.
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+
+    publishing:
+      app_store_connect:
+        # LA CHIAVE ARRIVA DALL'INTEGRAZIONE, non da qui: questa riga dice solo
+        # di usarla.
+        auth: integration
+        # Il caricamento su App Store Connect avviene sempre; la revisione di
+        # Apple no, perche' qui si vuole solo provare l'app.
+        submit_to_testflight: true
+        # I TESTER INTERNI, che non aspettano la revisione di Apple: possono
+        # installare appena il caricamento e' processato. Il gruppo va creato
+        # su App Store Connect prima della prima build, e il nome deve
+        # coincidere: vedi docs/ios/PRIMA_BUILD_IOS.md, passo 2.
+        beta_groups:
+          - Interni
+        submit_to_app_store: false
+
+      email:
+        recipients:
+          - cloud@esotericircle.app
+        notify:
+          success: true
+          failure: true

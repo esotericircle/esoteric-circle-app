@@ -1,0 +1,553 @@
+{
+  "subject": {
+    "name": "User",
+    "datetime": "1972-03-07T18:15:00+00:00",
+    "location": {
+      "city": null,
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "timezone": "UTC"
+    },
+    "settings": {
+      "house_system": "placidus",
+      "julian_day": 2441384.2604166665,
+      "julian_day_tt": 2441384.26090781,
+      "delta_t_days": 0.0004911435458698435,
+      "delta_t_seconds": 42.434802363154475,
+      "zodiac_type": "Tropical",
+      "time_known": true
+    }
+  },
+  "planets": [
+    {
+      "id": "sun",
+      "name": "Sun",
+      "sign": "Pis",
+      "sign_id": "pisces",
+      "pos": 17.284,
+      "abs_pos": 347.284,
+      "retrograde": false,
+      "house": 1,
+      "declination_deg": -5.0242
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "sign": "Sag",
+      "sign_id": "sagittarius",
+      "pos": 11.327,
+      "abs_pos": 251.327,
+      "retrograde": false,
+      "house": 10,
+      "declination_deg": -26.224713
+    },
+    {
+      "id": "mercury",
+      "name": "Mercury",
+      "sign": "Ari",
+      "sign_id": "aries",
+      "pos": 3.422,
+      "abs_pos": 3.422,
+      "retrograde": false,
+      "house": 2,
+      "declination_deg": 1.955184
+    },
+    {
+      "id": "venus",
+      "name": "Venus",
+      "sign": "Tau",
+      "sign_id": "taurus",
+      "pos": 0.7,
+      "abs_pos": 30.7,
+      "retrograde": false,
+      "house": 3,
+      "declination_deg": 12.774992
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "sign": "Tau",
+      "sign_id": "taurus",
+      "pos": 17.262,
+      "abs_pos": 47.262,
+      "retrograde": false,
+      "house": 3,
+      "declination_deg": 17.797956
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "sign": "Cap",
+      "sign_id": "capricorn",
+      "pos": 4.89,
+      "abs_pos": 274.89,
+      "retrograde": false,
+      "house": 11,
+      "declination_deg": -23.016511
+    },
+    {
+      "id": "saturn",
+      "name": "Saturn",
+      "sign": "Gem",
+      "sign_id": "gemini",
+      "pos": 0.79,
+      "abs_pos": 60.79,
+      "retrograde": false,
+      "house": 4,
+      "declination_deg": 18.593573
+    },
+    {
+      "id": "uranus",
+      "name": "Uranus",
+      "sign": "Lib",
+      "sign_id": "libra",
+      "pos": 17.474,
+      "abs_pos": 197.474,
+      "retrograde": true,
+      "house": 8,
+      "declination_deg": -6.225838
+    },
+    {
+      "id": "neptune",
+      "name": "Neptune",
+      "sign": "Sag",
+      "sign_id": "sagittarius",
+      "pos": 5.256,
+      "abs_pos": 245.256,
+      "retrograde": true,
+      "house": 10,
+      "declination_deg": -19.552219
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "sign": "Lib",
+      "sign_id": "libra",
+      "pos": 1.075,
+      "abs_pos": 181.075,
+      "retrograde": true,
+      "house": 8,
+      "declination_deg": 14.89516
+    },
+    {
+      "id": "north_node",
+      "name": "North Node",
+      "sign": "Aqu",
+      "sign_id": "aquarius",
+      "pos": 3.098,
+      "abs_pos": 303.098,
+      "retrograde": true,
+      "house": 12,
+      "variant": "mean",
+      "declination_deg": -19.469255
+    },
+    {
+      "id": "lilith",
+      "name": "Lilith",
+      "sign": "Sco",
+      "sign_id": "scorpio",
+      "pos": 1.408,
+      "abs_pos": 211.408,
+      "retrograde": false,
+      "house": 9,
+      "declination_deg": -16.782732
+    },
+    {
+      "id": "chiron",
+      "name": "Chiron",
+      "sign": "Ari",
+      "sign_id": "aries",
+      "pos": 11.776,
+      "abs_pos": 11.776,
+      "retrograde": false,
+      "house": 2,
+      "declination_deg": 6.342056
+    }
+  ],
+  "aspects": [
+    {
+      "p1": "moon",
+      "p2": "sun",
+      "type": "square",
+      "orb": 5.96,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mars",
+      "p2": "sun",
+      "type": "sextile",
+      "orb": 0.02,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mercury",
+      "p2": "moon",
+      "type": "trine",
+      "orb": 7.91,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "moon",
+      "p2": "neptune",
+      "type": "conjunction",
+      "orb": 6.07,
+      "deg": 0,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "chiron",
+      "p2": "moon",
+      "type": "trine",
+      "orb": 0.45,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "jupiter",
+      "p2": "mercury",
+      "type": "square",
+      "orb": 1.47,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mercury",
+      "p2": "saturn",
+      "type": "sextile",
+      "orb": 2.63,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mercury",
+      "p2": "neptune",
+      "type": "trine",
+      "orb": 1.83,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mercury",
+      "p2": "pluto",
+      "type": "opposition",
+      "orb": 2.35,
+      "deg": 180,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "mercury",
+      "p2": "north_node",
+      "type": "sextile",
+      "orb": 0.32,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "jupiter",
+      "p2": "venus",
+      "type": "trine",
+      "orb": 4.19,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "north_node",
+      "p2": "venus",
+      "type": "square",
+      "orb": 2.4,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "lilith",
+      "p2": "venus",
+      "type": "opposition",
+      "orb": 0.71,
+      "deg": 180,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "jupiter",
+      "p2": "pluto",
+      "type": "square",
+      "orb": 3.81,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "jupiter",
+      "p2": "lilith",
+      "type": "sextile",
+      "orb": 3.48,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "chiron",
+      "p2": "jupiter",
+      "type": "square",
+      "orb": 6.89,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "neptune",
+      "p2": "saturn",
+      "type": "opposition",
+      "orb": 4.47,
+      "deg": 180,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "pluto",
+      "p2": "saturn",
+      "type": "trine",
+      "orb": 0.28,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "north_node",
+      "p2": "saturn",
+      "type": "trine",
+      "orb": 2.31,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "chiron",
+      "p2": "uranus",
+      "type": "opposition",
+      "orb": 5.7,
+      "deg": 180,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "neptune",
+      "p2": "pluto",
+      "type": "sextile",
+      "orb": 4.18,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "neptune",
+      "p2": "north_node",
+      "type": "sextile",
+      "orb": 2.16,
+      "deg": 60,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "chiron",
+      "p2": "neptune",
+      "type": "trine",
+      "orb": 6.52,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "north_node",
+      "p2": "pluto",
+      "type": "trine",
+      "orb": 2.02,
+      "deg": 120,
+      "is_major": true,
+      "is_applying": false
+    },
+    {
+      "p1": "lilith",
+      "p2": "north_node",
+      "type": "square",
+      "orb": 1.69,
+      "deg": 90,
+      "is_major": true,
+      "is_applying": false
+    }
+  ],
+  "aspects_summary": {
+    "total": 25,
+    "major": 25,
+    "minor": 0,
+    "by_type": {
+      "square": 6,
+      "sextile": 6,
+      "trine": 8,
+      "conjunction": 1,
+      "opposition": 4
+    }
+  },
+  "confidence": {
+    "houses": "high",
+    "angles": "high",
+    "overall": "high"
+  },
+  "houses": [
+    {
+      "house": 1,
+      "name": "1",
+      "sign": "Aqu",
+      "sign_id": "aquarius",
+      "pos": 26.894,
+      "abs_pos": 326.894
+    },
+    {
+      "house": 2,
+      "name": "2",
+      "sign": "Pis",
+      "sign_id": "pisces",
+      "pos": 21.35,
+      "abs_pos": 351.35
+    },
+    {
+      "house": 3,
+      "name": "3",
+      "sign": "Ari",
+      "sign_id": "aries",
+      "pos": 20.283,
+      "abs_pos": 20.283
+    },
+    {
+      "house": 4,
+      "name": "4",
+      "sign": "Tau",
+      "sign_id": "taurus",
+      "pos": 22.918,
+      "abs_pos": 52.918
+    },
+    {
+      "house": 5,
+      "name": "5",
+      "sign": "Gem",
+      "sign_id": "gemini",
+      "pos": 26.462,
+      "abs_pos": 86.462
+    },
+    {
+      "house": 6,
+      "name": "6",
+      "sign": "Can",
+      "sign_id": "cancer",
+      "pos": 28.127,
+      "abs_pos": 118.127
+    },
+    {
+      "house": 7,
+      "name": "7",
+      "sign": "Leo",
+      "sign_id": "leo",
+      "pos": 26.894,
+      "abs_pos": 146.894
+    },
+    {
+      "house": 8,
+      "name": "8",
+      "sign": "Vir",
+      "sign_id": "virgo",
+      "pos": 21.35,
+      "abs_pos": 171.35
+    },
+    {
+      "house": 9,
+      "name": "9",
+      "sign": "Lib",
+      "sign_id": "libra",
+      "pos": 20.283,
+      "abs_pos": 200.283
+    },
+    {
+      "house": 10,
+      "name": "10",
+      "sign": "Sco",
+      "sign_id": "scorpio",
+      "pos": 22.918,
+      "abs_pos": 232.918
+    },
+    {
+      "house": 11,
+      "name": "11",
+      "sign": "Sag",
+      "sign_id": "sagittarius",
+      "pos": 26.462,
+      "abs_pos": 266.462
+    },
+    {
+      "house": 12,
+      "name": "12",
+      "sign": "Cap",
+      "sign_id": "capricorn",
+      "pos": 28.127,
+      "abs_pos": 298.127
+    }
+  ],
+  "angles": {
+    "asc": 326.894,
+    "mc": 232.918,
+    "ic": 52.918,
+    "dc": 146.894,
+    "vertex": 100.28
+  },
+  "angles_details": {
+    "asc": {
+      "sign": "Aqu",
+      "sign_id": "aquarius",
+      "pos": 26.894,
+      "abs_pos": 326.894,
+      "house": 1
+    },
+    "mc": {
+      "sign": "Sco",
+      "sign_id": "scorpio",
+      "pos": 22.918,
+      "abs_pos": 232.918,
+      "house": 10
+    },
+    "ic": {
+      "sign": "Tau",
+      "sign_id": "taurus",
+      "pos": 22.918,
+      "abs_pos": 52.918,
+      "house": 4
+    },
+    "dc": {
+      "sign": "Leo",
+      "sign_id": "leo",
+      "pos": 26.894,
+      "abs_pos": 146.894,
+      "house": 7
+    },
+    "vertex": {
+      "sign": "Can",
+      "sign_id": "cancer",
+      "pos": 10.28,
+      "abs_pos": 100.28,
+      "house": 5
+    }
+  }
+}

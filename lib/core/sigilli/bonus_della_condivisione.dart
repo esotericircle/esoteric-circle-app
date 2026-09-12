@@ -1,0 +1,183 @@
+import '../brand/brand.dart';
+import '../../services/server/porta_del_cerchio.dart';
+import 'sentieri.dart';
+
+/// LA CAUSALE DEL BONUS, in una riga sola: la nomina questa casa e la
+/// importa chiunque paghi un premio di condivisione (il premio di BG.04
+/// compreso), perche' la guardia della celebrazione pretende che fuori da
+/// qui nessuno la scriva a mano.
+const causaleDelBonusDellaCondivisione = 'bonus_condivisione';
+
+/// COME SI CONDIVIDE UN TRAGUARDO, e quanto vale.
+///
+/// **Una logica sola, e questa e' quella.** L'ordine O chiede che la
+/// celebrazione a schermo pieno e quella in sovrimpressione portino allo
+/// stesso bonus, senza scriverne un secondo. Qui c'e' l'unico punto del
+/// client che sa quali sono i modi di condividere; quanto valgono lo decide
+/// il server, in `functions/src/borsellino.ts`, perche' gli Eos sono denaro e
+/// il telefono non li scrive.
+enum ModoDellaCondivisione {
+  /// L'invito che porta un download: il massimo.
+  invitoConDownload(
+    'invito_con_download',
+    'Invita qualcuno nel Cerchio',
+    // **PIU' CORTO, ordine AS voce 05.** La regola trasversale di quest'ordine
+    // dice che l'utente cerca risposte: qui la risposta e' QUANDO arrivano gli
+    // Eos, e bastano quattro parole. La frase lunga si mangiava tre righe
+    // sotto ogni pulsante, in un grigio che per giunta non si leggeva.
+    // **LO STATO LO METTE CHI COMPONE LA RIGA, non questa stringa. Ordine
+    // BW voce 03**: il fondatore ha letto "In attesa. In attesa." sotto il
+    // pulsante, in quattro schermate di festa su quattro. Lo dicevano tutte
+    // e due le porte, questa e la regola generale di chi compone la riga,
+    // che aggiunge lo stato a ogni modo non pagato subito. La regola resta
+    // dov'era, perche' vale anche per il modo che nascera' domani; qui la
+    // frase dice solo QUANDO arrivano gli Eos.
+    quandoArriva: 'quando il tuo amico entra nel Cerchio.',
+    subitoPagato: false,
+  ),
+
+  /// Il social pubblico: alto.
+  socialPubblico(
+    'social_pubblico',
+    'Condividi pubblicamente',
+    quandoArriva: 'a condivisione avvenuta.',
+    subitoPagato: true,
+  ),
+
+  /// La condivisione privata verificabile: medio.
+  condivisionePrivata(
+    'condivisione_privata',
+    'Manda a qualcuno',
+    quandoArriva: 'a condivisione avvenuta.',
+    subitoPagato: true,
+  );
+
+  const ModoDellaCondivisione(
+    this.motivo,
+    this.etichetta, {
+    required this.quandoArriva,
+    required this.subitoPagato,
+  });
+
+  /// Il motivo che il server riconosce nel listino.
+  final String motivo;
+
+  /// Come si legge sul pulsante.
+  final String etichetta;
+
+  /// **QUANDO IL PREMIO ARRIVA, detto PRIMA del tocco.** Ordine AN voce 08:
+  /// la persona deve sapere cosa fa arrivare gli Eos, e la frase non puo'
+  /// promettere piu' di quanto il codice sappia.
+  final String quandoArriva;
+
+  /// **SE IL BONUS SI ACCREDITA SUBITO, a condivisione avvenuta.**
+  ///
+  /// Per l'INVITO e' falso, e qui si dice la verita' invece di fingere:
+  /// pagare l'invito all'apertura del foglio, mostrando "quando il tuo amico
+  /// scarica", sarebbe una bugia a schermo. Il premio lo paga l'ingresso
+  /// vero, e lo paga il server dentro `riscattaLInvito`.
+  ///
+  /// **DA DOVE ARRIVA IL CODICE, ordine CC voce 08.** Non da
+  /// un'attribuzione automatica dell'installazione: quella su Android
+  /// esiste e si chiama Play Install Referrer, su iOS non ha un equivalente
+  /// aperto, e in questo progetto non c'e' (verificato: nessun Dynamic Link,
+  /// nessun Install Referrer, nessun `intent-filter` oltre a MAIN e
+  /// LAUNCHER). Arriva dalla domanda che il Cerchio fa a chi entra, una
+  /// volta, quando il link e' ancora negli appunti del suo telefono:
+  /// `DomandaDellInvito`.
+  final bool subitoPagato;
+}
+
+/// COSA SI MANDA DAVVERO, per ciascuno dei tre modi. Ordine S voce 08.
+///
+/// **I tre pulsanti non facevano niente, ed era la violazione piu' cara.** Un
+/// controllo o e' collegato a qualcosa o e' dichiarato inattivo: non esiste la
+/// terza possibilita'. Toccandoli si segnava il traguardo come condiviso e si
+/// chiedeva il bonus al server, ma **nessun foglio di sistema si apriva**: non
+/// era stato condiviso niente con nessuno, e il bonus della condivisione era un
+/// premio per un gesto mai avvenuto.
+///
+/// **I tre testi sono tre perche' i tre gesti sono tre.** L'invito parla a chi
+/// non e' ancora nel Cerchio e porta il link, perche' senza link non c'e' nessun
+/// download da attribuire; il pubblico si legge davanti a estranei e non da' del
+/// tu a nessuno; il privato e' un messaggio a una persona sola.
+class TestoDellaCondivisione {
+  const TestoDellaCondivisione._();
+
+  /// **IL CODICE DELL'INVITO VIAGGIA NEL LINK. Ordine BX voce 02.**
+  ///
+  /// Prima il link era nudo: chi arrivava non portava con se' nessuna traccia
+  /// di chi lo aveva invitato, quindi il premio si pagava alla condivisione e
+  /// non all'ingresso. Adesso il link porta `?invito=<uid>.<maestro>`: l'uid
+  /// per attribuire, il Maestro perche' il corpus ha tre voci, una per porta.
+  ///
+  /// **Senza uid il link resta quello di prima**, e il premio semplicemente
+  /// non si potra' attribuire: meglio un invito senza codice di un invito che
+  /// finge di averne uno.
+  static String codiceDellInvito(String? uid, String? maestro) {
+    if (uid == null || uid.trim().isEmpty) return '';
+    final porta = (maestro ?? '').trim();
+    return porta.isEmpty ? uid.trim() : '${uid.trim()}.$porta';
+  }
+
+  static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo,
+      {String? codiceInvito}) {
+    switch (modo) {
+      case ModoDellaCondivisione.invitoConDownload:
+        final link = (codiceInvito ?? '').isEmpty
+            ? Brand.url
+            : '${Brand.url}?invito=$codiceInvito';
+        return 'Sto camminando nel Cerchio e ho appena acceso un Sigillo: '
+            '"${traguardo.nome}". Vieni a vedere il tuo cielo. $link';
+      case ModoDellaCondivisione.socialPubblico:
+        return 'Un Sigillo acceso nel Cerchio: "${traguardo.nome}". '
+            '${traguardo.frase} ${Brand.name}.';
+      case ModoDellaCondivisione.condivisionePrivata:
+        return 'Guarda cosa ho acceso nel Cerchio: "${traguardo.nome}". '
+            '${traguardo.frase}';
+    }
+  }
+}
+
+/// IL PREMIO DI UN TRAGUARDO, chiesto al server per nome e non per importo.
+///
+/// Il client dice "ho acceso questo Sigillo" e il server sa quanto vale dalla
+/// posizione: chiedere un importo sarebbe chiedere al borsellino di aprirsi
+/// da solo.
+class PremioDelTraguardo {
+  const PremioDelTraguardo._();
+
+  static String motivoDi(Traguardo traguardo) {
+    // **IL NOME DICE IL GRADINO, non l'importo.** Il valore vive solo nel
+    // listino del server, che dalla posizione sa quanto vale quel gradino:
+    // il client non lo nomina e non lo puo' gonfiare.
+    return 'traguardo_gradino_${traguardo.posizione}';
+  }
+
+  /// Accredita il premio del traguardo. Torna il saldo nuovo, oppure nullo se
+  /// il server non risponde: in quel caso il Sigillo resta acceso lo stesso e
+  /// il premio si riprende alla prossima sincronia, perche' il movimento
+  /// porta il suo identificativo e non si conta due volte.
+  static Future<int?> accredita(
+    PortaDelCerchio porta,
+    Traguardo traguardo,
+  ) =>
+      porta.muoviGliEos(
+        causale: 'premio_sigillo',
+        motivo: motivoDi(traguardo),
+        idMovimento: 'traguardo-${traguardo.id}',
+      );
+
+  /// Accredita il BONUS della condivisione, una volta sola per traguardo e
+  /// dentro il tetto giornaliero che il server sorveglia.
+  static Future<int?> bonus(
+    PortaDelCerchio porta,
+    Traguardo traguardo,
+    ModoDellaCondivisione modo,
+  ) =>
+      porta.muoviGliEos(
+        causale: causaleDelBonusDellaCondivisione,
+        motivo: modo.motivo,
+        idMovimento: 'bonus-${traguardo.id}-${modo.motivo}',
+      );
+}

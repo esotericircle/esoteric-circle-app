@@ -10,6 +10,7 @@ import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// Pannello dimostrativo per il checkpoint C1.
 ///
@@ -19,7 +20,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 /// strumento di revisione. In produzione il tier arrivera' dallo stato reale
 /// di abbonamento.
 Future<void> showDemoControls(BuildContext context) {
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -71,16 +72,16 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Controlli dimostrativi',
-              style: TypographyTokens.display(size: 20)),
+              style: TypographyTokens.titoloDiSchermata()),
           const SizedBox(height: SpacingTokens.xxs),
           Text(
             'Strumento di revisione del checkpoint, non visibile in produzione.',
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Tier utente (sblocca le funzioni premium)',
-              style: TypographyTokens.body(size: 14, weight: 600)),
+              style: TypographyTokens.corpo(weight: 600)),
           const SizedBox(height: SpacingTokens.xs),
           Wrap(
             spacing: SpacingTokens.xs,
@@ -95,7 +96,7 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Quality Tier (degradazione degli effetti)',
-              style: TypographyTokens.body(size: 14, weight: 600)),
+              style: TypographyTokens.corpo(weight: 600)),
           const SizedBox(height: SpacingTokens.xs),
           Wrap(
             spacing: SpacingTokens.xs,
@@ -110,7 +111,7 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Segno solare (evidenzia la costellazione nel cosmo)',
-              style: TypographyTokens.body(size: 14, weight: 600)),
+              style: TypographyTokens.corpo(weight: 600)),
           const SizedBox(height: SpacingTokens.xs),
           Wrap(
             spacing: SpacingTokens.xs,
@@ -163,15 +164,12 @@ class _Choice extends StatelessWidget {
               : ColorTokens.glassTint,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           border: Border.all(
-            color: selected
-                ? palette.gold
-                : ColorTokens.glassStroke,
+            color: selected ? palette.gold : ColorTokens.glassStroke,
           ),
         ),
         child: Text(
           label,
-          style: TypographyTokens.body(size: 13, weight: 600)
-              .copyWith(
+          style: TypographyTokens.corpo(weight: 600).copyWith(
             color: selected ? palette.goldSoft : ColorTokens.textSecondary,
           ),
         ),

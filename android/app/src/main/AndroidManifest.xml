@@ -1,7 +1,58 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Posizione approssimata e precisa: serve solo a orientare "Il cielo
+         sopra di te" sul luogo reale dell'utente. Con fallback elegante se il
+         permesso manca. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- Microfono: coglie il soffio nel Soffio del Destino. Con ripiego
+         tattile elegante se il permesso manca. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Fotocamera: legge i tratti del volto on-device nella Costellazione del
+         Viso. Nessuna immagine lascia il dispositivo. Con ripiego tattile se il
+         permesso manca o la fotocamera non c'e'. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- Notifiche: un avviso al giorno, quando il sole sorge, che il Rito
+         dell'Alba e' pronto. Si chiede la prima volta che si apre il rito, non
+         all'avvio dell'app, e chi dice no continua a usare tutto.
+
+         NON dichiariamo SCHEDULE_EXACT_ALARM ne' USE_EXACT_ALARM, ed e' una
+         scelta obbligata: da Android 14 la prima e' negata di default alle app
+         che puntano API 33 o superiore, e la seconda e' una permission
+         ristretta che Google Play concede solo ad app la cui funzione centrale
+         e' la sveglia o il calendario. Esoteric Circle non e' ne' l'una ne'
+         l'altra, quindi chiederla ci farebbe rifiutare la pubblicazione.
+         L'avviso arriva in una finestra attorno all'ora, e lo diciamo. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- LE CHIAMATE SOPRAVVIVONO AL RIAVVIO E ALL'AGGIORNAMENTO.
+         Ordine CW voce 06, 7 settembre 2026.
+
+         Il fondatore riceveva due notifiche su cinque. Non era il trasporto,
+         che il pulsante di prova dimostrava vivo, e non era piu' il fuso, gia'
+         riparato dall'ordine CQ voce 1.09. Era che la coda del sistema si
+         svuota e nessuno la rimetteva: senza questo permesso e senza il
+         receiver qui sotto, flutter_local_notifications perde OGNI avviso
+         programmato al riavvio del telefono e, soprattutto, **a ogni
+         aggiornamento dell'app**. Chi installa una build nuova quasi ogni
+         giorno azzera le cinque chiamate ogni volta. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false"/>
+    <!-- La fotografia del volto, la data e il luogo di nascita stanno nelle
+         preferenze: restano sul telefono. Il Backup Automatico li porterebbe
+         su Drive col valore predefinito, mentre due schermate promettono che
+         nessuna immagine lascia il dispositivo. Il backup resta attivo per il
+         resto, cosi' cambiando telefono non si perde tutto. -->
     <application
         android:label="Esoteric Circle"
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:name="${applicationName}"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -30,6 +81,54 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- IL RECEIVER CHE RIMETTE LE CHIAMATE IN CODA.
+             Ordine CW voce 06.
+
+             Tre azioni e non una: BOOT_COMPLETED per il riavvio,
+             QUICKBOOT_POWERON per l'avvio rapido di certi telefoni, e
+             **MY_PACKAGE_REPLACED per l'aggiornamento dell'app**, che e'
+             l'occasione che si presenta piu' spesso e che nessuno guarda.
+
+             La classe e' quella del pacchetto: la si dichiara qui perche' un
+             receiver di avvio deve stare nel manifest dell'app, non in quello
+             di una libreria. -->
+        <!-- IL RECEIVER CHE RICEVE LA SVEGLIA E POSTA LA NOTIFICA.
+             Ordine CZ voce 11, 8 settembre 2026.
+
+             MISURATO SUL TELEFONO, non sul banco. Sul dispositivo 767f596c:
+             sveglia programmata per le 04:40, alle 04:41 uscita dalla coda di
+             `dumpsys alarm`, e in `dumpsys notification` nessuna notifica
+             dell'app. La sveglia partiva e la notifica non nasceva.
+
+             LA RAGIONE. `flutter_local_notifications` non posta niente da se':
+             mette in coda un AlarmManager che allo scadere manda un broadcast
+             a QUESTO receiver. Senza la sua riga qui dentro il broadcast non
+             trova nessuno, l'allarme esce dalla coda e non succede niente.
+
+             PERCHE' LA VOCE CW.06 NON L'AVEVA PRESO: quella voce ha aggiunto
+             il receiver del RIAVVIO, qui sotto, che rimette in coda gli
+             avvisi dopo un reboot o un aggiornamento. Ho aggiunto quello del
+             ritorno e non quello dell'arrivo, e la guardia che avevo scritto
+             chiedeva per nome soltanto il primo.
+
+             E PERCHE' IL PULSANTE DI PROVA FUNZIONAVA: `mostraAdesso` chiama
+             `show`, che posta subito e dentro il processo dell'app, senza
+             passare da nessun receiver. Canale, permesso e recapito erano
+             sani: e' per questo che la prova a mano diceva di si' mentre le
+             cinque chiamate del giorno tacevano. -->
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+            android:exported="false"/>
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

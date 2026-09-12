@@ -1,0 +1,353 @@
+/// LE TRE AZIONI SOTTO OGNI RESPONSO, DA UNA PORTA SOLA.
+/// Ordine CG voci 06 e 08.
+///
+/// **Perche' un widget e non tre pulsanti per arte.** Prima di questa voce
+/// ogni arte scriveva i propri pulsanti a mano: sei avevano "Parlane col
+/// Maestro" e sette no, e nessuno poteva dire quante fossero senza aprire
+/// quattordici file. Con una porta sola una guardia enumera le arti e chiede a
+/// ognuna se la monta, e un'arte nuova che nascesse domani senza montarla fa
+/// cadere una prova invece di nascere muta.
+///
+/// **Le tre azioni, e l'ordine in cui stanno.**
+///
+/// 1. CONDIVIDI, che c'era gia'. Adesso, quando la condivisione AVVIENE
+///    davvero, custodisce da sola: condividere e' gia' la dichiarazione piu'
+///    forte che una persona possa fare su un contenuto. Un foglio aperto e poi
+///    chiuso non custodisce niente.
+/// 2. CUSTODISCI, che e' nuovo. Un tocco, e il responso resta per sempre.
+///    Toccato due volte non fa niente di male: il magazzino ha una chiave per
+///    responso, quindi non nascono due carte uguali.
+/// 3. PARLANE COL MAESTRO, col responso GIA' DENTRO la conversazione. Non si
+///    riapre una chat vuota: la persona non deve raccontare al Maestro cosa ha
+///    appena letto.
+///
+/// **Perche' Custodisci sta in mezzo e non in fondo.** Le prime due azioni
+/// tengono il responso, la terza porta via da questa schermata: mettere il
+/// gesto che porta via fra i due che restano spezzerebbe la lettura.
+library;
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../core/maestro/maestro.dart';
+import '../../core/ricordi/registro_dei_ricordi.dart';
+import '../../core/ricordi/ricordo_custodito.dart';
+import '../../core/ricordi/scrigno_dei_custoditi.dart';
+import '../../core/ricordi/voce_del_ricordo.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../services/app_services.dart';
+import '../maestri/chat/maestro_chat_screen.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
+import 'dart:async';
+import '../../design_system/tokens/regime_chiaro.dart';
+import '../../design_system/theme/accento_del_maestro.dart';
+
+/// Cio' che un'arte consegna perche' il suo responso possa essere custodito.
+///
+/// **Il testo e i dati, mai l'immagine.** La ragione e' il peso: un testo coi
+/// suoi dati sta in qualche centinaio di byte, un PNG in qualche centinaio di
+/// chilobyte, cioe' mille volte tanto.
+@immutable
+class ResponsoDaCustodire {
+  const ResponsoDaCustodire({
+    required this.arte,
+    required this.titolo,
+    required this.testo,
+    this.dati = const {},
+  });
+
+  /// L'identificativo dell'arte o del Dono, quello di `ContiDelleArti`.
+  final String arte;
+
+  final String titolo;
+  final String testo;
+
+  /// I dati che servono a ridisegnare la scena: le carte di una stesa, i nomi
+  /// delle rune di una gettata, la percentuale di una sinastria.
+  final Map<String, String> dati;
+}
+
+class AzioniDelResponso extends StatefulWidget {
+  const AzioniDelResponso({
+    super.key,
+    required this.palette,
+    required this.maestro,
+    required this.responso,
+    this.condividi,
+    required this.aperturaDellaChat,
+    this.orologio,
+    this.dorato = false,
+    this.suChiaro = false,
+  });
+
+  /// **SE QUESTE AZIONI STANNO SU UN FONDO CHIARO. Ordine CO voce 14**, 3
+  /// settembre 2026, e nasce da uno scatto del fondatore.
+  ///
+  /// I due pulsanti contornati scrivono in `palette.goldSoft`, che e' l'oro
+  /// pensato per i fondi scuri di questa app e li' regge benissimo, da 9,29 a
+  /// 13,81 a uno. **Dentro la scheda del Dono il fondo non e' scuro: e' il
+  /// pannello del regime chiaro**, e li' lo stesso oro misura **1,30 a uno**.
+  /// Non e' poco leggibile: e' invisibile, e nello scatto del fondatore si
+  /// vedono due rettangoli vuoti accanto a un terzo pulsante perfettamente
+  /// leggibile, che e' pieno e si porta il fondo da solo.
+  ///
+  /// **Perche' nessuna guardia lo aveva preso.** La tabella del contrasto del
+  /// Rito dell'Alba misura ogni testo dipinto e chiede il colore al `Text`;
+  /// **l'etichetta di un pulsante il colore non ce l'ha**, lo eredita dallo
+  /// stile del pulsante che la contiene. Per la tabella quei due testi non
+  /// avevano inchiostro, e un testo senza inchiostro non si puo' misurare:
+  /// venivano saltati. E' la quarta specie di cecita' incontrata in
+  /// quest'ordine, dopo l'iscrizione per nome, il fotogramma unico e la
+  /// radice del `RichText`.
+  ///
+  /// Vero solo dove il fondo e' chiaro, cioe' dentro la scheda dei Doni.
+  /// Altrove l'oro resta, ed e' giusto che resti.
+  final bool suChiaro;
+
+  final MaestroPalette palette;
+
+  /// Il Maestro proprietario dell'arte, che e' quello con cui si parla.
+  final Maestro maestro;
+
+  final ResponsoDaCustodire responso;
+
+  /// Come quest'arte condivide. Torna VERO quando la condivisione e' avvenuta
+  /// davvero, cioe' cio' che `PortaDellaCondivisione.avvenuta` risponde: e' su
+  /// quel vero che scatta la custodia automatica.
+  ///
+  /// **NULLO quando quell'arte non ha niente da condividere**, e non e' una
+  /// dimenticanza. Il Sigillo dell'Intenzione e l'Arcano del Giorno non hanno
+  /// una carta da mandare: inventargliela sarebbe una funzione nuova, non
+  /// questa voce. Custodisci e Parlane restano, perche' quelli non hanno
+  /// bisogno di un'immagine.
+  final Future<bool> Function()? condividi;
+
+  /// La prima domanda con cui si apre la chat, composta da `ChatOpeners`.
+  final String aperturaDellaChat;
+
+  /// Iniettabile, cosi' le prove sanno che ora e' senza aspettare il minuto.
+  final DateTime Function()? orologio;
+
+  /// **LA FORMA DORATA DEL CONDIVIDI, e perche' esiste.**
+  ///
+  /// Tre arti di Medora (Oroscopo, Stesa, Sinastria) avevano gia' un
+  /// Condividi in oro pieno, centrato, con la sua attesa "Preparo la card":
+  /// non e' un accidente, e' l'invito che chiude quei tre responsi. Una porta
+  /// sola non vuol dire un aspetto solo: qui cambia il vestito di UN pulsante,
+  /// mentre il gesto, la custodia automatica e la guardia restano gli stessi
+  /// per tutte e tredici le arti.
+  final bool dorato;
+
+  @override
+  State<AzioniDelResponso> createState() => _AzioniDelResponsoState();
+}
+
+class _AzioniDelResponsoState extends State<AzioniDelResponso> {
+  bool _condividendo = false;
+  bool _custodito = false;
+
+  DateTime get _adesso => (widget.orologio ?? DateTime.now)();
+
+  /// **LA CHIAVE DEL RESPONSO SI CALCOLA UNA VOLTA E NON A OGNI TOCCO.**
+  ///
+  /// Se nascesse a ogni tocco, custodire col gesto alle 9:00:59 e condividere
+  /// alle 9:01:01 produrrebbe due chiavi diverse e due carte identiche nella
+  /// griglia. Qui l'istante e' quello in cui il responso e' comparso.
+  late final DateTime _quando = _adesso;
+
+  RicordoCustodito _daCustodire(ComeENato come) => RicordoCustodito(
+        quando: _quando,
+        arte: widget.responso.arte,
+        maestro: widget.maestro.id,
+        titolo: widget.responso.titolo,
+        testo: widget.responso.testo,
+        dati: widget.responso.dati,
+        comeENato: come,
+      );
+
+  /// Custodisce, e segna la voce nell'indice dei Ricordi.
+  ///
+  /// **Le due scritture stanno insieme e non in due punti**: un responso
+  /// custodito che non comparisse nella timeline sarebbe una carta senza il
+  /// giorno in cui e' nata.
+  Future<bool> _tieni(ComeENato come) async {
+    final ricordo = _daCustodire(come);
+    var entrato = false;
+    try {
+      final scrigno = context.read<ScrignoDeiCustoditi>();
+      entrato = await scrigno.custodisci(ricordo);
+    } catch (errore) {
+      // **Un provider assente non spegne il responso.** Nelle prove che
+      // montano una schermata sola lo scrigno puo' non esserci, e un responso
+      // che morisse per questo sarebbe un difetto peggiore di quello che
+      // questa voce cura.
+      debugPrint('Azioni: lo scrigno non risponde. $errore');
+      return false;
+    }
+    if (!entrato) return false;
+    if (!mounted) return true;
+    try {
+      final registro = context.read<RegistroDeiRicordi>();
+      await registro.segna(VoceDelRicordo(
+        quando: _quando,
+        arte: widget.responso.arte,
+        maestro: widget.maestro.id,
+        titolo: widget.responso.titolo,
+        tipo: TipoDelRicordo.responso,
+        riferimento: ricordo.chiave,
+      ));
+    } catch (errore) {
+      debugPrint('Azioni: il registro dei Ricordi non risponde. $errore');
+    }
+    return true;
+  }
+
+  Future<void> _condividi() async {
+    final porta = widget.condividi;
+    if (porta == null) return;
+    setState(() => _condividendo = true);
+    try {
+      final avvenuta = await porta();
+      // **SOLO SE E' AVVENUTA.** Un foglio aperto e poi chiuso non custodisce
+      // niente, ed e' la misura di accettazione dell'ordine.
+      if (avvenuta) {
+        final entrato = await _tieni(ComeENato.condivisione);
+        if (entrato && mounted) setState(() => _custodito = true);
+      }
+    } finally {
+      if (mounted) setState(() => _condividendo = false);
+    }
+  }
+
+  Future<void> _custodisci() async {
+    final entrato = await _tieni(ComeENato.gesto);
+    if (!mounted) return;
+    // **Il vero e il falso portano allo stesso stato a video**, e non e' una
+    // svista: chi tocca Custodisci su un responso gia' custodito deve vedere
+    // che e' custodito, non un rifiuto.
+    setState(() => _custodito = true);
+    if (!entrato) return;
+    // **IL SIGILLO DI CERALACCA, ordine CN.** Suona solo quando il
+    // ricordo entra davvero: chi tocca Custodisci su un responso gia'
+    // custodito vede lo stesso stato, e un sigillo che si ripete non
+    // e' piu' un sigillo.
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.custodisci));
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+      const SnackBar(content: Text('Custodito nei Ricordi del Cerchio.')),
+    );
+  }
+
+  void _parlane() {
+    final AppServices services;
+    try {
+      services = context.read<AppServices>();
+    } catch (errore) {
+      debugPrint('Azioni: i servizi non ci sono. $errore');
+      return;
+    }
+    Navigator.of(context).push(MaestroChatScreen.route(
+      maestro: widget.maestro,
+      services: services,
+      initialUserMessage: widget.aperturaDellaChat,
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = widget.palette;
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (widget.condividi == null)
+            const SizedBox.shrink()
+          else if (widget.dorato)
+            Center(
+              child: FilledButton.icon(
+                key: const Key('responso_condividi'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
+                ),
+                onPressed: _condividendo ? null : _condividi,
+                icon: _condividendo
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2))
+                    : const Icon(Icons.ios_share_rounded, size: 18),
+                label: Text(_condividendo
+                    ? 'Preparo la card'
+                    : PremioDellaCondivisione.etichetta(context)),
+              ),
+            )
+          else
+            OutlinedButton.icon(
+              key: const Key('responso_condividi'),
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: widget.suChiaro
+                      ? RegimeChiaro.testoSuChiaro
+                      : palette.goldSoft,
+                  side: BorderSide(
+                      color: widget.suChiaro
+                          ? RegimeChiaro.accentoSuChiaro(widget.maestro)
+                          : palette.gold.withValues(alpha: 0.6))),
+              onPressed: _condividendo ? null : _condividi,
+              icon: const Icon(Icons.ios_share_rounded),
+              label: Text(PremioDellaCondivisione.etichetta(context)),
+            ),
+          if (widget.condividi != null)
+            const SizedBox(height: SpacingTokens.sm),
+          OutlinedButton.icon(
+            key: const Key('responso_custodisci'),
+            style: OutlinedButton.styleFrom(
+                foregroundColor: widget.suChiaro
+                    ? RegimeChiaro.testoSuChiaro
+                    : palette.goldSoft,
+                side: BorderSide(
+                    color: widget.suChiaro
+                        ? RegimeChiaro.accentoSuChiaro(widget.maestro)
+                        : palette.gold.withValues(alpha: 0.6))),
+            onPressed: _custodito ? null : _custodisci,
+            icon: Icon(_custodito
+                ? Icons.bookmark_rounded
+                : Icons.bookmark_border_rounded),
+            label: Text(_custodito ? 'Custodito' : 'Custodisci'),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          FilledButton.icon(
+            key: const Key('responso_parlane'),
+            // **IL RIEMPIMENTO SI PORTA ALLA SOGLIA, non si sceglie a
+            // mano.** Ordine CO voce 14, 3 settembre 2026.
+            //
+            // Su questo pulsante il contrasto non dipende da cosa c'e'
+            // dietro: e' fra la sua etichetta e il suo stesso riempimento.
+            // Misurato con l'inchiostro chiaro dell'app: Medora 6,89, Caligo
+            // 5,88, **Aura 2,84**. Il verde di Aura e' il piu' luminoso dei
+            // tre primari, e sotto la soglia ci va da solo.
+            //
+            // **Non si sceglie un verde piu' scuro a mano**: si passa dalla
+            // porta che gia' esiste, quella che scurisce un tono finche' non
+            // regge sopra una superficie. Chi e' gia' sopra la soglia torna
+            // indietro identico, quindi Medora e Caligo non si accorgono di
+            // niente e il giorno che un primario cambia il conto si rifa' da
+            // solo.
+            style: FilledButton.styleFrom(
+                backgroundColor: AccentoDelMaestro.portatoSu(
+                    palette.primary, palette.onPrimary),
+                foregroundColor: palette.onPrimary),
+            onPressed: _parlane,
+            icon: const Icon(Icons.forum_outlined),
+            label: Text('Parlane con ${widget.maestro.displayName}'),
+          ),
+        ],
+      ),
+    );
+  }
+}

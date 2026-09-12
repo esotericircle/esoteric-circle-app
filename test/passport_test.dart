@@ -1,0 +1,177 @@
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/identity/birth_moon.dart';
+import 'package:esoteric_circle/core/identity/numerology.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// Il Cosmic Passport mostra vivi i due fatti deterministici (Numero della vita
+/// e Fase lunare di nascita), col valore reale calcolato, e tiene dietro il velo
+/// le voci che richiedono servizi esterni.
+void main() {
+  Widget wrap(Widget child) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          // La tessera della carta natale legge lo stato del calcolo per
+          // dire cio' che la carta E', invece di dichiarare sempre di
+          // averla calcolata sulle effemeridi.
+          ChangeNotifierProvider(create: (_) => NatalChartController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ],
+        child: MaterialApp(
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(body: child),
+        ),
+      );
+
+  testWidgets('Mostra Numero della vita e Fase lunare col valore reale',
+      (tester) async {
+    await tester.pumpWidget(wrap(const CosmicPassport()));
+    await tester.pump();
+
+    // Le due tessere vive sono presenti.
+    expect(find.byKey(const Key('passport_life_path')), findsOneWidget);
+    expect(find.byKey(const Key('passport_birth_moon')), findsOneWidget);
+    // L'Animale guida e' ora un fatto vivo dal segno, non piu' un segnaposto.
+    expect(find.byKey(const Key('passport_guide_animal')), findsOneWidget);
+
+    // Mostrano il valore reale calcolato dal dato d'esempio.
+    final id = BirthIdentity.example;
+    final lp = LifePath.forDate(id.birthMoment);
+    final moon = BirthMoon.forDate(id.birthMoment);
+    expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
+    expect(find.text(moon.label), findsOneWidget);
+
+    // **IL DATO D'ESEMPIO E' DICHIARATO SU OGNI TESSERA VIVA.**
+    //
+    // Qui c'era `findsNWidgets(5)`. Cinque era il conto delle tessere vive
+    // del giorno in cui la prova fu scritta, e quando la Carta di nascita
+    // ne ha fatte sei, con l'ordine CS voce O3, la prova e' caduta pur
+    // essendo tutto giusto. **Il numero segue il dato**: viene dall'elenco
+    // qui sotto, che dichiara quali sono le tessere vive.
+    //
+    // Chi ne aggiunge una e non la mette in questo elenco vede un rifiuto
+    // che dice quale chiave manca, invece di un numero che non torna.
+    const tessereVive = <String>[
+      'passport_life_path',
+      'passport_birth_moon',
+      'passport_guide_animal',
+      'passport_carta_di_nascita',
+      'passport_angels',
+      'passport_natal_chart',
+    ];
+    for (final chiave in tessereVive) {
+      expect(find.byKey(Key(chiave)), findsOneWidget,
+          reason: 'la tessera viva $chiave non e\' a video, quindi il conto '
+              'delle note d\'esempio qui sotto misurerebbe meno tessere di '
+              'quante il passaporto ne dichiara');
+    }
+    final note = find.textContaining('Valore d\'esempio');
+    expect(note, findsNWidgets(tessereVive.length),
+        reason: 'le tessere vive dichiarate sono ${tessereVive.length} e le '
+            'note d\'esempio a video sono '
+            '${tester.widgetList(note).length}: una tessera viva che usa il '
+            'dato d\'esempio senza dirlo mostra un valore inventato come se '
+            'fosse quello della persona');
+
+    // **NEL PASSAPORTO NON C'E' PIU' NESSUN VELO, e non e' una perdita.**
+    // Ordine BC voce 03.
+    //
+    // L'elenco delle voci in arrivo, `_passportEntries`, e' **vuoto da
+    // tempo**: l'ultima cosa che portava il badge era la tessera Archetipo, e
+    // portava insieme "Dietro il velo" e "Tocca per fare il Test Archetipo".
+    // Il Test esiste ed e' vivo da mesi, quindi la prima frase era falsa, e
+    // fra due frasi che si smentiscono chi legge crede alla piu'
+    // scoraggiante.
+    //
+    // **La regola resta viva nel codice**: una voce che davvero non apre
+    // niente tornerebbe a mostrare il badge. Semplicemente, oggi non ce n'e'
+    // nessuna.
+    expect(find.text('Dietro il velo'), findsNothing,
+        reason: 'e tornato un velo nel Passaporto: se e una voce che non apre '
+            'niente va bene, ma va scritta nell elenco delle voci in arrivo '
+            'invece di comparire da sola');
+    // "Carta natale" non e' piu' una voce velata: e' una tessera VIVA, e si
+    // chiama "La tua carta natale".
+    // L'etichetta di una tessera viva si mostra in maiuscolo.
+    expect(find.text('LA TUA CARTA NATALE'), findsOneWidget);
+  });
+
+  testWidgets('Con un\'identita\' reale sparisce la nota d\'esempio',
+      (tester) async {
+    final real =
+        BirthIdentity(birthMoment: DateTime(1988, 3, 21, 8), isExample: false);
+    await tester.pumpWidget(wrap(CosmicPassport(identity: real)));
+    await tester.pump();
+
+    expect(find.byKey(const Key('passport_life_path')), findsOneWidget);
+    // Nessuna nota d'esempio: il dato e' reale.
+    expect(find.textContaining('Valore d\'esempio'), findsNothing);
+    final lp = LifePath.forDate(real.birthMoment);
+    expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
+  });
+
+  testWidgets('LA CASELLA VUOTA DELL ANIMALE PORTA DOVE SI RIEMPIE',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(430, 2000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(wrap(const CosmicPassport()));
+    await tester.pump();
+
+    final card = find.byKey(const Key('passport_guide_animal'));
+    expect(card, findsOneWidget);
+    await tester.ensureVisible(card);
+    await tester.pump();
+    await tester.tap(card);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    // **LA LETTURA FISSA NON SI APRE PIU' DA QUI, ordine DC voci 01 e
+    // 02.** Fino a quest'ordine la tessera diceva il nome dell'animale
+    // e al tocco apriva la sua lettura di identita'. L'ordine DC ha
+    // cambiato la natura dell'arte: l'animale non e' un fatto che si
+    // legge, e' un rapporto che si costruisce in quattro discese, e
+    // finche' non si e' compiuto la casella resta vuota con la sagoma
+    // in ombra. Una casella vuota che non porta da nessuna parte
+    // sarebbe un buco: questa porta dove si riempie.
+
+    expect(find.byKey(const Key('animal_identity')), findsNothing);
+    expect(find.byKey(const Key('viaggio_scendi')), findsOneWidget);
+    // **IL SELETTORE DELLE TRE VIE, e non piu' il campo libero.** Dalla
+    // riscrittura della soglia il campo si apre solo scegliendo la via
+    // 'Scrivila tu': cercarlo qui vorrebbe dire pretendere che la soglia
+    // apra sempre sulla via che una volta era l'unica.
+    expect(find.byKey(const Key('viaggio_le_tre_vie')), findsOneWidget);
+  });
+
+  testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',
+      (tester) async {
+    // L'archetipo cambia rifacendo il test, quindi non e' un fatto fisso di
+    // nascita: nel passaporto resta un segnaposto dietro il velo, senza faccia.
+    await tester.pumpWidget(wrap(const CosmicPassport()));
+    await tester.pump();
+    expect(find.text('Archetipo'), findsOneWidget);
+    expect(find.byKey(const Key('passport_archetype_face')), findsNothing);
+    expect(find.byKey(const Key('passport_archetype_invite')), findsNothing);
+  });
+}
