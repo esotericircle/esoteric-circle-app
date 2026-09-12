@@ -216,6 +216,13 @@ flutter:
     # sopra le luci, e sa dove metterle perche' gli ancoraggi si ricavano da
     # qui con tool/ancoraggi_dai_sentieri.dart.
     - brand_assets/sentieri/
+    # LA DISCESA NEL MONDO DI SOTTO, ordine DI voce 09. Un filmato solo,
+    # 720 per 1280, 24 fotogrammi al secondo, 8 secondi, muto: il tamburo
+    # e' un livello audio a parte. Come brand_assets/maestri/ la cartella
+    # e' dichiarata anche da vuota, e i filmati stanno sotto brand_assets
+    # e mai sotto assets. Impronta SHA-256 del file consegnato dal
+    # fondatore: 0db19531145d83422858fdf342973533857a8bc3dc1f34a6d95aaf8eca12c77d.
+    - brand_assets/mondo_di_sotto/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
