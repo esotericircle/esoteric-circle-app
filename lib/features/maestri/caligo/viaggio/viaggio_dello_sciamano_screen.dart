@@ -12,7 +12,9 @@ import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/dove_sta_la_testa.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
+import '../../../../core/viaggio/la_domanda_capita.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
+import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import '../../../../core/viaggio/scena_del_viaggio.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -203,6 +205,16 @@ class _ViaggioDelloSciamanoScreenState
   /// si legge da `_via`.
   TemaDellaDomanda? _temaScelto;
 
+  /// **IL TEMA DELLA DOMANDA LIBERA, che arriva mentre si scende.** Ordine DI
+  /// voce 02, 12 settembre 2026.
+  ///
+  /// La classificazione parte **nel momento in cui si tocca Scendi** e lavora
+  /// durante i venti secondi della discesa: quando si risale e' finita da un
+  /// pezzo, e la persona non aspetta nemmeno i due secondi concessi al
+  /// modello. Nullo per le domande scritte e per la terza via, che il tema lo
+  /// hanno gia' o non ne hanno.
+  Future<(TemaDellaDomanda?, FonteDelTema)>? _temaInArrivo;
+
   ScenaDelViaggio? _scena;
 
   /// **IL GIORNO IN CUI QUESTA SCENA E' NATA.** Ordine DG voce 07: il filo
@@ -316,6 +328,35 @@ class _ViaggioDelloSciamanoScreenState
       return context.read<EntitlementService>().tier;
     } catch (errore) {
       return Tier.free;
+    }
+  }
+
+  /// **SI TOCCA SCENDI.** Se la domanda e' scritta a mano, da qui comincia a
+  /// essere capita: ordine DI voce 02.
+  void _scendi() {
+    if (_via == ViaDellaDomanda.scritta && _domanda.text.trim().isNotEmpty) {
+      _temaInArrivo = LaDomandaCapita.tema(
+        _domanda.text,
+        seGuasto: _registraIlGuasto,
+      );
+    } else {
+      _temaInArrivo = null;
+    }
+    setState(() => _fase = FaseDelViaggio.discesa);
+  }
+
+  /// **IL GUASTO VA NEL REGISTRO, MAI ALLA PERSONA.** Il registro si chiede
+  /// col `try` e non si pretende: e' la lezione del provider preteso, che
+  /// dentro una schermata condivisa ha gia' fatto cadere quaranta prove.
+  void _registraIlGuasto(Object errore) {
+    try {
+      context.read<RegistroDeiGuasti>().registra(
+            operazione: 'viaggio_tema_della_domanda',
+            errore: errore,
+          );
+    } catch (senzaRegistro) {
+      // Senza registro il guasto resta nel log di sviluppo, e la persona
+      // riceve comunque il tema della tabella.
     }
   }
 
@@ -465,6 +506,16 @@ class _ViaggioDelloSciamanoScreenState
   Future<void> _risaliDallaLente() async {
     final nome = _seguito;
     if (nome == null) return;
+    // **IL TEMA DELLA DOMANDA LIBERA E' ARRIVATO**, ordine DI voce 02: e' partito
+    // al tocco di Scendi, e dopo venti secondi di discesa e' pronto da un
+    // pezzo. Se non ha trovato niente resta nullo, e si usa il ramo senza
+    // domanda, che resta legittimo.
+    final inArrivo = _temaInArrivo;
+    if (inArrivo != null) {
+      final (tema, _) = await inArrivo;
+      if (!mounted) return;
+      _temaScelto = tema;
+    }
     final quante = _diario.quanteDiscese;
     final nitidezza =
         NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
@@ -798,7 +849,7 @@ class _ViaggioDelloSciamanoScreenState
                 FilledButton.icon(
                   key: const Key('viaggio_scendi'),
                   onPressed: pronto
-                      ? () => setState(() => _fase = FaseDelViaggio.discesa)
+                      ? _scendi
                       : null,
                   style: FilledButton.styleFrom(
                     backgroundColor: palette.primary,

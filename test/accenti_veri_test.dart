@@ -54,6 +54,12 @@ void main() {
   /// nascondere, e' il prezzo di una misura semplice che ha appena trovato
   /// quattro difetti veri; le due che sbaglia si scrivono qui col perche'.
   const conRagioneScritta = <String, String>{
+    // Ordine DI voce 02, 12 settembre 2026: un indizio della tabella che
+    // capisce le domande libere, "non so se trasferirmi", dove "se" e' la
+    // congiunzione e la stringa finisce legittimamente cosi'. Non si mostra.
+    'lib/core/viaggio/il_tema_della_domanda_libera.dart:171':
+        'e un indizio della tabella delle domande libere, "non so se" con la '
+            'congiunzione, e non una parola mostrata',
     'lib/core/lang/euphonic.dart:81':
         'e la tavola delle preposizioni articolate, dove "da" e una CHIAVE '
             'di mappa e non una parola mostrata: da, dal, dallo, dalla',

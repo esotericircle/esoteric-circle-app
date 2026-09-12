@@ -57,8 +57,28 @@ void main() {
           .replaceAll(RegExp.escape('{breve}'), '.+?')),
   ];
 
-  Future<List<String>> laRispostaA(
-      WidgetTester tester, DomandaScritta domanda) async {
+  /// Tocca una delle sei domande scritte.
+  Future<void> tocca(WidgetTester tester, DomandaScritta domanda) async {
+    final laSua = find.byKey(Key('viaggio_domanda_${domanda.id}'));
+    await tester.ensureVisible(laSua);
+    await tester.pump();
+    await tester.tap(laSua);
+    await tester.pump();
+  }
+
+  /// Sceglie "Scrivila tu" e scrive la domanda nel campo, come una persona.
+  Future<void> scrivi(WidgetTester tester, String domanda) async {
+    await tester.tap(find.text('Scrivila tu'));
+    await tester.pump(const Duration(milliseconds: 300));
+    final campo = find.byKey(const Key('viaggio_domanda'));
+    await tester.ensureVisible(campo);
+    await tester.pump();
+    await tester.enterText(campo, domanda);
+    await tester.pump();
+  }
+
+  Future<List<String>> laRispostaA(WidgetTester tester, String chiave,
+      Future<void> Function(WidgetTester) poniLaDomanda) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -71,7 +91,7 @@ void main() {
       child: MaterialApp(
         home: MaestroScope(
           child: ViaggioDelloSciamanoScreen(
-            key: ValueKey(domanda.id),
+            key: ValueKey(chiave),
             userSign: Zodiac.gemini,
             now: DateTime(2026, 9, 12, 12),
             diario: DiarioDelloSciamanoDiProva(0),
@@ -82,13 +102,9 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    // **1. LA DOMANDA SI TOCCA SULLO SCHERMO**, che e' il punto dove nasceva
+    // **1. LA DOMANDA SI PONE SULLO SCHERMO**, che e' il punto dove nasceva
     // il difetto.
-    final laSua = find.byKey(Key('viaggio_domanda_${domanda.id}'));
-    await tester.ensureVisible(laSua);
-    await tester.pump();
-    await tester.tap(laSua);
-    await tester.pump();
+    await poniLaDomanda(tester);
 
     // **2. SI SCENDE**, col dito premuto per tutta la discesa.
     await tester.ensureVisible(find.byKey(const Key('viaggio_scendi')));
@@ -146,7 +162,8 @@ void main() {
   for (final domanda in LaDomandaDelViaggio.gliaScritte) {
     testWidgets('la domanda "${domanda.tema}" arriva alla risposta',
         (tester) async {
-      final testi = await laRispostaA(tester, domanda);
+      final testi = await laRispostaA(
+          tester, domanda.id, (t) => tocca(t, domanda));
       final tutto = testi.join('\n');
       guardate++;
       final ripresa =
@@ -170,5 +187,32 @@ void main() {
     print('ORDINE DI VOCE 01: domande percorse fino alla risposta $guardate '
         'su ${LaDomandaDelViaggio.gliaScritte.length}, senza ripresa '
         '${cadute.length}');
+  });
+
+  /// **LA DOMANDA SCRITTA A MANO ARRIVA ALLA RISPOSTA.** Ordine DI voce 02.
+  ///
+  /// E' la domanda vera che il fondatore ha visto ricevere *"Questa volta il
+  /// viaggio era il viaggio"*, la frase scritta per chi non ha chiesto niente.
+  /// Al banco Firebase non c'e', quindi il modello fallisce e decide la
+  /// tabella delle parole: e' **esattamente il caso senza rete**, e deve
+  /// bastare.
+  ///
+  /// **VISTA ROSSA** togliendo la classificazione dal tocco di Scendi: la
+  /// risposta e' tornata la frase senza domanda, *"Non hai chiesto niente. Hai
+  /// visto lo stesso."*, detta a chi aveva chiesto di sua sorella.
+  testWidgets('la domanda scritta a mano arriva alla risposta, anche senza rete',
+      (tester) async {
+    const laSua = 'Mia sorella diventerà presto mamma?';
+    final testi =
+        await laRispostaA(tester, 'scritta', (t) => scrivi(t, laSua));
+    final ripresa = riprese.any((r) => testi.any((t) => r.hasMatch(t)));
+    // ignore: avoid_print
+    print('ORDINE DI VOCE 02, "$laSua":\n  '
+        '${testi.isEmpty ? "(nessun paragrafo)" : testi.first}');
+    expect(ripresa, isTrue,
+        reason: 'LA DOMANDA SCRITTA A MANO NON ARRIVA ALLA RISPOSTA.\n'
+            'A schermo:\n${testi.join('\n')}\n\n'
+            'Il fondatore ha visto questa domanda ricevere la frase scritta per '
+            'chi non ha chiesto niente.');
   });
 }

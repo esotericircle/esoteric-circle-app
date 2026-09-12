@@ -41,9 +41,15 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 126 |
 | Guardie con un cardinale proprio dichiarato | 99 |
-| Guardie che non scoprono nessun insieme di file | 172 |
-| **Somma delle categorie** | **397** |
-| **Guardie secondo la definizione** | **397** |
+| Guardie che non scoprono nessun insieme di file | 173 |
+| **Somma delle categorie** | **398** |
+| **Guardie secondo la definizione** | **398** |
+
+**Ricontate dopo la voce DI.02**, che ha portato **una guardia nuova**,
+`la_domanda_libera_viene_capita`: il totale sale da 397 a **398** e le tre
+categorie a **126, 99 e 173**. Pretende dalla via di riserva **zero temi
+sbagliati** su domande che la tabella non ha mai visto, non un numero di
+giusti, perche' la prima pretesa guardava il numero sbagliato.
 
 **Ricontate il 12 settembre 2026 notte, dopo la voce DI.01**, che ha portato
 **due guardie nuove**: il totale sale da 395 a **397** e le tre categorie a
@@ -558,6 +564,7 @@ le altre.
 | `la_colonna_dei_suggerimenti_non_esiste_piu_test.dart` | la colonna dei suggerimenti non esiste piu | 1 | dalla porta comune | mai | 3 |
 | `la_corsa_dello_zodiaco_test.dart` | la corsa dello zodiaco | 1 | proprio, dichiarato | mai | 3 |
 | `la_discesa_dura_venti_secondi_test.dart` | la discesa dura venti secondi, e la nebbia entra in dissolvenza | 1, 2 | non scopre insiemi di file | 12/09/2026, DG (rossa due volte: la discesa conosciuta a nove secondi, e la dissolvenza saltata a uno) | 1 |
+| `la_domanda_libera_viene_capita_test.dart` | la domanda libera viene capita, dal modello o dalla tabella, e la tabella non sbaglia mai | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (rossa: col minimo per decidere a uno, due temi sbagliati) | 1 |
 | `la_domanda_entra_nel_responso_test.dart` | la domanda entra nel responso | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `la_domanda_libera_si_trova_test.dart` | la domanda libera si trova | 1 | non scopre insiemi di file | 03/09/2026, CQ | 3 |
 | `la_domanda_scelta_arriva_al_responso_test.dart` | la domanda scelta arriva al responso | 1, 2 | dalla porta comune | mai | 3 |

@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 2
 VOCI_SBLOCCATE_E_APERTE: 1
 
 ---
@@ -111,3 +111,115 @@ risposta entro 48 ore"*, e niente la implementa.
 
 **LE GUARDIE:** `il_tema_della_domanda_arriva_alla_risposta` e
 `le_etichette_non_fanno_da_chiave`, registro a **397**.
+
+---
+
+## DI.02, LA DOMANDA LIBERA VIENE CAPITA. CHIUSA NEL CODICE
+
+**La premessa e' vera.** Nessun classificatore esisteva: il testo della
+persona entrava in un punto solo, come ingresso dell'hash che sceglie i pezzi
+della scena. E c'era di peggio: appena si scriveva nel campo, lo schermo
+azzerava il tema, quindi la risposta usava sempre le frasi *"senza domanda"*.
+
+**LA VIA DI RISERVA**, `IlTemaDellaDomandaLibera`, una tabella di parole e
+locuzioni per tema, coi pesi: tre per le locuzioni che dicono **cosa si sta
+chiedendo**, uno per i nomi che dicono **di chi o di cosa si parla**, quattro
+per le perdite. A parita', a zero, **o sotto i due punti**, il tema resta nullo.
+
+### La tabella che l'ordine chiede, a rete staccata
+
+| ok | domanda | atteso | ottenuto | punti |
+|---|---|---|---|---|
+| SI | Mia sorella diventerà presto mamma? | attesa | attesa | attesa 6, persona 2 |
+| SI | Quando arriverà la risposta del colloquio? | attesa | attesa | attesa 7 |
+| SI | Aspetto da mesi una notizia che non arriva mai. | attesa | attesa | attesa 8, blocco 1 |
+| SI | Riuscirò finalmente ad avere un figlio? | attesa | attesa | attesa 6, persona 1 |
+| SI | Devo accettare il nuovo lavoro o restare dove sono? | scelta | scelta | scelta 7 |
+| SI | Non so se trasferirmi a Milano o rimanere qui. | scelta | scelta | scelta 9 |
+| SI | Firmo il contratto oppure aspetto un’offerta migliore? | scelta | scelta | attesa 3, scelta 7 |
+| SI | Quale delle due case dovrei comprare? | scelta | scelta | scelta 3 |
+| SI | Cosa prova davvero Marco per me? | persona | persona | persona 4 |
+| SI | Posso fidarmi della mia collega? | persona | persona | persona 4 |
+| SI | Perché mia madre è sempre così fredda con me? | persona | persona | persona 3 |
+| SI | Perché non riesco mai a finire quello che inizio? | blocco | blocco | blocco 4 |
+| SI | Ho paura di parlare in pubblico e mi blocco ogni volta. | blocco | blocco | blocco 8 |
+| SI | Come faccio a smettere di rimandare tutto? | blocco | blocco | blocco 8 |
+| SI | Che strada devo prendere nella vita? | direzione | direzione | scelta 1, direzione 6 |
+| SI | Mi sento perso, non so cosa voglio fare da grande. | direzione | direzione | direzione 9 |
+| SI | Qual è il mio scopo? | direzione | direzione | direzione 3 |
+| SI | Come supero la fine della mia relazione? | finito | finito | finito 3 |
+| SI | Mio padre è morto e non riesco ad andare avanti. | finito | finito | persona 1, blocco 3, finito 8 |
+| SI | Mi hanno licenziato dopo dieci anni, e adesso? | finito | finito | finito 6 |
+
+**Venti su venti.** Ma va detto come si legge questo numero: le domande del
+gruppo dell'ordine le ho scritte io prima della tabella, e la tabella le
+conosceva mentre la scrivevo. **E' una prova di regressione, non una misura.**
+
+### La misura onesta, e come ci si e' arrivati
+
+1. Un **secondo gruppo** di dodici domande doveva essere indipendente, e non
+   lo era: la tabella ne ricalcava parola per parola le locuzioni. Il suo
+   dodici su dodici non misurava niente, **e l'ho dichiarato invece di
+   tenerlo**.
+2. Congelata la tabella, un **terzo gruppo** scritto dopo: **3 capite su
+   12, e 2 SBAGLIATE**, *"Mia figlia e' felice con il suo ragazzo?"* finita
+   nell'attesa e *"Cosa dovrei cambiare per sentirmi piu' realizzato?"* nella
+   scelta.
+3. Due cambi di principio, e non ritocchi su quelle domande: **una parola
+   d'argomento da sola non decide** (minimo due punti), e **il figlio e' una
+   persona** (stava nell'attesa per colpa di *"avere un figlio"*).
+4. Congelata di nuovo, un **quarto gruppo** scritto dopo: **4 capite su 12,
+   zero sbagliate**. E' la misura onesta di oggi.
+
+**La guardia pretende zero temi sbagliati, non un numero di giusti**: senza
+tema si cade sul ramo senza domanda, che l'ordine dice legittimo; col tema
+sbagliato la persona riceve una risposta su un'altra cosa. **La tabella da
+sola capisce una domanda su tre: e' una rete di sicurezza prudente, il capire
+e' del modello.**
+
+### LA VIA PRINCIPALE, col modello
+
+`LaDomandaCapita`: chiamata secca, temperatura zero, istruzione costruita dalle
+sei domande scritte, e **risposta vincolata a un elenco chiuso**
+(`text/x.enum`): il modello non puo' scrivere altro che uno dei sei id.
+**Due secondi di pazienza**, poi la tabella, senza che la persona se ne
+accorga; il guasto va nel registro dei guasti, mai alla persona. **La
+classificazione parte al tocco di Scendi e lavora durante i venti secondi della
+discesa**: quando si risale e' pronta da un pezzo.
+
+**I MODELLI DELL'ORDINE ESISTONO, MA SOLO DALL'ENDPOINT `global`.** Verificato
+il 12 settembre 2026 contando i token con ogni modello: `gemini-3.5-flash-lite`
+e `gemini-3.6-flash` rispondono da `global` e danno 404 da `europe-west1`,
+dove l'app fissa Vertex di proposito. **E' una scelta di residenza dei dati, ed
+e' del fondatore.** Provati col modello vero sulle 56 domande di prova, con la
+stessa istruzione e lo stesso elenco chiuso:
+
+| | giuste | tempo mediano | peggiore | oltre 2 s |
+|---|---|---|---|---|
+| `gemini-2.5-flash-lite`, `europe-west1` | 53 su 56 | 0,44 s | 1,30 s | 0 |
+| `gemini-3.5-flash-lite`, `global` | 54 su 56 | 0,69 s | **20,04 s** | 1 |
+
+**Misurati con l'istruzione che il codice usa davvero**: una prima misura era
+stata fatta su una formulazione poi corretta dalle guardie di casa, e si e'
+rifatta. **Due misure di fila hanno trovato su `global` una chiamata da circa
+venti secondi** (18,99 e 20,04): coi due secondi di pazienza la persona non se
+ne accorge, perche' decide la tabella, ma e' un dato per la scelta. La
+differenza di precisione fra i due modelli e' **una domanda su 56**.
+
+**Finche' il fondatore non sceglie, e' montato il primo**, che tiene i dati in
+Europa e non ha mai sforato i due secondi: modello e regione sono una
+costante ciascuno.
+
+**La domanda del fondatore, adesso, a rete staccata:** *"Mia sorella
+diventera' presto mamma?"* riceve *"Sotto sei andato per un tempo che non
+arriva. Datti una data. Se passa, hai la tua risposta."* Prima riceveva *"Non
+hai chiesto niente. Hai visto lo stesso."* **E' una risposta sull'attesa, ma
+non ancora sulla sua domanda**: non nomina ne' la sorella ne' il diventare
+madre. Quello e' il lavoro delle voci DI.03 e DI.04.
+
+**LE GUARDIE:** `la_domanda_libera_viene_capita`, con la via di riserva, i
+quattro gruppi, e il modello iniettato in cinque comportamenti (giusto, con le
+virgolette, fuori dai sei, in errore, oltre i due secondi: la persona aspetta
+2,002 secondi); e la strada intera con la domanda scritta a mano. Viste rosse:
+col minimo per decidere a uno, due temi sbagliati nominati; senza la
+classificazione al tocco di Scendi, la frase senza domanda.
