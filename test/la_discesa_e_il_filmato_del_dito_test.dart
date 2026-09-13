@@ -533,6 +533,75 @@ void main() {
           reason: 'il tamburo e stato chiesto senza file: la musica si '
               'abbasserebbe sotto un silenzio');
     });
+
+    /// **IL TAMBURO DELL'ORDINE DJ VOCE 10**: nella sua cartella, al volume
+    /// degli effetti e sotto il loro interruttore.
+    test('IL TAMBURO STA DOVE DICE L ORDINE, e la cartella e dichiarata', () {
+      expect(IlTamburoDellaDiscesa.nelPacchetto,
+          'assets/audio/mondo_di_sotto/tamburo_discesa.mp3');
+      expect(IlTamburoDellaDiscesa.volume, SuonoDelCerchio.volumeDegliEffetti,
+          reason: 'il tamburo non ha il volume degli effetti');
+      expect(File('pubspec.yaml').readAsStringSync(),
+          contains('- assets/audio/mondo_di_sotto/'));
+      expect(File('assets/audio/mondo_di_sotto/LEGGIMI.md').existsSync(),
+          isTrue);
+    });
+
+    testWidgets(
+        'IL TAMBURO SEGUE IL CURSORE DEGLI EFFETTI, e non quello della musica',
+        (tester) async {
+      final volumi = <double>[];
+      PaletteSensoriale.volumiChiestiNelleProve = volumi;
+      addTearDown(() => PaletteSensoriale.volumiChiestiNelleProve = null);
+      PaletteSensoriale.tamburoPresenteNelleProve = true;
+      await scendi(tester,
+          impostazioni: SettingsController(
+              suonoEVibrazione: true, volumeEffetti: 0.4, volumeMusica: 0.9));
+      await tester.pump();
+      await tester.pump();
+      expect(volumi, [closeTo(0.4, 1e-9)],
+          reason: 'il tamburo batte a ${volumi.join(', ')}: il cursore degli '
+              'effetti e a 0,4 e quello della musica a 0,9');
+    });
+
+    testWidgets('A EFFETTI SPENTI IL TAMBURO TACE, e la discesa scende',
+        (tester) async {
+      final battiti = <bool>[];
+      PaletteSensoriale.spiaDelTamburo = battiti.add;
+      PaletteSensoriale.tamburoPresenteNelleProve = true;
+      await scendi(tester,
+          impostazioni: SettingsController(
+              suonoEVibrazione: true, effettiSonori: false));
+      await tester.pump();
+      await tester.pump();
+      expect(battiti, isEmpty,
+          reason: 'l interruttore degli effetti e spento e il tamburo batte');
+      expect(find.byType(LaDiscesa), findsOneWidget);
+    });
+
+    /// **E IL CURSORE DEGLI EFFETTI VALE PER GLI EFFETTI.** Esisteva
+    /// dall'ordine CN e nessun effetto lo leggeva.
+    testWidgets('IL CURSORE DEGLI EFFETTI ABBASSA GLI EFFETTI', (tester) async {
+      final volumi = <double>[];
+      PaletteSensoriale.volumiChiestiNelleProve = volumi;
+      addTearDown(() => PaletteSensoriale.volumiChiestiNelleProve = null);
+      late BuildContext contesto;
+      await tester.pumpWidget(ChangeNotifierProvider.value(
+        value: SettingsController(suonoEVibrazione: true, volumeEffetti: 0.5),
+        child: Builder(builder: (c) {
+          contesto = c;
+          return const SizedBox();
+        }),
+      ));
+      await tester.runAsync(
+          () => PaletteSensoriale.suona(contesto, SuonoDelCerchio.carta));
+      await tester.runAsync(
+          () => PaletteSensoriale.suona(contesto, SuonoDelCerchio.eos));
+      expect(volumi, [
+        closeTo(0.5, 1e-9),
+        closeTo(SuonoDelCerchio.eos.volume * 0.5, 1e-9),
+      ]);
+    });
   });
 
   test('il lettore vero non salta mai e non mostra barre', () {

@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 6
-VOCI_SBLOCCATE_E_APERTE: 5
+VOCI_CHIUSE: 7
+VOCI_SBLOCCATE_E_APERTE: 4
 
 ---
 
@@ -317,5 +317,45 @@ la cartella nel pubspec, e il segno a schermo con il disegno e senza. **Due
 rossi**: il disegno ignorato anche quando c'e', e l'istruzione senza i
 significati. Una pretesa era sbagliata la prima volta, ed era la prova: in
 Dart il confine di parola non riconosce la *i* accentata di *si'*.
+
+---
+
+## DJ.10, IL TAMBURO DELLA DISCESA. CHIUSA, CON UN DIFETTO TROVATO E CURATO
+
+**Il file sta dove dice l'ordine**, `assets/audio/mondo_di_sotto/tamburo_discesa.mp3`
+(prima era `assets/audio/tamburo_della_discesa.mp3`), e la cartella e'
+dichiarata nel pubspec anche da vuota, nel manifesto degli asset e col suo
+`LEGGIMI.md`, che dice a chi lo sceglie le misure: tamburo a cornice, quattro
+battiti e mezzo al secondo, anello senza cucitura da quattro a dodici secondi,
+normalizzato come gli effetti. **Oggi il file non c'e'.**
+
+**Il comportamento c'era gia' dalla voce DI.09, ed e' provato**: il tamburo
+parte con la discesa, batte in ciclo, **continua a dito alzato** e si spegne
+in mezzo secondo alla fine. **Senza il file la discesa scende muta**: nessun
+errore a schermo, nessuna riga nel registro dei guasti, una sola riga di
+annotazione nel diario di sviluppo, e la musica non si abbassa sotto un
+silenzio. **Rispetta l'interruttore degli effetti sonori**, e non quello della
+musica: a effetti spenti non batte.
+
+**Il volume e' quello degli effetti.** Era l'ottanta per cento, *sotto gli
+effetti*; adesso e' la stessa costante degli effetti,
+`SuonoDelCerchio.volumeDegliEffetti`, per il cursore degli effetti scelto
+dalla persona.
+
+**IL DIFETTO TROVATO, E IL SUO PADRE.** Cercando *il volume degli effetti* ho
+trovato che **il cursore "Volume degli effetti" non lo leggeva nessuno**: la
+schermata del suono lo mostra e lo salva, e i tredici effetti uscivano sempre
+al volume del catalogo, qualunque cosa la persona scegliesse. Quello della
+musica lo applica la regia della musica. **Padre: ordine CN, voci 01-04, 06, 07,
+08 e 12**, commit `3acf1b36` del primo settembre 2026. **Curato qui**, perche'
+senza la cura *il volume degli effetti* del tamburo sarebbe stato un numero
+fisso: adesso la palette sensoriale applica il cursore agli effetti e al
+tamburo, in un posto solo.
+
+**Le prove**, nella guardia della discesa: il percorso dell'ordine e la
+cartella dichiarata; il tamburo che segue il cursore degli effetti e non
+quello della musica; il tamburo muto a effetti spenti, con la discesa che
+scende; il cursore che abbassa gli effetti. **Tre rossi**: il tamburo che
+ignora il cursore, gli effetti che lo ignorano, il percorso di prima.
 
 ---

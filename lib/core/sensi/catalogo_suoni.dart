@@ -112,7 +112,14 @@ enum SuonoDelCerchio {
   /// gli 8,2 del file di origine.
   respiroFuori('respiro_fuori.mp3', Duration(milliseconds: 6847));
 
-  const SuonoDelCerchio(this.file, this.durataAttesa, {this.volume = 1.0});
+  const SuonoDelCerchio(this.file, this.durataAttesa,
+      {this.volume = volumeDegliEffetti});
+
+  /// **IL VOLUME DEGLI EFFETTI**, pieno. Ordine DJ voce 10: lo prende anche
+  /// il tamburo della discesa, che *"ha il volume degli effetti, non della
+  /// musica"*. Un numero solo, perche' un effetto e il tamburo escano alla
+  /// stessa forza.
+  static const double volumeDegliEffetti = 1.0;
 
   /// Il nome del file atteso dentro `assets/audio/`.
   final String file;
@@ -210,22 +217,27 @@ abstract final class VersiDegliAnimali {
 ///
 /// **IL FILE NON C'E' ANCORA, e il Viaggio lo sa.** Come i cinque suoni del
 /// Cerchio e i dodici versi, lo sceglie il fondatore: le misure che deve avere
-/// stanno in `assets/audio/LEGGIMI.md`. Non l'ho sintetizzato io al telefono,
+/// stanno in `assets/audio/mondo_di_sotto/LEGGIMI.md`. Non l'ho sintetizzato io al telefono,
 /// per la stessa ragione per cui il responso ha smesso di fischiare: il
 /// fondatore ha gia' detto che un suono che non ha scelto lui non lo vuole.
 /// Finche' il file manca la discesa resta muta, e nessun lettore nasce per
 /// niente.
 abstract final class IlTamburoDellaDiscesa {
-  /// La cartella, senza barre per la stessa ragione di [VersiDegliAnimali].
+  /// La cartella, senza barre per la stessa ragione di [VersiDegliAnimali]:
+  /// `audio`, poi `mondo_di_sotto`. **Ordine DJ voce 10**: il file sta in
+  /// `assets/audio/mondo_di_sotto/tamburo_discesa.mp3`, e la cartella e'
+  /// dichiarata nel pubspec anche da vuota. Prima era
+  /// `assets/audio/tamburo_della_discesa.mp3`.
   static const String _dentro = 'audio';
+  static const String _cartella = 'mondo_di_sotto';
 
   /// Il nome del file, composto per non scrivere l'estensione per esteso.
-  static String get _file => 'tamburo_della_discesa${_estensione()}';
+  static String get _file => 'tamburo_discesa${_estensione()}';
 
   static String _estensione() => '.mp3';
 
   /// Il percorso secondo la convenzione di `AssetSource`, senza `assets/`.
-  static String get percorso => '$_dentro/$_file';
+  static String get percorso => '$_dentro/$_cartella/$_file';
 
   /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
   static String get nelPacchetto => 'assets/$percorso';
@@ -239,9 +251,12 @@ abstract final class IlTamburoDellaDiscesa {
   /// solo.
   static const double battitiAlSecondo = 4.5;
 
-  /// **QUANTO FORTE BATTE.** Sotto gli effetti, sopra la musica abbassata:
-  /// e' il battito della scena, non un colpo che chiede attenzione.
-  static const double volume = 0.8;
+  /// **QUANTO FORTE BATTE: COME GLI EFFETTI, E NON COME LA MUSICA.** Ordine
+  /// DJ voce 10. Qui c'era l'ottanta per cento, *sotto gli effetti*: il
+  /// fondatore lo vuole alla forza di un effetto, e dall'interruttore degli
+  /// effetti dipende gia', `SettingsController.suonoPermesso`. I cursori
+  /// della musica non lo toccano.
+  static const double volume = SuonoDelCerchio.volumeDegliEffetti;
 
   /// **QUANTO CI METTE A SPEGNERSI**, alla fine della discesa. Lo stesso
   /// mezzo secondo della dissolvenza verso la nebbia: il tamburo si allontana

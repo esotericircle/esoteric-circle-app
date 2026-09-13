@@ -22,6 +22,10 @@ dichiarato nel motore audio.
 
 ## Il tamburo della discesa, ordine DI voce 09
 
+**Dall'ordine DJ voce 10 sta in una cartella sua**, `assets/audio/mondo_di_sotto/`,
+col nome `tamburo_discesa.mp3`, e le sue misure stanno nel LEGGIMI di quella
+cartella. Qui resta la storia.
+
 Il Viaggio dello Sciamano scende dentro un filmato muto: il suono della scena e'
 un tamburo, in un livello suo, che batte per tutta la discesa e **continua a
 battere anche quando il dito si alza**. E' il contrasto che l'ordine chiede:

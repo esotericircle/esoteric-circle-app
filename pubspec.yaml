@@ -187,6 +187,10 @@ flutter:
     # entrerebbero nel pacchetto, e la rivelazione resterebbe muta anche il
     # giorno in cui i file ci sono. Dichiarata anche da vuota, come sopra.
     - assets/audio/animali/
+    # **IL TAMBURO DELLA DISCESA, ordine DJ voce 10**: tamburo_discesa.mp3,
+    # in ciclo per tutta la discesa del Viaggio. Dichiarata anche da vuota,
+    # come le due sopra: finche' il file manca la discesa resta muta.
+    - assets/audio/mondo_di_sotto/
     # I QUATTRO ANELLI D'AMBIENTE, ordine CN del 1 settembre 2026. Stanno in
     # una cartella loro e non con gli effetti, perche' pesano due ordini di
     # grandezza di piu': un budget solo li nasconderebbe tutti e due.

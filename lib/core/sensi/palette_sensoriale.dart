@@ -94,8 +94,29 @@ class PaletteSensoriale {
     // discesa dura 220 millisecondi, cioe' meno del piu' breve dei
     // tredici suoni, quindi non ritarda niente di percepibile.
     unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(suono.durataAttesa));
-    await _motore.effetto(suono.percorso, volume: suono.volume);
+    // **COL CURSORE DEGLI EFFETTI**, ordine DJ voce 10: il volume del suono,
+    // dichiarato nel catalogo, per quello che la persona ha scelto.
+    final quanto = suono.volume * volumeDegliEffetti(context);
+    volumiChiestiNelleProve?.add(quanto);
+    await _motore.effetto(suono.percorso, volume: quanto);
   }
+
+  /// **IL CURSORE DEGLI EFFETTI**, da 0 a 1. Ordine DJ voce 10.
+  ///
+  /// **Esisteva dall'ordine CN e non lo leggeva nessuno**: la schermata del
+  /// suono ha il cursore *Volume degli effetti*, che si salva, e gli effetti
+  /// uscivano sempre al volume del catalogo, qualunque cosa la persona
+  /// scegliesse. Quello della musica lo applica la regia della musica; questo
+  /// adesso lo applica la palette, per gli effetti e per il tamburo della
+  /// discesa, che *"ha il volume degli effetti, non della musica"*.
+  static double volumeDegliEffetti(BuildContext context) =>
+      Provider.of<SettingsController?>(context, listen: false)?.volumeEffetti ??
+      1.0;
+
+  /// I volumi chiesti al motore, effetti e tamburo. Serve alle prove, dove il
+  /// plugin audio non c'e'.
+  @visibleForTesting
+  static List<double>? volumiChiestiNelleProve;
 
   /// **IL TAMBURO DELLA DISCESA COMINCIA A BATTERE.** Ordine DI voce 09.
   ///
@@ -109,6 +130,8 @@ class PaletteSensoriale {
   /// fare spazio.
   static Future<bool> tamburo(BuildContext context) async {
     if (!suonoPermesso(context)) return false;
+    // Il volume si legge adesso, prima di ogni attesa, finche' il contesto c'e'.
+    final quanto = IlTamburoDellaDiscesa.volume * volumeDegliEffetti(context);
     if (!await ilTamburoCE()) {
       debugPrint('Ordine DI voce 09: il tamburo della discesa non è nel '
           'pacchetto, la discesa resta muta. Atteso in '
@@ -123,8 +146,9 @@ class PaletteSensoriale {
     if (prima != null && !prima.isCompleted) prima.complete();
     _fineDelTamburo = Completer<void>();
     unawaited(RegiaDellaMusica.sola.scendiFinoA(_fineDelTamburo!.future));
-    await _motore.tamburo(IlTamburoDellaDiscesa.percorso,
-        volume: IlTamburoDellaDiscesa.volume);
+    _volumeDelTamburo = quanto;
+    volumiChiestiNelleProve?.add(quanto);
+    await _motore.tamburo(IlTamburoDellaDiscesa.percorso, volume: quanto);
     return true;
   }
 
@@ -139,13 +163,16 @@ class PaletteSensoriale {
     spiaDelTamburo?.call(false);
     _motore.spegniIlTamburo(
       quanto: IlTamburoDellaDiscesa.sfumaturaFinale,
-      daVolume: IlTamburoDellaDiscesa.volume,
+      daVolume: _volumeDelTamburo,
     );
     if (!fine.isCompleted) fine.complete();
   }
 
   /// Si compie quando il tamburo si ferma: la regia ci aggancia la risalita.
   static Completer<void>? _fineDelTamburo;
+
+  /// Il volume a cui batte, per spegnerlo partendo da li'.
+  static double _volumeDelTamburo = IlTamburoDellaDiscesa.volume;
 
   /// **SE IL FILE DEL TAMBURO C'E' DAVVERO.** Si chiede, non si suppone:
   /// dare per scontato che ci sia vorrebbe dire abbassare la musica sotto un
