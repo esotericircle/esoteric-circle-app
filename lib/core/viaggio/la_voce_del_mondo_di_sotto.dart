@@ -56,8 +56,14 @@ abstract final class LaVoceDelMondoDiSotto {
   /// *"Non ti serve essere sicuro"* e *"Se arrivasse domani, saresti pronto"*
   /// dicevano a chi legge di essere un uomo, e sono *"Non ti serve la
   /// certezza"* e *"Se arrivasse domani, avresti tutto pronto"*; *"E' finito,
-  /// e va bene cosi'"* aveva la virgola davanti alla *e*, ed e' rimasto *"E'
-  /// finito: va bene cosi'"*, com'era gia'.
+  /// e va bene cosi'"* aveva la virgola davanti alla *e*, e dall'ordine DK voce
+  /// 01 e' *"E' finito e va bene cosi'"*.
+  ///
+  /// **NESSUN TITOLO CONTIENE I DUE PUNTI**, ordine DK voce 01: il titolo e'
+  /// l'unico pezzo che puo' finire concatenato ad altro. Erano due, quello
+  /// del tema *finito* e *"Riposati: e' lavoro anche quello"*, che e' diventato
+  /// *"Riposati, e' lavoro anche quello"*: le parole del fondatore, con la
+  /// virgola al posto dei due punti. Lo pretende `la_scena_parla_bene`.
   static const Map<String, List<String>> titoliPerTema = {
     'scelta': [
       'Hai già una preferenza',
@@ -126,7 +132,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Comincia dalla parte più piccola',
       'È fermo perché lo tieni',
       'Ti sta proteggendo da qualcosa',
-      'Riposati: è lavoro anche quello',
+      'Riposati, è lavoro anche quello',
       'Prova da un altro lato',
       'Non serve capirlo per muoverlo',
       'Lo hai già sciolto una volta',
@@ -194,7 +200,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Resta quello che hai imparato',
       'Il lutto è lavoro anche lui',
       'Fai spazio a quello che viene',
-      'È finito: va bene così',
+      'È finito e va bene così',
       'Lascia che resti indietro',
       'Chiudi la porta piano',
       'È finito davvero',

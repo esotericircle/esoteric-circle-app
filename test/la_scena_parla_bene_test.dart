@@ -142,6 +142,26 @@ void main() {
             '${dopo.testo}');
   });
 
+  /// **NESSUN TITOLO CONTIENE I DUE PUNTI**, ordine DK voce 01: il titolo e'
+  /// l'unico pezzo che puo' finire concatenato ad altro, ed e' cosi' che
+  /// nasceva la frase spezzata riparata nella voce DI.05. Si leggono tutti,
+  /// quelli dei sei temi e quelli senza domanda, e nessun segno di
+  /// punteggiatura interna che apra una spiegazione.
+  test('DK.01: nessun titolo del responso contiene i due punti', () {
+    final titoli = [
+      for (final t in LaVoceDelMondoDiSotto.titoliPerTema.values) ...t,
+      ...LaVoceDelMondoDiSotto.titoliSenzaDomanda,
+    ];
+    cardinaleMinimo(titoli.length, 148,
+        cosa: 'titoli del responso',
+        perche: 'Su un elenco vuoto nessun titolo avrebbe i due punti.');
+    final coiDuePunti = titoli.where((t) => t.contains(':')).toList();
+    // ignore: avoid_print
+    print('ORDINE DK VOCE 01: titoli letti ${titoli.length}, coi due punti '
+        '${coiDuePunti.length}');
+    expect(coiDuePunti, isEmpty, reason: '$coiDuePunti');
+  });
+
   /// **UN POSTO VUOL DIRE LA STESSA COSA IN OGNI GRADO**, ordine DJ voce 06:
   /// la voce del Mondo di Sotto sceglie la forma per posto, forma piu'
   /// quante forme per la chiusura, e con elenchi lunghi diversi lo stesso
