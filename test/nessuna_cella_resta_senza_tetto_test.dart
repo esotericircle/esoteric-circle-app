@@ -47,14 +47,12 @@ void main() {
     // passavano perche' "500" e "1 al mese" si leggono come numeri, non
     // perche' fossero tetti. Da quando le righe si cercano per chiave, la
     // prova pretende una chiave da ogni riga col numero, e le due sono venute
-    // fuori.
+    // fuori. **Dall'ordine DJ voce 09 e' una sola**: la Domanda al Maestro
+    // reale e' uscita dal listino, perche' nessuna parte dell'app la esegue.
     const nonSonoTetti = <String, String>{
       'Eos in dono alla sottoscrizione':
           'e\' una quantita\' regalata una volta alla sottoscrizione, non un '
               'limite d\'uso',
-      'Domanda al Maestro reale':
-          'e\' una quota MENSILE di un servizio umano, e nel codice non la '
-              'impone nessuno: portata al fondatore col rapporto dell\'ordine DI',
     };
     final senzaTetto = <String>[];
     for (final riga in PlanCatalog.matrix) {

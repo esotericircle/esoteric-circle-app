@@ -240,7 +240,11 @@ class PlanCatalog {
         '50 domande ai Maestri al giorno',
         '50 stese di tarocchi al giorno',
         '25 sinastrie VIP al giorno',
-        'Una domanda al mese al Maestro reale, risposta entro 48 ore',
+        // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
+        // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
+        // parte dell'app la esegue, e se reale vuol dire una persona non e'
+        // codice che manca, e' un operatore da ingaggiare. Non si offre e non
+        // si conta fra cio' che il piano da'.
         'Compatibilità a tre livelli, esclusiva',
         'Albero della Vita dinamico, esclusivo',
         'Memoria anima, sintesi evolutiva',
@@ -598,7 +602,8 @@ class PlanCatalog {
     // valore del piano, e la riga dice che arriva alla sottoscrizione.
     FeatureRow(
         'Eos in dono alla sottoscrizione', ['No', '500', '1.500', '3.000']),
-    FeatureRow('Domanda al Maestro reale', ['No', 'No', 'No', '1 al mese']),
+    // **Qui c'era la riga della Domanda al Maestro reale**: uscita con
+    // l'ordine DJ voce 09, vedi i vantaggi dell'Illuminato.
     FeatureRow('Accesso anticipato nuove funzioni', ['No', 'No', 'No', 'Sì']),
     FeatureRow('Eos bonus mensili', ['No', 'Medio', 'Alto', 'Massimo'],
         chiave: RigaDelPiano.eosMensili),

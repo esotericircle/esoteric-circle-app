@@ -61,10 +61,9 @@ void main() {
     expect(find.text('Sinastria VIP fino a 3 al giorno'), findsOneWidget);
     expect(find.text('5 domande al giorno ai Maestri'), findsOneWidget);
     expect(find.text('10 domande al giorno ai Maestri'), findsOneWidget);
-    expect(
-        find.text(
-            'Una domanda al mese al Maestro reale, risposta entro 48 ore'),
-        findsOneWidget);
+    // **LA DOMANDA AL MAESTRO REALE NON SI OFFRE**, ordine DJ voce 09:
+    // nessuna parte dell'app la esegue.
+    expect(find.textContaining('Maestro reale'), findsNothing);
 
     // "senza banner" e' diventato "senza pubblicità"; nessun residuo di "Guide".
     expect(find.text('Tutto di Viandante, senza pubblicità'), findsOneWidget);

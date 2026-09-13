@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 7
-VOCI_SBLOCCATE_E_APERTE: 4
+VOCI_CHIUSE: 8
+VOCI_SBLOCCATE_E_APERTE: 3
 
 ---
 
@@ -357,5 +357,36 @@ cartella dichiarata; il tamburo che segue il cursore degli effetti e non
 quello della musica; il tamburo muto a effetti spenti, con la discesa che
 scende; il cursore che abbassa gli effetti. **Tre rossi**: il tamburo che
 ignora il cursore, gli effetti che lo ignorano, il percorso di prima.
+
+---
+
+## DJ.09, LA DOMANDA AL MAESTRO REALE ESCE DAL LISTINO. CHIUSA
+
+**Uscita dai vantaggi dell'Illuminato**, *"Una domanda al mese al Maestro
+reale, risposta entro 48 ore"*, e **dalla matrice dei piani**, dove la riga
+scriveva *1 al mese* nella colonna dell'Illuminato come vantaggio compreso.
+Non si conta piu' fra cio' che il piano da': i vantaggi dell'Illuminato sono
+dieci, le righe della matrice trenta. Al loro posto, nel catalogo, un
+commento dice che cosa c'era e perche' e' uscito. **Nessuna schermata la
+offre e nessun pulsante la annuncia**: contato su tutta `lib`, e lo pretende
+una guardia.
+
+**La riga "In arrivo" nella vetrina non l'ho costruita**, e lo dico perche'
+l'ordine la lascia al fondatore: *"con etichetta In arrivo se il fondatore
+vuole tenerne traccia nella vetrina"*. Costruirla in anticipo avrebbe voluto
+dire scrivere un dato che nessuna schermata legge, cioe' il codice che la
+voce DJ.05 ha appena tolto. Se il fondatore la vuole, e' una riga della
+matrice col suo stato, grigia e col badge: un quarto d'ora.
+
+**I briefing in `docs/` la citano ancora**, il Briefing Progetto nelle righe
+307, 315, 343 e 497: il protocollo vieta di toccarli senza la conferma del
+fondatore, e la domanda sta nel rapporto. Il server non la conosceva.
+
+**Le prove**: la guardia nuova `il_listino_non_promette_il_maestro_reale`,
+dalla porta comune, che legge le stringhe di tutta `lib`, i vantaggi
+dell'Illuminato e le righe della matrice; **rossa** con la voce rimessa fra i
+vantaggi. Tre prove del listino pretendevano la promessa e adesso pretendono
+che non ci sia, coi numeri che seguono il dato: dieci vantaggi, trenta righe,
+e una sola riga col numero che non e' un tetto d'uso.
 
 ---

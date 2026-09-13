@@ -39,11 +39,13 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 127 |
+| Guardie che passano dalla porta comune | 128 |
 | Guardie con un cardinale proprio dichiarato | 104 |
 | Guardie che non scoprono nessun insieme di file | 178 |
-| **Somma delle categorie** | **409** |
-| **Guardie secondo la definizione** | **409** |
+| **Somma delle categorie** | **410** |
+| **Guardie secondo la definizione** | **410** |
+
+**Ricontate a voce DJ.09 chiusa**, che ha portato **una guardia nuova**, `il_listino_non_promette_il_maestro_reale`, dalla porta comune perche' cerca la promessa in tutta `lib`: il totale sale da 409 a **410** e le tre categorie a **128, 104 e 178**.
 
 **Ricontate a voce DJ.05 chiusa, e la guardia non e' nuova: lo e' diventata.** `i_tetti_del_viaggio_e_la_demo` chiamava `siPuoComprareAncora`, una funzione che tornava sempre falso; tolta la funzione, la regola che difendeva si sorveglia leggendo il listino del server e i trentacinque file del Viaggio, col suo cardinale. Il totale sale da 408 a **409** e le tre categorie a **127, 104 e 178**.
 
@@ -498,6 +500,7 @@ le altre.
 | `il_gradino_aspetta_il_congedo_test.dart` | il gradino aspetta il congedo | 1 | proprio, dichiarato | mai | 2 |
 | `il_journal_arriva_in_fondo_test.dart` | il journal arriva in fondo | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_lettore_riceve_la_musica_test.dart` | il lettore riceve la musica | 4 | non scopre insiemi di file | mai | 3 |
+| `il_listino_non_promette_il_maestro_reale_test.dart` | nessuna stringa di lib offre o annuncia la Domanda al Maestro reale, ordine DJ voce 09; i vantaggi dell'Illuminato e la matrice dei piani non la contano | 1, 2 | dalla porta comune | 13/09/2026, DJ voce 09 (un rosso: la voce rimessa fra i vantaggi dell'Illuminato) | 1 |
 | `il_listino_vivo_test.dart` | il listino vivo | 1 | dalla porta comune | mai | 3 |
 | `il_livello_visivo_prima_del_testo_nei_riti_test.dart` | il livello visivo prima del testo nei riti | 1, 2 | dalla porta comune | mai | 3 |
 | `il_loto_respira_coi_tempi_di_chi_respira_test.dart` | il loto respira coi tempi di chi respira | 1, 2 | non scopre insiemi di file | 08/09/2026, CZ | 2 |

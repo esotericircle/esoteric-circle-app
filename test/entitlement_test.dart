@@ -131,7 +131,10 @@ void main() {
       expect(PlanCatalog.forTier(Tier.free).highlights.length, 10);
       expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 12);
       expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 12);
-      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 11);
+      // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
+      // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
+      // che il piano da', perche' nessuna parte dell'app la esegue.
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 10);
     });
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {
@@ -163,10 +166,8 @@ void main() {
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
       expect(
           illuminato.any((h) => h.contains('50 domande ai Maestri')), isTrue);
-      expect(
-          illuminato
-              .any((h) => h.contains('Una domanda al mese al Maestro reale')),
-          isTrue);
+      // **E NON LA DOMANDA AL MAESTRO REALE**, uscita con l'ordine DJ voce 09.
+      expect(illuminato.any((h) => h.contains('Maestro reale')), isFalse);
     });
 
     test('La mappa comparativa ha le righe attese con quattro valori', () {
@@ -183,7 +184,9 @@ void main() {
       // paga. Il numero segue il dato.
       // TRENTUNO dall'ordine DI voce 15: le tre righe del Viaggio dello
       // Sciamano, discese, segni chiesti all'animale e nutrimento.
-      expect(PlanCatalog.matrix.length, 31);
+      // TRENTA dall'ordine DJ voce 09: e' uscita la riga della Domanda al
+      // Maestro reale, che nessuna parte dell'app esegue.
+      expect(PlanCatalog.matrix.length, 30);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
