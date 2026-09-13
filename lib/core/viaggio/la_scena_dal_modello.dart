@@ -87,11 +87,10 @@ abstract final class LaScenaDalModello {
   ///
   /// **L'ordine nomina Gemini 3.6 Flash**, e come Gemini 3.5 Flash Lite per la
   /// domanda capita esiste soltanto sull'endpoint `global`: verificato il 12
-  /// settembre 2026 contando i token. Finche' il fondatore non sceglie fra il
-  /// modello dell'ordine su `global` e i dati che restano in `europe-west1`,
-  /// qui c'e' `gemini-2.5-flash`, lo stesso livello del modello dell'ordine
-  /// fra quelli che rispondono in Europa. Passare all'altro e' questa riga e
-  /// la regione, che e' quella della domanda capita.
+  /// settembre 2026 contando i token. **Il fondatore ha scelto, ordine DJ
+  /// voce 03**: `gemini-2.5-flash` in `europe-west1`, dove stanno i dati, e
+  /// *"non e' un ripiego"*. Un modello nuovo si nomina solo se risponde nella
+  /// regione dei dati: vedi `LaRegioneDeiDati`.
   static const String modello = 'gemini-2.5-flash';
 
   static String get regione => LaDomandaCapita.regione;

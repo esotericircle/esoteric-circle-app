@@ -6,7 +6,9 @@ import 'dart:io';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
+import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
+import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
 import 'package:esoteric_circle/core/viaggio/il_responso_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_capita.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_del_viaggio.dart';
@@ -164,11 +166,80 @@ void main() {
     final uscita = esiti.fold<int>(0, (s, e) => s + e.tokenUscita);
     print('CHIAMATE AL MODELLO: $chiamate, token in ingresso $ingresso, in '
         'uscita $uscita');
+    for (final e in _perTipo.entries) {
+      print('  ${e.key}: ${e.value.media}');
+    }
   },
       skip: token.isEmpty
           ? 'con rete gira solo con VERTEX_TOKEN nell\'ambiente'
           : false,
       timeout: const Timeout(Duration(minutes: 40)));
+
+  /// **IL SEGNO COL MODELLO VERO**, ordini DJ voce 08 e voce 03: dodici
+  /// domande, una per animale, con l'istruzione e lo schema della chiamata
+  /// dell'app. Misura quanti segni la lettura accetta, quali gesti sceglie il
+  /// modello, e i token di una chiamata, che entrano nel costo.
+  test('CON RETE: il segno col modello vero, dodici domande', () async {
+    HttpOverrides.global = null;
+    const domande = [
+      'Devo accettare il lavoro nuovo?',
+      'Mi conviene aspettare ancora?',
+      'Questa persona tornerà?',
+      'Sto sbagliando strada?',
+      'È il momento di partire?',
+      'Posso fidarmi di lei?',
+      'Devo dire di no?',
+      'Ho visto tutto quello che serve?',
+      'Faccio bene a restare?',
+      'Riuscirò a finire in tempo?',
+      'Devo cambiare casa quest\'anno?',
+      'Mi sto perdendo qualcosa?',
+    ];
+    final gesti = <String, int>{};
+    final scartati = <String>[];
+    final righe = <String>[];
+    final conto = _Conto();
+    for (var i = 0; i < domande.length; i++) {
+      final animale = AnimalCatalog.animals[i % AnimalCatalog.animals.length];
+      final risposta = await _vertex(token, GestiDelSegno.modello,
+          GestiDelSegno.istruzione(animale), domande[i], conto,
+          tipo: 'segno',
+          temperatura: 0.7,
+          tetto: 256,
+          mime: 'application/json',
+          schema: {
+            'type': 'OBJECT',
+            'properties': {
+              'gesto': {
+                'type': 'STRING',
+                'enum': [for (final g in GestoDelSegno.values) g.name],
+              },
+              'riga': {'type': 'STRING'},
+            },
+          });
+      final segno = GestiDelSegno.leggi(risposta, animale);
+      if (segno == null) {
+        scartati.add('${animale.name}: $risposta');
+        continue;
+      }
+      gesti[segno.gesto.name] = (gesti[segno.gesto.name] ?? 0) + 1;
+      righe.add('${domande[i]} -> ${segno.riga}');
+    }
+    print('');
+    print('=== ORDINE DJ VOCE 08, IL SEGNO COL MODELLO VERO ===');
+    print('accettati ${righe.length} su ${domande.length}, gesti $gesti, '
+        '${_perTipo['segno']!.media}');
+    for (final r in righe) {
+      print('  $r');
+    }
+    for (final s in scartati) {
+      print('  SCARTATO $s');
+    }
+  },
+      skip: token.isEmpty
+          ? 'con rete gira solo con VERTEX_TOKEN nell\'ambiente'
+          : false,
+      timeout: const Timeout(Duration(minutes: 5)));
 }
 
 /// Un caso della prova: una domanda, e il tema quando e' una delle sei.
@@ -363,6 +434,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
 
   final ChiamataDelModello chiamataDelTema = conRete
       ? (i, d) => _vertex(token, LaDomandaCapita.modello, i, d, conto,
+              tipo: 'tema',
               temperatura: 0,
               tetto: 64,
               mime: 'text/x.enum',
@@ -374,6 +446,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
   // **LO SCHEMA E' QUELLO DELLA CHIAMATA VERA**, dai pezzi ammessi oggi.
   final ChiamataDellaScena chiamataDellaScena = conRete
       ? (i, r, a) => _vertex(token, LaScenaDalModello.modello, i, r, conto,
+              tipo: 'scena',
               temperatura: 0.8,
               tetto: 256,
               mime: 'application/json',
@@ -562,13 +635,29 @@ class _Conto {
   int chiamate = 0;
   int ingresso = 0;
   int uscita = 0;
+
+  String get media => chiamate == 0
+      ? 'nessuna chiamata'
+      : '$chiamate chiamate, in media ${(ingresso / chiamate).toStringAsFixed(0)} '
+          'token in ingresso e ${(uscita / chiamate).toStringAsFixed(1)} in uscita';
 }
+
+/// **I CONTI PER TIPO DI CHIAMATA**, per tutta la prova: la scena, il tema
+/// della domanda libera, il segno. Ordine DJ voce 03: il costo di una discesa
+/// si rifa' sui token veri di ogni chiamata, e la prova dell'ordine DI li
+/// sommava insieme.
+final Map<String, _Conto> _perTipo = {
+  'scena': _Conto(),
+  'tema': _Conto(),
+  'segno': _Conto(),
+};
 
 /// **LA CHIAMATA VERA A VERTEX AI**, per REST, con la configurazione della
 /// chiamata dell'app: stessa regione, stesso modello, ragionamento spento.
 Future<String?> _vertex(String token, String modello, String istruzione,
     String testo, _Conto conto,
-    {required double temperatura,
+    {required String tipo,
+    required double temperatura,
     required int tetto,
     required String mime,
     required Map<String, Object> schema}) async {
@@ -622,8 +711,14 @@ Future<String?> _vertex(String token, String modello, String istruzione,
     }
     final j = jsonDecode(testoRisposta) as Map<String, dynamic>;
     final uso = (j['usageMetadata'] as Map?) ?? const {};
-    conto.ingresso += (uso['promptTokenCount'] as int?) ?? 0;
-    conto.uscita += (uso['candidatesTokenCount'] as int?) ?? 0;
+    final dentro = (uso['promptTokenCount'] as int?) ?? 0;
+    final fuori = (uso['candidatesTokenCount'] as int?) ?? 0;
+    conto.ingresso += dentro;
+    conto.uscita += fuori;
+    final perTipo = _perTipo[tipo]!;
+    perTipo.chiamate++;
+    perTipo.ingresso += dentro;
+    perTipo.uscita += fuori;
     return ((j['candidates'] as List).first['content']['parts'] as List)
         .first['text'] as String?;
   } finally {

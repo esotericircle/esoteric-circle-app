@@ -381,6 +381,43 @@ void main() {
           isNull,
           reason: 'un aggettivo al maschile riferito a chi legge');
       expect(GestoDelSegno.siAllontana.descrizione(aquila), contains('volo'));
+      // **LE RIGHE VERE CHE LA LETTURA LASCIAVA PASSARE**, dalla prima prova
+      // col modello vero dell'ordine DJ voce 08: ognuna si scarta.
+      final cervo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Cervo');
+      for (final (riga, perche) in [
+        (
+          'Mi sono allontanato per indicarti che non è il momento giusto.',
+          'l animale parla in prima persona, e al maschile'
+        ),
+        (
+          'Il Lupo si allontana di qualche passo e ti dice che la risposta è no.',
+          'l animale parla'
+        ),
+        (
+          'Il Lupo ti si avvicina. Questo indica che la persona tornerà.',
+          'una previsione certa'
+        ),
+        (
+          'Il Lupo si volta a guardare dietro di sé questo significa che non '
+              'hai visto tutto',
+          'due frasi senza un segno che le separi'
+        ),
+        ('La volpe si volta. Non hai visto tutto.', 'non nomina il suo animale'),
+      ]) {
+        expect(
+            GestiDelSegno.leggi(
+                '{"gesto":"siVolta","riga":"$riga"}', lupo),
+            isNull,
+            reason: '$perche: "$riga"');
+      }
+      // **E IL NOME IN MINUSCOLO SI RADDRIZZA**, invece di scartare la riga.
+      expect(
+          GestiDelSegno.leggi(
+                  '{"gesto":"siAvvicina","riga":"Il cervo ti si avvicina. '
+                  'Puoi andare avanti."}',
+                  cervo)
+              ?.riga,
+          'Il Cervo ti si avvicina. Puoi andare avanti.');
       // **IL MODELLO SCEGLIE DAL SIGNIFICATO**: l'istruzione porta i tre
       // significati dell'ordine, uno per gesto.
       final istruzione = GestiDelSegno.istruzione(lupo);

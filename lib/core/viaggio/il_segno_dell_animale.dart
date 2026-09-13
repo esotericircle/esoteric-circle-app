@@ -90,10 +90,9 @@ abstract final class GestiDelSegno {
   /// Gli uccelli, che non hanno bocca e non si siedono.
   static const Set<String> uccelli = {'Aquila', 'Corvo', 'Falco', 'Gufo'};
 
-  /// **IL MODELLO E LA REGIONE SONO QUELLI DELLA DOMANDA CAPITA**, per scelta:
-  /// l'ordine nomina Gemini 3.5 Flash Lite per tutte e due, e la scelta fra il
-  /// modello dell'ordine su `global` e quello gia' in uso su `europe-west1` e'
-  /// del fondatore. Si cambia in un posto solo, `LaDomandaCapita`.
+  /// **IL MODELLO E LA REGIONE SONO QUELLI DELLA DOMANDA CAPITA**: Gemini 2.5
+  /// Flash Lite in `europe-west1`, scelta del fondatore con l'ordine DJ voce
+  /// 03. Si cambia in un posto solo, `LaDomandaCapita`.
   static String get modello => LaDomandaCapita.modello;
   static String get regione => LaDomandaCapita.regione;
 
@@ -145,12 +144,21 @@ abstract final class GestiDelSegno {
       b.writeln('- ${g.name}: $chi ${g.descrizione(animale)}. Significato: '
           '${g.significato}.');
     }
+    final chiMaiuscolo = '${chi[0].toUpperCase()}${chi.substring(1)}';
+    // **LA FORMA DELLA RIGA E' DETTA**, ordine DJ voce 08: la prima prova col
+    // modello vero ha avuto l'animale che parlava in prima persona, *"Mi sono
+    // allontanato"*, previsioni certe, *"la persona tornera'"*, e frasi senza
+    // punteggiatura. Due frasi, la prima col nome.
     b.write('Scegli il gesto il cui significato risponde alla domanda. Poi '
-        'scrivi UNA riga in italiano, al massimo 25 parole, in seconda persona '
-        'singolare: dice cosa ha fatto $chi e cosa vuol dire per la domanda, '
-        'col significato del gesto scelto. Non usare aggettivi o participi che '
-        'dicano se la persona è un uomo o una donna. Niente due punti. Niente '
-        'previsioni certe, niente consigli medici, legali o economici.');
+        'scrivi UNA riga in italiano, al massimo 25 parole, fatta di due '
+        'frasi. La prima comincia con "$chiMaiuscolo" e dice il gesto. La '
+        'seconda dice cosa vuol dire per QUESTA domanda, col significato del '
+        'gesto ma con parole tue, in seconda persona singolare: non ripetere '
+        'il significato alla lettera. L\'animale non parla: niente prima persona, '
+        'niente "ti dice". Il gesto indica una direzione, non una certezza: '
+        'niente previsioni sul futuro come "tornerà" o "ce la farai". Non '
+        'usare aggettivi o participi che dicano se la persona è un uomo o una '
+        'donna. Niente due punti. Niente consigli medici, legali o economici.');
     return b.toString();
   }
 
@@ -172,9 +180,9 @@ abstract final class GestiDelSegno {
     final testo = domanda.trim();
     if (testo.isNotEmpty && await prendiUnaChiamata()) {
       try {
-        final risposta = await (chiamata ?? _chiamataVera)(
-                istruzione(animale), testo)
-            .timeout(pazienza);
+        final risposta =
+            await (chiamata ?? _chiamataVera)(istruzione(animale), testo)
+                .timeout(pazienza);
         final segno = leggi(risposta, animale);
         if (segno != null) return segno;
         seGuasto?.call(SegnoFuoriDalRepertorio(risposta));
@@ -199,28 +207,64 @@ abstract final class GestiDelSegno {
     }
     final dati = j is Map ? j : null;
     if (dati == null) return null;
-    final gesto = GestoDelSegno.values
-        .where((g) => g.name == dati['gesto'])
-        .firstOrNull;
+    final gesto =
+        GestoDelSegno.values.where((g) => g.name == dati['gesto']).firstOrNull;
     if (gesto == null) return null;
-    final riga = (dati['riga'] as Object?)?.toString().trim() ?? '';
-    if (!rigaAccettabile(riga)) return null;
+    final riga =
+        conIlNome((dati['riga'] as Object?)?.toString().trim() ?? '', animale);
+    if (!rigaAccettabile(riga, animale: animale)) return null;
     return UnSegno(gesto: gesto, riga: riga, dalModello: true);
   }
+
+  /// **IL NOME DELL'ANIMALE SI SCRIVE COME SI SCRIVE NELL'APP**, con la
+  /// maiuscola: il modello scriveva *"il gufo"* e *"il corvo"*. Si raddrizza
+  /// invece di scartare, perche' la riga per il resto era buona.
+  static String conIlNome(String riga, GuideAnimal animale) => riga.replaceAll(
+      RegExp('\\b${animale.name}\\b', caseSensitive: false), animale.name);
 
   /// **LA RIGA SI LEGGE PRIMA DI MOSTRARLA.** Una riga sola, non vuota, non
   /// piu' lunga del tetto, senza due punti annidati, e senza i participi che
   /// dicono a una donna che e' un uomo: le stesse regole della voce del Mondo
   /// di Sotto, ordine DI voce 05.
-  static bool rigaAccettabile(String riga) {
+  ///
+  /// **E, dall'ordine DJ voce 08, come la legge la persona.** La prima prova
+  /// col modello vero su dodici domande ha avuto righe che questa lettura
+  /// accettava: l'animale che parlava, *"Mi sono allontanato per indicarti"*
+  /// e *"ti dice che la risposta e' no"*; previsioni certe, *"la persona
+  /// tornera'"*; e frasi senza un segno di punteggiatura, *"Il Cervo si
+  /// avvicina a te questo indica"*. Con [animale] la riga deve anche nominarlo.
+  static bool rigaAccettabile(String riga, {GuideAnimal? animale}) {
     if (riga.length < 12 || riga.length > rigaAlMassimo) return false;
     if (riga.contains('\n')) return false;
     if (':'.allMatches(riga).length > 1) return false;
-    if (RegExp(r'\b(sei|eri) (sceso|arrivato|andato|tornato|stato|pronto|solo)\b',
+    if (RegExp(
+            r'\b(sei|eri) (sceso|arrivato|andato|tornato|stato|pronto|solo)\b',
             caseSensitive: false)
         .hasMatch(riga)) {
       return false;
     }
+    // **L'ANIMALE NON PARLA**: niente prima persona, niente discorso.
+    if (RegExp(r'\b(io|mi|me|mio|mia|miei|mie|dico|dice|dicendo|parla)\b',
+            caseSensitive: false)
+        .hasMatch(riga)) {
+      return false;
+    }
+    // **UNA DIREZIONE, NON UNA CERTEZZA.**
+    if (RegExp(
+            // Il confine di parola di RegExp non vede le lettere accentate:
+            // dopo *tornera'* non c'e' confine, e la parola passava. I confini
+            // sono scritti a mano, con le lettere italiane.
+            r'(?<![a-zàèéìòù])(tornerà|arriverà|succederà|riuscirai|ce la farai|farcela|'
+            r'sicuramente|certamente|di sicuro|senza dubbio)(?![a-zàèéìòù])',
+            caseSensitive: false)
+        .hasMatch(riga)) {
+      return false;
+    }
+    // **DUE FRASI**, il gesto e cio' che vuol dire: dentro la riga c'e'
+    // almeno un segno che le separa.
+    final corpo = riga.replaceFirst(RegExp(r'[.!?]\s*$'), '');
+    if (!RegExp(r'[.,;!?]').hasMatch(corpo)) return false;
+    if (animale != null && !riga.contains(animale.name)) return false;
     return true;
   }
 

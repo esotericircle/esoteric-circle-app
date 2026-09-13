@@ -51,9 +51,8 @@ abstract final class LaDomandaCapita {
   /// Vertex AI risponde **solo dall'endpoint `global`**, verificato il 12
   /// settembre 2026 contando i token con ogni modello. L'app fissa Vertex a
   /// `europe-west1` di proposito, e le domande libere sono dati personali.
-  /// Finche' il fondatore non sceglie, qui c'e' il modello che l'app usa gia'
-  /// in `europe-west1`: passare a quello dell'ordine e' questa riga e la
-  /// prossima.
+  /// **Il fondatore ha scelto, ordine DJ voce 03**: il modello che risponde
+  /// in `europe-west1`, dove stanno i dati. Vedi `LaRegioneDeiDati`.
   static const String modello = 'gemini-2.5-flash-lite';
 
   /// **LA REGIONE**, quella dei dati: `LaRegioneDeiDati`, ordine DJ voce 03.
