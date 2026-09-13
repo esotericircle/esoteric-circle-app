@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 8
-VOCI_SBLOCCATE_E_APERTE: 3
+VOCI_CHIUSE: 11
+VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
 
@@ -318,6 +318,23 @@ rossi**: il disegno ignorato anche quando c'e', e l'istruzione senza i
 significati. Una pretesa era sbagliata la prima volta, ed era la prova: in
 Dart il confine di parola non riconosce la *i* accentata di *si'*.
 
+**LA RIGA DEL SEGNO, COL MODELLO VERO.** La prima prova con Gemini 2.5 Flash
+Lite su dodici domande, una per animale, ha scelto gesti coerenti col
+significato, e la lettura ha accettato dodici righe su dodici: **leggendole
+per intero erano da scartare in parte**. L'animale parlava in prima persona e
+al maschile, *"Mi sono allontanato per indicarti"*; diceva *"ti dice che la
+risposta e' no"*; faceva previsioni certe, *"la persona tornera'"*, *"puoi
+farcela"*; scriveva due frasi senza un segno fra l'una e l'altra, e i nomi in
+minuscolo. **Padre: DI voce 14**, mia, che leggeva la riga senza queste
+regole. Adesso l'istruzione detta la forma, due frasi e la prima col nome
+dell'animale, la seconda detta per quella domanda con parole sue; la lettura
+scarta la prima persona, il discorso, le certezze, la riga senza separazione e
+quella che non nomina il suo animale, e raddrizza il nome in minuscolo invece
+di scartare. **Il secondo giro, con la rete: dodici su dodici, varie e
+pertinenti; quello della prova a cento discese, undici su dodici**, e la
+dodicesima diceva *"non tornera'"*. Le righe vere scartate sono pretese nella
+guardia, e il nome in minuscolo che si raddrizza.
+
 ---
 
 ## DJ.10, IL TAMBURO DELLA DISCESA. CHIUSA, CON UN DIFETTO TROVATO E CURATO
@@ -388,5 +405,63 @@ dell'Illuminato e le righe della matrice; **rossa** con la voce rimessa fra i
 vantaggi. Tre prove del listino pretendevano la promessa e adesso pretendono
 che non ci sia, coi numeri che seguono il dato: dieci vantaggi, trenta righe,
 e una sola riga col numero che non e' un tetto d'uso.
+
+---
+
+## DJ.03, IL MODELLO E LA REGIONE. CHIUSA
+
+**La decisione del fondatore e' nel codice**: Gemini 2.5 in `europe-west1`,
+*"non e' un ripiego"*. I commenti che dicevano *"finche' il fondatore non
+sceglie"* adesso dicono che ha scelto.
+
+**La regola permanente ha una casa e una guardia.** La regione e i modelli
+verificati in lei, con la data della verifica, stanno in
+`lib/core/config/la_regione_dei_dati.dart`; le chiamate a Vertex dell'app, i
+Maestri, la domanda capita, la scena e il segno, leggono la regione da li'.
+**La verifica e' stata una chiamata vera**, il 13 settembre alle 16:56 UTC, a
+`europe-west1-aiplatform.googleapis.com`: 2.5 Flash e 2.5 Flash Lite hanno
+risposto 200, 3.6 Flash e 3.5 Flash Lite 404. La guardia
+`i_modelli_stanno_nella_regione_dei_dati` legge ogni nome di modello scritto in
+`lib` e nel server e pretende che sia verificato, e che nessuna chiamata parta
+da `global`: **due rossi**, un modello non verificato nella scena e una
+chiamata da `global` nei Maestri. La prima stesura prendeva anche
+`gemini-2.5`, il prefisso della famiglia: la grandezza e' diventata il nome
+col suo modello. La regola sta anche in `CLAUDE.md`, fra quelle dello stack.
+
+**Il costo, rifatto sui prezzi veri**: il catalogo di Google Cloud dice 0,30 e
+2,50 dollari per milione di token per 2.5 Flash, 0,10 e 0,40 per 2.5 Flash
+Lite, con tassonomia GLOBAL, cioe' lo stesso prezzo in ogni regione. **Una
+discesa costa 0,000475 dollari, l'Illuminato che consuma tutto il suo piano
+0,036 al mese.** Le tabelle, e i token di ogni chiamata, stanno nel rapporto.
+
+---
+
+## DJ.06, LA MISURA C SOTTO SOGLIA. CHIUSA, IN UN SOLO GIRO
+
+**Le forme aggiunte sono corte**, otto per ognuno dei tre gradi di nitidezza,
+fra le otto e le dieci parole; il numero delle forme lo dicono gli elenchi,
+`ScenaDelViaggio.quanteForme`, invece dell'otto scritto a mano in tre file.
+**La memoria degli oggetti gia' usati non e' stata toccata.**
+
+**La misura, con la rete**: la C peggiore su tutte le coppie e' **35,9 per
+cento**, contro il 40,7 dell'ordine DI; la domanda del padre e' al **29,9**.
+Senza rete, 33,6. **Un giro solo**, come l'ordine chiedeva, e la soglia
+tiene in tutti e undici i casi.
+
+---
+
+## DJ.11, LA PROVA E IL RAPPORTO. CHIUSA
+
+**La prova e' quella della voce DI.16 col Diario che si ricorda**, i titoli
+nuovi e la misura F: nessuna finestra di ventiquattro discese consecutive con
+un titolo ripetuto, in nessun caso con un tema, con e senza rete. Tutte le
+misure da A a F passano in tutti e undici i casi. La prova conta adesso i token
+per tipo di chiamata, e misura il segno col modello vero: undici righe
+accettate su dodici, la dodicesima scartata per una previsione certa.
+
+**Il rapporto** e' `docs/ordini/RAPPORTO_ORDINE_DJ.md`: cio' che aspetta il
+fondatore, le misure da A a F senza e con rete, il costo sui prezzi veri, i
+rami tolti perche' irraggiungibili, la conferma che la Domanda al Maestro
+reale e' uscita dai vantaggi, e i difetti trovati coi loro padri.
 
 ---

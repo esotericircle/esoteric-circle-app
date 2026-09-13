@@ -2488,6 +2488,59 @@ e **una che mancava dal registro**, `la_discesa_riempie_lo_schermo`, riscritta
 sul widget vero. `la_discesa_dura_venti_secondi` si chiama adesso
 `la_discesa_dura_quanto_il_filmato`.
 
+## L'ORDINE DJ, LA VOCE DEL VIAGGIO E LE CODE APERTE
+
+13 settembre 2026, undici voci. Segue l'ordine DI, commit `86a95f25`, e ne
+chiude le pendenze. Il manifesto sta in `docs/ordini/ORDINE_DJ_MANIFESTO.md`, il
+rapporto della voce DJ.11 in `docs/ordini/RAPPORTO_ORDINE_DJ.md`, che comincia
+da cio' che aspetta il fondatore. **Nessuna build senza ordine del fondatore**:
+l'ultima consegnata resta la 2249, e niente dell'ordine e' verificato a video.
+
+**UNDICI VOCI SU UNDICI, CHIUSE NEL CODICE.**
+
+- **DJ.01, i titoli da otto a ventiquattro per tema**, scritti dal fondatore,
+  col doppione del tema *finito* tolto. Tre in una forma che rispetta le regole
+  permanenti: due maschili verso chi legge e una virgola davanti alla *e*. La
+  guardia della lingua era cieca sul maschile dopo l'infinito, e ora lo vede.
+- **DJ.02, la voce si ricorda di cio' che la persona ha letto.** `UnViaggio`
+  conserva titolo, risposta e azione; il mazzo dei titoli e' un giro fisso per
+  tema, ventiquattro titoli in ogni finestra di ventiquattro discese; le
+  risposte escludono le ultime sei del tema, le azioni le ultime dieci, nessuna
+  coppia gia' letta torna. Il salto della risposta e' passato da sessanta a
+  undici giorni: con ventiquattro titoli titolo e risposta tornavano insieme
+  ogni ventiquattro. Guardia nuova `la_voce_si_ricorda`.
+- **DJ.03, il modello e la regione.** Gemini 2.5 in `europe-west1`, decisione
+  del fondatore. **Regola permanente**: il runtime chiama solo modelli
+  verificati nella regione dei dati, in `lib/core/config/la_regione_dei_dati.dart`,
+  con una chiamata vera; guardia `i_modelli_stanno_nella_regione_dei_dati`, e la
+  regola sta in `CLAUDE.md`. Costo sui prezzi del catalogo Google Cloud: una
+  discesa 0,000475 dollari, l'Illuminato che consuma tutto 0,036 al mese.
+- **DJ.04, la frase del velo**: *"Scosta la cenere con il dito."* La premessa
+  dell'ordine indicava la frase della rivelazione del Maestro nell'onboarding,
+  che resta com'e'.
+- **DJ.05, via il codice che nessuno raggiunge**: `siPuoComprareAncora` e,
+  dal censimento di 445 simboli, altri nove orfani tolti col loro padre, sei che
+  servivano solo alle prove spostati nelle prove, un `if (true)`. 145 righe
+  tolte da `lib`. La regola della rivelazione che non si compra la sorveglia la
+  prova dei tetti sul listino del server.
+- **DJ.06, la misura C sotto soglia in un giro solo**: otto forme corte in piu'
+  per grado; con rete la C peggiore e' 35,9 per cento, era 40,7.
+- **DJ.07, il conto delle discese** e' un numero suo, `viaggio.quante`, e non si
+  ferma piu' a novanta. Padre del difetto: ordine DC.
+- **DJ.08, i gesti del segno da sei a tre**: si avvicina, si volta, si
+  allontana, col loro significato nell'istruzione e nella riserva. Trentasei
+  disegni attesi in `assets/img/mondo_di_sotto/gesti/`, dichiarata anche vuota;
+  finche' mancano, l'illustrazione intera che si muove. La riga del modello si
+  legge come la legge la persona: niente prima persona, niente certezze.
+- **DJ.09, la Domanda al Maestro reale esce dal listino** e dalla matrice;
+  guardia `il_listino_non_promette_il_maestro_reale`. La riga "In arrivo" e i
+  briefing restano alla scelta del fondatore.
+- **DJ.10, il tamburo** in `assets/audio/mondo_di_sotto/tamburo_discesa.mp3`,
+  dichiarata anche vuota, al volume degli effetti. **Trovato e curato**: il
+  cursore "Volume degli effetti" non lo leggeva nessun effetto dall'ordine CN.
+- **DJ.11, la prova e il rapporto**: le misure da A a F passano in tutti e undici
+  i casi, con e senza rete; F senza nessuna finestra con un titolo ripetuto.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
