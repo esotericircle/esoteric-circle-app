@@ -9,8 +9,8 @@ Vertex AI, mai su API Anthropic. La build di quest'ordine l'ha ordinata il
 fondatore, voce DK.06.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 3
-VOCI_SBLOCCATE_E_APERTE: 5
+VOCI_CHIUSE: 4
+VOCI_SBLOCCATE_E_APERTE: 4
 
 ---
 
@@ -82,5 +82,56 @@ del file ha tre righe cambiate e una tolta, e nessuna riformattazione.
 Nella riga 315 e' uscita anche la parentesi *"(ponte verso i consulti
 premium)"*, che era la spiegazione di quella voce e di nient'altro. Nessuna
 prova leggeva il briefing.
+
+---
+
+## DK.03, LA SCENA SI CHIEDE ALL'INIZIO DELLA DISCESA. CHIUSA
+
+**Una cosa trovata prima di cambiare.** La chiamata della scena partiva a
+discesa finita, e fra quel momento e la risalita c'erano gia' la nebbia,
+l'incontro e il velo. **Il limite vero era dentro la chiamata**: due secondi
+per tentativo, gli stessi nella prova e nell'app, e i tempi scaduti nascevano
+li'.
+
+**Adesso la chiamata parte al tocco di Scendi**, e il modello ha **sei secondi
+in tutto, contati dalla partenza, per tutti e due i tentativi**: la scena
+scartata si richiede solo col tempo che resta. Fra il tocco e la risalita ci
+sono gli otto secondi del filmato, la nebbia e l'incontro, e nessuno aspetta
+un istante di piu'.
+
+**I due casi dell'ordine.** **La discesa saltata**, dalla seconda volta in
+poi: la chiamata e' partita al tocco di Scendi, e alla risalita si aspetta al
+massimo cio' che resta dei sei secondi, con la via deterministica pronta. **Il
+dito alzato a meta' discesa**: la chiamata e' una sola, partita al tocco, e
+niente la annulla o la rilancia.
+
+**La misura, stessi undici casi della voce DJ.11, col modello vero**:
+
+| caso | scena dal modello, prima | dopo | tempi scaduti, prima | dopo |
+|---|---|---|---|---|
+| Una scelta da fare | 89 | 95 | 3 | 0 |
+| Una persona | 97 | 95 | 0 | 0 |
+| Un blocco che non si supera | 99 | 97 | 1 | 0 |
+| Un tempo che non arriva | 94 | 92 | 3 | 0 |
+| Una direzione da prendere | 77 | 97 | 20 | 0 |
+| Qualcosa che e' finito | 66 | 100 | 34 | 0 |
+| *Mia sorella diventera' presto mamma?* | 78 | 95 | 19 | 0 |
+| *Devo lasciare il mio lavoro per aprire qualcosa di mio?* | 90 | 93 | 9 | 3 |
+| *Perche' con mio padre finisce sempre in lite?* | 93 | 94 | 2 | 1 |
+| *Da mesi non riesco a finire niente di quello che comincio.* | 90 | 95 | 1 | 0 |
+| *Ho chiuso con Luca dopo sei anni, e adesso?* | 97 | 96 | 1 | 0 |
+| **in media** | **88,2** | **95,4** | **93 in tutto** | **4 in tutto** |
+
+**Da 66-99 a 92-100 discese su cento.** Le discese che restano alla via
+deterministica sono scene scartate due volte dalla lettura, non attese. Le
+misure da A a F restano tutte dentro le soglie: C al massimo 35,7, D al
+massimo 2, E 100 in tutti i casi, F senza finestre ripetute. La prova misura
+la chiamata col suo tempo, senza il filmato davanti: nell'app i sei secondi
+cadono dentro la discesa.
+
+**Le prove**, in `la_scena_nasce_dalla_persona`: la chiamata parte al tocco di
+Scendi e resta una sola col dito posato e alzato e dopo il salto della
+discesa; la scadenza e' una per tutti e due i tentativi. **Due rossi**: la
+chiamata rimessa a fine discesa, e il secondo tentativo con l'attesa intera.
 
 ---

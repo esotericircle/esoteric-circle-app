@@ -168,6 +168,103 @@ void main() {
         reason: 'il modello muto non e dichiarato nel registro');
   });
 
+  /// **LA SCENA SI CHIEDE AL TOCCO DI SCENDI, E UNA VOLTA SOLA.** Ordine DK
+  /// voce 03: *"la chiamata al modello parte quando comincia la discesa, non
+  /// quando finisce [...] il dito alzato a meta' discesa: la chiamata
+  /// prosegue, non si annulla e non si rilancia"*.
+  testWidgets('DK.03: LA SCENA SI CHIEDE AL TOCCO DI SCENDI, e il dito alzato '
+      'non la rilancia', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    var chiamate = 0;
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider.value(value: RegistroDeiGuasti()),
+      ],
+      child: MaterialApp(
+        home: MaestroScope(
+          child: ViaggioDelloSciamanoScreen(
+            userSign: Zodiac.cancer,
+            now: DateTime(2026, 9, 12, 12),
+            diario: DiarioDelloSciamanoDiProva(1),
+            chiamataDellaScena: (_, __, ___) async {
+              chiamate++;
+              return '{"luogo":"grotta","cosa":"chiave","gesto":"aspetta",'
+                  '"momento":"alba"}';
+            },
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.text('Una scelta da fare'));
+    await tester.pump();
+    await tester.ensureVisible(find.byKey(const Key('viaggio_scendi')));
+    await tester.tap(find.byKey(const Key('viaggio_scendi')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(chiamate, 1,
+        reason: 'la scena non si chiede al tocco di Scendi: la chiamata parte '
+            'a discesa finita, e perde gli otto secondi del filmato');
+    // Il dito si posa e si alza a meta' discesa.
+    final dito = await tester.startGesture(const Offset(195, 420));
+    await tester.pump(const Duration(milliseconds: 500));
+    await dito.up();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(chiamate, 1, reason: 'il dito alzato ha rilanciato la chiamata');
+    // Si salta e si arriva in fondo: la chiamata non riparte.
+    await tester.pump(const Duration(milliseconds: 1600));
+    await tester.tap(find.byKey(const Key('viaggio_salta_la_discesa')));
+    await tester.pump(const Duration(seconds: 1));
+    expect(chiamate, 1,
+        reason: 'a discesa finita la scena si chiede una seconda volta');
+  });
+
+  /// **I SEI SECONDI VALGONO PER I DUE TENTATIVI INSIEME.** La scena scartata
+  /// si richiede solo col tempo che resta: provato con un'attesa corta, di
+  /// trecento millesimi, e un modello che risponde in duecento.
+  test('DK.03: LA SCADENZA E UNA SOLA, dalla partenza, per tutti e due i '
+      'tentativi', () async {
+    var chiamate = 0;
+    final guasti = <Object>[];
+    final orologio = Stopwatch()..start();
+    final scelti = await LaScenaDalModello.chiedi(
+      CioCheSiSa(
+        domanda: 'Ho una scelta davanti',
+        tema: 'Una scelta da fare',
+        animale: lupo,
+        natale: const NatalContext(sunSign: 'Cancro'),
+        memoria: '',
+        ultimeScene: const [],
+      ),
+      chiamata: (_, __, ___) async {
+        chiamate++;
+        await Future<void>.delayed(const Duration(milliseconds: 200));
+        // Un luogo inventato: la risposta si scarta e si richiede.
+        return '{"luogo":"castello","cosa":"chiave","gesto":"aspetta",'
+            '"momento":"alba"}';
+      },
+      prendiUnaChiamata: () async => true,
+      seGuasto: guasti.add,
+      attesa: const Duration(milliseconds: 300),
+    );
+    final durata = orologio.elapsed;
+    // ignore: avoid_print
+    print('ORDINE DK VOCE 03: due tentativi in ${durata.inMilliseconds} '
+        'millesimi con trecento di attesa, guasti $guasti');
+    expect(scelti, isNull);
+    expect(chiamate, 2);
+    expect(guasti.whereType<TimeoutException>(), isNotEmpty,
+        reason: 'il secondo tentativo ha avuto di nuovo tutta l attesa');
+    expect(durata, lessThan(const Duration(milliseconds: 420)),
+        reason: 'la risalita aspetta ${durata.inMilliseconds} millesimi: la '
+            'seconda richiesta ha ricominciato a contare da capo');
+  });
+
   /// **LO SCHEMA NON AMMETTE I LUOGHI E I GESTI DELLE ULTIME CINQUE SCENE.**
   /// Ordine DI voce 16: la prova a cento discese col modello vero ne trovava
   /// scartate fino a meta', perche' il modello ne riprendeva piu' di uno.

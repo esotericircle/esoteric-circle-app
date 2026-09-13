@@ -95,10 +95,20 @@ abstract final class LaScenaDalModello {
 
   static String get regione => LaDomandaCapita.regione;
 
-  /// **QUANTO SI ASPETTA.** La chiamata parte quando finisce la discesa e la
-  /// scena serve alla risalita: in mezzo ci sono la nebbia e l'incontro, e il
-  /// tempo che resta alla risalita e' questo.
-  static const Duration pazienza = Duration(seconds: 2);
+  /// **QUANTO SI ASPETTA: SEI SECONDI IN TUTTO, DALLA PARTENZA.** Ordine DK
+  /// voce 03.
+  ///
+  /// **Erano due secondi per tentativo**, e la chiamata partiva a discesa
+  /// finita: col modello vero la scena arrivava in tempo in 66-99 discese su
+  /// cento, e i tempi scaduti si concentravano nei momenti di rete lenta.
+  /// Allungare l'attesa alla fine avrebbe fatto pagare la lentezza della rete
+  /// a chi vuole la risposta. **Adesso la chiamata parte al tocco di Scendi**,
+  /// e fra quel tocco e la risalita ci sono gli otto secondi del filmato, la
+  /// nebbia e l'incontro, in cui nessuno aspetta niente: sei secondi al
+  /// modello non costano un istante a nessuno. **I sei secondi valgono per
+  /// tutti e due i tentativi insieme**, contati dalla partenza: la scena
+  /// scartata si richiede solo col tempo che resta.
+  static const Duration pazienza = Duration(seconds: 6);
 
   /// **L'ISTRUZIONE**, costruita dal vocabolario e dal repertorio: niente si
   /// ricopia a mano, e il giorno che una figura cambia nome l'istruzione la
@@ -255,15 +265,25 @@ abstract final class LaScenaDalModello {
     Future<bool> Function() prendiUnaChiamata =
         IlTettoDelleChiamate.prendiUnaChiamata,
     void Function(Object errore)? seGuasto,
+    Duration attesa = pazienza,
   }) async {
     final chiedi = chiamata ?? _chiamataVera;
     var consentiti = ammessi(s.animale, s.ultimeScene);
+    // **UNA SCADENZA SOLA**, dalla partenza: vedi [pazienza].
+    final orologio = Stopwatch()..start();
     for (var tentativo = 0; tentativo < 2; tentativo++) {
+      final resta = attesa - orologio.elapsed;
+      if (resta <= Duration.zero) {
+        seGuasto?.call(TimeoutException(
+            'la scena scartata non ha più tempo per la seconda richiesta',
+            attesa));
+        return null;
+      }
       if (!await prendiUnaChiamata()) return null;
       try {
         final risposta =
             await chiedi(istruzione(s.animale), richiesta(s), consentiti)
-                .timeout(pazienza);
+                .timeout(resta);
         final scelti = leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
         if (scelti != null) return scelti;
         seGuasto?.call(ScenaFuoriDalVocabolario(risposta));

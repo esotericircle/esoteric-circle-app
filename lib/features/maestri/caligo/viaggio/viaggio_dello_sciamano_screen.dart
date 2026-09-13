@@ -259,10 +259,11 @@ class _ViaggioDelloSciamanoScreenState
 
   ScenaDelViaggio? _scena;
 
-  /// **LA SCENA DEL MODELLO, CHE ARRIVA MENTRE SI APRE LA NEBBIA.** Ordine DI
-  /// voce 03. La chiamata parte a discesa finita, quando il tema della
-  /// domanda libera e' gia' capito, e ha la nebbia e l'incontro per
-  /// rispondere. Nulla vuol dire la via deterministica.
+  /// **LA SCENA DEL MODELLO, CHE ARRIVA MENTRE SI SCENDE.** Ordine DI voce 03;
+  /// dall'ordine DK voce 03 la chiamata parte **al tocco di Scendi**, e ha il
+  /// filmato, la nebbia e l'incontro per rispondere: sei secondi, contati
+  /// dalla partenza. **Il dito alzato non la tocca**: prosegue, non si annulla
+  /// e non si rilancia. Nulla vuol dire la via deterministica.
   Future<PezziScelti?>? _scenaInArrivo;
 
   /// **LA DOMANDA SI APRE SOLO SE LA SI CHIEDE**, dopo il riconoscimento.
@@ -412,6 +413,11 @@ class _ViaggioDelloSciamanoScreenState
     // prepara adesso: finche' non e' pronto si vede il primo fotogramma.
     _preparaLaDiscesa();
     setState(() => _fase = FaseDelViaggio.discesa);
+    // **LA SCENA SI CHIEDE ADESSO**, ordine DK voce 03: qui c'erano gli otto
+    // secondi del filmato in cui la persona guarda e non aspetta niente, e la
+    // chiamata partiva soltanto dopo. Il tema della domanda libera e' gia' in
+    // arrivo, e la scena lo aspetta.
+    _scenaInArrivo = _chiediLaScena();
   }
 
   /// **IL GUASTO VA NEL REGISTRO, MAI ALLA PERSONA.** Il registro si chiede
@@ -453,7 +459,6 @@ class _ViaggioDelloSciamanoScreenState
     _respiro?.cancel();
     _respiro = Timer.periodic(RespiroCheDirada.passo, _unRespiroDiNebbia);
     unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
-    _scenaInArrivo = _chiediLaScena();
   }
 
   /// **COSA SI SA DELLA CARTA NATALE.** Dalla porta unica dei Maestri,
