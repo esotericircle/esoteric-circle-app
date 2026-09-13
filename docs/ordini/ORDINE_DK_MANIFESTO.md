@@ -9,8 +9,8 @@ Vertex AI, mai su API Anthropic. La build di quest'ordine l'ha ordinata il
 fondatore, voce DK.06.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 4
-VOCI_SBLOCCATE_E_APERTE: 4
+VOCI_CHIUSE: 5
+VOCI_SBLOCCATE_E_APERTE: 3
 
 ---
 
@@ -133,5 +133,16 @@ cadono dentro la discesa.
 Scendi e resta una sola col dito posato e alzato e dopo il salto della
 discesa; la scadenza e' una per tutti e due i tentativi. **Due rossi**: la
 chiamata rimessa a fine discesa, e il secondo tentativo con l'attesa intera.
+
+---
+
+## DK.05, LA PROVA niente_lavoro_non_spinto TORNA VERDE. CHIUSA
+
+**Rifatta girare a spinta avvenuta**, con la testa remota del ramo canonico a
+`d8cff5c1`, verificata con `git ls-remote`: **due prove su due, verdi**. Era
+rossa soltanto perche' l'ordine DJ l'aveva lasciata col giro fatto prima della
+spinta. La suite intera prima della spinta: 5.127 passate, due saltate, le
+prove con la rete che senza token non girano, e tre rosse, i due rossi di legge
+e questa.
 
 ---
