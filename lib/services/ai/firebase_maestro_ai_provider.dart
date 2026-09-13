@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_ai/firebase_ai.dart';
 
 import '../../core/chat/chat_message.dart';
+import '../../core/config/la_regione_dei_dati.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
@@ -32,9 +33,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     this.distillModel = kMaestroDistillModel,
   }) : _ai = ai ?? FirebaseAI.vertexAI(location: kVertexLocation);
 
-  /// Regione del backend Vertex. Allineata al progetto (europe-west1). Se un
-  /// modello non fosse servito qui, si cambia in un solo punto.
-  static const String kVertexLocation = 'europe-west1';
+  /// Regione del backend Vertex: **quella dei dati**, `LaRegioneDeiDati`,
+  /// ordine DJ voce 03. Un modello che li' non risponde non si usa.
+  static const String kVertexLocation = LaRegioneDeiDati.regione;
 
   /// Modello di Medora e dei Maestri per la chat. Flash tiene bassi costo e
   /// latenza per la Demo. Per la voce piu' ricca dei Maestri si puo' alzare a

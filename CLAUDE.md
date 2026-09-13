@@ -71,6 +71,8 @@ Esoteric Circle, app nativa Flutter con un solo codebase per iOS e Android, prim
 
 Claude costruisce l'app, Gemini la fa girare. Tutta l'AI a runtime (oracoli, sinastria, memory, risposte dei Maestri) usa Vertex AI e Gemini, MAI le API Anthropic, per non bruciare crediti inesistenti. Resta uno strato di astrazione AIProvider che consente di cambiare provider senza riscrivere il codice.
 
+**I modelli stanno nella regione dei dati.** Regola permanente del fondatore, ordine DJ voce 03 del 13 settembre 2026: il runtime chiama solo modelli disponibili nella regione dove stanno i dati, `europe-west1`, e chi scrive un ordine verifica la disponibilita' regionale prima di nominare un modello. La regione e i modelli verificati, con la data della verifica, stanno in `lib/core/config/la_regione_dei_dati.dart`; un modello entra nell'elenco solo dopo una chiamata vera nella regione, e la guardia `i_modelli_stanno_nella_regione_dei_dati` pretende che ogni modello nominato in `lib` e nel server ci sia.
+
 ## Modello operativo in Fase C
 
 - Sviluppo alla massima autonomia, debug incluso. Non chiedere micro-conferme a ogni passo: progetta, scrivi, testa, correggi, itera, riporta il risultato.

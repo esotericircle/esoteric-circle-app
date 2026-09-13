@@ -39,11 +39,13 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 128 |
+| Guardie che passano dalla porta comune | 129 |
 | Guardie con un cardinale proprio dichiarato | 104 |
 | Guardie che non scoprono nessun insieme di file | 178 |
-| **Somma delle categorie** | **410** |
-| **Guardie secondo la definizione** | **410** |
+| **Somma delle categorie** | **411** |
+| **Guardie secondo la definizione** | **411** |
+
+**Ricontate con la regola della voce DJ.03**, che ha portato **una guardia nuova**, `i_modelli_stanno_nella_regione_dei_dati`, dalla porta comune: il totale sale da 410 a **411** e le tre categorie a **129, 104 e 178**.
 
 **Ricontate a voce DJ.09 chiusa**, che ha portato **una guardia nuova**, `il_listino_non_promette_il_maestro_reale`, dalla porta comune perche' cerca la promessa in tutta `lib`: il totale sale da 409 a **410** e le tre categorie a **128, 104 e 178**.
 
@@ -438,6 +440,7 @@ le altre.
 | `i_maestri_sanno_cosa_arriva_test.dart` | i Maestri sanno cosa arriva | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_maestri_sui_pixel_e_non_sui_rettangoli_test.dart` | i maestri sui pixel e non sui rettangoli | 4 | non scopre insiemi di file | mai | 3 |
 | `i_manifesti_sono_sigillati_test.dart` | i manifesti sono sigillati | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
+| `i_modelli_stanno_nella_regione_dei_dati_test.dart` | ogni modello nominato in lib e nel server sta fra i modelli verificati nella regione dei dati, e nessuna chiamata a Vertex parte da global; le chiamate dell'app leggono la regione da LaRegioneDeiDati, ordine DJ voce 03 | 1, 2 | dalla porta comune | 13/09/2026, DJ voce 03 (due rossi: un modello non verificato nella scena, una chiamata da global nei Maestri; il primo giro prendeva anche il prefisso della famiglia, e la grandezza e' diventata il nome col suo modello) | 1 |
 | `i_movimenti_dicono_il_guadagno_test.dart` | i movimenti dicono il guadagno | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_nomi_non_si_sovrappongono_test.dart` | i nomi non si sovrappongono | 4 | non scopre insiemi di file | mai | 3 |
 | `i_nove_ereditati_test.dart` | i nove ereditati | 1, 2 | dalla porta comune | mai | 3 |

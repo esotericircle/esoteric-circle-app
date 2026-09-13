@@ -4,6 +4,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 
 import 'il_tema_della_domanda_libera.dart';
 import 'il_tetto_delle_chiamate.dart';
+import '../config/la_regione_dei_dati.dart';
 import 'la_domanda_del_viaggio.dart';
 
 /// **DA DOVE VIENE IL TEMA DI UNA DOMANDA LIBERA**, per il rapporto e per il
@@ -55,8 +56,8 @@ abstract final class LaDomandaCapita {
   /// prossima.
   static const String modello = 'gemini-2.5-flash-lite';
 
-  /// **LA REGIONE**, in una costante sola. Vedi [modello].
-  static const String regione = 'europe-west1';
+  /// **LA REGIONE**, quella dei dati: `LaRegioneDeiDati`, ordine DJ voce 03.
+  static const String regione = LaRegioneDeiDati.regione;
 
   /// **IL RAGIONAMENTO SI SPEGNE, per tutte le chiamate del Viaggio.**
   ///
