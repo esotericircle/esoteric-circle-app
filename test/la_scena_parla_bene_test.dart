@@ -142,6 +142,17 @@ void main() {
             '${dopo.testo}');
   });
 
+  /// **UN POSTO VUOL DIRE LA STESSA COSA IN OGNI GRADO**, ordine DJ voce 06:
+  /// la voce del Mondo di Sotto sceglie la forma per posto, forma piu'
+  /// quante forme per la chiusura, e con elenchi lunghi diversi lo stesso
+  /// posto darebbe chiusure diverse secondo la nitidezza.
+  test('DJ.06: i tre gradi hanno lo stesso numero di forme, ed e quello che '
+      'la voce usa', () {
+    expect(ScenaDelViaggio.formeVelate.length, ScenaDelViaggio.quanteForme);
+    expect(ScenaDelViaggio.formeConfuse.length, ScenaDelViaggio.quanteForme);
+    expect(ScenaDelViaggio.quanteForme, 16);
+  });
+
   test('DI.05: seconda persona singolare, e il plurale solo col compagno '
       'nella stessa frase', () {
     final colpevoli = <String>[];

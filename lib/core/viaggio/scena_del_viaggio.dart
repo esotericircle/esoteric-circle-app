@@ -77,7 +77,8 @@ class ScenaDelViaggio {
   List<PezzoDellaScena> get leggibili =>
       [gesto, cosa, luogo].take(quantiSiVedono).toList();
 
-  /// **LE OTTO FORME DELLA SCENA INTERA**, con i tre elementi leggibili.
+  /// **LE SEDICI FORME DELLA SCENA INTERA**, con i tre elementi leggibili:
+  /// otto dall'ordine DI, otto corte dall'ordine DJ voce 06.
   ///
   /// **Perche' sono otto e prima era una.** Ordine DF voce 05, 11 settembre
   /// 2026: con una frase sola per grado di nitidezza, su cento consultazioni
@@ -104,6 +105,13 @@ class ScenaDelViaggio {
   ///
   /// **Il vocabolario non si tocca**: le quarantaquattro figure restano
   /// quelle. Cambia la frase che le cuce.
+  /// **QUANTE FORME HA OGNI GRADO DI NITIDEZZA**, e sono lo stesso numero
+  /// per tutti e tre: la voce del Mondo di Sotto sceglie la forma per posto,
+  /// e un posto deve voler dire la stessa cosa in ogni grado. Ordine DJ voce
+  /// 06: era un otto scritto a mano in tre file, e aggiungere forme a un
+  /// elenco avrebbe spostato le chiusure senza che nessuno se ne accorgesse.
+  static int get quanteForme => formeIntere.length;
+
   static const List<String> formeIntere = [
     '{Chi} ti guida {aLuogo} {momento}. C\'è {cosa}. Lì {lui} {gesto}.',
     '{Momento} arrivi {aLuogo} insieme {aChi}. Davanti a te c\'è {cosa}. '
@@ -116,9 +124,22 @@ class ScenaDelViaggio {
         '{Lui} {gesto}.',
     'Ti ritrovi {aLuogo}. {Momento}. Accanto a te c\'è {cosa}. {Chi} {gesto}.',
     'Scendi fino {aLuogo} {momento}, dove incontri {cosa}. {Chi} {gesto}.',
+    // **OTTO FORME CORTE IN PIU', ordine DJ voce 06.** La misura C sfiorava
+    // il quaranta per cento su una domanda libera: due responsi con la
+    // stessa cosa raccontata con la stessa forma. Corte apposta, e' la
+    // lezione misurata dell'ordine DF: una frase lunga regala sequenze di
+    // cinque parole identiche a ogni confronto.
+    '{Momento}, {aLuogo}. C\'è {cosa}. {Chi} {gesto}.',
+    '{Chi} {gesto} {aLuogo} {momento}. Con te c\'è {cosa}.',
+    'Sei {aLuogo} {momento}, con {cosa}. {Chi} {gesto}.',
+    '{Momento} appare {cosa}. {Chi}, {aLuogo}, {gesto}.',
+    'C\'è {cosa}, {aLuogo}. {Momento}, {chi} {gesto}.',
+    '{Chi} e {cosa}, {aLuogo} {momento}. {Lui} {gesto}.',
+    'Resta {cosa}, {aLuogo}. {Chi} {gesto}, {momento}.',
+    '{Momento}. {Chi} {gesto} {aLuogo}, dove c\'è {cosa}.',
   ];
 
-  /// **LE OTTO FORME DELLA SCENA VELATA**, quando si leggono due elementi.
+  /// **LE SEDICI FORME DELLA SCENA VELATA**, quando si leggono due elementi.
   ///
   /// **Qui c'era *"Non si capisce dove siete"***, un plurale senza compagno,
   /// e *"Del dove non resta niente. Resta"*, lo stesso verbo due volte.
@@ -133,9 +154,22 @@ class ScenaDelViaggio {
         '{gesto}.',
     'Del dove non rimane niente. Resta {cosa}. {Chi} {gesto}.',
     'Davanti a te c\'è {cosa}. Poco oltre {chi} {gesto}. Il luogo no.',
+    // **OTTO FORME CORTE IN PIU', ordine DJ voce 06.** La misura C sfiorava
+    // il quaranta per cento su una domanda libera: due responsi con la
+    // stessa cosa raccontata con la stessa forma. Corte apposta, e' la
+    // lezione misurata dell'ordine DF: una frase lunga regala sequenze di
+    // cinque parole identiche a ogni confronto.
+    'C\'è {cosa}. {Chi} {gesto}. Il resto sfuma.',
+    'Distingui appena {cosa}. {Chi} {gesto}.',
+    'Il luogo sfugge. Restano {cosa} e {chi}, che {gesto}.',
+    'Solo {cosa}, nel grigio. {Chi} {gesto}.',
+    '{Chi} {gesto} accanto a te. Poi appare {cosa}.',
+    'Intorno è grigio. C\'è {cosa}. {Chi} {gesto}.',
+    '{Chi} {gesto}. Vicino c\'è {cosa}.',
+    'Il dove si perde. Emerge {cosa}. {Chi} {gesto}.',
   ];
 
-  /// **LE OTTO FORME DELLA SCENA CONFUSA**, quando si legge solo il gesto.
+  /// **LE SEDICI FORME DELLA SCENA CONFUSA**, quando si legge solo il gesto.
   ///
   /// **Qui c'era *"Di la' non torna quasi niente. Torna questo"***, lo stesso
   /// verbo a tre parole di distanza.
@@ -148,6 +182,19 @@ class ScenaDelViaggio {
     'Resta il gesto e basta: {chi} {gesto}.',
     'La nebbia si apre su un attimo solo. {Chi} {gesto}.',
     'Di là non arriva quasi niente. Torna questo: {chi} {gesto}.',
+    // **OTTO FORME CORTE IN PIU', ordine DJ voce 06.** La misura C sfiorava
+    // il quaranta per cento su una domanda libera: due responsi con la
+    // stessa cosa raccontata con la stessa forma. Corte apposta, e' la
+    // lezione misurata dell'ordine DF: una frase lunga regala sequenze di
+    // cinque parole identiche a ogni confronto.
+    '{Chi} {gesto}. Altro non c\'è.',
+    'Solo questo. {Chi} {gesto}.',
+    'Un attimo soltanto. {Chi} {gesto}.',
+    '{Chi} {gesto}. Poi più niente.',
+    'Nel grigio, {chi} {gesto}.',
+    'Arriva un istante. {Chi} {gesto}.',
+    '{Chi} {gesto}, lontano.',
+    'Appena visibile, {chi} {gesto}.',
   ];
 
   /// **LE DODICI APERTURE DELLA SCENA, e sono la seconda fessura.**

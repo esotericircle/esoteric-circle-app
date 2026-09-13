@@ -972,7 +972,7 @@ abstract final class LaVoceDelMondoDiSotto {
     // `IlResponsoDelViaggio.formaDellaScena`: una scena che somiglia a una di
     // prima non si racconta con la stessa frase. Senza storia, quella della
     // sua cosa. La chiusura resta alla cornice.
-    const forme = 8;
+    final forme = ScenaDelViaggio.quanteForme;
     final forma = formaDellaScena ??
         FiloDellaVoce.da([scena.cosa.id, 'forma']).seme % forme;
     final chiusura = cs ~/ daDoveViene.length;

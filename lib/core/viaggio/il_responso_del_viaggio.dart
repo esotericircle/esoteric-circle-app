@@ -79,9 +79,10 @@ class IlResponsoDelViaggio {
         gesto: gesto,
       );
 
-  /// **QUANTE FORME HA LA FRASE CHE CUCE LA SCENA**: otto per ogni grado di
-  /// nitidezza, `ScenaDelViaggio.formeIntere` e sorelle.
-  static const int quanteForme = 8;
+  /// **QUANTE FORME HA LA FRASE CHE CUCE LA SCENA** per ogni grado di
+  /// nitidezza: sedici dall'ordine DJ voce 06, e il numero lo dicono gli
+  /// elenchi, `ScenaDelViaggio.quanteForme`.
+  static int get quanteForme => ScenaDelViaggio.quanteForme;
 
   /// **LA FORMA DELLA SCENA DI OGGI**, dalla storia. Ordine DI voce 16.
   ///
