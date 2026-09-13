@@ -9,8 +9,8 @@ Vertex AI, mai su API Anthropic. La build di quest'ordine l'ha ordinata il
 fondatore, voce DK.06.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 1
-VOCI_SBLOCCATE_E_APERTE: 7
+VOCI_CHIUSE: 2
+VOCI_SBLOCCATE_E_APERTE: 6
 
 ---
 
@@ -27,5 +27,40 @@ del fondatore con la virgola al posto dei due punti; la virgola davanti a
 **La prova per costruzione** sta in `la_scena_parla_bene`: legge tutti i
 titoli, col cardinale di centoquarantotto, e nessuno puo' contenere i due
 punti. **Rossa** coi due titoli di prima, verde dopo.
+
+---
+
+## DK.02, LE FRASI DEI TRE OGGETTI NELL'ONBOARDING. CHIUSA
+
+**Prima di scrivere, il gesto montato.** Nella rivelazione del Maestro il
+tocco funziona sempre, per tutti e tre gli oggetti: trascinare o toccare
+ovunque sulla schermata fa avanzare il rito. Il soffio conta soltanto dopo
+che la persona ha scelto di accendere il microfono, dall'invito a usare la
+voce. **Quindi alla prima apertura il gesto che l'app aspetta e' il dito,
+anche per il soffione**, e col microfono acceso e' il soffio, col dito che
+funziona ancora.
+
+| oggetto | microfono spento | microfono acceso |
+|---|---|---|
+| candela, Caligo | *Passa il dito sulla fiamma.* | *Soffia sulla fiamma, oppure passaci il dito.* |
+| sfera, Medora | *Passa il dito sul vetro.* | *Soffia sul vetro, oppure passaci il dito.* |
+| soffione, Aura | *Sfiora il soffione con il dito.* | *Soffia piano, oppure sfiora il soffione con il dito.* |
+
+Le frasi a microfono spento sono quelle dell'ordine. Quelle a microfono
+acceso dicono il soffio, col *"Soffia piano"* che l'ordine detta per il
+soffione, e il tocco come ripiego dichiarato nella stessa frase: qui c'era
+*"Soffia dolcemente, oppure trascina il dito per svelare"*.
+
+**Vista e lasciata al fondatore**: il titolo sopra la frase dice *"Soffia
+sulla sfera di cristallo"*, *"Soffia per spegnere la candela"*, *"Soffia per
+disperdere il soffione"*, anche a microfono spento, quando il soffio non lo
+ascolta nessuno. E' la lingua del rito e non la cambio senza di lui: sta nel
+rapporto.
+
+**La prova**, `test/la_rivelazione_chiede_il_gesto_del_suo_oggetto_test.dart`:
+le tre frasi dell'ordine, nessuna frase a microfono spento che chieda il
+soffio, ogni frase a microfono acceso col soffio e col dito, e la schermata
+vera che alla prima apertura mostra la frase del suo oggetto per tutti e tre
+i Maestri. **Rossa** con la frase di prima rimessa, tre prove su tre.
 
 ---

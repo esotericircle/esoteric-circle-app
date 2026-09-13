@@ -44,6 +44,26 @@ class MaestroRevealScreen extends StatefulWidget {
   final Maestro maestro;
   final ValueChanged<Maestro> onRevealed;
 
+  /// **LA FRASE CHE CHIEDE IL GESTO, una per oggetto.** Ordine DK voce 02.
+  ///
+  /// Qui c'era *"Trascina il dito per svelare"* per tutti e tre, la lingua di
+  /// un'app qualsiasi. Adesso la frase nomina la materia dell'oggetto. **E
+  /// chiede il gesto che l'app aspetta in quel momento**: il tocco funziona
+  /// sempre, trascinando o toccando ovunque sulla schermata, e il soffio
+  /// soltanto dopo che la persona ha acceso il microfono. Senza microfono la
+  /// frase chiede il dito, anche per il soffione; col microfono chiede il
+  /// soffio, e il dito resta nella stessa frase come ripiego dichiarato.
+  static String fraseDelGesto(Maestro maestro, {required bool microfono}) =>
+      switch ((maestro, microfono)) {
+        (Maestro.caligo, false) => 'Passa il dito sulla fiamma.',
+        (Maestro.medora, false) => 'Passa il dito sul vetro.',
+        (Maestro.aura, false) => 'Sfiora il soffione con il dito.',
+        (Maestro.caligo, true) => 'Soffia sulla fiamma, oppure passaci il dito.',
+        (Maestro.medora, true) => 'Soffia sul vetro, oppure passaci il dito.',
+        (Maestro.aura, true) =>
+          'Soffia piano, oppure sfiora il soffione con il dito.',
+      };
+
   /// Chi costruisce il lettore del video. Stava sulla carta, ordine BQ; da
   /// quando il filmato e' lo sfondo della schermata, ordine BR voce 1, la porta
   /// sta qui: le prove montano questa schermata, e senza questa riga la misura
@@ -357,9 +377,10 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                   Column(
                     children: [
                       ParagrafiDiLettura(
-                          testo: _micAvailable
-                              ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                              : 'Trascina il dito per svelare',
+                          key: const Key('reveal_frase_del_gesto'),
+                          testo: MaestroRevealScreen.fraseDelGesto(
+                              widget.maestro,
+                              microfono: _micAvailable),
                           textAlign: TextAlign.center,
                           stile: TypographyTokens.lettura().copyWith(
                               color: ColorTokens.textPrimary, height: 1.4)),
