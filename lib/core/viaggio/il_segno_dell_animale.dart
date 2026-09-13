@@ -253,7 +253,8 @@ abstract final class GestiDelSegno {
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.7,
-        maxOutputTokens: 120,
+        maxOutputTokens: 256,
+        thinkingConfig: LaDomandaCapita.ragionamentoPer(modello),
         // **IL REPERTORIO CHIUSO**: il gesto e la cosa sono elenchi, e il
         // modello non puo' scrivere altro. Resta libera solo la riga, che si
         // legge prima di mostrarla.

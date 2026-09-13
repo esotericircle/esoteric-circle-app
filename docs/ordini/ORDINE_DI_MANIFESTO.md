@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 13
+VOCI_CHIUSE: 14
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,94 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.03, LA SCENA NASCE DALLA PERSONA. CHIUSA NEL CODICE E PROVATA COL MODELLO VERO
+
+**La porta al modello e' aperta** (`lib/core/viaggio/la_scena_dal_modello.dart`).
+La chiamata parte a discesa finita, quando il tema della domanda libera e' gia'
+capito, e ha la nebbia e l'incontro per rispondere; alla risalita si aspetta al
+massimo due secondi. Il modello riceve la domanda per esteso, il tema, il nome
+dell'animale, **la carta natale dalla porta unica dei Maestri**
+(`SorgenteNatale`: Sole, Luna, Ascendente, numero di vita), il riassunto della
+memoria del Diario e i pezzi delle ultime cinque scene; sceglie **quattro id
+da quattro elenchi chiusi**, e l'uscita non puo' essere altro. La risposta si
+legge prima di usarla: id del vocabolario, un gesto che quel corpo sa fare,
+nessuna parola ripetuta, al massimo un pezzo gia' visto. **Se qualcosa non
+torna decide la via deterministica, che resta, e il guasto va nel registro dei
+guasti, mai alla persona.** Tetto tecnico della DI.15.
+
+**LA PROVA CHE L'ORDINE CHIEDE, col modello vero.** Trenta discese con la
+stessa domanda, *"Devo lasciare il mio lavoro per aprire qualcosa di mio?"*, e
+lo stesso giorno, da tre profili, dieci ciascuno, con memoria e scene
+precedenti che crescono come nell'app. L'istruzione e' quella esportata dalla
+Dart carattere per carattere. Col modello montato, `gemini-2.5-flash` su
+`europe-west1`:
+
+| discesa | P1: Lupo, Sole Cancro, Luna Scorpione, Asc. Pesci, 7 | P2: Aquila, Sole Leone, Luna Ariete, Asc. Sagittario, 1 | P3: Tartaruga, Sole Capricorno, Luna Toro, Asc. Vergine, 4 |
+|---|---|---|---|
+| 1 | bivio, seme, aspetta, nebbia | bivio, chiave, si mette in mezzo, nebbia | bivio, seme, aspetta, alba |
+| 2 | grotta, porta chiusa, mostra i denti, notte | radura, fuoco acceso, si ferma, alba | soglia, porta chiusa, si mette in mezzo, nebbia |
+| 3 | scala, chiave, ti precede, alba | scala, porta chiusa, si volta, notte | bivio, chiave, ti precede, alba |
+| 4 | fiume, acqua ferma, si accuccia, pioggia | cima, seme, ti precede, alba | scala, cerchio tracciato, si accuccia, notte |
+| 5 | cerchio di pietre, specchio, si volta, notte | soglia, maschera, aspetta, pioggia | fiume, acqua ferma, aspetta, nebbia |
+| 6 | soglia, ombra non tua, si mette in mezzo, nebbia | bosco fitto, ombra non tua, guarda in alto, nebbia | radura, fuoco acceso, si volta, notte |
+| 7 | bivio, seme, aspetta, alba | bivio, chiave, si mette in mezzo, notte | grotta, seme, scava, pioggia |
+| 8 | grotta, fuoco acceso, scava, notte | fiume, acqua ferma, si allontana, alba | soglia, porta chiusa, si mette in mezzo, nebbia |
+| 9 | scala, chiave, ti precede, nebbia | radura, fuoco acceso, si volta, notte | bivio, filo, ti precede, alba |
+| 10 | ponte, porta chiusa, mostra i denti, pioggia | scala, porta chiusa, ti precede, notte | scala, chiave, guarda in alto, notte |
+
+**Quale elemento del profilo ha mosso quale pezzo**, con la prova a un elemento
+per volta: il primo profilo con un solo elemento cambiato, dieci discese per
+variante. Il numero e' la distanza fra le scelte, da 0, le stesse, a 1, nessuna
+in comune.
+
+| cambia soltanto | luogo | cosa | gesto | momento |
+|---|---|---|---|---|
+| l'animale, Lupo in Aquila | 0,30 | 0,30 | 0,50 | 0,10 |
+| la carta natale, quella di P2 | 0,30 | 0,30 | 0,30 | 0,10 |
+| memoria e scene precedenti, tolte | 0,80 | 0,50 | 0,70 | 0,70 |
+
+**Si legge cosi'.** La domanda tiene fermo il punto di partenza: il *bivio*
+torna in tutti e tre i profili, ed e' giusto per *una scelta da fare*.
+**L'animale muove soprattutto il gesto**, perche' cambiano i gesti possibili e
+cambia il corpo; **la carta natale muove luogo, cosa e gesto in misura
+simile**; **la memoria e le scene precedenti muovono tutto**, perche' sono cio'
+che impedisce di ripetersi. Fra profili le distanze stanno fra 0,1 e 0,5 su
+luogo, cosa e gesto: le scene differiscono in modo leggibile, e i tre profili
+non si scambiano mai la stessa sequenza.
+
+**Le misure delle trenta discese**: trenta risposte valide su trenta, **zero**
+che l'app scarterebbe, sedici scene su ventisette che riprendono un pezzo delle
+precedenti, tempo mediano 0,69 secondi e peggiore 0,88, **904 token in ingresso
+e 40 in uscita**, cioe' circa quattro decimi di millesimo di dollaro a discesa
+coi prezzi di Gemini 2.5 Flash, sotto la stima dell'ordine. **Col modello
+dell'ordine**, `gemini-3.6-flash` su `global`, stessa prova: trenta su trenta,
+zero scartate, quindici riprese su ventisette, tempo mediano 1,27 secondi e
+peggiore 3,21, 1.100 token in ingresso e 42 in uscita. La scelta fra i due
+resta del fondatore.
+
+**DUE DIFETTI CHE SOLO IL MODELLO VERO POTEVA TROVARE, e chiusi.**
+
+- **Il ragionamento troncava ogni risposta.** I Flash *pensano* prima di
+  rispondere, e il pensiero si conta nel tetto dell'uscita: Gemini 3.6 Flash
+  rispondeva *"Here"* e si fermava, trenta volte su trenta. Nell'app nessuno
+  diceva di non pensare nemmeno a Gemini 2.5 Flash: **ogni scena sarebbe caduta
+  sulla riserva** senza che nessuna prova se ne accorgesse. Adesso le tre
+  chiamate del Viaggio spengono il ragionamento da un posto solo,
+  `LaDomandaCapita.ragionamentoPer`, e una guardia lo pretende.
+- **Il modello ricopiava le scene precedenti.** Con la prima istruzione,
+  *"se un elemento ha senso, riprendilo"*, riprendeva qualcosa in ventisei
+  scene su ventisette, e un profilo tornava dieci volte al bivio col seme.
+  Adesso l'istruzione chiede di non ripetersi e ammette un pezzo ripreso al
+  massimo, e la lettura della risposta lo pretende.
+
+**E UNA RIGA DI MEMORIA RISCRITTA.** Il riassunto che il Diario scrive per i
+Maestri, e che adesso arriva anche al modello, diceva *"e' sceso nel Mondo di
+Sotto"*: dice *"ha fatto N discese"*.
+
+**La guardia**, `la_scena_nasce_dalla_persona`: dieci rossi.
 
 ---
 

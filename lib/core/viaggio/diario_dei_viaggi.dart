@@ -333,7 +333,9 @@ class DiarioDeiViaggi {
   /// dirlo.**
   String get riassuntoPerIMaestri {
     if (_viaggi.isEmpty) return '';
-    final pezzi = <String>['è sceso nel Mondo di Sotto $quanteDiscese volte'];
+    // **SENZA PARTICIPIO**, ordine DI voce 05: qui c'era *"e' sceso"*, e il
+    // Maestro o il modello che lo riprende direbbe a una donna che e' un uomo.
+    final pezzi = <String>['ha fatto $quanteDiscese discese nel Mondo di Sotto'];
     final da = giorniDallUltima;
     if (da != null && da >= 7) pezzi.add('ultima volta $da giorni fa');
     final temi = <String, int>{};

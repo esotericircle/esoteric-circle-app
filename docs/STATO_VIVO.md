@@ -2435,7 +2435,7 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
 `docs/ordini/ORDINE_DI_MANIFESTO.md`, e lo stato voce per voce sta li'.
 **Nessuna build senza ordine del fondatore**: l'ultima consegnata resta la 2249.
 
-**TREDICI VOCI CHIUSE NEL CODICE, quattro aperte.**
+**QUATTORDICI VOCI CHIUSE NEL CODICE, tre aperte.**
 
 - **DI.01, il tema della domanda arriva davvero.** Lo schermo assegnava
   l'etichetta *"Una scelta da fare"* e la voce del Mondo di Sotto cercava
@@ -2472,6 +2472,8 @@ realmente risposte alla domanda posta?"*. Il manifesto sta in
 - **DI.15, i limiti per piano.** Tre righe nuove nella matrice dei piani: discese 1, 1, 1 e 2 al giorno dopo il riconoscimento (prima una per tutti), segni 1 e 3 a settimana, 1 e 5 al giorno, nutrimento sempre. Al tetto non piu' la promessa degli Eos, che nessuna strada manteneva, ma quando si torna e il nutrimento. Tetto tecnico di dieci chiamate al modello al giorno, `IlTettoDelleChiamate`.
 
 - **DI.11, DI.12, DI.13 e DI.14, la vita dopo il riconoscimento.** Alla quarta sparisce l'apparato della rivelazione; restano l'animale scoperto, il nome, due righe accordate al genere e tre azioni: scendere con una domanda (senza piu' la lente), nutrirlo col tamburo a schermo pieno per quaranta secondi di battito, chiedergli un segno che risponde con uno dei sei gesti e una riga. **Il gesto e' l'illustrazione che si muove**: i disegni veri dei sei gesti per dodici animali sono da ordinare.
+
+- **DI.03, la scena nasce dalla persona.** La sceglie il modello dal vocabolario chiuso con la domanda, il tema, l'animale, la carta natale, la memoria e le ultime cinque scene; la via deterministica resta come rete. **Provata col modello vero**: trenta discese da tre profili, scene diverse fra profili, e la prova a un elemento per volta dice cosa muove cosa. La prova ha trovato due difetti che nessuna finta poteva vedere: il ragionamento dei Flash troncava ogni risposta, e il modello ricopiava le scene precedenti. Tutti e due chiusi.
 
 **GUARDIE NUOVE**: `la_discesa_e_il_filmato_del_dito` (quattordici prove,
 dodici rossi innestati a mano), `la_domanda_libera_viene_capita`,

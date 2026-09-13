@@ -58,6 +58,25 @@ abstract final class LaDomandaCapita {
   /// **LA REGIONE**, in una costante sola. Vedi [modello].
   static const String regione = 'europe-west1';
 
+  /// **IL RAGIONAMENTO SI SPEGNE, per tutte le chiamate del Viaggio.**
+  ///
+  /// **Trovato dalla prova col modello vero della voce DI.03**, 12 settembre
+  /// 2026. I modelli Flash *pensano* prima di rispondere, e i token del
+  /// pensiero si contano dentro il tetto dell'uscita: con un tetto di ottanta
+  /// token Gemini 3.6 Flash rispondeva *"Here"* e si fermava, trenta volte su
+  /// trenta, e Gemini 2.5 Flash avrebbe fatto lo stesso nell'app, dove nessuno
+  /// gli diceva di non pensare. **Ogni scena sarebbe caduta sulla riserva
+  /// senza che nessuna prova se ne accorgesse**, perche' nelle prove il modello
+  /// e' una finta.
+  ///
+  /// Qui si sceglie un elenco o si scrive una riga: il ragionamento non serve.
+  /// La serie 2.5 lo spegne col budget a zero, la serie 3 col livello minimo,
+  /// che e' il piu' basso che accetta.
+  static ThinkingConfig ragionamentoPer(String modello) =>
+      modello.startsWith('gemini-2.5')
+          ? ThinkingConfig.withThinkingBudget(0)
+          : ThinkingConfig.withThinkingLevel(ThinkingLevel.minimal);
+
   /// **QUANTO SI ASPETTA IL MODELLO**: due secondi, dall'ordine. Oltre, si cade
   /// sulla tabella.
   static const Duration pazienza = Duration(seconds: 2);
@@ -134,7 +153,8 @@ abstract final class LaDomandaCapita {
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0,
-        maxOutputTokens: 16,
+        maxOutputTokens: 64,
+        thinkingConfig: ragionamentoPer(modello),
         // **L'ELENCO CHIUSO**: il modello non puo' scrivere altro che uno dei
         // sei id. E' la regola dell'ordine, "nessun testo libero in uscita",
         // resa impossibile da violare invece che chiesta per favore.

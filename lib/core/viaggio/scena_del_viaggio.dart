@@ -610,6 +610,40 @@ abstract final class ScenaSenzaModello {
     );
   }
 
+  /// **LA SCENA DAI QUATTRO PEZZI SCELTI DAL MODELLO.** Ordine DI voce 03.
+  ///
+  /// Chi accompagna, l'impronta e la domanda si decidono qui come nella
+  /// composizione deterministica, cosi' le due vie danno la stessa forma di
+  /// scena e cambiano soltanto i pezzi. [impronta] e' la stessa stringa della
+  /// via deterministica: la stessa discesa, riaperta, dice le stesse parole.
+  static ScenaDelViaggio daiPezzi({
+    required PezzoDellaScena luogo,
+    required PezzoDellaScena cosa,
+    required PezzoDellaScena gesto,
+    required PezzoDellaScena momento,
+    required String domanda,
+    required DateTime giorno,
+    required double nitidezza,
+    int discesa = 0,
+    GuideAnimal? animale,
+    bool siPuoDire = false,
+    bool conDomanda = true,
+  }) =>
+      ScenaDelViaggio(
+        luogo: luogo,
+        cosa: cosa,
+        gesto: gesto,
+        momento: momento,
+        nitidezza: nitidezza,
+        dalModello: true,
+        chi: animale != null && siPuoDire
+            ? ChiAccompagna.animale(animale)
+            : ChiAccompagna.laSagoma,
+        impronta: '$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
+            '|discesa$discesa',
+        conDomanda: conDomanda,
+      );
+
   /// **SE UNA FIGURA RIPETE UNA PAROLA PIENA DI UN'ALTRA**, da cinque lettere
   /// in su, cioe' quelle che portano il senso. Pubblica perche' la stessa
   /// regola deve valere per la scelta del modello, ordine DI voce 03.

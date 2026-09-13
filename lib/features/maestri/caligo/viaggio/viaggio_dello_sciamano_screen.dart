@@ -34,6 +34,10 @@ import 'la_discesa_in_video.dart';
 import 'il_segno_che_risponde.dart';
 import 'il_tamburo_che_nutre.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
+import '../../../../core/viaggio/la_scena_dal_modello.dart';
+import '../../../../core/identity/natal_identity.dart';
+import '../../../../core/maestro/natal_context.dart';
+import '../../../../core/maestro/sorgente_natale.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
@@ -70,6 +74,7 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
     this.diario,
     this.fabbricaDellaDiscesa,
     this.chiamataDelSegno,
+    this.chiamataDellaScena,
   });
 
   final Zodiac userSign;
@@ -90,6 +95,10 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
   /// il modello vero; le prove ci mettono una finta, perche' in una prova
   /// Firebase non c'e'.
   final ChiamataDelSegno? chiamataDelSegno;
+
+  /// **LA CHIAMATA AL MODELLO PER LA SCENA**, ordine DI voce 03. Nulla vuol dire
+  /// il modello vero.
+  final ChiamataDellaScena? chiamataDellaScena;
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -247,6 +256,12 @@ class _ViaggioDelloSciamanoScreenState
   Future<(TemaDellaDomanda?, FonteDelTema)>? _temaInArrivo;
 
   ScenaDelViaggio? _scena;
+
+  /// **LA SCENA DEL MODELLO, CHE ARRIVA MENTRE SI APRE LA NEBBIA.** Ordine DI
+  /// voce 03. La chiamata parte a discesa finita, quando il tema della
+  /// domanda libera e' gia' capito, e ha la nebbia e l'incontro per
+  /// rispondere. Nulla vuol dire la via deterministica.
+  Future<PezziScelti?>? _scenaInArrivo;
 
   /// **LA DOMANDA SI APRE SOLO SE LA SI CHIEDE**, dopo il riconoscimento.
   /// Ordine DI voce 11: sotto l'animale *"tre azioni e non di piu'"*. La
@@ -434,6 +449,47 @@ class _ViaggioDelloSciamanoScreenState
     _respiro?.cancel();
     _respiro = Timer.periodic(RespiroCheDirada.passo, _unRespiroDiNebbia);
     unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
+    _scenaInArrivo = _chiediLaScena();
+  }
+
+  /// **COSA SI SA DELLA CARTA NATALE.** Dalla porta unica dei Maestri,
+  /// `SorgenteNatale`, e col segno di nascita quando la carta non c'e'.
+  NatalContext get _natale {
+    try {
+      final natale =
+          SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
+      if (!natale.isEmpty) return natale;
+    } catch (errore) {
+      // Senza identita' si sa comunque il segno: e' da li' che viene l'animale.
+    }
+    return NatalContext(sunSign: widget.userSign.italianName);
+  }
+
+  /// **CHIEDE LA SCENA AL MODELLO**, con tutto cio' che si sa. Ordine DI voce 03.
+  Future<PezziScelti?> _chiediLaScena() async {
+    final inArrivo = _temaInArrivo;
+    TemaDellaDomanda? tema = _temaScelto;
+    if (inArrivo != null) {
+      try {
+        tema = (await inArrivo).$1 ?? tema;
+      } catch (_) {}
+    }
+    if (!mounted) return null;
+    return LaScenaDalModello.chiedi(
+      CioCheSiSa(
+        domanda: _domanda.text,
+        tema: tema?.inLettere,
+        animale: _suoAnimale,
+        natale: _natale,
+        memoria: _diario.riassuntoPerIMaestri,
+        ultimeScene: [
+          for (final v in _diario.viaggi.take(IlRichiamoDelleScene.quanteSceneIndietro))
+            v.pezzi,
+        ],
+      ),
+      chiamata: widget.chiamataDellaScena,
+      seGuasto: (e) => _registraIlGuastoDi('viaggio_scena_del_modello', e),
+    );
   }
 
   /// **ACCENDE LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce 09.
@@ -579,12 +635,33 @@ class _ViaggioDelloSciamanoScreenState
     final nitidezza =
         NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
     final domanda = LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
-    // **LA VIA DI SOTTO, e per adesso e' l'unica montata.** Ordine DC voce 06:
-    // la scelta dei tre elementi la fa Gemini, e quando non arriva si cade su
-    // questa composizione deterministica. **La porta al modello non e' ancora
-    // aperta**, ed e' dichiarato nel manifesto: quello che c'e' oggi e' il
-    // ripiego, che l'ordine vuole comunque esistente e provato.
-    final scena = ScenaSenzaModello.componi(
+    // **LE DUE VIE.** Ordine DC voce 06: la scelta dei pezzi la fa Gemini, e
+    // quando non arriva si cade sulla composizione deterministica. Fino
+    // all'ordine DI qui c'era scritto *"la porta al modello non e' ancora
+    // aperta"*, ed era vero: girava solo il ripiego.
+    // **LA VIA PRINCIPALE, dall'ordine DI voce 03**: i quattro pezzi del
+    // modello, se sono arrivati in tempo e sono dentro il vocabolario. Se no,
+    // la via deterministica qui sotto, che resta la rete di sicurezza e non si
+    // cancella. Si aspetta al massimo la pazienza del modello.
+    final dalModello = await (_scenaInArrivo ?? Future.value(null))
+        .timeout(LaScenaDalModello.pazienza, onTimeout: () => null);
+    _scenaInArrivo = null;
+    if (!mounted) return;
+    final scena = dalModello != null
+        ? ScenaSenzaModello.daiPezzi(
+            luogo: dalModello.luogo,
+            cosa: dalModello.cosa,
+            gesto: dalModello.gesto,
+            momento: dalModello.momento,
+            domanda: domanda,
+            giorno: _adesso,
+            nitidezza: nitidezza,
+            discesa: quante,
+            animale: _suoAnimale,
+            siPuoDire: quante + 1 >= IQuattroViaggi.quanteDiscese,
+            conDomanda: _temaScelto != null,
+          )
+        : ScenaSenzaModello.componi(
       domanda: domanda,
       giorno: _adesso,
       nitidezza: nitidezza,
