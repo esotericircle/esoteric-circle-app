@@ -1577,7 +1577,6 @@ class _ViaggioDelloSciamanoScreenState
       quando: _adesso,
       domanda: domanda,
       gesto: segno.gesto.name,
-      cosa: segno.cosa?.id,
       riga: segno.riga,
     ));
     return segno;

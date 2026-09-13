@@ -6,66 +6,71 @@ import 'package:firebase_ai/firebase_ai.dart';
 import '../rituals/animal_catalog.dart';
 import 'il_tetto_delle_chiamate.dart';
 import 'la_domanda_capita.dart';
-import 'vocabolario_del_viaggio.dart';
 
 /// **I GESTI CON CUI L'ANIMALE RISPONDE, e nessuno di piu'.**
-/// Ordine DI voce 14, 12 settembre 2026.
+/// Ordine DI voce 14, 12 settembre 2026; ridotti a tre dall'ordine DJ voce 08,
+/// 13 settembre 2026.
 ///
-/// **Le parole dell'ordine:** *"l'animale non parla. La persona scrive una
-/// domanda in una riga. L'animale risponde con un gesto, non con un discorso:
-/// si volta, si avvicina, si siede, porta qualcosa in bocca, si allontana,
-/// guarda in una direzione. Il repertorio dei gesti e' chiuso e disegnato da
-/// noi, come il vocabolario della scena. Il modello sceglie il gesto e scrive
-/// la riga, non inventa gesti nuovi."*
+/// **Le parole dell'ordine DI:** *"l'animale non parla. La persona scrive una
+/// domanda in una riga. L'animale risponde con un gesto, non con un discorso.
+/// Il repertorio dei gesti e' chiuso e disegnato da noi, come il vocabolario
+/// della scena. Il modello sceglie il gesto e scrive la riga, non inventa
+/// gesti nuovi."*
 ///
-/// **Sei gesti, quelli dell'ordine, e ognuno sa dirsi per ogni animale**: un
-/// uccello porta qualcosa *nel becco* e non *in bocca*, si *posa* e non si
-/// siede; il Serpente si *raccoglie*.
+/// **DA SEI A TRE, ordine DJ voce 08.** Sei gesti per dodici animali erano
+/// settantadue disegni da commissionare, e tre di quei sei, *si siede*,
+/// *porta qualcosa* e *guarda lontano*, si distinguevano male a colpo
+/// d'occhio. **Restano i tre che coprono il ventaglio dal si' al no al non
+/// ancora, e si leggono senza spiegazioni**: si avvicina, si volta, si
+/// allontana. Trentasei disegni. Gli altri tre si valutano dopo la Demo.
 enum GestoDelSegno {
-  siVolta,
   siAvvicina,
-  siSiede,
-  portaQualcosa,
-  siAllontana,
-  guardaLontano;
+  siVolta,
+  siAllontana;
 
-  /// **COSA FA, detto per quell'animale.** [cosa] serve solo a
-  /// [portaQualcosa], ed e' una figura del vocabolario chiuso della scena.
-  String descrizione(GuideAnimal animale, {PezzoDellaScena? cosa}) {
+  /// **IL NOME NEI FILE DEI DISEGNI**: `si_avvicina`, `si_volta`,
+  /// `si_allontana`, come li nomina l'ordine.
+  String get nelFile => switch (this) {
+        GestoDelSegno.siAvvicina => 'si_avvicina',
+        GestoDelSegno.siVolta => 'si_volta',
+        GestoDelSegno.siAllontana => 'si_allontana',
+      };
+
+  /// **CHE COSA VUOL DIRE**, con le parole dell'ordine DJ voce 08. Entra
+  /// nell'istruzione al modello, perche' il gesto e la riga dicano la stessa
+  /// cosa.
+  String get significato => switch (this) {
+        GestoDelSegno.siAvvicina => 'la risposta è sì, oppure vai avanti',
+        GestoDelSegno.siVolta => 'guarda meglio, non hai visto tutto',
+        GestoDelSegno.siAllontana => 'la risposta è no, oppure non adesso',
+      };
+
+  /// **COSA FA, detto per quell'animale**: un uccello si allontana in volo,
+  /// il Serpente strisciando.
+  String descrizione(GuideAnimal animale) {
     final uccello = GestiDelSegno.uccelli.contains(animale.name);
     switch (this) {
-      case GestoDelSegno.siVolta:
-        return 'si volta verso di te';
       case GestoDelSegno.siAvvicina:
         return 'ti si avvicina';
-      case GestoDelSegno.siSiede:
-        if (uccello) return 'si posa davanti a te';
-        if (animale.name == 'Serpente') return 'si raccoglie davanti a te';
-        return 'si siede davanti a te';
-      case GestoDelSegno.portaQualcosa:
-        final che = cosa?.nome ?? 'qualcosa';
-        return uccello ? 'ti porta nel becco $che' : 'ti porta in bocca $che';
+      case GestoDelSegno.siVolta:
+        return 'si volta a guardare dietro di sé';
       case GestoDelSegno.siAllontana:
         if (uccello) return 'si allontana in volo';
         if (animale.name == 'Serpente') return 'si allontana strisciando';
         return 'si allontana di qualche passo';
-      case GestoDelSegno.guardaLontano:
-        return 'guarda lontano, oltre te';
     }
   }
 }
 
-/// **IL SEGNO CHE L'ANIMALE HA DATO**: il gesto, la cosa se c'e', la riga.
+/// **IL SEGNO CHE L'ANIMALE HA DATO**: il gesto e la riga.
 class UnSegno {
   const UnSegno({
     required this.gesto,
     required this.riga,
-    this.cosa,
     this.dalModello = false,
   });
 
   final GestoDelSegno gesto;
-  final PezzoDellaScena? cosa;
 
   /// **LA RIGA SOLA**: cosa ha fatto l'animale e cosa vuol dire per la
   /// domanda.
@@ -101,8 +106,32 @@ abstract final class GestiDelSegno {
   /// senso compiuto: una frase breve per il gesto e una per cio' che vuol dire.
   static const int rigaAlMassimo = 180;
 
-  /// Le cose che l'animale puo' portare: le figure del vocabolario chiuso.
-  static List<PezzoDellaScena> get cose => VocabolarioDelViaggio.cose;
+  /// **I DISEGNI DEI GESTI**, ordine DJ voce 08: trentasei, uno per gesto e
+  /// per animale, in `assets/img/mondo_di_sotto/gesti/`. Il nome e' quello
+  /// dell'animale nelle sue illustrazioni, `lupo` da `ani_lupo_v1`, poi il
+  /// gesto: `lupo_si_avvicina_v1.webp`. **Finche' un file manca il segno
+  /// mostra l'illustrazione intera dell'animale e la riga**: la funzione non
+  /// si spegne e non mostra un riquadro vuoto.
+  ///
+  /// La cartella e' spezzata in pezzi senza barre, come quella delle ombre.
+  static String disegnoDi(GuideAnimal animale, GestoDelSegno gesto) {
+    final nome = animale.stem.substring(4, animale.stem.length - 3);
+    return '$_cartellaDeiDisegni/${nome}_${gesto.nelFile}$_versione';
+  }
+
+  /// **I TRENTASEI DISEGNI ATTESI**, col nome esatto con cui vanno
+  /// consegnati. Chi li produce legge questo elenco e non il codice.
+  static List<String> get disegniAttesi => [
+        for (final a in AnimalCatalog.animals)
+          for (final g in GestoDelSegno.values) disegnoDi(a, g),
+      ];
+
+  static const String _dentro = 'assets';
+  static const String _quali = 'img';
+  static const String _dove = 'mondo_di_sotto';
+  static const String _gesti = 'gesti';
+  static const String _cartellaDeiDisegni = '$_dentro/$_quali/$_dove/$_gesti';
+  static const String _versione = '_v1.webp';
 
   /// **L'ISTRUZIONE AL MODELLO.** Costruita dall'enumerazione, cosi' il
   /// repertorio non si ricopia a mano.
@@ -113,14 +142,15 @@ abstract final class GestiDelSegno {
         'non parla, risponde con un gesto. Ricevi la domanda della persona. '
         'Scegli UN gesto da questo elenco chiuso e non inventarne altri:\n');
     for (final g in GestoDelSegno.values) {
-      b.writeln('- ${g.name}: $chi ${g.descrizione(animale)}');
+      b.writeln('- ${g.name}: $chi ${g.descrizione(animale)}. Significato: '
+          '${g.significato}.');
     }
-    b.write('Se scegli portaQualcosa, scegli anche la cosa dall\'elenco delle '
-        'cose. Poi scrivi UNA riga in italiano, al massimo 25 parole, in '
-        'seconda persona singolare: dice cosa ha fatto $chi e cosa vuol dire '
-        'per la domanda. Non usare aggettivi o participi che dicano se la '
-        'persona è un uomo o una donna. Niente due punti. Niente previsioni '
-        'certe, niente consigli medici, legali o economici.');
+    b.write('Scegli il gesto il cui significato risponde alla domanda. Poi '
+        'scrivi UNA riga in italiano, al massimo 25 parole, in seconda persona '
+        'singolare: dice cosa ha fatto $chi e cosa vuol dire per la domanda, '
+        'col significato del gesto scelto. Non usare aggettivi o participi che '
+        'dicano se la persona è un uomo o una donna. Niente due punti. Niente '
+        'previsioni certe, niente consigli medici, legali o economici.');
     return b.toString();
   }
 
@@ -173,14 +203,9 @@ abstract final class GestiDelSegno {
         .where((g) => g.name == dati['gesto'])
         .firstOrNull;
     if (gesto == null) return null;
-    PezzoDellaScena? cosa;
-    if (gesto == GestoDelSegno.portaQualcosa) {
-      cosa = cose.where((c) => c.id == dati['cosa']).firstOrNull;
-      if (cosa == null) return null;
-    }
     final riga = (dati['riga'] as Object?)?.toString().trim() ?? '';
     if (!rigaAccettabile(riga)) return null;
-    return UnSegno(gesto: gesto, cosa: cosa, riga: riga, dalModello: true);
+    return UnSegno(gesto: gesto, riga: riga, dalModello: true);
   }
 
   /// **LA RIGA SI LEGGE PRIMA DI MOSTRARLA.** Una riga sola, non vuota, non
@@ -209,43 +234,32 @@ abstract final class GestiDelSegno {
     final seme = _seme('$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
         '|${animale.name}');
     final gesto = GestoDelSegno.values[seme % GestoDelSegno.values.length];
-    final cosa = gesto == GestoDelSegno.portaQualcosa
-        ? cose[(seme ~/ 7) % cose.length]
-        : null;
     final significati = _significati[gesto]!;
     final chi = '${animale.articolo}${animale.name}';
     final riga = '${chi[0].toUpperCase()}${chi.substring(1)} '
-        '${gesto.descrizione(animale, cosa: cosa)}. '
+        '${gesto.descrizione(animale)}. '
         '${significati[(seme ~/ 31) % significati.length]}';
-    return UnSegno(gesto: gesto, cosa: cosa, riga: riga);
+    return UnSegno(gesto: gesto, riga: riga);
   }
 
-  /// **COSA VUOL DIRE OGNI GESTO**, per la via di riserva: due letture per
-  /// gesto, e nessuna dice se chi legge e' un uomo o una donna.
+  /// **COSA VUOL DIRE OGNI GESTO**, per la via di riserva: tre letture per
+  /// gesto, col significato dell'ordine DJ voce 08, e nessuna dice se chi
+  /// legge e' un uomo o una donna.
   static const Map<GestoDelSegno, List<String>> _significati = {
-    GestoDelSegno.siVolta: [
-      'Vuol dire che la risposta sta in qualcosa che hai già alle spalle.',
-      'Vuol dire che prima di andare avanti conviene guardare indietro.',
-    ],
     GestoDelSegno.siAvvicina: [
-      'Vuol dire che quello che chiedi è più vicino di quanto credi.',
-      'Vuol dire che in questa domanda hai compagnia.',
+      'Vuol dire sì. Puoi andare avanti.',
+      'Vuol dire che la strada è aperta davanti a te.',
+      'Vuol dire che quello che chiedi ha il suo sì.',
     ],
-    GestoDelSegno.siSiede: [
-      'Vuol dire che adesso conviene aspettare, senza forzare.',
-      'Vuol dire che la risposta arriva restando fermi.',
-    ],
-    GestoDelSegno.portaQualcosa: [
-      'Vuol dire che quello che ti serve ce l\'hai già, anche se non lo usi.',
-      'Vuol dire che sta per arrivarti ciò che manca.',
+    GestoDelSegno.siVolta: [
+      'Vuol dire che non hai ancora visto tutto. Guarda meglio.',
+      'Vuol dire che nella domanda c\'è una parte che ti sfugge.',
+      'Vuol dire di guardarla di nuovo, con più calma.',
     ],
     GestoDelSegno.siAllontana: [
-      'Vuol dire che su questa domanda serve distanza prima di decidere.',
-      'Vuol dire che la cosa che chiedi va lasciata andare, almeno per ora.',
-    ],
-    GestoDelSegno.guardaLontano: [
-      'Vuol dire che la risposta è più avanti nel tempo, non oggi.',
-      'Vuol dire che conviene guardare oltre il problema di adesso.',
+      'Vuol dire no, almeno per ora.',
+      'Vuol dire non adesso. Il momento non è questo.',
+      'Vuol dire che oggi questa strada va lasciata.',
     ],
   };
 
@@ -265,11 +279,8 @@ abstract final class GestiDelSegno {
         responseSchema: Schema.object(properties: {
           'gesto': Schema.enumString(
               enumValues: [for (final g in GestoDelSegno.values) g.name]),
-          'cosa': Schema.enumString(enumValues: [for (final c in cose) c.id]),
           'riga': Schema.string(),
-        }, optionalProperties: [
-          'cosa'
-        ]),
+        }),
       ),
     );
     final r = await m.generateContent([Content.text(richiesta)]);

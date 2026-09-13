@@ -246,6 +246,13 @@ flutter:
     # alpha. Percio' l'ombra che si segue nell'incontro **e' l'animale che
     # tocca a quella persona, al pixel**, e non una figura che gli somiglia.
     - assets/img/mondo_di_sotto/
+    # **I DISEGNI DEI TRE GESTI DEL SEGNO, ordine DJ voce 08.** Trentasei,
+    # uno per gesto e per animale: <animale>_si_avvicina_v1.webp,
+    # <animale>_si_volta_v1.webp, <animale>_si_allontana_v1.webp. Le
+    # cartelle degli asset non sono ricorsive, e questa e' dichiarata anche
+    # da vuota: finche' un disegno manca, il segno mostra l'illustrazione
+    # intera. Vedi assets/img/mondo_di_sotto/gesti/LEGGIMI.md.
+    - assets/img/mondo_di_sotto/gesti/
     - assets/img/cristalli/
     - assets/img/archetipi/
     - assets/img_thumb/mazzo-tarocchi/

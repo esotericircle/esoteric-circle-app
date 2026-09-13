@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 5
-VOCI_SBLOCCATE_E_APERTE: 6
+VOCI_CHIUSE: 6
+VOCI_SBLOCCATE_E_APERTE: 5
 
 ---
 
@@ -266,5 +266,56 @@ valore, come il `sopraLaRoccia` che la voce DI.09 aveva trovato leggendo, ne'
 un ramo che dipende da un valore che nella realta' non arriva mai. I membri
 privati li sorveglia gia' l'analisi, che e' a zero. Il ramo della Demo non e'
 morto: dipende da una chiave di configurazione, `AppFlags.isDemo`.
+
+---
+
+## DJ.08, I GESTI DEL SEGNO DA SEI A TRE. CHIUSA
+
+**Il repertorio e' di tre gesti, per tutti e dodici gli animali**, con le
+parole e i significati dell'ordine:
+
+| gesto | nel file | vuol dire | come lo fa |
+|---|---|---|---|
+| si avvicina | `si_avvicina` | la risposta e' si', oppure vai avanti | *ti si avvicina* |
+| si volta | `si_volta` | guarda meglio, non hai visto tutto | *si volta a guardare dietro di se'* |
+| si allontana | `si_allontana` | la risposta e' no, oppure non adesso | *si allontana di qualche passo*; gli uccelli *in volo*, il Serpente *strisciando* |
+
+**Il significato entra nell'istruzione al modello**, gesto per gesto, e
+l'istruzione gli chiede di scegliere il gesto il cui significato risponde
+alla domanda e di scrivere la riga con quel significato: prima il modello
+sceglieva un gesto senza sapere che cosa volesse dire. **La via di riserva
+dice la stessa cosa**: tre letture per gesto, coi significati dell'ordine,
+nessuna col genere di chi legge. Lo schema della risposta non ha piu' il
+campo della cosa portata.
+
+**Usciti col gesto che la portava**: la cosa portata nel segno, nel Diario e
+nello schema, e la luce che nasceva dove sta la bocca. I segni conservati
+prima dell'ordine con uno dei tre gesti tolti restano righe da rileggere:
+il nome del gesto e la riga sono testo, e nessuno li riporta al repertorio.
+
+**I trentasei disegni** hanno il nome che dice l'ordine,
+`assets/img/mondo_di_sotto/gesti/<animale>_<gesto>_v1.webp`, dove `<animale>`
+e' il nome delle dodici illustrazioni: `lupo` da `ani_lupo_v1`. Li elenca
+`GestiDelSegno.disegniAttesi`, e il `LEGGIMI.md` della cartella li scrive
+tutti per chi li disegnera'. **La cartella e' dichiarata nel pubspec anche da
+vuota**, e il manifesto degli asset la conosce: il giorno che un disegno
+arriva, il segno lo mostra senza che nessuno tocchi il codice. **Oggi ci sono
+zero disegni su trentasei.**
+
+**Finche' un disegno manca, il segno mostra l'illustrazione intera
+dell'animale, che si muove col gesto, e la riga.** Si chiede al pacchetto se
+il disegno c'e', come per il verso dell'animale, e la risposta si ricorda;
+finche' il pacchetto non ha risposto si vede l'illustrazione, mai un
+riquadro vuoto. **Quando il disegno c'e'** compare mentre il gesto accade, e
+l'illustrazione non si muove piu': il gesto e' gia' disegnato.
+
+**Le prove**, in `la_vita_dopo_il_riconoscimento`: i tre gesti e i loro nomi
+nei file, i tre gesti tolti rifiutati se il modello li scrive, i tre
+significati nell'istruzione, la riserva che su cento domande dice cio' che il
+suo gesto vuol dire, i trentasei nomi nella forma dell'ordine e nel LEGGIMI,
+la cartella nel pubspec, e il segno a schermo con il disegno e senza. **Due
+rossi**: il disegno ignorato anche quando c'e', e l'istruzione senza i
+significati. Una pretesa era sbagliata la prima volta, ed era la prova: in
+Dart il confine di parola non riconosce la *i* accentata di *si'*.
 
 ---

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../core/rituals/animal_catalog.dart';
-import '../../../../core/viaggio/dove_sta_la_testa.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
 import '../../../../core/viaggio/le_sagome_in_celle.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -21,15 +21,15 @@ import 'sfondo_del_mondo_di_sotto.dart';
 /// breve dell'animale piu' una riga sola di testo che dice cosa ha fatto e
 /// cosa vuol dire per la domanda posta."*
 ///
-/// **IL GESTO E' L'ILLUSTRAZIONE CHE SI MUOVE**, e lo dico per quello che e':
-/// per ognuno dei dodici animali c'e' un'illustrazione sola, e sei gesti per
-/// dodici animali farebbero settantadue disegni che non esistono. Qui il
-/// gesto e' un movimento dell'illustrazione vera, diverso per ogni gesto: si
-/// volta ruotando su se stessa, si avvicina crescendo, si allontana
-/// rimpicciolendo e sbiadendo, si siede abbassandosi, guarda lontano
-/// spostandosi e voltandosi, porta qualcosa con una luce che nasce dove sta la
-/// sua bocca. **I disegni veri dei gesti sono un lavoro da fare**, e il
-/// rapporto lo dice.
+/// **IL GESTO E' IL SUO DISEGNO, E FINCHE' IL DISEGNO NON C'E' E'
+/// L'ILLUSTRAZIONE CHE SI MUOVE.** Ordine DJ voce 08: tre gesti per dodici
+/// animali, trentasei disegni, `GestiDelSegno.disegniAttesi`. **Quando il
+/// disegno del gesto e' nel pacchetto si vede il disegno**, che compare mentre
+/// il gesto accade. **Quando manca si vede l'illustrazione intera
+/// dell'animale**, e il gesto e' un suo movimento, diverso per ognuno: si
+/// avvicina crescendo, si volta ruotando su se stessa, si allontana
+/// rimpicciolendo e sbiadendo. Mai un riquadro vuoto: finche' il pacchetto
+/// non ha risposto, si vede l'illustrazione.
 class IlSegnoCheRisponde extends StatefulWidget {
   const IlSegnoCheRisponde({
     super.key,
@@ -73,13 +73,21 @@ class IlSegnoCheRisponde extends StatefulWidget {
     final e = Curves.easeInOutCubic.transform(t.clamp(0.0, 1.0));
     switch (gesto) {
       case GestoDelSegno.siVolta:
-        return (scala: 0.85, specchio: math.cos(math.pi * e), dx: 0, dy: 0, luce: 1);
+        return (
+          scala: 0.85,
+          specchio: math.cos(math.pi * e),
+          dx: 0,
+          dy: 0,
+          luce: 1
+        );
       case GestoDelSegno.siAvvicina:
-        return (scala: 0.72 + 0.36 * e, specchio: 1, dx: 0, dy: 40 * e, luce: 1);
-      case GestoDelSegno.siSiede:
-        return (scala: 0.85 - 0.05 * e, specchio: 1, dx: 0, dy: 26 * e, luce: 1);
-      case GestoDelSegno.portaQualcosa:
-        return (scala: 0.78 + 0.12 * e, specchio: 1, dx: 0, dy: 16 * e, luce: 1);
+        return (
+          scala: 0.72 + 0.36 * e,
+          specchio: 1,
+          dx: 0,
+          dy: 40 * e,
+          luce: 1
+        );
       case GestoDelSegno.siAllontana:
         return (
           scala: 0.85 - 0.30 * e,
@@ -88,15 +96,33 @@ class IlSegnoCheRisponde extends StatefulWidget {
           dy: -46 * e,
           luce: 1 - 0.45 * e,
         );
-      case GestoDelSegno.guardaLontano:
-        return (
-          scala: 0.85,
-          specchio: e < 0.5 ? 1 : -1,
-          dx: -30 * e,
-          dy: 0,
-          luce: 1,
-        );
     }
+  }
+
+  /// **SE IL DISEGNO DI UN GESTO E' NEL PACCHETTO.** Si chiede, non si
+  /// suppone, come per il verso dell'animale: la risposta si ricorda, perche'
+  /// il pacchetto non cambia mentre l'app gira.
+  static Future<bool> ilDisegnoCE(String percorso) async {
+    final saputo = _disegni[percorso];
+    if (saputo != null) return saputo;
+    try {
+      final dati = await rootBundle.load(percorso);
+      return _disegni[percorso] = dati.lengthInBytes > 0;
+    } catch (errore) {
+      // **UN DISEGNO CHE NON C'E' NON E' UN GUASTO**: e' un file ancora da
+      // consegnare. Si mostra l'illustrazione, e basta.
+      return _disegni[percorso] = false;
+    }
+  }
+
+  static final Map<String, bool> _disegni = {};
+
+  /// Le prove possono dichiarare quali disegni ci sono.
+  @visibleForTesting
+  static void disegniNelleProve(Map<String, bool> quali) {
+    _disegni
+      ..clear()
+      ..addAll(quali);
   }
 
   @override
@@ -106,8 +132,12 @@ class IlSegnoCheRisponde extends StatefulWidget {
 class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
   final TextEditingController _domanda = TextEditingController();
   UnSegno? _segno;
+
+  /// Il disegno del gesto di [_segno], quando il pacchetto dice che c'e'.
+  String? _disegno;
   bool _inAttesa = false;
   double _t = 0;
+
   /// Il gesto si misura coi battiti del `Timer`, che sul telefono seguono
   /// l'orologio vero e nelle prove quello simulato.
   Timer? _passo;
@@ -125,18 +155,20 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
     FocusScope.of(context).unfocus();
     setState(() => _inAttesa = true);
     final segno = await widget.chiedi(testo);
+    final percorso = GestiDelSegno.disegnoDi(widget.animale, segno.gesto);
+    final c = await IlSegnoCheRisponde.ilDisegnoCE(percorso);
     if (!mounted) return;
     setState(() {
       _segno = segno;
+      _disegno = c ? percorso : null;
       _inAttesa = false;
       _t = 0;
     });
     _passo?.cancel();
     _passo = Timer.periodic(const Duration(milliseconds: 16), (t) {
       if (!mounted) return t.cancel();
-      final quanto = 16 *
-          t.tick /
-          IlSegnoCheRisponde.quantoDuraIlGesto.inMilliseconds;
+      final quanto =
+          16 * t.tick / IlSegnoCheRisponde.quantoDuraIlGesto.inMilliseconds;
       setState(() => _t = quanto.clamp(0.0, 1.0));
       if (quanto >= 1) t.cancel();
     });
@@ -157,7 +189,10 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
   Widget build(BuildContext context) {
     final palette = widget.palette;
     final segno = _segno;
-    final mov = segno == null
+    final disegno = _disegno;
+    // **COL DISEGNO IL GESTO E' GIA' DISEGNATO**, e l'illustrazione non si
+    // muove: il disegno compare mentre il gesto accade.
+    final mov = segno == null || disegno != null
         ? (scala: 0.85, specchio: 1.0, dx: 0.0, dy: 0.0, luce: 1.0)
         : IlSegnoCheRisponde.movimento(segno.gesto, _t);
     return Stack(
@@ -167,8 +202,8 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
         LayoutBuilder(builder: (context, vincoli) {
           // **LA MISURA VERA DI QUESTO ANIMALE**, ordine DI voce 10: con le
           // proporzioni del Lupo per tutti, il Gufo stava in un riquadro
-          // largo con due bande vuote ai lati, e la luce di cio' che porta
-          // cadeva fuori dal becco. Alto al massimo poco piu' di meta' scena.
+          // largo con due bande vuote ai lati. Alto al massimo poco piu' di
+          // meta' scena.
           final misura =
               LeSagome.misure[widget.animale.name] ?? const Size(898, 760);
           var larga = vincoli.maxWidth * 0.86;
@@ -178,7 +213,6 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
             alta = tetto;
             larga = alta * misura.width / misura.height;
           }
-          final testa = DoveStaLaTesta.di(widget.animale.name);
           return Align(
             alignment: const Alignment(0, -0.35),
             child: Transform.translate(
@@ -192,41 +226,28 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
                     key: const Key('viaggio_animale_del_segno'),
                     width: larga,
                     height: alta,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.asset(
-                          widget.animale.fullPath,
-                          fit: BoxFit.contain,
-                          opacity: AlwaysStoppedAnimation(mov.luce),
-                          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                        ),
-                        // **LA LUCE DI CIO' CHE PORTA**, dove sta la bocca: il
-                        // fondo del rettangolo della testa, gia' tabulato per
-                        // i dodici animali.
-                        if (segno?.gesto == GestoDelSegno.portaQualcosa &&
-                            testa != null)
-                          Positioned(
-                            left: larga * testa.center.dx - 18,
-                            top: alta * testa.bottom - 18,
-                            width: 36,
-                            height: 36,
-                            child: Opacity(
-                              opacity: _t,
-                              child: DecoratedBox(
-                                key: const Key('viaggio_cosa_portata'),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: RadialGradient(colors: [
-                                    palette.goldSoft,
-                                    palette.gold.withValues(alpha: 0),
-                                  ]),
-                                ),
-                              ),
+                    child: disegno != null
+                        ? Opacity(
+                            opacity: _t,
+                            child: Image.asset(
+                              disegno,
+                              key: const Key('viaggio_disegno_del_gesto'),
+                              fit: BoxFit.contain,
+                              // Un disegno che il pacchetto dichiara e non
+                              // decodifica lascia il posto all'illustrazione.
+                              errorBuilder: (_, __, ___) => Image.asset(
+                                  widget.animale.fullPath,
+                                  fit: BoxFit.contain),
                             ),
+                          )
+                        : Image.asset(
+                            widget.animale.fullPath,
+                            key: const Key('viaggio_illustrazione_del_segno'),
+                            fit: BoxFit.contain,
+                            opacity: AlwaysStoppedAnimation(mov.luce),
+                            errorBuilder: (_, __, ___) =>
+                                const SizedBox.shrink(),
                           ),
-                      ],
-                    ),
                   ),
                 ),
               ),
@@ -251,7 +272,8 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
       key: const Key('viaggio_torna_dal_segno'),
       onPressed: widget.quandoTorni,
       child: Text('Torna',
-          style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft)),
+          style:
+              TypographyTokens.etichetta().copyWith(color: palette.goldSoft)),
     );
     if (!widget.siPuoChiedere && segno == null) {
       return Column(
@@ -337,7 +359,8 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
             fillColor: Colors.black.withValues(alpha: 0.35),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              borderSide: BorderSide(color: palette.gold.withValues(alpha: 0.3)),
+              borderSide:
+                  BorderSide(color: palette.gold.withValues(alpha: 0.3)),
             ),
           ),
         ),

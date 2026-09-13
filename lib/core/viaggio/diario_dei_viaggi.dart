@@ -528,24 +528,23 @@ class SegnoRicevuto {
     required this.domanda,
     required this.gesto,
     required this.riga,
-    this.cosa,
   });
 
   final DateTime quando;
   final String domanda;
 
-  /// Il nome del gesto nel repertorio chiuso, `GestoDelSegno.name`.
+  /// Il nome del gesto nel repertorio chiuso, `GestoDelSegno.name`. **Dai
+  /// segni scritti prima dell'ordine DJ voce 08 puo' essere uno dei tre gesti
+  /// tolti**, e resta una riga da rileggere: il nome e la riga sono testo,
+  /// e nessuno li riporta al repertorio. Il campo della cosa portata e' uscito
+  /// col gesto che la portava.
   final String gesto;
-
-  /// L'id della figura portata, se il gesto la porta.
-  final String? cosa;
   final String riga;
 
   Map<String, dynamic> toJson() => {
         'quando': quando.toIso8601String(),
         'domanda': domanda,
         'gesto': gesto,
-        if (cosa != null) 'cosa': cosa,
         'riga': riga,
       };
 
@@ -558,7 +557,6 @@ class SegnoRicevuto {
       quando: quando,
       domanda: '${j['domanda'] ?? ''}',
       gesto: gesto,
-      cosa: j['cosa'] is String ? j['cosa'] as String : null,
       riga: riga,
     );
   }

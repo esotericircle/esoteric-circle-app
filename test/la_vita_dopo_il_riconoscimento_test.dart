@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -347,32 +349,62 @@ void main() {
       expect(nutri, 1, reason: 'il nutrimento offerto al tetto non si apre');
     });
 
-    test('IL REPERTORIO E CHIUSO: sei gesti, e la riga si legge prima', () {
+    /// **TRE GESTI, ordine DJ voce 08**: erano sei, e tre si distinguevano
+    /// male a colpo d'occhio. Restano quelli che coprono il ventaglio dal si'
+    /// al no al non ancora.
+    test('IL REPERTORIO E CHIUSO: tre gesti col loro significato, e la riga '
+        'si legge prima', () {
       final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
       final aquila = AnimalCatalog.animals.firstWhere((a) => a.name == 'Aquila');
-      expect(GestoDelSegno.values, hasLength(6));
+      expect(GestoDelSegno.values.map((g) => g.nelFile),
+          ['si_avvicina', 'si_volta', 'si_allontana']);
       expect(GestiDelSegno.leggi('{"gesto":"vola","riga":"Il Lupo vola via."}',
           lupo), isNull);
+      for (final tolto in ['siSiede', 'portaQualcosa', 'guardaLontano']) {
+        expect(
+            GestiDelSegno.leggi(
+                '{"gesto":"$tolto","riga":"Il Lupo fa un gesto per te."}',
+                lupo),
+            isNull,
+            reason: '$tolto e uscito dal repertorio e il modello lo fa passare');
+      }
       expect(
           GestiDelSegno.leggi(
-              '{"gesto":"portaQualcosa","riga":"Il Lupo ti porta una cosa."}',
-              lupo),
-          isNull,
-          reason: 'porta qualcosa senza dire cosa, fuori dal vocabolario');
-      expect(
-          GestiDelSegno.leggi(
-              '{"gesto":"siSiede","riga":"Il Lupo si siede: vuol dire: aspetta."}',
+              '{"gesto":"siVolta","riga":"Il Lupo si volta: vuol dire: aspetta."}',
               lupo),
           isNull,
           reason: 'due punti dentro due punti');
       expect(
           GestiDelSegno.leggi(
-              '{"gesto":"siSiede","riga":"Il Lupo si siede. Sei pronto."}',
+              '{"gesto":"siVolta","riga":"Il Lupo si volta. Sei pronto."}',
               lupo),
           isNull,
           reason: 'un aggettivo al maschile riferito a chi legge');
-      expect(GestoDelSegno.portaQualcosa.descrizione(aquila), contains('becco'));
-      expect(GestoDelSegno.siSiede.descrizione(aquila), contains('posa'));
+      expect(GestoDelSegno.siAllontana.descrizione(aquila), contains('volo'));
+      // **IL MODELLO SCEGLIE DAL SIGNIFICATO**: l'istruzione porta i tre
+      // significati dell'ordine, uno per gesto.
+      final istruzione = GestiDelSegno.istruzione(lupo);
+      for (final g in GestoDelSegno.values) {
+        expect(istruzione, contains(g.significato),
+            reason: 'il modello non sa che cosa vuol dire ${g.name}');
+      }
+      expect(GestoDelSegno.siAvvicina.significato, contains('sì'));
+      expect(GestoDelSegno.siAllontana.significato, contains('no'));
+      // **LA RISERVA DICE LA STESSA COSA**: su cento domande il gesto e la
+      // sua lettura vanno d'accordo.
+      for (var i = 0; i < 100; i++) {
+        final s = GestiDelSegno.diRiserva(
+            animale: lupo, domanda: 'domanda $i', giorno: DateTime(2026, 9, 13));
+        final attesa = switch (s.gesto) {
+          // Dopo la "ì" non c'e' confine di parola per RegExp: si cerca il
+          // punto o la virgola che la seguono.
+          GestoDelSegno.siAvvicina => RegExp(r'\bsì[.,]|aperta|avanti'),
+          GestoDelSegno.siVolta => RegExp(r'guarda|visto tutto|sfugge'),
+          GestoDelSegno.siAllontana => RegExp(r'\bno\b|non adesso|lasciata'),
+        };
+        expect(s.riga, matches(attesa),
+            reason: 'la riga non dice cio che il gesto vuol dire: ${s.riga}');
+      }
       // **OGNI GESTO SI MUOVE, E IN UN MODO SUO.**
       final alla = {
         for (final g in GestoDelSegno.values)
@@ -388,5 +420,87 @@ void main() {
       expect(alla.values.toSet(), hasLength(GestoDelSegno.values.length),
           reason: 'due gesti si muovono nello stesso modo');
     });
+
+    /// **I TRENTASEI DISEGNI, ordine DJ voce 08**: i nomi li detta il codice,
+    /// il LEGGIMI della cartella li elenca tutti, e la cartella e' dichiarata
+    /// nel pacchetto anche da vuota.
+    test('I TRENTASEI DISEGNI HANNO IL NOME DELL ORDINE, e la cartella li '
+        'aspetta', () {
+      final attesi = GestiDelSegno.disegniAttesi;
+      expect(attesi.toSet(), hasLength(36));
+      final forma = RegExp(r'^assets/img/mondo_di_sotto/gesti/'
+          r'[a-z]+_si_(avvicina|volta|allontana)_v1\.webp$');
+      expect(attesi.where((d) => !forma.hasMatch(d)), isEmpty);
+      // Il nome dell'animale e' quello delle sue illustrazioni.
+      for (final a in AnimalCatalog.animals) {
+        final nome = a.fullPath.split('/').last.split('_')[1];
+        expect(GestiDelSegno.disegnoDi(a, GestoDelSegno.siVolta),
+            endsWith('/${nome}_si_volta_v1.webp'));
+      }
+      final leggimi =
+          File('assets/img/mondo_di_sotto/gesti/LEGGIMI.md').readAsStringSync();
+      for (final d in attesi) {
+        expect(leggimi, contains(d.split('/').last),
+            reason: 'il LEGGIMI non dice a chi disegna che serve $d');
+      }
+      expect(File('pubspec.yaml').readAsStringSync(),
+          contains('- assets/img/mondo_di_sotto/gesti/'));
+    });
+
+    /// **FINCHE' IL DISEGNO MANCA, L'ILLUSTRAZIONE INTERA; QUANDO C'E', IL
+    /// DISEGNO.** Mai un riquadro vuoto.
+    for (final c in [false, true]) {
+      testWidgets(
+          'IL SEGNO ${c ? 'MOSTRA IL DISEGNO DEL GESTO QUANDO C E' : 'SENZA IL DISEGNO MOSTRA L ILLUSTRAZIONE INTERA'}, '
+          'e la riga', (tester) async {
+        final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
+        final disegno = GestiDelSegno.disegnoDi(lupo, GestoDelSegno.siAvvicina);
+        IlSegnoCheRisponde.disegniNelleProve({disegno: c});
+        addTearDown(() => IlSegnoCheRisponde.disegniNelleProve({}));
+        await tester.pumpWidget(MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController())
+          ],
+          child: MaterialApp(
+            home: MaestroScope(
+              child: Scaffold(
+                body: IlSegnoCheRisponde(
+                  animale: lupo,
+                  palette: MaestroPalette.caligo,
+                  siPuoChiedere: true,
+                  quandoTorna: '',
+                  chiedi: (_) async => const UnSegno(
+                      gesto: GestoDelSegno.siAvvicina,
+                      riga: 'Il Lupo ti si avvicina. Vuol dire sì.'),
+                  quandoTorni: () {},
+                  quandoNutri: () {},
+                ),
+              ),
+            ),
+          ),
+        ));
+        await tester.pump();
+        await tester.enterText(
+            find.byKey(const Key('viaggio_domanda_del_segno')), 'Vado avanti?');
+        await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 2));
+        expect(find.byKey(const Key('viaggio_disegno_del_gesto')),
+            c ? findsOneWidget : findsNothing);
+        expect(find.byKey(const Key('viaggio_illustrazione_del_segno')),
+            c ? findsNothing : findsOneWidget,
+            reason: 'senza disegno il segno resta un riquadro vuoto');
+        if (c) {
+          expect(
+              (tester.widget<Image>(
+                          find.byKey(const Key('viaggio_disegno_del_gesto')))
+                      .image as AssetImage)
+                  .assetName,
+              disegno);
+        }
+        expect(find.text('Il Lupo ti si avvicina. Vuol dire sì.'),
+            findsOneWidget);
+      });
+    }
   });
 }
