@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 3
-VOCI_SBLOCCATE_E_APERTE: 8
+VOCI_CHIUSE: 4
+VOCI_SBLOCCATE_E_APERTE: 7
 
 ---
 
@@ -156,5 +156,40 @@ nello stesso modo.
 **La prova.** Nessuna guardia pretendeva la frase dell'ingresso. La pretesa
 sta ora in `il_gesto_che_scosta`, sulla schermata vera, arrivati al velo:
 rossa con la frase di prima, verde con quella nuova.
+
+---
+
+## DJ.07, IL CONTO DELLE DISCESE NEL DIARIO. CHIUSA
+
+**Il difetto**, dall'ordine DC voci 04, 05, 06, 08 e 09: `quanteDiscese` era
+la lunghezza della lista, e la lista ne conserva novanta. Dalla novantunesima
+discesa il conto restava fermo, il riassunto per i Maestri diceva *"ha fatto
+90 discese"* per sempre, e il numero della discesa smetteva di entrare nel
+seme della scena.
+
+**Adesso e' un conto suo**, sotto la chiave `viaggio.quante`, che cresce a
+ogni discesa anche quando la lista, piena, ne lascia uscire una. La lista
+resta a novanta. La chiave sta sotto il prefisso `viaggio.`, quindi lo scarico
+dei dati e la dimenticanza la prendono con le altre senza cambiare niente; il
+comando di demo che fa ricominciare la toglie per nome.
+
+**Ogni punto che diceva quante discese sono state fatte passava gia' da
+`quanteDiscese`**, contato col grep: la schermata del Viaggio in tredici punti,
+il Passaporto, il Santuario, la schermata dei Maestri, il riassunto, il nome
+che si puo' dire e il seme della scena. **Uno solo leggeva la lista
+direttamente**: il conto noto a chi non puo' aspettare, in `carica`, che ora
+legge il conto. `cheTorna` guarda ancora la lista, ed e' giusto: conta gli
+elementi delle scene conservate, non le discese.
+
+**Chi aveva gia' un Diario comincia dalla sua lista.** Chi aveva passato le
+novanta discese riparte da novanta: le discese uscite dalla lista non si
+possono piu' contare, e da li' il conto cresce giusto. Il conto non vale mai
+meno della lista, anche se sul telefono fosse scritto male.
+
+**La prova**, `test/il_conto_delle_discese_non_si_ferma_test.dart`:
+novantacinque discese danno novantacinque nel conto, nel riassunto e nel
+Diario riaperto, con la lista a novanta; un Diario di prima comincia da
+novanta e va a novantuno; un conto sotto la lista non vale; il comando di demo
+lo azzera. **Rossa col conto di prima**, due prove su tre.
 
 ---

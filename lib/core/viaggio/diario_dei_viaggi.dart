@@ -62,7 +62,13 @@ class DiarioDeiViaggi {
   /// domande, e sono pochi chilobyte.
   static const int quantiNeTiene = 90;
 
+  /// **DOVE STA IL CONTO DELLE DISCESE.** Ordine DJ voce 07, 13 settembre
+  /// 2026. Un numero suo, e non la lunghezza della lista: vedi
+  /// [quanteDiscese].
+  static const String _chiaveDelConto = 'viaggio.quante';
+
   List<UnViaggio> _viaggi = const [];
+  int _quante = 0;
   List<DateTime> _nutrimenti = const [];
   List<SegnoRicevuto> _segni = const [];
   Set<int> _celleScoperte = const {};
@@ -133,6 +139,8 @@ class DiarioDeiViaggi {
     await prefs.remove(_chiaveDeiNutrimenti);
     await prefs.remove(_chiaveDeiSegni);
     await prefs.remove(_chiaveDelVelo);
+    await prefs.remove(_chiaveDelConto);
+    _quante = 0;
     _viaggi = const [];
     _nutrimenti = const [];
     _segni = const [];
@@ -158,11 +166,19 @@ class DiarioDeiViaggi {
       }
       letti.sort((a, b) => b.quando.compareTo(a.quando));
       _viaggi = List.unmodifiable(letti);
+      // **IL CONTO, e chi non l'aveva comincia dalla lista.** Ordine DJ voce
+      // 07: un Diario scritto prima dell'ordine non ha il conto, e la lista e'
+      // tutto cio' che se ne sa. Chi aveva gia' passato le novanta discese
+      // riparte da novanta, perche' le discese uscite dalla lista non si
+      // possono piu' contare; da li' il conto cresce giusto. **Mai sotto la
+      // lista**, anche se il conto fosse stato scritto male.
+      final conto = prefs.getInt(_chiaveDelConto) ?? 0;
+      _quante = conto > _viaggi.length ? conto : _viaggi.length;
       // **QUI NASCE IL CONTO DELLE DISCESE, e da qui lo sa chi non puo'
       // aspettare.** Ordine DG voce 02: il simbolo dell'attesa di una chat si
       // disegna dentro un `build` sincrono, e senza questa riga mostrerebbe
       // il totem a chi non lo ha ancora incontrato.
-      IlNomeSiPuoDire.quanteDisceseNote = _viaggi.length;
+      IlNomeSiPuoDire.quanteDisceseNote = _quante;
       // **I NUTRIMENTI, ordine DE voce 12.** Stessa indulgenza del diario: un
       // elenco illeggibile vale un elenco vuoto, e chi torna trova comunque
       // il tamburo.
@@ -205,10 +221,16 @@ class DiarioDeiViaggi {
 
   /// Segna un viaggio appena concluso.
   Future<void> segna(UnViaggio viaggio) async {
+    // **IL CONTO CRESCE A OGNI DISCESA**, anche quando la lista, piena, ne
+    // lascia uscire una. Ordine DJ voce 07. Mai sotto la lista, come in
+    // [carica].
+    final prima = _quante > _viaggi.length ? _quante : _viaggi.length;
+    _quante = prima + 1;
     _viaggi =
         List.unmodifiable([viaggio, ..._viaggi].take(quantiNeTiene).toList());
     try {
       final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt(_chiaveDelConto, _quante);
       await prefs.setStringList(
           _chiave, [for (final v in _viaggi) jsonEncode(v.toJson())]);
     } catch (errore) {
@@ -305,8 +327,15 @@ class DiarioDeiViaggi {
 
   // --- CIO' CHE IL DIARIO SA, e che nessun singolo viaggio dice ---
 
-  /// Quante discese in tutto.
-  int get quanteDiscese => _viaggi.length;
+  /// **QUANTE DISCESE IN TUTTO**, dalla prima. Ordine DJ voce 07.
+  ///
+  /// **Qui c'era la lunghezza della lista**, e la lista ne conserva novanta:
+  /// dalla novantunesima discesa il conto restava fermo a novanta, il
+  /// riassunto per i Maestri diceva *"ha fatto 90 discese"* per sempre, e il
+  /// numero della discesa smetteva di entrare nel seme della scena. Il difetto
+  /// veniva dall'ordine DC, voci 04, 05, 06, 08 e 09. Adesso e' un conto suo,
+  /// che cresce a ogni discesa e non dipende da quante se ne conservano.
+  int get quanteDiscese => _quante;
 
   /// **DA QUANTI GIORNI NON SI SCENDE**, o nulla se non si e' mai sceso.
   int? get giorniDallUltima {
