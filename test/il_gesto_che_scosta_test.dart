@@ -332,6 +332,10 @@ void main() {
     expect(velo.giaScoperte, {580, 581, 582},
         reason: 'la schermata non passa al velo cio\' che si era scostato');
     expect(velo.quale, 1);
+    // **LA FRASE DELL'INGRESSO AL VELO**, ordine DJ voce 04: dice il gesto e
+    // la materia, e non spiega niente di superfluo.
+    expect(find.text('Scosta la cenere con il dito.'), findsOneWidget,
+        reason: 'la frase che accoglie al velo non e\' quella del fondatore');
 
     // Un tratto orizzontale a tre quinti dell'illustrazione: sul Lupo e' il
     // ventre, fuori dalla testa.

@@ -291,7 +291,9 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
                               ? 'Resta velato soltanto il volto.'
                               : _quotaFinita
                                   ? 'Per oggi hai scostato abbastanza.'
-                                  : 'Passa il dito e scosta la cenere.',
+                                  // **La frase del fondatore**, ordine DJ
+                                  // voce 04: il gesto e la materia.
+                                  : 'Scosta la cenere con il dito.',
                       key: const Key('viaggio_istruzione_lente'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.etichetta().copyWith(

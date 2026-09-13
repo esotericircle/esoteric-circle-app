@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 2
-VOCI_SBLOCCATE_E_APERTE: 9
+VOCI_CHIUSE: 3
+VOCI_SBLOCCATE_E_APERTE: 8
 
 ---
 
@@ -130,5 +130,31 @@ un posto, quattro prove rosse; il titolo che non si conserva, la discesa
 riaperta rossa. **Il primo rosso ha trovato la guardia cieca**: col solo passo
 di dodici giorni la pretesa sulla risposta era verde anche senza memoria, e i
 passi sono diventati tre.
+
+---
+
+## DJ.04, LA FRASE DELL'INGRESSO AL VELO. CHIUSA, CON UNA PREMESSA DA CORREGGERE
+
+**La premessa dell'ordine non corrisponde al codice, e lo dico prima di
+tutto.** L'ordine dice che l'ingresso al velo oggi recita *"Trascina il dito
+per svelare"*. **Quella frase non e' del velo**: e' della rivelazione del
+Maestro nell'onboarding, `maestro_reveal_screen.dart`, dove si soffia sulla
+candela, sulla sfera o sul soffione, oppure si trascina il dito sull'oggetto.
+Li' di cenere non ce n'e', e *"Scosta la cenere con il dito"* sarebbe falsa.
+Il mio rapporto dell'ordine DI la citava fra le frasi cambiate, ed e'
+probabilmente da li' che e' nato lo scambio.
+
+**La frase che accoglie al velo di cenere** era *"Passa il dito e scosta la
+cenere."*, in `il_velo_che_si_scosta.dart`. **Adesso e' quella del
+fondatore**: *"Scosta la cenere con il dito."*
+
+**La rivelazione del Maestro resta com'e'.** Se il fondatore vuole che parli
+anche lei la lingua della sua materia, la proposta e' nel rapporto: una
+frase per oggetto, perche' la candela, la sfera e il soffione non si toccano
+nello stesso modo.
+
+**La prova.** Nessuna guardia pretendeva la frase dell'ingresso. La pretesa
+sta ora in `il_gesto_che_scosta`, sulla schermata vera, arrivati al velo:
+rossa con la frase di prima, verde con quella nuova.
 
 ---
