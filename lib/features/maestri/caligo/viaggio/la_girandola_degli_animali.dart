@@ -42,11 +42,6 @@ class GirandolaDegliAnimali extends StatefulWidget {
   /// **QUANTO DURA UN GIRO INTERO.**
   static const Duration quantoDuraUnGiro = Duration(seconds: 60);
 
-  /// **QUANTI TOTEM ESISTONO**, e la guardia lo confronta col catalogo: se un
-  /// giorno ne arrivasse un tredicesimo senza che nessuno tocchi questa
-  /// schermata, la fila lo porterebbe da sola.
-  static int quantiSonoDavvero() => AnimalCatalog.animals.length;
-
   @override
   State<GirandolaDegliAnimali> createState() => _GirandolaDegliAnimaliState();
 }

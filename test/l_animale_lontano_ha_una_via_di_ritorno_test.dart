@@ -144,22 +144,34 @@ void main() {
         reason: 'dopo il tamburo la scena non porta su un elemento in piu');
   });
 
-  test('REGOLA H: IL TAMBURO NON SI BATTE DUE VOLTE NELLO STESSO GIORNO',
+  /// **RISCRITTA DALL'ORDINE DJ VOCE 05**, e la legge resta. Qui si chiedeva
+  /// al Diario se il tamburo si potesse battere oggi, una volta sola: dalla
+  /// voce DI.13 il tamburo e' aperto sempre e **conta un giorno solo**, e la
+  /// funzione che rispondeva non la chiamava piu' nessuno. La prova misura
+  /// adesso la regola che vale: quattro colpi nello stesso giorno avvicinano
+  /// quanto uno.
+  test('REGOLA H: QUATTRO COLPI NELLO STESSO GIORNO VALGONO UN COLPO SOLO',
       () async {
     final oggi = DateTime(2026, 9, 11, 12);
     final diario = DiarioDeiViaggi(orologio: () => oggi);
     await diario.carica();
     await diario.segna(viaggioDel(oggi.subtract(const Duration(days: 28))));
 
-    expect(diario.siPuoNutrireOggi(), isTrue);
+    final prima = diario.giorniDiDistanza!;
     await diario.nutri();
+    final dopoUno = diario.giorniDiDistanza!;
+    for (var i = 0; i < 3; i++) {
+      await diario.nutri();
+    }
     // ignore: avoid_print
-    print('ORDINE DE VOCE 12: dopo un colpo si puo ancora battere oggi? '
-        '${diario.siPuoNutrireOggi()}, distanza ${diario.giorniDiDistanza}');
-    expect(diario.siPuoNutrireOggi(), isFalse,
-        reason: 'il tamburo si batte due volte nello stesso giorno: quattro '
-            'colpi di seguito annullano un mese di distanza in quattro '
-            'secondi');
+    print('ORDINE DJ VOCE 05: distanza $prima, dopo un colpo $dopoUno, dopo '
+        'quattro ${diario.giorniDiDistanza}');
+    expect(dopoUno, lessThan(prima),
+        reason: 'il primo colpo del giorno non avvicina l animale');
+    expect(diario.giorniDiDistanza, dopoUno,
+        reason: 'quattro colpi di seguito avvicinano piu di uno: un mese di '
+            'distanza si annulla in quattro secondi');
+    expect(diario.nutrimentiCheContano, 1);
   });
 
   test('I NUTRIMENTI CONTANO AL MASSIMO TRE, e scendere azzera il conto',

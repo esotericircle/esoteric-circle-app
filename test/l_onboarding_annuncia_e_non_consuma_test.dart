@@ -22,6 +22,18 @@ import 'cardinale_minimo.dart';
 /// **REGOLA H.** Non basta provare che il nome non c'e': si prova anche che
 /// **l'annuncio ci sia**, altrimenti togliere la riga soddisferebbe la prima
 /// meta' lasciando la persona senza sapere che un animale esiste.
+/// **COSA LA RIGA DELL'ANNUNCIO NON PUO' PROMETTERE**: un tempo. L'attesa
+/// dipende dai quattro viaggi in quattro giorni, e una promessa di tempo
+/// sarebbe una promessa che il metodo non puo' mantenere. **Stava in lib**,
+/// e la leggeva soltanto questa prova: ordine DJ voce 05.
+const List<String> parolePromesse = [
+  'domani',
+  'presto',
+  'fra poco',
+  'subito',
+  'in pochi giorni',
+];
+
 void main() {
   test('L ANNUNCIO NON NOMINA NESSUN ANIMALE', () {
     final riga = LAnnuncioDellAnimale.laRiga.toLowerCase();
@@ -61,7 +73,7 @@ void main() {
     // I quattro viaggi cadono in quattro giorni diversi: **nessuno puo
     // sapere quando**, perche dipende da quante volte quella persona torna.
     final riga = LAnnuncioDellAnimale.laRiga.toLowerCase();
-    for (final promessa in LAnnuncioDellAnimale.parolePromesse) {
+    for (final promessa in parolePromesse) {
       expect(riga.contains(promessa), isFalse,
           reason: 'l annuncio promette "$promessa": il metodo di Harner '
               'chiede quattro apparizioni in giorni diversi, e nessuno puo '
@@ -125,17 +137,11 @@ void main() {
         reason: 'una porta scrive il plurale sul singolare: $sbagliate');
   });
 
-  test('E I CONTORNI DELLA SAGOMA SEGUONO LE DISCESE', () {
-    // Ordine DC voce 04: *"dopo ogni viaggio non completato, la sagoma
-    // guadagna un contorno in piu"*.
-    final contorni = [
-      for (var d = 0; d <= IQuattroViaggi.quanteDiscese; d++)
-        IQuattroViaggi.contorniDellaSagoma(d),
-    ];
-    expect(contorni, [0, 1, 2, 3, 4],
-        reason: 'i contorni non seguono le discese: la sagoma non racconta '
-            'nessun avvicinamento');
-  });
+  // **Qui c'era la prova dei contorni della sagoma**, ordine DC voce 04: la
+  // funzione che li contava non la chiamava piu' nessuna schermata dalle voci
+  // DE.07, DE.08 e DE.09, e l'avvicinamento nel Passaporto lo racconta la riga
+  // sotto la sagoma, provata qui sopra. Tolte tutte e due con l'ordine DJ voce
+  // 05.
 
   test('CHI VIVE SOLO NEL PASSAPORTO NON ARRIVA DA NESSUNA DELLE DUE PORTE',
       () {

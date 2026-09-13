@@ -43,10 +43,10 @@ void main() {
     // catalogo, dodici righe nel file delle teste, dodici sagome: se un giorno
     // ne arrivasse un tredicesimo senza la sua riga, il velo non saprebbe
     // quale parte proteggere, e questa prova cade col numero in mano.
-    expect(DoveStaLaTesta.quantiSono, AnimalCatalog.animals.length,
+    expect(DoveStaLaTesta.nomi.length, AnimalCatalog.animals.length,
         reason: 'il file delle teste e il catalogo non hanno lo stesso numero '
             'di animali: uno dei due ha una riga che l\'altro non ha');
-    expect(DoveStaLaTesta.quantiSono, 12);
+    expect(DoveStaLaTesta.nomi.length, 12);
     expect(LeSagome.griglie.length, 12);
     expect(LeSagome.misure.length, 12);
 

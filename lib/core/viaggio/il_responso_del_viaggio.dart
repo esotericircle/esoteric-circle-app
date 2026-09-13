@@ -167,8 +167,10 @@ class IlResponsoDelViaggio {
     required List<UnViaggio> storia,
   }) {
     final precedenti = [for (final v in storia) v.pezzi];
-    // Il nome si dice alla quarta: questa discesa e' ancora da contare.
-    final siPuoDire = discesa + 1 >= IQuattroViaggi.quanteDiscese;
+    // Il nome si dice alla quarta: questa discesa e' ancora da contare. **Da
+    // `IQuattroViaggi.siPuoNominare`**, ordine DJ voce 05: qui la regola era
+    // riscritta a mano, e la funzione che la dice non la chiamava nessuno.
+    final siPuoDire = IQuattroViaggi.siPuoNominare(discesa);
     // Senza domanda, nessuna chiusura parla della domanda.
     final conDomanda = tema != null;
     final scena = dalModello != null

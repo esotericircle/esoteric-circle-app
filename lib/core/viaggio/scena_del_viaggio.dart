@@ -213,10 +213,6 @@ class ScenaDelViaggio {
       if (!c.contains('domanda') && !c.contains('chiesto')) c,
   ];
 
-  /// **QUANTE CHIUSURE POSSONO DIRE DI NON DECIFRARE**, al massimo. Ordine DI
-  /// voce 06: due.
-  static const int chiusureSulNonDecifrare = 2;
-
   /// **IL FILO DI QUESTA SCENA**, dai suoi quattro pezzi.
   FiloDellaVoce get _filo =>
       FiloDellaVoce.da([...idDeiPezzi, if (impronta != null) impronta!]);

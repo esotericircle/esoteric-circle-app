@@ -59,11 +59,6 @@ abstract final class DoveStaLaTesta {
     'volpe': Rect.fromLTRB(0.72, 0.06, 1.00, 0.56),
   };
 
-  /// Quanti animali porta questo file. **La guardia lo confronta col
-  /// catalogo**: se un tredicesimo animale arrivasse senza la sua riga, il
-  /// velo non saprebbe quale parte proteggere.
-  static int get quantiSono => _rettangoli.length;
-
   /// I nomi, come li scrive il catalogo: minuscoli e senza accenti.
   static Iterable<String> get nomi => _rettangoli.keys;
 

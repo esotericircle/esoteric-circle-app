@@ -55,10 +55,6 @@ class PittoreDelBosco extends CustomPainter {
   static const double apertoAX = 0.5;
   static const double apertoAY = 0.62;
 
-  /// Quante colonne scure distinte deve poter contare una guardia.
-  static int quantiTronchi() =>
-      quantiPerPiano.fold(0, (a, b) => a + b);
-
   /// **DOVE STANNO I TRONCHI VICINI**, in frazione di larghezza.
   ///
   /// Ai lati e non al centro, **perche' il centro e' della luce**. La prima

@@ -141,9 +141,18 @@ void main() {
       (tester) async {
     telefono(tester);
     await apri(tester);
-    expect(GirandolaDegliAnimali.quantiSonoDavvero(),
-        AnimalCatalog.animals.length,
-        reason: 'la girandola e il catalogo non contano lo stesso numero');
+    // **I TOTEM SI CONTANO A SCHERMO**, e non si chiedono a una funzione:
+    // qui c'era `quantiSonoDavvero`, che restituiva la lunghezza del catalogo
+    // e la chiamava soltanto questa prova. Tolta con l'ordine DJ voce 05. Le
+    // immagini della girandola, per file, devono essere tutti i totem del
+    // catalogo.
+    final totem = {
+      for (final w in tester.widgetList<Image>(find.descendant(
+          of: find.byType(GirandolaDegliAnimali), matching: find.byType(Image))))
+        if (w.image is AssetImage) (w.image as AssetImage).assetName,
+    };
+    expect(totem, {for (final a in AnimalCatalog.animals) a.thumbPath},
+        reason: 'la girandola e il catalogo non portano gli stessi totem');
     expect(find.byType(GirandolaDegliAnimali), findsOneWidget,
         reason: 'i dodici totem gia fatti non si vedono da nessuna parte '
             'prima di aver conosciuto il proprio animale');
@@ -181,9 +190,6 @@ class DiarioDelloSciamanoDiProva extends DiarioDeiViaggi {
 
   @override
   List<String> get scelteInOrdine => const [];
-
-  @override
-  bool siPuoScendereOggi({required bool giaRiconosciuto}) => true;
 
   @override
   int? get giorniDallUltima => quante == 0 ? null : 1;

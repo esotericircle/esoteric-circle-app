@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/config/app_flags.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/tetti_del_viaggio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'cardinale_minimo.dart';
 
 /// **I TETTI PER PIANO, E LA DEMO SENZA LIMITI.**
 /// Ordine DE voce 14, 11 settembre 2026.
@@ -40,14 +44,12 @@ void main() {
       });
       // **IL CARDINALE**: quattro piani, quattro tetti, e nessuno a zero. Se
       // un quinto piano nascesse senza la sua cella, varrebbe zero.
-      expect(
-          Tier.values.where((t) => TettiDelViaggio.discesePerIlPiano(t) < 1),
+      expect(Tier.values.where((t) => TettiDelViaggio.discesePerIlPiano(t) < 1),
           isEmpty,
           reason: 'ci sono piani senza discese nella matrice');
     });
 
-    test('LA RIVELAZIONE E UNA AL GIORNO PER TUTTI, anche per il piu alto',
-        () {
+    test('LA RIVELAZIONE E UNA AL GIORNO PER TUTTI, anche per il piu alto', () {
       for (final t in Tier.values) {
         final tetto = TettiDelViaggio.quanteAlGiorno(
             giaRiconosciuto: false, tier: t, demo: false);
@@ -62,22 +64,64 @@ void main() {
           '${TettiDelViaggio.discesePrimaDellaRivelazione}');
     });
 
-    // **E DALL'ORDINE DI VOCE 15 NON SI COMPRA NEMMENO DOPO.** La seconda
-    // meta' di questa prova pretendeva il contrario, e difendeva una porta
-    // che nessuna strada del codice apriva: al tetto l'ordine DI vuole il
-    // quando e il nutrimento, non un listino.
-    test('LA RIVELAZIONE NON SI COMPRA CON GLI EOS, e nemmeno le discese dopo',
-        () {
-      expect(TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: false),
-          isFalse,
-          reason: 'le quattro discese del riconoscimento si possono comprare');
-      expect(TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: true),
-          isFalse,
-          reason: 'si dichiara comprabile una discesa che nessuna strada vende');
+    // **E DALL'ORDINE DI VOCE 15 NON SI COMPRA NEMMENO DOPO.** Qui la prova
+    // chiamava `siPuoComprareAncora`, una funzione che tornava sempre falso e
+    // che nessuna strada dell'app chiamava: tolta con l'ordine DJ voce 05. La
+    // regola si sorveglia dove una discesa si potrebbe vendere davvero: il
+    // listino del riscatto sul server, che vende soltanto i budget del tipo
+    // `Budget`, e le porte che spendono gli Eos, che nessun file del Viaggio
+    // deve toccare.
+    test(
+        'LA RIVELAZIONE NON SI COMPRA CON GLI EOS, e nemmeno le discese dopo: '
+        'il listino non ha un budget per le discese, e il Viaggio non tocca le '
+        'porte che spendono', () {
+      final budget = File('functions/src/budget.ts').readAsStringSync();
+      final elenco = RegExp(r'export const BUDGET: Budget\[\] = \[([^\]]*)\]')
+          .firstMatch(budget);
+      expect(elenco, isNotNull,
+          reason: 'l\'elenco dei budget del server non si trova piu\'');
+      final voci = RegExp(r'"([a-z_]+)"')
+          .allMatches(elenco!.group(1)!)
+          .map((m) => m.group(1)!)
+          .toList();
+      cardinaleMinimo(voci.length, 6,
+          cosa: 'budget del server',
+          perche: 'Su un listino vuoto nessuna discesa sarebbe in vendita.');
+      final inVendita = voci
+          .where((v) => RegExp('disces|viagg|rivelaz|segn').hasMatch(v))
+          .toList();
+      final file = [
+        for (final cartella in [
+          'lib/core/viaggio',
+          'lib/features/maestri/caligo/viaggio'
+        ])
+          ...Directory(cartella)
+              .listSync(recursive: true)
+              .whereType<File>()
+              .where((f) => f.path.endsWith('.dart')),
+      ];
+      cardinaleMinimo(file.length, 30,
+          cosa: 'file del Viaggio',
+          perche: 'Senza file nessuno tocca le porte che spendono.');
+      final porte = RegExp(
+          // Gli import e i tipi delle due porte, e non le parole: un
+          // commento che racconta il riscatto non spende niente.
+          r"import '[^']*(porta_del_cerchio|question_allowance)\.dart'|"
+          r'\b(PortaDelCerchio|QuestionAllowance)\b');
+      final spendono = [
+        for (final f in file)
+          if (porte.hasMatch(f.readAsStringSync())) f.path,
+      ];
       // ignore: avoid_print
-      print('ORDINE DE VOCE 14: prima della rivelazione si compra '
-          '${TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: false)}, '
-          'dopo ${TettiDelViaggio.siPuoComprareAncora(giaRiconosciuto: true)}');
+      print('ORDINE DJ VOCE 05: budget del server ${voci.length}, in vendita '
+          'per il Viaggio ${inVendita.length}; file del Viaggio ${file.length}, '
+          'che toccano le porte che spendono ${spendono.length}');
+      expect(inVendita, isEmpty,
+          reason: 'il server vende $inVendita: la rivelazione e le discese non '
+              'si comprano');
+      expect(spendono, isEmpty,
+          reason: 'questi file del Viaggio toccano le porte che spendono gli '
+              'Eos: $spendono');
     });
 
     test('IL TETTO SI RAGGIUNGE DAVVERO, piano per piano', () {
@@ -96,20 +140,10 @@ void main() {
                 '${tetto - 1}');
         expect(
             TettiDelViaggio.siPuoScendere(
-                giaRiconosciuto: true,
-                quanteOggi: tetto,
-                tier: t,
-                demo: false),
+                giaRiconosciuto: true, quanteOggi: tetto, tier: t, demo: false),
             isFalse,
             reason: 'col piano ${t.label} si scende anche dopo aver finito le '
                 '$tetto domande: il tetto non tiene');
-        expect(
-            TettiDelViaggio.quanteNeRestano(
-                giaRiconosciuto: true,
-                quanteOggi: tetto,
-                tier: t,
-                demo: false),
-            0);
       }
       // ignore: avoid_print
       print('ORDINE DE VOCE 14: ogni piano si ferma esattamente sul suo tetto');
@@ -163,13 +197,16 @@ void main() {
               isNull,
               reason: 'in Demo il piano ${t.label} ha ancora un tetto '
                   '(riconosciuto: $riconosciuto)');
+          // **E SI SCENDE ANCHE DOPO NOVECENTONOVANTANOVE.** Qui si chiedeva
+          // a `quanteNeRestano`, che nessuna schermata chiamava: tolta con
+          // l'ordine DJ voce 05, e la pretesa passa dalla porta vera.
           expect(
-              TettiDelViaggio.quanteNeRestano(
+              TettiDelViaggio.siPuoScendere(
                   giaRiconosciuto: riconosciuto,
                   quanteOggi: 999,
                   tier: t,
                   demo: true),
-              isNull);
+              isTrue);
         }
       }
       // ignore: avoid_print

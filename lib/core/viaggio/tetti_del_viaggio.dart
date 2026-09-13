@@ -157,8 +157,16 @@ abstract final class TettiDelViaggio {
   /// aggiungerebbe una riga per il livello piu' alto.
   static const int discesePrimaDellaRivelazione = 1;
 
-  /// **LA RIVELAZIONE NON SI COMPRA CON GLI EOS.** Ordine DE voce 14.
-  static const bool laRivelazioneSiCompra = false;
+  /// **LA RIVELAZIONE NON SI COMPRA CON GLI EOS**, ordine DE voce 14, **e
+  /// nemmeno le discese dopo**, ordine DI voce 15. Qui c'erano una costante
+  /// che valeva falso e `siPuoComprareAncora`, che la restituiva: nessuna
+  /// strada dell'app vendeva una discesa, e nessuno le chiamava. **Tolte con
+  /// l'ordine DJ voce 05**: il codice mai raggiunto mente a chi legge, e fra
+  /// due mesi qualcuno ci costruirebbe sopra un ragionamento sbagliato. Il
+  /// giorno che si decidera' di vendere una discesa si riscrive. La regola la
+  /// sorveglia `i_tetti_del_viaggio_e_la_demo`, dove si potrebbe vendere
+  /// davvero: il listino del server non ha un budget per le discese, e nessun
+  /// file del Viaggio tocca le porte che spendono gli Eos.
 
   /// **IL TETTO DI OGGI**, oppure nulla quando non c'e' nessun tetto.
   ///
@@ -190,35 +198,6 @@ abstract final class TettiDelViaggio {
     if (tetto == null) return true;
     return quanteOggi < tetto;
   }
-
-  /// **QUANTE NE RESTANO OGGI**, oppure nulla quando non c'e' un tetto.
-  static int? quanteNeRestano({
-    required bool giaRiconosciuto,
-    required int quanteOggi,
-    required Tier tier,
-    bool demo = AppFlags.isDemo,
-  }) {
-    final tetto = quanteAlGiorno(
-        giaRiconosciuto: giaRiconosciuto, tier: tier, demo: demo);
-    if (tetto == null) return null;
-    final resta = tetto - quanteOggi;
-    return resta < 0 ? 0 : resta;
-  }
-
-  /// **SE IL TETTO DI OGGI SI PUO' SUPERARE COMPRANDO**, che e' una domanda
-  /// diversa da quante ne restano.
-  ///
-  /// **Prima della rivelazione mai**, e non perche' manchi una porta di
-  /// pagamento: perche' quel limite non e' in vendita.
-  ///
-  /// **E DOPO NEMMENO, dall'ordine DI voce 15.** Qui la risposta era *si', con
-  /// gli Eos*: ma nessuna strada del codice ha mai venduto una discesa, e la
-  /// riga del rifiuto lo prometteva lo stesso. L'ordine DI dice cosa fare al
-  /// tetto, cioe' dire quando si torna e offrire il nutrimento, e non parla di
-  /// comprare. Una funzione che risponde di si' a una porta che non esiste e'
-  /// una promessa falsa scritta in codice.
-  static bool siPuoComprareAncora({required bool giaRiconosciuto}) =>
-      laRivelazioneSiCompra;
 
   /// **LA RIGA CHE DICE PERCHE' NON SI SCENDE**, e nulla quando si scende.
   ///

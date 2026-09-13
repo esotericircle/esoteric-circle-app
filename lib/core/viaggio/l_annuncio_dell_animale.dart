@@ -32,22 +32,6 @@ abstract final class LAnnuncioDellAnimale {
       'Un animale ti aspetta nel Mondo di Sotto. Non te lo dico io: dovrai '
       'scendere a incontrarlo. Si mostrerà quando avrà deciso.';
 
-  /// **COSA NON PUO' CONTENERE QUESTA RIGA**, e una guardia lo pretende.
-  ///
-  /// **Nessun nome di animale**: basta uno e l'annuncio diventa la
-  /// rivelazione che doveva evitare.
-  ///
-  /// **Nessuna promessa di tempo**: *"domani"*, *"presto"*, *"fra poco"*.
-  /// L'attesa dipende dai quattro viaggi in quattro giorni, e una promessa di
-  /// tempo qui sarebbe una promessa che il metodo non puo' mantenere.
-  static const List<String> parolePromesse = [
-    'domani',
-    'presto',
-    'fra poco',
-    'subito',
-    'in pochi giorni',
-  ];
-
   /// **LA CASELLA VUOTA DEL PASSAPORTO**, e cosa ci si legge sotto.
   ///
   /// Cambia con quante discese si sono fatte: **chi guarda vede che manca

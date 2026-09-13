@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 127 |
-| Guardie con un cardinale proprio dichiarato | 103 |
+| Guardie con un cardinale proprio dichiarato | 104 |
 | Guardie che non scoprono nessun insieme di file | 178 |
-| **Somma delle categorie** | **408** |
-| **Guardie secondo la definizione** | **408** |
+| **Somma delle categorie** | **409** |
+| **Guardie secondo la definizione** | **409** |
+
+**Ricontate a voce DJ.05 chiusa, e la guardia non e' nuova: lo e' diventata.** `i_tetti_del_viaggio_e_la_demo` chiamava `siPuoComprareAncora`, una funzione che tornava sempre falso; tolta la funzione, la regola che difendeva si sorveglia leggendo il listino del server e i trentacinque file del Viaggio, col suo cardinale. Il totale sale da 408 a **409** e le tre categorie a **127, 104 e 178**.
 
 **Ricontate a voce DJ.02 chiusa**, che ha portato **una guardia nuova**, `la_voce_si_ricorda`: il totale sale da 407 a **408** e le tre categorie a **127, 103 e 178**. Scende come la prova a cento discese non scende, sullo stesso tema a giorni alterni o a temi alternati: per chi scende ogni giorno i cicli della voce bastano da soli, e la memoria non si vedrebbe. `la_scena_parla_bene` e' stata allargata alla voce DJ.01: cercava l'aggettivo al maschile dopo il verbo coniugato, e *Non ti serve essere sicuro*, fra i titoli dell'ordine, passava.
 
@@ -445,6 +447,7 @@ le altre.
 | `i_testi_da_leggere_hanno_una_misura_sola_test.dart` | i testi da leggere hanno una misura sola | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_testi_del_dono_non_stanno_sulla_carta_test.dart` | i testi del dono non stanno sulla carta | 1, 2 | dalla porta comune | mai | 3 |
 | `i_testi_seguono_i_nomi_nuovi_test.dart` | i testi seguono i nomi nuovi | 1, 2 | dalla porta comune | 01/09/2026, CM | 3 |
+| `i_tetti_del_viaggio_e_la_demo_test.dart` | i tetti del Viaggio per piano e la Demo senza limiti; dall'ordine DJ voce 05 la rivelazione e le discese non si comprano, sorvegliato dove si potrebbero vendere: il listino dei budget del server non ha un budget per le discese, e nessun file del Viaggio importa le porte che spendono gli Eos | 1, 2 | proprio, dichiarato | 13/09/2026, DJ voce 05 (due rossi: un budget discese innestato nel server, un import della porta del Cerchio innestato nei tetti) | 1 |
 | `i_tre_esiti_del_permesso_test.dart` | i tre esiti del permesso | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_tre_lucchetti_del_cielo_test.dart` | i tre lucchetti del cielo | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `i_tre_maestri_dominano_la_home_test.dart` | i tre maestri dominano la home | 4 | non scopre insiemi di file | mai | 3 |

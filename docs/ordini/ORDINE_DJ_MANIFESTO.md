@@ -8,8 +8,8 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 4
-VOCI_SBLOCCATE_E_APERTE: 7
+VOCI_CHIUSE: 5
+VOCI_SBLOCCATE_E_APERTE: 6
 
 ---
 
@@ -191,5 +191,80 @@ novantacinque discese danno novantacinque nel conto, nel riassunto e nel
 Diario riaperto, con la lista a novanta; un Diario di prima comincia da
 novanta e va a novantuno; un conto sotto la lista non vale; il comando di demo
 lo azzera. **Rossa col conto di prima**, due prove su tre.
+
+---
+
+## DJ.05, SI TOGLIE IL CODICE CHE NESSUNO RAGGIUNGE. CHIUSA
+
+**`siPuoComprareAncora` e' uscita**, con la costante `laRivelazioneSiCompra`
+che esisteva soltanto per lei. La regola che difendevano resta, e resta
+sorvegliata **dove una discesa si potrebbe vendere davvero**: la prova dei
+tetti non chiama piu' la funzione, pretende che il listino dei budget del
+server, `functions/src/budget.ts`, non abbia un budget per le discese, per il
+Viaggio, per la rivelazione o per i segni, e che nessuno dei trentacinque file
+del Viaggio importi le due porte che spendono gli Eos. **Due rossi**: un
+budget `discese` innestato nel server, e un import della porta del Cerchio
+innestato nei tetti.
+
+**IL CENSIMENTO.** Uno script ha letto i trentacinque file del Viaggio,
+11.614 righe, e per ognuno dei 445 simboli dichiarati (tipi, membri statici,
+metodi e getter pubblici, funzioni) ha contato i riferimenti nel resto di
+`lib` e nelle prove; poi ha cercato le condizioni costanti. **La prima
+stesura era cieca**: scriveva lo stesso file in due modi, contava la riga
+della dichiarazione come un riferimento, e nessun simbolo poteva risultare
+orfano. Corretta, ha trovato quindici simboli che nessun punto di `lib`
+chiama e un `if (true)`.
+
+**Tolti perche' mai raggiunti**, righe commenti compresi, e il padre di ogni
+orfano, da `git log -S`:
+
+| simbolo | file | righe | come e' rimasto senza chiamanti |
+|---|---|---|---|
+| `siPuoComprareAncora` e `laRivelazioneSiCompra` | `tetti_del_viaggio.dart` | 17 | nate cosi', ordine DE voce 14; dalla voce DI.15 tornavano sempre falso |
+| `siPuoNutrireOggi` | `diario_dei_viaggi.dart` | 12 | dalla voce DI.13, mia: il tamburo e' aperto sempre e conta un giorno solo |
+| `siPuoScendereOggi` | `diario_dei_viaggi.dart` | 12 | dalla voce DE.14: la porta vera e' `TettiDelViaggio.siPuoScendere` |
+| `quanteNeRestano` | `tetti_del_viaggio.dart` | 14 | nata senza chiamanti, voce DE.14 |
+| `contorniDellaSagoma` | `i_quattro_viaggi.dart` | 6 | dalle voci DE.07, DE.08 e DE.09: il Passaporto racconta l'avvicinamento con una riga, non coi contorni |
+| `quanteOmbre` | `i_quattro_viaggi.dart` | 3 | dalle voci DG.01-06: le ombre fra cui scegliere non ci sono piu' |
+| `quantoDuraUnVarco` | `la_nebbia_e_l_animale.dart` | 7 | nata senza chiamanti, voce DC.07 |
+| `leTreInformazioni` | `la_promessa_del_viaggio.dart` | 6 | nata senza chiamanti, voci DI.07 e DI.08, mie |
+| `alGiro` | `la_voce_del_mondo_di_sotto.dart` | 10 | dalla voce DI.16, mia: i posti si leggono da `mescolato` |
+| il ramo `if (true)` | `viaggio_dello_sciamano_screen.dart` | 2 | resto di una condizione tolta: il verso dell'animale si chiede sempre, senza condizione |
+
+**Stavano in `lib` e servivano soltanto alle prove**: spostati nelle prove,
+dove si leggono. Una costante o una funzione in `lib` che nessuna schermata
+usa dice a chi legge che l'app la usa.
+
+| simbolo | righe tolte da lib | dove sta adesso |
+|---|---|---|
+| `DoveStaLaTesta.quantiSono` | 5 | le due prove della testa contano `DoveStaLaTesta.nomi` |
+| `chiusureSulNonDecifrare` | 4 | il due, nella prova `la_scena_parla_bene` |
+| `LAnnuncioDellAnimale.parolePromesse` | 16 | la lista, col suo perche', nella prova dell'annuncio |
+| `LApparizione.quanteASettimana` | 11 | la funzione, nella prova dell'apparizione |
+| `GirandolaDegliAnimali.quantiSonoDavvero` | 5 | la prova conta i totem **a schermo**, per file, invece di chiedere il numero a una funzione |
+| `IlBoscoDellaSoglia.quantiTronchi` | 4 | nessuna prova la chiamava |
+
+**Resa raggiungibile invece di tolta**: `IQuattroViaggi.siPuoNominare`, *il
+nome si dice alla quarta discesa*. `IlResponsoDelViaggio` riscriveva la
+stessa regola a mano; adesso la chiede alla funzione, e la regola sta in un
+posto solo.
+
+**Le prove che difendevano una regola ancora viva passano dalla porta vera**:
+i quattro giorni del riconoscimento da `TettiDelViaggio.siPuoScendere` col
+conto del Diario; il tamburo dalla regola della voce DI.13, quattro colpi
+nello stesso giorno avvicinano quanto uno; la Demo senza tetti da
+`siPuoScendere` a novecentonovantanove discese. **Le due prove dei contorni
+della sagoma sono uscite con la funzione**: difendevano una cosa che nessuna
+schermata disegna.
+
+**Il conto**: 145 righe tolte da `lib`, 25 aggiunte, tutte commenti che
+dicono che cosa c'era e perche' e' uscito. Analisi a zero.
+
+**I limiti del censimento, detti.** Trova i simboli senza chiamanti e le
+condizioni costanti. **Non trova** un parametro passato sempre con lo stesso
+valore, come il `sopraLaRoccia` che la voce DI.09 aveva trovato leggendo, ne'
+un ramo che dipende da un valore che nella realta' non arriva mai. I membri
+privati li sorveglia gia' l'analisi, che e' a zero. Il ramo della Demo non e'
+morto: dipende da una chiave di configurazione, `AppFlags.isDemo`.
 
 ---

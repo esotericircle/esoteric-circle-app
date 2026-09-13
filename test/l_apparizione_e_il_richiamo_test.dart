@@ -8,6 +8,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// **L'APPARIZIONE FUORI DAL VIAGGIO E LE SCENE CHE SI PARLANO.**
 /// Ordine DE voci 10 e 11, 11 settembre 2026.
+/// **QUANTE VOLTE A SETTIMANA, per chi apre l'app [sessioniAlGiorno] volte.**
+///
+/// Il tetto di una al giorno fa da soffitto, quindi non e' una semplice
+/// moltiplicazione: la probabilita' di vederla in un giorno dato e' uno meno
+/// la probabilita' di sbagliare tutti i tiri di quel giorno. **Stava in lib**
+/// e la chiamava soltanto questa prova: ordine DJ voce 05.
+double quanteASettimana(double sessioniAlGiorno) =>
+    (1 - pow(1 - LApparizione.quanteProbabilita, sessioniAlGiorno)) * 7;
+
 void main() {
   final adesso = DateTime(2026, 9, 11, 18);
 
@@ -78,17 +87,17 @@ void main() {
     final quadro = <String, String>{
       for (final s in [1.0, 1.5, 2.0, 4.0, 8.0])
         '$s sessioni al giorno':
-            LApparizione.quanteASettimana(s).toStringAsFixed(2),
+            quanteASettimana(s).toStringAsFixed(2),
     };
     print('ORDINE DE VOCE 10: apparizioni a settimana, per quante volte al '
         'giorno si apre l app: $quadro');
-    expect(LApparizione.quanteASettimana(1.5), inInclusiveRange(2.0, 3.0),
+    expect(quanteASettimana(1.5), inInclusiveRange(2.0, 3.0),
         reason: 'chi apre l app una volta e mezza al giorno la vede '
-            '${LApparizione.quanteASettimana(1.5).toStringAsFixed(2)} volte a '
+            '${quanteASettimana(1.5).toStringAsFixed(2)} volte a '
             'settimana, e l ordine chiede un paio');
     // **E per chi apre l app otto volte al giorno resta rara**, che e il caso
     // che il tetto giornaliero esiste per coprire.
-    expect(LApparizione.quanteASettimana(8), lessThan(7.01),
+    expect(quanteASettimana(8), lessThan(7.01),
         reason: 'chi apre l app spesso la vedrebbe piu di una volta al '
             'giorno: non sarebbe piu un apparizione, sarebbe un animazione');
   });

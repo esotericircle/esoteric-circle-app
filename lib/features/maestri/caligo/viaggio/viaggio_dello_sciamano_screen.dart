@@ -704,18 +704,18 @@ class _ViaggioDelloSciamanoScreenState
     // le tre porte le tiene `IlVersoDellAnimale`, e se i dodici file non sono
     // nel pacchetto il momento **resta muto** invece di prendere in prestito
     // un ululato che non e' il suo.
+    // **Qui c'era un `if (true)`**, resto di una condizione tolta: un ramo
+    // che si prende sempre si scrive senza condizione. Ordine DJ voce 05.
     final suo = _suoAnimale;
-    if (true) {
-      unawaited(
-          IlVersoDellAnimale.faiSentire(suo, eLaRivelazione: _riconosciuto)
-              .then((udito) {
-        // **OGGI QUESTO E SEMPRE FALSO, ed e giusto cosi.** I dodici file non
-        // sono nel pacchetto: il momento resta muto invece di prendere in
-        // prestito un ululato che non e il suo. Vedi
-        // assets/audio/animali/LEGGIMI.md.
-        debugPrint('Ordine DE voce 07: verso udito = $udito');
-      }));
-    }
+    unawaited(
+        IlVersoDellAnimale.faiSentire(suo, eLaRivelazione: _riconosciuto)
+            .then((udito) {
+      // **OGGI QUESTO E SEMPRE FALSO, ed e giusto cosi.** I dodici file non
+      // sono nel pacchetto: il momento resta muto invece di prendere in
+      // prestito un ululato che non e il suo. Vedi
+      // assets/audio/animali/LEGGIMI.md.
+      debugPrint('Ordine DE voce 07: verso udito = $udito');
+    }));
     // **IL CAMMINO SE NE ACCORGE**, e il gesto porta il suo dettaglio: e' la
     // stessa porta che la Meditazione usa dall'ordine DC voce 06.
     if (mounted) {

@@ -524,16 +524,6 @@ abstract final class LaVoceDelMondoDiSotto {
 
   static const int _saltoDellaSeconda = 1000003;
 
-  /// **IL POSTO DI OGGI** in uno spazio di [quante] forme, per il blocco
-  /// [marcatore]: il posto del giro, letto nello spazio mescolato di quel
-  /// blocco.
-  static int alGiro(int giro, int quante, String marcatore) {
-    final mescolato = _mescolati.putIfAbsent(
-        '$marcatore/$quante', () => _mescola(quante, marcatore));
-    final partenza = FiloDellaVoce.da([marcatore, 'giro']).seme % quante;
-    return mescolato[(partenza + giro) % quante];
-  }
-
   static final Map<String, List<int>> _mescolati = {};
 
   static int _mcd(int a, int b) => b == 0 ? a : _mcd(b, a % b);

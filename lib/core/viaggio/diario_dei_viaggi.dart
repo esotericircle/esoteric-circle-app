@@ -268,18 +268,6 @@ class DiarioDeiViaggi {
     }
   }
 
-  /// **SE IL TAMBURO SI PUO' BATTERE OGGI.** Uno al giorno.
-  ///
-  /// **Senza questo limite il gesto non vale niente**: quattro colpi di
-  /// seguito riporterebbero la nitidezza da zero a uno in quattro secondi, e
-  /// una distanza che si annulla con quattro tocchi non e' una distanza. Uno
-  /// al giorno vuol dire che **tornare costa tornare**, e che chi e' a
-  /// ventotto giorni ci mette tre giorni a rientrare, non tre secondi.
-  bool siPuoNutrireOggi() {
-    if (_nutrimenti.isEmpty) return true;
-    return _giornoDi(_nutrimenti.first) != _giornoDi(_orologio());
-  }
-
   /// **QUANTI NUTRIMENTI CONTANO ADESSO.**
   ///
   /// Solo quelli **dopo l'ultima discesa**: scendere azzera il conto, perche'
@@ -341,18 +329,6 @@ class DiarioDeiViaggi {
   int? get giorniDallUltima {
     if (_viaggi.isEmpty) return null;
     return _orologio().difference(_viaggi.first.quando).inDays;
-  }
-
-  /// **SE SI PUO' SCENDERE OGGI.** Ordine DC voce 04: i quattro viaggi del
-  /// riconoscimento cadono in **quattro giorni diversi**.
-  ///
-  /// **Vale solo finche' l'animale non e' riconosciuto**: dopo, si scende
-  /// quando si vuole, perche' l'attesa era il metodo del riconoscimento e non
-  /// una trattenuta.
-  bool siPuoScendereOggi({required bool giaRiconosciuto}) {
-    if (giaRiconosciuto) return true;
-    if (_viaggi.isEmpty) return true;
-    return _giornoDi(_viaggi.first.quando) != _giornoDi(_orologio());
   }
 
   /// **QUANTE DISCESE OGGI.** Ordine DE voce 14.

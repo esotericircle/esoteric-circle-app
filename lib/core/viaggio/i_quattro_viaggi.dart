@@ -45,9 +45,6 @@ abstract final class IQuattroViaggi {
   /// **QUANTE DISCESE SERVONO PER RICONOSCERLO.** Quattro, e viene da Harner.
   static const int quanteDiscese = 4;
 
-  /// **QUANTE OMBRE SI INTRAVEDONO IN OGNI DISCESA.** Tre.
-  static const int quanteOmbre = 3;
-
   /// **I QUATTRO GRADI IN CUI L'ANIMALE SI MOSTRA.**
   ///
   /// Non sono decorazione: sono il modo in cui la tradizione descrive il
@@ -88,12 +85,6 @@ abstract final class IQuattroViaggi {
   /// testa al file.
   static String? nomeDopoLeQuattroDiscese(int discese, String animale) =>
       discese >= quanteDiscese ? animale : null;
-
-  /// **QUANTI CONTORNI HA LA SAGOMA NEL PASSAPORTO.** Ordine DC voce 04:
-  /// *"dopo ogni viaggio non completato, la sagoma nel Passaporto guadagna un
-  /// contorno in piu': chi guarda vede che manca poco"*.
-  static int contorniDellaSagoma(int discese) =>
-      discese.clamp(0, quanteDiscese);
 
   /// **PERCHE' NON SI PUO' FARE TUTTO IN UNA SERA**, detto a chi legge.
   ///

@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/scena_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/vocabolario_del_viaggio.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/core/viaggio/tetti_del_viaggio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -170,13 +172,9 @@ void main() {
       expect(visti.values.toSet().length, AnimalCatalog.animals.length);
     });
 
-    test('LA SAGOMA GUADAGNA UN CONTORNO A OGNI DISCESA', () {
-      for (var d = 0; d <= IQuattroViaggi.quanteDiscese + 2; d++) {
-        final contorni = IQuattroViaggi.contorniDellaSagoma(d);
-        expect(contorni, lessThanOrEqualTo(IQuattroViaggi.quanteDiscese));
-        if (d <= IQuattroViaggi.quanteDiscese) expect(contorni, d);
-      }
-    });
+    // **Qui c'era la prova dei contorni della sagoma**: la funzione non la
+    // chiamava piu' nessuna schermata dalle voci DE.07, DE.08 e DE.09. Tolte
+    // tutte e due con l'ordine DJ voce 05.
 
     test('L ATTESA DICHIARA LA SUA FONTE, e non e una regola nostra', () {
       const testo = IQuattroViaggi.percheSiAspetta;
@@ -285,10 +283,21 @@ void main() {
   group('DC.09, il diario e la memoria', () {
     test('NON SI SCENDE DUE VOLTE NELLO STESSO GIORNO, prima del nome',
         () async {
+      // **SULLA PORTA VERA**, `TettiDelViaggio.siPuoScendere`, con le discese
+      // di oggi contate dal Diario. Qui si chiedeva al Diario stesso, con una
+      // funzione che nessuna schermata chiamava piu' dalla voce DE.14: tolta
+      // con l'ordine DJ voce 05. Il piano piu' alto, perche' la regola vale
+      // anche per lui.
       final oggi = DateTime(2026, 9, 10, 21);
       final diario = DiarioDeiViaggi(orologio: () => oggi);
       await diario.carica();
-      expect(diario.siPuoScendereOggi(giaRiconosciuto: false), isTrue);
+      bool siPuo({required bool giaRiconosciuto}) =>
+          TettiDelViaggio.siPuoScendere(
+              giaRiconosciuto: giaRiconosciuto,
+              quanteOggi: diario.quanteOggi,
+              tier: Tier.tier3,
+              demo: false);
+      expect(siPuo(giaRiconosciuto: false), isTrue);
       await diario.segna(UnViaggio(
         quando: DateTime(2026, 9, 10, 9),
         domanda: 'una scelta',
@@ -297,11 +306,11 @@ void main() {
         animaleSeguito: 'Lupo',
         nitidezza: 1.0,
       ));
-      expect(diario.siPuoScendereOggi(giaRiconosciuto: false), isFalse,
+      expect(siPuo(giaRiconosciuto: false), isFalse,
           reason: 'si scende due volte nello stesso giorno: i quattro viaggi '
               'del riconoscimento devono cadere in quattro giorni diversi');
       // **REGOLA H: dopo il riconoscimento l attesa non vale piu.**
-      expect(diario.siPuoScendereOggi(giaRiconosciuto: true), isTrue,
+      expect(siPuo(giaRiconosciuto: true), isTrue,
           reason: 'l attesa resta anche dopo il riconoscimento: allora non '
               'era il metodo, era una trattenuta');
     });

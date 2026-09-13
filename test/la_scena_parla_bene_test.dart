@@ -311,7 +311,9 @@ void main() {
         'sul non decifrare ${sulNonCapire.length}: $sulNonCapire');
     expect(ScenaDelViaggio.chiusure.length, 12);
     expect(sulNonCapire.length,
-        lessThanOrEqualTo(ScenaDelViaggio.chiusureSulNonDecifrare),
+        // **DUE, dall'ordine DI voce 06.** Il numero stava in lib come
+        // costante, e lo leggeva soltanto questa prova: ordine DJ voce 05.
+        lessThanOrEqualTo(2),
         reason: 'una risposta che si chiude dicendo di non capirla si '
             'autoassolve: $sulNonCapire');
   });

@@ -140,7 +140,7 @@ void main() {
 
     // **IL CARDINALE MINIMO.**
     expect(AnimalCatalog.animals.length, 12);
-    expect(DoveStaLaTesta.quantiSono, 12);
+    expect(DoveStaLaTesta.nomi.length, 12);
 
     final rapporti = <String, double>{};
     var quanti = 0;

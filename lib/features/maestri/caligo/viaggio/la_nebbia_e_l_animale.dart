@@ -47,13 +47,6 @@ class PittoreDellaNebbia extends CustomPainter {
   /// come una texture ferma, quattro costano senza aggiungere niente.
   static const int quantiStrati = 3;
 
-  /// **QUANTO DURA UN VARCO PRIMA DI RICHIUDERSI**, in secondi.
-  ///
-  /// Due secondi e mezzo: il tempo di guardare cosa c'e' sotto senza che la
-  /// nebbia diventi una tenda che si apre e resta aperta. **Se restasse
-  /// aperta, il gesto varrebbe una volta sola e poi la nebbia sarebbe finita.**
-  static const double quantoDuraUnVarco = 2.5;
-
   /// **CHE COSA C'E' SOTTO LA NEBBIA.**
   ///
   /// **DIFETTO VISTO SUL TELEFONO 767f596c IL 10 SETTEMBRE 2026.** I varchi

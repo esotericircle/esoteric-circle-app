@@ -100,15 +100,4 @@ class LApparizione {
   /// La chiave dove vive la data dell'ultima apparizione.
   static const String chiaveDellUltima = 'viaggio.apparizione.ultima';
 
-  /// **QUANTE VOLTE A SETTIMANA, per chi apre l'app [sessioniAlGiorno] volte.**
-  ///
-  /// Serve alla prova che verifica il numero dichiarato invece di crederlo: il
-  /// tetto di una al giorno fa da soffitto, quindi la funzione non e' una
-  /// semplice moltiplicazione.
-  static double quanteASettimana(double sessioniAlGiorno) {
-    // La probabilita' di vederla in un giorno dato: uno meno la probabilita'
-    // di sbagliare tutti i tiri di quel giorno, col tetto di una sola.
-    final mancate = pow(1 - quanteProbabilita, sessioniAlGiorno).toDouble();
-    return (1 - mancate) * 7;
-  }
 }

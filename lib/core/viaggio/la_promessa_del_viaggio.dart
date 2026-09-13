@@ -96,10 +96,4 @@ abstract final class LaPromessaDelViaggio {
   static String chiediUnSegno({required bool femminile}) =>
       femminile ? 'Chiedile un segno' : 'Chiedigli un segno';
 
-  /// Le tre, in ordine, per chi le deve contare.
-  static const List<String> leTreInformazioni = [
-    doveTiTrovi,
-    cosaStaiFacendo,
-    cosaOtterrai,
-  ];
 }
