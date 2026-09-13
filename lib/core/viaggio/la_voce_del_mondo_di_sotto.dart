@@ -41,11 +41,23 @@ import 'scena_del_viaggio.dart';
 /// insieme, perche' una frase di quattro parole non produce nessuna sequenza
 /// di cinque.
 abstract final class LaVoceDelMondoDiSotto {
-  /// **DODICI TITOLI PER TEMA DELLA DOMANDA.**
+  /// **VENTIQUATTRO TITOLI PER TEMA DELLA DOMANDA.**
   ///
   /// Non uno per scena: **uno per quello che la persona e' venuta a chiedere**.
   /// Un titolo che nominasse il luogo del sogno sarebbe un titolo sulla scena,
   /// e la scena non e' la risposta: e' da dove viene.
+  ///
+  /// **SCRITTI DAL FONDATORE, ordine DJ voce 01**, 13 settembre 2026, e
+  /// nell'ordine in cui li ha scritti. Erano otto: con una discesa al giorno
+  /// sullo stesso tema lo stesso titolo tornava ogni otto giorni, e il titolo
+  /// e' la prima cosa che si legge. Nel tema *finito* c'era un doppione, *"Resta
+  /// quello che hai imparato"* e *"Quello che hai imparato resta"*: il secondo
+  /// e' uscito. **Tre titoli hanno la forma che rispetta le regole di casa**:
+  /// *"Non ti serve essere sicuro"* e *"Se arrivasse domani, saresti pronto"*
+  /// dicevano a chi legge di essere un uomo, e sono *"Non ti serve la
+  /// certezza"* e *"Se arrivasse domani, avresti tutto pronto"*; *"E' finito,
+  /// e va bene cosi'"* aveva la virgola davanti alla *e*, ed e' rimasto *"E'
+  /// finito: va bene cosi'"*, com'era gia'.
   static const Map<String, List<String>> titoliPerTema = {
     'scelta': [
       'Hai già una preferenza',
@@ -56,6 +68,22 @@ abstract final class LaVoceDelMondoDiSotto {
       'Una delle due è già più tua',
       'Non sono uguali come sembrano',
       'Scegli quella che puoi rifare',
+      'Nessuna delle due è sbagliata',
+      'Stai già scegliendo, piano',
+      'Il tempo che ci metti dice qualcosa',
+      'Prova la più piccola',
+      'Chiedi a chi ci è passato',
+      'Metti una data e scegli',
+      'Quella che ti spaventa la conosci',
+      'Due strade, un solo te',
+      'Puoi tornare indietro da entrambe',
+      'Non ti serve la certezza',
+      'Quella che racconteresti meglio',
+      'Decidi oggi, correggi domani',
+      'Hai più informazioni di quante credi',
+      'La paura non è un argomento',
+      'Scegli e poi difendila',
+      'Una si può provare, l\'altra no',
     ],
     'persona': [
       'Chiedilo, invece di dedurlo',
@@ -66,6 +94,22 @@ abstract final class LaVoceDelMondoDiSotto {
       'Guarda cosa fa, non cosa dice',
       'La distanza è un\'informazione',
       'Non devi decidere per due',
+      'Dille quello che non dici',
+      'Sei tu che stai aspettando',
+      'Chiedile come sta, davvero',
+      'Non ti serve un nome per questo',
+      'Guarda quanto spazio le lasci',
+      'Quello che fa quando non deve',
+      'Sta a te fare il primo passo',
+      'Non è tenuta a indovinare',
+      'Quanto la pensi è la risposta',
+      'Una domanda vale sei mesi',
+      'Puoi volerle bene e stare lontano',
+      'Non leggi male, leggi poco',
+      'Lasciale il tempo che chiedi per te',
+      'Se ti manca, è già detto',
+      'Non deve essere reciproco per valere',
+      'Chiudi la porta oppure aprila',
     ],
     'blocco': [
       'Ti manca un pezzo piccolo',
@@ -76,6 +120,22 @@ abstract final class LaVoceDelMondoDiSotto {
       'Ci torni perché non è finito',
       'Il blocco tiene qualcosa al sicuro',
       'Girala invece di spingerla',
+      'Non sei tu il problema',
+      'Fallo male, ma fallo',
+      'Manca una persona, non uno sforzo',
+      'Comincia dalla parte più piccola',
+      'È fermo perché lo tieni',
+      'Ti sta proteggendo da qualcosa',
+      'Riposati: è lavoro anche quello',
+      'Prova da un altro lato',
+      'Non serve capirlo per muoverlo',
+      'Lo hai già sciolto una volta',
+      'Chiedi aiuto e basta',
+      'Togli, invece di aggiungere',
+      'Il primo passo è ridicolo, fallo',
+      'Non è pigrizia',
+      'Spingi meno, gira di più',
+      'Quello che eviti è una riga sola',
     ],
     'attesa': [
       'Muovi qualcosa di piccolo',
@@ -86,6 +146,22 @@ abstract final class LaVoceDelMondoDiSotto {
       'Non è fermo, è lento',
       'Datti una data',
       'Smetti di guardare la porta',
+      'Non sei in ritardo',
+      'Intanto prepara il dopo',
+      'Smetti di controllare ogni giorno',
+      'Sta arrivando, ma non oggi',
+      'La tua vita non è in pausa',
+      'Fissa il giorno in cui smetti',
+      'Non dipende da te',
+      'Se arrivasse domani, avresti tutto pronto',
+      'Occupa le mani',
+      'Chiedi a che punto siamo',
+      'Aspettare non è perdere',
+      'Quello che aspetti è già cambiato',
+      'Non tutto quello che tarda arriva',
+      'Un mese, poi decidi',
+      'Guarda cosa è cresciuto intanto',
+      'Il silenzio non è un no',
     ],
     'direzione': [
       'Parti da dove non vuoi andare',
@@ -96,6 +172,22 @@ abstract final class LaVoceDelMondoDiSotto {
       'Segui quello che ti tira',
       'Una direzione basta per oggi',
       'Non ti serve vedere la fine',
+      'Comincia e la strada si vede',
+      'Sai dove non vuoi stare',
+      'Non ti serve la strada giusta',
+      'Guarda da dove vieni',
+      'Chiedi che cosa ti diverte',
+      'Fai un mese di prova',
+      'La meta cambia, il passo no',
+      'Segui chi vorresti essere',
+      'Non ti manca il coraggio, manca il permesso',
+      'Scegli il primo chilometro',
+      'Fermarti è già una direzione',
+      'Vai dove ti chiamano',
+      'Nessuno ti chiede la mappa',
+      'Quello che rimandi indica la via',
+      'Meno strade, più strada',
+      'Cammina e poi correggi',
     ],
     'finito': [
       'Non devi capirla tutta',
@@ -104,8 +196,24 @@ abstract final class LaVoceDelMondoDiSotto {
       'Fai spazio a quello che viene',
       'È finito: va bene così',
       'Lascia che resti indietro',
-      'Quello che hai imparato resta',
       'Chiudi la porta piano',
+      'È finito davvero',
+      'Non devi fare in fretta',
+      'Ringrazia e chiudi',
+      'Ti manca chi eri lì',
+      'Non c\'è niente da salvare',
+      'Lascia il posto vuoto per ora',
+      'Puoi essere triste e stare bene',
+      'Non tornare a controllare',
+      'Finire richiede tempo, come costruire',
+      'Quello che hai dato non si perde',
+      'Non era sbagliato, era finito',
+      'Comincia qualcosa di piccolo',
+      'Non deve avere un senso adesso',
+      'Tieni una cosa, lascia il resto',
+      'Il dolore non misura l\'errore',
+      'Un giorno sarà solo una storia',
+      'Non sei tu che devi farlo finire',
     ],
   };
 

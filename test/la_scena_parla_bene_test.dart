@@ -195,7 +195,12 @@ void main() {
         cosa: 'frammenti della voce e della scena',
         perche: 'Su un elenco vuoto nessun participio sarebbe sbagliato.');
     final alMaschile = RegExp(
-        r"(?<!\b(lo|la|li|le) |l')\b(sei|eri|saresti|sarai|fossi) "
+        r"(?<!\b(lo|la|li|le) |l')\b(sei|eri|saresti|sarai|fossi|"
+        // **ANCHE ALL'INFINITO, ordine DJ voce 01.** Fra i titoli dell'ordine
+        // c'era *"Non ti serve essere sicuro"*, e questa guardia era verde:
+        // cercava il verbo coniugato e basta. L'aggettivo che dice chi legge
+        // arriva anche dopo *essere*, *stare*, *restare*, *sentirti*.
+        r'essere|esserne|stare|restare|rimanere|sentirti) '
         r'([a-zàèéìòù]+(ato|uto|ito|eso|esso|otto|sto|nto|lto|rto)|'
         r'pronto|solo|sicuro|stanco|contento|convinto|pentito|perso)\b',
         caseSensitive: false);
