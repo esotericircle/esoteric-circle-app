@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/viaggio/dove_sta_la_testa.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
+import '../../../../core/viaggio/le_sagome_in_celle.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 
 /// **IL SEGNO CHE RISPONDE.** Ordine DI voce 14, 12 settembre 2026.
@@ -163,8 +165,19 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
       children: [
         const SfondoDelMondoDiSotto(quale: SfondoDelViaggio.fondo),
         LayoutBuilder(builder: (context, vincoli) {
-          final larga = vincoli.maxWidth * 0.86;
-          final alta = larga * 760 / 898;
+          // **LA MISURA VERA DI QUESTO ANIMALE**, ordine DI voce 10: con le
+          // proporzioni del Lupo per tutti, il Gufo stava in un riquadro
+          // largo con due bande vuote ai lati, e la luce di cio' che porta
+          // cadeva fuori dal becco. Alto al massimo poco piu' di meta' scena.
+          final misura =
+              LeSagome.misure[widget.animale.name] ?? const Size(898, 760);
+          var larga = vincoli.maxWidth * 0.86;
+          var alta = larga * misura.height / misura.width;
+          final tetto = vincoli.maxHeight * 0.55;
+          if (alta > tetto) {
+            alta = tetto;
+            larga = alta * misura.width / misura.height;
+          }
           final testa = DoveStaLaTesta.di(widget.animale.name);
           return Align(
             alignment: const Alignment(0, -0.35),
@@ -244,11 +257,13 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            widget.quandoTorna,
+          // **IL TESTO DA LEGGERE PASSA DALLA SUA PORTA**, ordine DI: la
+          // guardia della lettura ha trovato qui un Text diretto.
+          ParagrafiDiLettura(
             key: const Key('viaggio_quando_torna_un_segno'),
+            testo: widget.quandoTorna,
             textAlign: TextAlign.center,
-            style: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
+            stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
           ),
           const SizedBox(height: SpacingTokens.md),
           FilledButton(
@@ -273,11 +288,11 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
           // legge cosa vuol dire.
           Opacity(
             opacity: _t >= 1 ? 1 : 0,
-            child: Text(
-              segno.riga,
+            child: ParagrafiDiLettura(
               key: const Key('viaggio_riga_del_segno'),
+              testo: segno.riga,
               textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5),
             ),
           ),

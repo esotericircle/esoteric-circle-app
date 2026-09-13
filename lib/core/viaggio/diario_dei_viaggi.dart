@@ -50,6 +50,12 @@ class DiarioDeiViaggi {
   /// Quanti segni si conservano: cento, e bastano a qualunque settimana.
   static const int quantiSegniTiene = 100;
 
+  /// **DOVE STA LA CENERE GIA' SCOSTATA.** Ordine DI voce 10: *"la superficie
+  /// gia' scoperta nelle discese precedenti resta scoperta e si ritrova
+  /// riaprendo la funzione"*. Il nome dell'animale, due punti, e gli indici
+  /// delle celle separati da virgole.
+  static const String _chiaveDelVelo = 'viaggio.velo';
+
   /// **QUANTI VIAGGI SI CONSERVANO.**
   ///
   /// Novanta, come la memoria del respiro: bastano a rileggere sei mesi di
@@ -59,6 +65,33 @@ class DiarioDeiViaggi {
   List<UnViaggio> _viaggi = const [];
   List<DateTime> _nutrimenti = const [];
   List<SegnoRicevuto> _segni = const [];
+  Set<int> _celleScoperte = const {};
+  String? _animaleDelVelo;
+
+  /// **LE CELLE DEL VELO GIA' SCOSTATE SU [animale]**, discesa dopo discesa.
+  ///
+  /// **Legate al nome, e non per scrupolo.** L'animale lo decide la nascita:
+  /// chi corregge la data di nascita dopo due discese ha un altro animale, e
+  /// la cenere scostata sul Lupo non deve comparire scostata sull'Aquila. Per
+  /// un altro nome il velo e' intero.
+  Set<int> celleScoperteDi(String animale) => animale == _animaleDelVelo
+      ? Set.unmodifiable(_celleScoperte)
+      : const <int>{};
+
+  /// Conserva le celle scoperte su [animale]. Se l'archivio rifiuta, si perde
+  /// il ricordo e non il gesto: la cenere scostata oggi resta scostata a
+  /// schermo.
+  Future<void> segnaCelleScoperte(String animale, Set<int> celle) async {
+    _animaleDelVelo = animale;
+    _celleScoperte = Set.unmodifiable(celle);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          _chiaveDelVelo, '$animale:${(celle.toList()..sort()).join(',')}');
+    } catch (errore) {
+      // Si perde solo il ricordo del gesto.
+    }
+  }
 
   /// **I SEGNI CHIESTI**, dal piu' recente.
   List<SegnoRicevuto> get segni => List.unmodifiable(_segni);
@@ -99,9 +132,12 @@ class DiarioDeiViaggi {
     await prefs.remove(_chiave);
     await prefs.remove(_chiaveDeiNutrimenti);
     await prefs.remove(_chiaveDeiSegni);
+    await prefs.remove(_chiaveDelVelo);
     _viaggi = const [];
     _nutrimenti = const [];
     _segni = const [];
+    _celleScoperte = const {};
+    _animaleDelVelo = null;
     // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
     // Viaggio a zero discese lasciando il nome detto in mezza app.
     IlNomeSiPuoDire.quanteDisceseNote = 0;
@@ -148,6 +184,14 @@ class DiarioDeiViaggi {
       }
       segni.sort((a, b) => b.quando.compareTo(a.quando));
       _segni = List.unmodifiable(segni);
+      // **LA CENERE SCOSTATA, ordine DI voce 10.**
+      final velo = (prefs.getString(_chiaveDelVelo) ?? '').split(':');
+      _animaleDelVelo = velo.length == 2 ? velo.first : null;
+      _celleScoperte = Set.unmodifiable({
+        if (velo.length == 2)
+          for (final x in velo.last.split(','))
+            if (int.tryParse(x) != null) int.parse(x),
+      });
     } catch (errore) {
       // **SI IGNORA, E SI DICE PERCHE'.** Un archivio illeggibile o assente
       // non deve impedire di scendere: **il viaggio di oggi vale piu' del

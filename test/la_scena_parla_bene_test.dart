@@ -160,6 +160,16 @@ void main() {
         reason: colpevoli.toSet().take(6).join('\n'));
   });
 
+  /// **ALLARGATA CON L'ORDINE DI VOCE 16**, 13 settembre 2026. Qui c'era un
+  /// elenco chiuso di sei participi, *sceso, arrivato, andato, tornato,
+  /// salito, stato*, e quattro elenchi della voce non si guardavano affatto:
+  /// la prova a cento discese ha trovato *"Non sei bloccato"* fra le risposte
+  /// del blocco e *"saresti pronto?"* fra quelle dell'attesa, e questa guardia
+  /// era verde. Un elenco chiuso dice la verita' su ieri. Adesso si cerca la
+  /// forma del difetto: dopo *sei, eri, saresti, sarai, fossi* qualunque
+  /// participio o aggettivo al maschile, tranne quando si accorda col pronome
+  /// oggetto, *te lo sei portato*, che e' italiano giusto e non dice niente di
+  /// chi legge.
   test('DI.05: nessun participio al maschile riferito a chi legge', () {
     final materiale = <String>[
       ...ScenaDelViaggio.aperture,
@@ -174,17 +184,22 @@ void main() {
       ...LaVoceDelMondoDiSotto.daDoveViene,
       for (final r in LaVoceDelMondoDiSotto.rispostePerTema.values) ...r,
       for (final r in LaVoceDelMondoDiSotto.titoliPerTema.values) ...r,
+      ...LaVoceDelMondoDiSotto.codaDellaRisposta,
+      ...LaVoceDelMondoDiSotto.apreIlGesto,
+      ...LaVoceDelMondoDiSotto.cosaPuoiFare,
+      ...LaVoceDelMondoDiSotto.quando,
     ];
-    cardinaleMinimo(materiale.length, 200,
+    // **256 FRAMMENTI CONTATI il 13 settembre 2026**, con i quattro elenchi
+    // aggiunti; il minimo lascia sei frammenti di margine.
+    cardinaleMinimo(materiale.length, 250,
         cosa: 'frammenti della voce e della scena',
         perche: 'Su un elenco vuoto nessun participio sarebbe sbagliato.');
-    final colpevoli = materiale
-        .where((m) => RegExp(
-                r'\b(sei|eri) (sceso|scesa|arrivato|andato|tornato|salito|stato)'
-                r'\b',
-                caseSensitive: false)
-            .hasMatch(m))
-        .toList();
+    final alMaschile = RegExp(
+        r"(?<!\b(lo|la|li|le) |l')\b(sei|eri|saresti|sarai|fossi) "
+        r'([a-zàèéìòù]+(ato|uto|ito|eso|esso|otto|sto|nto|lto|rto)|'
+        r'pronto|solo|sicuro|stanco|contento|convinto|pentito|perso)\b',
+        caseSensitive: false);
+    final colpevoli = materiale.where(alMaschile.hasMatch).toList();
     // ignore: avoid_print
     print('ORDINE DI VOCE 05: frammenti riletti ${materiale.length}, con un '
         'participio riferito a chi legge ${colpevoli.length}');

@@ -359,7 +359,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                       ParagrafiDiLettura(
                           testo: _micAvailable
                               ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                              : 'Trascina il dito per svelare, come un gratta e vinci',
+                              : 'Trascina il dito per svelare',
                           textAlign: TextAlign.center,
                           stile: TypographyTokens.lettura().copyWith(
                               color: ColorTokens.textPrimary, height: 1.4)),

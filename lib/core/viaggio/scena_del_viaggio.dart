@@ -279,6 +279,24 @@ class ScenaDelViaggio {
     return '${_corpo(forma)} $chiusura';
   }
 
+  /// **LA SCENA DENTRO IL BLOCCO DA DOVE VIENE, con la cornice del giro.**
+  /// Ordine DI voce 16: la forma e la chiusura vengono dal [posto] che la voce
+  /// del Mondo di Sotto sceglie col suo giro, invece che dal filo della scena.
+  /// Cosi' due discese che condividono un pezzo non condividono anche la
+  /// frase che lo cuce e la chiusura: vedi `LaVoceDelMondoDiSotto.giro`.
+  String testoSenzaAperturaAlPosto(int posto) {
+    final pezzi = leggibili.length;
+    final forme = pezzi == 1
+        ? formeConfuse
+        : pezzi == 2
+            ? formeVelate
+            : formeIntere;
+    final lista = conDomanda ? chiusure : chiusureSenzaDomanda;
+    final forma = forme[posto % forme.length];
+    final chiusura = lista[(posto ~/ forme.length) % lista.length];
+    return '${_corpo(forma)} $chiusura';
+  }
+
   static String _maiuscola(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
@@ -502,7 +520,14 @@ abstract final class IlRichiamoDelleScene {
   /// riprendere.
   ///
   /// [precedenti] sono gli id dei pezzi delle scene di prima, dalla piu'
-  /// recente. [oggi] sono gli id di quella appena composta.
+  /// recente, **senza quella di oggi**: vedi `IlResponsoDelViaggio`. [oggi]
+  /// sono gli id di quella appena composta.
+  ///
+  /// **LA FORMA GIRA CON LE VOLTE**, ordine DI voce 16: la prova a cento
+  /// discese ha trovato la stessa riga cinque volte, perche' la forma nasceva
+  /// dai soli pezzi di oggi e la stessa cosa tornata dava sempre la stessa
+  /// frase. Adesso l'ennesimo ritorno di una cosa usa l'ennesima forma, e la
+  /// stessa riga non torna prima che quella cosa sia tornata otto volte.
   static String? laRiga({
     required List<List<String>> precedenti,
     required List<String> oggi,
@@ -515,11 +540,46 @@ abstract final class IlRichiamoDelleScene {
     }
     if (quale < 0 || quale >= oggi.length) return null;
     if (!visti.contains(oggi[quale])) return null;
-    final filo = FiloDellaVoce.da([...oggi, 'richiamo']);
-    final forma = filo.scegli(forme);
+    // **IL RICHIAMO E' RARO**, ordine DE voce 11, e non si forza: non si dice
+    // se ce n'e' stato uno in una delle [pausaFraIRichiami] discese di prima.
+    // La prova a cento discese col modello vero lo trovava in ventitre
+    // discese su cento, e la stessa riga quattro volte: un richiamo che
+    // arriva una volta su quattro e' una regola, non un richiamo.
+    for (var i = 0; i < pausaFraIRichiami && i < precedenti.length; i++) {
+      if (_richiamava(precedenti, i, quale)) return null;
+    }
+    // **LE VOLTE IN CUI QUELLA COSA E' STATA RICHIAMATA**, non quelle in cui
+    // e' comparsa: col modello vero la stessa cosa compare spesso, e contando
+    // le comparse la stessa riga del richiamo tornava tre volte su cento.
+    var volte = 0;
+    for (var i = 0; i < precedenti.length; i++) {
+      if (quale < precedenti[i].length &&
+          precedenti[i][quale] == oggi[quale] &&
+          _richiamava(precedenti, i, quale)) {
+        volte++;
+      }
+    }
+    final partenza =
+        FiloDellaVoce.da([oggi[quale], 'richiamo']).seme % forme.length;
+    final forma = forme[(partenza + volte) % forme.length];
     return forma
         .replaceAll('{Cosa}', _conMaiuscola(nomeDellElemento))
         .replaceAll('{cosa}', nomeDellElemento);
+  }
+
+  /// **QUANTE DISCESE DI PAUSA FRA DUE RICHIAMI**: tre.
+  static const int pausaFraIRichiami = 3;
+
+  /// Se la scena [i] di [storia], dalla piu' recente, aveva il richiamo:
+  /// la sua cosa era in una delle cinque prima di lei. Le scene di prima si
+  /// guardano senza la pausa, che e' una scelta di oggi.
+  static bool _richiamava(List<List<String>> storia, int i, int quale) {
+    final s = storia[i];
+    if (quale >= s.length) return false;
+    for (var j = i + 1; j < storia.length && j <= i + quanteSceneIndietro; j++) {
+      if (storia[j].contains(s[quale])) return true;
+    }
+    return false;
   }
 
   static String _conMaiuscola(String s) =>

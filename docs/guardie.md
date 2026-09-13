@@ -39,11 +39,15 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 126 |
+| Guardie che passano dalla porta comune | 127 |
 | Guardie con un cardinale proprio dichiarato | 102 |
-| Guardie che non scoprono nessun insieme di file | 177 |
-| **Somma delle categorie** | **405** |
-| **Guardie secondo la definizione** | **405** |
+| Guardie che non scoprono nessun insieme di file | 178 |
+| **Somma delle categorie** | **407** |
+| **Guardie secondo la definizione** | **407** |
+
+**Ricontate a voce DI.16 chiusa**, che ha portato **una guardia nuova**, `la_prova_a_cento_discese`: il totale sale da 406 a **407** e le tre categorie a **127, 102 e 178**. **La suite intera, fatta girare per chiudere la voce DI.10, ha visto rosse cinque guardie di casa su difetti veri di voci DI gia' spinte**, `etichette_e_lettura`, `il_giorno_si_conta_dalla_porta`, `la_catena_dei_dati_di_nascita`, `nessun_catch_muto` e `testi_falsi`: le voci DI.03, DI.13, DI.14 e DI.15 erano state spinte senza la suite intera. E `la_scena_parla_bene` e' stata allargata, perche' il suo elenco chiuso di sei participi lasciava passare *Non sei bloccato*.
+
+**Ricontate a voce DI.10 chiusa**, che ha portato **una guardia nuova**, `il_gesto_che_scosta`, dalla porta comune perche' cerca il nome vietato in tutta `lib`: il totale sale da 405 a **406** e le tre categorie a **127, 102 e 177**. Due guardie della lente, `il_velo_c_e_davvero_sul_telefono` e `la_testa_non_si_vede_prima_della_quarta`, sono state riscritte per il velo, e la prima ha cambiato grandezza: non piu' la nitidezza, che sul Cervo misurava il bordo della cenere, ma quanto dell'animale arriva a schermo. **Diciotto difetti innestati, diciotto rossi**; due erano verdi al primo innesto perche' il difetto da solo era compensato da un secondo meccanismo, e sono stati rifatti col difetto intero.
 
 **Ricontate a voce DI.03 chiusa**, che ha portato **una guardia nuova**, `la_scena_nasce_dalla_persona`: il totale sale da 404 a **405** e le tre categorie a **126, 102 e 177**. Due delle sue pretese le ha scritte la prova col modello vero, e nessuna prova con la finta le avrebbe mai trovate: il ragionamento acceso che troncava ogni risposta, e le scene precedenti che il modello ricopiava.
 
@@ -407,7 +411,7 @@ le altre.
 | `due_volti_danno_misure_diverse_test.dart` | due volti diversi danno misure diverse, lo stesso si somiglia | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `due_volti_diversi_danno_responsi_diversi_test.dart` | due volti diversi non ricevono lo stesso responso | 1, 2 | proprio, dichiarato | 08/09/2026, CX | 1 |
 | `entitlement_soldi2_test.dart` | entitlement soldi2 | 1, 2 | dalla porta comune | mai | 3 |
-| `etichette_e_lettura_test.dart` | etichette e lettura | 1, 2 | proprio, dichiarato | CO | 3 |
+| `etichette_e_lettura_test.dart` | etichette e lettura | 1, 2 | proprio, dichiarato | 13/09/2026, DI (rossa nella suite intera su un difetto vero: tre Text di lettura nel segno e nel tamburo, voci DI.13 e DI.14); prima CO | 3 |
 | `fase_lunare_vera_test.dart` | fase lunare vera | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `free_astro_client_test.dart` | free astro client | 1, 2 | dalla porta comune | mai | 3 |
 | `gli_accenti_non_sono_inchiostro_test.dart` | gli accenti dei Maestri non sono inchiostro | 1, 2 | dalla porta comune | CO, nata rossa sul difetto vero | 2 |
@@ -480,11 +484,12 @@ le altre.
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |
+| `il_gesto_che_scosta_test.dart` | ogni discesa scosta esattamente un quarto del corpo e poi il dito non scopre piu'; il bordo segue il dito e non fa fasce; la cenere copre ogni cella coperta per intero; il cumulo copre tutto il rettangolo della testa e non la sua forma; il gesto non si chiama gratta e vinci in nessun file di lib; cio' che si e' scostato si ritrova riaprendo, ed e' dell'animale che lo ha; la schermata passa al velo le celle del Diario e ci conserva le nuove | 1, 2 | dalla porta comune | 13/09/2026, DI (undici rossi: la quantita' senza fine, il quarto senza la testa, la fascia al posto della mano, il pezzo di cenere piu' stretto della cella, le celle fuori dal tracciato, la cenere che segue la testa, il nome vietato in un commento, le celle date a un altro animale, le celle che non arrivano al velo, il gesto che non arriva al Diario) | 1 |
 | `il_giallo_delle_rune_parla_adesso_test.dart` | il giallo delle rune parla adesso | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 3 prose dorate su 9 invece di 1) | 1 |
 | `il_gating_non_ha_fondi_bianchi_test.dart` | il gating non ha fondi bianchi | 1 | dalla porta comune | mai | 3 |
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina | 1, 2 | dalla porta comune | mai | 3 |
-| `il_giorno_si_conta_dalla_porta_test.dart` | il giorno si conta dalla porta | 1, 2 | dalla porta comune | mai | 3 |
+| `il_giorno_si_conta_dalla_porta_test.dart` | il giorno si conta dalla porta | 1, 2 | dalla porta comune | 13/09/2026, DI (rossa nella suite intera su un difetto vero: il tetto dei segni contava i giorni sottraendo due date, voce DI.15) | 3 |
 | `il_gradino_aspetta_il_congedo_test.dart` | il gradino aspetta il congedo | 1 | proprio, dichiarato | mai | 2 |
 | `il_journal_arriva_in_fondo_test.dart` | il journal arriva in fondo | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_lettore_riceve_la_musica_test.dart` | il lettore riceve la musica | 4 | non scopre insiemi di file | mai | 3 |
@@ -542,7 +547,7 @@ le altre.
 | `il_titolo_del_respiro_sta_sul_velo_test.dart` | il titolo del respiro sta sul velo | 4 | non scopre insiemi di file | mai | 3 |
 | `il_titolo_non_si_rompe_test.dart` | il titolo non si rompe | 1, 2 | dalla porta comune | mai | 3 |
 | `il_titolo_non_stampa_sul_contenuto_test.dart` | il titolo non stampa sul contenuto | 1, 2, 4 | non scopre insiemi di file | mai | 3 |
-| `il_velo_c_e_davvero_sul_telefono_test.dart` | il velo c e davvero sul telefono | 1, 2 | proprio, dichiarato | 11/09/2026, DE (rossa: il velo reso trasparente, rapporto nitidezza 1,000) | 1 |
+| `il_velo_c_e_davvero_sul_telefono_test.dart` | riscritta per il velo che si scosta: quanto dell'animale arriva a schermo sotto la cenere, col corpo tutto scostato e con la sola testa coperta; zero pixel dell'animale a velo intero; le celle scostate ieri in chiaro oggi; nessuna maschera, sfocatura od opacita' nel velo | 1, 2 | proprio, dichiarato | 13/09/2026, DI (sei rossi: la testa scostabile, la cenere a meta' opacita' che lascia passare il 50 per cento, le sagome della prima stesura con 149 pixel di palchi del Cervo, le celle di ieri dimenticate, un Opacity sopra la cenere) | 1 |
 | `il_verbo_essere_ha_l_accento_test.dart` | il verbo essere ha l accento | 1, 2 | dalla porta comune | 11/09/2026, DE (rossa: rimesso *Non e nuovo* nelle forme del richiamo) | 1 |
 | `il_velo_e_uno_solo_test.dart` | il velo e uno solo | 1 | dalla porta comune | 01/09/2026, CL | 3 |
 | `il_ventaglio_vive_subito_test.dart` | il ventaglio vive subito | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
@@ -586,7 +591,7 @@ le altre.
 | `la_carta_girata_suona_test.dart` | il suono della carta esce dalla porta unica | 3 | non scopre insiemi di file | CO | 2 |
 | `la_carta_natale_sopravvive_test.dart` | la carta natale sopravvive | 1, 2 | dalla porta comune | mai | 3 |
 | `la_carta_suona_toccandola_test.dart` | la carta suona toccandola | 1, 4 | proprio, dichiarato | 04/09/2026, CQ | 2 |
-| `la_catena_dei_dati_di_nascita_test.dart` | la catena dei dati di nascita | 1, 2 | dalla porta comune | mai | 3 |
+| `la_catena_dei_dati_di_nascita_test.dart` | la catena dei dati di nascita | 1, 2 | dalla porta comune | 13/09/2026, DI (rossa nella suite intera: il Viaggio e' un consumatore nuovo dei dati di nascita, voce DI.03; conto portato a 16) | 3 |
 | `la_celebrazione_offre_sempre_la_condivisione_test.dart` | la celebrazione offre sempre la condivisione | 1, 2 | dalla porta comune | mai | 3 |
 | `la_chat_lascia_spazio_alla_conversazione_test.dart` | la chat lascia spazio alla conversazione | 4 | non scopre insiemi di file | 07/09/2026, CT | 3 |
 | `la_chat_non_si_apre_sul_vuoto_test.dart` | la chat non si apre su mezzo schermo di vuoto | 1, 2 | non scopre insiemi di file | CO | 3 |
@@ -628,6 +633,7 @@ le altre.
 | `la_parola_torna_la_sera_test.dart` | la parola del giorno torna la sera | 1 | proprio, dichiarato | 09/09/2026, CY | 2 |
 | `la_parola_voce_resta_allaudio_test.dart` | la parola voce resta allaudio | 1 | dalla porta comune | mai | 3 |
 | `la_porta_della_sinastria_test.dart` | la porta della sinastria | 1 | non scopre insiemi di file | mai | 3 |
+| `la_prova_a_cento_discese_test.dart` | la prova della voce DI.16: cento discese consecutive con lo stesso profilo per i sei temi e cinque domande libere, dalla strada vera del responso; le cinque misure A, B, C su tutte le coppie, D sui paragrafi composti ed E, la pertinenza; il richiamo dice il vero in ogni discesa, e alla prima discesa della schermata vera non compare; la stessa azione non torna prima di venti discese e la stessa risposta prima di undici; con rete, solo con il token nell'ambiente | 1, 2 | non scopre insiemi di file | 13/09/2026, DI (otto rossi su nove innestati: la scena di oggi fra le precedenti, il giro che torna ogni trentasette giorni, il gesto pescato, il ciclo della risposta che si chiude, la frase della scena pescata, la forma della scena senza la storia, i paragrafi pescati senza giorno, il tema che non arriva; il nono, la cornice del gesto slegata dal nucleo, resta verde perche' coi due cicli il paragrafo del gesto tornerebbe uguale solo dopo trecentoventi giorni) | 1 |
 | `la_registrazione_non_interrompe_il_risveglio_test.dart` | la registrazione non interrompe il risveglio | 1, 2 | dalla porta comune | mai | 3 |
 | `la_riga_del_campo_e_pulita_test.dart` | la riga del campo e pulita | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `la_runa_cade_e_non_e_gia_li_test.dart` | la runa cade e non e gia li | 1, 2 | proprio, dichiarato | mai | 3 |
@@ -639,9 +645,9 @@ le altre.
 | `la_scena_non_copre_la_conversazione_test.dart` | la scena non copre la conversazione | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `la_sentinella_dorme_in_secondo_piano_test.dart` | la sentinella dorme in secondo piano | 1, 2 | non scopre insiemi di file | 08/09/2026, CY | 2 |
 | `la_soglia_e_una_scena_piena_test.dart` | la soglia e' una scena piena; le tre righe del percorso ci sono fino al riconoscimento e al loro posto; le quattro impronte stanno in alto, non scorrono via, non escono dalla scatola, e la riga del cammino e' in parole | 1, 4 | non scopre insiemi di file | 12/09/2026, DI (sei rossi: le righe dopo il riconoscimento, cosa otterrai sopra il pulsante, una riga diversa da quella dell'ordine, le impronte spostate in basso, la riga in cifre, le impronte fuori dalla scatola) | 1 |
-| `la_scena_parla_bene_test.dart` | la scena chiama l'animale per nome dopo il riconoscimento e mai prima, coi gesti che sa fare; seconda persona singolare; nessun participio al maschile; nessuna parola piena ripetuta; nessun due punti annidato e minuscola dopo i due punti; il quando non ripete l'apertura; due chiusure al massimo sul non decifrare e nessuna sulla domanda a chi non ne ha; il richiamo non accorda con la figura | 1, 2 | proprio, dichiarato | 12/09/2026, DI (tredici rossi: la parola generica, il nome prima del riconoscimento, i gesti non filtrati, il plurale senza compagno, un participio al maschile, le figure che si ripetono, la cucitura spenta, un'apertura coi due punti, tre chiusure sul non decifrare, un richiamo che accorda, la maiuscola dopo i due punti, il quando che ripete l'apertura, le chiusure sulla domanda senza domanda) | 1 |
+| `la_scena_parla_bene_test.dart` | la scena chiama l'animale per nome dopo il riconoscimento e mai prima, coi gesti che sa fare; seconda persona singolare; nessun participio al maschile; nessuna parola piena ripetuta; nessun due punti annidato e minuscola dopo i due punti; il quando non ripete l'apertura; due chiusure al massimo sul non decifrare e nessuna sulla domanda a chi non ne ha; il richiamo non accorda con la figura; dall'ordine DI voce 16 nessun participio o aggettivo al maschile dopo sei, eri, saresti, sarai, fossi, su tutti gli elenchi della voce | 1, 2 | proprio, dichiarato | 13/09/2026, DI voce 16 (due rossi: *Non sei bloccato* e *saresti pronto*, che l'elenco chiuso di prima lasciava passare); 12/09/2026, DI (tredici rossi: la parola generica, il nome prima del riconoscimento, i gesti non filtrati, il plurale senza compagno, un participio al maschile, le figure che si ripetono, la cucitura spenta, un'apertura coi due punti, tre chiusure sul non decifrare, un richiamo che accorda, la maiuscola dopo i due punti, il quando che ripete l'apertura, le chiusure sulla domanda senza domanda) | 1 |
 | `la_vita_dopo_il_riconoscimento_test.dart` | al riconoscimento sparisce l'apparato della rivelazione e compaiono l'animale, il nome, due righe accordate al genere e tre azioni; la discesa dopo porta alla risposta senza il velo e senza ripetere il nome; il tamburo nutre in quaranta secondi di battito e non avanza senza battere; il segno risponde col repertorio chiuso, scarta i gesti inventati e al tetto offre il nutrimento | 1, 3, 4 | non scopre insiemi di file | 12/09/2026, DI (dieci rossi: le impronte dopo il riconoscimento, la riga al maschile per la Volpe, la domanda gia' aperta, la lente dopo, il nome a ogni discesa, il tamburo senza battito, il rito che non nutre, il gesto inventato, la riga non letta, il segno oltre il tetto) | 1 |
-| `la_scena_nasce_dalla_persona_test.dart` | la scena a schermo e' quella del modello quando e' valida, al modello arriva cio' che l'ordine elenca, un id fuori vocabolario o un modello muto portano alla via deterministica col guasto nel registro, i gesti impossibili e le parole ripetute si scartano, al massimo un pezzo ripreso, il ragionamento spento in ogni chiamata del Viaggio | 1, 2 | non scopre insiemi di file | 12/09/2026, DI (dieci rossi: la schermata che ignora il modello, il guasto fuori dal registro, il modello muto senza pazienza, il gesto impossibile, le parole ripetute, tutte le scene precedenti, la carta natale che non arriva, il tetto ignorato, le riprese oltre una, il ragionamento acceso) | 1 |
+| `la_scena_nasce_dalla_persona_test.dart` | la scena a schermo e' quella del modello quando e' valida, al modello arriva cio' che l'ordine elenca, un id fuori vocabolario o un modello muto portano alla via deterministica col guasto nel registro, i gesti impossibili e le parole ripetute si scartano, al massimo un pezzo ripreso, il ragionamento spento in ogni chiamata del Viaggio; dall'ordine DI voce 16 lo schema non ammette luoghi e gesti gia' visti, ne' cio' che torna sempre, una scena che rifa' luogo, cosa e gesto di una della storia si scarta, e una scena scartata si richiede una volta senza il suo luogo e la sua cosa | 1, 2 | non scopre insiemi di file | 13/09/2026, DI voce 16 (tre rossi: lo schema che ammette tutto, la scena rifatta che passa, la richiesta ripetuta spenta); 12/09/2026, DI (dieci rossi: la schermata che ignora il modello, il guasto fuori dal registro, il modello muto senza pazienza, il gesto impossibile, le parole ripetute, tutte le scene precedenti, la carta natale che non arriva, il tetto ignorato, le riprese oltre una, il ragionamento acceso) | 1 |
 | `la_soglia_del_viso_ha_due_momenti_test.dart` | la soglia del viso ha due momenti | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_spirale_di_stelle_test.dart` | la spirale di stelle | 2, 4 | non scopre insiemi di file | CO, RESTATA VERDE col difetto dentro | 3 |
 | `la_stella_che_chiama_il_tocco_test.dart` | la stella che chiama il tocco | 4 | non scopre insiemi di file | mai | 3 |
@@ -686,7 +692,7 @@ le altre.
 | `nessun_accento_dichiara_un_fondo_che_non_ha_test.dart` | nessun accento dichiara un fondo che non ha | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |
 | `nessun_anello_si_dipinge_fuori_dal_suo_riquadro_test.dart` | nessun anello si dipinge fuori dal suo riquadro | 4 | non scopre insiemi di file | 07/09/2026, CT | 3 |
 | `nessun_campo_dice_di_aspettare_test.dart` | nessun campo dice di aspettare | 1, 2 | proprio, dichiarato | mai | 3 |
-| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 01/09/2026, CN | 3 |
+| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 13/09/2026, DI (rossa nella suite intera su un difetto vero: tre catch muti, voci DI.03 e DI.14); prima 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nessun_pittore_dipinge_sul_nulla_test.dart` | nessun pittore dipinge sul nulla | 1, 2 | dalla porta comune | 10/09/2026, DC | 1 |
@@ -760,7 +766,7 @@ le altre.
 | `sunset_incisione_pixel_test.dart` | sunset incisione pixel | 4 | non scopre insiemi di file | mai | 3 |
 | `tarot_accordo_rovescio_test.dart` | tarot accordo rovescio | 1, 2 | dalla porta comune | mai | 3 |
 | `tarot_cartigli_test.dart` | tarot cartigli | 4 | non scopre insiemi di file | mai | 3 |
-| `testi_falsi_test.dart` | testi falsi | 1, 2 | proprio, dichiarato | mai | 3 |
+| `testi_falsi_test.dart` | testi falsi | 1, 2 | proprio, dichiarato | 13/09/2026, DI (rossa nella suite intera: le righe della griglia delle sagome finivano in doppio punto, voce DI.10) | 3 |
 | `testo_a_video_test.dart` | testo a video | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
 | `tipografia_minimi_test.dart` | tipografia minimi | 1 | dalla porta comune | mai | 3 |
 | `un_comando_solo_nella_meditazione_test.dart` | un comando solo nella meditazione | 1 | non scopre insiemi di file | 11/09/2026, DD (rossa: la pressione lunga innestata sul fiore) | 1 |

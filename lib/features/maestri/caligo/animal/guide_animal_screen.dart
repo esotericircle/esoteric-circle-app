@@ -12,7 +12,7 @@ import '../../../../core/rituals/guide_animal_corpus.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/il_nome_si_puo_dire.dart';
 import '../../../../core/viaggio/l_annuncio_dell_animale.dart';
-import '../viaggio/la_lente_che_scopre.dart';
+import '../viaggio/l_ombra_dell_animale.dart';
 import '../../../../core/rituals/guide_animal_day.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../design_system/components/cosmos_background.dart';

@@ -161,7 +161,10 @@ abstract final class GestiDelSegno {
     final Object? j;
     try {
       j = jsonDecode(risposta);
-    } catch (_) {
+    } catch (errore) {
+      // **UNA RISPOSTA CHE NON E' JSON E' UNA RISPOSTA DA SCARTARE**, e chi
+      // chiama cade sul segno di riserva e registra il guasto: qui non c'e'
+      // niente da dire alla persona.
       return null;
     }
     final dati = j is Map ? j : null;

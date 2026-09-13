@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 149 -->
+<!-- VUOTI_CENSITI: 148 -->
 <!-- FILE_CON_VUOTI: 64 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **149** |
+| Vuoti verticali dichiarati | **148** |
 | File che ne contengono | **64** |
 | Oltre la soglia di 48 punti | **3** |
 
@@ -27,7 +27,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 4 | 21 |
 | 5 | 1 |
 | 6 | 12 |
-| 7 | 3 |
+| 7 | 2 |
 | 8 | 6 |
 | 9 | 2 |
 | 10 | 2 |
@@ -67,7 +67,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/face/face_share_card.dart` | 3 | 0 |
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
-| `lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
@@ -81,6 +80,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/face/face_constellation_screen.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
+| `lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
 | `lib/features/rituals/ritual_gift_card.dart` | 2 | 0 |

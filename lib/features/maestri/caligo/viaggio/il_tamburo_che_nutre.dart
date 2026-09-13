@@ -8,6 +8,7 @@ import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import 'la_discesa_in_video.dart';
 import 'la_nebbia_e_l_animale.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
@@ -261,11 +262,11 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (_riga != null) ...[
-                          Text(
-                            _riga!,
+                          ParagrafiDiLettura(
                             key: const Key('viaggio_riga_dello_stato'),
+                            testo: _riga!,
                             textAlign: TextAlign.center,
-                            style: TypographyTokens.lettura()
+                            stile: TypographyTokens.lettura()
                                 .copyWith(color: palette.goldSoft),
                           ),
                           const SizedBox(height: SpacingTokens.md),

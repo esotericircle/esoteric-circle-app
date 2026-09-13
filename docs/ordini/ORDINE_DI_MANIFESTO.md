@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 14
+VOCI_CHIUSE: 17
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,207 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.16, LA PROVA A CENTO DISCESE. FATTA, CON RETE E SENZA; UNA MISURA OLTRE SOGLIA IN UN CASO
+
+**La prova** e' `test/la_prova_a_cento_discese_test.dart`: cento discese
+consecutive, un giorno ciascuna, stesso profilo e stessa domanda, per i sei
+temi e per cinque domande libere. **La strada e' quella dell'app**: Diario
+vero, scena dal modello o dalla via deterministica con gli argomenti della
+risalita, e il responso composto da **`IlResponsoDelViaggio`**, la funzione
+che la schermata chiama. Prima la schermata metteva insieme il responso pezzo
+per pezzo, e la prova avrebbe misurato una sua copia. Senza rete gira sempre
+ed e' una guardia; con rete chiama Vertex, una discesa alla volta, col token
+solo nell'ambiente. **Le tabelle intere, caso per caso e colonna per colonna,
+stanno nel rapporto `docs/ordini/RAPPORTO_ORDINE_DI.md`.**
+
+**IL RISULTATO.** Senza rete e con rete, su undici casi: **A 100 su 100 e B
+100 scheletri, nessuno ripetuto**, sempre; **D al massimo 2**; **E 100 su
+100** su ogni tema e, con rete, su ogni domanda libera; **C sotto il 40 per
+cento su tutte le 4.950 coppie senza rete in ogni caso, e con rete in dieci
+casi su undici.** Con rete la C peggiore su tutte le coppie e' 40,7 per cento, e fra le coppie senza simboli in comune 39,5. Senza rete due domande libere non hanno tema,
+perche' la tabella delle parole non le capisce: e' la riserva dichiarata della
+voce DI.02, e il responso non nomina un tema che non c'e'.
+
+**IL CASO OLTRE SOGLIA, detto com'e'.** Una domanda libera, *"Perche' con mio
+padre finisce sempre in lite?"*, con rete ha la coppia peggiore al 40,7 per
+cento: la stessa frase di risposta, la stessa ripresa, e la stessa cosa,
+*l'ombra che non e' tua*, raccontata con la stessa forma. Per quella domanda
+il modello torna su quell'oggetto una ventina di volte su cento, lo schema
+glielo concede fino a due volte ogni dieci discese, e con otto forme per la
+frase della scena la regola della storia a un certo punto deve riciclarne una.
+Fra una corsa e l'altra il caso peggiore oscilla di uno o due punti attorno al
+quaranta. **Le due leve che lo chiudono sono una scelta del fondatore**, e
+stanno nel rapporto: piu' forme per la frase della scena, o una memoria dei
+ritorni della cosa piu' lunga.
+
+**COSA HA TROVATO LA PROVA, e nessuna guardia lo vedeva**, perche' l'ordine DF
+misurava la scena da sola e non il responso intero:
+
+1. **Il richiamo in cento discese su cento, anche alla prima.** La schermata
+   lo calcolava dopo aver segnato la discesa di oggi, e la scena appena
+   composta risultava gia' vista: *"Ti era gia' capitato di vedere la chiave"*
+   a chi scendeva per la prima volta. **Padre: ordine DE voce 11.** Adesso
+   `IlResponsoDelViaggio` prende le discese di prima, il richiamo e' raro
+   (tre discese di pausa fra due richiami) e la sua riga gira con le volte in
+   cui quella cosa e' stata richiamata. Una prova sulla schermata vera
+   pretende che alla prima discesa non ci sia.
+2. **Il responso ripeteva.** Il titolo fino a trenta volte su cento, la
+   risposta e il gesto fino a tre: ogni blocco pescava **a caso** dal filo,
+   e cento pescate a caso ripetono per forza. **La voce del Viaggio adesso
+   gira**, dichiarata come deroga al filo della voce. **Il gesto gira sulle
+   sue venti forme e la risposta sulle sue dodici**, spostata di un posto ogni
+   sessanta giorni: la stessa azione non torna prima di venti discese, la
+   stessa risposta prima di undici, e la coppia non torna in nessuna finestra
+   di duecento giorni. Le cornici, la ripresa e la coda, l'apertura e il
+   quando, la cornice della scena, sono funzioni iniettive della coppia,
+   mescolate. **Il titolo si sposta di un posto a ogni suo giro**, e non torna
+   mai in fase ne' col gesto ne' con la risposta. **La frase che cuce la scena
+   la sceglie la storia**: una scena simile a una di prima non si racconta con
+   la stessa frase, e si evita prima la frase della scena piu' simile. Nessun
+   paragrafo composto torna prima di centinaia di discese. **I titoli restano
+   otto per tema**: la misura D dell'ordine DF non li conta, e portarli a
+   cinquanta per tema e' scrittura nella voce del fondatore, proposta nel
+   rapporto. Le due distanze, dell'azione e della risposta, non sono misure
+   dell'ordine: le ha aggiunte questa voce, perche' le cinque misure non
+   vedevano la stessa azione suggerita a tre giorni di distanza.
+3. **Due frasi al maschile verso chi legge**, *"Non sei bloccato"* e *"saresti
+   pronto?"*. **Padre: ordine DG voce 07.** La guardia della DI.05 le lasciava
+   passare perche' cercava sei participi nominati: adesso cerca la forma del
+   difetto, su tutti gli elenchi della voce.
+4. **Col modello vero, meta' delle scene scartate.** Su cento discese il
+   modello torna sui suoi pezzi preferiti, e la lettura scartava le scene con
+   piu' di un pezzo ripreso: meta' delle discese tornava a nascere da un hash.
+   **Padre: DI voce 03, mia.** Adesso lo **schema** della risposta non ammette
+   i luoghi e i gesti delle ultime cinque scene, ne' i luoghi e le cose tornati
+   due volte nelle ultime dieci; la cosa puo' tornare, ma non subito; una scena
+   che rifa' luogo, cosa e gesto di una qualsiasi della storia si scarta, e
+   **una scena scartata si richiede una volta**, senza il suo luogo e la sua
+   cosa. Il momento non entra nel conto: contandolo, anche dopo la seconda
+   richiesta si scartava meta' delle scene. La scena del modello e' passata da meta' delle discese a 88-100 su cento.
+
+**LA SUITE INTERA**, fatta girare per chiudere la voce DI.10, ha visto rosse
+cinque guardie di casa su difetti veri delle voci DI.03, DI.13, DI.14 e DI.15,
+spinte senza la suite: tre `Text` di lettura, i giorni contati sottraendo due
+date, tre `catch` muti, il conto dei consumatori dei dati di nascita. E due
+della DI.10: la griglia delle sagome coi doppi punti e il censimento dei vuoti
+verticali. Tutti curati; i padri stanno nel rapporto.
+
+**LA SUITE DI CHIUSURA: 5.102 prove passate, una saltata, tre rosse**, cioe'
+i due rossi di legge (l'attribuzione cieca e le soglie delle quattro pose) e
+`niente_lavoro_non_spinto`, che si chiude col commit. Un giro precedente
+aveva dato sei cadute in piu' che da sole passavano: sullo stesso albero
+giravano due suite insieme, e le prove che rigenerano i documenti si leggevano
+a vicenda. Rifatta da sola, sono rimasti i tre rossi attesi.
+
+**Le guardie**: `la_prova_a_cento_discese`, nuova; `la_scena_parla_bene`,
+allargata; `la_scena_nasce_dalla_persona`, con tre pretese nuove, lo schema
+dei pezzi ammessi, la scena rifatta, la scena scartata che si richiede.
+**Nove rossi innestati a mano sulla prova, sulla voce definitiva, piu' i
+rossi di ogni pretesa nuova**, uno per uno, e il repo identico dopo ogni
+ripristino.
+
+---
+
+## DI.17, IL RAPPORTO. CONSEGNATO
+
+`docs/ordini/RAPPORTO_ORDINE_DI.md`: le cinque misure per ogni tema e per ogni
+domanda libera, con e senza rete; la tabella della classificazione della voce
+DI.02; i punti del difetto della voce DI.01; le chiamate al modello e il costo
+per utente attivo al giorno; le righe tolte perche' mai raggiunte; i difetti
+trovati coi loro padri; e sopra tutto, cio' che aspetta una decisione del
+fondatore.
+
+---
+
+## DI.10, IL GESTO CHE SCOSTA AL POSTO DELLA LENTE. CHIUSA NEL CODICE
+
+**La lente non c'e' piu'**: `la_lente_che_scopre.dart` e' cancellato, perche'
+l'ordine nomina la lente come cio' che il gesto sostituisce. Con lei se ne
+vanno le tre fasce orizzontali, il raggio della lente e il punto dove tenerne il
+centro, che stavano in `DoveStaLaTesta` e non servivano a nessun altro. **L'ombra
+dell'animale resta intera**: stava nello stesso file, serve all'incontro, al
+Passaporto, ai Trionfi, ai compagni di nascita e alla scheda dell'animale, e
+adesso ha un file suo, `l_ombra_dell_animale.dart`.
+
+**Al suo posto la cenere** (`il_velo_che_si_scosta.dart`, con le regole pure in
+`lib/core/viaggio/il_velo_dell_animale.dart`):
+
+- **sta sulla sagoma vera dell'animale**, in una griglia di quaranta colonne
+  ricavata dal canale alfa di ogni illustrazione da `tool/genera_sagome.py`
+  (`le_sagome_in_celle.dart`, generato). Una cella e' corpo se contiene anche un
+  solo pixel che a schermo si vedrebbe;
+- **la persona passa il dito e scosta**: il bordo fra scoperto e coperto lo fa
+  la mano, e ogni cella che si libera manda su quattro granelli di cenere, chiari
+  e scuri, che salgono e svaniscono;
+- **un quarto dell'area del corpo per discesa**, del corpo intero come dice
+  l'ordine. Esaurita la quantita', il dito non scopre piu' e la schermata dice
+  *"Per oggi hai scostato abbastanza."*; quando resta velata soltanto la testa,
+  come al Gufo e alla Volpe alla terza discesa, dice *"Resta velato soltanto il
+  volto."*;
+- **la testa e' protetta fino alla quarta** e alla quarta il velo cade da solo,
+  con la cenere che si solleva tutta insieme;
+- **cio' che si e' scostato resta scostato** e si ritrova riaprendo la
+  funzione: il Diario lo conserva, **legato al nome dell'animale**, perche' chi
+  corregge la data di nascita ha un altro animale e la cenere del Lupo non deve
+  comparire scostata sull'Aquila.
+
+**La materia della cenere**: una grana generata una volta sola all'apertura,
+rumore frattale a tre ottave a toni di terra bruciata, rare scaglie chiare e
+pori scuri, ripetuta senza cuciture; l'interno pieno in un solo tracciato, cosi'
+la copertura e' per costruzione; il bordo sfrangiato da scaglie piccole lungo i
+lati esposti. **Il nome gratta e vinci non compare in nessun file di `lib`**; la
+sola occorrenza a schermo era nella rivelazione del Maestro all'onboarding,
+*"Trascina il dito per svelare, come un gratta e vinci"*, e adesso dice
+*"Trascina il dito per svelare"*.
+
+**QUATTRO DIFETTI TROVATI GUARDANDO, prima del telefono.** Le catture dei sei
+momenti di Lupo, Cervo e Gufo stanno in `docs/catture/di/`.
+
+| difetto | com'era | com'e' |
+|---|---|---|
+| la cenere fatta di cerchi | ogni cella un granello tondo grande quanto lei: il bordo era una fila di bolle e la grana un tessuto a pois | tracciato unico, grana frattale, scaglie sul bordo |
+| le parti sottili scoperte | corpo erano le celle piene per un terzo: palchi, becchi, lingue, punte di coda restavano fuori dalla cenere, **149 pixel del Cervo** alla prima discesa | corpo e' ogni cella con un pixel visibile: **zero pixel** su dodici animali |
+| la cenere che disegna la testa | la testa coperta dalle sole celle della sua sagoma: sul Cervo **due palchi di cenere** dicevano il nome tre discese prima | sulla testa un cumulo informe, un'ellisse che contiene il rettangolo tabulato, con gobbe e scaglie, che puo' uscire oltre il bordo alto |
+| il cumulo a rettangolo | fatto di celle, dove la testa tocca il bordo dell'illustrazione aveva la cima tagliata dritta | ellisse disegnata, non celle |
+
+**LE MISURE, per i dodici animali**, dalla guardia dei pixel e da quella del
+gesto:
+
+| misura | valore |
+|---|---|
+| pixel dell'animale visibili a velo intero | **0** su dodici |
+| parte della testa che arriva sotto la cenere, col resto del corpo tutto scostato | **0,000** (soglia 0,1) |
+| parte delle celle coperte che arriva a schermo, contro le stesse gia' scostate | **0,000** (soglia 0,1) |
+| celle scostate per discesa, sempre esattamente un quarto del corpo | per esempio Lupo 153+153+153 su 612, Gufo 372+372+245 su 1486 |
+| celle di un tratto verticale piu' lontane dal dito di 1,6 colonne | **0** |
+| punti del rettangolo della testa senza cenere, 21 per 21 per animale | **0** su 5.292 |
+
+**La guardia dei pixel ha cambiato grandezza, e lo dichiara.** Con la lente
+misurava la nitidezza, perche' il fantasma sfocato doveva vedersi; sulla cenere
+la nitidezza dava 0,404 sul Cervo con la testa coperta, e cio' che era nitido
+era il bordo della cenere contro il fondo, non l'animale. Adesso si dipinge lo
+stesso fotogramma con l'illustrazione e senza, e la differenza e' l'animale che
+passa. **E il metro e' l'animale tutto scostato**, non il velo caduto: il velo
+caduto si fotografava dentro `runAsync`, dove il timer corre in tempo vero, e il
+metro ballava fra 4,6 e 9.
+
+**Anche il segno e il riconoscimento prendono la misura vera** di ogni
+animale, `LeSagome.misure`, invece delle proporzioni del Lupo per tutti: il Gufo
+stava in un riquadro largo con due bande vuote, e la luce di cio' che porta
+cadeva fuori dal becco.
+
+**LE GUARDIE**: `il_gesto_che_scosta`, nuova; `il_velo_c_e_davvero_sul_telefono`
+e `la_testa_non_si_vede_prima_della_quarta`, riscritte. **Diciotto difetti
+innestati a mano, diciotto rossi.** Due, la testa scostabile e la nube tolta,
+erano verdi al primo innesto: la testa scostabile resta coperta dalla nube, e
+senza la nube il rettangolo resta coperto dalle celle di vuoto. Ogni difetto da
+solo e' compensato dall'altro meccanismo; sono stati rifatti sulla guardia della
+regola e col difetto intero, e sono rossi.
+
+**Verificato al banco, non a video**: serve una build.
 
 ---
 

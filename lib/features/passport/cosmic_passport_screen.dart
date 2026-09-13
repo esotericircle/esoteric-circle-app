@@ -27,7 +27,7 @@ import '../../core/tarot/tarot_spread.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../tarot/carta_ingrandita.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
-import '../maestri/caligo/viaggio/la_lente_che_scopre.dart';
+import '../maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import '../maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import '../../core/viaggio/diario_dei_viaggi.dart';
 import '../../core/viaggio/i_quattro_viaggi.dart';

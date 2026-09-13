@@ -236,9 +236,15 @@ void main() {
     // due tiene una copia sua, e nessuno dei due pretende il dato: senza
     // nascita il Dono resta quello del giorno, perche' chiedere la nascita per
     // aprire un Dono sarebbe un pedaggio.
-    expect(elenco.length, 15,
+    // SEDICI DALL'ORDINE DI VOCE 03 del 12 settembre 2026. Il Viaggio dello
+    // Sciamano e' diventato un consumatore: la scena la sceglie il modello, e
+    // l'ordine vuole che riceva *"i dati della carta natale gia' disponibili
+    // nel profilo"*. Li chiede alla porta unica dei Maestri, `SorgenteNatale`,
+    // non tiene copie, e senza identita' scende col solo segno di nascita, da
+    // cui viene l'animale.
+    expect(elenco.length, 16,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 15:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 16:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

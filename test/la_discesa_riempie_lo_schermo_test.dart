@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/sensi/respiro_che_dirada.dart';
-import 'package:esoteric_circle/features/maestri/caligo/viaggio/la_lente_che_scopre.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_tunnel_che_scende.dart';

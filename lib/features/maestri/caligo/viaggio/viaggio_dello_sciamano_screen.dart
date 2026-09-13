@@ -10,12 +10,10 @@ import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
-import '../../../../core/viaggio/dove_sta_la_testa.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/la_domanda_capita.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
-import '../../../../core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import '../../../../core/viaggio/scena_del_viaggio.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -34,6 +32,7 @@ import 'la_discesa_in_video.dart';
 import 'il_segno_che_risponde.dart';
 import 'il_tamburo_che_nutre.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
+import '../../../../core/viaggio/il_responso_del_viaggio.dart';
 import '../../../../core/viaggio/la_scena_dal_modello.dart';
 import '../../../../core/identity/natal_identity.dart';
 import '../../../../core/maestro/natal_context.dart';
@@ -46,7 +45,9 @@ import '../../../../core/viaggio/il_verso_dell_animale.dart';
 import '../../../../core/viaggio/la_promessa_del_viaggio.dart';
 import '../../../../core/viaggio/tetti_del_viaggio.dart';
 import 'card_della_rivelazione.dart';
-import 'la_lente_che_scopre.dart';
+import '../../../../core/viaggio/le_sagome_in_celle.dart';
+import 'il_velo_che_si_scosta.dart';
+import 'l_ombra_dell_animale.dart';
 import 'le_quattro_impronte.dart';
 import 'la_nebbia_e_l_animale.dart';
 
@@ -234,6 +235,7 @@ class _ViaggioDelloSciamanoScreenState
 
   /// **CON CHE COSA SI SCENDE**, e le tre vie sono dichiarate come tre.
   ViaDellaDomanda _via = ViaDellaDomanda.scelta;
+
   /// **IL TEMA DELLA DOMANDA, e solo quello.** Ordine DI voce 01,
   /// 12 settembre 2026.
   ///
@@ -271,10 +273,13 @@ class _ViaggioDelloSciamanoScreenState
   /// Dove comincia la scelta della domanda, per portarla in vista.
   final GlobalKey _laSceltaDellaDomanda = GlobalKey();
 
-  /// **IL GIORNO IN CUI QUESTA SCENA E' NATA.** Ordine DG voce 07: il filo
-  /// della risposta lo conosce, e se lo chiedesse all'orologio a ogni
-  /// ridisegno il testo cambierebbe sotto gli occhi di chi legge.
-  DateTime? _giornoDellaScena;
+  /// **IL RESPONSO A SCHERMO**, ordine DI voce 16: titolo e paragrafi si
+  /// leggono da qui, composti una volta sola alla risalita. Qui c'era il
+  /// giorno della scena, ordine DG voce 07, con cui il disegno ricomponeva
+  /// titolo e paragrafi a ogni costruzione: lo teneva fermo perche', chiesto
+  /// all'orologio a ogni ridisegno, il testo sarebbe cambiato sotto gli occhi
+  /// di chi legge. Il responso composto una volta fa la stessa cosa.
+  IlResponsoDelViaggio? _responso;
   String? _seguito;
   bool _caricato = false;
 
@@ -302,8 +307,7 @@ class _ViaggioDelloSciamanoScreenState
   /// domanda, cosi' la riproduzione parte senza attesa"*.
   void _preparaLaDiscesa() {
     if (_lettore != null) return;
-    final lettore =
-        (widget.fabbricaDellaDiscesa ?? LettoreDellaDiscesa.vero)();
+    final lettore = (widget.fabbricaDellaDiscesa ?? LettoreDellaDiscesa.vero)();
     _lettore = lettore;
     unawaited(lettore.apri());
   }
@@ -472,7 +476,11 @@ class _ViaggioDelloSciamanoScreenState
     if (inArrivo != null) {
       try {
         tema = (await inArrivo).$1 ?? tema;
-      } catch (_) {}
+      } catch (errore) {
+        // **SENZA TEMA LA SCENA SI CHIEDE LO STESSO**: il guasto della domanda
+        // capita e' gia' nel registro, lo scrive chi l'ha chiesta, e il
+        // modello riceve la domanda senza il tema.
+      }
     }
     if (!mounted) return null;
     return LaScenaDalModello.chiedi(
@@ -482,10 +490,9 @@ class _ViaggioDelloSciamanoScreenState
         animale: _suoAnimale,
         natale: _natale,
         memoria: _diario.riassuntoPerIMaestri,
-        ultimeScene: [
-          for (final v in _diario.viaggi.take(IlRichiamoDelleScene.quanteSceneIndietro))
-            v.pezzi,
-        ],
+        // **TUTTA LA STORIA**, ordine DI voce 16: al modello ne arrivano
+        // cinque, la lettura le guarda tutte.
+        ultimeScene: [for (final v in _diario.viaggi) v.pezzi],
       ),
       chiamata: widget.chiamataDellaScena,
       seGuasto: (e) => _registraIlGuastoDi('viaggio_scena_del_modello', e),
@@ -527,6 +534,7 @@ class _ViaggioDelloSciamanoScreenState
       _fase = FaseDelViaggio.soglia;
       _seguito = null;
       _scena = null;
+      _responso = null;
       _nebbia = 0;
       _spintaDelDito = 0;
     });
@@ -647,37 +655,25 @@ class _ViaggioDelloSciamanoScreenState
         .timeout(LaScenaDalModello.pazienza, onTimeout: () => null);
     _scenaInArrivo = null;
     if (!mounted) return;
-    final scena = dalModello != null
-        ? ScenaSenzaModello.daiPezzi(
-            luogo: dalModello.luogo,
-            cosa: dalModello.cosa,
-            gesto: dalModello.gesto,
-            momento: dalModello.momento,
-            domanda: domanda,
-            giorno: _adesso,
-            nitidezza: nitidezza,
-            discesa: quante,
-            animale: _suoAnimale,
-            siPuoDire: quante + 1 >= IQuattroViaggi.quanteDiscese,
-            conDomanda: _temaScelto != null,
-          )
-        : ScenaSenzaModello.componi(
+    // **IL RESPONSO SI COMPONE IN UN POSTO SOLO**, ordine DI voce 16:
+    // `IlResponsoDelViaggio`, che e' anche cio' che la prova a cento discese
+    // misura. **Le discese di prima si prendono PRIMA di segnare questa**:
+    // qui il richiamo le prendeva dopo, e fra le precedenti c'era anche la
+    // scena di oggi, cosi' ogni discesa diceva che la sua cosa era gia'
+    // comparsa, anche la prima. Veniva dall'ordine DE voce 11.
+    final precedenti = [for (final v in _diario.viaggi) v.pezzi];
+    final responso = IlResponsoDelViaggio.componi(
+      dalModello: dalModello,
       domanda: domanda,
       giorno: _adesso,
       nitidezza: nitidezza,
-      // **IL NUMERO DELLA DISCESA ENTRA NEL SEME.** Ordine DF voce 05: senza,
-      // due discese nello stesso giorno con la stessa domanda riportavano su
-      // **la stessa identica scena**, parola per parola.
       discesa: quante,
-      // **L'ANIMALE ENTRA NELLA SCENA**, ordine DI voce 04: sceglie i gesti
-      // che il suo corpo sa fare, e dopo la quarta discesa le da' il suo nome.
+      giaOggi: _diario.quanteOggi,
       animale: _suoAnimale,
-      // Il nome si dice alla quarta, e questa discesa e' ancora da contare.
-      siPuoDire: quante + 1 >= IQuattroViaggi.quanteDiscese,
-      // Senza domanda, nessuna chiusura parla della domanda.
-      conDomanda: _temaScelto != null,
+      tema: _temaScelto,
+      precedenti: precedenti,
     );
-    _giornoDellaScena = _adesso;
+    final scena = responso.scena;
     await _diario.segna(UnViaggio(
       quando: _adesso,
       domanda: domanda,
@@ -694,17 +690,13 @@ class _ViaggioDelloSciamanoScreenState
     // **IL RICHIAMO: questa scena riprende un elemento di una di prima?**
     // Ordine DE voce 11. Si guarda **cinque scene indietro** e non di piu':
     // il richiamo funziona solo se la persona si ricorda di aver visto quella
-    // cosa, e cio' che si ricorda di un'immagine simbolica dura poche
-    // settimane.
-    _ilRichiamo = IlRichiamoDelleScene.laRiga(
-      precedenti: [for (final v in _diario.viaggi) v.pezzi],
-      oggi: scena.idDeiPezzi,
-      nomeDellElemento: scena.cosa.nome,
-      quale: 1,
-    );
+    // cosa. Cio' che si ricorda di un'immagine simbolica dura poche
+    // settimane. Lo compone `IlResponsoDelViaggio`.
+    _ilRichiamo = responso.richiamo;
     if (!mounted) return;
     setState(() {
       _scena = scena;
+      _responso = responso;
       _fase = FaseDelViaggio.risalita;
     });
     // **IL VERSO, NELL'ISTANTE IN CUI LA TESTA E' USCITA DAL VELO.**
@@ -948,89 +940,87 @@ class _ViaggioDelloSciamanoScreenState
                   _laDistanza(palette)!,
                 ],
                 if (!_riconosciuto || _domandaAperta) ...[
-                const SizedBox(height: SpacingTokens.xl),
-                SizedBox(key: _laSceltaDellaDomanda, height: 0),
-                _leTreVie(palette, primo: primo),
-                if (perche != null &&
-                    _temaScelto == null &&
-                    _via != ViaDellaDomanda.incontro) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(perche,
-                      key: const Key('viaggio_perche_non_si_scende'),
+                  const SizedBox(height: SpacingTokens.xl),
+                  SizedBox(key: _laSceltaDellaDomanda, height: 0),
+                  _leTreVie(palette, primo: primo),
+                  if (perche != null &&
+                      _temaScelto == null &&
+                      _via != ViaDellaDomanda.incontro) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    Text(perche,
+                        key: const Key('viaggio_perche_non_si_scende'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: palette.goldSoft)),
+                  ],
+                  if (!siPuo && _caricato) ...[
+                    const SizedBox(height: SpacingTokens.md),
+                    DepthCard(
+                      padding: const EdgeInsets.all(SpacingTokens.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // **LA RIGA DEL TETTO DI OGGI**, che dice quale dei due
+                          // limiti ha parlato: il metodo oppure il piano.
+                          if (percheNoOggi != null)
+                            ParagrafiDiLettura(
+                              key: const Key('viaggio_tetto_di_oggi'),
+                              testo: percheNoOggi,
+                              stile: TypographyTokens.lettura()
+                                  .copyWith(color: palette.goldSoft),
+                            ),
+                          if (percheNoOggi != null)
+                            const SizedBox(height: SpacingTokens.sm),
+                          // **E LA FONTE DELL'ATTESA**, che resta e vale solo per
+                          // chi non ha ancora riconosciuto: a chi ha finito le
+                          // domande del piano, citare Harner sarebbe una scusa.
+                          if (!_riconosciuto)
+                            ParagrafiDiLettura(
+                              key: const Key('viaggio_non_oggi'),
+                              testo: IQuattroViaggi.percheSiAspetta,
+                              stile: TypographyTokens.lettura()
+                                  .copyWith(color: ColorTokens.textSecondary),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: SpacingTokens.lg),
+                  // **COSA STAI FACENDO, sopra il pulsante.** Ordine DI voce 07,
+                  // fino al riconoscimento.
+                  if (!_riconosciuto) ...[
+                    Text(
+                      LaPromessaDelViaggio.cosaStaiFacendo,
+                      key: const Key('viaggio_cosa_stai_facendo'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textPrimary),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                  ],
+                  FilledButton.icon(
+                    key: const Key('viaggio_scendi'),
+                    onPressed: pronto ? _scendi : null,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: palette.primary,
+                      foregroundColor: palette.onPrimary,
+                      minimumSize: const Size.fromHeight(56),
+                    ),
+                    icon: const Icon(Icons.south_rounded),
+                    label: Text('Scendi', style: TypographyTokens.etichetta()),
+                  ),
+                  // **COSA OTTERRAI, subito sotto il pulsante.** Ordine DI voce
+                  // 07, fino al riconoscimento.
+                  if (!_riconosciuto) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    Text(
+                      LaPromessaDelViaggio.cosaOtterrai,
+                      key: const Key('viaggio_cosa_otterrai'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft)),
-                ],
-                if (!siPuo && _caricato) ...[
-                  const SizedBox(height: SpacingTokens.md),
-                  DepthCard(
-                    padding: const EdgeInsets.all(SpacingTokens.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // **LA RIGA DEL TETTO DI OGGI**, che dice quale dei due
-                        // limiti ha parlato: il metodo oppure il piano.
-                        if (percheNoOggi != null)
-                          ParagrafiDiLettura(
-                            key: const Key('viaggio_tetto_di_oggi'),
-                            testo: percheNoOggi,
-                            stile: TypographyTokens.lettura()
-                                .copyWith(color: palette.goldSoft),
-                          ),
-                        if (percheNoOggi != null)
-                          const SizedBox(height: SpacingTokens.sm),
-                        // **E LA FONTE DELL'ATTESA**, che resta e vale solo per
-                        // chi non ha ancora riconosciuto: a chi ha finito le
-                        // domande del piano, citare Harner sarebbe una scusa.
-                        if (!_riconosciuto)
-                          ParagrafiDiLettura(
-                            key: const Key('viaggio_non_oggi'),
-                            testo: IQuattroViaggi.percheSiAspetta,
-                            stile: TypographyTokens.lettura()
-                                .copyWith(color: ColorTokens.textSecondary),
-                          ),
-                      ],
+                          .copyWith(color: ColorTokens.textSecondary),
                     ),
-                  ),
-                ],
-                const SizedBox(height: SpacingTokens.lg),
-                // **COSA STAI FACENDO, sopra il pulsante.** Ordine DI voce 07,
-                // fino al riconoscimento.
-                if (!_riconosciuto) ...[
-                  Text(
-                    LaPromessaDelViaggio.cosaStaiFacendo,
-                    key: const Key('viaggio_cosa_stai_facendo'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: ColorTokens.textPrimary),
-                  ),
-                  const SizedBox(height: SpacingTokens.sm),
-                ],
-                FilledButton.icon(
-                  key: const Key('viaggio_scendi'),
-                  onPressed: pronto
-                      ? _scendi
-                      : null,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary,
-                    minimumSize: const Size.fromHeight(56),
-                  ),
-                  icon: const Icon(Icons.south_rounded),
-                  label: Text('Scendi', style: TypographyTokens.etichetta()),
-                ),
-                // **COSA OTTERRAI, subito sotto il pulsante.** Ordine DI voce
-                // 07, fino al riconoscimento.
-                if (!_riconosciuto) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    LaPromessaDelViaggio.cosaOtterrai,
-                    key: const Key('viaggio_cosa_otterrai'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary),
-                  ),
-                ],
+                  ],
                 ],
               ],
             ),
@@ -1146,8 +1136,7 @@ class _ViaggioDelloSciamanoScreenState
             key: const Key('viaggio_tamburo'),
             // **APRE IL RITO DEL TAMBURO**, ordine DI voce 13: qui c'era il
             // nutrimento in un clic, una volta al giorno.
-            onPressed: () =>
-                setState(() => _fase = FaseDelViaggio.nutrimento),
+            onPressed: () => setState(() => _fase = FaseDelViaggio.nutrimento),
             style: OutlinedButton.styleFrom(
               foregroundColor: palette.gold,
               side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
@@ -1440,14 +1429,23 @@ class _ViaggioDelloSciamanoScreenState
     final suo = _suoAnimale;
     final conArticolo = '${suo.articolo}${suo.name}';
     final lontano = NitidezzaDellaScena.laRiga(_quantoELontano);
+    final misura = LeSagome.misure[suo.name] ?? const Size(898, 760);
     return [
-      AspectRatio(
-        aspectRatio: 898 / 760,
-        child: Image.asset(
-          suo.fullPath,
-          key: const Key('viaggio_animale_riconosciuto'),
-          fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+      // **CON LA MISURA VERA DELL'ANIMALE**, ordine DI voce 10, e alto al
+      // massimo quanto il Lupo a tutta larghezza: il Gufo, alto e stretto,
+      // altrimenti spingerebbe il nome e le tre azioni sotto la piega.
+      Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 340),
+          child: AspectRatio(
+            aspectRatio: misura.width / misura.height,
+            child: Image.asset(
+              suo.fullPath,
+              key: const Key('viaggio_animale_riconosciuto'),
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            ),
+          ),
         ),
       ),
       const SizedBox(height: SpacingTokens.md),
@@ -1461,14 +1459,15 @@ class _ViaggioDelloSciamanoScreenState
       Text(
         LaPromessaDelViaggio.restaConTe(conArticolo),
         key: const Key('viaggio_resta_con_te'),
-        style: TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+        style:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
       ),
       const SizedBox(height: SpacingTokens.xs),
       Text(
         LaPromessaDelViaggio.siAllontana(femminile: suo.femminile),
         key: const Key('viaggio_si_allontana'),
-        style: TypographyTokens.corpo()
-            .copyWith(color: ColorTokens.textSecondary),
+        style:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textSecondary),
       ),
       // **LA RIGA DELLO STATO RESTA COM'E'**, ordine DI voce 13, e sta qui
       // perche' e' qui che si sceglie se nutrirlo.
@@ -1477,7 +1476,8 @@ class _ViaggioDelloSciamanoScreenState
         Text(
           lontano,
           key: const Key('viaggio_lontano_riga'),
-          style: TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
+          style:
+              TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
         ),
       ],
       const SizedBox(height: SpacingTokens.lg),
@@ -1525,7 +1525,8 @@ class _ViaggioDelloSciamanoScreenState
           minimumSize: const Size.fromHeight(52),
         ),
         icon: const Icon(Icons.pets_rounded),
-        label: Text(LaPromessaDelViaggio.chiediUnSegno(femminile: suo.femminile),
+        label: Text(
+            LaPromessaDelViaggio.chiediUnSegno(femminile: suo.femminile),
             style: TypographyTokens.etichetta()),
       ),
     ];
@@ -1721,16 +1722,13 @@ class _ViaggioDelloSciamanoScreenState
     );
   }
 
-  /// **LA LENTE: SPOSTA E SCOPRI.** Ordine DE voce 03.
+  /// **IL VELO CHE SI SCOSTA, al posto della lente.** Ordine DI voce 10.
   ///
-  /// L'animale occupa la scena piena sotto un velo scuro e sfocato, e il dito
-  /// muove una lente che rivela in chiaro **solo cio' che copre** e **solo
-  /// dentro l'area concessa a questa discesa**.
-  ///
-  /// **La testa non si vede prima della quarta**, e non per una regola scritta
-  /// qui: per costruzione. Tutte e tre le aree stanno sotto il punto piu'
-  /// basso della testa di quell'animale, e il centro della lente e' tenuto
-  /// dentro l'area rientrato del proprio raggio. Vedi `DoveStaLaTesta`.
+  /// **Qui c'era la lente dell'ordine DE voce 03**: un cerchio che scopriva
+  /// soltanto dentro una fascia orizzontale per discesa, e il bordo netto della
+  /// fascia tagliava zampe e coda. Adesso la cenere sta sulla sagoma vera e la
+  /// scosta la mano, un quarto del corpo per discesa, la testa mai prima della
+  /// quarta; e cio' che si scosta si conserva nel Diario.
   Widget _laLente(MaestroPalette palette) {
     final quale = _diario.quanteDiscese;
     final animale = _animale(_seguito);
@@ -1741,58 +1739,34 @@ class _ViaggioDelloSciamanoScreenState
           .addPostFrameCallback((_) => unawaited(_risaliDallaLente()));
       return const SizedBox.shrink();
     }
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: LenteCheScopre(
-            key: Key('viaggio_lente_${animale.name}'),
-            nome: animale.name,
-            immagine: animale.fullPath,
-            discesa: quale,
-          ),
+    return IlVeloCheSiScosta(
+      key: Key('viaggio_lente_${animale.name}'),
+      nome: animale.name,
+      immagine: animale.fullPath,
+      quale: quale,
+      giaScoperte: _diario.celleScoperteDi(animale.name),
+      quandoCambia: (celle) =>
+          unawaited(_diario.segnaCelleScoperte(animale.name, celle)),
+      palette: palette,
+      piede: FilledButton.icon(
+        key: const Key('viaggio_risali'),
+        onPressed: () => unawaited(_risaliDallaLente()),
+        style: FilledButton.styleFrom(
+          backgroundColor: palette.primary,
+          foregroundColor: palette.onPrimary,
+          minimumSize: const Size.fromHeight(52),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  quale > DoveStaLaTesta.quanteFasce
-                      ? 'Il velo è caduto.'
-                      : quale == DoveStaLaTesta.quanteFasce
-                          ? 'Oggi la lente scopre il suo volto.'
-                          : 'Passa il dito: la lente scopre solo dove può, oggi.',
-                  key: const Key('viaggio_istruzione_lente'),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft, letterSpacing: 1.2),
-                ),
-                const SizedBox(height: SpacingTokens.md),
-                FilledButton.icon(
-                  key: const Key('viaggio_risali'),
-                  onPressed: () => unawaited(_risaliDallaLente()),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary,
-                    minimumSize: const Size.fromHeight(52),
-                  ),
-                  icon: const Icon(Icons.north_rounded),
-                  label: Text('Risali', style: TypographyTokens.etichetta()),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        icon: const Icon(Icons.north_rounded),
+        label: Text('Risali', style: TypographyTokens.etichetta()),
+      ),
     );
   }
 
   /// **LA RISALITA: la scena che si riporta su.**
   Widget _laRisalita(MaestroPalette palette) {
     final scena = _scena;
-    if (scena == null) return const SizedBox.shrink();
+    final responso = _responso;
+    if (scena == null || responso == null) return const SizedBox.shrink();
     // **IL NOME SI DICE UNA VOLTA SOLA**, alla discesa della rivelazione.
     // Ordine DI voce 11: dopo, la riga *"E' il Lupo. Adesso lo conosci."* e la
     // card da condividere tornavano a ogni discesa, cioe' l'apparato della
@@ -1850,11 +1824,7 @@ class _ViaggioDelloSciamanoScreenState
           // poi risposta descrittiva diretta"*.
           TitoloCheNonSiRompe(
             key: const Key('viaggio_titolo_della_risposta'),
-            testo: LaVoceDelMondoDiSotto.titolo(
-              scena,
-              LaVoceDelMondoDiSotto.temaDi(_temaScelto),
-              giornoDellaDiscesa: _giornoDellaScena,
-            ),
+            testo: responso.titolo,
             stile: TypographyTokens.titoloScheda()
                 .copyWith(color: ColorTokens.textPrimary),
           ),
@@ -1865,12 +1835,7 @@ class _ViaggioDelloSciamanoScreenState
           // scena senza la domanda, senza un gesto da fare e senza dire da
           // dove veniva. Parole del fondatore: *"le risposte fanno cagare,
           // scarne e non seguono le regole delle risposte"*.
-          for (final paragrafo in LaVoceDelMondoDiSotto.paragrafi(
-            scena: scena,
-            temaDomanda: LaVoceDelMondoDiSotto.temaDi(_temaScelto),
-            temaInLettere: LaVoceDelMondoDiSotto.temaInLettereDi(_temaScelto),
-            giornoDellaDiscesa: _giornoDellaScena,
-          )) ...[
+          for (final paragrafo in responso.paragrafi) ...[
             ParagrafiDiLettura(
               key: Key('viaggio_scena_${paragrafo.hashCode}'),
               testo: paragrafo,

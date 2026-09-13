@@ -3,208 +3,165 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/dove_sta_la_testa.dart';
-import 'package:esoteric_circle/features/maestri/caligo/viaggio/la_lente_che_scopre.dart';
+import 'package:esoteric_circle/core/viaggio/il_velo_dell_animale.dart';
+import 'package:esoteric_circle/core/viaggio/le_sagome_in_celle.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 
-/// **LA GUARDIA DELLA VOCE DE.03, sotto la Regola H.**
+/// **LA GUARDIA DELLA TESTA, sotto la Regola H.** Nata con l'ordine DE voce
+/// 03 per la lente, riscritta con l'ordine DI voce 10 per il velo che si
+/// scosta, 13 settembre 2026.
 ///
-/// *"Alla prima, seconda e terza discesa la prova dimostra che nessun pixel
-/// del rettangolo della testa risulta mai scoperto, per tutti e dodici gli
-/// animali, e che alla quarta lo e'."*
+/// *"La regione della testa, gia' tabulata per i dodici animali, e' protetta
+/// fino alla quarta discesa e non si scosta: alla quarta il velo cade da solo,
+/// come oggi."*
 ///
 /// **LE DUE META', e la seconda e' quella che fa di questa una guardia.** La
 /// prima dimostra che la testa resta coperta. Da sola sarebbe verde anche se
-/// la lente non si aprisse mai, e una lente che non si apre non e' una lente.
-/// La seconda dimostra che **alla quarta la testa e' raggiungibile**, cioe'
-/// che il velo cade davvero.
+/// il velo non si scostasse mai, e un velo che non si scosta non e' un gesto.
+/// La seconda dimostra che **alla quarta il velo cade davvero**, e che prima
+/// della quarta **tutto il resto si puo' scostare**.
+///
+/// **Qui si guarda la regola, cella per cella**; i pixel dipinti li guarda
+/// `il_velo_c_e_davvero_sul_telefono_test`, perche' una regola giusta dipinta
+/// male e' gia' successa una volta, con la lente sul 767f596c.
 void main() {
-  /// **QUANTE POSIZIONI DEL DITO SI PROVANO PER OGNI ANIMALE E DISCESA.**
+  /// **QUANTE POSIZIONI DEL DITO SI PROVANO PER OGNI ANIMALE.**
   ///
-  /// Ventuno per ventuno, e **fuori dai bordi**: da meno mezzo a uno e mezzo,
-  /// cosi' la prova include il caso che conta davvero, cioe' **il dito che
-  /// spinge oltre il confine**. Un dito che si muove solo dentro l'area non
-  /// puo' scoprire niente di proibito, e una prova che gli dia solo quelli
-  /// misura la propria cortesia.
-  const quanti = 21;
+  /// Quarantuno per quarantuno, e **fuori dai bordi**: da meno mezzo a uno e
+  /// mezzo, cosi' la prova include il dito che spinge oltre il confine.
+  const quanti = 41;
   const da = -0.5;
   const a = 1.5;
 
-  /// La scena di prova: un telefono vero, non gli ottocento per seicento di
-  /// fabbrica. Vedi la memoria della finestra di prova irreale.
   const scena = Size(390, 844);
 
-  test('REGOLA H, PRIMA META: nella prima, seconda e terza discesa la lente '
-      'non tocca MAI il rettangolo della testa, per tutti e dodici', () {
+  test('REGOLA H, PRIMA META: nessuna cella che si puo scostare tocca il '
+      'rettangolo della testa, e la mano non ci arriva da nessun punto, per '
+      'tutti e dodici', () {
     // **IL CARDINALE MINIMO, che questa guardia dichiara.** Dodici animali nel
-    // catalogo, dodici righe nel file delle teste: se un giorno ne arrivasse
-    // un tredicesimo senza la sua riga, la lente non saprebbe dove non
-    // guardare, e questa prova cade col numero in mano.
+    // catalogo, dodici righe nel file delle teste, dodici sagome: se un giorno
+    // ne arrivasse un tredicesimo senza la sua riga, il velo non saprebbe
+    // quale parte proteggere, e questa prova cade col numero in mano.
     expect(DoveStaLaTesta.quantiSono, AnimalCatalog.animals.length,
         reason: 'il file delle teste e il catalogo non hanno lo stesso numero '
             'di animali: uno dei due ha una riga che l\'altro non ha');
     expect(DoveStaLaTesta.quantiSono, 12);
+    expect(LeSagome.griglie.length, 12);
+    expect(LeSagome.misure.length, 12);
 
     var provate = 0;
-    var peggiore = double.infinity;
-    String dovePeggiore = '';
-
+    var celle = 0;
     for (final animale in AnimalCatalog.animals) {
-      final testa = DoveStaLaTesta.di(animale.name);
-      expect(testa, isNotNull,
-          reason: '${animale.name} non ha il rettangolo della testa: la lente '
-              'non sa dove non guardare, e lo scoprirebbe per caso');
+      final velo = IlVeloDellAnimale(animale.name);
+      final t = DoveStaLaTesta.di(animale.name);
+      expect(t, isNotNull,
+          reason: '${animale.name} non ha il rettangolo della testa');
+      expect(velo.corpo.length, greaterThan(300),
+          reason: '${animale.name} ha una sagoma di ${velo.corpo.length} '
+              'celle: la griglia non e\' stata letta');
+      expect(velo.testa, isNotEmpty,
+          reason: '${animale.name}: nessuna cella di testa, e allora la testa '
+              'si scosterebbe alla prima discesa');
+      const m = DoveStaLaTesta.margineDiSicurezza;
+      final testa =
+          Rect.fromLTRB(t!.left - m, t.top - m, t.right + m, t.bottom + m);
 
-      // Il rettangolo dell'immagine dentro la scena, come `BoxFit.contain`.
-      final k = scena.width / 900 < scena.height / 760
-          ? scena.width / 900
-          : scena.height / 760;
-      final immagine = Rect.fromLTWH((scena.width - 900 * k) / 2,
-          (scena.height - 760 * k) / 2, 900 * k, 760 * k);
-      final raggio = immagine.width * DoveStaLaTesta.raggioDellaLente;
-      final testaInPunti = Rect.fromLTRB(
-        immagine.left + immagine.width * testa!.left,
-        immagine.top + immagine.height * testa.top,
-        immagine.left + immagine.width * testa.right,
-        immagine.top + immagine.height * testa.bottom,
-      );
+      // **NESSUNA CELLA SCOSTABILE HA UN PUNTO IN COMUNE COL RETTANGOLO.** Una
+      // cella scostata mostra tutti i suoi pixel: se entrasse nella testa
+      // anche di un filo, quel filo si vedrebbe prima della quarta.
+      for (final i in velo.scostabile) {
+        celle++;
+        expect(testa.overlaps(velo.cella(i)), isFalse,
+            reason: '${animale.name}: la cella $i si puo\' scostare e tocca '
+                'il rettangolo della testa ${velo.cella(i)}');
+      }
 
-      for (var discesa = 0; discesa < 3; discesa++) {
-        final area = DoveStaLaTesta.areaDellaDiscesa(animale.name, discesa);
-        for (var ix = 0; ix < quanti; ix++) {
-          for (var iy = 0; iy < quanti; iy++) {
-            final dito = Offset(
-              immagine.left + immagine.width * (da + (a - da) * ix / (quanti - 1)),
-              immagine.top + immagine.height * (da + (a - da) * iy / (quanti - 1)),
-            );
-            final centro = DoveStaLaTesta.tieniDentro(
-                dito: dito, immagine: immagine, area: area, raggio: raggio);
-            final cerchio = Rect.fromCircle(center: centro, radius: raggio);
-            provate++;
-            // **QUANTO MANCA perche' il cerchio tocchi la testa.** Positivo
-            // vuol dire che non la tocca.
-            final margine = cerchio.top - testaInPunti.bottom;
-            if (margine < peggiore) {
-              peggiore = margine;
-              dovePeggiore = '${animale.name}, discesa ${discesa + 1}';
-            }
-            expect(cerchio.overlaps(testaInPunti), isFalse,
-                reason: 'alla discesa ${discesa + 1} di ${animale.name} la '
-                    'lente centrata in $centro scopre il rettangolo della '
-                    'testa $testaInPunti: il nome dell\'animale si legge '
-                    'prima della quarta discesa');
+      // **E LA MANO NON LA RAGGIUNGE DA NESSUN PUNTO**, nemmeno spingendo
+      // oltre i bordi dell'illustrazione.
+      for (var ix = 0; ix < quanti; ix++) {
+        for (var iy = 0; iy < quanti; iy++) {
+          final dito = Offset(da + (a - da) * ix / (quanti - 1),
+              da + (a - da) * iy / (quanti - 1));
+          provate++;
+          for (final i
+              in velo.vicine(dito, IlVeloCheSiScosta.raggioDellaMano)) {
+            expect(velo.testa.contains(i), isFalse,
+                reason: '${animale.name}: il dito in $dito scosta la cella $i, '
+                    'che e\' testa');
           }
         }
       }
     }
-
     // ignore: avoid_print
-    print('ORDINE DE VOCE 03: provate $provate posizioni della lente; il caso '
-        "piu' stretto e' $dovePeggiore, dove fra la cima della lente "
-        'e il fondo della testa restano ${peggiore.toStringAsFixed(1)} punti');
-    expect(provate, 12 * 3 * quanti * quanti,
+    print('ORDINE DI VOCE 10, LA TESTA: $celle celle scostabili guardate, '
+        '$provate posizioni del dito, nessuna tocca la testa');
+    expect(provate, 12 * quanti * quanti,
         reason: 'la prova ha guardato meno posizioni di quante ne aveva '
             "promesse: un ciclo si e' fermato prima");
-    expect(peggiore, greaterThan(0),
-        reason: 'in qualche caso la lente arriva a toccare la testa');
+    expect(celle, greaterThan(12 * 300));
   });
 
-  test("REGOLA H, SECONDA META: alla QUARTA discesa la lente ARRIVA sulla "
-      "testa, per tutti e dodici", () {
-    // **Senza questa meta' la prima sarebbe verde anche con la lente
-    // spenta.** Una lente che non si apre mai copre la testa benissimo.
-    //
-    // **LA QUARTA E' LA DISCESA DELLA TESTA**, e non piu' la discesa in cui
-    // non c'e' niente da scoprire. Ordine DG, 12 settembre 2026: *"solo
-    // l'ultimo giorno la lente scoprira' la testa dell'animale"*. Prima qui
-    // si pretendeva l'immagine intera, cioe' **il velo caduto**: il quarto
-    // giorno l'animale si vedeva tutto senza passare la lente, e la lente non
-    // scopriva niente perche' non c'era piu' niente da scoprire.
-    for (final animale in AnimalCatalog.animals) {
-      final testa = DoveStaLaTesta.di(animale.name)!;
-      final area = DoveStaLaTesta.areaDellaDiscesa(animale.name, 3);
-      expect(area.top, 0,
-          reason: 'alla quarta discesa la lente di ${animale.name} non '
-              'arriva in cima: la testa resterebbe fuori');
-      expect(area.bottom, DoveStaLaTesta.sottoLaTesta(animale.name),
-          reason: "alla quarta discesa l'area di ${animale.name} non e la sua "
-              'testa: o e tutta l immagine, e allora non c e niente da '
-              'scoprire, o e una fascia sbagliata');
-      // E il centro della testa e' dentro l'area concessa.
-      expect(area.contains(testa.center), isTrue,
-          reason: 'alla quarta discesa il centro della testa di '
-              "${animale.name} sta fuori dall'area concessa");
-      // **E DOPO LA QUARTA non c'e' piu' nessun limite**: e' lo stato della
-      // card della rivelazione, dove l'animale si vede intero.
-      expect(DoveStaLaTesta.areaDellaDiscesa(animale.name, 4),
-          const Rect.fromLTRB(0, 0, 1, 1),
-          reason: 'dopo la quarta discesa ${animale.name} ha ancora un '
-              'limite: il velo non cade mai');
-    }
-  });
+  /// Monta il velo per [nome] alla discesa [quale], con [gia] celle scostate
+  /// nelle discese di prima, e torna il pittore della cenere.
+  Future<PittoreDellaCenere> apri(
+      WidgetTester tester, GuideAnimal animale, int quale, Set<int> gia) async {
+    await tester.pumpWidget(MaterialApp(
+      home: SizedBox(
+        width: scena.width,
+        height: scena.height,
+        child: IlVeloCheSiScosta(
+          key: ValueKey('${animale.name}$quale${gia.length}'),
+          nome: animale.name,
+          immagine: animale.fullPath,
+          quale: quale,
+          giaScoperte: gia,
+          quandoCambia: (_) {},
+          palette: MaestroPalette.caligo,
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 50));
+    return tester
+        .widget<CustomPaint>(find.byKey(const Key('viaggio_cenere')))
+        .painter! as PittoreDellaCenere;
+  }
 
-  test('LE TRE AREE STANNO TUTTE SOTTO LA TESTA, e sono tre fasce distinte',
-      () {
-    for (final animale in AnimalCatalog.animals) {
-      final sotto = DoveStaLaTesta.sottoLaTesta(animale.name);
-      Rect? prima;
-      for (var d = 0; d < 3; d++) {
-        final area = DoveStaLaTesta.areaDellaDiscesa(animale.name, d);
-        expect(area.top, greaterThanOrEqualTo(sotto - 0.0001),
-            reason: "l'area della discesa ${d + 1} di ${animale.name} "
-                "comincia sopra il punto piu' basso della testa");
-        expect(area.height, greaterThan(0.01),
-            reason: "l'area della discesa ${d + 1} di ${animale.name} e' "
-                "alta quasi zero: quella discesa non scopre niente");
-        if (prima != null) {
-          expect(area.top, lessThan(prima.top),
-              reason: 'le aree non salgono: la discesa ${d + 1} di '
-                  '${animale.name} non sta sopra la precedente');
-        }
-        prima = area;
-      }
-    }
-  });
-
-  testWidgets("IL VELO C'E' NELLE PRIME TRE DISCESE E NON C'E' "
-      "ALLA QUARTA", (tester) async {
+  testWidgets(
+      'REGOLA H, SECONDA META: prima della quarta, scostato tutto il possibile, '
+      'resta coperta esattamente la testa; alla quarta il velo cade da solo, '
+      'per tutti e dodici', (tester) async {
     await tester.binding.setSurfaceSize(scena);
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
-    Future<void> apri(int discesa) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: LenteCheScopre(
-            nome: 'Lupo',
-            immagine: AnimalCatalog.animals.first.fullPath,
-            discesa: discesa,
-          ),
-        ),
-      ));
-      await tester.pump(const Duration(milliseconds: 50));
-    }
+    for (final animale in AnimalCatalog.animals) {
+      final velo = IlVeloDellAnimale(animale.name);
+      for (var quale = 0;
+          quale < IlVeloDellAnimale.discesePrimaDellaTesta;
+          quale++) {
+        final p = await apri(tester, animale, quale, velo.scostabile);
+        expect(p.quanta, 1,
+            reason: '${animale.name}: alla discesa ${quale + 1} il velo sta '
+                'cadendo, e la testa si vedrebbe prima della quarta');
+        expect(p.coperte, velo.testa,
+            reason: '${animale.name}: alla discesa ${quale + 1}, scostato '
+                'tutto il possibile, la cenere non sta esattamente sulla '
+                'testa: o scopre un pezzo di testa, o copre un pezzo che si '
+                'era scostato');
+        expect(find.text('Resta velato soltanto il volto.'), findsOneWidget);
+      }
 
-    final velo = find.byKey(const Key('viaggio_velo_dell_animale'));
-    // **IL VELO C'E' IN TUTTE E QUATTRO LE DISCESE**, e alla quarta copre la
-    // sola testa: ordine DG, 12 settembre 2026.
-    for (var d = 0; d <= DoveStaLaTesta.quanteFasce; d++) {
-      await apri(d);
-      // ignore: avoid_print
-      print('ORDINE DE VOCE 03: alla discesa ${d + 1} i veli a schermo sono '
-          '${velo.evaluate().length}');
-      expect(velo, findsOneWidget,
-          reason: "alla discesa ${d + 1} non c'e' nessun velo: "
-              "l'animale si vede tutto, testa compresa");
+      // **ALLA QUARTA CADE DA SOLO**, anche senza nessuna cella scostata.
+      await apri(tester, animale, IlVeloDellAnimale.discesePrimaDellaTesta, {});
+      await tester.pump(IlVeloCheSiScosta.quantoDuraLaCaduta);
+      await tester.pump(IlVeloCheSiScosta.vitaDellaParticella);
+      final dopo = tester
+          .widget<CustomPaint>(find.byKey(const Key('viaggio_cenere')))
+          .painter! as PittoreDellaCenere;
+      expect(dopo.coperte.isEmpty || dopo.quanta == 0, isTrue,
+          reason: '${animale.name}: alla quarta discesa il velo non cade, e '
+              'la testa non si vede mai');
+      expect(find.text('Oggi il velo cade da solo.'), findsOneWidget);
     }
-
-    // **E CADE DOPO LA QUARTA**, che e' lo stato della card della
-    // rivelazione: li' l'animale si vede intero, e la funzione finisce.
-    await apri(DoveStaLaTesta.quanteFasce + 1);
-    await tester.pump(LenteCheScopre.quantoDuraLaCaduta);
-    await tester.pump(const Duration(milliseconds: 100));
-    // ignore: avoid_print
-    print('ORDINE DG: compiute le quattro discese i veli a schermo sono '
-        '${velo.evaluate().length}');
-    expect(velo, findsNothing,
-        reason: "compiute le quattro discese il velo e' ancora li': la testa "
-            "non si vede mai, e la funzione non finisce");
   });
 }

@@ -10,7 +10,7 @@ import '../angels/angelo_ingrandito.dart';
 import '../../core/assets/family_image.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
-import '../maestri/caligo/viaggio/la_lente_che_scopre.dart';
+import '../maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'riquadro_della_scelta.dart';

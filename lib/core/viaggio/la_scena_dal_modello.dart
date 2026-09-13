@@ -18,9 +18,20 @@ typedef PezziScelti = ({
   PezzoDellaScena momento,
 });
 
-/// La firma di una chiamata al modello per la scena, iniettabile nelle prove.
+/// **I PEZZI CHE LA RISPOSTA PUO' CONTENERE**, id per id: sono gli elenchi
+/// chiusi dello schema della risposta. Ordine DI voce 16: vedi
+/// [LaScenaDalModello.ammessi].
+typedef PezziAmmessi = ({
+  List<String> luoghi,
+  List<String> cose,
+  List<String> gesti,
+  List<String> momenti,
+});
+
+/// La firma di una chiamata al modello per la scena, iniettabile nelle prove:
+/// riceve anche i pezzi ammessi, da cui la chiamata vera costruisce lo schema.
 typedef ChiamataDellaScena = Future<String?> Function(
-    String istruzione, String richiesta);
+    String istruzione, String richiesta, PezziAmmessi ammessi);
 
 /// **CIO' CHE IL MODELLO SA DELLA PERSONA, per scegliere la scena.** Ordine DI
 /// voce 03: *"la domanda per esteso, il tema classificato, il nome
@@ -47,7 +58,9 @@ class CioCheSiSa {
   /// Il riassunto che il Diario gia' scrive per i Maestri.
   final String memoria;
 
-  /// Gli id dei pezzi delle ultime cinque scene, dalla piu' recente.
+  /// Gli id dei pezzi delle scene di prima, dalla piu' recente: **tutta la
+  /// storia che il Diario conserva**, ordine DI voce 16. Al modello se ne
+  /// elencano cinque; la lettura della risposta le guarda tutte.
   final List<List<String>> ultimeScene;
 }
 
@@ -119,11 +132,10 @@ abstract final class LaScenaDalModello {
     b.write('La scena è la risposta simbolica alla domanda. Scegli i pezzi '
         'perché parlino di quella domanda e di quella persona, del suo tema, '
         'della sua carta natale e di ciò che ricorda. Le scene precedenti '
-        'servono a non ripeterti: la scena di oggi deve essere nuova. Puoi '
-        'riprendere al massimo UN pezzo da una scena precedente, soltanto se '
-        'oggi ha un senso preciso; tutti gli altri devono essere diversi. Non '
-        'scegliere due pezzi che ripetono la stessa parola. Rispondi solo con '
-        'i quattro id.');
+        'servono a non ripeterti: la scena di oggi deve essere nuova. I luoghi '
+        'e i gesti delle scene precedenti non si possono ripetere; la cosa può '
+        'tornare, soltanto se oggi ha un senso preciso. Non scegliere due pezzi '
+        'che ripetono la stessa parola. Rispondi solo con i quattro id.');
     return b.toString();
   }
 
@@ -154,10 +166,90 @@ abstract final class LaScenaDalModello {
     return b.toString().trimRight();
   }
 
+  /// **I PEZZI AMMESSI OGGI**: tutti, tranne i luoghi e i gesti delle ultime
+  /// cinque scene. Ordine DI voce 16, 13 settembre 2026.
+  ///
+  /// **La misura.** La prova a cento discese col modello vero ha trovato
+  /// **scartate da 38 a 51 scene su cento**: sulla lunga distanza il modello
+  /// torna sui suoi pezzi preferiti e ne riprende piu' di uno dalle cinque
+  /// scene di prima, e la lettura, giustamente, lo scarta. Meta' delle discese
+  /// ricadeva sulla composizione deterministica, cioe' su una scena che non
+  /// nasce dalla persona. Nella prova da dieci discese della voce DI.03 non si
+  /// vedeva.
+  ///
+  /// **Adesso la regola sta nello schema**, come gli id: la risposta non puo'
+  /// contenere un luogo o un gesto gia' visto. **La cosa puo' tornare**, perche'
+  /// e' l'unico pezzo che il richiamo guarda, e il momento, che ne ha quattro
+  /// in tutto. Cosi' al massimo un pezzo e' ripreso, per costruzione.
+  ///
+  /// **MA LA COSA NON TORNA SUBITO, e non torna sempre.** Con la cosa libera
+  /// del tutto il modello, per una sorella che aspetta un figlio, tornava sul
+  /// seme una discesa su tre: il richiamo compariva in trentadue discese su
+  /// cento, e la stessa riga quattro volte. L'ordine DE voce 11 lo vuole raro.
+  /// Non torna una cosa delle **due** scene di prima, e non torna una cosa
+  /// gia' tornata due volte nelle cinque.
+  ///
+  /// **E NON TORNA CIO' CHE TORNA SEMPRE.** Per la stessa domanda il modello
+  /// si addensa sugli stessi posti e sugli stessi oggetti, la grotta e la
+  /// pietra spaccata per il blocco, e appena lo schema glielo permette ci
+  /// ritorna: due responsi con tre pezzi su quattro uguali superavano il
+  /// quaranta per cento di somiglianza, misurato 41,3. Non torna un luogo ne'
+  /// una cosa gia' usati due volte nelle ultime [memoriaDeiRitorni] scene.
+  static PezziAmmessi ammessi(
+      GuideAnimal animale, List<List<String>> ultimeScene) {
+    final dieci = <String, int>{};
+    for (final s in ultimeScene.take(memoriaDeiRitorni)) {
+      for (final id in s.toSet()) {
+        dieci[id] = (dieci[id] ?? 0) + 1;
+      }
+    }
+    bool tornaTroppo(String id) => (dieci[id] ?? 0) >= 2;
+    final cinque =
+        ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro).toList();
+    final visti = {for (final s in cinque) ...s};
+    final vicine = {for (final s in cinque.take(2)) ...s};
+    final volte = <String, int>{};
+    for (final s in cinque) {
+      for (final id in s.toSet()) {
+        volte[id] = (volte[id] ?? 0) + 1;
+      }
+    }
+    List<String> fuori(List<PezzoDellaScena> tutti, {bool nuovi = true}) => [
+          for (final p in tutti)
+            if (!nuovi || !visti.contains(p.id)) p.id,
+        ];
+    return (
+      luoghi: [
+        for (final l in fuori(VocabolarioDelViaggio.luoghi))
+          if (!tornaTroppo(l)) l,
+      ],
+      cose: [
+        for (final c in VocabolarioDelViaggio.cose)
+          if (!vicine.contains(c.id) &&
+              (volte[c.id] ?? 0) < 2 &&
+              !tornaTroppo(c.id))
+            c.id,
+      ],
+      gesti: fuori(GestiDellAnimale.di(animale.name)),
+      momenti: fuori(VocabolarioDelViaggio.momenti, nuovi: false),
+    );
+  }
+
+  /// **QUANTE SCENE RICORDA LO SCHEMA PER I RITORNI**: dieci.
+  static const int memoriaDeiRitorni = 10;
+
   /// **CHIEDE I QUATTRO PEZZI.** Nullo quando decide la via deterministica:
   /// tetto tecnico raggiunto, modello muto o lento, risposta fuori dal
   /// vocabolario, combinazione che la composizione non accetta. Il perche'
   /// va a [seGuasto].
+  ///
+  /// **UNA SCENA SCARTATA SI RICHIEDE UNA VOLTA**, ordine DI voce 16, senza
+  /// il luogo e la cosa della risposta scartata. La prova a cento discese col
+  /// modello vero: con la regola della scena rifatta la lettura ne scartava
+  /// meta', e meta' delle discese tornava a nascere da un hash invece che
+  /// dalla persona. Il tempo c'e': la chiamata parte a discesa finita e si
+  /// aspetta solo alla risalita, dopo la nebbia, l'incontro e il velo. La
+  /// seconda chiamata passa dal tetto tecnico come la prima.
   static Future<PezziScelti?> chiedi(
     CioCheSiSa s, {
     ChiamataDellaScena? chiamata,
@@ -165,19 +257,49 @@ abstract final class LaScenaDalModello {
         IlTettoDelleChiamate.prendiUnaChiamata,
     void Function(Object errore)? seGuasto,
   }) async {
-    if (!await prendiUnaChiamata()) return null;
-    try {
-      final chiedi =
-          chiamata ?? (String i, String r) => _chiamataVera(i, r, s.animale);
-      final risposta =
-          await chiedi(istruzione(s.animale), richiesta(s)).timeout(pazienza);
-      final scelti = leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
-      if (scelti != null) return scelti;
-      seGuasto?.call(ScenaFuoriDalVocabolario(risposta));
-    } catch (errore) {
-      seGuasto?.call(errore);
+    final chiedi = chiamata ?? _chiamataVera;
+    var consentiti = ammessi(s.animale, s.ultimeScene);
+    for (var tentativo = 0; tentativo < 2; tentativo++) {
+      if (!await prendiUnaChiamata()) return null;
+      try {
+        final risposta =
+            await chiedi(istruzione(s.animale), richiesta(s), consentiti)
+                .timeout(pazienza);
+        final scelti = leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
+        if (scelti != null) return scelti;
+        seGuasto?.call(ScenaFuoriDalVocabolario(risposta));
+        consentiti = _senzaLaScartata(consentiti, risposta);
+      } catch (errore) {
+        // Un modello muto o lento non si richiama: la risalita non aspetta.
+        seGuasto?.call(errore);
+        return null;
+      }
     }
     return null;
+  }
+
+  /// I pezzi ammessi, senza il luogo e la cosa della risposta scartata,
+  /// finche' ne resta almeno uno per elenco.
+  static PezziAmmessi _senzaLaScartata(PezziAmmessi a, String? risposta) {
+    Object? j;
+    try {
+      j = risposta == null ? null : jsonDecode(risposta);
+    } catch (errore) {
+      // Una risposta che non e' JSON non dice cosa togliere: resta com'era.
+      return a;
+    }
+    if (j is! Map) return a;
+    List<String> senza(List<String> l, Object? id) {
+      final r = [for (final x in l) if (x != id) x];
+      return r.isEmpty ? l : r;
+    }
+
+    return (
+      luoghi: senza(a.luoghi, j['luogo']),
+      cose: senza(a.cose, j['cosa']),
+      gesti: a.gesti,
+      momenti: a.momenti,
+    );
   }
 
   /// **LEGGE LA RISPOSTA**, e la scarta tutta al primo pezzo che non torna.
@@ -196,7 +318,10 @@ abstract final class LaScenaDalModello {
     final Object? j;
     try {
       j = jsonDecode(risposta);
-    } catch (_) {
+    } catch (errore) {
+      // **UNA RISPOSTA CHE NON E' JSON SI SCARTA**: `chiedi` la manda al
+      // registro dei guasti come scena fuori dal vocabolario, e decide la via
+      // deterministica.
       return null;
     }
     final dati = j is Map ? j : null;
@@ -221,12 +346,28 @@ abstract final class LaScenaDalModello {
     final ripresi =
         [luogo, cosa, gesto].where((p) => visti.contains(p.id)).length;
     if (ripresi > 1) return null;
+    // **NESSUNA SCENA RIFATTA**, ordine DI voce 16: per la stessa domanda il
+    // modello torna, a settimane di distanza, esattamente sulla stessa scena.
+    // La prova a cento discese l'ha trovata identica in tutti e quattro i
+    // pezzi, e i due responsi si somigliavano al 41,3 per cento. Una scena
+    // che rifa' luogo, cosa e gesto di una qualsiasi della storia si scarta,
+    // e si richiede. **Il momento non si conta**: ne ha quattro in tutto, e
+    // contandolo la lettura scartava meta' delle scene del modello anche
+    // dopo la seconda richiesta, misurato; senza, le scene del modello sono
+    // salite da 62-81 a 89-98 discese su cento, con la somiglianza piu' bassa.
+    final oggi = [luogo.id, cosa.id, gesto.id];
+    for (final s in ultimeScene) {
+      var comuni = 0;
+      for (var k = 0; k < s.length && k < 3; k++) {
+        if (s[k] == oggi[k]) comuni++;
+      }
+      if (comuni >= 3) return null;
+    }
     return (luogo: luogo, cosa: cosa, gesto: gesto, momento: momento);
   }
 
   static Future<String?> _chiamataVera(
-      String istruzione, String richiesta, GuideAnimal animale) async {
-    List<String> id(List<PezzoDellaScena> p) => [for (final x in p) x.id];
+      String istruzione, String richiesta, PezziAmmessi ammessi) async {
     final m = FirebaseAI.vertexAI(location: regione).generativeModel(
       model: modello,
       systemInstruction: Content.system(istruzione),
@@ -238,12 +379,10 @@ abstract final class LaScenaDalModello {
         // **QUATTRO ELENCHI CHIUSI**: l'uscita ammessa sono quattro id e
         // nient'altro, per costruzione.
         responseSchema: Schema.object(properties: {
-          'luogo': Schema.enumString(enumValues: id(VocabolarioDelViaggio.luoghi)),
-          'cosa': Schema.enumString(enumValues: id(VocabolarioDelViaggio.cose)),
-          'gesto':
-              Schema.enumString(enumValues: id(GestiDellAnimale.di(animale.name))),
-          'momento':
-              Schema.enumString(enumValues: id(VocabolarioDelViaggio.momenti)),
+          'luogo': Schema.enumString(enumValues: ammessi.luoghi),
+          'cosa': Schema.enumString(enumValues: ammessi.cose),
+          'gesto': Schema.enumString(enumValues: ammessi.gesti),
+          'momento': Schema.enumString(enumValues: ammessi.momenti),
         }),
       ),
     );

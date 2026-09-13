@@ -2,6 +2,7 @@ import '../config/app_flags.dart';
 import '../entitlement/plan_catalog.dart';
 import '../entitlement/tier.dart';
 import 'i_quattro_viaggi.dart';
+import '../tempo/confine_del_giorno.dart';
 
 /// **I TETTI DEL VIAGGIO, E LA DEMO SENZA LIMITI.**
 /// Ordine DE voce 14, 11 settembre 2026.
@@ -113,9 +114,10 @@ abstract final class TettiDelViaggio {
     final torna = nellaSettimana.isEmpty
         ? adesso
         : nellaSettimana.first.add(const Duration(days: 7));
-    final fra = DateTime(torna.year, torna.month, torna.day)
-        .difference(DateTime(adesso.year, adesso.month, adesso.day))
-        .inDays;
+    // **I GIORNI SI CONTANO DALLA PORTA**, `ConfineDelGiorno.giorniDa`: la
+    // sottrazione di due date locali, qui fino alla suite dell'ordine DI, con
+    // l'ora legale di mezzo non fa giorni interi.
+    final fra = ConfineDelGiorno.giorniDa(adesso, torna);
     final quando = fra <= 1
         ? 'domani'
         : fra == 2

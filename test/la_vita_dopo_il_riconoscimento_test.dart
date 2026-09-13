@@ -2,13 +2,13 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
-import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_tamburo_che_nutre.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -273,11 +273,13 @@ void main() {
       await tester.pump();
       await tester.pump(IlSegnoCheRisponde.quantoDuraIlGesto);
       await tester.pump(const Duration(milliseconds: 100));
-      final riga = tester.widget<Text>(
-          find.byKey(const Key('viaggio_riga_del_segno')));
+      final riga = tester
+          .widget<ParagrafiDiLettura>(
+              find.byKey(const Key('viaggio_riga_del_segno')))
+          .testo;
       // ignore: avoid_print
-      print('ORDINE DI VOCE 14: il segno dice "${riga.data}"');
-      expect(riga.data, contains('ti si avvicina'));
+      print('ORDINE DI VOCE 14: il segno dice "$riga"');
+      expect(riga, contains('ti si avvicina'));
       expect(diario.segni, hasLength(1));
       expect(diario.segni.first.gesto, 'siAvvicina');
     });
@@ -294,8 +296,9 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 2));
       final riga = tester
-          .widget<Text>(find.byKey(const Key('viaggio_riga_del_segno')))
-          .data!;
+          .widget<ParagrafiDiLettura>(
+              find.byKey(const Key('viaggio_riga_del_segno')))
+          .testo;
       // ignore: avoid_print
       print('ORDINE DI VOCE 14: col gesto inventato risponde la riserva: '
           '"$riga"');

@@ -63,10 +63,10 @@ void main() {
             userSign: Zodiac.cancer,
             now: DateTime(2026, 9, 12, 12),
             diario: DiarioDelloSciamanoDiProva(1),
-            chiamataDellaScena: (i, r) {
+            chiamataDellaScena: (i, r, a) {
               istruzione = i;
               richiesta = r;
-              return chiamata(i, r);
+              return chiamata(i, r, a);
             },
           ),
         ),
@@ -107,7 +107,7 @@ void main() {
 
   testWidgets('LA SCENA A SCHERMO E QUELLA DEL MODELLO, e il modello riceve '
       'tutto cio che l ordine elenca', (tester) async {
-    final r = await scendi(tester, (_, __) async =>
+    final r = await scendi(tester, (_, __, ___) async =>
         '{"luogo":"grotta","cosa":"chiave","gesto":"aspetta","momento":"alba"}');
     final testo = find.textContaining('alla grotta').evaluate().isNotEmpty ||
         find.textContaining('la grotta').evaluate().isNotEmpty;
@@ -134,7 +134,7 @@ void main() {
 
   testWidgets('UN ID FUORI DAL VOCABOLARIO SI SCARTA: risponde la via '
       'deterministica, e il guasto va nel registro', (tester) async {
-    final r = await scendi(tester, (_, __) async =>
+    final r = await scendi(tester, (_, __, ___) async =>
         '{"luogo":"castello","cosa":"chiave","gesto":"aspetta","momento":"alba"}');
     final guasti = r.registro.guasti
         .where((g) => g.operazione == 'viaggio_scena_del_modello')
@@ -142,8 +142,11 @@ void main() {
     // ignore: avoid_print
     print('ORDINE DI VOCE 03: col luogo inventato il registro dice '
         '${guasti.map((g) => g.riga).toList()}');
-    expect(guasti, hasLength(1),
-        reason: 'il luogo inventato non e dichiarato nel registro dei guasti');
+    // **DUE GUASTI, E NON UNO**: dall'ordine DI voce 16 una scena scartata si
+    // richiede una volta, e la finta risponde di nuovo col luogo inventato.
+    expect(guasti, hasLength(2),
+        reason: 'il luogo inventato non e dichiarato nel registro dei guasti, '
+            'o la scena scartata non si e richiesta');
     expect(find.textContaining('castello'), findsNothing,
         reason: 'il luogo inventato dal modello e arrivato a schermo');
     expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
@@ -154,7 +157,7 @@ void main() {
   testWidgets('UN MODELLO CHE NON RISPONDE NON TRATTIENE LA RISALITA',
       (tester) async {
     final mai = Completer<String?>();
-    final r = await scendi(tester, (_, __) => mai.future);
+    final r = await scendi(tester, (_, __, ___) => mai.future);
     expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
         findsOneWidget,
         reason: 'il modello muto tiene ferma la risposta');
@@ -165,7 +168,128 @@ void main() {
         reason: 'il modello muto non e dichiarato nel registro');
   });
 
+  /// **LO SCHEMA NON AMMETTE I LUOGHI E I GESTI DELLE ULTIME CINQUE SCENE.**
+  /// Ordine DI voce 16: la prova a cento discese col modello vero ne trovava
+  /// scartate fino a meta', perche' il modello ne riprendeva piu' di uno.
+  test('LO SCHEMA NON AMMETTE I LUOGHI E I GESTI GIA VISTI, e lascia la cosa',
+      () {
+    final ultime = [
+      ['ponte', 'seme', 'si_volta', 'notte'],
+      ['grotta', 'chiave', 'aspetta', 'alba'],
+      ['fiume', 'specchio', 'si_accuccia', 'nebbia'],
+      ['cima', 'nido', 'ti_precede', 'pioggia'],
+      ['radura', 'osso', 'scava', 'notte'],
+      ['bivio', 'maschera', 'si_ferma', 'alba'],
+    ];
+    final a = LaScenaDalModello.ammessi(lupo, ultime);
+    for (final visto in ['ponte', 'grotta', 'fiume', 'cima', 'radura']) {
+      expect(a.luoghi, isNot(contains(visto)),
+          reason: 'lo schema ammette il luogo gia visto $visto');
+    }
+    for (final visto in ['si_volta', 'aspetta', 'si_accuccia', 'ti_precede',
+        'scava']) {
+      expect(a.gesti, isNot(contains(visto)),
+          reason: 'lo schema ammette il gesto gia visto $visto');
+    }
+    // La sesta scena e' oltre le cinque: il suo luogo torna ammesso.
+    expect(a.luoghi, contains('bivio'));
+    // **LA COSA PUO' TORNARE, ma non subito**: il seme e la chiave sono delle
+    // due scene di prima e restano fuori, lo specchio e' della terza e torna.
+    expect(a.cose, contains('specchio'),
+        reason: 'la cosa deve poter tornare: e il pezzo del richiamo');
+    expect(a.cose, isNot(contains('seme')),
+        reason: 'torna una cosa della scena di ieri');
+    expect(a.cose, isNot(contains('chiave')),
+        reason: 'torna una cosa della scena di due giorni fa');
+    final dueVolte = LaScenaDalModello.ammessi(lupo, [
+      ['ponte', 'nido', 'si_volta', 'notte'],
+      ['grotta', 'chiave', 'aspetta', 'alba'],
+      ['fiume', 'osso', 'si_accuccia', 'nebbia'],
+      ['cima', 'osso', 'ti_precede', 'pioggia'],
+    ]);
+    expect(dueVolte.cose, isNot(contains('osso')),
+        reason: 'una cosa gia tornata due volte nelle cinque torna ancora');
+    // **NON TORNA CIO' CHE TORNA SEMPRE**: la grotta e' uscita due volte
+    // fra la sesta e la decima scena, fuori dalle cinque, e resta fuori.
+    final dieci = LaScenaDalModello.ammessi(lupo, [
+      ['ponte', 'nido', 'si_volta', 'notte'],
+      ['cima', 'chiave', 'aspetta', 'alba'],
+      ['fiume', 'seme', 'si_accuccia', 'nebbia'],
+      ['radura', 'specchio', 'ti_precede', 'pioggia'],
+      ['bivio', 'maschera', 'scava', 'notte'],
+      ['grotta', 'osso', 'si_volta', 'alba'],
+      ['soglia', 'filo', 'aspetta', 'notte'],
+      ['grotta', 'osso', 'scava', 'nebbia'],
+    ]);
+    expect(dieci.luoghi, isNot(contains('grotta')),
+        reason: 'torna un luogo gia usato due volte nelle ultime dieci');
+    expect(dieci.cose, isNot(contains('osso')),
+        reason: 'torna una cosa gia usata due volte nelle ultime dieci');
+    expect(dieci.luoghi, contains('soglia'),
+        reason: 'un luogo usato una volta sola fuori dalle cinque torna');
+    expect(a.gesti, isNotEmpty);
+    expect(a.luoghi.length, VocabolarioDelViaggio.luoghi.length - 5);
+  });
+
+  /// **UNA SCENA SCARTATA SI RICHIEDE UNA VOLTA**, senza il luogo e la cosa
+  /// scartati. Ordine DI voce 16: con la regola della scena rifatta, senza
+  /// questa richiesta meta' delle discese tornava alla via deterministica.
+  test('UNA SCENA SCARTATA SI RICHIEDE UNA VOLTA, senza il suo luogo e la '
+      'sua cosa', () async {
+    final ricevuti = <PezziAmmessi>[];
+    final risposte = [
+      // Rifatta: tre pezzi uguali alla scena della storia.
+      '{"luogo":"ponte","cosa":"seme","gesto":"si_volta","momento":"alba"}',
+      '{"luogo":"cima","cosa":"chiave","gesto":"scava","momento":"alba"}',
+    ];
+    final storia = [
+      for (var i = 0; i < 6; i++) ['radura', 'nido', 'ti_precede', 'notte'],
+      ['ponte', 'seme', 'si_volta', 'notte'],
+    ];
+    final scelti = await LaScenaDalModello.chiedi(
+      CioCheSiSa(
+        domanda: 'x',
+        tema: null,
+        animale: lupo,
+        natale: NatalContext.none,
+        memoria: '',
+        ultimeScene: storia,
+      ),
+      chiamata: (_, __, a) async {
+        ricevuti.add(a);
+        return risposte[ricevuti.length - 1];
+      },
+      prendiUnaChiamata: () async => true,
+    );
+    expect(ricevuti, hasLength(2), reason: 'la scena scartata non si richiede');
+    expect(ricevuti.last.luoghi, isNot(contains('ponte')));
+    expect(ricevuti.last.cose, isNot(contains('seme')));
+    expect(scelti?.luogo.id, 'cima',
+        reason: 'la seconda risposta, buona, non diventa la scena');
+  });
+
   group('LA LETTURA DELLA RISPOSTA', () {
+    test('una scena che rifa luogo, cosa e gesto di una scena della storia si '
+        'scarta, anche lontana', () {
+      final storia = [
+        for (var i = 0; i < 8; i++) ['cima', 'nido', 'ti_precede', 'pioggia'],
+        ['ponte', 'seme', 'si_volta', 'notte'],
+      ];
+      // La scena ripetuta e' la nona, oltre le cinque del richiamo.
+      final rifatta = LaScenaDalModello.leggi(
+          '{"luogo":"ponte","cosa":"seme","gesto":"si_volta","momento":"alba"}',
+          lupo,
+          ultimeScene: storia);
+      expect(rifatta, isNull,
+          reason: 'la scena rifatta a settimane di distanza passa');
+      final nuova = LaScenaDalModello.leggi(
+          '{"luogo":"ponte","cosa":"chiave","gesto":"scava","momento":"alba"}',
+          lupo,
+          ultimeScene: storia);
+      expect(nuova, isNotNull,
+          reason: 'una scena con un solo pezzo in comune si scarta');
+    });
+
     test('quattro id del vocabolario passano, e diventano la scena', () {
       final p = LaScenaDalModello.leggi(
           '{"luogo":"ponte","cosa":"seme","gesto":"si_volta","momento":"notte"}',
@@ -301,7 +425,7 @@ void main() {
           memoria: '',
           ultimeScene: const [],
         ),
-        chiamata: (_, __) async {
+        chiamata: (_, __, ___) async {
           chiamato = true;
           return '{"luogo":"ponte","cosa":"seme","gesto":"si_volta","momento":"notte"}';
         },

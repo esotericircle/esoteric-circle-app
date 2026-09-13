@@ -1,4 +1,5 @@
 import '../responsi/filo_della_voce.dart';
+import '../tempo/confine_del_giorno.dart';
 import 'la_domanda_del_viaggio.dart';
 import 'scena_del_viaggio.dart';
 
@@ -193,7 +194,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Guarda cosa fa quando non deve.',
     ],
     'blocco': [
-      'Non sei bloccato: stai tenendo due cose insieme.',
+      'Non è un blocco: stai tenendo due cose insieme.',
       'Il pezzo che manca lo hai già usato altrove.',
       'Prova a farlo male, tanto per farlo.',
       'Chiedi aiuto: è la parte che stai saltando.',
@@ -210,7 +211,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Aspettare bene è diverso da aspettare e basta.',
       'Nel frattempo puoi preparare quello che serve dopo.',
       'La tua vita non si è messa in pausa con lei.',
-      'Se arrivasse domani, saresti pronto?',
+      'Se arrivasse domani, sapresti che cosa fare?',
       'Non è fermo: è lento. Non è la stessa cosa.',
       'L\'attesa sta facendo un lavoro che non vedi.',
       'Stai guardando la porta: intanto la finestra è aperta.',
@@ -366,13 +367,98 @@ abstract final class LaVoceDelMondoDiSotto {
     'E l\'hai riportata su così. {scena}',
   ];
 
+  /// **IL GIRO DELLA VOCE.** Ordine DI voce 16, 13 settembre 2026.
+  ///
+  /// **LA MISURA CHE LO FA NASCERE.** La prova a cento discese, cento giorni
+  /// consecutivi con la stessa domanda, ha trovato il titolo ripetuto **fino
+  /// a trenta volte** e la risposta e il gesto fino a tre, contro le due che
+  /// l'ordine DF concede. La causa non era la lunghezza degli elenchi: ogni
+  /// blocco pescava **a caso**, con un filo di hash, e cento pescate a caso
+  /// ripetono per forza, anche da mille combinazioni. E' il problema del
+  /// compleanno, e nessun elenco lo cura.
+  ///
+  /// **Adesso la voce del Viaggio gira invece di pescare.** Il giorno della
+  /// discesa diventa un numero, i giorni dall'inizio del 2026, e ogni blocco
+  /// avanza di un posto al giorno dentro il suo spazio: il titolo dentro le
+  /// forme del suo tema, la risposta e il gesto dentro lo spazio delle loro
+  /// combinazioni, che ne ha piu' di mille. Prima di tornare su una
+  /// combinazione le percorre tutte.
+  ///
+  /// **E LO SPAZIO E' MESCOLATO**, una volta per sempre e con un seme per
+  /// blocco: il posto di domani non e' la combinazione accanto a quella di
+  /// oggi, e' una qualunque. La seconda stesura avanzava con un passo fisso
+  /// senza mescolare, e i blocchi con lo stesso numero di forme, otto il
+  /// titolo, otto l'apertura del gesto e otto il quando, **tornavano in fase**:
+  /// a otto giorni di distanza due responsi condividevano quattro pezzi su
+  /// sei, e la misura C era al 52 per cento.
+  ///
+  /// **E' UNA DEROGA DICHIARATA AL FILO DELLA VOCE**, che per le altre arti
+  /// nasce da cio' che e' appena uscito e mai da un contatore. La' la
+  /// casualita' dell'estrazione basta, perche' le carte e le rune sono tante;
+  /// qui il vocabolario della scena e' chiuso, e la stessa persona che scende
+  /// ogni giorno con la stessa domanda si accorgerebbe della stessa frase. Il
+  /// determinismo resta intero: la stessa discesa, riaperta, dice la stessa
+  /// cosa, perche' il giro dipende soltanto dal giorno e da quante discese
+  /// c'erano gia' state quel giorno.
+  ///
+  /// **[giaOggi] E NON IL NUMERO DELLA DISCESA**, e l'errore e' stato fatto e
+  /// misurato. La prima stesura sommava trentasette volte il resto del
+  /// numero della discesa diviso tre, per separare le due discese dello
+  /// stesso giorno che un piano puo' concedere dopo il riconoscimento. Ma il
+  /// numero della discesa cresce ogni giorno, e due giorni diversi cadevano
+  /// sullo stesso giro: la prova a cento discese ha trovato due responsi
+  /// **identici in tutto** fuorche' la scena, e la misura C al 79 per cento.
+  /// La seconda discesa dello stesso giorno salta avanti di un numero primo
+  /// grande, e cade in un posto che nessun giorno vicino occupa.
+  static int giro(DateTime giorno, int giaOggi) =>
+      ConfineDelGiorno.giorniDa(DateTime(2026), giorno) +
+      giaOggi * _saltoDellaSeconda;
+
+  static const int _saltoDellaSeconda = 1000003;
+
+  /// **IL POSTO DI OGGI** in uno spazio di [quante] forme, per il blocco
+  /// [marcatore]: il posto del giro, letto nello spazio mescolato di quel
+  /// blocco.
+  static int alGiro(int giro, int quante, String marcatore) {
+    final mescolato = _mescolati.putIfAbsent(
+        '$marcatore/$quante', () => _mescola(quante, marcatore));
+    final partenza = FiloDellaVoce.da([marcatore, 'giro']).seme % quante;
+    return mescolato[(partenza + giro) % quante];
+  }
+
+  static final Map<String, List<int>> _mescolati = {};
+
+  static int _mcd(int a, int b) => b == 0 ? a : _mcd(b, a % b);
+
+  /// **UN POSTO MESCOLATO**: [i] letto nello spazio mescolato di [quante]
+  /// posti del blocco [marcatore]. Una permutazione non unisce mai due posti
+  /// diversi, quindi cio' che era iniettivo resta iniettivo, e smette di
+  /// essere lineare.
+  static int mescolato(int i, int quante, String marcatore) =>
+      _mescolati.putIfAbsent(
+          '$marcatore/$quante', () => _mescola(quante, marcatore))[i % quante];
+
+  /// **LO SPAZIO MESCOLATO**: i numeri da zero a [quante], in un ordine fisso
+  /// che dipende soltanto da [marcatore]. Fisher e Yates, col filo come dado.
+  static List<int> _mescola(int quante, String marcatore) {
+    final posti = List<int>.generate(quante, (i) => i);
+    final filo = FiloDellaVoce.da([marcatore, 'mescola']);
+    for (var i = quante - 1; i > 0; i--) {
+      final j = filo.scegli(List<int>.generate(i + 1, (k) => k));
+      final t = posti[i];
+      posti[i] = posti[j];
+      posti[j] = t;
+    }
+    return List.unmodifiable(posti);
+  }
+
   /// **IL TITOLO, che a colpo d'occhio è già una risposta.**
   ///
-  /// [giornoDellaDiscesa] e' il giorno della discesa, e serve a distinguere due discese
-  /// che abbiano pescato gli stessi quattro pezzi: vedi la nota su
-  /// [paragrafi].
+  /// [giornoDellaDiscesa] e [giaOggi] fanno girare il titolo dentro le forme
+  /// del suo tema: vedi [giro]. Senza il giorno si pesca col filo, come
+  /// prima dell'ordine DI.
   static String titolo(ScenaDelViaggio scena, String? temaDomanda,
-      {DateTime? giornoDellaDiscesa}) {
+      {DateTime? giornoDellaDiscesa, int giaOggi = 0}) {
     // **IL MARCATORE `titolo` NON E' UN ORNAMENTO**: senza, questo filo
     // nascerebbe dagli stessi ingredienti di quello dei paragrafi e le due
     // scelte camminerebbero insieme, cioe' due discese con lo stesso titolo
@@ -386,7 +472,18 @@ abstract final class LaVoceDelMondoDiSotto {
       'titolo',
     ]);
     final quali = titoliPerTema[temaDomanda] ?? titoliSenzaDomanda;
-    return filo.scegli(quali);
+    if (giornoDellaDiscesa == null) return filo.scegli(quali);
+    // **IL TITOLO NON GIRA IN FASE COL NUCLEO.** Con otto titoli in un ciclo
+    // di otto, a quaranta giorni tornavano insieme il titolo e il gesto, che
+    // gira su venti, e a ventiquattro il titolo e la risposta, che gira su
+    // dodici: due responsi con due frasi in comune, e la somiglianza sopra
+    // il quaranta per cento. Adesso il titolo si sposta di un posto a ogni
+    // suo giro completo, e non torna mai in fase ne' con l'uno ne' con
+    // l'altra; e non si ripete in due giorni di fila.
+    final n = quali.length;
+    final u = FiloDellaVoce.da(['titolo', temaDomanda ?? 'nulla']).seme % n +
+        giro(giornoDellaDiscesa, giaOggi);
+    return quali[mescolato((u + u ~/ n) % n, n, 'titolo ${temaDomanda ?? 'nulla'}')];
   }
 
   /// **I PARAGRAFI DELLA RISPOSTA**, nell'ordine in cui si leggono.
@@ -406,7 +503,13 @@ abstract final class LaVoceDelMondoDiSotto {
     required String? temaDomanda,
     required String? temaInLettere,
     DateTime? giornoDellaDiscesa,
+    int giaOggi = 0,
+    int? formaDellaScena,
   }) {
+    if (giornoDellaDiscesa != null) {
+      return _paragrafiAlGiro(scena, temaDomanda, temaInLettere,
+          giro(giornoDellaDiscesa, giaOggi), formaDellaScena);
+    }
     final filo = FiloDellaVoce.da([
       ...scena.idDeiPezzi,
       temaDomanda ?? 'nulla',
@@ -464,6 +567,138 @@ abstract final class LaVoceDelMondoDiSotto {
     final daDove = filo.piu(19).scegli(daDoveViene).split('{scena}');
     righe.add(cuci([daDove.first.trimRight(), scena.testoSenzaApertura]));
 
+    return righe;
+  }
+
+  /// **I PARAGRAFI COL GIRO**, ordine DI voce 16: le stesse tre righe di
+  /// [paragrafi], con le stesse forme e le stesse regole, scelte dal giro del
+  /// giorno invece che pescate. Vedi [giro].
+  ///
+  /// **IL NUCLEO GIRA INTERO.** Le due frasi lunghe del responso sono quella
+  /// della risposta e quella del gesto, e la seconda da sola vale sei
+  /// sequenze di cinque parole. Scelte ognuna per conto suo, su
+  /// quattromilanovecentocinquanta coppie di discese una ventina le
+  /// condivideva tutte e due, e quelle coppie superavano il quaranta per
+  /// cento di somiglianza: misurato, 40,3 e 40,9. Adesso la coppia risposta e
+  /// gesto e' **un posto solo** di uno spazio di duecentosessanta, centosessanta
+  /// senza tema: prima di duecentosessanta giorni due discese non hanno mai
+  /// tutte e due le frasi in comune.
+  ///
+  /// **E LE CORNICI DIPENDONO DAL NUCLEO**, la ripresa e la coda della
+  /// risposta, l'apertura e il quando del gesto. A risposta fissa la cornice
+  /// della risposta cambia col gesto, a gesto fisso la cornice del gesto
+  /// cambia con la risposta: dentro i duecentosessanta giorni nessun
+  /// paragrafo torna uguale, per costruzione. La stesura di prima le faceva
+  /// girare in spazi loro, e quella del gesto, sessantaquattro posti, tornava
+  /// identica dopo sessantaquattro giorni insieme allo stesso gesto: un
+  /// paragrafo intero ripetuto, e la misura C del blocco al 41,8 per cento.
+  ///
+  /// **E SONO MESCOLATE.** La terza stesura le legava al nucleo con una
+  /// formula lineare: iniettive, ma due discese con la stessa risposta e due
+  /// gesti vicini cadevano su cornici vicine, con la stessa forma della scena
+  /// e la stessa chiusura, e col modello vero la misura C della direzione e'
+  /// arrivata al 45,1 per cento. Adesso ogni cornice passa da uno spazio
+  /// mescolato, che non unisce mai due posti e non lascia vicini i vicini.
+  static List<String> _paragrafiAlGiro(ScenaDelViaggio scena,
+      String? temaDomanda, String? temaInLettere, int g, int? formaDellaScena) {
+    final righe = <String>[];
+    final conTema = temaDomanda != null && temaInLettere != null;
+    final risposte = conTema
+        ? rispostePerTema[temaDomanda] ?? risposteSenzaDomanda
+        : risposteSenzaDomanda;
+    final s = risposte.length;
+    // **DUE CICLI, E NON UNA PESCATA NELLO SPAZIO.** Il gesto gira sulle sue
+    // venti forme, la risposta sulle sue [s]; e poiche' venti e [s] hanno
+    // divisori in comune, dopo il loro minimo comune multiplo di giorni la
+    // risposta si sposta di un posto. **Cosi' la stessa azione non torna
+    // prima di venti giorni, la stessa risposta prima di [s] meno uno, e la
+    // coppia non torna in nessuna finestra di duecento giorni con un tema,
+    // di centoquaranta senza.** La dimostrazione: due giorni con lo stesso
+    // gesto distano venti per m, e la risposta coincide se venti per m piu'
+    // lo spostamento d e' multiplo di [s]. Con dodici risposte serve d
+    // uguale a quattro volte m modulo dodici, e lo spostamento, un posto
+    // ogni sessanta giorni, lo raggiunge la prima volta a m uguale a dieci,
+    // cioe' a duecento giorni; con otto, a m uguale a sette, centoquaranta.
+    // **E il ciclo non si chiude**: la seconda stesura lo faceva ricominciare
+    // ogni duecentoquaranta giorni, e dove ricominciava lo spostamento
+    // tornava a zero e la stessa risposta ricadeva a tre giorni di distanza.
+    // La prima stesura pescava la coppia da uno spazio mescolato: unica
+    // anche lei, ma la stessa azione poteva tornare a tre giorni, e nessuna
+    // delle cinque misure lo vedeva. Le forme di ogni ciclo sono in un
+    // ordine mescolato.
+    final c = cosaPuoiFare.length;
+    final chiave = conTema ? temaDomanda : 'nulla';
+    final t = FiloDellaVoce.da(['nucleo', chiave]).seme % (s * c) + g;
+    final multiplo = s * c ~/ _mcd(s, c);
+    final ge = mescolato(t % c, c, 'gesto del nucleo');
+    final ri =
+        mescolato((t + t ~/ multiplo) % s, s, 'risposta del nucleo $chiave');
+    final risposta = risposte[ri];
+    final gesto = cosaPuoiFare[ge];
+    // Le partenze delle due cornici, fisse e diverse fra loro.
+    final pr = FiloDellaVoce.da(['cornice della risposta']).seme;
+    final pg = FiloDellaVoce.da(['cornice del gesto']).seme;
+
+    if (conTema) {
+      final r = riprendeLaDomanda.length;
+      // Iniettiva nel gesto a risposta fissa: undici e' primo con le
+      // centoquarantaquattro cornici.
+      final quante = r * codaDellaRisposta.length;
+      final cornice = mescolato(
+          (pr + ge * 13 + ri) % quante, quante, 'cornice della risposta');
+      final ripresa = riprendeLaDomanda[cornice % r]
+          .replaceAll('{tema}', _minuscola(temaInLettere))
+          .replaceAll('{breve}',
+              temaInDueParole[temaDomanda] ?? _minuscola(temaInLettere));
+      righe.add(cuci([ripresa, risposta, codaDellaRisposta[cornice ~/ r]]));
+    } else {
+      // Senza tema la risposta e' una frase sola su otto: ha la coda, o in
+      // cento discese tornerebbe dodici volte.
+      righe.add(cuci([
+        risposta,
+        codaDellaRisposta[(pr + ge * 5) % codaDellaRisposta.length],
+      ]));
+    }
+
+    final a = apreIlGesto.length;
+    // Iniettiva nella risposta a gesto fisso: cinque e' primo con le
+    // sessantaquattro cornici, e le risposte di un tema sono meno.
+    final cornice = mescolato((pg + ri * 5 + ge * 7) % (a * quando.length),
+        a * quando.length, 'cornice del gesto');
+    final apre = apreIlGesto[cornice % a];
+    // **IL QUANDO NON RIPETE L'APERTURA**, ordine DI voce 05: si passa al
+    // quando dopo, finche' non ripete niente.
+    var qualeQuando = cornice ~/ a;
+    for (var giri = 0;
+        giri < quando.length && _ripete(quando[qualeQuando], '$apre $gesto');
+        giri++) {
+      qualeQuando = (qualeQuando + 1) % quando.length;
+    }
+    righe.add(cuci([apre, gesto, quando[qualeQuando]]));
+
+    // **LA CORNICE DELLA SCENA**: l'apertura del blocco, la forma della frase
+    // che cuce i pezzi e la chiusura. Anche lei e' funzione iniettiva del
+    // nucleo: dentro i duecentosessanta giorni due discese non hanno mai
+    // tutte e tre le parti uguali. Pescate a caso, coincidevano su due scene
+    // che avevano un pezzo in comune, e la misura C passava il quaranta per
+    // cento su tutte le coppie: 42,3 il blocco, 47,1 una domanda libera.
+    final ps = FiloDellaVoce.da(['cornice della scena']).seme;
+    final posti = daDoveViene.length * 8 * 12;
+    final cs = mescolato(
+        (ps + ri * cosaPuoiFare.length + ge) % posti, posti, 'cornice della scena');
+    final daDove = daDoveViene[cs % daDoveViene.length].split('{scena}');
+    // **LA FORMA CHE CUCE LA SCENA** la sceglie chi conosce la storia,
+    // `IlResponsoDelViaggio.formaDellaScena`: una scena che somiglia a una di
+    // prima non si racconta con la stessa frase. Senza storia, quella della
+    // sua cosa. La chiusura resta alla cornice.
+    const forme = 8;
+    final forma = formaDellaScena ??
+        FiloDellaVoce.da([scena.cosa.id, 'forma']).seme % forme;
+    final chiusura = cs ~/ daDoveViene.length;
+    righe.add(cuci([
+      daDove.first.trimRight(),
+      scena.testoSenzaAperturaAlPosto(forma + forme * chiusura),
+    ]));
     return righe;
   }
 

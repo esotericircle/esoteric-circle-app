@@ -8,7 +8,7 @@ import '../../../core/identity/birth_identity.dart';
 import '../../../core/rituals/guide_animal_derivation.dart';
 import '../../../core/rituals/animal_catalog.dart';
 import '../../../core/viaggio/il_nome_si_puo_dire.dart';
-import '../../maestri/caligo/viaggio/la_lente_che_scopre.dart';
+import '../../maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import '../../../design_system/components/depth_card.dart';
 import '../../angels/angelo_ingrandito.dart';
 import '../../../design_system/theme/maestro_scope.dart';
