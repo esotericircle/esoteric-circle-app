@@ -31,6 +31,9 @@ import '../../widgets/foglio_delle_fonti.dart';
 import '../../../../core/maestro/maestro.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_discesa_in_video.dart';
+import 'il_segno_che_risponde.dart';
+import 'il_tamburo_che_nutre.dart';
+import '../../../../core/viaggio/il_segno_dell_animale.dart';
 import 'la_girandola_degli_animali.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
@@ -66,6 +69,7 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
     this.now,
     this.diario,
     this.fabbricaDellaDiscesa,
+    this.chiamataDelSegno,
   });
 
   final Zodiac userSign;
@@ -81,6 +85,11 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
   /// 09. Nullo vuol dire il lettore vero; le prove ci mettono una finta,
   /// perche' in una prova headless nessuna piattaforma decodifica un filmato.
   final FabbricaDellaDiscesa? fabbricaDellaDiscesa;
+
+  /// **LA CHIAMATA AL MODELLO PER IL SEGNO**, ordine DI voce 14. Nulla vuol dire
+  /// il modello vero; le prove ci mettono una finta, perche' in una prova
+  /// Firebase non c'e'.
+  final ChiamataDelSegno? chiamataDelSegno;
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -149,6 +158,12 @@ enum FaseDelViaggio {
 
   /// La scena che si riporta su.
   risalita,
+
+  /// **IL TAMBURO CHE NUTRE**, a schermo pieno. Ordine DI voce 13.
+  nutrimento,
+
+  /// **IL SEGNO CHIESTO ALL'ANIMALE.** Ordine DI voce 14.
+  segno,
 }
 
 class _ViaggioDelloSciamanoScreenState
@@ -232,6 +247,14 @@ class _ViaggioDelloSciamanoScreenState
   Future<(TemaDellaDomanda?, FonteDelTema)>? _temaInArrivo;
 
   ScenaDelViaggio? _scena;
+
+  /// **LA DOMANDA SI APRE SOLO SE LA SI CHIEDE**, dopo il riconoscimento.
+  /// Ordine DI voce 11: sotto l'animale *"tre azioni e non di piu'"*. La
+  /// scelta della domanda compare quando si tocca la prima.
+  bool _domandaAperta = false;
+
+  /// Dove comincia la scelta della domanda, per portarla in vista.
+  final GlobalKey _laSceltaDellaDomanda = GlobalKey();
 
   /// **IL GIORNO IN CUI QUESTA SCENA E' NATA.** Ordine DG voce 07: il filo
   /// della risposta lo conosce, e se lo chiedesse all'orologio a ogni
@@ -318,7 +341,11 @@ class _ViaggioDelloSciamanoScreenState
       // riquadro e diventa una scena piena: l'immagine occupa tutta l'area
       // utile, e il testo ci sta sopra"*. Una striscia di pagina sopra il
       // bosco vorrebbe dire che l'immagine non occupa tutta l'area utile.
-      _fase == FaseDelViaggio.soglia;
+      _fase == FaseDelViaggio.soglia ||
+      // **IL TAMBURO E IL SEGNO SONO SCENE**, ordine DI voci 13 e 14: il
+      // fondo della galleria a tutto schermo, e l'animale dentro.
+      _fase == FaseDelViaggio.nutrimento ||
+      _fase == FaseDelViaggio.segno;
 
   /// **L'ANIMALE DI QUESTA PERSONA, e viene dalla sua nascita.** Ordine DG
   /// voce 01: la porta e' una sola, `GuideAnimalDerivation.forSign`, e il
@@ -371,10 +398,15 @@ class _ViaggioDelloSciamanoScreenState
   /// **IL GUASTO VA NEL REGISTRO, MAI ALLA PERSONA.** Il registro si chiede
   /// col `try` e non si pretende: e' la lezione del provider preteso, che
   /// dentro una schermata condivisa ha gia' fatto cadere quaranta prove.
-  void _registraIlGuasto(Object errore) {
+  void _registraIlGuasto(Object errore) =>
+      _registraIlGuastoDi('viaggio_tema_della_domanda', errore);
+
+  /// Lo stesso registro, per ogni operazione del Viaggio che chiama un
+  /// modello: il tema della domanda, e dall'ordine DI voce 14 il segno.
+  void _registraIlGuastoDi(String operazione, Object errore) {
     try {
       context.read<RegistroDeiGuasti>().registra(
-            operazione: 'viaggio_tema_della_domanda',
+            operazione: operazione,
             errore: errore,
           );
     } catch (senzaRegistro) {
@@ -493,6 +525,14 @@ class _ViaggioDelloSciamanoScreenState
   /// lente, che e' il momento in cui quell'ombra smette di essere una massa
   /// scura e diventa **zampe, manto, collo**, un pezzo per discesa.
   void _segui(String nome) {
+    // **DOPO IL RICONOSCIMENTO NON C'E' PIU' NIENTE DA SCOPRIRE.** Ordine DI
+    // voce 11: il velo e il gesto che scosta spariscono con la rivelazione, e
+    // la discesa cambia scopo, voce DI.12. Si segue e si risale.
+    if (_riconosciuto) {
+      _seguito = nome;
+      unawaited(_risaliDallaLente());
+      return;
+    }
     setState(() {
       _seguito = nome;
       _fase = FaseDelViaggio.lente;
@@ -659,6 +699,8 @@ class _ViaggioDelloSciamanoScreenState
           FaseDelViaggio.incontro => _lIncontro(palette),
           FaseDelViaggio.lente => _laLente(palette),
           FaseDelViaggio.risalita => _laRisalita(palette),
+          FaseDelViaggio.nutrimento => _ilTamburo(palette),
+          FaseDelViaggio.segno => _ilSegno(palette),
         },
       ),
     );
@@ -743,12 +785,16 @@ class _ViaggioDelloSciamanoScreenState
         ),
         // **I DODICI PASSANO NELLA FASCIA ALTA, dove il bosco e' leggibile.**
         // Sotto le quattro impronte, finche' ci sono: vedi `fasciaDelCammino`.
-        Positioned(
-          top: quantoInCima + fasciaDelCammino + SpacingTokens.lg,
-          left: 0,
-          right: 0,
-          child: GirandolaDegliAnimali(altezza: schermo.height * 0.16),
-        ),
+        // **I DODICI PASSANO SOLO FINCHE' NON SE NE CONOSCE UNO.** Ordine DI
+        // voce 11: riconosciuto l'animale, la girandola dei candidati e'
+        // l'apparato di una rivelazione gia' avvenuta.
+        if (!_riconosciuto)
+          Positioned(
+            top: quantoInCima + fasciaDelCammino + SpacingTokens.lg,
+            left: 0,
+            right: 0,
+            child: GirandolaDegliAnimali(altezza: schermo.height * 0.16),
+          ),
         // **IL VELO DAL BASSO.** La meta' bassa della scena e' quasi pura
         // oscurita', e il testo ci si legge sopra senza nessun fondo scuro
         // aggiuntivo: e' la riga dell'ordine, ed e' anche il motivo per cui
@@ -794,8 +840,12 @@ class _ViaggioDelloSciamanoScreenState
               children: [
                 // Lo spazio della fascia alta, dove passano i dodici: il testo
                 // comincia sotto di loro.
-                SizedBox(height: schermo.height * 0.22),
-                _laPromessaDellaSoglia(palette),
+                if (_riconosciuto)
+                  ..._ilRiconosciuto(palette)
+                else ...[
+                  SizedBox(height: schermo.height * 0.22),
+                  _laPromessaDellaSoglia(palette),
+                ],
                 // **SI RICOMINCIA DA CAPO, E SOLO IN DEMO.** Ordine DG voce 08.
                 //
                 // **Sta qui e non nelle impostazioni** perche' e' qui che si
@@ -816,11 +866,13 @@ class _ViaggioDelloSciamanoScreenState
                 // **L'AVVISO DELL'ANIMALE LONTANO STA ALL'APERTURA**, sopra
                 // la scelta della domanda: chi legge deve saperlo **prima** di
                 // scegliere con che cosa scendere, non dopo essere risalito.
-                if (_laDistanza(palette) != null) ...[
+                if (!_riconosciuto && _laDistanza(palette) != null) ...[
                   const SizedBox(height: SpacingTokens.lg),
                   _laDistanza(palette)!,
                 ],
+                if (!_riconosciuto || _domandaAperta) ...[
                 const SizedBox(height: SpacingTokens.xl),
+                SizedBox(key: _laSceltaDellaDomanda, height: 0),
                 _leTreVie(palette, primo: primo),
                 if (perche != null &&
                     _temaScelto == null &&
@@ -902,6 +954,7 @@ class _ViaggioDelloSciamanoScreenState
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
                 ],
+                ],
               ],
             ),
           ),
@@ -966,18 +1019,10 @@ class _ViaggioDelloSciamanoScreenState
   double get _quantoELontano =>
       NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
 
-  /// **IL TAMBURO, e la nitidezza migliora subito di un passo.**
-  /// Ordine DE voce 12.
-  Future<void> _battiIlTamburo() async {
-    if (!_diario.siPuoNutrireOggi()) return;
-    await _diario.nutri();
-    if (!mounted) return;
-    // **IL GESTO SI SENTE.** Un tamburo che non si sente sotto il dito e' un
-    // pulsante qualunque, e questo non e' un pulsante qualunque: e' l'unica
-    // via del ritorno che questa funzione ha.
-    unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
-    setState(() {});
-  }
+  // **IL TAMBURO IN UN CLIC NON C'E' PIU'.** Ordine DI voce 13: qui viveva
+  // '_battiIlTamburo', che al tocco registrava il nutrimento e vibrava una
+  // volta, una volta al giorno. Adesso il nutrimento e' il rito del tamburo a
+  // schermo pieno, `IlTamburoCheNutre`, aperto sempre.
 
   /// **L'AVVISO DELL'ANIMALE LONTANO, all'apertura.** Ordine DE voce 12.
   ///
@@ -997,7 +1042,6 @@ class _ViaggioDelloSciamanoScreenState
   Widget? _laDistanza(MaestroPalette palette) {
     final riga = NitidezzaDellaScena.laRiga(_quantoELontano);
     if (riga == null) return null;
-    final siPuo = _diario.siPuoNutrireOggi();
     return DepthCard(
       key: const Key('viaggio_animale_lontano'),
       padding: const EdgeInsets.all(SpacingTokens.md),
@@ -1023,7 +1067,10 @@ class _ViaggioDelloSciamanoScreenState
           const SizedBox(height: SpacingTokens.sm),
           OutlinedButton.icon(
             key: const Key('viaggio_tamburo'),
-            onPressed: siPuo ? () => unawaited(_battiIlTamburo()) : null,
+            // **APRE IL RITO DEL TAMBURO**, ordine DI voce 13: qui c'era il
+            // nutrimento in un clic, una volta al giorno.
+            onPressed: () =>
+                setState(() => _fase = FaseDelViaggio.nutrimento),
             style: OutlinedButton.styleFrom(
               foregroundColor: palette.gold,
               side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
@@ -1031,7 +1078,7 @@ class _ViaggioDelloSciamanoScreenState
             ),
             icon: const Icon(Icons.graphic_eq_rounded),
             label: Text(
-              siPuo ? 'Richiamalo col tamburo' : 'Lo hai richiamato oggi',
+              'Richiamalo col tamburo',
               style: TypographyTokens.etichetta(),
             ),
           ),
@@ -1305,6 +1352,159 @@ class _ViaggioDelloSciamanoScreenState
         quandoFinisce: _arrivatiInFondo,
       );
 
+  /// **LA SOGLIA DOPO IL RICONOSCIMENTO.** Ordine DI voce 11.
+  ///
+  /// *"Al riconoscimento sparisce tutto l'apparato della rivelazione: velo,
+  /// gesto che scosta, quattro impronte, conteggio delle apparizioni, le tre
+  /// righe della voce DI.07. Tenerli accesi a vuoto e' cio' che fa sembrare la
+  /// funzione un gioco senza fine."* E al loro posto: l'animale a figura
+  /// intera, chiamato per nome, due righe, tre azioni.
+  List<Widget> _ilRiconosciuto(MaestroPalette palette) {
+    final suo = _suoAnimale;
+    final conArticolo = '${suo.articolo}${suo.name}';
+    final lontano = NitidezzaDellaScena.laRiga(_quantoELontano);
+    return [
+      AspectRatio(
+        aspectRatio: 898 / 760,
+        child: Image.asset(
+          suo.fullPath,
+          key: const Key('viaggio_animale_riconosciuto'),
+          fit: BoxFit.contain,
+          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+        ),
+      ),
+      const SizedBox(height: SpacingTokens.md),
+      TitoloCheNonSiRompe(
+        key: const Key('viaggio_nome_riconosciuto'),
+        testo: '${conArticolo[0].toUpperCase()}${conArticolo.substring(1)}',
+        stile: TypographyTokens.titoloScheda()
+            .copyWith(color: ColorTokens.textPrimary),
+      ),
+      const SizedBox(height: SpacingTokens.sm),
+      Text(
+        LaPromessaDelViaggio.restaConTe(conArticolo),
+        key: const Key('viaggio_resta_con_te'),
+        style: TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+      ),
+      const SizedBox(height: SpacingTokens.xs),
+      Text(
+        LaPromessaDelViaggio.siAllontana(femminile: suo.femminile),
+        key: const Key('viaggio_si_allontana'),
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textSecondary),
+      ),
+      // **LA RIGA DELLO STATO RESTA COM'E'**, ordine DI voce 13, e sta qui
+      // perche' e' qui che si sceglie se nutrirlo.
+      if (lontano != null) ...[
+        const SizedBox(height: SpacingTokens.sm),
+        Text(
+          lontano,
+          key: const Key('viaggio_lontano_riga'),
+          style: TypographyTokens.didascalia().copyWith(color: palette.goldSoft),
+        ),
+      ],
+      const SizedBox(height: SpacingTokens.lg),
+      FilledButton.icon(
+        key: const Key('viaggio_azione_scendi'),
+        onPressed: () {
+          setState(() => _domandaAperta = true);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final dove = _laSceltaDellaDomanda.currentContext;
+            if (dove != null) {
+              unawaited(Scrollable.ensureVisible(dove,
+                  duration: const Duration(milliseconds: 300)));
+            }
+          });
+        },
+        style: FilledButton.styleFrom(
+          backgroundColor: palette.primary,
+          foregroundColor: palette.onPrimary,
+          minimumSize: const Size.fromHeight(56),
+        ),
+        icon: const Icon(Icons.south_rounded),
+        label: Text(LaPromessaDelViaggio.scendiConUnaDomanda,
+            style: TypographyTokens.etichetta()),
+      ),
+      const SizedBox(height: SpacingTokens.sm),
+      OutlinedButton.icon(
+        key: const Key('viaggio_azione_nutri'),
+        onPressed: () => setState(() => _fase = FaseDelViaggio.nutrimento),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: palette.goldSoft,
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+          minimumSize: const Size.fromHeight(52),
+        ),
+        icon: const Icon(Icons.graphic_eq_rounded),
+        label: Text(LaPromessaDelViaggio.nutri(femminile: suo.femminile),
+            style: TypographyTokens.etichetta()),
+      ),
+      const SizedBox(height: SpacingTokens.sm),
+      OutlinedButton.icon(
+        key: const Key('viaggio_azione_segno'),
+        onPressed: () => setState(() => _fase = FaseDelViaggio.segno),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: palette.goldSoft,
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+          minimumSize: const Size.fromHeight(52),
+        ),
+        icon: const Icon(Icons.pets_rounded),
+        label: Text(LaPromessaDelViaggio.chiediUnSegno(femminile: suo.femminile),
+            style: TypographyTokens.etichetta()),
+      ),
+    ];
+  }
+
+  /// **IL TAMBURO CHE NUTRE**, ordine DI voce 13.
+  Widget _ilTamburo(MaestroPalette palette) => IlTamburoCheNutre(
+        animale: _suoAnimale,
+        palette: palette,
+        quandoHaiFinito: () => unawaited(_diario.nutri()),
+        quandoTorni: () => setState(() => _fase = FaseDelViaggio.soglia),
+        rigaDelloStato: () => NitidezzaDellaScena.laRiga(_quantoELontano),
+      );
+
+  /// **IL SEGNO**, ordine DI voce 14.
+  Widget _ilSegno(MaestroPalette palette) {
+    final suo = _suoAnimale;
+    return IlSegnoCheRisponde(
+      animale: suo,
+      palette: palette,
+      siPuoChiedere: TettiDelViaggio.siPuoChiedereUnSegno(
+        segniChiesti: _diario.segniChiesti,
+        adesso: _adesso,
+        tier: _piano,
+      ),
+      quandoTorna: TettiDelViaggio.quandoTornaUnSegno(
+        segniChiesti: _diario.segniChiesti,
+        adesso: _adesso,
+        tier: _piano,
+        conArticolo: '${suo.articolo}${suo.name}',
+      ),
+      chiedi: _chiediUnSegno,
+      quandoTorni: () => setState(() => _fase = FaseDelViaggio.soglia),
+      quandoNutri: () => setState(() => _fase = FaseDelViaggio.nutrimento),
+    );
+  }
+
+  /// Chiede il segno e lo conserva nel Diario.
+  Future<UnSegno> _chiediUnSegno(String domanda) async {
+    final segno = await GestiDelSegno.chiedi(
+      animale: _suoAnimale,
+      domanda: domanda,
+      giorno: _adesso,
+      chiamata: widget.chiamataDelSegno,
+      seGuasto: (e) => _registraIlGuastoDi('viaggio_segno_dell_animale', e),
+    );
+    await _diario.segnaUnSegno(SegnoRicevuto(
+      quando: _adesso,
+      domanda: domanda,
+      gesto: segno.gesto.name,
+      cosa: segno.cosa?.id,
+      riga: segno.riga,
+    ));
+    return segno;
+  }
+
   /// **L'ULTIMA COSA VISTA SCENDENDO**, che svanisce sopra la nebbia.
   Widget _cioCheSiStavaGuardando() {
     final lettore = _lettore;
@@ -1408,12 +1608,27 @@ class _ViaggioDelloSciamanoScreenState
             // esatta della sua illustrazione, col filo di luce oro sul bordo.
             // Se quel file mancasse, `OmbraDellAnimale` cadrebbe sul canale
             // alpha dell'illustrazione a colori, che e' la stessa forma.
-            child: OmbraDellAnimale(
-              key: Key('viaggio_sagoma_${suo.name}'),
-              immagine: suo.ombraPath,
-              giaSagoma: true,
-              quantaLuce: 0.35 + 0.2 * quale,
-            ),
+            // **DOPO IL RICONOSCIMENTO NON E' PIU' UN'OMBRA**, ordine DI voce
+            // 11: e' lui, scoperto, e lo si segue sapendo chi e'.
+            // **E RIEMPIE LO SPAZIO**: un'immagine non ancora decodificata
+            // misura zero, e un animale che non si puo' toccare non si puo'
+            // seguire. L'ha trovato la guardia della vita dopo il
+            // riconoscimento.
+            child: _riconosciuto
+                ? SizedBox.expand(
+                    child: Image.asset(
+                      suo.fullPath,
+                      key: Key('viaggio_sagoma_${suo.name}'),
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                    ),
+                  )
+                : OmbraDellAnimale(
+                    key: Key('viaggio_sagoma_${suo.name}'),
+                    immagine: suo.ombraPath,
+                    giaSagoma: true,
+                    quantaLuce: 0.35 + 0.2 * quale,
+                  ),
           ),
         ),
         Padding(
@@ -1501,8 +1716,16 @@ class _ViaggioDelloSciamanoScreenState
   Widget _laRisalita(MaestroPalette palette) {
     final scena = _scena;
     if (scena == null) return const SizedBox.shrink();
-    final nome = IQuattroViaggi.nomeDopoLeQuattroDiscese(
-        _diario.quanteDiscese, _suoAnimale.name);
+    // **IL NOME SI DICE UNA VOLTA SOLA**, alla discesa della rivelazione.
+    // Ordine DI voce 11: dopo, la riga *"E' il Lupo. Adesso lo conosci."* e la
+    // card da condividere tornavano a ogni discesa, cioe' l'apparato della
+    // rivelazione acceso a vuoto.
+    final allaRivelazione =
+        _diario.quanteDiscese == IQuattroViaggi.quanteDiscese;
+    final nome = allaRivelazione
+        ? IQuattroViaggi.nomeDopoLeQuattroDiscese(
+            _diario.quanteDiscese, _suoAnimale.name)
+        : null;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Column(
@@ -1627,7 +1850,7 @@ class _ViaggioDelloSciamanoScreenState
               stile:
                   TypographyTokens.lettura().copyWith(color: palette.goldSoft),
             )
-          else
+          else if (!_riconosciuto)
             ParagrafiDiLettura(
               key: const Key('viaggio_ancora_no'),
               testo: IQuattroViaggi.aChePunto(_diario.quanteDiscese),

@@ -69,6 +69,33 @@ abstract final class LaPromessaDelViaggio {
   static const String cosaOtterrai =
       'Si mostra quattro volte prima di farsi riconoscere. Poi resta con te.';
 
+  /// **DOPO IL RICONOSCIMENTO, due righe nuove.** Ordine DI voce 11:
+  /// *"<Nome> resta con te. Scendi quando hai una domanda."* e *"Si allontana
+  /// se lo lasci solo. Il tamburo lo richiama."*.
+  ///
+  /// **L'ORDINE LE SCRIVE AL MASCHILE, e qui si accordano con l'animale.**
+  /// Quattro animali su dodici sono femmine, Aquila, Lince, Tartaruga e
+  /// Volpe: *"se lo lasci solo"* detto della Volpe sarebbe lo stesso errore di
+  /// *"e' il Lince"* che l'ordine DE ha gia' tolto dalla rivelazione.
+  static String restaConTe(String conArticolo) =>
+      '${conArticolo[0].toUpperCase()}${conArticolo.substring(1)} resta con '
+      'te. Scendi quando hai una domanda.';
+
+  /// La seconda riga, accordata al genere dell'animale.
+  static String siAllontana({required bool femminile}) => femminile
+      ? 'Si allontana se la lasci sola. Il tamburo la richiama.'
+      : 'Si allontana se lo lasci solo. Il tamburo lo richiama.';
+
+  /// **LE TRE AZIONI, e non di piu'.** Ordine DI voce 11: *"Scendi con una
+  /// domanda, Nutrilo, Chiedigli un segno"*, accordate come le due righe.
+  static const String scendiConUnaDomanda = 'Scendi con una domanda';
+
+  static String nutri({required bool femminile}) =>
+      femminile ? 'Nutrila' : 'Nutrilo';
+
+  static String chiediUnSegno({required bool femminile}) =>
+      femminile ? 'Chiedile un segno' : 'Chiedigli un segno';
+
   /// Le tre, in ordine, per chi le deve contare.
   static const List<String> leTreInformazioni = [
     doveTiTrovi,

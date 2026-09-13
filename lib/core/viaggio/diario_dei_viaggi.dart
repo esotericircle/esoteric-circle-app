@@ -42,6 +42,14 @@ class DiarioDeiViaggi {
   /// otterrebbe battendo il tamburo quattro volte.
   static const String _chiaveDeiNutrimenti = 'viaggio.nutrimenti';
 
+  /// **DOVE STANNO I SEGNI CHIESTI ALL'ANIMALE.** Ordine DI voce 14. Una
+  /// chiave sua, per la stessa ragione dei nutrimenti: un segno non e' una
+  /// discesa, e non deve contare per il riconoscimento.
+  static const String _chiaveDeiSegni = 'viaggio.segni';
+
+  /// Quanti segni si conservano: cento, e bastano a qualunque settimana.
+  static const int quantiSegniTiene = 100;
+
   /// **QUANTI VIAGGI SI CONSERVANO.**
   ///
   /// Novanta, come la memoria del respiro: bastano a rileggere sei mesi di
@@ -50,6 +58,26 @@ class DiarioDeiViaggi {
 
   List<UnViaggio> _viaggi = const [];
   List<DateTime> _nutrimenti = const [];
+  List<SegnoRicevuto> _segni = const [];
+
+  /// **I SEGNI CHIESTI**, dal piu' recente.
+  List<SegnoRicevuto> get segni => List.unmodifiable(_segni);
+
+  /// Gli istanti dei segni chiesti, per i tetti del piano.
+  List<DateTime> get segniChiesti => [for (final s in _segni) s.quando];
+
+  /// **SEGNA UN SEGNO RICEVUTO.** Come per i viaggi, se l'archivio rifiuta la
+  /// scrittura si perde solo il ricordo: il segno e' gia' a schermo.
+  Future<void> segnaUnSegno(SegnoRicevuto segno) async {
+    _segni = List.unmodifiable([segno, ..._segni].take(quantiSegniTiene));
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(
+          _chiaveDeiSegni, [for (final s in _segni) jsonEncode(s.toJson())]);
+    } catch (errore) {
+      // Il segno e' gia' stato dato: si perde solo il suo ricordo.
+    }
+  }
 
   /// I viaggi conservati, dal piu' recente.
   List<UnViaggio> get viaggi => List.unmodifiable(_viaggi);
@@ -70,8 +98,10 @@ class DiarioDeiViaggi {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_chiave);
     await prefs.remove(_chiaveDeiNutrimenti);
+    await prefs.remove(_chiaveDeiSegni);
     _viaggi = const [];
     _nutrimenti = const [];
+    _segni = const [];
     // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
     // Viaggio a zero discese lasciando il nome detto in mezza app.
     IlNomeSiPuoDire.quanteDisceseNote = 0;
@@ -107,6 +137,17 @@ class DiarioDeiViaggi {
       }
       battiti.sort((a, b) => b.compareTo(a));
       _nutrimenti = List.unmodifiable(battiti);
+      // **I SEGNI, ordine DI voce 14**, con la stessa indulgenza.
+      final segni = <SegnoRicevuto>[];
+      for (final r in prefs.getStringList(_chiaveDeiSegni) ?? const []) {
+        final j = jsonDecode(r);
+        if (j is Map<String, dynamic>) {
+          final s = SegnoRicevuto.fromJson(j);
+          if (s != null) segni.add(s);
+        }
+      }
+      segni.sort((a, b) => b.quando.compareTo(a.quando));
+      _segni = List.unmodifiable(segni);
     } catch (errore) {
       // **SI IGNORA, E SI DICE PERCHE'.** Un archivio illeggibile o assente
       // non deve impedire di scendere: **il viaggio di oggi vale piu' del
@@ -114,6 +155,7 @@ class DiarioDeiViaggi {
       // trovare la funzione chiusa.
       _viaggi = const [];
       _nutrimenti = const [];
+      _segni = const [];
     }
   }
 
@@ -182,14 +224,24 @@ class DiarioDeiViaggi {
   /// che nasce per caso da una sottrazione.
   static const int quantiNutrimentiContano = 3;
 
+  ///
+  /// **E UNO AL GIORNO, anche se il tamburo si batte piu' volte.** Ordine DI
+  /// voce 13: il nutrimento e' aperto sempre, in tutti i piani, e la regola
+  /// dell'ordine DE resta vera per un'altra strada. Prima il tamburo si poteva
+  /// battere una volta al giorno, *"senza questo limite il gesto non vale
+  /// niente"*; adesso si batte quanto si vuole, e **conta un giorno solo**:
+  /// quattro riti di seguito oggi valgono un nutrimento, e tornare continua a
+  /// costare tornare.
   int get nutrimentiCheContano {
     final ultima = _viaggi.isEmpty ? null : _viaggi.first.quando;
-    var quanti = 0;
+    final giorni = <String>{};
     for (final d in _nutrimenti) {
       if (ultima != null && !d.isAfter(ultima)) continue;
-      quanti++;
+      giorni.add(_giornoDi(d));
     }
-    return quanti > quantiNutrimentiContano ? quantiNutrimentiContano : quanti;
+    return giorni.length > quantiNutrimentiContano
+        ? quantiNutrimentiContano
+        : giorni.length;
   }
 
   /// **DA QUANTI GIORNI L'ANIMALE E' LONTANO**, tolti i nutrimenti.
@@ -393,6 +445,52 @@ class UnViaggio {
       ],
       animaleSeguito: j['animale'] as String? ?? '',
       nitidezza: (j['nitidezza'] as num?)?.toDouble() ?? 1.0,
+    );
+  }
+}
+
+/// **UN SEGNO RICEVUTO DALL'ANIMALE**, come si conserva. Ordine DI voce 14.
+///
+/// Si conserva il gesto per nome e la riga cosi' come e' stata letta: rileggere
+/// un segno sei mesi dopo deve dare le stesse parole, non una riga nuova.
+class SegnoRicevuto {
+  const SegnoRicevuto({
+    required this.quando,
+    required this.domanda,
+    required this.gesto,
+    required this.riga,
+    this.cosa,
+  });
+
+  final DateTime quando;
+  final String domanda;
+
+  /// Il nome del gesto nel repertorio chiuso, `GestoDelSegno.name`.
+  final String gesto;
+
+  /// L'id della figura portata, se il gesto la porta.
+  final String? cosa;
+  final String riga;
+
+  Map<String, dynamic> toJson() => {
+        'quando': quando.toIso8601String(),
+        'domanda': domanda,
+        'gesto': gesto,
+        if (cosa != null) 'cosa': cosa,
+        'riga': riga,
+      };
+
+  static SegnoRicevuto? fromJson(Map<String, dynamic> j) {
+    final quando = DateTime.tryParse('${j['quando']}');
+    final gesto = j['gesto'];
+    final riga = j['riga'];
+    if (quando == null || gesto is! String || riga is! String) return null;
+    return SegnoRicevuto(
+      quando: quando,
+      domanda: '${j['domanda'] ?? ''}',
+      gesto: gesto,
+      cosa: j['cosa'] is String ? j['cosa'] as String : null,
+      riga: riga,
     );
   }
 }

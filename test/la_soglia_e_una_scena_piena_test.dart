@@ -249,7 +249,14 @@ void main() {
     await apri(tester, discese: 2);
     final prima = promessaCon(2);
     await apri(tester, discese: 4);
-    final dopo = promessaCon(4);
+    // **DOPO IL RICONOSCIMENTO L'INTESTAZIONE E' UN'ALTRA**, ordine DI voce
+    // 11: l'animale chiamato per nome e la riga *"<Nome> resta con te. Scendi
+    // quando hai una domanda."*. La promessa di dopo si legge li'.
+    expect(find.byKey(const Key('viaggio_promessa')), findsNothing,
+        reason: 'dopo il riconoscimento la soglia promette ancora di scoprire');
+    final dopo = tester
+        .widget<Text>(find.byKey(const Key('viaggio_resta_con_te')))
+        .data!;
     // ignore: avoid_print
     print('ORDINE DE VOCE 02: a due discese la soglia promette "$prima"; a '
         'quattro promette "$dopo"');
@@ -259,8 +266,8 @@ void main() {
     expect(prima.toLowerCase(), contains('animale'),
         reason: 'prima della quarta discesa la promessa non nomina la cosa '
             'che si ottiene: "$prima"');
-    expect(dopo.toLowerCase(), contains('risposta'),
-        reason: 'dopo la quarta discesa la promessa non parla di risposte: '
+    expect(dopo.toLowerCase(), contains('domanda'),
+        reason: 'dopo la quarta discesa la soglia non parla di domande: '
             '"$dopo"');
   });
 

@@ -7,7 +7,7 @@
 Vertex AI, mai su API Anthropic. **Nessuna build senza ordine del fondatore.**
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 9
+VOCI_CHIUSE: 13
 VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
@@ -130,6 +130,68 @@ facevano varianza da sole; e l'innesto del pulsante aveva le virgolette nel
 filtro della prova, che non girava affatto. Misurata la grana dentro la scena,
 e innestato il pulsante davvero dentro la zona del dito, rossi tutti e due. Il
 ripristino dopo ogni innesto e' stato verificato al byte.
+
+---
+
+## DI.11, DI.12, DI.13 e DI.14, LA VITA DOPO IL RICONOSCIMENTO. CHIUSE NEL CODICE
+
+**DI.11, cosa sparisce e cosa compare.** Alla quarta discesa spariscono le
+quattro impronte, il conteggio, le tre righe della voce DI.07, la girandola dei
+dodici candidati; e dalla quinta in poi la riga *"E' il Lupo. Adesso lo
+conosci."* e la card da condividere, che tornavano **a ogni discesa**. Al loro
+posto l'animale a figura intera e scoperto, il suo nome, e le due righe
+dell'ordine, **accordate col genere**: l'ordine le scrive al maschile, e quattro
+animali su dodici sono femmine. *"La Volpe resta con te. Scendi quando hai una
+domanda."*, *"Si allontana se la lasci sola. Il tamburo la richiama."*. Sotto,
+tre azioni e non di piu': **Scendi con una domanda**, **Nutrilo** o **Nutrila**,
+**Chiedigli** o **Chiedile un segno**. La scelta della domanda compare solo
+quando si tocca la prima.
+
+**DI.12, si scende per chiedere.** Stessa meccanica: la domanda, il filmato
+saltabile, la nebbia, l'incontro con l'animale **scoperto**, e la risposta
+**senza la lente**, perche' il velo e' caduto. I tetti sono quelli della DI.15.
+
+**DI.13, il tamburo che nutre** (`il_tamburo_che_nutre.dart`). A schermo pieno,
+sul fondo della galleria: la pelle del tamburo pulsa in basso alla cadenza del
+tamburo, si batte col dito dove si vuole, e **finche' un colpo e' caduto
+nell'ultimo secondo e poco piu' l'animale continua ad avvicinarsi** dall'orizzonte
+al primo piano mentre la nebbia intorno si dirada. Quaranta secondi **di
+battito**, non d'orologio: se si smette, l'animale si ferma e aspetta. Nessun
+numero, nessuna barra. Alla fine *"Il Cavallo e' vicino a te."* e la riga dello
+stato, com'era. **Il nutrimento e' aperto sempre**, e conta un giorno solo anche
+se lo si fa piu' volte: la regola dell'ordine DE, *"tornare costa tornare"*,
+resta vera per quest'altra strada. Il pulsante in un clic dell'ordine DE non
+c'e' piu'; dalla soglia di prima del riconoscimento, *"Richiamalo col tamburo"*
+apre lo stesso rito.
+
+**DI.14, il segno** (`il_segno_dell_animale.dart`, `il_segno_che_risponde.dart`).
+Una domanda in una riga; l'animale risponde con **uno dei sei gesti
+dell'ordine**, detti per ogni animale (un uccello porta *nel becco* e si *posa*,
+il Serpente si *raccoglie*), e **una riga sola**. Il modello sceglie il gesto e
+la figura portata da elenchi chiusi e scrive la riga; la riga si legge prima di
+mostrarla (lunghezza, due punti annidati, participi riferiti a chi legge), e se
+qualcosa non torna risponde la riserva deterministica, senza dirlo. Il segno si
+conserva nel Diario. Tetti della DI.15 e tetto tecnico.
+
+**DUE COSE DA DIRE PER QUELLO CHE SONO.**
+
+- **Il gesto e' l'illustrazione che si muove**, non un disegno per gesto: per
+  ogni animale c'e' un'illustrazione sola, e sei gesti per dodici animali sono
+  settantadue disegni che non esistono. L'animale si volta ruotando, si
+  avvicina crescendo, si allontana rimpicciolendo, si siede abbassandosi,
+  guarda lontano spostandosi, e *porta qualcosa* con una luce che nasce dove
+  sta la sua bocca. **I disegni veri dei gesti sono un lavoro da ordinare.**
+- **Il modello del segno e' quello della domanda capita**, scelta B, finche' il
+  fondatore non sceglie: `gemini-2.5-flash-lite` su `europe-west1`. Il modello
+  dell'ordine, Gemini 3.5 Flash Lite, esiste solo su `global`.
+
+**VISTE, non solo provate.** Le tre schermate nuove sono state fotografate al
+banco e guardate: la prima fotografia del tamburo mostrava **la nebbia sopra
+l'animale**, che a meta' rito non si vedeva arrivare, e un rito fermo perche'
+il tempo era misurato con un cronometro; tutte e due corrette prima di
+chiudere.
+
+**La guardia**, `la_vita_dopo_il_riconoscimento`: dieci rossi.
 
 ---
 
