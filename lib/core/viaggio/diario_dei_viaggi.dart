@@ -429,9 +429,21 @@ class UnViaggio {
     required this.pezzi,
     required this.animaleSeguito,
     required this.nitidezza,
+    this.titolo,
+    this.risposta,
+    this.gesto,
   });
 
   final DateTime quando;
+
+  /// **IL TITOLO CHE LA DISCESA HA MOSTRATO**, e con lui la risposta e
+  /// l'azione, cosi' come stanno nei loro elenchi. Ordine DJ voce 02: la voce
+  /// sceglie fra cio' che la persona non ha ancora letto, e **la stessa
+  /// discesa riaperta mostra lo stesso titolo, perche' il titolo si conserva e
+  /// non si ricalcola**. Nulli nelle discese scritte prima dell'ordine DJ.
+  final String? titolo;
+  final String? risposta;
+  final String? gesto;
 
   /// La domanda con cui si e' sceso, per esteso.
   final String domanda;
@@ -476,6 +488,9 @@ class UnViaggio {
         'pezzi': pezzi,
         'animale': animaleSeguito,
         'nitidezza': nitidezza,
+        if (titolo != null) 'titolo': titolo,
+        if (risposta != null) 'risposta': risposta,
+        if (gesto != null) 'gesto': gesto,
       };
 
   static UnViaggio? fromJson(Map<String, dynamic> j) {
@@ -491,6 +506,9 @@ class UnViaggio {
       ],
       animaleSeguito: j['animale'] as String? ?? '',
       nitidezza: (j['nitidezza'] as num?)?.toDouble() ?? 1.0,
+      titolo: j['titolo'] is String ? j['titolo'] as String : null,
+      risposta: j['risposta'] is String ? j['risposta'] as String : null,
+      gesto: j['gesto'] is String ? j['gesto'] as String : null,
     );
   }
 }

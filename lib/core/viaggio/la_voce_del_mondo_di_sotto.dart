@@ -538,6 +538,34 @@ abstract final class LaVoceDelMondoDiSotto {
 
   static int _mcd(int a, int b) => b == 0 ? a : _mcd(b, a % b);
 
+  /// **OGNI QUANTI GIORNI LA RISPOSTA SALTA AVANTI DI UN POSTO**, con [s]
+  /// risposte e [c] azioni. Ordine DJ voce 02, 13 settembre 2026.
+  ///
+  /// **Fino all'ordine DJ era il minimo comune multiplo**, sessanta giorni con
+  /// dodici risposte, e con otto titoli per tema andava bene. Con il mazzo di
+  /// ventiquattro titoli no: in ventiquattro giorni la risposta non saltava
+  /// quasi mai, e **il titolo tornava insieme alla stessa risposta ogni
+  /// ventiquattro giorni**. I numeri qui sotto vengono da un calcolo su ogni
+  /// partenza possibile, che per ogni salto misura dopo quanti giorni torna la
+  /// stessa coppia, dopo quanti tornano insieme titolo e risposta, e la
+  /// distanza minima fra due uscite della stessa risposta:
+  ///
+  /// | risposte | salto | la coppia torna | titolo e risposta insieme | la risposta torna |
+  /// |---|---|---|---|---|
+  /// | 12 | 60, prima | 200 giorni | 24 giorni | 11 |
+  /// | 12 | **11** | **220 giorni** | **oltre 263 giorni** | **11** |
+  /// | 8 | **40, come prima** | 140 giorni | i titoli senza tema girano a parte | 7 |
+  /// | 8 | 20 | 160 giorni | | 7 |
+  ///
+  /// **Senza tema resta quaranta**, e il calcolo da solo non basta a dirlo:
+  /// con venti la coppia restava unica piu' a lungo, ma la prova a cento
+  /// discese ha misurato la somiglianza al 40,7 per cento su una domanda
+  /// libera, contro il 33,3 con quaranta. Per un numero di risposte che il
+  /// calcolo non ha visto resta il minimo comune multiplo, che tiene la coppia
+  /// unica e la risposta distante.
+  static int _spostamentoDi(int s, int c) =>
+      c == 20 && s == 12 ? 11 : s * c ~/ _mcd(s, c);
+
   /// **UN POSTO MESCOLATO**: [i] letto nello spazio mescolato di [quante]
   /// posti del blocco [marcatore]. Una permutazione non unisce mai due posti
   /// diversi, quindi cio' che era iniettivo resta iniettivo, e smette di
@@ -581,17 +609,95 @@ abstract final class LaVoceDelMondoDiSotto {
     ]);
     final quali = titoliPerTema[temaDomanda] ?? titoliSenzaDomanda;
     if (giornoDellaDiscesa == null) return filo.scegli(quali);
-    // **IL TITOLO NON GIRA IN FASE COL NUCLEO.** Con otto titoli in un ciclo
-    // di otto, a quaranta giorni tornavano insieme il titolo e il gesto, che
-    // gira su venti, e a ventiquattro il titolo e la risposta, che gira su
-    // dodici: due responsi con due frasi in comune, e la somiglianza sopra
-    // il quaranta per cento. Adesso il titolo si sposta di un posto a ogni
-    // suo giro completo, e non torna mai in fase ne' con l'uno ne' con
-    // l'altra; e non si ripete in due giorni di fila.
+    // Senza memoria il mazzo gira col giorno: vedi [_titoloDelMazzo].
+    return _titoloDelMazzo(
+        temaDomanda, giro(giornoDellaDiscesa, giaOggi), const []);
+  }
+
+  /// **LA CHIAVE DEL MAZZO**: il tema, quando e' uno dei sei, o `nulla`.
+  static String _chiaveDi(String? tema) =>
+      titoliPerTema.containsKey(tema) ? tema! : 'nulla';
+
+  /// **IL TITOLO DAL MAZZO, e il mazzo si ricorda.** Ordine DJ voce 02,
+  /// 13 settembre 2026.
+  ///
+  /// **Il principio e' del fondatore**: *"aumentare i titoli sposta la
+  /// ripetizione piu' in la', non la toglie [...] quello che la toglie e'
+  /// ricordarsi cosa quella persona ha gia' letto"*. [letti] sono le discese
+  /// di prima, dalla piu' recente, col titolo che ciascuna ha mostrato.
+  ///
+  /// **IL MAZZO E' UN GIRO FISSO**, un ordine mescolato una volta per tema.
+  /// Il titolo di oggi e' quello che viene dopo l'ultimo letto su questo tema,
+  /// saltando quelli gia' usciti nel mazzo in corso; il mazzo finito si azzera
+  /// e ricomincia nello stesso ordine. **Per questo nessun titolo torna prima
+  /// di ventiquattro discese sullo stesso tema**, in qualunque finestra, e non
+  /// soltanto nel primo mazzo: un mazzo rimescolato a ogni azzeramento
+  /// avrebbe potuto rimettere l'ultimo titolo di un giro in testa al giro
+  /// dopo. Il mazzo in corso si legge dalle discese conservate: i titoli
+  /// distinti dalla piu' recente in giu', finche' non tornano o non sono
+  /// ventiquattro, cioe' finito.
+  ///
+  /// **Chi non ha ancora letto niente su questo tema** comincia dal posto
+  /// del giorno, e senza memoria il mazzo gira col giorno: la voce di prima
+  /// dell'ordine DJ, per le prove che non hanno un Diario.
+  static String _titoloDelMazzo(
+      String? temaDomanda, int g, List<ResponsoLetto> letti) {
+    final chiave = _chiaveDi(temaDomanda);
+    final quali = titoliPerTema[temaDomanda] ?? titoliSenzaDomanda;
     final n = quali.length;
-    final u = FiloDellaVoce.da(['titolo', temaDomanda ?? 'nulla']).seme % n +
-        giro(giornoDellaDiscesa, giaOggi);
-    return quali[mescolato((u + u ~/ n) % n, n, 'titolo ${temaDomanda ?? 'nulla'}')];
+    // **I QUATTRO TITOLI SENZA DOMANDA RESTANO COM'ERANO**, ordine DJ voce
+    // 01, e anche il modo di sceglierli: si spostano di un posto a ogni giro
+    // e non vanno in fase con le otto risposte. Nel mazzo fisso tornavano ogni
+    // quattro discese, e ogni volta che tornava la risposta tornava anche il
+    // titolo: misurato, la somiglianza al 40,0 per cento.
+    if (!titoliPerTema.containsKey(temaDomanda)) {
+      final u = FiloDellaVoce.da(['titolo', temaDomanda ?? 'nulla']).seme % n + g;
+      return quali[
+          mescolato((u + u ~/ n) % n, n, 'titolo ${temaDomanda ?? 'nulla'}')];
+    }
+    final ordine = [
+      for (var i = 0; i < n; i++) quali[mescolato(i, n, 'mazzo $chiave')]
+    ];
+    final delTema = [
+      for (final l in letti)
+        if (_chiaveDi(l.tema) == chiave &&
+            l.titolo != null &&
+            ordine.contains(l.titolo))
+          l.titolo!,
+    ];
+    final mazzo = <String>{};
+    for (final t in delTema) {
+      if (!mazzo.add(t)) break;
+    }
+    if (mazzo.length >= n) mazzo.clear();
+    final partenza = delTema.isEmpty
+        ? FiloDellaVoce.da(['titolo', chiave]).seme % n + g
+        : ordine.indexOf(delTema.first) + 1;
+    for (var k = 0; k < n; k++) {
+      final t = ordine[(partenza + k) % n];
+      if (!mazzo.contains(t)) return t;
+    }
+    return ordine[partenza % n];
+  }
+
+  /// **LA VOCE DI UNA DISCESA, con la memoria di cio' che la persona ha gia'
+  /// letto.** Ordine DJ voce 02: il titolo dal mazzo, i tre paragrafi col
+  /// giro, e le due frasi che il Diario conserva per ricordarsele.
+  static VoceDelGiorno alGiorno({
+    required ScenaDelViaggio scena,
+    required String? temaDomanda,
+    required String? temaInLettere,
+    required DateTime giornoDellaDiscesa,
+    int giaOggi = 0,
+    int? formaDellaScena,
+    List<ResponsoLetto> letti = const [],
+  }) {
+    final g = giro(giornoDellaDiscesa, giaOggi);
+    final titolo = _titoloDelMazzo(temaDomanda, g, letti);
+    final (righe, risposta, gesto) = _paragrafiAlGiro(
+        scena, temaDomanda, temaInLettere, g, formaDellaScena,
+        titolo: titolo, letti: letti);
+    return VoceDelGiorno._(titolo, righe, risposta, gesto);
   }
 
   /// **I PARAGRAFI DELLA RISPOSTA**, nell'ordine in cui si leggono.
@@ -615,8 +721,14 @@ abstract final class LaVoceDelMondoDiSotto {
     int? formaDellaScena,
   }) {
     if (giornoDellaDiscesa != null) {
-      return _paragrafiAlGiro(scena, temaDomanda, temaInLettere,
-          giro(giornoDellaDiscesa, giaOggi), formaDellaScena);
+      return alGiorno(
+        scena: scena,
+        temaDomanda: temaDomanda,
+        temaInLettere: temaInLettere,
+        giornoDellaDiscesa: giornoDellaDiscesa,
+        giaOggi: giaOggi,
+        formaDellaScena: formaDellaScena,
+      ).paragrafi;
     }
     final filo = FiloDellaVoce.da([
       ...scena.idDeiPezzi,
@@ -707,8 +819,9 @@ abstract final class LaVoceDelMondoDiSotto {
   /// e la stessa chiusura, e col modello vero la misura C della direzione e'
   /// arrivata al 45,1 per cento. Adesso ogni cornice passa da uno spazio
   /// mescolato, che non unisce mai due posti e non lascia vicini i vicini.
-  static List<String> _paragrafiAlGiro(ScenaDelViaggio scena,
-      String? temaDomanda, String? temaInLettere, int g, int? formaDellaScena) {
+  static (List<String>, String, String) _paragrafiAlGiro(ScenaDelViaggio scena,
+      String? temaDomanda, String? temaInLettere, int g, int? formaDellaScena,
+      {required String titolo, required List<ResponsoLetto> letti}) {
     final righe = <String>[];
     final conTema = temaDomanda != null && temaInLettere != null;
     final risposte = conTema
@@ -716,31 +829,104 @@ abstract final class LaVoceDelMondoDiSotto {
         : risposteSenzaDomanda;
     final s = risposte.length;
     // **DUE CICLI, E NON UNA PESCATA NELLO SPAZIO.** Il gesto gira sulle sue
-    // venti forme, la risposta sulle sue [s]; e poiche' venti e [s] hanno
-    // divisori in comune, dopo il loro minimo comune multiplo di giorni la
-    // risposta si sposta di un posto. **Cosi' la stessa azione non torna
+    // venti forme, la risposta sulle sue [s], e ogni [_spostamentoDi] giorni
+    // la risposta salta avanti di un posto. **Cosi' la stessa azione non torna
     // prima di venti giorni, la stessa risposta prima di [s] meno uno, e la
-    // coppia non torna in nessuna finestra di duecento giorni con un tema,
-    // di centoquaranta senza.** La dimostrazione: due giorni con lo stesso
-    // gesto distano venti per m, e la risposta coincide se venti per m piu'
-    // lo spostamento d e' multiplo di [s]. Con dodici risposte serve d
-    // uguale a quattro volte m modulo dodici, e lo spostamento, un posto
-    // ogni sessanta giorni, lo raggiunge la prima volta a m uguale a dieci,
-    // cioe' a duecento giorni; con otto, a m uguale a sette, centoquaranta.
-    // **E il ciclo non si chiude**: la seconda stesura lo faceva ricominciare
-    // ogni duecentoquaranta giorni, e dove ricominciava lo spostamento
-    // tornava a zero e la stessa risposta ricadeva a tre giorni di distanza.
-    // La prima stesura pescava la coppia da uno spazio mescolato: unica
-    // anche lei, ma la stessa azione poteva tornare a tre giorni, e nessuna
-    // delle cinque misure lo vedeva. Le forme di ogni ciclo sono in un
-    // ordine mescolato.
+    // coppia non torna prima di duecentoventi giorni con un tema, di
+    // centoquaranta senza.** Le forme di ogni ciclo sono in un ordine
+    // mescolato. La prima stesura pescava la coppia da uno spazio mescolato:
+    // unica anche lei, ma la stessa azione poteva tornare a tre giorni, e
+    // nessuna delle cinque misure lo vedeva; la seconda faceva ricominciare il
+    // ciclo ogni duecentoquaranta giorni, e dove ricominciava la stessa
+    // risposta ricadeva a tre giorni di distanza.
     final c = cosaPuoiFare.length;
     final chiave = conTema ? temaDomanda : 'nulla';
     final t = FiloDellaVoce.da(['nucleo', chiave]).seme % (s * c) + g;
-    final multiplo = s * c ~/ _mcd(s, c);
-    final ge = mescolato(t % c, c, 'gesto del nucleo');
-    final ri =
-        mescolato((t + t ~/ multiplo) % s, s, 'risposta del nucleo $chiave');
+    final salto = _spostamentoDi(s, c);
+    (int, int) coppia(int u) => (
+          mescolato((u + u ~/ salto) % s, s, 'risposta del nucleo $chiave'),
+          mescolato(u % c, c, 'gesto del nucleo'),
+        );
+
+    // **I CICLI RICORDANO CIO' CHE LA PERSONA HA LETTO.** Ordine DJ voce 02.
+    //
+    // I cicli contano i giorni, non le discese di chi legge. Per chi scende
+    // ogni giorno sullo stesso tema bastano, e nessuna delle regole qui sotto
+    // cambia niente. Ma chi scende sullo stesso tema ogni dodici giorni
+    // ritrovava la stessa risposta ogni volta, e chi alterna i temi poteva
+    // leggere la stessa azione due giorni di fila, perche' ogni tema parte da
+    // un posto suo. Adesso il nucleo si ricorda:
+    //
+    // - **la risposta non e' fra le ultime sei lette sullo stesso tema**, come
+    //   dice l'ordine, e non fra tutte, perche' con dodici un divieto totale
+    //   lascerebbe troppo poco al filo; senza tema, fra le ultime quattro;
+    // - **l'azione non e' fra le ultime dieci lette su qualunque tema**, e
+    //   l'ordine non lo chiede: e' la stessa regola, e le venti azioni sono le
+    //   stesse per tutti i temi;
+    // - **la coppia non e' gia' stata letta su questo tema**, perche' le
+    //   cornici dipendono dalla coppia: una coppia ripetuta e' un paragrafo
+    //   ripetuto.
+    //
+    // E, dove si puo', **il titolo di oggi non torna con una risposta o
+    // un'azione con cui e' gia' uscito**: due frasi in comune bastano a
+    // portare la somiglianza sopra il quaranta per cento. Senza tema i titoli
+    // sono quattro, e la regola cede per prima.
+    //
+    // **SI SALTA COL NUCLEO INTERO**, prendendo il posto del ciclo di un
+    // giorno piu' avanti con la sua coppia, e non una frase alla volta. La
+    // prima stesura faceva saltare la risposta e l'azione ciascuna per conto
+    // suo: una risposta spostata finiva accanto all'azione di un altro giorno,
+    // le cornici tornavano identiche, e la somiglianza e' arrivata all'ottanta
+    // per cento. Una seconda sceglieva fra tutti i posti buoni quello letto piu'
+    // lontano, e cambiava anche la discesa di chi scende ogni giorno: la
+    // stessa azione dopo diciannove discese invece di venti.
+    final stessoTema = [
+      for (final l in letti)
+        if (_chiaveDi(l.tema) == _chiaveDi(chiave)) l,
+    ];
+    final risposteRecenti = {
+      for (final l in stessoTema.take(s ~/ 2 < 6 ? s ~/ 2 : 6))
+        if (l.risposta != null) l.risposta!,
+    };
+    final gestiRecenti = {
+      for (final l in letti.take(c ~/ 2))
+        if (l.gesto != null) l.gesto!,
+    };
+    final usate = {
+      for (final l in stessoTema)
+        if (l.risposta != null && l.gesto != null) '${l.risposta}|${l.gesto}',
+    };
+    // **Senza tema la regola del titolo non c'e'**: quattro titoli su otto
+    // risposte tornano insieme per forza, e inseguirli spostava i cicli di
+    // chi scende ogni giorno. Misurato: la stessa azione dopo diciotto discese
+    // e la somiglianza al 43,2 per cento.
+    final colTitolo = [
+      if (titoliPerTema.containsKey(temaDomanda))
+        for (final l in stessoTema)
+          if (l.titolo == titolo) l,
+    ];
+    bool siPuo((int, int) p) =>
+        !risposteRecenti.contains(risposte[p.$1]) &&
+        !gestiRecenti.contains(cosaPuoiFare[p.$2]) &&
+        !usate.contains('${risposte[p.$1]}|${cosaPuoiFare[p.$2]}');
+    bool nonRitornaColTitolo((int, int) p) => !colTitolo.any(
+        (l) => l.risposta == risposte[p.$1] || l.gesto == cosaPuoiFare[p.$2]);
+
+    // Se nessun posto rispetta niente resta il posto del giorno: la voce
+    // risponde sempre, anche quando la memoria ha chiuso ogni strada.
+    int? scelto;
+    int? primoBuono;
+    for (var k = 0; k < s * c && scelto == null; k++) {
+      final p = coppia(t + k);
+      if (!siPuo(p)) continue;
+      if (nonRitornaColTitolo(p)) scelto = t + k;
+      primoBuono ??= t + k;
+    }
+    final posto = scelto ?? primoBuono ?? t;
+    final (ri, ge) = coppia(posto);
+    // **IL GIRO DELLA RISPOSTA**: quante volte il ciclo delle risposte ha
+    // fatto il giro completo fino a questo posto. Da' la coda, vedi sotto.
+    final giroDellaRisposta = (posto + posto ~/ salto) ~/ s;
     final risposta = risposte[ri];
     final gesto = cosaPuoiFare[ge];
     // Le partenze delle due cornici, fisse e diverse fra loro.
@@ -758,14 +944,11 @@ abstract final class LaVoceDelMondoDiSotto {
           .replaceAll('{tema}', _minuscola(temaInLettere))
           .replaceAll('{breve}',
               temaInDueParole[temaDomanda] ?? _minuscola(temaInLettere));
-      righe.add(cuci([ripresa, risposta, codaDellaRisposta[cornice ~/ r]]));
+      righe.add(cuci([ripresa, risposta, _codaDi(ri, giroDellaRisposta)]));
     } else {
       // Senza tema la risposta e' una frase sola su otto: ha la coda, o in
       // cento discese tornerebbe dodici volte.
-      righe.add(cuci([
-        risposta,
-        codaDellaRisposta[(pr + ge * 5) % codaDellaRisposta.length],
-      ]));
+      righe.add(cuci([risposta, _codaDi(ri, giroDellaRisposta)]));
     }
 
     final a = apreIlGesto.length;
@@ -807,7 +990,23 @@ abstract final class LaVoceDelMondoDiSotto {
       daDove.first.trimRight(),
       scena.testoSenzaAperturaAlPosto(forma + forme * chiusura),
     ]));
-    return righe;
+    return (righe, risposta, gesto);
+  }
+
+  /// **LA CODA DELLA RISPOSTA, dal giro della risposta.** Ordine DJ voce 02.
+  ///
+  /// **Qui la coda dipendeva dalla coppia**, risposta e azione: due discese
+  /// con la stessa risposta e due azioni diverse avevano una probabilita' su
+  /// dodici di avere anche la stessa coda, e su cento discese capitava. La
+  /// prova a cento discese ha trovato *"Finire e' un lavoro. Lo stai facendo.
+  /// Il resto e' rumore."* due volte, e la somiglianza al 40,0 per cento.
+  /// Adesso la coda gira col giro della risposta: **la stessa risposta non
+  /// torna con la stessa coda per dodici giri**, cioe' per piu' di
+  /// centoquaranta discese sullo stesso tema.
+  static String _codaDi(int risposta, int giroDellaRisposta) {
+    final n = codaDellaRisposta.length;
+    return codaDellaRisposta[
+        mescolato((giroDellaRisposta + risposta * 5) % n, n, 'coda')];
   }
 
   /// **LA CUCITURA DEI PEZZI, e impedisce i due punti annidati per
@@ -872,4 +1071,32 @@ abstract final class LaVoceDelMondoDiSotto {
 
   /// L'etichetta per esteso del tema, per la ripresa della domanda.
   static String? temaInLettereDi(TemaDellaDomanda? tema) => tema?.inLettere;
+}
+
+/// **UNA DISCESA GIA' LETTA**, come la voce la ricorda. Ordine DJ voce 02.
+///
+/// Il tema, cioe' l'id che il Diario conserva, e le tre frasi che la persona
+/// ha letto: il titolo, la risposta e l'azione, cosi' come stanno negli
+/// elenchi. Le discese scritte prima dell'ordine DJ non le hanno, e restano
+/// nulle: la voce le salta.
+typedef ResponsoLetto = ({
+  String tema,
+  String? titolo,
+  String? risposta,
+  String? gesto,
+});
+
+/// **LA VOCE DI UNA DISCESA**: il titolo e i tre paragrafi da leggere, e la
+/// risposta e l'azione scelte, che il Diario conserva. Ordine DJ voce 02.
+class VoceDelGiorno {
+  const VoceDelGiorno._(this.titolo, this.paragrafi, this.risposta, this.gesto);
+
+  final String titolo;
+  final List<String> paragrafi;
+
+  /// La risposta cosi' come sta nel suo elenco, senza la ripresa e la coda.
+  final String risposta;
+
+  /// L'azione cosi' come sta in [LaVoceDelMondoDiSotto.cosaPuoiFare].
+  final String gesto;
 }

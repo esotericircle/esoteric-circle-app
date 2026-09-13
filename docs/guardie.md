@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 127 |
-| Guardie con un cardinale proprio dichiarato | 102 |
+| Guardie con un cardinale proprio dichiarato | 103 |
 | Guardie che non scoprono nessun insieme di file | 178 |
-| **Somma delle categorie** | **407** |
-| **Guardie secondo la definizione** | **407** |
+| **Somma delle categorie** | **408** |
+| **Guardie secondo la definizione** | **408** |
+
+**Ricontate a voce DJ.02 chiusa**, che ha portato **una guardia nuova**, `la_voce_si_ricorda`: il totale sale da 407 a **408** e le tre categorie a **127, 103 e 178**. Scende come la prova a cento discese non scende, sullo stesso tema a giorni alterni o a temi alternati: per chi scende ogni giorno i cicli della voce bastano da soli, e la memoria non si vedrebbe. `la_scena_parla_bene` e' stata allargata alla voce DJ.01: cercava l'aggettivo al maschile dopo il verbo coniugato, e *Non ti serve essere sicuro*, fra i titoli dell'ordine, passava.
 
 **Ricontate a voce DI.16 chiusa**, che ha portato **una guardia nuova**, `la_prova_a_cento_discese`: il totale sale da 406 a **407** e le tre categorie a **127, 102 e 178**. **La suite intera, fatta girare per chiudere la voce DI.10, ha visto rosse cinque guardie di casa su difetti veri di voci DI gia' spinte**, `etichette_e_lettura`, `il_giorno_si_conta_dalla_porta`, `la_catena_dei_dati_di_nascita`, `nessun_catch_muto` e `testi_falsi`: le voci DI.03, DI.13, DI.14 e DI.15 erano state spinte senza la suite intera. E `la_scena_parla_bene` e' stata allargata, perche' il suo elenco chiuso di sei participi lasciava passare *Non sei bloccato*.
 
@@ -661,6 +663,7 @@ le altre.
 | `la_testa_del_maestro_non_si_taglia_test.dart` | la testa del Maestro non si taglia a lettere grandi | 1, 2 | proprio, dichiarato | CO | 2 |
 | `la_testata_non_copre_il_maestro_test.dart` | la testata non copre il maestro | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `la_verifica_degli_angeli_e_vera_test.dart` | la verifica degli angeli e vera | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
+| `la_voce_si_ricorda_test.dart` | la voce del Viaggio si ricorda di cio' che la persona ha letto, ordine DJ voce 02, dalla strada vera per chi scende in modo irregolare: sullo stesso tema ogni 11, 12 e 20 giorni la risposta non e' fra le ultime sei, ogni finestra di ventiquattro discese ha ventiquattro titoli e nessuna coppia torna; a temi alternati l'azione non e' fra le ultime dieci; il mazzo finito ricomincia nello stesso ordine; la discesa riaperta conserva titolo, risposta e azione, e un Diario di prima si legge | 1, 2 | proprio, dichiarato | 13/09/2026, DJ voce 02 (sette rossi: la memoria spenta tre, il divieto della coppia tolto uno, il mazzo che salta un posto quattro, il titolo che non si conserva uno; il primo rosso ha mostrato che col solo passo di dodici giorni la pretesa sulla risposta era cieca, e i passi sono diventati tre) | 1 |
 | `la_voce_account_nelle_impostazioni_e_viva_test.dart` | la voce account nelle impostazioni e viva | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `language_rule_test.dart` | language rule | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
 | `le_chiavi_di_ios_ci_sono_tutte_test.dart` | le chiavi di ios ci sono tutte | 4 | non scopre insiemi di file | mai | 3 |

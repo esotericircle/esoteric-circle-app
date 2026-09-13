@@ -661,7 +661,6 @@ class _ViaggioDelloSciamanoScreenState
     // qui il richiamo le prendeva dopo, e fra le precedenti c'era anche la
     // scena di oggi, cosi' ogni discesa diceva che la sua cosa era gia'
     // comparsa, anche la prima. Veniva dall'ordine DE voce 11.
-    final precedenti = [for (final v in _diario.viaggi) v.pezzi];
     final responso = IlResponsoDelViaggio.componi(
       dalModello: dalModello,
       domanda: domanda,
@@ -671,10 +670,12 @@ class _ViaggioDelloSciamanoScreenState
       giaOggi: _diario.quanteOggi,
       animale: _suoAnimale,
       tema: _temaScelto,
-      precedenti: precedenti,
+      storia: _diario.viaggi,
     );
     final scena = responso.scena;
-    await _diario.segna(UnViaggio(
+    // **COL TITOLO, LA RISPOSTA E L'AZIONE**, ordine DJ voce 02: la voce di
+    // domani sceglie fra cio' che la persona non ha ancora letto.
+    await _diario.segna(responso.comeSiConserva(
       quando: _adesso,
       domanda: domanda,
       // **NEL DIARIO VA L'ID**, che e' stabile, e non l'etichetta. La
@@ -683,7 +684,6 @@ class _ViaggioDelloSciamanoScreenState
           (_via == ViaDellaDomanda.incontro
               ? LaDomandaDelViaggio.idSoloPerIncontrarlo
               : ''),
-      pezzi: scena.idDeiPezzi,
       animaleSeguito: nome,
       nitidezza: nitidezza,
     ));

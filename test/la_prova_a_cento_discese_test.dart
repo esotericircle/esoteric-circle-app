@@ -260,6 +260,43 @@ class _Esito {
   /// cinque di prima, o manca e c'era. Devono essere zero.
   List<String> richiamiFalsi = const [];
 
+  /// **I TITOLI, misura F dell'ordine DJ voce 11**: *"su ventiquattro discese
+  /// consecutive con lo stesso tema e la stessa persona, ventiquattro titoli
+  /// distinti, nessuno ripetuto"*. Si guardano **tutte** le finestre di
+  /// ventiquattro discese consecutive, non solo la prima: e' la stessa cosa
+  /// che dire che lo stesso titolo non torna prima di ventiquattro discese.
+  List<String> titoli = const [];
+
+  /// Quante finestre di ventiquattro discese consecutive hanno un titolo
+  /// ripetuto, su settantasette.
+  int get finestreConUnTitoloRipetuto {
+    var quante = 0;
+    for (var i = 0; i + finestraF <= titoli.length; i++) {
+      if (titoli.sublist(i, i + finestraF).toSet().length < finestraF) quante++;
+    }
+    return quante;
+  }
+
+  /// La distanza minima fra due discese con lo stesso titolo.
+  int get distanzaDelTitolo {
+    final ultima = <String, int>{};
+    var minima = 1000;
+    for (var i = 0; i < titoli.length; i++) {
+      final prima = ultima[titoli[i]];
+      if (prima != null && i - prima < minima) minima = i - prima;
+      ultima[titoli[i]] = i;
+    }
+    return minima;
+  }
+
+  /// **F vale per i temi che hanno ventiquattro titoli**: senza tema i titoli
+  /// sono quattro, e la ripetizione e' matematica.
+  bool get conVentiquattroTitoli =>
+      titoli.isNotEmpty &&
+      LaVoceDelMondoDiSotto.titoliPerTema.values
+          .any((quali) => quali.contains(titoli.first));
+  bool get passaF => !conVentiquattroTitoli || finestreConUnTitoloRipetuto == 0;
+
   bool get passaC =>
       misura.somiglianzaMassima < MotoreDellaRipetizione.sogliaSomiglianza;
   bool get passaE => pertinenti >= 95;
@@ -274,6 +311,9 @@ class _Esito {
               'cento sulla coppia peggiore di tutte le 4950',
         if (!misura.passaD) 'D ${misura.quanteVolteIlParagrafo} volte',
         if (conPertinenza && !passaE) 'E $pertinenti/100',
+        if (!passaF)
+          'F $finestreConUnTitoloRipetuto finestre di $finestraF discese con '
+              'un titolo ripetuto, il titolo torna dopo $distanzaDelTitolo',
         if (distanzaDelGesto < LaVoceDelMondoDiSotto.cosaPuoiFare.length)
           'la stessa azione torna dopo $distanzaDelGesto discese',
         // La risposta al massimo un posto prima, al passaggio fra due tratti
@@ -289,6 +329,9 @@ class _Esito {
               '${richiamiFalsi.first}',
       ];
 }
+
+/// **LA FINESTRA DELLA MISURA F**: ventiquattro discese, i titoli di un tema.
+const int finestraF = 24;
 
 /// **CENTO DISCESE CONSECUTIVE**, un giorno ciascuna, con la stessa domanda.
 Future<_Esito> _centoDiscese(_Caso caso,
@@ -349,6 +392,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
   var conRichiamo = 0;
   final richiamiFalsi = <String>[];
   final composti = <String>[];
+  final titoli = <String>[];
   for (var i = 0; i < MotoreDellaRipetizione.quante; i++) {
     oggi = inizio.add(Duration(days: i));
     // 1. il tema: quello scritto, o quello che si capisce.
@@ -392,7 +436,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
       giaOggi: diario.quanteOggi,
       animale: animale,
       tema: tema,
-      precedenti: precedenti,
+      storia: diario.viaggi,
     );
     if (responso.dalModello) dalModello++;
     final scena = responso.scena;
@@ -409,14 +453,16 @@ Future<_Esito> _centoDiscese(_Caso caso,
       richiamiFalsi.add('discesa ${i + 1}: ${responso.richiamo}');
     }
     if (responso.richiamo != null) conRichiamo++;
-    await diario.segna(UnViaggio(
+    // **COME LA CONSERVA LA SCHERMATA**, col titolo, la risposta e l'azione:
+    // ordine DJ voce 02, la memoria della voce.
+    await diario.segna(responso.comeSiConserva(
       quando: oggi,
       domanda: domanda,
       temaDellaDomanda: tema?.name ?? '',
-      pezzi: scena.idDeiPezzi,
       animaleSeguito: animale.name,
       nitidezza: nitidezza,
     ));
+    titoli.add(responso.titolo);
     final testo = responso.blocchi.join('\n\n');
     if (i == 6) esempio = testo;
     testi.add(testo);
@@ -453,6 +499,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
         LaVoceDelMondoDiSotto.rispostePerTema[caso.temaScritto?.name] ??
             LaVoceDelMondoDiSotto.risposteSenzaDomanda)
     ..richiamiFalsi = richiamiFalsi
+    ..titoli = titoli
     ..guasti = guasti;
 }
 
@@ -597,6 +644,7 @@ void _stampa(String colonna, List<_Esito> esiti) {
         'comuni | '
         'D ${m.quanteVolteIlParagrafo} | '
         'E ${e.pertinenti}/100 | '
+        'F ${e.conVentiquattroTitoli ? '${e.finestreConUnTitoloRipetuto} finestre ripetute, titolo dopo ${e.distanzaDelTitolo}' : 'senza tema'} | '
         'scena dal modello ${e.dalModello}/100 | '
         'per blocco ${e.perBlocco} | richiamo in ${e.conRichiamo} | '
         'distanze gesto ${e.distanzaDelGesto} risposta ${e.distanzaDellaRisposta}'

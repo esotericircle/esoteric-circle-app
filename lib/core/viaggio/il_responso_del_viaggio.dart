@@ -1,5 +1,6 @@
 import '../responsi/filo_della_voce.dart';
 import '../rituals/animal_catalog.dart';
+import 'diario_dei_viaggi.dart';
 import 'i_quattro_viaggi.dart';
 import 'la_domanda_del_viaggio.dart';
 import 'la_scena_dal_modello.dart';
@@ -31,11 +32,18 @@ class IlResponsoDelViaggio {
     required this.paragrafi,
     required this.richiamo,
     required this.dalModello,
+    required this.risposta,
+    required this.gesto,
   });
 
   final ScenaDelViaggio scena;
   final String titolo;
   final List<String> paragrafi;
+
+  /// La risposta e l'azione come stanno nei loro elenchi: il Diario le
+  /// conserva perche' la voce se le ricordi. Ordine DJ voce 02.
+  final String risposta;
+  final String gesto;
 
   /// La riga del richiamo, o nulla quando la scena non riprende niente.
   final String? richiamo;
@@ -46,6 +54,30 @@ class IlResponsoDelViaggio {
   /// **I BLOCCHI COME SI LEGGONO**, dall'alto: titolo, risposta, gesto, da dove
   /// viene; poi il richiamo quando c'e'.
   List<String> get blocchi => [titolo, ...paragrafi, if (richiamo != null) richiamo!];
+
+  /// **LA DISCESA COME SI CONSERVA NEL DIARIO**, coi pezzi della scena e con
+  /// cio' che la voce deve ricordarsi: il titolo, la risposta e l'azione.
+  /// Ordine DJ voce 02. **La chiamano la schermata e la prova a cento
+  /// discese**, e non una copia per ciascuna: se una delle due dimenticasse
+  /// un campo, la memoria della voce non lo vedrebbe.
+  UnViaggio comeSiConserva({
+    required DateTime quando,
+    required String domanda,
+    required String temaDellaDomanda,
+    required String animaleSeguito,
+    required double nitidezza,
+  }) =>
+      UnViaggio(
+        quando: quando,
+        domanda: domanda,
+        temaDellaDomanda: temaDellaDomanda,
+        pezzi: scena.idDeiPezzi,
+        animaleSeguito: animaleSeguito,
+        nitidezza: nitidezza,
+        titolo: titolo,
+        risposta: risposta,
+        gesto: gesto,
+      );
 
   /// **QUANTE FORME HA LA FRASE CHE CUCE LA SCENA**: otto per ogni grado di
   /// nitidezza, `ScenaDelViaggio.formeIntere` e sorelle.
@@ -119,8 +151,10 @@ class IlResponsoDelViaggio {
   /// tempo e dentro il vocabolario, ordine DI voce 03; nullo, decide la via
   /// deterministica, che resta la rete di sicurezza. [discesa] e' quante
   /// discese c'erano prima di questa, [giaOggi] quante di queste nello stesso
-  /// giorno. [precedenti] sono gli id dei pezzi delle discese di **prima**,
-  /// dalla piu' recente, **senza quella di oggi**.
+  /// giorno. [storia] sono le discese di **prima**, dalla piu' recente,
+  /// **senza quella di oggi**: i loro pezzi fanno il richiamo e la forma
+  /// della scena, i loro titoli, risposte e azioni la memoria della voce,
+  /// ordine DJ voce 02.
   static IlResponsoDelViaggio componi({
     required PezziScelti? dalModello,
     required String domanda,
@@ -130,8 +164,9 @@ class IlResponsoDelViaggio {
     required int giaOggi,
     required GuideAnimal animale,
     required TemaDellaDomanda? tema,
-    required List<List<String>> precedenti,
+    required List<UnViaggio> storia,
   }) {
+    final precedenti = [for (final v in storia) v.pezzi];
     // Il nome si dice alla quarta: questa discesa e' ancora da contare.
     final siPuoDire = discesa + 1 >= IQuattroViaggi.quanteDiscese;
     // Senza domanda, nessuna chiusura parla della domanda.
@@ -167,19 +202,30 @@ class IlResponsoDelViaggio {
           );
     final id = LaVoceDelMondoDiSotto.temaDi(tema);
     final forma = formaDellaScena(scena.idDeiPezzi, precedenti);
+    final voce = LaVoceDelMondoDiSotto.alGiorno(
+      scena: scena,
+      temaDomanda: id,
+      temaInLettere: LaVoceDelMondoDiSotto.temaInLettereDi(tema),
+      giornoDellaDiscesa: giorno,
+      giaOggi: giaOggi,
+      formaDellaScena: forma,
+      letti: [
+        for (final v in storia)
+          (
+            tema: v.temaDellaDomanda,
+            titolo: v.titolo,
+            risposta: v.risposta,
+            gesto: v.gesto,
+          ),
+      ],
+    );
     return IlResponsoDelViaggio._(
       scena: scena,
       dalModello: dalModello != null,
-      titolo: LaVoceDelMondoDiSotto.titolo(scena, id,
-          giornoDellaDiscesa: giorno, giaOggi: giaOggi),
-      paragrafi: LaVoceDelMondoDiSotto.paragrafi(
-        scena: scena,
-        temaDomanda: id,
-        temaInLettere: LaVoceDelMondoDiSotto.temaInLettereDi(tema),
-        giornoDellaDiscesa: giorno,
-        giaOggi: giaOggi,
-        formaDellaScena: forma,
-      ),
+      titolo: voce.titolo,
+      paragrafi: voce.paragrafi,
+      risposta: voce.risposta,
+      gesto: voce.gesto,
       // **IL RICHIAMO: questa scena riprende un elemento di una di prima?**
       // Ordine DE voce 11: si guarda cinque scene indietro e non di piu'.
       richiamo: IlRichiamoDelleScene.laRiga(
