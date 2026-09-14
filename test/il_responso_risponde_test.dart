@@ -176,6 +176,12 @@ void main() {
       expect(forma('tua sorella', 'Sua sorella mi scriverà?'), 'la sorella');
       expect(forma('tua sorella', domanda), 'tua sorella',
           reason: 'la parentela al singolare non vuole l\'articolo');
+      // **E SE IL MODELLO L'ARTICOLO LO METTE**, cade: la prova a cento
+      // discese l'ha trovato quarantanove volte su cento.
+      expect(forma('la tua sorella', domanda), 'tua sorella');
+      expect(
+          forma('i tuoi figli', 'I miei figli mi ascoltano?'), 'i tuoi figli',
+          reason: 'al plurale la parentela l\'articolo lo vuole');
       expect(
           forma('giulia nella tua vita', 'Che posto ha Giulia nella mia vita?'),
           'Giulia nella tua vita');

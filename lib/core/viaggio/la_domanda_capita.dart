@@ -308,7 +308,24 @@ abstract final class LaDomandaCapita {
         !(parole.length > 1 && _parentela.contains(parole[1]))) {
       parole.insert(0, articolo);
     }
-    return _possessivoGiustificato(parole, domanda).join(' ');
+    return _senzaArticoloDavantiAllaParentela(
+            _possessivoGiustificato(parole, domanda))
+        .join(' ');
+  }
+
+  /// **"TUA SORELLA", NON "LA TUA SORELLA".** Ordine DL voce 08, dalla
+  /// prova a cento discese col modello vero: il modello scriveva
+  /// l'oggetto con l'articolo quarantanove volte su cento, e la ripresa
+  /// diceva *"la domanda riguardava la tua sorella"*. Davanti al
+  /// possessivo e a un nome di parentela al singolare l'articolo cade.
+  static List<String> _senzaArticoloDavantiAllaParentela(List<String> p) {
+    if (p.length >= 3 &&
+        _articoloDelPossessivo.containsValue(p[0]) &&
+        _articoloDelPossessivo.containsKey(p[1]) &&
+        _parentela.contains(p[2])) {
+      return p.sublist(1);
+    }
+    return p;
   }
 
   /// **IL "TUO" SOLO SE LA DOMANDA DICEVA "MIO".** Ordine DL voce 08, dal
