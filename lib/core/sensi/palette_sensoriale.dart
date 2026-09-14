@@ -152,6 +152,57 @@ class PaletteSensoriale {
     return true;
   }
 
+  /// **IL COLPO DEL TAMBURO, a ogni tocco.** Ordine DL voce 11.
+  ///
+  /// Passa dal lettore degli effetti, che ferma il colpo di prima prima di
+  /// far partire il nuovo: i tocchi ravvicinati non si accavallano. Rispetta
+  /// l'interruttore e il cursore degli effetti. **Senza il file non succede
+  /// niente**, e lo si annota una volta sola nel diario di sviluppo.
+  static Future<bool> colpoDiTamburo(BuildContext context) async {
+    if (!suonoPermesso(context)) return false;
+    final quanto = IlColpoDelTamburo.volume * volumeDegliEffetti(context);
+    spiaDelColpo?.call(quanto);
+    if (!await ilColpoCE()) {
+      if (!_colpoAnnotato) {
+        _colpoAnnotato = true;
+        debugPrint('Ordine DL voce 11: il colpo del tamburo non è nel '
+            'pacchetto, il nutrimento vibra soltanto. Atteso in '
+            '${IlColpoDelTamburo.nelPacchetto}');
+      }
+      return false;
+    }
+    volumiChiestiNelleProve?.add(quanto);
+    unawaited(
+        RegiaDellaMusica.sola.scendiSottoUnEffetto(IlColpoDelTamburo.durata));
+    await _motore.effetto(IlColpoDelTamburo.percorso, volume: quanto);
+    return true;
+  }
+
+  static bool _colpoAnnotato = false;
+
+  /// **SE IL FILE DEL COLPO C'E' DAVVERO**, chiesto una volta e ricordato.
+  static Future<bool> ilColpoCE() async {
+    final saputo = _colpoCE;
+    if (saputo != null) return saputo;
+    try {
+      final dati = await rootBundle.load(IlColpoDelTamburo.nelPacchetto);
+      return _colpoCE = dati.lengthInBytes > 0;
+    } catch (errore) {
+      return _colpoCE = false;
+    }
+  }
+
+  static bool? _colpoCE;
+
+  /// Le prove possono dichiarare che il file del colpo c'e', o che manca.
+  @visibleForTesting
+  static set colpoPresenteNelleProve(bool? c) => _colpoCE = c;
+
+  /// La spia del colpo, col volume chiesto: serve alle prove, dove il
+  /// plugin audio non c'e'.
+  @visibleForTesting
+  static void Function(double volume)? spiaDelColpo;
+
   /// **IL TAMBURO SI ALLONTANA**, in mezzo secondo, e la musica risale.
   ///
   /// Senza contesto: si chiama anche da un `dispose`, quando il contesto non

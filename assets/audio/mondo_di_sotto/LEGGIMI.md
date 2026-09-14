@@ -37,3 +37,26 @@ riga nel registro dei guasti, e la musica non si abbassa sotto un silenzio. Il
 fatto si annota nel diario di sviluppo, e basta. La cartella e' dichiarata nel
 `pubspec.yaml` anche da vuota: il giorno che il file arriva, suona senza toccare
 una riga di codice.
+
+## IL COLPO DEL TAMBURO CHE NUTRE, ordine DL voce 11
+
+Accanto al battito della discesa va **un secondo file**: `tamburo_colpo.mp3`.
+Il nome esatto lo detta il codice, `IlColpoDelTamburo.percorso` nello stesso
+`catalogo_suoni.dart`. Sono due suoni diversi: il battito e' un anello che
+accompagna la discesa, il colpo e' la risposta secca al dito quando la persona
+batte per nutrire l'animale, a ogni tocco, insieme alla vibrazione.
+
+| File | Quando suona | Durata | Peso massimo |
+|---|---|---|---|
+| `tamburo_colpo.mp3` | A ogni tocco del nutrimento | da 0,2 a 0,4 s | 30 KB |
+
+- **Lo stesso tamburo a cornice** del battito, un colpo solo, pieno e basso.
+- **Attacco immediato**, niente silenzio in testa: il suono deve partire nello
+  stesso istante del dito. Coda naturale, senza riverbero lungo.
+- **Il colpo di prima si ferma quando parte il nuovo**: lo fa l'app, quindi il
+  file puo' avere la sua coda intera.
+- MP3, 128 kbps, 44,1 kHz, mono, **normalizzato come gli effetti**: suona al
+  volume degli effetti e sotto il loro interruttore.
+
+Finche' manca, il nutrimento vibra soltanto: nessun errore a schermo e nessuna
+riga nel registro dei guasti.

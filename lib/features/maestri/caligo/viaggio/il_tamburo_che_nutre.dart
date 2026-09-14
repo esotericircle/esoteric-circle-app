@@ -113,15 +113,16 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
   void initState() {
     super.initState();
     _battito = Timer.periodic(_passo, _unPasso);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) unawaited(PaletteSensoriale.tamburo(context));
-    });
+    // **QUI PARTIVA IL BATTITO CONTINUO DELLA DISCESA**, ordine DI voce 13,
+    // sotto i colpi della persona. Tolto con l'ordine DL voce 11: il suono
+    // del nutrimento e' il colpo del dito, e due tamburi insieme, uno a
+    // quattro battiti e mezzo al secondo e uno al ritmo della mano, si
+    // pestano i piedi. Il battito continuo resta alla discesa.
   }
 
   @override
   void dispose() {
     _battito?.cancel();
-    PaletteSensoriale.fermaIlTamburo();
     super.dispose();
   }
 
@@ -141,7 +142,6 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
           _finito = true;
           widget.quandoHaiFinito();
           _riga = widget.rigaDelloStato?.call();
-          PaletteSensoriale.fermaIlTamburo();
         }
       }
       _onde.removeWhere((o) => adesso - o.$2 > const Duration(seconds: 1));
@@ -153,6 +153,8 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
     _ultimoColpo = _adesso;
     _onde.add((d.localPosition, _adesso));
     unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
+    // **IL COLPO SI SENTE**, ordine DL voce 11, insieme alla vibrazione.
+    unawaited(PaletteSensoriale.colpoDiTamburo(context));
   }
 
   @override

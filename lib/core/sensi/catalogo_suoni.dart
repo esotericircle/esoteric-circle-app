@@ -222,6 +222,39 @@ abstract final class VersiDegliAnimali {
 /// fondatore ha gia' detto che un suono che non ha scelto lui non lo vuole.
 /// Finche' il file manca la discesa resta muta, e nessun lettore nasce per
 /// niente.
+/// **IL COLPO DEL TAMBURO CHE NUTRE.** Ordine DL voce 11, 14 settembre 2026.
+///
+/// **Sono due suoni diversi**, e l'ordine li vuole trattati come tali: il
+/// battito continuo della discesa, [IlTamburoDellaDiscesa], e questo, il colpo
+/// secco che risponde al dito quando la persona batte per nutrire l'animale.
+/// Il fondatore, dopo la prova della build 2250: *"il tamburo non si sente
+/// quando l'app chiede l'azione"*.
+///
+/// **Finche' il file manca il gesto vibra soltanto**, senza errori a schermo
+/// e senza righe rosse. La cartella e il nome esistono da ora: il giorno che
+/// il file arriva, suona senza toccare una riga di codice.
+abstract final class IlColpoDelTamburo {
+  static const String _dentro = 'audio';
+  static const String _cartella = 'mondo_di_sotto';
+
+  static String get _file => 'tamburo_colpo${_estensione()}';
+
+  static String _estensione() => '.mp3';
+
+  /// Il percorso secondo la convenzione di `AssetSource`, senza `assets/`.
+  static String get percorso => '$_dentro/$_cartella/$_file';
+
+  /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
+  static String get nelPacchetto => 'assets/$percorso';
+
+  /// **AL VOLUME DEGLI EFFETTI**, come il battito della discesa: e' un effetto,
+  /// e rispetta il cursore.
+  static const double volume = SuonoDelCerchio.volumeDegliEffetti;
+
+  /// Quanto dura un colpo, al massimo: la musica scende per questo tempo.
+  static const Duration durata = Duration(milliseconds: 400);
+}
+
 abstract final class IlTamburoDellaDiscesa {
   /// La cartella, senza barre per la stessa ragione di [VersiDegliAnimali]:
   /// `audio`, poi `mondo_di_sotto`. **Ordine DJ voce 10**: il file sta in
