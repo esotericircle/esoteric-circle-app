@@ -92,6 +92,13 @@ abstract final class LeGuardieDelResponso {
   /// tetto delle quarantacinque parole resta.
   static const int frasiDellaRisposta = 3;
 
+  /// Quante frasi al massimo ha un gesto: **tre**, con la stessa ragione.
+  /// Alla misura a cento discese dell'ordine DN era il primo motivo per cui
+  /// si leggeva il gesto di casa: *"Domani mattina cerca un piccolo sasso.
+  /// Tienilo in mano per qualche minuto. Poi gettalo in un corso d'acqua."*
+  /// e' una cosa sola in tre frasi. Il tetto delle trenta parole resta.
+  static const int frasiDelGesto = 3;
+
   static const String _l = 'a-zàèéìòù';
 
   static RegExp _parole(String alternative) =>
@@ -153,7 +160,9 @@ abstract final class LeGuardieDelResponso {
       // che parla di un foglio. Resta quando chiude la frase, *"Poi
       // lascialo."*, o quando va con perdere, andare, stare.
       'lascia(lo|la)(?= *[.!;]| *(?!.))|lascia(lo|la) (perdere|andare|stare)|'
-      'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela[a-zàèéìòù]*|'
+      // **RIVELARE SOLO COME ORDINE**: *"le crepe che rivelano"* parla di
+      // una pietra, e la misura dell'ordine DN la scartava.
+      'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela(?:gli|le|lo|la|re)?|'
       'confessa[a-zàèéìòù]*|denuncia[a-zàèéìòù]*|minaccia[a-zàèéìòù]*|'
       'ultimatum|vendica[a-zàèéìòù]*|dille che|digli che|dì loro che');
 
@@ -187,13 +196,15 @@ abstract final class LeGuardieDelResponso {
   /// relazione col possessivo, per pronome, o per un nome che la persona ha
   /// scritto. I nomi propri si aggiungono a ogni lettura.
   static const String _terzoPerRelazione =
-      '(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) (?:sorella|sorelle|fratello|'
-      'fratelli|madre|mamma|padre|papà|figlio|figlia|figli|figlie|marito|'
-      'moglie|compagno|compagna|partner|fidanzato|fidanzata|ragazzo|'
-      'ragazza|amico|amica|amici|amiche|nonno|nonna|zio|zia|cugino|cugina|'
-      'suocero|suocera|cognato|cognata|socio|socia|capo|collega|colleghi|'
-      'ex|genitori)|lui|lei|loro|egli|ella|costui|costei|'
-      'questa persona|quella persona|l.altra persona';
+      '(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) (?:$_parenti)|lui|lei|loro|'
+      'egli|ella|costui|costei|questa persona|quella persona|l.altra persona';
+
+  static const String _parenti =
+      'sorella|sorelle|fratello|fratelli|madre|mamma|padre|papà|figlio|'
+      'figlia|figli|figlie|marito|moglie|compagno|compagna|partner|'
+      'fidanzato|fidanzata|ragazzo|ragazza|amico|amica|amici|amiche|nonno|'
+      'nonna|zio|zia|cugino|cugina|suocero|suocera|cognato|cognata|socio|'
+      'socia|capo|collega|colleghi|ex|genitori';
 
   /// **CIO' CHE CHI LEGGE PUO' O NON PUO' FARE**: il predicato che rende
   /// ammessa una frase che nomina un terzo. *"La porta di tua sorella non e'
@@ -230,6 +241,8 @@ abstract final class LeGuardieDelResponso {
   static final RegExp _gergo = _parole(
       'il tuo vero io|il tuo vero sé|ascolta il tuo cuore|ascolta il cuore|'
       'devi solo|lascia andare|lasciar andare|lasciare andare|'
+      // E col pronome: *"per lasciarla andare"*, dalla rassegna DN.06.
+      'lascia(?:r)?(?:lo|la|li|le) andare|'
       'abbraccia il cambiamento|'
       'è tempo di|è il tempo di|il tuo percorso|la tua essenza|'
       'energia positiva|energie positive|apriti a|aprirti a|'
@@ -398,14 +411,23 @@ abstract final class LeGuardieDelResponso {
       _terzoPerRelazione,
       for (final n in nomi) RegExp.escape(n),
     ].join('|');
+    // **E IL POSSESSIVO DEL TERZO COME SOGGETTO**: *"La sua rabbia non e'
+    // la tua"*, alla domanda *"Mia madre e' arrabbiata con me?"*, da' per
+    // certo che la madre sia arrabbiata. Dalla sonda dell'ordine DN. **Conta
+    // solo se la domanda ha un terzo**: alla domanda *"Ho una scelta
+    // davanti"* la frase *"Il suo senso apparira' dopo"* parla della scelta,
+    // e la misura dell'ordine DN la scartava.
+    final domandaConUnTerzo = nomi.isNotEmpty ||
+        RegExp('(?<![$_l])(?:$_parenti|persona|persone|lui|lei)(?![$_l])',
+                caseSensitive: false)
+            .hasMatch(domanda);
+    final delPossessivo = domandaConUnTerzo
+        ? '|^(?:il|la|lo|i|gli|le|l.)\\s?(?:suo|sua|suoi|sue) [$_l]+'
+        : '';
     final soggetto = RegExp(
         '^(?:(?:non|ma|e|anche|ora|oggi) )?(?:$terzo)(?![$_l])|'
         '^(?:il|la|lo|i|gli|le|l.)\\s?[$_l]+ (?:di|del|della|dello|dei|delle) '
-        '(?:$terzo)(?![$_l])|'
-        // **E IL POSSESSIVO DEL TERZO COME SOGGETTO**: *"La sua rabbia non e'
-        // la tua"*, alla domanda *"Mia madre e' arrabbiata con me?"*, da'
-        // per certo che la madre sia arrabbiata. Dalla sonda dell'ordine DN.
-        '^(?:il|la|lo|i|gli|le|l.)\\s?(?:suo|sua|suoi|sue) [$_l]+',
+        '(?:$terzo)(?![$_l])$delPossessivo',
         caseSensitive: false);
     final terzoOvunque =
         RegExp('(?<![$_l])(?:$terzo)(?![$_l])', caseSensitive: false);
@@ -465,7 +487,7 @@ abstract final class LeGuardieDelResponso {
     return _comuni(t, domanda: domanda, forma: forma, nomiAmmessi: nomiAmmessi);
   }
 
-  /// **LA RISPOSTA**: due frasi al massimo, nomina la cosa di cui si e'
+  /// **LA RISPOSTA**: tre frasi al massimo, nomina la cosa di cui si e'
   /// chiesto, e non anticipa la scena.
   static MotivoDelloScarto? dellaRisposta(
     String r, {
@@ -513,7 +535,7 @@ abstract final class LeGuardieDelResponso {
   }) {
     if (a.trim().isEmpty) return MotivoDelloScarto.vuota;
     final frasi = RegExp(r'[.!?]+(\s|$)').allMatches(a.trim()).length;
-    if (frasi > 2 || a.split(RegExp(r'\s+')).length > 30) {
+    if (frasi > frasiDelGesto || a.split(RegExp(r'\s+')).length > 30) {
       return MotivoDelloScarto.troppoLunga;
     }
     if (a.contains('?')) return MotivoDelloScarto.eUnaDomanda;

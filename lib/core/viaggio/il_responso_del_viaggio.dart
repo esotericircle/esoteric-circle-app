@@ -201,12 +201,15 @@ class IlResponsoDelViaggio {
         ),
     ];
     // **IL TITOLO NON CONTIENE UN PEZZO DELLA SCENA DI QUELLA DISCESA.**
-    // Ordine DN voce 03. Il titolo di casa e' obbligato dal mazzo, che non
-    // ripete prima di ventiquattro discese: **non si salta il titolo, e' la
-    // scena che lo evita**. La scena di riserva salta i pezzi che il titolo
-    // nomina; quella del modello tiene il titolo del modello solo se non ne
-    // nomina un pezzo, e se nemmeno il titolo di casa regge, si rifa' dalla
-    // riserva evitandolo.
+    // Ordine DN voce 03. **Non si salta il titolo, e' la scena che lo
+    // evita**: il titolo di casa e' obbligato dal mazzo, che non ripete
+    // prima di ventiquattro discese, e quello del modello e' la risposta a
+    // colpo d'occhio, mentre la scena sta in fondo come fonte. Quando il
+    // titolo nomina un pezzo della scena del modello, la scena si rifa'
+    // dalla riserva saltando i pezzi che il titolo nomina, e quelli che la
+    // risposta gia' dice. La prima stesura dava al titolo di casa il posto
+    // di quello del modello, e la misura a cento discese ne perdeva uno su
+    // sette.
     final titoloDiCasa = LaVoceDelMondoDiSotto.titoloDelGiorno(id, giorno,
         giaOggi: giaOggi, letti: letti);
     bool tocca(String t, ScenaDelViaggio s) =>
@@ -227,7 +230,11 @@ class IlResponsoDelViaggio {
           siPuoDire: siPuoDire,
           conDomanda: conDomanda,
           evita: (pezzo) =>
-              LeGuardieDelResponso.titoloToccaLaScena(titolo, [pezzo.nome]),
+              LeGuardieDelResponso.titoloToccaLaScena(titolo, [pezzo.nome]) ||
+              (pezzo.nome.length > 3 &&
+                  (scritti.risposta ?? '')
+                      .toLowerCase()
+                      .contains(pezzo.nome.toLowerCase())),
         );
     ScenaDelViaggio scena;
     String titolo;
@@ -246,14 +253,10 @@ class IlResponsoDelViaggio {
         siPuoDire: siPuoDire,
         conDomanda: conDomanda,
       );
-      if (scritti.titolo != null && !tocca(scritti.titolo!, scena)) {
-        titolo = scritti.titolo!;
-      } else {
-        titolo = titoloDiCasa;
-        if (tocca(titolo, scena)) {
-          scena = diRiserva(titolo);
-          scenaRifatta = true;
-        }
+      titolo = scritti.titolo ?? titoloDiCasa;
+      if (tocca(titolo, scena)) {
+        scena = diRiserva(titolo);
+        scenaRifatta = true;
       }
     } else {
       titolo = scritti.titolo ?? titoloDiCasa;
@@ -298,9 +301,7 @@ class IlResponsoDelViaggio {
           : scenaRifatta
               ? anticipa
               : 'modello',
-      'titolo': scritti.titolo != null && !titoloDelModello
-          ? anticipa
-          : fonte('titolo', titoloDelModello),
+      'titolo': fonte('titolo', titoloDelModello),
       'risposta': fonte('risposta', scritti.risposta != null),
       'gesto': fonte('azione', scritti.azione != null),
       ...fontiGiaNote,

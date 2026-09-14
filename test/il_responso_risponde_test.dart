@@ -84,10 +84,13 @@ void main() {
         // Il titolo ripetuto lo vede la lettura, che conosce i titoli gia'
         // dati: *"Quello che cerchi è vicino"* era gia' uscito, con un punto.
         MotivoDelloScarto.titoloRipetuto: LeGuardieDelResponso.leggi(
-            {'titolo': 'quello che cerchi è vicino'},
-            domanda: domanda,
-            forma: neutra,
-            titoliGiaDati: const ['Quello che cerchi è vicino.']).scarti.single.motivo,
+                {'titolo': 'quello che cerchi è vicino'},
+                domanda: domanda,
+                forma: neutra,
+                titoliGiaDati: const ['Quello che cerchi è vicino.'])
+            .scarti
+            .single
+            .motivo,
         // **ORDINE DN**, le righe dei cinque motivi nuovi.
         MotivoDelloScarto.fuoco:
             azione('Stasera brucia il foglio su un piatto.'),
@@ -128,6 +131,13 @@ void main() {
       expect(azione('Stasera pensa a lui per un minuto. Poi lascialo.'),
           MotivoDelloScarto.toccaUnTerzo);
       expect(azione('Entro sabato lasciala perdere, senza spiegazioni.'),
+          MotivoDelloScarto.toccaUnTerzo);
+      // **RIVELARE SOLO COME ORDINE**, dalla misura dell'ordine DN.
+      expect(
+          azione('Domani mattina tocca una pietra spaccata. Osserva le crepe '
+              'che rivelano.'),
+          isNull);
+      expect(azione('Stasera rivelale cosa hai capito.'),
           MotivoDelloScarto.toccaUnTerzo);
     });
 
@@ -261,8 +271,20 @@ void main() {
       // **DALLA SONDA DELL'ORDINE DN**: il possessivo del terzo come
       // soggetto da' per certo lo stato della madre.
       expect(
-          LeGuardieDelResponso.statoDiUnTerzo('La sua rabbia non è la tua.',
-              'Mia madre è arrabbiata con me?'),
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
+          isTrue);
+      // **DALLA MISURA DELL'ORDINE DN**: senza un terzo nella domanda, il
+      // possessivo e' della cosa di cui si parla.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La scelta che hai davanti non è un problema da risolvere. '
+                  'Il suo senso apparirà dopo.',
+              'Ho una scelta davanti e non so da che parte guardare.'),
+          isFalse);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo('Il suo posto è già lì.',
+              'C\'è una persona di cui non so che posto ha per me.'),
           isTrue);
       expect(
           LeGuardieDelResponso.statoDiUnTerzo(
@@ -291,6 +313,18 @@ void main() {
           isNull);
     });
 
+    test('il gesto regge tre frasi corte, non quattro', () {
+      // **DALLA MISURA DELL'ORDINE DN**: una cosa sola in tre frasi.
+      expect(
+          azione('Domani mattina cerca un piccolo sasso. Tienilo in mano '
+              'per qualche minuto. Poi mettilo sotto una pietra in giardino.'),
+          isNull);
+      expect(
+          azione('Domani mattina cerca un piccolo sasso. Tienilo in mano. '
+              'Poi guardalo. Poi mettilo sotto una pietra in giardino.'),
+          MotivoDelloScarto.troppoLunga);
+    });
+
     test('il gergo si scarta perche e vuoto', () {
       for (final g in [
         'È tempo di vederla in te.',
@@ -299,6 +333,7 @@ void main() {
         'Il tuo vero sé vuole la bottega.',
         'Lascia andare la banca.',
         'La banca è un peso da lasciare andare.',
+        'Non ti serve capire la banca per lasciarla andare.',
       ]) {
         expect(
             LeGuardieDelResponso.dellaRisposta(g,
@@ -309,7 +344,8 @@ void main() {
       }
     });
 
-    test('il titolo del modello che nomina la scena cede a quello di casa', () {
+    test('il titolo del modello che nomina la scena resta, e la scena si rifa',
+        () {
       final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
       PezzoDellaScena tra(List<PezzoDellaScena> l, String id) =>
           l.firstWhere((p) => p.id == id);
@@ -329,10 +365,19 @@ void main() {
         animale: animale,
         tema: TemaDellaDomanda.persona,
         storia: const [],
-        scritti: const TestiDelModello(titolo: 'La porta non è tua'),
+        scritti: const TestiDelModello(
+            titolo: 'La porta non è tua',
+            risposta: 'Tua sorella è al bivio fra parlarti e tacere.'),
       );
-      expect(r.titolo, isNot('La porta non è tua'));
-      expect(r.fonti['titolo'], 'riserva: titoloAnticipaLaScena');
+      // **IL TITOLO DEL MODELLO E' LA RISPOSTA A COLPO D'OCCHIO**: resta, e
+      // la scena del modello cede il posto a quella di riserva, che salta
+      // la porta del titolo e il bivio che la risposta gia' dice.
+      expect(r.titolo, 'La porta non è tua');
+      expect(r.fonti['titolo'], 'modello');
+      expect(r.fonti['scena'], 'riserva: titoloAnticipaLaScena');
+      expect(r.dalModello, isFalse);
+      expect(LaVoceDelMondoDiSotto.nomiDeiPezzi(r.scena),
+          isNot(contains('il bivio')));
       expect(
           LeGuardieDelResponso.titoloToccaLaScena(
               r.titolo, LaVoceDelMondoDiSotto.nomiDeiPezzi(r.scena)),

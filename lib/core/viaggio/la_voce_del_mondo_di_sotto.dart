@@ -419,7 +419,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Quello che hai imparato lì non finisce con la cosa.',
       'Stai tenendo aperta una porta per non sentire il rumore.',
       'La fine non cancella: mette da parte.',
-      'Non ti serve capirla tutta per lasciarla andare.',
+      'Non ti serve capirla tutta per metterla via.',
       'Il lutto è la parte del lavoro che nessuno ti conta.',
       'Chiudila piano. Poi non tornarci a controllare.',
       'Qualcosa comincia solo se questa finisce davvero.',

@@ -208,7 +208,9 @@ abstract final class LaScenaDalModello {
           'persona in seconda persona singolare. Niente due punti, niente '
           'punto finale. Non ripete nessuno dei titoli già dati. Non usa '
           'le parole del luogo, della cosa, del gesto e del momento che '
-          'hai scelto per la scena: la scena arriva dopo.',
+          'hai scelto per la scena: la scena arriva dopo. Se la cosa è la '
+          'porta chiusa, il titolo non dice porta; se l\'animale aspetta, '
+          'il titolo non dice aspettare.',
       '- risposta: ${LeGuardieDelResponso.frasiDellaRisposta} frasi al '
           'massimo. Nomina la cosa di cui la persona ha chiesto, con le sue '
           'parole, non la categoria. Non raccontare la scena e non usarla '
@@ -238,7 +240,9 @@ abstract final class LaScenaDalModello {
           'persona: non lo sai. Di lei parli solo per ciò che chi legge '
           'può o non può fare. "La porta di tua sorella non è tua da '
           'aprire" sì; "Il desiderio di tua sorella è un processo che si '
-          'sta sviluppando" no.',
+          'sta sviluppando" no. Vale anche per "quella persona", "lui", '
+          '"lei" e "il suo": "Quella persona ha già un posto preciso" no; '
+          '"Il posto che le dai lo scegli tu" sì.',
       '- Puoi prendere una parte, ma non ordinare una decisione grave: '
           'lasciare il lavoro o una persona, separarsi, tagliare i '
           'rapporti, trasferirsi, vendere casa. Su queste dici cosa '
