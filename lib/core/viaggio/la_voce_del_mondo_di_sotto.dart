@@ -355,7 +355,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Stai cercando la giusta: cerca quella che sai portare avanti.',
     ],
     'persona': [
-      'Le stai dando un peso che lei non sa di avere.',
+      'Le stai dando un peso che solo tu puoi misurare.',
       'Puoi tenerla vicino senza sapere che posto ha.',
       'Se ci pensi ogni giorno, il posto ce l\'ha già.',
       'Una conversazione breve vale sei mesi di ipotesi.',
@@ -436,14 +436,14 @@ abstract final class LaVoceDelMondoDiSotto {
     'Lo sai già.',
     'Tienilo presente.',
     'Non è poco.',
-    'Vale oggi.',
+    'Vale per te.',
     'Ed è tutto qui.',
     'Il resto è rumore.',
     'Fidati di questo.',
     'Basta questo.',
     'E non serve altro.',
     'Ci puoi contare.',
-    'Non serve altro, per oggi.',
+    'Non ti serve altro.',
     'Prendilo così.',
   ];
 

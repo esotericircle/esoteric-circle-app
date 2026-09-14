@@ -90,6 +90,8 @@ const Set<String> _nonParticipi = {
   'lato',
   'adesso',
   'spesso',
+  // *"diventi presto mamma"*: un avverbio, dalla misura dell'ordine DN.
+  'presto',
   'processo',
   'successo',
   'interesse',

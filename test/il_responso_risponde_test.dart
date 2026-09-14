@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/chat/le_forme_del_genere.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
@@ -197,6 +198,18 @@ void main() {
   });
 
   group('ORDINE DN, IL FUOCO, I TERZI, LE DECISIONI, IL GERGO', () {
+    test('presto e un avverbio, non un participio', () {
+      // **DALLA MISURA DELL'ORDINE DN**: alla domanda sulla sorella che
+      // diventera' mamma, a chi ha scelto il femminile.
+      expect(
+          formeContrarieAllaForma(
+              'Il desiderio che tua sorella diventi presto mamma è grande.',
+              CourtesyForm.feminine),
+          isEmpty);
+      expect(formeContrarieAllaForma('Diventi pronto.', CourtesyForm.feminine),
+          isNotEmpty);
+    });
+
     test('il clitico col participio segue la forma scelta', () {
       // *"le persone che ti hanno visto arrabbiato"*, dalla sonda, a una
       // persona che ha scelto il femminile.
@@ -605,8 +618,8 @@ void main() {
   });
 
   test(
-      'NESSUN GESTO DICE DUE TEMPI, su trecento discese per tema e senza '
-      'tema. Ordine DL voce 10', () {
+      'NESSUN RESPONSO DICE DUE TEMPI, su trecento discese per tema e senza '
+      'tema. Ordine DL voce 10 e ordine DN voce 08', () {
     final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
     final doppi = <String>[];
     final titoliConLaScena = <String>[];
@@ -635,7 +648,17 @@ void main() {
             gesto.toLowerCase().contains(g.toLowerCase().substring(1)))) {
           colTempoProprio++;
         }
-        if (_fontiDelTempo(gesto) > 1) doppi.add(gesto);
+        // **E NEL RESPONSO INTERO**, ordine DN voce 08, punto 9: la coda
+        // della risposta e la scena da dove viene non aggiungono un tempo a
+        // quello del gesto. Il titolo e' fuori dal conto: i titoli di casa li
+        // ha scritti il fondatore, e gli otto col tempo stanno nel rapporto.
+        final coda = LaVoceDelMondoDiSotto.codaDellaRisposta
+            .any((c) => r.paragrafi[0].endsWith(c) && _conTempo(c));
+        final daDove = _conTempo(r.paragrafi[2]);
+        final tempi = _fontiDelTempo(gesto) + (coda ? 1 : 0) + (daDove ? 1 : 0);
+        if (tempi > 1) {
+          doppi.add('$gesto | ${r.paragrafi[0]} | ${r.paragrafi[2]}');
+        }
         // **LA VOCE DI CASA E' PULITA**, ordine DN voce 08, punti 2, 4, 5 e
         // 6: il titolo non nomina un pezzo della scena, e nessun testo
         // accende, fa gergo o ordina una decisione grave.
@@ -663,7 +686,7 @@ void main() {
     expect(guardati, 2100);
     expect(colTempoProprio, greaterThan(100));
     expect(doppi, isEmpty,
-        reason: '${doppi.length} gesti con due tempi, per esempio:\n'
+        reason: '${doppi.length} responsi con due tempi, per esempio:\n'
             '${doppi.take(5).join('\n')}');
     expect(titoliConLaScena, isEmpty,
         reason: 'titoli che nominano un pezzo della scena:\n'
@@ -671,6 +694,8 @@ void main() {
     expect(sporchi, isEmpty, reason: sporchi.take(5).join('\n'));
   });
 }
+
+bool _conTempo(String s) => LeGuardieDelResponso.indicazioneDiTempo.hasMatch(s);
 
 /// **QUANTI PEZZI DEL PARAGRAFO DEL GESTO DICONO UN TEMPO**: l'apertura, il
 /// gesto e il quando. Ordine DL voce 10: *"nessun responso ha due

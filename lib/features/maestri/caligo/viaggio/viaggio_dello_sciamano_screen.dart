@@ -79,6 +79,7 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
     this.fabbricaDellaDiscesa,
     this.chiamataDelSegno,
     this.chiamataDellaScena,
+    this.chiamataDellaDomanda,
     this.demo = AppFlags.isDemo,
   });
 
@@ -104,6 +105,12 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
   /// **LA CHIAMATA AL MODELLO PER LA SCENA**, ordine DI voce 03. Nulla vuol dire
   /// il modello vero.
   final ChiamataDellaScena? chiamataDellaScena;
+
+  /// **LA CHIAMATA AL MODELLO CHE CAPISCE LA DOMANDA SCRITTA**, ordine DN
+  /// voce 08. Nulla vuol dire il modello vero; la prova del femminile ci
+  /// mette una finta, perche' l'oggetto della domanda, e con lui l'unica
+  /// frase di casa del Viaggio che porta il genere, arriva solo da qui.
+  final ChiamataDelModello? chiamataDellaDomanda;
 
   /// **SE QUESTA E' UNA BUILD DI COLLAUDO.** Ordine DL voce 14: i comandi di
   /// Demo della soglia esistono solo qui. Vale `AppFlags.isDemo`; le prove
@@ -425,6 +432,7 @@ class _ViaggioDelloSciamanoScreenState
     if (_via == ViaDellaDomanda.scritta && _domanda.text.trim().isNotEmpty) {
       _temaInArrivo = LaDomandaCapita.capisci(
         _domanda.text,
+        chiamata: widget.chiamataDellaDomanda,
         seGuasto: _registraIlGuasto,
         prendiUnaChiamata: () => permesso,
       );
@@ -1215,7 +1223,11 @@ class _ViaggioDelloSciamanoScreenState
             ),
             icon: const Icon(Icons.graphic_eq_rounded),
             label: Text(
-              'Richiamalo col tamburo',
+              // **SENZA IL GENERE DELL'ANIMALE**, ordine DN voce 06: l'avviso
+              // compare solo prima del riconoscimento, e *"Richiamala"* direbbe
+              // gia' che e' la Volpe o l'Aquila; *"Richiamalo"* lo sbagliava
+              // per quattro animali su dodici.
+              "Richiama l'animale col tamburo",
               style: TypographyTokens.etichetta(),
             ),
           ),

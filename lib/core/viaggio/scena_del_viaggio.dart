@@ -1,5 +1,6 @@
 import '../responsi/filo_della_voce.dart';
 import '../rituals/animal_catalog.dart';
+import 'le_guardie_del_responso.dart';
 import 'vocabolario_del_viaggio.dart';
 
 /// **LA SCENA CHE SI RIPORTA SU.** Ordine DC voce 06, 10 settembre 2026.
@@ -260,6 +261,22 @@ class ScenaDelViaggio {
       if (!c.contains('domanda') && !c.contains('chiesto')) c,
   ];
 
+  /// **DENTRO IL RESPONSO, LE CHIUSURE SENZA TEMPO.** Ordine DN voce 08,
+  /// punto 9, che ripete la regola dell'ordine DL: *"nessun responso
+  /// contiene due indicazioni di tempo"*. Il paragrafo del gesto il suo
+  /// tempo lo ha sempre, e la rassegna della voce DN.06 ha trovato
+  /// *"Domani mattina, appena ti alzi"* seguito, due righe sotto, da
+  /// *"Portala con te fino a stasera"*. Le chiusure col tempo restano
+  /// dove la scena si legge da sola.
+  static final List<String> chiusureDelResponso = [
+    for (final c in chiusure)
+      if (!LeGuardieDelResponso.indicazioneDiTempo.hasMatch(c)) c,
+  ];
+  static final List<String> chiusureDelResponsoSenzaDomanda = [
+    for (final c in chiusureSenzaDomanda)
+      if (!LeGuardieDelResponso.indicazioneDiTempo.hasMatch(c)) c,
+  ];
+
   /// **IL FILO DI QUESTA SCENA**, dai suoi quattro pezzi.
   FiloDellaVoce get _filo =>
       FiloDellaVoce.da([...idDeiPezzi, if (impronta != null) impronta!]);
@@ -334,7 +351,8 @@ class ScenaDelViaggio {
         : pezzi == 2
             ? formeVelate
             : formeIntere;
-    final lista = conDomanda ? chiusure : chiusureSenzaDomanda;
+    final lista =
+        conDomanda ? chiusureDelResponso : chiusureDelResponsoSenzaDomanda;
     final forma = forme[posto % forme.length];
     final chiusura = lista[(posto ~/ forme.length) % lista.length];
     return '${_corpo(forma)} $chiusura';
@@ -478,7 +496,10 @@ abstract final class NitidezzaDellaScena {
   static String? laRiga(double nitidezza) {
     if (nitidezza >= nitida) return null;
     if (nitidezza >= velata) {
-      return 'La scena è velata: è passato tempo. Il tamburo lo richiama.';
+      // Nessun pronome senza l'animale nella frase: prima del riconoscimento
+      // *"lo richiama"* diceva un maschio anche della Volpe. Ordine DN voce 06.
+      return 'La scena è velata: è passato tempo. Il tamburo richiama '
+          "l'animale.";
     }
     return 'L\'animale è lontano e la scena resta confusa. '
         'Il tamburo lo richiama.';

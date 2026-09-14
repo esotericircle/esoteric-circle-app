@@ -160,7 +160,16 @@ void main() {
     // faceva girare gli undici casi insieme, undici chiamate contemporanee, e
     // la latenza sotto quel carico faceva scadere i due secondi di pazienza.
     final esiti = <_Esito>[];
+    // **I CASI SI POSSONO SCEGLIERE**, per nome e separati da virgole, in
+    // `CASI_DELLA_PROVA`: una correzione su un caso solo si misura in pochi
+    // minuti. Senza la variabile girano tutti.
+    final scelti = (Platform.environment['CASI_DELLA_PROVA'] ?? '')
+        .split(',')
+        .map((c) => c.trim())
+        .where((c) => c.isNotEmpty)
+        .toSet();
     for (final caso in _casi) {
+      if (scelti.isNotEmpty && !scelti.contains(caso.nome)) continue;
       final e = await _centoDiscese(caso, conRete: true, token: token);
       esiti.add(e);
       // **CASO PER CASO**, ordine DL voce 07: con i tre testi la prova dura
