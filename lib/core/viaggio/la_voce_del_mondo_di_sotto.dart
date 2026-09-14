@@ -326,7 +326,18 @@ abstract final class LaVoceDelMondoDiSotto {
   /// metterci dentro l'oggetto.
   static String _ripresa(
       int indice, String temaDomanda, String temaInLettere, String? oggetto) {
-    if (oggetto != null && oggetto.trim().isNotEmpty) {
+    // **LA PERSONA E' FEMMINILE, IL FRATELLO NO.** Ordine DN voce 08: le
+    // risposte e i titoli di casa del tema della persona la riprendono con
+    // *la*, *le*, *lei*, e alla prova a video della build 2252 si e' letto
+    // *"La domanda riguardava tuo fratello. Quanto tempo le dedichi"*. Con un
+    // oggetto che non e' femminile la ripresa nomina il tema, e i pronomi
+    // tornano alla persona.
+    final perLaPersona = temaDomanda != 'persona' ||
+        oggetto == null ||
+        RegExp(r'^(?:tua|tue|la|le|una|quella|questa|mia|sua) ',
+                caseSensitive: false)
+            .hasMatch(oggetto.trim());
+    if (oggetto != null && oggetto.trim().isNotEmpty && perLaPersona) {
       return LaMarcaDelGenere.risolvi(
               riprendeLOggetto[indice % riprendeLOggetto.length])
           .replaceAll('{su}', suLOggetto(oggetto.trim()))

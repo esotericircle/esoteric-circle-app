@@ -192,6 +192,16 @@ final RegExp _cliticoConParticipio = RegExp(
     r'([a-zàèéìòù]+)',
     caseSensitive: false);
 
+/// **IL CLITICO COL VERBO CHE REGGE UN PREDICATIVO**, ordine DN voce 08:
+/// *"Cosa ti tiene legata"*, titolo del modello alla prova a video della
+/// build 2252, a un profilo neutro. Il verbo e' della cosa, e l'aggettivo e'
+/// di chi legge.
+final RegExp _cliticoCheRegge = RegExp(
+    r'(?<![a-zàèéìòù])ti (?:tiene|tengono|terrà|rende|rendono|renderà|lascia|'
+    r'lasciano|lascerà|fa sentire|fanno sentire|vuole|vogliono|trova|trovano|'
+    r'vede|vedono) ([a-zàèéìòù]+)',
+    caseSensitive: false);
+
 List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
   final forme = [
     ...formeDelGenere(testo),
@@ -207,6 +217,11 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
           dizionarioDelGenere.contains(m.group(2)!.toLowerCase()))
         m.group(2)!,
     ],
+    for (final m in _cliticoCheRegge.allMatches(testo))
+      if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
+          (RegExp(r'(at|ut|it)[oa]$').hasMatch(m.group(1)!) ||
+              _parole.contains(m.group(1)!.toLowerCase())))
+        m.group(1)!,
   ];
   // **LA DESINENZA VIETATA LA DECIDE LA PORTA**, come ogni altra scelta
   // secondo il genere: qui c'era un secondo `masculine ? 'a' : 'o'`, e la

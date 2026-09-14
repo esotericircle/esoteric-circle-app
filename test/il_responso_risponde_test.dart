@@ -198,6 +198,51 @@ void main() {
   });
 
   group('ORDINE DN, IL FUOCO, I TERZI, LE DECISIONI, IL GERGO', () {
+    test('col fratello la ripresa di casa nomina la persona, non l oggetto',
+        () {
+      // **DALLA PROVA A VIDEO DELLA BUILD 2252**: *"La domanda riguardava tuo
+      // fratello. Quanto tempo le dedichi"*. Le risposte di casa del tema
+      // della persona dicono la, le, lei.
+      final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+      final riprese = <String, List<String>>{};
+      for (final o in ['tuo fratello', 'tua sorella']) {
+        for (var i = 0; i < 40; i++) {
+          final r = IlResponsoDelViaggio.componi(
+            dalModello: null,
+            domanda: 'Una domanda su $o',
+            giorno: DateTime(2026, 9, 14).add(Duration(days: i)),
+            nitidezza: 1,
+            discesa: i,
+            giaOggi: 0,
+            animale: animale,
+            tema: TemaDellaDomanda.persona,
+            storia: const [],
+            oggetto: o,
+          );
+          riprese.putIfAbsent(o, () => []).add(r.paragrafi[0]);
+        }
+      }
+      expect(riprese['tuo fratello']!.where((p) => p.contains('fratello')),
+          isEmpty);
+      expect(riprese['tua sorella']!.where((p) => p.contains('sorella')),
+          hasLength(40));
+    });
+
+    test('il clitico col verbo che regge un predicativo', () {
+      // **DALLA PROVA A VIDEO DELLA BUILD 2252**: un titolo del modello a un
+      // profilo neutro.
+      expect(
+          formeContrarieAllaForma('Cosa ti tiene legata', CourtesyForm.neutral),
+          isNotEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Cosa ti tiene legata', CourtesyForm.feminine),
+          isEmpty);
+      expect(
+          formeContrarieAllaForma('Cosa ti rende forte', CourtesyForm.neutral),
+          isEmpty);
+    });
+
     test('presto e un avverbio, non un participio', () {
       // **DALLA MISURA DELL'ORDINE DN**: alla domanda sulla sorella che
       // diventera' mamma, a chi ha scelto il femminile.
@@ -287,6 +332,29 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
           isTrue);
+      // **DALLA PROVA A VIDEO DELLA BUILD 2252**: l'articolo davanti al
+      // possessivo.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Il tuo compagno ti pone davanti a una decisione importante.',
+              'Devo lasciare il mio compagno'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Con il tuo compagno puoi scegliere tu quando parlare.',
+              'Devo lasciare il mio compagno'),
+          isFalse);
+      // **DALLA PROVA A VIDEO DELLA BUILD 2252**: la rabbia della madre,
+      // ripresa col dimostrativo.
+      const madre = 'Mia madre e arrabbiata con me';
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Quella rabbia non parla di te ma di lei.', madre),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Quella rabbia la puoi guardare senza farla tua.', madre),
+          isFalse);
       // **DALLA MISURA DELL'ORDINE DN**: la decisione che non spetta a chi
       // legge dice cio' che chi legge non puo' fare.
       expect(

@@ -195,8 +195,11 @@ abstract final class LeGuardieDelResponso {
   /// **UN TERZO, COME SOGGETTO**, ordine DN voce 02: per parentela o
   /// relazione col possessivo, per pronome, o per un nome che la persona ha
   /// scritto. I nomi propri si aggiungono a ogni lettura.
+  // **CON L'ARTICOLO DAVANTI**, ordine DN voce 08: *"Il tuo compagno ti pone
+  // davanti a una decisione"*, alla prova a video della build 2252, passava.
   static const String _terzoPerRelazione =
-      '(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) (?:$_parenti)|lui|lei|loro|'
+      '(?:(?:il|la|lo|i|gli|le) )?(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) '
+      '(?:$_parenti)|lui|lei|loro|'
       'egli|ella|costui|costei|questa persona|quella persona|l.altra persona';
 
   static const String _parenti =
@@ -435,9 +438,27 @@ abstract final class LeGuardieDelResponso {
         caseSensitive: false);
     final terzoOvunque =
         RegExp('(?<![$_l])(?:$terzo)(?![$_l])', caseSensitive: false);
+    // **E LA COSA DEL TERZO RIPRESA COL DIMOSTRATIVO**, ordine DN voce 08:
+    // *"Quella rabbia non parla di te ma di lei"*, alla domanda *"Mia madre
+    // e' arrabbiata con me"*, alla prova a video della build 2252. Il
+    // soggetto e' la rabbia della madre, detta prima col suo nome.
+    final delTerzo = RegExp(
+        '(?<![$_l])(?:di|del|della|dello|dei|delle) (?:$terzo)(?![$_l])|'
+        '(?<![$_l])(?:sua|suo|suoi|sue)(?![$_l])',
+        caseSensitive: false);
+    final dimostrativo = RegExp(
+        '^(?:quella|quel|quello|quell.|questa|questo|quest.|quelle|quei|'
+        'quegli|queste|questi) ',
+        caseSensitive: false);
     for (final grezza in t.split(RegExp(r'[.!?;]'))) {
       final frase = grezza.trim();
-      if (frase.isEmpty || !soggetto.hasMatch(frase)) continue;
+      if (frase.isEmpty) continue;
+      // Solo la cosa DEL terzo, *"di lei"*, *"sua"*: *"Quella notizia spetta
+      // a tua sorella"* dice a chi tocca darla, e passa.
+      final dellaCosaDelTerzo = domandaConUnTerzo &&
+          dimostrativo.hasMatch(frase) &&
+          delTerzo.hasMatch(frase);
+      if (!soggetto.hasMatch(frase) && !dellaCosaDelTerzo) continue;
       final predicato = frase.replaceAll(terzoOvunque, ' ');
       if (!_predicatoDiChiLegge.hasMatch(predicato)) return true;
     }
