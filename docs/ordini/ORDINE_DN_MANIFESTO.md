@@ -91,6 +91,14 @@ parte veniva dalla riga dell'oggetto *non noto*, gia' tolta nell'ordine DL.
   ricopiava parola per parola l'esempio vietato, prima quello dell'ordine e
   poi quello scritto al suo posto: adesso ogni frase su un'altra persona ha
   per soggetto chi legge, con due esempi del si' su un cugino.
+- **E ogni frase che nomina il terzo**, dopo la prova a video: tre riprove di
+  fila hanno trovato ognuna una forma nuova dello stesso difetto (*"Quella
+  rabbia non parla di te ma di lei"*, *"Il tuo compagno ti pone davanti a una
+  decisione"*, *"Non e' arrabbiata con te"*, *"La paura non e' sua"*). La
+  cura finale e' la regola dell'ordine alla lettera: con un terzo nella
+  domanda, ogni frase del titolo e della risposta che lo nomina, o che dice
+  *suo* e *sua*, deve dire cio' che chi legge puo' o non puo' fare. Resta
+  ammessa quella che ha per soggetto chi legge; il gesto ne e' fuori.
 - **Il gergo del consulente**, *"un processo"*, e' nella voce DN.04.
 
 ---
@@ -166,7 +174,10 @@ riga.
 
 ## DN.08, LA PROVA FINALE A VIDEO. CHIUSA
 
-I dieci punti, con le schermate, nel rapporto. **Il punto 8 non si prova sul
+I dieci punti, con le schermate, nel rapporto. **La prova sulla 2252 ha
+trovato quattro guasti, le riprove sulla 2253 e sulla 2254 altri due e altri
+tre**: riparati nelle build 2253, 2254 e 2255, ognuno con la sua riga di prova
+vista rossa. **Il punto 8 non si prova sul
 telefono**: la forma si sceglie solo nell'onboarding: cambiarla vorrebbe
 dire cancellare i dati dell'app del fondatore. Si prova sulla schermata vera
 in `il_viaggio_parla_al_femminile_test.dart`.
@@ -191,4 +202,5 @@ con la build 2252 e la data. La coda del fondatore esiste.
 Il registro sale da 417 a **418**: `il_viaggio_parla_al_femminile`, vista
 rossa due volte; la prima stesura era cieca. `il_responso_risponde` e'
 stata allargata alle cinque guardie nuove, al responso intero coi suoi tempi
-e alla voce di casa: quattordici rossi, uno senza innesto.
+e alla voce di casa: venti rossi, uno senza innesto, e sei vengono dalle prove
+a video.
