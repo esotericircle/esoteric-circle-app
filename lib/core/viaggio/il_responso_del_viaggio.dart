@@ -63,7 +63,8 @@ class IlResponsoDelViaggio {
 
   /// **I BLOCCHI COME SI LEGGONO**, dall'alto: titolo, risposta, gesto, da dove
   /// viene; poi il richiamo quando c'e'.
-  List<String> get blocchi => [titolo, ...paragrafi, if (richiamo != null) richiamo!];
+  List<String> get blocchi =>
+      [titolo, ...paragrafi, if (richiamo != null) richiamo!];
 
   /// **LA DISCESA COME SI CONSERVA NEL DIARIO**, coi pezzi della scena e con
   /// cio' che la voce deve ricordarsi: il titolo, la risposta e l'azione.
@@ -113,8 +114,7 @@ class IlResponsoDelViaggio {
   /// **Le forme di prima si ricalcolano**, dalla scena piu' vecchia alla piu'
   /// recente, con la stessa regola: il Diario conserva i pezzi, e i pezzi
   /// bastano. [precedenti] dalla piu' recente, come li da' il Diario.
-  static int formaDellaScena(
-      List<String> oggi, List<List<String>> precedenti) {
+  static int formaDellaScena(List<String> oggi, List<List<String>> precedenti) {
     final storia = [...precedenti.reversed, oggi];
     final forme = <int>[];
     for (var i = 0; i < storia.length; i++) {
@@ -137,7 +137,8 @@ class IlResponsoDelViaggio {
         final pf = peggiore[f] ?? 0;
         final ps = peggiore[scelta] ?? 0;
         if (pf < ps ||
-            (pf == ps && (ultimaVolta[f] ?? -1) < (ultimaVolta[scelta] ?? -1))) {
+            (pf == ps &&
+                (ultimaVolta[f] ?? -1) < (ultimaVolta[scelta] ?? -1))) {
           scelta = f;
         }
       }
@@ -189,36 +190,75 @@ class IlResponsoDelViaggio {
     final siPuoDire = IQuattroViaggi.siPuoNominare(discesa);
     // Senza domanda, nessuna chiusura parla della domanda.
     final conDomanda = tema != null;
-    final scena = dalModello != null
-        ? ScenaSenzaModello.daiPezzi(
-            luogo: dalModello.luogo,
-            cosa: dalModello.cosa,
-            gesto: dalModello.gesto,
-            momento: dalModello.momento,
-            domanda: domanda,
-            giorno: giorno,
-            nitidezza: nitidezza,
-            discesa: discesa,
-            animale: animale,
-            siPuoDire: siPuoDire,
-            conDomanda: conDomanda,
-          )
-        : ScenaSenzaModello.componi(
-            domanda: domanda,
-            giorno: giorno,
-            nitidezza: nitidezza,
-            // **IL NUMERO DELLA DISCESA ENTRA NEL SEME.** Ordine DF voce 05:
-            // senza, due discese nello stesso giorno con la stessa domanda
-            // riportavano su la stessa identica scena, parola per parola.
-            discesa: discesa,
-            // **L'ANIMALE ENTRA NELLA SCENA**, ordine DI voce 04: sceglie i
-            // gesti che il suo corpo sa fare. Dopo la quarta discesa le da'
-            // il suo nome.
-            animale: animale,
-            siPuoDire: siPuoDire,
-            conDomanda: conDomanda,
-          );
     final id = LaVoceDelMondoDiSotto.temaDi(tema);
+    final letti = <ResponsoLetto>[
+      for (final v in storia)
+        (
+          tema: v.temaDellaDomanda,
+          titolo: v.titolo,
+          risposta: v.risposta,
+          gesto: v.gesto,
+        ),
+    ];
+    // **IL TITOLO NON CONTIENE UN PEZZO DELLA SCENA DI QUELLA DISCESA.**
+    // Ordine DN voce 03. Il titolo di casa e' obbligato dal mazzo, che non
+    // ripete prima di ventiquattro discese: **non si salta il titolo, e' la
+    // scena che lo evita**. La scena di riserva salta i pezzi che il titolo
+    // nomina; quella del modello tiene il titolo del modello solo se non ne
+    // nomina un pezzo, e se nemmeno il titolo di casa regge, si rifa' dalla
+    // riserva evitandolo.
+    final titoloDiCasa = LaVoceDelMondoDiSotto.titoloDelGiorno(id, giorno,
+        giaOggi: giaOggi, letti: letti);
+    bool tocca(String t, ScenaDelViaggio s) =>
+        LeGuardieDelResponso.titoloToccaLaScena(
+            t, LaVoceDelMondoDiSotto.nomiDeiPezzi(s));
+    ScenaDelViaggio diRiserva(String titolo) => ScenaSenzaModello.componi(
+          domanda: domanda,
+          giorno: giorno,
+          nitidezza: nitidezza,
+          // **IL NUMERO DELLA DISCESA ENTRA NEL SEME.** Ordine DF voce 05:
+          // senza, due discese nello stesso giorno con la stessa domanda
+          // riportavano su la stessa identica scena, parola per parola.
+          discesa: discesa,
+          // **L'ANIMALE ENTRA NELLA SCENA**, ordine DI voce 04: sceglie i
+          // gesti che il suo corpo sa fare. Dopo la quarta discesa le da'
+          // il suo nome.
+          animale: animale,
+          siPuoDire: siPuoDire,
+          conDomanda: conDomanda,
+          evita: (pezzo) =>
+              LeGuardieDelResponso.titoloToccaLaScena(titolo, [pezzo.nome]),
+        );
+    ScenaDelViaggio scena;
+    String titolo;
+    var scenaRifatta = false;
+    if (dalModello != null) {
+      scena = ScenaSenzaModello.daiPezzi(
+        luogo: dalModello.luogo,
+        cosa: dalModello.cosa,
+        gesto: dalModello.gesto,
+        momento: dalModello.momento,
+        domanda: domanda,
+        giorno: giorno,
+        nitidezza: nitidezza,
+        discesa: discesa,
+        animale: animale,
+        siPuoDire: siPuoDire,
+        conDomanda: conDomanda,
+      );
+      if (scritti.titolo != null && !tocca(scritti.titolo!, scena)) {
+        titolo = scritti.titolo!;
+      } else {
+        titolo = titoloDiCasa;
+        if (tocca(titolo, scena)) {
+          scena = diRiserva(titolo);
+          scenaRifatta = true;
+        }
+      }
+    } else {
+      titolo = scritti.titolo ?? titoloDiCasa;
+      scena = diRiserva(titolo);
+    }
     final forma = formaDellaScena(scena.idDeiPezzi, precedenti);
     final voce = LaVoceDelMondoDiSotto.alGiorno(
       scena: scena,
@@ -227,15 +267,7 @@ class IlResponsoDelViaggio {
       giornoDellaDiscesa: giorno,
       giaOggi: giaOggi,
       formaDellaScena: forma,
-      letti: [
-        for (final v in storia)
-          (
-            tema: v.temaDellaDomanda,
-            titolo: v.titolo,
-            risposta: v.risposta,
-            gesto: v.gesto,
-          ),
-      ],
+      letti: letti,
       oggettoDellaDomanda: oggetto,
     );
     // **IL TITOLO, LA RISPOSTA E IL GESTO DEL MODELLO**, ordine DL voci 07 e
@@ -246,8 +278,7 @@ class IlResponsoDelViaggio {
       paragrafi[0] = scritti.risposta!;
     }
     if (scritti.azione != null && paragrafi.length > 1) {
-      paragrafi[1] = LaVoceDelMondoDiSotto.gestoDelModello(
-          scritti.azione!,
+      paragrafi[1] = LaVoceDelMondoDiSotto.gestoDelModello(scritti.azione!,
           FiloDellaVoce.da([...scena.idDeiPezzi, 'gesto del modello']).seme);
     }
     String fonte(String pezzo, bool dalModello) {
@@ -259,17 +290,25 @@ class IlResponsoDelViaggio {
       return scarto == null ? 'riserva' : 'riserva: $scarto';
     }
 
+    final titoloDelModello = scritti.titolo != null && titolo == scritti.titolo;
+    const anticipa = 'riserva: titoloAnticipaLaScena';
     final fonti = <String, String>{
-      'scena': dalModello != null ? 'modello' : 'riserva',
-      'titolo': fonte('titolo', scritti.titolo != null),
+      'scena': dalModello == null
+          ? 'riserva'
+          : scenaRifatta
+              ? anticipa
+              : 'modello',
+      'titolo': scritti.titolo != null && !titoloDelModello
+          ? anticipa
+          : fonte('titolo', titoloDelModello),
       'risposta': fonte('risposta', scritti.risposta != null),
       'gesto': fonte('azione', scritti.azione != null),
       ...fontiGiaNote,
     };
     return IlResponsoDelViaggio._(
       scena: scena,
-      dalModello: dalModello != null,
-      titolo: scritti.titolo ?? voce.titolo,
+      dalModello: dalModello != null && !scenaRifatta,
+      titolo: titolo,
       paragrafi: paragrafi,
       // **NEL DIARIO VA CIO' CHE SI E' LETTO**, parola per parola: chi
       // riapre una discesa di sei mesi fa rilegge il testo del modello, e

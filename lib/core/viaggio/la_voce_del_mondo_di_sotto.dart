@@ -820,6 +820,19 @@ abstract final class LaVoceDelMondoDiSotto {
     return ordine[partenza % n];
   }
 
+  /// **IL TITOLO DI CASA DI UNA DISCESA**, dal mazzo, prima della scena.
+  /// Ordine DN voce 03: il mazzo ha ventiquattro titoli per tema e la
+  /// misura F ne vuole ventiquattro distinti in ogni finestra, quindi dopo
+  /// il primo giro il titolo e' obbligato. **Non si salta il titolo: e' la
+  /// scena che evita il titolo**, vedi `IlResponsoDelViaggio.componi`.
+  static String titoloDelGiorno(String? temaDomanda, DateTime giorno,
+          {int giaOggi = 0, List<ResponsoLetto> letti = const []}) =>
+      _titoloDelMazzo(temaDomanda, giro(giorno, giaOggi), letti);
+
+  /// **I NOMI DEI QUATTRO PEZZI DELLA SCENA**, per la voce DN.03.
+  static List<String> nomiDeiPezzi(ScenaDelViaggio s) =>
+      [s.luogo.nome, s.cosa.nome, s.gesto.nome, s.momento.nome];
+
   /// **LA VOCE DI UNA DISCESA, con la memoria di cio' che la persona ha gia'
   /// letto.** Ordine DJ voce 02: il titolo dal mazzo, i tre paragrafi col
   /// giro, e le due frasi che il Diario conserva per ricordarsele.

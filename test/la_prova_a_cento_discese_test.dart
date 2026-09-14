@@ -360,6 +360,11 @@ class _Esito {
   /// **DA DOVE VENGONO TITOLO, RISPOSTA E GESTO**, ordine DL voci 07 e 13.
   Map<String, int> fonti = const {};
 
+  /// **PERCHE' LA PERSONA HA LETTO LA RISERVA**, pezzo per pezzo e una
+  /// volta per discesa: *riserva* senza motivo vuol dire che il modello
+  /// non ha dato quel testo. Ordine DN voce 10.
+  Map<String, int> motiviFinali = const {};
+
   /// **I TESTI SCARTATI, per pezzo e per guardia**, e un esempio di ognuno.
   Map<String, int> scarti = const {};
   Map<String, String> esempiScartati = const {};
@@ -487,6 +492,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
   final guasti = <String, int>{};
   final oggetti = <String, int>{};
   final fonti = <String, int>{};
+  final motiviFinali = <String, int>{};
   final scarti = <String, int>{};
   final esempiScartati = <String, String>{};
   final esempiDelModello = <String>[];
@@ -621,6 +627,13 @@ Future<_Esito> _centoDiscese(_Caso caso,
       final chiave =
           '${e.key} ${e.value.startsWith('modello') ? 'modello' : 'riserva'}';
       fonti[chiave] = (fonti[chiave] ?? 0) + 1;
+      // **IL MOTIVO FINALE, UNA VOLTA PER DISCESA**, ordine DN voce 10: gli
+      // scarti contano ogni tentativo, e la scena richiesta li contava due
+      // volte. Qui si conta cio' che la persona ha letto, e perche'.
+      if (!e.value.startsWith('modello') && e.key != 'tema') {
+        final finale = '${e.key} ${e.value}';
+        motiviFinali[finale] = (motiviFinali[finale] ?? 0) + 1;
+      }
     }
     if (scritta.testi.risposta != null) risposteDelModello++;
     if (esempiDelModello.length < 3 && scritta.testi.titolo != null) {
@@ -701,6 +714,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
     ..guasti = guasti
     ..oggetti = oggetti
     ..fonti = fonti
+    ..motiviFinali = motiviFinali
     ..scarti = scarti
     ..esempiScartati = esempiScartati
     ..esempiDelModello = esempiDelModello
@@ -894,6 +908,7 @@ void _stampa(String colonna, List<_Esito> esiti) {
         '${e.guasti.isEmpty ? '' : ' | guasti ${e.guasti}'}'
         '${e.oggetti.isEmpty ? '' : ' | oggetti ${e.oggetti}'}'
         '${e.fonti.isEmpty ? '' : ' | fonti ${e.fonti}'}'
+        '${e.motiviFinali.isEmpty ? '' : ' | motivi finali ${e.motiviFinali}'}'
         '${e.scarti.isEmpty ? '' : ' | scarti ${e.scarti}'}'
         ' | titoli piu ripetuti ${_piuRipetuti(e.titoli)}');
     for (final x in e.esempiDelModello) {

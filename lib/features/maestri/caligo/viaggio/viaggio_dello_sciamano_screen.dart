@@ -1921,7 +1921,10 @@ class _ViaggioDelloSciamanoScreenState
           if (widget.demo && IlTettoDelleChiamate.alzatoPerIlCollaudo) ...[
             Text(
               [
-                for (final e in responso.fonti.entries) '${e.key}: ${e.value}',
+                // **IL MOTIVO FRA PARENTESI**, ordine DN voce 06: "gesto:
+                // riserva: genereContrario" aveva due punti dentro due punti.
+                for (final e in responso.fonti.entries)
+                  '${e.key}: ${fonteLeggibile(e.value)}',
                 // **CON LA VIRGOLA**: il punto medio e' la forma che la
                 // guardia del dominio non vuole vedere composta.
               ].join(', '),
@@ -2056,3 +2059,11 @@ class _ViaggioDelloSciamanoScreenState
 /// come promemoria del fatto che le ombre vengono da li' e non da un elenco
 /// scritto a mano.
 List<GuideAnimal> get animaliDelCerchio => AnimalCatalog.animals;
+
+/// **LA FONTE DI UN PEZZO, COME SI LEGGE NELLA RIGA DI COLLAUDO**: la via, e
+/// il motivo fra parentesi. *"riserva: genereContrario"* diventa *"riserva
+/// (genereContrario)"*. Ordine DN voce 06.
+String fonteLeggibile(String fonte) {
+  final i = fonte.indexOf(': ');
+  return i < 0 ? fonte : '${fonte.substring(0, i)} (${fonte.substring(i + 2)})';
+}

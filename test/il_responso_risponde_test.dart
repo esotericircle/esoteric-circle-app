@@ -10,6 +10,8 @@ import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/core/viaggio/vocabolario_del_viaggio.dart';
+import 'package:esoteric_circle/core/viaggio/scena_del_viaggio.dart';
 
 /// **IL RESPONSO RISPONDE.** Ordine DL voci 07, 08, 10 e 13, 14 settembre
 /// 2026.
@@ -54,7 +56,7 @@ void main() {
         MotivoDelloScarto.dueDuePunti:
             risposta('Una cosa: tua sorella: il suo tempo.'),
         MotivoDelloScarto.trattinoLungo:
-            risposta('Tua sorella — il suo tempo è suo.'),
+            risposta('Tua sorella — quello che cerchi è vicino.'),
         MotivoDelloScarto.virgolaEe:
             risposta('Tua sorella ha il suo tempo, e tu hai il tuo.'),
         MotivoDelloScarto.primaPersona: risposta('Io vedo tua sorella serena.'),
@@ -71,7 +73,7 @@ void main() {
         MotivoDelloScarto.nonNominaLaDomanda:
             risposta('Il tempo delle cose non si comanda.', oggetto: null),
         MotivoDelloScarto.anticipaLaScena: risposta(
-            'Tua sorella è già sulla soglia del suo tempo.',
+            'La soglia di tua sorella non è tua da attraversare.',
             scena: const ['soglia']),
         MotivoDelloScarto.consiglioDiVita:
             azione('Rifletti su tua sorella stasera.'),
@@ -80,12 +82,25 @@ void main() {
         MotivoDelloScarto.saluteDenaroLegge:
             azione('Compra un regalo per tua sorella entro sabato.'),
         // Il titolo ripetuto lo vede la lettura, che conosce i titoli gia'
-        // dati: *"Il suo tempo è suo"* era gia' uscito, con un punto.
+        // dati: *"Quello che cerchi è vicino"* era gia' uscito, con un punto.
         MotivoDelloScarto.titoloRipetuto: LeGuardieDelResponso.leggi(
-            {'titolo': 'il suo tempo è suo'},
+            {'titolo': 'quello che cerchi è vicino'},
             domanda: domanda,
             forma: neutra,
-            titoliGiaDati: const ['Il suo tempo è suo.']).scarti.single.motivo,
+            titoliGiaDati: const ['Quello che cerchi è vicino.']).scarti.single.motivo,
+        // **ORDINE DN**, le righe dei cinque motivi nuovi.
+        MotivoDelloScarto.fuoco:
+            azione('Stasera brucia il foglio su un piatto.'),
+        MotivoDelloScarto.statoDiUnTerzo:
+            risposta('Tua sorella è serena e lo sa già.'),
+        MotivoDelloScarto.decisioneGrave:
+            azione('Entro sabato lascia il lavoro in banca.'),
+        MotivoDelloScarto.gergo: risposta('È tempo di vederla in te.'),
+        MotivoDelloScarto.titoloAnticipaLaScena:
+            LeGuardieDelResponso.titoloToccaLaScena(
+                    'La porta non è tua', const ['la porta chiusa'])
+                ? MotivoDelloScarto.titoloAnticipaLaScena
+                : null,
       };
       // **IL CARDINALE**: tutti i motivi hanno la loro riga.
       expect(casi.keys.toSet(), MotivoDelloScarto.values.toSet());
@@ -138,10 +153,10 @@ void main() {
         CourtesyForm.feminine,
         CourtesyForm.neutral,
       ]) {
-        expect(titolo('Il suo tempo è suo', forma: f), isNull);
+        expect(titolo('Quello che cerchi è vicino', forma: f), isNull);
         expect(
             risposta(
-                'La notizia di tua sorella arriva quando lei decide. '
+                'Quella notizia spetta a tua sorella. '
                 'Tu puoi solo farle spazio.',
                 forma: f),
             isNull);
@@ -154,11 +169,11 @@ void main() {
 
     test('la risposta del modello si legge, e senza domanda non si legge', () {
       final letti = LeGuardieDelResponso.leggi({
-        'titolo': 'Il suo tempo è suo.',
+        'titolo': 'Quello che cerchi è vicino.',
         'risposta': 'Tua sorella avrà un bambino.',
         'azione': 'Stasera scrivi a tua sorella una riga, senza domande.',
       }, domanda: domanda, forma: neutra, oggetto: 'tua sorella');
-      expect(letti.titolo, 'Il suo tempo è suo',
+      expect(letti.titolo, 'Quello che cerchi è vicino',
           reason: 'il punto in fondo al titolo si toglie');
       expect(letti.risposta, isNull);
       expect(letti.azione, isNotNull);
@@ -168,6 +183,160 @@ void main() {
                   domanda: '', forma: neutra)
               .vuoti,
           isTrue);
+    });
+  });
+
+  group('ORDINE DN, IL FUOCO, I TERZI, LE DECISIONI, IL GERGO', () {
+    test('il clitico col participio segue la forma scelta', () {
+      // *"le persone che ti hanno visto arrabbiato"*, dalla sonda, a una
+      // persona che ha scelto il femminile.
+      expect(
+          azione('Stasera scrivi i nomi di chi ti ha visto arrabbiato.',
+              forma: CourtesyForm.feminine),
+          MotivoDelloScarto.genereContrario);
+      expect(
+          azione('Stasera scrivi i nomi di chi ti ha visto arrabbiata.',
+              forma: CourtesyForm.feminine),
+          isNull);
+    });
+
+    test('il fuoco resta fuori dal gesto, e le sue alternative passano', () {
+      for (final g in [
+        'Stasera accendi una candela davanti alla finestra.',
+        'Domani mattina dai fuoco alla lettera.',
+        'Stasera metti il foglio nel braciere.',
+        'Entro sabato brucia la foto e disperdi le ceneri.',
+      ]) {
+        expect(azione(g), MotivoDelloScarto.fuoco, reason: g);
+      }
+      for (final g in [
+        'Stasera strappa il foglio in quattro pezzi.',
+        'Domani mattina seppellisci il foglio sotto una pietra.',
+        'Entro sabato getta il foglio nell\'acqua corrente.',
+        'Stasera chiudi il foglio in un cassetto e non riaprirlo.',
+      ]) {
+        expect(azione(g), isNull, reason: g);
+      }
+      // Negli altri due testi il fuoco come immagine resta, l'invito no.
+      expect(risposta('Tua sorella ha un fuoco che tu non vedi.'),
+          isNot(MotivoDelloScarto.fuoco));
+      expect(risposta('Brucia quello che non serve a tua sorella.'),
+          MotivoDelloScarto.fuoco);
+    });
+
+    test('i due esempi dell\'ordine: la porta si, il desiderio no', () {
+      const sorella = 'Mia sorella diventerà presto mamma?';
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La porta di tua sorella non è tua da aprire.', sorella),
+          isFalse,
+          reason: 'dice una cosa su chi legge, non su di lei');
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Il desiderio di tua sorella è un processo che si sta '
+              'sviluppando.',
+              sorella),
+          isTrue,
+          reason: 'afferma un fatto sulla vita di un\'altra persona');
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Lui è capace di farlo da sé.', 'Mio figlio troverà lavoro?'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Marco ti vuole bene.', 'Cosa prova davvero Marco per me?'),
+          isTrue,
+          reason: 'cio che Marco prova l\'app non lo sa');
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Il tuo rapporto con tuo padre è diventato un copione che non '
+                  'ti appartiene.',
+              'Perché con mio padre finisce sempre in lite?'),
+          isFalse,
+          reason: 'e il rapporto di chi legge');
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non puoi sapere quando tua sorella diventerà mamma.', sorella),
+          isFalse);
+      // **DALLA SONDA DELL'ORDINE DN**: il possessivo del terzo come
+      // soggetto da' per certo lo stato della madre.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo('La sua rabbia non è la tua.',
+              'Mia madre è arrabbiata con me?'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La sua difficoltà è un passaggio che deve attraversare.',
+              'Mio fratello sta passando un brutto periodo?'),
+          isTrue);
+    });
+
+    test('prendere una parte si puo, ordinare una decisione grave no', () {
+      const banca = 'Devo lasciare il lavoro in banca per aprire una bottega?';
+      MotivoDelloScarto? r(String t) =>
+          LeGuardieDelResponso.dellaRisposta(t, domanda: banca, forma: neutra);
+      expect(r('La bottega ti somiglia più della banca.'), isNull);
+      expect(r('Lascia la banca e apri la bottega.'),
+          MotivoDelloScarto.decisioneGrave);
+      expect(r('Devi lasciare il lavoro in banca.'),
+          MotivoDelloScarto.decisioneGrave);
+      expect(
+          LeGuardieDelResponso.dellaRisposta('Trasferisciti dove sei felice.',
+              domanda: 'Devo trasferirmi a Milano?', forma: neutra),
+          MotivoDelloScarto.decisioneGrave);
+      // Il titolo di casa: *posto* da solo non e' il posto di lavoro.
+      expect(
+          LeGuardieDelResponso.delTitolo('Lascia il posto vuoto per ora',
+              domanda: banca, forma: neutra),
+          isNull);
+    });
+
+    test('il gergo si scarta perche e vuoto', () {
+      for (final g in [
+        'È tempo di vederla in te.',
+        'Ascolta il tuo cuore sulla bottega.',
+        'La bottega è il tuo percorso.',
+        'Il tuo vero sé vuole la bottega.',
+        'Lascia andare la banca.',
+        'La banca è un peso da lasciare andare.',
+      ]) {
+        expect(
+            LeGuardieDelResponso.dellaRisposta(g,
+                domanda: 'Devo lasciare la banca per la bottega?',
+                forma: neutra),
+            MotivoDelloScarto.gergo,
+            reason: g);
+      }
+    });
+
+    test('il titolo del modello che nomina la scena cede a quello di casa', () {
+      final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+      PezzoDellaScena tra(List<PezzoDellaScena> l, String id) =>
+          l.firstWhere((p) => p.id == id);
+      final pezzi = (
+        luogo: tra(VocabolarioDelViaggio.luoghi, 'bivio'),
+        cosa: tra(VocabolarioDelViaggio.cose, 'porta_chiusa'),
+        gesto: GestiDellAnimale.di(animale.name).first,
+        momento: VocabolarioDelViaggio.momenti.first,
+      );
+      final r = IlResponsoDelViaggio.componi(
+        dalModello: pezzi,
+        domanda: 'Mia sorella non mi parla da due anni e non so se cercarla',
+        giorno: DateTime(2026, 9, 14),
+        nitidezza: 1,
+        discesa: 0,
+        giaOggi: 0,
+        animale: animale,
+        tema: TemaDellaDomanda.persona,
+        storia: const [],
+        scritti: const TestiDelModello(titolo: 'La porta non è tua'),
+      );
+      expect(r.titolo, isNot('La porta non è tua'));
+      expect(r.fonti['titolo'], 'riserva: titoloAnticipaLaScena');
+      expect(
+          LeGuardieDelResponso.titoloToccaLaScena(
+              r.titolo, LaVoceDelMondoDiSotto.nomiDeiPezzi(r.scena)),
+          isFalse);
     });
   });
 
@@ -294,8 +463,8 @@ void main() {
         'la loro fonte', () {
       final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
       const scritti = TestiDelModello(
-        titolo: 'Il suo tempo è suo',
-        risposta: 'La notizia di tua sorella arriva quando lei decide.',
+        titolo: 'Quello che cerchi è vicino',
+        risposta: 'Quella notizia spetta a tua sorella.',
         azione: 'Stasera scrivi a tua sorella una riga, senza domande.',
       );
       final r = IlResponsoDelViaggio.componi(
@@ -341,7 +510,7 @@ void main() {
     test('un testo scartato lascia la riserva, e la fonte dice perché', () {
       final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
       final letti = LeGuardieDelResponso.leggi({
-        'titolo': 'Il suo tempo è suo',
+        'titolo': 'Quello che cerchi è vicino',
         'risposta': 'Tua sorella avrà un bambino.',
         'azione': 'Affronta tua sorella stasera.',
       }, domanda: domanda, forma: neutra);
@@ -395,6 +564,8 @@ void main() {
       'tema. Ordine DL voce 10', () {
     final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
     final doppi = <String>[];
+    final titoliConLaScena = <String>[];
+    final sporchi = <String>[];
     var guardati = 0;
     var colTempoProprio = 0;
     for (final tema in [...TemaDellaDomanda.values, null]) {
@@ -420,6 +591,17 @@ void main() {
           colTempoProprio++;
         }
         if (_fontiDelTempo(gesto) > 1) doppi.add(gesto);
+        // **LA VOCE DI CASA E' PULITA**, ordine DN voce 08, punti 2, 4, 5 e
+        // 6: il titolo non nomina un pezzo della scena, e nessun testo
+        // accende, fa gergo o ordina una decisione grave.
+        if (LeGuardieDelResponso.titoloToccaLaScena(
+            r.titolo, LaVoceDelMondoDiSotto.nomiDeiPezzi(r.scena))) {
+          titoliConLaScena.add('${r.titolo} | ${r.scena.idDeiPezzi}');
+        }
+        for (final b in [r.titolo, r.paragrafi[0], r.paragrafi[1]]) {
+          final motivo = LeGuardieDelResponso.fuocoGergoDecisione(b);
+          if (motivo != null) sporchi.add('${motivo.name}: $b');
+        }
         storia.insert(
             0,
             r.comeSiConserva(
@@ -438,6 +620,10 @@ void main() {
     expect(doppi, isEmpty,
         reason: '${doppi.length} gesti con due tempi, per esempio:\n'
             '${doppi.take(5).join('\n')}');
+    expect(titoliConLaScena, isEmpty,
+        reason: 'titoli che nominano un pezzo della scena:\n'
+            '${titoliConLaScena.take(5).join('\n')}');
+    expect(sporchi, isEmpty, reason: sporchi.take(5).join('\n'));
   });
 }
 

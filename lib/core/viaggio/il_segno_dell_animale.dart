@@ -9,6 +9,7 @@ import 'la_domanda_capita.dart';
 import '../chat/il_blocco_di_cortesia.dart';
 import '../chat/user_profile.dart';
 import '../chat/le_forme_del_genere.dart';
+import 'le_guardie_del_responso.dart';
 
 /// **I GESTI CON CUI L'ANIMALE RISPONDE, e nessuno di piu'.**
 /// Ordine DI voce 14, 12 settembre 2026; ridotti a tre dall'ordine DJ voce 08,
@@ -254,6 +255,10 @@ abstract final class GestiDelSegno {
         .isNotEmpty) {
       return false;
     }
+    // **NIENTE FUOCO, NIENTE GERGO, NESSUN ORDINE GRAVE**, ordine DN voce
+    // 06: le regole del responso valgono anche per il segno. Quella sui
+    // terzi no: qui il soggetto e' l'animale, ed e' il senso del segno.
+    if (LeGuardieDelResponso.fuocoGergoDecisione(riga) != null) return false;
     // **L'ANIMALE NON PARLA**: niente prima persona, niente discorso.
     if (RegExp(r'\b(io|mi|me|mio|mia|miei|mie|dico|dice|dicendo|parla)\b',
             caseSensitive: false)

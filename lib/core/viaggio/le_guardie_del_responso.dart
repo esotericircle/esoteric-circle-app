@@ -40,6 +40,12 @@ enum MotivoDelloScarto {
   toccaUnTerzo,
   saluteDenaroLegge,
   titoloRipetuto,
+  // Ordine DN, 14 settembre 2026.
+  fuoco,
+  statoDiUnTerzo,
+  decisioneGrave,
+  gergo,
+  titoloAnticipaLaScena,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -79,8 +85,12 @@ abstract final class LeGuardieDelResponso {
   /// Quante parole al massimo ha un titolo: sei, dall'ordine.
   static const int paroleDelTitolo = 6;
 
-  /// Quante frasi al massimo ha una risposta: due, dall'ordine.
-  static const int frasiDellaRisposta = 2;
+  /// Quante frasi al massimo ha una risposta: **tre**, ordine DN voce 05.
+  /// L'ordine DL ne voleva due, e trentanove risposte buone su 1.100 discese
+  /// cadevano per una terza frase corta, *"Non e' una fine. E' un
+  /// passaggio."*: una regola scritta da noi non vale una risposta buona. Il
+  /// tetto delle quarantacinque parole resta.
+  static const int frasiDellaRisposta = 3;
 
   static const String _l = 'a-zàèéìòù';
 
@@ -135,17 +145,17 @@ abstract final class LeGuardieDelResponso {
   /// **UN GESTO CHE TOCCA UN TERZO** in un modo che puo' ferirlo o mettere in
   /// imbarazzo chi legge: confrontare, accusare, pretendere, rompere un
   /// rapporto, rivelare qualcosa a qualcuno.
-  static final RegExp _terzi =
-      _parole('confronta[a-zàèéìòù]*|accusa[a-zàèéìòù]*|pretend[a-zàèéìòù]*|'
-          'rompi|rompere|chiudi con|chiudere con|mollal[oa]|'
-          // **"LASCIALO" SOLO QUANDO E' UNA PERSONA**, ordine DL voce 13:
-          // la prova a cento discese scartava *"Lascialo sul comodino"*,
-          // che parla di un foglio. Resta quando chiude la frase, *"Poi
-          // lascialo."*, o quando va con perdere, andare, stare.
-          'lascia(lo|la)(?= *[.!;]| *(?!.))|lascia(lo|la) (perdere|andare|stare)|'
-          'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela[a-zàèéìòù]*|'
-          'confessa[a-zàèéìòù]*|denuncia[a-zàèéìòù]*|minaccia[a-zàèéìòù]*|'
-          'ultimatum|vendica[a-zàèéìòù]*|dille che|digli che|dì loro che');
+  static final RegExp _terzi = _parole(
+      'confronta[a-zàèéìòù]*|accusa[a-zàèéìòù]*|pretend[a-zàèéìòù]*|'
+      'rompi|rompere|chiudi con|chiudere con|mollal[oa]|'
+      // **"LASCIALO" SOLO QUANDO E' UNA PERSONA**, ordine DL voce 13:
+      // la prova a cento discese scartava *"Lascialo sul comodino"*,
+      // che parla di un foglio. Resta quando chiude la frase, *"Poi
+      // lascialo."*, o quando va con perdere, andare, stare.
+      'lascia(lo|la)(?= *[.!;]| *(?!.))|lascia(lo|la) (perdere|andare|stare)|'
+      'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela[a-zàèéìòù]*|'
+      'confessa[a-zàèéìòù]*|denuncia[a-zàèéìòù]*|minaccia[a-zàèéìòù]*|'
+      'ultimatum|vendica[a-zàèéìòù]*|dille che|digli che|dì loro che');
 
   /// **UN GESTO SU SALUTE, FARMACI, DENARO O ATTI LEGALI.**
   static final RegExp _saluteDenaroLegge = _parole(
@@ -155,6 +165,75 @@ abstract final class LeGuardieDelResponso {
       'acquista[a-zàèéìòù]*|prestit[a-zàèéìòù]*|avvocat[a-zàèéìòù]*|'
       'denunc[a-zàèéìòù]*|querel[a-zàèéìòù]*|contratt[a-zàèéìòù]*|firma|'
       'firmare|dimett[a-zàèéìòù]*|dimission[a-zàèéìòù]*|licenzi[a-zàèéìòù]*');
+
+  /// **IL FUOCO NEL GESTO.** Ordine DN voce 01. Il gesto e' una cosa che una
+  /// persona vera compie da sola, in casa, e fra quelle persone ci sono
+  /// ragazzi: il gesto non accende niente. Il fuoco resta nella scena, dove e'
+  /// simbolico: il pezzo `fuoco_acceso` del vocabolario non si tocca.
+  static final RegExp _fuocoNelGesto =
+      _parole('bruci[a-zàèéìòù]*|brucerai|bruciato|accend[a-zàèéìòù]*|'
+          'dare fuoco|dai fuoco|dà fuoco|dagli fuoco|dalle fuoco|'
+          'incendi[a-zàèéìòù]*|fiamm[a-zàèéìòù]*|cerin[oi]|'
+          'candel[ae] accese?|brace|braci|bracier[ei]|ceneri|rogo|falò');
+
+  /// **E IL FUOCO NEGLI ALTRI DUE TESTI**, quando e' un invito: il verbo del
+  /// bruciare e dell'accendere. Il fuoco nominato come immagine resta.
+  static final RegExp _fuocoComeInvito =
+      _parole('brucia|bruciala|bruciali|bruciale|bruciarlo|bruciarla|bruciare|'
+          'accendi|accendila|accendilo|accendere|dai fuoco|dare fuoco|'
+          'incendia|incendiare');
+
+  /// **UN TERZO, COME SOGGETTO**, ordine DN voce 02: per parentela o
+  /// relazione col possessivo, per pronome, o per un nome che la persona ha
+  /// scritto. I nomi propri si aggiungono a ogni lettura.
+  static const String _terzoPerRelazione =
+      '(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) (?:sorella|sorelle|fratello|'
+      'fratelli|madre|mamma|padre|papà|figlio|figlia|figli|figlie|marito|'
+      'moglie|compagno|compagna|partner|fidanzato|fidanzata|ragazzo|'
+      'ragazza|amico|amica|amici|amiche|nonno|nonna|zio|zia|cugino|cugina|'
+      'suocero|suocera|cognato|cognata|socio|socia|capo|collega|colleghi|'
+      'ex|genitori)|lui|lei|loro|egli|ella|costui|costei|'
+      'questa persona|quella persona|l.altra persona';
+
+  /// **CIO' CHE CHI LEGGE PUO' O NON PUO' FARE**: il predicato che rende
+  /// ammessa una frase che nomina un terzo. *"La porta di tua sorella non e'
+  /// tua da aprire"* dice una cosa su chi legge.
+  static final RegExp _predicatoDiChiLegge =
+      _parole('puoi|devi|sai|hai|sei|fai|vuoi|riesci|scegli|decidi|stai|vedi|'
+          'senti|cerchi|aspetti|trovi|lasci|tieni|porti|chiedi|guardi|'
+          'tocca a te|spetta a te|dipende da te|a te|da te|per te|'
+          '(?:tua|tuo|tuoi|tue) da [a-zàèéìòù]+');
+
+  /// **UN ORDINE SU UNA DECISIONE GRAVE E IRREVERSIBILE**, ordine DN voce
+  /// 04: lasciare il lavoro o una persona, separarsi, tagliare i rapporti,
+  /// trasferirsi, vendere casa. Il responso puo' dire cosa guardare, mai
+  /// cosa fare. **Prendere una parte si puo'**: si scarta l'ordine, non la
+  /// posizione. *"Lascia il posto vuoto per ora"*, titolo di casa, non e'
+  /// il posto di lavoro: la parola *posto* da sola non basta.
+  static final RegExp _decisioneGrave = _parole(
+      'lascia (?:il |la |lo |l.|i |gli |le )?(?:tuo |tua |tuoi |tue )?'
+      '(?:lavoro|posto di lavoro|impiego|banca|ufficio|azienda|casa|città|'
+      'paese|compagno|compagna|marito|moglie|fidanzato|fidanzata|partner|'
+      'relazione|rapporto|famiglia)|'
+      'licenziati|licenziarti|dimettiti|dimetterti|separati|separarti|'
+      'divorzia|divorziare|trasferisciti|trasferirti|vattene|andartene|'
+      'cambia (?:lavoro|città|casa|paese)|vendi (?:la )?casa|'
+      'vendere (?:la )?casa|taglia i (?:ponti|rapporti)|'
+      'tagliare i (?:ponti|rapporti)|chiudi (?:il|la) (?:rapporto|relazione)|'
+      'devi (?:lasciare|licenziarti|dimetterti|separarti|trasferirti|'
+      'vendere|andartene|chiudere)');
+
+  /// **IL GERGO DA CORSO MOTIVAZIONALE**, ordine DN voce 04: *"E' tempo di
+  /// vederla in te"* non prende posizione, fa finta. Si scarta perche' e'
+  /// vuoto, non perche' sia audace. E *"un processo che si sta
+  /// sviluppando"*, lingua da consulente, voce DN.02.
+  static final RegExp _gergo = _parole(
+      'il tuo vero io|il tuo vero sé|ascolta il tuo cuore|ascolta il cuore|'
+      'devi solo|lascia andare|lasciar andare|lasciare andare|'
+      'abbraccia il cambiamento|'
+      'è tempo di|è il tempo di|il tuo percorso|la tua essenza|'
+      'energia positiva|energie positive|apriti a|aprirti a|'
+      'un processo|il processo|questo processo');
 
   /// **UN'INDICAZIONE DI TEMPO**, che il gesto del modello porta dentro di
   /// se': ordine DL voce 13. E' la stessa famiglia dei tempi di casa.
@@ -283,7 +362,72 @@ abstract final class LeGuardieDelResponso {
     if (formeContrarieAllaForma(t, forma).isNotEmpty) {
       return MotivoDelloScarto.genereContrario;
     }
+    if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
+    if (_decisioneGrave.hasMatch(t)) return MotivoDelloScarto.decisioneGrave;
+    if (_fuocoComeInvito.hasMatch(t)) return MotivoDelloScarto.fuoco;
+    if (statoDiUnTerzo(t, domanda)) return MotivoDelloScarto.statoDiUnTerzo;
     return null;
+  }
+
+  /// **IL FUOCO, IL GERGO E LA DECISIONE GRAVE IN UN TESTO QUALSIASI**, per
+  /// la prova che la voce di casa ne sia pulita: ordine DN voce 08.
+  static MotivoDelloScarto? fuocoGergoDecisione(String t) {
+    if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
+    if (_decisioneGrave.hasMatch(t)) return MotivoDelloScarto.decisioneGrave;
+    if (_fuocoNelGesto.hasMatch(t)) return MotivoDelloScarto.fuoco;
+    return null;
+  }
+
+  /// **NESSUNO STATO ATTRIBUITO A UN TERZO.** Ordine DN voce 02.
+  ///
+  /// L'app non sa niente della sorella di chi scrive: dire cosa succede
+  /// dentro un'altra persona e' una bugia detta con la faccia seria. Si
+  /// guarda ogni frase che ha per soggetto un terzo, per nome o per
+  /// pronome, o una cosa sua (*"il desiderio di tua sorella"*): e' ammessa
+  /// solo se il suo predicato dice cio' che chi legge puo' o non puo' fare.
+  ///
+  ///     "La porta di tua sorella non e' tua da aprire."      ammessa
+  ///     "Il desiderio di tua sorella e' un processo..."      scartata
+  static bool statoDiUnTerzo(String t, String domanda) {
+    final nomi = [
+      for (final m in RegExp('(?<=[a-zàèéìòù,;] )([A-ZÀ-Ý][a-zà-ÿ]+)')
+          .allMatches(domanda))
+        m.group(1)!,
+    ];
+    final terzo = [
+      _terzoPerRelazione,
+      for (final n in nomi) RegExp.escape(n),
+    ].join('|');
+    final soggetto = RegExp(
+        '^(?:(?:non|ma|e|anche|ora|oggi) )?(?:$terzo)(?![$_l])|'
+        '^(?:il|la|lo|i|gli|le|l.)\\s?[$_l]+ (?:di|del|della|dello|dei|delle) '
+        '(?:$terzo)(?![$_l])|'
+        // **E IL POSSESSIVO DEL TERZO COME SOGGETTO**: *"La sua rabbia non e'
+        // la tua"*, alla domanda *"Mia madre e' arrabbiata con me?"*, da'
+        // per certo che la madre sia arrabbiata. Dalla sonda dell'ordine DN.
+        '^(?:il|la|lo|i|gli|le|l.)\\s?(?:suo|sua|suoi|sue) [$_l]+',
+        caseSensitive: false);
+    final terzoOvunque =
+        RegExp('(?<![$_l])(?:$terzo)(?![$_l])', caseSensitive: false);
+    for (final grezza in t.split(RegExp(r'[.!?;]'))) {
+      final frase = grezza.trim();
+      if (frase.isEmpty || !soggetto.hasMatch(frase)) continue;
+      final predicato = frase.replaceAll(terzoOvunque, ' ');
+      if (!_predicatoDiChiLegge.hasMatch(predicato)) return true;
+    }
+    return false;
+  }
+
+  /// **IL TITOLO NON CONTIENE UN PEZZO DELLA SCENA.** Ordine DN voce 03. Si
+  /// confronta per radici: *"la porta socchiusa"* nella scena e *"la
+  /// porta"* nel titolo sono lo stesso pezzo. Le immagini comuni restano
+  /// libere quando non sono il pezzo di oggi.
+  static bool titoloToccaLaScena(String titolo, List<String> nomiDeiPezzi) {
+    final delTitolo = _radici(titolo);
+    for (final n in nomiDeiPezzi) {
+      if (_radici(n).intersection(delTitolo).isNotEmpty) return true;
+    }
+    return false;
   }
 
   /// **UN NOME PROPRIO CHE LA PERSONA NON HA SCRITTO**: una parola con la
@@ -328,6 +472,7 @@ abstract final class LeGuardieDelResponso {
     required String domanda,
     required CourtesyForm forma,
     String? oggetto,
+    String? tema,
     List<String> nomiDellaScena = const [],
     Set<String> nomiAmmessi = const {},
   }) {
@@ -341,7 +486,10 @@ abstract final class LeGuardieDelResponso {
     if (comune != null) return comune;
     // **NOMINA LA COSA**: almeno una parola piena della domanda, o
     // dell'oggetto che il classificatore ne ha tratto.
-    final della = _radici('$domanda ${oggetto ?? ''}');
+    // **E DEL TEMA**, ordine DN voce 05: *"Quel qualcosa che ti blocca"*
+    // al tema del blocco nomina la domanda, e cadeva perche' la domanda
+    // scritta dice *"non riesco a superare"*.
+    final della = _radici('$domanda ${oggetto ?? ''} ${tema ?? ''}');
     if (della.isNotEmpty && _radici(r).intersection(della).isEmpty) {
       return MotivoDelloScarto.nonNominaLaDomanda;
     }
@@ -375,6 +523,7 @@ abstract final class LeGuardieDelResponso {
     if (_riflessione.hasMatch(a.trim())) {
       return MotivoDelloScarto.consiglioDiVita;
     }
+    if (_fuocoNelGesto.hasMatch(a)) return MotivoDelloScarto.fuoco;
     if (_terzi.hasMatch(a)) return MotivoDelloScarto.toccaUnTerzo;
     if (_saluteDenaroLegge.hasMatch(a)) {
       return MotivoDelloScarto.saluteDenaroLegge;
@@ -391,6 +540,7 @@ abstract final class LeGuardieDelResponso {
     required String domanda,
     required CourtesyForm forma,
     String? oggetto,
+    String? tema,
     List<String> nomiDellaScena = const [],
     Set<String> nomiAmmessi = const {},
     List<String> titoliGiaDati = const [],
@@ -433,6 +583,7 @@ abstract final class LeGuardieDelResponso {
               domanda: domanda,
               forma: forma,
               oggetto: oggetto,
+              tema: tema,
               nomiDellaScena: nomiDellaScena,
               nomiAmmessi: nomiAmmessi)),
       azione: prendi(

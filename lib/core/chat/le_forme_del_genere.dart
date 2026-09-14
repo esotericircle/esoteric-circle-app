@@ -52,12 +52,47 @@ const Set<String> _invariabili = {'socievole', 'essenziale', 'forte'};
 /// Le parole che il participio generico prende e che non sono participi
 /// riferiti a chi legge: *sei adesso*, *sei spesso*.
 const Set<String> _nonParticipi = {
-  'questo', 'questa', 'quanto', 'quanta', 'tanto', 'tanta', 'tutto',
-  'tutta', 'molto', 'molta', 'poco', 'poca', 'visto', 'vista', 'giusto',
-  'giusta', 'posto', 'posta', 'canto', 'conto', 'conta', 'punto', 'punta',
-  'santo', 'santa', 'volto', 'volta', 'mondo', 'gesto', 'gesta', 'testo',
-  'resto', 'resta', 'costo', 'costa', 'lato', 'adesso', 'spesso',
-  'processo', 'successo', 'interesse',
+  'questo',
+  'questa',
+  'quanto',
+  'quanta',
+  'tanto',
+  'tanta',
+  'tutto',
+  'tutta',
+  'molto',
+  'molta',
+  'poco',
+  'poca',
+  'visto',
+  'vista',
+  'giusto',
+  'giusta',
+  'posto',
+  'posta',
+  'canto',
+  'conto',
+  'conta',
+  'punto',
+  'punta',
+  'santo',
+  'santa',
+  'volto',
+  'volta',
+  'mondo',
+  'gesto',
+  'gesta',
+  'testo',
+  'resto',
+  'resta',
+  'costo',
+  'costa',
+  'lato',
+  'adesso',
+  'spesso',
+  'processo',
+  'successo',
+  'interesse',
 };
 
 const String _l = 'a-zàèéìòù';
@@ -85,9 +120,8 @@ final RegExp _verbo = RegExp(
     "(?<![$_l'])(?<!\\blo )(?<!\\bla )(?<!\\bli )(?<!\\ble )(?<!l')"
     '(?:$_v2) $_avv($_gen|$_part)(?![$_l])',
     caseSensitive: false);
-final RegExp _verboDa = RegExp(
-    "(?<![$_l'])(?:$_v2) da ($_gen)(?![$_l])",
-    caseSensitive: false);
+final RegExp _verboDa =
+    RegExp("(?<![$_l'])(?:$_v2) da ($_gen)(?![$_l])", caseSensitive: false);
 final RegExp _infinitoSempre = RegExp(
     "(?<![$_l'])(?:$_viSempre) $_avv($_gen)(?![$_l])",
     caseSensitive: false);
@@ -97,10 +131,10 @@ final RegExp _secondaPersona = RegExp(
     '(?<![$_l])(ti|tu|sei|hai|puoi|vuoi|devi|sai|riesci|aspetti|temi|rischi|'
     'smetti|provi|cerchi|preferisci|scegli|serve)(?![$_l])',
     caseSensitive: false);
-final RegExp _stesso =
-    RegExp('(?<![$_l])(te stess[oa]|tu stess[oa])(?![$_l])', caseSensitive: false);
-final RegExp _vocativo =
-    RegExp(r'(?:^|[.!?]\s+|\n)\s*(Benvenut[oa]|Bentornat[oa]|Car[oa])(?=[ ,!])');
+final RegExp _stesso = RegExp('(?<![$_l])(te stess[oa]|tu stess[oa])(?![$_l])',
+    caseSensitive: false);
+final RegExp _vocativo = RegExp(
+    r'(?:^|[.!?]\s+|\n)\s*(Benvenut[oa]|Bentornat[oa]|Car[oa])(?=[ ,!])');
 
 /// **LA MARCA**, tre campi fra quadre: cio' che sta dentro e' concordato.
 final RegExp marcaDelGenere = RegExp(r'\[[^\[\]|]*\|[^\[\]|]*\|[^\[\]]*\]');
@@ -150,8 +184,28 @@ List<String> formeDelGenere(String testo) {
 /// il femminile. **Si scarta la riga che la contraddice**: col neutro ogni
 /// forma accordata, col maschile quelle al femminile, col femminile quelle al
 /// maschile.
+final RegExp _cliticoConParticipio = RegExp(
+    r'(?<![a-zàèéìòù])ti (?:ha|hanno|abbia|abbiano|avrà|avranno) '
+    r'(vist[oa]|sentit[oa]|trovat[oa]|lasciat[oa]|res[oa]|fatt[oa]) '
+    r'([a-zàèéìòù]+)',
+    caseSensitive: false);
+
 List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
-  final forme = formeDelGenere(testo);
+  final forme = [
+    ...formeDelGenere(testo),
+    // **IL CLITICO COL PARTICIPIO**, ordine DN voce 06: *"le persone che
+    // ti hanno visto arrabbiato"*, dalla sonda col modello vero, con la
+    // forma neutra. Il criterio della guardia di `lib` cerca il verbo alla
+    // seconda persona, e qui il verbo e' degli altri: si guarda solo nei
+    // testi del modello.
+    // Il participio dopo *avere* puo' restare al maschile: si guarda la
+    // parola che segue.
+    for (final m in _cliticoConParticipio.allMatches(testo)) ...[
+      if (RegExp(r'(at|ut|it)[oa]$').hasMatch(m.group(2)!) ||
+          dizionarioDelGenere.contains(m.group(2)!.toLowerCase()))
+        m.group(2)!,
+    ],
+  ];
   // **LA DESINENZA VIETATA LA DECIDE LA PORTA**, come ogni altra scelta
   // secondo il genere: qui c'era un secondo `masculine ? 'a' : 'o'`, e la
   // guardia della porta sola l'ha visto appena il file e' entrato in `lib`.

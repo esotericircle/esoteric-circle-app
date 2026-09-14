@@ -619,7 +619,9 @@ abstract final class IlRichiamoDelleScene {
   static bool _richiamava(List<List<String>> storia, int i, int quale) {
     final s = storia[i];
     if (quale >= s.length) return false;
-    for (var j = i + 1; j < storia.length && j <= i + quanteSceneIndietro; j++) {
+    for (var j = i + 1;
+        j < storia.length && j <= i + quanteSceneIndietro;
+        j++) {
       if (storia[j].contains(s[quale])) return true;
     }
     return false;
@@ -665,7 +667,12 @@ abstract final class ScenaSenzaModello {
     GuideAnimal? animale,
     bool siPuoDire = false,
     bool conDomanda = true,
+    bool Function(PezzoDellaScena pezzo)? evita,
   }) {
+    // **I PEZZI CHE IL TITOLO GIA' NOMINA SI SALTANO**, ordine DN voce 03:
+    // il titolo non anticipa la scena. Si passa al pezzo dopo, finche' ce
+    // n'e' uno libero; se non ce n'e', resta quello di prima.
+    bool salta(PezzoDellaScena p) => evita?.call(p) ?? false;
     final impronta = '$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
         '|discesa$discesa';
     final seme = _seme(impronta);
@@ -676,17 +683,30 @@ abstract final class ScenaSenzaModello {
     // **Quattro divisori diversi**, cosi' le quattro scelte non si muovono
     // insieme: con un seme solo e lo stesso modulo, cambiando la domanda si
     // sposterebbero tutte e quattro nello stesso verso.
-    final luogo = luoghi[seme % luoghi.length];
+    var qualeLuogo = seme % luoghi.length;
+    for (var giri = 0;
+        giri < luoghi.length && salta(luoghi[qualeLuogo]);
+        giri++) {
+      qualeLuogo = (qualeLuogo + 1) % luoghi.length;
+    }
+    final luogo = luoghi[qualeLuogo];
     // **E LA COSA NON RIPETE IL LUOGO**: *"ti conduce al cerchio di pietre.
     // C'e' il cerchio tracciato a terra"*, trovato dalla stessa guardia.
     var qualeCosa = (seme ~/ 13) % cose.length;
     for (var giri = 0;
-        giri < cose.length && siRipetono(cose[qualeCosa], [luogo]);
+        giri < cose.length &&
+            (siRipetono(cose[qualeCosa], [luogo]) || salta(cose[qualeCosa]));
         giri++) {
       qualeCosa = (qualeCosa + 1) % cose.length;
     }
     final cosa = cose[qualeCosa];
-    final momento = momenti[(seme ~/ 2411) % momenti.length];
+    var qualeMomento = (seme ~/ 2411) % momenti.length;
+    for (var giri = 0;
+        giri < momenti.length && salta(momenti[qualeMomento]);
+        giri++) {
+      qualeMomento = (qualeMomento + 1) % momenti.length;
+    }
+    final momento = momenti[qualeMomento];
     // **IL GESTO NON RIPETE UNA PAROLA DELLE ALTRE FIGURE.** Ordine DI voce
     // 05: *"c'e' l'acqua ferma. Lei si ferma"* lo ha trovato la guardia della
     // lingua componendo le scene vere. Il vocabolario non si tocca, e le due
@@ -695,7 +715,8 @@ abstract final class ScenaSenzaModello {
     var quale = (seme ~/ 197) % gesti.length;
     for (var giri = 0;
         giri < gesti.length &&
-            siRipetono(gesti[quale], [luogo, cosa, momento]);
+            (siRipetono(gesti[quale], [luogo, cosa, momento]) ||
+                salta(gesti[quale]));
         giri++) {
       quale = (quale + 1) % gesti.length;
     }

@@ -201,11 +201,14 @@ abstract final class LaScenaDalModello {
       // oltre le sei parole, cinque gesti senza tempo e due virgole seguite
       // da "e". Il numero da solo non basta: serve l'esempio contato.
       '- titolo: da due a ${LeGuardieDelResponso.paroleDelTitolo} parole, '
-          'MAI DI PIÙ: contale. "Il suo tempo non è il tuo" sono sette '
-          'parole, troppe; "Il suo tempo è suo" va bene. È già una '
+          'MAI DI PIÙ: contale. "Quello che cerchi non sta dove guardi" sono '
+          'sette parole, troppe; "Quello che cerchi è vicino" va bene. È '
+          'già una '
           'risposta, si legge da solo e non è una domanda. Parla alla '
           'persona in seconda persona singolare. Niente due punti, niente '
-          'punto finale. Non ripete nessuno dei titoli già dati.',
+          'punto finale. Non ripete nessuno dei titoli già dati. Non usa '
+          'le parole del luogo, della cosa, del gesto e del momento che '
+          'hai scelto per la scena: la scena arriva dopo.',
       '- risposta: ${LeGuardieDelResponso.frasiDellaRisposta} frasi al '
           'massimo. Nomina la cosa di cui la persona ha chiesto, con le sue '
           'parole, non la categoria. Non raccontare la scena e non usarla '
@@ -216,7 +219,11 @@ abstract final class LaScenaDalModello {
           'giorni e di cui si capisce se è stata fatta. COMINCIA DAL SUO '
           'TEMPO: "Stasera ...", "Domani mattina ...", "Entro sabato '
           '...". Un tempo solo. Non è un consiglio di vita, non è una '
-          'massima, non è un invito a riflettere.',
+          'massima, non è un invito a riflettere. NIENTE FUOCO: non si '
+          'brucia, non si accende e non si incendia niente. Al posto del '
+          'fuoco: strappare il foglio, seppellirlo, gettarlo nell\'acqua '
+          'corrente, chiuderlo in un cassetto e non riaprirlo, metterlo '
+          'sotto una pietra.',
       'REGOLE DEI TRE TESTI:',
       '- Non dire se la cosa accadrà, se non accadrà o se è già accaduta: '
           'non lo sai. "Tua sorella avrà un bambino" no; "la casa è già '
@@ -226,6 +233,21 @@ abstract final class LaScenaDalModello {
           'legali o eventi garantiti. Niente che somigli a una diagnosi o a '
           'un consiglio medico.',
       '- Nessun nome proprio che la persona non ha scritto.',
+      // **ORDINE DN VOCI 02 E 04**, con gli esempi veri usciti dall'app.
+      '- Non dire mai cosa prova, vuole, pensa o sta vivendo un\'altra '
+          'persona: non lo sai. Di lei parli solo per ciò che chi legge '
+          'può o non può fare. "La porta di tua sorella non è tua da '
+          'aprire" sì; "Il desiderio di tua sorella è un processo che si '
+          'sta sviluppando" no.',
+      '- Puoi prendere una parte, ma non ordinare una decisione grave: '
+          'lasciare il lavoro o una persona, separarsi, tagliare i '
+          'rapporti, trasferirsi, vendere casa. Su queste dici cosa '
+          'guardare, mai cosa fare.',
+      '- Parole comuni, non da consulente e non da corso motivazionale: '
+          'niente "processo", "il tuo percorso", "è tempo di", "lascia '
+          'andare", "ascolta il tuo cuore", "il tuo vero io", "la tua '
+          'essenza", "energia positiva", "apriti a", "devi solo", '
+          '"abbraccia il cambiamento".',
       '- L\'azione non chiede di fare a un\'altra persona qualcosa che possa '
           'ferirla o mettere in imbarazzo chi legge: niente confronti, '
           'accuse, pretese, rotture o rivelazioni. Niente salute, farmaci, '
@@ -465,6 +487,7 @@ abstract final class LaScenaDalModello {
       domanda: s.domanda,
       forma: s.forma ?? LaMarcaDelGenere.formaCorrente,
       oggetto: s.oggetto,
+      tema: s.tema,
       nomiDellaScena: pezzi == null
           ? const []
           : [pezzi.luogo.nome, pezzi.cosa.nome, pezzi.momento.nome],
