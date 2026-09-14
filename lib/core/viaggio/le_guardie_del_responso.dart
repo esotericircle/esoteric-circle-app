@@ -446,6 +446,17 @@ abstract final class LeGuardieDelResponso {
         '(?<![$_l])(?:di|del|della|dello|dei|delle) (?:$terzo)(?![$_l])|'
         '(?<![$_l])(?:sua|suo|suoi|sue)(?![$_l])',
         caseSensitive: false);
+    // **E IL TERZO SOTTINTESO**, ordine DN voce 08: *"Non e' arrabbiata con
+    // te"*, titolo del modello alla domanda sulla madre, alla prova a video
+    // della build 2253. La terza persona del verbo, senza soggetto, col
+    // participio o col gerundio: chi legge avrebbe *sei*, *stai*. *"Non e'
+    // colpa tua"* non ha il participio, e passa.
+    final sottinteso = RegExp(
+        '^(?:(?:non|ma|forse|ancora|anche|oggi|ora|adesso) )*'
+        '(?:(?:è|era|sarà|resta|rimane|sembra) '
+        '(?:(?:molto|più|così|già|ancora|davvero|solo|tanto) )*'
+        '[$_l]+(?:at|ut|it)[oaie]|sta [$_l]+(?:ando|endo))(?![$_l])',
+        caseSensitive: false);
     final dimostrativo = RegExp(
         '^(?:quella|quel|quello|quell.|questa|questo|quest.|quelle|quei|'
         'quegli|queste|questi) ',
@@ -458,7 +469,13 @@ abstract final class LeGuardieDelResponso {
       final dellaCosaDelTerzo = domandaConUnTerzo &&
           dimostrativo.hasMatch(frase) &&
           delTerzo.hasMatch(frase);
-      if (!soggetto.hasMatch(frase) && !dellaCosaDelTerzo) continue;
+      final colSoggettoSottinteso =
+          domandaConUnTerzo && sottinteso.hasMatch(frase);
+      if (!soggetto.hasMatch(frase) &&
+          !dellaCosaDelTerzo &&
+          !colSoggettoSottinteso) {
+        continue;
+      }
       final predicato = frase.replaceAll(terzoOvunque, ' ');
       if (!_predicatoDiChiLegge.hasMatch(predicato)) return true;
     }

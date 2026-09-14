@@ -332,6 +332,23 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
           isTrue);
+      // **DALLA PROVA A VIDEO DELLA BUILD 2253**: il terzo sottinteso.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non è arrabbiata con te', 'Mia madre e arrabbiata con me'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo('Sta vivendo un momento suo.',
+              'Mio fratello sta passando un brutto periodo'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non è colpa tua.', 'Mia madre e arrabbiata con me'),
+          isFalse);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo('Non è arrabbiata con te',
+              'Ho una scelta davanti e non so da che parte guardare.'),
+          isFalse);
       // **DALLA PROVA A VIDEO DELLA BUILD 2252**: l'articolo davanti al
       // possessivo.
       expect(
