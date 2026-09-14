@@ -348,7 +348,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Non stai scegliendo fra due cose: stai scegliendo chi diventi dopo.',
       'Una delle due la stai già facendo, in piccolo, da settimane.',
       'Il costo di sbagliare è più basso di quanto lo stai contando.',
-      'Aspetti un segno che dica quale. Non arriverà, ma va bene.',
+      'Aspetti un segno che dica quale. Puoi scegliere anche senza.',
       'La paura è di perdere l\'altra, non di prendere questa.',
       'Se fossero davvero uguali, avresti già scelto.',
       'Chiediti quale delle due puoi ancora cambiare fra un mese.',

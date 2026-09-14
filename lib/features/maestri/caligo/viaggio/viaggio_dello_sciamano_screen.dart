@@ -1626,6 +1626,7 @@ class _ViaggioDelloSciamanoScreenState
         quandoHaiFinito: () => unawaited(_diario.nutri()),
         quandoTorni: () => setState(() => _fase = FaseDelViaggio.soglia),
         rigaDelloStato: () => NitidezzaDellaScena.laRiga(_quantoELontano),
+        riconosciuto: _riconosciuto,
       );
 
   /// **IL SEGNO**, ordine DI voce 14.

@@ -79,9 +79,12 @@ abstract final class LaDomandaDelViaggio {
     final pulita = domanda.trim();
     if (pulita.isEmpty) {
       if (primoViaggio) return null;
-      // Dal secondo viaggio in poi la domanda e' la porta.
+      // Dal secondo viaggio in poi la domanda e' la porta. **Senza dire
+      // dove stanno le sei**: la riga e' sotto di loro, e con la via scritta
+      // non si vedono. Diceva *"fra quelle qui sotto"*, e *"incontrarlo"*
+      // anche della Volpe: ordine DN voce 06.
       return 'Dal secondo viaggio si scende con una domanda. Scrivila, '
-          'sceglila fra quelle qui sotto, oppure scendi solo per incontrarlo.';
+          "scegline una delle sei, oppure scendi solo per l'incontro.";
     }
     if (pulita.length > quantoPuoEssereLunga) {
       return 'Tienila in una riga: una domanda che non ci sta è ancora un '

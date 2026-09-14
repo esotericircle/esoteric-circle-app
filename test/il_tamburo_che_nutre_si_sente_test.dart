@@ -27,7 +27,8 @@ void main() {
     PaletteSensoriale.volumiChiestiNelleProve = null;
   });
 
-  Future<void> apri(WidgetTester tester, SettingsController impostazioni) async {
+  Future<void> apri(WidgetTester tester, SettingsController impostazioni,
+      {bool riconosciuto = true}) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -40,6 +41,7 @@ void main() {
             palette: MaestroPalette.caligo,
             quandoHaiFinito: () {},
             quandoTorni: () {},
+            riconosciuto: riconosciuto,
           ),
         ),
       ),
@@ -55,7 +57,8 @@ void main() {
     }
   }
 
-  testWidgets('A OGNI TOCCO UN COLPO, al volume degli effetti, e nessun '
+  testWidgets(
+      'A OGNI TOCCO UN COLPO, al volume degli effetti, e nessun '
       'battito continuo sotto', (tester) async {
     final colpi = <double>[];
     final battiti = <bool>[];
@@ -74,16 +77,20 @@ void main() {
         reason: 'il nutrimento fa partire il battito continuo della discesa');
     await tocca(tester, 3);
     expect(colpi, hasLength(3), reason: 'tre tocchi, ${colpi.length} colpi');
-    expect(volumi, [
-      for (var i = 0; i < 3; i++)
-        closeTo(IlColpoDelTamburo.volume * 0.4, 1e-9),
-    ], reason: 'il colpo non segue il cursore degli effetti');
+    expect(
+        volumi,
+        [
+          for (var i = 0; i < 3; i++)
+            closeTo(IlColpoDelTamburo.volume * 0.4, 1e-9),
+        ],
+        reason: 'il colpo non segue il cursore degli effetti');
     // Il nutrimento dura quaranta secondi: si lascia finire.
     await tester.pump(IlTamburoCheNutre.quantoDura);
     await tester.pump(const Duration(seconds: 2));
   });
 
-  testWidgets('SENZA IL FILE IL TOCCO VIBRA SOLTANTO, senza errori e senza '
+  testWidgets(
+      'SENZA IL FILE IL TOCCO VIBRA SOLTANTO, senza errori e senza '
       'abbassare la musica', (tester) async {
     final colpi = <double>[];
     final volumi = <double>[];
@@ -122,5 +129,35 @@ void main() {
     expect(IlColpoDelTamburo.volume, SuonoDelCerchio.volumeDegliEffetti);
     expect(File('assets/audio/mondo_di_sotto/LEGGIMI.md').readAsStringSync(),
         contains('tamburo_colpo.mp3'));
+  });
+
+  testWidgets(
+      'PRIMA DEL RICONOSCIMENTO SI AVVICINA L OMBRA, e il nome non si dice. '
+      'Ordine DN voce 06', (tester) async {
+    // Il tamburo si apre anche dall'avviso della distanza, che c'e' solo
+    // prima della quarta discesa: li' mostrava l'illustrazione intera e
+    // diceva il nome. **Il nome non si dice prima della quarta**, ordine DC.
+    final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+    await apri(tester, SettingsController(suonoEVibrazione: false),
+        riconosciuto: false);
+    expect(
+        find.byKey(const Key('viaggio_ombra_che_si_avvicina')), findsOneWidget);
+    bool illustrazione() => tester
+        .widgetList<Image>(find.byType(Image))
+        .any((i) => '${i.image}'.contains(animale.fullPath));
+    expect(illustrazione(), isFalse,
+        reason: 'prima del riconoscimento si vede l illustrazione intera');
+    // Quaranta secondi di battito, un colpo ogni sette decimi.
+    for (var i = 0; i < 62; i++) {
+      await tester.tap(find.byKey(const Key('viaggio_tamburo_che_nutre')));
+      await tester.pump(const Duration(milliseconds: 700));
+    }
+    await tester.pump(const Duration(seconds: 1));
+    final riga = tester
+        .widget<Text>(find.byKey(const Key('viaggio_istruzione_del_tamburo')))
+        .data!;
+    expect(riga, "L'animale è vicino a te.");
+    expect(find.textContaining(animale.name), findsNothing,
+        reason: 'il nome dell animale si legge prima della quarta discesa');
   });
 }

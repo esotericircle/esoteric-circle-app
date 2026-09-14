@@ -10,6 +10,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import 'la_discesa_in_video.dart';
+import 'l_ombra_dell_animale.dart';
 import 'la_nebbia_e_l_animale.dart';
 import 'sfondo_del_mondo_di_sotto.dart';
 
@@ -45,6 +46,7 @@ class IlTamburoCheNutre extends StatefulWidget {
     required this.quandoHaiFinito,
     required this.quandoTorni,
     this.rigaDelloStato,
+    this.riconosciuto = true,
   });
 
   final GuideAnimal animale;
@@ -62,6 +64,14 @@ class IlTamburoCheNutre extends StatefulWidget {
   /// chi monta il rito, dalla nitidezza dopo il nutrimento. Nulla quando la
   /// scena e' gia' nitida, e allora non si dice niente.
   final String? Function()? rigaDelloStato;
+
+  /// **SE L'ANIMALE E' GIA' STATO RICONOSCIUTO.** Ordine DN voce 06: il
+  /// tamburo si apre anche dall'avviso della distanza, che c'e' solo
+  /// prima della quarta discesa, e li' mostrava l'illustrazione intera e
+  /// diceva *"La Volpe e' vicina a te"*. **Il nome non si dice prima
+  /// della quarta**, ordine DC voce 02: prima si avvicina l'ombra, la
+  /// stessa dell'incontro, e la riga dice l'animale.
+  final bool riconosciuto;
 
   /// **QUARANTA SECONDI DI BATTITO.** Dall'ordine.
   static const Duration quantoDura = Duration(seconds: 40);
@@ -164,7 +174,9 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
     final etichetta = TypographyTokens.etichetta().copyWith(
       color: palette.goldSoft,
       letterSpacing: 1.4,
-      shadows: [Shadow(color: Colors.black.withValues(alpha: 0.7), blurRadius: 10)],
+      shadows: [
+        Shadow(color: Colors.black.withValues(alpha: 0.7), blurRadius: 10)
+      ],
     );
     return LayoutBuilder(builder: (context, vincoli) {
       final w = vincoli.maxWidth;
@@ -203,13 +215,20 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
               top: h * dove.piedi - larga * 0.85,
               width: larga,
               height: larga * 0.85,
-              child: Image.asset(
-                widget.animale.fullPath,
-                fit: BoxFit.contain,
-                alignment: Alignment.bottomCenter,
-                opacity: AlwaysStoppedAnimation(dove.luce),
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-              ),
+              child: widget.riconosciuto
+                  ? Image.asset(
+                      widget.animale.fullPath,
+                      fit: BoxFit.contain,
+                      alignment: Alignment.bottomCenter,
+                      opacity: AlwaysStoppedAnimation(dove.luce),
+                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                    )
+                  : OmbraDellAnimale(
+                      key: const Key('viaggio_ombra_che_si_avvicina'),
+                      immagine: widget.animale.ombraPath,
+                      giaSagoma: true,
+                      quantaLuce: dove.luce,
+                    ),
             ),
             // **LA PELLE DEL TAMBURO**, in basso: pulsa alla cadenza del
             // tamburo, e dice dove e quando battere senza dirlo a parole.
@@ -306,12 +325,14 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
     });
   }
 
-  String get _conArticolo =>
-      '${widget.animale.articolo}${widget.animale.name}';
+  String get _conArticolo => widget.riconosciuto
+      ? '${widget.animale.articolo}${widget.animale.name}'
+      : "l'animale";
 
   /// *"e' vicino"* o *"e' vicina"*, e il resto della frase.
-  String get _vicino =>
-      widget.animale.femminile ? 'vicina a te' : 'vicino a te';
+  String get _vicino => widget.riconosciuto && widget.animale.femminile
+      ? 'vicina a te'
+      : 'vicino a te';
 
   static String _maiuscola(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
