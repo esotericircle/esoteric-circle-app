@@ -152,7 +152,8 @@ if [ -f "$QUI/../test/$CORREDO" ]; then
   MONTATE="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$REGISTRO_SCALA" \
     | tail -1)"
   MONTATE="${MONTATE:-0}"
-  CADUTE_SCALA="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' \
+  CADUTE_SCALA="$(sed -nE \
+    's/^[0-9:]+ [+][0-9]+( ~[0-9]+)? -[0-9]+: (.*) [[]E[]]$/\2/p' \
     "$REGISTRO_SCALA" | sed -E 's#^.*[.]dart: ##' | sort -u)"
   QUANTE_SCALA="$(echo "$CADUTE_SCALA" | grep -c . || true)"
   GUARDATE=$((MONTATE + QUANTE_SCALA))
@@ -200,8 +201,18 @@ fi
 # legalmente. Una riga che sopravvive alla sua ragione spegne un pezzo della
 # rete di sicurezza senza che nessuno se ne accorga, ed e' cosi' che questo
 # progetto ha gia' perso diciassette giorni di build.
-CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+ -[0-9]+: (.*) [[]E[]]$/\1/p' "$REGISTRO" \
-  | sed -E 's#^.*[.]dart: ##' | sort -u)"
+#
+# **E ANCHE DOPO UNA PROVA SALTATA, ordine DK voce 06.** Quando la suite salta
+# una prova il rapporto scrive `+3790 ~2 -1:` e non `+3790 -1:`, e qui le righe
+# si leggevano soltanto nella seconda forma. Dall'ordine DI la suite salta le
+# due prove col modello vero, che senza token non girano: il 14 settembre 2026
+# il rosso di legge caduto dopo i salti non si e' letto, la sua riga fra gli
+# accettati e' sembrata di troppo e l'archivio non si e' prodotto. **E il buco
+# era peggiore**: un rosso nuovo caduto dopo i salti, accanto a un rosso
+# accettato caduto prima, non si leggeva, e lo sbarramento costruiva
+# l'archivio sui soli rossi accettati.
+CADUTE="$(sed -nE 's/^[0-9:]+ [+][0-9]+( ~[0-9]+)? -[0-9]+: (.*) [[]E[]]$/\2/p' \
+  "$REGISTRO" | sed -E 's#^.*[.]dart: ##' | sort -u)"
 
 ACCETTATE=""
 if [ -f "$ACCETTATI" ]; then

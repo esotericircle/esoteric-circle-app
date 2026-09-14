@@ -254,6 +254,48 @@ void main() {
       expect(r.stdout.toString(), contains('ragione scritta per la'));
     });
 
+    /// **DOPO UNA PROVA SALTATA, ordine DK voce 06.** Quando la suite salta
+    /// una prova, il rapporto scrive `+3790 ~2 -1:` e non `+3790 -1:`, e lo
+    /// sbarramento non leggeva quelle righe: il 14 settembre 2026 ha preso il
+    /// rosso di legge delle quattro pose, caduto dopo i due salti delle prove
+    /// con la rete, per una riga di troppo, e ha rifiutato l'archivio. **E
+    /// c'era un buco peggiore**: un rosso nuovo dopo un salto, da solo, lo
+    /// fermava la strada della suite caduta senza nomi; ma accanto a un rosso
+    /// accettato caduto prima dei salti non si leggeva, e lo sbarramento
+    /// diceva *"rossi accettati, e solo quelli"* e costruiva l'archivio.
+    const saltateEPoiUnaCaduta = '00:12 +3790 ~2 -1: $nome [E]\n';
+
+    test('Un rosso ACCETTATO prima dei salti e uno NUOVO dopo: l\'archivio non '
+        'si produce', () {
+      if (bash.isEmpty) return;
+      const prima = '00:10 +3700 -1: $nome [E]\n';
+      const dopo =
+          '00:12 +3790 ~2 -2: Una seconda prova, che nessuno ha mai visto [E]\n';
+      final r = giudica(prima + dopo, 1, ragione);
+      expect(r.exitCode, 1,
+          reason: 'il rosso nuovo dopo i salti non si legge, e passa accanto a '
+              'quello accettato: e\' uno scavalco che nessuno ha scritto');
+      expect(r.stdout.toString(), contains('Una seconda prova'));
+    });
+
+    test('Rosso ACCETTATO dopo una prova saltata: si riconosce', () {
+      if (bash.isEmpty) return;
+      final r = giudica(saltateEPoiUnaCaduta, 1, ragione);
+      expect(r.exitCode, 0,
+          reason: 'il rosso accettato caduto dopo un salto non si riconosce, '
+              'e la sua riga sembra di troppo');
+      expect(r.stdout.toString(), contains('ROSSI ACCETTATI'));
+    });
+
+    test('Rosso NUOVO dopo una prova saltata: l\'archivio non si produce', () {
+      if (bash.isEmpty) return;
+      final r = giudica(saltateEPoiUnaCaduta, 1, '');
+      expect(r.exitCode, 1,
+          reason: 'un rosso nuovo caduto dopo un salto passa lo sbarramento '
+              'senza che nessuno lo veda');
+      expect(r.stdout.toString(), contains('ROSSI NUOVI'));
+    });
+
     test('Accettato UNO e caduti DUE: l\'archivio non si produce', () {
       if (bash.isEmpty) return;
       const dueCadute = '00:12 +3790 -1: Una prova qualunque che cade [E]\n'
