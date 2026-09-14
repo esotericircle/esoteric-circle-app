@@ -882,7 +882,16 @@ void main() {
     // direttamente il Consiglio dei Maestri. Prima incollava le altre due voci
     // dentro la chat di Medora e poi serviva un secondo tocco per aprire il
     // confronto: due porte allo stesso posto.
-    await tester.tap(find.byKey(const Key('chat_altre_voci')));
+    // **LA RIGA SI RAGGIUNGE COME LA RAGGIUNGE LA PERSONA**, ordine DK voce
+    // 06: sta in fondo alla risposta, e col testo a scala 1,3 una risposta
+    // lunga la lasciava sotto l'intestazione, dove il tocco non arriva. La
+    // cattura toccava senza scorrere; e' passata alla build 2249 il 12
+    // settembre ed e' caduta il 14 sullo stesso codice. Qui la si porta a meta'
+    // schermo prima del tocco, come fa `anteprime_ordine_e`.
+    final altreVoci = find.byKey(const Key('chat_altre_voci'));
+    await Scrollable.ensureVisible(tester.element(altreVoci), alignment: 0.5);
+    await step(tester);
+    await tester.tap(altreVoci);
     for (var i = 0; i < 24; i++) {
       await step(tester);
     }
