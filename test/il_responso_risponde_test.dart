@@ -241,6 +241,20 @@ void main() {
       expect(
           formeContrarieAllaForma('Cosa ti rende forte', CourtesyForm.neutral),
           isEmpty);
+      // **DALLA RIPROVA A VIDEO DELLA BUILD 2253**: il participio fuori dal
+      // dizionario dopo il riflessivo di chi legge.
+      expect(
+          formeContrarieAllaForma(
+              'Puoi sentirti divisa.', CourtesyForm.neutral),
+          isNotEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Puoi sentirti meglio.', CourtesyForm.neutral),
+          isEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Puoi sentirti divisa.', CourtesyForm.feminine),
+          isEmpty);
     });
 
     test('presto e un avverbio, non un participio', () {

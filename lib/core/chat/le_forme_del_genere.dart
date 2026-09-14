@@ -202,6 +202,16 @@ final RegExp _cliticoCheRegge = RegExp(
     r'vede|vedono) ([a-zàèéìòù]+)',
     caseSensitive: false);
 
+/// **IL RIFLESSIVO DI CHI LEGGE COL PARTICIPIO FUORI DAL DIZIONARIO**,
+/// ordine DN voce 08: *"Puoi sentirti divisa"*, risposta del modello a un
+/// profilo neutro alla riprova a video della build 2253. Il criterio di
+/// `lib` cerca dopo *sentirti* solo le parole del dizionario; qui si guarda
+/// la desinenza.
+final RegExp _riflessivoCheRegge = RegExp(
+    r'(?<![a-zàèéìòù])(?:sentirti|esserti|ritrovarti|trovarti|sentendoti|'
+    r'ti senti|ti sentirai|ti sentiresti|ti sei sentit[oa]) ([a-zàèéìòù]+)',
+    caseSensitive: false);
+
 List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
   final forme = [
     ...formeDelGenere(testo),
@@ -217,6 +227,11 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
           dizionarioDelGenere.contains(m.group(2)!.toLowerCase()))
         m.group(2)!,
     ],
+    for (final m in _riflessivoCheRegge.allMatches(testo))
+      if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
+          RegExp(r'(at|ut|it|is|es|os|ss|tt|nt|rs|rt|lt)[oa]$')
+              .hasMatch(m.group(1)!.toLowerCase()))
+        m.group(1)!,
     for (final m in _cliticoCheRegge.allMatches(testo))
       if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
           (RegExp(r'(at|ut|it)[oa]$').hasMatch(m.group(1)!) ||
