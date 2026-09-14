@@ -209,7 +209,10 @@ final RegExp _cliticoCheRegge = RegExp(
 /// la desinenza.
 final RegExp _riflessivoCheRegge = RegExp(
     r'(?<![a-zàèéìòù])(?:sentirti|esserti|ritrovarti|trovarti|sentendoti|'
-    r'ti senti|ti sentirai|ti sentiresti|ti sei sentit[oa]) ([a-zàèéìòù]+)',
+    r'ti senti|ti sentirai|ti sentiresti|ti sei sentit[oa]|'
+    // *"Puoi essergli vicina"*, alla riprova della 2254.
+    r'essergli|esserle|essere loro|stargli|starle|restargli|restarle) '
+    r'([a-zàèéìòù]+)',
     caseSensitive: false);
 
 List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
@@ -229,8 +232,10 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
     ],
     for (final m in _riflessivoCheRegge.allMatches(testo))
       if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
-          RegExp(r'(at|ut|it|is|es|os|ss|tt|nt|rs|rt|lt)[oa]$')
-              .hasMatch(m.group(1)!.toLowerCase()))
+          (RegExp(r'(at|ut|it|is|es|os|ss|tt|nt|rs|rt|lt)[oa]$')
+                  .hasMatch(m.group(1)!.toLowerCase()) ||
+              _parole.contains(m.group(1)!.toLowerCase()) ||
+              RegExp(r'^vicin[oa]$').hasMatch(m.group(1)!.toLowerCase())))
         m.group(1)!,
     for (final m in _cliticoCheRegge.allMatches(testo))
       if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&

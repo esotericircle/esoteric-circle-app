@@ -133,6 +133,11 @@ void main() {
           MotivoDelloScarto.toccaUnTerzo);
       expect(azione('Entro sabato lasciala perdere, senza spiegazioni.'),
           MotivoDelloScarto.toccaUnTerzo);
+      // **ANCHE IL CONFRONTO COME NOME**, dalla riprova della 2254.
+      expect(
+          azione('Stasera scrivi un messaggio alla tua collega per un '
+              'confronto di lavoro.'),
+          MotivoDelloScarto.toccaUnTerzo);
       // **RIVELARE SOLO COME ORDINE**, dalla misura dell'ordine DN.
       expect(
           azione('Domani mattina tocca una pietra spaccata. Osserva le crepe '
@@ -167,8 +172,8 @@ void main() {
         expect(titolo('Quello che cerchi è vicino', forma: f), isNull);
         expect(
             risposta(
-                'Quella notizia spetta a tua sorella. '
-                'Tu puoi solo farle spazio.',
+                'Quella notizia non è tua da dare. '
+                'Tu puoi solo fare spazio a tua sorella.',
                 forma: f),
             isNull);
         expect(
@@ -240,6 +245,15 @@ void main() {
           isEmpty);
       expect(
           formeContrarieAllaForma('Cosa ti rende forte', CourtesyForm.neutral),
+          isEmpty);
+      // **DALLA RIPROVA DELLA 2254**: dopo *essergli* e *stargli*.
+      expect(
+          formeContrarieAllaForma(
+              'Puoi essergli vicina.', CourtesyForm.neutral),
+          isNotEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Puoi essergli vicino.', CourtesyForm.masculine),
           isEmpty);
       // **DALLA RIPROVA A VIDEO DELLA BUILD 2253**: il participio fuori dal
       // dizionario dopo il riflessivo di chi legge.
@@ -346,6 +360,17 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
           isTrue);
+      // **DALLA RIPROVA A VIDEO DELLA BUILD 2254**: ogni frase che nomina il
+      // terzo, anche fuori dal soggetto.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La paura non è sua', 'Mia madre e arrabbiata con me'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non puoi cambiare la rabbia di tua madre.',
+              'Mia madre e arrabbiata con me'),
+          isFalse);
       // **DALLA PROVA A VIDEO DELLA BUILD 2253**: il terzo sottinteso.
       expect(
           LeGuardieDelResponso.statoDiUnTerzo(

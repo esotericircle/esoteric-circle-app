@@ -153,7 +153,8 @@ abstract final class LeGuardieDelResponso {
   /// imbarazzo chi legge: confrontare, accusare, pretendere, rompere un
   /// rapporto, rivelare qualcosa a qualcuno.
   static final RegExp _terzi = _parole(
-      'confronta[a-zàèéìòù]*|accusa[a-zàèéìòù]*|pretend[a-zàèéìòù]*|'
+      // *"per un confronto di lavoro"*, alla riprova della 2254: anche il nome.
+      'confront[a-zàèéìòù]*|accusa[a-zàèéìòù]*|pretend[a-zàèéìòù]*|'
       'rompi|rompere|chiudi con|chiudere con|mollal[oa]|'
       // **"LASCIALO" SOLO QUANDO E' UNA PERSONA**, ordine DL voce 13:
       // la prova a cento discese scartava *"Lascialo sul comodino"*,
@@ -360,6 +361,7 @@ abstract final class LeGuardieDelResponso {
     required String domanda,
     required CourtesyForm forma,
     Set<String> nomiAmmessi = const {},
+    bool ognunaCheLoNomina = true,
   }) {
     if (t.contains('\u2014') || t.contains('\u2013')) {
       return MotivoDelloScarto.trattinoLungo;
@@ -385,7 +387,9 @@ abstract final class LeGuardieDelResponso {
     if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
     if (_decisioneGrave.hasMatch(t)) return MotivoDelloScarto.decisioneGrave;
     if (_fuocoComeInvito.hasMatch(t)) return MotivoDelloScarto.fuoco;
-    if (statoDiUnTerzo(t, domanda)) return MotivoDelloScarto.statoDiUnTerzo;
+    if (statoDiUnTerzo(t, domanda, ognunaCheLoNomina: ognunaCheLoNomina)) {
+      return MotivoDelloScarto.statoDiUnTerzo;
+    }
     return null;
   }
 
@@ -408,7 +412,8 @@ abstract final class LeGuardieDelResponso {
   ///
   ///     "La porta di tua sorella non e' tua da aprire."      ammessa
   ///     "Il desiderio di tua sorella e' un processo..."      scartata
-  static bool statoDiUnTerzo(String t, String domanda) {
+  static bool statoDiUnTerzo(String t, String domanda,
+      {bool ognunaCheLoNomina = true}) {
     final nomi = [
       for (final m in RegExp('(?<=[a-zàèéìòù,;] )([A-ZÀ-Ý][a-zà-ÿ]+)')
           .allMatches(domanda))
@@ -457,6 +462,9 @@ abstract final class LeGuardieDelResponso {
         '(?:(?:molto|più|così|già|ancora|davvero|solo|tanto) )*'
         '[$_l]+(?:at|ut|it)[oaie]|sta [$_l]+(?:ando|endo))(?![$_l])',
         caseSensitive: false);
+    final diChiLegge = RegExp(
+        '^(?:(?:non|ma|e|anche|ora|oggi) )?(?:tu|il tuo|la tua|i tuoi|le tue) ',
+        caseSensitive: false);
     final dimostrativo = RegExp(
         '^(?:quella|quel|quello|quell.|questa|questo|quest.|quelle|quei|'
         'quegli|queste|questi) ',
@@ -471,9 +479,25 @@ abstract final class LeGuardieDelResponso {
           delTerzo.hasMatch(frase);
       final colSoggettoSottinteso =
           domandaConUnTerzo && sottinteso.hasMatch(frase);
+      // **E OGNI FRASE CHE NOMINA IL TERZO**, ordine DN voce 02 alla
+      // lettera: *"puo' parlare del terzo SOLO in relazione a chi legge"*.
+      // Tre riprove a video di fila hanno trovato ognuna una forma nuova, e
+      // l'ultima era il titolo *"La paura non e' sua"* alla domanda sulla
+      // madre: inseguire le forme una per una non chiude. Con un terzo nella
+      // domanda, la frase che lo nomina, o che dice *suo* e *sua*, deve dire
+      // cio' che chi legge puo' o non puo' fare.
+      // Non nel gesto: li' il terzo e' l'oggetto di un'azione di chi legge,
+      // *"scrivi a tua sorella"*, e lo sorveglia la guardia sui terzi.
+      // E non quando il soggetto e' chi legge: *"Il tuo rapporto con tuo
+      // padre e' diventato un copione"* parla di chi legge.
+      final loNomina = ognunaCheLoNomina &&
+          domandaConUnTerzo &&
+          !diChiLegge.hasMatch(frase) &&
+          (terzoOvunque.hasMatch(frase) || delTerzo.hasMatch(frase));
       if (!soggetto.hasMatch(frase) &&
           !dellaCosaDelTerzo &&
-          !colSoggettoSottinteso) {
+          !colSoggettoSottinteso &&
+          !loNomina) {
         continue;
       }
       final predicato = frase.replaceAll(terzoOvunque, ' ');
@@ -581,8 +605,11 @@ abstract final class LeGuardieDelResponso {
       return MotivoDelloScarto.troppoLunga;
     }
     if (a.contains('?')) return MotivoDelloScarto.eUnaDomanda;
-    final comune =
-        _comuni(a, domanda: domanda, forma: forma, nomiAmmessi: nomiAmmessi);
+    final comune = _comuni(a,
+        domanda: domanda,
+        forma: forma,
+        nomiAmmessi: nomiAmmessi,
+        ognunaCheLoNomina: false);
     if (comune != null) return comune;
     if (_riflessione.hasMatch(a.trim())) {
       return MotivoDelloScarto.consiglioDiVita;
