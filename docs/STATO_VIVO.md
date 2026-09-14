@@ -1731,6 +1731,10 @@ posto di una domanda generica, e solo se oggi si e' respirato.
 
 ## L'ORDINE DC, IL VIAGGIO DELLO SCIAMANO
 
+**IL VIAGGIO DELLO SCIAMANO E' CHIUSO dall'ordine DN, con la build 2252, il 14
+settembre 2026**: da allora si tocca solo per guasti veri, e le idee vanno
+nella coda del fondatore. Vedi la sezione dell'ordine DN.
+
 **10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DC_MANIFESTO.md`.
 **Ventuno voci in due pezzi: venti chiuse, una parziale e dichiarata, zero
 aperte.** Marcatori terminali sigillati sul file. Consegnato sul ramo
@@ -2630,10 +2634,82 @@ detto di proseguire.
 
 **Da decidere per il fondatore**, nel rapporto: il fuoco nei gesti del
 modello, la previsione morbida al presente, la porta che il titolo prende
-dalla scena, e il modello che prende una parte in una scelta di vita.
+dalla scena, e il modello che prende una parte in una scelta di vita. **Tutti e quattro decisi dal fondatore con l'ordine DN**,
+voci DN.01, DN.02, DN.03 e DN.04.
 
 **Mancano ancora, senza essere guasti**: i due file del tamburo e i trentasei
 disegni dei gesti.
+
+## L'ORDINE DN, LA CHIUSURA DEL VIAGGIO DELLO SCIAMANO
+
+14 settembre 2026, dieci voci. Segue l'ordine DL, commit `734c024d`. Il
+manifesto sta in `docs/ordini/ORDINE_DN_MANIFESTO.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DN.md`, le schermate della prova a video in
+`docs/collaudo/DN/`. **La build 2252 e' consegnata**, release `@@RELEASE@@`,
+al solo `cloud@esotericircle.app`, inviti accettati @@INVITI@@, provata sul
+Realme.
+
+**IL VIAGGIO DELLO SCIAMANO E' CHIUSO**, con la build 2252, il 14 settembre
+2026. Da qui si tocca solo per guasti veri: un errore a schermo, un testo che
+viola una guardia, una prova che diventa rossa. Non per miglioramenti, non per
+idee, non per rifiniture: le idee vanno in fondo alla coda del fondatore, qui
+sotto.
+
+- **Il fuoco e' vietato nel gesto** e ammesso nella scena: `fuoco_acceso`
+  resta. Nel prompt le alternative, strappare, seppellire, l'acqua corrente,
+  il cassetto, la pietra. Anche la riga del segno passa dalla guardia.
+- **Nessuno stato attribuito a un terzo**, motivo `statoDiUnTerzo`: una
+  frase su un'altra persona passa solo se dice cio' che chi legge puo' o non
+  puo' fare. **Nel prompt nessun esempio del no**: il modello li ricopiava
+  alla lettera.
+- **Il titolo non contiene un pezzo della scena**, per radici; quando lo
+  nomina, **resta il titolo e si rifa' la scena** dalla riserva.
+- **Nessun ordine su una decisione grave**, **niente gergo**: *lascia
+  andare*, *e' tempo di*, *un processo* e il resto dell'elenco.
+- **La risposta e il gesto reggono tre frasi.** Sulle undici domande della
+  prova a cento discese la risposta del modello e' passata dal 77,1 al
+  78,1 per cento; il titolo dall'83,4 al 83,4, il gesto
+  dall'88,2 al 87,7. **L'85 per cento chiesto per la risposta non e' raggiunto**: le guardie nuove
+  di sostanza scartano da sole 83 risposte; senza di loro sarebbe 85,7.
+  Non si allentano, come l'ordine prescrive.
+- **Un tempo solo per responso**: le chiusure della scena col tempo non
+  entrano piu' nel responso, dove il gesto ha il suo.
+- **La rassegna del Viaggio**: diciannove correzioni in autonomia, elencate
+  nel rapporto con la loro riga di motivo; fra loro il tamburo che, prima del
+  riconoscimento, mostrava l'animale e ne diceva il nome.
+- **Il registro delle guardie sale a 418**: `il_viaggio_parla_al_femminile`,
+  otto discese sulla schermata vera con la forma femminile, vista rossa due
+  volte; la prima stesura era cieca.
+
+**Mancano ancora, senza essere guasti**: `tamburo_discesa.mp3`,
+`tamburo_colpo.mp3` e i trentasei disegni dei gesti del segno. Il codice e'
+pronto: il giorno che arrivano non si tocca una riga.
+
+### La coda del fondatore
+
+Le idee e le decisioni che il lavoro sul Viaggio ha fatto venire in mente.
+**Non sono guasti**: dopo la chiusura restano qui finche' il fondatore non
+ne sceglie una. Le nuove si aggiungono in fondo.
+
+1. **Gli otto titoli di casa col tempo dentro**, scritti dal fondatore
+   nell'ordine DJ voce 01: *"Decidi oggi, correggi domani"*, *"Guarda
+   altrove per una settimana"*, *"Sta arrivando, ma non oggi"*, *"Se
+   arrivasse domani, avresti tutto pronto"*, *"Una direzione basta per
+   oggi"*, *"Lascia il posto vuoto per ora"*, *"Non deve avere un senso
+   adesso"*, *"Un giorno sara' solo una storia"*. Col gesto, che il suo tempo
+   lo ha sempre, quel responso ne dice due; e due sono anche previsioni.
+   Escono solo quando il titolo del modello cade. Da riscrivere, o da tenere.
+2. **Il segno risponde si' o no anche a una decisione grave**, coi
+   significati dell'ordine DJ voce 08: alla domanda *"Devo lasciare il mio
+   compagno?"* la riserva puo' dire *"Vuol dire si'. Puoi andare avanti."*.
+   Da decidere se il segno, su quelle domande, debba rispondere con un gesto
+   che non e' ne' si' ne' no.
+3. **Le domande su un'altra persona restano le piu' difficili per il
+   modello**: sulla sorella che diventera' mamma la risposta del modello
+   arriva nella meta' delle discese; il resto e' riserva, perche' il
+   modello torna a dire cosa vive la sorella. Una seconda chiamata mirata,
+   solo quando la risposta cade per un terzo, alzerebbe il numero e
+   costerebbe una chiamata: e' una decisione sui costi.
 
 ## Regole ferree
 
