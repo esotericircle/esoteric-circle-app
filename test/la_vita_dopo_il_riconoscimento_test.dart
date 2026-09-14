@@ -68,7 +68,8 @@ void main() {
   }
 
   group('DI.11, al riconoscimento', () {
-    testWidgets('SPARISCE L APPARATO DELLA RIVELAZIONE, e compare l animale '
+    testWidgets(
+        'SPARISCE L APPARATO DELLA RIVELAZIONE, e compare l animale '
         'col suo nome, due righe e tre azioni', (tester) async {
       await apri(tester);
       // **COSA SPARISCE**, per nome: le impronte, il conteggio, le tre righe
@@ -92,10 +93,12 @@ void main() {
           findsOneWidget);
       final nome = find.byKey(const Key('viaggio_nome_riconosciuto'));
       expect(nome, findsOneWidget);
-      expect(find.text('Il Cavallo resta con te. Scendi quando hai una '
+      expect(
+          find.text('Il Cavallo resta con te. Scendi quando hai una '
               'domanda.'),
           findsOneWidget);
-      expect(find.text('Si allontana se lo lasci solo. Il tamburo lo '
+      expect(
+          find.text('Si allontana se lo lasci solo. Il tamburo lo '
               'richiama.'),
           findsOneWidget);
       // **TRE AZIONI E NON DI PIU'**, e la domanda non c'e' finche' non la si
@@ -128,7 +131,8 @@ void main() {
       await apri(tester, segno: Zodiac.gemini);
       expect(find.text('La Volpe resta con te. Scendi quando hai una domanda.'),
           findsOneWidget);
-      expect(find.text('Si allontana se la lasci sola. Il tamburo la '
+      expect(
+          find.text('Si allontana se la lasci sola. Il tamburo la '
               'richiama.'),
           findsOneWidget,
           reason: 'l ordine scrive "se lo lasci solo", e detto della Volpe e '
@@ -141,8 +145,8 @@ void main() {
         (tester) async {
       await apri(tester, discese: 3);
       expect(find.byKey(const Key('viaggio_azione_segno')), findsNothing);
-      expect(find.byKey(const Key('viaggio_animale_riconosciuto')),
-          findsNothing,
+      expect(
+          find.byKey(const Key('viaggio_animale_riconosciuto')), findsNothing,
           reason: 'l animale si mostra scoperto prima della quarta');
     });
   });
@@ -169,8 +173,10 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       // La nebbia si apre passando la mano.
       final nebbia = find.byKey(const Key('viaggio_nebbia'));
-      for (var i = 0; i < 80 &&
-          find.byKey(const Key('viaggio_nebbia')).evaluate().isNotEmpty; i++) {
+      for (var i = 0;
+          i < 80 &&
+              find.byKey(const Key('viaggio_nebbia')).evaluate().isNotEmpty;
+          i++) {
         await tester.drag(nebbia, const Offset(120, 40));
         await tester.pump(const Duration(milliseconds: 60));
       }
@@ -180,9 +186,12 @@ void main() {
       await tester.tap(ombra);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byType(Image).evaluate().where((e) =>
-              (e.widget.key as ValueKey?)?.value.toString().startsWith(
-                  'viaggio_lente') ??
+      expect(
+          find.byType(Image).evaluate().where((e) =>
+              (e.widget.key as ValueKey?)
+                  ?.value
+                  .toString()
+                  .startsWith('viaggio_lente') ??
               false),
           isEmpty);
       expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
@@ -201,7 +210,8 @@ void main() {
   });
 
   group('DI.13, il tamburo che nutre', () {
-    testWidgets('SI BATTE PER QUARANTA SECONDI, l animale arriva dal fondo, e '
+    testWidgets(
+        'SI BATTE PER QUARANTA SECONDI, l animale arriva dal fondo, e '
         'senza battere non si avanza', (tester) async {
       final diario = await apri(tester);
       final prima = diario.nutrimentiCheContano;
@@ -260,7 +270,8 @@ void main() {
   });
 
   group('DI.14, il segno', () {
-    testWidgets('L ANIMALE RISPONDE COL GESTO DEL MODELLO E UNA RIGA SOLA, e il '
+    testWidgets(
+        'L ANIMALE RISPONDE COL GESTO DEL MODELLO E UNA RIGA SOLA, e il '
         'segno si conserva', (tester) async {
       final diario = await apri(tester, chiamata: (istruzione, domanda) async {
         expect(istruzione, contains('siVolta'));
@@ -269,8 +280,23 @@ void main() {
       });
       await tester.tap(find.byKey(const Key('viaggio_azione_segno')));
       await tester.pump();
+      // **COL CAMPO VUOTO IL PULSANTE E' SPENTO**, ordine DN voce 06: prima
+      // era acceso e il tocco non faceva niente.
+      expect(
+          tester
+              .widget<FilledButton>(
+                  find.byKey(const Key('viaggio_chiedi_il_segno')))
+              .onPressed,
+          isNull);
       await tester.enterText(find.byKey(const Key('viaggio_domanda_del_segno')),
           'Troverò lavoro?');
+      await tester.pump();
+      expect(
+          tester
+              .widget<FilledButton>(
+                  find.byKey(const Key('viaggio_chiedi_il_segno')))
+              .onPressed,
+          isNotNull);
       await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
       await tester.pump();
       await tester.pump(IlSegnoCheRisponde.quantoDuraIlGesto);
@@ -286,14 +312,17 @@ void main() {
       expect(diario.segni.first.gesto, 'siAvvicina');
     });
 
-    testWidgets('UN GESTO FUORI DAL REPERTORIO SI SCARTA, e risponde la riserva',
+    testWidgets(
+        'UN GESTO FUORI DAL REPERTORIO SI SCARTA, e risponde la riserva',
         (tester) async {
-      final diario = await apri(tester, chiamata: (_, __) async =>
-          '{"gesto":"parla","riga":"Il Cavallo ti dice di sì."}');
+      final diario = await apri(tester,
+          chiamata: (_, __) async =>
+              '{"gesto":"parla","riga":"Il Cavallo ti dice di sì."}');
       await tester.tap(find.byKey(const Key('viaggio_azione_segno')));
       await tester.pump();
       await tester.enterText(
           find.byKey(const Key('viaggio_domanda_del_segno')), 'Andrà bene?');
+      await tester.pump();
       await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
       await tester.pump();
       await tester.pump(const Duration(seconds: 2));
@@ -311,7 +340,8 @@ void main() {
           contains(diario.segni.first.gesto));
     });
 
-    testWidgets('AL TETTO DEI SEGNI NON C E UN MURO: si dice quando torna e si '
+    testWidgets(
+        'AL TETTO DEI SEGNI NON C E UN MURO: si dice quando torna e si '
         'offre il nutrimento', (tester) async {
       // **SUL WIDGET DEL SEGNO, E NON SULLA SCHERMATA**: in Demo ogni tetto
       // del Viaggio cade, e la schermata vera il tetto non lo mostra mai. La
@@ -352,21 +382,26 @@ void main() {
     /// **TRE GESTI, ordine DJ voce 08**: erano sei, e tre si distinguevano
     /// male a colpo d'occhio. Restano quelli che coprono il ventaglio dal si'
     /// al no al non ancora.
-    test('IL REPERTORIO E CHIUSO: tre gesti col loro significato, e la riga '
+    test(
+        'IL REPERTORIO E CHIUSO: tre gesti col loro significato, e la riga '
         'si legge prima', () {
       final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
-      final aquila = AnimalCatalog.animals.firstWhere((a) => a.name == 'Aquila');
+      final aquila =
+          AnimalCatalog.animals.firstWhere((a) => a.name == 'Aquila');
       expect(GestoDelSegno.values.map((g) => g.nelFile),
           ['si_avvicina', 'si_volta', 'si_allontana']);
-      expect(GestiDelSegno.leggi('{"gesto":"vola","riga":"Il Lupo vola via."}',
-          lupo), isNull);
+      expect(
+          GestiDelSegno.leggi(
+              '{"gesto":"vola","riga":"Il Lupo vola via."}', lupo),
+          isNull);
       for (final tolto in ['siSiede', 'portaQualcosa', 'guardaLontano']) {
         expect(
             GestiDelSegno.leggi(
                 '{"gesto":"$tolto","riga":"Il Lupo fa un gesto per te."}',
                 lupo),
             isNull,
-            reason: '$tolto e uscito dal repertorio e il modello lo fa passare');
+            reason:
+                '$tolto e uscito dal repertorio e il modello lo fa passare');
       }
       expect(
           GestiDelSegno.leggi(
@@ -402,11 +437,12 @@ void main() {
               'hai visto tutto',
           'due frasi senza un segno che le separi'
         ),
-        ('La volpe si volta. Non hai visto tutto.', 'non nomina il suo animale'),
+        (
+          'La volpe si volta. Non hai visto tutto.',
+          'non nomina il suo animale'
+        ),
       ]) {
-        expect(
-            GestiDelSegno.leggi(
-                '{"gesto":"siVolta","riga":"$riga"}', lupo),
+        expect(GestiDelSegno.leggi('{"gesto":"siVolta","riga":"$riga"}', lupo),
             isNull,
             reason: '$perche: "$riga"');
       }
@@ -431,7 +467,9 @@ void main() {
       // sua lettura vanno d'accordo.
       for (var i = 0; i < 100; i++) {
         final s = GestiDelSegno.diRiserva(
-            animale: lupo, domanda: 'domanda $i', giorno: DateTime(2026, 9, 13));
+            animale: lupo,
+            domanda: 'domanda $i',
+            giorno: DateTime(2026, 9, 13));
         final attesa = switch (s.gesto) {
           // Dopo la "ì" non c'e' confine di parola per RegExp: si cerca il
           // punto o la virgola che la seguono.
@@ -461,7 +499,8 @@ void main() {
     /// **I TRENTASEI DISEGNI, ordine DJ voce 08**: i nomi li detta il codice,
     /// il LEGGIMI della cartella li elenca tutti, e la cartella e' dichiarata
     /// nel pacchetto anche da vuota.
-    test('I TRENTASEI DISEGNI HANNO IL NOME DELL ORDINE, e la cartella li '
+    test(
+        'I TRENTASEI DISEGNI HANNO IL NOME DELL ORDINE, e la cartella li '
         'aspetta', () {
       final attesi = GestiDelSegno.disegniAttesi;
       expect(attesi.toSet(), hasLength(36));
@@ -519,6 +558,7 @@ void main() {
         await tester.pump();
         await tester.enterText(
             find.byKey(const Key('viaggio_domanda_del_segno')), 'Vado avanti?');
+        await tester.pump();
         await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
         await tester.pump();
         await tester.pump(const Duration(seconds: 2));
@@ -529,14 +569,15 @@ void main() {
             reason: 'senza disegno il segno resta un riquadro vuoto');
         if (c) {
           expect(
-              (tester.widget<Image>(
+              (tester
+                      .widget<Image>(
                           find.byKey(const Key('viaggio_disegno_del_gesto')))
                       .image as AssetImage)
                   .assetName,
               disegno);
         }
-        expect(find.text('Il Lupo ti si avvicina. Vuol dire sì.'),
-            findsOneWidget);
+        expect(
+            find.text('Il Lupo ti si avvicina. Vuol dire sì.'), findsOneWidget);
       });
     }
   });

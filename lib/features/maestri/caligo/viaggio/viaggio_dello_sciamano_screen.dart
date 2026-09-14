@@ -1368,8 +1368,12 @@ class _ViaggioDelloSciamanoScreenState
               key: const Key('viaggio_solo_incontro'),
               padding: const EdgeInsets.all(SpacingTokens.md),
               child: ParagrafiDiLettura(
-                testo: 'Scendo soltanto per incontrarlo. La scena parlerà '
-                    'del momento che stai vivendo.',
+                // Dopo il riconoscimento col pronome dell'animale: la Volpe
+                // si incontra al femminile. Prima e' l'animale, e resta lo.
+                // Ordine DN voce 06.
+                testo: 'Scendo soltanto per incontrar'
+                    '${_riconosciuto ? _suoAnimale.pronome : 'lo'}. La scena '
+                    'parlerà del momento che stai vivendo.',
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
@@ -2044,7 +2048,9 @@ class _ViaggioDelloSciamanoScreenState
       boundaryKey: _cornice,
       // **Il testo che accompagna dice la stessa cosa della card**, cosi' chi
       // la riceve in una chat che non mostra le immagini capisce lo stesso.
-      testo: 'Mi ha trovato $nome.',
+      // Con l'articolo dell'animale, come la card: *"Mi ha trovato Lupo"*
+      // era un nome proprio senza articolo. Ordine DN voce 06.
+      testo: 'Mi ha trovato ${_articoloDi(nome)}$nome.',
     );
     if (!mounted || !andata) return;
     // **IL PREMIO SI PAGA SOLO A CONDIVISIONE AVVENUTA**, ed e' il motivo per

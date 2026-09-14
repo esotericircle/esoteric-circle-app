@@ -348,6 +348,7 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
           maxLines: 1,
           maxLength: IlSegnoCheRisponde.domandaAlMassimo,
           textInputAction: TextInputAction.send,
+          onChanged: (_) => setState(() {}),
           onSubmitted: (_) => unawaited(_chiedi()),
           style:
               TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
@@ -367,7 +368,12 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
         const SizedBox(height: SpacingTokens.sm),
         FilledButton(
           key: const Key('viaggio_chiedi_il_segno'),
-          onPressed: _inAttesa ? null : () => unawaited(_chiedi()),
+          // **SPENTO FINCHE' NON C'E' UNA DOMANDA**, ordine DN voce 06: col
+          // campo vuoto il tocco non faceva niente, ed era un comando che non
+          // risponde, la regola L dell'ordine DD.
+          onPressed: _inAttesa || _domanda.text.trim().isEmpty
+              ? null
+              : () => unawaited(_chiedi()),
           style: FilledButton.styleFrom(
             backgroundColor: palette.primary,
             foregroundColor: palette.onPrimary,
