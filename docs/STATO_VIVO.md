@@ -2577,6 +2577,64 @@ manifesto sta in `docs/ordini/ORDINE_DK_MANIFESTO.md`, il rapporto in
 **Mancano ancora, senza essere guasti**: il file del tamburo e i trentasei
 disegni dei gesti.
 
+## L'ORDINE DL, IL GENERE SCELTO VALE OVUNQUE, E IL RESPONSO RISPONDE
+
+14 settembre 2026, quindici voci con l'aggiunta DL.13 e DL.14. Segue l'ordine
+DK, commit `57c56e1b`. Il manifesto sta in
+`docs/ordini/ORDINE_DL_MANIFESTO.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DL.md`, il censimento del genere stringa per
+stringa in `docs/ordini/DL_CENSIMENTO_DEL_GENERE.md`, le schermate della
+prova a video in `docs/collaudo/DL/`. **La build 2251 e' consegnata**,
+release `2ufs7n96i8jdg`, al solo `cloud@esotericircle.app`, inviti accettati
+1, provata sul Realme.
+
+**QUINDICI VOCI SU QUINDICI, CHIUSE.** Due premesse erano false a meta' (P10,
+il nutrimento faceva partire il battito continuo; P11, una discesa fa da una
+a tre chiamate e in Demo il tetto non contava) e una frase della voce DL.09
+era falsa (la fonte del tema non si registrava): riferito, e il fondatore ha
+detto di proseguire.
+
+- **Il genere passa da una porta sola**, `lib/core/chat/la_marca_del_genere.dart`:
+  le marche `[maschile|femminile|neutro]` dentro il testo, risolte nella
+  forma scelta, con la regola della lingua dietro un'interfaccia.
+  `AddressForm` non esiste piu'. **Censimento: 110 stringhe col genere e 10
+  concordate prima, 123 e 123 dopo, nessun *te stesso* fuori da una
+  marca.** I corpora generati si cambiano alla fonte (`docs/corpus/` e
+  `tool/`). Il blocco di cortesia sta in `il_blocco_di_cortesia.dart` ed
+  entra negli otto prompt di prosa; la lettura del mese non impone piu' il
+  femminile. Guardie: `il_genere_si_decide_in_un_posto_solo`,
+  `il_genere_non_si_indovina` col dizionario,
+  `ogni_prompt_di_prosa_dichiara_la_forma`.
+- **Il responso del Viaggio risponde alla domanda**: la chiamata della scena
+  scrive anche titolo, risposta e gesto, e passano dalle guardie di
+  `le_guardie_del_responso.dart`. Su 1.100 discese col modello vero: titolo
+  dal modello 83 per cento, risposta 77, gesto 88; misure da A a F dentro in
+  tutti gli undici casi, F senza una finestra ripetuta. Il Diario conserva i
+  testi letti e la fonte di ogni pezzo (`UnViaggio.fonti`). **Costo di una
+  discesa da 0,00047 a 0,00097 dollari.**
+- **L'oggetto della domanda** entra nella ripresa, in forma: *"Hai portato
+  giu' la domanda su tua sorella"*, *"sul lavoro"*.
+- **Il banco delle domande libere**, 36 domande: la tabella 25 giuste e
+  nessuna sbagliata, il modello 36 su 36 sul codice consegnato.
+- **Il tetto conta dieci discese e dieci segni**, anche in Demo; il comando
+  *"Tetto del modello alzato (Demo)"* nella soglia lo alza e fa leggere la
+  fonte di ogni pezzo sotto la scena.
+- **I tre gesti col loro tempo** non ricevono il quando: prendono una chiusa
+  senza tempo.
+- **Il colpo del tamburo** a ogni tocco del nutrimento, pronto per il file
+  `tamburo_colpo.mp3`; senza, vibra soltanto.
+- **L'attribuzione cieca rifatta**, perche' il blocco di cortesia ha cambiato
+  l'istruzione dei tre Maestri: 86,7, 83,3 e 86,4 per cento, media 85,5.
+  Resta falsa, un giro sotto la soglia.
+- **Il registro delle guardie sale a 417**, sei nuove, tutte viste rosse.
+
+**Da decidere per il fondatore**, nel rapporto: il fuoco nei gesti del
+modello, la previsione morbida al presente, la porta che il titolo prende
+dalla scena, e il modello che prende una parte in una scelta di vita.
+
+**Mancano ancora, senza essere guasti**: i due file del tamburo e i trentasei
+disegni dei gesti.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

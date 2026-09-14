@@ -15,6 +15,9 @@ VOCI_TOTALI: 15
 VOCI_CHIUSE: 15
 VOCI_SBLOCCATE_E_APERTE: 0
 
+**Build 2251 consegnata**, release `2ufs7n96i8jdg`, al solo
+`cloud@esotericircle.app`, inviti accettati 1; provata sul Realme.
+
 Il rapporto, con le misure, sta in `docs/ordini/RAPPORTO_ORDINE_DL.md`; il
 censimento del genere prima e dopo, stringa per stringa, in
 `docs/ordini/DL_CENSIMENTO_DEL_GENERE.md`.
@@ -169,6 +172,15 @@ modello vero), **promessa** su salute, denaro, morte, gravidanza, legge,
 alla forma scelta, **risposta che non nomina la domanda**, **risposta che
 anticipa la scena**.
 
+**Il titolo non si ripete**: la prova a cento discese col modello vero ha
+trovato lo stesso titolo ventisei volte su cento per la stessa domanda. Il
+modello riceve i dieci titoli piu' recenti, e la lettura scarta quello che
+ripete uno dei ventiquattro dati: vale la riserva. **Le regole sono dette
+come le legge il modello**, dopo una sonda di dodici chiamate vere: il
+titolo con l'esempio contato, il gesto che comincia dal suo tempo, mai una
+virgola seguita da *e*, e *non dire se accadra', se non accadra' o se e'
+gia' accaduto*.
+
 **Il determinismo**: il Diario conserva il titolo, la risposta e il gesto
 letti, e la fonte di ogni pezzo. **La riserva** resta intera, e il prompt
 riceve sei titoli e cinque gesti di casa come esempi di voce. Le misure da A a
@@ -189,7 +201,13 @@ propri riprese dalla domanda, **l'articolo davanti al possessivo** tranne che
 coi nomi di parentela, e **il possessivo solo se la domanda diceva *mio***:
 *"Mio figlio trovera' lavoro?"* da' *"il lavoro"*, non *"il tuo lavoro"*. La
 ripresa usa la preposizione articolata, *"sul trasloco"*, *"su tua
-sorella"*. Senza oggetto valido vale la categoria.
+sorella"*. Senza oggetto valido vale la categoria. **Due correzioni dalla
+prova con rete**: davanti al possessivo e a un nome di parentela al
+singolare l'articolo cade (*"la tua sorella"* usciva quarantanove volte su
+cento), e senza oggetto la richiesta al modello non ne parla (con *"non
+noto"* il modello scriveva *"Quel 'non noto' che e' finito"*). Sul banco,
+col codice consegnato, trentasei oggetti su trentasei in italiano giusto o
+sulla categoria.
 
 ---
 
@@ -216,8 +234,10 @@ sorella"*. Senza oggetto valido vale la categoria.
 
 I tre gesti non ricevono il quando, e non ricevono l'apertura *"Il passo di
 oggi"*. **La prova a cento discese e' diventata rossa da sola**: senza il
-quando il loro paragrafo tornava identico tre volte su cento, misura D.
-Riparata facendo girare le sette aperture senza tempo sulla storia del gesto.
+quando il loro paragrafo tornava identico tre volte su cento, misura D, e
+cinque nella prova senza storia. Riparata con le sette aperture senza tempo
+che girano sulla storia del gesto, e con otto chiuse che non dicono nessun
+tempo (*"Basta questo."*, *"Non serve altro."*) al posto del quando.
 
 Prova: nessun paragrafo del gesto ha due pezzi che dicono un tempo, su
 duemilacento discese. **La grandezza e' il pezzo, non la parola**: *"nei
@@ -248,7 +268,9 @@ degli asset pronti. Prova: `il_tamburo_che_nutre_si_sente`.
 Nella stessa chiamata. Le guardie del gesto: una cosa sola, al massimo due
 frasi e trenta parole, non un consiglio di vita ne' un invito a riflettere,
 **col suo tempo dentro**, niente che tocchi un terzo in modo che possa
-ferirlo, niente salute, farmaci, soldi, atti legali. Il paragrafo del gesto
+ferirlo, niente salute, farmaci, soldi, atti legali. **Il *lascialo* tocca
+un terzo solo quando e' una persona**: la prova con rete scartava
+*"Lascialo sul comodino"*, che parla di un foglio. Il paragrafo del gesto
 del modello prende un'apertura di casa senza tempo e nessun quando. Riserva
 dei venti gesti intera. Misure nel rapporto.
 
