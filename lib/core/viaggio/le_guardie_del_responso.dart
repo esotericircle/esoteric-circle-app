@@ -142,7 +142,7 @@ abstract final class LeGuardieDelResponso {
           // la prova a cento discese scartava *"Lascialo sul comodino"*,
           // che parla di un foglio. Resta quando chiude la frase, *"Poi
           // lascialo."*, o quando va con perdere, andare, stare.
-          'lascia(lo|la)(?= *[.!;]| *\$)|lascia(lo|la) (perdere|andare|stare)|'
+          'lascia(lo|la)(?= *[.!;]| *(?!.))|lascia(lo|la) (perdere|andare|stare)|'
           'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela[a-zàèéìòù]*|'
           'confessa[a-zàèéìòù]*|denuncia[a-zàèéìòù]*|minaccia[a-zàèéìòù]*|'
           'ultimatum|vendica[a-zàèéìòù]*|dille che|digli che|dì loro che');
