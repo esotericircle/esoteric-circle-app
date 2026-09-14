@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// La schermata del Test Archetipo.
 ///
@@ -412,8 +413,17 @@ void main() {
       expect(ArchetypeCorpus.di(a).luce.length, greaterThan(180),
           reason: a.name);
     }
-    expect(ArchetypeCorpus.di(Archetype.realista).luce,
-        contains('senza smettere di essere umano'));
+    // **NELLA FORMA SCELTA**, ordine DL voce 03: la frase si accorda con chi
+    // legge, e col neutro si riformula.
+    addTearDown(() => LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown);
+    for (final (forma, attesa) in [
+      (CourtesyForm.masculine, 'senza smettere di essere umano'),
+      (CourtesyForm.feminine, 'senza smettere di essere umana'),
+      (CourtesyForm.neutral, 'senza smettere di avere umanità'),
+    ]) {
+      LaMarcaDelGenere.formaCorrente = forma;
+      expect(ArchetypeCorpus.di(Archetype.realista).luce, contains(attesa));
+    }
   });
 
   testWidgets('La scelta del cielo sta sulla soglia, prima delle domande',

@@ -24,14 +24,20 @@ abstract final class SeguitoDellaLettura {
   ///
   /// [gia] e' cio' che la persona ha gia' letto: il modello lo riceve per
   /// intero, perche' non si continua un discorso che non si e' visto.
+  ///
+  /// **SENZA MARCA DI GENERE**, ordine DL voce 05. Qui c'era *"questo e' cio'
+  /// che le hai gia' detto e che lei ha gia' letto"*, concatenato nella stessa
+  /// istruzione che a chi ha scelto il maschile dice di rivolgersi a lui: il
+  /// modello riceveva le due cose insieme, a ogni tocco della freccia. E il
+  /// Maestro non si ferma piu' al maschile: Medora e Aura sono donne.
   static String istruzione(String gia) => [
         'LA PERSONA HA CHIESTO DI SCENDERE PIÙ A FONDO.',
-        'Questo è ciò che le hai già detto e che lei ha già letto:',
+        'Questo è ciò che hai già scritto e che la persona ha già letto:',
         '"""',
         gia.trim(),
         '"""',
         'ADESSO SCRIVI SOLTANTO IL SEGUITO:',
-        '- Continua da dove ti sei fermato. Non riassumere, non riformulare, '
+        '- Riprendi da dove hai lasciato. Non riassumere, non riformulare, '
             'non ripetere con altre parole ciò che hai già detto: chi rilegge '
             'due volte la stessa cosa si sente preso in giro.',
         '- Il testo qui sopra RESTA SULLO SCHERMO mentre tu scrivi: la persona '

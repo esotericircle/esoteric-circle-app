@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'archetype.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Una risposta possibile, col suo peso sugli archetipi.
 ///
@@ -8,9 +9,13 @@ import 'archetype.dart';
 /// cambierebbe la risposta, che e' il modo piu' semplice di rompere un test.
 @immutable
 class ArchetypeRisposta {
-  const ArchetypeRisposta(this.testo, this.pesi);
+  const ArchetypeRisposta(String testo, this.pesi) : _testo = testo;
 
-  final String testo;
+  final String _testo;
+
+  /// Risolto con la forma della persona, ordine DL voce 02: due risposte
+  /// su quarantotto portano la marca del genere.
+  String get testo => LaMarcaDelGenere.risolvi(_testo);
   final Map<Archetype, int> pesi;
 }
 
@@ -119,8 +124,11 @@ class ArchetypeQuiz {
         ArchetypeRisposta('Perdere la fiducia', {Archetype.innocente: 2}),
         ArchetypeRisposta('Perdere controllo e ordine', {Archetype.sovrano: 2}),
         ArchetypeRisposta(
-            'Restare solo', {Archetype.amante: 2, Archetype.custode: 1}),
-        ArchetypeRisposta('Essere ingabbiato', {Archetype.ribelle: 2}),
+            '[Restare solo|Restare sola|Restare senza nessuno]',
+            {Archetype.amante: 2, Archetype.custode: 1}),
+        ArchetypeRisposta(
+            '[Essere ingabbiato|Essere ingabbiata|Stare in gabbia]',
+            {Archetype.ribelle: 2}),
       ],
     ),
     ArchetypeDomanda(

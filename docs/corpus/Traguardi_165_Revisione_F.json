@@ -1284,7 +1284,7 @@
             "conGesto": "oroscopo"
           },
           "costoInGiorni": 365,
-          "frase": "Il Sole torna dov’era quando sei nato: tu eri qui con l’Oroscopo.",
+          "frase": "Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con l’Oroscopo.",
           "cosaApre": "La carta del ritorno solare, il cielo del tuo anno nuovo",
           "gestiNominati": [
             "oroscopo"
@@ -2576,7 +2576,7 @@
             "conGesto": "alba"
           },
           "costoInGiorni": 365,
-          "frase": "Il Sole torna dov’era quando sei nato: tu eri qui con il Rito dell’Alba.",
+          "frase": "Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con il Rito dell’Alba.",
           "cosaApre": "Il rito del ritorno solare, il risveglio del tuo anno nuovo",
           "gestiNominati": [
             "alba"

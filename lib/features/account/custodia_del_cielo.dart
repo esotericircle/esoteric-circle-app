@@ -15,6 +15,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'consensi_della_registrazione.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/chat/user_profile.dart';
 
 /// LE TRE VIE PER CUSTODIRE IL PROPRIO CIELO, in un componente solo.
 ///
@@ -451,8 +452,11 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       // dice il primo pezzo; qui, solo sulla porta di chi torna, si
       // aggiunge la strada in avanti.
       if (widget.perChiTorna && esito == EsitoDellaCustodia.nonRiconosciuto) {
-        _guaio = '${_guaio!} Se non ti sei mai registrato, potrai farlo '
-            'tra poco, alla fine del rito, oppure dal menu utente.';
+        final avanti = LaMarcaDelGenere.risolvi('Se [non ti sei mai '
+            'registrato|non ti sei mai registrata|non hai ancora un account], '
+            'potrai farlo tra poco, alla fine del rito, oppure dal menu '
+            'utente.');
+        _guaio = '${_guaio!} $avanti';
       }
       _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });

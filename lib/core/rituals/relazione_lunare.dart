@@ -1,4 +1,5 @@
 import '../astro/zodiac.dart';
+import '../../core/chat/user_profile.dart';
 
 /// LA RELAZIONE FRA LA LUNA DI STANOTTE E LA TUA. Ordine CE voce 13.
 ///
@@ -24,7 +25,8 @@ enum RelazioneLunare {
   congiunzione(
     passi: 0,
     nome: 'congiunzione',
-    riga: 'Stanotte la Luna torna dov\'era quando sei nato: è il tuo ritorno '
+    riga: 'Stanotte la Luna torna dov\'era [quando sei nato|quando sei nata|'
+        'alla tua nascita]: è il tuo ritorno '
         'lunare, il momento in cui il sentire ricomincia da capo.',
   ),
   sestile(
@@ -61,8 +63,8 @@ enum RelazioneLunare {
   const RelazioneLunare({
     required this.passi,
     required this.nome,
-    required this.riga,
-  });
+    required String riga,
+  }) : _riga = riga;
 
   /// Quanti segni separano le due Lune, contati per la via piu' breve.
   final int passi;
@@ -72,7 +74,10 @@ enum RelazioneLunare {
 
   /// **TESTO PROVVISORIO, da approvare.** La riga che entra nel responso: i
   /// testi definitivi li approva il fondatore.
-  final String riga;
+  final String _riga;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get riga => LaMarcaDelGenere.risolvi(_riga);
 
   /// La relazione fra la Luna di [stanotte] e quella di [nascita], per segno.
   ///

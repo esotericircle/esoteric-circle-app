@@ -40,19 +40,21 @@ class AnteprimaTono extends StatefulWidget {
   static const Duration scrittura = Duration(milliseconds: 1400);
 
   /// La frase d'esempio per ciascun tono. Stessa cosa detta in tre modi.
-  static String frasePer(CourtesyForm tono) => switch (tono) {
-        CourtesyForm.masculine =>
-          'Bentornato. Sei arrivato fin qui: il tuo cielo ti aspettava.',
-        CourtesyForm.feminine =>
-          'Bentornata. Sei arrivata fin qui: il tuo cielo ti aspettava.',
-        // Un neutro vero NON elenca i participi, li evita: "sei arrivata, o
-        // arrivato" obbliga chi legge a scegliere quale meta' della frase gli
-        // appartiene, che e' il contrario di una forma neutra.
-        CourtesyForm.neutral =>
-          'Che bello vederti qui. Il tuo cielo ti aspettava.',
-        CourtesyForm.unknown =>
-          'Il cerchio ti accoglie. Il tuo cielo ti aspettava.',
-      };
+  ///
+  /// **E' UNA MARCA, e si risolve dalla porta del genere**, ordine DL voce 01:
+  /// qui c'era uno `switch` scritto a mano, che faceva la stessa scelta di
+  /// `CourtesyForm.agree` con le sue regole. Un neutro vero NON elenca i
+  /// participi, li evita: *"sei arrivata, o arrivato"* obbliga chi legge a
+  /// scegliere quale meta' della frase gli appartiene.
+  ///
+  /// **Sconosciuta e neutra dicono la stessa frase**, come in tutta l'app:
+  /// prima la forma non ancora scelta aveva una sua frase, *"Il cerchio ti
+  /// accoglie"*, ed era l'unico posto dove le due forme si separavano.
+  static const String frase = '[Bentornato. Sei arrivato fin qui|'
+      'Bentornata. Sei arrivata fin qui|Che bello vederti qui]'
+      ': il tuo cielo ti aspettava.';
+
+  static String frasePer(CourtesyForm tono) => tono.risolvi(frase);
 
   @override
   State<AnteprimaTono> createState() => _AnteprimaTonoState();

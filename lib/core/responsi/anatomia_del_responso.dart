@@ -39,7 +39,7 @@ enum ParteDelResponso {
     numero: 2,
     nome: 'Cosa puoi fare',
     cosaFa: 'Un\'indicazione concreta, compibile oggi o nei prossimi giorni. '
-        'Non "ascolta te stesso": una cosa che si può davvero fare.',
+        'Non "ascoltati": una cosa che si può davvero fare.',
     righeMinime: 1,
     righeMassime: 2,
     dentroIlResponso: true,

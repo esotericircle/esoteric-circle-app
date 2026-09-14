@@ -1,4 +1,5 @@
 import '../assets/family_image.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Una runa dell'antico Futhark, con nome, glifo, presagio simbolico reale e
 /// l'arte incisa bundlata.
@@ -12,29 +13,41 @@ class Rune {
   const Rune({
     required this.name,
     required this.glyph,
-    required this.keyword,
-    required this.meaning,
+    required String keyword,
+    required String meaning,
     this.stem,
-    this.upright = '',
-    this.shadow = '',
-  });
+    String upright = '',
+    String shadow = '',
+  }) : _keyword = keyword, _meaning = meaning, _upright = upright, _shadow = shadow;
 
   final String name;
   final String glyph;
 
   /// Una parola chiave del presagio.
-  final String keyword;
+  final String _keyword;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get keyword => LaMarcaDelGenere.risolvi(_keyword);
 
   /// Riga breve di significato, nella tradizione del Futhark antico.
-  final String meaning;
+  final String _meaning;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get meaning => LaMarcaDelGenere.risolvi(_meaning);
 
   /// Nome del file dell'arte incisa senza estensione, oppure null se non
   /// agganciata.
   final String? stem;
 
   /// Il verso dritto e il verso d'ombra (merkstave), dal corpus.
-  final String upright;
-  final String shadow;
+  final String _upright;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get upright => LaMarcaDelGenere.risolvi(_upright);
+  final String _shadow;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get shadow => LaMarcaDelGenere.risolvi(_shadow);
 
   /// Percorso della pietra piena, per la runa a fuoco.
   String? get fullPath =>
@@ -178,9 +191,12 @@ const List<Rune> kElderFuthark = [
       name: 'Algiz',
       glyph: 'ᛉ',
       keyword: 'Protezione',
-      meaning: 'L\'alce, lo scudo alzato: sei difeso, resta connesso al sacro.',
+      meaning: 'L\'alce, lo scudo alzato: [sei difeso, resta connesso|'
+          'sei difesa, resta connessa|la difesa c\'è, resta in contatto] al '
+          'sacro.',
       stem: 'rune_bone_15_algiz_v1',
-      upright: 'Sei più difeso di quanto credi: alza lo sguardo.',
+      upright: '[Sei più difeso|Sei più difesa|Hai più difese] di '
+          'quanto credi: alza lo sguardo.',
       shadow: 'Rialza la guardia e riascolta ciò che senti.'),
   Rune(
       name: 'Sowilo',
@@ -219,9 +235,11 @@ const List<Rune> kElderFuthark = [
       name: 'Mannaz',
       glyph: 'ᛗ',
       keyword: 'Il sé',
-      meaning: 'L\'uomo, l\'umanità: ritrova te stesso dentro la comunità.',
+      meaning: 'L\'uomo, l\'umanità: ritrova [te stesso|te stessa|chi sei] '
+          'dentro la comunità.',
       stem: 'rune_bone_20_mannaz_v1',
-      upright: 'Conosci te stesso attraverso gli altri.',
+      upright: '[Conosci te stesso|Conosci te stessa|Conosci chi sei] '
+          'attraverso gli altri.',
       shadow: 'Torna al legame: negli altri ti riconosci meglio.'),
   Rune(
       name: 'Laguz',

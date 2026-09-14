@@ -273,7 +273,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     final model = _ai.generativeModel(
       model: distillModel,
       systemInstruction: Content.system(
-        MaestroPersona.distillInstruction(maestro),
+        MaestroPersona.distillInstruction(maestro, profile),
       ),
       generationConfig: configurazionePer(
         MisuraDellaRisposta.distillato,

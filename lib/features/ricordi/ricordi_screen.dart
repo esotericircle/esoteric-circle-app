@@ -51,6 +51,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../sigilli/segno_del_sentiero.dart';
 import '../sigilli/sentiero_screen.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Quale delle due viste e' davanti.
 enum VistaDelJournal { cammino, ricordi }
@@ -1370,7 +1371,7 @@ class _LaLetturaDelMeseState extends State<_LaLetturaDelMese> {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
         child: Text(
-          LetturaDelMese.invito,
+          LaMarcaDelGenere.risolvi(LetturaDelMese.invito),
           key: const Key('ricordi_invito_alla_lettura'),
           style: TypographyTokens.didascalia()
               .copyWith(color: ColorTokens.textSecondary),

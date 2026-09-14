@@ -137,8 +137,8 @@ class _AngelsScreenState extends State<AngelsScreen>
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'I tuoi tre si ricavano da tre cose diverse: la posizione del '
-              'Sole alla tua nascita, in archi di cinque gradi, il giorno in '
-              'cui sei nato, l\'ora esatta.',
+              'Sole alla tua nascita, in archi di cinque gradi, il giorno '
+              'della tua nascita, l\'ora esatta.',
               style: TypographyTokens.didascalia().copyWith(height: 1.45),
             ),
             const SizedBox(height: SpacingTokens.sm),
@@ -241,7 +241,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                 angelo: triade.heart,
                 ruolo: 'Angelo del Cuore',
                 sottotitolo: 'del corpo astrale',
-                perche: 'Nasce dal giorno in cui sei nato, il '
+                perche: 'Nasce dal giorno della tua nascita, il '
                     '${triade.dayOfYear}esimo dell\'anno. Veglia su ciò che '
                     'senti e su come ami.',
                 palette: palette,
@@ -257,7 +257,8 @@ class _AngelsScreenState extends State<AngelsScreen>
                   ruolo: 'Angelo dell\'Intelletto',
                   sottotitolo: 'delle missioni',
                   perche: 'Nasce dall\'ora della tua nascita. Veglia sul tuo '
-                      'pensiero e su ciò che sei venuto a fare.',
+                      'pensiero e su ciò che [sei venuto|sei venuta|sei qui] a '
+                      'fare.',
                   palette: palette,
                 )
               else
@@ -567,7 +568,7 @@ class _ComeSonoScelti extends StatelessWidget {
             'Il Custode, dal cielo',
             'Il cerchio dello zodiaco ha trecentosessanta gradi e gli angeli '
                 'sono settantadue: cinque gradi per ciascuno. Si guarda dove '
-                'stava il Sole nel momento in cui sei nato, non il giorno sul '
+                'stava il Sole nel momento della tua nascita, non il giorno sul '
                 'calendario, poi si legge a chi tocca quel tratto di cielo.',
           ),
           riga(

@@ -146,7 +146,7 @@ trovarlo.
 quella che non torna comoda nel racconto che fai agli altri. Le pietre la mettono
 in mezzo.
 
-**Chiusura.** Oggi di' a voce alta, anche solo a te stesso, la cosa di te che
+**Chiusura.** Oggi di' a voce alta, anche solo a [te stesso|te stessa|te], la cosa di te che
 stai evitando di guardare. Una volta sola basta.
 
 ---

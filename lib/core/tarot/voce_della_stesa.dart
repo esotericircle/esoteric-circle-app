@@ -1,6 +1,7 @@
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import 'tarot_topic.dart';
+import '../../core/chat/user_profile.dart';
 
 /// **LA NATURA DI UNA CARTA USCITA.** Ordine DF voce 04.2, 11 settembre 2026.
 ///
@@ -145,7 +146,7 @@ abstract final class VoceDellaStesa {
     'Hai portato qui questa domanda: «{domanda}»',
     'Le tre carte rispondono a «{domanda}». Non a una domanda in generale.',
     'Domanda posta: «{domanda}»',
-    'Sei scesa con questa domanda: «{domanda}»',
+    '[Sei sceso|Sei scesa|Sei qui] con questa domanda: «{domanda}»',
     'La lettura risponde a «{domanda}»',
   ];
 
@@ -180,7 +181,8 @@ abstract final class VoceDellaStesa {
   static const Map<NaturaDellaCarta, List<String>> cosaDiceIlPresente = {
     NaturaDellaCarta.compimento: [
       'È una carta che chiude un giro: qualcosa che portavi avanti ha trovato '
-          'la sua forma, anche se non te ne sei ancora accorta.',
+          'la sua forma, anche se [non te ne sei ancora accorto|non te ne sei '
+          'ancora accorta|non l\'hai ancora notato].',
       'Parla di una cosa arrivata a maturazione. Non sei all\'inizio di questa '
           'storia: sei alla fine di un tratto.',
       'È fra le carte più aperte del mazzo. Quello che hai davanti è già in '
@@ -192,7 +194,7 @@ abstract final class VoceDellaStesa {
       'Segna un passaggio vero, di quelli che si vedono solo guardandosi '
           'indietro dopo qualche mese.',
       'Porta un compimento. Il rischio, qui, non è fallire: è non accorgersi di '
-          'essere arrivata.',
+          '[essere arrivato|essere arrivata|essere al traguardo].',
       'Racconta un pieno, non un vuoto. La domanda giusta non è cosa manca, è '
           'cosa farne.',
     ],
@@ -228,7 +230,7 @@ abstract final class VoceDellaStesa {
       'Segna un nodo. Un nodo si scioglie tirando il capo giusto. E tirando '
           'tutti gli altri si stringe.',
       'Dice che c\'è un prezzo. E che il prezzo è noto. Quello che non è ancora '
-          'chiaro è se sei disposta a pagarlo.',
+          'chiaro è se [sei disposto|sei disposta|vuoi] pagarlo.',
       'È una carta importante messa di traverso: quello che promette resta, ma '
           'passa da una porta più stretta.',
     ],
@@ -270,12 +272,14 @@ abstract final class VoceDellaStesa {
   static const Map<NaturaDellaCarta, List<String>> gestoPerNatura = {
     NaturaDellaCarta.compimento: [
       'Dichiara che è finita: dillo, scrivilo, mandalo a qualcuno.',
-      'Usa adesso quello che hai costruito, invece di aspettare di sentirti più pronta.',
+      'Usa adesso quello che hai costruito, invece di aspettare di [sentirti '
+          'più pronto|sentirti più pronta|avere più certezze].',
       'Dai una data precisa alla consegna, entro questa settimana.',
       'Mostra il risultato a una persona che conta. E falla vedere davvero.',
       'Togli le ultime tre cose che hai aggiunto e guarda se non era già finito.',
       'Segna il traguardo da qualche parte dove potrai ritrovarlo.',
-      'Chiedi adesso quello che rimandavi a quando saresti stata più forte.',
+      'Chiedi adesso quello che rimandavi a quando [saresti stato più forte|'
+          'saresti stata più forte|avresti avuto più forza].',
       'Scrivi in tre righe che cosa hai imparato in questo tratto. E tienile.',
     ],
     NaturaDellaCarta.favore: [
@@ -395,7 +399,8 @@ abstract final class VoceDellaStesa {
     'Alle tue spalle c\'è {passato}: è da lì che viene il punto in cui sei '
         'adesso.',
     'Quello che hai davanti oggi ha una radice. E la radice è {passato}.',
-    '{passato} racconta come ci sei arrivata. Non è un rimprovero, è il filo.',
+    '{passato} racconta [come ci sei arrivato|come ci sei arrivata|la strada '
+        'fatta fin qui]. Non è un rimprovero, è il filo.',
     'Il passato della lettura porta {passato}. E spiega perché {presente} si '
         'presenta proprio così.',
     'Prima di {presente} c\'è stata {passato}. E le due si tengono per mano più '
@@ -556,7 +561,8 @@ abstract final class VoceDellaStesa {
     final rovesciate = spread.cards.where((c) => c.reversed).length;
     final maggiori =
         spread.cards.where((c) => c.card.arcana == TarotArcana.maggiore).length;
-    final versi = filo.scegli(formeDeiVersi[rovesciate.clamp(0, 2)]!);
+    final versi =
+        LaMarcaDelGenere.risolvi(filo.scegli(formeDeiVersi[rovesciate.clamp(0, 2)]!));
     if (maggiori < 2) return versi;
     return '$versi '
         '${filo.scegli(formeDeiMaggiori).replaceAll('{quanti}', inLettere(maggiori))}';
@@ -673,7 +679,10 @@ abstract final class VoceDellaStesa {
     final naturaPresente = NaturaDellaCarta.di(spread.presente);
     final naturaFuturo = NaturaDellaCarta.di(spread.futuro);
 
-    String riempi(String forma) => forma
+    // **LA MARCA SI RISOLVE SUL MODELLO DELLA FRASE**, ordine DL voce 02, e
+    // prima dei segnaposto: un nome o una domanda con una quadra dentro non
+    // deve diventare una marca.
+    String riempi(String forma) => LaMarcaDelGenere.risolvi(forma)
         .replaceAll('{lente}', '${topic.lente},')
         .replaceAll('{presente}', spread.presente.displayName)
         .replaceAll('{passato}', spread.passato.displayName)
@@ -687,7 +696,7 @@ abstract final class VoceDellaStesa {
     final sua = domandaScritta?.trim();
     final riconoscimento = sua == null || sua.isEmpty
         ? ''
-        : '${filo.scegli(riconoscimentiDellaDomanda).replaceAll('{domanda}', sua)} ';
+        : '${LaMarcaDelGenere.risolvi(filo.scegli(riconoscimentiDellaDomanda)).replaceAll('{domanda}', sua)} ';
 
     // **ANCHE L ORDINE DENTRO IL PARAGRAFO VARIA.** Ordine DF voce 02, misura
     // C: due booleani raddoppiano due volte le forme senza scrivere una riga
@@ -697,14 +706,16 @@ abstract final class VoceDellaStesa {
     final apreLaCarta = filo.scegli(const [true, false]);
     final aperturaDellaCarta =
         maiuscola(riempi(filo.scegli(apertureDellaRisposta)));
-    final cosaDice = filo.scegli(cosaDiceIlPresente[naturaPresente]!);
+    final cosaDice =
+        LaMarcaDelGenere.risolvi(filo.scegli(cosaDiceIlPresente[naturaPresente]!));
     final risposta = apreLaCarta
         ? '$riconoscimento$aperturaDellaCarta $cosaDice'
         : '$riconoscimento$cosaDice $aperturaDellaCarta';
 
     final aggancio = maiuscola(riempi(filo.scegli(aggancioDellAzione)));
-    final cosaFare = '${filo.scegli(gestoPerNatura[naturaPresente]!)} '
-        '${filo.scegli(percheFarlo)}';
+    final cosaFare = LaMarcaDelGenere.risolvi(
+        '${filo.scegli(gestoPerNatura[naturaPresente]!)} '
+        '${filo.scegli(percheFarlo)}');
     final aggancioPrima = filo.scegli(const [true, false]);
     // **LA RIGA DI COME SI VEDE NON ENTRA NEL CONSIGLIO, e la ragione e una
     // sola: la lunghezza.** Il fondatore, nell ordine DF: *"la lunghezza dei
@@ -735,7 +746,7 @@ abstract final class VoceDellaStesa {
         letturaDeiVersi(spread, filo),
         if (fattoDelCielo != null && fattoDelCielo.trim().isNotEmpty)
           'E il cielo di oggi lo accompagna. $fattoDelCielo',
-        filo.scegli(chiusure),
+        LaMarcaDelGenere.risolvi(filo.scegli(chiusure)),
       ].where((p) => p.trim().isNotEmpty).join(' '),
     ].where((p) => p.trim().isNotEmpty).toList();
   }

@@ -1154,8 +1154,8 @@ void main() {
     expect(find.byKey(const Key('face_maschera')), findsNothing,
         reason: 'senza fotocamera compare la maschera dei punti: allora '
             'sta disegnando punti che nessuno ha misurato');
-    final scatto = tester.widget<FilledButton>(
-        find.byKey(const Key('face_shutter')));
+    final scatto =
+        tester.widget<FilledButton>(find.byKey(const Key('face_shutter')));
     expect(scatto.onPressed, isNull,
         reason: 'senza volto il comando dello scatto e\' acceso');
     await capture(tester, rootKey, 'costellazione-viso-sagoma.png');
@@ -5472,9 +5472,11 @@ void main() {
     final chart = NatalChartController();
     await tester.runAsync(() => chart.compute(details));
     final birth = BirthIdentityController()..setBirth(details, chart.chart);
-    final ident = IdentityController()
-      ..setName('Sofia')
-      ..setForm(AddressForm.feminine);
+    // **LA FORMA PASSA DALLA PORTA**, ordine DL voce 01: `AddressForm`
+    // non c'e' piu', e la forma di Sofia la dice il profilo.
+    final ident = IdentityController()..setName('Sofia');
+    LaMarcaDelGenere.formaCorrente = CourtesyForm.feminine;
+    addTearDown(() => LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown);
     return (chart: chart, ident: ident, birth: birth, details: details);
   }
 

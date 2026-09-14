@@ -2,16 +2,23 @@ import '../astro/moon_phase.dart';
 import '../astro/zodiac.dart';
 import 'rune_cast.dart' show RuneVerso;
 import 'sunset_rune.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Le due voci di una runa in un verso: cosa lasci fuori e cosa porti dentro.
 class VoceRuna {
-  const VoceRuna(this.lasciare, this.porta);
+  const VoceRuna(String lasciare, String porta) : _lasciare = lasciare, _porta = porta;
 
   /// Voce A, "Cosa lasci fuori": l'atto di posare qualcosa sulla soglia.
-  final String lasciare;
+  final String _lasciare;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get lasciare => LaMarcaDelGenere.risolvi(_lasciare);
 
   /// Voce B, "Cosa porti dentro la notte": l'atto di portare dentro.
-  final String porta;
+  final String _porta;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get porta => LaMarcaDelGenere.risolvi(_porta);
 }
 
 /// Il corpus della Runa del Tramonto, nella voce di Caligo, custode delle
@@ -121,7 +128,7 @@ class SunsetRuneCorpus {
       "Porta dentro il mistero che si muove sotto, ancora invisibile.",
     ),
     "Algiz": VoceRuna(
-      "Lascia fuori la guardia: qui sei più difeso di quanto credi.",
+      "Lascia fuori la guardia: qui [sei più difeso|sei più difesa|la tua difesa è più forte] di quanto credi.",
       "Porta dentro il legame con l'alto, l'istinto che veglia mentre dormi.",
     ),
     "Sowilo": VoceRuna(
@@ -141,7 +148,7 @@ class SunsetRuneCorpus {
       "Porta dentro la fiducia nell'altro, l'armonia che porta lontano.",
     ),
     "Mannaz": VoceRuna(
-      "Lascia fuori gli altri e i loro sguardi: stanotte torni solo a te stesso.",
+      "Lascia fuori gli altri e i loro sguardi: stanotte torni [solo a te stesso|sola a te stessa|soltanto a te].",
       "Porta dentro il te che si riconosce attraverso gli altri.",
     ),
     "Laguz": VoceRuna(

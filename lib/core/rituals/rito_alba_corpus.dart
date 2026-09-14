@@ -851,7 +851,8 @@ class RitoAlbaCorpus {
     Maestro.aura: [
       'Il corpo a quest\'ora è ancora vicino al sonno e sente più di '
           'quanto sentirà fra un\'ora.',
-      'Sei arrivato prima che il rumore cominciasse. Il respiro che hai contato '
+      '[Sei arrivato|Sei arrivata|Sei qui] prima che il rumore cominciasse. '
+          'Il respiro che hai contato '
           'adesso lo hai contato nel silenzio.',
       'A quest\'ora il corpo non ha ancora preso le abitudini del giorno: '
           'quello che gli chiedi adesso lo ascolta meglio.',
@@ -863,7 +864,8 @@ class RitoAlbaCorpus {
           'ancora niente accanto con cui confondersi.',
       'A quest\'ora l\'ombra è lunga e il contorno delle cose si vede meglio '
           'che a mezzogiorno.',
-      'Sei arrivato quando il giorno era ancora chiuso. Quello che hai portato '
+      '[Sei arrivato quando|Sei arrivata quando|Sei qui da quando] il giorno era ancora '
+          'chiuso. Quello che hai portato '
           'con te lo hai scelto al buio.',
       'La soglia si attraversa una volta sola per giorno e tu l\'hai '
           'attraversata adesso.',

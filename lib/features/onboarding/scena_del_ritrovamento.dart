@@ -217,15 +217,10 @@ String _saluto(BuildContext context, String? nome) {
   } catch (errore) {
     forma = CourtesyForm.unknown;
   }
-  switch (forma) {
-    case CourtesyForm.masculine:
-      return nome == null ? 'Bentornato nel Cerchio' : 'Bentornato, $nome';
-    case CourtesyForm.feminine:
-      return nome == null ? 'Bentornata nel Cerchio' : 'Bentornata, $nome';
-    case CourtesyForm.neutral:
-    case CourtesyForm.unknown:
-      return nome == null
-          ? 'Di nuovo nel Cerchio'
-          : 'Di nuovo nel Cerchio, $nome';
-  }
+  // **DALLA PORTA DEL GENERE**, ordine DL voce 01: qui c'era uno `switch`
+  // scritto a mano. La marca si risolve prima di attaccare il nome.
+  return nome == null
+      ? forma.risolvi('[Bentornato|Bentornata|Di nuovo] nel Cerchio')
+      : '${forma.risolvi('[Bentornato|Bentornata|Di nuovo nel Cerchio]')}'
+          ', $nome';
 }

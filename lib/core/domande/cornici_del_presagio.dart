@@ -52,14 +52,15 @@
 library;
 
 import 'domande_del_cerchio.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Una cornice: l'apertura e la chiusura attorno alla frase della runa.
 class CorniceDelPresagio {
   const CorniceDelPresagio({
     required this.domanda,
-    required this.apertura,
-    required this.chiusura,
-  });
+    required String apertura,
+    required String chiusura,
+  }) : _apertura = apertura, _chiusura = chiusura;
 
   /// Il TESTO ESATTO della domanda a cui questa cornice appartiene. E' la chiave
   /// dell'accostamento: non l'indice, non la famiglia.
@@ -67,10 +68,16 @@ class CorniceDelPresagio {
 
   /// Parte 1, la risposta: nomina l'area della domanda e prepara il posto in cui
   /// la frase della runa si innesta.
-  final String apertura;
+  final String _apertura;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get apertura => LaMarcaDelGenere.risolvi(_apertura);
 
   /// Parte 2, cosa puoi fare: concreta, compibile, legata all'area della domanda.
-  final String chiusura;
+  final String _chiusura;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get chiusura => LaMarcaDelGenere.risolvi(_chiusura);
 }
 
 /// L'elenco delle sedici, nell'ordine dell'allegato.
@@ -147,7 +154,8 @@ class CorniciDelPresagio {
       apertura: 'Quello che non stai guardando di te non è la parte peggiore: '
           'è quella che non torna comoda nel racconto che fai agli altri. Le '
           'pietre la mettono in mezzo.',
-      chiusura: 'Oggi di’ a voce alta, anche solo a te stesso, la cosa di te '
+      chiusura: 'Oggi di’ a voce alta, anche solo a [te stesso|te stessa|te], '
+          'la cosa di te '
           'che stai evitando di guardare. Una volta sola basta.',
     ),
   ];

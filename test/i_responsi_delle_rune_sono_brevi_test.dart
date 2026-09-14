@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/tetti_dei_responsi.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// I RESPONSI DELLE SINGOLE RUNE SCENDONO ALLA META'. Ordine S voce 20.
 ///
@@ -17,18 +18,28 @@ void main() {
   test('le ventiquattro rune stanno nel tetto, in entrambi i versi', () {
     final sopra = <String>[];
     final vuoti = <String>[];
-    for (final runa in kElderFuthark) {
-      for (final verso in [
-        ('dritto', runa.upright),
-        ('d\'ombra', runa.shadow),
-      ]) {
-        if (verso.$2.trim().isEmpty) {
-          vuoti.add('${runa.name}, verso ${verso.$1}');
-          continue;
-        }
-        if (verso.$2.length > TettiDeiResponsi.runaBreve) {
-          sopra.add('${runa.name}, verso ${verso.$1}: '
-              '${verso.$2.length} caratteri');
+    // **NELLE TRE FORME**, ordine DL voce 03: la riformulazione neutra di
+    // Algiz era quattro caratteri piu' lunga del tetto.
+    addTearDown(() => LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown);
+    for (final forma in [
+      CourtesyForm.masculine,
+      CourtesyForm.feminine,
+      CourtesyForm.neutral,
+    ]) {
+      LaMarcaDelGenere.formaCorrente = forma;
+      for (final runa in kElderFuthark) {
+        for (final verso in [
+          ('dritto', runa.upright),
+          ('d\'ombra', runa.shadow),
+        ]) {
+          if (verso.$2.trim().isEmpty) {
+            vuoti.add('${runa.name}, verso ${verso.$1}');
+            continue;
+          }
+          if (verso.$2.length > TettiDeiResponsi.runaBreve) {
+            sopra.add('${runa.name}, verso ${verso.$1}, ${forma.name}: '
+                '${verso.$2.length} caratteri');
+          }
         }
       }
     }

@@ -32,7 +32,17 @@ class ProfileController extends ChangeNotifier {
     ProfileStore store = const ProfileStore(),
   })  : _profile = profile ?? _demoProfile,
         _identity = identity ?? BirthIdentity.example,
-        _store = store;
+        _store = store {
+    _annunciaLaForma();
+  }
+
+  /// **LA FORMA DI CORTESIA ARRIVA ALLA PORTA DEL GENERE**, ordine DL voce 02:
+  /// i testi dei corpora portano la marca e si risolvono con la forma della
+  /// persona, e un corpus non ha un contesto da cui leggerla. Si scrive a ogni
+  /// cambio del profilo, da qui e da nessun altro posto.
+  void _annunciaLaForma() {
+    LaMarcaDelGenere.formaCorrente = _profile.courtesyForm;
+  }
 
   /// Vocativo neutro di brand, quando il nome reale non e' ancora noto.
   static const String neutralVocative = 'Anima del Cerchio';
@@ -93,6 +103,7 @@ class ProfileController extends ChangeNotifier {
     var changed = false;
     if (stored.profile != null) {
       _profile = stored.profile!;
+      _annunciaLaForma();
       changed = true;
     }
     if (stored.identity != null) {
@@ -126,6 +137,7 @@ class ProfileController extends ChangeNotifier {
 
   void setProfile(UserProfile profile) {
     _profile = profile;
+    _annunciaLaForma();
     notifyListeners();
     _store.saveProfile(profile);
   }
@@ -140,6 +152,7 @@ class ProfileController extends ChangeNotifier {
   /// prometteva gia' allora che sarebbe andato via tutto.
   Future<void> forget() async {
     _profile = UserProfile();
+    _annunciaLaForma();
     _identity = BirthIdentity.example;
     _avatarPhoto = null;
     notifyListeners();

@@ -1,4 +1,5 @@
 import 'face_trait.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Le letture dei tratti del volto, la tradizione con la nostra curatela.
 ///
@@ -14,7 +15,9 @@ class FaceCorpus {
   /// La frase di lettura di ciascuna variante, una riga per il responso.
   static const Map<FaceTrait, String> _frasi = {
     FaceTrait.voltoTondo:
-        'Sei socievole e caloroso, attento agli altri e a metterli a proprio agio.',
+        '[Sei socievole e caloroso, attento|Sei socievole e calorosa, attenta|'
+        'Hai un carattere socievole e caloroso, attento] agli altri e a '
+        'metterli a proprio agio.',
     FaceTrait.voltoQuadrato:
         'Hai forza interiore e determinazione, con un piglio pratico che va al sodo.',
     FaceTrait.voltoOvale:
@@ -24,7 +27,8 @@ class FaceCorpus {
     FaceTrait.fronteSfuggente:
         'Pensi in fretta e punti dritto al risultato, senza girarci intorno.',
     FaceTrait.fronteVerticale:
-        'Sei metodico: analizzi prima di decidere e costruisci un passo alla volta.',
+        '[Sei metodico|Sei metodica|Hai metodo]: analizzi prima di decidere e '
+        'costruisci un passo alla volta.',
     FaceTrait.sopraccigliaDritte:
         'Ragioni per logica sui fatti, ti fidi di quello che si può verificare.',
     FaceTrait.sopraccigliaCurve:
@@ -36,51 +40,66 @@ class FaceCorpus {
     FaceTrait.occhiDistanziati:
         'Guardi largo, con una visione ampia e tollerante che non si fa incastrare.',
     FaceTrait.occhiGrandi:
-        'Sei espressivo e aperto alle emozioni, che leggi e lasci passare.',
+        '[Sei espressivo e aperto|Sei espressiva e aperta|Hai un modo '
+        'espressivo e aperto] alle emozioni, che leggi e lasci passare.',
     FaceTrait.occhiRaccolti:
-        'Sei concentrato e intuitivo, con uno sguardo che va in profondità.',
+        '[Sei concentrato e intuitivo|Sei concentrata e intuitiva|Hai uno '
+        'spirito concentrato e intuitivo], con uno sguardo che va in '
+        'profondità.',
     FaceTrait.nasoLungo:
         'Pianifichi e valuti, misuri le conseguenze prima di muoverti.',
     FaceTrait.nasoCorto:
         'Vivi il presente e agisci, senza rimandare quello che si può fare adesso.',
     FaceTrait.labbraPiene:
-        'Sei generoso nel dare e nel parlare, caldo nel condividere.',
+        '[Sei generoso nel dare e nel parlare, caldo|Sei generosa nel dare e '
+        'nel parlare, calda|Hai generosità nel dare e nel parlare, calore] '
+        'nel condividere.',
     FaceTrait.labbraSottili:
-        'Sei essenziale e misurato, scegli poche parole e le scegli bene.',
+        '[Sei essenziale e misurato|Sei essenziale e misurata|Hai un modo '
+        'essenziale e misurato], scegli poche parole e le scegli bene.',
     FaceTrait.fronteEquilibrata:
         'Rifletti quanto serve e poi decidi: non corri e non ti fermi a pensare troppo.',
     FaceTrait.occhiProporzionati:
         'Tieni insieme quello che senti e quello che osservi, senza che uno copra l altro.',
     FaceTrait.nasoEquilibrato:
-        'Sai quando muoverti e quando aspettare. La differenza la riconosci da solo.',
+        'Sai quando muoverti e quando aspettare. La differenza la riconosci '
+        '[da solo|da sola|senza aiuto].',
     FaceTrait.labbraArmoniose:
         'Dai calore a chi ti sta vicino misurando le parole. Le due cose non ti costano.',
     FaceTrait.boccaEquilibrata:
         'Ti apri con chi se lo merita e non sprechi fiato con gli altri.',
     FaceTrait.mentoDefinito:
-        'Resti fermo su quello che conta e lasci andare il resto senza farne una battaglia.',
+        '[Resti fermo|Resti ferma|Tieni il punto] su quello che conta e lasci '
+        'andare il resto senza farne una battaglia.',
     FaceTrait.mascellaMisurata:
         'Hai una determinazione tranquilla, che non ha bisogno di alzare la voce.',
     FaceTrait.boccaLarga:
-        'Sei generoso e aperto, comunichi con slancio e allarghi il cerchio.',
+        '[Sei generoso e aperto|Sei generosa e aperta|Hai un modo generoso e '
+        'aperto], comunichi con slancio e allarghi il cerchio.',
     FaceTrait.boccaPiccola:
-        'Sei raccolto, tieni per te quello che conta finché non è il momento.',
+        '[Sei raccolto|Sei raccolta|Hai un modo raccolto], tieni per te quello '
+        'che conta finché non è il momento.',
     FaceTrait.mentoAmpio:
-        'Sei costante e fermo, tieni la rotta anche quando intorno cambia tutto.',
+        '[Sei costante e fermo|Sei costante e ferma|Hai costanza e fermezza], '
+        'tieni la rotta anche quando intorno cambia tutto.',
     FaceTrait.mentoAPunta:
-        'Sei rapido e adattabile, cambi passo appena serve senza irrigidirti.',
+        '[Sei rapido e adattabile|Sei rapida e adattabile|Hai prontezza e '
+        'adattabilità], cambi passo appena serve senza irrigidirti.',
     FaceTrait.mascellaLarga:
         'Hai una volontà salda e tenace, che non molla quando ha deciso.',
     FaceTrait.mascellaStretta:
         'Sei flessibile, ti pieghi senza spezzarti e trovi la via che passa.',
     FaceTrait.zigomiAlti:
-        'Ami la sfida e l\'avventura, cerchi il rischio che ti fa sentire vivo.',
+        'Ami la sfida e l\'avventura, cerchi il rischio che ti fa sentire '
+        '[vivo|viva|la vita addosso].',
     FaceTrait.zigomiMorbidi:
         'Cerchi calore più che conquista, il legame prima del traguardo.',
   };
 
   /// La frase di lettura di un tratto. C'e' sempre, per ogni variante.
-  static String frase(FaceTrait t) => _frasi[t]!;
+  /// **CONCORDATA ALLA PERSONA**, ordine DL voce 03: il Viso era scritto al
+  /// maschile per tutti.
+  static String frase(FaceTrait t) => LaMarcaDelGenere.risolvi(_frasi[t]!);
 
   /// La sintesi calda del responso, intrecciata dai tratti piu' marcati, in
   /// ordine di marcatezza. Deterministica: stessi tratti, stesso testo. Prende

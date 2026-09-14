@@ -4,6 +4,7 @@ import '../identity/birth_moon.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 import 'relazione_lunare.dart';
+import '../../core/chat/user_profile.dart';
 
 /// La voce del Sigillo del Sogno per un segno della Luna: una parola calmante e le
 /// righe che guardano al giorno appena concluso.
@@ -14,27 +15,42 @@ import 'relazione_lunare.dart';
 /// presente della giornata, mai al futuro.
 class VoceDelSogno {
   const VoceDelSogno({
-    required this.parola,
-    required this.immagine,
-    required this.giorno,
-    required this.riconoscimento,
-    required this.posa,
-  });
+    required String parola,
+    required String immagine,
+    required String giorno,
+    required String riconoscimento,
+    required String posa,
+  }) : _parola = parola, _immagine = immagine, _giorno = giorno, _riconoscimento = riconoscimento, _posa = posa;
 
   /// Una parola sola, calmante, per la carta della notte.
-  final String parola;
+  final String _parola;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get parola => LaMarcaDelGenere.risolvi(_parola);
 
   /// L'immagine del segno, in poche parole.
-  final String immagine;
+  final String _immagine;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get immagine => LaMarcaDelGenere.risolvi(_immagine);
 
   /// Cosa hai fatto oggi, al passato.
-  final String giorno;
+  final String _giorno;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get giorno => LaMarcaDelGenere.risolvi(_giorno);
 
   /// Cosa ti riconosci, guardando indietro.
-  final String riconoscimento;
+  final String _riconoscimento;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get riconoscimento => LaMarcaDelGenere.risolvi(_riconoscimento);
 
   /// L'invito al presente, per posare il giorno.
-  final String posa;
+  final String _posa;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get posa => LaMarcaDelGenere.risolvi(_posa);
 }
 
 /// Il Sigillo del Sogno, ex Rito della Buonanotte: il messaggio della notte, la
@@ -79,7 +95,7 @@ class DreamRiteCorpus {
     Zodiac.leo: VoceDelSogno(
       parola: 'Calore',
       immagine: 'il sole che scalda gli altri',
-      giorno: 'hai dato luce, ti sei speso',
+      giorno: 'hai dato luce, [ti sei speso|ti sei spesa|hai dato tanto]',
       riconoscimento: 'hai illuminato una stanza senza accorgertene',
       posa: 'abbassa la fiamma, la notte non chiede di brillare, chiede riposo',
     ),

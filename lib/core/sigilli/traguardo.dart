@@ -1,6 +1,7 @@
 import '../maestro/maestro.dart';
 import 'attesa_del_cielo.dart';
 import 'maestro_del_gesto.dart';
+import '../../core/chat/user_profile.dart';
 
 /// LE OTTO FAMIGLIE DEI TRAGUARDI, e non sono un'etichetta.
 ///
@@ -892,7 +893,7 @@ class Traguardo {
     required this.nome,
     required this.famiglia,
     required this.condizione,
-    required this.frase,
+    required String frase,
     required this.posizione,
     required this.percheConta,
     required this.cosaApre,
@@ -902,7 +903,7 @@ class Traguardo {
     this.dormiente = false,
     this.ragione = '',
     this.sezioneDelCammino = '',
-  });
+  }) : _frase = frase;
 
   /// PERCHE' QUESTO TRAGUARDO ESISTE, con la parola del corpus: Prima volta,
   /// Costanza, Cielo, Coincidenza, Legame, Identita', Profondita', Ritorno,
@@ -957,7 +958,10 @@ class Traguardo {
   /// Deve NOMINARE il traguardo che festeggia: "Congratulazioni" da solo e' un
   /// difetto, e una prova lo cerca. Una frase che vale per tutti non festeggia
   /// nessuno.
-  final String frase;
+  final String _frase;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get frase => LaMarcaDelGenere.risolvi(_frase);
 
   /// La posizione sul sentiero, da 1 a 50 per i mini. I grandi stanno a 10,
   /// 20, 30, 40 e 50 e portano la posizione del mini che chiudono.

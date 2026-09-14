@@ -13,6 +13,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'cardinale_minimo.dart';
+import 'le_parole_di_chi_legge.dart';
 import 'sorgenti_di_lib.dart';
 
 /// IL GENERE NON SI INDOVINA. Ordine CF voce 05.
@@ -95,80 +97,120 @@ void main() {
             'passerebbe anche con la scena vuota');
   });
 
-  /// **LE PORTE DEL GENERE, dichiarate per nome.** Un file di questo elenco
-  /// SCEGLIE la forma guardando la persona, quindi porta per costruzione
-  /// tutte e due le declinazioni. Ogni altro file non ne porta nessuna.
+  /// **LE PORTE DEL GENERE, dichiarate per nome.** Ordine DL voci 01 e 06:
+  /// il file che decide e il file dell'enum, che porta il benvenuto
+  /// concordato. Qui c'erano anche `identity_controller.dart`, col suo
+  /// secondo enum tolto, e i due `switch` dell'onboarding, che adesso passano
+  /// dalla marca.
   const porte = <String>{
+    'lib/core/chat/la_marca_del_genere.dart',
     'lib/core/chat/user_profile.dart',
-    'lib/core/identity/identity_controller.dart',
-    'lib/features/onboarding/anteprima_tono.dart',
-    'lib/features/onboarding/scena_del_ritrovamento.dart',
   };
 
-  /// Le forme che DICHIARANO un genere rivolgendosi alla persona, a coppie.
-  const coppie = <List<String>>[
-    ['Benvenuto', 'Benvenuta'],
-    ['Bentornato', 'Bentornata'],
-  ];
-
-  List<String> stringheDi(String sorgente) {
-    final fuori = <String>[];
-    for (final riga in sorgente.split('\n')) {
-      if (riga.trimLeft().startsWith('//')) continue;
-      for (final m in RegExp("'([^']{2,400})'").allMatches(riga)) {
-        fuori.add(m.group(1)!);
-      }
-    }
-    return fuori;
-  }
-
-  test('nessuna stringa dichiara un genere fuori dalle porte del genere', () {
+  /// **LA GUARDIA DIVENTA UN DIZIONARIO.** Ordine DL voce 06.
+  ///
+  /// Qui c'erano due coppie, *Benvenuto* e *Bentornato*, e fuori da quelle due
+  /// parole l'app diceva a chi legge di essere un uomo o una donna in
+  /// centodieci stringhe senza che nessuna prova se ne accorgesse: *"Sei
+  /// scesa con questa domanda"* nei Tarocchi, *"Chiedi a te stesso"* nel
+  /// Viaggio, *"Sei nato"* in sei file. Il dizionario e il criterio stanno in
+  /// `le_parole_di_chi_legge.dart`, e li usa anche il censimento dell'ordine.
+  ///
+  /// **La regola**: nessuna stringa di `lib` rivolta alla persona contiene
+  /// una forma del dizionario fuori da una marca `[m|f|n]`. Le sole eccezioni
+  /// sono le porte qui sopra.
+  test('nessuna stringa dice il genere di chi legge fuori da una marca', () {
     final colpe = <String>[];
-    var quante = 0;
+    var letterali = 0;
+    var marcate = 0;
     for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\', '/');
-      final stringhe = stringheDi(f.readAsStringSync());
-      for (final s in stringhe) {
-        for (final coppia in coppie) {
-          for (final forma in coppia) {
-            if (!s.contains(forma)) continue;
-            quante++;
-            if (!porte.contains(percorso)) {
-              colpe.add('$percorso: "$s"');
-            }
+      for (final l in letteraliDi(f.readAsStringSync())) {
+        letterali++;
+        if (marcaDelGenere.hasMatch(l.testo)) marcate++;
+        final forme = formeDelGenere(l.testo);
+        if (forme.isEmpty || porte.contains(percorso)) continue;
+        colpe.add('$percorso:${l.riga} $forme');
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE DL VOCE 06: letterali guardati $letterali, con una marca '
+        '$marcate, con il genere fuori da una marca ${colpe.length}');
+    cardinaleMinimo(letterali, 18000,
+        cosa: 'letterali di stringa in lib',
+        perche: 'il 14 settembre 2026 erano 20.544: sotto diciottomila il '
+            'lettore dei sorgenti ha smesso di leggere');
+    expect(colpe, isEmpty,
+        reason: 'queste stringhe dicono a chi legge di essere un uomo o una '
+            'donna, a chiunque: marcale con [maschile|femminile|neutro], '
+            'oppure scrivile senza genere. ${colpe.join('\n')}');
+  });
+
+  test('il dizionario prende le forme che deve prendere', () {
+    // **LA GUARDIA DELLA GUARDIA**: se il criterio si stringesse troppo, la
+    // prova sopra diventerebbe verde senza guardare niente.
+    for (final frase in const [
+      'Sei scesa con questa domanda',
+      'Chiedi a te stesso quale racconterai meglio',
+      'Il giorno in cui sei nato',
+      'Restare solo',
+      'Non ti serve essere sicuro',
+      'Se sei da solo, un incontro leggero',
+      'fatti trovare pronto',
+      'Ti senti poco riconosciuto',
+      'Bentornata, Sofia',
+      'aspettare di sentirti più pronta',
+      'è non accorgersi di essere arrivata',
+    ]) {
+      expect(formeDelGenere(frase), isNotEmpty,
+          reason: '"$frase" dice il genere di chi legge e il criterio non lo '
+              'vede');
+    }
+    for (final frase in const [
+      'Te lo sei portato dietro',
+      'Oggi il velo cade da solo',
+      'Sei socievole, con uno sguardo che va in profondità',
+      'la foto, senza mai essere caricata',
+      'Un seme che sia pronto a fruttare',
+      '[Sei arrivato|Sei arrivata|Sei qui] fin qui',
+      'sei adesso nel tuo giorno',
+    ]) {
+      expect(formeDelGenere(frase), isEmpty,
+          reason: '"$frase" non dice il genere di chi legge, e il criterio '
+              'lo prende');
+    }
+  });
+
+  test('ogni marca del genere in lib ha tre campi', () {
+    // Una marca rotta a schermo esce con le sue quadre: meglio fermarla qui.
+    final rotte = <String>[];
+    var quante = 0;
+    final aperta = RegExp(r'\[[^\[\]]*\|[^\[\]]*\]');
+    for (final f in sorgentiDiLib()) {
+      final percorso = f.path.replaceAll(r'\', '/');
+      for (final l in letteraliDi(f.readAsStringSync())) {
+        for (final m in aperta.allMatches(l.testo)) {
+          quante++;
+          if ('|'.allMatches(m.group(0)!).length != 2) {
+            rotte.add('$percorso:${l.riga} ${m.group(0)}');
           }
         }
       }
     }
     // ignore: avoid_print
-    print('ORDINE CF VOCE 05: stringhe che dichiarano un genere $quante, '
-        'porte dichiarate ${porte.length}, fuori dalle porte ${colpe.length}');
-    expect(colpe, isEmpty,
-        reason: 'queste stringhe dichiarano un genere fuori dalle porte del '
-            'genere, quindi lo affermano sempre e per tutti: $colpe. Falle '
-            'passare da una porta, oppure scrivile in forma neutra');
+    print('ORDINE DL VOCE 02: marche del genere in lib $quante, rotte '
+        '${rotte.length}');
+    expect(rotte, isEmpty, reason: 'marche senza tre campi: $rotte');
   });
 
-  test('ogni porta del genere porta ancora tutte e due le declinazioni', () {
-    // **SENZA QUESTA PROVA la prima si potrebbe far passare cancellando meta'
-    // di una coppia**, e allora il Cerchio smetterebbe di parlare a chi ha
-    // scelto quella forma invece di indovinare.
-    final colpe = <String>[];
-    for (final percorso in porte) {
-      final f = File(percorso);
-      expect(f.existsSync(), isTrue,
-          reason: 'la porta del genere $percorso non esiste piu\': '
-              'l\'elenco qui sopra insegue un file che non c\'e\'');
-      final stringhe = stringheDi(f.readAsStringSync()).join('\n');
-      for (final coppia in coppie) {
-        final presenti =
-            coppia.where((forma) => stringhe.contains(forma)).toList();
-        if (presenti.length == 1) {
-          colpe.add('$percorso porta "${presenti.single}" e non l\'altra '
-              'meta\' della coppia $coppia');
-        }
-      }
+  test('la porta del genere porta ancora le due declinazioni', () {
+    // **SENZA QUESTA PROVA** la prima si potrebbe far passare togliendo il
+    // maschile o il femminile dalla porta, e allora il Cerchio smetterebbe di
+    // parlare a chi ha scelto quella forma invece di indovinare.
+    final testo = File('lib/core/chat/user_profile.dart').readAsStringSync();
+    for (final forma in const ['Benvenuto', 'Benvenuta']) {
+      expect(testo.contains(forma), isTrue,
+          reason: 'la porta del genere ha perso "$forma"');
     }
-    expect(colpe, isEmpty, reason: 'porte del genere a meta\': $colpe');
   });
 }

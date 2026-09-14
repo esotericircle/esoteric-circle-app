@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// LE DICIASSETTE CORNICI COINCIDONO CON LA FONTE, CARATTERE PER CARATTERE.
 ///
@@ -187,12 +188,15 @@ void main() {
         continue;
       }
       final dallaFonte = fonte[titolo]!;
-      if (c.apertura != dallaFonte.apertura) {
+      // **LA FONTE SI LEGGE RISOLTA COME IL CODICE**, ordine DL voce 03: la
+      // chiusura della G8 porta la marca del genere in tutti e due i
+      // posti, e si confrontano nella stessa forma.
+      if (c.apertura != LaMarcaDelGenere.risolvi(dallaFonte.apertura)) {
         divergenze.add('$titolo, APERTURA\n'
             '  codice: ${c.apertura}\n'
             '  fonte : ${dallaFonte.apertura}');
       }
-      if (c.chiusura != dallaFonte.chiusura) {
+      if (c.chiusura != LaMarcaDelGenere.risolvi(dallaFonte.chiusura)) {
         divergenze.add('$titolo, CHIUSURA\n'
             '  codice: ${c.chiusura}\n'
             '  fonte : ${dallaFonte.chiusura}');

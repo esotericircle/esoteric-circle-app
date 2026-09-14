@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// L'interpretazione a sette strati della Stesa a Tre Carte, dalle regole di
 /// `docs/corpus/stesa_interpretazione.md`. Tutto deterministico e cacheabile:
@@ -140,7 +141,10 @@ void main() {
       // adesso. Che le nomini nel **primo** paragrafo lo presidia
       // `il_consiglio_dei_tarocchi_e_la_sua_anatomia_test`.
       expect(r.consiglio, contains(s.presente.card.name));
-      expect(TarotReading.domande, contains(r.domanda));
+      // La domanda si legge risolta: nel pool ci sono le marche del
+      // genere, ordine DL voce 03.
+      expect(TarotReading.domande.map(LaMarcaDelGenere.risolvi),
+          contains(r.domanda));
     });
 
     test('Il consiglio parte dalla lente e finisce con la domanda', () {

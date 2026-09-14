@@ -22,7 +22,9 @@ import 'package:flutter/foundation.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/ricordi/lettura_del_mese.dart';
 import '../../core/ricordi/riassunti_del_tempo.dart';
+import '../../core/chat/user_profile.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
+import '../ai/maestro_persona.dart';
 
 class PennaVeraDelMese extends PennaDelMese {
   const PennaVeraDelMese();
@@ -72,7 +74,7 @@ class PennaVeraDelMese extends PennaDelMese {
     try {
       final model = FirebaseAI.vertexAI().generativeModel(
         model: FirebaseMaestroAiProvider.kMaestroBreveModel,
-        systemInstruction: Content.system(_istruzione(chi)),
+        systemInstruction: Content.system(istruzione(chi)),
       );
       final testo =
           ingresso(mese: mese, riassunto: riassunto, settimane: settimane);
@@ -94,13 +96,21 @@ class PennaVeraDelMese extends PennaDelMese {
   /// regola del fondatore del 28 agosto 2026: qui arrivano conti, e cio' che
   /// si puo' dire e' cosa quei conti raccontano del cammino, non cosa e'
   /// successo nella vita di chi li ha prodotti.
-  static String _istruzione(Maestro maestro) =>
+  ///
+  /// **QUI SI IMPONEVA IL FEMMINILE A TUTTI**, ordine DL voce 04: *"dove e'
+  /// tornata spesso"*, *"parla a lei in seconda persona"*. Non era una
+  /// dimenticanza, era un'istruzione scritta. Adesso la persona si nomina
+  /// come *la persona*, e la forma con cui rivolgersi a lei arriva dal blocco
+  /// di cortesia, uguale a quello dei Maestri.
+  static String istruzione(Maestro maestro, {CourtesyForm? forma}) =>
       'Sei ${maestro.displayName}, uno dei tre Maestri del Cerchio. Ti '
       'arrivano i CONTI del mese di una persona: quanti momenti, con quali '
       'arti, con quali Maestri, quanti traguardi. Scrivi tre o quattro frasi '
-      'che raccontino il suo mese guardando quei numeri: dove è tornata '
-      'spesso, cosa ha lasciato stare, cosa è cambiato da una settimana '
-      'all\'altra. Parla a lei in seconda persona, con parole di uso comune. '
-      'Non inventare nulla che i numeri non dicano. Non parlare della sua '
-      'vita fuori dal Cerchio: tu vedi il cammino, non la persona.';
+      'che raccontino il suo mese guardando quei numeri: le arti a cui è '
+      'tornata più spesso la persona, cosa ha lasciato stare, cosa è cambiato '
+      'da una settimana all\'altra. Scrivi in seconda persona, con parole di '
+      'uso comune. Non inventare nulla che i numeri non dicano. Non parlare '
+      'della sua vita fuori dal Cerchio: tu vedi il cammino, non la persona.'
+      '\n\n'
+      '${MaestroPersona.bloccoDiCortesia(UserProfile(courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente))}';
 }

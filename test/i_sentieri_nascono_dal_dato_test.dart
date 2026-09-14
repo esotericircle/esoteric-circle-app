@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// I TRE SENTIERI NASCONO DAL DATO. Ordine AR voce 02, portato alla
 /// **revisione F** dall'ordine CP voce 05, 3 settembre 2026.
@@ -78,7 +79,9 @@ void main() {
       final campi = <String, List<Object?>>{
         'nome': [mio.nome, v['nome']],
         'fascia': [mio.fascia, v['fascia']],
-        'frase': [mio.frase, v['frase']],
+        // **LA FRASE SI CONFRONTA RISOLTA**, ordine DL voce 03: nel corpus
+        // c'e' la marca del genere, il codice la legge nella forma scelta.
+        'frase': [mio.frase, LaMarcaDelGenere.risolvi('${v['frase']}')],
         'cosaApre': [mio.cosaApre, v['cosaApre']],
         'sezione': [mio.sezioneDelCammino, v['sezione']],
         'ragione': [mio.ragione, v['ragione']],
@@ -122,8 +125,7 @@ void main() {
       final atteso = switch (c['tipo'] as String) {
         'GestiCompiuti' => 'gesti:${c['gesto']}:${c['quanti']}:'
             '${c['inGiorniDiversi'] == true}',
-        'GiorniDentroUnArco' =>
-          'arco:${c['rito']}:${c['quanti']}:${c['arco']}',
+        'GiorniDentroUnArco' => 'arco:${c['rito']}:${c['quanti']}:${c['arco']}',
         'StessaOraPerGiorni' => 'orafedele:${c['gesto']}:${c['quantiGiorni']}',
         'GestoNellOraGiusta' =>
           'ora:${c['gesto']}:${c['ora']}:${c['quanteVolte']}',

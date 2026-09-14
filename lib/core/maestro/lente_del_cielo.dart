@@ -1,6 +1,7 @@
 import 'ancoraggio.dart';
 import 'maestro.dart';
 import 'voce_del_maestro.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Lo stesso dato, detto da tre voci diverse.
 ///
@@ -50,7 +51,8 @@ class LenteDelCielo {
       case 'segno solare':
         return 'il tuo Sole in ${ancoraggio.valore}';
       case 'fase lunare di nascita':
-        return 'la ${ancoraggio.valore} sotto cui sei nato';
+        return LaMarcaDelGenere.risolvi('la ${ancoraggio.valore} '
+            '[sotto cui sei nato|sotto cui sei nata|della tua nascita]');
       case 'numero della vita':
         return 'il tuo numero ${ancoraggio.valore}';
       default:

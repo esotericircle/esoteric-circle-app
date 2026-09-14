@@ -1,5 +1,6 @@
 import 'chakra_del_giorno.dart';
 import 'memoria_del_respiro.dart';
+import '../../core/chat/user_profile.dart';
 
 /// **IL WOW CHE NASCE DALLA MEMORIA.** Ordine DB voce 09, 9 settembre 2026.
 ///
@@ -73,7 +74,10 @@ abstract final class CioCheAuraRicorda {
     // meno il confronto e' rumore.
     final cambia = memoria.quantoCambiaLaDurata;
     if (cambia != null && cambia >= 0.20) {
-      return 'Oggi sei rimasto più a lungo della settimana scorsa.';
+      // **CONCORDATA ALLA PERSONA**, ordine DL voce 03.
+      return LaMarcaDelGenere.risolvi('Oggi [sei rimasto più a lungo|'
+          'sei rimasta più a lungo|hai passato più tempo qui] della '
+          'settimana scorsa.');
     }
     if (cambia != null && cambia <= -0.20) {
       return 'Oggi è stata più breve del solito e va bene così.';

@@ -99,7 +99,7 @@ INPAROLE = {
     'marte_diretto': 'Marte torna diretto',
     'luna_piena_nel_tuo_segno': 'la Luna è piena nel tuo segno',
     'luna_nuova_nel_tuo_segno': 'la Luna è nuova nel tuo segno',
-    'ritorno_solare': 'il Sole torna dov’era quando sei nato',
+    'ritorno_solare': 'il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]',
 }
 
 # Il gesto detto in italiano: il nome dell'arte come la persona la chiama.

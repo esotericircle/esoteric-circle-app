@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/identity/identity_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/features/onboarding/maestro_reveal_screen.dart';
 
 /// Il nome si normalizza ALLA FONTE, una volta sola.
 ///
@@ -50,8 +51,10 @@ void main() {
   test('Il saluto usa il nome gia\' normalizzato', () {
     final c = IdentityController();
     c.setName('mauro');
-    expect(c.welcome(), contains('Mauro'));
-    expect(c.welcome(), isNot(contains('mauro,')));
+    // **IL SALUTO STA NELLA RIVELAZIONE**, ordine DL voce 01: `welcome` e'
+    // uscito con `AddressForm`, e il saluto passa dalla porta del genere.
+    expect(benvenutoNelCerchio(c.name), contains('Mauro'));
+    expect(benvenutoNelCerchio(c.name), isNot(contains('mauro')));
   });
 
   test('Il vuoto resta vuoto, senza inventare niente', () {

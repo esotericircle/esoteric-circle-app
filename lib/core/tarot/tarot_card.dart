@@ -1,4 +1,5 @@
 import '../assets/family_image.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Il seme di un Arcano Minore, con l'elemento tradizionale.
 enum TarotSeme {
@@ -45,13 +46,13 @@ class TarotCard {
     required this.arcana,
     this.seme,
     this.number,
-    required this.uprightSummary,
-    required this.upright,
-    required this.reversedSummary,
-    required this.reversed,
+    required String uprightSummary,
+    required String upright,
+    required String reversedSummary,
+    required String reversed,
     required this.stem,
     this.reversedAgreement = ReversedAgreement.maschile,
-  });
+  }) : _uprightSummary = uprightSummary, _upright = upright, _reversedSummary = reversedSummary, _reversed = reversed;
 
   final String name;
   final TarotArcana arcana;
@@ -60,10 +61,22 @@ class TarotCard {
   final TarotSeme? seme;
   final int? number;
 
-  final String uprightSummary;
-  final String upright;
-  final String reversedSummary;
-  final String reversed;
+  final String _uprightSummary;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get uprightSummary => LaMarcaDelGenere.risolvi(_uprightSummary);
+  final String _upright;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get upright => LaMarcaDelGenere.risolvi(_upright);
+  final String _reversedSummary;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get reversedSummary => LaMarcaDelGenere.risolvi(_reversedSummary);
+  final String _reversed;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get reversed => LaMarcaDelGenere.risolvi(_reversed);
   final String stem;
 
   /// L'accordo della parola del rovescio, dal corpus.
@@ -134,7 +147,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'Il salto nel vuoto.',
       upright:
-          'Un nuovo inizio ti chiama e il cielo ti chiede di partire leggero, con fiducia e cuore aperto, anche senza vedere tutta la strada. Il Matto non è ingenuo, è libero e la sua leggerezza è una forma di coraggio. Fidati del primo passo, il resto si mostra cammin facendo.',
+          'Un nuovo inizio ti chiama e il cielo ti chiede di [partire leggero|partire leggera|partire senza pesi], con fiducia e cuore aperto, anche senza vedere tutta la strada. Il Matto non è ingenuo, è libero e la sua leggerezza è una forma di coraggio. Fidati del primo passo, il resto si mostra cammin facendo.',
       reversedSummary: 'Il passo avventato.',
       reversed:
           'C\'è uno slancio senza direzione, oppure un timore che ti trattiene sull\'orlo proprio mentre vorresti spiccare il volo. Prima di partire fermati un istante e senti da dove nasce l\'impulso: è coraggio che ti spinge, o è fuga da qualcosa che non hai guardato? La strada resta aperta, ma questa volta scegli con gli occhi aperti.',
@@ -177,7 +190,7 @@ class TarotDeck {
           'Abbondanza, creatività e cura fioriscono nelle tue mani e qualcosa di vivo prende forma, un progetto, un legame, un\'idea. Il tuo compito ora è nutrirlo con dolcezza, senza forzarne i tempi. La terra fertile non tira le piante per farle crescere, le lascia sbocciare.',
       reversedSummary: 'La cura dimenticata.',
       reversed:
-          'La creatività sembra bloccata, oppure ti sei scordata di rivolgere a te stessa l\'attenzione che dai a tutto il resto. Prima di far fiorire fuori, torna a nutrire la tua radice. Rifiorisce dentro ciò che curi con gentilezza.',
+          'La creatività sembra bloccata, oppure [ti sei scordato di rivolgere a te stesso|ti sei scordata di rivolgere a te stessa|hai smesso di rivolgere a te] l\'attenzione che dai a tutto il resto. Prima di far fiorire fuori, torna a nutrire la tua radice. Rifiorisce dentro ciò che curi con gentilezza.',
       stem: 'tar_rw_03_l-imperatrice_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -201,7 +214,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'La guida antica.',
       upright:
-          'Tradizione, insegnamento e senso condiviso ti sono vicini e vale la pena cercare un maestro, un consiglio, una sapienza più grande di te. C\'è forza nell\'appartenere a qualcosa che viene da lontano. Ma la guida vera non ti sostituisce, ti aiuta a diventare maestro di te stesso.',
+          'Tradizione, insegnamento e senso condiviso ti sono vicini e vale la pena cercare un maestro, un consiglio, una sapienza più grande di te. C\'è forza nell\'appartenere a qualcosa che viene da lontano. Ma la guida vera non ti sostituisce, ti aiuta a diventare [maestro di te stesso|maestra di te stessa|la guida di te].',
       reversedSummary: 'La regola da rivedere.',
       reversed:
           'Un sapere ricevuto, una convenzione, un dover essere non ti appartiene più. Non è ribellione, è crescita: cerca il tuo senso anche fuori dal sentiero già tracciato. Ciò che è tuo davvero lo riconosci perché ti fa respirare.',
@@ -214,7 +227,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'La scelta del cuore.',
       upright:
-          'C\'è amore e c\'è un bivio: una decisione che tocca i tuoi valori più veri, non solo il desiderio del momento. Il cielo ti chiede di scegliere con tutto te stesso, testa e cuore insieme. Quando l\'amore è allineato a ciò che sei, la strada si fa chiara.',
+          'C\'è amore e c\'è un bivio: una decisione che tocca i tuoi valori più veri, non solo il desiderio del momento. Il cielo ti chiede di scegliere con [tutto te stesso|tutta te stessa|tutto ciò che sei], testa e cuore insieme. Quando l\'amore è allineato a ciò che sei, la strada si fa chiara.',
       reversedSummary: 'La scelta rimandata.',
       reversed:
           'Dubbio, disaccordo, valori che si contendono il campo: qualcosa dentro non è ancora sincero con sé stesso. Prima di decidere con l\'altro, mettiti d\'accordo con te. La scelta giusta pesa meno quando smetti di mentirti.',
@@ -244,7 +257,7 @@ class TarotDeck {
           'Equilibrio, causa ed effetto, responsabilità: raccogli con lucidità ciò che hai seminato, senza sconti e senza colpe inutili. È un tempo di verità e di scelte giuste. Agisci con onestà e la bilancia peserà a tuo favore.',
       reversedSummary: 'Il conto sospeso.',
       reversed:
-          'C\'è una verità che eviti, oppure una responsabilità che continui a rimandare. Finché resta in ombra, pesa. Guardala in faccia con calma, l\'equilibrio torna nel momento in cui sei onesto con te stesso.',
+          'C\'è una verità che eviti, oppure una responsabilità che continui a rimandare. Finché resta in ombra, pesa. Guardala in faccia con calma, l\'equilibrio torna nel momento in cui [sei onesto con te stesso|sei onesta con te stessa|smetti di mentirti].',
       stem: 'tar_rw_11_la-giustizia_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -285,7 +298,7 @@ class TarotDeck {
           'Il coraggio vero qui è dolce: domini l\'istinto con la mano ferma e il cuore mite, non con la violenza. La Forza non doma la belva con la lotta, la addomestica con la calma. Ciò che ti agita dentro si placa se lo tratti con fermezza tenera.',
       reversedSummary: 'Il dominio perso.',
       reversed:
-          'Forse dubiti della tua tenuta, o forse sei diventata dura con te stessa. La vera forza non è la stretta, è la mano gentile. Torna a trattarti con mitezza e ritrovi il controllo che credevi perso.',
+          'Forse dubiti della tua tenuta, o forse [sei diventato duro con te stesso|sei diventata dura con te stessa|ti tratti con durezza]. La vera forza non è la stretta, è la mano gentile. Torna a trattarti con mitezza e ritrovi il controllo che credevi perso.',
       stem: 'tar_rw_08_la-forza_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -299,7 +312,7 @@ class TarotDeck {
           'C\'è un tempo in cui fermarsi e capovolgere lo sguardo vale più di ogni azione. Da un\'attesa che sembra vuota nasce una comprensione nuova. Lascia andare il bisogno di fare e vedrai la situazione da un\'angolazione che prima ti sfuggiva.',
       reversedSummary: 'La sospensione che pesa.',
       reversed:
-          'L\'attesa ha smesso di insegnare e sa di stallo, o ti sei imposta un sacrificio che non serve a nessuno. Cambia lo sguardo, oppure scendi dall\'albero e torna ad agire. Non ogni rinuncia è nobile, alcune sono solo paura travestita.',
+          'L\'attesa ha smesso di insegnare e sa di stallo, o [ti sei imposto|ti sei imposta|hai scelto] un sacrificio che non serve a nessuno. Cambia lo sguardo, oppure scendi dall\'albero e torna ad agire. Non ogni rinuncia è nobile, alcune sono solo paura travestita.',
       stem: 'tar_rw_12_l-appeso_v1',
     ),
     TarotCard(
@@ -364,7 +377,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'La speranza ritrovata.',
       upright:
-          'Dopo la tempesta arriva una luce dolce e con lei fiducia, ispirazione, la promessa che guarirai. La Stella non urla, rassicura: sei sulla strada giusta anche se sei stanco. Lasciati guidare da questa quiete luminosa, il peggio è passato.',
+          'Dopo la tempesta arriva una luce dolce e con lei fiducia, ispirazione, la promessa che guarirai. La Stella non urla, rassicura: sei sulla strada giusta anche se [sei stanco|sei stanca|senti la stanchezza]. Lasciati guidare da questa quiete luminosa, il peggio è passato.',
       reversedSummary: 'La speranza offuscata.',
       reversed:
           'La fiducia è stanca, l\'ispirazione sembra lontana e fatichi a credere che le cose miglioreranno. Ma la luce non è spenta, solo velata da una nube passeggera. Concediti di sperare ancora, la Stella è lì anche quando non la vedi.',
@@ -408,7 +421,7 @@ class TarotDeck {
           'È tempo di un bilancio e di una rinascita: una voce ti chiama a una vita più vera, più tua. Il Giudizio non condanna, risveglia. Ascolta quella chiamata e rispondi, anche se ti chiede di lasciare la persona che eri per quella che stai diventando.',
       reversedSummary: 'La chiamata inascoltata.',
       reversed:
-          'Rimandi un bilancio che senti necessario, oppure ti giudichi con una durezza che non ti aiuta. La rinascita non nasce dalla condanna, ma dall\'ascolto e dal perdono. Sii con te stesso il giudice giusto, quello che comprende prima di sentenziare.',
+          'Rimandi un bilancio che senti necessario, oppure ti giudichi con una durezza che non ti aiuta. La rinascita non nasce dalla condanna, ma dall\'ascolto e dal perdono. [Sii con te stesso il giudice giusto, quello|Sii con te stessa la giudice giusta, quella|Giudicati con giustizia, come chi] comprende prima di sentenziare.',
       stem: 'tar_rw_20_il-giudizio_v1',
     ),
     TarotCard(
@@ -418,7 +431,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'Il cerchio che si compie.',
       upright:
-          'Pienezza, traguardo, integrazione: un ciclo si chiude in armonia e tu sei arrivato dove dovevi. È un momento di compimento, goditelo prima di aprire il prossimo cerchio. Ciò che hai attraversato ora è parte di te, intero.',
+          'Pienezza, traguardo, integrazione: un ciclo si chiude in armonia e [tu sei arrivato|tu sei arrivata|sei] dove dovevi. È un momento di compimento, goditelo prima di aprire il prossimo cerchio. Ciò che hai attraversato ora è parte di te, intero.',
       reversedSummary: 'Il cerchio quasi chiuso.',
       reversed:
           'Il traguardo è a un passo, ma manca ancora un pezzo da integrare, un dettaglio da sciogliere. Non fermarti proprio adesso. La pienezza chiede l\'ultimo tratto e sarebbe un peccato lasciarla incompiuta così vicino alla fine.',
@@ -447,7 +460,7 @@ class TarotDeck {
           'Un progetto prende forma e ti chiede di scegliere una direzione, di guardare oltre il confine di ciò che già conosci. Hai il mondo in mano, ora decidi la rotta. È il tempo di pianificare con ambizione, non di restare fermo dove sei.',
       reversedSummary: 'Il piano incerto.',
       reversed:
-          'C\'è paura di osare, o una direzione ancora confusa che ti tiene sulla soglia. Prima di muoverti, chiarisci a te stesso cosa vuoi davvero. Un passo deciso vale più di dieci fatti nel dubbio.',
+          'C\'è paura di osare, o una direzione ancora confusa che ti tiene sulla soglia. Prima di muoverti, chiarisci a [te stesso|te stessa|te] cosa vuoi davvero. Un passo deciso vale più di dieci fatti nel dubbio.',
       stem: 'tar_rw_bastoni_02_v1',
     ),
     TarotCard(
@@ -457,7 +470,7 @@ class TarotDeck {
       number: 3,
       uprightSummary: 'Le navi in mare.',
       upright:
-          'Hai seminato e messo in moto qualcosa e ora comincia l\'attesa dei frutti, l\'espansione avviata. Guarda arrivare ciò che hai lanciato, con fiducia. I risultati sono in viaggio verso di te, tienti pronto ad accoglierli.',
+          'Hai seminato e messo in moto qualcosa e ora comincia l\'attesa dei frutti, l\'espansione avviata. Guarda arrivare ciò che hai lanciato, con fiducia. I risultati sono in viaggio verso di te, [tienti pronto|tienti pronta|preparati] ad accoglierli.',
       reversedSummary: 'L\'attesa che pesa.',
       reversed:
           'Arrivano ritardi, o le aspettative non tornano come speravi. Puoi pazientare ancora un poco, oppure correggere la rotta con lucidità, senza scoraggiarti. Un ritardo non è un no, spesso è solo un tempo diverso.',
@@ -499,7 +512,7 @@ class TarotDeck {
           'Arriva un riconoscimento, un successo meritato che gli altri finalmente vedono. Accogli l\'onore con misura, senza montarti la testa né sminuirti. Hai lavorato per questo, goditelo.',
       reversedSummary: 'Il merito non visto.',
       reversed:
-          'Un riconoscimento tarda ad arrivare, o un dubbio su di te ti fa sentire poco valido. Ma il tuo valore resta anche quando l\'applauso non c\'è. Non legare ciò che vali solo a chi te lo conferma.',
+          'Un riconoscimento tarda ad arrivare, o un dubbio su di te ti fa sentire [poco valido|poco valida|di valere poco]. Ma il tuo valore resta anche quando l\'applauso non c\'è. Non legare ciò che vali solo a chi te lo conferma.',
       stem: 'tar_rw_bastoni_06_v1',
     ),
     TarotCard(
@@ -509,10 +522,10 @@ class TarotDeck {
       number: 7,
       uprightSummary: 'La posizione difesa.',
       upright:
-          'È tempo di tenere il punto, di avere coraggio sotto pressione e difendere ciò in cui credi. Sei in vantaggio, anche se ti senti assediato. Hai la forza per reggere, non cedere proprio adesso.',
+          'È tempo di tenere il punto, di avere coraggio sotto pressione e difendere ciò in cui credi. Sei in vantaggio, anche se [ti senti assediato|ti senti assediata|senti l\'assedio]. Hai la forza per reggere, non cedere proprio adesso.',
       reversedSummary: 'La guardia stanca.',
       reversed:
-          'Ti senti sopraffatto, o troppo sulla difensiva anche quando non serve. Scegli con lucidità dove vale la pena resistere e dove invece puoi lasciare. Non devi difendere ogni collina.',
+          '[Ti senti sopraffatto|Ti senti sopraffatta|Ti senti travolgere], o troppo sulla difensiva anche quando non serve. Scegli con lucidità dove vale la pena resistere e dove invece puoi lasciare. Non devi difendere ogni collina.',
       stem: 'tar_rw_bastoni_07_v1',
     ),
     TarotCard(
@@ -535,7 +548,7 @@ class TarotDeck {
       number: 9,
       uprightSummary: 'L\'ultima resistenza.',
       upright:
-          'Sei stanco ma vicino al traguardo e la tenacia ora è tutto. Hai già fatto il più, non mollare proprio l\'ultimo tratto. Un\'ultima prova, poi potrai posare lo scudo.',
+          '[Sei stanco ma vicino|Sei stanca ma vicina|La stanchezza c\'è, ma sei vicino] al traguardo e la tenacia ora è tutto. Hai già fatto il più, non mollare proprio l\'ultimo tratto. Un\'ultima prova, poi potrai posare lo scudo.',
       reversedSummary: 'La difesa irrigidita.',
       reversed:
           'Una diffidenza di troppo, o una stanchezza che ti fa chiudere a riccio. Abbassa un poco lo scudo, non tutto ciò che arriva è una minaccia. Ti difendi anche da chi vorrebbe solo avvicinarsi.',
@@ -551,7 +564,7 @@ class TarotDeck {
           'Hai molte responsabilità sulle spalle, un carico che ti curva. Chiediti con onestà cosa è davvero tuo da portare e cosa puoi posare. Non è forza tenere tutto, è saggezza scegliere cosa.',
       reversedSummary: 'Il carico da alleggerire.',
       reversed:
-          'Porti un fardello che forse non ti appartiene, per abitudine o per senso del dovere. Lascia andare ciò che ti sei caricato senza necessità. Alleggerirti non è tradire nessuno, è respirare.',
+          'Porti un fardello che forse non ti appartiene, per abitudine o per senso del dovere. Lascia andare ciò che [ti sei caricato|ti sei caricata|porti] senza necessità. Alleggerirti non è tradire nessuno, è respirare.',
       stem: 'tar_rw_bastoni_10_v1',
     ),
     TarotCard(
@@ -587,7 +600,7 @@ class TarotDeck {
       number: 13,
       uprightSummary: 'Il carisma caldo.',
       upright:
-          'Sicurezza, calore, magnetismo: brilli con generosità e la tua fiamma scalda chi ti sta intorno. Sii pienamente te stessa, è proprio questo che attrae. La tua luce non toglie spazio a nessuno.',
+          'Sicurezza, calore, magnetismo: brilli con generosità e la tua fiamma scalda chi ti sta intorno. Sii pienamente [te stesso|te stessa|chi sei], è proprio questo che attrae. La tua luce non toglie spazio a nessuno.',
       reversedSummary: 'La fiamma insicura.',
       reversed:
           'Un dubbio su di te, o una gelosia che offusca la tua luce. Torna al tuo centro, la tua fiamma non ha rivali da temere. Quando ti riconosci, l\'insicurezza si spegne da sola.',
@@ -640,7 +653,7 @@ class TarotDeck {
       number: 3,
       uprightSummary: 'Il brindisi degli amici.',
       upright:
-          'Amicizia, festa, comunità: è il tempo di celebrare insieme. La gioia condivisa raddoppia, quindi circondati di chi ti vuole bene. C\'è qualcosa da festeggiare, non farlo da solo.',
+          'Amicizia, festa, comunità: è il tempo di celebrare insieme. La gioia condivisa raddoppia, quindi circondati di chi ti vuole bene. C\'è qualcosa da festeggiare, [non farlo da solo|non farlo da sola|fallo in compagnia].',
       reversedSummary: 'La festa da riequilibrare.',
       reversed:
           'Forse un eccesso, o un cerchio di persone che va curato meglio. Torna alle amicizie vere, quelle che nutrono, senza disperderti. Meglio pochi legami sinceri che tanti di facciata.',
@@ -682,7 +695,7 @@ class TarotDeck {
           'Nostalgia dolce, ricordi cari, un affetto sincero che dal passato torna a scaldarti. Lascia che questa tenerezza ti nutra. C\'è innocenza e bontà in ciò che ricordi con amore.',
       reversedSummary: 'Il passato che trattiene.',
       reversed:
-          'Il rischio è vivere di ricordi, restare aggrappato a un tempo che non c\'è più. Onora ciò che è stato, poi torna con dolcezza al presente. La vita ti aspetta adesso, non solo nella memoria.',
+          'Il rischio è vivere di ricordi, [restare aggrappato|restare aggrappata|aggrapparti] a un tempo che non c\'è più. Onora ciò che è stato, poi torna con dolcezza al presente. La vita ti aspetta adesso, non solo nella memoria.',
       stem: 'tar_rw_coppe_06_v1',
     ),
     TarotCard(
@@ -695,7 +708,7 @@ class TarotDeck {
           'Fantasie, molte possibilità, illusioni che si affollano davanti a te. Sogna pure in grande, poi scegli con i piedi a terra. Non tutte le coppe contengono ciò che promettono.',
       reversedSummary: 'La nebbia che si dirada.',
       reversed:
-          'Dopo la confusione arriva la chiarezza, metti a fuoco un desiderio vero tra i tanti. Ora sai quale strada vuoi. Scegliere una cosa è rinunciare alle altre ed è proprio questo che ti rende libero.',
+          'Dopo la confusione arriva la chiarezza, metti a fuoco un desiderio vero tra i tanti. Ora sai quale strada vuoi. Scegliere una cosa è rinunciare alle altre ed è proprio questo che [ti rende libero|ti rende libera|ti dà libertà].',
       stem: 'tar_rw_coppe_07_v1',
     ),
     TarotCard(
@@ -773,7 +786,7 @@ class TarotDeck {
           'Empatia, intuito, tenerezza: accogli e comprendi con il cuore. La tua sensibilità è una forza, non una debolezza. Sai leggere gli altri in profondità, usa questo dono anche per te.',
       reversedSummary: 'L\'emozione che sommerge.',
       reversed:
-          'Ti perdi negli altri, assorbi ogni loro stato d\'animo fino a smarrire il tuo. Riporta un poco di cura anche a te stessa. Puoi amare senza annegare.',
+          'Ti perdi negli altri, assorbi ogni loro stato d\'animo fino a smarrire il tuo. Riporta un poco di cura anche a [te stesso|te stessa|te]. Puoi amare senza annegare.',
       stem: 'tar_rw_coppe_13_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -901,7 +914,7 @@ class TarotDeck {
       number: 9,
       uprightSummary: 'Il giardino conquistato.',
       upright:
-          'Autonomia, agiatezza, frutti meritati con le tue mani: goditi ciò che hai costruito da te. È la carta dell\'indipendenza serena. Ti sei guadagnata il tuo spazio, abitalo con piacere.',
+          'Autonomia, agiatezza, frutti meritati con le tue mani: goditi ciò che hai costruito da te. È la carta dell\'indipendenza serena. [Ti sei guadagnato|Ti sei guadagnata|Hai guadagnato] il tuo spazio, abitalo con piacere.',
       reversedSummary: 'L\'indipendenza da curare.',
       reversed:
           'Un\'insicurezza, o eccessi che minano la tua serenità. Ritrova l\'equilibrio tra il valore di te e quello di ciò che possiedi. Non sei ciò che hai, sei molto di più.',
@@ -1058,7 +1071,7 @@ class TarotDeck {
       number: 7,
       uprightSummary: 'La strategia silenziosa.',
       upright:
-          'Astuzia, prudenza, agire con tatto invece che di forza. Usa l\'ingegno, ma resta onesto con te stesso su cosa stai facendo. La furbizia è un\'arte, l\'inganno una trappola anche per chi lo tende.',
+          'Astuzia, prudenza, agire con tatto invece che di forza. Usa l\'ingegno, ma [resta onesto con te stesso|resta onesta con te stessa|non mentirti] su cosa stai facendo. La furbizia è un\'arte, l\'inganno una trappola anche per chi lo tende.',
       reversedSummary: 'Il gioco da chiarire.',
       reversed:
           'Un inganno che pesa sulla coscienza, tuo o di qualcun altro, che sta venendo a galla. Torna alla trasparenza, libera la coscienza. La verità costa meno di una bugia da mantenere.',
@@ -1071,10 +1084,10 @@ class TarotDeck {
       number: 8,
       uprightSummary: 'La prigione dei pensieri.',
       upright:
-          'Ti senti bloccato, ma i limiti sono soprattutto nella tua mente. Le corde sono più larghe di quanto credi e la benda te la puoi togliere. Il primo passo verso l\'uscita è capire che c\'è.',
+          '[Ti senti bloccato|Ti senti bloccata|Ti sembra di non poterti muovere], ma i limiti sono soprattutto nella tua mente. Le corde sono più larghe di quanto credi e la benda te la puoi togliere. Il primo passo verso l\'uscita è capire che c\'è.',
       reversedSummary: 'Le corde che cadono.',
       reversed:
-          'Una liberazione, una via che si apre dopo il senso di trappola. Riconosci la tua forza e fai il primo passo fuori. Eri più libero di quanto la paura ti diceva.',
+          'Una liberazione, una via che si apre dopo il senso di trappola. Riconosci la tua forza e fai il primo passo fuori. [Eri più libero|Eri più libera|Avevi più libertà] di quanto la paura ti diceva.',
       stem: 'tar_rw_spade_08_v1',
     ),
     TarotCard(
@@ -1139,7 +1152,7 @@ class TarotDeck {
           'Intelligenza, onestà, confini chiari: pensi con nitore e dici il vero senza giri. La tua franchezza è un dono, anche quando non è comoda. Sai distinguere e questo ti protegge.',
       reversedSummary: 'La freddezza difensiva.',
       reversed:
-          'Una durezza, o una solitudine scelta come corazza. Ammorbidisci il giudizio, a partire da quello verso te stessa. La lama più affilata non deve rivolgersi contro chi la porta.',
+          'Una durezza, o una solitudine scelta come corazza. Ammorbidisci il giudizio, a partire da quello verso [te stesso|te stessa|te]. La lama più affilata non deve rivolgersi contro chi la porta.',
       stem: 'tar_rw_spade_13_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),

@@ -10,6 +10,8 @@
 // vorrebbe dire riscrivere una fonte.
 library;
 
+import '../chat/user_profile.dart';
+
 /// Il contenuto di un angelo, per come il Corpus lo documenta.
 class AngelLore {
   const AngelLore({
@@ -18,10 +20,11 @@ class AngelLore {
     required this.degrees,
     required this.sign,
     required this.psalm,
-    required this.tradition,
-    required this.reading,
+    required String tradition,
+    required String reading,
     required this.confidence,
-  });
+  })  : _tradition = tradition,
+        _reading = reading;
 
   final int number;
 
@@ -40,12 +43,15 @@ class AngelLore {
   /// Il salmo con la numerazione dichiarata, che cambia fra le edizioni.
   final String psalm;
 
-  /// Il dominio secondo la tradizione, dalle fonti.
-  final String tradition;
+  /// Il dominio secondo la tradizione, dalle fonti. **Porta la marca
+  /// del genere**, ordine DL voce 03: si risolve con la forma della persona.
+  final String _tradition;
+  String get tradition => LaMarcaDelGenere.risolvi(_tradition);
 
   /// La chiave di lettura, scritta in redazione: e' voce del Maestro, non
   /// tradizione documentata, e a schermo va tenuta distinta dalle fonti.
-  final String reading;
+  final String _reading;
+  String get reading => LaMarcaDelGenere.risolvi(_reading);
 
   /// Quanto la fonte regge, dichiarato dal ricercatore. Dove e' bassa si
   /// mostra meno invece di mostrare male.
@@ -93,7 +99,7 @@ const Map<int, AngelLore> kAngelLore = {
     sign: 'Ariete',
     psalm: 'Salmo 91,2 nella numerazione ebraica (90,2 nella Vulgata): «Dicet Domino: susceptor meus es tu et refugium meum; Deus meus, sperabo in eum».',
     tradition: 'La tradizione lo lega alla costruzione, alla responsabilità presa davanti agli altri, alla tenuta nelle avversità. Riguarda le opere lente, quelle che si misurano in anni.',
-    reading: 'Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che sei disposto a dedicarle quando smette di convenirti.',
+    reading: 'Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che [sei disposto|sei disposta|vuoi] dedicarle quando smette di convenirti.',
     confidence: 'alta',
   ),
   4: AngelLore(
@@ -203,7 +209,7 @@ const Map<int, AngelLore> kAngelLore = {
     sign: 'Gemelli',
     psalm: 'Salmo 9,10 (Vulgata 9,10): «Il Signore sarà un rifugio per l\'oppresso, un riparo nei momenti di angoscia». Nelle Bibbie di lingua inglese e nella numerazione masoretica lo stesso versetto è 9,9',
     tradition: 'Riguarda le controversie, la difesa di chi non ha voce, la libertà personale. Tocca gli accordi, i contratti, tutto quello che si firma o si promette davanti a testimoni.',
-    reading: 'Dici le cose come stanno senza usare la verità come un\'arma. La tua misura è la giustizia applicata prima di tutto a te stesso.',
+    reading: 'Dici le cose come stanno senza usare la verità come un\'arma. La tua misura è la giustizia applicata prima di tutto a [te stesso|te stessa|te].',
     confidence: 'alta',
   ),
   15: AngelLore(
@@ -242,8 +248,8 @@ const Map<int, AngelLore> kAngelLore = {
     degrees: 'da 85 a 90 gradi',
     sign: 'Gemelli',
     psalm: 'Salmo 7,9 (numerazione CEI): «Il Signore decide la causa dei popoli: giudicami, Signore, secondo la mia giustizia». Corrisponde a 7,8 nella numerazione ebraico-inglese usata da Ambelain.',
-    tradition: 'Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a te stesso.',
-    reading: 'Giustizia. Distingui il fatto dall\'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per essere creduto.',
+    tradition: 'Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a [te stesso|te stessa|te].',
+    reading: 'Giustizia. Distingui il fatto dall\'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per [essere creduto|essere creduta|farti credere].',
     confidence: 'media',
   ),
   19: AngelLore(
@@ -553,7 +559,7 @@ const Map<int, AngelLore> kAngelLore = {
     sign: 'Sagittario',
     psalm: 'Salmo 145,3 nella numerazione ebraica e moderna: «Magnus Dominus et laudabilis nimis, et magnitudinis eius non est investigatio» (Nova Vulgata). Nella Vulgata Clementina il passo è 144,3 con lezione diversa: «Magnus Dominus, et laudabilis nimis; et magnitudinis ejus non est finis»',
     tradition: 'La tradizione lo colloca dove serve la parola: scrittura, insegnamento, diplomazia, mediazione fra posizioni lontane. È il terreno di chi mette d\'accordo, non di chi vince la discussione.',
-    reading: 'Hai un metro di misura alto, prima di tutto verso te stesso. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.',
+    reading: 'Hai un metro di misura alto, prima di tutto verso [te stesso|te stessa|te]. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.',
     confidence: 'alta',
   ),
   50: AngelLore(
@@ -673,7 +679,7 @@ const Map<int, AngelLore> kAngelLore = {
     sign: 'Acquario',
     psalm: 'Salmo 113, versetto 2 (numerazione ebraica), corrispondente al Salmo 112, versetto 2 della Vulgata: «Sit nomen Domini benedictum, ex hoc nunc et usque in saeculum», cioè «Sia benedetto il nome del Signore, da ora e per sempre».',
     tradition: 'Le amicizie, i legami elettivi, la musica, l\'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.',
-    reading: 'L\'affinità, cioè la capacità di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.',
+    reading: 'L\'affinità, cioè la capacità di sentire l\'altro senza confonderti con lui. Ti insegna a stare vicino [restando te stesso|restando te stessa|senza perderti].',
     confidence: 'alta',
   ),
   62: AngelLore(

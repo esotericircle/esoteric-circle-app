@@ -35,6 +35,7 @@ import '../onboarding/primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../settings/privacy_e_permessi_screen.dart';
+import '../../core/chat/user_profile.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -776,9 +777,11 @@ Future<void> _chiediDiUscire(BuildContext context) async {
   DimenticanzaDellaMemoriaViva.dimentica(context);
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      key: Key('uscita_fatta'),
-      content: Text('Sei uscito. Il tuo cammino ti aspetta al rientro.'),
+    SnackBar(
+      key: const Key('uscita_fatta'),
+      content: Text(LaMarcaDelGenere.risolvi(
+          '[Sei uscito|Sei uscita|Hai chiuso la sessione]. Il tuo cammino '
+          'ti aspetta al rientro.')),
     ),
   );
   // Si torna alla radice: restare in una schermata che parla di un account
@@ -922,7 +925,8 @@ Future<bool> _neSeiDavveroSicuro(BuildContext context,
     builder: (dialogo) => AlertDialog(
       key: const Key('cancellazione_ultima_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title: Text('Ne sei davvero sicuro?',
+      title: Text(LaMarcaDelGenere.risolvi('[Ne sei davvero sicuro|'
+              'Ne sei davvero sicura|Vuoi davvero farlo]?'),
           style: TypographyTokens.titoloScheda()),
       content: Text(
         'È l\'ultimo passo. Non si torna indietro.',

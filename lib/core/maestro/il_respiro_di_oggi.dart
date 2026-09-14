@@ -1,5 +1,6 @@
 import 'chakra_del_giorno.dart';
 import 'memoria_del_respiro.dart';
+import '../../core/chat/user_profile.dart';
 
 /// **IL RESPIRO DI OGGI, PER CHI CHIUDE LA GIORNATA.** Ordine DA voce 06,
 /// 10 settembre 2026.
@@ -41,8 +42,9 @@ abstract final class IlRespiroDiOggi {
     // **Chi ha respirato senza arrivare in fondo non viene corretto.** La
     // riga dice che il respiro c'e' stato, che e' vero, e si ferma li'.
     if (compiute == 0) {
-      return 'Oggi ti sei fermato a respirare $nome. Anche quello è '
-          'passato per la tua giornata.';
+      return LaMarcaDelGenere.risolvi('[Oggi ti sei fermato a respirare|'
+          'Oggi ti sei fermata a respirare|Oggi hai respirato] $nome. Anche '
+          'quello è passato per la tua giornata.');
     }
     if (diOggi.length == 1) {
       return 'Oggi hai respirato $nome. Vedi se è rimasto qualcosa.';

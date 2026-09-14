@@ -53,6 +53,7 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../../../core/chat/user_profile.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -1226,7 +1227,10 @@ class _CatturaState extends State<_Cattura>
     }
     if (!_scansione.agganciato) return 'Guarda dritto verso lo schermo.';
     final posa = _scansione.posaCorrente;
-    if (posa == null) return 'Scansione completa. Quando sei pronto, cattura.';
+    if (posa == null) {
+      return LaMarcaDelGenere.risolvi('Scansione completa. [Quando sei pronto|'
+          'Quando sei pronta|Quando vuoi], cattura.');
+    }
     return posa.richiesta;
   }
 

@@ -30,6 +30,7 @@ import 'rivelazione_carta_di_nascita.dart';
 import 'trionfi_screen.dart';
 import 'primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../core/chat/user_profile.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -376,7 +377,9 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
                     child: FilledButton(
                       key: const Key('carta_di_nascita_continua'),
                       onPressed: _onCartaContinue,
-                      child: const Text('Guarda il cielo in cui sei nato'),
+                      child: Text(LaMarcaDelGenere.risolvi(
+                          'Guarda il cielo [in cui sei nato|in cui sei nata|'
+                          'della tua nascita]')),
                     ),
                   ),
                 ),

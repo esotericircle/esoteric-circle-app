@@ -196,7 +196,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       initialDate: _data ?? DateTime(1990, 6, 15),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
-      helpText: 'Il giorno in cui sei nato',
+      helpText: 'Il giorno della tua nascita',
     );
     if (scelta != null) setState(() => _data = scelta);
   }

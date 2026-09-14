@@ -8,6 +8,7 @@ import '../astro/carta_conservata.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
 import '../astro/moon_phase.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Fatti identitari fissi che nascono dai dati di nascita: la fase della Luna
 /// del giorno di nascita (col segno lunare) e il numero della vita.
@@ -151,21 +152,25 @@ String lifeTitleOf(int n) => switch (n) {
       _ => 'il tuo cammino',
     };
 
-String lifeMeaningOf(int n) => switch (n) {
+/// **CONCORDATO ALLA PERSONA**, ordine DL voce 03: due significati portano
+/// la marca del genere, e si risolvono qui.
+String lifeMeaningOf(int n) => LaMarcaDelGenere.risolvi(switch (n) {
       1 => 'guida, volontà e indipendenza: apri le strade.',
       2 => 'sensibilità, unione e diplomazia: tessi legami.',
       3 => 'espressione, gioia e parola: crei e comunichi.',
       4 => 'ordine, radici e disciplina: costruisci basi solide.',
-      5 => 'movimento, cambiamento e sensi: vivi libero.',
+      5 => 'movimento, cambiamento e sensi: [vivi libero|vivi libera|'
+          'vivi in libertà].',
       6 => 'amore, cura e responsabilità: custodisci gli altri.',
       7 => 'introspezione, mistero e sapere: cerchi la verità.',
       8 => 'potere, materia e giustizia: realizzi nel mondo.',
-      9 => 'dono, compimento e universalità: doni te stesso.',
+      9 => 'dono, compimento e universalità: [doni te stesso|'
+          'doni te stessa|ti doni].',
       11 => 'intuizione e ispirazione, numero maestro: illumini.',
       22 => 'grandi opere concrete, numero maestro: dai forma ai sogni.',
       33 => 'servizio e guarigione, numero maestro: curi col cuore.',
       _ => 'un filo unico del tuo destino.',
-    };
+    });
 
 /// Tiene i dati di nascita e la carta, e ne deriva i fatti identitari. Provider
 /// condiviso, cosi' carta, profilo e Cosmic Passport leggono la stessa fonte.

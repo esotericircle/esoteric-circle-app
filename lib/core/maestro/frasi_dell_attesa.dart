@@ -1,6 +1,7 @@
 import '../chat/maestro_memory.dart';
 import 'maestro.dart';
 import 'natal_context.dart';
+import '../../core/chat/user_profile.dart';
 
 /// CHE COSA C'E' DAVVERO NEL CONTESTO CHE PARTE VERSO IL MODELLO.
 ///
@@ -87,7 +88,9 @@ class FrasiDellAttesa {
           DatoDelContesto.ascendente),
       FraseDellAttesa('Sto misurando il tuo numero della vita',
           DatoDelContesto.numeroDellaVita),
-      FraseDellAttesa('Sto risalendo alla Luna sotto cui sei nato',
+      FraseDellAttesa(
+          'Sto risalendo alla Luna [sotto cui sei nato|sotto cui sei nata|'
+          'della tua nascita]',
           DatoDelContesto.faseLunareDiNascita),
       FraseDellAttesa(
           'Sto ricordando cosa ti muoveva', DatoDelContesto.memoria),
@@ -153,7 +156,10 @@ class FrasiDellAttesa {
     final tutte = perMaestro[maestro]!;
     return [
       for (final f in tutte)
-        if (ceIlDato(f.chiede, natal: natal, memoria: memoria)) f.testo,
+        // **LA MARCA SI RISOLVE QUI**, ordine DL voce 02: il testo e' in una
+        // costante, e questo e' il punto dove diventa una frase a schermo.
+        if (ceIlDato(f.chiede, natal: natal, memoria: memoria))
+          LaMarcaDelGenere.risolvi(f.testo),
     ];
   }
 }

@@ -92,11 +92,8 @@ class MaestroWelcome {
   static String vocative(UserProfile profile) {
     if (!profile.hasName) return 'Anima del Cerchio';
     final name = capitalizza(profile.displayName!.trim());
-    return profile.courtesyForm.agree(
-      masculine: 'Caro $name',
-      feminine: 'Cara $name',
-      neutral: 'Ciao $name',
-    );
+    // **UNA MARCA**, ordine DL voce 06, risolta prima di attaccare il nome.
+    return '${profile.courtesyForm.risolvi('[Caro|Cara|Ciao]')} $name';
   }
 
   /// Il contesto del benvenuto: nel Premium riprende dalla sintesi di memoria

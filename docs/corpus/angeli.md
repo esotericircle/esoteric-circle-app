@@ -101,7 +101,7 @@ Arcangelo: **Metatron**. Angeli dal 1 al 8.
 
 **Dominio secondo la tradizione**. La tradizione lo lega alla costruzione, alla responsabilità presa davanti agli altri, alla tenuta nelle avversità. Riguarda le opere lente, quelle che si misurano in anni.
 
-**Chiave di lettura, redazionale**. Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che sei disposto a dedicarle quando smette di convenirti.
+**Chiave di lettura, redazionale**. Qui si lavora la parola mantenuta. Una promessa vale quanto il tempo che [sei disposto|sei disposta|vuoi] dedicarle quando smette di convenirti.
 
 **Eccesso e difetto, redazionale**. In eccesso diventa rigidità, con la struttura difesa più dello scopo per cui è nata. In difetto diventa promessa facile, detta solo per chiudere il discorso.
 
@@ -337,7 +337,7 @@ Arcangelo: **Raziel (Ratziel)**. Angeli dal 9 al 16.
 
 **Dominio secondo la tradizione**. Riguarda le controversie, la difesa di chi non ha voce, la libertà personale. Tocca gli accordi, i contratti, tutto quello che si firma o si promette davanti a testimoni.
 
-**Chiave di lettura, redazionale**. Dici le cose come stanno senza usare la verità come un'arma. La tua misura è la giustizia applicata prima di tutto a te stesso.
+**Chiave di lettura, redazionale**. Dici le cose come stanno senza usare la verità come un'arma. La tua misura è la giustizia applicata prima di tutto a [te stesso|te stessa|te].
 
 **Eccesso e difetto, redazionale**. In eccesso il senso di giustizia diventa un processo permanente agli altri. In difetto si tace per quieto vivere, con la verità rimandata sempre a domani.
 
@@ -435,9 +435,9 @@ Arcangelo: **Tzafkiel**. Angeli dal 17 al 24.
 
 **Salmo**. Salmo 7,9 (numerazione CEI): «Il Signore decide la causa dei popoli: giudicami, Signore, secondo la mia giustizia». Corrisponde a 7,8 nella numerazione ebraico-inglese usata da Ambelain.
 
-**Dominio secondo la tradizione**. Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a te stesso.
+**Dominio secondo la tradizione**. Verità nelle controversie, contratti, ambito legale, ogni situazione dove qualcuno deve pronunciarsi. Riguarda anche il giudizio che applichi a [te stesso|te stessa|te].
 
-**Chiave di lettura, redazionale**. Giustizia. Distingui il fatto dall'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per essere creduto.
+**Chiave di lettura, redazionale**. Giustizia. Distingui il fatto dall'opinione, poi decidi. La tua forza sta nel non aver bisogno di alzare la voce per [essere creduto|essere creduta|farti credere].
 
 **Eccesso e difetto, redazionale**. In eccesso diventi giudice permanente di tutti, senza appello. In difetto taci proprio quando servirebbe dire la cosa scomoda.
 
@@ -1139,7 +1139,7 @@ Arcangelo: **Haniel**. Angeli dal 49 al 56.
 
 **Dominio secondo la tradizione**. La tradizione lo colloca dove serve la parola: scrittura, insegnamento, diplomazia, mediazione fra posizioni lontane. È il terreno di chi mette d'accordo, non di chi vince la discussione.
 
-**Chiave di lettura, redazionale**. Hai un metro di misura alto, prima di tutto verso te stesso. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.
+**Chiave di lettura, redazionale**. Hai un metro di misura alto, prima di tutto verso [te stesso|te stessa|te]. Usalo per riconoscere il valore in chi ti sta davanti, non per pesarti addosso ogni giorno.
 
 **Eccesso e difetto, redazionale**. In eccesso diventa vanità travestita da missione, il bisogno di essere riconosciuto come persona superiore. In difetto è il senso di inadeguatezza che ti fa tacere proprio quando avresti qualcosa da dire.
 
@@ -1398,7 +1398,7 @@ Arcangelo: **Michele**. Angeli dal 57 al 64.
 
 **Dominio secondo la tradizione**. Le amicizie, i legami elettivi, la musica, l'astronomia, la fisica. La tradizione lo lega alla consolazione dopo una pena affettiva.
 
-**Chiave di lettura, redazionale**. L'affinità, cioè la capacità di sentire l'altro senza confonderti con lui. Ti insegna a stare vicino restando te stesso.
+**Chiave di lettura, redazionale**. L'affinità, cioè la capacità di sentire l'altro senza confonderti con lui. Ti insegna a stare vicino [restando te stesso|restando te stessa|senza perderti].
 
 **Eccesso e difetto, redazionale**. La tentazione di chiamare amicizia il bisogno di avere pubblico. Nel verso opposto il legame vissuto come rifugio, che chiede all'altro di reggere quello che spetta a te.
 

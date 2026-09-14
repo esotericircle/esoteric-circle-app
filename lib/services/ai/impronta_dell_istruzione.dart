@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '47eda20aab8dfdc8dc74a64a6b861f6b9002eaa6b0e5c287f46d7ebae1ec591f',
-    'aura': 'ee70fb027222e348c4abcb7b0deaa20fa01f2bafe199b275ad1bb05825ebd266',
+        '662b4df8aa771b4760bb8c922b05a2a027eb6679796212408345d79b85d4ba07',
+    'aura': '2d1b581b379e13a71f2eae3d4d36abb536d575d6a12ace887f68909855f5870f',
     'caligo':
-        'a5a59abf8d101ddbefb6561987b13fa7360b69c80c6c4c5a2f3cc376ee6df478',
+        'b3d92b6b6e2d6db28d47d2474dc95b847951616685690956113250fbf41528d3',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '30 agosto 2026';
+  static const String registrateIl = '14 settembre 2026';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,19 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 30 AGOSTO AL 14 SETTEMBRE 2026. Impronte: medora '
+        '47eda20aab8dfdc8dc74a64a6b861f6b9002eaa6b0e5c287f46d7ebae1ec591f, '
+        'aura ee70fb027222e348c4abcb7b0deaa20fa01f2bafe199b275ad1bb05825ebd266, '
+        'caligo a5a59abf8d101ddbefb6561987b13fa7360b69c80c6c4c5a2f3cc376ee6df478. '
+        '**SU QUESTA STRINGA NON È STATA PRESA NESSUNA MISURA**: era nata '
+        'dal cambio della macro categoria di Caligo, ordine CC voce 01, con '
+        'l\'attribuzione già dichiarata non valida. Caduta il 14 settembre '
+        '2026 con l\'ordine DL voci 04 e 05: il blocco di cortesia ora sta '
+        'in un file suo, dice la forma scelta con le stesse righe per tutti i '
+        'prompt di prosa, e non dice più "riferiti a lei"; e le aperture '
+        'vietate hanno il prefisso "Non sei sol" al posto di "Non sei '
+        'solo" e "Non sei sola". È cambiata l\'istruzione di tutti e '
+        'tre, perché il blocco sta nelle regole comuni.',
     'DAL 25 AL 30 AGOSTO 2026, stringa di 7250, 7398 e 7723 caratteri. '
         'Impronte: medora '
         '47e9f78152ae1b77c50a96610262dcb8b83494391d45f93014ade74f4ce0e8ee, '
@@ -146,6 +159,10 @@ class ImprontaDellIstruzione {
   /// Aura sta a diciassette-diciannove con venti. Le due voci sono lontane
   /// nel ritmo e il giudice le confonde lo stesso: cio\' che resta da
   /// correggere non e\' come parlano, e\' cosa dicono.
+  ///
+  /// **RIFATTA IL 14 SETTEMBRE 2026, ordine DL**, perche' il blocco di
+  /// cortesia e' cambiato per tutti e tre: tre giri, 86,7, 83,3 e 86,4, media
+  /// 85,5. Un giro sotto la soglia: la riga resta falsa.
   static const bool attribuzioneValida = false;
 
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
@@ -155,7 +172,20 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'SEI GIRI DEL 28 AGOSTO 2026, SU QUESTE IMPRONTE. Ordine BY voce 04, '
+      'TRE GIRI DEL 14 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine DL: 86,7 '
+      'per cento (52 su 60), poi 83,3 (50 su 60), poi 86,4 (51 su 59, un '
+      'verdetto illeggibile); media 85,5 per cento (153 su 179). Il giro '
+      'più basso sta sotto la soglia di 85, quindi la riga resta falsa, '
+      'come la vuole il fondatore. Nel dettaglio: medora 16, 17, 14 su '
+      '20 (nel terzo 14 su 19), sempre scambiata per aura; aura 19, 20, 20 '
+      'su 20; caligo 17, 13, 17 su 20, scambiato per aura 3, 6, 3 volte. '
+      'Ritmo, frase mediana e parole che ammorbidiscono: medora 15,0 e 8, '
+      '15,0 e 15, 14,0 e 6; aura 19,0 e 16, 18,0 e 14, 18,0 e 20; caligo '
+      '8,0 e 0 in tutti e tre. Lo stesso quadro dei giri di agosto: aura '
+      'non si confonde, le altre due si perdono verso di lei. '
+      'PRIMA, SU UN\'ALTRA STRINGA. '
+      'SEI GIRI DEL 28 AGOSTO 2026, sulle impronte cadute il 30 agosto '
+      '(nello storico). Ordine BY voce 04, '
       'altri tre giri dopo quelli dell\'ordine BX: 88,3 per cento (53 su 60), '
       'poi 88,3 (53 su 60), poi 90,0 (54 su 60); media dei tre 88,9. LA MEDIA '
       'DEI SEI GIRI È 86,7 PER CENTO (312 su 360), sopra la soglia di 85, '
@@ -226,7 +256,8 @@ class ImprontaDellIstruzione {
   /// punti di oscillazione, ed e' li' che sta il grosso degli errori. Chi vorra'
   /// riportare questa misura sopra la soglia comincia da Caligo, non da Medora.
   static const String matrice =
-      'I TRE GIRI DEL 28 AGOSTO 2026, ordine BX, sulle impronte di oggi. '
+      'I TRE GIRI DEL 28 AGOSTO 2026, ordine BX, sulle impronte cadute il 30 '
+      'agosto 2026. '
       'PRIMO: medora 16 su 20 (80,0 per cento), quattro volte scambiata per '
       'aura; aura 20 su 20; caligo 15 su 20 (75,0 per cento), cinque volte '
       'scambiato per aura; nove errori, tutti verso aura. '

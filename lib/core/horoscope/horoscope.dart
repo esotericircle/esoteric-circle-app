@@ -149,12 +149,11 @@ class Horoscope {
 
   /// Il vocativo con cui aprire l'oroscopo: Caro o Cara piu' il nome quando il
   /// genere e' noto dall'onboarding, altrimenti Ciao piu' il nome.
+  ///
+  /// **UNA MARCA**, ordine DL voce 06: la parola si risolve prima di
+  /// attaccare il nome, cosi' un nome non puo' diventare una marca.
   static String vocativeFor(String name, CourtesyForm courtesy) =>
-      courtesy.agree(
-        masculine: 'Caro $name',
-        feminine: 'Cara $name',
-        neutral: 'Ciao $name',
-      );
+      '${courtesy.risolvi('[Caro|Cara|Ciao]')} $name';
 
   /// L'apertura personalizzata del giorno, pescata dal pool del corpus con lo
   /// stesso seme del giorno: deterministica e riproducibile. Quando Gemini e'
@@ -212,7 +211,9 @@ class Horoscope {
         giornoOrdinale: dayOfYear,
         indiceDelSegno: sign.index);
     final pool = HoroscopeData.dayPools[d]!;
-    final current = dalCielo ?? pool[seedCurrent % pool.length];
+    // **LA FRASE DEL POOL SI RISOLVE QUI**, ordine DL voce 02.
+    final current =
+        dalCielo ?? LaMarcaDelGenere.risolvi(pool[seedCurrent % pool.length]);
 
     final title = anchor[0];
     final text = '${anchor[1]} $current';

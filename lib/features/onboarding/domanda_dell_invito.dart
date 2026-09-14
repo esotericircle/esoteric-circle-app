@@ -10,6 +10,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../account/riscatta_l_invito.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/chat/user_profile.dart';
 
 /// **TI HA INVITATO QUALCUNO? Ordine CC voce 08.**
 ///
@@ -165,10 +166,11 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.sm),
             ParagrafiDiLettura(
-              testo: 'Se sei arrivato qui da un invito, chi te lo ha mandato '
+              testo: LaMarcaDelGenere.risolvi('Se [sei arrivato|sei arrivata|'
+                  'sei qui] da un invito, chi te lo ha mandato '
                   'riceve il suo premio. Tocca Incolla: dal link che hai '
                   'ricevuto prendiamo soltanto il codice. Si fa una volta '
-                  'sola.',
+                  'sola.'),
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),

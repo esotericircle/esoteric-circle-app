@@ -931,7 +931,8 @@ final List<Traguardo> sentieroDellaCostellazione = [
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const FinestraDelCielo(EventiDelCielo.ritornoSolare,
         conGesto: 'oroscopo'),
-    frase: 'Il Sole torna dov’era quando sei nato: tu eri qui con l’Oroscopo.',
+    frase:
+        'Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con l’Oroscopo.',
     posizione: 55,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'La carta del ritorno solare, il cielo del tuo anno nuovo',

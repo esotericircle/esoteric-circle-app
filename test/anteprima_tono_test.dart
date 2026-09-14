@@ -11,9 +11,21 @@ import 'package:flutter_test/flutter_test.dart';
 /// avrebbe avuto sulle frasi da li' in poi.
 void main() {
   test('Ogni tono produce una frase diversa dalle altre', () {
+    // **I TONI CHE SI SCELGONO SONO TRE**, e la forma sconosciuta non e' fra
+    // loro: dall'ordine DL voce 02 parla come il neutro, in tutta l'app e
+    // quindi anche qui. Prima aveva una frase sua, ed era l'unico posto dove
+    // le due forme si separavano.
     final frasi = <CourtesyForm, String>{
-      for (final f in CourtesyForm.values) f: AnteprimaTono.frasePer(f),
+      for (final f in const [
+        CourtesyForm.masculine,
+        CourtesyForm.feminine,
+        CourtesyForm.neutral,
+      ])
+        f: AnteprimaTono.frasePer(f),
     };
+    expect(AnteprimaTono.frasePer(CourtesyForm.unknown),
+        AnteprimaTono.frasePer(CourtesyForm.neutral),
+        reason: 'la forma non ancora scelta deve parlare neutro');
     // Tutte diverse fra loro: se due coincidessero, scegliere non cambierebbe
     // niente e l'anteprima sarebbe una bugia gentile.
     expect(frasi.values.toSet().length, frasi.length,

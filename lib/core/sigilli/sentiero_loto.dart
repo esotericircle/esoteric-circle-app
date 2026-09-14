@@ -928,7 +928,7 @@ final List<Traguardo> sentieroDelLoto = [
     condizione:
         const FinestraDelCielo(EventiDelCielo.ritornoSolare, conGesto: 'alba'),
     frase:
-        'Il Sole torna dov’era quando sei nato: tu eri qui con il Rito dell’Alba.',
+        'Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con il Rito dell’Alba.',
     posizione: 55,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il rito del ritorno solare, il risveglio del tuo anno nuovo',

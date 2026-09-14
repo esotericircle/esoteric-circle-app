@@ -16,6 +16,7 @@ import '../../core/maestro/voce_del_maestro.dart';
 import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/responsi/confine_del_responso.dart';
 import '../../core/responsi/legge_del_responso.dart';
+import '../../core/chat/il_blocco_di_cortesia.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
 ///
@@ -105,25 +106,20 @@ class MaestroPersona {
     // Come rivolgersi all'utente, dal profilo.
     buffer
       ..writeln()
-      ..writeln('COME TI RIVOLGI ALL\'UTENTE:');
-    if (profile.hasName) {
-      buffer.writeln('- Chiamalo per nome: ${profile.displayName}.');
-    } else {
-      buffer.writeln(
-          '- Non conosci ancora il suo nome. Puoi chiederlo una volta con delicatezza, senza insistere.');
-    }
-    switch (profile.courtesyForm) {
-      case CourtesyForm.feminine:
-        buffer.writeln('- Rivolgiti a lei al femminile.');
-      case CourtesyForm.masculine:
-        buffer.writeln('- Rivolgiti a lui al maschile.');
-      case CourtesyForm.neutral:
-      case CourtesyForm.unknown:
-        buffer.writeln(
-            '- Usa formulazioni neutre, evita di marcare il genere finché non lo conosci.');
-    }
+      ..write(bloccoDiCortesia(profile));
     return buffer.toString();
   }
+
+  /// **IL BLOCCO DI CORTESIA**, ordine DL voce 04: vive in
+  /// `IlBloccoDiCortesia`, accanto alla porta del genere, perche' lo usano
+  /// anche i prompt del Viaggio. Qui resta il nome che i prompt dei Maestri
+  /// conoscono.
+  static String bloccoDiCortesia(UserProfile profile) =>
+      IlBloccoDiCortesia.per(profile);
+
+  /// L'intestazione del blocco, per chi deve riconoscerlo dentro un prompt.
+  static const String intestazioneDellaCortesia =
+      IlBloccoDiCortesia.intestazione;
 
   /// Voce e dominio propri di ciascun Maestro, composti dal DATO.
   ///
@@ -540,7 +536,12 @@ class MaestroPersona {
   /// Istruzione per la Sintesi comparativa di "Consulta un Maestro": una voce
   /// terza e neutra che mette a confronto gli sguardi gia' dati dai Maestri, non
   /// li rifa'. Chiude sempre con la regola. Testo semplice, non JSON.
-  static String synthesisInstruction({NatalContext? natal}) {
+  ///
+  /// **COL BLOCCO DI CORTESIA**, ordine DL voce 04: la sintesi la legge la
+  /// persona, e fino a quest'ordine non riceveva nemmeno la sua forma. La
+  /// forma arriva dalla porta del genere, che la conosce gia': chi chiama la
+  /// sintesi non deve portarla con se'.
+  static String synthesisInstruction({NatalContext? natal, CourtesyForm? forma}) {
     final natalBlock = _natalContext(natal);
     return [
       'Sei la voce del cerchio di Esoteric Circle che tira le fila di più sguardi su una stessa domanda.',
@@ -550,6 +551,9 @@ class MaestroPersona {
       '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.',
       '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
       '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
+      '',
+      bloccoDiCortesia(UserProfile(
+          courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente)),
       if (natalBlock.isNotEmpty) ...['', natalBlock],
       '',
       MisuraDellaRisposta.sintesi.istruzione,
@@ -566,10 +570,19 @@ class MaestroPersona {
 
   /// Istruzione per il distillato di memoria: chiede una sintesi breve piu' un
   /// elenco di fatti stabili, in JSON, per aggiornare la memoria senza rumore.
-  static String distillInstruction(Maestro maestro) {
+  ///
+  /// **LA FORMA DI CORTESIA NON SI DEDUCE PIU'**, ordine DL voce 04: qui si
+  /// chiedeva al modello di ricavarla dal dialogo, mentre la persona l'aveva
+  /// gia' scelta. La sintesi finisce dentro i prompt dei Maestri, quindi deve
+  /// parlare della persona nella forma che ha scelto lei.
+  static String distillInstruction(Maestro maestro, [UserProfile? profile]) {
+    final cortesia = bloccoDiCortesia(profile ??
+        UserProfile(courtesyForm: LaMarcaDelGenere.formaCorrente));
     return '''
 Sei l'archivista silenzioso del Maestro ${maestro.displayName}. Leggi la conversazione e restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:
-{"summary": "una o due frasi in italiano su dove è arrivata la relazione con l'utente", "facts": ["fatto stabile e utile", "..."]}
-Regole: in italiano, niente trattino lungo, massimo cinque fatti, solo fatti stabili e verificati nel dialogo (nome, forma di cortesia, segno, domande ricorrenti, obiettivi). Se non ci sono fatti nuovi lascia la lista vuota. Nessun commento fuori dal JSON.''';
+{"summary": "una o due frasi in italiano su dove è arrivata la relazione con la persona", "facts": ["fatto stabile e utile", "..."]}
+Regole: in italiano, niente trattino lungo, massimo cinque fatti, solo fatti stabili e verificati nel dialogo (nome, segno, domande ricorrenti, obiettivi). La forma di cortesia non la ricavi dal dialogo: è già scelta. È quella del blocco qui sotto. Se non ci sono fatti nuovi lascia la lista vuota. Nessun commento fuori dal JSON.
+
+$cortesia''';
   }
 }

@@ -396,9 +396,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     ));
     profile.setIdentity(_identity);
 
-    final ident = context.read<IdentityController>();
-    ident.setName(name);
-    ident.setForm(_addressForm(courtesy));
+    // **LA FORMA VA SOLO NEL PROFILO**, ordine DL voce 01: qui si scriveva
+    // anche in un secondo enum, `AddressForm`, che nessuno salvava.
+    context.read<IdentityController>().setName(name);
 
     // Ponte: dai dati raccolti nasce il BirthDetails che alimenta la carta.
     final details = BirthDetails(
@@ -433,18 +433,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       longitude: p.longitude,
       timezone: p.timeZoneId,
     );
-  }
-
-  static AddressForm _addressForm(CourtesyForm c) {
-    switch (c) {
-      case CourtesyForm.feminine:
-        return AddressForm.feminine;
-      case CourtesyForm.masculine:
-        return AddressForm.masculine;
-      case CourtesyForm.neutral:
-      case CourtesyForm.unknown:
-        return AddressForm.neutral;
-    }
   }
 
   static Gender _genderFor(CourtesyForm c) {
@@ -1691,20 +1679,24 @@ class _VocativoChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **LE ETICHETTE VENGONO DALLA PORTA DEL GENERE**, ordine DL voce 01: qui
+    // c'era una seconda copia di "Lui", "Lei" e "Neutro", accanto a quella di
+    // `CourtesyForm.vocativeLabel`.
     const options = [
-      (CourtesyForm.masculine, 'Lui', 'lui'),
-      (CourtesyForm.feminine, 'Lei', 'lei'),
-      (CourtesyForm.neutral, 'Neutro', 'neutro'),
+      CourtesyForm.masculine,
+      CourtesyForm.feminine,
+      CourtesyForm.neutral,
     ];
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          for (final (form, label, keyId) in options)
+          for (final form in options)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
-              child: _chip(form, label, keyId),
+              child: _chip(form, form.vocativeLabel,
+                  form.vocativeLabel.toLowerCase()),
             ),
         ],
       ),

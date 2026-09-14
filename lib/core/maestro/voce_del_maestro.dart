@@ -157,8 +157,10 @@ class VoceDelMaestro {
     'Molte persone',
     'Come molti',
     'Ricorda che',
-    'Non sei solo',
-    'Non sei sola',
+    // **UN PREFISSO SOLO PER TUTTE E DUE**, ordine DL voce 06: la lista
+    // serve a riconoscere un'apertura, e 'Non sei sol' prende 'Non sei
+    // solo' e 'Non sei sola' senza scrivere un genere.
+    'Non sei sol',
     'Mi dispiace che tu',
     'Immagino che',
     'Sappi che',

@@ -1,5 +1,6 @@
 import '../sigilli/eventi_del_cielo.dart';
 import 'prossimi_eventi.dart';
+import '../../core/chat/user_profile.dart';
 
 /// COME IL CERCHIO CHIAMA GLI EVENTI DEL CIELO, in un punto solo.
 ///
@@ -72,7 +73,7 @@ class LinguaDegliEventi {
         'Il Sole percorre il tuo segno per circa trenta giorni. È la '
             'stagione in cui cade il tuo compleanno.',
     EventiDelCielo.ritornoSolare:
-        'Il Sole torna esattamente dove era quando sei nato. È il '
+        'Il Sole torna esattamente dove era [quando sei nato|quando sei nata|alla tua nascita]. È il '
             'compleanno astronomico, che non sempre cade nel giorno civile.',
     EventiDelCielo.solstizio:
         'Il Sole raggiunge la sua massima distanza dall\'equatore celeste: '
@@ -149,7 +150,11 @@ class LinguaDegliEventi {
   static String nomeDi(String evento) => _nomi[evento] ?? evento;
 
   /// La riga di significato, oppure nulla se non ne ha una.
-  static String? significatoDi(String evento) => _significati[evento];
+  static String? significatoDi(String evento) {
+    final s = _significati[evento];
+    // **CONCORDATO ALLA PERSONA**, ordine DL voce 03.
+    return s == null ? null : LaMarcaDelGenere.risolvi(s);
+  }
 
   /// IL CONTO ALLA ROVESCIA, in lingua del Cerchio.
   ///

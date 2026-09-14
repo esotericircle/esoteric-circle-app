@@ -541,8 +541,8 @@ class _SenzaDati extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             ParagrafiDiLettura(
                 testo:
-                    'Senza il giorno in cui sei nato non posso tracciare niente. '
-                    'Preferisco dirtelo invece di farti aspettare.',
+                    'Senza il giorno della tua nascita non posso tracciare '
+                    'niente. Preferisco dirtelo invece di farti aspettare.',
                 textAlign: TextAlign.center,
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary)),

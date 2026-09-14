@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'le_parole_di_chi_legge.dart';
 
 /// LE PROMESSE DELL'APP SI MANTENGONO, O SI SMETTE DI PROMETTERE. Ordine BG
 /// voce 03: due censimenti sul repo (le tre promesse del fondatore piu'
@@ -9,8 +11,22 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   String leggi(String p) => File(p).readAsStringSync();
 
+  /// **CIO' CHE LA PERSONA LEGGE**, nelle tre forme: i letterali uniti come
+  /// li unisce Dart, e le marche del genere risolte. Ordine DL voce 03: il
+  /// saluto e' diventato una marca, e il sorgente non contiene piu' la
+  /// frase intera che la persona legge.
+  String siLegge(String p) => [
+        for (final l in letteraliDi(leggi(p)))
+          for (final f in [
+            CourtesyForm.masculine,
+            CourtesyForm.feminine,
+            CourtesyForm.neutral,
+          ])
+            LaMarcaDelGenere.risolvi(l.testo, forma: f),
+      ].join('\n');
+
   test('il saluto del ritrovamento si declina sulla cortesia', () {
-    final s = leggi('lib/features/onboarding/scena_del_ritrovamento.dart');
+    final s = siLegge('lib/features/onboarding/scena_del_ritrovamento.dart');
     expect(s.contains('Bentornata nel Cerchio'), isTrue,
         reason: 'il femminile e\' sparito dal saluto del ritrovamento');
     expect(s.contains('Di nuovo nel Cerchio'), isTrue,

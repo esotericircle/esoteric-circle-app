@@ -392,7 +392,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       final nota = esito.isEmpty
           ? 'Nel Consiglio la persona ti ha chiesto: «$theme».'
           : 'Nel Consiglio la persona ti ha chiesto: «$theme». '
-              'In sintesi le hai risposto: $esito';
+              'In sintesi hai risposto: $esito';
       final summary = mem.sessionSummary.trim().isEmpty
           ? nota
           : '${mem.sessionSummary.trim()} $nota';

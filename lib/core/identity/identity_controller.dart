@@ -1,67 +1,31 @@
 import 'package:flutter/foundation.dart';
 import 'nome_proprio.dart';
 
-/// Forma di cortesia scelta dall'utente, usata per rivolgersi a lui nei testi
-/// dei Maestri.
-enum AddressForm {
-  feminine('Al femminile'),
-  masculine('Al maschile'),
-  neutral('In modo neutro');
-
-  const AddressForm(this.label);
-  final String label;
-}
-
-/// Nome e forma di cortesia dell'utente. Si raccolgono subito dopo l'intro e si
-/// usano da subito nei testi dei Maestri.
+/// Il nome dell'utente. Si raccoglie subito dopo l'intro e si usa da subito
+/// nei testi dei Maestri.
+///
+/// **QUI C'ERA ANCHE LA FORMA DI CORTESIA**, un secondo enum `AddressForm` con
+/// `pick()` e `welcome()`. Tolto con l'ordine DL voce 01: faceva la stessa
+/// cosa di `CourtesyForm`, con un difetto in piu', perche' la forma non si
+/// salvava da nessuna parte e ripartiva neutra a ogni avvio. **La forma ha una
+/// porta sola**, `CourtesyForm` col profilo che la custodisce, e le parole si
+/// decidono in `LaMarcaDelGenere`.
 class IdentityController extends ChangeNotifier {
   String _name = '';
-  AddressForm _form = AddressForm.neutral;
 
   String get name => _name.trim();
   bool get hasName => name.isNotEmpty;
-  AddressForm get form => _form;
 
   /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Il nome con cui i Maestri
   /// si rivolgono a qualcuno e' la cosa piu' sua che ci sia: lasciarlo a
   /// schermo dopo una cancellazione vuol dire salutare col nome di un altro.
   void dimenticaChiSeNeVa() {
     _name = '';
-    _form = AddressForm.neutral;
     notifyListeners();
   }
 
   void setName(String value) {
     _name = normalizzaNomeProprio(value);
     notifyListeners();
-  }
-
-  void setForm(AddressForm value) {
-    if (value == _form) return;
-    _form = value;
-    notifyListeners();
-  }
-
-  /// Sceglie la variante di una parola secondo la forma. Per la forma neutra si
-  /// passa una formulazione gia' priva di marca di genere.
-  String pick({
-    required String masculine,
-    required String feminine,
-    required String neutral,
-  }) =>
-      switch (_form) {
-        AddressForm.masculine => masculine,
-        AddressForm.feminine => feminine,
-        AddressForm.neutral => neutral,
-      };
-
-  /// Saluto di benvenuto personalizzato.
-  String welcome() {
-    final n = hasName ? ', $name' : '';
-    return pick(
-      masculine: 'Benvenuto nel cerchio$n',
-      feminine: 'Benvenuta nel cerchio$n',
-      neutral: 'Ti do il benvenuto nel cerchio$n',
-    );
   }
 }

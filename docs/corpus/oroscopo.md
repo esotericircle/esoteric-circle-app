@@ -138,7 +138,7 @@ Validi per tutti i segni. Il seme del giorno ne pesca una. Ogni frase è autonom
 5. Una conversazione sospesa oggi può ritrovare il suo filo.
 6. Mostra il lato che di solito proteggi, verrà accolto.
 7. Se sei in coppia, la tenerezza conta più della ragione.
-8. Se sei da solo, un incontro leggero merita attenzione.
+8. Se [sei da solo|sei da sola|non hai qualcuno accanto], un incontro leggero merita attenzione.
 9. Perdona una piccola ruvidezza, non tutto va discusso.
 10. Ascolta davvero, prima di rispondere fai un respiro.
 
@@ -159,7 +159,7 @@ Validi per tutti i segni. Il seme del giorno ne pesca una. Ogni frase è autonom
 2. Tieni gli occhi aperti, un'occasione arriva travestita da caso.
 3. Un incontro inatteso porta con sé una buona notizia.
 4. Segui la coincidenza, oggi non è affatto casuale.
-5. La fortuna gira dalla tua parte nel pomeriggio, fatti trovare pronto.
+5. La fortuna gira dalla tua parte nel pomeriggio, [fatti trovare pronto|fatti trovare pronta|tieniti a disposizione].
 6. Un no di ieri libera lo spazio per un sì migliore.
 7. Rischia con misura, il cielo accompagna chi si fida.
 8. Una parola detta al momento giusto ti apre una via.

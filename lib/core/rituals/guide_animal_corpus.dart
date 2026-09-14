@@ -1,35 +1,55 @@
 import '../archetypes/archetype.dart';
 import '../archetypes/archetype_corpus.dart';
 import 'animal_catalog.dart';
+import '../../core/chat/user_profile.dart';
 
 /// La lettura piena di un animale guida, nella voce grave di Caligo.
 class AnimalRitratto {
   const AnimalRitratto({
-    required this.natura,
-    required this.dono,
-    required this.lezione,
-    required this.quando,
-    required this.invito,
-    required this.messaggi,
-  });
+    required String natura,
+    required String dono,
+    required String lezione,
+    required String quando,
+    required String invito,
+    required List<String> messaggi,
+  }) : _natura = natura, _dono = dono, _lezione = lezione, _quando = quando, _invito = invito, _messaggi = messaggi;
 
   /// La natura dell'animale, chi e' nel simbolo.
-  final String natura;
+  final String _natura;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get natura => LaMarcaDelGenere.risolvi(_natura);
 
   /// Il dono che porta.
-  final String dono;
+  final String _dono;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get dono => LaMarcaDelGenere.risolvi(_dono);
 
   /// La lezione che insegna.
-  final String lezione;
+  final String _lezione;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get lezione => LaMarcaDelGenere.risolvi(_lezione);
 
   /// Quando si presenta come guida.
-  final String quando;
+  final String _quando;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get quando => LaMarcaDelGenere.risolvi(_quando);
 
   /// Un invito concreto, per oggi.
-  final String invito;
+  final String _invito;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get invito => LaMarcaDelGenere.risolvi(_invito);
 
   /// Le righe del Messaggio dall'Animale, che ruotano coi giorni.
-  final List<String> messaggi;
+  final List<String> _messaggi;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  List<String> get messaggi =>
+      [for (final r in _messaggi) LaMarcaDelGenere.risolvi(r)];
 }
 
 /// Il corpus degli animali guida, fedele alla simbologia sciamanica di Ted
@@ -127,7 +147,7 @@ class GuideAnimalCorpus {
       lezione:
           "La sua lezione è l'appartenenza: la vera libertà non spezza i legami, li sceglie.",
       quando:
-          "Si presenta come guida quando devi difendere i tuoi o ritrovare la tua tribù senza perdere te stesso.",
+          "Si presenta come guida quando devi difendere i tuoi o ritrovare la tua tribù senza perdere [te stesso|te stessa|chi sei].",
       invito: "Oggi fidati di un'intuizione forte e proteggi ciò che ami.",
       messaggi: [
         "fidati dell'istinto, sa già la strada.",
@@ -141,7 +161,7 @@ class GuideAnimalCorpus {
         "la fedeltà non è catena ma scelta.",
         "annusa il pericolo, la prudenza è saggezza.",
         "la tua voce chiama i tuoi, non aver paura di alzarla.",
-        "cammina in gruppo senza sciogliere te stesso.",
+        "cammina in gruppo senza sciogliere [te stesso|te stessa|chi sei].",
       ],
     ),
     "Aquila": AnimalRitratto(
@@ -152,7 +172,7 @@ class GuideAnimalCorpus {
       lezione:
           "La sua lezione è il coraggio dello spirito: osare la vetta anche quando il vuoto sotto spaventa.",
       quando:
-          "Si presenta come guida quando sei chiamato a una visione più grande e a governare te stesso con nobiltà.",
+          "Si presenta come guida quando [sei chiamato|sei chiamata|la vita ti chiama] a una visione più grande e a governare [te stesso|te stessa|te] con nobiltà.",
       invito:
           "Oggi guarda la tua vita dall'alto come l'Aquila, poi scegli con ampiezza.",
       messaggi: [
@@ -161,7 +181,7 @@ class GuideAnimalCorpus {
         "guarda il disegno intero, non il dettaglio.",
         "lo spirito ti chiama, non abbassare lo sguardo.",
         "dall'alto ogni cosa trova il suo posto.",
-        "governa te stesso prima di guidare gli altri.",
+        "governa [te stesso|te stessa|te] prima di guidare gli altri.",
         "il sole non teme l'altezza, tu come lui.",
         "lascia la valle stretta, allarga l'orizzonte.",
         "la nobiltà è un modo di stare, non un trono.",
@@ -204,7 +224,7 @@ class GuideAnimalCorpus {
           "La sua lezione è che la dolcezza non è debolezza: si può essere gentili e fermi insieme.",
       quando:
           "Si presenta come guida quando la durezza non serve e la via si apre con la grazia.",
-      invito: "Oggi tratta te stesso e gli altri con una gentilezza nuova.",
+      invito: "Oggi tratta [te stesso|te stessa|te] e gli altri con una gentilezza nuova.",
       messaggi: [
         "la dolcezza apre porte che la forza chiude.",
         "muoviti con grazia, senza fretta.",
@@ -284,7 +304,7 @@ class GuideAnimalCorpus {
       messaggi: [
         "va' piano, arriverai lo stesso.",
         "la costanza batte la fretta.",
-        "porta con te la tua casa, sei protetto.",
+        "porta con te la tua casa, [sei protetto|sei protetta|la protezione è con te].",
         "un passo piccolo, ripetuto, muove montagne.",
         "non gareggiare col tempo, camminaci insieme.",
         "la lentezza saggia vede ciò che la corsa perde.",

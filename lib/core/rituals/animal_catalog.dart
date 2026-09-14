@@ -1,19 +1,26 @@
 import '../assets/family_image.dart';
+import '../../core/chat/user_profile.dart';
 
 /// Un animale guida, nella voce di Caligo: nome, sintesi, riga di significato e
 /// l'arte del totem bundlata (famiglia `animali`).
 class GuideAnimal {
   const GuideAnimal({
     required this.name,
-    required this.summary,
-    required this.meaning,
+    required String summary,
+    required String meaning,
     required this.stem,
     this.femminile = false,
-  });
+  }) : _summary = summary, _meaning = meaning;
 
   final String name;
-  final String summary;
-  final String meaning;
+  final String _summary;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get summary => LaMarcaDelGenere.risolvi(_summary);
+  final String _meaning;
+
+  /// Risolto con la forma della persona, ordine DL voce 02.
+  String get meaning => LaMarcaDelGenere.risolvi(_meaning);
   final String stem;
 
   /// **IL GENERE DEL NOME, e serve a chi scrive l'articolo.** Ordine DE voce
@@ -132,7 +139,7 @@ class AnimalCatalog {
         name: 'Lupo',
         summary: 'L\'istinto e il branco.',
         meaning:
-            'Fedeltà, libertà, fiducia nell\'istinto: il Lupo ti insegna a stare nel gruppo senza perdere te stesso.',
+            'Fedeltà, libertà, fiducia nell\'istinto: il Lupo ti insegna a stare nel gruppo senza perdere [te stesso|te stessa|chi sei].',
         stem: 'ani_lupo_v1'),
     GuideAnimal(
         name: 'Orso',

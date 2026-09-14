@@ -177,5 +177,5 @@ class LetturaDelMese extends ChangeNotifier {
   /// fondatore.
   static const String invito =
       'Con l\'Iniziato, ogni mese il tuo Maestro dominante ti racconta dove '
-      'sei stato e cosa è cambiato.';
+      '[sei stato|sei stata|ti ha portato il cammino] e cosa è cambiato.';
 }

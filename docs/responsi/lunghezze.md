@@ -26,9 +26,9 @@ percio' le lunghezze nuove.
 | Responso | Quanti | Mediana | Massimo |
 | --- | --- | --- | --- |
 | Arcano del Giorno, il sommario | 366 | 20 | 26 |
-| Oroscopo, scheda «amore» | 4392 | 210 | 245 |
+| Oroscopo, scheda «amore» | 4392 | 211 | 253 |
 | Oroscopo, scheda «carriera» | 4392 | 220 | 248 |
-| Oroscopo, scheda «fortuna» | 4392 | 199 | 245 |
+| Oroscopo, scheda «fortuna» | 4392 | 200 | 247 |
 | Oroscopo, scheda «generale» | 4392 | 211 | 259 |
 | Rito dell'Alba, il gesto | 366 | 106 | 157 |
 | Rito dell'Alba, la parola | 366 | 6 | 9 |
@@ -40,16 +40,16 @@ percio' le lunghezze nuove.
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
 | Tarocchi, bolla di posizione | 576 | 196 | 325 |
-| Tarocchi, consiglio | 192 | 834 | 994 |
+| Tarocchi, consiglio | 192 | 829 | 994 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
 ## Il piu' lungo di ogni tipo, in testa
 
 - **Arcano del Giorno, il sommario** (26 caratteri): Il dono della sospensione.
-- **Oroscopo, scheda «amore»** (245 caratteri): In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché ...
+- **Oroscopo, scheda «amore»** (253 caratteri): In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché ...
 - **Oroscopo, scheda «carriera»** (248 caratteri): Sul lavoro convinci con la passione più che con la logica fredda e il tuo entusiasmo diven...
-- **Oroscopo, scheda «fortuna»** (245 caratteri): La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un d...
+- **Oroscopo, scheda «fortuna»** (247 caratteri): La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un d...
 - **Oroscopo, scheda «generale»** (259 caratteri): Sei l'inizio fatto persona, la scintilla che accende prima che gli altri abbiano finito di...
 - **Rito dell'Alba, il gesto** (157 caratteri): La Luna è gibbosa crescente. Volgi lo sguardo verso il punto più lontano che riesci a vede...
 - **Rito dell'Alba, la parola** (9 caratteri): Custodire

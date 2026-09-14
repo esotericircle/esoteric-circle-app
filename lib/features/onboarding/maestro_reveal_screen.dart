@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/astro/natal_poetics.dart';
+import '../../core/chat/user_profile.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/rivelazione_in_video.dart';
@@ -696,7 +697,10 @@ class _RevealedFooter extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                identity.welcome(),
+                // **IL BENVENUTO PASSA DALLA PORTA DEL GENERE**, ordine DL voce
+                // 01: qui c'era `identity.welcome()`, che leggeva una forma mai
+                // salvata e ripartiva neutra a ogni avvio.
+                benvenutoNelCerchio(identity.hasName ? identity.name : null),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft),
@@ -734,3 +738,11 @@ class _RevealedFooter extends StatelessWidget {
     );
   }
 }
+
+/// **IL BENVENUTO NEL CERCHIO, concordato alla forma della persona.** Ordine DL
+/// voce 01: la marca si risolve PRIMA di attaccare il nome, cosi' un nome che
+/// contenesse una quadra non verrebbe letto come una marca.
+String benvenutoNelCerchio(String? nome) =>
+    LaMarcaDelGenere.risolvi(
+        '[Benvenuto|Benvenuta|Ti do il benvenuto] nel cerchio') +
+    (nome == null ? '' : ', $nome');

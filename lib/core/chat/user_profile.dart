@@ -7,6 +7,9 @@
 library;
 
 import '../identity/nome_proprio.dart';
+import 'la_marca_del_genere.dart';
+
+export 'la_marca_del_genere.dart' show LaMarcaDelGenere;
 
 /// Forma di cortesia scelta all'onboarding, per rivolgersi all'utente nella
 /// lingua giusta. In attesa dell'onboarding resta sconosciuta e i Maestri usano
@@ -25,38 +28,36 @@ enum CourtesyForm {
   }
 
   /// Etichetta della scelta all'onboarding, come la vede la persona.
-  String get vocativeLabel {
-    switch (this) {
-      case CourtesyForm.masculine:
-        return 'Lui';
-      case CourtesyForm.feminine:
-        return 'Lei';
-      case CourtesyForm.neutral:
-      case CourtesyForm.unknown:
-        return 'Neutro';
-    }
-  }
+  String get vocativeLabel => agree(
+        masculine: 'Lui',
+        feminine: 'Lei',
+        neutral: 'Neutro',
+      );
 
   /// Concorda un testo al vocativo scelto. Al maschile usa [masculine], al
   /// femminile [feminine]; per il neutro e per la scelta non ancora fatta usa
   /// [neutral], una forma senza desinenza di genere (per esempio "ti do il
   /// benvenuto" invece di "benvenuto/benvenuta"). Cosi' il vocativo pilota le
   /// concordanze dei testi in tutta l'app.
+  ///
+  /// **LA DECISIONE NON STA PIU' QUI**, ordine DL voce 01: passa da
+  /// `LaMarcaDelGenere.scegli`, che e' la stessa del risolutore delle marche.
+  /// Due `switch` che fanno la stessa cosa sono due regole, e la seconda prima
+  /// o poi dice un'altra cosa.
   String agree({
     required String masculine,
     required String feminine,
     required String neutral,
-  }) {
-    switch (this) {
-      case CourtesyForm.masculine:
-        return masculine;
-      case CourtesyForm.feminine:
-        return feminine;
-      case CourtesyForm.neutral:
-      case CourtesyForm.unknown:
-        return neutral;
-    }
-  }
+  }) =>
+      LaMarcaDelGenere.scegli(
+        maschile: masculine,
+        femminile: feminine,
+        neutro: neutral,
+        forma: this,
+      );
+
+  /// **RISOLVE LE MARCHE DI UN TESTO con questa forma**, ordine DL voce 02.
+  String risolvi(String testo) => LaMarcaDelGenere.risolvi(testo, forma: this);
 
   /// Il benvenuto concordato: "Benvenuto", "Benvenuta", o la forma neutra "Ti
   /// do il benvenuto". Scorciatoia dell'uso piu' frequente di [agree].

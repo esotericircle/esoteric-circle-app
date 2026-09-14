@@ -5,6 +5,7 @@ import '../../features/horoscope/answer_depth.dart';
 import 'tarot_topic.dart';
 import 'voce_della_stesa.dart';
 import 'tetti_della_stesa.dart';
+import '../../core/chat/user_profile.dart';
 
 // LE CARTE CHE DIALOGANO NON VIVONO PIU' QUI, ordine P voce 08.
 //
@@ -279,7 +280,8 @@ class TarotReading {
 
   /// Le domande di chiusura, dal pool del corpus.
   static const List<String> domande = [
-    'Cosa sei disposto a lasciare andare per fare spazio a questo?',
+    'Cosa [sei disposto|sei disposta|puoi] lasciare andare per fare spazio a '
+        'questo?',
     'Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?',
     'Cosa cambierebbe se ti fidassi di ciò che già senti?',
     'Qual è la verità che stai rimandando di dirti?',
@@ -304,7 +306,7 @@ class TarotReading {
       mix(drawn.reversed ? 1 : 0);
     }
     mix(topic.index & 0xFF);
-    return domande[hash % domande.length];
+    return LaMarcaDelGenere.risolvi(domande[hash % domande.length]);
   }
 }
 

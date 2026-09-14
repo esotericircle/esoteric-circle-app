@@ -8,6 +8,7 @@ import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 import 'rito_alba_corpus.dart';
 import 'risposta_del_dono.dart';
+import '../../core/chat/user_profile.dart';
 
 /// DA DOVE VENGONO LE COORDINATE dell'alba.
 ///
@@ -543,7 +544,10 @@ class RitoAlba {
   ) {
     if (!fascia.contiene(istante)) return null;
     final righe = RitoAlbaCorpus.righeDelRisveglio[maestro]!;
-    return righe[_derivato(_seme(istante, maestro, null), 4) % righe.length];
+    // **LA RIGA SI RISOLVE QUI**, ordine DL voce 02: due righe su dodici
+    // portano la marca del genere.
+    return LaMarcaDelGenere.risolvi(
+        righe[_derivato(_seme(istante, maestro, null), 4) % righe.length]);
   }
 
   /// Mette i valori veri al posto dei segnaposto.

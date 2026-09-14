@@ -66,8 +66,13 @@ void main() {
             // una frase del pool.
             expect(card.text.startsWith('$anchor '), isTrue);
             final current = card.text.substring(anchor.length + 1);
+            // **LA FRASE DEL POOL SI LEGGE RISOLTA**, ordine DL voce 03:
+            // nel pool ci sono le marche del genere, a schermo la forma.
             expect(
-                HoroscopeData.dayPools[domain.index]!.contains(current), isTrue,
+                HoroscopeData.dayPools[domain.index]!
+                    .map(LaMarcaDelGenere.risolvi)
+                    .contains(current),
+                isTrue,
                 reason: 'corrente fuori pool per ${sign.id} giorno $day');
           }
         }

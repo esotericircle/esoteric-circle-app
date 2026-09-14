@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'le_parole_di_chi_legge.dart';
 
 /// LA PORTA PICCOLA AVVERTE CHI NON RISULTA. Ordine BH voce 03.
 ///
@@ -25,7 +26,15 @@ void main() {
   });
 
   test('a chi non risulta si offre la strada della registrazione', () {
-    final s = leggi('lib/features/account/custodia_del_cielo.dart');
+    // **I LETTERALI UNITI**, ordine DL voce 03: la frase ora sta in una
+    // marca e va a capo in mezzo, e il sorgente cercato riga per riga non
+    // la trova piu' intera.
+    final s = [
+      for (final l
+          in letteraliDi(leggi('lib/features/account/custodia_del_cielo.dart')))
+        l.testo,
+      leggi('lib/features/account/custodia_del_cielo.dart'),
+    ].join('\n');
     expect(s.contains('potrai farlo '), isTrue,
         reason: 'la strada in avanti per chi non risulta e\' sparita');
     expect(s.contains('oppure dal menu utente'), isTrue,
