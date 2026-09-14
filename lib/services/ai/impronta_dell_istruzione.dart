@@ -62,9 +62,9 @@ class ImprontaDellIstruzione {
         'l\'attribuzione già dichiarata non valida. Caduta il 14 settembre '
         '2026 con l\'ordine DL voci 04 e 05: il blocco di cortesia ora sta '
         'in un file suo, dice la forma scelta con le stesse righe per tutti i '
-        'prompt di prosa, e non dice più "riferiti a lei"; e le aperture '
-        'vietate hanno il prefisso "Non sei sol" al posto di "Non sei '
-        'solo" e "Non sei sola". È cambiata l\'istruzione di tutti e '
+        'prompt di prosa; non dice più "riferiti a lei"; e le aperture '
+        'vietate hanno un prefisso solo, che prende le due forme '
+        'accordate insieme, al posto di una riga per forma. È cambiata l\'istruzione di tutti e '
         'tre, perché il blocco sta nelle regole comuni.',
     'DAL 25 AL 30 AGOSTO 2026, stringa di 7250, 7398 e 7723 caratteri. '
         'Impronte: medora '
