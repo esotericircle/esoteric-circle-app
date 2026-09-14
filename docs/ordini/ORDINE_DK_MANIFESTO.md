@@ -9,8 +9,8 @@ Vertex AI, mai su API Anthropic. La build di quest'ordine l'ha ordinata il
 fondatore, voce DK.06.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 5
-VOCI_SBLOCCATE_E_APERTE: 3
+VOCI_CHIUSE: 8
+VOCI_SBLOCCATE_E_APERTE: 0
 
 ---
 
@@ -144,5 +144,78 @@ rossa soltanto perche' l'ordine DJ l'aveva lasciata col giro fatto prima della
 spinta. La suite intera prima della spinta: 5.127 passate, due saltate, le
 prove con la rete che senza token non girano, e tre rosse, i due rossi di legge
 e questa.
+
+---
+
+## DK.06, LA BUILD 2250. CHIUSA
+
+**Lo sbarramento si e' rifiutato due volte prima di produrre l'archivio**, a
+ragione. **La prima volta** non leggeva i rossi caduti dopo una prova
+saltata: dall'ordine DI la suite salta le due prove col modello vero quando il
+token manca; da li' in poi il rapporto di `flutter test` scrive `+N ~S -M:`
+invece di `+N -M:`. Le due espressioni delle cadute in `tool/sbarramento.sh`
+accettano adesso il `~S`; padre **BZ.02**, commit `28c4c845`. La prova e' in
+`lo_sbarramento_distingue_i_rossi`, tre casi nuovi, rossa con l'espressione
+di prima. **La seconda volta** e' caduta una cattura del corredo a scala del
+testo 1,3, *"Cattura Chiedi ai Maestri, vista comparativa"*, che cadeva anche
+sul codice della 2249: toccava il comando *altre voci* rimasto sotto la piega,
+secondo il giorno. Adesso lo porta a vista prima di toccarlo, come fa la
+persona.
+
+**Il terzo sbarramento e' passato**: suite intera 5.131 passate, 2 saltate, 2
+rosse, i due rossi di legge; corredo a scala 1,3 con 15 rossi, tutti
+accettati; gettone scritto col numero 2250. **L'archivio**: `flutter build apk
+--release` dall'albero a `d213e808`, versionCode 2250 letto con `aapt2`,
+196.990.253 byte, sha1 `7ca209bdd726c67f14a017d0c02b4425efc4e4d8`.
+
+**Mancano senza essere guasti**: il file del tamburo, per cui la discesa e il
+nutrimento restano muti; i trentasei disegni dei gesti, per cui il segno
+mostra l'illustrazione che si muove.
+
+---
+
+## DK.07, L'ACCENSIONE E LA PROVA A VIDEO. CHIUSA
+
+**Sul telefono di collaudo**, Realme RMX3081 con Android 13, la 2250
+installata e verificata col numero, la luminosita' a meta' come l'ordine
+chiede, 2047 su 4095, trovata cosi' e non toccata. **Diciassette punti su venti
+passano, il 14 in parte, il 16 no, il 7 non si e' potuto vedere fotogramma per
+fotogramma.** Esiti, misure e schermate punto per punto nel rapporto,
+`docs/ordini/RAPPORTO_ORDINE_DK.md`, capitolo 4; le immagini in
+`docs/collaudo/DK/`, venti file, uno per punto.
+
+**Il punto 16 non passa**: *"Chiedi a te stesso quale racconterai meglio fra
+dieci anni."*, fra le risposte del tema *scelta*, uscita a video all'ottava
+discesa. Padre **DG.07**, `6691242e`; la guardia della lingua della voce DI.05
+cerca un verbo seguito da un participio e il riflessivo non lo vede. **Non
+corretta**, perche' la build era gia' consegnata e una correzione vorrebbe
+una build nuova non ordinata. Proposta nel rapporto.
+
+**Gli strumenti**, per chi rifara' la prova. Il telefono non ha
+`screenrecord`: le raffiche le scatta il telefono stesso, in
+`/data/local/tmp` e non in `/sdcard`, dove la scrittura si inceppava per due
+secondi ogni quattro. Alla fine del filmato il telefono smette di dare
+schermate per un paio di secondi, qualunque sia il modo; il compositore
+invece dice che lo schermo non si ferma. Il volume di un effetto si legge da
+`dumpsys media.audio_flinger` mentre suona: la colonna dei dB della traccia.
+
+**Lo stato lasciato**: il Viaggio a zero discese com'era all'inizio, il
+cursore degli effetti al 100 com'era. Il registratore di schermo di sistema
+aperto per sbaglio e chiuso subito, prima che scrivesse qualunque file.
+
+---
+
+## DK.08, LA CONSEGNA E IL RAPPORTO. CHIUSA
+
+**Consegnata** con `tool/consegna.py`: prova di accensione passata, numero 2250
+letto dal telefono, archivio guardato dentro, sbarramento riconosciuto,
+release `1m17moklvopao`, distribuita al solo `cloud@esotericircle.app`,
+**inviti accettati 1** alla rilettura della release. Il registro
+`docs/versione_distribuita.json` e' passato da 2249 a 2250 dentro la consegna.
+
+**Il rapporto** e' `docs/ordini/RAPPORTO_ORDINE_DK.md`: le misure del rito, i
+venti punti, le schermate, la scena dal modello prima e dopo la voce DK.03, il
+file di `docs/` toccato con le righe tolte, i due materiali che mancano
+dichiarati come mancanti.
 
 ---

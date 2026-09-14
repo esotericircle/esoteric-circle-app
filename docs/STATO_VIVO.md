@@ -2541,6 +2541,42 @@ l'ultima consegnata resta la 2249, e niente dell'ordine e' verificato a video.
 - **DJ.11, la prova e il rapporto**: le misure da A a F passano in tutti e undici
   i casi, con e senza rete; F senza nessuna finestra con un titolo ripetuto.
 
+## L'ORDINE DK, LE ULTIME CORREZIONI, LA BUILD E LA PROVA A VIDEO
+
+13 e 14 settembre 2026, otto voci. Segue l'ordine DJ, commit `e1076f17`. Il
+manifesto sta in `docs/ordini/ORDINE_DK_MANIFESTO.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DK.md`, le schermate della prova a video in
+`docs/collaudo/DK/`, una per punto. **La build 2250 e' consegnata**, release
+`1m17moklvopao`, al solo `cloud@esotericircle.app`, inviti accettati 1.
+
+**OTTO VOCI SU OTTO, CHIUSE.**
+
+- **DK.01**: il titolo del tema *finito* e' *"E' finito e va bene cosi'"*;
+  nessun titolo dei responsi contiene piu' i due punti, con una prova per
+  costruzione su tutti i centoquarantotto.
+- **DK.02**: nell'onboarding la frase chiede il gesto montato, cioe' il dito,
+  una per oggetto; col microfono acceso nomina anche il soffio.
+- **DK.03**: la scena si chiede al modello al tocco di Scendi, con sei secondi
+  in tutto per i due tentativi. Scene dal modello sugli undici casi dall'88,2
+  al 95,4 per cento, tempi scaduti da 93 a 4.
+- **DK.04**: tolta la Domanda al Maestro reale dal Briefing Progetto, quattro
+  righe, per autorizzazione espressa del fondatore.
+- **DK.05**: `niente_lavoro_non_spinto` verde a spinta avvenuta.
+- **DK.06**: lo sbarramento legge i rossi anche dopo le prove saltate, padre
+  BZ.02; build 2250, 196.990.253 byte.
+- **DK.07**: **la prima prova a video del Viaggio intero**, sul Realme a
+  meta' luminosita'. Diciassette punti su venti passano, il 14 in parte (la
+  risposta nomina il tema, non la domanda), il 16 no, il 7 non si e' potuto
+  vedere fotogramma per fotogramma. **Il 16**: *"Chiedi a te stesso quale
+  racconterai meglio fra dieci anni."*, padre DG.07, non corretto perche'
+  vorrebbe una build nuova. Visti anche due gesti che contraddicono il loro
+  *quando* e un pronome che cambia genere, tutti padre DG.07, e la discesa
+  saltata che fa sparire le radici di colpo, padre DI.09.
+- **DK.08**: consegna e rapporto.
+
+**Mancano ancora, senza essere guasti**: il file del tamburo e i trentasei
+disegni dei gesti.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
