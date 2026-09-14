@@ -263,7 +263,11 @@ abstract final class LaScenaDalModello {
       ..writeln('Domanda: ${s.domanda.trim().isEmpty ? 'nessuna, la '
           'discesa è soltanto per incontrarlo' : s.domanda.trim()}')
       ..writeln('Tema: ${s.tema ?? 'nessuno'}')
-      ..writeln('Oggetto della domanda: ${s.oggetto ?? 'non noto'}')
+      // **SENZA OGGETTO LA RIGA NON C'E'**, ordine DL voce 08: con *"non
+      // noto"* il modello prendeva le due parole per la cosa chiesta, e
+      // scriveva *"Quel 'non noto' che e' finito"*. Trovato leggendo le
+      // risposte della prova a cento discese.
+      ..write(s.oggetto == null ? '' : 'Oggetto della domanda: ${s.oggetto}\n')
       ..writeln(
           'Titoli già dati, da non ripetere: ${s.titoliGiaDati.isEmpty ? 'nessuno' : s.titoliGiaDati.take(titoliNellaRichiesta).map((t) => '"$t"').join(', ')}')
       ..writeln('Animale: ${s.animale.name}');

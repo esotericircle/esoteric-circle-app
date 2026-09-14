@@ -8,6 +8,8 @@ import 'package:esoteric_circle/core/viaggio/la_domanda_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
 
 /// **IL RESPONSO RISPONDE.** Ordine DL voci 07, 08, 10 e 13, 14 settembre
 /// 2026.
@@ -100,6 +102,18 @@ void main() {
       expect(risposta('Non tocca a te saperlo prima di lei.'),
           isNot(MotivoDelloScarto.previsioneCerta));
       expect(risposta('Non tocca a te saperlo prima di tua sorella.'), isNull);
+    });
+
+    test('"LASCIALO" TOCCA UN TERZO SOLO QUANDO E\' UNA PERSONA', () {
+      expect(
+          azione('Stasera scrivi due righe su un foglio. Lascialo sul '
+              'comodino.'),
+          isNull,
+          reason: 'il foglio non e un terzo');
+      expect(azione('Stasera pensa a lui per un minuto. Poi lascialo.'),
+          MotivoDelloScarto.toccaUnTerzo);
+      expect(azione('Entro sabato lasciala perdere, senza spiegazioni.'),
+          MotivoDelloScarto.toccaUnTerzo);
     });
 
     test('LE PREVISIONI SENZA FUTURO, dalla sonda col modello vero', () {
@@ -252,6 +266,26 @@ void main() {
       );
       expect(senza.paragrafi.first, isNot(contains('trasloco')));
     });
+  });
+
+  test('SENZA OGGETTO LA RICHIESTA NON NE PARLA, e con l\'oggetto lo nomina',
+      () {
+    // Con *"non noto"* il modello scriveva *"Quel 'non noto' che e'
+    // finito"*: la prova a cento discese col modello vero.
+    CioCheSiSa s(String? oggetto) => CioCheSiSa(
+          domanda: domanda,
+          tema: TemaDellaDomanda.attesa.inLettere,
+          animale: GuideAnimalDerivation.forSign(Zodiac.cancer),
+          natale: const NatalContext(),
+          memoria: '',
+          ultimeScene: const [],
+          oggetto: oggetto,
+        );
+    final senza = LaScenaDalModello.richiesta(s(null));
+    expect(senza, isNot(contains('non noto')));
+    expect(senza, isNot(contains('Oggetto della domanda')));
+    expect(LaScenaDalModello.richiesta(s('tua sorella')),
+        contains('Oggetto della domanda: tua sorella'));
   });
 
   group('I TESTI DEL MODELLO NEL RESPONSO E NEL DIARIO', () {

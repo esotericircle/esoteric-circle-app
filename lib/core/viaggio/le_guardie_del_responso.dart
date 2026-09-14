@@ -137,7 +137,12 @@ abstract final class LeGuardieDelResponso {
   /// rapporto, rivelare qualcosa a qualcuno.
   static final RegExp _terzi =
       _parole('confronta[a-zàèéìòù]*|accusa[a-zàèéìòù]*|pretend[a-zàèéìòù]*|'
-          'rompi|rompere|chiudi con|chiudere con|lascialo|lasciala|mollal[oa]|'
+          'rompi|rompere|chiudi con|chiudere con|mollal[oa]|'
+          // **"LASCIALO" SOLO QUANDO E' UNA PERSONA**, ordine DL voce 13:
+          // la prova a cento discese scartava *"Lascialo sul comodino"*,
+          // che parla di un foglio. Resta quando chiude la frase, *"Poi
+          // lascialo."*, o quando va con perdere, andare, stare.
+          'lascia(lo|la)(?= *[.!;]| *\$)|lascia(lo|la) (perdere|andare|stare)|'
           'affronta[a-zàèéìòù]*|smaschera[a-zàèéìòù]*|rivela[a-zàèéìòù]*|'
           'confessa[a-zàèéìòù]*|denuncia[a-zàèéìòù]*|minaccia[a-zàèéìòù]*|'
           'ultimatum|vendica[a-zàèéìòù]*|dille che|digli che|dì loro che');
