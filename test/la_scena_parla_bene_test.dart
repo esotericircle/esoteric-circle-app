@@ -297,8 +297,10 @@ void main() {
           }
           // **IL GESTO NON RIPETE UNA PAROLA FRA L'APERTURA E IL QUANDO**:
           // *"Il passo di oggi: ... Oggi."*
+          // **I GESTI CHE PORTANO IL LORO TEMPO NON HANNO IL QUANDO**,
+          // ordine DL voce 10: allora non c'e' niente da confrontare.
           final quando = LaVoceDelMondoDiSotto.quando
-              .firstWhere((q) => righe[1].endsWith(q));
+              .firstWhere((q) => righe[1].endsWith(q), orElse: () => '');
           final prima = righe[1]
               .substring(0, righe[1].length - quando.length)
               .toLowerCase();

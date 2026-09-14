@@ -2,6 +2,8 @@ import '../responsi/filo_della_voce.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'la_domanda_del_viaggio.dart';
 import 'scena_del_viaggio.dart';
+import 'le_guardie_del_responso.dart';
+import '../../core/chat/user_profile.dart';
 
 /// **LA VOCE DEL MONDO DI SOTTO: la scena diventa una risposta.**
 /// Ordine DG voce 07, 11 settembre 2026.
@@ -277,13 +279,72 @@ abstract final class LaVoceDelMondoDiSotto {
     'Sotto hai portato {tema}.',
   ];
 
+  /// **SEI MODI DI RIPRENDERE L'OGGETTO DELLA DOMANDA**, ordine DL voce 08.
+  ///
+  /// **Il fatto, punto 14 della prova a video della build 2250**: la risposta
+  /// nominava il tema, mai la persona o la cosa di cui si era chiesto. Alla
+  /// domanda sulla sorella diceva *"La domanda riguardava la scelta"*.
+  /// Adesso, quando il classificatore da' l'oggetto in due o tre parole prese
+  /// dalla domanda, la ripresa nomina quello: *"Sei scesa con la domanda su
+  /// tua sorella"*. `{oggetto}` e' l'oggetto; senza, vale [riprendeLaDomanda].
+  ///
+  /// **Tutte reggono un nome qualunque**, *tua sorella*, *quel lavoro*, *il
+  /// trasloco*: si parla sempre della domanda SU quella cosa, o di quella
+  /// cosa come motivo, mai di averla con se'.
+  static const List<String> riprendeLOggetto = [
+    'Hai portato giù la domanda {su}.',
+    'La domanda riguardava {oggetto}.',
+    '[Sei sceso|Sei scesa|Sei qui] con la domanda {su}.',
+    'Nella discesa avevi con te la domanda {su}.',
+    'Sotto hai portato la domanda {su}.',
+    'Il motivo della discesa era {oggetto}.',
+  ];
+
+  /// **"SU" DAVANTI ALL'OGGETTO**, con la preposizione articolata: *"sul
+  /// trasloco"*, *"sulla tua casa"*, *"su tua sorella"*. Ordine DL voce
+  /// 08: la prima stesura scriveva *"la domanda su il trasloco"*.
+  static String suLOggetto(String oggetto) {
+    const articolate = {
+      'il ': 'sul ',
+      'lo ': 'sullo ',
+      'la ': 'sulla ',
+      "l'": "sull'",
+      'i ': 'sui ',
+      'gli ': 'sugli ',
+      'le ': 'sulle ',
+    };
+    for (final e in articolate.entries) {
+      if (oggetto.startsWith(e.key)) {
+        return '${e.value}${oggetto.substring(e.key.length)}';
+      }
+    }
+    return 'su $oggetto';
+  }
+
+  /// **LA RIPRESA DELLA DOMANDA**, con l'oggetto quando c'e', col tema
+  /// altrimenti. La marca si risolve sul modello della frase, prima di
+  /// metterci dentro l'oggetto.
+  static String _ripresa(
+      int indice, String temaDomanda, String temaInLettere, String? oggetto) {
+    if (oggetto != null && oggetto.trim().isNotEmpty) {
+      return LaMarcaDelGenere.risolvi(
+              riprendeLOggetto[indice % riprendeLOggetto.length])
+          .replaceAll('{su}', suLOggetto(oggetto.trim()))
+          .replaceAll('{oggetto}', oggetto.trim());
+    }
+    return riprendeLaDomanda[indice % riprendeLaDomanda.length]
+        .replaceAll('{tema}', _minuscola(temaInLettere))
+        .replaceAll('{breve}',
+            temaInDueParole[temaDomanda] ?? _minuscola(temaInLettere));
+  }
+
   /// **OTTO RISPOSTE PER TEMA, corte e in seconda persona.**
   static const Map<String, List<String>> rispostePerTema = {
     'scelta': [
       'Nessuna delle due ti chiude le altre porte.',
       'Hai già scelto una volta senza pentirtene.',
       'Il tempo che ci stai mettendo è già una risposta.',
-      'Chiedi a te stesso quale racconterai meglio fra dieci anni.',
+      'Chiediti quale racconterai meglio fra dieci anni.',
       'Non stai scegliendo fra due cose: stai scegliendo chi diventi dopo.',
       'Una delle due la stai già facendo, in piccolo, da settimane.',
       'Il costo di sbagliare è più basso di quanto lo stai contando.',
@@ -440,6 +501,88 @@ abstract final class LaVoceDelMondoDiSotto {
     'Butta via una cosa che tieni per abitudine.',
     'Metti per iscritto che cosa ti farebbe dire di no.',
     'Fai una prova piccola, che puoi annullare.',
+  ];
+
+  /// **I GESTI CHE PORTANO GIA' UN TEMPO**, e non ricevono il quando. Ordine
+  /// DL voce 10.
+  ///
+  /// **Il fatto, dalla prova a video della build 2250**: *"Dormici una notte
+  /// e rileggi questa riga domattina. Entro stasera."* e *"Datti tre giorni.
+  /// Alla fine scegli comunque. Domani mattina, appena ti alzi."* Il gesto e
+  /// il quando si sceglievano ognuno per conto suo, e tre gesti su venti il
+  /// tempo lo portano gia' dentro. **Questi tre sono autosufficienti**; gli
+  /// altri diciassette restano come sono.
+  static const Set<String> gestiColTempo = {
+    'Datti tre giorni. Alla fine scegli comunque.',
+    'Segnati oggi sul calendario. Torna a guardarlo fra un mese.',
+    'Dormici una notte e rileggi questa riga domattina.',
+  };
+
+  /// **UN'APERTURA SENZA TEMPO, se il gesto il tempo ce l'ha gia'.** Ordine
+  /// DL voce 10: *"Il passo di oggi: datti tre giorni"* dice due tempi, e
+  /// la prova dell'ordine vuole un'indicazione di tempo sola per responso. Si
+  /// prende l'apertura dopo, la prima che non dice un tempo.
+  static String _aperturaPer(String gesto, String apre) {
+    if (!_haUnTempo(gesto) || !_haUnTempo(apre)) return apre;
+    final i = apreIlGesto.indexOf(apre);
+    for (var k = 1; k < apreIlGesto.length; k++) {
+      final altra = apreIlGesto[(i + k) % apreIlGesto.length];
+      if (!_haUnTempo(altra)) return altra;
+    }
+    return apre;
+  }
+
+  /// **IL QUANDO, solo se ne' l'apertura ne' il gesto dicono gia' un tempo.**
+  /// Ordine DL voce 10. Stringa vuota altrimenti, e la cucitura la salta.
+  ///
+  /// **E IL GESTO CHE PORTA IL SUO TEMPO CHIUDE SENZA TEMPO.** Col solo
+  /// togliere il quando, i tre gesti avevano sette paragrafi possibili, e
+  /// su cento discese senza storia lo stesso tornava cinque volte: la prova
+  /// delle quattro grandezze l'ha visto. Al posto del quando prendono una
+  /// chiusa che non dice nessun tempo, dallo stesso indice, e le
+  /// combinazioni tornano quelle di prima.
+  static String _quandoPer(String apre, String gesto, int quale) {
+    if (_haUnTempo(gesto)) {
+      final n = chiudeIlGestoSenzaTempo.length;
+      for (var k = 0; k < n; k++) {
+        final c = chiudeIlGestoSenzaTempo[(quale + k) % n];
+        if (!_ripete(c, '$apre $gesto')) return c;
+      }
+      return '';
+    }
+    return _haUnTempo(apre) ? '' : quando[quale];
+  }
+
+  /// **OTTO CHIUSE SENZA TEMPO**, per i gesti che il tempo lo portano gia'.
+  /// Ordine DL voce 10. Nessuna dice quando: lo verifica la prova dei due
+  /// tempi, che conta i pezzi del paragrafo.
+  static const List<String> chiudeIlGestoSenzaTempo = [
+    'Basta questo.',
+    'Il resto viene da sé.',
+    'Non serve altro.',
+    'Anche se sembra poco.',
+    'Senza spiegarlo a nessuno.',
+    'Tienilo per te.',
+    'Fallo sul serio.',
+    'Poi lascia che sedimenti.',
+  ];
+
+  /// Vero se [s] contiene un'indicazione di tempo, con la stessa famiglia
+  /// della guardia del gesto del modello.
+  static bool _haUnTempo(String s) =>
+      LeGuardieDelResponso.indicazioneDiTempo.hasMatch(s);
+
+  /// **IL PARAGRAFO DEL GESTO SCRITTO DAL MODELLO**, ordine DL voce 13:
+  /// un'apertura di casa senza tempo, e il gesto, che il suo tempo lo porta
+  /// dentro e quindi non riceve il quando. [seme] sceglie l'apertura, e la
+  /// stessa discesa, riaperta, la ritrova.
+  static String gestoDelModello(String azione, int seme) => cuci(
+      [_apertureSenzaTempo[seme.abs() % _apertureSenzaTempo.length], azione]);
+
+  /// Le aperture che non dicono un tempo: sette su otto.
+  static final List<String> _apertureSenzaTempo = [
+    for (final a in apreIlGesto)
+      if (!_haUnTempo(a)) a,
   ];
 
   /// **OTTO MODI DI DIRE QUANDO**, che si attaccano al gesto.
@@ -647,7 +790,8 @@ abstract final class LaVoceDelMondoDiSotto {
     // quattro discese, e ogni volta che tornava la risposta tornava anche il
     // titolo: misurato, la somiglianza al 40,0 per cento.
     if (!titoliPerTema.containsKey(temaDomanda)) {
-      final u = FiloDellaVoce.da(['titolo', temaDomanda ?? 'nulla']).seme % n + g;
+      final u =
+          FiloDellaVoce.da(['titolo', temaDomanda ?? 'nulla']).seme % n + g;
       return quali[
           mescolato((u + u ~/ n) % n, n, 'titolo ${temaDomanda ?? 'nulla'}')];
     }
@@ -687,12 +831,13 @@ abstract final class LaVoceDelMondoDiSotto {
     int giaOggi = 0,
     int? formaDellaScena,
     List<ResponsoLetto> letti = const [],
+    String? oggettoDellaDomanda,
   }) {
     final g = giro(giornoDellaDiscesa, giaOggi);
     final titolo = _titoloDelMazzo(temaDomanda, g, letti);
     final (righe, risposta, gesto) = _paragrafiAlGiro(
         scena, temaDomanda, temaInLettere, g, formaDellaScena,
-        titolo: titolo, letti: letti);
+        titolo: titolo, letti: letti, oggetto: oggettoDellaDomanda);
     return VoceDelGiorno._(titolo, righe, risposta, gesto);
   }
 
@@ -765,8 +910,8 @@ abstract final class LaVoceDelMondoDiSotto {
     // combinazioni disponibili, che e' impossibile se le scelte sono
     // indipendenti.
     final filoDelGesto = filo.piu(7);
-    final apre = filoDelGesto.scegli(apreIlGesto);
     final gesto = filoDelGesto.scegli(cosaPuoiFare);
+    final apre = _aperturaPer(gesto, filoDelGesto.scegli(apreIlGesto));
     // **IL QUANDO NON RIPETE L'APERTURA**: *"Il passo di oggi: ... Oggi."*
     // Ordine DI voce 05, trovato leggendo i responsi per intero. Si passa al
     // quando dopo, finche' non ripete niente.
@@ -776,7 +921,7 @@ abstract final class LaVoceDelMondoDiSotto {
         giri++) {
       qualeQuando = (qualeQuando + 1) % quando.length;
     }
-    righe.add(cuci([apre, gesto, quando[qualeQuando]]));
+    righe.add(cuci([apre, gesto, _quandoPer(apre, gesto, qualeQuando)]));
 
     // 3. da dove viene, cioe' la scena. **Con un filo suo**, per la stessa
     // ragione del gesto.
@@ -817,7 +962,9 @@ abstract final class LaVoceDelMondoDiSotto {
   /// mescolato, che non unisce mai due posti e non lascia vicini i vicini.
   static (List<String>, String, String) _paragrafiAlGiro(ScenaDelViaggio scena,
       String? temaDomanda, String? temaInLettere, int g, int? formaDellaScena,
-      {required String titolo, required List<ResponsoLetto> letti}) {
+      {required String titolo,
+      required List<ResponsoLetto> letti,
+      String? oggetto}) {
     final righe = <String>[];
     final conTema = temaDomanda != null && temaInLettere != null;
     final risposte = conTema
@@ -936,10 +1083,9 @@ abstract final class LaVoceDelMondoDiSotto {
       final quante = r * codaDellaRisposta.length;
       final cornice = mescolato(
           (pr + ge * 13 + ri) % quante, quante, 'cornice della risposta');
-      final ripresa = riprendeLaDomanda[cornice % r]
-          .replaceAll('{tema}', _minuscola(temaInLettere))
-          .replaceAll('{breve}',
-              temaInDueParole[temaDomanda] ?? _minuscola(temaInLettere));
+      // **CON L'OGGETTO QUANDO C'E'**, ordine DL voce 08.
+      final ripresa =
+          _ripresa(cornice % r, temaDomanda, temaInLettere, oggetto);
       righe.add(cuci([ripresa, risposta, _codaDi(ri, giroDellaRisposta)]));
     } else {
       // Senza tema la risposta e' una frase sola su otto: ha la coda, o in
@@ -952,7 +1098,18 @@ abstract final class LaVoceDelMondoDiSotto {
     // sessantaquattro cornici, e le risposte di un tema sono meno.
     final cornice = mescolato((pg + ri * 5 + ge * 7) % (a * quando.length),
         a * quando.length, 'cornice del gesto');
-    final apre = apreIlGesto[cornice % a];
+    // **IL GESTO CHE PORTA IL SUO TEMPO GIRA LE APERTURE**, ordine DL voce
+    // 10. Senza il quando il suo paragrafo e' l'apertura e il gesto, e
+    // basta: la prova a cento discese l'ha trovato identico tre volte su
+    // cento, misura D. **Con la storia** si prende l'apertura dopo quella
+    // dell'ultima volta che lo stesso gesto e' uscito, e prima di sette volte
+    // non torna. **Senza storia** non c'e' niente da contare, e l'apertura
+    // cammina con la cornice, che cambia da una discesa all'altra.
+    final apre = _haUnTempo(gesto)
+        ? _apertureSenzaTempo[((letti.isEmpty ? cornice : pg) +
+                letti.where((l) => l.gesto == gesto).length) %
+            _apertureSenzaTempo.length]
+        : _aperturaPer(gesto, apreIlGesto[cornice % a]);
     // **IL QUANDO NON RIPETE L'APERTURA**, ordine DI voce 05: si passa al
     // quando dopo, finche' non ripete niente.
     var qualeQuando = cornice ~/ a;
@@ -961,7 +1118,7 @@ abstract final class LaVoceDelMondoDiSotto {
         giri++) {
       qualeQuando = (qualeQuando + 1) % quando.length;
     }
-    righe.add(cuci([apre, gesto, quando[qualeQuando]]));
+    righe.add(cuci([apre, gesto, _quandoPer(apre, gesto, qualeQuando)]));
 
     // **LA CORNICE DELLA SCENA**: l'apertura del blocco, la forma della frase
     // che cuce i pezzi e la chiusura. Anche lei e' funzione iniettiva del
@@ -971,8 +1128,8 @@ abstract final class LaVoceDelMondoDiSotto {
     // cento su tutte le coppie: 42,3 il blocco, 47,1 una domanda libera.
     final ps = FiloDellaVoce.da(['cornice della scena']).seme;
     final posti = daDoveViene.length * 8 * 12;
-    final cs = mescolato(
-        (ps + ri * cosaPuoiFare.length + ge) % posti, posti, 'cornice della scena');
+    final cs = mescolato((ps + ri * cosaPuoiFare.length + ge) % posti, posti,
+        'cornice della scena');
     final daDove = daDoveViene[cs % daDoveViene.length].split('{scena}');
     // **LA FORMA CHE CUCE LA SCENA** la sceglie chi conosce la storia,
     // `IlResponsoDelViaggio.formaDellaScena`: una scena che somiglia a una di

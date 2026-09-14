@@ -437,6 +437,8 @@ class UnViaggio {
     this.titolo,
     this.risposta,
     this.gesto,
+    this.oggetto,
+    this.fonti = const {},
   });
 
   final DateTime quando;
@@ -449,6 +451,19 @@ class UnViaggio {
   final String? titolo;
   final String? risposta;
   final String? gesto;
+
+  /// **L'OGGETTO DELLA DOMANDA**, come l'ha capito il classificatore: *"tua
+  /// sorella"*. Ordine DL voce 08. Nullo quando non c'era o non reggeva.
+  final String? oggetto;
+
+  /// **DA QUALE VIA E' NATO OGNI PEZZO DEL RESPONSO.** Ordine DL voce 14.
+  ///
+  /// Per `tema`, `scena`, `titolo`, `risposta` e `gesto`: `modello`, oppure
+  /// `riserva` col perche', *"riserva: tempo scaduto"*. **Si scrive sempre**,
+  /// non solo col comando di collaudo acceso: la prova della build 2250 ha
+  /// chiesto quale via avesse deciso il tema, e la risposta non c'era,
+  /// perche' la fonte si calcolava e poi si buttava via.
+  final Map<String, String> fonti;
 
   /// La domanda con cui si e' sceso, per esteso.
   final String domanda;
@@ -496,6 +511,8 @@ class UnViaggio {
         if (titolo != null) 'titolo': titolo,
         if (risposta != null) 'risposta': risposta,
         if (gesto != null) 'gesto': gesto,
+        if (oggetto != null) 'oggetto': oggetto,
+        if (fonti.isNotEmpty) 'fonti': fonti,
       };
 
   static UnViaggio? fromJson(Map<String, dynamic> j) {
@@ -514,6 +531,13 @@ class UnViaggio {
       titolo: j['titolo'] is String ? j['titolo'] as String : null,
       risposta: j['risposta'] is String ? j['risposta'] as String : null,
       gesto: j['gesto'] is String ? j['gesto'] as String : null,
+      oggetto: j['oggetto'] is String ? j['oggetto'] as String : null,
+      fonti: {
+        if (j['fonti'] is Map)
+          for (final e in (j['fonti'] as Map).entries)
+            if (e.key is String && e.value is String)
+              e.key as String: e.value as String,
+      },
     );
   }
 }

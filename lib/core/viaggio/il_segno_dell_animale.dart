@@ -6,6 +6,9 @@ import 'package:firebase_ai/firebase_ai.dart';
 import '../rituals/animal_catalog.dart';
 import 'il_tetto_delle_chiamate.dart';
 import 'la_domanda_capita.dart';
+import '../chat/il_blocco_di_cortesia.dart';
+import '../chat/user_profile.dart';
+import '../chat/le_forme_del_genere.dart';
 
 /// **I GESTI CON CUI L'ANIMALE RISPONDE, e nessuno di piu'.**
 /// Ordine DI voce 14, 12 settembre 2026; ridotti a tre dall'ordine DJ voce 08,
@@ -134,7 +137,7 @@ abstract final class GestiDelSegno {
 
   /// **L'ISTRUZIONE AL MODELLO.** Costruita dall'enumerazione, cosi' il
   /// repertorio non si ricopia a mano.
-  static String istruzione(GuideAnimal animale) {
+  static String istruzione(GuideAnimal animale, {CourtesyForm? forma}) {
     final chi = '${animale.articolo}${animale.name}';
     final b = StringBuffer(
         'Sei la voce muta dell\'animale guida di una persona: $chi. L\'animale '
@@ -156,9 +159,15 @@ abstract final class GestiDelSegno {
         'gesto ma con parole tue, in seconda persona singolare: non ripetere '
         'il significato alla lettera. L\'animale non parla: niente prima persona, '
         'niente "ti dice". Il gesto indica una direzione, non una certezza: '
-        'niente previsioni sul futuro come "tornerà" o "ce la farai". Non '
-        'usare aggettivi o participi che dicano se la persona è un uomo o una '
-        'donna. Niente due punti. Niente consigli medici, legali o economici.');
+        'niente previsioni sul futuro come "tornerà" o "ce la farai". '
+        'Niente due punti. Niente consigli medici, legali o economici.');
+    // **LA FORMA E' QUELLA SCELTA DALLA PERSONA**, ordine DL voce 04: qui
+    // si chiedeva il neutro a tutti, e chi aveva scelto il maschile o il
+    // femminile nell'onboarding si trovava un'altra voce.
+    b
+      ..writeln()
+      ..writeln()
+      ..write(IlBloccoDiCortesia.perForma(forma));
     return b.toString();
   }
 
@@ -174,7 +183,7 @@ abstract final class GestiDelSegno {
     required DateTime giorno,
     ChiamataDelSegno? chiamata,
     Future<bool> Function() prendiUnaChiamata =
-        IlTettoDelleChiamate.prendiUnaChiamata,
+        IlTettoDelleChiamate.prendiUnSegno,
     void Function(Object errore)? seGuasto,
   }) async {
     final testo = domanda.trim();
@@ -233,14 +242,16 @@ abstract final class GestiDelSegno {
   /// e *"ti dice che la risposta e' no"*; previsioni certe, *"la persona
   /// tornera'"*; e frasi senza un segno di punteggiatura, *"Il Cervo si
   /// avvicina a te questo indica"*. Con [animale] la riga deve anche nominarlo.
-  static bool rigaAccettabile(String riga, {GuideAnimal? animale}) {
+  static bool rigaAccettabile(String riga,
+      {GuideAnimal? animale, CourtesyForm? forma}) {
     if (riga.length < 12 || riga.length > rigaAlMassimo) return false;
     if (riga.contains('\n')) return false;
     if (':'.allMatches(riga).length > 1) return false;
-    if (RegExp(
-            r'\b(sei|eri) (sceso|arrivato|andato|tornato|stato|pronto|solo)\b',
-            caseSensitive: false)
-        .hasMatch(riga)) {
+    // **LA FORMA E' QUELLA SCELTA DALLA PERSONA**, ordine DL voce 04: qui si
+    // scartava ogni participio maschile, per tutti. Adesso il modello riceve
+    // la forma, e si scarta la riga che la contraddice.
+    if (formeContrarieAllaForma(riga, forma ?? LaMarcaDelGenere.formaCorrente)
+        .isNotEmpty) {
       return false;
     }
     // **L'ANIMALE NON PARLA**: niente prima persona, niente discorso.

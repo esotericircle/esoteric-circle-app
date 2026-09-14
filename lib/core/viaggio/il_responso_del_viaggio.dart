@@ -6,6 +6,7 @@ import 'la_domanda_del_viaggio.dart';
 import 'la_scena_dal_modello.dart';
 import 'la_voce_del_mondo_di_sotto.dart';
 import 'scena_del_viaggio.dart';
+import 'le_guardie_del_responso.dart';
 
 /// **IL RESPONSO DEL VIAGGIO, in un posto solo.** Ordine DI voce 16,
 /// 13 settembre 2026.
@@ -34,6 +35,8 @@ class IlResponsoDelViaggio {
     required this.dalModello,
     required this.risposta,
     required this.gesto,
+    required this.fonti,
+    required this.oggetto,
   });
 
   final ScenaDelViaggio scena;
@@ -50,6 +53,13 @@ class IlResponsoDelViaggio {
 
   /// Se i quattro pezzi li ha scelti il modello.
   final bool dalModello;
+
+  /// **DA QUALE VIA E' NATO OGNI PEZZO**, ordine DL voce 14: vedi
+  /// `UnViaggio.fonti`.
+  final Map<String, String> fonti;
+
+  /// L'oggetto della domanda, ordine DL voce 08, o nulla.
+  final String? oggetto;
 
   /// **I BLOCCHI COME SI LEGGONO**, dall'alto: titolo, risposta, gesto, da dove
   /// viene; poi il richiamo quando c'e'.
@@ -77,6 +87,8 @@ class IlResponsoDelViaggio {
         titolo: titolo,
         risposta: risposta,
         gesto: gesto,
+        oggetto: oggetto,
+        fonti: fonti,
       );
 
   /// **QUANTE FORME HA LA FRASE CHE CUCE LA SCENA** per ogni grado di
@@ -166,6 +178,9 @@ class IlResponsoDelViaggio {
     required GuideAnimal animale,
     required TemaDellaDomanda? tema,
     required List<UnViaggio> storia,
+    TestiDelModello scritti = TestiDelModello.nessuno,
+    String? oggetto,
+    Map<String, String> fontiGiaNote = const {},
   }) {
     final precedenti = [for (final v in storia) v.pezzi];
     // Il nome si dice alla quarta: questa discesa e' ancora da contare. **Da
@@ -221,14 +236,48 @@ class IlResponsoDelViaggio {
             gesto: v.gesto,
           ),
       ],
+      oggettoDellaDomanda: oggetto,
     );
+    // **IL TITOLO, LA RISPOSTA E IL GESTO DEL MODELLO**, ordine DL voci 07 e
+    // 13: ognuno prende il posto di quello di casa soltanto se ha retto alle
+    // guardie. La scena resta dove sta, in fondo, come fonte.
+    final paragrafi = [...voce.paragrafi];
+    if (scritti.risposta != null && paragrafi.isNotEmpty) {
+      paragrafi[0] = scritti.risposta!;
+    }
+    if (scritti.azione != null && paragrafi.length > 1) {
+      paragrafi[1] = LaVoceDelMondoDiSotto.gestoDelModello(
+          scritti.azione!,
+          FiloDellaVoce.da([...scena.idDeiPezzi, 'gesto del modello']).seme);
+    }
+    String fonte(String pezzo, bool dalModello) {
+      if (dalModello) return 'modello';
+      final scarto = scritti.scarti
+          .where((r) => r.pezzo == pezzo)
+          .map((r) => r.motivo.name)
+          .firstOrNull;
+      return scarto == null ? 'riserva' : 'riserva: $scarto';
+    }
+
+    final fonti = <String, String>{
+      'scena': dalModello != null ? 'modello' : 'riserva',
+      'titolo': fonte('titolo', scritti.titolo != null),
+      'risposta': fonte('risposta', scritti.risposta != null),
+      'gesto': fonte('azione', scritti.azione != null),
+      ...fontiGiaNote,
+    };
     return IlResponsoDelViaggio._(
       scena: scena,
       dalModello: dalModello != null,
-      titolo: voce.titolo,
-      paragrafi: voce.paragrafi,
-      risposta: voce.risposta,
-      gesto: voce.gesto,
+      titolo: scritti.titolo ?? voce.titolo,
+      paragrafi: paragrafi,
+      // **NEL DIARIO VA CIO' CHE SI E' LETTO**, parola per parola: chi
+      // riapre una discesa di sei mesi fa rilegge il testo del modello, e
+      // non se ne scrive uno nuovo. Ordine DL voce 07.
+      risposta: scritti.risposta ?? voce.risposta,
+      gesto: scritti.azione ?? voce.gesto,
+      fonti: fonti,
+      oggetto: oggetto,
       // **IL RICHIAMO: questa scena riprende un elemento di una di prima?**
       // Ordine DE voce 11: si guarda cinque scene indietro e non di piu'.
       richiamo: IlRichiamoDelleScene.laRiga(

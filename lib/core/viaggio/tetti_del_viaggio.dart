@@ -145,10 +145,14 @@ abstract final class TettiDelViaggio {
       a.year == b.year && a.month == b.month && a.day == b.day;
 
   /// **IL TETTO TECNICO, oltre il piano, per la sola difesa dai costi.**
-  /// Ordine DI voce 15: *"dieci chiamate al modello al giorno per utente,
-  /// contando discese e segni insieme"*. Oltre, le vie di riserva: il Viaggio
-  /// continua a rispondere, senza modello. Lo conta `IlTettoDelleChiamate`.
-  static const int chiamateAlModelloAlGiorno = 10;
+  /// Ordine DI voce 15, e dall'ordine DL voce 09 **conta le discese e i segni,
+  /// non le chiamate**: dieci discese e dieci segni al giorno, per conto loro.
+  /// Oltre, le vie di riserva: il Viaggio continua a rispondere, senza
+  /// modello. Lo conta `IlTettoDelleChiamate`.
+  static const int disceseAlModelloAlGiorno = 10;
+
+  /// I segni al giorno per il modello, contati a parte. Ordine DL voce 09.
+  static const int segniAlModelloAlGiorno = 10;
 
   /// **QUANTE DISCESE AL GIORNO PRIMA DELLA RIVELAZIONE.** Una, per tutti.
   ///

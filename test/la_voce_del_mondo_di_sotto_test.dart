@@ -21,6 +21,7 @@ import 'package:esoteric_circle/core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import 'package:esoteric_circle/core/viaggio/scena_del_viaggio.dart';
 
 import 'motore_della_ripetizione.dart';
+import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
 
 /// I due a capo che separano i paragrafi.
 const dueACapo = '\n\n';
@@ -47,7 +48,8 @@ void main() {
         giornoDellaDiscesa: giorno,
       );
       testi.add([
-        LaVoceDelMondoDiSotto.titolo(scena, idDomanda, giornoDellaDiscesa: giorno),
+        LaVoceDelMondoDiSotto.titolo(scena, idDomanda,
+            giornoDellaDiscesa: giorno),
         ...righe,
       ].join(dueACapo));
       // **IL TITOLO NON E' UN PARAGRAFO COMPOSTO.** E' una riga scelta da un
@@ -99,7 +101,8 @@ void main() {
           reason: '${d.tema}: due discese senza simboli in comune si '
               'somigliano troppo');
       expect(m.quanteVolteIlParagrafo, lessThanOrEqualTo(2),
-          reason: '${d.tema}: un paragrafo torna troppe volte');
+          reason: '${d.tema}: un paragrafo torna troppe volte: '
+              '"${m.paragrafoPiuRipetuto}"');
     }
   });
 
@@ -113,8 +116,7 @@ void main() {
         temaDomanda: d.id,
         temaInLettere: d.tema,
       );
-      expect(righe.length, 3,
-          reason: '${d.tema}: i paragrafi non sono tre');
+      expect(righe.length, 3, reason: '${d.tema}: i paragrafi non sono tre');
       // 1. **LA RISPOSTA NOMINA LA DOMANDA**, per esteso o in due parole.
       // Vedi `temaInDueParole`: meta' delle riprese usano la forma corta, e
       // la domanda resta nominata lo stesso.
@@ -133,10 +135,11 @@ void main() {
           .where((g) => righe[1].toLowerCase().contains(g.toLowerCase()));
       expect(gesto, isNotEmpty,
           reason: '${d.tema}: manca il gesto da fare in "${righe[1]}"');
-      final tempo = LaVoceDelMondoDiSotto.quando
-          .where((q) => righe[1].endsWith(q));
-      expect(tempo, isNotEmpty,
-          reason: '${d.tema}: il gesto non dice quando');
+      // **IL GESTO DICE UN TEMPO**, dal quando o da se': ordine DL voce
+      // 10, tre gesti il tempo lo portano dentro e il quando non lo
+      // ricevono.
+      expect(LeGuardieDelResponso.indicazioneDiTempo.hasMatch(righe[1]), isTrue,
+          reason: '${d.tema}: il gesto non dice quando: "${righe[1]}"');
       // 3. la fonte porta dentro la scena, **senza la sua apertura**: ordine
       // DI voce 05, il blocco ha gia' la sua frase che introduce, e una
       // seconda introduzione dentro la prima era il difetto dei due punti

@@ -50,6 +50,9 @@ import 'il_velo_che_si_scosta.dart';
 import 'l_ombra_dell_animale.dart';
 import 'le_quattro_impronte.dart';
 import 'la_nebbia_e_l_animale.dart';
+import '../../../../core/viaggio/le_guardie_del_responso.dart';
+import '../../../../core/viaggio/il_tetto_delle_chiamate.dart';
+import '../../../../design_system/components/interruttore_del_cerchio.dart';
 
 /// **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voci 01, 04, 05, 06 e 07,
 /// 10 settembre 2026.
@@ -76,6 +79,7 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
     this.fabbricaDellaDiscesa,
     this.chiamataDelSegno,
     this.chiamataDellaScena,
+    this.demo = AppFlags.isDemo,
   });
 
   final Zodiac userSign;
@@ -100,6 +104,11 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
   /// **LA CHIAMATA AL MODELLO PER LA SCENA**, ordine DI voce 03. Nulla vuol dire
   /// il modello vero.
   final ChiamataDellaScena? chiamataDellaScena;
+
+  /// **SE QUESTA E' UNA BUILD DI COLLAUDO.** Ordine DL voce 14: i comandi di
+  /// Demo della soglia esistono solo qui. Vale `AppFlags.isDemo`; le prove
+  /// lo spengono per verificare che fuori dalla Demo non si raggiungano.
+  final bool demo;
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -255,7 +264,16 @@ class _ViaggioDelloSciamanoScreenState
   /// pezzo, e la persona non aspetta nemmeno i due secondi concessi al
   /// modello. Nullo per le domande scritte e per la terza via, che il tema lo
   /// hanno gia' o non ne hanno.
-  Future<(TemaDellaDomanda?, FonteDelTema)>? _temaInArrivo;
+  ///
+  /// **CON LA FONTE E L'OGGETTO**, ordini DL voci 08 e 09: la fonte si
+  /// scrive nel Diario, l'oggetto fa nominare alla risposta la cosa di cui
+  /// si e' chiesto.
+  Future<DomandaCapita>? _temaInArrivo;
+
+  /// **IL PERMESSO DEL TETTO, preso una volta sola al tocco di Scendi.**
+  /// Ordine DL voce 09: il tetto conta le discese, non le chiamate, e le
+  /// chiamate della discesa lo portano con se'.
+  Future<bool>? _permessoDellaDiscesa;
 
   ScenaDelViaggio? _scena;
 
@@ -264,7 +282,7 @@ class _ViaggioDelloSciamanoScreenState
   /// filmato, la nebbia e l'incontro per rispondere: sei secondi, contati
   /// dalla partenza. **Il dito alzato non la tocca**: prosegue, non si annulla
   /// e non si rilancia. Nulla vuol dire la via deterministica.
-  Future<PezziScelti?>? _scenaInArrivo;
+  Future<LaScenaScritta>? _scenaInArrivo;
 
   /// **LA DOMANDA SI APRE SOLO SE LA SI CHIEDE**, dopo il riconoscimento.
   /// Ordine DI voce 11: sotto l'animale *"tre azioni e non di piu'"*. La
@@ -401,10 +419,14 @@ class _ViaggioDelloSciamanoScreenState
   /// **SI TOCCA SCENDI.** Se la domanda e' scritta a mano, da qui comincia a
   /// essere capita: ordine DI voce 02.
   void _scendi() {
+    // **UNA DISCESA, UN POSTO NEL TETTO**, ordine DL voce 09.
+    final permesso = IlTettoDelleChiamate.prendiUnaDiscesa();
+    _permessoDellaDiscesa = permesso;
     if (_via == ViaDellaDomanda.scritta && _domanda.text.trim().isNotEmpty) {
-      _temaInArrivo = LaDomandaCapita.tema(
+      _temaInArrivo = LaDomandaCapita.capisci(
         _domanda.text,
         seGuasto: _registraIlGuasto,
+        prendiUnaChiamata: () => permesso,
       );
     } else {
       _temaInArrivo = null;
@@ -475,22 +497,31 @@ class _ViaggioDelloSciamanoScreenState
   }
 
   /// **CHIEDE LA SCENA AL MODELLO**, con tutto cio' che si sa. Ordine DI voce 03.
-  Future<PezziScelti?> _chiediLaScena() async {
+  Future<LaScenaScritta> _chiediLaScena() async {
     final inArrivo = _temaInArrivo;
     TemaDellaDomanda? tema = _temaScelto;
+    String? oggetto;
     if (inArrivo != null) {
       try {
-        tema = (await inArrivo).$1 ?? tema;
+        final capita = await inArrivo;
+        tema = capita.tema ?? tema;
+        oggetto = capita.oggetto;
       } catch (errore) {
         // **SENZA TEMA LA SCENA SI CHIEDE LO STESSO**: il guasto della domanda
         // capita e' gia' nel registro, lo scrive chi l'ha chiesta, e il
         // modello riceve la domanda senza il tema.
       }
     }
-    if (!mounted) return null;
-    return LaScenaDalModello.chiedi(
+    if (!mounted) return (pezzi: null, testi: TestiDelModello.nessuno);
+    final permesso = _permessoDellaDiscesa ?? Future.value(true);
+    // **LA DOMANDA DELLA PERSONA**: quella scritta, oppure quella scelta fra
+    // le sei, per esteso. Il titolo, la risposta e il gesto del modello
+    // nascono da qui, ordine DL voce 07; senza domanda restano quelli di
+    // casa.
+    final domanda = _via == ViaDellaDomanda.incontro ? '' : _domanda.text;
+    return LaScenaDalModello.chiediTutto(
       CioCheSiSa(
-        domanda: _domanda.text,
+        domanda: domanda,
         tema: tema?.inLettere,
         animale: _suoAnimale,
         natale: _natale,
@@ -498,9 +529,15 @@ class _ViaggioDelloSciamanoScreenState
         // **TUTTA LA STORIA**, ordine DI voce 16: al modello ne arrivano
         // cinque, la lettura le guarda tutte.
         ultimeScene: [for (final v in _diario.viaggi) v.pezzi],
+        oggetto: oggetto,
+        // **I TITOLI GIA' DATI**, ordine DL voce 07: lo stesso titolo non
+        // torna prima di ventiquattro discese.
+        titoliGiaDati: LaScenaDalModello.titoliDalDiario(_diario.viaggi),
       ),
       chiamata: widget.chiamataDellaScena,
+      prendiUnaChiamata: () => permesso,
       seGuasto: (e) => _registraIlGuastoDi('viaggio_scena_del_modello', e),
+      seScartata: (r) => _registraIlGuastoDi('viaggio_testo_scartato', r),
     );
   }
 
@@ -639,10 +676,21 @@ class _ViaggioDelloSciamanoScreenState
     // pezzo. Se non ha trovato niente resta nullo, e si usa il ramo senza
     // domanda, che resta legittimo.
     final inArrivo = _temaInArrivo;
+    // **LA FONTE DEL TEMA NON SI BUTTA PIU' VIA**, ordine DL voce 09: qui si
+    // scriveva `final (tema, _)`, e la prova della build 2250 non ha potuto
+    // sapere quale via avesse deciso il tema della domanda sulla sorella.
+    var fonteDelTema = _via == ViaDellaDomanda.scritta
+        ? 'nessuno'
+        : _via == ViaDellaDomanda.incontro
+            ? 'nessuna domanda'
+            : 'scelto fra i sei';
+    String? oggetto;
     if (inArrivo != null) {
-      final (tema, _) = await inArrivo;
+      final capita = await inArrivo;
       if (!mounted) return;
-      _temaScelto = tema;
+      _temaScelto = capita.tema;
+      oggetto = capita.oggetto;
+      fonteDelTema = capita.fonte.name;
     }
     final quante = _diario.quanteDiscese;
     final nitidezza =
@@ -656,8 +704,10 @@ class _ViaggioDelloSciamanoScreenState
     // modello, se sono arrivati in tempo e sono dentro il vocabolario. Se no,
     // la via deterministica qui sotto, che resta la rete di sicurezza e non si
     // cancella. Si aspetta al massimo la pazienza del modello.
-    final dalModello = await (_scenaInArrivo ?? Future.value(null))
-        .timeout(LaScenaDalModello.pazienza, onTimeout: () => null);
+    const nessuna = (pezzi: null, testi: TestiDelModello.nessuno);
+    final scritta = await (_scenaInArrivo ?? Future.value(nessuna))
+        .timeout(LaScenaDalModello.pazienza, onTimeout: () => nessuna);
+    final dalModello = scritta.pezzi;
     _scenaInArrivo = null;
     if (!mounted) return;
     // **IL RESPONSO SI COMPONE IN UN POSTO SOLO**, ordine DI voce 16:
@@ -676,6 +726,9 @@ class _ViaggioDelloSciamanoScreenState
       animale: _suoAnimale,
       tema: _temaScelto,
       storia: _diario.viaggi,
+      scritti: scritta.testi,
+      oggetto: oggetto,
+      fontiGiaNote: {'tema': fonteDelTema},
     );
     final scena = responso.scena;
     // **COL TITOLO, LA RISPOSTA E L'AZIONE**, ordine DJ voce 02: la voce di
@@ -712,9 +765,8 @@ class _ViaggioDelloSciamanoScreenState
     // **Qui c'era un `if (true)`**, resto di una condizione tolta: un ramo
     // che si prende sempre si scrive senza condizione. Ordine DJ voce 05.
     final suo = _suoAnimale;
-    unawaited(
-        IlVersoDellAnimale.faiSentire(suo, eLaRivelazione: _riconosciuto)
-            .then((udito) {
+    unawaited(IlVersoDellAnimale.faiSentire(suo, eLaRivelazione: _riconosciuto)
+        .then((udito) {
       // **OGGI QUESTO E SEMPRE FALSO, ed e giusto cosi.** I dodici file non
       // sono nel pacchetto: il momento resta muto invece di prendere in
       // prestito un ululato che non e il suo. Vedi
@@ -926,7 +978,21 @@ class _ViaggioDelloSciamanoScreenState
                 // guarda quante discese mancano: il comando che le riporta a
                 // zero deve stare accanto al numero che azzera, non tre
                 // schermate piu' in la'.
-                if (AppFlags.isDemo && _diario.quanteDiscese > 0) ...[
+                // **IL COMANDO DI COLLAUDO CHE ALZA IL TETTO.** Ordine DL voce
+                // 14: accanto al comando che rigioca il Viaggio, e solo in
+                // Demo. Parte spento, vive finche' l'app e' aperta, e spento
+                // riporta il tetto di sempre senza riavviare niente.
+                if (widget.demo)
+                  // **L'INTERRUTTORE DI CASA**, come ogni levetta dentro
+                  // un'arte: vedi `cosmo_e_interruttori`.
+                  InterruttoreDelCerchio(
+                    key: const Key('viaggio_tetto_del_collaudo'),
+                    acceso: IlTettoDelleChiamate.alzatoPerIlCollaudo,
+                    onCambia: (v) => setState(
+                        () => IlTettoDelleChiamate.alzatoPerIlCollaudo = v),
+                    titolo: 'Tetto del modello alzato (Demo)',
+                  ),
+                if (widget.demo && _diario.quanteDiscese > 0) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   TextButton.icon(
                     key: const Key('viaggio_ricomincia_demo'),
@@ -1846,6 +1912,23 @@ class _ViaggioDelloSciamanoScreenState
               textAlign: TextAlign.center,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+          ],
+          // **DA QUALE VIA E' NATO QUESTO RESPONSO**, ordine DL voce 14: col
+          // comando di collaudo acceso, chi prova sa sempre cosa sta
+          // guardando, il modello o la riserva, pezzo per pezzo.
+          if (widget.demo && IlTettoDelleChiamate.alzatoPerIlCollaudo) ...[
+            Text(
+              [
+                for (final e in responso.fonti.entries) '${e.key}: ${e.value}',
+                // **CON LA VIRGOLA**: il punto medio e' la forma che la
+                // guardia del dominio non vuole vedere composta.
+              ].join(', '),
+              key: const Key('viaggio_fonti_del_collaudo'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.md),
           ],

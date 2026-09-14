@@ -141,6 +141,12 @@ abstract final class IlTemaDellaDomandaLibera {
       ('tempo', 1),
       ('incint*', 2),
       ('gravidanz*', 2),
+      // **I FUTURI DI UN ALTRO**, ordine DL voce 09: *"Mio figlio trovera'
+      // lavoro?"*, *"La mia amica tornera' a scrivermi?"* parlano di una
+      // persona e chiedono se una cosa arriva.
+      ('troverà', 3),
+      ('tornerà', 3),
+      ('cambierà', 2),
     ],
     TemaDellaDomanda.scelta: [
       ('devo', 1),
@@ -203,6 +209,21 @@ abstract final class IlTemaDellaDomandaLibera {
       ('lei', 1),
       ('con me', 2),
       ('per me', 1),
+      // **IL RAPPORTO CON UN ALTRO**, ordine DL voce 09. La prova a video
+      // della build 2250: *"Mia sorella non mi parla da due anni e non so se
+      // cercarla"* diventava una scelta, per il solo *"non so se"*, e la
+      // risposta parlava di due strade. Chi non si parla da due anni sta
+      // chiedendo di una persona.
+      ('non mi parla', 3),
+      ('non ci parliamo', 3),
+      ('non ci sentiamo', 3),
+      ('cercarla', 3),
+      ('cercarlo', 3),
+      ('sentirla', 3),
+      ('sentirlo', 3),
+      ('tra noi', 2),
+      ('fra noi', 2),
+      ('riavvicin*', 3),
     ],
     TemaDellaDomanda.blocco: [
       ('non riesco', 3),

@@ -57,7 +57,9 @@ void main() {
     // Ordine DI voce 02, 12 settembre 2026: un indizio della tabella che
     // capisce le domande libere, "non so se trasferirmi", dove "se" e' la
     // congiunzione e la stringa finisce legittimamente cosi'. Non si mostra.
-    'lib/core/viaggio/il_tema_della_domanda_libera.dart:171':
+    // La riga si e' spostata a 177 con l'ordine DL voce 09, che ha
+    // aggiunto le parole delle domande su un'altra persona.
+    'lib/core/viaggio/il_tema_della_domanda_libera.dart:177':
         'e un indizio della tabella delle domande libere, "non so se" con la '
             'congiunzione, e non una parola mostrata',
     'lib/core/lang/euphonic.dart:81':
@@ -74,6 +76,16 @@ void main() {
     // "perche" o "piu" sulla tastiera del telefono deve essere capito lo
     // stesso. Per questo l elenco porta tutte e due le forme, con e senza,
     // e quelle senza non escono mai a video.
+    // **ORDINE DL VOCI 07 E 08**: le parole di cornice dell'oggetto della
+    // domanda e le parole vuote della risposta del modello sono chiavi di
+    // confronto, come quelle della domanda dei tarocchi qui sotto.
+    'lib/core/viaggio/la_domanda_capita.dart:260':
+        'e la tavola delle parole di cornice dell oggetto, dove "da" e la '
+            'preposizione che l oggetto puo avere senza che la domanda la '
+            'contenga, una CHIAVE di confronto',
+    'lib/core/viaggio/le_guardie_del_responso.dart:195':
+        'e la tavola delle parole vuote della domanda, dove perche senza '
+            'accento e la forma che la persona digita, una CHIAVE',
     'lib/core/tarot/domanda_della_persona.dart:39':
         'e la tavola delle parole vuote, dove perche e una CHIAVE di '
             'confronto e non una parola mostrata',

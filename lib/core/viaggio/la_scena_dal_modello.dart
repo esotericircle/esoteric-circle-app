@@ -5,10 +5,15 @@ import 'package:firebase_ai/firebase_ai.dart';
 
 import '../maestro/natal_context.dart';
 import '../rituals/animal_catalog.dart';
+import 'diario_dei_viaggi.dart';
 import 'il_tetto_delle_chiamate.dart';
 import 'la_domanda_capita.dart';
 import 'scena_del_viaggio.dart';
 import 'vocabolario_del_viaggio.dart';
+import '../chat/il_blocco_di_cortesia.dart';
+import '../chat/user_profile.dart';
+import 'la_voce_del_mondo_di_sotto.dart';
+import 'le_guardie_del_responso.dart';
 
 /// **I QUATTRO PEZZI CHE IL MODELLO HA SCELTO**, per id.
 typedef PezziScelti = ({
@@ -28,6 +33,12 @@ typedef PezziAmmessi = ({
   List<String> momenti,
 });
 
+/// **LA SCENA E I TESTI DEL MODELLO, da una chiamata sola.** Ordine DL voci 07
+/// e 13: i pezzi, quando reggono, e il titolo, la risposta e il gesto che
+/// hanno retto alle guardie. Nulli i pezzi, decide la composizione
+/// deterministica; nulli i testi, parla la voce di casa.
+typedef LaScenaScritta = ({PezziScelti? pezzi, TestiDelModello testi});
+
 /// La firma di una chiamata al modello per la scena, iniettabile nelle prove:
 /// riceve anche i pezzi ammessi, da cui la chiamata vera costruisce lo schema.
 typedef ChiamataDellaScena = Future<String?> Function(
@@ -46,6 +57,9 @@ class CioCheSiSa {
     required this.natale,
     required this.memoria,
     required this.ultimeScene,
+    this.oggetto,
+    this.forma,
+    this.titoliGiaDati = const [],
   });
 
   final String domanda;
@@ -62,6 +76,20 @@ class CioCheSiSa {
   /// storia che il Diario conserva**, ordine DI voce 16. Al modello se ne
   /// elencano cinque; la lettura della risposta le guarda tutte.
   final List<List<String>> ultimeScene;
+
+  /// **L'OGGETTO DELLA DOMANDA**, in due o tre parole prese dalla domanda:
+  /// *"tua sorella"*, *"quel lavoro"*. Ordine DL voce 08, dal classificatore.
+  final String? oggetto;
+
+  /// La forma di cortesia della persona; nulla, quella di chi usa l'app.
+  final CourtesyForm? forma;
+
+  /// **I TITOLI GIA' DATI A QUESTA PERSONA**, dalla discesa piu' recente.
+  /// Ordine DL voce 07: la prova a cento discese col modello vero ha
+  /// trovato lo stesso titolo ventisei volte su cento per la stessa
+  /// domanda. Il modello ne riceve alcuni, e la lettura scarta il titolo
+  /// che ne ripete uno qualsiasi: vale la riserva, che non si ripete.
+  final List<String> titoliGiaDati;
 }
 
 /// **LA SCENA NASCE DALLA PERSONA, NON DA UN HASH.** Ordine DI voce 03,
@@ -113,7 +141,7 @@ abstract final class LaScenaDalModello {
   /// **L'ISTRUZIONE**, costruita dal vocabolario e dal repertorio: niente si
   /// ricopia a mano, e il giorno che una figura cambia nome l'istruzione la
   /// segue da sola.
-  static String istruzione(GuideAnimal animale) {
+  static String istruzione(GuideAnimal animale, {CourtesyForm? forma}) {
     final chi = '${animale.articolo}${animale.name}';
     final chiMaiuscolo = '${chi[0].toUpperCase()}${chi.substring(1)}';
     final b = StringBuffer(
@@ -144,17 +172,100 @@ abstract final class LaScenaDalModello {
         'servono a non ripeterti: la scena di oggi deve essere nuova. I luoghi '
         'e i gesti delle scene precedenti non si possono ripetere; la cosa può '
         'tornare, soltanto se oggi ha un senso preciso. Non scegliere due pezzi '
-        'che ripetono la stessa parola. Rispondi solo con i quattro id.');
+        'che ripetono la stessa parola.\n\n');
+    b.write(_iTreTesti(forma));
     return b.toString();
   }
 
+  /// **I TRE TESTI PER LA PERSONA**, ordine DL voci 07 e 13. Le regole sono
+  /// quelle delle guardie in `LeGuardieDelResponso`: il modello le riceve
+  /// scritte, e la lettura le verifica comunque.
+  ///
+  /// **GLI ESEMPI SONO DELLA VOCE DI CASA**, come chiede l'ordine: una
+  /// manciata di titoli e di gesti veri, cosi' il modello scrive nella
+  /// nostra voce e non nella sua. Da non copiare, e la lettura lo guarda.
+  static String _iTreTesti(CourtesyForm? forma) {
+    final titoli = [
+      for (final t in LaVoceDelMondoDiSotto.titoliPerTema.values) t[3],
+    ];
+    final gesti = [
+      for (final g in LaVoceDelMondoDiSotto.gestiColTempo) g,
+      LaVoceDelMondoDiSotto.cosaPuoiFare[10],
+      LaVoceDelMondoDiSotto.cosaPuoiFare[16],
+    ];
+    return [
+      'POI SCRIVI TRE TESTI PER LA PERSONA, sulla sua domanda vera, quella '
+          'scritta nella richiesta. Se la domanda è "nessuna", lasciali vuoti.',
+      // **LE REGOLE DETTE COME LE LEGGE IL MODELLO**, ordine DL voce 07: la
+      // sonda col modello vero, dodici domande, ha trovato quattro titoli
+      // oltre le sei parole, cinque gesti senza tempo e due virgole seguite
+      // da "e". Il numero da solo non basta: serve l'esempio contato.
+      '- titolo: da due a ${LeGuardieDelResponso.paroleDelTitolo} parole, '
+          'MAI DI PIÙ: contale. "Il suo tempo non è il tuo" sono sette '
+          'parole, troppe; "Il suo tempo è suo" va bene. È già una '
+          'risposta, si legge da solo e non è una domanda. Parla alla '
+          'persona in seconda persona singolare. Niente due punti, niente '
+          'punto finale. Non ripete nessuno dei titoli già dati.',
+      '- risposta: ${LeGuardieDelResponso.frasiDellaRisposta} frasi al '
+          'massimo. Nomina la cosa di cui la persona ha chiesto, con le sue '
+          'parole, non la categoria. Non raccontare la scena e non usarla '
+          'come immagine: nella risposta non compaiono il luogo, la cosa e '
+          'il momento che hai scelto, perché la scena la racconta Caligo '
+          'dopo, come fonte.',
+      '- azione: una cosa sola, concreta, che si fa oggi o nei prossimi '
+          'giorni e di cui si capisce se è stata fatta. COMINCIA DAL SUO '
+          'TEMPO: "Stasera ...", "Domani mattina ...", "Entro sabato '
+          '...". Un tempo solo. Non è un consiglio di vita, non è una '
+          'massima, non è un invito a riflettere.',
+      'REGOLE DEI TRE TESTI:',
+      '- Non dire se la cosa accadrà, se non accadrà o se è già accaduta: '
+          'non lo sai. "Tua sorella avrà un bambino" no; "la casa è già '
+          'venduta" no; "non è ancora il momento" no. Parla di ciò che la '
+          'persona può guardare o fare adesso.',
+      '- Nessuna promessa su salute, denaro, morte, gravidanza, cause '
+          'legali o eventi garantiti. Niente che somigli a una diagnosi o a '
+          'un consiglio medico.',
+      '- Nessun nome proprio che la persona non ha scritto.',
+      '- L\'azione non chiede di fare a un\'altra persona qualcosa che possa '
+          'ferirla o mettere in imbarazzo chi legge: niente confronti, '
+          'accuse, pretese, rotture o rivelazioni. Niente salute, farmaci, '
+          'soldi da spendere o investire, atti legali.',
+      '- Italiano con gli accenti veri. Niente trattino lungo. MAI una '
+          'virgola seguita da "e" o da "ed": al suo posto metti un punto. '
+          'Niente prima persona.',
+      'ESEMPI DELLA NOSTRA VOCE, solo per il tono e da non copiare.',
+      'Titoli: ${titoli.map((t) => '"$t"').join(', ')}.',
+      'Azioni: ${gesti.map((g) => '"$g"').join(', ')}.',
+      '',
+      IlBloccoDiCortesia.perForma(forma),
+    ].join('\n');
+  }
+
   /// **LA RICHIESTA**, cioe' cio' che si sa della persona, per esteso.
+  /// Quanti titoli gia' dati arrivano al modello: dieci bastano a fargli
+  /// cambiare strada, e costano un centinaio di token. La lettura li
+  /// guarda tutti.
+  static const int titoliNellaRichiesta = 10;
+
+  /// **QUANTI TITOLI INDIETRO NON SI RIPETONO**: ventiquattro, la
+  /// finestra della misura F dell'ordine DJ voce 11.
+  static const int titoliDaNonRipetere = 24;
+
+  /// I titoli gia' dati, dal Diario, dalla discesa piu' recente.
+  static List<String> titoliDalDiario(List<UnViaggio> viaggi) => [
+        for (final v in viaggi.take(titoliDaNonRipetere))
+          if (v.titolo != null && v.titolo!.isNotEmpty) v.titolo!,
+      ];
+
   static String richiesta(CioCheSiSa s) {
     final n = s.natale;
     final b = StringBuffer()
       ..writeln('Domanda: ${s.domanda.trim().isEmpty ? 'nessuna, la '
           'discesa è soltanto per incontrarlo' : s.domanda.trim()}')
       ..writeln('Tema: ${s.tema ?? 'nessuno'}')
+      ..writeln('Oggetto della domanda: ${s.oggetto ?? 'non noto'}')
+      ..writeln(
+          'Titoli già dati, da non ripetere: ${s.titoliGiaDati.isEmpty ? 'nessuno' : s.titoliGiaDati.take(titoliNellaRichiesta).map((t) => '"$t"').join(', ')}')
       ..writeln('Animale: ${s.animale.name}');
     final natale = [
       if (n.sunSign != null) 'Sole in ${n.sunSign}',
@@ -162,13 +273,15 @@ abstract final class LaScenaDalModello {
       if (n.ascendant != null) 'Ascendente ${n.ascendant}',
       if (n.lifeNumber != null) 'numero di vita ${n.lifeNumber}',
     ];
-    b.writeln('Carta natale: ${natale.isEmpty ? 'non nota' : natale.join(', ')}');
+    b.writeln(
+        'Carta natale: ${natale.isEmpty ? 'non nota' : natale.join(', ')}');
     b.writeln('Memoria: ${s.memoria.isEmpty ? 'prima discesa' : s.memoria}');
     if (s.ultimeScene.isEmpty) {
       b.write('Scene precedenti: nessuna');
     } else {
       b.writeln('Scene precedenti, dalla più recente:');
-      for (final scena in s.ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro)) {
+      for (final scena
+          in s.ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro)) {
         b.writeln('- ${scena.join(', ')}');
       }
     }
@@ -262,13 +375,38 @@ abstract final class LaScenaDalModello {
   static Future<PezziScelti?> chiedi(
     CioCheSiSa s, {
     ChiamataDellaScena? chiamata,
-    Future<bool> Function() prendiUnaChiamata =
-        IlTettoDelleChiamate.prendiUnaChiamata,
+    Future<bool> Function() prendiUnaChiamata = IlTettoDelleChiamate.sempre,
     void Function(Object errore)? seGuasto,
+    Duration attesa = pazienza,
+  }) async =>
+      (await chiediTutto(s,
+              chiamata: chiamata,
+              prendiUnaChiamata: prendiUnaChiamata,
+              seGuasto: seGuasto,
+              attesa: attesa))
+          .pezzi;
+
+  /// **LA SCENA E I TRE TESTI, dalla stessa chiamata.** Ordine DL voci 07 e
+  /// 13: *"nessuna chiamata in piu': la stessa, con qualche decina di token
+  /// in uscita in piu'"*. I pezzi si leggono come prima; i testi passano
+  /// dalle guardie uno per uno, e [seScartata] riceve ogni riga scartata.
+  ///
+  /// **I TESTI VENGONO DALLA STESSA RISPOSTA DEI PEZZI** quando i pezzi
+  /// reggono: la risposta non deve anticipare la scena, e la scena e'
+  /// quella. Quando nessun pezzo regge, restano i testi dell'ultima
+  /// risposta: la scena la compone la riserva, e i testi parlano della
+  /// domanda, non della scena.
+  static Future<LaScenaScritta> chiediTutto(
+    CioCheSiSa s, {
+    ChiamataDellaScena? chiamata,
+    Future<bool> Function() prendiUnaChiamata = IlTettoDelleChiamate.sempre,
+    void Function(Object errore)? seGuasto,
+    void Function(RigaScartata riga)? seScartata,
     Duration attesa = pazienza,
   }) async {
     final chiedi = chiamata ?? _chiamataVera;
     var consentiti = ammessi(s.animale, s.ultimeScene);
+    var testi = TestiDelModello.nessuno;
     // **UNA SCADENZA SOLA**, dalla partenza: vedi [pazienza].
     final orologio = Stopwatch()..start();
     for (var tentativo = 0; tentativo < 2; tentativo++) {
@@ -277,24 +415,58 @@ abstract final class LaScenaDalModello {
         seGuasto?.call(TimeoutException(
             'la scena scartata non ha più tempo per la seconda richiesta',
             attesa));
-        return null;
+        return (pezzi: null, testi: testi);
       }
-      if (!await prendiUnaChiamata()) return null;
+      // **IL TETTO SI PRENDE UNA VOLTA PER DISCESA**, ordine DL voce 09:
+      // chi chiama passa il permesso gia' preso, e la seconda richiesta
+      // della scena scartata non conta una discesa in piu'.
+      if (!await prendiUnaChiamata()) return (pezzi: null, testi: testi);
       try {
-        final risposta =
-            await chiedi(istruzione(s.animale), richiesta(s), consentiti)
-                .timeout(resta);
+        final risposta = await chiedi(
+                istruzione(s.animale, forma: s.forma), richiesta(s), consentiti)
+            .timeout(resta);
         final scelti = leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
-        if (scelti != null) return scelti;
+        final letti = leggiTesti(risposta, s, pezzi: scelti);
+        for (final r in letti.scarti) {
+          seScartata?.call(r);
+        }
+        if (!letti.vuoti || testi.vuoti) testi = letti;
+        if (scelti != null) return (pezzi: scelti, testi: letti);
         seGuasto?.call(ScenaFuoriDalVocabolario(risposta));
         consentiti = _senzaLaScartata(consentiti, risposta);
       } catch (errore) {
         // Un modello muto o lento non si richiama: la risalita non aspetta.
         seGuasto?.call(errore);
-        return null;
+        return (pezzi: null, testi: testi);
       }
     }
-    return null;
+    return (pezzi: null, testi: testi);
+  }
+
+  /// **LEGGE I TRE TESTI** della risposta e li fa passare dalle guardie.
+  /// Una risposta senza i campi dei testi, come quelle delle prove scritte
+  /// prima dell'ordine DL, da' nessun testo: parla la voce di casa.
+  static TestiDelModello leggiTesti(String? risposta, CioCheSiSa s,
+      {PezziScelti? pezzi}) {
+    if (risposta == null) return TestiDelModello.nessuno;
+    final Object? j;
+    try {
+      j = jsonDecode(risposta);
+    } catch (errore) {
+      return TestiDelModello.nessuno;
+    }
+    if (j is! Map) return TestiDelModello.nessuno;
+    return LeGuardieDelResponso.leggi(
+      j,
+      domanda: s.domanda,
+      forma: s.forma ?? LaMarcaDelGenere.formaCorrente,
+      oggetto: s.oggetto,
+      nomiDellaScena: pezzi == null
+          ? const []
+          : [pezzi.luogo.nome, pezzi.cosa.nome, pezzi.momento.nome],
+      nomiAmmessi: {s.animale.name.toLowerCase()},
+      titoliGiaDati: s.titoliGiaDati,
+    );
   }
 
   /// I pezzi ammessi, senza il luogo e la cosa della risposta scartata,
@@ -309,7 +481,10 @@ abstract final class LaScenaDalModello {
     }
     if (j is! Map) return a;
     List<String> senza(List<String> l, Object? id) {
-      final r = [for (final x in l) if (x != id) x];
+      final r = [
+        for (final x in l)
+          if (x != id) x
+      ];
       return r.isEmpty ? l : r;
     }
 
@@ -359,7 +534,8 @@ abstract final class LaScenaDalModello {
       return null;
     }
     final visti = {
-      for (final s in ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro))
+      for (final s
+          in ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro))
         ...s,
     };
     final ripresi =
@@ -392,16 +568,21 @@ abstract final class LaScenaDalModello {
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,
-        maxOutputTokens: 256,
+        // **SEICENTO TOKEN**, ordine DL voce 07: oltre ai quattro id, il
+        // titolo, la risposta e il gesto. Duecento in piu' a discesa.
+        maxOutputTokens: 640,
         thinkingConfig: LaDomandaCapita.ragionamentoPer(modello),
         responseMimeType: 'application/json',
-        // **QUATTRO ELENCHI CHIUSI**: l'uscita ammessa sono quattro id e
-        // nient'altro, per costruzione.
+        // **QUATTRO ELENCHI CHIUSI** per la scena, per costruzione, e i tre
+        // testi dell'ordine DL, che passano dalle guardie.
         responseSchema: Schema.object(properties: {
           'luogo': Schema.enumString(enumValues: ammessi.luoghi),
           'cosa': Schema.enumString(enumValues: ammessi.cose),
           'gesto': Schema.enumString(enumValues: ammessi.gesti),
           'momento': Schema.enumString(enumValues: ammessi.momenti),
+          'titolo': Schema.string(),
+          'risposta': Schema.string(),
+          'azione': Schema.string(),
         }),
       ),
     );
@@ -416,5 +597,6 @@ class ScenaFuoriDalVocabolario implements Exception {
   const ScenaFuoriDalVocabolario(this.risposta);
   final String? risposta;
   @override
-  String toString() => 'la scena del modello non è nel vocabolario: "$risposta"';
+  String toString() =>
+      'la scena del modello non è nel vocabolario: "$risposta"';
 }

@@ -28,6 +28,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'la_soglia_si_guarda_prima_di_leggerla_test.dart'
     show DiarioDelloSciamanoDiProva;
 import 'motore_della_ripetizione.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// **LA PROVA A CENTO DISCESE.** Ordine DI voce 16, 13 settembre 2026.
 ///
@@ -68,7 +69,8 @@ void main() {
   final token = Platform.environment['VERTEX_TOKEN'] ?? '';
   _Token.valore = token;
 
-  test('SENZA RETE: le cinque misure su cento discese, per i sei temi e per '
+  test(
+      'SENZA RETE: le cinque misure su cento discese, per i sei temi e per '
       'cinque domande libere', () async {
     final esiti = <_Esito>[];
     for (final caso in _casi) {
@@ -93,7 +95,8 @@ void main() {
   /// una persona: il Diario non ha niente, quindi non c'e' niente da
   /// richiamare. Prima dell'ordine DI voce 16 il richiamo si calcolava dopo
   /// aver segnato la discesa di oggi, e compariva sempre.
-  testWidgets('ALLA PRIMA DISCESA NON C E NESSUN RICHIAMO, nella schermata vera',
+  testWidgets(
+      'ALLA PRIMA DISCESA NON C E NESSUN RICHIAMO, nella schermata vera',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
@@ -141,8 +144,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));
     // **IL CARDINALE**: la risalita c'e', col suo titolo.
-    expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
-        findsOneWidget);
+    expect(
+        find.byKey(const Key('viaggio_titolo_della_risposta')), findsOneWidget);
     expect(diario.viaggi, hasLength(1));
     expect(find.byKey(const Key('viaggio_richiamo')), findsNothing,
         reason: 'alla prima scena della sua storia la persona legge che una '
@@ -158,7 +161,11 @@ void main() {
     // la latenza sotto quel carico faceva scadere i due secondi di pazienza.
     final esiti = <_Esito>[];
     for (final caso in _casi) {
-      esiti.add(await _centoDiscese(caso, conRete: true, token: token));
+      final e = await _centoDiscese(caso, conRete: true, token: token);
+      esiti.add(e);
+      // **CASO PER CASO**, ordine DL voce 07: con i tre testi la prova dura
+      // quasi un'ora, e un intoppo a meta' non deve portarsi via i conti.
+      _stampa('CON RETE, ${caso.nome}', [e]);
     }
     _stampa('CON RETE', esiti);
     final chiamate = esiti.fold<int>(0, (s, e) => s + e.chiamate);
@@ -173,7 +180,7 @@ void main() {
       skip: token.isEmpty
           ? 'con rete gira solo con VERTEX_TOKEN nell\'ambiente'
           : false,
-      timeout: const Timeout(Duration(minutes: 40)));
+      timeout: const Timeout(Duration(minutes: 120)));
 
   /// **IL SEGNO COL MODELLO VERO**, ordini DJ voce 08 e voce 03: dodici
   /// domande, una per animale, con l'istruzione e lo schema della chiamata
@@ -244,10 +251,15 @@ void main() {
 
 /// Un caso della prova: una domanda, e il tema quando e' una delle sei.
 class _Caso {
-  const _Caso(this.nome, this.domanda, this.temaScritto);
+  const _Caso(this.nome, this.domanda, this.temaScritto,
+      [this.forma = CourtesyForm.neutral]);
   final String nome;
   final String domanda;
   final TemaDellaDomanda? temaScritto;
+
+  /// **LA FORMA CHE LA PERSONA HA SCELTO**, ordine DL voce 07: i casi la
+  /// girano fra le tre, perche' la guardia del genere legga il testo vero.
+  final CourtesyForm forma;
 }
 
 /// **I SEI TEMI**, con la loro domanda per esteso, e **CINQUE DOMANDE
@@ -256,14 +268,29 @@ class _Caso {
 /// quattro su lavoro, famiglia, blocco e fine.
 final List<_Caso> _casi = [
   for (final d in LaDomandaDelViaggio.gliaScritte)
-    _Caso('tema ${d.chiave.name}', d.testo, d.chiave),
-  const _Caso('libera 1', 'Mia sorella diventerà presto mamma?', null),
-  const _Caso('libera 2',
-      'Devo lasciare il mio lavoro per aprire qualcosa di mio?', null),
+    _Caso('tema ${d.chiave.name}', d.testo, d.chiave,
+        _forme[d.chiave.index % _forme.length]),
+  const _Caso('libera 1', 'Mia sorella diventerà presto mamma?', null,
+      CourtesyForm.feminine),
+  const _Caso(
+      'libera 2',
+      'Devo lasciare il mio lavoro per aprire qualcosa di mio?',
+      null,
+      CourtesyForm.masculine),
   const _Caso('libera 3', 'Perché con mio padre finisce sempre in lite?', null),
-  const _Caso('libera 4',
-      'Da mesi non riesco a finire niente di quello che comincio.', null),
-  const _Caso('libera 5', 'Ho chiuso con Luca dopo sei anni, e adesso?', null),
+  const _Caso(
+      'libera 4',
+      'Da mesi non riesco a finire niente di quello che comincio.',
+      null,
+      CourtesyForm.feminine),
+  const _Caso('libera 5', 'Ho chiuso con Luca dopo sei anni, e adesso?', null,
+      CourtesyForm.masculine),
+];
+
+const List<CourtesyForm> _forme = [
+  CourtesyForm.masculine,
+  CourtesyForm.feminine,
+  CourtesyForm.neutral,
 ];
 
 /// **IL PROFILO**, lo stesso della prova col modello vero della voce DI.03:
@@ -327,6 +354,18 @@ class _Esito {
   /// scartata dalla lettura, tema fuori dai sei, errore di rete.
   Map<String, int> guasti = const {};
 
+  /// **L'OGGETTO DELLA DOMANDA**, ordine DL voce 08, con quante volte.
+  Map<String, int> oggetti = const {};
+
+  /// **DA DOVE VENGONO TITOLO, RISPOSTA E GESTO**, ordine DL voci 07 e 13.
+  Map<String, int> fonti = const {};
+
+  /// **I TESTI SCARTATI, per pezzo e per guardia**, e un esempio di ognuno.
+  Map<String, int> scarti = const {};
+  Map<String, String> esempiScartati = const {};
+  List<String> esempiDelModello = const [];
+  int risposteDelModello = 0;
+
   /// **LE DISCESE IN CUI IL RICHIAMO MENTE**: c'e' e la cosa non era nelle
   /// cinque di prima, o manca e c'era. Devono essere zero.
   List<String> richiamiFalsi = const [];
@@ -362,10 +401,24 @@ class _Esito {
 
   /// **F vale per i temi che hanno ventiquattro titoli**: senza tema i titoli
   /// sono quattro, e la ripetizione e' matematica.
+  ///
+  /// **E VALE ANCHE PER I TITOLI DEL MODELLO**, ordine DL voce 07: quando
+  /// la discesa ha un tema, i titoli sono quelli del tema o quelli scritti
+  /// sulla domanda, e nessuno dei due deve tornare prima di ventiquattro.
   bool get conVentiquattroTitoli =>
       titoli.isNotEmpty &&
-      LaVoceDelMondoDiSotto.titoliPerTema.values
-          .any((quali) => quali.contains(titoli.first));
+      (conTema ||
+          LaVoceDelMondoDiSotto.titoliPerTema.values
+              .any((quali) => quali.contains(titoli.first)));
+
+  /// Vero se almeno una discesa del caso ha avuto un tema.
+  bool conTema = false;
+
+  /// **LA PERTINENZA COL TESTO GENERATO**, ordine DL voce 07: la discesa
+  /// riconosce il tema con le parole di casa, oppure la sua risposta l'ha
+  /// scritta il modello e ha retto alla guardia che la vuole con una
+  /// parola piena della domanda.
+  int pertinentiColModello = 0;
   bool get passaF => !conVentiquattroTitoli || finestreConUnTitoloRipetuto == 0;
 
   bool get passaC =>
@@ -391,14 +444,25 @@ class _Esito {
         // del ciclo: vedi `LaVoceDelMondoDiSotto`.
         if (caso.temaScritto != null &&
             distanzaDellaRisposta <
-                LaVoceDelMondoDiSotto.rispostePerTema[caso.temaScritto!.name]!
-                        .length -
+                LaVoceDelMondoDiSotto
+                        .rispostePerTema[caso.temaScritto!.name]!.length -
                     1)
           'la stessa risposta torna dopo $distanzaDellaRisposta discese',
         if (richiamiFalsi.isNotEmpty)
           'il richiamo mente in ${richiamiFalsi.length} discese, per esempio '
               '${richiamiFalsi.first}',
       ];
+}
+
+/// I tre titoli che tornano piu' spesso, con quante volte.
+String _piuRipetuti(List<String> titoli) {
+  final conti = <String, int>{};
+  for (final t in titoli) {
+    conti[t] = (conti[t] ?? 0) + 1;
+  }
+  final ordinati = conti.entries.toList()
+    ..sort((a, b) => b.value.compareTo(a.value));
+  return ordinati.take(3).map((e) => '"${e.key}" ${e.value}').join(', ');
 }
 
 /// **LA FINESTRA DELLA MISURA F**: ventiquattro discese, i titoli di un tema.
@@ -421,6 +485,14 @@ Future<_Esito> _centoDiscese(_Caso caso,
   var dalModello = 0;
   final conto = _Conto();
   final guasti = <String, int>{};
+  final oggetti = <String, int>{};
+  final fonti = <String, int>{};
+  final scarti = <String, int>{};
+  final esempiScartati = <String, String>{};
+  final esempiDelModello = <String>[];
+  var risposteDelModello = 0;
+  var pertinentiColModello = 0;
+  var conTema = false;
   void guasto(Object e) {
     final tipo = e is TimeoutException
         ? 'tempo scaduto'
@@ -436,11 +508,19 @@ Future<_Esito> _centoDiscese(_Caso caso,
       ? (i, d) => _vertex(token, LaDomandaCapita.modello, i, d, conto,
               tipo: 'tema',
               temperatura: 0,
-              tetto: 64,
-              mime: 'text/x.enum',
+              tetto: 96,
+              mime: 'application/json',
+              // **IL TEMA E L'OGGETTO**, ordine DL voce 08: lo schema della
+              // chiamata dell'app.
               schema: {
-                'type': 'STRING',
-                'enum': [for (final t in TemaDellaDomanda.values) t.name],
+                'type': 'OBJECT',
+                'properties': {
+                  'tema': {
+                    'type': 'STRING',
+                    'enum': [for (final t in TemaDellaDomanda.values) t.name],
+                  },
+                  'oggetto': {'type': 'STRING'},
+                },
               })
       : (i, d) async => throw const SocketException('senza rete');
   // **LO SCHEMA E' QUELLO DELLA CHIAMATA VERA**, dai pezzi ammessi oggi.
@@ -448,7 +528,7 @@ Future<_Esito> _centoDiscese(_Caso caso,
       ? (i, r, a) => _vertex(token, LaScenaDalModello.modello, i, r, conto,
               tipo: 'scena',
               temperatura: 0.8,
-              tetto: 256,
+              tetto: 640,
               mime: 'application/json',
               schema: {
                 'type': 'OBJECT',
@@ -457,6 +537,9 @@ Future<_Esito> _centoDiscese(_Caso caso,
                   'cosa': {'type': 'STRING', 'enum': a.cose},
                   'gesto': {'type': 'STRING', 'enum': a.gesti},
                   'momento': {'type': 'STRING', 'enum': a.momenti},
+                  'titolo': {'type': 'STRING'},
+                  'risposta': {'type': 'STRING'},
+                  'azione': {'type': 'STRING'},
                 },
               })
       : (i, r, a) async => throw const SocketException('senza rete');
@@ -470,21 +553,27 @@ Future<_Esito> _centoDiscese(_Caso caso,
     oggi = inizio.add(Duration(days: i));
     // 1. il tema: quello scritto, o quello che si capisce.
     var tema = caso.temaScritto;
+    String? oggetto;
     if (tema == null) {
-      final (capito, fonte) = await LaDomandaCapita.tema(caso.domanda,
+      final capita = await LaDomandaCapita.capisci(caso.domanda,
           chiamata: chiamataDelTema,
           prendiUnaChiamata: () async => true,
           seGuasto: conRete ? guasto : null);
-      tema = capito;
-      final chiave = '${capito?.name ?? 'nessuno'} (${fonte.name})';
+      tema = capita.tema;
+      oggetto = capita.oggetto;
+      final chiave = '${capita.tema?.name ?? 'nessuno'} (${capita.fonte.name})';
       temi[chiave] = (temi[chiave] ?? 0) + 1;
+      if (oggetto != null) oggetti[oggetto] = (oggetti[oggetto] ?? 0) + 1;
     }
     // 2. la scena, come la sceglie la risalita.
     final quante = diario.quanteDiscese;
     final nitidezza =
         NitidezzaDellaScena.dopoGiorni(diario.giorniDiDistanza ?? 0);
     final domanda = LaDomandaDelViaggio.oppureIlMomento(caso.domanda);
-    final scelti = await LaScenaDalModello.chiedi(
+    // **LA DOMANDA DEI SEI TEMI E' QUELLA SCRITTA**, e le guardie dei testi
+    // la leggono come la legge la schermata: la domanda libera per esteso,
+    // o la domanda scelta fra le sei.
+    final scritta = await LaScenaDalModello.chiediTutto(
       CioCheSiSa(
         domanda: caso.domanda,
         tema: tema?.inLettere,
@@ -492,11 +581,22 @@ Future<_Esito> _centoDiscese(_Caso caso,
         natale: _natale,
         memoria: diario.riassuntoPerIMaestri,
         ultimeScene: [for (final v in diario.viaggi) v.pezzi],
+        oggetto: oggetto,
+        forma: caso.forma,
+        titoliGiaDati: LaScenaDalModello.titoliDalDiario(diario.viaggi),
       ),
       chiamata: chiamataDellaScena,
       prendiUnaChiamata: () async => true,
       seGuasto: conRete ? guasto : null,
+      seScartata: (r) {
+        final chiave = '${r.pezzo}: ${r.motivo.name}';
+        scarti[chiave] = (scarti[chiave] ?? 0) + 1;
+        if ((esempiScartati[chiave] ?? '').isEmpty) {
+          esempiScartati[chiave] = r.testo;
+        }
+      },
     );
+    final scelti = scritta.pezzi;
     // **LE DISCESE DI PRIMA, prese prima di segnare questa**, come fa la
     // schermata dall'ordine DI voce 16.
     final precedenti = [for (final v in diario.viaggi) v.pezzi];
@@ -510,16 +610,31 @@ Future<_Esito> _centoDiscese(_Caso caso,
       animale: animale,
       tema: tema,
       storia: diario.viaggi,
+      scritti: scritta.testi,
+      oggetto: oggetto,
     );
     if (responso.dalModello) dalModello++;
+    // **DA DOVE VIENE OGNI PEZZO**, ordine DL voci 07 e 13: il modello o
+    // la riserva, e il motivo dello scarto.
+    for (final e in responso.fonti.entries) {
+      if (e.key == 'scena') continue;
+      final chiave =
+          '${e.key} ${e.value.startsWith('modello') ? 'modello' : 'riserva'}';
+      fonti[chiave] = (fonti[chiave] ?? 0) + 1;
+    }
+    if (scritta.testi.risposta != null) risposteDelModello++;
+    if (esempiDelModello.length < 3 && scritta.testi.titolo != null) {
+      esempiDelModello.add('${responso.titolo} / '
+          '${scritta.testi.risposta ?? '(riserva)'} / '
+          '${scritta.testi.azione ?? '(riserva)'}');
+    }
     final scena = responso.scena;
     // **IL RICHIAMO DICE IL VERO**: quando c'e', la cosa di oggi era in una
     // delle cinque discese di prima. Quando c'era e manca non e' una bugia:
     // il richiamo e' raro per scelta, e fra due richiami ci sono tre
     // discese di pausa.
     final visti = {
-      for (final p
-          in precedenti.take(IlRichiamoDelleScene.quanteSceneIndietro))
+      for (final p in precedenti.take(IlRichiamoDelleScene.quanteSceneIndietro))
         ...p,
     };
     if (responso.richiamo != null && !visti.contains(scena.cosa.id)) {
@@ -553,7 +668,16 @@ Future<_Esito> _centoDiscese(_Caso caso,
       animale.name,
     ]);
     if (tema != null && _riconosceIlTema(testo, tema)) pertinenti++;
+    if (tema != null &&
+        (_riconosceIlTema(testo, tema) ||
+            responso.fonti['risposta'] == 'modello')) {
+      pertinentiColModello++;
+    }
+    if (tema != null) conTema = true;
   }
+  // **E COL TESTO GENERATO**, ordine DL voce 07: la risposta del modello
+  // non ha le frasi di casa, e la pertinenza la garantisce la sua guardia,
+  // che la vuole con una parola piena della domanda o del suo oggetto.
   final misura = MotoreDellaRipetizione.misura(
     funzione: caso.nome,
     testi: testi,
@@ -565,7 +689,8 @@ Future<_Esito> _centoDiscese(_Caso caso,
       conto.ingresso, conto.uscita, esempio)
     ..testi = testi
     ..conRichiamo = conRichiamo
-    ..distanzaDelGesto = _distanzaMinima(testi, 2, LaVoceDelMondoDiSotto.cosaPuoiFare)
+    ..distanzaDelGesto =
+        _distanzaMinima(testi, 2, LaVoceDelMondoDiSotto.cosaPuoiFare)
     ..distanzaDellaRisposta = _distanzaMinima(
         testi,
         1,
@@ -573,7 +698,15 @@ Future<_Esito> _centoDiscese(_Caso caso,
             LaVoceDelMondoDiSotto.risposteSenzaDomanda)
     ..richiamiFalsi = richiamiFalsi
     ..titoli = titoli
-    ..guasti = guasti;
+    ..guasti = guasti
+    ..oggetti = oggetti
+    ..fonti = fonti
+    ..scarti = scarti
+    ..esempiScartati = esempiScartati
+    ..esempiDelModello = esempiDelModello
+    ..risposteDelModello = risposteDelModello
+    ..pertinentiColModello = pertinentiColModello
+    ..conTema = conTema;
 }
 
 /// **LA DISTANZA MINIMA** fra due discese che nel blocco [blocco] contengono
@@ -652,10 +785,24 @@ final Map<String, _Conto> _perTipo = {
   'segno': _Conto(),
 };
 
+/// **LO SCHEMA COME LO MANDA `firebase_ai`**: in `Schema.object` ogni campo e'
+/// obbligatorio, se non e' dichiarato facoltativo, e la libreria scrive
+/// `required` da se'. Ordine DL voce 08: senza, il modello vero lasciava fuori
+/// l'oggetto della domanda in meta' dei casi, e la prova misurava una chiamata
+/// che l'app non fa.
+Map<String, Object> comeLoMandaFirebase(Map<String, Object> schema) {
+  final proprieta = schema['properties'];
+  if (schema['type'] != 'OBJECT' || proprieta is! Map) return schema;
+  return {
+    ...schema,
+    'required': [for (final k in proprieta.keys) '$k'],
+  };
+}
+
 /// **LA CHIAMATA VERA A VERTEX AI**, per REST, con la configurazione della
 /// chiamata dell'app: stessa regione, stesso modello, ragionamento spento.
-Future<String?> _vertex(String token, String modello, String istruzione,
-    String testo, _Conto conto,
+Future<String?> _vertex(
+    String token, String modello, String istruzione, String testo, _Conto conto,
     {required String tipo,
     required double temperatura,
     required int tetto,
@@ -683,7 +830,7 @@ Future<String?> _vertex(String token, String modello, String istruzione,
       'temperature': temperatura,
       'maxOutputTokens': tetto,
       'responseMimeType': mime,
-      'responseSchema': schema,
+      'responseSchema': comeLoMandaFirebase(schema),
       'thinkingConfig': modello.startsWith('gemini-2.5')
           ? {'thinkingBudget': 0}
           : {'thinkingLevel': 'MINIMAL'},
@@ -738,15 +885,26 @@ void _stampa(String colonna, List<_Esito> esiti) {
         '${(m.somiglianzaFraDiverse * 100).toStringAsFixed(1)} senza simboli '
         'comuni | '
         'D ${m.quanteVolteIlParagrafo} | '
-        'E ${e.pertinenti}/100 | '
+        'E ${e.pertinenti}/100, col modello ${e.pertinentiColModello}/100 | '
         'F ${e.conVentiquattroTitoli ? '${e.finestreConUnTitoloRipetuto} finestre ripetute, titolo dopo ${e.distanzaDelTitolo}' : 'senza tema'} | '
         'scena dal modello ${e.dalModello}/100 | '
         'per blocco ${e.perBlocco} | richiamo in ${e.conRichiamo} | '
         'distanze gesto ${e.distanzaDelGesto} risposta ${e.distanzaDellaRisposta}'
         '${e.temi.isEmpty ? '' : ' | temi ${e.temi}'}'
-        '${e.guasti.isEmpty ? '' : ' | guasti ${e.guasti}'}');
+        '${e.guasti.isEmpty ? '' : ' | guasti ${e.guasti}'}'
+        '${e.oggetti.isEmpty ? '' : ' | oggetti ${e.oggetti}'}'
+        '${e.fonti.isEmpty ? '' : ' | fonti ${e.fonti}'}'
+        '${e.scarti.isEmpty ? '' : ' | scarti ${e.scarti}'}'
+        ' | titoli piu ripetuti ${_piuRipetuti(e.titoli)}');
+    for (final x in e.esempiDelModello) {
+      print('    dal modello: $x');
+    }
+    for (final x in e.esempiScartati.entries) {
+      print('    scartato ${x.key}: ${x.value}');
+    }
   }
-  print('--- un responso per esteso, settima discesa di ${esiti.first.caso.nome}:');
+  print(
+      '--- un responso per esteso, settima discesa di ${esiti.first.caso.nome}:');
   print(esiti.first.esempio);
   for (final e in esiti.where((e) => !e.passaC)) {
     print('--- coppia peggiore di ${e.caso.nome}, '

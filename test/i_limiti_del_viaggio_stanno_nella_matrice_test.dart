@@ -41,11 +41,13 @@ void main() {
         '${celle(RigaDelPiano.nutrimento)}');
   });
 
-  test('I TETTI DEL VIAGGIO LEGGONO LA MATRICE, e prima del riconoscimento '
+  test(
+      'I TETTI DEL VIAGGIO LEGGONO LA MATRICE, e prima del riconoscimento '
       'resta uno per tutti', () {
     final dopo = [
       for (final t in ordine)
-        TettiDelViaggio.quanteAlGiorno(giaRiconosciuto: true, tier: t, demo: false),
+        TettiDelViaggio.quanteAlGiorno(
+            giaRiconosciuto: true, tier: t, demo: false),
     ];
     final prima = [
       for (final t in ordine)
@@ -90,10 +92,11 @@ void main() {
         reason: 'il Viandante chiede un secondo segno dentro la settimana');
     expect(puo(Tier.free, [adesso.subtract(const Duration(days: 8))]), isTrue);
     // L'Adepto: uno al giorno.
-    expect(puo(Tier.tier2, [adesso.subtract(const Duration(hours: 1))]),
-        isFalse);
+    expect(
+        puo(Tier.tier2, [adesso.subtract(const Duration(hours: 1))]), isFalse);
     expect(puo(Tier.tier2, [adesso.subtract(const Duration(days: 1))]), isTrue,
-        reason: 'l Adepto non puo chiedere il segno di oggi per quello di ieri');
+        reason:
+            'l Adepto non puo chiedere il segno di oggi per quello di ieri');
     // L'Illuminato: cinque al giorno.
     expect(
         puo(Tier.tier3,
@@ -105,7 +108,8 @@ void main() {
         isFalse);
   });
 
-  test('AL TETTO NON C E UN MURO: si dice quando si torna, si offre il '
+  test(
+      'AL TETTO NON C E UN MURO: si dice quando si torna, si offre il '
       'nutrimento, e nessuna promessa di Eos', () {
     final discese = TettiDelViaggio.percheNonOggi(
         giaRiconosciuto: true,
@@ -139,30 +143,66 @@ void main() {
         reason: 'al tetto dei segni non si dice quando torna: $segno');
   });
 
-  group('IL TETTO TECNICO DELLE DIECI CHIAMATE', () {
-    test('dieci si prendono, l undicesima no, e il giorno dopo si riparte',
-        () async {
+  group('IL TETTO TECNICO: DIECI DISCESE E DIECI SEGNI, ordine DL voce 09', () {
+    tearDown(() => IlTettoDelleChiamate.alzatoPerIlCollaudo = false);
+
+    test(
+        'dieci discese si prendono, l undicesima no, e il giorno dopo si '
+        'riparte', () async {
       final oggi = DateTime(2026, 9, 12, 10);
       final esiti = <bool>[
         for (var i = 0; i < 11; i++)
-          await IlTettoDelleChiamate.prendiUnaChiamata(adesso: oggi, demo: false),
+          await IlTettoDelleChiamate.prendiUnaDiscesa(
+              adesso: oggi, demo: false),
       ];
       // ignore: avoid_print
-      print('ORDINE DI VOCE 15: undici chiamate nello stesso giorno danno '
+      print('ORDINE DL VOCE 09: undici discese nello stesso giorno danno '
           '$esiti');
       expect(esiti.where((e) => e).length,
-          TettiDelViaggio.chiamateAlModelloAlGiorno);
+          TettiDelViaggio.disceseAlModelloAlGiorno);
       expect(esiti.last, isFalse,
-          reason: 'l undicesima chiamata del giorno arriva al modello');
-      expect(TettiDelViaggio.chiamateAlModelloAlGiorno, 10);
+          reason: 'l undicesima discesa del giorno arriva al modello');
+      expect(TettiDelViaggio.disceseAlModelloAlGiorno, 10);
+      expect(TettiDelViaggio.segniAlModelloAlGiorno, 10);
       expect(
-          await IlTettoDelleChiamate.prendiUnaChiamata(
+          await IlTettoDelleChiamate.prendiUnaDiscesa(
               adesso: oggi.add(const Duration(days: 1)), demo: false),
           isTrue,
           reason: 'il tetto di ieri vale anche oggi');
     });
 
-    test('oltre il tetto la domanda libera la capisce la tabella, senza '
+    test('le discese e i segni si contano per conto loro', () async {
+      final oggi = DateTime(2026, 9, 12, 10);
+      for (var i = 0; i < 10; i++) {
+        await IlTettoDelleChiamate.prendiUnaDiscesa(adesso: oggi, demo: false);
+      }
+      expect(
+          await IlTettoDelleChiamate.prendiUnSegno(adesso: oggi, demo: false),
+          isTrue,
+          reason: 'dieci discese hanno consumato anche i segni: e il conto '
+              'unico di prima');
+      expect(await IlTettoDelleChiamate.quanteDisceseOggi(adesso: oggi), 10);
+      expect(await IlTettoDelleChiamate.quantiSegniOggi(adesso: oggi), 1);
+    });
+
+    test('una discesa conta una volta, con tutte le sue chiamate', () async {
+      // La scena scartata si richiede: due chiamate, una discesa.
+      var chiamate = 0;
+      final oggi = DateTime(2026, 9, 12, 10);
+      final permesso = await IlTettoDelleChiamate.prendiUnaDiscesa(
+          adesso: oggi, demo: false);
+      expect(permesso, isTrue);
+      await LaDomandaCapita.capisci('Devo scegliere fra due lavori',
+          chiamata: (_, __) async {
+        chiamate++;
+        return '{"tema": "scelta"}';
+      }, prendiUnaChiamata: IlTettoDelleChiamate.sempre);
+      expect(chiamate, 1);
+      expect(await IlTettoDelleChiamate.quanteDisceseOggi(adesso: oggi), 1);
+    });
+
+    test(
+        'oltre il tetto la domanda libera la capisce la tabella, senza '
         'chiamare il modello', () async {
       var chiamato = false;
       final (tema, fonte) = await LaDomandaCapita.tema(
@@ -180,13 +220,35 @@ void main() {
       expect(fonte, isNot(FonteDelTema.modello));
     });
 
-    test('in Demo il tetto tecnico non conta', () async {
+    // **IN DEMO IL TETTO CONTA**, ordine DL voce 14: chi prova vede l'app
+    // come la vedra' chi la usa. Lo alza soltanto il comando di collaudo.
+    test('in Demo il tetto conta, finche il comando di collaudo non lo alza',
+        () async {
       final oggi = DateTime(2026, 9, 12, 10);
+      expect(IlTettoDelleChiamate.alzatoPerIlCollaudo, isFalse,
+          reason: 'il comando parte acceso');
+      final esiti = <bool>[
+        for (var i = 0; i < 11; i++)
+          await IlTettoDelleChiamate.prendiUnaDiscesa(adesso: oggi, demo: true),
+      ];
+      expect(esiti.last, isFalse, reason: 'in Demo il tetto non conta');
+      IlTettoDelleChiamate.alzatoPerIlCollaudo = true;
       for (var i = 0; i < 20; i++) {
         expect(
-            await IlTettoDelleChiamate.prendiUnaChiamata(adesso: oggi, demo: true),
+            await IlTettoDelleChiamate.prendiUnaDiscesa(
+                adesso: oggi, demo: true),
             isTrue);
       }
+      // **FUORI DALLA DEMO IL COMANDO NON VALE**, anche acceso.
+      expect(
+          await IlTettoDelleChiamate.prendiUnaDiscesa(
+              adesso: oggi, demo: false),
+          isFalse);
+      // **SPENTO, IL TETTO TORNA SUBITO**, senza riavviare niente.
+      IlTettoDelleChiamate.alzatoPerIlCollaudo = false;
+      expect(
+          await IlTettoDelleChiamate.prendiUnaDiscesa(adesso: oggi, demo: true),
+          isFalse);
     });
   });
 }
