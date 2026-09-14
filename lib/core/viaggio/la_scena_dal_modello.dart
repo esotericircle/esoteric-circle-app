@@ -235,22 +235,22 @@ abstract final class LaScenaDalModello {
           'legali o eventi garantiti. Niente che somigli a una diagnosi o a '
           'un consiglio medico.',
       '- Nessun nome proprio che la persona non ha scritto.',
-      // **ORDINE DN VOCI 02 E 04.** Gli esempi non sono quelli dell'ordine,
-      // e parlano di un cugino, non di una sorella: la misura a cento
-      // discese ha trovato *"Il desiderio di tua sorella e' un processo che
-      // si sta sviluppando"*, l'esempio del NO, ricopiato parola per parola
-      // dal modello alla domanda sulla sorella, e la risposta cadeva tre
-      // volte su quattro. **Il soggetto e' chi legge**: detto in positivo,
-      // il modello lo segue meglio di un divieto.
-      '- Non dire mai cosa prova, vuole, desidera, pensa o sta vivendo '
-          'un\'altra persona, né cosa le succederà: non lo sai. Quando la '
-          'domanda parla di qualcuno, il soggetto delle tue frasi è chi '
-          'legge, e dell\'altra persona dici solo ciò che chi legge può o '
-          'non può fare con lei. "Con tuo cugino puoi scegliere tu quando '
-          'parlare" sì; "La decisione di tuo cugino non è tua da '
-          'prendere" sì; "Tuo cugino sta attraversando un periodo difficile" '
-          'no; "Il suo desiderio è un cammino che ha i suoi tempi" no. Vale '
-          'anche per "quella persona", "lui", "lei" e "il suo".',
+      // **ORDINE DN VOCI 02 E 04, e nessun esempio del NO.** La misura a
+      // cento discese ha trovato l'esempio vietato ricopiato parola per
+      // parola: prima quello dell'ordine, *"Il desiderio di tua sorella e' un
+      // processo che si sta sviluppando"*, poi quello scritto al suo posto,
+      // *"Il suo desiderio e' un cammino che ha i suoi tempi"*, e la risposta
+      // alla domanda sulla sorella cadeva tre volte su quattro. Un esempio
+      // del NO il modello lo prende per un modello. **Il soggetto e' chi
+      // legge**, detto in positivo, e solo esempi del SI', su un cugino.
+      "- Dell'altra persona non sai niente: né cosa prova, né cosa vuole, "
+          'né cosa vive, né cosa le succederà. Quando la domanda parla di '
+          'qualcuno, OGNI FRASE ha per soggetto chi legge e dice ciò che '
+          'chi legge può o non può fare: "Puoi...", "Non puoi...", "Tocca '
+          'a te...", "Con lei puoi...". "Con tuo cugino puoi scegliere tu '
+          'quando parlare" e "La decisione di tuo cugino non è tua da '
+          'prendere" vanno bene. Vale anche per "quella persona", "lui", '
+          '"lei" e "il suo".',
       '- Puoi prendere una parte, ma non ordinare una decisione grave: '
           'lasciare il lavoro o una persona, separarsi, tagliare i '
           'rapporti, trasferirsi, vendere casa. Su queste dici cosa '

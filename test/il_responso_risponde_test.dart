@@ -287,6 +287,16 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
           isTrue);
+      // **DALLA MISURA DELL'ORDINE DN**: la decisione che non spetta a chi
+      // legge dice cio' che chi legge non puo' fare.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La maternità di tua sorella non è una decisione tua.', sorella),
+          isFalse);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'La maternità di tua sorella è un desiderio profondo.', sorella),
+          isTrue);
       // **DALLA MISURA DELL'ORDINE DN**: senza un terzo nella domanda, il
       // possessivo e' della cosa di cui si parla.
       expect(

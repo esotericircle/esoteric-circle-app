@@ -213,7 +213,11 @@ abstract final class LeGuardieDelResponso {
       _parole('puoi|devi|sai|hai|sei|fai|vuoi|riesci|scegli|decidi|stai|vedi|'
           'senti|cerchi|aspetti|trovi|lasci|tieni|porti|chiedi|guardi|'
           'tocca a te|spetta a te|dipende da te|a te|da te|per te|'
-          '(?:tua|tuo|tuoi|tue) da [a-zàèéìòù]+');
+          '(?:tua|tuo|tuoi|tue) da [a-zàèéìòù]+|'
+          // *"La maternita' di tua sorella non e' una decisione tua"*: dice
+          // cio' che chi legge non puo' fare. Dalla misura dell'ordine DN.
+          '(?:tua|tuo) (?:decisione|scelta|compito|responsabilità)|'
+          '(?:decisione|scelta|compito|responsabilità) (?:tua|tuo)');
 
   /// **UN ORDINE SU UNA DECISIONE GRAVE E IRREVERSIBILE**, ordine DN voce
   /// 04: lasciare il lavoro o una persona, separarsi, tagliare i rapporti,

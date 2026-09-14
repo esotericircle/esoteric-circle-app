@@ -609,6 +609,11 @@ Future<_Esito> _centoDiscese(_Caso caso,
         if ((esempiScartati[chiave] ?? '').isEmpty) {
           esempiScartati[chiave] = r.testo;
         }
+        // **OGNI SCARTO PER ESTESO**, se lo si chiede: per leggere a mano se
+        // una guardia scarta il difetto o una risposta buona.
+        if (Platform.environment['TUTTI_GLI_SCARTI'] != null) {
+          print('SCARTO $chiave: ${r.testo}');
+        }
       },
     );
     final scelti = scritta.pezzi;
