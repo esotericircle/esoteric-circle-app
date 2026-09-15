@@ -119,6 +119,9 @@ void main() {
         'prima di lei" no, come dice l\'ordine', () {
       expect(risposta('Tua sorella avrà un bambino.'),
           MotivoDelloScarto.previsioneCerta);
+      // **LA NECESSITA' DI UN EVENTO**, dalla riprova a video della 2256.
+      expect(risposta('Per tua sorella qualcosa di diverso deve accadere.'),
+          MotivoDelloScarto.previsioneCerta);
       // **OGNI FUTURO**, dalla riprova a video della 2255; i modali restano.
       expect(risposta('Ogni strada con tua sorella ti condurrà lontano.'),
           MotivoDelloScarto.previsioneCerta);
@@ -239,6 +242,30 @@ void main() {
           hasLength(40));
     });
 
+    test('l oggetto plurale non va col singolare della ripresa', () {
+      // **DALLA RIPROVA A VIDEO DELLA BUILD 2256**: *"Il motivo della discesa
+      // era le lettere"*.
+      final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+      final riprese = <String>[];
+      for (var i = 0; i < 40; i++) {
+        final r = IlResponsoDelViaggio.componi(
+          dalModello: null,
+          domanda: 'Voglio bruciare le lettere di mia nonna',
+          giorno: DateTime(2026, 9, 15).add(Duration(days: i)),
+          nitidezza: 1,
+          discesa: i,
+          giaOggi: 0,
+          animale: animale,
+          tema: TemaDellaDomanda.finito,
+          storia: const [],
+          oggetto: 'le lettere',
+        );
+        riprese.add(r.paragrafi[0]);
+      }
+      expect(riprese.where((p) => p.contains('era le lettere')), isEmpty);
+      expect(riprese.where((p) => p.contains('le lettere')), isNotEmpty);
+    });
+
     test('il clitico col verbo che regge un predicativo', () {
       // **DALLA PROVA A VIDEO DELLA BUILD 2252**: un titolo del modello a un
       // profilo neutro.
@@ -251,6 +278,15 @@ void main() {
           isEmpty);
       expect(
           formeContrarieAllaForma('Cosa ti rende forte', CourtesyForm.neutral),
+          isEmpty);
+      // **DALLA RIPROVA DELLA 2256**: la desinenza, non il dizionario.
+      expect(
+          formeContrarieAllaForma(
+              'Scrivi tre cose che ti rendono fiera.', CourtesyForm.neutral),
+          isNotEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Una sera che ti tiene compagnia.', CourtesyForm.neutral),
           isEmpty);
       // **DALLA RIPROVA DELLA 2254**: dopo *essergli* e *stargli*.
       expect(
@@ -366,6 +402,18 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'La sua rabbia non è la tua.', 'Mia madre è arrabbiata con me?'),
           isTrue);
+      // **DALLA RIPROVA A VIDEO DELLA BUILD 2256**: lo stato del terzo dentro
+      // il complemento, tranne quando lo ha detto la persona.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non puoi forzare il suo desiderio di stare lontano.',
+              'Il mio migliore amico si e allontanato'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Non puoi cambiare la rabbia di tua madre.',
+              'Mia madre è arrabbiata con me'),
+          isFalse);
       // **DALLA RIPROVA A VIDEO DELLA BUILD 2254**: ogni frase che nomina il
       // terzo, anche fuori dal soggetto.
       expect(

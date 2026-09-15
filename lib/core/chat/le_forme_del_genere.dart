@@ -215,6 +215,60 @@ final RegExp _riflessivoCheRegge = RegExp(
     r'([a-zàèéìòù]+)',
     caseSensitive: false);
 
+/// Le parole in *o* e in *a* che dopo *ti rende*, *sentirti* e simili non
+/// dicono il genere di chi legge.
+const Set<String> _nonConcordano = {
+  'compagnia',
+  'senza',
+  'sopra',
+  'sotto',
+  'dentro',
+  'fuori',
+  'ancora',
+  'meglio',
+  'peggio',
+  'prima',
+  'dopo',
+  'fino',
+  'verso',
+  'qualcosa',
+  'qualcuno',
+  'nessuno',
+  'niente',
+  'nulla',
+  'sempre',
+  'troppo',
+  'ogni',
+  'nella',
+  'nello',
+  'della',
+  'dello',
+  'alla',
+  'allo',
+  'sulla',
+  'sullo',
+  'dalla',
+  'dallo',
+  'questa',
+  'questo',
+  'quella',
+  'quello',
+  'parte',
+  'tanta',
+  'poca',
+  'giustizia',
+  'forza',
+  'voglia',
+  'paura',
+  'fiducia',
+};
+
+bool _concorda(String parola) {
+  final p = parola.toLowerCase();
+  if (p.length < 4 || !RegExp(r'[oa]$').hasMatch(p)) return false;
+  return !_nonParticipi.contains(p) && !_nonConcordano.contains(p);
+}
+
 List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
   final forme = [
     ...formeDelGenere(testo),
@@ -230,18 +284,16 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
           dizionarioDelGenere.contains(m.group(2)!.toLowerCase()))
         m.group(2)!,
     ],
-    for (final m in _riflessivoCheRegge.allMatches(testo))
-      if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
-          (RegExp(r'(at|ut|it|is|es|os|ss|tt|nt|rs|rt|lt)[oa]$')
-                  .hasMatch(m.group(1)!.toLowerCase()) ||
-              _parole.contains(m.group(1)!.toLowerCase()) ||
-              RegExp(r'^vicin[oa]$').hasMatch(m.group(1)!.toLowerCase())))
-        m.group(1)!,
-    for (final m in _cliticoCheRegge.allMatches(testo))
-      if (!_nonParticipi.contains(m.group(1)!.toLowerCase()) &&
-          (RegExp(r'(at|ut|it)[oa]$').hasMatch(m.group(1)!) ||
-              _parole.contains(m.group(1)!.toLowerCase())))
-        m.group(1)!,
+    // **DOPO IL VERBO CHE REGGE UN PREDICATIVO DI CHI LEGGE, LA DESINENZA**,
+    // non piu' il dizionario: *"ti rendono fiera"*, alla riprova a video della
+    // 2256, dopo *"sentirti divisa"* e *"essergli vicina"*. Il dizionario non
+    // finisce mai; la desinenza in *o* e in *a* si', con l'elenco delle parole
+    // che non concordano.
+    for (final m in [
+      ..._riflessivoCheRegge.allMatches(testo),
+      ..._cliticoCheRegge.allMatches(testo),
+    ])
+      if (_concorda(m.group(1)!)) m.group(1)!,
   ];
   // **LA DESINENZA VIETATA LA DECIDE LA PORTA**, come ogni altra scelta
   // secondo il genere: qui c'era un secondo `masculine ? 'a' : 'o'`, e la

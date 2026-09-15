@@ -126,6 +126,10 @@ abstract final class LeGuardieDelResponso {
           // passava perche' *condurra'* non c'era. Il futuro dei modali resta,
           // *potrai*, *dovrai*, *vorrai*: dice cio' che chi legge puo' fare.
           '(?!potr|dovr|vorr)[a-zàèéìòù]+r(?:à|ai|anno)|'
+          // E la necessita' di un evento: *"qualcosa di diverso deve
+          // accadere"*, alla riprova a video della 2256.
+          'dev(?:e|ono) (?:accadere|succedere|avvenire|arrivare|cambiare|'
+          'finire|nascere|tornare)|'
           '(è|ha|hanno|sono) già [a-zàèéìòù]+(at|ut|it)[oaie]|'
           'non è (ancora )?(il )?(suo |tuo |questo )?(momento|tempo)');
 
@@ -209,6 +213,14 @@ abstract final class LeGuardieDelResponso {
       '(?:(?:il|la|lo|i|gli|le) )?(?:tua|tuo|tuoi|tue|sua|suo|suoi|sue) '
       '(?:$_parenti)|lui|lei|loro|'
       'egli|ella|costui|costei|questa persona|quella persona|l.altra persona';
+
+  /// I sentimenti, i desideri e i bisogni di una persona: dirli di un
+  /// terzo e' dire cosa prova o vuole. Ordine DN voce 08.
+  static const String _statiDelTerzo =
+      'desiderio|desideri|voglia|bisogno|bisogni|intenzione|intenzioni|'
+      'volontà|paura|paure|rabbia|dolore|sentimento|sentimenti|emozione|'
+      'emozioni|sofferenza|tristezza|felicità|delusione|stanchezza|'
+      'fatica|attesa|speranza|speranze|nostalgia|gelosia|imbarazzo';
 
   static const String _parenti =
       'sorella|sorelle|fratello|fratelli|madre|mamma|padre|papà|figlio|'
@@ -476,6 +488,25 @@ abstract final class LeGuardieDelResponso {
         '^(?:quella|quel|quello|quell.|questa|questo|quest.|quelle|quei|'
         'quegli|queste|questi) ',
         caseSensitive: false);
+    // **LO STATO DEL TERZO DENTRO IL COMPLEMENTO**, ordine DN voce 08: *"Non
+    // puoi forzare il suo desiderio di stare lontano"*, alla riprova a video
+    // della 2256, ha il predicato di chi legge e da' per certo cosa vuole
+    // l'amico. Un sentimento, un desiderio, un bisogno del terzo si scarta
+    // anche li', **tranne quando lo ha detto la persona**: *"Non puoi
+    // cambiare la rabbia di tua madre"* alla domanda *"Mia madre e'
+    // arrabbiata"* ripete la domanda.
+    final statoPosseduto = RegExp(
+        '(?<![$_l])(?:(?:il|la|i|le|del|della|dei|delle|nel|nella) )?'
+        '(?:suo|sua|suoi|sue) ($_statiDelTerzo)(?![$_l])|'
+        '(?<![$_l])($_statiDelTerzo) (?:di|del|della|dello|dei|delle) '
+        '(?:$terzo)(?![$_l])',
+        caseSensitive: false);
+    final nellaDomanda = domanda.toLowerCase();
+    for (final m in statoPosseduto.allMatches(t)) {
+      if (!ognunaCheLoNomina || !domandaConUnTerzo) break;
+      final stato = (m.group(1) ?? m.group(2))!.toLowerCase();
+      if (!nellaDomanda.contains(stato.substring(0, 4))) return true;
+    }
     for (final grezza in t.split(RegExp(r'[.!?;]'))) {
       final frase = grezza.trim();
       if (frase.isEmpty) continue;

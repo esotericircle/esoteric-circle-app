@@ -338,8 +338,19 @@ abstract final class LaVoceDelMondoDiSotto {
                 caseSensitive: false)
             .hasMatch(oggetto.trim());
     if (oggetto != null && oggetto.trim().isNotEmpty && perLaPersona) {
-      return LaMarcaDelGenere.risolvi(
-              riprendeLOggetto[indice % riprendeLOggetto.length])
+      // **L'OGGETTO PLURALE NON VA COL SINGOLARE**, ordine DN voce 08:
+      // *"Il motivo della discesa era le lettere"*, alla riprova a video
+      // della 2256. Si prende la ripresa dopo.
+      final plurale = RegExp(
+              r'^(?:le|i|gli|tue|tuoi|miei|mie|queste|questi|quelle|quei|'
+              r'quegli|delle|dei|degli) ',
+              caseSensitive: false)
+          .hasMatch(oggetto.trim());
+      var qualeOggetto = indice % riprendeLOggetto.length;
+      if (plurale && riprendeLOggetto[qualeOggetto].contains('era {oggetto}')) {
+        qualeOggetto = (qualeOggetto + 1) % riprendeLOggetto.length;
+      }
+      return LaMarcaDelGenere.risolvi(riprendeLOggetto[qualeOggetto])
           .replaceAll('{su}', suLOggetto(oggetto.trim()))
           .replaceAll('{oggetto}', oggetto.trim());
     }
@@ -372,7 +383,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'La paura è di perdere l\'altra, non di prendere questa.',
       'Se fossero davvero uguali, avresti già scelto.',
       'Chiediti quale delle due puoi ancora cambiare fra un mese.',
-      'Stai cercando la giusta: cerca quella che sai portare avanti.',
+      'Stai cercando la scelta giusta: cerca quella che sai portare avanti.',
     ],
     'persona': [
       'Le stai dando un peso che solo tu puoi misurare.',
