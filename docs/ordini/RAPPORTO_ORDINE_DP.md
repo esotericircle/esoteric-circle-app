@@ -97,6 +97,11 @@ vista rossa:
    numero**, verificato su un secolo di date. Cambia soltanto per chi fa 8 o
    11, anche nel Passaporto. Padre: ordine CE voce 13.
 
+**Dopo le catture, una differenza dichiarata**: lo sbarramento ha fermato il
+numero grande scritto con una misura a mano, 52 punti, e la guardia della
+tipografia vuole un ruolo. Adesso e' `cerimonialeGrande`, 34 punti: nella
+build 2262 il numero e' piu' piccolo di come si vede nelle schermate.
+
 **Una cosa da guardare, non un guasto**: l'anello delle settantotto,
 sovrapposte in profondita' come chiede l'ordine, da vicino ha l'aspetto di
 un bracciale di carte: il dorso intero si legge solo sulla carta davanti.

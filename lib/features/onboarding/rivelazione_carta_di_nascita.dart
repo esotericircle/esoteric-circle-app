@@ -427,7 +427,7 @@ class _IlCalcolo extends StatelessWidget {
                     '$numero',
                     key: const Key('carta_di_nascita_numero'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.display(size: 52)
+                    style: TypographyTokens.cerimonialeGrande()
                         .copyWith(color: colore, height: 1.1),
                   ),
           ),

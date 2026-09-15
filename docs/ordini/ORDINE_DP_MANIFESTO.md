@@ -142,6 +142,11 @@ loro riga vista rossa:
    che porta il numero. **Cambia soltanto per chi fa 8 o 11**, anche nel
    Passaporto. Padre: ordine CE voce 13, con la prova che lo fissava.
 
+**Dopo le catture, una differenza dichiarata**: lo sbarramento ha fermato il
+numero grande scritto con una misura a mano, 52 punti, e la guardia della
+tipografia vuole un ruolo. Adesso e' `cerimonialeGrande`, 34 punti: nella
+build 2262 il numero e' piu' piccolo di come si vede nelle schermate.
+
 ---
 
 ## DP.05, IL RAPPORTO. CHIUSA
