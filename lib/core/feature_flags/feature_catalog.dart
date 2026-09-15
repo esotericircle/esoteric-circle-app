@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../entitlement/tier.dart';
 import '../maestro/maestro.dart';
+import '../santuario/function_shelf.dart';
 import 'feature_flag.dart';
 
 /// Catalogo delle funzioni dell'app note al client.
@@ -18,7 +19,7 @@ import 'feature_flag.dart';
 class FeatureCatalog {
   FeatureCatalog._();
 
-  static const List<FeatureDefinition> all = [
+  static const List<FeatureDefinition> _dichiarate = [
     // --- Attive (dominio Medora) ---
     FeatureDefinition(
       id: 'natal_chart',
@@ -29,7 +30,7 @@ class FeatureCatalog {
     ),
     FeatureDefinition(
       id: 'tarot_spread_three',
-      title: 'Stesa a Tre Carte',
+      title: 'Stesa di Tarocchi',
       teaser: 'Passato, Presente e Futuro nel ventaglio di Medora.',
       icon: Icons.style,
       owner: Maestro.medora,
@@ -53,15 +54,43 @@ class FeatureCatalog {
       owner: Maestro.caligo,
     ),
 
+    // --- I RICORDI DEL CERCHIO, ordine CG voce 13 ---
+    //
+    // **QUESTA VOCE SUPERA LO SCOPE DELLA DEMO CONGELATO**, e va scritto
+    // perche' altrimenti la prossima sessione trova due decisioni che si
+    // contraddicono. Parole del fondatore, 31 agosto 2026: "la 7 perche'
+    // voglio che entri nella demo".
+    //
+    // **ATTIVA e non premium.** La timeline, la ricerca e le Carte sono di
+    // tutti; la sola parte che chiede un piano e' la lettura in prosa del
+    // mese, che vive nella voce CG.11 e ha il suo cancello li'.
+    //
+    // **Non sta sullo scaffale del Santuario, e non e' una dimenticanza**: il
+    // Cosmic Journal non e' un'arte, e ha tre porte sue, cioe' il menu'
+    // utente, il Passaporto e la riga in cima a ogni chat.
+    FeatureDefinition(
+      id: 'ricordi_del_cerchio',
+      title: 'Cosmic Journal',
+      teaser:
+          'Il tuo cammino e i tuoi ricordi, giorno per giorno, con le carte '
+          'che hai custodito.',
+      icon: Icons.auto_stories_outlined,
+      defaultAvailability: RemoteAvailability.enabled,
+    ),
+
     // --- Coming soon (non ancora pronte in questa fase) ---
+    // Viva, non piu' in arrivo: lo scaffale del Santuario e il manifest
+    // `docs/stato_funzioni.json` la dicono viva da tempo, e questo catalogo
+    // era rimasto indietro. Tre fonti per lo stesso stato, con una che
+    // diceva il contrario delle altre due.
     FeatureDefinition(
       id: 'face_constellation',
       title: 'Costellazione del Viso',
       teaser:
-          'La videocamera trasforma i tratti del tuo volto in una costellazione. Presto disponibile.',
+          'La videocamera trasforma i tratti del tuo volto in una costellazione.',
       icon: Icons.face_retouching_natural,
       owner: Maestro.aura,
-      defaultAvailability: RemoteAvailability.comingSoon,
+      defaultAvailability: RemoteAvailability.enabled,
     ),
     FeatureDefinition(
       id: 'palmistry',
@@ -76,7 +105,7 @@ class FeatureCatalog {
       id: 'extended_oracles',
       title: 'Oracoli Estesi',
       teaser:
-          'I-Ching, pendolo, cristalli e fondi di caffe si uniranno al cerchio. Presto disponibili.',
+          'I-Ching, pendolo, cristalli e fondi di caffè si uniranno al cerchio. Presto disponibili.',
       icon: Icons.blur_on,
       owner: Maestro.caligo,
       defaultAvailability: RemoteAvailability.comingSoon,
@@ -103,8 +132,7 @@ class FeatureCatalog {
     FeatureDefinition(
       id: 'vedic_astrology',
       title: 'Astrologia Vedica',
-      teaser:
-          'Le tradizioni siderali, esclusiva dei livelli superiori.',
+      teaser: 'Le tradizioni siderali, esclusiva dei livelli superiori.',
       icon: Icons.brightness_7,
       owner: Maestro.medora,
       requiredTier: Tier.tier3,
@@ -119,5 +147,31 @@ class FeatureCatalog {
       if (f.id == id) return f;
     }
     return null;
+  }
+
+  /// Tutte le funzioni che il catalogo conosce.
+  ///
+  /// Le dichiarate qui, PIU' quelle dello scaffale del Santuario che qui non
+  /// avevano una definizione: erano sei su dieci, quindi il catalogo dei flag
+  /// non conosceva piu' della meta' di cio' che l'app mostra. Derivarle invece
+  /// di ricopiarle evita che le due liste divergano ancora, come e' gia'
+  /// successo alla Costellazione del Viso.
+  static List<FeatureDefinition> get all {
+    final noti = _dichiarate.map((f) => f.id).toSet();
+    return [
+      ..._dichiarate,
+      for (final fn in FunctionShelf.functions)
+        if (!noti.contains(fn.id))
+          FeatureDefinition(
+            id: fn.id,
+            title: fn.title,
+            teaser: fn.teaser,
+            icon: fn.icon,
+            owner: fn.maestro,
+            defaultAvailability: fn.live
+                ? RemoteAvailability.enabled
+                : RemoteAvailability.comingSoon,
+          ),
+    ];
   }
 }

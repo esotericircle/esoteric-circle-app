@@ -1,0 +1,584 @@
+import 'dart:io';
+
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
+import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_tamburo_che_nutre.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'la_soglia_si_guarda_prima_di_leggerla_test.dart'
+    show DiarioDelloSciamanoDiProva;
+
+/// **LA VITA DOPO IL RICONOSCIMENTO.** Ordine DI voci 11, 12, 13 e 14,
+/// 12 settembre 2026.
+///
+/// **Il principio dell'ordine:** *"prima della quarta si scende per scoprire
+/// chi e'; dopo la quarta si scende per chiedergli qualcosa, ed e' solo da qui
+/// che il nome della funzione diventa vero. Se la discesa sparisse, la
+/// funzione si esaurirebbe in quattro giorni."*
+///
+/// **Si percorre la schermata vera**, per ognuna delle quattro voci: cosa
+/// sparisce e cosa compare al riconoscimento, la discesa che cambia scopo, il
+/// tamburo che nutre, il segno che risponde. E la lingua delle righe nuove si
+/// pretende accordata col genere dell'animale, perche' l'ordine le scrive al
+/// maschile e quattro animali su dodici sono femmine.
+void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  Future<DiarioDelloSciamanoDiProva> apri(
+    WidgetTester tester, {
+    Zodiac segno = Zodiac.sagittarius,
+    int discese = 4,
+    ChiamataDelSegno? chiamata,
+  }) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    final diario = DiarioDelloSciamanoDiProva(discese);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+      ],
+      child: MaterialApp(
+        home: MaestroScope(
+          child: ViaggioDelloSciamanoScreen(
+            key: ValueKey('$segno $discese'),
+            userSign: segno,
+            now: DateTime(2026, 9, 12, 12),
+            diario: diario,
+            chiamataDelSegno: chiamata,
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    return diario;
+  }
+
+  group('DI.11, al riconoscimento', () {
+    testWidgets(
+        'SPARISCE L APPARATO DELLA RIVELAZIONE, e compare l animale '
+        'col suo nome, due righe e tre azioni', (tester) async {
+      await apri(tester);
+      // **COSA SPARISCE**, per nome: le impronte, il conteggio, le tre righe
+      // della voce DI.07, la girandola dei candidati.
+      const spariscono = [
+        'viaggio_i_quattro_segni',
+        'viaggio_a_che_punto',
+        'viaggio_dove_ti_trovi',
+        'viaggio_cosa_stai_facendo',
+        'viaggio_cosa_otterrai',
+        'viaggio_promessa',
+      ];
+      final ancora = [
+        for (final k in spariscono)
+          if (find.byKey(Key(k)).evaluate().isNotEmpty) k,
+      ];
+      expect(ancora, isEmpty,
+          reason: 'riconosciuto l animale restano accesi a vuoto: $ancora');
+      // **COSA COMPARE.**
+      expect(find.byKey(const Key('viaggio_animale_riconosciuto')),
+          findsOneWidget);
+      final nome = find.byKey(const Key('viaggio_nome_riconosciuto'));
+      expect(nome, findsOneWidget);
+      expect(
+          find.text('Il Cavallo resta con te. Scendi quando hai una '
+              'domanda.'),
+          findsOneWidget);
+      expect(
+          find.text('Si allontana se lo lasci solo. Il tamburo lo '
+              'richiama.'),
+          findsOneWidget);
+      // **TRE AZIONI E NON DI PIU'**, e la domanda non c'e' finche' non la si
+      // chiede.
+      const azioni = [
+        'viaggio_azione_scendi',
+        'viaggio_azione_nutri',
+        'viaggio_azione_segno',
+      ];
+      for (final k in azioni) {
+        expect(find.byKey(Key(k)), findsOneWidget, reason: 'manca $k');
+      }
+      expect(find.text('Scendi con una domanda'), findsOneWidget);
+      expect(find.text('Nutrilo'), findsOneWidget);
+      expect(find.text('Chiedigli un segno'), findsOneWidget);
+      expect(find.byKey(const Key('viaggio_scendi')), findsNothing,
+          reason: 'la scelta della domanda e gia aperta: le azioni sotto '
+              'l animale non sono piu tre');
+      await tester.tap(find.byKey(const Key('viaggio_azione_scendi')));
+      await tester.pump(const Duration(milliseconds: 400));
+      expect(find.byKey(const Key('viaggio_scendi')), findsOneWidget,
+          reason: 'toccata la prima azione, la domanda non si apre');
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 11: spariti ${spariscono.length} pezzi della '
+          'rivelazione, comparsi l animale, il nome, due righe e tre azioni');
+    });
+
+    testWidgets('LE RIGHE E LE AZIONI SI ACCORDANO CON L ANIMALE FEMMINA',
+        (tester) async {
+      await apri(tester, segno: Zodiac.gemini);
+      expect(find.text('La Volpe resta con te. Scendi quando hai una domanda.'),
+          findsOneWidget);
+      expect(
+          find.text('Si allontana se la lasci sola. Il tamburo la '
+              'richiama.'),
+          findsOneWidget,
+          reason: 'l ordine scrive "se lo lasci solo", e detto della Volpe e '
+              'lo stesso errore di "e il Lince"');
+      expect(find.text('Nutrila'), findsOneWidget);
+      expect(find.text('Chiedile un segno'), findsOneWidget);
+    });
+
+    testWidgets('PRIMA DEL RICONOSCIMENTO LE AZIONI DEL DOPO NON CI SONO',
+        (tester) async {
+      await apri(tester, discese: 3);
+      expect(find.byKey(const Key('viaggio_azione_segno')), findsNothing);
+      expect(
+          find.byKey(const Key('viaggio_animale_riconosciuto')), findsNothing,
+          reason: 'l animale si mostra scoperto prima della quarta');
+    });
+  });
+
+  group('DI.12, dopo il riconoscimento si scende per chiedere', () {
+    testWidgets('LA DISCESA C E ANCORA, si salta, e non passa piu dal velo',
+        (tester) async {
+      // **CINQUE DISCESE E NON QUATTRO**: il diario di prova non conta la
+      // discesa che si fa qui, e con quattro la risalita crederebbe di essere
+      // quella della rivelazione.
+      await apri(tester, discese: 5);
+      await tester.tap(find.byKey(const Key('viaggio_azione_scendi')));
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.ensureVisible(find.text('Una scelta da fare'));
+      await tester.tap(find.text('Una scelta da fare'));
+      await tester.pump();
+      await tester.ensureVisible(find.byKey(const Key('viaggio_scendi')));
+      await tester.tap(find.byKey(const Key('viaggio_scendi')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1600));
+      expect(find.byKey(const Key('viaggio_salta_la_discesa')), findsOneWidget,
+          reason: 'la discesa dopo il riconoscimento non si puo saltare');
+      await tester.tap(find.byKey(const Key('viaggio_salta_la_discesa')));
+      await tester.pump(const Duration(seconds: 1));
+      // La nebbia si apre passando la mano.
+      final nebbia = find.byKey(const Key('viaggio_nebbia'));
+      for (var i = 0;
+          i < 80 &&
+              find.byKey(const Key('viaggio_nebbia')).evaluate().isNotEmpty;
+          i++) {
+        await tester.drag(nebbia, const Offset(120, 40));
+        await tester.pump(const Duration(milliseconds: 60));
+      }
+      await tester.pump(const Duration(milliseconds: 300));
+      final ombra = find.byKey(const Key('viaggio_ombra_Cavallo'));
+      expect(ombra, findsOneWidget, reason: 'la nebbia non porta all incontro');
+      await tester.tap(ombra);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(
+          find.byType(Image).evaluate().where((e) =>
+              (e.widget.key as ValueKey?)
+                  ?.value
+                  .toString()
+                  .startsWith('viaggio_lente') ??
+              false),
+          isEmpty);
+      expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
+          findsOneWidget,
+          reason: 'dopo il riconoscimento seguire l animale non porta alla '
+              'risposta');
+      expect(find.byKey(const Key('viaggio_il_nome')), findsNothing,
+          reason: 'il nome si ripete a ogni discesa dopo la rivelazione');
+      expect(find.byKey(const Key('viaggio_ancora_no')), findsNothing,
+          reason: 'il conteggio delle apparizioni resta acceso dopo il '
+              'riconoscimento');
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 12: dopo il riconoscimento la discesa porta alla '
+          'risposta senza passare dal velo');
+    });
+  });
+
+  group('DI.13, il tamburo che nutre', () {
+    testWidgets(
+        'SI BATTE PER QUARANTA SECONDI, l animale arriva dal fondo, e '
+        'senza battere non si avanza', (tester) async {
+      final diario = await apri(tester);
+      final prima = diario.nutrimentiCheContano;
+      await tester.tap(find.byKey(const Key('viaggio_azione_nutri')));
+      await tester.pump();
+      final animale = find.byKey(const Key('viaggio_animale_che_si_avvicina'));
+      expect(animale, findsOneWidget);
+      final allInizio = tester.getRect(animale);
+      // **SENZA BATTERE NON SI AVANZA.**
+      await tester.pump(const Duration(seconds: 10));
+      expect(tester.getRect(animale), allInizio,
+          reason: 'l animale si avvicina anche senza battere: e un orologio, '
+              'non un tamburo');
+      // **SI BATTE UNA VOLTA AL SECONDO**, per quaranta secondi e poco piu'.
+      for (var s = 0; s < 20; s++) {
+        await tester.tapAt(const Offset(195, 700));
+        await tester.pump(const Duration(seconds: 1));
+      }
+      final aMeta = tester.getRect(animale);
+      expect(aMeta.width, greaterThan(allInizio.width),
+          reason: 'battendo l animale non si avvicina');
+      expect(aMeta.bottom, greaterThan(allInizio.bottom),
+          reason: 'l animale non scende dal fondo verso il primo piano');
+      expect(find.byKey(const Key('viaggio_torna_dal_tamburo')), findsNothing,
+          reason: 'il rito finisce prima dei quaranta secondi');
+      for (var s = 0; s < 22; s++) {
+        await tester.tapAt(const Offset(195, 700));
+        await tester.pump(const Duration(seconds: 1));
+      }
+      final allaFine = tester.getRect(animale);
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 13: l animale e largo ${allInizio.width.round()} '
+          'all inizio, ${aMeta.width.round()} a meta, '
+          '${allaFine.width.round()} alla fine');
+      expect(find.byKey(const Key('viaggio_torna_dal_tamburo')), findsOneWidget,
+          reason: 'dopo quaranta secondi di battito il rito non finisce');
+      expect(diario.nutrimentiCheContano, prima + 1,
+          reason: 'il rito finito non registra il nutrimento');
+      // **NESSUN PUNTEGGIO, NESSUNA BARRA.**
+      expect(find.byType(LinearProgressIndicator), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.textContaining(RegExp(r'\d')), findsNothing,
+          reason: 'il rito del tamburo mostra un numero');
+      await tester.tap(find.byKey(const Key('viaggio_torna_dal_tamburo')));
+      await tester.pump(const Duration(milliseconds: 600));
+    });
+
+    test('il nutrimento conta un giorno solo, anche battuto piu volte', () {
+      // La forma dell'avvicinarsi: dal fondo al primo piano, e crescendo.
+      final lontano = IlTamburoCheNutre.doveSta(0);
+      final vicino = IlTamburoCheNutre.doveSta(1);
+      expect(vicino.larga, greaterThan(lontano.larga * 3));
+      expect(vicino.piedi, greaterThan(lontano.piedi));
+      expect(IlTamburoCheNutre.quantoDura, const Duration(seconds: 40));
+    });
+  });
+
+  group('DI.14, il segno', () {
+    testWidgets(
+        'L ANIMALE RISPONDE COL GESTO DEL MODELLO E UNA RIGA SOLA, e il '
+        'segno si conserva', (tester) async {
+      final diario = await apri(tester, chiamata: (istruzione, domanda) async {
+        expect(istruzione, contains('siVolta'));
+        return '{"gesto":"siAvvicina","riga":"Il Cavallo ti si avvicina. '
+            'Vuol dire che quello che chiedi non è lontano."}';
+      });
+      await tester.tap(find.byKey(const Key('viaggio_azione_segno')));
+      await tester.pump();
+      // **COL CAMPO VUOTO IL PULSANTE E' SPENTO**, ordine DN voce 06: prima
+      // era acceso e il tocco non faceva niente.
+      expect(
+          tester
+              .widget<FilledButton>(
+                  find.byKey(const Key('viaggio_chiedi_il_segno')))
+              .onPressed,
+          isNull);
+      await tester.enterText(find.byKey(const Key('viaggio_domanda_del_segno')),
+          'Troverò lavoro?');
+      await tester.pump();
+      expect(
+          tester
+              .widget<FilledButton>(
+                  find.byKey(const Key('viaggio_chiedi_il_segno')))
+              .onPressed,
+          isNotNull);
+      await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
+      await tester.pump();
+      await tester.pump(IlSegnoCheRisponde.quantoDuraIlGesto);
+      await tester.pump(const Duration(milliseconds: 100));
+      final riga = tester
+          .widget<ParagrafiDiLettura>(
+              find.byKey(const Key('viaggio_riga_del_segno')))
+          .testo;
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 14: il segno dice "$riga"');
+      expect(riga, contains('ti si avvicina'));
+      expect(diario.segni, hasLength(1));
+      expect(diario.segni.first.gesto, 'siAvvicina');
+    });
+
+    testWidgets(
+        'UN GESTO FUORI DAL REPERTORIO SI SCARTA, e risponde la riserva',
+        (tester) async {
+      final diario = await apri(tester,
+          chiamata: (_, __) async =>
+              '{"gesto":"parla","riga":"Il Cavallo ti dice di sì."}');
+      await tester.tap(find.byKey(const Key('viaggio_azione_segno')));
+      await tester.pump();
+      await tester.enterText(
+          find.byKey(const Key('viaggio_domanda_del_segno')), 'Andrà bene?');
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      final riga = tester
+          .widget<ParagrafiDiLettura>(
+              find.byKey(const Key('viaggio_riga_del_segno')))
+          .testo;
+      // ignore: avoid_print
+      print('ORDINE DI VOCE 14: col gesto inventato risponde la riserva: '
+          '"$riga"');
+      expect(riga, isNot(contains('ti dice')),
+          reason: 'l animale parla: il gesto inventato dal modello e passato');
+      expect(riga, startsWith('Il Cavallo '));
+      expect(GestoDelSegno.values.map((g) => g.name),
+          contains(diario.segni.first.gesto));
+    });
+
+    testWidgets(
+        'AL TETTO DEI SEGNI NON C E UN MURO: si dice quando torna e si '
+        'offre il nutrimento', (tester) async {
+      // **SUL WIDGET DEL SEGNO, E NON SULLA SCHERMATA**: in Demo ogni tetto
+      // del Viaggio cade, e la schermata vera il tetto non lo mostra mai. La
+      // riga del quando la pretende la guardia dei limiti, qui si pretende
+      // che il segno la mostri al posto della domanda, con il nutrimento.
+      var nutri = 0;
+      final cavallo =
+          AnimalCatalog.animals.firstWhere((a) => a.name == 'Cavallo');
+      await tester.pumpWidget(MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => MaestroController())],
+        child: MaterialApp(
+          home: MaestroScope(
+            child: Scaffold(
+              body: IlSegnoCheRisponde(
+                animale: cavallo,
+                palette: MaestroPalette.caligo,
+                siPuoChiedere: false,
+                quandoTorna: 'Un altro segno potrai chiederlo giovedì. Intanto '
+                    'puoi nutrire il Cavallo: il tamburo è sempre aperto.',
+                chiedi: (_) async => throw StateError('chiesto oltre il tetto'),
+                quandoTorni: () {},
+                quandoNutri: () => nutri++,
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      expect(find.byKey(const Key('viaggio_domanda_del_segno')), findsNothing,
+          reason: 'oltre il tetto si puo scrivere un altra domanda');
+      expect(find.byKey(const Key('viaggio_quando_torna_un_segno')),
+          findsOneWidget);
+      expect(find.text('Nutrilo'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('viaggio_nutri_dal_segno')));
+      expect(nutri, 1, reason: 'il nutrimento offerto al tetto non si apre');
+    });
+
+    /// **TRE GESTI, ordine DJ voce 08**: erano sei, e tre si distinguevano
+    /// male a colpo d'occhio. Restano quelli che coprono il ventaglio dal si'
+    /// al no al non ancora.
+    test(
+        'IL REPERTORIO E CHIUSO: tre gesti col loro significato, e la riga '
+        'si legge prima', () {
+      final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
+      final aquila =
+          AnimalCatalog.animals.firstWhere((a) => a.name == 'Aquila');
+      expect(GestoDelSegno.values.map((g) => g.nelFile),
+          ['si_avvicina', 'si_volta', 'si_allontana']);
+      expect(
+          GestiDelSegno.leggi(
+              '{"gesto":"vola","riga":"Il Lupo vola via."}', lupo),
+          isNull);
+      for (final tolto in ['siSiede', 'portaQualcosa', 'guardaLontano']) {
+        expect(
+            GestiDelSegno.leggi(
+                '{"gesto":"$tolto","riga":"Il Lupo fa un gesto per te."}',
+                lupo),
+            isNull,
+            reason:
+                '$tolto e uscito dal repertorio e il modello lo fa passare');
+      }
+      expect(
+          GestiDelSegno.leggi(
+              '{"gesto":"siVolta","riga":"Il Lupo si volta: vuol dire: aspetta."}',
+              lupo),
+          isNull,
+          reason: 'due punti dentro due punti');
+      expect(
+          GestiDelSegno.leggi(
+              '{"gesto":"siVolta","riga":"Il Lupo si volta. Sei pronto."}',
+              lupo),
+          isNull,
+          reason: 'un aggettivo al maschile riferito a chi legge');
+      expect(GestoDelSegno.siAllontana.descrizione(aquila), contains('volo'));
+      // **LE RIGHE VERE CHE LA LETTURA LASCIAVA PASSARE**, dalla prima prova
+      // col modello vero dell'ordine DJ voce 08: ognuna si scarta.
+      final cervo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Cervo');
+      for (final (riga, perche) in [
+        (
+          'Mi sono allontanato per indicarti che non è il momento giusto.',
+          'l animale parla in prima persona, e al maschile'
+        ),
+        (
+          'Il Lupo si allontana di qualche passo e ti dice che la risposta è no.',
+          'l animale parla'
+        ),
+        (
+          'Il Lupo ti si avvicina. Questo indica che la persona tornerà.',
+          'una previsione certa'
+        ),
+        (
+          'Il Lupo si volta a guardare dietro di sé questo significa che non '
+              'hai visto tutto',
+          'due frasi senza un segno che le separi'
+        ),
+        (
+          'La volpe si volta. Non hai visto tutto.',
+          'non nomina il suo animale'
+        ),
+      ]) {
+        expect(GestiDelSegno.leggi('{"gesto":"siVolta","riga":"$riga"}', lupo),
+            isNull,
+            reason: '$perche: "$riga"');
+      }
+      // **E IL NOME IN MINUSCOLO SI RADDRIZZA**, invece di scartare la riga.
+      expect(
+          GestiDelSegno.leggi(
+                  '{"gesto":"siAvvicina","riga":"Il cervo ti si avvicina. '
+                  'Puoi andare avanti."}',
+                  cervo)
+              ?.riga,
+          'Il Cervo ti si avvicina. Puoi andare avanti.');
+      // **IL MODELLO SCEGLIE DAL SIGNIFICATO**: l'istruzione porta i tre
+      // significati dell'ordine, uno per gesto.
+      final istruzione = GestiDelSegno.istruzione(lupo);
+      for (final g in GestoDelSegno.values) {
+        expect(istruzione, contains(g.significato),
+            reason: 'il modello non sa che cosa vuol dire ${g.name}');
+      }
+      expect(GestoDelSegno.siAvvicina.significato, contains('sì'));
+      expect(GestoDelSegno.siAllontana.significato, contains('no'));
+      // **LA RISERVA DICE LA STESSA COSA**: su cento domande il gesto e la
+      // sua lettura vanno d'accordo.
+      for (var i = 0; i < 100; i++) {
+        final s = GestiDelSegno.diRiserva(
+            animale: lupo,
+            domanda: 'domanda $i',
+            giorno: DateTime(2026, 9, 13));
+        final attesa = switch (s.gesto) {
+          // Dopo la "ì" non c'e' confine di parola per RegExp: si cerca il
+          // punto o la virgola che la seguono.
+          GestoDelSegno.siAvvicina => RegExp(r'\bsì[.,]|aperta|avanti'),
+          GestoDelSegno.siVolta => RegExp(r'guarda|visto tutto|sfugge'),
+          GestoDelSegno.siAllontana => RegExp(r'\bno\b|non adesso|lasciata'),
+        };
+        expect(s.riga, matches(attesa),
+            reason: 'la riga non dice cio che il gesto vuol dire: ${s.riga}');
+      }
+      // **OGNI GESTO SI MUOVE, E IN UN MODO SUO.**
+      final alla = {
+        for (final g in GestoDelSegno.values)
+          g: IlSegnoCheRisponde.movimento(g, 1),
+      };
+      final allInizio = {
+        for (final g in GestoDelSegno.values)
+          g: IlSegnoCheRisponde.movimento(g, 0),
+      };
+      for (final g in GestoDelSegno.values) {
+        expect(alla[g], isNot(allInizio[g]), reason: '$g non si muove');
+      }
+      expect(alla.values.toSet(), hasLength(GestoDelSegno.values.length),
+          reason: 'due gesti si muovono nello stesso modo');
+    });
+
+    /// **I TRENTASEI DISEGNI, ordine DJ voce 08**: i nomi li detta il codice,
+    /// il LEGGIMI della cartella li elenca tutti, e la cartella e' dichiarata
+    /// nel pacchetto anche da vuota.
+    test(
+        'I TRENTASEI DISEGNI HANNO IL NOME DELL ORDINE, e la cartella li '
+        'aspetta', () {
+      final attesi = GestiDelSegno.disegniAttesi;
+      expect(attesi.toSet(), hasLength(36));
+      final forma = RegExp(r'^assets/img/mondo_di_sotto/gesti/'
+          r'[a-z]+_si_(avvicina|volta|allontana)_v1\.webp$');
+      expect(attesi.where((d) => !forma.hasMatch(d)), isEmpty);
+      // Il nome dell'animale e' quello delle sue illustrazioni.
+      for (final a in AnimalCatalog.animals) {
+        final nome = a.fullPath.split('/').last.split('_')[1];
+        expect(GestiDelSegno.disegnoDi(a, GestoDelSegno.siVolta),
+            endsWith('/${nome}_si_volta_v1.webp'));
+      }
+      final leggimi =
+          File('assets/img/mondo_di_sotto/gesti/LEGGIMI.md').readAsStringSync();
+      for (final d in attesi) {
+        expect(leggimi, contains(d.split('/').last),
+            reason: 'il LEGGIMI non dice a chi disegna che serve $d');
+      }
+      expect(File('pubspec.yaml').readAsStringSync(),
+          contains('- assets/img/mondo_di_sotto/gesti/'));
+    });
+
+    /// **FINCHE' IL DISEGNO MANCA, L'ILLUSTRAZIONE INTERA; QUANDO C'E', IL
+    /// DISEGNO.** Mai un riquadro vuoto.
+    for (final c in [false, true]) {
+      testWidgets(
+          'IL SEGNO ${c ? 'MOSTRA IL DISEGNO DEL GESTO QUANDO C E' : 'SENZA IL DISEGNO MOSTRA L ILLUSTRAZIONE INTERA'}, '
+          'e la riga', (tester) async {
+        final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
+        final disegno = GestiDelSegno.disegnoDi(lupo, GestoDelSegno.siAvvicina);
+        IlSegnoCheRisponde.disegniNelleProve({disegno: c});
+        addTearDown(() => IlSegnoCheRisponde.disegniNelleProve({}));
+        await tester.pumpWidget(MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController())
+          ],
+          child: MaterialApp(
+            home: MaestroScope(
+              child: Scaffold(
+                body: IlSegnoCheRisponde(
+                  animale: lupo,
+                  palette: MaestroPalette.caligo,
+                  siPuoChiedere: true,
+                  quandoTorna: '',
+                  chiedi: (_) async => const UnSegno(
+                      gesto: GestoDelSegno.siAvvicina,
+                      riga: 'Il Lupo ti si avvicina. Vuol dire sì.'),
+                  quandoTorni: () {},
+                  quandoNutri: () {},
+                ),
+              ),
+            ),
+          ),
+        ));
+        await tester.pump();
+        await tester.enterText(
+            find.byKey(const Key('viaggio_domanda_del_segno')), 'Vado avanti?');
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 2));
+        expect(find.byKey(const Key('viaggio_disegno_del_gesto')),
+            c ? findsOneWidget : findsNothing);
+        expect(find.byKey(const Key('viaggio_illustrazione_del_segno')),
+            c ? findsNothing : findsOneWidget,
+            reason: 'senza disegno il segno resta un riquadro vuoto');
+        if (c) {
+          expect(
+              (tester
+                      .widget<Image>(
+                          find.byKey(const Key('viaggio_disegno_del_gesto')))
+                      .image as AssetImage)
+                  .assetName,
+              disegno);
+        }
+        expect(
+            find.text('Il Lupo ti si avvicina. Vuol dire sì.'), findsOneWidget);
+      });
+    }
+  });
+}

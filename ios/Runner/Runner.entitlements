@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- SIGN IN WITH APPLE. Ordine S voce 14, causa 3.
+
+	     Sul portale Apple l'identificativo com.esotericircle.esotericCircle ha
+	     gia' la capacita', e non bastava: senza questo file la capacita' non e'
+	     dichiarata DENTRO l'app, e il fornitore rifiuta anche col portale a
+	     posto.
+
+	     Il file sta NEL REPOSITORY e non impostato a mano in Xcode, cosi' vale
+	     sia compilando da Xcode sia con la build in cloud. -->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>

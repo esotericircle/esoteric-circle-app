@@ -1,51 +1,651 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/cammino/custode_del_cammino.dart';
+import 'core/diagnosi/racconto_della_corsa.dart';
+import 'core/archetypes/archetype_history.dart';
+import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
+import 'core/synastry/collezione_delle_coppie.dart';
+import 'core/entitlement/question_allowance.dart';
+import 'core/entitlement/registro_degli_eos.dart';
 import 'core/feature_flags/feature_flag_service.dart';
+import 'core/identity/identity_controller.dart';
+import 'core/identity/natal_identity.dart';
+import 'core/identity/ponte_della_carta.dart';
+import 'core/identity/profile_controller.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
+import 'core/onboarding/onboarding_controller.dart';
+import 'core/rituals/chiamata_del_primo_giorno.dart';
 import 'core/quality/quality_tier.dart';
+import 'core/settings/settings_controller.dart';
+import 'core/arts/arti_preferite.dart';
+import 'core/sensi/guardia_del_suono.dart';
+import 'core/sensi/motore_audio.dart';
+import 'design_system/components/cosmos_background.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
+import 'features/debug/app_check_debug_view.dart';
+import 'features/onboarding/primo_approdo.dart';
+import 'features/onboarding/onboarding_screen.dart';
+import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
+import 'features/shell/barra_del_cerchio.dart';
+import 'features/shell/barra_dell_identita.dart';
 import 'features/shell/navigation_controller.dart';
+import 'core/identity/account_del_cerchio.dart';
+import 'core/rituals/scelta_degli_avvisi.dart';
+import 'core/sigilli/coda_delle_feste.dart';
+import 'features/sigilli/regia_del_cammino.dart';
+import 'core/sigilli/diario_del_cammino.dart';
+import 'core/ricordi/registro_dei_ricordi.dart';
+import 'core/ricordi/scrigno_dei_custoditi.dart';
+import 'core/ricordi/lettura_del_mese.dart';
+import 'features/push/custode_montato.dart';
+import 'services/push/porta_delle_push.dart';
+import 'core/rituals/custode_delle_push.dart';
+import 'services/app_services.dart';
+import 'services/apertura_delle_chiamate.dart';
+import 'services/avvisi_locali.dart';
+import 'services/regia_delle_chiamate.dart';
+import 'features/intro/sequenza_intro.dart';
+import 'core/misura/misura_del_ritorno.dart';
+import 'core/misura/registro_del_ritorno.dart';
+import 'features/shell/custode_della_musica.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
 ///
-/// Ordine dei provider: prima i servizi di base (Maestro attivo, entitlement,
-/// qualita'), poi quelli che dipendono da essi (navigazione, feature flag).
-class EsotericCircleApp extends StatelessWidget {
-  const EsotericCircleApp({super.key});
+/// Ordine dei provider: prima i servizi a runtime (AI e memoria) e quelli di
+/// base (Maestro attivo, entitlement, qualita'), poi quelli che dipendono da
+/// essi (navigazione, feature flag).
+class EsotericCircleApp extends StatefulWidget {
+  const EsotericCircleApp({
+    super.key,
+    this.services,
+    this.clock,
+    this.conIntro = true,
+  });
+
+  /// Se l'intro di apertura va mostrata.
+  ///
+  /// Le prove e le anteprime la spengono: un'intro davanti a tutto sarebbe
+  /// davanti anche a loro, e misurerebbero il nero invece della schermata. E'
+  /// la stessa ragione per cui la sorgente di posizione nasce spenta.
+  final bool conIntro;
+
+  /// Servizi a runtime montati all'avvio. Se assenti (test, anteprima) si usa
+  /// una configurazione offline che non tocca la rete.
+  final AppServices? services;
+
+  /// Orologio iniettabile per i test, inoltrato fino al Santuario per fissare la
+  /// fascia oraria attiva. Di default l'ora locale del dispositivo.
+  final DateTime Function()? clock;
+
+  @override
+  State<EsotericCircleApp> createState() => _EsotericCircleAppState();
+}
+
+class _EsotericCircleAppState extends State<EsotericCircleApp>
+    with WidgetsBindingObserver {
+  /// L'osservatore della pila, uno per app: lo legge il Navigator e lo legge
+  /// la barra, ed e' lo stesso oggetto.
+  final OsservatoreDellaPila _pila = OsservatoreDellaPila();
+
+  _EsotericCircleAppState() {
+    // La regola contro il doppione legge la stessa pila che tiene la barra.
+    // Senza questa riga `apriUnaVoltaSola` non trovava nessuna pila e spingeva
+    // sempre: la regola c'era nel codice e non scattava mai nell'app.
+    NavigazioneDellaBarra.osservatore = _pila;
+  }
+
+  /// LA GUARDIA DEL SUONO, montata nel guscio e non in una schermata.
+  ///
+  /// Le porte sono tutte le schermate che suonano, oggi due e domani dieci: una
+  /// regola messa dentro la Meditazione varrebbe per la sola Meditazione. Qui
+  /// vale per tutte, comprese quelle che non esistono ancora.
+  late final GuardiaDelSuono _guardia;
+
+  /// La chiave del Navigator, per aprire la scena promessa da un avviso
+  /// anche quando il tocco arriva a app spenta. Ordine M voce 2f.
+  final GlobalKey<NavigatorState> _navigatore = GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _guardia = GuardiaDelSuono(motore: MotoreAudio.condiviso)..avvia();
+    // OGNI AVVISO APRE LA SCENA CHE PROMETTE, mai la home: il carico
+    // dell'avviso toccato passa dalla mappa unica delle aperture.
+    AvvisiLocali.suApertura = (carico) {
+      final nav = _navigatore.currentState;
+      final ctx = _navigatore.currentContext;
+      if (nav == null || ctx == null) return;
+      final rotta = AperturaDelleChiamate.rottaPer(carico, ctx);
+      if (rotta != null) nav.push(rotta);
+    };
+    // LA REGIA DELLE CHIAMATE DEL GIORNO: a ogni avvio, se il permesso e'
+    // gia' stato concesso, si riprogrammano le chiamate coi dati veri del
+    // momento. Dopo il primo fotogramma, quando i provider sono vivi.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _programmaLeChiamate());
+    // **IL CAMMINO SI CUSTODISCE ALL'AVVIO, ordine AP voce 02.** Dopo il
+    // primo fotogramma, quando i provider sono vivi: si manda al Cerchio
+    // cio' che questo telefono ha e si adotta cio' che torna. Senza rete non
+    // succede niente e si riprova alla prossima apertura, perche' un saldo
+    // inventato e una storia cancellata sono peggio di un'attesa.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _custodisciIlCammino());
+    // **E SI RIPROVA QUANDO L'APP TORNA IN PRIMO PIANO. Ordine AU voce 11.**
+    //
+    // La documentazione di `QuestionAllowance.sincronizza` diceva da sempre
+    // "si chiama all'avvio e al ritorno in primo piano", **e la seconda meta'
+    // era falsa**: contate le chiamate in tutto `lib`, erano due, tutte e due
+    // dentro il Custode, tutte e due all'avvio. Se la sincronia dell'avvio non
+    // riesce, perche' la rete e' lenta nel primo secondo o perche'
+    // l'autenticazione non e' ancora pronta, **il saldo resta quello locale
+    // finche' l'app non viene riavviata**: e' il caso del fondatore, zero in
+    // barra con quattrocentoquarantacinque sul server.
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState stato) {
+    if (stato != AppLifecycleState.resumed) return;
+    // Non si aspetta: se non riesce nemmeno adesso, si riprovera' al prossimo
+    // ritorno, e intanto resta l'ultimo saldo conosciuto invece di uno zero.
+    _custodisciIlCammino();
+  }
+
+  Future<void> _programmaLeChiamate() async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) return;
+    // **PRIMA SI CHIEDE IL PERMESSO, SE NESSUNO L'HA MAI CHIESTO.**
+    // Ordine BZ voce 04. La riga qui sotto programmava cinque chiamate che il
+    // sistema rifiutava in silenzio: da Android 13 le notifiche nascono
+    // negate, e l'app chiedeva il permesso in due sole schermate. Chi non ci
+    // era mai entrato non riceveva niente, e nessuna prova poteva vederlo
+    // perche' tutte partivano da un permesso gia' concesso.
+    final onboarding = ctx.read<OnboardingController>();
+    await ChiamataDelPrimoGiorno.forseChiedi(
+      ctx,
+      // A chi sta entrando nel Cerchio non si chiede niente: la scena e'
+      // occupata dal Risveglio.
+      dentroIlCerchio: onboarding.resolved && !onboarding.needsOnboarding,
+    );
+    if (!ctx.mounted) return;
+    await RegiaDelleChiamate.riprogramma(ctx);
+  }
+
+  /// **QUANTE VOLTE SI RIPROVA, E DOPO QUANTO.** Ordine AZ voce 03, fatti F5
+  /// e F8, segnalati quattro volte dal fondatore.
+  ///
+  /// **Il difetto era gia' scritto nel commento qui sopra e nessuno lo aveva
+  /// letto come un difetto**: se la sincronia dell'avvio non riesce, perche'
+  /// la rete e' lenta nel primo secondo o perche' **l'autenticazione non e'
+  /// ancora pronta**, il saldo resta quello locale finche' l'app non viene
+  /// riavviata. E il momento in cui questa chiamata parte, cioe' subito dopo
+  /// il primo fotogramma, e' esattamente il momento in cui Firebase puo' non
+  /// avere ancora ripristinato la sessione: il server risponde
+  /// `unauthenticated`, e non si riprova mai piu'.
+  ///
+  /// **Le attese sono corte e poche**: due secondi, poi cinque. Non e' una
+  /// coda di ripetizioni all'infinito, e non tiene sveglio niente.
+  static const _attesePerRiprovare = <Duration>[
+    Duration(seconds: 2),
+    Duration(seconds: 5),
+  ];
+
+  /// Vero mentre un giro e' in corso: due giri insieme manderebbero al Cerchio
+  /// lo stesso cammino due volte.
+  bool _giroInCorso = false;
+
+  /// **L'ATTESA E' UN TIMER CHE SI PUO' SPEGNERE, e non un `Future.delayed`.**
+  ///
+  /// **Trovato dalla suite, non ragionato.** La prima stesura aspettava con
+  /// `await Future.delayed(...)`, che nessuno puo' annullare: quando l'albero
+  /// dei widget veniva smontato, quell'attesa restava viva e **centonovantuno
+  /// prove cadevano tutte insieme** con "A Timer is still pending even after
+  /// the widget tree was disposed". Non era un capriccio delle prove: un
+  /// lavoro che sopravvive a chi lo ha chiesto e' un difetto anche nell'app,
+  /// e su un telefono vero vuol dire una chiamata che parte dopo che la
+  /// persona ha gia' chiuso tutto.
+  Timer? _attesa;
+
+  void _custodisciIlCammino() {
+    if (_giroInCorso) return;
+    _giroInCorso = true;
+    _unGiro(0);
+  }
+
+  Future<void> _unGiro(int tentativo) async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) {
+      _giroInCorso = false;
+      return;
+    }
+    final esito = await CustodeDelCammino.custodisciEAdotta(ctx);
+    // Andata bene, oppure non c'era proprio niente da chiedere: si esce.
+    final valeLaPena = esito.rifiutatoDalServer || esito.senzaRisposta;
+    if (!valeLaPena || tentativo >= _attesePerRiprovare.length) {
+      _giroInCorso = false;
+      return;
+    }
+    _attesa?.cancel();
+    _attesa = Timer(
+      _attesePerRiprovare[tentativo],
+      () => _unGiro(tentativo + 1),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Se non si spegne qui, l'attesa sopravvive all'albero che l'ha chiesta.
+    _attesa?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    _guardia.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final services = widget.services;
+    final clock = widget.clock;
+    final runtime = services ?? AppServices.offline();
     return MultiProvider(
       providers: [
+        Provider<AppServices>.value(value: runtime),
+        // **IL REGISTRO DEL RITORNO. Ordine CC voce 09.**
+        //
+        // Sta fra i servizi e non dentro una schermata: gli eventi nascono in
+        // punti lontani fra loro, e una regola sul consenso ripetuta in ogni
+        // punto diventerebbe venti regole diverse.
+        Provider<RegistroDelRitorno>(
+          // **NON PIGRO, e l'apertura si segna qui.** L'evento che risponde a
+          // "quante persone tornano il giorno dopo" e' l'apertura dell'app: se
+          // il registro nascesse alla prima lettura, nascerebbe dentro una
+          // schermata a caso e l'apertura non sarebbe mai contata.
+          lazy: false,
+          create: (_) {
+            final registro = RegistroDelRitorno(porta: runtime.porta);
+            RegistroDelRitorno.corrente = registro;
+            registro.segnaSenzaAspettare(EventoDelRitorno.apertura);
+            return registro;
+          },
+        ),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()..load()),
+        // Sottosistema della Carta Natale: identita' (nome e forma), motore del
+        // calcolo e fatti derivati. Alimentati dal Risveglio come fonte unica.
+        ChangeNotifierProvider(create: (_) => IdentityController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
+        // I dati di nascita SEGUONO IL PROFILO, che e' l'unico posto dove sono
+        // persistiti. Prima questo controller si riempiva in un solo punto,
+        // alla fine del Risveglio, e viveva solo in memoria: chi riapriva l'app
+        // lo trovava vuoto, quindi l'app dichiarava mancante un'ora che era
+        // stata data, e la carta natale partiva senza luogo, che il client
+        // rifiuta prima ancora di chiamare la rete. Una causa sola per due
+        // difetti che sembravano distinti.
+        ChangeNotifierProxyProvider<ProfileController, BirthIdentityController>(
+          create: (_) => BirthIdentityController(),
+          update: (_, profilo, nascita) =>
+              (nascita ?? BirthIdentityController())
+                ..riprendiDa(profilo.identity)
+                // E LA CARTA CONSERVATA, che e' l'altra meta': `riprendiDa`
+                // riporta cio' che la persona ha dato, questa riporta il
+                // cielo che ne discende. Senza, l'app riapriva sapendo chi
+                // sei e non sapendo piu' il tuo cielo, e lo dichiarava come
+                // se non gliel'avessi mai detto. Voce 60 del Registro.
+                ..riprendiLaCarta(),
+        ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
+        // **LA COLLEZIONE DELLE COPPIE, ordine BO voce 13.** Vive nel guscio
+        // perche' la scopre la schermata della Sinastria e la legge quella
+        // della collezione: due schermate diverse sullo stesso dato.
+        ChangeNotifierProvider(
+            create: (_) => CollezioneDelleCoppie()..carica()),
+        // I CONTATORI PARLANO COL SERVER, ordine N: la porta arriva dai
+        // servizi, quindi nelle prove e nelle anteprime resta spenta e i
+        // numeri restano locali, mentre sul telefono il giorno e i residui
+        // li decide il server.
+        ChangeNotifierProvider(
+          // **IL PONTE DEL PIANO, ordine CQ voce 1.01.** I residui e il piano
+          // arrivano nella stessa risposta del server: qui il piano viene
+          // consegnato a chi lo tiene, cosi' il tetto che l'app applica e
+          // quello che il server impone vengono dallo stesso piano.
+          create: (ctx) => QuestionAllowance(
+            porta: runtime.porta,
+            quandoIlServerDiceIlPiano:
+                ctx.read<EntitlementService>().applicaIlPianoDelServer,
+          )
+            // Prima il conto locale, che c'e' subito. **LA CHIAMATA AL
+            // SERVER NON PARTE PIU' DA QUI, ordine AP voce 02**: la fa il
+            // Custode del cammino dopo il primo fotogramma, e la fa UNA
+            // volta portandosi dietro il cammino del telefono. Lasciarne
+            // anche una qui vorrebbe dire due richieste nello stesso
+            // momento, cioe' la seconda porta sullo stesso dato, e la
+            // seconda arriverebbe senza cammino.
+            ..load(),
+        ),
+        // IL DIARIO DEL CAMMINO: cio' che hai fatto e quali Sigilli si sono
+        // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
+        // sono del server, la storia del cammino e' del dispositivo.
+        ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
+        // IL QUADERNO DEI SOGNI, ordine BX voce 11: vive sul telefono e
+        // non parla col server.
+        // LA CODA DELLE FESTE, ordine P voce 34: un traguardo che si accende
+        // quando nessuna schermata puo' ospitare la sovrimpressione non si
+        // perde, entra qui e si celebra al primo momento utile. La coda sta su
+        // disco, quindi sopravvive anche alla chiusura dell'app.
+        ChangeNotifierProvider(create: (_) => CodaDelleFeste()..carica()),
+        // QUALI DONI TI CHIAMANO, ordine BC voce 05: cinque appuntamenti, uno
+        // per Dono, ciascuno col suo interruttore. Sta qui e non nella
+        // schermata che li mostra perche' **la programmazione degli avvisi
+        // gira all'avvio**, quando quella schermata non e' aperta: se la
+        // scelta vivesse nel widget, chi programma non potrebbe leggerla.
+        ChangeNotifierProvider(create: (_) => SceltaDegliAvvisi()..carica()),
+        // **IL CUSTODE DELLE PUSH, ordine CI voce 07.** Esisteva col suo
+        // corpo e le sue prove e NESSUNO LO MONTAVA: le notifiche non
+        // potevano arrivare nemmeno a funzioni distribuite, perche' il
+        // dispositivo non registrava mai il proprio recapito.
+        ChangeNotifierProvider(
+          create: (_) => CustodeDellePush(
+            porta: runtime.push ?? const PortaSpentaDelleScelte(),
+          ),
+        ),
+        // DA DOVE SONO ARRIVATI GLI ULTIMI EOS, ordine S voce 06. Il saldo e'
+        // del server e resta suo: questo registro non lo calcola, racconta i
+        // movimenti che l'app ha compiuto, perche' i traguardi accesi vivono in
+        // un insieme che per costruzione non ha ne' ordine ne' momento.
+        ChangeNotifierProvider(create: (_) => RegistroDegliEos()..carica()),
+        // L'ACCOUNT DEL CERCHIO: anonimo dal primo secondo, elevabile senza
+        // perdere niente.
+        ChangeNotifierProvider(
+          create: (_) => AccountDelCerchio(
+            porta: runtime.identita ?? const IdentitaAssente(),
+          )..rileggi(),
+        ),
+        // I RICORDI DEL CERCHIO, ordine CG voci 03 e 06. Due magazzini
+        // diversi e non uno: l'indice porta le righe magre di tutto cio' che
+        // e' successo e scade a due anni; lo scrigno porta i responsi che la
+        // persona ha dichiarato di voler tenere, e quelli non scadono mai.
+        // Fonderli vorrebbe dire dare una scadenza a cio' che deve restare,
+        // oppure tenere per sempre cio' che nessuno rilegge.
+        ChangeNotifierProvider(
+          create: (_) => RegistroDeiRicordi(
+            porta: runtime.ricordi ?? const PortaSpentaDeiRicordi(),
+          )..carica(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ScrignoDeiCustoditi(
+            porta: runtime.scrigno ?? const PortaSpentaDelloScrigno(),
+          )..carica(),
+        ),
+        // LA LETTURA IN PROSA DEL MESE, ordine CG voce 11. L'unica prosa
+        // generata della funzione, e l'unica parte che chiede un piano.
+        ChangeNotifierProvider(
+          create: (_) => LetturaDelMese(
+            penna: runtime.penna ?? const PennaSpentaDelMese(),
+          )..carica(),
+        ),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
+        // LO STORICO DEL TEST ARCHETIPO, DALL'AVVIO, E PER TUTTA L'APP.
+        //
+        // **Perche' e' salito quassu'.** Ogni schermata che ne aveva bisogno se
+        // ne costruiva uno suo e lo caricava per conto proprio: il Test, la
+        // pagina dell'Animale Guida. Chi non lo faceva non sapeva niente
+        // dell'archetipo, e infatti nel Passaporto la tessera dell'Archetipo
+        // restava col lucchetto anche a test completato, perche' guardava una
+        // lista fissa invece che questo dato. Adesso il dato e' uno, arriva
+        // dall'avvio, e ci si affacciano tutte le porte che lo chiedono: il
+        // Passaporto, il simbolo di Aura nell'attesa della chat, e il Test.
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
+        ChangeNotifierProvider(create: (_) => SettingsController()..load()),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              NavigationController(ctx.read<MaestroController>()),
+          create: (ctx) => NavigationController(ctx.read<MaestroController>()),
         ),
         ChangeNotifierProvider(
           create: (ctx) => FeatureFlagService(
             entitlement: ctx.read<EntitlementService>(),
           )..initialize(),
         ),
+        ChangeNotifierProvider(create: (_) => GreetingController()),
+        ChangeNotifierProvider(create: (_) => OnboardingController()..load()),
+        // Lo scaffale personale "Le tue arti". Nasce abitato: il seme lo
+        // decide il dato, non la schermata, quindi non c'e' modo di arrivare
+        // a uno scaffale vuoto. Nessun controllo di piano lo tocca.
+        // Lo scaffale SEGUE IL MAESTRO. `setMaestro` non era chiamato da
+        // nessuno in tutto il progetto, quindi allo scaffale arrivava sempre un
+        // Maestro nullo e il seme era quello del caso senza Maestro: tre arti
+        // in croce, mentre la home diceva "Entra nel Dominio di Aura". Il
+        // Maestro esisteva, allo scaffale non ci arrivava.
+        ChangeNotifierProxyProvider<MaestroController, ArtiPreferiteController>(
+          create: (_) => ArtiPreferiteController()..carica(),
+          update: (_, maestri, scaffale) {
+            final s = scaffale ?? (ArtiPreferiteController()..carica());
+            final m = maestri.activeMaestro;
+            if (m != null) s.setMaestro(m);
+            return s;
+          },
+        ),
       ],
-      child: MaterialApp(
-        title: 'Esoteric Circle',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.dark(),
-        // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
-        // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
-        home: const MaestroScope(child: AppShell()),
+      // IL PONTE DELLA CARTA, dentro i provider e sopra tutta l'app: quando i
+      // dati di nascita ci sono e la carta no, la fa assicurare al motore e
+      // la consegna alla porta che la legge. Serve a chi il Risveglio l'ha
+      // gia' fatto, che altrimenti resterebbe senza carta per sempre.
+      // **IL RECAPITO DEL DISPOSITIVO SI REGISTRA QUI**, ordine CI voce 07:
+      // dentro i provider, dove l'account e le scelte degli avvisi ci sono
+      // gia', e sopra il Navigator, cosi' non muore cambiando schermata.
+      child: CustodeMontato(
+        recapito: const RecapitoVero(),
+        // **IL CUSTODE DELLA MUSICA STA QUI**, ordine CN voce 03: sopra
+        // il Navigator, come la barra, perche' da qui vede anche le
+        // rotte spinte sopra il guscio. Legge la stessa pila della
+        // barra, e non una sua: due elenchi delle stesse rotte
+        // divergerebbero al primo pop.
+        child: CustodeDellaMusica(
+          pila: _pila,
+          child: PonteDellaCarta(
+            child: MaterialApp(
+              navigatorKey: _navigatore,
+              title: 'Esoteric Circle',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              // L'osservatore della pila: tiene le rotte vive, che servono sia a
+              // sapere quale schermata e' in cima sia alla regola contro il doppione.
+              // E' UN DATO SOLO, montato qui e passato alla barra: due copie della
+              // pila divergerebbero al primo pop.
+              navigatorObservers: [_pila, osservatoreDelCielo],
+              // La striscia col token di debug di App Check sta sopra il Navigator,
+              // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
+              // In release non compare: lo decidono i servizi, non questa riga.
+              //
+              // QUI STA ANCHE L'INTRO, e ci sta per una ragione che ho imparato
+              // sbagliando: era dentro `home`, cioe' dentro la ROUTE INIZIALE, e il
+              // Risveglio non e' un ramo dell'albero, e' un `push`. Un push mette una
+              // route SOPRA, quindi copriva l'intro: si sentiva la voce e si vedeva
+              // il Risveglio, perche' l'intro era viva e sepolta. Il builder avvolge
+              // il Navigator intero, quindi sta davvero davanti a tutto, comprese le
+              // schermate che verranno spinte sopra domani.
+              builder: (context, child) => AppCheckDebugBanner(
+                child: Consumer<SettingsController>(
+                  builder: (context, settings, _) {
+                    // Modalita' semplice: abbassa la qualita' grafica. Applicata
+                    // fuori dal build per non scrivere stato durante la costruzione.
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      final q = context.read<QualityTierController>();
+                      final target = settings.simpleMode
+                          ? QualityTier.low
+                          : QualityTier.high;
+                      if (q.tier != target) q.setTier(target);
+                    });
+                    // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
+                    // il codice che rispetta Riduci Movimento lo onora. Da qui vale
+                    // anche per le route spinte sopra, che prima ne restavano fuori.
+                    final mq = MediaQuery.of(context);
+                    return MediaQuery(
+                      data: mq.copyWith(
+                        disableAnimations:
+                            mq.disableAnimations || settings.reduceAnimations,
+                        // IL CORPO DEL TESTO DI SISTEMA SI RISPETTA, NON SI SPEGNE.
+                        // Chi ha alzato il carattere nelle impostazioni del telefono
+                        // lo ha fatto per un motivo, spesso perche' senza non legge,
+                        // quindi la scala arriva fino a 1,3 e l'app si allarga con
+                        // lei. Il tetto esiste perche' oltre quella soglia le nostre
+                        // schermate non si limitano a diventare grandi: le cornici
+                        // cerimoniali, gli anelli e le carte hanno misure fisse e il
+                        // testo comincia a uscirne. Il pavimento a 0,9 e' l'altra
+                        // meta' della stessa regola: chi rimpicciolisce il sistema
+                        // non deve poter portare l'app sotto la soglia di
+                        // leggibilita' che i token difendono in ogni altro punto.
+                        // Sta QUI e in nessun altro posto, sopra il Navigator, cosi'
+                        // vale anche per le rotte spinte sopra il guscio, comprese le
+                        // chat e le immersive, che hanno un proprio Scaffold.
+                        // **IL TETTO E' UNA SCELTA, NON UN VINCOLO DI
+                        // SISTEMA.** Ordine CM voce 08, 1 settembre 2026.
+                        //
+                        // I sistemi arrivano molto piu' in alto di 1,3:
+                        // Android porta la misura del testo fino al doppio
+                        // dalle impostazioni di accessibilita', e iOS con
+                        // le misure di accessibilita' arriva a circa il
+                        // triplo. **Questi due numeri vanno riverificati sul
+                        // dispositivo**, perche' non si leggono in questo
+                        // repository.
+                        //
+                        // **La decisione: si tiene un tetto, e si alza a
+                        // 1,6.** Accogliere l'intera scala di sistema non
+                        // e' un problema di impaginazione, e' una questione
+                        // di direzione artistica: a tre volte il testo, la
+                        // ruota dello zodiaco, le cornici delle carte e i
+                        // busti dentro il loro cerchio non si allargano, e
+                        // la regola del mezzobusto del 6 agosto 2026
+                        // cadrebbe su ogni ritratto tondo.
+                        //
+                        // **1,6 perche' e' alto davvero**: copre per intero
+                        // la scala standard di iOS e il suo primo passo di
+                        // accessibilita', e il passo piu' grande della
+                        // misura standard di Android con margine. Il
+                        // pubblico di quest'app e' mediamente piu' anziano
+                        // e il testo grande lo imposta davvero.
+                        //
+                        // **Il tetto sale a 1,6 solo quando il corredo e'
+                        // pulito a 1,6**, non prima: alzarlo su schermate
+                        // che si rompono vorrebbe dire spostare il guasto
+                        // dagli occhi di chi prova a quelli di chi usa.
+                        // Finche' resta a 1,3, il numero qui sotto e' il
+                        // debito, non la scelta.
+                        textScaler: mq.textScaler.clamp(
+                          minScaleFactor: 0.9,
+                          maxScaleFactor: 1.3,
+                        ),
+                      ),
+                      // LA BARRA STA QUI, e ci sta per la stessa ragione dell'intro:
+                      // il builder avvolge il Navigator INTERO, quindi vede anche le
+                      // rotte spinte sopra il guscio, comprese le chat e i domini,
+                      // che hanno un proprio Scaffold. Dentro `home`, cioe' dentro
+                      // `AppShell`, vedeva solo le due viste del guscio, ed e' il
+                      // motivo per cui ne serviva una seconda. E' il solo punto che
+                      // decide dove la barra si vede: le schermate non lo sanno e non
+                      // lo devono sapere.
+                      // IL RACCONTO DELLA DIAGNOSI sta SOPRA l'intro: l'app muore
+                      // anche durante l'intro, e la briciola della corsa prima si
+                      // deve leggere comunque. Fuori diagnosi e' trasparente.
+                      child: RaccontoDellaCorsa(
+                          child: SequenzaIntro(
+                        mostra: widget.conIntro,
+                        // Il silenzio dell'app vale anche per l'apertura. Passa da
+                        // qui e non si legge dentro l'intro perche' l'intro e' gia'
+                        // dentro questo Consumer: farglielo cercare da sola
+                        // vorrebbe dire una seconda porta sullo stesso dato.
+                        conSuono: settings.suonoEVibrazione,
+                        child: // **IL TUTORIAL DI PRIMO APPRODO STA QUI, ordine CB voce 02**,
+                            // cioe' FUORI dalle due barre e DENTRO l'intro. Fuori dalle
+                            // barre perche' due dei cinque fumetti puntano proprio le
+                            // barre, e un velo montato piu' in dentro le lascerebbe
+                            // illuminate sopra di se'. Dentro l'intro perche' l'intro
+                            // viene prima: il tutorial e' cio' che si trova ad apertura
+                            // finita.
+                            PrimoApprodo(
+                          child: BarraDelCerchio(
+                            observatore: _pila,
+                            // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
+                            // fogli dal basso e i dialoghi vivono come rotte del
+                            // Navigator radice: lo scope dentro `home` per loro non
+                            // esiste, e in release l'assert di MaestroScope.of
+                            // sparisce, il `!` lancia sul nullo e il builder del
+                            // foglio muore in un foglio MUTO. E' il foglio bianco che
+                            // Mauro ha toccato sulla 2179 aprendo un traguardo acceso.
+                            // Questo scope neutro e' il pavimento: ogni rotta spinta
+                            // sopra puo' sempre vestire il suo Maestro, e il piu'
+                            // vicino vince.
+                            // **LA BARRA SOTTILE DELL'IDENTITA', ordine AM voce
+                            // 04**, al posto della capsula che Mauro ha voluto via:
+                            // sopra il Navigator come la barra del Cerchio, quindi
+                            // UNA per tutta l'app, e le testate non ne tengono copia.
+                            // Sta DENTRO lo scope, che le da' il velo del Maestro.
+                            child: MaestroScope(
+                              child: BarraDellIdentita(
+                                observatore: _pila,
+                                child: child ?? const SizedBox.shrink(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )),
+                    );
+                  },
+                ),
+              ),
+              // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
+              // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
+              //
+              // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide
+              // dove si va, ritarda solo il momento in cui si vede.
+              // IL GUARDIANO DELLE FESTE sta DENTRO il guscio, cioe' sotto il
+              // Navigator: e' l'unico posto da cui si vede l'Overlay della radice,
+              // quello in cui una festa in attesa puo' comparire sopra ogni rotta.
+              // Sopra il Navigator, nel builder, non vedrebbe nessun Overlay e la
+              // coda non si svuoterebbe mai.
+              home: GuardianoDelleFeste(
+                child: _OnboardingLauncher(
+                  child: MaestroScope(child: AppShell(clock: clock)),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
+  }
+}
+
+/// Al primo avvio spinge "Il Risveglio" sopra il Santuario, una volta sola; le
+/// aperture successive restano dirette al Santuario. La home resta comunque lo
+/// shell, cosi' l'onboarding e' una soglia che si apre e si chiude, non un ramo
+/// separato dell'albero.
+class _OnboardingLauncher extends StatefulWidget {
+  const _OnboardingLauncher({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_OnboardingLauncher> createState() => _OnboardingLauncherState();
+}
+
+class _OnboardingLauncherState extends State<_OnboardingLauncher> {
+  bool _handled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final onboarding = context.watch<OnboardingController>();
+    if (!_handled && onboarding.resolved && onboarding.needsOnboarding) {
+      _handled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        Navigator.of(context).push(OnboardingScreen.route());
+      });
+    }
+    return widget.child;
   }
 }
