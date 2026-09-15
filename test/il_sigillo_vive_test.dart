@@ -442,6 +442,15 @@ void main() {
           IlSigilloDalModello.ripeteLIntenzione(
               'Ritrovo la salute', 'Ritrovo la salute'),
           isTrue);
+      expect(
+          IlSigilloDalModello.ripeteLIntenzione("Apro il tuo cuore all'amore",
+              'Apro il mio cuore a un amore che mi somiglia'),
+          isTrue,
+          reason: 'il verbo di chi scrive in apertura del titolo di Caligo');
+      expect(
+          IlSigilloDalModello.ripeteLIntenzione("Il tuo cuore aperto all'amore",
+              'Apro il mio cuore a un amore che mi somiglia'),
+          isFalse);
       final casi = <(String, String)>[
         ('La tua partenza da Roma', 'Voglio capire se lasciare Roma'),
         ('La tua salute ritrovata', 'Ritrovo la salute'),
@@ -451,6 +460,25 @@ void main() {
           'Voglio vincere la causa contro il mio ex socio'
         ),
         ('Il tuo apprendere il pianoforte', 'Imparo a suonare il pianoforte'),
+        (
+          'Trovi una casa con un giardino. Questo sigillo custodisce il tuo '
+              'desiderio.',
+          'Trovo una casa con un giardino'
+        ),
+        (
+          'Il tuo desiderio è custodito. Possa la tua intenzione trovare la '
+              'sua strada.',
+          'Desidero un figlio'
+        ),
+        (
+          'Il tuo guadagno di diecimila euro',
+          'Voglio guadagnare diecimila euro entro Natale'
+        ),
+        (
+          'Il tuo segno è uno scrigno: che la tua via ti guidi a ciò che '
+              'cerchi.',
+          'Apro il mio cuore a un amore che mi somiglia'
+        ),
         (
           'Il sigillo che hai tracciato custodisce la tua salute ritrovata, le '
               'erbe e la natura ti sono vicine.',

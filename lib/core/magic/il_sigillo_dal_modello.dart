@@ -281,7 +281,15 @@ Rispondi solo con un oggetto JSON con il campo "riformulata".''';
         .replaceAll(RegExp(r'\s+'), ' ')
         .trim();
     final t = n(titolo);
-    return t.isNotEmpty && n(intenzione).startsWith(t);
+    if (t.isEmpty) return false;
+    if (n(intenzione).startsWith(t)) return true;
+    // **E IL VERBO DELL'INTENZIONE IN APERTURA**: *"Apro il tuo cuore
+    // all'amore"* sopra *"Apro il mio cuore..."*, alla sonda finale. Il
+    // verbo in prima persona di chi scrive, in bocca a Caligo.
+    final primo = t.split(' ').first;
+    return primo.length > 2 &&
+        primo.endsWith('o') &&
+        n(intenzione).split(' ').first == primo;
   }
 
   /// **IL GERGO E IL POTERE DEL SIGILLO**, che la sonda ha trovato nei testi
@@ -314,8 +322,12 @@ Rispondi solo con un oggetto JSON con il campo "riformulata".''';
       r'(?<![a-zàèéìòù])(?:energi[ae]|vibra[a-zàèéìòù]*|manifest[a-zàèéìòù]*|'
       r'la tua verità|voce interiore|universo|pergamena|'
       r'potenza del tuo|promessa|tuo percorso|assicur[a-zàèéìòù]*|'
-      r'saggezza profonda|forza interiore)'
-      r'(?![a-zàèéìòù])|^che |[.!] che |'
+      r'saggezza profonda|forza interiore|'
+      // L'augurio: *"Possa la tua intenzione trovare la sua strada"*, sopra
+      // *"Desidero un figlio"* alla sonda finale. Un augurio e' una promessa
+      // detta a bassa voce.
+      r'possa|possano)'
+      r'(?![a-zàèéìòù])|^che |[.!:] che |'
       // **"ESSO" COME SOGGETTO**, arcaico: *"Esso racchiude la potenza"*.
       // Dopo una preposizione e' italiano buono, *"in esso risiede"*, e alla
       // terza sonda la regola larga ne scartava sette.
@@ -392,14 +404,31 @@ Rispondi solo con un oggetto JSON con il campo "riformulata".''';
         // intenzione, Trovo una casa con un giardino, e' chiara"*.
         (contieneLIntenzione(t, intenzione)
             ? MotivoDelloScarto.primaPersona
+            : null) ??
+        // Il verbo dell'intenzione voltato al tu e dato per fatto: *"Trovi una
+        // casa con un giardino."* sopra *"Trovo una casa con un giardino"*,
+        // alla sonda finale. E' un esito detto al presente.
+        (apreColVerboVoltato(t, intenzione)
+            ? MotivoDelloScarto.previsioneCerta
             : null);
+  }
+
+  /// Il testo comincia col primo verbo dell'intenzione, voltato dalla prima
+  /// alla seconda persona: *Trovo* diventa *Trovi*, *Apro* diventa *Apri*.
+  static bool apreColVerboVoltato(String testo, String intenzione) {
+    final i = intenzione.trim().split(RegExp(r'\s+')).first.toLowerCase();
+    if (i.length < 3 || !i.endsWith('o')) return false;
+    final voltato = '${i.substring(0, i.length - 1)}i';
+    final t = testo.trim().split(RegExp(r'\s+')).first.toLowerCase();
+    return t == voltato;
   }
 
   static final RegExp _esitoDelicato = RegExp(
       r'(?<![a-zàèéìòù])(?:vittori[a-zàèéìòù]*|vint[oaie]|vincer[a-zàèéìòù]*|'
       r'vinc[io]|guari[a-zàèéìòù]*|guarigion[ei]|ritrovat[oaie]|benessere|'
       r'erbe|rimedi[oi]?|fertil[a-zàèéìòù]*|incinta|ricchezz[a-zàèéìòù]*|'
-      r'guadagnat[oaie]|sconfitt[oaie]|salvat[oaie]|salv[oa]|ritrov[a-zàèéìòù]*)'
+      r'guadagn[a-zàèéìòù]*|sconfitt[oaie]|salvat[oaie]|salv[oa]|'
+      r'ritrov[a-zàèéìòù]*)'
       r'(?![a-zàèéìòù])');
 
   static final RegExp _sceltaAperta =
