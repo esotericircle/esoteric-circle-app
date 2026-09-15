@@ -798,8 +798,11 @@ abstract final class LaVoceDelMondoDiSotto {
   /// loro forma al maschile. Alla riprova a video della build 2260 si e'
   /// letto *"Chiedile come sta, davvero"* a chi chiedeva del figlio: il
   /// titolo sta in cima, prima della ripresa che nomina *una persona*, e
-  /// il pronome si legge sul figlio. **Il mazzo resta di ventiquattro**:
-  /// col maschile si volgono, col genere che non si sa si saltano.
+  /// il pronome si legge sul figlio. **Il mazzo resta di ventiquattro**,
+  /// come vuole l'ordine DJ voce 02: col maschile si volgono al maschile,
+  /// e col genere che non si sa, un nome o nessuno, prendono la forma che
+  /// vale per chiunque. **La prima stesura li saltava**, e con *"Marco"*
+  /// un titolo tornava dopo diciassette discese invece che ventiquattro.
   static const Map<String, String> _titoliAlMaschile = {
     'Dille quello che non dici': 'Digli quello che non dici',
     'Chiedile come sta, davvero': 'Chiedigli come sta, davvero',
@@ -811,8 +814,20 @@ abstract final class LaVoceDelMondoDiSotto {
         'Lasciagli il tempo che chiedi per te',
   };
 
-  static final Map<String, String> _dalMaschile = {
+  static const Map<String, String> _titoliPerChiunque = {
+    'Dille quello che non dici': 'Di\' quello che non dici',
+    'Chiedile come sta, davvero': 'Chiedi come sta, davvero',
+    'Guarda quanto spazio le lasci': 'Guarda quanto spazio lasci',
+    'Non è tenuta a indovinare': 'Nessuno è tenuto a indovinare',
+    'Quanto la pensi è la risposta': 'Quanto ci pensi è la risposta',
+    'Puoi volerle bene e stare lontano': 'Puoi voler bene e stare lontano',
+    'Lasciale il tempo che chiedi per te': 'Lascia il tempo che chiedi per te',
+  };
+
+  /// Dal titolo volto a quello del mazzo, per la memoria del mazzo.
+  static final Map<String, String> _dalVolto = {
     for (final e in _titoliAlMaschile.entries) e.value: e.key,
+    for (final e in _titoliPerChiunque.entries) e.value: e.key,
   };
 
   /// **IL GENERE DELLA PERSONA DI CUI PARLA LA DOMANDA**, dalla prima
@@ -881,30 +896,31 @@ abstract final class LaVoceDelMondoDiSotto {
     // **IL GENERE DELLA PERSONA**, alla riprova a video della 2260. Senza
     // domanda resta il mazzo di prima.
     final genere = domanda == null ? 'femminile' : genereDellaPersona(domanda);
-    bool ammesso(String t) =>
-        genere != null || !_titoliAlMaschile.containsKey(t);
-    String adatta(String t) =>
-        genere == 'maschile' ? (_titoliAlMaschile[t] ?? t) : t;
+    String adatta(String t) => switch (genere) {
+          'maschile' => _titoliAlMaschile[t] ?? t,
+          'femminile' => t,
+          _ => _titoliPerChiunque[t] ?? t,
+        };
     final delTema = [
       for (final l in letti)
         if (_chiaveDi(l.tema) == chiave &&
             l.titolo != null &&
-            ordine.contains(_dalMaschile[l.titolo] ?? l.titolo))
-          _dalMaschile[l.titolo] ?? l.titolo!,
+            ordine.contains(_dalVolto[l.titolo] ?? l.titolo))
+          _dalVolto[l.titolo] ?? l.titolo!,
     ];
     final mazzo = <String>{};
     for (final t in delTema) {
       if (!mazzo.add(t)) break;
     }
-    if (ordine.where(ammesso).every(mazzo.contains)) mazzo.clear();
+    if (mazzo.length >= n) mazzo.clear();
     final partenza = delTema.isEmpty
         ? FiloDellaVoce.da(['titolo', chiave]).seme % n + g
         : ordine.indexOf(delTema.first) + 1;
     for (var k = 0; k < n; k++) {
       final t = ordine[(partenza + k) % n];
-      if (!mazzo.contains(t) && ammesso(t)) return adatta(t);
+      if (!mazzo.contains(t)) return adatta(t);
     }
-    return adatta(ordine.firstWhere(ammesso));
+    return adatta(ordine[partenza % n]);
   }
 
   /// **IL TITOLO DI CASA DI UNA DISCESA**, dal mazzo, prima della scena.

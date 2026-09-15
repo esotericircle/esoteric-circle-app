@@ -830,11 +830,14 @@ void main() {
     final conUnNome = ventiquattro('Ho litigato con Marco');
     expect(conUnNome.where(alFemminile.hasMatch), isEmpty);
     expect(
-        conUnNome.where(RegExp(r'Digli|Chiedigli|gli lasci|tenuto|lo pensi|'
-                r'volergli|Lasciagli')
-            .hasMatch),
+        conUnNome
+            .where(RegExp(r'Digli|Chiedigli|gli lasci|Non è tenuto|lo pensi|'
+                    r'volergli|Lasciagli')
+                .hasMatch),
         isEmpty);
-    expect(conUnNome.take(17).toSet(), hasLength(17));
+    expect(conUnNome.toSet(), hasLength(24),
+        reason: 'col genere che non si sa il mazzo resta di ventiquattro');
+    expect(conUnNome, contains('Chiedi come sta, davvero'));
 
     // **LA RISPOSTA CHE NOMINA LA TESTA DI UN PEZZO DELLA SCENA**: *"un
     // seme"* sopra *"il seme"*. La parola della domanda non conta.
