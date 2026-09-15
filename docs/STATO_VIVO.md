@@ -1731,9 +1731,10 @@ posto di una domanda generica, e solo se oggi si e' respirato.
 
 ## L'ORDINE DC, IL VIAGGIO DELLO SCIAMANO
 
-**IL VIAGGIO DELLO SCIAMANO E' CHIUSO dall'ordine DN, con la build 2252, il 14
-settembre 2026**: da allora si tocca solo per guasti veri, e le idee vanno
-nella coda del fondatore. Vedi la sezione dell'ordine DN.
+**IL VIAGGIO DELLO SCIAMANO E' CHIUSO dall'ordine DN, con la build 2261, il 15
+settembre 2026**: da allora si tocca solo per guasti veri; le idee vanno nella
+coda del fondatore. Vedi la sezione dell'ordine DN, coi sette guasti che
+restano.
 
 **10 settembre 2026.** Manifesto `docs/ordini/ORDINE_DC_MANIFESTO.md`.
 **Ventuno voci in due pezzi: venti chiuse, una parziale e dichiarata, zero
@@ -2642,14 +2643,15 @@ disegni dei gesti.
 
 ## L'ORDINE DN, LA CHIUSURA DEL VIAGGIO DELLO SCIAMANO
 
-14 settembre 2026, dieci voci. Segue l'ordine DL, commit `734c024d`. Il
+14 e 15 settembre 2026, dieci voci. Segue l'ordine DL, commit `734c024d`. Il
 manifesto sta in `docs/ordini/ORDINE_DN_MANIFESTO.md`, il rapporto in
 `docs/ordini/RAPPORTO_ORDINE_DN.md`, le schermate della prova a video in
-`docs/collaudo/DN/`. **La build 2252 e' consegnata**, release `@@RELEASE@@`,
-al solo `cloud@esotericircle.app`, inviti accettati @@INVITI@@, provata sul
-Realme.
+`docs/collaudo/DN/`. **La build 2261, l'ultima dell'ordine, e' consegnata**,
+release `5mvbnpjeefud8`, al solo `cloud@esotericircle.app`, un invito
+accettato, provata sul Realme. Dalla 2252 alla 2261 sono dieci build: una per
+ogni riprova a video, finche' il fondatore ha fermato l'ordine.
 
-**IL VIAGGIO DELLO SCIAMANO E' CHIUSO**, con la build 2252, il 14 settembre
+**IL VIAGGIO DELLO SCIAMANO E' CHIUSO**, con la build 2261, il 15 settembre
 2026. Da qui si tocca solo per guasti veri: un errore a schermo, un testo che
 viola una guardia, una prova che diventa rossa. Non per miglioramenti, non per
 idee, non per rifiniture: le idee vanno in fondo alla coda del fondatore, qui
@@ -2666,12 +2668,19 @@ sotto.
   nomina, **resta il titolo e si rifa' la scena** dalla riserva.
 - **Nessun ordine su una decisione grave**, **niente gergo**: *lascia
   andare*, *e' tempo di*, *un processo* e il resto dell'elenco.
+- **Ogni frase che nomina un'altra persona dice cio' che chi legge puo'
+  fare**, dalla build 2257, e **la richiesta dice al modello quando la
+  domanda parla di un'altra persona**, dalla 2259.
 - **La risposta e il gesto reggono tre frasi.** Sulle undici domande della
-  prova a cento discese la risposta del modello e' passata dal 77,1 al
-  78,1 per cento; il titolo dall'83,4 al 83,4, il gesto
-  dall'88,2 al 87,7. **L'85 per cento chiesto per la risposta non e' raggiunto**: le guardie nuove
-  di sostanza scartano da sole 83 risposte; senza di loro sarebbe 85,7.
+  prova a cento discese, alla fine, build 2261: **titolo 70,9, risposta
+  66,4, gesto 84,0**; prima dell'ordine 83,4, 77,1 e 88,2. **L'85 per cento
+  chiesto per la risposta non e' raggiunto**: le guardie di quest'ordine
+  scartano per ultime 176 risposte, senza di loro sarebbe al massimo 82,4.
   Non si allentano, come l'ordine prescrive.
+- **Il titolo di casa segue il genere della persona di cui si chiede**,
+  dalla 2261: i sette titoli del tema persona che dicono il genere si
+  volgono al maschile, o nella forma per chiunque; il mazzo resta di
+  ventiquattro.
 - **Un tempo solo per responso**: le chiusure della scena col tempo non
   entrano piu' nel responso, dove il gesto ha il suo.
 - **La rassegna del Viaggio**: diciannove correzioni in autonomia, elencate
@@ -2679,11 +2688,41 @@ sotto.
   riconoscimento, mostrava l'animale e ne diceva il nome.
 - **Il registro delle guardie sale a 418**: `il_viaggio_parla_al_femminile`,
   otto discese sulla schermata vera con la forma femminile, vista rossa due
-  volte; la prima stesura era cieca.
+  volte; la prima stesura era cieca. `il_responso_risponde` porta una riga
+  per ogni guasto delle riprove, ciascuna vista rossa.
+- **La lezione dell'ordine**: le riprove a video leggevano dieci discese per
+  build, su un testo che il modello scrive libero: ogni giro trovava forme
+  nuove. La misura a cento discese stampa adesso ogni responso,
+  `TUTTI_I_RESPONSI`: le 1.100 risposte si leggono in una passata sola
+  **prima** di costruire, il telefono conferma.
 
 **Mancano ancora, senza essere guasti**: `tamburo_discesa.mp3`,
 `tamburo_colpo.mp3` e i trentasei disegni dei gesti del segno. Il codice e'
 pronto: il giorno che arrivano non si tocca una riga.
+
+### I sette guasti che restano
+
+Trovati dalla riprova sulla 2261 e dalla lettura delle 1.100 risposte della
+misura finale. **Sono guasti veri**, quindi si toccano col Viaggio chiuso; il
+fondatore ha fermato l'ordine alla 2261 e non sono curati. Il dettaglio, coi
+numeri e il padre di ciascuno, e' nella sezione 4 del rapporto.
+
+1. **I pronomi della voce di casa del tema persona** si leggono sull'uomo di
+   cui si chiede: *"Quanto tempo le dedichi"* alla domanda sul padre, 16
+   risposte su 1.100.
+2. **Gesti di casa che non c'entrano con la domanda**: *"datti tre giorni.
+   Alla fine scegli comunque"* alla candela per il nonno; *"dilla a una
+   persona sola"* senza antecedente.
+3. **Il classificatore legge la solitudine come una persona**: *"Da un po'
+   ti porti dietro quella persona"*.
+4. **Gergo che la guardia non conosce**: *"e' gia' in te"*, *"dentro di
+   te"*, *"Abbi fiducia nel processo"*, *"Non definiscono cio' che sei"*.
+5. **Il pronome del gesto del modello senza accordo**: *"scrivi su un foglio
+   tutti i possibili passi futuri. Piegali"*.
+6. **Un nome all'inizio della domanda non e' riconosciuto come persona**:
+   *"Giulia non risponde piu'"*.
+7. **Due tempi nelle risposte di casa**: *"Una direzione per oggi basta:
+   domani la correggi"*, *"Muovi una cosa piccola adesso"*.
 
 ### La coda del fondatore
 
@@ -2705,11 +2744,20 @@ ne sceglie una. Le nuove si aggiungono in fondo.
    Da decidere se il segno, su quelle domande, debba rispondere con un gesto
    che non e' ne' si' ne' no.
 3. **Le domande su un'altra persona restano le piu' difficili per il
-   modello**: sulla sorella che diventera' mamma la risposta del modello
-   arriva nella meta' delle discese; il resto e' riserva, perche' il
-   modello torna a dire cosa vive la sorella. Una seconda chiamata mirata,
+   modello**: alla misura finale, sulla sorella che diventera' mamma la
+   risposta del modello arriva in 63 discese su cento, sul padre in 65, su
+   Luca in 45; il resto e' riserva, perche' il modello torna a dire cosa
+   vive l'altra persona. Una seconda chiamata mirata,
    solo quando la risposta cade per un terzo, alzerebbe il numero e
    costerebbe una chiamata: e' una decisione sui costi.
+4. **La voce di casa e' scritta per temi, non per domande**: quando il
+   modello cade, la persona legge una frase giusta per il tema e larga per
+   la sua domanda. Riscriverla per famiglie di domande, o chiedere al modello
+   una seconda volta, e' una scelta di prodotto e di costi.
+5. **La parola *il tuo spazio* nel gergo**, aggiunta con la 2261: scarta
+   anche risposte decenti, *"Tocca a te decidere come preservare il tuo
+   spazio"* a chi litiga col padre. Tenerla o toglierla e' una decisione di
+   lingua.
 
 ## Regole ferree
 

@@ -11,7 +11,8 @@ coda del fondatore, in `docs/STATO_VIVO.md`.
 
 **Vincolo permanente:** tutta l'intelligenza a runtime gira su Gemini e
 Vertex AI, mai su API Anthropic. **La build l'ha ordinata il fondatore**, in
-fondo all'ordine: *"crea nuova Build e consegna"*.
+fondo all'ordine: *"crea nuova Build e consegna"*. **La build finale e' la
+2261**, del 15 settembre 2026: il fondatore ha fermato l'ordine li'.
 
 VOCI_TOTALI: 10
 VOCI_CHIUSE: 10
@@ -147,10 +148,16 @@ sostanza**:
   domande su un'altra persona**, come l'ordine chiedeva di verificare: la si
   e' misurata scarto per scarto. Gli scarti erano veri; la cura e' stata
   nel prompt, non nella guardia;
-- **i tempi scaduti non erano la causa**: l'attesa resta di sei secondi.
+- **i tempi scaduti non erano la causa**: l'attesa resta di sei secondi;
+- **la richiesta dice al modello quando la domanda parla di un'altra
+  persona**, dalla build 2259: la regola dei terzi in positivo della 2257
+  aveva portato la risposta del modello al 53,1 per cento, la riga nella
+  richiesta l'ha riportata al 70,5.
 
-Il numero di arrivo caso per caso, col confronto con l'85 per cento, sta nel
-rapporto.
+**Alla fine, build 2261: titolo 70,9, risposta 66,4, gesto 84,0.** L'85 per
+cento non e' raggiunto: le guardie di quest'ordine scartano per ultime 176
+risposte, senza di loro sarebbe al massimo 82,4. Non si allenta. Il numero
+caso per caso sta nel rapporto.
 
 ---
 
@@ -175,9 +182,13 @@ riga.
 ## DN.08, LA PROVA FINALE A VIDEO. CHIUSA
 
 I dieci punti, con le schermate, nel rapporto. **La prova sulla 2252 ha
-trovato quattro guasti, le riprove sulla 2253 e sulla 2254 altri due e altri
-tre**: riparati nelle build 2253, 2254 e 2255, ognuno con la sua riga di prova
-vista rossa. **Il punto 8 non si prova sul
+trovato quattro guasti; nove riprove, una per build fino alla 2261, ne hanno
+trovati altri a ogni giro**, riparati nella build dopo con la loro riga di
+prova vista rossa. **Sulla 2261, l'ultima, cinque discese pulite su dieci**:
+con la lettura di tutte le 1.100 risposte della misura finale restano sette
+guasti, riferiti nel rapporto e non curati, perche' il fondatore ha fermato
+l'ordine alla 2261. **La lettura delle 1.100 risposte andava fatta prima
+delle riprove**: e' la lezione dell'ordine, scritta nel rapporto. **Il punto 8 non si prova sul
 telefono**: la forma si sceglie solo nell'onboarding: cambiarla vorrebbe
 dire cancellare i dati dell'app del fondatore. Si prova sulla schermata vera
 in `il_viaggio_parla_al_femminile_test.dart`.
@@ -187,7 +198,8 @@ in `il_viaggio_parla_al_femminile_test.dart`.
 ## DN.09, LA CHIUSURA. CHIUSA
 
 Il Viaggio dello Sciamano e' dichiarato **CHIUSO** in `docs/STATO_VIVO.md`,
-con la build 2252 e la data. La coda del fondatore esiste.
+con la build 2261 e la data, 15 settembre 2026. La coda del fondatore esiste;
+i sette guasti che restano stanno accanto a lei, come guasti veri.
 
 ---
 
@@ -202,5 +214,5 @@ con la build 2252 e la data. La coda del fondatore esiste.
 Il registro sale da 417 a **418**: `il_viaggio_parla_al_femminile`, vista
 rossa due volte; la prima stesura era cieca. `il_responso_risponde` e'
 stata allargata alle cinque guardie nuove, al responso intero coi suoi tempi
-e alla voce di casa: venti rossi, uno senza innesto, e sei vengono dalle prove
-a video.
+e alla voce di casa; poi alle righe di ogni riprova a video fino alla 2261,
+ciascuna vista rossa con l'innesto verificato e il ripristino controllato.
